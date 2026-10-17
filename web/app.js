@@ -12,7 +12,7 @@ window.addEventListener("error", e => { errBox.hidden = false; errBox.textConten
 const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
-  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral",
+  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, Nx: 4096, Ny: 2048, pix: 15 },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, xd: "grating", xG: 300, xPsi: 10,
@@ -111,6 +111,7 @@ const segs = [
   bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }),
   bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }),
   bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; }),
+  bindSeg([["sp3", 3], ["sp1", 1]], () => (S.g.spPts === 1 ? 1 : 3), v => { S.g.spPts = v; }),
   bindSeg([["xGr", "grating"], ["xVp", "vph"], ["xPr", "prism"], ["xGm", "grism"]], () => S.e.xd, v => { S.e.xd = v; }),
   bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; }),
 ];
@@ -178,6 +179,7 @@ function syncControls() {
     S.g.gType === "trans" ? "g-tr" : "g-refl",
     "c-" + M().col,
     M().foldOn ? "fold-on" : "fold-off",
+    S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : "v-spectral",
     "x-" + S.e.xd,
   ].join(" ");
   gsel.value = S.e.xGlass;
@@ -189,7 +191,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, xd: m.xd, xG: m.xG, xPsi: m.xPsi,
@@ -459,12 +461,14 @@ function drawLayout(Dz, P) {
   let SP = null;
   if (spatial) {
     const mag = fcam / fcol, Ly = Dz.Ly, hMax = 0.5 * Ly / mag, xG = fcol + d1, xC = xG + d2, xD = xC + fcam;
-    const fields = [0, 0.25, 0.5, 0.75, 1].map(t => { const hh = hMax * (1 - 2 * t); return { t, h: hh, m: -hh / fcol, yL: hh * d1 / fcol }; });
-    const colHalf = 1.06 * (W / 2 + hMax * d1 / fcol), camHalf = 1.06 * (W / 2 + d2 * hMax / fcol), tilt = Math.abs(fields[0].yL - hMax) / fcol;
-    SP = { mag, Ly, hMax, xG, xC, xD, fields, colHalf, camHalf,
+    // three fixed points (the two ends of the slit and its center), or one free point at spPos (-1 bottom .. +1 top)
+    const free = P.spPts === 1, u = Math.min(1, Math.max(-1, P.spPos ?? 0.5));
+    const fields = (free ? [(1 - u) / 2] : [0, 0.5, 1]).map(t => { const hh = hMax * (1 - 2 * t); return { t, h: hh, m: -hh / fcol, yL: hh * d1 / fcol }; });
+    const colHalf = 1.06 * (W / 2 + hMax * d1 / fcol), camHalf = 1.06 * (W / 2 + d2 * hMax / fcol), tilt = Math.abs(hMax * d1 / fcol - hMax) / fcol;   // the slit ends set the frame, wherever the free point is
+    SP = { mag, Ly, hMax, xG, xC, xD, fields, free, colHalf, camHalf,
       box: [v2(-Lt, hMax + tilt * Lt + tHalf), v2(-Lt, -hMax - tilt * Lt - tHalf), v2(fcol, colHalf), v2(fcol, -colHalf),
             v2(xC, camHalf), v2(xC, -camHalf), v2(xD + 0.04 * fcam, Ly / 2), v2(xD + 0.04 * fcam, -Ly / 2)] };
-    $("lSub").textContent = "along the slit, unfolded (a mirror drawn as a lens), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
+    $("lSub").textContent = (free ? "drag the point along the slit; " : "") + "along the slit, unfolded (a mirror drawn as a lens), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
   }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
@@ -472,12 +476,13 @@ function drawLayout(Dz, P) {
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
   for (const p of spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
-  const mL = 70, mR = 70, mT = 30, mB = 34;
+  const mL = 70, mR = 70, mT = spatial ? 50 : 30, mB = 34;
   // the view: fitted to the panel (Auto scale, and whenever a fit is asked for), else held (Fixed scale)
   const sFit = Math.min((w - mL - mR) / (x1 - x0), (h - mT - mB) / (y1 - y0));
   const oxFit = mL + ((w - mL - mR) - sFit * (x1 - x0)) / 2 - sFit * x0, oyFit = mT + ((h - mT - mB) - sFit * (y1 - y0)) / 2 + sFit * y1;
   if (lview.mode === "auto" || lview.fit || !(lview.s > 0)) { lview.s = sFit; lview.ox = oxFit; lview.oy = oyFit; lview.fit = false; }
   const s = lview.s, ox = lview.ox, oy = lview.oy;
+  spGeo = spatial && SP.free ? { hMax: SP.hMax, mag: SP.mag, Ly: SP.Ly, xD: SP.xD, s, ox, oy } : null;
   let fold = false;                                  // true while drawing what comes after the grating's fold(s)
   const T = p => { const q = fold ? Mpost(p) : p; return [ox + s * q[0], oy - s * q[1]]; };
   const poly = (ps, fill, stroke, lw = 1) => {
@@ -566,7 +571,7 @@ function drawLayout(Dz, P) {
       poly([v2(-Lt, f.h - sl * Lt + tHalf), v2(0, f.h), v2(-Lt, f.h - sl * Lt - tHalf)], "rgba(236,186,72,0.13)", null);
       path([v2(-Lt, f.h - sl * Lt), v2(0, f.h)], "rgba(168,118,22,0.6)", 0.9);
     }
-    { const q = T(v2(-Lt, hMax)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
+    { const f = fields[0], q = T(v2(-Lt, f.h - (f.yL - f.h) / fcol * Lt)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
     // the light from each point: a faint band and three rays (the pupil's edges and center) through to the detector
     for (const f of fields) {
       const c = frampRGB(f.t), Y = f.m * fcam, P1 = y => v2(fcol, f.yL + y), P3 = y => v2(xC, y + f.m * d2);
@@ -580,7 +585,9 @@ function drawLayout(Dz, P) {
     // the slit seen along its length, each point marked
     {
       const q0 = T(v2(0, hMax)), q1 = T(v2(0, -hMax));
+      g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = "rgba(51,55,61,0.35)"; g.lineWidth = 1; g.stroke();   // the opening
       g.fillStyle = STEEL; g.fillRect(q0[0] - 2, q0[1] - 12, 4, 10); g.fillRect(q1[0] - 2, q1[1] + 2, 4, 10);
+      if (SP.free) { const q = T(v2(0, fields[0].h)); g.beginPath(); g.arc(q[0], q[1], 6.5, 0, 2 * Math.PI); g.strokeStyle = rgba(frampRGB(fields[0].t), 0.9); g.lineWidth = 1.5; g.stroke(); }   // the drag handle
       for (const f of fields) { const q = T(v2(0, f.h)); g.beginPath(); g.arc(q[0], q[1], 2.6, 0, 2 * Math.PI); g.fillStyle = rgba(frampRGB(f.t), 1); g.fill(); }
       req(5, "slit", [[q1[0], q1[1] + 22, "center"], [q0[0], q0[1] - 22, "center"]], INK, 13, { sub: ang(2 * hMax / mmAs) + " long" });
     }
@@ -603,7 +610,7 @@ function drawLayout(Dz, P) {
       const d0 = v2(xD, Ly / 2), d1p = v2(xD, -Ly / 2), dep = 6 / s;
       poly([d0, d1p, addv(d1p, v2(dep, 0)), addv(d0, v2(dep, 0))], STEEL, null);
       const q0 = T(d0), q1 = T(d1p), gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
-      for (const f of fields) gr.addColorStop(Math.min(1, Math.max(0, (Ly / 2 - f.m * fcam) / Ly)), rgba(frampRGB(f.t), 1));
+      for (let k = 0; k <= 4; k++) gr.addColorStop(k / 4, rgba(frampRGB(1 - k / 4), 1));      // top of the chip = bottom of the slit
       g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = gr; g.lineWidth = 3.5; g.stroke();
       for (const f of fields) {
         const q = T(v2(xD, f.m * fcam));
@@ -613,9 +620,9 @@ function drawLayout(Dz, P) {
       const lo = q0[1] > q1[1] ? q0 : q1, hi = lo === q0 ? q1 : q0;
       req(2, "detector", [[lo[0], lo[1] + 18, "center"], [hi[0], hi[1] - 16, "center"], [lo[0], lo[1] + 34, "center"], [lp[0] + 14, lp[1], "left"]], INK, 13, { sub: mm(Ly) });
       // the ends of the slit, as offsets on the sky from its center
-      for (const f of [fields[0], fields[fields.length - 1]]) {
+      for (const f of SP.free ? fields : [fields[0], fields[fields.length - 1]]) {
         const q = T(v2(xD, f.m * fcam)), up = f.m * fcam > 0;
-        req(0, (f.h > 0 ? "+" : "−") + ang(f.h / mmAs), [[q[0] + 9, q[1] + (up ? -10 : 10), "left"]], INK, 12.5);
+        req(0, (f.h > 1e-9 ? "+" : f.h < -1e-9 ? "−" : "") + ang(f.h / mmAs), [[q[0] + 9, q[1] + (up ? -10 : 10), "left"], [q[0] + 9, q[1] + (up ? 10 : -10), "left"]], INK, 12.5);
       }
     }
   } else {
@@ -828,14 +835,36 @@ $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLa
     lview.ox = mx - (mx - lview.ox) * f; lview.oy = my - (my - lview.oy) * f; lview.s *= f;
     drawLayout(cur, curP);
   }, { passive: false });
-  cv.addEventListener("mousedown", ev => { drag = { x: ev.clientX, y: ev.clientY, ox: lview.ox, oy: lview.oy }; cv.style.cursor = "grabbing"; });
+  // Spatial view with one free point: grabbing the slit (or the detector) moves the point along the slit
+  const spHit = ev => {
+    if (!spGeo) return null;
+    const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, G = spGeo;
+    const inY = half => my > G.oy - G.s * half - 14 && my < G.oy + G.s * half + 14;
+    if (Math.abs(mx - G.ox) < 14 && inY(G.hMax)) return "slit";
+    if (Math.abs(mx - (G.ox + G.s * G.xD)) < 16 && inY(G.Ly / 2)) return "det";
+    return null;
+  };
+  let ptDrag = null;
+  const movePoint = ev => {
+    const r = cv.getBoundingClientRect(), G = spGeo, y = (G.oy - (ev.clientY - r.top)) / G.s;   // world height under the pointer
+    const hh = ptDrag === "det" ? -y / G.mag : y;
+    S.g.spPos = Math.min(1, Math.max(-1, hh / G.hMax)); curP.spPos = S.g.spPos;
+    drawLayout(cur, curP); writeHash();
+  };
+  cv.addEventListener("mousedown", ev => {
+    const k = spHit(ev);
+    if (k) { ptDrag = k; cv.style.cursor = "ns-resize"; movePoint(ev); return; }
+    drag = { x: ev.clientX, y: ev.clientY, ox: lview.ox, oy: lview.oy }; cv.style.cursor = "grabbing";
+  });
+  cv.addEventListener("mousemove", ev => { if (!drag && !ptDrag) cv.style.cursor = spHit(ev) ? "ns-resize" : ""; });
   window.addEventListener("mousemove", ev => {
+    if (ptDrag && cur && spGeo) { movePoint(ev); return; }
     if (!drag || !cur) return;
     toFixed();
     lview.ox = drag.ox + ev.clientX - drag.x; lview.oy = drag.oy + ev.clientY - drag.y;
     drawLayout(cur, curP);
   });
-  window.addEventListener("mouseup", () => { if (drag) { drag = null; cv.style.cursor = ""; } });
+  window.addEventListener("mouseup", () => { if (drag || ptDrag) { drag = null; ptDrag = null; cv.style.cursor = ""; } });
   cv.addEventListener("dblclick", () => { lview.fit = true; drawLayout(cur, curP); });
 }
 
@@ -865,6 +894,7 @@ function lamRGB(lA) {
   return [0, 1, 2].map(i => a[1][i] + (b[1][i] - a[1][i]) * t);
 }
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
+let spGeo = null;                                                  // Spatial view, one free point: screen geometry for dragging
 let detGeom = null, traces = [], hover = null, offD = null, offB = null;
 
 function objectOffsets(Dz, P) {
@@ -1148,7 +1178,7 @@ window.addEventListener("resize", () => { if (cur) { drawLayout(cur, curP); draw
 
 // test hooks
 window.__instex = {
-  state: () => clone(S), design: () => cur, params: () => curP,
+  state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo,
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }),

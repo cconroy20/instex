@@ -42,8 +42,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   short to orange-gold long, lightness rising) meeting at their foci on the detector, with the W arrow, the
   grating normal with α and β, and each element's key number. Spatial is the plane that holds the slit length,
   unfolded onto one axis at λc (a mirror collimator drawn as a lens; the fold, flip and tilt options do not
-  apply): five points along the recorded slit length (detector height × f_col / f_cam), colored brick (top) /
-  gray (center) / teal (bottom), each leaving the collimator as a parallel bundle at slope −h / f_col whose
+  apply). Slit points (control at the drawing's top left): 3 fixed (the two ends of the recorded slit length,
+  detector height × f_col / f_cam, and its center) or 1 free (a single point, dragged along the slit or by its
+  image along the detector); colored brick (top) / gray (center) / teal (bottom), each leaving the collimator as a parallel bundle at slope −h / f_col whose
   center crosses the axis at the grating (the pupil), then imaged inverted at −h f_cam / f_col; the grating is
   seen from the side, foreshortened to W tan α with the grooves along the slit, and the detector ends carry the
   sky offsets of the slit points that land there. Echelle mode has no Spatial view (the cross-disperser bends

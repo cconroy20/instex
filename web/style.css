@@ -40,6 +40,8 @@ main{padding-top:10px;padding-bottom:6px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px 10px;position:relative}
 .lvopts{position:absolute;left:14px;top:44px;z-index:5;width:290px;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:7px;padding:8px 11px 6px;box-shadow:0 3px 12px rgba(0,0,0,.10)}
 .lvopts[hidden]{display:none}
+.ptsbox{position:absolute;left:14px;top:46px;z-index:4;display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);background:rgba(255,255,255,.92);padding:2px 4px;border-radius:6px}
+body:not(.v-spatial) .only-spatial{display:none}
 body:not(.fold-on) .only-fold{display:none}
 .ph{display:flex;align-items:center;gap:14px;height:30px;flex-wrap:nowrap}
 .ph h2{margin:0;white-space:nowrap;flex:0 0 auto}

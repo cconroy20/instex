@@ -31,6 +31,8 @@
         <span class="seg sm" id="lvSeg" title="Auto scale refits the drawing to the panel after each change. Fixed scale holds the millimeters per pixel (and the scale bar), so the instrument grows and shrinks as the design changes. Scroll to zoom, drag to pan (either switches to Fixed scale)."><button id="lvAuto" type="button">Auto scale</button><button id="lvFixed" type="button">Fixed scale</button></span>
         <button id="lvReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Reset</button></div>
       <canvas id="cvL" aria-label="Optical layout"></canvas>
+      <div class="ptsbox only-spatial" title="Points along the slit. 3 fixed: the two ends of the slit and its center. 1 free: a single point; drag it along the slit (or drag its image along the detector)."><span>Slit points</span>
+        <span class="seg sm"><button id="sp3" type="button">3 fixed</button><button id="sp1" type="button">1 free</button></span></div>
       <div id="lvOpts" class="lvopts" hidden>
         <div class="ctl" title="Length of the collimated beam, from the collimator to the grating. The length starts at an automatic value that keeps the camera arm clear and changes only the drawing.">
           <label for="sLL"><span>Collimated beam length</span><span class="val" id="vLL"></span></label>
