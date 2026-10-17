@@ -109,6 +109,20 @@ const PRESETS = [
     ],
   },
   {
+    id: "fire", tel: "Magellan 6.5 m", name: "Magellan / FIRE echellette, 0.6″",
+    note: "Magellan Baade FIRE echellette mode (Simcoe et al. 2013, Table 2 prescription): f/11, off-axis paraboloid collimator 555 mm (beam 50 mm), camera 176.8 mm, R1 echellette 54.49 /mm (δ = 46°, quasi-Littrow; θ and γ not published: 0 here), cryogenic prisms Infrasil 42.6°, 28.1°, 28.1° and ZnSe 21.81° × 3 (six passes; the explorer puts them all after the echelle and at minimum deviation, while FIRE's are deliberately off it to squeeze the beam, so the cross-dispersion here is 1.4–1.8× too small), H2RG 2048 × 2048 of 18 µm; λc 1.20 µm derived.",
+    state: { mode: "echelle", D: 6.5, F: 11,
+      e: { slitW: 0.6, nObj: 1, col: "mirror", W: 50, fcam: 176.8, eG: 54.49, eDelta: 46, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "Infrasil-105K", xA: 40, xPasses: 1,
+           xPrisms: [{ glass: "Infrasil-105K", A: 42.6 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }],
+           lamC: 12000, Nx: 2048, Ny: 2048, pix: 18 } },
+    pub: [
+      { what: "R = 6000 at 0.6″", q: "R", value: 6000, info: true, src: "Simcoe et al. 2013 (measured; above the paper's own prescription, which gives 5520 slit-limited; the model's effective R is lower again with the pixel included; misses the 10% tolerance set beforehand)" },
+      { what: "12.5 km/s per pixel", q: "R", value: NaN, info: true, src: "Simcoe et al. 2013 (the paper's own prescription gives 14.7 km/s/px: a conflict in the source)" },
+      { what: "orders 11–32 on the chip, 0.82–2.51 µm", q: "nOrders", value: 22, info: true, src: "Simcoe et al. 2013 (the explorer's minimum-deviation prisms fit more orders: see the note)" },
+      { what: "0.15″/px (paper) or 0.18″/px (web)", q: "pixScale", value: 0.15, info: true, src: "Simcoe et al. 2013; FIRE web pages (the optics give 0.163)" },
+    ],
+  },
+  {
     id: "imacs", tel: "Magellan 6.5 m", name: "Magellan / IMACS f/4, 1200 l/mm, 0.7″",
     note: "Magellan Baade IMACS long (f/4) camera (Dressler et al. 2011; Carnegie IMACS manual and grating-tilt calculator): f/11 Nasmyth, refractive collimator 1648 mm (beam 150 mm), camera 641.8 mm, fixed 45° camera–collimator angle, 1200 l/mm reflection grating blazed 32.7° at λc ≈ 8250 Å (tilt 32.4°), Mosaic 8192 × 8192 of 15 µm; 51 slits per mask (mean of 25 published dwarf-galaxy masks).",
     state: { mode: "grating", D: 6.5, F: 11.0,
@@ -134,6 +148,22 @@ const PRESETS = [
       { what: "lab R " + Rlab, q: "R", value: NaN, info: true, src: "Furesz et al. 2020 (pre-ship lab range; R ≈ 2000 in the papers)" },
     ],
   })),
+  // Magellan / LDSS-3: VPH grisms between two prisms (data/round5/grisms.md; geometry from Carnegie's maskgen file)
+  ...[["All", 400, 16.3, "silica", 6588, 2.040, null, "4250–10000"], ["Blue", 1090, 24.0, "S-LAL7", 5150, 0.6947, 1900, "3800–6200"], ["Red", 665, 24.0, "S-LAL7", 8321, 1.1818, 1810, "6000–10000"]].map(([k, G, Ap, gl, lc, disp, Rt, band]) => ({
+    id: "ldss3" + k.toLowerCase(), tel: "Magellan 6.5 m", name: "Magellan / LDSS-3 VPH-" + k + ", 0.75″",
+    note: "Magellan Clay LDSS-3 with the VPH-" + k + " grism (LCO LDSS-3 pages; Carnegie maskgen instrument file; measured arc solutions): f/11, refractive collimator 746.8 mm (beam 67.9 mm, derived), camera 173.1 mm, VPH grism " + G + " /mm between two " + (gl === "silica" ? "fused-silica" : "OHARA S-LAL7") + " prisms of apex " + Ap + "° (the VPH model exactly), Fermilab CCD 4096 × 2048 of 15 µm; 17 slits per mask (mean of 35 published masks).",
+    state: { mode: "grating", D: 6.5, F: 11.0,
+      g: { slitW: 0.75, nObj: 17, col: "lens", W: 746.77 / 11.0, fcam: 173.076, gType: "grism", G, m: 1, lamB1: 5000, lamC: lc, psi: 35, tAlpha: null,
+           gA: Ap, gGlass: gl, gKind: "vph", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: "measured " + lc + " Å at the detector center", q: "lam0", value: lc, tol: 0.005, src: "LDSS-3 arc solution through the center slit (2007)" },
+      { what: "measured " + disp + " Å/px at the center", q: "dlpix", value: disp, tol: 0.015, src: "LDSS-3 arc solution (2007)" },
+      ...(Rt ? [{ what: "R = " + Rt + " at 0.75″", q: "Rs", value: Rt, tol: 0.06, src: "LCO grism table (λ over 4 px × Å/px)" }]
+        : [{ what: "R = 860 at 0.75″ (λ over 4 px × the mean 1.89 Å/px, at 6500 Å)", q: "R", value: 860, info: true, src: "LCO grism table; the model's local dispersion at λ0 is 2.03 Å/px" }]),
+      { what: "0.189″/px", q: "pixScale", value: 0.189, tol: 0.02, src: "LCO LDSS-3 pages" },
+      { what: "band " + band + " Å", q: "span", value: NaN, info: true, src: "LCO grism table (filters and efficiency trim the detector's span)" },
+    ],
+  })),
   {
     id: "esi", tel: "Keck 10 m", name: "Keck / ESI echellette, 1″",
     note: "Keck II ESI echellette mode (Sheinis et al. 2002; 1996 design report; Keck ESI pages): off-axis paraboloid collimator 2286 mm (beam 166.9 mm at f/13.7), 10-element refractive camera 308 mm, 175 /mm echellette with δ = 32.3°, quasi-Littrow (γ is 'a few degrees', not published: 0 here), two 50° OHARA BSL7Y prisms, the first in double pass (three passes at minimum deviation), MIT/LL CCID20 4096 × 2048 of 15 µm; λc = 5250 Å from the design order positions.",
@@ -148,6 +178,29 @@ const PRESETS = [
       { what: "orders 6 and 15 at +86% and −79% of the half-chip (25.3 mm apart)", q: "ySpan", m1: 6, m2: 15, value: 0.825 * 2048 * 0.015, info: true, src: "1996 ESI design report, order positions (missed the 8% tolerance set beforehand: three passes at exact minimum deviation give 23.0 mm; the design's prisms are only 'near' minimum deviation)" },
       { what: "minimum order separation 22″", q: "minSepArcsec", m1: 6, m2: 15, value: 22, tol: 0.08, src: "Sheinis et al. 2002" },
       { what: "0.144″/px along the slit in order 11 (0.120 in order 15 to 0.168 in order 6)", q: "pixScale", value: 0.144, info: true, src: "Keck ESI pages (the model's prisms give 0.144 to 0.162 across the same orders)" },
+    ],
+  },
+  {
+    id: "kcwib", tel: "Keck 10 m", name: "Keck / KCWI blue BM, Medium slicer",
+    note: "Keck II KCWI blue arm (Morrissey et al. 2018; Keck KCWI pages): the image slicer at the f/13.7 focus (no fore-optics), Medium slicer 0.69″ × 20.4″ slices, 24 slices (≈3330 spaxels) per detector, spherical collimator mirror (f 2172.5 mm; the explorer's beam-matched value is 2192 mm), 160 mm pupil, articulated refractive camera 304.4 mm f/1.9, BM VPH 1900 /mm at α = 30° (β = 20.8° at 4500 Å), e2v CCD231-84 4112 × 4096 of 15 µm.",
+    state: { mode: "grating", D: 10.95, F: 13.7,
+      g: { slitW: 0.69, nObj: 3330, col: "mirror", W: 160, fcam: 304.4, gType: "trans", G: 1900, m: 1, lamB1: 5000, lamC: 4500, psi: 35, tAlpha: 30, Nx: 4112, Ny: 4096, pix: 15 } },
+    pub: [
+      { what: "0.24 Å/px", q: "dlpix", value: 0.24, tol: 0.03, src: "Keck KCWI configuration page" },
+      { what: "0.147″/px along the slices", q: "pixScale", value: 0.147, tol: 0.02, src: "Morrissey et al. 2018" },
+      { what: "slit image 4.6 px (Medium slicer)", q: "npix", value: 4.6, info: true, src: "Morrissey et al. 2018 (twice the Small slicer's 2.3 px); their figure leaves out the grating's anamorphic factor cos α / cos β = 0.93, which the model includes (without it, 4.65 px)" },
+      { what: "R = 4000 (Keck page) or 5000 (Morrissey et al. 2018)", q: "R", value: 4000, info: true, src: "the two sources disagree" },
+    ],
+  },
+  {
+    id: "kcrm", tel: "Keck 10 m", name: "Keck / KCRM red RL, Medium (angle derived)",
+    note: "Keck II KCRM, the red arm of KCWI (Keck pages; KCWI data pipeline): the same slicer and collimator, Medium slicer 0.69″, camera 305 mm, RL VPH 530 /mm at α = 18.26° (NOT published: derived assuming β = α − 9° as for the blue gratings, which reproduces the published sample coverage), 4096 × 4096 of 15 µm (the exact format is not published).",
+    state: { mode: "grating", D: 10.95, F: 13.7,
+      g: { slitW: 0.69, nObj: 3330, col: "mirror", W: 160, fcam: 305, gType: "trans", G: 530, m: 1, lamB1: 5000, lamC: 8950, psi: 35, tAlpha: 18.26, Nx: 4096, Ny: 4096, pix: 15 } },
+    pub: [
+      { what: "0.92 Å/px", q: "dlpix", value: 0.92, tol: 0.03, src: "Keck KCRM configuration page" },
+      { what: "sample coverage 7070–10810 Å", q: "span", value: 10810 - 7070, info: true, src: "Keck KCRM page (the grating angle was derived from this, so it is not a test)" },
+      { what: "R > 1000", q: "R", value: NaN, info: true, src: "Keck KCRM page (a lower limit only)" },
     ],
   },
   {
@@ -241,6 +294,79 @@ const PRESETS = [
       { what: "R 35,000 (MR)", q: "R", value: 35000, info: true, src: "Ben-Ami et al. 2016 Table 2 (published R imply a line FWHM ~0.67 of the fiber image)" },
     ],
   },
+  // VLT / FORS2: ruled grisms whose entrance faces are tilted 7.5° (data/round5/grisms.md)
+  ...[["300V", 300, 21, "FK5HTi", 5849, 1.6549, 440, "4450–8700 Å (GG435)"], ["300I", 300, 26.7, "LF5", 8574, 1.6101, 660, "6000–11000 Å (OG590)"], ["600B", 600, 34, "FK5HTi", 4629, 0.7476, 780, "3300–6210 Å"]].map(([k, G, Ap, gl, lc, disp, Rm, band]) => ({
+    id: "fors2" + k.toLowerCase(), tel: "VLT 8.2 m", name: "VLT / FORS2 " + k + ", 1″",
+    note: "VLT FORS2 with GRIS_" + k + " (ESO FORS manual; 1995 FORS grism design; ESO pipeline calibration): Cassegrain 528 µm/″ (f/13.28 on 8.2 m), refractive collimator 1233 mm (beam 92.8 mm), camera 280 mm, ruled grism " + G + " /mm on a " + (gl === "LF5" ? "LF5" : "FK5") + " prism of " + Ap + "°, its entrance face tilted 7.5° in the dispersion plane (the direction inferred from ESO's numbers: no source states it), MIT mosaic 4096 × 4096 of 15 µm (two chips; the gap is not modeled); 50 slits per MXU mask (survey average).",
+    state: { mode: "grating", D: 8.2, F: 13.28,
+      g: { slitW: 1.0, nObj: 50, col: "lens", W: 1233 / 13.28, fcam: 280, gType: "grism", G, m: 1, lamB1: 5000, lamC: lc, psi: 35, tAlpha: null,
+           gA: Ap, gGlass: gl, gKind: "ruled", gTilt: 7.5, Nx: 4096, Ny: 4096, pix: 15 } },
+    pub: [
+      { what: "measured " + lc + " Å at the CCD center", q: "lam0", value: lc, tol: 0.005, src: "ESO pipeline master distortion table (manual: same)" },
+      { what: "measured " + disp + " Å per 15 µm pixel", q: "dlpix", value: disp, tol: 0.015, src: "ESO pipeline master distortion table" },
+      { what: "R = " + Rm + " at 1″", q: "R", value: Rm, tol: 0.06, src: "ESO FORS manual Table 2.4" },
+      { what: "0.1259″ per unbinned pixel (measured)", q: "pixScale", value: 0.12591, tol: 0.01, src: "ESO FORS pipeline" },
+      { what: "band " + band, q: "span", value: NaN, info: true, src: "ESO FORS manual (order-sorting filter and the 3300 Å cut-off trim the detector's span)" },
+    ],
+  })),
+  // VLT / ESPRESSO singleHR (1 UT), blue and red arms (data/round5/espresso.md).  The anamorphic pupil slicer cuts the
+  // beam into two 300 x 200 mm slices, each carrying half the pupil along the dispersion: the whole pupil maps to an
+  // equivalent round beam of 2 x 300 = 600 mm.  The cross-dispersers (a fused-silica prism plus a VPH grating) are not
+  // published: an equivalent first-order VPH is estimated here.
+  ...[["blue", "b", 757, 4380, [[3800.4, 161, 0.0063], [5229.7, 117, 0.0086]], 117, 161], ["red", "r", 407, 6548, [[5229.7, 117, 0.0086], [7844.5, 78, 0.0129]], 78, 117]].map(([arm, k, xG, lc, dl, m1, m2]) => ({
+    id: "espresso" + k, tel: "VLT 8.2 m", name: "VLT / ESPRESSO " + arm + ", singleHR",
+    note: "VLT ESPRESSO " + arm + " arm, singleHR 1-UT mode (Pepe et al. 2021; ESO ESPRESSO manual; design papers): 140 µm octagonal fiber (1.0″) entered as the slit of equal line width, 4 spectra (object and sky/reference fibers, each cut in two by the pupil slicer), collimator mirror 3000 mm (off-axis parabola, double pass) with an equivalent 600 mm beam (two 300 mm slices), 31.6 /mm R4 echelle (a 3 × 1 mosaic, δ = 76°, θ = 0; γ = 4.85° inferred from the order table, which then lists blaze-center wavelengths), cross-disperser an equivalent " + xG + " /mm VPH (the real prism + VPH is not published), camera 755 mm (from the published pixel dispersion; the design gives 800 mm), 9232 × 9216 of 10 µm.",
+    state: { mode: "echelle", D: 8.2, F: 5.0,
+      e: { slitW: S3 * 1.0, nObj: 4, col: "mirror", W: 600, fcam: 755, eG: 31.6, eDelta: 76.0, gamma: 4.85, theta: 0, xd: "vph", xG, xPsi: 10,
+           xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: lc, Nx: 9232, Ny: 9216, pix: 10 } },
+    pub: [
+      { what: "R = 140,000 (singleHR)", q: "R", value: 140000, ...(k === "r" ? { info: true } : { tol: 0.06 }), src: "ESO ESPRESSO manual (Pepe et al. 2021: 138,000 median)" + (k === "r" ? "; the red arm misses: its camera and cross-disperser are not published, and the model's red slit image narrows with γ" : "") },
+      { what: "4.5 px per resolution element", q: "npix", value: 4.5, ...(k === "r" ? { info: true } : { tol: 0.08 }), src: "ESO ESPRESSO manual" + (k === "r" ? " (the model gives 3.9 px in the red; see the R line)" : "") },
+      ...dl.map(([l, m, v]) => ({ what: (v / 10).toFixed(5) + " nm/px at " + (l / 10).toFixed(2) + " nm (order " + m + ")", q: "dlpixAt", lam: l, m, value: v, tol: 0.03, src: "ESO ESPRESSO manual, order table" })),
+      { what: "orders " + m1 + "–" + m2, q: "nOrders", value: m2 - m1 + 1, info: true, src: "ESO ESPRESSO manual (the cross-disperser here is an estimated equivalent, so the order count is not a test)" },
+    ],
+  })),
+  {
+    id: "muse", tel: "VLT 8.2 m", name: "VLT / MUSE WFM (effective optics)",
+    note: "VLT MUSE Wide Field Mode, one of the 24 identical IFU spectrographs (Bacon et al. 2010, 2017; ESO MUSE manual): 0.2″ slices, 48 slices × 75 spaxels = 3600 spectra per detector, refractive collimator, one VPH grating, e2v 4112 × 4096 of 15 µm. The collimator and camera focal lengths, the beam and the VPH line density are NOT published: the EFFECTIVE values here (f_col 499.3 mm, beam 68.5 mm, camera 258.4 mm from the Potsdam MRS derivative; VPH 458.4 /mm at the symmetric setting for 7000 Å) reproduce the dispersion and the 2-px slice image. MUSE's fore-optics magnify the slices 2× across the dispersion, which the explorer does not model, so its spatial scale reads half the real 0.2″/px.",
+    state: { mode: "grating", D: 8.2, F: 499.3 / 68.5,
+      g: { slitW: 0.2, nObj: 3600, col: "lens", W: 68.5, fcam: 258.4, gType: "trans", G: 458.4, m: 1, lamB1: 5000, lamC: 7000, psi: 35, tAlpha: null, Nx: 4112, Ny: 4096, pix: 15 } },
+    pub: [
+      { what: "1.25 Å/px", q: "dlpix", value: 1.25, tol: 0.03, src: "ESO MUSE manual (1.19–1.31 across the range)" },
+      ...[[4650, 1609], [7000, 2737], [9350, 3506]].map(([l, r]) => ({ what: "lab R = " + r + " at " + l + " Å", q: "RAt", lam: l, value: r, info: true, src: "Bacon et al. 2017, laboratory LSF (the effective optics are stand-ins, so R is a reference here: the model lands within 3–9% across the band)" })),
+      { what: "0.2″/px along the slices", q: "pixScale", value: 0.2, info: true, src: "ESO MUSE manual (the explorer gives half: the 2× anamorphic fore-optics are not modeled)" },
+    ],
+  },
+  {
+    id: "uvesb", tel: "VLT 8.2 m", name: "VLT / UVES blue 390, 1″",
+    note: "VLT UVES blue arm, standard 390 nm setting with CD#2 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model for the cross-disperser angle): 8.0 m entrance pupil at f/10 (the value that reproduces the published scales), white-pupil collimator mirror 2000 mm, beam 200 mm, R4 echelle 41.59 /mm (δ = 76.0°, θ = 0, γ = 0.8°), cross-disperser 660 /mm at a 46.0° camera–collimator angle, camera 360 mm f/1.8, EEV 3000 × 2048 of 15 µm (the illuminated part of the 2k × 4k CCD).",
+    state: { mode: "echelle", D: 8.0, F: 10,
+      e: { slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 360, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, xd: "grating", xG: 660, xPsi: 46.0,
+           xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 3900, Nx: 3000, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: "R = 41,400 at 1″", q: "R", value: 41400, tol: 0.06, src: "ESO UVES manual (R × slit = 41,400)" },
+      { what: "λ/193,000 per pixel (order 120 at 3888 Å)", q: "dlpixAt", lam: 3888, m: 120, value: 3888 / 193000, tol: 0.03, src: "ESO UVES manual" },
+      { what: "0.246″/px along the slit", q: "pixScale", value: 0.246, tol: 0.03, src: "ESO UVES manual" },
+      { what: "coverage from 3260 Å", q: "lo", value: 3260, tol: 0.015, src: "ESO UVES manual / exposure-time calculator, 390 setting" },
+      { what: "coverage to 4540 Å", q: "hi", value: 4540, tol: 0.015, src: "ESO UVES manual / exposure-time calculator, 390 setting" },
+      { what: "minimum order separation ~9.6″", q: "minSepArcsec", m1: 104, m2: 142, value: 9.6, tol: 0.1, src: "ESO exposure-time calculator (39 px)" },
+    ],
+  },
+  {
+    id: "uvesr", tel: "VLT 8.2 m", name: "VLT / UVES red 580, 1″",
+    note: "VLT UVES red arm, standard 580 nm setting with CD#3 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model): 8.0 m entrance pupil at f/10, collimator mirror 2000 mm, beam 200 mm, R4 echelle 31.6 /mm (δ = 75.04°, θ = 0, γ = 0.8°), cross-disperser 600 /mm at 45.336°, camera 500 mm f/2.5, two 2k × 4k CCDs (4096 × 4096 of 15 µm; the 0.96 mm gap between them, where order 105 falls, is not modeled).",
+    state: { mode: "echelle", D: 8.0, F: 10,
+      e: { slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 500, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, xd: "grating", xG: 600, xPsi: 45.336,
+           xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5800, Nx: 4096, Ny: 4096, pix: 15 } },
+    pub: [
+      { what: "R = 38,700 at 1″", q: "R", value: 38700, tol: 0.06, src: "ESO UVES manual (R × slit = 38,700)" },
+      { what: "λ/250,000 per pixel (order 110 at 5559 Å)", q: "dlpixAt", lam: 5559, m: 110, value: 5559 / 250000, tol: 0.03, src: "ESO UVES manual" },
+      { what: "0.182″/px along the slit", q: "pixScale", value: 0.182, tol: 0.03, src: "ESO UVES manual" },
+      { what: "coverage from 4760 Å", q: "lo", value: 4760, tol: 0.015, src: "ESO UVES manual / exposure-time calculator, 580 setting" },
+      { what: "coverage to 6840 Å", q: "hi", value: 6840, tol: 0.015, src: "ESO UVES manual / exposure-time calculator, 580 setting" },
+      { what: "minimum order separation 14.1″ (9″ and 12″ elsewhere)", q: "minSepArcsec", m1: 90, m2: 128, value: 14.1, info: true, src: "ESO exposure-time calculator (77.4 px); the manual and Dekker et al. disagree" },
+    ],
+  },
   ...[
     ["uvb", "UVB", 8.2, 206264.8 / 3.91 / 8200, 100, 270, 180, 41.77, 2.2, { xGlass: "silica", xA: 60, xPasses: 2, xPrisms: null }, 4145, 3000, 1800, 15, 1.0,
       5400, 6.2, 0.164, 12, 18, 390.6, 428.9, "one 60° fused-silica prism in double pass"],
@@ -266,6 +392,19 @@ const PRESETS = [
       ...(id === "nir" ? [{ what: `order ${mT} recorded over ${(oHi - oLo).toFixed(1)} nm`, q: "ordSpan", m: mT, value: (oHi - oLo) * 10, info: true, src: "Vernet et al. 2011 Table 3 (shorter than the dispersion x 2048 px implies)" }] : []),
     ],
   })),
+  {
+    id: "feros", tel: "MPG/ESO 2.2 m", name: "MPG 2.2 m / FEROS",
+    note: "FEROS (1997 Final Design Report; Kaufer & Pasquini 1998; ESO user manual): 2.0″ fibers whose image a two-slice image slicer cuts into 1.0″-wide slits at f/11 (120 µm, 2.2 px on the detector), object and sky/calibration fibers (2 spectra), white-pupil collimator mirrors 1500 mm (beam 136 mm), R2 echelle 79 /mm (δ = 63.4°, θ = 0, γ = 0.6°), one LF5 prism of 55° in single pass at minimum deviation for 4623 Å, camera 410 mm, EEV 4096 × 2048 of 15 µm (dispersion along the long side).",
+    state: { mode: "echelle", D: 2.2, F: 1500 / 136,
+      e: { slitW: 1.0, nObj: 2, col: "mirror", W: 136, fcam: 410, eG: 79, eDelta: 63.4, gamma: 0.6, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "LF5", xA: 55, xPasses: 1, xPrisms: null,
+           lamC: 4623, Nx: 4096, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: "R = 48,000", q: "R", value: 48000, tol: 0.06, src: "Kaufer & Pasquini 1998; ESO FEROS manual" },
+      { what: "coverage from 3560 Å", q: "lo", value: 3560, tol: 0.02, src: "ESO FEROS manual" },
+      { what: "coverage to 9200 Å (orders 25–63 extracted)", q: "hi", value: 9200, info: true, src: "ESO FEROS manual (the model also fits partial orders 22–24 on the chip; the published range is the extracted orders, not a geometric limit)" },
+      { what: "order spacing from ~30 px (orders 25–63)", q: "minSepPx", m1: 25, m2: 63, value: 30, tol: 0.1, src: "FEROS Final Design Report (30 to 100 px across the format)" },
+    ],
+  },
   {
     id: "harps", tel: "ESO 3.6 m", name: "ESO 3.6 m / HARPS",
     note: "HARPS (User Manual 2.4): fiber-fed, 1″ (70 µm) fibers entered as the slit of equal line width, 0.87″; R4 echelle 31.6 /mm at 75°, 0.721° out of plane, f_col 1560 mm (208 mm beam, f/7.5), FK5 grism 257.17 /mm (apex not published: set so the central wavelength passes undeviated), camera 728 mm, 4k × 4k 15 µm (chip gap not modeled). Central wavelength: order 115, which the manual places in the gap at the center of the mosaic.",
@@ -325,6 +464,21 @@ const PRESETS = [
       { what: "band " + l0 + "–" + (l1) + " Å", q: "span", value: l1 - l0, info: true, src: "Subaru/IPMU PFS pages (the dichroics trim the arm's band)" },
     ],
   })),
+  {
+    id: "apogee", tel: "SDSS 2.5 m (APOGEE)", name: "SDSS / APOGEE-N",
+    note: "APOGEE-N on the Sloan 2.5 m (Wilson et al. 2019, as-built prescription): 120 µm fibers (2.0″) entered as the slit of equal line width at the f/3.85 VPH-mask stop, 300 spectra (≈230 science, 35 sky, 35 telluric), on-axis spherical collimator mirror 1053.6 mm (half the cold radius; beam 273.7 mm), VPH 1009.345 /mm at α = 54.061°, camera 356 mm, three H2RG 2048² of 18 µm side by side with 2.9 mm gaps (entered as 6466 px with the gaps as dead pixels; the gaps are not drawn). The detector center λc = 16158 Å is fitted to the published chip edges: the real detectors sit off the camera axis.",
+    state: { mode: "grating", D: 2.5, F: 3.85,
+      g: { slitW: S3 * 0.120 / (3.85 * 2500) * 206264.806, nObj: 300, col: "mirror", W: 1053.6 / 3.85, fcam: 356, gType: "trans", G: 1009.345, m: 1, lamB1: 5000, lamC: 16158,
+           psi: 35, tAlpha: 54.061, Nx: 6466, Ny: 2048, pix: 18 } },
+    pub: [
+      { what: "coverage from 15140 Å", q: "lo", value: 15140, tol: 0.001, src: "Wilson et al. 2019 Table 1 (chip edges; λc fitted to these)" },
+      { what: "coverage to 16960 Å", q: "hi", value: 16960, tol: 0.001, src: "Wilson et al. 2019 Table 1" },
+      { what: "0.326 Å/px, blue chip center", q: "dlpixAt", lam: 15475, m: 1, value: 0.326, tol: 0.015, src: "Wilson et al. 2019 Table 1" },
+      { what: "0.282 Å/px, green chip (center)", q: "dlpix", value: 0.282, tol: 0.015, src: "Wilson et al. 2019 Table 1" },
+      { what: "0.235 Å/px, red chip center", q: "dlpixAt", lam: 16715, m: 1, value: 0.235, tol: 0.015, src: "Wilson et al. 2019 Table 1" },
+      { what: "measured R = 22,500 (nominal; chip medians 22,000–23,700)", q: "Rs", value: 22500, info: true, src: "Wilson et al. 2019 (the measured line profile is wider than the fiber image, so the slit-limited model is 14–32% high)" },
+    ],
+  },
   ...[["B", 1103.5, 11.48, 212.8, 3600, 5930, 2000, 3000], ["R", 1157.4, 18.73, 213.6, 5660, 7720, 3500, 4500], ["Z", 992.5, 21.19, 214.0, 7470, 9800, 4000, 5500]]
     .map(([arm, G, al, fc, l0, l1, r0, r1]) => ({
       id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m (DESI)", name: `DESI ${arm} arm`,

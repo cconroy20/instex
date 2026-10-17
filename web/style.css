@@ -108,6 +108,7 @@ sup,sub{line-height:0}
 /* visibility by mode and feed */
 body.m-ech .only-grat, body.m-grat .only-ech, body.m-ech .only-refl, body.g-tr .only-refl{display:none}
 body.m-ech .only-tr, body.g-refl .only-tr{display:none}
+body.g-gr .only-refl, body.g-gr .only-tr, body.m-grat.g-gr .no-grism, body.m-ech .only-grism, body.g-tr .only-grism, body.g-refl .only-grism{display:none}
 body.c-lens .only-mirror{display:none}
 body.m-grat .only-xg, body.m-grat .only-xp, body.m-grat .only-xglass{display:none}
 body.x-grating .only-xp, body.x-grating .only-xglass{display:none}

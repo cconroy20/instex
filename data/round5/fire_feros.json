@@ -1,0 +1,1951 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 5 (Magellan/FIRE echellette mode; MPG-ESO 2.2 m/FEROS; SCHOTT LF5 and CHARMS 100 K Infrasil 301 / ZnSe prism glasses)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json (round 1), data/presets_sources_2.json (round 2), data/presets_sources_3.json (round 3), data/round4/*.json (round 4); same structure; human-readable twin data/round5/fire_feros.md. Keys LFK05, LFM08 and SCOL are identical copies of earlier-round files, re-saved under rawdata/presets/fire/ or feros/.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). note = context or caveat. Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text (PostScript sources rendered to PDF with Ghostscript first); NFKC (ligatures), primes, quotes, degree glyphs, micro signs, dashes, table bars and soft hyphens normalised; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; a piece also passes if it matches with all whitespace removed or with line-end hyphenation ('- ') removed. Quotes keep the text layer's glyph losses (e.g. '54:49 line=mm', 'bers', '63 240'); each source cite lists them."
+ },
+ "sources": {
+  "S13": {
+   "cite": "Simcoe, R. A., Burgasser, A. J., Schechter, P. L., Fishner, J., Bernstein, R. A., Bigelow, B. C., Pipher, J. L., Forrest, W., McMurtry, C., Smith, M. J. & Bochanski, J. J. 2013, PASP 125, 270, \"FIRE: A Facility Class Near-Infrared Echelle Spectrometer for the Magellan Telescopes\" (publisher PDF, IOP open access; no arXiv version exists). The text layer renders some decimal points as \":\" (54:49 = 54.49), \"/\" as \"=\" (f=11 = f/11, line=mm = lines/mm), \"=\" as a quarter glyph (R ¼ 6000 = R = 6000), parentheses as ð Þ and encodes the superscript minus as a control character (normalised here: pixel−1 = pixel^-1)",
+   "file": "rawdata/presets/fire/Simcoe2013_PASP125_270_FIRE_IOP-openaccess.pdf",
+   "url": "https://iopscience.iop.org/article/10.1086/670241/pdf"
+  },
+  "S10": {
+   "cite": "Simcoe, R. A., et al. 2010, Proc. SPIE 7735, 773514, \"The FIRE infrared spectrometer at Magellan: construction and commissioning\" (final published version, MIT Open Access Articles copy)",
+   "file": "rawdata/presets/fire/Simcoe2010_SPIE7735_773514_FIRE_MIT-DSpace.pdf",
+   "url": "https://dspace.mit.edu/handle/1721.1/76701"
+  },
+  "SS12": {
+   "cite": "Sullivan, P. W. & Simcoe, R. A. 2012, PASP 124, 1336, \"A Calibrated Measurement of the Near-IR Continuum Sky Brightness Using Magellan/FIRE\", arXiv:1207.0817 (preprint)",
+   "file": "rawdata/presets/fire/SullivanSimcoe2012_PASP124_1336_FIRE_skybrightness_arXiv1207.0817.pdf",
+   "url": "https://arxiv.org/pdf/1207.0817"
+  },
+  "S11": {
+   "cite": "Simcoe, R. A., et al. 2011, ApJ 743, 21, \"Constraints on the Universal C IV Mass Density at z~6 from Early IR Spectra Obtained with the Magellan FIRE Spectrograph\", arXiv:1104.4117 (preprint)",
+   "file": "rawdata/presets/fire/Simcoe2011_ApJ743_21_FIRE_CIV_arXiv1104.4117.pdf",
+   "url": "https://arxiv.org/pdf/1104.4117"
+  },
+  "B10R": {
+   "cite": "Burgasser, A. J., et al. 2010, ApJ 725, 1405, \"Clouds in the Coldest Brown Dwarfs: FIRE Spectroscopy of Ross 458C\", arXiv:1009.5722 (preprint; Sec. 3.1 describes FIRE)",
+   "file": "rawdata/presets/fire/Burgasser2010_ApJ725_1405_Ross458C_FIRE_arXiv1009.5722.pdf",
+   "url": "https://arxiv.org/pdf/1009.5722"
+  },
+  "B10C": {
+   "cite": "Burgasser, A. J., et al. 2010, \"Cool Star Science with the FIRE Spectrograph\", Cool Stars 16 proceedings, arXiv:1012.1624 (preprint)",
+   "file": "rawdata/presets/fire/Burgasser2010_CS16_FIRE_coolstars_arXiv1012.1624.pdf",
+   "url": "https://arxiv.org/pdf/1012.1624"
+  },
+  "FWS": {
+   "cite": "MIT FIRE web site (R. Simcoe), Observers > \"Specifications\" page (ob_specs.htm; footer \"Copyright 2008\"; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/mit_web_rsimcoe_FIRE_ob_specs.htm",
+   "url": "https://web.mit.edu/~rsimcoe/www/FIRE/ob_specs.htm"
+  },
+  "FWO": {
+   "cite": "MIT FIRE web site (R. Simcoe), \"Observers\" page (observers.htm; 2010 commissioning-era text; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/mit_web_rsimcoe_FIRE_observers.htm",
+   "url": "https://web.mit.edu/~rsimcoe/www/FIRE/observers.htm"
+  },
+  "FDS": {
+   "cite": "MIT FIRE project page (R. Simcoe), \"FIRE design\" (FIREdesign.htm; pre-construction design description; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/mit_stuff_FIRE_rob_FIREdesign.htm",
+   "url": "https://stuff.mit.edu/people/rsimcoe/FIRE_rob/FIREdesign.htm"
+  },
+  "FSS": {
+   "cite": "MIT FIRE project page (R. Simcoe), \"FIRE specs\" (FIREspecs.htm; pre-construction specifications; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/mit_stuff_FIRE_rob_FIREspecs.htm",
+   "url": "https://stuff.mit.edu/people/rsimcoe/FIRE_rob/FIREspecs.htm"
+  },
+  "LCOH": {
+   "cite": "Las Campanas Observatory, \"FIRE\" one-page handout (FIRE-Handout-2.pdf)",
+   "file": "rawdata/presets/fire/lco_FIRE-Handout-2.pdf",
+   "url": "https://www.lco.cl/wp-content/uploads/2019/11/FIRE-Handout-2.pdf"
+  },
+  "LCOFM": {
+   "cite": "Las Campanas Observatory, \"FIRE observing manual – local\" web page (linked from the LCO FIRE technical-documentation page as the user manual; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/lco_fire_observing_manual_local.html",
+   "url": "https://www.lco.cl/magellan-instruments/fire-observing-manual-local/"
+  },
+  "LCOFU": {
+   "cite": "Las Campanas Observatory, \"FIRE – Updates\" web page (\"Last Updated On August 22, 2024\"; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/lco_fire_updates.html",
+   "url": "https://www.lco.cl/?epkb_post_type_1=fire-updates"
+  },
+  "LCOFE": {
+   "cite": "Las Campanas Observatory, \"FIRE – Engineering\" web page (instrument summary plus a copy of the MIT pre-construction design text; fetched 2026-10-17)",
+   "file": "rawdata/presets/fire/lco_fire_engineering.html",
+   "url": "https://www.lco.cl/?p=7678"
+  },
+  "H2RG": {
+   "cite": "Teledyne Imaging Sensors, \"HAWAII-2RG Visible & Infrared Focal Plane Array\" brochure, rev6 v2-2 (PDF created 2012-05-16; \"Cleared for Public Release ... Case 12-S-1868\"; copy hosted by IAA-CSIC PANIC)",
+   "file": "rawdata/presets/fire/Teledyne_H2RG_Brochure_rev6_v2-2_2012_via-IAA-PANIC.pdf",
+   "url": "https://panic.iaa.csic.es/sites/default/files/H2RG_Brochure_rev6_v2_2_OSR.pdf"
+  },
+  "LFK05": {
+   "cite": "Leviton, D. B., Frey, B. J. & Kvamme, T. 2005, Proc. SPIE 5904, \"High accuracy, absolute, cryogenic refractive index measurements of infrared lens materials for JWST NIRCam using CHARMS\", arXiv:0805.0090 -- identical copy of round-2 key LFK05 (rawdata/presets/glass2/); cited by S13 for FIRE's 100 K indices",
+   "file": "rawdata/presets/fire/Leviton2005_arXiv0805.0090_ZnSe_LiF_BaF2_cryo_NIRCam.pdf",
+   "url": "https://arxiv.org/pdf/0805.0090"
+  },
+  "LFM08": {
+   "cite": "Leviton, D. B., Frey, B. J. & Madison, T. J., \"Temperature-dependent refractive index of CaF2 and Infrasil 301\", arXiv:0805.0096 -- identical copy of round-2 key LFM08 (rawdata/presets/glass2/); cited by S13",
+   "file": "rawdata/presets/fire/Leviton2008_arXiv0805.0096_CaF2_Infrasil301_cryo.pdf",
+   "url": "https://arxiv.org/pdf/0805.0096"
+  },
+  "K99": {
+   "cite": "Kaufer, A., Stahl, O., Tubbesing, S., Nørregaard, P., Avila, G., Francois, P., Pasquini, L. & Pizzella, A. 1999, The Messenger 95, 8, \"Commissioning FEROS, the New High-resolution Spectrograph at La Silla\" (ESO reference paper for FEROS; describes FEROS at the ESO 1.52-m telescope)",
+   "file": "rawdata/presets/feros/Kaufer1999_Messenger95_8_FEROS_commissioning.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.95-mar99/messenger-no95-8-12.pdf"
+  },
+  "FDR": {
+   "cite": "Kaufer, A. 1997, \"Final Design Report for the Fiber-fed Extended Range Optical Spectrograph FEROS\" (June 13, 1997; FEROS contract ESO-SPE-TRS-094-0328-GW; 170 pp.; gzipped PostScript linked from the ESO FEROS manuals page). Text extracted after rendering with Ghostscript 10.04 (SAFER default) to PDF; the text layer encodes the degree and micro glyphs as control characters (normalised here to ° and µ), reads the arcminute sign as \"0\" (\"63° 240\" = 63 deg 24 arcmin), loses the times sign and renders some decimal points as \":\" (63:4 = 63.4)",
+   "file": "rawdata/presets/feros/ESO_FEROS_FinalDesignReport_Kaufer1997_fdr.ps.gz",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros/doc/fdr.ps.gz"
+  },
+  "KP98": {
+   "cite": "Kaufer, A. & Pasquini, L. 1998, Proc. SPIE 3355, 844, \"FEROS, the new fiber-linked echelle spectrograph for the ESO 1.52-m telescope\" (author preprint, gzipped PostScript on the LSW Heidelberg FEROS publications page; text extracted via Ghostscript as for FDR; the text layer drops the fi/ff/fl ligatures, e.g. \"bers\" = fibers, \"o -axis\" = off-axis, \"e ective\" = effective, and Greek symbols, e.g. \"= 0:6°\" = theta = 0.6 deg; degree and micro glyphs come out as control characters, normalised here)",
+   "file": "rawdata/presets/feros/KauferPasquini1998_SPIE3355_844_FEROS_LSW_spie98.ps.gz",
+   "url": "https://www.lsw.uni-heidelberg.de/projects/instrumentation/Feros/spie98.ps.gz"
+  },
+  "K98S": {
+   "cite": "Kaufer, A. 1998, ASP Conf. Ser. 152, 337, \"A two-beam two-slice image slicer for fiber-linked spectrographs\" (author preprint, gzipped PostScript on the LSW Heidelberg FEROS publications page; same ligature losses as KP98)",
+   "file": "rawdata/presets/feros/Kaufer1998_ASP152_337_FEROS_image_slicer_LSW_fiber3.ps.gz",
+   "url": "https://www.lsw.uni-heidelberg.de/projects/instrumentation/Feros/fiber3.ps.gz"
+  },
+  "FUM78": {
+   "cite": "ESO, \"FEROS-II User Manual\", 2P2-MAN-ESO-90100-0008, Issue 78.0 (Date 15/10/2006; prepared by P. François) -- the latest issue linked from the ESO FEROS manuals page",
+   "file": "rawdata/presets/feros/ESO_FEROSII-UserManual-78.0_2P2-MAN-ESO-90100-0008.pdf",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros/doc/manual/P78/FEROSII-UserManual-78.0.pdf"
+  },
+  "FUM77": {
+   "cite": "ESO, \"FEROS-II User Manual\", LSO-MAN-ESO-22200-0001, Issue 77.0 (25/11/2005)",
+   "file": "rawdata/presets/feros/ESO_FEROSII-UserManual-77.0_LSO-MAN-ESO-22200-0001.pdf",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros/doc/manual/P77/FEROSII-UserManual-77.0.pdf"
+  },
+  "FUM14": {
+   "cite": "ESO, \"FEROS-II User Manual\", LSO-MAN-ESO-22200-0001, Issue 1.4 (change record: \"July 2004 ... Completely revised\")",
+   "file": "rawdata/presets/feros/ESO_FEROSII-UserManual-1.4_LSO-MAN-ESO-22200-0001.pdf",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros/doc/manual/FEROSII-UserManual-1.4.pdf"
+  },
+  "ESOF": {
+   "cite": "ESO, \"FEROS - The Fiber-fed Extended Range Optical Spectrograph\" main page (Last Update: 19.05.14; fetched 2026-10-17)",
+   "file": "rawdata/presets/feros/eso_feros_main.html",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros.html"
+  },
+  "ESOO": {
+   "cite": "ESO, FEROS \"Overview\" page (General Description; Last Update: 02.03.13; fetched 2026-10-17)",
+   "file": "rawdata/presets/feros/eso_feros_overview.html",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/feros/overview.html"
+  },
+  "E22": {
+   "cite": "ESO, \"The ESO/MPI 2.2m Telescope\" Telescope Overview page (optical parameters; Last Update: 02.06.14; fetched 2026-10-17)",
+   "file": "rawdata/presets/feros/eso_2p2_telescope_overview.html",
+   "url": "https://www.eso.org/sci/facilities/lasilla/telescopes/national/2p2/overview.html"
+  },
+  "LSWF": {
+   "cite": "Landessternwarte Heidelberg FEROS homepage (A. Kaufer), \"Spectral Format\" page (design-era; Last modified Jan 26 2001; fetched 2026-10-17)",
+   "file": "rawdata/presets/feros/lsw_feros_Format.html",
+   "url": "https://www.lsw.uni-heidelberg.de/projects/instrumentation/Feros/Format.html"
+  },
+  "LSWD": {
+   "cite": "Landessternwarte Heidelberg FEROS homepage (A. Kaufer), \"Instrument Description\" page (Last modified Jan 26 2001; fetched 2026-10-17)",
+   "file": "rawdata/presets/feros/lsw_feros_Description.html",
+   "url": "https://www.lsw.uni-heidelberg.de/projects/instrumentation/Feros/Description.html"
+  },
+  "SCOL": {
+   "cite": "SCHOTT \"Optical Glass Datasheets\" collection, English (139 pp; LF5 datasheet \"As of 01-Dec-2023\") -- identical copy of round-1 key SCOL (rawdata/presets/glass/)",
+   "file": "rawdata/presets/feros/schott_optical_glass_datasheets_EN_media38cbbe87.pdf",
+   "url": "https://media.schott.com/api/public/content/38cbbe876d324e03b1881d33f3d26635"
+  }
+ },
+ "fire": {
+  "title": "Magellan I (Baade) / FIRE (Folded-port InfraRed Echellette, echellette mode: R1 echelle in quasi-Littrow, four-prism ZnSe + Infrasil 301 cross-disperser with six passes, optics at ~100 K)",
+  "recommended_preset": "Echellette mode, 0.6\" x 6\" slit (the nominal slit, R = 6000). D = 6.5 m, F = 11 (Magellan f/11 folded port; 2.10 mm per 6\" = 0.350 mm/arcsec at the slit, DERIVED), 1 object, mirror collimator (off-axis paraboloid, parent focal length 555 mm, from R = 1110.16 mm) -> W = 50 mm as stated (555/11 = 50.45 DERIVED), camera: refractive (CaF2 / S-FTM-16 / CaF2 + Infrasil 301 flattener), f = 176.8 mm (F/3.5 in the 50 mm direction); echelle 54.49 gr/mm R1, delta = 46 deg, quasi-Littrow (theta and gamma NOT published: 0 here), orders 11-32; cross-disperser = six prism passes in path order: Infrasil 301 P1 A = 42.6 deg (single pass), Infrasil 301 P2 A = 28.1 deg, ZnSe P3 A = 21.81 deg, [echelle], ZnSe P3 again, Infrasil P2 again, ZnSe P4 A = 21.81 deg (single pass) (Infrasil apex angles DERIVED from the printed tan(A/2) = 0.39 and 0.25, +/-0.5 deg); glasses at the 100 K design temperature (CHARMS; new entries Infrasil301-100K / ZnSe-100K below, or the app's 105 K entries, which differ by <= 3e-4 in n); central wavelength NOT published -- 1.20 um (order ~22) puts the order stack symmetric about the detector centre in the app's minimum-deviation model (DERIVED); detector Teledyne HAWAII-2RG 2048 x 2048 x 18 um (pitch from the Teledyne brochure; no FIRE document states it). CAVEAT: FIRE's prisms are deliberately NOT at minimum deviation (they compress the 50 mm beam to 50 x 30 mm), so an app trace with all prisms at minimum deviation spreads orders 11-32 over only ~1320 px (DERIVED) instead of most of the 2048-px height; expect the app to under-predict the cross-dispersion and order separation by ~1.4-1.8x and to give a ~0.163\"/px spatial scale instead of the published 0.09-0.12\"/px. Validate against: R = 6000 at 0.6\" and 8000 at 0.45\" (published; geometric DERIVED 5520 / 7370), 12.5 km/s per pixel (published; Littrow DERIVED 14.74 km/s/px with 18 um pixels), 0.15\"/px along the dispersion (published; DERIVED 0.163), coverage 0.82-2.51 um in orders 11-32, reddest order (11, FSR 2.29-2.51 um) matched to the detector width (Littrow FSR length 1849 px DERIVED).",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "S13",
+    "loc": "Abstract",
+    "quote": "for the 6.5 m Magellan Baade telescope",
+    "alternatives": [
+     {
+      "value": 6.5,
+      "src": "S10",
+      "loc": "Abstract",
+      "quote": "Baade 6.5 meter telescope"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Magellan I (Baade) f/11 auxiliary Nasmyth (\"folded\") port; centre port at commissioning (2010); moved from AUX2 to AUX1 on 2022-09-10",
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3 (Optical design)",
+    "quote": "of Magellan’s f=11 auxiliary Nasmyth ports",
+    "alternatives": [
+     {
+      "value": "centre f/11 auxiliary Nasmyth port of Magellan I (Baade)",
+      "src": "S10",
+      "loc": "Sec. 1",
+      "quote": "FIRE mounts on the center f/11 auxiliary Nasmyth port of the Magellan I (Baade) telescope"
+     },
+     {
+      "value": "AUX2 -> AUX1 folded port (2022-09-10)",
+      "src": "LCOFU",
+      "loc": "'FIRE on AUX1'",
+      "quote": "As of September 10th, 2022, FIRE was moved from AUX2 to AUX1 folded port."
+     }
+    ],
+    "note": "Text layer renders '/' as '=' (f=11 = f/11). The port moves do not change the optics."
+   },
+   "telescope_focal_ratio": {
+    "value": 11,
+    "unit": "f/#",
+    "src": "S10",
+    "loc": "Sec. 2.2.3 (Spectrograph Optics)",
+    "quote": "After passing through the slit, the f/11 beam is collimated by an off-axis paraboloid.",
+    "alternatives": [
+     {
+      "value": 11,
+      "src": "S13",
+      "loc": "Sec. 3.2.2 (Collimator)",
+      "quote": "off-axis paraboloidal f=11 collimator"
+     }
+    ]
+   },
+   "slit_plate_scale": {
+    "value": 0.35,
+    "unit": "mm/arcsec (2.857 arcsec/mm)",
+    "src": "S13",
+    "loc": "Table 2, footnote f",
+    "quote": "the 2.10 mm dimension reflects the slit aperture length of 6″ for Magellan’s",
+    "is_derived": true,
+    "derived": "DERIVED: 2.10 mm / 6\" = 0.350 mm per arcsec (2.857\"/mm). Cross-check: Magellan f/11 design value 346.77 um/arcsec (round-1 key IMACS, not re-saved here); 206264.8/(6500 x 11) = 2.885\"/mm = 0.3466 mm per arcsec."
+   },
+   "slit_widths": {
+    "value": [
+     0.45,
+     0.6,
+     0.75,
+     1.0
+    ],
+    "unit": "arcsec (echelle slits)",
+    "src": "LCOFM",
+    "loc": "'Echelle Calibrations' flat-field tables + 'Slit Selection'",
+    "quote": "This leaves four slits apiece for echelle and longslit modes. ... 0.45_Echelle ... 0.60_Echelle ... 0.75_Echelle ... 1.00_Echelle",
+    "alternatives": [
+     {
+      "value": "0.45, 0.6, 0.75, 1.0",
+      "src": "LCOH",
+      "loc": "slit paragraph",
+      "quote": "Slit widths: 0.45”, 0.6”, 0.75”, 1.0’",
+      "note": "[sic] closing prime on 1.0"
+     },
+     {
+      "value": "nominal 0.6, selectable 0.45-1.0",
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "Nominal 0.6\", selectable 0.45-1.0\""
+     },
+     {
+      "value": "four echelle slits",
+      "src": "S13",
+      "loc": "Sec. 3.2.1 (Slits)",
+      "quote": "so four slits each are available to echelle and longslit modes"
+     },
+     {
+      "value": "nominal 0.6, selectable 0.3-2.0 (pre-construction)",
+      "src": "FSS",
+      "loc": "High-Resolution Echellette Mode",
+      "quote": "Nominal 0.6\", selectable 0.3-2.0\""
+     }
+    ]
+   },
+   "slit_reference": {
+    "value": 0.6,
+    "unit": "arcsec",
+    "src": "S13",
+    "loc": "Sec. 2",
+    "quote": "this, we selected 0.6″ as FIRE’s nominal slit width",
+    "alternatives": [
+     {
+      "value": "0.6 (R = 6000)",
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "R = 6000 or 50 km/s (0.6\" slit)"
+     }
+    ]
+   },
+   "slit_length": {
+    "value": 6,
+    "unit": "arcsec",
+    "src": "LCOFU",
+    "loc": "'Slit size'",
+    "quote": "The correct length of the echelle slit is 6 arcseconds",
+    "alternatives": [
+     {
+      "value": 6,
+      "src": "S13",
+      "loc": "Sec. 3.2.1",
+      "quote": "Since FIRE’s slit is short spatially (only 6″ in echelle mode)"
+     },
+     {
+      "value": 6,
+      "src": "LCOFM",
+      "loc": "'Slit Selection'",
+      "quote": "The echelle slits are 6 arcseconds long"
+     },
+     {
+      "value": 6,
+      "src": "SS12",
+      "loc": "Sec. 2.1",
+      "quote": "the 2-dimensional image of a 6′′ -long slit over 21 diffraction orders"
+     },
+     {
+      "value": 7,
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "Slit length: 7 arcseconds",
+      "note": "also FSS and the FDS format-figure caption (pre-construction value)"
+     }
+    ]
+   },
+   "n_objects": {
+    "value": 1,
+    "unit": "objects per exposure",
+    "src": "SS12",
+    "loc": "Sec. 2.1",
+    "quote": "is a single object, cross-dispersed spectrometer",
+    "alternatives": [
+     {
+      "value": 1,
+      "src": "B10R",
+      "loc": "Sec. 3.1",
+      "quote": "It is a single-object"
+     }
+    ]
+   },
+   "collimator": {
+    "value": {
+     "type": "mirror (off-axis paraboloid, Zerodur, protected gold; 75 mm substrate)",
+     "parent_focal_length_mm": 555,
+     "off_axis_distance_mm": 90.6
+    },
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.2.2 (Collimator)",
+    "quote": "off-axis paraboloidal f=11 collimator figured of Zerodur and coated with protected gold. It is 75 mm in diameter, with a true parabolic focal length (from vertex of parent paraboloid to focus) of 555 mm. The off-axis distance (from center of parent to center of aperture) is 90.6 mm.",
+    "alternatives": [
+     {
+      "value": "radius -1110.16 mm (f = 555.08 mm), 75 mm substrate",
+      "src": "S13",
+      "loc": "Table 2, surface 28",
+      "quote": "STANDARD −1110.16 MIRROR 75.00g OAP COLLIMATOR"
+     },
+     {
+      "value": "off-axis paraboloid",
+      "src": "S10",
+      "loc": "Sec. 2.2.3",
+      "quote": "After passing through the slit, the f/11 beam is collimated by an off-axis paraboloid."
+     },
+     {
+      "value": "tilted field lens + on-axis spherical mirror (pre-construction design)",
+      "src": "FDS",
+      "loc": "'Optical Layout'",
+      "quote": "the telescope's f/11 beam is collimated using a tilted field lens and on-axis spherical mirror",
+      "note": "superseded by the OAP of S10/S13"
+     }
+    ],
+    "derived": "DERIVED: 1110.16/2 = 555.08 mm parent focal length; focal distance of the off-axis segment f + d^2/(4f) = 555.08 + 90.6^2/2220.3 = 558.78 mm; 555.08/11 = 50.46 mm beam. Use f_col = 555 mm."
+   },
+   "collimated_beam_diameter": {
+    "value": 50,
+    "unit": "mm",
+    "src": "S10",
+    "loc": "Sec. 2.2.3",
+    "quote": "It delivers a 50 mm collimated beam to the prism assembly",
+    "alternatives": [
+     {
+      "value": 50,
+      "src": "S13",
+      "loc": "Sec. 3.2.2",
+      "quote": "Its collimated output beam is 50 mm in diameter."
+     },
+     {
+      "value": 50,
+      "src": "S10",
+      "loc": "Sec. 2",
+      "quote": "FIRE’s optical design employs a 50mm collimated beam"
+     }
+    ],
+    "derived": "DERIVED: 555/11 = 50.45 mm"
+   },
+   "echelle": {
+    "value": {
+     "gr_per_mm": 54.49,
+     "blaze_deg": 46,
+     "R_number": "R1",
+     "substrate_mm": "70 x 90 (Zerodur replica, gold)",
+     "vendor": "Newport (formerly Richardson Grating Lab) stock item"
+    },
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.2.4",
+    "quote": "In echelle mode, FIRE uses a 54:49 line=mm R1 reflection grating (blazed at 46°) in quasi-littrow configuration. ... The grating is replicated onto a 70 × 90 mm Zerodur substrate",
+    "alternatives": [
+     {
+      "value": "stock grating",
+      "src": "S13",
+      "loc": "Sec. 3.2.4",
+      "quote": "The grating is a stock item from the Newport catalog (formerly Richardson Grating Lab)."
+     },
+     {
+      "value": "R1 echelle, quasi-Littrow",
+      "src": "FDS",
+      "loc": "'Optical Layout'",
+      "quote": "Primary dispersion is achieved with an R1 echelle grating operated in quasi-Littrow mode."
+     }
+    ],
+    "note": "Text layer: '54:49 line=mm' = 54.49 lines/mm.",
+    "derived": "DERIVED: tan 46 deg = 1.036 (R1). First-order Littrow blaze 2 sin 46 deg / 54.49 mm^-1 = 26.403 um -> lambda_b = 26.403/m um (order 11: 2.400 um; order 32: 0.825 um)."
+   },
+   "echelle_angles": {
+    "value": {
+     "theta_deg": "NOT FOUND",
+     "gamma_deg": "NOT FOUND"
+    },
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.2.4",
+    "quote": "which mimics the quasi-littrow angle of the grating",
+    "alternatives": [
+     {
+      "value": "Zemax frame tilt before the grating",
+      "src": "S13",
+      "loc": "Table 2, surfaces 47 and 50",
+      "quote": "COORDBRK Inf −14.95c X tilt grating ... COORDBRK Inf −0.60c Z rotate"
+     },
+     {
+      "value": "beam separation at the grating set by the double-pass prisms",
+      "src": "S13",
+      "loc": "Sec. 3.2.3",
+      "quote": "a design with two double-pass prisms was chosen to minimize the angular spread between the collimator and camera angles off of the grating"
+     }
+    ],
+    "note": "Table 2 (Zemax prescription) gives coordinate breaks 'X tilt grating -14.95', 'Rotate grooves -90.00', 'Z rotate -0.60' and '-11.00' in the DGRATING row (footnote c = tilt; plausibly the diffraction order -11). They are frame tilts behind three prism passes and cannot be turned into theta/gamma without re-tracing the whole prescription; no theta/gamma is published. Use theta = 0, gamma = 0 (as for MagE/ESI)."
+   },
+   "orders": {
+    "value": {
+     "min": 11,
+     "max": 32
+    },
+    "unit": "echelle order",
+    "src": "S13",
+    "loc": "Sec. 3.2.4",
+    "quote": "The grating is used in orders 11–32 to provide full coverage from 0.82 to 2.51 μm.",
+    "alternatives": [
+     {
+      "value": "11-32",
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "Echelle orders: orders 11-32"
+     },
+     {
+      "value": "21 orders",
+      "src": "S10",
+      "loc": "Sec. 1",
+      "quote": "It delivers R = 6000 spectra over a range of 21 orders"
+     },
+     {
+      "value": "21 orders",
+      "src": "SS12",
+      "loc": "Sec. 2.1",
+      "quote": "over 21 diffraction orders"
+     },
+     {
+      "value": "11-28 (pre-construction)",
+      "src": "FSS",
+      "loc": "High-Resolution Echellette Mode",
+      "quote": "orders 11-28"
+     }
+    ],
+    "note": "11-32 inclusive is 22 orders; S10, SS12, B10R and B10C all say 21 (see Conflicts)."
+   },
+   "cross_disperser": {
+    "value": {
+     "type": "four prisms: 2 x Infrasil 301 + 2 x ZnSe; one prism of each material in double pass",
+     "total_passes": 6,
+     "glass_temperature_K": 100
+    },
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.2.3 (Prism Network)",
+    "quote": "four prisms, two each of Infrasil 301 and ZnSe (Fig. 4). ... One prism of each material is used in double-pass, for a total of six passes.",
+    "alternatives": [
+     {
+      "value": "four prisms, two in double pass, six passes; half ZnSe, half Infrasil 301",
+      "src": "S10",
+      "loc": "Sec. 2.2.3",
+      "quote": "Our solution incorporates a train of four prisms, two used in double-pass, for a total of six passes. Half are through ZnSe and half through Infrasil 301"
+     },
+     {
+      "value": "two ZnSe + two fused silica",
+      "src": "LCOFE",
+      "loc": "component list",
+      "quote": "A network of two ZnSe and two Fused Silica cross-dispersion prisms"
+     },
+     {
+      "value": "one double-pass prism (pre-construction)",
+      "src": "FDS",
+      "loc": "'Optical Layout'",
+      "quote": "One of the prisms is used in double-pass, all others are single pass but their apex angles and tilts have been tuned to moderate anamorphic magnification of the beam."
+     }
+    ],
+    "note": "Neither glass is on the app list at 100 K: the app has 'Infrasil-105K' and 'ZnSe-105K' (CHARMS at 105 K, X-Shooter). 100 K coefficients from the same CHARMS fits are in the glass section (Delta n <= 2e-5 Infrasil, <= 3.1e-4 ZnSe)."
+   },
+   "prism_train": {
+    "value": [
+     {
+      "pass": 1,
+      "prism": "P1",
+      "glass": "Infrasil 301 (INF301_100K)",
+      "apex_deg": 42.6,
+      "tan_half_apex": 0.39,
+      "use": "single pass, before the grating"
+     },
+     {
+      "pass": 2,
+      "prism": "P2",
+      "glass": "Infrasil 301 (INF301_100K)",
+      "apex_deg": 28.1,
+      "tan_half_apex": 0.25,
+      "use": "first pass of a double pass"
+     },
+     {
+      "pass": 3,
+      "prism": "P3",
+      "glass": "ZnSe (ZNSE_100K)",
+      "apex_deg": 21.81,
+      "tan_half_apex": 0.19,
+      "use": "first pass of a double pass"
+     },
+     {
+      "pass": 4,
+      "prism": "P3",
+      "glass": "ZnSe (ZNSE_100K)",
+      "apex_deg": 21.81,
+      "tan_half_apex": 0.19,
+      "use": "second pass (after the grating)"
+     },
+     {
+      "pass": 5,
+      "prism": "P2",
+      "glass": "Infrasil 301 (INF301_100K)",
+      "apex_deg": 28.1,
+      "tan_half_apex": 0.25,
+      "use": "second pass"
+     },
+     {
+      "pass": 6,
+      "prism": "P4",
+      "glass": "ZnSe (ZNSE_100K)",
+      "apex_deg": 21.81,
+      "tan_half_apex": 0.19,
+      "use": "single pass, last element before the camera"
+     }
+    ],
+    "unit": "deg (apex)",
+    "src": "S13",
+    "loc": "Table 2, surfaces 34-67 + footnote e",
+    "quote": "TILTSURF Inf −35.00 INF301_100K 74.00 −0.39e P1 SINGLE PASS ... TILTSURF Inf −35.35 INF301_100K 120.00 −0.25e P2 FIRST PASS ... TILTSURF Inf −24.26 ZNSE_100K 100.00 −0.19e P3 FIRST PASS ... TILTSURF Inf 24.26 ZNSE_100K 100.00 0.19e P3 SECOND PASS ... TILTSURF Inf 35.35 INF301_100K 120.00 0.25e P2 SECOND PASS ... TILTSURF Inf 20.03 ZNSE_100K 78.00 0.19e P4 SINGLE PASS ... tanðA=2Þ where A is the prism apex angle.",
+    "alternatives": [
+     {
+      "value": "P3, P4: apex 21.81 deg; thickness 42.8 and 34.5 mm",
+      "src": "S13",
+      "loc": "Fig. 4 caption",
+      "quote": "ZnSe prisms P3 and P4 have thickness of 42.8 and 34.5 mm, respectively, near the maximum size available at the time of manufacture. Both have apex angles of 21.81°."
+     },
+     {
+      "value": "three prism passes before the grating (2 Infrasil, 1 ZnSe)",
+      "src": "S13",
+      "loc": "Sec. 3.2.4",
+      "quote": "owing to the effects of three upstream prism passes (2 Infrasil and one ZnSe)"
+     }
+    ],
+    "note": "Text layer: 'tanðA=2Þ' = tan(A/2). The table's glass names are the 100 K CHARMS catalogues built by the team (INF301_100K, ZNSE_100K).",
+    "derived": "DERIVED: A = 2 atan(tan(A/2)): 0.39 -> 42.61 deg (42.11-43.11 for the printed rounding +/-0.005), 0.25 -> 28.07 deg (27.53-28.61), 0.19 -> 21.52 deg (the published 21.81 deg gives tan(10.905 deg) = 0.1927, which rounds to 0.19). The Infrasil apex angles are therefore known only to about +/-0.5 deg."
+   },
+   "prism_orientation": {
+    "value": "tilts optimised for anamorphic magnification (NOT minimum deviation); Zemax coordinate-break tilts: TOTAL SYSTEM TILT -9.41, Tilt P1 -8.00, Translate to P2 -45.00, Tilt P2 -15.82, Tilt P3 -19.90, Tilt p4 37.28, TILT CAMERA 20.28 deg",
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.3 (Stray Light Mitigation)",
+    "quote": "The prisms’ relative tilts were optimized chiefly to balance anamorphic magnification for a uniform pixel scale and good image quality.",
+    "alternatives": [
+     {
+      "value": "layout tuned for the anamorphic compression",
+      "src": "S13",
+      "loc": "Sec. 3.2.3",
+      "quote": "The detailed layout of the prism network is finely tuned to minimize chromatic variations in the anamorphic compression of the beam"
+     },
+     {
+      "value": "50 mm beam compressed to a 50 x 30 mm ellipse",
+      "src": "S13",
+      "loc": "Sec. 3.2.5",
+      "quote": "FIRE’s 50 mm collimated beam is compressed into an ellipse of 50 × 30 mm by the prisms"
+     },
+     {
+      "value": "Zemax tilts",
+      "src": "S13",
+      "loc": "Table 2, surfaces 33-38, 43, 65, 68",
+      "quote": "COORDBRK Inf −9.41c TOTAL SYSTEM TILT ... COORDBRK Inf −8.00c Tilt P1 ... COORDBRK Inf −90.00 −45.00c Translate to P2 ... COORDBRK Inf −15.82c Tilt P2 ... COORDBRK Inf −19.90c Tilt P3 ... COORDBRK Inf 37.28c Tilt p4 ... COORDBRK Inf 20.28c TILT CAMERA"
+     }
+    ],
+    "note": "The app sets every prism at minimum deviation for lambda_c; FIRE's prisms are not, so the app under-predicts the cross-dispersion (see Notes).",
+    "derived": "DERIVED: beam compression 30/50 = 0.60 -> angular magnification ~1.67 in the cross-dispersion direction."
+   },
+   "operating_temperature": {
+    "value": 100,
+    "unit": "K (design temperature of the refractive indices; bench 90-100 K)",
+    "src": "S13",
+    "loc": "Sec. 3.2.5",
+    "quote": "refractive indices appropriate to a 100 K operating temperature, as measured using the CHARMS refractometer",
+    "alternatives": [
+     {
+      "value": "90-100 K bench; detectors 80 K",
+      "src": "S13",
+      "loc": "Sec. 4.5 (Cryostat)",
+      "quote": "maintain the optical bench and components at 90–100 K, and the detectors at 80 K"
+     },
+     {
+      "value": "77 K back-up design configuration",
+      "src": "S13",
+      "loc": "Sec. 3.2.5",
+      "quote": "a separate configuration was kept with T ¼ 77 K"
+     },
+     {
+      "value": "90-100 K",
+      "src": "S10",
+      "loc": "Sec. 2.1",
+      "quote": "to maintain the bench an equilibrium of 90-100K"
+     },
+     {
+      "value": "100 K",
+      "src": "LCOFE",
+      "loc": "summary",
+      "quote": "to an operating temperature of 100K"
+     },
+     {
+      "value": "77 K (pre-construction)",
+      "src": "FDS",
+      "loc": "'Overview'",
+      "quote": "enclosed together in a 77K vacuum cryogenic dewar"
+     }
+    ],
+    "note": "Raw text layer reads 'toa 100 Koperating' (spaces lost); matched with whitespace removed."
+   },
+   "camera": {
+    "value": {
+     "type": "refractive: CaF2, S-FTM-16, CaF2 + Infrasil 301 field flattener (C4); two even-asphere CaF2 surfaces",
+     "focal_length_mm": 176.8,
+     "lens_diameter_mm": 92,
+     "effective_focal_ratio_50mm_direction": 3.5,
+     "field_deg": "~15 (detector edge to edge)"
+    },
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 3.2.5 (Camera)",
+    "quote": "It contains three elements of CaF2, S-FTM-16, and CaF2, plus a field-flattener of Infrasil 301. ... Its focal length is 176.8 mm, to deliver a constant scale of 0:15″ pixel−1 in the spectral direction",
+    "alternatives": [
+     {
+      "value": "F/3.5 in the 50 mm direction",
+      "src": "S13",
+      "loc": "Sec. 3.2.5",
+      "quote": "focal ratio is F=3:5 for any single wavelength and field angle"
+     },
+     {
+      "value": "92 mm lenses",
+      "src": "S13",
+      "loc": "Sec. 3.2.5",
+      "quote": "the camera’s diameter is set at 92 mm"
+     },
+     {
+      "value": "~15 deg field",
+      "src": "S13",
+      "loc": "Sec. 3.2.5",
+      "quote": "The field of view from edge to edge of the detector is approximately 15° in diameter"
+     },
+     {
+      "value": "three 92 mm lenses + Infrasil 301 flattener",
+      "src": "S10",
+      "loc": "Sec. 2.2.3",
+      "quote": "FIRE’s camera consists of three 92mm diameter lenses (CaF2 , S-FTM-16, CaF2 ), and a small Infrasil 301 field flattener."
+     }
+    ],
+    "note": "Text layer: '0:15″ pixel−1' = 0.15″ pixel^-1; 'F=3:5' = F/3.5.",
+    "derived": "DERIVED: 176.8/50 = f/3.54; detector diagonal 2048 x 18 um x sqrt(2) = 52.1 mm subtends 2 atan(26.1/176.8) = 16.8 deg."
+   },
+   "detector": {
+    "value": {
+     "type": "Teledyne HAWAII-2RG HgCdTe, 2.5 um cutoff, substrate-thinned, AR-coated; SIDECAR ASIC readout",
+     "format": "2048 x 2048",
+     "pixel_um": 18
+    },
+    "unit": null,
+    "src": "B10R",
+    "loc": "Sec. 3.1",
+    "quote": "are imaged onto a 2048×2048, HAWAII-2RG (H2RG) focal plane array",
+    "alternatives": [
+     {
+      "value": "2.5 um cutoff, substrate-thinned",
+      "src": "S13",
+      "loc": "Sec. 5.1",
+      "quote": "devices have a 2.5 μm cutoff, and are substrate-thinned and AR-coated"
+     },
+     {
+      "value": "2048 x 2048, 18 um pitch",
+      "src": "H2RG",
+      "loc": "bullet list + specification table",
+      "quote": "Large (2048×2048 pixel) array with 18 μm pixel pitch. ... Array Format 2048 x 2048 pixel, 18 μm pitch"
+     },
+     {
+      "value": "2K x 2K",
+      "src": "LCOFE",
+      "loc": "'Overview'",
+      "quote": "The design incorporates a large-format, 2K x 2K pixel IR focal plane array."
+     }
+    ],
+    "note": "No FIRE document states the pixel pitch; 18 um is the HAWAII-2RG pitch from the Teledyne brochure."
+   },
+   "detector_dispersion_axis": {
+    "value": "echelle dispersion along detector rows (horizontal), prism cross-dispersion vertical; square array, Nx = Ny = 2048",
+    "unit": null,
+    "src": "LCOFE",
+    "loc": "'Spectral Format' (copy of FDS text)",
+    "quote": "In this figure, the prisms have dispersed light in the vertical direction, and the diffraction grating has dispersed the light at high resolution in the horizontal direction.",
+    "alternatives": [
+     {
+      "value": "detector width matched to the reddest FSR",
+      "src": "S13",
+      "loc": "Sec. 3.2.4",
+      "quote": "Since FIRE’s detector dimension is matched the free spectral range of its reddest order, the grating is left at a fixed angle."
+     }
+    ],
+    "derived": "DERIVED: Littrow FSR length of order 11 = 2 tan 46 deg x 176.8/11 = 33.3 mm = 1849 px (18 um) of 2048; order 32: 11.4 mm = 636 px."
+   },
+   "central_wavelength": {
+    "value": "NOT FOUND; suggested 1.20 um (order ~22) [DERIVED]",
+    "unit": "um",
+    "src": "S13",
+    "loc": "Sec. 3.2.4",
+    "quote": "The grating is used in orders 11–32 to provide full coverage from 0.82 to 2.51 μm.",
+    "is_derived": true,
+    "derived": "DERIVED: with the six prism passes at minimum deviation (the app model; CHARMS indices at 100 K; A = 42.61 / 28.07 / 21.81 deg), the cross-dispersion deviation midway between the blaze peaks of orders 11 (2.400 um) and 32 (0.825 um) falls at 1.203 um (order 21.95). The result changes by < 0.001 um for trial lambda_c of 1.0-1.4 um. No source states which wavelength is at the detector centre."
+   }
+  },
+  "performance": {
+   "R_nominal": {
+    "value": 6000,
+    "unit": "lambda/dlambda (0.6\" slit)",
+    "src": "S13",
+    "loc": "Abstract",
+    "quote": "which delivers R ¼ 6000 spectra for an 0.6″ slit",
+    "alternatives": [
+     {
+      "value": 6000,
+      "src": "S10",
+      "loc": "Abstract",
+      "quote": "FIRE delivers continuous spectra over its full bandpass with nominal spectral resolution R = 6000."
+     },
+     {
+      "value": "6000 or 50 km/s (0.6\")",
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "R = 6000 or 50 km/s (0.6\" slit)"
+     },
+     {
+      "value": "6000 for a 4-pixel-wide slit",
+      "src": "B10C",
+      "loc": "Sec. 1",
+      "quote": "λ/∆λ ≈ 6000 (for the 0. ′′6 or 4-pixel wide slit)"
+     }
+    ],
+    "note": "Text layer: 'R ¼ 6000' = R = 6000.",
+    "derived": "DERIVED (geometric, Littrow, f_col 555.08, f_cam 176.8, 0.3468 mm/arcsec, 18 um): 0.6\" = 3.68 px x 14.74 km/s/px = 54.3 km/s -> R = 5520 (5470 with 0.350 mm/arcsec)."
+   },
+   "R_vs_slit": {
+    "value": {
+     "0.60": "6000 (50 km/s)",
+     "0.45": "8000 (37.5 km/s)"
+    },
+    "unit": "lambda/dlambda vs slit width (arcsec)",
+    "src": "LCOH",
+    "loc": "introduction",
+    "quote": "at a resolution of R= 6000 - 8000 (37.5 - 50 km/s) for a 0.60” or 0.45” slit",
+    "alternatives": [
+     {
+      "value": "6000-8000 for 0.60/0.45",
+      "src": "FWO",
+      "loc": "introduction",
+      "quote": "at a resolution of R = 6000 - 8,000 (37.5-50 km/s) for a 0.60 or 0.45\" slit"
+     },
+     {
+      "value": "up to 10,000 with a narrow slit",
+      "src": "S10",
+      "loc": "Sec. 1",
+      "quote": "In the best seeing conditions, a narrow slit may be used to achieve spectral resolution as high as R = 10,000."
+     },
+     {
+      "value": "2-pixel 0.30\" slit at R = 10,000 (design)",
+      "src": "S13",
+      "loc": "Sec. 2",
+      "quote": "a pixel pitch of 0.15″ in the spectral direction, corresponding to a 2 pixel slit of 0.30″ at R ¼ 10;000 (30 km=s)."
+     }
+    ],
+    "derived": "DERIVED (geometric, as above): 0.45\" -> 7370, 0.75\" -> 4420, 1.00\" -> 3320."
+   },
+   "velocity_per_pixel": {
+    "value": 12.5,
+    "unit": "km/s per pixel (spectral)",
+    "src": "SS12",
+    "loc": "Sec. 3.4, eq. (1) scalings",
+    "quote": "12.5 km/s ... the velocity interval per pixel ∆vpix",
+    "alternatives": [
+     {
+      "value": "50 km/s = 4 pixels",
+      "src": "S11",
+      "loc": "Sec. 3",
+      "quote": "one spectral resolution element—i.e. 50 km s−1 or 4 pixels"
+     }
+    ],
+    "derived": "DERIVED: Littrow c x 0.018/(2 tan 46 deg x 176.8) = 14.74 km/s/px with 18 um pixels -- 18% more than the published 12.5 (= 50 km/s over 4 px). See Conflicts."
+   },
+   "spectral_pixel_scale": {
+    "value": 0.15,
+    "unit": "arcsec/pixel (dispersion direction)",
+    "src": "S13",
+    "loc": "Sec. 2",
+    "quote": "a pixel pitch of 0.15″ in the spectral direction",
+    "alternatives": [
+     {
+      "value": 0.18,
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "0.18\" per pixel (spectral)"
+     },
+     {
+      "value": 0.18,
+      "src": "LCOH",
+      "loc": "specification table",
+      "quote": "Spatial resolution 0.18”/pixel 0.15”/pixel",
+      "note": "echelle column 0.18; the 0.15 is the prism-mode column"
+     },
+     {
+      "value": 0.18,
+      "src": "FDS",
+      "loc": "'Optical Layout'",
+      "quote": "With 0.18 arcsecond pixels"
+     }
+    ],
+    "derived": "DERIVED: 0.018 mm / (0.3468 mm/arcsec x 176.8/555.08) = 0.163\"/px (0.162 with 0.350 mm/arcsec). 0.15\"/px would need 16.6 um pixels, or a grating anamorphic factor cos(alpha)/cos(beta) = 1.09 (theta ~ 2.4 deg)."
+   },
+   "spatial_pixel_scale": {
+    "value": {
+     "reddest_order": 0.12,
+     "bluest_orders": 0.09
+    },
+    "unit": "arcsec/pixel (along the slit)",
+    "src": "S13",
+    "loc": "Sec. 3.2.3",
+    "quote": "to substantial variations in the pixel scale, from about 0:12″ pixel−1 in the reddest order to 0:09″ pixel−1 in the blue.",
+    "alternatives": [
+     {
+      "value": 0.125,
+      "src": "SS12",
+      "loc": "Sec. 3.4, eq. (1) scalings",
+      "quote": "0.125′′ ... pixel scale hpix in the spatial direction appropriate for Magellan/FIRE"
+     },
+     {
+      "value": "per-order calibration",
+      "src": "SS12",
+      "loc": "Sec. 2.1",
+      "quote": "we calibrate the pixel scale for each order empirically by measuring its width in pixels and scaling to the fixed 6′′ slit length"
+     }
+    ],
+    "derived": "DERIVED: anamorphic angular magnification 0.163/0.12 = 1.36 (red) to 0.163/0.09 = 1.81 (blue); compare the 50 -> 30 mm beam compression (1.67)."
+   },
+   "wavelength_coverage": {
+    "value": "0.82-2.51",
+    "unit": "um",
+    "src": "S13",
+    "loc": "Abstract",
+    "quote": "a 0.82–2.51 μm echelle",
+    "alternatives": [
+     {
+      "value": "0.8-2.5",
+      "src": "S10",
+      "loc": "Abstract",
+      "quote": "a new 0.8-2.5µm echelle spectrometer"
+     },
+     {
+      "value": "0.82-2.51",
+      "src": "FWS",
+      "loc": "High-Resolution Echellette Mode table",
+      "quote": "0.82-2.51 microns"
+     },
+     {
+      "value": "0.82-2.51",
+      "src": "LCOH",
+      "loc": "specification block",
+      "quote": "WAVELENGTH COVERAGE: 0.82 - 2.51 micron"
+     },
+     {
+      "value": "0.85-2.45",
+      "src": "B10C",
+      "loc": "Sec. 1",
+      "quote": "cover the entire 0.85-2.45 µm window"
+     },
+     {
+      "value": "0.85-2.5",
+      "src": "B10R",
+      "loc": "Sec. 3.1",
+      "quote": "over the 0.85–2.5 µm range"
+     },
+     {
+      "value": "0.89-2.51 (pre-construction)",
+      "src": "FSS",
+      "loc": "High-Resolution Echellette Mode",
+      "quote": "0.89-2.51 microns"
+     }
+    ],
+    "derived": "DERIVED: FSR of order 11 = 2.291-2.509 um; order 32 = 0.812-0.838 um (blaze +/- lambda/2m)."
+   },
+   "order_blaze_wavelengths": {
+    "value": {
+     "11": 2.4002,
+     "12": 2.2002,
+     "13": 2.031,
+     "14": 1.8859,
+     "15": 1.7602,
+     "16": 1.6502,
+     "17": 1.5531,
+     "18": 1.4668,
+     "19": 1.3896,
+     "20": 1.3201,
+     "21": 1.2573,
+     "22": 1.2001,
+     "23": 1.1479,
+     "24": 1.1001,
+     "25": 1.0561,
+     "26": 1.0155,
+     "27": 0.9779,
+     "28": 0.9429,
+     "29": 0.9104,
+     "30": 0.8801,
+     "31": 0.8517,
+     "32": 0.8251
+    },
+    "unit": "um (first-order Littrow blaze / m)",
+    "src": "S13",
+    "loc": "Sec. 3.2.4",
+    "quote": "FIRE uses a 54:49 line=mm R1 reflection grating (blazed at 46°)",
+    "is_derived": true,
+    "derived": "DERIVED: lambda_b = 2 sin(46 deg)/(54.49 mm^-1 x m) = 26.403 um / m (gamma = 0 assumed)."
+   },
+   "reddest_order_vs_detector": {
+    "value": "order 11 FSR ~ detector width",
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 6.2",
+    "quote": "the reddest order has a free spectral range matched to the width of the detector",
+    "derived": "DERIVED: Littrow FSR length of order 11 = 1849 px (18 um) vs 2048 px; order 32 = 636 px."
+   },
+   "order_separation": {
+    "value": "several arcsec of dark pixels between orders; smallest in H",
+    "unit": null,
+    "src": "SS12",
+    "loc": "Sec. 2.1",
+    "quote": "FIRE’s optical design retains several arcseconds ... of dark pixels between orders to facilitate in estimating and removing any diffuse scattered light background. This spacing is largest in Y and K but somewhat smaller in H because of the balance of the prisms’ partial dispersions.",
+    "alternatives": [
+     {
+      "value": "prisms needed to span the full detector",
+      "src": "S10",
+      "loc": "Sec. 2.2.3",
+      "quote": "Many prisms are therefore ... required to achieve the angular deviation needed to span the full detector."
+     }
+    ],
+    "derived": "DERIVED (app model, all six passes at minimum deviation for 1.20 um, 100 K indices): order-centre spacing 86.6 px (11-12), 52.6 px minimum (18-19, H band), 77.6 px (31-32); orders 32-11 span 23.7 mm = 1319 px of 2048. The H-band minimum matches SS12, but a 6\" slit at 0.09-0.12\"/px is 50-67 px long, so the real spacings must be ~1.4-1.8x larger (prisms off minimum deviation)."
+   },
+   "image_quality": {
+    "value": "~1 pixel instrumental blur",
+    "unit": null,
+    "src": "S13",
+    "loc": "Sec. 6.1",
+    "quote": "we derive an instrument-induced focus blur of ∼1 pixel",
+    "alternatives": [
+     {
+      "value": "LSF core = 4-px top-hat (0.6\") convolved with a 2.0-px FWHM Gaussian",
+      "src": "SS12",
+      "loc": "Sec. 3.1",
+      "quote": "a 4-pixel-wide tophat function (the transmission of a 0.6′′ slit) convolved with a Gaussian with a FWHM of 2.0 pixels (FIRE’s optical specification)"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Echelle in-plane (theta) and out-of-plane (gamma) angles: only 'quasi-littrow' (S13); the Zemax coordinate breaks (X tilt -14.95 deg, Z rotate -0.60 deg) are frame tilts behind three prism passes, not theta/gamma.",
+   "Prism incidence angles in a usable form: Table 2 gives coordinate-break tilts, and the prisms are deliberately off minimum deviation (beam compressed 50 -> 30 mm); the app cannot reproduce them.",
+   "Infrasil apex angles as numbers: only tan(A/2) = 0.39 and 0.25 to two decimals (DERIVED 42.6 and 28.1 deg, +/-0.5 deg). ZnSe apex 21.81 deg is stated.",
+   "A FIRE-specific pixel pitch (18 um only from the Teledyne HAWAII-2RG brochure).",
+   "The wavelength or order at the detector centre (suggestion 1.20 um DERIVED).",
+   "Per-order dispersion (A/px) or wavelength-solution tables, and measured R for slits other than 0.6\"/0.45\".",
+   "Simcoe et al. 2008, Proc. SPIE 7014, 70140U (FIRE design paper): paywalled, no open copy found; not obtained (S13 supersedes it).",
+   "The S-FTM-16 and CaF2 camera glasses are not needed (the app camera is ideal)."
+  ],
+  "conflicts": [
+   "Spectral pixel scale: 0.15\"/px (S13, design text) vs 0.18\"/px (FWS, LCOH, FDS, FSS) vs 0.163\"/px DERIVED (18 um, 176.8/555.08 mm, 0.3468 mm/arcsec).",
+   "Velocity per pixel: 12.5 km/s (SS12; S11 50 km/s = 4 px; B10C 4-px slit) vs 14.74 km/s DERIVED (Littrow, 18 um, 176.8 mm); the published value fits 0.15\"/px + R = 6000, the optics give ~0.163\"/px and R ~ 5500 at 0.6\".",
+   "Slit length: 6\" (S13, LCOFM, LCOFU \"The correct length of the echelle slit is 6 arcseconds\", SS12) vs 7\" (FWS, FSS, FDS).",
+   "Number of orders: 11-32 = 22 orders (S13, FWS) vs \"21 orders\" (S10, SS12, B10R, B10C) vs 11-28 (FSS, pre-construction).",
+   "Coverage: 0.82-2.51 um (S13, FWS, LCOH) vs 0.8-2.5 (S10) vs 0.85-2.45 (B10C) vs 0.85-2.5 (B10R) vs 0.89-2.51 (FSS).",
+   "Collimator: off-axis paraboloid (S13, S10) vs \"tilted field lens and on-axis spherical mirror\" (FDS; copied on LCOFE) -- pre-construction design.",
+   "Double-pass prisms: two (S13, S10) vs one (FDS; copied on LCOFE).",
+   "Prism glass: Infrasil 301 (S13, S10) vs \"Fused Silica\" (LCOFE component list) -- Infrasil is an IR-grade fused quartz, so this is a naming difference.",
+   "Operating temperature: 100 K design indices (S13), bench 90-100 K (S13, S10), 100 K (LCOFE) vs 77 K (FDS; S13 back-up configuration).",
+   "Slit widths: 0.45-1.0\" (LCOFM, LCOH, FWS) vs 0.3-2.0\" (FSS, pre-construction).",
+   "Resolution at 0.45\": R = 8000 (LCOH, FWO) vs DERIVED geometric 7370."
+  ],
+  "notes": [
+   "Cross-dispersion caveat (DERIVED): with all six prism passes at minimum deviation (the app model) orders 32-11 span only 23.7 mm = 1319 px, the order spacing is 53-87 px, and the spatial scale stays at the unmagnified 0.163\"/px. The real prisms compress the beam to 50 x 30 mm (angular magnification ~1.67), which gives the published 0.09-0.12\"/px along the slit and should spread the orders over most of the 2048-px height with \"several arcseconds\" of dark pixels between 6\" slits. Expect the app to under-predict FIRE's cross-dispersion by ~1.4-1.8x; the echelle direction (R, km/s/px, FSR fill) is unaffected.",
+   "Path order through the prisms (S13 Table 2): P1 (Infrasil, single) -> P2 (Infrasil) -> P3 (ZnSe) -> echelle -> P3 -> P2 -> P4 (ZnSe, single) -> camera. S13: \"three upstream prism passes (2 Infrasil and one ZnSe)\".",
+   "Glasses: S13 traced the design with CHARMS indices at 100 K (Leviton et al. 2005, 2008 = LFK05, LFM08). The app's 105 K entries differ from 100 K by -1.8e-5 (Infrasil) and -2.5e-4 to -3.1e-4 (ZnSe) in n, and by 0.1% in the ZnSe dispersion n(0.82)-n(2.40) (DERIVED): either set works; 100 K coefficients are given below.",
+   "Consistency (DERIVED): the 54.49 gr/mm, 46 deg echelle with f_cam = 176.8 mm puts the reddest order (11) over 1849 of 2048 px in Littrow, matching S13's \"detector dimension is matched the free spectral range of its reddest order\"; the blaze peaks 26.403/m um reproduce the 0.82-2.51 um coverage (order 11 FSR to 2.509 um; order 32 from 0.812 um).",
+   "FIRE also has a low-dispersion (prism-only) long-slit mode with a flat mirror in place of the grating (R ~ 300-500); only the echellette mode is relevant here.",
+   "Moves: FIRE was installed on Baade on 2010 March 28 (S13); moved AUX2 -> AUX1 in September 2022 (LCOFU)."
+  ]
+ },
+ "feros": {
+  "title": "MPG/ESO 2.2 m / FEROS (Fiber-fed Extended Range Optical Spectrograph: bench-mounted white-pupil R2 echelle, quasi-Littrow, two fibres + two-slice image slicer, single LF5 prism cross-disperser)",
+  "recommended_preset": "Object + sky (or object + calibration) fibres, two-slice image slicer. D = 2.2 m (2200 mm free aperture, f/8 Cassegrain), F = 11 (the F/N lens system converts the f/4.6 fibre output to the f/11 accepted by the collimators), entrance width 1.0\" = half the 2.0\" fibre aperture (DERIVED: the slicer halves the fibre image in the dispersion direction; slicer output slit 120 x 600 um at F/11 vs 1.0\" -> 117 um in the app; projected 2.19 px), nObj = 2 (object + sky/calibration; 16.4 px apart along the slit), mirror collimator f = 1500 mm (main and transfer collimators are two OAP segments of one f = 1500 mm parent: white pupil at unit magnification), W = 136 mm, camera dioptric f = 410 mm (f/3.0), echelle R2 79 gr/mm, delta = 63.4 deg (measured 63 deg 24 arcmin), theta = 0 (Littrow in the dispersion plane), gamma = 0.6 deg (\"off-Littrow angle\"); cross-disperser one LF5 prism, A = 55 deg, single pass, at minimum deviation for lambda_c = 462.3 nm (order 49); LF5 is not on the app list -> SCHOTT LF5 Sellmeier below; orders 25-63 (39); detector EEV 44-82, 4096 (dispersion, DERIVED + FDR) x 2048 x 15 um. Validate against R = 48,000 = 2.2 px FWHM (geometric DERIVED 49,900; 2.746 km/s/px), slit image 2.2 x 10.9 px, object-sky 16.4 px, order separation ~30 px (red) to ~100 px (blue) (DERIVED with LF5 at minimum deviation: 29.3 to 90.0 px; orders 25-63 span 1968 of 2048 px), coverage 356-920 nm with gaps 853.4-854.1 and 886.2-887.5 nm (orders 25-26 overfill the 4096 px: Littrow FSR 4367 and 4199 px DERIVED), and the 2.4 deg slit-image tilt from gamma = 0.6 deg.",
+  "params": {
+   "telescope_aperture": {
+    "value": 2.2,
+    "unit": "m (2200 mm free aperture)",
+    "src": "E22",
+    "loc": "Telescope Optical Parameters table",
+    "quote": "FREE APERTURE 2200 mm",
+    "alternatives": [
+     {
+      "value": "MPG/ESO 2.20-m",
+      "src": "ESOO",
+      "loc": "General Description",
+      "quote": "Both FEROS and WFI are now permanently mounted at the MPG/ESO-2.20m telescope"
+     }
+    ],
+    "note": "Main mirror diameter 2300 mm (E22). FEROS was at the ESO 1.52-m telescope from 1998 to October 2002 (K99, FDR and KP98 refer to that telescope; the spectrograph optics were moved unchanged)."
+   },
+   "telescope_focal_ratio": {
+    "value": 8,
+    "unit": "f/# (Cassegrain)",
+    "src": "E22",
+    "loc": "Telescope Optical Parameters table",
+    "quote": "FOCAL RATIO f/8.0",
+    "alternatives": [
+     {
+      "value": 8,
+      "src": "FUM78",
+      "loc": "Sec. 2.2.1",
+      "quote": "In the converging f/8 beam coming from the telescope"
+     },
+     {
+      "value": 15,
+      "src": "FUM77",
+      "loc": "Sec. 2.2.1",
+      "quote": "In the converging f/15 beam coming from the telescope",
+      "note": "left over from the ESO 1.52 m; FUM14 has the same sentence"
+     },
+     {
+      "value": "f/15 (ESO 1.52 m)",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "The microlenses convert the f/15 telescope beam into a f/4.6 beam"
+     }
+    ]
+   },
+   "telescope_plate_scale": {
+    "value": 11.7,
+    "unit": "arcsec/mm (Cassegrain, without corrector)",
+    "src": "E22",
+    "loc": "Telescope Optical Parameters table",
+    "quote": "SCALE 11.7 arcsec/mm without corrector",
+    "derived": "DERIVED: 206264.8/(2200 x 8) = 11.72\"/mm; the 2.0\" aperture = 170.7 um at f/8 -> 98.1 um at f/4.6 (fibre core 100 um)."
+   },
+   "fibre_aperture": {
+    "value": 2.0,
+    "unit": "arcsec (on sky; object and sky apertures 2.9 arcmin apart)",
+    "src": "FUM78",
+    "loc": "Table 1.1",
+    "quote": "Entrance Aperture 2.0 arcsec",
+    "alternatives": [
+     {
+      "value": "2.0\", 2.9 arcmin apart",
+      "src": "ESOO",
+      "loc": "General Description",
+      "quote": "The fibres are illuminated via 2.0 arcsec apertures on the sky separated by 2.9 arcmins."
+     },
+     {
+      "value": "2.0\" with the rod lenses (Oct 2003) vs 1.6\" with the 2002 ball lenses",
+      "src": "FUM78",
+      "loc": "Sec. 2.2.2",
+      "quote": "the effective aperture with the new rod-lenses is restored to the design specification of 2.0 arcsec, as compared to 1.6 arcsec which was the case for the ball-lenses"
+     },
+     {
+      "value": "2.7\" (ESO 1.52 m)",
+      "src": "K99",
+      "loc": "Table 1",
+      "quote": "Entrance Aperture 2.7 arcsec (circular)"
+     },
+     {
+      "value": "2.7\" (stale table)",
+      "src": "FUM14",
+      "loc": "Table 1.1",
+      "quote": "Entrance Aperture 2.7 arcsec",
+      "note": "the 2004 manual still lists the 1.52-m value"
+     }
+    ]
+   },
+   "fibres": {
+    "value": {
+     "core_um": 100,
+     "length_m": "~15",
+     "type": "FV",
+     "feed": "rod microlens, f/8 -> f/4.6"
+    },
+    "unit": null,
+    "src": "FUM78",
+    "loc": "Sec. 2.2.2",
+    "quote": "The SCIENCE fibres are of 100 µm diameter FV type, each measuring approximately 15 m in length.",
+    "alternatives": [
+     {
+      "value": "f/8 -> f/4.6 microlens",
+      "src": "FUM78",
+      "loc": "Sec. 2.2.2",
+      "quote": "The microlenses re-focus the f/8 input beam to f/4.6 as required by the spectrograph design."
+     },
+     {
+      "value": "90 of 100 um core used (1.52 m design)",
+      "src": "FDR",
+      "loc": "Sec. 3.1",
+      "quote": "With a fiber of 100 µm diameter, only 90 µm of the fiber core is used due to the micro lens."
+     },
+     {
+      "value": "14 m fibres (1998)",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "The light is guided via the two bers of 14 m length"
+     },
+     {
+      "value": "f/4.5 fibre beams",
+      "src": "K98S",
+      "loc": "Abstract",
+      "quote": "converts the f/4.5 beams of the bers into f/11 beams",
+      "note": "f/4.6 everywhere else"
+     }
+    ]
+   },
+   "spectrograph_entrance_focal_ratio": {
+    "value": 11,
+    "unit": "f/# (after the F/N lens system; the app F)",
+    "src": "FDR",
+    "loc": "Ch. 3 (Optical Design)",
+    "quote": "the fiber exit is converted to the F/11 focal ratio accepted by the spectrograph via a F/N lens system",
+    "alternatives": [
+     {
+      "value": "F/4.6 fibres, F/11 collimators, F/3 camera",
+      "src": "FDR",
+      "loc": "Ch. 3",
+      "quote": "The beam of the spectrograph is 136 mm. The fiber input/output focal ratio is F/4.6, the collimators focal ratio is F/11 and that of the camera is F/3."
+     },
+     {
+      "value": "F/11",
+      "src": "FUM78",
+      "loc": "Table 1.1",
+      "quote": "Off-axis Collimators F/11, cut from one parent paraboloid"
+     },
+     {
+      "value": "f/11",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "to the f/11 focal ratio accepted by the spectrograph"
+     }
+    ],
+    "derived": "DERIVED: with D = 2.2 m and F = 11 the app maps 1\" to 2200 x 11/206.265 = 117.3 um at the slicer."
+   },
+   "fibre_image_at_F11": {
+    "value": 240,
+    "unit": "um (fibre image diameter at the slicer)",
+    "src": "KP98",
+    "loc": "Sec. 2.1",
+    "quote": "The F=N -system produces images of the bers enlarged to 240 µm at the intermediate focus.",
+    "alternatives": [
+     {
+      "value": 240,
+      "src": "FDR",
+      "loc": "Sec. 3.2",
+      "quote": "compared to the projected diameter of the fiber (240 µm)"
+     },
+     {
+      "value": 240,
+      "src": "K98S",
+      "loc": "Sec. 1",
+      "quote": "produces images of the bers enlarged to 240 µm at the inter-"
+     }
+    ],
+    "note": "Text layer: 'F=N' = F/N, 'bers' = fibers.",
+    "derived": "DERIVED: 100 um x 11/4.6 = 239 um; the 2.0\" aperture (98.1 um at f/4.6) -> 234.6 um at F/11."
+   },
+   "image_slicer": {
+    "value": {
+     "type": "two-beam two-slice modified Bowen-Walraven (Homosil quartz)",
+     "slices": 2,
+     "output_slit_um": "120 x 600 per fibre",
+     "fibre_slit_separation_mm": 0.9
+    },
+    "unit": null,
+    "src": "LSWF",
+    "loc": "Spectral Format",
+    "quote": "The image slicer output equals two slits (object + sky/external calibration) in 0.9 mm distance with a 120x600 micron aperture.",
+    "alternatives": [
+     {
+      "value": "half-moon slices: half width, 2.25 x height",
+      "src": "FDR",
+      "loc": "Sec. 3.3",
+      "quote": "It produces two slices (half moons) of the projected fiber images with half the width of the original image in the direction of dispersion and 2.25 times the original height in the crossdispersion direction."
+     },
+     {
+      "value": "halves the equivalent slit width",
+      "src": "KP98",
+      "loc": "Sec. 2.5",
+      "quote": "this device slices the circular outputs of the two object and sky bers into two 'half moons' which e ectively halves the equivalent slit width in the main dispersion direction"
+     },
+     {
+      "value": "same, FDR wording",
+      "src": "FDR",
+      "loc": "Sec. 2.2",
+      "quote": "The image slicer output equals two slits (object + sky/external calibration) in 0.9 mm distance"
+     }
+    ]
+   },
+   "entrance_width": {
+    "value": 1.0,
+    "unit": "arcsec (app entrance width: one slicer slice) [DERIVED]",
+    "src": "FDR",
+    "loc": "Ch. 3 (Optical Design)",
+    "quote": "A two beam, two-slice image slicer in the F/11 focal plane halves the width of the image of the fiber in the direction of dispersion.",
+    "is_derived": true,
+    "note": "The app's fibre convention ((sqrt(3)/2) x core = 1.73\" for the 2.0\" fibre) does not apply: the slicer output is two D-shaped half-discs, each half the fibre image wide (120 um at F/11), stacked along the slit.",
+    "derived": "DERIVED: 2.0\"/2 = 1.0\"; at D x F = 2.2 m x 11 the app maps 1.0\" to 117.3 um (FDR slicer slit 120 um = 1.023\"). Projected: 120 um x 410/1500 = 32.8 um = 2.19 px (FDR/K99 \"2.2 pixels\"). RMS-equivalent top-hat of the two mirrored half-discs of width r: 0.952 r -> 0.95\" (a single half-disc: 0.916 r). Use 1.0\"."
+   },
+   "slit_height_equivalent": {
+    "value": 5.1,
+    "unit": "arcsec (height of each sliced fibre image, app units) [DERIVED]",
+    "src": "LSWF",
+    "loc": "Spectral Format",
+    "quote": "with a 120x600 micron aperture",
+    "is_derived": true,
+    "derived": "DERIVED: 600 um / 117.3 um per arcsec (D x F = 2.2 m x 11) = 5.1\"; the object and sky images are 0.9 mm = 7.7\" apart centre to centre (16.4 px on the detector). Fibre spectra have no spatial information: this only sets the image height (10.9 px)."
+   },
+   "n_objects": {
+    "value": 2,
+    "unit": "spectra per order (object + sky or calibration fibre)",
+    "src": "ESOO",
+    "loc": "General Description",
+    "quote": "FEROS is fed by two fibres providing simultaneous spectra of OBJECT plus either SKY or one of the two CALIBRATION lamps (wavelength calibration and flat-field).",
+    "alternatives": [
+     {
+      "value": "2.2 x 10.9 px slit images, 16.4 px apart, 5.5 px gap",
+      "src": "LSWF",
+      "loc": "Spectral Format",
+      "quote": "For each order this leads to slit images on the detector with a size of 2.2x10.9 pixels and 16.4 pixels separation in crossdispersion direction leaving a sufficient fixed interorder space of 5.5 pixels for the background definition."
+     }
+    ]
+   },
+   "layout": {
+    "value": "white pupil, quasi-Littrow: slicer -> main collimator -> echelle -> main collimator -> flat folding mirror (near the intermediate spectrum) -> transfer collimator -> LF5 prism at the white pupil -> dioptric camera",
+    "unit": null,
+    "src": "FDR",
+    "loc": "Ch. 3 (Optical Design)",
+    "quote": "The fibers are re-imaged on the Echelle grating through the first collimator, the Main Collimator. Then, the light goes back to the Main Collimator and is reflected by the Folding Mirror to the second collimator, the Transfer Collimator. The entrance surface of the prism crossdisperser is located near the pupil image and the light is finally imaged by the dioptric camera on the detector.",
+    "alternatives": [
+     {
+      "value": "quasi-Littrow, white pupil",
+      "src": "FUM78",
+      "loc": "Sec. 2.1",
+      "quote": "spectrograph operates in a quasi-Littrow mode 2 in a white-pupil configuration"
+     }
+    ],
+    "note": "App mapping: f_col = main collimator (1500 mm); the transfer collimator (also 1500 mm) re-forms the 136 mm pupil at unit magnification, so the effective camera is the 410 mm dioptric camera on a 136 mm beam."
+   },
+   "collimators": {
+    "value": {
+     "type": "two off-axis paraboloid mirrors (Zerodur) cut from one parent",
+     "focal_length_mm": 1500,
+     "parent_diameter_mm": 660,
+     "parent_focal_ratio": 2.2
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 3.4",
+    "quote": "The collimators are two off-axis paraboloids in symmetrical mountings. They are segments of the same paraboloid with a focal length of 1500 mm and a diameter of 660 mm, i.e., an effective focal ratio of F/2.2.",
+    "alternatives": [
+     {
+      "value": "R = -3000 mm, conic -1 (both collimators)",
+      "src": "FDR",
+      "loc": "App. A.1 (ZEMAX system data), surfaces 10 and 16",
+      "quote": "10 STANDARD -3000 -1700 MIRROR 477.4539 -1 ... 16 STANDARD -3000 -1400 MIRROR 547.9828 -1"
+     },
+     {
+      "value": "parent f/2.2, 680 mm",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "are cut from a common parent parabolic f/2.2 mirror of 680 mm diameter"
+     }
+    ],
+    "derived": "DERIVED: |R|/2 = 1500 mm; 1500/11 = 136.4 mm beam."
+   },
+   "collimated_beam_diameter": {
+    "value": 136,
+    "unit": "mm",
+    "src": "FUM78",
+    "loc": "Table 1.1",
+    "quote": "Spectrograph Beam Size 136 mm diameter",
+    "alternatives": [
+     {
+      "value": 136,
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "The beam-size of the spectrograph is 136 mm."
+     },
+     {
+      "value": 136,
+      "src": "FDR",
+      "loc": "Ch. 3",
+      "quote": "The beam of the spectrograph is 136 mm."
+     },
+     {
+      "value": 135,
+      "src": "LSWD",
+      "loc": "Optical Layout",
+      "quote": "The beam of the spectrograph is 135 mm in diameter."
+     }
+    ],
+    "derived": "DERIVED: 1500/11 = 136.4 mm"
+   },
+   "echelle": {
+    "value": {
+     "gr_per_mm": 79,
+     "blaze_deg": 63.4,
+     "blaze_measured": "63 deg 24 arcmin",
+     "R_number": "R2",
+     "ruled_mm": "154 x 306",
+     "id": "Bausch & Lomb (Milton Roy) 35.13.44.401, contributed by ESO"
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 3.6",
+    "quote": "The R2 echelle grating with 79 lines/mm is contributed by ESO. ... the measured blaze angle is 63° 240",
+    "alternatives": [
+     {
+      "value": "R2, 79 l/mm, 63 deg 24 arcmin",
+      "src": "FUM78",
+      "loc": "Sec. 2.1",
+      "quote": "The échelle grating is of type R2 with 79 lines/mm and a measured blaze angle of 63◦ 240"
+     },
+     {
+      "value": "0.079 lines/um; tilt 63.4 deg about y",
+      "src": "FDR",
+      "loc": "App. A.1, surfaces 11-12",
+      "quote": "Tilt About Y : -63.4 ... Lines / Micron : 0.079"
+     },
+     {
+      "value": "154 x 306 mm",
+      "src": "FUM78",
+      "loc": "Table 1.1",
+      "quote": "Echelle R2, 79 lines/mm, 154 mm by 306 mm"
+     },
+     {
+      "value": "Milton Roy",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "The Milton Roy echelle grating is used in quasi-Littrow condition"
+     }
+    ],
+    "note": "Text layer: '63° 240' = 63 deg 24 arcmin (the arcminute sign is read as '0'); FDR Sec. 4.8 and App. A use 63.4.",
+    "derived": "DERIVED: tan 63.4 deg = 1.997 (R2). m lambda_b = 2 sin(63.4 deg) cos(0.6 deg)/79 mm^-1 = 22.636 um -> order 49: 461.96 nm (KP98 lambda_c 462.3 nm)."
+   },
+   "echelle_angles": {
+    "value": {
+     "theta_deg": 0,
+     "gamma_deg": 0.6
+    },
+    "unit": null,
+    "src": "KP98",
+    "loc": "Sec. 2",
+    "quote": "The Milton Roy echelle grating is used in quasi-Littrow condition with an o -Littrow angle of = 0:6°.",
+    "alternatives": [
+     {
+      "value": "Littrow at the blaze; beam folded 1.2 deg perpendicular to the dispersion",
+      "src": "FDR",
+      "loc": "Sec. 3.6",
+      "quote": "It is used at this angle in Littrow mode. The beam is reflected with an angle of 1.2° in the direction perpendicular to the dispersion."
+     },
+     {
+      "value": "blaze 63.4 about y, off-Littrow 0.6 about x",
+      "src": "FDR",
+      "loc": "Sec. 10.10",
+      "quote": "The correct alignment of the blaze angle 63:4° (y-axis), the off-Littrow angle of 0:6° (x-axis)"
+     },
+     {
+      "value": "Zemax: tilt -0.6 about X, -63.4 about Y",
+      "src": "FDR",
+      "loc": "App. A.1, surface 11",
+      "quote": "Tilt About X : -0.6 ... Tilt About Y : -63.4"
+     },
+     {
+      "value": "definition",
+      "src": "FUM78",
+      "loc": "Sec. 2.1, footnote 2",
+      "quote": "Quasi-Littrow mode, i.e. with the angle of incidence and diffraction equal but in a different plane, to maximize efficiency."
+     }
+    ],
+    "note": "Text layer: 'o -Littrow' = off-Littrow; '= 0:6°' = (Greek symbol lost) 0.6 deg, ':' being the decimal point; KP98's symbol is not the app's theta. FDR Sec. 10.10 puts it about the x-axis, perpendicular to the y-axis blaze tilt, i.e. the out-of-plane angle gamma; in the dispersion plane the grating is at the blaze angle (Littrow, theta = 0).",
+    "derived": "DERIVED: 2 gamma = 1.2 deg total (FDR); slit-image tilt tan(omega) = 2 tan(gamma) tan(delta) -> omega = 2.40 deg (see performance)."
+   },
+   "cross_disperser": {
+    "value": {
+     "type": "one LF5 prism, single pass, entrance face at the white pupil",
+     "apex_deg": 55,
+     "base_mm": 235,
+     "height_mm": 175,
+     "orientation": "minimum deviation at 462.3 nm (order 49)"
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 3.7",
+    "quote": "The crossdisperser consists of a large prism made of LF5 in PH3 quality with an apex angle of 55° working at minimum deviation.",
+    "alternatives": [
+     {
+      "value": "minimum deviation at 462.3 nm (order 49)",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "The prism is used in the minimum deviation condition for the spectrograph's central wavelength, i.e., 462:3 nm in order #49."
+     },
+     {
+      "value": "235 mm base, 175 mm high",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "prism has to be very large with a base length of 235 mm and a height of 175 mm"
+     },
+     {
+      "value": "LF5, 55 deg",
+      "src": "FUM78",
+      "loc": "Table 1.1",
+      "quote": "Crossdisperser Prism LF5 glass, 55o : apex angle"
+     },
+     {
+      "value": "LF5, homogeneity H4",
+      "src": "KP98",
+      "loc": "Sec. 2",
+      "quote": "from LF5 glass with low stress-birefringence and homogeneity class H4"
+     }
+    ],
+    "note": "LF5 is not on the app list: SCHOTT LF5 coefficients in the glass section. No source names the glass maker."
+   },
+   "central_wavelength": {
+    "value": 462.3,
+    "unit": "nm (order 49; prism minimum deviation and detector centre)",
+    "src": "KP98",
+    "loc": "Sec. 2",
+    "quote": "The prism is used in the minimum deviation condition for the spectrograph's central wavelength, i.e., 462:3 nm in order #49.",
+    "alternatives": [
+     {
+      "value": "Zemax configuration 5: order -49, 0.462 um",
+      "src": "FDR",
+      "loc": "App. A.1, multi-configuration data",
+      "quote": "Param 2 12 : -49 ... Wavelength 1 : 0.462"
+     }
+    ],
+    "note": "Text layer: '462:3' = 462.3.",
+    "derived": "DERIVED: blaze of order 49 = 461.96 nm. With LF5 at minimum deviation for 462.3 nm (app model) the midpoint of orders 25 and 63 lies 27 px from 462.3 nm in cross-dispersion: order 49 is at the detector centre to ~1%."
+   },
+   "camera": {
+    "value": {
+     "type": "dioptric, 7 lenses in 5 groups (CaF2 front lens; field lens = dewar window with a cylindrical back surface)",
+     "focal_length_mm": 410,
+     "focal_ratio": 3.0,
+     "entrance_aperture_mm": 155,
+     "field_diameter_mm": 68.7
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 3.8.2",
+    "quote": "Focal length: 410 mm ... Entrance aperture: 155 mm ... Effective focal ratio: 3.0 ... Field diameter: 68.7 mm, 9.6",
+    "alternatives": [
+     {
+      "value": "f/3.0, 410 mm, 69 mm field, 178 mm clear aperture",
+      "src": "KP98",
+      "loc": "Sec. 2.3",
+      "quote": "It is an e ective f/3.0 system with a focal length of 410 mm, a eld diameter of 69 mm, and a clear aperture of 178 mm."
+     },
+     {
+      "value": "410 \"nm\" [sic]",
+      "src": "FUM78",
+      "loc": "Table 1.1",
+      "quote": "Focal Length 410 nm"
+     },
+     {
+      "value": "7 lenses in 5 groups (B. Delabre)",
+      "src": "FDR",
+      "loc": "Sec. 3.8.1",
+      "quote": "designed by B. Delabre at ESO and was reduced to 7 lenses in 5 groups"
+     }
+    ],
+    "derived": "DERIVED: 410/136 = f/3.01; the 1:1 transfer collimator keeps the 136 mm pupil, so f_cam = 410 mm in the app."
+   },
+   "detector": {
+    "value": {
+     "type": "EEV 44-82, thinned, back-illuminated CCD",
+     "format": "2048 x 4096",
+     "pixel_um": 15
+    },
+    "unit": null,
+    "src": "FUM78",
+    "loc": "Sec. 2.4 + Table 2.1",
+    "quote": "one EEV CCD (EEV 44-82). ... Number of pixels 2048 × 4096 ... Pixel size 15 µm",
+    "alternatives": [
+     {
+      "value": "2k x 4k, 15 um, thinned EEV",
+      "src": "K99",
+      "loc": "CCD System",
+      "quote": "The thinned and back-illuminated 2k × 4k 15µm pixel EEV CCD"
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "4096-px axis = echelle dispersion; 2048-px axis = cross-dispersion (Nx = 4096, Ny = 2048)",
+    "unit": null,
+    "src": "FDR",
+    "loc": "Ch. 3",
+    "quote": "aligned with the long side in direction of dispersion",
+    "alternatives": [
+     {
+      "value": "dispersion along the 4k columns",
+      "src": "K99",
+      "loc": "CCD System",
+      "quote": "the main dispersion direction along the 4k CCD columns"
+     },
+     {
+      "value": "Zemax image plane 61.44 x 30.72 mm",
+      "src": "FDR",
+      "loc": "App. A.1, surface IMA",
+      "quote": "X Half Width : 30.72 ... Y Half Width : 15.36"
+     },
+     {
+      "value": "\"shorter dimension\"",
+      "src": "FUM78",
+      "loc": "Sec. 2.1",
+      "quote": "The direction of the spectral dispersion (= echelle orders) is along the shorter dimension of the CCD.",
+      "note": "contradicted by FDR, K99 and the DERIVED order lengths (see Conflicts)"
+     }
+    ],
+    "derived": "DERIVED: Littrow FSR lengths 2 tan(delta) f_cam/(m cos gamma): order 25 = 4367 px, 26 = 4199 px (both > 4096: the two lost ranges 853.4-854.1 and 886.2-887.5 nm), 27 = 4043 px, 63 = 1733 px; along a 2048-px axis most of every order would be lost."
+   },
+   "binning": {
+    "value": "1x1 (default) or 2x2",
+    "unit": null,
+    "src": "FUM78",
+    "loc": "Sec. 2.4",
+    "quote": "Both 1x1 and 2x2 binning are possible in both read out modes. The default readout mode is"
+   },
+   "orders": {
+    "value": {
+     "min": 25,
+     "max": 63,
+     "count": 39
+    },
+    "unit": "echelle order m",
+    "src": "FUM77",
+    "loc": "Sec. 4 (calibration) footnotes 3-5",
+    "quote": "Orders 35 to 58. ... Orders 59 to 63. ... Orders 25 to 34.",
+    "alternatives": [
+     {
+      "value": "39 orders",
+      "src": "FUM78",
+      "loc": "Sec. 1.3",
+      "quote": "over 39 ećhelle orders"
+     },
+     {
+      "value": "DRS order 30 = m 34",
+      "src": "FUM78",
+      "loc": "Sec. 2.8.1",
+      "quote": "Order number 30≡m=34"
+     },
+     {
+      "value": "39 orders (ESO 1.52 m)",
+      "src": "K99",
+      "loc": "Table 1",
+      "quote": "360 – 920 nm (39 orders, 2 fibers)"
+     },
+     {
+      "value": "40 orders (design)",
+      "src": "FDR",
+      "loc": "Table 2.1",
+      "quote": "(40 orders, 2 fibers)"
+     },
+     {
+      "value": "bluest order 63",
+      "src": "KP98",
+      "loc": "Fig. 7 caption",
+      "quote": "blue is to the right with the extreme order 63"
+     }
+    ],
+    "note": "Footnotes to '380 nm to 650 nm', 'Below 380 nm' and 'Above ~650 nm': true orders m (m = 35: blaze 647 nm; m = 58: 390 nm DERIVED). The DRS numbers orders n = 64 - m (FUM78: 'Order number 30≡m=34')."
+   }
+  },
+  "performance": {
+   "R": {
+    "value": 48000,
+    "unit": "lambda/dlambda (2.2 px FWHM)",
+    "src": "FUM78",
+    "loc": "Table 1.1 + App. A.6.4",
+    "quote": "R = 48000 ... A FWHM of 2.2 pixels corresponds to a resolving power of R=48,000.",
+    "alternatives": [
+     {
+      "value": "48,000 (2.2 pixels)",
+      "src": "K99",
+      "loc": "Table 1",
+      "quote": "Resolving Power λ/∆λ = 48,000 (2.2 pixels)"
+     },
+     {
+      "value": "2.2 pixels of 15 um",
+      "src": "K99",
+      "loc": "Spectral Resolution",
+      "quote": "The measured spectral resolving power of FEROS is R = 48,000 corresponding to 2.2 pixels of 15 µm."
+     },
+     {
+      "value": "< 10% degradation",
+      "src": "FUM78",
+      "loc": "Sec. 2.7",
+      "quote": "A two-slice image slicer results in a resolving power of 48,000 with a degradation less than 10% over the whole wavelength range."
+     },
+     {
+      "value": "< 15% in the corners",
+      "src": "K99",
+      "loc": "Spectral Resolution",
+      "quote": "The FWHMs of the lines show a maximum degradation of < 15% in the extreme corners of the CCD."
+     },
+     {
+      "value": "slit = 2.2 px at field centre (design)",
+      "src": "KP98",
+      "loc": "Sec. 2.4",
+      "quote": "at the eld center the slit width equals 2.2 pixels"
+     },
+     {
+      "value": "R=48000",
+      "src": "ESOF",
+      "loc": "Summary",
+      "quote": "high resolution (R=48000)"
+     }
+    ],
+    "derived": "DERIVED: Littrow velocity per pixel c x 0.015 x cos(0.6 deg)/(2 tan 63.4 deg x 410) = 2.746 km/s; 2.2 px -> 6.04 km/s -> R = 49,600. Geometric slit: R = 2 tan(delta) f_col/w = 2 x 1.997 x 1500/0.120 = 49,900 (51,100 for the app's 1.0\" = 117.3 um)."
+   },
+   "dispersion_per_pixel": {
+    "value": 2.746,
+    "unit": "km/s per pixel (= lambda x 9.16e-6 per px: 0.042 A/px at 462 nm, 0.083 A/px at 905 nm) [DERIVED]",
+    "src": "FDR",
+    "loc": "Secs. 3.6 + 3.8.2",
+    "quote": "the measured blaze angle is 63° 240 ... Focal length: 410 mm",
+    "is_derived": true,
+    "derived": "DERIVED: c x p cos(gamma)/(2 tan(delta) f_cam) = 299792.458 x 0.015 x 0.99995/(2 x 1.99695 x 410). No published A/px found."
+   },
+   "wavelength_coverage": {
+    "value": "356-920 (gaps 853.4-854.1 and 886.2-887.5 nm)",
+    "unit": "nm",
+    "src": "FUM78",
+    "loc": "Table 1.1 + Sec. 1.3 footnote 1",
+    "quote": "356 - 920 nm (39 orders, 2 fibres) ... The two spectral ranges 853.4–854.1 nm and 886.2–887.5 nm are lost due to non overlap of the spectral orders.",
+    "alternatives": [
+     {
+      "value": "~350-~920",
+      "src": "ESOO",
+      "loc": "General Description",
+      "quote": "almost complete spectral coverage from ~350nm to ~920nm"
+     },
+     {
+      "value": "360-920 (1.52 m)",
+      "src": "K99",
+      "loc": "Table 1",
+      "quote": "360 – 920 nm (39 orders, 2 fibers)"
+     },
+     {
+      "value": "3680-8550 A complete, to 9200 A with gaps (design)",
+      "src": "FDR",
+      "loc": "Sec. 2.2",
+      "quote": "The spectral range from 3 680 to 8 550 Å is available in one exposure for the object and sky/calibration spectra. The wavelength range above 8 550 Å up to 9 200 Å is in principle also available on the detector, but with small gaps in the spectral coverage."
+     },
+     {
+      "value": "370-860 (design)",
+      "src": "KP98",
+      "loc": "Table 1",
+      "quote": "370 860 nm (40 orders, 2 bers)"
+     }
+    ],
+    "derived": "DERIVED: FSR of orders 25-63 = 356.4-923.5 nm (blaze +/- lambda/2m)."
+   },
+   "slit_image_on_detector": {
+    "value": {
+     "width_px": 2.2,
+     "height_px": 10.9,
+     "object_sky_separation_px": 16.4,
+     "min_interorder_gap_px": 5.5
+    },
+    "unit": "pixels",
+    "src": "LSWF",
+    "loc": "Spectral Format",
+    "quote": "For each order this leads to slit images on the detector with a size of 2.2x10.9 pixels and 16.4 pixels separation in crossdispersion direction leaving a sufficient fixed interorder space of 5.5 pixels for the background definition.",
+    "derived": "DERIVED: 120 um x 410/1500 = 32.8 um = 2.19 px; 600 um -> 10.9 px; 0.9 mm -> 16.4 px (no prism anamorphism applied)."
+   },
+   "order_separation": {
+    "value": {
+     "red": "~30",
+     "blue": "~100"
+    },
+    "unit": "pixels between adjacent orders",
+    "src": "LSWF",
+    "loc": "Spectral Format",
+    "quote": "The distance between two orders is smallest in the red with about 30 pixels and increases to about 100 pixels in the blue.",
+    "alternatives": [
+     {
+      "value": "30 px minimum (red)",
+      "src": "KP98",
+      "loc": "Sec. 2.5",
+      "quote": "The prism crossdisperser provides a minimum order separation of 30 pixels in the extreme red orders"
+     },
+     {
+      "value": "30 px requirement",
+      "src": "FDR",
+      "loc": "Sec. 3.7",
+      "quote": "the prism dimensions get very large for the required order separation of 30 pixels between the reddest orders"
+     }
+    ],
+    "derived": "DERIVED (LF5 55 deg at minimum deviation for 462.3 nm, SCHOTT LF5, app model): order-centre spacing 29.3 px (25-26), 29.7 (26-27), 36.0 (34-35), 57.2 (49-50), 90.0 px (62-63); orders 25-63 span 29.5 mm = 1968 px of 2048."
+   },
+   "slit_tilt": {
+    "value": 2.4,
+    "unit": "deg (slit-image rotation from the off-Littrow angle)",
+    "src": "KP98",
+    "loc": "Fig. 7 caption",
+    "quote": "The whole echelle spectrum is rotated counter-clockwise by 2:4° to align the slit image with the CCD rows.",
+    "alternatives": [
+     {
+      "value": "2.4 deg",
+      "src": "FDR",
+      "loc": "Sec. 4.10.3",
+      "quote": "slicer will be rotated by ! = 2:4"
+     }
+    ],
+    "derived": "DERIVED: tan(omega) = 2 tan(gamma) tan(delta) = 2 x tan(0.6 deg) x 1.997 = 0.0418 -> omega = 2.40 deg."
+   },
+   "order_blaze_wavelengths": {
+    "value": {
+     "25": 905.4,
+     "26": 870.6,
+     "27": 838.4,
+     "28": 808.4,
+     "29": 780.5,
+     "30": 754.5,
+     "31": 730.2,
+     "32": 707.4,
+     "33": 685.9,
+     "34": 665.8,
+     "35": 646.7,
+     "36": 628.8,
+     "37": 611.8,
+     "38": 595.7,
+     "39": 580.4,
+     "40": 565.9,
+     "41": 552.1,
+     "42": 538.9,
+     "43": 526.4,
+     "44": 514.4,
+     "45": 503.0,
+     "46": 492.1,
+     "47": 481.6,
+     "48": 471.6,
+     "49": 462.0,
+     "50": 452.7,
+     "51": 443.8,
+     "52": 435.3,
+     "53": 427.1,
+     "54": 419.2,
+     "55": 411.6,
+     "56": 404.2,
+     "57": 397.1,
+     "58": 390.3,
+     "59": 383.7,
+     "60": 377.3,
+     "61": 371.1,
+     "62": 365.1,
+     "63": 359.3
+    },
+    "unit": "nm (blaze = 22.636 um / m)",
+    "src": "FDR",
+    "loc": "Sec. 3.13 (spot diagrams: centre and 50% points)",
+    "quote": "Order 27 8240 Å 8390 Å 8531 Å ... Order 49 4577 Å 4623 Å 4671 Å ... Order 61 3684 Å 3714 Å 3745 Å",
+    "is_derived": true,
+    "derived": "DERIVED: lambda_b = 2 sin(63.4 deg) cos(0.6 deg)/(79 mm^-1 x m) = 22635.6/m nm: orders 27/49/61 -> 838.4/462.0/371.1 nm vs tabulated centres 839.0/462.3/371.4 nm (< 0.1%)."
+   }
+  },
+  "not_found": [
+   "Published dispersion per pixel (A/px) or per-order wavelength tables for the 2.2-m era (the DRS BLAZE.tbl and the ETC tables were not obtained); DERIVED 2.746 km/s/px.",
+   "As-built prism incidence angle (design: minimum deviation at 462.3 nm) and the LF5 glass maker / melt data (SCHOTT LF5 assumed).",
+   "A measured R map (only \"< 10%\" and \"< 15% in the corners\" degradation statements).",
+   "The fraction of the 100 um fibre core illuminated at the 2.2 m (FDR: 90 um at the 1.52 m).",
+   "Kaufer et al. 1997, The Messenger 89, 1 (superseded by FDR and KP98; not fetched)."
+  ],
+  "conflicts": [
+   "Beam: 136 mm (FDR, KP98, FUM78) vs 135 mm (LSWD); 1500/11 = 136.4 DERIVED.",
+   "Parent paraboloid: 660 mm diameter (FDR) vs 680 mm (KP98); both f/2.2.",
+   "Camera aperture: 155 mm entrance aperture (FDR) vs 178 mm clear aperture (KP98); focal length \"410 nm\" [sic] in FUM78 Table 1.1.",
+   "Dispersion axis: long (4096-px) side (FDR, K99, FDR App. A image plane, DERIVED FSR lengths) vs \"along the shorter dimension of the CCD\" (FUM78).",
+   "Telescope beam at the fibre head: f/8 (FUM78, E22) vs \"f/15\" (FUM77, FUM14 -- left over from the ESO 1.52 m).",
+   "Entrance aperture: 2.0\" (FUM78, ESOO) vs 1.6\" (2002-2003 ball lenses) vs 2.7\" (ESO 1.52 m: K99, FDR, KP98; still in FUM14 Table 1.1).",
+   "Fibre output focal ratio: f/4.6 (FDR, KP98, FUM78) vs f/4.5 (K98S abstract).",
+   "Coverage: 356-920 nm (FUM78) vs ~350-~920 (ESOO) vs 360-920 (K99) vs 370-860 nm / 3700-8600 A (KP98, FDR design).",
+   "Number of orders: 39 (K99, FUM78, ESOO) vs 40 (FDR, KP98 design) vs \"35 orders\" (LSWF schematic).",
+   "KP98 Fig. 7 caption: \"extreme order 32 with lambda_c = 985 nm\" -- inconsistent with m lambda = 22.64 um (order 32 -> 707 nm; 985 nm -> order 23).",
+   "Prism glass quality: \"PH3 quality\" (FDR) vs \"homogeneity class H4\" (KP98).",
+   "R degradation: < 10% (FUM78; KP98 \"at 2/3 of the maximum field\") vs < 15% in the extreme corners (K99).",
+   "Fibre length: about 12 m (FDR) vs 14 m (KP98) vs ~15 m (FUM78, fibres replaced October 2003)."
+  ],
+  "notes": [
+   "FDR, KP98 and K99 describe FEROS at the ESO 1.52 m (f/15, 2.7\" apertures, 50\" object-sky separation). In October 2002 the spectrograph moved unchanged to the MPG/ESO 2.2 m; only the telescope feed changed (f/8 beam, rod microlenses to f/4.6, 2.0\" apertures 2.9 arcmin apart; FUM78).",
+   "Consistency checks (DERIVED): slit image 2.19 x 10.9 px and object-sky 16.4 px reproduce the FDR/LSWF format; LF5 55 deg at minimum deviation gives 29.3-90.0 px order spacings (published ~30 to ~100) and a 1968-px order span on the 2048-px axis; Littrow FSR > 4096 px for orders 25-26 explains the two lost ranges; R = 49,600 for 2.2 px vs 48,000 measured.",
+   "The off-Littrow angle gamma = 0.6 deg tilts the slit image by 2.4 deg; the detector is rotated to align it with the rows (FDR Sec. 4.10.3; KP98 Fig. 7).",
+   "Camera field: 68.7 mm diameter (9.6 deg) vs the 61.4 x 30.7 mm CCD (diagonal 68.7 mm DERIVED)."
+  ]
+ },
+ "glass": {
+  "formula_forms": {
+   "Sellmeier_SCHOTT": {
+    "form": "n^2(lambda) - 1 = B1 lambda^2/(lambda^2 - C1) + B2 lambda^2/(lambda^2 - C2) + B3 lambda^2/(lambda^2 - C3)",
+    "wavelength_unit": "um (C in um^2); valid 'from the near UV to 2.3 um'",
+    "src": "SCOL",
+    "loc": "Explanations page ('Constants of the dispersion formula')",
+    "quote": "the refractive indices for any wavelength within the range from the near UV to 2.3 µm can be calculated with the help of the constants B1, B2, B3, and C1,C2,C3. ... When calculating the refractive index using the Sellmeier coefficients from the SCHOTT data sheets, the wavelength λ needs to be entered in units of µm."
+   },
+   "Sellmeier_CHARMS_T": {
+    "form": "n^2(lambda,T) - 1 = sum_{i=1..3} S_i(T) lambda^2/(lambda^2 - lambda_i(T)^2), S_i(T) = sum_{j=0..4} S_ij T^j, lambda_i(T) = sum_{j=0..4} lambda_ij T^j; at fixed T this is the app form with B_i = S_i(T), C_i = lambda_i(T)^2",
+    "wavelength_unit": "um, T in K; absolute index",
+    "src": "LFK05",
+    "loc": "Sec. 3 (worked example)",
+    "quote": "Si (T) = ∑ Sij ⋅ T j ... λ i (T) = ∑ λ ij ⋅ T j"
+   }
+  },
+  "glasses": {
+   "SCHOTT_LF5": {
+    "used_in": [
+     "FEROS cross-disperser (one 55 deg prism, single pass, ~16 C spectrograph room)"
+    ],
+    "formula": "Sellmeier_SCHOTT",
+    "coefficients": {
+     "B1": 1.28035628,
+     "B2": 0.163505973,
+     "B3": 0.893930112,
+     "C1": 0.009298544,
+     "C2": 0.0449135769,
+     "C3": 110.493685
+    },
+    "catalog": {
+     "code": "581409.322",
+     "nd": 1.58144,
+     "vd": 40.85,
+     "ne": 1.58482,
+     "nF-nC": 0.014233,
+     "dn/dT_D0": -2.27e-06,
+     "D1": 9.71e-09,
+     "D2": -2.83e-11,
+     "E0": 8.36e-07,
+     "E1": 9.95e-10,
+     "lambda_TK_um": 0.228,
+     "tabulated_range_nm": "334.1-2325.4"
+    },
+    "src": "SCOL",
+    "loc": "LF5 datasheet page, 'Constants of Dispersion Formula' (header 'As of 01-Dec-2023'; 'lead containing glass type')",
+    "quote": "LF5 nd = 1.58144 nd = 40.85 nF - nC = 0.014233 ... B1 1.280356280 ... B2 0.163505973 ... B3 0.893930112 ... C1 0.009298544 ... C2 0.0449135769 ... C3 110.49368500",
+    "note": "FEROS documents say only 'LF5' (FDR 'LF5 in PH3 quality'; KP98 'LF5 glass ... homogeneity class H4'); no maker named. SCHOTT LF5 (the classic lead glass, still catalogued) is adopted; LF5HTi has the same nd (vd 40.89). Coefficients reproduce the datasheet indices to <= 1e-5 from 365 to 2325 nm and +3e-5 at 334.1 nm (DERIVED); FEROS works at 350-920 nm. App range suggestion: [0.334, 2.325] um."
+   },
+   "Infrasil301_CHARMS_100K": {
+    "used_in": [
+     "FIRE cross-disperser prisms P1 (42.6 deg) and P2 (28.1 deg, double pass), camera field flattener C4"
+    ],
+    "formula": "Sellmeier_CHARMS_T",
+    "coefficients": {
+     "T_K": 100,
+     "B1": 0.107455844,
+     "B2": 0.994542591,
+     "B3": 0.885212634,
+     "C1": 5.56819825e-06,
+     "C2": 0.00880583757,
+     "C3": 97.1265212
+    },
+    "catalog": {
+     "validity": "35 K <= T <= 300 K; 0.50 um <= lambda <= 3.6 um",
+     "n(1.0um,100K)_table": 1.44969,
+     "n(1.0um,100K)_fit": 1.4497
+    },
+    "src": "LFM08",
+    "loc": "Table 10 (temperature-dependent Sellmeier coefficients), evaluated at T = 100 K; Table 6 (indices)",
+    "quote": "Coefficients for the temperature dependent Sellmeier equation for Infrasil 301 35 K ≤ T ≤ 300 K; 0.50 microns ≤ λ ≤ 3.6 microns",
+    "note": "B_i = S_i(100 K), C_i = lambda_i(100 K)^2 (DERIVED from the LFM08 Table 10 matrix, same matrix as round-2 key Infrasil301_CHARMS_T). n(100 K) - n(105 K) = -1.8e-5 to -1.9e-5 over 0.55-2.51 um: the app's 'Infrasil-105K' is an adequate stand-in. n(100 K): 1.45225 (0.82 um), 1.44678 (1.25), 1.43742 (2.0), 1.42898 (2.51 um). App range [0.50, 3.6] um."
+   },
+   "ZnSe_CHARMS_100K": {
+    "used_in": [
+     "FIRE cross-disperser prisms P3 (21.81 deg, double pass) and P4 (21.81 deg, single pass)"
+    ],
+    "formula": "Sellmeier_CHARMS_T",
+    "coefficients": {
+     "T_K": 100,
+     "B1": 4.426057,
+     "B2": 0.4486181,
+     "B3": 2.624776,
+     "C1": 0.0397866927,
+     "C2": 0.146798252,
+     "C3": 2074.16813
+    },
+    "catalog": {
+     "validity": "20 K <= T <= 300 K; 0.55 um <= lambda <= 5.6 um",
+     "n(1.0um,100K)_table": 2.47668,
+     "n(1.0um,100K)_fit": 2.47669
+    },
+    "src": "LFK05",
+    "loc": "Table 13 (temperature-dependent Sellmeier coefficients), evaluated at T = 100 K; Table 10 (indices)",
+    "quote": "Coefficients for the temperature dependent Sellmeier equation for ZnSe 20 K ≤ T ≤ 300 K; 0.55 µm ≤ λ ≤ 5.6 µm",
+    "note": "B_i = S_i(100 K), C_i = lambda_i(100 K)^2 (DERIVED from the LFK05 Table 13 matrix = round-2 key ZnSe_CHARMS_T). n(100 K) - n(105 K) = -3.1e-4 (0.82 um) to -2.5e-4 (2.0-2.51 um); the dispersion n(0.82) - n(2.40) differs by 7e-5 (0.1%). n(100 K): 2.50549 (0.82 um), 2.45660 (1.25), 2.43540 (2.0), 2.43013 (2.51 um). App range [0.55, 5.6] um."
+   }
+  },
+  "checks": [
+   "LF5 (SCOL): coefficients reproduce the datasheet indices nd 1.58144, ne 1.58482, nF 1.59146, nC 1.57723, ng 1.59964, nh 1.60668, ni 1.61926 and n(852.1) 1.57014, n(1060.0) 1.56594, n(1529.6) 1.55975, n(2325.4) 1.54966 to <= 1e-5; n(334.1) 1.63380 to +3e-5.",
+   "Infrasil 301 at 100 K: n(1.0 um) = 1.44970 vs LFM08 Table 6 1.44969; the round-2 105 K evaluation of the same matrix reproduces the app's Infrasil-105K B/C to 2e-9 (relative).",
+   "ZnSe at 100 K: n(1.0 um) = 2.47669 vs LFK05 Table 10 2.47668; the 105 K evaluation reproduces the app's ZnSe-105K B/C to 2e-9.",
+   "The CHARMS coefficient matrices (round-2 JSON) were re-checked against the text of the LFK05/LFM08 copies saved under rawdata/presets/fire/.",
+   "Check script kept outside the project (scratchpad)."
+  ],
+  "not_found": [
+   "The maker and melt data of the FEROS LF5 prism blank (SCHOTT catalogue LF5 assumed).",
+   "FIRE's as-run prism temperature beyond '90-100 K' (100 K design value used).",
+   "FIRE camera glasses (CaF2, S-FTM-16) and the FEROS camera glasses: not needed by the app (ideal camera)."
+  ]
+ }
+}

@@ -1,0 +1,1205 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 5 (VLT/ESPRESSO, singleHR blue and red arms; singleUHR and multiMR variants)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json (round 1), data/presets_sources_2.json (round 2), data/presets_sources_3.json (round 3), data/round4/*.json (round 4); same structure; human-readable twin data/round5/espresso.md. Key ESOUT is a byte-identical re-save of the round-2 file under rawdata/presets/espresso/. New key 'app_presets' under 'espresso' collects the DERIVED app-input numbers of the recommended presets (every one is traced to params/notes).",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). note = context or caveat. Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text / ADS JSON abstract; degree glyphs, primes, micro signs, ligatures, dashes and table bars normalised; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; a piece also passes if it matches with all whitespace removed."
+ },
+ "sources": {
+  "EP21": {
+   "cite": "Pepe, F., Cristiani, S., Rebolo, R., Santos, N. C., Dekker, H., Cabral, A., et al. 2021, A&A 645, A96, \"ESPRESSO@VLT -- On-sky performance and first results\", arXiv:2010.00316v1 (A&A proofs manuscript, 26 pp.)",
+   "file": "rawdata/presets/espresso/Pepe2021_AA645_A96_ESPRESSO_arXiv2010.00316.pdf",
+   "url": "https://arxiv.org/pdf/2010.00316"
+  },
+  "EP14": {
+   "cite": "Pepe, F., Molaro, P., Cristiani, S., Rebolo, R., Santos, N. C., Dekker, H., et al. 2014, Astron. Nachr. 335, 8, \"ESPRESSO: The next European exoplanet hunter\", arXiv:1401.5918v1",
+   "file": "rawdata/presets/espresso/Pepe2014_AN335_8_ESPRESSO_arXiv1401.5918.pdf",
+   "url": "https://arxiv.org/pdf/1401.5918"
+  },
+  "EP13": {
+   "cite": "Pepe, F., Cristiani, S., Rebolo, R., et al. 2013, The Messenger 153, 6, \"ESPRESSO -- An Echelle SPectrograph for Rocky Exoplanets Search and Stable Spectroscopic Observations\" (ESO PDF of Messenger 153 pp. 6-16)",
+   "file": "rawdata/presets/espresso/Pepe2013_Messenger153_6_ESPRESSO.pdf",
+   "url": "http://www.eso.org/sci/publications/messenger/archive/no.153-sep13/messenger-no153-6-16.pdf"
+  },
+  "EP10": {
+   "cite": "Pepe, F. A., Cristiani, S., Rebolo Lopez, R., et al. 2010, Proc. SPIE 7735, 77350F, \"ESPRESSO: the Echelle spectrograph for rocky exoplanets and stable spectroscopic observations\" (SPIE PDF, download stamp 02 Nov 2010; copy hosted in P. MacQueen's UT Austin 'Instrumentation papers' folder) -- 2010 pre-PDR design",
+   "file": "rawdata/presets/espresso/Pepe2010_SPIE7735_ESPRESSO_UTAustin-copy.pdf",
+   "url": "http://www.as.utexas.edu/~pjm/Instrumentation%20papers/ESPRESSO/Pepe%20SPIE%207735%20-%20ESPRESSO.pdf"
+  },
+  "EM14": {
+   "cite": "Megevand, D., Zerbi, F. M., Di Marcantonio, P., Cabral, A., Riva, M., et al. 2014, Proc. SPIE 9147, 91471H, \"ESPRESSO, the radial velocity machine for the VLT\" (SPIE PDF, download stamp 01/09/2015; UT Austin copy)",
+   "file": "rawdata/presets/espresso/Megevand2014_SPIE9147_91471H_ESPRESSO_general_UTAustin-copy.pdf",
+   "url": "http://www.as.utexas.edu/~pjm/Instrumentation%20papers/ESPRESSO/ESPRESSO%20SPIE%202014%2091471H%20-%20general.pdf"
+  },
+  "ER14": {
+   "cite": "Riva, M., Conconi, P., Moschetti, M., Dell'Agostino, S., Genoni, M., Aliverti, M., et al. 2014, Proc. SPIE 9147, 91477D, \"APSU @ ESPRESSO: final design towards the integration\" (SPIE PDF, download stamp 01/09/2015; UT Austin copy; the text layer of the figures is partly OCR-like)",
+   "file": "rawdata/presets/espresso/Riva2014_SPIE9147_91477D_APSU_final_design_UTAustin-copy.pdf",
+   "url": "http://www.as.utexas.edu/~pjm/Instrumentation%20papers/ESPRESSO/ESPRESSO%20SPIE%202014%2091477D%20-%20integration.pdf"
+  },
+  "EST14": {
+   "cite": "Santana Tschudi, S., Fragoso, A., Amate, M., Rebolo, R., Megevand, D., Zerbi, F. M., Pepe, F. 2014, Proc. SPIE 9151, 915153, \"Design of the opto-mechanical mounts of the ESPRESSO Spectrograph\" (SPIE PDF, download stamp 01/09/2015; UT Austin copy)",
+   "file": "rawdata/presets/espresso/SantanaTschudi2014_SPIE9151_915153_ESPRESSO_mounts_UTAustin-copy.pdf",
+   "url": "http://www.as.utexas.edu/~pjm/Instrumentation%20papers/ESPRESSO/ESPRESSO%20SPIE%202014%20915153%20-%20mounts.pdf"
+  },
+  "EGH18": {
+   "cite": "Gonzalez Hernandez, J. I., Pepe, F., Molaro, P., Santos, N. 2018, in Handbook of Exoplanets (Springer), \"ESPRESSO on VLT: An Instrument for Exoplanet Research\", arXiv:1711.05250v2 (revised 30 Jan 2024)",
+   "file": "rawdata/presets/espresso/arXiv1711.05250_GonzalezHernandez2018_ESPRESSO_on_VLT.pdf",
+   "url": "https://arxiv.org/pdf/1711.05250"
+  },
+  "EUM": {
+   "cite": "ESO, ESPRESSO User Manual, VLT-MAN-ESO-319963-666 (file ESPRESSO_User_Manual_P117.pdf; cover 'Issue 111.1, Date 22/03/2023' but change record runs to v2.14, 2026/04/24; PDF created 2026-05-05; 55 pp.) -- prepared by M. Jones and E. Sedaghati",
+   "file": "rawdata/presets/espresso/ESPRESSO_User_Manual_P117.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/espresso/ESPRESSO_User_Manual_P117.pdf"
+  },
+  "ES21": {
+   "cite": "Schmidt, T. M., Molaro, P., Murphy, M. T., Lovis, C., Cupani, G., et al. 2021, A&A 646, A144, \"Fundamental physics with Espresso: Towards an accurate wavelength calibration for a precision test of the fine-structure constant\", arXiv:2011.13963v1",
+   "file": "rawdata/presets/espresso/Schmidt2021_AA646_A144_ESPRESSO_wavecal_arXiv2011.13963.pdf",
+   "url": "https://arxiv.org/pdf/2011.13963"
+  },
+  "ESB24": {
+   "cite": "Schmidt, T. M., Bouchy, F. 2024, MNRAS 530, 1252, \"Characterization of the ESPRESSO Line-Spread Function and Improvement of the Wavelength Calibration Accuracy\", arXiv:2404.05283v1",
+   "file": "rawdata/presets/espresso/SchmidtBouchy2024_MNRAS530_1252_ESPRESSO_LSF_arXiv2404.05283.pdf",
+   "url": "https://arxiv.org/pdf/2404.05283"
+  },
+  "EARNS": {
+   "cite": "Arns, J. A. 2016, Proc. SPIE 9908, 990861, \"Performance characteristics of two volume phase holographic grisms produced for the ESPRESSO spectrograph\" -- full text paywalled; ABSTRACT ONLY, saved as the NASA ADS API record (JSON, fetched 2026-10-17)",
+   "file": "rawdata/presets/espresso/ADS_API_abstract_2016SPIE.9908E..61A.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:2016SPIE.9908E..61A (doi:10.1117/12.2231256)"
+  },
+  "ELIZ": {
+   "cite": "Lizon, J. L., Dekker, H., Manescau, A., et al. 2018, Proc. SPIE 10701, 107012P, \"A large mosaic echelle grating for ESPRESSO spectrograph\" -- full text paywalled; ABSTRACT ONLY (NASA ADS API record, JSON, fetched 2026-10-17)",
+   "file": "rawdata/presets/espresso/ADS_API_abstract_2018SPIE10701E..2PL.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:2018SPIE10701E..2PL (doi:10.1117/12.2312435)"
+  },
+  "ESPA12": {
+   "cite": "Spano, P., Delabre, B., Dekker, H., et al. 2012, Proc. SPIE 8446, 84467V, \"Very high-resolution spectroscopy: the ESPRESSO optical design\" -- full text paywalled; ABSTRACT ONLY (NASA ADS API record, JSON, fetched 2026-10-17)",
+   "file": "rawdata/presets/espresso/ADS_API_abstract_2012SPIE.8446E..7VS.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query?q=bibcode:2012SPIE.8446E..7VS (doi:10.1117/12.925947)"
+  },
+  "EWEBO": {
+   "cite": "ESO, ESPRESSO 'Overview' web page (fetched 2026-10-17)",
+   "file": "rawdata/presets/espresso/eso_espresso_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/espresso/overview.html"
+  },
+  "EWEBI": {
+   "cite": "ESO, ESPRESSO 'Instrument Description' web page (footer: Last Update 17.03.20; fetched 2026-10-17)",
+   "file": "rawdata/presets/espresso/eso_espresso_inst.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/espresso/inst.html"
+  },
+  "ESOUT": {
+   "cite": "ESO, \"The VLT 8.2-meter Unit Telescopes\" overview web page (footer Last Update 05.01.23; fetched 2026-10-17; byte-identical to the round-2 copy under rawdata/presets/xshooter/)",
+   "file": "rawdata/presets/espresso/eso_paranal_ut_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut.html"
+  }
+ },
+ "espresso": {
+  "title": "VLT / ESPRESSO (fibre-fed, vacuum, white-pupil R4 echelle with an anamorphic pupil slicer; dichroic to blue/red arms with VPH-grism cross-dispersers)",
+  "recommended_preset": "singleHR (1-UT, octagonal 140 um = 1.0\" fibres A + B, R = 140,000), ONE PRESET PER ARM; both arms share the front end. Common inputs: D = 8.2 m; equivalent single circular beam W = 600 mm with F = 5.0 (f_col = W x F = 3000 mm = the R 6000 mm main parabola) -- each of the two pupil slices is a 300 mm beam carrying half of the telescope pupil along the dispersion, so the whole pupil is equivalent to 2 x 300 = 600 mm (DERIVED; EP21's 'without the APSU ... 60x240 cm' grating is exactly this beam); entrance width 0.866\" (= (sqrt3/2) x 1.0\"; 0.858-0.914\" for an octagon, orientation NOT FOUND); nObj = 4 (fibres A, B x 2 slices); collimator = Mirror (off-axis parabola, double pass); camera f = 755 mm EFFECTIVE in the echelle-beam frame (DERIVED from the published pixel dispersion; the design value 400 mm x 3000/1500 = 800 mm is the ALT); echelle 31.6 gr/mm, delta = 76 deg (R4), theta = 0 (Littrow, no numeric value published), gamma NOT FOUND (0 here; 4.8-4.9 deg would put the ETC order centres on the blaze peak, DERIVED); detector e2v 9232 (along dispersion) x 9216 x 10 um. BLUE arm: XD = VPH grating on a fused-silica input prism (apex 22.20 deg, anamorphic 1.5x), line density NOT FOUND -- for the app's single-beam frame an equivalent symmetric VPH of ~757 l/mm at 438 nm (DERIVED, see Notes); lambda_c = 438 nm (grism design wavelength); orders 161-117 (380-525 nm). RED arm: XD = VPH on a fused-silica prism (apex 25.25 deg), equivalent ~407 l/mm at 654.8 nm (DERIVED); lambda_c = 654.8 nm; orders 117-78 (525-788 nm). Validate against R = 140,000 (UM Table 1; median 138,000 in EP21), 4.5 px per resolution element, the EP21 Table 2 pixel size (0.00063 nm at 380.04 nm, order 161; 0.00086 nm at 522.97 nm, order 117; 0.00129 nm at 784.45 nm, order 78; = 0.49 km/s/px), the FSR and on-chip length per order (UM Tables 7-8: 5.93 nm in order 161 ... 11.66 nm in order 78), coverage 378.2-788.7 nm. Mode variants on the same optics: singleUHR = 0.433\" (70 um, 0.5\"; measured R > 190,000 blue / > 220,000 red, geometric 280,000, so the app will over-predict); multiMR (4-UT) = 2.0\" square on D = 8.2 m (or 1.0\" on the 16.4 m equivalent), measured R = 70,000-72,500, design 59,000, geometric 60,500.",
+  "app_presets": {
+   "common": {
+    "D_m": 8.2,
+    "F": 5.0,
+    "entrance_width_arcsec": 0.866,
+    "n_spectra": 4,
+    "collimator": "Mirror",
+    "W_mm": 600,
+    "f_col_mm": 3000,
+    "f_cam_mm": 755,
+    "f_cam_mm_alt_design": 800,
+    "echelle_gr_per_mm": 31.6,
+    "echelle_blaze_deg": 76,
+    "theta_deg": 0,
+    "gamma_deg": 0,
+    "gamma_note": "NOT FOUND; 4.8-4.9 deg DERIVED from m x lambda_c",
+    "detector_Nx_dispersion": 9232,
+    "detector_Ny": 9216,
+    "pixel_um": 10,
+    "status": "DERIVED mapping of sourced values; see params and notes"
+   },
+   "blue": {
+    "xd": "VPH on fused-silica input prism (apex 22.20 deg); real line density NOT FOUND; app-frame equivalent symmetric VPH ~757 l/mm at 438 nm (DERIVED)",
+    "lambda_c_nm": 438,
+    "orders": "161-117",
+    "range_nm": "380-525"
+   },
+   "red": {
+    "xd": "VPH on fused-silica input prism (apex 25.25 deg); real line density NOT FOUND; app-frame equivalent symmetric VPH ~407 l/mm at 654.8 nm (DERIVED)",
+    "lambda_c_nm": 654.8,
+    "orders": "117-78",
+    "range_nm": "525-788"
+   },
+   "variants": {
+    "singleUHR": {
+     "entrance_width_arcsec": 0.433,
+     "R_measured": ">190,000 (blue) / >220,000 (red)",
+     "R_geometric_DERIVED": 279600
+    },
+    "multiMR": {
+     "entrance_width_arcsec": 2.0,
+     "shape": "square (uniform width)",
+     "R_measured": "72,500 (MR42) / 70,000 (MR84)",
+     "R_design": 59000,
+     "R_geometric_DERIVED": 60500
+    }
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 8.2,
+    "unit": "m (one VLT Unit Telescope; 1-UT modes)",
+    "src": "ESOUT",
+    "loc": "page heading",
+    "quote": "The VLT 8.2-meter Unit Telescopes",
+    "alternatives": [
+     {
+      "value": 8.2,
+      "src": "EGH18",
+      "loc": "Abstract",
+      "quote": "operate with one or (simultaneously) four 8.2 m Unit Telescopes (UTs)"
+     },
+     {
+      "value": "16 m equivalent (4-UT multiMR)",
+      "src": "EP21",
+      "loc": "Sec. 3.1.6",
+      "quote": "ESPRESSO is the first optical spectrograph working with a 16-m diameter equivalent telescope"
+     }
+    ],
+    "derived": "DERIVED 4-UT equivalent: sqrt(4) x 8.2 m = 16.4 m (equal collecting area)"
+   },
+   "telescope_focus": {
+    "value": "Incoherent Combined-Coude Focus (ICCF) in the Combined-Coude Laboratory, fed by an all-optical Coude train from each UT; light enters the fibres in the Front-End unit (ADC, field/pupil stabilisation)",
+    "unit": null,
+    "src": "EUM",
+    "loc": "Sec. 3.1",
+    "quote": "The Incoherent Combined-Coudé Focus (ICCF) is the convergence point for the light of the four VLT UTs and is located in the CCL.",
+    "alternatives": [
+     {
+      "value": "Coude train relays a 17\" field",
+      "src": "EWEBI",
+      "loc": "Coude train paragraph",
+      "quote": "The four trains relay a field of 17 arcsec around the acquired object to the CCL."
+     }
+    ]
+   },
+   "fibre_input_focal_ratio": {
+    "value": 3.5,
+    "unit": "f/# (fibre input and APSU entrance)",
+    "src": "ER14",
+    "loc": "Sec. 2 (fibre entrance)",
+    "quote": "Maximum acceptable numerical aperture is NA = 0.143, corresponding to F/3.5 focal ratio.",
+    "alternatives": [
+     {
+      "value": "F/3.5 collimated by the APSU",
+      "src": "ER14",
+      "loc": "Sec. 2",
+      "quote": "F/3.5 light cone will be collimated inside the anamorphic pupil slicer into an elliptical pupil (3X anamorphic factor), 30X10mm wide."
+     }
+    ],
+    "derived": "DERIVED check: 1.0\" = 140 um on an 8.2 m aperture -> f/# = 0.140 mm x 206265 / (8200 mm x 1.0\") = 3.52; same for 70 um = 0.5\""
+   },
+   "fibre_singleHR": {
+    "value": "140 um core, octagonal, 1.0\" on sky; 2 fibres (A = object, B = sky or simultaneous reference)",
+    "unit": null,
+    "src": "EUM",
+    "loc": "Sec. 3.2",
+    "quote": "In the 1-UT high-resolution mode (named singleHR), the fibres have a core of 140 µm that subtends 1′′ on the sky.",
+    "alternatives": [
+     {
+      "value": "octagonal fibres (1-UT)",
+      "src": "EUM",
+      "loc": "Sec. 3.2",
+      "quote": "The 1-UT mode uses 2 octagonal fibres, one for the object and one for either the sky or for simultaneous radial-velocity reference."
+     },
+     {
+      "value": "140 um = 1\"",
+      "src": "EP14",
+      "loc": "Sec. 3.2 (fibre link)",
+      "quote": "In the high-resolution (singleHR) mode the fiber has a core of 140 µm, equivalent to 1 arcsec on the sky"
+     },
+     {
+      "value": "140 um = 1\"",
+      "src": "EM14",
+      "loc": "Sec. 3.6",
+      "quote": "In the high resolution singleHR mode the fiber has a core of 140μm, equivalent to 1 arcsecond on the sky"
+     },
+     {
+      "value": "octagonal 140 um called 'LR-SUT' in the APSU paper",
+      "src": "ER14",
+      "loc": "Sec. 2",
+      "quote": "an octagonal (70µm) ﬁber for the “HR-SUT” and another octagonal (140µm) ﬁber for the “LR-SUT”"
+     }
+    ]
+   },
+   "fibre_singleUHR": {
+    "value": "70 um core, octagonal, 0.5\" on sky",
+    "unit": null,
+    "src": "EUM",
+    "loc": "Sec. 3.2",
+    "quote": "In the ultra-high resolution (singleUHR) mode, the fibres’ core is 70 µm wide, equivalent to 0.5′′ on the sky.",
+    "alternatives": [
+     {
+      "value": "70 um, 0.5\"",
+      "src": "EP14",
+      "loc": "Sec. 3.2",
+      "quote": "(singleUHR) mode the fibre core is 70 µm and the covered field of view 0.5 arcsec"
+     }
+    ]
+   },
+   "fibre_multiMR": {
+    "value": "4 x 140 um (one per UT) bundled into one square 280 um fibre per channel (object, sky/reference)",
+    "unit": null,
+    "src": "EUM",
+    "loc": "Sec. 3.2",
+    "quote": "The four object fibres, all with a core of 140 µm wide, are bundled together to feed a single square 280 µm wide object fibre",
+    "alternatives": [
+     {
+      "value": "dispersed image of a fibre twice as wide",
+      "src": "EUM",
+      "loc": "Sec. 3.2",
+      "quote": "Thus, in the 4-UT mode, the spectrograph creates a dispersed image of a fibre twice as wide as in the case of the 1-UT fibres."
+     },
+     {
+      "value": "square 280 um",
+      "src": "ER14",
+      "loc": "Sec. 2",
+      "quote": "Each set of ﬁber consists in a squared (280µm) ﬁber for the “MUT”"
+     }
+    ],
+    "derived": "DERIVED: 280 um at the same F/3.52 feed = 2.0\" on one 8.2 m UT (or 1.0\" on the 16.4 m equivalent)"
+   },
+   "entrance_width_equivalent": {
+    "value": {
+     "singleHR": 0.866,
+     "singleUHR": 0.433,
+     "multiMR": 2.0
+    },
+    "unit": "arcsec (equal line width for the app's slit)",
+    "src": "EUM",
+    "loc": "Sec. 3.2",
+    "quote": "In the 1-UT high-resolution mode (named singleHR), the fibres have a core of 140 µm that subtends 1′′ on the sky.",
+    "is_derived": true,
+    "derived": "DERIVED: round-fibre convention (sqrt(3)/2) x core: 0.866 x 1.0\" = 0.866\" (HR), 0.866 x 0.5\" = 0.433\" (UHR). For a regular octagon of flat-to-flat width d the FWHM of the projected profile is 0.914 d (flats perpendicular to the dispersion) or 0.858 d (vertex along the dispersion), i.e. 0.858-0.914\" for HR; the fibre orientation is NOT FOUND. multiMR: square 280 um = 2.0\" uniform width, no sqrt(3)/2 factor (side orientation NOT FOUND; ER14 Fig. 4 draws it axis-aligned)"
+   },
+   "n_spectra_on_detector": {
+    "value": 4,
+    "unit": "spectra per order (fibre A + fibre B, each in 2 pupil slices)",
+    "src": "EM14",
+    "loc": "Table 1",
+    "quote": "Up to 4 spectra per order (1 object + 1 reference fibers, 2 spectra / fiber)",
+    "alternatives": [
+     {
+      "value": 4,
+      "src": "EP21",
+      "loc": "Fig. 4 caption",
+      "quote": "leading to four images (2 fiber images × 2 slices) aligned along the vertical direction (cross-dispersion)"
+     },
+     {
+      "value": 4,
+      "src": "ES21",
+      "loc": "Sec. 3",
+      "quote": "four individual spectra per order are imaged onto the detectors"
+     },
+     {
+      "value": "multiMR: 1 slice per fibre ('merged')",
+      "src": "EUM",
+      "loc": "Sec. 4.4",
+      "quote": "For the multiMR mode there is only one slice, created by the dispersed image of the square fibre bundle."
+     },
+     {
+      "value": "multiMR: 2 adjacent slices extracted together",
+      "src": "EP21",
+      "loc": "Sec. 4.1.2",
+      "quote": "In the MR mode the two (adjacent) slices must be extracted simultaneously by the DRS"
+     }
+    ]
+   },
+   "fibre_AB_separation_on_sky": {
+    "value": 7,
+    "unit": "arcsec (sky pinhole from target)",
+    "src": "EUM",
+    "loc": "Sec. 4.2",
+    "quote": "the reference fiber collects sky light from a second pinhole that points to a distance of 7′′ away from the main scientific target"
+   },
+   "pseudo_slit_layout": {
+    "value": "fibres A and B of a mode stacked along the cross-dispersion; the HR, UHR and MR fibre pairs side by side along the main dispersion (one mode illuminated at a time)",
+    "unit": null,
+    "src": "EP21",
+    "loc": "Sec. 3.1.4",
+    "quote": "The two fibers A and B of each mode are aligned vertically, along the cross-dispersion direction, while all A and all B fibers are arranged side-by-side horizontally along the main-dispersion direction."
+   },
+   "apsu_anamorphic_pupil_slicer": {
+    "value": "F/3.5 fibre beam collimated by two cylindrical objectives (focal lengths 1:3) into a 30 x 10 mm elliptical pupil (3x, long axis = main dispersion); pupil cut into 2 half-pupils (15 x 10 mm each) that are superimposed -> effective anamorphism 1.5x; re-imaged at F/10 x F/15 for the main collimator",
+    "unit": null,
+    "src": "ER14",
+    "loc": "Sec. 2",
+    "quote": "Then, pupil is sliced into two sub-pupils that are overlapped together in order to create an eﬀ ective anamorphic factor of 1.5X. ... After the pupil slicer an image plane is created with a different focal ratio (F/10 X F/15 ) to match the collimator focal ratio.",
+    "alternatives": [
+     {
+      "value": "1:3 cylindrical objectives, 30 x 10 mm pupil",
+      "src": "ER14",
+      "loc": "Sec. 1",
+      "quote": "Two cylindrical objective with diﬀerent focal length (1 : 3) introduce anamorphism. An elliptic pupil 30 X 10mm is realized."
+     },
+     {
+      "value": "half-pupils superimposed in main dispersion; x3 compression in the other direction",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "the APSU slices and superimposes the so produced half-pupils in the main dispersion direction, while in the other direction it anamorphically compresses the beam by a factor 3."
+     },
+     {
+      "value": "slicer prisms 3.5 deg, bending 0.25 deg",
+      "src": "ER14",
+      "loc": "Sec. 2.2",
+      "quote": "A prism angle of ±3.5 o is necessary to obtain a bending angle of ±0.25 o"
+     }
+    ]
+   },
+   "slice_image_at_collimator_focus": {
+    "value": "200 x 600 um (main dispersion x cross-dispersion) per slice for the 140 um / 1.0\" fibre",
+    "unit": "um",
+    "src": "ER14",
+    "loc": "Fig. 2 'Paraxial image and pupil sizes'",
+    "quote": "Equ. fiber (2X) 200x400 um",
+    "is_derived": true,
+    "derived": "DERIVED (Lagrange invariant per axis): dispersion axis -- each slice keeps half the F/3.5 pupil, re-imaged at F/10: 140 um x 10 / (2 x 3.5) = 200 um; cross axis -- full pupil at F/15: 140 um x 15/3.5 = 600 um, /1.5 (XD anamorphic prism) = 400 um = ER14's 'Equ. fiber (2X) 200x400 um'; on the detector x 400/1500 = 53 x 107 um = ER14's 'Fiber image (2X) 53x107 um'",
+    "note": "ER14 Fig. 2 also labels the slicer stage 'Equ. fiber (2X) 280x840 um', which does not follow from the F/10 x F/15 image plane (200 x 600 um); not used."
+   },
+   "collimator": {
+    "value": {
+     "type": "off-axis parabola (mirror), double pass (before and after the echelle), one for both arms",
+     "vertex_radius_mm": 6000,
+     "focal_length_mm": 3000,
+     "off_axis_mm": 420,
+     "size_mm": "700 x 380 x 70",
+     "material": "Zerodur or equivalent"
+    },
+    "unit": null,
+    "src": "EST14",
+    "loc": "Table 1 (Main Collimator Mirror (MC))",
+    "quote": "Parabola R:6000; Off Axis:420 mm",
+    "alternatives": [
+     {
+      "value": "off-axis parabola, double pass",
+      "src": "EM14",
+      "loc": "Sec. 3.7",
+      "quote": "The main collimator is an off-axis portion of a parabolic mirror, used in double pass, before and after the main disperser."
+     },
+     {
+      "value": "off-axis parabola, double pass, 20 x 30 cm beam",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "The collimator, an off-axis parabola used in double pass, collimates the beam to a rectangular shape of 20 × 30 cm"
+     },
+     {
+      "value": "700 x 380 x 70 mm",
+      "src": "EST14",
+      "loc": "Table 1",
+      "quote": "700x380x70"
+     }
+    ],
+    "derived": "DERIVED: f = R/2 = 6000/2 = 3000 mm (paraboloid); check: 300 mm x F/10 = 200 mm x F/15 = 3000 mm (ER14)"
+   },
+   "beam_at_echelle": {
+    "value": "300 (main dispersion) x 200 (cross-dispersion) mm per slice; the two half-pupil slices superimpose on the echelle",
+    "unit": "mm",
+    "src": "ER14",
+    "loc": "Sec. 2",
+    "quote": "Main collimator will create a 300x200 mm onto the echelle grating.",
+    "alternatives": [
+     {
+      "value": "20 x 30 cm",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "collimates the beam to a rectangular shape of 20 × 30 cm that matches the 20×120 cm physical surface of the 76◦ (R4) Echelle mosaic"
+     }
+    ],
+    "derived": "DERIVED footprint: 300 mm / cos(76 deg) = 1240 mm along a 1200 mm ruled length (EM14) -- consistent"
+   },
+   "equivalent_single_beam_W": {
+    "value": 600,
+    "unit": "mm (app input W; equivalent unsliced circular beam)",
+    "src": "EP21",
+    "loc": "Sec. 3.1.5",
+    "quote": "without the APSU, the size of the Echelle grating would have to be 60×240 cm to achieve the desired spectral resolution",
+    "is_derived": true,
+    "derived": "DERIVED: R depends on the beam width along the dispersion per unit of telescope pupil. Each slice carries HALF the telescope pupil (4.1 m of the 8.2 m along the dispersion) in a 300 mm beam, so the full 8.2 m pupil maps to 2 x 300 = 600 mm. Equivalent: D = 8.2 m, W = 600 mm, f_col = 3000 mm, F = 3000/600 = 5.0; 1.0\" -> 8200 mm x 5.0 / 206265 = 0.1988 mm (= the 200 um slice image). EP21's 60 x 240 cm grating is this beam: 600/cos(76 deg) = 2480 mm. Littrow R = 2 tan(delta) f_col / w = 8.0216 x 3000 / (0.866 x 0.1988) = 139,800 (HR).",
+    "alternatives": [
+     {
+      "value": "40 cm beam, 240 x 40 cm grating",
+      "src": "EP14",
+      "loc": "Sec. 3.5",
+      "quote": "the collimator beam size would have been 40 cm in diameter and the size of the échelle grating would have reached a size of 240×40 cm"
+     },
+     {
+      "value": "40 cm beam, 180 x 40 cm grating",
+      "src": "EUM",
+      "loc": "Sec. 3.3.1",
+      "quote": "the collimator beam size would have a diameter of 40 cm and the Echellé grating would have a size of 180 cm x 40 cm"
+     }
+    ]
+   },
+   "equivalent_focal_ratio_F": {
+    "value": 5.0,
+    "unit": "f/# (app input F)",
+    "src": "ER14",
+    "loc": "Sec. 2",
+    "quote": "After the pupil slicer an image plane is created with a different focal ratio (F/10 X F/15 ) to match the collimator focal ratio.",
+    "is_derived": true,
+    "derived": "DERIVED: F/10 belongs to one half-pupil slice (300 mm); the whole pupil (600 mm equivalent) is F/5.0 = 3000/600. Alternative mapping with identical R and slit: D = 4.1 m (half pupil), F = 10, W = 300 mm, f_col = 3000 mm."
+   },
+   "echelle": {
+    "value": {
+     "groove_density_gr_per_mm": 31.6,
+     "blaze_angle_deg": 76,
+     "R_number": "R4",
+     "mosaic": "3 x 1 replicas of RGL master MR160 (ex-UVES)",
+     "ruled_area_mm": "200 x 1200",
+     "physical_size_cm": "20 x 120"
+    },
+    "unit": null,
+    "src": "EP14",
+    "loc": "Sec. 3.5",
+    "quote": "The échelle grating will be an R4 Echelle of 31.6 l mm−1 and a blaze angle of 76◦ .",
+    "alternatives": [
+     {
+      "value": "R4, 31.6 l/mm, 76 deg",
+      "src": "EGH18",
+      "loc": "Sec. 'The Spectrograph'",
+      "quote": "The échelle grating is an R4 Echelle of 31.6 l mm−1 and a blaze angle of 76◦ ."
+     },
+     {
+      "value": "76 deg (R4) mosaic, 20 x 120 cm",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "the 20×120 cm physical surface of the 76◦ (R4) Echelle mosaic"
+     },
+     {
+      "value": "three gratings, 200 x 1200 mm ruled, master MR160",
+      "src": "EM14",
+      "loc": "Sec. 3.7",
+      "quote": "The selected master is MR160 from RGL, formerly used for UVES, with a ruled area limited to 200x400 mm, due to small damage made during submaster replication. The grating will be an assembly of three gratings, leading to a ruled area of 200 x 1200 mm."
+     },
+     {
+      "value": "3 x 1 mosaic",
+      "src": "ELIZ",
+      "loc": "Abstract",
+      "quote": "The 220000 spectral resolution specified for the spectrograph requires a 3 x 1 echelle mosaic, since the largest echelle master that can be ruled has a ruled length of 408 mm (16 inch) and a width of up to 306 mm (12 inch)."
+     },
+     {
+      "value": "120 x 20 cm",
+      "src": "EUM",
+      "loc": "Sec. 3.3.1",
+      "quote": "ESPRESSO employs an Echellé grating of 120 cm x 20 cm"
+     }
+    ],
+    "note": "The brief's 'mosaic of two' is HARPS (2 x 1); ESPRESSO's is 3 x 1. R4 means tan(delta) = 4 (75.96 deg); all sources say 76 deg."
+   },
+   "echelle_angles": {
+    "value": {
+     "theta_deg": "NOT FOUND (Littrow assumed: 0)",
+     "gamma_deg": "NOT FOUND"
+    },
+    "unit": "deg",
+    "src": "EP21",
+    "loc": "Sec. 3.2.2",
+    "quote": "Another very ... elegant characteristic of echelle spectrographs, when used in Littrow condition, is that the resolution bin size (again expressed in m s−1 or ∆λ/λ) remains essentially constant along the echelle",
+    "derived": "DERIVED from the published order table: m x lambda_c = 61,187.3 +/- 0.4 nm for every order 78-161 (EUM Tables 7-8, EP21 Table 2), vs 2 sin(delta)/G = 61,411 nm (76 deg, 31.6 l/mm) or 61,401 nm (75.96 deg). Ratio 0.99636 (0.99651). If lambda_c is the blaze peak in a quasi-Littrow mount (lambda_B = 2 d sin(delta) cos(gamma)/m), gamma = 4.89 deg (4.79 deg); with gamma = 0 the effective blaze angle would be 75.19 deg. Not a published number.",
+    "note": "EP21 states the Littrow property for echelles in general while describing ESPRESSO's format; no numeric in-plane or off-plane angle is published in any saved source."
+   },
+   "dichroic": {
+    "value": {
+     "cut_nm": 525,
+     "glass": "BSL7Y",
+     "surfaces": "flat - sphere R 11660 mm",
+     "size_mm": "460 x 90 x 27",
+     "location": "after the echelle (second collimator pass), before the intermediate spectrum"
+    },
+    "unit": null,
+    "src": "EM14",
+    "loc": "Sec. 3.7",
+    "quote": "the beam is split in two arms via a dichroic mirror cutting off the spectra at 525nm.",
+    "alternatives": [
+     {
+      "value": "BSL7Y, flat-sphere R 11660 mm",
+      "src": "EST14",
+      "loc": "Table 1 (Dichroic (DC))",
+      "quote": "Flat - Sphere R.11660 mm"
+     },
+     {
+      "value": "before the intermediate spectrum",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "A dichroic beamsplitter placed before the intermediate spectrum sends the light to the blue and the red channels."
+     }
+    ]
+   },
+   "field_correctors": {
+    "value": {
+     "blue": "field mirror PM, sphere R 12580 mm, 380 x 60 x 50 mm",
+     "red": "field lens FL, BSL7Y, R1 1176 mm / R2 689 mm, 290 x 55 x 33 mm"
+    },
+    "unit": null,
+    "src": "EST14",
+    "loc": "Table 1",
+    "quote": "Sphere R12580 mm ... R1-1176 mm; R2-689mm",
+    "alternatives": [
+     {
+      "value": "field lens (red) and field mirror (blue) at the intermediate focus",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "By adjusting the power of the red field lens and the blue field mirror at the intermediate focal planes (white spectrum), the field curvature is compensated"
+     }
+    ]
+   },
+   "transfer_collimators": {
+    "value": {
+     "type": "tilted spherical mirrors (BTM blue, RTM red)",
+     "radius_mm": 3000,
+     "focal_length_mm": 1500,
+     "size_mm": {
+      "BTM": "320 x 165 x 50",
+      "RTM": "430 x 170 x 50"
+     },
+     "pupil_at_XD_mm": "~150 x 100 (before the 1.5x anamorphic prism)"
+    },
+    "unit": null,
+    "src": "EST14",
+    "loc": "Table 1 (BTM, RTM)",
+    "quote": "Sphere R3000 mm",
+    "alternatives": [
+     {
+      "value": "~150 x 100 mm white pupil at each cross-disperser",
+      "src": "ER14",
+      "loc": "Sec. 2",
+      "quote": "After dispersion, a rectangular ~ 150x100mm white pupil will be created at the entrance of each cross-disperser."
+     },
+     {
+      "value": "tilted sphere, f much shorter than the main collimator",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "The transfer collimator is a tilted sphere with a focal length much shorter than the main collimator"
+     }
+    ],
+    "derived": "DERIVED: f = R/2 = 1500 mm; pupil demagnification 1500/3000 = 0.5 -> 300 x 200 mm becomes 150 x 100 mm (= ER14)"
+   },
+   "cross_disperser_blue": {
+    "value": {
+     "type": "VPH grating mounted on a single fused-silica input prism (anamorphic 1.5x, expands the cross-dispersion axis)",
+     "prism_apex_deg": 22.2,
+     "prism_glass": "fused silica (FuSi)",
+     "prism_size_mm": "210 x 270",
+     "range_nm": "375-520",
+     "design_lambda_nm": 438,
+     "dispersion_as_printed_deg_per_nm": 0.88,
+     "working_aperture_mm": "185 x 185",
+     "line_density": "NOT FOUND"
+    },
+    "unit": null,
+    "src": "EST14",
+    "loc": "Table 1 (Blue VPHG (BXD))",
+    "quote": "Prism angle 22,20 deg",
+    "alternatives": [
+     {
+      "value": "375-520 nm, 0.88 deg/nm at 438 nm (as printed)",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "The blue grism covers the spectral range from 375 nm to 520 nm with a dispersion of 0.88 degrees/nm at the central wavelength of 438 nm."
+     },
+     {
+      "value": "single input prism",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "Both designs use a single input prism to enhance the dispersion of the grism assembly."
+     },
+     {
+      "value": "185 x 185 mm working aperture",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "a working aperture of 185 mm x 185 mm for the blue grism"
+     },
+     {
+      "value": "anamorphic factor 1.5",
+      "src": "EM14",
+      "loc": "Sec. 3.7",
+      "quote": "cross dispersed by volume-phase holographic gratings coupled with entrance prisms to control the anamorphism factor of 1.5."
+     },
+     {
+      "value": "prism cemented to the VPH, 1:1.5",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "A prism cemented to the VPH lifts the residual 1:1.5 anamorphism and returns a square beam."
+     }
+    ],
+    "derived": "DERIVED check on the printed dispersion: 0.88 deg/nm x 145 nm = 128 deg (impossible); at the 400 mm blue camera 0.88 deg/nm = 6.14 mm/nm -> 891 mm for 375-520 nm on a 92 mm CCD. 0.088 deg/nm gives 12.8 deg -> 400 x tan(12.8 deg) = 91 mm (fits the CCD), so the abstract is read here as a factor-10 slip. A symmetric (Bragg) VPH in air with 0.088 deg/nm at 438 nm would have ~1456 l/mm (theta_B 18.6 deg) -- NOT a published line density."
+   },
+   "cross_disperser_red": {
+    "value": {
+     "type": "VPH grating on a single fused-silica input prism (anamorphic 1.5x)",
+     "prism_apex_deg": 25.25,
+     "prism_glass": "fused silica (FuSi)",
+     "prism_size_mm": "280 x 265",
+     "range_nm": "535-780",
+     "design_lambda_nm": 654.8,
+     "dispersion_as_printed_deg_per_nm": 0.47,
+     "working_aperture_mm": "215 x 185 (printed '215 nm x 185 mm')",
+     "line_density": "NOT FOUND"
+    },
+    "unit": null,
+    "src": "EST14",
+    "loc": "Table 1 (Red VPHG (RXD))",
+    "quote": "Prism angle 25,25 deg",
+    "alternatives": [
+     {
+      "value": "535-780 nm, 0.47 deg/nm at 654.8 nm (as printed)",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "The red grism operates from 535 nm to 780 nm with a dispersion of 0.47 degrees/nm at 654.8 nm."
+     },
+     {
+      "value": "215 x 185 mm working aperture",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "215 nm x 185 mm for the red grism respectively"
+     }
+    ],
+    "derived": "DERIVED: 0.47 deg/nm x 245 nm = 115 deg (impossible); 0.047 deg/nm -> 11.5 deg. A symmetric VPH in air with 0.047 deg/nm at 654.8 nm would have ~792 l/mm (theta_B 15.0 deg) -- NOT a published line density."
+   },
+   "camera_blue": {
+    "value": {
+     "focal_length_mm": 400,
+     "at_wavelength_nm": 450,
+     "focal_ratio": 2.6,
+     "entrance_aperture_mm": "150 x 150",
+     "design": "three lenses, last one = cryostat window"
+    },
+    "unit": null,
+    "src": "EP14",
+    "loc": "Sec. 3.5 (Fast Cameras)",
+    "quote": "The blue camera is shown in Fig. 13 has an entrance aperture of 150×150 mm, a Focal length of 400 mm at 450 nm and a focal ratio of F /2.6.",
+    "alternatives": [
+     {
+      "value": "square 150 x 150 mm pupil at each camera",
+      "src": "ER14",
+      "loc": "Sec. 2",
+      "quote": "We have chosen a 1.5X anamorphic factor for these cross-dispersers. In this way, each camera will see a square 150x150mm pupil."
+     },
+     {
+      "value": "three lenses each",
+      "src": "EP21",
+      "loc": "Sec. 3.1.5",
+      "quote": "The camera lenses consist of only three lenses of inexpensive glass each, the last being used as the cryostat window."
+     }
+    ],
+    "note": "Design-phase (2014) value. ER14 Fig. 2 labels the detector beam 'F/2.7 x F/2.7' (read from the figure image; not in the text layer)."
+   },
+   "camera_red": {
+    "value": {
+     "focal_length_mm": "NOT FOUND",
+     "design": "three lenses, last one = cryostat window",
+     "pupil_mm": "150 x 150"
+    },
+    "unit": null,
+    "src": "EP21",
+    "loc": "Sec. 3.1.5",
+    "quote": "The camera lenses consist of only three lenses of inexpensive glass each, the last being used as the cryostat window.",
+    "derived": "DERIVED: the red and blue arms have the same velocity size per pixel (EP21 Table 2: 0.493-0.499 km/s/px in both) and identical R3000 transfer mirrors, so f_cam(red) = f_cam(blue) to within ~1% (= 400 mm by design, or 377.5 mm if scaled to the 755 mm effective value below)"
+   },
+   "camera_effective_focal_length_for_app": {
+    "value": 755,
+    "unit": "mm (camera referred to the 300/600 mm echelle-beam frame; both arms)",
+    "src": "EP21",
+    "loc": "Table 2 (Res. bin column)",
+    "quote": "117 522.97 4.47 520.74 525.21 519.22 527.16 7.94 0.00086",
+    "is_derived": true,
+    "derived": "DERIVED (Littrow, delta = 76 deg): f_eff = 10 um / (2 tan(delta) x Dlambda_px/lambda); order 117 (red): 0.010 mm / (8.0216 x 0.00086/522.97) = 758 mm; all 18 rows of EP21 Table 2 give 749-758 mm (mean 755). Design alternative: f_cam x f_col/f_transfer = 400 x 3000/1500 = 800 mm (EP14 + EST14), which reproduces ER14's 53 um slice image (200 um x 800/3000) but makes the pixel 0.467 km/s (published 0.49) and order 117 0.000815 nm/px (published 0.00086). EP21's '0.486 km s-1' per pixel implies 769 mm.",
+    "alternatives": [
+     {
+      "value": "800 mm (design: 400 mm x 3000/1500)",
+      "src": "ER14",
+      "loc": "Fig. 2",
+      "quote": "Fiber image (2X) 53x107 um"
+     }
+    ]
+   },
+   "detector": {
+    "value": {
+     "type": "e2v monolithic CCD, one per arm (blue and red differ in thickness/AR coating)",
+     "active_px": "9216 (X, cross-dispersion) x 9232 (Y, main dispersion)",
+     "pixel_um": 10,
+     "area_mm": "92 x 92",
+     "ports": 16
+    },
+    "unit": null,
+    "src": "EUM",
+    "loc": "Sec. 4.3",
+    "quote": "The active area of each of the two detectors consists of 9216 optically active pixels in the spatial direction or cross-dispersion direction (X), and 9232 optically active pixels in the main dispersion direction (Y). The Echellé orders are thus aligned along the CCD columns (Y).",
+    "alternatives": [
+     {
+      "value": "92 x 92 mm, 9k x 9k, 10 um, 16 ports",
+      "src": "EUM",
+      "loc": "Sec. 3.3.3",
+      "quote": "have a sensitive area of 92 mm x 92 mm, composed of 9k9 pixels of 10 µm size. Fast read-out of such a large chip is achieved by using 16 output ports at high speed."
+     },
+     {
+      "value": "9K x 9K, 10 um",
+      "src": "EP21",
+      "loc": "Sec. 3.1.4",
+      "quote": "Two individual E2V CCDs of 9K×9K and 10 µm-square pixels record the blue and the red spectra separately."
+     },
+     {
+      "value": "9232 px along Y per extracted spectrum",
+      "src": "ES21",
+      "loc": "Sec. 4",
+      "quote": "Each individual spectrum has a length of 9232 pixels in detector Y direction"
+     }
+    ],
+    "derived": "DERIVED: app Nx (along the echelle dispersion) = 9232, Ny = 9216, 10 um; 9232 x 0.010 = 92.3 mm"
+   },
+   "orders": {
+    "value": {
+     "blue": "161-117 (45 orders)",
+     "red": "117-78 (40 orders)",
+     "total_distinct": 84
+    },
+    "unit": "physical diffraction order m",
+    "src": "ES21",
+    "loc": "Sec. 4",
+    "quote": "Order 161 to 117 from blue arm, Order 117 to 78 from red arm, ×2 fibers, ×2 slices",
+    "alternatives": [
+     {
+      "value": "blue table ends at 161; red starts at 78",
+      "src": "EUM",
+      "loc": "Appendix A, Tables 7-8",
+      "quote": "161 1,2 1 380.04 2.36 378.87 381.23 377.15 383.07 5.93 ... 78 169,170 85 784.45 10.06 779.45 789.51 778.98 790.64 11.66"
+     }
+    ],
+    "derived": "DERIVED: 161-117+1 = 45, 117-78+1 = 40; order 117 is recorded on both CCDs; 84 distinct orders"
+   },
+   "central_wavelength": {
+    "value": {
+     "blue": 438,
+     "red": 654.8
+    },
+    "unit": "nm (VPH grism design wavelengths; used as the app's lambda_c)",
+    "src": "EARNS",
+    "loc": "Abstract",
+    "quote": "at the central wavelength of 438 nm",
+    "alternatives": [
+     {
+      "value": "red 654.8 nm",
+      "src": "EARNS",
+      "loc": "Abstract",
+      "quote": "with a dispersion of 0.47 degrees/nm at 654.8 nm"
+     },
+     {
+      "value": "arm ranges 380-525 / 525-788 nm (midpoints 452.5 / 656.5 nm DERIVED)",
+      "src": "EUM",
+      "loc": "Sec. 4.4",
+      "quote": "cover the spectral ranges of 380-525 nm and 525-788 nm, respectively"
+     }
+    ],
+    "note": "Which order falls at the CCD centre in cross-dispersion is NOT published."
+   },
+   "binning_readout": {
+    "value": {
+     "HR11": "FAST 1x1",
+     "HR21": "SLOW 2x1",
+     "HR42": "SLOW 4x2",
+     "UHR11": "FAST 1x1",
+     "MR42": "SLOW 4x2",
+     "MR84": "SLOW 8x4"
+    },
+    "unit": "binning spatial x dispersion",
+    "src": "EUM",
+    "loc": "Table 4",
+    "quote": "SINGLE HR11 Spectroscopy and RV monitoring singleHR FAST 1x1",
+    "alternatives": [
+     {
+      "value": "binning order NxM = spatial x dispersion",
+      "src": "EUM",
+      "loc": "Sec. 2.1",
+      "quote": "in an NxM binning, N pixel are clocked (transferred) in the spatial or cross- dispersed direction and M pixel in the dispersion direction"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_singleHR": {
+    "value": 140000,
+    "unit": "lambda/dlambda (measured)",
+    "src": "EUM",
+    "loc": "Table 1",
+    "quote": "Measured Resolving power 140 000 meas. 190 000 70 000",
+    "alternatives": [
+     {
+      "value": "138,000 median (requirement 120,000)",
+      "src": "EP21",
+      "loc": "Sec. 4.1.2",
+      "quote": "In HR mode, the standard mode, a median resolving power of R = 138 000 is measured (requirements: R = 120 000)."
+     },
+     {
+      "value": "HR11/HR21 138,000; HR42 130,000",
+      "src": "EGH18",
+      "loc": "Table 1",
+      "quote": "Resol. Power 138,000 138,000 130,000 > 190,000 72,500 70,000"
+     },
+     {
+      "value": "140,000 median",
+      "src": "EWEBO",
+      "loc": "mode table",
+      "quote": "Resolving power (median) | 140,000 | 190,000 | 70,000"
+     },
+     {
+      "value": "134,000 (design)",
+      "src": "EP14",
+      "loc": "Table 1",
+      "quote": "Resol. Power 134 000 59 000 ≈ 200 000"
+     },
+     {
+      "value": "134,000 (design)",
+      "src": "EM14",
+      "loc": "Table 1",
+      "quote": "225’000 134’000 59’000"
+     },
+     {
+      "value": "134,000 (design)",
+      "src": "EP13",
+      "loc": "Table 1",
+      "quote": "Resolving power 134 000 59 000 225 000"
+     },
+     {
+      "value": "140,000 (2010 design)",
+      "src": "EP10",
+      "loc": "Table 1",
+      "quote": "Resolving power 140’000 60’000 225’000"
+     }
+    ],
+    "derived": "DERIVED geometric (app formula, Littrow, delta 76 deg, f_col 3000 mm, 1.0\" -> 0.1988 mm): with the 0.866 line width 139,800; with the full 1.0\" width 121,100; octagon range 132,500-141,100"
+   },
+   "R_singleUHR": {
+    "value": ">190,000 (blue CCD, lower limit); >220,000 (red CCD)",
+    "unit": "lambda/dlambda (measured with partly resolved ThAr lines)",
+    "src": "EP21",
+    "loc": "Sec. 4.1.2",
+    "quote": "The UHR mode achieves a median resolving power of the order of R > 190 000 in the ... blue arm, while exceeding R = 220 000, and thus being up to specification, in the red arm.",
+    "alternatives": [
+     {
+      "value": "meas. 190,000",
+      "src": "EUM",
+      "loc": "Table 1",
+      "quote": "Measured Resolving power 140 000 meas. 190 000 70 000"
+     },
+     {
+      "value": "225,000 (design)",
+      "src": "EM14",
+      "loc": "Table 1",
+      "quote": "225’000 134’000 59’000"
+     },
+     {
+      "value": "~200,000 (design)",
+      "src": "EP14",
+      "loc": "Table 1",
+      "quote": "Resol. Power 134 000 59 000 ≈ 200 000"
+     },
+     {
+      "value": "210,000 upper end (design)",
+      "src": "ESPA12",
+      "loc": "Abstract",
+      "quote": "a R~63'000-210'000 spectrograph has been designed"
+     },
+     {
+      "value": "220,000 specified",
+      "src": "ELIZ",
+      "loc": "Abstract",
+      "quote": "The 220000 spectral resolution specified for the spectrograph"
+     }
+    ],
+    "derived": "DERIVED geometric: 0.433\" -> R = 279,600 (0.5\" full width: 242,100). EP21 explains the shortfall: the fibre image is convolved with the instrumental profile, which matters most for the narrowest fibre."
+   },
+   "R_multiMR": {
+    "value": "72,500 (MR42); 70,000 (MR84)",
+    "unit": "lambda/dlambda (measured)",
+    "src": "EGH18",
+    "loc": "Table 1",
+    "quote": "Resol. Power 138,000 138,000 130,000 > 190,000 72,500 70,000",
+    "alternatives": [
+     {
+      "value": 72500,
+      "src": "EP21",
+      "loc": "Sec. 4.1.2",
+      "quote": "the resolving power is reduced by about a factor of 2, i.e. R = 72 500, due to the larger fiber diameter"
+     },
+     {
+      "value": 70000,
+      "src": "EUM",
+      "loc": "Table 1",
+      "quote": "Measured Resolving power 140 000 meas. 190 000 70 000"
+     },
+     {
+      "value": "59,000 (design)",
+      "src": "EM14",
+      "loc": "Table 1",
+      "quote": "225’000 134’000 59’000"
+     },
+     {
+      "value": "60,000 (2010 design)",
+      "src": "EP10",
+      "loc": "Table 1",
+      "quote": "Resolving power 140’000 60’000 225’000"
+     }
+    ],
+    "derived": "DERIVED geometric: 2.0\" square (uniform) -> R = 60,500 (matches the 59,000 design value; measured is 16-20% higher)"
+   },
+   "spectral_sampling": {
+    "value": {
+     "singleHR": 4.5,
+     "singleUHR": 2.5,
+     "multiMR": "5.5 (binned x2)"
+    },
+    "unit": "pixels per resolution element (average)",
+    "src": "EUM",
+    "loc": "Table 1",
+    "quote": "Spectral sampling (average) 4.5 pixels 2.5 pixels 5.5 pixels, binned x2",
+    "alternatives": [
+     {
+      "value": "HR 4.5, HR42 2.25, UHR 2.5, MR42 5, MR84 2.5",
+      "src": "EGH18",
+      "loc": "Table 1",
+      "quote": "Spec. Samp. 4.5 pix 4.5 pix 2.25 pix 2.5 pix 5 pix 2.5 pix"
+     },
+     {
+      "value": "HR 4.5, MR 11, UHR 2.5 (design)",
+      "src": "EP14",
+      "loc": "Table 1",
+      "quote": "Spec. Samp. 4.5 pix 11 pix 2.5 pix"
+     },
+     {
+      "value": "HR 3.3, MR 4.0 binned, UHR 2.1 (2010 design)",
+      "src": "EP10",
+      "loc": "Table 1",
+      "quote": "Sampling (average) 3.3 pixels 4.0 pixels (binned x2) 2.1 pixels"
+     },
+     {
+      "value": "~4 px per LFC-line FWHM",
+      "src": "ESB24",
+      "loc": "Sec. 4.1.3",
+      "quote": "by just about four pixels across the FWHM"
+     },
+     {
+      "value": "HR42 worst case 1.7 px",
+      "src": "EP21",
+      "loc": "Sec. 3.2.2",
+      "quote": "the sampling of the HR42 mode (worst case) is reduced by 30%, i.e. to about 1.7 pixels."
+     }
+    ],
+    "derived": "DERIVED app check (f_cam 755 / 800 mm, f_col 3000): HR 0.866\" -> 4.33 / 4.59 px (full 1.0\": 5.00 / 5.30); UHR 0.433\" -> 2.17 / 2.30 px; MR 2.0\" -> 10.0 / 10.6 px unbinned"
+   },
+   "spatial_sampling_per_slice": {
+    "value": {
+     "singleHR": "9.0 (4.5 binned) px",
+     "singleUHR": "5.0 px",
+     "multiMR": "5.5 px binned x4"
+    },
+    "unit": "pixels",
+    "src": "EUM",
+    "loc": "Table 1",
+    "quote": "Spatial sampling per slice 9.0 or 4.5 pixels 5.0 pixels 5.5 pixels, binned x4",
+    "alternatives": [
+     {
+      "value": "HR 11 x 2",
+      "src": "EP14",
+      "loc": "Table 1",
+      "quote": "Spat. Samp. 11×2 pix 22×2 pix 5×2 pix"
+     }
+    ],
+    "derived": "DERIVED design: per-slice image 107 um = 10.7 px across the dispersion for the 1.0\" fibre (ER14 Fig. 2)"
+   },
+   "wavelength_coverage": {
+    "value": {
+     "total": "378.2-788.7",
+     "blue": "380-525",
+     "red": "525-788"
+    },
+    "unit": "nm",
+    "src": "EP21",
+    "loc": "Sec. 3.1.6",
+    "quote": "the spectrograph delivers two simultaneous spectra of the light from the two fibers in a wavelength range between 378.2 and 788.7 nm",
+    "alternatives": [
+     {
+      "value": "blue 380-525, red 525-788",
+      "src": "EUM",
+      "loc": "Sec. 4.4",
+      "quote": "cover the spectral ranges of 380-525 nm and 525-788 nm, respectively"
+     },
+     {
+      "value": "blue 380-520, red 520-780 (design)",
+      "src": "EM14",
+      "loc": "Table 1",
+      "quote": "Blue arm: 380 – 520 nm Red arm: 520 – 780 nm"
+     },
+     {
+      "value": "380-788",
+      "src": "EWEBO",
+      "loc": "mode table",
+      "quote": "380–788 nm"
+     },
+     {
+      "value": "380-790",
+      "src": "EGH18",
+      "loc": "Table 1",
+      "quote": "Wave. range 380–790 nm"
+     },
+     {
+      "value": "380-780 (design)",
+      "src": "EP13",
+      "loc": "Table 1",
+      "quote": "Wavelength range 380–780 nm"
+     }
+    ]
+   },
+   "pixel_dispersion_table": {
+    "value": {
+     "161": "380.04 nm, 0.00063 nm/px",
+     "153": "399.92, 0.00066",
+     "136": "449.91, 0.00074",
+     "118": "518.54, 0.00086",
+     "117 (blue)": "522.97, 0.00086",
+     "117 (red)": "522.97, 0.00086",
+     "102": "599.87, 0.00099",
+     "88": "695.31, 0.00115",
+     "78": "784.45, 0.00129"
+    },
+    "unit": "order: central wavelength, spectral size of one physical pixel at the order centre",
+    "src": "EP21",
+    "loc": "Table 2",
+    "quote": "161 380.04 2.36 378.87 381.23 377.15 383.07 5.93 0.00063",
+    "alternatives": [
+     {
+      "value": "order 78 row",
+      "src": "EP21",
+      "loc": "Table 2",
+      "quote": "78 784.45 10.06 779.45 789.51 778.98 790.64 11.66 0.00129"
+     },
+     {
+      "value": "0.486 km/s per extracted pixel",
+      "src": "EP21",
+      "loc": "Sec. 3.2.2",
+      "quote": "per extracted pixel (or resolution bin) of 0.486 km s−1 is reached"
+     }
+    ],
+    "derived": "DERIVED: Dlambda/lambda per pixel = 1.65e-6 (0.495 km/s) in both arms; m x lambda_c = 61,187 nm in every order"
+   },
+   "order_table_fsr_tsr": {
+    "value": {
+     "161": "lambda_c 380.04, FSR 2.36 (378.87-381.23), on-chip 377.15-383.07 (5.93)",
+     "117 blue": "522.97, FSR 4.47 (520.74-525.21), 519.13-527.03 (7.89)",
+     "117 red": "522.97, 519.22-527.16 (7.94)",
+     "78": "784.45, FSR 10.06 (779.45-789.51), 778.98-790.64 (11.66)"
+    },
+    "unit": "nm",
+    "src": "EUM",
+    "loc": "Appendix A, Tables 7 (blue) and 8 (red)",
+    "quote": "117 89,90 45 522.97 4.47 520.74 525.21 519.13 527.03 7.89",
+    "alternatives": [
+     {
+      "value": "red-CCD order 117",
+      "src": "EUM",
+      "loc": "Table 8",
+      "quote": "117 91,92 46 522.97 4.47 520.74 525.21 519.22 527.16 7.94"
+     },
+     {
+      "value": "CCD oversized >= 20% beyond the FSR of the reddest orders",
+      "src": "EP21",
+      "loc": "Sec. 3.2.2",
+      "quote": "our design choice of oversizing the detector in order to extract at least 20% more than the FSR of the longest (reddest) orders"
+     }
+    ],
+    "derived": "DERIVED: 9232 px x 0.00086 nm = 7.94 nm (order 117) -- the on-chip length equals the 9232-px axis times the centre pixel size; order 78: TSR/FSR = 11.66/10.06 = 1.16",
+    "note": "HR/UHR DRS products number each slice separately (e.g. 89,90); MR DRS numbering is 1-85 (EUM Appendix A)."
+   },
+   "pseudo_slit_image": {
+    "value": "~120 px (1.2 mm) square holds the images of all fibres of all modes; per-slice 1.0\" fibre image 53 x 107 um (design)",
+    "unit": null,
+    "src": "EP21",
+    "loc": "Fig. 4 caption",
+    "quote": "The image covers on the detector a square of approximately 120 pixels (1.2 mm) in size.",
+    "alternatives": [
+     {
+      "value": "53 x 107 um per slice",
+      "src": "ER14",
+      "loc": "Fig. 2",
+      "quote": "Fiber image (2X) 53x107 um"
+     }
+    ]
+   },
+   "lsf_fwhm": {
+    "value": "2.3 km/s adopted LSF FWHM ~ R = 130,000 (prior in the LFC LSF fit)",
+    "unit": null,
+    "src": "ESB24",
+    "loc": "Sec. 4.1.3",
+    "quote": "we adopt a value of 2.3 km/s, corresponding to a nominal resolving power of 𝑅 = 130 000."
+   },
+   "total_efficiency": {
+    "value": {
+     "singleHR": "~11%",
+     "singleUHR": "~5%",
+     "multiMR": "~11%"
+    },
+    "unit": null,
+    "src": "EUM",
+    "loc": "Table 1",
+    "quote": "Total efficiency ∼11% ∼5% ∼11%",
+    "alternatives": [
+     {
+      "value": "10% / 5%",
+      "src": "EGH18",
+      "loc": "Table 1",
+      "quote": "Tot. Eff. 10 % 10 % 10 % 5% 10 % 10 %"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "VPH line densities (blue and red), fringe tilt, Bragg/incidence angles, and which prism face carries the grating; the full Arns (2016) paper is SPIE-paywalled (abstract only saved).",
+   "Echelle in-plane angle theta and off-plane angle gamma (no number in any saved source; the derived 4.8-4.9 deg 'blaze gamma' is an inference from the ETC table, not a published value).",
+   "Red camera focal length and f-ratio (only 'three lenses'); the as-built blue camera focal length (400 mm 'at 450 nm' is a 2014 design value).",
+   "A directly stated main-collimator focal length (only the vertex radius R 6000 mm and the F/10 x F/15 image plane with a 300 x 200 mm beam).",
+   "APSU cylindrical-objective focal lengths (only their 1:3 ratio and the 30 x 10 mm pupil).",
+   "Orientation of the octagonal fibres (flat or vertex along the dispersion) and of the square MR fibre on the pseudo-slit.",
+   "Published inter-order separation in pixels (only the graphical format, Fig. 4 of EP21, and the ~120 px pseudo-slit square).",
+   "Which order / wavelength sits at each CCD centre in cross-dispersion (the app's lambda_c uses the grism design wavelengths 438 and 654.8 nm).",
+   "Dichroic transition width or 50% point beyond 'cutting off the spectra at 525nm'.",
+   "Fibre output focal ratio / FRD at the spectrograph entrance (only the F/3.5 input acceptance, NA 0.143).",
+   "Full texts of Spano et al. 2010 (SPIE 7735, 77350K) and 2012 (SPIE 8446, 84467V), Conconi et al. 2013 (SPIE 8842), Lizon et al. 2018 (SPIE 10701) and Arns 2016 (SPIE 9908): SPIE paywall, ResearchGate 403, INAF open-access behind a Cloudflare challenge; only ADS abstracts were saved for three of them."
+  ],
+  "conflicts": [
+   "R (singleHR): 140,000 measured (UM Table 1; ESO overview 'median') vs 138,000 median (EP21 text; HR11/HR21 in EGH18) vs 130,000 (HR42, EGH18) vs 134,000 design (EP13, EP14, EM14) vs 140,000 2010 design (EP10); requirement 120,000 (EP21).",
+   "R (singleUHR): > 190,000 blue / > 220,000 red measured as lower limits from partly resolved ThAr (EP21) and 'meas. 190 000' (UM) vs 225,000 design (EP13, EM14, EP10) vs ~200,000 (EP14) vs 210,000 (upper end, ESPA12) vs 220,000 'specified' (ELIZ).",
+   "R (multiMR): 72,500 (MR42) / 70,000 (MR84) measured (EP21, EGH18, UM) vs 59,000 design (EP13, EP14, EM14) vs 60,000 (EP10) vs 63,000 (lower end, ESPA12); EP21 also prints '(requirement: R = 30 000)'.",
+   "Grating size without the APSU: '60x240 cm' (EP21; consistent with a 600 mm beam at 76 deg) vs '40 cm in diameter ... 240x40 cm' (EP13, EP14, EGH18) vs '40 cm ... 180 cm x 40 cm' (UM). A 40 cm beam at 76 deg would need a 165 cm grating (DERIVED), so neither 40 cm version is self-consistent.",
+   "Camera scale: design 400 mm (EP14) x 3000/1500 = 800 mm effective (matches ER14's 53 um slice image) vs 749-760 mm implied by every row of EP21 Table 2 (Littrow, 76 deg) and 769 mm implied by EP21's '0.486 km/s' per pixel -- 4-6% discrepancy, unresolved (as-built camera, non-Littrow geometry, or field-lens power).",
+   "VPH grism dispersion: Arns abstract '0.88 degrees/nm' (blue, 438 nm) and '0.47 degrees/nm' (red, 654.8 nm) would spread 375-520 nm over 128 deg; 0.088 and 0.047 deg/nm fit the 92 mm CCD with a ~400 mm camera (DERIVED). The same abstract prints the red aperture as '215 nm x 185 mm'.",
+   "Echelle mosaic: 3 x 1 (EM14 'assembly of three gratings', ELIZ '3 x 1 echelle mosaic'); the brief's 'mosaic of two' is HARPS. Blaze: 76 deg (all ESPRESSO sources) vs nominal R4 75.96 deg.",
+   "Arm split / ranges: dichroic at 525 nm (EM14 text, UM, ESO overview) vs 520 nm (EM14 Table 1) vs grism ranges 375-520 / 535-780 nm (EARNS); total 378.2-788.7 nm (EP21) vs 380-788 (UM) vs 380-790 (EGH18) vs 380-780 (EP13, EP14) vs 380-800 (EP10).",
+   "Spectral sampling: HR 4.5 px (UM, EM14, EP13, EP14, EGH18) vs 3.3 px (EP10, 2010 design); MR 5.5 px binned x2 (UM, EP13) vs 5 (MR42) / 2.5 (MR84) (EGH18) vs 11 px (EP14) vs 4.0 binned (EP10).",
+   "Spatial sampling per slice (HR): 9.0 px (UM, EM14, EGH18 '2x9') vs 11 x 2 (EP14) vs 6.9 (EP10); design image 10.7 px (DERIVED from ER14's 107 um).",
+   "multiMR slices: '1 (merged)' (UM Table 1, ESO overview) vs 'two (adjacent) slices must be extracted simultaneously' (EP21) and '2x20 pix' spatial sampling (EGH18 Table 1).",
+   "CCD size: 92 x 92 mm (UM, EP14, EM14 '~ 92 mm') vs 90 x 90 mm (EP21 Fig. 4 caption, ESO instrument page, EP10); format 9216 x 9232 active (UM) vs '9K x 9K' (EP21).",
+   "Total efficiency (HR): ~11% (UM, EP13) vs 10% (EGH18).",
+   "Fibre-exit pupil in the APSU sketch: 'Pupil 30mm' (ER14 Fig. 2) vs 'Pupil 10mm' (EM14 Fig. 13, same drawing; text layer 'pil 10mm'); ER14 Fig. 2's slicer-stage label '280x840 um' does not follow from its own F/10 x F/15 image plane (200 x 600 um, DERIVED).",
+   "Naming: ER14 calls the 70 um fibre 'HR-SUT' and the 140 um fibre 'LR-SUT' (= singleUHR and singleHR elsewhere)."
+  ],
+  "notes": [
+   "Beam mapping (why W = 600 mm). For a slit-limited Littrow echelle R = 2 tan(delta) f_col / w = 2 tan(delta) W / (phi D): what matters is the beam width ALONG THE DISPERSION per unit of telescope pupil. The APSU (ER14) collimates the F/3.5 fibre beam into a 30 x 10 mm ellipse (3x longer along the dispersion), cuts it into two 15 x 10 mm half-pupils and superimposes them, then re-images each at F/10 (dispersion) x F/15 (cross). The 3000 mm parabola turns each slice into a 300 x 200 mm beam on the 1200 x 200 mm echelle. Each slice therefore sees the whole 1.0\" fibre image (200 um wide at F/10) but only HALF the telescope pupil along the dispersion: 4.1 m of pupil per 300 mm of beam = 8.2 m per 600 mm. The cross-dispersion beam size (200 mm, the 3x compression) does not enter R. Hence app inputs D = 8.2 m, W = 600 mm, F = 5.0 (f_col 3000 mm, slit 0.1988 mm per arcsec) give R = 139,800 at 0.866\" (DERIVED). An equivalent mapping with the physical beam is D = 4.1 m, F = 10, W = 300 mm (same slit and R); use it if the app sizes the echelle from W (300/cos 76 deg = 1240 mm vs the real 1200 mm ruled length), but then D no longer means the telescope.",
+   "Effective camera. The camera the app needs is the one that maps echelle angles onto the detector: f_eff = f_cam x f_col/f_transfer = f_cam x 3000/1500. The transfer mirrors halve the beam (300 x 200 -> 150 x 100 mm) before the XD; the XD prism then stretches the cross axis 1.5x to a square 150 x 150 mm pupil (ER14), so each slice image on the CCD is 53 um along the dispersion and 107 um across (ER14 Fig. 2; 2:1 tall). The app's single circular beam cannot show this 2:1 anamorphic image; along the dispersion it is exact.",
+   "XD in the app's frame. The real VPH grisms sit in the 150 mm beam in front of the ~400 mm cameras, so their linear dispersion at the CCD is f_cam(phys) x d(theta)/d(lambda). In the app the XD sits in the W = 600 mm beam in front of f_eff = 755-800 mm, so the app's XD needs HALF the real angular dispersion (ratio f_transfer/f_col = 0.5, independent of the camera). Reading the Arns abstract as 0.088 / 0.047 deg/nm, the app-frame targets are 0.044 deg/nm at 438 nm (symmetric VPH ~757 l/mm, theta_B 9.5 deg) and 0.0235 deg/nm at 654.8 nm (~407 l/mm, theta_B 7.6 deg) (DERIVED). These are stand-ins: the real line densities (~1456 / ~792 l/mm for symmetric VPHs, DERIVED) and incidence angles are NOT published, and the real grisms add a fused-silica input prism (22.20 / 25.25 deg) used anamorphically, not as a straight-through grism.",
+   "Pseudo-slit and nObj: fibres A (object) and B (sky or Fabry-Perot reference) of a mode are stacked across the dispersion, each split into 2 slice images -> 4 traces per order in HR/UHR (EM14, EP21). The HR, UHR and MR fibre pairs sit side by side ALONG the dispersion (only one mode lit at a time), so the three modes are offset in wavelength on the CCD. In multiMR the two slices of the square fibre touch and are extracted as one (EP21, UM).",
+   "Order bookkeeping: the ETC/UM tables use the physical order m (161-78); DRS products number every slice separately starting from 1 at the blue end (HR/UHR orders 1-170), and MR orders 1-85 (UM Appendix A). Order 117 is recorded on both CCDs (blue: 519.13-527.03 nm; red: 519.22-527.16 nm).",
+   "Validation arithmetic (DERIVED): m x lambda_c = 61,187.3 nm in every order (UM Tables 7-8); 9232 px x (centre pixel size) reproduces the on-chip length per order (order 117: 9232 x 0.00086 = 7.94 nm = UM's 7.94 nm), confirming that the 9232-px axis is the dispersion axis; constant 0.495 km/s per pixel in both arms implies equal effective camera focal lengths.",
+   "Mode history: 2010 pre-PDR design (EP10: R 140k/60k/225k, 3.3 px sampling) -> 2013-2014 design (EP13, EP14, EM14: 134k/59k/225k, 4.5 px) -> commissioning from November 2017 (EWEBI), regular operation from October 2018 (EGH18), fibre-link upgrade June 2019, cryostat/NGC intervention May 2022 (orders moved by ~1-2 px, UM Sec. 6.1). The VLT 'requirements' quoted in EP21 are R = 120,000 (HR).",
+   "Detector convention: UM calls the 9216-px cross-dispersion axis X and the 9232-px dispersion axis Y ('The Echellé orders are thus aligned along the CCD columns (Y)'); binning 'NxM' is spatial x dispersion (HR21 = 2 spatial x 1 spectral). Traces are tilted by < 10 deg relative to the pixel grid (ES21).",
+   "UT aperture: the 140 um = 1.0\" plate scale at F/3.5 implies 0.140 x 206265/3.5 = 8.25 m (DERIVED), consistent with the 8.2 m primary; ESOUT gives only '8.2-meter'."
+  ]
+ }
+}

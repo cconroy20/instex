@@ -120,7 +120,7 @@
 
     <section class="c-disp">
       <div class="gh"><h2 title="The grating (and, in echelle mode, the cross-disperser).">Disperser</h2>
-        <span class="seg sm only-grat" id="gtSeg"><button id="gRefl" type="button" title="A ruled or replica reflection grating with blazed facets.">Reflection</button><button id="gTr" type="button" title="A transmission grating: volume-phase holographic or surface-relief (binary), which share the same geometry. By default the grating sits at the symmetric configuration α = β for the central wavelength, with the camera articulated to 2α from the collimator axis. The efficiency envelope of the grating is not modeled.">Transmission</button></span>
+        <span class="seg sm only-grat" id="gtSeg"><button id="gRefl" type="button" title="A ruled or replica reflection grating with blazed facets.">Reflection</button><button id="gTr" type="button" title="A transmission grating: volume-phase holographic or surface-relief (binary), which share the same geometry. By default the grating sits at the symmetric configuration α = β for the central wavelength, with the camera articulated to 2α from the collimator axis. The efficiency envelope of the grating is not modeled.">Transmission</button><button id="gGm" type="button" title="A grism: a grating on a prism (ruled) or between two prisms (VPH), which passes one wavelength, λ0, straight through. The camera sits on the collimator axis, so λ0 lands at the detector center and is fixed by the grism.">Grism</button></span>
         <span class="seg sm only-ech" id="xdSeg" title="The cross-disperser separates the echelle orders perpendicular to the echelle dispersion."><button id="xGr" type="button" title="A first-order reflection grating: order spacing grows as λ², crowding the blue orders.">Grating</button><button id="xVp" type="button" title="A volume-phase (transmission) grating in first order at the symmetric (Bragg) setting for the central wavelength: order spacing grows as λ², like a reflection grating.">VPH</button><button id="xPr" type="button" title="A prism (one or two passes): glass disperses most strongly in the blue, so the orders are spaced more evenly than with a grating.">Prism</button><button id="xGm" type="button" title="A grism: a transmission grating on a prism whose angle passes the central wavelength undeviated.">Grism</button></span></div>
       <div class="dispgrid">
         <div class="ctl only-grat" title="Groove density. With the camera–collimator angle fixed, a finer ruling is worked at steeper angles, which raises the resolving power (R ∝ sin α + sin β) and the dispersion and shortens the wavelength range on the detector.">
@@ -159,7 +159,14 @@
           <span>Glass</span><select id="xGlass"></select>
           <span class="seg sm only-xp" id="passSeg" title="Light passes the prism once, or twice (doubling the dispersion)."><button id="p1" type="button">1 pass</button><button id="p2" type="button">2 passes</button></span>
         </div>
-        <div class="ctl" title="The wavelength placed at the center of the detector (set by the tilt of the grating).">
+        <div class="ctl only-grism" title="Apex angle A of the grism's prism(s). With the ruling, the glass and the order it sets the undeviated wavelength λ0.">
+          <label for="sGA"><span>Prism apex, <i>A</i></span><span class="val" id="vGA"></span></label>
+          <input type="range" id="sGA" min="2" max="60" step="0.05">
+        </div>
+        <div class="caserow only-grism" title="Glass of the grism's prism(s), and the kind of grism: ruled (the grating on the prism's hypotenuse) or VPH (a volume-phase layer between two prisms).">
+          <span>Glass</span><select id="gGlass"></select>
+          <span class="seg sm" id="gkSeg"><button id="gkR" type="button">Ruled</button><button id="gkV" type="button">VPH</button></span></div>
+        <div class="ctl no-grism" title="The wavelength placed at the center of the detector (set by the tilt of the grating).">
           <label for="sLC"><span>Central λ</span><span class="val" id="vLC"></span></label>
           <input type="range" id="sLC" min="3.477" max="4.398" step="0.0005">
         </div>

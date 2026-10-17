@@ -1,0 +1,1332 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 5: VLT / MUSE (WFM) and Keck II / KCWI (blue BM + Medium, blue BL + Large, red KCRM RL + Medium)",
+  "compiled": "2026-10-17",
+  "companion": "data/round5/muse_kcwi.md (same content as Markdown sections in the format of data/presets_research.md); same JSON structure as data/presets_sources_3.json and data/round4/*.json. Extra keys: recommended_presets_by_mode (MUSE) / recommended_presets_by_config (KCWI) with explorer inputs as numbers; is_derived on values that are themselves arithmetic; stage on design-phase values; multiplex holds the objects-per-exposure rows.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). EFFECTIVE = a value DERIVED to make the explorer reproduce published performance where the prescription is not published. Every quote was machine-checked against the saved file's extracted text.",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / tag-stripped HTML / raw repository text; compared with all whitespace removed, case-folded, with double/single primes, curly quotes, ˝, dashes, minus, micro/mu, ×, tilde-operator glyphs normalised and hyphens (incl. line-end hyphenation) ignored; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells. Text-layer renderings kept as rendered where noted (M18 \"0.3500\" = 0.35\", \"4000\" = 40\"; W20 \"100. 705\" = 1\".705)."
+ },
+ "sources": {
+  "MUM": {
+   "cite": "ESO, \"MUSE User Manual\", Doc. ESO-261650, Doc. Version 12.2 (file \"ESO-261650_MUSE_User_Manual_P118\", for Period 118; release date left blank on the title page; PDF created 2026-09-03; 123 pp.)",
+   "file": "rawdata/presets/muse/ESO-261650_MUSE_User_Manual_P118.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/paranal/instruments/muse/doc/ESO-261650_MUSE_User_Manual_P118.pdf"
+  },
+  "ESOMO": {
+   "cite": "ESO, MUSE \"Overview\" web page (\"MUSE in a nutshell\" table; footer Last Update 04.04.23; fetched 2026-10-17)",
+   "file": "rawdata/presets/muse/eso_muse_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/muse/overview.html"
+  },
+  "ESOMI": {
+   "cite": "ESO, MUSE \"Instrument Description\" web page (fetched 2026-10-17)",
+   "file": "rawdata/presets/muse/eso_muse_inst.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/muse/inst.html"
+  },
+  "ESOUT": {
+   "cite": "ESO, \"The VLT 8.2-meter Unit Telescopes\" overview web page (footer Last Update 05.01.23) -- SAME FILE as round 2 key ESOUT (copied unmodified)",
+   "file": "rawdata/presets/muse/eso_paranal_ut_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut.html"
+  },
+  "B10": {
+   "cite": "Bacon, R., et al. 2010, Proc. SPIE 7735, \"The MUSE second-generation VLT instrument\" (ESO's reference paper for MUSE; posted to arXiv 2022 as arXiv:2211.16795, 9 pp.)",
+   "file": "rawdata/presets/muse/Bacon2010_SPIE7735_MUSE_arXiv2211.16795.pdf",
+   "url": "https://arxiv.org/pdf/2211.16795"
+  },
+  "B06": {
+   "cite": "Bacon, R., et al. 2006, Proc. SPIE 6269, 62690J, \"Probing unexplored territories with MUSE: a second generation instrument for the VLT\", arXiv:astro-ph/0606329 (page footers read \"SPIE 6265\"). Design-phase document",
+   "file": "rawdata/presets/muse/Bacon2006_SPIE6269_MUSE_arXiv_astro-ph0606329.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0606329"
+  },
+  "B17": {
+   "cite": "Bacon, R., et al. 2017, A&A 608, A1, \"The MUSE Hubble Ultra Deep Field Survey. I. Survey description, data reduction and source detection\", arXiv:1710.03002v1",
+   "file": "rawdata/presets/muse/Bacon2017_AA608_A1_MUSE_HUDF_I_arXiv1710.03002.pdf",
+   "url": "https://arxiv.org/pdf/1710.03002"
+  },
+  "W20": {
+   "cite": "Weilbacher, P. M., et al. 2020, A&A 641, A28, \"The data processing pipeline for the MUSE instrument\", arXiv:2006.08638 (A&A proofs version). The text layer renders 1\".705 as \"100. 705\" and 0\".2 as \"000. 2\"",
+   "file": "rawdata/presets/muse/Weilbacher2020_AA641_A28_MUSE_pipeline_arXiv2006.08638.pdf",
+   "url": "https://arxiv.org/pdf/2006.08638"
+  },
+  "L10A": {
+   "cite": "Laurent, F., et al. 2010, Proc. SPIE (Astronomical Telescopes + Instrumentation 2010), \"MUSE integral field unit: test results on the first out of 24\", doi:10.1117/12.857004 -- ABSTRACT ONLY, as reproduced on the third-party aggregator synapsesocial.com (schema.org \"abstract\" field, datePublished 2010-07-08). The SPIE page itself returned a bot-block page; the paper text was NOT obtained",
+   "file": "rawdata/presets/muse/synapsesocial_Laurent2010_SPIE_doi10.1117-12.857004_MUSE_IFU_first_of_24_abstract.html",
+   "url": "https://synapsesocial.com/papers/W2062984653"
+  },
+  "L14": {
+   "cite": "Laurent, F., Renault, E., Anwand, H., et al. 2014, Proc. SPIE 9151, 91511U, \"MUSE Field Splitter Unit: Fan-shaped Separator for 24 Integral Field Units\" (HAL deposit hal-04785490, author manuscript)",
+   "file": "rawdata/presets/muse/Laurent2014_SPIE9151_MUSE_FieldSplitterUnit_HAL-04785490.pdf",
+   "url": "https://hal.science/hal-04785490/file/Spie_2014_FLA_FSUAlignment_AS14-AS109-266.pdf"
+  },
+  "J20": {
+   "cite": "Jeanneau, A., Kosmalski, J., Muslimov, E., et al. 2020, Proc. SPIE 11447, 114475M, \"Curved detector-based optical design for the VLT/BlueMUSE instrument\", arXiv:2101.07605 (submitted manuscript). Used only for its statements about MUSE",
+   "file": "rawdata/presets/muse/Jeanneau2020_SPIE11447_114475M_BlueMUSE_curved_detector_arXiv2101.07605.pdf",
+   "url": "https://arxiv.org/pdf/2101.07605"
+  },
+  "C26": {
+   "cite": "Cudennec, C., Jeanneau, A., Bacon, R., et al. 2026, \"Guiding Design Choices for Wide-Field IFS: Trade-Offs Between Replication and Complexity for WST\", arXiv:2606.19159 (submitted to SPIE AT+I 2026). Used only for its statements about MUSE",
+   "file": "rawdata/presets/muse/Cudennec2026_arXiv2606.19159_WST_IFS_tradeoffs.pdf",
+   "url": "https://arxiv.org/pdf/2606.19159"
+  },
+  "MRS16": {
+   "cite": "Moralejo, B., Roth, M. M., Godefroy, P., et al. 2016, \"The Potsdam MRS Spectrograph -- heritage of MUSE and the impact of cross-innovation in the process of technology transfer\", SPIE AT+I 2016 paper 9912-72, arXiv:1607.01269. A fibre-fed, MODIFIED copy of the MUSE spectrograph (new VPHG, CaF2 in the cemented groups, telecentric fibre input); NOT MUSE itself",
+   "file": "rawdata/presets/muse/Moralejo2016_SPIE9912-72_arXiv1607.01269_PotsdamMRS_MUSE_heritage.pdf",
+   "url": "https://arxiv.org/pdf/1607.01269"
+  },
+  "M18": {
+   "cite": "Morrissey, P., Matuszewski, M., Martin, D. C., et al. 2018, ApJ 864, 93, \"The Keck Cosmic Web Imager Integral Field Spectrograph\", arXiv:1807.10356 (33 pp.). The text layer renders double primes as \"00\" (0.35\" -> \"0.3500\") and degree signs as \"◦\"",
+   "file": "rawdata/presets/kcwi/Morrissey2018_ApJ864_93_KCWI_arXiv1807.10356.pdf",
+   "url": "https://arxiv.org/pdf/1807.10356"
+  },
+  "KSPEC": {
+   "cite": "W. M. Keck Observatory, KCWI \"Optical Specifications\" web page (Table 1: Optical Characteristics; HTTP Last-Modified 2025-08-01; fetched 2026-10-17). Header: \"In some instances (denoted by *) predicted values are listed in lieu of actual measurements\"",
+   "file": "rawdata/presets/kcwi/keck_kcwi_specs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/specs.html"
+  },
+  "KCONF": {
+   "cite": "W. M. Keck Observatory, KCWI \"Quick Guide to KCWI Configurations\" web page (Tables 1-2 incl. the red-grating lab table; HTTP Last-Modified 2025-04-26; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_configurations.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/configurations.html"
+  },
+  "KGRAT": {
+   "cite": "W. M. Keck Observatory, KCWI \"Gratings\" web page (pre-ship grating-set table; HTTP Last-Modified 2015-07-16; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_gratings.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/gratings.html"
+  },
+  "KPRIM": {
+   "cite": "W. M. Keck Observatory, \"KCWI Overview\" (primer) web page (HTTP Last-Modified 2025-08-01; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_primer.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/primer.html"
+  },
+  "KDET": {
+   "cite": "W. M. Keck Observatory, KCWI \"Detector Information\" web page (HTTP Last-Modified 2025-07-31; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_detector-info.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/detector-info.html"
+  },
+  "KETC": {
+   "cite": "W. M. Keck Observatory, KCWI \"ETC\" web page (example IDL ETC outputs; HTTP Last-Modified 2025-04-22; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_etc.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/etc.html"
+  },
+  "KHOME": {
+   "cite": "W. M. Keck Observatory, KCWI home page (HTTP Last-Modified 2025-11-20; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keck_kcwi_index.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/"
+  },
+  "KCRM17": {
+   "cite": "W. M. Keck Observatory, \"The Keck Cosmic Reionization Mapper\" news page (dated December 14, 2017; pre-construction description of the red channel; fetched 2026-10-17)",
+   "file": "rawdata/presets/kcwi/keckobservatory_the-keck-cosmic-reionization-mapper_2017.html",
+   "url": "https://keckobservatory.org/the-keck-cosmic-reionization-mapper/"
+  },
+  "KDRP": {
+   "cite": "KCWI_DRP, the official KCWI Python data reduction pipeline (GitHub Keck-DataReductionPipelines/KCWI_DRP at commit 9be28f5, 2026-10-15). Used: kcwidrp/primitives/kcwi_file_primitives.py (rho = grating line density, adjang), kcwidrp/primitives/CalcPrelimDisp.py (grating-equation angle conventions), kcwidrp/configs/kcwi.cfg and instr.cfg (FCAM, PIX, GAMMA, PIXSCALE, SLICESCALE); read as text, never executed",
+   "file": "rawdata/presets/kcwi/github_Keck-DataReductionPipelines_KCWI_DRP_9be28f5/ (kcwi_file_primitives.py, CalcPrelimDisp.py, kcwi.cfg, instr.cfg)",
+   "url": "https://github.com/Keck-DataReductionPipelines/KCWI_DRP/tree/9be28f5695009b6021788ae3557ca73888624761"
+  }
+ },
+ "muse": {
+  "title": "VLT (UT4) / MUSE, Wide Field Mode (image-slicer IFU: 24 identical IFUs, each = 48-slice image slicer + refractive VPH spectrograph + 4k x 4k CCD)",
+  "recommended_preset": "One preset (WFM, nominal; all 24 IFUs identical, no moving parts). Sourced: D = 8.2 m (VLT UT4; focal-plane scale 1.705\"/mm, i.e. f/14.75 on 8.2 m); slice width 0.2\" (the \"slit\"); 48 slices per IFU (4 stacks of 12, each slice 15\" x 0.2\", ~75 px long on the CCD) = 3600 spaxels per detector; anamorphic fore-optics (x2 across the slices), so one 0.2\" spaxel lands on 15 um (1 px) along the slice and 30 um (2 px) along the dispersion; camera f/1.95 (spatial direction); collimator = Lens (fully refractive); one VPH grating (KOSI) in first order; e2v 4096 (X) x 4112 (Y) x 15 um, dispersion along Y (Nx = 4112, Ny = 4096). NOT published: collimator and camera focal lengths, beam size, VPH line density and angle. EFFECTIVE values are DERIVED (not a prescription): f_cam = 258.4 mm and f_col = 499.3 mm from the MUSE-derived Potsdam MRS spectrograph (MRS16), W = 68.5 mm in the dispersion plane (so that the 0.2\" slice is 2.0 px wide; spatial-direction pupil 133-137 mm), F = f_col / W = 7.29 (dispersion plane; 3.65-3.77 in the spatial direction), VPH G = 458.4 /mm at the symmetric Bragg setting alpha = beta = 9.23 deg for lamC = 7000 A (only G x f_cam / cos(beta) = 1.2e5 is fixed by the 1.25 A/px dispersion). Validate against: 1.25 A/px (MUM; 1.19-1.31 A/px across the range, W20); R = 1609 / 2737 / 3506 at 4650 / 7000 / 9350 A (MUM lab table); 2.5 px per resolution element (MUM); LSF FWHM 3.0 A at the blue end to 2.4 A at 7500 A (B17); fully sampled range 4750-9350 A nominal, 4600(4650)-9350 A extended (W20, MUM); 0.2\"/px along the slices (MUM).",
+  "recommended_presets_by_mode": {
+   "WFM": {
+    "D_m": 8.2,
+    "F_EFFECTIVE_DERIVED": 7.29,
+    "F_spatial_direction_EFFECTIVE_DERIVED": 3.77,
+    "telescope_F_DERIVED": 14.75,
+    "slitW_arcsec": 0.2,
+    "slices_per_detector": 48,
+    "spaxels_per_slice": 75,
+    "nObj": 3600,
+    "col": "lens",
+    "W_mm_EFFECTIVE_DERIVED": 68.5,
+    "W_spatial_mm_EFFECTIVE_DERIVED": "132.5 (f/1.95) - 137.0 (A = 2)",
+    "f_col_mm_EFFECTIVE_DERIVED": 499.3,
+    "fcam_mm_EFFECTIVE_DERIVED": 258.4,
+    "gType": "trans",
+    "G_per_mm_EFFECTIVE_DERIVED": 458.4,
+    "m": 1,
+    "tAlpha": null,
+    "alpha_eq_beta_deg_DERIVED": 9.23,
+    "lamC_A": 7000,
+    "Nx": 4112,
+    "Ny": 4096,
+    "pix_um": 15,
+    "validate": {
+     "dlpix_A": 1.25,
+     "dlpix_range_A": "1.19-1.31",
+     "R_lab": {
+      "4650": 1609,
+      "5000": 1750,
+      "6000": 2227,
+      "7000": 2737,
+      "8000": 3183,
+      "9000": 3465,
+      "9350": 3506
+     },
+     "px_per_resolution_element": 2.5,
+     "slice_width_on_detector_px_design": 2.0,
+     "LSF_FWHM_A": "3.0 (blue end) to 2.4 (7500 A)",
+     "coverage_fully_sampled_A": "4750-9350 nominal; 4600-9350 extended",
+     "spatial_arcsec_per_px_along_slice": 0.2,
+     "explorer_model_DERIVED": "chip 4424-9527 A; 1.250 A/px at lamC (1.247 / 1.200 at the chip edges); slit image 2.00 px; R = 1883 / 2801 / 3787 at 4650 / 7000 / 9350 A; isotropic pixel scale 0.10\"/px (the real along-slice scale is 0.2\"/px: see Notes)"
+    }
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 8.2,
+    "unit": "m",
+    "src": "ESOUT",
+    "loc": "page heading",
+    "quote": "The VLT 8.2-meter Unit Telescopes",
+    "alternatives": [
+     {
+      "value": "VLT UT4 (Yepun), Nasmyth B",
+      "src": "MUM",
+      "loc": "Sec. 1.2, p.7",
+      "quote": "located on the Nasmyth platform B of the VLT UT4"
+     }
+    ]
+   },
+   "telescope_focal_plane_scale": {
+    "value": "1.705\"/mm at the MUSE (Nasmyth) focal plane; f_tel = 120.98 m; F = 14.75 on 8.2 m",
+    "unit": "arcsec/mm",
+    "src": "W20",
+    "loc": "Sec. 3.6 (geometrical calibration), footnote 10",
+    "quote": "The focal plane scale for VLT UT4 with MUSE is 100. 705 mm−1",
+    "note": "text layer renders 1\".705 mm^-1 as \"100. 705 mm−1\"",
+    "derived": "DERIVED: 206264.8 / 1.705 = 120976 mm; / 8200 mm = f/14.75 (the telescope focal ratio, NOT the ratio entering the spectrograph collimator, which is NOT FOUND)"
+   },
+   "ifu_modules": {
+    "value": 24,
+    "unit": "identical IFUs (image slicer + spectrograph + 4k x 4k detector)",
+    "src": "B10",
+    "loc": "Summary, p.1",
+    "quote": "The instrument is a large assembly of 24 identical high performance integral field units, each one composed of an advanced image slicer, a spectrograph and a 4kx4k detector.",
+    "alternatives": [
+     {
+      "value": 24,
+      "src": "MUM",
+      "loc": "Table 1 (MUSE in a nutshell)",
+      "quote": "Number of modules 24"
+     }
+    ]
+   },
+   "fore_optics_anamorphoser": {
+    "value": "anamorphic magnification x2 across the slices (= along the dispersion) relative to along the slices; pupil 2x smaller in the dispersion plane (A = 2)",
+    "unit": "",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.2 (Fore Optics), p.17",
+    "quote": "Two cylindrical mirrors (FOaM1 and FOaM2, Figure 4) provide a magnification of 0.5 to the beam in the horizontal direction within the fore-optics to ensure sufficient sampling in the dispersion direction.",
+    "note": "\"Beam\" magnification 0.5 (MUM) = image magnification 2 in that direction; the two ESO texts name different axes (horizontal vs vertical) for the same 2:1 ratio.",
+    "alternatives": [
+     {
+      "value": "x2 to the beam in the vertical direction",
+      "src": "ESOMI",
+      "loc": "Instrument description: Anamorphoser",
+      "quote": "Two cylindrical mirrors provide a magnification of 2 to the beam in the vertical direction within the fore-optics."
+     },
+     {
+      "value": "\"anamorphoser by 2\"",
+      "src": "L14",
+      "loc": "Sec. 1, p.1",
+      "quote": "a Fore-Optics which includes an optical derotator and an anamorphoser by 2"
+     },
+     {
+      "value": "anamorphism ratio A = 2 (pupil diameter along the spatial axis / along the spectral axis)",
+      "src": "C26",
+      "loc": "Sec. 2.2",
+      "quote": "we define the anamorphism ratio as the ratio of the pupil diameter along the spatial axis to that along the spectral axis ... Applying Eq. 1 recovers A = 2 for MUSE"
+     }
+    ]
+   },
+   "field_splitter_and_relay": {
+    "value": "24 sub-fields of 60\" x 2.5\", each 89.5 mm x 7.37 mm at the field splitter; relay optics magnification 1.51 to each IFU",
+    "unit": "",
+    "src": "L14",
+    "loc": "Sec. 3.1.1 and Sec. 2, p.3",
+    "quote": "each aperture corresponding to 89.5mm x 7.37mm sub-field ... To fulfil the requirements of a magnification of 1.51",
+    "alternatives": [
+     {
+      "value": "spaxel 580 um (field splitter, across the slices); 465 um (between slicer stacks, along the slices)",
+      "src": "MUM",
+      "loc": "Sec. 3.4, p.37",
+      "quote": "The gap is smaller than 50µm for a spaxel size of 580µm ... 20µm for spaxel size of 465µm in this direction"
+     }
+    ],
+    "derived": "DERIVED: at the field splitter 89.5/60\" = 1.492 mm/\" (along slices) and 7.37/2.5\" = 2.948 mm/\" (across), ratio 1.98 (the x2 anamorphoser); equivalent f/37.5 and f/74.2 on 8.2 m. After the x1.51 relay: 2.252 and 4.452 mm/\" (0.450 and 0.890 mm per 0.2\" spaxel; MUM gives 465 um), f/56.7 and f/112 on 8.2 m. The slicer then re-images each slice onto the pseudo-slit with a demagnification that is NOT FOUND."
+   },
+   "slicer_format": {
+    "value": "48 slices per IFU in 4 stacks of 12; each slice 15\" x 0.2\"; IFU sub-field 2.5\" x 60\"",
+    "unit": "",
+    "src": "ESOMI",
+    "loc": "Instrument description: What MUSE does",
+    "quote": "In Wide-Field Mode (WFM), MUSE splits a field of 1 arcmin 2 into 24 channels which are further sliced into 48 15\"x0.2\" slitlets .",
+    "alternatives": [
+     {
+      "value": "4 stacks of 12 slices covering 2.5\" x 60\"",
+      "src": "MUM",
+      "loc": "Fig. 10 caption, p.24",
+      "quote": "with 4 stacks of 12 slices (numbered in grey from 1 to 48) covering a 2.5” x 60” field."
+     },
+     {
+      "value": "48 slices per sub-field",
+      "src": "MUM",
+      "loc": "Sec. 2.1.2, p.13",
+      "quote": "each image slicer further subdivides this sub-field into 48 slices."
+     },
+     {
+      "value": "1152 mini slits in total",
+      "src": "ESOMI",
+      "loc": "Instrument description",
+      "quote": "giving a total of 1152 mini slits"
+     }
+    ]
+   },
+   "slice_width": {
+    "value": 0.2,
+    "unit": "arcsec (the explorer \"slit\" width)",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.4.1 (Slicer), p.21",
+    "quote": "The slicer cuts and rearranges the 2D sub FOV in a 1D pseudo slit of 0.2” width.",
+    "alternatives": [
+     {
+      "value": "0.2\" x 0.2\" sampling",
+      "src": "B06",
+      "loc": "Abstract",
+      "quote": "MUSE has a field of 1x1 arcmin² sampled at 0.2x0.2 arcsec²"
+     }
+    ]
+   },
+   "spaxel_footprint_on_detector": {
+    "value": "15 um (1 px) along the slice x 30 um (2 px) along the dispersion",
+    "unit": "um",
+    "src": "B06",
+    "loc": "Sec. 6, p.6 (design phase)",
+    "quote": "(85% enclosed energy within a 15x30µm2 in the detector plane)",
+    "stage": "2006 design requirement",
+    "alternatives": [
+     {
+      "value": "slit width s = 2 px (from A = 2 with equal 0.2\" sampling, b = 1)",
+      "src": "C26",
+      "loc": "Sec. 2.2, Eq. 1",
+      "quote": "A= s θs,x , b θs,y ... Applying Eq. 1 recovers A = 2 for MUSE"
+     },
+     {
+      "value": "2:1 anamorphosis for Nyquist spectral sampling (BlueMUSE fore-optics, MUSE heritage)",
+      "src": "J20",
+      "loc": "Sec. 4",
+      "quote": "introducing a 2:1 anamorphic ratio along the spectral direction (Fig. 4). The anamorphosis allows to comply with Nyquist criterion for spectral sampling"
+     }
+    ],
+    "derived": "DERIVED: s = A b theta_y / theta_x = 2 x 1 x 0.2/0.2 = 2 px (C26 Eq. 1)"
+   },
+   "spectrograph": {
+    "value": "collimator (refractive) + VPH grating + camera; no moving parts; 24 identical units (Winlight)",
+    "unit": "",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.4.2, p.22",
+    "quote": "It is composed of a collimator, a Volume Phase Holographic Grating and a camera. ... There is no moving part in the spectrographs and all 24 spectrographs are identical.",
+    "alternatives": [
+     {
+      "value": "fully refractive",
+      "src": "L14",
+      "loc": "Abstract, p.1",
+      "quote": "Each IFU incorporates an image slicer, a fully refractive spectrograph with VPH-grating"
+     },
+     {
+      "value": "dioptric collimator",
+      "src": "C26",
+      "loc": "Sec. 3 (collimator design)",
+      "quote": "A fully dioptric collimator, as used in MUSE and BlueMUSE"
+     },
+     {
+      "value": "Winlight (spectrographs and slicers), KOSI (VPH gratings)",
+      "src": "B10",
+      "loc": "Sec. 5 table",
+      "quote": "Image Slicers (24x) Spectrographs (24x) VPH Gratings (24x) Detectors (24x) Supplier"
+     },
+     {
+      "value": "detector tilted to absorb axial colour",
+      "src": "B06",
+      "loc": "Sec. 6",
+      "quote": "In this design, the tilt of the detector compensates for the axial chromatism"
+     }
+    ]
+   },
+   "camera_focal_ratio": {
+    "value": 1.95,
+    "unit": "f/# (output; spatial direction)",
+    "src": "L10A",
+    "loc": "abstract",
+    "quote": "The MUSE Spectrograph -SPS-, with fast output focal ratio of f/1.95, implements a Volume Phase Holographic Grating - VPHG.",
+    "alternatives": [
+     {
+      "value": "F/1.9",
+      "src": "J20",
+      "loc": "Sec. 3 (Large field-of-view)",
+      "quote": "the focal ratio of the camera becomes significantly faster (F/1.3 instead of F/1.9)",
+      "note": "J20 Eq. 1: D_tel theta_tel = d_pix / F_cam"
+     }
+    ],
+    "derived": "DERIVED (J20 Eq. 1, F_cam = d_pix / (D theta)): 15 um / (8.2 m x 0.2\") = f/1.89 (f/1.93 on 8.0 m) along the slice; 30 um / (8.2 m x 0.2\") = f/3.77 along the dispersion (pupil half as wide: A = 2)"
+   },
+   "collimator_camera_focal_lengths_beam": {
+    "value": "NOT FOUND (MUSE); effective values DERIVED from the Potsdam MRS: f_cam 258.4 mm, f_col 499.3 mm",
+    "unit": "mm",
+    "src": "MRS16",
+    "loc": "Sec. 2 and Sec. 4",
+    "quote": "The linear dispersion is 0.134 nm per pixel ... resulting in a frequency of 429 lines per mm. The Bragg condition is met when the angle of incidence (AOI) occurs at eight degrees. ... The fibers used for this experiment have a core size of 114 μm, resulting in a projected image diameter of 59 μm on the detector.",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "MRS keeps the MUSE spectrograph as far as possible",
+      "src": "MRS16",
+      "loc": "Sec. 2 (Optical design)",
+      "quote": "The general aim for the Potsdam MRS is to modify the MUSE opto-mechanical layout to accommodate an optical fiber feed, keeping properties of high-throughput and image quality, and improving performance at blue wavelengths, while minimizing changes in the spectrograph itself."
+     },
+     {
+      "value": "MRS slit up to 118 mm long; input f/4.33; MUSE pupil elliptical",
+      "src": "MRS16",
+      "loc": "Sec. 2",
+      "quote": "a straight fiber optic array structure of up to 118 mm length ... The input f-number is f/4.33, and the beam at the pupil position exhibits now a non-anamorphic circular aspect rather than elliptical."
+     }
+    ],
+    "derived": "DERIVED (MRS, NOT MUSE): f_cam = pix cos(beta) / (G dlambda) = 0.015 mm x cos 8 deg / (429 /mm x 1.34e-7 mm) = 258.4 mm (Bragg setting alpha = beta = 8 deg, i.e. 6488 A); magnification 59/114 = 0.5175, so f_col = 258.4/0.5175 = 499.3 mm and the f/4.33 MRS beam = 115.3 mm. Cross-check: a 4096 x 15 um detector maps back to 61.44/0.5175 = 118.7 mm of slit, the MRS \"up to 118 mm\" input slit, consistent with an unchanged collimator/camera pair. ASSUMPTION: the MUSE collimator and camera have these focal lengths (the MRS camera was partly re-designed: CaF2 in the cemented groups)."
+   },
+   "beam_EFFECTIVE": {
+    "value": "dispersion plane W = 68.5 mm; spatial direction 132.5 mm (f/1.95) to 137.0 mm (A = 2)",
+    "unit": "mm",
+    "src": "L10A",
+    "loc": "abstract",
+    "quote": "with fast output focal ratio of f/1.95",
+    "is_derived": true,
+    "derived": "DERIVED: slice image 2 px = 30 um = theta D f_cam / W -> W = 258.4 x (0.2/206264.8 x 8200)/0.030 = 68.5 mm; spatial W = 258.4/1.95 = 132.5 mm or 2 x 68.5 = 137.0 mm (A = 2). F (explorer) = f_col/W = 499.3/68.5 = 7.29 (dispersion plane) and 499.3/137.0 = 3.65 (spatial)."
+   },
+   "disperser": {
+    "value": "one VPH grating per spectrograph (KOSI), first order, fixed; line density and angles NOT FOUND",
+    "unit": "",
+    "src": "B10",
+    "loc": "Sec. 4, p.3",
+    "quote": "We first received a Volume Phase Holographic grating (VPHG) from KOSI.",
+    "alternatives": [
+     {
+      "value": "VPHG",
+      "src": "MUM",
+      "loc": "Sec. 2.1.2.4.2",
+      "quote": "It is composed of a collimator, a Volume Phase Holographic Grating and a camera."
+     }
+    ]
+   },
+   "vph_EFFECTIVE_DERIVED": {
+    "value": "G = 458.4 /mm, alpha = beta = 9.23 deg (symmetric Bragg), lamC = 7000 A, camera-collimator angle 18.46 deg",
+    "unit": "lines/mm; deg",
+    "src": "MUM",
+    "loc": "Table 1 (MUSE in a nutshell)",
+    "quote": "Spectral sampling 0.125 nm/pixel",
+    "is_derived": true,
+    "derived": "DERIVED: at the chip centre dlambda/dx = cos(beta) pix / (G f_cam) = 1.25 A -> G f_cam / cos(beta) = 0.015 mm / 1.25e-7 mm = 1.2e5; with f_cam = 258.4 mm and sin(beta) = G lamC / 2 at lamC = 7000 A (midpoint of 4650-9350 A): G = 458.4 /mm, alpha = beta = 9.23 deg. Model chip 4424-9527 A on 4112 px (contains 4650-9350 A). EFFECTIVE only: G scales as 1/f_cam; the real grating may have tilted fringes."
+   },
+   "detector": {
+    "value": "e2v deep-depletion, AR graded coated; 4096 (X) x 4112 (Y) active pixels, 15 um; 1x1 binning only",
+    "unit": "",
+    "src": "MUM",
+    "loc": "Table 3 (Properties of the MUSE detectors), p.22",
+    "quote": "CCD Type E2V Deep depletion, AR graded coated Active pixel format 4096*4112 pixels (X*Y) Pixel size 15*15 µm2",
+    "alternatives": [
+     {
+      "value": "24 x 4k x 4k MIT/LL CCD",
+      "src": "ESOMO",
+      "loc": "MUSE in a nutshell table",
+      "quote": "Detectors 24 x 4k x 4k MIT/LL CCD"
+     },
+     {
+      "value": "4k x 4k 15 um deep depletion (design)",
+      "src": "B06",
+      "loc": "Sec. 6",
+      "quote": "Detectors are 4kx4k 15µm deep depletion devices with improved quantum efficiency in the red."
+     }
+    ]
+   },
+   "detector_layout": {
+    "value": "dispersion along Y (4112 px; blue at the bottom); 48 slices side by side along X, each ~75 px wide, staggered in Y by ~125 px in a repeating 3-slice pattern",
+    "unit": "",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.5 (Spectral format), p.25",
+    "quote": "Each slice is ~ 75 pixels wide and dispersed in the spectrograph along the vertical axis of the CCD, with the bluest wavelengths located at the bottom of the detector and the reddest wavelength at the top. The 48 slices are offset vertically from one another by ~ 125 pixels, following a repeating pattern of 3 slices.",
+    "alternatives": [
+     {
+      "value": "slice width on the CCD 72.2-82.2 px (pipeline tracing limits)",
+      "src": "W20",
+      "loc": "Sec. 3.4 (slice tracing)",
+      "quote": "slice widths (again, 72.2 to 82.2 pixels)"
+     },
+     {
+      "value": "~90% of detector pixels and spaxels used",
+      "src": "C26",
+      "loc": "Sec. 2.1",
+      "quote": "we therefore assume that 90% of the detector pixels and spaxels are effectively used by the spectrograph, consistent with what was achieved on MUSE"
+     }
+    ],
+    "derived": "DERIVED: Nx (dispersion) = 4112, Ny = 4096; 48 x 75 = 3600 px of slices along X, leaving (4096 - 3600)/48 = 10.3 px per inter-slice gap on average (gap NOT stated in any source); the 3-step stagger of ~125 px (~250 px peak-to-peak) trims the common band by ~250 px x 1.25 A = ~310 A."
+   },
+   "spectra_per_detector": {
+    "value": 3600,
+    "unit": "spaxels (spectra) per CCD = 48 slices x 75 spaxels",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.5, p.25",
+    "quote": "Each slice is ~ 75 pixels wide",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "3750 spectra on the first IFU",
+      "src": "B10",
+      "loc": "Fig. 2 caption",
+      "quote": "one can see 3750 high quality spectra (only 4% of the total number of MUSE spectra)"
+     },
+     {
+      "value": "90,000 in total (300 x 300 spaxels of 0.2\" over 1' x 1')",
+      "src": "B06",
+      "loc": "Abstract",
+      "quote": "MUSE has a field of 1x1 arcmin² sampled at 0.2x0.2 arcsec²"
+     }
+    ],
+    "derived": "DERIVED: 48 x 15\"/0.2\" = 48 x 75 = 3600 per detector; x 24 = 86,400 in total (B10: 3750 x 24 = 90,000; 300 x 300 = 90,000)"
+   },
+   "wavelength_range": {
+    "value": "480-930 nm nominal; 465-930 nm extended (WFM only; second-order contamination); set by filters",
+    "unit": "nm",
+    "src": "MUM",
+    "loc": "Table 1 (MUSE in a nutshell)",
+    "quote": "Wavelength range 480 – 930 nm (nominal) 465 – 930 nm (extended)*",
+    "alternatives": [
+     {
+      "value": "extended mode suffers 2nd-order contamination",
+      "src": "MUM",
+      "loc": "Table 1 footnote",
+      "quote": "(*) only available for WFM instrument modes. Suffers from 2nd order contamination"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_vs_wavelength": {
+    "value": "4650: 1609; 5000: 1750; 5500: 1978; 6000: 2227; 6500: 2484; 7000: 2737; 7500: 2975; 8000: 3183; 8500: 3350; 9000: 3465; 9350: 3506",
+    "unit": "lambda/dlambda (lab, calibration lamps)",
+    "src": "MUM",
+    "loc": "Sec. 3.2, Fig. 18 table, p.36",
+    "quote": "4650.0 1609 ± 6 5000.0 1750 ± 4 1680 -> 1813 5500.0 1978 ± 6 6000.0 2227 ± 6 2132 -> 2330 6500.0 2484 ± 5 7000.0 2737 ± 4 2658 -> 2824 7500.0 2975 ± 4 8000.0 3183 ± 4 3126 -> 3284 8500.0 3350 ± 4 9000.0 3465 ± 5 3211 -> 3589 9350.0 3506 ± 10",
+    "note": "\"Range\" column = spread over the 24 channels, e.g. 3211-3589 at 9000 A",
+    "alternatives": [
+     {
+      "value": "1770 (480 nm) - 3590 (930 nm) WFM",
+      "src": "MUM",
+      "loc": "Table 1",
+      "quote": "Resolving power 1770 (480 nm) – 3590 (930 nm) (WFM)"
+     },
+     {
+      "value": "1770 (480 nm) - 3590 (930 nm)",
+      "src": "ESOMO",
+      "loc": "MUSE in a nutshell",
+      "quote": "Resolving power 1770 (480 nm) -- 3590 (930 nm)"
+     },
+     {
+      "value": "1770 at 465 nm to 3590 at 930 nm",
+      "src": "ESOMI",
+      "loc": "Spectrograph",
+      "quote": "achieves a spectral resolution of 1770 at 465nm to 3590 at 930nm"
+     },
+     {
+      "value": "R ~ 3000",
+      "src": "W20",
+      "loc": "Sec. 1.2",
+      "quote": "bins of about 1.25 Å pixel−1 at a spectral resolution of R ∼ 3000"
+     }
+    ],
+    "derived": "DERIVED explorer prediction (effective preset, slit image 2.0 px): R = 1883 / 2801 / 3787 at 4650 / 7000 / 9350 A, i.e. +17% / +2% / +8% vs the lab table (the measured LSF includes ~0.5 px of optical blur)."
+   },
+   "dispersion_per_pixel": {
+    "value": 1.25,
+    "unit": "A/pixel",
+    "src": "MUM",
+    "loc": "Table 1",
+    "quote": "Spectral sampling 0.125 nm/pixel",
+    "alternatives": [
+     {
+      "value": "about 1.25 A/px",
+      "src": "W20",
+      "loc": "Sec. 1.2",
+      "quote": "bins of about 1.25 Å pixel−1"
+     },
+     {
+      "value": "1.19-1.31 A/px (locally linear range assumed by the arc-line matcher)",
+      "src": "W20",
+      "loc": "Sec. 3.5 (wavelength calibration)",
+      "quote": "the dispersion is locally linear, inside a range of 1.19 . . . 1.31 Å pixel−1"
+     },
+     {
+      "value": "voxel 0.2\" x 0.2\" x 1.25 A",
+      "src": "B17",
+      "loc": "Sec. 3, footnote 4",
+      "quote": "voxel: volume sampling element (000. 2 × 000. 2 × 1.25 Å)"
+     }
+    ]
+   },
+   "LSF_sampling": {
+    "value": 2.5,
+    "unit": "pixels per resolution element (FWHM)",
+    "src": "MUM",
+    "loc": "Sec. 3.2, p.36",
+    "quote": "Each resolution element is sampled by 2.5 pixels along the spectral direction.",
+    "alternatives": [
+     {
+      "value": "LSF FWHM 3.0 A (blue end) to 2.4 A (7500 A); F(lambda) = 5.835e-8 lambda^2 - 9.080e-4 lambda + 5.983 A",
+      "src": "B17",
+      "loc": "Sec. 5.2",
+      "quote": "ranging from 3.0 Å (at the blue end) to 2.4 Å (at 7500 Å) ... Fmosaic (λ) = 5.835 10−8 λ2 − 9.080 10−4 λ + 5.983"
+     },
+     {
+      "value": "instrumental profile about 2.5 A",
+      "src": "W20",
+      "loc": "Sec. 5.1",
+      "quote": "MUSE instrumental profile of about 2.5 Å"
+     }
+    ],
+    "derived": "DERIVED from B17 Eq. 7: FWHM = 2.99 / 2.49 / 2.59 A at 4750 / 7000 / 9350 A = 2.39 / 1.99 / 2.08 px of 1.25 A; R = 1590 / 2816 / 3604. Design slit image 2 px (B06, C26)."
+   },
+   "wavelength_coverage": {
+    "value": "4750-9350 A fully sampled (nominal); 4600-9350 A (extended)",
+    "unit": "A",
+    "src": "W20",
+    "loc": "Sec. 3.6 (post-processing)",
+    "quote": "It extends from 4750. . . 9350 Å for the nominal and 4600. . . 9350 Å for the extended mode.",
+    "alternatives": [
+     {
+      "value": "at least 4800-9300 A nominal, 4650-9300 A extended",
+      "src": "W20",
+      "loc": "Sec. 1.2",
+      "quote": "a wavelength coverage of at least 4800. . . 9300 Å (nominal) and 4650. . . 9300 Å (extended mode)."
+     },
+     {
+      "value": "4750-9350 A",
+      "src": "B17",
+      "loc": "Sec. 4",
+      "quote": "MUSE wavelength range (4750-9350 Å)"
+     }
+    ],
+    "derived": "DERIVED: (9350 - 4650)/1.25 = 3760 px of the 4112 px along Y; the remaining ~350 px absorb the ~250 px slice stagger."
+   },
+   "spatial_sampling": {
+    "value": "0.2\"/px along the slices; 59.9\" x 60.0\" field",
+    "unit": "arcsec/pixel",
+    "src": "MUM",
+    "loc": "Table 1",
+    "quote": "Field of view 59.9” x 60.0” (WFM) 7.42” x 7.43” (NFM) Spatial pixel scale 0.2” / pixel (WFM)",
+    "alternatives": [
+     {
+      "value": "0.2\"/pixel",
+      "src": "ESOMO",
+      "loc": "MUSE in a nutshell",
+      "quote": "Spatial Sampling 0.2\" /pixel"
+     }
+    ]
+   }
+  },
+  "multiplex": {
+   "value": 3600,
+   "unit": "spaxel spectra per CCD (IFU: 48 slices x ~75 spaxels; 24 CCDs; ~86,400-90,000 in total)",
+   "src": "MUM",
+   "loc": "Sec. 2.1.2.5, p.25",
+   "quote": "Each slice is ~ 75 pixels wide",
+   "is_derived": true,
+   "alternatives": [
+    {
+     "value": 3750,
+     "src": "B10",
+     "loc": "Fig. 2 caption",
+     "quote": "one can see 3750 high quality spectra (only 4% of the total number of MUSE spectra)"
+    }
+   ],
+   "derived": "DERIVED: 48 x 75 = 3600"
+  },
+  "not_found": [
+   "Spectrograph collimator and camera focal lengths, collimated beam size and grating aperture (Kosmalski et al. 2011, SPIE 8167, \"Optical design of the VLT/MUSE instrument\", and Laurent et al. 2006, PASP 118, 1564 hold them; neither has an open copy: IOP and SPIE return bot-blocks, no arXiv/HAL deposit). EFFECTIVE values DERIVED from the Potsdam MRS (MRS16).",
+   "VPH grating line density, Bragg/incidence angle, fringe tilt and camera-collimator angle (Renault et al. 2010, SPIE 7739, 77394R, \"Efficiency measurements performed on the MUSE VPHG\": no open copy). EFFECTIVE values DERIVED from the 1.25 A/px dispersion.",
+   "Focal ratio of the beam entering the spectrograph collimator in either direction (only the camera output f/1.95 and the x2 anamorphoser are published). The slicer demagnification from the slicer (0.45-0.47 mm per 0.2\" along the slices) to the pseudo-slit is not published.",
+   "Gap between slices on the detector (DERIVED ~10 px average from 48 x 75 px in 4096 px) and the exact stagger (only \"~125 pixels\").",
+   "The Laurent et al. 2010 SPIE paper text (only its abstract, via a third-party aggregator).",
+   "Laurent et al. 2014 SPIE papers \"IFU Simulator\" and \"MUSE Alignment onto VLT\" (HAL hal-04785478, hal-04785500) were downloaded and read: alignment tooling only, no spectrograph prescription; not used and not saved. The 2014 draft user manual (VLT-MAN-MUS-14670-1477 v1.1) duplicates the current manual; not saved. F. Laurent 2006 PhD thesis (HAL tel-00079224) describes the superseded Phase-A slicer (38 slices, catadioptric); not used."
+  ],
+  "conflicts": [
+   "Detector: \"E2V Deep depletion\" 4096 x 4112 (MUM Table 3) vs \"24 x 4k x 4k MIT/LL CCD\" (ESOMO table).",
+   "Resolving power: 1770 (480 nm) - 3590 (930 nm) (MUM Table 1, ESOMO) vs 1770 at 465 nm - 3590 at 930 nm (ESOMI) vs lab table 1609 (465 nm) - 3506 (935 nm) (MUM Sec. 3.2) vs \"R ~ 3000\" (W20).",
+   "Camera focal ratio: f/1.95 (L10A abstract) vs F/1.9 (J20) vs f/1.89 (8.2 m) or f/1.93 (8.0 m) DERIVED from 15 um per 0.2\".",
+   "Anamorphoser axis: \"0.5 ... in the horizontal direction\" (MUM) vs \"2 ... in the vertical direction\" (ESOMI); same 2:1 ratio.",
+   "Spectra per IFU: 48 x 75 = 3600 (DERIVED from MUM) vs 3750 on the first IFU (B10) vs 300 x 300 / 24 = 3750 (B06 field and sampling).",
+   "Spaxel size along the slices at the slicer: 465 um (MUM) vs 89.5 mm/300 spaxels x 1.51 = 450 um (DERIVED from L14).",
+   "Coverage: 4750-9350 A fully sampled (W20 Sec. 3.6, B17) vs at least 4800-9300 A (W20 Sec. 1.2) vs 480-930 nm (MUM); extended 4600 (W20 Sec. 3.6) vs 4650 A (W20 Sec. 1.2; MUM 465 nm)."
+  ],
+  "notes": [
+   "Explorer mapping: the explorer has one isotropic magnification, but MUSE is anamorphic (A = 2). The preset is set up for the DISPERSION plane (slit width 0.2\" -> 2.0 px, W = 68.5 mm, F = 7.29), which fixes R, A/px and coverage. Its along-slit pixel scale then reads 0.10\"/px; the real along-slice scale is 0.2\"/px because the pupil is twice as wide (133-137 mm, camera f/1.89-1.95) in the spatial direction. Equivalently, the spatial direction behaves as F = 3.65-3.77.",
+   "Only G x f_cam / cos(beta) is constrained (1.2e5, from 1.25 A/px with 15 um pixels): any f_cam gives the same A/px, coverage and R if G is scaled as 1/f_cam; only the drawn angles change (alpha ~ 9 deg at f_cam = 258 mm).",
+   "MUSE uses a flat, tilted detector to absorb axial colour (B06); the explorer has a flat untilted focal plane.",
+   "R from the explorer is geometric (slit-limited, 2.0 px); the measured LSF (2.4-3.0 A, ~2.5 px) includes optics and detector blur, so the explorer over-predicts R by ~2-17% (largest in the blue).",
+   "NFM (0.025\"/px, 7.42\" x 7.43\") uses the same spectrographs with x8 extra magnification in the fore-optics (ESOMI); the spectral format is identical (MUM)."
+  ]
+ },
+ "kcwi": {
+  "title": "Keck II / KCWI (reflective image-slicer IFU at the telescope focus, 24 slices; one spherical collimator mirror; blue arm and KCRM red arm, each with exchangeable VPH gratings, rotatable grating and articulated camera)",
+  "recommended_preset": "Primary: BLUE, BM grating + Medium slicer (0.69\" slices), lamC = 4500 A. Common optics (both arms): D = 10.95 m (DERIVED: f/13.7 \"measured across the vertices of the hexagonal Keck primary\" with the 1.375\"/mm plate scale), F = 13.7 into the collimator in both directions (the slicer sits at the telescope focus with no fore-optics; the slices are only weakly powered field mirrors), slit = slice width 0.69\" (0.5 mm), 24 slices per detector (20.4\" long, ~139 unbinned px each; 3330 spaxels at 1x1), collimator = Mirror (spherical, R = 4345 mm, f = 2172.5 mm), W = 160 mm compound pupil (f_col = F x W = 2192 mm in the explorer), camera f = 304.4 mm (f/1.9, all-spherical refractive, articulated), transmission VPH: BM 1900 /mm at alpha = 30 deg (M18 typical; beta = 20.8 deg at 4500 A, camera-collimator angle 50.8 deg), first order; e2v CCD231-84 4096 x 4112 x 15 um, dispersion along y (Nx = 4112, Ny = 4096). Validate: 0.24 A/px and R(central) = 4000 (KCONF; M18 Table 3 says 5000), instantaneous coverage 800-900 A (KCONF; 965 A over the whole CCD, M18), 0.147\"/px along the slices, slit image 4.6 px (2x the small slicer's 2.3 px; M18). Alternative blue preset: BL + Large (1.38\"), 870 /mm at alpha = 15 deg, lamC = 4500 A: 0.563 A/px, R = 900, ~2000 A instantaneous. Red (KCRM): RL + Medium, 530 /mm (KCWI_DRP), same collimator/beam, camera 305 mm (DRP: \"same for both channels\"), LBNL 4k x 4k x 15 um; the red grating angles are NOT published: alpha = 18.26 deg DERIVED for lamC = 8950 A assuming the blue gratings' beta = alpha - 9 deg convention, which reproduces the KCONF sample setting 7070-10810 A to <10 A and 0.92 A/px.",
+  "recommended_presets_by_config": {
+   "blue_BM_Medium": {
+    "D_m_DERIVED": 10.95,
+    "F": 13.7,
+    "slitW_arcsec": 0.69,
+    "slices_per_detector": 24,
+    "spaxels_per_slice_1x1_DERIVED": 139,
+    "nObj": 24,
+    "nObj_spaxels_1x1_DERIVED": 3330,
+    "col": "mirror",
+    "W_mm": 160,
+    "f_col_mm": "2172.5 (R/2; explorer F x W = 2192)",
+    "fcam_mm": 304.4,
+    "gType": "trans",
+    "G_per_mm": 1900,
+    "m": 1,
+    "tAlpha": 30,
+    "lamC_A": 4500,
+    "beta_deg_DERIVED": 20.79,
+    "camera_collimator_angle_deg_DERIVED": 50.79,
+    "Nx": 4112,
+    "Ny": 4096,
+    "pix_um": 15,
+    "binning_typical": "2x2",
+    "validate": {
+     "dlpix_A": 0.24,
+     "R_central": "4000 (KCONF) / 5000 (M18 Table 3)",
+     "coverage_instantaneous_A": "800-900 (KCONF); 965 whole CCD (M18)",
+     "arcsec_per_px": 0.147,
+     "slit_image_px_1x1": "~4.6 (2 x 2.3, M18)",
+     "explorer_model_DERIVED": "chip 3995-4986 A (992 A); 0.2425 A/px at lamC; slit image 4.30 px (4.69 px x cos alpha / cos beta); R = 4312 at 4500 A; 0.1485\"/px"
+    }
+   },
+   "blue_BL_Large": {
+    "D_m_DERIVED": 10.95,
+    "F": 13.7,
+    "slitW_arcsec": 1.38,
+    "slices_per_detector": 24,
+    "nObj": 24,
+    "col": "mirror",
+    "W_mm": 160,
+    "fcam_mm": 304.4,
+    "gType": "trans",
+    "G_per_mm": 870,
+    "m": 1,
+    "tAlpha": 15,
+    "lamC_A": 4500,
+    "beta_deg_DERIVED": 7.62,
+    "camera_collimator_angle_deg_DERIVED": 22.62,
+    "Nx": 4112,
+    "Ny": 4096,
+    "pix_um": 15,
+    "validate": {
+     "dlpix_A": 0.563,
+     "R_central": "900 (KCONF) / 1250 (M18 Table 3)",
+     "coverage_instantaneous_A": "2000 (KCONF); 2250 whole CCD (M18)",
+     "explorer_model_DERIVED": "chip 3344-5641 A (2297 A); 0.561 A/px; slit image 9.06 px; R = 885 at 4500 A"
+    }
+   },
+   "red_KCRM_RL_Medium": {
+    "D_m_DERIVED": 10.95,
+    "F": 13.7,
+    "slitW_arcsec": 0.69,
+    "slices_per_detector": 24,
+    "nObj": 24,
+    "col": "mirror",
+    "W_mm": 160,
+    "fcam_mm": 305,
+    "gType": "trans",
+    "G_per_mm": 530,
+    "m": 1,
+    "tAlpha_DERIVED": 18.26,
+    "lamC_A": 8950,
+    "beta_deg_DERIVED": 9.26,
+    "camera_collimator_angle_deg_DERIVED": 27.53,
+    "Nx": 4096,
+    "Ny": 4096,
+    "pix_um": 15,
+    "alt_setting": "lamC = 7150 A: tAlpha_DERIVED 15.46 deg (KCONF sample 5600-8850 A; blue end set by the 560 nm dichroic)",
+    "validate": {
+     "dlpix_A": 0.92,
+     "R_central": ">1000 (Medium; KCONF lab)",
+     "coverage_sample_A": "7070-10810 at lamC 8950",
+     "explorer_model_DERIVED": "chip 7069-10801 A; 0.916 A/px at lamC (0.922 at lamC 7150); slit image 4.48 px; R = 2182 at 8950 A"
+    }
+   }
+  },
+  "params": {
+   "telescope": {
+    "value": "Keck II, 10 m, right Nasmyth port; light enters at f/13.7 (measured across the vertices of the hexagonal primary)",
+    "unit": "",
+    "src": "M18",
+    "loc": "Sec. 2, p.3-4",
+    "quote": "Converging light from the telescope tertiary (f/13.7 measured across the vertices of the hexagonal Keck primary) ... KCWI operates at the right Nasmyth port of the 10 m Keck II telescope.",
+    "alternatives": [
+     {
+      "value": "Design focal ratio 13.7",
+      "src": "M18",
+      "loc": "Table 1",
+      "quote": "Design focal ratio 13.7 Keck telescope"
+     },
+     {
+      "value": "right Nasmyth focal station",
+      "src": "KPRIM",
+      "loc": "Background",
+      "quote": "KCWI operates on the Keck II telescope at the right Nasmyth focal station."
+     },
+     {
+      "value": "LEFT Nasmyth platform",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Location Left Nasmyth platform, Keck II; removable from focus",
+      "note": "conflict: left vs right"
+     }
+    ]
+   },
+   "telescope_plate_scale": {
+    "value": 1.375,
+    "unit": "arcsec/mm at the slicer (telescope focus)",
+    "src": "M18",
+    "loc": "Table 1",
+    "quote": "Telescope Plate Scale 1.375 -mm",
+    "note": "the \"″ mm^-1\" superscripts sit on the line above in the text layer",
+    "alternatives": [
+     {
+      "value": "1.375 \"arcsec/pixel\" [sic, = arcsec/mm]",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Telescope Plate Scale 1.375 arcsec/pixel"
+     }
+    ],
+    "derived": "DERIVED: f_tel = 206264.8/1.375 = 150.0 m; D = 150.0 m / 13.7 = 10.95 m (= the vertex-to-vertex size implied by \"f/13.7 measured across the vertices\"); D = 10.95 m, F = 13.7 and the physical W = 160 mm reproduce f_tel = 150 m, f_col = 2192 mm (vs 2172.5), the slice image and the 0.147\"/px scale together; with D = 10.0 m the explorer would need F = 15.0 and W = 145 mm for the same detector-plane results."
+   },
+   "fore_optics": {
+    "value": "none with power: K-mirror de-rotator only; the slicer is at the telescope focus, so the collimator sees F = 13.7 in both directions (no anamorphism)",
+    "unit": "",
+    "src": "M18",
+    "loc": "Sec. 2, p.5",
+    "quote": "The converging beam continues through a K-mirror image de-rotator to deliver a stationary, on-axis, unvignetted 4000 diameter science field to a selectable image slicer located at the telescope focus.",
+    "note": "\"4000\" = 40\" in the text layer",
+    "alternatives": [
+     {
+      "value": "slices are weak field mirrors that image the pupil onto the grating",
+      "src": "M18",
+      "loc": "Sec. 2",
+      "quote": "The individual slices are each spherically convex in order to re-image the telescope pupil onto the grating."
+     },
+     {
+      "value": "virtual slit at the collimator focus; compound pupil at the grating",
+      "src": "M18",
+      "loc": "Sec. 2 and Fig. 8 caption",
+      "quote": "the IFU virtual slit, which is curved reminiscent of a Schmidt camera focal plane, is formed at the collimator focal point ... The compound pupil image is formed at the grating, which is located at the radius of the collimator."
+     }
+    ],
+    "derived": "DERIVED check: f_col/W = 2172.5/160 = 13.58 ~ 13.7, i.e. the collimator is filled at the telescope focal ratio; instrument demagnification 304.4/2172.5 = 0.1401 = 1/7.14 (KCONF quotes 7.21)."
+   },
+   "slicers": {
+    "value": "3 slicers x 24 slices; slice width 0.35 / 0.69 / 1.38\" (0.25 / 0.5 / 1 mm); slice length 20.4\" (14.5 mm); FOV 8.4 / 16.5 / 33.1\" x 20.4\"",
+    "unit": "",
+    "src": "KSPEC",
+    "loc": "Table 1",
+    "quote": "Slit Height 14.5 mm = 20.4 arcsec Slit Width 0.25, 0.5, 1 mm = 0.35, 0.69, 1.38 arcsec selectable",
+    "alternatives": [
+     {
+      "value": "(0.34, 0.69, 1.38)\" x 24; FOV (8.25, 16.5, 33)\" x 20\"",
+      "src": "M18",
+      "loc": "Table 1",
+      "quote": "Field of View (8.25, 16.5, or 33)00 × 2000 Selectable Slit width (0.34, 0.69, or 1.38)00 × 24 Selectable"
+     },
+     {
+      "value": "24 slitlets; 0.35, 0.7, 1.4\"; FOV 8.4, 16.8, 33.6\" x 20\"",
+      "src": "M18",
+      "loc": "Sec. 2, p.5",
+      "quote": "The telescope focal plane is divided into 24 slitlets by one of three selectable image slicer elements ... The slicer mirror stacks provide 0.3500 , 0.700 or 1.400 spatial resolution (with ... corresponding 8.400 , 16.800 , or 33.600 FOV in one axis and a 2000 FOV for all configurations in the other axis)."
+     },
+     {
+      "value": "medium slicer: slitlets 0.5 mm thick, 14.8 mm tall",
+      "src": "M18",
+      "loc": "Fig. 6 caption",
+      "quote": "Each of the 24 slitlets is 0.5 mm thick and 14.8 mm tall."
+     },
+     {
+      "value": "slice width 1.35 / 0.69 / 0.35\"; FOV 33 / 16.5 / 8.4\" x 20.4\"",
+      "src": "KCONF",
+      "loc": "Table 2",
+      "quote": "Field of View 33˝ x 20.4˝ 16.5˝ x 20.4˝ 8.4˝ x 20.4˝ Slice width 1.35˝ 0.69˝ 0.35˝"
+     },
+     {
+      "value": "Large slice 1.358\" (pipeline)",
+      "src": "KDRP",
+      "loc": "kcwi.cfg",
+      "quote": "SLICESCALE = 0.00037718 # Large slicer slice size in degrees"
+     },
+     {
+      "value": "24 slices for each format",
+      "src": "KPRIM",
+      "loc": "Background",
+      "quote": "and 24 slices for each format."
+     }
+    ],
+    "derived": "DERIVED: 0.5 mm x 1.375\"/mm = 0.6875\"; 14.8 mm x 1.375 = 20.35\"; DRP 0.00037718 deg = 1.3578\""
+   },
+   "collimator": {
+    "value": "spherical concave MIRROR, R = 4345 mm (f = 2172.5 mm); followed by a weak cylindrical corrector FM1 (R = 675 m)",
+    "unit": "mm",
+    "src": "M18",
+    "loc": "Table 1",
+    "quote": "Collimator radius 4345 mm Concave, spherical",
+    "alternatives": [
+     {
+      "value": "2160 mm",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Collimator Focal Length 2160 mm"
+     }
+    ],
+    "derived": "DERIVED: f_col = R/2 = 2172.5 mm; explorer f_col = F x W = 13.7 x 160 = 2192 mm (+0.9%)"
+   },
+   "beam": {
+    "value": 160,
+    "unit": "mm (compound pupil at the grating)",
+    "src": "M18",
+    "loc": "Table 1; Sec. 2",
+    "quote": "Beam diameter 160 mm Compound pupil",
+    "alternatives": [
+     {
+      "value": 160,
+      "src": "M18",
+      "loc": "Sec. 2 (FM3 / filter)",
+      "quote": "The transmitted blue light forms a 160 mm diameter compound pupil image at the selected grating surface."
+     },
+     {
+      "value": "camera entrance pupil 160 mm, 200 mm ahead of the first lens",
+      "src": "M18",
+      "loc": "Table 4 footnote",
+      "quote": "to accommodate a round 160 mm diameter entrance pupil located 200 mm ahead of the first lens element vertex"
+     },
+     {
+      "value": 150,
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Beam Size 150 mm"
+     }
+    ]
+   },
+   "camera": {
+    "value": 304.4,
+    "unit": "mm (all-spherical 9-element refractive, 250 mm diameter, articulated about the grating axis)",
+    "src": "M18",
+    "loc": "Sec. 2.2",
+    "quote": "Dispersed light from the grating is re-imaged with a 304.4 mm focal length, 250 mm diameter all-spherical refractive camera",
+    "alternatives": [
+     {
+      "value": 305,
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Camera Focal Length 305 mm"
+     },
+     {
+      "value": "305 mm, both channels (pipeline)",
+      "src": "KDRP",
+      "loc": "kcwi.cfg",
+      "quote": "# parameters that should be the same for both channels ... FCAM = 305. # FOCAL LENGTH OF THE CAMERA"
+     },
+     {
+      "value": "305 mm",
+      "src": "M18",
+      "loc": "Sec. 3.6",
+      "quote": "system is completely dominated by the large 305 mm focal length camera lens."
+     },
+     {
+      "value": "camera articulates about the grating axis",
+      "src": "M18",
+      "loc": "Sec. 2.2",
+      "quote": "The traveler is articulated on curved rails that are centered around the grating axis of rotation"
+     }
+    ],
+    "derived": "DERIVED: f/# = 304.4/160 = f/1.90"
+   },
+   "gratings_blue": {
+    "value": "BL 870 /mm (alpha 15 deg), BM 1900 /mm (30 deg), BH1 3800 (55), BH2 3281 (52), BH3 2801 (50); first order; Wasatch \"Dickson\" VPH, 350 x 250 x 20 mm fused-silica substrates",
+    "unit": "lines/mm; deg (typical incidence)",
+    "src": "M18",
+    "loc": "Table 2",
+    "quote": "BM 3500-5600 1900 30 16.1 965 BL 3500-5600 870 15 37.5 2250 † The typical incidence angle is shown for each grating design. Since the gratings design is tilted, the typical dispersion angle β is 9◦ less than α at the central wavelength.",
+    "alternatives": [
+     {
+      "value": "BM 1.901, BL 0.870, BH1 3.6, BH2 3.2805, BH3 2.8017 lines/um",
+      "src": "KDRP",
+      "loc": "kcwi_file_primitives.py, rho()",
+      "quote": "Return the `rho` value (lines/mm divided by 1000) for the given grating. ... elif 'BM' in self.grating(): return 1.901 ... elif 'BL' in self.grating(): return 0.870"
+     },
+     {
+      "value": "fringe tilt ~2 deg -> ~9 deg alpha/beta asymmetry",
+      "src": "M18",
+      "loc": "Sec. 2.1",
+      "quote": "A “fringe tilt” of approximately 2◦ built into the design of each effectively places the grating at a small angle relative to the glass substrates ... This tilt introduces an asymmetry in the incidence and diffracted angles of about 9◦ ."
+     },
+     {
+      "value": "VPH, 250 x 350 mm",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Gratings VPH, 250 x 350 mm, selectable"
+     },
+     {
+      "value": "Wasatch Photonics; 350 x 250 x 20 mm substrates",
+      "src": "M18",
+      "loc": "Sec. 2.1",
+      "quote": "Our suite of five gratings was purchased from Wasatch Photonics ... The grating gelatin is sandwiched between a pair of 350 × 250 × 20 mm thick, AR-coated Corning 7980 (fused silica) substrates"
+     }
+    ],
+    "derived": "DERIVED (in-plane grating equation sin a + sin b = G lambda): BM, alpha 30, beta 21 -> lamC = 4518 A, 16.14 A/mm = 0.2421 A/px (M18 16.1); at lamC 4500 beta = 20.79 deg. BL, alpha 15, beta 6 -> 4176 A, 37.55 A/mm = 0.563 A/px (M18 37.5); at lamC 4500 beta = 7.62 deg."
+   },
+   "grating_angle_conventions": {
+    "value": "blue: alpha = grating angle - 13 deg - adjang (180 for BH, 0 for BM/BL); red: alpha = 155.892 - grating angle; both: beta = camera angle - alpha; mean out-of-plane angle 4 deg",
+    "unit": "",
+    "src": "KDRP",
+    "loc": "CalcPrelimDisp.py docstring; kcwi.cfg",
+    "quote": "* alpha = grating_angle - 13 - adjustment_angle ... * alpha = 155.892 - grating_angle ... * beta = camera_angle - alpha ... dispersion = cos(beta)/rho/focal_length x (pixel_scale x binning) * 1.e4",
+    "alternatives": [
+     {
+      "value": "GAMMA = 4 deg",
+      "src": "KDRP",
+      "loc": "kcwi.cfg",
+      "quote": "GAMMA = 4. # mean out-of-plane angle for diffraction (deg)"
+     }
+    ],
+    "derived": "DERIVED: explorer camera-collimator angle = alpha + beta = the KCWI camera (articulation) angle; BM at 4500 A: grating angle 43 deg, camera angle 50.8 deg. The 4 deg out-of-plane angle (curved 3-D virtual slit) changes lambda by cos 4 deg = 0.9976 (0.24%); the explorer works in plane."
+   },
+   "detector_blue": {
+    "value": "Teledyne-e2v CCD231-84, 4096 x 4112, 15 um, thin back-illuminated",
+    "unit": "",
+    "src": "M18",
+    "loc": "Table 1 and Sec. 2.3",
+    "quote": "Science detector 4096 × 4112 15 micron pixels",
+    "alternatives": [
+     {
+      "value": "CCD231-84",
+      "src": "M18",
+      "loc": "Sec. 2.3",
+      "quote": "The CCD is a Teledyne-e2v CCD231-84 that has 4096×4112 pixels with 15 µm pitch"
+     },
+     {
+      "value": "e2v 4k x 4k, 15 um",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Blue Detector e2v 4kx4k, 15 microns pixel, thin, AR-coated CCD"
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "dispersion along y (rows); the 24 slices lie side by side along x; N&S mask covers the upper and lower thirds",
+    "unit": "",
+    "src": "KDRP",
+    "loc": "CalcPrelimDisp.py",
+    "quote": "y_binning = self.action.args.ybinsize",
+    "alternatives": [
+     {
+      "value": "N&S mask blocks the upper and lower thirds",
+      "src": "KCONF",
+      "loc": "Quick guide",
+      "quote": "There is a deployable Nod and Shuffle mask which blocks the upper and lower thirds of the detector"
+     },
+     {
+      "value": "range reduced to ~1/3 with N&S",
+      "src": "M18",
+      "loc": "Sec. 2.1",
+      "quote": "The spectral range is reduced to about 1/3 the value shown when the N&S mask is deployed."
+     }
+    ],
+    "derived": "DERIVED: Nx (dispersion) = 4112 and Ny = 4096 if the 4112-pixel axis is y as in the standard CCD231-84 format (4112 rows); no KCWI source states which number is y (0.4% effect on coverage)."
+   },
+   "binning": {
+    "value": "2x2 for Medium and Large slicer science, 1x1 for Small",
+    "unit": "",
+    "src": "KDET",
+    "loc": "Blue binning changes",
+    "quote": "we run the daily afternoon focus in 2x2 binning (Medium slicer)",
+    "alternatives": [
+     {
+      "value": "2x2 for Medium or Large",
+      "src": "KDET",
+      "loc": "Blue binning changes",
+      "quote": "2x2 binning (Medium or Large slicer)"
+     }
+    ]
+   },
+   "red_channel": {
+    "value": "KCRM: dichroic at 560 nm; 560-1080 nm; 7 red VPH gratings (RL, RM1, RM2, RH1-RH4); LBNL 4k x 4k, 15 um, 500 um thick; same slicer, collimator and FM1 as blue",
+    "unit": "",
+    "src": "KSPEC",
+    "loc": "Table 1",
+    "quote": "Dichroic Reflects light blue-ward of 560nm to the blue channel, passes light red-ward of 560nm to the red channel Bandpass (blue channel) 350 to 560 nm Bandpass (red channel) 560 to 1080 nm",
+    "alternatives": [
+     {
+      "value": "LBNL 4k x 4k, 15 um, 500 um",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Red Detector LBNL 4kx4k, back-illuminated AR-coated CCD; 15 micron pixels; 500um thick Si substrate; Archon Controller"
+     },
+     {
+      "value": "7 red gratings (1 low, 2 medium, 4 high)",
+      "src": "KCONF",
+      "loc": "Quick guide",
+      "quote": "The red spectrograph has 7 red gratings (1 low, 2 medium, and 4 high dispersion)."
+     },
+     {
+      "value": "red 530-1050 nm (2017 plan); red-optimized refractive camera",
+      "src": "KCRM17",
+      "loc": "news text",
+      "quote": "the red (530 nm to 1050 nm) portions of the visible wavelength spectrum ... it will have a red-optimized refractive camera that will transmit light to a deep-depletion CCD."
+     },
+     {
+      "value": "530-1050 nm channel by replacing a fold mirror with a dichroic",
+      "src": "M18",
+      "loc": "Sec. 2",
+      "quote": "a 530-1050 nm channel can be added by replacing a fold mirror with a dichroic"
+     },
+     {
+      "value": "collimator and FM1 common to both channels; FMD fold replaced by a dichroic",
+      "src": "KPRIM",
+      "loc": "Background",
+      "quote": "Light from the pupil array proceeds to a spherical collimator and then to a wavefront-correcting cylindrical fold mirror (FM1), completing the portion of the optical path common to both the red and blue channels."
+     },
+     {
+      "value": "red arm via a dichroic in place of FMD",
+      "src": "M18",
+      "loc": "Fig. 2 caption",
+      "quote": "A parallel red arm can be accommodated by replacing the FMD fold mirror with a dichroic."
+     }
+    ]
+   },
+   "gratings_red": {
+    "value": "RL 530, RM1 1300, RM2 945, RH1 2360, RH2 2020, RH3 1735, RH4 1490 lines/mm; incidence angles NOT FOUND",
+    "unit": "lines/mm",
+    "src": "KDRP",
+    "loc": "kcwi_file_primitives.py, rho()",
+    "quote": "elif 'RH1' in self.grating(): return 2.360 elif 'RH2' in self.grating(): return 2.020 elif 'RH3' in self.grating(): return 1.735 elif 'RH4' in self.grating(): return 1.490 ... elif 'RM1' in self.grating(): return 1.300 elif 'RM2' in self.grating(): return 0.945 ... elif 'RL' in self.grating(): return 0.530",
+    "derived": "DERIVED (RL at lamC 8950 A, assuming beta = alpha - 9 deg as for the blue gratings): alpha = 18.26 deg, beta = 9.26 deg, camera angle 27.53 deg; explorer chip 7069-10801 A vs KCONF sample 7070-10810 A; 0.916 A/px vs 0.92. Symmetric Bragg instead (alpha = beta = 13.72 deg) gives 7091-10764 A and 0.90 A/px. At lamC 7150: alpha = 15.46 deg."
+   }
+  },
+  "performance": {
+   "R_by_grating_and_slicer": {
+    "value": "BL: 900 / 1800 / 3600; BM: 2000 / 4000 / 8000; BH1-3: 4500 / 9000 / 18000 (Large / Medium / Small); RL >500 / >1000 / >2000; RM1, RM2 >1400 / >2800 / >5600; RH1-4 >3250 / >6500 / >13000",
+    "unit": "lambda/dlambda (central)",
+    "src": "KCONF",
+    "loc": "Table 2 (blue) and red lab table",
+    "quote": "BL R (central) 0.563Å/pixel 900 1800 3600 ... BM R (central) 0.24Å/pixel 2000 4000 8000 ... RL R (central) 0.92 Å/unbinned pixel >500 >1000 >2000",
+    "alternatives": [
+     {
+      "value": "BL 5000 / 2500 / 1250; BM 10000 / 5000 / 2500 (Small / Medium / Large)",
+      "src": "M18",
+      "loc": "Table 3",
+      "quote": "BL 5000 2500 1250 BM 10000 5000 2500"
+     },
+     {
+      "value": "Large slicer R0: BH ~4500, BM ~2000, BL ~900; Medium 2R0, Small 4R0",
+      "src": "KCONF",
+      "loc": "Table 1",
+      "quote": "Small: 4R0 Medium: 2R0 Large: R0 BH R0~4500 BM R0~2000 BL R0~900"
+     },
+     {
+      "value": "pre-ship design: BM1 R 1700-3000 (mean 2300), BL1 750-1200 (970)",
+      "src": "KGRAT",
+      "loc": "Table 1 (2015)",
+      "quote": "BM1 30 90 350 410 550 1700 3000 2300 BL1 70 200 350 425 550 750 1200 970"
+     },
+     {
+      "value": "R ~ 19,500 on sky, small slicer + BH3",
+      "src": "M18",
+      "loc": "Sec. 5.3",
+      "quote": "We found a spectral resolution R∼19,500, comparable but slightly below the pre-ship value."
+     },
+     {
+      "value": "slit-limited: medium = 0.5x, large = 0.25x the small-slicer R",
+      "src": "M18",
+      "loc": "Sec. 5.1",
+      "quote": "The measured resolution is slit-limited for all medium and large slicer configurations, which would scale the results in the Figure by factors of 0.5 and 0.25 respectively."
+     }
+    ],
+    "derived": "DERIVED explorer predictions: BM-Medium 4312 at 4500 A; BL-Large 885 at 4500 A; RL-Medium 2182 at 8950 A (KCONF \">1000\" is a lower limit)."
+   },
+   "dispersion_per_pixel": {
+    "value": "BL 0.563, BM 0.24, BH1 0.09, BH2 0.111, BH3 0.129; RL 0.92, RM1 0.355, RM2 0.50, RH1 0.162, RH2 0.19, RH3 0.223, RH4 0.28-0.33",
+    "unit": "A/unbinned pixel (central)",
+    "src": "KCONF",
+    "loc": "Table 2 and red lab table",
+    "quote": "BL R (central) 0.563Å/pixel ... BM R (central) 0.24Å/pixel ... RL R (central) 0.92 Å/unbinned pixel ... RM1 R (central) 0.355 Å/unbinned pixel",
+    "alternatives": [
+     {
+      "value": "BL 37.5, BM 16.1 A/mm",
+      "src": "M18",
+      "loc": "Table 2",
+      "quote": "BM 3500-5600 1900 30 16.1 965 BL 3500-5600 870 15 37.5 2250"
+     },
+     {
+      "value": "ETC: BL 0.625, BM 0.28 A/px",
+      "src": "KETC",
+      "loc": "IDL ETC example outputs (Small slicer, 4500 A)",
+      "quote": "GRATING: BL SEEING: 0.750000 arcsec Å/pixel: 0.625000 ... GRATING: BM SEEING: 0.750000 arcsec Å/pixel: 0.280000"
+     }
+    ],
+    "derived": "DERIVED: 37.5 x 0.015 = 0.5625 and 16.1 x 0.015 = 0.2415 A/px"
+   },
+   "coverage": {
+    "value": "BL ~2000 A, BM 800-900 A instantaneous (N&S: 500 / 200-220 A); RL samples: lamC 7150 -> 5600-8850 A, lamC 8950 -> 7070-10810 A",
+    "unit": "A",
+    "src": "KCONF",
+    "loc": "Table 2 and red lab table",
+    "quote": "BM R (central) 0.24Å/pixel 2000 4000 8000 Δλ (total) 3500-5500 Å Δλ (instantaneous) 800-900 Å ... Central λ: 7150 Å 5600-8850 Å Sample central λ and Δλ instantaneous Central λ: 8950 Å 7070-10810 Å",
+    "alternatives": [
+     {
+      "value": "whole-CCD range: BM 965 A, BL 2250 A",
+      "src": "M18",
+      "loc": "Table 2 and footnote",
+      "quote": "BM 3500-5600 1900 30 16.1 965 BL 3500-5600 870 15 37.5 2250"
+     },
+     {
+      "value": "blue 350-560 nm; red 560-1080 nm",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Bandpass (blue channel) 350 to 560 nm Bandpass (red channel) 560 to 1080 nm"
+     }
+    ],
+    "derived": "DERIVED explorer chips (4112 px): BM 3995-4986 A (992 A); BL 3344-5641 A (2297 A); RL (4096 px) 7069-10801 A. M18 \"entire CCD\" ranges correspond to ~60 mm (965/16.1 = 59.9 mm; 2250/37.5 = 60.0 mm), slightly less than 4112 x 15 um = 61.7 mm; KCONF \"instantaneous\" is smaller again (slice staircase)."
+   },
+   "spatial_sampling": {
+    "value": 0.147,
+    "unit": "arcsec/unbinned pixel along the slices",
+    "src": "M18",
+    "loc": "Table 1",
+    "quote": "Science detector plate scale 0.147 -pixel 1x1 bins",
+    "alternatives": [
+     {
+      "value": "0.147\"/pixel; demagnification 7.21",
+      "src": "KCONF",
+      "loc": "end of page",
+      "quote": "The direct imaging plate scale at the detector is 0.147 \"/pixel with an instrument demagnification of 7.21."
+     },
+     {
+      "value": "0.15\"/pixel",
+      "src": "KSPEC",
+      "loc": "Table 1",
+      "quote": "Detector Plate Scale 0.15 arcsec/pixel"
+     },
+     {
+      "value": "0.1457\" (pipeline)",
+      "src": "KDRP",
+      "loc": "kcwi.cfg",
+      "quote": "PIXSCALE = 0.00004048 # unbinned pixel size in degrees"
+     }
+    ],
+    "derived": "DERIVED: 1.375\"/mm x 0.015 mm x 2172.5/304.4 = 0.1472\"/px; explorer (D 10.95, F 13.7, W 160, f_cam 304.4) gives 0.1485\"/px; DRP 0.00004048 deg = 0.1457\""
+   },
+   "slit_image_sampling": {
+    "value": "small slicer slit image 2.3 px (nearly Nyquist); medium ~4.6, large ~9.3 px (unbinned; 2.3 / 4.6 binned 2x2)",
+    "unit": "pixels",
+    "src": "M18",
+    "loc": "Sec. 3.6",
+    "quote": "the highest resolution small slicer slit image is nearly Nyquist sampled at 2.3 pixels",
+    "derived": "DERIVED: 0.69\"/0.147 = 4.69 px and 1.38\"/0.147 = 9.39 px before the grating anamorphic factor cos(alpha)/cos(beta) (BM at 4500 A: 0.927 -> 4.35 px)"
+   },
+   "spaxels_per_detector": {
+    "value": "24 slices x 20.4\"/0.147\" = 139 px per slice = 3330 spectra (1x1) per CCD; slice images 2.08 mm long on the CCD; gaps ~32 px",
+    "unit": "spectra per CCD",
+    "src": "KSPEC",
+    "loc": "Table 1",
+    "quote": "Slit Height 14.5 mm = 20.4 arcsec",
+    "is_derived": true,
+    "derived": "DERIVED: 20.4/0.147 = 138.8 px; x 24 = 3331 px of 4096 along x, leaving (4096 - 3331)/24 = 32 px per gap on average (upper bound: assumes the 24 slice images span the full chip; gaps are NOT stated in any source). With 2x2 binning: ~69 spatial bins per slice."
+   }
+  },
+  "multiplex": {
+   "value": 24,
+   "unit": "slices per CCD (each a 20.4\"-long slit; ~139 unbinned spatial pixels each, 3330 spectra at 1x1)",
+   "src": "KPRIM",
+   "loc": "Background",
+   "quote": "and 24 slices for each format.",
+   "alternatives": [
+    {
+     "value": "24 slitlets",
+     "src": "M18",
+     "loc": "Sec. 2",
+     "quote": "The telescope focal plane is divided into 24 slitlets"
+    }
+   ]
+  },
+  "not_found": [
+   "Which slicer/grating combination is used most: no usage statistics found. The detector page says the daily afternoon focus is run in 2x2 binning with the Medium slicer (KDET), and the Medium slicer is the middle of the three formats; BM + Medium is therefore recommended, with BL + Large as the alternative.",
+   "Red (KCRM) grating incidence angles, fringe tilts and typical grating/camera angles (only line densities, via the pipeline). KCRM camera prescription and focal length (the pipeline uses 305 mm for both channels). KCRM paper (McGurk et al. 2024, SPIE 13096, 1309647): SPIE abstract page only, no open copy.",
+   "Red detector exact format (only \"LBNL 4kx4k\"; 4096 x 4096 assumed for the coverage check).",
+   "Which CCD axis (4096 or 4112) carries the dispersion: the pipeline puts dispersion along y; 4112 rows along y assumed.",
+   "Gap between slice images on the detector (DERIVED ~32 px upper bound).",
+   "Grating line density as built for BM: 1900 (M18) vs 1901 (pipeline); BH1 3800 (M18, \"in fabrication ... representative\") vs 3600 (pipeline)."
+  ],
+  "conflicts": [
+   "Nasmyth side: right (M18, KPRIM) vs \"Left Nasmyth platform\" (KSPEC).",
+   "Beam: 160 mm compound pupil (M18 Table 1, text, camera design pupil) vs 150 mm (KSPEC).",
+   "Collimator focal length: 2172.5 mm (R/2 from M18 Table 1) vs 2160 mm (KSPEC); explorer F x W = 2192 mm.",
+   "Camera focal length: 304.4 mm (M18 Table 1, Sec. 2.2) vs 305 mm (KSPEC; KDRP FCAM; M18 Sec. 3.6).",
+   "Slice widths: 0.34 / 0.69 / 1.38\" (M18 Table 1) vs 0.35 / 0.7 / 1.4\" (M18 text) vs 0.35 / 0.69 / 1.38\" (KSPEC, KPRIM) vs 0.35 / 0.69 / 1.35\" (KCONF Table 2) vs Large 1.39\" (KCONF Table 1) vs Large 1.358\" (KDRP SLICESCALE).",
+   "Field of view: (8.25, 16.5, 33)\" x 20\" (M18 Table 1) vs (8.4, 16.8, 33.6)\" (M18 text) vs (8.4, 16.5, 33.1)\" x 20.4\" (KSPEC, KPRIM) vs 33\" x 20.4\" (KCONF).",
+   "Pixel scale: 0.147\"/px (M18, KCONF, KPRIM) vs 0.15 (KSPEC) vs 0.1457 (KDRP); demagnification 7.21 (KCONF) vs 2172.5/304.4 = 7.14 (DERIVED).",
+   "BM R (Medium): 4000 (KCONF Table 2) vs 5000 (M18 Table 3); BL (Large): 900 (KCONF) vs 1250 (M18); M18 Table 3 is 1.25x KCONF for BM and 1.39x for BL in every slicer.",
+   "A/px: BL 0.563 / BM 0.24 (KCONF) vs 0.5625 / 0.2415 (M18 A/mm x 15 um) vs 0.625 / 0.28 (KETC example outputs).",
+   "Grating line densities: BM 1900 vs 1901, BH1 3800 vs 3600, BH2 3281 vs 3280.5, BH3 2801 vs 2801.7 (M18 vs KDRP).",
+   "Red channel range: 560-1080 nm (KSPEC, KPRIM) vs 530-1050 nm (KCRM17 2017 plan; M18)."
+  ],
+  "notes": [
+   "KCWI has no anamorphic fore-optics: the reflective slicer sits at the f/13.7 telescope focus and the collimator (f = 2172.5 mm) is filled by the 160 mm compound pupil (f/13.6), so one isotropic explorer magnification is correct (both the slice width and the along-slice scale come out right with D = 10.95 m, F = 13.7, W = 160 mm, f_cam = 304.4 mm).",
+   "The explorer slit for an IFU = one slice; \"number of spectra\" = 24 slices (or 3330 spatial pixels at 1x1, ~1665 at 2x2 binning).",
+   "Grating mode: transmission VPH with a fixed incidence (tAlpha) and the camera following beta; the camera articulation angle = alpha + beta. Blue typical alpha: BL 15, BM 30, BH 50-55 deg (M18 Table 2), with beta ~ alpha - 9 deg at the design central wavelength because of the ~2 deg fringe tilt.",
+   "The virtual slit is curved in 3-D (\"C\"-shaped) and the pipeline uses a 4 deg mean out-of-plane diffraction angle; the explorer works in plane (0.24% in lambda).",
+   "KCRM shares the slicer, collimator and FM1 with the blue arm; a 560 nm dichroic takes the place of the FMD fold mirror (KSPEC, KPRIM, M18 Fig. 2 caption)."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "VLT/MUSE (WFM)": {
+    "value": 3600,
+    "unit": "spaxel spectra per CCD (IFU: 48 slices x ~75 spaxels; 24 CCDs; ~86,400-90,000 in total)",
+    "src": "MUM",
+    "loc": "Sec. 2.1.2.5, p.25",
+    "quote": "Each slice is ~ 75 pixels wide",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": 3750,
+      "src": "B10",
+      "loc": "Fig. 2 caption",
+      "quote": "one can see 3750 high quality spectra (only 4% of the total number of MUSE spectra)"
+     }
+    ],
+    "derived": "DERIVED: 48 x 75 = 3600"
+   },
+   "Keck II/KCWI": {
+    "value": 24,
+    "unit": "slices per CCD (each a 20.4\"-long slit; ~139 unbinned spatial pixels each, 3330 spectra at 1x1)",
+    "src": "KPRIM",
+    "loc": "Background",
+    "quote": "and 24 slices for each format.",
+    "alternatives": [
+     {
+      "value": "24 slitlets",
+      "src": "M18",
+      "loc": "Sec. 2",
+      "quote": "The telescope focal plane is divided into 24 slitlets"
+     }
+    ]
+   }
+  }
+ }
+}

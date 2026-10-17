@@ -77,6 +77,11 @@ const GLASS = {
   // OHARA BSL7Y (ESI's cross-disperser prisms), OHARA data sheet 10/2018; the coefficients reproduce the sheet's
   // indices to 5e-6 from 0.326 to 1.129 um and drift beyond 1.5 um, so the range stops at the sheet's 1.129 um
   BSL7Y: { label: "BSL7Y (OHARA)", range: [0.32, 1.13], B: [1.13329383, 0.136897201, 0.703456004], C: [0.00669407868, 0.023739176, 70.7030316] },
+  // OHARA S-LAL7 (LDSS-3 VPH-Blue and VPH-Red grism prisms), OHARA formula (same form), catalogue range 365-2325 nm
+  "S-LAL7": { label: "S-LAL7 (OHARA)", range: [0.365, 2.325], B: [0.916121247, 0.765948319, 1.27745023], C: [0.00395889743, 0.0167547425, 110.762706] },
+  // SCHOTT LF5 and N-BAK2 (FORS2 grisms 300I and 150I), SCHOTT data sheets
+  LF5: { label: "LF5", range: [0, 2.3], B: [1.28035628, 0.163505973, 0.893930112], C: [0.009298544, 0.0449135769, 110.493685] },
+  "N-BAK2": { label: "N-BAK2", range: [0, 2.3], B: [1.01662154, 0.319903051, 0.937232995], C: [0.005923838, 0.0203828415, 113.118417] },
   SF6: { label: "SF6", range: [0, 2.3], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
   // NASA CHARMS temperature-dependent Sellmeier fits, evaluated at 105 K (the X-Shooter NIR optics):
   // Infrasil 301 (Leviton, Frey & Madison 2008, Table 10; 0.5-3.6 um), ZnSe (Leviton, Frey & Kvamme 2005,
@@ -117,7 +122,7 @@ function bisect(f, a, b, fa, fb, tol) {
      D (m), F
      feed   'slit' | 'fiber' | 'dl'      slitW, slitL (arcsec); core (um), eta, nFib; slices N
      W (mm), Fc (camera focal ratio on the diffracted beam) or fcam (mm, takes precedence)
-     grating mode: gType 'refl' | 'trans', G (l/mm), m, lamB (A, Littrow blaze wavelength in
+     grating mode: gType 'refl' | 'trans' | 'grism', G (l/mm), m, gA (deg, grism apex), gGlass, gKind 'ruled' | 'vph', gTilt (deg, ruled: entrance-face tilt), lamB (A, Littrow blaze wavelength in
                    order m), lamC (A), psi (deg, camera-collimator angle; reflection only),
                    tAlpha (deg, optional: fixed incidence on a transmission grating; else symmetric)
      echelle mode: eG (l/mm), eDelta (deg), gamma (deg), theta (deg, in-plane offset),
@@ -127,7 +132,7 @@ function bisect(f, a, b, fa, fb, tol) {
 function design(P) {
   const S = { P, flags: [] };
   const flag = (k, txt) => S.flags.push({ k, txt });
-  const lamC = P.lamC / 1e4;                       // um
+  let lamC = P.lamC / 1e4;                         // um (a grism replaces it with its undeviated wavelength)
 
   // ---- telescope and entrance
   const Dmm = P.D * 1000, ftel = P.F * Dmm;
@@ -171,7 +176,28 @@ function design(P) {
   } else {
     Gm = P.G / 1000; order = Math.max(1, Math.round(P.m || 1));
     const x = order * Gm * lamC;
-    if (P.gType === "trans") {
+    if (P.gType === "grism") {
+      // A grism: the camera sits on the collimator axis, so the wavelength at the detector center is the
+      // undeviated one, fixed by the grism.  Ruled: a prism of apex A entered square to the beam, the grating on
+      // the hypotenuse, m G lam0 = (n - 1) sin A.  VPH: the grating layer square to the beam between two prisms
+      // of apex A whose outer faces refract the beam to the Bragg angle and back, m G lam0 = 2 n sin(A - asin(sin A / n)).
+      reflect = false;
+      // a ruled grism's entrance face may be tilted by eps in the dispersion plane (FORS: 7.5 deg), turning the
+      // ruled face to (A - eps) from the axis: m G lam0 = n sin(A - eps') - sin(A - eps), sin eps' = sin eps / n
+      const A = (P.gA || 0) * DEG, vph = P.gKind === "vph", eps = vph ? 0 : (P.gTilt || 0) * DEG;
+      const f = l => {
+        const n = nGlass(P.gGlass, l);
+        return (vph ? 2 * n * Math.sin(A - Math.asin(Math.sin(A) / n)) : n * Math.sin(A - Math.asin(Math.sin(eps) / n)) - Math.sin(A - eps)) / (order * Gm);
+      };
+      let l0 = 0.6;
+      for (let k = 0; k < 60; k++) { const l1 = f(l0); if (!isFinite(l1) || l1 <= 0) { l0 = NaN; break; } if (Math.abs(l1 - l0) < 1e-12) { l0 = l1; break; } l0 = l1; }
+      if (!(l0 > 0) || !isFinite(nGlass(P.gGlass, l0))) { S.bad = "This grism passes no wavelength straight through inside the glass's valid range."; return S; }
+      lamC = l0;
+      const n0 = nGlass(P.gGlass, l0), tt = Math.asin(Math.sin(A) / n0);
+      S.grism = { A, vph, eps, n0, lam0: l0, inner: vph ? A - tt : A };
+      alpha = A; betaRef = A;
+      S.psi = 0;
+    } else if (P.gType === "trans") {
       reflect = false;
       if (P.tAlpha !== null && P.tAlpha !== undefined && isFinite(P.tAlpha)) {
         // a fixed angle of incidence (presets: an as-built transmission spectrograph); beta follows lamC
@@ -200,9 +226,9 @@ function design(P) {
     S.bad = "The grating would have to be lit or viewed at more than 90° from its normal: lower the camera–collimator angle or the groove density.";
     return S;
   }
-  const nhat = [Math.sin(alpha), 0, -Math.cos(alpha)];
-  const shat = [-Math.cos(alpha), 0, -Math.sin(alpha)];
-  const gvec = mul(shat, Gm);
+  let nhat = [Math.sin(alpha), 0, -Math.cos(alpha)];
+  let shat = [-Math.cos(alpha), 0, -Math.sin(alpha)];
+  let gvec = mul(shat, Gm);
   const gam = S.gamma;
   // collimated beam axis (out of the dispersion plane by gamma for an echelle)
   const cAx = [0, -Math.sin(gam), Math.cos(gam)];
@@ -211,7 +237,30 @@ function design(P) {
   S.alpha = alpha; S.beta = betaRef; S.delta = delta; S.reflect = reflect;
   S.Gm = Gm; S.mlamRef = mlamRef; S.order = order;
 
-  const main = (u, mlam) => surface(u, nhat, gvec, mlam, 1, 1, reflect);
+  let main = (u, mlam) => surface(u, nhat, gvec, mlam, 1, 1, reflect);
+  if (S.grism) {
+    // the grism's surfaces in turn; the glass index follows the wavelength (order fixed in grating mode)
+    const A = S.grism.A, gl = P.gGlass;
+    if (!S.grism.vph) {
+      const e = S.grism.eps, ent = [-Math.sin(e), 0, Math.cos(e)];             // the entrance face, tilted by eps
+      nhat = [Math.sin(A - e), 0, Math.cos(A - e)];             // the ruled hypotenuse, facing out of the glass
+      shat = [Math.cos(A - e), 0, -Math.sin(A - e)];
+      gvec = mul(shat, Gm);
+      main = (u, mlam) => {
+        const n = nGlass(gl, mlam / order), v = surface(u, ent, null, 0, 1, n, false);
+        return v && surface(v, nhat, gvec, mlam, n, 1, false);
+      };
+    } else {
+      const f1 = [-Math.sin(A), 0, Math.cos(A)], f3 = [Math.sin(A), 0, Math.cos(A)];
+      nhat = [0, 0, 1]; shat = [1, 0, 0]; gvec = mul(shat, Gm);  // the VPH layer, square to the beam
+      main = (u, mlam) => {
+        const n = nGlass(gl, mlam / order);
+        let v = surface(u, f1, null, 0, 1, n, false);
+        v = v && surface(v, nhat, gvec, mlam, n, n, false);
+        return v && surface(v, f3, null, 0, n, 1, false);
+      };
+    }
+  }
   const inDir = (xi, zeta) => unit(add(cAx, add(mul(ex, xi / S.fcol), mul(ey, zeta / S.fcol))));
 
   // ---- cross-disperser (echelle mode): its dispersion plane holds the reference ray and the
@@ -342,6 +391,12 @@ function design(P) {
   S.Lg = W * Math.sqrt(1 - cg * cg) / cn;          // illuminated length along the groove normal
   const uo = u1ref, on = Math.abs(dot(uo, nhat)), og = dot(uo, ghat);
   S.Wp = S.Lg * on / Math.sqrt(1 - og * og);       // diffracted beam width in the dispersion plane
+  if (S.grism) {
+    // straight through at lam0, the grism leaves the beam width unchanged; a VPH grism's layer is lit over the
+    // refracted beam width (W cos t / cos A, t the refraction angle at the first face) spread by 1 / cos(A - t)
+    S.Wp = W;
+    if (S.grism.vph) { const tt = S.grism.A - S.grism.inner; S.Lg = W * Math.cos(tt) / Math.cos(S.grism.A) / Math.cos(S.grism.inner); }
+  }
   if (!(fcam > 0)) fcam = P.Fc * S.Wp;
   S.fcam = fcam;
   S.Fcam = fcam / S.Wp;

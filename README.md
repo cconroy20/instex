@@ -76,11 +76,12 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   angle (reflection) or γ (echelle)) | Disperser (with the grating incidence for a transmission grating) | Detector. Grating
   and Echelle each remember their own entrance, optics and detector; the telescope is shared. The state
   is kept in the URL hash. Everything fits without scrolling at 1440 × 900 and 1280 × 800.
-- **Presets** (header menu, 38, grouped by telescope): Keck/LRIS red, HIRES, ESI, DEIMOS and MOSFIRE Y/J/H/K;
-  Magellan/MIKE red and blue, MagE, IMACS f/4 and LLAMAS blue/green/red (gratings fitted); MMT/Binospec, Hectospec
-  and Hectochelle; GMT/G-CLEF red (design); VLT/X-Shooter UVB, VIS and NIR; ESO 3.6 m/HARPS; Subaru/PFS blue, red
-  and NIR; Mayall/DESI B, R and Z; VISTA/4MOST LRS and HRS blue/green/red (HRS concept optics); Via/Boombox blue
-  and red (partly guessed), and Via/Viaspec. Moving any control turns the setting into Custom. Presets are
+- **Presets** (header menu, 54, grouped by telescope): Keck/LRIS red, HIRES, ESI, KCWI blue, KCRM red, DEIMOS and
+  MOSFIRE Y/J/H/K; Magellan/MIKE red and blue, MagE, FIRE, IMACS f/4, LLAMAS blue/green/red (gratings fitted) and
+  LDSS-3 VPH-All/Blue/Red; MMT/Binospec, Hectospec and Hectochelle; GMT/G-CLEF red (design); VLT/FORS2 300V, 300I
+  and 600B, ESPRESSO blue and red, MUSE (effective optics), UVES blue and red, X-Shooter UVB, VIS and NIR; ESO
+  3.6 m/HARPS; Subaru/PFS blue, red and NIR; Mayall/DESI B, R and Z; VISTA/4MOST LRS and HRS blue/green/red (HRS
+  concept optics); SDSS/APOGEE-N; MPG 2.2 m/FEROS; Via/Boombox blue and red (partly guessed), and Via/Viaspec. Moving any control turns the setting into Custom. Presets are
   approximate and are meant to reproduce the optical design (and so the numbers); the drawing does not follow
   the actual optical layout. The page says so in the menu's tooltip and the footer.
 
@@ -109,6 +110,13 @@ replaced by a mirror: field of view and pixel scale) is planned; an exposure-tim
     setting α = β = asin(m λc/2σ), camera at 2α, until the Grating incidence slider is moved; then α is fixed, β follows λc and the camera
     sits at α + β (presets: DESI's as-built angles).
     No efficiency envelope for transmission gratings.
+  - Grating mode, grism (2026-10-17): the camera sits on the collimator axis, so the wavelength at the detector
+    center is the undeviated λ0, fixed by the grism (the λc slider is hidden). Ruled: a prism of glass n(λ) and
+    apex A entered square to the beam, the grating on the hypotenuse, m G λ0 = (n − 1) sin A. VPH: the grating
+    layer square to the beam between two prisms of apex A whose outer faces refract the beam to the Bragg angle
+    and back, m G λ0 = 2 n sin(A − t), sin t = sin A / n. Both are traced surface by surface, the glass index
+    following the wavelength; validate.js checks λ0, the straight-through axial ray and, for the ruled grism,
+    the dispersion (m G − sin A dn/dλ)/cos A to 1e-6. Choosing Grism sets A so that λ0 starts at the current λc.
   - Echelle mode: α = δ + θ, β = δ − θ at the blaze center (θ in-plane, presets only; HIRES θ = 5°), the
     beam out of the dispersion plane by γ; m λ_blaze = cos γ (sin α + sin β)/G. Cross-disperser: a
     first-order reflection grating (camera–collimator angle 10° unless a preset says otherwise), a prism
@@ -299,6 +307,31 @@ lines) — the collimator focal length is not published, and 693.5 mm is the sli
 the HRS optics are 2014–15 concept values with a camera focal length fitted to the bands, so its numbers are
 reference lines only and the presets say "concept optics". The fiber-fed instruments enter as the slit of
 equal line width, (√3/2) × core, which is also the FWHM of a uniformly lit round core seen along one axis.
+
+**Round 5 (2026-10-17): UVES, ESPRESSO, MUSE, KCWI/KCRM, APOGEE, FIRE, FEROS, and grisms for LDSS-3 and
+FORS2.** Sources in `data/round5/*.md` and `*.json`. (1) UVES blue 390 / red 580 (the standard DIC1 setting) use
+the 8.0 m entrance pupil at f/10, the value that reproduces the published scales (X-Shooter keeps 8.2 m); the
+cross-disperser angles come from ESO's pipeline physical model. R, dispersion, scale and coverage match to
+0.2–3%. (2) ESPRESSO: the pupil slicer's two 300 mm slices map to an equivalent 600 mm round beam; the camera
+(755 mm) comes from the published pixel dispersion; γ = 4.85° is inferred from the order table, whose
+wavelengths are then blaze centers (dispersion matched to 0.1–0.9%). The cross-dispersers (prism + VPH) are
+not published: an equivalent VPH is used, so the order count is a reference line; the red arm's R and sampling
+miss (6%, 14%) and are reference lines too. (3) MUSE's spectrograph prescription is not public: the preset
+uses EFFECTIVE optics that reproduce the dispersion and the 2-px slice image, and the 2× anamorphic fore-optics
+are not modeled (the spatial scale reads 0.1″/px against the real 0.2″/px). (4) KCWI blue (BM, Medium slicer)
+is fully sourced; Morrissey et al.'s 4.6 px slice image leaves out the anamorphic factor 0.93 (reference line).
+KCRM's grating angle is derived from the published coverage. (5) APOGEE-N (Wilson et al. 2019 prescription):
+the three H2RGs enter as one 6466-px row with the gaps as dead pixels; λc is fitted to the chip edges (all six
+within 3 Å); the measured R (22,500) is 25% below the slit-limited model, because the measured line profile is
+wider than the fiber image. (6) FIRE's prisms are deliberately off minimum deviation (the explorer's are not), so
+its cross-dispersion is 1.4–1.8× too small here; its measured R (6000) exceeds the paper's own prescription.
+FEROS (image slicer: 1.0″ slices from the 2.0″ fiber, LF5 prism) matches R, the blue coverage and the order
+spacing. (7) Grisms: LDSS-3's VPH grisms fit the VPH-grism model exactly (Carnegie maskgen geometry; centers
+within 27 Å, dispersion within 0.5% of the measured arcs); FORS2's ruled grisms have entrance faces tilted 7.5°
+(1995 design paper; the direction inferred from ESO's numbers), with which centers match to 10 Å and
+dispersion to 0.2–0.9%. New glasses: OHARA S-LAL7, SCHOTT LF5 and N-BAK2. (8) Detector rendering: traces packed
+closer than their own width (IFU spaxels) are dimmed so the sum keeps one trace's brightness, and traces denser
+than the screen can show are thinned and widened (zooming in restores them).
 
 ## Verification
 

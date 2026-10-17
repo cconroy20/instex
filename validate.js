@@ -186,6 +186,33 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
   check("grism: lamC passes undeviated (camera axis = echelle blaze ray)", Math.abs(Gr.c.Y) < 0.05 * 300 * 1e-2, `Y(lamC) ${Gr.c.Y.toFixed(4)} mm`);
 }
 
+// ---------------------------------------------------------------- 3b. the grism as the main disperser
+// Ruled: m G lam0 = (n - 1) sin A, and at lam0 the exit ray makes the angle A with the hypotenuse normal, so
+// d(beta)/d(lambda) = (m G - sin A dn/dlambda) / cos A.  VPH (layer square to the beam between two prisms of
+// apex A): m G lam0 = 2 n sin(A - t), sin t = sin A / n, straight through by symmetry.
+{
+  const g0 = { mode: "grating", feed: "slit", slitL: 0, D: 8.2, F: 13.6, slitW: 1, W: 90, fcam: 280, gType: "grism", m: 1, lamB: 5000, lamC: 5500, psi: 0, tAlpha: null, Nx: 4096, Ny: 4096, pix: 15 };
+  const nn = (g, l) => IX.nGlass(g, l), dn = (g, l) => (nn(g, l + 1e-5) - nn(g, l - 1e-5)) / 2e-5;
+  for (const [G, Adeg, glass] of [[300, 25, "silica"], [600, 30, "N-BK7"], [1200, 45, "N-BK7"]]) {
+    const Gr = IX.design(Object.assign({}, g0, { G, gA: Adeg, gGlass: glass, gKind: "ruled" }));
+    const A = Adeg * DEG, l0 = Gr.grism && Gr.grism.lam0;
+    const res0 = l0 ? Math.abs(G / 1000 * l0 - (nn(glass, l0) - 1) * Math.sin(A)) : NaN;
+    check(`ruled grism ${G}/mm, A = ${Adeg} deg, ${glass}: m G lam0 = (n - 1) sin A`, !Gr.bad && res0 < 1e-10, Gr.bad || `lam0 ${(l0 * 1e4).toFixed(2)} A`);
+    const u = Gr.mainOut(l0, 1);
+    check(`  ... lam0 leaves along the collimator axis`, Math.hypot(u[0], u[1]) < 1e-10, `${Math.hypot(u[0], u[1]).toExponential(1)}`);
+    const dbdl = (G / 1000 - Math.sin(A) * dn(glass, l0)) / Math.cos(A);       // rad per um
+    const want = 0.015 / (280 * dbdl) * 1e4;                                   // A per pixel at the center
+    check(`  ... dispersion (m G - sin A dn/dlambda) / cos A`, rel(Gr.c.dlpix, want) < 1e-6, `${Gr.c.dlpix.toFixed(5)} vs ${want.toFixed(5)} A/px`);
+  }
+  for (const [G, Adeg, glass] of [[600, 20, "N-BK7"], [1200, 30, "silica"]]) {
+    const Gr = IX.design(Object.assign({}, g0, { G, gA: Adeg, gGlass: glass, gKind: "vph" }));
+    const A = Adeg * DEG, l0 = Gr.grism && Gr.grism.lam0, n0 = l0 && nn(glass, l0);
+    const res0 = l0 ? Math.abs(G / 1000 * l0 - 2 * n0 * Math.sin(A - Math.asin(Math.sin(A) / n0))) : NaN;
+    const u = !Gr.bad && Gr.mainOut(l0, 1);
+    check(`VPH grism ${G}/mm, A = ${Adeg} deg, ${glass}: m G lam0 = 2 n sin(A - t), straight through`, !Gr.bad && res0 < 1e-10 && Math.hypot(u[0], u[1]) < 1e-10, Gr.bad || `lam0 ${(l0 * 1e4).toFixed(2)} A`);
+  }
+}
+
 // ---------------------------------------------------------------- 4. instrument presets
 // Each preset's published performance, reproduced by the trace from its sourced parameters.  The
 // tolerances were set from the precision of each source before the comparison was run; misses are
@@ -241,6 +268,7 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
           break;
         }
         case "nOrders": val = S.orders.length; break;
+        case "lam0": val = S.grism ? S.grism.lam0 * 1e4 : NaN; break;
         case "ySpan": { const a = S.pos(S.mlamRef / q.m1, q.m1), b = S.pos(S.mlamRef / q.m2, q.m2); val = a && b ? Math.abs(a[1] - b[1]) : NaN; break; }
         case "diam": val = S.c.npix / (Math.sqrt(3) / 2); break;   // the round-core image across, from the equivalent-slit FWHM
         default: val = NaN;

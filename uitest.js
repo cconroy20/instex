@@ -345,6 +345,22 @@ const rel = (a, b) => Math.abs(a / b - 1);
   check("URL hash round trip (7 significant digits)", bad.length === 0, bad.length ? bad.map(k => `${k}: ${pBefore[k]} vs ${pAfter[k]}`).join("; ") : hash);
   await click("#reset");
 
+  // ------------------------------------------------------------ grism (grating mode)
+  {
+    await click("#reset"); await sleep(200);
+    await click("#gGm"); await sleep(250);
+    const txt = await ev(`document.getElementById("rDis").textContent`);
+    check("grism: undeviated λ0 shown, camera on axis, apex and glass controls shown, λc hidden", /Undeviated λ0/.test(txt) && /on axis/.test(txt) && (await vis("#sGA")) && (await vis("#gGlass")) && !(await vis("#sLC")) && (await ev(`document.getElementById("err").textContent`)) === "");
+    const l0a = await ev(`window.__instex.design().grism.lam0`);
+    await setRange("#sGA", 30); await sleep(200);
+    const l0b = await ev(`window.__instex.design().grism.lam0`);
+    check("grism: a larger apex angle moves λ0 to the red", l0b > l0a, `${(l0a * 1e4).toFixed(0)} -> ${(l0b * 1e4).toFixed(0)} A`);
+    await click("#gkV"); await sleep(200);
+    check("VPH grism: drawn and labeled, no page error", (await ev(`window.__instex.design().grism.vph`)) === true && (await ev(`document.getElementById("err").textContent`)) === "");
+    await click("#gTr"); await sleep(200);
+    check("back to a transmission grating: λc shown again", await vis("#sLC"));
+  }
+
   // ------------------------------------------------------------ presets
   const presets = await ev(`[...document.querySelectorAll("#preset option")].map(o => o.value).filter(v => v !== "custom")`);
   check("every preset in the menu", presets.length === (await ev(`window.IX_PRESETS.length`)) && presets.length >= 38, presets.length + ": " + presets.join(", "));

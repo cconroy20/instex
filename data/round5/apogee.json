@@ -1,0 +1,1047 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 5: SDSS 2.5 m / APOGEE (APOGEE-N; APOGEE-S on the du Pont as a variant)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json, data/presets_sources_2.json, data/presets_sources_3.json (rounds 1-3) and data/round4/*.json; same structure. 'recommended_preset' is a dict keyed by preset (apogee_n, apogee_s); 'preset_values' collects the numbers with references ('ref') to the params that source them. Top-level 'multiplex' holds the objects-per-exposure row.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values; is_derived marks a headline value that is itself arithmetic. alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) and tag-stripped HTML text; the double prime (rendered '00' by pdftotext in W19), degree glyph U+25E6, tilde-operator, minus/en dashes, curly quotes and Greek mu normalised; all whitespace ignored; line-break hyphens tried both kept and joined; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells (superscript note letters stay attached, e.g. 'Mirrorg')."
+ },
+ "sources": {
+  "W19": {
+   "cite": "Wilson, J. C., Hearty, F. R., Skrutskie, M. F., et al. 2019, PASP 131, 055001, \"The Apache Point Observatory Galactic Evolution Experiment (APOGEE) Spectrographs\", arXiv:1902.00928v1 (AASTeX draft dated February 5, 2019; 80 pp.; pdftotext renders the double prime as \"00\" and the degree sign as U+25E6)",
+   "file": "rawdata/presets/apogee/Wilson2019_PASP131_055001_APOGEE_spectrographs_arXiv1902.00928.pdf",
+   "url": "https://arxiv.org/pdf/1902.00928"
+  },
+  "M17": {
+   "cite": "Majewski, S. R., Schiavon, R. P., Frinchaboy, P. M., et al. 2017, AJ 154, 94, \"The Apache Point Observatory Galactic Evolution Experiment (APOGEE)\", arXiv:1509.05420v1 (emulateapj draft dated September 21, 2015; the published 2017 text may differ)",
+   "file": "rawdata/presets/apogee/Majewski2017_AJ154_94_APOGEE_survey_arXiv1509.05420.pdf",
+   "url": "https://arxiv.org/pdf/1509.05420"
+  },
+  "N15": {
+   "cite": "Nidever, D. L., Holtzman, J. A., Allende Prieto, C., et al. 2015, AJ 150, 173, \"The Data Reduction Pipeline for the Apache Point Observatory Galactic Evolution Experiment\", arXiv:1501.03742v2 (draft dated October 7, 2015)",
+   "file": "rawdata/presets/apogee/Nidever2015_AJ150_173_APOGEE_reduction_arXiv1501.03742.pdf",
+   "url": "https://arxiv.org/pdf/1501.03742"
+  },
+  "G06": {
+   "cite": "Gunn, J. E., Siegmund, W. A., Mannery, E. J., et al. 2006, AJ 131, 2332, \"The 2.5 m Telescope of the Sloan Digital Sky Survey\", arXiv:astro-ph/0602326v1",
+   "file": "rawdata/presets/apogee/Gunn2006_AJ131_2332_SDSS_2.5m_telescope_arXiv0602326.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0602326"
+  },
+  "S3P": {
+   "cite": "SDSS-III web page \"APOGEE Spectrograph\" (Instruments; footer: Copyright 2010-2013 SDSS-III; fetched 2026-10-17)",
+   "file": "rawdata/presets/apogee/sdss3_apogee_spectrograph.html",
+   "url": "https://www.sdss3.org/instruments/apogee_spectrograph.php"
+  },
+  "DR16": {
+   "cite": "SDSS-IV DR16 web page \"Using APOGEE Spectra\" (section 'Wavelength Coverage and Detector Gaps'; fetched 2026-10-17)",
+   "file": "rawdata/presets/apogee/sdss4_dr16_irspec_spectra.html",
+   "url": "https://www.sdss4.org/dr16/irspec/spectra/"
+  }
+ },
+ "apogee": {
+  "title": "Sloan 2.5 m / APOGEE-N (and du Pont 2.5 m / APOGEE-S): cryogenic fibre-fed H-band spectrograph, 300 fibres, uncorrected-Schmidt collimator mirror, three-segment mosaic VPH grating in Littrow, six-element Si/fused-silica camera, three H2RG arrays side by side",
+  "recommended_preset": {
+   "apogee_n": "APOGEE-N on the Sloan 2.5 m: D = 2.5 m; F = 3.85 into the collimator (the spectrograph's aperture stop, the VPH mask, clips beams faster than f/3.85, and the camera is f/1.3 at that beam; the fibres take f/5 from the telescope and emit ~f/3.5 at 95% encircled energy); 120 um core = 2.0\" on the sky at f/5, entered as the slit of equal line width (sqrt3/2) x 120 um = 103.9 um = 2.227\" at f/3.85 on 2.5 m (DERIVED; the 2.0\" sky value belongs to f/5); 300 spectra on the detector (about 230 science + 35 sky + 35 telluric standards); collimator = Mirror (spherical, on-axis 'uncorrected Schmidt'), f_col = 1053.6 mm (R/2 of the 2107.22 mm cold radius, DERIVED), W = 273.7 mm (f_col/3.85, DERIVED; VPH mask 272.8 mm); camera f = 356 mm (measured warm), f/1.3; transmission (VPH) grating, G = 1009.345 /mm (as recorded; design 1008.6 /mm cold), order 1, alpha = 54.061 deg (design 54 deg), Littrow wavelength 1.6043 um (DERIVED); the real camera sits at the Littrow deviation 2 x 54.061 = 108.122 deg with the detector mosaic off-axis, so for the explorer's centred detector use lamC = 1.6158 um (the wavelength at the mosaic centre, DERIVED), beta = 55.21 deg, camera angle alpha + beta = 109.27 deg (DERIVED); detector 3 x Teledyne H2RG 2048 x 2048 x 18 um side by side along the dispersion with 2.9 mm (161 px) gaps: Nx = 6466 px if the gaps are entered as dead pixels (3 x 2048 + 2 x 161.1, DERIVED; reproduces the outer edges) or 6144 px with the gaps not modeled; Ny = 2048; pixel 18 um. Validate: chips 1.514-1.581 / 1.585-1.644 / 1.647-1.696 um (DERIVED model edges with the 2.9 mm gaps: 1.5139-1.5805 / 1.5855-1.6439 / 1.6482-1.6963 um); dispersion 0.326 / 0.282 / 0.235 A/px (the model gives 0.3257 / 0.2858 / 0.2354 A/px at the chip centres 1.548 / 1.616 / 1.674 um); R median 22,800 / 23,700 / 22,000 (blue / green / red; nominal 22,500; model slit-limited R with the slit-equivalent width 26,850-28,940 at 1.54-1.66 um, i.e. 14-32% above the measured values); spectral fibre image ~1.7 px at 1.53 um to ~3.0 px at 1.68 um (model 1.72 / 2.51 px slit-equivalent; 1.99 / 2.90 px full core); fibre pitch 6.6 px (model 6.57 px).",
+   "apogee_s": "APOGEE-S on the du Pont 2.5 m (a near-copy of APOGEE-N): same D = 2.5 m, same fibre (120 um = 1.31\" on the sky at f/7.5; FRD expected to speed the f/7.5 input to roughly the APOGEE-N output beam, so keep F = 3.85 and the same slit-equivalent 2.227\"), same collimator, camera and detector format; two-panel VPH (as-built line density NOT FOUND; use the APOGEE-N values) with a 29.2\" correction wedge on one panel. Validate against the lower APOGEE-S resolution (W19 Table 13: medians 20,100-23,700 blue, 20,900-24,800 green, 19,800-21,000 red). Per-chip coverage and dispersion for APOGEE-S were NOT FOUND."
+  },
+  "preset_values": {
+   "_note": "Compact numbers for the explorer; every number is sourced in 'params' (key in 'ref'). DERIVED entries are arithmetic on sourced values.",
+   "apogee_n": {
+    "D_m": 2.5,
+    "F_into_collimator": 3.85,
+    "F_into_collimator_note": "aperture stop (VPH mask) clips beams faster than f/3.85; camera f/1.3 is defined at this beam. ALT F = 3.5 (fibre output, 95% EE) with W = 301.0 mm gives the same f_col and the same R.",
+    "F_fiber_output_95EE": 3.5,
+    "F_telescope": 5.0,
+    "fiber_core_um": 120,
+    "fiber_core_arcsec_sky": 2.0,
+    "fiber_core_arcsec_at_F_DERIVED": 2.572,
+    "slit_equiv_arcsec_DERIVED": 2.227,
+    "nObj": 300,
+    "nObj_note": "300 fibres on the slit; about 230 science + 35 sky + 35 telluric standards",
+    "collimator": "Mirror",
+    "f_col_mm_DERIVED": 1053.6,
+    "W_mm_DERIVED": 273.7,
+    "f_cam_mm": 356,
+    "camera_f_ratio": 1.3,
+    "grating_type": "transmission (VPH)",
+    "lines_per_mm": 1009.345,
+    "lines_per_mm_design": 1008.6,
+    "order": 1,
+    "alpha_deg": 54.061,
+    "alpha_deg_design": 54.0,
+    "lambda_littrow_um_DERIVED": 1.6043,
+    "camera_angle_physical_deg_DERIVED": 108.122,
+    "lamC_um_DERIVED_mosaic_centre": 1.6158,
+    "beta_c_deg_DERIVED": 55.21,
+    "camera_angle_explorer_deg_DERIVED": 109.27,
+    "Nx_dispersion_with_gaps_DERIVED": 6466,
+    "Nx_dispersion_no_gaps": 6144,
+    "detectors_along_dispersion": 3,
+    "detector_format_each": [
+     2048,
+     2048
+    ],
+    "gap_mm": 2.9,
+    "gap_px_DERIVED": 161.1,
+    "Ny_spatial": 2048,
+    "pixel_um": 18,
+    "ref": [
+     "telescope_aperture",
+     "telescope_focal_ratio",
+     "fiber_core_diameter",
+     "fiber_on_sky",
+     "fiber_output_focal_ratio",
+     "spectrograph_acceptance",
+     "pseudo_slit",
+     "collimator_type",
+     "collimator_focal_length",
+     "collimated_beam_diameter",
+     "vph_grating",
+     "vph_as_built",
+     "camera_angle",
+     "camera_focal_length",
+     "camera_focal_ratio",
+     "detector",
+     "detector_gaps"
+    ]
+   },
+   "apogee_s": {
+    "D_m": 2.5,
+    "F_telescope": 7.5,
+    "fiber_core_um": 120,
+    "fiber_core_arcsec_sky": 1.31,
+    "same_as_apogee_n": [
+     "F_into_collimator",
+     "slit_equiv_arcsec_DERIVED",
+     "nObj",
+     "collimator",
+     "f_col_mm_DERIVED",
+     "W_mm_DERIVED",
+     "f_cam_mm",
+     "lines_per_mm",
+     "alpha_deg",
+     "lamC_um_DERIVED_mosaic_centre",
+     "detector"
+    ],
+    "vph": "two recorded panels with a 29.2 arcsec fused-silica correction wedge in front of one panel",
+    "ref": [
+     "telescope_aperture",
+     "telescope_focal_ratio",
+     "fiber_on_sky",
+     "fiber_output_focal_ratio",
+     "apogee_s_vph"
+    ]
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 2.5,
+    "unit": "m (both telescopes)",
+    "src": "G06",
+    "loc": "Abstract, PDF p.1",
+    "quote": "modified two-corrector Ritchey-Chrétien design which has a 2.5-m, f /2.25 primary, a 1.08-m secondary",
+    "alternatives": [
+     {
+      "value": 2.5,
+      "src": "W19",
+      "loc": "Sec. 2.1 Imaging Performance, PDF p.5",
+      "quote": "The 2.5 m Sloan Foundation Telescope (Gunn et al. 2006) is a modified two-corrector Ritchey-Chrétien design with a net focal ratio of f /5.0."
+     },
+     {
+      "value": "2.5 (du Pont, APOGEE-S)",
+      "src": "W19",
+      "loc": "Sec. 13.1 Use of the du Pont Telescope, PDF p.63",
+      "quote": "it has the same aperture, a similarly wide field of view (2.1° v. 3.0°), and a similar focal ratio (f /7.5 v. f /5)"
+     }
+    ],
+    "derived": "Secondary diameter 1.08 m = 43% of the aperture diameter (central obscuration; not modeled by the explorer)."
+   },
+   "telescope_focal_ratio": {
+    "value": 5.0,
+    "unit": "f/# (APOGEE-N; du Pont f/7.5)",
+    "src": "W19",
+    "loc": "Sec. 2.1 Imaging Performance, PDF p.5",
+    "quote": "is a modified two-corrector Ritchey-Chrétien design with a net focal ratio of f /5.0",
+    "alternatives": [
+     {
+      "value": 5,
+      "src": "G06",
+      "loc": "Abstract, PDF p.2",
+      "quote": "The final focal ratio is f /5."
+     },
+     {
+      "value": "60.6 um/arcsec at f/5",
+      "src": "G06",
+      "loc": "Sec. 2 (design drivers), PDF p.5",
+      "quote": "At the scale at f /5, 60.6 µm arcsecond-1"
+     },
+     {
+      "value": "f/7.5 (du Pont, APOGEE-S)",
+      "src": "W19",
+      "loc": "Sec. 13.1, PDF p.63",
+      "quote": "a similar focal ratio (f /7.5 v. f /5)"
+     }
+    ],
+    "derived": "DERIVED: 2.5e6 um x 5 / 206265 = 60.6 um/arcsec (matches G06); du Pont 2.5e6 x 7.5 / 206265 = 90.9 um/arcsec."
+   },
+   "fiber_core_diameter": {
+    "value": 120,
+    "unit": "um (core / clad / buffer 120 / 170 / 190 um; Polymicro FIP120170190, low-OH step index)",
+    "src": "W19",
+    "loc": "Sec. 3.1 Fibers and Fiber Routing, PDF p.9",
+    "quote": "The nominal core, clad, and polyimide buffer outside diameters are 120 µm, 170 µm, and 190 µm, respectively.",
+    "alternatives": [
+     {
+      "value": 120,
+      "src": "W19",
+      "loc": "Table 1, PDF p.4",
+      "quote": "Fiber Core Diameter 120 µm"
+     },
+     {
+      "value": 120,
+      "src": "M17",
+      "loc": "Sec. 3.1 Fiber Train and Plugplate System, PDF p.13",
+      "quote": "low-OH (i.e., \"dry\") fibers with a 120 µm diameter silica core that subtend 2 arcseconds of sky at the telescope focus"
+     }
+    ]
+   },
+   "fiber_on_sky": {
+    "value": "2.0 (Sloan, f/5); 1.31 (du Pont, f/7.5)",
+    "unit": "arcsec (core diameter)",
+    "src": "W19",
+    "loc": "Sec. 3.1, PDF p.9",
+    "quote": "Given the Sloan Foundation Telescope's f /5 beam, the fiber core subtends 2″ on the sky.",
+    "alternatives": [
+     {
+      "value": 2.0,
+      "src": "W19",
+      "loc": "Table 1, PDF p.4",
+      "quote": "Fiber Size on Sky 2.0″"
+     },
+     {
+      "value": 2.0,
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Fiber scale on sky (diameter) 2.0 arc seconds"
+     },
+     {
+      "value": 2,
+      "src": "S3P",
+      "loc": "Overview",
+      "quote": "300 low-OH (\"dry\") fused silica fibers which have a 2\" field of view on the sky"
+     },
+     {
+      "value": "1.31 (du Pont)",
+      "src": "W19",
+      "loc": "Sec. 13.1, PDF p.64",
+      "quote": "The 120 µm core fibers used with the APOGEE instrument have a FOV of 1.31″ on the sky when used on the du Pont Telescope compared to 2.0″ at the Sloan Foundation Telescope given the different focal ratios."
+     }
+    ],
+    "derived": "DERIVED: 120 / 60.6 = 1.98\" (Sloan); 120 / 90.9 = 1.32\" (du Pont). In the explorer the arcsec value is tied to F: 120 um at F = 3.85 on 2.5 m = 2.572\" (46.66 um/\"), slit-equivalent (sqrt3/2) x 2.572 = 2.227\"; at F = 3.5: 2.829\" / 2.450\"."
+   },
+   "fiber_output_focal_ratio": {
+    "value": "~3.5 (95% encircled energy; f/5 input)",
+    "unit": "f/#",
+    "src": "W19",
+    "loc": "Sec. 1 Introduction, PDF p.3",
+    "quote": "a spherical mirror intercepts and collimates each ~ f /3.5 beam emanating from the fiber tips that form the pseudo-slit",
+    "alternatives": [
+     {
+      "value": "95% EE inside f/3.5 (lab, 40 m test fibres with feedthroughs, f/5 input)",
+      "src": "W19",
+      "loc": "Sec. 3.3.2 Spectrograph Input f/#, PDF p.14",
+      "quote": "There was 95 % encircled energy measured within the f /3.5 output beam for assemblies with a feedthrough."
+     },
+     {
+      "value": "f/3.5 adopted for design",
+      "src": "W19",
+      "loc": "Fig. 11 caption, PDF p.15",
+      "quote": "The 95 % encircled energy at f /3.5 was adopted as the expected beam to be input into the spectrograph."
+     },
+     {
+      "value": "f/3.0 Gaussian-apodised (Zemax model; object NA 0.166667, apodization factor 1.58)",
+      "src": "W19",
+      "loc": "Sec. 4.7 Vignetting, PDF p.29",
+      "quote": "We modeled the illumination within Zemax by using f /3.0 illumination of the spectrograph optics with Gaussian Apodization and an apodization factor of 1.58."
+     },
+     {
+      "value": "NA 0.166667 (= f/3.0)",
+      "src": "W19",
+      "loc": "Table 5 note d, PDF p.20",
+      "quote": "object space numerical aperture = 0.166667 with Gaussian apodization and apodization factor 1.58"
+     },
+     {
+      "value": "APOGEE-S: f/7.5 input, FRD expected to bring the output close to APOGEE-N's",
+      "src": "W19",
+      "loc": "Sec. 13.1, PDF p.64",
+      "quote": "But given fiber FRD, which was expected to speed the beam to focal ratios close to what is delivered to the APOGEE-North instrument, focal conversion with lenslets was determined to be unnecessary from an instrument standpoint."
+     }
+    ],
+    "derived": "DERIVED: NA 0.166667 -> f/# = 1/(2 x 0.166667) = 3.0."
+   },
+   "spectrograph_acceptance": {
+    "value": "collimator mask clips beams faster than ~f/3.7; VPH mask (the aperture stop) clips beams faster than ~f/3.85",
+    "unit": "f/#",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "Masks at the Collimator and VPH Grating are sized to clip any beams faster than approximately f /3.7 and f /3.85, respectively, that illuminate the system.",
+    "alternatives": [
+     {
+      "value": "collimator mask 491.9 x 293.1 mm",
+      "src": "W19",
+      "loc": "Table 5 note g, PDF p.20",
+      "quote": "A mask in front of the Collimator has inside dimensions 491.9 mm × 293.1 mm along with rounded internal corners."
+     },
+     {
+      "value": "VPH mask 464.7 x 272.8 mm",
+      "src": "W19",
+      "loc": "Table 5 note j, PDF p.20",
+      "quote": "A mask in front of the VPH Grating has inside dimensions 464.7 mm × 272.8 mm along with complex internal corners."
+     },
+     {
+      "value": "camera designed for f/4 illumination",
+      "src": "W19",
+      "loc": "Sec. 4.7, PDF p.29",
+      "quote": "had already been designed assuming the spectrograph optics were illuminated with an f /4 beam"
+     }
+    ],
+    "derived": "DERIVED: 1053.6 mm / 3.85 = 273.7 mm (matches the 272.8 mm VPH-mask width); 1053.6 / 293.1 = f/3.59 for the collimator-mask short side."
+   },
+   "pseudo_slit": {
+    "value": "300 fibres in 10 v-groove blocks of 30; pitch 0.350 mm in a block; fibre 1 to fibre 300 = 105.53 mm; on a sphere of radius 1051.6 mm (half the collimator radius) and a 386 mm lateral radius that straightens the slit image",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "The fiber-fiber spacing of 0.350 mm within v-groove blocks at the pseudo-slit is demagnified to 0.118 mm (6.6 pixels) at the detector.",
+    "alternatives": [
+     {
+      "value": "105.53 mm (fibre 1 - fibre 300); slit sphere radius -1051.6 mm",
+      "src": "W19",
+      "loc": "Table 5, row 'Pseudo-slit', PDF p.20",
+      "quote": "Pseudo-slit -1051.6e 709 300 Polymicro FIP120170190 fibers 105.53 (fiber 1 – fiber 300)"
+     },
+     {
+      "value": "sets of 30 per v-groove block",
+      "src": "W19",
+      "loc": "Sec. 3.2.4 V-groove Blocks, PDF p.12",
+      "quote": "Inside the instrument the fibers terminate in sets of 30 on Alloy-39 (A39) v-groove blocks"
+     },
+     {
+      "value": "lateral radius 386.1 mm (cold)",
+      "src": "W19",
+      "loc": "Sec. 4.1 Pseudo-slit, PDF p.21",
+      "quote": "Thus the pseudo-slit is designed to have a 386.1 mm cold lateral radius of curvature to linearize the slit image at 1.625 µm."
+     },
+     {
+      "value": "350 um pitch -> 6.6 px",
+      "src": "M17",
+      "loc": "Sec. 3.2.2 (Pseudoslit and Collimator), PDF p.15",
+      "quote": "spacing at the pseudo-slit is physically 350 µm between centers to yield 6.6 pixel spacings between spectra on the detectors"
+     }
+    ],
+    "derived": "DERIVED: 10 blocks x 29 x 0.350 mm = 101.5 mm; the remaining 105.53 - 101.5 = 4.03 mm over 9 block joints gives 0.448 mm between end fibres of adjacent blocks = 0.448 x 0.3379 / 0.018 = 8.4 px on the detector (W19: 8.3 px). The whole slit, 105.53 mm x 0.3379 = 35.66 mm = 1981 px, fills 97% of the 2048 px array height."
+   },
+   "collimator_type": {
+    "value": "Mirror: spherical, on-axis ('uncorrected Schmidt'; spherical aberration corrected by an asphere on camera lens 1), Hextek lightweight borosilicate, gold coated, 311 x 514 x 85 mm",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "with an on-axis uncorrected Schmidt camera for a collimator, a dispersive optic located in the collimated beam, and a refractive camera to focus the dispersed light",
+    "alternatives": [
+     {
+      "value": "spherical aberration partly corrected in the camera",
+      "src": "W19",
+      "loc": "Sec. 4.6.1, PDF p.27",
+      "quote": "Partial (first order) correction of spherical aberration from the uncorrected collimator is provided by a generalized asphere (0.093 mm departure from best fit sphere) on the second surface of the first element."
+     },
+     {
+      "value": "gold coating",
+      "src": "W19",
+      "loc": "Sec. 4.2, PDF p.22",
+      "quote": "The mirror was coated with a protective gold coating by Infinite Optics"
+     },
+     {
+      "value": "slit is an obscuration in the collimated beam",
+      "src": "M17",
+      "loc": "Sec. 3.2.2, PDF p.15",
+      "quote": "The resulting optical design is on-axis so that the pseudo-slit is an obscuration in the collimated beam."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 1053.6,
+    "unit": "mm (R/2 of the cold radius)",
+    "src": "W19",
+    "loc": "Table 5, row 'Collimating Mirror', PDF p.20",
+    "quote": "Collimating Mirrorg -2107.22 343.281 Hextek Gas Fusion Substrate 311.15 × 514.35 × 85",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "~1050 (R ~ 2.1 m)",
+      "src": "W19",
+      "loc": "Sec. 4.2 Collimating Mirror, PDF p.22",
+      "quote": "The concave 311 × 514 × 85 mm mirror, with ≈ 2.1 m radius of curvature"
+     },
+     {
+      "value": "1052.3 (slit-to-mirror path, DERIVED 709 + 343.281)",
+      "src": "W19",
+      "loc": "Table 5 (thickness column, rows 'Pseudo-slit' and 'Fold Mirror 1 (1st reflection)'), PDF p.20",
+      "quote": "Pseudo-slit -1051.6e 709 300 Polymicro ... Fold Mirror 1f (1st reflection) ∞ -343.281 Corning 7980 Fused Silica Substrate"
+     },
+     {
+      "value": "1053.8 (DERIVED 2.96 x 356 mm)",
+      "src": "W19",
+      "loc": "Sec. 4 (intro), PDF p.18",
+      "quote": "This gives a system demagnification of 3.85/1.30 = 2.96."
+     }
+    ],
+    "derived": "DERIVED: f = |R|/2 = 2107.22/2 = 1053.6 mm (Table 5 radii are cold, 77 K: 'Cold dimensions (77 K).'). The Table 5 slit-to-mirror path is 709 + 343.281 = 1052.3 mm, 1.3 mm shorter than R/2 (collimator piston is the focus adjustment; 2.4 mm was chosen for the SDSS-III survey, W19 Sec. 11.2). The demagnification statement gives 2.96 x 356 = 1053.8 mm."
+   },
+   "collimated_beam_diameter": {
+    "value": 273.7,
+    "unit": "mm (f_col / 3.85)",
+    "src": "W19",
+    "loc": "Sec. 4.5 Mosaic VPH Grating, PDF p.23",
+    "quote": "We required a clear, elliptically-shaped aperture sized with a minor axis (along the groove length direction) of 280 mm and major axis (projected width) of 465 mm.",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "VPH mask 464.7 x 272.8 mm",
+      "src": "W19",
+      "loc": "Table 5 note j, PDF p.20",
+      "quote": "A mask in front of the VPH Grating has inside dimensions 464.7 mm × 272.8 mm"
+     },
+     {
+      "value": "camera entrance pupil = 356/1.3 = 273.8 mm (DERIVED)",
+      "src": "W19",
+      "loc": "Sec. 4 (intro), PDF p.18",
+      "quote": "When the spectrograph is illuminated with f /3.85 the camera has an f /# of f /1.3, which corresponds to camera focal length divided by entrance pupil diameter."
+     },
+     {
+      "value": "301.0 at f/3.5 (DERIVED 1053.6/3.5)",
+      "src": "W19",
+      "loc": "Sec. 1, PDF p.3",
+      "quote": "each ~ f /3.5 beam emanating from the fiber tips"
+     }
+    ],
+    "derived": "DERIVED: 1053.6 / 3.85 = 273.7 mm; the projected major axis of the VPH aperture gives 465 x cos 54 deg = 273.3 mm in the beam; camera pupil 356 / 1.3 = 273.8 mm. No source states a collimated-beam diameter as such."
+   },
+   "fold_mirrors": {
+    "value": "Fold 1 (flat, used twice, bent to a 3 um cylindrical sag to cancel astigmatism); Fold 2 (flat, ~50 deg incidence, dichroic front face: reflects >99% at 1.5-1.7 um, passes thermal light 2.0-2.6 um to a light trap)",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 4.4 Fold Mirror 2, PDF p.23",
+    "quote": "The dichroic coating is a long-pass filter that transmits ~ 95% of the light from 2.0 – 2.6 µm into the mirror substrate and reflects > 99% of the light between 1.5 – 1.7 µm.",
+    "alternatives": [
+     {
+      "value": "Fold 1 cylinder, 3 um sag",
+      "src": "W19",
+      "loc": "Sec. 4.3 Fold Mirror 1, PDF p.22",
+      "quote": "There is a 3 µm sag between the sides and middle of the mirror."
+     }
+    ]
+   },
+   "vph_grating": {
+    "value": "design: 1008.6 lines/mm at 77 K, first order, Littrow alpha = beta = 54 deg at the centre wavelength 1.6042 um; untilted fringes; three segments recorded step-and-repeat on one 305 x 508 x 25.4 mm fused-silica substrate (Kaiser Optical Systems)",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 4.5 Mosaic VPH Grating, PDF p.23",
+    "quote": "satisfied with a grating line frequency choice of 1,008.6 lines mm-1 and first order operation in Littrow mode where angle of incidence and exit are 54° for the center wavelength (1.6042 µm)",
+    "alternatives": [
+     {
+      "value": "room-temperature target 1008.42 -> 1008.6 at 77 K",
+      "src": "W19",
+      "loc": "Sec. 4.5, PDF p.24",
+      "quote": "the room temperature groove frequency target was 1,008.42 lines mm-1 to yield 1,008.6 lines mm-1 at 77 K"
+     },
+     {
+      "value": "three segments",
+      "src": "W19",
+      "loc": "Fig. 20 caption, PDF p.23",
+      "quote": "The grating is made up of a mosaic of three segments."
+     },
+     {
+      "value": "step and repeat on one substrate",
+      "src": "W19",
+      "loc": "Sec. 4.5, PDF p.23",
+      "quote": "We chose the step and repeat process because we thought it offered the best chance of meeting the differential segment tolerances."
+     },
+     {
+      "value": "substrate and cap 305 x 508 x 25.4 mm fused silica",
+      "src": "W19",
+      "loc": "Sec. 4.5, PDF p.23",
+      "quote": "Both the substrate and cap layer for the APOGEE VPH Grating are made from Corning 7980 Fused Silica with finished dimensions of 305 × 508 × 25.4 mm."
+     },
+     {
+      "value": "untilted fringes (Littrow ghost left at 1.6042 um)",
+      "src": "W19",
+      "loc": "Sec. 4.5, PDF p.24",
+      "quote": "Thus untilted fringes could be used, easing VPH Grating manufacturability."
+     },
+     {
+      "value": "~8 mm masked strips over the segment boundaries",
+      "src": "W19",
+      "loc": "Sec. 4.5, PDF p.24",
+      "quote": "A blackened mask covers the VPH grating substrate entrance ... surface and includes ... in (~ 8 mm) wide strips to cover the boundaries between recorded segments."
+     },
+     {
+      "value": "1009.3 grooves/mm, first order, 54 deg incidence",
+      "src": "M17",
+      "loc": "Sec. 3.2.2 (VPH Grating), PDF p.15",
+      "quote": "The VPH has 1009.3 grooves/mm and operates in first order with a 54° angle of incidence."
+     }
+    ],
+    "derived": "DERIVED check: 2 sin 54 deg / 1.0086 um^-1 = 1.6042 um (the stated centre wavelength)."
+   },
+   "vph_as_built": {
+    "value": "as recorded: 1009.345 lines/mm (room temperature); grating turned by +0.061 deg (alpha = 54.061 deg) and camera articulated by +0.122 deg to compensate",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 4.5, PDF p.24",
+    "quote": "to accommodate the actual recorded groove frequency of 1,009.345 lines mm-1 at room temperature: the grating angle (relative to the incident beam) was increased by 0.061° and the camera was similarly articulated about the grating center by 0.122°",
+    "alternatives": [
+     {
+      "value": "1009.345 /mm (as-built prescription)",
+      "src": "W19",
+      "loc": "Table 5 note k, PDF p.20",
+      "quote": "VPH \"groove\" density: 1009.345 lines mm-1"
+     },
+     {
+      "value": "alpha = 54.061 deg",
+      "src": "W19",
+      "loc": "Table 5 note j, PDF p.20",
+      "quote": "Implement starting with Tilt About X = -54.061 deg."
+     },
+     {
+      "value": "1009.524 /mm cold ('room - 200 K')",
+      "src": "W19",
+      "loc": "Fig. 21 legend, PDF p.25",
+      "quote": "1009.345 l/mm @ room temp ... 1009.524 l/mm @ room-200K"
+     }
+    ],
+    "derived": "DERIVED: Littrow wavelength 2 sin(54.061 deg)/1.009345 = 1.6043 um (1.6040 um with the cold 1009.524 /mm); camera deviation 2 x 54.061 = 108.122 deg = 108 deg + 0.122 deg."
+   },
+   "camera_angle": {
+    "value": "Littrow: the diffracted beam leaves at ~54 deg (deviation alpha + beta = 108 deg design, 108.122 deg as built **[DERIVED]**); the detector mosaic is offset from the camera axis",
+    "unit": "deg",
+    "src": "W19",
+    "loc": "Fig. 24 caption, PDF p.26",
+    "quote": "With the grating operating in Littrow mode, the incident beam enters the VPH grating with a 54° angle of incidence and exits dispersed in a variety of angles centered on 54° in m = +1 transmission towards the camera.",
+    "alternatives": [
+     {
+      "value": "camera lens 1 decentred 15 mm and tilted -2.963 deg (Zemax)",
+      "src": "W19",
+      "loc": "Table 5 note m, PDF p.20",
+      "quote": "Decenter Y = 15 mm, Tilt About X = -2.963 deg before first camera surface."
+     },
+     {
+      "value": "green array centre offset laterally 25.69 mm; flange focal distance 49.39 mm",
+      "src": "W19",
+      "loc": "Table 5 note q, PDF p.20",
+      "quote": "The center of the middle (green) detector array surface is nominally 49.39 mm normal distance from the camera back mounting flange to the detector array center (flange focal distance) and offset laterally 25.69 mm."
+     }
+    ],
+    "derived": "DERIVED for the explorer (detector centred on the camera axis): with G = 1009.345 /mm, alpha = 54.061 deg and f_cam = 356 mm (f tan theta), the published outer edges 1.514 and 1.696 um fall at x = -50.85 and +65.27 mm from the Littrow direction, so the mosaic centre lies 7.2 mm redward, at 1.6159 um (1.6158 um with the design pair; 1.6158 is used, a 0.1 nm difference); beta = 55.21 deg; camera angle alpha + beta = 109.27 deg."
+   },
+   "camera_focal_length": {
+    "value": 356,
+    "unit": "mm (measured at room temperature; cold value NOT FOUND)",
+    "src": "W19",
+    "loc": "Sec. 4.6.1 Optical Design, PDF p.26",
+    "quote": "has a measured focal length of 356 mm at room temperature and elements as large as 393.5 mm in diameter",
+    "alternatives": [
+     {
+      "value": 356,
+      "src": "W19",
+      "loc": "Sec. 13.6.2 VPH Correction Wedge, PDF p.70",
+      "quote": "With the nominal APOGEE camera focal length of 356 mm"
+     }
+    ]
+   },
+   "camera_focal_ratio": {
+    "value": 1.3,
+    "unit": "f/# (camera focal length / entrance pupil when illuminated at f/3.85)",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "When the spectrograph is illuminated with f /3.85 the camera has an f /# of f /1.3, which corresponds to camera focal length divided by entrance pupil diameter.",
+    "alternatives": [
+     {
+      "value": "~f/1.0 (full clear aperture)",
+      "src": "W19",
+      "loc": "Sec. 4 (intro), PDF p.18",
+      "quote": "the camera is illuminated onaxis with collimated light having the maximum diameter that can be accepted by the camera, the f /# is ≈ f /1.0"
+     },
+     {
+      "value": "~f/1.4 (depth-of-focus statement)",
+      "src": "W19",
+      "loc": "Sec. 4.6.1, PDF p.27",
+      "quote": "A camera focal ratio of ≈ f /1.4 implies a pixel-limited depth of focus of ±25 µm."
+     },
+     {
+      "value": "f/1.3 (schematic label)",
+      "src": "W19",
+      "loc": "Fig. 16, PDF p.19",
+      "quote": "Camera (f/1.3)"
+     }
+    ]
+   },
+   "camera_design": {
+    "value": "six elements (4 monocrystalline Si, 2 Corning 7980 fused silica), largest 393.5 mm; one asphere; internal vignetting from 1.67 um (30-40% at 1.695 um)",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 1 Introduction, PDF p.4",
+    "quote": "Past the grating, a six-element f /1.3 refractive camera focuses the 300 parallel spectra onto the detector arrays.",
+    "alternatives": [
+     {
+      "value": "vignetting at the red end",
+      "src": "W19",
+      "loc": "Sec. 4.7, PDF p.29",
+      "quote": "By 1.695 µm, close to the red edge of the red detector array, about 30% of the light on-axis and about 40% of the light at the top/bottom fibers is internally vignetted within the camera."
+     },
+     {
+      "value": "largest 394 mm, smallest 237 mm",
+      "src": "M17",
+      "loc": "Sec. 3.2.2 (Camera), PDF p.15",
+      "quote": "the largest element is 394 mm in diameter and the smallest element is 237 mm in diameter"
+     }
+    ]
+   },
+   "magnification": {
+    "value": 0.338,
+    "unit": "(f_cam / f_col; demagnification 2.96)",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "This gives a system demagnification of 3.85/1.30 = 2.96.",
+    "is_derived": true,
+    "derived": "DERIVED: 356 / 1053.6 = 0.3379 (1/2.96 = 0.338). Fibre core image 120 x 0.3379 = 40.5 um = 2.25 px (spatial); slit-equivalent 103.9 um -> 1.95 px before the anamorphic factor cos(alpha)/cos(beta)."
+   },
+   "detector": {
+    "value": "3 x Teledyne H2RG HgCdTe, 2048 x 2048, 18 um, 2.5 um cutoff (JWST NIRCam flight rejects), side by side along the dispersion; 4-px reference-pixel border (2040 x 2040 active, DERIVED)",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 5.1 Detector Array Mosaic Assembly, PDF p.33",
+    "quote": "Three Teledyne 2048 x 2048 pixel, 2.5 µm cutoff, HgCdTe H2RG detector arrays with 18 µm pixel pitch (Hodapp et al. 2004), mounted side-by-side in the dispersion direction, are positioned at the spectrograph camera focal plane.",
+    "alternatives": [
+     {
+      "value": "36.86 x 36.86 mm each",
+      "src": "W19",
+      "loc": "Table 5, row 'Detector Arrays', PDF p.20",
+      "quote": "Detector Arraysr ··· ··· (3) HAWAII-2RG 36.86 × 36.86 each"
+     },
+     {
+      "value": "18 um",
+      "src": "W19",
+      "loc": "Table 1, PDF p.4",
+      "quote": "Detector Pixel Size 18 µm"
+     },
+     {
+      "value": "4-px reference border",
+      "src": "N15",
+      "loc": "Sec. 4.1, PDF p.4",
+      "quote": "reference pixels: (1) a perimeter of 4 pixels around each array (\"embedded\" reference pixels) that are not \"active\""
+     },
+     {
+      "value": "2048 x 2048, 18 um",
+      "src": "N15",
+      "loc": "Sec. 4.1, PDF p.4",
+      "quote": "(each with 2048 × 2048 18µm pixels) are read in parallel"
+     },
+     {
+      "value": "2048 x 2048, 18 um",
+      "src": "S3P",
+      "loc": "Main Parameter Summary",
+      "quote": "Three JWST H2RG (2048 x 2048) Near-Infrared HgCdTe Detectors with 18 micron pixels"
+     }
+    ],
+    "derived": "DERIVED: 2048 x 18 um = 36.864 mm (Table 5: 36.86 mm); active 2048 - 2 x 4 = 2040 px."
+   },
+   "detector_gaps": {
+    "value": 2.9,
+    "unit": "mm between adjacent detective areas (= 161.1 px, DERIVED)",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.19",
+    "quote": "there are 2.9 mm gaps, the smallest feasible, between adjacent detector arrays",
+    "alternatives": [
+     {
+      "value": 2.9,
+      "src": "W19",
+      "loc": "Sec. 5.1, PDF p.33",
+      "quote": "are butted together such there is the minimal ≈ 2.9 mm gap between adjacent detective areas"
+     }
+    ],
+    "derived": "DERIVED: 2.9 / 0.018 = 161.1 px; mosaic extent 3 x 36.864 + 2 x 2.9 = 116.39 mm = 6466 px (6144 detective px). In the f tan theta model (f_cam = 356 mm, lamC = 1.6158 um) the gaps are 1.5805-1.5855 um (50 A) and 1.6439-1.6482 um (42 A); the published 1-nm-rounded chip edges give 40 A and 30 A."
+   },
+   "detector_tilts": {
+    "value": "each array tilted about the spatial axis: blue -0.81, green -0.59, red -0.50 deg (long-wavelength end farther from the camera); flange focal distances blue -0.48, red +0.37 mm relative to green",
+    "unit": "deg",
+    "src": "W19",
+    "loc": "Table 5 note r, PDF p.20",
+    "quote": "Detector array tilts: Blue, -0.81° ; Green, -0.59° ; Red, -0.50° ."
+   },
+   "dither": {
+    "value": "detector mosaic translated along the dispersion in 0.5 px steps (measured mean 0.490 +/- 0.013 px)",
+    "unit": "pixels",
+    "src": "W19",
+    "loc": "Sec. 1 Introduction, PDF p.4",
+    "quote": "translates the three arrays together in the spectral direction in 0.5 pixel dither (i.e., back and forth) steps, enables critical sampling of the native spectra, which are purposefully undersampled at the blue end of the spectrum to maximize instrument wavelength",
+    "alternatives": [
+     {
+      "value": "mean 0.490 px",
+      "src": "W19",
+      "loc": "Sec. 11.6 Dithering Accuracy, PDF p.55",
+      "quote": "For commanded 0.5 pixel moves between dither positions, the mean resultant mechanism move is 0.490 pixels (±0.013 standard deviation) based on the offsets between 8,227 dither pairings."
+     },
+     {
+      "value": "~0.5 px (early data ~0.4)",
+      "src": "N15",
+      "loc": "Sec. 2, PDF p.2",
+      "quote": "moved by ~0.5 pixels between exposures (although early survey data had a somewhat smaller shift of ~0.4"
+     }
+    ]
+   },
+   "fibers_on_slit": {
+    "value": 300,
+    "unit": "fibres = spectra per detector (one slit feeds all three arrays)",
+    "src": "W19",
+    "loc": "Table 1, PDF p.4",
+    "quote": "Total Spectrograph Fibers 300",
+    "alternatives": [
+     {
+      "value": "35 sky + 35 telluric",
+      "src": "M17",
+      "loc": "Sec. 2.7 Throughput, footnote 6, PDF p.12",
+      "quote": "In the end, this number was increased to 35 fibers for sky plus 35 for telluric absorption stars"
+     },
+     {
+      "value": "~230 science",
+      "src": "M17",
+      "loc": "Sec. 4.3 (Ancillary Science Program), PDF p.24",
+      "quote": "use of up to all ~230 APOGEE \"science\" fibers in a new pointing"
+     },
+     {
+      "value": "300 = maximum packing at ~7 px per spectrum",
+      "src": "M17",
+      "loc": "Sec. 2.7 Throughput, PDF p.12",
+      "quote": "which is the number of spectra that can be maximally packed along the spatial direction on a 2048 pixel-wide detector (allowing ~7 pixels per spectrum"
+     }
+    ]
+   },
+   "apogee_s_vph": {
+    "value": "APOGEE-S: two-panel VPH; panels mismatched by 0.015-0.025 lines/mm (spec 0.0035); fused-silica correction wedge of 29.2\" in front of the left panel",
+    "unit": null,
+    "src": "W19",
+    "loc": "Sec. 13 intro, PDF p.63",
+    "quote": "use of a two panel VPH Grating, and the necessity of an optical wedge in front of half of the grating to correct for a mismatch in recorded groove density between the two segments of the VPH",
+    "alternatives": [
+     {
+      "value": "0.015-0.025 lines/mm differential",
+      "src": "W19",
+      "loc": "Sec. 13.6.2, PDF p.70",
+      "quote": "These exit angles implied differential groove frequencies of 0.015 – 0.025 lines mm-1"
+     },
+     {
+      "value": "wedge 29.2\"",
+      "src": "W19",
+      "loc": "Sec. 13.6.2, PDF p.70",
+      "quote": "The wedge magnitude is 29.2″"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_by_chip": {
+    "value": {
+     "blue": 22800,
+     "green": 23700,
+     "red": 22000
+    },
+    "unit": "lambda/FWHM, median native (APOGEE-N, average of top/middle/bottom fibre samples)",
+    "src": "W19",
+    "loc": "Table 1, PDF p.4",
+    "quote": "native (λ/FWHM) resolution (Blue; Green; Red) 22,800; 23,700; 22,000",
+    "alternatives": [
+     {
+      "value": "23,500 / 23,400 / 22,600 at 1.54 / 1.61 / 1.66 um",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Median native (λ/FWHM) resolution (at 1.54, 1.61, 1.66 µm) 23,500, 23,400, 22,600"
+     },
+     {
+      "value": "~22,500 (nominal)",
+      "src": "W19",
+      "loc": "Abstract, PDF p.2",
+      "quote": "high resolution (R = λ/∆λ ~ 22,500) spectrograph"
+     },
+     {
+      "value": ">= 22,500 (requirement)",
+      "src": "W19",
+      "loc": "Sec. 1, PDF p.3",
+      "quote": "adopted a requirement of R = λ/∆λ ≥ 22,500"
+     },
+     {
+      "value": "average 22,500, 10-20% variations",
+      "src": "N15",
+      "loc": "Sec. 6.2 Line Spread Profile (LSF), PDF p.12",
+      "quote": "gives an average of R=22,500 for APOGEE spectra, but there are ~10–20% variations across the detectors"
+     },
+     {
+      "value": "22,500",
+      "src": "S3P",
+      "loc": "Overview",
+      "quote": "with a nominal resolution of 22,500"
+     },
+     {
+      "value": "per fibre sample (top / middle / bottom): red 21,200 / 22,900 / 22,000; green 25,500 / 23,500 / 22,200; blue 23,300 / 23,300 / 21,900",
+      "src": "W19",
+      "loc": "Table 11 (medians), PDF p.53",
+      "quote": "Top 21,200 20,400 (-4 %) 23,800 (+12 %) 25,500 24,900 (-2 %) 26,500 (+4 %) 23,300"
+     },
+     {
+      "value": "APOGEE-S medians (top / middle / bottom): red 19,800 / 20,700 / 21,000; green 20,900 / 23,600 / 24,800; blue 20,100 / 22,200 / 23,700",
+      "src": "W19",
+      "loc": "Table 13 (medians), PDF p.73",
+      "quote": "Top 19,800 17,600 (-11 %) 22,400 (+14 %) 20,900 19,700 (-6 %) 22,300 (+7 %) 20,100"
+     },
+     {
+      "value": "~15,000 in the red during commissioning (May-July 2011)",
+      "src": "W19",
+      "loc": "Appendix B, PDF p.79",
+      "quote": "the red detector array was improperly positioned so resolution across red wavelengths were degraded to ~ 15,000"
+     }
+    ],
+    "derived": "DERIVED model (explorer conventions: slit-equivalent 103.9 um, f_col 1053.6, alpha 54.061 deg): delta-lambda = s cos(alpha)/(G f_col) = 0.5736 A at every wavelength, so R = 26,850 / 28,070 / 28,940 at 1.54 / 1.61 / 1.66 um; with the full 120 um core 23,250 / 24,310 / 25,065. The measured LSF (2.0-3.1 px FWHM, non-Gaussian, aberrations) gives R 22,000-23,700."
+   },
+   "dispersion_per_pixel": {
+    "value": {
+     "1.54um": 0.326,
+     "1.61um": 0.282,
+     "1.66um": 0.235
+    },
+    "unit": "A/pixel",
+    "src": "W19",
+    "loc": "Table 1, PDF p.4",
+    "quote": "Dispersion (at 1.54; 1.61; 1.66 µm) 0.326; 0.282; 0.235 Å/pixel",
+    "alternatives": [
+     {
+      "value": "0.326 / 0.282 / 0.235",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Dispersion (at 1.54, 1.61, 1.66 µm) 0.326, 0.282, 0.235 Å/pixel"
+     },
+     {
+      "value": "central dispersion -0.326 (blue) / -0.283 (green) / -0.236 (red) A/pix",
+      "src": "DR16",
+      "loc": "Wavelength Coverage and Detector Gaps table",
+      "quote": "a \"red\" 1.647 µm 1.696 µm -0.236 A/pix b \"green\" 1.585 µm 1.644 µm -0.283 A/pix c \"blue\" 1.514 µm 1.581 µm -0.326 A/pix"
+     }
+    ],
+    "derived": "DERIVED from the chip coverage: 670 A / 2048 = 0.327, 590 / 2048 = 0.288, 490 / 2048 = 0.239 A/px (means). Model (f tan theta, f_cam = 356 mm, lamC = 1.6158 um): 0.3257 / 0.2858 / 0.2354 A/px at the chip centres (1.548 / 1.616 / 1.674 um); at the literal wavelengths 1.54 / 1.61 / 1.66 um: 0.329 / 0.290 / 0.249 A/px. The published triplet therefore matches the model at the chip centres to 1.3%; M17 note 12 puts the red fiducial between the red-chip blue edge and 1.677 um."
+   },
+   "wavelength_coverage": {
+    "value": {
+     "blue": [
+      1.514,
+      1.581
+     ],
+     "green": [
+      1.585,
+      1.644
+     ],
+     "red": [
+      1.647,
+      1.696
+     ]
+    },
+    "unit": "um (nominal, varies slightly by fibre)",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.19",
+    "quote": "Therefore, the detector arrays provide the following nominal wavelength coverage: blue (1.514 – 1.581 µm), green (1.585 – 1.644 µm), and red (1.647 – 1.696 µm).",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Detector wavelength regions 1.514-1.581, 1.585-1.644, 1.647-1.696 µm"
+     },
+     {
+      "value": "same; edges vary by fibre",
+      "src": "DR16",
+      "loc": "Wavelength Coverage and Detector Gaps",
+      "quote": "Note that the starting and ending wavelengths vary slightly from fiber to fiber because of variations of their placement along the instrument pseudo-slit."
+     },
+     {
+      "value": "1.51-1.70 um overall",
+      "src": "W19",
+      "loc": "Abstract, PDF p.2",
+      "quote": "near-infrared (1.51–1.70µm), fiber-fed, multi-object"
+     },
+     {
+      "value": "detection to 1.696 um",
+      "src": "W19",
+      "loc": "Sec. 1, PDF p.3",
+      "quote": "In fact the use of three 2048 × 2048 pixel detector arrays enabled detection to 1.696 µm."
+     }
+    ],
+    "derived": "DERIVED gaps: 1.581-1.585 um (40 A) and 1.644-1.647 um (30 A), from edges rounded to 1 nm. Model with the 2.9 mm gaps (G 1009.345, alpha 54.061, f_cam 356, lamC 1.6158): 1.5139-1.5805 / 1.5855-1.6439 / 1.6482-1.6963 um; with the 6144 px contiguous (gaps not modeled) 1.5194-1.6929 um."
+   },
+   "sampling": {
+    "value": "spectral width of the re-imaged fibre core ~1.7 px at 1.53 um to ~3.0 px at 1.68 um (anamorphic); undersampled in the blue, fixed by 0.5 px dithers",
+    "unit": "pixels",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.19",
+    "quote": "In the spectral direction the size of the reimaged fiber core varies across the three detectors from ≈ 1.7 pixels at 1.53 µm to ≈ 3.0 pixels at 1.68 µm given the anamorphic magnification variation with wavelength.",
+    "alternatives": [
+     {
+      "value": "LSF FWHM 2.01 / 2.44 / 3.14 px at 1.54 / 1.61 / 1.66 um",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Line Spread Function (resolution element) FWHM (1.54, 1.61 1.66 µm) 2.01 , 2.44 , 3.14 pixels"
+     },
+     {
+      "value": "nominal FWHM ~2.3 px; blue end < 2 px",
+      "src": "S3P",
+      "loc": "Overview",
+      "quote": "While the nominal full-width half-maximum is approx. 2.3 pixels wide, the blue end of the spectrum is sampled with less than 2 pixels."
+     },
+     {
+      "value": "2.3 px resolution element at 1.6 um",
+      "src": "W19",
+      "loc": "Sec. 13.6.2, PDF p.70",
+      "quote": "for the nominal 2.3 pixel spot size (resolution element) at 1.6 µm"
+     },
+     {
+      "value": "slightly undersampled at the short-wavelength end",
+      "src": "N15",
+      "loc": "Sec. 1, PDF p.1",
+      "quote": "The instrument design delivers slightly undersampled spectra at its short wavelength end."
+     }
+    ],
+    "derived": "DERIVED model widths (f_cam/f_col x cos(alpha)/cos(beta), f tan theta): slit-equivalent 103.9 um -> 1.72 / 1.74 / 1.98 / 2.31 / 2.51 px at 1.53 / 1.54 / 1.61 / 1.66 / 1.68 um; full 120 um core -> 1.99 / 2.01 / 2.28 / 2.66 / 2.90 px. W19's ~1.7 px at 1.53 um matches the slit-equivalent width (1.72 px) and its ~3.0 px at 1.68 um the full core (2.90 px)."
+   },
+   "spatial_psf_fwhm": {
+    "value": {
+     "1.54um": 2.16,
+     "1.61um": 2.14,
+     "1.66um": 2.24
+    },
+    "unit": "pixels (spatial FWHM of the fibre trace)",
+    "src": "W19",
+    "loc": "Table 1, PDF p.4",
+    "quote": "Point Spread Function (spatial FWHM) (at 1.54; 1.61; 1.66 µm) 2.16; 2.14; 2.24 pixels",
+    "alternatives": [
+     {
+      "value": "2.16 / 2.14 / 2.24",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Point Spread Function (spatial FWHM) (at 1.54, 1.61, 1.66 µm) 2.16, 2.14, 2.24 pixels"
+     }
+    ],
+    "derived": "DERIVED geometric core image 120 x 0.3379 / 18 = 2.25 px."
+   },
+   "fibre_pitch_on_detector": {
+    "value": "6.6 px (0.118 mm) within a block; 8.3 px between end fibres of adjacent blocks",
+    "unit": "pixels",
+    "src": "W19",
+    "loc": "Sec. 4 (intro), PDF p.18",
+    "quote": "demagnified to 0.118 mm (6.6 pixels) at the detector ... There are 8.3 pixels between end fibers of adjacent blocks.",
+    "alternatives": [
+     {
+      "value": "~6.5 px",
+      "src": "DR16",
+      "loc": "Fiber Cross Talk",
+      "quote": "The spacing of adjacent spectra is ~ 6.5 pixels (as measured between adjacent PSF peaks)"
+     },
+     {
+      "value": "6-7 px; 10 blocks of 30",
+      "src": "N15",
+      "loc": "Sec. 5.1 Extraction, PDF p.10",
+      "quote": "The 300 spectra are separated by roughly 6-7 pixels on average."
+     }
+    ],
+    "derived": "DERIVED: 0.350 mm x 0.3379 / 0.018 = 6.57 px. The explorer spreads 300 spectra evenly over 2048 px (6.83 px)."
+   },
+   "littrow_ghost": {
+    "value": "1.6042 um (W19, natural arrival at the Littrow wavelength) / 1.6056-1.6067 um (M17)",
+    "unit": "um",
+    "src": "W19",
+    "loc": "Sec. 4.5, PDF p.24",
+    "quote": "Fortunately its natural arrival location, 1.6042 µm (the Littrow wavelength; see Figure 23)",
+    "alternatives": [
+     {
+      "value": "1.6056-1.6067 um",
+      "src": "M17",
+      "loc": "Table 2, PDF p.20",
+      "quote": "Littrow ghost position 1.6056-1.6067 µm"
+     }
+    ],
+    "derived": "DERIVED model Littrow wavelength 1.6043 um (G 1009.345, alpha 54.061 deg): a direct check of G and alpha."
+   }
+  },
+  "not_found": [
+   "Cold (77 K) camera focal length: only 'a measured focal length of 356 mm at room temperature' (W19 Sec. 4.6.1) and 'the nominal APOGEE camera focal length of 356 mm' (W19 Sec. 13.6.2). The camera was built for a warmer design temperature than achieved (W19 Sec. 12.5).",
+   "Collimator focal length and collimated-beam diameter stated as such: f_col is DERIVED from the cold radius in Table 5 (R/2 = 1053.6 mm) and W from f_col/3.85 (273.7 mm), cross-checked by the VPH aperture (465 x cos 54 deg = 273.3 mm), the VPH mask (272.8 mm) and the camera pupil (356/1.3 = 273.8 mm).",
+   "The off-axis detector geometry in a form the explorer can use: Table 5 gives a 15 mm camera decentre, a -2.963 deg tilt and a 25.69 mm lateral offset of the green array, but not the wavelength at the mosaic centre. The lamC = 1.6158 um and camera angle 109.27 deg used here are DERIVED by fitting the published outer edges.",
+   "Chip-gap widths in wavelength: only the 2.9 mm physical gap and the chip edges rounded to 1 nm (gaps 40 and 30 A, DERIVED; the f tan theta model gives 50 and 42 A).",
+   "APOGEE-S per-chip wavelength coverage, dispersion and as-built VPH line density (W19 gives only the panel mismatch, 0.015-0.025 lines/mm, the 29.2\" wedge and the resolution map, Table 13).",
+   "Fibre output focal ratio on the du Pont (f/7.5 input): only the expectation that FRD brings it close to APOGEE-N's (W19 Sec. 13.1).",
+   "Arns, J., et al. 2010, Proc. SPIE 7739, 773913 (the mosaic VPH paper, with the full grating requirements): no open copy found (SPIE Digital Library only; a search snippet of the PSU abstract page mentions a 290 mm x 475 mm elliptical grating -- not saved, not verified, not used).",
+   "Wilson, J. C., et al. 2010, Proc. SPIE 7735, 77351C and Wilson et al. 2012, Proc. SPIE 8446 (design-stage and early-performance papers): no open copies found.",
+   "Bowen & Vaughan 1973 (du Pont telescope): not retrieved; the du Pont aperture and f/7.5 come from W19 Sec. 13.1.",
+   "A published active-pixel format: 2040 x 2040 is DERIVED from N15's 4-px reference border; W19 quotes 2048 x 2048 and the 36.86 mm array size."
+  ],
+  "conflicts": [
+   "VPH line density: 1008.6 /mm (design at 77 K; W19 Sec. 4.5) vs 1009.345 /mm (as recorded at room temperature; W19 Sec. 4.5 and Table 5 note k) vs 1009.524 /mm ('room - 200 K'; W19 Fig. 21 legend) vs 1009.3 grooves/mm (M17). The recommended preset uses 1009.345 with alpha = 54.061 deg (the as-built pairing in Table 5); the cold 1009.524 moves the Littrow wavelength by 2.8 A (1.6043 -> 1.6040 um) but, with lamC pinned at the mosaic centre, moves the modeled chip edges by < 0.1 nm (DERIVED).",
+   "Incidence angle: 54 deg (design; W19 Sec. 4.5, Fig. 24; M17) vs 54.061 deg (as built; W19 Table 5 note j, and Sec. 4.5 '+0.061 deg').",
+   "Littrow / centre wavelength: 1.6042 um (W19 Sec. 4.5, Littrow ghost) vs Littrow ghost at 1.6056-1.6067 um (M17 Table 2) vs '1.605 ± 10 microns' (DR16; the '10' cannot be microns).",
+   "Resolution per chip: W19 Table 1 medians 22,800 / 23,700 / 22,000 (blue / green / red) vs M17 Table 2 23,500 / 23,400 / 22,600 (at 1.54 / 1.61 / 1.66 um) vs nominal 22,500 (W19 abstract, N15 average, S3P). Within a chip R ranges from -6% to +12% about each fibre sample's median, and the medians differ by up to 15% between the top, middle and bottom fibres (green 22,200-25,500; W19 Table 11). APOGEE-S is lower, especially in the red (W19 Table 13).",
+   "Beam into the spectrograph: ~f/3.5 (95% EE; W19 Sec. 1, Sec. 3.3.2, Fig. 11, Table 9) vs f/3.0 Gaussian-apodised (Zemax model; W19 Sec. 4.7, Table 5 note d) vs clipped at ~f/3.7 (collimator mask) and ~f/3.85 (VPH mask) vs camera designed for f/4 (W19 Sec. 4.7).",
+   "Camera focal ratio: f/1.3 at f/3.85 illumination (W19 Sec. 4, Fig. 16) vs ~f/1.0 for the full clear aperture vs ~f/1.4 (W19 Sec. 4.6.1, depth-of-focus statement).",
+   "Collimator focal length (all DERIVED): 1053.6 mm (R/2) vs 1052.3 mm (slit-to-mirror path in Table 5) vs 1053.8 mm (2.96 x 356 mm).",
+   "Dispersion: 0.326 / 0.282 / 0.235 A/px (W19 Table 1, M17 Table 2) vs 'central dispersion' 0.326 / 0.283 / 0.236 A/pix (DR16). The f tan theta model matches at the chip centres (0.3257 / 0.2858 / 0.2354) but not at the literal 1.54 / 1.61 / 1.66 um (0.329 / 0.290 / 0.249), so the triplet is best read as chip-centre values.",
+   "Fibre pitch on the detector: 6.6 px (W19, M17) vs ~6.5 px between PSF peaks (DR16) vs 6-7 px (N15) vs ~7 px per spectrum in the design (M17 Sec. 2.7).",
+   "Spectral fibre-image width / LSF: ~1.7 px at 1.53 um to ~3.0 px at 1.68 um (W19 Sec. 4) vs LSF FWHM 2.01 / 2.44 / 3.14 px at 1.54 / 1.61 / 1.66 um (M17 Table 2) vs ~2.3 px nominal, < 2 px in the blue (S3P; W19 Sec. 13.6.2).",
+   "Dither step: commanded 0.5 px; measured mean 0.490 px (W19 Sec. 11.6); ~0.4 px in early survey data (N15; W19: 0.410 px for the first two months).",
+   "Fibre length: ~45-46 m (W19 Sec. 1, Fig. 1, Sec. 3.1) vs 40 m (N15 Sec. 1; S3P 'the single 40-m fiber run') -- irrelevant to the optics.",
+   "Predicted / measured throughput: 11 / 12 / 8% and 18% (W19 Table 1) vs 14 / 15 / 10% and 20 +/- 2% (M17 Table 2) -- not modeled by the explorer."
+  ],
+  "notes": [
+   "Explorer mapping (DESI convention): D = 2.5 m with F = 3.85 makes f_col = W x F = 1053.6 mm; the entrance is the slit of equal line width, (sqrt3/2) x 120 um = 103.9 um, i.e. 2.227\" at f/3.85. The true sky size is 2.0\" (core at f/5); the arcsec number in the explorer is a collimator-side bookkeeping value. R, sampling and coverage do not depend on the F/W split as long as W x F = 1053.6 mm (F = 3.5, W = 301.0 mm gives the same results but a camera f/1.18 instead of the published f/1.3).",
+   "Detector: three 2048-px arrays along the dispersion with 2.9 mm (161 px) gaps. Entering Nx = 6466 (gaps as dead pixels) reproduces the outer edges 1.514-1.696 um; Nx = 6144 (gaps not modeled, as for the HIRES mosaic) gives 1.5194-1.6929 um, trimming 5.5 nm (blue) and 3.4 nm (red) from the ends (DERIVED). Wavelength decreases with pixel number on the real arrays (DR16: negative dispersion; chip a = red, chip c = blue).",
+   "Camera angle: the real camera points along the Littrow direction (deviation 108.122 deg as built) and the arrays sit off-axis (Table 5 notes m, q). The explorer centres the detector on the camera axis, so the preset aims the camera at the mosaic centre (lamC = 1.6158 um, beta = 55.21 deg, deviation 109.27 deg, DERIVED). With that choice the ideal f tan theta model reproduces all six published chip edges to within 1 nm and the published A/px at the chip centres to within 1.3%; the published 1.514-1.696 um span falls on 116.1 mm of the 116.4 mm mosaic, so the edges imply an effective f_cam within ~0.3% of 356 mm (DERIVED; edges rounded to 1 nm and varying by fibre), which supports using the warm-measured 356 mm.",
+   "Resolution: the slit-limited model R (~27,000-29,000 with the slit-equivalent width) exceeds the measured 22,000-23,700 because the delivered LSF (2.0-3.1 px FWHM, non-Gaussian; W19 Sec. 11.2-11.3, N15) includes pixelisation, residual astigmatism and focus errors. Using the full 120 um core gives 23,250-25,065.",
+   "Undersampling: the spectral fibre image is < 2 px in the blue; the survey takes exposure pairs dithered by 0.5 px and interleaves them (W19 Sec. 7.1, 11.6; N15 Sec. 6.5). The explorer's sampling numbers are the native (undithered) values.",
+   "Pseudo-slit: on a sphere of radius 1051.6 mm (half the collimator radius, the Schmidt condition) built as a polygon of 10 flat v-groove blocks, plus a 386 mm lateral curvature that straightens the monochromatic slit image (W19 Sec. 4.1); the slit is an obscuration in the collimated beam (M17). Fold 1 is used twice and bent into a weak cylinder to cancel astigmatism; Fold 2 carries a thermal-blocking dichroic (W19 Sec. 4.3-4.4).",
+   "APOGEE-S (du Pont, LCO): a near-copy with a two-panel VPH plus a 29.2\" correction wedge, different cold-plate support and LN2 suspension, and somewhat lower resolution (W19 Sec. 13). On the du Pont the same 120 um core subtends 1.31\" (f/7.5). Detector gains differ (1.9 vs 3.0 e-/DN, W19 Sec. 5.4.2).",
+   "Littrow ghost: falls at the Littrow wavelength (1.6042 um) because the fringes are untilted (W19 Sec. 4.5); the model's 1.6043 um checks G and alpha together.",
+   "Quotes: W19 and M17 render the double prime as '00' and the degree sign as U+25E6 in the text layer; these are written here as \" and deg / ° and were matched after glyph normalisation. W19 table rows are quoted from the pdftotext -layout rows (superscript note letters such as 'Mirrorg' are part of the text layer)."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "SDSS 2.5 m/APOGEE-N (and du Pont/APOGEE-S)": {
+    "value": 300,
+    "unit": "fibres per exposure, all on one slit and one detector mosaic; about 230 science targets + 35 sky + 35 telluric standards",
+    "src": "W19",
+    "loc": "Table 1, PDF p.4",
+    "quote": "Total Spectrograph Fibers 300",
+    "kind": "maximum = full fibre complement; typical science targets ~230",
+    "alternatives": [
+     {
+      "value": "35 sky + 35 telluric",
+      "src": "M17",
+      "loc": "Sec. 2.7 Throughput, footnote 6, PDF p.12",
+      "quote": "In the end, this number was increased to 35 fibers for sky plus 35 for telluric absorption stars"
+     },
+     {
+      "value": "~230 science",
+      "src": "M17",
+      "loc": "Sec. 4.3 Ancillary Science Program, PDF p.24",
+      "quote": "use of up to all ~230 APOGEE \"science\" fibers in a new pointing"
+     }
+    ],
+    "derived": "DERIVED: 300 - 35 - 35 = 230 science fibres."
+   }
+  }
+ }
+}
