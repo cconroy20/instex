@@ -822,6 +822,16 @@ const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.m
 segs.push(lvSync);
 $("lvOptsBtn").addEventListener("click", () => { const b = $("lvOpts"); b.hidden = !b.hidden; });
 $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLayout(cur, curP); });
+// Expand: the layout panel fills the window (Esc or the same button returns)
+const setExpanded = on => {
+  document.body.classList.toggle("lv-expanded", on);
+  $("lvExpand").textContent = on ? "Exit" : "Expand";
+  $("lvExpand").title = on ? "Return the layout to the page (Esc)." : "Expand the layout to fill the window, to play with the drawing directly (Esc returns).";
+  lview.fit = true;
+  requestAnimationFrame(() => { if (cur) drawLayout(cur, curP); });
+};
+$("lvExpand").addEventListener("click", () => setExpanded(!document.body.classList.contains("lv-expanded")));
+window.addEventListener("keydown", ev => { if (ev.key === "Escape" && document.body.classList.contains("lv-expanded")) setExpanded(false); });
 {
   const cv = $("cvL");
   let drag = null;

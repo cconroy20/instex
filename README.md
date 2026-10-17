@@ -37,6 +37,8 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
   changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last,
   each at the first of its candidate positions that does not overlap a label already placed.
+- **Expand** (lower right of the layout panel): the layout fills the window, for playing with the drawing
+  directly; Exit or Esc returns it to the page.
 - **Spectral | Spatial** (layout panel header, grating mode). Spectral is the plane of the dispersion described
   above: white light as gray rays, then seven wavelengths as colored rays (matplotlib plasma 0.04–0.80, indigo
   short to orange-gold long, lightness rising) meeting at their foci on the detector, with the W arrow, the

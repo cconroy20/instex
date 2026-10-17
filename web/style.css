@@ -42,6 +42,12 @@ main{padding-top:10px;padding-bottom:6px}
 .lvopts[hidden]{display:none}
 .ptsbox{position:absolute;left:14px;top:46px;z-index:4;display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);background:rgba(255,255,255,.92);padding:2px 4px;border-radius:6px}
 body:not(.v-spatial) .only-spatial{display:none}
+.lvx{position:absolute;right:14px;bottom:12px;z-index:4;background:rgba(255,255,255,.92)}
+/* the layout expanded to fill the window */
+body.lv-expanded{overflow:hidden}
+body.lv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}
+body.lv-expanded #lvPanel{position:fixed;inset:10px;z-index:50;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+body.lv-expanded #lvPanel canvas{flex:1 1 auto;height:auto;min-height:0}
 body:not(.fold-on) .only-fold{display:none}
 .ph{display:flex;align-items:center;gap:14px;height:30px;flex-wrap:nowrap}
 .ph h2{margin:0;white-space:nowrap;flex:0 0 auto}

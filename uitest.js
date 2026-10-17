@@ -191,6 +191,13 @@ const rel = (a, b) => Math.abs(a / b - 1);
       return window.__instex.state().g.spPos; })()`);
     check("1 free: grabbing the detector places the point whose image lands there (inverted)", Math.abs(dragDet + 0.5) < 0.08);
     await click("#sp3"); await sleep(150);
+    // Expand: the layout fills the window; Esc returns
+    const h0 = await ev(`document.getElementById("cvL").clientHeight`);
+    await click("#lvExpand"); await sleep(250);
+    const h1 = await ev(`document.getElementById("cvL").clientHeight`), w1 = await ev(`document.getElementById("cvL").clientWidth`);
+    check("Expand: the layout fills the window, button reads Exit", h1 > h0 * 1.5 && w1 > (await ev(`innerWidth`)) * 0.9 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Exit" && (await ev(`document.getElementById("err").textContent`)) === "");
+    await ev(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`); await sleep(250);
+    check("Esc returns the layout to the page", (await ev(`document.getElementById("cvL").clientHeight`)) === h0 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Expand");
     await click("#mEch"); await sleep(200);
     check("Spatial view switch hidden in echelle mode, echelle drawn in the dispersion plane", !(await vis("#vSpat")) && !/along the slit/.test(await ev(`document.getElementById("lSub").textContent`)));
     await click("#mGrat"); await sleep(150);
