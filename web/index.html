@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instrument Explorer</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230e1729%27/%3E%3Cpath d=%27M3 11 L8 5 L13 11%27 fill=%27none%27 stroke=%27%23FFB547%27 stroke-width=%271.6%27/%3E%3Cpath d=%27M3 13 L13 13%27 stroke=%27%2358C4FF%27 stroke-width=%271.6%27/%3E%3C/svg%3E">
+</head>
+<body>
+<div id="err" hidden></div>
+
+<header>
+  <div class="bar">
+    <span class="mark">Instrument Explorer</span>
+    <span class="seg" id="modeSeg" title="The kind of spectrograph. Grating: one grating in a low order, the usual long-slit or multi-object design. Echelle: a coarse grating worked at a steep angle in high orders, with a cross-disperser to separate the orders on the detector. Each mode keeps a separate entrance, optics, and detector; the telescope is shared.">
+      <button id="mGrat" type="button">Grating</button><button id="mEch" type="button">Echelle</button>
+    </span>
+    <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
+      <select id="preset"></select></label>
+    <button id="reset" class="ghost" type="button" title="Back to the defaults: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset</button>
+  </div>
+</header>
+
+<main>
+  <div class="panels">
+    <section class="panel">
+      <div class="ph"><h2 title="The spectrograph seen from above, in the plane of the dispersion. Element sizes are to scale: the collimator focal length F_tel × W, the beam diameter W, the illuminated grating length, the camera focal length, and the detector. The distances between the collimator, the grating, and the camera are not specified by the design and are drawn short. Colored beams carry the shortest (blue) and longest (amber) wavelengths that reach the detector and the central wavelength (gray).">Optical layout</h2><span class="sub" id="lSub"></span>
+        <button id="lvOptsBtn" class="ghost lv" type="button" title="Drawing options: the collimated beam's length, a fold mirror, which way the grating turns the light, and the collimator mirror's tilt. None of the options changes a number on the page.">Mod layout</button>
+        <span class="seg sm" id="lvSeg" title="Auto scale refits the drawing to the panel after each change. Fixed scale holds the millimeters per pixel (and the scale bar), so the instrument grows and shrinks as the design changes. Scroll to zoom, drag to pan (either switches to Fixed scale)."><button id="lvAuto" type="button">Auto scale</button><button id="lvFixed" type="button">Fixed scale</button></span>
+        <button id="lvReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Reset</button></div>
+      <canvas id="cvL" aria-label="Optical layout"></canvas>
+      <div id="lvOpts" class="lvopts" hidden>
+        <div class="ctl" title="Length of the collimated beam, from the collimator to the grating. The length starts at an automatic value that keeps the camera arm clear and changes only the drawing.">
+          <label for="sLL"><span>Collimated beam length</span><span class="val" id="vLL"></span></label>
+          <input type="range" id="sLL" min="1" max="4" step="0.005">
+        </div>
+        <div class="caserow" title="A flat fold mirror in the collimated beam, as many spectrographs use to make the bench shorter. The fold changes only the drawing."><span>Fold mirror</span>
+          <span class="seg sm"><button id="foOff" type="button">Off</button><button id="foOn" type="button">On</button></span></div>
+        <div class="ctl only-fold" title="How far the fold mirror turns the beam, 0-360°, counterclockwise on the page (past 180° the turn is clockwise). The angle of incidence on the mirror is |180° - angle| / 2; near 0° or 360° the mirror would lie edge-on to the beam, so no fold is drawn.">
+          <label for="sFA"><span>Fold angle</span><span class="val" id="vFA"></span></label>
+          <input type="range" id="sFA" min="0" max="360" step="1">
+        </div>
+        <div class="ctl only-fold" title="Where the fold mirror sits along the collimated beam: the fraction of the way from the collimator (0) to the grating (1).">
+          <label for="sFP"><span>Fold position</span><span class="val" id="vFP"></span></label>
+          <input type="range" id="sFP" min="0.05" max="0.95" step="0.01">
+        </div>
+        <div class="caserow" title="Which way the grating turns the light. Flipped tilts the grating the other way about the incoming beam, so the diffracted beam, camera, and detector move to the other side. The flipped layout is a mirror image of the default with the same numbers; the switch changes only the drawing."><span>Grating turns light</span>
+          <span class="seg sm"><button id="gfOff" type="button">As drawn</button><button id="gfOn" type="button">Flipped</button></span></div>
+        <div class="ctl only-mirror" title="Tilt of the collimator mirror, which sets how far the beam folds back toward the grating (the beam turns by twice the tilt). The tilt changes only the drawing because the collimator is ideal (in a real spectrograph a larger tilt introduces off-axis aberrations). Until moved, the slider follows the automatic choice that keeps the returning beam clear of the light arriving from the slit.">
+          <label for="sCT"><span>Collimator tilt</span><span class="val" id="vCT"></span></label>
+          <input type="range" id="sCT" min="0" max="40" step="0.25">
+        </div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2 title="The detector drawn to scale, with the spectrum of each object on the pixels. Each spectrum is the trace of a star on the slit, drawn as a Gaussian across the dispersion whose FWHM is the slit (or fiber) width imaged along the slit; where traces come within a few FWHM their wings add. Color follows wavelength (blue short, amber long); brightness follows the relative blaze efficiency (dimmed outside an echelle order's free spectral range). Grating mode: wavelengths along the bottom, the objects spread over the chip height. Echelle mode: order numbers on the left, blaze wavelengths on the right, the objects stacked within each order. Hover for the wavelength, order, object, resolving power, and dispersion under the pointer; scroll to zoom (the pixel grid and the size of a resolution element appear when zoomed in), drag to pan, double-click to reset.">Detector</h2><span class="sub" id="dSub"></span></div>
+      <canvas id="cvD" aria-label="Detector"></canvas>
+    </section>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="controls">
+    <section>
+      <h2 title="The telescope that feeds the spectrograph.">Telescope</h2>
+      <div class="ctl" title="Diameter of the primary mirror. At a fixed slit width on the sky, the angle the slit subtends in the collimated beam is φD/W, so a bigger telescope needs a proportionally bigger beam (and grating) for the same resolving power, unless the input is diffraction-limited.">
+        <label for="sD"><span>Aperture, <i>D</i></span><span class="val" id="vD"></span></label>
+        <input type="range" id="sD" min="-0.5" max="1.62" step="0.005">
+      </div>
+      <div class="ctl" title="Focal ratio F_tel = f_tel / D at the focus the spectrograph uses. The focal ratio sets the plate scale, the physical size of the slit, and the collimator focal length F_tel × W (beam matching). Changing the focal ratio stretches the collimator and leaves the resolving power unchanged.">
+        <label for="sF"><span>Focal ratio</span><span class="val" id="vF"></span></label>
+        <input type="range" id="sF" min="0" max="1.477" step="0.005">
+      </div>
+      <div class="rds" id="rTel"></div>
+    </section>
+
+    <section>
+      <h2 title="The slit at the telescope focus. A fiber works the same way, with the fiber core in place of the slit width; many fibers or slitlets make a pseudo-slit with one spectrum per object.">Entrance</h2>
+      <div class="ctl" title="Width of the slit on the sky. The slit-limited resolving power is inversely proportional to the slit width: R φ = 2 tan δ W / D in Littrow.">
+        <label for="sSW"><span>Slit width, <i>φ</i></span><span class="val" id="vSW"></span></label>
+        <input type="range" id="sSW" min="-1.3" max="1" step="0.005">
+      </div>
+      <div class="ctl" title="Number of objects observed at once: fibers or slitlets along the (pseudo-)slit, each giving a separate spectrum on the detector. In grating mode the spectra spread evenly over the chip height; in echelle mode they stack within the smallest spacing between orders. The gap between neighboring spectra is shown below.">
+        <label for="sNO"><span>Number of objects</span><span class="val" id="vNO"></span></label>
+        <input type="range" id="sNO" min="0" max="3" step="0.002">
+      </div>
+      <div class="rds" id="rEnt"></div>
+    </section>
+
+    <section>
+      <h2 title="Collimator and camera, both treated as ideal (aberration-free) optics.">Spectrograph</h2>
+      <div class="caserow"><span>Collimator</span><span class="seg sm" id="colSeg" title="Collimator: a lens (refracting) or a concave mirror (reflecting), which folds the beam back. Both are ideal here, so the numbers on the page are the same either way and only the drawing changes. (A real mirror is achromatic and a real lens is not.)"><button id="cLens" type="button">Lens</button><button id="cMirror" type="button">Mirror</button></span></div>
+
+      <div class="ctl" title="Beam diameter W: the diameter of the collimated beam. The resolving power at a given slit is proportional to W (R φ = 2 tan δ W / D in Littrow), as are the sizes of the grating and the optics; the instrument volume grows roughly as W³.">
+        <label for="sW"><span>Beam, <i>W</i></span><span class="val" id="vW"></span></label>
+        <input type="range" id="sW" min="0.7" max="3" step="0.005">
+      </div>
+      <div class="ctl" title="Focal ratio of the camera on the diffracted beam, F_cam = f_cam / W'. The camera focal ratio sets the size of the slit image on the detector: n_pix = φ D F_cam / p, whatever the grating (the notes' camera condition). A faster camera (smaller F) covers more wavelength at coarser sampling; the focal length F_cam W' is shown below.">
+        <label for="sFc"><span>Camera focal ratio</span><span class="val" id="vFc"></span></label>
+        <input type="range" id="sFc" min="-0.301" max="1.079" step="0.002">
+      </div>
+      <div class="ctl only-refl" title="Camera–collimator angle: the angle between the collimator and camera axes, fixed by the mechanical layout. Tilting the grating then chooses the central wavelength. Departing from Littrow (0°) makes the diffracted beam narrower or wider than the incident one (the anamorphic factor cos β / cos α).">
+        <label for="sPsi"><span>Camera angle</span><span class="val" id="vPsi"></span></label>
+        <input type="range" id="sPsi" min="0" max="80" step="0.5">
+      </div>
+
+      <div class="ctl only-ech" title="The echelle is worked in quasi-Littrow, with the camera beam separated from the collimator beam by tilting the grating out of the dispersion plane by γ. The resolving power falls as cos γ and the slit images tilt by atan(2 tan γ tan δ).">
+        <label for="sGam"><span>Out-of-plane angle, <i>γ</i></span><span class="val" id="vGam"></span></label>
+        <input type="range" id="sGam" min="0" max="12" step="0.1">
+      </div>
+      <div class="rds" id="rSpe"></div>
+    </section>
+
+    <section class="c-disp">
+      <div class="gh"><h2 title="The grating (and, in echelle mode, the cross-disperser).">Disperser</h2>
+        <span class="seg sm only-grat" id="gtSeg"><button id="gRefl" type="button" title="A ruled or replica reflection grating with blazed facets.">Reflection</button><button id="gTr" type="button" title="A transmission grating: volume-phase holographic or surface-relief (binary), which share the same geometry. By default the grating sits at the symmetric configuration α = β for the central wavelength, with the camera articulated to 2α from the collimator axis. The efficiency envelope of the grating is not modeled.">Transmission</button></span>
+        <span class="seg sm only-ech" id="xdSeg" title="The cross-disperser separates the echelle orders perpendicular to the echelle dispersion."><button id="xGr" type="button" title="A first-order reflection grating: order spacing grows as λ², crowding the blue orders.">Grating</button><button id="xVp" type="button" title="A volume-phase (transmission) grating in first order at the symmetric (Bragg) setting for the central wavelength: order spacing grows as λ², like a reflection grating.">VPH</button><button id="xPr" type="button" title="A prism (one or two passes): glass disperses most strongly in the blue, so the orders are spaced more evenly than with a grating.">Prism</button><button id="xGm" type="button" title="A grism: a transmission grating on a prism whose angle passes the central wavelength undeviated.">Grism</button></span></div>
+      <div class="dispgrid">
+        <div class="ctl only-grat" title="Groove density. With the camera–collimator angle fixed, a finer ruling is worked at steeper angles, which raises the resolving power (R ∝ sin α + sin β) and the dispersion and shortens the wavelength range on the detector.">
+          <label for="sG"><span>Grooves</span><span class="val" id="vG"></span></label>
+          <input type="range" id="sG" min="1.477" max="3.556" step="0.002">
+        </div>
+        <div class="ctl only-grat" title="Diffraction order. Order m at λ falls where order m+1 falls at mλ/(m+1): higher orders need an order-sorting filter.">
+          <label for="sM"><span>Order, <i>m</i></span><span class="val" id="vM"></span></label>
+          <input type="range" id="sM" min="1" max="6" step="1">
+        </div>
+        <div class="ctl only-refl" title="Blaze wavelength in first order (Littrow), as gratings are cataloged (e.g., 600/7500). The blaze wavelength fixes the facet angle δ = asin(G λ_blaze / 2); the efficiency peaks there and falls off as sinc² (scalar theory).">
+          <label for="sLB"><span>Blaze</span><span class="val" id="vLB"></span></label>
+          <input type="range" id="sLB" min="3.3" max="4.4" step="0.002">
+        </div>
+        <div class="ctl only-tr" title="Angle of incidence of the collimated beam on the transmission grating. The angle starts at the symmetric setting α = β for the central wavelength (the Bragg angle of a volume-phase grating). Moving the slider frees the angle; the camera follows the diffracted beam, and R = (sin α + sin β)/(θ_g cos α) and the anamorphic factor cos β / cos α change accordingly. Reset returns to the symmetric setting.">
+          <label for="sTA"><span>Incidence, <i>α</i></span><span class="val" id="vTA"></span></label>
+          <input type="range" id="sTA" min="0" max="70" step="0.1">
+        </div>
+        <div class="ctl only-ech" title="Echelle groove density: coarse, so the grating works in high orders (tens to hundreds).">
+          <label for="sEG"><span>Grooves</span><span class="val" id="vEG"></span></label>
+          <input type="range" id="sEG" min="1" max="2.505" step="0.002">
+        </div>
+        <div class="ctl only-ech" title="Blaze angle δ of the echelle, named by the R number tan δ (R2 = 63.4°, R4 = 76.0°). In Littrow, R φ = 2 tan δ W / D, so the R number is directly the figure of merit. The illuminated length W / cos δ grows fast as δ steepens.">
+          <label for="sED"><span>Blaze</span><span class="val" id="vED"></span></label>
+          <input type="range" id="sED" min="45" max="79" step="0.05">
+        </div>
+        <div class="ctl only-xg" title="Cross-disperser (XD) groove density: the cross-disperser grating (first order), VPH or grism. A finer ruling spreads the orders further apart and covers less wavelength range on the detector.">
+          <label for="sXG"><span>XD grooves</span><span class="val" id="vXG"></span></label>
+          <input type="range" id="sXG" min="1.477" max="3.176" step="0.002">
+        </div>
+        <div class="ctl only-xp" title="Apex angle of the cross-dispersing prism, used at minimum deviation for the central wavelength.">
+          <label for="sXA"><span>Prism apex</span><span class="val" id="vXA"></span></label>
+          <input type="range" id="sXA" min="10" max="70" step="0.5">
+        </div>
+        <div class="caserow only-xglass" title="Glass of the prism or grism.">
+          <span>Glass</span><select id="xGlass"></select>
+          <span class="seg sm only-xp" id="passSeg" title="Light passes the prism once, or twice (doubling the dispersion)."><button id="p1" type="button">1 pass</button><button id="p2" type="button">2 passes</button></span>
+        </div>
+        <div class="ctl" title="The wavelength placed at the center of the detector (set by the tilt of the grating).">
+          <label for="sLC"><span>Central λ</span><span class="val" id="vLC"></span></label>
+          <input type="range" id="sLC" min="3.477" max="4.398" step="0.0005">
+        </div>
+      </div>
+      <div class="rds" id="rDis"></div>
+    </section>
+
+    <section>
+      <h2 title="The detector at the camera focus, with the long axis along the dispersion.">Detector</h2>
+      <div class="caserow"><select id="detSel" title="Common detector formats."></select></div>
+      <div class="ctl" title="Pixels along the dispersion.">
+        <label for="sNx"><span>Pixels along λ</span><span class="val" id="vNx"></span></label>
+        <input type="range" id="sNx" min="2.709" max="4.204" step="0.001">
+      </div>
+      <div class="ctl only-ech" title="Pixels across the dispersion: in echelle mode they set how many orders fit.">
+        <label for="sNy"><span>Pixels across</span><span class="val" id="vNy"></span></label>
+        <input type="range" id="sNy" min="2.709" max="4.204" step="0.001">
+      </div>
+      <div class="ctl" title="Pixel pitch. Finer pixels sample a resolution element more finely from the same camera (n_pix = φ D F_cam / p), at the price of a larger pixel count for the same format.">
+        <label for="sPix"><span>Pixel size</span><span class="val" id="vPix"></span></label>
+        <input type="range" id="sPix" min="3" max="30" step="0.5">
+      </div>
+      <div class="rds" id="rDet"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>The collimator and camera are ideal (aberration-free), and the dispersers are plane. The numbers are measured by tracing rays through the vector grating equation and Snell's law, from the slit to the detector; the closed forms of the design notes (R φ = 2 tan δ W/D in Littrow, F<sub>cam</sub> ≥ n<sub>pix</sub> p/(φ D), and the rest) are reproduced by the trace and checked in the validation suite. The resolving power is the FWHM of the slit image, with the grating's diffraction limit and the pixel width added in quadrature; blaze efficiency is the scalar sinc² envelope, relative to the peak. Presets come from the instrument papers and manuals. The presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Fiber-fed instruments are entered as the slit of equal line width.</p>
+  <p>This page was written by Claude (Opus 5.5), working in Claude Code with Charlie Conroy.</p>
+</footer>
+
+<script src="physics.js"></script>
+<script src="presets.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

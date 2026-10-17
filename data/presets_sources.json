@@ -1,0 +1,2403 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets",
+  "compiled": "2026-10-16",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values. alternatives = other sourced values (conflicts).",
+  "quote_normalisation": "Quotes are copied from pdftotext / HTML text; degree glyphs (◦) and double primes (rendered \"00\") normalised; OCR-layer quotes from ADS scans had obvious glyph errors fixed (e.g. \"//15\" -> \"f/15\") after checking page images for key values."
+ },
+ "sources": {
+  "V94": {
+   "cite": "Vogt, S. S., et al. 1994, Proc. SPIE 2198, 362, \"HIRES: the high resolution echelle spectrometer on the Keck 10-m Telescope\" (scan of the SPIE PDF, with SPIE download stamp, hosted in the ESA PSA)",
+   "file": "rawdata/presets/hires/Vogt1994_SPIE2198_HIRES_ESA-PSA-copy.pdf",
+   "url": "https://archives.esac.esa.int/psa/ftp/INTERNATIONAL-ROSETTA-MISSION/EARTH_BASED/EAR-C-MULTI-2-67P-SPEC-V1.0/DOCUMENT/INSTDOC/KECK_HIRES_REFERENCE_PAPER.PDF"
+  },
+  "HM94": {
+   "cite": "Vogt, S. S. 1994, HIRES User's Manual, UCO/Lick Observatory Technical Report No. 67 (dated May 4, 1994; \"preliminary draft\")",
+   "file": "rawdata/presets/hires/keck_hires_manual1.pdf",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/manual1.pdf"
+  },
+  "KHD06": {
+   "cite": "W. M. Keck Observatory, \"HIRES Instrument and Data Format\" (7 April 2006)",
+   "file": "rawdata/presets/hires/keck_hires_hires_data.pdf",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/hires_data.pdf"
+  },
+  "KUN08": {
+   "cite": "Vogt, Hill & Kibrick, \"HIRES CCD Upgrade User Notes\" (March 5, 2008)",
+   "file": "rawdata/presets/hires/keck_hires_usernotes.pdf",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/usernotes.pdf"
+  },
+  "KSLIT": {
+   "cite": "Keck HIRES web page \"Available Slits and Resolutions\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/hires/keck_hires_slitres.html",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/slitres.html"
+  },
+  "KSPEC": {
+   "cite": "Keck HIRES web page \"Instrument Specifications\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/hires/keck_hires_instrument_specifications.html",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/instrument_specifications.html"
+  },
+  "KBIN": {
+   "cite": "Keck HIRES web page \"Binning Options and Recommendations\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/hires/keck_hires_binning.html",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/binning.html"
+  },
+  "KBVR": {
+   "cite": "Keck HIRES web page \"Choosing HIRESb or HIRESr\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/hires/keck_hires_blue_vs_red.html",
+   "url": "https://www2.keck.hawaii.edu/inst/hires/blue_vs_red.html"
+  },
+  "O95": {
+   "cite": "Oke, J. B., et al. 1995, PASP 107, 375, \"The Keck Low-Resolution Imaging Spectrometer\" (ADS article scan; quotes from the OCR text layer, key values checked against the page images)",
+   "file": "rawdata/presets/longslit_lris/Oke1995_PASP107_375_LRIS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1995PASP..107..375O"
+  },
+  "B03": {
+   "cite": "Bernstein, R. A., Shectman, S. A., Gunnels, S., Mochnacki, S., Athey, A. 2003, Proc. SPIE 4841, 1694, \"MIKE: A Double Echelle Spectrograph for the Magellan Telescopes at Las Campanas Observatory\" -- AUTHOR MANUSCRIPT (PDF metadata: \"spie_v13.doc\", created 2002-09-04), not the published SPIE version",
+   "file": "rawdata/presets/mike/Bernstein2003_SPIE4841_MIKE.pdf",
+   "url": "https://lavinia.as.arizona.edu/~minimaestro/MAESTRO/Construction/References/SPIEaug2002_MIKE.pdf"
+  },
+  "B15": {
+   "cite": "Bernstein, R. A., Burles, S. M., Prochaska, J. X. 2015, \"Data Reduction with the MIKE Spectrometer\", arXiv:1506.08864v2 (PASP 127, 911)",
+   "file": "rawdata/presets/mike/Bernstein2015_arXiv1506.08864_MIKE_reduction.pdf",
+   "url": "https://arxiv.org/pdf/1506.08864"
+  },
+  "LCOM": {
+   "cite": "Las Campanas Observatory, \"MIKE User Manual\" web page (Bernstein, Shectman, Gunnels, Thompson, Burley, Birk, Mochnacki, Athey; updates through Oct 2005; fetched 2026-10-16)",
+   "file": "rawdata/presets/mike/lco_mike_user_manual_p2573.html",
+   "url": "https://www.lco.cl/technical-documentation/the-mike-magellan-inamori-kyocera-echelle-users-guide/"
+  },
+  "LCOT": {
+   "cite": "Las Campanas Observatory, \"Magellan Telescopes\" web page (fetched 2026-10-16)",
+   "file": "rawdata/presets/mike/lco_magellan_telescopes.html",
+   "url": "https://www.lco.cl/magellan-telescopes/"
+  },
+  "IMACS": {
+   "cite": "Carnegie Observatories IMACS spec document, node9 \"design parameters for the Magellan f/11 configuration\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/mike/carnegie_imacs_spec_node9.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node9.html"
+  },
+  "HUM": {
+   "cite": "ESO, HARPS User Manual, 3P6-MAN-ESO-90100-0005, Issue 2.4 (August 15th, 2019)",
+   "file": "rawdata/presets/harps/HARPS-UserManual2.4.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/lasilla/instruments/harps/doc/manual/HARPS-UserManual2.4.pdf"
+  },
+  "ESOD": {
+   "cite": "ESO, HARPS \"Instrument Description\" web page (page footer: Last Update 19.03.13; fetched 2026-10-16)",
+   "file": "rawdata/presets/harps/eso_harps_inst_description.html",
+   "url": "https://www.eso.org/sci/facilities/lasilla/instruments/harps/inst/description.html"
+  },
+  "M03": {
+   "cite": "Mayor, M., et al. 2003, The Messenger 114, 20, \"Setting New Standards with HARPS\"",
+   "file": "rawdata/presets/harps/Mayor2003_Messenger114_20_HARPS.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.114-dec03/messenger-no114-20-24.pdf"
+  },
+  "R04": {
+   "cite": "Rupprecht, G., et al. 2004, Proc. SPIE 5492, \"The Exoplanet Hunter HARPS: performance and first results\" (ESO-hosted copy; SPIE review proof)",
+   "file": "rawdata/presets/harps/Rupprecht2004_SPIE5492_HARPS.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/lasilla/instruments/harps/science/papers/5492-15.pdf"
+  },
+  "E36": {
+   "cite": "ESO, \"ESO 3.6m Telescope Overview\" web page (fetched 2026-10-16)",
+   "file": "rawdata/presets/harps/eso_3p6_telescope_overview.html",
+   "url": "https://www.eso.org/sci/facilities/lasilla/telescopes/3p6/overview.html"
+  },
+  "D22": {
+   "cite": "DESI Collaboration (Abareshi, B., et al.) 2022, AJ 164, 207, \"Overview of the Instrumentation for the Dark Energy Spectroscopic Instrument\", arXiv:2205.10939",
+   "file": "rawdata/presets/desi/DESI2022_InstrumentOverview_arXiv2205.10939.pdf",
+   "url": "https://arxiv.org/pdf/2205.10939"
+  },
+  "FDR": {
+   "cite": "DESI Collaboration 2016, \"The DESI Experiment Part II: Instrument Design\", arXiv:1611.00037 (Final Design Report; pre-construction design/budget values)",
+   "file": "rawdata/presets/desi/DESI2016_FDR_PartII_Instrument_arXiv1611.00037.pdf",
+   "url": "https://arxiv.org/pdf/1611.00037"
+  },
+  "G23": {
+   "cite": "Guy, J., et al. 2023, AJ 165, 144, \"The Spectroscopic Data Processing Pipeline for DESI\", arXiv:2209.14482",
+   "file": "rawdata/presets/desi/Guy2023_DESI_SpectroPipeline_arXiv2209.14482.pdf",
+   "url": "https://arxiv.org/pdf/2209.14482"
+  },
+  "KLD": {
+   "cite": "Keck LRIS web page \"Dispersive elements\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/longslit_lris/keck_lris_dispersive_elements.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/dispersive_elements.html"
+  },
+  "KLDET": {
+   "cite": "Keck LRIS web page \"Detectors\" (fetched 2026-10-16)",
+   "file": "rawdata/presets/longslit_lris/keck_lris_detectors.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/detectors.html"
+  },
+  "KLH": {
+   "cite": "Keck LRIS home page (fetched 2026-10-16)",
+   "file": "rawdata/presets/longslit_lris/keck_lris_lrishome.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/lrishome.html"
+  },
+  "OG82": {
+   "cite": "Oke, J. B. & Gunn, J. E. 1982, PASP 94, 586, \"An Efficient Low- and Moderate-Resolution Spectrograph for the Hale Telescope\" (ADS article scan, OCR text layer)",
+   "file": "rawdata/presets/longslit_dbsp/OkeGunn1982_PASP94_586_DBSP_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982PASP...94..586O"
+  },
+  "PDS": {
+   "cite": "Palomar Observatory, \"Double Spectrograph (DBSP) Technical Specifications\" v2.1 (last updated 09 Feb 2018; fetched 2026-10-16)",
+   "file": "rawdata/presets/longslit_dbsp/palomar_dbspspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspspecs.html"
+  },
+  "MAL65": {
+   "cite": "Malitson, I. H. 1965, J. Opt. Soc. Am. 55, 1205, \"Interspecimen Comparison of the Refractive Index of Fused Silica\" -- full text is paywalled; the dispersion equation is quoted from the PUBLISHER'S ABSTRACT (Optica abstract page, dc.description meta tag)",
+   "file": "rawdata/presets/glass/optica_Malitson1965_JOSA55_1205_abstract.html",
+   "url": "https://opg.optica.org/josa/abstract.cfm?uri=josa-55-10-1205"
+  },
+  "SBK7": {
+   "cite": "SCHOTT datasheet \"SCHOTT N-BK7\" (footer: As of 01-Dec-2023)",
+   "file": "rawdata/presets/glass/schott_datasheet_N-BK7_media41e799d0.pdf",
+   "url": "https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5"
+  },
+  "SCOL": {
+   "cite": "SCHOTT \"Optical Glass Datasheets\" collection, English (139 pp; Explanations page + individual datasheets)",
+   "file": "rawdata/presets/glass/schott_optical_glass_datasheets_EN_media38cbbe87.pdf",
+   "url": "https://media.schott.com/api/public/content/38cbbe876d324e03b1881d33f3d26635"
+  },
+  "OH2Y": {
+   "cite": "OHARA datasheet \"PBM 2Y\" (footer: OHARA 25-04), via OHARA GmbH",
+   "file": "rawdata/presets/glass/ohara_gmbh_PBM2Y_English.pdf",
+   "url": "https://www.ohara-gmbh.com/fileadmin/user_upload/export-data/pdf/product_datasheets/PBM2Y_English_.pdf"
+  },
+  "OH2R": {
+   "cite": "OHARA datasheet \"PBM 2R\" (footer: OHARA 25-04), via OHARA Corp.",
+   "file": "rawdata/presets/glass/ohara_epbm02r.pdf",
+   "url": "https://oharacorp.com/wp-content/uploads/2025/04/epbm02r.pdf"
+  },
+  "OHWEB": {
+   "cite": "OHARA Corp. web page \"Optical Properties\", section 2.3 Dispersion Formula (fetched 2026-10-16)",
+   "file": "rawdata/presets/glass/oharacorp_optical_properties_p1781.html",
+   "url": "https://oharacorp.com/optical-glass/optical-properties/"
+  }
+ },
+ "hires": {
+  "title": "Keck I / HIRES (echelle, grating cross-disperser)",
+  "recommended_preset": "HIRESr (red cross-disperser, 250 gr/mm, 1st order), decker C2 (0.861\" x 14\"), post-2004 3-chip MIT-LL mosaic; validate against measured R = 50,000 (Keck slit table, red XD). For a pre-2004 preset use the Tektronix 2048^2/24 um detector and R = 45,000 (manual Table 3, 0.861\" slit).",
+  "params": {
+   "telescope_aperture": {
+    "value": 10,
+    "unit": "m",
+    "src": "O95",
+    "loc": "Sec. 2, p.376",
+    "quote": "The Keck 10-m telescope is a Ritchey-Chrétien design.",
+    "alternatives": [
+     {
+      "value": 10.9,
+      "src": "HM94",
+      "loc": "App. E, order-table header, p.78",
+      "quote": "Telescope = 10.90 m",
+      "note": "diameter used by the echelle-format program; O95 p.376: \"the outer perimeter of the mirror has a diameter of 11 m which gives a real focal ratio of f/13.7\""
+     }
+    ]
+   },
+   "telescope_focal_ratio_nominal": {
+    "value": 15,
+    "unit": "f/#",
+    "src": "HM94",
+    "loc": "Sec. 2, p.4",
+    "quote": "The f/15 (it's f/13.7 actually, out to the farthest corners of the hexagonal primary) beam then proceeds to focus at the HIRES slit plane."
+   },
+   "telescope_focal_ratio_beam": {
+    "value": 13.7,
+    "unit": "f/#",
+    "src": "V94",
+    "loc": "Sec. 3, p.365",
+    "quote": "After passing through focus at the entrance slit, the f/13.7 light cone is collimated into a 12\" diameter beam"
+   },
+   "slit_plate_scale": {
+    "value": 1.3789684,
+    "unit": "arcsec/mm",
+    "src": "HM94",
+    "loc": "App. D, p.77",
+    "quote": "Image scale at f/15 nasmyth: 1.3789684 arcsec/mm at nasmyth",
+    "note": "Appendix D is marked \"not yet completed\"; LRIS paper (O95 p.376) gives 1.375 arcsec/mm for the same f/15 focal length at Cassegrain"
+   },
+   "slit_widths_available": {
+    "value": [
+     0.4,
+     0.574,
+     0.861,
+     1.148,
+     1.722
+    ],
+    "unit": "arcsec",
+    "src": "KSLIT",
+    "loc": "decker table",
+    "quote": "B1 3.5 0.574 ... C1 7.0 0.861 ... C4 3.5 1.148 ... D3 7.0 1.722 ... E1 1.0 0.400",
+    "note": "deckers define width and length; E1-E4 (0.400\") added with the 2004 mosaic (KUN08 item 17)"
+   },
+   "slit_lengths_available": {
+    "value": [
+     1.0,
+     3.0,
+     3.5,
+     5.0,
+     7.0,
+     14.0,
+     28.0
+    ],
+    "unit": "arcsec",
+    "src": "KSLIT",
+    "loc": "decker table",
+    "quote": "B1 3.5 ... B2 7.0 ... B3 14.0 ... B4 28.0 ... E1 1.0 ... E2 3.0 ... E3 5.0"
+   },
+   "slit_length_max": {
+    "value": 70,
+    "unit": "arcsec",
+    "src": "V94",
+    "loc": "Sec. 3, p.365",
+    "quote": "The maximum usable slit length is about 70 arc-seconds."
+   },
+   "collimated_beam_diameter": {
+    "value": 12,
+    "unit": "inch",
+    "src": "V94",
+    "loc": "Abstract, p.362",
+    "quote": "The collimated beam diameter is 12\", and the echelle is a 1 x 3 mosaic, 12\" by 48\" in total size",
+    "alternatives": [
+     {
+      "value": 0.3028,
+      "src": "HM94",
+      "loc": "App. E header, p.78",
+      "quote": "DIAMETERS: Collimated Beam =0.3028 m",
+      "note": "metres; 12 in = 0.3048 m"
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 4.1547,
+    "unit": "m",
+    "src": "HM94",
+    "loc": "App. E header, p.78",
+    "quote": "Collimator Focal Length = 4.1547 m",
+    "note": "cross-check DERIVED from V94: 12 in x 25.4 mm/in x 13.7 = 4175.8 mm (beam diameter x f/13.7)"
+   },
+   "collimator_type": {
+    "value": "spherical mirror, tilted 1.75 deg (beam sent up toward echelle at 3.5 deg)",
+    "unit": null,
+    "src": "HM94",
+    "loc": "Collimators, p.17",
+    "quote": "These collimator mirrors are spherical with matched radii, and tilted by 1.75° such that the beam is reflected up towards the echelle at an angle of 3.5°."
+   },
+   "echelle_groove_density": {
+    "value": 52.68,
+    "unit": "gr/mm",
+    "src": "HM94",
+    "loc": "Echelle, p.17",
+    "quote": "The ruling is 52.68 grooves/mm and the blaze angle is 70.5°.",
+    "alternatives": [
+     {
+      "value": 52.676,
+      "src": "V94",
+      "loc": "Sec. 3.3, p.367",
+      "quote": "The ruling density of the echelles was chosen to be 52.676 grmm1.",
+      "note": "\"grmm1\" = gr mm^-1 in the OCR text"
+     }
+    ]
+   },
+   "echelle_blaze_angle": {
+    "value": 70.5,
+    "unit": "deg",
+    "src": "HM94",
+    "loc": "Echelle, p.17",
+    "quote": "The ruling is 52.68 grooves/mm and the blaze angle is 70.5°.",
+    "alternatives": [
+     {
+      "value": 70.5,
+      "src": "V94",
+      "loc": "Sec. 3.3, p.367",
+      "quote": "using a relatively steep echelle blaze angle (70.5°)"
+     },
+     {
+      "value": 70.4,
+      "src": "HM94",
+      "loc": "App. E header, p.78",
+      "quote": "Blaze Angle = 70.4      Theta = 5.0",
+      "note": "value used by the format-table program"
+     },
+     {
+      "value": "R-2.8",
+      "src": "V94",
+      "loc": "Abstract, p.362",
+      "quote": "of 52.6 gr mm', R—2.8 echelles",
+      "note": "OCR; tan(70.5 deg) = 2.82"
+     }
+    ]
+   },
+   "echelle_size": {
+    "value": "12 x 48 (1 x 3 mosaic of 12 x 16 in)",
+    "unit": "inch",
+    "src": "V94",
+    "loc": "Sec. 3.3, p.367",
+    "quote": "mosaicing three of the largest commercially-available echelles (12\" by 16\" from Milton Roy Co.)"
+   },
+   "echelle_collimator_camera_angle_2theta": {
+    "value": 10.0,
+    "unit": "deg",
+    "src": "HM94",
+    "loc": "Echelle, p.17",
+    "quote": "The collimator-to-camera angle (2θ) is 10.0°.",
+    "alternatives": [
+     {
+      "value": 10,
+      "src": "V94",
+      "loc": "Sec. 3, p.365",
+      "quote": "The echelle is used in-plane with a collimator-to-camera angle of 10°.",
+      "note": "OCR text reads \"100\"; page image shows 10°"
+     }
+    ]
+   },
+   "echelle_theta_inplane": {
+    "value": 5.0,
+    "unit": "deg",
+    "src": "HM94",
+    "loc": "App. E header, p.78",
+    "quote": "Blaze Angle = 70.4      Theta = 5.0"
+   },
+   "echelle_geometry": {
+    "value": "in-plane (gamma not given numerically; nominally 0)",
+    "unit": null,
+    "src": "V94",
+    "loc": "Abstract, p.362",
+    "quote": "is a standard in-plane echelle spectrometer with grating post dispersion"
+   },
+   "xd_type": {
+    "value": "reflection grating mosaic (2 x 1, 24 x 16 in) -- \"red\" XD",
+    "unit": null,
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "The cross-disperser (hereafter CD) is a mosaic of 2 12\" by 16\" gratings"
+   },
+   "xd_groove_density": {
+    "value": 250,
+    "unit": "gr/mm",
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "The cross-disperser ruling is 250 grooves/mm.",
+    "alternatives": [
+     {
+      "value": 250,
+      "src": "V94",
+      "loc": "Sec. 3.3, p.367",
+      "quote": "That established the cross-disperser ruling density as 250 gr mm1."
+     }
+    ]
+   },
+   "xd_blaze_angle": {
+    "value": 4.3,
+    "unit": "deg",
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "The intended blaze angle of this CD was supposed to have been 5.343°, but came out 4.3°.",
+    "alternatives": [
+     {
+      "value": "blazed at 7000 A (first order)",
+      "src": "V94",
+      "loc": "Sec. 3.3, p.367",
+      "quote": "The cross-disperser is blazed at 7000 A (first-order)",
+      "note": "design value; the manual says the as-made blaze puts the 1st-order peak near 0.56 um"
+     },
+     {
+      "value": 5,
+      "src": "HM94",
+      "loc": "Fig. 6 label, p.22",
+      "quote": "250 gr/mm 5 degree blaze angle"
+     }
+    ]
+   },
+   "xd_blaze_wavelength_asbuilt": {
+    "value": 0.56,
+    "unit": "um (1st order)",
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "The effect of this error was to put the first order blaze peak near 0.56 microns (rather than the intended 0.7 microns)"
+   },
+   "xd_collimator_camera_angle": {
+    "value": 40,
+    "unit": "deg",
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "The collimator—to—camera angle is 40°.",
+    "alternatives": [
+     {
+      "value": 40,
+      "src": "V94",
+      "loc": "Sec. 3, p.365",
+      "quote": "The cross-disperser turns the beam 40° and into a large fast prime-focus catadioptric camera."
+     }
+    ]
+   },
+   "xd_orders_used": {
+    "value": "1st order (visible, redward of ~0.4 um); 2nd order (UV/blue)",
+    "unit": null,
+    "src": "V94",
+    "loc": "Sec. 3.1, p.366",
+    "quote": "This format is for the 1st order of the cross-disperser which is normally used redward of about 0.4μ. For work blueward of 0.4μ, the 2nd order of the cross-disperser is used"
+   },
+   "xd_uv_groove_density": {
+    "value": 395,
+    "unit": "gr/mm",
+    "src": "HM94",
+    "loc": "Cross-Disperser, p.21",
+    "quote": "A new 1st order CD blazed for 0.39 microns and with 395 grooves/mm is being manufactured to correct this situation.",
+    "note": "1994 plan for the UV cross-disperser (now \"HIRESb\"); as-built parameters of the UV XD NOT FOUND in current Keck pages"
+   },
+   "camera_type": {
+    "value": "f/1.0 all-spherical catadioptric (2 fused-silica correctors, f/0.76 mirror, field flattener)",
+    "unit": null,
+    "src": "V94",
+    "loc": "Sec. 3.4, p.368",
+    "quote": "This camera is an f/1.0 (polychromatic) prime focus catadioptric system with two fused silica corrector lenses, an f/0.76 primary mirror"
+   },
+   "camera_focal_ratio": {
+    "value": 1.0,
+    "unit": "f/#",
+    "src": "V94",
+    "loc": "Sec. 3.4, p.368",
+    "quote": "This camera is an f/1.0 (polychromatic) prime focus catadioptric system"
+   },
+   "camera_focal_length": {
+    "value": 30.0,
+    "unit": "inch",
+    "src": "V94",
+    "loc": "Sec. 3.4, p.368",
+    "quote": "It has a 29.5\" diameter input aperture, a focal length of 30.0\", and covers a 6.7° diameter field of view.",
+    "alternatives": [
+     {
+      "value": 0.7627,
+      "src": "HM94",
+      "loc": "App. E header, p.78",
+      "quote": "Camera Focal Length = 0.7627 m",
+      "note": "metres; 30.0 in = 0.762 m"
+     }
+    ]
+   },
+   "camera_field_of_view": {
+    "value": 6.7,
+    "unit": "deg (diameter)",
+    "src": "V94",
+    "loc": "Sec. 3.4, p.368",
+    "quote": "covers a 6.7° diameter field of view",
+    "alternatives": [
+     {
+      "value": 5.2,
+      "src": "HM94",
+      "loc": "Camera, p.23",
+      "quote": "images over a 5.2° diameter field of view",
+      "note": "as-built field flattener for the curved Tek CCD"
+     }
+    ]
+   },
+   "detector_pre2004": {
+    "value": "Tektronix TK2048, 2048 x 2048, 24 um pixels",
+    "unit": null,
+    "src": "V94",
+    "loc": "Sec. 3.5, p.369",
+    "quote": "The CCD installed at first-light is a Tektronix TK2048 CCD (2048 x 2048 format of 24 micron pixels)."
+   },
+   "detector_post2004": {
+    "value": "mosaic of three MIT-LL 2048 x 4096 CCDs, 15 um pixels (installed 18 Aug 2004)",
+    "unit": null,
+    "src": "KHD06",
+    "loc": "Sec. 1.1, p.1",
+    "quote": "The new detector consists of a mosaic of three 2048 x 4096 15-μm pixel MIT/Lincoln Labs CCDs",
+    "alternatives": [
+     {
+      "value": "MIT-LL 2048x4096, 15 microns",
+      "src": "KSPEC",
+      "loc": "Detector Characteristics table",
+      "quote": "Detector MIT-LL 2048×4096 Pixel Size 15 microns"
+     },
+     {
+      "value": "2048 X 4096 with 15 micron pixels",
+      "src": "KUN08",
+      "loc": "p.1",
+      "quote": "Each chip is 2048 X 4096 with 15 micron pixels."
+     }
+    ]
+   },
+   "detector_post2004_gaps": {
+    "value": 100,
+    "unit": "um (6-7 pixels)",
+    "src": "KUN08",
+    "loc": "item 10",
+    "quote": "Each gap is of order 100 microns (i.e. about 6 or 7 pixels).",
+    "alternatives": [
+     {
+      "value": "about 100 um (6-7 pixels)",
+      "src": "KHD06",
+      "loc": "Sec. 1.1",
+      "quote": "The gaps between the CCD chips are about 100 μm (6-7 pixels)."
+     }
+    ],
+    "note": "gaps run roughly parallel to the echelle orders (KUN08)"
+   },
+   "detector_orientation": {
+    "value": "orders run roughly along the 4096-pixel axis of each chip",
+    "unit": null,
+    "src": "KHD06",
+    "loc": "Sec. 2.0",
+    "quote": "The spectral orders run roughly up and down in the vertical direction on the chips in this schematic."
+   }
+  },
+  "performance": {
+   "R_vs_slit_post2004_Keck_table": {
+    "value": {
+     "0.400\"": {
+      "calculated": 103000,
+      "measured_UV_XD": 84000,
+      "measured_red_XD": 86600
+     },
+     "0.574\"": {
+      "calculated": 72000,
+      "measured_UV_XD": 67000,
+      "measured_red_XD": 66400
+     },
+     "0.800\"": {
+      "calculated": 51000,
+      "measured_UV_XD": 52000,
+      "measured_red_XD": 52000
+     },
+     "0.861\"": {
+      "calculated": 48000,
+      "measured_UV_XD": 49000,
+      "measured_red_XD": 50000
+     },
+     "1.148\"": {
+      "calculated": 36000,
+      "measured_UV_XD": 37000,
+      "measured_red_XD": 37500
+     },
+     "1.722\"": {
+      "calculated": 24000,
+      "measured_UV_XD": 24000,
+      "measured_red_XD": 24700
+     }
+    },
+    "unit": "lambda/dlambda",
+    "src": "KSLIT",
+    "loc": "decker table + footnotes",
+    "quote": "C1 7.0 0.861 48,000 49,000 50,000 ... * Using UV cross-disperser. Average of 5 Th/Ar lines near 4100 A. + Using Red cross-disperser. Average of 4 Th/Ar lines near 5240 A."
+   },
+   "R_vs_slit_pre2004_manual": {
+    "value": {
+     "0.574\"": 60000,
+     "0.861\"": 45000,
+     "1.148\"": 34000,
+     "1.722\"": 23000
+    },
+    "unit": "lambda/dlambda",
+    "src": "HM94",
+    "loc": "Table 3 (Deckers), pp.13-14",
+    "quote": "B5 3.5 0.861 18.3 3.00 R=45,000; 3.5\" for sky"
+   },
+   "R_limiting_pre2004": {
+    "value": 67000,
+    "unit": "lambda/dlambda",
+    "src": "V94",
+    "loc": "Abstract, p.362",
+    "quote": "The limiting spectral resolution of HIRES is 67,000 with the present CCD pixel size."
+   },
+   "R_times_slit_width": {
+    "value": 39000,
+    "unit": "arcsec",
+    "src": "V94",
+    "loc": "Abstract, p.362",
+    "quote": "The overall 'throughput' (resolution x slit width) product achieved by HIRES is 39,000 arcseconds."
+   },
+   "slit_scale_at_CCD_dispersion_dir": {
+    "value": 12.44,
+    "unit": "arcsec/mm",
+    "src": "HM94",
+    "loc": "Sec. 4 \"Choosing the Entrance Aperture\"",
+    "quote": "the de-projection factor ... is about 1/8.715 which results in a scale of about 12.44 arcsecs/mm at the CCD in the echelle dispersion direction"
+   },
+   "projected_slit_pixels_pre2004": {
+    "value": {
+     "0.574\"": 2.0,
+     "0.861\"": 3.0,
+     "1.148\"": 4.0,
+     "1.722\"": 6.0
+    },
+    "unit": "pixels (24 um)",
+    "src": "HM94",
+    "loc": "Table 3, projected width column",
+    "quote": "B1 3.5 0.574 18.3 2.00 R=60,000"
+   },
+   "spatial_scale_post2004": {
+    "value": 0.12,
+    "unit": "arcsec/pixel",
+    "src": "KBIN",
+    "loc": "para 2",
+    "quote": "Detector pixels project to about 0.12 arcseconds on the sky, in the spatial direction.",
+    "alternatives": [
+     {
+      "value": 0.12,
+      "src": "KUN08",
+      "loc": "item 11",
+      "quote": "Pixels are about 0.12 arcsec in the spatial direction now."
+     }
+    ]
+   },
+   "spatial_scale_pre2004": {
+    "value": 0.191,
+    "unit": "arcsec/pixel",
+    "src": "HM94",
+    "loc": "Table 3",
+    "quote": "B1 3.5 0.574 18.3 2.00",
+    "derived": "DERIVED: 3.5 arcsec decker height / 18.3 projected pixels = 0.191 arcsec per 24-um pixel"
+   },
+   "order_range_format_table": {
+    "value": "orders 119 (blaze 2994.8 A) to 36 (blaze 9899.6 A), XD 1st order",
+    "unit": null,
+    "src": "HM94",
+    "loc": "App. E, pp.78-79",
+    "quote": "119 2994.8 25.2 ... 36 9899.6 275.0 5.320 43.275 81.220 95.65 2.88"
+   },
+   "dispersion_example_order62": {
+    "value": 1.67,
+    "unit": "A/mm",
+    "src": "HM94",
+    "loc": "App. E, p.79",
+    "quote": "62 5748.2 92.7 1.836 14.583 0.085 55.54 1.67",
+    "derived": "DERIVED: 1.67 A/mm x 0.024 mm = 0.040 A/pixel (Tek, 24 um); x 0.015 mm = 0.025 A/pixel (MIT-LL, 15 um)"
+   },
+   "order_separation_range": {
+    "value": "8 to 43",
+    "unit": "arcsec",
+    "src": "HM94",
+    "loc": "Sec. 1 item 5, p.3",
+    "quote": "5. Order separation: 8 to 43 arcsecs"
+   },
+   "coverage_UV_XD_post2004": {
+    "value": "complete coverage 3000-6000 A in XD 1st order",
+    "unit": null,
+    "src": "KUN08",
+    "loc": "item 16",
+    "quote": "The UV cross disperser provides complete spectral coverage in first order between 3000 Angstroms and 6000 Angstroms."
+   },
+   "coverage_red_XD_post2004": {
+    "value": ">1 octave per setting; FSR exceeds detector longward of ~6000 A",
+    "unit": null,
+    "src": "KUN08",
+    "loc": "item 16",
+    "quote": "The spectrum spanned by the mosaic when using the visible cross disperser is larger than 1 octave (factor of two). ... the free spectral range does exceed the size of the detector longward of about 6000 Angstroms."
+   },
+   "coverage_pre2004_typical": {
+    "value": "1200 to 2500",
+    "unit": "A per exposure",
+    "src": "HM94",
+    "loc": "Sec. 1 item 4, p.3",
+    "quote": "4. Typical spectral span per exposure: 1200 to 2500 A"
+   }
+  },
+  "not_found": [
+   "Out-of-plane angle gamma at the echelle as a number (sources only say \"in-plane\").",
+   "As-built groove density/blaze of the UV (\"blue\", HIRESb) cross-disperser (only the 1994 plan: 395 gr/mm blazed 0.39 um).",
+   "XD grating tilt for a named \"standard\" setting and the resulting echelle-order range on the 2004 mosaic (Keck gives only keyword examples, e.g. ECHANGL 0.01441866, XDANGL 0.32800001, in KHD06 Table 4.1).",
+   "Published Angstrom/pixel for the 2004 mosaic (only the manual's A/mm table; per-pixel value is DERIVED)."
+  ],
+  "conflicts": [
+   "Echelle groove density: 52.68 gr/mm (HM94) vs 52.676 gr/mm (V94 Sec. 3.3); V94 abstract OCR reads \"52.6\".",
+   "Echelle blaze: 70.5 deg (HM94 text, V94) vs 70.4 deg (HM94 App. E format-program header).",
+   "Telescope diameter: 10 m (O95) vs 10.90 m used in the HM94 format program (O95: outer perimeter 11 m -> f/13.7).",
+   "Collimator focal length: 4.1547 m (HM94 App. E) vs 4.176 m DERIVED from the 12-in beam x f/13.7 (V94); beam 0.3028 m (HM94 App. E) vs 12 in = 0.3048 m (V94).",
+   "Camera focal length: 30.0 in = 0.762 m (V94) vs 0.7627 m (HM94 App. E).",
+   "XD blaze: \"blazed at 7000 A (first-order)\" (V94, design) vs as-made 4.3 deg with 1st-order peak near 0.56 um (HM94 text) vs \"5 degree blaze angle\" (HM94 Fig. 6 label).",
+   "Resolution at 0.861\": 45,000 (HM94, Tek CCD) vs 48,000 calculated / 49,000-50,000 measured (Keck page, MIT-LL mosaic) -- different detectors."
+  ],
+  "notes": [
+   "HIRES is permanently at the right Nasmyth focus of Keck I; slit plane tilted 7.5 deg for the guider (V94).",
+   "The HM94 manual (1994, Tek CCD era) is the only source with collimator/camera focal lengths; post-2004 numbers come from Keck web pages and the 2008 user notes.",
+   "Cross-disperser swap is a daytime operation: observers request HIRESb or HIRESr (KBVR)."
+  ]
+ },
+ "mike": {
+  "title": "Magellan II (Clay) / MIKE (double echelle, prism cross-dispersers; blue + red arms)",
+  "recommended_preset": "Both arms with the 1.0\" x 5\" slit; validate against LCO Basics table (R = 28,000 blue / 22,000 red at 1.0\"; 0.12 / 0.13 arcsec per pixel; standard orders 71-106 blue, 37-70 red). Use B03 (design) optics for focal lengths/pupil.",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "LCOT",
+    "loc": "para 1",
+    "quote": "The 6.5-meter Baade and Clay telescopes were built by the Carnegie Institution of Washington",
+    "alternatives": [
+     {
+      "value": 6.5,
+      "src": "IMACS",
+      "loc": "f/11 design parameters",
+      "quote": "primary diameter: 6.5 m (255.9 inches)"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 11,
+    "unit": "f/#",
+    "src": "B03",
+    "loc": "Sec. 2.3",
+    "quote": "The conversion from F/11 (telescope output) to F/3.3 and F/3.6 for the camera/collimators is accomplished using a set of small injection optics",
+    "alternatives": [
+     {
+      "value": 11,
+      "src": "LCOT",
+      "loc": "para 2",
+      "quote": "The principal foci are f/11 at the two Nasmyth locations"
+     }
+    ]
+   },
+   "slit_plate_scale": {
+    "value": 346.77,
+    "unit": "um/arcsec",
+    "src": "IMACS",
+    "loc": "f/11 design parameters",
+    "quote": "plate scale: 346.77 microns/arc-sec",
+    "note": "equivalently 2.88 arcsec/mm (206265/71526.4 mm focal length)"
+   },
+   "slits_available": {
+    "value": {
+     "single slits (width x length)": [
+      "0.35x5",
+      "0.50x5",
+      "0.70x5",
+      "1.00x5",
+      "1.50x5",
+      "2.00x5"
+     ],
+     "aperture pairs (length x width)": "lengths 1.0-2.0\", widths 0.35-2.0\", separation 3\""
+    },
+    "unit": "arcsec",
+    "src": "LCOM",
+    "loc": "Sec. 7A Selecting a slit",
+    "quote": "Single Slits: 17 0.35 x 5.00 18 0.50 x 5.00 19 0.70 x 5.00 20 1.00 x 5.00 21 1.50 x 5.00 22 2.00 x 5.00",
+    "alternatives": [
+     {
+      "value": "widths 0.37-2\", max length 5\"",
+      "src": "B03",
+      "loc": "Sec. 4",
+      "quote": "The maximum slit length for complete wavelength coverage is 5 arcsec. (Order separation is 6 arcsec.) Widths are between 0.37arcsec and 2 arcsec."
+     }
+    ]
+   },
+   "slit_length_max": {
+    "value": 5,
+    "unit": "arcsec",
+    "src": "LCOM",
+    "loc": "Sec. 1",
+    "quote": "The smallest separation is about 6″. The longest slit that can be used for full wavelength coverage is therefore 5″ long."
+   },
+   "dichroic_crossover": {
+    "value": 495,
+    "unit": "nm (since May 2004)",
+    "src": "LCOM",
+    "loc": "Sec. 2 Updates, May 2004",
+    "quote": "A new dichroic was installed which has a crossover wavelength of ~495 nm. (The old dichroic produced a crossover wavelength of ~455nm.)",
+    "alternatives": [
+     {
+      "value": 455,
+      "src": "B03",
+      "loc": "Sec. 2.1",
+      "quote": "The crossover wavelength is at 455nm with 80% reflectance by 440nm and 80% transmission by 480nm."
+     }
+    ]
+   },
+   "optical_layout": {
+    "value": "injection optics form virtual slit in camera focal plane; one lens group is both collimator and camera (double pass); prisms traversed twice",
+    "unit": null,
+    "src": "B15",
+    "loc": "Sec. 2",
+    "quote": "A single set of large lenses then comprise the collimator/camera of each arm. These are used in double pass ... both beams pass twice through a single prism on the red side and a pair of prisms on the blue side"
+   },
+   "beam_diameter_both": {
+    "value": 150,
+    "unit": "mm (camera pupil)",
+    "src": "B03",
+    "loc": "Sec. 2.2",
+    "quote": "Both cameras have a 150 mm diameter pupil"
+   },
+   "collimator_camera_focal_length_red": {
+    "value": 500,
+    "unit": "mm",
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "With our 500 mm focal length camera, the free spectral range of the reddest order (number 31, centered at 10977A) is 66 mm long",
+    "note": "double pass: collimator = camera"
+   },
+   "collimator_camera_focal_length_blue": {
+    "value": 550,
+    "unit": "mm",
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "With the 550mm focal length camera, the reddest order (number 74 at 4790A) is 39 mm long"
+   },
+   "camera_focal_ratio_red": {
+    "value": 3.3,
+    "unit": "f/#",
+    "src": "B03",
+    "loc": "Sec. 2.2",
+    "quote": "The red camera is F/3.3",
+    "alternatives": [
+     {
+      "value": 3.6,
+      "src": "LCOM",
+      "loc": "Sec. 3 Basics table",
+      "quote": "effective focal ratio | f/3.9 | f/3.6 |",
+      "note": "\"effective\"; also B15 Table 1"
+     }
+    ]
+   },
+   "camera_focal_ratio_blue": {
+    "value": 3.6,
+    "unit": "f/#",
+    "src": "B03",
+    "loc": "Sec. 2.2",
+    "quote": "The blue camera is F/3.6",
+    "alternatives": [
+     {
+      "value": 3.9,
+      "src": "LCOM",
+      "loc": "Sec. 3 Basics table",
+      "quote": "effective focal ratio | f/3.9 | f/3.6 |",
+      "note": "\"effective\"; also B15 Table 1"
+     }
+    ]
+   },
+   "injection_output_focal_ratio": {
+    "value": "F/3.3 (red), F/3.6 (blue)",
+    "unit": "f/#",
+    "src": "B03",
+    "loc": "Sec. 2.3",
+    "quote": "The conversion from F/11 (telescope output) to F/3.3 and F/3.6",
+    "alternatives": [
+     {
+      "value": "roughly F/3.5",
+      "src": "B15",
+      "loc": "Sec. 2",
+      "quote": "converted from the F/11 focal ratio of the telescope to a roughly F/3.5 beam"
+     }
+    ]
+   },
+   "echelle_red": {
+    "value": {
+     "groove_density_gr_per_mm": 52.6,
+     "blaze_angle_deg": 63.5,
+     "R_number": "R2",
+     "size_in": "6x12"
+    },
+    "unit": null,
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "The red side uses a 6x12 inch R2 grating with 52.6 gr/mm and a 63.5 deg blaze angle.",
+    "alternatives": [
+     {
+      "value": "R2",
+      "src": "LCOM",
+      "loc": "Basics table",
+      "quote": "Echelle grating | R2.4 | R2 |"
+     }
+    ]
+   },
+   "echelle_blue": {
+    "value": {
+     "groove_density_gr_per_mm": 52.7,
+     "blaze_angle_deg": 69.0,
+     "R_number": "R2.6",
+     "size_in": "6x16"
+    },
+    "unit": null,
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "The blue side uses a 6x16 inch R2.6 grating with 52.7 gr/mm and 69.0 deg blaze.",
+    "alternatives": [
+     {
+      "value": "R2.4",
+      "src": "LCOM",
+      "loc": "Basics table",
+      "quote": "Echelle grating | R2.4 | R2 |",
+      "note": "also B15 Table 1 \"R2.4\"; tan(69.0 deg)=2.61 while R2.4 -> 67.4 deg"
+     }
+    ]
+   },
+   "echelle_geometry": {
+    "value": "\"close to true Littrow\" / \"quasi-littrow\"; theta and gamma not given",
+    "unit": null,
+    "src": "B03",
+    "loc": "Abstract",
+    "quote": "A single, standard echelle grating is used on each side and is illuminated close to true Littrow.",
+    "alternatives": [
+     {
+      "value": "quasi-littrow",
+      "src": "B15",
+      "loc": "Sec. 2",
+      "quote": "The gratings are used in quasi–littrow so that this virtual image of the slit and the echelle footprint are offset from each other in the focal plane of the camera/collimator."
+     }
+    ],
+    "note": "B03 Sec. 2.3: \"The optical axes of the cameras are offset by about 30mm from the optical axes of the injection optics.\" A 30 mm offset at f = 500/550 mm corresponds to ~3.4/3.1 deg (DERIVED: atan(30/500), atan(30/550)); the sources do not say whether this offset is in or out of the dispersion plane, so it is NOT a sourced theta/gamma."
+   },
+   "xd_red": {
+    "value": {
+     "type": "single prism, double pass",
+     "glass": "Ohara PBM2",
+     "apex_angle_deg": 47
+    },
+    "unit": null,
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "Cross-dispersion is provided by a single prism made of Ohara PBM2 glass with an apex angle of 47 deg.",
+    "alternatives": [
+     {
+      "value": "PBM2, 47deg (1 prism)",
+      "src": "B15",
+      "loc": "Table 1",
+      "quote": "Prism (cross disperser) Fused Silica, 38deg (2 prisms) PBM2, 47deg (1 prism)"
+     }
+    ]
+   },
+   "xd_blue": {
+    "value": {
+     "type": "two prisms, double pass",
+     "glass": "fused silica",
+     "apex_angle_deg_each": 38,
+     "equivalent_single_apex_deg": 62
+    },
+    "unit": null,
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "Two fused silica prisms with 38 deg apex angles provide the equivalent of a single 62 deg apex angle prism on this side.",
+    "alternatives": [
+     {
+      "value": "Fused Silica, 38deg (2 prisms)",
+      "src": "B15",
+      "loc": "Table 1",
+      "quote": "Prism (cross disperser) Fused Silica, 38deg (2 prisms)"
+     }
+    ]
+   },
+   "prism_base_thickness": {
+    "value": ">8",
+    "unit": "inch",
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "All three prisms are more than 8 inches thick at the base."
+   },
+   "detector_both": {
+    "value": "2048 x 4096, 15 um pixels (one per arm)",
+    "unit": null,
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "detector | 2048×4096 (15μm pix) | 2048×4096 (15μm pix) |",
+    "alternatives": [
+     {
+      "value": "2K x 4K, 15 um, SITe ST-002A (both, at commissioning)",
+      "src": "B03",
+      "loc": "Sec. 5",
+      "quote": "Each MIKE CCD detector system uses a 2K x 4K back-illuminated device, with 15 um pixels"
+     },
+     {
+      "value": "blue CCD replaced by Lincoln Labs CCID-20 on 2004 May 6",
+      "src": "B15",
+      "loc": "Sec. 4 (first paragraphs on CCD processing)",
+      "quote": "This CCD was replaced on May 6, 2004 with a Lincoln Labs CCID-20 device"
+     }
+    ]
+   },
+   "detector_field_optimized": {
+    "value": 35,
+    "unit": "mm (radius)",
+    "src": "B03",
+    "loc": "Sec. 2.2",
+    "quote": "Both lenses were optimized over a field 35mm in radius."
+   }
+  },
+  "performance": {
+   "R_1arcsec": {
+    "value": {
+     "blue": 28000,
+     "red": 22000
+    },
+    "unit": "lambda/dlambda",
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "Resolution (1.0″ slit) | 28,000 | 22,000 |",
+    "alternatives": [
+     {
+      "value": {
+       "blue": 25000,
+       "red": 19000
+      },
+      "src": "B03",
+      "loc": "Abstract / Sec. 2.4",
+      "quote": "The resolving power is 19,000 and 25,000, red and blue respectively, with a 1arcsec slit."
+     },
+     {
+      "value": {
+       "blue": 28000,
+       "red": 22000
+      },
+      "src": "B15",
+      "loc": "Table 1",
+      "quote": "Resolution (FWHM; 1.0′′ slit) 28,000 22,000"
+     }
+    ]
+   },
+   "R_0p35arcsec": {
+    "value": {
+     "blue": 83000,
+     "red": 65000
+    },
+    "unit": "lambda/dlambda",
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "Resolution (0.35″ slit) | 83,000 | 65,000 |",
+    "alternatives": [
+     {
+      "value": {
+       "blue": 71000,
+       "red": 54000
+      },
+      "src": "B03",
+      "loc": "Sec. 2.4",
+      "quote": "For a minimum slit width of 0.35 arcsec , the maximum resolving power is 54,000 on the red side and 71,000 on the blue side."
+     }
+    ]
+   },
+   "scale_at_CCD": {
+    "value": {
+     "blue": "8.2 pix/arcsec (0.12\"/pix)",
+     "red": "7.5 pix/arcsec (0.13\"/pix)"
+    },
+    "unit": null,
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "scale at CCD | 8.2 pix/” (0.12″/pix) | 7.5 pix/” (0.13″/pix) |",
+    "alternatives": [
+     {
+      "value": {
+       "blue": "115 um/arcsec",
+       "red": "105 um/arcsec"
+      },
+      "src": "B03",
+      "loc": "Sec. 2.4",
+      "quote": "(1arcsec = 105µm on the red side, 115µm on the blue side)",
+      "note": "DERIVED: /15 um = 7.0 pix/arcsec red, 7.67 pix/arcsec blue"
+     }
+    ]
+   },
+   "dispersion_unbinned": {
+    "value": {
+     "blue": "~0.02",
+     "red": "~0.05"
+    },
+    "unit": "A/pixel",
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "Å/pixel (unbinned) | ~0.02 | ~0.05 |"
+   },
+   "standard_setting_coverage": {
+    "value": {
+     "blue": "orders 71-106, 5000-3350 A",
+     "red": "orders 37-70, 9300-4900 A"
+    },
+    "unit": null,
+    "src": "LCOM",
+    "loc": "Sec. 8B.2 Grating position, \"As of May 2004\"",
+    "quote": "Orders 71-106 Orders 37 – 70 5000 – 3350 Å 9300-4900 Å",
+    "alternatives": [
+     {
+      "value": {
+       "blue": "3350-5000 A",
+       "red": "4900-9500 A"
+      },
+      "src": "B15",
+      "loc": "Sec. 2",
+      "quote": "delivers complete wavelength coverage from 3350–5000 Å (blue) and 4900–9500 Å (red)"
+     }
+    ]
+   },
+   "max_wavelength_range": {
+    "value": {
+     "blue": "3200-5000 A",
+     "red": "4900-10000 A"
+    },
+    "unit": null,
+    "src": "LCOM",
+    "loc": "Basics table",
+    "quote": "Wavelength range* | 3200-5000 | 4900-10000 |"
+   },
+   "order_separation_min": {
+    "value": 6,
+    "unit": "arcsec",
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "Minimum order separation is 6 arcsec on both the red and blue sides"
+   },
+   "design_format_examples": {
+    "value": {
+     "red": "order 31 at 10977 A: FSR 66 mm long; complete coverage blueward of 10470 A (order 33); example settings orders 31-69 (10977-4931 A) or 39-73 (8725-4661 A)",
+     "blue": "order 74 at 4790 A: 39 mm long; orders 74-107 span 29 mm cross-dispersed (CCD ~31 mm wide); camera good to order 110 (3222 A)"
+    },
+    "unit": null,
+    "src": "B03",
+    "loc": "Sec. 2.4",
+    "quote": "The grating can be positioned to obtain, for example, orders 31 to 69 (10977-4931A) or orders 39 to 73 (8725-4661A)."
+   }
+  },
+  "not_found": [
+   "Quasi-Littrow angles (in-plane theta, out-of-plane gamma) for either echelle.",
+   "Prism orientation/incidence angles and the prism-to-grating geometry.",
+   "Glass data for \"Ohara PBM2\" exactly as procured in 2002 (current OHARA catalog lists PBM 2Y and PBM 2R, see glass section).",
+   "The published (final) SPIE 4841 text: only the Sep 2002 author manuscript was obtained."
+  ],
+  "conflicts": [
+   "Resolving power, 1.0\" slit: 25,000 blue / 19,000 red (B03, design manuscript) vs 28,000 / 22,000 (LCOM, B15).",
+   "Resolving power, 0.35\" slit: 71,000 / 54,000 (B03) vs 83,000 / 65,000 (LCOM).",
+   "Camera focal ratio: F/3.3 red, F/3.6 blue (B03) vs \"effective\" f/3.6 red, f/3.9 blue (LCOM, B15). The LCOM/B15 pixel scales follow from the effective values (DERIVED check: 346.77 um x 3.9/11 / 15 um = 8.2 pix/\"; x 3.6/11 / 15 = 7.6 pix/\").",
+   "Blue echelle: R2.6, 69.0 deg (B03) vs R2.4 (LCOM, B15).",
+   "Detector scale: 105/115 um per arcsec red/blue (B03; = 7.0/7.67 pix/\") vs 7.5/8.2 pix/\" (LCOM).",
+   "Minimum slit width: 0.37\" (B03) vs 0.35\" (LCOM slit list).",
+   "Dichroic crossover: 455 nm (B03, original) vs 495 nm (LCOM, installed May 2004)."
+  ],
+  "notes": [
+   "B03 is the Sep 2002 author manuscript of the SPIE paper; differences from LCOM/B15 may reflect as-built performance.",
+   "Blue-arm CCD changed 2004-05-06 (SITe ST-002A -> Lincoln Labs CCID-20); both are 2k x 4k, 15 um (LCOM, B15).",
+   "Fiber mode (B03 Sec. 4: 175 um cores, 1.4\" apertures, F/3.5 feed) exists but is not offered to general observers (LCOM)."
+  ]
+ },
+ "harps": {
+  "title": "ESO 3.6 m / HARPS (fibre-fed echelle, grism cross-disperser)",
+  "recommended_preset": "HAM mode (70 um / 1\" fibres A and B); validate against R = 115,000 (User Manual) and the per-order central wavelength / pixel bin table (Fig. 2.3).",
+  "params": {
+   "telescope_aperture_M1": {
+    "value": 3.566,
+    "unit": "m",
+    "src": "E36",
+    "loc": "telescope table",
+    "quote": "M1 Diameter | 3.566 m |"
+   },
+   "telescope_focal_ratio": {
+    "value": 8.09,
+    "unit": "f/#",
+    "src": "E36",
+    "loc": "telescope table (HTML)",
+    "quote": "Focal Ratio | f / 8.09 |",
+    "note": "HARPS uses the F/8 Cassegrain focus (E36: \"HARPS ... using the F/8 Cassegrain focus\")"
+   },
+   "telescope_plate_scale": {
+    "value": 7.12,
+    "unit": "arcsec/mm",
+    "src": "E36",
+    "loc": "telescope table",
+    "quote": "Scale at Focal Plane | 7.12 arcsec/mm |"
+   },
+   "fibre_core_HAM": {
+    "value": 70,
+    "unit": "um",
+    "src": "ESOD",
+    "loc": "Fibre link, image scrambler",
+    "quote": "For HARPS we chose two 70 micron fibres (type FVP made by Polymicro), corresponding to 1 arcsecond on the sky",
+    "alternatives": [
+     {
+      "value": "1 arcsec, 70 um",
+      "src": "HUM",
+      "loc": "Sec. 3",
+      "quote": "standard fibres A and B having a diameter of 1 arcsec on the sky and a diameter of 70µm"
+     }
+    ]
+   },
+   "fibre_core_EGGS": {
+    "value": 100,
+    "unit": "um (1.4 arcsec)",
+    "src": "HUM",
+    "loc": "Sec. 3.4",
+    "quote": "This mode uses a set of wide fibres with a projected aperture on the sky of 1.4 arcsec and a diameter of 100µm"
+   },
+   "fibre_on_sky_HAM": {
+    "value": 1.0,
+    "unit": "arcsec",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "4 fibres (two pairs, one pair with 1″diameter on sky and the other pair with 1.4″, distance each 114″)"
+   },
+   "fibre_shape": {
+    "value": "octagonal since 2015-06-01 (previously circular)",
+    "unit": null,
+    "src": "HUM",
+    "loc": "Sec. 4.7",
+    "quote": "On June 1st, 2015, a new set of non-circular, octagonal optical fibres, with improved mode-scrambling"
+   },
+   "fibre_feed_focal_ratio": {
+    "value": 4.05,
+    "unit": "f/#",
+    "src": "ESOD",
+    "loc": "Fibre link",
+    "quote": "For HARPS we chose two 70 micron fibres ... corresponding to 1 arcsecond on the sky",
+    "derived": "DERIVED: f/# = 0.070 mm x 206265 / (3566 mm x 1.0 arcsec) = 4.05 (assumes the full 3.566 m M1 fills the fibre input cone; microlens doublets couple light into the fibre -- ESOD)"
+   },
+   "spectrograph_beam_focal_ratio": {
+    "value": 7.5,
+    "unit": "f/#",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "Beam focal ratio inside the spectrograph: 7.5",
+    "note": "consistency check DERIVED: 1560 mm / 208 mm = 7.5"
+   },
+   "collimated_beam_diameter": {
+    "value": 208,
+    "unit": "mm",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "spectral range 380-690nm, collimated beam diameter 208mm",
+    "alternatives": [
+     {
+      "value": 208,
+      "src": "M03",
+      "loc": "table, p.20",
+      "quote": "Collimated beam diameter 208 mm"
+     },
+     {
+      "value": 208,
+      "src": "R04",
+      "loc": "Table 1",
+      "quote": "Collimated beam diameter 208 mm"
+     }
+    ]
+   },
+   "collimator": {
+    "value": {
+     "focal_length_mm": 1560,
+     "used_diameter_mm": 730,
+     "passes": 3,
+     "type": "Zerodur parabola, protected silver"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "Zerodur with protected silver coating, f=1560mm, used diameter 730mm, triple pass",
+    "alternatives": [
+     {
+      "value": "f/2.1 parabolic mirror, triple pass",
+      "src": "ESOD",
+      "loc": "Vacuum Vessel with Spectrograph",
+      "quote": "An f/2.1 parabolic mirror serves as collimator and is used in triple pass."
+     }
+    ]
+   },
+   "echelle": {
+    "value": {
+     "groove_density_gr_per_mm": 31.6,
+     "blaze_angle_deg": 75,
+     "R_number": "R4",
+     "mosaic": "2x1 on Zerodur monolith 840 x 214 x 125 mm"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "R4, 31.6 gr/mm blaze angle 75°, mosaic 2×1 on Zerodur monolith 840 × 214 × 125mm",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ESOD",
+      "loc": "optical parameters table",
+      "quote": "R4, 31.6 gr/mm blaze angle 75 degrees, mosaic 2x1 on Zerodur monolith 840x214x125mm"
+     }
+    ]
+   },
+   "echelle_geometry_offplane_gamma": {
+    "value": 0.721,
+    "unit": "deg",
+    "src": "HUM",
+    "loc": "Sec. 2.1, p.4",
+    "quote": "Its echelle grating is operated in quasi-Littrow conditions (off plane angle = 0.721 deg blaze angle)",
+    "note": "wording is ambiguous (\"0.721 deg blaze angle\"); read here as the quasi-Littrow off-plane angle gamma = 0.721 deg. In-plane theta: NOT FOUND (quasi-Littrow implies ~0)."
+   },
+   "white_pupil": {
+    "value": "white-pupil design; grism cross-disperser at the white pupil",
+    "unit": null,
+    "src": "HUM",
+    "loc": "Sec. 2.1",
+    "quote": "A white pupil configuration has been adopted with the cross disperser placed at the white pupil."
+   },
+   "xd_grism": {
+    "value": {
+     "glass": "FK5",
+     "groove_density_gr_per_mm": 257.17,
+     "blaze_wavelength_nm": 480,
+     "size_mm": "240 x 230 x 50",
+     "transmission": "73% average"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "FK5 grism, 257.17 gr/mm blazed at 480nm, 240 × 230 × 50mm, T=73% (average)",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ESOD",
+      "loc": "optical parameters table",
+      "quote": "FK5 grism, 257.17 gr/mm blazed at 480nm, 240x230x50mm, T=73% (av)"
+     }
+    ]
+   },
+   "camera": {
+    "value": {
+     "focal_length_mm": 728,
+     "focal_ratio": 3.3,
+     "design": "all dioptric, 6 elements in 3 groups"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "all dioptric, 6 elements in 3 groups, f=728mm, f/3.3, T>85%",
+    "alternatives": [
+     {
+      "value": "6 elements in 6 groups",
+      "src": "ESOD",
+      "loc": "optical parameters table",
+      "quote": "all dioptric, 6 elements in 6 groups, f=728mm, f/3.3, T>85%"
+     }
+    ]
+   },
+   "detector": {
+    "value": "mosaic of 2 EEV 2k x 4k CCDs (EEV 44-82), 15 um pixels; 4096 x 4096 total",
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2 / Sec. 2.8",
+    "quote": "Detector 2 2k × 4k EEV CCDs, pixel size 15^2 µm^2",
+    "alternatives": [
+     {
+      "value": "EEV 44-82, 4096x4096, used 62.7x61.4 mm",
+      "src": "ESOD",
+      "loc": "Detector System",
+      "quote": "HARPS employs a mosaic of two EEV type 44-82 CCDs ... a field of 62.7x61.4mm is actually used"
+     },
+     {
+      "value": "61.44 x 62.74 mm2 spectral format",
+      "src": "R04",
+      "loc": "Table 1",
+      "quote": "Spectral format 72 echelle orders 61.44 x 62.74 mm2"
+     }
+    ]
+   },
+   "detector_gap": {
+    "value": 1215,
+    "unit": "um (+/- 45)",
+    "src": "HUM",
+    "loc": "Sec. 2.8 CCD table",
+    "quote": "Chip to chip gap 1215 ± 45 µm",
+    "note": "order 115 falls in the gap (orders 89-114 on red chip, 116-161 on blue chip)"
+   }
+  },
+  "performance": {
+   "R": {
+    "value": 115000,
+    "unit": "lambda/dlambda",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "Spectral resolution RS=115,000 (measured)",
+    "alternatives": [
+     {
+      "value": 115000,
+      "src": "M03",
+      "loc": "table, p.20",
+      "quote": "Spectral resolution R=115,000"
+     },
+     {
+      "value": 115000,
+      "src": "R04",
+      "loc": "Table 1",
+      "quote": "Spectral resolution RS =115’000"
+     },
+     {
+      "value": 120000,
+      "src": "ESOD",
+      "loc": "optical parameters table",
+      "quote": "Spectral resolution | RS=120,000 (measured)"
+     }
+    ]
+   },
+   "R_EGGS": {
+    "value": "resolution reduced by about 30% relative to HAM",
+    "unit": null,
+    "src": "R04",
+    "loc": "Sec. 7",
+    "quote": "improve the efficiency by nearly a factor of two, however at the cost of a spectral resolution reduced by about 30%.",
+    "derived": "DERIVED: 0.7 x 115,000 = ~80,000 (not a published number)"
+   },
+   "sampling_per_FWHM": {
+    "value": 3.4,
+    "unit": "pixels",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "Sampling per spectral element 3.4 px per FWHM",
+    "alternatives": [
+     {
+      "value": 3.2,
+      "src": "M03",
+      "loc": "text, p.20",
+      "quote": "At this resolution each spectral element is still sampled by 3.2 CCD pixels."
+     },
+     {
+      "value": 3.5,
+      "src": "R04",
+      "loc": "Sec. 2 / Table 1",
+      "quote": "Sampling 3.5 pixels/spectral element"
+     },
+     {
+      "value": 4.1,
+      "src": "ESOD",
+      "loc": "optical parameters table",
+      "quote": "Sampling per spectral element | 4.1 px per FWHM"
+     }
+    ]
+   },
+   "spectral_format": {
+    "value": {
+     "red CCD (Jasmin)": "orders 89-114, 533-691 nm",
+     "blue CCD (Linda)": "orders 116-161, 378-530 nm"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "“upper, red” CCD (Jasmin): orders 89-114, 533-691 nm “lower, blue” CCD (Linda): orders 116-161, 378-530 nm"
+   },
+   "n_orders": {
+    "value": 72,
+    "unit": "orders",
+    "src": "M03",
+    "loc": "table, p.20",
+    "quote": "Spectral format 72 echelle orders",
+    "alternatives": [
+     {
+      "value": 72,
+      "src": "R04",
+      "loc": "Table 1",
+      "quote": "72 echelle orders"
+     },
+     {
+      "value": 68,
+      "src": "ESOD",
+      "loc": "Vacuum Vessel text",
+      "quote": "68 orders cover a spectral range from 378-691nm."
+     }
+    ]
+   },
+   "wavelength_range": {
+    "value": "380-690",
+    "unit": "nm",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "spectral range 380-690nm",
+    "alternatives": [
+     {
+      "value": "378-691 nm",
+      "src": "ESOD",
+      "loc": "text + table",
+      "quote": "68 orders cover a spectral range from 378-691nm."
+     }
+    ]
+   },
+   "dispersion_per_pixel_examples": {
+    "value": {
+     "order 89": "687.76 nm, 0.0019 nm/pix",
+     "order 114": "536.97 nm, 0.0015 nm/pix",
+     "order 116": "527.73 nm, 0.0014 nm/pix",
+     "order 161": "380.25 nm, 0.001 nm/pix"
+    },
+    "unit": "nm per pixel at central column",
+    "src": "HUM",
+    "loc": "Fig. 2.3 (ETC table, p.6)",
+    "quote": "\"the spectral bin is defined as one pixel\" -- rows: 89 687.76 0.0019 ... 116 527.73 0.0014 ... 161 380.25 0.001",
+    "note": "read from the table image on PDF page 13"
+   },
+   "fibre_A_B_separation": {
+    "value": 17.3,
+    "unit": "pixels",
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "Spectrum Separation 17.3 px (fibres A and B)"
+   },
+   "order_separation": {
+    "value": {
+     "order 89": "1.510 mm = 100.7 px",
+     "order 114": "0.940 mm = 62.7 px",
+     "order 116": "0.910 mm = 60.7 px",
+     "order 161": "0.513 mm = 34.2 px"
+    },
+    "unit": null,
+    "src": "HUM",
+    "loc": "Table 2.2",
+    "quote": "order 116: 0.910mm = 60.7px, order 161: 0.513mm = 34.2px",
+    "alternatives": [
+     {
+      "value": "min 33 px",
+      "src": "M03",
+      "loc": "table, p.20",
+      "quote": "Min. inter-order 33 pixels"
+     },
+     {
+      "value": "min 30 px",
+      "src": "R04",
+      "loc": "Table 1",
+      "quote": "Minimum inter-order separation 30 pixels"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Grism apex (prism) angle and incidence geometry of the FK5 grism.",
+   "In-plane quasi-Littrow angle theta (only the off-plane angle 0.721 deg is given).",
+   "Fibre output focal ratio / FRD and the size of the fibre image at the spectrograph entrance (microlens doublets re-image the fibre; HUM/ESOD give only the f/7.5 internal beam).",
+   "Whether \"FK5\" is classic SCHOTT FK5 or N-FK5 (see glass section).",
+   "A published absolute R for EGGS mode (only \"reduced by about 30%\", R04).",
+   "Pepe et al. 2000 (Proc. SPIE 4008) full text -- not freely accessible; it is the likely source of grism geometry."
+  ],
+  "conflicts": [
+   "R: 115,000 (HUM, M03, R04) vs 120,000 (ESO web page).",
+   "Sampling: 3.4 px/FWHM (HUM) vs 3.2 (M03) vs 3.5 (R04) vs 4.1 px/FWHM and \"4 pixels per spectral element\" (ESO web page).",
+   "Number of orders: 72 (M03, R04; = 89-114 plus 116-161) vs 68 (ESO web page). Range 380-690 nm (HUM, M03, R04) vs 378-691 nm (ESO web page).",
+   "Camera: \"6 elements in 3 groups\" (HUM) vs \"6 elements in 6 groups\" (ESO web page).",
+   "Minimum inter-order separation: 34.2 px (HUM, order 161) vs 33 px (M03) vs 30 px (R04).",
+   "Used detector area: 62.7 x 61.4 mm (ESO web page) vs 61.44 x 62.74 mm2 (R04)."
+  ],
+  "notes": [
+   "HARPS sits in a vacuum vessel on the coude floor and is fed from the Cassegrain fibre adapter by 38 m fibres (ESOD).",
+   "Collimator is used three times (triple pass); the beam after the echelle returns to the collimator, which forms the white pupil where the grism sits (HUM Sec. 2.1)."
+  ]
+ },
+ "longslit_lris": {
+  "title": "Keck I / LRIS red channel (long-slit grating spectrograph) -- chosen long-slit preset",
+  "why_chosen": "LRIS has a refereed instrument paper (O95) giving collimator focal length, camera focal length and f/#, collimated-beam diameter, the camera-collimator angle, telescope f/# and plate scale, detector pixel and on-sky scale, grating dispersions and a measured narrow-slit image width; Keck's current web pages add a full red-grating table (grooves/blaze wavelength, A/pix, coverage, FWHM for a 1\" slit) and current detector specs. Palomar DBSP (OG82 + Palomar spec page) was the runner-up: comparable optics data but dispersions only in A/mm, no published resolution, and the red camera has since been replaced (152 mm in 1982 vs 12 in now).",
+  "recommended_preset": "Red side, 600/7500 grating, 1.0\" long slit, current LBNL detector (15 um, 0.135\"/pix): validate against 0.80 A/pix, 3275 A coverage, FWHM 4.7 A (1\" slit). A 1995-era preset (Tek 2048^2, 24 um, 4.685 pix/\") can be validated against O95 (600 g/mm: 2.55 A per 48 um).",
+  "params": {
+   "telescope_aperture": {
+    "value": 10,
+    "unit": "m",
+    "src": "O95",
+    "loc": "Sec. 2, p.376",
+    "quote": "The Keck 10-m telescope is a Ritchey-Chrétien design."
+   },
+   "telescope_focal_ratio_nominal": {
+    "value": 15,
+    "unit": "f/#",
+    "src": "O95",
+    "loc": "Sec. 2, p.376",
+    "quote": "The Cassegrain focal length is 150 m so that the nominal focal ratio is f/15."
+   },
+   "telescope_focal_ratio_beam": {
+    "value": 13.7,
+    "unit": "f/#",
+    "src": "O95",
+    "loc": "Sec. 2, p.376",
+    "quote": "the outer perimeter of the mirror has a diameter of 11 m which gives a real focal ratio of f/13.7."
+   },
+   "slit_plate_scale": {
+    "value": 1.375,
+    "unit": "arcsec/mm",
+    "src": "O95",
+    "loc": "Sec. 2, p.376",
+    "quote": "The scale at the Cassegrain focus is 1.375 arcsec per mm."
+   },
+   "longslits_1995": {
+    "value": {
+     "widths_arcsec": [
+      0.5,
+      1.0,
+      1.5
+     ],
+     "length_arcmin": 5
+    },
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 7, The Slit Mask Changer, p.382",
+    "quote": "A few of the slit-mask frames are made so that 5 arcmin long fixed slits with polished jaws can be installed. These are presently adjusted to be 0.5, 1.0, and 1.5 arcsec wide."
+   },
+   "field_of_view": {
+    "value": "6 x 7.8",
+    "unit": "arcmin",
+    "src": "O95",
+    "loc": "Abstract",
+    "quote": "The field of view in both spectrographic and imaging modes is 6 by 7.8 arcmin."
+   },
+   "collimator_focal_length": {
+    "value": 2000,
+    "unit": "mm",
+    "src": "O95",
+    "loc": "Sec. 2, p.376 and Fig. 1 caption",
+    "quote": "The collimator focal length was then set at 2000 mm and the camera focal length at 305 mm."
+   },
+   "collimator_type": {
+    "value": "off-axis parabola (paraboloid axis coincident with telescope axis), diameter 533 mm",
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 2, pp.376-377",
+    "quote": "The only practical solution for the collimator was an off-axis parabolic reflector."
+   },
+   "collimated_beam_diameter": {
+    "value": 141,
+    "unit": "mm",
+    "src": "O95",
+    "loc": "Sec. 3, p.377",
+    "quote": "The 141 mm collimated beam of the LRIS spectrograph; a 269 mm grating-to-first-surface distance",
+    "alternatives": [
+     {
+      "value": "about 150 mm (design requirement)",
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "the beam size inside the instrument should be about 150 mm"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 305,
+    "unit": "mm",
+    "src": "O95",
+    "loc": "Sec. 3, p.377",
+    "quote": "lead to the choice of a 305 mm focal length and a 6.9° field radius for the LRIS camera."
+   },
+   "camera_focal_ratio": {
+    "value": 1.56,
+    "unit": "f/#",
+    "src": "O95",
+    "loc": "Sec. 3, p.378",
+    "quote": "It's (under-filled) f/1.56 focal ratio requires these to be balanced",
+    "note": "OCR reads \"//1.56\"; camera entrance pupil 139.7 x 195.6 mm elliptical"
+   },
+   "camera_collimator_angle": {
+    "value": 44,
+    "unit": "deg",
+    "src": "O95",
+    "loc": "Sec. 1-2, p.376 (+ Fig. 1)",
+    "quote": "The diffracted light from the red grating comes off at a 44° angle to the incoming beam and goes through a lens camera."
+   },
+   "grating_mount": {
+    "value": "plane reflection gratings on a 5-position turret, tilt set by stepper motor; standard 152 x 203 mm gratings",
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 2, p.377; Sec. 7, p.381",
+    "quote": "standard 152X203-mm-plane reflection gratings or grisms can be"
+   },
+   "gratings_1995": {
+    "value": {
+     "300 g/mm": "4.99 A per 48 um",
+     "600 g/mm": "2.55 A per 48 um",
+     "1200 g/mm": "1.31 A per 48 um"
+    },
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 7, p.381",
+    "quote": "There are at present three gratings with 300, 600, and 1200 g/mm which provide dispersions, respectively, of 4.99, 2.55, and 1.31 Å per 48 µm (2 pixels on the CCD)."
+   },
+   "gratings_current_red": {
+    "value": {
+     "150/7500": {
+      "A_per_pix": 3.0,
+      "coverage_A": 12288
+     },
+     "300/5000": {
+      "A_per_pix": 1.59,
+      "coverage_A": 6525,
+      "FWHM_1arcsec_A": 9.18
+     },
+     "400/8500": {
+      "A_per_pix": 1.16,
+      "coverage_A": 4762,
+      "FWHM_1arcsec_A": 6.9
+     },
+     "600/5000": {
+      "A_per_pix": 0.8,
+      "coverage_A": 3275,
+      "FWHM_1arcsec_A": 4.7
+     },
+     "600/7500": {
+      "A_per_pix": 0.8,
+      "coverage_A": 3275,
+      "FWHM_1arcsec_A": 4.7
+     },
+     "600/10000 (gold)": {
+      "A_per_pix": 0.8,
+      "coverage_A": 3275,
+      "FWHM_1arcsec_A": 4.7
+     },
+     "831/8200 (gold)": {
+      "A_per_pix": 0.58,
+      "coverage_A": 2375
+     },
+     "900/5500": {
+      "A_per_pix": 0.53,
+      "coverage_A": 2175
+     },
+     "1200/7500": {
+      "A_per_pix": 0.4,
+      "coverage_A": 1638
+     },
+     "1200/9000 (gold)": {
+      "A_per_pix": 0.4,
+      "coverage_A": 1638
+     }
+    },
+    "unit": "grooves per mm / blaze wavelength (A)",
+    "src": "KLD",
+    "loc": "Gratings: Red Side table",
+    "quote": "600/7500 | 0.80 | | 3275 | | 4.7 |",
+    "note": "column header tooltips: \"Grooves/λBlaze [mm-1/Å]\" and dispersion \"[Å/pix]\"; page: \"Dispersion and wavelength coverage are calculated and are not measured values.\""
+   },
+   "blaze_angle_600_7500": {
+    "value": 13.0,
+    "unit": "deg",
+    "src": "KLD",
+    "loc": "Gratings table",
+    "quote": "600/7500",
+    "derived": "DERIVED (assumes the blaze wavelength is quoted for Littrow, 1st order): theta_B = asin(600 mm^-1 x 7500e-7 mm / 2) = asin(0.225) = 13.0 deg"
+   },
+   "detector_1995": {
+    "value": "Tektronix 2048 x 2048, 24 um pixels",
+    "unit": null,
+    "src": "O95",
+    "loc": "Abstract + Sec. 6",
+    "quote": "Tektronix changed the pixel size of their CCDs to 24 µm instead of 27 µm."
+   },
+   "detector_current_red": {
+    "value": "LBNL fully depleted 15 um pixels; detectors page: \"LBNL 4k x 4k ... (Mark IV, installed in May 2021)\"",
+    "unit": null,
+    "src": "KLDET",
+    "loc": "detector table",
+    "quote": "LBNL 4k x 4k CCD 500-micron thick deep-depletion 15 µm pixels, science grade (Mark IV, installed in May 2021)",
+    "alternatives": [
+     {
+      "value": "mosaic of two LBNL 2k x 4k",
+      "src": "KLH",
+      "loc": "description",
+      "quote": "The red camera uses a mosaic of two LBNL 2k x 4k fully depleted, high resistivity CCD detectors with a pixel scale of 0.135 \"/pixel."
+     }
+    ]
+   },
+   "detector_blue_current": {
+    "value": "2 x 2K x 4K Marconi (E2V), 15 um",
+    "unit": null,
+    "src": "KLDET",
+    "loc": "detector table",
+    "quote": "2 x 2K x 4K Marconi (E2V) CCDs, backside 15 µm pixels, science grade"
+   },
+   "grisms_blue_current": {
+    "value": {
+     "300/5000": "1.43 A/pix, FWHM(1\") 8.4-9.2 A",
+     "400/3400": "1.09 A/pix, 6.5-7.1 A",
+     "600/4000": "0.63 A/pix, 3.8-4.1 A",
+     "1200/3400": "0.24 A/pix, 1.56 A"
+    },
+    "unit": null,
+    "src": "KLD",
+    "loc": "Grisms: Blue Side table",
+    "quote": "600/4000 | 0.63 | data | 3330-5910 | 3040-5630 | | 3.8-4.1 |",
+    "note": "blue camera optics (focal length, beam) NOT FOUND in the documents read (blue side added after O95)"
+   }
+  },
+  "performance": {
+   "pixel_scale_1995": {
+    "value": 4.685,
+    "unit": "pixels/arcsec",
+    "src": "O95",
+    "loc": "Sec. 6, p.381",
+    "quote": "The actual scale at the CCD is 4.685 pixels per arcsec.",
+    "derived": "DERIVED: 1/4.685 = 0.2134 arcsec/pixel (24 um); scaled to 15 um: 0.1334 arcsec/pixel"
+   },
+   "pixel_scale_current": {
+    "value": 0.135,
+    "unit": "arcsec/pixel",
+    "src": "KLDET",
+    "loc": "Plate scale row",
+    "quote": "Plate scale | 0.135\"/pix | 0.135\"/pix |"
+   },
+   "narrow_slit_projection_1995": {
+    "value": "0.5\" slit with 1200 g/mm projects to 1.80 pixels; measured comparison-line FWHM 2.8/2.2/2.2 px (left/centre/right)",
+    "unit": null,
+    "src": "O95",
+    "loc": "Image Quality paragraph, pp.383-384",
+    "quote": "spectra taken with a 0.5-arcsec slit which, for the 1200 g/mm grating used, projects to 1.80 pixels on the CCD. The full width half maximum (FWHM) was found to be 2.8, 2.2, and 2.2 pixels"
+   },
+   "preset_600_7500": {
+    "value": {
+     "dispersion_A_per_pix": 0.8,
+     "coverage_A": 3275,
+     "FWHM_1arcsec_A": 4.7
+    },
+    "unit": null,
+    "src": "KLD",
+    "loc": "Gratings table",
+    "quote": "600/7500 | 0.80 | | 3275 | | 4.7 |",
+    "derived": "DERIVED: R = 7500 / 4.7 = 1600 at the blaze wavelength"
+   },
+   "dispersion_consistency": {
+    "value": "1995 and current 600 g/mm dispersions agree per micron",
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 7",
+    "quote": "2.55 Å per 48 µm",
+    "derived": "DERIVED check: 2.55/48 = 0.0531 A/um (1995) vs 0.80/15 = 0.0533 A/um (Keck page)"
+   },
+   "R_range_overall": {
+    "value": "300-5,000",
+    "unit": "lambda/dlambda",
+    "src": "KLH",
+    "loc": "description",
+    "quote": "An assortment of gratings (red side) and grisms (blue side) yield resolutions ranging from R=300-5,000"
+   }
+  },
+  "not_found": [
+   "Grating blaze angles in degrees (only blaze wavelengths; 600/7500 angle is DERIVED).",
+   "Current long-slit widths/lengths list (only the 1995 set 0.5/1.0/1.5\" x 5').",
+   "Blue-channel (LRIS-B) collimator/camera parameters and dichroic list values (not read).",
+   "Rockosi et al. 2010 (SPIE 7735) red-upgrade paper (not obtained; Keck pages used instead)."
+  ],
+  "conflicts": [
+   "Current red detector: \"LBNL 4k x 4k ... (Mark IV, installed in May 2021)\" (Keck detectors page) vs \"mosaic of two LBNL 2k x 4k\" (Keck home page). Pixel size (15 um) and scale (0.135\"/pix) agree.",
+   "Beam diameter: 141 mm (O95 Sec. 3, camera design) vs \"about 150 mm\" (O95 Sec. 2, design target).",
+   "Pixel scale: 0.135\"/pix (Keck) vs 0.1334\"/pix DERIVED by scaling the 1995 4.685 pix/\" from 24 to 15 um."
+  ],
+  "notes": [
+   "Only the red side existed in O95; the blue arm (grisms) was added later.",
+   "Red side gratings: 5 on a turret at a time; the blaze-wavelength notation is grooves/mm / blaze (A)."
+  ],
+  "runner_up_dbsp": {
+   "summary": "Palomar 200-inch Double Spectrograph (DBSP): collimators 2311 mm effective focal length (OG82) = 91 in (PDS); beam 146 mm (OG82); blue camera f/1.5, 229 mm, camera-collimator angle 38 deg 20 arcmin (OG82; PDS: 9 in); red camera f/1.0, 152 mm, angle 35 deg 00 arcmin (OG82, 1982) but PDS (2018) lists a 12 in red camera -> the red camera has changed; telescope f/15.7 and \"2.5 arc sec mm-1\" (OG82) vs \"2.57″/mm at the slit\" (PDS); red LBNL 4096 x 2048, 15 um, 0.293\"/pix; blue CCD 23 2048 x 4096, 15 um, 0.389\"/pix; slit 128\" long, widths 0.5-10\"; gratings (lines/mm / blaze A, Å/mm red/blue cam): 158/7500 202 I, 300/3990 -/140 I, 316/7500 102 I, 600/4000 -/72 I, 600/10000 54 I, 1200/5000,7100,9400 26 I/36 I.",
+   "sources": [
+    "OG82",
+    "PDS"
+   ],
+   "quotes": [
+    "OG82 p.587: \"The effective focal length of the collimator is 2311 mm.\"",
+    "OG82 p.587: \"The angle between the blue collimator and the axis of the blue camera as seen from the grating is 38° 20'. ... The focal ratio for a monochromatic collimated beam is f/1.5 and the focal length is 229 mm\"",
+    "OG82 p.588: \"The angle between the red collimator and the axis of the red Schmidt camera as seen from the grating is 35° 00'. The focal ratio for a collimated monochromatic beam is f/1.0 with the camera focal length being 152 mm.\"",
+    "PDS: \"Red focal length: 12 inches Blue focal length: 9 inches\" ; \"2.57″/mm at the slit 0.293″/pixel for the red camera (new LBNL CCD)\""
+   ]
+  }
+ },
+ "desi": {
+  "title": "Mayall 4 m / DESI spectrographs (fibre-fed, three VPH arms; ten identical units)",
+  "recommended_preset": "All three arms (B 360-593 nm, R 566-772 nm, NIR/Z 747-980 nm), 107 um fibre, f/3.57 collimator, f/1.7 cameras, as-built VPH line densities and incidence angles from D22. Validate against D22 resolution ranges (B 2000-3000, R 3500-4500, NIR 4000-5500) and 3.4 px per resolution element (FDR).",
+  "params": {
+   "telescope_aperture": {
+    "value": 3797,
+    "unit": "mm (unmasked)",
+    "src": "D22",
+    "loc": "Sec. 4 intro (corrector), PDF p.14",
+    "quote": "The unmasked aperture is 3797 mm and the central hole diameter is 1324 mm."
+   },
+   "corrector_focal_ratio": {
+    "value": "f/3.68 at field centre; f/3.85 (sagittal) to f/4.23 (meridional) at edge",
+    "unit": "f/#",
+    "src": "D22",
+    "loc": "Sec. 4.2 + Fig. 5 caption",
+    "quote": "The focal ratio is f /3.68 at the center of the field and increases toward the edge.",
+    "alternatives": [
+     {
+      "value": "f/3.85 beam input into the fibers",
+      "src": "FDR",
+      "loc": "Sec. 5 intro, p.87",
+      "quote": "given the f/3.85 beam input into the fibers by the corrector"
+     },
+     {
+      "value": "average injection cone f/3.9",
+      "src": "FDR",
+      "loc": "Fig. 4.4 caption",
+      "quote": "captured for the average DESI injection cone of f/3.9 (red line) at the DESI collimator acceptance speed of f/3.57"
+     }
+    ]
+   },
+   "fibre_core": {
+    "value": 107,
+    "unit": "um",
+    "src": "D22",
+    "loc": "Sec. 7.1",
+    "quote": "namely the fiber diameter of 107 µm, the input light cone of f /3.57"
+   },
+   "fibre_on_sky": {
+    "value": "1.585\" on axis; 1.39\" x 1.51\" at 1.65 deg",
+    "unit": "arcsec",
+    "src": "D22",
+    "loc": "Sec. 4.2",
+    "quote": "while the 107 µm diameter fibers are 1.585″ diameter circles on axis, they are 1.39″ × 1.51″ (meridional × sagittal) ellipses at 1.65° (420mm) from the center of the field",
+    "note": "pdftotext renders the double-prime as \"00\" (1.58500)"
+   },
+   "fibre_output_focal_ratio_accepted": {
+    "value": 3.57,
+    "unit": "f/#",
+    "src": "D22",
+    "loc": "Sec. 7.1-7.2",
+    "quote": "The spectrograph design has a reflective, f /3.57 spherical Schmidt collimator and three refractive, f /1.7 cameras."
+   },
+   "fibre_FRD": {
+    "value": "average FRD throughput contribution 90.3% (light inside f/3.57); average total fibre throughput 89.1%",
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 6 (fiber system), PDF p.33",
+    "quote": "The average inferred FRD contribution to the throughput is 90.3%, which met the requirement of 90%."
+   },
+   "pseudo_slit": {
+    "value": {
+     "n_fibres": 500,
+     "height_mm": 120.9,
+     "pitch_in_block_um": 230,
+     "pitch_between_blocks_um": 556,
+     "fibres_per_block": 25,
+     "slit_curvature_radius_mm": 468
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 5.1.1, p.89",
+    "quote": "The center-to-center spacing between fibers on adjacent v-groove blocks is 556 µm, compared to 230 µm between fibers within a v-groove block.",
+    "alternatives": [
+     {
+      "value": "121 mm pseudo-slit of 500 fibres",
+      "src": "D22",
+      "loc": "Sec. 7.2",
+      "quote": "Light enters the spectrograph through a 121 mm pseudo-slit composed of 500 fibers"
+     }
+    ]
+   },
+   "collimator": {
+    "value": {
+     "type": "spherical mirror (Schmidt), enhanced silver",
+     "focal_ratio": 3.57,
+     "pupil_mm": 126
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 5.1.2, p.89",
+    "quote": "The f/# is 3.57 and the pupil is 126 mm.",
+    "alternatives": [
+     {
+      "value": "incident beam diameters approximately 140 mm (at the gratings)",
+      "src": "D22",
+      "loc": "Sec. 7.2",
+      "quote": "All three gratings have physical dimensions of 180 × 160 mm2 , are 16 mm thick, and the incident beam diameters are approximately 140 mm."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 449.8,
+    "unit": "mm",
+    "src": "FDR",
+    "loc": "Sec. 5.1.2",
+    "quote": "The f/# is 3.57 and the pupil is 126 mm.",
+    "derived": "DERIVED: 3.57 x 126 mm = 449.8 mm"
+   },
+   "dichroics": {
+    "value": {
+     "NIR-pass": ">95% T 772-980 nm, >95% R 360-757 nm, mean AOI 25.4 deg",
+     "red-pass": ">95% T 593-772 nm, >95% R 360-566 nm, mean AOI 32.1 deg"
+    },
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 7.2, PDF p.35",
+    "quote": "The average incidence angle is 25.4° . The red pass dichroic requirements were > 95% transmission from 593 to 772 nm, and > 95% reflectance from 360 to 566 nm, and the average incidence angle is 32.1° ."
+   },
+   "arm_bandpasses": {
+    "value": {
+     "B": "360-593 nm",
+     "R": "566-772 nm",
+     "NIR": "747-980 nm"
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Sec. 5.1 + Table 5.4",
+    "quote": "The bands chosen that meet the requirements are: 360–593 nm, 566–772 nm, and 747–980 nm for the blue, red and near infrared (NIR) channels respectively.",
+    "alternatives": [
+     {
+      "value": {
+       "B": "360-593 nm",
+       "R": "560-772 nm",
+       "NIR": "747-980 nm"
+      },
+      "src": "D22",
+      "loc": "Fig. 14 caption",
+      "quote": "Blue light (360 − 593nm) ... Red light (560 − 772 nm) ... NIR channel (747 − 980nm)"
+     },
+     {
+      "value": {
+       "B": "3600-5930 A",
+       "R": "5600-7720 A",
+       "NIR": "7470-9800 A"
+      },
+      "src": "G23",
+      "loc": "Sec. 2.3",
+      "quote": "blue (3600-5930 Å), red (5600-7720 Å), and NIR (7470-9800 Å)"
+     }
+    ]
+   },
+   "vph_as_built": {
+    "value": {
+     "B": {
+      "lines_per_mm": 1103.5,
+      "incidence_deg": 11.48
+     },
+     "R": {
+      "lines_per_mm": 1157.4,
+      "incidence_deg": 18.73
+     },
+     "NIR": {
+      "lines_per_mm": 992.5,
+      "incidence_deg": 21.19
+     },
+     "fringe_tilt_deg": 3,
+     "max_diffraction_angle_range_deg": "<16",
+     "size_mm": "180 x 160 x 16",
+     "vendor": "Kaiser Optical Systems"
+    },
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 7.2, PDF p.35",
+    "quote": "The VPH grating fringe frequencies and average incidence angles are 1103.5 l/mm and 11.48° (Blue), 1157.4 l/mm and 18.73° (Red), and 992.5 and 21.19° (NIR). The fringe angles for all three were 3° to avoid Littrow ghosts, and in all cases the diffraction angle is < 16° .",
+    "alternatives": [
+     {
+      "value": {
+       "B": {
+        "lines_per_mm": 1101.9,
+        "alpha_deg": 10.44,
+        "fringe_tilt_deg": -3.18,
+        "dbeta_deg": 15.74
+       },
+       "R": {
+        "lines_per_mm": 1157.4,
+        "alpha_deg": 18.12,
+        "fringe_tilt_deg": -3.03,
+        "dbeta_deg": 15.5
+       },
+       "NIR": {
+        "lines_per_mm": 992.5,
+        "alpha_deg": 20.76,
+        "fringe_tilt_deg": -2.97,
+        "dbeta_deg": 15.42
+       }
+      },
+      "src": "FDR",
+      "loc": "Table 5.4, p.91",
+      "quote": "1/σ (l/mm) 1101.9 1157.4 992.5 ... α (° ) 10.44 18.12 20.76 ... φ (° ) -3.18 -3.03 -2.97",
+      "note": "2016 \"budgeted requirements\" (pre-construction)"
+     }
+    ]
+   },
+   "vph_order": {
+    "value": -1,
+    "unit": "diffraction order (first order)",
+    "src": "FDR",
+    "loc": "Fig. 5.5 caption, p.92",
+    "quote": "Measured blue, red and NIR grating wavefront in -1 order"
+   },
+   "camera": {
+    "value": {
+     "B": {
+      "focal_length_mm": "212.8 +/- 1",
+      "f_ratio": 1.7
+     },
+     "R": {
+      "focal_length_mm": "213.6 +/- 1",
+      "f_ratio": 1.7
+     },
+     "NIR": {
+      "focal_length_mm": "214.0 +/- 1",
+      "f_ratio": 1.7
+     },
+     "design": "5 lenses (triplet, singlet, field lens = cryostat window), 2 aspheric surfaces"
+    },
+    "unit": null,
+    "src": "FDR",
+    "loc": "Table 5.5, p.93",
+    "quote": "Focal length (mm) 212.8 ± 1 213.6 ± 1 214.0 ± 1 Focal Ratio f/1.70 f/1.70 f/1.70",
+    "alternatives": [
+     {
+      "value": "f/1.7 (all three)",
+      "src": "D22",
+      "loc": "Sec. 7.2",
+      "quote": "three refractive, f /1.7 cameras"
+     }
+    ],
+    "note": "FDR values are \"Camera Optical Budgeted Requirements\"; as-built focal lengths NOT FOUND"
+   },
+   "magnification": {
+    "value": 0.48,
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 7.2",
+    "quote": "This produces a magnification of 0.48 of the 107 µm fiber diameter onto the 15 µm pixels in the three wavelength channels."
+   },
+   "detector_B": {
+    "value": "STA4150 4096 x 4096, 15 um (ITL-processed)",
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 7.4",
+    "quote": "The blue devices are 4096 × 4096 STA4150 CCDs from Semiconductor Technology Associates (STA)"
+   },
+   "detector_R_NIR": {
+    "value": "LBNL fully depleted p-channel 4114 x 4128, 15 um",
+    "unit": null,
+    "src": "D22",
+    "loc": "Sec. 7.4",
+    "quote": "These are thick, high resistivity, fully-depleted p−channel 4114 × 4128 CCDs",
+    "alternatives": [
+     {
+      "value": "250 um thick",
+      "src": "G23",
+      "loc": "Sec. 2.4",
+      "quote": "The red and NIR CCDs are 250 µm thick, fully-depleted p-channel"
+     }
+    ]
+   },
+   "detector_used_area": {
+    "value": {
+     "spectral_mm": 60.26,
+     "spatial_mm": 60.02
+    },
+    "unit": "mm",
+    "src": "FDR",
+    "loc": "Table 5.5",
+    "quote": "Spectral Detector Size (mm) 60.26 60.26 60.26 Spatial Detector Size (mm) 60.02 60.02 60.02"
+   }
+  },
+  "performance": {
+   "R_by_arm": {
+    "value": {
+     "B": "2000-3000",
+     "R": "3500-4500",
+     "NIR": "4000-5500"
+    },
+    "unit": "lambda/dlambda",
+    "src": "D22",
+    "loc": "Sec. 7.2",
+    "quote": "The resolutions of the blue, red, and NIR channels are approximately 2000 – 3000, 3500 – 4500, and 4000 – 5500, respectively.",
+    "alternatives": [
+     {
+      "value": {
+       "360-555 nm": "2,000-3,200",
+       "555-656 nm": "3,200-4,100",
+       "656-980 nm": "4,100-5,100"
+      },
+      "src": "FDR",
+      "loc": "Table 5.1",
+      "quote": "Resolution (λ/∆λ) ≥ 1, 500; 360 nm < λ ≤ 555 nm 2,000–3,200",
+      "note": "FDR \"current design\" values, binned by wavelength, not by arm"
+     }
+    ]
+   },
+   "resolution_element_sampling": {
+    "value": 3.4,
+    "unit": "pixels",
+    "src": "FDR",
+    "loc": "Table 5.2",
+    "quote": "Minimum resolution elements ≥ 3 pixels 3.4 pixels"
+   },
+   "dispersion_per_pixel": {
+    "value": {
+     "B": 0.58,
+     "R": 0.51,
+     "NIR": 0.58
+    },
+    "unit": "A/pixel",
+    "src": "FDR",
+    "loc": "Table 5.5",
+    "quote": "Spectral field (nm) 360–593 566–772 747–980 ... Spectral Detector Size (mm) 60.26",
+    "derived": "DERIVED (assumes bandpass maps linearly across the 60.26 mm spectral size): B (593-360) nm / 60.26 mm x 0.015 mm = 0.58 A/pix; R (772-566)/60.26 x 0.015 = 0.51 A/pix; NIR (980-747)/60.26 x 0.015 = 0.58 A/pix"
+   },
+   "fibre_pitch_on_detector": {
+    "value": 7.4,
+    "unit": "pixels",
+    "src": "FDR",
+    "loc": "Sec. 5.1.1",
+    "quote": "230 µm between fibers within a v-groove block",
+    "derived": "DERIVED: 230 um x 0.48 / 15 um = 7.4 pixels"
+   },
+   "wavelength_coverage_total": {
+    "value": "360-980",
+    "unit": "nm",
+    "src": "D22",
+    "loc": "Abstract",
+    "quote": "that together record the light from 360 − 980 nm with a spectral resolution that ranges from 2000"
+   }
+  },
+  "not_found": [
+   "As-built collimator focal length and camera focal lengths (only FDR design values; collimator focal length DERIVED).",
+   "Published native A/pixel per arm (DERIVED here from bandpass / detector size).",
+   "VPH diffraction-angle values per arm as built (only \"< 16 deg\" range).",
+   "Jelinsky et al. (in prep. per D22) detailed spectrograph paper -- not available."
+  ],
+  "conflicts": [
+   "Blue VPH line density: 1103.5 l/mm (D22, as built) vs 1101.9 l/mm (FDR 2016 budget).",
+   "VPH incidence angles: 11.48/18.73/21.19 deg (D22) vs 10.44/18.12/20.76 deg (FDR); fringe tilt \"3 deg\" (D22) vs -3.18/-3.03/-2.97 deg (FDR).",
+   "Red-arm lower edge: 566 nm (FDR; D22 dichroic spec) vs 560 nm (D22 Fig. 14 caption) vs 5600 A (G23).",
+   "Beam: collimator pupil 126 mm (FDR) vs \"incident beam diameters approximately 140 mm\" at the gratings (D22).",
+   "Resolution: D22 per-arm ranges (2000-3000 / 3500-4500 / 4000-5500) vs FDR design values by wavelength bin (2,000-3,200 / 3,200-4,100 / 4,100-5,100).",
+   "Fibre injection f/#: f/3.68 at field centre (D22) vs f/3.85 (FDR Sec. 5) vs average f/3.9 (FDR Fig. 4.4)."
+  ],
+  "notes": [
+   "All ten spectrographs are identical (D22).",
+   "VPH gratings are used near first order; the FDR labels the measured order \"-1\"."
+  ]
+ },
+ "glass": {
+  "formula_forms": {
+   "Sellmeier_SCHOTT": {
+    "form": "n^2(lambda) - 1 = B1 lambda^2/(lambda^2 - C1) + B2 lambda^2/(lambda^2 - C2) + B3 lambda^2/(lambda^2 - C3)",
+    "wavelength_unit": "um (C in um^2)",
+    "src": "SCOL",
+    "loc": "Explanations page (\"Constants of the dispersion formula\")",
+    "quote": "When calculating the refractive index using the Sellmeier coefficients from the SCHOTT data sheets, the wavelength λ needs to be entered in units of µm."
+   },
+   "Sellmeier_OHARA": {
+    "form": "n^2 - 1 = A1 lambda^2/(lambda^2 - B1) + A2 lambda^2/(lambda^2 - B2) + A3 lambda^2/(lambda^2 - B3)",
+    "wavelength_unit": "um (B in um^2)",
+    "src": "OHWEB",
+    "loc": "Sec. 2.3 Dispersion Formula",
+    "quote": "As a practical dispersion formula, we have adopted the use of the Sellmeier formula ... When calculating a respective refractive index, please bear in mind that each wavelength is expressed in µm units."
+   },
+   "Malitson_1965": {
+    "form": "n^2 - 1 = 0.6961663 lambda^2/(lambda^2 - 0.0684043^2) + 0.4079426 lambda^2/(lambda^2 - 0.1162414^2) + 0.8974794 lambda^2/(lambda^2 - 9.896161^2)",
+    "wavelength_unit": "um (constants in the denominators are wavelengths in um, squared)",
+    "src": "MAL65",
+    "loc": "publisher abstract",
+    "quote": "The dispersion equation n2-1=0.6961663λ2λ2-(0.0684043)2+0.4079426λ2λ2-(0.1162414)2+0.8974794λ2λ2-(9.896161)2.where λ is expressed in microns was found to yield an absolute residual of 10.5×10−6."
+   }
+  },
+  "glasses": {
+   "fused_silica_Malitson1965": {
+    "used_in": [
+     "MIKE blue cross-disperser prisms (2 x 38 deg)"
+    ],
+    "formula": "Malitson_1965",
+    "coefficients": {
+     "B1": 0.6961663,
+     "C1_um": "0.0684043^2",
+     "B2": 0.4079426,
+     "C2_um": "0.1162414^2",
+     "B3": 0.8974794,
+     "C3_um": "9.896161^2"
+    },
+    "conditions": "20 C; 60 wavelengths 0.21-3.71 um; absolute residual 10.5e-6",
+    "src": "MAL65",
+    "loc": "abstract",
+    "quote": "The index of refraction of optical quality fused silica (SiO2) was determined for 60 wavelengths from 0.21 to 3.71 μ at 20°C.",
+    "note": "Specific fused-silica grade of the MIKE prisms NOT FOUND (B03 says only \"fused silica\"). Full Malitson paper paywalled; equation taken from the publisher abstract."
+   },
+   "SCHOTT_N-BK7": {
+    "used_in": [
+     "reference glass (requested); not a cross-disperser in these five instruments"
+    ],
+    "formula": "Sellmeier_SCHOTT",
+    "coefficients": {
+     "B1": 1.03961212,
+     "B2": 0.231792344,
+     "B3": 1.01046945,
+     "C1": 0.006000699,
+     "C2": 0.0200179144,
+     "C3": 103.560653
+    },
+    "catalog": {
+     "nd": 1.5168,
+     "vd": 64.17,
+     "ne": 1.51872
+    },
+    "src": "SBK7",
+    "loc": "\"Constants of Dispersion Formula\" block; footer \"As of 01-Dec-2023\"",
+    "quote": "B1 1.039612120 B2 0.231792344 B3 1.010469450 C1 0.006000699 C2 0.0200179144 C3 103.56065300"
+   },
+   "SCHOTT_N-FK5": {
+    "used_in": [
+     "candidate for HARPS \"FK5\" grism"
+    ],
+    "formula": "Sellmeier_SCHOTT",
+    "coefficients": {
+     "B1": 0.844309338,
+     "B2": 0.344147824,
+     "B3": 0.910790213,
+     "C1": 0.00475112,
+     "C2": 0.0149814849,
+     "C3": 97.8600293
+    },
+    "catalog": {
+     "nd": 1.48749,
+     "vd": 70.41
+    },
+    "src": "SCOL",
+    "loc": "N-FK5 datasheet page (footer \"As of 02-Feb 2014\")",
+    "quote": "N-FK5 nd = 1.48749 ... B1 0.844309338 B2 0.344147824 B3 0.910790213 C1 0.004751120 C2 0.0149814849 C3 97.86002930"
+   },
+   "SCHOTT_FK5HTi": {
+    "used_in": [
+     "candidate for HARPS \"FK5\" grism (classic FK5 composition, high-transmission version)"
+    ],
+    "formula": "Sellmeier_SCHOTT",
+    "coefficients": {
+     "B1": 0.90936218,
+     "B2": 0.279077054,
+     "B3": 0.891813298,
+     "C1": 0.005201425,
+     "C2": 0.0158938446,
+     "C3": 95.9109448
+    },
+    "catalog": {
+     "nd": 1.48748,
+     "vd": 70.47
+    },
+    "src": "SCOL",
+    "loc": "FK5HTi datasheet page (footer \"As of 17-May-2013\")",
+    "quote": "FK5HTi nd = 1.48748 ... B1 0.909362180 B2 0.279077054 B3 0.891813298 C1 0.005201425 C2 0.0158938446 C3 95.91094480",
+    "note": "HARPS documents say only \"FK5\". Classic SCHOTT FK5 (non-HTi) datasheet NOT FOUND; N-FK5 and FK5HTi differ by 1e-5 in nd."
+   },
+   "OHARA_PBM2Y": {
+    "used_in": [
+     "candidate for MIKE red prism \"Ohara PBM2\""
+    ],
+    "formula": "Sellmeier_OHARA",
+    "coefficients": {
+     "A1": 1.39446503,
+     "A2": 0.159230985,
+     "A3": 0.245470216,
+     "B1": 0.0110571872,
+     "B2": 0.0507194882,
+     "B3": 31.4440142
+    },
+    "catalog": {
+     "code_d": "620363",
+     "nd": 1.62004,
+     "vd": 36.27,
+     "ne": 1.624093
+    },
+    "validity": "326-1129 nm with these constants",
+    "src": "OH2Y",
+    "loc": "\"Constants of Dispersion Formula ※1\"; footer OHARA 25-04",
+    "quote": "A1 1.394 465 03E+00 A2 1.592 309 85E-01 A3 2.454 702 16E-01 B1 1.105 718 72E-02 B2 5.071 948 82E-02 B3 3.144 401 42E+01",
+    "note": "Footnote ※1: \"Refractive Indices of the wavelength nm can be calculated from 326 to 1129 nm by this constant. Use the appended list of the constants to calculate 1129-2325nm.\" -- the appended 1129-2325 nm list is NOT in the downloaded file."
+   },
+   "OHARA_PBM2R": {
+    "used_in": [
+     "candidate for MIKE red prism \"Ohara PBM2\""
+    ],
+    "formula": "Sellmeier_OHARA",
+    "coefficients": {
+     "A1": 1.34139422,
+     "A2": 0.21318551,
+     "A3": 0.983288016,
+     "B1": 0.00980301669,
+     "B2": 0.0470587088,
+     "B3": 117.45827
+    },
+    "catalog": {
+     "code_d": "620364",
+     "nd": 1.62004,
+     "vd": 36.41,
+     "ne": 1.624076
+    },
+    "src": "OH2R",
+    "loc": "\"Constants of Dispersion Formula\"; footer OHARA 25-04",
+    "quote": "A1 1.341 394 22E+00 A2 2.131 855 10E-01 A3 9.832 880 16E-01 B1 9.803 016 69E-03 B2 4.705 870 88E-02 B3 1.174 582 70E+02"
+   }
+  },
+  "checks": "Each SCHOTT/OHARA coefficient set was evaluated here and reproduces its own datasheet indices to the 5 printed decimals: nd for all; nF, nC, ni for N-BK7; nF, nC, nh for PBM 2R; nF, nC, ni and n(326.11 nm) = 1.69111 for PBM 2Y. (Check script kept outside the project.)",
+  "not_found": [
+   "A datasheet for plain \"Ohara PBM2\" as named in B03 (current OHARA sells PBM 2Y, code 620363, and PBM 2R, code 620364; both nd = 1.62004).",
+   "A datasheet for classic SCHOTT \"FK5\" (HARPS grism); N-FK5 and FK5HTi given instead.",
+   "Grism/prism glass for HIRES: none needed (grating cross-disperser). DESI and LRIS-red use no prism/grism cross-dispersers (LRIS-blue grisms: glass NOT FOUND)."
+  ]
+ }
+}

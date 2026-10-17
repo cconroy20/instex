@@ -1,0 +1,2363 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 3 (MMT/Hectospec, MMT/Hectochelle, GMT/G-CLEF) + objects per exposure for the slit-mask instruments of rounds 1-2",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json (round 1) and data/presets_sources_2.json (round 2); same structure. Keys KTG02, MMTB and F19 point to round-2 files. New top-level key 'multiplex' (objects per exposure); G-CLEF entries carry 'stage' (design stage of the number).",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values. alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text; degree glyphs, primes, soft hyphens and dashes normalised; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; pieces that differ only in punctuation/spacing are accepted."
+ },
+ "sources": {
+  "F05": {
+   "cite": "Fabricant, D., et al. 2005, PASP 117, 1411, \"Hectospec, the MMT's 300 Optical Fiber-Fed Spectrograph\", arXiv:astro-ph/0508554v1 (accepted manuscript, 68 pp.)",
+   "file": "rawdata/presets/hectospec/Fabricant2005_PASP117_1411_Hectospec_arXiv-astro-ph0508554.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0508554"
+  },
+  "HOM07": {
+   "cite": "SAO/CfA, \"Hectospec Observers Manual\" (PDF title \"Hectospec Users Manual\", created 2007-10-24; 80 pp.; linked from the CfA Hectospec page as \"Hectospec Observers Manual\")",
+   "file": "rawdata/presets/hectospec/cfa_Hectospec_Observers_Manual_oct2007.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectospec/Hectospec_Observers_Manual_oct2007.pdf"
+  },
+  "HHM04": {
+   "cite": "SAO/CfA (D. Fabricant), \"Hectospec Hardware Manual\" (PDF title \"Hectospec_Hardware_Manual.doc\", author dgf, created 2004-04-11; 100 pp.; linked from the CfA Hectospec page as \"Draft Hectospec Hardware Reference Manual\")",
+   "file": "rawdata/presets/hectospec/cfa_Hectospec_Hardware_Manual.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectospec/Hectospec_Hardware_Manual.pdf"
+  },
+  "CFAHS": {
+   "cite": "Center for Astrophysics, \"SAO Instruments for the Converted MMT - Hectospec\" web page (fetched 2026-10-17)",
+   "file": "rawdata/presets/hectospec/cfa_mmti_hectospec.html",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectospec/hectospec.html"
+  },
+  "MMTOH": {
+   "cite": "MMT Observatory, \"Hectospec & Hectochelle\" instrument page (legacy information; states both instruments were permanently decommissioned in summer 2026; fetched 2026-10-17)",
+   "file": "rawdata/presets/hectospec/mmto_hectospec_hectochelle.html",
+   "url": "https://www.mmto.org/instrument-suite/hectospec-hectochelle/"
+  },
+  "S11": {
+   "cite": "Szentgyorgyi, A., et al. 2011, PASP 123, 1188, \"Hectochelle: A Multiobject Optical Echelle Spectrograph for the MMT\" (publisher's version as distributed by JSTOR, hosted on the CfA Hectochelle page; no arXiv version found). The PDF text layer renders some decimal points as ':' (e.g. '9:1' = 9.1) and drops superscript minus signs (e.g. 'km s1' = km s^-1)",
+   "file": "rawdata/presets/hectochelle/Szentgyorgyi2011_PASP123_1188_Hectochelle_JSTORcopy_cfa.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectospec/hectochelle_pasp.pdf"
+  },
+  "HCOG": {
+   "cite": "Szentgyorgyi, A., Conroy, M., Furesz, G. & Caldwell, N., \"Hectochelle Observers Guide\" (Issued 1 Apr 2006 / Revision Date 12 Sept 2023; PDF created 2024-04-29; 71 pp.)",
+   "file": "rawdata/presets/hectochelle/cfa_Hectochelle_Observers_Manual.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectospec/Hectochelle_Observers_Manual.pdf"
+  },
+  "CFAHC": {
+   "cite": "Center for Astrophysics, \"SAO Instruments for the Converted MMT - Hectochelle\" web page (fetched 2026-10-17)",
+   "file": "rawdata/presets/hectochelle/cfa_mmti_hectochelle.html",
+   "url": "https://lweb.cfa.harvard.edu/mmti/hectochelle.html"
+  },
+  "GC12": {
+   "cite": "Szentgyorgyi, A., et al. 2012, Proc. SPIE 8446, 84461H, \"The GMT-CfA, Carnegie, Catolica, Chicago Large Earth Finder (G-CLEF): A General Purpose Optical Echelle Spectrograph for the GMT with Precision Radial Velocity Capability\" (conceptual design; copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2012SPIE.8446E1H.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2016/06/2012SPIE.8446E1H.pdf"
+  },
+  "GC14O": {
+   "cite": "Szentgyorgyi, A., et al. 2014, Proc. SPIE 9147, 914726, \"A Preliminary Design for the GMT-Consortium Large Earth Finder (G-CLEF)\" (PDR-era overview; copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2014SPIE.914726.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2016/07/2014SPIE.914726.pdf"
+  },
+  "GC14D": {
+   "cite": "Furesz, G., et al. 2014, Proc. SPIE 9147, 91479G, \"The G-CLEF Spectrograph Optical Design\" (preliminary-design-review baseline; copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2014SPIE.91479G.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2016/07/2014SPIE.91479G.pdf"
+  },
+  "GC16O": {
+   "cite": "Szentgyorgyi, A., et al. 2016, Proc. SPIE 9908, 990822, \"The GMT-Consortium Large Earth Finder (G-CLEF): An optical echelle spectrograph for the Giant Magellan Telescope (GMT)\" (post-PDR overview; copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2016SPIE.990822.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2016/08/2016SPIE.990822.pdf"
+  },
+  "GC16D": {
+   "cite": "Ben-Ami, S., Epps, H., Evans, I., Mueller, M., Podgorski, W. & Szentgyorgyi, A. 2016, Proc. SPIE 9908, 9908A0, \"The optical design of the G-CLEF Spectrograph: the first light instrument for the GMT\" (post-PDR re-optimised design, with full prescriptions; copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2016SPIE.9908A0.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2016/08/2016SPIE.9908A0.pdf"
+  },
+  "GC18O": {
+   "cite": "Szentgyorgyi, A., et al. 2018, Proc. SPIE 10702, 107021R, \"The GMT-consortium large earth finder (G-CLEF): an optical echelle spectrograph for the Giant Magellan Telescope (GMT)\" (pre-CDR overview; SPIE-stamped copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2018SPIE.107021R.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2018/07/2018SPIE.107021R.pdf"
+  },
+  "GC18D": {
+   "cite": "Ben-Ami, S., et al. 2018, Proc. SPIE 10702, 107029K, \"The optical design of the G-CLEF Spectrograph: the first light instrument for the GMT\" (\"current, pre-construction G-CLEF optical design\"; SPIE-stamped copy on the G-CLEF project site)",
+   "file": "rawdata/presets/gclef/gclef_cfa_2018SPIE.107029K.pdf",
+   "url": "https://gclef.cfa.harvard.edu/wp-content/uploads/2018/07/2018SPIE.107029K.pdf"
+  },
+  "GCWEB1": {
+   "cite": "G-CLEF project site (CfA), \"Instrument Characteristics and Observation Modes\" page (undated; footer 'Copyright (c) 2017'; fetched 2026-10-17)",
+   "file": "rawdata/presets/gclef/gclef_cfa_instrument-characteristics-and-observation-modes.html",
+   "url": "https://gclef.cfa.harvard.edu/technology/instrument-characteristics-and-observation-modes/"
+  },
+  "GCWEB2": {
+   "cite": "G-CLEF project site (CfA), \"Technology\" page with 'Instrument Characteristics' table (undated; says G-CLEF 'has recently passed preliminary design review (PDR)'; footer 'Copyright (c) 2017'; fetched 2026-10-17)",
+   "file": "rawdata/presets/gclef/gclef_cfa_technology.html",
+   "url": "https://gclef.cfa.harvard.edu/technology/"
+  },
+  "GCM23": {
+   "cite": "Jurgenson, C., Szentgyorgyi, A., et al., \"G@M: Design of the Giant Magellan Telescope Consortium Large Earth Finder (G-CLEF) for Operations at the Magellan Telescopes\", poster, EPRV5 conference (file gclef_eprv5_20230327_PrintVersion.pdf; PDF created 2023-04-03; one page; text layer interleaves columns)",
+   "file": "rawdata/presets/gclef/gclef_EPRV5_2023-03-27_talk_PrintVersion.pdf",
+   "url": "https://conference.ipac.caltech.edu/eprv5/system/media_files/binaries/138/original/gclef_eprv5_20230327_PrintVersion.pdf?1680806337"
+  },
+  "GC24": {
+   "cite": "Leung, M. C. H., Jurgenson, C. A., Szentgyorgyi, A., et al. 2024, \"Off-axis Hartmann Wavefront Sensing for the GMT-Consortium Large Earth Finder (G-CLEF) Red Camera Optics\", arXiv:2407.20344v1",
+   "file": "rawdata/presets/gclef/arXiv2407.20344_GCLEF_red_camera_Hartmann_2024.pdf",
+   "url": "https://arxiv.org/pdf/2407.20344"
+  },
+  "GC25": {
+   "cite": "Leung, M. C. H., Jurgenson, C., Szentgyorgyi, A., et al. 2025, \"Crank-rocker optical fiber mode scrambler prototype for the GMT-Consortium Large Earth Finder (G-CLEF)\", arXiv:2509.18306v1",
+   "file": "rawdata/presets/gclef/arXiv2509.18306_GCLEF_mode_scrambler_2025.pdf",
+   "url": "https://arxiv.org/pdf/2509.18306"
+  },
+  "N13": {
+   "cite": "Newman, J. A., et al., \"The DEEP2 Galaxy Redshift Survey: Design, Observations, Data Reduction, and Redshifts\", arXiv:1203.3192v3 (DEIMOS 1200-line survey; 60 pp.)",
+   "file": "rawdata/presets/multiplex/Newman2013_DEEP2_survey_arXiv1203.3192v3.pdf",
+   "url": "https://arxiv.org/pdf/1203.3192"
+  },
+  "S03": {
+   "cite": "Steidel, C. C., et al., \"Lyman Break Galaxies at Redshift z~3: Survey Description and Full Data Set\", arXiv:astro-ph/0305378v1 (Keck/LRIS multislit survey)",
+   "file": "rawdata/presets/multiplex/Steidel2003_LBG_z3_survey_arXiv-astro-ph0305378.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0305378"
+  },
+  "CW05": {
+   "cite": "Cooke, J., Wolfe, A. M., et al., \"Survey for Galaxies Associated with z~3 Damped Lyman alpha Systems I: Spectroscopic Calibration of u'BVRI Photometric Selection\", arXiv:astro-ph/0411681v1 (Keck/LRIS multislit, 2000-2004)",
+   "file": "rawdata/presets/multiplex/CookeWolfe2005_DLA_LBG_survey_arXiv-astro-ph0411681.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0411681"
+  },
+  "KAR20": {
+   "cite": "Karim, T., Lee, J. H., Eisenstein, D. J., et al., \"Validation of Emission-Line Galaxies Target Selection Algorithms for the Dark Energy Spectroscopic Instrument Using the MMT Binospec\", arXiv:2007.14484 (MNRAS preprint, 30 July 2020)",
+   "file": "rawdata/presets/multiplex/Karim2020_DESI_ELG_Binospec_arXiv2007.14484.pdf",
+   "url": "https://arxiv.org/pdf/2007.14484"
+  },
+  "KTG02": {
+   "cite": "W. M. Keck Observatory, \"Keck telescope and instrument guide\" update (PDF created 2002-09-11) -- SAME FILE as round 2 key KTG02",
+   "file": "rawdata/presets/deimos/keck_telescope_guide_ktelinstupdate.pdf",
+   "url": "https://www2.keck.hawaii.edu/observing/kecktelgde/ktelinstupdate.pdf"
+  },
+  "MMTB": {
+   "cite": "MMT Observatory, \"Binospec information for users\" web page (fetched 2026-10-16) -- SAME FILE as round 2 key MMTB",
+   "file": "rawdata/presets/binospec/mmto_binospec_info_p1901.html",
+   "url": "https://www.mmto.org/?p=1901"
+  },
+  "F19": {
+   "cite": "Fabricant, D., et al. 2019, PASP 131, 075004, \"Binospec: A Wide-field Imaging Spectrograph for the MMT\", arXiv:1905.03320 -- SAME FILE as round 2 key F19",
+   "file": "rawdata/presets/binospec/Fabricant2019_PASP131_075004_Binospec_arXiv1905.03320.pdf",
+   "url": "https://arxiv.org/pdf/1905.03320"
+  }
+ },
+ "hectospec": {
+  "title": "MMT / Hectospec (300-fiber bench spectrograph, plane reflection gratings, catadioptric camera)",
+  "recommended_preset": "270 gpm grating (blaze 5200 A per the manuals and MMTO; 'blazed at 5000 A' in F05), first order, set up for H-alpha: angle of incidence 22.83 deg, diffraction angle 12.17 deg on the camera side (fixed 35 deg camera-collimator angle; the published angles obey sin(alpha) - sin(beta) = m g lambda, see Notes), 250 um / 1.5\" fiber at f/5.3, spherical collimator mirror (f ~1374 mm DERIVED from the Zemax radius; beam 259 mm), catadioptric camera 397 mm, two E2V 42-90 CCDs with 4608 px x 13.5 um along dispersion. Validate against: 1.21 A/px (manual, MMTO) or 1.2 A/px (F05); 6.2 A FWHM (F05) or 5.8-5.0 A measured at 4500/7000 A (manual); coverage 4488-8664 A over the nominal 3400 px (manual table) and 5770 A over the full chip (manual; MMTO 3650-9200 A); R ~1000-2000 (F05). The grating equation reproduces the manual's angles to 1 A and the A/px to 2% (DERIVED, Notes). The 600 gpm grating (AOI 29.41 deg, 0.55 A/px, 2.2-1.9 A FWHM, R up to ~3700) is fully tabulated as the alternative.",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "F05",
+    "loc": "Sec. 1.2",
+    "quote": "The MMT’s f/5 optical system is comprised of a 6.5 m primary mirror, a 1.7 m secondary mirror"
+   },
+   "telescope_focus": {
+    "value": "MMT f/5 Cassegrain, wide-field corrector in its spectroscopic mode (1 deg field on a curved, telecentric focal surface 0.6 m across; counter-rotating ADC prisms)",
+    "unit": null,
+    "src": "F05",
+    "loc": "Sec. 1.2",
+    "quote": "The MMT’s f/5 optical system is comprised of a 6.5 m primary mirror ... For wide field spectroscopy with ... optical fibers, the corrector provides a 1◦ diameter field of view on a curved but telecentric focal surface 0.6 meters in diameter. ... The spectroscopic mode of the corrector includes counterrotating atmospheric dispersion compensation prisms that are removed for the imaging mode.",
+    "alternatives": [
+     {
+      "value": "Cassegrain focus",
+      "src": "MMTOH",
+      "loc": "Further Information",
+      "quote": "fiber fed by 300, 25m long optical fibers from the telescope’s Cassegrain focus"
+     }
+    ]
+   },
+   "telescope_focal_ratio_fiber_input": {
+    "value": 5.3,
+    "unit": "f/#",
+    "src": "F05",
+    "loc": "Sec. 4.2",
+    "quote": "a focal ratio of f/5.3, the final focal ratio of the spectroscopic wide field corrector and the design focal ratio of the Hectospec bench spectrograph",
+    "alternatives": [
+     {
+      "value": 5,
+      "src": "F05",
+      "loc": "Sec. 1.2",
+      "quote": "The MMT’s f/5 optical system",
+      "note": "nominal name of the focus"
+     }
+    ]
+   },
+   "fiber_core_diameter": {
+    "value": 250,
+    "unit": "um (core/cladding/buffer 250/275/300 um)",
+    "src": "HOM07",
+    "loc": "Sec. 3.2.1 'Optical design parameters'",
+    "quote": "Fiber core/cladding/buffer 250/275/300 µm",
+    "alternatives": [
+     {
+      "value": 250,
+      "src": "F05",
+      "loc": "Sec. 3.3.1",
+      "quote": "With perfect optics, the image of the 250 µm fiber should be an ellipse 5.4 by 5.1 pixels across."
+     }
+    ]
+   },
+   "fiber_core_on_sky": {
+    "value": 1.5,
+    "unit": "arcsec (diameter)",
+    "src": "HOM07",
+    "loc": "Sec. 1 Introduction",
+    "quote": "Each fiber has a core diameter of 250 µm, subtending 1.5″ on the sky.",
+    "alternatives": [
+     {
+      "value": 1.5,
+      "src": "F05",
+      "loc": "Abstract",
+      "quote": "Correcting for aperture losses at the 1.5′′ diameter fiber entrance aperture"
+     },
+     {
+      "value": 1.5,
+      "src": "MMTOH",
+      "loc": "Further Information",
+      "quote": "has a core diameter of 250um that subtends to 1.5″ on the sky"
+     }
+    ],
+    "derived": "DERIVED fibre-plane scale: 250 um / 1.5\" = 166.7 um/arcsec (S11 gives 170 um/arcsec 'averaged over the entire field' for the same f/5 focus; 250/170 = 1.47\")"
+   },
+   "fiber_count": {
+    "value": 300,
+    "unit": "fibers (all 300 reach the Hectospec detector)",
+    "src": "F05",
+    "loc": "Abstract",
+    "quote": "The Hectospec is a 300 optical fiber fed spectrograph commissioned at the MMT in the spring of 2004.",
+    "alternatives": [
+     {
+      "value": 300,
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "a moderate resolution spectrograph at R = 1000 to 2500 and exploits all 300 available fibers"
+     }
+    ]
+   },
+   "fiber_length": {
+    "value": 26,
+    "unit": "m",
+    "src": "F05",
+    "loc": "Abstract",
+    "quote": "The optical fibers run for 26 m between the MMT’s focal surface and the bench spectrograph",
+    "alternatives": [
+     {
+      "value": 25,
+      "src": "MMTOH",
+      "loc": "Further Information",
+      "quote": "fiber fed by 300, 25m long optical fibers"
+     }
+    ]
+   },
+   "fiber_frd": {
+    "value": "spec: 87% of light entering at f/5.3 must exit within f/5.3; lab: ~95% within f/6 when fed at f/6 (25 m); a pupil mask at the grating rejects FRD light",
+    "unit": null,
+    "src": "F05",
+    "loc": "Sec. 4.2; Sec. 3.3.1",
+    "quote": "requiring that 87% of the light entering the fibers at f/5.3 exit within an f/5.3 cone if the total throughput specification is to be met ... We have a pupil mask at the grating to reject most of this focal ratio degraded light",
+    "alternatives": [
+     {
+      "value": "~95% within f/6 (fed at f/6, 25 m)",
+      "src": "HHM04",
+      "loc": "Sec. 3.2.1",
+      "quote": "~95% of all the light transmitted by a 25 m length of fiber remains within an f/6 cone if the fiber is fed with an f/6 beam and care is taken to avoid stressing the fiber."
+     }
+    ]
+   },
+   "fiber_slit_geometry": {
+    "value": "two parallel columns ~1.6 mm apart, 0.96 mm pitch, offset 0.48 mm -> 0.48 mm effective fibre pitch; images 0.1379 mm (10.2 px) apart on the CCD",
+    "unit": null,
+    "src": "F05",
+    "loc": "Sec. 3.1.2",
+    "quote": "the optical fibers are arranged in two parallel columns spaced ∼1.6 mm apart. The fibers in each column are spaced on 0.96 mm centers, but the two columns are offset by 0.48 mm, giving a final effective fiber to fiber spacing of 0.48 mm.",
+    "alternatives": [
+     {
+      "value": "0.1379 mm = 10.2 px",
+      "src": "HHM04",
+      "loc": "Sec. 3.3.3",
+      "quote": "The fiber images are spaced by 0.1379 mm center-to-center in the spatial direction at the center of the field. This corresponds to 10.2 pixels."
+     }
+    ]
+   },
+   "collimator_type": {
+    "value": "spherical concave mirror, on-axis (fibres point at the local mirror normal; the return beam passes the fibre shoe), f/5.4",
+    "unit": null,
+    "src": "HOM07",
+    "loc": "Sec. 3.1",
+    "quote": "A spherical collimator mirror operating at f/5.4 is used because the imaging is independent of field angle if the fibers are arranged so as to point at the local normal to the mirror.",
+    "alternatives": [
+     {
+      "value": "on-axis collimator mirror",
+      "src": "F05",
+      "loc": "Sec. 3.1.2",
+      "quote": "minimized to reduce the obscuration of the beam returning past the fibers from the on-axis collimator mirror"
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 1374.1,
+    "unit": "mm",
+    "src": "HOM07",
+    "loc": "Sec. 3.2.2 Zemax prescription (as-built, 270 grating), surface 3",
+    "quote": "3 STANDARD -2748.153 -2748.788 MIRROR 548.278 0",
+    "is_derived": true,
+    "derived": "DERIVED: f = R/2 = 2748.153/2 = 1374.1 mm (object distance in the same prescription: 1371.600 mm). Cross-check: reduction 3.45 x camera 397 mm = 1369.7 mm. A collimator focal length is NOT stated as a number in any source.",
+    "note": "Prescription header: 'Title: HECTOSPEC, RUN 815, 5/17/94 ... Date : WED MAR 19 2003'; file 'R815_270_as_built_thk.ZMX'"
+   },
+   "collimated_beam_diameter": {
+    "value": 259,
+    "unit": "mm",
+    "src": "HOM07",
+    "loc": "Sec. 3.2.1",
+    "quote": "Collimated beam diameter 259 mm",
+    "alternatives": [
+     {
+      "value": 259,
+      "src": "F05",
+      "loc": "Sec. 3.4",
+      "quote": "Hectospec’s 259 mm collimated beam diameter requires large custom ruled gratings."
+     },
+     {
+      "value": 254.0,
+      "src": "HOM07",
+      "loc": "Sec. 3.2.2 prescription, STO surface",
+      "quote": "STO STANDARD Infinity 1371.600 254.000 0",
+      "note": "stop diameter in the Zemax file"
+     }
+    ],
+    "derived": "DERIVED: 1374.1/259 = f/5.31 (matches the f/5.3 fibre feed)"
+   },
+   "camera_type": {
+    "value": "catadioptric, internal focus (HIRES-style, Epps): spherical mirror + two all-spherical fused-silica corrector lenses + silica field-flattener that is the dewar window; dewar sits in the beam",
+    "unit": null,
+    "src": "HOM07",
+    "loc": "Sec. 3.1",
+    "quote": "The camera is also a reflective system with a spherical mirror and two all-spherical silica corrector lenses and a silica field flattener lens that serves as the dewar window. The camera is based on the Keck HIRES camera, and was designed by Harland Epps.",
+    "alternatives": [
+     {
+      "value": "internal-focus catadioptric",
+      "src": "F05",
+      "loc": "Sec. 3.1.1",
+      "quote": "Hectospec uses an internal focus catadioptric camera"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 397,
+    "unit": "mm",
+    "src": "HOM07",
+    "loc": "Sec. 3.2.1",
+    "quote": "Camera focal length 397 mm",
+    "alternatives": [
+     {
+      "value": 397,
+      "src": "HHM04",
+      "loc": "Sec. 3.3.1",
+      "quote": "Camera focal length 397 mm"
+     }
+    ],
+    "derived": "DERIVED camera focal ratio: 397/259 = f/1.53 (not stated in any source)"
+   },
+   "camera_misc": {
+    "value": "field radius 4.7 deg; entrance aperture 411 mm; max monochromatic beam 259 x 344 mm; camera-grating distance 546 mm",
+    "unit": null,
+    "src": "HOM07",
+    "loc": "Sec. 3.2.1",
+    "quote": "Max. monochromatic beam to camera 259x344 mm ... Camera field radius 4.7° ... Camera-grating distance 546 mm ... Camera entrance aperture 411 mm"
+   },
+   "reduction": {
+    "value": 3.45,
+    "unit": "(spatial, slit -> detector demagnification)",
+    "src": "F05",
+    "loc": "Sec. 3.3.1",
+    "quote": "Hectospec’s optics have a reduction of 3.45, with an anamorphic demagnification (in the spectral direction) of 1.06 with the 270 groove mm−1 grating.",
+    "alternatives": [
+     {
+      "value": 3.45,
+      "src": "HOM07",
+      "loc": "Sec. 3.2.1",
+      "quote": "Reduction (spatial) 3.45"
+     }
+    ]
+   },
+   "camera_collimator_angle": {
+    "value": 35,
+    "unit": "deg (fixed; grating rotation sets the wavelength)",
+    "src": "HOM07",
+    "loc": "Sec. 3.2.1",
+    "quote": "Camera-collimator angle 35°",
+    "alternatives": [
+     {
+      "value": 35,
+      "src": "HHM04",
+      "loc": "Sec. 3.3.1",
+      "quote": "Camera-collimator angle 35°"
+     }
+    ],
+    "derived": "DERIVED check: incidence + diffraction angle = 22.83 + 12.17 = 29.41 + 5.59 = 41.89 + (-6.89) = 35.00 deg for every row of the grating table"
+   },
+   "grating_angles_Halpha_setup": {
+    "value": {
+     "270": {
+      "AOI_deg": 22.83,
+      "diffraction_deg": 12.17,
+      "anamorphic": 1.06
+     },
+     "600": {
+      "AOI_deg": 29.41,
+      "diffraction_deg": 5.59,
+      "anamorphic": 1.14
+     },
+     "1200 (never built)": {
+      "AOI_deg": 41.89,
+      "diffraction_deg": -6.89,
+      "anamorphic": 1.33
+     }
+    },
+    "unit": "deg",
+    "src": "HOM07",
+    "loc": "Sec. 3.3 grating table (all set up with H-alpha central wavelength)",
+    "quote": "270 4488-8664 5.8-5.0 1.06 22.83 12.17 1.3-1.8 ... 600 5609-7522 2.2-1.9 1.14 29.41 5.59 1.3-1.8 ... 1200 6084-7038 1.1 1.33 41.89 -6.89 1.4-1.7",
+    "note": "Zemax surfaces for the 270 at 6563 A: 'Coordinate Break Surface 4: Tilt About X : 22.83° Diffraction Grating Surface 5: Lines / Micron : 0.27 Coordinate Break Surface 6: Tilt About X : 12.17°'. Manual: 'The 1200 gpm grating does not actually exist'.",
+    "derived": "DERIVED sign convention: (sin a - sin b)/g = 6562.4 A (270), 6560.8 A (600), 6563.9 A (1200); i.e. the tabulated 'angle of diffraction' is measured on the opposite side of the grating normal from the standard sin a + sin b = m g lambda convention (beta_std = -12.17 deg for the 270). Anamorphic cos(b)/cos(a) = 1.061 / 1.143 / 1.334 -- matches the table."
+   },
+   "gratings": {
+    "value": {
+     "270": {
+      "l_per_mm": 270,
+      "blaze_A": 5200,
+      "maker": "Richardson Grating Laboratory"
+     },
+     "600": {
+      "l_per_mm": 600,
+      "blaze_A": 6000,
+      "maker": "Richardson Grating Laboratory"
+     }
+    },
+    "unit": "lines/mm; blaze wavelength A",
+    "src": "HOM07",
+    "loc": "Sec. 3.3",
+    "quote": "We currently have available a 270 groove/mm grating blazed at 5200 Å, and a 600 gpm grating blazed at 6000 Å, both purchased from David Richardson Grating Laboratory.",
+    "alternatives": [
+     {
+      "value": "270 blazed at 5000 A; 600 blazed at 6000 A",
+      "src": "F05",
+      "loc": "Sec. 3.4",
+      "quote": "a 270 groove mm−1 grating blazed at 5000 Å and a 600 groove mm−1 grating blazed at 6000 Å. In both cases we specified a 5000 Å blaze"
+     },
+     {
+      "value": "270 at ~5000 A; 600 at ~6000 A",
+      "src": "HOM07",
+      "loc": "Sec. 1 Introduction",
+      "quote": "Currently we possess a 270 line mm-1 grating blazed at ~5000 Å and a 600 line mm-1 grating blazed at ~6000 Å"
+     },
+     {
+      "value": "270: 5200 A; 600: 6000 A",
+      "src": "MMTOH",
+      "loc": "Fundamental Capabilities table",
+      "quote": "Hectospec 270 3650 – 9200 5200 1.21 5 Hectospec 600 5300 – 7800 6000 0.55 5"
+     }
+    ],
+    "note": "Blaze ANGLES are not given in any source. F05 also says 'A 600 line grating blazed in the red for the Hectospec will see first light during the second half of 2005' -- no later document read here describes a second 600 grating.",
+    "derived": "DERIVED Littrow blaze angles (assuming the quoted blaze wavelengths are Littrow values): 270 @ 5200 A 4.03 deg (@ 5000 A 3.87 deg); 600 @ 6000 A 10.37 deg. In the 35-deg geometry the blaze peak falls at 2 sin(thB) cos(17.5 deg)/g = 4960 A (270) and 5720 A (600)."
+   },
+   "detector": {
+    "value": "two E2V 42-90 CCDs, 4608 x 2048 each, 13.5 um, butted into 4608 x 4096; nominal design format 3400 x 3400",
+    "unit": null,
+    "src": "F05",
+    "loc": "Sec. 3.2",
+    "quote": "Hectospec uses two E2V model 42-90 4608X2048 CCDs with 13.5 µm pixels, arranged in a 4608X4096 array. The long axis of the CCDs are parallel to dispersion.",
+    "alternatives": [
+     {
+      "value": "CCD format (max) 4608x4096; (nominal) 3400x3400",
+      "src": "HOM07",
+      "loc": "Sec. 3.2.1",
+      "quote": "CCD format (max) 4608x4096 pixels ... CCD format (nominal) 3400x3400 pixels ... CCD pixel size 13.5 µm"
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "4608-px axis = dispersion; the CCD gap runs parallel to the spectra",
+    "unit": null,
+    "src": "HOM07",
+    "loc": "Sec. 1 Introduction",
+    "quote": "The detector array consists of two butted EEV CCDs, each with 2048 (spatial dimension) by 4608 (wavelength dimension) pixels. The gap is parallel to a dispersed spectrum."
+   },
+   "passband": {
+    "value": "3650-9200",
+    "unit": "A",
+    "src": "MMTOH",
+    "loc": "A Brief Description",
+    "quote": "Hectospec’s wavelength range covers 3650 – 9200Å.",
+    "alternatives": [
+     {
+      "value": "350-1000 nm band",
+      "src": "CFAHS",
+      "loc": "page text",
+      "quote": "The spectrograph currently offers 5770Å of spectral coverage at ~6Å resolution in the 350 to 1000 nm band."
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_range": {
+    "value": "1000-2000",
+    "unit": "lambda/dlambda",
+    "src": "F05",
+    "loc": "Abstract",
+    "quote": "the bench spectrograph operating at R∼1000-2000",
+    "alternatives": [
+     {
+      "value": "1000-2500",
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "a moderate resolution spectrograph at R = 1000 to 2500"
+     }
+    ]
+   },
+   "grating_270": {
+    "value": {
+     "A_per_px": 1.2,
+     "FWHM_A": 6.2
+    },
+    "unit": "A/px; A",
+    "src": "F05",
+    "loc": "Sec. 3.4",
+    "quote": "The 270 groove mm−1 grating provides a dispersion ... of 1.2 Å pixel−1 and a resolution of 6.2 Å FWHM.",
+    "alternatives": [
+     {
+      "value": {
+       "A_per_px": 1.21,
+       "coverage_A": 5770,
+       "FWHM": "slightly < 5 px, ~6 A"
+      },
+      "src": "HOM07",
+      "loc": "Sec. 1 Introduction",
+      "quote": "With the 270 line mm-1 grating the spectral coverage is 5770 Å, with a dispersion of 1.21 Å pixel-1. The image FWHM is slightly less than 5 pixels, or ~6 Å."
+     },
+     {
+      "value": {
+       "coverage_3400px_A": "4488-8664",
+       "FWHM_A_measured_4500/7000": "5.8-5.0"
+      },
+      "src": "HOM07",
+      "loc": "Sec. 3.3 table",
+      "quote": "270 4488-8664 5.8-5.0 1.06 22.83 12.17 1.3-1.8",
+      "note": "'The spectral resolutions quoted are as measured with arc lines, with the first number referring to wavelengths around 4500 Å, while the second refers to 7000 Å.' Coverage is for the nominal 3400 px; 'the full spectral coverage is ~1.35 times that shown in the table'"
+     },
+     {
+      "value": {
+       "FWHM_A_design": 6.2
+      },
+      "src": "HHM04",
+      "loc": "Sec. 3.3.2 table",
+      "quote": "270 4488-8664 6.2 1.06 22.83 12.17 1.3-1.8"
+     },
+     {
+      "value": {
+       "range_A": "3650-9200",
+       "blaze_A": 5200,
+       "A_per_px": 1.21,
+       "RMS_image_px": 5
+      },
+      "src": "MMTOH",
+      "loc": "Fundamental Capabilities table",
+      "quote": "Hectospec 270 3650 – 9200 5200 1.21 5"
+     }
+    ],
+    "derived": "DERIVED (grating eq., f_cam 397 mm, 13.5 um, H-alpha set-up): 1.231 A/px; 3400 px -> 4186 A (table: 4176 A); 4608 px -> 5673 A (manual 5770 A; MMTO 5550 A); fibre image 250/3.45/1.06 = 68.4 um = 5.06 px -> 6.23 A (F05: 6.2 A). R = 6563/6.2 = 1060; measured 4500/5.8 = 780, 7000/5.0 = 1400."
+   },
+   "grating_600": {
+    "value": {
+     "A_per_px": 0.5,
+     "FWHM_A": 2.6
+    },
+    "unit": "A/px; A",
+    "src": "F05",
+    "loc": "Sec. 3.4",
+    "quote": "The 600 groove mm−1 grating provides a dispersion of 0.5 Å pixel−1 and a resolution of 2.6 Å FWHM.",
+    "alternatives": [
+     {
+      "value": {
+       "coverage_3400px_A": "5609-7522",
+       "FWHM_A_measured_4500/7000": "2.2-1.9"
+      },
+      "src": "HOM07",
+      "loc": "Sec. 3.3 table",
+      "quote": "600 5609-7522 2.2-1.9 1.14 29.41 5.59 1.3-1.8"
+     },
+     {
+      "value": {
+       "range_A": "5300-7800",
+       "blaze_A": 6000,
+       "A_per_px": 0.55,
+       "RMS_image_px": 5
+      },
+      "src": "MMTOH",
+      "loc": "Fundamental Capabilities table",
+      "quote": "Hectospec 600 5300 – 7800 6000 0.55 5"
+     }
+    ],
+    "derived": "DERIVED (H-alpha set-up): 0.564 A/px; 3400 px -> 1918 A (table: 1913 A); 4608 px -> 2599 A (MMTO 5300-7800 = 2500 A). R = 4500/2.2 = 2050, 7000/1.9 = 3680, 6563/2.6 = 2520."
+   },
+   "fiber_image_size": {
+    "value": "5.4 x 5.1 px ellipse (perfect optics); FWHM 4.8-5.0 px (ZEMAX, matches observed); 5.4 px sampling",
+    "unit": "pixels",
+    "src": "F05",
+    "loc": "Sec. 3.3.1",
+    "quote": "With perfect optics, the image of the 250 µm fiber should be an ellipse 5.4 by 5.1 pixels across. ... Optical ray traces with ZEMAX predict that the azimuthally averaged two dimensional FWHM of the fiber image should be 4.8 to 5.0 pixels, which agrees with the observed azimuthally averaged FWHM.",
+    "alternatives": [
+     {
+      "value": 5.4,
+      "src": "HOM07",
+      "loc": "Sec. 3.2.1",
+      "quote": "250 µm fiber sampling 5.4 pixels"
+     }
+    ]
+   },
+   "rms_image_diameter": {
+    "value": "1.3-1.8",
+    "unit": "pixels (optics alone, point source in an f/5.3 cone)",
+    "src": "F05",
+    "loc": "Sec. 3.3.1",
+    "quote": "The RMS image diameters produced by the real optics, when illuminated by a point source emitting into an f/5.3 cone, are 1.3 to 1.8 pixels."
+   }
+  },
+  "not_found": [
+   "Collimator focal length as a stated number (DERIVED 1374.1 mm from the Zemax mirror radius; 1369.7 mm from 3.45 x 397 mm).",
+   "Camera focal ratio (DERIVED f/1.53).",
+   "Grating blaze ANGLES and ruled sizes (only blaze wavelengths; F05 says the 259 mm beam 'requires large custom ruled gratings').",
+   "A source-stated R per grating as a number other than the F05 range R~1000-2000 and the MMTO range 1000-2500; FWHM values in A are given and R is DERIVED.",
+   "Fabricant et al. 1998b (SPIE 3355, 'Construction of the Hectospec') was downloaded from the CfA page but its PDF has a broken font encoding (no usable text layer); it was deleted and not used. Its optics table is reproduced verbatim in the Hectospec Hardware Manual (HHM04).",
+   "Any document describing the red-blazed 600 gpm grating that F05 says would see first light in late 2005."
+  ],
+  "conflicts": [
+   "270 gpm blaze wavelength: 5200 A (HOM07 Sec. 3.3, HHM04, MMTOH) vs 5000 A (F05: 'blazed at 5000 Å'; HOM07 Sec. 1: '~5000 Å'). F05 says 5000 A was the specified blaze and that blaze control was difficult.",
+   "270 gpm FWHM: 6.2 A (F05; HHM04 design table) vs 5.8-5.0 A measured at 4500/7000 A (HOM07) vs '~6 A' (HOM07 intro, CFAHS).",
+   "600 gpm dispersion: 0.5 A/px (F05) vs 0.55 A/px (MMTOH) vs 0.564 A/px DERIVED; FWHM 2.6 A (F05, HHM04) vs 2.2-1.9 A measured (HOM07).",
+   "270 gpm coverage: 5770 A (HOM07, CFAHS) vs 3650-9200 A = 5550 A (MMTOH) vs 4488-8664 A for the nominal 3400 px (HOM07 table).",
+   "R range: 1000-2000 (F05) vs 1000-2500 (MMTOH).",
+   "Fibre length: 26 m (F05, HOM07 Sec. 1) vs 25 m (MMTOH, CFAHS).",
+   "Collimator f/#: 'operating at f/5.4' (HOM07) vs the f/5.3 fibre feed (F05); 1374.1/259 = f/5.31, 1374.1/254 (Zemax stop) = f/5.41 (DERIVED)."
+  ],
+  "notes": [
+   "Status: MMTOH states 'Hectospec and Hectochelle were permanently decommissioned in summer 2026' -- the preset describes a retired instrument.",
+   "Sign convention for the app: with the camera on the far side of the collimator by 35 deg, use alpha = 22.83 deg and beta_std = -12.17 deg in sin a + sin b = m g lambda (270 @ H-alpha). The grating rotates (HOM07 Sec. 4.5 'move the grating to the removal angle (120 degrees)') to set lambda_c.",
+   "Fibre slit: the fibre ends point at the local normal of the spherical collimator (radius of curvature of the fibre-end arc 54.138 in, HHM04 Sec. 3.3.3), so the collimator works on-axis for every fibre; the spatial magnification is 1/3.45 = 0.290.",
+   "Pixel scale along the slit (DERIVED): 13.5 um x 3.45 = 46.6 um at the fibre = 0.28\" per pixel (166.7 um/arcsec); not physically meaningful for fibres but useful for the app's spatial axis."
+  ]
+ },
+ "hectochelle": {
+  "title": "MMT / Hectochelle (240-fiber single-order echelle; order selected by interference filters, no cross-disperser)",
+  "recommended_preset": "RV31 filter (order 31, CWL 5230 A, FWHM 160 A in the paper; 523.0/16.0 nm in the 2023 guide), echelle 110 l/mm blazed 64.5 deg (R2) used with alpha = 72 deg, beta = 57 deg at the order centre (fixed 15 deg opening angle -> in-plane quasi-Littrow offset theta = 7.5 deg, DERIVED), 250 um / 1.5\" fibre at f/5.4 into a 254 mm beam (spherical Schmidt collimator, f = 1368.55 mm DERIVED from R = 2737.10 mm), catadioptric camera (25.3 in = 642.6 mm in the observers guide; 0.49 x 1368.55 = 670.6 mm from the stated 0.49 demagnification -- conflict, see below), two E2V CCD42-90 2048 x 4608 x 13.5 um with 4608 px along dispersion. Validate against R = 38,000 typical (32,000 'nominal' from the fibre-image diameter), LSF FWHM 3.4-4.2 px, ~150 A per order, 'half-pixel shift at 5200 A ~ 1 km/s' (-> ~0.035 A/px), MMTO 0.04 A/px.",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "S11",
+    "loc": "Sec. 1",
+    "quote": "spectrograph deployed at the 6.5 m MMT Observatory on Mount Hopkins, Arizona"
+   },
+   "telescope_focus": {
+    "value": "MMT f/5 focus with refractive wide-field corrector + ADC (shared Hectospec robot positioner and fibres)",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 2",
+    "quote": "Hectochelle is operated at the f/5 focus of the MMT that is corrected to a 1° diameter, curved field of view with a refractive, wide-field corrector"
+   },
+   "fiber_plate_scale": {
+    "value": 170,
+    "unit": "um/arcsec (averaged over the field)",
+    "src": "S11",
+    "loc": "Sec. 2",
+    "quote": "The plate scale at f/5 is 170 μm arcsec ... averaged over the entire field, so the 250 μm diameter core optical fibers that feed Hectochelle subtend 1.5′′ on the sky. The total slit length is 6′ on the sky."
+   },
+   "fiber_core_diameter": {
+    "value": 250,
+    "unit": "um",
+    "src": "S11",
+    "loc": "Sec. 3.6",
+    "quote": "The 250 μm core fibers that feed Hectochelle were purchased from Polymicro",
+    "alternatives": [
+     {
+      "value": "250 um = 1.5\"",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "The fiber core diameter is 250μm, or 1.5\" at the MMT f/5 plate scale."
+     }
+    ]
+   },
+   "fiber_core_on_sky": {
+    "value": 1.5,
+    "unit": "arcsec (diameter)",
+    "src": "S11",
+    "loc": "Abstract",
+    "quote": "the individual fiber slits are 1.5′′ in diameter"
+   },
+   "fiber_count": {
+    "value": "240 of the 300 Hectospec fibres",
+    "unit": "fibers",
+    "src": "S11",
+    "loc": "Sec. 2",
+    "quote": "Since Hectospec has greater reduction than Hectochelle, Hectochelle only accesses 240 of the 300 Hectospec optical fibers.",
+    "alternatives": [
+     {
+      "value": 240,
+      "src": "S11",
+      "loc": "Abstract",
+      "quote": "Hectochelle can record up to 240 spectra simultaneously at a resolution of 38,000."
+     },
+     {
+      "value": 240,
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "only 240 fiber images fall on the Hectochelle focal plane format, while Hectospec exploits all 300 available fibers."
+     }
+    ]
+   },
+   "fiber_feed_focal_ratio": {
+    "value": "f/5.4 in; output masked to f/5.4 at the grating pupil (typical FRD loss 8%)",
+    "unit": "f/#",
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "The input to the fibers at the telescope focal plane is f/5.4, but focal-ratio degradation will tend to reduce the output focal ratio somewhat. For this reason, the fiber output is masked to f/5.4 with an aperture at the pupil formed on the echelle grating. ... a typical loss of 8% is to be expected.",
+    "alternatives": [
+     {
+      "value": 5.4,
+      "src": "S11",
+      "loc": "Table 1",
+      "quote": "Input focal ratio . . . . . . . . . . . 5.4"
+     }
+    ]
+   },
+   "fiber_slit": {
+    "value": "Schmidt-geometry curved fibre slit; fibre pitch 0.480 mm (0.04 deg); slit radius 1371.6 mm",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "The center-to-center distance between the fibers in perpendicular to the dispersion direction is 0.480 mm and the fiber-to-fiber angular divergence is 0.04°.",
+    "alternatives": [
+     {
+      "value": "slit radius 1371.6 mm",
+      "src": "S11",
+      "loc": "Sec. 4.3",
+      "quote": "Since the collimator has Schmidt geometry, the slit is curved and has a 1371.6 mm"
+     }
+    ]
+   },
+   "spectrograph_type": {
+    "value": "Schmidt-geometry, all-spherical; slit at half the collimator radius; echelle at the common centre of curvature (pupil on the grating)",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "Hectochelle is a Schmidt-geometry spectrograph. ... The echelle grating is centered on common center of curvature of the Schmidt system; hence, the collimator forms a pupil on the grating."
+   },
+   "collimator_type": {
+    "value": "spherical concave mirror (Zerodur, LLNL silver coating); R = 2737.10 mm CC, clear aperture 591.82 mm; on a focus stage",
+    "unit": null,
+    "src": "S11",
+    "loc": "Table 2",
+    "quote": "Collimator . . . . . . . . . . . . . 2737.10 CC 591.82 Mirror −2736.85",
+    "alternatives": [
+     {
+      "value": "spherical mirror, LLNL multilayer, Zerodur",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "The collimator is a spherical mirror with a Lawrence Livermore durable multilayer coating on a Zerodur substrate."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 1368.55,
+    "unit": "mm",
+    "src": "S11",
+    "loc": "Table 2 + Sec. 3.1",
+    "quote": "Collimator . . . . . . . . . . . . . 2737.10 CC",
+    "is_derived": true,
+    "derived": "DERIVED: f = R/2 = 2737.10/2 = 1368.55 mm (Schmidt slit at half the radius; Table 2 slit-to-collimator thickness 1367.45 mm). 1368.55/254 = f/5.39 (stated input f/5.4). Not stated as a number in any source."
+   },
+   "collimated_beam_diameter": {
+    "value": 254,
+    "unit": "mm",
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "The spectrograph beam size is 254 mm and the spectrograph input focal ratio is f/5.4."
+   },
+   "echelle": {
+    "value": {
+     "l_per_mm": 110,
+     "blaze_deg": 64.5,
+     "R_number": "R2",
+     "mosaic": "2 RGL gratings, 302 x 410 mm clear each, 5 mm gap; mosaic 320 x 850 mm"
+    },
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.3; Sec. 4",
+    "quote": "The grating is a mechanically fixtured mosaic of two Richardson Grating Laboratory gratings with 302 × 410 mm clear apertures. Each grating has a 5 mm thick null border and there is a 5 mm mechanical gap between the two grating tiles. The ruling density is 110 lines per millimeter and the rulings are blazed at 64.5°.",
+    "alternatives": [
+     {
+      "value": {
+       "blaze": "64.5 deg (R2)",
+       "pitch": "110 lpm"
+      },
+      "src": "S11",
+      "loc": "Table 1",
+      "quote": "Grating pitch . . . . . . . . . . . . . . 110 lpm ... Blaze angle . . . . . . . . . . . . . . . . 64.5° (R2)"
+     },
+     {
+      "value": "pair of 300 x 400 mm, 110 lpm, R2 (64.5 deg)",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "a pair of 300 mm x 400 mm Richardson Grating Laboratory aluminum coated reflection gratings ruled at 110 lpm and blazed for R2 (64.5º)"
+     },
+     {
+      "value": "mosaic 320 x 850 mm",
+      "src": "S11",
+      "loc": "Sec. 4",
+      "quote": "The Hectochelle grating mosaic is 320 mm by 850 mm"
+     }
+    ],
+    "derived": "DERIVED: tan(64.5 deg) = 2.097 (R2)"
+   },
+   "echelle_angles": {
+    "value": {
+     "alpha_deg": 72,
+     "beta_center_deg": 57,
+     "opening_angle_deg": 15,
+     "in_plane_offset_theta_deg": 7.5,
+     "gamma_deg": "0 on axis; fibres up to 2.58 deg out of plane"
+    },
+    "unit": "deg",
+    "src": "S11",
+    "loc": "Sec. 3.3",
+    "quote": "The incident and central diffracted beams that intersect the grating face have an opening angle of 15°. The angle of incidence (α) is 72° and the center-wavelength diffraction angle (β) is 57°.",
+    "alternatives": [
+     {
+      "value": "alpha 72, beta 57 (grating equation parameters for users)",
+      "src": "HCOG",
+      "loc": "Appendix B",
+      "quote": "Grating pitch: ρ = 110 lines/mm ... Blaze angle of incidence: α = 72° ... Blaze diffraction angle: β = 57°"
+     },
+     {
+      "value": "2.58 deg spatial opening angle",
+      "src": "S11",
+      "loc": "Sec. 3.3",
+      "quote": "The opening angle of the beams incident on the grating in the spatial direction is 2:58° with respect to the optical axis of the spectrograph.",
+      "note": "'2:58' is the PDF's rendering of 2.58"
+     },
+     {
+      "value": "out-of-plane for off-axis fibres",
+      "src": "S11",
+      "loc": "Sec. 3.4",
+      "quote": "the grating is operated in an out-of-plane configuration for all orders other than those on-axis"
+     }
+    ],
+    "derived": "DERIVED: (alpha + beta)/2 = 64.5 deg = blaze (on-blaze at the order centre); in-plane offset theta = (alpha - beta)/2 = 7.5 deg; m*lambda = (sin 72 + sin 57)/110 mm = 162,702 A -> order 31 centre 5248 A. The grating sits on a rotary stage; each filter has a preset tilt (HCOG: 'when a filter is changed the grating tilts to the correct diffraction angle')."
+   },
+   "anamorphic_factor": {
+    "value": 0.56,
+    "unit": "cos(alpha)/cos(beta)",
+    "src": "S11",
+    "loc": "Table 1",
+    "quote": "Anamorphic factor . . . . . . . . 0.56",
+    "derived": "DERIVED: cos 72/cos 57 = 0.567"
+   },
+   "order_sorting": {
+    "value": "one order at a time; two flat tangent interference filters per order (7.5 x 82 mm clear) in front of the fibre slit/shutter; 25 needed for orders 18-42 (~3800-9300 A), 11 bought",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.2; Appendix",
+    "quote": "Twenty-five filters would be required to span the prime Hectochelle orders (orders 18 to 42, or ∼3800Å–9300Å); however, only a subset of these filters was actually purchased. ... approximating the ideal curved surface with two flat, tangent filters met our requirements, so each order is sorted with a pair of filters. ... we chose filters for orders containing the 11 most important spectral passbands.",
+    "note": "Clear aperture quoted as '7:5 × 82 mm' (PDF rendering of 7.5); 'The order-sorting filters are inserted directly in front of the shutter.'"
+   },
+   "filters_paper_2011": {
+    "value": {
+     "Ca19": [
+      8580,
+      450
+     ],
+     "OB21": [
+      7748,
+      369
+     ],
+     "OB24": [
+      6707,
+      282
+     ],
+     "OB25": [
+      6563,
+      260
+     ],
+     "OB26": [
+      6632,
+      241
+     ],
+     "Na28": [
+      5892,
+      208
+     ],
+     "RV31": [
+      5230,
+      160
+     ],
+     "OB32": [
+      5007,
+      159
+     ],
+     "OB33": [
+      4861,
+      149
+     ],
+     "OB37": [
+      4351,
+      119
+     ],
+     "Ca41": [
+      3950,
+      96
+     ]
+    },
+    "unit": "[CWL A, FWHM A]; number in the name = echelle order",
+    "src": "S11",
+    "loc": "Table 5 (Appendix)",
+    "quote": "Ca 19 8580 450 0.96 ... OB 21 7748 369 0.92 ... OB 24 6707 282 0.92 ... OB 25 6563 260 0.89 ... OB 26 6632 241 0.89 ... Na 28 5892 208 0.87 ... RV 31 5230 160 0.94 0.78 Barr Radial velocity ... OB 32 5007 159 0.87 ... OB 33 4861 149 0.93 ... OB 37 4351 119 0.98 ... Ca 41 3950 96 0.96"
+   },
+   "filters_guide_2023": {
+    "value": {
+     "Ca19": [
+      858.0,
+      45.0
+     ],
+     "OB21": [
+      774.8,
+      36.9
+     ],
+     "old OB24": [
+      670.7,
+      28.2
+     ],
+     "new OB24": [
+      677.5,
+      21
+     ],
+     "OB25": [
+      656.3,
+      26.0
+     ],
+     "CJ26": [
+      626,
+      25.0
+     ],
+     "OB26": [
+      670,
+      22
+     ],
+     "Na28": [
+      589.2,
+      20.8
+     ],
+     "Cu28": [
+      581.5,
+      20
+     ],
+     "RV31": [
+      523.0,
+      16.0
+     ],
+     "OB32": [
+      500.7,
+      15.9
+     ],
+     "OB33": [
+      486.1,
+      14.9
+     ],
+     "OB37": [
+      435.1,
+      11.9
+     ],
+     "Ca41": [
+      395.0,
+      9.6
+     ]
+    },
+    "unit": "[CWL nm, FWHM nm]",
+    "src": "HCOG",
+    "loc": "Appendix B, Table 4",
+    "quote": "Ca 19 858.0 45.0 0.96 ... OB 21 774.8 36.9 0.92 ... Old OB 670.7 28.2 0.92 ... New 677.5 21 0.90 ... OB 25 656.3 26.0 0.89 ... CJ 26 626 25.0 0.90 ... OB 26 670 22 0.89 ... Na 28 589.2 20.8 0.87 ... Cu 28 581.5 20 0.93 ... RV 31 523.0 16.0 0.94 0.78 Barr Radial velocity ... OB 32 500.7 15.9 0.87 ... OB 33 486.1 14.9 0.93 ... OB 37 435.1 11.9 0.98 ... Ca 41 395.0 9.6 0.96",
+    "note": "Guide: 'The CJ26 filter replaces the original OB26 filter, the latter being made out of spec. The original OB24 was also made out of spec, and is being replaced as of Jan 2016.' and 'The Na28 order is contaminated with light from a different order shortward of 586 nm.' A CJ46 transmission figure is listed but not tabulated."
+   },
+   "camera_type": {
+    "value": "catadioptric, internal focus (HIRES variant, Epps): fused-silica doublet corrector (716.3 and 688.34 mm lenses), spherical Zerodur mirror, powered field-flattener vacuum window",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "The camera is catadioptric with a doublet refractive corrector and a spherical mirror. The corrector lens elements are also all spherical. The vacuum window of the cryostat has power and also functions as a field flattener. ... lenses are quite large (716.3 mm and 688.34 mm in diameter)",
+    "alternatives": [
+     {
+      "value": "43 in Zerodur sphere, f/0.6",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "The camera mirror is a 43 inch diameter Zerodur sphere that is f/0.6"
+     }
+    ]
+   },
+   "camera_mirror": {
+    "value": {
+     "R_mm": 1350.99,
+     "clear_aperture_mm": 1060.45,
+     "diameter_mm": 1071.2
+    },
+    "unit": null,
+    "src": "S11",
+    "loc": "Table 2; Sec. 4",
+    "quote": "Camera mirror . . . . . . . . . 1350.99 CC 1060.45 Mirror −638.88 ... since it is 1071.2 mm in diameter",
+    "derived": "DERIVED mirror focal length R/2 = 675.5 mm"
+   },
+   "camera_focal_length": {
+    "value": 642.6,
+    "unit": "mm (25.3 in)",
+    "src": "HCOG",
+    "loc": "Appendix B (parameters for the grating equation)",
+    "quote": "Camera focal length: 25.3 inches",
+    "derived": "DERIVED: 25.3 x 25.4 = 642.6 mm. ALTERNATIVE DERIVED from S11: demagnification 0.49 x f_coll 1368.55 = 670.6 mm (fibre pitch 480 um -> 235 um on the focal plane gives 0.4896 -> 670.0 mm). See Conflicts.",
+    "alternatives": [
+     {
+      "value": "0.49 demagnification",
+      "src": "S11",
+      "loc": "Sec. 3.1; Table 1",
+      "quote": "The reduction of the spectrograph is 0.49."
+     }
+    ]
+   },
+   "camera_focal_ratio": {
+    "value": "~f/2.0 effective (elliptical monochromatic sub-apertures 436.9 x 243.8 mm)",
+    "unit": "f/#",
+    "src": "S11",
+    "loc": "Sec. 3.1",
+    "quote": "The monochromatic subapertures of individual monochromatic beams are elliptical (436:9 × 243:8 mm)— so the effective focal ratio is approximately f/2.0.",
+    "note": "'436:9 × 243:8' = 436.9 x 243.8 in the PDF's rendering"
+   },
+   "detector": {
+    "value": "two E2V CCD42-90, 2048 x 4608 each, 13.5 um, backside-illuminated; long (4608) axis along dispersion; 1.27 mm gap between CCDs runs along dispersion (no wavelength gap)",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 5.1; Sec. 3.4",
+    "quote": "The focal plane is a mosaic of two E2V 2048 × 4608 pixel backside-illuminated CCDs model CCD42-90 with 13.5 μm pixels. ... The columns (i.e., the long dimension of the CCD) are aligned with the dispersion direction so there is no gap in the wavelength coverage. ... there is a residual 1.27 mm gap or “dead band” between the two mosaicked CCDs",
+    "alternatives": [
+     {
+      "value": "2304 px half width along dispersion",
+      "src": "HCOG",
+      "loc": "Appendix B",
+      "quote": "Size of detector, dispersion direction: 2304 pixels, half width."
+     }
+    ]
+   },
+   "spectra_spacing": {
+    "value": "480 um at the shoe -> 235 um on the focal plane; 16-18 px between spectra; spatial FWHM 10 px",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.4",
+    "quote": "The center-to-center spacing of the fibers in the fiber shoe is 480 μm, which corresponds to 235 μm on the focal plane. ... slightly between values of 16–18 pixels. ... Since the FWHM of a spectrum perpendicular to dispersion is 10 pixels"
+   },
+   "passband": {
+    "value": "3800-9000",
+    "unit": "A",
+    "src": "S11",
+    "loc": "Sec. 1",
+    "quote": "The total potential operating passband of Hectochelle is 3800 Å to 9000 Å",
+    "alternatives": [
+     {
+      "value": "3800-9000 A",
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "a wavelength range of 3800 – 9000Å"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_typical": {
+    "value": 38000,
+    "unit": "lambda/dlambda",
+    "src": "S11",
+    "loc": "Sec. 10",
+    "quote": "A typical resolution of 38,000 is achieved.",
+    "alternatives": [
+     {
+      "value": 32000,
+      "src": "S11",
+      "loc": "Sec. 10",
+      "quote": "The nominal resolution of the spectrograph is 32,000 at 5200 Å, if the resolution is taken to be the simple diameter ... of the circular fiber slit (i.e., optical fiber) image. Projection of the circular slit image onto the dispersion axis effectively boosts this resolution by a factor of 1.46.",
+      "note": "nominal R from the fibre-image DIAMETER; 32,000 x 1.46 = 46,700 before slit-tilt losses"
+     },
+     {
+      "value": "~34,000",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "The resolution of the Hectochelle is ~34,000"
+     },
+     {
+      "value": "32,000-40,000",
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "an echelle spectrograph operating at and R range of 32,000 – 40,000"
+     },
+     {
+      "value": "~32,000 (sigma ~4 km/s)",
+      "src": "MMTOH",
+      "loc": "Further Information",
+      "quote": "Hectochelle uses 240 of the possible 300 fibers and attains R~32,000 (sigma~4 km/s) over a single, filter-selected orders."
+     },
+     {
+      "value": "~32,000 (sigma ~4 km/s)",
+      "src": "CFAHC",
+      "loc": "page text",
+      "quote": "attains R~32,000 (sigma~4 km s -1 ) over single, filter-selected orders"
+     }
+    ]
+   },
+   "LSF_FWHM": {
+    "value": "3.4-4.2",
+    "unit": "pixels (spectral, full-resolution frames)",
+    "src": "S11",
+    "loc": "Sec. 3.4",
+    "quote": "As measured on full-resolution frames, the FWHM of spectral features varies by 10%, i.e., between 3.4 and 4.2 pixels.",
+    "derived": "DERIVED (order 31, f_cam 642.6 mm: 0.0336 A/px): R = 5248/(4.2 x 0.0336) = 37,200 to 5248/(3.4 x 0.0336) = 46,000; with f_cam 670.6 mm (0.0322 A/px): 38,900-48,000"
+   },
+   "fiber_image": {
+    "value": "124 x 69 um ellipse (major spatial, minor along dispersion) = 9.1 x 5.1 px",
+    "unit": null,
+    "src": "S11",
+    "loc": "Sec. 3.3",
+    "quote": "the slit image of the 250 μm circular fiber ends are imaged as ellipses with 124 μm × 69 μm major and minor axes at the focal plane. ... At the CCD pixel pitch of 13.5 μm, the sampling is 9:1 × 5:1 pixels.",
+    "note": "'9:1 × 5:1' = 9.1 x 5.1",
+    "derived": "DERIVED: 250 x 0.49 = 122.5 um; x 0.56 = 68.6 um"
+   },
+   "sampling": {
+    "value": 5,
+    "unit": "pixels per resolution element along dispersion",
+    "src": "S11",
+    "loc": "Sec. 1",
+    "quote": "A resolution element is sampled in 5 pixels along dispersion",
+    "note": "S11 Table 1 'Resolution element' is printed as '6 (disp.) × 10 (spat.) pixels' -- conflicts with the 5 px in the text"
+   },
+   "order_coverage": {
+    "value": "~150",
+    "unit": "A per order (one order per exposure)",
+    "src": "S11",
+    "loc": "Sec. 1",
+    "quote": "The wavelength coverage of each order is approximately 150 Å.",
+    "alternatives": [
+     {
+      "value": "FSR of order 31 = CCD format",
+      "src": "HCOG",
+      "loc": "Appendix B",
+      "quote": "The FSR of order 31 (~510 nm) is the same size as the CCD format. Orders blueward of order 31 are smaller than the CCD format; order redward overfill the focal plane."
+     },
+     {
+      "value": "orders redward of ~5100 A (order 32) overfill the CCD",
+      "src": "S11",
+      "loc": "Sec. 3.5",
+      "quote": "Orders redward of ∼5100 Å (order 32) overfill the CCD format (see Fig. 5)."
+     }
+    ],
+    "derived": "DERIVED 4608 px x dispersion: RV31 155 A (f 642.6) / 148 A (f 670.6); FSR(31) = 5248/31 = 169 A"
+   },
+   "dispersion": {
+    "value": 0.04,
+    "unit": "A/pixel",
+    "src": "MMTOH",
+    "loc": "Fundamental Capabilities table",
+    "quote": "Hectochelle 110 3800 – 9000 / 0.04 5",
+    "alternatives": [
+     {
+      "value": "~2 km/s per pixel at 5200 A",
+      "src": "S11",
+      "loc": "Sec. 6",
+      "quote": "a half-pixel shift at 5200 Å corresponds to approximately a 1 km s"
+     }
+    ],
+    "derived": "DERIVED (cos(beta)/(m g f_cam) x 13.5 um, order 31): 0.0336 A/px = 1.92 km/s/px (f 642.6 mm) or 0.0322 A/px = 1.84 km/s/px (f 670.6 mm); the velocity per pixel is the same in every order at the order centre."
+   }
+  },
+  "not_found": [
+   "A numerical in-plane theta or gamma in the app's sense beyond alpha = 72 / beta = 57 (theta = 7.5 deg DERIVED) and the 2.58 deg spatial opening angle (fibres off the dispersion plane).",
+   "Collimator focal length as a stated number (DERIVED 1368.55 mm from R = 2737.10 mm).",
+   "Camera effective focal length in S11 (only the 0.49 demagnification and the mirror radius); 25.3 in comes only from HCOG.",
+   "Measured A/pixel per filter (only MMTOH's 0.04 A/pix and S11's 'half-pixel ~ 1 km/s' at 5200 A).",
+   "Szentgyorgyi et al. 1998 (SPIE 3355, pre-construction design) -- not obtained (not needed; S11 is post-construction)."
+  ],
+  "conflicts": [
+   "Camera focal length: 25.3 in = 642.6 mm (HCOG, for the grating equation) vs 0.49 x 1368.55 = 670.6 mm (DERIVED from S11's 0.49 demagnification and collimator radius) vs mirror R/2 = 675.5 mm. The S11 'nominal R = 32,000' from a 69 um fibre image fits 670.6 mm (32,000) better than 642.6 mm (30,700) (DERIVED).",
+   "Resolution: 38,000 typical (S11) vs 'nominal' 32,000 (S11, fibre diameter) vs ~34,000 (HCOG) vs 32,000-40,000 and ~32,000 (MMTOH) vs ~32,000 (CFAHC).",
+   "Sampling: '5 pixels along dispersion' (S11 text) vs '6 (disp.) x 10 (spat.)' (S11 Table 1) vs measured FWHM 3.4-4.2 px (S11 Sec. 3.4).",
+   "Grating size: two 302 x 410 mm clear apertures (S11) vs 'a pair of 300 mm x 400 mm' (HCOG); mosaic 320 x 850 mm (S11 Sec. 4).",
+   "Filters: S11 Table 5 lists OB26 at 6632 A / 241 A and OB24 at 6707/282 A; HCOG (2023) lists those as out-of-spec, adds CJ26 (626 nm), new OB24 (677.5 nm) and Cu28 (581.5 nm). The DERIVED order-26 centre is 6258 A, so the 6632 A 'OB26' sits in order 25 (HCOG: 'Hα at edge, but order overlap occurs').",
+   "MMTOH says 11 filters ('there are 11 order-separting filters available'); HCOG Table 4 has 14 rows including superseded filters.",
+   "Plate scale: 170 um/arcsec (S11) vs 250 um = 1.5\" -> 166.7 um/arcsec (Hectospec documents; DERIVED)."
+  ],
+  "notes": [
+   "Status: MMTOH states both Hecto instruments 'were permanently decommissioned in summer 2026'.",
+   "Order bookkeeping for the app: the number in each filter name is the echelle order (DERIVED check: m lambda = 162,702 A gives 5248 A for order 31 vs RV31 CWL 5230 A; 6508 A for order 25 vs OB25 6563 A; 3968 A for order 41 vs Ca41 3950 A).",
+   "There is no cross-disperser: 240 single-order spectra are stacked along the slit (spatial) direction on two CCDs. For the app, model a one-order echelle with an ideal order-sorting bandpass (filter FWHM ~ FSR).",
+   "Fibre-image R boost: S11 states that projecting the circular fibre image onto the dispersion axis 'boosts this resolution by a factor of 1.46' relative to R computed from the image diameter -- the same ~0.68 FWHM/diameter ratio that G-CLEF's published R values imply (see G-CLEF Notes). Useful for the app's fibre LSF model."
+  ]
+ },
+ "gclef": {
+  "title": "GMT / G-CLEF (fiber-fed, vacuum, asymmetric-white-pupil R4 echelle; dichroic to blue/red arms with VPH cross-dispersers) -- design values, NOT as-built",
+  "recommended_preset": "GMT design of 2016-2018 (post-PDR / pre-CDR: GC16D, GC16O, GC18O, GC18D), RED arm (540-950 nm), MR mode: single circular 300 um fibre, 0.8\" (800 um at the f/8 slit), R = 35,000 -- no slicing, so the app models it directly with D = 25.4 m, f/8. Optics: OAP collimator f = 2400 mm, 300 mm beam, R4 echelle 31.6 l/mm (blaze 75.96 deg), in-plane Littrow with gamma = 0.75 deg, pupil-transfer mirror f = 1600 mm (200 mm beam), red VPH 480 l/mm (1st order, optimised at 7300 A), red camera f = 450 mm f/2.25 (effective 675 mm on the 300 mm echelle beam, DERIVED), e2v 92.4 x 92.2 mm, 10 um (9240 x 9220 px DERIVED), orders ~114-65. High-resolution variant: PRV/NS-PRV mode (R = 105,000-108,000) = 7 pupil slices; map to the app as ONE 8.4 m sub-aperture with a 0.8\" fibre (or 25.4 m with a 0.265\" slit) -- see Notes. Validation caveat: the published R values imply LSF FWHM ~0.67 x the geometric fibre-image width (DERIVED). Both arms are documented; the blue arm needs a VPH grism with two fused-silica prisms (32.42 deg, 15.87 deg), whose orientation is not published.",
+  "params": {
+   "telescope_aperture": {
+    "value": 25.4,
+    "unit": "m (7 x 8.4 m segments)",
+    "src": "GCWEB1",
+    "loc": "Table 3 'G-CLEF overall characteristics'",
+    "quote": "Telescope Aperture 25.4 m (7 × 8.4 m)",
+    "stage": "undated web page (c. 2015-2017)",
+    "alternatives": [
+     {
+      "value": 25.4,
+      "src": "GC18O",
+      "loc": "Sec. 2",
+      "quote": "the 25.4 m aperture of the GMT must be sliced into 7 subapertures"
+     },
+     {
+      "value": 25.4,
+      "src": "GC14D",
+      "loc": "Sec. 1",
+      "quote": "the 25.4m Giant Magellan Telescope"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 8,
+    "unit": "f/# (GMT beam relayed by G-CLEF's own tip-tilt tertiary, collimating triplet, ADC and focusing triplet)",
+    "src": "GC18O",
+    "loc": "Table 1 caption",
+    "quote": "The GMT beam is f/8, but converted to f/3 at the fiber input to minimize focal ratio degaradation. It is converted back to f/8 at the G-CLEF fiber slit in the sprectrograph.",
+    "stage": "2018 pre-CDR",
+    "alternatives": [
+     {
+      "value": 8,
+      "src": "GC18D",
+      "loc": "Sec. 2.1",
+      "quote": "The GMT relayed image is at an F/8."
+     },
+     {
+      "value": 8,
+      "src": "GCWEB1",
+      "loc": "Table 3",
+      "quote": "Input f/# f/8"
+     }
+    ],
+    "derived": "DERIVED f/8 plate scale: 25.4 m x 8 = 203.2 m -> 0.985 mm/arcsec (1.015\"/mm); consistent with GC18O Table 1 (1.2\" <-> 1200 um, 0.8\" <-> 800 um)"
+   },
+   "fiber_modes": {
+    "value": {
+     "PRV": {
+      "R": 108000,
+      "fibre": "hexagonal 100 um core",
+      "science_fibres": 7,
+      "cal_sky": 2,
+      "res_element_px": 7.5
+     },
+     "NS-PRV": {
+      "R": 108000,
+      "fibre": "circular 100 um core",
+      "science_fibres": 7,
+      "cal_sky": 2,
+      "res_element_px": 7.5
+     },
+     "MR": {
+      "R": 35000,
+      "fibre": "circular 300 um core",
+      "science_fibres": 1,
+      "cal_sky": 2,
+      "res_element_px": 20
+     },
+     "HT": {
+      "R": 19000,
+      "fibre": "circular 450 um core",
+      "science_fibres": 1,
+      "cal_sky": 2,
+      "res_element_px": 30
+     },
+     "MOS": {
+      "R": 35000,
+      "fibre": "circular 300 um core",
+      "science_fibres": 40,
+      "cal_sky": "n/a",
+      "res_element_px": 20
+     }
+    },
+    "unit": null,
+    "src": "GC16O",
+    "loc": "Table 3 'G-CLEF Science fiber parameters'",
+    "quote": "PRV 108,000 Hexagonal 100 𝜇 Core 7 2 7.5 ... MR 35,000 Circular 300 𝜇 Core 1 2 20 ... HT 19,000 Circular 450 𝜇 Core 1 2 30 ... MOS 35,000 Circular 300 𝜇 Core 40 n/a 20",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": "same table (PRV hexagonal 100 um ... MOS 40)",
+      "src": "GCWEB1",
+      "loc": "Table 4 'Observation Mode Characteristics'",
+      "quote": "PRV 108,000 Hexagonal 100μ Core 7 2 7.5 NS-PRV 108,000 Circular 100μ Core 7 2 7.5 MR 35,000 Circular 300μ Core 1 2 20 HT 19,000 Circular 450μ Core 1 2 30 MOS 35,000 Circular 300μ Core 40 N/A 20"
+     },
+     {
+      "value": "NS-PRV R = 110,000",
+      "src": "GC16O",
+      "loc": "Table 1",
+      "quote": "Resolution 108,000 110,000 35,000 19,000 35,000"
+     },
+     {
+      "value": "PRV and NS-PRV 'Octagonal' fibres, R 105,000",
+      "src": "GC18O",
+      "loc": "Table 1",
+      "quote": "PRV 0.8 267 105,000 Octagonal optical fiber, pupil sliced, scrambled NS-PRV 0.8 267 105,000 Octagonal optical fiber, pupil sliced, not scrambled"
+     },
+     {
+      "value": "MR/HT +1 GMTNIRS fibre",
+      "src": "GC18D",
+      "loc": "Table 1",
+      "quote": "MR 35,000 ... Circular 300µm Core ... 1 ... 2 (+1 GMTNIRS)"
+     }
+    ]
+   },
+   "fiber_on_sky": {
+    "value": {
+     "HT": "1.2\" / 1200 um at f/8",
+     "MR": "0.8\" / 800 um",
+     "PRV": "0.8\" / 267 um (per slice)",
+     "NS-PRV": "0.8\" / 267 um"
+    },
+    "unit": "arcsec / um (f/8 slit diameter)",
+    "src": "GC18O",
+    "loc": "Table 1",
+    "quote": "HT 1.2 1200 19,000 Round optical fiber MR 0.8 800 35,000 Round optical fiber PRV 0.8 267 105,000 Octagonal optical fiber, pupil sliced, scrambled",
+    "stage": "2018 pre-CDR",
+    "alternatives": [
+     {
+      "value": {
+       "PRV": "0.79\" (0.26\" x 7)",
+       "MR": "0.79\"",
+       "HT": "1.2\""
+      },
+      "src": "GC14D",
+      "loc": "Table 5",
+      "quote": "PRV 0.79” 0.26” (7x) 100 1x1 3.65 105 000 MR 0.79” 0.79” 300 3x3 3.68 35 000 HT 1.2” 1.2” 450 5x5 3.28 19 000"
+     },
+     {
+      "value": {
+       "PRV": "100 um / 0.97\"",
+       "MT(MR)": "300 um / 0.79\"",
+       "HT": "450 um / 1.2\""
+      },
+      "src": "GC14O",
+      "loc": "Table 3",
+      "quote": "PRV 105,000 100/0.97 Yes Precision Radial Velocity, Pupil Sliced x 7 ... MT 35,000 300/0.79 No ... HT 19,000 450/1.2 No"
+     }
+    ],
+    "derived": "DERIVED: f/3 on 25.4 m = 0.369 mm/\": 300 um = 0.81\", 450 um = 1.22\"; f/3 on one 8.4 m sub-aperture = 0.122 mm/\": 100 um = 0.82\"; 0.8\" x 8.4/25.4 = 0.265\" (the '0.26\" (7x)' of GC14D)."
+   },
+   "fiber_focal_ratio": {
+    "value": "f/3 at the fibre input and output (output masked to f/3); converted to f/8 at the pseudo-slit by bi-telecentric m = 8/3 injection optics",
+    "unit": null,
+    "src": "GC18D",
+    "loc": "Sec. 2.2",
+    "quote": "The beam emitted from each fiber has an F/3 speed (FRD will increase the speed at which the output beam diverges, but we intend to mask rays outside of the F/3 cone). This beam divergence must be reduced to that of an F/8 beam.",
+    "stage": "2018 pre-construction",
+    "alternatives": [
+     {
+      "value": "F/3 fibre output",
+      "src": "GCWEB2",
+      "loc": "Instrument Characteristics table",
+      "quote": "Fiber Output Focal Ratio F/3"
+     }
+    ]
+   },
+   "pupil_slicing": {
+    "value": "PRV and NS-PRV: telescope pupil re-imaged by a collimating doublet and cut into 7 sub-apertures (the 7 GMT 8.4 m segments) by 7 doublets, each focused at f/3 onto its own 100 um fibre; the 7 fibres (+ sky/cal) are re-stacked along the pseudo-slit. HT/MR/MOS: unsliced. No image slicer in the 2016-2018 design.",
+    "unit": null,
+    "src": "GC18D",
+    "loc": "Sec. 2.1",
+    "quote": "the PRV and NS-PRV modes are pupil sliced. ... The F/8 beam from the telescope expands and is collimated by a doublet lens. The GMT pupil is realized one focal distance from the collimating lens, where it is sliced into seven sub-apertures by seven doublets. ... The collimated beam of each aperture is focused on the polished back of the common block at F/3, and is captured on a cemented fiber face.",
+    "stage": "2018 pre-construction",
+    "alternatives": [
+     {
+      "value": "7 GMT mirror pairs -> 7 x 100 um fibres",
+      "src": "GC16D",
+      "loc": "Sec. 2.1",
+      "quote": "feeding the beam from each of the seven GMT mirror pairs to 100𝜇𝑚 fibers (i.e., slicing the telescope pupil to seven independent beams)"
+     },
+     {
+      "value": "one fibre per 8.4 m segment",
+      "src": "GC14D",
+      "loc": "Sec. 2.3",
+      "quote": "the GMT allows for a lossless way of pupil slicing the stellar image by feeding light from each 8.4m primary mirror segment into individual fibers"
+     },
+     {
+      "value": "2012 concept also listed an optional image-sliced HR feed (R 150,000)",
+      "src": "GC12",
+      "loc": "Sec. 2 (fiber feeds, text above Table 4)",
+      "quote": "We provide for the possibility of a High Resolution (HR), image sliced feed, where a 1” image delivered by the full primary aperture will be sliced seven-fold to achieve 150,000."
+     }
+    ]
+   },
+   "pseudo_slit": {
+    "value": "~1 mm long at f/3 (~1.3 mm for PRV), ~3.44 mm at f/8; usable field 30 mm diameter; modes side by side",
+    "unit": null,
+    "src": "GC18D",
+    "loc": "Sec. 2.3; Sec. 2.2",
+    "quote": "the slit length (for the PRV mode) is ~1.3mm at the F/3 plane (~3.44mm at the F/8 plane) ... within the 30mm diameter which indicates acceptable fiber image quality",
+    "stage": "2018 pre-construction",
+    "alternatives": [
+     {
+      "value": "~1 mm pseudo-slit",
+      "src": "GC16D",
+      "loc": "Sec. 2.2",
+      "quote": "The focal ratio conversion optics reimage the fiber ends into a ~1mm long pseudo-slit."
+     }
+    ]
+   },
+   "layout": {
+    "value": "asymmetric white pupil, quasi-Littrow, vacuum-enclosed; collimator used in double pass; cylindrical Mangin mirror near the intermediate focus as fold + field flattener",
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2",
+    "quote": "The G-CLEF spectrograph optical layout is an asymmetric white pupil echelle design",
+    "stage": "2016 post-PDR"
+   },
+   "collimator": {
+    "value": {
+     "type": "off-axis parabola, double pass",
+     "focal_length_mm": 2400,
+     "RoC_mm": 4800,
+     "conic": -1,
+     "clear_aperture_mm": "500 x 760",
+     "fibre_chief_ray_tilt_deg": 7.5
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Table 5; Sec. 2.2",
+    "quote": "M1 4800Cc Parabolic : -1 500x760 Collimator ... The fiber end images are located on the optical axis of the collimator at its focus, 2400mm away from the surface vertex point.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": 2400,
+      "src": "GC18D",
+      "loc": "Fig. 9 label",
+      "quote": "Parabolic Collimator ... f = 2400mm"
+     },
+     {
+      "value": 2400,
+      "src": "GCWEB2",
+      "loc": "Instrument Characteristics table",
+      "quote": "Collimator focal length 2400 mm"
+     },
+     {
+      "value": "chief rays tilted 7.5 deg to the M1 axis",
+      "src": "GC16D",
+      "loc": "Sec. 2.2",
+      "quote": "The chief rays are aimed at a 7.5-degree tilt with respect to the optical axis of the parabolic mirror M1."
+     }
+    ]
+   },
+   "beam_diameter_echelle": {
+    "value": 300,
+    "unit": "mm",
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "The collimated beam has a diameter of 300mm, and illuminates an R4 echelle with a groove density of 31.6 lines/mm.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": 300,
+      "src": "GCWEB2",
+      "loc": "table",
+      "quote": "Spectrograph Beam Diameter 300 mm"
+     }
+    ]
+   },
+   "echelle": {
+    "value": {
+     "l_per_mm": 31.6,
+     "R_number": "R4",
+     "facets": 3,
+     "size_mm": "306 x 1200 mosaic (Richardson)"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "The collimated beam has a diameter of 300mm, and illuminates an R4 echelle with a groove density of 31.6 lines/mm. The echelle grating is a 306×1200𝑚𝑚 mosaic manufactured by Richardson Grating.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": "306 x 1258 mm, 31.6 l/mm",
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "illuminates an R4 echelle grating of 306 x 1258mm in size, with 31.6 line/mm ruling density"
+     },
+     {
+      "value": "300 x 1200 mm, 31.6 l/mm",
+      "src": "GC14D",
+      "loc": "Sec. 2.1",
+      "quote": "illuminates an R4 echelle grating that is 300x1200mm, with 31.6 line/mm ruling density"
+     },
+     {
+      "value": "320 x 1600 mm (G@M, 2023)",
+      "src": "GCM23",
+      "loc": "Fig. 7 label",
+      "quote": "Echelle Grating 320 x 1600 mm"
+     },
+     {
+      "value": "36.1 lpm, 300 x 1200 mm (2012 concept)",
+      "src": "GC12",
+      "loc": "Sec. 3.1",
+      "quote": "The echelle grating is R4 with a 36.1 lpm ruling density. The size of the echelle is 300 mm x 1200 mm."
+     },
+     {
+      "value": "3 facets",
+      "src": "GCWEB2",
+      "loc": "table",
+      "quote": "Echelle Grating Facet Count 3"
+     }
+    ]
+   },
+   "echelle_blaze_and_tilt": {
+    "value": {
+     "blaze_deg": 75.96,
+     "grating_tilt_deg": 75.96
+    },
+    "unit": "deg",
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "The grating face is tilted at 75.96°",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "blaze_deg": "75.96 (R4)"
+      },
+      "src": "GC12",
+      "loc": "Table 5 (spectrograph optical design parameters)",
+      "quote": "Blaze Angle 75.96° (R4)"
+     },
+     {
+      "value": {
+       "grating_tilt_deg": 75.6
+      },
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "The grating face is tilted at 75.6°"
+     },
+     {
+      "value": {
+       "grating_tilt_deg": 75.6
+      },
+      "src": "GC14D",
+      "loc": "Sec. 2.1",
+      "quote": "The grating face is tilted at 75.6°."
+     }
+    ],
+    "derived": "DERIVED: tan(75.96) = 3.999 (R4); tan(75.6) = 3.895. With gamma = 0.75 deg, m lambda (blaze) = 2 sin(75.96) cos(0.75)/31.6 mm = 61.395 um"
+   },
+   "echelle_geometry": {
+    "value": {
+     "theta_in_plane_deg": 0,
+     "gamma_deg": 0.75
+    },
+    "unit": "deg",
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "a true Littrow condition is slightly compromised by a 0.75° γ angle (a small clockwise rotation of the grating in the plane of Fig, 1)",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "gamma_deg": 0.75
+      },
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "a true Littrow condition is slightly compromised by a small clockwise rotation of the grating in the plane of Figure 9 (γ = 0.75°)"
+     },
+     {
+      "value": "quasi-Littrow, gamma pitch",
+      "src": "GC18O",
+      "loc": "Sec. 2",
+      "quote": "The spectrograph is quasi–Littrow – a small “𝛾 angle” pitch to the echelle grating is introduced to separate the beams within the spectrograph optical train"
+     }
+    ],
+    "note": "GC14D Fig. 1 caption: 'The main dispersion is in and out of the plane of the figure', so the 0.75 deg rotation 'in the plane of Figure 1' is out of the dispersion plane, i.e. gamma; theta = 0 is inferred from 'true Littrow ... compromised' only by gamma (interpretation). If the 75.6 deg tilt (GC14D/GC18D) is read as alpha with a 75.96 deg blaze, the in-plane offset would be 0.36 deg (DERIVED; interpretation)."
+   },
+   "mangin_mirror": {
+    "value": "cylindrical (toroidal) Mangin fold mirror 40 mm before the intermediate focus; fused silica, 25 mm; field flattener; wedged and tilted against ghosts",
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.2; Table 6",
+    "quote": "A Mangin-type fold mirror intercepts the beams reflected from M1 40mm before arriving at an intermediate focus and reflects them towards the pupil-transfer mirror. ... Mangin Front 1053.007Cc 25 Fused Silica 50x380",
+    "stage": "2016 post-PDR"
+   },
+   "pupil_transfer_mirror": {
+    "value": {
+     "focal_length_mm": 1600,
+     "RoC_mm": 3200,
+     "conic": -0.97,
+     "clear_aperture_mm": "250 x 500",
+     "beam_out_mm": 200
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Table 5; Sec. 2.2",
+    "quote": "M2 3200Cc Ellipsoidal: -0.97 250x500 Pupil-Transfer Mirror ... which has a focal length of 1600mm (2/3 the focal length of M1). M2 has a conic constant of -0.97 (i.e., a prolate ellipsoid) ... the re-collimated beam has a diameter of ~200mm",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "focal_length_mm": 1600,
+       "conic": -0.88305
+      },
+      "src": "GC14D",
+      "loc": "Sec. 2.1",
+      "quote": "This mirror has a conic constant of -0.88305"
+     },
+     {
+      "value": 1600,
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "The pupil transfer mirror has a focal length of 1600 mm, or 2/3 of the main collimator (M1)."
+     }
+    ]
+   },
+   "dichroic": {
+    "value": {
+     "split_nm": 540,
+     "substrate": "fused silica, 30 mm, plane-parallel, 255 x 330 mm",
+     "tilt_deg": 15
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Table 1; Sec. 2.2",
+    "quote": "Dichroic Split 540nm ... The dichroic substrate is plane-parallel, 30mm thick fused silica rectangle, with a clear aperture of 255x330mm. The dichroic is tilted at 15° with respect to the common optical axes of M1 and M2.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "split_A": 5400,
+       "tilt_deg": 14
+      },
+      "src": "GC14D",
+      "loc": "Fig. 1 label; Sec. 2.1",
+      "quote": "The dichroic is tilted at 14 degrees respect to the common optical axis of the collimator and the pupil transfer mirror."
+     },
+     {
+      "value": {
+       "split_A": 5300
+      },
+      "src": "GC12",
+      "loc": "Table 5",
+      "quote": "Dichroic Split 5300Å"
+     }
+    ]
+   },
+   "red_cross_disperser": {
+    "value": {
+     "type": "VPH grating between two 20 mm fused-silica plates",
+     "l_per_mm": 480,
+     "order": 1,
+     "optimised_at_A": 7300,
+     "fringe_tilt_deg": 3.25,
+     "distance_after_dichroic_mm": 375
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "The red cross disperser, located 375mm after the Dichroic back surface, is a VPH grating with a groove density of 480 lines/mm, sandwiched between two 20mm thick fused silica plan parallel glass plates. The VPH grating is optimized for the first order at a wavelength of 7300Å. The imprinted fringes are tilted by 3.25 degrees",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "l_per_mm": 370
+      },
+      "src": "GC14D",
+      "loc": "Sec. 2.1",
+      "quote": "The blue cross disperser has a groove density of 910 lines/mm, while the red VPH has a 370 lines/mm groove density."
+     },
+     {
+      "value": {
+       "l_per_mm": 415,
+       "diffraction_angle_deg": 8.9
+      },
+      "src": "GC12",
+      "loc": "Table 5",
+      "quote": "Red VPH Ruling Pitch 415 lpm ... Red VPH Diffr. Angle 8.9°"
+     }
+    ],
+    "note": "Angle of incidence NOT published. GCM23 (2023) lists 'Red and Blue VPH Prisms – In House' and shows 'The red VPH prism', so the as-built red disperser may be a grism -- not described.",
+    "derived": "DERIVED Littrow (Bragg) incidence at 7300 A: asin(480 x 0.73 um/2) = 10.09 deg. Cross-dispersion check: with that AOI, 540-950 nm spans 11.5 deg -> ~90 mm at f = 450 mm, matching the 92.2 mm red detector."
+   },
+   "blue_cross_disperser": {
+    "value": {
+     "type": "VPH grism: VPH between two fused-silica prisms",
+     "l_per_mm": 950,
+     "order": -1,
+     "optimised_at_A": 4386,
+     "prism_apex_deg": [
+      32.42,
+      15.87
+     ],
+     "distance_from_dichroic_mm": 350
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.2",
+    "quote": "The blue cross disperser, located 350mm from the Dichroic front surface, is a grism assembly in which a VPH grating with a groove density of 950 lines/mm is sandwiched between two fused silica prisms. The VPH is optimized for the m=-1 diffraction order at a wavelength of 4386Å. The 1st prism as an apex angle of 32.42° while the 2nd prism has an apex angle of 15.87° degrees.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": "prism pre-disperser + VPH grism (quasi-Littrow feed)",
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "for the blue arm, the cross disperser is comprised of a prism pre-disperser and a VPH grism"
+     },
+     {
+      "value": {
+       "l_per_mm": 910
+      },
+      "src": "GC14D",
+      "loc": "Sec. 2.1",
+      "quote": "The blue cross disperser has a groove density of 910 lines/mm"
+     },
+     {
+      "value": {
+       "l_per_mm": 925,
+       "diffraction_angle_deg": 11.9
+      },
+      "src": "GC12",
+      "loc": "Table 5",
+      "quote": "Blue VPH Ruling Pitch 925 lpm ... Blue VPH Diffr. Angle 11.9°"
+     }
+    ],
+    "note": "Prism orientation, the 2018 pre-disperser prism parameters and the fused-silica grade are NOT published.",
+    "derived": "DERIVED Littrow incidence for the VPH alone at 4386 A: 12.02 deg"
+   },
+   "red_camera": {
+    "value": {
+     "elements": 7,
+     "aspheres": 1,
+     "focal_length_mm": 450,
+     "beam_diameter_mm": 250,
+     "field_radius_deg": 7.7,
+     "band_nm": "540-950"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.3",
+    "quote": "G-CLEF red camera (Fig. 9 and Table 7) is a 7 element camera with one even-asphere surface (Fig. 10) located on the back surface of the 1st lens. The camera has a focal length of 450mm, beam diameter of 250mm, and a field radius of 7.7°. It is optimized for a wavelength range of 540-950nm",
+    "stage": "2016 post-PDR (prescription in GC16D Table 7)",
+    "alternatives": [
+     {
+      "value": "7-lens f/2.25 (as being tested 2024)",
+      "src": "GC24",
+      "loc": "Abstract",
+      "quote": "Our method has been verified on simulated data from the 7-lens f /2.25 red camera"
+     },
+     {
+      "value": "red 7-lens, blue 8-lens (2023)",
+      "src": "GCM23",
+      "loc": "spectrograph design text",
+      "quote": "The red camera is a 7-lens design and the blue camera is an ... 8-lens design."
+     },
+     {
+      "value": "500 mm, 9 elements, all spherical (2014 PDR)",
+      "src": "GC14D",
+      "loc": "Fig. 1 labels; Sec. 2.2",
+      "quote": "red camera, f =500 mm ... employ 9 elements of Ohara i-line glasses and calcium fluoride"
+     },
+     {
+      "value": "500 mm -> 450 mm change",
+      "src": "GC16O",
+      "loc": "Sec. 3.1",
+      "quote": "We have reduced the focal length of the camera optics from 500 mm to 450 mm to reduce the plate scale and permit an increase in the inter-order spacing in the echellogram"
+     }
+    ]
+   },
+   "blue_camera": {
+    "value": {
+     "elements": 8,
+     "aspheres": 1,
+     "focal_length_mm": 450,
+     "beam_diameter_mm": 260,
+     "field_radius_deg": 6.5,
+     "band_nm": "350-550"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 2.3",
+    "quote": "G-CLEF blue camera (Fig. 11 and Table 8) is an 8 element camera with one even-asphere surface (Fig. 12) located on the back surface of the 1st lens. The camera has a focal length of 450mm, beam diameter of 260mm, and a field radius of 6.5 degrees. It is optimized for a wavelength range of 350-550nm",
+    "stage": "2016 post-PDR (prescription in GC16D Table 8)"
+   },
+   "camera_focal_ratio": {
+    "value": 2.25,
+    "unit": "f/# (both cameras, 200 mm beam)",
+    "src": "GCWEB2",
+    "loc": "Instrument Characteristics table",
+    "quote": "Camera Beam Diameter 200 mm ... Camera Focal Ratio F/2.25 ... Camera Focal Length 450 mm",
+    "stage": "undated web page (c. 2015-2017)",
+    "alternatives": [
+     {
+      "value": "F/2.25, 450 mm",
+      "src": "GC18O",
+      "loc": "Table 2",
+      "quote": "Camera Focal Ratio F/2.25 PRV Slit Image Size 0.075 mm Camera Focal Length 450 mm"
+     },
+     {
+      "value": "f/2.5, 500 mm (2012)",
+      "src": "GC12",
+      "loc": "Table 5",
+      "quote": "Camera Focal Length 500 mm ... Camera Focal Ratio f/2.5"
+     }
+    ]
+   },
+   "camera_focal_length_effective": {
+    "value": 675,
+    "unit": "mm (referred to the 300 mm echelle beam)",
+    "src": "GCWEB2",
+    "loc": "Instrument Characteristics table",
+    "quote": "Pup.Xfer Mirr./Cam. Reduction 450/1600 = 0.2813",
+    "is_derived": true,
+    "stage": "2016-2018",
+    "derived": "DERIVED: 450 mm x (2400/1600) = 675 mm; slit-to-detector magnification 675/2400 = 0.28125 (the tabulated '450/1600 = 0.2813'); f/8 slit -> f/2.25 at the CCD. Use 675 mm as the app's camera with collimator 2400 mm and beam 300 mm."
+   },
+   "slit_image_size": {
+    "value": 0.075,
+    "unit": "mm (PRV fibre image at the detector)",
+    "src": "GC18O",
+    "loc": "Table 2",
+    "quote": "PRV Slit Image Size 0.075 mm",
+    "stage": "2018 pre-CDR",
+    "derived": "DERIVED: 100 um x 8/3 = 267 um at the f/8 slit x 0.28125 = 75 um (7.5 px of 10 um). MR: 300 um -> 225 um (22.5 px); HT: 450 um -> 337.5 um (33.75 px); GC16O tabulates 20 and 30 px."
+   },
+   "detectors": {
+    "value": {
+     "blue": "STA, 95.04 x 95.04 mm, 9 um",
+     "red": "e2v, 92.4 x 92.2 mm, 10 um"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 3",
+    "quote": "The blue/red echellogram is imaged onto a 95.04×95.04𝑚𝑚 (92.4×92.2𝑚𝑚) STA (e2V) monolithic detector, with a 9𝜇𝑚 (10𝜇𝑚) pixel size.",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": "STA1600 95.04 x 95.04 mm (both cameras?)",
+      "src": "GC18D",
+      "loc": "Sec. 3",
+      "quote": "Large format CCDs record the echellograms imaged by the two cameras (an STA 1600 95.04×95.04mm CCD)."
+     },
+     {
+      "value": "baseline pixel 0.010 mm (table) / 9 um (caption)",
+      "src": "GC18O",
+      "loc": "Table 2 + caption",
+      "quote": "We have adopted a “baseline” pixel size of 9 𝜇, which will ultimately depend on which vendor is chosen to supply the spectrograph focal plane. ... Baseline Pixel Size 0.010 mm"
+     },
+     {
+      "value": "6k x 6k, 15 um, 90 x 90 mm (2014 PDR)",
+      "src": "GC14D",
+      "loc": "Sec. 2.3",
+      "quote": "The detectors are 6kx6k devices with 15x15 micron pixel size (90x90mm area)."
+     }
+    ],
+    "derived": "DERIVED formats: blue 95.04/0.009 = 10,560 x 10,560 px; red 92.4/0.010 x 92.2/0.010 = 9240 x 9220 px. Dispersion axis: NOT stated explicitly (echelle orders run along one detector axis; which CCD axis is not given)."
+   },
+   "orders": {
+    "value": {
+     "all": "65-175",
+     "blue_DERIVED": "175-114",
+     "red_DERIVED": "114-65"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Table 1",
+    "quote": "Diff. orders 65-175",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "blue": "175-114 (3500-5386 A)",
+       "red": "114-61 (5386-10,000 A)"
+      },
+      "src": "GC14D",
+      "loc": "Sec. 2.3",
+      "quote": "The blue camera covers spectral orders 175-114 (3500-5386Å), the red camera records spectral orders 114-61 (5386-10,000Å)."
+     },
+     {
+      "value": "order 114 at 536 nm (red-camera test field)",
+      "src": "GC24",
+      "loc": "Sec. 2.2",
+      "quote": "corresponding to the echelle grating’s m = 114 diffraction order at λ = 536 nm"
+     }
+    ],
+    "derived": "DERIVED m lambda = 61.395 um: 350 nm -> 175.4; 540 nm -> 113.7; 950 nm -> 64.6. Order 114 centre 538.6 nm, order 65 centre 944.5 nm; FSR 4.7 nm (order 114) to 14.5 nm (order 65); FSR length 47-83 mm at the red camera (fits 92.4 mm)."
+   },
+   "wavelength_coverage": {
+    "value": {
+     "blue": "350-540 nm",
+     "red": "540-950 nm"
+    },
+    "unit": null,
+    "src": "GC18D",
+    "loc": "Sec. 1",
+    "quote": "A dichroic splits the re-collimated beams into a blue channel (350 − 540nm), and a red channel (540 − 950nm).",
+    "stage": "2018 pre-construction",
+    "alternatives": [
+     {
+      "value": "3500-5400 A & 5400-9500 A",
+      "src": "GC16O",
+      "loc": "Table 2 ('Passband' row)",
+      "quote": "3500Å-5400Å & 5400Å-9500Å"
+     },
+     {
+      "value": "3500-5400 A (blue) & 5400-9000 A (red)",
+      "src": "GCWEB2",
+      "loc": "table",
+      "quote": "Passband 3500Å-5400Å (blue) & 5400Å-9000Å (red)"
+     },
+     {
+      "value": "goal 9500 A",
+      "src": "GC18O",
+      "loc": "Sec. 1",
+      "quote": "By adopting new calibrators, we extend the operating passband to 9000Å (Goal:9500Å)."
+     }
+    ]
+   },
+   "order_separation": {
+    "value": {
+     "red_min_interorder_um": 210,
+     "blue_min_interorder_um": 244,
+     "red_min_intraorder_um": 120,
+     "blue_min_intraorder_um": 110
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Sec. 3",
+    "quote": "For the red (blue) echellogram, we get a minimum inter-order separation of 210𝜇𝑚 (244𝜇𝑚) and a minimum intra-order separation of 120𝜇𝑚 (110𝜇𝑚)",
+    "stage": "2016 post-PDR",
+    "note": "'intra-order' = separation between the 7+1 fibre images within one order (PRV)"
+   },
+   "fiber_run_length": {
+    "value": 17,
+    "unit": "m",
+    "src": "GC18O",
+    "loc": "Sec. 1",
+    "quote": "this choice allowed the shortest fiber run of any PRV–capable instrument (17 m)",
+    "stage": "2018 pre-CDR",
+    "alternatives": [
+     {
+      "value": "~15 m",
+      "src": "GC14D",
+      "loc": "Sec. 1",
+      "quote": "decreasing the fiber length to approximately 15 meters"
+     }
+    ]
+   },
+   "status_and_deployment": {
+    "value": "2018: pre-construction, GMT first light planned 2023; 2023 plan: first on the 6.5 m Magellan Clay (G@M), GMT early 2030s; 2025: Magellan first light anticipated 2027",
+    "unit": null,
+    "src": "GC25",
+    "loc": "Sec. 1",
+    "quote": "with first light at Magellan anticipated in 2027 and commissioning at the GMT anticipated in the 2030s",
+    "alternatives": [
+     {
+      "value": "G@M on Magellan Clay first",
+      "src": "GCM23",
+      "loc": "poster text, first paragraph",
+      "quote": "In late 2025 the GMT-Consortium Large Earth Finder (G-CLEF) spectrograph will be deployed on the 6.5-meter Magellan Clay Telescope prior to being relocated to the Giant Magellan Telescope (GMT) for the start of science operations in the early 2030’s."
+     },
+     {
+      "value": "GMT 2023 (as planned in 2018)",
+      "src": "GC18O",
+      "loc": "Abstract",
+      "quote": "G-CLEF will be the first light facility instrument on the Giant Magellan Telescope (GMT) when the GMT is commissioned in 2023."
+     },
+     {
+      "value": "pre-construction in 2018",
+      "src": "GC18D",
+      "loc": "Sec. 4",
+      "quote": "G-CLEF is currently in a pre-construction phase, with estimated delivery in 2021"
+     }
+    ]
+   },
+   "gam_modes_2023": {
+    "value": {
+     "MR": {
+      "slit_arcsec": 1.12,
+      "R": 100000,
+      "fibres": "1x2"
+     },
+     "HR": {
+      "slit_arcsec": 0.8,
+      "R": 140000,
+      "fibres": "1x2"
+     },
+     "Pupil-sliced extreme HR": {
+      "slit_arcsec": 1.05,
+      "R": ">300,000",
+      "fibres": "4x2"
+     },
+     "MagAO-X": {
+      "slit_arcsec": 0.8,
+      "R": 140000,
+      "fibres": 1
+     },
+     "MagAO-X IFU": {
+      "slit_arcsec": "0.12 x 0.12",
+      "R": ">200,000",
+      "fibres": 16
+     }
+    },
+    "unit": null,
+    "src": "GCM23",
+    "loc": "Table 1",
+    "quote": "Medium Resolution (MR) 1.12 100,000 1x2 Science + Sky Fiber High Resolution (HR) 0.8 140,000 1x2 Science + Sky Fiber Pupil-Sliced Extreme HR 1.05 >300,000 4x2 Science + Sky Fiber MagAO-X 0.8 140,000 1 Enhanced throughput over HR mode MagAO-X IFU 0.12 x 0.12 >200,000 16 Divided into 16 spaxels",
+    "stage": "2023 G@M plan (Magellan Clay 6.5 m, f/11 feed)",
+    "alternatives": [
+     {
+      "value": "f/11 Magellan beam -> f/3 fibres -> f/8",
+      "src": "GCM23",
+      "loc": "deployment text",
+      "quote": "The f/11 tele ... scope beam is converted to f/3 upon injection into the fibers that feed the spectrograph."
+     },
+     {
+      "value": "f/3 -> f/8 at the slit",
+      "src": "GCM23",
+      "loc": "spectrograph design text",
+      "quote": "Light enters the spectrograph through the ... fiber slits and the f/3 beam is converted to an f/8."
+     }
+    ],
+    "note": "Fibre core sizes for the G@M modes are NOT given in the poster. DERIVED check: 1.12\" on 6.5 m at f/3 = 106 um, i.e. a ~100 um fibre (same etendue as one GMT 8.4 m sub-aperture with 0.8\": 6.5 x 1.12 = 7.3 vs 8.4 x 0.8 = 6.7 m arcsec)."
+   }
+  },
+  "performance": {
+   "R_by_mode_2016": {
+    "value": {
+     "PRV": 108000,
+     "NS-PRV": 108000,
+     "MR": 35000,
+     "HT": 19000
+    },
+    "unit": "lambda/dlambda (design; MOS 35,000 per GC16O Table 3)",
+    "src": "GC16D",
+    "loc": "Table 2",
+    "quote": "PRV 108,000 ... NS-PRV 108,000 ... MR 35,000 ... HT 19,000",
+    "stage": "2016 post-PDR",
+    "alternatives": [
+     {
+      "value": {
+       "PRV": 105000,
+       "NS-PRV": 105000,
+       "MR": 35000,
+       "HT": 19000
+      },
+      "src": "GC18O",
+      "loc": "Table 1",
+      "quote": "MR 0.8 800 35,000 Round optical fiber PRV 0.8 267 105,000"
+     },
+     {
+      "value": {
+       "range": "R = 20,000 (HT) to pupil-sliced R = 108,000"
+      },
+      "src": "GC18D",
+      "loc": "Sec. 1",
+      "quote": "ranging from a high throughput, resolution (R) = 20,000 mode to a pupil-sliced, R=108,000 mode"
+     },
+     {
+      "value": {
+       "web list": "23K, 35K, 108K, 110K"
+      },
+      "src": "GCWEB1",
+      "loc": "Table 3",
+      "quote": "Resolutions 23K, 35K, 108K, 110K"
+     },
+     {
+      "value": {
+       "HT": 25000,
+       "PA": 40000,
+       "PRV": 120000
+      },
+      "src": "GC12",
+      "loc": "Abstract",
+      "quote": "The respective resolving powers of these modes are R~ 25,000, 40,000 and 120,000."
+     }
+    ]
+   },
+   "R_and_sampling_2014": {
+    "value": {
+     "PRV": {
+      "R": 105000,
+      "FWHM_px": 3.65,
+      "binning": "1x1"
+     },
+     "MR": {
+      "R": 35000,
+      "FWHM_px": 3.68,
+      "binning": "3x3"
+     },
+     "HT": {
+      "R": 19000,
+      "FWHM_px": 3.28,
+      "binning": "5x5"
+     }
+    },
+    "unit": "15 um pixels (binned)",
+    "src": "GC14D",
+    "loc": "Table 5",
+    "quote": "PRV 0.79” 0.26” (7x) 100 1x1 3.65 105 000 MR 0.79” 0.79” 300 3x3 3.68 35 000 HT 1.2” 1.2” 450 5x5 3.28 19 000",
+    "stage": "2014 PDR (f_cam 500 mm, 15 um pixels)",
+    "note": "'Resolution values are average for red and blue detectors, for the middle of the echellogram.'"
+   },
+   "resolution_element_px_2016": {
+    "value": {
+     "PRV": 7.5,
+     "NS-PRV": 7.5,
+     "MR": 20,
+     "HT": 30,
+     "MOS": 20
+    },
+    "unit": "pixels (10 um)",
+    "src": "GC16O",
+    "loc": "Table 3",
+    "quote": "PRV 108,000 Hexagonal 100 𝜇 Core 7 2 7.5 ... MR 35,000 Circular 300 𝜇 Core 1 2 20 ... HT 19,000 Circular 450 𝜇 Core 1 2 30",
+    "stage": "2016 post-PDR",
+    "note": "These equal the geometric fibre-image diameter in 10 um pixels (DERIVED: 7.5 / 22.5 / 33.75 px), not an LSF FWHM."
+   },
+   "dispersion_DERIVED": {
+    "value": {
+     "order 114 (538.6 nm)": "0.0100 A/px (10 um)",
+     "order 65 (944.5 nm)": "0.0175 A/px",
+     "velocity": "0.555 km/s per 10 um pixel at blaze"
+    },
+    "unit": null,
+    "src": "GC16D",
+    "loc": "Table 1",
+    "quote": "Camera Focal length 450mm",
+    "is_derived": true,
+    "stage": "2016 post-PDR",
+    "derived": "DERIVED Littrow at blaze: dlambda/dx = lambda/(2 tan(75.96) x 675 mm) -> 0.998 A/mm at order 114 (0.0100 A per 10 um pixel), 1.750 A/mm at order 65 (0.0175 A/px); c x 0.0100/5385.5 = 0.555 km/s per pixel in every order. No dispersion is published."
+   }
+  },
+  "not_found": [
+   "Any as-built or post-2018 optical prescription. The 2024 SPIE papers on G@M ('G@M: Coupling the G-CLEF Spectrograph to the Magellan Telescope'; 'Assembly, integration and verification of G-CLEF', SPIE 13096) are behind the SPIE paywall and have no arXiv version; NOT obtained.",
+   "Fibre core sizes for the 2023 G@M modes (MR R=100k at 1.12\", HR R=140k at 0.8\", pupil-sliced >300k with 4x2 fibres).",
+   "VPH angles of incidence / camera-axis angles for both cross-dispersers (only line densities, design wavelengths, red fringe tilt 3.25 deg); the blue grism prism orientation and the 2018 pre-disperser prism.",
+   "Which detector axis carries the echelle dispersion (not stated); detector formats in pixels are DERIVED.",
+   "Published dispersion (A/px) and published order table (only order range and a few order/wavelength labels).",
+   "Measured performance of any kind (the instrument has not had first light).",
+   "Fused-silica grade of the blue-grism prisms (only needed for a blue-arm preset; Malitson 1965 from round 1 is the default)."
+  ],
+  "conflicts": [
+   "Echelle tilt: 75.96 deg (GC16D; = R4 blaze, GC12) vs 75.6 deg (GC14D, GC18D).",
+   "Echelle size: 300 x 1200 mm (GC12, GC14D) vs 306 x 1200 mm (GC16D) vs 306 x 1258 mm (GC18D) vs 320 x 1600 mm (GCM23, 2023). Groove density 36.1 lpm (GC12, 2012) vs 31.6 l/mm (2014 onward).",
+   "Camera element counts: abstract of GC16D says 'blue and red cameras comprised of 7 and 8 elements respectively' and GC18D says '7 and 8-elements cameras ... for the blue and red arm respectively', but the GC16D body, GC16O/GC18O Table 2 ('8/7'), GCM23 and GC24 all give red = 7, blue = 8.",
+   "Camera focal length: 450 mm (2016 onward) vs 500 mm (GC12, GC14D). Camera 'beam diameter' 250 mm (red) / 260 mm (blue) in GC16D vs 'Camera Beam Diameter 200 mm' (GC16O/GC18O/GCWEB2).",
+   "Detectors: blue STA 9 um / red e2v 10 um (GC16D) vs 'an STA 1600 95.04×95.04mm CCD' for both (GC18D) vs baseline pixel 0.010 mm (table) but '9 µ' (caption) in GC18O vs 6k x 6k 15 um (GC12, GC14D).",
+   "PRV fibre shape: hexagonal (GC16O, GC16D, GC18D, GCWEB1) vs octagonal (GC14D, GC18O). PRV fibre on sky: 0.8\" (GC18O), 0.79\" (GC14D), 0.97\" (GC14O).",
+   "R: PRV 108,000 (GC16D/GC16O/GCWEB1) vs 105,000 (GC14D, GC14O, GC18O) vs 120,000 (GC12); NS-PRV 110,000 (GC16O Table 1) vs 108,000 (Table 3, same paper); HT 19,000 (most) vs 20,000 (GC18D, GC14O text) vs 23K (GCWEB1 Table 3) vs 25,000 (GC12).",
+   "Red passband: 540-950 nm (GC16D, GC18D) vs 5400-9500 A (GC16O/GC18O) vs 5400-9000 A (GCWEB2); blue camera optimised 350-550 nm (GC16D Sec. 2.3) vs dichroic 540 nm.",
+   "Dichroic tilt 15 deg (GC16D) vs 14 deg (GC14D); M2 conic -0.97 (GC16D) vs -0.88305 (GC14D); fibre run 17 m (GC18O) vs ~15 m (GC14D).",
+   "Cross-disperser line densities: red 480 (2016) vs 370 (2014) vs 415 (2012); blue 950 (2016) vs 910 (2014) vs 925 (2012)."
+  ],
+  "notes": [
+   "Pupil slicing and the app (DERIVED reasoning): in PRV/NS-PRV each of the 7 fibres sees the whole 0.8\" star image through ONE 8.4 m segment (100 um at f/3 on 8.4 m = 0.82\"), and each fibre's f/8 output fills the full 300 mm beam. The spectrum of each slice is therefore that of an 8.4 m telescope with a 0.8\" fibre; the 7 slices are stacked along the slit and add signal. Model it as D = 8.4 m with a 0.8\" fibre (or D = 25.4 m with a 0.265\" fibre = GC14D's '0.26\" (7x)'); multiply collected flux by 7 (pupil area of all segments).",
+   "R validation caveat (DERIVED): with f_cam,eff = 675 mm and tan(theta_B) = 4.0, a Littrow R computed with LSF FWHM = geometric fibre-image width gives 72,000 (PRV, 75 um), 24,000 (MR, 225 um), 16,000 (HT, 337.5 um) -- vs published 108k/35k/19k. The published PRV and MR values imply FWHM = 0.67-0.69 x the image diameter (GC14D Table 5: FWHM 3.65 x 15 um = 54.8 um vs an 83 um geometric image, ratio 0.66). A uniformly lit disk projected on the dispersion axis has FWHM = 0.866 x D (R = 83k PRV). Hectochelle's paper quotes a 1.46 'boost' for the same effect.",
+   "White pupil mapping: the app's collimator = M1 (2400 mm, 300 mm beam, f/8); camera = 675 mm effective on the 300 mm beam (physical 450 mm on the 200 mm beam after the 1.5x pupil transfer). The cross-disperser sits in the 200 mm beam, so its angular dispersion is multiplied by 450 mm (not 675 mm) at the detector.",
+   "Design history: 2012 concept (GC12) -> 2014 PDR (GC14D/GC14O; PDR held April 2015 per GC16O) -> 2016 post-PDR re-optimisation (GC16D/GC16O) -> 2018 pre-CDR (GC18D/GC18O) -> 2023 G@M plan (GCM23) -> 2024-2025 assembly/testing (GC24, GC25). Values in the preset are 2016-2018.",
+   "Glass: not needed for the recommended red-arm preset (pure VPH grating). A blue-arm preset would need fused silica for the two grism prisms (Malitson 1965 coefficients are in round 1, key MAL65) plus the unpublished prism orientation."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "Hectospec": {
+    "value": 300,
+    "unit": "fibres (all 300 imaged; 1 object per fibre, some assigned to sky)",
+    "src": "F05",
+    "loc": "Abstract",
+    "quote": "The Hectospec is a 300 optical fiber fed spectrograph commissioned at the MMT in the spring of 2004.",
+    "kind": "maximum = full complement (all fibres reach the detector)",
+    "alternatives": [
+     {
+      "value": "all 300 reach the detector",
+      "src": "HCOG",
+      "loc": "A brief description",
+      "quote": "only 240 fiber images fall on the Hectochelle focal plane format, while Hectospec exploits all 300 available fibers."
+     },
+     {
+      "value": "300",
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "exploits all 300 available fibers"
+     }
+    ],
+    "note": "Typical number of science targets vs sky fibres per configuration NOT FOUND in the sources read."
+   },
+   "Hectochelle": {
+    "value": 240,
+    "unit": "fibres reaching the detector (of 300 on the positioner)",
+    "src": "S11",
+    "loc": "Sec. 2",
+    "quote": "Hectochelle only accesses 240 of the 300 Hectospec optical fibers.",
+    "kind": "maximum = full complement",
+    "alternatives": [
+     {
+      "value": 240,
+      "src": "S11",
+      "loc": "Table 1",
+      "quote": "Multiplex . . . . . . . . . . . . . . . . . . 240 fibers"
+     },
+     {
+      "value": 240,
+      "src": "MMTOH",
+      "loc": "A Brief Description",
+      "quote": "Due to optical properties the image from on 240 of the fibers fall on the Hectochelle detectors."
+     }
+    ]
+   },
+   "G-CLEF single-object modes": {
+    "value": "1 object (PRV/NS-PRV: 7 science fibres = 7 pupil slices of the same star, + 2 sky/cal; MR/HT: 1 science + 2 sky/cal fibres, one sky used)",
+    "unit": null,
+    "src": "GC16O",
+    "loc": "Table 3 + Sec. 3.2",
+    "quote": "PRV 108,000 Hexagonal 100 𝜇 Core 7 2 7.5 ... MR 35,000 Circular 300 𝜇 Core 1 2 20 ... Each mode has two sky fibers, only one of which is used for any given observation.",
+    "kind": "exact (by design)"
+   },
+   "G-CLEF MOS (MANIFEST)": {
+    "value": 40,
+    "unit": "fibres (R = 35,000)",
+    "src": "GC18O",
+    "loc": "Sec. 1",
+    "quote": "which will provide a multiplex of 40 at a resolution of 35,000",
+    "kind": "design maximum ('up to 40' in GC14D)",
+    "alternatives": [
+     {
+      "value": 40,
+      "src": "GC16O",
+      "loc": "Table 3",
+      "quote": "MOS 35,000 Circular 300 𝜇 Core 40 n/a 20"
+     },
+     {
+      "value": "up to 40",
+      "src": "GC14D",
+      "loc": "Sec. 2.3",
+      "quote": "hosts a bundle of up to 40 fiber inputs arranged in a pseudo-slit"
+     },
+     {
+      "value": "~40 (R ~40,000 in 2012)",
+      "src": "GC12",
+      "loc": "Abstract",
+      "quote": "We also anticipate having an R~40,000 Multi-object Spectroscopy mode with a multiplex of ~40 fibers."
+     }
+    ],
+    "note": "MANIFEST is a separate GMT facility; its status is not covered by these sources."
+   },
+   "Keck/DEIMOS": {
+    "value": {
+     "DEEP2 typical": 140,
+     "DEEP2 Fields 2-4 mean": 121,
+     "DEEP2 EGS mean": 148,
+     "DEEP2 design assumption": 135,
+     "DEEP2 overall mean DERIVED": 128.9
+    },
+    "unit": "slitlets (targets) per mask",
+    "src": "N13",
+    "loc": "Table 2 (Instrument and Exposure Parameters)",
+    "quote": "Typical number of slitlets per mask 140",
+    "kind": "typical / mean (survey)",
+    "alternatives": [
+     {
+      "value": "110-140, mean 121 (Fields 2-4)",
+      "src": "N13",
+      "loc": "Sec. 7 (slitmask design)",
+      "quote": "Slitmasks in these fields contain ∼ 110 − 140 target slitlets (mean 121)"
+     },
+     {
+      "value": "mean 148 (EGS)",
+      "src": "N13",
+      "loc": "Sec. 7",
+      "quote": "In EGS, the average number of slitlets per mask is 148."
+     },
+     {
+      "value": "135 assumed in the design",
+      "src": "N13",
+      "loc": "Sec. 2",
+      "quote": "Assuming an average of 135 targets per slitmask"
+     },
+     {
+      "value": "411 masks, 52,989 spectra",
+      "src": "N13",
+      "loc": "Sec. 4; Sec. 11.3",
+      "quote": "only 411 out of the 480 original slitmasks were observed ... A total of 52,989 spectra were obtained."
+     },
+     {
+      "value": "85 x 10\" slitlets (format statement)",
+      "src": "KTG02",
+      "loc": "Sec. 4.8.1, Spectroscopy mode",
+      "quote": "Total number of slitlets 85 10-arcsec slitlets with 1.5 arcsec gaps",
+      "note": "number of 10\"-long slitlets that fit along the 16.3' usable slit length; not a survey average"
+     }
+    ],
+    "derived": "DERIVED overall DEEP2 mean: 52,989 spectra / 411 masks = 128.9 per mask (includes all four fields; slitlets ~7\" long, 1\" wide, 1200 l/mm)"
+   },
+   "MMT/Binospec": {
+    "value": "over 150 slitlets per mask (per side; two sides)",
+    "unit": "slitlets per mask",
+    "src": "MMTB",
+    "loc": "Binospec overview",
+    "quote": "Each slit mask can hold over 150 slitlets, parallel to the long side of the masks.",
+    "kind": "capacity (maximum), NOT an average",
+    "alternatives": [
+     {
+      "value": "hundreds of 2\" slitlets",
+      "src": "F19",
+      "loc": "Abstract",
+      "quote": "long slits to hundreds of 2ʺ slitlets"
+     },
+     {
+      "value": "120-150 targets in maximal slit packing (1\" x 6\" slits), both masks/sides of a pointing",
+      "src": "KAR20",
+      "loc": "Sec. 4",
+      "quote": "We operated Binospec in maximal slit packing mode, which allowed us to observe 120 − 150 targets using both masks"
+     }
+    ],
+    "note": "A sourced survey AVERAGE for Binospec was NOT FOUND. KAR20's wording ('using both masks, each covering 8′ × 15′') reads as 120-150 per two-sided pointing (~60-75 per side), but the paper also uses 'blue mask'/'red mask' for two grating settings -- ambiguous."
+   },
+   "Keck/LRIS": {
+    "value": "~25-35 (typical); 15-20 primary LBG targets + ~10-15 fillers",
+    "unit": "slitlets per mask",
+    "src": "CW05",
+    "loc": "Sec. 4 (spectroscopic data)",
+    "quote": "Typically, each slitmask was able to include 25 − 35 objects which resulted in an average slitlet length of ∼ 16′′ for each candidate.",
+    "kind": "typical (survey)",
+    "alternatives": [
+     {
+      "value": "average 15-20 LBG candidates + ~10-15 filler slits",
+      "src": "S03",
+      "loc": "Sec. 5 (spectroscopic observations)",
+      "quote": "A typical slit mask included an average of 15–20 z ∼ 3 LBG candidates. ... (∼ 10 − 15 additional slits per mask)",
+      "note": "slits >= ~9\" long over a 7.3' x 5' field; DERIVED total ~25-35"
+     },
+     {
+      "value": "up to 30-40 objects",
+      "src": "KTG02",
+      "loc": "Sec. 4.2.1 LRIS specifications",
+      "quote": "Slitmask plates 4×8 arcmin field; up to 30 - 40 objects",
+      "note": "maximum"
+     }
+    ],
+    "note": "CW05: 6\" minimum slitlet length, LRIS red + blue arms, 2000 Nov - 2004 Feb; S03: LRIS from Oct 1995 to the paper (Keck I and Keck II), 1.4\" slits >= ~9\" long, 300 l/mm red side. Both are z~3 surveys of sparse targets; masks with shorter slits on denser targets hold more."
+   }
+  }
+ }
+}
