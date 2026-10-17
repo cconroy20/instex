@@ -19,7 +19,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     if (m.method === "Runtime.exceptionThrown") errs.push(m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text); });
   const send = (method, params = {}) => new Promise(r => { const i = ++id; pend.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
   await send("Page.enable"); await send("Runtime.enable");
-  await send("Emulation.setDeviceMetricsOverride", { width: +W, height: +H, deviceScaleFactor: 1, mobile: false });
+  await send("Emulation.setDeviceMetricsOverride", { width: +W, height: +H, deviceScaleFactor: +(process.env.DSF || 1), mobile: false });
   await send("Page.navigate", { url });
   await sleep(1800);
   if (js) { const r = await send("Runtime.evaluate", { expression: js, returnByValue: true, awaitPromise: true }); if (r.result?.result?.value !== undefined) console.log(JSON.stringify(r.result.result.value)); await sleep(600); }

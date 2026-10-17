@@ -30,12 +30,24 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   on the page for either collimator, the far side of 180° turning clockwise; everything beyond it is drawn
   reflected about it) and Fold position (fraction of the way from the collimator to the grating), Grating turns
   light (As drawn | Flipped: the grating tilted the other way, so it turns the light to the other side; the
-  grating and everything after it reflected about the collimated beam's axis), and the Collimator tilt τ
-  (mirror collimators). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
+  grating and everything after it reflected about the collimated beam's axis), Labels and marks (Show | Hide: the text,
+  the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays), and the
+  Collimator tilt τ (mirror collimators). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
   ~2.85 m collimated beam, collimator tilt 0, grating Flipped: the fold and the grating turn the light the same
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
   changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last,
   each at the first of its candidate positions that does not overlap a label already placed.
+- **Spectral | Spatial** (layout panel header, grating mode). Spectral is the plane of the dispersion described
+  above: white light as gray rays, then seven wavelengths as colored rays (matplotlib plasma 0.04–0.80, indigo
+  short to orange-gold long, lightness rising) meeting at their foci on the detector, with the W arrow, the
+  grating normal with α and β, and each element's key number. Spatial is the plane that holds the slit length,
+  unfolded onto one axis at λc (a mirror collimator drawn as a lens; the fold, flip and tilt options do not
+  apply): five points along the recorded slit length (detector height × f_col / f_cam), colored brick (top) /
+  gray (center) / teal (bottom), each leaving the collimator as a parallel bundle at slope −h / f_col whose
+  center crosses the axis at the grating (the pupil), then imaged inverted at −h f_cam / f_col; the grating is
+  seen from the side, foreshortened to W tan α with the grooves along the slit, and the detector ends carry the
+  sky offsets of the slit points that land there. Echelle mode has no Spatial view (the cross-disperser bends
+  the light in that plane).
 - **Detector** (right panel, both modes): the chip to scale with the spectrum of every object, drawn as
   the trace of a star on the slit: a Gaussian across the dispersion with FWHM = φ / pixel scale — a band
   one σ wide drawn into an offscreen layer, blurred by σ√(11/12) with the canvas filter (so the variance is

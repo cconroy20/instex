@@ -165,6 +165,22 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const d6 = await D();
     check("grating flipped: drawing changes, numbers do not, state in the URL", p6 !== p5 && JSON.stringify(d6) === JSON.stringify(d5) && /gFlip=true/.test(await ev(`location.hash`)));
     await click("#gfOff"); await sleep(100);
+    const p7 = await ev(`document.querySelector("#cvL").toDataURL().length`);
+    await click("#anOff"); await sleep(150);
+    const p8 = await ev(`document.querySelector("#cvL").toDataURL().length`), d8 = await D();
+    check("labels and marks hidden: drawing changes, numbers do not, no page error", p8 !== p7 && JSON.stringify(d8) === JSON.stringify(d5) && (await ev(`window.__instex.params().annot`)) === false && (await ev(`document.getElementById("err").textContent`)) === "");
+    await click("#anOn"); await sleep(150);
+    check("labels and marks shown again", (await ev(`document.querySelector("#cvL").toDataURL().length`)) === p7);
+    // Spatial view: the plane along the slit (grating mode), drawing only
+    const d9 = await D(), p9 = await ev(`document.querySelector("#cvL").toDataURL().length`);
+    await click("#vSpat"); await sleep(200);
+    const p10 = await ev(`document.querySelector("#cvL").toDataURL().length`), d10 = await D();
+    check("Spatial view: drawing changes, numbers do not, subtitle says so, no page error", p10 !== p9 && JSON.stringify(d10) === JSON.stringify(d9)
+      && /along the slit/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "" && /g\.view=spatial/.test(await ev(`location.hash`)));
+    await click("#mEch"); await sleep(200);
+    check("Spatial view switch hidden in echelle mode, echelle drawn in the dispersion plane", !(await vis("#vSpat")) && !/along the slit/.test(await ev(`document.getElementById("lSub").textContent`)));
+    await click("#mGrat"); await sleep(150);
+    await click("#vSpec"); await sleep(150);
     await click("#lvOptsBtn");
     check("Layout options close again", !(await vis("#sLL")));
     await click("#reset");

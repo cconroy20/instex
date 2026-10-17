@@ -12,9 +12,9 @@ window.addEventListener("error", e => { errBox.hidden = false; errBox.textConten
 const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
-  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false,
+  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral",
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, Nx: 4096, Ny: 2048, pix: 15 },
-  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false,
+  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, xd: "grating", xG: 300, xPsi: 10,
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15 },
 };
@@ -109,6 +109,8 @@ const segs = [
   bindSeg([["cLens", "lens"], ["cMirror", "mirror"]], () => M().col, v => { M().col = v; }),
   bindSeg([["foOff", false], ["foOn", true]], () => !!M().foldOn, v => { M().foldOn = v; }),
   bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }),
+  bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }),
+  bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; }),
   bindSeg([["xGr", "grating"], ["xVp", "vph"], ["xPr", "prism"], ["xGm", "grism"]], () => S.e.xd, v => { S.e.xd = v; }),
   bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; }),
 ];
@@ -187,7 +189,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, xd: m.xd, xG: m.xG, xPsi: m.xPsi,
@@ -233,6 +235,20 @@ const INK = "#1a1a1a", MUTED = "#6a6560", LINE = "#ded9d0";
 const FONT = 'Charter, "PT Serif", Palatino, Georgia, serif';
 // beam colors in the layout (light background): blue end, center, red end
 const BEAM = { lo: [28, 95, 168], c: [92, 86, 80], hi: [178, 107, 0] };
+// the layout's colors for dispersed light: matplotlib plasma 0.04-0.80, deep indigo (short wavelengths) to
+// orange-gold (long), with lightness rising monotonically so the order reads without red-green vision
+const RAMP = [[38, 5, 145], [117, 1, 168], [182, 48, 139], [227, 104, 95], [252, 166, 54]];
+// and for positions along the slit (Spatial view), a diverging pair through a neutral center: brick at the top of
+// the slit, gray at its center, teal at the bottom (the book palette's BRICK/TEAL2, checked for red-green vision)
+const FRAMP = [[166, 58, 36], [152, 96, 82], [128, 122, 116], [64, 128, 120], [0, 137, 123]];
+const frampRGB = t => {
+  const u = Math.min(1, Math.max(0, t)) * (FRAMP.length - 1), k = Math.min(FRAMP.length - 2, Math.floor(u)), f = u - k;
+  return [0, 1, 2].map(i => FRAMP[k][i] + (FRAMP[k + 1][i] - FRAMP[k][i]) * f);
+};
+const rampRGB = t => {
+  const u = Math.min(1, Math.max(0, t)) * (RAMP.length - 1), k = Math.min(RAMP.length - 2, Math.floor(u)), f = u - k;
+  return [0, 1, 2].map(i => RAMP[k][i] + (RAMP[k + 1][i] - RAMP[k][i]) * f);
+};
 const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 
 // ------------------------------------------------------------------ results strip and readouts
@@ -392,6 +408,14 @@ function drawLayout(Dz, P) {
   // beam edges where they meet the camera plane
   const hit = (p, b) => { const t = dt(addv(C, sc(p, -1)), ac) / dt(b, ac); return addv(p, sc(b, t)); };
   for (const bm of beams) { bm.Ep = hit(Fp, bm.b); bm.Em = hit(Fm, bm.b); bm.Q = addv(addv(C, sc(ac, fcam)), sc(xd, bm.X)); }
+  // the rays drawn: NR wavelengths spanning the detector (grating mode) or the central order (echelle mode)
+  const NR = ech ? 5 : 7, lR0 = fan[0][1], lR1 = fan[fan.length - 1][1], mRay = fan[0][2], rays = [];
+  for (let j = 0; j < NR; j++) {
+    const p = Dz.pos(lR0 + (lR1 - lR0) * j / (NR - 1), mRay);
+    if (!p) continue;
+    const ph = Math.atan(p[0] / fcam);
+    rays.push({ t: j / (NR - 1), X: p[0], b: addv(sc(ac, Math.cos(ph)), sc(xd, Math.sin(ph))), Q: addv(addv(C, sc(ac, fcam)), sc(xd, p[0])) });
+  }
   const Lx = Dz.Lx, Dc = addv(C, sc(ac, fcam));
   const det0 = addv(Dc, sc(xd, -Lx / 2)), det1 = addv(Dc, sc(xd, Lx / 2));
   let lensHalf = 0;
@@ -428,12 +452,26 @@ function drawLayout(Dz, P) {
   const Mpost = p => Mf(Mfold(Mg(p)));
   const [Ga, Gb] = P.gFlip ? [Fm, Fp] : [Fp, Fm];               // where the beam's +W/2 and -W/2 edges meet the grating
   const Qp = addv(Cf, sc(tf2, W / (2 * Math.sin(phi / 2)))), Qm = addv(Cf, sc(tf2, -W / (2 * Math.sin(phi / 2))));
+  // Spatial view (grating mode): the plane that holds the slit length, unfolded onto one axis at the central
+  // wavelength.  A point h along the slit leaves the collimator as a parallel bundle at slope -h / f_col whose
+  // center crosses the axis at the grating (the pupil); the camera brings it to -h f_cam / f_col on the detector.
+  const spatial = P.view === "spatial" && !ech;
+  let SP = null;
+  if (spatial) {
+    const mag = fcam / fcol, Ly = Dz.Ly, hMax = 0.5 * Ly / mag, xG = fcol + d1, xC = xG + d2, xD = xC + fcam;
+    const fields = [0, 0.25, 0.5, 0.75, 1].map(t => { const hh = hMax * (1 - 2 * t); return { t, h: hh, m: -hh / fcol, yL: hh * d1 / fcol }; });
+    const colHalf = 1.06 * (W / 2 + hMax * d1 / fcol), camHalf = 1.06 * (W / 2 + d2 * hMax / fcol), tilt = Math.abs(fields[0].yL - hMax) / fcol;
+    SP = { mag, Ly, hMax, xG, xC, xD, fields, colHalf, camHalf,
+      box: [v2(-Lt, hMax + tilt * Lt + tHalf), v2(-Lt, -hMax - tilt * Lt - tHalf), v2(fcol, colHalf), v2(fcol, -colHalf),
+            v2(xC, camHalf), v2(xC, -camHalf), v2(xD + 0.04 * fcam, Ly / 2), v2(xD + 0.04 * fcam, -Ly / 2)] };
+    $("lSub").textContent = "along the slit, unfolded (a mirror drawn as a lens), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
+  }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
   const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q)].map(Mpost);
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  for (const p of [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+  for (const p of spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
   const mL = 70, mR = 70, mT = 30, mB = 34;
   // the view: fitted to the panel (Auto scale, and whenever a fit is asked for), else held (Fixed scale)
   const sFit = Math.min((w - mL - mR) / (x1 - x0), (h - mT - mB) / (y1 - y0));
@@ -451,57 +489,193 @@ function drawLayout(Dz, P) {
   // labels are collected and placed at the end: each tries its candidate positions in turn and takes
   // the first that does not overlap a label already placed (wavelength labels go first)
   const LB = [];
-  const req = (pri, txt, cands, col = MUTED, size = 13) => LB.push({ pri, txt, cands, col, size });
-  const label = (p, txt, dx = 0, dy = 0, align = "center", col = MUTED) => { const q = T(p); req(5, txt, [[q[0] + dx, q[1] + dy, align]], col); };
+  // opt: { sub: muted details after the name, ital, optional: skip the label (and its mark) when it does not fit,
+  // then: draws the label's mark once the label has a place }
+  const req = (pri, txt, cands, col = INK, size = 13, opt = {}) => LB.push({ pri, txt, cands, col, size, ...opt });
   const ends = (q0, q1, up = 12, down = 14) => {   // above the upper end, below the lower end, then beside the middle
     const hi = q0[1] < q1[1] ? q0 : q1, lo = hi === q0 ? q1 : q0, mx = (q0[0] + q1[0]) / 2, my = (q0[1] + q1[1]) / 2;
     return [[hi[0], hi[1] - up, "center"], [lo[0], lo[1] + down, "center"], [mx - 10, my, "right"], [mx + 10, my, "left"]];
   };
-  const NEU = [92, 86, 80];
-  // telescope (or fiber) beam into the slit
-  poly([v2(-Lt, tHalf), v2(0, 0), v2(-Lt, -tHalf)], rgba([31, 78, 121], 0.08), rgba([31, 78, 121], 0.35));
-  label(v2(-Lt, 0), "telescope f/" + sig(P.F, 3), 2, -tHalf * s - 10, "left");
-  // diverging beam to the collimator and the collimated beam to the grating
-  poly([v2(0, 0), Pp, Pm], rgba(NEU, 0.07), rgba(NEU, 0.4));
-  if (foldOn) {
-    poly([Pp, Mf(Qp), Mf(Qm), Pm], rgba(NEU, 0.07), rgba(NEU, 0.4));   // collimator to the fold mirror
-    poly([Mf(Qp), Mpost(Ga), Mpost(Gb), Mf(Qm)], rgba(NEU, 0.07), rgba(NEU, 0.4));
-    const ext = sc(tf2, 0.08 * W / Math.sin(phi / 2));
-    const f0 = T(Mf(addv(Qp, ext))), f1 = T(Mf(addv(Qm, sc(ext, -1))));
-    g.beginPath(); g.moveTo(f0[0], f0[1]); g.lineTo(f1[0], f1[1]); g.strokeStyle = "#3b3733"; g.lineWidth = 3.5; g.stroke();
-    req(4, "fold mirror", ends(f0, f1));
-  } else poly([Pp, Mpost(Ga), Mpost(Gb), Pm], rgba(NEU, 0.07), rgba(NEU, 0.4));     // leaves the mirror where the cone arrived
-  fold = true;
-  // diffracted beams to the camera and on to the detector
-  for (const bm of beams) {
-    const col = BEAM[bm.k];
-    poly([Fp, bm.Ep, bm.Em, Fm], rgba(col, bm.k === "c" ? 0.06 : 0.11), rgba(col, 0.5), 0.9);
-    poly([bm.Ep, bm.Q, bm.Em], rgba(col, bm.k === "c" ? 0.06 : 0.12), rgba(col, 0.55), 0.9);
-  }
-  fold = false;
-  // slit
-  { const q = T(v2(0, 0)); g.fillStyle = INK; g.fillRect(q[0] - 1.5, q[1] - 7, 3, 5); g.fillRect(q[0] - 1.5, q[1] + 2, 3, 5); }
-  label(v2(0, 0), "slit", 0, 18);
-  // lenses
-  const lens = (c, axis, half, name, below) => {
-    const perp2 = v2(-axis[1], axis[0]), q0 = T(addv(c, sc(perp2, half))), q1 = T(addv(c, sc(perp2, -half)));
-    const bulge = Math.max(3, half * s * 0.12), mx = (q0[0] + q1[0]) / 2, my = (q0[1] + q1[1]) / 2;
-    const ql = Math.hypot(q1[0] - q0[0], q1[1] - q0[1]) || 1, ax = [-(q1[1] - q0[1]) / ql, (q1[0] - q0[0]) / ql];
-    g.beginPath(); g.moveTo(q0[0], q0[1]);
-    g.quadraticCurveTo(mx + ax[0] * bulge * 2, my + ax[1] * bulge * 2, q1[0], q1[1]);
-    g.quadraticCurveTo(mx - ax[0] * bulge * 2, my - ax[1] * bulge * 2, q0[0], q0[1]);
-    g.fillStyle = "rgba(170,196,222,0.55)"; g.fill(); g.strokeStyle = "#4b5b6b"; g.lineWidth = 1; g.stroke();
-    const cs = ends(q0, q1);
-    req(3, name, below ? [cs[1], cs[0]] : cs);
+  // ---- the drawing.  White light is drawn as gray rays and dispersed light as colored rays, one color per
+  // wavelength (the ramp above), each wavelength's rays meeting at their focus on the detector.  The optics
+  // follow the usual drawing conventions: glass shaded and outlined, mirrors hatched on the back.
+  const NEU = [104, 98, 92], GLASS_EDGE = "#3f6d96", STEEL = "#33373d";
+  const path = (pts, col, lw = 1, dash) => {
+    g.beginPath(); pts.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
+    g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]);
   };
+  const glassFill = (q0, q1) => {
+    const gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
+    gr.addColorStop(0, "rgba(118,176,222,0.55)"); gr.addColorStop(0.5, "rgba(205,232,250,0.68)"); gr.addColorStop(1, "rgba(118,176,222,0.55)");
+    return gr;
+  };
+  const sheen = (q0, q1, a) => {                                  // a grating's colors along its ruled face
+    const gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
+    for (let k = 0; k <= 4; k++) gr.addColorStop(k / 4, rgba(rampRGB(k / 4), a));
+    return gr;
+  };
+  const hatch = (pts, back) => {                                  // short slanted ticks behind a mirror (screen px)
+    g.beginPath();
+    for (const p of pts) { const q = T(p), r = T(addv(addv(p, sc(back[0], 7 / s)), sc(back[1], 4.5 / s))); g.moveTo(q[0], q[1]); g.lineTo(r[0], r[1]); }
+    g.strokeStyle = "rgba(51,55,61,0.75)"; g.lineWidth = 1; g.stroke();
+  };
+  const steel = (draw, q0, q1) => {                               // polished steel: dark rim, bright core
+    draw(); g.strokeStyle = STEEL; g.lineWidth = 5.5; g.lineCap = "round"; g.stroke();
+    const gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
+    gr.addColorStop(0, "#5d6670"); gr.addColorStop(0.42, "#dfe6ee"); gr.addColorStop(0.58, "#b9c3ce"); gr.addColorStop(1, "#56606a");
+    draw(); g.strokeStyle = gr; g.lineWidth = 2.6; g.stroke(); g.lineCap = "butt";
+  };
+  const YS = [-0.5, -0.25, 0, 0.25, 0.5].map(f => f * W);        // ray heights across the collimated beam
+  // lenses: a biconvex element as an optical drawing shows one, two convex faces joined by a flat rim of
+  // finite edge thickness, tinted glass with a crisp outline
+  const lens = (c, axis, half, name, sub, below) => {
+    const perp2 = v2(-axis[1], axis[0]), q0 = T(addv(c, sc(perp2, half))), q1 = T(addv(c, sc(perp2, -half)));
+    const ql = Math.hypot(q1[0] - q0[0], q1[1] - q0[1]) || 1, ax = [-(q1[1] - q0[1]) / ql, (q1[0] - q0[0]) / ql];
+    const te = Math.max(2.5, 0.035 * ql), sag = Math.max(3, 0.09 * ql), mx = (q0[0] + q1[0]) / 2, my = (q0[1] + q1[1]) / 2;
+    const off = (p, d) => [p[0] + ax[0] * d, p[1] + ax[1] * d];
+    const a0 = off(q0, te / 2), a1 = off(q1, te / 2), b0 = off(q0, -te / 2), b1 = off(q1, -te / 2);
+    const ka = off([mx, my], te / 2 + 2 * sag), kb = off([mx, my], -te / 2 - 2 * sag);  // quadratic controls: sag at the center
+    g.beginPath(); g.moveTo(a0[0], a0[1]); g.quadraticCurveTo(ka[0], ka[1], a1[0], a1[1]);
+    g.lineTo(b1[0], b1[1]); g.quadraticCurveTo(kb[0], kb[1], b0[0], b0[1]); g.closePath();
+    const gr = g.createLinearGradient(...off([mx, my], te / 2 + sag), ...off([mx, my], -te / 2 - sag));
+    gr.addColorStop(0, "rgba(150,196,232,0.5)"); gr.addColorStop(0.5, "rgba(196,225,246,0.5)"); gr.addColorStop(1, "rgba(150,196,232,0.5)");
+    g.fillStyle = gr; g.fill(); g.strokeStyle = GLASS_EDGE; g.lineWidth = 1.3; g.lineJoin = "round"; g.stroke(); g.lineJoin = "miter";
+    const cs = ends(q0, q1), hiE = q0[1] < q1[1] ? q0 : q1, loE = hiE === q0 ? q1 : q0;
+    const far = [[hiE[0], hiE[1] - 28, "center"], [loE[0], loE[1] + 30, "center"]];   // farther out, before the middle
+    req(3, name, below ? [cs[1], cs[0], far[1], far[0], cs[2], cs[3]] : [cs[0], cs[1], far[0], far[1], cs[2], cs[3]], INK, 13, { sub });
+  };
+  const wMark = (p0, p1) => {                                     // a dimension arrow for W, drawn when its label finds room
+    const L = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) || 1, ux = (p1[0] - p0[0]) / L, uy = (p1[1] - p0[1]) / L;
+    const draw = () => {
+      const head = (p, sgn) => { g.beginPath(); g.moveTo(p[0], p[1]); g.lineTo(p[0] - sgn * (7 * ux - 3.2 * uy), p[1] - sgn * (7 * uy + 3.2 * ux)); g.lineTo(p[0] - sgn * (7 * ux + 3.2 * uy), p[1] - sgn * (7 * uy - 3.2 * ux)); g.closePath(); g.fill(); };
+      g.strokeStyle = INK; g.fillStyle = INK; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(p0[0], p0[1]); g.lineTo(p1[0], p1[1]); g.stroke();
+      head(p1, 1); head(p0, -1);
+    };
+    const hi = p0[1] < p1[1] ? p0 : p1, lo = hi === p0 ? p1 : p0;
+    if (L > 24) req(1, "W", [[hi[0], hi[1] - 11, "center"], [lo[0], lo[1] + 12, "center"], [hi[0] + 8, hi[1] + 8, "left"], [hi[0] - 8, hi[1] + 8, "right"]], INK, 14, { sub: mm(W), ital: true, optional: true, then: draw });
+  };
+  if (spatial) {
+    // ---- Spatial view
+    const { Ly, hMax, xG, xC, xD, fields } = SP, mmAs = P.D * 1000 * P.F / 206265;   // mm per arcsec at the slit
+    const ang = x => (Math.abs(x) >= 60 ? sig(Math.abs(x) / 60, 3) + "′" : sig(Math.abs(x), 3) + "″");
+    path([v2(-Lt, 0), v2(xD + 0.05 * fcam, 0)], "rgba(51,55,61,0.4)", 1, [12, 4, 2, 4]);          // the optical axis
+    // starlight converging on each point of the slit
+    for (const f of fields) {
+      const sl = (f.yL - f.h) / fcol;
+      poly([v2(-Lt, f.h - sl * Lt + tHalf), v2(0, f.h), v2(-Lt, f.h - sl * Lt - tHalf)], "rgba(236,186,72,0.13)", null);
+      path([v2(-Lt, f.h - sl * Lt), v2(0, f.h)], "rgba(168,118,22,0.6)", 0.9);
+    }
+    { const q = T(v2(-Lt, hMax)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
+    // the light from each point: a faint band and three rays (the pupil's edges and center) through to the detector
+    for (const f of fields) {
+      const c = frampRGB(f.t), Y = f.m * fcam, P1 = y => v2(fcol, f.yL + y), P3 = y => v2(xC, y + f.m * d2);
+      poly([v2(0, f.h), P1(W / 2), P1(-W / 2)], rgba(c, 0.05), null);
+      poly([P1(W / 2), P3(W / 2), v2(xD, Y), P3(-W / 2), P1(-W / 2)], rgba(c, 0.05), null);
+    }
+    for (const f of fields) for (const y of [-W / 2, W / 2, 0]) {
+      const Y = f.m * fcam;
+      path([v2(0, f.h), v2(fcol, f.yL + y), v2(xG, y), v2(xC, y + f.m * d2), v2(xD, Y)], rgba(frampRGB(f.t), y ? 0.6 : 0.95), y ? 0.9 : 1.5);
+    }
+    // the slit seen along its length, each point marked
+    {
+      const q0 = T(v2(0, hMax)), q1 = T(v2(0, -hMax));
+      g.fillStyle = STEEL; g.fillRect(q0[0] - 2, q0[1] - 12, 4, 10); g.fillRect(q1[0] - 2, q1[1] + 2, 4, 10);
+      for (const f of fields) { const q = T(v2(0, f.h)); g.beginPath(); g.arc(q[0], q[1], 2.6, 0, 2 * Math.PI); g.fillStyle = rgba(frampRGB(f.t), 1); g.fill(); }
+      req(5, "slit", [[q1[0], q1[1] + 22, "center"], [q0[0], q0[1] - 22, "center"]], INK, 13, { sub: ang(2 * hMax / mmAs) + " long" });
+    }
+    lens(v2(fcol, 0), v2(1, 0), SP.colHalf, "collimator", "f = " + mm(fcol), true);
+    // the grating from the side: the ruled face foreshortened to W tan α along the axis, the grooves running along the slit
+    {
+      const hw = Math.max(W * Math.abs(Math.tan(a)) / 2, 3 / s), hh = 0.53 * W;
+      const G0 = v2(xG - hw, hh), G1 = v2(xG + hw, hh), G2 = v2(xG + hw, -hh), G3 = v2(xG - hw, -hh);
+      poly([G0, G1, G2, G3], trans ? glassFill(T(G0), T(G1)) : "rgba(51,55,61,0.32)", trans ? GLASS_EDGE : STEEL, 1.2);
+      g.beginPath();
+      for (let k = 1; k < 12; k++) { const x = xG - hw + 2 * hw * k / 12, r0 = T(v2(x, hh)), r1 = T(v2(x, -hh)); g.moveTo(r0[0], r0[1]); g.lineTo(r1[0], r1[1]); }
+      g.strokeStyle = trans ? "rgba(63,109,150,0.5)" : "rgba(51,55,61,0.55)"; g.lineWidth = 0.8; g.stroke();
+      const tq = T(v2(xG, hh)), bq = T(v2(xG, -hh));
+      req(3, trans ? "transmission grating" : "grating", [[tq[0], tq[1] - 12, "center"], [bq[0], bq[1] + 14, "center"], [tq[0], tq[1] - 28, "center"], [bq[0], bq[1] + 30, "center"]], INK, 13, { sub: "at the pupil" });
+    }
+    wMark(T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), -W / 2)), T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), W / 2)));
+    lens(v2(xC, 0), v2(1, 0), SP.camHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false);
+    // the detector seen edge-on along the slit: the image of the slit, inverted, with each point's focus
+    {
+      const d0 = v2(xD, Ly / 2), d1p = v2(xD, -Ly / 2), dep = 6 / s;
+      poly([d0, d1p, addv(d1p, v2(dep, 0)), addv(d0, v2(dep, 0))], STEEL, null);
+      const q0 = T(d0), q1 = T(d1p), gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
+      for (const f of fields) gr.addColorStop(Math.min(1, Math.max(0, (Ly / 2 - f.m * fcam) / Ly)), rgba(frampRGB(f.t), 1));
+      g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = gr; g.lineWidth = 3.5; g.stroke();
+      for (const f of fields) {
+        const q = T(v2(xD, f.m * fcam));
+        g.beginPath(); g.arc(q[0], q[1], 3.4, 0, 2 * Math.PI); g.fillStyle = rgba(frampRGB(f.t), 1); g.fill(); g.strokeStyle = "#fff"; g.lineWidth = 1.5; g.stroke();
+      }
+      const lp = T(v2(xD, 0));
+      const lo = q0[1] > q1[1] ? q0 : q1, hi = lo === q0 ? q1 : q0;
+      req(2, "detector", [[lo[0], lo[1] + 18, "center"], [hi[0], hi[1] - 16, "center"], [lo[0], lo[1] + 34, "center"], [lp[0] + 14, lp[1], "left"]], INK, 13, { sub: mm(Ly) });
+      // the ends of the slit, as offsets on the sky from its center
+      for (const f of [fields[0], fields[fields.length - 1]]) {
+        const q = T(v2(xD, f.m * fcam)), up = f.m * fcam > 0;
+        req(0, (f.h > 0 ? "+" : "−") + ang(f.h / mmAs), [[q[0] + 9, q[1] + (up ? -10 : 10), "left"]], INK, 12.5);
+      }
+    }
+  } else {
+  // telescope (or fiber) beam converging on the slit: starlight
+  poly([v2(-Lt, tHalf), v2(0, 0), v2(-Lt, -tHalf)], "rgba(236,186,72,0.18)", null);
+  for (const f of [-1, 0, 1]) path([v2(-Lt, f * tHalf), v2(0, 0)], "rgba(168,118,22,0.8)", 1);
+  { const q = T(v2(-Lt, 0)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
+  // white light: diverging from the slit to the collimator, then parallel to the grating (by way of the fold)
+  const onCol = y => onMirror(y / Math.cos(tau));
+  const gPt = y => addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a)));   // meets the grating at height y, before Mpost
+  const WL = rgba(NEU, 0.62);
+  poly([v2(0, 0), Pp, Pm], rgba(NEU, 0.06), null);
+  for (const y of YS) path([v2(0, 0), onCol(y)], WL, 0.9);
+  if (foldOn) {
+    const Qy = y => addv(Cf, sc(tf2, y / Math.sin(phi / 2)));
+    poly([Pp, Mf(Qp), Mf(Qm), Pm], rgba(NEU, 0.07), null);
+    poly([Mf(Qp), Mpost(Ga), Mpost(Gb), Mf(Qm)], rgba(NEU, 0.07), null);
+    for (const y of YS) path([onCol(y), Mf(Qy(y)), Mpost(gPt(y))], WL, 0.9);
+  } else {
+    poly([Pp, Mpost(Ga), Mpost(Gb), Pm], rgba(NEU, 0.07), null);
+    for (const y of YS) path([onCol(y), Mpost(gPt(y))], WL, 0.9);
+  }
+  // the beam diameter W, marked across the collimated beam
+  wMark(T(Mf(v2(fcol + 0.35 * (foldOn ? fPos : 1) * d1, -W / 2))), T(Mf(v2(fcol + 0.35 * (foldOn ? fPos : 1) * d1, W / 2))));
+  fold = true;
+  // dispersed light: per wavelength a faint band and three rays (the beam's two edges and its center) from the
+  // grating through the camera to their common focus on the detector
+  const gPt0 = y => addv(Gc, sc(tg, y / Math.cos(a)));
+  for (const r of rays) {
+    const c = rampRGB(r.t), Ea = hit(Fp, r.b), Eb = hit(Fm, r.b);
+    poly([Fp, Ea, Eb, Fm], rgba(c, 0.045), null);
+    poly([Ea, r.Q, Eb], rgba(c, 0.07), null);
+  }
+  for (const r of rays) for (const y of [-W / 2, W / 2]) { const F0 = gPt0(y); path([F0, hit(F0, r.b), r.Q], rgba(rampRGB(r.t), 0.6), 0.9); }
+  for (const r of rays) path([Gc, hit(Gc, r.b), r.Q], rgba(rampRGB(r.t), 0.95), 1.5);
+  fold = false;
+  // slit: two jaws
+  {
+    const q = T(v2(0, 0)); g.fillStyle = STEEL; g.fillRect(q[0] - 2, q[1] - 10, 4, 7.5); g.fillRect(q[0] - 2, q[1] + 2.5, 4, 7.5);
+    req(5, "slit", [[q[0], q[1] + 21, "center"], [q[0], q[1] - 21, "center"]], INK, 13, { sub: sig(P.slitW, 3) + "″" });
+  }
   if (mirror) {
-    // a concave mirror facing the slit: thick arc through the mirror center, edges bent toward the slit
+    // a concave mirror facing the slit, hatched on the back
     const e0 = T(onMirror(halfM)), e1 = T(onMirror(-halfM)), cc = T(addv(Cm, sc(nm, -sagM)));   // quadratic Bezier = the parabola
-    g.beginPath(); g.moveTo(e0[0], e0[1]); g.quadraticCurveTo(cc[0], cc[1], e1[0], e1[1]);
-    g.strokeStyle = "#3b3733"; g.lineWidth = 4; g.stroke();
+    const nH = Math.max(6, Math.round(Math.hypot(e1[0] - e0[0], e1[1] - e0[1]) / 7));
+    hatch(Array.from({ length: nH + 1 }, (_, k) => onMirror(halfM * (1 - 2 * k / nH))), [sc(nm, -1), tm]);
+    steel(() => { g.beginPath(); g.moveTo(e0[0], e0[1]); g.quadraticCurveTo(cc[0], cc[1], e1[0], e1[1]); }, e0, e1);
     const cs = ends(e0, e1);
-    req(3, "collimator", [cs[1], cs[0]]);
-  } else lens(v2(fcol, 0), v2(1, 0), W / 2 * 1.06, "collimator", true);
+    req(3, "collimator", [cs[1], cs[0], cs[2], cs[3]], INK, 13, { sub: "f = " + mm(fcol) });
+  } else lens(v2(fcol, 0), v2(1, 0), W / 2 * 1.06, "collimator", "f = " + mm(fcol), true);
+  if (foldOn) {
+    // the flat fold mirror, hatched on the back (the side away from the arriving beam)
+    const ext = 1.08 / Math.sin(phi / 2), u0 = W / 2 * ext;
+    const f0 = T(Mf(addv(Cf, sc(tf2, u0)))), f1 = T(Mf(addv(Cf, sc(tf2, -u0))));
+    const nH = Math.max(6, Math.round(Math.hypot(f1[0] - f0[0], f1[1] - f0[1]) / 7));
+    const Mlin = p => addv(Mf(p), sc(Mf(v2(0, 0)), -1));          // Mf acting on a direction
+    hatch(Array.from({ length: nH + 1 }, (_, k) => Mf(addv(Cf, sc(tf2, u0 * (1 - 2 * k / nH))))), [Mlin(nf), Mlin(tf2)]);
+    steel(() => { g.beginPath(); g.moveTo(f0[0], f0[1]); g.lineTo(f1[0], f1[1]); }, f0, f1);
+    req(4, "fold mirror", ends(f0, f1));
+  }
   fold = true;
   if (ech && XDc) {
     // cross-disperser: drawn across the camera beam; it disperses out of the page
@@ -509,20 +683,31 @@ function drawLayout(Dz, P) {
     let half = 0;
     for (const bm of beams) for (const F of [Fp, Fm]) { const t = dt(addv(XDc, sc(F, -1)), ac) / dt(bm.b, ac); const E = addv(F, sc(bm.b, t)); half = Math.max(half, Math.abs(dt(addv(E, sc(XDc, -1)), pp))); }
     half *= 1.08;
-    const q0 = T(addv(XDc, sc(pp, half))), q1 = T(addv(XDc, sc(pp, -half)));
-    g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]);
-    g.strokeStyle = "#3b3733"; g.lineWidth = 3; g.stroke();
-    req(4, "cross-disperser", ends(q0, q1));
+    const th = Math.max(0.05 * half, 5 / s);
+    const c0 = addv(XDc, sc(pp, half)), c1 = addv(XDc, sc(pp, -half));
+    const q0 = T(c0), q1 = T(c1);
+    if (P.xd === "prism") poly([c0, c1, addv(c1, sc(ac, th)), addv(c0, sc(ac, th))], glassFill(q0, q1), GLASS_EDGE, 1.2);
+    else {
+      poly([c0, c1, addv(c1, sc(ac, th)), addv(c0, sc(ac, th))], P.xd === "grating" ? STEEL : glassFill(q0, q1), P.xd === "grating" ? null : GLASS_EDGE, 1.2);
+      g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = sheen(q0, q1, 0.95); g.lineWidth = 2; g.stroke();
+    }
+    req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : sig(P.xG, 3) + " /mm" });
   }
-  lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 2), false);
-  // grating: facets drawn schematically (12 teeth), true length and angle
+  lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false);
+  // grating: true length and angle; a reflection grating's facets drawn schematically (12 teeth), a
+  // transmission grating as a plate with its rulings running through it
+  const n2 = v2(-Math.cos(a), Math.sin(a));
   {
-    const n2 = v2(-Math.cos(a), Math.sin(a));
     const ext = 1.04;
     const A0 = addv(Gc, sc(tg, -ext * W / (2 * Math.cos(a)))), A1 = addv(Gc, sc(tg, ext * W / (2 * Math.cos(a))));
+    const q0 = T(A0), q1 = T(A1);
     if (trans) {
-      const th = 0.08 * Dz.Lg;
-      poly([A0, A1, addv(A1, sc(n2, -th)), addv(A0, sc(n2, -th))], "rgba(170,196,222,0.55)", "#4b5b6b");
+      const th = Math.max(0.08 * Dz.Lg, 6 / s);
+      poly([A0, A1, addv(A1, sc(n2, -th)), addv(A0, sc(n2, -th))], glassFill(q0, q1), GLASS_EDGE, 1.2);
+      g.beginPath();
+      for (let k = 1; k < 18; k++) { const p = addv(A0, sc(addv(A1, sc(A0, -1)), k / 18)), r0 = T(p), r1 = T(addv(p, sc(n2, -th))); g.moveTo(r0[0], r0[1]); g.lineTo(r1[0], r1[1]); }
+      g.strokeStyle = "rgba(63,109,150,0.55)"; g.lineWidth = 0.8; g.stroke();
+      g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = sheen(q0, q1, 0.9); g.lineWidth = 1.6; g.stroke();
     } else {
       // 12 schematic grooves at the true blaze angle: each blaze facet (length ds cos(delta)) has its normal
       // tipped by delta from the grating normal toward the incoming beam (the bisector of the incident and
@@ -536,39 +721,82 @@ function drawLayout(Dz, P) {
         if (k < nT) ps.push(addv(addv(base, sc(tg, ds * Math.sin(dl) ** 2)), sc(n2, -ds * Math.sin(dl) * Math.cos(dl))));
       }
       const back = sc(n2, -Math.max(ds * Math.sin(dl) * Math.cos(dl) * 1.6, 0.025 * L));
-      poly([...ps, addv(A1, back), addv(A0, back)], "#3b3733", null);
+      poly([...ps, addv(A1, back), addv(A0, back)], STEEL, null);
+      path(ps, sheen(q0, q1, 0.95), 1.4);
     }
-    req(3, ech ? "echelle" : trans ? "transmission grating" : "grating", ends(T(A0), T(A1)));
+    const gsub = sig(ech ? P.eG : P.G, 3) + " /mm";
+    req(3, ech ? "echelle" : trans ? "transmission grating" : "grating", ends(q0, q1), INK, 13, { sub: gsub });
   }
-  // detector
-  line(det0, det1, INK, 4);
+  // the grating normal, and the angles of incidence and diffraction of the central wavelength (grating mode;
+  // the echelle drawing is schematic)
+  if (!ech) {
+    const Ln = Math.max(0.6 * W, 52 / s);
+    if (P.annot !== false) path([addv(Gc, sc(n2, Ln)), addv(Gc, sc(n2, -Ln))], "rgba(51,55,61,0.6)", 1, [5, 4]);
+    const arc = (u0, u1, rpx, txt) => {
+      const r = rpx / s, t0 = Math.atan2(u0[1], u0[0]);
+      let d = Math.atan2(u1[1], u1[0]) - t0;
+      while (d > Math.PI) d -= 2 * Math.PI;
+      while (d < -Math.PI) d += 2 * Math.PI;
+      if (Math.abs(d) < 0.02) return;
+      const pts = Array.from({ length: 25 }, (_, k) => addv(Gc, v2(r * Math.cos(t0 + d * k / 24), r * Math.sin(t0 + d * k / 24))));
+      const tm = t0 + d / 2, q = T(addv(Gc, v2((r + 11 / s) * Math.cos(tm), (r + 11 / s) * Math.sin(tm))));
+      const scr = pts.map(T);                                      // screen points now: the label stage runs with fold off
+      req(1, txt, [[q[0], q[1], "center"]], INK, 15, { ital: true, optional: true,
+        then: () => { g.beginPath(); scr.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.strokeStyle = INK; g.lineWidth = 1.1; g.stroke(); } });
+    };
+    const rA = Math.min(40, Math.max(16, 0.42 * W * s));
+    arc(v2(-1, 0), n2, rA, "α");
+    arc(ac, trans ? sc(n2, -1) : n2, rA + 12, "β");
+  }
+  // detector: the chip (its package behind the face), the spectrum along its face, and the focus of each wavelength
   {
-    const lp = T(addv(Dc, sc(ac, 0)));
-    const off = T(addv(Dc, sc(ac, 0.06 * fcam)));
+    const dep = 6 / s;
+    poly([det0, det1, addv(det1, sc(ac, dep)), addv(det0, sc(ac, dep))], STEEL, null);
+    const q0 = T(det0), q1 = T(det1), gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
+    for (const r of rays) gr.addColorStop(Math.min(1, Math.max(0, (r.X + Lx / 2) / Lx)), rgba(rampRGB(r.t), 1));
+    g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = rays.length ? gr : INK; g.lineWidth = 3.5; g.stroke();
+    for (const r of rays) {
+      const q = T(r.Q);
+      g.beginPath(); g.arc(q[0], q[1], 3.4, 0, 2 * Math.PI); g.fillStyle = rgba(rampRGB(r.t), 1); g.fill();
+      g.strokeStyle = "#fff"; g.lineWidth = 1.5; g.stroke();
+    }
+    const lp = T(Dc), off = T(addv(Dc, sc(ac, 0.06 * fcam)));
     const dx = off[0] - lp[0], dy = off[1] - lp[1], n = Math.hypot(dx, dy) || 1;
-    const d0 = T(det0), d1e = T(det1);
-    req(2, "detector", [[lp[0] + dx / n * 12, lp[1] + dy / n * 12, dx > 0 ? "left" : "right"], ...ends(d0, d1e, 14, 16)]);
+    req(2, "detector", [[lp[0] + dx / n * 14, lp[1] + dy / n * 14, dx > 0 ? "left" : "right"], ...ends(q0, q1, 14, 16)], INK, 13, { sub: mm(Lx) });
   }
   // wavelength labels at the detector ends
   for (const bm of beams) {
     if (bm.k === "c") continue;
     const q = T(bm.Q), out = T(addv(bm.Q, sc(xd, (bm.X >= 0 ? 1 : -1) * 0.04 * Lx + 1e-9)));
     const dx = out[0] - q[0], dy = out[1] - q[1], n = Math.hypot(dx, dy) || 1;
-    req(0, fA(bm.l) + " Å", [[q[0] + dx / n * 9, q[1] + dy / n * 9, dx >= 0 ? "left" : "right"]], INK, 12.5);
+    req(0, fA(bm.l) + " Å", [[q[0] + dx / n * 10, q[1] + dy / n * 10, dx >= 0 ? "left" : "right"]], INK, 12.5);
   }
+  }  // spectral view
   fold = false;
+  if (P.annot === false) return;                                 // Labels off (Layout option): optics and rays only
   {
     const boxes = [];
     const box = (x, y, al, wd) => { const x0 = al === "left" ? x : al === "right" ? x - wd : x - wd / 2; return [x0 - 3, y - 9, x0 + wd + 3, y + 9]; };
     const hits = b => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    const inside = b => b[0] >= 2 && b[2] <= w - 2 && b[1] >= 2 && b[3] <= h - 2;
     for (const L of LB.sort((p, q) => p.pri - q.pri)) {
-      g.font = `${L.size}px ${FONT}`;
-      const wd = g.measureText(L.txt).width;
-      let pick = L.cands[0];
-      for (const c of L.cands) if (!hits(box(c[0], c[1], c[2], wd))) { pick = c; break; }
+      const fMain = `${L.ital ? "italic " : ""}${L.size}px ${FONT}`, fSub = `${L.size - 1.5}px ${FONT}`;
+      g.font = fMain; const w1 = g.measureText(L.txt).width;
+      g.font = fSub; const w2 = L.sub ? g.measureText("  " + L.sub).width : 0;
+      const find = wd => L.cands.find(c => { const b = box(c[0], c[1], c[2], wd); return inside(b) && !hits(b); });
+      let sub = !!L.sub, pick = find(w1 + w2);
+      if (!pick && sub) { sub = false; pick = find(w1); }
+      if (!pick) { if (L.optional) continue; sub = false; pick = L.cands.find(c => inside(box(c[0], c[1], c[2], w1))) || L.cands[0]; }
+      const wd = w1 + (sub ? w2 : 0);
       boxes.push(box(pick[0], pick[1], pick[2], wd));
-      g.fillStyle = L.col; g.textAlign = pick[2]; g.textBaseline = "middle";
-      g.fillText(L.txt, pick[0], pick[1]);
+      const x0 = pick[2] === "left" ? pick[0] : pick[2] === "right" ? pick[0] - wd : pick[0] - wd / 2;
+      g.textAlign = "left"; g.textBaseline = "middle";
+      // a white halo under the text keeps it legible where it crosses rays
+      g.lineJoin = "round"; g.strokeStyle = "rgba(255,255,255,0.9)"; g.lineWidth = 4;
+      g.font = fMain; g.strokeText(L.txt, x0, pick[1]); g.fillStyle = L.col; g.fillText(L.txt, x0, pick[1]);
+      if (sub) { g.font = fSub; g.strokeText("  " + L.sub, x0 + w1, pick[1]); g.fillStyle = MUTED; g.fillText("  " + L.sub, x0 + w1, pick[1]); }
+      g.lineJoin = "miter";
+      if (L.then) L.then();
     }
   }
   // scale bar

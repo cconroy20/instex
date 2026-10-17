@@ -42,7 +42,7 @@ main{padding-top:10px;padding-bottom:6px}
 .lvopts[hidden]{display:none}
 body:not(.fold-on) .only-fold{display:none}
 .ph{display:flex;align-items:center;gap:14px;height:30px;flex-wrap:nowrap}
-.ph h2{margin:0}
+.ph h2{margin:0;white-space:nowrap;flex:0 0 auto}
 .ph .sub{font-size:.88rem;color:var(--muted);margin-left:auto;white-space:nowrap;overflow:hidden;
   text-overflow:ellipsis;font-variant-numeric:tabular-nums}
 .ph .sub b{color:var(--ink);font-weight:500}
