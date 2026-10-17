@@ -185,11 +185,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
       window.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
       return window.__instex.state().g.spPos; })()`);
     check("1 free: dragging along the slit moves the point (to -0.6 of the half-slit, within a pixel)", Math.abs(dragTo + 0.6) < 0.05 && /drag the point/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
+    // the click lands on a whole pixel (synthetic events round clientY), so the expected position uses that pixel
     const dragDet = await ev(`(() => { const cv = document.getElementById("cvL"), r = cv.getBoundingClientRect(), G = window.__instex.spGeo(), xd = r.left + G.ox + G.s * G.xD;
-      cv.dispatchEvent(new MouseEvent("mousedown", { clientX: xd, clientY: r.top + G.oy - G.s * G.Ly / 4, bubbles: true }));
+      const cy = Math.round(r.top + G.oy - G.s * G.Ly / 4);
+      cv.dispatchEvent(new MouseEvent("mousedown", { clientX: xd, clientY: cy, bubbles: true }));
       window.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
-      return window.__instex.state().g.spPos; })()`);
-    check("1 free: grabbing the detector places the point whose image lands there (inverted)", Math.abs(dragDet + 0.5) < 0.08);
+      const want = Math.max(-1, Math.min(1, -((G.oy - (cy - r.top)) / G.s) / G.mag / G.hMax));
+      return [window.__instex.state().g.spPos, want]; })()`);
+    check("1 free: grabbing the detector places the point whose image lands there (inverted)", Math.abs(dragDet[0] - dragDet[1]) < 1e-6 && dragDet[0] < -0.3, `${dragDet[0].toFixed(3)} (click a quarter up the detector image)`);
     await click("#sp3"); await sleep(150);
     // Expand: the layout fills the window; Esc returns
     const h0 = await ev(`document.getElementById("cvL").clientHeight`);

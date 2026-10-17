@@ -147,8 +147,8 @@ replaced by a mirror: field of view and pixel scale) is planned; an exposure-tim
   PBM 2Y 0.326–1.129 µm, Infrasil 0.50–3.6, ZnSe 0.55–5.6, silica 0.21–3.71) the index is undefined and those
   rays do not reach the detector. Prism cross-dispersers can be a train of prisms in different glasses
   (presets: X-Shooter NIR = 35° Infrasil + 2 × 22° ZnSe, double pass), each at minimum deviation for λc.
-- **Warnings**: second-order light above 6400 Å (first order, atmospheric cutoff 3200 Å); orders m ± 1
-  overlapping (m ≥ 2); coverage gaps (echelle); undersampling (< 2 px); R_diff < R_slit. (A "camera faster
+- **Warnings**: orders m ± 1 overlapping (m ≥ 2; the first-order "second-order light needs a filter" warning was
+  removed at Charlie's request, 2026-10-17); coverage gaps (echelle); undersampling (< 2 px); R_diff < R_slit. (A "camera faster
   than f/1" warning was removed at Charlie's request; the camera focal ratio is a Spectrograph readout and a
   label in the drawing.) The echelle readouts give the smallest order spacing ("Order gap", above 3200 Å) in pixels
   and as the longest slit that fits between orders.

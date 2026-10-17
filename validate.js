@@ -113,7 +113,7 @@ const mk = o => IX.design(Object.assign({}, base, o));
     `${(C.range[0] * 1e4).toFixed(2)}-${(C.range[1] * 1e4).toFixed(2)} vs ${want[0].toFixed(2)}-${want[1].toFixed(2)} A`);
   const disp = Math.cos(bc) / (600 * 300) * 1e7 * 0.015;              // A per pixel = sigma cos b /(m f_cam) * p, sigma in mm
   check("dispersion sigma cos(beta)/(m f_cam) at the center", rel(C.c.dlpix, disp) < 1e-7, `${C.c.dlpix.toFixed(5)} vs ${disp.toFixed(5)} A/pix`);
-  check("second-order flag above 6400 A", C.flags.some(f => f.k === "ord"));
+  check("first order: no order-sorting warning (the second-order warning was removed)", !C.flags.some(f => f.k === "ord"));
   // blaze function: 1 at the blaze, sinc^2(pi/2) = 0.405 at the free-spectral-range edge of a Littrow echelle
   const B = mk({});
   check("blaze efficiency 1 at the blaze wavelength", Math.abs(B.c.eff - 1) < 1e-12, B.c.eff);

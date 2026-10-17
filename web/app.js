@@ -338,14 +338,14 @@ function renderText(Dz, P) {
       dis.push(["Angles α, β", (Dz.alpha / IX.DEG).toFixed(1) + "°, " + (Dz.beta / IX.DEG).toFixed(1) + "°", "Angle of incidence and of diffraction of the central wavelength, from the grating normal."]);
       if (Dz.delta !== null) dis.push(["Blaze angle δ", deg(Dz.delta)]);
     }
-    dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", P.gType === "grism"]);
+    dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
     if (Dz.c && Dz.c.eff !== null) dis.push(["Blaze efficiency at λc", pct(Dz.c.eff), "Relative to the blaze peak (scalar sinc² envelope)."]);
   } else {
     const os = Dz.orders || [];
     if (os.length) dis.push(["Orders", os[os.length - 1].m + "–" + os[0].m]);
     if (Dz.c) dis.push(["FSR", sig(P.lamC / Dz.mRef, 3) + " Å", "Free spectral range: λ / m at the central wavelength, the wavelength span of one order before the next order begins."]);
     if (isFinite(Dz.minSep)) dis.push(["Order gap", Math.round(Dz.minSep) + " px = " + sig(Dz.minSep * Dz.c.pixScale, 2) + "″", "The smallest separation between adjacent orders (above 3200 Å) at the blaze: the longest slit that fits between the two orders."]);
-    dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N."]);
+    dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
     if (P.xPrisms && P.xPrisms.length) {
       // a palindromic train is one set of prisms passed twice; group repeated prisms
       let tr = P.xPrisms, dbl = false;

@@ -13,9 +13,6 @@
 <header>
   <div class="bar">
     <span class="mark">Instrument Explorer</span>
-    <span class="seg" id="modeSeg" title="The kind of spectrograph. Grating: one grating in a low order, the usual long-slit or multi-object design. Echelle: a coarse grating worked at a steep angle in high orders, with a cross-disperser to separate the orders on the detector. Each mode keeps a separate entrance, optics, and detector; the telescope is shared.">
-      <button id="mGrat" type="button">Grating</button><button id="mEch" type="button">Echelle</button>
-    </span>
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
     <span class="presetnote">Presets approximate the optical characteristics but not the optical layout.</span>
@@ -121,6 +118,8 @@
 
     <section class="c-disp">
       <div class="gh"><h2 title="The grating (and, in echelle mode, the cross-disperser).">Disperser</h2>
+        <span class="seg sm" id="modeSeg" title="The kind of spectrograph. Grating: one grating in a low order, the usual long-slit or multi-object design. Echelle: a coarse grating worked at a steep angle in high orders, with a cross-disperser to separate the orders on the detector. Each mode keeps a separate entrance, optics, and detector; the telescope is shared."><button id="mGrat" type="button">Grating</button><button id="mEch" type="button">Echelle</button></span></div>
+      <div class="caserow kindrow"><span class="only-grat">Grating</span><span class="only-ech">Cross-disperser</span>
         <span class="seg sm only-grat" id="gtSeg"><button id="gRefl" type="button" title="A ruled or replica reflection grating with blazed facets.">Reflection</button><button id="gTr" type="button" title="A transmission grating: volume-phase holographic or surface-relief (binary), which share the same geometry. By default the grating sits at the symmetric configuration α = β for the central wavelength, with the camera articulated to 2α from the collimator axis. The efficiency envelope of the grating is not modeled.">Transmission</button><button id="gGm" type="button" title="A grism: a grating on a prism (ruled) or between two prisms (VPH), which passes one wavelength, λ0, straight through. The camera sits on the collimator axis, so λ0 lands at the detector center and is fixed by the grism.">Grism</button></span>
         <span class="seg sm only-ech" id="xdSeg" title="The cross-disperser separates the echelle orders perpendicular to the echelle dispersion."><button id="xGr" type="button" title="A first-order reflection grating: order spacing grows as λ², crowding the blue orders.">Grating</button><button id="xVp" type="button" title="A volume-phase (transmission) grating in first order at the symmetric (Bragg) setting for the central wavelength: order spacing grows as λ², like a reflection grating.">VPH</button><button id="xPr" type="button" title="A prism (one or two passes): glass disperses most strongly in the blue, so the orders are spaced more evenly than with a grating.">Prism</button><button id="xGm" type="button" title="A grism: a transmission grating on a prism whose angle passes the central wavelength undeviated.">Grism</button></span></div>
       <div class="dispgrid">

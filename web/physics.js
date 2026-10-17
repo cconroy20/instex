@@ -498,11 +498,9 @@ function design(P) {
     S.range = r;
     S.lo = local(r[0], order); S.hi = local(r[1], order);
     S.orders = [{ m: order, lo: r[0], hi: r[1] }];
-    // overlap with neighboring orders (order-sorting filter)
-    const atmo = ATMO;
-    if (order === 1) {
-      if (r[1] > 2 * atmo) flag("ord", "second-order light above " + Math.round(2 * atmo * 1e4) + " Å: needs a filter");
-    } else flag("ord", "orders " + (order - 1) + " and " + (order + 1) + " overlap: needs a filter");
+    // overlap with neighboring orders (order-sorting filter); first order carries no warning (second-order light
+    // removed at Charlie's request, 2026-10-17)
+    if (order > 1) flag("ord", "orders " + (order - 1) + " and " + (order + 1) + " overlap: needs a filter");
     if (S.c.slitPix > P.Ny) flag("long", "slit longer than the detector");
   } else {
     // ---- echelle format
