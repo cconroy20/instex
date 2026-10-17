@@ -1,0 +1,1067 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 4: Subaru / PFS (one preset per arm: b, r, m, n)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json, data/presets_sources_2.json, data/presets_sources_3.json (rounds 1-3); same structure. Differences: 'recommended_preset' is a dict keyed by arm (b, r, m, n); new key 'preset_values' collects the numbers per arm with references ('ref') to the params that source them. Top-level 'multiplex' holds the objects-per-exposure row (as in round 3); its rows carry 'kind' (maximum vs typical).",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values. alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text / plain-text files; degree glyphs, primes, soft hyphens, dashes, the division slash and the Symbol-font micro glyph (U+F06D) normalised; line-break hyphens tried both joined and kept; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; pieces that differ only in punctuation/spacing are accepted."
+ },
+ "sources": {
+  "S15": {
+   "cite": "Sugai, H., et al. 2015, J. Astron. Telesc. Instrum. Syst. (JATIS) 1, 035001, \"Prime Focus Spectrograph for the Subaru telescope: massively multiplexed optical and near-infrared fiber spectrograph\", arXiv:1507.00725 (author manuscript, 19 pp.; in Table 1 the text layer encodes the micro sign as the private-use Symbol glyph U+F06D, rendered here as µ)",
+   "file": "rawdata/presets/pfs/Sugai2015_JATIS1_035001_PFS_arXiv1507.00725.pdf",
+   "url": "https://arxiv.org/pdf/1507.00725"
+  },
+  "V12": {
+   "cite": "Vives, S., Le Mignant, D., Madec, F., et al. 2012, Proc. SPIE 8446, \"A spectrograph instrument concept for the Prime Focus Spectrograph (PFS) on Subaru Telescope\", arXiv:1210.2728 (conceptual design, after the March 2012 CoDR)",
+   "file": "rawdata/presets/pfs/Vives2012_SPIE8446_PFS_spectrograph_concept_arXiv1210.2728.pdf",
+   "url": "https://arxiv.org/pdf/1210.2728"
+  },
+  "V14": {
+   "cite": "Vives, S., Le Mignant, D., Gunn, J. E., et al. 2014, Proc. SPIE 9147, \"Current status of the Spectrograph System for the SuMIRe/PFS\", arXiv:1408.2827 (post-CDR, March 2014)",
+   "file": "rawdata/presets/pfs/Vives2014_SPIE9147_PFS_SpS_status_arXiv1408.2827.pdf",
+   "url": "https://arxiv.org/pdf/1408.2827"
+  },
+  "B14": {
+   "cite": "Barkhouser, R., Arns, J. & Gunn, J. E. 2014, Proc. SPIE 9147, \"Volume phase holographic gratings for the Subaru Prime Focus Spectrograph: performance measurements of the prototype grating set\", arXiv:1408.2829v1 (Table 1 = 'PFS grating design parameters')",
+   "file": "rawdata/presets/pfs/Barkhouser2014_SPIE9147_PFS_VPH_gratings_arXiv1408.2829.pdf",
+   "url": "https://arxiv.org/pdf/1408.2829"
+  },
+  "P14": {
+   "cite": "Pascal, S., Vives, S., Barkhouser, R. H. & Gunn, J. E. 2014, Proc. SPIE 9147, \"Optical Design of the SuMIRe PFS Spectrograph\", arXiv:1408.3911",
+   "file": "rawdata/presets/pfs/Pascal2014_SPIE9147_PFS_optical_design_arXiv1408.3911.pdf",
+   "url": "https://arxiv.org/pdf/1408.3911"
+  },
+  "T16": {
+   "cite": "Tamura, N., Takato, N., Shimono, A., et al. 2016, Proc. SPIE 9908, \"Prime Focus Spectrograph (PFS) for the Subaru Telescope: Overview, recent progress, and future perspectives\", arXiv:1608.01075v1 (Table 1 'PFS major instrument parameters')",
+   "file": "rawdata/presets/pfs/Tamura2016_SPIE9908_PFS_overview_arXiv1608.01075.pdf",
+   "url": "https://arxiv.org/pdf/1608.01075"
+  },
+  "SM16": {
+   "cite": "Smee, S. A., Gunn, J. E., Golebiowski, M., et al. 2016, Proc. SPIE 9908, \"Visible camera cryostat design and performance for the SuMIRe Prime Focus Spectrograph (PFS)\", arXiv:1608.01196v1",
+   "file": "rawdata/presets/pfs/Smee2016_SPIE9908_PFS_visible_camera_cryostat_arXiv1608.01196.pdf",
+   "url": "https://arxiv.org/pdf/1608.01196"
+  },
+  "M16": {
+   "cite": "Madec, F., Le Fur, A., Le Mignant, D., et al. 2016, Proc. SPIE 9908, \"SUBARU prime focus spectrograph: integration, testing and performance for the first spectrograph\", arXiv:1608.01287",
+   "file": "rawdata/presets/pfs/Madec2016_SPIE9908_PFS_first_spectrograph_AIT_arXiv1608.01287.pdf",
+   "url": "https://arxiv.org/pdf/1608.01287"
+  },
+  "T24": {
+   "cite": "Tamura, N., Yabe, K., Koshida, S., et al. 2024, Proc. SPIE 13096, 1309605, \"Prime Focus Spectrograph (PFS) for the Subaru telescope: Progressing final steps to science operation\" (invited paper; green open-access copy on UCL Discovery, eprint 10198642, file Ellis_1309605.pdf)",
+   "file": "rawdata/presets/pfs/Tamura2024_SPIE13096_1309605_PFS_UCLcopy.pdf",
+   "url": "https://discovery.ucl.ac.uk/10198642/1/Ellis_1309605.pdf"
+  },
+  "TN26": {
+   "cite": "Tanaka, M., Arai, A., He, W., et al. 2026, \"Prime Focus Spectrograph on the Subaru Telescope: Overview of Science Operations\", arXiv:2606.14012v1 (PASJ manuscript; 12 Jun 2026)",
+   "file": "rawdata/presets/pfs/Tanaka2026_PFS_science_operations_arXiv2606.14012.pdf",
+   "url": "https://arxiv.org/pdf/2606.14012"
+  },
+  "SUBP": {
+   "cite": "Subaru Telescope (NAOJ), PFS \"Basic instrument parameters\" web page (For Researchers and Students; fetched 2026-10-17)",
+   "file": "rawdata/presets/pfs/subaru_pfs_basic-instrument-parameters.html",
+   "url": "https://subarutelescope.org/Instruments/PFS/basic-instrument-parameters.html"
+  },
+  "SUBI": {
+   "cite": "Subaru Telescope (NAOJ), \"Prime Focus Spectrograph (PFS)\" instrument home page (Call for Proposals S27A; fetched 2026-10-17)",
+   "file": "rawdata/presets/pfs/subaru_pfs_index.html",
+   "url": "https://subarutelescope.org/Instruments/PFS/index.html"
+  },
+  "IPMUP": {
+   "cite": "Subaru PFS project (Kavli IPMU), \"Parameters\" web page (footer: Last updated: 2025-09-30 10:49 HST; resolving powers 'As of July 2024 ... based on measurement before shipping to Subaru Telescope'; fetched 2026-10-17)",
+   "file": "rawdata/presets/pfs/pfs_ipmu_research_parameters.html",
+   "url": "https://pfs.ipmu.jp/research/parameters.html"
+  },
+  "GSP": {
+   "cite": "Subaru Telescope PFS obsproc working group, \"PFS Proposal: Getting Started\" v1.1 (05.feb.2025), 36 pp.",
+   "file": "rawdata/presets/pfs/subaru_pfs_proposal_getting_started.pdf",
+   "url": "https://subarutelescope.org/Instruments/PFS/pdf/pfs_proposal_getting_started.pdf"
+  },
+  "DM": {
+   "cite": "Subaru-PFS GitHub, datamodel repository, file datamodel.txt ('A Datamodel for PFS'), commit 544e872 (2026-09-17)",
+   "file": "rawdata/presets/pfs/github_Subaru-PFS_datamodel_datamodel_544e872.txt",
+   "url": "https://raw.githubusercontent.com/Subaru-PFS/datamodel/544e872707b6a6a1ec477dde313b9bc6ad29f16c/datamodel.txt"
+  },
+  "FMR": {
+   "cite": "Subaru-PFS GitHub, pfs_utils repository, data/fiberids/README.txt (column definitions of the grandfibermap), commit a8d238e (2021-04-20)",
+   "file": "rawdata/presets/pfs/github_Subaru-PFS_pfs_utils_fiberids_README_a8d238e.txt",
+   "url": "https://raw.githubusercontent.com/Subaru-PFS/pfs_utils/a8d238e47a49212835d6f9a7a5c3170f73f82070/data/fiberids/README.txt"
+  },
+  "GFM": {
+   "cite": "Subaru-PFS GitHub, pfs_utils repository, data/fiberids/grandfibermap.txt (one row per slit fibre hole, 2604 rows), commit d5b73d0 (2023-01-26)",
+   "file": "rawdata/presets/pfs/github_Subaru-PFS_pfs_utils_grandfibermap_d5b73d0.txt",
+   "url": "https://raw.githubusercontent.com/Subaru-PFS/pfs_utils/d5b73d067c68d65c35228cd01594a703f16afccd/data/fiberids/grandfibermap.txt"
+  }
+ },
+ "pfs": {
+  "title": "Subaru / PFS (Prime Focus Spectrograph: ~2400 fibres into four identical Schmidt spectrograph modules; VPH arms b, r (low-res), m (red medium-res grism), n)",
+  "recommended_preset": {
+   "b": "Blue arm: D = 8.2 m; fibre output f/2.8 (microlens F/2.2 -> F/2.8; collimator accepts f/2.5); 127 um core = 1.12\" at field centre (slit-equivalent (sqrt3/2) x 1.12 = 0.970\", DERIVED); 600 science (597 in SM1/SM2) + 16 engineering fibres on a 651-hole slit (pitch 213.93 um); Schmidt collimator MIRROR, f_col = 693.5 mm (slit-to-collimator distance, S15), beam W = 275 mm; Mangin-Schmidt camera f = 300 mm, f/1.09; VPH 711.4 l/mm, order 1, alpha = 7.2 deg, beta = 14.2 deg (camera angle alpha+beta = 21.4 deg, DERIVED), lambda_c 519 nm, range 380-650 nm; two Hamamatsu 2k x 4k CCDs, 15 um, 4176 px along dispersion x 4096 px spatial. Validate: ~0.7 A/px, ~2.1 A FWHM (3.0 px), R ~2500 at 500 nm (2300 in T16). DERIVED: 0.681 A/px, edges 377.6-660.6 nm.",
+   "r": "Red low-res arm: same telescope, fibre, slit, collimator (693.5 mm, W 275 mm) and camera (300 mm, f/1.09) as b; VPH 556.7 l/mm, order 1, alpha = 9.5 deg, beta = 16.5 deg (camera angle 26.0 deg, DERIVED), lambda_c 805 nm, range 630-970 nm; two Hamamatsu 2k x 4k CCDs (standard thickness), 15 um, 4176 x 4096. Validate: ~0.9 A/px, ~2.7 A FWHM (3.0 px), R ~3000 at 800 nm. DERIVED: 0.861 A/px, edges 625.1-982.7 nm.",
+   "m": "Red medium-res mode (same red camera and CCDs; grism swapped in for the red VPH): VPH 1007 l/mm (P14 prints 'lines/um') between two 13 deg OHARA S-LAH53 prisms (nd = 1.80610), centred on 7992 A, range 710-885 nm; the prisms keep the camera where it is for the low-res grating. A plane VPH can only stand in for the grism: Littrow equivalent alpha = beta = 23.73 deg (camera angle 47.46 deg, DERIVED). Validate: ~0.4 A/px, ~1.6 A FWHM (4.0 px), R ~5500 at 800 nm (5000 in T16/S15). The Littrow equivalent gives 0.455 A/px and edges 702.6-891.4 nm, so A/px comes out 14% high (DERIVED); the grism incidence geometry is NOT FOUND.",
+   "n": "NIR arm: same telescope, fibre, slit, collimator and camera focal length (300 mm, f/1.09) as b; VPH 569.5 l/mm, order 1, alpha = 14.9 deg, beta = 21.9 deg (camera angle 36.8 deg, DERIVED), lambda_c 1107 nm, range 940-1260 nm; Teledyne H4RG-15, 4k x 4k, 15 um, 1.7 um cutoff, 4088 x 4088 active (4-px reference border). Validate: ~0.8 A/px, ~2.4 A FWHM (3.0 px), R ~4500 at 1100 nm (4300 in T16). DERIVED: 0.815 A/px, edges 937.4-1268.7 nm."
+  },
+  "preset_values": {
+   "_note": "Compact numbers for the explorer, one entry per arm; every number is sourced in 'params' (key in 'ref'). DERIVED entries are arithmetic on sourced values.",
+   "common": {
+    "D_m": 8.2,
+    "F_into_collimator": 2.8,
+    "F_collimator_acceptance": 2.5,
+    "fiber_core_um": 127,
+    "fiber_core_arcsec": 1.12,
+    "slit_equiv_arcsec_DERIVED": 0.97,
+    "spectra_per_detector": 616,
+    "spectra_per_detector_note": "600 science (597 in SM1 and SM2) + 16 engineering; 651 slit holes (35-38 empty) at 213.93 um pitch",
+    "slit_holes": 651,
+    "collimator": "Mirror",
+    "W_mm": 275,
+    "f_col_mm": 693.5,
+    "f_cam_mm": 300,
+    "camera_f_ratio": 1.09,
+    "pixel_um": 15,
+    "ref": [
+     "telescope_aperture",
+     "fiber_output_focal_ratio",
+     "fiber_core_diameter",
+     "fiber_core_on_sky",
+     "fibers_per_spectrograph",
+     "collimator_type",
+     "collimated_beam_diameter",
+     "collimator_focal_length",
+     "camera_focal_length",
+     "camera_focal_ratio"
+    ]
+   },
+   "b": {
+    "lines_per_mm": 711.4,
+    "order": 1,
+    "alpha_deg": 7.2,
+    "beta_deg": 14.2,
+    "camera_angle_deg_DERIVED": 21.4,
+    "lambda_c_nm": 519,
+    "range_nm": [
+     380,
+     650
+    ],
+    "Nx_dispersion": 4176,
+    "Ny_spatial": 4096,
+    "detector": "2 x Hamamatsu 2k x 4k CCD",
+    "ref": [
+     "vph_design",
+     "arm_bandpasses",
+     "detector_visible",
+     "detector_format_visible"
+    ]
+   },
+   "r": {
+    "lines_per_mm": 556.7,
+    "order": 1,
+    "alpha_deg": 9.5,
+    "beta_deg": 16.5,
+    "camera_angle_deg_DERIVED": 26.0,
+    "lambda_c_nm": 805,
+    "range_nm": [
+     630,
+     970
+    ],
+    "Nx_dispersion": 4176,
+    "Ny_spatial": 4096,
+    "detector": "2 x Hamamatsu 2k x 4k CCD",
+    "ref": [
+     "vph_design",
+     "arm_bandpasses",
+     "detector_visible",
+     "detector_format_visible"
+    ]
+   },
+   "m": {
+    "lines_per_mm": 1007,
+    "order": 1,
+    "alpha_deg_DERIVED_littrow_equiv": 23.73,
+    "beta_deg_DERIVED_littrow_equiv": 23.73,
+    "camera_angle_deg_DERIVED_littrow_equiv": 47.46,
+    "lambda_c_nm": 799.2,
+    "range_nm": [
+     710,
+     885
+    ],
+    "Nx_dispersion": 4176,
+    "Ny_spatial": 4096,
+    "detector": "2 x Hamamatsu 2k x 4k CCD (red camera)",
+    "grism": "two 13 deg S-LAH53 prisms (nd 1.80610)",
+    "ref": [
+     "mr_grism",
+     "arm_bandpasses",
+     "detector_format_visible"
+    ]
+   },
+   "n": {
+    "lines_per_mm": 569.5,
+    "order": 1,
+    "alpha_deg": 14.9,
+    "beta_deg": 21.9,
+    "camera_angle_deg_DERIVED": 36.8,
+    "lambda_c_nm": 1107,
+    "range_nm": [
+     940,
+     1260
+    ],
+    "Nx_dispersion": 4088,
+    "Ny_spatial": 4088,
+    "detector": "Teledyne H4RG-15 (4096 x 4096 incl. 4-px reference border)",
+    "ref": [
+     "vph_design",
+     "arm_bandpasses",
+     "detector_nir"
+    ]
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 8.2,
+    "unit": "m",
+    "src": "S15",
+    "loc": "Sec. 1 Introduction",
+    "quote": "is scheduled to be mounted on the Subaru 8.2-m telescope",
+    "alternatives": [
+     {
+      "value": 8.2,
+      "src": "TN26",
+      "loc": "Abstract",
+      "quote": "8.2m Subaru Telescope on the summit of Maunakea"
+     }
+    ]
+   },
+   "telescope_focal_ratio_WFC": {
+    "value": 2.2,
+    "unit": "f/# (prime focus with the Wide Field Corrector shared with HSC)",
+    "src": "S15",
+    "loc": "Sec. 2.1 Microlens",
+    "quote": "transforms the F-ratio F∕2.2 of the Subaru telescope plus WFC at prime focus into a slower F-ratio of F∕2.8.",
+    "alternatives": [
+     {
+      "value": "positioner pitch 8 mm = 90.4\" at the field centre (82.4\" at the edge)",
+      "src": "SUBP",
+      "loc": "Prime Focus Instrument table, 'Positioner pitch'",
+      "quote": "Positioner pitch 8 mm (90.4 arcsec at the FoV center, 82.4 arcsec at the edge)"
+     },
+     {
+      "value": "100 um ~ 1.1\" without the microlens (~90.9 um/arcsec)",
+      "src": "SUBP",
+      "loc": "footnote 1 to 'Fiber core diameter'",
+      "quote": "According to the plate scale without microlens, 100μm subtends ∼1.1 arcsec on the sky."
+     }
+    ],
+    "derived": "DERIVED plate scale at the field centre: 8000 um / 90.4\" = 88.5 um/arcsec -> effective focal ratio 88.5 x 206265 / 8.2e6 um = f/2.23 (matches F/2.2); the SUBP footnote scale, 100 um / 1.1\" = 90.9 um/arcsec, gives f/2.29."
+   },
+   "microlens": {
+    "value": "plano-concave glass-moulded microlens glued to each fibre tip: F/2.2 -> F/2.8; magnification 1.28",
+    "unit": null,
+    "src": "S15",
+    "loc": "Table 1 'Microlens'",
+    "quote": "Plano-concave (spherical); thickness 3 mm; glued to fiber input edge ... F/2.2 to F/2.8",
+    "alternatives": [
+     {
+      "value": "magnification 1.28",
+      "src": "SUBP",
+      "loc": "footnote 1 to 'Fiber core diameter'",
+      "quote": "This is a diameter of the sky projected on to the fiber core not directly but through a microlens with a magnification of 1.28."
+     }
+    ],
+    "derived": "DERIVED: 127 um / 1.28 = 99.2 um on the focal plane; 99.2 / 88.5 um/arcsec = 1.12\" (matches the quoted on-sky core). Effective focal ratio seen by the fibre: f/2.23 x 1.28 = f/2.85. In the explorer, D = 8.2 m with F = 2.8 gives 111.3 um/arcsec, so 1.12\" -> 124.7 um (2% below 127 um); F = 2.85 reproduces 127 um."
+   },
+   "fiber_core_diameter": {
+    "value": 127,
+    "unit": "um (core/cladding/buffer 127/165/189 um, Cable C at the focal plane)",
+    "src": "S15",
+    "loc": "Table 1 'Fiber'",
+    "quote": "Cable C: 127 µm / 165 µm / 189 µm",
+    "alternatives": [
+     {
+      "value": 127,
+      "src": "T16",
+      "loc": "Table 1",
+      "quote": "127µm (=1.12 (1.02) arcsec at the field center (edge), respectively)"
+     },
+     {
+      "value": 127,
+      "src": "SUBP",
+      "loc": "Prime Focus Instrument table",
+      "quote": "Fiber core diameter 1 127 μm (1.1 arcsec at the FoV center, ∼1.0 arcsec at the edge)"
+     },
+     {
+      "value": 129,
+      "src": "S15",
+      "loc": "Table 1 'Fiber' (Cable A = the fibres at the spectrograph slit)",
+      "quote": "Cable B: 128 µm / 169 µm / 189 µm ... Cable A: 129 µm / 168 µm / 189 µm ... Cable A is connected to the spectrographs.",
+      "note": "slit-end core is 129 um; Cable B (telescope run) is 128 um"
+     },
+     {
+      "value": 128,
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Fibers core diameter 128 µm"
+     },
+     {
+      "value": 128,
+      "src": "P14",
+      "loc": "Sec. 2.1 Pseudo-Slit",
+      "quote": "The fibers (128 um core diameter) are arranged on a curved slit"
+     },
+     {
+      "value": 125,
+      "src": "M16",
+      "loc": "Sec. 2.2.1",
+      "quote": "The engineering fibers have a smaller diameter (80µm) than the science fiber (125µm)."
+     }
+    ]
+   },
+   "fiber_core_on_sky": {
+    "value": "1.12 at field centre; 1.02 at the corner/edge",
+    "unit": "arcsec (diameter)",
+    "src": "S15",
+    "loc": "Table 1 'Fiber'",
+    "quote": "Core size corresponds to 1”.12 at field center and 1”.02 at corner ... when a microlens attached",
+    "alternatives": [
+     {
+      "value": "1.12 / 1.02",
+      "src": "IPMUP",
+      "loc": "Prime Focus Instrument table",
+      "quote": "127 μm (1.12 arcsec at the FoV center, 1.02 arcsec at the edge)"
+     },
+     {
+      "value": "1.1 / ~1.0",
+      "src": "SUBP",
+      "loc": "Prime Focus Instrument table",
+      "quote": "127 μm (1.1 arcsec at the FoV center, ∼1.0 arcsec at the edge)"
+     },
+     {
+      "value": "~1.1",
+      "src": "TN26",
+      "loc": "Sec. 2",
+      "quote": "Each fiber subtends ∼ 1.1 arcsec on the sky, although the exact size varies across the focal plane due to optical distortion."
+     }
+    ],
+    "derived": "DERIVED slit-equivalent width for a round core: (sqrt3/2) x 1.12\" = 0.970\" (0.953\" for 1.1\")."
+   },
+   "fiber_output_focal_ratio": {
+    "value": "nominal f/2.8 out of the fibre; the spectrograph accepts f/2.5 to allow for FRD",
+    "unit": "f/#",
+    "src": "S15",
+    "loc": "Sec. 1 Introduction",
+    "quote": "A double Schmidt design is used for the spectrograph modules, which are F∕2.5 at the fiber side and F∕1.09 at the detector side. These apertures are slightly larger than the nominal F∕#, allowing for some focal ratio degradation (FRD) in the fiber.",
+    "alternatives": [
+     {
+      "value": "F/2.8 (without FRD)",
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Fiber input F-ratio F/2.8 (without focal ratio degradation)"
+     },
+     {
+      "value": 2.8,
+      "src": "SUBP",
+      "loc": "Prime Focus Instrument table",
+      "quote": "Input F number to fiber 2.8"
+     },
+     {
+      "value": "design f/2.55",
+      "src": "P14",
+      "loc": "Sec. 2.1 Pseudo-Slit",
+      "quote": "The nominal output f-ratio of the fibers is 2.8 but the focal ratio degradation (FRD) can decrease this f-ratio. ... In order to avoid light losses due to vignetting of the beam beyond 2.8, we considered a f-ratio of 2.55 for the optical design."
+     }
+    ]
+   },
+   "fiber_count_total": {
+    "value": "2394 science fibres (design) + 96 fixed fiducial fibres; 2386 working science fibres (IPMUP, TN26)",
+    "unit": "fibres",
+    "src": "S15",
+    "loc": "Abstract",
+    "quote": "The Prime Focus Spectrograph (PFS) is an optical/near-infrared multifiber spectrograph with 2394 science fibers",
+    "alternatives": [
+     {
+      "value": "2386 (2394) science; 92 (96) fiducial",
+      "src": "IPMUP",
+      "loc": "Prime Focus Instrument table + note (4)",
+      "quote": "Science fibers Fixed fiducial fibers 2386 (2394) 92 (96) ... (4) Excluding the broken fibers. Number in parentheses is from the design."
+     },
+     {
+      "value": "2385 (2394) science; 92 (96) fiducial",
+      "src": "SUBP",
+      "loc": "Prime Focus Instrument table",
+      "quote": "Science fibers 2385 (2394), Fiducial fibers 92 (96)"
+     },
+     {
+      "value": "2386, of which ~2355 reconfigurable",
+      "src": "T24",
+      "loc": "Sec. 6 Summary and future perspectives",
+      "quote": "with 2386 fibers (out of which ∼2355 are reconfigurable) in the 1.3 degree diameter field of view"
+     },
+     {
+      "value": 2386,
+      "src": "TN26",
+      "loc": "Abstract",
+      "quote": "PFS is a massively multiplexed, wide-field, fiber-fed spectrograph covering 1.25 square degrees with 2386 science fibers."
+     }
+    ]
+   },
+   "fibers_per_spectrograph": {
+    "value": "600 or 597 science fibres per slit (single row); plus 16 engineering fibres; 651 slit holes in all",
+    "unit": "fibres per spectrograph module (= spectra per detector)",
+    "src": "S15",
+    "loc": "Sec. 1 Introduction",
+    "quote": "The fibers are divided into four groups, each of which enters one of the four spectrograph modules in a slit comprising 600 or 597 science fibers in a single row.",
+    "alternatives": [
+     {
+      "value": "651 hole positions per slit; fiberId 1..2604",
+      "src": "FMR",
+      "loc": "column definitions",
+      "quote": "fh: Fiber hole (1..651). This is the position in the spectrograph slit head. ... \"eng\" is engineering fibers, and \"emp\" is empty hole (i.e. blank fibers). ... fiberId: The fiber identifier (1..2604). This is a unique identifier for each fiber (both science and engineering). fiberId = 651*(sp-1)+fh."
+     },
+     {
+      "value": "fibre hole 1 of spectrograph 1 is an engineering fibre",
+      "src": "GFM",
+      "loc": "first data row",
+      "quote": "- - - - - - - - - - - - 1 1 eng 1 emp EN-1-1-1-x"
+     },
+     {
+      "value": "engineering + science fibres on the slit",
+      "src": "M16",
+      "loc": "Sec. 2.2.1",
+      "quote": "The fiber slit has two type of fibers: engineering and science fibers. The engineering fibers have a smaller diameter (80µm) than the science fiber (125µm). The engineering fibers are placed along the slit to a set of selected positions to scan the field and wavelength parameter spaces."
+     },
+     {
+      "value": "~600 spectra per module",
+      "src": "TN26",
+      "loc": "Sec. 2",
+      "quote": "pairs of Hamamatsu 2k × 4k CCDs take ∼ 600 spectra in each spectrograph module"
+     }
+    ],
+    "is_derived": true,
+    "derived": "DERIVED (counted in GFM, column sp vs sfib): SM1 597 science + 16 eng + 38 empty = 651; SM2 597 + 16 + 38 = 651; SM3 600 + 16 + 35 = 651; SM4 600 + 16 + 35 = 651. Total science 2394 (matches the design count). Illuminated traces per detector: 613 (SM1, SM2) or 616 (SM3, SM4)."
+   },
+   "fiber_use": {
+    "value": "sky and flux-standard targets are assigned to science fibres in each visit: typically ~400 SKY and 100-200 FLUXSTD per visit (all four modules together)",
+    "unit": null,
+    "src": "GSP",
+    "loc": "p. 11 'Calibration objects?'",
+    "quote": "We typically have ~400 sky objects in each visit. ... We typically have 100- 200 FLUXSTDs per visit, but again, the number may change.",
+    "alternatives": [
+     {
+      "value": "target types",
+      "src": "DM",
+      "loc": "pfsDesign 'targetType'",
+      "quote": "SKY = 2: The fiber is intended to be on blank sky, and used for sky subtraction. FLUXSTD = 3: The fiber is intended to be on a flux standard, and used for flux calibration. ... ENGINEERING = 5: The fiber is an engineering fiber."
+     }
+    ]
+   },
+   "slit_geometry": {
+    "value": "~140 mm long curved slit, 213.93 um centre-to-centre fibre spacing",
+    "unit": null,
+    "src": "S15",
+    "loc": "Table 1 'Spectrograph'",
+    "quote": "Slit length ~140 mm, with center-to-center fiber spacing of 213.93 µm",
+    "alternatives": [
+     {
+      "value": "130 mm high, curved",
+      "src": "M16",
+      "loc": "Sec. 2.2.1",
+      "quote": "The fiber slit is curved and is 130mm heigh."
+     },
+     {
+      "value": "slit height 69.4 mm; typical pitch 255 um",
+      "src": "P14",
+      "loc": "Sec. 2.1 Pseudo-Slit",
+      "quote": "arranged on a curved slit with a slit height of 69.4 mm. This results in a typical pitch of 255 um between fibers.",
+      "note": "2014 design text; 2 x 69.4 = 138.8 mm, so 69.4 mm may be a half-height; 600 x 255 um = 153 mm does not match either"
+     }
+    ],
+    "derived": "DERIVED: 650 gaps x 213.93 um = 139.05 mm for 651 holes (matches ~140 mm). Pitch on the detector: 213.93 x 300/693.5 = 92.5 um = 6.17 px (4096 px / 651 = 6.29 px)."
+   },
+   "collimator_type": {
+    "value": "Schmidt collimator: spherical concave MIRROR (R = 1400 mm in the 2012 concept) used with three identical Schmidt correctors (one per arm) placed after the dichroics",
+    "unit": null,
+    "src": "V12",
+    "loc": "Sec. 2.1",
+    "quote": "The beam coming out of the fibers is collimated by a standard Schmidt camera (inverted). Two dichroics are inserted in the beam (to form the three spectral channels, also referred as arms) between the spherical collimating mirror (R=1400mm) and the Schmidt correctors (one per channel).",
+    "alternatives": [
+     {
+      "value": "collimator mirror + three identical Schmidt correctors",
+      "src": "P14",
+      "loc": "Sec. 2.2 Entrance Unit",
+      "quote": "The Entrance Unit delivers three collimated beams using a collimator mirror and three identical Schmidt correctors (one by spectral channel)."
+     },
+     {
+      "value": "mirror 305 x 600 x 60 mm",
+      "src": "S15",
+      "loc": "Fig. 9 caption",
+      "quote": "A polished collimator mirror. The size is 305 mm × 600 mm × 60 mmthickness at its center."
+     }
+    ]
+   },
+   "collimator_focal_ratio": {
+    "value": 2.5,
+    "unit": "f/#",
+    "src": "S15",
+    "loc": "Table 1 'Spectrograph'",
+    "quote": "All-Schmidt type: collimator F/2.5 & camera F/1.09",
+    "alternatives": [
+     {
+      "value": 2.5,
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Collimator focal ratio F/2.5"
+     },
+     {
+      "value": 2.5,
+      "src": "B14",
+      "loc": "Sec. 2",
+      "quote": "Each spectrograph module receives 600 fibers and produces a 275 mm diameter beam using an f/2.5 Schmidt collimator."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 693.5,
+    "unit": "mm (slit-to-collimator distance, taken as the collimator focal length)",
+    "src": "S15",
+    "loc": "Fig. 8 caption",
+    "quote": "The entrance slit is vertical to the page and the distance from the slit to the collimator is 693.5 mm.",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": 700,
+      "src": "V12",
+      "loc": "Sec. 2.1",
+      "quote": "the spherical collimating mirror (R=1400mm)",
+      "note": "DERIVED f = R/2 = 700 mm (2012 conceptual design)"
+     },
+     {
+      "value": 687.5,
+      "src": "B14",
+      "loc": "Sec. 2",
+      "quote": "produces a 275 mm diameter beam using an f/2.5 Schmidt collimator",
+      "note": "DERIVED f = 2.5 x 275 mm = 687.5 mm"
+     }
+    ],
+    "derived": "No source states a collimator focal length as such. In a Schmidt collimator the slit sits at the focal surface, so the stated 693.5 mm slit-to-collimator distance is used as f_col (interpretation). Cross-checks: 693.5/275 = f/2.52; R/2 = 700 mm gives 700/2.55 = 274.5 mm (the P14 design f/2.55). Spatial magnification 300/693.5 = 0.433."
+   },
+   "collimated_beam_diameter": {
+    "value": 275,
+    "unit": "mm",
+    "src": "B14",
+    "loc": "Sec. 2 (and Abstract)",
+    "quote": "Each spectrograph module receives 600 fibers and produces a 275 mm diameter beam using an f/2.5 Schmidt collimator.",
+    "alternatives": [
+     {
+      "value": "275 mm minimum clear aperture of each grating",
+      "src": "B14",
+      "loc": "Table 1",
+      "quote": "Minimum clear aperture 275 mm 275 mm 275 mm"
+     },
+     {
+      "value": "pupil mask 275 x 282 mm (elliptical) on every grating",
+      "src": "B14",
+      "loc": "Sec. 3.2",
+      "quote": "We chose to use a common mask size for all the gratings, 275 x 282 mm"
+     },
+     {
+      "value": "VPH diameter 280 mm",
+      "src": "S15",
+      "loc": "Table 1 'Spectrograph'",
+      "quote": "VPH; diameter 280 mm"
+     }
+    ],
+    "derived": "DERIVED: the nominal f/2.8 fibre cone fills 693.5/2.8 = 247.7 mm of the 275 mm pupil."
+   },
+   "dichroics": {
+    "value": "two dichroics after the collimator mirror: the first reflects blue, the second reflects red, NIR is transmitted; transition width ~20 nm; implied splits ~640 nm and ~955 nm",
+    "unit": null,
+    "src": "V14",
+    "loc": "Sec. 3 Architecture",
+    "quote": "Two dichroics split the beam: the first dichroic reflects the “Blue” part of the spectrum and the second reflects the “Red” while the “NIR” is transmitted.",
+    "alternatives": [
+     {
+      "value": "sharp transition ~20 nm; >=95% R, >=90% T",
+      "src": "T16",
+      "loc": "Sec. 4.2",
+      "quote": "The difficulty is to meet the requirement of the sharp transition (∼20nm) between the reflection and ... (≥95% of reflectance and ≥90% of transmittance)"
+     },
+     {
+      "value": "channels 380-640 / 640-955 / 955-1260 nm",
+      "src": "SM16",
+      "loc": "Abstract",
+      "quote": "Each spectrograph module has three channels covering wavelength ranges 380 nm – 640 nm, 640 nm – 955 nm, and 955 nm – 1.26 um"
+     }
+    ],
+    "derived": "DERIVED: the published arm ranges overlap at 630-650 nm and 940-970 nm; the overlap midpoints, 640 and 955 nm, equal the SM16 channel boundaries. Dichroic cut wavelengths are not stated as specifications in any source read."
+   },
+   "arm_bandpasses": {
+    "value": {
+     "b": "380-650 nm",
+     "r": "630-970 nm",
+     "m": "710-885 nm",
+     "n": "940-1260 nm"
+    },
+    "unit": "nm",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Spectral coverage 380 - 650 nm 630 - 970 nm 710 - 885 nm 940 - 1260 nm",
+    "alternatives": [
+     {
+      "value": "380-650 / 630-970 / 940-1260 nm",
+      "src": "S15",
+      "loc": "Table 1 'Spectrograph'",
+      "quote": "380-1260 nm (blue: 380-650 nm; red: 630-970 nm; NIR 940-1260 nm)"
+     },
+     {
+      "value": "MR 7100-8850 A",
+      "src": "P14",
+      "loc": "Sec. 3",
+      "quote": "The covered wavelength range is 1750 A wide and reach from 7100 A to 8850 A."
+     },
+     {
+      "value": "0.38-0.67 / 0.65-1.00 / 0.97-1.30 um",
+      "src": "V12",
+      "loc": "Sec. 1",
+      "quote": "three channels covering the wavelength ranges 0.38-0.67µm (“Blue”), 0.65-1.00µm (“Red”), and 0.97-1.30µm (“NIR”)",
+      "note": "2012 conceptual bands, superseded"
+     }
+    ]
+   },
+   "vph_design": {
+    "value": {
+     "b": {
+      "lines_per_mm": 711.4,
+      "alpha_deg": 7.2,
+      "beta_deg": 14.2,
+      "lambda_c_nm": 519,
+      "fringe_slant_deg": 1.5
+     },
+     "r": {
+      "lines_per_mm": 556.7,
+      "alpha_deg": 9.5,
+      "beta_deg": 16.5,
+      "lambda_c_nm": 805,
+      "fringe_slant_deg": 1.0
+     },
+     "n": {
+      "lines_per_mm": 569.5,
+      "alpha_deg": 14.9,
+      "beta_deg": 21.9,
+      "lambda_c_nm": 1107,
+      "fringe_slant_deg": 2.0
+     },
+     "substrate": "N-BK7, 340 x 340 mm, 40 mm thick, 275 mm minimum clear aperture"
+    },
+    "unit": "lines/mm; deg; nm",
+    "src": "B14",
+    "loc": "Table 1 'PFS grating design parameters'",
+    "quote": "Central wavelength 519 nm 805 nm 1107 nm ... Fringe frequency 711.4 mm−1 556.7 mm−1 569.5 mm−1 ... Fringe slant 1.5 deg 1.0 deg 2.0 deg ... Angle of incidence (α) 7.2 deg 9.5 deg 14.9 deg ... Angle of diffraction (β) 14.2 deg 16.5 deg 21.9 deg",
+    "note": "B14: 'In this paper we present the design and specifications for the PFS gratings'; the measured units were the prototypes. Production-grating values were NOT FOUND.",
+    "alternatives": [
+     {
+      "value": "676 / 554 / 571 lines/mm",
+      "src": "V12",
+      "loc": "Sec. 2.1",
+      "quote": "Nominal line densities for the blue, red, and infrared are 676 lines/mm, 554 lines/mm, and 571 lines/mm, respectively.",
+      "note": "2012 concept, for the older 0.38-0.67 / 0.65-1.00 / 0.97-1.30 um bands"
+     },
+     {
+      "value": "3.5 deg off Littrow",
+      "src": "B14",
+      "loc": "Sec. 3.3",
+      "quote": "For PFS the gratings will all be tilted 3.5 degrees off Littrow to move the ghost off the detectors."
+     }
+    ],
+    "derived": "DERIVED (first order, sin a + sin b = G lambda): b 521.0 nm, r 806.7 nm, n 1106.4 nm (Table 1 centres 519 / 805 / 1107 nm). Camera angle a + b = 21.4 / 26.0 / 36.8 deg; b - a = 7.0 deg in every arm (= 2 x 3.5 deg off Littrow). Order 1 is DERIVED from this match; no source prints the order number."
+   },
+   "vph_physical": {
+    "value": "340 x 340 mm outline, two 20 mm BK7 plates bonded (40 mm), chrome pupil mask inside",
+    "unit": null,
+    "src": "B14",
+    "loc": "Sec. 3",
+    "quote": "The PFS gratings are 340×340 mm in outline. They are made from two 20 mm thick BK7 plates, bonded together to form a 40 mm thick sandwich with the grating layer buried in the middle.",
+    "alternatives": [
+     {
+      "value": "320 mm square, 20 mm substrates + cover plate",
+      "src": "V14",
+      "loc": "Sec. 4",
+      "quote": "All gratings are made on 320mm square by 20mm thick substrates and have a cover plate of the same size and thickness, both made of BK7."
+     },
+     {
+      "value": "about 280 x 280 mm",
+      "src": "P14",
+      "loc": "Abstract",
+      "quote": "the light is dispersed by large VPH gratings (about 280x280mm)"
+     }
+    ]
+   },
+   "mr_grism": {
+    "value": {
+     "lines_per_mm": 1007,
+     "lambda_c_A": 7992,
+     "prism_angle_deg": 13,
+     "prism_glass": "OHARA S-LAH53 (nd = 1.80610)",
+     "range_A": "7100-8850"
+    },
+    "unit": null,
+    "src": "P14",
+    "loc": "Sec. 3 Medium Resolution Mode",
+    "quote": "Indeed, two prisms are attached to the VPH surfaces to keep the camera location fixed between the two resolution mode. The two prisms have an angle of 13°, they are made in OHARA-LAH53 glass in order to meet the resolving power specification. The central VPH grating have a groove spacing of 1007 lines/um in order to center the wavelength of 7992 A on the detector.",
+    "note": "'1007 lines/um' must be lines/mm (1007 lines/um would not diffract visible light).",
+    "alternatives": [
+     {
+      "value": "S-LAH53, nd = 1.80610",
+      "src": "S15",
+      "loc": "Sec. 2.4",
+      "quote": "Figure 10(b) shows an Ohara high-refractive-index prism blank made of S-LAH53 for a medium resolution grism in the red channel. Such a blank with high refractive index of nd = 1.80610"
+     },
+     {
+      "value": "grism swapped with the red VPH on a slide",
+      "src": "V14",
+      "loc": "Sec. 5",
+      "quote": "The VPHG for the red camera and the mid resolution grism are mounted on a linear exchange mechanism."
+     }
+    ],
+    "derived": "DERIVED plane-VPH stand-in (the explorer has no grism): Littrow at 799.2 nm: sin a = 1007 x 7.992e-4 / 2 = 0.4024 -> a = b = 23.73 deg, camera angle 47.46 deg; 0.455 A/px with f_cam 300 mm and 15 um (published ~0.4 A/px); 4176 px span 702.6-891.4 nm (published 710-885 nm). The real grism keeps the red camera angle of the low-res grating, which a bare grating cannot do."
+   },
+   "camera_type": {
+    "value": "vacuum Mangin-Schmidt: two-element fused-silica Schmidt corrector (first element = dewar window), Mangin-like spherical mirror (40 mm silica meniscus), field-flattener lens",
+    "unit": null,
+    "src": "V14",
+    "loc": "Sec. 4",
+    "quote": "Each camera is based on a Mangin-Schmidt concept adapted to the fast focal ratio (F/1.09) and contains just four optical elements: a two-element refractive corrector, a Mangin mirror, and a field flattening lens.",
+    "alternatives": [
+     {
+      "value": "10 deg field, f/1.09",
+      "src": "P14",
+      "loc": "Abstract",
+      "quote": "The camera design consists in an innovative Schmidt camera observing a large field-of-view (10 degrees) with a very fast beam (F/1.09)."
+     },
+     {
+      "value": "clear aperture 300 mm at the entrance window",
+      "src": "SM16",
+      "loc": "Abstract",
+      "quote": "The cameras are very large, having a clear aperture of 300 mm at the entrance window"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 300,
+    "unit": "mm (all arms)",
+    "src": "B14",
+    "loc": "Sec. 2",
+    "quote": "In order to reasonably sample the fibers with 15 µm pixels, very fast cameras are required and PFS will employ f/1.09, 300 mm focal length Schmidt cameras.",
+    "derived": "DERIVED: 300 mm / 275 mm = f/1.091. Per-arm as-built focal lengths NOT FOUND."
+   },
+   "camera_focal_ratio": {
+    "value": 1.09,
+    "unit": "f/#",
+    "src": "S15",
+    "loc": "Table 1 'Spectrograph'",
+    "quote": "All-Schmidt type: collimator F/2.5 & camera F/1.09",
+    "alternatives": [
+     {
+      "value": 1.07,
+      "src": "SM16",
+      "loc": "Abstract",
+      "quote": "with the dispersed light being imaged in each channel by a f/1.07 vacuum Schmidt camera"
+     },
+     {
+      "value": 1.05,
+      "src": "B14",
+      "loc": "Abstract",
+      "quote": "good imaging performance at the fast f/1.05 focal ratio required from the cameras to avoid oversampling the fibers"
+     },
+     {
+      "value": 1.1,
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Camera focal ratio F/1.1"
+     }
+    ]
+   },
+   "fiber_image_on_detector": {
+    "value": "about 50 um",
+    "unit": "um (diameter)",
+    "src": "V14",
+    "loc": "Sec. 7, Fig. 7 text",
+    "quote": "The circles represent the image of one fiber on the detector (about 50microns).",
+    "derived": "DERIVED: 127 um x 300/693.5 = 54.9 um = 3.66 px (129 um slit-end core: 3.72 px); spectral width x cos(a)/cos(b) = 1.023 (b), 1.029 (r), 1.042 (n)."
+   },
+   "detector_visible": {
+    "value": "b and r: pair of Hamamatsu 2k x 4k fully depleted CCDs, 15 um pixels (blue: 100 um depletion layer, blue-optimised coating; red: standard 200 um thickness, the HSC CCD)",
+    "unit": null,
+    "src": "S15",
+    "loc": "Sec. 2.4",
+    "quote": "For the red channel in each spectrograph module, we use a pair of 2 K×4 K Hamamatsu fully depleted charge-coupled devices (CCDs) with a pixel size of 15 μm × 15 μm. This is exactly the same CCD used for the HSC. ... is also used for the blue channel but with a thinner fully depleted region and a blue optimized coating. The 100-μm depletion layer"
+   },
+   "detector_format_visible": {
+    "value": "4176 rows along dispersion x 4096 columns (ISR-trimmed CCD pair; raw 4224 physical rows, 8 amplifiers)",
+    "unit": "pixels",
+    "src": "DM",
+    "loc": "'Parameters' section + symbol definitions",
+    "quote": "NROW The number of rows that spectra extend over in the dispersion direction. ... NROW = 4176 # CCDROWS - LEADINROWS NCOL = 4096 # NAMP*(AMPCOLS - LEADINCOLS) This value of NROW is applicable to the pfsArm files.",
+    "alternatives": [
+     {
+      "value": "4k x 4k, 15 um",
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Detector format 4kx4k with 15µm pixel size"
+     },
+     {
+      "value": "two CCDs split by fiberId",
+      "src": "DM",
+      "loc": "DifferentialDetectorMap format",
+      "quote": "HDU #6 HIGHCCD Coefficients for high-fiberId CCD"
+     }
+    ],
+    "derived": "Dispersion runs along the 4176-px rows (Nx = 4176); the 4096 columns (Ny) hold the fibres, and the two 2048-column CCDs split the slit by fiberId, so the gap runs parallel to the spectra (interpretation of the HIGHCCD entry)."
+   },
+   "detector_nir": {
+    "value": "Teledyne H4RG-15 HgCdTe, 4k x 4k, 15 um, 1.7 um cutoff; ISR images <= 4088 x 4088 (4-px reference border)",
+    "unit": null,
+    "src": "S15",
+    "loc": "Sec. 2.4",
+    "quote": "For the NIR channel in each spectrograph module, a 4 K×4 K Teledyne H4RG-15 mercury-cadmium telluride device is used with the same pixel size of 15 μm × 15 μm to the optical CCD case. The special cutoff wavelength of 1.7 μm",
+    "alternatives": [
+     {
+      "value": "4088 x 4088 after ISR",
+      "src": "DM",
+      "loc": "'Parameters' section",
+      "quote": "(n.b. there's a 4-pixel reference pixel border) The ISR-extracted H4RG images will be no bigger than NROW = 4088 NCOL = 4088"
+     }
+    ]
+   },
+   "vphg_orientation_fix": {
+    "value": "VPHGs had been mounted in the wrong orientation (low throughput); blue, red-LR and NIR VPHG assemblies rolled by 180 deg in SM1-SM3 (late 2023), MR-mode assembly flipped in February 2024 (efficiency recovery; dispersion geometry unchanged)",
+    "unit": null,
+    "src": "T24",
+    "loc": "Sec. 2",
+    "quote": "this turned out to be due to the wrong orientation of the VPHG. ... The orientations of the blue, red (LR) and NIR VPHG were corrected for SM1, SM2 and SM3, which had been already shipped from LAM to Subaru, by rolling the assembly by 180 deg. ... The modification of the MR-mode VPHG assembly was carried out in February 2024, by flipping"
+   }
+  },
+  "performance": {
+   "dispersion_A_per_px": {
+    "value": {
+     "b": "~0.7",
+     "r": "~0.9",
+     "m": "~0.4",
+     "n": "~0.8"
+    },
+    "unit": "A/pixel",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Dispersion ∼0.7 Å/pix ∼0.9 Å/pix ∼0.4 Å/pix ∼0.8 Å/pix",
+    "alternatives": [
+     {
+      "value": "0.7 / 0.9 / 0.4 / 0.8",
+      "src": "T16",
+      "loc": "Table 1",
+      "quote": "Dispersion 0.7 Å/pix 0.9 Å/pix 0.4 Å/pix 0.8 Å/pix"
+     },
+     {
+      "value": "~0.7 / ~0.9 / ~0.4 / ~0.8",
+      "src": "IPMUP",
+      "loc": "Spectrograph System table",
+      "quote": "Dispersion ∼0.7 Å/pix ∼0.9 Å/pix ∼0.4 Å/pix ∼0.8 Å/pix"
+     }
+    ],
+    "derived": "DERIVED at lambda_c (cos b / (G f_cam) x 15 um, f_cam = 300 mm): b 0.681, r 0.861, n 0.815 A/px; m (Littrow stand-in) 0.455 A/px."
+   },
+   "fwhm_A": {
+    "value": {
+     "b": "~2.1",
+     "r": "~2.7",
+     "m": "~1.6",
+     "n": "~2.4"
+    },
+    "unit": "A (FWHM)",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Spectral resolution ∼2.1 Å ∼2.7 Å ∼1.6 Å ∼2.4 Å",
+    "alternatives": [
+     {
+      "value": "2.1 / 2.7 / 1.6 / 2.4",
+      "src": "T16",
+      "loc": "Table 1",
+      "quote": "Spectral resolution 2.1 Å 2.7 Å 1.6 Å 2.4 Å"
+     },
+     {
+      "value": "~2.7 A (~1.6 A MR)",
+      "src": "S15",
+      "loc": "Table 1 'Spectrograph'",
+      "quote": "~2.7 A (~1.6 A for red-arm medium resolution mode in 710-885 nm)"
+     }
+    ]
+   },
+   "resolving_power": {
+    "value": {
+     "b": "~2500 at 500 nm",
+     "r": "~3000 at 800 nm",
+     "m": "~5500 at 800 nm",
+     "n": "~4500 at 1100 nm"
+    },
+    "unit": "lambda/dlambda",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Resolving power ∼2500 (@500nm) ∼3000 (@800nm) ∼5500 (@800nm) ∼4500 (@1100nm)",
+    "alternatives": [
+     {
+      "value": "same; 'As of July 2024', measured before shipping",
+      "src": "IPMUP",
+      "loc": "Spectrograph System table + note (7)",
+      "quote": "Resolving power (7) ∼2500 (@500nm) ∼3000 (@800nm) ∼5500 (@800nm) ∼4500 (@1100nm) ... (7) As of July 2024. These are based on measurement before shipping to Subaru Telescope."
+     },
+     {
+      "value": "2300 / 3000 / 5000 / 4300",
+      "src": "T16",
+      "loc": "Table 1",
+      "quote": "Resolving power 2300 3000 5000 4300"
+     },
+     {
+      "value": "~2500 / 3000 / 4500; MR ~5500",
+      "src": "TN26",
+      "loc": "Sec. 2",
+      "quote": "and near-infrared arms have a resolving power of approximately 2,500, 3,000 and 4,500, respectively. In addition, the red arm has a medium resolution mode with R ∼ 5, 500, covering a narrower wavelength range of 710 − 885 nm."
+     },
+     {
+      "value": "~2300 blue; up to 5000 (MR)",
+      "src": "SUBI",
+      "loc": "Introduction",
+      "quote": "with a resolving power of approximately 2,300 in the blue channel, and up to 5,000 in the red channel (medium resolution mode)"
+     },
+     {
+      "value": "requirements R >= 2200 / 2900 / 5000 / 4200",
+      "src": "V14",
+      "loc": "Table 1",
+      "quote": "Blue: 0.38-0.65µm (R ≥ 2200) ... Red: 0.63-0.97µm (R ≥ 2900) ... Mid-res Red: 0.71-0.885µm (R ≥ 5000) ... NIR: 0.94-1.26µm (R ≥ 4200)"
+     }
+    ],
+    "derived": "DERIVED from the table: R = lambda / FWHM = 5000/2.1 = 2380 (b at 500 nm), 8000/2.7 = 2960 (r), 8000/1.6 = 5000 (m), 11000/2.4 = 4580 (n). Explorer-style estimate (fibre image 3.66 px x anamorphic factor x sqrt3/2, no optical blur, at lambda_c): b 2.21 A -> R 2350; r 2.81 A -> R 2870; n 2.69 A -> R 4110."
+   },
+   "sampling_px_per_fwhm": {
+    "value": {
+     "b": 3.0,
+     "r": 3.0,
+     "m": 4.0,
+     "n": 3.0
+    },
+    "unit": "pixels per FWHM",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Dispersion ∼0.7 Å/pix ∼0.9 Å/pix ∼0.4 Å/pix ∼0.8 Å/pix Spectral resolution ∼2.1 Å ∼2.7 Å ∼1.6 Å ∼2.4 Å",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "image-quality spec: >= 50% EEE in 3 px, >= 90% in 5 px",
+      "src": "V14",
+      "loc": "Sec. 7",
+      "quote": "≥ 50% within a square of 3 pixels for each spectral band in more than 95% of the detector area; ... ≥ 90% within a square of 5 pixels for each spectral band in more than 95% of the detector area."
+     }
+    ],
+    "derived": "DERIVED: FWHM / dispersion = 2.1/0.7 = 3.0 (b), 2.7/0.9 = 3.0 (r), 1.6/0.4 = 4.0 (m), 2.4/0.8 = 3.0 (n). No source states the sampling directly."
+   },
+   "coverage": {
+    "value": {
+     "b": "380-650 nm",
+     "r": "630-970 nm",
+     "m": "710-885 nm",
+     "n": "940-1260 nm"
+    },
+    "unit": "nm",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Spectral coverage 380 - 650 nm 630 - 970 nm 710 - 885 nm 940 - 1260 nm",
+    "derived": "DERIVED (grating equation, f tan(theta) camera, f_cam 300 mm, B14 angles, half-detector 4176 x 15 um / 2 = 31.32 mm, NIR 4088 px): b 377.6-660.6 nm; r 625.1-982.7 nm; n 937.4-1268.7 nm; m (Littrow stand-in) 702.6-891.4 nm."
+   },
+   "spectrograph_throughput": {
+    "value": {
+     "b": "~49% at 500 nm",
+     "r": "~52% at 800 nm",
+     "m": "~48% at 800 nm",
+     "n": "~39% at 1100 nm"
+    },
+    "unit": "incl. detector QE",
+    "src": "SUBP",
+    "loc": "Spectrograph System table",
+    "quote": "Spectrograph throughput 4 ∼49% (@500nm) ∼52% (@800nm) ∼48% (@800nm) ∼39% (@1100nm)",
+    "alternatives": [
+     {
+      "value": "53% / 57% / 54% / 33%",
+      "src": "T16",
+      "loc": "Table 1",
+      "quote": "SpS throughput 53% (at 500nm) 57% (at 800nm) 54% (at 800nm) 33% (at 1100nm)"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "As-built (production) VPH line densities, incidence angles and camera angles. Only the 2014 design table (B14 Table 1) and the 2012 concept values (V12) are public; the SpS papers that would report as-built values (Smee+22 SPIE 12184; Madec+24 and Dohlen+24, SPIE 13096) have no open copies.",
+   "Medium-resolution grism geometry: incidence angle, prism orientation and the as-built line density (only P14's '1007 lines/um' design value and the 13 deg S-LAH53 prisms).",
+   "A collimator focal length stated as such (693.5 mm is the slit-to-collimator distance in S15; 700 mm is R/2 from the 2012 concept).",
+   "Per-arm as-built camera focal lengths (B14 gives one 300 mm value for all arms).",
+   "Dichroic cut-on/cut-off wavelengths as specifications (only the ~20 nm transition width and the arm-range overlaps).",
+   "A source-stated sampling in pixels per resolution element (DERIVED from the Subaru table).",
+   "Measured fibre output focal ratio at the slit (only nominal f/2.8 and the f/2.5 acceptance)."
+  ],
+  "conflicts": [
+   "Fibre core: 127 um (S15 Cable C, T16, SUBP, IPMUP) vs 128 um (V14, P14; S15 Cable B) vs 129 um at the slit end (S15 Cable A) vs 125 um (M16).",
+   "On-sky core: 1.12\"/1.02\" centre/edge (S15, T16, IPMUP) vs 1.1\"/~1.0\" (SUBP, TN26).",
+   "Camera focal ratio: f/1.09 (S15, P14, V14 text, B14 body) vs f/1.07 (SM16) vs f/1.05 (B14 abstract) vs F/1.1 (V14 table; S15 Sec. 2 text 'F∕1.1').",
+   "Collimator focal length: 693.5 mm slit-to-collimator distance (S15) vs R/2 = 700 mm (V12, 2012) vs 2.5 x 275 = 687.5 mm (DERIVED).",
+   "Collimator acceptance: F/2.5 (S15, V14, B14) vs 'a f-ratio of 2.55 for the optical design' (P14).",
+   "VPH line densities: 711.4 / 556.7 / 569.5 l/mm (B14 2014 design) vs 676 / 554 / 571 l/mm (V12 2012 concept, older bands).",
+   "Grating size: 340 x 340 x 40 mm (B14) vs 320 mm square, 20 mm substrates (V14) vs 'about 280x280mm' (P14) vs 'diameter 280 mm' (S15 Table 1).",
+   "Slit: ~140 mm with 213.93 um spacing (S15) vs 130 mm high (M16) vs 69.4 mm slit height with 255 um pitch (P14).",
+   "Arm boundaries: 380-650 / 630-970 / 940-1260 nm (S15, SUBP, TN26) vs 380-640 / 640-955 / 955-1260 nm (SM16) vs 0.38-0.67 / 0.65-1.00 / 0.97-1.30 um (V12, 2012).",
+   "Resolving power: 2500 / 3000 / 5500 / 4500 (SUBP, IPMUP; July 2024 lab values) vs 2300 / 3000 / 5000 / 4300 (T16) vs blue ~2300 and MR up to 5000 (SUBI home page) vs 2500 / 3000 / 4500 and MR ~5500 (TN26).",
+   "Working science fibres: 2386 (IPMUP, TN26, T24) vs 2385 (SUBP); design 2394.",
+   "Engineering fibre core: 80 um (M16) vs 60 um (P14).",
+   "Spectrograph throughput: 49 / 52 / 48 / 39 % (SUBP) vs 53 / 57 / 54 / 33 % (T16)."
+  ],
+  "notes": [
+   "All four spectrograph modules are identical; each holds one slit of 651 fibre holes feeding all three cameras at once (FMR, GFM). Sky and flux-standard fibres are ordinary science fibres assigned to calibration targets (GSP: ~400 sky and 100-200 FLUXSTD per visit across the four modules).",
+   "Explorer mapping: Collimator = Mirror (Schmidt). Use F = 2.8 into the collimator with W = 275 mm (the f/2.5-2.55 acceptance pupil); f_col = 693.5 mm gives f/2.52 with W = 275 mm. D = 8.2 m with F = 2.8 makes 1.12\" = 124.7 um, 2% below the 127 um core (F = 2.85, the microlens-corrected focal ratio, gives 127 um).",
+   "Detector axes: Nx (along dispersion) = 4176 rows for b, r, m; Ny = 4096 columns (two 2048-column CCDs, gap parallel to the spectra). NIR: 4088 x 4088 after removing the 4-px reference border (4096 x 4096 physical).",
+   "VPH sign convention: B14 tabulates alpha and beta on opposite sides of the grating normal so that sin(alpha) + sin(beta) = G lambda in first order; camera angle = alpha + beta (21.4 / 26.0 / 36.8 deg).",
+   "Medium-res grism: the explorer can only model it as a plane VPH; the Littrow stand-in (1007 l/mm, 23.73 deg) overshoots the published dispersion by 14% and spans 703-891 nm. A real grism keeps the red camera at the low-res angle (P14).",
+   "The 2023-2024 VPHG re-orientation (T24: 'wrong orientation of the VPHG', fixed by rolling the assemblies 180 deg) restored throughput; it does not change the dispersion geometry.",
+   "Status: PFS has been offered to the Subaru community since March 2025 (TN26 abstract)."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "Subaru/PFS": {
+    "value": 2386,
+    "unit": "working science fibres per exposure over the four modules (~600 per detector); sky and flux-standard targets use these fibres",
+    "src": "IPMUP",
+    "loc": "Prime Focus Instrument table + note (4)",
+    "quote": "Science fibers Fixed fiducial fibers 2386 (2394) 92 (96) ... (4) Excluding the broken fibers. Number in parentheses is from the design.",
+    "kind": "maximum = full complement of working science fibres (one target per fibre)",
+    "alternatives": [
+     {
+      "value": 2394,
+      "src": "S15",
+      "loc": "Abstract",
+      "quote": "The Prime Focus Spectrograph (PFS) is an optical/near-infrared multifiber spectrograph with 2394 science fibers",
+      "note": "design"
+     },
+     {
+      "value": "~2355 reconfigurable",
+      "src": "T24",
+      "loc": "Sec. 6 Summary and future perspectives",
+      "quote": "with 2386 fibers (out of which ∼2355 are reconfigurable) in the 1.3 degree diameter field of view"
+     },
+     {
+      "value": "~400 SKY + 100-200 FLUXSTD per visit",
+      "src": "GSP",
+      "loc": "p. 11 'Calibration objects?'",
+      "quote": "We typically have ~400 sky objects in each visit. ... We typically have 100- 200 FLUXSTDs per visit, but again, the number may change."
+     }
+    ],
+    "derived": "DERIVED upper bound on science targets per visit: 2386 - ~400 sky - 100-200 FLUXSTD = ~1790-1890 (fewer when fibres stay unassigned). Per detector: 597 or 600 science fibres + 16 engineering fibres (GFM count)."
+   }
+  }
+ }
+}

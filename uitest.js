@@ -196,6 +196,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await click("#lvExpand"); await sleep(250);
     const h1 = await ev(`document.getElementById("cvL").clientHeight`), w1 = await ev(`document.getElementById("cvL").clientWidth`);
     check("Expand: the layout fills the window, button reads Exit", h1 > h0 * 1.5 && w1 > (await ev(`innerWidth`)) * 0.9 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Exit" && (await ev(`document.getElementById("err").textContent`)) === "");
+    await click("#lvOptsBtn"); await sleep(100);
+    await setRange("#sLL", Math.log10(900)); await sleep(250);
+    check("Expanded: changing a layout option keeps the layout expanded", (await ev(`document.body.classList.contains("lv-expanded")`)) && (await ev(`document.getElementById("cvL").clientHeight`)) === h1);
+    await click("#lvOptsBtn"); await sleep(100);
     await ev(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`); await sleep(250);
     check("Esc returns the layout to the page", (await ev(`document.getElementById("cvL").clientHeight`)) === h0 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Expand");
     await click("#mEch"); await sleep(200);
@@ -343,7 +347,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
 
   // ------------------------------------------------------------ presets
   const presets = await ev(`[...document.querySelectorAll("#preset option")].map(o => o.value).filter(v => v !== "custom")`);
-  check("nineteen presets in the menu", presets.length === 19, presets.join(", "));
+  check("every preset in the menu", presets.length === (await ev(`window.IX_PRESETS.length`)) && presets.length >= 38, presets.length + ": " + presets.join(", "));
   for (const p of presets) {
     await ev(`(s => { s.value = ${JSON.stringify(p)}; s.dispatchEvent(new Event("change")); })(document.querySelector("#preset"))`); await sleep(250);
     d = await D();

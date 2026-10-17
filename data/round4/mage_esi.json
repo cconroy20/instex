@@ -1,0 +1,1691 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 4 (Magellan/MagE, Keck II/ESI echellette mode, Ohara BSL7Y prism glass)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json (round 1), data/presets_sources_2.json (round 2), data/presets_sources_3.json (round 3); same structure; human-readable twin data/round4/mage_esi.md. Keys IMACS, KTG02 and OHWEB are identical copies of earlier-round files, re-saved under rawdata/presets/mage/ or esi/.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). note = context or caveat. Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text; degree glyphs, primes, micro signs, dashes and table bars normalised; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; a piece also passes if it matches with all whitespace removed."
+ },
+ "sources": {
+  "M08": {
+   "cite": "Marshall, J. L., Burles, S., Thompson, I. B., Shectman, S. A., Bigelow, B. C., et al. 2008, Proc. SPIE 7014, 701454, \"The MagE Spectrograph\", arXiv:0807.3774 (10 pp.)",
+   "file": "rawdata/presets/mage/Marshall2008_SPIE7014_701454_MagE_arXiv0807.3774.pdf",
+   "url": "https://arxiv.org/pdf/0807.3774"
+  },
+  "LCOMG": {
+   "cite": "Las Campanas Observatory, \"The MagE Spectrograph User Manual\" web page (\"Created On April 27, 2020 / Last Updated On February 10, 2024\"; fetched 2026-10-17)",
+   "file": "rawdata/presets/mage/lco_mage_user_manual.html",
+   "url": "https://www.lco.cl/technical-documentation/the-mage-spectrograph-user-manual/"
+  },
+  "MGHO": {
+   "cite": "Las Campanas Observatory, \"MAGE Handout\" (one-page instrument sheet; PDF created 2017-01-20; file MAGE-Handout-2.pdf)",
+   "file": "rawdata/presets/mage/lco_MAGE-Handout-2_2017.pdf",
+   "url": "https://www.lco.cl/wp-content/uploads/2019/11/MAGE-Handout-2.pdf"
+  },
+  "B09": {
+   "cite": "Bochanski, J. J., Hennawi, J. F., Simcoe, R. A., et al. 2009, \"MASE: A New Data-Reduction Pipeline for the Magellan Echellette Spectrograph\", PASP (accepted manuscript), arXiv:0910.1834",
+   "file": "rawdata/presets/mage/Bochanski2009_MASE_arXiv0910.1834.pdf",
+   "url": "https://arxiv.org/pdf/0910.1834"
+  },
+  "R18": {
+   "cite": "Rigby, J. R., Bayliss, M. B., Sharon, K., et al., \"The Magellan Evolution of Galaxies Spectroscopic and Ultraviolet Reference Atlas (MegaSaura) I: The Sample and the Spectra\", arXiv:1710.07294v2 (submitted to ApJ; re-resubmitted 31 Oct 2017). The text layer renders the double prime as '00' (e.g. '100 slit' = 1\" slit)",
+   "file": "rawdata/presets/mage/Rigby2018_MEGaSaURA_arXiv1710.07294.pdf",
+   "url": "https://arxiv.org/pdf/1710.07294"
+  },
+  "IMACS": {
+   "cite": "Carnegie Observatories IMACS spec document, node9 \"design parameters for the Magellan f/11 configuration\" (B. Bigelow, 1998-05-21; round-1 fetch 2026-10-16) -- identical copy of round-1 key IMACS (rawdata/presets/mike/)",
+   "file": "rawdata/presets/mage/carnegie_imacs_spec_node9.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node9.html"
+  },
+  "S02": {
+   "cite": "Sheinis, A. I., Bolte, M., Epps, H. W., Kibrick, R. I., Miller, J. S., Radovan, M. V., Bigelow, B. C. & Sutin, B. M. 2002, PASP 114, 851, \"ESI, a New Keck Observatory Echellette Spectrograph and Imager\", arXiv:astro-ph/0204297v1 (preprint, 35 pp.; double primes render as \u2032\u2032 detached from the digits, e.g. '0.\u2032\u2032 3' = 0.3\")",
+   "file": "rawdata/presets/esi/Sheinis2002_PASP114_851_ESI_arXiv-astro-ph0204297.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0204297"
+  },
+  "S02P": {
+   "cite": "Same paper, published PASP version (15 pp., PDF created 2002-07-15; copy hosted in the MAESTRO references folder at lavinia.as.arizona.edu). Text layer garbles some glyphs (\u00b5 -> m, \u00d7 -> #)",
+   "file": "rawdata/presets/esi/Sheinis2002_PASP114_851_ESI_published_copy_lavinia.pdf",
+   "url": "https://lavinia.as.arizona.edu/~minimaestro/MAESTRO/Construction/References/202082.web.pdf"
+  },
+  "UCR96": {
+   "cite": "UCO/Lick Observatory, \"ESI: An Echellette Spectrograph and Imager for the Keck II Telescope\", Version 1.0, January 9, 1996 (PI J. Miller; optical designers B. Sutin, H. Epps; linked as 'Preliminary Documentation' from the UCO/Lick ESI engineering page; design-stage numbers)",
+   "file": "rawdata/presets/esi/ucolick_esi_report_1996.html",
+   "url": "https://loen.ucolick.org/engineering/ESI/esi-report.html"
+  },
+  "S99": {
+   "cite": "Sheinis, A. I., Sutin, B., Epps, H., Schier, J. A., Hilyard, D. & Lewis, J., \"Assembly and Testing of the ESI Camera\", paper presented at the SPIE Annual Meeting, Denver, 18-23 July 1999 (author HTML version on the UCO/Lick ESI papers page; SPIE volume number not given there)",
+   "file": "rawdata/presets/esi/ucolick_esi_camera_Sheinis1999_denverB.html",
+   "url": "https://loen.ucolick.org/engineering/ESI/Papers/Paper_B/denverB_99_7_12.html"
+  },
+  "KESP": {
+   "cite": "W. M. Keck Observatory, ESI \"General ESI specifications\" page (gen_specs.html; undated; fetched 2026-10-17)",
+   "file": "rawdata/presets/esi/keck_esi_gen_specs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/gen_specs.html"
+  },
+  "KECH": {
+   "cite": "W. M. Keck Observatory, ESI \"Echelle Spectroscopy Mode notes\" page (echmode.html; Tables 1-2; undated; fetched 2026-10-17)",
+   "file": "rawdata/presets/esi/keck_esi_echmode.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/echmode.html"
+  },
+  "KOV": {
+   "cite": "W. M. Keck Observatory, ESI \"Instrument Overview\" page (overview.html; mentions 'As of 2001 June'; fetched 2026-10-17)",
+   "file": "rawdata/presets/esi/keck_esi_overview.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/overview.html"
+  },
+  "KQR": {
+   "cite": "W. M. Keck Observatory, ESI \"Quick Reference\" page (QuickRef.html; echellette spatial scales dated 27 Sep. 2002, per-order wavelength solutions, focus values 2010-2015; fetched 2026-10-17)",
+   "file": "rawdata/presets/esi/keck_esi_QuickRef.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/QuickRef.html"
+  },
+  "KCCD": {
+   "cite": "W. M. Keck Observatory, ESI \"CCD system\" page (ccd.html; Table 4, Sec. 9.1 Binning; fetched 2026-10-17)",
+   "file": "rawdata/presets/esi/keck_esi_ccd.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/ccd.html"
+  },
+  "KTG02": {
+   "cite": "W. M. Keck Observatory, \"Keck telescope and instrument guide\" update (PDF created 2002-09-11), Sec. 3.1 (telescope), Table 2 (foci), Sec. 4.7 (ESI) -- identical copy of round-2 key KTG02 (rawdata/presets/deimos/)",
+   "file": "rawdata/presets/esi/keck_telescope_guide_ktelinstupdate.pdf",
+   "url": "https://www2.keck.hawaii.edu/observing/kecktelgde/ktelinstupdate.pdf"
+  },
+  "P01": {
+   "cite": "Prochaska, J. X., Gawiser, E., Wolfe, A. M., et al. 2001, \"Galactic Chemical Abundances at z>3 I: First Results from the Echellette Spectrograph and Imager\", ApJ (accepted 22 Dec 2000), arXiv:astro-ph/0101029",
+   "file": "rawdata/presets/esi/Prochaska2001_ESI_DLA_arXiv-astro-ph0101029.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0101029"
+  },
+  "OHI": {
+   "cite": "OHARA GmbH, \"OHARA i Line glasses\" catalogue (14 data sheets, footer 'Date 10/2018'; PDF created 2018-11-23), BSL7Y data sheet",
+   "file": "rawdata/presets/esi/ohara_gmbh_i-Line-glasses_19.10.2018_BSL7Y.pdf",
+   "url": "https://www.ohara-gmbh.com/fileadmin/user_upload/OHARA_i-Line-glasses_19.10.2018.pdf"
+  },
+  "OHWEB": {
+   "cite": "OHARA Corp. web page \"Optical Properties\", Sec. 2.3 Dispersion Formula (round-1 fetch 2026-10-16) -- identical copy of round-1 key OHWEB (rawdata/presets/glass/)",
+   "file": "rawdata/presets/esi/oharacorp_optical_properties_p1781.html",
+   "url": "https://oharacorp.com/optical-glass/optical-properties/"
+  }
+ },
+ "mage": {
+  "title": "Magellan II (Clay) / MagE (Magellan Echellette: prism-cross-dispersed echellette, vacuum Schmidt camera; on Magellan I Baade per the 2017 handout and 2024 manual)",
+  "recommended_preset": "1.0\" x 10\" slit (the slit every source quotes R for). D = 6.5 m, F = 11.0 (Magellan f/11; 2.88\"/mm at the slit), 1 object, mirror collimator (off-axis paraboloid) f_col = 1094 mm -> W = 99 mm as stated (1094/11.0 = 99.45 mm DERIVED), camera: vacuum Schmidt f = 138 mm (f/1.4), echellette 175 gr/mm, delta = 32.3 deg, quasi-Littrow (theta and gamma NOT published: 0 here), orders 6-20; cross-disperser: two fused-silica prisms, 46 deg in double pass + 40 deg in single pass (three prism passes; the 'rotation angles ... adjusted to control the anamorphic beam distortion' are NOT published -> minimum deviation); detector E2V CCD42-20, 2048 (dispersion, DERIVED) x 1024 x 13.5 um. Validate against R = 4100 at 1\" (design; M08, LCOMG) and the measured R = 4770 +/- 8 (1\") / 2545 +/- 37 (2\") from sky lines (R18); the per-order dispersion of M08 Table 2 (0.231 A/px in order 20 at 3125 A ... 0.788 A/px in order 6 at 9700 A = 22.2-24.4 km/s/px DERIVED); coverage 3100 A - 1 um in orders 6-20 with order centres ~6.2 um/m; 0.3\"/px along the slit (3 px per arcsec). The central wavelength (which order sits at the detector centre) is NOT published.",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "M08",
+    "loc": "Sec. 1",
+    "quote": "MagE\u2019s capabilities, coupled with Magellan\u2019s 6.5m aperture",
+    "alternatives": [
+     {
+      "value": 6.5,
+      "src": "IMACS",
+      "loc": "f/11 design parameters",
+      "quote": "primary diameter: 6.5 m (255.9 inches)"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Magellan folded port, f/11: Clay folded port 2 at commissioning (Nov 2007); Baade AUX3 folded port by 2017 (LCO handout) and in the 2024 manual",
+    "unit": null,
+    "src": "M08",
+    "loc": "Fig. 1 caption",
+    "quote": "Photograph of MagE installed on the Clay folded port 2.",
+    "alternatives": [
+     {
+      "value": "central folded port of the Clay telescope (2009)",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "currently mounted on the central folded port of the Clay telescope"
+     },
+     {
+      "value": "Baade folded port (2017)",
+      "src": "MGHO",
+      "loc": "introduction",
+      "quote": "installed on the Magellan Baade telescope folded port"
+     },
+     {
+      "value": "Baade AUX3 folded port (2024)",
+      "src": "LCOMG",
+      "loc": "Overview",
+      "quote": "mounted on the AUX3 folded port of the BAADE Magellan telescope"
+     }
+    ],
+    "note": "The IMACS page gives one set of 'Magellan f/11 configuration' parameters, not one per telescope; M08 uses f/11.0 for MagE. The move is assumed not to change the optics."
+   },
+   "telescope_focal_ratio": {
+    "value": 11.0,
+    "unit": "f/#",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "giving a 99 mm collimated beam diameter at the f/11.0 focal ratio of Magellan",
+    "alternatives": [
+     {
+      "value": "71526.4 mm focal length (f/11.004 DERIVED: 71526.4/6500)",
+      "src": "IMACS",
+      "loc": "f/11 design parameters",
+      "quote": "focal length: 71526.4 mm (2816 inches)"
+     }
+    ]
+   },
+   "slit_plate_scale": {
+    "value": 2.88,
+    "unit": "arcsec/mm (346.77 um/arcsec)",
+    "src": "IMACS",
+    "loc": "f/11 design parameters",
+    "quote": "plate scale: 346.77 microns/arc-sec ... 2.88 arc-sec/mm",
+    "note": "IMACS page gives the Magellan f/11 design values; no MagE source states the slit-plane scale.",
+    "derived": "DERIVED: 206264.8/71526.4 = 2.8838 arcsec/mm; 1\" = 0.3468 mm at the slit"
+   },
+   "slit_widths": {
+    "value": [
+     0.5,
+     0.7,
+     0.85,
+     1.0,
+     1.2,
+     1.5,
+     2.0,
+     5.0
+    ],
+    "unit": "arcsec",
+    "src": "M08",
+    "loc": "Sec. 3.6",
+    "quote": "The observer may select from a range of available slit widths: 0.5, 0.7, 0.85, 1.0, 1.2, 1.5, 2.0, and 5.0 arcsec. There is also a position with three 0.35 arcsec pinholes used for focusing the spectrograph.",
+    "alternatives": [
+     {
+      "value": "same eight widths",
+      "src": "LCOMG",
+      "loc": "Overview",
+      "quote": "MagE has eight available slit widths: 0.5, 0.7, 0.85, 1.0, 1.2, 1.5, 2.0, and 5.0 arcsec."
+     },
+     {
+      "value": "five slits, 5.0\" to 0.5\"",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "Five non\u2013overlapping slits are available, with widths from 5.0\u2032\u2032 to 0.5\u2032\u2032",
+      "note": "count conflicts with the eight of M08/LCOMG"
+     }
+    ]
+   },
+   "slit_reference": {
+    "value": 1.0,
+    "unit": "arcsec",
+    "src": "LCOMG",
+    "loc": "Overview",
+    "quote": "There is currently one grating available that gives a resolution of R = 4100 for the 1 arcsec slit.",
+    "note": "No source names a 'default' slit; 1.0\" is the slit for which every source quotes R. R18 (Sec. 2.2) used 0.7, 0.85, 1.0, 1.5 and 2\" with the slit width 'chosen to match the atmospheric seeing'."
+   },
+   "slit_length": {
+    "value": 10,
+    "unit": "arcsec",
+    "src": "M08",
+    "loc": "Sec. 3.6",
+    "quote": "All slits are 10 arcsec long with a plate scale of 0.3 arcsec per pixel on the detector.",
+    "alternatives": [
+     {
+      "value": 10,
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "All slits are 10\u2033 long."
+     }
+    ]
+   },
+   "n_objects": {
+    "value": 1,
+    "unit": "objects per exposure",
+    "src": "M08",
+    "loc": "Abstract",
+    "quote": "The Magellan Echellette (MagE) spectrograph is a single-object optical echellette spectrograph for the Magellan Clay telescope."
+   },
+   "collimator": {
+    "value": {
+     "type": "mirror (off-axis paraboloid, SORL)",
+     "focal_length_mm": 1094
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The collimator is an off-axis paraboloid manufactured by SORL with a focal length of 1094 mm",
+    "alternatives": [
+     {
+      "value": "off-axis parabolic mirror",
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "The input beam is collimated by an off-axis parabolic mirror"
+     }
+    ],
+    "note": "Collimator focus is the only focus adjustment (LCOMG: 'The spectrograph is focused by adjusting the position of the collimator mirror')."
+   },
+   "collimated_beam_diameter": {
+    "value": 99,
+    "unit": "mm",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "giving a 99 mm collimated beam diameter at the f/11.0 focal ratio of Magellan",
+    "alternatives": [
+     {
+      "value": "~100",
+      "src": "M08",
+      "loc": "Sec. 1",
+      "quote": "An f/1.4 Schmidt camera focuses the ~100 mm collimated beam"
+     }
+    ],
+    "derived": "DERIVED: 1094/11.0 = 99.45 mm; 1094/11.004 = 99.42 mm"
+   },
+   "echellette": {
+    "value": {
+     "gr_per_mm": 175,
+     "blaze_deg": 32.3,
+     "ruled_area_mm": "102 x 128",
+     "first_order_Littrow_blaze_um": 6.2
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The 175 gr/mm reflecting grating, which is used in the quasi-Littrow configuration, has a 102x128 mm ruled area and a blaze angle of 32.3\u02da (6.2 \u00b5m first order Littrow blaze).",
+    "alternatives": [
+     {
+      "value": "175 lines/mm blazed at 6.2 micron",
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "MagE currently has only one available grating with 175 lines/mm blazed at 6.2 micron"
+     }
+    ],
+    "derived": "DERIVED: 2 sin(32.3 deg)/175 mm^-1 = 6.107 um, not 6.2 um (6.2 um needs delta = 32.85 deg); see Conflicts"
+   },
+   "echelle_angles": {
+    "value": {
+     "theta_deg": "NOT FOUND",
+     "gamma_deg": "NOT FOUND"
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "which is used in the quasi-Littrow configuration",
+    "note": "'Quasi-Littrow' in the ESI design report (UCR96) means in-plane Littrow with the incoming light 'at an angle to the plane of dispersion' (theta = 0, gamma != 0); the MagE angle is not published. Use theta = 0, gamma = 0 (as for MIKE)."
+   },
+   "orders": {
+    "value": {
+     "min": 6,
+     "max": 20
+    },
+    "unit": "echelle order",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The grating is used in orders 6 through 20 and the prisms provide adequate cross-dispersion to separate all orders when used with a 10 arcsec slit.",
+    "alternatives": [
+     {
+      "value": "6 < n < 20 (medium-order)",
+      "src": "M08",
+      "loc": "Sec. 1",
+      "quote": "a medium-order (6 < n < 20) reflective diffraction grating"
+     },
+     {
+      "value": "15 orders (6 < m < 20)",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "over 15 orders (6 < m < 20)"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": {
+     "type": "two prisms, fused silica",
+     "prism1_apex_deg": 46,
+     "prism1_passes": 2,
+     "prism2_apex_deg": 40,
+     "prism2_passes": 1
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "There are two cross-dispersing prisms, both made of fused silica. The first prism, with an apex angle of 46\u02da, is used in double pass and the second prism, with an apex angle of 40\u02da deg, is used in single pass.",
+    "alternatives": [
+     {
+      "value": "two large fused-silica prisms (one single-pass, one double-pass)",
+      "src": "M08",
+      "loc": "Sec. 1",
+      "quote": "two large fused-silica prisms (one single-pass, one double-pass)"
+     },
+     {
+      "value": "double-pass and single-pass prisms",
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "dispersed by the reflection grating, and is separated into echelle orders by double-pass and single-pass prisms"
+     }
+    ],
+    "note": "fused-silica grade NOT stated (use Malitson 1965). Path order (46 deg prism before and after the grating, then the 40 deg prism) is inferred from 'first'/'second' and the ESI layout that M08 says MagE follows; no MagE source states it."
+   },
+   "prism_orientation": {
+    "value": "rotation angles chosen to control anamorphic distortion; angles NOT FOUND",
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The rotation angles of the two prisms have been adjusted to control the anamorphic beam distortion.",
+    "alternatives": [
+     {
+      "value": "aligned to minimize anamorphic magnification",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "The prisms are aligned to minimize anamorphic magnification."
+     }
+    ]
+   },
+   "camera": {
+    "value": {
+     "type": "vacuum Schmidt (aspheric CaF2 corrector + fused-silica meniscus = dewar window; spherical mirror 200 mm dia., R = 293 mm; fused-silica field flattener)",
+     "focal_length_mm": 138,
+     "focal_ratio": 1.4,
+     "field_deg": 12.7
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "is placed at the prime focus of a vacuum Schmidt camera with a focal length of 138 mm. The angular field of view of the camera is 12.7\u02da",
+    "alternatives": [
+     {
+      "value": "f/1.4 Schmidt",
+      "src": "M08",
+      "loc": "Sec. 1",
+      "quote": "An f/1.4 Schmidt camera focuses the ~100 mm collimated beam"
+     },
+     {
+      "value": "prime focus Schmidt with a doublet corrector",
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "The camera is a prime focus Schmidt with a doublet corrector."
+     }
+    ],
+    "derived": "DERIVED: 138/99.45 = f/1.39; detector diagonal 30.9 mm subtends 2 atan(15.46/138) = 12.8 deg (matches the 12.7 deg field)"
+   },
+   "detector": {
+    "value": {
+     "type": "E2V CCD42-20, back-illuminated",
+     "format": "2048 x 1024",
+     "pixel_um": 13.5
+    },
+    "unit": null,
+    "src": "M08",
+    "loc": "Sec. 4.1",
+    "quote": "The MagE CCD is an E2V 42-20 back-illuminated device, which has a 2048x1024 format with 13.5 \u00b5m pixels.",
+    "alternatives": [
+     {
+      "value": "same (2024 manual)",
+      "src": "LCOMG",
+      "loc": "CCD Characteristics",
+      "quote": "The MagE CCD is an E2V 42-20, which has a 2048\u00d71024 format with 13.5 micron pixels."
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "2048-px axis = dispersion (x); 1024-px axis = spatial/cross-dispersion (y)",
+    "unit": null,
+    "src": "LCOMG",
+    "loc": "Focusing the Spectrograph",
+    "quote": "the best focus in the x (dispersion) and y (spatial) dimensions agrees to within 100 collimator units",
+    "derived": "DERIVED: order 6 free spectral range 9700/6 = 1617 A at 0.788 A/px (M08 Table 2) = 2052 px, so orders run along the 2048-px axis; the 15 orders are stacked along the 1024-px axis"
+   },
+   "binning": {
+    "value": "1, 2, 3 or 4 in X and Y independently; default NOT FOUND",
+    "unit": null,
+    "src": "LCOMG",
+    "loc": "Data Acquisition GUI",
+    "quote": "The Binning pulldown menu allows the observer to select pixel binning factors of 1, 2, 3, or 4 in the X and Y dimension independently."
+   }
+  },
+  "performance": {
+   "R_1arcsec_design": {
+    "value": 4100,
+    "unit": "lambda/dlambda",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The grating provides a resolution of R=4100 for a 1 arcsec slit on Magellan.",
+    "alternatives": [
+     {
+      "value": "R~4100 (1\" slit)",
+      "src": "M08",
+      "loc": "Abstract",
+      "quote": "The spectral resolution for a 1\" slit is R~4100."
+     },
+     {
+      "value": 4100,
+      "src": "LCOMG",
+      "loc": "Spectrograph Characteristics",
+      "quote": "This grating gives a resolution of R=4100 for a 1 arcsec slit."
+     },
+     {
+      "value": 4100,
+      "src": "MGHO",
+      "loc": "Basic parameters table",
+      "quote": "MagE 0.3 4100 3200-10000 20"
+     }
+    ],
+    "derived": "DERIVED (geometric): 1\" slit = 0.3468 mm x 138/1094 = 43.7 um = 3.24 px; Littrow 23.2 km/s/px -> FWHM 75.2 km/s -> R = 3990; with the M08 Table 2 dispersion at 5590 A (0.426 A/px): R = 4050"
+   },
+   "R_measured_sky_lines": {
+    "value": {
+     "1.0": "4770 +/- 8",
+     "2.0": "2545 +/- 37"
+    },
+    "unit": "lambda/dlambda (median over the spectrum; Gaussian FWHM of night-sky lines) vs slit width (arcsec)",
+    "src": "R18",
+    "loc": "Sec. 2.3 Spectroscopic pipeline processing",
+    "quote": "the median resolution and standard deviation are R = 2545 \u00b1 37; the observations taken with the 100 slit have R = 4770 \u00b1 8 . As expected for an echellete, the spectral resolution is constant with wavelength. These measured resolutions are higher than the design resolution of R \u223c 4100",
+    "note": "'100 slit' / '200 slit' = 1\" / 2\" (double prime rendered as 00). Sky lines fill the slit, so these are slit-limited values.",
+    "derived": "DERIVED: 4770/4100 = 1.16; geometric R for 2\" = 1990 vs 2545 measured (1.28)"
+   },
+   "R_range": {
+    "value": "R~1000 (5\") to R~8000 (0.5\")",
+    "unit": "lambda/dlambda",
+    "src": "M08",
+    "loc": "Sec. 1",
+    "quote": "MagE provides resolutions of R~1000 to R~8000, using a movable slit plate containing non- overlapping slits that are 10\u201d long and 0.5\u201d to 5\u201d wide.",
+    "alternatives": [
+     {
+      "value": "R ~ 1000 (~120 km/s) to R ~ 8000 (~12 km/s)",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "corresponding to resolutions of R \u223c 1000 (\u223c 120 km s\u22121 ) to R \u223c 8000 (\u223c 12 km s\u22121 )",
+      "note": "c/8000 = 37 km/s, so '~12 km/s' is inconsistent with R ~ 8000"
+     }
+    ],
+    "derived": "DERIVED (geometric, 4100 x 1\"/w): 0.5\" -> 8200, 5\" -> 820"
+   },
+   "dispersion_per_order": {
+    "value": {
+     "20": [
+      3125,
+      0.231
+     ],
+     "19": [
+      3260,
+      0.244
+     ],
+     "18": [
+      3440,
+      0.258
+     ],
+     "17": [
+      3650,
+      0.274
+     ],
+     "16": [
+      3860,
+      0.292
+     ],
+     "15": [
+      4130,
+      0.311
+     ],
+     "14": [
+      4400,
+      0.335
+     ],
+     "13": [
+      4750,
+      0.36
+     ],
+     "12": [
+      5140,
+      0.39
+     ],
+     "11": [
+      5590,
+      0.426
+     ],
+     "10": [
+      6130,
+      0.469
+     ],
+     "9": [
+      6800,
+      0.521
+     ],
+     "8": [
+      7520,
+      0.59
+     ],
+     "7": [
+      8610,
+      0.674
+     ],
+     "6": [
+      9700,
+      0.788
+     ]
+    },
+    "unit": "order: [central wavelength A, dispersion A/pixel at that wavelength]",
+    "src": "M08",
+    "loc": "Table 2 (throughput measurements, 23/24 Nov 2007)",
+    "quote": "20 3125 0.231 17.504 ... 11 5590 0.426 19.415 ... 6 9700 0.788 16.300",
+    "alternatives": [
+     {
+      "value": "identical table",
+      "src": "LCOMG",
+      "loc": "Throughput",
+      "quote": "20 3125 0.231 17.504 0.191 1.523 0.091 0.149"
+     },
+     {
+      "value": "22 km/s per pixel; 0.3 to 0.6 A/px",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "is a medium\u2013resolution (R \u2243 4100, 22 km s\u22121 pixel\u22121 ) ... Dispersion on the chip ranges from 0.3 \u00c5 pixel\u22121 (blue) to 0.6 \u00c5 pixel\u22121",
+      "note": "0.3-0.6 A/px conflicts with the 0.231-0.788 A/px of M08 Table 2"
+     }
+    ],
+    "note": "M08 text: 'the order number is followed by the central wavelength of the order and the dispersion at that wavelength' (column 'Dlambda (\u00c5)'; per pixel by the arithmetic below).",
+    "derived": "DERIVED: c x Dlambda/Lambda = 22.2 (order 20), 22.5 (17), 22.6 (15), 22.9 (11), 23.0 (9), 23.5 (8), 24.4 (6) km/s/px. Littrow with f_cam 138 mm and 13.5 um: c x 0.0135/(2 tan 32.3 x 138) = 23.2 km/s/px; Table 2 / Littrow = 0.955 (order 20) rising to 1.050 (order 6)."
+   },
+   "order_central_wavelengths": {
+    "value": "lambda_c ~ 6.2 um / m",
+    "unit": "A",
+    "src": "LCOMG",
+    "loc": "Spectrograph Characteristics",
+    "quote": "The approximate central wavelenght for any order is equal to 6.2 micron/(order number).",
+    "note": "[sic] 'wavelenght'. Compare M08 Table 2 central wavelengths: m x lambda = 62500 (order 20), 61950 (15), 61490 (11), 60160 (8), 58200 (6) A.",
+    "derived": "DERIVED: Littrow blaze from the sourced constants 2 sin(32.3)/175 = 6.107 um -> lambda_b = 6107/m nm (order 11: 5552 A)"
+   },
+   "order_wavelength_ranges": {
+    "value": {
+     "6": [
+      9500,
+      9893,
+      10285
+     ],
+     "7": [
+      8128,
+      8752,
+      9475
+     ],
+     "8": [
+      7112,
+      7700,
+      8288
+     ],
+     "9": [
+      6320,
+      6844,
+      7368
+     ],
+     "10": [
+      5713,
+      6172,
+      6630
+     ],
+     "11": [
+      5225,
+      5626,
+      6027
+     ],
+     "12": [
+      4286,
+      4906,
+      5525
+     ],
+     "13": [
+      4469,
+      4785,
+      5100
+     ],
+     "14": [
+      4170,
+      4445,
+      4720
+     ],
+     "15": [
+      3905,
+      4148,
+      4390
+     ],
+     "16": [
+      3675,
+      3888,
+      4100
+     ],
+     "17": [
+      3467,
+      3660,
+      3853
+     ],
+     "18": [
+      3287,
+      3453,
+      3620
+     ],
+     "19": [
+      3187,
+      3308,
+      3430
+     ],
+     "20": [
+      3197,
+      3254,
+      3311
+     ]
+    },
+    "unit": "order: [lambda_min, lambda_central, lambda_max] A",
+    "src": "B09",
+    "loc": "Table 2 'Wavelength ranges by order'",
+    "quote": "6 9500 9893 10285 ... 11 5225 5626 6027 ... 20 3197 3254 3311",
+    "note": "Table as printed has inconsistencies: order 12 lambda_min 4286 is below order 13's 4469, and order 20 (3197-3311) lies inside order 19 (3187-3430). Use orders 6-11 and 13-19 with care."
+   },
+   "wavelength_coverage": {
+    "value": "3100 A - 1 um",
+    "unit": "A",
+    "src": "M08",
+    "loc": "Abstract",
+    "quote": "The wavelength coverage includes the entire optical window (3100 \u00c5 - 1 \u00b5m).",
+    "alternatives": [
+     {
+      "value": "3200 A - 1 um",
+      "src": "M08",
+      "loc": "Sec. 1",
+      "quote": "full wavelength coverage of the visible spectrum (3200 \u00c5 \u2013 1 \u00b5m)"
+     },
+     {
+      "value": "approximately 3100 A to 1 micron",
+      "src": "LCOMG",
+      "loc": "Overview",
+      "quote": "The wavelength coverage of MagE is approximately 3100 \u00c5 to 1 micron."
+     },
+     {
+      "value": "3200-10000 A",
+      "src": "MGHO",
+      "loc": "Basic parameters table",
+      "quote": "MagE 0.3 4100 3200-10000 20"
+     },
+     {
+      "value": "3000-10500 A, 15-A gap near 9500 A",
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "instrument\u2019s wavelength coverage spans 3000 - 10500 \u00c5 over 15 orders (6 < m < 20), continuous except for a 15 \u00c5 gap near 9500 \u00c5 between orders six and seven"
+     }
+    ]
+   },
+   "spatial_scale": {
+    "value": 0.3,
+    "unit": "arcsec/pixel (along the slit)",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "the scale at the detector is 3 pixels per arcsec on the sky",
+    "alternatives": [
+     {
+      "value": 0.3,
+      "src": "LCOMG",
+      "loc": "CCD Characteristics",
+      "quote": "The plate scale at the detector is 0.3 arcsec/pixel."
+     },
+     {
+      "value": 0.33,
+      "src": "B09",
+      "loc": "Sec. 2",
+      "quote": "Each pixel subtends 0.33\u2032\u2032 on the sky."
+     }
+    ],
+    "derived": "DERIVED from optics: 206264.8/(71526.4 x 138/1094) x 0.0135 = 0.309 arcsec/px (3.24 px per arcsec)"
+   },
+   "image_quality": {
+    "value": {
+     "FWHM_px_max": 2.0,
+     "FWHM_px_mean": 1.8
+    },
+    "unit": "pixels (0.35\" pinholes)",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "The measured image diameter (using a 0.35 arcsec square entrance aperture) is less than 2.0 pixels FWHM everywhere in the field; the average image diameter is 1.8 pixels.",
+    "derived": "DERIVED: a 0.35\" aperture projects to 1.13 px (0.35 x 3.24), so the optics add ~1.4 px FWHM in quadrature"
+   },
+   "sampling_1arcsec": {
+    "value": 3.24,
+    "unit": "pixels per 1\" slit width",
+    "src": "M08",
+    "loc": "Sec. 2",
+    "quote": "the scale at the detector is 3 pixels per arcsec on the sky",
+    "derived": "DERIVED: 1\" x 0.3468 mm x 138/1094 / 13.5 um = 3.24 px (no anamorphic factor applied: prism rotations NOT FOUND)",
+    "is_derived": true
+   }
+  },
+  "not_found": [
+   "Echelle in-plane (theta) and out-of-plane (gamma) angles: only 'quasi-Littrow' (M08).",
+   "Prism rotation / incidence angles (M08 says they were 'adjusted to control the anamorphic beam distortion'); prism sizes; the order of the three prism passes is inferred, not stated.",
+   "Fused-silica grade of the prisms (use Malitson 1965).",
+   "Minimum order separation in arcsec or pixels (M08: orders separate 'when used with a 10 arcsec slit').",
+   "Which wavelength / order falls at the detector centre (needed for the app's central wavelength).",
+   "Default CCD binning; default slit (1.0\" is only the reference slit for R).",
+   "Measured R for slits other than 1\" and 2\" (R18); the grating vendor / catalogue number.",
+   "The MagE section of the Magellan instrument web pages beyond the LCO manual (the URL given in M08, lco.cl/lco/telescopes-information/..., was not fetched)."
+  ],
+  "conflicts": [
+   "Blaze: M08 '32.3 deg (6.2 um first order Littrow blaze)' and LCOMG '6.2 micron' vs 2 sin(32.3 deg)/175 = 6.107 um (DERIVED, -1.5%); 6.2 um would need delta = 32.85 deg. The M08 Table 2 central wavelengths give m x lambda = 61,200-62,500 A for orders 9-20 (6.2 um fits these better), 58,200 for order 6.",
+   "Resolution at 1\": R = 4100 (M08, LCOMG, MGHO; design) vs 4770 +/- 8 measured from sky lines (R18); at 2\": 2545 +/- 37 measured vs ~2000 geometric (DERIVED). R18 calls the measured values 'higher than the design resolution'.",
+   "Slit count: eight widths (M08, LCOMG, MGHO) vs 'Five non-overlapping slits' (B09).",
+   "Spatial scale: 0.3\"/px (M08, LCOMG, MGHO) vs 0.33\" (B09) vs 0.309\" DERIVED from 1094/138 mm and f/11.",
+   "Dispersion: 0.231-0.788 A/px (M08 Table 2) vs '0.3 A/px (blue) to 0.6 A/px' (B09); B09 '22 km/s per pixel' is the blue end of the DERIVED 22.2-24.4 km/s/px.",
+   "Coverage: 3100 A - 1 um (M08 abstract, LCOMG) vs 3200 A - 1 um (M08 Sec. 1; MGHO 3200-10000) vs 3000-10500 A with a 15 A gap near 9500 A (B09).",
+   "Telescope: Clay folded port (M08 2008, B09 2009; R18: 'The majority of observations were conducted with MagE mounted on the Clay telescope') vs Baade folded port (MGHO 2017) / Baade AUX3 (LCOMG 2024).",
+   "Collimated beam: 99 mm (M08 Sec. 2) vs '~100 mm' (M08 Sec. 1) vs 99.45 mm DERIVED (1094/11.0).",
+   "B09 Table 2 order ranges are internally inconsistent (order 12 lambda_min 4286 < order 13 lambda_min 4469; order 20 inside order 19).",
+   "Flexure with elevation: 'at most 0.8 pixels' (M08 Sec. 5.2) vs 'about 0.1 pixels' (LCOMG) -- not used by the app."
+  ],
+  "notes": [
+   "M08 states the optical design 'is very similar to the ESI spectrograph (Sheinis et al. 2002)': same 175 gr/mm, 32.3 deg echellette, reflective collimator, two prisms (one double-pass). MagE is ESI scaled to a 99 mm beam on an f/11 telescope with a 138 mm f/1.4 Schmidt camera.",
+   "Format check (DERIVED): Littrow dispersion with f_cam = 138 mm, 13.5 um pixels: 23.2 km/s/px; order 6 FSR (1617 A) spans ~2050 px at the tabulated 0.788 A/px -> the 2048-px axis is the dispersion axis and the reddest order just fills it (B09 notes a 15 A gap near 9500 A between orders 6 and 7).",
+   "The 1094 mm collimator at f/11.0 and the 138 mm camera reproduce the published 0.3\"/px (0.309 DERIVED) and the 3-px-per-arcsec slit sampling, so R(1\") ~ 4000 is a slit-width (geometric) prediction; the measured 4770 (R18) is 16% higher.",
+   "Throughput (M08 Table 2 / LCOMG): peak 21.8% (telescope + instrument) at 5590 A; 'Efficiency (instrument)' 35.5% -- not used by the app.",
+   "Wavelength calibration: ThAr, 'Typical wavelength solutions give an RMS of 0.06 A for 500 arc lines' (M08 Sec. 3.5)."
+  ]
+ },
+ "esi": {
+  "title": "Keck II / ESI (Echellette Spectrograph and Imager, echellette mode: Cassegrain, two BSL7Y prisms, one in double pass)",
+  "recommended_preset": "1.0\" x 20\" slit (R = 4000, 6.49 px; KECH Table 2). D = 10.95 m, F = 13.7 (project Keck convention; the ESI design report UCR96 says 'f/13.7 secondary' and '1.38 arc-sec/mm'; Keck pages say f/15, 0.725 mm/arcsec), 1 object, mirror collimator (off-axis paraboloid; S99 says off-axis segment of an ellipsoid) f_col = 2286 mm, W = 2286/13.7 = 166.9 mm (= UCR96's 6.57 in tip-to-tip beam; S02 quotes ~160 mm), camera: refractive 10-element all-spherical Epps camera, f = 308 mm (287 mm aperture, 'underfilled f/1.07'), echellette 175 l/mm (175.555 in UCR96), delta = 32.3 deg, 'nearly in Littrow' / quasi-Littrow with the incoming beam out of the dispersion plane by 'a few degrees' (numeric gamma NOT FOUND: theta = 0, gamma = 0 here), orders 6-15; cross-disperser: two 50 deg Ohara BSL7Y prisms, the first in double pass (before and after the grating) and the second in single pass = three passes, near minimum deviation (UCR96); BSL7Y Sellmeier from the OHARA data sheet (glass section below; N-BK7 is within 0.3-1.2% in dn/dlambda over 0.4-1.0 um, DERIVED); detector MIT/LL CCID20 4096 (dispersion, DERIVED) x 2048 x 15 um (default binning NOT stated; Keck advises full-frame readout). Validate against the per-order wavelength solutions (KQR: 0.1545 A/px at 4077 A in order 15 ... 0.3345 A/px at 8708 A in order 7 = 11.34-11.52 km/s/px DERIVED; '11.4 km/s/pixel' average S02, 'constant 11.5' KECH), the free spectral ranges per order (KECH Table 1: order 6 9366-11068 A ... order 15 3927-4198 A), coverage 3900-11000 A, the measured scale along the slit 0.120\"/px (order 15) to 0.168\"/px (order 6) (KQR) and 0.1542\"/px in imaging, and R vs slit (KECH Table 2: 0.3\" 13,400; 0.5\" 8000; 0.75\" 5400; 1.0\" 4000; 1.25\" 3200; 6\" 700 -- slit width x 11.5 km/s/px, i.e. geometric). Central wavelength: the chip centre in the cross-dispersion direction falls between orders 11 and 12 at about 5250 A (DERIVED from the UCR96 order heights).",
+  "params": {
+   "telescope_aperture": {
+    "value": 10.95,
+    "unit": "m (maximum diameter of the segmented primary)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "The maximum diameter of the primary is 10.95 m and its focal length, 17.5 m. The telescope aperture area is equivalent to that with a circular aperture 9.96 m in diameter.",
+    "alternatives": [
+     {
+      "value": 9.96,
+      "src": "KTG02",
+      "loc": "Sec. 3.1.1",
+      "quote": "equivalent to that with a circular aperture 9.96 m in diameter",
+      "note": "area-equivalent circular aperture"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Keck II Cassegrain (f/15)",
+    "unit": null,
+    "src": "KESP",
+    "loc": "General specifications, Location",
+    "quote": "Keck II Cassegrain (f/15)",
+    "alternatives": [
+     {
+      "value": "Cassegrain focus of Keck II",
+      "src": "S02",
+      "loc": "Abstract",
+      "quote": "for use at the Cassegrain focus of the Keck II telescope"
+     },
+     {
+      "value": "ESI occupies the Keck II Cassegrain focus",
+      "src": "KTG02",
+      "loc": "Sec. 3.2.1",
+      "quote": "the Echellete Spectrograph and Imager (ESI) occupies the Cassegrain focus on Keck II"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 13.7,
+    "unit": "f/# (for the 10.95 m tip-to-tip aperture)",
+    "src": "UCR96",
+    "loc": "Sec. 6.1 Optical (interface)",
+    "quote": "The optical interface to the telescope is a converging beam coming from the f/13.7 secondary mirror.",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "KESP",
+      "loc": "General specifications, Location",
+      "quote": "Keck II Cassegrain (f/15)",
+      "note": "nominal f-ratio on the ~10 m aperture"
+     },
+     {
+      "value": 15,
+      "src": "KTG02",
+      "loc": "Sec. 4.7.1",
+      "quote": "Location Keck II Cassegrain (f/15)"
+     }
+    ],
+    "derived": "DERIVED: 149.6 m / 10.95 m = f/13.66; 149.6 m / 9.96 m = f/15.02"
+   },
+   "telescope_focal_length": {
+    "value": 149.6,
+    "unit": "m (f/15 focus)",
+    "src": "KTG02",
+    "loc": "Table 2 (Main optical features of foci), f/15 column",
+    "quote": "Focal length (m) 149.6 249.7 395.0"
+   },
+   "slit_plate_scale": {
+    "value": 0.725,
+    "unit": "mm/arcsec (1.379 arcsec/mm)",
+    "src": "KESP",
+    "loc": "General specifications",
+    "quote": "Focal plane scale 0.725 mm/arcsec",
+    "alternatives": [
+     {
+      "value": "1.38 arcsec/mm",
+      "src": "UCR96",
+      "loc": "Sec. 6.1",
+      "quote": "primary and secondary are aligned and spaced to give a nominal 1.38 arc-sec/mm plate scale at the Cassegrain focal plane"
+     },
+     {
+      "value": 0.725,
+      "src": "KTG02",
+      "loc": "Sec. 4.7.1",
+      "quote": "Focal plane scale 0.725 mm/arcsec"
+     }
+    ],
+    "derived": "DERIVED: 1/0.725 = 1.3793 arcsec/mm; 206264.8/149600 = 1.3788 arcsec/mm"
+   },
+   "slit_widths": {
+    "value": [
+     0.3,
+     0.5,
+     0.75,
+     1.0,
+     1.25,
+     6.0
+    ],
+    "unit": "arcsec",
+    "src": "KOV",
+    "loc": "'In echelle mode ...' paragraph",
+    "quote": "Slits are 20 arcseconds in length and are available with widths of 0.3, 0.5, 0.75, 1.0, 1.25 and 6.0 arcseconds.",
+    "alternatives": [
+     {
+      "value": "same six + 0.3\"/0.5\" pinholes + MultiHoles",
+      "src": "KECH",
+      "loc": "text above Table 2",
+      "quote": "Six slit widths are available, two pinholes, and a line of pinholes"
+     },
+     {
+      "value": "same six",
+      "src": "KESP",
+      "loc": "Echellette mode, Slit widths",
+      "quote": "0.3, 0.5, 0.75, 1.0, 1.25, 6 arcsec"
+     },
+     {
+      "value": "five echellette slits",
+      "src": "S02",
+      "loc": "Sec. 1",
+      "quote": "the standard complement of five echellette slits in a single bay",
+      "note": "count conflicts with the six of the Keck pages"
+     }
+    ]
+   },
+   "slit_reference": {
+    "value": 1.0,
+    "unit": "arcsec",
+    "src": "KECH",
+    "loc": "Table 2",
+    "quote": "1.00_arcsec 6.49 74.6 4000",
+    "note": "No source names a default echellette slit; 1.0\" matches MagE's reference slit. P01 used 0.75\"."
+   },
+   "slit_length": {
+    "value": 20,
+    "unit": "arcsec",
+    "src": "KOV",
+    "loc": "'In echelle mode ...' paragraph",
+    "quote": "Slits are 20 arcseconds in length",
+    "alternatives": [
+     {
+      "value": 20,
+      "src": "KECH",
+      "loc": "para 3",
+      "quote": "The maximum slit length (set by the interorder spacing in the red) is 20\"."
+     },
+     {
+      "value": 20,
+      "src": "KESP",
+      "loc": "Echellette mode, Slit length",
+      "quote": "Slit length 20 arcsec"
+     }
+    ]
+   },
+   "n_objects": {
+    "value": 1,
+    "unit": "objects per exposure",
+    "src": "KOV",
+    "loc": "'The echellette slits are an example ...' paragraph",
+    "quote": "A \"decker\" is used in the middle wheel to allow only the light from one of the slits to pass into the spectrograph.",
+    "alternatives": [
+     {
+      "value": "echelle-mode multislit not supported",
+      "src": "KOV",
+      "loc": "'In echelle mode ...' paragraph",
+      "quote": "Some experiments have been done using echelle-mode multislit masks, but The Observatory does not have the infrastructure in place to support this as a general rule."
+     }
+    ]
+   },
+   "collimator": {
+    "value": {
+     "type": "mirror ('on-axis (nearly) parabolic', used off axis)",
+     "focal_length_mm": 2286,
+     "diameter_mm": 580
+    },
+    "unit": null,
+    "src": "S02",
+    "loc": "Sec. 2.1",
+    "quote": "The collimator mirror is 580 mm in diameter ... It has a focal length of 2286 mm.",
+    "alternatives": [
+     {
+      "value": "2286.0 mm, (nearly) parabolic, on-axis parent imaging an off-axis field",
+      "src": "S02",
+      "loc": "Sec. 1",
+      "quote": "an on-axis (nearly) parabolic collimator, imaging an offaxis field was required to minimize off-axis aberrations. The 2286.0-mm focal length of the collimator was chosen to be the longest that would fit into the Cassegrain module envelope"
+     },
+     {
+      "value": "90.0 in (= 2286.0 mm DERIVED), off-axis paraboloid, 5.0 deg off axis (design)",
+      "src": "UCR96",
+      "loc": "Sec. 3.1",
+      "quote": "The collimator focal length is 90.0 inches, the maximum length which would fit into the Cassegrain module envelope. ... off-axis parabolic collimator was chosen ... the collimator is off axis by 5.0 degrees"
+     },
+     {
+      "value": "off-axis segment of an on-axis ellipsoid",
+      "src": "S99",
+      "loc": "Sec. 1",
+      "quote": "a reflective collimator which is an off-axis segment of an on-axis ellipsoid"
+     },
+     {
+      "value": "off-axis paraboloid",
+      "src": "KTG02",
+      "loc": "Sec. 4.7",
+      "quote": "The ESI collimator is an off-axis paraboloid, similar to the collimator in LRIS."
+     }
+    ],
+    "note": "The collimator is actively tilted for flexure compensation and moved for focus (S02 Sec. 2.1)."
+   },
+   "collimated_beam_diameter": {
+    "value": 160,
+    "unit": "mm",
+    "src": "S02",
+    "loc": "Sec. 1",
+    "quote": "The 160-mm diameter collimated beam can be sent directly into the camera",
+    "alternatives": [
+     {
+      "value": "160.0",
+      "src": "S02",
+      "loc": "Sec. 1",
+      "quote": "giving a 160.0-mm diameter beam"
+     },
+     {
+      "value": "~160",
+      "src": "S99",
+      "loc": "Sec. 1 (camera design paragraph)",
+      "quote": "The collimated beam diameter is approximately 160 mm."
+     },
+     {
+      "value": "6.57 in = 166.9 mm (DERIVED) for the full tip-to-tip aperture",
+      "src": "UCR96",
+      "loc": "Sec. 3.1",
+      "quote": "The final beam size is 6.57 inches if the entire Keck aperture (from tip to tip) is considered."
+     },
+     {
+      "value": 170,
+      "src": "UCR96",
+      "loc": "Sec. 4.1 Instrument Specifications",
+      "quote": "Collimated beam diameter: 170 mm",
+      "note": "design-stage specification list"
+     }
+    ],
+    "derived": "DERIVED: 2286/13.7 = 166.9 mm (project convention, = UCR96 6.57 in); 2286 x 10.95/149.6 = 167.3 mm; 2286/15 = 152.4 mm; 2286 x 9.96/149.6 = 152.2 mm. The 160 mm of S02 corresponds to f/14.3."
+   },
+   "echellette": {
+    "value": {
+     "gr_per_mm": 175,
+     "blaze_deg": 32.3,
+     "size_mm": "204 x 204",
+     "vendor": "Spectronics (formerly Milton Roy) catalogue grating"
+    },
+    "unit": null,
+    "src": "S02",
+    "loc": "Sec. 1, Mode 1",
+    "quote": "The primary mode of the spectrograph uses a catalogue echellette grating (Spectronics 204 \u00d7 204 mm, 175 lines/mm, 32.3degree blaze angle)",
+    "alternatives": [
+     {
+      "value": "175.555 l/mm, 32.3 deg, 203 mm square",
+      "src": "UCR96",
+      "loc": "Sec. 3.2",
+      "quote": "This grating is 203 mm square, with 175.555 lines/mm and a blaze angle of 32.3 degrees."
+     },
+     {
+      "value": "175.555 l/mm, 203 x 204 mm",
+      "src": "UCR96",
+      "loc": "Sec. 5.1.11",
+      "quote": "175.555 lines/mm, and a blaze angle of 32.3 degrees. The grating is 203 x 204 mm square."
+     },
+     {
+      "value": "175.6 l/mm",
+      "src": "S99",
+      "loc": "Sec. 1",
+      "quote": "a fixed 175.6 line/mm echellette grating from Milton Roy"
+     },
+     {
+      "value": "175 l/mm, 32.3 deg",
+      "src": "KESP",
+      "loc": "General specifications, Grating",
+      "quote": "175 lines/mm, 32.3\u00b0 blaze angle"
+     }
+    ],
+    "derived": "DERIVED Littrow first-order blaze: 2 sin(32.3)/175 = 6.107 um; with 175.555 l/mm: 6.088 um. UCR96 Table 1 on-blaze wavelengths give m x lambda = 60,870-60,880 A, i.e. the 175.555 value with gamma = 0."
+   },
+   "echelle_angles": {
+    "value": {
+     "theta_deg": "0 (in-plane Littrow, interpretation)",
+     "gamma_deg": "NOT FOUND ('a few degrees')"
+    },
+    "unit": null,
+    "src": "UCR96",
+    "loc": "Sec. 3.2",
+    "quote": "The grating is operated only a few degrees off Littrow, rather than the usual 20 degrees or more. ... the grating is operated in quasi-Littrow, meaning that the incoming light is at an angle to the plane of dispersion.",
+    "alternatives": [
+     {
+      "value": "nearly in Littrow",
+      "src": "S02",
+      "loc": "Fig. 1 caption",
+      "quote": "before it reaches the echellette grating, which is used nearly in Littrow for high efficiency"
+     }
+    ],
+    "note": "UCR96 Sec. 3.2: the double-pass prism 'bends the incoming and outgoing beams from the grating such that the camera no longer blocks the incoming beam', i.e. the beam separation comes from the prism, not from a large in-plane angle. Use theta = 0, gamma = 0 (no number published)."
+   },
+   "orders": {
+    "value": {
+     "min": 6,
+     "max": 15
+    },
+    "unit": "echelle order",
+    "src": "S02",
+    "loc": "Sec. 1, Mode 1",
+    "quote": "into 10 orders, from order-6 in the red to order-15 in the blue",
+    "alternatives": [
+     {
+      "value": "orders 6 through 15",
+      "src": "KECH",
+      "loc": "para 1",
+      "quote": "orders 6 through 15 of the cross-dispersed spectrum fall on the CCD"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": {
+     "type": "two prisms, Ohara BSL7Y",
+     "apex_deg": 50.0,
+     "prism1_passes": 2,
+     "prism2_passes": 1,
+     "mass_kg_each": 25
+    },
+    "unit": null,
+    "src": "S02",
+    "loc": "Sec. 2.2 + Fig. 1 caption",
+    "quote": "ESI uses two large (25 kg), 50.0\u25e6 -angle prisms for crossdispersion. ... Ohara BSL7Y was selected for the prisms ... The collimated light from the slit is pre-cross-dispersed by the first prism before it reaches the echellette grating, which is used nearly in Littrow for high efficiency. The grating-dispersed light is once again cross-dispersed by a second pass through the first prism and then passes through the second prism before being imaged onto the detector by the camera.",
+    "alternatives": [
+     {
+      "value": "BSL7Y from Ohara",
+      "src": "S99",
+      "loc": "Sec. 1",
+      "quote": "two large (25 kg) cross-dispersion prisms made of BSL7Y glass from Ohara Corp."
+     },
+     {
+      "value": "UBK7, 50.00 deg (design)",
+      "src": "UCR96",
+      "loc": "Sec. 4.1",
+      "quote": "Prisms: UBK7, 50.00 degree apex angles"
+     },
+     {
+      "value": "two prisms, first in double pass",
+      "src": "KESP",
+      "loc": "General specifications, Cross dispersion",
+      "quote": "Two prisms, first used in double-pass mode."
+     },
+     {
+      "value": "fused silica would have needed 55 deg",
+      "src": "S02",
+      "loc": "Sec. 2.2",
+      "quote": "Fused silica was considered, however its relatively low index would have required 55.0\u25e6-prisms"
+     }
+    ],
+    "note": "Ohara BSL7Y is NOT on the app's glass list: Sellmeier coefficients in the glass section below."
+   },
+   "prism_orientation": {
+    "value": "near minimum deviation (design)",
+    "unit": null,
+    "src": "UCR96",
+    "loc": "Sec. 3.2",
+    "quote": "To get the appropriate amount of cross dispersion, three 50 degree prisms operating near minimum deviation would be required. Since one prism is operated in double pass, only two prisms are used.",
+    "note": "Exact incidence angles NOT FOUND."
+   },
+   "prism_sizes": {
+    "value": {
+     "double_pass_prism_in": "13.0 high x 12.0 wide",
+     "single_pass_prism_in": "10.0 high x 13.0 wide"
+    },
+    "unit": "inch (design maxima)",
+    "src": "UCR96",
+    "loc": "Sec. 3.2",
+    "quote": "The double pass prism is 13.0 inches high and 12.0 inches wide, while the single pass prism is 10.0 inches high and 13.0 inches wide."
+   },
+   "camera": {
+    "value": {
+     "type": "refractive, 10 elements in 5 groups, all spherical, 3 CaF2 lenses (Epps)",
+     "focal_length_mm": 308,
+     "entrance_aperture_mm": 287,
+     "focal_ratio_on_aperture": 1.07,
+     "focal_ratio_on_beam": 1.93
+    },
+    "unit": null,
+    "src": "S02",
+    "loc": "Sec. 2.4",
+    "quote": "The camera has an effective focal length of 308 mm. It has an entrance aperture diameter of 287 mm and a final plate scale of 97.7 microns/arcsec on the sky. The collimated beam diameter is approximately 160 mm. The camera\u2019s effective f/ratio in imaging mode is thus f/1.93 and slightly faster in spectroscopic modes due to anamorphism.",
+    "alternatives": [
+     {
+      "value": "underfilled f/1.07",
+      "src": "S02",
+      "loc": "Sec. 1",
+      "quote": "imaged onto the detector by the underfilled f/1.07 camera"
+     },
+     {
+      "value": "308 mm (design)",
+      "src": "UCR96",
+      "loc": "Sec. 4.1",
+      "quote": "Camera focal length: 308 mm"
+     }
+    ],
+    "derived": "DERIVED: 308/287 = f/1.07; 308/160 = f/1.93; 308/166.9 = f/1.85. 97.7 um/arcsec -> 0.1535\"/px for 15 um (= 206264.8/(149600 x 308/2286) x 0.015 = 0.1535)"
+   },
+   "detector": {
+    "value": {
+     "type": "MIT/Lincoln Labs CCID20, high-resistivity, back-illuminated (device W62C2)",
+     "format": "2048 x 4096",
+     "pixel_um": 15
+    },
+    "unit": null,
+    "src": "KCCD",
+    "loc": "para 1",
+    "quote": "The ESI CCD is a high-resistivity MIT-Lincoln Labs 2048 x 4096 device with 15 \u00b5m pixels.",
+    "alternatives": [
+     {
+      "value": "CCID20, device W62C2",
+      "src": "S02",
+      "loc": "Sec. 2.5",
+      "quote": "The ESI detector (device W62C2) is a MIT/Lincoln Labs CCID20 high-resistivity CCD"
+     },
+     {
+      "value": "2048x4096, 15 um",
+      "src": "KESP",
+      "loc": "General specifications, Detector",
+      "quote": "MIT-LL 2048\u00d74096 CCD, 15 micron pixels"
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "4096-px axis = dispersion; 2048-px axis = cross-dispersion (orders stacked)",
+    "unit": null,
+    "src": "KQR",
+    "loc": "Echellette Wavelength Solutions",
+    "quote": "WL = C0 + C1*(p-2048) + C2*(p-2048)^2 + C3*(p-2048)^3 where WL is the wavelength in Angstroms, and p is the pixel number.",
+    "alternatives": [
+     {
+      "value": "order 6 FSR = 108% of the chip width (design)",
+      "src": "UCR96",
+      "loc": "Table 1",
+      "quote": "6 9366 10146 11068 1703 86 26.6 108 0.39 11.4"
+     }
+    ],
+    "derived": "DERIVED: p is centred on 2048, so p runs over 4096 px along the dispersion; Littrow FSR lengths 4355 (order 6), 3728 (7), 2601 (10), 1734 (15) px = 106, 91, 64, 42% of 4096 vs UCR96 'Width (%)' 108, 92, 64, 43."
+   },
+   "binning": {
+    "value": "1x2, 2x1 or 2x2 available; default NOT stated (Keck advises reading out the full CCD in echelle mode)",
+    "unit": null,
+    "src": "KCCD",
+    "loc": "Sec. 9.1 Binning",
+    "quote": "You can bin the pixels in 1x2, 2x1, or 2x2 patterns.",
+    "alternatives": [
+     {
+      "value": "read out the full CCD",
+      "src": "KECH",
+      "loc": "para 2",
+      "quote": "To get the full wavelength coverage for all orders, you want to read out the full CCD in echelle mode!"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_vs_slit": {
+    "value": {
+     "0.30": [
+      1.95,
+      22.4,
+      13400
+     ],
+     "0.50": [
+      3.24,
+      37.3,
+      8000
+     ],
+     "0.75": [
+      4.86,
+      55.9,
+      5400
+     ],
+     "1.00": [
+      6.49,
+      74.6,
+      4000
+     ],
+     "1.25": [
+      8.11,
+      93.2,
+      3200
+     ],
+     "6.00": [
+      38.9,
+      447,
+      700
+     ]
+    },
+    "unit": "slit (arcsec): [projected width px, FWHM km/s, R]",
+    "src": "KECH",
+    "loc": "Table 2 'Available Echelle Slits'",
+    "quote": "0.30_arcsec 1.95 22.4 13,400 ... 0.75_arcsec 4.86 55.9 5400 ... 1.00_arcsec 6.49 74.6 4000",
+    "alternatives": [
+     {
+      "value": "13,000 at 0.3\" (two pixels)",
+      "src": "S02",
+      "loc": "Sec. 1, Mode 1",
+      "quote": "to achieve a spectral resolution of 13,000 at the minimum two pixel slit-width"
+     },
+     {
+      "value": "22.4 km/s FWHM at 0.3\"",
+      "src": "KESP",
+      "loc": "Echellette mode, Spectral resolution",
+      "quote": "As low as 22.4 km/sec (FWHM) using 0.3 arcsec slit"
+     },
+     {
+      "value": "0.75\": FWHM ~45 km/s (R ~ 6700 DERIVED)",
+      "src": "P01",
+      "loc": "Sec. 2 (Observations and reduction)",
+      "quote": "echellette mode (0.75\u2032\u2032 slit lending resolution FWHM \u2248 45 km/s)",
+      "note": "method not stated; ~20% sharper than KECH's 55.9 km/s"
+     }
+    ],
+    "note": "The KECH FWHM column = projected slit width x 11.5 km/s/px (DERIVED: 6.49 x 11.5 = 74.6; 1.95 x 11.5 = 22.4), i.e. geometric slit-width predictions, not line-width measurements.",
+    "derived": "DERIVED from the sourced optics (0.1535\"/px, Littrow 11.55 km/s/px): 1\" = 6.51 px -> R = 3985; 0.75\" -> 5310; 0.3\" -> 13,280"
+   },
+   "dispersion_velocity": {
+    "value": 11.4,
+    "unit": "km/s per pixel (average)",
+    "src": "S02",
+    "loc": "Sec. 1",
+    "quote": "The average reciprocal dispersion is about 11.4 km/sec/pixel.",
+    "alternatives": [
+     {
+      "value": "9.6-12.8 km/s/px (range)",
+      "src": "S02",
+      "loc": "Sec. 1",
+      "quote": "The reciprocal dispersion in echellette mode varies from 9.6 km/sec/pixel to 12.8 km/sec/pixel."
+     },
+     {
+      "value": "constant 11.5 km/s/px",
+      "src": "KECH",
+      "loc": "para 1",
+      "quote": "The dispersion is a constant 11.5 km/sec/pixel in velocity."
+     },
+     {
+      "value": "11.4 km/s/px (R = 26,300 per px, design)",
+      "src": "UCR96",
+      "loc": "Sec. 3.2",
+      "quote": "The final dispersion is 11.4 km/s/pix (R = 26,300)."
+     },
+     {
+      "value": "R = 26,087 per pixel",
+      "src": "S99",
+      "loc": "Sec. 1",
+      "quote": "has an average resolution ( l / D l ) of 26,087 per pixel"
+     },
+     {
+      "value": "15 km/s/px (R = 20000/pixel)",
+      "src": "KTG02",
+      "loc": "Sec. 4.7.1, Echellette mode",
+      "quote": "Spectral resolution 15 km/sec/pixel (R = 20000/pixel)",
+      "note": "early specification; conflicts with all measured values"
+     }
+    ],
+    "derived": "DERIVED Littrow: c x 0.015/(2 tan 32.3 x 308) = 11.55 km/s/px (R = 25,960 per px). From the KQR C1 coefficients at p = 2048: 11.36 (order 15), 11.34 (14), 11.42 (13), 11.46 (12), 11.46 (11), 11.48 (10), 11.50 (9), 11.51 (8), 11.52 (7) km/s/px = 0.982-0.997 x Littrow."
+   },
+   "wavelength_solution_per_order": {
+    "value": {
+     "15": [
+      4077.46,
+      0.154482
+     ],
+     "14": [
+      4366.24,
+      0.165128
+     ],
+     "13": [
+      4699.5,
+      0.179043
+     ],
+     "12": [
+      5088.55,
+      0.194456
+     ],
+     "11": [
+      5549.09,
+      0.212052
+     ],
+     "10": [
+      6101.46,
+      0.233675
+     ],
+     "9": [
+      6776.99,
+      0.259847
+     ],
+     "8": [
+      7621.6,
+      0.29266
+     ],
+     "7": [
+      8707.59,
+      0.334496
+     ],
+     "6 (est.)": [
+      10156,
+      0.39
+     ]
+    },
+    "unit": "order: [C0 = wavelength (A) at pixel 2048, C1 = A/pixel at pixel 2048]",
+    "src": "KQR",
+    "loc": "Echellette Wavelength Solutions",
+    "quote": "15 4077.46 0.154482 -1.140e-6 -3.106e-10 ... 9 6776.99 0.259847 -2.826e-6 -1.90e-10 ... 6 (est.) 10156 0.39 -4.25e-6 0",
+    "alternatives": [
+     {
+      "value": "A/px per order 0.15 (15) ... 0.39 (6), predicted",
+      "src": "S02",
+      "loc": "Table 1",
+      "quote": "15 0.393 \u00b7 \u00b7 \u00b7 0.419 12.01 0.122 0.15 0.127 ... 6 0.937 \u00b7 \u00b7 \u00b7 1.093 15.93 0.162 0.39 0.183"
+     },
+     {
+      "value": "0.16 A/px (order 15) to 0.30 A/px (order 6)",
+      "src": "KOV",
+      "loc": "'In echelle mode ...' paragraph",
+      "quote": "at a dispersion ranging from 0.16 \u00c5/pixel (order 15) to 0.30 \u00c5/pixel (order 6)",
+      "note": "0.30 for order 6 conflicts with 0.39 (S02, KQR)"
+     },
+     {
+      "value": "A/px at order peaks: 0.15 (15), 0.18 (13), 0.19 (12), 0.21 (11), 0.23 (10), 0.26 (9), 0.29 (8), 0.33 (7), 0.39 (6)",
+      "src": "KQR",
+      "loc": "Echellette Sensitivities table",
+      "quote": "15 4200 1343 8950 0.15"
+     }
+    ],
+    "note": "'Wavelength solution for order 6 is estimated, from an extrapolation of the parameters for the other orders.' m x C0 = 61,160 (order 15) ... 60,950 (order 7) A: the detector centre sits 0.1-0.5% redward of the Littrow blaze (60,876/m A)."
+   },
+   "free_spectral_ranges": {
+    "value": {
+     "6": [
+      9366,
+      11068
+     ],
+     "7": [
+      8117,
+      9366
+     ],
+     "8": [
+      7162,
+      8117
+     ],
+     "9": [
+      6408,
+      7162
+     ],
+     "10": [
+      5798,
+      6408
+     ],
+     "11": [
+      5294,
+      5798
+     ],
+     "12": [
+      4870,
+      5294
+     ],
+     "13": [
+      4509,
+      4870
+     ],
+     "14": [
+      4198,
+      4509
+     ],
+     "15": [
+      3927,
+      4198
+     ]
+    },
+    "unit": "order: [lower, upper] A",
+    "src": "KECH",
+    "loc": "Table 1 'ESI Echelle-Mode Details'",
+    "quote": "6 9366 - 11068 0.168 7 8117 - 9366 0.163",
+    "alternatives": [
+     {
+      "value": "design table with on-blaze wavelengths: order 6 9366/10146/11068 ... order 15 3927/4058/4198 A",
+      "src": "UCR96",
+      "loc": "Table 1",
+      "quote": "15 3927 4058 4198 271 -79 34.5 43 0.15 11.4"
+     },
+     {
+      "value": "order ranges 0.393-0.419 um (15) ... 0.937-1.093 um (6)",
+      "src": "S02",
+      "loc": "Table 1",
+      "quote": "6 0.937 \u00b7 \u00b7 \u00b7 1.093 15.93 0.162 0.39 0.183"
+     },
+     {
+      "value": "same Table 1 in the published PASP version",
+      "src": "S02P",
+      "loc": "Table 1 'Predicted Performance, Echellette Mode'",
+      "quote": "0.393\u20130.419 12.01 0.122 0.15 0.127 ... 0.937\u20131.093 15.93 0.162 0.39 0.183"
+     }
+    ],
+    "note": "KECH: 'the free spectral range of every order listed falls completely on the detector. The bluer orders contain significant amounts of data outside the free spectral range as well.'"
+   },
+   "wavelength_coverage": {
+    "value": "0.39-1.09 um, no gaps",
+    "unit": "um",
+    "src": "S02",
+    "loc": "Sec. 1",
+    "quote": "The higher-dispersion echellette mode gives the entire spectrum from 0.39 to 1.09 microns",
+    "alternatives": [
+     {
+      "value": "3900-10900 A",
+      "src": "KOV",
+      "loc": "'In echelle mode ...' paragraph",
+      "quote": "complete wavelength coverage from 3900 \u00c5 to 10900 \u00c5"
+     },
+     {
+      "value": "0.39-1.1 um",
+      "src": "KESP",
+      "loc": "Echellette mode, Wavelength range",
+      "quote": "Wavelength range 0.39\u20131.1 microns"
+     },
+     {
+      "value": "3900-11000 A (design)",
+      "src": "UCR96",
+      "loc": "Sec. 4.2",
+      "quote": "Spectral coverage: 3900-11000 A, no gaps, in a single exposure"
+     }
+    ]
+   },
+   "spatial_scale_per_order": {
+    "value": {
+     "15": 0.12,
+     "14": 0.127,
+     "13": 0.134,
+     "12": 0.137,
+     "11": 0.144,
+     "10": 0.149,
+     "9": 0.153,
+     "8": 0.158,
+     "7": 0.163,
+     "6": 0.168
+    },
+    "unit": "arcsec/pixel along the slit (measured, 27 Sep 2002)",
+    "src": "KQR",
+    "loc": "Echellette Spatial Scales",
+    "quote": "15 0.120 14 0.127 13 0.134 12 0.137 11 0.144 10 0.149 9 0.153 8 0.158 7 0.163 6 0.168",
+    "alternatives": [
+     {
+      "value": "same values",
+      "src": "KECH",
+      "loc": "Table 1 'Scale along slit'",
+      "quote": "15 3927 - 4198 0.120"
+     },
+     {
+      "value": "predicted 0.127 (15) ... 0.183 (6)",
+      "src": "S02",
+      "loc": "Table 1 (last column)",
+      "quote": "15 0.393 \u00b7 \u00b7 \u00b7 0.419 12.01 0.122 0.15 0.127"
+     }
+    ],
+    "note": "KQR: 'These were calculated by measuring the separation of the pinholes in the \"MultiHoles\" slit in both echelle modes and imaging modes, and scaling by the imaging pixel scale of 0.1542 arcsec/pixel.' KECH: 'Due to variable anamorphic magnification the scale along the slit varies with order'."
+   },
+   "scale_dispersion_direction": {
+    "value": 0.154,
+    "unit": "arcsec/pixel (dispersion direction); 6.5 px per arcsec",
+    "src": "KECH",
+    "loc": "para 1",
+    "quote": "The scale in the dispersion direction is 0.154 arcsec/pixel; 1 arcsec projects to 6.5 pixels.",
+    "alternatives": [
+     {
+      "value": "0.1542 +/- 0.0010 (imaging)",
+      "src": "KESP",
+      "loc": "General specifications, Scale at detector",
+      "quote": "0.1542\u00b10.0010 arcsec/pixel"
+     },
+     {
+      "value": "0.15 (KTG02)",
+      "src": "KTG02",
+      "loc": "Sec. 4.7.1",
+      "quote": "Scale at detector 0.15 arcsec/pixel"
+     }
+    ],
+    "derived": "DERIVED: 206264.8/(149600 x 308/2286) x 0.015 = 0.1535 arcsec/px"
+   },
+   "order_separation_min": {
+    "value": 22.0,
+    "unit": "arcsec",
+    "src": "S02",
+    "loc": "Sec. 1, Mode 1",
+    "quote": "The minimum order separation is 22.\u2032\u2032 0.",
+    "alternatives": [
+     {
+      "value": "design: 23.0\" (order 8) to 34.5\" (order 15) between orders at order centre",
+      "src": "UCR96",
+      "loc": "Table 1 ('Del')",
+      "quote": "8 7162 7609 8117 955 58 23.0 80 0.29 11.5"
+     }
+    ],
+    "note": "pdftotext renders 22.0\" as '22.\u2032\u2032 0'."
+   },
+   "order_positions_design": {
+    "value": {
+     "6": 86,
+     "7": 72,
+     "8": 58,
+     "9": 43,
+     "10": 28,
+     "11": 11,
+     "12": -7,
+     "13": -28,
+     "14": -52,
+     "15": -79
+    },
+    "unit": "percent height of each order above/below the chip centre at its central wavelength (design)",
+    "src": "UCR96",
+    "loc": "Table 1 ('Height (%)')",
+    "quote": "6 9366 10146 11068 1703 86 26.6 108 0.39 11.4 ... 12 4870 5073 5294 423 -7 28.1 53 0.19 11.5",
+    "note": "UCR96: 'Height -- percent height of order above/below the chip center at the central wavelength of the order'. Normalisation (half or full chip height) is not stated.",
+    "derived": "DERIVED: the chip centre (cross-dispersion) lies between order 11 (+11%, on-blaze 5534 A) and order 12 (-7%, 5073 A): linear in wavelength -> 5252 A; linear in order number (m = 11.61) -> 60,876/11.61 = 5243 A. Suggested central wavelength ~5250 A."
+   },
+   "image_quality_design": {
+    "value": 19.0,
+    "unit": "um rms spot diameter (average over all orders, ray trace of the as-built system)",
+    "src": "S02",
+    "loc": "Sec. 5.1.1",
+    "quote": "Averaging these image diameters over all wavelengths and all orders the Ave(rms) = 19.0 +/- 3.3 microns."
+   }
+  },
+  "not_found": [
+   "Numeric out-of-plane (gamma) and in-plane (theta) echelle angles: only 'nearly in Littrow' (S02), 'quasi-Littrow ... incoming light is at an angle to the plane of dispersion' and 'only a few degrees off Littrow' (UCR96).",
+   "Prism incidence angles (only 'near minimum deviation', UCR96 design) and the as-built prism dimensions.",
+   "Epps & Miller 1998 (SPIE 3355, 48) and Sutin 1996 (SPIE 2871, 1116) optical-design papers: not obtained (paywalled; no author copy found).",
+   "Measured (line-width) resolving power vs slit from a primary instrument source: KECH R values are slit width x dispersion; P01's ~45 km/s at 0.75\" gives no method.",
+   "Default binning (Keck pages list 1x2, 2x1, 2x2 and advise full-frame readout).",
+   "A default echellette slit."
+  ],
+  "conflicts": [
+   "Collimated beam: 160 mm (S02, S99) vs 6.57 in = 166.9 mm for the full tip-to-tip aperture (UCR96 Sec. 3.1) vs 170 mm (UCR96 Sec. 4.1 spec list) vs 152.4 mm (2286/15, DERIVED).",
+   "Telescope focal ratio: f/13.7 (UCR96, for the 10.95 m tip-to-tip aperture) vs f/15 (KESP, KTG02; nominal on ~10 m).",
+   "Groove density: 175 l/mm (S02, KESP, KTG02) vs 175.555 (UCR96) vs 175.6 (S99). Grating size 204 x 204 mm (S02) vs 203 mm square / 203 x 204 mm (UCR96).",
+   "Collimator shape: 'on-axis (nearly) parabolic' imaging an off-axis field (S02) vs off-axis paraboloid (UCR96, KTG02, KESP 'will be') vs 'off-axis segment of an on-axis ellipsoid' (S99).",
+   "Prism glass: Ohara BSL7Y (S02, S99; as built) vs UBK7 / 'UBK7/BK7Y (blue transmitting BK7)' (UCR96, design).",
+   "Number of echellette slits: five (S02) vs six (KOV, KECH, KESP, KTG02).",
+   "Dispersion: average 11.4 km/s/px and range 9.6-12.8 (S02) vs 'constant 11.5' (KECH) vs 11.34-11.52 from the KQR polynomials (DERIVED) vs 15 km/s/px (KTG02 specification).",
+   "Order 6 dispersion: 0.39 A/px (S02 Table 1, KQR, UCR96) vs 0.30 A/px (KOV).",
+   "Coverage upper limit: 1.09 um (S02) vs 10900 A (KOV) vs 1.1 um (KESP) vs order-6 FSR to 11068 A (KECH).",
+   "Scale along the slit per order: predicted 0.127-0.183\"/px (S02 Table 1) vs measured 0.120-0.168\"/px (KQR, KECH).",
+   "R at 0.3\": 13,000 (S02) vs 13,400 (KECH); 0.75\": 5400 (KECH) vs FWHM ~45 km/s = R ~ 6700 (P01, DERIVED).",
+   "Minimum order separation: 22.0\" (S02) vs 23.0\" (UCR96 design table).",
+   "Detector scale: 0.1542 +/- 0.0010 (KESP) vs 0.153 (S02) vs 0.15 (KTG02) vs 0.1535 DERIVED."
+  ],
+  "notes": [
+   "Consistency check (DERIVED): f_col 2286 mm, f_cam 308 mm, 0.725 mm/arcsec and 15 um pixels give 0.1535\"/px (published 0.1542, 0.153); the Littrow dispersion 11.55 km/s/px agrees with the KQR per-order solutions to 0.3-1.8%; the Littrow FSR lengths reproduce UCR96's 'Width (%)' of the chip to 1-2 points.",
+   "Prism glass: the OHARA BSL7Y Sellmeier reproduces its data-sheet indices to <= 5e-6 from 0.326 to 1.129 um (DERIVED). N-BK7 (on the app list) is 4.7e-4 higher in n and within 0.3% (0.4-0.6 um) to 1.2% (1.0 um) in dn/dlambda, so an N-BK7 stand-in changes the cross-dispersion by about 1% (DERIVED).",
+   "MagE (M08) is described as 'very similar to the ESI spectrograph': same 175 gr/mm, 32.3 deg echellette and two-prism (one double-pass) layout.",
+   "ESI also has a low-dispersion (prism-only) mode and a direct-imaging mode (S02); only the echellette mode is relevant here.",
+   "UCR96 is a January 1996 design document (version 1.0): where it differs from S02 / the Keck pages, the later sources describe the as-built instrument."
+  ]
+ },
+ "glass": {
+  "formula_forms": {
+   "Sellmeier_OHARA": {
+    "form": "n^2 - 1 = A1 lambda^2/(lambda^2 - B1) + A2 lambda^2/(lambda^2 - B2) + A3 lambda^2/(lambda^2 - B3)",
+    "wavelength_unit": "um (B in um^2); 365-2325 nm to about +/-5e-6 (the page text layer prints the exponent as '\u00d7106'), limited to the tabulated range when a data sheet lists fewer indices",
+    "src": "OHWEB",
+    "loc": "Sec. 2.3 Dispersion Formula",
+    "quote": "By using this formula, refractive indices for any wavelength between 365 and 2325nm can be calculated to have an accuracy of around \u00b1 5 \u00d7106. ... When calculating a respective refractive index, please bear in mind that each wavelength is expressed in \u00b5m units."
+   }
+  },
+  "glasses": {
+   "OHARA_BSL7Y": {
+    "used_in": [
+     "ESI cross-disperser (two 50 deg prisms, first in double pass)"
+    ],
+    "formula": "Sellmeier_OHARA",
+    "coefficients": {
+     "A1": 1.13329383,
+     "A2": 0.136897201,
+     "A3": 0.703456004,
+     "B1": 0.00669407868,
+     "B2": 0.023739176,
+     "B3": 70.7030316
+    },
+    "catalog": {
+     "code_d": 516643,
+     "code_e": 518641,
+     "nd": 1.51633,
+     "vd": 64.24,
+     "ne": 1.518248,
+     "nF-nC": 0.008037,
+     "lambda80_nm": 315,
+     "lambda5_nm": 290,
+     "density": 2.5
+    },
+    "src": "OHI",
+    "loc": "BSL7Y data sheet, 'Constants of Dispersion Formula' (footer 'Date 10/2018')",
+    "quote": "BSL7Y ... Code(d) 516643 ... A1 1,13329383E+00 ... A2 1,36897201E-01 ... A3 7,03456004E-01 ... B1 6,69407868E-03 ... B2 2,37391760E-02 ... B3 7,07030316E+01",
+    "note": "S02/S99 name 'Ohara BSL7Y' (UCR96 design: 'UBK7/BK7Y (blue transmitting BK7)'). Coefficients printed with decimal commas. They reproduce the sheet's indices to <= 5e-6 over 0.326-1.129 um, but deviate by -2.3e-5 at 1.530 um, -1.4e-4 at 1.970 um and -3.6e-4 at 2.325 um (DERIVED) -- use only to 1.13 um (ESI works at 0.39-1.1 um). No validity range is printed on this sheet."
+   }
+  },
+  "checks": [
+   "BSL7Y (OHI): coefficients reproduce the data-sheet indices nd 1.51633, ne 1.51825, nF 1.52189, nC 1.51386, ng 1.52619, nh 1.52973, ni 1.53574, n(326.1) 1.54422, n(1013.98) 1.50681, n(1128.64) 1.50528 to <= 5e-6; beyond 1.5 um the residual grows to -3.6e-4 (2.325 um).",
+   "N-BK7 (round-1 SCHOTT coefficients) vs BSL7Y (DERIVED): n higher by 4.7e-4 (0.5-0.8 um) to 5.3e-4 (0.365 um); dn/dlambda ratio N-BK7/BSL7Y = 1.0032 (0.4 um), 1.0030 (0.5), 1.0015 (0.6), 0.9961 (0.8), 0.9883 (1.0 um).",
+   "MagE prisms are fused silica (M08): use the round-1 Malitson 1965 formula already in the app; grade not stated.",
+   "Check script kept outside the project (scratchpad)."
+  ],
+  "not_found": [
+   "An OHARA validity statement specific to the BSL7Y constants (the round-1 PBM2Y sheet's footnote limits its constants to 326-1129 nm; the BSL7Y residuals behave the same way).",
+   "Whether the as-built ESI prisms were melted to the 2018 BSL7Y specification (1990s melt; S02: homogeneous to about +/-2e-6)."
+  ]
+ }
+}

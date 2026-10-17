@@ -74,6 +74,9 @@ const GLASS = {
   PBM2Y: { label: "PBM 2Y (PBM2)", range: [0.326, 1.129], B: [1.39446503, 0.159230985, 0.245470216], C: [0.0110571872, 0.0507194882, 31.4440142] },
   PBM2R: { label: "PBM 2R", B: [1.34139422, 0.21318551, 0.983288016], C: [0.00980301669, 0.0470587088, 117.45827] },
   // SCHOTT SF6 datasheet (as of 01-Dec-2023): the X-Shooter VIS prism
+  // OHARA BSL7Y (ESI's cross-disperser prisms), OHARA data sheet 10/2018; the coefficients reproduce the sheet's
+  // indices to 5e-6 from 0.326 to 1.129 um and drift beyond 1.5 um, so the range stops at the sheet's 1.129 um
+  BSL7Y: { label: "BSL7Y (OHARA)", range: [0.32, 1.13], B: [1.13329383, 0.136897201, 0.703456004], C: [0.00669407868, 0.023739176, 70.7030316] },
   SF6: { label: "SF6", range: [0, 2.3], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
   // NASA CHARMS temperature-dependent Sellmeier fits, evaluated at 105 K (the X-Shooter NIR optics):
   // Infrasil 301 (Leviton, Frey & Madison 2008, Table 10; 0.5-3.6 um), ZnSe (Leviton, Frey & Kvamme 2005,

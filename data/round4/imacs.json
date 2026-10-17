@@ -1,0 +1,1265 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 4: Magellan I (Baade) / IMACS (f/4 grating mode as the preset; f/2 grism mode documented, not modeled)",
+  "compiled": "2026-10-17",
+  "companion": "data/presets_sources.json (round 1), data/presets_sources_2.json (round 2), data/presets_sources_3.json (round 3); same structure. Key CS98N9 is the round-1 file of key IMACS and LCOT the round-1 file of key LCOT (both copied unmodified into rawdata/presets/imacs/). Top-level key multiplex repeats the objects_per_mask entry in the round-3 multiplex layout.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values; is_derived marks a value that is itself DERIVED. alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "PDF text from pdftotext (layout, raw and default modes; line-break hyphenation joined), HTML text by tag stripping (script bodies kept; image ALT text kept); NFKC; dashes, quotes, primes (′′ / ″ -> \"), degree glyphs (◦ º -> °), ∼ -> ~, ℓ and ` -> l, × -> x, µ -> u normalised; whitespace removed; pdftotext's rendering of 0.″7 as \"0.00 7\" mapped to 0.7\". ' ... ' joins non-adjacent pieces; table rows are quoted as whitespace-separated cells.",
+  "quote_check": "117 quotes (incl. alternatives) checked, 0 failures (scratchpad scripts qcheck.py/build.py)"
+ },
+ "sources": {
+  "CS98": {
+   "cite": "Dressler, A. & Bigelow, B., \"IMACS: The Inamori Magellan Areal Camera and Spectrograph -- System Specifications, DRAFT! Version 1.1\" (27 April 1998; Carnegie LaTeX2HTML web version, pages signed \"Bruce Bigelow 1998-05-21\"); title/contents page. PRE-CONSTRUCTION DESIGN document",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_spec.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/spec.html"
+  },
+  "CS98N3": {
+   "cite": "CS98, node3 \"Overview\" (1998 design spec)",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node3.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node3.html"
+  },
+  "CS98N9": {
+   "cite": "CS98, node9 \"Optical Design\" (design parameters for the Magellan f/11 configuration) -- SAME FILE as round-1 key IMACS (copied unmodified from rawdata/presets/mike/)",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node9.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node9.html"
+  },
+  "CS98N11": {
+   "cite": "CS98, node11 \"Collimator\" (Epps design run #091197BR)",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node11.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node11.html"
+  },
+  "CS98N12": {
+   "cite": "CS98, node12 \"Long Camera\"",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node12.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node12.html"
+  },
+  "CS98N14": {
+   "cite": "CS98, node14 \"Grating Mode\" (Table 2, initial grating complement)",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node14.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node14.html"
+  },
+  "CS98N15": {
+   "cite": "CS98, node15 \"Short Camera\"",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node15.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node15.html"
+  },
+  "CS98N17": {
+   "cite": "CS98, node17 \"Grism Mode\" (Table 4, initial grism complement; design)",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node17.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node17.html"
+  },
+  "CS98N29": {
+   "cite": "CS98, node29 \"Slit Dimensions\"",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node29.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node29.html"
+  },
+  "CS98N37": {
+   "cite": "CS98, node37 \"Grating Tilt\"",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node37.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node37.html"
+  },
+  "CS98N51": {
+   "cite": "CS98, node51 \"CCD Array\"",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node51.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node51.html"
+  },
+  "D11": {
+   "cite": "Dressler, A., et al. 2011, PASP 123, 288, \"IMACS: The Inamori-Magellan Areal Camera & Spectrograph on Magellan-Baade\" -- ACCEPTED MANUSCRIPT (Editorial Manager draft 350547R1, \"Submitted: 2010 Nov 2; accepted: 2010 Dec\"; PDF created 2010-12-23; 84 pp.) from the Carnegie FTP site (the https link returned by web search does not connect; the FTP URL works). Published version (JSTOR 10.1086/658908) NOT obtained",
+   "file": "rawdata/presets/imacs/Dressler2011_PASP123_288_IMACS_accepted_manuscript_CarnegieFTP.pdf",
+   "url": "ftp://ftp.obs.carnegiescience.edu/pub/dressler/imacs/IMACS_manuscript_accepted.pdf"
+  },
+  "BD03": {
+   "cite": "Bigelow, B. C. & Dressler, A. 2003, Proc. SPIE 4841, 1727, \"IMACS, the multi-object spectrograph and imager for Magellan: a status report\" (publisher PDF, footer \"Proceedings of SPIE Vol. 4841 (2003)\"; hosted on the homepage of IMACS co-author Christoph Birk, Carnegie)",
+   "file": "rawdata/presets/imacs/Bigelow2003_SPIE4841_1727_IMACS_status_report.pdf",
+   "url": "https://asdflkj.net/Publications/spie4841_1727.pdf"
+  },
+  "DSB": {
+   "cite": "Dressler, A., Sutin, B. & Bigelow, B., \"Science with IMACS on Magellan\", SPIE conference paper written while IMACS was \"nearing completion\" (c. 2002; volume and page are NOT printed on this copy; it cites BD03 as \"SPIE, 4841, 2002\"); Carnegie-hosted PDF",
+   "file": "rawdata/presets/imacs/DresslerSutinBigelow_SPIE_ScienceWithIMACS_carnegie_spie_imacs.pdf",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/pdf_files/spie_imacs.pdf"
+  },
+  "LCOUM": {
+   "cite": "Las Campanas Observatory, \"IMACS User Manual\" web page (A. Dressler, IMACS PI; readout table \"as of Aug. 2018\"; fetched 2026-10-17)",
+   "file": "rawdata/presets/imacs/lco_imacs_user_manual.html",
+   "url": "https://www.lco.cl/technical-documentation/imacs-user-manual/"
+  },
+  "LCOTC": {
+   "cite": "Las Campanas Observatory, \"IMACS Long Camera Grating Tilt Calculator\" web page, including its embedded JavaScript (constants and formulas quoted from the script; fetched 2026-10-17)",
+   "file": "rawdata/presets/imacs/lco_imacs_long_camera_grating_tilt_calculator.html",
+   "url": "https://www.lco.cl/?epkb_post_type_1=imacs-long-camera-grating-tilt-calculator"
+  },
+  "S17": {
+   "cite": "Simon, J. D., et al. 2017, ApJ 838, 11, \"Nearest Neighbor: The Low-Mass Milky Way Satellite Tucana III\", arXiv:1610.05301 (preprint, \"Submitted to the AAS Journals\")",
+   "file": "rawdata/presets/imacs/Simon2017_ApJ838_11_TucanaIII_IMACS_arXiv1610.05301.pdf",
+   "url": "https://arxiv.org/pdf/1610.05301"
+  },
+  "L18": {
+   "cite": "Li, T. S., et al. 2018, ApJ, doi:10.3847/1538-4357/aab666, \"Ships Passing in the Night: Spectroscopic Analysis of Two Ultra-Faint Satellites in the Constellation Carina\", arXiv:1802.06810 (draft of February 21, 2018)",
+   "file": "rawdata/presets/imacs/Li2018_CarinaII_III_IMACS_arXiv1802.06810.pdf",
+   "url": "https://arxiv.org/pdf/1802.06810"
+  },
+  "S20": {
+   "cite": "Simon, J. D., et al. 2020, ApJ, doi:10.3847/1538-4357/ab7ccb, \"Birds of a Feather? Magellan/IMACS Spectroscopy of the Ultra-Faint Satellites Grus II, Tucana IV, and Tucana V\", arXiv:1911.08493v2 (\"Accepted for publication in ApJ\")",
+   "file": "rawdata/presets/imacs/Simon2020_GruII_TucIV_TucV_IMACS_arXiv1911.08493.pdf",
+   "url": "https://arxiv.org/pdf/1911.08493"
+  },
+  "LCOT": {
+   "cite": "Las Campanas Observatory, \"Magellan Telescopes\" web page -- SAME FILE as round-1 key LCOT (copied unmodified from rawdata/presets/mike/)",
+   "file": "rawdata/presets/imacs/lco_magellan_telescopes.html",
+   "url": "https://www.lco.cl/magellan-telescopes/"
+  }
+ },
+ "imacs": {
+  "title": "Magellan I (Baade) / IMACS (wide-field imaging spectrograph; f/4 long camera with tiltable plane reflection gratings, f/2 short camera with grisms)",
+  "recommended_preset": "f/4 (\"long\") camera, 1200 l/mm grating blazed at 32.7 deg (Littrow ~9000 A; the CaT grating of S17, L18, S20), first order, grating tilt 32.4 deg (tilt is measured from zero order: alpha = 54.9 deg, beta = 9.9 deg; fixed 45 deg camera-collimator angle), lambda_c = 8250 A (DERIVED), 0.7\" slit, ~51 slits per mask (DERIVED mean of 25 published f/4 masks), Baade 6.5 m at f/11 (346.77 um/arcsec), refractive collimator 1648.46 mm (1998 design value) with a 150 mm beam, f/4.3 camera 641.8 mm, Mosaic2 8192 x 8192 x 15 um with 8192 px (4 CCDs) along the dispersion. Validate against: R ~ 11,000 for the 0.7\" slit (L18, S17, S20; DERIVED 11,690 including the anamorphic factor 0.584), 0.19 A/px (S17, L18; DERIVED 0.192), at least 7550-8750 A for every slit (L18; S17 7400-9000 A; DERIVED 7462-9026 A for a central slit), 0.111\"/px (DERIVED 0.1111). The LCO user-manual table (incl. its row for the same ruling, 1200/32.2 at tilt 32.18 -> 8200 A, 7400-8980 A, 0.191 A/px) is reproduced by the grating equation to <= 6 A (Notes). Low-resolution alternative: 600 l/mm / 8.6 deg (5000 A blaze) at tilt 9.68 deg -> 5180 A, 3640-6750 A, 0.378 A/px (LCOUM); D11's 0.8\" example (FWHM 2.75 A, R = 2000 at 5500 A) omits the anamorphic factor. The f/2 grism mode is not modeled (Notes give what it would need).",
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m (primary diameter)",
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "primary diameter: 6.5 m (255.9 inches)",
+    "alternatives": [
+     {
+      "value": 6.5,
+      "src": "LCOUM",
+      "loc": "1.B \"Basic Component Layout\"",
+      "quote": "It is fed by the telescope’s 6.5m primary, f/11 Gregorian secondary, and flat tertiary mirrors, and a corrector."
+     },
+     {
+      "value": 6.5,
+      "src": "LCOT",
+      "loc": "para 1",
+      "quote": "The 6.5-meter Baade and Clay telescopes were built by the Carnegie Institution of Washington"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Magellan I (Baade) Nasmyth focus, f/11 Gregorian, with an integral ADC/corrector feeding IMACS (west Nasmyth platform)",
+    "unit": null,
+    "src": "CS98N3",
+    "loc": "Overview",
+    "quote": "The instrument is mounted on the right Nasmyth instrument rotator, where it operates in the f/11 Gregorian telescope configuration.",
+    "alternatives": [
+     {
+      "value": "west Nasmyth platform",
+      "src": "LCOUM",
+      "loc": "1.B \"Basic Component Layout\"",
+      "quote": "The rotating tertiary mirror in the telescope directs the beam to IMACS on the west Nasmyth platform"
+     },
+     {
+      "value": "ADC corrector since May 2004",
+      "src": "LCOUM",
+      "loc": "1.B \"Basic Component Layout\"",
+      "quote": "The wider field of IMACS requires a radially mounted, integral ADC (atmospheric dispersion compensating) corrector. Prior to May 2004 IMACS was used without a corrector"
+     },
+     {
+      "value": "west Nasmyth platform",
+      "src": "D11",
+      "loc": "Fig. 1 caption",
+      "quote": "IMACS on the west Nasmyth platform of the Magellan-Baade telescope."
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 11,
+    "unit": "f/#",
+    "src": "CS98N9",
+    "loc": "Optical Design, text above the table",
+    "quote": "The design parameters for the Magellan f/11 configuration can be found in telescope System Specification.",
+    "alternatives": [
+     {
+      "value": 11,
+      "src": "BD03",
+      "loc": "Sec. 1",
+      "quote": "Fed by the f/11 Gregorian configuration"
+     },
+     {
+      "value": 11,
+      "src": "LCOT",
+      "loc": "para 2",
+      "quote": "The principal foci are f/11 at the two Nasmyth locations"
+     },
+     {
+      "value": "f/11 (collimator focal ratio)",
+      "src": "CS98N11",
+      "loc": "collimator design-parameter table",
+      "quote": "focal ratio: f/11"
+     }
+    ],
+    "derived": "DERIVED: 71526.4 mm / 6500 mm = f/11.004"
+   },
+   "telescope_focal_length": {
+    "value": 71526.4,
+    "unit": "mm (f/11 configuration, design)",
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "focal length: 71526.4 mm (2816 inches)"
+   },
+   "slit_plate_scale": {
+    "value": 346.77,
+    "unit": "um/arcsec (2.88 arcsec/mm)",
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "plate scale: 346.77 microns/arc-sec 2.88 arc-sec/mm",
+    "alternatives": [
+     {
+      "value": "0.5\" = 170 um (-> 340 um/arcsec)",
+      "src": "BD03",
+      "loc": "Sec. 7.2 (slit mask laser)",
+      "quote": "Slit requirements include the ability to produce 0.5 arcsec wide slits (170 microns)"
+     },
+     {
+      "value": "0.5\" = 150 um (-> 300 um/arcsec)",
+      "src": "CS98N29",
+      "loc": "Slit Dimensions",
+      "quote": "The narrowest slits are to be a maximum of 0.5 arc-sec (150 microns or 0.006'') wide",
+      "note": "inconsistent with 346.77 um/arcsec on the same spec (0.5\" = 173 um)"
+     }
+    ],
+    "derived": "DERIVED check: 206264.8 arcsec/rad x 346.77 um/arcsec = 71,526 mm (matches the focal length); 1/0.34677 mm = 2.884 arcsec/mm"
+   },
+   "field_of_view": {
+    "value": "30 arcmin diameter at the f/11 focal surface (620 mm); f/4 channel: 15.4 x 15.4 arcmin; f/2 channel: 27.4 arcmin diameter",
+    "unit": null,
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "field of view: 30 arc-min dia. 1800 arc-sec dia.",
+    "alternatives": [
+     {
+      "value": "f/4: 15.4 x 15.4 arcmin; camera field 22 arcmin dia.",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/4 Channel in IMACS\"",
+      "quote": "The f/4 camera provides a 22-arcmin diameter field which, when combined with the detector, fully illuminates a 15.4 x 15.4 arcmin field at a (central) scale of 0.111 arcsec per pixel."
+     },
+     {
+      "value": "f/4: 15.46 x 15.46 arcmin",
+      "src": "BD03",
+      "loc": "Table 1",
+      "quote": "Field of view 15.46 arcmin X 15.46 arcmin 27.2 arcmin X 27.2 arcmin"
+     },
+     {
+      "value": "f/4: 15.4 x 15.4 arcmin",
+      "src": "D11",
+      "loc": "Sec. 3.1",
+      "quote": "illuminates a 15.4′ × 15.4′ field at 0.11′′ per CCD pixel"
+     },
+     {
+      "value": "f/2: 27.4 arcmin dia.",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/2 Channel in IMACS\"",
+      "quote": "The f/2 focus delivers an 27.4 arcmin diameter field at a (central) scale of 0.200 arcsec per pixel."
+     }
+    ],
+    "derived": "DERIVED check: 8192 px x 0.1111\"/px = 15.17 arcmin of pixels; + 3 gaps of 92 px (Mosaic2, along one axis) = 15.68 arcmin"
+   },
+   "collimator_type": {
+    "value": "Lens: all-spherical refractive collimator (field lens + 4 elements; f/11 input), designed with the Gregorian secondary",
+    "unit": null,
+    "src": "CS98N11",
+    "loc": "Collimator",
+    "quote": "The current collimator design is by Epps (run #091197BR), consisting of a field lens and 4 collimating elements.",
+    "alternatives": [
+     {
+      "value": "5 elements incl. field lens, all-spherical",
+      "src": "CS98N11",
+      "loc": "Collimator, design-parameter table",
+      "quote": "number of elements: 5 (all-spherical)"
+     },
+     {
+      "value": "four lenses in three groups + singlet fused-silica field lens 650 mm",
+      "src": "BD03",
+      "loc": "Secs. 3.1-3.2",
+      "quote": "The field lens is a singlet fused silica lens, 650 mm in diameter ... The collimator consists of four lenses in three groups (two singlets and a doublet)"
+     },
+     {
+      "value": "all-transmitting, all-spherical",
+      "src": "LCOUM",
+      "loc": "1.B \"Basic Component Layout\"",
+      "quote": "The all-transmitting (all-spherical-optics) collimator in IMACS contributes very little in the way of additional aberrations (FWHM < 0.10 arcsec)."
+     },
+     {
+      "value": "refractive",
+      "src": "D11",
+      "loc": "Sec. 2.2",
+      "quote": "A single 150-mm (6.0-inch) beam refractive collimator feeds"
+     }
+    ],
+    "note": "1998 design document; the element count is confirmed by BD03 (as built)"
+   },
+   "collimator_focal_length": {
+    "value": 1648.46,
+    "unit": "mm (1998 design value; as-built value not published)",
+    "src": "CS98N11",
+    "loc": "Collimator, design-parameter table",
+    "quote": "focal length: 1648.46 mm (64.90 inches)",
+    "alternatives": [
+     {
+      "value": "provenance: 1998 draft specification",
+      "src": "CS98",
+      "loc": "title page",
+      "quote": "System Specifications DRAFT! Version 1.1 Alan Dressler Bruce Bigelow 27 April 1998",
+      "note": "date/version of all CS98N* values"
+     }
+    ],
+    "note": "Pre-construction design (Epps run #091197BR). No later source states a collimator focal length.",
+    "derived": "DERIVED checks: 150 mm beam x f/11 = 1650 mm; from the as-built 9.0 px/arcsec (LCOTC) and f_cam = 641.8 mm: f_col = 346.77 um/\" x 641.8 / (9.0 x 15 um) = 1648.6 mm; from 0.111\"/px: 1646.9 mm"
+   },
+   "collimated_beam_diameter": {
+    "value": 150,
+    "unit": "mm",
+    "src": "BD03",
+    "loc": "Sec. 1",
+    "quote": "Two cameras are used to re-image the 150mm-diameter collimator exit pupil at 0.111 and 0.201 arcsec/pixel.",
+    "alternatives": [
+     {
+      "value": "150 mm (5.9 in)",
+      "src": "CS98N11",
+      "loc": "Collimator, design-parameter table",
+      "quote": "output beam diameter: 150 mm (5.9 inches)"
+     },
+     {
+      "value": "150 mm (6.0 in)",
+      "src": "D11",
+      "loc": "Sec. 2.2",
+      "quote": "A single 150-mm (6.0-inch) beam refractive collimator feeds"
+     },
+     {
+      "value": "6.5 in (= 165 mm)",
+      "src": "D11",
+      "loc": "Sec. 7.5.4 (The Disperser Server)",
+      "quote": "the large diameter disperser units for the 6.5-inch collimated beam",
+      "note": "conflicts with 150 mm elsewhere in D11"
+     },
+     {
+      "value": "6 in",
+      "src": "DSB",
+      "loc": "Sec. 2",
+      "quote": "a refracting 6-inch-beam collimator composed of spherical elements"
+     }
+    ],
+    "derived": "DERIVED check: 1648.46 / 150 = f/10.99; 641.8 / 150 = f/4.28 (the \"f/4.3\" camera)"
+   },
+   "camera_type": {
+    "value": "refractive, all-spherical: six lenses in four groups (singlet-triplet-singlet-singlet), CaF2 + Ohara i-line glasses (\"f/4\" or \"long\" camera)",
+    "unit": null,
+    "src": "BD03",
+    "loc": "Sec. 3.3",
+    "quote": "The f/4 camera uses six lenses in four groups (singlet-triplet-singlet-singlet).",
+    "alternatives": [
+     {
+      "value": "six all-spherical elements [1-3-1-1]",
+      "src": "CS98N12",
+      "loc": "Long Camera",
+      "quote": "The camera consists of six all-spherical elements, arranged in a [1-3-1-1] grouping."
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 641.8,
+    "unit": "mm",
+    "src": "BD03",
+    "loc": "Table 1 (IMACS camera specifications), F/4 column",
+    "quote": "Focal length 641.8 mm 355.6 mm",
+    "alternatives": [
+     {
+      "value": 641.8,
+      "src": "LCOTC",
+      "loc": "JavaScript constants",
+      "quote": "var cmfl = 641800.0 ; // long camera focal length [microns]"
+     },
+     {
+      "value": 641.79,
+      "src": "CS98N12",
+      "loc": "Long Camera, design-parameter table",
+      "quote": "focal length: 641.79 mm (25.2675 inches)"
+     }
+    ]
+   },
+   "camera_focal_ratio": {
+    "value": 4.3,
+    "unit": "f/# (imaging; \"f/2.66 anamorphic\")",
+    "src": "BD03",
+    "loc": "Table 1, F/4 column",
+    "quote": "Focal ratio f/4.3(imaging), f/2.66 (anamorphic) f/2.38 (imaging), f/1.47 (ana.)",
+    "alternatives": [
+     {
+      "value": 4.3,
+      "src": "D11",
+      "loc": "Sec. 3.1",
+      "quote": "The all-spherical f/4.3 “long” camera"
+     },
+     {
+      "value": 4.3,
+      "src": "LCOUM",
+      "loc": "1.B \"The f/4 Channel in IMACS\"",
+      "quote": "The all-transmitting (all-spherical optics) f/4.3 “long” camera (known as f/4)"
+     }
+    ],
+    "derived": "DERIVED: 641.8 / 150 = f/4.28"
+   },
+   "camera_collimator_angle": {
+    "value": 45,
+    "unit": "deg (fixed; the f/4 camera is mounted off-axis, the f/2 camera on the collimator axis)",
+    "src": "LCOTC",
+    "loc": "JavaScript constants",
+    "quote": "var spa = 45.0 / to_deg ; // IMACS spectrograph angle [radians]",
+    "alternatives": [
+     {
+      "value": "~45",
+      "src": "D11",
+      "loc": "Sec. 7.1",
+      "quote": "This camera would be relatively long and mounted at a spectrograph angle of ∼45◦ (with the faster camera mounted axially)"
+     },
+     {
+      "value": "dispersers sit at the intersection of the collimator and long-camera axes",
+      "src": "BD03",
+      "loc": "Sec. 3",
+      "quote": "which are installed at the intersection of the main and long camera optical axes"
+     }
+    ],
+    "derived": "DERIVED check from every LCOUM grating-table row, cos(psi/2) = m G lambda_c / (2 sin T): psi = 45.21 (150), 45.08 (300), 44.90 / 45.03 (600), 45.01 / 45.02 / 44.99 / 45.02 (1200) deg"
+   },
+   "grating_tilt_convention": {
+    "value": "tilt T measured from the zero-order (mirror) position; alpha = T + 22.5 deg (incidence), beta = T - 22.5 deg (diffraction), sin(alpha) + sin(beta) = m G lambda",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B \"The f/4 Channel in IMACS\"",
+    "quote": "The convention that has been adopted is that zero-order is defined as grating tilt = 0 degrees.",
+    "alternatives": [
+     {
+      "value": "tilt = alpha - 22.5 deg; beta = alpha - 45 deg",
+      "src": "LCOTC",
+      "loc": "JavaScript calculate()",
+      "quote": "var angle = Math.asin( 0.5 * ( rhs + tmp ) ) ; // final grating angle [radians] var disp = pixel * Math.cos( angle - spa ) / ( order * ruling * cmfl ) ; ... document.grdat.tilt.value = round2( angle * to_deg ) - 22.5;"
+     },
+     {
+      "value": "angle from zero order",
+      "src": "LCOUM",
+      "loc": "4.A",
+      "quote": "Grating tilts are defined as angles from the zero-order angle, which is defined as 0 degrees to the collimated beam."
+     }
+    ],
+    "derived": "DERIVED: rhs = lambda G m = sin(angle) + sin(angle - spa) in the script, i.e. alpha = angle, beta = alpha - 45 deg; with T = alpha - 22.5: lambda_c = 2 sin(T) cos(22.5 deg) / (m G)"
+   },
+   "grating_tilt_range": {
+    "value": "19.5-34.5 deg (one GTM to 35.5 deg) -- CONFLICTS with the user-manual tilts 3.4-32.18 deg (see Conflicts)",
+    "unit": "deg",
+    "src": "D11",
+    "loc": "Sec. 7.5.4 (The Disperser Server, \"The grating tilt mechanisms\")",
+    "quote": "The allowable range of tilt angels is 19.5◦ through 34.5◦ . Although any grating can be installed into any GTM, one GTM has been modified to allow for a slightly higher amount of tilt, up to 35.5◦ to accommodate operation of the 1200-l/mm grating in second order in the blue.",
+    "alternatives": [
+     {
+      "value": "design minimum: +/-4 deg (300 l/mm), +/-12 deg (1200 l/mm)",
+      "src": "CS98N37",
+      "loc": "Grating Tilt",
+      "quote": "The minimum tilt range is $\\pm 4$ degrees for the 300 line/mm grating, and $\\pm 12$ degrees for the 1200 line/mm grating.",
+      "note": "the +/- signs are LaTeX2HTML images; quoted via their ALT text"
+     }
+    ],
+    "note": "\"tilt angels\" is a typo in the source. The zero point of the D11 angles is not stated."
+   },
+   "disperser_mount": {
+    "value": "plane reflection gratings (Richardson, 150 x 200 mm class; 154 mm ruled width) in Grating Tilt Mechanisms (GTMs); up to three GTMs on the disperser wheel at once",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B \"The f/4 Channel in IMACS\"",
+    "quote": "Spectroscopy with the f/4 is by means of standard 150 x 200 mm (Richardson) reflection gratings that are placed in the parallel beam produced by the collimator. The giant wheel that carries the dispersive elements in IMACS accommodates any three gratings",
+    "alternatives": [
+     {
+      "value": "154 mm x 206 mm gratings (design)",
+      "src": "CS98N14",
+      "loc": "Grating Mode",
+      "quote": "There are four grating mount positions for 154 mm x 206 mm gratings on the carousel."
+     },
+     {
+      "value": "205 x 165 x 35 mm substrates",
+      "src": "D11",
+      "loc": "Sec. 7.5.4 (The Disperser Server, \"The grating tilt mechanisms\")",
+      "quote": "These are standard rulings from the catalog that have been replicated onto 205-mm × 165-mm × 35-mm substrates."
+     },
+     {
+      "value": "154-mm gratings, six",
+      "src": "D11",
+      "loc": "Sec. 2.2",
+      "quote": "The f/4 camera uses 154-mm reflecting gratings (presently six in number)"
+     }
+    ]
+   },
+   "gratings": {
+    "value": {
+     "150/3.4": {
+      "l_per_mm": 150,
+      "blaze_deg": 3.4,
+      "blaze_A_littrow": null,
+      "blaze_A_littrow_DERIVED": 7908
+     },
+     "300/4.3": {
+      "l_per_mm": 300,
+      "blaze_deg": 4.3,
+      "blaze_A_littrow": 5000
+     },
+     "600/8.6": {
+      "l_per_mm": 600,
+      "blaze_deg": 8.6,
+      "blaze_A_littrow": 5000
+     },
+     "600/13.0": {
+      "l_per_mm": 600,
+      "blaze_deg": 13.0,
+      "blaze_A_littrow": 7500
+     },
+     "1200/17.5": {
+      "l_per_mm": 1200,
+      "blaze_deg": 17.5,
+      "blaze_A_littrow": 5000
+     },
+     "1200/26.7": {
+      "l_per_mm": 1200,
+      "blaze_deg": 26.7,
+      "blaze_A_littrow": 7500
+     },
+     "1200/32.7 (listed as 1200/32.2 in LCOUM)": {
+      "l_per_mm": 1200,
+      "blaze_deg": "32.7 (S17) / 32.2 (LCOUM)",
+      "blaze_A": 9000
+     }
+    },
+    "unit": "lines/mm; blaze angle deg; blaze wavelength A (Littrow, first order)",
+    "src": "LCOUM",
+    "loc": "1.B, table \"Gratings available for the f/4 channel\"",
+    "quote": "Grating (lines/mm) Blaze Angle (degrees) Grating Tilt (degrees) Order Central Wavelength (Angstroms) Wavelength Range (Angstroms) Dispersion (Angstroms/pixel) 150 3.4 3.4 1 7300 3650-9740 1.453 300 4.3 6.2 1 6650 3630-9760 0.743 600 8.6 9.68 1 5180 3640-6750 0.378 600 13.0 15.85 1 8410 6830-10000 0.387 1200 17.5 16.76 1 4440 3650-5230 0.194 1200 26.7 27.88 1 7200 6400-8000 0.188 1200 26.7 31.65 2 4040 3640-4430 0.096 1200 32.2 32.18 1 8200 7400-8980 0.191",
+    "alternatives": [
+     {
+      "value": "Littrow blaze wavelengths (design complement): 300/4.3 500 nm; 600/8.6 500 nm; 600/13.0 750 nm; 1200/17.5 500 nm; 1200/26.7 750 nm",
+      "src": "CS98N14",
+      "loc": "Table 2 \"Initial grating compliment\"",
+      "quote": "35-53-*-270 300 500 nm 4.3 o 154 x 206 ... 35-53-*-260 600 500 nm 8.6 o 154 x 206 ... 35-53-*-350 600 750 nm 13.0 o 154 x 206 ... 35-53-*-280 1200 500 nm 17.5 o 154 x 206 ... 35-53-*-360 1200 750 nm 26.7 o 154 x 206",
+      "note": "column \"Nom. lambda (Littrow)\"; no 150 l/mm grating in the 1998 complement"
+     },
+     {
+      "value": "blaze 17.45 (1200) and 8.63 (600)",
+      "src": "BD03",
+      "loc": "Table 2",
+      "quote": "600 8.63 1 0.365-0.675 3491 0.378 ... 1200 17.45 1 0.365-0.523 6542 0.194"
+     },
+     {
+      "value": "1200/32.7 deg (new, CaT) and 1200/26.7 deg",
+      "src": "S17",
+      "loc": "Sec. 2.1",
+      "quote": "Our spectra were obtained with two gratings, both ruled at 1200 ℓ/mm but with different blaze angles. The new 1200/32.7◦ grating acquired for this project"
+     },
+     {
+      "value": "1200 l/mm blazed at 9000 A",
+      "src": "S20",
+      "loc": "Sec. 2.1",
+      "quote": "the 1200 ℓ/mm grating blazed at 9000 Å"
+     }
+    ],
+    "note": "Seven distinct gratings appear in the LCOUM table (it also says \"a present complement of 6 gratings\"; its throughput caption says \"8 available gratings\").",
+    "derived": "DERIVED Littrow blaze lambda = 2 sin(theta_B)/G: 150/3.4 7908 A; 300/4.3 4999; 600/8.6 4985; 600/13.0 7498; 1200/17.5 5012; 1200/26.7 7489; 1200/32.7 9007 (1200/32.2: 8881). The CS98N14 and S20 blaze wavelengths are these Littrow values. In the IMACS 45-deg geometry the blaze peak (tilt = theta_B) falls at 0.9239 x Littrow: 7306, 4618, 4605, 6928, 4630, 6919, 8321 A (8205 for 32.2 deg)."
+   },
+   "detector": {
+    "value": "Mosaic2 (on f/4 since December 2017): eight E2V 2K x 4K CCDs, 15 um pixels, 8192 x 8192 px",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B \"The IMACS Mosaic CCD Cameras\"",
+    "quote": "Mosaic2 and Mosaic3 each use eight thinned CCDs manufactured by E2V to produce a 8192 x 8192 pixel mosaic. These CCDs are all 2K x 4K x 15-micron devices ... As of December 2017, Mosaic2 is on f/4 and Mosaic3 is on f/2.",
+    "alternatives": [
+     {
+      "value": "arrays swapped between f/2 and f/4 in 2017 December",
+      "src": "S20",
+      "loc": "Sec. 2.3",
+      "quote": "the IMACS detector arrays were swapped between the f/2 and f/4 cameras in 2017 December."
+     },
+     {
+      "value": "8 x 2K x 4K 15 um, 4 x 2 array",
+      "src": "D11",
+      "loc": "Sec. 8",
+      "quote": "Each of the two IMACS detector systems consists of eight back-illuminated 2K x 4K 15µm pixel devices mounted as a 4 × 2 array on a single baseplate"
+     },
+     {
+      "value": "Mosaic3 at f/4 from 2012 (history)",
+      "src": "LCOUM",
+      "loc": "1.B \"The IMACS Mosaic CCD Cameras\"",
+      "quote": "Mosaic2 was installed in 2008 to serve the f/2 camera, and Mosaic3 — a rebuild of Mosaic — was installed at f/4 in 2012."
+     },
+     {
+      "value": "(8) 2048 x 4096 CCDs, 8192 x 8192 (design)",
+      "src": "CS98N51",
+      "loc": "CCD Array",
+      "quote": "The detector arrays consists of (8) 2048 x 4096 pixel CCDs, arranged in a 2 x 4 array, to give a square detector area of 8192 pixels by 8192 pixels."
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "f/4: dispersion along the 2048-px axis of each CCD, i.e. across 4 CCDs (4 x 2048 = 8192 px) and 3 chip gaps; spatial along the 4096-px axes (2 CCDs, 1 gap)",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "2.B \"The Choice of Channels -- f/2 or f/4?\"",
+    "quote": "Because gratings cannot be rotated like the grisms, the CCDs in the f/4 Mosaic1 CCD camera are oriented to make N&S observations. Although N&S observations are in fact much less common, the capability for N&S observations has the negative consequence of running spectra across 4 CCDs and 3 chip gaps, instead of 2 and 1.",
+    "alternatives": [
+     {
+      "value": "spectral direction = 2048-px axis (Mosaic3 era)",
+      "src": "S17",
+      "loc": "Sec. 2.1",
+      "quote": "The f/4 camera uses a 4 × 2 array of 2048 × 4096 pixel e2v CCDs to create an 8192 × 8192 mosaic, with the spectral direction corresponding to the 2048 pixel axis of each detector."
+     },
+     {
+      "value": "N&S default orientation at f/4",
+      "src": "D11",
+      "loc": "Sec. 5.3",
+      "quote": "the IMACS Mosaic Cameras are able to clock charge in the spatial (long CCD axis) direction. N&S is the default orientation of the f/4 camera"
+     }
+    ],
+    "derived": "DERIVED: Nx (dispersion) = 4 x 2048 = 8192 px; Ny (spatial) = 2 x 4096 = 8192 px"
+   },
+   "detector_gaps": {
+    "value": "Mosaic2: long-side gaps 1.38 mm (92 px) -- crossed 3 times along the f/4 dispersion; short-side gap 0.86 mm (57 px)",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B \"The IMACS Mosaic CCD Cameras\"",
+    "quote": "The Mosaic2 camera CCDs are aligned to within 1-2 pixels. The gap between the short sides of the CCDs are 0.86 mm = 11.4 arcsec (57 pixels). The gaps between the longer sides are larger, about 1.38 mm = 18.4 arcsec (92 pixels).",
+    "alternatives": [
+     {
+      "value": "Mosaic3: short-side 1.08 mm (72 px), long-side 1.37 mm (91 px)",
+      "src": "LCOUM",
+      "loc": "1.B \"The IMACS Mosaic CCD Cameras\"",
+      "quote": "The gap between the short sides of the CCDs are 1.08 mm = 8.0 arcsec (72 pixels). The gaps between the longer sides are about 1.37 mm = 10.1 arcsec (91 pixels)."
+     },
+     {
+      "value": "detector width 8192 x 15 um + 0.7 mm",
+      "src": "LCOTC",
+      "loc": "JavaScript constants",
+      "quote": "var detwid = 8192 * pixel + 700.0 ; // detector width [microns]",
+      "note": "the calculator allows 0.7 mm in total for gaps along the dispersion"
+     }
+    ],
+    "note": "The arcsec values are at the f/2 scale for Mosaic2 (92 x 0.200 = 18.4\") and at the f/4 scale for Mosaic3 (91 x 0.111 = 10.1\"), i.e. the camera each mosaic served when the text was written.",
+    "derived": "DERIVED: CCDs adjacent along the 2048-px (dispersion) axis share their long sides, so the f/4 dispersion crosses 3 long-side gaps = 3 x 1.38 mm = 4.14 mm (276 px; 3.4% of the 8192-px coverage) for Mosaic2. Dispersion-axis extent = 122.88 + 4.14 = 127.0 mm (calculator: 123.58 mm)."
+   },
+   "slit_width": {
+    "value": 0.7,
+    "unit": "arcsec (recommended; masks of 0.7\" x 5\" slitlets in the f/4 survey papers; calculator default)",
+    "src": "S17",
+    "loc": "Sec. 2.1",
+    "quote": "Mask 1 contained 63 0.7″ × 5.0″ slits",
+    "alternatives": [
+     {
+      "value": 0.7,
+      "src": "LCOTC",
+      "loc": "JavaScript constants",
+      "quote": "var skyslit = 0.7 ; // slit width [arcsec]"
+     },
+     {
+      "value": "long slits 0.7-2.0\"",
+      "src": "LCOUM",
+      "loc": "2.B \"Multislit Spectroscopy, Long-slit Spectroscopy, ...\"",
+      "quote": "several long-slit slitmasks with widths ranging from 0.7″ to 2.0″ are kept on hand."
+     },
+     {
+      "value": ">= 1.0\" advised",
+      "src": "D11",
+      "loc": "Sec. 6.3",
+      "quote": "slit-widths of less than 1.0′′ should be avoided unless strictly required by the observing program."
+     },
+     {
+      "value": "0.8\" (example)",
+      "src": "D11",
+      "loc": "Sec. 5.2",
+      "quote": "a 0.8′′ wide slit delivers FWHM = 2.75 Å"
+     },
+     {
+      "value": "0.25-1.5\" (centerfield slit-viewing slits)",
+      "src": "D11",
+      "loc": "Sec. 6.1",
+      "quote": "There are 5 slit segments, each 17′′ in length, with widths of 0.25, 0.50, 0.75, 1.0, 1.5 arcsec"
+     },
+     {
+      "value": "narrowest 0.5\" (design)",
+      "src": "CS98N29",
+      "loc": "Slit Dimensions",
+      "quote": "The narrowest slits are to be a maximum of 0.5 arc-sec"
+     }
+    ],
+    "derived": "DERIVED: 0.7\" x 346.77 um/\" = 243 um at the mask; 0.7\" x 9.0 px/\" = 6.3 px before anamorphic demagnification"
+   },
+   "slit_length_and_field": {
+    "value": "multislit masks over the 30' f/11 field; long slits up to 15' (f/4) / 25' (f/2); f/4 CaT programs restrict slits to a 15' x 8' region for full coverage",
+    "unit": null,
+    "src": "D11",
+    "loc": "Sec. 5.4",
+    "quote": "spectra of extended objects up to 25′ in length in f/2 mode, or 15′ in f/4 mode.",
+    "alternatives": [
+     {
+      "value": "slit placement limited to 15' x 8' for full 7400-9000 A coverage",
+      "src": "S17",
+      "loc": "Sec. 2.1",
+      "quote": "In order to cover these entire wavelength ranges ... the placement of slits is limited to a 150 × 80 portion of the full field of view.",
+      "note": "pdftotext renders 15′ × 8′ as \"150 × 80\""
+     },
+     {
+      "value": "5' x 15' sky area for 2000 A at 600 l/mm",
+      "src": "D11",
+      "loc": "Sec. 5.2",
+      "quote": "The difference in pixels corresponds to ∼5′ of sky coverage, in other words, for objects selected over a 5′ × 15′ sky area, the full 2000 Å of spectrum will fall on the detector."
+     }
+    ]
+   },
+   "objects_per_mask": {
+    "value": {
+     "mean_25_f4_masks_DERIVED": 51.1,
+     "median_DERIVED": 58,
+     "range": "5-75",
+     "S17_TucIII": [
+      63,
+      58,
+      64,
+      30,
+      34
+     ],
+     "L18_CarII_III": [
+      72,
+      48,
+      67
+     ],
+     "S20_GruII": [
+      75,
+      71,
+      59,
+      67,
+      61,
+      48,
+      50
+     ],
+     "S20_TucIV": [
+      58,
+      66,
+      44,
+      52,
+      45,
+      29,
+      38,
+      5,
+      8
+     ],
+     "S20_TucV": [
+      65
+     ]
+    },
+    "unit": "slits (targets) per f/4 mask",
+    "src": "S20",
+    "loc": "Table 1 (\"# of slits\" column)",
+    "quote": "Gru II Mask 1 22 03 46.80 −46 28 50.0 240.0 20400 57282.59 75 41% ... Tuc IV Mask 9 00 02 13.00 −60 46 15.0 134.0 9600 58363.75 8 63% ... Tuc V Mask 1 23 37 40.00 −63 16 34.0 246.0 3840 57283.32 65 17%",
+    "kind": "typical (survey: 25 f/4 CaT masks, 1200 l/mm, 0.7\" x 5\" slits, sparse ultra-faint-dwarf fields)",
+    "alternatives": [
+     {
+      "value": "63, 58, 64, 30, 34 slits",
+      "src": "S17",
+      "loc": "Table 1 (\"# of slits\")",
+      "quote": "Mask 1 23 56 49.50 −59 34 40.0 292.0 23400 57220.8 63 54% ... Mask 2 23 57 15.90 −59 34 34.0 172.0 3600 57223.3 58 17% ... Mask 3 23 56 48.00 −59 35 10.0 297.0 37200 57630.9 64 70% ... Mask 4 23 58 20.00 −59 38 00.0 172.0 3600 57632.1 30 63% ... Mask 5 23 55 13.00 −59 31 45.0 221.0 5400 57632.8 34 62%"
+     },
+     {
+      "value": "72, 48, 67 slits",
+      "src": "L18",
+      "loc": "Sec. 2.1",
+      "quote": "IMACS-Car2Mask1 contains 72 slits, IMACS-Car2Mask2 contains 48 slits and IMACS-Car3Mask1 contains 67 slits."
+     },
+     {
+      "value": "~300 slits = \"typical mask\" (all modes; IMACS is mostly used at f/2)",
+      "src": "LCOUM",
+      "loc": "2.B \"Stability and Repeatability of IMACS Slitmasks\"",
+      "quote": "requires about an hour of machine time, including setup, for a typical mask, one with ~300 slits."
+     },
+     {
+      "value": "f/2: ~400 down to ~200 slits per mask (ICBS)",
+      "src": "D11",
+      "loc": "Sec. 5.2",
+      "quote": "positions of 1370 galaxy redshifts that were accumulated for 5 different multislit masks, the first with ∼400 slits and the last only ∼200 on remaining targets."
+     },
+     {
+      "value": "f/2 multi-tier: 500-1000 objects per field",
+      "src": "LCOUM",
+      "loc": "2.B \"The Choice of Channels -- f/2 or f/4?\"",
+      "quote": "Often multiple tiers of spectra are used to increase the multiplexing factor to 500-1000 objects per field"
+     },
+     {
+      "value": "f/4: single tier",
+      "src": "LCOUM",
+      "loc": "2.B \"The Choice of Channels -- f/2 or f/4?\"",
+      "quote": "Unless the spectral range can be narrowed down substantially using a filter, these are likely to be single tier"
+     },
+     {
+      "value": "\"several dozen\" globular clusters at a time (f/4, 600 l/mm, 0.6\" slitlets; pre-commissioning plan)",
+      "src": "DSB",
+      "loc": "Sec. 4",
+      "quote": "Spectra obtained with the long camera, 600 l/mm grating, and 0.6 arcsec slitlets will cover the wavelength range of 3700 < λ < 6600 Å at about 2 Å resolution for several dozen globular clusters at a time."
+     }
+    ],
+    "note": "No sourced AVERAGE exists for general f/4 multislit use; the UFD masks are sparse-field programs whose slit placement was restricted (15' x 8') to keep 7400-9000 A on the detector.",
+    "derived": "DERIVED: sum of the 25 tabulated f/4 masks = 1277 slits -> mean 51.1, median 58 (excluding the two 5- and 8-slit Tuc IV masks: 23 masks, mean 55.0). f/2 ICBS: 1370 redshifts / 5 masks = 274 per mask."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.111,
+    "unit": "arcsec/pixel (f/4, spatial)",
+    "src": "LCOUM",
+    "loc": "1.B \"The f/4 Channel in IMACS\"",
+    "quote": "fully illuminates a 15.4 x 15.4 arcmin field at a (central) scale of 0.111 arcsec per pixel.",
+    "alternatives": [
+     {
+      "value": "9.0 px/arcsec",
+      "src": "BD03",
+      "loc": "Table 1",
+      "quote": "Pixel scale 9.0 pixels/arcsec 5.0 pixels/arcsec"
+     },
+     {
+      "value": "0.111 (f/4), 0.201 (f/2)",
+      "src": "BD03",
+      "loc": "Sec. 1",
+      "quote": "at 0.111 and 0.201 arcsec/pixel"
+     },
+     {
+      "value": "9.0 px/arcsec",
+      "src": "LCOTC",
+      "loc": "JavaScript constants",
+      "quote": "var plate = 9.0 ; // plate scale [pixels/arcsec]"
+     },
+     {
+      "value": "0.111 (design)",
+      "src": "CS98N12",
+      "loc": "Long Camera, design-parameter table",
+      "quote": "scale: 0.111 arc-sec/px 9 px/arc-sec 0.0074 arc-sec/micron 135 microns/arc-sec"
+     },
+     {
+      "value": "0.11",
+      "src": "D11",
+      "loc": "Abstract",
+      "quote": "imaging at two scales, 0.20′′ pixel−1 and 0.11′′ pixel−1"
+     }
+    ],
+    "derived": "DERIVED check: 15 um / (346.77 um/\" x 641.8/1648.46) = 0.1111\"/px"
+   },
+   "preset_1200_tilt32.4_0.7arcsec": {
+    "value": {
+     "R": 11000,
+     "A_per_px": 0.19,
+     "coverage_A_per_slit": "at least 7550-8750",
+     "slit_arcsec": 0.7,
+     "tilt_deg": 32.4
+    },
+    "unit": null,
+    "src": "L18",
+    "loc": "Sec. 2.1",
+    "quote": "The spectrograph was configured with the 1200 ℓ/mm grating and a tilt angle of 32.4◦ , producing a spectral resolution of R ∼ 11,000 for a 0.7″ slit width and a wavelength range of at least 7550−8750 Å for each slit.",
+    "alternatives": [
+     {
+      "value": "R ~ 11,000 (0.7\"), 0.19 A/px; CaT setup 7400-9000 A",
+      "src": "S17",
+      "loc": "Sec. 2.1",
+      "quote": "Both gratings produce spectra at a resolution of R ≈ 11,000 (for a 0.7″ slit) with a dispersion of 0.19 Å pix−1 . We observed with two spectrograph setups, one covering 7400 − 9000 Å targeting the Ca triplet (CaT) absorption lines (primarily with the 1200/32.7◦ grating)"
+     },
+     {
+      "value": "R ~ 11,000, ~7500-8900 A",
+      "src": "S20",
+      "loc": "Sec. 2.1",
+      "quote": "we used the f/4 camera and the 1200 ℓ/mm grating blazed at 9000 Å to produce R ≈ 11,000 spectra from ∼ 7500 − 8900 Å."
+     },
+     {
+      "value": "lambda/dlambda 11,000; 0.19 A/pix per mask",
+      "src": "L18",
+      "loc": "Table 1",
+      "quote": "IMACS-Car2Mask1 07:36:36.00 −57:57:20.0 172.0 11,000 0.19"
+     },
+     {
+      "value": "user-manual row 1200/32.2 at tilt 32.18: 8200 A, 7400-8980 A, 0.191 A/px",
+      "src": "LCOUM",
+      "loc": "1.B, f/4 grating table",
+      "quote": "1200 32.2 32.18 1 8200 7400-8980 0.191"
+     }
+    ],
+    "note": "The R values are rounded statements in the papers (no measurement method given); slits off the field centre shift the coverage (hence \"at least\" 7550-8750 A for every slit).",
+    "derived": "DERIVED (f_cam 641.8 mm, psi 45 deg, 15 um, 8192 px): alpha = 54.9, beta = 9.9 deg; lambda_c = 8250.7 A; 0.1919 A/px; centre-slit coverage 7462-9026 A (7435-9052 A including 3 x 1.38 mm gaps); anamorphic cos(alpha)/cos(beta) = 0.584; 0.7\" -> 6.3 x 0.584 = 3.68 px = 0.706 A -> R = 11,690 (without the anamorphic factor, as in the LCOUM recipe: 6.3 px = 1.21 A -> R = 6,820)"
+   },
+   "grating_table_lcoum": {
+    "value": {
+     "150/3.4 tilt 3.4": {
+      "order": 1,
+      "lambda_c_A": 7300,
+      "range_A": "3650-9740",
+      "A_per_px": 1.453
+     },
+     "300/4.3 tilt 6.2": {
+      "order": 1,
+      "lambda_c_A": 6650,
+      "range_A": "3630-9760",
+      "A_per_px": 0.743
+     },
+     "600/8.6 tilt 9.68": {
+      "order": 1,
+      "lambda_c_A": 5180,
+      "range_A": "3640-6750",
+      "A_per_px": 0.378
+     },
+     "600/13.0 tilt 15.85": {
+      "order": 1,
+      "lambda_c_A": 8410,
+      "range_A": "6830-10000",
+      "A_per_px": 0.387
+     },
+     "1200/17.5 tilt 16.76": {
+      "order": 1,
+      "lambda_c_A": 4440,
+      "range_A": "3650-5230",
+      "A_per_px": 0.194
+     },
+     "1200/26.7 tilt 27.88": {
+      "order": 1,
+      "lambda_c_A": 7200,
+      "range_A": "6400-8000",
+      "A_per_px": 0.188
+     },
+     "1200/26.7 tilt 31.65": {
+      "order": 2,
+      "lambda_c_A": 4040,
+      "range_A": "3640-4430",
+      "A_per_px": 0.096
+     },
+     "1200/32.2 tilt 32.18": {
+      "order": 1,
+      "lambda_c_A": 8200,
+      "range_A": "7400-8980",
+      "A_per_px": 0.191
+     }
+    },
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B, table \"Gratings available for the f/4 channel\"",
+    "quote": "150 3.4 3.4 1 7300 3650-9740 1.453 300 4.3 6.2 1 6650 3630-9760 0.743 600 8.6 9.68 1 5180 3640-6750 0.378",
+    "alternatives": [
+     {
+      "value": "resolution recipe (no anamorphic factor)",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/4 Channel in IMACS\"",
+      "quote": "To calculate the FWHM spectral resolution in angstroms divide the intended slit width by 0.11 arcsec and multiply by the dispersion for the chosen grating."
+     },
+     {
+      "value": "calculator slit width includes the anamorphic factor",
+      "src": "LCOTC",
+      "loc": "JavaScript calculate()",
+      "quote": "var ana = Math.cos( angle - spa ) / Math.cos( angle ) ; // anamorphic factor var slit = skyslit * plate / ana ; // projected slit [pixels]"
+     }
+    ],
+    "note": "\"The table below shows some examples of Central Wavelength and Wavelength Range for specific Grating Tilt values.\" The 150 l/mm range is limited by the passband, not the detector.",
+    "derived": "DERIVED (alpha = T + 22.5, beta = T - 22.5, f_cam 641.8 mm, 15 um): lambda_c 7305.6 / 6651.9 / 5178.2 / 8411.0 / 4440.2 / 7200.4 / 4039.9 / 8200.7 A (all within 6 A); A/px at centre 1.472 / 0.748 / 0.380 / 0.387 / 0.194 / 0.194 / 0.0961 / 0.192 (tabulated 0.188 for the 1200/26.7 first-order row is 3% low; 1.453 for 150 l/mm 1.3% low); ranges with the calculator detector width (123.58 mm): 3629-9761 (300), 3638-6753, 6833-10006, 3649-5239, 6402-7992, 3643-4431, 7407-8981 A -- all within 10 A of the table."
+   },
+   "grating_table_bd03": {
+    "value": {
+     "300/4.3 m1": {
+      "range_um": "0.365-0.974",
+      "R_0.5arcsec": 2162,
+      "A_per_px": 0.743
+     },
+     "600/8.63 m1": {
+      "range_um": "0.365-0.675",
+      "R_0.5arcsec": 3491,
+      "A_per_px": 0.378
+     },
+     "600/13.0 m1": {
+      "range_um": "0.684-1.000",
+      "R_0.5arcsec": 6117,
+      "A_per_px": 0.387
+     },
+     "1200/17.45 m1": {
+      "range_um": "0.365-0.523",
+      "R_0.5arcsec": 6542,
+      "A_per_px": 0.194
+     },
+     "1200/26.7 m1": {
+      "range_um": "0.846-1.000",
+      "R_0.5arcsec": 20693,
+      "A_per_px": 0.188
+     },
+     "1200/26.7 m2 (blue)": {
+      "range_um": "0.365-0.443",
+      "R_0.5arcsec": 15740,
+      "A_per_px": 0.096
+     },
+     "1200/26.7 m2 (green)": {
+      "range_um": "0.482-0.557",
+      "R_0.5arcsec": 28082,
+      "A_per_px": 0.092
+     }
+    },
+    "unit": null,
+    "src": "BD03",
+    "loc": "Table 2 (Gratings and dispersions)",
+    "quote": "Ruling Blaze angle Order Wavelength range Dispersion Dispersion Lines/mm Degrees Microns R/0.5 arcsec slit Angstroms/pixel 300 4.3 1 0.365-0.974 2162 0.743 600 8.63 1 0.365-0.675 3491 0.378 600 13.0 1 0.684-1.000 6117 0.387 1200 17.45 1 0.365-0.523 6542 0.194 1200 26.7 1 0.846-1.000 20693 0.188 1200 26.7 2 0.365-0.443 15740 0.096 1200 26.7 2 0.482-0.557 28082 0.092",
+    "note": "2002 pre-commissioning table; \"R/0.5 arcsec slit\" is a design calculation.",
+    "derived": "DERIVED (lambda_c = range midpoint, tilt from the grating equation, R = lambda / (0.5 x 9.0 x cos(alpha)/cos(beta) x disp)): R = 2178 / 3507 / 6127 / 6543 / 20645 / 15742 / 27983 -- all within 0.8% of the table, so these R include the anamorphic factor. The 1200/26.7 first-order row (0.846-1.000 um) needs tilt 36.8 deg and the green second-order row 42.4 deg, beyond D11's 34.5/35.5 deg limit."
+   },
+   "example_600_0.8arcsec": {
+    "value": {
+     "FWHM_A": 2.75,
+     "R": 2000,
+     "lambda_A": 5500,
+     "slit_arcsec": 0.8,
+     "px_for_2000A": 5300
+    },
+    "unit": null,
+    "src": "D11",
+    "loc": "Sec. 5.2",
+    "quote": "For example, with the 600 lines/mm 5000 Å blaze grating, a 0.8′′ wide slit delivers FWHM = 2.75 Å (R=2000 at 5500 Å). If the program requires, for example, 2000 Å of spectral coverage, this occupies ∼ 5300 of the 8192 detector pixels.",
+    "derived": "DERIVED (600 l/mm at lambda_c = 5500 A: tilt 10.29, alpha 32.79, beta -12.21 deg): 0.3807 A/px; 2000 A = 5253 px; 0.8\"/0.111 x 0.3807 = 2.74 A (the paper's 2.75 A omits the anamorphic factor); with cos(alpha)/cos(beta) = 0.860: FWHM 2.36 A, R = 2330."
+   },
+   "R_range": {
+    "value": "600-5000 (1.0\" slit, on blaze)",
+    "unit": "lambda/dlambda",
+    "src": "D11",
+    "loc": "Sec. 2.2",
+    "quote": "to make spectroscopic observations at resolutions R=600-5000 (resolutions are for 1.0 arcsec slit on blaze).",
+    "alternatives": [
+     {
+      "value": "1-12 A FWHM for a 1.0\" slit",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/4 Channel in IMACS\"",
+      "quote": "The spectral resolutions cover a range of 1-12 Å FWHM (for a 1.0 arcsec slit-width)."
+     },
+     {
+      "value": "R ~ 10^4 (1.0\") with 1200 l/mm",
+      "src": "DSB",
+      "loc": "Sec. 4.4",
+      "quote": "The f/4.3 camera of IMACS achieves a resolution of R ∼ 104 (1.0 arcsec slitwidth) with a 1200 l/mm grating.",
+      "note": "\"104\" = 10^4 (superscript lost in the text layer)"
+     },
+     {
+      "value": "up to R ~ 10,000 (1.0\")",
+      "src": "DSB",
+      "loc": "Sec. 2",
+      "quote": "The f/4.3 camera is fed by 6 × 8-inch gratings producing spectral resolutions of up to R ∼ 10, 000 FWHM (1.0 arcsec slitwidth)."
+     }
+    ]
+   },
+   "wavelength_range_f4": {
+    "value": "3650-10000",
+    "unit": "A",
+    "src": "D11",
+    "loc": "Sec. 3.1",
+    "quote": "For imaging and spectroscopy, the wavelength coverage is 3650 Å < λ < 10,000 Å.",
+    "alternatives": [
+     {
+      "value": "0.365-1.0 um design; 0.330-1.1 allowed",
+      "src": "BD03",
+      "loc": "Table 1",
+      "quote": "Design wavelength range 0.365 – 1.0 microns 0.390 – 1.05 microns Allow wavelength range 0.330 – 1.1 microns 0.390 – 1.1 microns"
+     },
+     {
+      "value": "3650-10000 A without refocus",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/4 Channel in IMACS\"",
+      "quote": "Harland Epps’ design provides for wavelength coverage of 3650 Å < Lambda < 10000 Å without refocus."
+     }
+    ]
+   },
+   "f2_grism_mode": {
+    "value": {
+     "camera_focal_length_mm": 355.6,
+     "camera_f_ratio": "2.38 (BD03) / 2.3 (D11) / 2.5 (LCOUM)",
+     "pixel_scale_arcsec": 0.2,
+     "field_arcmin": 27.4,
+     "grisms": {
+      "150/10.8": "7200 A, 5000-9000, 2.630 A/px",
+      "200/15.0": "6600 A, 5000-9000, 2.037 A/px",
+      "300/17.5": "6700 A, 3900-8000, 1.341 A/px",
+      "300/26.7": "8000 A, 5000-9000, 1.25 A/px",
+      "400/21.2": "4730 A, 3900-8500, 0.9 A/px"
+     }
+    },
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B, table \"Grisms available for the f/2 channel\"",
+    "quote": "150 10.8 1 7200 5000-9000 2.630 200 15.0 1 6600 5000-9000 2.037 300 17.5 1 6700 3900-8000 1.341 300 26.7 1 8000 5000-9000 1.25 400* 21.2 1 4730 3900-8500 0.9",
+    "alternatives": [
+     {
+      "value": "f/2 camera 355.6 mm, f/2.38",
+      "src": "BD03",
+      "loc": "Table 1",
+      "quote": "Focal length 641.8 mm 355.6 mm"
+     },
+     {
+      "value": "in-line camera, 0.200\"/px",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/2 Channel in IMACS\"",
+      "quote": "glass-and-oil-lens f/2.5 “short” camera (known as f/2) works in-line with the IMACS collimator (no reflection) for imaging."
+     },
+     {
+      "value": "grism = grating on a prism, zero deviation",
+      "src": "LCOUM",
+      "loc": "1.B \"The f/2 Channel in IMACS\"",
+      "quote": "a transmission grating replicated on a prism in order to pass the 1st order at zero deviation."
+     },
+     {
+      "value": "f/2.3, straight-through",
+      "src": "D11",
+      "loc": "Sec. 3.1",
+      "quote": "The f/2.3 “short” camera (abbreviated ‘f/2’ in this paper) delivers a “straight through” re-imaging mode"
+     },
+     {
+      "value": "grism prism glasses",
+      "src": "BD03",
+      "loc": "Sec. 3.5",
+      "quote": "The grism materials for the 15º, 17.5º, and 34º grisms are Ohara BSL7Y, S-LAL12, and PBH53W respectively."
+     },
+     {
+      "value": "355.6 mm (design)",
+      "src": "CS98N15",
+      "loc": "Short Camera, design-parameter table",
+      "quote": "focal length: 355.6 mm (14.00 inches)"
+     },
+     {
+      "value": "design grisms: prism angle = blaze angle",
+      "src": "CS98N17",
+      "loc": "Table 4",
+      "quote": "F. Silica 150 2000 nm 8.6 8.6 F. Silica 300 2000 nm 17.5 17.5 F. Silica 600 1600 nm 28.7 28.7"
+     }
+    ],
+    "note": "NOT MODELED by the explorer (grism). See Notes for what it would need.",
+    "derived": "DERIVED (ideal grism, exit angle = prism angle A = blaze angle at lambda_c: dispersion = cos A x 15 um / (m G f_cam), f_cam 355.6 mm): 200/15.0 2.037 A/px (table 2.037); 300/17.5 1.341 (1.341); 300/26.7 1.256 (1.25); 150/10.8 2.762 (2.630, 5% off); 400/21.2 0.983 (0.9, 9% off). Pixel scale 15/(346.77 x 355.6/1648.46) = 0.2005\"/px."
+   }
+  },
+  "not_found": [
+   "An as-built collimator focal length: only the 1998 design value 1648.46 mm (CS98N11); it is consistent with the as-built 9.0 px/arcsec and 641.8 mm camera (DERIVED 1648.6 mm).",
+   "An as-built telescope focal length / plate scale at the IMACS focal surface behind the ADC/corrector: only the 1998 design values (71526.4 mm, 346.77 um/arcsec).",
+   "Blaze wavelength for the 150 l/mm (3.4 deg) grating (only the angle; DERIVED Littrow 7908 A).",
+   "A sourced AVERAGE number of slits per mask for general f/4 multislit use; the value given is the DERIVED mean of 25 published f/4 masks from three ultra-faint-dwarf papers (S17, L18, S20). LCOUM's \"typical mask, one with ~300 slits\" is not specific to f/4.",
+   "Measured R per grating with a stated method (only rounded R ~ 11,000 for 1200 l/mm + 0.7\" from the UFD papers, the D11 R range, and design tables).",
+   "The zero point of D11's \"allowable range of tilt angels is 19.5 through 34.5\" (see Conflicts).",
+   "The published PASP version of Dressler et al. 2011 (used the Carnegie-hosted accepted manuscript) and Dressler et al. 2006 (SPIE 6269) were not obtained.",
+   "Detector assignment after 2018: LCOUM (\"As of December 2017, Mosaic2 is on f/4\"; its throughput captions refer to \"the new configuration, after the dewar swap (June 2018)\") and S20 (swap in 2017 December) are the latest statements in the saved sources; no later swap is documented there. LCO's one-page IMACS handouts (2018, 2022) were looked at but not used or saved: their grating tables are embedded images (not machine-checkable)."
+  ],
+  "conflicts": [
+   "Collimated beam: 150 mm (BD03; CS98N11 \"150 mm (5.9 inches)\"; D11 Sec. 2.2 \"150-mm (6.0-inch)\") vs \"6.5-inch collimated beam\" (D11 Sec. 7.5.4, disperser server) vs \"6-inch-beam collimator\" (DSB).",
+   "f/2 camera focal ratio: f/2.38 imaging (BD03) vs f/2.3 (D11) vs f/2.5 (LCOUM) vs f/2.4 (DSB); the f/4 camera is f/4.3 everywhere (BD03 also lists \"f/2.66 (anamorphic)\").",
+   "f/4 camera focal length 641.8 mm (BD03, LCOTC) vs 641.79 mm (CS98N12, design) -- negligible.",
+   "Resolution claims: R = 600-5000 for 1.0\" on blaze (D11) vs \"up to R ~ 10,000 (1.0 arcsec)\" (DSB) vs R ~ 11,000 for 0.7\" at 1200 l/mm, tilt 32.4 deg (L18, S17, S20) vs BD03 R/0.5\" up to 20,693 (design). D11 and the LCOUM recipe compute FWHM = slit/0.111 x dispersion, i.e. WITHOUT the anamorphic factor cos(alpha)/cos(beta) (0.58-0.95 in IMACS); LCOTC and BD03 include it. The UFD R ~ 11,000 matches the anamorphic-corrected value (11,690 DERIVED), not the uncorrected one (6,820).",
+   "LCOUM grating table: 1200/26.7 first order at tilt 27.88 deg lists 0.188 A/px, but the grating equation gives 0.194 A/px (as for the other 1200 rows); 0.188 is BD03's value for the 1200/26.7 grating at 0.846-1.000 um. The 150 l/mm row lists 1.453 vs 1.472 DERIVED.",
+   "CaT grating blaze: 32.2 deg (LCOUM table) vs 32.7 deg (S17) vs \"blazed at 9000 A\" (S20; Littrow of 32.7 deg = 9007 A, of 32.2 deg = 8881 A, DERIVED). Smaller rounding differences: 17.5 vs 17.45 deg (1200 blue) and 8.6 vs 8.63 deg (600 blue) between LCOUM and BD03.",
+   "Grating tilt range: D11 \"19.5 through 34.5\" deg (one GTM to 35.5 deg) vs LCOUM table tilts 3.4-32.18 deg (zero order = 0 deg), and the 1998 design minimum ranges +/-4 deg (300 l/mm) and +/-12 deg (1200 l/mm) (CS98N37). D11's zero point is not stated.",
+   "Number of f/4 gratings: \"presently six\" (D11) and \"a present complement of 6 gratings\" (LCOUM text) vs seven distinct gratings in the LCOUM table vs \"8 available gratings\" (LCOUM throughput caption).",
+   "Slit width at the mask: 0.5\" = 173 um at 346.77 um/\" (DERIVED) vs \"0.5 arc-sec (150 microns ...)\" (CS98N29) vs \"0.5 arcsec wide slits (170 microns)\" (BD03).",
+   "Focal-surface radius of curvature: -1231.74 mm, convex (CS98N9, design) vs the masks' \"radius of curvature (1492-mm) of the focal surface\" (D11 Sec. 7.5.2, mask server).",
+   "Detector gap allowance along dispersion: 0.7 mm total in the LCOTC script vs 3 x 1.38 mm = 4.14 mm (Mosaic2) or 3 x 1.37 mm (Mosaic3) from LCOUM (DERIVED).",
+   "CCD type: D11 Sec. 8 says Mosaic2 was built with \"E2V deep-depletion CCD48-84\" devices, while LCOUM says \"standard E2V of Mosaic2 and the E2V deep depletion CCDs used in Mosaic3\".",
+   "f/4 field: 15.4 x 15.4 arcmin (D11, LCOUM) vs 15.46 x 15.46 arcmin (BD03); camera field 21.48 arcmin dia. (CS98N12) vs 22 arcmin (LCOUM)."
+  ],
+  "notes": [
+   "Geometry for the app (DERIVED from LCOTC): fixed camera-collimator angle psi = 45 deg; incidence alpha = T + 22.5 deg and diffraction beta = T - 22.5 deg in sin(alpha) + sin(beta) = m G lambda, so lambda_c = 2 sin(T) cos(22.5 deg)/(m G). With f_cam = 641.8 mm and 15 um pixels this reproduces all eight LCOUM table rows (lambda_c within 6 A, ranges within 10 A using the calculator detector width) and BD03's R/0.5\" column to < 1%.",
+   "Tilt for the recommended preset: T = 32.4 deg (L18) -> alpha = 54.9 deg, beta = 9.9 deg (same side of the grating normal); lambda_c = 8250.7 A (DERIVED). The blaze peak falls where T = theta_B, i.e. near 8321 A for the 32.7-deg grating (DERIVED in-instrument blaze, 0.9239 x Littrow).",
+   "Anamorphic factor: the slit image in the dispersion direction is 0.7\" x 9.0 px/\" x cos(alpha)/cos(beta) = 3.68 px for the preset (DERIVED). The spatial scale is 0.1111\"/px.",
+   "f/4 detector layout: the dispersion crosses 4 CCDs and 3 long-side chip gaps (~92 px each on Mosaic2); the app's 8192-px Nx ignores the gaps (3.4% of the coverage falls in gaps). Before 2012 the f/4 detector was Mosaic1 (SITe, gaps ~62 px); 2012-2017 Mosaic3 (E2V deep depletion); since December 2017 Mosaic2 (LCOUM, S20).",
+   "Slit-mask field: masks cover the full 30' f/11 field; for the f/4 channel only targets within the 15.4' square reach the detector, and the CaT programs restrict slits to a 15' x 8' region so that 7400-9000 A stays on the mosaic (S17).",
+   "f/2 (short camera, grism) configuration -- what the explorer would need: (1) a grism disperser: transmission grating on a prism, first order passed at zero deviation, camera on the collimator axis (\"in-line\", \"straight through\"); prism apex = blaze angle (CS98N17 design), prism glass n(lambda) (BD03 names BSL7Y, S-LAL12, PBH53W for the 15, 17.5 and 34 deg grisms); (2) f_cam = 355.6 mm (0.200\"/px), same 150 mm beam and collimator; (3) Mosaic3 on f/2 since Dec 2017 with dispersion along the long CCD axis (2 CCDs, 1 gap) in normal orientation. In ideal optics a plain transmission grating whose diffraction angle at lambda_c equals the prism angle reproduces the grism's linear dispersion (cos A/(m G f_cam); DERIVED match for 200/15.0 and 300/17.5), but not the zero-deviation pointing or the prism's n(lambda) term.",
+   "The LCOTC script also contains unused lines (variables k, x, theta, r, w with constants 18396430, 23.1 deg, 27 x 6.43) that do not feed any displayed output; the displayed outputs use only cmfl, spa, pixel, detwid, skyslit and plate.",
+   "Status: IMACS has been in regular use since 2004 (D11); the user manual and the 2017-2020 papers describe the current f/4 configuration."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "Magellan/IMACS f/4": {
+    "value": {
+     "mean_25_f4_masks_DERIVED": 51.1,
+     "median_DERIVED": 58,
+     "range": "5-75",
+     "S17_TucIII": [
+      63,
+      58,
+      64,
+      30,
+      34
+     ],
+     "L18_CarII_III": [
+      72,
+      48,
+      67
+     ],
+     "S20_GruII": [
+      75,
+      71,
+      59,
+      67,
+      61,
+      48,
+      50
+     ],
+     "S20_TucIV": [
+      58,
+      66,
+      44,
+      52,
+      45,
+      29,
+      38,
+      5,
+      8
+     ],
+     "S20_TucV": [
+      65
+     ]
+    },
+    "unit": "slits (targets) per f/4 mask",
+    "src": "S20",
+    "loc": "Table 1 (\"# of slits\" column)",
+    "quote": "Gru II Mask 1 22 03 46.80 −46 28 50.0 240.0 20400 57282.59 75 41% ... Tuc IV Mask 9 00 02 13.00 −60 46 15.0 134.0 9600 58363.75 8 63% ... Tuc V Mask 1 23 37 40.00 −63 16 34.0 246.0 3840 57283.32 65 17%",
+    "kind": "typical (survey: 25 f/4 CaT masks, 1200 l/mm, 0.7\" x 5\" slits, sparse ultra-faint-dwarf fields)",
+    "alternatives": [
+     {
+      "value": "63, 58, 64, 30, 34 slits",
+      "src": "S17",
+      "loc": "Table 1 (\"# of slits\")",
+      "quote": "Mask 1 23 56 49.50 −59 34 40.0 292.0 23400 57220.8 63 54% ... Mask 2 23 57 15.90 −59 34 34.0 172.0 3600 57223.3 58 17% ... Mask 3 23 56 48.00 −59 35 10.0 297.0 37200 57630.9 64 70% ... Mask 4 23 58 20.00 −59 38 00.0 172.0 3600 57632.1 30 63% ... Mask 5 23 55 13.00 −59 31 45.0 221.0 5400 57632.8 34 62%"
+     },
+     {
+      "value": "72, 48, 67 slits",
+      "src": "L18",
+      "loc": "Sec. 2.1",
+      "quote": "IMACS-Car2Mask1 contains 72 slits, IMACS-Car2Mask2 contains 48 slits and IMACS-Car3Mask1 contains 67 slits."
+     },
+     {
+      "value": "~300 slits = \"typical mask\" (all modes; IMACS is mostly used at f/2)",
+      "src": "LCOUM",
+      "loc": "2.B \"Stability and Repeatability of IMACS Slitmasks\"",
+      "quote": "requires about an hour of machine time, including setup, for a typical mask, one with ~300 slits."
+     },
+     {
+      "value": "f/2: ~400 down to ~200 slits per mask (ICBS)",
+      "src": "D11",
+      "loc": "Sec. 5.2",
+      "quote": "positions of 1370 galaxy redshifts that were accumulated for 5 different multislit masks, the first with ∼400 slits and the last only ∼200 on remaining targets."
+     },
+     {
+      "value": "f/2 multi-tier: 500-1000 objects per field",
+      "src": "LCOUM",
+      "loc": "2.B \"The Choice of Channels -- f/2 or f/4?\"",
+      "quote": "Often multiple tiers of spectra are used to increase the multiplexing factor to 500-1000 objects per field"
+     },
+     {
+      "value": "f/4: single tier",
+      "src": "LCOUM",
+      "loc": "2.B \"The Choice of Channels -- f/2 or f/4?\"",
+      "quote": "Unless the spectral range can be narrowed down substantially using a filter, these are likely to be single tier"
+     },
+     {
+      "value": "\"several dozen\" globular clusters at a time (f/4, 600 l/mm, 0.6\" slitlets; pre-commissioning plan)",
+      "src": "DSB",
+      "loc": "Sec. 4",
+      "quote": "Spectra obtained with the long camera, 600 l/mm grating, and 0.6 arcsec slitlets will cover the wavelength range of 3700 < λ < 6600 Å at about 2 Å resolution for several dozen globular clusters at a time."
+     }
+    ],
+    "note": "No sourced AVERAGE exists for general f/4 multislit use; the UFD masks are sparse-field programs whose slit placement was restricted (15' x 8') to keep 7400-9000 A on the detector.",
+    "derived": "DERIVED: sum of the 25 tabulated f/4 masks = 1277 slits -> mean 51.1, median 58 (excluding the two 5- and 8-slit Tuc IV masks: 23 masks, mean 55.0). f/2 ICBS: 1370 redshifts / 5 masks = 274 per mask."
+   }
+  }
+ }
+}

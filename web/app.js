@@ -180,6 +180,7 @@ function syncControls() {
     "c-" + M().col,
     M().foldOn ? "fold-on" : "fold-off",
     S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : "v-spectral",
+    lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
     "x-" + S.e.xd,
   ].join(" ");
   gsel.value = S.e.xGlass;
@@ -824,14 +825,15 @@ $("lvOptsBtn").addEventListener("click", () => { const b = $("lvOpts"); b.hidden
 $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLayout(cur, curP); });
 // Expand: the layout panel fills the window (Esc or the same button returns)
 const setExpanded = on => {
+  lvExpanded = on;
   document.body.classList.toggle("lv-expanded", on);
   $("lvExpand").textContent = on ? "Exit" : "Expand";
   $("lvExpand").title = on ? "Return the layout to the page (Esc)." : "Expand the layout to fill the window, to play with the drawing directly (Esc returns).";
   lview.fit = true;
   requestAnimationFrame(() => { if (cur) drawLayout(cur, curP); });
 };
-$("lvExpand").addEventListener("click", () => setExpanded(!document.body.classList.contains("lv-expanded")));
-window.addEventListener("keydown", ev => { if (ev.key === "Escape" && document.body.classList.contains("lv-expanded")) setExpanded(false); });
+$("lvExpand").addEventListener("click", () => setExpanded(!lvExpanded));
+window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded) setExpanded(false); });
 {
   const cv = $("cvL");
   let drag = null;
@@ -904,7 +906,7 @@ function lamRGB(lA) {
   return [0, 1, 2].map(i => a[1][i] + (b[1][i] - a[1][i]) * t);
 }
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
-let spGeo = null;                                                  // Spatial view, one free point: screen geometry for dragging
+let spGeo = null, lvExpanded = false;                                                  // Spatial view, one free point: screen geometry for dragging
 let detGeom = null, traces = [], hover = null, offD = null, offB = null;
 
 function objectOffsets(Dz, P) {

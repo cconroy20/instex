@@ -76,8 +76,10 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   angle (reflection) or γ (echelle)) | Disperser (with the grating incidence for a transmission grating) | Detector. Grating
   and Echelle each remember their own entrance, optics and detector; the telescope is shared. The state
   is kept in the URL hash. Everything fits without scrolling at 1440 × 900 and 1280 × 800.
-- **Presets** (header menu, 19): Keck/LRIS red, Keck/HIRES, Magellan/MIKE red and blue, Keck/DEIMOS,
-  MMT/Binospec, MMT/Hectospec, MMT/Hectochelle, GMT/G-CLEF red (design), VLT/X-Shooter UVB, VIS and NIR, ESO 3.6 m/HARPS, DESI B, R and Z arms, Via/Boombox blue
+- **Presets** (header menu, 38, grouped by telescope): Keck/LRIS red, HIRES, ESI, DEIMOS and MOSFIRE Y/J/H/K;
+  Magellan/MIKE red and blue, MagE, IMACS f/4 and LLAMAS blue/green/red (gratings fitted); MMT/Binospec, Hectospec
+  and Hectochelle; GMT/G-CLEF red (design); VLT/X-Shooter UVB, VIS and NIR; ESO 3.6 m/HARPS; Subaru/PFS blue, red
+  and NIR; Mayall/DESI B, R and Z; VISTA/4MOST LRS and HRS blue/green/red (HRS concept optics); Via/Boombox blue
   and red (partly guessed), and Via/Viaspec. Moving any control turns the setting into Custom. Presets are
   approximate and are meant to reproduce the optical design (and so the numbers); the drawing does not follow
   the actual optical layout. The page says so in the menu's tooltip and the footer.
@@ -273,6 +275,30 @@ and its measured 38,000 is a reference line; G-CLEF's published R (35,000 for MR
 0.67 of the fiber image, 20% above the model's (√3/2)-diameter FWHM. Binospec's measured R = 4200 at Hα (Fabricant et al. 2025) is 30%
 above its own grating table; DEIMOS's effective R (with aberrations, 5926) is a reference line, since the
 model has no aberrations.
+
+**Round 4 (2026-10-17): MagE, IMACS, LLAMAS, ESI, MOSFIRE, PFS, 4MOST.** Sources and quotes in
+`data/round4/*.md` and `*.json` (documents in `rawdata/presets/<instrument>/`, not in git). Mapping choices
+and findings: (1) MOSFIRE uses one 110.5 l/mm grating in orders 6/5/4/3 for Y/J/H/K at a fixed 40°
+camera–collimator angle; the blaze enters as the Littrow value (67,597 Å; the published "6.35 µm" is the blaze
+in the 40° geometry). Dispersion matches to 0.05%, the 0.7″ slit image to 0.2%, K coverage to 2 Å; the
+measured R is 1–5% above the aberration-free slit image (reference lines); the Y and J ranges are set by the
+order-sorting filters. 28 objects per mask is the MOSDEF average. (2) MagE and ESI are echellettes with prism
+cross-dispersers, quasi-Littrow (no published θ or γ: 0 here). MagE's three fused-silica passes put exactly 15
+orders on the 1024-px chip (its central wavelength, unpublished, is chosen to place them as orders 6–20); its
+per-order dispersion matches the paper's table to 0.1–3%. ESI needs OHARA BSL7Y (added to the glass list from
+the data sheet, valid to 1.13 µm); its per-order dispersion matches to 0.6–1.3%, but orders 6 and 15 land
+23.0 mm apart against the design report's 25.3 mm (9%, a reference line: the model puts every prism pass at
+exact minimum deviation). (3) IMACS f/4 with the 1200 l/mm grating reproduces 0.19 Å/px, R ≈ 11,000, the
+coverage and 0.111″/px (the camera focal length and fixed 45° angle come from LCO's grating-tilt calculator).
+(4) LLAMAS's VPH line densities are NOT published: they are fitted so each arm's published band fills the chip,
+and the independent test is the pipeline's arc-table dispersion (matched to 0–2%). (5) PFS: the
+medium-resolution red arm is a grism, which the model does not do, and is left out; the b, r, n arms match
+the dispersion, but the fiber image comes out 8–10% wider than the table's 3.0 px (R 9–14% low; reference
+lines) — the collimator focal length is not published, and 693.5 mm is the slit-to-collimator distance.
+(6) 4MOST LRS reproduces the 4MOST instrument-model (TOAD) table's Å/px to 0.5% and its band edges to 0.5%;
+the HRS optics are 2014–15 concept values with a camera focal length fitted to the bands, so its numbers are
+reference lines only and the presets say "concept optics". The fiber-fed instruments enter as the slit of
+equal line width, (√3/2) × core, which is also the FWHM of a uniformly lit round core seen along one axis.
 
 ## Verification
 

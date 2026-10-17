@@ -246,7 +246,7 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
         default: val = NaN;
       }
       const err = Math.abs(val / q.value - 1);
-      if (q.info) { console.log(`[INFO] preset ${p.id}: ${q.what}  --  ${isFinite(val) ? +val.toPrecision(5) : val} vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%; ${q.src}; reference, not scored)`); continue; }
+      if (q.info) { console.log(`[INFO] preset ${p.id}: ${q.what}  --  model ${isFinite(val) ? +val.toPrecision(5) : val}${isFinite(q.value) ? ` vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%` : " (a published range"}; ${q.src}; reference, not scored)`); continue; }
       check(`preset ${p.id}: ${q.what}`, err <= q.tol, `${isFinite(val) ? +val.toPrecision(5) : val} vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%, tol ${(100 * q.tol).toFixed(0)}%; ${q.src})`);
     }
   }

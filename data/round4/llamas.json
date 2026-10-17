@@ -1,0 +1,996 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 4: Magellan / LLAMAS (one preset per arm: blue, green, red)",
+  "compiled": "2026-10-17",
+  "companion": "data/round4/llamas.md (same content as a Markdown section in the format of data/presets_research.md); same JSON structure as data/presets_sources_3.json. Extra keys: 'recommended_presets_by_arm' (explorer inputs per arm, numbers only) and 'stage' on entries whose source is a design concept. Top-level 'multiplex' holds the objects-per-exposure row.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised).",
+  "quote_normalisation": "Quotes copied from pdftotext (layout and raw) / HTML text / raw repository text files; double primes (rendered '00' in F20), modifier primes, micro/mu, curly quotes, dashes, minus and tilde-operator glyphs normalised; line-end hyphenation joined; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; pieces that differ only in punctuation/spacing are accepted."
+ },
+ "sources": {
+  "F20": {
+   "cite": "Furesz, G., Simcoe, R. A., Egan, M., et al. 2020, Proc. SPIE 11447, 114470A, \"Status update of LLAMAS: a wide field-of-view visible passband IFU for the 6.5m Magellan telescopes\" (publisher's PDF as deposited in NSF PAR, SPIE download stamp 09 Sep 2021; 20 pp. incl. cover; no arXiv version found). The text layer renders double primes as \"00\" (0.75\" -> \"0.7500\", 37\" -> \"3700\") and \"R = 2,000\" as \"R = 2, 000\"",
+   "file": "rawdata/presets/llamas/Furesz2020_SPIE11447_114470A_LLAMAS_status_NSF-PAR10294026.pdf",
+   "url": "https://par.nsf.gov/servlets/purl/10294026"
+  },
+  "FR20": {
+   "cite": "Frostig, D., Piotrowski, J., Clark, K., et al. 2020, Proc. SPIE 11447, 114476E, \"Stray light analysis and reduction for IFU spectrograph LLAMAS\" (publisher's PDF as deposited in NSF PAR, SPIE download stamp 09 Sep 2021; no arXiv version found)",
+   "file": "rawdata/presets/llamas/Frostig2020_SPIE11447_114476E_LLAMAS_straylight_NSF-PAR10294023.pdf",
+   "url": "https://par.nsf.gov/servlets/purl/10294023"
+  },
+  "PG17": {
+   "cite": "Simcoe, R. (PI), Furesz, G., McDonald, M., \"LLAMAS: A Facility Integral Field Spectrograph for the Magellan Telescopes\" (project pocket guide; PDF title \"Llamas_pocketguide_rA.pages\", created 2017-03-10; 7 pp.). 2017 NSF/MRI-proposal CONCEPT: two arms split at 570 nm, f = 90 mm cameras, R = 1300, 320 fibres per spectrograph -- superseded by the three-arm design, but the collimator (f = 200 mm, 50 mm beam) and the fibre feed (110 um, f/11 -> f/4.4, f/4.0 acceptance) carry over (F20, ETC)",
+   "file": "rawdata/presets/llamas/LLAMAS_pocketguide_2017_MRI_rA.pdf",
+   "url": "https://bpb-us-e1.wpmucdn.com/sites.mit.edu/dist/e/518/files/2017/03/LLAMAS_pocketguide_web.pdf"
+  },
+  "MITSPEC": {
+   "cite": "MIT Kavli Institute, LLAMAS web site, \"Specifications\" page (IFU table and per-channel coverage / resolving power; the R values are pre-ship laboratory measurements; WordPress 'modified' 2024-09-14; fetched 2026-10-17). The Proposing page calls this the list of 'Basic parameters of the as-built instrument'",
+   "file": "rawdata/presets/llamas/mit_llamas_specifications.html",
+   "url": "https://sites.mit.edu/llamas/sample-page/portfolio/"
+  },
+  "MITHOME": {
+   "cite": "MIT Kavli Institute, LLAMAS web site, home page \"Instrument Overview\" (WordPress 'modified' 2024-12-05; fetched 2026-10-17)",
+   "file": "rawdata/presets/llamas/mit_llamas_home.html",
+   "url": "https://sites.mit.edu/llamas/"
+  },
+  "MITPROP": {
+   "cite": "MIT Kavli Institute, LLAMAS web site, \"Proposing\" page (IFU layout and the 50% sub-array mode; WordPress 'modified' 2025-07-07; fetched 2026-10-17)",
+   "file": "rawdata/presets/llamas/mit_llamas_proposing.html",
+   "url": "https://sites.mit.edu/llamas/proposing/"
+  },
+  "MAN": {
+   "cite": "LLAMAS Observing Manual (HTML version linked from the LLAMAS site), \"Appendix: Example FITS header\" (example header written 2026-02-24; fetched 2026-10-17)",
+   "file": "rawdata/presets/llamas/mit_llamas_manual_appendix.html",
+   "url": "https://www.mit.edu/~rsimcoe/llamas_manual/appendix.html"
+  },
+  "ETC": {
+   "cite": "Simcoe, R. A., llamas-etc, the public LLAMAS exposure time calculator (GitHub rasimcoe/llamas-etc at commit 6c3b1e0, 2026-08-27). Used: the spectrograph definition files llamas_blue.def, llamas_green.def, llamas_red.def (added 2024-09-14, unchanged since), surfaces.py, spectrograph.py, observe.py, telescope.py (read as text, never executed)",
+   "file": "rawdata/presets/llamas/github_rasimcoe_llamas-etc_6c3b1e0/ (llamas_blue.def, llamas_green.def, llamas_red.def, surfaces.py, spectrograph.py, observe.py, telescope.py)",
+   "url": "https://github.com/rasimcoe/llamas-etc/tree/6c3b1e082e85bf91606361528e7e05a06a7e549b"
+  },
+  "PYJ": {
+   "cite": "llamas-pyjamas, the LLAMAS data reduction pipeline (GitHub mit-kavli-institute/llamas-pyjamas at commit bf35536, 2026-09-22). Used: LUT/blue_peaks.csv, LUT/green_peaks.csv, LUT/red_peaks.csv (arc-line pixel / wavelength look-up tables, added 2025-04-23 by R. Simcoe, i.e. after first light), LUT/traceLUT.json (fibre trace positions per camera, last updated 2025-05-15) and Arc/arcLlamas.py (wavelength-grid limits; last changed 2026-07-12), read as text, never executed",
+   "file": "rawdata/presets/llamas/github_mit-kavli-institute_llamas-pyjamas_bf35536/ (blue_peaks.csv, green_peaks.csv, red_peaks.csv, traceLUT.json, arcLlamas.py)",
+   "url": "https://github.com/mit-kavli-institute/llamas-pyjamas/tree/bf35536521069c3fbedb946a0c6b8dd65adbc0d7/llamas_pyjamas/LUT"
+  },
+  "S26": {
+   "cite": "Simha, S., et al. 2026, \"A spatially resolved view of Fast Radio Burst host metallicities with Integral-field Spectroscopy\", arXiv:2610.07325v1 (science paper with LLAMAS data, 2025-2026; Sec. 2 describes the instrument)",
+   "file": "rawdata/presets/llamas/Simha2026_arXiv2610.07325v1_FRB_hosts_LLAMAS.pdf",
+   "url": "https://arxiv.org/pdf/2610.07325v1"
+  },
+  "LCO25": {
+   "cite": "Las Campanas Observatory news, \"LLAMAS commissioning successfully completed\" (dated January 1, 2025; fetched 2026-10-17)",
+   "file": "rawdata/presets/llamas/lco_llamas-commissioning-successfully-completed.html",
+   "url": "https://www.lco.cl/llamas-commissioning-successfully-completed/"
+  }
+ },
+ "llamas": {
+  "title": "Magellan / LLAMAS (lenslet-fed fibre IFU: 2400 fibres into eight identical bench spectrographs, each split by dichroics into blue / green / red arms with VPH grisms)",
+  "recommended_preset": "Three presets (B, G, R), identical except for the disperser and band. Common: D = 6.5 m, F = 4.0 (collimator focal ratio; the MLA turns the native f/11 into f/4.4 at the fibre and FRD keeps 95.6% inside f/4), 110 um core (0.873\" at f/4.0) entered as the slit of equal line width 0.756\" (trace width the same), 300 spectra per detector, collimator = Mirror (spherical, on-axis), W = 50 mm (f_col = 200 mm), camera f = 70 mm (f/1.40 on the beam; ETC f/1.28 monochromatic; F20 effective f/1.05), transmission (VPH) grating in first order, detector 2048 x 2048 x 13.5 um (e2v CCD42-40; red deep depletion). VPH line densities and angles are NOT published: use the DERIVED effective values (symmetric Bragg setting at lamC) that put the published coverage on the 2048 px chip -- BLUE: G = 2233 /mm, alpha = beta = 28.13 deg, lamC = 4222 A (3417-4947 A); GREEN: G = 1425 /mm, 24.96 deg, lamC = 5923 A (4634-7100 A); RED: G = 1070 /mm, 26.93 deg, lamC = 8466 A (6771-10000 A). Validate against: coverage (MITSPEC, by construction); R 1500-2500 / 1400-2400 / 1750-2500 (MITSPEC lab), R ~ 2000 (F20, S26), 2200 (ETC); mean dispersion 0.747 / 1.204 / 1.577 A/px and centre dispersion 0.762 / 1.204 / 1.609 A/px from the post-first-light arc table (independent of the coverage used to set G); fibre image 2.85 px (LSF FWHM 2.47 px); trace pitch 6.46 px.",
+  "recommended_presets_by_arm": {
+   "B": {
+    "D_m": 6.5,
+    "F": 4.0,
+    "core_um": 110,
+    "core_arcsec_at_F": 0.8727,
+    "slitW_eq_arcsec": 0.7557,
+    "nObj": 300,
+    "col": "mirror",
+    "W_mm": 50,
+    "f_col_mm": 200,
+    "fcam_mm": 70,
+    "gType": "trans",
+    "G_per_mm_DERIVED": 2233.4,
+    "m": 1,
+    "alpha_deg_DERIVED": 28.13,
+    "lamC_A_DERIVED": 4222.0,
+    "band_A": [
+     3417,
+     4947
+    ],
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 13.5,
+    "validate": {
+     "R_range": "1500-2500",
+     "dlpix_mean_A": 0.747,
+     "dlpix_centre_arc_A": 0.762,
+     "fibre_image_px": 2.85,
+     "trace_pitch_px": 6.46
+    }
+   },
+   "G": {
+    "D_m": 6.5,
+    "F": 4.0,
+    "core_um": 110,
+    "core_arcsec_at_F": 0.8727,
+    "slitW_eq_arcsec": 0.7557,
+    "nObj": 300,
+    "col": "mirror",
+    "W_mm": 50,
+    "f_col_mm": 200,
+    "fcam_mm": 70,
+    "gType": "trans",
+    "G_per_mm_DERIVED": 1424.6,
+    "m": 1,
+    "alpha_deg_DERIVED": 24.96,
+    "lamC_A_DERIVED": 5923.1,
+    "band_A": [
+     4634,
+     7100
+    ],
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 13.5,
+    "validate": {
+     "R_range": "1400-2400",
+     "dlpix_mean_A": 1.204,
+     "dlpix_centre_arc_A": 1.204,
+     "fibre_image_px": 2.85,
+     "trace_pitch_px": 6.46
+    }
+   },
+   "R": {
+    "D_m": 6.5,
+    "F": 4.0,
+    "core_um": 110,
+    "core_arcsec_at_F": 0.8727,
+    "slitW_eq_arcsec": 0.7557,
+    "nObj": 300,
+    "col": "mirror",
+    "W_mm": 50,
+    "f_col_mm": 200,
+    "fcam_mm": 70,
+    "gType": "trans",
+    "G_per_mm_DERIVED": 1069.9,
+    "m": 1,
+    "alpha_deg_DERIVED": 26.93,
+    "lamC_A_DERIVED": 8465.7,
+    "band_A": [
+     6771,
+     10000
+    ],
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 13.5,
+    "validate": {
+     "R_range": "1750-2500",
+     "dlpix_mean_A": 1.577,
+     "dlpix_centre_arc_A": 1.609,
+     "fibre_image_px": 2.85,
+     "trace_pitch_px": 6.46
+    }
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m",
+    "src": "F20",
+    "loc": "Abstract, p.114470A-1",
+    "quote": "spectrograph under construction for the 6.5-meter Magellan Telescopes",
+    "alternatives": [
+     {
+      "value": "650 cm, 7% secondary obscuration (ETC area)",
+      "src": "ETC",
+      "loc": "telescope.py, class Telescope",
+      "quote": "self.Dtel = 650.00 ... self.obscuration = 0.07 # Secondary obscuration"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Magellan I (Baade), central folded (bent) Cassegrain port; native f/11 kept by the ADC (two counter-rotating zero-deviation prisms)",
+    "unit": null,
+    "src": "F20",
+    "loc": "Fig. 1 caption, p.114470A-2; Sec. 2.1, p.114470A-4",
+    "quote": "The LLAMAS instrument on the central folded Cassegrain port of the Magellan telescope center ring. ... thus do no alter the telescope’s native f/11 focal ratio",
+    "alternatives": [
+     {
+      "value": "Magellan Baade",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "LLAMAS is a facility-class optical Integral Field Unit (IFU) spectrometer designed for the Magellan Baade telescope."
+     },
+     {
+      "value": "BAADE (FITS header)",
+      "src": "MAN",
+      "loc": "Main header",
+      "quote": "TELESCOP= 'BAADE ' / Telescope used for observation"
+     }
+    ]
+   },
+   "ifu_microlens_array": {
+    "value": {
+     "lenslet_pitch_on_sky_arcsec": 0.75,
+     "packing": "hexagonal (honeycomb)",
+     "type": "biconvex (double-sided) fused-silica MLA; each lenslet images the telescope PUPIL onto one fibre face",
+     "focal_ratio_into_fibre": 4.4
+    },
+    "unit": null,
+    "src": "PG17",
+    "loc": "Sec. 3.1, p.3",
+    "quote": "LLAMAS uses a biconvex micro-lens array (MLA) fabricated of fused silica to slice the Magellan focal plane into 0.75ʺ spatial elements ... The MLA projects a pupil onto the face of each 110μm diameter fiber, while also converting Magellan’s native F/11 beam to an effective F/4.4 ray bundle",
+    "stage": "PG17 = 2017 concept; the MLA and feed carried into the built instrument (F20, MITSPEC)",
+    "alternatives": [
+     {
+      "value": "0.75\" fiber-to-fiber pitch",
+      "src": "MITSPEC",
+      "loc": "Integral Field Unit table",
+      "quote": "Fiber-to-fiber pitch 0.75″"
+     },
+     {
+      "value": "honeycomb-packed, 0.75\" pitch",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "These honeycomb-packed elements cover a 35″ x 35″ square field of view with 0.75″ spacing pitch."
+     },
+     {
+      "value": "0.75\" per spaxel, 2400 elements",
+      "src": "F20",
+      "loc": "Sec. 1, p.114470A-1",
+      "quote": "fiber-based (2,400 element, 0.75″/spaxel)",
+      "note": "text layer: \"0.7500 /spaxel\""
+     },
+     {
+      "value": "0.75\" pitch (ETC)",
+      "src": "ETC",
+      "loc": "llamas_blue.def, Fiber Feed Parameters",
+      "quote": "FIBER_THETA 0.75 arcsec pitch"
+     },
+     {
+      "value": "input F/4.4",
+      "src": "FR20",
+      "loc": "Sec. 2.1, p.114476E-3",
+      "quote": "The input F/4.4 cone degrades"
+     }
+    ],
+    "derived": "DERIVED lenslet pitch at the f/11 focus: plate scale 206265/(6500 mm x 11) = 2.885\"/mm, so 0.75\" = 0.260 mm (nominal 6.5 m aperture)"
+   },
+   "fibre_core": {
+    "value": 110,
+    "unit": "um (core/clad/buffer 110/154/170 um, Polymicro FBPI step-index fused silica)",
+    "src": "F20",
+    "loc": "Sec. 2.2, p.114470A-5 to -6",
+    "quote": "The light guides are Polymicro FBPI 110µm core step index all fused silica fibers. ... for the full instrument we opted for a 110/154/170 dimension fiber (1.4 clad/core ratio) of the same type.",
+    "alternatives": [
+     {
+      "value": 110,
+      "src": "ETC",
+      "loc": "llamas_blue.def (same in green, red), Fiber Feed Parameters",
+      "quote": "FIBER_DCORE 110 core diameter (microns)"
+     },
+     {
+      "value": 110,
+      "src": "PG17",
+      "loc": "Sec. 3.1, p.3",
+      "quote": "The MLA projects a pupil onto the face of each 110μm diameter fiber"
+     },
+     {
+      "value": "110/132/140 (prototype only)",
+      "src": "F20",
+      "loc": "Sec. 2.2, p.114470A-5",
+      "quote": "For the prototype we used 110/132/140 core/clad/buffer fibers"
+     }
+    ]
+   },
+   "fibre_core_entrance_equivalent": {
+    "value": {
+     "core_at_f4.0_arcsec": 0.8727,
+     "equal_line_width_slit_arcsec": 0.7557,
+     "core_at_f4.4_arcsec": 0.7933
+    },
+    "unit": "arcsec (explorer entrance; NOT the on-sky spaxel)",
+    "src": "ETC",
+    "loc": "llamas_green.def, System Parameters",
+    "quote": "FRATIO_COL 4.0 (Focal ratio of collimator (monochromatic)",
+    "is_derived": true,
+    "derived": "DERIVED (DESI convention: F = the spectrograph's own focal ratio): 0.110 mm / (6500 mm x 4.0) x 206265 = 0.8727\"; slit of equal line width (sqrt3/2) x 0.8727 = 0.7557\" (= 95.3 um at f/4.0); at the f/4.4 fibre input 0.110/(6500 x 4.4) x 206265 = 0.7933\"",
+    "note": "The lenslet images the pupil (not the sky) on the fibre, so the sky sampling is the 0.75\" hexagonal lenslet; the fibre near-field (110 um core) is what the spectrograph images onto the CCD, so it sets the spectral and spatial trace widths."
+   },
+   "fibre_focal_ratio": {
+    "value": {
+     "into_fibre": 4.4,
+     "accepted_by_collimator": 4.0,
+     "fraction_inside_f4": "95.6%"
+    },
+    "unit": "f/#",
+    "src": "FR20",
+    "loc": "Sec. 2.1, p.114476E-3",
+    "quote": "The input F/4.4 cone degrades such that 95.6% of the output light falls in to the required F/4 cone of the collimator",
+    "alternatives": [
+     {
+      "value": ">95% of the f/4.4 input inside f/4.0 (spec, 2017)",
+      "src": "PG17",
+      "loc": "Sec. 3.2, p.4",
+      "quote": "repeatably meet our FRD specification of >95% transmission of the F/4.4 beam at the fiber input into the F/4.0 acceptance cone of the collimator"
+     }
+    ]
+   },
+   "fibre_count": {
+    "value": {
+     "active": 2400,
+     "installed": 3200,
+     "per_spectrograph_installed": 400,
+     "per_slit_bonded": 300
+    },
+    "unit": "fibres",
+    "src": "F20",
+    "loc": "Sec. 2.2, p.114470A-6",
+    "quote": "only 300 of the 400 incoming fibers are bonded into the spectrograph slit. The overall instrument consists of 8 × 20 = 160 fiber hoses, or 3,200 optical fibers in total, out of which 2,400 are active.",
+    "alternatives": [
+     {
+      "value": "2,392 spatial elements; 2 dead",
+      "src": "MITSPEC",
+      "loc": "Integral Field Unit table",
+      "quote": "# spatial elements 2,392 # spectrographs 8 (4 x 300 fibers + 4 x 298 fibers) # dead / broken fibers 2 (99.91% operability)"
+     },
+     {
+      "value": "2560 (2017 concept)",
+      "src": "PG17",
+      "loc": "p.1 design table",
+      "quote": "# Fibers 2560 7680"
+     }
+    ]
+   },
+   "spectra_per_detector": {
+    "value": 300,
+    "unit": "fibre spectra per CCD (every fibre is an IFU science fibre; no separate sky or calibration fibres)",
+    "src": "F20",
+    "loc": "Sec. 3.1, p.114470A-12",
+    "quote": "choosing a 2k × 2k CCD format we settled on the slit height of 300 fibers and thus 8 spectrographs",
+    "alternatives": [
+     {
+      "value": "300 or 298 (4 spectrographs each)",
+      "src": "MITSPEC",
+      "loc": "Integral Field Unit table",
+      "quote": "# spectrographs 8 (4 x 300 fibers + 4 x 298 fibers)"
+     },
+     {
+      "value": 300,
+      "src": "FR20",
+      "loc": "Sec. 1, p.114476E-1",
+      "quote": "On each spectrograph, the beams from the 300 fibers are split by two dichroic filters"
+     },
+     {
+      "value": "2400 shared by 8 detectors per channel",
+      "src": "S26",
+      "loc": "Sec. 2",
+      "quote": "Each channel has eight detectors, among which the spectra from 2400 fibers are shared."
+     },
+     {
+      "value": "320 (2017 concept)",
+      "src": "PG17",
+      "loc": "Sec. 3.4, p.5",
+      "quote": "The individual spectrographs, which each accommodate 320 fibers"
+     }
+    ],
+    "derived": "DERIVED from PYJ traceLUT.json fib_pos: 298, 300 or 301 traced fibres per camera (24 cameras; 301 on 2A includes a zero-step duplicate)"
+   },
+   "spectrograph_layout": {
+    "value": "8 identical spectrographs, mounted in mirror-symmetric pairs on 4 vertical carbon-fibre benches; 3 arms each = 24 cameras / CCDs",
+    "unit": null,
+    "src": "F20",
+    "loc": "Fig. 1 caption, p.114470A-2; Sec. 4, p.114470A-16",
+    "quote": "The space frame supports the Spectrograph Bay, consisting of four identical Units, each carrying two spectrographs. ... 24 focus motors (8 spectrographs × 3 channels)"
+   },
+   "fibre_run_length": {
+    "value": 5,
+    "unit": "m (total fibre length)",
+    "src": "F20",
+    "loc": "Sec. 2, p.114470A-3",
+    "quote": "This solution only uses 5m total length of optical fibers.",
+    "alternatives": [
+     {
+      "value": "~10 m focal plane to spectrograph bank",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "The fibers are routed to a spectrograph bank approximately 10 meters from the focal plane"
+     },
+     {
+      "value": "4.5 m (2017 concept)",
+      "src": "PG17",
+      "loc": "Sec. 3.2, p.4",
+      "quote": "the fiber run traverses only 4.5 meters from the focal plane to the spectrograph bank"
+     }
+    ]
+   },
+   "pseudo_slit": {
+    "value": {
+     "geometry": "curved, fanned-out fibre slit (fibres point at the spherical collimator: Schmidt condition) on a 1.5 mm fused-silica slit plate bonded into the edge of one half of a split dichroic",
+     "fibre_pitch_um_DERIVED": 249,
+     "length_mm_DERIVED": 74.5
+    },
+    "unit": null,
+    "src": "F20",
+    "loc": "Sec. 3.3, p.114470A-13",
+    "quote": "Its fiber pseudo-slit, which fans out to meet the Schmidt condition, must sit inside the collimated beam at the focus of the spherical collimator mirror.",
+    "alternatives": [
+     {
+      "value": "curved slit, fibres tilted toward the spherical collimator (2017)",
+      "src": "PG17",
+      "loc": "Sec. 3.2, p.4",
+      "quote": "The slit is curved and tilts the individual fibers to minimize aberrations introduced by the spherical reflecting spectrograph collimator."
+     }
+    ],
+    "derived": "DERIVED from PYJ traceLUT.json: mean trace pitch 6.458 px over the 24 cameras (6.43-6.48 px) = 87.2 um at the CCD; / (70/200) = 249 um at the slit; 299 gaps x 0.249 mm = 74.5 mm slit length. Pitch and slit length are NOT stated in any source."
+   },
+   "collimator": {
+    "value": {
+     "type": "spherical concave MIRROR, on-axis (Schmidt-like: slit at its focus inside the collimated beam)",
+     "focal_length_mm": 200,
+     "focal_ratio": 4.0
+    },
+    "unit": null,
+    "src": "PG17",
+    "loc": "Sec. 3.3, p.5",
+    "quote": "The spectrograph collimator is simple on-axis f = 200mm sphere, with field curvature and coma minimized by the geometry of the pseudo-slit.",
+    "stage": "PG17 = 2017 concept; the 2024 ETC files (written for the built instrument) keep 200 mm",
+    "alternatives": [
+     {
+      "value": "f_col = 200 mm (current ETC definition files)",
+      "src": "ETC",
+      "loc": "llamas_green.def, System Parameters",
+      "quote": "F_COL 200.0 mm (collimator focal length)"
+     },
+     {
+      "value": "spherical collimator mirror (as built)",
+      "src": "F20",
+      "loc": "Sec. 2.4, p.114470A-8",
+      "quote": "To the left is the tall, spherical collimator mirror with its support buttresses."
+     },
+     {
+      "value": "dielectric mirror coating (ETC element)",
+      "src": "ETC",
+      "loc": "llamas_blue.def, Spectrograph Element Definitions",
+      "quote": "ELEMENT Collimator 1 FusedSilica dielectric_mirror.txt ECI2 model"
+     }
+    ]
+   },
+   "collimated_beam_diameter": {
+    "value": 50,
+    "unit": "mm",
+    "src": "ETC",
+    "loc": "llamas_green.def, System Parameters",
+    "quote": "D_BEAM 50.0 mm (Diameter of the collimated beam)",
+    "alternatives": [
+     {
+      "value": 50,
+      "src": "PG17",
+      "loc": "Sec. 3.3, p.5",
+      "quote": "Its 50mm parallel beam is split by a dichroic at 570nm"
+     }
+    ],
+    "derived": "DERIVED: f_col / W = 200 / 50 = f/4.0, matching ETC FRATIO_COL 4.0 and the f/4 acceptance cone (FR20)"
+   },
+   "collimator_focal_ratio": {
+    "value": 4.0,
+    "unit": "f/#",
+    "src": "ETC",
+    "loc": "llamas_green.def, System Parameters",
+    "quote": "FRATIO_COL 4.0 (Focal ratio of collimator (monochromatic)",
+    "alternatives": [
+     {
+      "value": 4,
+      "src": "FR20",
+      "loc": "Sec. 2.1, p.114476E-3",
+      "quote": "falls in to the required F/4 cone of the collimator"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": {
+     "short_long_pass_split_nm": 690,
+     "blue_green_split_nm": 475,
+     "first_dichroic": "split in two halves, carries the fibre slit plate",
+     "substrates": "fused silica, 10 mm thick, 175 mm tall",
+     "vendor": "Asahi Spectra"
+    },
+    "unit": null,
+    "src": "F20",
+    "loc": "Sec. 2.4, p.114470A-8; Sec. 3.3, p.114470A-13 to -14",
+    "quote": "The short/long pass dichroic (split at 690nm) with the embedded fiber slit is front and center ... second blue/green dichroic (split at 475nm) ... Of course the challenge is to coat thin (10mm), tall (175mm) substrates all the way to the edge",
+    "alternatives": [
+     {
+      "value": "480 nm and 690 nm (band edges)",
+      "src": "FR20",
+      "loc": "Sec. 1, p.114476E-1",
+      "quote": "blue (λ =350-480nm), green (λ =480-690nm), and red (λ =690-970nm)"
+     },
+     {
+      "value": "one dichroic at 570 nm (2017 two-arm concept)",
+      "src": "PG17",
+      "loc": "p.1 design table",
+      "quote": "Red / Blue Dichroic split 570 nm 570 nm"
+     }
+    ]
+   },
+   "arm_bandpasses_design": {
+    "value": {
+     "B": "350-480 nm",
+     "G": "480-690 nm",
+     "R": "690-970 nm"
+    },
+    "unit": null,
+    "src": "FR20",
+    "loc": "Sec. 1, p.114476E-1",
+    "quote": "On each spectrograph, the beams from the 300 fibers are split by two dichroic filters into blue (λ =350-480nm), green (λ =480-690nm), and red (λ =690-970nm) cameras",
+    "alternatives": [
+     {
+      "value": {
+       "B": "350-475 nm",
+       "G": "475-690 nm",
+       "R": "690-975 nm"
+      },
+      "src": "F20",
+      "loc": "Sec. 2.4, p.114470A-10",
+      "quote": "For the red channel (690-975nm) we opted for deep depletion to suppress fringing ... for the blue (350-475nm) and green (475-690) arms we prescribed grade 1 units"
+     },
+     {
+      "value": {
+       "B": "350-480 nm",
+       "G": "480-690 nm",
+       "R": "690-975 nm"
+      },
+      "src": "ETC",
+      "loc": "llamas_{blue,green,red}.def, WAVE_MIN / WAVE_MAX",
+      "quote": "WAVE_MIN 350.0 nm WAVE_MAX 480.0 nm ... WAVE_MIN 690.0 nm WAVE_MAX 975.0 nm",
+      "note": "green file: WAVE_MIN 480.0 / WAVE_MAX 690.0"
+     }
+    ],
+    "note": "Design / requirement bands. The on-chip coverage is wider and overlaps: see performance 'coverage_by_arm'."
+   },
+   "disperser": {
+    "value": {
+     "type": "VPH GRISM: VPH grating between two 5 mm fused-silica plates, prism bonded to the front plate; one per arm, fixed",
+     "location": "front of each camera barrel, at the pupil = the collimator's centre of curvature",
+     "order": "1 (assumed; not stated)",
+     "vendor": "Wasatch Photonics (ETC efficiency-curve file names)",
+     "lines_per_mm": "NOT FOUND",
+     "Bragg_or_incidence_angle": "NOT FOUND",
+     "prism_angle_and_glass": "NOT FOUND"
+    },
+    "unit": null,
+    "src": "F20",
+    "loc": "Sec. 2.4, p.114470A-9 to -10; Fig. 8 caption, p.114470A-10",
+    "quote": "Each camera barrel carries the VPH grism assembly in the front, supported by a fully adjustable frame. ... The VPH gratings are implemented in-between a pair of 5mm thick fused silica plates with the prism directly bonded onto the front plate. ... Left is the VPH grism, placed at the minimum overall beam size which is at the center of curvature of the collimator. This is also the pupil of the camera optics.",
+    "alternatives": [
+     {
+      "value": "fixed, not configurable",
+      "src": "MITSPEC",
+      "loc": "Spectral Resolution",
+      "quote": "This is a property of the VPH gratings and is fixed / not configurable."
+     },
+     {
+      "value": "ETC GRATING entries 1200 / 420 / 0 in ALL three arms = PLACEHOLDERS (ruling, cwl, alpha), unused by the ETC",
+      "src": "ETC",
+      "loc": "llamas_blue.def, llamas_green.def, llamas_red.def; surfaces.py class DiffractionGrating; spectrograph.py calc_throughput",
+      "quote": "GRATING VPH_B 1200 420 0 VPHG/vph_wasach_blue_eavg.txt Wasach asbuilt ... GRATING VPH_G 1200 420 0 VPHG/vph_wasach_green_eavg.txt Wasach asbuilt ... GRATING VPH_B 1200 420 0 VPHG/vph_wasach_red_eavg.txt Wasach asbuilt ... def __init__(self,name,ruling,cwl,alpha,blaze_file,vendor,status): ... composite_throughput *= self.grating.blaze.throughput(input_wave)",
+      "note": "The same 1200 /mm, 420 nm, 0 deg in all three arms (and the red file labelled VPH_B) mark copied placeholders; only the as-built efficiency (blaze) file is used. 1200 /mm at f_cam 70 mm would give ~1.6 A/px in the blue, twice the measured 0.76 A/px."
+     },
+     {
+      "value": "second order treated as stray light",
+      "src": "FR20",
+      "loc": "Sec. 3.3, p.114476E-6",
+      "quote": "Finally there are paths from second order diffraction at the VPH grating."
+     }
+    ]
+   },
+   "vph_effective_DERIVED": {
+    "value": {
+     "B": {
+      "G_eff_per_mm": 2233.4,
+      "alpha_eq_beta_deg": 28.13,
+      "lamC_A": 4222.0
+     },
+     "G": {
+      "G_eff_per_mm": 1424.6,
+      "alpha_eq_beta_deg": 24.96,
+      "lamC_A": 5923.1
+     },
+     "R": {
+      "G_eff_per_mm": 1069.9,
+      "alpha_eq_beta_deg": 26.93,
+      "lamC_A": 8465.7
+     }
+    },
+    "unit": "lines/mm; deg (symmetric Bragg in air, camera at 2 alpha); A",
+    "src": "MITSPEC",
+    "loc": "Spectrographs table (coverage) + ETC f_cam 70 mm, 2048 x 13.5 um",
+    "quote": "Wavelength Coverage 3417 – 4947 A 4634 – 7100 A 6771 A – 1 micron",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": {
+       "B": 2214.6,
+       "G": 1442.3,
+       "R": 1069.0
+      },
+      "src": "PYJ",
+      "loc": "LUT/{blue,green,red}_peaks.csv (identified arc lines)",
+      "quote": "Pixel,Height,Wavelength ... 361.25,375.4883549584814,3545.6 ... 3,418.697006,4657.9 ... 55.25,308.8376489,6871.29,",
+      "note": "DERIVED: least-squares fit of the same ideal model (f_cam 70 mm, 13.5 um, symmetric Bragg at lamC, chip-centre offset free) to the 15 / 26 / 23 identified lines: rms 1.0 / 3.3 / 2.8 A"
+     }
+    ],
+    "derived": "DERIVED by inverting the explorer's own model (plane VPH, symmetric Bragg setting alpha = beta = asin(G lamC / 2) for the central wavelength, f tan(theta) camera, f_cam = 70 mm, 2048 px x 13.5 um, chip centred on the camera axis, half-field atan(13.824/70) = 11.17 deg): G and lamC solved so that the MITSPEC band edges fall on the two chip edges. Blue 3417-4947 A -> G = 2233.4 /mm, lamC = 4222.0 A, alpha = 28.13 deg; green 4634-7100 A -> 1424.6 /mm, 5923.1 A, 24.96 deg; red 6771-10000 A -> 1069.9 /mm, 8465.7 A, 26.93 deg. NOT a published prescription: these are EFFECTIVE values (the grism prism's own dispersion and the true camera geometry are absorbed); G_eff scales ~ 1/f_cam."
+   },
+   "camera": {
+    "value": {
+     "focal_length_mm": 70,
+     "type": "fast all-refractive, 7 lens elements (ETC L1-L7) with front and rear aspheres; external entrance pupil at the grism; sapphire-window Raptor CCD head 6.5 mm behind"
+    },
+    "unit": null,
+    "src": "ETC",
+    "loc": "llamas_green.def, System Parameters (same 70.0 in blue, red)",
+    "quote": "F_CAM 70.0 mm (camera focal length)",
+    "alternatives": [
+     {
+      "value": "70 mm production (90 mm prototype)",
+      "src": "F20",
+      "loc": "Sec. 2.4, p.114470A-9",
+      "quote": "protoLLAMAS employs a slightly longer focal length (90mm vs 70mm)."
+     },
+     {
+      "value": "front and rear aspheres",
+      "src": "F20",
+      "loc": "Sec. 3, p.114470A-12",
+      "quote": "very fast refractive cameras designed with front and rear aspheres, larger elements in the middle of the optical train"
+     },
+     {
+      "value": "7 lens elements (ETC element list)",
+      "src": "ETC",
+      "loc": "llamas_blue.def, Spectrograph Element Definitions",
+      "quote": "ELEMENT L7 2 SNBH52 ECI_PBM8Y.txt ECI placeholder",
+      "note": "L1-L7: CaF2, BAL35Y, CaF2, BSM51Y, CaF2, PBM2Y, SNBH52 (labelled 'placeholder' for throughput)"
+     },
+     {
+      "value": "f = 90 mm, F/1.4, 7 all-spherical elements (2017 two-arm concept)",
+      "src": "PG17",
+      "loc": "Sec. 3.3, p.5",
+      "quote": "The 7-element cameras are all-spherical with F/1.4 and f = 90mm."
+     }
+    ]
+   },
+   "camera_focal_ratio": {
+    "value": 1.28,
+    "unit": "f/# (monochromatic, per the ETC comment)",
+    "src": "ETC",
+    "loc": "llamas_green.def, System Parameters",
+    "quote": "FRATIO_CAM 1.28 (Focal ratio of camera (monochromatic)",
+    "alternatives": [
+     {
+      "value": "effective f/1.05 (polychromatic, all field positions)",
+      "src": "F20",
+      "loc": "Sec. 2.4, p.114470A-10",
+      "quote": "which was a key factor for successful optical design of the fast (effective f/1.05, in polychromatic light and across all field positions) camera optics"
+     },
+     {
+      "value": "F/1.4 (2017 concept, 90 mm)",
+      "src": "PG17",
+      "loc": "Sec. 3.3, p.5",
+      "quote": "all-spherical with F/1.4 and f = 90mm"
+     }
+    ],
+    "derived": "DERIVED: f_cam / W = 70 / 50 = f/1.40 on the 50 mm collimated beam; 70/1.28 = 54.7 mm and 70/1.05 = 66.7 mm imply clear apertures larger than the beam (dispersed fan, external pupil)"
+   },
+   "magnification_and_fibre_image": {
+    "value": {
+     "magnification": 0.35,
+     "fibre_image_um": 38.5,
+     "fibre_image_px": 2.85,
+     "LSF_FWHM_px_equal_line_width": 2.47
+    },
+    "unit": null,
+    "src": "ETC",
+    "loc": "observe.py (pixels per resolution element)",
+    "quote": "pix_resel = (instrument.fiber.dFib) * (instrument.f_cam / instrument.f_col) / instrument.sensor.pixelsize",
+    "is_derived": true,
+    "derived": "DERIVED: 70/200 = 0.35; 110 um x 0.35 = 38.5 um = 2.85 px of 13.5 um (the ETC rounds up to 3 px); geometric LSF FWHM of a uniformly lit round core = (sqrt3/2) x 2.85 = 2.47 px (anamorphic factor 1 at the symmetric Bragg setting)"
+   },
+   "detector": {
+    "value": {
+     "format": "2048 x 2048",
+     "pixel_um": 13.5,
+     "type": "e2v CCD42-40 NIMO (bi-directional clocking for nod & shuffle) in Raptor Photonics TE-cooled heads; red arm deep depletion (grade 0), blue/green grade 1"
+    },
+    "unit": null,
+    "src": "F20",
+    "loc": "Sec. 2.4, p.114470A-10",
+    "quote": "built by Raptor Photonics around the venerable e2v CCD 42-40 architecture (2k × 2k, 13.5µmpixels) ... For the red channel (690-975nm) we opted for deep depletion to suppress fringing",
+    "alternatives": [
+     {
+      "value": "2048 x 2048 (FITS)",
+      "src": "MAN",
+      "loc": "Extension header",
+      "quote": "NAXIS1 = 2048 NAXIS2 = 2048 ... DETECTOR= 'LLAMAS Raptor Photonics e2v CCD42-40 NIMO' / Camera sensor"
+     },
+     {
+      "value": "2048 x 2048",
+      "src": "FR20",
+      "loc": "Sec. 2.3, p.114476E-4",
+      "quote": "The high resolution of the LLAMAS detectors (2048 × 2048 pixels)"
+     },
+     {
+      "value": "13.5 um pixel (ETC sensor line)",
+      "src": "ETC",
+      "loc": "llamas_blue.def, SENSOR",
+      "quote": "SENSOR CCD42-40_BLUE CCD42-40_blue.txt 2.46 0.00119 13.5",
+      "note": "fields: read noise 2.46 e-, dark 0.00119 e-/s/px, pixel 13.5 um"
+     },
+     {
+      "value": "e2v CCD 55-30, 22.5 um (prototype only)",
+      "src": "F20",
+      "loc": "Sec. 2.4, p.114470A-9",
+      "quote": "This meant using larger detector pixels (e2v CCD 55-30, 22.5µm) with slight undersampling of the PSF."
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "along NAXIS1 (x); fibres stacked along y. Square chip: Nx = Ny = 2048",
+    "unit": null,
+    "src": "ETC",
+    "loc": "spectrograph.py, build_model",
+    "quote": "disp = (self.wv_max-self.wv_min)/float(self.sensor.naxis1)",
+    "alternatives": [
+     {
+      "value": "fibre traces at y = 31-2012 px (fib_pos), arc lines indexed by x pixel",
+      "src": "PYJ",
+      "loc": "LUT/traceLUT.json, fib_pos",
+      "quote": "\"fib_pos\": { \"green\": { \"1A\": { \"0\": 34, \"1\": 41, \"2\": 47"
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": "34\" x 35\"",
+    "unit": "arcsec",
+    "src": "MITSPEC",
+    "loc": "Integral Field Unit table",
+    "quote": "Field of View 34″ x 35″",
+    "alternatives": [
+     {
+      "value": "37\" x 37\"",
+      "src": "S26",
+      "loc": "Sec. 2",
+      "quote": "LLAMAS is a wide-field (37′′ × 37′′ ) fiber-fed IFU"
+     },
+     {
+      "value": "35\" x 35\"",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "cover a 35″ x 35″ square field of view"
+     },
+     {
+      "value": "40\" x 36\" (2017 concept)",
+      "src": "PG17",
+      "loc": "p.1 design table",
+      "quote": "Field of View (MRI Scope) 40” x 36” 60” x 60”"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "R_by_arm": {
+    "value": {
+     "B": "1500-2500",
+     "G": "1400-2400",
+     "R": "1750-2500"
+    },
+    "unit": "lambda/dlambda (varies along each arm; pre-ship lab measurements of individual fibres)",
+    "src": "MITSPEC",
+    "loc": "Spectrographs table; 'Spectral Resolution' text",
+    "quote": "Resolving Power R=1500-2500 R=1400-2400 R=1750-2500 ... Gray lines show measurements for individual fibers",
+    "alternatives": [
+     {
+      "value": 2000,
+      "src": "F20",
+      "loc": "Abstract, p.114470A-1",
+      "quote": "producing R = 2, 000 spectra",
+      "note": "text-layer rendering of R = 2,000"
+     },
+     {
+      "value": 2000,
+      "src": "FR20",
+      "loc": "Sec. 1, p.114476E-1",
+      "quote": "to achieve a resolution of R = 2000 across the optical bandpass"
+     },
+     {
+      "value": 2200,
+      "src": "ETC",
+      "loc": "llamas_{blue,green,red}.def",
+      "quote": "RESOLUTION 2200.0",
+      "note": "single value used by the ETC for all arms"
+     },
+     {
+      "value": "~2000",
+      "src": "S26",
+      "loc": "Sec. 2",
+      "quote": "fiber-fed IFU with a spectral resolution of R ∼ 2000"
+     },
+     {
+      "value": "1500-2500 (instrument)",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "at spectral resolution R=1500-2500 (wavelength dependent)"
+     },
+     {
+      "value": "1300 (2017 concept)",
+      "src": "PG17",
+      "loc": "p.1 design table",
+      "quote": "Spectral Resolution R = 1300 R = 1300"
+     }
+    ],
+    "derived": "DERIVED ideal-optics prediction (explorer model with the derived G_eff, LSF FWHM 2.47 px): B R = 1740 / 2245 / 3115 at 3417 / 4222 / 4947 A; G 1483 / 1954 / 2732 at 4634 / 5923 / 7100 A; R 1642 / 2133 / 2966 at 6771 / 8466 / 10000 A. The rise toward the red end of each arm comes from cos(beta) shrinking the dispersion per pixel less than lambda grows; the measured upper limits (2400-2500) are lower, as expected for real optics."
+   },
+   "coverage_by_arm": {
+    "value": {
+     "B": "3417-4947 A",
+     "G": "4634-7100 A",
+     "R": "6771-10000 A"
+    },
+    "unit": "A (on the 2048-px chip)",
+    "src": "MITSPEC",
+    "loc": "Spectrographs table",
+    "quote": "Wavelength Coverage 3417 – 4947 A 4634 – 7100 A 6771 A – 1 micron",
+    "alternatives": [
+     {
+      "value": {
+       "B": "3240-4808 A",
+       "G": "4654-7116 A",
+       "R": "6776-10048 A"
+      },
+      "src": "PYJ",
+      "loc": "LUT/{blue,green,red}_peaks.csv",
+      "quote": "361.25,375.4883549584814,3545.6 ... 1829.75,255.27651088494406,4657.9 ... 3,418.697006,4657.9 ... 1865.5,294.4270054,6911.23 ... 1868,16950.16632,9784.5,",
+      "note": "DERIVED: cubic fit lambda(pixel) to the identified lines (rms 0.24 / 2.3 / 1.2 A), evaluated at pixels 0 and 2047"
+     },
+     {
+      "value": {
+       "B": "3200-4947 A",
+       "G": "4570-7100 A",
+       "R": "6570-10038 A"
+      },
+      "src": "PYJ",
+      "loc": "Arc/arcLlamas.py (wavelength grid of the arc solution)",
+      "quote": "wv_minmax = {'blue': [3200.0,4947.0], 'green': [4570.0, 7100.0], 'red': [6570.0, 10038.0]}",
+      "note": "pipeline grid limits, not a measured coverage"
+     },
+     {
+      "value": "3500-9700 A total",
+      "src": "S26",
+      "loc": "Sec. 2",
+      "quote": "wavelength coverage of 3500–9700 Å"
+     },
+     {
+      "value": "3400 A to 1 micron total",
+      "src": "MITHOME",
+      "loc": "Instrument Overview",
+      "quote": "covering 3400 angstroms to 1 micron"
+     },
+     {
+      "value": "350-970 nm total",
+      "src": "F20",
+      "loc": "Abstract, p.114470A-1",
+      "quote": "Its broad passband from λ = 350 − 970nm"
+     },
+     {
+      "value": "~6000 wavelength channels per fibre",
+      "src": "LCO25",
+      "loc": "news text (Simcoe quote)",
+      "quote": "recording the intensity of light from astronomical sources at 2,400 positions on the sky and 6,000 individual wavelength channels per fiber",
+      "note": "DERIVED: 3 arms x 2048 px = 6144; F20 Sec. 3.1: 'the number of pixels required in the dispersion direction is ∼6k'"
+     }
+    ]
+   },
+   "dispersion_per_pixel": {
+    "value": {
+     "B": 0.747,
+     "G": 1.204,
+     "R": 1.577
+    },
+    "unit": "A/pixel (mean over the chip)",
+    "src": "MITSPEC",
+    "loc": "Spectrographs table",
+    "quote": "Wavelength Coverage 3417 – 4947 A 4634 – 7100 A 6771 A – 1 micron",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": {
+       "B": "0.866 / 0.762 / 0.684",
+       "G": "1.283 / 1.204 / 1.117",
+       "R": "1.695 / 1.609 / 1.457"
+      },
+      "src": "PYJ",
+      "loc": "LUT/{blue,green,red}_peaks.csv",
+      "quote": "Pixel,Height,Wavelength ... Pixel,PeakHeight,Wavelength,",
+      "note": "DERIVED: derivative of the cubic lambda(pixel) fit at pixels 0 / 1024 / 2047 (A/px)"
+     }
+    ],
+    "derived": "DERIVED: (4947-3417)/2048 = 0.747; (7100-4634)/2048 = 1.204; (10000-6771)/2048 = 1.577 A/px. The derived-G_eff model gives 0.795 / 0.761 / 0.643 (B), 1.265 / 1.227 / 1.052 (G), 1.670 / 1.607 / 1.365 (R) A/px at the blue edge / centre / red edge. No source states A/px."
+   },
+   "sampling": {
+    "value": {
+     "fibre_image_px": 2.85,
+     "LSF_FWHM_px": 2.47
+    },
+    "unit": "pixels",
+    "src": "ETC",
+    "loc": "observe.py; llamas_*.def",
+    "quote": "pix_resel = (instrument.fiber.dFib) * (instrument.f_cam / instrument.f_col) / instrument.sensor.pixelsize",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "45 um ~ one resolution element = 3.3 px (2017 design, 90 mm camera)",
+      "src": "PG17",
+      "loc": "Fig. 8 caption, p.6",
+      "quote": "Boxes are 45 x 45 microns, or approximately one resolution element."
+     }
+    ],
+    "derived": "DERIVED: 110 um x 70/200 / 13.5 um = 2.85 px; x sqrt3/2 = 2.47 px FWHM. 45/13.5 = 3.33 px for the 2017 design (110 x 90/200 = 49.5 um)."
+   },
+   "fibre_trace_pitch": {
+    "value": 6.46,
+    "unit": "pixels (spatial, centre to centre)",
+    "src": "PYJ",
+    "loc": "LUT/traceLUT.json, fib_pos (24 cameras)",
+    "quote": "\"fib_pos\": { \"green\": { \"1A\": { \"0\": 34, \"1\": 41, \"2\": 47",
+    "is_derived": true,
+    "derived": "DERIVED: (last - first trace position)/(n - 1) per camera = 6.43-6.48 px, mean 6.458 px; fibre image 2.85 px, so ~3.6 px gap between traces"
+   }
+  },
+  "not_found": [
+   "VPH grism prescriptions for all three arms: line density, Bragg / incidence angle, fringe tilt, prism apex angle and glass, camera-to-collimator angle. The ETC's GRATING entries (1200 /mm, 420 nm, 0 deg, identical in all arms) are placeholders that the ETC never uses (only the efficiency file). EFFECTIVE values are DERIVED here from the published coverage (vph_effective_DERIVED).",
+   "Companion optics paper cited by FR20 as Ref. 2 (Furesz et al., Proc. SPIE 11447-111, 'Optical design of fast a spectrograph camera and microlens-coupled ifu feed for the llamas instrument'): not in ADS, NSF PAR or MIT DSpace; apparently never published.",
+   "Simcoe et al. 2022, Proc. SPIE 12184, 121840D, 'Construction update on the Magellan LLAMAS integral field spectrograph': SPIE abstract page only; no open copy (not in ADS, NSF PAR or arXiv).",
+   "SPIE 2026 paper 14149-57, 'First year into operations of LLAMAS ... design, build and commissioning overview, results and performance': presentation page found, no text retrieved; not on arXiv as of 2026-10-17.",
+   "As-built camera prescription and as-built collimator / camera focal lengths: 200 mm and 70 mm come from the 2017 pocket guide (collimator) and the 2024 ETC definition files and F20 (camera), i.e. design values.",
+   "A published dispersion (A/px) and sampling (px per FWHM) for the built instrument: both DERIVED here.",
+   "On-sky (post-commissioning) resolving power per arm: the MITSPEC ranges are pre-ship laboratory measurements (page last modified 2024-09-14); S26 gives only R ~ 2000.",
+   "As-built dichroic crossover wavelengths: MITPROP says 'Basic parameters of the as-built instrument (wavelengths, spectral resolution, dichroic crossover points, etc) are listed at the Specifications page', but that page lists only per-channel coverage (overlaps 4634-4947 A and 6771-7100 A).",
+   "Fibre pitch along the pseudo-slit and slit length (DERIVED from the pipeline trace table).",
+   "Stenzel 2022 (MIT S.M. thesis, 'Model-Based Verification of The Large Lenslet Array Magellan Spectrograph', DSpace 1721.1/144841) was downloaded and read: its Table 4.1 lists the optical parameters by name only (no values), and it uses R = 2200 like the ETC; not used and not saved.",
+   "The old project pages www.mit.edu/~rsimcoe/llamas/instrument.html and index.html now return a 404 page, and the Wayback Machine had no snapshot; search-engine snippets of them (e.g. 'R=2200', per-channel R 1680-2750 / 1500-2410 / 2000-2750, '350-980nm') could not be verified and are not used."
+  ],
+  "conflicts": [
+   "Camera focal length: 70 mm (F20 production units; ETC) vs 90 mm (PG17 2017 concept; F20 prototype).",
+   "Camera focal ratio: f/1.28 'monochromatic' (ETC) vs 'effective f/1.05, in polychromatic light and across all field positions' (F20) vs F/1.4 (PG17, 90 mm design); 70/50 = f/1.40 on the 50 mm beam (DERIVED).",
+   "Dichroic splits: 690 and 475 nm (F20) vs band edges 480 and 690 nm (FR20; ETC) vs one dichroic at 570 nm (PG17 two-arm concept). As built the arms overlap: blue to 4947 A, green from 4634 A; green to 7100 A, red from 6771 A (MITSPEC).",
+   "Red band end: 970 nm (FR20; F20 abstract) vs 975 nm (F20 Sec. 2.4; ETC) vs '1 micron' (MITSPEC, MITHOME) vs ~10048 A at pixel 2047 (PYJ, DERIVED).",
+   "Blue on-chip range: 3417-4947 A (MITSPEC) vs 3240-4808 A from the post-first-light arc look-up table (PYJ, DERIVED; the fit is anchored by lines 3545.6-4657.9 A, so both ends are extrapolated). Green and red agree within 20-50 A. The derived blue G_eff is 2233 /mm from MITSPEC vs 2215 /mm from the arc fit.",
+   "Resolving power: per-arm ranges 1500-2500 / 1400-2400 / 1750-2500 (MITSPEC, lab) vs R = 2000 (F20, FR20, S26) vs R = 2200 (ETC) vs R = 1300 (PG17 concept).",
+   "Total passband: 350-970 nm (F20 abstract, FR20) vs 350-975 nm (F20 Sec. 1) vs 3400 A-1 um (MITHOME) vs 3500-9700 A (S26) vs 360-970 nm (PG17).",
+   "Fibres: 2400 active of 3200 installed, 300 per slit (F20) vs 2,392 spatial elements, 4 x 300 + 4 x 298 (MITSPEC) vs 2560 total and 320 per spectrograph (PG17).",
+   "Field of view: 34\" x 35\" (MITSPEC) vs 35\" x 35\" (MITHOME) vs 37\" x 37\" (F20, FR20, S26) vs 40\" x 36\" (PG17).",
+   "Fibre run: 5 m total (F20) vs ~10 m from focal plane to the spectrograph bank (MITHOME) vs 4.5 m (PG17).",
+   "Fill factor: 92% (MITSPEC) vs ~91% (MITHOME) vs >= 93% (PG17)."
+  ],
+  "notes": [
+   "Explorer mapping (DESI convention): D = 6.5 m, F = 4.0 (the spectrograph's own focal ratio, so f_col = F x W = 200 mm comes out right); entrance = slit of equal line width (sqrt3/2) x 0.8727\" = 0.756\"; the trace width across the dispersion is the same fibre image, so no separate traceW is needed. The real sky sampling is the 0.75\" hexagonal lenslet, which images the pupil on the fibre.",
+   "Collimator = Mirror (spherical, on-axis; the slit sits inside the collimated beam at its focus, fibres fanned to the Schmidt condition).",
+   "Disperser: the explorer models a bare plane VPH. LLAMAS uses VPH grisms (prism on the front plate) at the camera entrance pupil; the derived G_eff and symmetric-Bragg angle reproduce the published coverage on a 70 mm camera but do not describe the true grating, prism or camera angle.",
+   "Sanity check of f_cam = 70 mm: with G_eff fixed by the band edges, the model's central dispersion (0.761 / 1.227 / 1.607 A/px) matches the arc-table derivative at pixel 1024 (0.762 / 1.204 / 1.609 A/px), and the arc-table dispersion falls by 21% / 13% / 14% across the blue / green / red chip (model: 19% / 17% / 18%, from cos(beta) at alpha ~ 25-28 deg). The arc data alone cannot separate f_cam from G (degenerate), so 70 mm rests on F20 and the ETC.",
+   "Spectra per detector: all 300 (or 298) are IFU science fibres; sky comes from the field itself and calibration light enters through the same fibres from the front-end calibration unit (F20 Sec. 2.1). A 50% sub-array mode (masks in the IFU focal plane) doubles the trace spacing (MITPROP: 'In this occulted mode, the inter-fiber spacing is doubled at the slit for enhanced control of systematics').",
+   "Two blue detectors (1A and 4A) were damaged in the 2025-2026 data (S26: 'We dithered to cover gaps left by the two damaged blue detectors (detectors 1A and 4A).').",
+   "ETC sensor lines give read noise 2.46 e- (blue, green) and 2.29 e- (red) and dark 0.00119 / 0.00192 e-/s/px; F20 reports 2.3 e- at 75 kHz for the first production heads.",
+   "Pipeline wavelength grid limits (PYJ arcLlamas.py): blue 3200-4947, green 4570-7100, red 6570-10038 A -- consistent with the blue chip reaching below 3417 A."
+  ]
+ },
+ "multiplex": {
+  "title": "Objects per exposure (spectra on the detector)",
+  "rows": {
+   "Magellan/LLAMAS": {
+    "value": 300,
+    "unit": "fibre spectra per CCD (IFU: every fibre is a science spaxel; 24 CCDs, 2400 fibres in total)",
+    "src": "F20",
+    "loc": "Sec. 3.1, p.114470A-12",
+    "quote": "choosing a 2k × 2k CCD format we settled on the slit height of 300 fibers and thus 8 spectrographs",
+    "kind": "maximum = full complement (all fibres on every exposure)",
+    "alternatives": [
+     {
+      "value": "300 or 298",
+      "src": "MITSPEC",
+      "loc": "Integral Field Unit table",
+      "quote": "# spectrographs 8 (4 x 300 fibers + 4 x 298 fibers)"
+     }
+    ]
+   }
+  }
+ }
+}

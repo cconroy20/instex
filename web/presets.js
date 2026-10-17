@@ -93,6 +93,64 @@ const PRESETS = [
     ],
   },
   {
+    id: "mage", tel: "Magellan 6.5 m", name: "Magellan / MagE, 1″",
+    note: "Magellan MagE echellette (Marshall et al. 2008; LCO MagE manual; on Baade since 2017, same f/11): off-axis paraboloid collimator 1094 mm (beam 99 mm), vacuum Schmidt camera 138 mm (f/1.4), 175 /mm echellette with δ = 32.3°, quasi-Littrow (angles not published: 0 here), fused-silica prisms 46° in double pass and 40° single pass (three passes, each at minimum deviation; the rotation angles are not published), E2V 42-20 2048 × 1024 of 13.5 µm. The central wavelength (4150 Å) is chosen to put orders 6–20 on the chip; the source does not give one.",
+    state: { mode: "echelle", D: 6.5, F: 11.0,
+      e: { slitW: 1, nObj: 1, col: "mirror", W: 1094 / 11.0, fcam: 138, eG: 175, eDelta: 32.3, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
+           xGlass: "silica", xA: 46, xPasses: 1, xPrisms: [{ glass: "silica", A: 46 }, { glass: "silica", A: 46 }, { glass: "silica", A: 40 }], lamC: 4150, Nx: 2048, Ny: 1024, pix: 13.5 } },
+    pub: [
+      { what: "R = 4100 at 1″ (design)", q: "Rs", value: 4100, tol: 0.05, src: "Marshall et al. 2008; LCO MagE manual" },
+      { what: "15 orders (6–20) across the 1024-px chip", q: "nOrders", value: 15, tol: 0.001, src: "Marshall et al. 2008 (the three prism passes set the count; λc only places them)" },
+      { what: "0.231 Å/px in order 20 at 3125 Å", q: "dlpixAt", lam: 3125, m: 20, value: 0.231, tol: 0.02, src: "Marshall et al. 2008 Table 2" },
+      { what: "0.426 Å/px in order 11 at 5590 Å", q: "dlpixAt", lam: 5590, m: 11, value: 0.426, tol: 0.02, src: "Marshall et al. 2008 Table 2" },
+      { what: "0.788 Å/px in order 6 at 9700 Å", q: "dlpixAt", lam: 9700, m: 6, value: 0.788, tol: 0.04, src: "Marshall et al. 2008 Table 2 (the table rises 5% faster than an ideal echellette across the orders)" },
+      { what: "0.3″/px along the slit", q: "pixScale", value: 0.3, tol: 0.04, src: "Marshall et al. 2008 (0.33 in one source)" },
+      { what: "measured R = 4770 at 1″ (sky lines)", q: "R", value: 4770, info: true, src: "Rigby et al. 2018 (MegaSaura); 16% above the design value" },
+    ],
+  },
+  {
+    id: "imacs", tel: "Magellan 6.5 m", name: "Magellan / IMACS f/4, 1200 l/mm, 0.7″",
+    note: "Magellan Baade IMACS long (f/4) camera (Dressler et al. 2011; Carnegie IMACS manual and grating-tilt calculator): f/11 Nasmyth, refractive collimator 1648 mm (beam 150 mm), camera 641.8 mm, fixed 45° camera–collimator angle, 1200 l/mm reflection grating blazed 32.7° at λc ≈ 8250 Å (tilt 32.4°), Mosaic 8192 × 8192 of 15 µm; 51 slits per mask (mean of 25 published dwarf-galaxy masks).",
+    state: { mode: "grating", D: 6.5, F: 11.0,
+      g: { slitW: 0.7, nObj: 51, col: "lens", W: 1648.46 / 11.0, fcam: 641.8, gType: "refl", G: 1200, m: 1, lamB1: 2 * Math.sin(32.7 * Math.PI / 180) / 1200 * 1e7, lamC: 8250, psi: 45, tAlpha: null,
+           Nx: 8192, Ny: 8192, pix: 15 } },
+    pub: [
+      { what: "0.19 Å/px", q: "dlpix", value: 0.19, tol: 0.03, src: "Simon et al. 2017; Li et al. 2018" },
+      { what: "R ≈ 11,000 (0.7″)", q: "R", value: 11000, tol: 0.08, src: "Simon et al. 2017, 2020; Li et al. 2018 (measured)" },
+      { what: "coverage from ~7400 Å", q: "lo", value: 7400, tol: 0.015, src: "Simon et al. 2017" },
+      { what: "coverage to ~9000 Å", q: "hi", value: 9000, tol: 0.015, src: "Simon et al. 2017" },
+      { what: "0.111″/px", q: "pixScale", value: 0.111, tol: 0.01, src: "Carnegie IMACS manual" },
+    ],
+  },
+  // Magellan / LLAMAS: three arms of fiber-fed VPH spectrographs; the gratings are not published (data/round4/llamas.md)
+  ...[["blue", 2233, 4222, 3417, 4947, 0.762, "1500–2500"], ["green", 1425, 5923, 4634, 7100, 1.204, "1400–2400"], ["red", 1070, 8466, 6771, 10000, 1.609, "1750–2500"]].map(([arm, G, lc, l0, l1, disp, Rlab]) => ({
+    id: "llamas" + arm[0], tel: "Magellan 6.5 m", name: "Magellan / LLAMAS " + arm + " (grating fitted)",
+    note: "Magellan LLAMAS IFU, " + arm + " arm (Furesz et al. 2020; MIT LLAMAS pages, exposure-time calculator and pipeline tables): lenslets convert f/11 to f/4 at 110 µm fibers (0.873″, entered as the slit of equal line width, 0.756″), 300 spectra per detector, on-axis spherical collimator mirror 200 mm (beam 50 mm), camera 70 mm, e2v 2048 × 2048 of 13.5 µm. The VPH line density (" + G + " /mm) and its symmetric angle are NOT published: they are fitted so the published band " + l0 + "–" + l1 + " Å fills the chip.",
+    state: { mode: "grating", D: 6.5, F: 4.0,
+      g: { slitW: S3 * 0.110 / (4.0 * 6500) * 206264.806, nObj: 300, col: "mirror", W: 50, fcam: 70, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
+           psi: 35, tAlpha: null, Nx: 2048, Ny: 2048, pix: 13.5 } },
+    pub: [
+      { what: disp + " Å/px at the chip center (arc tables)", q: "dlpix", value: disp, tol: 0.03, src: "llamas-pyjamas arc tables (the grating was fitted to the band, not to these)" },
+      { what: "lab R " + Rlab, q: "R", value: NaN, info: true, src: "Furesz et al. 2020 (pre-ship lab range; R ≈ 2000 in the papers)" },
+    ],
+  })),
+  {
+    id: "esi", tel: "Keck 10 m", name: "Keck / ESI echellette, 1″",
+    note: "Keck II ESI echellette mode (Sheinis et al. 2002; 1996 design report; Keck ESI pages): off-axis paraboloid collimator 2286 mm (beam 166.9 mm at f/13.7), 10-element refractive camera 308 mm, 175 /mm echellette with δ = 32.3°, quasi-Littrow (γ is 'a few degrees', not published: 0 here), two 50° OHARA BSL7Y prisms, the first in double pass (three passes at minimum deviation), MIT/LL CCID20 4096 × 2048 of 15 µm; λc = 5250 Å from the design order positions.",
+    state: { mode: "echelle", D: 10.95, F: 13.7,
+      e: { slitW: 1, nObj: 1, col: "mirror", W: 2286 / 13.7, fcam: 308, eG: 175, eDelta: 32.3, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
+           xGlass: "BSL7Y", xA: 50, xPasses: 1, xPrisms: [{ glass: "BSL7Y", A: 50 }, { glass: "BSL7Y", A: 50 }, { glass: "BSL7Y", A: 50 }], lamC: 5250, Nx: 4096, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: "R = 4000 at 1″ (slit × 11.5 km/s/px)", q: "Rs", value: 4000, tol: 0.04, src: "Keck ESI pages, Table 2 (geometric)" },
+      { what: "0.1545 Å/px in order 15 at 4077 Å", q: "dlpixAt", lam: 4077.46, m: 15, value: 0.154482, tol: 0.02, src: "Keck ESI wavelength solutions" },
+      { what: "0.2121 Å/px in order 11 at 5549 Å", q: "dlpixAt", lam: 5549.09, m: 11, value: 0.212052, tol: 0.02, src: "Keck ESI wavelength solutions" },
+      { what: "0.3345 Å/px in order 7 at 8708 Å", q: "dlpixAt", lam: 8707.59, m: 7, value: 0.334496, tol: 0.02, src: "Keck ESI wavelength solutions" },
+      { what: "orders 6 and 15 at +86% and −79% of the half-chip (25.3 mm apart)", q: "ySpan", m1: 6, m2: 15, value: 0.825 * 2048 * 0.015, info: true, src: "1996 ESI design report, order positions (missed the 8% tolerance set beforehand: three passes at exact minimum deviation give 23.0 mm; the design's prisms are only 'near' minimum deviation)" },
+      { what: "minimum order separation 22″", q: "minSepArcsec", m1: 6, m2: 15, value: 22, tol: 0.08, src: "Sheinis et al. 2002" },
+      { what: "0.144″/px along the slit in order 11 (0.120 in order 15 to 0.168 in order 6)", q: "pixScale", value: 0.144, info: true, src: "Keck ESI pages (the model's prisms give 0.144 to 0.162 across the same orders)" },
+    ],
+  },
+  {
     id: "deimos", tel: "Keck 10 m", name: "Keck / DEIMOS, 1200G, 0.75″",
     note: "Keck II DEIMOS (Keck DEIMOS pages; Faber's 1995 grating table): collimator mirror 86.50 in, beam 6.33 in (f/13.67 on the 10.95 m primary), camera 15.00 in, fixed camera–collimator angle 44.451°, 1200G at λc = 8000 Å (blaze 7500 Å, the value consistent with the listed 26.7° blaze angle), 8192 × 8192 mosaic of 15 µm pixels (CCD gaps not modeled).",
     state: { mode: "grating", D: 10.95, F: 86.50 / 6.33,
@@ -108,6 +166,23 @@ const PRESETS = [
       { what: "R with aberrations, 8000/1.35 Å", q: "R", value: 8000 / 1.35, info: true, src: "Faber 1995 grating table, effective FWHM (the model has no aberrations)" },
     ],
   },
+  // Keck I / MOSFIRE: one reflection grating in orders 6, 5, 4, 3 for Y, J, H, K (data/round4/mosfire.md)
+  ...[["Y", 6, 10373, 1.0855, 2.92, 3380, 9716, 11250], ["J", 5, 12450, 1.3028, 2.92, 3310, 11530, 13520],
+      ["H", 4, 16321, 1.6269, 2.87, 3660, 14680, 18040], ["K", 3, 21760, 2.1691, 2.87, 3620, 19540, 23970]].map(([b, m, lc, disp, npx, Rm, lo, hi]) => ({
+    id: "mosfire" + b.toLowerCase(), tel: "Keck 10 m", name: "Keck / MOSFIRE " + b + ", 0.7″",
+    note: "Keck I MOSFIRE (McLean et al. 2012; Keck MOSFIRE pages): f/13.66 Cassegrain, six-element refractive collimator 1813 mm (beam 132.7 mm on the 10.95 m primary), camera 250 mm (reduction 7.25), 110.5 l/mm reflection grating blazed 21.93°, fixed 40° camera–collimator angle, " + b + " band in order " + m + " at λc = " + lc + " Å, HAWAII-2RG 2048 × 2048 of 18 µm; 28 slits per mask (MOSDEF average; 46 bars).",
+    state: { mode: "grating", D: 10.95, F: 13.66,
+      g: { slitW: 0.7, nObj: 28, col: "lens", W: 1813.0 / 13.66, fcam: 250.0, gType: "refl", G: 110.5, m, lamB1: 2 * Math.sin(21.93 * Math.PI / 180) / 110.5 * 1e7, lamC: lc, psi: 40, tAlpha: null,
+           Nx: 2048, Ny: 2048, pix: 18 } },
+    pub: [
+      { what: disp + " Å/px", q: "dlpix", value: disp, tol: 0.003, src: "McLean et al. 2012 Table 1; Keck MOSFIRE grating page" },
+      { what: "0.7″ slit image " + npx + " px", q: "npix", value: npx, tol: 0.02, src: "Keck MOSFIRE spectroscopy page" },
+      { what: "0.1798″/px", q: "pixScale", value: 0.1798, tol: 0.01, src: "McLean et al. 2012" },
+      ...(b === "K" ? [{ what: "coverage from 19540 Å", q: "lo", value: lo, tol: 0.001, src: "McLean et al. 2012 Table 1" }, { what: "coverage to 23970 Å", q: "hi", value: hi, tol: 0.001, src: "McLean et al. 2012 Table 1" }]
+        : [{ what: "coverage " + lo + "–" + hi + " Å" + (b === "H" ? "" : " (set by the order-sorting filter; the detector spans more)"), q: "span", value: hi - lo, info: true, src: "McLean et al. 2012 Table 1" }]),
+      { what: "measured R = " + Rm + " (0.7″), vs the slit-limited model", q: "Rs", value: Rm, info: true, src: "McLean et al. 2012 (the measured R is 1–5% above the aberration-free slit image)" },
+    ],
+  })),
   {
     id: "binospec", tel: "MMT 6.5 m", name: "MMT / Binospec, 600 l/mm, 1″",
     note: "MMT Binospec (Fabricant et al. 2019; MMTO grating table): f/5.3 input, refractive collimator 1097 mm (beam 207 mm), refractive camera 404 mm, fixed 45° camera–collimator angle, 600 l/mm plane REFLECTION grating (blaze 16.0°) at 36.1° incidence (λc derived from it), e2v CCD231-84 4096 × 4112 15 µm.",
@@ -209,6 +284,47 @@ const PRESETS = [
       { what: "order 161 to 160 separation 34.2 px", q: "minSepPx", value: 34.2, tol: 0.15, src: "HARPS manual" },
     ],
   },
+  // VISTA / 4MOST: low-resolution (LRS) and high-resolution (HRS) spectrographs, three VPH arms each
+  // (data/round4/4most.md).  LRS: 2016 design-review optics, confirmed by the 4MOST instrument-model (TOAD) table.
+  // HRS: 2014-15 concept optics only; the camera focal length is fitted to the published bands.
+  ...[["LRS", "blue", 1351, 18.65, 36.50, 4636, 3700, 5540, 0.308], ["LRS", "green", 1220, 22.68, 44.86, 6254, 5240, 7210, 0.330], ["LRS", "red", 925, 22.65, 44.82, 8243, 6910, 9500, 0.434],
+      ["HRS", "blue", 3586, null, null, 4152, 3926, 4355, 0.0720], ["HRS", "green", 2836, null, null, 5460, 5160, 5730, 0.0958], ["HRS", "red", 2343, null, null, 6464, 6100, 6790, 0.1137]].map(([sp, arm, G, al, cam, lc, l0, l1, disp]) => {
+    const lrs = sp === "LRS", W = lrs ? 200 : 250, fcol = lrs ? 600 : 750, fcam = lrs ? 345 : 375;
+    return {
+      id: "4most" + sp.toLowerCase()[0] + arm[0], tel: "VISTA 4.1 m (4MOST)", name: "4MOST " + sp + " " + arm + (lrs ? "" : " (concept optics)"),
+      note: "VISTA 4MOST " + sp + " " + arm + " arm (de Jong et al. 2019; 4MOST spectrograph papers" + (lrs ? " and the 2023 instrument-model table" : "") + "): 85 µm fibers (1.45″) at f/3.0, entered as the slit of equal line width, 824 spectra per detector (812 science + 12 calibration), collimator mirror " + fcol + " mm (beam " + W + " mm), VPH " + G + " /mm" + (lrs ? " at α = " + al + "°, camera at " + cam + "° to the collimator" : " at the symmetric setting") + ", camera " + fcam + " mm" + (lrs ? " (f/1.73, 2016 design review)" : " (fitted to the published bands: the HRS as-built optics are not public)") + ", 6144 × 6160 pixels of 15 µm.",
+      state: { mode: "grating", D: 4.10, F: fcol / W,
+        g: { slitW: S3 * 0.085 / (3.0 * 4100) * 206264.806, nObj: 824, col: "mirror", W, fcam, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
+             psi: 35, tAlpha: al, Nx: 6144, Ny: 6160, pix: 15 } },
+      pub: lrs ? [
+        { what: disp + " Å/px at λc", q: "dlpix", value: disp, tol: 0.02, src: "4MOST instrument-model (TOAD) table, 2023" },
+        { what: "band from " + l0 + " Å", q: "lo", value: l0, tol: 0.005, src: "de Jong et al. 2019; TOAD table" },
+        { what: "band to " + l1 + " Å", q: "hi", value: l1, tol: 0.005, src: "de Jong et al. 2019; TOAD table" },
+        { what: "~3 px per resolution element (2.92 median)", q: "npix", value: 2.92, tol: 0.08, src: "4MOST LRS papers" },
+        { what: "R 4000–7700 across the LRS (mean 6500)", q: "R", value: NaN, info: true, src: "de Jong et al. 2019" },
+      ] : [
+        { what: disp + " Å/px at λc (instrument model)", q: "dlpix", value: disp, info: true, src: "4MOST TOAD table (the concept camera is fitted, so this is not an independent test)" },
+        { what: "band " + l0 + "–" + l1 + " Å", q: "span", value: l1 - l0, info: true, src: "de Jong et al. 2019" },
+        { what: "R 18,000–21,000 across the HRS", q: "R", value: NaN, info: true, src: "de Jong et al. 2019 (TOAD ~22,500 at λc)" },
+      ],
+    };
+  }),
+  // Subaru / PFS: blue, red (low resolution) and near-infrared arms of four identical fiber-fed VPH spectrographs
+  // (data/round4/pfs.md); the medium-resolution red arm is a grism, which the explorer does not model
+  ...[["blue", "b", 711.4, 7.2, 14.2, 4176, 4096, 0.7, 2500, 5000, 3800, 6500], ["red", "r", 556.7, 9.5, 16.5, 4176, 4096, 0.9, 3000, 8000, 6300, 9700],
+      ["NIR", "n", 569.5, 14.9, 21.9, 4088, 4088, 0.8, 4500, 11000, 9400, 12600]].map(([arm, k, G, al, be, nx, ny, disp, Rp, lR, l0, l1]) => ({
+    id: "pfs" + k, tel: "Subaru 8.2 m", name: "Subaru / PFS " + arm + " arm",
+    note: "Subaru PFS " + arm + " arm (Sugai et al. 2015; Barkhouser et al. 2014 design table; Subaru/IPMU PFS pages): fibers fed at f/2.8 (127 µm core, entered as the slit of equal line width), 616 spectra per detector (600 science + 16 engineering), Schmidt collimator mirror 693.5 mm (the slit-to-collimator distance; beam 248 mm at f/2.8), VPH " + G + " /mm at α = " + al + "°, β = " + be + "° (design values), camera 300 mm f/1.09, " + nx + " × " + ny + " pixels of 15 µm.",
+    state: { mode: "grating", D: 8.2, F: 2.8,
+      g: { slitW: S3 * 0.127 / (2.8 * 8200) * 206264.806, nObj: 616, col: "mirror", W: 693.5 / 2.8, fcam: 300, gType: "trans", G, m: 1, lamB1: 5000,
+           lamC: (Math.sin(al * Math.PI / 180) + Math.sin(be * Math.PI / 180)) / G * 1e7, psi: 35, tAlpha: al, Nx: nx, Ny: ny, pix: 15 } },
+    pub: [
+      { what: "~" + disp + " Å/px", q: "dlpix", value: disp, tol: 0.05, src: "Subaru/IPMU PFS parameter table (July 2024 lab values)" },
+      { what: "R ~" + Rp + " at " + lR + " Å", q: "RAt", lam: lR, value: Rp, info: true, src: "Subaru/IPMU PFS parameter table (the model's fiber image is 8–10% wider than the table's 3.0 px, so its R is 9–14% lower; the collimator focal length is not published and 693.5 mm is the slit-to-collimator distance; misses the 12% tolerance set beforehand in two arms)" },
+      { what: "3.0 px per FWHM", q: "npix", value: 3.0, info: true, src: "Subaru/IPMU PFS parameter table (FWHM over Å/px); see the R line" },
+      { what: "band " + l0 + "–" + (l1) + " Å", q: "span", value: l1 - l0, info: true, src: "Subaru/IPMU PFS pages (the dichroics trim the arm's band)" },
+    ],
+  })),
   ...[["B", 1103.5, 11.48, 212.8, 3600, 5930, 2000, 3000], ["R", 1157.4, 18.73, 213.6, 5660, 7720, 3500, 4500], ["Z", 992.5, 21.19, 214.0, 7470, 9800, 4000, 5500]]
     .map(([arm, G, al, fc, l0, l1, r0, r1]) => ({
       id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m (DESI)", name: `DESI ${arm} arm`,
