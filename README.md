@@ -37,6 +37,22 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
   changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last,
   each at the first of its candidate positions that does not overlap a label already placed.
+- **3D** (third layout view, grating mode; 2026-10-17): the dispersion-plane drawing with the slit direction as a
+  third axis, in an orthographic view with orbit controls (as in CAD viewers and three.js's OrbitControls): a
+  sideways drag spins about the slit axis without limit, an up-down drag tilts from straight over to straight
+  under (no roll), a release coasts to a stop; right- or shift-drag pans, scroll zooms, double-click resets;
+  snaps: Top = the Spectral view, Side = looking along the dispersion plane, Oblique. Beams are solids: the surface swept by
+  each bundle's circular pupil (cone to the collimator, tube through the collimated beam, tube to the camera,
+  cone to the focus), translucent, shaded by the angle to a fixed light and outlined by its silhouette (the
+  lengthwise edges where the surface turns from the viewer, found for each view) and a faint ring where it
+  meets each optic; lenses are discs with rims, the
+  grating, fold mirror and detector are plates. Three slit points (top, center,
+  bottom) each send a bundle (center ray and four pupil-edge rays) that leaves the collimator sloping by
+  −z/f_col along the slit and crosses the axis at the grating (the pupil); after the grating each ray follows
+  the traced 3-D direction (the tracer's slit coordinate is −z) to its focus. Rays colored by wavelength (three,
+  plasma) or by slit position (brick/gray/teal). The grating's grooves are drawn along the slit; the detector
+  carries each slit point's spectrum and arrows for λ and the slit direction. Drawn back to front as translucent
+  faces (no hidden-surface removal; a redraw takes ~3 ms); no scale bar (foreshortened). Echelle mode to follow.
 - **Expand** (lower right of the layout panel): the layout fills the window, for playing with the drawing
   directly; Exit or Esc returns it to the page.
 - **Spectral | Spatial** (layout panel header, grating mode). Spectral is the plane of the dispersion described

@@ -20,6 +20,17 @@ const DEF = {
 };
 const clone = o => JSON.parse(JSON.stringify(o));
 let S = clone(DEF);
+// the 3D view's rotation, world -> view (rows: screen right, screen up, toward the viewer); a turntable pose
+// (az about the slit axis, then el) only sets the snaps, the mouse turns it freely
+const rotAzEl = (az, el) => { const ca = Math.cos(az), sa = Math.sin(az), ce = Math.cos(el), se = Math.sin(el); return [[ca, sa, 0], [-se * sa, se * ca, ce], [ce * sa, -ce * ca, se]]; };
+const R3 = { m: rotAzEl(-0.6, 0.5), az: -0.6, el: 0.5 };
+// orbit controls (as in CAD viewers and three.js's OrbitControls): spin about the slit axis without limit, tilt from
+// straight over to straight under, no roll; a release keeps turning and slows to a stop
+const setOrbit = (az, el) => { R3.az = az; R3.el = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, el)); R3.m = rotAzEl(R3.az, R3.el); };
+let orbitVel = null, orbitRAF = 0, drawRAF = 0;
+const drawSoon = () => { if (!drawRAF) drawRAF = requestAnimationFrame(() => { drawRAF = 0; if (cur) drawLayout(cur, curP); }); };
+let turning3 = false;                               // while the 3D view is being turned, the scale holds
+let c3mode = "lam";                                // 3D rays colored by wavelength or by slit position
 const M = () => (S.mode === "grating" ? S.g : S.e);
 
 // presets: filled from data/presets (see README); each sets the full state
@@ -121,7 +132,7 @@ const segs = [
   bindSeg([["foOff", false], ["foOn", true]], () => !!M().foldOn, v => { M().foldOn = v; }),
   bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }),
   bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }),
-  bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; }),
+  bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"], ["v3d", "3d"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; }),
   bindSeg([["sp3", 3], ["sp1", 1]], () => (S.g.spPts === 1 ? 1 : 3), v => { S.g.spPts = v; }),
   bindSeg([["xGr", "grating"], ["xVp", "vph"], ["xPr", "prism"], ["xGm", "grism"]], () => S.e.xd, v => { S.e.xd = v; }),
   bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; }),
@@ -197,7 +208,7 @@ function syncControls() {
     S.g.gType === "trans" ? "g-tr" : S.g.gType === "grism" ? "g-gr" : "g-refl",
     "c-" + M().col,
     M().foldOn ? "fold-on" : "fold-off",
-    S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : "v-spectral",
+    S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : S.mode === "grating" && S.g.view === "3d" ? "v-3d" : "v-spectral",
     lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
     "x-" + S.e.xd,
   ].join(" ");
@@ -498,17 +509,159 @@ function drawLayout(Dz, P) {
             v2(xC, camHalf), v2(xC, -camHalf), v2(xD + 0.04 * fcam, Ly / 2), v2(xD + 0.04 * fcam, -Ly / 2)] };
     $("lSub").textContent = (free ? "drag the point along the slit; " : "") + "along the slit, unfolded (a mirror drawn as a lens), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
   }
+  // ---- 3D view (grating mode): the dispersion-plane drawing above, with the slit direction as a third axis.
+  // World coordinates: x, y the drawing's (after the folds, which are reflections in the dispersion plane and
+  // leave the slit direction alone), z along the slit.  A slit point at height z leaves the collimator as a
+  // parallel bundle sloping by -z / f_col along the slit, centered on the grating (the pupil); after the grating
+  // each ray follows the traced 3-D direction (the tracer's slit coordinate is -z) to its focus on the detector.
+  // Each bundle is drawn as a solid: the surface swept by the edge of its circular pupil (a cone from the slit
+  // point to the collimator, a tube through the collimated beam, a tube to the camera and a cone to the focus).
+  const view3d = P.view === "3d" && !ech;
+  const prims3 = [], pts3 = [], labs3 = [];
+  let proj3 = null, box3 = null;
+  if (view3d) {
+    const NEU3 = [104, 98, 92], GLASS3 = [150, 196, 232], STEEL_RGB = [96, 104, 114], STEEL3 = "#33373d", GE3 = "#3f6d96";
+    const a3 = (p, q) => [p[0] + q[0], p[1] + q[1], p[2] + q[2]], s3 = (p, k) => [p[0] * k, p[1] * k, p[2] * k];
+    const d3 = (p, q) => p[0] * q[0] + p[1] * q[1] + p[2] * q[2], n3 = v => s3(v, 1 / (Math.hypot(v[0], v[1], v[2]) || 1));
+    const x3 = (p, q) => [p[1] * q[2] - p[2] * q[1], p[2] * q[0] - p[0] * q[2], p[0] * q[1] - p[1] * q[0]];
+    const M3 = (fn, p) => { const q = fn([p[0], p[1]]); return [q[0], q[1], p[2]]; };
+    const L3 = (fn, v) => { const q = fn([v[0], v[1]]), o = fn([0, 0]); return [q[0] - o[0], q[1] - o[1], v[2]]; };
+    const W3 = v => [v[2], v[0], v[1]];                           // tracer direction -> unfolded world
+    const Mp = p => M3(Mpost, p);
+    const Ly = Dz.Ly, hMax = 0.5 * Ly * fcol / fcam, lc = Dz.grism ? Dz.grism.lam0 : P.lamC / 1e4;
+    const zcW = W3(Dz.zc), xcW = W3(Dz.xc), ycW = W3(Dz.yc);
+    const C3 = [C[0], C[1], 0], Dc3 = a3(C3, s3(zcW, fcam));
+    const byS = c3mode === "slit";
+    const slits = [[hMax, 0], [0, 0.5], [-hMax, 1]];               // z on the slit, color (brick top .. teal bottom)
+    const lams = [[Dz.range[0], 0], [lc, 0.5], [Dz.range[1], 1]];
+    const NS = 20, RING = Array.from({ length: NS }, (_, k) => [W / 2 * Math.cos(2 * Math.PI * k / NS), W / 2 * Math.sin(2 * Math.PI * k / NS)]);
+    const line = (p, q, col, lw) => { prims3.push({ k: "l", p: [p, q], col, lw }); pts3.push(p, q); };
+    const pline = (ps, col, lw) => { for (let i = 1; i < ps.length; i++) line(ps[i - 1], ps[i], col, lw); };
+    const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw }); pts3.push(...ps); };
+    // a swept surface between stations (each a ring of NS points, or one apex point)
+    // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
+    // footprint rings are made when it is drawn, since the silhouette depends on the view
+    const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); for (const s of stations) pts3.push(...s); };
+    // a disc or a lens of thickness th across the axis n, as wedges (for the depth sort) and a rim
+    const slab = (c, n, r, th, rgb, al, stroke, map = p => p) => {
+      n = n3(n); let u = x3(n, [0, 0, 1]); if (Math.hypot(...u) < 1e-6) u = [1, 0, 0]; u = n3(u); const v = x3(n, u);
+      const ring = off => Array.from({ length: 36 }, (_, k) => map(a3(a3(c, s3(n, off)), a3(s3(u, r * Math.cos(2 * Math.PI * k / 36)), s3(v, r * Math.sin(2 * Math.PI * k / 36))))));
+      const f0 = ring(th / 2), f1 = ring(-th / 2), c0 = map(a3(c, s3(n, th / 2))), c1 = map(a3(c, s3(n, -th / 2)));
+      for (let k = 0; k < 36; k++) {
+        const k2 = (k + 1) % 36;
+        face([c0, f0[k], f0[k2]], rgb, al); face([c1, f1[k], f1[k2]], rgb, al);
+        face([f0[k], f0[k2], f1[k2], f1[k]], rgb, Math.min(1, al * 1.6));
+      }
+      prims3.push({ k: "o", p: f0, stroke, lw: 1.1 }, { k: "o", p: f1, stroke, lw: 1.1 });
+    };
+    // a plate: the rectangle c +- hu u +- hv v, thickness th behind it along -n
+    const plate = (c, u, v, hu, hv, n, th, rgb, al, stroke) => {
+      const P4 = off => [[1, 1], [-1, 1], [-1, -1], [1, -1]].map(([i, j]) => a3(a3(c, s3(n, off)), a3(s3(u, i * hu), s3(v, j * hv))));
+      const F = P4(0), B = P4(-th);
+      face(F, rgb, al, stroke); face(B, rgb, al * 0.8, stroke);
+      for (let k = 0; k < 4; k++) face([F[k], F[(k + 1) % 4], B[(k + 1) % 4], B[k]], rgb, Math.min(1, al * 1.4), stroke, 0.6);
+    };
+    const onCol3 = y => onMirror(y / Math.cos(tau));
+    const Qy3 = y => addv(Cf, sc(tf2, y / Math.sin(phi / 2)));
+    const gPt3 = y => addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a))), gPt03 = y => addv(Gc, sc(tg, y / Math.cos(a)));
+    // white light (or, colored by slit, each slit point's light): telescope cones, cones to the collimator, collimated tubes
+    for (const [z, t] of slits) {
+      const yL = z * d1 / fcol, sl = -z / fcol, zAt = (xu, pz) => yL + pz + sl * (xu - fcol);
+      const bz = z - (yL - z) / fcol * Lt, S0 = [0, 0, z];
+      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), bz + tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13);
+      const rgb = byS ? frampRGB(t) : NEU3, al = byS ? 0.1 : 0.06;
+      const st = [[S0], RING.map(([py, pz]) => { const c = onCol3(py); return [c[0], c[1], yL + pz]; })];
+      if (foldOn) st.push(RING.map(([py, pz]) => { const q = Qy3(py); return M3(Mf, [q[0], q[1], zAt(q[0], pz)]); }));
+      st.push(RING.map(([py, pz]) => { const gp = gPt3(py); return Mp([gp[0], gp[1], zAt(gp[0], pz)]); }));
+      tube(st, rgb, al);
+    }
+    // dispersed light: three wavelengths from each of the three slit points, to their foci on the detector
+    let rCam = lensHalf;
+    const foci = [];
+    for (const [l, tl] of lams) for (const [z, tz] of slits) {
+      const p = Dz.pos(l, Dz.order, 0, -z);
+      if (!p) continue;
+      const b3 = n3(a3(zcW, a3(s3(xcW, p[0] / fcam), s3(ycW, p[1] / fcam)))), Q = a3(Dc3, a3(s3(xcW, p[0]), s3(ycW, p[1])));
+      const rgb = byS ? frampRGB(tz) : rampRGB(tl);
+      const Gs = RING.map(([py, pz]) => { const g0 = gPt03(py); return [g0[0], g0[1], pz]; });
+      const Es = Gs.map(G => a3(G, s3(b3, d3(a3(C3, s3(G, -1)), zcW) / d3(b3, zcW))));
+      for (const E of Es) rCam = Math.max(rCam, Math.hypot(E[0] - C3[0], E[1] - C3[1], E[2] - C3[2]));
+      tube([Gs.map(Mp), Es.map(Mp), [Mp(Q)]], rgb, 0.12);
+      foci.push([Mp(Q), rgb]);
+    }
+    // the optics
+    const rCol = 1.06 * (W / 2 + hMax * d1 / fcol);
+    if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, STEEL_RGB, 0.55, STEEL3);
+    else slab([fcol, 0, 0], [1, 0, 0], rCol, 0.12 * rCol, GLASS3, 0.22, GE3);
+    if (foldOn) {
+      const hL = 1.08 * W / 2 / Math.sin(phi / 2), tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
+      const nrm = n3(x3(tf3, [0, 0, 1])), back = d3(nrm, M3(Mf, [Cf[0] + nf[0], Cf[1] + nf[1], 0]).map((v, i) => v - c[i])) > 0 ? nrm : s3(nrm, -1);
+      plate(c, tf3, [0, 0, 1], hL, rCol, s3(back, -1), 0.04 * W, STEEL_RGB, 0.6, STEEL3);
+    }
+    {
+      const ext = 1.04, zg = ext * W / 2;
+      const A0 = addv(Gc, sc(tg, -ext * W / (2 * Math.cos(a)))), A1 = addv(Gc, sc(tg, ext * W / (2 * Math.cos(a))));
+      const glass = trans || grism, G3c = Mp([Gc[0], Gc[1], 0]), u3 = n3(a3(Mp([A1[0], A1[1], 0]), s3(G3c, -1)));
+      const nIn = n3(x3(u3, [0, 0, 1]));                            // the grating normal (either side)
+      if (grism && !Dz.grism.vph) {
+        const e = Dz.grism.eps, Lh = Math.hypot(A1[0] - A0[0], A1[1] - A0[1]), E2 = addv(A1, sc(v2(-Math.sin(e), -Math.cos(e)), Lh * Math.cos(Dz.grism.A)));
+        for (const z of [zg, -zg]) face([A1, A0, E2].map(q => Mp([q[0], q[1], z])), GLASS3, 0.25, GE3);
+        face([[A1, zg], [E2, zg], [E2, -zg], [A1, -zg]].map(([q, z]) => Mp([q[0], q[1], z])), GLASS3, 0.25, GE3);
+        face([[A0, zg], [E2, zg], [E2, -zg], [A0, -zg]].map(([q, z]) => Mp([q[0], q[1], z])), GLASS3, 0.25, GE3);
+        face([[A0, zg], [A1, zg], [A1, -zg], [A0, -zg]].map(([q, z]) => Mp([q[0], q[1], z])), GLASS3, 0.3, GE3);
+      } else plate(G3c, u3, [0, 0, 1], Math.hypot(A1[0] - A0[0], A1[1] - A0[1]) / 2, zg, nIn, 0.06 * W, glass ? GLASS3 : STEEL_RGB, glass ? 0.3 : 0.6, glass ? GE3 : STEEL3);
+      // the grooves run along the slit
+      for (let k = 1; k < 14; k++) { const q = addv(A0, sc(addv(A1, sc(A0, -1)), k / 14)); line(Mp([q[0], q[1], zg]), Mp([q[0], q[1], -zg]), rgba(rampRGB(k / 14), 0.85), 1); }
+      labs3.push([Mp([Gc[0], Gc[1], zg * 1.15]), grism ? (Dz.grism.vph ? "VPH grism" : "grism") : trans ? "transmission grating" : "grating", "grooves ∥ slit"]);
+    }
+    slab(C3, zcW, rCam * 1.06, 0.12 * rCam, GLASS3, 0.22, GE3, Mp);
+    const cam3 = Mp(C3);
+    // detector: the chip, the spectrum of each slit point across it, the foci, and its two directions
+    {
+      const hx = Lx / 2, hy = Ly / 2, ex = L3(Mpost, xcW), ey = L3(Mpost, ycW), ez = n3(L3(Mpost, zcW));
+      plate(Mp(Dc3), ex, ey, hx, hy, s3(ez, -1), 0.012 * Lx + 0.5, [51, 55, 61], 0.92, STEEL3);
+      const off = s3(zcW, -0.4);
+      for (const [z, tz] of slits) {
+        let prev = null;
+        for (let k = 0; k <= 40; k++) {
+          const l = Dz.range[0] + (Dz.range[1] - Dz.range[0]) * k / 40, p = Dz.pos(l, Dz.order, 0, -z);
+          if (!p) { prev = null; continue; }
+          const q = Mp(a3(a3(Dc3, off), a3(s3(xcW, p[0]), s3(ycW, p[1]))));
+          if (prev) line(prev, q, rgba(byS ? frampRGB(tz) : rampRGB(k / 40), 1), 2.6);
+          prev = q;
+        }
+      }
+      for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
+      const o = Mp(a3(Dc3, a3(s3(xcW, -1.12 * hx), s3(ycW, -1.12 * hy))));
+      prims3.push({ k: "a", p: [o, a3(o, s3(ex, 0.5 * Lx))], txt: "λ" }, { k: "a", p: [o, a3(o, s3(ey, 0.5 * Ly))], txt: "slit" });
+      labs3.push([Mp(a3(Dc3, s3(ycW, 1.35 * hy))), "detector", mm(Lx)]);
+    }
+    // the slit, along z
+    line([0, 0, -1.08 * hMax], [0, 0, 1.08 * hMax], STEEL3, 3);
+    for (const [z, t] of slits) prims3.push({ k: "d", p: [[0, 0, z]], col: byS ? frampRGB(t) : [96, 90, 84] });
+    prims3.push({ k: "a", p: [[0, 0, 1.12 * hMax], [0, 0, 1.12 * hMax + 0.5 * W]], txt: "along the slit" });
+    labs3.push([[0, 0, -1.25 * hMax], "slit", sig(P.slitW, 3) + "″"], [[-Lt, 0, 0], "telescope", "f/" + sig(P.F, 3)],
+      [mirror ? [Cm[0], Cm[1], -rCol * 1.1] : [fcol, 0, -rCol * 1.1], "collimator", "f = " + mm(fcol)], [a3(cam3, [0, 0, -rCam * 1.15]), "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam)]);
+    // the view: a free rotation (R3, world -> view: screen right, screen up, toward the viewer) about the middle
+    // of the scene, so a turn (which keeps the scale) leaves the instrument in place
+    let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+    for (const p of pts3) for (let i = 0; i < 3; i++) { lo[i] = Math.min(lo[i], p[i]); hi[i] = Math.max(hi[i], p[i]); }
+    const cen = s3(a3(lo, hi), 0.5), R = R3.m;
+    proj3 = p => { const d = [p[0] - cen[0], p[1] - cen[1], p[2] - cen[2]]; return [d3(R[0], d), d3(R[1], d), d3(R[2], d)]; };
+    box3 = pts3.map(p => proj3(p).slice(0, 2));
+    $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset";
+  }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
   const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q)].map(Mpost);
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  for (const p of spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
-  const mL = 70, mR = 70, mT = spatial ? 50 : 30, mB = 34;
+  for (const p of view3d ? box3 : spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+  const mL = 70, mR = 70, mT = spatial || view3d ? 50 : 30, mB = 34;
   // the view: fitted to the panel (Auto scale, and whenever a fit is asked for), else held (Fixed scale)
   const sFit = Math.min((w - mL - mR) / (x1 - x0), (h - mT - mB) / (y1 - y0));
   const oxFit = mL + ((w - mL - mR) - sFit * (x1 - x0)) / 2 - sFit * x0, oyFit = mT + ((h - mT - mB) - sFit * (y1 - y0)) / 2 + sFit * y1;
-  if (lview.mode === "auto" || lview.fit || !(lview.s > 0)) { lview.s = sFit; lview.ox = oxFit; lview.oy = oyFit; lview.fit = false; }
+  if (lview.fit || !(lview.s > 0) || (lview.mode === "auto" && !(view3d && turning3))) { lview.s = sFit; lview.ox = oxFit; lview.oy = oyFit; lview.fit = false; }
   const s = lview.s, ox = lview.ox, oy = lview.oy;
   spGeo = spatial && SP.free ? { hMax: SP.hMax, mag: SP.mag, Ly: SP.Ly, xD: SP.xD, s, ox, oy } : null;
   let fold = false;                                  // true while drawing what comes after the grating's fold(s)
@@ -588,7 +741,61 @@ function drawLayout(Dz, P) {
     const hi = p0[1] < p1[1] ? p0 : p1, lo = hi === p0 ? p1 : p0;
     if (L > 24) req(1, "W", [[hi[0], hi[1] - 11, "center"], [lo[0], lo[1] + 12, "center"], [hi[0] + 8, hi[1] + 8, "left"], [hi[0] - 8, hi[1] + 8, "right"]], INK, 14, { sub: mm(W), ital: true, optional: true, then: draw });
   };
-  if (spatial) {
+  if (view3d) {
+    // ---- 3D view: everything projected and drawn back to front; faces shaded by their angle to a light from
+    // the upper left, in front
+    const S2 = p => { const q = proj3(p); return T([q[0], q[1]]); };
+    const LT = [-0.42, 0.55, 0.72], shade = vs => {
+      const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];
+      const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]], L = Math.hypot(...n) || 1;
+      return 0.62 + 0.5 * Math.abs((n[0] * LT[0] + n[1] * LT[1] + n[2] * LT[2]) / L);
+    };
+    const items = [];
+    const put = pr => { const vs = pr.p.map(proj3); items.push({ pr, vs, d: vs.reduce((s, q) => s + q[2], 0) / vs.length }); };
+    for (const pr of prims3) {
+      if (pr.k !== "t") { put(pr); continue; }
+      // a beam: its faces, its silhouette (the lengthwise edges between a face turned toward the viewer and one
+      // turned away), and a faint ring where it meets each optic
+      const st = pr.st, V = st.map(s => s.map(proj3)), dark = pr.rgb.map(x => x * 0.62);
+      for (let i = 1; i < st.length; i++) {
+        const A = st[i - 1], B = st[i], VA = V[i - 1], VB = V[i], n = Math.max(A.length, B.length);
+        const facing = [];
+        for (let k = 0; k < n; k++) {
+          const k2 = (k + 1) % n, a0 = VA[A.length === 1 ? 0 : k], a1 = VA[A.length === 1 ? 0 : k2], b0 = VB[B.length === 1 ? 0 : k], b1 = VB[B.length === 1 ? 0 : k2];
+          const ps = A.length === 1 ? [A[0], B[k], B[k2]] : B.length === 1 ? [A[k], A[k2], B[0]] : [A[k], A[k2], B[k2], B[k]];
+          put({ k: "f", p: ps, rgb: pr.rgb, al: pr.al });
+          // the face's normal toward the viewer, from its two diagonals (works for triangles and quads)
+          const u = A.length === 1 ? [b0[0] - a0[0], b0[1] - a0[1]] : [b1[0] - a0[0], b1[1] - a0[1]], v = A.length === 1 ? [b1[0] - a0[0], b1[1] - a0[1]] : [b0[0] - a1[0], b0[1] - a1[1]];
+          facing.push(u[0] * v[1] - u[1] * v[0] > 0);
+        }
+        for (let k = 0; k < n; k++) if (facing[k] !== facing[(k + n - 1) % n])
+          put({ k: "l", p: [A[A.length === 1 ? 0 : k], B[B.length === 1 ? 0 : k]], col: rgba(dark, 0.85), lw: 1.1 });
+      }
+      for (const s of st) if (s.length > 1) put({ k: "o", p: s, stroke: rgba(dark, 0.45), lw: 0.8 });
+    }
+    items.sort((u, v) => u.d - v.d);
+    for (const { pr, vs } of items) {
+      const q = pr.p.map(S2);
+      if (pr.k === "f") {
+        const b = shade(vs), c = pr.rgb.map(x => Math.min(255, x * b));
+        g.beginPath(); q.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath();
+        g.fillStyle = rgba(c, pr.al); g.fill();
+        if (pr.stroke) { g.strokeStyle = pr.stroke; g.lineWidth = pr.lw; g.stroke(); }
+      } else if (pr.k === "o") { g.beginPath(); q.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.strokeStyle = pr.stroke; g.lineWidth = pr.lw; g.stroke(); }
+      else if (pr.k === "l") { g.beginPath(); g.moveTo(q[0][0], q[0][1]); g.lineTo(q[1][0], q[1][1]); g.strokeStyle = pr.col; g.lineWidth = pr.lw; g.lineCap = "round"; g.stroke(); g.lineCap = "butt"; }
+      else if (pr.k === "d") { g.beginPath(); g.arc(q[0][0], q[0][1], 3.4, 0, 2 * Math.PI); g.fillStyle = rgba(pr.col, 1); g.fill(); g.strokeStyle = "#fff"; g.lineWidth = 1.4; g.stroke(); }
+      else if (pr.k === "a" && P.annot !== false) {
+        const [p0, p1] = q, L = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+        if (L < 6) continue;
+        const ux = (p1[0] - p0[0]) / L, uy = (p1[1] - p0[1]) / L;
+        g.strokeStyle = INK; g.fillStyle = INK; g.lineWidth = 1.3;
+        g.beginPath(); g.moveTo(p0[0], p0[1]); g.lineTo(p1[0], p1[1]); g.stroke();
+        g.beginPath(); g.moveTo(p1[0], p1[1]); g.lineTo(p1[0] - 8 * ux + 3.5 * uy, p1[1] - 8 * uy - 3.5 * ux); g.lineTo(p1[0] - 8 * ux - 3.5 * uy, p1[1] - 8 * uy + 3.5 * ux); g.closePath(); g.fill();
+        req(0, pr.txt, [[p1[0] + 9 * ux, p1[1] + 9 * uy, ux >= 0 ? "left" : "right"], [p1[0], p1[1] - 11, "center"], [p1[0], p1[1] + 12, "center"]], INK, 13.5, { ital: pr.txt === "λ" });
+      }
+    }
+    for (const [p, name, sub] of labs3) { const q = S2(p); req(3, name, [[q[0], q[1], "center"], [q[0], q[1] - 16, "center"], [q[0], q[1] + 16, "center"], [q[0] + 10, q[1], "left"], [q[0] - 10, q[1], "right"]], INK, 13, { sub }); }
+  } else if (spatial) {
     // ---- Spatial view
     const { Ly, hMax, xG, xC, xD, fields } = SP, mmAs = P.D * 1000 * P.F / 206265;   // mm per arcsec at the slit
     const ang = x => (Math.abs(x) >= 60 ? sig(Math.abs(x) / 60, 3) + "′" : sig(Math.abs(x), 3) + "″");
@@ -849,8 +1056,8 @@ function drawLayout(Dz, P) {
       if (L.then) L.then();
     }
   }
-  // scale bar
-  {
+  // scale bar (not in 3D: lengths along the line of sight are foreshortened)
+  if (!view3d) {
     const target = (w - mL - mR) * 0.16 / s, nice = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
     let L = nice[0]; for (const v of nice) if (v <= target) L = v;
     const xb = 14, yb = h - 12;
@@ -875,6 +1082,12 @@ const setExpanded = on => {
   requestAnimationFrame(() => { if (cur) drawLayout(cur, curP); });
 };
 $("lvExpand").addEventListener("click", () => setExpanded(!lvExpanded));
+// 3D view: snap to a view, color by wavelength or slit position
+const sync3 = () => { $("c3L").setAttribute("aria-pressed", String(c3mode === "lam")); $("c3S").setAttribute("aria-pressed", String(c3mode === "slit")); };
+for (const [id, az, el] of [["v3Top", 0, Math.PI / 2], ["v3Side", 0, 0], ["v3Obl", -0.6, 0.5]])
+  $(id).addEventListener("click", () => { orbitVel = null; setOrbit(az, el); lview.fit = true; if (cur) drawLayout(cur, curP); });
+for (const [id, m] of [["c3L", "lam"], ["c3S", "slit"]]) $(id).addEventListener("click", () => { c3mode = m; sync3(); if (cur) drawLayout(cur, curP); });
+sync3();
 window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded) setExpanded(false); });
 {
   const cv = $("cvL");
@@ -908,18 +1121,50 @@ window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded
   cv.addEventListener("mousedown", ev => {
     const k = spHit(ev);
     if (k) { ptDrag = k; cv.style.cursor = "ns-resize"; movePoint(ev); return; }
-    drag = { x: ev.clientX, y: ev.clientY, ox: lview.ox, oy: lview.oy }; cv.style.cursor = "grabbing";
+    const is3d = curP && curP.view === "3d" && curP.mode === "grating";
+    orbitVel = null; cancelAnimationFrame(orbitRAF);
+    drag = { x: ev.clientX, y: ev.clientY, ox: lview.ox, oy: lview.oy, turn: is3d && !ev.shiftKey && ev.button === 0, az0: R3.az, el0: R3.el, lx: ev.clientX, ly: ev.clientY, lt: performance.now(), v: [0, 0] };
+    cv.style.cursor = "grabbing";
+    turning3 = drag.turn;
   });
   cv.addEventListener("mousemove", ev => { if (!drag && !ptDrag) cv.style.cursor = spHit(ev) ? "ns-resize" : ""; });
   window.addEventListener("mousemove", ev => {
     if (ptDrag && cur && spGeo) { movePoint(ev); return; }
     if (!drag || !cur) return;
+    if (drag.turn) {
+      // a full panel height of drag turns the view by 360 degrees (OrbitControls' rate)
+      const k = 2 * Math.PI / (cv.clientHeight || 400);
+      setOrbit(drag.az0 - (ev.clientX - drag.x) * k, drag.el0 + (ev.clientY - drag.y) * k);
+      const t = performance.now(), dt = Math.max(1, t - drag.lt);
+      drag.v = [-(ev.clientX - drag.lx) * k / dt, (ev.clientY - drag.ly) * k / dt];   // radians per ms, for the coast
+      drag.lx = ev.clientX; drag.ly = ev.clientY; drag.lt = t;
+      drawSoon();
+      return;
+    }
     toFixed();
     lview.ox = drag.ox + ev.clientX - drag.x; lview.oy = drag.oy + ev.clientY - drag.y;
-    drawLayout(cur, curP);
+    drawSoon();
   });
-  window.addEventListener("mouseup", () => { if (drag || ptDrag) { drag = null; ptDrag = null; cv.style.cursor = ""; } });
-  cv.addEventListener("dblclick", () => { lview.fit = true; drawLayout(cur, curP); });
+  window.addEventListener("mouseup", () => {
+    if (drag && drag.turn && performance.now() - drag.lt < 80 && Math.hypot(...drag.v) > 2e-4) {
+      // coast: keep the release speed, slowing by 8% a frame
+      orbitVel = drag.v.map(x => x * 16);
+      const step = () => {
+        if (!orbitVel || !cur) return;
+        setOrbit(R3.az + orbitVel[0], R3.el + orbitVel[1]);
+        orbitVel = orbitVel.map(x => x * 0.92);
+        drawLayout(cur, curP);
+        if (Math.hypot(...orbitVel) > 1e-4) orbitRAF = requestAnimationFrame(step); else { orbitVel = null; turning3 = false; }
+      };
+      orbitRAF = requestAnimationFrame(step);
+    } else if (drag) turning3 = false;
+    if (drag || ptDrag) { drag = null; ptDrag = null; cv.style.cursor = ""; }
+  });
+  cv.addEventListener("contextmenu", ev => { if (curP && curP.view === "3d") ev.preventDefault(); });     // right-drag pans
+  cv.addEventListener("dblclick", () => {
+    if (curP && curP.view === "3d" && curP.mode === "grating") { orbitVel = null; setOrbit(-0.6, 0.5); }
+    lview.fit = true; drawLayout(cur, curP);
+  });
 }
 
 function message(g, w, h, txt) {
@@ -948,7 +1193,7 @@ function lamRGB(lA) {
   return [0, 1, 2].map(i => a[1][i] + (b[1][i] - a[1][i]) * t);
 }
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
-let spGeo = null, lvExpanded = false;                                                  // Spatial view, one free point: screen geometry for dragging
+let spGeo = null, lvExpanded = false;                              // Spatial view, one free point: screen geometry for dragging
 let detGeom = null, traces = [], hover = null, offD = null, offB = null;
 
 function objectOffsets(Dz, P) {
@@ -1240,7 +1485,7 @@ window.addEventListener("resize", () => { if (cur) { drawLayout(cur, curP); draw
 
 // test hooks
 window.__instex = {
-  state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo,
+  state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }),
