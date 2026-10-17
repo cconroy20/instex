@@ -25,14 +25,14 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   (the beam meets the drawn parabolic mirror on its curve, both coming in and going out),
   a line through (f_col, 0) tilted by τ: by default τ = ½ asin(1.3 W/d), d the collimator–grating spacing, so
   that the returning beam clears the incoming one. The **Mod layout** pop-up in the panel header holds the
-  drawing-only options: Collimated beam length (collimator to grating; automatic until moved), a Fold mirror
+  drawing-only options: Collimated beam length (collimator to grating; automatic until moved), the Collimator
+  tilt τ just below it (mirror collimators), a Fold mirror
   (Off | On) in the collimated beam with its Fold angle (how far it turns the beam, 0–360°, counterclockwise
   on the page for either collimator, the far side of 180° turning clockwise; everything beyond it is drawn
   reflected about it) and Fold position (fraction of the way from the collimator to the grating), Grating turns
   light (As drawn | Flipped: the grating tilted the other way, so it turns the light to the other side; the
   grating and everything after it reflected about the collimated beam's axis), Labels and marks (Show | Hide: the text,
-  the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays), and the
-  Collimator tilt τ (mirror collimators). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
+  the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
   ~2.85 m collimated beam, collimator tilt 0, grating Flipped: the fold and the grating turn the light the same
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
   changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last,

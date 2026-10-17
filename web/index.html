@@ -18,7 +18,7 @@
     </span>
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
-    <span class="presetnote">Presets approximate the optical characteristics but not necessarily the optical layout.</span>
+    <span class="presetnote">Presets approximate the optical characteristics but not the optical layout.</span>
     <button id="reset" class="ghost" type="button" title="Back to the defaults: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset</button>
   </div>
 </header>
@@ -40,6 +40,10 @@
           <label for="sLL"><span>Collimated beam length</span><span class="val" id="vLL"></span></label>
           <input type="range" id="sLL" min="1" max="4" step="0.005">
         </div>
+        <div class="ctl only-mirror" title="Tilt of the collimator mirror, which sets how far the beam folds back toward the grating (the beam turns by twice the tilt). The tilt changes only the drawing because the collimator is ideal (in a real spectrograph a larger tilt introduces off-axis aberrations). Until moved, the slider follows the automatic choice that keeps the returning beam clear of the light arriving from the slit.">
+          <label for="sCT"><span>Collimator tilt</span><span class="val" id="vCT"></span></label>
+          <input type="range" id="sCT" min="0" max="40" step="0.25">
+        </div>
         <div class="caserow" title="A flat fold mirror in the collimated beam, as many spectrographs use to make the bench shorter. The fold changes only the drawing."><span>Fold mirror</span>
           <span class="seg sm"><button id="foOff" type="button">Off</button><button id="foOn" type="button">On</button></span></div>
         <div class="ctl only-fold" title="How far the fold mirror turns the beam, 0-360°, counterclockwise on the page (past 180° the turn is clockwise). The angle of incidence on the mirror is |180° - angle| / 2; near 0° or 360° the mirror would lie edge-on to the beam, so no fold is drawn.">
@@ -54,10 +58,6 @@
           <span class="seg sm"><button id="gfOff" type="button">As drawn</button><button id="gfOn" type="button">Flipped</button></span></div>
         <div class="caserow" title="Show or hide the text and construction marks: labels, numbers, the beam diameter W, the grating normal with α and β, and the scale bar. Hidden leaves the optics and the rays."><span>Labels and marks</span>
           <span class="seg sm"><button id="anOn" type="button">Show</button><button id="anOff" type="button">Hide</button></span></div>
-        <div class="ctl only-mirror" title="Tilt of the collimator mirror, which sets how far the beam folds back toward the grating (the beam turns by twice the tilt). The tilt changes only the drawing because the collimator is ideal (in a real spectrograph a larger tilt introduces off-axis aberrations). Until moved, the slider follows the automatic choice that keeps the returning beam clear of the light arriving from the slit.">
-          <label for="sCT"><span>Collimator tilt</span><span class="val" id="vCT"></span></label>
-          <input type="range" id="sCT" min="0" max="40" step="0.25">
-        </div>
       </div>
     </section>
     <section class="panel">
