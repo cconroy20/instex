@@ -203,7 +203,7 @@ function design(P) {
       }
       let l0 = NaN;
       for (const r of roots) if (!(Math.abs(r - lamC) >= Math.abs(l0 - lamC))) l0 = r;
-      if (!(l0 > 0) || !(Math.abs(g(l0)) < 1e-9)) { S.bad = "This grism passes no wavelength straight through inside the glass's valid range."; return S; }
+      if (!(l0 > 0) || !(Math.abs(g(l0)) < 1e-9)) { S.bad = "This grism passes no wavelength straight through inside the glass's valid range: change the apex angle or the groove density."; return S; }
       lamC = l0;
       const n0 = nGlass(P.gGlass, l0), tt = Math.asin(Math.sin(A) / n0);
       S.grism = { A, vph, eps, n0, lam0: l0, inner: vph ? A - tt : A };

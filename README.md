@@ -13,8 +13,10 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
 
 - **Optical layout** (left): the spectrograph from above, in the dispersion plane. Auto scale refits the drawing
   on every change; Fixed scale keeps mm per pixel (and the scale bar) fixed so the instrument visibly grows and
-  shrinks; scroll zooms about the pointer and drag pans (either switches to Fixed); Reset (or double-click)
-  refits. A new preset, mode or global Reset refits too. Sizes are to scale
+  shrinks; scroll zooms about the pointer and drag pans (either switches to Fixed); Refit (or double-click)
+  refits. A new preset, mode or Reset all (header: the whole instrument back to the defaults) refits too. A
+  caption beside the scale bar says what the view simplifies (echelle: the camera arm drawn at 30°) or how to
+  steer it (3D, Spatial with one free point); Labels Hide hides the caption too. Sizes are to scale
   (collimator F_tel·W, beam W, illuminated grating length, camera focal length, detector); the
   spacing between the elements is not part of the design and is drawn short, but keeps the camera arm
   clear of the incoming beam when the camera–collimator angle allows. Blue, gray and amber beams carry
@@ -53,8 +55,11 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   plasma) or by slit position (brick/gray/teal). The grating's grooves are drawn along the slit; the detector
   carries each slit point's spectrum and arrows for λ and the slit direction. Drawn back to front as translucent
   faces (no hidden-surface removal; a redraw takes ~3 ms); no scale bar (foreshortened). Echelle mode to follow.
-- **Expand** (lower right of the layout panel): the layout fills the window, for playing with the drawing
-  directly; Exit or Esc returns it to the page.
+- **About** (header, beside Reset all): a dialog with the notes on the model (ideal optics, ray-traced numbers, how R
+  is combined, what the presets reproduce), closed by ×, Esc or a click outside; the page's foot keeps only the
+  credit line (2026-10-18, at Charlie's request).
+- **Expand** (the diagonal-arrows icon at the lower right of the layout panel): the layout fills the window, for
+  playing with the drawing directly; the same button (now arrows pointing in) or Esc returns it to the page.
 - **Spectral | Spatial** (layout panel header, grating mode). Spectral is the plane of the dispersion described
   above: white light as gray rays, then seven wavelengths as colored rays (matplotlib plasma 0.04–0.80, indigo
   short to orange-gold long, lightness rising) meeting at their foci on the detector, with the W arrow, the
@@ -82,9 +87,11 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   0.7″ mask narrows only the dispersion direction, the 1.2″ fiber image, entered as 1.04″). Past ~4000 traces every k-th object is drawn. Hover for λ, order, object, R,
   Å/px and blaze; scroll to zoom down to the pixel grid (the resolution element under the pointer is
   outlined), double-click to reset.
-- **Results strip**: effective R (the slit-limited value in its tooltip; the visible second number was removed at Charlie's request), Δλ (Å and km/s), coverage (and the number of orders),
-  Å/px, sampling given separately along the dispersion (pixels per resolution element) and across it (pixels per
-  trace FWHM, the slit or fiber width imaged along the slit), the spatial ″/px, and warnings.
+- **Results strip** (restyled 2026-10-17 at Charlie's request): one row, a card centered above the panels (the headline numbers, right under the header) on a
+  pale tint of the accent color, five figures with a label each: Resolution ("R =" and R in the same dark type as the other figures, then Δλ in Å and in km/s,
+  muted; "resolving power and resolution are both resolution"), λ range (the orders' count is in the Disperser box, gaps raise a warning), Dispersion,
+  Spatial scale, Sampling, λ × spatial; warnings as chips at the right end, folded into one "n warnings" chip
+  (the list in its tooltip) when they do not fit. No dots between numbers. On a phone the row scrolls sideways.
 - **Controls**, in the order the light travels (Telescope, Entrance, Spectrograph and Detector boxes share one
   width; the Disperser box is wider): Telescope (D, F) | Entrance (slit width, number of objects; readouts: width at the focus and
   the angle θ′ = θ_g cos α/cos β the slit subtends in the beam arriving at the detector, θ_g = φD/W) |
@@ -95,7 +102,8 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   is kept in the URL hash, written a moment after the last change; a link edited by hand is followed, and a value
   of the wrong kind in the link (a negative size, an unknown glass) is ignored. A preset whose instrument the link
   changes loads as Custom. Everything fits without scrolling at 1440 × 900 and 1280 × 800 (every preset is checked
-  at the smaller size).
+  at the smaller size): the layout and detector panels take the height the window has left after the header, the
+  results strip and the controls (2026-10-18), so they grow wherever the controls are short.
 - **Presets** (header menu, 54, grouped by telescope): Keck/LRIS red, HIRES, ESI, KCWI blue, KCRM red, DEIMOS and
   MOSFIRE Y/J/H/K; Magellan/MIKE red and blue, MagE, FIRE, IMACS f/4, LLAMAS blue/green/red (gratings fitted) and
   LDSS-3 VPH-All/Blue/Red; MMT/Binospec, Hectospec and Hectochelle; GMT/G-CLEF red (design); VLT/FORS2 300V, 300I
@@ -406,7 +414,7 @@ than the screen can show are thinned and widened (zooming in restores them).
   the prism glass's range, kept.
 - **Presets**: above.
 
-`node uitest.js` drives the page in headless Chrome (208 checks): every slider moves the results as the
+`node uitest.js` drives the page in headless Chrome (217 checks): every slider moves the results as the
 optics requires (R ∝ 1/D, ∝ W, ∝ 1/φ, independent of F_tel and the camera; sampling ∝
 F_cam and ∝ 1/p; coverage ∝ 1/F_cam and ∝ N_x; at fixed F_cam the pixel scale is independent of W), the disperser
 switches, echelle R4 ≈ 2 × R2 and R ∝ cos γ (to the line-tilt coupling), and the controls no other check moves,

@@ -78,7 +78,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   await go();
   let d0 = await D();
   check("page loads, default grating design valid", !d0.bad && d0.n === 1, `R ${d0.R && d0.R.toFixed(0)}`);
-  const statR = await ev(`document.querySelector(".stat.big .v").textContent`);
+  const statR = await ev(`document.querySelector(".stat.res .rv").textContent`);
   check("results strip shows R", statR.startsWith(String(Math.round(d0.R)).slice(0, 2)), statR);
   {
     const samp = await ev(`[...document.querySelectorAll(".stat")].find(e => /Sampling/.test(e.textContent)).textContent`);
@@ -211,13 +211,13 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const h0 = await ev(`document.getElementById("cvL").clientHeight`);
     await click("#lvExpand"); await sleep(250);
     const h1 = await ev(`document.getElementById("cvL").clientHeight`), w1 = await ev(`document.getElementById("cvL").clientWidth`);
-    check("Expand: the layout fills the window, button reads Exit", h1 > h0 * 1.5 && w1 > (await ev(`innerWidth`)) * 0.9 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Exit" && (await ev(`document.getElementById("err").textContent`)) === "");
+    check("Expand: the layout fills the window, button shows the collapse icon", h1 > h0 * 1.5 && w1 > (await ev(`innerWidth`)) * 0.9 && /Return/.test(await ev(`document.getElementById("lvExpand").getAttribute("aria-label")`)) && (await ev(`document.getElementById("err").textContent`)) === "");
     await click("#lvOptsBtn"); await sleep(100);
     await setRange("#sLL", Math.log10(900)); await sleep(250);
     check("Expanded: changing a layout option keeps the layout expanded", (await ev(`document.body.classList.contains("lv-expanded")`)) && (await ev(`document.getElementById("cvL").clientHeight`)) === h1);
     await click("#lvOptsBtn"); await sleep(100);
     await ev(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`); await sleep(250);
-    check("Esc returns the layout to the page", (await ev(`document.getElementById("cvL").clientHeight`)) === h0 && (await ev(`document.getElementById("lvExpand").textContent`)) === "Expand");
+    check("Esc returns the layout to the page", (await ev(`document.getElementById("cvL").clientHeight`)) === h0 && /Expand/.test(await ev(`document.getElementById("lvExpand").getAttribute("aria-label")`)));
     // 3D view: turnable, snaps, color by wavelength or slit position; drawing only
     await click("#v3d"); await sleep(250);
     const q0 = await ev(`document.querySelector("#cvL").toDataURL().length`), d3a = await D();
@@ -344,10 +344,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
   {
     const box = await ev(`(r => ({x: r.left, y: r.top, w: r.width, h: r.height}))(document.querySelector("#cvD").getBoundingClientRect())`);
-    // grating margins 14 / 14 / 8 / 34; the chip center is the slit center, between objects 10 and 11 -> aim at object 11
-    const g0 = await ev(`(() => { const d = window.__instex.design(); const z = d.objects.zeta[10]; const p = d.pos(d.P.lamC / 1e4, d.order, 0, z); return { X: p[0], Y: p[1], Lx: d.Lx, Ly: d.Ly }; })()`);
-    const aw = box.w - 28, ah = box.h - 42, s0 = Math.min(aw / g0.Lx, ah / g0.Ly);
-    await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: box.x + 14 + aw / 2 + g0.X * s0, y: box.y + 8 + ah / 2 - g0.Y * s0 }); await sleep(150);
+    // the chip center is the slit center, between objects 10 and 11 -> aim at object 11 (the drawing's geometry at zoom 1)
+    const g0 = await ev(`(() => { const d = window.__instex.design(); const z = d.objects.zeta[10]; const p = d.pos(d.P.lamC / 1e4, d.order, 0, z); return { X: p[0], Y: p[1] }; })()`);
+    const G = await ev(`window.__instex.detGeom()`);
+    await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: box.x + G.cxp + g0.X * G.s, y: box.y + G.cyp - g0.Y * G.s }); await sleep(150);
     const hv = await ev(`window.__instex.hover()`);
     check("hover names the object and reads the central wavelength", hv && hv.k === 10 && Math.abs(hv.lam * 1e4 - 5500) < 10, hv ? `object ${hv.k + 1}, ${(hv.lam * 1e4).toFixed(1)} A` : "none");
     check("hover readout shows 'object 11 of 20'", /object 11 of 20/.test(await ev(`document.querySelector("#dSub").textContent`)));
@@ -361,9 +361,9 @@ const rel = (a, b) => Math.abs(a / b - 1);
   check("detector canvas shown in echelle mode", await vis("#cvD"));
   const box = await ev(`(r => ({x: r.left, y: r.top, w: r.width, h: r.height}))(document.querySelector("#cvD").getBoundingClientRect())`);
   const cpos = await ev(`(() => { const d = window.__instex.design(); const L = d.local(d.mlamRef / d.mRef, d.mRef); return { X: L.X, Y: L.Y, Lx: d.Lx, Ly: d.Ly, lam: d.mlamRef / d.mRef, m: d.mRef }; })()`);
-  // geometry of drawDetector at zoom 1: margins 44 / 56 / 22 / 8
-  const aw = box.w - 100, ah = box.h - 30, s0 = Math.min(aw / cpos.Lx, ah / cpos.Ly);
-  const cx = box.x + 44 + aw / 2 + cpos.X * s0, cy = box.y + 22 + ah / 2 - cpos.Y * s0;
+  // the drawing's geometry at zoom 1
+  const G = await ev(`window.__instex.detGeom()`);
+  const cx = box.x + G.cxp + cpos.X * G.s, cy = box.y + G.cyp - cpos.Y * G.s;
   await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: cx, y: cy }); await sleep(150);
   const hv = await ev(`window.__instex.hover()`);
   check("hover on an order reads its wavelength and order", hv && hv.m === cpos.m && Math.abs(hv.lam - cpos.lam) / cpos.lam < 2e-3, hv ? `order ${hv.m}, ${(hv.lam * 1e4).toFixed(2)} A` : "none");
@@ -477,9 +477,33 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("Esc, or a click outside, closes the layout options", escClosed && !(await vis("#sLL")));
     // echelle orders closer than one trace width raise a warning
     await go("#mode=echelle&e.xG=30&e.slitW=3");
-    check("echelle: orders closer than one trace width are flagged on the page", (await ev(`window.__instex.design().flags.some(f => f.k === "ovl")`)) && /trace width/.test(await ev(`document.querySelector(".flags").textContent`)));
+    check("echelle: orders closer than one trace width are flagged on the page", (await ev(`window.__instex.design().flags.some(f => f.k === "ovl")`)) && (await ev(`[...document.querySelectorAll(".flags .flag")].some(e => /trace width/.test(e.textContent + " " + e.title))`)));
     await go("#mode=echelle&e.xd=prism&e.xPrisms=" + encodeURIComponent(JSON.stringify([{ glass: "unobtainium", A: 40 }])));
     check("a link's prism train with an unknown glass is ignored", (await ev(`window.__instex.state().e.xPrisms`)) === null && (await ev(`document.getElementById("err").textContent`)) === "");
+    // layout audit, 2026-10-17: lowercase lambda in the small-caps strip; the drawing's caption below it, clear of
+    // the scale bar and the Expand button and hidden with the labels; the two Resets named apart; a typed grism link
+    await go("#mode=echelle");
+    check("results strip: the labels keep a lowercase λ", (await ev(`[...document.querySelectorAll(".stat .k")].some(e => /λ/.test(e.textContent) && getComputedStyle(e).textTransform === "none")`)));
+    { const r = await ev(`(() => { const c = document.getElementById("lSub"), e = document.getElementById("lvExpand").getBoundingClientRect(), b = c.getBoundingClientRect(), v = document.getElementById("cvL").getBoundingClientRect();
+        return { hid: c.hidden, txt: c.textContent, right: b.right, eLeft: e.left, left: b.left, bottom: b.bottom, vBottom: v.bottom, vLeft: v.left, oneLine: b.height < 22 }; })()`);
+      check("layout caption: shown in full under the drawing, between the scale bar and Expand", !r.hid && /really/.test(r.txt) && r.right <= r.eLeft && r.left > r.vLeft + 60 && r.bottom <= r.vBottom + 1, JSON.stringify(r)); }
+    await click("#lvOptsBtn"); await click("#anOff");
+    check("layout caption hidden with the labels", await ev(`document.getElementById("lSub").hidden`));
+    await click("#anOn"); await click("#lvOptsBtn");
+    // About the model: a dialog from the header; the credit line stays at the bottom of the page
+    await go();
+    check("footer holds only the credit line", /written by Claude/.test(await ev(`document.querySelector("footer").textContent`)) && !/ideal \(aberration-free\)/.test(await ev(`document.querySelector("footer").textContent`)));
+    await click("#aboutBtn");
+    const abOpen = await ev(`document.getElementById("about").open`), abTxt = await ev(`document.getElementById("about").textContent`);
+    await shot("09_about.png");
+    await ev(`document.getElementById("about").dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 5, clientY: 5 }))`); await sleep(100);
+    check("About the model opens a dialog with the model text; a click outside closes it", abOpen && /aberration-free/.test(abTxt) && !(await ev(`document.getElementById("about").open`)));
+    check("the two resets are named apart: 'Reset all' and 'Refit'", (await ev(`document.getElementById("reset").textContent`)) === "Reset all" && (await ev(`document.getElementById("lvReset").textContent`)) === "Refit");
+    await go("#g.gType=grism");
+    { const r = await ev(`(d => [d.bad || null, d.grism && d.grism.lam0])(window.__instex.design())`);
+      check("a typed link to a grism without an apex aims the apex at λc", r[0] === null && Math.abs(r[1] - 0.55) < 0.005, JSON.stringify(r)); }
+    await click("#gTr");
+    check("  ... and leaving the grism brings back the grating's 1200 /mm", (await ev(`window.__instex.state().g.G`)) === 1200);
   }
 
   // ------------------------------------------------------------ controls no other check moves, each against a closed form
@@ -573,6 +597,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
     }
     await go(); await shot(`08_fit_${w}.png`);
   }
+  // the panels take the height left over: in the default (shorter) grating controls, the controls still end at the bottom
+  await size(1440, 900); await go();
+  { const f = await fit(); check("1440x900 grating: the panels grow to fill the window (controls end at its bottom)", f.bottom > f.vh - 12 && f.bottom <= f.vh + 0.5, `bottom ${f.bottom.toFixed(0)} / ${f.vh}`); }
+  await size(1280, 800);
   // every preset at the smaller laptop screen (the tighter one)
   {
     const ids = await ev(`window.IX_PRESETS.map(p => p.id)`), over = [];

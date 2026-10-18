@@ -16,20 +16,23 @@
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
     <span class="presetnote">Presets approximate the optical characteristics but not the optical layout.</span>
-    <button id="reset" class="ghost" type="button" title="Back to the defaults: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset</button>
+    <button id="aboutBtn" class="ghost" type="button" title="About the model: how the numbers are computed, and what the model leaves out.">About</button>
+    <button id="reset" class="ghost" type="button" title="Back to the defaults for the whole instrument: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset all</button>
   </div>
 </header>
 
 <main>
+  <div class="stats" id="stats"></div>
   <div class="panels">
     <section class="panel" id="lvPanel">
-      <div class="ph"><h2 title="The spectrograph seen from above, in the plane of the dispersion. Element sizes are to scale: the collimator focal length F_tel × W, the beam diameter W, the illuminated grating length, the camera focal length, and the detector. The distances between the collimator, the grating, and the camera are not specified by the design and are drawn short. White light is drawn as gray rays; after the grating each color is one wavelength, from deep indigo (shortest) to orange-gold (longest), with three rays per wavelength meeting at its focus on the detector. The Spatial view shows the plane along the slit instead.">Optical layout</h2><span class="sub" id="lSub"></span>
+      <div class="ph"><h2 title="The spectrograph seen from above, in the plane of the dispersion. Element sizes are to scale: the collimator focal length F_tel × W, the beam diameter W, the illuminated grating length, the camera focal length, and the detector. The distances between the collimator, the grating, and the camera are not specified by the design and are drawn short. White light is drawn as gray rays; after the grating each color is one wavelength, from deep indigo (shortest) to orange-gold (longest), with three rays per wavelength meeting at its focus on the detector. The Spatial view shows the plane along the slit instead.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
         <span class="seg sm only-grat" id="lvViewSeg" title="Spectral: the plane of the dispersion, seen from above, with rays colored by wavelength. Spatial: the plane that holds the slit length, unfolded onto one axis at the central wavelength, with rays colored by position along the slit: each point leaves the collimator as a parallel bundle, the bundles cross at the grating (the pupil), and the camera images the slit onto the detector, inverted and scaled by f_cam / f_col."><button id="vSpec" type="button">Spectral</button><button id="vSpat" type="button">Spatial</button><button id="v3d" type="button" title="The instrument in three dimensions: the dispersion plane with the slit direction as the third axis. Drag to turn it; Top is the Spectral view, Side looks along the dispersion plane.">3D</button></span>
         <button id="lvOptsBtn" class="ghost lv" type="button" title="Drawing options: the collimated beam's length, a fold mirror, which way the grating turns the light, the labels, and the collimator mirror's tilt. None of the options changes a number on the page.">Mod layout</button>
         <span class="seg sm" id="lvSeg" title="Auto scale refits the drawing to the panel after each change. Fixed scale holds the millimeters per pixel (and the scale bar), so the instrument grows and shrinks as the design changes. Scroll to zoom; drag to pan (to turn, in the 3D view). Zooming or panning switches to Fixed scale."><button id="lvAuto" type="button">Auto scale</button><button id="lvFixed" type="button">Fixed scale</button></span>
-        <button id="lvReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Reset</button></div>
+        <button id="lvReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same). Changes only the view.">Refit</button></div>
       <canvas id="cvL" aria-label="Optical layout"></canvas>
-      <button id="lvExpand" class="ghost lvx" type="button" title="Expand the layout to fill the window, to play with the drawing directly (Esc returns).">Expand</button>
+      <div id="lSub" class="lcap" hidden></div>
+      <button id="lvExpand" class="ghost lvx" type="button" aria-label="Expand the layout" title="Expand the layout to fill the window, to play with the drawing directly (Esc returns)."></button>
       <div class="ptsbox only-3d" title="Snap the 3D view, and color the rays by wavelength (three wavelengths, as in the Spectral view) or by slit position (the top, center and bottom of the slit, as in the Spatial view)."><span class="seg sm"><button id="v3Top" type="button">Top</button><button id="v3Side" type="button">Side</button><button id="v3Obl" type="button">Oblique</button></span>
         <span>Color</span><span class="seg sm"><button id="c3L" type="button">λ</button><button id="c3S" type="button">Slit</button></span></div>
       <div class="ptsbox only-spatial" title="Points along the slit. 3 fixed: the two ends of the slit and its center. 1 free: a single point; drag it along the slit (or drag its image along the detector)."><span>Slit points</span>
@@ -65,7 +68,6 @@
     </section>
   </div>
 
-  <div class="stats" id="stats"></div>
 
   <div class="controls">
     <section>
@@ -197,9 +199,16 @@
 </main>
 
 <footer>
-  <p>The collimator and camera are ideal (aberration-free), and the dispersers are plane. The numbers are measured by tracing rays through the vector grating equation and Snell's law, from the slit to the detector; the closed forms of the design notes (R φ = 2 tan δ W/D in Littrow, F<sub>cam</sub> ≥ n<sub>pix</sub> p/(φ D), and the rest) are reproduced by the trace and checked in the validation suite. The resolving power is the FWHM of the slit image, with the grating's diffraction limit and the pixel width added in quadrature; blaze efficiency is the scalar sinc² envelope, relative to the peak. Presets come from the instrument papers and manuals. The presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Fiber-fed instruments are entered as the slit of equal line width.</p>
   <p>This page was written by Claude (Opus 5.5), working in Claude Code with Charlie Conroy.</p>
 </footer>
+
+<dialog id="about" class="about" aria-labelledby="aboutTitle">
+  <div class="abhead"><h2 id="aboutTitle">About the model</h2><button id="aboutClose" class="ghost" type="button" aria-label="Close">×</button></div>
+  <p>The collimator and camera are ideal (aberration-free), and the dispersers are plane.</p>
+  <p>The numbers are measured by tracing rays through the vector grating equation and Snell's law, from the slit to the detector; the closed forms of the design notes (R φ = 2 tan δ W/D in Littrow, F<sub>cam</sub> ≥ n<sub>pix</sub> p/(φ D), and the rest) are reproduced by the trace and checked in the validation suite.</p>
+  <p>The resolving power is the FWHM of the slit image, with the grating's diffraction limit and the pixel width added in quadrature; blaze efficiency is the scalar sinc² envelope, relative to the peak.</p>
+  <p>Presets come from the instrument papers and manuals. The presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Fiber-fed instruments are entered as the slit of equal line width.</p>
+</dialog>
 
 <script src="physics.js"></script>
 <script src="presets.js"></script>

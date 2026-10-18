@@ -295,6 +295,12 @@ function readHash() {
   const setK = (o, k, d, v) => { const x = conv(k, d, v); if (x !== NUL) o[k] = x; };
   for (const k of SHARED) if (k in kv) setK(S, k, DEF[k], kv[k]);
   for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) if (sc + "." + k in kv) setK(S[sc], k, DEF[sc][k], kv[sc + "." + k]);
+  // a typed-in link that asks for a grism without its apex: aim the apex at lambda_c, as the Grism button does
+  // (only when the default apex passes no wavelength, so an apex chosen on the page is never moved)
+  if (S.g.gType === "grism" && !("g.gA" in kv)) {
+    const md = S.mode; S.mode = "grating"; const Pg = params(); S.mode = md;
+    if (IX.design(Pg).bad) { preGrismG = S.g.G; aimGrism(S.g.lamC / 1e4); }
+  }
   if (kv.preset) {
     // a preset whose instrument was changed afterwards is no longer the preset (drawing options do not count)
     const p = PRESETS.find(q => q.id === kv.preset);
@@ -343,22 +349,28 @@ function renderText(Dz, P) {
     st.innerHTML = `<div class="flags" style="margin-left:0;max-width:none"><span class="flag">${Dz.bad || "no solution"}</span></div>`;
   } else {
     const c = Dz.c, ech = P.mode === "echelle";
-    let cov = Dz.range ? fA(Dz.range[0]) + "–" + fA(Dz.range[1]) + " Å" : "–";
-    let covSub = "";
-    if (ech && Dz.orders.length) covSub = `<small> ${Dz.orders.length} orders${Dz.gaps && Dz.gaps.length ? ", gaps" : ""}</small>`;
+    const cov = Dz.range ? fA(Dz.range[0]) + "–" + fA(Dz.range[1]) + " Å" : "–";
+    const spat = (P.traceW > 0 ? P.traceW : P.slitW) / c.pixScale;
+    // the live strip's six figures; a muted second figure (km/s, orders) follows the first after a space
     const items = [
-      ["big", "Resolving power", fmtR(c.Reff), `Effective R at the central wavelength: the slit image, the grating's diffraction limit and one pixel added in quadrature (the slit by itself gives ${fmtR(c.Rs)}).`],
-      ["", "Resolution", sig(c.dlamRes, 3) + " Å <small>" + sig(c.dv, 3) + " km/s</small>", "FWHM of a resolution element at the central wavelength."],
-      ["", "Coverage", cov + covSub, ech ? "Wavelengths reaching the detector over all orders (slit center)." : "Wavelengths reaching the detector (slit center)."],
-      ["", "Dispersion", sig(c.dlpix, 3) + " Å/px", "Wavelength per pixel along the dispersion at the central wavelength."],
-      ["", "Spatial scale", sig(c.pixScale, 3) + "″/px", "Arcseconds on the sky per pixel along the slit (the spatial direction): 206265 p W / (D f_cam); the telescope focal ratio drops out. Along the dispersion one pixel covers the Dispersion figure in wavelength."],
-      ["", "Sampling, λ × spatial", sig(c.npix, 3) + " × " + sig((P.traceW > 0 ? P.traceW : P.slitW) / c.pixScale, 3) + " px",
-        "Spectral: pixels across one resolution element along the dispersion (the FWHM of the slit image; below 2 the spectrum is undersampled). Spatial: pixels across the FWHM of a trace perpendicular to the dispersion, the slit (or fiber) width imaged along the slit; for a slit spectrograph the star's seeing sets the real spatial profile, and the slit width is only a proxy for that profile. The two differ by the grating's anamorphic factor (and a preset's separate fiber width)."],
+      ["res", "Resolution", `<span class="pre"><i>R</i> =</span><span class="rv">${fmtR(c.Reff)}</span><small>${sig(c.dlamRes, 3)} Å</small><small>${sig(c.dv, 3)} km/s</small>`, "",
+        `Effective resolving power R at the central wavelength: the slit image, the grating's diffraction limit and one pixel added in quadrature (the slit by itself gives ${fmtR(c.Rs)}). Then the FWHM of a resolution element, in wavelength and in velocity.`],
+      ["", "λ range", cov, "", ech ? "Wavelengths reaching the detector over all orders (slit center); the number of orders is in the Disperser box, and gaps raise a warning." : "Wavelengths reaching the detector (slit center)."],
+      ["", "Dispersion", sig(c.dlpix, 3) + " Å/px", "", "Wavelength per pixel along the dispersion at the central wavelength."],
+      ["", "Spatial scale", sig(c.pixScale, 3) + "″/px", "", "Arcseconds on the sky per pixel along the slit: 206265 p W / (D f_cam); the telescope focal ratio drops out."],
+      ["", "Sampling, λ × spatial", sig(c.npix, 3) + " × " + sig(spat, 3) + " px", "",
+        "Spectral: pixels across one resolution element along the dispersion (the FWHM of the slit image; below 2 the spectrum is undersampled). Spatial: pixels across the FWHM of a trace along the slit, the slit (or fiber) width imaged along the slit; for a slit spectrograph the star's seeing sets the real spatial profile."],
     ];
-    let html = items.map(([cls, k, v, t]) => `<div class="stat ${cls}" title="${t}"><span class="k">${k}</span><span class="v">${v}</span></div>`).join("");
+    let html = items.map(([cls, k, v, sub, t]) => `<div class="stat ${cls}" title="${t}"><span class="k">${k}</span><span class="v">${v}${sub ? `<small>${sub}</small>` : ""}</span></div>`).join("");
     const fl = Dz.flags.map(f => `<span class="flag" title="${f.txt}">${f.txt}</span>`).join("");
-    html += `<div class="flags">${fl}</div>`;
+    if (fl) html += `<div class="flags">${fl}</div>`;
     st.innerHTML = html;
+    // warnings that do not fit beside the numbers fold into one chip, the list in its tooltip
+    const fe = st.querySelector(".flags");
+    if (fe && Dz.flags.length > 1 && [...fe.children].some(e => e.scrollWidth > e.clientWidth + 1)) {
+      const all = Dz.flags.map(f => f.txt).join("; ");
+      fe.innerHTML = `<span class="flag" title="${all}">${Dz.flags.length} warnings</span>`;
+    }
   }
   // readouts
   const ftel = Dz.ftel;
@@ -438,7 +450,7 @@ const lview = { mode: "auto", s: 0, ox: 0, oy: 0, fit: true };
 function drawLayout(Dz, P) {
   const { g, w, h } = fitCanvas($("cvL"));
   g.clearRect(0, 0, w, h);
-  if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad || "No light reaches the detector"); $("lSub").textContent = ""; return; }
+  if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad || "No light reaches the detector"); $("lSub").textContent = ""; $("lSub").hidden = true; return; }
   const ech = P.mode === "echelle", trans = P.gType === "trans" && !ech, grism = P.gType === "grism" && !ech && !!Dz.grism;
   // a: the tilt of the surface where the collimated beam ends and the dispersed beam starts.  A ruled grism is
   // entered square to the beam, so the rays run straight to its hypotenuse, tilted the other way by the apex A;
@@ -1082,6 +1094,8 @@ function drawLayout(Dz, P) {
   }
   }  // spectral view
   fold = false;
+  const capEl = $("lSub");
+  capEl.hidden = P.annot === false || !capEl.textContent;
   if (P.annot === false) return;                                 // Labels off (Layout option): optics and rays only
   {
     const boxes = [];
@@ -1118,6 +1132,7 @@ function drawLayout(Dz, P) {
     }
   }
   // scale bar (not in 3D: lengths along the line of sight are foreshortened)
+  let capX = 14;
   if (!view3d) {
     const target = (w - mL - mR) * 0.16 / s, nice = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
     let L = nice[0]; for (const v of nice) if (v <= target) L = v;
@@ -1125,19 +1140,42 @@ function drawLayout(Dz, P) {
     g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.moveTo(xb, yb); g.lineTo(xb + L * s, yb);
     g.moveTo(xb, yb - 4); g.lineTo(xb, yb + 4); g.moveTo(xb + L * s, yb - 4); g.lineTo(xb + L * s, yb + 4); g.stroke();
     g.fillStyle = MUTED; g.font = `12.5px ${FONT}`; g.textAlign = "left"; g.textBaseline = "bottom";
-    g.fillText(L >= 1000 ? L / 1000 + " m" : L + " mm", xb + L * s + 8, yb + 5);
+    const lab = L >= 1000 ? L / 1000 + " m" : L + " mm";
+    g.fillText(lab, xb + L * s + 8, yb + 5);
+    capX = xb + L * s + 8 + g.measureText(lab).width + 22;
   }
+  capEl.style.setProperty("--capL", ($("cvL").offsetLeft + capX) + "px");    // the caption starts after the scale bar
 }
 // layout view controls: Auto / Fixed scale, Reset, scroll to zoom about the pointer, drag to pan (to turn, in 3D)
 const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true);
 segs.push(lvSync);
 $("lvOptsBtn").addEventListener("click", () => { const b = $("lvOpts"); b.hidden = !b.hidden; });
 $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLayout(cur, curP); });
+// About the model: a dialog (the close button, Esc, or a click outside it closes it)
+{
+  const dlg = $("about");
+  $("aboutBtn").addEventListener("click", () => dlg.showModal());
+  $("aboutClose").addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", ev => {                         // a click on the backdrop, outside the box
+    const r = dlg.getBoundingClientRect();
+    if (ev.target === dlg && (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom)) dlg.close();
+  });
+}
+// the standard expand / collapse glyphs: arrows out to the corners, or in from them
+const ICON_EXPAND = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+const ICON_COLLAPSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+function setExpandIcon(on) {
+  const b = $("lvExpand");
+  b.innerHTML = on ? ICON_COLLAPSE : ICON_EXPAND;
+  b.setAttribute("aria-label", on ? "Return the layout to the page" : "Expand the layout");
+  b.title = on ? "Return the layout to the page (Esc does the same)." : "Expand the layout to fill the window, to play with the drawing directly (Esc returns).";
+}
+setExpandIcon(false);
 // Expand: the layout panel fills the window (Esc or the same button returns)
 const setExpanded = on => {
   lvExpanded = on;
   document.body.classList.toggle("lv-expanded", on);
-  $("lvExpand").textContent = on ? "Exit" : "Expand";
+  setExpandIcon(on);
   $("lvExpand").title = on ? "Return the layout to the page (Esc)." : "Expand the layout to fill the window, to play with the drawing directly (Esc returns).";
   lview.fit = true;
   requestAnimationFrame(() => { if (cur) { drawLayout(cur, curP); drawRight(); } });
@@ -1150,7 +1188,7 @@ for (const [id, az, el] of [["v3Top", 0, Math.PI / 2], ["v3Side", 0, 0], ["v3Obl
 for (const [id, m] of [["c3L", "lam"], ["c3S", "slit"]]) $(id).addEventListener("click", () => { c3mode = m; sync3(); if (cur) drawLayout(cur, curP); });
 sync3();
 window.addEventListener("keydown", ev => {
-  if (ev.key !== "Escape") return;
+  if (ev.key !== "Escape" || $("about").open) return;          // an open dialog takes its own Esc
   if (lvExpanded) setExpanded(false);                     // expanded: back to the page
   else if (!$("lvOpts").hidden) $("lvOpts").hidden = true;
 });
@@ -1323,7 +1361,9 @@ function drawDetector(Dz, P) {
   if (!(cv.width > 0 && cv.height > 0)) return;                  // a collapsed panel (mid-resize): nothing to draw into
   if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad ? "—" : "No light reaches the detector"); return; }
   const ech = P.mode === "echelle";
-  const mL = ech ? 44 : 14, mR = ech ? 56 : 14, mT = ech ? 22 : 8, mB = ech ? 8 : 34;
+  // margins hold the axes: grating, wavelength below and position along the slit at left; echelle, the order
+  // numbers at left and the blaze wavelength at right
+  const mL = 62, mR = ech ? 70 : 20, mT = ech ? 12 : 10, mB = ech ? 12 : 48;
   const aw = w - mL - mR, ah = h - mT - mB;
   const Lx = Dz.Lx, Ly = Dz.Ly;
   const s0 = Math.min(aw / Lx, ah / Ly), s = s0 * zoom.z;
@@ -1434,44 +1474,104 @@ function drawDetector(Dz, P) {
   g.restore();
   g.strokeStyle = "#3b3733"; g.lineWidth = 1;
   g.strokeRect(Math.max(c0[0], mL) + 0.5, Math.max(c0[1], mT) + 0.5, Math.min(c1[0], mL + aw) - Math.max(c0[0], mL) - 1, Math.min(c1[1], mT + ah) - Math.max(c0[1], mT) - 1);
-  g.fillStyle = MUTED; g.font = `12.5px ${FONT}`;
+  // ---- axes on the chip's edges (on the panel's, when zoomed past them): ticks outward, round values
+  const fx0 = Math.max(c0[0], mL), fx1 = Math.min(c1[0], mL + aw), fy0 = Math.max(c0[1], mT), fy1 = Math.min(c1[1], mT + ah);
+  const TK = 5, TKm = 3, LAB = `12px ${FONT}`, TTL = `12.5px ${FONT}`, TINK = "#4f4a44";
+  // a 1-2-5 step giving about n intervals over span, with its minor step
+  const nice = (span, n) => {
+    const r = span / Math.max(1, n), p10 = Math.pow(10, Math.floor(Math.log10(r))), f = r / p10;
+    const m = [1, 2, 5, 10].reduce((b1, q) => (Math.abs(Math.log(q / f)) < Math.abs(Math.log(b1 / f)) ? q : b1), 1);   // nearest in log
+    return { st: m * p10, k: m === 2 ? 4 : 5 };
+  };
+  const dec = st => Math.max(0, -Math.floor(Math.log10(st) + 1e-9));
+  const num = (v, d) => (v < 0 ? "−" : "") + Math.abs(v).toFixed(d);
+  let wL = 0, wR = 0;                                              // widest tick label at left and right, for the titles
+  const labelL = (txt, x, y) => { g.fillText(txt, x, y); wL = Math.max(wL, g.measureText(txt).width); };
+  const labelR = (txt, x, y) => { g.fillText(txt, x, y); wR = Math.max(wR, g.measureText(txt).width); };
+  g.strokeStyle = MUTED; g.lineWidth = 1;
+  const tickV = (x, y, len) => { g.beginPath(); g.moveTo(Math.round(x) + 0.5, y); g.lineTo(Math.round(x) + 0.5, y + len); g.stroke(); };
+  const tickH = (x, y, len) => { g.beginPath(); g.moveTo(x, Math.round(y) + 0.5); g.lineTo(x + len, Math.round(y) + 0.5); g.stroke(); };
+  const title = (txt, x, y, rot) => {
+    g.save(); g.translate(x, y); if (rot) g.rotate(-Math.PI / 2);
+    g.font = TTL; g.fillStyle = TINK; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(txt, 0, 0); g.restore();
+  };
+  // ticks at every multiple of the minor step inside [v0, v1]; at() gives the canvas coordinate or null
+  const ticks = (v0, v1, st, k, at, draw) => {
+    const mn = st / k;
+    for (let i = Math.ceil(v0 / mn - 1e-9); i * mn <= v1 + mn * 1e-9; i++) { const v = i * mn, q = at(v); if (q !== null) draw(q, v, i % k === 0); }
+  };
   if (!ech) {
-    // wavelength ticks under the chip, from the trace of the slit center
-    const lo = Dz.range[0] * 1e4, hi = Dz.range[1] * 1e4, span = hi - lo;
-    const steps = [1, 2, 5, 10, 20, 25, 50, 100, 200, 250, 500, 1000, 2000, 2500, 5000];
-    let st = steps[steps.length - 1];
-    for (const v of steps) if (span / zoom.z / v <= Math.max(3, aw / 80)) { st = v; break; }
-    g.textAlign = "center"; g.textBaseline = "top"; g.strokeStyle = MUTED; g.lineWidth = 1;
-    const yb = mT + ah;
-    for (let l = Math.ceil(lo / st) * st; l <= hi; l += st) {
-      const p = Dz.pos(l / 1e4, Dz.order);
-      if (!p) continue;
-      const q = T(p[0], 0);
-      if (q[0] < mL - 1 || q[0] > mL + aw + 1) continue;
-      g.beginPath(); g.moveTo(q[0], yb); g.lineTo(q[0], yb + 5); g.stroke();
-      g.fillText(grp(l), q[0], yb + 7);
+    // wavelength (um) along the trace of the slit center; the visible range by bisection on X(lambda)
+    const lo = Dz.range[0], hi = Dz.range[1];
+    const Xof = l => { const p = Dz.pos(l, Dz.order); return p ? p[0] : NaN; };
+    const inc = Xof(hi) > Xof(lo);
+    const lamAt = X => { let a1 = lo, b1 = hi; for (let i = 0; i < 40; i++) { const mid = (a1 + b1) / 2; if ((Xof(mid) < X) === inc) a1 = mid; else b1 = mid; } return (a1 + b1) / 2; };
+    const la = lamAt(zoom.cx + (fx0 - cxp) / s), lb = lamAt(zoom.cx + (fx1 - cxp) / s);
+    const v0 = Math.min(la, lb), v1 = Math.max(la, lb), { st, k } = nice(v1 - v0, Math.max(2, (fx1 - fx0) / 65));
+    g.font = LAB; g.fillStyle = MUTED; g.textAlign = "center"; g.textBaseline = "top";
+    let lastX = null;                                                // a label too close to the previous one is skipped
+    ticks(v0, v1, st, k, l => { const X = Xof(l); if (!isFinite(X)) return null; const x = T(X, 0)[0]; return x >= fx0 - 0.5 && x <= fx1 + 0.5 ? x : null; },
+      (x, l, major) => {
+        const txt = num(l, dec(st)), lab = major && (lastX === null || Math.abs(x - lastX) >= g.measureText(txt).width + 10);
+        tickV(x, fy1, lab ? TK : TKm);
+        if (lab) { g.fillText(txt, x, fy1 + TK + 3); lastX = x; }
+      });
+    title("Wavelength (µm)", (fx0 + fx1) / 2, fy1 + TK + 30, false);
+    // position along the slit (arcsec) through the column of the central wavelength, traced
+    const lc = Dz.c.lam, plate = Dz.plate;
+    const Yof = a => { const p = Dz.pos(lc, Dz.order, 0, a / plate); return p ? p[1] : NaN; };
+    const Y0 = Yof(0), dY = (Yof(1) - Yof(-1)) / 2;                    // mm per arcsec (signed)
+    if (isFinite(Y0) && dY) {
+      const aAt = y => (zoom.cy - (y - cyp) / s - Y0) / dY;
+      const a0 = Math.min(aAt(fy0), aAt(fy1)), a1 = Math.max(aAt(fy0), aAt(fy1)), { st: sa, k: ka } = nice(a1 - a0, Math.max(2, (fy1 - fy0) / 45));
+      g.font = LAB; g.fillStyle = MUTED; g.textAlign = "right"; g.textBaseline = "middle";
+      ticks(a0, a1, sa, ka, a => { const Y = Yof(a); if (!isFinite(Y)) return null; const y = T(0, Y)[1]; return y >= fy0 - 0.5 && y <= fy1 + 0.5 ? y : null; },
+        (y, a, major) => { tickH(fx0, y, -(major ? TK : TKm)); if (major) labelL(num(Math.abs(a) < sa * 1e-6 ? 0 : a, dec(sa)), fx0 - TK - 3, y); });
+      title("Along the slit (″)", Math.max(10, fx0 - TK - 3 - wL - 13), (fy0 + fy1) / 2, true);
     }
-    g.textAlign = "right"; g.fillText("Å", mL + aw, yb + 21);
   } else {
-  // order numbers on the left, blaze wavelengths on the right, every k-th order so labels stay ~15 px apart
-  g.textBaseline = "middle";
-  let lastY = -1e9;
-  const items = traces.filter(tr => tr.k === 0).map(tr => { const p = Dz.pos(tr.o.lb, tr.m); return p ? { tr, y: T(p[0], p[1])[1] } : null; })
-    .filter(Boolean).sort((a1, b1) => a1.y - b1.y);
-  for (const it of items) {
-    if (it.y < mT + 6 || it.y > mT + ah - 6 || it.y - lastY < 15) continue;
-    lastY = it.y;
-    g.textAlign = "right"; g.fillText(String(it.tr.m), mL - 6, it.y);
-    g.textAlign = "left"; g.fillText(grp(it.tr.o.lb * 1e4), mL + aw + 6, it.y);
-  }
-  g.textBaseline = "bottom"; g.textAlign = "right"; g.fillText("order", mL - 6, mT - 5);
-  g.textAlign = "left"; g.fillText("λ, Å", mL + aw + 6, mT - 5);
+    // left: every order on the chip gets a tick at its blaze center, every k-th (k = 1, 2, 5, 10 ...) a number
+    const ords = Dz.orders.map(o => { const p = Dz.pos(o.lb, o.m); return p ? { m: o.m, lb: o.lb, y: T(p[0], p[1])[1] } : null; })
+      .filter(o => o && o.y >= fy0 - 0.5 && o.y <= fy1 + 0.5).sort((a1, b1) => a1.y - b1.y);
+    if (ords.length) {
+      const gaps = ords.slice(1).map((o, i) => o.y - ords[i].y).sort((a1, b1) => a1 - b1);
+      const med = gaps.length ? gaps[gaps.length >> 1] : 99;
+      const kOrd = [1, 2, 5, 10, 20, 50, 100].find(q => q * med >= 15) || 100;
+      g.font = LAB; g.fillStyle = MUTED; g.textAlign = "right"; g.textBaseline = "middle";
+      let last = -1e9;
+      for (const o of ords) {
+        const lab = o.m % kOrd === 0 && o.y - last >= 13;
+        if (lab || med >= 2.5) tickH(fx0, o.y, -(lab ? TK : TKm));
+        if (lab) { labelL(String(o.m), fx0 - TK - 3, o.y); last = o.y; }
+      }
+      title("Order", Math.max(10, fx0 - TK - 3 - wL - 13), (fy0 + fy1) / 2, true);
+      // right: blaze wavelength (um), round values placed by interpolating between the orders' blaze centers
+      const byL = ords.slice().sort((a1, b1) => a1.lb - b1.lb), v0 = byL[0].lb, v1 = byL[byL.length - 1].lb;
+      const yAt = v => {
+        for (let i = 0; i + 1 < byL.length; i++) {
+          const A = byL[i], B = byL[i + 1];
+          if (v >= A.lb && v <= B.lb) return A.y + (B.y - A.y) * (v - A.lb) / (B.lb - A.lb || 1);
+        }
+        return null;
+      };
+      if (v1 > v0) {
+        const { st, k } = nice(v1 - v0, Math.max(2, (fy1 - fy0) / 45));
+        g.textAlign = "left";
+        let lastR = -1e9;
+        ticks(v0, v1, st, k, yAt, (y, v, major) => {
+          const lab = major && Math.abs(y - lastR) >= 13;
+          tickH(fx1, y, lab ? TK : TKm);
+          if (lab) { labelR(num(v, dec(st)), fx1 + TK + 3, y); lastR = y; }
+        });
+        title("Blaze wavelength (µm)", Math.min(w - 10, fx1 + TK + 3 + wR + 13), (fy0 + fy1) / 2, true);
+      }
+    }
   }
   const sub = $("dSub");
   const L = hover ? Dz.local(hover.lam, hover.m) : null;
   if (L) sub.innerHTML = `<b>${fAd(hover.lam, 2)} Å</b>` + (ech ? ` · order <b>${hover.m}</b>` : "") + (Dz.objects && Dz.objects.n > 1 ? ` · object <b>${hover.k + 1}</b> of ${Dz.objects.n}` : "") +
     ` · R <b>${fmtR(L.Reff)}</b> · <b>${sig(L.dlpix, 3)}</b> Å/px` + (L.eff !== null ? ` · blaze <b>${pct(L.eff)}</b>` : "");
-  else sub.textContent = zoom.z > 1.01 ? "zoom ×" + sig(zoom.z, 2) : "";
+  else sub.textContent = "";
 }
 
 // pointer -> nearest order trace (within 10 canvas px)
@@ -1544,6 +1644,7 @@ function render() {
   }
   if (!cur.bad && cur.c) cur.objects = objectOffsets(cur, curP);
   renderText(cur, curP);
+  fitPanels();
   drawLayout(cur, curP);
   if ((M().layLen === null || M().layLen === undefined) && lastD1Auto !== null) {
     if (document.activeElement !== $("sLL")) $("sLL").value = String(Math.log10(Math.max(10, lastD1Auto)));
@@ -1563,14 +1664,29 @@ function drawRight() {
   buildTraces(cur, curP); drawDetector(cur, curP);
 }
 function redrawDetector() { if (cur) drawDetector(cur, curP); }
-window.addEventListener("resize", () => { if (cur) { drawLayout(cur, curP); drawRight(); } });
+// The two panels take the height the window has left after the header, the strip and the controls, so the
+// controls end at the window's bottom in every mode (a fixed 100vh - 520 px left blank space under the shorter
+// control rows). On a phone, and while the layout is expanded, the stylesheet's height stands.
+const PH_MIN = 250, PH_MAX = 1100;
+function fitPanels() {
+  const root = document.documentElement;
+  if (innerWidth <= 860) { const had = !!root.style.getPropertyValue("--ph"); root.style.removeProperty("--ph"); return had; }
+  if (lvExpanded) return false;
+  const h0 = $("cvD").clientHeight, ctl = document.querySelector(".controls");
+  if (!h0 || !ctl) return false;
+  const want = Math.round(Math.min(PH_MAX, Math.max(PH_MIN, h0 + innerHeight - 6 - (ctl.getBoundingClientRect().bottom + scrollY))));
+  if (Math.abs(want - h0) < 1) return false;
+  root.style.setProperty("--ph", want + "px");
+  return true;
+}
+window.addEventListener("resize", () => { fitPanels(); if (cur) { drawLayout(cur, curP); drawRight(); } });
 
 // test hooks
 window.__instex = {
   state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
-  hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }),
+  hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom },
 };
 
 readHash();
