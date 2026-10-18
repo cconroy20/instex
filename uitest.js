@@ -638,6 +638,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
     }
     await go(); await shot(`08_fit_${w}.png`);
   }
+  // the header note stays on one line with room to spare, also at a larger default font size (18 px)
+  await size(1440, 900); await go();
+  for (const fs of ["", "18px"]) {
+    const r = await ev(`(fs => { document.documentElement.style.fontSize = fs; const n = document.querySelector(".presetnote"), a = document.getElementById("aboutBtn");
+      const lh = parseFloat(getComputedStyle(n).lineHeight), out = { lines: Math.round(n.getBoundingClientRect().height / lh), gap: a.getBoundingClientRect().left - n.getBoundingClientRect().right };
+      document.documentElement.style.fontSize = ""; return out; })(${JSON.stringify(fs)})`);
+    check(`1440x900 header note on one line (root font ${fs || "default"})`, r.lines === 1, JSON.stringify(r));
+  }
   // the panels take the height left over: in the default (shorter) grating controls, the controls still end at the bottom
   await size(1440, 900); await go();
   { const f = await fit(); check("1440x900 grating: the panels grow to fill the window (controls end at its bottom)", f.bottom > f.vh - 12 && f.bottom <= f.vh + 0.5, `bottom ${f.bottom.toFixed(0)} / ${f.vh}`); }
