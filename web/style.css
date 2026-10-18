@@ -26,7 +26,7 @@ header,main,footer{max-width:1560px;margin:0 auto;padding:0 22px}
 .presetnote{font-size:.86rem;font-style:italic;color:var(--muted);flex:1 1 220px;max-width:520px;min-width:0;line-height:1.3}
 select{font:inherit;font-size:.9rem;color:var(--ink);background:#fff;border:1px solid var(--line);
   border-radius:5px;padding:2px 6px;max-width:100%}
-#preset{min-width:230px;width:270px}                                 /* the open list still shows every name in full */
+#preset{min-width:230px;width:240px}                                 /* the open list still shows every name in full */
 
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;flex:0 0 auto}
 .seg button{font:inherit;font-size:.92rem;padding:2px 11px;border:0;
@@ -38,6 +38,7 @@ select{font:inherit;font-size:.9rem;color:var(--ink);background:#fff;border:1px 
 
 main{padding-top:10px;padding-bottom:6px}
 .panels{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(0,1fr);gap:12px;align-items:stretch}
+.panels.lwide{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px 10px;position:relative}
 .lvopts{position:absolute;left:14px;top:44px;z-index:5;width:290px;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:7px;padding:8px 11px 6px;box-shadow:0 3px 12px rgba(0,0,0,.10)}
 .lvopts[hidden]{display:none}
@@ -45,6 +46,13 @@ main{padding-top:10px;padding-bottom:6px}
 body:not(.v-spatial) .only-spatial{display:none}
 body:not(.v-3d) .only-3d{display:none}
 .lvx{position:absolute;right:14px;bottom:12px;z-index:4;background:rgba(255,255,255,.92);padding:5px;line-height:0}
+.dzr{position:absolute;right:14px;bottom:12px;z-index:4;background:rgba(255,255,255,.92);font-size:.82rem;padding:2px 9px}
+.dzr[hidden]{display:none}
+/* the detector's key, in the header's readout slot */
+.ph .sub .lg{margin-left:14px;white-space:nowrap}
+.lgsw{display:inline-block;width:52px;height:8px;border-radius:2px;margin:0 5px;vertical-align:1px;
+  background:linear-gradient(90deg,rgb(40,110,220) 0%,rgb(96,166,245) 19.6%,rgb(228,224,214) 41.1%,rgb(246,186,105) 64.3%,rgb(222,128,30) 100%)}
+.val small{font-size:.8em;color:var(--muted)}
 .lvx svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 /* the layout expanded to fill the window */
 body.lv-expanded{overflow:hidden}
@@ -146,7 +154,7 @@ footer p{margin:.5em 0;max-width:120ch}
   .stats .flags{overflow:visible}
   .ptsbox,.lvopts{position:static;width:auto;margin:6px 0 0}
   header,main,footer{padding-left:16px;padding-right:16px}
-  .panels,.controls{grid-template-columns:minmax(0,1fr)}
+  .panels,.panels.lwide,.controls{grid-template-columns:minmax(0,1fr)}
   .controls .c-disp{grid-column:auto}
   .dispgrid{grid-template-columns:minmax(0,1fr)}
   :root{--ph:300px}

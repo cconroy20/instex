@@ -15,7 +15,7 @@
     <span class="mark">Instrument Explorer</span>
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
-    <span class="presetnote">Presets approximate the optical characteristics but not the optical layout.</span>
+    <span class="presetnote">Presets approximate the instrument's optical characteristics, not the optical layout.</span>
     <button id="aboutBtn" class="ghost" type="button" title="About the model: how the numbers are computed, and what the model leaves out.">About</button>
     <button id="reset" class="ghost" type="button" title="Back to the defaults for the whole instrument: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset all</button>
   </div>
@@ -65,6 +65,7 @@
     <section class="panel">
       <div class="ph"><h2 title="The detector drawn to scale, with the spectrum of each object on the pixels. Each spectrum is the trace of a star on the slit, drawn as a Gaussian across the dispersion whose FWHM is the slit (or fiber) width imaged along the slit; where traces come within a few FWHM their wings add. Color follows wavelength (blue short, amber long); brightness follows the relative blaze efficiency (dimmed outside an echelle order's free spectral range). Grating mode: wavelengths along the bottom, the objects spread over the chip height. Echelle mode: order numbers on the left, blaze wavelengths on the right, the objects stacked within each order. Hover for the wavelength, order, object, resolving power, and dispersion under the pointer; scroll to zoom (the pixel grid and the size of a resolution element appear when zoomed in), drag to pan, double-click to reset.">Detector</h2><span class="sub" id="dSub"></span></div>
       <canvas id="cvD" aria-label="Detector"></canvas>
+      <button id="dzReset" class="ghost dzr" type="button" hidden title="Back to the whole chip (double-click does the same).">Reset zoom</button>
     </section>
   </div>
 

@@ -271,7 +271,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
   // ------------------------------------------------------------ grating incidence on the transmission grating
   {
-    check("grating incidence shown for the transmission grating, at the symmetric setting", (await vis("#sTA")) && /sym/.test(await ev(`document.querySelector("#vTA").textContent`)));
+    check("grating incidence shown for the transmission grating, at the symmetric setting", (await vis("#sTA")) && /α = β/.test(await ev(`document.getElementById("rDis").textContent`)));
     const s0 = await ev(`(() => { const d = window.__instex.design(); return { a: d.alpha, b: d.beta, R: d.c.Rs }; })()`);
     await setRange("#sTA", 30);
     const s1 = await ev(`(() => { const d = window.__instex.design(), P = window.__instex.params(); return { a: d.alpha, b: d.beta, R: d.c.Rs, G: P.G, l: P.lamC, thg: d.thetaG }; })()`);
@@ -280,7 +280,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("grating incidence 30°: beta from the grating equation, R = (sin a + sin b)/(theta_g cos a)", Math.abs(s1.a - 30 * Math.PI / 180) < 1e-9 && Math.abs(Math.sin(s1.b) - sb) < 1e-12 && Math.abs(s1.R / Rw - 1) < 1e-5 && s1.R > s0.R,
       `beta ${(s1.b * 180 / Math.PI).toFixed(2)} deg, R ${s0.R.toFixed(0)} -> ${s1.R.toFixed(0)}`);
     await click("#reset");
-    check("Reset returns the transmission grating to the symmetric setting", /sym/.test(await ev(`document.querySelector("#vTA").textContent`)));
+    check("Reset returns the transmission grating to the symmetric setting", /α = β/.test(await ev(`document.getElementById("rDis").textContent`)));
   }
   // ------------------------------------------------------------ transmission grating
   await click("#gRefl");
@@ -486,7 +486,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("results strip: the labels keep a lowercase λ", (await ev(`[...document.querySelectorAll(".stat .k")].some(e => /λ/.test(e.textContent) && getComputedStyle(e).textTransform === "none")`)));
     { const r = await ev(`(() => { const c = document.getElementById("lSub"), e = document.getElementById("lvExpand").getBoundingClientRect(), b = c.getBoundingClientRect(), v = document.getElementById("cvL").getBoundingClientRect();
         return { hid: c.hidden, txt: c.textContent, right: b.right, eLeft: e.left, left: b.left, bottom: b.bottom, vBottom: v.bottom, vLeft: v.left, oneLine: b.height < 22 }; })()`);
-      check("layout caption: shown in full under the drawing, between the scale bar and Expand", !r.hid && /really/.test(r.txt) && r.right <= r.eLeft && r.left > r.vLeft + 60 && r.bottom <= r.vBottom + 1, JSON.stringify(r)); }
+      check("layout caption: shown in full under the drawing, between the scale bar and Expand", !r.hid && /for clarity/.test(r.txt) && r.right <= r.eLeft && r.left > r.vLeft + 60 && r.bottom <= r.vBottom + 1, JSON.stringify(r)); }
     await click("#lvOptsBtn"); await click("#anOff");
     check("layout caption hidden with the labels", await ev(`document.getElementById("lSub").hidden`));
     await click("#anOn"); await click("#lvOptsBtn");
@@ -504,6 +504,47 @@ const rel = (a, b) => Math.abs(a / b - 1);
       check("a typed link to a grism without an apex aims the apex at λc", r[0] === null && Math.abs(r[1] - 0.55) < 0.005, JSON.stringify(r)); }
     await click("#gTr");
     check("  ... and leaving the grism brings back the grating's 1200 /mm", (await ev(`window.__instex.state().g.G`)) === 1200);
+  }
+
+  // ------------------------------------------------------------ layout pass, 2026-10-18
+  {
+    // labels keep off the drawing: the ink under each (darkness x opacity summed over the box) stays small
+    const inkReport = async () => (await ev(`window.__instex.labels()`)).map(l => `${l.txt}:${l.ink.toFixed(0)}${l.lead ? "*" : ""}${l.optional ? "(o)" : ""}`).join(" ");
+    for (const [label, hs] of [["grating", ""], ["HIRES", "#preset=hires"], ["FIRE", "#preset=fire"], ["DESI B", "#preset=desib"], ["3D", "#g.view=3d"]]) {
+      await go(hs);
+      // the marks' labels (W, α, β) sit at their arrows and arcs inside the beam by design, so only the names count
+      const ls = (await ev(`window.__instex.labels()`)).filter(l => !l.optional);
+      const worst = Math.max(...ls.map(l => l.ink));
+      check(`${label} layout: every element's label placed off the optics (ink under each < 120)`, ls.length > 4 && worst < 120, await inkReport());
+    }
+    // the wide 2k x 4k chip gives the layout panel more of the width; a square chip keeps the even split
+    await go();
+    const wA = await ev(`[document.getElementById("cvL").clientWidth, document.getElementById("cvD").clientWidth]`);
+    await go("#preset=desib");
+    const wB = await ev(`[document.getElementById("cvL").clientWidth, document.getElementById("cvD").clientWidth]`);
+    check("panel split: wider layout for a 2:1 chip, the usual split for a square one", wA[0] / wA[1] > wB[0] / wB[1] + 0.15, `${(wA[0] / wA[1]).toFixed(2)} vs ${(wB[0] / wB[1]).toFixed(2)}`);
+    // one star on the whole chip shows: a bright row through the chip's middle
+    await go();
+    const peak = await ev(`(() => { const c = document.getElementById("cvD"), g = c.getContext("2d"), G = window.__instex.detGeom();
+      const dpr = c.width / c.clientWidth, x = Math.round(G.cxp * dpr), y0 = Math.round((G.cyp - 20) * dpr), d = g.getImageData(x, y0, 1, Math.round(40 * dpr)).data;
+      let m = 0; for (let i = 0; i < d.length; i += 4) m = Math.max(m, d[i] + d[i + 1] + d[i + 2]); return m / 3; })()`);
+    const bare = await ev(`(() => { const c = document.getElementById("cvD"), g = c.getContext("2d"), G = window.__instex.detGeom();
+      const dpr = c.width / c.clientWidth, d = g.getImageData(Math.round(G.cxp * dpr), Math.round((G.cyp - 60) * dpr), 1, 1).data; return (d[0] + d[1] + d[2]) / 3; })()`);
+    check("a single star's trace shows on the whole chip (peak at least 5x the bare chip)", peak > 5 * Math.max(bare, 10), `${peak.toFixed(0)} vs chip ${bare.toFixed(0)}`);
+    // the key sits in the detector header until the pointer is on a trace
+    check("detector key in the header: the color ramp in µm", /µm/.test(await ev(`document.getElementById("dSub").textContent`)) && (await ev(`!!document.querySelector("#dSub .lgsw")`)));
+    await go("#mode=echelle");
+    check("  ... in echelle mode with the blaze and the free spectral range", /blaze/.test(await ev(`document.getElementById("dSub").textContent`)) && /FSR/.test(await ev(`document.getElementById("dSub").textContent`)));
+    // Reset zoom appears only while the detector is zoomed, and resets it
+    const hid0 = await ev(`document.getElementById("dzReset").hidden`);
+    await ev(`(c => { const r = c.getBoundingClientRect(); for (let i = 0; i < 4; i++) c.dispatchEvent(new WheelEvent("wheel", { deltaY: -300, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, bubbles: true, cancelable: true })); })(document.getElementById("cvD"))`); await sleep(150);
+    const hid1 = await ev(`document.getElementById("dzReset").hidden`);
+    await click("#dzReset");
+    check("Reset zoom: hidden at full view, shown when zoomed, and resets the zoom", hid0 && !hid1 && (await ev(`window.__instex.zoom().z`)) === 1 && (await ev(`document.getElementById("dzReset").hidden`)));
+    // the incidence row stays on one line at 1280 x 800
+    await size(1280, 800); await go();
+    check("1280x800: 'Incidence, α' and its value on one line", (await ev(`document.querySelector('label[for="sTA"]').getBoundingClientRect().height`)) < 26);
+    await size(1440, 900);
   }
 
   // ------------------------------------------------------------ controls no other check moves, each against a closed form

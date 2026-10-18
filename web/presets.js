@@ -454,7 +454,7 @@ const PRESETS = [
       ["HRS", "blue", 3586, null, null, 4152, 3926, 4355, 0.0720, ["19,800", 6, 5]], ["HRS", "green", 2836, null, null, 5460, 5160, 5730, 0.0958, ["19,300", 20, 15]], ["HRS", "red", 2343, null, null, 6464, 6100, 6790, 0.1137, ["20,250", 8, 9]]].map(([sp, arm, G, al, cam, lc, l0, l1, disp, x]) => {
     const lrs = sp === "LRS", W = lrs ? 200 : 250, fcol = lrs ? 600 : 750, fcam = lrs ? 345 : 375;
     return {
-      id: "4most" + sp.toLowerCase()[0] + arm[0], tel: "VISTA 4.1 m (4MOST)", name: "VISTA / 4MOST " + sp + " " + arm + (lrs ? "" : " (concept optics)"),
+      id: "4most" + sp.toLowerCase()[0] + arm[0], tel: "VISTA 4.1 m", name: "VISTA / 4MOST " + sp + " " + arm + (lrs ? "" : " (concept optics)"),
       note: "VISTA 4MOST " + sp + " " + arm + " arm (de Jong et al. 2019; 4MOST User Manual; 4MOST spectrograph papers" + (lrs ? " and the 2023 instrument-model table" : "") + "): 85 µm fibers, 1.45″ on the sky; the explorer enters the core at the f/3.0 fiber output, 85 µm / (3.0 × 4.1 m) = 1.43″, as the slit of equal line width (1.23″); 824 spectra per detector (812 science + 12 calibration), collimator mirror " + fcol + " mm (beam " + W + " mm), VPH " + G + " /mm" + (lrs ? " at α = " + al + "°, camera at " + cam + "° to the collimator" : " at the symmetric setting") + ", camera " + fcam + " mm" + (lrs ? " (f/1.73, 2016 design review)" : " (fitted to the published bands: the HRS as-built optics are not public)") + ", 6144 × 6160 pixels of 15 µm.",
       state: { mode: "grating", D: 4.10, F: fcol / W,
         g: { slitW: S3 * 0.085 / (3.0 * 4100) * 206264.806, nObj: 824, col: "mirror", W, fcam, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
@@ -489,7 +489,7 @@ const PRESETS = [
     ],
   })),
   {
-    id: "apogee", tel: "SDSS 2.5 m (APOGEE)", name: "SDSS / APOGEE-N",
+    id: "apogee", tel: "SDSS 2.5 m", name: "SDSS / APOGEE-N",
     note: "APOGEE-N on the Sloan 2.5 m (Wilson et al. 2019, as-built prescription; SDSS DR16 pages): 120 µm fibers, 2.0″ on the sky at the telescope's f/5; the explorer enters the core at the f/3.85 VPH-mask stop, 120 µm / (3.85 × 2.5 m) = 2.57″, as the slit of equal line width, 2.23″; 300 spectra (≈230 science, 35 sky, 35 telluric), on-axis spherical collimator mirror 1053.6 mm (half the cold radius; beam 273.7 mm), VPH 1009.345 /mm at α = 54.061°, camera 356 mm, three H2RG 2048² of 18 µm side by side with 2.9 mm gaps (entered as 6466 px with the gaps as dead pixels; the gaps are not drawn). The detector center λc = 16158 Å is fitted to the published chip edges: the real detectors sit off the camera axis.",
     state: { mode: "grating", D: 2.5, F: 3.85,
       g: { slitW: S3 * 0.120 / (3.85 * 2500) * 206264.806, nObj: 300, col: "mirror", W: 1053.6 / 3.85, fcam: 356, gType: "trans", G: 1009.345, m: 1, lamB1: 5000, lamC: 16158,
@@ -505,7 +505,7 @@ const PRESETS = [
   },
   ...[["B", 1103.5, 11.48, 212.8, 3600, 5930, 2000, 3000], ["R", 1157.4, 18.73, 213.6, 5660, 7720, 3500, 4500], ["Z", 992.5, 21.19, 214.0, 7470, 9800, 4000, 5500]]
     .map(([arm, G, al, fc, l0, l1, r0, r1]) => ({
-      id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m (DESI)", name: `Mayall / DESI ${arm} arm`,
+      id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m", name: `Mayall / DESI ${arm} arm`,
       note: `DESI ${arm} arm (DESI Collaboration 2022; Final Design Report): fiber-fed, 107 µm core, 1.585″ on the sky at the field center; the explorer enters the core at the f/3.57 collimator, 107 µm / (3.57 × 3.797 m) = 1.63″, as the slit of equal line width, 1.41″; f/3.57 collimator with a 126 mm pupil, transmission grating ${G} /mm at ${al}° incidence (as built), ${fc} mm f/1.7 camera, 4k × 4k 15 µm. Central wavelength = middle of the arm's band.`,
       state: { mode: "grating", D: 3.797, F: 3.57,
         g: { slitW: S3 * 0.107 / (3.57 * 3797) * 206264.806, nObj: 500, col: "mirror", W: 126, fcam: fc, gType: "trans", G, m: 1, lamB1: 5000, lamC: (l0 + l1) / 2,

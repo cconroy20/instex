@@ -21,8 +21,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   spacing between the elements is not part of the design and is drawn short, but keeps the camera arm
   clear of the incoming beam when the camera–collimator angle allows. Blue, gray and amber beams carry
   the shortest, central and longest wavelengths that reach the detector; the camera is labeled with its
-  focal ratio on the diffracted beam. Echelle mode draws the camera beam in the plane at 30° (it really
-  leaves at 2θ in the plane, or 2γ out of it) and the cross-disperser across it. A mirror collimator
+  focal ratio on the diffracted beam. Echelle mode draws the camera beam in the plane at 30° (an echelle works near
+  Littrow, so the true beams lie almost on top of each other: 2θ apart in the plane, or 2γ out of it; the caption
+  says which) and the cross-disperser across it. A mirror collimator
   folds the drawing: everything after the collimator is the unfolded drawing reflected about the mirror
   (the beam meets the drawn parabolic mirror on its curve, both coming in and going out),
   a line through (f_col, 0) tilted by τ: by default τ = ½ asin(1.3 W/d), d the collimator–grating spacing, so
@@ -37,8 +38,13 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
   ~2.85 m collimated beam, collimator tilt 0, grating Flipped: the fold and the grating turn the light the same
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
-  changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last,
-  each at the first of its candidate positions that does not overlap a label already placed.
+  changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last
+  (2026-10-18): each candidate position is scored by what is already drawn under the label, read back from the
+  canvas (darkness × opacity over 2 × 2 px cells through a summed-area table; pale beam and glass tints count a
+  little), by any overlap with a label already placed (heavily), and by its rank in the label's own list; a label
+  with no clear spot of its own takes one on rings around its element (24, 38, 54 px) with a thin leader line, and
+  the marks' labels (W, α, β) are left out when they cannot find room. The scale bar and caption stay at the
+  panel's lower left (Charlie's call: not following the drawing), and the layout panel takes about 62% of the width when the detector chip is wide (2:1 or more).
 - **3D** (third layout view, grating mode; 2026-10-17): the dispersion-plane drawing with the slit direction as a
   third axis, in an orthographic view with orbit controls (as in CAD viewers and three.js's OrbitControls): a
   sideways drag spins about the slit axis without limit, an up-down drag tilts from straight over to straight
@@ -86,7 +92,11 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   dispersion (the slit, or the fiber's equivalent, width imaged along the slit: φ / pixel scale; for Via, whose
   0.7″ mask narrows only the dispersion direction, the 1.2″ fiber image, entered as 1.04″). Past ~4000 traces every k-th object is drawn. Hover for λ, order, object, R,
   Å/px and blaze; scroll to zoom down to the pixel grid (the resolution element under the pointer is
-  outlined), double-click to reset.
+  outlined), double-click or the Reset zoom button (shown only while zoomed) to reset. While the pointer is off
+  the traces, the panel's header holds the key: the color ramp (0.32–0.88 µm, fixed in absolute wavelength),
+  "brightness: blaze" where there is a blaze, and in echelle mode "faint: outside the FSR". A lone trace narrower
+  than a screen pixel (grating mode, objects far apart) is drawn at σ = 0.55 px so that one star shows on the
+  whole chip; zooming in reaches the true width.
 - **Results strip** (restyled 2026-10-17 at Charlie's request): one row, a card centered above the panels (the headline numbers, right under the header) on a
   pale tint of the accent color, five figures with a label each: Resolution ("R =" and R in the same dark type as the other figures, then Δλ in Å and in km/s,
   muted; "resolving power and resolution are both resolution"), λ range (the orders' count is in the Disperser box, gaps raise a warning), Dispersion,
@@ -414,7 +424,7 @@ than the screen can show are thinned and widened (zooming in restores them).
   the prism glass's range, kept.
 - **Presets**: above.
 
-`node uitest.js` drives the page in headless Chrome (217 checks): every slider moves the results as the
+`node uitest.js` drives the page in headless Chrome (228 checks): every slider moves the results as the
 optics requires (R ∝ 1/D, ∝ W, ∝ 1/φ, independent of F_tel and the camera; sampling ∝
 F_cam and ∝ 1/p; coverage ∝ 1/F_cam and ∝ N_x; at fixed F_cam the pixel scale is independent of W), the disperser
 switches, echelle R4 ≈ 2 × R2 and R ∝ cos γ (to the line-tilt coupling), and the controls no other check moves,

@@ -469,9 +469,9 @@ function drawLayout(Dz, P) {
     const psiD = 30 * IX.DEG;                                     // schematic: the real separation is out of the plane
     ac = v2(-Math.cos(psiD), Math.sin(psiD));
     const th = Math.abs(P.theta || 0);
-    $("lSub").textContent = P.gamma > 0 ? "camera arm drawn at 30° (really 2γ = " + (2 * P.gamma).toFixed(1) + "° out of plane)"
-      : th > 0 ? "camera arm drawn at 30° (really 2θ = " + (2 * th).toFixed(1) + "°)"
-      : "camera arm drawn at 30° (really Littrow)";
+    // an echelle works near Littrow: drawn true, the camera arm would lie on the collimator beam
+    const sep = [th > 0 ? "2θ = " + (2 * th).toFixed(1) + "° apart in the page" : "", P.gamma > 0 ? "2γ = " + (2 * P.gamma).toFixed(1) + "° apart out of the page" : ""].filter(Boolean);
+    $("lSub").textContent = "Camera arm drawn at 30° for clarity: " + (sep.length ? "the beams are " + sep.join(" and ") + "." : "in Littrow the beams overlap.");
   } else {
     ac = v2(Dz.zc[2], Dz.zc[0]);
     const n = Math.hypot(ac[0], ac[1]); ac = sc(ac, 1 / n);
@@ -720,7 +720,8 @@ function drawLayout(Dz, P) {
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
   for (const p of view3d ? box3 : spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
-  const mL = 70, mR = 70, mT = spatial || view3d ? 50 : 30, mB = 34;
+  // room for the labels at the sides, and below for the scale bar and caption at the panel's foot
+  const mL = 54, mR = 60, mT = spatial || view3d ? 48 : 26, mB = 40;
   // the view: fitted to the panel (Auto scale, and whenever a fit is asked for), else held (Fixed scale)
   const sFit = Math.min((w - mL - mR) / (x1 - x0), (h - mT - mB) / (y1 - y0));
   const oxFit = mL + ((w - mL - mR) - sFit * (x1 - x0)) / 2 - sFit * x0, oyFit = mT + ((h - mT - mB) - sFit * (y1 - y0)) / 2 + sFit * y1;
@@ -1097,31 +1098,85 @@ function drawLayout(Dz, P) {
   const capEl = $("lSub");
   capEl.hidden = P.annot === false || !capEl.textContent;
   if (P.annot === false) return;                                 // Labels off (Layout option): optics and rays only
+  // the scale bar and the caption sit at the lower left of the panel
+  const sbY = h - 12;                                             // the panel's foot, whatever the drawing does
+  let capX = 14, sbL = 0, sbLab = "";
+  if (!view3d) {
+    const target = (w - mL - mR) * 0.16 / s, nice = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
+    sbL = nice[0]; for (const v of nice) if (v <= target) sbL = v;
+    sbLab = sbL >= 1000 ? sbL / 1000 + " m" : sbL + " mm";
+    g.font = `12.5px ${FONT}`;
+    capX = 14 + sbL * s + 8 + g.measureText(sbLab).width + 22;
+  }
+  const cvEl = $("cvL");
+  capEl.style.setProperty("--capL", (cvEl.offsetLeft + capX) + "px");    // the caption starts after the scale bar
   {
     const boxes = [];
-    const box = (x, y, al, wd) => { const x0 = al === "left" ? x : al === "right" ? x - wd : x - wd / 2; return [x0 - 3, y - 9, x0 + wd + 3, y + 9]; };
-    const hits = b => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    const box = (x, y, al, wd) => { const x0 = al === "left" ? x : al === "right" ? x - wd : x - wd / 2; return [x0 - 7, y - 9, x0 + wd + 7, y + 9]; };
     const inside = b => b[0] >= 2 && b[2] <= w - 2 && b[1] >= 2 && b[3] <= h - 2;
-    // the Expand button (lower right) and, in the Spatial and 3D views, the box of controls (upper left)
-    boxes.push([w - 96, h - 40, w, h]);
+    // kept clear: the expand button (lower right), the scale bar and caption, and in the Spatial and 3D views the
+    // box of controls (upper left)
+    boxes.push([w - 50, h - 44, w, h]);
+    boxes.push([10, sbY - Math.max(12, capEl.hidden ? 0 : capEl.offsetHeight + 2), capEl.hidden ? capX : w - 56, h]);   // the caption may run to two lines
     if (spatial || view3d) boxes.push([0, 0, 300, 34]);
-    const crowd = b => boxes.reduce((s, o) => s + Math.max(0, Math.min(b[2], o[2]) - Math.max(b[0], o[0])) * Math.max(0, Math.min(b[3], o[3]) - Math.max(b[1], o[1])), 0);
+    const crowd = b => boxes.reduce((t, o) => t + Math.max(0, Math.min(b[2], o[2]) - Math.max(b[0], o[0])) * Math.max(0, Math.min(b[3], o[3]) - Math.max(b[1], o[1])), 0);
+    // What is drawn under a box, read back from the canvas: darkness times opacity, summed over 2 x 2 px cells
+    // (one sample each) through a summed-area table, so a label keeps off the optics, the arrows and dense rays as
+    // well as other labels.  Pale fills (beam and glass tints) count a little.  Skipped while the 3D view turns.
+    let inkIn = () => 0;
+    if (!(view3d && turning3)) {
+      try {
+        const CW = cvEl.width, CH = cvEl.height, dpr = CW / w, px = g.getImageData(0, 0, CW, CH).data;
+        const GW = Math.ceil(w / 2), GH = Math.ceil(h / 2), W1 = GW + 1, SAT = new Float32Array(W1 * (GH + 1));
+        for (let j = 0; j < GH; j++) {
+          const yy = Math.min(CH - 1, Math.floor((2 * j + 1) * dpr));
+          let row = 0;
+          for (let i = 0; i < GW; i++) {
+            const k = (yy * CW + Math.min(CW - 1, Math.floor((2 * i + 1) * dpr))) * 4;
+            const ink = px[k + 3] / 255 * (1 - (0.299 * px[k] + 0.587 * px[k + 1] + 0.114 * px[k + 2]) / 255);
+            if (ink > 0.17) row += 4 * ink; else if (ink > 0.03) row += 1.2 * ink;   // pale fills count a little
+            SAT[(j + 1) * W1 + i + 1] = SAT[j * W1 + i + 1] + row;
+          }
+        }
+        const cx = v => Math.max(0, Math.min(GW, Math.round(v / 2))), cy = v => Math.max(0, Math.min(GH, Math.round(v / 2)));
+        inkIn = b => { const x0 = cx(b[0]), x1 = cx(b[2]), y0 = cy(b[1]), y1 = cy(b[3]); return SAT[y1 * W1 + x1] - SAT[y0 * W1 + x1] - SAT[y1 * W1 + x0] + SAT[y0 * W1 + x0]; };
+      } catch (e) { /* an unreadable canvas: labels keep off one another only */ }
+    }
+    placedLabels = [];
+    const RING = [24, 38, 54], DIRS = Array.from({ length: 8 }, (_, k) => [Math.cos(k * Math.PI / 4), -Math.sin(k * Math.PI / 4)]);
     for (const L of LB.sort((p, q) => p.pri - q.pri)) {
       const fMain = `${L.ital ? "italic " : ""}${L.size}px ${FONT}`, fSub = `${L.size - 1.5}px ${FONT}`;
       g.font = fMain; const w1 = g.measureText(L.txt).width;
       g.font = fSub; const w2 = L.sub ? g.measureText("  " + L.sub).width : 0;
-      const find = wd => L.cands.find(c => { const b = box(c[0], c[1], c[2], wd); return inside(b) && !hits(b); });
-      let sub = !!L.sub, pick = find(w1 + w2);
-      if (!pick && sub) { sub = false; pick = find(w1); }
-      if (!pick) {
-        if (L.optional) continue;
-        sub = false;
-        const ins = L.cands.filter(c => inside(box(c[0], c[1], c[2], w1)));
-        pick = (ins.length ? ins : L.cands).reduce((best, c) => (crowd(box(c[0], c[1], c[2], w1)) < crowd(box(best[0], best[1], best[2], w1)) ? c : best));
+      // candidates: the label's own positions in order of preference, then (for a label that must have a place)
+      // rings around its element, reached by a leader line
+      const n0 = L.cands.length, at = L.cands.reduce((a1, c) => [a1[0] + c[0] / n0, a1[1] + c[1] / n0], [0, 0]);
+      const cands = L.cands.map((c, i) => ({ c, cost: 6 * i, lead: false }));
+      if (!L.optional) for (const r of RING) for (const [ux, uy] of DIRS) {
+        const al = ux > 0.3 ? "left" : ux < -0.3 ? "right" : "center";
+        cands.push({ c: [at[0] + r * ux, at[1] + r * uy, al], cost: 34 + 0.8 * r, lead: true });
       }
-      const wd = w1 + (sub ? w2 : 0);
-      boxes.push(box(pick[0], pick[1], pick[2], wd));
+      let best = null;
+      for (const withSub of L.sub ? [true, false] : [false]) {
+        const wd = w1 + (withSub ? w2 : 0);
+        for (const k of cands) {
+          const b = box(k.c[0], k.c[1], k.c[2], wd);
+          const sc0 = k.cost + (withSub ? 0 : 40) + (inside(b) ? 0 : 5000) + 60 * crowd(b) + inkIn(b);
+          if (!best || sc0 < best.sc) best = { ...k, sc: sc0, sub: withSub, wd, b };
+        }
+      }
+      // an optional label (the W arrow, the angles) that cannot find a clear place is left out
+      if (L.optional && (best.sc >= 5000 || crowd(best.b) > 0 || inkIn(best.b) > 150)) continue;
+      const pick = best.c, sub = best.sub, wd = best.wd;
+      boxes.push(best.b);
+      placedLabels.push({ txt: L.txt, box: best.b, ink: inkIn(best.b), lead: best.lead, optional: !!L.optional });
       const x0 = pick[2] === "left" ? pick[0] : pick[2] === "right" ? pick[0] - wd : pick[0] - wd / 2;
+      if (best.lead) {
+        // a thin leader from the element to the nearest point of the label
+        const qx = Math.max(best.b[0], Math.min(best.b[2], at[0])), qy = Math.max(best.b[1] + 4, Math.min(best.b[3] - 4, at[1]));
+        g.strokeStyle = "rgba(106,101,96,0.75)"; g.lineWidth = 0.8; g.setLineDash([]);
+        g.beginPath(); g.moveTo(at[0], at[1]); g.lineTo(qx, qy); g.stroke();
+      }
       g.textAlign = "left"; g.textBaseline = "middle";
       // a white halo under the text keeps it legible where it crosses rays
       g.lineJoin = "round"; g.strokeStyle = "rgba(255,255,255,0.9)"; g.lineWidth = 4;
@@ -1132,19 +1187,13 @@ function drawLayout(Dz, P) {
     }
   }
   // scale bar (not in 3D: lengths along the line of sight are foreshortened)
-  let capX = 14;
   if (!view3d) {
-    const target = (w - mL - mR) * 0.16 / s, nice = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000];
-    let L = nice[0]; for (const v of nice) if (v <= target) L = v;
-    const xb = 14, yb = h - 12;
-    g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.moveTo(xb, yb); g.lineTo(xb + L * s, yb);
-    g.moveTo(xb, yb - 4); g.lineTo(xb, yb + 4); g.moveTo(xb + L * s, yb - 4); g.lineTo(xb + L * s, yb + 4); g.stroke();
+    const xb = 14, yb = sbY;
+    g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.moveTo(xb, yb); g.lineTo(xb + sbL * s, yb);
+    g.moveTo(xb, yb - 4); g.lineTo(xb, yb + 4); g.moveTo(xb + sbL * s, yb - 4); g.lineTo(xb + sbL * s, yb + 4); g.stroke();
     g.fillStyle = MUTED; g.font = `12.5px ${FONT}`; g.textAlign = "left"; g.textBaseline = "bottom";
-    const lab = L >= 1000 ? L / 1000 + " m" : L + " mm";
-    g.fillText(lab, xb + L * s + 8, yb + 5);
-    capX = xb + L * s + 8 + g.measureText(lab).width + 22;
+    g.fillText(sbLab, xb + sbL * s + 8, yb + 5);
   }
-  capEl.style.setProperty("--capL", ($("cvL").offsetLeft + capX) + "px");    // the caption starts after the scale bar
 }
 // layout view controls: Auto / Fixed scale, Reset, scroll to zoom about the pointer, drag to pan (to turn, in 3D)
 const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true);
@@ -1262,10 +1311,10 @@ document.addEventListener("mousedown", ev => {
         setOrbit(R3.az + orbitVel[0], R3.el + orbitVel[1]);
         orbitVel = orbitVel.map(x => x * 0.92);
         drawLayout(cur, curP);
-        if (Math.hypot(...orbitVel) > 1e-4) orbitRAF = requestAnimationFrame(step); else { orbitVel = null; turning3 = false; }
+        if (Math.hypot(...orbitVel) > 1e-4) orbitRAF = requestAnimationFrame(step); else { orbitVel = null; turning3 = false; drawSoon(); }
       };
       orbitRAF = requestAnimationFrame(step);
-    } else if (drag) turning3 = false;
+    } else if (drag) { if (turning3) drawSoon(); turning3 = false; }   // the labels get their full placement again
     if (drag || ptDrag) { drag = null; ptDrag = null; cv.style.cursor = ""; }
   });
   cv.addEventListener("contextmenu", ev => { if (curP && curP.view === "3d") ev.preventDefault(); });     // right-drag pans
@@ -1312,6 +1361,7 @@ function lamRGB(lA) {
   return [0, 1, 2].map(i => a[1][i] + (b[1][i] - a[1][i]) * t);
 }
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
+let placedLabels = [];                                             // the layout's labels as placed (for the tests)
 let spGeo = null, lvExpanded = false;                              // Spatial view, one free point: screen geometry for dragging
 let detGeom = null, traces = [], hover = null, offD = null, offB = null;
 
@@ -1355,6 +1405,7 @@ function buildTraces(Dz, P) {
 
 function drawDetector(Dz, P) {
   const cv = $("cvD");
+  $("dzReset").hidden = !(zoom.z > 1.001);
   const { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
   detGeom = null;
@@ -1390,6 +1441,9 @@ function drawDetector(Dz, P) {
   const obj = Dz.objects, pitch0 = obj && isFinite(obj.gapPx) && obj.n > 1 ? obj.gapPx * (obj.every || 1) * ppx : Infinity;
   const kk = pitch0 < 1.2 ? Math.ceil(1.2 / pitch0) : 1, pitchC = pitch0 * kk;
   if (kk > 1) sgC = Math.max(sgC, 0.6 * pitchC);
+  // an isolated trace (grating mode, objects far apart) thinner than a screen pixel is drawn at sigma 0.55 px (FWHM
+  // ~1.3 px), so a single star shows on the whole chip; zooming in reaches the true width
+  if (P.mode !== "echelle" && pitch0 > 6) sgC = Math.max(sgC, 0.55);
   const ovl = isFinite(pitchC) ? Math.min(1, pitchC / (sgC * 2.5066)) : 1;
   const pathOf = pts => { const pa = new Path2D(); pts.forEach((p, i) => { const q = T(...p.c); i ? pa.lineTo(q[0], q[1]) : pa.moveTo(q[0], q[1]); }); return pa; };
   const useFilter = "filter" in g;
@@ -1571,9 +1625,18 @@ function drawDetector(Dz, P) {
   const L = hover ? Dz.local(hover.lam, hover.m) : null;
   if (L) sub.innerHTML = `<b>${fAd(hover.lam, 2)} Å</b>` + (ech ? ` · order <b>${hover.m}</b>` : "") + (Dz.objects && Dz.objects.n > 1 ? ` · object <b>${hover.k + 1}</b> of ${Dz.objects.n}` : "") +
     ` · R <b>${fmtR(L.Reff)}</b> · <b>${sig(L.dlpix, 3)}</b> Å/px` + (L.eff !== null ? ` · blaze <b>${pct(L.eff)}</b>` : "");
-  else sub.textContent = "";
+  else sub.innerHTML = detLegend(Dz, P);
 }
 
+// the key to the detector drawing, in the header while the pointer is off the traces: the colors (fixed in
+// absolute wavelength, the LSTOP ramp), the brightness (the blaze, where there is one) and the dimmed parts
+function detLegend(Dz, P) {
+  if (Dz.bad || !Dz.c) return "";
+  const blaze = Dz.c.eff !== null && Dz.c.eff !== undefined;
+  return `<span class="lg">${(LSTOP[0][0] / 1e4).toFixed(2)}<span class="lgsw"></span>${(LSTOP[LSTOP.length - 1][0] / 1e4).toFixed(2)} µm</span>` +
+    (blaze ? `<span class="lg" title="Brightness follows the blaze efficiency (scalar theory), relative to the peak.">brightness: blaze</span>` : "") +
+    (P.mode === "echelle" ? `<span class="lg" title="Each order is drawn faint beyond its free spectral range, where the neighboring order covers the same wavelengths.">faint: outside the FSR</span>` : "");
+}
 // pointer -> nearest order trace (within 10 canvas px)
 function pick(ev) {
   if (!detGeom) return null;
@@ -1624,6 +1687,7 @@ function clampZoom() {
     clampZoom(); hover = pick(ev); redrawDetector();
   }, { passive: false });
   cv.addEventListener("dblclick", () => { zoom.reset(); clampZoom(); redrawDetector(); });
+  $("dzReset").addEventListener("click", () => { zoom.reset(); clampZoom(); redrawDetector(); });
 }
 
 // ------------------------------------------------------------------ main loop
@@ -1634,9 +1698,11 @@ function render() {
   syncControls();
   curP = params();
   cur = IX.design(curP);
+  // a wide detector chip (2k x 4k and the like) leaves room: the layout panel takes more of the width
+  document.querySelector(".panels").classList.toggle("lwide", !cur.bad && cur.Lx > 0 && cur.Lx / cur.Ly >= 1.5);
   if (curP.mode === "grating" && curP.gType === "trans" && (M().tAlpha === null || M().tAlpha === undefined) && cur.alpha) {
     if (document.activeElement !== $("sTA")) $("sTA").value = String(cur.alpha / IX.DEG);
-    $("vTA").textContent = (cur.alpha / IX.DEG).toFixed(1) + "° (sym.)";
+    $("vTA").textContent = (cur.alpha / IX.DEG).toFixed(1) + "°";   // the symmetric setting ("Angles α = β" below)
   }
   if (M().fcam > 0 && cur.Fcam > 0) {
     if (document.activeElement !== $("sFc")) $("sFc").value = String(Math.log10(cur.Fcam));
@@ -1686,7 +1752,7 @@ window.__instex = {
   state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
-  hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom },
+  hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom }, labels: () => placedLabels.map(l => ({ ...l })),
 };
 
 readHash();
