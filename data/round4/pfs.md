@@ -116,6 +116,7 @@ Same rules as `data/presets_research.md`: every number comes from a document sav
 - Medium-res grism: the explorer can only model it as a plane VPH; the Littrow stand-in (1007 l/mm, 23.73 deg) overshoots the published dispersion by 14% and spans 703-891 nm. A real grism keeps the red camera at the low-res angle (P14).
 - The 2023-2024 VPHG re-orientation (T24: 'wrong orientation of the VPHG', fixed by rolling the assemblies 180 deg) restored throughput; it does not change the dispersion geometry.
 - Status: PFS has been offered to the Subaru community since March 2025 (TN26 abstract).
+- Audit 2026-10-17: the preset now enters the 129 um core of cable A, the cable connected to the spectrographs (S15 Table 1: 'Cable A: 129 um ... Cable A is connected to the spectrographs'); 127 um (cable C) is the core at the focal plane. The 'As of July 2024' note (7) of IPMUP applies to the resolving-power row only, not to the dispersion.
 
 ## Objects per exposure (PFS)
 

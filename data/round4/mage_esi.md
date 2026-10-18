@@ -104,6 +104,7 @@ Same rules as rounds 1-3 (data/presets_research.md): every number comes from a d
 - The 1094 mm collimator at f/11.0 and the 138 mm camera reproduce the published 0.3"/px (0.309 DERIVED) and the 3-px-per-arcsec slit sampling, so R(1") ~ 4000 is a slit-width (geometric) prediction; the measured 4770 (R18) is 16% higher.
 - Throughput (M08 Table 2 / LCOMG): peak 21.8% (telescope + instrument) at 5590 A; 'Efficiency (instrument)' 35.5% -- not used by the app.
 - Wavelength calibration: ThAr, 'Typical wavelength solutions give an RMS of 0.06 A for 500 arc lines' (M08 Sec. 3.5).
+- Audit 2026-10-17: R18 (Sec. 2.2) dates the move to the Baade telescope: 'some observations were made after October 2015, when MagE was moved to the Baade telescope'. The 15-order count is not an independent check of the prisms: lambda_c was chosen to put orders 6-20 on the chip, the blue end is the explorer's 3200 A cutoff, and a weaker 44 + 44 + 40 deg train also gives 15. The M08 Table 2 order-6 row (9700 A, 0.788 A/px) is inconsistent with the other rows (m x lambda = 58,200 A against 61,200-62,500 A for orders 9-20); the model gives 0.787 A/px at the order-6 blaze centre (10,180 A) and 0.812 A/px at 9700 A.
 
 ## Keck II / ESI (Echellette Spectrograph and Imager, echellette mode: Cassegrain, two BSL7Y prisms, one in double pass)
 

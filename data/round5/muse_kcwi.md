@@ -109,6 +109,7 @@ Compiled 2026-10-17 for the instex Spectrograph Explorer, in the format of `data
 - MUSE uses a flat, tilted detector to absorb axial colour (B06); the explorer has a flat untilted focal plane.
 - R from the explorer is geometric (slit-limited, 2.0 px); the measured LSF (2.4-3.0 A, ~2.5 px) includes optics and detector blur, so the explorer over-predicts R by ~2-17% (largest in the blue).
 - NFM (0.025"/px, 7.42" x 7.43") uses the same spectrographs with x8 extra magnification in the fore-optics (ESOMI); the spectral format is identical (MUM).
+- Audit 2026-10-17: MUSE sits at a Nasmyth focus, whose entrance pupil is 8000 mm at f/15 (VLT-SPE-ESO-10000-2723 Table 3, saved under rawdata/presets/uves/); the preset now uses D = 8.0 m with W = 66.82 mm (the 0.2" slice still 2.0 px), which leaves R, A/px and the scales unchanged. The 1.25 A/px fixed the effective VPH line density, so it is not a validation target; the 1.19-1.31 A/px of W20 is the window the arc-line matcher assumes, not a measured spread. The x2 anamorphoser magnifies along the dispersion (across the slices).
 
 ## Keck II / KCWI (reflective 24-slice image slicer at the f/13.7 focus; spherical collimator mirror; articulated-camera VPH spectrographs: blue arm and KCRM red arm)
 
@@ -186,3 +187,4 @@ Compiled 2026-10-17 for the instex Spectrograph Explorer, in the format of `data
 - Grating mode: transmission VPH with a fixed incidence (tAlpha) and the camera following beta; the camera articulation angle = alpha + beta. Blue typical alpha: BL 15, BM 30, BH 50-55 deg (M18 Table 2), with beta ~ alpha - 9 deg at the design central wavelength because of the ~2 deg fringe tilt.
 - The virtual slit is curved in 3-D ("C"-shaped) and the pipeline uses a 4 deg mean out-of-plane diffraction angle; the explorer works in plane (0.24% in lambda).
 - KCRM shares the slicer, collimator and FM1 with the blue arm; a 560 nm dichroic takes the place of the FMD fold mirror (KSPEC, KPRIM, M18 Fig. 2 caption).
+- Audit 2026-10-17: the KCRM camera (305 mm) is NOT a sourced KCRM value: it is the single FCAM of the pipeline's kcwi.cfg, listed under 'parameters that should be the same for both channels', so the 0.92 A/px comparison tests that assumption. The pipeline's resolution() (kcwi_file_primitives.py) assumes R = 800 for RL with the Large slicer and halves the FWHM for the Medium slicer (R = 1600), against the model's 2129; the same function gives BM 2500 / 5000 (Large / Medium), the M18 Table 3 values.

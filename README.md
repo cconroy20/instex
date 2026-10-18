@@ -2,8 +2,8 @@
 
 An interactive page on spectrograph design. Set the telescope, the slit, the beam diameter and
 camera, the disperser and the detector; read off the resolving power, wavelength coverage,
-dispersion, sampling and pixel scale; see the instrument drawn to scale and, in grating mode, the
-Sun as the spectrograph would record it, or in echelle mode the format on the detector.
+dispersion, sampling and pixel scale; see the instrument drawn to scale (in the plane of the dispersion,
+along the slit, or in 3D) and the spectra as they fall on the detector.
 
 Sibling of spex, ismex, ionbal, dustex and lensex. The physics follows the Via notes "Notes on
 Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose worked example
@@ -47,7 +47,7 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   lengthwise edges where the surface turns from the viewer, found for each view) and a faint ring where it
   meets each optic; lenses are discs with rims, the
   grating, fold mirror and detector are plates. Three slit points (top, center,
-  bottom) each send a bundle (center ray and four pupil-edge rays) that leaves the collimator sloping by
+  bottom) each send a bundle (20 rays around the edge of the circular pupil) that leaves the collimator sloping by
   −z/f_col along the slit and crosses the axis at the grating (the pupil); after the grating each ray follows
   the traced 3-D direction (the tracer's slit coordinate is −z) to its focus. Rays colored by wavelength (three,
   plasma) or by slit position (brick/gray/teal). The grating's grooves are drawn along the slit; the detector
@@ -88,10 +88,14 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
 - **Controls**, in the order the light travels (Telescope, Entrance, Spectrograph and Detector boxes share one
   width; the Disperser box is wider): Telescope (D, F) | Entrance (slit width, number of objects; readouts: width at the focus and
   the angle θ′ = θ_g cos α/cos β the slit subtends in the beam arriving at the detector, θ_g = φD/W) |
-  Spectrograph (collimator Lens | Mirror and, for a mirror, its tilt; W, camera focal ratio, camera–collimator
-  angle (reflection) or γ (echelle)) | Disperser (with the grating incidence for a transmission grating) | Detector. Grating
+  Spectrograph (collimator Lens | Mirror; W, camera focal ratio, camera–collimator angle (reflection) or γ
+  (echelle)) | Disperser (Grating | Echelle in the box header; the grating kind, Reflection | Transmission | Grism,
+  with the grating incidence for a transmission grating and the apex, glass and Ruled | VPH for a grism) | Detector. Grating
   and Echelle each remember their own entrance, optics and detector; the telescope is shared. The state
-  is kept in the URL hash. Everything fits without scrolling at 1440 × 900 and 1280 × 800.
+  is kept in the URL hash, written a moment after the last change; a link edited by hand is followed, and a value
+  of the wrong kind in the link (a negative size, an unknown glass) is ignored. A preset whose instrument the link
+  changes loads as Custom. Everything fits without scrolling at 1440 × 900 and 1280 × 800 (every preset is checked
+  at the smaller size).
 - **Presets** (header menu, 54, grouped by telescope): Keck/LRIS red, HIRES, ESI, KCWI blue, KCRM red, DEIMOS and
   MOSFIRE Y/J/H/K; Magellan/MIKE red and blue, MagE, FIRE, IMACS f/4, LLAMAS blue/green/red (gratings fitted) and
   LDSS-3 VPH-All/Blue/Red; MMT/Binospec, Hectospec and Hectochelle; GMT/G-CLEF red (design); VLT/FORS2 300V, 300I
@@ -132,10 +136,15 @@ replaced by a mirror: field of view and pixel scale) is planned; an exposure-tim
     layer square to the beam between two prisms of apex A whose outer faces refract the beam to the Bragg angle
     and back, m G λ0 = 2 n sin(A − t), sin t = sin A / n. Both are traced surface by surface, the glass index
     following the wavelength; validate.js checks λ0, the straight-through axial ray and, for the ruled grism,
-    the dispersion (m G − sin A dn/dλ)/cos A to 1e-6. Choosing Grism sets A so that λ0 starts at the current λc.
+    the dispersion (m G − sin A dn/dλ)/cos A to 1e-6. A ruled grism's entrance face may be tilted by ε (FORS2:
+    7.5°): m G λ0 = n sin(A − ε′) − sin(A − ε), sin ε′ = sin ε/n, the beam on the grating W cos ε′/(cos ε cos(A − ε′)).
+    λ0 is found by scanning the glass's valid range for the fixed point and bisecting (the root nearest λc when
+    there are several); a grism with none in range is reported, not drawn. Choosing Grism sets A so that λ0 starts
+    at the current λc (and leaving Grism restores the grating's grooves); switching Ruled | VPH keeps λ0.
   - Echelle mode: α = δ + θ, β = δ − θ at the blaze center (θ in-plane, presets only; HIRES θ = 5°), the
     beam out of the dispersion plane by γ; m λ_blaze = cos γ (sin α + sin β)/G. Cross-disperser: a
-    first-order reflection grating (camera–collimator angle 10° unless a preset says otherwise), a prism
+    first-order reflection grating (camera–collimator angle 10° unless a preset says otherwise), a VPH grating
+    in first order at the Bragg setting for λc, a prism
     (N passes, each at minimum deviation for λc), or a grism whose exit face carries the grating, apex set
     so that λc passes undeviated: sin A = G λc/(n − 1). The cross-disperser's dispersion plane holds the
     reference ray and the normal to the echelle dispersion.
@@ -147,24 +156,34 @@ replaced by a mirror: field of view and pixel scale) is planned; an exposure-tim
   resolution element is the wavelength shift that moves the band by its own width, both measured normal
   to ŝ, Δλ = |e ∧ ŝ| / |(dP/dλ) ∧ ŝ| (this handles tilted lines and tilted orders alike).
   R_slit = λ/Δλ (box FWHM = slit width); R_pix = n_pix R_slit; R_diff = m N_grooves; R_eff =
-  (R_slit⁻² + R_diff⁻² + R_pix⁻²)^(−1/2), Eq. (lsf) of the notes. Dispersion and sampling are per pixel
+  (R_slit⁻² + R_diff⁻² + R_pix⁻²)^(−1/2), Eq. (lsf) of the notes. Three assumptions sit in these numbers: the
+  slit is uniformly lit (a star smaller than the slit gives a narrower line and a higher R); R_diff is the
+  Rayleigh limit; the quadrature sum treats each term as a Gaussian. The results strip gives R at λc; in
+  echelle mode R varies along an order, and at the blaze center without a cross-disperser R_slit = cos γ · 2 tan δ/θ_g
+  (a cross-disperser tilts the orders under lines tilted by γ, which moves R by a few tenths of a percent at γ = 1°,
+  ~1.5% more at 6°: item 2 of "Things worth knowing"). Dispersion and sampling are per pixel
   along X. Pixel scale along the slit from dP/dζ (analytically 206265 p W/(D f_cam), with the
   cross-disperser's anamorphism when there is one). Coverage: where the slit-center trace crosses the
-  detector edges (bisection), over every order that touches the chip; gaps from the union.
+  detector edges (bisection), over every order that touches the chip, bounded by the atmospheric cutoff
+  (3200 Å) and by 2.6 µm (an edge still on the chip there is the limit); gaps from the union. An echelle order
+  is kept if any part lands on the chip, even when the order's blaze lies outside the prism glass's valid range.
 - **Blaze efficiency** (reflection gratings, echelles): scalar theory, facets fully lit,
   sinc²[π σ cos γ cos δ (sin(α − δ) + sin(β − δ))/λ], relative to the peak.
 - **Beam footprint** (Disperser readout): the area the beam covers on the grating, W/cos α along the dispersion
   by W along the grooves — the minimum ruled area, not the grating's physical size (HIRES 1210 × 303 mm against
   its 12 × 48 in mosaic; HARPS ~800 × 208 against 840 × 214 mm).
 - **Glass** (prisms, grisms; `GLASS` in physics.js): Malitson 1965 fused silica; SCHOTT N-BK7, N-FK5,
-  FK5HTi, SF6; OHARA PBM 2Y and PBM 2R; Infrasil 301 and ZnSe at 105 K (NASA CHARMS temperature-dependent
-  fits, Leviton et al. 2005, 2008, evaluated at the X-Shooter NIR temperature: n(1 µm) = 1.44972, 2.47697).
-  Each reproduces its source's indices. Outside the range a formula was fitted over (SCHOTT ≤ 2.3 µm,
-  PBM 2Y 0.326–1.129 µm, Infrasil 0.50–3.6, ZnSe 0.55–5.6, silica 0.21–3.71) the index is undefined and those
-  rays do not reach the detector. Prism cross-dispersers can be a train of prisms in different glasses
+  FK5HTi, N-BAK2, LF5, SF6; OHARA PBM 2Y, PBM 2R, BSL7Y and S-LAL7; Infrasil 301 and ZnSe at 105 K (NASA CHARMS
+  temperature-dependent fits, Leviton et al. 2005, 2008, evaluated at the X-Shooter NIR temperature: n(1 µm) =
+  1.44972, 2.47697). Each reproduces its source's indices. Outside the wavelengths the glass's datasheet tabulates
+  (SCHOTT from 0.28–0.37 µm, by glass, to 2.33 µm; PBM 2Y and BSL7Y 0.326–1.129 µm; PBM 2R and S-LAL7
+  0.365–2.325 µm; Infrasil 0.50–3.6, ZnSe 0.55–5.6, silica 0.21–3.71) the index is undefined and those rays do
+  not reach the detector. Prism cross-dispersers can be a train of prisms in different glasses
   (presets: X-Shooter NIR = 35° Infrasil + 2 × 22° ZnSe, double pass), each at minimum deviation for λc.
-- **Warnings**: orders m ± 1 overlapping (m ≥ 2; the first-order "second-order light needs a filter" warning was
-  removed at Charlie's request, 2026-10-17); coverage gaps (echelle); undersampling (< 2 px); R_diff < R_slit. (A "camera faster
+- **Warnings** (each explained in a tooltip): orders m ± 1 overlapping (grating mode, m ≥ 2; the
+  first-order "second-order light needs a filter" warning was removed at Charlie's request, 2026-10-17); adjacent
+  echelle orders closer than one trace width (the slit image's extent across the dispersion, projected onto the
+  order spacing); coverage gaps (echelle); no orders on the detector; undersampling (< 2 px); R_diff < R_slit. (A "camera faster
   than f/1" warning was removed at Charlie's request; the camera focal ratio is a Spectrograph readout and a
   label in the drawing.) The echelle readouts give the smallest order spacing ("Order gap", above 3200 Å) in pixels
   and as the longest slit that fits between orders.
@@ -253,23 +272,27 @@ actual optical layout. Mapping choices:
 
 Validation against the published numbers (`node validate.js`, block 4). Tolerances were set from each
 source's precision before comparing; a first pass missed ten checks, handled as described below the table.
+A 2026-10-17 audit turned 35 scored checks into reference lines: checks the preset was fitted to (circular),
+checks that repeat two others (R = n_pix × dispersion), and misses that loose tolerances had hidden. R
+comparisons now name which R they mean: the slit-limited R_slit for design values quoted at a slit width,
+the effective R for measured ones. "(ref.)" marks a reference line in the table.
 
 | preset | result (published) |
 | --- | --- |
 | LRIS 600/7500 | 0.812 Å/px (0.80), 3308 Å (3275), R 1510 (7500/4.7 = 1596), 0.1352″/px (0.135) |
-| HIRES, 0.861″ | R 48,151 (Keck "calculated" 48,000; measured 50,000), 0.119″/px (≈ 0.12), 0.02506 Å/px in order 62 (1.67 Å/mm × 15 µm), first coverage gap at 6420 Å (≈ 6000) |
-| MIKE red, 1″ | R 18,720 (Bernstein et al. 2003: 19,000; LCO manual: 22,000), 0.1425″/px (105 µm/″), 40 orders on the chip (31–69 = 39), order spacing 5.87″ (6″) |
-| MIKE blue, 1″ | R 24,448 (25,000; LCO: 28,000), 0.1297″/px (115 µm/″), orders 74–107 span 27.6 mm (29), order spacing 5.70″ (6″) |
-| HARPS | R 100,230 at 5370 Å against the manual's own sampling × dispersion (105,290); 3.49 px/FWHM (3.4); 3873–6828 Å (3800–6900); orders 90–158 (89–161); 0.0142 Å/px in order 114 (0.015); order spacing 36.9 px (34.2) |
-| DESI B, R, Z | R at the band edges 1865/3100, 3185/4398, 3662/4869 ("approximately" 2000–3000, 3500–4500, 4000–5500); bands on the chip |
+| HIRES, 0.861″ | R_slit 49,417 (Keck "calculated" 48,000; measured 50,000), 0.119″/px (≈ 0.12), 0.02506 Å/px in order 62 (1.67 Å/mm × 15 µm), first coverage gap at 6420 Å (≈ 6000) |
+| MIKE red, 1″ | R_slit 18,938 (Bernstein et al. 2003: 19,000; LCO manual: 22,000), 0.1425″/px (105 µm/″), orders 31–69 span 31.2 mm against the 30.7 mm chip (ref.; the model holds 30–66), order spacing 5.87″ (6″) |
+| MIKE blue, 1″ | R_slit 24,681 (25,000; LCO: 28,000), 0.1297″/px (115 µm/″), orders 74–107 span 27.6 mm (29 ± 0.5; ref.: one 62° prism, which Bernstein et al. call equivalent, gives +1.7%), order spacing 5.70″ (6″) |
+| HARPS | R 100,230 at 5370 Å against the manual's own sampling × dispersion (105,290; ref.); 3.49 px/FWHM (3.4); 3873–6844 Å (3800 ref., 6900); orders 89–158 (89, 161 ref.: the model's order spacing is 0.2–4.7% wider); 0.0142 Å/px in order 114 (0.015); orders 160–161 35.8 px apart (34.2) |
+| DESI B, R, Z | R at the band edges 1865/3100, 3185/4398, 3662/4869 ("approximately" 2000–3000, 3500–4500, 4000–5500; ref.); bands on the chip |
 | Via | R 14,601 (≈ 15,000), 0.1015 Å/px = 5.53 km/s (5.5), 5018–5948 Å (505–595 nm) |
 | Boombox blue, red | R 1212, 1071 at the chip centers (≈ 1000; reference only, the prescription is guessed) |
 | DEIMOS 1200G, 0.75″ | 0.32404 Å/px (0.324), 6673.0–9293.7 Å (6673.0–9293.8), aberration-free R 6511 (8000/1.23 = 6504), slit image 3.79 px (3.79), 0.1192″/px (0.1185) |
 | Binospec 600, 1″ | 0.611 Å/px (0.61), 6000–8497 Å (6000–8480), 3.35 px per 1″ (3.32), R 3532 (3590), 0.244″/px (0.24) |
-| Hectospec 270, Hα | 1.231 Å/px (1.21), 5656 Å (5770), fiber image 5.06 px across the dispersion (5.1), 0.2795″/px (reduction 3.45) |
-| Hectochelle RV31 | R from the fiber-image diameter 30,329 (nominal 32,000), 156 Å per order (~150), fiber image 5.08 px (5.1), α 71.6° (72°) |
+| Hectospec 270, Hα | 1.231 Å/px (1.21), 5656 Å (5770), fiber image 5.06 px across the dispersion (5.1), 0.2795″/px (reduction 3.45), R from the fiber diameter × dispersion 1054 (6563/6.2 Å = 1058; ref.) |
+| Hectochelle RV31 | R from the fiber-image diameter 30,967 (nominal 32,000), 156 Å per order (~150), fiber image 5.08 px (5.1), α 71.6° (72°) |
 | G-CLEF red MR | reddest order 66 (65); R 27,958 vs 35,000 and the order spacing are reference lines |
-| X-Shooter UVB, VIS, NIR | R × sampling (the dispersion) 32,581 / 52,204 / 19,761 (33,480 / 50,730 / 20,160); order 18 / 23 span 38.2 / 56.1 nm (38.3 / 55.3); NIR 15 orders (16) |
+| X-Shooter UVB, VIS, NIR | R × sampling (the dispersion) 33,255 / 53,341 / 20,522 (33,480 / 50,730 (ref.: the table's product conflicts by 4% with the order-23 length, which the model matches) / 20,160); order 18 / 23 span 37.8 / 55.5 nm (38.3 / 55.3); NIR 15 orders (16) |
 
 The first-pass misses: (1) MIKE coverage ends (orders 37–70 of the LCO standard setting) depend on the
 unpublished prism angle, so the comparison was ill-posed; the order count is the well-posed test.
@@ -326,7 +349,9 @@ equal line width, (√3/2) × core, which is also the FWHM of a uniformly lit ro
 
 **Round 5 (2026-10-17): UVES, ESPRESSO, MUSE, KCWI/KCRM, APOGEE, FIRE, FEROS, and grisms for LDSS-3 and
 FORS2.** Sources in `data/round5/*.md` and `*.json`. (1) UVES blue 390 / red 580 (the standard DIC1 setting) use
-the 8.0 m entrance pupil at f/10, the value that reproduces the published scales (X-Shooter keeps 8.2 m); the
+the 8.0 m entrance pupil at f/10 (Nasmyth; MUSE too), the value that reproduces the published scales; the Cassegrain
+instruments (X-Shooter, FORS2) use the 8.115 m pupil at f/13.41 (VLT-SPE-ESO-10000-2723 Table 2; X-Shooter's
+cameras recomputed to hold the published plate scales, R +1.05% in every arm); the
 cross-disperser angles come from ESO's pipeline physical model. R, dispersion, scale and coverage match to
 0.2–3%. (2) ESPRESSO: the pupil slicer's two 300 mm slices map to an equivalent 600 mm round beam; the camera
 (755 mm) comes from the published pixel dispersion; γ = 4.85° is inferred from the order table, whose
@@ -351,7 +376,7 @@ than the screen can show are thinned and widened (zooming in restores them).
 
 ## Verification
 
-`node validate.js` (137 checks, all pass; reference lines printed as [INFO]):
+`node validate.js` (262 checks, all pass; 130 reference lines printed as [INFO]):
 
 - **The worked example of the notes**, every row of its table, from the ray trace: plate scale
   6.35″/mm, slit 158 µm, f_col 500 mm, θ_g = 65″ = 3.15 × 10⁻⁴ rad, Littrow α = β = δ = 63.4°,
@@ -371,18 +396,34 @@ than the screen can show are thinned and widened (zooming in restores them).
   R = cos γ · 2 tan δ/θ_g out of plane (exact, γ = 1° and 3°); slit-image tilt atan(2 tan γ tan δ)
   (3.99°, 11.8°); grating cross-disperser order spacing ∝ λ²; prism deviation 2 asin(n sin A/2) − A and
   angular dispersion 2 sin(A/2) dn/dλ/cos i, twice for two passes; grism apex and zero deviation at λc.
+- **Grisms**: λ0 for ruled and VPH grisms against m G λ0 = (n − 1) sin A and 2 n sin(A − t), the
+  straight-through axial ray, the ruled grism's dispersion (m G − sin A dn/dλ)/cos A, the tilted-entrance form
+  with the lit length and beam width.
+- **Edge cases from the 2026-10-17 audit** (ten of these checks fail on the engine from before the fixes): coverage bounded
+  at 3200 Å and 2.6 µm with edges where the trace crosses the chip; the order-overlap warning; glass indices
+  undefined outside their tabulated ranges; a grism root at the edge of the glass's range, and one with
+  no root rejected; tilted prisms in PBM 2R, PBM 2Y and FK5HTi; MIKE's order 30, whose blaze lies outside
+  the prism glass's range, kept.
 - **Presets**: above.
 
-`node uitest.js` drives the page in headless Chrome (127 checks): every slider moves the results as the
+`node uitest.js` drives the page in headless Chrome (208 checks): every slider moves the results as the
 optics requires (R ∝ 1/D, ∝ W, ∝ 1/φ, independent of F_tel and the camera; sampling ∝
-F_cam and ∝ 1/p; coverage ∝ 1/F_cam and ∝ N_x; at fixed F_cam the pixel scale is independent of W), the disperser switches, echelle R4 ≈ 2 × R2 and
-R ∝ cos γ, the warnings, the detector in grating mode and the number of objects (20 spectra spread evenly, hover names the
-object), the echelle detector (hover reads the order and wavelength, zoom to the pixel
-grid, reset), the URL hash round trip, all nineteen presets and their collimator types, the one-screen layout at 1440 × 900 and
-1280 × 800 (grating, transmission, echelle, prism, HARPS), the phone width, and redraw times (echelle
-~20 ms, grating ~6 ms). `node shot.js "<url#hash>" out.png [w] [h]` screenshots any state.
+F_cam and ∝ 1/p; coverage ∝ 1/F_cam and ∝ N_x; at fixed F_cam the pixel scale is independent of W), the disperser
+switches, echelle R4 ≈ 2 × R2 and R ∝ cos γ (to the line-tilt coupling), and the controls no other check moves,
+each against a closed form (blaze δ = asin(m G λ_b/2); m λ_b ∝ 1/G_echelle at fixed R; chip height N_y p; VPH
+cross-disperser order gaps ∝ λ²; prism apex and glass; the grism's glass through the grism equation; Ruled | VPH keeping
+λ0); the warnings, the detector in grating mode and the number of objects (20 spectra spread evenly, hover names
+the object), the echelle detector (hover reads the order and wavelength, zoom to the pixel grid, reset); the URL
+hash (a round trip of all 63 keys set away from their defaults, malformed values ignored, a hand-edited link followed,
+300 rapid changes ending in a matching link, a changed preset loading as Custom); the regressions of the
+2026-10-17 audit (grism switching, slider ranges widening to preset values, Expand and Exit, Esc and outside
+clicks, the 3D coast and snaps); all presets and their collimator types, the one-screen layout at 1440 × 900 and
+1280 × 800 (every preset at the smaller size), the phone width, and redraw times (echelle ~20 ms, grating ~6 ms).
+`node shot.js "<url#hash>" out.png [w] [h]` screenshots any state.
 
-Dev server: `python3 web/serve.py 8795`. Deploy (once a GitHub repo exists): `./deploy.sh`, as for lensex.
+Dev server: `python3 web/serve.py 8795`. Live at https://cconroy20.github.io/instex/ (repo cconroy20/instex). Deploy:
+`./deploy.sh`, as for lensex; the script publishes web/ as committed at HEAD, only after `node validate.js` passes, and
+refuses while web/ has uncommitted or untracked changes.
 
 ## Things worth knowing (found while building this)
 

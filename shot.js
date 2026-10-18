@@ -10,6 +10,18 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const prof = fs.mkdtempSync("/tmp/instex-shot-");
   const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`, `--user-data-dir=${prof}`,
     `--window-size=${W},${H}`, "--hide-scrollbars", "about:blank"], { stdio: "ignore" });
+  const cleanup = () => {                         // synchronous: runs from process "exit"
+    try { chrome.kill("SIGKILL"); } catch (e) {}
+    const nap = new Int32Array(new SharedArrayBuffer(4));
+    for (let k = 0; k < 40 && fs.existsSync(prof); k++) {    // a dying Chrome can still write into its profile
+      try { fs.rmSync(prof, { recursive: true, force: true }); } catch (e) {}
+      if (fs.existsSync(prof)) Atomics.wait(nap, 0, 0, 50);
+    }
+  };
+  process.on("exit", cleanup);
+  for (const sig of ["SIGINT", "SIGTERM"]) process.on(sig, () => process.exit(130));
+  process.on("uncaughtException", e => { console.error(e); process.exit(2); });
+  process.on("unhandledRejection", e => { console.error(e); process.exit(2); });
   let tabs = null;
   for (let i = 0; i < 50 && !tabs; i++) { await sleep(200); try { tabs = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); } catch (e) {} }
   const ws = new WebSocket(tabs.find(t => t.type === "page").webSocketDebuggerUrl);
@@ -26,5 +38,5 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const r = await send("Page.captureScreenshot", { format: "png", captureBeyondViewport: mode === "full" });
   fs.writeFileSync(out, Buffer.from(r.result.data, "base64"));
   if (errs.length) console.log("PAGE ERRORS:\n" + errs.join("\n"));
-  ws.close(); chrome.kill(); process.exit(0);
+  ws.close(); process.exit(0);
 })();

@@ -25,6 +25,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
   const prof = fs.mkdtempSync("/tmp/instex-chrome-");
   const chrome = spawn(CHROME, ["--headless=new", `--remote-debugging-port=${PORT}`,
     `--user-data-dir=${prof}`, "--window-size=1440,900", "--hide-scrollbars", "about:blank"], { stdio: "ignore" });
+  // whatever happens (a failed check, a crash, Ctrl-C), stop Chrome and delete its throwaway profile
+  const cleanup = () => {                         // synchronous: runs from process "exit"
+    try { chrome.kill("SIGKILL"); } catch (e) {}
+    const nap = new Int32Array(new SharedArrayBuffer(4));
+    for (let k = 0; k < 40 && fs.existsSync(prof); k++) {    // a dying Chrome can still write into its profile
+      try { fs.rmSync(prof, { recursive: true, force: true }); } catch (e) {}
+      if (fs.existsSync(prof)) Atomics.wait(nap, 0, 0, 50);
+    }
+  };
+  process.on("exit", cleanup);
+  for (const sig of ["SIGINT", "SIGTERM"]) process.on(sig, () => process.exit(130));
+  process.on("uncaughtException", e => { console.error(e); process.exit(2); });
+  process.on("unhandledRejection", e => { console.error(e); process.exit(2); });
   let tabs = null;
   for (let i = 0; i < 50 && !tabs; i++) {
     await sleep(200);
@@ -288,7 +301,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
   check("R4 echelle: about twice the R of R2", Math.abs(d.Rs / e0.Rs - 2) < 0.06, `${(d.Rs / e0.Rs).toFixed(3)}`);
   await setRange("#sED", 63.435);
   await setRange("#sGam", 6); d = await D();
-  check("gamma 6 deg: R lower by about cos(gamma)", d.Rs < e0.Rs && d.Rs > 0.97 * e0.Rs, `${(d.Rs / e0.Rs).toFixed(4)}`);
+  // out of plane by gamma, R falls as cos(gamma) (validate.js checks this to 1e-6 without a cross-disperser);
+  // here the cross-disperser tilts the orders under lines tilted by gamma, which costs about 1.5% more at 6 deg
+  { const want = Math.cos(6 * Math.PI / 180) / Math.cos(Math.PI / 180), got = d.Rs / e0.Rs;
+    check("gamma 6 deg: R lower by cos(gamma), within the 2.5% line-tilt coupling", got < want && got > 0.975 * want, `${got.toFixed(4)} vs cos ratio ${want.toFixed(4)}`); }
   await setRange("#sGam", 1);
   await setRange("#sXG", Math.log10(150)); d = await D();
   check("coarser cross-disperser: orders closer, more coverage", d.hi - d.lo > e0.hi - e0.lo, `${(d.lo * 1e4).toFixed(0)}-${(d.hi * 1e4).toFixed(0)}`);
@@ -300,8 +316,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
   if (glasses.length) {
     await click("#xPr"); d = await D();
     check("prism cross-disperser valid", !d.bad && d.n > 10, d.bad || `${d.n} orders`);
+    const sep1 = await ev(`window.__instex.design().minSep`);
     await click("#p2"); const d2 = await D();
-    check("double pass spreads the orders further (less coverage)", !d2.bad && (d2.hi - d2.lo) < (d.hi - d.lo), `${(d2.lo * 1e4).toFixed(0)}-${(d2.hi * 1e4).toFixed(0)}`);
+    const sep2 = await ev(`window.__instex.design().minSep`);
+    check("double pass doubles the order spacing", !d2.bad && rel(sep2, 2 * sep1) < 0.08, `${sep1.toFixed(1)} -> ${sep2.toFixed(1)} px`);
     await shot("05_prism.png");
     await click("#xGm"); d = await D();
     check("grism cross-disperser valid", !d.bad && d.n > 10, d.bad || `${d.n} orders`);
@@ -340,7 +358,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
 
   // ------------------------------------------------------------ hover and zoom on the echelle detector
   await click("#mEch"); await sleep(300);
-  check("detector canvas shown in echelle mode", (await vis("#cvD")) && !(await vis("#cvS")));
+  check("detector canvas shown in echelle mode", await vis("#cvD"));
   const box = await ev(`(r => ({x: r.left, y: r.top, w: r.width, h: r.height}))(document.querySelector("#cvD").getBoundingClientRect())`);
   const cpos = await ev(`(() => { const d = window.__instex.design(); const L = d.local(d.mlamRef / d.mRef, d.mRef); return { X: L.X, Y: L.Y, Lx: d.Lx, Ly: d.Ly, lam: d.mlamRef / d.mRef, m: d.mRef }; })()`);
   // geometry of drawDetector at zoom 1: margins 44 / 56 / 22 / 8
@@ -366,6 +384,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
 
   // ------------------------------------------------------------ URL hash round trip
   await setRange("#sD", 1); await click("#mEch"); await setRange("#sGam", 3.5);
+  await sleep(300);                              // the link is written a moment after the last change
   const hash = await ev(`location.hash`);
   const pBefore = await ev(`window.__instex.params()`);
   await go(hash);
@@ -389,6 +408,140 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("VPH grism: drawn and labeled, no page error", (await ev(`window.__instex.design().grism.vph`)) === true && (await ev(`document.getElementById("err").textContent`)) === "");
     await click("#gTr"); await sleep(200);
     check("back to a transmission grating: λc shown again", await vis("#sLC"));
+  }
+
+  // ------------------------------------------------------------ regressions from the 2026-10-17 audit
+  {
+    await go(); await sleep(200);
+    const R0 = (await D()).R;
+    await click("#gGm"); await sleep(200);
+    const g1 = await ev(`window.__instex.state().g.G`);
+    await click("#gTr"); await sleep(200);
+    check("grism and back: the grating's grooves and R come back", (await ev(`window.__instex.state().g.G`)) === 1200 && rel((await D()).R, R0) < 1e-9, `${g1} -> ${await ev(`window.__instex.state().g.G`)} /mm`);
+    await click("#gGm"); await sleep(200);
+    const lr = await ev(`window.__instex.design().grism.lam0`);
+    await click("#gkV"); await sleep(200);
+    const lv = await ev(`window.__instex.design().grism.lam0`);
+    check("grism: choosing it puts λ0 at λc, and switching Ruled -> VPH keeps it", Math.abs(lr - 0.55) < 0.005 && Math.abs(lv - lr) < 0.005, `${(lr * 1e4).toFixed(0)} -> ${(lv * 1e4).toFixed(0)} A`);
+    await click("#gTr"); await sleep(150);
+    // a preset value beyond a slider's range widens the range, so a nudge moves from the value
+    await go("#preset=hectochelle");
+    const sm = await ev(`(e => [+e.max, +e.value])(document.getElementById("sM"))`);
+    check("slider ranges widen to a preset's value (Hectochelle order 31)", sm[0] >= 31 && sm[1] === 31, `max ${sm[0]}, value ${sm[1]}`);
+    // malformed links leave the defaults alone
+    await go("#g.tAlpha=&g.colTilt=abc&g.pix=0&g.gType=foo&g.W=-5&D=xyz");
+    const st = await ev(`window.__instex.state()`);
+    check("malformed link values are ignored, no page error", st.g.pix === 15 && st.g.gType === "trans" && st.g.W === 100 && st.D === 6.5 && st.g.colTilt === null && (await ev(`document.getElementById("err").textContent`)) === "");
+    // an edited link is followed
+    await ev(`location.hash = "#preset=harps"`); await sleep(400);
+    check("editing the link loads it (hashchange)", (await ev(`window.__instex.params().mode`)) === "echelle" && (await ev(`document.getElementById("preset").value`)) === "harps");
+    // rapid changes end in a link that matches the state
+    await go(); await ev(`(() => { for (let i = 0; i < 300; i++) window.__instex.set({ g: { W: 100 + i } }); })()`); await sleep(400);
+    check("after 300 rapid changes the link matches the state", /g\.W=399(&|$)/.test(await ev(`location.hash`)), await ev(`location.hash`));
+    // a preset changed in the link is Custom; drawing options keep the preset's name
+    await go("#preset=lris&g.W=300");
+    check("a preset with a changed instrument loads as Custom", (await ev(`document.getElementById("preset").value`)) === "custom");
+    await go("#preset=via"); await click("#v3d"); await click("#foOn");
+    check("drawing options (3D view, fold mirror) keep the preset's name", (await ev(`document.getElementById("preset").value`)) === "via");
+    // 3D: a snap stops a coast, and Auto scale refits afterwards
+    const s3 = await ev(`(async () => { const cv = document.getElementById("cvL"), r = cv.getBoundingClientRect();
+      cv.dispatchEvent(new MouseEvent("mousedown", { clientX: r.left + 100, clientY: r.top + 100, bubbles: true }));
+      window.dispatchEvent(new MouseEvent("mousemove", { clientX: r.left + 400, clientY: r.top + 120, bubbles: true }));
+      window.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+      document.getElementById("v3Top").click();
+      await new Promise(res => setTimeout(res, 200));
+      const a = window.__instex.rot3().az, s1 = window.__instex.lview().s;
+      await new Promise(res => setTimeout(res, 300));
+      const a2 = window.__instex.rot3().az;
+      window.__instex.set({ g: { W: 400 } });
+      return [a, a2, s1, window.__instex.lview().s]; })()`);
+    check("3D: a snap stops the coast, and Auto scale refits after it", s3[0] === s3[1] && s3[2] !== s3[3], `az ${s3[0].toFixed(3)} -> ${s3[1].toFixed(3)}; scale ${s3[2].toFixed(3)} -> ${s3[3].toFixed(3)}`);
+    await click("#vSpec");
+    // Expand: a change made while expanded, then Exit, leaves the detector bitmap at its box's size
+    await go(); await click("#lvExpand"); await sleep(250);
+    await ev(`window.__instex.set({ g: { W: 150 } })`); await sleep(150);
+    await click("#lvExpand"); await sleep(300);
+    const cvd = await ev(`(c => [c.width, Math.round(c.clientWidth * (window.devicePixelRatio || 1))])(document.getElementById("cvD"))`);
+    check("Expand, change, Exit: the detector is redrawn at its own size", cvd[0] === cvd[1], `${cvd[0]} vs ${cvd[1]}`);
+    // changing the detector format resets the detector zoom
+    await ev(`(c => { const r = c.getBoundingClientRect(); for (let i = 0; i < 6; i++) c.dispatchEvent(new WheelEvent("wheel", { deltaY: -300, clientX: r.right - 20, clientY: r.top + r.height / 2, bubbles: true, cancelable: true })); })(document.getElementById("cvD"))`);
+    const z1 = (await ev(`window.__instex.zoom()`)).z;
+    await setRange("#sNx", Math.log10(1024)); await sleep(150);
+    check("a new detector format resets the detector zoom", z1 > 2 && (await ev(`window.__instex.zoom()`)).z === 1, `zoom ${z1.toFixed(1)} -> ${(await ev(`window.__instex.zoom()`)).z}`);
+    // Esc and a click outside close the layout options
+    await go(); await click("#lvOptsBtn");
+    await ev(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))`); await sleep(100);
+    const escClosed = !(await vis("#sLL"));
+    await click("#lvOptsBtn");
+    await ev(`document.querySelector(".stats").dispatchEvent(new MouseEvent("mousedown", { bubbles: true }))`); await sleep(100);
+    check("Esc, or a click outside, closes the layout options", escClosed && !(await vis("#sLL")));
+    // echelle orders closer than one trace width raise a warning
+    await go("#mode=echelle&e.xG=30&e.slitW=3");
+    check("echelle: orders closer than one trace width are flagged on the page", (await ev(`window.__instex.design().flags.some(f => f.k === "ovl")`)) && /trace width/.test(await ev(`document.querySelector(".flags").textContent`)));
+    await go("#mode=echelle&e.xd=prism&e.xPrisms=" + encodeURIComponent(JSON.stringify([{ glass: "unobtainium", A: 40 }])));
+    check("a link's prism train with an unknown glass is ignored", (await ev(`window.__instex.state().e.xPrisms`)) === null && (await ev(`document.getElementById("err").textContent`)) === "");
+  }
+
+  // ------------------------------------------------------------ controls no other check moves, each against a closed form
+  {
+    const gapY = `(() => { const d = window.__instex.design(), m = d.mRef, a = d.local(d.mlamRef / m, m), b = d.local(d.mlamRef / (m + 1), m + 1); return Math.abs(a.Y - b.Y); })()`;
+    // blaze wavelength (reflection grating): facet angle delta = asin(m G lamB / 2), lamB = lamB1 / m
+    await go("#g.gType=refl"); await setRange("#sLB", Math.log10(7000));
+    { const s = await ev(`window.__instex.state().g`), dl = await ev(`window.__instex.design().delta`), want = Math.asin(s.m * s.G / 1000 * (s.lamB1 / s.m / 1e4) / 2);
+      check("blaze slider: facet angle asin(m G lambda_B / 2)", Math.abs(s.lamB1 - 7000) < 50 && Math.abs(dl - want) < 1e-12, `lamB1 ${s.lamB1.toFixed(0)} A, delta ${(dl * 180 / Math.PI).toFixed(3)} deg`); }
+    // echelle grooves: half the grooves, twice m lambda at the blaze, the same R at the blaze center (R varies
+    // along an order, and lambda_c sits elsewhere in the order once the blaze moves)
+    const eRef = `(d => [d.mlamRef, d.local(d.mlamRef / d.mRef, d.mRef).Rs, window.__instex.state().e.eG])(window.__instex.design())`;
+    await go("#mode=echelle"); const ea = await ev(eRef);
+    await setRange("#sEG", Math.log10(15.8)); const eb = await ev(eRef);
+    check("echelle grooves: m lambda at the blaze goes as 1/G, R at the blaze unchanged", rel(eb[0] / ea[0], 31.6 / eb[2]) < 1e-9 && rel(eb[1], ea[1]) < 1e-4, `G ${eb[2].toFixed(3)}: m lambda ${ea[0].toFixed(3)} -> ${eb[0].toFixed(3)} um, R ${ea[1].toFixed(0)} -> ${eb[1].toFixed(0)}`);
+    // detector rows: the chip height is Ny pixels
+    await setRange("#sNy", Math.log10(2048));
+    { const r = await ev(`[window.__instex.design().Ly, window.__instex.state().e.Ny, window.__instex.state().e.pix, document.getElementById("detSel").value]`);
+      check("detector rows: chip height Ny x pixel, format turns Custom", rel(r[0], r[1] * r[2] / 1000) < 1e-12 && Math.abs(r[1] - 2048) < 30 && r[3] === "custom", `${r[1]} rows, ${r[0].toFixed(2)} mm`); }
+    // VPH cross-disperser: order gaps grow as lambda squared, as for a grating
+    await go("#mode=echelle"); await click("#xVp");
+    { const r = await ev(`(() => { const d = window.__instex.design(), ms = d.orders.map(o => o.m), mb = Math.max(...ms) - 1, mr = Math.min(...ms);
+        const gap = m => Math.abs(d.local(d.mlamRef / m, m).Y - d.local(d.mlamRef / (m + 1), m + 1).Y);
+        return [window.__instex.state().e.xd, gap(mr) / gap(mb), (mb / mr) ** 2]; })()`);
+      check("VPH cross-disperser: order gaps grow as lambda squared (to 3%)", r[0] === "vph" && rel(r[1], r[2]) < 0.03, `red/blue gap ${r[1].toFixed(3)} vs ${r[2].toFixed(3)}`); }
+    // prism apex and glass: a larger apex, or a more dispersive glass, spreads the orders
+    await go("#mode=echelle&e.xd=prism"); const g40 = await ev(gapY);
+    await setRange("#sXA", 55); const g55 = await ev(gapY);
+    check("prism apex 40 -> 55 deg: orders farther apart", g55 > 1.3 * g40, `${g40.toFixed(4)} -> ${g55.toFixed(4)} mm`);
+    await go("#mode=echelle&e.xd=prism");
+    await ev(`(s => { s.value = "SF6"; s.dispatchEvent(new Event("change")); })(document.getElementById("xGlass"))`); await sleep(200);
+    const gSF = await ev(gapY);
+    check("prism glass silica -> SF6: orders farther apart, menu follows", gSF > 3 * g40 && (await ev(`window.__instex.state().e.xGlass`)) === "SF6", `${g40.toFixed(4)} -> ${gSF.toFixed(4)} mm`);
+    // the grism's glass: lambda0 solves (n(lambda0) - 1) sin A = m G lambda0 for the new glass
+    await go(); await click("#gGm");
+    const l0bk = await ev(`window.__instex.design().grism.lam0`);
+    await ev(`(s => { s.value = "SF6"; s.dispatchEvent(new Event("change")); })(document.getElementById("gGlass"))`); await sleep(200);
+    { const r = await ev(`(() => { const d = window.__instex.design(), s = window.__instex.state().g, l = d.grism.lam0; return [l, (IX.nGlass("SF6", l) - 1) * Math.sin(s.gA * Math.PI / 180) / (s.m * s.G / 1000)]; })()`);
+      check("grism glass N-BK7 -> SF6: lambda0 moves and solves the grism equation", Math.abs(r[0] - r[1]) < 1e-9 && r[0] > l0bk, `${(l0bk * 1e4).toFixed(0)} -> ${(r[0] * 1e4).toFixed(0)} A`); }
+    // VPH -> Ruled keeps lambda0, as Ruled -> VPH does
+    await go(); await click("#gGm"); await click("#gkV"); const lv = await ev(`window.__instex.design().grism.lam0`);
+    await click("#gkR"); const lr = await ev(`window.__instex.design().grism.lam0`);
+    check("grism: switching VPH -> Ruled keeps lambda0", Math.abs(lr - lv) < 0.005 && (await ev(`window.__instex.state().g.gKind`)) === "ruled", `${(lv * 1e4).toFixed(0)} -> ${(lr * 1e4).toFixed(0)} A`);
+    // every key survives the link: set each one away from its default, reload from the hash, compare the whole state
+    await go();
+    await ev(`window.__instex.set({ mode: "echelle", D: 8.2, F: 13.6,
+      g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", colTilt: 4.5, layLen: 700, foldOn: true, foldAng: 120, foldPos: 0.3, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
+           W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5 },
+      e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
+           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
+           xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10 } })`);
+    await sleep(300);
+    const sBefore = await ev(`window.__instex.state()`), hAll = await ev(`location.hash`);
+    await go(hAll);
+    const sAfter = await ev(`window.__instex.state()`);
+    const diff = [];
+    for (const k of Object.keys(sBefore)) {
+      if (k === "g" || k === "e") { for (const j of Object.keys(sBefore[k])) if (JSON.stringify(sBefore[k][j]) !== JSON.stringify(sAfter[k][j])) diff.push(`${k}.${j}: ${JSON.stringify(sBefore[k][j])} vs ${JSON.stringify(sAfter[k][j])}`); }
+      else if (JSON.stringify(sBefore[k]) !== JSON.stringify(sAfter[k])) diff.push(`${k}: ${sBefore[k]} vs ${sAfter[k]}`);
+    }
+    const nKeys = Object.keys(sBefore.g).length + Object.keys(sBefore.e).length + 3;
+    check(`every key (${nKeys}) set away from its default survives the link`, diff.length === 0 && hAll.split("&").length >= nKeys, diff.join("; ") || `${hAll.split("&").length} fields`);
   }
 
   // ------------------------------------------------------------ presets
@@ -420,6 +573,15 @@ const rel = (a, b) => Math.abs(a / b - 1);
     }
     await go(); await shot(`08_fit_${w}.png`);
   }
+  // every preset at the smaller laptop screen (the tighter one)
+  {
+    const ids = await ev(`window.IX_PRESETS.map(p => p.id)`), over = [];
+    for (const id of ids) { await send("Page.navigate", { url: URL0 + "?r=" + Math.random() + "#preset=" + id }); await sleep(450); const f = await fit(); if (!(f.bottom <= f.vh + 0.5 && f.sw <= f.cw)) over.push(`${id} ${f.bottom.toFixed(0)}`); }
+    check(`1280x800: every preset's controls fit (${ids.length})`, over.length === 0, over.join(", "));
+  }
+  // the phone layout: the header's buttons are not covered by the panel's boxes
+  await size(390, 844); await go("#g.view=3d");
+  check("phone width: the layout header's buttons are reachable", (await ev(`["lvOptsBtn", "lvAuto", "lvFixed", "lvReset", "v3d"].every(id => { const r = document.getElementById(id).getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e && e.id === id; })`)));
   await size(390, 844); await go();
   const ph = await fit();
   check("phone width: no sideways scroll", ph.sw <= ph.cw, `${ph.sw} vs ${ph.cw}`);
@@ -436,5 +598,5 @@ const rel = (a, b) => Math.abs(a / b - 1);
 
   check("no page errors", errors.length === 0, errors.slice(0, 3).join(" | "));
   console.log(`\n${passes} passed, ${fails} failed`);
-  ws.close(); chrome.kill(); process.exit(fails ? 1 : 0);
+  ws.close(); process.exit(fails ? 1 : 0);
 })();

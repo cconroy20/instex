@@ -115,3 +115,4 @@ Compiled 2026-10-17 for the instex Spectrograph Explorer, in the format of `data
 - Two blue detectors (1A and 4A) were damaged in the 2025-2026 data (S26: 'We dithered to cover gaps left by the two damaged blue detectors (detectors 1A and 4A).').
 - ETC sensor lines give read noise 2.46 e- (blue, green) and 2.29 e- (red) and dark 0.00119 / 0.00192 e-/s/px; F20 reports 2.3 e- at 75 kHz for the first production heads.
 - Pipeline wavelength grid limits (PYJ arcLlamas.py): blue 3200-4947, green 4570-7100, red 6570-10038 A -- consistent with the blue chip reaching below 3417 A.
+- Audit 2026-10-17: the centre dispersion from the arc tables is NOT independent of the coverage used to set G_eff: fitting the band to 2048 px fixes the mean dispersion, and the centre value differs from the mean only through cos(beta) across the chip. The resolving-power ranges come from MITSPEC (the MIT Specifications page), not from F20.

@@ -61,28 +61,30 @@ function surface(u, nrm, gvec, mlam, n1, n2, reflect) {
 // Sellmeier coefficients n^2 - 1 = sum B_i lam^2 / (lam^2 - C_i), lam in micrometers, C_i in
 // micrometers^2.  Sources, with quotes, in data/presets_research.md (glass sections); the documents
 // are in rawdata/presets/glass/ and glass2/.  range: wavelengths the formula is valid for (SCHOTT:
-// "from the near UV to 2.3 um"; OHARA PBM 2Y: 326-1129 nm with these constants; CHARMS fits and
-// Malitson as fitted; PBM 2R not stated).
+// the shortest to the longest wavelength each data sheet tabulates an index for (SCHOTT: N-BK7 312.6 nm,
+// N-FK5 and FK5HTi 280.4 nm, N-BAK2 296.7 nm, LF5 334.1 nm, SF6 365.0 nm, all to 2325.4 nm); OHARA PBM 2Y:
+// 326-1129 nm with these constants; OHARA's formula otherwise 365-2325 nm; CHARMS fits and Malitson as fitted.
+// Outside its range a glass has no index (NaN), and rays through it are dropped.
 const GLASS = {
   // Malitson 1965, JOSA 55, 1205 (publisher's abstract): fused silica, 20 C, 0.21-3.71 um
   silica: { label: "fused silica", range: [0.21, 3.71], B: [0.6961663, 0.4079426, 0.8974794], C: [0.0684043 ** 2, 0.1162414 ** 2, 9.896161 ** 2] },
   // SCHOTT datasheets (N-BK7 as of 01-Dec-2023; N-FK5 and FK5HTi from the optical glass collection)
-  "N-BK7": { label: "N-BK7", range: [0, 2.3], B: [1.03961212, 0.231792344, 1.01046945], C: [0.006000699, 0.0200179144, 103.560653] },
-  "N-FK5": { label: "N-FK5", range: [0, 2.3], B: [0.844309338, 0.344147824, 0.910790213], C: [0.00475112, 0.0149814849, 97.8600293] },
-  FK5HTi: { label: "FK5HTi (FK5)", range: [0, 2.3], B: [0.90936218, 0.279077054, 0.891813298], C: [0.005201425, 0.0158938446, 95.9109448] },
+  "N-BK7": { label: "N-BK7", range: [0.3126, 2.3254], B: [1.03961212, 0.231792344, 1.01046945], C: [0.006000699, 0.0200179144, 103.560653] },
+  "N-FK5": { label: "N-FK5", range: [0.2804, 2.3254], B: [0.844309338, 0.344147824, 0.910790213], C: [0.00475112, 0.0149814849, 97.8600293] },
+  FK5HTi: { label: "FK5HTi (FK5)", range: [0.2804, 2.3254], B: [0.90936218, 0.279077054, 0.891813298], C: [0.005201425, 0.0158938446, 95.9109448] },
   // OHARA datasheets (OHARA 25-04); PBM 2Y valid 326-1129 nm with these constants
   PBM2Y: { label: "PBM 2Y (PBM2)", range: [0.326, 1.129], B: [1.39446503, 0.159230985, 0.245470216], C: [0.0110571872, 0.0507194882, 31.4440142] },
-  PBM2R: { label: "PBM 2R", B: [1.34139422, 0.21318551, 0.983288016], C: [0.00980301669, 0.0470587088, 117.45827] },
-  // SCHOTT SF6 datasheet (as of 01-Dec-2023): the X-Shooter VIS prism
+  PBM2R: { label: "PBM 2R", range: [0.365, 2.325], B: [1.34139422, 0.21318551, 0.983288016], C: [0.00980301669, 0.0470587088, 117.45827] },
   // OHARA BSL7Y (ESI's cross-disperser prisms), OHARA data sheet 10/2018; the coefficients reproduce the sheet's
   // indices to 5e-6 from 0.326 to 1.129 um and drift beyond 1.5 um, so the range stops at the sheet's 1.129 um
-  BSL7Y: { label: "BSL7Y (OHARA)", range: [0.32, 1.13], B: [1.13329383, 0.136897201, 0.703456004], C: [0.00669407868, 0.023739176, 70.7030316] },
+  BSL7Y: { label: "BSL7Y (OHARA)", range: [0.326, 1.129], B: [1.13329383, 0.136897201, 0.703456004], C: [0.00669407868, 0.023739176, 70.7030316] },
   // OHARA S-LAL7 (LDSS-3 VPH-Blue and VPH-Red grism prisms), OHARA formula (same form), catalogue range 365-2325 nm
   "S-LAL7": { label: "S-LAL7 (OHARA)", range: [0.365, 2.325], B: [0.916121247, 0.765948319, 1.27745023], C: [0.00395889743, 0.0167547425, 110.762706] },
   // SCHOTT LF5 and N-BAK2 (FORS2 grisms 300I and 150I), SCHOTT data sheets
-  LF5: { label: "LF5", range: [0, 2.3], B: [1.28035628, 0.163505973, 0.893930112], C: [0.009298544, 0.0449135769, 110.493685] },
-  "N-BAK2": { label: "N-BAK2", range: [0, 2.3], B: [1.01662154, 0.319903051, 0.937232995], C: [0.005923838, 0.0203828415, 113.118417] },
-  SF6: { label: "SF6", range: [0, 2.3], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
+  LF5: { label: "LF5", range: [0.3341, 2.3254], B: [1.28035628, 0.163505973, 0.893930112], C: [0.009298544, 0.0449135769, 110.493685] },
+  "N-BAK2": { label: "N-BAK2", range: [0.2967, 2.3254], B: [1.01662154, 0.319903051, 0.937232995], C: [0.005923838, 0.0203828415, 113.118417] },
+  // SCHOTT SF6 datasheet (as of 01-Dec-2023): the X-Shooter VIS prism
+  SF6: { label: "SF6", range: [0.365, 2.3254], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
   // NASA CHARMS temperature-dependent Sellmeier fits, evaluated at 105 K (the X-Shooter NIR optics):
   // Infrasil 301 (Leviton, Frey & Madison 2008, Table 10; 0.5-3.6 um), ZnSe (Leviton, Frey & Kvamme 2005,
   // Table 13; 0.55-5.6 um).  B_i = S_i(105 K), C_i = lambda_i(105 K)^2; n(1 um) = 1.44972 and 2.47697.
@@ -189,9 +191,19 @@ function design(P) {
         const n = nGlass(P.gGlass, l);
         return (vph ? 2 * n * Math.sin(A - Math.asin(Math.sin(A) / n)) : n * Math.sin(A - Math.asin(Math.sin(eps) / n)) - Math.sin(A - eps)) / (order * Gm);
       };
-      let l0 = 0.6;
-      for (let k = 0; k < 60; k++) { const l1 = f(l0); if (!isFinite(l1) || l1 <= 0) { l0 = NaN; break; } if (Math.abs(l1 - l0) < 1e-12) { l0 = l1; break; } l0 = l1; }
-      if (!(l0 > 0) || !isFinite(nGlass(P.gGlass, l0))) { S.bad = "This grism passes no wavelength straight through inside the glass's valid range."; return S; }
+      // lam0 solves f(lam) = lam: scan the glass's range (within 0.3-2.6 um) for a sign change of f(lam) - lam and
+      // bisect it; with several roots, take the one nearest the requested central wavelength
+      const gr = (GLASS[P.gGlass] && GLASS[P.gGlass].range) || [0.3, 2.6];
+      const lo = Math.max(0.3, gr[0] + 1e-9), hi = Math.min(2.6, gr[1] - 1e-9), g = l => f(l) - l, roots = [];
+      let pl = lo, pg = g(lo);
+      for (let k = 1; k <= 400; k++) {
+        const l = lo + (hi - lo) * k / 400, gl = g(l);
+        if (isFinite(pg) && isFinite(gl) && pg * gl <= 0) roots.push(bisect(g, pl, l, pg, gl, 1e-13));
+        pl = l; pg = gl;
+      }
+      let l0 = NaN;
+      for (const r of roots) if (!(Math.abs(r - lamC) >= Math.abs(l0 - lamC))) l0 = r;
+      if (!(l0 > 0) || !(Math.abs(g(l0)) < 1e-9)) { S.bad = "This grism passes no wavelength straight through inside the glass's valid range."; return S; }
       lamC = l0;
       const n0 = nGlass(P.gGlass, l0), tt = Math.asin(Math.sin(A) / n0);
       S.grism = { A, vph, eps, n0, lam0: l0, inner: vph ? A - tt : A };
@@ -396,6 +408,13 @@ function design(P) {
     // refracted beam width (W cos t / cos A, t the refraction angle at the first face) spread by 1 / cos(A - t)
     S.Wp = W;
     if (S.grism.vph) { const tt = S.grism.A - S.grism.inner; S.Lg = W * Math.cos(tt) / Math.cos(S.grism.A) / Math.cos(S.grism.inner); }
+    else if (S.grism.eps) {
+      // the tilted entrance face (eps) refracts the beam to eps' and changes its width by cos eps' / cos eps; it meets
+      // the ruled face at A - eps' and leaves it at A - eps (lam0, back on the axis)
+      const e = S.grism.eps, ep = Math.asin(Math.sin(e) / S.grism.n0), A = S.grism.A;
+      S.Lg = W * Math.cos(ep) / (Math.cos(e) * Math.cos(A - ep));
+      S.Wp = S.Lg * Math.cos(A - e);
+    }
   }
   if (!(fcam > 0)) fcam = P.Fc * S.Wp;
   S.fcam = fcam;
@@ -464,20 +483,30 @@ function design(P) {
   // ---- wavelength range on the detector for one order (slit center)
   const LAM_MIN = 0.30, LAM_MAX = 2.60, ATMO = 0.32;   // um; ATMO: atmospheric cutoff
   function orderRange(m, lamGuess) {
-    // walk outward from lamGuess (on the chip) in both directions until off the chip, then refine
+    // walk outward from lamGuess (on the chip) in both directions until off the chip, then refine.  Nothing
+    // shorter than the atmospheric cutoff (ATMO) arrives, and nothing longer than LAM_MAX is followed: where the
+    // trace is still on the chip at either limit, the limit is the edge of the coverage.
+    if (lamGuess < ATMO || lamGuess > LAM_MAX) {
+      const l = lamGuess < ATMO ? ATMO * (1 + 1e-9) : LAM_MAX * (1 - 1e-9);
+      if (!onChip(pos(l, m))) return null;
+      lamGuess = l;
+    }
     const loc = local(lamGuess, m);
     if (!loc) return null;
     const half = 1.15 * (Lx / 2 + Math.abs(loc.X)) / loc.disp;                // um, generous
     const out = [];
     for (const dir of [-1, 1]) {
+      const lim = dir < 0 ? ATMO : LAM_MAX;
       let a = lamGuess, n = 64, edge = null;
       for (let k = 1; k <= n; k++) {
-        const b = lamGuess + dir * half * k / (n / 2);
-        if (b < LAM_MIN * 0.5 || b > LAM_MAX * 1.5) { edge = b; break; }
+        let b = lamGuess + dir * half * k / (n / 2);
+        const past = dir < 0 ? b <= lim : b >= lim;
+        if (past) b = lim;
         if (!onChip(pos(b, m))) {
           edge = bisect(l => (onChip(pos(l, m)) ? -1 : 1), a, b, -1, 1, lamGuess * 1e-9);
           break;
         }
+        if (past) { edge = lim; break; }
         a = b;
       }
       out.push(edge === null ? a : edge);
@@ -501,7 +530,6 @@ function design(P) {
     // overlap with neighboring orders (order-sorting filter); first order carries no warning (second-order light
     // removed at Charlie's request, 2026-10-17)
     if (order > 1) flag("ord", "orders " + (order - 1) + " and " + (order + 1) + " overlap: needs a filter");
-    if (S.c.slitPix > P.Ny) flag("long", "slit longer than the detector");
   } else {
     // ---- echelle format
     const K = mlamRef;                             // m lambda at the blaze center
@@ -510,12 +538,12 @@ function design(P) {
     for (let m = mLo; m <= mHi; m++) {
       const lb = K / m;
       const p = pos(lb, m);
-      if (!p || Math.abs(p[1]) > Ly / 2 + 0.02 * Ly) continue;
-      // the blaze center may lie just off the chip in Y while part of the order is on it;
-      // find an on-chip starting point along the order
-      let start = onChip(p) ? lb : null;
+      if (p && Math.abs(p[1]) > Ly / 2 + 0.02 * Ly) continue;
+      // the blaze center may lie just off the chip in Y, or outside a prism glass's range (no position), while part
+      // of the order is on the chip: look for an on-chip starting point along the order
+      let start = p && onChip(p) ? lb : null;
       if (start === null) {
-        for (const f of [-0.3, 0.3, -0.15, 0.15]) { const l = lb * (1 + f / m); if (onChip(pos(l, m))) { start = l; break; } }
+        for (const f of [-0.3, 0.3, -0.15, 0.15, -0.45, 0.45, -0.6, 0.6]) { const l = lb * (1 + f / m); if (onChip(pos(l, m))) { start = l; break; } }
       }
       if (start === null) continue;
       const r = orderRange(m, start);
@@ -537,20 +565,22 @@ function design(P) {
       S.gaps = gaps;
       S.covFrac = cov / (S.range[1] - S.range[0]);
       if (gaps.length) flag("gap", "coverage gaps above " + Math.round(gaps[0][0] * 1e4) + " Å");
-      // order separation at the blaze center against the slit image length
+      // order separation at the blaze center against one trace's width: the slit (or fiber) width imaged along
+      // the slit, measured vertically (a tilted slit image is spread over more rows)
       let minClear = Infinity, minSep = Infinity;
+      const wTr = P.traceW > 0 ? P.traceW : P.slitW;
       for (let k = 0; k + 1 < orders.length; k++) {
         if (orders[k].lb < ATMO) continue;                 // below the atmospheric cutoff nothing arrives
         const a = pos(orders[k].lb, orders[k].m), b = pos(orders[k + 1].lb, orders[k + 1].m);
         if (!a || !b) continue;
         const sep = Math.abs(a[1] - b[1]) / pix;
-        const la = local(orders[k].lb, orders[k].m), lb2 = local(orders[k + 1].lb, orders[k + 1].m);
-        const sl = 0.5 * ((la ? la.slitPix : 0) + (lb2 ? lb2.slitPix : 0));
+        const la = local(orders[k].lb, orders[k].m);
+        const tw = la && wTr > 0 ? wTr / la.pixScale * Math.abs(la.sdir[1]) : 0;
         minSep = Math.min(minSep, sep);
-        minClear = Math.min(minClear, sep - sl);
+        minClear = Math.min(minClear, sep - tw);
       }
       S.minSep = minSep; S.minClear = minClear;
-      if (minClear < 0) flag("ovl", "adjacent orders overlap");
+      if (minClear < 0) flag("ovl", "adjacent orders closer than one trace width");
     } else {
       S.range = null;
       flag("none", "no orders fall on the detector");

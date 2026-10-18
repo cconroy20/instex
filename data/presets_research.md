@@ -688,6 +688,7 @@ Same rules as above: every number comes from a document saved unmodified under `
 - Echelle geometry (interpretation): 'off-blaze angle' = in-plane offset theta = 0.0 deg in all arms (B08 Sec. 2 uses the same term: 'an Echelle grating with constant σE at off-blaze angle θ'); 'off-plane angle' = gamma (2.2 / 2.0 / 1.8 deg); N08 calls the NIR echelle 'near-Littrow'.
 - UVB and VIS share an ESO FIERA controller; UVB/VIS have ADCs, NIR does not (V11 Sec. 2.2.7).
 - M120 (2005) is a PDR-era design: NIR 1.03-2.48 um 'in 15 orders', four-lens camera; D06 (2006 FDR) introduced the slower F/2.1 NIR camera.
+- Audit 2026-10-17: X-Shooter sits at a Cassegrain focus, whose entrance pupil is 8115.0 mm at f/13.4106 (VLT-SPE-ESO-10000-2723 Table 2, saved under rawdata/presets/uves/; V11's f/13.41 matches). With D = 8.115 m the published plate scales give f_col = 650 mm (UVB, exactly the nominal f/6.5 x 100 mm) and 665 mm (VIS), and effective cameras of 273.0 / 283.0 / 178.6 mm (f/2.73, f/2.83, f/2.10); the presets now use these, which raises the model's R by 1.05% in every arm. XUM24 Table 13's R x sampling equals lambda / (A per pixel); in the VIS it implies 0.140 A/px at 711 nm, 4% coarser than V11 Table 3's order 23 (55.3 nm over 4096 px).
 
 ## Glass dispersion formulas, round 2 (X-Shooter prisms)
 

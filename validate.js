@@ -213,10 +213,59 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
   }
 }
 
+// ---------------------------------------------------------------- 3c. edge cases found by the 2026-10-17 audit
+{
+  const base = { mode: "grating", feed: "slit", slitL: 0, D: 6.5, F: 5, slitW: 1, W: 100, Fc: 1.6, fcam: null, gType: "trans", m: 1, lamB: 5000, lamC: 5500, psi: 35, tAlpha: null, Nx: 4096, Ny: 2048, pix: 15 };
+  // coverage stops at the atmospheric cutoff (3200 A) and at 2.6 um, never at an arbitrary search step
+  for (const [G, Fc, W] of [[300, 1.6, 100], [30, 0.5, 100], [30, 0.5, 5]]) {
+    const S = IX.design(Object.assign({}, base, { G, Fc, W }));
+    const ok = !S.bad && S.range[0] >= 0.32 - 1e-9 && S.range[1] <= 2.6 + 1e-9 && S.range[0] < S.range[1];
+    check(`coverage bounded by 3200 A and 2.6 um (${G}/mm, f/${Fc}, W ${W})`, ok, S.bad || `${(S.range[0] * 1e4).toFixed(0)}-${(S.range[1] * 1e4).toFixed(0)} A`);
+  }
+  // the edge found is where the trace leaves the chip (or a limit), not a step past it
+  {
+    const S = IX.design(Object.assign({}, base, { G: 1200 }));
+    const inside = S.onChip(S.pos(S.range[0] * 1.0001, 1)) && S.onChip(S.pos(S.range[1] * 0.9999, 1));
+    const outside = !S.onChip(S.pos(S.range[0] * 0.999, 1)) && !S.onChip(S.pos(S.range[1] * 1.001, 1));
+    check("coverage edges are where the trace crosses the chip edge", inside && outside, `${(S.range[0] * 1e4).toFixed(1)}-${(S.range[1] * 1e4).toFixed(1)} A`);
+  }
+  // overlapping orders are flagged (orders closer than one trace width), and not at the default
+  const E0 = { mode: "echelle", feed: "slit", slitL: 0, D: 6.5, F: 5, slitW: 0.5, W: 150, Fc: 3, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, xd: "grating", xG: 300, xPsi: 10, xGlass: "silica", xA: 40, xPasses: 1, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15 };
+  const Eok = IX.design(E0), Eov = IX.design(Object.assign({}, E0, { xG: 30, slitW: 3 }));
+  check("echelle: orders closer than one trace width are flagged", !Eok.flags.some(f => f.k === "ovl") && Eov.flags.some(f => f.k === "ovl"), `min gap ${Eov.minSep.toFixed(1)} px`);
+  // glasses have no index outside their data sheets' range
+  const nan = [["SF6", 0.30], ["LF5", 0.20], ["N-BK7", 0.30], ["PBM2R", 0.30], ["BSL7Y", 1.2]].filter(([g, l]) => !isNaN(IX.nGlass(g, l)));
+  check("glasses: no index outside the tabulated range", nan.length === 0, nan.map(x => x.join(" ")).join(", "));
+  // grism: lam0 near a glass's range edge is found; a grism with no in-range solution is rejected, not approximated
+  const g0 = Object.assign({}, base, { gType: "grism", fcam: 280, gKind: "ruled", m: 1 });
+  const Gedge = IX.design(Object.assign({}, g0, { G: 30, gA: 8, gGlass: "N-BK7" }));
+  check("grism: lam0 near the glass's red limit is found", !Gedge.bad && Math.abs(Gedge.grism.lam0 - 2.274) < 0.01, Gedge.bad || `${(Gedge.grism.lam0 * 1e4).toFixed(0)} A`);
+  const Gbad = IX.design(Object.assign({}, g0, { G: 1200, gA: 30, gGlass: "N-BK7" }));
+  check("grism: no solution inside the glass's range is rejected", !!Gbad.bad, Gbad.bad || `lam0 ${(Gbad.grism.lam0 * 1e4).toFixed(0)} A`);
+  for (const [G, A, gl] of [[60, 54, "PBM2R"], [86, 9, "PBM2Y"], [300, 21, "FK5HTi"]]) {
+    const Gx = IX.design(Object.assign({}, g0, { G, gA: A, gGlass: gl, gTilt: 7.5 }));
+    const u = !Gx.bad && Gx.mainOut(Gx.grism.lam0, 1);
+    check(`grism ${G}/mm A=${A} ${gl} (tilted 7.5 deg): rejected, or lam0 truly straight through`, !!Gx.bad || Math.hypot(u[0], u[1]) < 1e-9, Gx.bad || `${(Gx.grism.lam0 * 1e4).toFixed(0)} A`);
+  }
+  // a tilted ruled grism: the entrance face refracts the beam, which sets the lit length and the beam leaving it
+  {
+    const Gt = IX.design(Object.assign({}, g0, { G: 300, gA: 21, gGlass: "FK5HTi", gTilt: 7.5, W: 92.8 }));
+    const e = 7.5 * DEG, A = 21 * DEG, n = Gt.grism.n0, ep = Math.asin(Math.sin(e) / n);
+    const Lg = 92.8 * Math.cos(ep) / (Math.cos(e) * Math.cos(A - ep)), Wp = Lg * Math.cos(A - e);
+    check("tilted grism: lit length W cos e'/(cos e cos(A - e')) and beam W' = Lg cos(A - e)", rel(Gt.Lg, Lg) < 1e-9 && rel(Gt.Wp, Wp) < 1e-9, `${Gt.Lg.toFixed(2)} / ${Gt.Wp.toFixed(2)} mm`);
+  }
+  // an echelle order whose blaze center lies outside the prism glass's range is kept if part of it is on the chip
+  {
+    const Mk = IX.design({ mode: "echelle", feed: "slit", slitL: 0, D: 6.5, F: 500 / 150, slitW: 1, W: 150, fcam: 500, eG: 52.6, eDelta: 63.5, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "PBM2Y", xA: 47, xPasses: 2, lamC: 10500, Nx: 4096, Ny: 2048, pix: 15 });
+    check("echelle: an order with its blaze outside the prism glass's range is kept (MIKE red, order 30 at 10500 A)", Mk.orders.some(o => o.m === 30), Mk.orders.map(o => o.m).slice(0, 4).join(","));
+  }
+}
+
 // ---------------------------------------------------------------- 4. instrument presets
 // Each preset's published performance, reproduced by the trace from its sourced parameters.  The
 // tolerances were set from the precision of each source before the comparison was run; misses are
-// reported, not tuned away.
+// reported, not tuned away.  Lines marked info (circular, duplicated, unlike quantities, or misses)
+// are printed as references and not scored; the q types are listed in the header of web/presets.js.
 {
   const PRESETS = require("./web/presets.js");
   const toP = st => {
@@ -235,7 +284,10 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
       switch (q.q) {
         case "R": val = S.c.Reff; break;
         case "Rs": val = S.c.Rs; break;
-        case "Rnpix": val = S.c.Reff * S.c.npix; break;
+        case "Rnpix": val = S.c.lam * 1e4 / S.c.dlpix; break;   // R x sampling = lambda / (A per pixel), the dispersion (= Rs x npix)
+        case "kmspx": val = 299792.458 * S.c.dlpix / (S.c.lam * 1e4); break;   // km/s per pixel at the central wavelength
+        case "specScale": val = p.state[p.state.mode === "echelle" ? "e" : "g"].slitW / S.c.npix; break;   // arcsec per pixel along the dispersion
+        case "pixScaleAt": { const L = S.local(q.lam / 1e4, q.m); val = L ? L.pixScale : NaN; break; }   // along the slit, at lam in order m
         case "ordSpan": { const o = S.orders.find(q2 => q2.m === q.m); val = o ? (o.hi - o.lo) * 1e4 : NaN; break; }
         case "RAt": { const L = S.local(q.lam / 1e4, ordFor(q.lam)); val = L ? L.Reff : NaN; break; }
         case "dlpix": val = S.c.dlpix; break;
@@ -263,8 +315,8 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
           if (q.m1) {   // smallest separation of adjacent order centers within the published order range
             let mn = Infinity;
             for (let m = q.m1; m < q.m2; m++) { const a = S.pos(S.mlamRef / m, m), b = S.pos(S.mlamRef / (m + 1), m + 1); if (a && b) mn = Math.min(mn, Math.abs(a[1] - b[1])); }
-            val = mn / S.pixmm * S.c.pixScale;
-          } else val = S.minSep * S.c.pixScale;
+            val = mn / S.pixmm * S.c.pixScale / Math.abs(S.c.sdir[1]);
+          } else val = S.minSep * S.c.pixScale / Math.abs(S.c.sdir[1]);
           break;
         }
         case "nOrders": val = S.orders.length; break;
@@ -275,7 +327,7 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
       }
       const err = Math.abs(val / q.value - 1);
       if (q.info) { console.log(`[INFO] preset ${p.id}: ${q.what}  --  model ${isFinite(val) ? +val.toPrecision(5) : val}${isFinite(q.value) ? ` vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%` : " (a published range"}; ${q.src}; reference, not scored)`); continue; }
-      check(`preset ${p.id}: ${q.what}`, err <= q.tol, `${isFinite(val) ? +val.toPrecision(5) : val} vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%, tol ${(100 * q.tol).toFixed(0)}%; ${q.src})`);
+      check(`preset ${p.id}: ${q.what}`, err <= q.tol, `${isFinite(val) ? +val.toPrecision(5) : val} vs ${+q.value.toPrecision(5)} (${(100 * err).toFixed(1)}%, tol ${+(100 * q.tol).toPrecision(2)}%; ${q.src})`);
     }
   }
 }

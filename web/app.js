@@ -28,12 +28,13 @@ const R3 = { m: rotAzEl(-0.6, 0.5), az: -0.6, el: 0.5 };
 // straight over to straight under, no roll; a release keeps turning and slows to a stop
 const setOrbit = (az, el) => { R3.az = az; R3.el = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, el)); R3.m = rotAzEl(R3.az, R3.el); };
 let orbitVel = null, orbitRAF = 0, drawRAF = 0;
+function stopCoast() { orbitVel = null; cancelAnimationFrame(orbitRAF); turning3 = false; }
 const drawSoon = () => { if (!drawRAF) drawRAF = requestAnimationFrame(() => { drawRAF = 0; if (cur) drawLayout(cur, curP); }); };
 let turning3 = false;                               // while the 3D view is being turned, the scale holds
 let c3mode = "lam";                                // 3D rays colored by wavelength or by slit position
 const M = () => (S.mode === "grating" ? S.g : S.e);
 
-// presets: filled from data/presets (see README); each sets the full state
+// presets: defined in presets.js (window.IX_PRESETS, sources in data/ and the README); each sets the full state
 const PRESETS = window.IX_PRESETS || [];
 let presetId = "custom";
 
@@ -81,7 +82,7 @@ const SL = [
   ["sGam", "gamma", "m", false, false, v => v.toFixed(1) + "°"],
   ["sG", "G", "m", true, false, v => sig(v, 3) + " /mm"],
   ["sM", "m", "m", false, true, v => String(v)],
-  ["sLB", "lamB1", "m", true, false, v => grp(v) + " Å, 1st order"],
+  ["sLB", "lamB1", "m", true, false, v => (v >= 30000 ? sig(v / 1e4, 3) + " µm" : grp(v) + " Å") + ", 1st order"],
   ["sEG", "eG", "m", true, false, v => sig(v, 3) + " /mm"],
   ["sED", "eDelta", "m", false, false, v => "R" + Math.tan(v * IX.DEG).toFixed(2) + " · " + v.toFixed(1) + "°"],
   ["sXG", "xG", "m", true, false, v => sig(v, 3) + " /mm"],
@@ -92,6 +93,8 @@ const SL = [
   ["sPix", "pix", "m", false, false, v => sig(v, 3) + " µm"],
 ];
 const obj = scope => (scope === "s" ? S : M());
+// layout options that change only the drawing (they keep a preset's name)
+const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos"]);
 
 function markCustom() {
   presetId = "custom";
@@ -106,34 +109,48 @@ for (const [id, key, scope, lg, intg] of SL) {
     if (id === "sFc") M().fcam = null;
     if (id === "sSW") M().traceW = null;
     if (id === "sXA") S.e.xPrisms = null;
-    if (id === "sNx" || id === "sNy" || id === "sPix") $("detSel").value = "custom";
-    markCustom();
+    if (id === "sNx" || id === "sNy" || id === "sPix") { $("detSel").value = "custom"; zoom.reset(); }
+    if (!DRAWING_KEYS.has(key)) markCustom();
     schedule();
   });
 }
-function bindSeg(pairs, get, set) {
-  for (const [id, val] of pairs) $(id).addEventListener("click", () => { set(val); markCustom(); schedule(); });
+function bindSeg(pairs, get, set, drawingOnly = false) {
+  for (const [id, val] of pairs) $(id).addEventListener("click", () => { set(val); if (!drawingOnly) markCustom(); schedule(); });
   return () => { for (const [id, val] of pairs) $(id).setAttribute("aria-pressed", String(get() === val)); };
 }
+// Choosing a grism: set its apex so that the undeviated wavelength is lc (ruled: sin A = m G lc / (n - 1); VPH:
+// m G lc = 2 n sin(A - asin(sin A / n)), solved by bisection), with a coarser ruling if no apex up to 60 deg can do it.
+// The grating's own groove density comes back when the grism is switched off.
+let preGrismG = null;
+function aimGrism(lc) {
+  const n = IX.nGlass(S.g.gGlass || "N-BK7", lc), m = S.g.m;
+  if (!(n > 1)) return;
+  const need = G => m * G / 1000 * lc;
+  const reach = A => (S.g.gKind === "vph" ? 2 * n * Math.sin(A - Math.asin(Math.sin(A) / n)) : (n - 1) * Math.sin(A) / Math.cos(0));
+  const maxA = 60 * IX.DEG;
+  if (need(S.g.G) > reach(maxA)) S.g.G = 300;
+  if (need(S.g.G) > reach(maxA)) return;
+  let a = 0, b = maxA;
+  for (let k = 0; k < 60; k++) { const c = 0.5 * (a + b); if (reach(c) < need(S.g.G)) a = c; else b = c; }
+  S.g.gA = 0.5 * (a + b) / IX.DEG;
+}
 const segs = [
-  bindSeg([["mGrat", "grating"], ["mEch", "echelle"]], () => S.mode, v => { S.mode = v; zoom.reset(); lview.fit = true; }),
+  bindSeg([["mGrat", "grating"], ["mEch", "echelle"]], () => S.mode, v => { S.mode = v; zoom.reset(); lview.fit = true; stopCoast(); }),
   bindSeg([["gRefl", "refl"], ["gTr", "trans"], ["gGm", "grism"]], () => S.g.gType, v => {
-    if (v === "grism" && S.g.gType !== "grism") {
-      // start the grism with λ0 at the current central wavelength: sin A = m G λc / (n − 1) (ruled), coarser
-      // ruling if no apex angle can do it
-      const lc = S.g.lamC / 1e4, n = IX.nGlass(S.g.gGlass || "N-BK7", lc) || 1.5, sA = G => S.g.m * G / 1000 * lc / (n - 1);
-      if (S.g.gKind !== "vph" && sA(S.g.G) > 0.8) S.g.G = 300;
-      if (S.g.gKind !== "vph" && sA(S.g.G) <= 0.8) S.g.gA = Math.asin(sA(S.g.G)) / IX.DEG;
-    }
+    if (v === "grism" && S.g.gType !== "grism") { preGrismG = S.g.G; aimGrism(S.g.lamC / 1e4); }
+    else if (v !== "grism" && S.g.gType === "grism" && preGrismG !== null) { S.g.G = preGrismG; preGrismG = null; }
     S.g.gType = v;
   }),
-  bindSeg([["gkR", "ruled"], ["gkV", "vph"]], () => (S.g.gKind === "vph" ? "vph" : "ruled"), v => { S.g.gKind = v; }),
+  bindSeg([["gkR", "ruled"], ["gkV", "vph"]], () => (S.g.gKind === "vph" ? "vph" : "ruled"), v => {
+    const l0 = cur && cur.grism ? cur.grism.lam0 : S.g.lamC / 1e4;
+    S.g.gKind = v; aimGrism(l0);                      // keep the undeviated wavelength where it was
+  }),
   bindSeg([["cLens", "lens"], ["cMirror", "mirror"]], () => M().col, v => { M().col = v; }),
-  bindSeg([["foOff", false], ["foOn", true]], () => !!M().foldOn, v => { M().foldOn = v; }),
-  bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }),
-  bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }),
-  bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"], ["v3d", "3d"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; }),
-  bindSeg([["sp3", 3], ["sp1", 1]], () => (S.g.spPts === 1 ? 1 : 3), v => { S.g.spPts = v; }),
+  bindSeg([["foOff", false], ["foOn", true]], () => !!M().foldOn, v => { M().foldOn = v; }, true),
+  bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }, true),
+  bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }, true),
+  bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"], ["v3d", "3d"]], () => S.g.view || "spectral", v => { S.g.view = v; lview.fit = true; stopCoast(); }, true),
+  bindSeg([["sp3", 3], ["sp1", 1]], () => (S.g.spPts === 1 ? 1 : 3), v => { S.g.spPts = v; }, true),
   bindSeg([["xGr", "grating"], ["xVp", "vph"], ["xPr", "prism"], ["xGm", "grism"]], () => S.e.xd, v => { S.e.xd = v; }),
   bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; }),
 ];
@@ -180,7 +197,7 @@ const psel = $("preset");
 }
 psel.addEventListener("change", () => {
   const p = PRESETS.find(q => q.id === psel.value);
-  if (!p) { presetId = "custom"; return; }
+  if (!p) { presetId = "custom"; scheduleHash(); return; }
   applyPreset(p);
 });
 function applyPreset(p) {
@@ -189,16 +206,22 @@ function applyPreset(p) {
     if (k === "g" || k === "e") Object.assign(st[k], p.state[k]);
     else st[k] = p.state[k];
   }
+  st.g.view = S.g.view;                           // the view (Spectral, Spatial, 3D) is the reader's, not the preset's
   S = st; presetId = p.id; psel.value = p.id; zoom.reset(); lview.fit = true; schedule();
 }
-$("reset").addEventListener("click", () => { S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; schedule(); });
+$("reset").addEventListener("click", () => {
+  S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto";
+  stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
+});
 
 function syncControls() {
   for (const [id, key, scope, lg, , fmt] of SL) {
     const o = obj(scope), v = o[key];
     if (v === undefined || v === null) continue;
-    const el = $(id);
-    if (document.activeElement !== el) el.value = String(lg ? Math.log10(v) : v);
+    const el = $(id), sv = lg ? Math.log10(v) : v;
+    if (sv < +el.min) el.min = String(sv);
+    if (sv > +el.max) el.max = String(sv);
+    if (document.activeElement !== el) el.value = String(sv);
     $("v" + id.slice(1)).textContent = fmt(v);
   }
   segs.forEach(f => f());
@@ -212,7 +235,8 @@ function syncControls() {
     lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
     "x-" + S.e.xd,
   ].join(" ");
-  gsel.value = S.e.xGlass;
+  gsel.value = S.e.xPrisms && S.e.xPrisms.length ? S.e.xPrisms[0].glass : S.e.xGlass;
+  if (S.e.xPrisms && S.e.xPrisms.length) { $("vXA").textContent = "train"; $("vXA").title = "The preset's prism train (listed below); moving the slider replaces it with one prism."; } else $("vXA").title = "";
   ggsel.value = S.g.gGlass || "N-BK7";
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
@@ -232,27 +256,54 @@ function params() {
 
 // ------------------------------------------------------------------ URL hash
 const SHARED = ["mode", "D", "F"];
+let hashTimer = 0, lastHash = null;
+function scheduleHash() { clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 180); }
 function writeHash() {
   const parts = [];
   const put = (k, v, d) => { if (v !== d && v !== null) parts.push(k + "=" + encodeURIComponent(typeof v === "number" ? +v.toPrecision(7) : typeof v === "object" ? JSON.stringify(v) : v)); };
   for (const k of SHARED) put(k, S[k], DEF[k]);
   for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) put(sc + "." + k, S[sc][k], DEF[sc][k]);
   if (presetId !== "custom") parts.push("preset=" + presetId);
+  lastHash = parts.length ? "#" + parts.join("&") : "";
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
+// keys that must be positive, and the allowed values of the string-valued keys
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA"]);
+const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], view: ["spectral", "spatial", "3d"],
+  gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
   const h = location.hash.slice(1);
   if (!h) return;
   const kv = {};
   for (const p of h.split("&")) { const [k, v] = p.split("="); if (k) kv[k] = decodeURIComponent(v || ""); }
   if (kv.preset) { const p = PRESETS.find(q => q.id === kv.preset); if (p) applyPreset(p); }
-  const conv = (d, v) => { if (typeof d === "boolean") return v === "true"; if (v[0] === "[") { try { return JSON.parse(v); } catch (e) { return null; } } return typeof d === "number" || (d === null && v !== "" && isFinite(Number(v))) ? Number(v) : v; };
-  for (const k of SHARED) if (k in kv) S[k] = conv(DEF[k], kv[k]);
-  for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) if (sc + "." + k in kv) S[sc][k] = conv(DEF[sc][k], kv[sc + "." + k]);
-  if (kv.preset && Object.keys(kv).length > 1) {
-    // a preset with later changes is no longer the preset
+  // a value of the wrong kind (a typed-in link) is ignored: the key keeps its default (or the preset's value)
+  const NUL = Symbol("skip");
+  const conv = (k, d, v) => {
+    if (typeof d === "boolean") return v === "true" ? true : v === "false" ? false : NUL;
+    if (v[0] === "[") {
+      // a prism train: each prism a known glass and an apex angle between 0 and 90 deg
+      try { const a = JSON.parse(v); return k === "xPrisms" && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL; } catch (e) { return NUL; }
+    }
+    if (typeof d === "number" || d === null) {
+      if (v === "" && d === null) return null;
+      const x = Number(v);
+      return isFinite(x) && (!POSITIVE.has(k) || x > 0) ? x : NUL;
+    }
+    return !CHOICES[k] || CHOICES[k].includes(v) ? v : NUL;
+  };
+  const setK = (o, k, d, v) => { const x = conv(k, d, v); if (x !== NUL) o[k] = x; };
+  for (const k of SHARED) if (k in kv) setK(S, k, DEF[k], kv[k]);
+  for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) if (sc + "." + k in kv) setK(S[sc], k, DEF[sc][k], kv[sc + "." + k]);
+  if (kv.preset) {
+    // a preset whose instrument was changed afterwards is no longer the preset (drawing options do not count)
     const p = PRESETS.find(q => q.id === kv.preset);
-    if (p) { const ref = clone(DEF); Object.assign(ref, p.state); presetId = kv.preset; }
+    if (p) {
+      const ref = clone(DEF);
+      for (const k of Object.keys(p.state)) { if (k === "g" || k === "e") Object.assign(ref[k], p.state[k]); else ref[k] = p.state[k]; }
+      const strip = st => JSON.stringify({ ...st, g: Object.fromEntries(Object.entries(st.g).filter(([k]) => !DRAWING_KEYS.has(k))), e: Object.fromEntries(Object.entries(st.e).filter(([k]) => !DRAWING_KEYS.has(k))) });
+      if (strip(ref) !== strip(S)) presetId = "custom";
+    }
   }
 }
 
@@ -266,8 +317,6 @@ function fitCanvas(c) {
 }
 const INK = "#1a1a1a", MUTED = "#6a6560", LINE = "#ded9d0";
 const FONT = 'Charter, "PT Serif", Palatino, Georgia, serif';
-// beam colors in the layout (light background): blue end, center, red end
-const BEAM = { lo: [28, 95, 168], c: [92, 86, 80], hi: [178, 107, 0] };
 // the layout's colors for dispersed light: matplotlib plasma 0.04-0.80, deep indigo (short wavelengths) to
 // orange-gold (long), with lightness rising monotonically so the order reads without red-green vision
 const RAMP = [[38, 5, 145], [117, 1, 168], [182, 48, 139], [227, 104, 95], [252, 166, 54]];
@@ -307,7 +356,7 @@ function renderText(Dz, P) {
         "Spectral: pixels across one resolution element along the dispersion (the FWHM of the slit image; below 2 the spectrum is undersampled). Spatial: pixels across the FWHM of a trace perpendicular to the dispersion, the slit (or fiber) width imaged along the slit; for a slit spectrograph the star's seeing sets the real spatial profile, and the slit width is only a proxy for that profile. The two differ by the grating's anamorphic factor (and a preset's separate fiber width)."],
     ];
     let html = items.map(([cls, k, v, t]) => `<div class="stat ${cls}" title="${t}"><span class="k">${k}</span><span class="v">${v}</span></div>`).join("");
-    const fl = Dz.flags.map(f => `<span class="flag">${f.txt}</span>`).join("");
+    const fl = Dz.flags.map(f => `<span class="flag" title="${f.txt}">${f.txt}</span>`).join("");
     html += `<div class="flags">${fl}</div>`;
     st.innerHTML = html;
   }
@@ -355,7 +404,7 @@ function renderText(Dz, P) {
     const os = Dz.orders || [];
     if (os.length) dis.push(["Orders", os[os.length - 1].m + "–" + os[0].m]);
     if (Dz.c) dis.push(["FSR", sig(P.lamC / Dz.mRef, 3) + " Å", "Free spectral range: λ / m at the central wavelength, the wavelength span of one order before the next order begins."]);
-    if (isFinite(Dz.minSep)) dis.push(["Order gap", Math.round(Dz.minSep) + " px = " + sig(Dz.minSep * Dz.c.pixScale, 2) + "″", "The smallest separation between adjacent orders (above 3200 Å) at the blaze: the longest slit that fits between the two orders."]);
+    if (isFinite(Dz.minSep)) dis.push(["Order gap", Math.round(Dz.minSep) + " px = " + sig(Dz.minSep * Dz.c.pixScale / Math.abs(Dz.c.sdir[1]), 2) + "″", "The smallest separation between adjacent orders (above 3200 Å) at the blaze: the longest slit that fits between the two orders (on the sky, along the slit; a tilted slit image spreads over more rows, which the conversion includes)."]);
     dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
     if (P.xPrisms && P.xPrisms.length) {
       // a palindromic train is one set of prisms passed twice; group repeated prisms
@@ -365,7 +414,11 @@ function renderText(Dz, P) {
       const groups = [];
       for (const q of tr) { const g = groups[groups.length - 1]; if (g && key(g.q) === key(q)) g.n++; else groups.push({ q, n: 1 }); }
       const nm = q => ((IX.GLASS[q.glass] || {}).label || q.glass).replace(/ 301| at 105 K/g, "");
-      dis.push(["Prisms", groups.map(g => (g.n > 1 ? g.n + " × " : "") + g.q.A + "° " + nm(g.q)).join(" + ") + (dbl ? ", double pass" : ""), "The cross-dispersing prisms, each at minimum deviation for the central wavelength.", true]);
+      const full = groups.map(g => (g.n > 1 ? g.n + " × " : "") + g.q.A + "° " + nm(g.q)).join(" + ") + (dbl ? ", double pass" : "");
+      // a long train is summarized on one line (the full list in the tooltip)
+      const cnt = {}; for (const q of P.xPrisms) cnt[nm(q)] = (cnt[nm(q)] || 0) + 1;
+      const shown = full.length <= 44 ? full : P.xPrisms.length + " passes: " + Object.entries(cnt).map(([g, n]) => n + " " + g).join(", ");
+      dis.push(["Prisms", shown, "The cross-dispersing prisms, each at minimum deviation for the central wavelength: " + full + ".", true]);
     }
     if (Dz.xdDev && !(P.xPrisms && P.xPrisms.length)) dis.push(["Prism deviation", deg(Dz.xdDev)]);
     if (Dz.xdApex) dis.push(["Grism apex", deg(Dz.xdApex)]);
@@ -424,7 +477,7 @@ function drawLayout(Dz, P) {
   if (ech) {
     const o = Dz.orders.find(q => q.m === Dz.mRef) || Dz.orders[Math.floor(Dz.orders.length / 2)];
     fan = o ? [["lo", o.lo, o.m], ["c", P.lamC / 1e4, Dz.mRef], ["hi", o.hi, o.m]] : [["c", P.lamC / 1e4, Dz.mRef]];
-  } else fan = [["lo", Dz.range[0], Dz.order], ["c", P.lamC / 1e4, Dz.order], ["hi", Dz.range[1], Dz.order]];
+  } else fan = [["lo", Dz.range[0], Dz.order], ["c", Dz.grism ? Dz.grism.lam0 : P.lamC / 1e4, Dz.order], ["hi", Dz.range[1], Dz.order]];
   const beams = fan.map(([k, l, m]) => {
     const p = Dz.pos(l, m);
     const X = p ? p[0] : 0, ph = Math.atan(X / fcam);
@@ -536,9 +589,7 @@ function drawLayout(Dz, P) {
     const lams = [[Dz.range[0], 0], [lc, 0.5], [Dz.range[1], 1]];
     const NS = 20, RING = Array.from({ length: NS }, (_, k) => [W / 2 * Math.cos(2 * Math.PI * k / NS), W / 2 * Math.sin(2 * Math.PI * k / NS)]);
     const line = (p, q, col, lw) => { prims3.push({ k: "l", p: [p, q], col, lw }); pts3.push(p, q); };
-    const pline = (ps, col, lw) => { for (let i = 1; i < ps.length; i++) line(ps[i - 1], ps[i], col, lw); };
     const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw }); pts3.push(...ps); };
-    // a swept surface between stations (each a ring of NS points, or one apex point)
     // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
     // footprint rings are made when it is drawn, since the silhouette depends on the view
     const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); for (const s of stations) pts3.push(...s); };
@@ -831,12 +882,13 @@ function drawLayout(Dz, P) {
     {
       const hw = Math.max(W * Math.abs(Math.tan(grism ? Dz.grism.A : a)) / 2, 3 / s), hh = 0.53 * W;
       const G0 = v2(xG - hw, hh), G1 = v2(xG + hw, hh), G2 = v2(xG + hw, -hh), G3 = v2(xG - hw, -hh);
-      poly([G0, G1, G2, G3], trans ? glassFill(T(G0), T(G1)) : "rgba(51,55,61,0.32)", trans ? GLASS_EDGE : STEEL, 1.2);
+      const glassy = trans || grism;
+      poly([G0, G1, G2, G3], glassy ? glassFill(T(G0), T(G1)) : "rgba(51,55,61,0.32)", glassy ? GLASS_EDGE : STEEL, 1.2);
       g.beginPath();
       for (let k = 1; k < 12; k++) { const x = xG - hw + 2 * hw * k / 12, r0 = T(v2(x, hh)), r1 = T(v2(x, -hh)); g.moveTo(r0[0], r0[1]); g.lineTo(r1[0], r1[1]); }
-      g.strokeStyle = trans ? "rgba(63,109,150,0.5)" : "rgba(51,55,61,0.55)"; g.lineWidth = 0.8; g.stroke();
+      g.strokeStyle = glassy ? "rgba(63,109,150,0.5)" : "rgba(51,55,61,0.55)"; g.lineWidth = 0.8; g.stroke();
       const tq = T(v2(xG, hh)), bq = T(v2(xG, -hh));
-      req(3, trans ? "transmission grating" : "grating", [[tq[0], tq[1] - 12, "center"], [bq[0], bq[1] + 14, "center"], [tq[0], tq[1] - 28, "center"], [bq[0], bq[1] + 30, "center"]], INK, 13, { sub: "at the pupil" });
+      req(3, grism ? (Dz.grism.vph ? "VPH grism" : "grism") : trans ? "transmission grating" : "grating", [[tq[0], tq[1] - 12, "center"], [bq[0], bq[1] + 14, "center"], [tq[0], tq[1] - 28, "center"], [bq[0], bq[1] + 30, "center"]], INK, 13, { sub: "at the pupil" });
     }
     wMark(T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), -W / 2)), T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), W / 2)));
     lens(v2(xC, 0), v2(1, 0), SP.camHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false);
@@ -1036,6 +1088,10 @@ function drawLayout(Dz, P) {
     const box = (x, y, al, wd) => { const x0 = al === "left" ? x : al === "right" ? x - wd : x - wd / 2; return [x0 - 3, y - 9, x0 + wd + 3, y + 9]; };
     const hits = b => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
     const inside = b => b[0] >= 2 && b[2] <= w - 2 && b[1] >= 2 && b[3] <= h - 2;
+    // the Expand button (lower right) and, in the Spatial and 3D views, the box of controls (upper left)
+    boxes.push([w - 96, h - 40, w, h]);
+    if (spatial || view3d) boxes.push([0, 0, 300, 34]);
+    const crowd = b => boxes.reduce((s, o) => s + Math.max(0, Math.min(b[2], o[2]) - Math.max(b[0], o[0])) * Math.max(0, Math.min(b[3], o[3]) - Math.max(b[1], o[1])), 0);
     for (const L of LB.sort((p, q) => p.pri - q.pri)) {
       const fMain = `${L.ital ? "italic " : ""}${L.size}px ${FONT}`, fSub = `${L.size - 1.5}px ${FONT}`;
       g.font = fMain; const w1 = g.measureText(L.txt).width;
@@ -1043,7 +1099,12 @@ function drawLayout(Dz, P) {
       const find = wd => L.cands.find(c => { const b = box(c[0], c[1], c[2], wd); return inside(b) && !hits(b); });
       let sub = !!L.sub, pick = find(w1 + w2);
       if (!pick && sub) { sub = false; pick = find(w1); }
-      if (!pick) { if (L.optional) continue; sub = false; pick = L.cands.find(c => inside(box(c[0], c[1], c[2], w1))) || L.cands[0]; }
+      if (!pick) {
+        if (L.optional) continue;
+        sub = false;
+        const ins = L.cands.filter(c => inside(box(c[0], c[1], c[2], w1)));
+        pick = (ins.length ? ins : L.cands).reduce((best, c) => (crowd(box(c[0], c[1], c[2], w1)) < crowd(box(best[0], best[1], best[2], w1)) ? c : best));
+      }
       const wd = w1 + (sub ? w2 : 0);
       boxes.push(box(pick[0], pick[1], pick[2], wd));
       const x0 = pick[2] === "left" ? pick[0] : pick[2] === "right" ? pick[0] - wd : pick[0] - wd / 2;
@@ -1067,8 +1128,8 @@ function drawLayout(Dz, P) {
     g.fillText(L >= 1000 ? L / 1000 + " m" : L + " mm", xb + L * s + 8, yb + 5);
   }
 }
-// layout view controls: Auto / Fixed scale, Reset, scroll to zoom about the pointer, drag to pan
-const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; });
+// layout view controls: Auto / Fixed scale, Reset, scroll to zoom about the pointer, drag to pan (to turn, in 3D)
+const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true);
 segs.push(lvSync);
 $("lvOptsBtn").addEventListener("click", () => { const b = $("lvOpts"); b.hidden = !b.hidden; });
 $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLayout(cur, curP); });
@@ -1079,16 +1140,25 @@ const setExpanded = on => {
   $("lvExpand").textContent = on ? "Exit" : "Expand";
   $("lvExpand").title = on ? "Return the layout to the page (Esc)." : "Expand the layout to fill the window, to play with the drawing directly (Esc returns).";
   lview.fit = true;
-  requestAnimationFrame(() => { if (cur) drawLayout(cur, curP); });
+  requestAnimationFrame(() => { if (cur) { drawLayout(cur, curP); drawRight(); } });
 };
 $("lvExpand").addEventListener("click", () => setExpanded(!lvExpanded));
 // 3D view: snap to a view, color by wavelength or slit position
 const sync3 = () => { $("c3L").setAttribute("aria-pressed", String(c3mode === "lam")); $("c3S").setAttribute("aria-pressed", String(c3mode === "slit")); };
 for (const [id, az, el] of [["v3Top", 0, Math.PI / 2], ["v3Side", 0, 0], ["v3Obl", -0.6, 0.5]])
-  $(id).addEventListener("click", () => { orbitVel = null; setOrbit(az, el); lview.fit = true; if (cur) drawLayout(cur, curP); });
+  $(id).addEventListener("click", () => { stopCoast(); setOrbit(az, el); lview.fit = true; if (cur) drawLayout(cur, curP); });
 for (const [id, m] of [["c3L", "lam"], ["c3S", "slit"]]) $(id).addEventListener("click", () => { c3mode = m; sync3(); if (cur) drawLayout(cur, curP); });
 sync3();
-window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded) setExpanded(false); });
+window.addEventListener("keydown", ev => {
+  if (ev.key !== "Escape") return;
+  if (lvExpanded) setExpanded(false);                     // expanded: back to the page
+  else if (!$("lvOpts").hidden) $("lvOpts").hidden = true;
+});
+// a click outside the layout options closes them (not on the drawing itself, which they act on)
+document.addEventListener("mousedown", ev => {
+  const b = $("lvOpts");
+  if (!b.hidden && !b.contains(ev.target) && ev.target !== $("lvOptsBtn") && ev.target !== $("cvL")) b.hidden = true;
+});
 {
   const cv = $("cvL");
   let drag = null;
@@ -1116,7 +1186,7 @@ window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded
     const r = cv.getBoundingClientRect(), G = spGeo, y = (G.oy - (ev.clientY - r.top)) / G.s;   // world height under the pointer
     const hh = ptDrag === "det" ? -y / G.mag : y;
     S.g.spPos = Math.min(1, Math.max(-1, hh / G.hMax)); curP.spPos = S.g.spPos;
-    drawLayout(cur, curP); writeHash();
+    drawLayout(cur, curP); scheduleHash();
   };
   cv.addEventListener("mousedown", ev => {
     const k = spHit(ev);
@@ -1150,7 +1220,7 @@ window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded
       // coast: keep the release speed, slowing by 8% a frame
       orbitVel = drag.v.map(x => x * 16);
       const step = () => {
-        if (!orbitVel || !cur) return;
+        if (!orbitVel || !cur || curP.view !== "3d" || curP.mode !== "grating") { stopCoast(); return; }
         setOrbit(R3.az + orbitVel[0], R3.el + orbitVel[1]);
         orbitVel = orbitVel.map(x => x * 0.92);
         drawLayout(cur, curP);
@@ -1161,8 +1231,18 @@ window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded
     if (drag || ptDrag) { drag = null; ptDrag = null; cv.style.cursor = ""; }
   });
   cv.addEventListener("contextmenu", ev => { if (curP && curP.view === "3d") ev.preventDefault(); });     // right-drag pans
+  let tch = null;
+  cv.addEventListener("touchstart", ev => { if (ev.touches.length === 1) tch = { x: ev.touches[0].clientX, ox: lview.ox, az0: R3.az }; }, { passive: true });
+  cv.addEventListener("touchmove", ev => {
+    if (!tch || !cur || ev.touches.length !== 1) return;
+    const dx = ev.touches[0].clientX - tch.x;
+    if (curP.view === "3d" && curP.mode === "grating") setOrbit(tch.az0 - dx * 2 * Math.PI / (cv.clientHeight || 400), R3.el);
+    else { toFixed(); lview.ox = tch.ox + dx; }
+    drawSoon();
+  }, { passive: true });
+  cv.addEventListener("touchend", () => { tch = null; });
   cv.addEventListener("dblclick", () => {
-    if (curP && curP.view === "3d" && curP.mode === "grating") { orbitVel = null; setOrbit(-0.6, 0.5); }
+    if (curP && curP.view === "3d" && curP.mode === "grating") { stopCoast(); setOrbit(-0.6, 0.5); }
     lview.fit = true; drawLayout(cur, curP);
   });
 }
@@ -1170,15 +1250,16 @@ window.addEventListener("keydown", ev => { if (ev.key === "Escape" && lvExpanded
 function message(g, w, h, txt) {
   // wrap to the panel width
   g.fillStyle = MUTED; g.font = `15px ${FONT}`; g.textAlign = "center"; g.textBaseline = "middle";
-  const words = txt.split(" "), lines = []; let cur = "";
-  for (const wd of words) { const t = cur ? cur + " " + wd : wd; if (g.measureText(t).width > w * 0.8 && cur) { lines.push(cur); cur = wd; } else cur = t; }
-  if (cur) lines.push(cur);
+  const words = txt.split(" "), lines = []; let ln = "";
+  for (const wd of words) { const t = ln ? ln + " " + wd : wd; if (g.measureText(t).width > w * 0.8 && ln) { lines.push(ln); ln = wd; } else ln = t; }
+  if (ln) lines.push(ln);
   lines.forEach((l, i) => g.fillText(l, w / 2, h / 2 + (i - (lines.length - 1) / 2) * 21));
 }
 
 // ------------------------------------------------------------------ detector
 /* The detector drawn to scale with the spectrum of every object as it falls on the chip: each spectrum is
-   the trace of a star on the slit (about three detector pixels wide), colored by wavelength (blue short,
+   the trace of a star on the slit (a Gaussian across the dispersion whose FWHM is the trace width, or the
+   slit width when no trace width is set), colored by wavelength (blue short,
    amber long, fixed in absolute wavelength) with brightness following the blaze efficiency (dimmed outside
    an echelle order's free spectral range).  The objects sit at different positions along the slit: in
    grating mode spread evenly over the chip height, in echelle mode stacked within the smallest order
@@ -1198,7 +1279,7 @@ let detGeom = null, traces = [], hover = null, offD = null, offB = null;
 
 function objectOffsets(Dz, P) {
   const n = Math.max(1, Math.round(P.nObj || 1));
-  const lr = P.mode === "echelle" ? Dz.mlamRef / Dz.mRef : P.lamC / 1e4, mr = P.mode === "echelle" ? Dz.mRef : Dz.order;
+  const lr = P.mode === "echelle" ? Dz.mlamRef / Dz.mRef : Dz.grism ? Dz.grism.lam0 : P.lamC / 1e4, mr = P.mode === "echelle" ? Dz.mRef : Dz.order;
   const a = Dz.pos(lr, mr, 0, 0.01), b = Dz.pos(lr, mr, 0, -0.01);
   if (!a || !b) return { n: 1, zeta: [0], gapPx: NaN };
   const dYdz = Math.hypot(a[0] - b[0], a[1] - b[1]) / 0.02;        // detector mm per slit mm, along the slit
@@ -1472,10 +1553,11 @@ function render() {
     if (document.activeElement !== $("sCT")) $("sCT").value = String(lastTauAuto / IX.DEG);
     $("vCT").textContent = (lastTauAuto / IX.DEG).toFixed(1) + "° (auto)";
   }
+  hover = null;                                   // the readout under the pointer is for the old design
   drawRight();
-  writeHash();
+  scheduleHash();
 }
-// the right-hand panel: the solar spectrum in grating mode, the detector format in echelle mode
+// the right-hand panel: the spectra as they fall on the detector, in both modes
 function drawRight() {
   if (!cur) return;
   buildTraces(cur, curP); drawDetector(cur, curP);
@@ -1493,4 +1575,9 @@ window.__instex = {
 
 readHash();
 render();
+// a link edited in the address bar (the page's own updates use replaceState, which fires no event)
+window.addEventListener("hashchange", () => {
+  if (location.hash === lastHash) return;
+  S = clone(DEF); presetId = "custom"; readHash(); zoom.reset(); lview.fit = true; render();
+});
 })();
