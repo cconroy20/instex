@@ -135,6 +135,24 @@ slit height is not important"); the overview strip above the spectrum; then the 
 number of slices N, which the validation of the notes' worked example uses. An Imaging mode (the grating
 replaced by a mirror: field of view and pixel scale) is planned; an exposure-time calculator is not in v1.
 
+## Telescopes mode
+
+The third header button (2026-10-19; Charlie: "start with just three: Keck, Magellan, and HST"). One telescope at one
+of its foci: the Optical layout draws it to scale (the Imager's telescope drawing; Cassegrain, Gregorian, Nasmyth with
+a flat tertiary, bent-Cassegrain and folded ports drawn as short Nasmyth folds), and **Pupil and image** shows the
+entrance pupil beside the image of a star it makes. The pupil (web/tpupil.js) is a mask on a 1024 × 1024 grid spanning
+8 D (so the image has 8 pixels per λ/D): hexagonal segments in rings around an empty center, or one mirror; less a
+central obstruction, spider vanes (each pixel's coverage by a vane found exactly from the pixel's overlap with the
+vane's strip: sampling quantized a 2.6 cm vane by 9%) and pads; the image is |FFT|², drawn on a log (five decades) or
+linear stretch. The strip: collecting area (measured from the mask) and the equal-area circle, focal ratio and focal
+length, plate scale, the diffraction FWHM (measured from the image: within 0.3% of the annular Airy FWHM), field.
+Telescopes (web/tpresets.js; sources data/telescopes/{keck,magellan,hst}.md): Keck I and II (36 segments of 0.9 m
+sides, a 2.6 m obstruction, six 25 mm vanes; Cassegrain, both Nasmyths, bent Cassegrain, and the historical f/25 and
+f/40, whose undersized secondary is the stop), Magellan Baade and Clay (f/11 Gregorian Nasmyth West and East and the
+folded ports, Clay's f/5 Cassegrain and f/16 adaptive secondary; four vanes from points 0.34 m off center), HST (the
+OTA Handbook's pupil: 3.899 m² clear, reproduced exactly). The collecting area is geometric; each focus lists its
+reflections, but no reflectivity is applied.
+
 ## Imager mode
 
 Charlie's calls (2026-10-19): a mode of its own behind a header switch (its layout, controls and presets differ

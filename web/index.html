@@ -13,7 +13,7 @@
 <header>
   <div class="bar">
     <span class="mark">Instrument Explorer</span>
-    <span class="seg" id="instSeg" title="Spectrograph: a slit (or fibers), a collimator, a disperser, and a camera, with the spectra on the detector. Imager: a telescope feeding a detector mosaic, directly or through a reimager, with the image of the sky on the mosaic."><button id="iSpec" type="button">Spectrograph</button><button id="iImg" type="button">Imager</button></span>
+    <span class="seg" id="instSeg" title="Spectrograph: a slit (or fibers), a collimator, a disperser, and a camera, with the spectra on the detector. Imager: a telescope feeding a detector mosaic, directly or through a reimager, with the image of the sky on the mosaic. Telescopes: the large telescopes themselves, each at its foci, with the pupil and the image of a star."><button id="iSpec" type="button">Spectrograph</button><button id="iImg" type="button">Imager</button><button id="iTelMode" type="button">Telescopes</button></span>
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
     <span class="presetnote">Presets approximate the instrument's optical characteristics, not the optical layout.</span>
@@ -107,6 +107,19 @@
         <span class="seg sm" title="Draw the full Moon's disk, centered on the field, for scale."><button id="imMoon" type="button">Moon</button></span></div>
       <canvas id="cvS" aria-label="The detector plane: the mosaic on the sky"></canvas>
       <button id="szReset" class="ghost dzr" type="button" hidden title="Back to the whole mosaic (double-click does the same).">Reset zoom</button>
+    </section>
+  </div>
+
+  <div class="panels only-tel" id="telPanels">
+    <section class="panel" id="tlPanel">
+      <div class="ph"><h2 title="The telescope drawn to scale at the chosen focus, light from the sky arriving from the left. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves. Scroll to zoom, drag to pan, double-click to refit.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
+        <button id="tlReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Refit</button></div>
+      <canvas id="cvTL" aria-label="The telescope"></canvas>
+      <div id="tlSub" class="lcap" hidden></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2 title="Left: the entrance pupil to scale (the primary, less the central obstruction, the spider vanes and anything else in the beam). Right: the image of a star the pupil makes, its diffraction pattern at the band's wavelength (the Fourier transform of the pupil, drawn on a log scale over five decades or linearly). The pupil's shape sets the pattern: segments give a six-fold pattern, vanes give spikes.">Pupil and image</h2></div>
+      <canvas id="cvP" aria-label="The pupil and the image of a star"></canvas>
     </section>
   </div>
 
@@ -342,6 +355,24 @@
       <div class="rds" id="rMosI"></div>
     </section>
   </div>
+  <div class="controls only-tel tcontrols">
+    <section>
+      <h2 title="The telescope's foci: one primary with different secondaries (and flat tertiaries) gives different focal ratios and plate scales.">Telescope</h2>
+      <div class="caserow" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see."><span>Focus</span><select id="tFocus"></select></div>
+      <div class="rds" id="rTelT"></div>
+    </section>
+    <section>
+      <h2 title="The image of a star: the band sets the wavelength of the diffraction pattern.">Image</h2>
+      <div class="caserow" title="The band observed: its wavelength sets the scale of the diffraction pattern (λ / D)."><span>Band</span><select id="tBand"></select></div>
+      <div class="caserow" title="Log: five decades, to show the rings and spikes. Linear: the core as the eye sees it."><span>Stretch</span>
+        <span class="seg sm"><button id="tsLog" type="button">Log</button><button id="tsLin" type="button">Linear</button></span></div>
+      <div class="rds" id="rImgT"></div>
+    </section>
+    <section>
+      <h2 title="The entrance pupil: what collects the light.">Pupil</h2>
+      <div class="rds" id="rPupT"></div>
+    </section>
+  </div>
 </main>
 
 <footer>
@@ -362,6 +393,9 @@
 <script src="presets.js"></script>
 <script src="ipresets.js"></script>
 <script src="imgapp.js"></script>
+<script src="tpresets.js"></script>
+<script src="tpupil.js"></script>
+<script src="telapp.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

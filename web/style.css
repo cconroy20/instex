@@ -26,7 +26,9 @@ header,main,footer{max-width:1560px;margin:0 auto;padding:0 22px}
 .presetnote{font-size:.86rem;font-style:italic;color:var(--muted);flex:1 1 220px;min-width:0;line-height:1.3}   /* no width cap: wraps only when the header runs out of room */
 select{font:inherit;font-size:.9rem;color:var(--ink);background:#fff;border:1px solid var(--line);
   border-radius:5px;padding:2px 6px;max-width:100%}
-#preset{min-width:230px;width:240px}                                 /* the open list still shows every name in full */
+#preset{min-width:230px;width:240px}
+/* the note on a line of its own under the bar, when it would not fit on one line beside the menu (app.js fitHeader) */
+.bar.note-below .presetnote{order:10;flex:1 1 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:-4px}                                 /* the open list still shows every name in full */
 
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;flex:0 0 auto}
 .seg button{font:inherit;font-size:.92rem;padding:2px 11px;border:0;
@@ -177,7 +179,9 @@ footer p{margin:.5em 0;max-width:120ch}
 @media (max-width:860px){ .c-disp .rds{grid-template-columns:minmax(0,1fr)} }
 
 /* ---- Imager mode */
-body.inst-spec .only-img, body.inst-img .only-spec{display:none !important}
+body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, body.inst-tel .only-spec, body:not(.inst-tel) .only-tel{display:none !important}
+.tcontrols{grid-template-columns:repeat(3,minmax(196px,1fr))}
+#cvTL{cursor:grab}
 body:not(.it-cass):not(.it-greg) .only-icass, body:not(.it-cass):not(.it-greg) .only-i2m{display:none}
 body:not(.it-cass):not(.it-greg):not(.it-korsch):not(.it-pb) .only-imirr{display:none}
 body.in-nas .only-iax, body:not(.in-nas) .only-inas{display:none}
@@ -196,7 +200,7 @@ body.idet-plate .only-iccd, body:not(.idet-plate) .only-iplate{display:none}
 .hdepth .val{color:var(--ink);font-variant-numeric:tabular-nums;font-size:.86rem;min-width:4.6em}
 #cvS.zoomed{cursor:grab}
 #cvIL{cursor:grab}
-#instSeg button{font-size:.84rem;padding:2px 9px}
+#instSeg button{font-size:.84rem;padding:2px 7px}
 body.ilv-expanded{overflow:hidden}
 body.ilv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}
 body.ilv-expanded #ilvPanel{position:fixed;inset:10px;z-index:50;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}

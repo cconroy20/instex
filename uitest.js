@@ -660,8 +660,9 @@ const rel = (a, b) => Math.abs(a / b - 1);
   // the header note stays on one line with room to spare, also at a larger default font size (18 px)
   await size(1440, 900); await go();
   for (const fs of ["", "18px"]) {
-    const r = await ev(`(fs => { document.documentElement.style.fontSize = fs; const n = document.querySelector(".presetnote"), a = document.getElementById("aboutBtn");
-      const lh = parseFloat(getComputedStyle(n).lineHeight), out = { lines: Math.round(n.getBoundingClientRect().height / lh), gap: a.getBoundingClientRect().left - n.getBoundingClientRect().right };
+    const r = await ev(`(async fs => { document.documentElement.style.fontSize = fs; await new Promise(q => setTimeout(q, 250));
+      const n = document.querySelector(".presetnote"), a = document.getElementById("aboutBtn");
+      const lh = parseFloat(getComputedStyle(n).lineHeight), out = { lines: Math.round(n.getBoundingClientRect().height / lh), gap: a.getBoundingClientRect().left - n.getBoundingClientRect().right, below: document.querySelector(".bar").classList.contains("note-below") };
       document.documentElement.style.fontSize = ""; return out; })(${JSON.stringify(fs)})`);
     check(`1440x900 header note on one line (root font ${fs || "default"})`, r.lines === 1, JSON.stringify(r));
   }
@@ -755,9 +756,53 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
   // the header note on one line in the Imager too, at a larger default font
   {
-    const r = await ev(`(() => { document.documentElement.style.fontSize = "18px"; const n = document.querySelector(".presetnote"); const lh = parseFloat(getComputedStyle(n).lineHeight); const k = Math.round(n.getBoundingClientRect().height / lh); document.documentElement.style.fontSize = ""; return k; })()`);
+    const r = await ev(`(async () => { document.documentElement.style.fontSize = "18px"; await new Promise(q => setTimeout(q, 250)); const n = document.querySelector(".presetnote"); const lh = parseFloat(getComputedStyle(n).lineHeight); const k = Math.round(n.getBoundingClientRect().height / lh); document.documentElement.style.fontSize = ""; return k; })()`);
     check("Imager 1440x900: header note on one line (root font 18px)", r === 1, r + " lines");
   }
+  // ------------------------------------------------------------ every id unique; the Imager's Design menu follows a preset and drives the design
+  await go("#inst=img&ipreset=acs");
+  {
+    const r = await ev(`(() => { const ids = [...document.querySelectorAll("[id]")].map(e => e.id), dup = ids.filter((x, i) => ids.indexOf(x) !== i);
+      const sel = document.getElementById("iTel"), before = sel.value; sel.value = "greg"; sel.dispatchEvent(new Event("change"));
+      return { dup, before, tag: sel.tagName }; })()`);
+    await sleep(300);
+    const after = await ev(`window.__instex.img().state().tel`);
+    check("no two elements share an id", r.dup.length === 0, r.dup.join(", "));
+    check("Imager Design menu: shows the preset's design (ACS: Cassegrain) and sets it", r.tag === "SELECT" && r.before === "cass" && after === "greg", JSON.stringify(r) + " -> " + after);
+  }
+
+  // ------------------------------------------------------------ Telescopes mode (2026-10-19)
+  await go();
+  await ev(`document.getElementById("iTelMode").click()`); await sleep(700);
+  {
+    const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, stats: document.querySelectorAll("#stats .stat").length, hash: location.hash, menu: document.getElementById("preset").options.length })`);
+    check("Telescopes switch: its panels shown, the others hidden", /inst-tel/.test(st.cls) && st.tel !== "none" && st.img === "none", st.cls);
+    check("Telescopes: five figures in the strip, the telescopes in the menu, the link says inst=tel", st.stats === 5 && st.menu >= 5 && /inst=tel/.test(st.hash), JSON.stringify(st));
+  }
+  {
+    const tels = await ev(`window.IX_TELESCOPES.map(t => [t.id, t.foci.map(f => f.id)])`), bad = [], over = [];
+    for (const [w, h] of [[1440, 900], [1280, 800]]) {
+      await size(w, h);
+      for (const [tid, fids] of tels) for (const fid of fids) {
+        await nav("#inst=tel&t.tel=" + tid + "&t.focus=" + fid);
+        const r = await ev(`({ f: document.getElementById("tFocus").value, area: window.__instex.tel().pupil().area, fw: window.__instex.tel().pupil().fwPix })`);
+        if (r.f !== fid || !(r.area > 0) || !(r.fw > 0)) bad.push(tid + "/" + fid);
+        const fz = await fit(); if (!(fz.bottom <= fz.vh + 0.5 && fz.sw <= fz.cw)) over.push(`${tid}/${fid} ${fz.bottom.toFixed(0)}`);
+      }
+    }
+    check("Telescopes: every telescope and focus loads by its link, with its pupil and image", bad.length === 0, bad.join(", "));
+    check("Telescopes: the controls fit at both laptop sizes", over.length === 0, over.join(", "));
+    await size(1440, 900);
+  }
+  await go("#inst=tel&t.tel=hst&t.focus=cass");
+  {
+    const t = await ev(`(() => { const t0 = performance.now(); window.__instex.tel().set({ band: "Ks" }); window.__instex.tel().set({ band: "V" }); return (performance.now() - t0) / 2; })()`);
+    check("Telescopes: redraw on a band change", t < 300, `${t.toFixed(0)} ms`);
+    const a = await ev(`window.__instex.tel().pupil().area`);
+    check("Telescopes: HST's clear area 3.899 m² on the page", Math.abs(a / 3.899 - 1) < 0.002, a.toFixed(4));
+  }
+  await shot("11_telescopes.png");
+
   // speed: the whole page redrawn (layout and sky) for the largest mosaic
   await go("#inst=img&ipreset=lsst");
   {

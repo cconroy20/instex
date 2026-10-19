@@ -179,6 +179,47 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
   check("Moffat alpha gives the FWHM", Math.abs(half - 0.5) < 1e-12);
 }
 
+// ---------------------------------------------------------------- 6b. the Telescopes mode's pupils and images (web/tpupil.js)
+{
+  const TP = require("./web/tpupil.js");
+  for (const e of [0, 0.33, 0.5]) {
+    const c = TP.pupilAndPSF({ kind: "circle", D: 2.4 }, e);
+    check(`pupil eps ${e}: area = pi D^2 (1 - eps^2) / 4`, rel(c.area, Math.PI / 4 * 2.4 * 2.4 * (1 - e * e)) < 5e-4, c.area.toFixed(4) + " m²");
+    check(`pupil eps ${e}: the FFT image's FWHM = the annular Airy FWHM`, rel(c.fwPix / TP.Q, IM.airyFWHM(e)) < 4e-3, (c.fwPix / TP.Q).toFixed(4) + " vs " + IM.airyFWHM(e).toFixed(4) + " λ/D");
+  }
+  const s = 1.0, hx = TP.pupilAndPSF({ kind: "hex", D: 7.5, flat: s, gap: 0, rings: 3 }, 0);
+  check("hexagonal pupil: 36 segments of area (sqrt 3 / 2) s^2", rel(hx.area, 36 * Math.sqrt(3) / 2 * s * s) < 2e-3, hx.area.toFixed(3) + " m²");
+  for (const [w, ang] of [[0.05, 0], [0.025654, 0], [0.025654, 30]]) {
+    const v = TP.pupilAndPSF({ kind: "circle", D: 2.4, vanes: [{ ang, w, full: true }] }, 0), ex = 2 * Math.sqrt(1.44 - w * w / 4) * w;
+    check(`a full vane ${w * 1000} mm wide at ${ang}°: removes its strip`, rel(Math.PI * 1.44 - v.area, ex) < 3e-3, (Math.PI * 1.44 - v.area).toFixed(5) + " vs " + ex.toFixed(5) + " m²");
+  }
+}
+
+// ---------------------------------------------------------------- 6c. the Telescopes mode's telescopes (web/tpresets.js)
+{
+  global.window = global;
+  require("./web/tpresets.js");
+  const TP = require("./web/tpupil.js");
+  for (const t of window.IX_TELESCOPES) {
+    const c = TP.pupilAndPSF(t.pupil, t.eps);
+    if (t.area) {
+      const r = c.area / t.area.value - 1;
+      if (t.area.info) console.log(`[INFO] ${t.id}: collecting area ${t.area.value} m²: model ${c.area.toFixed(3)} (${(100 * r).toFixed(2)}%) -- ${t.area.src}`);
+      else check(`${t.id}: collecting area ${t.area.value} m²`, Math.abs(r) <= (t.area.tol || 0.005), `model ${c.area.toFixed(4)}, ${(100 * r).toFixed(2)}% -- ${t.area.src}`);
+    }
+    if (t.segmentsArea) {
+      const bare = TP.pupilAndPSF(Object.assign({}, t.pupil, { gap: 0, vanes: [] }), 0), r = bare.area / t.segmentsArea.value - 1;
+      check(`${t.id}: the segments alone, ${t.segmentsArea.value} m²`, Math.abs(r) <= t.segmentsArea.tol, `model ${bare.area.toFixed(3)}, ${(100 * r).toFixed(2)}% -- ${t.segmentsArea.src}`);
+    }
+    for (const f of t.foci) {
+      const P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D: t.D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.F1, back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55 });
+      const S = IM.design(P);
+      check(`${t.id} ${f.id}: designs without error, one star one point`, !S.bad && S.imageSpread < 1e-9 * S.Dmm);
+      if (f.plate) check(`${t.id} ${f.id}: plate scale ${f.plate}″/mm`, rel(S.plate, f.plate) < 0.003, `model ${S.plate.toFixed(4)}″/mm`);
+    }
+  }
+}
+
 // ---------------------------------------------------------------- 7. presets against their published values
 {
   global.window = global;

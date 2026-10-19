@@ -1,0 +1,1457 @@
+{
+ "_meta": {
+  "project": "instex TELESCOPES mode -- Hubble Space Telescope Optical Telescope Assembly (OTA): optics, the single f/24 Cassegrain focus and how the instruments share it, and the entrance pupil",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/hst.md (same content as Markdown tables). Reuses data/imaging/hst.json (block 'hst_ota') by key: the source keys OTAHB, L12, PRIMOTA, TT63, TTACS, TTUVIS, TTIR, WFC3IHB, ACSIHB and ISR0814 are the same documents under rawdata/imaging/; entries that restate an imaging value carry 'imaging_key' (a path into data/imaging/hst.json). New documents are saved unmodified under rawdata/telescopes/hst/.",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from the saved document. derived = arithmetic done here from sourced values (shown). alternatives = other sourced values (conflicts). value null = not published in the sources found. Quotes were machine-checked against the saved file's extracted text (pdftotext -layout, -raw and default reading order, per page; HTML with tags stripped; the Tiny Tim plain-text tables) after glyph/whitespace normalisation. Figure labels without a text layer carry check 'ocr' (found in tesseract OCR of the figure rendered at 300-600 dpi) or 'figure' (read visually, not machine-checkable).",
+  "quote_normalisation": "NFKC; curly quotes, primes and double primes, en/em dashes, minus signs, the multiplication sign (x), micro/mu (u) normalised; ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; matching also tried with line-break hyphens removed and with all whitespace removed. OCR typos of the scanned 1990 OTA Handbook are kept verbatim (e.g. 'Chretian', 'baffie', 'Seconday', 'WFfPC', 'milliarseconds'); the Lallo 2012 text layer renders micro as '#', arcsec as '!' and f-prime as 'f !'.",
+  "page_conventions": "OTAHB printed page = PDF page - 6; FGSIHB and the STScI Cycle-34 handbooks printed page = PDF page - 1; Lallo 2012 cited by arXiv PDF page; NASA SM3B Media Guide sections cited by printed page (1-N, 5-N = PDF page N of the section file).",
+  "coordinates": "V1 = optical axis (positive toward the aperture door), V2 parallel to the solar-array drive axis, V3 toward the nominal Sun direction (OTAHB Sec. 1.3.1.3). Current STScI documents use U1 = V1, U2 = -V2, U3 = -V3 (PRIMSYS). Focal-plane aperture positions are given as projected on the sky (arcsec); 'the cassegrain telescope inverts the image of the sky onto the focal plane' (OTAHB p. 20). Pupil azimuths here are measured from +V3 toward +V2 in the plane of OTAHB Figure 4.1 (+V3 drawn up, +V2 drawn right); whether that figure (and the Tiny Tim pad table) is viewed from the sky or from the focal plane is not stated.",
+  "quote_check_counts": {
+   "text": 114,
+   "ocr": 7,
+   "figure": 1,
+   "inline_quotes_in_notes_text": 22,
+   "note": "122 quoted entries: 114 matched in the text layer (on the stated PDF page where one is given), 7 in tesseract OCR of figure renders, 1 visual only (NICMOS label in the PRIMSYSCUT cutaway). A further 22 short quotations inside note/derived/conflict strings were checked the same way."
+  }
+ },
+ "sources": {
+  "OTAHB": {
+   "cite": "Burrows, C. J. 1990, \"Hubble Space Telescope Optical Telescope Assembly Handbook\", Version 1.0, May 1990 (Baltimore: STScI); NTRS 19920008265 (scanned document with an OCR text layer). Pre-launch: the as-designed prescription (Table 2.1) and focal-surface fits; Section 1 is edited from the Lockheed ST Systems Description Handbook. Printed page = PDF page - 6",
+   "file": "rawdata/imaging/hst/Burrows1990_HST_OTA_Handbook_v1.0_NTRS19920008265.pdf",
+   "url": "https://ntrs.nasa.gov/api/citations/19920008265/downloads/19920008265.pdf",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "L12": {
+   "cite": "Lallo, M. D. 2012, Optical Engineering 51, 011011, \"Experience with the Hubble Space Telescope: twenty years of an archetype\", arXiv:1203.0002 (author version; the text layer renders micro as '#', arcsec as '!' and f-prime as 'f !'; the Figure 3 page carries a stray overlapping text layer, so its labels were checked in the raw extraction)",
+   "file": "rawdata/imaging/hst/Lallo2012_OptEng51_011011_HST_20yr_arXiv1203.0002.pdf",
+   "url": "https://arxiv.org/pdf/1203.0002",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "PRIMOTA": {
+   "cite": "STScI, The Hubble Space Telescope Primer for Cycle 34, \"HST Primer: Optical Performance, Guiding Performance, and Observing Efficiency\" (web page; fetched 2026-10-19); OTA characteristics table",
+   "file": "rawdata/imaging/hst/primer_cycle34_hst-primer-optical-performance-guiding-performance-and-observing-efficiency.html",
+   "url": "https://hst-docs.stsci.edu/hsp/the-hubble-space-telescope-primer-for-cycle-34/hst-primer-optical-performance-guiding-performance-and-observing-efficiency",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "PRIMSYS": {
+   "cite": "STScI, The Hubble Space Telescope Primer for Cycle 34, \"HST Primer: System Overview\" (web page: 'Telescope Design and Field of View', 'The HST Field of View' and the aperture-location table; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/hst/primer_cycle34_hst-primer-system-overview.html",
+   "url": "https://hst-docs.stsci.edu/hsp/the-hubble-space-telescope-primer-for-cycle-34/hst-primer-system-overview"
+  },
+  "PRIMSYSFOV": {
+   "cite": "Figure 'The HST Field of View' embedded in PRIMSYS (FOV-Cycle20PrimerOUTLINE.png; aperture outlines in V2,V3 with ~arcsec distances and the 'Alignment of diffraction spikes in OTA PSF' cross)",
+   "file": "rawdata/telescopes/hst/primer_cycle34_system-overview_fig_FOV-Cycle20PrimerOUTLINE.png",
+   "url": "https://hst-docs.stsci.edu/hsp/files/148639996/148639998/1/1734541065823/FOV-Cycle20PrimerOUTLINE.png"
+  },
+  "PRIMSYSCUT": {
+   "cite": "Figure 'The Hubble Space Telescope Configuration after Servicing Mission 4 in 2009' embedded in PRIMSYS (HSTcutawaySM4_forPrimer.gif; labelled cutaway)",
+   "file": "rawdata/telescopes/hst/primer_cycle34_system-overview_fig_HSTcutawaySM4_forPrimer.gif",
+   "url": "https://hst-docs.stsci.edu/hsp/files/148639996/148639997/1/1734541065598/HSTcutawaySM4_forPrimer.gif"
+  },
+  "FGSIHB": {
+   "cite": "Nelan, E., et al. 2021, \"Fine Guidance Sensor Instrument Handbook\", Version 28.0, January 2021 (title page: \"for Cycle 32\"; Baltimore: STScI); PDF export of hst-docs.stsci.edu/fgsihb (PDF created 2023-12-19; the current FGS handbook linked from the STScI site on 2026-10-19). Printed page = PDF page - 1",
+   "file": "rawdata/telescopes/hst/fgs_ihb_v28_2021_cycle32.pdf",
+   "url": "https://hst-docs.stsci.edu/fgsihb/files/148009837/148009838/1/1703008284776/fgs_ihb.pdf"
+  },
+  "MG1": {
+   "cite": "NASA/GSFC (Lockheed Martin), Hubble Space Telescope Servicing Mission 3B Media Reference Guide (2002), Sec. 1 \"Introduction\" (pp. 1-1 to 1-7; PDF created 2002-01-31; describes HST as of early 2002, before ACS was installed)",
+   "file": "rawdata/telescopes/hst/NASA_SM3B_MediaGuide_sec1_Introduction_lhea.pdf",
+   "url": "https://lhea.gsfc.nasa.gov/archive/sm3b/art/pdf/media-guide/sec1.pdf"
+  },
+  "MG5": {
+   "cite": "NASA/GSFC (Lockheed Martin), Hubble Space Telescope Servicing Mission 3B Media Reference Guide (2002), Sec. 5 \"HST Systems\" (pp. 5-1 to 5-25; OTA on pp. 5-14 to 5-19; PDF created 2002-01-31)",
+   "file": "rawdata/telescopes/hst/NASA_SM3B_MediaGuide_sec5_HSTSystems_lhea.pdf",
+   "url": "https://lhea.gsfc.nasa.gov/archive/sm3b/art/pdf/media-guide/sec5.pdf"
+  },
+  "TT63": {
+   "cite": "Krist, J. & Hook, R. 2004, \"The Tiny Tim User's Guide\", Version 6.3, June 2004 (tinytim.pdf in the final Tiny Tim source release, GitHub spacetelescope/tinytim, commit c3d06ef)",
+   "file": "rawdata/imaging/hst/TinyTim_UsersGuide_v6.3_2004_github_c3d06ef.pdf",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/tinytim.pdf",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "TTACS": {
+   "cite": "Tiny Tim 7.5 pupil table acswfc1.pup (dated March 2003), GitHub spacetelescope/tinytim commit c3d06ef. Pupil units: fraction of the pupil (primary) radius. Its 'Optical Telescope Assembly pupil information' block is identical in TTUVIS and TTIR",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_acswfc1.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/acswfc1.pup",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "TTUVIS": {
+   "cite": "Tiny Tim 7.5 pupil table wfc3_uvis1.pup (dated March 2008, updated 2010-2011), GitHub spacetelescope/tinytim commit c3d06ef",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_wfc3_uvis1.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/wfc3_uvis1.pup",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "TTIR": {
+   "cite": "Tiny Tim 7.5 pupil table wfc3_ir.pup (dated April 2008, updated 2011), GitHub spacetelescope/tinytim commit c3d06ef",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_wfc3_ir.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/wfc3_ir.pup",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "ISR0814": {
+   "cite": "Hook, R. & Stoehr, F. 2008, \"WFC3 Support in Tiny Tim\", WFC3 Instrument Science Report 2008-14 (June 27, 2008)",
+   "file": "rawdata/imaging/wfc3/WFC3-ISR-2008-14_HookStoehr_TinyTim_WFC3.pdf",
+   "url": "https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2008/WFC3-2008-14.pdf",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "WFC3IHB": {
+   "cite": "Marinelli, M. & Green, J. 2025, \"Wide Field Camera 3 Instrument Handbook for Cycle 34\", Version 18.0, December 2025 (Baltimore: STScI). Printed page = PDF page - 1",
+   "file": "rawdata/imaging/wfc3/wfc3_ihb_cycle34.pdf",
+   "url": "https://hst-docs.stsci.edu/wfc3ihb/files/148522437/221483560/2/1778683284839/wfc3ihb.pdf",
+   "reused_from": "data/imaging/hst.json"
+  },
+  "ACSIHB": {
+   "cite": "Stark, D. V., et al. 2025, \"ACS Instrument Handbook for Cycle 34\", Version 25.0, December 2025 (Baltimore: STScI). Printed page = PDF page - 1",
+   "file": "rawdata/imaging/acs/acs_ihb_cycle34.pdf",
+   "url": "https://hst-docs.stsci.edu/acsihb/files/147481397/221483033/4/1769607179448/acs_ihb.pdf",
+   "reused_from": "data/imaging/hst.json"
+  }
+ },
+ "telescope": {
+  "key": "hst",
+  "name": "Hubble Space Telescope -- Optical Telescope Assembly (OTA)",
+  "imaging_record": "data/imaging/hst.json#hst_ota",
+  "recommended_preset": "Two-mirror Ritchey-Chretien Cassegrain. Primary: 2400 mm, concave hyperboloid, R = 11040 mm, f1 = 5520 mm (f/2.3), K1 = -1.0022985 by design (as built -1.0132 to -1.0144: the famous spherical aberration, ~1/2 wave, 253-277 nm rms wavefront, surface error ~2.3 um at the edge; MG5: the edge was 'too flat' by about 2 um), 600 mm central hole. Secondary: convex hyperboloid, R = -1358 mm, K2 = -1.49686, 281 mm diameter (310 mm with housing), 4906.071 mm in front of the primary, magnification 10.435. One focus: f/24 Cassegrain, f = 57.6 m, 3.58 arcsec/mm, 1500.129 mm behind the primary vertex (6406.200 mm behind the secondary); usable field ~28 arcmin = 0.46 m diameter (focal-surface fits out to 14 arcmin radius); curved focal surface (sag 43.5 mm at 14 arcmin, DERIVED radius ~650 mm). The field is shared spatially: 4 axial bays (ACS, COS, STIS, NICMOS) take light directly a few arcmin off axis; 4 radial bays take light via pick-off mirrors -- WFC3 through a flat 45-deg pick-off at the field centre, and the 3 FGSs through pickle-shaped plane pick-offs covering quarter annuli 10-14 arcmin from the axis (~69 arcmin2 each). Reflections before an instrument's own optics: 2 for an axial bay, 3 for a radial bay (DERIVED). Pupil: 2400 mm circle, central obscuration radius 396.0 mm (eps = 0.330, the secondary baffle), 4 spider vanes 25.654 mm wide along +-V2 and +-V3, 3 primary-mirror pads of diameter 150.368 mm (Figure 4.1; Tiny Tim 156 mm) near 0.89 of the radius.",
+  "explorer_inputs": {
+   "design": "Ritchey-Chretien Cassegrain (two hyperboloids)",
+   "D_m": 2.4,
+   "primary": {
+    "D_mm": 2400,
+    "R_mm": 11040,
+    "f_mm": 5520,
+    "F": 2.3,
+    "conic_design": -1.0022985,
+    "conic_as_built_range": [
+     -1.0132,
+     -1.0144
+    ],
+    "central_hole_D_mm": 600,
+    "spherical_aberration": "rms wavefront 253-277 nm (~1/2 wave); edge ~2.3 um (L12) / ~2 um (MG5) too flat"
+   },
+   "secondary": {
+    "D_mm": 281,
+    "D_with_housing_mm": 310,
+    "R_mm": -1358,
+    "f_mm_DERIVED": -679,
+    "conic": -1.49686,
+    "spacing_from_primary_mm": 4906.071,
+    "magnification": 10.435
+   },
+   "focus": {
+    "name": "Cassegrain f/24",
+    "F": 24,
+    "f_m": 57.6,
+    "plate_scale_arcsec_per_mm": 3.58,
+    "behind_primary_vertex_mm": 1500.129,
+    "behind_secondary_mm": 6406.2,
+    "field_diameter_arcmin": 28,
+    "field_diameter_mm": 460,
+    "focal_surface_sag_mm_at_14arcmin": 43.47,
+    "focal_surface_radius_mm_DERIVED": 647,
+    "exit_pupil_to_focus_mm": 7003.51,
+    "exit_pupil_D_mm_DERIVED": 292,
+    "reflections_axial_DERIVED": 2,
+    "reflections_radial_DERIVED": 3
+   },
+   "pupil": {
+    "R_outer_mm": 1200,
+    "eps": 0.33,
+    "R_obs_mm": 396.0,
+    "spider": {
+     "n_vanes": 4,
+     "width_mm": 25.654,
+     "azimuths_deg": [
+      0,
+      90,
+      180,
+      270
+     ],
+     "orientation": "cross along +-V3 and +-V2",
+     "from_mm": 396.0,
+     "to_mm": 1200
+    },
+    "pads_OTAHB_fig41": [
+     {
+      "name": "pad on +V3 vane",
+      "r_mm": 1066.8,
+      "az_deg": 0.0,
+      "D_mm": 150.368
+     },
+     {
+      "name": "pad on +V2 side",
+      "r_mm": 1071.88,
+      "az_deg": 121.5,
+      "D_mm": 150.368
+     },
+     {
+      "name": "pad on -V2 side",
+      "r_mm": 1071.88,
+      "az_deg": 247.6,
+      "D_mm": 150.368
+     }
+    ],
+    "pads_TinyTim": [
+     {
+      "name": "OTA Pad 1",
+      "r_mm": 1070.5,
+      "az_deg": 0.0,
+      "D_mm": 156.0
+     },
+     {
+      "name": "OTA Pad 2",
+      "r_mm": 1062.4,
+      "az_deg": 121.4,
+      "D_mm": 156.0
+     },
+     {
+      "name": "OTA Pad 3",
+      "r_mm": 1064.4,
+      "az_deg": 239.0,
+      "D_mm": 156.0
+     }
+    ],
+    "areas_cm2": {
+     "full_2400mm": 45240,
+     "central_obscuration": 4930,
+     "pads_and_spiders": 1320,
+     "clear": 38990
+    },
+    "tpupil_format_OTAHB_fig41": {
+     "axes": "x = +V2, y = +V3 as drawn in OTAHB Figure 4.1; ang in deg from +x toward +y (DERIVED: ang = 90 - az); lengths in m",
+     "kind": "circle",
+     "D": 2.4,
+     "eps": 0.33,
+     "vanes": [
+      {
+       "ang": 0,
+       "w": 0.025654,
+       "full": true
+      },
+      {
+       "ang": 90,
+       "w": 0.025654,
+       "full": true
+      }
+     ],
+     "pads": [
+      {
+       "r": 1.0668,
+       "ang": 90.0,
+       "d": 0.150368
+      },
+      {
+       "r": 1.07188,
+       "ang": -31.5,
+       "d": 0.150368
+      },
+      {
+       "r": 1.07188,
+       "ang": -157.6,
+       "d": 0.150368
+      }
+     ]
+    },
+    "tpupil_format_TinyTim": {
+     "axes": "same as above; Tiny Tim fractions x 1.2 m (DERIVED)",
+     "kind": "circle",
+     "D": 2.4,
+     "eps": 0.33,
+     "vanes": [
+      {
+       "ang": 0,
+       "w": 0.0264,
+       "full": true
+      },
+      {
+       "ang": 90,
+       "w": 0.0264,
+       "full": true
+      }
+     ],
+     "pads": [
+      {
+       "r": 1.0705,
+       "ang": 90.0,
+       "d": 0.156
+      },
+      {
+       "r": 1.0624,
+       "ang": -31.4,
+       "d": 0.156
+      },
+      {
+       "r": 1.0644,
+       "ang": -149.0,
+       "d": 0.156
+      }
+     ]
+    }
+   }
+  },
+  "params": {
+   "telescope_design": {
+    "value": "Ritchey-Chretien Cassegrain (aplanatic: no third-order spherical aberration or coma; astigmatism and field curvature remain)",
+    "unit": null,
+    "src": "OTAHB",
+    "loc": "Sec. 2.2, p. 21",
+    "pdf_page": 27,
+    "quote": "The telescope is an aplanatic Cassegrain configuration of the Ritchey-Chretian design",
+    "note": "'Chretian' is an OCR typo in the scan's text layer; the line breaks as 'Casse- grain'.",
+    "imaging_key": "hst_ota.params.telescope_design",
+    "alternatives": [
+     {
+      "value": "Ritchey-Chretien Cassegrain",
+      "src": "PRIMOTA",
+      "loc": "OTA characteristics table",
+      "quote": "Design Ritchey-Chretien Cassegrain"
+     },
+     {
+      "value": "no third-order spherical or coma",
+      "src": "OTAHB",
+      "loc": "Sec. 2.3.2 (Performance Versus Field Angle), p. 25",
+      "pdf_page": 31,
+      "quote": "The design has no third-order spherical aberration or coma, with field curvature and astigmatism being the prime residual aberrations."
+     },
+     {
+      "value": "two aspheric mirrors",
+      "src": "MG1",
+      "loc": "Sec. 1, 'Optical Telescope Assembly', p. 1-2",
+      "pdf_page": 2,
+      "quote": "The optical system is a Ritchey-Chretien design, in which two special aspheric mirrors form focused images over the largest possible field of view."
+     }
+    ]
+   },
+   "primary_diameter": {
+    "value": 2400,
+    "unit": "mm",
+    "src": "L12",
+    "loc": "Sec. 4 'OTA Details', Table 1 (Optical parameters for HST), arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "2400 mm diameter circular annulus sandwich design, with 600 mm central opening",
+    "imaging_key": "hst_ota.params.telescope_aperture",
+    "alternatives": [
+     {
+      "value": 2400,
+      "src": "OTAHB",
+      "loc": "Table 2.1 (OTA Optical Design Prescription), p. 25",
+      "pdf_page": 31,
+      "quote": "Aperture 2400. mm"
+     },
+     {
+      "value": 2400,
+      "src": "PRIMOTA",
+      "loc": "OTA characteristics table",
+      "quote": "Aperture 2.4 m"
+     },
+     {
+      "value": "94.5 in. (2.4 m)",
+      "src": "MG1",
+      "loc": "Fig. 1-4 (HST specifications), p. 1-5",
+      "pdf_page": 5,
+      "quote": "Primary mirror 94.5 in. (2.4 m) in diameter",
+      "note": "DERIVED: 94.5 in x 25.4 mm = 2400.3 mm"
+     }
+    ]
+   },
+   "primary_radius_of_curvature": {
+    "value": 11040,
+    "unit": "mm (vertex radius; concave)",
+    "src": "OTAHB",
+    "loc": "Table 2.1 (OTA Optical Design Prescription), p. 25",
+    "pdf_page": 31,
+    "quote": "Primary Mirror Radius 11040. mm",
+    "alternatives": [
+     {
+      "value": 11040,
+      "src": "L12",
+      "loc": "Table 1, arXiv p. 8",
+      "pdf_page": 8,
+      "quote": "Hyperboloid: 11040 mm radius of curvature, 5520 mm focal length"
+     }
+    ]
+   },
+   "primary_focal_length": {
+    "value": 5520,
+    "unit": "mm",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "11040 mm radius of curvature, 5520 mm focal length",
+    "derived": "DERIVED: R/2 = 11040/2 = 5520 mm"
+   },
+   "primary_focal_ratio": {
+    "value": 2.3,
+    "unit": "f/#",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "focal ratio (primary mirror) = f/2.3",
+    "derived": "DERIVED: 5520 / 2400 = 2.300",
+    "alternatives": [
+     {
+      "value": 2.35,
+      "src": "MG5",
+      "loc": "'Secondary Mirror Assembly', p. 5-18",
+      "pdf_page": 18,
+      "quote": "It converts the primary-mirror converging rays from f/2.35 to a focal ratio system prime focus of f/24",
+      "note": "f/2.35 is not consistent with R = 11040 mm and D = 2400 mm (f/2.30)"
+     }
+    ]
+   },
+   "primary_conic_design": {
+    "value": -1.0022985,
+    "unit": "conic constant K (hyperboloid)",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "Conic constant K1 = -1.0022985 (spec, [14]), -1.0144 (as built, [15])",
+    "alternatives": [
+     {
+      "value": "E = -0.0022985",
+      "src": "OTAHB",
+      "loc": "Table 2.1 + Sec. 2.2.1, p. 21 and 25",
+      "pdf_page": 31,
+      "quote": "E -0.0022985",
+      "note": "OTAHB p. 21 [PDF p. 27]: \"The aspheric constant E is defined as\" ... \"where f. is eccentricity.\" (OCR 'f.' = epsilon; the formula E = 1 - eps^2 is garbled in the text layer). DERIVED: K = -eps^2 = E - 1 = -1.0022985"
+     }
+    ]
+   },
+   "primary_central_hole": {
+    "value": 600,
+    "unit": "mm (diameter of the central opening)",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "with 600 mm central opening",
+    "alternatives": [
+     {
+      "value": "24 in.",
+      "src": "OTAHB",
+      "loc": "Sec. 1.3.2.2, p. 13",
+      "pdf_page": 19,
+      "quote": "The beam passes through a 24-in. hole in the primary mirror to the focal plane almost five feet behind it.",
+      "note": "DERIVED: 24 in = 610 mm"
+     },
+     {
+      "value": "23.5 in (60 cm)",
+      "src": "MG5",
+      "loc": "p. 5-15",
+      "pdf_page": 15,
+      "quote": "converged through a 23.5-inch (60-cm) hole in the primary mirror"
+     },
+     {
+      "value": "24 in.",
+      "src": "MG1",
+      "loc": "Sec. 1, p. 1-2",
+      "pdf_page": 2,
+      "quote": "through a 24-in. hole in its center into the Focal Plane Structure"
+     }
+    ],
+    "note": "The hole is inside the 792 mm central obscuration (DERIVED 600 < 2 x 396), so it does not appear in the pupil."
+   },
+   "primary_spherical_aberration": {
+    "value": "as-built conic K = -1.0132 to -1.0144 instead of -1.0023; rms wavefront error 253-277 nm; surface error at the mirror edge ~2.3 um",
+    "unit": null,
+    "src": "L12",
+    "loc": "Sec. 5 'Problems as-launched', arXiv p. 14",
+    "pdf_page": 14,
+    "quote": "with values for the primary mirror’s conic constant K varying from -1.0132 [38] to - 1.0144 [39], compared with the design value of -1.0023 ... Corresponding rms wavefront error estimates range from 253 [40] to 277 nm [41]. Surface error at the edge of the primary mirror is approximately 2.3 #m.",
+    "alternatives": [
+     {
+      "value": "cause: 1.3 mm spacing error in the null corrector",
+      "src": "L12",
+      "loc": "arXiv p. 14",
+      "pdf_page": 14,
+      "quote": "identified the cause to be a 1.3 mm spacing error in the reflective null corrector device used to optically test the mirror while being figured"
+     },
+     {
+      "value": "256 nm",
+      "src": "L12",
+      "loc": "Sec. 4, arXiv p. 10",
+      "pdf_page": 10,
+      "quote": "Once the 256 nm of known spherical aberration are removed"
+     },
+     {
+      "value": "about 2 microns too flat at the edge",
+      "src": "MG5",
+      "loc": "'Primary Mirror Assembly and Spherical Aberration', p. 5-15",
+      "pdf_page": 15,
+      "quote": "The outer edge of the 8-foot (2.4-m) primary mirror was ground too flat by a width equal to 1/50 the thickness of a sheet of paper (about 2 microns)."
+     },
+     {
+      "value": "about one-half wave",
+      "src": "PRIMOTA",
+      "loc": "'Optical Performance'",
+      "quote": "the primary mirror was manufactured with about one-half wave of spherical aberration"
+     },
+     {
+      "value": "~1/2 wave",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.1 (Optical Design and Detectors), p. 23",
+      "pdf_page": 24,
+      "quote": "correct separately for the ~1/2 wave spherical aberration of the HST primary mirror"
+     }
+    ],
+    "note": "Context only: every current instrument carries its own correction (PRIMOTA: \"currently, all onboard instruments have internal corrective optics\"); the FGSs do not correct it (FGSIHB p. 22: \"The FGS design does not correct for the unexpected spherical aberration from the telescope’s misfigured primary mirror.\")."
+   },
+   "secondary_diameter": {
+    "value": 281,
+    "unit": "mm (mirror; 310 mm with housing)",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "281 mm diameter (310 mm with housing)",
+    "alternatives": [
+     {
+      "value": "0.31 m",
+      "src": "L12",
+      "loc": "Figure 3 label, arXiv PDF p. 52",
+      "pdf_page": 52,
+      "quote": "Secondary Mirror Diameter = 0.31m"
+     },
+     {
+      "value": "12.2 in. (0.3 m)",
+      "src": "MG1",
+      "loc": "Fig. 1-4 (HST specifications), p. 1-5",
+      "pdf_page": 5,
+      "quote": "Secondary mirror 12.2 in. (0.3 m) in diameter",
+      "note": "DERIVED: 12.2 in = 309.9 mm, i.e. the 310 mm 'with housing' figure"
+     },
+     {
+      "value": "12 in. (0.3 m)",
+      "src": "MG5",
+      "loc": "p. 5-18",
+      "pdf_page": 18,
+      "quote": "The mirror is a convex hyperboloid 12 inches (0.3 m) in diameter"
+     }
+    ],
+    "derived": "DERIVED check: the on-axis beam footprint on the secondary = 2400 mm x (5520 - 4906.071)/5520 = 266.9 mm, so 281 mm leaves room for the field. 281/2400 = 0.117 and 310/2400 = 0.129 of D: the secondary mirror is much smaller than the 0.330 central obscuration (the secondary baffle)."
+   },
+   "secondary_radius_of_curvature": {
+    "value": -1358,
+    "unit": "mm (vertex radius; convex)",
+    "src": "L12",
+    "loc": "Table 1, arXiv p. 8",
+    "pdf_page": 8,
+    "quote": "Convex hyperboloid: -1358 mm radius of curvature",
+    "alternatives": [
+     {
+      "value": 1358,
+      "src": "OTAHB",
+      "loc": "Table 2.1, p. 25",
+      "pdf_page": 31,
+      "quote": "Secondary Mirror Radius 1358. mm"
+     }
+    ]
+   },
+   "secondary_focal_length": {
+    "value": null,
+    "unit": "mm",
+    "src": null,
+    "loc": null,
+    "quote": null,
+    "derived": "Not published in the sources found. DERIVED: R/2 = -1358/2 = -679 mm (convex)."
+   },
+   "secondary_conic": {
+    "value": -1.49686,
+    "unit": "conic constant K",
+    "src": "OTAHB",
+    "loc": "Table 2.1, p. 25",
+    "pdf_page": 31,
+    "quote": "E -0.49686",
+    "derived": "DERIVED: K = E - 1 = -1.49686 (E = 1 - eps^2, OTAHB Sec. 2.2.1)",
+    "alternatives": [
+     {
+      "value": -1.496,
+      "src": "L12",
+      "loc": "Table 1, arXiv p. 8",
+      "pdf_page": 8,
+      "quote": "Conic constant K2 = -1.496 [16]"
+     }
+    ]
+   },
+   "mirror_separation": {
+    "value": 4906.071,
+    "unit": "mm (secondary vertex to primary vertex)",
+    "src": "OTAHB",
+    "loc": "Table 2.1, p. 25",
+    "pdf_page": 31,
+    "quote": "Spacing 4906.071 mm",
+    "alternatives": [
+     {
+      "value": 4906.9,
+      "src": "L12",
+      "loc": "Table 1, arXiv p. 8",
+      "pdf_page": 8,
+      "quote": "Mirror separation, t = 4906.9 mm"
+     },
+     {
+      "value": 4906,
+      "src": "OTAHB",
+      "loc": "Sec. 4.2.8 (Astigmatism), p. 42",
+      "pdf_page": 48,
+      "quote": "D = Mirror spacing = 4.906 meters."
+     },
+     {
+      "value": "4.91 m",
+      "src": "L12",
+      "loc": "Figure 3 label, arXiv PDF p. 52",
+      "pdf_page": 52,
+      "quote": "4.91m (PM to SM)"
+     }
+    ],
+    "note": "Truss and focus are actively trimmed on orbit (L12 p. 22: shrinkage of \"over 0.150 mm\" compensated by secondary moves), so the as-flown spacing is not a fixed published number."
+   },
+   "secondary_magnification": {
+    "value": 10.435,
+    "unit": "(system focal length / primary focal length)",
+    "src": "OTAHB",
+    "loc": "Table 2.1, p. 25",
+    "pdf_page": 31,
+    "quote": "Magnification 10.435",
+    "derived": "DERIVED: 57600 / 5520 = 10.435",
+    "alternatives": [
+     {
+      "value": 10.43,
+      "src": "L12",
+      "loc": "Table 1, arXiv p. 8",
+      "pdf_page": 8,
+      "quote": "(magnification = 10.43)"
+     },
+     {
+      "value": 10.4,
+      "src": "MG5",
+      "loc": "p. 5-18",
+      "pdf_page": 18,
+      "quote": "The secondary mirror has a magnification of 10.4X."
+     }
+    ]
+   },
+   "system_focal_ratio": {
+    "value": 24,
+    "unit": "f/# (delivered at the Cassegrain focus)",
+    "src": "OTAHB",
+    "loc": "Table 2.1, p. 25",
+    "pdf_page": 31,
+    "quote": "f/Number 24",
+    "imaging_key": "hst_ota.params.telescope_focal_ratio",
+    "derived": "DERIVED: 2.3 x 10.435 = 24.0",
+    "alternatives": [
+     {
+      "value": 24,
+      "src": "PRIMOTA",
+      "loc": "OTA characteristics table",
+      "quote": "Focal Ratio f /24"
+     },
+     {
+      "value": 24,
+      "src": "MG5",
+      "loc": "p. 5-18",
+      "pdf_page": 18,
+      "quote": "to a focal ratio system prime focus of f/24"
+     }
+    ]
+   },
+   "system_focal_length": {
+    "value": 57.6,
+    "unit": "m",
+    "src": "OTAHB",
+    "loc": "Sec. 4.2.8 (Astigmatism), p. 42",
+    "pdf_page": 48,
+    "quote": "F = Effective focal length = 57.6 meters.",
+    "imaging_key": "hst_ota.params.telescope_focal_length",
+    "derived": "DERIVED: 24 x 2.4 m = 57.6 m; 5520 mm x 10.435 = 57601 mm",
+    "alternatives": [
+     {
+      "value": 57.6,
+      "src": "L12",
+      "loc": "Table 1, arXiv p. 8",
+      "pdf_page": 8,
+      "quote": "Focal length (system) f ! = 57600 mm"
+     },
+     {
+      "value": "189 feet (57.6 m)",
+      "src": "MG5",
+      "loc": "p. 5-14",
+      "pdf_page": 14,
+      "quote": "which enables a long focal length of 189 feet (57.6 m) to be packaged into a small telescope length of 21 feet (6.4 m)"
+     },
+     {
+      "value": "189 ft (56.7 m)",
+      "src": "MG1",
+      "loc": "Fig. 1-4 (HST specifications), p. 1-5",
+      "pdf_page": 5,
+      "quote": "Focal length 189 ft (56.7 m) folded to 21 ft (6.3 m)",
+      "note": "Typo in the media guide: 189 ft = 57.6 m (DERIVED 189 x 0.3048 = 57.61 m) and 21 ft = 6.40 m; Sec. 5 of the same guide prints 57.6 m and 6.4 m"
+     }
+    ]
+   },
+   "collecting_area": {
+    "value": 45240,
+    "unit": "cm2 (full 2.4 m entrance pupil; clear aperture 38990 cm2)",
+    "src": "OTAHB",
+    "loc": "Sec. 3 (Throughput), p. 29",
+    "pdf_page": 35,
+    "quote": "The total HST entrance pupil area is 45240 cm2. Of this, 4930 cm2 is covered by the secondary obscuration, and 1320 cm2 by the primary mirror pad supports and secondary mirror spider supports. Thus the total clear aperture is 38990 cm2",
+    "alternatives": [
+     {
+      "value": 45239,
+      "src": "WFC3IHB",
+      "loc": "Sec. 9.4 (Count Rates: Imaging), p. 266",
+      "pdf_page": 267,
+      "quote": "A is the area of an unobstructed 2.4-m telescope (i.e., 45,239 cm2).",
+      "imaging_key": "hst_ota.params.telescope_aperture.alternatives[3]"
+     },
+     {
+      "value": "0.862 clear fraction",
+      "src": "OTAHB",
+      "loc": "Sec. 3, p. 29",
+      "pdf_page": 35,
+      "quote": "the total proportion of incoming light that enters the pupil, but is not absorbed by pupil obscurations is 0.862"
+     }
+    ],
+    "derived": "DERIVED: pi x 120^2 = 45239 cm2; pi x 39.6^2 = 4926.5 cm2 (published 4930); 38990/45240 = 0.862; 45240 - 4930 - 1320 = 38990. Effective clear area for photometry is not tabulated in the current STScI documents found (they use the unobstructed 45,239 cm2 with the obscuration folded into the throughput)."
+   },
+   "secondary_baffle": {
+    "value": "the central obscuration of the pupil (eps = 0.330) is the secondary baffle, which sits behind the secondary mirror and extends toward the primary",
+    "unit": null,
+    "src": "OTAHB",
+    "loc": "Sec. 4.1.2 (Diffraction), p. 34",
+    "pdf_page": 40,
+    "quote": "There are additional components due to the secondary baffie central obscuration, the secondary mirror spiders, and the primary mirror pads.",
+    "alternatives": [
+     {
+      "value": "location",
+      "src": "OTAHB",
+      "loc": "Sec. 1.3.1.2, p. 11",
+      "pdf_page": 17,
+      "quote": "The Central Baffle Assembly (CBA) is located just in front of the Primary Mirror (PM), while a Secondary Baffle (SB) fits just behind the Seconday Mirror (SM)."
+     },
+     {
+      "value": "conical, nearly to the primary",
+      "src": "MG5",
+      "loc": "'Secondary Mirror Assembly', p. 5-18",
+      "pdf_page": 18,
+      "quote": "The conical secondary mirror subassembly light baffle extends almost to the primary mirror."
+     },
+     {
+      "value": "central baffle",
+      "src": "MG5",
+      "loc": "'Baffles', p. 5-18",
+      "pdf_page": 18,
+      "quote": "The central baffle is 10 feet (3 m) long, cone- shaped and attached to the reaction plate through a hole in the center of the primary mirror.",
+      "note": "'cone- shaped' breaks across a line in the original"
+     }
+    ],
+    "note": "OCR typos 'baffie' (baffle) and 'Seconday' are in the OTAHB text layer. The baffle's own dimensions are not published in the sources found; its pupil shadow is the 396.0 mm radius of Figure 4.1."
+   },
+   "design_aberrations": {
+    "value": "on axis: none; at 7 / 14 arcmin: field curvature -10.9 / -43.5 mm, astigmatism 2.1 / 8.3 mm (longitudinal); rms wavefront 0.148 / 0.594 waves at 632.8 nm",
+    "unit": null,
+    "src": "OTAHB",
+    "loc": "Table 2.2 (OTA Design Aberrations), p. 26",
+    "pdf_page": 32,
+    "quote": "Field Curvature (mm) 0 -10.9 -43.5 h2 ... Astigmatism (mm) 0 2.1 8.3 h2 ... RMS (A) 0 0.148 0.594",
+    "note": "The 1990 text layer renders lambda as 'A'; the table footnote reads '(A = 6328A)'. These are design (not as-built) aberrations of the bare OTA; each instrument corrects astigmatism for its own field."
+   }
+  },
+  "foci": [
+   {
+    "key": "cassegrain",
+    "name": "Cassegrain f/24 (the only focus)",
+    "type": "Cassegrain",
+    "summary": "One f/24 focus behind the primary mirror, shared spatially by all instruments: there is no focus selection, no Nasmyth or prime focus, and no tertiary mirror; each instrument owns a fixed patch of the ~28 arcmin field.",
+    "params": {
+     "focal_ratio": {
+      "value": 24,
+      "unit": "f/#",
+      "src": "PRIMOTA",
+      "loc": "OTA characteristics table",
+      "quote": "Focal Ratio f /24",
+      "imaging_key": "hst_ota.params.telescope_focal_ratio"
+     },
+     "focal_length": {
+      "value": 57.6,
+      "unit": "m",
+      "src": "OTAHB",
+      "loc": "Sec. 4.2.8, p. 42",
+      "pdf_page": 48,
+      "quote": "F = Effective focal length = 57.6 meters.",
+      "imaging_key": "hst_ota.params.telescope_focal_length"
+     },
+     "plate_scale": {
+      "value": 3.58,
+      "unit": "arcsec/mm (on axis)",
+      "src": "PRIMOTA",
+      "loc": "OTA characteristics table",
+      "quote": "Plate Scale (on axis) 3.58 arcsec/mm",
+      "imaging_key": "hst_ota.params.telescope_plate_scale",
+      "derived": "DERIVED: 206264.8 / 57600 mm = 3.581 arcsec/mm",
+      "alternatives": [
+       {
+        "value": "3.58109 on axis (design)",
+        "src": "OTAHB",
+        "loc": "Table 2.3 (Tangential Surface with Specified OTA Mirror Radii), p. 27",
+        "pdf_page": 33,
+        "quote": "0.0 0.00000 0.00000 3.58109 3.58109"
+       },
+       {
+        "value": "3.41273 radial / 3.60149 transverse at 14 arcmin",
+        "src": "OTAHB",
+        "loc": "Table 2.7 (Best Focal Surface with Measured OTA Mirror Radii), p. 29",
+        "pdf_page": 35,
+        "quote": "14.0 -43.46650 233.23639 3.41273 3.60149",
+        "note": "columns: field angle (arcmin), X (mm, along -V1), Y (mm, radial), radial and transverse plate scale (arcsec/mm)"
+       },
+       {
+        "value": "3.60-3.37 across the field",
+        "src": "L12",
+        "loc": "Table 1, arXiv p. 8",
+        "pdf_page": 8,
+        "quote": "at a plate scale from 3.60 - 3.37!/mm"
+       }
+      ]
+     },
+     "field_of_view": {
+      "value": 28,
+      "unit": "arcmin (diameter of the shared field; 0.46 m at the focal plane)",
+      "src": "L12",
+      "loc": "Sec. 4 'Science Instruments', arXiv p. 11",
+      "pdf_page": 11,
+      "quote": "HST’s ~28 arcminute field of view is spatially shared among the SIs and guiders, each allocated a permanent section of the 0.46m diameter field.",
+      "alternatives": [
+       {
+        "value": "~28 arcmin",
+        "src": "L12",
+        "loc": "Table 1, arXiv p. 8",
+        "pdf_page": 8,
+        "quote": "Focal surface images ~28 arcmin on sky (~ diameter full moon)"
+       },
+       {
+        "value": "focal-surface fits to 14 arcmin field angle",
+        "src": "OTAHB",
+        "loc": "Table 2.7, p. 29",
+        "pdf_page": 35,
+        "quote": "14.0 -43.46650 233.23639 3.41273 3.60149",
+        "note": "DERIVED: 2 x 233.24 mm = 466.5 mm diameter at 14 arcmin"
+       },
+       {
+        "value": "outer FGS radius 14 arcmin",
+        "src": "FGSIHB",
+        "loc": "Sec. 1.4.5, p. 15",
+        "pdf_page": 16,
+        "quote": "a quarter annulus at the outer perimeter of the HST focal plane with inner and outer radii of 10 and 14 arcmin respectively"
+       },
+       {
+        "value": "14.1 arcmin (radius label)",
+        "src": "MG5",
+        "loc": "Fig. 5-18 (Instrument/sensor field of view after SM3B), p. 5-16",
+        "pdf_page": 16,
+        "quote": "14.1 arcmin",
+        "note": "figure label in the text layer; the arrow runs from the field centre to the outer edge of the FGS 1 field (visual), i.e. a radius"
+       }
+      ],
+      "note": "No unvignetted-field specification is published in the sources found; the field edge is set by the FGS pick-offs at 14 arcmin."
+     },
+     "focal_surface": {
+      "value": "curved; best-focus surface 43.47 mm from the tangent plane at 14 arcmin (233.24 mm off axis)",
+      "unit": "mm",
+      "src": "OTAHB",
+      "loc": "Table 2.7 (Best Focal Surface with Measured OTA Mirror Radii), p. 29",
+      "pdf_page": 35,
+      "quote": "14.0 -43.46650 233.23639 3.41273 3.60149",
+      "derived": "DERIVED: radius of curvature of the best focal surface ~ (233.236^2 + 43.467^2) / (2 x 43.467) = 647 mm (sphere through the axis and the 14-arcmin point; the published fit is X = -0.223064 theta^2 + 0.066119 (theta/10)^4 with theta in arcmin, so the surface is not exactly spherical)",
+      "alternatives": [
+       {
+        "value": "design field curvature -43.5 mm at 14 arcmin",
+        "src": "OTAHB",
+        "loc": "Table 2.2, p. 26",
+        "pdf_page": 32,
+        "quote": "Field Curvature (mm) 0 -10.9 -43.5 h2"
+       }
+      ],
+      "note": "Instruments sit on different surfaces: OTAHB p. 25 lists which SI apertures were placed on the tangential vs best focal surface (e.g. \"The HSP (no focus adjustment): Should be positioned in the plane of best focus.\")."
+     },
+     "focus_position": {
+      "value": 1500.129,
+      "unit": "mm behind the primary vertex (6406.200 mm behind the secondary)",
+      "src": "OTAHB",
+      "loc": "Table 2.1, p. 25",
+      "pdf_page": 31,
+      "quote": "Vertex Back Focus 1500.129 mm Back Focal Distance 6406.200 mm",
+      "derived": "DERIVED: 6406.200 - 4906.071 = 1500.129 mm; Cassegrain check m x (f1 - t) = 10.435 x 613.93 = 6406.2 mm",
+      "alternatives": [
+       {
+        "value": "1.5 m",
+        "src": "L12",
+        "loc": "Figure 3 label, arXiv PDF p. 52",
+        "pdf_page": 52,
+        "quote": "1.5m"
+       },
+       {
+        "value": "almost five feet",
+        "src": "OTAHB",
+        "loc": "Sec. 1.3.2.2, p. 13",
+        "pdf_page": 19,
+        "quote": "to the focal plane almost five feet behind it"
+       },
+       {
+        "value": "B = 6.406 m",
+        "src": "OTAHB",
+        "loc": "Sec. 4.2.8, p. 42",
+        "pdf_page": 48,
+        "quote": "B = D + Back focus = 6.406 meters."
+       },
+       {
+        "value": "3.3 feet (1.5 m)",
+        "src": "MG5",
+        "loc": "p. 5-15",
+        "pdf_page": 15,
+        "quote": "to the Telescope focus, 3.3 feet (1.5 m) behind the primary mirror",
+        "note": "internally inconsistent: 3.3 ft = 1.01 m; 1.5 m = 4.9 ft"
+       }
+      ]
+     },
+     "exit_pupil": {
+      "value": 7003.51,
+      "unit": "mm in front of the focal plane (exit pupil = image of the primary in the secondary)",
+      "src": "OTAHB",
+      "loc": "Table 2.1, p. 25",
+      "pdf_page": 31,
+      "quote": "Exit pupil to 7003.51 mm focal plane",
+      "derived": "DERIVED: 7003.51 - 6406.200 = 597.3 mm beyond the secondary (on its sky side); the mirror equation for the secondary (f = -679 mm, object = primary at 4906.071 mm) gives 596.5 mm, so the primary is the aperture stop. Exit-pupil diameter = 7003.51/24 = 291.8 mm (= 2400/8.226).",
+      "alternatives": [
+       {
+        "value": "angular magnification 8.22; L = 7.00 m",
+        "src": "OTAHB",
+        "loc": "Sec. 4.2.8, p. 43",
+        "pdf_page": 49,
+        "quote": "M = Angular magnification = 8.22"
+       },
+       {
+        "value": "0.596 m",
+        "src": "OTAHB",
+        "loc": "Figure 2.4 (OTA Optical Design), p. 26",
+        "pdf_page": 32,
+        "quote": "0,596M",
+        "check": "ocr",
+        "note": "label for the exit pupil behind the secondary; tesseract on a 400-dpi crop reads '0,596M'; the scan's own text layer reads 'O.396M' (an OCR error)"
+       }
+      ]
+     },
+     "image_orientation": {
+      "value": "inverted (sky image rotated 180 deg on the focal plane)",
+      "unit": null,
+      "src": "OTAHB",
+      "loc": "Sec. 2.1, p. 20",
+      "pdf_page": 26,
+      "quote": "The cassegrain telescope inverts the image of the sky onto the focal plane.",
+      "note": "OTAHB p. 20 continues: FGS #2 \"is physically located in the +V3 direction relative to the OTA axis\" but looks at sky further from the Sun. Aperture positions in PRIMSYS and FGSIHB are sky-projected."
+     },
+     "reflections": {
+      "value": {
+       "axial": 2,
+       "radial": 3
+      },
+      "unit": "reflections before the instrument's own optics",
+      "src": null,
+      "loc": null,
+      "quote": null,
+      "derived": "DERIVED (no source states the count): axial bays take the f/24 beam directly behind the primary (primary + secondary = 2 reflections; MG1: \"Four are aligned with the Telescope’s main optical axis and are mounted immediately behind the primary mirror.\"); radial bays sit perpendicular to the axis and take light by a pick-off mirror (primary + secondary + pick-off = 3; WFC3IHB: \"intercepted by the flat 45° WFC3 pick-off mirror (POM)\"; FGSIHB: \"intercepted by a plane pickoff mirror in front of the HST focal plane\"). Instrument-internal reflections are in data/imaging/hst.json (e.g. ACS/WFC IM1-IM3)."
+     }
+    },
+    "bays": {
+     "axial": {
+      "count": 4,
+      "src": "MG1",
+      "loc": "Sec. 1 'Science Instruments', p. 1-4",
+      "pdf_page": 4,
+      "quote": "Hubble can accommodate eight science instruments. Four are aligned with the Telescope’s main optical axis and are mounted immediately behind the primary mirror.",
+      "feed": "direct (no pick-off); entrance apertures near the inner corners of each box, a few arcmin off axis",
+      "alternatives": [
+       {
+        "value": "4 axial bays, phone-booth boxes, apertures near inner corners",
+        "src": "L12",
+        "loc": "Figure 5 caption, arXiv PDF p. 54",
+        "pdf_page": 54,
+        "quote": "Each axial SI is a modular rectangular box roughly the dimensions of a phone booth which latches into the focal plane structure assembly in one of four bays. Entrance apertures very near the inner corners of the axial SI allow light from the OTA to pass into the instrument where it is then re-imaged or otherwise utilized."
+       },
+       {
+        "value": "several arcmin off axis",
+        "src": "PRIMSYS",
+        "loc": "'Telescope Design and Field of View'",
+        "quote": "The remaining SIs are mounted in the axial bays and receive images several arcminutes off-axis."
+       },
+       {
+        "value": "a quadrant each (2002)",
+        "src": "MG5",
+        "loc": "p. 5-15",
+        "pdf_page": 15,
+        "quote": "The remaining “science” field is divided among three axial science instruments, each receiving a quadrant of the circular FOV."
+       },
+       {
+        "value": "four axial SIs (1990)",
+        "src": "OTAHB",
+        "loc": "Sec. 1.3.1.1, p. 8",
+        "pdf_page": 14,
+        "quote": "The AS fits over the section which contains the four axial SIs, one radial SI, and the three Fine Guidance Sensors (FGS)."
+       },
+       {
+        "value": "4 axial",
+        "src": "L12",
+        "loc": "arXiv p. 11",
+        "pdf_page": 11,
+        "quote": "The OTA feeds one radial and 4 “axial” SIs (Figure 3), along with three FGSs, which occupy the other radial bays."
+       }
+      ],
+      "occupants_current": [
+       {
+        "name": "ACS",
+        "aperture_U2_U3_arcsec": {
+         "WFC": [
+          -259,
+          -239
+         ],
+         "SBC": [
+          -205,
+          -467
+         ]
+        },
+        "src": "ACSIHB",
+        "loc": "Sec. 3.1 (ACS Location in the HST Focal Plane), p. 22",
+        "pdf_page": 23,
+        "quote": "ACS is mounted in one of the axial instrument bays behind the HST primary mirror."
+       },
+       {
+        "name": "COS",
+        "aperture_U2_U3_arcsec": [
+         229,
+         -229
+        ],
+        "src": "PRIMSYS",
+        "loc": "aperture-location table",
+        "quote": "COS +229 -229"
+       },
+       {
+        "name": "STIS",
+        "aperture_U2_U3_arcsec": [
+         214,
+         225
+        ],
+        "src": "PRIMSYS",
+        "loc": "aperture-location table",
+        "quote": "STIS 214 225"
+       },
+       {
+        "name": "NICMOS (inactive)",
+        "aperture_U2_U3_arcsec": null,
+        "src": "PRIMSYSCUT",
+        "loc": "cutaway figure labels",
+        "quote": "NICMOS",
+        "check": "figure",
+        "note": "labelled in the aft (axial) module of the post-SM4 cutaway (visual); L12 arXiv p. 18: \"Since late 2008 the cryocooler has failed to run consistently, effectively suspending NICMOS science for the time being.\" No aperture listed in PRIMSYS."
+       }
+      ],
+      "aperture_table_quote": {
+       "src": "PRIMSYS",
+       "loc": "aperture-location table ('nominal effective relative aperture locations', U2,U3 arcsec; the ACS row holds two apertures: WFC (-259, -239) and SBC (-205, -467))",
+       "quote": "ACS WFC SBC –259 –205 –239 –467"
+      },
+      "derived": "DERIVED off-axis distances (sky): ACS/WFC 352\" = 5.9 arcmin (98 mm at 3.58\"/mm), ACS/SBC 510\" = 8.5 arcmin, COS 324\" = 5.4 arcmin, STIS 311\" = 5.2 arcmin. PRIMSYSFOV labels ~360\", ~505\", ~325\", ~285\" (figure)."
+     },
+     "radial": {
+      "count": 4,
+      "src": "PRIMSYS",
+      "loc": "'Telescope Design and Field of View'",
+      "quote": "WFC3 occupies one of the four radial bays; it has a 45° pick-off mirror that allows it to receive the on-axis beam as shown in the figure below. There are three Fine Guidance Sensors (FGSs), each in the other radial bays",
+      "feed": "pick-off mirror (radial SI: flat 45-deg mirror at the field centre; FGS: arc-shaped plane mirrors ahead of the axial instruments)",
+      "alternatives": [
+       {
+        "value": "four radial (2002)",
+        "src": "MG1",
+        "loc": "p. 1-4",
+        "pdf_page": 4,
+        "quote": "In addition to the four axial instruments, four other instruments are mounted radially (perpendicular to the main optical axis)."
+       },
+       {
+        "value": "pick-off geometry",
+        "src": "L12",
+        "loc": "Figure 5 caption, arXiv PDF p. 54",
+        "pdf_page": 54,
+        "quote": "Sitting ahead of the fore end of the axial SIs are three arc-shaped 90° pick-off mirrors which feed the three Fine Guidance Sensors (radial instruments). ... The fourth radial bay houses the radial SI which holds a pick-off mirror at the on-axis position at the center of the field of view."
+       },
+       {
+        "value": "folding mirrors (2002)",
+        "src": "MG5",
+        "loc": "p. 5-15",
+        "pdf_page": 15,
+        "quote": "Four science instruments and three FGSs share the focal plane by a system of mirrors. A small “folding” mirror in the center of the FOV directs light into the WFPC2."
+       },
+       {
+        "value": "WF/PC pick-off exposed ahead of the axial SIs",
+        "src": "L12",
+        "loc": "Sec. 5 'Contamination', arXiv p. 27",
+        "pdf_page": 27,
+        "quote": "its pick-off mirror, fully exposed ahead of the axial SI enclosures"
+       }
+      ],
+      "occupants_current": [
+       {
+        "name": "WFC3",
+        "aperture_U2_U3_arcsec": {
+         "UVIS": [
+          -9,
+          -3
+         ],
+         "IR": [
+          0,
+          -9
+         ]
+        },
+        "pickoff": "flat 45-deg pick-off mirror (POM) intercepting the on-axis beam",
+        "src": "WFC3IHB",
+        "loc": "Sec. 2.1 (Optical Design and Detectors), p. 23",
+        "pdf_page": 24,
+        "quote": "On-axis light coming from the HST optical telescope assembly (OTA) is intercepted by the flat 45° WFC3 pick-off mirror (POM) and is directed into the instrument.",
+        "alternatives": [
+         {
+          "value": "radial bay, on-axis",
+          "src": "WFC3IHB",
+          "loc": "Sec. 1.2 (Overview), p. 13",
+          "pdf_page": 14,
+          "quote": "The WFC3 instrument occupies HST’s radial scientific-instrument bay, from where it obtains on-axis direct images."
+         }
+        ],
+        "note": "POM size and distance ahead of the focus: not published in the sources found."
+       },
+       {
+        "name": "FGS1r",
+        "aperture_U2_U3_arcsec": [
+         -723,
+         10
+        ],
+        "src": "FGSIHB",
+        "loc": "Table 2.3 (Approximate Reference Positions of each FGS in the HST Focal Plane), p. 38",
+        "pdf_page": 39,
+        "quote": "FGS1r –723 +10 ~270",
+        "note": "FGS1r doubles as the astrometric science instrument (PRIMSYSFOV figure label 'FGS1R (ASTROMETER)', visual; tesseract reads 'FGSIR (ASTROMETER)')"
+       },
+       {
+        "name": "FGS2r2",
+        "aperture_U2_U3_arcsec": [
+         0,
+         729
+        ],
+        "src": "FGSIHB",
+        "loc": "Table 2.3, p. 38",
+        "pdf_page": 39,
+        "quote": "FGS2r2 0 +729 ~0"
+       },
+       {
+        "name": "FGS3",
+        "aperture_U2_U3_arcsec": [
+         726,
+         6
+        ],
+        "src": "FGSIHB",
+        "loc": "Table 2.3, p. 38",
+        "pdf_page": 39,
+        "quote": "FGS3 +726 +6 ~90"
+       }
+      ]
+     },
+     "fgs_field": {
+      "value": "each FGS: a quarter annulus 10-14 arcmin from the axis, ~69 arcmin2, spanning 83.3 deg on the inner arc and 85 deg on the outer arc; the three FGSs fill the quarters toward -U2 (FGS1r), +U3 (FGS2r2) and +U2 (FGS3); the quarter toward -U3 (+V3) has no FGS (PRIMSYSFOV, visual)",
+      "src": "FGSIHB",
+      "loc": "Sec. 2.6.1 (FOV and Detector Coordinates), p. 38",
+      "pdf_page": 39,
+      "quote": "Each FGS FOV covers approximately 69 square arcmin, extending radially from 10 arcmin to 14 arcmin from the HST’s boresight and axially 83.3 degrees on the inner arc and 85 on its outer arc.",
+      "alternatives": [
+       {
+        "value": "quarter annulus 10-14 arcmin, ~69 arcmin2",
+        "src": "FGSIHB",
+        "loc": "Sec. 1.4.5 (Field of View), p. 15",
+        "pdf_page": 16,
+        "quote": "The total field of view (FOV) of an FGS is a quarter annulus at the outer perimeter of the HST focal plane with inner and outer radii of 10 and 14 arcmin respectively. The total area (on the sky) subtended by the FOV is ~ 69 square arcmintues."
+       },
+       {
+        "value": "10.2-14.0 arcmin",
+        "src": "FGSIHB",
+        "loc": "Glossary 'FOV', p. 168",
+        "pdf_page": 169,
+        "quote": "approximately a quarter annulus with inner and outer radii of 10.2 and 14.0 arcminutes respectively"
+       },
+       {
+        "value": "the pick-off mirror defines the FOV",
+        "src": "FGSIHB",
+        "loc": "Glossary 'pick-off mirror', p. 169",
+        "pdf_page": 170,
+        "quote": "Pickle-shaped plane mirror used to deflect light from the HST Optical Telescope Assembly (OTA) to the FGS; defines the field of view (FOV) of a given FGS."
+       },
+       {
+        "value": "plane pick-off in front of the focal plane",
+        "src": "FGSIHB",
+        "loc": "Sec. 2.1 (The Optical Train), p. 22",
+        "pdf_page": 23,
+        "quote": "Light from the HST Optical Telescope Assembly (OTA) is intercepted by a plane pickoff mirror in front of the HST focal plane and directed into the FGS."
+       },
+       {
+        "value": "60 arcmin2, 90-deg sector (2002)",
+        "src": "MG5",
+        "loc": "p. 5-15",
+        "pdf_page": 15,
+        "quote": "Around the outside of the science field, a “guidance” field is divided among the three FGSs by their own folding mirrors. Each FGS receives 60 arcmin2 of field in a 90-degree sector."
+       },
+       {
+        "value": "~625\" to ~830\"",
+        "src": "PRIMSYSFOV",
+        "loc": "figure distance labels",
+        "quote": "~625 ... ~830",
+        "check": "ocr",
+        "note": "radial arrows from the field centre to the inner and outer edge of FGS3 (visual); DERIVED 10.4 and 13.8 arcmin"
+       },
+       {
+        "value": "\"10 to 14 arcseconds\" (unit typo)",
+        "src": "PRIMSYS",
+        "loc": "'Telescope Design and Field of View'",
+        "quote": "receives light that is 10 to 14 arcseconds off-axis in the telescope’s field of view",
+        "note": "arcminutes is meant (FGSIHB, PRIMSYSFOV)"
+       }
+      ],
+      "derived": "DERIVED: annular sector area (84.15/360) x pi x (14^2 - 10^2) = 70.5 arcmin2 (inner radius 10.2: 67.5 arcmin2); three FGSs = 3 x 69 = 207 arcmin2, 34% of the pi x 14^2 = 616 arcmin2 field. In the focal plane 10-14 arcmin = 167-233 mm from the axis (OTAHB Table 2.7: 10 arcmin ~ 167 mm interpolated between the 9 and 11 arcmin rows, 14 arcmin = 233.2 mm)."
+     }
+    }
+   }
+  ],
+  "pupil": {
+   "summary": "Entrance pupil = the 2400 mm primary, with a central obscuration of radius 396.0 mm (eps = 0.330; the secondary baffle), a 4-vane cross spider 25.654 mm wide along the V2 and V3 axes (vanes run from 396.0 mm to the rim, 804.0 mm long), and 3 primary-mirror pads (circles 150.368 mm across, one on the +V3 vane at 1066.8 mm, two at 1071.88 mm). Tiny Tim models the same features with slightly different numbers (spider 0.022, pads 0.065 of the radius at ~0.89). The pads also cause a trefoil wavefront term (L12).",
+   "params": {
+    "outer_radius": {
+     "value": 1200,
+     "unit": "mm",
+     "src": "OTAHB",
+     "loc": "Figure 4.1 (OTA Entrance Pupil), p. 36",
+     "pdf_page": 42,
+     "quote": "1200",
+     "check": "ocr",
+     "imaging_key": "hst_ota.params.telescope_aperture",
+     "alternatives": [
+      {
+       "value": 1200,
+       "src": "OTAHB",
+       "loc": "Sec. 4.2.8, p. 42",
+       "pdf_page": 48,
+       "quote": "Y = Semi aperture = 1.2 meters."
+      }
+     ],
+     "note": "Figure 4.1 is referenced in the text (OTAHB p. 35: \"The dimensions of the entrance pupil are given in Figure 4.1.\"); its labels have no text layer and were checked against tesseract OCR of the 300/600-dpi renders at several rotations."
+    },
+    "central_obscuration": {
+     "value": 396.0,
+     "unit": "mm (radius); eps = 0.330",
+     "src": "OTAHB",
+     "loc": "Figure 4.1, p. 36",
+     "pdf_page": 42,
+     "quote": "396 .0",
+     "check": "ocr",
+     "imaging_key": "hst_ota.params.central_obstruction_eps",
+     "derived": "DERIVED: 396.0/1200 = 0.3300; area pi x 39.6^2 = 4926.5 cm2 (published 4930 cm2, OTAHB p. 29)",
+     "alternatives": [
+      {
+       "value": 0.33,
+       "src": "TTACS",
+       "loc": "OTA pupil block",
+       "quote": "0.330 = OTA Secondary Mirror Radius",
+       "note": "same line in TTUVIS and TTIR; Tiny Tim calls it the secondary mirror radius, but the mirror itself is only 281 mm across (0.117 of D): the 0.330 shadow is the secondary baffle (OTAHB p. 34)"
+      },
+      {
+       "value": 0.33,
+       "src": "ISR0814",
+       "loc": "Sec. 'Comparisons between Tiny Tim simulations and Test Data', p. 8",
+       "pdf_page": 8,
+       "quote": "The central obstruction size was increased from the nominal HST (0.330) value to 0.455 of the pupil radius.",
+       "note": "the 0.455 is the WFC3/UVIS test-data fit, not the OTA"
+      },
+      {
+       "value": "33% diametric",
+       "src": "L12",
+       "loc": "Table 1, arXiv p. 8",
+       "pdf_page": 8,
+       "quote": "Central obscuration = 33% (diametric)"
+      },
+      {
+       "value": 0.33,
+       "src": "OTAHB",
+       "loc": "Sec. 4.1.2, p. 34",
+       "pdf_page": 40,
+       "quote": "Because the secondary obscuration is 0.33"
+      }
+     ],
+     "note": "The value 396.0 was recorded as visual-only in data/imaging/hst.json; tesseract recovers '396 .0' (and '396-0') from the page rotated by 30-35 deg, so it is now an OCR check."
+    },
+    "spider": {
+     "value": {
+      "n_vanes": 4,
+      "width_mm": 25.654,
+      "length_mm": 804.0,
+      "azimuths_deg": [
+       0,
+       90,
+       180,
+       270
+      ],
+      "orientation": "cross along +-V3 and +-V2"
+     },
+     "unit": "mm",
+     "src": "OTAHB",
+     "loc": "Figure 4.1, p. 36",
+     "pdf_page": 42,
+     "quote": "804.0 ... 25 .654",
+     "check": "ocr",
+     "imaging_key": "hst_ota.params.spider",
+     "derived": "DERIVED: 25.654/1200 = 0.0214 of the radius; 804.0 = 1200 - 396.0 (vane from obscuration edge to rim); vane area 4 x 25.654 x 804.0 mm2 = 825.0 cm2",
+     "alternatives": [
+      {
+       "value": "0.022 of the radius (26.4 mm)",
+       "src": "TTACS",
+       "loc": "OTA pupil block",
+       "quote": "0.022 = OTA Spider Width"
+      },
+      {
+       "value": "spider spikes aligned with V2/V3",
+       "src": "PRIMSYSFOV",
+       "loc": "figure annotation",
+       "quote": "Alignment of diffraction spikes in OTA PSF",
+       "check": "ocr",
+       "note": "the annotation's cross is drawn parallel to the V2 and V3 arrows (visual)"
+      }
+     ],
+     "note": "Vane count and the cross orientation are visual from Figure 4.1 (vanes drawn on the +V3, -V3, +V2 and -V2 axes); no text statement of the count was found. The secondary is held by the spider (OTAHB p. 34: \"the secondary mirror spiders\")."
+    },
+    "pads": {
+     "value": [
+      {
+       "name": "pad on the +V3 vane",
+       "r_mm": 1066.8,
+       "az_deg": 0.0,
+       "D_mm": 150.368
+      },
+      {
+       "name": "pad on the +V2 side",
+       "r_mm": 1071.88,
+       "az_deg": 121.5,
+       "D_mm": 150.368,
+       "angle_from_minus_V3_deg": 58.5
+      },
+      {
+       "name": "pad on the -V2 side",
+       "r_mm": 1071.88,
+       "az_deg": 247.6,
+       "D_mm": 150.368,
+       "angle_from_minus_V3_deg": 67.6
+      }
+     ],
+     "unit": "mm, deg (azimuth from +V3 toward +V2)",
+     "src": "OTAHB",
+     "loc": "Figure 4.1, p. 36",
+     "pdf_page": 42,
+     "quote": "1066 .8 ... 1071 .88 ... 50.368 ... 67.6 ... 585",
+     "check": "ocr",
+     "derived": "DERIVED: az = 180 - 58.5 = 121.5 deg and 180 + 67.6 = 247.6 deg; radii 0.889 and 0.893 of 1200 mm; pad radius 75.18 mm = 0.0627 of the pupil radius. Area check: vanes 825.0 + pads 3 x pi x 7.518^2 = 532.7 - pad/vane overlap 38.4 = 1319.4 cm2 vs the published 1320 cm2 for \"pad supports and ... spider supports\" (OTAHB p. 29): the Figure 4.1 dimensions reproduce the text.",
+     "alternatives": [
+      {
+       "value": [
+        {
+         "name": "OTA Pad 1",
+         "V3": 0.8921,
+         "V2": 0.0,
+         "radius": 0.065
+        },
+        {
+         "name": "OTA Pad 2",
+         "V3": -0.4615,
+         "V2": 0.7555,
+         "radius": 0.065
+        },
+        {
+         "name": "OTA Pad 3",
+         "V3": -0.4564,
+         "V2": -0.7606,
+         "radius": 0.065
+        }
+       ],
+       "src": "TTACS",
+       "loc": "OTA pupil block ('Mirror pad positions and radii')",
+       "quote": "0.8921 0.0000 0.065 = OTA Pad 1 (V3, V2, Pad Radius) ... -0.4615 0.7555 0.065 = OTA Pad 2 ... -0.4564 -0.7606 0.065 = OTA Pad 3",
+       "note": "identical in TTUVIS and TTIR. DERIVED (x 1200 mm): Pad 1 r = 1070.5 mm, az 0.0; Pad 2 r = 1062.4 mm, az 121.4 (58.6 from -V3); Pad 3 r = 1064.4 mm, az 239.0 (59.0 from -V3); pad diameter 0.13 x 1200 = 156 mm. Area with Tiny Tim numbers: 849.0 + 573.4 - 41.0 = 1381 cm2 (vs 1320 published)."
+      },
+      {
+       "value": "three pads, trefoil",
+       "src": "L12",
+       "loc": "Sec. 4, arXiv p. 10",
+       "pdf_page": 10,
+       "quote": "the remainder of which is predominantly due to trefoil aberration coming from three primary mirror support pads"
+      },
+      {
+       "value": "pads in the PSF",
+       "src": "OTAHB",
+       "loc": "Sec. 4.1.2, p. 35",
+       "pdf_page": 41,
+       "quote": "Superimposed on this pattern are spider diffraction spikes and a ripple effect caused· by the pads."
+      }
+     ],
+     "note": "Pad positions are hand-lettered dimensions read visually and confirmed by OCR (the 150.368 mm diameter OCRs as '50.368' with the leading 1 read as a quote mark; 58.5 OCRs as '585°'; 67.6 OCRs as '67.6 °' on one crop and '616°' on another). The +V3 pad overlaps its vane (hatched in the figure, visual). The figure is not drawn to scale (both lower pads are drawn at ~57-59 deg from -V3 despite the 67.6 label)."
+    },
+    "other_obscurations": {
+     "value": "OTA pupil = entrance aperture + secondary (baffle) + spider vanes + three primary-mirror pads; instrument-specific masks (WFC3/IR cold mask, NICMOS cold masks, WFPC2 repeater obscurations) are not part of the OTA pupil",
+     "unit": null,
+     "src": "TT63",
+     "loc": "Appendix B (How PSFs are Simulated), p. 32",
+     "pdf_page": 32,
+     "quote": "the obscurations include the entrance aperture, the secondary mirror and spider vanes, the support pads on the primary mirror, the WFPC repeater cameras’ secondaries and spiders",
+     "alternatives": [
+      {
+       "value": "dust 3% of the pupil (1990), +2% expected by orbit",
+       "src": "OTAHB",
+       "loc": "Sec. 3, p. 29",
+       "pdf_page": 35,
+       "quote": "The best measurement of the current dust contamination level is 3% of the total pupil area, on the primary and secondary mirrors. An additional 2% is expected before orbit"
+      }
+     ],
+     "note": "The WFC3/IR cold-mask geometry (outer 0.9755, obscuration 0.354/0.370, spider 0.061/0.077 of the radius) is recorded in data/imaging/hst.json (wfc3_ir)."
+    }
+   }
+  },
+  "not_found": [
+   "Secondary-mirror focal length (only R = -1358 mm is published; f = -679 mm is DERIVED).",
+   "A text statement of the number of spider vanes (Figure 4.1 shows four).",
+   "Dimensions of the secondary baffle itself (only its pupil shadow, radius 396.0 mm).",
+   "Size and position (distance ahead of the focus) of the WFC3 45-deg pick-off mirror and of the three FGS pick-off mirrors; the FGS pick-offs are described only by the arcmin field they cut out.",
+   "The number of reflections for axial and radial bays is not stated anywhere found; 2 and 3 are DERIVED from the bay descriptions.",
+   "Which way each radial bay points (in V2/V3) is not stated in text.",
+   "Whether OTAHB Figure 4.1 and the Tiny Tim pad table show the pupil as seen from the sky or from the focal plane.",
+   "A current (post-2009) statement of the clear (obscured) collecting area; the 38990 cm2 clear aperture is the 1990 handbook value.",
+   "An unvignetted-field specification for the f/24 focus (only ~28 arcmin / 0.46 m and the 14-arcmin focal-surface fits).",
+   "NICMOS status after 2012 and its aperture position (not in the Cycle-34 primer table)."
+  ],
+  "conflicts": [
+   "Mirror spacing: 4906.071 mm (OTAHB Table 2.1, design) vs 4906.9 mm (L12 Table 1). The on-orbit spacing is trimmed by secondary moves (L12).",
+   "Primary focal ratio: f/2.3 (L12; DERIVED 5520/2400 = 2.30) vs f/2.35 (MG5 p. 5-18).",
+   "Secondary diameter: 281 mm mirror, 310 mm with housing (L12 Table 1); 0.31 m (L12 Fig. 3); 12.2 in = 310 mm (MG1); 12 in (MG5). The media guides quote the housed size.",
+   "System focal length: 57.6 m (OTAHB, L12, MG5 '189 feet (57.6 m)') vs MG1 Fig. 1-4 '189 ft (56.7 m) folded to 21 ft (6.3 m)' -- a digit transposition in MG1 (189 ft = 57.6 m; 21 ft = 6.4 m as in MG5).",
+   "Focus behind the primary: 1500.129 mm (OTAHB Table 2.1), 'almost five feet' (OTAHB p. 13), 1.5 m (L12 Fig. 3) vs MG5 '3.3 feet (1.5 m)' (3.3 ft = 1.0 m; the metric value is the consistent one).",
+   "Exit pupil label in OTAHB Figure 2.4: the scan's text layer reads 'O.396M', the image and tesseract read 0.596 m; Table 2.1 (7003.51 - 6406.200 = 597.3 mm) and the mirror equation (596.5 mm) support 0.596 m.",
+   "FGS field: quarter annulus 10-14 arcmin, ~69 arcmin2, arcs 83.3/85 deg (FGSIHB Secs. 1.4.5, 2.6.1) vs inner radius 10.2 arcmin (FGSIHB glossary) vs '60 arcmin2 of field in a 90-degree sector' (MG5, 2002); PRIMSYS says '10 to 14 arcseconds' (unit typo for arcminutes).",
+   "Spider width: 25.654 mm (OTAHB Figure 4.1; 0.0214 R) vs 0.022 R = 26.4 mm (Tiny Tim) -- as in data/imaging/hst.json.",
+   "Pads: OTAHB Figure 4.1 (centres at 1066.8 mm on +V3 and 1071.88 mm for the other two; 58.5 deg and 67.6 deg from -V3; diameter 150.368 mm) vs Tiny Tim (0.8921/0.8853/0.8870 R = 1070.5/1062.4/1064.4 mm; 58.6 and 59.0 deg from -V3; diameter 0.13 R = 156 mm). The largest difference is the -V2-side pad azimuth (247.6 vs 239.0 deg). The Figure 4.1 numbers reproduce the published 1320 cm2 spider+pad area (1319.4 cm2 DERIVED); the Tiny Tim numbers give 1381 cm2.",
+   "Central obscuration naming: Tiny Tim labels 0.330 'OTA Secondary Mirror Radius'; the OTA Handbook calls it the secondary baffle obscuration, and the secondary mirror itself is 0.117-0.129 of D.",
+   "Spherical aberration size: rms 253-277 nm and edge error ~2.3 um (L12 p. 14), '256 nm' (L12 p. 10), 'about 2 microns' at the edge (MG5), 'about one-half wave' (PRIMOTA), '~1/2 wave' (WFC3IHB). Consistent at the level quoted; context only.",
+   "Bay history (not used for values): L12 Table 2 says GHRS was 'replaced with NICMOS' and FOS 'replaced with STIS', while L12 Figure 9 draws STIS where GHRS was and NICMOS where FOS was."
+  ],
+  "notes": [
+   "There is one focus. Every instrument, including the guiders, sees the same f/24 beam; they are separated by position in the field, not by switching foci. Parallel observations with several instruments exploit this (L12 p. 29: 'the spatial sharing of the HST focal plane among the SIs').",
+   "Field angle to focal-plane radius (OTAHB Table 2.7): 1 arcmin = 16.758 mm, 5 arcmin = 83.73 mm, 10 arcmin ~ 167 mm (DERIVED between 9 and 11 arcmin rows), 14 arcmin = 233.24 mm.",
+   "Coordinate conventions: V2 = -U2, V3 = -U3 (PRIMSYS: 'V1=U1, V2= –U2 and V3= –U3')."
+  ]
+ }
+}

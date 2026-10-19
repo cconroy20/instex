@@ -5,7 +5,10 @@
 const IX = window.IX;
 const $ = id => document.getElementById(id);
 const errBox = $("err");
-window.addEventListener("error", e => { errBox.hidden = false; errBox.textContent += (e.message || String(e)) + "\n"; });
+window.addEventListener("error", e => {
+  if (/ResizeObserver loop/.test(e.message || "")) return;           // a harmless browser notice, not a page error
+  errBox.hidden = false; errBox.textContent += (e.message || String(e)) + "\n";
+});
 
 // ------------------------------------------------------------------ state
 // The telescope is shared; each mode keeps its own entrance, spectrograph, disperser and detector.
@@ -38,7 +41,7 @@ const M = () => (S.mode === "grating" ? S.g : S.e);
 const PRESETS = window.IX_PRESETS || [];
 let presetId = "custom";
 // the instrument: "spec" (spectrograph, this file) or "img" (imager, imgapp.js)
-let inst = "spec", IMG = null;
+let inst = "spec", IMG = null, TEL = null;
 
 const DETS = [
   { name: "2k × 4k, 15 µm", Nx: 4096, Ny: 2048, pix: 15 },
@@ -188,7 +191,7 @@ function buildPresetMenu() {
   psel.innerHTML = "";
   { const o = document.createElement("option"); o.value = "custom"; o.textContent = "Custom"; psel.appendChild(o); }
   const groups = [];
-  for (const p of (inst === "img" ? IMG.PRESETS : PRESETS)) {
+  for (const p of (inst === "img" ? IMG.PRESETS : inst === "tel" ? TEL.PRESETS : PRESETS)) {
     const t = p.tel || "Other";
     let gr = groups.find(x => x.t === t);
     if (!gr) { gr = { t, D: p.state.D, ps: [] }; groups.push(gr); }
@@ -203,6 +206,7 @@ function buildPresetMenu() {
 }
 psel.addEventListener("change", () => {
   if (inst === "img") { const q = IMG.PRESETS.find(x => x.id === psel.value); if (q) IMG.applyPreset(q); else { IMG.custom(); scheduleHash(); } return; }
+  if (inst === "tel") { const q = TEL.PRESETS.find(x => x.id === psel.value); if (q) TEL.applyPreset(q); return; }
   const p = PRESETS.find(q => q.id === psel.value);
   if (!p) { presetId = "custom"; scheduleHash(); return; }
   applyPreset(p);
@@ -218,6 +222,7 @@ function applyPreset(p) {
 }
 $("reset").addEventListener("click", () => {
   if (inst === "img") { IMG.reset(); return; }
+  if (inst === "tel") { TEL.reset(); return; }
   S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto";
   stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
 });
@@ -252,7 +257,7 @@ function syncControls() {
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
   buildPresetMenu();
-  psel.value = inst === "img" ? IMG.presetId() : presetId;
+  psel.value = inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : presetId;
 }
 
 function params() {
@@ -272,8 +277,8 @@ let hashTimer = 0, lastHash = null;
 function scheduleHash() { clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 180); }
 function writeHash() {
   let parts = [];
-  if (inst === "img") {
-    parts = ["inst=img", ...IMG.hashParts()];
+  if (inst === "img" || inst === "tel") {
+    parts = ["inst=" + inst, ...(inst === "img" ? IMG.hashParts() : TEL.hashParts())];
     lastHash = "#" + parts.join("&");
     try { history.replaceState(null, "", lastHash); } catch (e) { /* file:// */ }
     return;
@@ -295,6 +300,7 @@ function readHash() {
   const kv = {};
   for (const p of h.split("&")) { const [k, v] = p.split("="); if (k) kv[k] = decodeURIComponent(v || ""); }
   if (kv.inst === "img") { inst = "img"; IMG.readHash(kv); return; }
+  if (kv.inst === "tel") { inst = "tel"; TEL.readHash(kv); return; }
   if (kv.preset) { const p = PRESETS.find(q => q.id === kv.preset); if (p) applyPreset(p); }
   // a value of the wrong kind (a typed-in link) is ignored: the key keeps its default (or the preset's value)
   const NUL = Symbol("skip");
@@ -1717,6 +1723,7 @@ function render() {
   pending = false;
   syncControls();
   if (inst === "img") { IMG.render(); scheduleHash(); return; }
+  if (inst === "tel") { TEL.render(); scheduleHash(); return; }
   curP = params();
   cur = IX.design(curP);
   // a wide detector chip (2k x 4k and the like) leaves room: the layout panel takes more of the width
@@ -1754,38 +1761,54 @@ function redrawDetector() { if (cur) drawDetector(cur, curP); }
 // The two panels take the height the window has left after the header, the strip and the controls, so the
 // controls end at the window's bottom in every mode (a fixed 100vh - 520 px left blank space under the shorter
 // control rows). On a phone, and while the layout is expanded, the stylesheet's height stands.
-const PH_MIN = 250, PH_MAX = 1100;
+// The header note stays on one line: in its place beside the preset menu when it fits there, else on a line of its own
+// under the bar (Charlie's choice once the third mode button left too little room at large default fonts). Measured,
+// so it follows the reader's font size; re-checked whenever the bar changes size.
+function fitHeader() {
+  const bar = document.querySelector(".bar"), n = document.querySelector(".presetnote");
+  if (!bar || !n) return;
+  bar.classList.remove("note-below");
+  n.style.whiteSpace = "nowrap"; const need = n.scrollWidth; n.style.whiteSpace = "";
+  bar.classList.toggle("note-below", n.getBoundingClientRect().width < need - 0.5);
+}
+// (deferred a frame: changing the header inside the observer's own callback would re-trigger it in the same frame)
+let hdrRAF = 0;
+if (window.ResizeObserver) new ResizeObserver(() => { cancelAnimationFrame(hdrRAF); hdrRAF = requestAnimationFrame(fitHeader); }).observe(document.querySelector("header"));
+const PH_MIN = 235, PH_MAX = 1100;
 function fitPanels() {
+  fitHeader();
   const root = document.documentElement;
   if (innerWidth <= 860) { const had = !!root.style.getPropertyValue("--ph"); root.style.removeProperty("--ph"); return had; }
   if (lvExpanded) return false;
-  const h0 = $(inst === "img" ? "cvS" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : ".controls.only-spec");
+  const h0 = $(inst === "img" ? "cvS" : inst === "tel" ? "cvP" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : inst === "tel" ? ".controls.only-tel" : ".controls.only-spec");
   if (!h0 || !ctl) return false;
   const want = Math.round(Math.min(PH_MAX, Math.max(PH_MIN, h0 + innerHeight - 6 - (ctl.getBoundingClientRect().bottom + scrollY))));
   if (Math.abs(want - h0) < 1) return false;
   root.style.setProperty("--ph", want + "px");
   return true;
 }
-window.addEventListener("resize", () => { fitPanels(); if (inst === "img") { IMG.redraw(); return; } if (cur) { drawLayout(cur, curP); drawRight(); } });
+window.addEventListener("resize", () => { fitPanels(); if (inst === "img") { IMG.redraw(); return; } if (inst === "tel") { TEL.redraw(); return; } if (cur) { drawLayout(cur, curP); drawRight(); } });
 
 // test hooks
 window.__instex = {
   state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
-  inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test,
+  inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test, tel: () => TEL.test,
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom }, labels: () => placedLabels.map(l => ({ ...l })),
 };
 
 // the imager: its own module, handed the shared helpers
 IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
-const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips." };
+TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
+const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips.", tel: "Back to the first telescope at its first focus." };
 function syncInst() {
   $("iSpec").setAttribute("aria-pressed", String(inst === "spec"));
   $("iImg").setAttribute("aria-pressed", String(inst === "img"));
+  $("iTelMode").setAttribute("aria-pressed", String(inst === "tel"));
   $("reset").title = RESET_TITLE[inst];
 }
-for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"]]) $(id).addEventListener("click", () => {
+for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"], ["iTelMode", "tel"]]) $(id).addEventListener("click", () => {
   if (inst === v) return;
   inst = v; zoom.reset(); lview.fit = true; stopCoast(); schedule();
 });

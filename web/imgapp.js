@@ -230,8 +230,7 @@ function renderText(Dz, P) {
     ["Star FWHM", fAng(Dz.fwhm), P.psf === "diff" ? "Diffraction-limited (in space, or with adaptive optics): the Airy pattern alone." : P.psf === "optics" ? "The optics' own blur and diffraction added in quadrature (drawn as a Moffat profile)." : "Seeing and diffraction added in quadrature (an approximation; the seeing profile is drawn as a Moffat function)."],
   ]);
   if (P.optics === "reimaged") rows($("rOptI"), [
-    ["Collimator", fLen(Dz.fcol), "f_col = F_tel W: the collimator takes the telescope's beam and makes each star's light parallel, W wide."],
-    ["Camera", fLen(Dz.fcam), "f_cam = F_cam W."],
+    ["Collimator, camera", fLen(Dz.fcol) + ", " + fLen(Dz.fcam), "Collimator f_col = F_tel W: it takes the telescope's beam and makes each star's light parallel, W wide. Camera f_cam = F_cam W."],
     ["Effective focal ratio", "f/" + sig(Dz.Feff, 3), "f_eff / D = F_tel f_cam / f_col = F_cam: the reimager makes the telescope an f/F_cam telescope of the same aperture."],
     [Dz.red < 1 ? "Focal reducer" : "Focal enlarger", "× " + sig(Dz.red, 3), "f_cam / f_col: the image scale relative to the telescope focus."],
     ["Field angle in the beam", "±" + sig(Dz.phiMax / DEG, 3) + "°", Dz.split ? `Half-angle of the field each camera takes: with the pyramid, each camera is centered on its own quadrant, so it sees the half-diagonal of one chip, not the whole field (in the beam, tan φ = (D / W) tan θ, D / W = ${sig(Dz.beamMag, 3)}).` : `Half-angle of the field (to the mosaic's farthest corner) in the collimated beam: tan φ = (D / W) tan θ, where D / W = ${sig(Dz.beamMag, 3)}. A big telescope with a small beam makes a modest sky field into a wide field for the camera.`],
@@ -314,8 +313,10 @@ function hAt(pts, z) {
   const L = pts[pts.length - 1];
   return L.h + (L.u || 0) * (z - L.z);
 }
-function drawLayout(Dz, P) {
-  const cv = $("cvIL");
+// tg: the canvas, its caption and its view state (the Telescopes mode draws into its own panel with this function)
+function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
+  const lview = tg.lv;
+  const cv = $(tg.cv);
   const { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
   if (!(cv.width > 0 && cv.height > 0)) return;
@@ -628,11 +629,11 @@ function drawLayout(Dz, P) {
         // past the fold the beam travels down the page: the mosaic lies across it (heights h map to x = x3 - h)
         for (const b of bands) { const a = T(e.x + e.sgn * b.y1, e.y), c2 = T(e.x + e.sgn * b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(Math.min(a[0], c2[0]), a[1], Math.abs(c2[0] - a[0]), wpx); }
         const tip = T(e.x, e.y);
-        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
+        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: P.telMode ? "" : Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
       } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);
-      if (!(tel && P.tel === "prime") && !e.rot && !e.pb) labels.push({ t: "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
+      if (!(tel && P.tel === "prime") && !e.rot && !e.pb) labels.push({ t: P.telMode ? "focus" : "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
     }
   }
   // the field angle in the beam, at the pupil
@@ -675,14 +676,14 @@ function drawLayout(Dz, P) {
     const x0 = 22, y0 = h - 18;
     g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0 + len * sc, y0); g.moveTo(x0, y0 - 4); g.lineTo(x0, y0 + 4); g.moveTo(x0 + len * sc, y0 - 4); g.lineTo(x0 + len * sc, y0 + 4); g.stroke();
     halo(g, fLen(len), x0 + len * sc / 2, y0 - 10, "#4f4a44", `12px ${FONT}`, "center");
-    const cap = $("ilSub");
+    const cap = $(tg.cap);
     cap.hidden = false;
     cap.style.setProperty("--capL", Math.round(x0 + len * sc + 18) + "px");
     cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."
       : Dz.reim && Dz.split ? "A flat pyramid at the focus reflects each quadrant back, 10° off the axis, to its own camera (two of four drawn; in 3D the arms run along the field's diagonals). The field's center falls on the apex."
       : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the pupil, where the filter sits, and the camera focuses each one onto the detector." : "Each star's cone of light converges onto the detector; the filter sits in the converging beam.");
-  } else $("ilSub").hidden = true;
+  } else $(tg.cap).hidden = true;
 }
 
 // ------------------------------------------------------------------ the synthetic sky
@@ -1126,6 +1127,8 @@ function render() {
 }
 return {
   render, reset, applyPreset, custom: () => { presetId = "custom"; }, hashParts, readHash, bodyClasses, PRESETS,
+  // for the Telescopes mode: the telescope drawing, and the formatting helpers
+  drawLayoutOn: (tg, Dz, P) => drawLayout(Dz, P, tg), fmt: { fAng, fLen, fArea }, BANDS,
   presetId: () => presetId,
   redraw: () => { if (cur) { drawLayout(cur, curP); drawSky(cur, curP); } },
   escape: () => { if (ilvExpanded) { setExpanded(false); return true; } if (!$("ilvOpts").hidden) { $("ilvOpts").hidden = true; return true; } return false; },

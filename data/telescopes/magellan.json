@@ -1,0 +1,2619 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Magellan I (Baade) and Magellan II (Clay) 6.5 m, Las Campanas -- every focus and the entrance-pupil geometry",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/magellan.md (same content as Markdown). Structure follows data/imaging/widefield.json: sources{key: cite, file, url}; common (params shared by the twin telescopes); per telescope: title, telescope (machine-readable object with primary, pupil and a foci list; every value points to sourced params through refs), params, not_found, conflicts, notes.",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/magellan/, or an existing file already used by data/imaging/reimagers.json or magellan.json (keys LCOT, CS98N9, BD03, D11, LCOUM, M18, FSCDR, P13, L26, M15, M06, F04, S12C, MCM, LCOMI reused, same files). derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). NOT FOUND marks a gap; INFERRED marks a reasoned guess that no source states. Nothing is filled from memory.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign, degree glyphs normalised; whitespace collapsed (a quote also passes with all whitespace removed and/or hyphenated line breaks joined); \" ... \" joins non-adjacent pieces. Text from pdftotext -layout and -raw per page (PDF p. = page index of the saved PDF), tag-stripped HTML and raw source, raw and decoded ADS/Confluence JSON, .py as is.",
+  "pupil_frame": "Vane coordinates are in the hcipy make_magellan_aperture frame (metres on the primary, angle from +x, each vane a half-line from start_xy outward). The orientation of this frame relative to the telescope elevation axis is not documented.",
+  "refs": "Telescope-object refs name params as common.<id>, baade.<id> or clay.<id>.",
+  "check_result": "146 quotes checked against the saved files, 0 failures (2026-10-19)"
+ },
+ "sources": {
+  "LCOT": {
+   "cite": "Las Campanas Observatory, \"Magellan Telescopes\" web page (foci, mirrors) -- SAME FILE as reimagers.json / magellan.json key LCOT",
+   "file": "rawdata/presets/imacs/lco_magellan_telescopes.html",
+   "url": "https://www.lco.cl/magellan-telescopes/"
+  },
+  "S94": {
+   "cite": "Shectman, S. A. 1994, Proc. SPIE 2199, 558, \"Optical design of the Magellan Project 6.5-meter telescope\", doi:10.1117/12.176223 -- ADS record (abstract only; full paper paywalled), saved as the raw ADS API JSON response (fetched 2026-10-19). DESIGN statement",
+   "file": "rawdata/telescopes/magellan/ads_1994SPIE.2199..558S_Shectman_Magellan_optical_design.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/1994SPIE.2199..558S/abstract"
+  },
+  "SJ03": {
+   "cite": "Shectman, S. A. & Johns, M. 2003, Proc. SPIE 4837, 910, \"The Magellan Telescopes\", doi:10.1117/12.457909 -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2003SPIE.4837..910S_Shectman_Johns_Magellan_Telescopes.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2003SPIE.4837..910S/abstract"
+  },
+  "M03": {
+   "cite": "Martin, H. M., Allen, R. G., Burge, J. H., et al. 2003, Proc. SPIE 4837, 609, \"Fabrication of mirrors for the Magellan Telescopes and the Large Binocular Telescope\" -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2003SPIE.4837..609M_Martin_Magellan_LBT_mirror_fabrication.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2003SPIE.4837..609M/abstract"
+  },
+  "G16": {
+   "cite": "Griebel, M., Buleri, C., Baylor, A., Gunnels, S. 2016, Proc. SPIE 9906, \"Nonlinear transient survival level seismic finite element analysis of Magellan ground based telescope\" -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2016SPIE.9906E..1NG_Griebel_Magellan_seismic_FEA.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2016SPIE.9906E..1NG/abstract"
+  },
+  "DM24": {
+   "cite": "Di Mille, F., Palunas, P., Osip, D., et al. 2024, Proc. SPIE 13098, \"Magellan instrumentation suite\", doi:10.1117/12.3019694 -- ADS record (abstract only; full text paywalled and not quotable via ADS), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2024SPIE13098E..0DD_DiMille_Magellan_instrumentation_suite.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2024SPIE13098E..0DD/abstract"
+  },
+  "DM26": {
+   "cite": "Di Mille, F., Mora, M., Blanc, G., Osip, D., Palunas, P. 2026, Proc. SPIE 14151, \"Operational status and instrument suite development at the Magellan Telescopes\", doi:10.1117/12.3103890 -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2026SPIE14151E..1XD_DiMille_Magellan_operational_status.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2026SPIE14151E..1XD/abstract"
+  },
+  "CS98N9": {
+   "cite": "Dressler, A. & Bigelow, B., IMACS System Specifications v1.1 (1998, Carnegie LaTeX2HTML), node9 \"Optical Design\": Magellan f/11 design-parameter table (repeated from the telescope System Specification) -- SAME FILE as reimagers.json key CS98N9. DESIGN values",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node9.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node9.html"
+  },
+  "BD03": {
+   "cite": "Bigelow, B. C. & Dressler, A. 2003, Proc. SPIE 4841, 1727, \"IMACS, the multi-object spectrograph and imager for Magellan: a status report\" -- SAME FILE as reimagers.json key BD03",
+   "file": "rawdata/presets/imacs/Bigelow2003_SPIE4841_1727_IMACS_status_report.pdf",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/"
+  },
+  "D11": {
+   "cite": "Dressler, A., et al. 2011, PASP 123, 288, \"IMACS: The Inamori-Magellan Areal Camera & Spectrograph on Magellan-Baade\" -- accepted manuscript, SAME FILE as reimagers.json key D11",
+   "file": "rawdata/presets/imacs/Dressler2011_PASP123_288_IMACS_accepted_manuscript_CarnegieFTP.pdf",
+   "url": "https://doi.org/10.1086/658908"
+  },
+  "LCOUM": {
+   "cite": "Las Campanas Observatory, \"IMACS User Manual\" web page (Baade f/11 feed, tertiary, ports) -- SAME FILE as reimagers.json key LCOUM",
+   "file": "rawdata/presets/imacs/lco_imacs_user_manual.html",
+   "url": "https://www.lco.cl/technical-documentation/imacs-user-manual/"
+  },
+  "FSCDR": {
+   "cite": "Carnegie Observatories, \"FourStar Critical Design Review\" notebook, September 21-22, 2006 (Tab 2 Introduction and Overview; Tab 4 Optical Design slides, incl. the Magellan stray-light model) -- SAME FILE as magellan.json key FSCDR",
+   "file": "rawdata/imaging/fourstar/carnegie_FourStar_CDR_2006-09.pdf",
+   "url": "https://instrumentation.obs.carnegiescience.edu/FourStar/Documents/FourStar_cdr.pdf"
+  },
+  "P13": {
+   "cite": "Persson, S. E., et al. 2013, PASP 125, 654, \"FourStar: The Near-Infrared Imager for the 6.5-m Baade Telescope at Las Campanas Observatory\" -- author manuscript, SAME FILE as magellan.json key P13",
+   "file": "rawdata/imaging/fourstar/Persson2013_PASP125_654_FourStar_accepted-manuscript_asdflkj.pdf",
+   "url": "https://doi.org/10.1086/671164"
+  },
+  "P04": {
+   "cite": "Martini, P., Persson, S. E., Murphy, D. C., et al. 2004, Proc. SPIE 5492, 1653, \"PANIC: a near-infrared camera for the Magellan telescopes\", arXiv:astro-ph/0406666 (Sec. 2 Optics)",
+   "file": "rawdata/telescopes/magellan/Martini2004_SPIE5492_PANIC_arXiv0406666.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0406666"
+  },
+  "SCH03": {
+   "cite": "Schechter, P. L., Burley, G. S., Hull, C. L., et al. 2003, Proc. SPIE 4837, 619, \"Active optics on the Baade 6.5-m (Magellan I) Telescope\", arXiv:astro-ph/0207250 (Sec. 3 Facility guiders)",
+   "file": "rawdata/telescopes/magellan/Schechter2003_SPIE4837_Baade_active_optics_arXiv0207250.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0207250"
+  },
+  "FIREM": {
+   "cite": "MIT FIRE project web pages, \"Design\" page (Deployment section: Magellan folded ports; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/mit_FIRE_en_design.htm",
+   "url": "https://web.mit.edu/~rsimcoe/www/FIRE/en_design.htm"
+  },
+  "CMAGE": {
+   "cite": "Las Campanas Observatory documentation (Carnegie Confluence space \"lcodocs\"), \"MagE Manual\" page, version of 2026-10-15, saved as the raw Confluence REST API JSON response (body.export_view)",
+   "file": "rawdata/telescopes/magellan/lcodocs_confluence_MagE_Manual_3036348417.json",
+   "url": "https://carnegiescience.atlassian.net/wiki/spaces/lcodocs/pages/3036348417/MagE+Manual"
+  },
+  "MG08": {
+   "cite": "Marshall, J. L., Burles, S., Thompson, I. B., et al. 2008, Proc. SPIE 7014, \"The MagE spectrograph\", arXiv:0807.3774 (Fig. 1 caption; Sec. 2-3). Describes MagE on CLAY in 2008 (historical port)",
+   "file": "rawdata/telescopes/magellan/Marshall2008_SPIE7014_MagE_arXiv0807.3774.pdf",
+   "url": "https://arxiv.org/pdf/0807.3774"
+  },
+  "LL20": {
+   "cite": "Furesz, G., et al. 2020, Proc. SPIE 11447, \"Status update of LLAMAS: a wide field-of-view visible passband IFU for the 6.5m Magellan telescopes\" -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2020SPIE11447E..0AF_Furesz_LLAMAS_status.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2020SPIE11447E..0AF/abstract"
+  },
+  "CBIS": {
+   "cite": "Las Campanas Observatory documentation (Confluence \"lcodocs\"), \"Baade Instruments Status\" page, version of 2026-09-10, raw Confluence REST API JSON",
+   "file": "rawdata/telescopes/magellan/lcodocs_confluence_BaadeInstrumentsStatus_2646343682.json",
+   "url": "https://carnegiescience.atlassian.net/wiki/spaces/lcodocs/pages/2646343682"
+  },
+  "CCIS": {
+   "cite": "Las Campanas Observatory documentation (Confluence \"lcodocs\"), \"Clay Instruments Status\" page, version of 2026-10-08, raw Confluence REST API JSON",
+   "file": "rawdata/telescopes/magellan/lcodocs_confluence_ClayInstrumentsStatus_2647621633.json",
+   "url": "https://carnegiescience.atlassian.net/wiki/spaces/lcodocs/pages/2647621633"
+  },
+  "LCOMI": {
+   "cite": "Las Campanas Observatory, \"Magellan Instruments\" page (legacy list; fetched 2026-10-19) -- SAME FILE as magellan.json key LCOMI",
+   "file": "rawdata/imaging/megacam_magellan/lco_magellan-instruments.html",
+   "url": "https://www.lco.cl/magellan-instruments/"
+  },
+  "LDS": {
+   "cite": "Las Campanas Observatory, \"LDSS-3 User Manual\" web page (Sec. 1 Instrument Description, Sec. 2 Basic Parameters; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_ldss3_user_manual.html",
+   "url": "https://www.lco.cl/?epkb_post_type_1=ldss-3-user-manual"
+  },
+  "MIKEG": {
+   "cite": "Las Campanas Observatory, \"The MIKE (Magellan Inamori Kyocera Echelle) User's Guide\" web page (Sec. D Atmospheric Dispersion; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_mike_users_guide.html",
+   "url": "https://www.lco.cl/?epkb_post_type_1=the-mike-magellan-inamori-kyocera-echelle-users-guide"
+  },
+  "LCOPFS": {
+   "cite": "Las Campanas Observatory technical documentation, \"PFS\" page (\"Last Updated On August 31, 2026\"; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_technical-documentation_pfs.html",
+   "url": "https://www.lco.cl/technical-documentation/pfs/"
+  },
+  "LCOM2": {
+   "cite": "Las Campanas Observatory technical documentation, \"M2FS\" page (\"Last Updated On September 22, 2021\"; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_technical-documentation_m2fs.html",
+   "url": "https://www.lco.cl/technical-documentation/m2fs/"
+  },
+  "LCOPIS": {
+   "cite": "Las Campanas Observatory technical documentation, \"PISCO\" page (\"Last Updated On June 9, 2020\"; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_technical-documentation_pisco.html",
+   "url": "https://www.lco.cl/technical-documentation/pisco/"
+  },
+  "LCOMAO": {
+   "cite": "Las Campanas Observatory technical documentation, \"MagAO\" page (\"Last Updated On September 11, 2021\"; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/lco_technical-documentation_magao.html",
+   "url": "https://www.lco.cl/technical-documentation/magao/"
+  },
+  "M2FS12": {
+   "cite": "Mateo, M., et al. 2012, Proc. SPIE 8446, \"M2FS: the Michigan/Magellan Fiber System\" -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2012SPIE.8446E..4YM_Mateo_M2FS.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2012SPIE.8446E..4YM/abstract"
+  },
+  "WR24": {
+   "cite": "Otsubo, S., Sarugaku, Y., Takeuchi, T., et al. 2024, Proc. SPIE 13096, \"WINERED fully commissioned at the Magellan Clay Telescope\" -- ADS record (abstract only), raw ADS API JSON (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/magellan/ads_2024SPIE13096E..31O_Otsubo_WINERED_Clay.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2024SPIE13096E..31O/abstract"
+  },
+  "L26": {
+   "cite": "Layden, C., Burdge, K., Furesz, G., et al. 2026, \"proto-Lightspeed: a high-speed, ultra-low read noise imager on the Magellan Clay Telescope\", arXiv:2601.16268v3 -- SAME FILE as magellan.json key L26 (Sec. 1-2 NasE port; Sec. 5 ETC)",
+   "file": "rawdata/imaging/fourstar/Layden2026_protoLightspeed_Clay_arXiv2601.16268v3.pdf",
+   "url": "https://arxiv.org/pdf/2601.16268v3"
+  },
+  "M18": {
+   "cite": "Males, J. R., Close, L. M., Miller, K., et al. 2018, Proc. SPIE 10703, \"MagAO-X: project status and first laboratory results\", arXiv:1807.04315 (Sec. 4.1 The Clay Telescope) -- SAME FILE as reimagers.json key M18",
+   "file": "rawdata/imaging/imacs/Males2018_SPIE10703_MagAO-X_status_arXiv1807.04315.pdf",
+   "url": "https://arxiv.org/pdf/1807.04315"
+  },
+  "MXP51": {
+   "cite": "Males, J. R., \"MagAO-X Preliminary Design, 5.1 Optics Specifications\", Doc. MagAOX-001, 2017-04-19, Rev. 0.0 (Sec. 3 The Clay Telescope: 3.1 M1, 3.2 Pupil Definition; Table 4 common-path surfaces), from the MagAO-X handbook PDR appendix",
+   "file": "rawdata/telescopes/magellan/MagAOX-001_PDR_5.1_Optics_Specifications_2017-04-19.pdf",
+   "url": "https://magao-x.org/docs/handbook/_downloads/beae760e7440bc091c9cebab8867e682/5.1_optics_specs.pdf"
+  },
+  "MXPA1": {
+   "cite": "Close, L., \"MagAO-X Preliminary Design, Appendix A1: Optical interface to Magellan\", Doc. MagAOX-001, 2017-04-18, Draft v. 21 (slides; Zemax layout of the Clay f/11 feed)",
+   "file": "rawdata/telescopes/magellan/MagAOX-001_PDR_A1_Optical_Interface_to_Magellan_2017-04-18.pdf",
+   "url": "https://magao-x.org/docs/handbook/_downloads/b360c0abb909ba51b927575085967850/A1_optical.pdf"
+  },
+  "C18X": {
+   "cite": "Close, L. M., Males, J. R., Durney, O., et al. 2018, Proc. SPIE 10703, \"Optical and mechanical design of the extreme AO coronagraphic instrument MagAO-X\", arXiv:1807.04311",
+   "file": "rawdata/telescopes/magellan/Close2018_SPIE10703_MagAO-X_optomechanical_design_arXiv1807.04311.pdf",
+   "url": "https://arxiv.org/pdf/1807.04311"
+  },
+  "LUC26": {
+   "cite": "Lucas, M., Close, L., Males, J. R., et al. 2026, \"Visible-Light High-Contrast Polarimetry with MagAO-X: Characterization and Initial Results\", arXiv:2608.06579 (Sec. on the telescope Mueller model)",
+   "file": "rawdata/telescopes/magellan/Lucas2026_MagAO-X_polarimetry_arXiv2608.06579.pdf",
+   "url": "https://arxiv.org/pdf/2608.06579"
+  },
+  "C18M": {
+   "cite": "Close, L. M., Males, J. R., Morzinski, K. M., et al. 2018, Proc. SPIE 10703, \"Status of MagAO and review of astronomical science with visible light adaptive optics\", arXiv:1807.05070 (Sec. 2.2)",
+   "file": "rawdata/telescopes/magellan/Close2018_SPIE10703_MagAO_status_arXiv1807.05070.pdf",
+   "url": "https://arxiv.org/pdf/1807.05070"
+  },
+  "MZ14": {
+   "cite": "Morzinski, K. M., Close, L. M., Males, J. R., et al. 2014, Proc. SPIE 9148, \"MagAO: Status and on-sky performance of the Magellan adaptive optics system\", arXiv:1407.5098 (Sec. 1, Fig. 1)",
+   "file": "rawdata/telescopes/magellan/Morzinski2014_SPIE9148_MagAO_status_arXiv1407.5098.pdf",
+   "url": "https://arxiv.org/pdf/1407.5098"
+  },
+  "K10": {
+   "cite": "Kopon, D., Males, J. R., Close, L. M., et al. 2010, \"Enabling Technologies for Visible Adaptive Optics: The Magellan Adaptive Secondary VisAO Camera\" (SPIE 2010 preprint), arXiv:1008.0146",
+   "file": "rawdata/telescopes/magellan/Kopon2010_SPIE_MagAO_VisAO_arXiv1008.0146.pdf",
+   "url": "https://arxiv.org/pdf/1008.0146"
+  },
+  "MM19": {
+   "cite": "Schlegel, D., Kollmeier, J. A., Ferraro, S., et al. 2019, Astro2020 APC White Paper \"The MegaMapper: a z > 2 spectroscopic instrument for the study of Inflation and Dark Energy\", BAAS 51(7), 229, arXiv:1907.11171 (Sec. on the telescope design; compares with the current Magellans)",
+   "file": "rawdata/telescopes/magellan/Schlegel2019_MegaMapper_Astro2020_arXiv1907.11171.pdf",
+   "url": "https://arxiv.org/pdf/1907.11171"
+  },
+  "HCI": {
+   "cite": "hcipy (High Contrast Imaging for Python; Por et al.), hcipy/aperture/realistic.py, function make_magellan_aperture, GitHub ehpor/hcipy commit ee20b03 (2026-08-14). Third-party pupil model (not an observatory document); its numbers match MXP51",
+   "file": "rawdata/telescopes/magellan/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "HCIG": {
+   "cite": "hcipy, hcipy/aperture/generic.py (make_spider_infinite definition), same commit ee20b03",
+   "file": "rawdata/telescopes/magellan/hcipy_ee20b03_aperture_generic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/generic.py"
+  },
+  "M15": {
+   "cite": "McLeod, B., et al. 2015, PASP 127, 366, \"Megacam: A Wide-Field CCD Imager for the MMT and Magellan\" -- CfA-hosted PDF, SAME FILE as magellan.json key M15. Text layer renders decimal points as \":\" (\"0:169\" = 0.169)",
+   "file": "rawdata/imaging/megacam_magellan/McLeod2015_PASP127_366_Megacam_CfA-hosted-final.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/megacam/PASPMegacam-final.pdf"
+  },
+  "M06": {
+   "cite": "McLeod, B., et al. 2006, \"The MMT Megacam: Focal Plane Design and Performance\" (ASSL 336, 337) -- SAME FILE as magellan.json key M06. Describes the MMT f/5 (M15: Clay f/5 optics essentially identical)",
+   "file": "rawdata/imaging/megacam_magellan/McLeod2006_SDW2005_MMT_Megacam_focal_plane.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/megacam/SDW2005_mcleod.pdf"
+  },
+  "F04": {
+   "cite": "Fabricant, D., et al. 2004, Proc. SPIE 5492, 767, \"The 6.5-m MMT's f/5 wide-field optics and instruments\" -- ADS record, SAME FILE as magellan.json key F04 (MMT, not Clay)",
+   "file": "rawdata/imaging/megacam_magellan/ads_2004SPIE.5492..767F_Fabricant_MMT_f5_record.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2004SPIE.5492..767F/abstract"
+  },
+  "S12C": {
+   "cite": "Carnegie Science publication page \"The f/5 Instrumentation Suite for the Clay Telescope\" (abstract of Szentgyorgyi, A., et al. 2012, Proc. SPIE 8446) -- SAME FILE as magellan.json key S12C",
+   "file": "rawdata/imaging/megacam_magellan/carnegiescience_f5-instrumentation-suite-clay-telescope.html",
+   "url": "https://carnegiescience.edu/f5-instrumentation-suite-clay-telescope"
+  },
+  "MCM": {
+   "cite": "Megacam Observers Manual (CfA MMTI wiki PDF export, 2024-09-03) -- SAME FILE as magellan.json key MCM",
+   "file": "rawdata/imaging/megacam_magellan/cfa_MegacamObsManual_2024-09-03.pdf",
+   "url": "https://lweb.cfa.harvard.edu/mmti/megacam/MegacamObsManual.pdf"
+  },
+  "MMIRS12": {
+   "cite": "McLeod, B., Fabricant, D., Nystrom, G., et al. 2012, PASP 124, 1318, \"MMT and Magellan Infrared Spectrograph\", arXiv:1211.6174 (abstract; Sec. 2.2 Field corrector; Lyot stop)",
+   "file": "rawdata/telescopes/magellan/McLeod2012_PASP124_1318_MMIRS_arXiv1211.6174.pdf",
+   "url": "https://arxiv.org/pdf/1211.6174"
+  }
+ },
+ "common": {
+  "title": "Shared design of the twin Magellan telescopes (primary, f/11 Gregorian system, folded ports, pupil as measured on Clay)",
+  "params": [
+   [
+    "twin_telescopes",
+    {
+     "value": "Baade (Magellan I, 2000) and Clay (Magellan II, 2002): twin 6.5 m telescopes, alt-azimuth",
+     "unit": "",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "The Walter Baade Telescope was the first of the twin 6.5 meter Magellan telescopes to be completed in 2000, followed by the Landon T. Clay telescope, finished in 2002.",
+     "alternatives": [
+      {
+       "value": "alt-azimuth",
+       "src": "LCOT",
+       "loc": "para. 3",
+       "quote": "The telescopes are an alt-azimuth design."
+      }
+     ]
+    }
+   ],
+   [
+    "primary_diameter",
+    {
+     "value": 6.5,
+     "unit": "m",
+     "src": "CS98N9",
+     "loc": "f/11 design-parameter table",
+     "quote": "primary diameter: 6.5 m (255.9 inches)",
+     "alternatives": [
+      {
+       "value": 6.5,
+       "src": "FSCDR",
+       "loc": "Tab 4 Optical Design, slide \"Layout with Magellan Telescope\" (PDF p. 50)",
+       "quote": "6.5 m, f/1.25 primary with f/11 Gregorian secondary"
+      },
+      {
+       "value": 6.5,
+       "src": "MXPA1",
+       "loc": "slide \"Shaded Model of f/11 + MagAO-X\" (PDF p. 6)",
+       "quote": "6.5m Primary ... (stop)",
+       "note": "Clay; the primary is the aperture stop in the Zemax model"
+      },
+      {
+       "value": 6.21,
+       "src": "MXP51",
+       "loc": "Sec. 3.2 coronagraph pupil (PDF p. 4)",
+       "quote": "The outer diameter is undersized to 95.6% (6.21 m projected)",
+       "note": "MagAO-X coronagraph mask only, to hide the rough M1 edge (M18: \"we will undersize the outer edge by 4.4% to mask the poorly polished edge\"); not the telescope aperture"
+      }
+     ]
+    }
+   ],
+   [
+    "primary_focal_ratio",
+    {
+     "value": 1.25,
+     "unit": "f/# (paraboloid)",
+     "src": "LCOT",
+     "loc": "Mirrors para.",
+     "quote": "They are f/1.25 paraboloids",
+     "alternatives": [
+      {
+       "value": 1.25,
+       "src": "M03",
+       "loc": "abstract",
+       "quote": "the 6.5 m f/1.25 primary mirrors for the Magellan telescopes"
+      },
+      {
+       "value": 1.25,
+       "src": "G16",
+       "loc": "abstract",
+       "quote": "The primary mirrors are f/1.25 paraboloids made of borosilicate glass and a honeycomb structure."
+      }
+     ]
+    }
+   ],
+   [
+    "primary_focal_length",
+    {
+     "value": 8125,
+     "unit": "mm (DERIVED)",
+     "src": "LCOT",
+     "loc": "Mirrors para.",
+     "quote": "They are f/1.25 paraboloids",
+     "derived": "f_M1 = 1.25 x 6500 mm = 8125 mm (no published M1 focal length or radius of curvature found)."
+    }
+   ],
+   [
+    "primary_material",
+    {
+     "value": "borosilicate glass, lightweight honeycomb (spin-cast; Steward Observatory Mirror Lab)",
+     "unit": "",
+     "src": "LCOT",
+     "loc": "Mirrors para.",
+     "quote": "Each is 21,000 pounds of borosilicate glass with a lightweight honeycomb structure inside.",
+     "alternatives": [
+      {
+       "value": "honeycomb borosilicate",
+       "src": "G16",
+       "loc": "abstract",
+       "quote": "The primary mirrors are f/1.25 paraboloids made of borosilicate glass and a honeycomb structure."
+      },
+      {
+       "value": "Steward Observatory Mirror Lab",
+       "src": "MXP51",
+       "loc": "Sec. 3.1 M1 (PDF p. 2)",
+       "quote": "The Magellan Clay primary mirror was cast and polished at the Steward Observatory Mirror Lab",
+       "note": "Clay"
+      },
+      {
+       "value": "spin-cast paraboloids",
+       "src": "MZ14",
+       "loc": "Sec. 1 (PDF p. 1)",
+       "quote": "The twin Magellan telescopes feature two 6.5-m paraboloid primary mirrors that were spin-cast at the Steward"
+      }
+     ]
+    }
+   ],
+   [
+    "primary_central_hole",
+    {
+     "value": 1.3,
+     "unit": "m (diameter)",
+     "src": "MM19",
+     "loc": "telescope-design paragraph (PDF p. 7)",
+     "quote": "the 1.3 m hole in Magellan I and II",
+     "note": "Lies inside the 1.885 m secondary-baffle shadow (0.29 x 6.5 m, DERIVED), so the hole does not set the pupil obscuration at any focus."
+    }
+   ],
+   [
+    "collecting_area",
+    {
+     "value": null,
+     "unit": "m^2",
+     "src": "M15",
+     "loc": "Sec. 8.1 Band Passes and Throughput (PDF p. 13)",
+     "quote": "we account for a telescope area of 29 m2",
+     "note": "NO official telescope collecting area found. The 29 m^2 is what M15 assumed for the Clay/MMT f/5 throughput (method not stated). DERIVED geometric values are in each pupil object.",
+     "derived": "Full 6.5 m disc pi/4 x 6.5^2 = 33.18 m^2; with eps = 0.29: 33.18 x (1 - 0.29^2) = 30.39 m^2; minus the four Clay vanes (DERIVED below) 30.13 m^2; 29 m^2 would correspond to eps = sqrt(1 - 29/33.18) = 0.355."
+    }
+   ],
+   [
+    "foci_design_1994",
+    {
+     "value": "Cassegrain (f/15 infrared secondary) + f/11 Gregorian Nasmyth; flip tertiary to switch; tertiary turret carries a 2-element corrector + ADC; 5 Gregorian focal stations",
+     "unit": "",
+     "src": "S94",
+     "loc": "abstract",
+     "quote": "The Magellan Project 6.5-meter telescope includes focal stations at both Cassegrain and Nasmyth locations.",
+     "alternatives": [
+      {
+       "value": "f/15 at Cassegrain",
+       "src": "S94",
+       "loc": "abstract",
+       "quote": "Instruments which use the f/15 infrared secondary will be mounted at the Cassegrain position."
+      },
+      {
+       "value": "f/11 Gregorian at Nasmyth",
+       "src": "S94",
+       "loc": "abstract",
+       "quote": "The Nasmyth foci will be fed by an f/11 Gregorian secondary."
+      },
+      {
+       "value": "flip tertiary",
+       "src": "S94",
+       "loc": "abstract",
+       "quote": "Rapid changes between the Cassegrain and Nasmyth configurations will be accomplished using a flip-tertiary diagonal mirror."
+      },
+      {
+       "value": "5 Gregorian stations, corrector selectable per station",
+       "src": "S94",
+       "loc": "abstract",
+       "quote": "The turret and the tertiary rotate in order to direct the light to one of 5 Gregorian focal stations, as well as to select or to bypass the field corrector/ADC for any focal station."
+      }
+     ],
+     "note": "DESIGN paper (1994). 5 Gregorian stations = 2 Nasmyth + 3 folded/auxiliary ports."
+    }
+   ],
+   [
+    "foci_as_built",
+    {
+     "value": "f/11 at two Nasmyth ports + three auxiliary f/11 ports on the center section (both telescopes); f/5 Cassegrain on Clay",
+     "unit": "",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "The principal foci are f/11 at the two Nasmyth locations and f/15 in the Cassegrain position, although at present only the f/11 focus is implemented on the Baade Telescope. ... In addition, three auxiliary f/11 are provided on the center section.",
+     "alternatives": [
+      {
+       "value": "2 Nasmyth + 3 auxiliary + 1 Cassegrain; secondaries for f/11 and f/5",
+       "src": "G16",
+       "loc": "abstract",
+       "quote": "The secondary mirror provides both f/11 and f/5 focal lengths with two Nasmyth, three auxiliary, and a Cassegrain port on the optical support structure (OSS)."
+      },
+      {
+       "value": "2 Nasmyth + 3 folded per telescope; f/5 Cassegrain on Clay",
+       "src": "FSCDR",
+       "loc": "Tab 2 Introduction and Overview (PDF p. 8)",
+       "quote": "two F/11 Nasmyth ports and platforms, and three F/11 folded ports, per telescope. ... There will be, in addition, an F5 Cassegrain focus on the Clay Telescope (Magellan 2)."
+      },
+      {
+       "value": "three additional folded Gregorian ports",
+       "src": "SCH03",
+       "loc": "Sec. 3 Facility guiders (PDF p. 2)",
+       "quote": "Each telescope has three additional folded Gregorian ports."
+      },
+      {
+       "value": "two Nasmyth platforms and three auxiliary Nasmyth ports (Baade)",
+       "src": "D11",
+       "loc": "Sec. 2.1 History (PDF p. 4)",
+       "quote": "the choice for the Baade telescope was an f/11 secondary at the Gregorian focus feeding a rotatable tertiary, just above the primary mirror, that would direct the beam to stations at two Nasmyth platforms and three auxiliary Nasmyth ports."
+      }
+     ],
+     "note": "The LCOT page still lists f/15 at Cassegrain; no source found that an f/15 secondary was ever built or used (see focus f15_cassegrain_planned)."
+    }
+   ],
+   [
+    "f11_secondary",
+    {
+     "value": "f/11 Gregorian secondary (concave; sits beyond the prime focus); fixed/static mirror with 5 positional degrees of freedom and fast tip-tilt",
+     "unit": "",
+     "src": "S94",
+     "loc": "abstract",
+     "quote": "The Nasmyth foci will be fed by an f/11 Gregorian secondary.",
+     "alternatives": [
+      {
+       "value": "concave (Gregorian)",
+       "src": "C18M",
+       "loc": "Sec. 2.2 (PDF p. 6)",
+       "quote": "concave shape of a Gregorian secondary enables easy testing",
+       "note": "statement made for the MagAO ASM, which replaces the f/11 secondary in the same Gregorian geometry"
+      },
+      {
+       "value": "static f/11 secondary (Clay)",
+       "src": "C18X",
+       "loc": "abstract (PDF p. 1)",
+       "quote": "fed by the facility f/11 static secondary"
+      },
+      {
+       "value": "5 positional degrees of freedom (Baade)",
+       "src": "SCH03",
+       "loc": "abstract (PDF p. 1)",
+       "quote": "secondary mirror, with 5 positional degrees of freedom"
+      },
+      {
+       "value": "tip-tilt for guiding",
+       "src": "LCOT",
+       "loc": "Active Optics para.",
+       "quote": "the secondary mirror has a tip-tilt mechanism for fast guiding"
+      }
+     ],
+     "note": "Conic (ellipsoid) of the f/11 secondary not stated in a saved source; the ASM is described as a \"concave ellipsoidal\" mirror (C18M)."
+    }
+   ],
+   [
+    "f11_secondary_diameter",
+    {
+     "value": 1.3,
+     "unit": "m",
+     "src": "MXPA1",
+     "loc": "slide \"Shaded Model of f/11 + MagAO-X\" (PDF p. 6)",
+     "quote": "1.3m f/11.02",
+     "alternatives": [
+      {
+       "value": 1.36,
+       "src": "MXP51",
+       "loc": "Table 4 common-path surfaces, row M-2 (PDF p. 7)",
+       "quote": "F/11 M-2 1.36",
+       "note": "column \"Dbeam\" = beam footprint on M2, unit not printed (M1 row 6.5, M3 row 1.1, so metres); a footprint, not the mirror outline"
+      },
+      {
+       "value": 1.41,
+       "src": "MM19",
+       "loc": "telescope-design paragraph (PDF p. 7)",
+       "quote": "∼70% larger in diameter than the current f/11 Gregorian secondaries",
+       "note": "DERIVED 2.4 m / 1.70 = 1.41 m from the 2.4 m MegaMapper secondary; approximate"
+      }
+     ],
+     "note": "Clay. Not the obscuration: the secondary baffle (1.885 m, eps 0.29) is larger than the mirror. Mirror ratio 1.3/6.5 = 0.20 (DERIVED). No Baade-specific value."
+    }
+   ],
+   [
+    "f11_focal_length",
+    {
+     "value": 71526.4,
+     "unit": "mm (Magellan f/11 design)",
+     "src": "CS98N9",
+     "loc": "f/11 design-parameter table",
+     "quote": "focal length: 71526.4 mm (2816 inches)",
+     "alternatives": [
+      {
+       "value": 71630,
+       "src": "MXPA1",
+       "loc": "slide \"Upper Bench Optical Design\" (PDF p. 7)",
+       "quote": "Greg. f/11.02 Focal Plane from Magellan",
+       "note": "Clay Zemax model: f/11.02 -> 11.02 x 6500 = 71,630 mm (DERIVED)"
+      },
+      {
+       "value": 71574,
+       "src": "P04",
+       "loc": "Sec. 2 Optics (PDF p. 2)",
+       "quote": "The principal and folded ports of the Magellan telescopes are designed to be fed by the Gregorian f /11 secondary mirror, which produces a focal plane scale of 0.347mm per arcsecond.",
+       "note": "DERIVED 0.347 x 206264.8 = 71,574 mm (rounded scale)"
+      }
+     ],
+     "derived": "F = 71526.4 / 6500 = 11.004."
+    }
+   ],
+   [
+    "f11_focal_ratio",
+    {
+     "value": 11,
+     "unit": "f/#",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "The principal foci are f/11 at the two Nasmyth locations",
+     "alternatives": [
+      {
+       "value": 11.02,
+       "src": "MXPA1",
+       "loc": "slide \"Upper Bench Optical Design\" (PDF p. 7)",
+       "quote": "Greg. f/11.02 Focal Plane from Magellan"
+      },
+      {
+       "value": 11.0,
+       "src": "MG08",
+       "loc": "Sec. 2 Optical Design (PDF p. 2)",
+       "quote": "f/11.0 focal ratio of Magellan"
+      },
+      {
+       "value": 11,
+       "src": "LDS",
+       "loc": "Sec. 2 Basic Parameters",
+       "quote": "Focal Ratio: f/11",
+       "note": "Clay NASW"
+      }
+     ],
+     "derived": "71526.4 / 6500 = f/11.004 (CS98N9)."
+    }
+   ],
+   [
+    "f11_plate_scale",
+    {
+     "value": 2.88,
+     "unit": "arcsec/mm",
+     "src": "CS98N9",
+     "loc": "f/11 design-parameter table",
+     "quote": "2.88 arc-sec/mm",
+     "alternatives": [
+      {
+       "value": "346.77 um/arcsec",
+       "src": "CS98N9",
+       "loc": "same table",
+       "quote": "plate scale: 346.77 microns/arc-sec"
+      },
+      {
+       "value": 2.88,
+       "src": "LDS",
+       "loc": "Sec. 2 Basic Parameters (Clay NASW)",
+       "quote": "Plate Scale at Focal Plane: 2.88 arcsec/mm"
+      },
+      {
+       "value": "2.88\"/mm = 347 um/\"",
+       "src": "FSCDR",
+       "loc": "Tab 4, slide \"Layout with Magellan Telescope\" (PDF p. 50)",
+       "quote": "Telescope plate scale is 2.88\"/mm or 347 µm/arcsec",
+       "note": "Baade (as-built ZEMAX)"
+      },
+      {
+       "value": "0.347 mm/\"",
+       "src": "P04",
+       "loc": "Sec. 2 Optics (PDF p. 2)",
+       "quote": "which produces a focal plane scale of 0.347mm per arcsecond",
+       "note": "principal AND folded ports"
+      }
+     ],
+     "derived": "206264.8 / 71526.4 = 2.8838\"/mm; f/11.02 gives 2.8796\"/mm."
+    }
+   ],
+   [
+    "f11_corrected_field",
+    {
+     "value": 30,
+     "unit": "arcmin diameter (with the telescope ADC/corrector; slight vignetting beyond 24')",
+     "src": "CS98N9",
+     "loc": "f/11 design-parameter table",
+     "quote": "field of view: 30 arc-min dia.",
+     "alternatives": [
+      {
+       "value": 30,
+       "src": "S94",
+       "loc": "abstract (design)",
+       "quote": "The optical design of the corrector produces a 30 arc-min diameter field."
+      },
+      {
+       "value": "24 unvignetted / 30 slightly vignetted",
+       "src": "BD03",
+       "loc": "Sec. 7 Slit masks (PDF p. 9)",
+       "quote": "The Magellan telescopes, at their f/11 focus, produce well corrected, unvignetted fields with a diameter of 24 arcmin (498 mm), and slightly vignetted out to 30 arcmin (623mm)."
+      },
+      {
+       "value": "24 unvignetted",
+       "src": "LCOT",
+       "loc": "para. 2",
+       "quote": "An ADC corrector will be available for f/11 use to provide unvignetted fields up to 24 arcmin."
+      },
+      {
+       "value": "1/2 deg",
+       "src": "D11",
+       "loc": "Sec. 7.1 The Design of IMACS (PDF p. 39)",
+       "quote": "if guiders were to be placed on the perimeter of the 1/2◦ diameter science field provided by the corrector"
+      },
+      {
+       "value": "R = 12' unvignetted, 9% at R = 15' (Baade/IMACS)",
+       "src": "LCOUM",
+       "loc": "1.B Basic Component Layout",
+       "quote": "This optical train delivers an unvignetted field out to R = 12 arcmin with 9% vignetting at R = 15 arcmin."
+      },
+      {
+       "value": "vignetting by the tertiary",
+       "src": "LCOUM",
+       "loc": "1.B The f/2 Channel",
+       "quote": "The field is vignetted in the corners (by the tertiary and its mounting assembly)"
+      }
+     ],
+     "note": "Uncorrected f/11 field (no ADC/corrector, e.g. FourStar, LDSS3): NOT FOUND.",
+     "derived": "30' x 60 / 2.8838\"/mm = 624 mm (CS98N9 lists 620 mm; BD03 623 mm); 24' -> 499 mm."
+    }
+   ],
+   [
+    "f11_focal_surface",
+    {
+     "value": "convex towards the telescope, R = -1231.74 mm, 620 mm diameter, sagitta ~40 mm",
+     "unit": "",
+     "src": "CS98N9",
+     "loc": "f/11 design-parameter table",
+     "quote": "focal surf. rad. of curv.: -1231.74 mm (convex) ... focal surf. diameter: 620 mm",
+     "alternatives": [
+      {
+       "value": "sagitta 40 mm",
+       "src": "BD03",
+       "loc": "Sec. 7 (PDF p. 9)",
+       "quote": "The sagitta of the focal surface is 40mm, and curved with its convex vertex nearest to the telescope, due to the Gregorian secondary mirror."
+      }
+     ]
+    }
+   ],
+   [
+    "f11_corrector_adc",
+    {
+     "value": "two-element field corrector + ADC on the tertiary turret, selectable or bypassed per focal station (design); in use for IMACS on Baade",
+     "unit": "",
+     "src": "S94",
+     "loc": "abstract",
+     "quote": "The tertiary mirror turret includes a two-element field corrector and atmospheric dispersion compensator for use with the Gregorian secondary.",
+     "alternatives": [
+      {
+       "value": "integral ADC + field corrector at the tertiary (Baade, 2003)",
+       "src": "BD03",
+       "loc": "Sec. 1 (PDF p. 1)",
+       "quote": "(which will soon include an integral ADC and field corrector mounted at the tertiary mirror)"
+      },
+      {
+       "value": "ADC/corrector: dispersion cancelled < 2.0 airmasses; ~5% attenuation",
+       "src": "D11",
+       "loc": "Sec. 6.3 (PDF p. 30); Sec. 6.7 (PDF p. 34)",
+       "quote": "The ADC/corrector is constructed to cancel atmospheric dispersion by wavelength for less than 2.0 airmasses ... An attenuation of ∼5% is assigned to the ADC/corrector"
+      }
+     ],
+     "note": "Clay: no source found for a turret ADC/corrector; M2FS brought its own 30' wide-field corrector to the Clay NASE port (M2FS12)."
+    }
+   ],
+   [
+    "tertiary",
+    {
+     "value": "flat, rotatable, just above the primary; ~1.1 m beam footprint at 45 deg incidence (Clay model)",
+     "unit": "",
+     "src": "LCOUM",
+     "loc": "1.B Basic Component Layout",
+     "quote": "It is fed by the telescope’s 6.5m primary, f/11 Gregorian secondary, and flat tertiary mirrors, and a corrector.",
+     "alternatives": [
+      {
+       "value": "rotatable, just above the primary",
+       "src": "D11",
+       "loc": "Sec. 2.1 (PDF p. 4)",
+       "quote": "feeding a rotatable tertiary, just above the primary mirror"
+      },
+      {
+       "value": "Dbeam 1.1, 45 deg",
+       "src": "MXP51",
+       "loc": "Table 4 row M-3 (PDF p. 7)",
+       "quote": "Tertiary M-3 1.1 45.0"
+      }
+     ]
+    }
+   ],
+   [
+    "folded_ports",
+    {
+     "value": "3 per telescope (AUX1-AUX3), bent-Gregorian f/11, on the center section around the primary, selected by rotating the tertiary; little used historically (poor access)",
+     "unit": "",
+     "src": "FIREM",
+     "loc": "Deployment",
+     "quote": "These instrument ports are located around the perimeter of the telescope primary, at bent-Gregorian focus ... The folded ports are addressed by rotation of the telescope tertiary mirror",
+     "alternatives": [
+      {
+       "value": "center section",
+       "src": "LCOT",
+       "loc": "para. 2",
+       "quote": "In addition, three auxiliary f/11 are provided on the center section."
+      },
+      {
+       "value": "poor accessibility",
+       "src": "FSCDR",
+       "loc": "Tab 2 (PDF p. 8)",
+       "quote": "The latter have seen very little use because of poor accessibility."
+      },
+      {
+       "value": "folded-port instrument rotator",
+       "src": "MG08",
+       "loc": "Sec. 3.1 Instrument Structure (PDF p. 4)",
+       "quote": "the Magellan folded-port instrument rotator"
+      },
+      {
+       "value": "\"folded Cassegrain port\" (LLAMAS wording)",
+       "src": "LL20",
+       "loc": "abstract",
+       "quote": "the spectrograph cluster is mounted next to the focal plane on a folded Cassegrain port with gravity-invariant support"
+      }
+     ],
+     "note": "Names in use: AUX1-3 / \"folded port 1-3\" / \"auxiliary Nasmyth ports\" (D11) / \"folded Cassegrain port\" (LL20). Field at the folded ports: NOT FOUND."
+    }
+   ],
+   [
+    "back_focal_distance",
+    {
+     "value": 125,
+     "unit": "mm (f/11; reference surface not stated)",
+     "src": "WR24",
+     "loc": "abstract",
+     "quote": "Since the 125mm back-focal length of the Magellan telescope was too short for WINERED",
+     "alternatives": [
+      {
+       "value": 125,
+       "src": "MXPA1",
+       "loc": "slide \"Side view\" (PDF p. 3)",
+       "quote": "125mm back focal dist.",
+       "note": "with a 9.6 mm gap to the f/11 guider (Clay)"
+      }
+     ]
+    }
+   ],
+   [
+    "instrument_rotators",
+    {
+     "value": "rotators at the Nasmyth, folded and Cassegrain foci",
+     "unit": "",
+     "src": "BD03",
+     "loc": "Sec. 8.1 (PDF p. 10)",
+     "quote": "The Magellan telescopes provide instrument rotators at the Nasmyth and Cassegrain foci",
+     "alternatives": [
+      {
+       "value": "folded-port rotator",
+       "src": "MG08",
+       "loc": "Sec. 3.1 Instrument Structure (PDF p. 4)",
+       "quote": "the Magellan folded-port instrument rotator"
+      },
+      {
+       "value": "Nasmyth field rotation about the elevation axis",
+       "src": "D11",
+       "loc": "Sec. 7.3 The IMACS Structure Assembly (PDF p. 43)",
+       "quote": "Nasmyth-focus instruments on alt-az telescopes must provide for field rotation about the elevation axis."
+      }
+     ]
+    }
+   ],
+   [
+    "gregorian_pupil_image",
+    {
+     "value": "the Gregorian forms an image of the pupil in front of the secondary (IMACS flat-field screen there fills the optics like sky light)",
+     "unit": "",
+     "src": "D11",
+     "loc": "Sec. 3.5 Calibration Hardware (PDF p. 11)",
+     "quote": "Because the Gregorian focus makes a pupil in front of the secondary, simple illumination of this surface fills the IMACS optics in the same way as light from infinity reflected off the primary and secondary mirrors."
+    }
+   ],
+   [
+    "gregorian_ratio_choice",
+    {
+     "value": "f/11 chosen to match the field curvature of the IMACS collimator",
+     "unit": "",
+     "src": "S94",
+     "loc": "abstract",
+     "quote": "The Gregorian focal ratio has been chosen to accurately match the field curvature of a particular collimator design"
+    }
+   ],
+   [
+    "reflections_f11",
+    {
+     "value": 3,
+     "unit": "mirrors (M1, M2, M3) to any f/11 Nasmyth or folded port",
+     "src": "LCOUM",
+     "loc": "1.B Throughput",
+     "quote": "the three reflective surfaces, primary, secondard, and tertiary, and ADC/Corrector — total about 55-65%",
+     "alternatives": [
+      {
+       "value": 3,
+       "src": "L26",
+       "loc": "Sec. 5 ETC (PDF p. 14)",
+       "quote": "assuming 90% reflectivity at each of the three mirror surfaces and a central obscuration diameter ratio of 29%",
+       "note": "Clay NasE"
+      },
+      {
+       "value": 3,
+       "src": "CMAGE",
+       "loc": "Throughput section",
+       "quote": "assuming three telescope mirror reflections of 0.85 per cent at all wavelengths",
+       "note": "Baade AUX3 folded port; \"0.85 per cent\" sic (= 85%)"
+      }
+     ]
+    }
+   ],
+   [
+    "central_obstruction_f11",
+    {
+     "value": 0.29,
+     "unit": "linear (diameter) ratio, set by the secondary-mirror baffle",
+     "src": "MXP51",
+     "loc": "Sec. 3.2 Pupil Definition (PDF p. 2)",
+     "quote": "The Magellan Clay telescope secondary mirror baffle forms a 29% central obscuration.",
+     "alternatives": [
+      {
+       "value": 0.29,
+       "src": "M18",
+       "loc": "Sec. 4.1 The Clay Telescope (PDF p. 6)",
+       "quote": "The central obscuration is 29% (defined by the secondary baffle)"
+      },
+      {
+       "value": "0.29 diameter ratio",
+       "src": "L26",
+       "loc": "Sec. 5 ETC (PDF p. 14)",
+       "quote": "assuming 90% reflectivity at each of the three mirror surfaces and a central obscuration diameter ratio of 29%",
+       "note": "0.9^3 x (1 - 0.29^2) = 0.668 = their 66.8% (DERIVED), so 29% is a diameter ratio"
+      },
+      {
+       "value": 0.29,
+       "src": "HCI",
+       "loc": "make_magellan_aperture",
+       "quote": "central_obscuration_ratio = 0.29"
+      },
+      {
+       "value": "~5% of the area",
+       "src": "MM19",
+       "loc": "telescope-design paragraph (PDF p. 7)",
+       "quote": "the ∼ 5% obscuration in the current Magellans",
+       "note": "CONFLICT: 0.29^2 = 8.4% of the area; 5% (eps 0.22 DERIVED) matches the bare ~1.3-1.4 m secondary (0.20-0.22), not the baffle"
+      }
+     ],
+     "derived": "Baffle diameter = 0.29 x 6.5 m = 1.885 m. Measured for Clay; Baade value NOT FOUND (twin telescopes)."
+    }
+   ],
+   [
+    "spiders",
+    {
+     "value": "4 vanes (\"vane ends\"), offset 0.34 m from the centre, running at 45 deg; nominal width 0.75 in (19.05 mm); two widened to 1.5 in (38.1 mm) by the MagAO cable trays (Clay)",
+     "unit": "",
+     "src": "MXP51",
+     "loc": "Sec. 3.2 Pupil Definition (PDF p. 2)",
+     "quote": "The secondary is supported by 4 supports, called vane ends at Magellan, a.k.a. spiders. ... we found the spiders to be offset by 0.34 m from the center, and running at ... The vane end struts are nominally 0.75” wide. ... On two of them the MagAO cable-trays, used to route power and cooling to the ASM, increase the width to 1.5”.",
+     "alternatives": [
+      {
+       "value": "1.9 and 3.81 cm",
+       "src": "C18X",
+       "loc": "list item 5 \"Minimize the Isolated Island Effect\" (PDF p. 2)",
+       "quote": "thicknesses (1.9 and 3.81 cm at Magellan)"
+      },
+      {
+       "value": "hcipy model: thin pair 0.75 in from (+0.34, 0) at +/-45 deg, thick pair 1.5 in from (-0.34, 0) at 180 +/- 45 deg",
+       "src": "HCI",
+       "loc": "make_magellan_aperture",
+       "quote": "spider_width1 = 0.75 * 0.0254  # meter ... spider_width2 = 1.5 * 0.0254  # meter ... spider_offset = np.array([0.34, 0.0])  # meter ... spider1 = make_spider_infinite(spider_offset, 45.0, spider_width1) ... spider3 = make_spider_infinite(-spider_offset, 45.0 + 180.0, spider_width2)"
+      },
+      {
+       "value": "make_spider_infinite = half-line from a start point",
+       "src": "HCIG",
+       "loc": "make_spider_infinite docstring",
+       "quote": "Make an infinite spider starting at `p` and extending at an angle `angle`."
+      }
+     ],
+     "note": "Source of the geometry: MXP51 \"Using a 3D model of the telescope (provided by Charlie Hull)\". The text does not say which two vanes carry the cable trays or how the 0.34 m is measured; hcipy encodes it as the x-coordinate of the common start point of each vane pair (perpendicular offset of each vane line 0.34 sin 45 = 0.240 m, DERIVED) and puts both wide vanes on the -x side. Orientation relative to the elevation axis NOT FOUND (hcipy frame only; its last commit \"Change sign of all spiders\" flipped the convention).",
+     "derived": "Exposed vane length from r = 0.9425 m (baffle) to r = 3.25 m along a line 0.240 m off axis: sqrt(3.25^2 - 0.240^2) - sqrt(0.9425^2 - 0.240^2) = 2.330 m. Clay vane area 2 x 2.330 x 0.01905 + 2 x 2.330 x 0.0381 = 0.266 m^2 = 0.88% of the 30.39 m^2 annulus; all four at 0.75 in: 0.178 m^2 = 0.58%. Opposite vanes are parallel and laterally offset by 2 x 0.240 = 0.481 m."
+    }
+   ],
+   [
+    "f15_cassegrain",
+    {
+     "value": "f/15 infrared secondary at the Cassegrain focus: designed; NOT implemented on Baade per LCOT; no source found that it was ever built",
+     "unit": "",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "The principal foci are f/11 at the two Nasmyth locations and f/15 in the Cassegrain position, although at present only the f/11 focus is implemented on the Baade Telescope.",
+     "alternatives": [
+      {
+       "value": "design",
+       "src": "S94",
+       "loc": "abstract",
+       "quote": "Instruments which use the f/15 infrared secondary will be mounted at the Cassegrain position."
+      }
+     ],
+     "derived": "Nominal only: f = 15 x 6500 = 97,500 mm; 206264.8 / 97500 = 2.116\"/mm."
+    }
+   ]
+  ],
+  "not_found": [
+   "An official collecting area for either telescope (only the 29 m^2 assumed by M15 for f/5 throughput).",
+   "The f/11 secondary diameter from an observatory document (1.3 m is a MagAO-X slide label; 1.36 m is a beam footprint; ~1.41 m is implied by MegaMapper). Its conic constant.",
+   "The uncorrected (no ADC/corrector) f/11 field, and the field available at the folded ports.",
+   "The spider orientation relative to the elevation axis, which two vanes carry the 1.5 in cable trays, and whether \"offset by 0.34 m\" is a perpendicular offset (0.34 m) or the vertex offset used by hcipy (0.240 m perpendicular).",
+   "Any evidence that the f/15 infrared Cassegrain secondary was built.",
+   "Full texts of Shectman 1994, Shectman & Johns 2003, Di Mille 2024/2026 (SPIE, paywalled; ADS full-text snippets are filtered for SPIE)."
+  ],
+  "conflicts": [
+   "Central obscuration: 29% diameter ratio (MXP51, M18, L26, HCI; Clay) vs \"~5% obscuration\" of the area (MM19). 0.29^2 = 8.4% of the area; 5% (eps 0.22) matches the bare ~1.4 m secondary, not the 1.885 m baffle.",
+   "f/11 focal length: 71,526.4 mm (CS98N9 design, f/11.004) vs f/11.02 = 71,630 mm (MXPA1, Clay Zemax) vs 0.347 mm/\" = 71,574 mm (P04, rounded) vs 2.88\"/mm = 71,620 mm (FSCDR, rounded).",
+   "f/11 secondary: 1.3 m (MXPA1) vs 1.36 m beam footprint (MXP51) vs ~1.41 m (MM19, implied).",
+   "Corrected f/11 field: 30' (CS98N9, S94, D11) with slight vignetting beyond 24' (BD03, LCOT); IMACS sees 0% vignetting to R = 12' and 9% (LCOUM) / ~10% (LCOUM f/2 section) at R = 15'.",
+   "Spider widths: 0.75 in and 1.5 in (MXP51, HCI) = 1.905 and 3.81 cm; C18X rounds the first to 1.9 cm."
+  ],
+  "notes": [
+   "Terminology: the three center-section f/11 ports are called \"auxiliary\" (LCOT, G16), \"folded\" (FSCDR, SCH03, FIREM), \"auxiliary Nasmyth\" (D11), \"folded Cassegrain\" (LL20) and AUX1-AUX3 / \"folded port 2\" (CMAGE, MG08). MagAO calls its Nasmyth station the \"folded Nasmyth port (NAS)\" (MZ14).",
+   "Reflections: 3 to every f/11 station (M1, M2, flat M3); 2 at the Clay f/5 Cassegrain (M15 \"two aluminum reflections\"); 3 at the MagAO F/16 station (M1, ASM, M3).",
+   "The f/11 Gregorian ratio was chosen to match the IMACS collimator field curvature (param gregorian_ratio_choice); the Gregorian images the pupil in front of the secondary, which the IMACS flat-field screen exploits (param gregorian_pupil_image)."
+  ]
+ },
+ "baade": {
+  "title": "Magellan I -- Walter Baade 6.5 m: f/11 only (NASW IMACS, NASE FourStar, 3 folded ports: MagE AUX3, FIRE, LLAMAS)",
+  "telescope": {
+   "name": "Magellan I -- Walter Baade Telescope",
+   "site": "Las Campanas Observatory (Cerro Manqui), Chile",
+   "mount": "alt-azimuth",
+   "completed": 2000,
+   "primary": {
+    "D_m": 6.5,
+    "F": 1.25,
+    "f_mm": 8125,
+    "f_mm_basis": "DERIVED 1.25 x 6500",
+    "shape": "paraboloid",
+    "material": "spin-cast borosilicate honeycomb (Steward Observatory Mirror Lab)",
+    "central_hole_m": 1.3,
+    "collecting_area_m2": null,
+    "collecting_area_note": "no official value; DERIVED 30.21 m^2 (eps 0.29, four 0.75 in vanes)",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_focal_ratio",
+     "common.primary_material",
+     "common.primary_central_hole",
+     "common.collecting_area"
+    ]
+   },
+   "pupil": {
+    "D_m": 6.5,
+    "eps": 0.29,
+    "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+    "eps_set_by": "secondary-mirror baffle (value measured on Clay; no Baade value found)",
+    "eps_refs": [
+     "common.central_obstruction_f11",
+     "baade.pupil_baade"
+    ],
+    "spiders": {
+     "n": 4,
+     "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        0.34,
+        0.0
+       ],
+       "angle_deg": 45.0,
+       "width_m": 0.01905
+      },
+      {
+       "start_xy_m": [
+        0.34,
+        0.0
+       ],
+       "angle_deg": -45.0,
+       "width_m": 0.01905
+      },
+      {
+       "start_xy_m": [
+        -0.34,
+        0.0
+       ],
+       "angle_deg": 225.0,
+       "width_m": 0.01905
+      },
+      {
+       "start_xy_m": [
+        -0.34,
+        0.0
+       ],
+       "angle_deg": 135.0,
+       "width_m": 0.01905
+      }
+     ],
+     "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+     "widths_basis": "INFERRED: nominal 0.75 in on all four (no MagAO cable trays on Baade); Baade vane widths NOT FOUND",
+     "refs": [
+      "common.spiders"
+     ]
+    },
+    "other_obstructions": [
+     "primary central hole 1.3 m (inside the baffle shadow, MM19)"
+    ],
+    "collecting_area": {
+     "full_disc_m2": 33.18,
+     "annulus_m2": 30.39,
+     "vanes_m2": 0.178,
+     "net_m2": 30.21,
+     "basis": "DERIVED geometry; no official value"
+    }
+   },
+   "foci": [
+    {
+     "id": "f11_nasw",
+     "name": "f/11 Gregorian Nasmyth West (NASW)",
+     "status": "operational",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": 30,
+      "unvignetted_diameter_arcmin": 24,
+      "note": "with the tertiary-turret ADC/corrector (S94, CS98N9, BD03, LCOT); IMACS: unvignetted to R = 12', 9% at R = 15' (LCOUM); uncorrected field NOT FOUND",
+      "focal_surface": "convex, R = -1231.74 mm, 620 mm diameter for 30'"
+     },
+     "corrector_adc": "tertiary-turret 2-element field corrector + ADC (in use for IMACS)",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "west Nasmyth platform, on the elevation axis; Nasmyth instrument rotator",
+     "instruments": [
+      {
+       "name": "IMACS (+ ROSIE IFU)",
+       "status": "permanent"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle (value measured on Clay; no Baade value found)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "baade.pupil_baade"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.01905
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "INFERRED: nominal 0.75 in on all four (no MagAO cable trays on Baade); Baade vane widths NOT FOUND",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.178,
+       "net_m2": 30.21,
+       "basis": "DERIVED geometry; no official value"
+      }
+     },
+     "refs": [
+      "common.f11_focal_length",
+      "common.f11_plate_scale",
+      "common.f11_corrected_field",
+      "common.f11_corrector_adc",
+      "common.reflections_f11",
+      "baade.nasw_instrument"
+     ]
+    },
+    {
+     "id": "f11_nase",
+     "name": "f/11 Gregorian Nasmyth East (NASE)",
+     "status": "operational",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": null,
+      "note": "no telescope corrector mentioned for this port (FourStar uses its own reimaging optics); uncorrected f/11 field NOT FOUND",
+      "focal_surface": "convex, R = -1231.74 mm (design)"
+     },
+     "corrector_adc": "none mentioned for FourStar",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "east Nasmyth platform, on the elevation axis",
+     "instruments": [
+      {
+       "name": "FourStar",
+       "status": "permanent"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle (value measured on Clay; no Baade value found)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "baade.pupil_baade"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.01905
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "INFERRED: nominal 0.75 in on all four (no MagAO cable trays on Baade); Baade vane widths NOT FOUND",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.178,
+       "net_m2": 30.21,
+       "basis": "DERIVED geometry; no official value"
+      }
+     },
+     "refs": [
+      "common.f11_focal_ratio",
+      "common.reflections_f11",
+      "baade.nase_instrument"
+     ]
+    },
+    {
+     "id": "f11_aux",
+     "name": "f/11 bent-Gregorian folded/auxiliary ports AUX1-AUX3 (center section)",
+     "status": "operational (3 ports)",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": null,
+      "note": "field at the folded ports NOT FOUND; S94 design allows the turret corrector/ADC at any of the 5 Gregorian stations"
+     },
+     "corrector_adc": "not documented at the folded ports",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "three ports on the center section around the primary, reached by rotating the tertiary; folded-port instrument rotators",
+     "instruments": [
+      {
+       "name": "MagE",
+       "port": "AUX3",
+       "status": "permanent"
+      },
+      {
+       "name": "FIRE",
+       "port": "folded (number not stated)",
+       "status": "permanent"
+      },
+      {
+       "name": "LLAMAS",
+       "port": "folded (number not stated)",
+       "status": "permanent"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle (value measured on Clay; no Baade value found)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "baade.pupil_baade"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.01905
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "INFERRED: nominal 0.75 in on all four (no MagAO cable trays on Baade); Baade vane widths NOT FOUND",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.178,
+       "net_m2": 30.21,
+       "basis": "DERIVED geometry; no official value"
+      }
+     },
+     "refs": [
+      "common.folded_ports",
+      "common.f11_plate_scale",
+      "common.reflections_f11",
+      "baade.folded_port_instruments"
+     ]
+    },
+    {
+     "id": "f15_cass_planned",
+     "name": "f/15 infrared Cassegrain (1994 design)",
+     "status": "design only; no evidence it was built",
+     "secondary": {
+      "name": "f/15 infrared secondary",
+      "type": "Cassegrain",
+      "shape": "not stated",
+      "diameter_m": null
+     },
+     "F": 15,
+     "f_mm": 97500,
+     "plate_scale_arcsec_per_mm": 2.116,
+     "field": {
+      "note": "NOT FOUND"
+     },
+     "corrector_adc": "NOT FOUND",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2 f/15 (planned)"
+     ],
+     "location": "Cassegrain, behind the primary (flip tertiary out of the beam)",
+     "instruments": [],
+     "pupil": null,
+     "refs": [
+      "common.f15_cassegrain",
+      "common.foci_design_1994",
+      "baade.foci_baade"
+     ],
+     "note": "f_mm and scale are nominal (15 x 6500 mm), DERIVED"
+    }
+   ]
+  },
+  "params": [
+   [
+    "completed",
+    {
+     "value": 2000,
+     "unit": "year",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "The Walter Baade Telescope was the first of the twin 6.5 meter Magellan telescopes to be completed in 2000",
+     "alternatives": [
+      {
+       "value": "second Nasmyth focus in operation Sept 2001",
+       "src": "SJ03",
+       "loc": "abstract",
+       "quote": "The second Nasmyth focus on Magellan 1 went into operation in September 2001."
+      }
+     ]
+    }
+   ],
+   [
+    "foci_baade",
+    {
+     "value": "f/11 only (no Cassegrain focus implemented)",
+     "unit": "",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "although at present only the f/11 focus is implemented on the Baade Telescope"
+    }
+   ],
+   [
+    "nasw_instrument",
+    {
+     "value": "IMACS (permanent), fed through the telescope ADC/corrector",
+     "unit": "",
+     "src": "D11",
+     "loc": "Sec. 2.1 (PDF p. 4)",
+     "quote": "Figure 1 is a picture of IMACS mounted at the west Nasmyth platform of the Magellan-Baade telescope.",
+     "alternatives": [
+      {
+       "value": "IMACS west, FourStar east, FIRE on an auxiliary folded port; tertiary rotation",
+       "src": "LCOUM",
+       "loc": "1.B Basic Component Layout",
+       "quote": "The rotating tertiary mirror in the telescope directs the beam to IMACS on the west Nasmyth platform, or to Fourstar, the wide-field niear-IR on the east Nasmyth platform, or to the auxiliary folded mounting the spectrograph FIRE"
+      },
+      {
+       "value": "ROSIE IFU (feeds IMACS)",
+       "src": "LCOMI",
+       "loc": "Magellan 1 - Baade, IMACS entry",
+       "quote": "Including details for the newly commissioning ROSIE IFU"
+      }
+     ]
+    }
+   ],
+   [
+    "nase_instrument",
+    {
+     "value": "FourStar (permanent; no telescope ADC/corrector mentioned)",
+     "unit": "",
+     "src": "P13",
+     "loc": "Sec. 1 (PDF p. 3)",
+     "quote": "a camera mounted on the East Nasmyth focus of the Baade 6.5-m Telescope",
+     "alternatives": [
+      {
+       "value": "Baade NASE",
+       "src": "LCOMI",
+       "loc": "Magellan 1 - Baade, FourStar entry",
+       "quote": "A wide field near-infrared camera for the Baade NASE platform."
+      }
+     ]
+    }
+   ],
+   [
+    "folded_port_instruments",
+    {
+     "value": "MagE (AUX3), FIRE (auxiliary folded port, number not stated), LLAMAS (folded port, number not stated)",
+     "unit": "",
+     "src": "CMAGE",
+     "loc": "Overview",
+     "quote": "mounted on the AUX3 folded port of the BAADE Magellan telescope",
+     "alternatives": [
+      {
+       "value": "\"central folded port\"",
+       "src": "CMAGE",
+       "loc": "Instrument Flexure",
+       "quote": "Because MagE is mounted on the central folded port",
+       "note": "whether \"central\" = the middle of the three ports or the center-section location is not stated"
+      },
+      {
+       "value": "FIRE at a bent-Gregorian folded port",
+       "src": "FIREM",
+       "loc": "Deployment",
+       "quote": "FIRE will mount at one of Magellan's bent-Gregorian folded ports"
+      },
+      {
+       "value": "LLAMAS on a folded port",
+       "src": "LL20",
+       "loc": "abstract",
+       "quote": "the spectrograph cluster is mounted next to the focal plane on a folded Cassegrain port with gravity-invariant support"
+      },
+      {
+       "value": "Baade instruments now: IMACS, MagE, LLAMAS, FIRE, FourStar",
+       "src": "CBIS",
+       "loc": "status table",
+       "quote": "MAGE Ready LLAMAS Ready"
+      },
+      {
+       "value": "five permanently mounted",
+       "src": "DM26",
+       "loc": "abstract",
+       "quote": "Baade now hosts five permanently mounted, always-available instruments."
+      }
+     ]
+    }
+   ],
+   [
+    "guiders",
+    {
+     "value": "facility guiders (with Shack-Hartmann WFS) at the f/11 Nasmyth foci",
+     "unit": "",
+     "src": "SCH03",
+     "loc": "Sec. 3 (PDF p. 2)",
+     "quote": "Two facility guiders are currently in operation at the f/11 Nasmyth focii of the Baade telescope"
+    }
+   ],
+   [
+    "pupil_baade",
+    {
+     "value": "no Baade-specific obscuration or vane widths found; FourStar stray-light model of Magellan 1 includes the SM vanes and a lower SM baffle (no dimensions)",
+     "unit": "",
+     "src": "FSCDR",
+     "loc": "Tab 4 Optical Design, stray-light slides (PDF p. 64, 79)",
+     "quote": "Optical prescription from ZEMAX (Magellan 1 as-built) ... Lower SM Baffle ... SM vanes",
+     "note": "Recommended: use the Clay f/11 pupil (eps 0.29, four offset vanes at 45 deg). INFERENCE (not sourced): the 1.5 in widening comes from MagAO cable trays that serve the Clay ASM, so Baade plausibly has all four vanes at the nominal 0.75 in."
+    }
+   ]
+  ],
+  "not_found": [
+   "Baade central obscuration and vane widths (Clay values used; FourStar stray-light model includes SM vanes and a lower SM baffle without dimensions).",
+   "Which folded ports FIRE and LLAMAS use (MagE: AUX3).",
+   "Whether the folded ports use the turret corrector/ADC."
+  ],
+  "conflicts": [
+   "MagE port wording: \"AUX3 folded port\" vs \"central folded port\" (same manual, CMAGE)."
+  ],
+  "notes": [
+   "Baade instruments 2026: IMACS (NASW), FourStar (NASE), MagE (AUX3), FIRE and LLAMAS (folded ports) -- the five \"permanently mounted, always-available instruments\" (DM26; CBIS status table lists IMACS, MAGE, LLAMAS, FIRE, FOURSTAR).",
+   "Historic Baade instruments 2001-2002 (SJ03): B&C, LDSS-2, MIRAC, MagIC."
+  ]
+ },
+ "clay": {
+  "title": "Magellan II -- Landon T. Clay 6.5 m: f/11 Nasmyth W/E + 3 folded ports, f/5 Cassegrain, F/16 adaptive secondary",
+  "telescope": {
+   "name": "Magellan II -- Landon T. Clay Telescope",
+   "site": "Las Campanas Observatory (Cerro Manqui), Chile",
+   "mount": "alt-azimuth",
+   "completed": 2002,
+   "primary": {
+    "D_m": 6.5,
+    "F": 1.25,
+    "f_mm": 8125,
+    "f_mm_basis": "DERIVED 1.25 x 6500",
+    "shape": "paraboloid",
+    "material": "spin-cast borosilicate honeycomb (Steward Observatory Mirror Lab)",
+    "central_hole_m": 1.3,
+    "collecting_area_m2": null,
+    "collecting_area_note": "no official value; DERIVED 30.13 m^2 at f/11 (eps 0.29, two 0.75 in + two 1.5 in vanes); M15 used 29 m^2 at f/5",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_focal_ratio",
+     "common.primary_material",
+     "common.primary_central_hole",
+     "common.collecting_area"
+    ]
+   },
+   "pupil": {
+    "D_m": 6.5,
+    "eps": 0.29,
+    "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+    "eps_set_by": "secondary-mirror baffle, 1.885 m (DERIVED 0.29 x 6.5 m); the f/11 mirror itself is ~1.3 m (0.20)",
+    "eps_refs": [
+     "common.central_obstruction_f11",
+     "common.f11_secondary_diameter"
+    ],
+    "spiders": {
+     "n": 4,
+     "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        0.34,
+        0.0
+       ],
+       "angle_deg": 45.0,
+       "width_m": 0.01905
+      },
+      {
+       "start_xy_m": [
+        0.34,
+        0.0
+       ],
+       "angle_deg": -45.0,
+       "width_m": 0.01905
+      },
+      {
+       "start_xy_m": [
+        -0.34,
+        0.0
+       ],
+       "angle_deg": 225.0,
+       "width_m": 0.0381
+      },
+      {
+       "start_xy_m": [
+        -0.34,
+        0.0
+       ],
+       "angle_deg": 135.0,
+       "width_m": 0.0381
+      }
+     ],
+     "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+     "widths_basis": "SOURCED (MXP51, C18X): nominal 0.75 in; two widened to 1.5 in by the MagAO cable trays; which two = hcipy choice (unverified)",
+     "refs": [
+      "common.spiders"
+     ]
+    },
+    "other_obstructions": [
+     "primary central hole 1.3 m (inside the baffle shadow, MM19)",
+     "outer M1 edge poorly polished: MagAO-X masks 4.4% (M18) -- not part of the telescope stop"
+    ],
+    "collecting_area": {
+     "full_disc_m2": 33.18,
+     "annulus_m2": 30.39,
+     "vanes_m2": 0.266,
+     "net_m2": 30.13,
+     "basis": "DERIVED geometry; no official value (M15 used 29 m^2 at f/5)"
+    }
+   },
+   "foci": [
+    {
+     "id": "f11_nasw",
+     "name": "f/11 Gregorian Nasmyth West (NASW)",
+     "status": "operational",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": null,
+      "note": "no Clay turret corrector/ADC documented; instruments carry their own optics (M2FS wide-field corrector: 30'); uncorrected f/11 field NOT FOUND",
+      "focal_surface": "convex, R = -1231.74 mm (design)"
+     },
+     "corrector_adc": "none documented for Clay (no Clay turret ADC/corrector found)",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "west Nasmyth platform, on the elevation axis",
+     "instruments": [
+      {
+       "name": "LDSS3",
+       "status": "permanent (re-installed 2026-05-29)"
+      },
+      {
+       "name": "MagAO-X",
+       "status": "S26A only"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle, 1.885 m (DERIVED 0.29 x 6.5 m); the f/11 mirror itself is ~1.3 m (0.20)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "common.f11_secondary_diameter"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.0381
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.0381
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "SOURCED (MXP51, C18X): nominal 0.75 in; two widened to 1.5 in by the MagAO cable trays; which two = hcipy choice (unverified)",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)",
+       "outer M1 edge poorly polished: MagAO-X masks 4.4% (M18) -- not part of the telescope stop"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.266,
+       "net_m2": 30.13,
+       "basis": "DERIVED geometry; no official value (M15 used 29 m^2 at f/5)"
+      }
+     },
+     "refs": [
+      "common.f11_plate_scale",
+      "clay.nasw_instrument"
+     ]
+    },
+    {
+     "id": "f11_nase",
+     "name": "f/11 Gregorian Nasmyth East (NASE, rotating PI/visitor port)",
+     "status": "operational",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": null,
+      "note": "no Clay turret corrector/ADC documented; instruments carry their own optics (M2FS wide-field corrector: 30'); uncorrected f/11 field NOT FOUND",
+      "focal_surface": "convex, R = -1231.74 mm (design)"
+     },
+     "corrector_adc": "none from the telescope; M2FS brings a 30' wide-field corrector",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "east Nasmyth platform, on the elevation axis",
+     "instruments": [
+      {
+       "name": "MIKE",
+       "status": "rotating"
+      },
+      {
+       "name": "PFS",
+       "status": "rotating"
+      },
+      {
+       "name": "M2FS (+ IFU-M)",
+       "status": "rotating"
+      },
+      {
+       "name": "PISCO",
+       "status": "rotating"
+      },
+      {
+       "name": "MagAO-X (nominal port)",
+       "status": "rotating"
+      },
+      {
+       "name": "proto-Lightspeed",
+       "status": "rotating"
+      },
+      {
+       "name": "LLAMAS prototype (past)",
+       "status": "rotating"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle, 1.885 m (DERIVED 0.29 x 6.5 m); the f/11 mirror itself is ~1.3 m (0.20)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "common.f11_secondary_diameter"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.0381
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.0381
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "SOURCED (MXP51, C18X): nominal 0.75 in; two widened to 1.5 in by the MagAO cable trays; which two = hcipy choice (unverified)",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)",
+       "outer M1 edge poorly polished: MagAO-X masks 4.4% (M18) -- not part of the telescope stop"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.266,
+       "net_m2": 30.13,
+       "basis": "DERIVED geometry; no official value (M15 used 29 m^2 at f/5)"
+      }
+     },
+     "refs": [
+      "clay.nase_instrument",
+      "clay.m2fs_corrector",
+      "common.reflections_f11"
+     ],
+     "note": "WINERED mounts on \"the Nasmyth platform\" (side not stated, WR24)"
+    },
+    {
+     "id": "f11_aux",
+     "name": "f/11 bent-Gregorian folded/auxiliary ports AUX1-AUX3 (center section)",
+     "status": "3 ports; no current instrument found",
+     "secondary": {
+      "name": "f/11 Gregorian secondary (static)",
+      "type": "Gregorian",
+      "shape": "concave (conic not stated)",
+      "diameter_m": 1.3,
+      "diameter_alternatives_m": [
+       1.36,
+       1.41
+      ],
+      "diameter_basis": "Clay: 1.3 m (MXPA1); 1.36 m beam footprint (MXP51); ~1.41 m implied by MM19",
+      "refs": [
+       "common.f11_secondary",
+       "common.f11_secondary_diameter"
+      ]
+     },
+     "F": 11.0,
+     "f_mm": 71526.4,
+     "plate_scale_arcsec_per_mm": 2.88,
+     "field": {
+      "corrected_diameter_arcmin": null,
+      "note": "field at the folded ports NOT FOUND; S94 design allows the turret corrector/ADC at any of the 5 Gregorian stations"
+     },
+     "corrector_adc": "not documented",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/11 concave Gregorian",
+      "M3 flat rotating tertiary"
+     ],
+     "location": "three ports on the center section around the primary, reached by rotating the tertiary",
+     "instruments": [
+      {
+       "name": "MagE",
+       "port": "folded port 2",
+       "status": "historical (2008)"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary-mirror baffle, 1.885 m (DERIVED 0.29 x 6.5 m); the f/11 mirror itself is ~1.3 m (0.20)",
+      "eps_refs": [
+       "common.central_obstruction_f11",
+       "common.f11_secondary_diameter"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.0381
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.0381
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "SOURCED (MXP51, C18X): nominal 0.75 in; two widened to 1.5 in by the MagAO cable trays; which two = hcipy choice (unverified)",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [
+       "primary central hole 1.3 m (inside the baffle shadow, MM19)",
+       "outer M1 edge poorly polished: MagAO-X masks 4.4% (M18) -- not part of the telescope stop"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.39,
+       "vanes_m2": 0.266,
+       "net_m2": 30.13,
+       "basis": "DERIVED geometry; no official value (M15 used 29 m^2 at f/5)"
+      }
+     },
+     "refs": [
+      "common.folded_ports",
+      "clay.folded_port_instruments"
+     ]
+    },
+    {
+     "id": "f5_cass",
+     "name": "f/5 Cassegrain",
+     "status": "campaign use (Megacam no longer offered)",
+     "secondary": {
+      "name": "f/5 secondary",
+      "type": "Cassegrain",
+      "shape": "convex hyperbolic",
+      "diameter_m": 1.8,
+      "refs": [
+       "clay.f5_cassegrain"
+      ]
+     },
+     "F": 5.36,
+     "f_mm": 34859,
+     "plate_scale_arcsec_per_mm": 5.917,
+     "field": {
+      "corrected_diameter_arcmin": 35,
+      "note": "Megacam 4-element corrector, flat 35' (MMT statement; identical correctors); MMIRS doublet corrector: f/5.2 over 14'"
+     },
+     "corrector_adc": "instrument-supplied (Megacam 4-element fused silica; MMIRS CaF2 doublet); no ADC",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1 f/1.25 paraboloid",
+      "M2 f/5 convex hyperbolic 1.8 m"
+     ],
+     "location": "Cassegrain focus behind the primary vertex (tertiary out of the beam); Cassegrain rotator",
+     "instruments": [
+      {
+       "name": "Megacam",
+       "status": "campaign; no longer offered"
+      },
+      {
+       "name": "MMIRS",
+       "status": "historical (routine use 2012)"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.277,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "1.8 m f/5 convex secondary (DERIVED 1.8/6.5); the cylindrical M2 baffle may enlarge it (size not published)",
+      "eps_refs": [
+       "clay.f5_cassegrain",
+       "clay.f5_baffles"
+      ],
+      "spiders": {
+       "n": null,
+       "note": "f/5 secondary support NOT FOUND (MMIRS12 mentions only \"the telescope spider\")",
+       "refs": [
+        "clay.f5_correctors"
+       ]
+      },
+      "other_obstructions": [
+       "cylindrical M2 baffle, ringed midbaffle, short M1 baffle (M15; sizes not published)"
+      ],
+      "collecting_area": {
+       "full_disc_m2": 33.18,
+       "annulus_m2": 30.64,
+       "published_m2": 29,
+       "basis": "annulus DERIVED pi/4 6.5^2 (1 - 0.277^2); 29 m^2 = M15 throughput assumption (implies eps 0.355)"
+      },
+      "eps_alternatives": [
+       {
+        "eps": 0.262,
+        "basis": "1.7 m MMT f/5 secondary (F04)"
+       },
+       {
+        "eps": 0.355,
+        "basis": "DERIVED from the 29 m^2 of M15"
+       }
+      ]
+     },
+     "refs": [
+      "clay.f5_cassegrain",
+      "clay.f5_plate_scale",
+      "clay.f5_correctors",
+      "clay.f5_reflections",
+      "clay.f5_baffles"
+     ],
+     "note": "F = 5.36 and f_mm DERIVED from 0.169 mm/arcsec (with the Megacam corrector); nominal \"f/5\""
+    },
+    {
+     "id": "f16_asm_nasmyth",
+     "name": "F/16 adaptive-secondary (MagAO) bent-Gregorian Nasmyth",
+     "status": "first light Nov 2012; current status NOT FOUND",
+     "secondary": {
+      "name": "MagAO adaptive secondary (585 actuators)",
+      "type": "Gregorian",
+      "shape": "concave ellipsoid",
+      "diameter_m": 0.851,
+      "refs": [
+       "clay.f16_asm"
+      ]
+     },
+     "F": 16.16,
+     "f_mm": 105040,
+     "plate_scale_arcsec_per_mm": 1.964,
+     "field": {
+      "note": "NOT FOUND (AO-corrected field set by the instruments)"
+     },
+     "corrector_adc": "AO (ASM); triplet ADC inside the W-unit",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2 = ASM (F/16)",
+      "M3 tertiary"
+     ],
+     "location": "Nasmyth platform (side NOT FOUND), NAS ring rotator",
+     "instruments": [
+      {
+       "name": "VisAO + Clio2 (MagAO)",
+       "status": "see note"
+      }
+     ],
+     "pupil": {
+      "D_m": 6.5,
+      "eps": 0.29,
+      "eps_definition": "diameter ratio (obscuration diameter / 6.5 m)",
+      "eps_set_by": "secondary baffle (C18M \"0.29 central obscuration of Magellan\"); the ASM is 0.851 m (0.131)",
+      "eps_refs": [
+       "clay.f16_asm"
+      ],
+      "spiders": {
+       "n": 4,
+       "layout": "offset cross: two pairs of vanes at +/-45 deg; each pair starts from a point 0.34 m from the centre on opposite sides, so opposite vanes are parallel and laterally offset by 0.481 m (each vane line 0.240 m off axis, DERIVED)",
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": 45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          0.34,
+          0.0
+         ],
+         "angle_deg": -45.0,
+         "width_m": 0.01905
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 225.0,
+         "width_m": 0.0381
+        },
+        {
+         "start_xy_m": [
+          -0.34,
+          0.0
+         ],
+         "angle_deg": 135.0,
+         "width_m": 0.0381
+        }
+       ],
+       "frame": "hcipy make_magellan_aperture frame (x, y in m on the primary; angles from +x); orientation relative to the elevation axis NOT FOUND",
+       "widths_basis": "SOURCED (MXP51): the 1.5 in cable trays route power and cooling to this ASM",
+       "refs": [
+        "common.spiders"
+       ]
+      },
+      "other_obstructions": [],
+      "collecting_area": {
+       "basis": "as Clay f/11"
+      }
+     },
+     "refs": [
+      "clay.f16_asm"
+     ],
+     "note": "f_mm and scale DERIVED from F/16.16"
+    },
+    {
+     "id": "f15_cass_planned",
+     "name": "f/15 infrared Cassegrain (1994 design)",
+     "status": "design only; no evidence it was built",
+     "secondary": {
+      "name": "f/15 infrared secondary",
+      "type": "Cassegrain",
+      "shape": "not stated",
+      "diameter_m": null
+     },
+     "F": 15,
+     "f_mm": 97500,
+     "plate_scale_arcsec_per_mm": 2.116,
+     "field": {
+      "note": "NOT FOUND"
+     },
+     "corrector_adc": "NOT FOUND",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2 f/15 (planned)"
+     ],
+     "location": "Cassegrain, behind the primary (flip tertiary out of the beam)",
+     "instruments": [],
+     "pupil": null,
+     "refs": [
+      "common.f15_cassegrain",
+      "common.foci_design_1994",
+      "clay.f5_cassegrain"
+     ],
+     "note": "f_mm and scale are nominal (15 x 6500 mm), DERIVED; the Clay Cassegrain position carries the f/5 instead"
+    }
+   ]
+  },
+  "params": [
+   [
+    "completed",
+    {
+     "value": 2002,
+     "unit": "year",
+     "src": "LCOT",
+     "loc": "para. 2",
+     "quote": "followed by the Landon T. Clay telescope, finished in 2002."
+    }
+   ],
+   [
+    "nasw_instrument",
+    {
+     "value": "LDSS3 (permanent; re-installed 2026-05-29); MagAO-X used NASW in 2026A",
+     "unit": "",
+     "src": "LDS",
+     "loc": "Sec. 1 Instrument Description",
+     "quote": "installed in the Nasmyth West port of the Magellan Clay telescope",
+     "alternatives": [
+      {
+       "value": "back at NASW 2026-05-29",
+       "src": "CCIS",
+       "loc": "status table, LDSS3 row",
+       "quote": "Installed back at NASW on May 29,2026"
+      },
+      {
+       "value": "MagAO-X on NASW in S26A",
+       "src": "LUC26",
+       "loc": "telescope model section (PDF p. 6)",
+       "quote": "MagAO-X is nominally on the East Nasmyth platform (NASE), but in S26A MagAO-X was installed on the West ... Nasmyth platform (NASW)"
+      }
+     ]
+    }
+   ],
+   [
+    "nase_instrument",
+    {
+     "value": "rotating PI/visitor port: MIKE (gravity-invariant, not on the rotator), PFS, M2FS (+ IFU-M), PISCO, MagAO-X (nominal), proto-Lightspeed, LLAMAS prototype",
+     "unit": "",
+     "src": "MIKEG",
+     "loc": "Sec. D Atmospheric Dispersion",
+     "quote": "it is mounted on the East Nasmyth platform and does not rotate with the instrument rotator",
+     "alternatives": [
+      {
+       "value": "PFS in place of MIKE at NASE",
+       "src": "LCOPFS",
+       "loc": "page text",
+       "quote": "The Planet Finder Spectrograph is supported as a P.I. instrument that can be installed in place of MIKE at the Clay NASE platform."
+      },
+      {
+       "value": "M2FS in place of MIKE at NASE",
+       "src": "LCOM2",
+       "loc": "page text",
+       "quote": "can be installed in the place of MIKE at the Clay NASE platform"
+      },
+      {
+       "value": "PISCO in place of MIKE at NASE",
+       "src": "LCOPIS",
+       "loc": "page text",
+       "quote": "can be installed in the place of MIKE at the Clay NASE platform"
+      },
+      {
+       "value": "M2FS at NAS-E f/11",
+       "src": "LCOMI",
+       "loc": "Other Instruments, M2FS",
+       "quote": "at the Clay NAS-E f/11 focus"
+      },
+      {
+       "value": "IFU-M on NASE",
+       "src": "CCIS",
+       "loc": "status table",
+       "quote": "IFU-M Offline On NASE"
+      },
+      {
+       "value": "MagAO-X nominally NASE",
+       "src": "LUC26",
+       "loc": "PDF p. 6",
+       "quote": "MagAO-X is nominally on the East Nasmyth platform (NASE)"
+      },
+      {
+       "value": "NasE visitor port, f/11 (proto-Lightspeed; LLAMAS prototype before it)",
+       "src": "L26",
+       "loc": "Sec. 1-2 (PDF p. 3, 6)",
+       "quote": "the Nasmyth East (NasE) visitor port of the Magellan Clay Telescope ... to mount the prototype of the Large Lenslet Array Magellan Spectrograph (LLAMAS) on the same port"
+      },
+      {
+       "value": "one Nasmyth port + the Cassegrain focus rotate eight instruments",
+       "src": "DM24",
+       "loc": "abstract",
+       "quote": "The availability of one of the Nasmyth ports and a Cassegrain focus at the Clay telescope, allows a scheduled rotation of the other eight instruments (MIKE, PFS, M2FS, IFUM, PISCO, MAGAOX, MEGACAM, WINERED)"
+      }
+     ],
+     "note": "WINERED installs on \"the Nasmyth platform\" (WR24, side not stated). DM26: \"At Clay, the second Nasmyth port is being converted from a fixed to a flexible interface\" (which port not stated)."
+    }
+   ],
+   [
+    "m2fs_corrector",
+    {
+     "value": "M2FS wide-field corrector (WFC) at the Clay f/11 Nasmyth focal surface: 30 arcmin field",
+     "unit": "",
+     "src": "M2FS12",
+     "loc": "abstract",
+     "quote": "A new wide-field corrector (WFC) that produces high-quality images over a 30 arcmin diameter field"
+    }
+   ],
+   [
+    "folded_port_instruments",
+    {
+     "value": "none current found; MagE was on Clay folded port 2 in 2008 (now Baade AUX3)",
+     "unit": "",
+     "src": "MG08",
+     "loc": "Fig. 1 caption (PDF p. 2)",
+     "quote": "Photograph of MagE installed on the Clay folded port 2."
+    }
+   ],
+   [
+    "f5_cassegrain",
+    {
+     "value": "f/5 Cassegrain focus (Clay only): convex hyperbolic 1.8 m secondary + paraboloid primary; no tertiary; campaign use (Megacam, MMIRS)",
+     "unit": "",
+     "src": "M15",
+     "loc": "Sec. 3.1 Telescope and Corrector Optics (PDF p. 2)",
+     "quote": "The f/5 optics at the MMT and Magellan Clay telescopes are essentially identical ... a 1.8 m diameter hyperbolic secondary",
+     "alternatives": [
+      {
+       "value": "Clay only",
+       "src": "FSCDR",
+       "loc": "Tab 2 (PDF p. 8)",
+       "quote": "There will be, in addition, an F5 Cassegrain focus on the Clay Telescope (Magellan 2)."
+      },
+      {
+       "value": "Megacam + MMIRS suite",
+       "src": "S12C",
+       "loc": "abstract",
+       "quote": "These instruments are Megacam and MMIRS."
+      },
+      {
+       "value": "Megacam at f/5 CASS (no longer offered)",
+       "src": "LCOMI",
+       "loc": "Magellan 2 - Clay, MEGACAM",
+       "quote": "Megacam is operated in campaign mode at the f/5 CASS focus. ... The instrument is no longer offered"
+      },
+      {
+       "value": "Cassegrain f/5 of Clay",
+       "src": "MCM",
+       "loc": "Sec. 2.2 (PDF p. 2)",
+       "quote": "Megacam is a CCD imager available at the Cassegrain f/5 focus of the Clay 6.5m telescope."
+      },
+      {
+       "value": "1.7 m secondary (MMT f/5)",
+       "src": "F04",
+       "loc": "abstract",
+       "quote": "A 1.7-m diameter secondary and a large refractive corrector offer a 1",
+       "note": "MMT value, not Clay"
+      }
+     ]
+    }
+   ],
+   [
+    "f5_plate_scale",
+    {
+     "value": 0.169,
+     "unit": "mm/arcsec (with the Megacam corrector)",
+     "src": "M15",
+     "loc": "Table 1 (PDF p. 2)",
+     "quote": "Plate scale 0:169 mm arcsec",
+     "derived": "f_eff = 0.169 x 206264.8 = 34,859 mm; F = 5.363; 1/0.169 = 5.917\"/mm. \"f/5\" is the focus name."
+    }
+   ],
+   [
+    "f5_correctors",
+    {
+     "value": "Megacam: 4-element fused-silica corrector (3 lenses just behind the M1 vertex + dewar-window flattener), 35' flat field; MMIRS: CaF2 doublet giving f/5.2 over 14'",
+     "unit": "",
+     "src": "M15",
+     "loc": "Sec. 3.1 (PDF p. 2)",
+     "quote": "The corrector consists of three lenses located just behind the primary mirror vertex",
+     "alternatives": [
+      {
+       "value": "35' flat focal plane (MMT; identical correctors)",
+       "src": "M06",
+       "loc": "Sec. 1 (PDF p. 1)",
+       "quote": "A three-element refractive corrector plus a field-flattener that serves as the entrance to the Megacam dewar provide a flat focal plane which is 35 arcmin in diameter."
+      },
+      {
+       "value": "MMIRS corrector f/5.2, 14'",
+       "src": "MMIRS12",
+       "loc": "Sec. 2.2 Field corrector (PDF p. 3)",
+       "quote": "A doublet CaF2 field corrector lies in front of the f/5 Cassegrain focus of the converted 6.5m ... MMT or Clay Magellan Telescope and produces f/5.2 images with RMS spot diameter less than ... over a 14′ field of view"
+      },
+      {
+       "value": "MMIRS in routine use on Clay (2012)",
+       "src": "MMIRS12",
+       "loc": "abstract (PDF p. 1)",
+       "quote": "has been in routine operation at the Magellan Clay telescope"
+      }
+     ]
+    }
+   ],
+   [
+    "f5_reflections",
+    {
+     "value": 2,
+     "unit": "mirrors (M1, M2)",
+     "src": "M15",
+     "loc": "Sec. 8.1 (PDF p. 13)",
+     "quote": "two aluminum reflections"
+    }
+   ],
+   [
+    "f5_baffles",
+    {
+     "value": "cylindrical M2 baffle + ringed midbaffle + short M1 baffle (sizes not published); the f/5 needs large baffles",
+     "unit": "",
+     "src": "M15",
+     "loc": "Sec. 3.4 Baffles (PDF p. 5)",
+     "quote": "The Magellan mirror cover design led to three baffles, a short cylindrical M1 baffle, a ringed midbaffle, and a cylindrical M2",
+     "alternatives": [
+      {
+       "value": "large f/5 baffles",
+       "src": "D11",
+       "loc": "Sec. 2.1 (PDF p. 4)",
+       "quote": "Carnegie astronomers were concerned that the swapping of instruments would be limited by the large baffles required for the f/5 focus"
+      }
+     ]
+    }
+   ],
+   [
+    "f5_rotator",
+    {
+     "value": "Cassegrain instrument rotator (1.829 m bolt circle)",
+     "unit": "",
+     "src": "M15",
+     "loc": "Sec. 4.1 Topbox housing (PDF p. 5)",
+     "quote": "attaches to the telescope rotator on a 1.829 m diameter bolt circle"
+    }
+   ],
+   [
+    "f16_asm",
+    {
+     "value": "MagAO adaptive secondary: concave ellipsoidal, 85.1 cm, F/16 (F/16.16 focal plane), bent Gregorian focus on a Nasmyth platform via M3",
+     "unit": "",
+     "src": "C18M",
+     "loc": "Sec. 2.2 The 2nd Generation 585 element ASM for MagAO (PDF p. 6)",
+     "quote": "Magellan is a Gregorian telescope (Fig. 3 -left) and requires a large (d=85.1 cm) concave ellipsoidal ASM.",
+     "alternatives": [
+      {
+       "value": "85.1 cm, hangs above the primary",
+       "src": "MZ14",
+       "loc": "Fig. 1 caption (PDF p. 2)",
+       "quote": "The 85.1-cm-diameter adaptive secondary mirror (ASM) hangs above the primary"
+      },
+      {
+       "value": "bent Gregorian focus on the Nasmyth platform",
+       "src": "MZ14",
+       "loc": "Sec. 1 (PDF p. 1)",
+       "quote": "installed on the Magellan Clay telescope at the bent Gregorian focus on the Nasmyth platform"
+      },
+      {
+       "value": "NAS port, via M3",
+       "src": "MZ14",
+       "loc": "Fig. 1 caption (PDF p. 2)",
+       "quote": "science cameras at the folded Nasmyth port (NAS) at the bent Gregorian focus ... the starlight from M3, after it enters the NAS unit"
+      },
+      {
+       "value": "F/16",
+       "src": "K10",
+       "loc": "abstract (PDF p. 1)",
+       "quote": "Gregorian design allows for a concave F/16 adaptive secondary mirror (ASM)"
+      },
+      {
+       "value": "F/16.16 focal plane",
+       "src": "K10",
+       "loc": "Fig. caption, guider/W-unit section (PDF p. 11)",
+       "quote": "at the F/16.16 focal plane"
+      },
+      {
+       "value": "status 2021: commissioning and science",
+       "src": "LCOMAO",
+       "loc": "page text",
+       "quote": "Continuing commissioning and science operations."
+      },
+      {
+       "value": "first light November 2012",
+       "src": "C18M",
+       "loc": "Sec. 2.3 (PDF p. 6)",
+       "quote": "MagAO had first light (with its science cameras VisAO and Clio2; see Fig. 3-right) in November 2012"
+      },
+      {
+       "value": "triplet ADC in the W-unit",
+       "src": "MZ14",
+       "loc": "Sec. 2.1 (PDF p. 3)",
+       "quote": "A triplet atmospheric dispersion compensator (ADC) is common to both the PWFS and VisAO"
+      },
+      {
+       "value": "NAS ring rotates",
+       "src": "MZ14",
+       "loc": "Fig. 1 caption (PDF p. 2)",
+       "quote": "The entire NAS ring rotates as the telescope tracks"
+      }
+     ],
+     "note": "Which Nasmyth side: NOT FOUND. Current status: NOT FOUND (MagAO is absent from the 2024 instrument list, DM24, which lists MagAO-X; C18X: MagAO-X woofer \"can be the current f/16 MagAO ASM or, more likely, fed by the facility f/11 static secondary\").",
+     "derived": "f = 16.16 x 6500 = 105,040 mm; 206264.8 / 105040 = 1.964\"/mm (509 um/\"). ASM / D = 0.851 / 6.5 = 0.131 (the pupil obscuration remains the 0.29 baffle: C18M \"due to the 0.29 central obscuration of Magellan\")."
+    }
+   ],
+   [
+    "magaox_f11",
+    {
+     "value": "MagAO-X: an f/11 Nasmyth instrument fed by the static f/11 secondary (NASE nominal, NASW in 2026A)",
+     "unit": "",
+     "src": "C18X",
+     "loc": "Fig. 1 caption (PDF p. 4)",
+     "quote": "MagAO-X as mounted at the 6.5m Magellan telescope’s Nasmyth f/11 focus."
+    }
+   ],
+   [
+    "winered",
+    {
+     "value": "WINERED on a Clay Nasmyth platform (side not stated), with a focal extender for the 125 mm back focus",
+     "unit": "",
+     "src": "WR24",
+     "loc": "abstract",
+     "quote": "This allows for installation on the Nasmyth platform within 30 minutes"
+    }
+   ],
+   [
+    "pupil_clay_f11",
+    {
+     "value": "eps 0.29 (secondary baffle) + 4 offset vanes (two 0.75 in, two 1.5 in)",
+     "unit": "",
+     "src": "MXP51",
+     "loc": "Sec. 3.2 (PDF p. 2)",
+     "quote": "The Magellan Clay telescope secondary mirror baffle forms a 29% central obscuration.",
+     "note": "See common params central_obstruction_f11 and spiders."
+    }
+   ]
+  ],
+  "not_found": [
+   "Clay f/5 pupil: M2-baffle diameter and the f/5 secondary support (vanes).",
+   "A Clay turret ADC/corrector at f/11.",
+   "Nasmyth side of the MagAO F/16 station, and whether the ASM is still in service.",
+   "Current use of the Clay folded ports.",
+   "WINERED Nasmyth side."
+  ],
+  "conflicts": [
+   "f/5 secondary: 1.8 m (M15, MMT and Clay \"essentially identical\") vs 1.7 m (F04, MMT); eps 0.277 vs 0.262; the 29 m^2 of M15 implies 0.355.",
+   "f/5 focal ratio: \"f/5\" nominal vs 5.36 from the published 0.169 mm/\" with the Megacam corrector (DERIVED) vs f/5.2 with the MMIRS corrector (MMIRS12)."
+  ],
+  "notes": [
+   "Clay instruments 2026: LDSS3 permanent at NASW; NASE rotates MIKE, PFS, M2FS/IFU-M, PISCO, MagAO-X, WINERED and visitors; Megacam (f/5) no longer offered (LCOMI); DM24 counts eight instruments sharing one Nasmyth port and the Cassegrain focus; DM26: the second Nasmyth port is being made flexible.",
+   "The MagAO ASM (85.1 cm, F/16) replaces the f/11 secondary for AO use; MagAO-X instead uses the static f/11 secondary with its own DMs (C18X)."
+  ]
+ }
+}

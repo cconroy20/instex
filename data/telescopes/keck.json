@@ -1,0 +1,3402 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: W. M. Keck Observatory, Keck I and Keck II (all foci; entrance pupil)",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/keck.md (same content as Markdown). Structure: sources{key: cite, file, url}; common (shared design: params, machine-readable pupil, design-only/proposed foci); keck1 and keck2 each with telescope{primary, pupil, foci[]}, params, not_found, conflicts, notes. Focus and pupil fields carry refs ('common.<param>' / 'keck1.<param>') into the sourced params.",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from the saved document (rawdata/telescopes/keck/, or an earlier round's file where marked SAME FILE). derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (not text-checkable; the caption quote is checked).",
+  "quote_check": "196 quotes machine-checked against the saved files' extracted text (pdftotext -layout and -raw for PDFs; tag-stripped text and raw source for HTML, decoded as UTF-8 or windows-1252): all pass.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash and tilde operator normalised; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "design_vs_asbuilt": "KOR90 (1985) is the pre-construction design; KOTN163 (1991, rev. 3) the prescription during construction; KTG02 (2002), KIVI (2000), KRBC (2003) the operating telescope; Keck web pages (2018-2026) the current instrument locations."
+ },
+ "sources": {
+  "KTG02": {
+   "cite": "W. M. Keck Observatory, \"Keck Telescope and Facility Instrument Guide\" (August 2002 update; PDF created 2002-09-11): Sec. 3 telescope optics (3.1.1 primaries, 3.1.2 f/15, 3.1.3 f/25, 3.1.4 f/40), Table 1 IR secondaries, Table 2 foci, Sec. 3.2 foci, Sec. 4 instruments (4.9 AO) -- SAME FILE as round-2/round-4/imaging key KTG02",
+   "file": "rawdata/presets/deimos/keck_telescope_guide_ktelinstupdate.pdf",
+   "url": "https://www2.keck.hawaii.edu/observing/kecktelgde/ktelinstupdate.pdf"
+  },
+  "KOR90": {
+   "cite": "Nelson, J. E., Mast, T. S., & Faber, S. M. (eds.) 1985, \"The Design of the Keck Observatory and Telescope (Ten Meter Telescope)\", Keck Observatory Report No. 90 (January 1985), 365 pp. scanned (Caltech Astrophysics Library copy, CaltechAUTHORS record 3253z-g0997). PRE-CONSTRUCTION DESIGN values. Quotes are from the scan's OCR text layer, which reads 1 as 'l' or 'I', 0 as 'O', and 'Baffling' as 'Balling'/'baffies'; Sec. 11 = Summary of Design Parameters (Tables 11-1 to 11-4)",
+   "file": "rawdata/telescopes/keck/KeckObservatoryReport90_1985_DesignOfKeckObservatoryAndTelescope_caltech.pdf",
+   "url": "https://authors.library.caltech.edu/records/3253z-g0997/files/Keck_Observatory_Report_No._90.pdf"
+  },
+  "KOTN163": {
+   "cite": "Nelson, J., \"Optical Parameters of the Keck Telescope\", Keck Observatory Technical Note 163 (7 January 1986; Revision 3, 24 June 1991), Keck web copy (HTTP Last-Modified 2016-07-13; windows-1252 text; fetched 2026-10-19). The as-designed prescription after the first segments and during f/15 secondary fabrication ('these parameters are not final')",
+   "file": "rawdata/telescopes/keck/keck_KOTN163_prescriptions.html",
+   "url": "https://www2.keck.hawaii.edu/optics/teldocs/prescriptions.html"
+  },
+  "KIVI": {
+   "cite": "W. M. Keck Observatory (CARA), \"Interfacing Visitor Instruments to the Keck Telescopes\" (February 2000; HTTP Last-Modified 2000-03-01; fetched 2026-10-19): Sec. 2 telescope optics, bent Cassegrain stations, Table 2 foci, Sec. 2.6 coatings",
+   "file": "rawdata/telescopes/keck/keck_interfacing_visitor_instruments_ifvifrm-1.html",
+   "url": "https://www2.keck.hawaii.edu/observing/interfacvinst/ifvifrm-1.html"
+  },
+  "KRBC": {
+   "cite": "W. M. Keck Observatory, \"Interfacing Visitor Instruments at the Keck II F/40 Bent Cassegrain Port\" (HTTP Last-Modified 2003-02-05; fetched 2026-10-19): Sec. 1 introduction, Sec. 2 F/40 optical description, Fig. 1 telescope outline, Fig. 4 f/40 secondary outline (figures saved in RBC_Manual_figures/)",
+   "file": "rawdata/telescopes/keck/keck_RBC_Manual_f40_bentCass.html",
+   "url": "https://www2.keck.hawaii.edu/observing/bcinter/RBC_Manual.html"
+  },
+  "L21": {
+   "cite": "Li, J. & Skemer, A. 2021, \"Cold Stop and Lyot Stop Designs for a New Infrared Exoplanet Imager at Keck Observatory\" (SCALES), arXiv:2109.00612v1 (SPIE proceedings preprint): Sec. 2 'Pupil of the Keck II telescope', Fig. 1 Keck II pupil diagram",
+   "file": "rawdata/telescopes/keck/Li2021_SCALES_ColdStop_KeckPupil_arXiv2109.00612.pdf",
+   "url": "https://arxiv.org/pdf/2109.00612v1"
+  },
+  "H17": {
+   "cite": "Huby, E., Bottom, M., Femenia, B., et al. 2017, A&A 600, A46, arXiv:1701.06397 (Table 1: Keck pupil configuration used to model NIRC2) -- SAME FILE as imaging key H17",
+   "file": "rawdata/imaging/nirc2/Huby2017_AA600_A46_QACITS_KeckNIRC2_arXiv1701.06397.pdf",
+   "url": "https://arxiv.org/pdf/1701.06397"
+  },
+  "SE17": {
+   "cite": "Serabyn, E., Huby, E., Matthews, K., et al. 2017, AJ 153, 43, arXiv:1612.03093 -- SAME FILE as imaging key SE17",
+   "file": "rawdata/imaging/nirc2/Serabyn2017_AJ153_43_KeckVortex_arXiv1612.03093.pdf",
+   "url": "https://arxiv.org/pdf/1612.03093"
+  },
+  "CPSF": {
+   "cite": "C. Neyman et al., \"Notes on Keck AO for PSF Recovery Project\", Caltech OIR TWiki, Keck/NGAO web (topic revision r17, 2011-11-18), Internet Archive capture of 2020-09-26 (the live page returns 403)",
+   "file": "rawdata/telescopes/keck/wayback20200926_caltech_twiki_NGAO_NotesKeckPSF.html",
+   "url": "https://web.archive.org/web/20200926052735id_/http://www.oir.caltech.edu/twiki_oir/bin/view/Keck/NGAO/NotesKeckPSF"
+  },
+  "KAON501": {
+   "cite": "Bouchez, A. 2007, \"Keck Next Generation Adaptive Optics: Background and Transmission Budgets\", Keck Adaptive Optics Note 501 (August 8, 2007), Sec. 1.2 and Appendix 5.1 (optical surfaces of the existing Keck II AO science path); Internet Archive capture of 2023-11-15",
+   "file": "rawdata/telescopes/keck/wayback20231115_KAON501_Bouchez2007_NGAO_BackgroundTransmission.pdf",
+   "url": "https://web.archive.org/web/20231115225242id_/https://www.oir.caltech.edu/twiki_oir/pub/Keck/NGAO/NewKAONs/KAON501_ngao_bkg.pdf"
+  },
+  "K16": {
+   "cite": "Kulkarni, S. R. 2016, \"Instruments on large optical telescopes -- A case study\", arXiv:1606.06674v1 (Keck instrument histories, Secs. 4-5). Secondary source: its Nasmyth sides for DEIMOS, NIRC2 and the Keck II AO contradict the Keck documents (see conflicts)",
+   "file": "rawdata/telescopes/keck/Kulkarni2016_InstrumentsOnLargeTelescopes_KeckCaseStudy_arXiv1606.06674.pdf",
+   "url": "https://arxiv.org/pdf/1606.06674v1"
+  },
+  "NL12": {
+   "cite": "W. M. Keck Observatory, Keck Observers' Newsletter, Issue 12 (Winter 2012): \"OSIRIS Move Gives Keck I Dedicated AO Science Instrument\" (J. E. Lyke), PDF p. 9",
+   "file": "rawdata/telescopes/keck/keck_ObserversNewsletter_Vol12_Winter2012.pdf",
+   "url": "https://www2.keck.hawaii.edu/realpublic/inst/newsletters/Vol12/newsletter.pdf"
+  },
+  "NL13": {
+   "cite": "W. M. Keck Observatory, Keck Observers' Newsletter, Issue 13 (Summer 2012): \"Keck I LGS AO System Enters Shared-Risk Science Phase\" (R. Campbell), PDF pp. 10-11",
+   "file": "rawdata/telescopes/keck/keck_ObserversNewsletter_Vol13_Summer2012.pdf",
+   "url": "https://www2.keck.hawaii.edu/realpublic/inst/newsletters/Vol13/newsletter.pdf"
+  },
+  "NL16": {
+   "cite": "W. M. Keck Observatory, Keck Observers' Newsletter, Issue 16 (Winter 2014): \"Recent Grant Funding Successes\" (T. Armandroff; Keck I deployable tertiary, NSF MRI award September 2013), PDF p. 3; \"Center Launch System On The Keck II Telescope\" (J. Chin, J. Lyke), PDF p. 10",
+   "file": "rawdata/telescopes/keck/keck_ObserversNewsletter_Vol16_Winter2014.pdf",
+   "url": "https://www2.keck.hawaii.edu/realpublic/inst/newsletters/Vol16/newsletter.pdf"
+  },
+  "KIA": {
+   "cite": "W. M. Keck Observatory, \"Keck Instrument Sharing: Instruments Accessible on the Same Night\" ('This page last updated 14 August 2025'; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_observing_instrumentaccess.html",
+   "url": "https://www2.keck.hawaii.edu/observing/instrumentaccess.html"
+  },
+  "KAV": {
+   "cite": "W. M. Keck Observatory, \"Instruments Available for Semester 2027A\" ('This page last updated 04 August 2026'; fetched 2026-10-19): instrument list, hibernation and decommissioning notes",
+   "file": "rawdata/telescopes/keck/keck_observing_instavail.html",
+   "url": "https://www2.keck.hawaii.edu/observing/instavail.html"
+  },
+  "KII": {
+   "cite": "W. M. Keck Observatory, \"Keck Instruments & Facilities\" index (current, future and past instruments; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_inst_index.php.html",
+   "url": "https://www2.keck.hawaii.edu/inst/index.php"
+  },
+  "KNRS": {
+   "cite": "W. M. Keck Observatory, NIRES \"General Specifications\" page (HTTP Last-Modified 2021-11-15; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_nires_genspecs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/nires/genspecs.html"
+  },
+  "KFIU": {
+   "cite": "W. M. Keck Observatory, KPF \"Fiber Injection Unit (FIU)\" page (HTTP Last-Modified 2023-03-08; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_kpf_fiu.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/fiu.html"
+  },
+  "KKCWI": {
+   "cite": "W. M. Keck Observatory, KCWI home page (HTTP Last-Modified 2025-11-20; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_kcwi_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kcwi/"
+  },
+  "KPCS": {
+   "cite": "W. M. Keck Observatory, Phasing Camera System (PCS) home page (HTTP Last-Modified 2018-08-28; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_pcs_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/pcs/"
+  },
+  "KLWS": {
+   "cite": "W. M. Keck Observatory, LWS home page (HTTP Last-Modified 2019-03-29; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_lws_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lws/"
+  },
+  "KSCL": {
+   "cite": "W. M. Keck Observatory, SCALES home page (HTTP Last-Modified 2026-03-25; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_scales_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/scales/"
+  },
+  "KESI": {
+   "cite": "W. M. Keck Observatory, ESI home page (HTTP Last-Modified 2021-02-27; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_esi_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/esi/"
+  },
+  "KNSP": {
+   "cite": "W. M. Keck Observatory, NIRSPEC home page (HTTP Last-Modified 2026-02-26; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/keck/keck_nirspec_home.html",
+   "url": "https://www2.keck.hawaii.edu/inst/nirspec/"
+  },
+  "KDSPEC": {
+   "cite": "W. M. Keck Observatory, DEIMOS specifications page -- SAME FILE as round-2 key KDSPEC",
+   "file": "rawdata/presets/deimos/keck_deimos_specs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/deimos/specs.html"
+  },
+  "KNOM": {
+   "cite": "W. M. Keck Observatory, \"NIRC2 Observer's Manual\" web page -- SAME FILE as imaging key KNOM",
+   "file": "rawdata/imaging/nirc2/keck_nirc2_ObserversManual.html",
+   "url": "https://www2.keck.hawaii.edu/inst/nirc2/ObserversManual.html"
+  },
+  "M12": {
+   "cite": "McLean, I. S., et al. 2012, Proc. SPIE 8446, 84460J, \"MOSFIRE, the Multi-Object Spectrometer For Infra-Red Exploration at the Keck Observatory\" -- SAME FILE as round-4/imaging key M12",
+   "file": "rawdata/presets/mosfire/McLean2012_SPIE8446_84460J_MOSFIRE_ucla.pdf",
+   "url": "https://irlab.astro.ucla.edu/instruments/mosfire/documents/84460J.pdf"
+  },
+  "KLH": {
+   "cite": "W. M. Keck Observatory, LRIS home page -- SAME FILE as round-1/imaging key KLH",
+   "file": "rawdata/presets/longslit_lris/keck_lris_lrishome.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/lrishome.html"
+  },
+  "HB21": {
+   "cite": "Hinz, P. M., Bowens-Rubin, R., Baranec, C., et al. 2021, \"Developing adaptive secondary mirror concepts for the APF and W.M. Keck Observatory based on HVR technology\", arXiv:2110.01692v1 (used only for the 1.4 m Keck secondary diameter)",
+   "file": "rawdata/telescopes/keck/Hinz2021_AdaptiveSecondary_APF_Keck_HVR_arXiv2110.01692.pdf",
+   "url": "https://arxiv.org/pdf/2110.01692v1"
+  },
+  "C22": {
+   "cite": "Cooke, J., Angus, C., Auchettl, K., et al. 2022, \"Science Cases for the Keck Wide-Field Imager\", arXiv:2207.11698v1 (KWFI: a PROPOSED prime-focus camera)",
+   "file": "rawdata/telescopes/keck/Cooke2022_KWFI_ScienceCases_arXiv2207.11698.pdf",
+   "url": "https://arxiv.org/pdf/2207.11698v1"
+  }
+ },
+ "common": {
+  "title": "Keck I and Keck II: shared primary, f/15 optics, pupil; design-only and proposed foci",
+  "params": {
+   "n_segments": {
+    "value": 36,
+    "unit": "hexagonal segments",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1 (The primary mirrors)",
+    "quote": "The primary mirror comprises 36 hexagonal segments, each 1.8 m across the corners.",
+    "alternatives": [
+     {
+      "value": 36,
+      "src": "KOR90",
+      "loc": "Table 11-1 (Primary Mirror, Geometry)",
+      "quote": "Number of hexagonal segments 36"
+     },
+     {
+      "value": "3 rings",
+      "src": "KOR90",
+      "loc": "Sec. 5.1, Fig. 5-1 caption",
+      "quote": "The geometry of a segmented primary mirror showing three rings of hexagonal segments. The segment edge length a is 0.9m."
+     },
+     {
+      "value": 36,
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "The primary mirror of the Keck II telescope consists of 36 regular hexagonal segments of side length 0.9 m with a segment gap of 0.003 m between each segment."
+     }
+    ],
+    "note": "Both telescopes: KTG02 Sec. 3.1.1 ('The primary mirrors') describes one design for Keck I and Keck II. Three rings around an empty centre: 6 + 12 + 18 = 36 (DERIVED)."
+   },
+   "segment_corner_to_corner": {
+    "value": 1.8,
+    "unit": "m (across the corners)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "The primary mirror comprises 36 hexagonal segments, each 1.8 m across the corners.",
+    "alternatives": [
+     {
+      "value": 1.8,
+      "src": "KOR90",
+      "loc": "Table 11-1",
+      "quote": "Segment diameter l .80m",
+      "note": "OCR 'l .80m' = 1.80 m"
+     },
+     {
+      "value": 1.8,
+      "src": "KIVI",
+      "loc": "Sec. 2.1 Primary mirror",
+      "quote": "The primary mirror comprises 36 hexagonal segments each 1.8 m across the corners."
+     }
+    ],
+    "derived": "DERIVED: corner-to-corner = 2a = 2 x 0.900 m = 1.800 m (mathematical tiling); physical segment 2 x 0.89827 = 1.7965 m."
+   },
+   "segment_side": {
+    "value": 0.9,
+    "unit": "m (hexagon side, projected on the sky; mathematical tiling without gaps)",
+    "src": "KOR90",
+    "loc": "Sec. 5.1 (Number of Segments)",
+    "quote": "Each segment is a regular hexagon (when viewed from infinity) with a side length a = 0.900m.",
+    "alternatives": [
+     {
+      "value": 0.9,
+      "src": "KOTN163",
+      "loc": "Primary Segments table",
+      "quote": "Primary Segments a(m) 0.9"
+     },
+     {
+      "value": 0.9,
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "36 regular hexagonal segments of side length 0.9 m"
+     }
+    ]
+   },
+   "segment_flat_to_flat": {
+    "value": 1.5588,
+    "unit": "m (across the flats = centre-to-centre segment pitch)",
+    "src": "KOTN163",
+    "loc": "Primary Segments table, segment-centre radii R(m)(oad) of the six segment types",
+    "quote": "R(m)(oad) 1.55885 2.70000 3.11769 4.12432 4.67654",
+    "note": "No source states the flat-to-flat size in words; it follows from the 0.900 m side.",
+    "derived": "DERIVED: flat-to-flat = sqrt(3) a = 1.732051 x 0.900 = 1.55885 m, equal to the first-ring centre radius in KOTN163 (the lattice pitch). The other radii are the lattice: 2.70000 = 3a, 3.11769 = 2 x 1.55885, 4.12432 = sqrt(7) x 1.55885, 4.67654 = 3 x 1.55885. Physical segment flat-to-flat = sqrt(3) x 0.89827 = 1.5558 m (the 3.0 mm gap)."
+   },
+   "segment_side_physical": {
+    "value": 0.89827,
+    "unit": "m (projected side of the physical, gapped segment)",
+    "src": "KOR90",
+    "loc": "Sec. 5.15 (Segment specifications, Hexagon Dimensions)",
+    "quote": "The physical segments have a smaller side length since there is a gap between the segments oft = 3.0mm. Thus the projected side length of the physical segments is a - t / (3) 112 = 898.27mm.",
+    "note": "OCR: 'oft' = 'of t', '(3) 112' = 3^(1/2).",
+    "derived": "DERIVED: 0.900 - 0.0030/sqrt(3) = 0.89827 m."
+   },
+   "segment_gap": {
+    "value": 3.0,
+    "unit": "mm (space between neighbouring segments)",
+    "src": "KOR90",
+    "loc": "Table 11-1",
+    "quote": "Spaces between the segments 3mm",
+    "alternatives": [
+     {
+      "value": 3.0,
+      "src": "KOR90",
+      "loc": "Sec. 5.15",
+      "quote": "there is a gap between the segments oft = 3.0mm"
+     },
+     {
+      "value": 3.0,
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "with a segment gap of 0.003 m between each segment"
+     },
+     {
+      "value": "2.95 (DERIVED)",
+      "src": "H17",
+      "loc": "Table 1",
+      "quote": "Inter-segment gap 2.7x10-4",
+      "note": "normalized to the 10.93 m circumscribed circle: 2.7e-4 x 10.93 m = 2.95 mm"
+     }
+    ]
+   },
+   "nonreflecting_strip": {
+    "value": 7.0,
+    "unit": "mm (gap + 2 mm bevel on each segment edge)",
+    "src": "KOR90",
+    "loc": "Sec. 5.13 (Background Contribution from the Gaps)",
+    "quote": "The gaps between the segments are 3mm wide and there is a 2mm wide bevel on each segment. Thus the total non-reflecting gap is 7mm wide. The total gap area is 0. 7% of the total mirror area.",
+    "alternatives": [
+     {
+      "value": "7 mm, 0.75% of surface",
+      "src": "KOR90",
+      "loc": "Table 11-1",
+      "quote": "Non-reflecting gap including bevels 7mm (0. 75% of total surface)"
+     },
+     {
+      "value": "2 mm each side of the gap",
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "An additional non-reflected gap width of 0.002 m is located on each side of the segment gaps."
+     },
+     {
+      "value": "7 mm = 3 mm + 2 x 2 mm bevels",
+      "src": "KOR90",
+      "loc": "Sec. 5.12",
+      "quote": "The TMT will have 7mm wide gaps, 3mm between the segments and 2mm bevels."
+     }
+    ]
+   },
+   "central_hole": {
+    "value": "one segment position empty (the central hexagon): 1.800 m corner-to-corner, 1.559 m flat-to-flat, 2.104 m^2",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Sec. 5.12 (Diffraction Images at Infrared Wavelengths)",
+    "quote": "The irradiance distribution for the full array (with the central hexagon absent)",
+    "alternatives": [
+     {
+      "value": "2.7% of the primary area",
+      "src": "KOR90",
+      "loc": "Sec. 7.11 (IR Design Considerations), item (6)",
+      "quote": "Background from the emissive region defined by the hole in the primary (2. 7% of the primary area)"
+     },
+     {
+      "value": "hexagonal hole (figure)",
+      "src": "KRBC",
+      "loc": "Sec. 2, Fig. 4 caption",
+      "quote": "the secondary is undersized by a factor of 0.954, with a central hole oversized with respect to the primary's central hole."
+     }
+    ],
+    "derived": "DERIVED: hexagon area (3 sqrt(3)/2) a^2 = 2.1044 m^2; 2.1044 / 75.76 = 2.78% of the 36-segment area. The hole lies wholly inside the 2.6 m secondary obscuration (circumradius 0.90 m < 1.30 m), so it adds nothing to the obscured area at f/15."
+   },
+   "circumscribed_diameter": {
+    "value": 10.949,
+    "unit": "m (circle through the outermost segment corners)",
+    "src": "KOTN163",
+    "loc": "Primary Parameters",
+    "quote": "Primary mirror dia. DP(m) 10.949",
+    "alternatives": [
+     {
+      "value": 10.949,
+      "src": "KRBC",
+      "loc": "Sec. 2",
+      "quote": "The primary mirror has a circumscribed diameter of 10.949 m with a radius of curvature of 34.974 m and a conic constant of -1.003683."
+     },
+     {
+      "value": 10.95,
+      "src": "KTG02",
+      "loc": "Sec. 3.1.1",
+      "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m."
+     },
+     {
+      "value": 10.95,
+      "src": "KOR90",
+      "loc": "Table 11-3 (Optics, Primary)",
+      "quote": "Maximum diameter l0.95m (hexagonal, minimum f-ratio = 1.59)"
+     },
+     {
+      "value": 10.93,
+      "src": "H17",
+      "loc": "Sec. 2, Fig. 1 caption / Table 1",
+      "quote": "The circumscribed circle in white dotted line has a diameter of 10.93 m.",
+      "note": "NIRC2 pupil model of Keck II"
+     }
+    ],
+    "derived": "DERIVED: outermost corner of the 3-ring tiling (a = 0.900 m): sqrt((3 x 1.55885 + 0.77942)^2 + 0.45^2) = 5.4745 m -> 10.949 m. With the physical 0.89827 m sides the outermost reflecting corner is at 10.946 m."
+   },
+   "inscribed_diameter": {
+    "value": 9.0,
+    "unit": "m (largest centred circle inside the serrated outline) DERIVED",
+    "src": "KNRS",
+    "loc": "Input f/ ratio",
+    "quote": "f/15 nominal (f/16.6 cold circular pupil mask to inscribe Keck entrance pupil)",
+    "alternatives": [
+     {
+      "value": "9.02 (DERIVED from f/1.94)",
+      "src": "KOR90",
+      "loc": "Sec. 4.1",
+      "quote": "The on-axis beam leaving the primary mirror has a maximum f-ratio of f/ 1.94 and minimum f-ratio of f/ 1.60.",
+      "note": "17.5 m / 1.94 = 9.02 m (inscribed); 17.5 / 1.60 = 10.94 m (circumscribed)"
+     }
+    ],
+    "note": "No source gives the inscribed diameter in metres; both checks are DERIVED.",
+    "derived": "DERIVED (geometry): the outline's deepest notches lie midway along each of its six sides, where two outer-ring segments meet at a shared corner 5a = 4.50 m from the axis (the next notches along the side are at 4.76 m) -> inscribed diameter 9.00 m (exact for a = 0.900 m). Check: NIRES f/16.6 inscribed mask -> 149.6 m / 16.6 = 9.01 m."
+   },
+   "equivalent_diameter": {
+    "value": 9.96,
+    "unit": "m (circle of the same area as the primary, central hole counted as area)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "The telescope aperture area is equivalent to that with a circular aperture 9.96 m in diameter.",
+    "alternatives": [
+     {
+      "value": 10.0,
+      "src": "KOR90",
+      "loc": "Sec. 4.1",
+      "quote": "The primary mirror consists of 36 hexagonal segments with a total area of 76m 2, equivalent to a filled circular aperture (with equivalent central hole) of lO.Om diameter.",
+      "note": "design; OCR 'lO.Om' = 10.0 m"
+     },
+     {
+      "value": 9.96,
+      "src": "KIVI",
+      "loc": "Sec. 2.1",
+      "quote": "The telescope aperture area is equivalent to that with a circular aperture 9.96 m in diameter."
+     }
+    ],
+    "note": "The nominal f-numbers (f/15, f/25, f/40, primary f/1.75) refer to D = 10 m: see nominal_D_for_f_numbers.",
+    "derived": "DERIVED: 37 hexagons (36 + the empty centre) = 77.864 m^2 -> sqrt(4 x 77.864/pi) = 9.957 m, i.e. KTG02's 9.96 m is the area of the full 37-cell tiling. The 36 segments alone (75.76 m^2) -> 9.822 m. The f/15 clear pupil (75.76 - 3.20 obscured by the 2.6 m baffle - 0.48 spiders - 0.57 non-reflecting strips = 71.5 m^2) -> 9.54 m."
+   },
+   "collecting_area": {
+    "value": 76,
+    "unit": "m^2 (design 'effective collecting area')",
+    "src": "KOR90",
+    "loc": "Table 11-1",
+    "quote": "Effective collecting area 76m 2",
+    "alternatives": [
+     {
+      "value": 75.8,
+      "src": "KOR90",
+      "loc": "Sec. 5.1",
+      "quote": "The total area of the array is 75.8m 2",
+      "note": "36 hexagons, a = 0.900 m"
+     },
+     {
+      "value": "77.9 (DERIVED from 9.96 m)",
+      "src": "KTG02",
+      "loc": "Sec. 3.1.1",
+      "quote": "The telescope aperture area is equivalent to that with a circular aperture 9.96 m in diameter."
+     }
+    ],
+    "note": "No current observatory page with a collecting area in m^2 was found; 76 m^2 is the 1985 design figure.",
+    "derived": "DERIVED: 36 x 2.10444 = 75.76 m^2 (no gaps); minus 0.75% non-reflecting strips (KOR90) = 75.19 m^2; f/15 pupil after the 2.6 m central obscuration and six 25 mm spiders ~ 71.5 m^2 (see equivalent_diameter)."
+   },
+   "primary_focal_length": {
+    "value": 17.5,
+    "unit": "m",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "alternatives": [
+     {
+      "value": "17.487 (DERIVED, R/2)",
+      "src": "KOTN163",
+      "loc": "Primary Parameters",
+      "quote": "Radius of Curvature k(m) 34.9740"
+     },
+     {
+      "value": 17.5,
+      "src": "KOR90",
+      "loc": "Table 11-1",
+      "quote": "Primary focal length (f/ l. 75) l7.5m",
+      "note": "OCR 'l7.5m' = 17.5 m, 'f/ l. 75' = f/1.75"
+     }
+    ],
+    "derived": "DERIVED: 34.974 / 2 = 17.487 m."
+   },
+   "primary_focal_ratio": {
+    "value": 1.75,
+    "unit": "f/# nominal (17.5 m / 10 m)",
+    "src": "KOR90",
+    "loc": "Table 11-1",
+    "quote": "Primary focal length (f/ l. 75) l7.5m",
+    "alternatives": [
+     {
+      "value": "1.59 (circumscribed)",
+      "src": "KOR90",
+      "loc": "Table 11-3",
+      "quote": "Maximum diameter l0.95m (hexagonal, minimum f-ratio = 1.59)"
+     },
+     {
+      "value": "1.60 / 1.94 (circumscribed / inscribed)",
+      "src": "KOR90",
+      "loc": "Sec. 4.1",
+      "quote": "The on-axis beam leaving the primary mirror has a maximum f-ratio of f/ 1.94 and minimum f-ratio of f/ 1.60."
+     }
+    ],
+    "derived": "DERIVED: 17.487 / 10.949 = f/1.597 (circumscribed); 17.487 / 9.00 = f/1.94 (inscribed); 17.487 / 10.0 = f/1.75 (nominal)."
+   },
+   "primary_radius_conic": {
+    "value": "R = 34.974 m, K = -1.003683",
+    "unit": "",
+    "src": "KOTN163",
+    "loc": "Primary Parameters",
+    "quote": "Radius of Curvature k(m) 34.9740 Primary mirror dia. DP(m) 10.949 Primary conic const CC -1.003683",
+    "alternatives": [
+     {
+      "value": "R = 34.974 m, K = -1.003683",
+      "src": "KRBC",
+      "loc": "Sec. 2",
+      "quote": "with a radius of curvature of 34.974 m and a conic constant of -1.003683"
+     },
+     {
+      "value": "R = 35 m, K = -1.003796 (design)",
+      "src": "KOR90",
+      "loc": "Table 11-3",
+      "quote": "f/ 1.75 hyperbola K=-1.003796 (RC at f/ 15)"
+     }
+    ]
+   },
+   "nominal_D_for_f_numbers": {
+    "value": 10.0,
+    "unit": "m (the D behind the names f/1.75, f/15, f/25, f/40)",
+    "src": "KOR90",
+    "loc": "Sec. 4.1",
+    "quote": "equivalent to a filled circular aperture (with equivalent central hole) of lO.Om diameter.",
+    "alternatives": [
+     {
+      "value": "'10-meter'",
+      "src": "KTG02",
+      "loc": "Sec. 1",
+      "quote": "The two 10- meter telescopes of the W. M. Keck Observatory (WMKO) are located near the summit of Mauna Kea"
+     }
+    ],
+    "note": "Instrument papers use either: MOSFIRE uses f/13.66 ('the Keck Cassegrain f/13.66 focal plane', M12, round-4 record).",
+    "derived": "DERIVED: 149.583/10 = 14.96 (f/15), 249.7/10 = 24.97 (f/25), 395.0/10 = 39.5 (f/40), 17.5/10 = 1.75 (primary). Referred to the 10.949 m circumscribed pupil: f/13.66, f/22.8, f/36.1, f/1.60. The plate scale depends only on the focal length."
+   },
+   "site": {
+    "value": "Maunakea, Hawaii: 155 deg 28.4' W, 19 deg 49.6' N, 4123 m; Keck II ~85 m northeast of Keck I",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 2 (The Site); Sec. 1",
+    "quote": "Observatory location: longitude: 155° 28.4' W latitude: 19° 49.6' N altitude: 4123 meter ... The two telescopes are separated by 85 meters, with Keck II roughly northeast of Keck I."
+   },
+   "telescope_type": {
+    "value": "Ritchey-Chretien (f/15 secondary); alt-azimuth mount",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.2; Sec. 3.3.1",
+    "quote": "The f/15 secondary mirror forms a Ritchey Chrétien system in conjunction with the primary mirror, giving zero coma. ... The telescopes are on alt-azimuth mountings, with friction drive around both axes.",
+    "alternatives": [
+     {
+      "value": "'not quite a Rithey-Chretien system at f/15'",
+      "src": "KOTN163",
+      "loc": "parameter table header",
+      "quote": "not quite a Rithey-Chretien system at f/15. (independently defined primary)"
+     }
+    ]
+   },
+   "coatings": {
+    "value": "primary segments, f/15 secondary, tertiary: Zerodur, aluminium; f/40 secondary: diamond-turned electroless nickel on beryllium, gold",
+    "unit": "",
+    "src": "KIVI",
+    "loc": "Sec. 2.6",
+    "quote": "The primary mirror segments, the f/15 secondary mirror and the tertiary flat are optically polished Zerodur with aluminum coatings. The f/40 secondary mirror is diamond-turned electroless nickel on beryllium; the f/40 mirror has gold coating."
+   },
+   "f15_secondary": {
+    "value": "convex hyperboloid, clear diameter 1.3099 m on axis / 1.3994 m for the 20' field; R = -4.737916 m, K = -1.644326",
+    "unit": "",
+    "src": "KOTN163",
+    "loc": "f/15 Secondary Parameters",
+    "quote": "Sec. Rad. Of Curvature k2(m) -4.737916 Sec. Conic const. SCC -1.644326 ... Secondary dia 0º FOV DS0 (m) 1.309857 Secondary dia inc FOV (m) 1.399421",
+    "alternatives": [
+     {
+      "value": "1.429 m clear aperture, R = -4.8493 m, K = -1.64308 (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4",
+      "quote": "Clear aperture 1.429m (20 arcminute FOV) Radius of curvature -4.8493m Conic constant K2 -1.64308"
+     },
+     {
+      "value": "1.4 m",
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "The secondary mirror has a diameter of 1.4 m"
+     },
+     {
+      "value": "1.4 m",
+      "src": "HB21",
+      "loc": "Sec. 6.3 (Actuator Tradeoff)",
+      "quote": "For the Keck secondary diameter (1.4 m)"
+     }
+    ],
+    "note": "Convex: its radius has the opposite sign to the primary's (+34.974 m) in the same table. KOTN163 (1991) says the secondary was then being made and 'these parameters are not final'. The 2.6 m baffle near the secondary (central_obscuration) sets the f/15 central obscuration.",
+    "derived": "DERIVED: magnification m = 149.583 / 17.487 = 8.554 (KOTN163 'm 8.55394865')."
+   },
+   "f15_primary_secondary_distance": {
+    "value": 15.394985,
+    "unit": "m",
+    "src": "KOTN163",
+    "loc": "f/15 Secondary Parameters",
+    "quote": "Primary-sec. Dist d(m) 15.394985",
+    "alternatives": [
+     {
+      "value": "15.358 (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4",
+      "quote": "Distance to primary l5.358m"
+     }
+    ]
+   },
+   "f15_focal_length": {
+    "value": 149.583,
+    "unit": "m",
+    "src": "KOTN163",
+    "loc": "f/15 Secondary Parameters",
+    "quote": "Final focal length f(m) 149.583",
+    "alternatives": [
+     {
+      "value": 149.6,
+      "src": "KTG02",
+      "loc": "Table 2",
+      "quote": "Focal length (m) 149.6 249.7 395.0"
+     },
+     {
+      "value": 149.6,
+      "src": "KIVI",
+      "loc": "Table 2",
+      "quote": "Focal length (m) 149.6 395.0"
+     },
+     {
+      "value": 150.0,
+      "src": "KOR90",
+      "loc": "Table 4-1",
+      "quote": "Nasmyth 150.0 3.00±0.96 1.38 20 .873 2.180",
+      "note": "design"
+     }
+    ]
+   },
+   "f15_plate_scale": {
+    "value": 1.379,
+    "unit": "arcsec/mm (0.725 mm/arcsec)",
+    "src": "KTG02",
+    "loc": "Table 2",
+    "quote": "Scale (mm/arcsec) 0.725 1.211 1.915",
+    "alternatives": [
+     {
+      "value": "1.38 arcsec/mm",
+      "src": "KOR90",
+      "loc": "Table 11-3",
+      "quote": "Scale 1.38 arcseconds/mm"
+     },
+     {
+      "value": "0.72516 mm/arcsec",
+      "src": "M12",
+      "loc": "Sec. 3 'Imaging Plate Scale'",
+      "quote": "nominal scale is 0.72516 mm/\")"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 149583 mm = 1.37894 arcsec/mm; 1 / 0.725 = 1.3793; 1 / 0.72516 = 1.37901."
+   },
+   "f15_field": {
+    "value": "20 arcmin diameter (870 mm)",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Table 2",
+    "quote": "Field diameter (arcmin) 20 10 10 (mm) 870 727 1138",
+    "alternatives": [
+     {
+      "value": "0.870 m for 20'",
+      "src": "KOTN163",
+      "loc": "f/15 Secondary Parameters",
+      "quote": "Field size for 20' FOV (m) 0.870"
+     },
+     {
+      "value": "20' unvignetted with baffles (Cassegrain and Nasmyth; design)",
+      "src": "KOR90",
+      "loc": "Table 11-3",
+      "quote": "Unvignetted field 20 arcminutes(0.87m)(with baffies)"
+     },
+     {
+      "value": "30' / 1.30 m with images < 1\" (design)",
+      "src": "KOR90",
+      "loc": "Table 11-3",
+      "quote": "Field 30 arcminutes/ 1.30m (images < l arcsecond)"
+     }
+    ],
+    "note": "The f/15 secondary is sized for the 20' field (1.3994 m 'inc FOV', KOTN163; '1.429m (20 arcminute FOV)', KOR90)."
+   },
+   "f15_image_quality": {
+    "value": "rms image diameter 0.09\" at 5' radius, 0.36\" at 10' radius (astigmatism)",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Table 2",
+    "quote": "Field radius / rms image diameter due to 5 / 0.09 2.5 / 0.19 2.5 / 0.21 (arcmin) / aberrations (arcsec) 10 / 0.36 5 / 0.41 5 / 0.42 (astigmatism) (mainly coma) (mainly coma)"
+   },
+   "f15_focal_surface": {
+    "value": "concave toward the secondary, radius 2.14 m",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Table 2",
+    "quote": "Approx. radius of curvature of focal surface (m) 2.14 0.82 0.85 (concave to secondary mirror)",
+    "alternatives": [
+     {
+      "value": "2.123573 m",
+      "src": "KOTN163",
+      "loc": "f/15 Secondary Parameters",
+      "quote": "Focal radius of curv. 1/km (m) 2.123573"
+     }
+    ]
+   },
+   "f15_back_focal_distance": {
+    "value": 2.5,
+    "unit": "m behind the primary vertex (Cassegrain focal plane)",
+    "src": "KOTN163",
+    "loc": "f/15 Secondary Parameters",
+    "quote": "Back focal distance e(m) 2.5000",
+    "alternatives": [
+     {
+      "value": "3 m (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4",
+      "quote": "Primary vertex - focal plane distance 3m"
+     },
+     {
+      "value": "3.00 +/- 0.96 m (design range of focus)",
+      "src": "KOR90",
+      "loc": "Table 4-1",
+      "quote": "Cassegrain 150.0 3.00 ±0.96 1.38 20 .873 2.180"
+     },
+     {
+      "value": "instrument in the rear of the primary support",
+      "src": "KTG02",
+      "loc": "Sec. 3.1.2",
+      "quote": "It may be used directly with the instrument mounted in the rear of the primary mirror support structure or with the tertiary flat for bent Cassegrain or Nasmyth foci."
+     }
+    ]
+   },
+   "tertiary": {
+    "value": "flat, on the elevation axis; folds the f/15 (or f/40) beam 90 deg to a Nasmyth or bent Cassegrain focus; design clear aperture 1.04 x 1.43 m",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.2.2",
+    "quote": "With a (flat) tertiary mirror mounted on the elevation axis, the f/15 beam can be sent to either of two Nasmyth platforms (left and right) or to any of four bent Cassegrain focal stations.",
+    "alternatives": [
+     {
+      "value": "1.04 m x 1.43 m, 4.0 m in front of the primary (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4 (Tertiary Mirror)",
+      "quote": "Clear aperture l.04m X l.43m (20 arcminute unvignetted field) Distance to primary -4.0m"
+     },
+     {
+      "value": "folds 90 deg; tertiary to focal plane 6.500 m (f/40 bent Cass)",
+      "src": "KRBC",
+      "loc": "Sec. 2",
+      "quote": "The tertiary mirror is a flat which folds the f/40 beam by 90 deg to the bent Cassegrain focus. The distance from the tertiary to the optimal focal plane is 6.500 m."
+     },
+     {
+      "value": "elevation axis 4.00 m from the primary vertex (design)",
+      "src": "KOR90",
+      "loc": "Table 11-2",
+      "quote": "Elevation axis to mirror vertex 4.00m"
+     }
+    ],
+    "note": "Projected on the pupil the 1.04 x 1.43 m flat at 45 deg spans ~1.04 x 1.01 m, inside the 2.6 m secondary shadow (DERIVED), so it adds no obscuration in this description; no source gives a tertiary-tower obstruction.",
+    "derived": "DERIVED: tertiary-to-focus for f/15 = 4.00 m (elevation axis above vertex) + 2.50 m (back focal distance) = 6.50 m, matching KRBC's 6.500 m for the parfocal f/40."
+   },
+   "nasmyth_geometry": {
+    "value": "platforms 5 x 8 m each side; beam 1.5 m above the platform; focal point 1 m from the elevation-bearing centreline (design)",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Table 11-3 (Nasmyth, one each side)",
+    "quote": "Weight limit 10 tons Space platform 5 x 8m Beam height l.5m above platform Focal point l m from vertical centerline of elevation bearing"
+   },
+   "bent_cass_stations": {
+    "value": "four bent Cassegrain stations, numbered 1-4 from the left Nasmyth side; design field 5 arcmin",
+    "unit": "",
+    "src": "KIVI",
+    "loc": "Sec. 2.2",
+    "quote": "to any of four bent Cassegrain focal stations, designated 1 through 4, with 1 nearest the left Nasmyth and 4 nearest the right Nasmyth platform.",
+    "alternatives": [
+     {
+      "value": "5 arcmin field (design)",
+      "src": "KOR90",
+      "loc": "Table 11-3 (Bent Cassegrain)",
+      "quote": "Space l m diameter X 2.0m long Available distance behind focus lm Field of view 5 arcminutes"
+     },
+     {
+      "value": "5' / 0.219 m (design)",
+      "src": "KOR90",
+      "loc": "Table 4-1",
+      "quote": "Cassegrain 150.0 3.00±0.96 1.38 5 .219 2.180",
+      "note": "the Bent Cassegrain row"
+     },
+     {
+      "value": "four ports on the bent Cass platforms (figure)",
+      "src": "KRBC",
+      "loc": "Fig. 1 caption",
+      "quote": "Perspective view of the telescope. The bent Cassegrain ports are indicated.",
+      "figure_readoff": "RBC_Manual-1.jpg labels 'BENT CASS PLATFORMS', 'VISITOR PORTS (4)', 'TERTIARY TOWER', 'LEFT NASMYTH', 'RIGHT NASMYTH', 'CASSEGRAIN PLATFORM'"
+     }
+    ]
+   },
+   "central_obscuration": {
+    "value": 2.6,
+    "unit": "m diameter, circular (secondary + its baffle)",
+    "src": "KOR90",
+    "loc": "Table 11-3 (f/15 focus)",
+    "quote": "Balling near secondary, diameter 2.6m",
+    "alternatives": [
+     {
+      "value": 2.6,
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "The diameter of the secondary obscuration was measured to be 2.6 m4 and 2.48 m via images taken by the NIRC2 camera",
+      "note": "'m4' = m + footnote 4 (= KOR90); 2.48 m from Arriaga et al. 2016 NIRC2 pupil images (footnote 6); L21 adopts 2.48 m"
+     },
+     {
+      "value": 2.65,
+      "src": "CPSF",
+      "loc": "AO Sign Conventions and Geometry",
+      "quote": "The secondary obscuration (including mirror support and baffling) is circular with a diameter of 2.65 m on the center of the primary mirror."
+     },
+     {
+      "value": "0.24 of 10.93 m = 2.62 m",
+      "src": "H17",
+      "loc": "Table 1",
+      "quote": "Central obstruction diam. 0.24"
+     },
+     {
+      "value": 2.6,
+      "src": "SE17",
+      "loc": "Sec. 2",
+      "quote": "for a 2.6 m central obscuration, a 10 m diameter primary has Ls = 0.07"
+     }
+    ],
+    "note": "OCR 'Balling' = 'Baffling'. All values are Keck II measurements or the common design; no Keck I measurement found. Fraction of the circumscribed diameter: 2.6 / 10.949 = 0.237; 2.48 / 10.949 = 0.227; 2.65 / 10.949 = 0.242; H17 0.24 (of 10.93 m). The explorer's existing Keck records use eps = 0.24 (H17).",
+    "derived": "DERIVED: obscured reflecting area = pi (1.3 m)^2 - 2.104 m^2 (empty centre) = 3.20 m^2 for 2.6 m (2.73 m^2 for 2.48 m)."
+   },
+   "spiders": {
+    "value": "6 vanes, 25 mm wide",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Sec. 7.3 (Telescope Tube and Elevation Ring)",
+    "quote": "The 25mm (1 inch) wide spiders obscure an additional 0. 7% of the primary. ... The proposed spider orientation has six spiders attached to a hexagonal upper ring that is rotated 30 degrees relative to the primary hexagon.",
+    "alternatives": [
+     {
+      "value": "6 supports, 0.025 m wide",
+      "src": "L21",
+      "loc": "Sec. 2",
+      "quote": "including six secondary supports, the secondary mirror, and the secondary obscuration. ... The spider arms supporting the secondary structure have a uniform width of 0.025 m."
+     },
+     {
+      "value": "0.0023 of 10.93 m = 25.1 mm",
+      "src": "H17",
+      "loc": "Table 1",
+      "quote": "Entrance pupil spider width 0.0023"
+     },
+     {
+      "value": "0.7% of the primary",
+      "src": "KOR90",
+      "loc": "Sec. 7.11 item (2)",
+      "quote": "Top end spiders will block 0. 7% of the primary."
+     }
+    ],
+    "derived": "DERIVED: 6 x 0.025 m x 3.2 m (from the 1.3 m obscuration radius to the 4.5 m outline notch) = 0.48 m^2 = 0.63% of 75.76 m^2 (KOR90 0.7%). H17: 0.0023 x 10.93 m = 25.1 mm."
+   },
+   "spider_orientation": {
+    "value": "parallel to the segment edges, 60 deg apart, each running from the central obscuration out to the midpoint of one side of the hexagonal outline",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Sec. 7.3",
+    "quote": "we have decided to orient the secondary support spiders so that their diffractive effects will have the same alignment as those caused by the segment cracks.",
+    "alternatives": [
+     {
+      "value": "radial vanes at 30, 90, 150, 210, 270, 330 deg in the L21 frame (figure)",
+      "src": "L21",
+      "loc": "Fig. 1 caption",
+      "quote": "Diagram of the Keck II pupil. The secondary support structure includes all components in the plane of the secondary mirror.",
+      "figure_readoff": "Fig. 1 of L21 (page 2): segments drawn with vertices up/down (vertical edges); outline corners on the +/-x axis (0, 60, 120 ... deg); the six spider arms run from the central disc along 30, 90, 150, 210, 270, 330 deg to the flat sides of the outline, i.e. parallel to the segment edges (90, +/-30 deg)."
+     }
+    ],
+    "note": "Read with KOR90's 'six spiders attached to a hexagonal upper ring that is rotated 30 degrees relative to the primary hexagon': the spiders point at the outline's side midpoints, not its corners. Along each vane (e.g. 90 deg, x = 0) the shadow runs along a segment gap from r = 0.9 to 1.8 m, across the long diagonal of the second-ring segment centred at r = 2.7 m, then along a gap again from 3.6 to 4.5 m (DERIVED from the tiling)."
+   },
+   "spider_nodes": {
+    "value": "six nodes where the vanes meet the central obscuration: 0.3692 m long x 0.08 m wide (NIRC2 pupil images)",
+    "unit": "",
+    "src": "L21",
+    "loc": "Sec. 2",
+    "quote": "nodes of the spider arms are measured to have a length of 0.3692 m and a width of 0.08m."
+   },
+   "pupil_rotation": {
+    "value": "alt-az: the pupil (segments, spiders) and the field rotate relative to each other; Nasmyth instruments see the pupil rotate unless the AO K-mirror tracks it",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 4.9 (AO); Sec. 4.9.1",
+    "quote": "The AO system also provides field (or pupil) de-rotation with a K-mirror rotator ... a K-mirror to provide field or pupil de-rotation,",
+    "alternatives": [
+     {
+      "value": "pupil nutation ~1% of the primary diameter (Keck II AO)",
+      "src": "L21",
+      "loc": "Sec. 2.1",
+      "quote": "the Keck II pupil nutation has been measured to be approximately 1% of the diameter of the primary mirror."
+     }
+    ]
+   },
+   "prime_focus_design": {
+    "value": "prime focus f/1.75 (17.5 m, 11.79\"/mm, ~1' uncorrected) and a prime-focus camera f/2 (20.0 m, 10.31\"/mm, 30' field): 1985 DESIGN only",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Table 4-1 (Focal Plane Specifications)",
+    "quote": "Prime Focus 20.0 -17.60 10.31 30 .175 Flat 2m x 1.5m 500 ... Prime 17.5 -17.5 11.79 2m x 3m 2000",
+    "alternatives": [
+     {
+      "value": "11.8\"/mm; ~1' uncorrected",
+      "src": "KOR90",
+      "loc": "Table 11-3 (Prime focus)",
+      "quote": "Scale 11.8 arcsecond/ mm"
+     }
+    ],
+    "note": "Not among the foci of the 2002 telescope guide (KTG02 Table 2 lists f/15, f/25, f/40 only). See kwfi_proposed for the proposed prime-focus imager."
+   },
+   "coude_design": {
+    "value": "coude f/100 (1000 m, 0.206\"/mm, 1.5' field): 1985 DESIGN only",
+    "unit": "",
+    "src": "KOR90",
+    "loc": "Table 4-1",
+    "quote": "ICoude 1000.0 70.0+ 34 0.206 1.5 .436",
+    "alternatives": [
+     {
+      "value": "f/100 secondary 0.9485 m (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4",
+      "quote": "f/ l 00 Coude focus Secondary Mirror Clear aperture 0.9485m"
+     }
+    ],
+    "note": "Not among the KTG02 foci."
+   },
+   "kwfi_proposed": {
+    "value": "PROPOSED Keck Wide-Field Imager at prime focus, 1 deg diameter field",
+    "unit": "",
+    "src": "C22",
+    "loc": "Abstract; Sec. 1",
+    "quote": "The Keck Wide-Field Imager (KWFI) is a proposed 1-degree diameter field of view UV-sensitive optical camera for Keck prime focus.",
+    "alternatives": [
+     {
+      "value": "prime focus gives a large field",
+      "src": "C22",
+      "loc": "Sec. 1",
+      "quote": "The fast focal length of the Keck telescopes accommodates a large field of view (FOV) at prime focus."
+     }
+    ],
+    "note": "C22 does not say which telescope; no focal length or plate scale is given in C22 (NOT FOUND)."
+   }
+  },
+  "pupil": {
+   "outline": "serrated hexagon: 36 regular hexagonal segments in 3 rings (6 + 12 + 18) around an empty central segment position",
+   "frame": "pupil x, y in metres on the primary as seen from the sky, oriented as L21 Fig. 1: segments have vertices along +/-y (vertical edges); the outline's six outer corners lie at 0, 60, 120, 180, 240, 300 deg; the outline's flat (serrated) sides face 30, 90, 150 ... deg. Absolute orientation on the sky rotates (alt-az mount).",
+   "n_segments": 36,
+   "n_rings": 3,
+   "segment_shape": "regular hexagon",
+   "segment_side_m": 0.9,
+   "segment_corner_to_corner_m": 1.8,
+   "segment_flat_to_flat_m": 1.5588,
+   "segment_pitch_m": 1.5588,
+   "segment_side_physical_m": 0.89827,
+   "segment_gap_m": 0.003,
+   "nonreflecting_strip_m": 0.007,
+   "central_hole": {
+    "shape": "hexagon (one empty segment position)",
+    "corner_to_corner_m": 1.8,
+    "flat_to_flat_m": 1.5588,
+    "area_m2": 2.104
+   },
+   "circumscribed_diameter_m": 10.949,
+   "circumscribed_alternatives_m": [
+    10.95,
+    10.93
+   ],
+   "inscribed_diameter_m_DERIVED": 9.0,
+   "equivalent_diameter_m": 9.96,
+   "equivalent_diameter_note": "area of the 37-cell tiling (central hole counted); 36 segments alone = 9.82 m (DERIVED); f/15 clear pupil ~9.54 m (DERIVED)",
+   "nominal_D_for_f_numbers_m": 10.0,
+   "collecting_area_m2": 76,
+   "collecting_area_note": "1985 design value; 36 x 2.1044 = 75.76 m^2 geometric (DERIVED); ~71.5 m^2 clear at f/15 after obscuration, spiders and gaps (DERIVED)",
+   "central_obscuration_diameter_m": 2.6,
+   "central_obscuration_alternatives_m": {
+    "L21_Arriaga2016_measured": 2.48,
+    "H17": 2.62,
+    "CPSF": 2.65,
+    "SE17": 2.6
+   },
+   "eps_explorer": 0.24,
+   "eps_note": "explorer convention (H17: 0.24 of the 10.93 m circumscribed circle); 2.6 / 10.949 = 0.237",
+   "spiders": {
+    "n": 6,
+    "width_m": 0.025,
+    "angles_deg": [
+     30,
+     90,
+     150,
+     210,
+     270,
+     330
+    ],
+    "radial_extent_m": [
+     1.3,
+     4.5
+    ],
+    "orientation": "parallel to segment edges, pointing at the midpoints of the outline's sides (hexagonal top ring rotated 30 deg to the primary hexagon)",
+    "nodes": {
+     "n": 6,
+     "length_m": 0.3692,
+     "width_m": 0.08
+    }
+   },
+   "segment_centres_DERIVED": [
+    {
+     "ring": 1,
+     "x_m": 1.5588,
+     "y_m": 0.0
+    },
+    {
+     "ring": 1,
+     "x_m": 0.7794,
+     "y_m": 1.35
+    },
+    {
+     "ring": 1,
+     "x_m": -0.7794,
+     "y_m": 1.35
+    },
+    {
+     "ring": 1,
+     "x_m": -1.5588,
+     "y_m": 0.0
+    },
+    {
+     "ring": 1,
+     "x_m": -0.7794,
+     "y_m": -1.35
+    },
+    {
+     "ring": 1,
+     "x_m": 0.7794,
+     "y_m": -1.35
+    },
+    {
+     "ring": 2,
+     "x_m": 3.1177,
+     "y_m": 0.0
+    },
+    {
+     "ring": 2,
+     "x_m": 2.3383,
+     "y_m": 1.35
+    },
+    {
+     "ring": 2,
+     "x_m": 1.5588,
+     "y_m": 2.7
+    },
+    {
+     "ring": 2,
+     "x_m": 0.0,
+     "y_m": 2.7
+    },
+    {
+     "ring": 2,
+     "x_m": -1.5588,
+     "y_m": 2.7
+    },
+    {
+     "ring": 2,
+     "x_m": -2.3383,
+     "y_m": 1.35
+    },
+    {
+     "ring": 2,
+     "x_m": -3.1177,
+     "y_m": 0.0
+    },
+    {
+     "ring": 2,
+     "x_m": -2.3383,
+     "y_m": -1.35
+    },
+    {
+     "ring": 2,
+     "x_m": -1.5588,
+     "y_m": -2.7
+    },
+    {
+     "ring": 2,
+     "x_m": 0.0,
+     "y_m": -2.7
+    },
+    {
+     "ring": 2,
+     "x_m": 1.5588,
+     "y_m": -2.7
+    },
+    {
+     "ring": 2,
+     "x_m": 2.3383,
+     "y_m": -1.35
+    },
+    {
+     "ring": 3,
+     "x_m": 4.6765,
+     "y_m": 0.0
+    },
+    {
+     "ring": 3,
+     "x_m": 3.8971,
+     "y_m": 1.35
+    },
+    {
+     "ring": 3,
+     "x_m": 3.1177,
+     "y_m": 2.7
+    },
+    {
+     "ring": 3,
+     "x_m": 2.3383,
+     "y_m": 4.05
+    },
+    {
+     "ring": 3,
+     "x_m": 0.7794,
+     "y_m": 4.05
+    },
+    {
+     "ring": 3,
+     "x_m": -0.7794,
+     "y_m": 4.05
+    },
+    {
+     "ring": 3,
+     "x_m": -2.3383,
+     "y_m": 4.05
+    },
+    {
+     "ring": 3,
+     "x_m": -3.1177,
+     "y_m": 2.7
+    },
+    {
+     "ring": 3,
+     "x_m": -3.8971,
+     "y_m": 1.35
+    },
+    {
+     "ring": 3,
+     "x_m": -4.6765,
+     "y_m": 0.0
+    },
+    {
+     "ring": 3,
+     "x_m": -3.8971,
+     "y_m": -1.35
+    },
+    {
+     "ring": 3,
+     "x_m": -3.1177,
+     "y_m": -2.7
+    },
+    {
+     "ring": 3,
+     "x_m": -2.3383,
+     "y_m": -4.05
+    },
+    {
+     "ring": 3,
+     "x_m": -0.7794,
+     "y_m": -4.05
+    },
+    {
+     "ring": 3,
+     "x_m": 0.7794,
+     "y_m": -4.05
+    },
+    {
+     "ring": 3,
+     "x_m": 2.3383,
+     "y_m": -4.05
+    },
+    {
+     "ring": 3,
+     "x_m": 3.1177,
+     "y_m": -2.7
+    },
+    {
+     "ring": 3,
+     "x_m": 3.8971,
+     "y_m": -1.35
+    }
+   ],
+   "refs": [
+    "common.n_segments",
+    "common.segment_side",
+    "common.segment_corner_to_corner",
+    "common.segment_flat_to_flat",
+    "common.segment_side_physical",
+    "common.segment_gap",
+    "common.nonreflecting_strip",
+    "common.central_hole",
+    "common.circumscribed_diameter",
+    "common.inscribed_diameter",
+    "common.equivalent_diameter",
+    "common.collecting_area",
+    "common.central_obscuration",
+    "common.spiders",
+    "common.spider_orientation",
+    "common.spider_nodes"
+   ]
+  },
+  "primary": {
+   "n_segments": 36,
+   "segment_corner_to_corner_m": 1.8,
+   "segment_flat_to_flat_m_DERIVED": 1.5588,
+   "circumscribed_diameter_m": 10.949,
+   "inscribed_diameter_m_DERIVED": 9.0,
+   "equivalent_diameter_m": 9.96,
+   "focal_length_m": 17.5,
+   "focal_length_from_R_m_DERIVED": 17.487,
+   "F_nominal": 1.75,
+   "F_circumscribed_DERIVED": 1.6,
+   "radius_of_curvature_m": 34.974,
+   "conic": -1.003683,
+   "collecting_area_m2_design": 76,
+   "coating": "aluminium on Zerodur",
+   "refs": [
+    "common.primary_focal_length",
+    "common.primary_focal_ratio",
+    "common.primary_radius_conic",
+    "common.coatings"
+   ]
+  },
+  "design_only_and_proposed_foci": [
+   {
+    "id": "PF-design",
+    "name": "Prime focus f/1.75 (1985 design only)",
+    "focal_length_m": 17.5,
+    "plate_scale_arcsec_per_mm": 11.79,
+    "field": "~1' uncorrected",
+    "n_reflections_DERIVED": 1,
+    "ref": "common.prime_focus_design"
+   },
+   {
+    "id": "PFC-design",
+    "name": "Prime-focus camera f/2 (1985 design only)",
+    "focal_length_m": 20.0,
+    "plate_scale_arcsec_per_mm": 10.31,
+    "field_arcmin": 30,
+    "field_mm": 175,
+    "ref": "common.prime_focus_design"
+   },
+   {
+    "id": "COUDE-design",
+    "name": "Coude f/100 (1985 design only)",
+    "focal_length_m": 1000.0,
+    "plate_scale_arcsec_per_mm": 0.206,
+    "field_arcmin": 1.5,
+    "ref": "common.coude_design"
+   },
+   {
+    "id": "KWFI-proposed",
+    "name": "Prime focus with the proposed Keck Wide-Field Imager",
+    "field_deg": 1.0,
+    "n_reflections_DERIVED": 1,
+    "telescope": "NOT FOUND",
+    "focal_length_m": "NOT FOUND",
+    "ref": "common.kwfi_proposed"
+   }
+  ],
+  "not_found": [
+   "A Keck I measurement of the pupil (central obscuration, spider widths): every measured value (2.48 m, H17's 0.24, the 0.3692 x 0.08 m nodes) is Keck II/NIRC2; Keck I is assumed to share the design (KTG02 Sec. 3.1 describes both telescopes together).",
+   "A current observatory statement of the collecting area in m^2 (only the 1985 design 76 m^2 and KTG02's 9.96 m equivalent circle) and of the inscribed diameter (DERIVED 9.00 m; NIRES f/16.6 inscribed mask -> 9.01 m).",
+   "The as-built tertiary size (only the 1985 design 1.04 x 1.43 m) and any obstruction by the tertiary tower.",
+   "The as-built f/15 secondary diameter beyond '1.4 m' (KOTN163 1991 values were 'not final'). Nelson & Mast SPIE papers on the as-built telescope were not obtained (SPIE, not open); the 1985 design report KOR90 and KOTN 163 were used instead.",
+   "KWFI (proposed prime focus): telescope, focal length, plate scale."
+  ],
+  "conflicts": [
+   "Circumscribed diameter: 10.949 m (KOTN163, KRBC; equals the a = 0.900 m tiling) vs 10.95 m (KTG02, KOR90) vs 10.93 m (H17 NIRC2 model).",
+   "Central obscuration: 2.6 m (KOR90 design baffle; SE17; L21 citing KOR90) vs 2.48 m (Arriaga et al. 2016 NIRC2 pupil images, via L21, which adopts it) vs 2.65 m (CPSF, 'including mirror support and baffling') vs 2.62 m (H17: 0.24 x 10.93). As fractions of 10.949 m: 0.237, 0.227, 0.242, 0.239.",
+   "f/15 secondary diameter: 1.3099 m on axis / 1.3994 m with the 20' field (KOTN163, 1991, 'not final') vs 1.429 m clear aperture (KOR90 1985 design) vs '1.4 m' (L21, HB21). R = -4.737916 m (KOTN163) vs -4.8493 m (KOR90).",
+   "f/15 focal length 149.583 m (KOTN163) vs 149.6 m (KTG02, KIVI) vs 150.0 m (KOR90 design); back focal distance 2.50 m (KOTN163) vs 3.0 m (KOR90 design).",
+   "Primary: K = -1.003683, R = 34.974 m (KOTN163, KRBC) vs K = -1.003796 / -1.0038, R = 35 m (KOR90 design); focal length 17.5 m (KTG02, KOR90) vs 17.487 m DERIVED from R.",
+   "Area: 76 m^2 (KOR90 Table 11-1) vs 75.8 m^2 (KOR90 Sec. 5.1, 36 x 2.104) vs 77.9 m^2 implied by KTG02's 9.96 m equivalent circle (which counts the empty centre; DERIVED).",
+   "Nasmyth sides: K16 puts DEIMOS on the 'left' Nasmyth and NIRC2/the Keck II AO on the 'right'; KTG02, KDSPEC, KNOM, KKCWI, KIA and K16's own Sec. 5 put DEIMOS (with KCWI, NIRSPEC) on the right and the AO/NIRC2 on the left. The Keck documents are adopted."
+  ],
+  "notes": [
+   "Both telescopes share one optical design: KTG02 Sec. 3.1 ('The primary mirrors', 'The f/15 secondary mirrors') and KIVI describe a single primary and f/15 system; the IR secondaries differ (Keck I f/25 forward Cassegrain, Keck II f/40 IFSM).",
+   "Nominal f-numbers use D = 10 m (f/15 = 149.6/10); instrument papers often use 10.95 m (f/13.66). Plate scale = 206264.8 / f; e.g. f/15: 1.379\"/mm (0.725 mm/\").",
+   "Reflections: Cassegrain 2 (M1, M2); Nasmyth and bent Cassegrain 3 (plus the flat M3 on the elevation axis); forward Cassegrain f/25 2; AO-fed: 3 to the Nasmyth focus, 10 to the Keck II NIRC2 window (KAON501), 9 on Keck I (DERIVED, NL13).",
+   "Pupil drawing: segment centres (segment_centres_DERIVED) are the a = 0.900 m hexagonal lattice (pitch 1.5588 m) minus the centre; segments have vertices along +/-y; spiders at 30, 90, ... 330 deg from 1.3 m to 4.5 m; obscuration a 2.6 m disc (0.24 x 10.95 m in the explorer convention). Physical segments are 0.89827 m on a side (3 mm gaps); 2 mm bevels make 7 mm non-reflecting strips.",
+   "OCR artefacts in KOR90 quotes are kept verbatim ('l' for 1, 'O' for 0, 'Balling'/'baffies' for Baffling/baffles, '(3) 112' for 3^(1/2))."
+  ]
+ },
+ "keck1": {
+  "title": "Keck I (first science 1994): Cassegrain, right Nasmyth, left Nasmyth AO, bent Cassegrain f/15; historical f/25 forward Cassegrain",
+  "telescope": {
+   "name": "Keck I",
+   "site": "Maunakea, Hawaii: 155 deg 28.4' W, 19 deg 49.6' N, 4123 m (common.site)",
+   "mount": "alt-azimuth (common.telescope_type)",
+   "optical_design": "Ritchey-Chretien (f/15)",
+   "primary": {
+    "n_segments": 36,
+    "segment_corner_to_corner_m": 1.8,
+    "segment_flat_to_flat_m_DERIVED": 1.5588,
+    "circumscribed_diameter_m": 10.949,
+    "inscribed_diameter_m_DERIVED": 9.0,
+    "equivalent_diameter_m": 9.96,
+    "focal_length_m": 17.5,
+    "focal_length_from_R_m_DERIVED": 17.487,
+    "F_nominal": 1.75,
+    "F_circumscribed_DERIVED": 1.6,
+    "radius_of_curvature_m": 34.974,
+    "conic": -1.003683,
+    "collecting_area_m2_design": 76,
+    "coating": "aluminium on Zerodur",
+    "refs": [
+     "common.primary_focal_length",
+     "common.primary_focal_ratio",
+     "common.primary_radius_conic",
+     "common.coatings"
+    ]
+   },
+   "pupil": {
+    "outline": "serrated hexagon: 36 regular hexagonal segments in 3 rings (6 + 12 + 18) around an empty central segment position",
+    "frame": "pupil x, y in metres on the primary as seen from the sky, oriented as L21 Fig. 1: segments have vertices along +/-y (vertical edges); the outline's six outer corners lie at 0, 60, 120, 180, 240, 300 deg; the outline's flat (serrated) sides face 30, 90, 150 ... deg. Absolute orientation on the sky rotates (alt-az mount).",
+    "n_segments": 36,
+    "n_rings": 3,
+    "segment_shape": "regular hexagon",
+    "segment_side_m": 0.9,
+    "segment_corner_to_corner_m": 1.8,
+    "segment_flat_to_flat_m": 1.5588,
+    "segment_pitch_m": 1.5588,
+    "segment_side_physical_m": 0.89827,
+    "segment_gap_m": 0.003,
+    "nonreflecting_strip_m": 0.007,
+    "central_hole": {
+     "shape": "hexagon (one empty segment position)",
+     "corner_to_corner_m": 1.8,
+     "flat_to_flat_m": 1.5588,
+     "area_m2": 2.104
+    },
+    "circumscribed_diameter_m": 10.949,
+    "circumscribed_alternatives_m": [
+     10.95,
+     10.93
+    ],
+    "inscribed_diameter_m_DERIVED": 9.0,
+    "equivalent_diameter_m": 9.96,
+    "equivalent_diameter_note": "area of the 37-cell tiling (central hole counted); 36 segments alone = 9.82 m (DERIVED); f/15 clear pupil ~9.54 m (DERIVED)",
+    "nominal_D_for_f_numbers_m": 10.0,
+    "collecting_area_m2": 76,
+    "collecting_area_note": "1985 design value; 36 x 2.1044 = 75.76 m^2 geometric (DERIVED); ~71.5 m^2 clear at f/15 after obscuration, spiders and gaps (DERIVED)",
+    "central_obscuration_diameter_m": 2.6,
+    "central_obscuration_alternatives_m": {
+     "L21_Arriaga2016_measured": 2.48,
+     "H17": 2.62,
+     "CPSF": 2.65,
+     "SE17": 2.6
+    },
+    "eps_explorer": 0.24,
+    "eps_note": "explorer convention (H17: 0.24 of the 10.93 m circumscribed circle); 2.6 / 10.949 = 0.237",
+    "spiders": {
+     "n": 6,
+     "width_m": 0.025,
+     "angles_deg": [
+      30,
+      90,
+      150,
+      210,
+      270,
+      330
+     ],
+     "radial_extent_m": [
+      1.3,
+      4.5
+     ],
+     "orientation": "parallel to segment edges, pointing at the midpoints of the outline's sides (hexagonal top ring rotated 30 deg to the primary hexagon)",
+     "nodes": {
+      "n": 6,
+      "length_m": 0.3692,
+      "width_m": 0.08
+     }
+    },
+    "segment_centres_DERIVED": [
+     {
+      "ring": 1,
+      "x_m": 1.5588,
+      "y_m": 0.0
+     },
+     {
+      "ring": 1,
+      "x_m": 0.7794,
+      "y_m": 1.35
+     },
+     {
+      "ring": 1,
+      "x_m": -0.7794,
+      "y_m": 1.35
+     },
+     {
+      "ring": 1,
+      "x_m": -1.5588,
+      "y_m": 0.0
+     },
+     {
+      "ring": 1,
+      "x_m": -0.7794,
+      "y_m": -1.35
+     },
+     {
+      "ring": 1,
+      "x_m": 0.7794,
+      "y_m": -1.35
+     },
+     {
+      "ring": 2,
+      "x_m": 3.1177,
+      "y_m": 0.0
+     },
+     {
+      "ring": 2,
+      "x_m": 2.3383,
+      "y_m": 1.35
+     },
+     {
+      "ring": 2,
+      "x_m": 1.5588,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 0.0,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": -1.5588,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": -2.3383,
+      "y_m": 1.35
+     },
+     {
+      "ring": 2,
+      "x_m": -3.1177,
+      "y_m": 0.0
+     },
+     {
+      "ring": 2,
+      "x_m": -2.3383,
+      "y_m": -1.35
+     },
+     {
+      "ring": 2,
+      "x_m": -1.5588,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 0.0,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 1.5588,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 2.3383,
+      "y_m": -1.35
+     },
+     {
+      "ring": 3,
+      "x_m": 4.6765,
+      "y_m": 0.0
+     },
+     {
+      "ring": 3,
+      "x_m": 3.8971,
+      "y_m": 1.35
+     },
+     {
+      "ring": 3,
+      "x_m": 3.1177,
+      "y_m": 2.7
+     },
+     {
+      "ring": 3,
+      "x_m": 2.3383,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 0.7794,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -0.7794,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -2.3383,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -3.1177,
+      "y_m": 2.7
+     },
+     {
+      "ring": 3,
+      "x_m": -3.8971,
+      "y_m": 1.35
+     },
+     {
+      "ring": 3,
+      "x_m": -4.6765,
+      "y_m": 0.0
+     },
+     {
+      "ring": 3,
+      "x_m": -3.8971,
+      "y_m": -1.35
+     },
+     {
+      "ring": 3,
+      "x_m": -3.1177,
+      "y_m": -2.7
+     },
+     {
+      "ring": 3,
+      "x_m": -2.3383,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -0.7794,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 0.7794,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 2.3383,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 3.1177,
+      "y_m": -2.7
+     },
+     {
+      "ring": 3,
+      "x_m": 3.8971,
+      "y_m": -1.35
+     }
+    ],
+    "refs": [
+     "common.n_segments",
+     "common.segment_side",
+     "common.segment_corner_to_corner",
+     "common.segment_flat_to_flat",
+     "common.segment_side_physical",
+     "common.segment_gap",
+     "common.nonreflecting_strip",
+     "common.central_hole",
+     "common.circumscribed_diameter",
+     "common.inscribed_diameter",
+     "common.equivalent_diameter",
+     "common.collecting_area",
+     "common.central_obscuration",
+     "common.spiders",
+     "common.spider_orientation",
+     "common.spider_nodes"
+    ],
+    "telescope_notes": [
+     "no Keck I pupil measurement found; design shared with Keck II",
+     "laser launched from behind the secondary (inside its shadow; NL16)"
+    ]
+   },
+   "foci": [
+    {
+     "id": "K1-CASS",
+     "name": "Cassegrain f/15",
+     "status": "in use",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 20,
+     "field_mm": 870,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 2,
+     "mirrors": [
+      "primary",
+      "f/15 secondary"
+     ],
+     "location": "straight Cassegrain behind the primary (Cassegrain platform), focal plane 2.50 m behind the primary vertex (KOTN163; 3.0 m in the 1985 design); the deployable tertiary is stowed",
+     "instruments_current": [
+      "LRIS (1993-)",
+      "LRISp",
+      "MOSFIRE (2012-)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck1.cass_instruments",
+      "tertiary_stow": "keck1.deployable_tertiary",
+      "location": "common.f15_back_focal_distance"
+     }
+    },
+    {
+     "id": "K1-RNAS",
+     "name": "Right Nasmyth f/15",
+     "status": "in use",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 20,
+     "field_mm": 870,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "right Nasmyth platform; tertiary flat on the elevation axis, tertiary-to-focus 6.5 m (DERIVED); focal point ~1 m from the elevation-bearing centreline, beam 1.5 m above the platform (design)",
+     "instruments_current": [
+      "HIRES (1993-; decommissioning no earlier than end of 2027B)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [
+      "Zshooter (to occupy the HIRES location)"
+     ],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck1.right_nasmyth",
+      "geometry": "common.nasmyth_geometry",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "K1-LNAS-AO",
+     "name": "Left Nasmyth f/15 -> Keck I AO bench (AO output f/15)",
+     "status": "in use",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 2,
+     "field_mm": 87,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "left Nasmyth platform (Keck I AO bench); AO output with the telescope's f/# and pupil distance (Keck II statement; Keck I 'identical' system)",
+     "instruments_current": [
+      "OSIRIS (AO; at Keck I since Jan 2012)",
+      "KPF (fibre injection unit on the AO bench ahead of AO correction; not offered in 2027A)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck1.left_nasmyth_ao",
+      "ao_reflections": "keck1.ao_reflections"
+     },
+     "field_note": "field at the AO output NOT FOUND for Keck I (Keck II AO acquisition camera: 2' diameter); the f/15 Nasmyth input field is 20'",
+     "n_reflections_to_AO_science_window_DERIVED": 9,
+     "ao_output": "f/15 (same f/# and pupil distance as the telescope; KTG02 Sec. 4.9 for Keck II, K16 'identical')"
+    },
+    {
+     "id": "K1-BCASS",
+     "name": "Bent Cassegrain f/15 (4 stations)",
+     "status": "in use (engineering)",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 5,
+     "field_mm": 219,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "four stations on the bent Cassegrain platforms (KRBC Fig. 1), numbered 1-4 from the left-Nasmyth side; design field 5'",
+     "instruments_current": [
+      "PCS (Phasing Camera System, left bent Cassegrain; engineering)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck1.bent_cass",
+      "stations": "common.bent_cass_stations"
+     },
+     "field_note": "1985 design field of a bent Cassegrain station (KOR90); the 20' f/15 field is the Cassegrain/Nasmyth value"
+    },
+    {
+     "id": "K1-FCASS-f25",
+     "name": "Forward Cassegrain f/25 (IR chopping secondary)",
+     "status": "historical: no instrument since NIRC's last run (30 Jan 2010)",
+     "secondary": {
+      "name": "f/25 chopping secondary",
+      "shape": "convex hyperboloid, undersized, central hole",
+      "diameter_m": 0.53,
+      "diameter_detail": "0.530039 m on axis (KOTN163); 0.5266 m diameter hexagon in the 1985 design (KOR90)",
+      "radius_m": -1.82042,
+      "conic": -1.418029,
+      "distance_from_primary_m": 16.640457,
+      "coating": "gold",
+      "chop_max_arcsec": 151,
+      "ref": "keck1.f25_secondary"
+     },
+     "focal_length_m": 249.7,
+     "focal_length_alt_m": [
+      250.0
+     ],
+     "F_nominal": 25,
+     "F_on_10p949m": 22.81,
+     "plate_scale_arcsec_per_mm": 0.8261,
+     "plate_scale_mm_per_arcsec": 1.211,
+     "field_arcmin": 10,
+     "field_mm": 727,
+     "focal_surface_radius_m": 0.82,
+     "image_quality": "0.19\" at 2.5', 0.41\" at 5' (mainly coma)",
+     "n_reflections": 2,
+     "mirrors": [
+      "primary",
+      "f/25 secondary"
+     ],
+     "n_reflections_note": "LWS looked straight at the secondary (2); NIRC added an off-axis gold tertiary on its dewar (3)",
+     "location": "forward end of the Forward Cassegrain Module, focus near the intersection of the optical and elevation axes, 4.54 m in front of the primary vertex",
+     "instruments_current": [],
+     "instruments_past": [
+      "NIRC (1993-2010)",
+      "LWS (1995-2005)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "stop": "f/25 secondary undersized (factor NOT FOUND)",
+      "central_hole": "central hole in the f/25 secondary (size NOT FOUND)",
+      "spiders": "6 main spiders (25 mm) plus vanes carrying the chopping assembly inside the secondary module (number, width NOT FOUND)",
+      "refs": [
+       "keck1.f25_secondary",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "secondary": "keck1.f25_secondary",
+      "focus": "keck1.f25_focus",
+      "instruments": "keck1.f25_instruments",
+      "reflections": "keck1.f25_reflections"
+     }
+    }
+   ]
+  },
+  "params": {
+   "first_science": {
+    "value": "Keck I fully scheduled for astronomy in early 1994",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 1",
+    "quote": "Keck I was fully scheduled for astronomy in early 1994, and Keck II in October 1996."
+   },
+   "cass_instruments": {
+    "value": "LRIS (since 1993), LRISp, MOSFIRE (since 2012) share the Keck I Cassegrain focus",
+    "unit": "",
+    "src": "KIA",
+    "loc": "Keck 1",
+    "quote": "LRIS, LRISp, and Mosfire all share the cassegrain position and can never be accessed at the same time.",
+    "alternatives": [
+     {
+      "value": "LRIS at Keck I Cassegrain",
+      "src": "KTG02",
+      "loc": "Sec. 3.2.1",
+      "quote": "The Low Resolution Imaging Spectrograph (LRIS) can be mounted at this focus on Keck I"
+     },
+     {
+      "value": "LRIS",
+      "src": "KLH",
+      "loc": "description",
+      "quote": "operating at the Cassegrain focus of Keck I."
+     },
+     {
+      "value": "LRIS first science light summer 1993",
+      "src": "K16",
+      "loc": "Sec. 4.2",
+      "quote": "installed at the Cassegrain focus of the Keck I telescope. First science light was achieved in the summer of 1993"
+     },
+     {
+      "value": "MOSFIRE",
+      "src": "M12",
+      "loc": "Sec. 2",
+      "quote": "It is a large vacuum-cryogenic instrument mounted in a rotating module at the Keck 1 Cassegrain focus."
+     },
+     {
+      "value": "MOSFIRE first light April 2012",
+      "src": "K16",
+      "loc": "Sec. 4.9",
+      "quote": "First light was achieved in early April 2012."
+     }
+    ]
+   },
+   "deployable_tertiary": {
+    "value": "Keck I deployable tertiary: rotates to any Nasmyth instrument or stows out of the beam for the Cassegrain focus (NSF MRI award September 2013)",
+    "unit": "",
+    "src": "NL16",
+    "loc": "PDF p. 3, Recent Grant Funding Successes",
+    "quote": "the device will rapidly deploy and rotate the mirror to any instrument at a Nasmyth focus or, as desired, stow the mirror out of the light path to permit observations at the Cassegrain focus.",
+    "alternatives": [
+     {
+      "value": "tertiary installed -> Nasmyth instruments",
+      "src": "KIA",
+      "loc": "Keck 1",
+      "quote": "Hires, Osiris, and PCS/SSC each occupy separate nasmyth positions and any can be accessed when the tertiary mirror is installed."
+     }
+    ],
+    "note": "Commissioning date NOT FOUND in the saved documents."
+   },
+   "right_nasmyth": {
+    "value": "HIRES (first light 1993-07-16) on the Keck I right Nasmyth platform; to be replaced by Zshooter",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.2.2",
+    "quote": "The High Resolution Echelle Spectrograph (HIRES) is on the right Nasmyth platform of Keck I, while the left Nasmyth platform is occupied by the Keck I adaptive optics (AO) system.",
+    "alternatives": [
+     {
+      "value": "f/15 right Nasmyth",
+      "src": "KTG02",
+      "loc": "Sec. 4.1",
+      "quote": "It resides permanently at the f/15 right Nasmyth focus of the Keck I telescope"
+     },
+     {
+      "value": "first light 1993-07-16",
+      "src": "K16",
+      "loc": "Sec. 4.3",
+      "quote": "First light was achieved on July 16, 1993."
+     },
+     {
+      "value": "HIRES decommissioning; Zshooter to take the location",
+      "src": "KAV",
+      "loc": "Instrument Hibernation",
+      "quote": "HIRES: HIRES will be decommissioned no earlier than the conclusion of 2027B. ... the readiness of Zshooter, which is set to occupy HIRES's current Nasmyth location"
+     }
+    ]
+   },
+   "left_nasmyth_ao": {
+    "value": "Keck I AO bench on the left Nasmyth platform (NGS AO commissioned ~2001, LGS later); OSIRIS at its fixed AO focus since 2012; KPF fibre injection unit on the same bench ahead of AO correction",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.2.2",
+    "quote": "the left Nasmyth platform is occupied by the Keck I adaptive optics (AO) system.",
+    "alternatives": [
+     {
+      "value": "identical NGS AO system, left Nasmyth",
+      "src": "K16",
+      "loc": "Sec. 5",
+      "quote": "Two years later an identical NGS AO system for Keck I, located also on the left Nasmyth station, was commissioned"
+     },
+     {
+      "value": "OSIRIS moved 17-18 Jan 2012; Keck I AO and LGS recently commissioned",
+      "src": "NL12",
+      "loc": "PDF p. 9",
+      "quote": "The OSIRIS integral-field spectrograph was moved from Keck II to Keck I on January 17 and 18, 2012, in order to give Keck I an instrument which can take advantage of the adaptive optics (AO) and laser guide star (LGS) systems recently commissioned on that telescope."
+     },
+     {
+      "value": "KPF not offered in 2027A",
+      "src": "KAV",
+      "loc": "Special Notes for Semester 2027A",
+      "quote": "KPF and KPF-cc: KPF will not be available in 27A."
+     },
+     {
+      "value": "fixed AO focus",
+      "src": "NL13",
+      "loc": "PDF p. 11, Keck I LGS AO article",
+      "quote": "OSIRIS is now mounted at the fixed AO focus of Keck I"
+     },
+     {
+      "value": "Keck I bench duplicates Keck II",
+      "src": "NL13",
+      "loc": "PDF p. 10, Keck I LGS AO article",
+      "quote": "The Keck I AO bench is essentially a duplicate of the successful Keck II system"
+     },
+     {
+      "value": "KPF FIU on the Keck I AO bench",
+      "src": "KFIU",
+      "loc": "General Description",
+      "quote": "The Fiber Injection Unit (FIU) sits on the Keck I AO bench ahead of AO correction."
+     },
+     {
+      "value": "KPF via AO, shares with HIRES/OSIRIS",
+      "src": "KIA",
+      "loc": "Keck 1",
+      "quote": "KPF has a fiber feed through AO to the instrument in the basement and can also be accessed any time the tertiary mirror is installed"
+     }
+    ],
+    "note": "Output f-ratio of the Keck I AO bench: not stated separately; K16 calls the system 'identical' and NL13 'essentially a duplicate' of Keck II's, whose output is f/15 with the telescope's f/# and pupil distance (KTG02 Sec. 4.9). OSIRIS works behind both."
+   },
+   "ao_reflections": {
+    "value": "9 reflections to the instrument window (DERIVED)",
+    "unit": "",
+    "src": "NL13",
+    "loc": "PDF p. 11, Keck I LGS AO article",
+    "quote": "There is one less mirror in the Keck I AO light path than on Keck II and thus the orientation of the detectors is flipped relative to the sky and the AO system.",
+    "derived": "DERIVED: Keck II = 3 telescope + 7 AO-bench reflections = 10 (KAON501) -> Keck I = 9. Which mirror is omitted is NOT FOUND."
+   },
+   "bent_cass": {
+    "value": "four f/15 bent Cassegrain stations; the Phasing Camera System (PCS) is permanently at the left bent Cassegrain station",
+    "unit": "",
+    "src": "KPCS",
+    "loc": "description",
+    "quote": "permanently mounted at the left bent Cassegrain focal station of the Keck Telescope (one for each telescope).",
+    "alternatives": [
+     {
+      "value": "PCS at one of four bent Cass ports",
+      "src": "K16",
+      "loc": "Sec. 6.2",
+      "quote": "The PCS is located at one of the four bent Cassegrain ports in each telescope."
+     }
+    ],
+    "note": "Use of the other Keck I bent Cassegrain stations: NOT FOUND."
+   },
+   "f25_secondary": {
+    "value": "f/25 chopping secondary, convex, undersized with a central hole, gold coated; on-axis clear diameter 0.530 m",
+    "unit": "",
+    "src": "KOTN163",
+    "loc": "f/25 Secondary Parameters",
+    "quote": "Sec. Rad. Of curvature k2(m) -1.820420 Sec. conic const. SCC -1.418029 ... Secondary dia 0º FOV DS0 (m) 0.530039",
+    "alternatives": [
+     {
+      "value": "0.5266 m diameter hexagon (design)",
+      "src": "KOR90",
+      "loc": "Table 11-4 (f/25 IR focus)",
+      "quote": "Clear aperture 0.5266m diameter hexagon"
+     },
+     {
+      "value": "undersized, central hole",
+      "src": "KTG02",
+      "loc": "Sec. 3.1.4",
+      "quote": "The f/25 and f/40 secondary mirrors are undersized and have central holes so that they reflect no radiation to the detector from beyond the periphery of the primary mirror or from the primary mirror's central obstruction"
+     },
+     {
+      "value": "gold-coated",
+      "src": "K16",
+      "loc": "Sec. 4.1",
+      "quote": "The instrument was located in the forward Cassegrain module of the Keck I telescope which was fed by a gold-coated f/25 chopping secondary mirror."
+     },
+     {
+      "value": "chop +/-151\" max",
+      "src": "KTG02",
+      "loc": "Table 1",
+      "quote": "Maximum amplitude (arcsec on sky) +/- 151 +/- 31"
+     }
+    ],
+    "note": "The undersizing factor of the f/25 secondary (cf. 0.954 for f/40) is NOT FOUND, so the f/25 stop diameter is unknown."
+   },
+   "f25_focus": {
+    "value": "f/25 forward Cassegrain: f = 249.7 m, 1.211 mm/\" (0.826\"/mm), 10' field (727 mm), focus near the elevation axis 4.5 m in front of the primary vertex",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Table 2; Sec. 3.1.3",
+    "quote": "Focal length (m) 149.6 249.7 395.0 ... An f/25 chopping secondary mirror, which forms a focus near the intersection of the telescope optical axis and the elevation axis, is used with the infrared instruments on Keck I.",
+    "alternatives": [
+     {
+      "value": "f = 250.000 m; back focal distance -4.538 m; 0.727 m for 10'",
+      "src": "KOTN163",
+      "loc": "f/25 Secondary Parameters",
+      "quote": "Back focal distance e(m) -4.538 delp -0.2595071 2e/k Final focal length f(m) 250.000 ... Field size for 10' FOV (m) 0.727"
+     },
+     {
+      "value": "250 m, 0.83\"/mm, 9.0' (0.654 m), focal plane -4.00 m (design)",
+      "src": "KOR90",
+      "loc": "Table 4-1",
+      "quote": "Cassegrain 250.0 -4.00± 2.48 0.83 9.0 .654 .846"
+     },
+     {
+      "value": "0.825\"/mm, 20'/1.45 m with images < 1\" (design)",
+      "src": "KOR90",
+      "loc": "Table 11-3 (f/25 focus)",
+      "quote": "Scale 0.825 arcseconds/ mm Field 20 arcminute/ 1.45m"
+     },
+     {
+      "value": "focal surface 0.82 m; 0.19\" at 2.5', 0.41\" at 5' (mainly coma)",
+      "src": "KTG02",
+      "loc": "Table 2",
+      "quote": "Approx. radius of curvature of focal surface (m) 2.14 0.82 0.85"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 249700 = 0.8261\"/mm (1/1.211 = 0.8258); 249.7 / 10.949 = f/22.8. Focus 4.538 m in front of the vertex vs elevation axis 4.00 m (KOR90 Table 11-2): ~0.54 m beyond the elevation axis."
+   },
+   "f25_instruments": {
+    "value": "NIRC (1993-2010) and LWS (1995-2005) in the Forward Cassegrain Module; no instrument since NIRC's last run (30 Jan 2010)",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.2.3",
+    "quote": "Two infrared instruments, the Near Infrared Camera (NIRC) and the Long Wavelength Spectrometer (LWS), use the f/25 chopping secondary on Keck I. These instruments are mounted at the forward end of the Forward Cassegrain Module (FCM), which carries an offset CCD guider and provides instrument rotation.",
+    "alternatives": [
+     {
+      "value": "NIRC decommissioned after 30 Jan 2010",
+      "src": "K16",
+      "loc": "Sec. 4.1",
+      "quote": "The instrument was decommissioned following the run of 30 January 2010."
+     },
+     {
+      "value": "LWS decommissioned; last science 2005-07-26",
+      "src": "KLWS",
+      "loc": "status",
+      "quote": "Current Status: Decommissioned. ... The last night for science 2005-Jul-26."
+     },
+     {
+      "value": "LWS forward Cassegrain",
+      "src": "KLWS",
+      "loc": "About LWS",
+      "quote": "spectroscopy in the 3-25 µm range from the forward Cassegrain focus on Keck I."
+     },
+     {
+      "value": "NIRC, LWS listed as past",
+      "src": "KII",
+      "loc": "Past Instruments & Facilities",
+      "quote": "Past Instruments & Facilities Interferometer ASTRA NIRC, NIRCs LWS MIRLIN OSCIR"
+     }
+    ],
+    "note": "Status of the f/25 secondary itself (stored, removed) NOT FOUND."
+   },
+   "f25_reflections": {
+    "value": "2 to the f/25 focus (primary + f/25 secondary); NIRC added its own gold tertiary on the dewar",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 4.4 (LWS)",
+    "quote": "The LWS dewar is an uplooker, i.e., it looks directly at the telescope secondary with no tertiary mirror.",
+    "alternatives": [
+     {
+      "value": "NIRC: off-axis tertiary on the dewar",
+      "src": "KTG02",
+      "loc": "Sec. 4.3 (NIRC)",
+      "quote": "The converging light from the secondary mirror strikes an off-axis, gold-coated tertiary mirror which is mounted on the side of the dewar"
+     }
+    ]
+   },
+   "lgs_launch": {
+    "value": "Keck I laser launched from behind the secondary (centre launch)",
+    "unit": "",
+    "src": "NL16",
+    "loc": "PDF p. 10, Center Launch System article",
+    "quote": "projecting the laser from behind the Keck telescope secondary mirror as is currently done for the Keck I LGS.",
+    "note": "Behind the secondary, i.e. inside its shadow; no separate pupil obstruction is given."
+   }
+  },
+  "not_found": [
+   "Keck I AO output f-ratio stated for Keck I itself (KTG02's f/15 statement is for Keck II; K16 calls the Keck I system 'identical', NL13 'essentially a duplicate'), which mirror the Keck I AO path omits (NL13 'one less mirror'), and the AO unvignetted field.",
+   "f/25 secondary undersizing factor and central-hole size; spider vanes carrying the f/25 chopping assembly (number, width); present status of the f/25 secondary hardware.",
+   "Use of the Keck I bent Cassegrain stations other than the PCS ('left bent Cassegrain'); which station number (1-4) the 'left bent Cassegrain' is.",
+   "Commissioning date of the Keck I deployable tertiary (NL16: funded September 2013)."
+  ],
+  "conflicts": [
+   "f/25 focal length 249.7 m (KTG02) vs 250.000 m (KOTN163, KOR90 design); field 10' / 727 mm (KTG02, KOTN163) vs 9.0' / 0.654 m (KOR90 Table 4-1) vs 20' / 1.45 m 'images less than 1 arcsecond' (KOR90 Table 11-3); f/25 secondary 0.530 m on axis (KOTN163) vs 0.5266 m hexagon (KOR90); focus 4.538 m (KOTN163) vs 4.0 m (KOR90) in front of the vertex."
+  ],
+  "notes": []
+ },
+ "keck2": {
+  "title": "Keck II (science from October 1996): Cassegrain, right Nasmyth, left Nasmyth AO, bent Cassegrain f/15; historical f/40 IFSM bent Cassegrain",
+  "telescope": {
+   "name": "Keck II",
+   "site": "Maunakea, Hawaii: 155 deg 28.4' W, 19 deg 49.6' N, 4123 m (common.site)",
+   "mount": "alt-azimuth (common.telescope_type)",
+   "optical_design": "Ritchey-Chretien (f/15)",
+   "primary": {
+    "n_segments": 36,
+    "segment_corner_to_corner_m": 1.8,
+    "segment_flat_to_flat_m_DERIVED": 1.5588,
+    "circumscribed_diameter_m": 10.949,
+    "inscribed_diameter_m_DERIVED": 9.0,
+    "equivalent_diameter_m": 9.96,
+    "focal_length_m": 17.5,
+    "focal_length_from_R_m_DERIVED": 17.487,
+    "F_nominal": 1.75,
+    "F_circumscribed_DERIVED": 1.6,
+    "radius_of_curvature_m": 34.974,
+    "conic": -1.003683,
+    "collecting_area_m2_design": 76,
+    "coating": "aluminium on Zerodur",
+    "refs": [
+     "common.primary_focal_length",
+     "common.primary_focal_ratio",
+     "common.primary_radius_conic",
+     "common.coatings"
+    ]
+   },
+   "pupil": {
+    "outline": "serrated hexagon: 36 regular hexagonal segments in 3 rings (6 + 12 + 18) around an empty central segment position",
+    "frame": "pupil x, y in metres on the primary as seen from the sky, oriented as L21 Fig. 1: segments have vertices along +/-y (vertical edges); the outline's six outer corners lie at 0, 60, 120, 180, 240, 300 deg; the outline's flat (serrated) sides face 30, 90, 150 ... deg. Absolute orientation on the sky rotates (alt-az mount).",
+    "n_segments": 36,
+    "n_rings": 3,
+    "segment_shape": "regular hexagon",
+    "segment_side_m": 0.9,
+    "segment_corner_to_corner_m": 1.8,
+    "segment_flat_to_flat_m": 1.5588,
+    "segment_pitch_m": 1.5588,
+    "segment_side_physical_m": 0.89827,
+    "segment_gap_m": 0.003,
+    "nonreflecting_strip_m": 0.007,
+    "central_hole": {
+     "shape": "hexagon (one empty segment position)",
+     "corner_to_corner_m": 1.8,
+     "flat_to_flat_m": 1.5588,
+     "area_m2": 2.104
+    },
+    "circumscribed_diameter_m": 10.949,
+    "circumscribed_alternatives_m": [
+     10.95,
+     10.93
+    ],
+    "inscribed_diameter_m_DERIVED": 9.0,
+    "equivalent_diameter_m": 9.96,
+    "equivalent_diameter_note": "area of the 37-cell tiling (central hole counted); 36 segments alone = 9.82 m (DERIVED); f/15 clear pupil ~9.54 m (DERIVED)",
+    "nominal_D_for_f_numbers_m": 10.0,
+    "collecting_area_m2": 76,
+    "collecting_area_note": "1985 design value; 36 x 2.1044 = 75.76 m^2 geometric (DERIVED); ~71.5 m^2 clear at f/15 after obscuration, spiders and gaps (DERIVED)",
+    "central_obscuration_diameter_m": 2.6,
+    "central_obscuration_alternatives_m": {
+     "L21_Arriaga2016_measured": 2.48,
+     "H17": 2.62,
+     "CPSF": 2.65,
+     "SE17": 2.6
+    },
+    "eps_explorer": 0.24,
+    "eps_note": "explorer convention (H17: 0.24 of the 10.93 m circumscribed circle); 2.6 / 10.949 = 0.237",
+    "spiders": {
+     "n": 6,
+     "width_m": 0.025,
+     "angles_deg": [
+      30,
+      90,
+      150,
+      210,
+      270,
+      330
+     ],
+     "radial_extent_m": [
+      1.3,
+      4.5
+     ],
+     "orientation": "parallel to segment edges, pointing at the midpoints of the outline's sides (hexagonal top ring rotated 30 deg to the primary hexagon)",
+     "nodes": {
+      "n": 6,
+      "length_m": 0.3692,
+      "width_m": 0.08
+     }
+    },
+    "segment_centres_DERIVED": [
+     {
+      "ring": 1,
+      "x_m": 1.5588,
+      "y_m": 0.0
+     },
+     {
+      "ring": 1,
+      "x_m": 0.7794,
+      "y_m": 1.35
+     },
+     {
+      "ring": 1,
+      "x_m": -0.7794,
+      "y_m": 1.35
+     },
+     {
+      "ring": 1,
+      "x_m": -1.5588,
+      "y_m": 0.0
+     },
+     {
+      "ring": 1,
+      "x_m": -0.7794,
+      "y_m": -1.35
+     },
+     {
+      "ring": 1,
+      "x_m": 0.7794,
+      "y_m": -1.35
+     },
+     {
+      "ring": 2,
+      "x_m": 3.1177,
+      "y_m": 0.0
+     },
+     {
+      "ring": 2,
+      "x_m": 2.3383,
+      "y_m": 1.35
+     },
+     {
+      "ring": 2,
+      "x_m": 1.5588,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 0.0,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": -1.5588,
+      "y_m": 2.7
+     },
+     {
+      "ring": 2,
+      "x_m": -2.3383,
+      "y_m": 1.35
+     },
+     {
+      "ring": 2,
+      "x_m": -3.1177,
+      "y_m": 0.0
+     },
+     {
+      "ring": 2,
+      "x_m": -2.3383,
+      "y_m": -1.35
+     },
+     {
+      "ring": 2,
+      "x_m": -1.5588,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 0.0,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 1.5588,
+      "y_m": -2.7
+     },
+     {
+      "ring": 2,
+      "x_m": 2.3383,
+      "y_m": -1.35
+     },
+     {
+      "ring": 3,
+      "x_m": 4.6765,
+      "y_m": 0.0
+     },
+     {
+      "ring": 3,
+      "x_m": 3.8971,
+      "y_m": 1.35
+     },
+     {
+      "ring": 3,
+      "x_m": 3.1177,
+      "y_m": 2.7
+     },
+     {
+      "ring": 3,
+      "x_m": 2.3383,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 0.7794,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -0.7794,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -2.3383,
+      "y_m": 4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -3.1177,
+      "y_m": 2.7
+     },
+     {
+      "ring": 3,
+      "x_m": -3.8971,
+      "y_m": 1.35
+     },
+     {
+      "ring": 3,
+      "x_m": -4.6765,
+      "y_m": 0.0
+     },
+     {
+      "ring": 3,
+      "x_m": -3.8971,
+      "y_m": -1.35
+     },
+     {
+      "ring": 3,
+      "x_m": -3.1177,
+      "y_m": -2.7
+     },
+     {
+      "ring": 3,
+      "x_m": -2.3383,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": -0.7794,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 0.7794,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 2.3383,
+      "y_m": -4.05
+     },
+     {
+      "ring": 3,
+      "x_m": 3.1177,
+      "y_m": -2.7
+     },
+     {
+      "ring": 3,
+      "x_m": 3.8971,
+      "y_m": -1.35
+     }
+    ],
+    "refs": [
+     "common.n_segments",
+     "common.segment_side",
+     "common.segment_corner_to_corner",
+     "common.segment_flat_to_flat",
+     "common.segment_side_physical",
+     "common.segment_gap",
+     "common.nonreflecting_strip",
+     "common.central_hole",
+     "common.circumscribed_diameter",
+     "common.inscribed_diameter",
+     "common.equivalent_diameter",
+     "common.collecting_area",
+     "common.central_obscuration",
+     "common.spiders",
+     "common.spider_orientation",
+     "common.spider_nodes"
+    ],
+    "telescope_notes": [
+     "pupil measured behind the AO with NIRC2 (obscuration 2.48 m, nodes 0.3692 x 0.08 m; L21)",
+     "AO pupil nutation ~1% of the primary diameter (L21)",
+     "laser side-launched as of 2014 (NL16)"
+    ]
+   },
+   "foci": [
+    {
+     "id": "K2-CASS",
+     "name": "Cassegrain f/15",
+     "status": "hibernated (ESI hibernated July 2026)",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 20,
+     "field_mm": 870,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 2,
+     "mirrors": [
+      "primary",
+      "f/15 secondary"
+     ],
+     "location": "straight Cassegrain behind the primary, focal plane 2.50 m behind the primary vertex (KOTN163); tertiary out of the beam (ESI excludes all other instruments)",
+     "instruments_current": [],
+     "instruments_past": [
+      "ESI (1999-2026; hibernated July 2026)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck2.cass_instruments",
+      "location": "common.f15_back_focal_distance"
+     }
+    },
+    {
+     "id": "K2-RNAS",
+     "name": "Right Nasmyth f/15",
+     "status": "in use",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 20,
+     "field_mm": 870,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "right Nasmyth platform; one shared position, one instrument in the beam at a time",
+     "instruments_current": [
+      "DEIMOS (2002-)",
+      "KCWI",
+      "NIRSPEC (1999-, seeing-limited)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck2.right_nasmyth",
+      "geometry": "common.nasmyth_geometry",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "K2-LNAS-AO",
+     "name": "Left Nasmyth f/15 -> Keck II AO bench (AO output f/15)",
+     "status": "in use",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 2,
+     "field_mm": 87,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "left Nasmyth platform, inside the AO enclosure; AO relay (K-mirror, TTM, OAP, DM, OAP, IR dichroic) restores f/15 and the pupil distance",
+     "instruments_current": [
+      "NIRC2 (2001-)",
+      "NIRSPEC behind AO (NIRSPAO)",
+      "SCALES (commissioning 2026-27)"
+     ],
+     "instruments_past": [
+      "KCAM (first AO camera, 1999-2001)",
+      "OSIRIS (until Jan 2012)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck2.ao_instruments",
+      "ao": "keck2.left_nasmyth_ao",
+      "ao_reflections": "keck2.ao_reflections"
+     },
+     "field_note": "AO acquisition camera field 2' diameter (KTG02; 2' x 0.725 mm/\" x 60 = 87 mm DERIVED); unvignetted AO science field NOT FOUND; the f/15 Nasmyth input field is 20'",
+     "n_reflections_to_NIRC2_window": 10,
+     "n_reflections_to_NIRSPEC_AO": 13,
+     "ao_output": "f/15, same f/# and pupil distance as the telescope",
+     "ao_acquisition_field_arcmin": 2
+    },
+    {
+     "id": "K2-BCASS",
+     "name": "Bent Cassegrain f/15 (4 stations)",
+     "status": "in use (engineering); NIRES hibernated May 2026",
+     "secondary": {
+      "name": "f/15 secondary",
+      "shape": "convex hyperboloid (Ritchey-Chretien with the primary)",
+      "diameter_m": 1.4,
+      "diameter_detail": "1.3099 m on axis, 1.3994 m for the 20' field (KOTN163); 1.429 m clear aperture in the 1985 design (KOR90); '1.4 m' (L21, HB21)",
+      "radius_m": -4.737916,
+      "conic": -1.644326,
+      "distance_from_primary_m": 15.394985,
+      "coating": "aluminium on Zerodur",
+      "ref": "common.f15_secondary"
+     },
+     "focal_length_m": 149.583,
+     "focal_length_alt_m": [
+      149.6,
+      150.0
+     ],
+     "F_nominal": 15,
+     "F_on_10p949m": 13.66,
+     "plate_scale_arcsec_per_mm": 1.3789,
+     "plate_scale_mm_per_arcsec": 0.725,
+     "field_arcmin": 5,
+     "field_mm": 219,
+     "focal_surface_radius_m": 2.14,
+     "image_quality": "rms image diameter 0.09\" at 5', 0.36\" at 10' (astigmatism)",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/15 secondary",
+      "flat tertiary"
+     ],
+     "location": "four stations on the bent Cassegrain platforms, numbered 1-4 from the left-Nasmyth side; station 3 = right bent Cassegrain (RBC)",
+     "instruments_current": [
+      "PCS (left bent Cassegrain; engineering)"
+     ],
+     "instruments_past": [
+      "NIRES (RBC, f/15; hibernated May 2026)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "f/15 telescope pupil (Cassegrain, Nasmyth, bent Cassegrain and the AO input)",
+      "central_obscuration_diameter_m": 2.6,
+      "central_obscuration_alternatives_m": [
+       2.48,
+       2.62,
+       2.65
+      ],
+      "central_obscuration_shape": "circular (secondary + baffle)",
+      "spiders": {
+       "n": 6,
+       "width_m": 0.025,
+       "angles_deg_in_pupil_frame": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330
+       ],
+       "nodes_m": [
+        0.3692,
+        0.08
+       ]
+      },
+      "central_hole": "empty central segment (hexagon 1.8 m corner-to-corner) -- inside the obscuration",
+      "segment_gap_m": 0.003,
+      "nonreflecting_strip_m": 0.007,
+      "other": "tertiary flat (1.04 x 1.43 m design) lies inside the secondary shadow (DERIVED); no further obstruction found",
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.spider_orientation",
+       "common.spider_nodes",
+       "common.central_hole",
+       "common.segment_gap",
+       "common.nonreflecting_strip",
+       "common.tertiary"
+      ]
+     },
+     "refs": {
+      "focal_length_m": "common.f15_focal_length",
+      "plate_scale": "common.f15_plate_scale",
+      "field": "common.f15_field",
+      "focal_surface_radius_m": "common.f15_focal_surface",
+      "image_quality": "common.f15_image_quality",
+      "F_nominal": "common.nominal_D_for_f_numbers",
+      "instruments": "keck2.bent_cass",
+      "stations": "common.bent_cass_stations"
+     },
+     "field_note": "1985 design field of a bent Cassegrain station (KOR90); NIRES optical guider field 1.8' x 1.8'"
+    },
+    {
+     "id": "K2-f40",
+     "name": "f/40 bent Cassegrain (IR chopping secondary, IFSM); parfocal f/40 Cassegrain and Nasmyth",
+     "status": "historical (visitor port commissioned 1997/98; MIRLIN, OSCIR now listed as past instruments)",
+     "secondary": {
+      "name": "f/40 chopping secondary (IFSM)",
+      "shape": "convex, undersized x 0.954 (system stop), oversized central hole; outline = shrunk image of the serrated primary (KRBC Fig. 4)",
+      "diameter_m_DERIVED": 0.4825,
+      "diameter_detail": "0.954 x 0.5058 m circumscribed image of the primary (DERIVED)",
+      "radius_m": -1.771,
+      "conic": -1.2808,
+      "distance_from_primary_m": 16.64,
+      "coating": "gold on electroless nickel on beryllium",
+      "chop_max_arcsec": 31,
+      "ref": "keck2.f40_secondary"
+     },
+     "focal_length_m": 395.0,
+     "F_nominal": 40,
+     "F_on_10p949m": 36.08,
+     "F_on_stop_DERIVED": 37.82,
+     "plate_scale_arcsec_per_mm": 0.522,
+     "plate_scale_mm_per_arcsec": 1.915,
+     "field_arcmin": 10,
+     "field_mm": 1138,
+     "field_at_RBC_port_arcsec": 186,
+     "field_at_RBC_port_mm": 357,
+     "focal_surface_radius_m": 0.85,
+     "image_quality": "0.21\" at 2.5', 0.42\" at 5' (mainly coma)",
+     "exit_pupil": "at the secondary, 19.14 m in front of the focal plane, 0.5058 m circumscribed",
+     "n_reflections": 3,
+     "mirrors": [
+      "primary",
+      "f/40 secondary",
+      "flat tertiary"
+     ],
+     "location": "bent Cassegrain station 3 (second from the right Nasmyth), tertiary-to-focus 6.500 m, focal plane 162 mm behind the mounting surface; parfocal f/40 also reaches Cassegrain (2 reflections) and Nasmyth (3)",
+     "instruments_current": [],
+     "instruments_past": [
+      "MIRLIN (visitor)",
+      "OSCIR (visitor)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "outer_stop_circumscribed_m_DERIVED": 10.445,
+      "central_hole_on_primary_m_DERIVED": 3.25,
+      "central_hole_note": "hexagonal hole drawn 0.1501 m at the 0.5058 m pupil image (KRBC Fig. 4) -> 3.25 m on the primary",
+      "spiders": "6 main spiders (25 mm) plus vanes carrying the chopping assembly (number, width NOT FOUND)",
+      "refs": [
+       "keck2.f40_secondary",
+       "keck2.f40_focus",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "secondary": "keck2.f40_secondary",
+      "focus": "keck2.f40_focus",
+      "port": "keck2.f40_port"
+     }
+    }
+   ]
+  },
+  "params": {
+   "first_science": {
+    "value": "Keck II scheduled from October 1996",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 1",
+    "quote": "Keck I was fully scheduled for astronomy in early 1994, and Keck II in October 1996."
+   },
+   "cass_instruments": {
+    "value": "ESI at the Keck II Cassegrain focus (1999 to July 2026, now hibernated)",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 3.2.1; Sec. 4.7.1",
+    "quote": "the Echellete Spectrograph and Imager (ESI) occupies the Cassegrain focus on Keck II. ... Location Keck II Cassegrain (f/15) Focal plane scale 0.725 mm/arcsec",
+    "alternatives": [
+     {
+      "value": "since 1999",
+      "src": "KESI",
+      "loc": "description",
+      "quote": "in operation at the Cassegrain focus of the Keck II telescope since 1999."
+     },
+     {
+      "value": "hibernated July 2026",
+      "src": "KAV",
+      "loc": "Instrument Hibernation",
+      "quote": "ESI: ESI was hibernated in July 2026."
+     },
+     {
+      "value": "Cass excludes all others",
+      "src": "KIA",
+      "loc": "Keck 2",
+      "quote": "ESI is a cassegrain instrument and no other instrument can be accessed when it is in use."
+     }
+    ]
+   },
+   "right_nasmyth": {
+    "value": "DEIMOS (2002-), NIRSPEC (1999-, seeing-limited) and KCWI share the Keck II right Nasmyth position; one in the beam at a time",
+    "unit": "",
+    "src": "KIA",
+    "loc": "Keck 2",
+    "quote": "Deimos, Kcwi, and Nirspec each occupy the same nasmyth position and only one of the three can be in beam at any time.",
+    "alternatives": [
+     {
+      "value": "NIRSPEC and DEIMOS on the right Nasmyth",
+      "src": "KTG02",
+      "loc": "Sec. 3.2.2",
+      "quote": "On Keck II, the Near Infrared Spectrometer (NIRSPEC) and the Deep Extragalactic Imager and Multi-Object Spectrograph (DEIMOS) are available on the right Nasmyth platform, and the Keck II AO facility occupies the left Nasmyth platform."
+     },
+     {
+      "value": "DEIMOS",
+      "src": "KDSPEC",
+      "loc": "Location",
+      "quote": "Right Nasmyth platform, Keck II; removable from focus"
+     },
+     {
+      "value": "KCWI",
+      "src": "KKCWI",
+      "loc": "description",
+      "quote": "KCWI is a bench-mounted spectrograph installed at the Keck II right Nasmyth focal station."
+     },
+     {
+      "value": "NIRSPEC",
+      "src": "KTG02",
+      "loc": "Sec. 4.6.1",
+      "quote": "Location RNAS, Keck-2, f/15 input beam"
+     },
+     {
+      "value": "DEIMOS first light spring 2002",
+      "src": "K16",
+      "loc": "Sec. 4.6",
+      "quote": "First light was achieved in Spring of 2002."
+     },
+     {
+      "value": "NIRSPEC first light 1999-04-23",
+      "src": "K16",
+      "loc": "Sec. 4.5",
+      "quote": "First light was achieved on April 23, 1999."
+     }
+    ]
+   },
+   "left_nasmyth_ao": {
+    "value": "Keck II AO (NGS 1999, LGS later; HAKA deformable mirror now) on the left Nasmyth platform; output f/15 with the telescope's f/# and pupil distance",
+    "unit": "",
+    "src": "KTG02",
+    "loc": "Sec. 4.9",
+    "quote": "The AO facility, along with the science instruments that accompany it, is located at the telescope's f/15 focus on the left Nasmyth platform ... The output of the AO system is identical to that of the telescope with the same f/# and with the pupil at the same distance in front of the focal plane.",
+    "alternatives": [
+     {
+      "value": "AO bench path",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.1",
+      "quote": "a K-mirror to provide field or pupil de-rotation, ... a 349-actuator deformable mirror with 7x7 mm actuator spacing corresponding to 56.25 cm on the primary, ... a 2nd OAP to reproduce the telescope's f/# and pupil location with respect to the focal plane, and an IR transmissive dichroic to transmit light from 1 to 2.7 µm wavelength."
+     },
+     {
+      "value": "2' acquisition field",
+      "src": "KTG02",
+      "loc": "Sec. 4.9",
+      "quote": "a 2-arcmin-diameter field of view acquisition camera."
+     },
+     {
+      "value": "NGS AO commissioned early 1999 (left Nasmyth)",
+      "src": "K16",
+      "loc": "Sec. 5",
+      "quote": "In early 1999 an NGS AO system was commissioned on the Keck II telescope (being located at the left Nasmyth focus; Wizinowich et al. 2000)."
+     },
+     {
+      "value": "HAKA DM",
+      "src": "KAV",
+      "loc": "Keck II AO",
+      "quote": "Keck II AO: Keck 2 AO with the new HAKA DM will be available in NGS mode"
+     },
+     {
+      "value": "LGS planned in 2002",
+      "src": "KTG02",
+      "loc": "Sec. 4.9",
+      "quote": "Future major planned upgrades include a laser guide star facility"
+     }
+    ]
+   },
+   "ao_instruments": {
+    "value": "NIRC2 (2001-), NIRSPEC+AO (NIRSPAO), SCALES (commissioning 2026-27); formerly KCAM and OSIRIS (to Jan 2012)",
+    "unit": "",
+    "src": "KNOM",
+    "loc": "Sec. 1.1",
+    "quote": "NIRC2 is positioned behind the AO bench on the Left Nasmyth Platform of Keck II.",
+    "alternatives": [
+     {
+      "value": "NIRC2 at the f/15 left Nasmyth AO focus",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.3.1",
+      "quote": "Location Keck II Adaptive Optics Facility F/15 Left Nasmyth Focus"
+     },
+     {
+      "value": "NIRC2 commissioned late 2001",
+      "src": "KTG02",
+      "loc": "Sec. 3.2.2",
+      "quote": "along with a permanent AO camera and spectrograph, NIRC2, which was commissioned in late 2001."
+     },
+     {
+      "value": "NIRSPEC and NIRC behind AO from 2001",
+      "src": "K16",
+      "loc": "Sec. 5",
+      "quote": "Starting 2001 NIRSPEC (and soon thereafter NIRC) was used as the science instrument behind the AO system."
+     },
+     {
+      "value": "NIRSPEC on rails between the two Nasmyth platforms",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.2",
+      "quote": "NIRSPEC is designed to move on rails between the direct f/15 focus on the Keck II right Nasmyth platform to a position at the output of the AO system on the left Nasmyth platform."
+     },
+     {
+      "value": "NIRSPEC with or without AO (today)",
+      "src": "KNSP",
+      "loc": "description",
+      "quote": "It can be used with or without AO."
+     },
+     {
+      "value": "SCALES",
+      "src": "KSCL",
+      "loc": "description",
+      "quote": "installed at the Keck II left Nasmyth bent focal station inside the AO enclosure."
+     },
+     {
+      "value": "SCALES schedule",
+      "src": "KAV",
+      "loc": "SCALES",
+      "quote": "SCALES is anticipated to install and begin commissioning at the end of the 26B semester"
+     },
+     {
+      "value": "OSIRIS left Keck II in Jan 2012",
+      "src": "NL12",
+      "loc": "PDF p. 9",
+      "quote": "The OSIRIS integral-field spectrograph was moved from Keck II to Keck I on January 17 and 18, 2012"
+     },
+     {
+      "value": "KCAM, then NIRSPEC and NIRC2",
+      "src": "K16",
+      "loc": "Sec. 5",
+      "quote": "Following the commissioning of the AO system \"KCAM\" (built primarily for engineering purposes and so lacked the usual bells and whistles of a science camera) served as the science camera."
+     }
+    ]
+   },
+   "ao_reflections": {
+    "value": "10 reflections to the NIRC2 window: 3 telescope (M1, M2, M3) + 3 K-mirror + tip-tilt mirror + OAP1 + DM + OAP2, then the transmissive IR dichroic; 13 to NIRSPEC behind AO",
+    "unit": "",
+    "src": "KAON501",
+    "loc": "Sec. 1.2; Appendix 5.1 (K2AO optical design)",
+    "quote": "The science path of the \"K2AO\" architecture consists of three aluminized telescope mirrors, a K-mirror rotator (one silver and two aluminum surfaces), a 4-mirror AO relay, and a dichroic which transmits the infrared beam to the science camera entrance window ... TTM prosilver -1.00E+00 AO OAP1 prosilver -1.00E+00 AO DM prosilver -1.00E+00 AO OAP2 prosilver -1.00E+00 AO",
+    "alternatives": [
+     {
+      "value": "NIRSPAO: 3 telescope + 10 AO reflections",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.2",
+      "quote": "In addition to the three telescope mirrors in the beam path to NIRSPEC at the direct f/15 focus, the AO system introduces 10 additional reflections and transmission through three optics (a dichroic and two achromats)."
+     }
+    ],
+    "derived": "DERIVED: 3 + 3 + 4 = 10 to NIRC2 (KAON501, 2007 configuration, 349-actuator DM; the HAKA DM change is not described in the saved documents). NIRSPAO: 3 + 10 = 13 (the extra three are the fold mirrors to NIRSPEC, KTG02 Sec. 4.9.2)."
+   },
+   "bent_cass": {
+    "value": "four f/15 bent Cassegrain stations (1-4 from the left); PCS at the left station; NIRES at the right bent Cassegrain (RBC, station 3), f/15, hibernated May 2026",
+    "unit": "",
+    "src": "KNRS",
+    "loc": "Location; Input f/ ratio",
+    "quote": "Right Bent Cassegrain (RBC) port on Keck 2 ... f/15 nominal (f/16.6 cold circular pupil mask to inscribe Keck entrance pupil)",
+    "alternatives": [
+     {
+      "value": "station 3 = right bent Cass visitor port",
+      "src": "KIVI",
+      "loc": "Sec. 2.2",
+      "quote": "Position 3 at the right bent Cassegrain focus of Keck II is available for mounting visitor insturments."
+     },
+     {
+      "value": "NIRES hibernated May 2026",
+      "src": "KAV",
+      "loc": "Instrument Hibernation",
+      "quote": "NIRES: NIRES was hibernated in May 2026."
+     },
+     {
+      "value": "PCS left bent Cass",
+      "src": "KPCS",
+      "loc": "description",
+      "quote": "permanently mounted at the left bent Cassegrain focal station of the Keck Telescope (one for each telescope)."
+     },
+     {
+      "value": "separate positions",
+      "src": "KIA",
+      "loc": "Keck 2",
+      "quote": "Nirc2, Nires, and PCS/SSC occupy separate nasmyth positions from each other"
+     },
+     {
+      "value": "NIRES optical guider 1.8' x 1.8'",
+      "src": "KNRS",
+      "loc": "Field of view",
+      "quote": "Optical guider: 1.8 x 1.8 arcmin"
+     }
+    ],
+    "note": "KIA calls all tertiary-fed positions 'nasmyth positions', bent Cassegrain stations included."
+   },
+   "f40_secondary": {
+    "value": "f/40 chopping secondary (IFSM): convex, R = -1.771 m, K = -1.28080, 16.640 m from the primary, undersized by 0.954 (the system stop), central hole oversized; Be + electroless Ni, gold",
+    "unit": "",
+    "src": "KRBC",
+    "loc": "Sec. 2 (F/40 Optical Description)",
+    "quote": "The primary to secondary mirror distance is 16.640 m. The secondary mirror (radius of curvature = -1.771 m, conic constant = -1.28080) is undersized by about 95.4% (see Figure 4) and is therefore the stop for the system. The central hole in the secondary is oversized by 120%, assuring that instruments can receive light only from the night sky.",
+    "alternatives": [
+     {
+      "value": "undersized x 0.954, hole oversized (figure)",
+      "src": "KRBC",
+      "loc": "Fig. 4 caption",
+      "quote": "The secondary mirror (heavy line) is shown with the image of the primary segments (light lines) superimposed. To protect against excess background light entering mid-IR instruments, the secondary is undersized by a factor of 0.954, with a central hole oversized with respect to the primary's central hole.",
+      "figure_readoff": "RBC_Manual-4.jpg: the secondary is drawn as the serrated hexagonal outline of the primary (shrunk), the primary's image labelled '0.5058 m' across opposite outer corners, and a solid hexagonal central hole labelled '0.1501 m'"
+     },
+     {
+      "value": "IFSM",
+      "src": "KTG02",
+      "loc": "Sec. 3.1.4",
+      "quote": "An f/40 chopping secondary mirror has been made for Keck II and is mounted in the Infrared Fast Steering Mechanism (IFSM)."
+     },
+     {
+      "value": "chop +/-31\" max",
+      "src": "KTG02",
+      "loc": "Table 1",
+      "quote": "Maximum amplitude (arcsec on sky) +/- 151 +/- 31"
+     }
+    ],
+    "derived": "DERIVED: outer edge = 0.954 x 0.5058 m = 0.4825 m (circumscribed) at the secondary = 0.954 x 10.949 = 10.445 m on the primary; hole 0.1501 m x (10.949 / 0.5058) = 3.25 m on the primary (the primary's empty centre images to 0.0832 m corner-to-corner / 0.0720 m flat-to-flat, so the drawn hole is ~2.1x its flat-to-flat size; KRBC's 'oversized by 120%' is not defined further)."
+   },
+   "f40_focus": {
+    "value": "f/40: f = 395.0 m, 1.915 mm/\" (0.522\"/mm), parfocal with f/15; 10' design field (1138 mm), 186\" (357 mm) usable at the RBC port",
+    "unit": "",
+    "src": "KRBC",
+    "loc": "Sec. 2",
+    "quote": "The f/40 focal length is 395.0 m producing a plate scale of 1.915 mm/arcsec or 0.522 arcsec/mm. The focal plane is curved toward the secondary mirror with a radius of curvature of 0.85 m. ... The field of view is limited by the inner diameter of the mounting plate to a diameter of 357 mm corresponding to 186 arcsec.",
+    "alternatives": [
+     {
+      "value": "395.0 m, 1.915 mm/\", 10' (1138 mm)",
+      "src": "KTG02",
+      "loc": "Table 2",
+      "quote": "Focal length (m) 149.6 249.7 395.0 Scale (mm/arcsec) 0.725 1.211 1.915"
+     },
+     {
+      "value": "parfocal; feeds Cass, bent Cass, Nasmyth",
+      "src": "KTG02",
+      "loc": "Sec. 3.1.4",
+      "quote": "Its final focus is parfocal with the f/15 system; i.e., it feeds the conventional Cassegrain, bent Cassegrain, and Nasmyth foci, rather than forward Cassegrain."
+     },
+     {
+      "value": "exit pupil at the secondary",
+      "src": "KRBC",
+      "loc": "Sec. 2",
+      "quote": "The exit pupil is located at the secondary mirror, 19.14 m in front of the focal plane with a circumscribed diameter of 0.5058 m."
+     },
+     {
+      "value": "0.21\" at 2.5', 0.42\" at 5' (mainly coma)",
+      "src": "KTG02",
+      "loc": "Table 2",
+      "quote": "Field radius / rms image diameter due to 5 / 0.09 2.5 / 0.19 2.5 / 0.21"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 395000 = 0.5222\"/mm; 395.0 / 10.445 m (stop) = f/37.8; 395.0 / 10.949 = f/36.1; 10' x 1.915 mm/\" = 1149 mm (KTG02 table 1138 mm)."
+   },
+   "f40_port": {
+    "value": "f/40 visitor port = bent Cassegrain station 3 (second from the right Nasmyth), commissioned late 1997/early 1998; 3 reflections; tertiary to focus 6.500 m; MIRLIN, OSCIR (past)",
+    "unit": "",
+    "src": "KRBC",
+    "loc": "Sec. 1; Sec. 2",
+    "quote": "A facility was commissioned in late 1997/early 1998 for visitor science instruments at the f/40 bent Cassegrain focus of the Keck II telescope. ... The instrument port is the second one from the right Nasmyth platform. ... The optical path includes the primary, secondary, and tertiary mirrors.",
+    "alternatives": [
+     {
+      "value": "MIRLIN, OSCIR used",
+      "src": "KTG02",
+      "loc": "Sec. 3.2.4",
+      "quote": "Currently there are no facility instruments planned for the f/40 foci. There is, however, a bent Cassegrain port with rotator and guider, available for mounting visitor instruments on Keck II. Two mid-IR visiting instruments, MIRLIN and OSCIR, have been used at this port."
+     },
+     {
+      "value": "MIRLIN, OSCIR listed as past",
+      "src": "KII",
+      "loc": "Past Instruments & Facilities",
+      "quote": "Past Instruments & Facilities Interferometer ASTRA NIRC, NIRCs LWS MIRLIN OSCIR"
+     },
+     {
+      "value": "focal plane 162 mm behind the mounting surface",
+      "src": "KRBC",
+      "loc": "Sec. 2",
+      "quote": "The instrument mounting surface is located 162 mm in front of the optimal focal plane."
+     }
+    ],
+    "note": "Current status of the f/40 secondary (in use, stored) NOT FOUND. The spider vanes that carry the chopping assembly inside the secondary module (KTG02 Sec. 3.1.4) are not specified."
+   },
+   "lgs_side_launch": {
+    "value": "Keck II laser side-launched (as of 2014; centre launch then being built)",
+    "unit": "",
+    "src": "NL16",
+    "loc": "PDF p. 10, Center Launch System article",
+    "quote": "The side-launched Keck II laser guide star (LGS) reduces the sensitivity of the adaptive optics (AO) system by elongating images on the wavefront sensor."
+   }
+  },
+  "not_found": [
+   "Number of AO-bench reflections after the HAKA deformable-mirror upgrade (KAON501's 10 is the 2007 349-actuator configuration); the unvignetted AO science field.",
+   "Spider vanes carrying the f/40 chopping assembly (number, width); present status of the f/40 IFSM secondary; a definition of KRBC's 'oversized by 120%' central hole (the drawn 0.1501 m is used).",
+   "Use of the Keck II bent Cassegrain stations other than the left bent Cassegrain (PCS) and station 3 = right bent Cassegrain (NIRES; the f/40 visitor port); which station number the 'left bent Cassegrain' is."
+  ],
+  "conflicts": [
+   "f/40 field: 10' / 1138 mm (KTG02 Table 2; 10' x 1.915 mm/\" = 1149 mm DERIVED) vs 186\" / 357 mm at the RBC visitor port, limited by the mounting plate (KRBC).",
+   "AO reflections: 10 to the NIRC2 window (KAON501 surface list) vs NIRSPAO '10 additional reflections' (KTG02), which includes the three NIRSPEC fold mirrors (13 total)."
+  ],
+  "notes": []
+ }
+}
