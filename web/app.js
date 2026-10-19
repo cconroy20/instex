@@ -37,6 +37,8 @@ const M = () => (S.mode === "grating" ? S.g : S.e);
 // presets: defined in presets.js (window.IX_PRESETS, sources in data/ and the README); each sets the full state
 const PRESETS = window.IX_PRESETS || [];
 let presetId = "custom";
+// the instrument: "spec" (spectrograph, this file) or "img" (imager, imgapp.js)
+let inst = "spec", IMG = null;
 
 const DETS = [
   { name: "2k × 4k, 15 µm", Nx: 4096, Ny: 2048, pix: 15 },
@@ -178,11 +180,15 @@ dsel.addEventListener("change", () => {
 });
 // presets
 const psel = $("preset");
-{ const o = document.createElement("option"); o.value = "custom"; o.textContent = "Custom"; psel.appendChild(o); }
 // grouped by telescope, largest aperture first; inside a group the telescope prefix is dropped
-{
+let menuFor = null;
+function buildPresetMenu() {
+  if (menuFor === inst) return;
+  menuFor = inst;
+  psel.innerHTML = "";
+  { const o = document.createElement("option"); o.value = "custom"; o.textContent = "Custom"; psel.appendChild(o); }
   const groups = [];
-  for (const p of PRESETS) {
+  for (const p of (inst === "img" ? IMG.PRESETS : PRESETS)) {
     const t = p.tel || "Other";
     let gr = groups.find(x => x.t === t);
     if (!gr) { gr = { t, D: p.state.D, ps: [] }; groups.push(gr); }
@@ -196,6 +202,7 @@ const psel = $("preset");
   }
 }
 psel.addEventListener("change", () => {
+  if (inst === "img") { const q = IMG.PRESETS.find(x => x.id === psel.value); if (q) IMG.applyPreset(q); else { IMG.custom(); scheduleHash(); } return; }
   const p = PRESETS.find(q => q.id === psel.value);
   if (!p) { presetId = "custom"; scheduleHash(); return; }
   applyPreset(p);
@@ -210,6 +217,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; psel.value = p.id; zoom.reset(); lview.fit = true; schedule();
 }
 $("reset").addEventListener("click", () => {
+  if (inst === "img") { IMG.reset(); return; }
   S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto";
   stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
 });
@@ -234,13 +242,17 @@ function syncControls() {
     S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : S.mode === "grating" && S.g.view === "3d" ? "v-3d" : "v-spectral",
     lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
     "x-" + S.e.xd,
+    "inst-" + inst,
+    ...(IMG ? IMG.bodyClasses() : []),
   ].join(" ");
+  syncInst();
   gsel.value = S.e.xPrisms && S.e.xPrisms.length ? S.e.xPrisms[0].glass : S.e.xGlass;
   if (S.e.xPrisms && S.e.xPrisms.length) { $("vXA").textContent = "train"; $("vXA").title = "The preset's prism train (listed below); moving the slider replaces it with one prism."; } else $("vXA").title = "";
   ggsel.value = S.g.gGlass || "N-BK7";
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
-  psel.value = presetId;
+  buildPresetMenu();
+  psel.value = inst === "img" ? IMG.presetId() : presetId;
 }
 
 function params() {
@@ -259,7 +271,13 @@ const SHARED = ["mode", "D", "F"];
 let hashTimer = 0, lastHash = null;
 function scheduleHash() { clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 180); }
 function writeHash() {
-  const parts = [];
+  let parts = [];
+  if (inst === "img") {
+    parts = ["inst=img", ...IMG.hashParts()];
+    lastHash = "#" + parts.join("&");
+    try { history.replaceState(null, "", lastHash); } catch (e) { /* file:// */ }
+    return;
+  }
   const put = (k, v, d) => { if (v !== d && v !== null) parts.push(k + "=" + encodeURIComponent(typeof v === "number" ? +v.toPrecision(7) : typeof v === "object" ? JSON.stringify(v) : v)); };
   for (const k of SHARED) put(k, S[k], DEF[k]);
   for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) put(sc + "." + k, S[sc][k], DEF[sc][k]);
@@ -276,6 +294,7 @@ function readHash() {
   if (!h) return;
   const kv = {};
   for (const p of h.split("&")) { const [k, v] = p.split("="); if (k) kv[k] = decodeURIComponent(v || ""); }
+  if (kv.inst === "img") { inst = "img"; IMG.readHash(kv); return; }
   if (kv.preset) { const p = PRESETS.find(q => q.id === kv.preset); if (p) applyPreset(p); }
   // a value of the wrong kind (a typed-in link) is ignored: the key keeps its default (or the preset's value)
   const NUL = Symbol("skip");
@@ -1238,6 +1257,7 @@ for (const [id, m] of [["c3L", "lam"], ["c3S", "slit"]]) $(id).addEventListener(
 sync3();
 window.addEventListener("keydown", ev => {
   if (ev.key !== "Escape" || $("about").open) return;          // an open dialog takes its own Esc
+  if (inst === "img") { IMG.escape(); return; }
   if (lvExpanded) setExpanded(false);                     // expanded: back to the page
   else if (!$("lvOpts").hidden) $("lvOpts").hidden = true;
 });
@@ -1696,6 +1716,7 @@ function schedule() { if (!pending) { pending = true; requestAnimationFrame(rend
 function render() {
   pending = false;
   syncControls();
+  if (inst === "img") { IMG.render(); scheduleHash(); return; }
   curP = params();
   cur = IX.design(curP);
   // a wide detector chip (2k x 4k and the like) leaves room: the layout panel takes more of the width
@@ -1738,28 +1759,41 @@ function fitPanels() {
   const root = document.documentElement;
   if (innerWidth <= 860) { const had = !!root.style.getPropertyValue("--ph"); root.style.removeProperty("--ph"); return had; }
   if (lvExpanded) return false;
-  const h0 = $("cvD").clientHeight, ctl = document.querySelector(".controls");
+  const h0 = $(inst === "img" ? "cvS" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : ".controls.only-spec");
   if (!h0 || !ctl) return false;
   const want = Math.round(Math.min(PH_MAX, Math.max(PH_MIN, h0 + innerHeight - 6 - (ctl.getBoundingClientRect().bottom + scrollY))));
   if (Math.abs(want - h0) < 1) return false;
   root.style.setProperty("--ph", want + "px");
   return true;
 }
-window.addEventListener("resize", () => { fitPanels(); if (cur) { drawLayout(cur, curP); drawRight(); } });
+window.addEventListener("resize", () => { fitPanels(); if (inst === "img") { IMG.redraw(); return; } if (cur) { drawLayout(cur, curP); drawRight(); } });
 
 // test hooks
 window.__instex = {
   state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
+  inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test,
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom }, labels: () => placedLabels.map(l => ({ ...l })),
 };
 
+// the imager: its own module, handed the shared helpers
+IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
+const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips." };
+function syncInst() {
+  $("iSpec").setAttribute("aria-pressed", String(inst === "spec"));
+  $("iImg").setAttribute("aria-pressed", String(inst === "img"));
+  $("reset").title = RESET_TITLE[inst];
+}
+for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"]]) $(id).addEventListener("click", () => {
+  if (inst === v) return;
+  inst = v; zoom.reset(); lview.fit = true; stopCoast(); schedule();
+});
 readHash();
 render();
 // a link edited in the address bar (the page's own updates use replaceState, which fires no event)
 window.addEventListener("hashchange", () => {
   if (location.hash === lastHash) return;
-  S = clone(DEF); presetId = "custom"; readHash(); zoom.reset(); lview.fit = true; render();
+  S = clone(DEF); presetId = "custom"; inst = "spec"; IMG.reset(); readHash(); zoom.reset(); lview.fit = true; render();
 });
 })();

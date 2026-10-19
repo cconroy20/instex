@@ -1,0 +1,1307 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER presets: CFHT MegaPrime/MegaCam, Palomar 48-inch Oschin Schmidt / ZTF, and a representative small amateur setup (80 mm refractor + CMOS)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/megacam_ztf_small.md (same content as Markdown). Structure follows data/round4/mosfire.json: each parameter has value, unit, src (key into sources), loc, quote, optional alternatives / derived / note. Coordinates: x = E-W (along a row of chips), y = N-S (between rows); rows listed top (N) to bottom (S).",
+  "rule": "Every value carries src, loc and a short verbatim quote from a document saved unmodified under rawdata/imaging/<inst>/. DERIVED = arithmetic done here (shown). alternatives = other sourced values (conflicts). Quotes were machine-checked against the extracted text of the saved files (pdftotext -layout and -raw; HTML text) by a script; entries with check = 'image' were read from GIF images and could not be machine-checked.",
+  "quote_normalisation": "Comparison removes all whitespace and table-cell separators and normalises Unicode (NFKC), curly quotes, dashes/minus signs, mu (µ/μ), degree glyphs (°/◦) and line-end hyphenation; ' ... ' joins non-adjacent pieces. Arcsec double primes appear as '00' in the arXiv text layers (e.g. '1.0100' = 1.01\", '0.18500' = 0.185\") and are quoted as the text layer has them."
+ },
+ "sources": {
+  "D20": {
+   "cite": "Dekany, R., Smith, R. M., Riddle, R., et al. 2020, PASP 132, 038001, \"The Zwicky Transient Facility: Observing System\", arXiv:2008.04923 (arXiv version, PDF created 2020-08-12). Its text layer renders the arcsec double prime as \"00\" (\"1.0100\" = 1.01\")",
+   "file": "rawdata/imaging/ztf/Dekany2020_PASP132_038001_ZTF_ObservingSystem_arXiv2008.04923.pdf",
+   "url": "https://arxiv.org/pdf/2008.04923"
+  },
+  "B19": {
+   "cite": "Bellm, E. C., Kulkarni, S. R., Graham, M. J., et al. 2019, PASP 131, 018002, \"The Zwicky Transient Facility: System Overview, Performance, and First Results\", arXiv:1902.01932 (arXiv version, PDF created 2019-02-06). Same double-prime rendering (\"1.0100\" = 1.01\")",
+   "file": "rawdata/imaging/ztf/Bellm2019_PASP131_018002_ZTF_SystemOverview_arXiv1902.01932.pdf",
+   "url": "https://arxiv.org/pdf/1902.01932"
+  },
+  "D16": {
+   "cite": "Dekany, R., Smith, R. M., Belicki, J., et al. 2016, Proc. SPIE 9908, 99085M, \"The Zwicky Transient Facility Camera\" (design paper; publisher's version, footer \"Downloaded From: http://proceedings.spiedigitallibrary.org/ on 02/16/2017\", hosted on CaltechAUTHORS)",
+   "file": "rawdata/imaging/ztf/Dekany2016_SPIE9908_99085M_ZTF_Camera_CaltechAUTHORS.pdf",
+   "url": "https://authors.library.caltech.edu/records/j5512-mqy17/files/99085M.pdf?download=1"
+  },
+  "R17": {
+   "cite": "Reiley, D. J., Dekany, R. G., Smith, R. M., et al. 2017, Proc. SPIE 10590, 105901U, \"Optical design of the Zwicky Transient Facility: a major upgrade to the 48” Schmidt Camera at Palomar Observatory\" (publisher's version, footer \"Downloaded From: https://www.spiedigitallibrary.org/conference-proceedings-of-spie on 3/7/2018\", hosted on CaltechAUTHORS)",
+   "file": "rawdata/imaging/ztf/Reiley2017_SPIE10590_105901U_ZTF_OpticalDesign_CaltechAUTHORS.pdf",
+   "url": "https://authors.library.caltech.edu/records/8xc8t-60f37/files/105901U.pdf?download=1"
+  },
+  "ZES": {
+   "cite": "Masci, F. J., Laher, R. R., Rusholme, B., et al., \"The ZTF Science Data System (ZSDS) Explanatory Supplement: Pipelines, Definitions, Data Products, Access & Usage\", Version 5.0, June 10, 2020 (IRSA/IPAC). Used only for the CCD numbering/pixel-axis figure (Fig. 1, an image) and the readout-quadrant format",
+   "file": "rawdata/imaging/ztf/IPAC_ZTF_Explanatory_Supplement_v5.0_2020-06-10.pdf",
+   "url": "https://irsa.ipac.caltech.edu/data/ZTF/docs/ztf_explanatory_supplement.pdf"
+  },
+  "CGI": {
+   "cite": "CFHT, MegaPrime/MegaCam web page \"General Specifications & Performance\" (generalinformation.html; HTTP Last-Modified 2026-02-27; fetched 2026-10-19)",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_generalinformation.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/generalinformation.html"
+  },
+  "CTC": {
+   "cite": "CFHT, MegaPrime/MegaCam web page \"Technical considerations to prepare MegaCam observations\" (specsinformation.html; HTTP Last-Modified 2026-06-24; fetched 2026-10-19)",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_specsinformation.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/specsinformation.html"
+  },
+  "CID": {
+   "cite": "CFHT, MegaPrime/MegaCam web page \"Instrument Description: the various components\" (megaprimecomponents.html; HTTP Last-Modified 2026-02-27; fetched 2026-10-19)",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_components.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/megaprimecomponents.html"
+  },
+  "CIX": {
+   "cite": "CFHT, MegaPrime/MegaCam home page (page stamped \"Last update: Mon Oct 19 01:36:45 HST 2026\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_index.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/"
+  },
+  "CRD": {
+   "cite": "CFHT, MegaPrime/MegaCam web page \"MegaCam Raw Data Description\" (rawdata.html; HTTP Last-Modified 2026-02-27; fetched 2026-10-19); quotes the COMMENT block of the spliced primary header that maps CCD IDs onto the sky",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_rawdata.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/rawdata.html"
+  },
+  "CPH": {
+   "cite": "CFHT, example spliced MegaCam raw frame 724936o (2003), primary FITS header as plain text, linked from CRD",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_724936o.PrimaryHeader.txt",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/data.MegaPrime/724936o.PrimaryHeader"
+  },
+  "CH13": {
+   "cite": "CFHT, example spliced MegaCam raw frame 724936o, extension header of ccd13, linked from CRD",
+   "file": "rawdata/imaging/megacam/cfht_megaprime_724936o.ccd13.header.txt",
+   "url": "https://www.cfht.hawaii.edu/Instruments/Imaging/MegaPrime/data.MegaPrime/724936o.ccd13.header"
+  },
+  "COM4": {
+   "cite": "CFHT Observatory Manual, Section 4 \"The Telescope\" (HTTP Last-Modified 2003-11-07). The prime-focus subsection describes the PRE-MegaPrime cage and old corrector (\"this focus was decommissioned in early 2003\"); the primary-mirror and MegaPrime paragraphs are current. The foci table and prime-focus drawing are GIF images (saved alongside as cfht_observatory_manual_om-focplndat.gif and cfht_observatory_manual_om-primefoc.gif); values read from them are marked IMAGE and could not be machine-checked",
+   "file": "rawdata/imaging/megacam/cfht_observatory_manual_sec4.html",
+   "url": "https://www.cfht.hawaii.edu/Instruments/ObservatoryManual/CFHT_ObservatoryManual_(Sec_4).html"
+  },
+  "R09": {
+   "cite": "Regnault, N., Conley, A., Guy, J., et al. 2009, A&A 506, 999, \"Photometric calibration of the Supernova Legacy Survey fields\", arXiv:0908.3808 (arXiv version). Text layer renders 0.185\" as \"0.18500\" and the footnote mark after 36 as \"361\"",
+   "file": "rawdata/imaging/megacam/Regnault2009_AA506_999_SNLS_calibration_arXiv0908.3808.pdf",
+   "url": "https://arxiv.org/pdf/0908.3808"
+  },
+  "B13": {
+   "cite": "Betoule, M., Marriner, J., Regnault, N., et al. 2013, A&A 552, A124, \"Improved photometric calibration of the SNLS and the SDSS supernova surveys\", arXiv:1212.4864 (arXiv version)",
+   "file": "rawdata/imaging/megacam/Betoule2013_AA552_A124_SNLS_SDSS_calibration_arXiv1212.4864.pdf",
+   "url": "https://arxiv.org/pdf/1212.4864"
+  },
+  "WOGT": {
+   "cite": "William Optics, product page \"Gran Turismo 81 IV\" (Specification tab; fetched 2026-10-19)",
+   "file": "rawdata/imaging/small80/williamoptics_gran-turismo-81-iv.html",
+   "url": "https://williamoptics.com/products/gran-turismo-81-iv"
+  },
+  "WOFG": {
+   "cite": "William Optics, product page \"FLAT GT\" (1.0x field flattener; Specification and Compatibility tabs; fetched 2026-10-19)",
+   "file": "rawdata/imaging/small80/williamoptics_flat-gt.html",
+   "url": "https://williamoptics.com/products/flat-gt"
+  },
+  "ZWO": {
+   "cite": "ZWO, product page \"New ASI2600MM/MC Pro\" (2025 revision, product names ASI2600MM P25 / ASI2600MC P25; fetched 2026-10-19)",
+   "file": "rawdata/imaging/small80/zwoastro_new-asi2600mm-mc-pro.html",
+   "url": "https://www.zwoastro.com/product/new-asi2600mm-mc-pro/"
+  }
+ },
+ "ztf": {
+  "title": "Palomar 48-inch Samuel Oschin Schmidt / ZTF camera (prime-focus Schmidt: aspheric trim plate + achromatic doublet corrector at the stop, spherical primary; 16-CCD mosaic inside the tube)",
+  "recommended_preset": "Schmidt prime focus. D = 1.2446 m (entrance pupil = aperture stop at the corrector; D20 Table 1 \"Entrance pupil diameter 1244.6 mm\"), spherical primary 1828 mm diameter, radius of curvature 6124 mm (stop at its centre of curvature, focal surface mid-way, R = 3062 mm). F = 2.46 (D20 \"Working focal ratio 2.46\"), f_eff = 2.46 x 1244.6 = 3062 mm DERIVED (plate-scale check: 15 um / 1.01\" = 3063 mm). eps = 0.473 DERIVED = sqrt(0.224), the area-equivalent of the published on-axis obscuration \"22.4% including spiders\" (cryostat + window frame + guide/focus CCDs at prime focus inside the tube, plus three spider vanes); without the 2.3% spider share eps = sqrt(0.202) = 0.449. Detector: 16 science CCDs e2v CCD231-C6, 6144 x 6160 px of 15 um, in 4 centred rows of 4 (rows top to bottom: 4, 4, 4, 4); 6144-px axis (x) E-W, 6160-px axis (y) N-S. Gaps (DERIVED from the published on-sky inter-detector gaps 0.140 deg E-W and 0.205 deg N-S at 1.01\"/15 um): x 7.49 mm, y 10.96 mm (these reproduce the published field 7.315 x 7.528 deg vs 7.323 x 7.504 deg measured; the camera papers' physical mosaic size 386 x 395 mm implies 5.79 / 8.47 mm instead -- see conflicts). Plus 4 guide/focus CCDs (STA3600A, 2048 x 2048 x 15 um) near the corners, outside the science rows. Validate: 1.01\"/px; field 7.32 deg E-W x 7.50 deg N-S = 55.0 deg2; light-sensitive 47.7 deg2 (DERIVED 47.66); fill factor 86.7%; 605,552,640 px (\"600 megapixel\").",
+  "params": {
+   "telescope_aperture": {
+    "value": 1.2446,
+    "unit": "m (entrance pupil = aperture stop at the Schmidt corrector)",
+    "src": "D20",
+    "loc": "Table 1 (ZTF Optical Design)",
+    "quote": "Entrance pupil diameter 1244.6 mm",
+    "alternatives": [
+     {
+      "value": 1.244,
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "singlet aspheric (nominally zero power) corrector plate in the plane of the stop (diameter 1244 mm)",
+      "note": "original 1948 singlet corrector at the stop; replaced in 1982 by an achromatic doublet (D20 Sec. 3.1), stop unchanged"
+     },
+     {
+      "value": 1.2,
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "inch (1.2-meter) aperture diameter Samuel Oschin Telescope",
+      "note": "nominal 48-inch"
+     },
+     {
+      "value": 1.2,
+      "src": "B19",
+      "loc": "Table 1",
+      "quote": "Telescope Palomar 48inch (1.2m) Samuel Oschin Schmidt",
+      "note": "nominal"
+     },
+     {
+      "value": 1.304,
+      "src": "D20",
+      "loc": "Table 2 (exposure shutter)",
+      "quote": "Clear Aperture 1304 mm",
+      "note": "shutter clear aperture, about 10 cm ahead of the corrector; larger than the stop, so not limiting"
+     },
+     {
+      "value": 1.348,
+      "src": "D20",
+      "loc": "Sec. 3.2.1",
+      "quote": "A new, 1348 mm-diameter, 15 mm thick, fused silica blank",
+      "note": "trim-plate blank; larger than the stop"
+     },
+     {
+      "value": 1.35,
+      "src": "R17",
+      "loc": "Sec. 5 (Trim plate)",
+      "quote": "This aspheric plate is 1.35m diameter by 10mm thick",
+      "note": "trim plate as figured; at the entrance pupil, larger than the stop"
+     }
+    ],
+    "note": "For a Schmidt the entrance pupil is the stop at the corrector, so D = 1.2446 m sets the collecting area; the mirror is larger (1.828 m) so that off-axis beams stay on it."
+   },
+   "primary_mirror": {
+    "value": {
+     "diameter_mm": 1828,
+     "radius_of_curvature_mm": 6124,
+     "focal_length_mm": 3062,
+     "figure": "spherical"
+    },
+    "unit": "mm",
+    "src": "D20",
+    "loc": "Sec. 3.1",
+    "quote": "The telescope originally consisted of a concave spherical mirror (diameter 1828 mm), an aperture stop located at the center of curvature of this mirror (6124 mm away), and a singlet aspheric (nominally zero power) corrector plate in the plane of the stop (diameter 1244 mm). This design produced a focal plane of excellent image quality approximately mid-way between stop and primary mirror, having a radius of curvature of 3062 mm.",
+    "alternatives": [
+     {
+      "value": "1.8 m",
+      "src": "D20",
+      "loc": "Sec. 3.2.3",
+      "quote": "focusing by the 1.8-meter diameter primary mirror"
+     }
+    ],
+    "derived": "Mirror focal length = R/2 = 6124/2 = 3062 mm (= the focal-surface radius, concentric Schmidt). Primary focal ratio for drawing: 3062 / 1244.6 = f/2.46 on the entrance pupil (= the working F), or 3062 / 1828 = f/1.675 on the full mirror diameter."
+   },
+   "primary_focal_ratio": {
+    "value": 2.46,
+    "unit": "f/# (DERIVED: mirror focal length 3062 mm over the 1244.6 mm entrance pupil; drawing only)",
+    "src": "D20",
+    "loc": "Sec. 3.1",
+    "quote": "an aperture stop located at the center of curvature of this mirror (6124 mm away)",
+    "alternatives": [
+     {
+      "value": 1.675,
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "concave spherical mirror (diameter 1828 mm)",
+      "note": "DERIVED 3062/1828 on the full mirror diameter"
+     }
+    ],
+    "derived": "6124/2 = 3062 mm; 3062/1244.6 = 2.46 (= the working focal ratio, as expected for a Schmidt)."
+   },
+   "telescope_focus": {
+    "value": "Schmidt prime focus inside the tube (camera at the curved focal surface, between corrector and mirror)",
+    "unit": null,
+    "src": "D20",
+    "loc": "Table 1",
+    "quote": "Telescope Type Prime focus Schmidt with air-spaced triplet corrector",
+    "alternatives": [
+     {
+      "value": "Schmidt-type",
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "This Schmidt-type telescope provides an extraordinarily large etendue"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 2.46,
+    "unit": "f/# (working, on the 1244.6 mm entrance pupil)",
+    "src": "D20",
+    "loc": "Table 1",
+    "quote": "Working focal ratio 2.46",
+    "derived": "f_eff = 2.46 x 1244.6 mm = 3061.7 mm; from the plate scale 15 um x 206264.8 / 1.01\" = 3063.3 mm (f/2.461); both match the 3062 mm mirror focal length."
+   },
+   "effective_focal_length": {
+    "value": 3.0617,
+    "unit": "m (DERIVED)",
+    "src": "D20",
+    "loc": "Table 1",
+    "quote": "Working focal ratio 2.46",
+    "derived": "2.46 x 1.2446 m = 3.0617 m. Cross-checks: 15 um / 1.01\" -> 3.0633 m; R/2 = 6.124/2 = 3.062 m (D20 Sec. 3.1). A value of 3.062 m is equally defensible; the 0.05% spread is below the precision of the published 1.01\"/px."
+   },
+   "telescope_obscuration": {
+    "value": 0.473,
+    "unit": "linear eps (DERIVED, area-equivalent circle of the 22.4% on-axis obscured AREA incl. 3 spider vanes)",
+    "src": "D20",
+    "loc": "Table 1",
+    "quote": "Optical obscuration 22.4% on-axis, up to ≈ 46% at field maximum",
+    "alternatives": [
+     {
+      "value": 0.449,
+      "src": "D20",
+      "loc": "Sec. 5.1 (Cryostat design)",
+      "quote": "resulting in 22.5% total on axis beam obstruction, of which 2.3% is due to the 3 spider vanes",
+      "note": "DERIVED linear eps of the central obstruction alone, sqrt(0.225 - 0.023)"
+     },
+     {
+      "value": 0.225,
+      "src": "D20",
+      "loc": "Sec. 5.1 (Cryostat design)",
+      "quote": "resulting in 22.5% total on axis beam obstruction, of which 2.3% is due to the 3 spider vanes",
+      "note": "area fraction; spiders 2.3% -> central obstruction 20.2%"
+     },
+     {
+      "value": 0.224,
+      "src": "B19",
+      "loc": "Sec. 2.2",
+      "quote": "Low obscuration (22.4% including spiders) is achieved at the Schmidt prime focus"
+     },
+     {
+      "value": 0.225,
+      "src": "D16",
+      "loc": "Sec. 1",
+      "quote": "Dewar, shutter, filter and spiders therefore, have been redesigned to limit beam obstruction to only 22.5% absolute",
+      "note": "design"
+     },
+     {
+      "value": "cryostat footprint = beam footprint on the filter (448 x 415 mm) + 9.5 mm",
+      "src": "D20",
+      "loc": "Sec. 5.1 and Sec. 3.2.2",
+      "quote": "have all been within a footprint that is only 9.5 mm larger than the beam footprint on the filter ... 450×490×6.2 mm to cover the 448×415 mm beam footprint"
+     },
+     {
+      "value": 0.2,
+      "src": "D16",
+      "loc": "Sec. 3.1",
+      "quote": "To achieve 20% obstruction, the window extends only two O-ring thicknesses beyond the converging beam",
+      "note": "design, before the ~2% added by guide/focus CCDs (\"Beam obstruction is increased by ~2% by the inclusion of 2Kx2K guide and focus CCDs\")"
+     }
+    ],
+    "derived": "Linear eps (area-equivalent circle): sqrt(0.224) = 0.473 (all on-axis obscuration incl. spiders; reproduces the published collecting-area loss); sqrt(0.225 - 0.023) = 0.449 (central obstruction only, spiders excluded) -> obscuration diameter 559 mm. Check from the cryostat footprint (see the footprint alternative): a rectangle 9.5 mm (in total, or on each side) larger than the 448 x 415 mm beam footprint is 0.194-0.203 m2 = 16.0-16.7% of the 1.217 m2 pupil (eps 0.40-0.41); the rest of the 20.2% is not itemised in the sources. Off axis: (1 - 0.46)/(1 - 0.224) = 0.696, i.e. 30% less light than on axis at the field maximum, consistent with D20's \"maximum vignetting of over 30% relative to the on-axis beam transmission\".",
+    "note": "What sets it: the ZTF cryostat (window 442 x 483 mm, octagonal) with its filter, focus/guide CCDs and services, sitting at prime focus in the middle of the tube, plus three spider vanes. The obstruction is roughly rectangular, not circular."
+   },
+   "field_unvignetted": {
+    "value": "not published as a diameter; the field is limited by beam walk-off on the primary",
+    "unit": null,
+    "src": "B19",
+    "loc": "Sec. 2.4 (Optics)",
+    "quote": "Ultimately, the useful field of the view of ZTF is limited by the Schmidt telescope design. At extreme field angles part of the beam from falls beyond the edge of the telescope primary mirror, with vignetting reaching 30% in the corners.",
+    "alternatives": [
+     {
+      "value": "47 deg2 limited by primary-mirror vignetting",
+      "src": "D16",
+      "loc": "Abstract",
+      "quote": "The ZTFC provides an instantaneous 47 deg2 field of view, limited by primary mirror vignetting in its Schmidt telescope prime focus configuration."
+     },
+     {
+      "value": ">30% at the corners",
+      "src": "D20",
+      "loc": "Sec. 3.2",
+      "quote": "Beam walk off of the telescope primary mirror leads to a maximum vignetting of over 30% relative to the on-axis beam transmission, with most of the sensor area unaffected."
+     },
+     {
+      "value": "6.5 x 6.5 deg (original 14-inch plates)",
+      "src": "R17",
+      "loc": "Sec. 1",
+      "quote": "achieving a 6.5x6.5 deg field of view using 355mm (14”) square photographic plates"
+     },
+     {
+      "value": "43.56 deg2 (14-inch plates)",
+      "src": "B19",
+      "loc": "Sec. 2.1",
+      "quote": "The P48 was designed to use 14-inch square photographic plates, providing a field of view of 43.56deg2"
+     }
+    ],
+    "derived": "Geometric unvignetted field (mirror walk-off only, ignoring the camera shadow): a 1244.6 mm beam pivoting about the stop 6124 mm from a 1828 mm mirror stays on the mirror for tan(theta) <= (914 - 622.3)/6124, theta <= 2.73 deg, i.e. an unvignetted diameter of 5.45 deg. At the mosaic corner (radius 5.24 deg) the same geometry loses 22% of the beam; the published 30% (relative to on axis) also includes the growth of the camera's own shadow (22.4% -> 46%)."
+   },
+   "optics_train": {
+    "value": "Direct imager. Trim plate (thin aspheric, ~1.35 m) at the entrance pupil in front of the 1982 achromatic doublet corrector at the stop; spherical primary; flat filter (450 x 490 x 6.2 mm) ~5-6 mm in front of the cryostat window; meniscus fused-silica window (32 mm centre thickness) that partly flattens the field; one plano-convex field-flattener lens 2 mm above each science CCD; CCDs on a faceted cold plate (each facet a chord of the residual curvature, tilts <= 3.1 deg). Shutter at the entrance pupil.",
+    "unit": null,
+    "src": "B19",
+    "loc": "Sec. 2.4 (Optics)",
+    "quote": "In front of the existing achromatic doublet Schmidt corrector that was installed for the Second Palomar Sky Surveys (Reid et al. 1991), we installed a “trim plate” to modify the aspheric coefficient of the Schmidt corrector at the telescope pupil by about 10%. ... the dewar vacuum window is a meniscus ... The CCDs themselves are mounted to a faceted cold plate, where each facet is a chord of the residual field curvature. ... we mount ∼2 mm thick fused silica field flattener lenses 2 mm above each detector",
+    "alternatives": [
+     {
+      "value": "filter 450 x 490 x 6.2 mm, 5 mm from the window vertex",
+      "src": "D20",
+      "loc": "Secs. 3.2 and 3.2.2",
+      "quote": "The distance between filter and convex window vertex is 5 mm ... Each filter is mounted immediately in front of the dewar window ... 450×490×6.2 mm to cover the 448×415 mm beam footprint",
+      "note": "D20 Sec. 5.1 says 6 mm (next entry)"
+     },
+     {
+      "value": "filter 6 mm from the window",
+      "src": "D20",
+      "loc": "Sec. 5.1",
+      "quote": "The filter has been located only 6 mm from the window"
+     },
+     {
+      "value": "window flattens the focal surface from R = 3062 mm to 7000 mm",
+      "src": "D20",
+      "loc": "Sec. 3.2.3",
+      "quote": "The window reduces focal surface curvature from 3062 mm to 7000 mm."
+     },
+     {
+      "value": "window 442 x 483 mm, 32 mm thick",
+      "src": "D20",
+      "loc": "Sec. 3.2.3",
+      "quote": "This window is octagonal in plan view and 442 mm × 483 mm in size ... the cryostat optical window has 32 mm center thickness"
+     },
+     {
+      "value": "field flatteners: plano-convex, R = 1260 mm, 2.0 mm above each CCD",
+      "src": "D16",
+      "loc": "Sec. 2",
+      "quote": "a plano-convex lens (convex radius 1260 mm, plano side toward CCD) is mounted 2.0 mm in front of the light-sensitive surface of each CCD"
+     },
+     {
+      "value": "CCD tilt <= 3.1 deg (focus CCDs 3.5 deg)",
+      "src": "D20",
+      "loc": "Table 3",
+      "quote": "Maximum physical CCD tilt 3.1◦ 3.5◦"
+     },
+     {
+      "value": "shutter at the entrance pupil",
+      "src": "B19",
+      "loc": "Sec. 2.5",
+      "quote": "we placed the shutter at the entrance pupil"
+     }
+    ]
+   },
+   "detector": {
+    "value": {
+     "model": "e2v CCD231-C6",
+     "format_px": [
+      6144,
+      6160
+     ],
+     "pitch_um": 15
+    },
+    "unit": "px (cols x rows); um",
+    "src": "D20",
+    "loc": "Table 3 (ZTF Camera), Science column",
+    "quote": "CCD model e2v CCD231-C6 STA3600A Pixel format 6144 col × 6160 row 2048 col × 2048 row Pixel width 15 µm 15 µm",
+    "alternatives": [
+     {
+      "value": "16 x 6144 x 6160, e2v CCD231-C6, 15 um",
+      "src": "B19",
+      "loc": "Table 1",
+      "quote": "Science CCDs 16 6144×6160 pixel e2v CCD231-C6 Guide and Focus CCDs 4 2k×2k STA; delta doped by JPL Pixels 15µmpixel−1"
+     },
+     {
+      "value": "6144 x 6160, 15 x 15 um",
+      "src": "R17",
+      "loc": "Sec. 1",
+      "quote": "ZTF uses sixteen CCD231-C6 back illuminated scientific CCD sensors from e2V, with 6144 x 6160 pixels and 15x15um pixel size."
+     }
+    ],
+    "derived": "Chip size 6144 x 15 um = 92.16 mm by 6160 x 15 um = 92.40 mm; 16 x 92.16 x 92.40 mm2 = 1362.5 cm2 = D20's \"Light-sensitive area 1362.5 cm2\"."
+   },
+   "n_science_chips": {
+    "value": 16,
+    "unit": "science CCDs",
+    "src": "B19",
+    "loc": "Table 1",
+    "quote": "Science CCDs 16 6144×6160 pixel e2v CCD231-C6",
+    "alternatives": [
+     {
+      "value": 16,
+      "src": "D20",
+      "loc": "Sec. 6.1",
+      "quote": "the sixteen 6144×6160 pixel CCDs required to completely tile a 47 square-degree instantaneous field of view"
+     }
+    ]
+   },
+   "guide_focus_chips": {
+    "value": {
+     "n": 4,
+     "model": "STA3600A",
+     "format_px": [
+      2048,
+      2048
+     ],
+     "pitch_um": 15,
+     "placement": "near the four corners of the science mosaic (outside the 4 x 4 rows)"
+    },
+    "unit": null,
+    "src": "D20",
+    "loc": "Sec. 6.2 (Focus Sensors) and Table 3",
+    "quote": "For sensing focus, 2k × 2k CCDs are located near each of the four corners of the science CCD mosaic.",
+    "alternatives": [
+     {
+      "value": "4 guide/focus CCDs around the perimeter; 3 out of focus, 1 in focus for guiding",
+      "src": "B19",
+      "loc": "Sec. 2.1",
+      "quote": "Four 2k×2k CCDs located around the perimeter of the mosaic serve as guide and focus sensors. ... The fourth in-focus CCD is used for guiding."
+     },
+     {
+      "value": "along two edges of the focal plane",
+      "src": "D16",
+      "loc": "Sec. 3.1",
+      "quote": "Beam obstruction is increased by ~2% by the inclusion of 2Kx2K guide and focus CCDs along two edges of the focal plane",
+      "note": "design"
+     },
+     {
+      "value": "separate guide telescope with a 4656 x 3520 CMOS",
+      "src": "D20",
+      "loc": "Sec. 6.3 (Autoguider)",
+      "quote": "A 4656×3520 pixel monochromatic CMOS sensor is mounted on the bore-sighted guide telescope",
+      "note": "as built, guiding moved to a bore-sighted guide telescope (ZWO ASI1600MM); all four 2k x 2k CCDs are then focus sensors"
+     }
+    ],
+    "note": "Not science chips; list separately in the explorer. Exact positions are shown only in figures (B19 Fig. 1 photograph)."
+   },
+   "mosaic_layout": {
+    "value": {
+     "rows_top_to_bottom": [
+      4,
+      4,
+      4,
+      4
+     ],
+     "rows_centered": true,
+     "chip_x_axis": "6144 px (92.16 mm) along E-W",
+     "chip_y_axis": "6160 px (92.40 mm) along N-S",
+     "gap_x_mm": 7.49,
+     "gap_y_mm": 10.96,
+     "gap_basis": "on-sky gaps converted at 1.01\"/15 um (DERIVED)"
+    },
+    "unit": "rows; mm",
+    "src": "B19",
+    "loc": "Table 1",
+    "quote": "Chip gaps 0.205◦ N-S, 0.140◦ E-W",
+    "alternatives": [
+     {
+      "value": "4 x 4",
+      "src": "D20",
+      "loc": "Fig. 3 caption",
+      "quote": "a corner CCD in the 4×4 CCD mosaic"
+     },
+     {
+      "value": "rows: top and bottom rows single-layer AR, middle rows dual-layer",
+      "src": "B19",
+      "loc": "Fig. 1 caption",
+      "quote": "The top and bottom rows of 6k × 6k science CCDs have a single-layer anti-reflective coating, while the middle rows have a dual-layer coating. ... North is up and East is left."
+     },
+     {
+      "value": "gaps 0.205 deg E-W, 0.140 deg N-S (labels swapped)",
+      "src": "D20",
+      "loc": "Table 3",
+      "quote": "Inter-detector gaps (active) 0.205◦ (E-W), 0.140◦ (N-S)",
+      "note": "inconsistent with the field dimensions (see derived); B19's labels are used"
+     },
+     {
+      "value": "package gap ~0.8 mm",
+      "src": "D20",
+      "loc": "Table 3",
+      "quote": "CCD package gaps ≈ 0.8 mm",
+      "note": "mechanical gap between CCD packages; the active-area gap also includes each package's dead border"
+     },
+     {
+      "value": "physical mosaic 386 x 395 mm -> gaps 5.79 (x) / 8.47 (y) mm DERIVED",
+      "src": "D20",
+      "loc": "Sec. 1",
+      "quote": "At 386 mm × 395 mm corner to corner and 86.7% fill factor",
+      "note": "(386 - 4 x 92.16)/3 = 5.79 mm, (395 - 4 x 92.40)/3 = 8.47 mm; same ratio as 0.140:0.205, but 1.4% smaller than the on-sky field at 1.01\"/px implies -- see conflicts"
+     },
+     {
+      "value": "386 x 395 mm, 89% fill factor",
+      "src": "D16",
+      "loc": "Sec. 1",
+      "quote": "At 386 mm x 395 mm corner to corner and 89% fill factor",
+      "note": "design; 16 x 92.16 x 92.40 / (386 x 395) = 89.4% (DERIVED) is the physical fill factor"
+     },
+     {
+      "value": "376 x 388 mm, 7.2 x 7.4 deg",
+      "src": "R17",
+      "loc": "Sec. 1",
+      "quote": "The Zwicky Transient Facility expands this field of view to 7.2x7.4 deg (376x388mm)",
+      "note": "early optical-design value; gaps would be 2.45 / 6.13 mm (DERIVED)"
+     },
+     {
+      "value": "560 mm corner to corner",
+      "src": "B19",
+      "loc": "Sec. 2.2",
+      "quote": "measures 560mm from corner to corner",
+      "note": "diagonal (DERIVED diagonal of 386 x 395 mm = 552 mm)"
+     },
+     {
+      "value": "pixel axes: x along RA (E-W), y along Dec (N-S); readout quadrant 3072 x 3080 px",
+      "src": "ZES",
+      "loc": "Sec. 6.1 step 1 and Fig. 1 caption (Sec. 3)",
+      "quote": "(one per readout-channel image: 3072 × 3080 pixels) ... The x, y vectors denote the directions of increasing pixel coordinates that all readout quadrants must have when the FOV is orientated on the sky as shown.",
+      "note": "orientation read from Fig. 1 (IMAGE): 4 x 4 CCDs, +x along the E-W axis, +y along N-S; 3072 = 6144/2 so the 6144-px axis is x"
+     }
+    ],
+    "derived": "0.140 deg = 504\" = 499.0 px = 7.49 mm (E-W, x); 0.205 deg = 738\" = 730.7 px = 10.96 mm (N-S, y), at 1.01\"/px and 15 um. Check (B19 labels): E-W 4 x 6144 x 1.01\" + 3 x 504\" = 7.315 deg vs 7.323 measured; N-S 4 x 6160 x 1.01\" + 3 x 738\" = 7.528 deg vs 7.504. With D20 Table 3's labels E-W would be 4 x 6144 x 1.01\" + 3 x 738\" = 7.510 deg, 2.6% too wide, so D20's labels are swapped.",
+    "note": "Rows are horizontal (E-W) strips of 4 chips; layout is a regular 4 x 4 grid with N up, E left (B19 Fig. 1)."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 1.01,
+    "unit": "arcsec/pixel",
+    "src": "D20",
+    "loc": "Table 3 (ZTF Camera)",
+    "quote": "Plate scale 1.0100 per 15 µm pixel",
+    "alternatives": [
+     {
+      "value": 1.01,
+      "src": "B19",
+      "loc": "Sec. 2.1",
+      "quote": "a plate scale of 1.0100 pixel−1"
+     },
+     {
+      "value": 1.01,
+      "src": "D20",
+      "loc": "Table 1",
+      "quote": "Plate scale 1.0100 pixel−1"
+     },
+     {
+      "value": 1.0,
+      "src": "D20",
+      "loc": "Sec. 6.1",
+      "quote": "Fortuitously, the standard 15 µm pixel size maps to 1 arcsec"
+     }
+    ],
+    "note": "\"1.0100\" in the text layer = 1.01\" (double-prime glyph rendered as 00)."
+   },
+   "field_of_view": {
+    "value": {
+     "EW_deg": 7.323,
+     "NS_deg": 7.504
+    },
+    "unit": "deg (measured on sky; bounding box incl. gaps)",
+    "src": "D20",
+    "loc": "Table 3",
+    "quote": "Camera ensquared field dimensions 7.323°(E-W) × 7.504°(N-S), measured on sky",
+    "alternatives": [
+     {
+      "value": {
+       "EW_deg": 7.32,
+       "NS_deg": 7.5,
+       "area_deg2": 55.0
+      },
+      "src": "B19",
+      "loc": "Table 1",
+      "quote": "Camera field dimensions 7.50◦ N-S × 7.32◦ E-W Camera field of view 55.0deg2"
+     },
+     {
+      "value": "~47 deg2 (light-sensitive)",
+      "src": "D20",
+      "loc": "Abstract",
+      "quote": "47-square-degree, 600 megapixel cryogenic CCD mosaic science camera"
+     }
+    ],
+    "derived": "7.323 x 7.504 = 54.95 deg2 (B19: 55.0). Explorer check with the recommended gaps: 7.315 x 7.528 deg = 55.07 deg2."
+   },
+   "light_sensitive_area": {
+    "value": 47.7,
+    "unit": "deg2",
+    "src": "B19",
+    "loc": "Table 1",
+    "quote": "Light-sensitive area 47.7deg2 Fill factor 86.7%",
+    "alternatives": [
+     {
+      "value": 46.725,
+      "src": "D20",
+      "loc": "Table 1",
+      "quote": "Camera instantaneous field of view 46.725 degree2 (ignoring distortion)",
+      "note": "= 16 x 6144 x 6160 px at exactly 1.00\"/px (46.725 deg2 DERIVED)"
+     },
+     {
+      "value": "1362.5 cm2",
+      "src": "D20",
+      "loc": "Table 3",
+      "quote": "Light-sensitive area 1362.5 cm2"
+     },
+     {
+      "value": "86.7% fill factor",
+      "src": "D20",
+      "loc": "Table 3",
+      "quote": "Focal plane fill factor 86.7%"
+     }
+    ],
+    "derived": "16 x 6144 x 6160 x (1.01\")^2 = 47.66 deg2; / (7.323 x 7.504) = 86.7% fill factor."
+   },
+   "total_pixels": {
+    "value": 605552640,
+    "unit": "science pixels (DERIVED: 16 x 6144 x 6160)",
+    "src": "D20",
+    "loc": "Abstract",
+    "quote": "47-square-degree, 600 megapixel cryogenic CCD mosaic science camera",
+    "derived": "16 x 6144 x 6160 = 605,552,640 = 605.6 Mpx (guide/focus CCDs add 4 x 2048 x 2048 = 16.8 Mpx)."
+   }
+  },
+  "not_found": [
+   "A published unvignetted or corrected field diameter (only \"vignetting reaching 30% in the corners\" and the obscuration rising from 22.4% to ~46% at field maximum). The geometric mirror-only value 5.45 deg is DERIVED.",
+   "A published linear central-obstruction ratio or obstruction outline: only area fractions (22.4% / 22.5% incl. 2.3% spiders) and the footprint statement (\"9.5 mm larger than the beam footprint on the filter\"); eps is DERIVED as the area-equivalent circle.",
+   "Physical inter-chip gaps in mm: only on-sky gaps (deg), the package gap (~0.8 mm) and overall mosaic sizes (386 x 395 mm; 376 x 388 mm; 560 mm diagonal) that disagree with the on-sky numbers at 1.01\"/px.",
+   "Exact positions of the four 2k x 2k focus/guide CCDs (only \"near each of the four corners\" / \"around the perimeter\" / \"along two edges\" and the B19 Fig. 1 photograph).",
+   "Smith et al. (SPIE 2014/2018) camera papers and Harrington (1952) were not obtained; the Caltech ZTF camera page was not used."
+  ],
+  "conflicts": [
+   "Gap labels: B19 Table 1 \"0.205 deg N-S, 0.140 deg E-W\" vs D20 Table 3 \"0.205 deg (E-W), 0.140 deg (N-S)\". Only B19's assignment reproduces the measured field (7.315 vs 7.323 deg E-W; 7.528 vs 7.504 deg N-S, DERIVED); D20's gives 7.510 deg E-W.",
+   "Physical mosaic size vs on-sky field: 386 x 395 mm (D20, D16) at the stated 1.01\"/15 um (f = 3063 mm) spans only 7.22 x 7.39 deg, 1.4-1.5% less than the measured 7.323 x 7.504 deg; the on-sky field corresponds to 391.5 x 401.2 mm (DERIVED). Fill factor 89% (D16, physical: 16 x 92.16 x 92.4 / (386 x 395) = 89.4%) vs 86.7% (D20, B19, on-sky). R17 gives yet another size, 7.2 x 7.4 deg (376 x 388 mm). Physical gaps implied: 5.79 / 8.47 mm (386 x 395) or 2.45 / 6.13 mm (376 x 388) vs 7.49 / 10.96 mm from the on-sky gaps (DERIVED). Recommendation: use the on-sky values (they reproduce every published validation number).",
+   "Obscuration: 22.4% (D20 Table 1, B19) vs 22.5% (D20 Sec. 5.1, D16) vs 20% design before guide/focus CCDs (D16).",
+   "Filter-to-window distance: 5 mm to the window vertex (D20 Sec. 3.2) vs 6 mm (D20 Sec. 5.1).",
+   "Guiding: the fourth 2k x 2k CCD in focus and used for guiding (B19; D16 design) vs a separate bore-sighted guide telescope with all four 2k CCDs as focus sensors (D20). Irrelevant to the imaging preset.",
+   "Light-sensitive area: 47.7 deg2 (B19, = 1.01\"/px) vs 46.725 deg2 (D20 Table 1, = 1.00\"/px, \"ignoring distortion\").",
+   "Trim plate: 1348 mm blank, 15 mm thick (D20) vs 1.35 m diameter, 10 mm thick (R17; plate as figured vs blank)."
+  ],
+  "notes": [
+   "Schmidt geometry for the drawing: corrector/stop at the mirror's centre of curvature, 6124 mm from the 1828 mm spherical mirror; curved focal surface (R = 3062 mm) mid-way, where the cryostat sits facing the mirror. The window reduces the focal-surface curvature from 3062 mm to 7000 mm (D20 Sec. 3.2.3); the CCDs sit on chords of that residual sphere.",
+   "D = 1.2446 m is the stop; the mirror (1.828 m) is oversized so that off-axis beams walk across it -- the walk-off is what vignettes the corners.",
+   "The obstruction (cryostat at prime focus) is large and roughly rectangular; the area-equivalent eps = 0.473 (with spiders) or 0.449 (without) is the closest circular stand-in.",
+   "Pixel axes from the IPAC supplement Fig. 1 (image): CCD +x along the E-W (RA) direction, +y along N-S; CCDs 01-04 bottom row ... 13-16 top row."
+  ]
+ },
+ "megacam": {
+  "title": "CFHT 3.6 m / MegaPrime + MegaCam (prime focus, 4-lens wide-field corrector, 40-CCD mosaic)",
+  "recommended_preset": "Prime focus of the CFHT parabolic primary (usable diameter D = 3.58 m; naked prime focus f/3.77, focal length 13533 mm) with the MegaPrime 4-lens wide-field corrector. f_eff = 13.5 um / 0.187\" = 14.89 m DERIVED from the published centre-of-field scale, F = 4.16 DERIVED (R09 quotes \"F/4.1\"; 0.185\"/px would give 15.05 m, f/4.20). eps = 0.451 DERIVED = sqrt(1 - 80,216/100,660) from CFHT's published collecting area (MegaPrime upper end modelled as two 67.5 cm-radius circles with centres 30 cm apart, plus four 5 cm spider vanes); the MegaPrime body alone gives 0.427. Detector: 40 e2v CCD42-90, 2048 x 4612 px of 13.5 um, 4 centred rows, top to bottom 9, 11, 11, 9 (the four 'ears' 36-39 are at both ends of the two middle rows; science use of all 40 since 2015A, only the central 36 before); 2048-px axis E-W, 4612-px axis N-S. Gaps: 70 px = 0.945 mm between chips in a row (x) and between the two middle rows; 425 px = 5.74 mm between rows 1-2 and 3-4 (y; DERIVED from the published pixel gaps x 13.5 um). Two guide/focus CCDs (format not published) on the N and S edges of the field, outside the science rows. Validate: 0.187\"/px at centre (0.185 nominal); 0.96 x 0.94 deg without ears (CFHT) vs DERIVED bounding box 0.987 x 1.006 deg (36 chips) / 1.207 deg wide with ears; 378 Mpx (40 chips; DERIVED 377,815,040) / 340 Mpx (36).",
+  "params": {
+   "telescope_aperture": {
+    "value": 3.58,
+    "unit": "m (usable diameter of the primary)",
+    "src": "COM4",
+    "loc": "Sec. 4 General Features",
+    "quote": "The primary mirror has a usable diameter of 3.58 m and has a parabolic figure.",
+    "alternatives": [
+     {
+      "value": 3.58,
+      "src": "CTC",
+      "loc": "Sec. 2.3",
+      "quote": "The CFHT is equiped with a 3.58 diameter mirror"
+     },
+     {
+      "value": 3.592,
+      "src": "COM4",
+      "loc": "foci table and prime-focus drawing (IMAGE, om-focplndat.gif / om-primefoc.gif)",
+      "quote": "IMAGE: \"beam diameter on primary mirror (mm) 3592\"; \"Diameter (clear) 3592mm\"",
+      "check": "image",
+      "note": "read from GIF images; not machine-checkable"
+     },
+     {
+      "value": 3.6,
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "focus environment MegaPrime on the Canada France Hawaii 3.6 m telescope",
+      "note": "nominal"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "prime focus (MegaPrime upper end) with a 4-lens wide-field corrector",
+    "unit": null,
+    "src": "CID",
+    "loc": "Wide Field Corrector",
+    "quote": "The parabolic main mirror of the telescope does not produce, alone, a good image of the whole field of view; a Wide Field Corrector (WFC) is installed in front of the camera.",
+    "alternatives": [
+     {
+      "value": "dedicated prime-focus environment",
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "MegaCam is a wide-field camera, hosted in the dedicated prime focus environment MegaPrime"
+     }
+    ]
+   },
+   "primary_focal_ratio": {
+    "value": 3.77,
+    "unit": "f/# (naked prime focus; drawing only)",
+    "src": "COM4",
+    "loc": "Prime Focus, General Characteristics",
+    "quote": "The naked prime focus, at f/3.77, is located 13533 mm above the primary mirror.",
+    "derived": "13533 / 3580 = f/3.78; 13533 / 3592 = f/3.77 (the f/3.77 refers to the 3592 mm clear diameter of the drawing).",
+    "note": "COM4's prime-focus subsection describes the pre-MegaPrime cage (\"this focus was decommissioned in early 2003\"), but the primary mirror and its focal length are unchanged."
+   },
+   "telescope_focal_ratio": {
+    "value": 4.16,
+    "unit": "f/# (DERIVED, MegaPrime corrector, centre of field)",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Pixel scale @ center of the field (arcsec / pixel) 0.187",
+    "alternatives": [
+     {
+      "value": 4.1,
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "with pixels of 13.5 µm that subtend 0.18500 on a side —the focal ratio being F/4.1",
+      "note": "F/4.1 x 3.58 m = 14.68 m -> 0.1897\"/px (DERIVED), inconsistent with both published scales"
+     },
+     {
+      "value": 4.2,
+      "src": "CID",
+      "loc": "CCDs",
+      "quote": "Pixel scale: 0.185 arsecond/pixel",
+      "note": "DERIVED from 0.185\"/px"
+     },
+     {
+      "value": 4.18,
+      "src": "COM4",
+      "loc": "foci table (IMAGE, om-focplndat.gif), W.F.C. column",
+      "quote": "IMAGE: \"f/ ratio 3.77 4.18 4.27\"; \"plate scale 85.6 15.24 72.83 13.73\"",
+      "check": "image",
+      "note": "the OLD (pre-2003) wide-field corrector, 55' field; read from GIF; not machine-checkable"
+     }
+    ],
+    "derived": "f_eff = 13.5 um x 206264.8 / 0.187\" = 14891 mm; F = 14891/3580 = 4.159. With 0.185\"/px: 15052 mm, F = 4.204."
+   },
+   "effective_focal_length": {
+    "value": 14.89,
+    "unit": "m (DERIVED from 0.187\"/px at field centre and 13.5 um pixels)",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Pixel size (um) 13.5 Pixel scale @ center of the field (arcsec / pixel) 0.187",
+    "alternatives": [
+     {
+      "value": 15.05,
+      "src": "CPH",
+      "loc": "primary header",
+      "quote": "PIXSCAL1= 0.1850 / Pixel scale for axis 1 (arcsec/pixel)",
+      "note": "DERIVED from the nominal 0.185\"/px (also CID, R09)"
+     }
+    ],
+    "note": "Not published directly. The centre-of-field scale is the paraxial one; the scale changes outward (\"There is a significant optical distortion beyond a 20 arcminutes radius\", CTC Sec. 1.2)."
+   },
+   "telescope_obscuration": {
+    "value": 0.451,
+    "unit": "linear eps (DERIVED, area-equivalent, incl. spiders)",
+    "src": "CTC",
+    "loc": "Sec. 2.3 (Telescope and MegaPrime/MegaCam optics)",
+    "quote": "The CFHT is equiped with a 3.58 diameter mirror and MegaPrime causes an obstruction which is larger than its central hole. After adding the footprint of the primary focus and the four spider branches supporting it, the final collecting area of the primary mirror is 80,216 square centimeters (each spider branch is 5 cm wide, over the area of the primary mirror, 3 are 111.5 cm long and one is 81.5 long, the prime focus can be modeled by two circles of 67.5 cm radius each with a central bridge between their centers of 30 cm).",
+    "alternatives": [
+     {
+      "value": 0.427,
+      "src": "CTC",
+      "loc": "Sec. 2.3",
+      "quote": "the prime focus can be modeled by two circles of 67.5 cm radius each with a central bridge between their centers of 30 cm",
+      "note": "MegaPrime body only, area-equivalent circle (DERIVED): stadium 135 x 165 cm, area 18,364 cm2; linear 135/358 = 0.377 (narrow) to 165/358 = 0.461 (long)"
+     },
+     {
+      "value": "primary central hole 951 mm obstructed (680 mm clear)",
+      "src": "COM4",
+      "loc": "prime-focus drawing (IMAGE, om-primefoc.gif)",
+      "quote": "IMAGE: \"Central hole Diameter in glass 863mm outer (obstructed) 951mm inner (clear) 680mm\"",
+      "check": "image",
+      "note": "smaller than the MegaPrime shadow, so not limiting (CTC: \"an obstruction which is larger than its central hole\"); read from GIF"
+     }
+    ],
+    "derived": "Primary area pi x 179^2 = 100,660 cm2; MegaPrime stadium pi x 67.5^2 + 135 x 30 = 18,364 cm2; spiders 5 x (3 x 111.5 + 81.5) = 2,080 cm2; 100,660 - 18,364 - 2,080 = 80,216 cm2, reproducing the published 80,216 cm2 (so the 'central bridge' is a 30 x 135 cm rectangle joining the two half-discs). Obscured fraction 1 - 80,216/100,660 = 0.2031; eps = sqrt of that = 0.451 (incl. spiders) or sqrt(18,364/100,660) = 0.427 (body only).",
+    "note": "What sets it: the MegaPrime prime-focus upper end (camera, corrector, FSA, guiders) seen in projection, larger than the primary's central hole."
+   },
+   "field_corrected": {
+    "value": "not published as a diameter; the corrector covers the full 40-CCD mosaic with the post-2015 filters",
+    "unit": null,
+    "src": "CTC",
+    "loc": "Sec. 2.1",
+    "quote": "Due to their larger foot print, these filters allow a full (unvignetted) illumination of the 40 CCDs of the mosaic",
+    "alternatives": [
+     {
+      "value": "<0.3\" (80% EE) u to z over most of the field",
+      "src": "CID",
+      "loc": "Wide Field Corrector",
+      "quote": "Image quality: designed to achieve better than 0.3\" diameter at 80% encircled energy from u to z on most of the field."
+     },
+     {
+      "value": "ears almost fully vignetted by the old filter frame",
+      "src": "CRD",
+      "loc": "Sec. 1.1",
+      "quote": "the four CCDs composing the \"ears\" of the mosaic are almost fully vignetted by the filter frame"
+     },
+     {
+      "value": "55' (240 mm) -- OLD corrector",
+      "src": "COM4",
+      "loc": "Prime Focus",
+      "quote": "a Wide Field Corrector which provides a 55 arc min (240 mm) diameter field",
+      "note": "pre-MegaPrime corrector; not applicable"
+     }
+    ],
+    "derived": "Circumscribed circle of the 40-CCD mosaic (DERIVED from the layout below): corner of the 9-chip rows at x = 9496 px, y = 9677 px -> radius 13,558 px = 0.704 deg (183 mm); diameter 1.41 deg (366 mm). The ears' outer corners lie inside (0.65 deg)."
+   },
+   "optics_train": {
+    "value": "Direct imager. Four-lens spherical wide-field corrector (BSL7-Y glass; first lens 81 cm, others 50-56 cm) below the camera; Image Stabilizing Unit tip-tilt plate (fused silica, 480 mm) in the beam in front of the camera, on top of the WFC; filter jukebox (8 filters), half-rotating-disk shutter (1 m) and cryostat window in MegaCam.",
+    "unit": null,
+    "src": "CID",
+    "loc": "Wide Field Corrector; Image Stabilizing Unit; MegaCam",
+    "quote": "Four spherical lenses in BSL7-Y (enhanced UV transparency glass) Lens diameter: First lens: 81 cm All others: between 50 and 56 cm ... a glass plate in the optical beam in front the camera can be tilted ... Tip-tilt plate: fused silica Diameter: 480 mm ... Type: Half rotating disk Diameter: 1 m ... Number of filters: 8",
+    "alternatives": [
+     {
+      "value": "ISU on top of the WFC",
+      "src": "COM4",
+      "loc": "Characteristics of the MegaPrime",
+      "quote": "an Image Stabilizing Unit (ISU) made of a tip/tilt plate is attached to the beam on top of the wide field corrector."
+     },
+     {
+      "value": "4 lenses 50-80 cm, 2 m long",
+      "src": "COM4",
+      "loc": "Characteristics of the MegaPrime",
+      "quote": "With four lenses 50 to 80 cm in diameter, in a structure two meters long for 660 kg"
+     },
+     {
+      "value": "camera window",
+      "src": "CTC",
+      "loc": "Sec. 2.3",
+      "quote": "The transmission model of the Wide-Field Corrector and the camera window"
+     }
+    ]
+   },
+   "detector": {
+    "value": {
+     "model": "e2v CCD42-90",
+     "format_px": [
+      2048,
+      4612
+     ],
+     "pitch_um": 13.5
+    },
+    "unit": "px; um",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Detector size (pixel) 2048 x 4612 Pixel size (um) 13.5",
+    "alternatives": [
+     {
+      "value": "CCD42-90, 2048 x 4612, 13.5 um",
+      "src": "CID",
+      "loc": "CCDs",
+      "quote": "CCD type: CCD42-90 Number of CCDs: 40 Number of CCDs currently used: 40 (4 rows of CCDS, first and last rows have 9 CCDs, middle rows have 11 CCDs) CCD size: 2048 x 4612 pixels Pixel size: 13.5 micrometers"
+     },
+     {
+      "value": "imaging area [1:2048,1:4612]",
+      "src": "CH13",
+      "loc": "ccd13 extension header",
+      "quote": "CCDSIZE = '[1:2048,1:4612]' / Detector imaging area size"
+     }
+    ],
+    "derived": "Chip 2048 x 13.5 um = 27.648 mm (E-W) by 4612 x 13.5 um = 62.262 mm (N-S)."
+   },
+   "n_science_chips": {
+    "value": 40,
+    "unit": "science CCDs (since 2015A; 36 before)",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Number of detectors 40 (ears included with new filters, vignetted by old (S) filters)",
+    "alternatives": [
+     {
+      "value": 36,
+      "src": "CRD",
+      "loc": "Sec. 1.1",
+      "quote": "prior to semester 2015A, only the central 36 CCDs were read out",
+      "note": "pre-2015A (old filters); the ears housed spares"
+     },
+     {
+      "value": 36,
+      "src": "R09",
+      "loc": "Sec. 2 footnote 1",
+      "quote": "the 36 central CCDs are actually read out, the 4 additional ones being almost completely vignetted by the filter frame",
+      "note": "as of 2009"
+     },
+     {
+      "value": 36,
+      "src": "B13",
+      "loc": "Sec. 2.1",
+      "quote": "a mosaic of 36 e2v 2048 × 4612 CCDs, that covers a field of 0.96 × 0.94 deg2",
+      "note": "as of 2013"
+     }
+    ]
+   },
+   "guide_focus_chips": {
+    "value": {
+     "n": 2,
+     "format": "not published",
+     "placement": "North and South edges of the field (outside the science rows)",
+     "guide_field_arcmin": "20 x 7 each"
+    },
+    "unit": null,
+    "src": "CID",
+    "loc": "Focus Stage/Guiding Focus Sensing",
+    "quote": "Two guiders (GFSU) located under the top plate of the FSA give a position and focus information from two guide stars on the North and South edges of the MegaCam field of view. ... Guiding field area: 20' x 7' for each guider",
+    "alternatives": [
+     {
+      "value": 2,
+      "src": "CIX",
+      "loc": "home page",
+      "quote": "includes an image stabilization unit and a guide/autofocus unit with two independent guide CCD detectors."
+     }
+    ],
+    "note": "Guide CCD format and exact position not published on the saved pages (Thomas et al. 2004, SPIE 5496, 119 not obtained)."
+   },
+   "mosaic_layout": {
+    "value": {
+     "rows_top_to_bottom": [
+      9,
+      11,
+      11,
+      9
+     ],
+     "rows_centered": true,
+     "chip_x_axis": "2048 px (27.648 mm) along E-W",
+     "chip_y_axis": "4612 px (62.262 mm) along N-S",
+     "gap_x_mm": 0.945,
+     "gap_y_mm_top_to_bottom": [
+      5.74,
+      0.945,
+      5.74
+     ],
+     "gap_basis": "published pixel gaps x 13.5 um (DERIVED)"
+    },
+    "unit": "rows; mm",
+    "src": "CRD",
+    "loc": "Sec. 1.2, primary-header COMMENT block",
+    "quote": "COMMENT Unique detector IDs for MegaCam (North on top, East to the left) ... COMMENT 00 01 02 03 04 05 06 07 08 ... COMMENT 36 09 10 11 12 13 14 15 16 17 37 ... COMMENT 38 18 19 20 21 22 23 24 25 26 39 ... COMMENT 27 28 29 30 31 32 33 34 35",
+    "alternatives": [
+     {
+      "value": "rows 9 / 11 / 11 / 9",
+      "src": "CID",
+      "loc": "CCDs",
+      "quote": "4 rows of CCDS, first and last rows have 9 CCDs, middle rows have 11 CCDs"
+     },
+     {
+      "value": "ears = 36-39, on the sides",
+      "src": "CTC",
+      "loc": "Sec. 1.1",
+      "quote": "The CCDs labeled 36,37,38,39 are referred to as the 'ears'."
+     },
+     {
+      "value": "pre-2015A: 4 x 9",
+      "src": "CRD",
+      "loc": "Sec. 1.1",
+      "quote": "Prior to 2015A, the readout image was composed of four stripes of 9 CCDs each."
+     },
+     {
+      "value": "gaps: small ~13\" (70 px), 2 large between rows ~80\" (425 px)",
+      "src": "CGI",
+      "loc": "Geometry table",
+      "quote": "Small gaps between CCDs (arcsec) ~13 (70 pixels) Large gaps (2) between CCD rows (arcsec) ~80 (425 pixels)"
+     },
+     {
+      "value": "gaps: medium 13\" (70 px), large 80\" (425 px); large ones 6x wider",
+      "src": "CTC",
+      "loc": "Sec. 1.2",
+      "quote": "recovering the medium (13 arcsec wide, or 70 pixels) and large (80 arcsec wide, or 425 pixels) gaps in the mosaic is not always a necessity ... the largest vertical gaps are 6 times wider than the horizontal gaps"
+     },
+     {
+      "value": "middle inter-row gap is small: three stripes separated by ~1' gaps",
+      "src": "CTC",
+      "loc": "Sec. 1.2 (Medium Dithering Pattern)",
+      "quote": "This is the pattern to pick if only three large stripes of sky with a one arcminute gap between them is fine to conduct the scientific program."
+     },
+     {
+      "value": "large gaps along y (Dec)",
+      "src": "R09",
+      "loc": "Sec. 3",
+      "quote": "The dithering offsets are essentially determined by the size of the gaps between the CCDs, and reach 100 pixels in x (or right ascension) and 500 pixels in y (or declination)."
+     },
+     {
+      "value": "mosaic frame 23219 x 19354 px",
+      "src": "CPH",
+      "loc": "primary header",
+      "quote": "DETSIZE = '[1:23219,1:19354]' / Total data pixels in full mosaic",
+      "note": "nominal mosaic pixel frame incl. gaps and ears; see derived"
+     },
+     {
+      "value": "ccd13 at x 10581-12628, y 9709-14320 in that frame",
+      "src": "CH13",
+      "loc": "ccd13 extension header",
+      "quote": "DETSEC = '[12628:10581,14320:9709]' / Mosaic area of the entire readout"
+     },
+     {
+      "value": "aligned N-S / E-W",
+      "src": "CGI",
+      "loc": "Geometry table",
+      "quote": "Camera orientation Aligned with North-South/East-West axis"
+     }
+    ],
+    "derived": "x gap 70 px x 13.5 um = 0.945 mm; large y gaps 425 px x 13.5 um = 5.74 mm. Mosaic-frame cross-check (CPH/CH13): (23219 - 11 x 2048)/10 = 69.1 px mean x gap; ccd13 (5th of 9 in row 2, 6th of 11 counting the ear) starts at x = 10581 = 1 + 5 x (2048 + 68) -> 68 px. In y (origin at the bottom row): row-1/row-2 gap = 19354 - 14320 - 4612 = 422 px (large); the two lower gaps sum to 9709 - 1 - 2 x 4612 = 484 px = one large (~416) + one small (~68), so the middle gap (rows 2-3) is small, matching CTC's three stripes. Extent (0.187\"/px): 36 chips 18,992 x 19,368 px = 0.987 x 1.006 deg (256.4 x 261.5 mm); 40 chips 1.207 deg (23,228 px) wide. The DETSIZE frame gives 1.206 x 1.005 deg.",
+    "note": "Rows are E-W strips (2048-px axis along E-W); the 11-chip rows are the 9-chip rows plus one ear at each end, so rows are centred. The ear-to-block gap is not given separately (DETSIZE allows ~65-74 px depending on the main-gap value)."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.187,
+    "unit": "arcsec/pixel (centre of field)",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Pixel scale @ center of the field (arcsec / pixel) 0.187",
+    "alternatives": [
+     {
+      "value": 0.187,
+      "src": "CIX",
+      "loc": "home page",
+      "quote": "with a resolution of 0.187 arcsecond per pixel"
+     },
+     {
+      "value": 0.185,
+      "src": "CID",
+      "loc": "CCDs",
+      "quote": "Pixel scale: 0.185 arsecond/pixel"
+     },
+     {
+      "value": 0.185,
+      "src": "CPH",
+      "loc": "primary header",
+      "quote": "PIXSCAL1= 0.1850 / Pixel scale for axis 1 (arcsec/pixel)"
+     },
+     {
+      "value": 0.185,
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "with pixels of 13.5 µm that subtend 0.18500 on a side",
+      "note": "\"0.18500\" = 0.185\" in the text layer"
+     },
+     {
+      "value": "slightly less than 0.2\"",
+      "src": "COM4",
+      "loc": "Characteristics of the MegaPrime",
+      "quote": "The resultant pixel size is slightly less than 0.2 arc-seconds"
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": {
+     "EW_deg": 0.96,
+     "NS_deg": 0.94,
+     "scope": "36 central CCDs (without ears)"
+    },
+    "unit": "deg",
+    "src": "CGI",
+    "loc": "Geometry table",
+    "quote": "Camera field of view 0.96 deg x 0.94 deg (without ears)",
+    "alternatives": [
+     {
+      "value": "0.96 x 0.94 deg2",
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "The camera images a field of view 0.96×0.94 deg2"
+     },
+     {
+      "value": "0.96 x 0.94 deg2",
+      "src": "B13",
+      "loc": "Sec. 2.1",
+      "quote": "a mosaic of 36 e2v 2048 × 4612 CCDs, that covers a field of 0.96 × 0.94 deg2"
+     },
+     {
+      "value": "1 x 1 deg",
+      "src": "CIX",
+      "loc": "home page",
+      "quote": "covering a full 1 x 1 square degree field-of-view"
+     },
+     {
+      "value": "4 x 9 CCDs = 25 cm x 25 cm = 1 x 1 deg",
+      "src": "COM4",
+      "loc": "Characteristics of the MegaPrime",
+      "quote": "CEA mounted these CCDs very precisely in a mosaic which central area, made of 4 rows of 9 CCDs, covers a square of 25cm by 25cm, or 1 degree by 1 degree on the sky."
+     }
+    ],
+    "derived": "From the layout: 36 chips 0.987 x 1.006 deg at 0.187\"/px (0.976 x 0.995 at 0.185), i.e. 3-7% larger than 0.96 x 0.94. Chips alone (no gaps): 9 x 27.648 = 248.8 mm by 4 x 62.262 = 249.0 mm (the '25 cm square'). Light-sensitive area: 40 chips 1.019 deg2, 36 chips 0.917 deg2 at 0.187\"/px."
+   },
+   "total_pixels": {
+    "value": 377815040,
+    "unit": "pixels (40 CCDs; DERIVED 40 x 2048 x 4612)",
+    "src": "CIX",
+    "loc": "home page",
+    "quote": "consists of 40 2048 x 4612 pixel CCDs (a total of 378 megapixels)",
+    "alternatives": [
+     {
+      "value": 340,
+      "src": "R09",
+      "loc": "Sec. 2",
+      "quote": "the 340 Mpixel focal plane",
+      "note": "36 CCDs (DERIVED 340,033,536)"
+     },
+     {
+      "value": 378,
+      "src": "CID",
+      "loc": "CCDs",
+      "quote": "Image size (whole mosaic): 378 Megapixels"
+     }
+    ],
+    "derived": "40 x 2048 x 4612 = 377,815,040; 36 x 2048 x 4612 = 340,033,536."
+   }
+  },
+  "not_found": [
+   "A published effective focal length or focal ratio of the MegaPrime corrector except R09's \"F/4.1\"; f_eff is DERIVED from the pixel scale (14.89 m at 0.187\"/px, 15.05 m at 0.185\"/px).",
+   "A corrected/unvignetted field diameter for the MegaPrime wide-field corrector (only \"full (unvignetted) illumination of the 40 CCDs\" with the new filters and the 0.3\" EE80 design goal).",
+   "Physical inter-chip gaps in mm (DERIVED from the published pixel gaps x 13.5 um), and the separate gap between each ear and the 9-chip block.",
+   "Guide-CCD format and exact position (two guiders on the N and S edges, 20' x 7' fields).",
+   "Boulade et al. 2003 (SPIE 4841, 72) and Aune et al. 2003 (SPIE 4841, 513), the MegaCam instrument papers, are paywalled (ADS lists PUB_HTML only); not obtained. Magnier & Cuillandre 2004 (PASP 116, 449) not obtained."
+  ],
+  "conflicts": [
+   "Pixel scale: 0.187\"/px at the field centre (CGI, CIX) vs 0.185\"/px (CID, FITS PIXSCAL, R09). f_eff 14.89 vs 15.05 m (DERIVED).",
+   "Focal ratio: F/4.1 (R09) vs 4.16 (DERIVED from 0.187\"/px on 3.58 m) vs 4.20 (from 0.185\"/px). F/4.1 implies 0.190\"/px.",
+   "Field: 0.96 x 0.94 deg without ears (CGI, R09, B13) vs \"1 x 1 square degree\" (CIX, COM4) vs DERIVED 0.987 x 1.006 deg from 9 x 2048 + 8 x 70 px and 4 x 4612 + 2 x 425 + 70 px at 0.187\"/px. The explorer will reproduce ~0.99 x 1.01 deg, not 0.96 x 0.94.",
+   "Total pixels: 378 Mpx (CIX, CID; 40 CCDs) vs 340 Mpx (R09, COM4; 36 CCDs read out before 2015A).",
+   "Number of science CCDs: 40 since 2015A (CGI, CID, CRD) vs 36 before (CRD, R09, B13).",
+   "Small-gap naming: \"Small gaps between CCDs\" (CGI) vs \"medium (13 arcsec wide, or 70 pixels)\" (CTC); DETSEC frame implies 68-69 px instead of 70."
+  ],
+  "notes": [
+   "Layout read from CRD's header COMMENT block (North on top, East to the left): row 1 = CCDs 00-08; row 2 = 36, 09-17, 37; row 3 = 38, 18-26, 39; row 4 = 27-35. The two upper rows are flipped 180 deg in readout (irrelevant to geometry).",
+   "Large gaps (425 px = 5.74 mm) separate rows 1-2 and 3-4; the gap between the two middle rows is small (70 px). If the explorer allows only one y gap, the true layout is three stripes: [row 1] 5.74 mm [rows 2+3 with a 0.945 mm gap] 5.74 mm [row 4].",
+   "CTC's \"largest vertical gaps are 6 times wider than the horizontal gaps\": 425/70 = 6.1 (DERIVED).",
+   "Obscuration: the published collecting area 80,216 cm2 is reproduced exactly by a stadium (two half-discs of radius 67.5 cm joined by a 30 x 135 cm rectangle) plus four 5 cm spiders of total length 416 cm."
+  ]
+ },
+ "small80": {
+  "title": "80 mm refractor + CMOS (representative amateur setup: William Optics Gran Turismo 81 IV triplet APO with FLAT GT 1.0x flattener + ZWO ASI2600MM Pro, Sony IMX571)",
+  "recommended_preset": "Label generically \"80 mm refractor + CMOS\". D = 0.081 m, eps = 0 (unobstructed refractor), F = 5.9, f_eff = 478 mm (objective; the FLAT GT flattener is 1.0x). Single chip, Sony IMX571 6248 x 4176 px of 3.76 um (23.5 x 15.7 mm APS-C), rows [1], long side E-W by convention, no gaps. DERIVED: pixel scale 1.623\"/px; field 2.816 x 1.882 deg = 5.30 deg2; 26,091,648 px. The 28.3 mm sensor diagonal sits inside the 44 mm flattened image circle.",
+  "params": {
+   "telescope_aperture": {
+    "value": 0.081,
+    "unit": "m (objective clear aperture)",
+    "src": "WOGT",
+    "loc": "Specification tab",
+    "quote": "Focal Length 478 mm Diameter 81 mm Focal Ratio f/5.9"
+   },
+   "telescope_obscuration": {
+    "value": 0.0,
+    "unit": "linear eps",
+    "src": "WOGT",
+    "loc": "Specification tab",
+    "quote": "Lens Type Triplet APO Prime Lens",
+    "note": "Not stated on the page; a refractor has no central obstruction by construction."
+   },
+   "telescope_focus": {
+    "value": "refractor: FPL-53 triplet APO objective with a 1.0x two-element field flattener",
+    "unit": null,
+    "src": "WOGT",
+    "loc": "Description",
+    "quote": "Gran Turismo 81 IV f/5.9 APO Triplet Refractor. Equipped with a high-quality FPL-53 triplet lens"
+   },
+   "telescope_focal_ratio": {
+    "value": 5.9,
+    "unit": "f/#",
+    "src": "WOGT",
+    "loc": "Specification tab",
+    "quote": "Focal Ratio f/5.9",
+    "derived": "478 / 81 = 5.90."
+   },
+   "effective_focal_length": {
+    "value": 0.478,
+    "unit": "m (objective; unchanged by the 1.0x FLAT GT)",
+    "src": "WOGT",
+    "loc": "Specification tab",
+    "quote": "Focal Length 478 mm",
+    "alternatives": [
+     {
+      "value": "1.0x flattener",
+      "src": "WOFG",
+      "loc": "Specification tab",
+      "quote": "Flattener Power 1.0 x Lens Type 1 Groups 2 Elements"
+     },
+     {
+      "value": 0.3824,
+      "src": "WOGT",
+      "loc": "Specification tab",
+      "quote": "Optional Flattener FLAT GT 1.0x FLAT 6AIII 0.8x",
+      "note": "with the optional 0.8x reducer-flattener: 478 x 0.8 = 382.4 mm, f/4.7 (DERIVED); not the preset"
+     }
+    ],
+    "derived": "With the 1.0x FLAT GT: 478 x 1.0 = 478 mm."
+   },
+   "field_corrected": {
+    "value": 44,
+    "unit": "mm image-circle diameter (with FLAT GT)",
+    "src": "WOFG",
+    "loc": "Compatibility tab, Gran Turismo 81 IV",
+    "quote": "Gran Turismo 81 IV Back Focus 55mm Adjustment Using 30.85mm Front Extender ( Remove the Threaded Spacer ) Image Circle ∅44mm",
+    "alternatives": [
+     {
+      "value": 45,
+      "src": "WOGT",
+      "loc": "Specification tab",
+      "quote": "Image Circle 45 mm",
+      "note": "objective alone"
+     }
+    ],
+    "derived": "44 mm / 478 mm = 5.27 deg diameter; the 28.3 mm sensor diagonal (3.39 deg) is inside it."
+   },
+   "optics_train": {
+    "value": "Direct imager: triplet objective -> FLAT GT (1 group, 2 elements, 1.0x) -> filter (user's) -> camera window -> sensor; 55 mm back focus from the flattener.",
+    "unit": null,
+    "src": "WOFG",
+    "loc": "Specification and Compatibility tabs",
+    "quote": "Flattener Power 1.0 x Lens Type 1 Groups 2 Elements ... Gran Turismo 81 IV Back Focus 55mm"
+   },
+   "detector": {
+    "value": {
+     "model": "Sony IMX571 (ZWO ASI2600MM Pro, mono)",
+     "format_px": [
+      6248,
+      4176
+     ],
+     "pitch_um": 3.76
+    },
+    "unit": "px; um",
+    "src": "ZWO",
+    "loc": "specification table",
+    "quote": "Sensor IMX571 CMOS IMX571 CMOS Sensor Format APS-C 23.5×15.7mm APS-C 23.5×15.7mm Resolution 6248×4176 6248×4176",
+    "alternatives": [
+     {
+      "value": "23.5 x 15.7 mm, 28.3 mm diagonal, 6248 x 4176, 3.76 um",
+      "src": "ZWO",
+      "loc": "APS-C Sony IMX571 Sensor section",
+      "quote": "The ASI2600MM/MC Pro is equipped with the APS-C format Sony IMX571 sensor, measuring 23.5mm × 15.7mm with a 28.3mm diagonal. It delivers an outstanding resolution of 6248 × 4176 pixels, making it a true 26-megapixel powerhouse. Each 3.76 μm pixel"
+     }
+    ],
+    "derived": "6248 x 3.76 um = 23.49 mm; 4176 x 3.76 um = 15.70 mm (matches 23.5 x 15.7 mm)."
+   },
+   "pixel_pitch": {
+    "value": 3.76,
+    "unit": "um",
+    "src": "ZWO",
+    "loc": "specification table",
+    "quote": "Pixel Size 3.76μm 3.76μm"
+   },
+   "mosaic_layout": {
+    "value": {
+     "rows_top_to_bottom": [
+      1
+     ],
+     "rows_centered": true,
+     "chip_x_axis": "6248 px (23.49 mm), long side horizontal by convention",
+     "chip_y_axis": "4176 px (15.70 mm)",
+     "gap_x_mm": null,
+     "gap_y_mm": null
+    },
+    "unit": null,
+    "src": "ZWO",
+    "loc": "specification table",
+    "quote": "Resolution 6248×4176",
+    "note": "Single sensor; camera rotation on the sky is the user's choice."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 1.6225,
+    "unit": "arcsec/pixel (DERIVED; not published)",
+    "src": "WOGT",
+    "loc": "Specification tab",
+    "quote": "Focal Length 478 mm",
+    "derived": "3.76 um x 206264.8 / 478 mm = 1.6225\"/px."
+   },
+   "field_of_view": {
+    "value": {
+     "x_deg": 2.816,
+     "y_deg": 1.882
+    },
+    "unit": "deg (DERIVED; not published)",
+    "src": "ZWO",
+    "loc": "specification table",
+    "quote": "Sensor Format APS-C 23.5×15.7mm",
+    "derived": "23.49 / 478 rad = 2.816 deg; 15.70 / 478 rad = 1.882 deg; area 5.30 deg2."
+   },
+   "total_pixels": {
+    "value": 26091648,
+    "unit": "pixels (DERIVED)",
+    "src": "ZWO",
+    "loc": "APS-C Sony IMX571 Sensor section",
+    "quote": "making it a true 26-megapixel powerhouse",
+    "derived": "6248 x 4176 = 26,091,648."
+   }
+  },
+  "not_found": [
+   "Manufacturer-published pixel scale and field of view for this combination (both DERIVED).",
+   "Central obstruction (none for a refractor; not stated by the maker).",
+   "The exact system focal length with the FLAT GT (only its 1.0x power); the 0.8x Flat6AIII alternative gives 382 mm."
+  ],
+  "conflicts": [
+   "Image circle: 45 mm for the objective (WOGT) vs 44 mm with the FLAT GT (WOFG)."
+  ],
+  "notes": [
+   "Product choice: William Optics GT81 IV (81 mm f/5.9 FPL-53 triplet) and ZWO ASI2600MM Pro (IMX571), both widely sold; another ~80 mm f/6 apochromat with an IMX571 camera would give a similar preset.",
+   "The saved ZWO page is the 2025 revision (product name \"ASI2600MM P25\"); the original ASI2600MM Pro product page (zwoastro.com/product/asi2600mm-pro/) returned HTTP 404 on 2026-10-19 and was not saved. Only the saved page's sensor numbers are used.",
+   "The mono (MM) and colour (MC) columns of the ZWO table give the same format and pitch; a colour sensor's Bayer matrix samples each colour more coarsely (not modelled)."
+  ]
+ }
+}

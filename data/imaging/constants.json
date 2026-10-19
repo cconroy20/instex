@@ -1,0 +1,2073 @@
+{
+ "_meta": {
+  "project": "instex IMAGER mode -- reference constants: band menu (one wavelength per band for lambda/D), Moon angular size, Moffat beta for seeing, Airy FWHM",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/constants.md (same content in Markdown, in the spirit of data/round4/mosfire.md)",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/imaging/constants/. derived = arithmetic done here from sourced values. alternatives = other sourced values (conflicts or cross-checks). Every quote was machine-checked against the saved file's extracted text.",
+  "quote_normalisation": "pdftotext (layout, raw, default) and tag-stripped HTML text (visible text and tooltip attributes); NFKC, primes/curly quotes, dashes/minus signs, tilde-operator and mu normalised; whitespace collapsed; pieces that differ only in spacing are accepted; \" ... \" joins non-adjacent pieces; table rows are quoted as whitespace-separated cells; OCR text (ADS scans) quoted as OCR'd.",
+  "units": "SVO wavelengths in Angstrom (1 um = 10^4 A).",
+  "quote_check": "225 quote pieces (including double-quoted fragments inside notes) checked against the saved files: 0 failures"
+ },
+ "sources": {
+  "SVO:Bessell.U": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter Generic/Bessell.U: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/Generic_Bessell.U.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=Generic/Bessell.U&&mode=browse&gname=Generic&gname2=Bessell (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=Generic/Bessell.U)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/Generic_Bessell.U.votable.xml"
+   ]
+  },
+  "SVO:Bessell.B": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter Generic/Bessell.B: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/Generic_Bessell.B.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=Generic/Bessell.B&&mode=browse&gname=Generic&gname2=Bessell (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=Generic/Bessell.B)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/Generic_Bessell.B.votable.xml"
+   ]
+  },
+  "SVO:Bessell.V": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter Generic/Bessell.V: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/Generic_Bessell.V.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=Generic/Bessell.V&&mode=browse&gname=Generic&gname2=Bessell (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=Generic/Bessell.V)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/Generic_Bessell.V.votable.xml"
+   ]
+  },
+  "SVO:Bessell.R": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter Generic/Bessell.R: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/Generic_Bessell.R.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=Generic/Bessell.R&&mode=browse&gname=Generic&gname2=Bessell (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=Generic/Bessell.R)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/Generic_Bessell.R.votable.xml"
+   ]
+  },
+  "SVO:Bessell.I": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter Generic/Bessell.I: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/Generic_Bessell.I.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=Generic/Bessell.I&&mode=browse&gname=Generic&gname2=Bessell (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=Generic/Bessell.I)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/Generic_Bessell.I.votable.xml"
+   ]
+  },
+  "SVO:SDSS.u": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter SLOAN/SDSS.u: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/SLOAN_SDSS.u.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.u&&mode=browse&gname=SLOAN&gname2=SDSS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=SLOAN/SDSS.u)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/SLOAN_SDSS.u.votable.xml"
+   ]
+  },
+  "SVO:SDSS.g": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter SLOAN/SDSS.g: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/SLOAN_SDSS.g.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.g&&mode=browse&gname=SLOAN&gname2=SDSS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=SLOAN/SDSS.g)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/SLOAN_SDSS.g.votable.xml"
+   ]
+  },
+  "SVO:SDSS.r": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter SLOAN/SDSS.r: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/SLOAN_SDSS.r.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.r&&mode=browse&gname=SLOAN&gname2=SDSS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=SLOAN/SDSS.r)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/SLOAN_SDSS.r.votable.xml"
+   ]
+  },
+  "SVO:SDSS.i": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter SLOAN/SDSS.i: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/SLOAN_SDSS.i.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.i&&mode=browse&gname=SLOAN&gname2=SDSS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=SLOAN/SDSS.i)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/SLOAN_SDSS.i.votable.xml"
+   ]
+  },
+  "SVO:SDSS.z": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter SLOAN/SDSS.z: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/SLOAN_SDSS.z.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=SLOAN/SDSS.z&&mode=browse&gname=SLOAN&gname2=SDSS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=SLOAN/SDSS.z)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/SLOAN_SDSS.z.votable.xml"
+   ]
+  },
+  "SVO:PS1.y": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter PAN-STARRS/PS1.y: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/PAN-STARRS_PS1.y.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=PAN-STARRS/PS1.y&&mode=browse&gname=PAN-STARRS&gname2=PS1 (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=PAN-STARRS/PS1.y)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/PAN-STARRS_PS1.y.votable.xml"
+   ]
+  },
+  "SVO:2MASS.J": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter 2MASS/2MASS.J: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/2MASS_2MASS.J.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=2MASS/2MASS.J&&mode=browse&gname=2MASS&gname2=2MASS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=2MASS/2MASS.J)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/2MASS_2MASS.J.votable.xml"
+   ]
+  },
+  "SVO:2MASS.H": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter 2MASS/2MASS.H: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/2MASS_2MASS.H.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=2MASS/2MASS.H&&mode=browse&gname=2MASS&gname2=2MASS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=2MASS/2MASS.H)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/2MASS_2MASS.H.votable.xml"
+   ]
+  },
+  "SVO:2MASS.Ks": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter 2MASS/2MASS.Ks: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/2MASS_2MASS.Ks.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=2MASS/2MASS.Ks&&mode=browse&gname=2MASS&gname2=2MASS (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=2MASS/2MASS.Ks)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/2MASS_2MASS.Ks.votable.xml"
+   ]
+  },
+  "SVO:NSFCam.Lp": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter MKO/NSFCam.Lp: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/MKO_NSFCam.Lp.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=MKO/NSFCam.Lp&&mode=browse&gname=MKO&gname2=NSFCam (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=MKO/NSFCam.Lp)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/MKO_NSFCam.Lp.votable.xml"
+   ]
+  },
+  "SVO:NSFCam.Mp": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter MKO/NSFCam.Mp: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/MKO_NSFCam.Mp.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=MKO/NSFCam.Mp&&mode=browse&gname=MKO&gname2=NSFCam (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=MKO/NSFCam.Mp)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/MKO_NSFCam.Mp.votable.xml"
+   ]
+  },
+  "SVO:LSST.y": {
+   "cite": "Spanish Virtual Observatory (SVO) Filter Profile Service, filter LSST/LSST.y: browse page (\"Filter Description\" / \"Mathematical properties\" tables, Calculated column) and VOTable (property definitions in <DESCRIPTION>, transmission curve); fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/LSST_LSST.y.html",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/index.php?id=LSST/LSST.y&&mode=browse&gname=LSST&gname2=LSST (VOTable: http://svo2.cab.inta-csic.es/theory/fps/fps.php?ID=LSST/LSST.y)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/LSST_LSST.y.votable.xml"
+   ]
+  },
+  "SVO:lists": {
+   "cite": "SVO Filter Profile Service list queries (ProfileReference / CalibrationReference / Comments for every filter of a system): PhotSystem=Bessell, Facility=SLOAN, PAN-STARRS, LSST, 2MASS, MKO; fetched 2026-10-19",
+   "file": "rawdata/imaging/constants/svo/list_Facility_MKO.votable.xml",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/fps.php?Facility=MKO (etc.)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/list_PhotSystem_Bessell.votable.xml",
+    "rawdata/imaging/constants/svo/list_Facility_SLOAN.votable.xml",
+    "rawdata/imaging/constants/svo/list_Facility_PAN-STARRS.votable.xml",
+    "rawdata/imaging/constants/svo/list_Facility_LSST.votable.xml",
+    "rawdata/imaging/constants/svo/list_Facility_2MASS.votable.xml"
+   ]
+  },
+  "SVO:formulas": {
+   "cite": "SVO Filter Profile Service formula images shown in the browse-page tooltips (lambda_pivot, lambda_mean, lambda_eff, lambda_phot, detector-type integrals); images, so not machine-checkable: lpiv.png reads \"lambda_pivot = sqrt( int lambda T(lambda) dlambda / int T(lambda) dlambda/lambda )\", lmean.png reads \"lambda_mean = int lambda T(lambda) dlambda / int T(lambda) dlambda\" (read by eye)",
+   "file": "rawdata/imaging/constants/svo/formula_images/svo_lpiv.png",
+   "url": "http://svo2.cab.inta-csic.es/theory/fps/images/latex/lpiv.png (etc.)",
+   "other_files": [
+    "rawdata/imaging/constants/svo/formula_images/svo_lmean.png",
+    "rawdata/imaging/constants/svo/formula_images/svo_leff.png",
+    "rawdata/imaging/constants/svo/formula_images/svo_lphot.png",
+    "rawdata/imaging/constants/svo/formula_images/svo_detector-energy.png",
+    "rawdata/imaging/constants/svo/formula_images/svo_detector-photon.png"
+   ]
+  },
+  "B90": {
+   "cite": "Bessell, M. S. 1990, PASP 102, 1181, \"UBVRI passbands\" (ADS scan with OCR text layer; Table 2 \"Normalized standard passbands\")",
+   "file": "rawdata/imaging/constants/papers/Bessell1990_PASP102_1181_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1990PASP..102.1181B"
+  },
+  "BM12": {
+   "cite": "Bessell, M. & Murphy, S. 2012, PASP 124, 140, \"Spectrophotometric Libraries, Revised Photonic Passbands, and Zero Points for UBVRI, Hipparcos, and Tycho Photometry\" (arXiv:1112.2698)",
+   "file": "rawdata/imaging/constants/papers/BessellMurphy2012_PASP124_140_arXiv1112.2698.pdf",
+   "url": "https://arxiv.org/pdf/1112.2698"
+  },
+  "F96": {
+   "cite": "Fukugita, M., Ichikawa, T., Gunn, J. E., et al. 1996, AJ 111, 1748, \"The Sloan Digital Sky Survey Photometric System\" (ADS scan with OCR text layer; OCR renders lambda as \"A\" and Angstrom as \"Â\")",
+   "file": "rawdata/imaging/constants/papers/Fukugita1996_AJ111_1748_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996AJ....111.1748F"
+  },
+  "D10": {
+   "cite": "Doi, M., Tanaka, M., Fukugita, M., et al. 2010, AJ 139, 1628, \"Photometric Response Functions of the Sloan Digital Sky Survey Imager\" (arXiv:1002.3701)",
+   "file": "rawdata/imaging/constants/papers/Doi2010_AJ139_1628_SDSS_arXiv1002.3701.pdf",
+   "url": "https://arxiv.org/pdf/1002.3701"
+  },
+  "T12": {
+   "cite": "Tonry, J. L., Stubbs, C. W., Lykke, K. R., et al. 2012, ApJ 750, 99, \"The Pan-STARRS1 Photometric System\" (arXiv:1203.0297)",
+   "file": "rawdata/imaging/constants/papers/Tonry2012_ApJ750_99_PS1_arXiv1203.0297.pdf",
+   "url": "https://arxiv.org/pdf/1203.0297"
+  },
+  "C03": {
+   "cite": "Cohen, M., Wheaton, W. A. & Megeath, S. T. 2003, AJ 126, 1090, \"Spectral Irradiance Calibration in the Infrared. XIV. The Absolute Calibration of 2MASS\" (arXiv:astro-ph/0304350)",
+   "file": "rawdata/imaging/constants/papers/Cohen2003_AJ126_1090_2MASS_arXiv-astro-ph0304350.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0304350"
+  },
+  "T02": {
+   "cite": "Tokunaga, A. T., Simons, D. A. & Vacca, W. D. 2002, PASP 114, 180, \"The Mauna Kea Observatories Near-Infrared Filter Set. II. Specifications for a New JHKL'M' Filter Set for Infrared Astronomy\" (arXiv:astro-ph/0110593)",
+   "file": "rawdata/imaging/constants/papers/Tokunaga2002_PASP114_180_MKO_arXiv-astro-ph0110593.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0110593"
+  },
+  "TV05": {
+   "cite": "Tokunaga, A. T. & Vacca, W. D. 2005, PASP 117, 421, \"The Mauna Kea Observatories Near-Infrared Filter Set. III. Isophotal Wavelengths and Absolute Calibration\" (arXiv:astro-ph/0502120)",
+   "file": "rawdata/imaging/constants/papers/TokunagaVacca2005_PASP117_421_MKO_arXiv-astro-ph0502120.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0502120"
+  },
+  "NSSDC": {
+   "cite": "NASA Space Science Data Coordinated Archive (NSSDCA), \"Moon Fact Sheet\" (page footer \"Last Updated: 11 January 2024, DRW\"; fetched 2026-10-19; HTTP response headers saved alongside)",
+   "file": "rawdata/imaging/constants/moon/nssdc_moonfact.html",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+   "other_files": [
+    "rawdata/imaging/constants/moon/moonfact.headers.txt"
+   ]
+  },
+  "T01": {
+   "cite": "Trujillo, I., Aguerri, J. A. L., Cepa, J. & Gutierrez, C. M. 2001, MNRAS 328, 977, \"The effects of seeing on Sersic profiles - II. The Moffat PSF\" (arXiv:astro-ph/0109067v1, author version)",
+   "file": "rawdata/imaging/constants/papers/Trujillo2001_MNRAS328_977_Moffat_arXiv-astro-ph0109067.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0109067"
+  },
+  "T01P": {
+   "cite": "Same paper, published MNRAS version (ADS scan with OCR text layer; OCR renders beta as \"b\" and some decimal points as \":\")",
+   "file": "rawdata/imaging/constants/papers/Trujillo2001_MNRAS328_977_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/2001MNRAS.328..977T"
+  },
+  "IRAF-DAO": {
+   "cite": "IRAF (iraf-community/iraf, main branch), noao/digiphot/daophot/doc/daopars.hlp (\"daopars -- edit the daophot fitting parameters\", help dated May00; last commit 023e0ea84749, 2021-09-25)",
+   "file": "rawdata/imaging/constants/iraf/daopars.hlp",
+   "url": "https://raw.githubusercontent.com/iraf-community/iraf/main/noao/digiphot/daophot/doc/daopars.hlp"
+  },
+  "IRAF-RIM": {
+   "cite": "IRAF (iraf-community/iraf, main branch), pkg/images/tv/rimexam.par (imexamine radial-profile parameters; last commit b16ce716abfe, 2017-04-26)",
+   "file": "rawdata/imaging/constants/iraf/rimexam.par",
+   "url": "https://raw.githubusercontent.com/iraf-community/iraf/main/pkg/images/tv/rimexam.par"
+  },
+  "IRAF-PSFM": {
+   "cite": "IRAF (iraf-community/iraf, main branch), noao/obsutil/src/starfocus/psfmeasure.par (last commit b16ce716abfe, 2017-04-26)",
+   "file": "rawdata/imaging/constants/iraf/psfmeasure.par",
+   "url": "https://raw.githubusercontent.com/iraf-community/iraf/main/noao/obsutil/src/starfocus/psfmeasure.par"
+  },
+  "RBH12": {
+   "cite": "Robertson, J. G. & Bland-Hawthorn, J. 2012, Proc. SPIE 8446, 844623, \"Compact high-resolution spectrographs for large and extremely large telescopes: using the diffraction limit\" (arXiv:1208.4667)",
+   "file": "rawdata/imaging/constants/papers/RobertsonBlandHawthorn2012_SPIE8446_arXiv1208.4667.pdf",
+   "url": "https://arxiv.org/pdf/1208.4667"
+  },
+  "D15": {
+   "cite": "Dong, R., Zhu, Z. & Whitney, B. 2015, ApJ 809, 93, \"Observational Signatures of Planets in Protoplanetary Disks I. Gaps Opened by Single and Multiple Young Planets in Disks\" (arXiv:1411.6063)",
+   "file": "rawdata/imaging/constants/papers/Dong2015_ApJ809_93_arXiv1411.6063.pdf",
+   "url": "https://arxiv.org/pdf/1411.6063"
+  },
+  "TOO": {
+   "cite": "Sacek, V., telescope-optics.net, \"Effects of the telescope central obstruction\" (Sec. 7.1; TABLE 10 \"Effect of central obstruction on normalized PSF intensity distribution\", which the page attributes to Mahajan, \"Aberration Theory Made Simple\"; HTTP Last-Modified 2025-12-19; fetched 2026-10-19). Secondary source: a tabulation reproduced from Mahajan, not Mahajan's own text",
+   "file": "rawdata/imaging/constants/airy/telescope-optics_net_obstruction.htm",
+   "url": "https://telescope-optics.net/obstruction.htm"
+  }
+ },
+ "band_definition": {
+  "choice": "lambda_pivot (SVO \"λ pivot\", Calculated column) for every band",
+  "why": "One definition across all 16 bands. (1) The pivot wavelength depends on the passband only (no source spectrum), and Bessell & Murphy (2012) recommend it for describing a filter system. (2) SVO adopts it as each filter's reference wavelength (lambda_ref = lambda_pivot). (3) Recomputing from the saved curves shows SVO evaluates the pivot on the photon-counting response for both detector types (curve as given for photon counters, T/lambda for the energy-counter Bessell and NSFCam curves), so the same definition applies to every row. SVO's lambda_mean is instead computed on the energy-counting response; it differs from the pivot by +0.04% (M') to +1.35% (R), which does not matter for lambda/D.",
+  "quotes": [
+   {
+    "src": "BM12",
+    "loc": "Appendix A.2.1",
+    "quote": "We recommend the retention of only two, the pivot wavelength, λp , that is a property of the passband only, and the isophotal wavelength"
+   },
+   {
+    "src": "BM12",
+    "loc": "Appendix A.2.1",
+    "quote": "The pivot wavelength should be used as part of a description of the filter system"
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM WavelengthRef <DESCRIPTION>",
+    "quote": "Reference wavelength. Defined as the same than the pivot wavelength."
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM WavelengthPivot <DESCRIPTION> (SVO labels this description \"Peak wavelength\"; the formula is the pivot)",
+    "quote": "Defined as sqrt{integ[x*filter(x) dx]/integ[filter(x) dx/x]}"
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM WavelengthMean <DESCRIPTION>",
+    "quote": "Mean wavelength. Defined as integ[x*filter(x) dx]/integ[filter(x) dx]"
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM FWHM <DESCRIPTION>",
+    "quote": "Full width at half maximum. Defined as the difference between the two wavelengths for which filter transmission is half maximum"
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM WidthEff <DESCRIPTION>",
+    "quote": "Equivalent to the horizontal size of a rectangle with height equal to maximum transmission and with the same area that the one covered by the filter"
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, tooltip of the λ mean / λ cen / FWHM properties",
+    "quote": "Filter transmission is transformed to \"energy counter\" for these calculations, that is, the photon count transmission is multiplied by λ and normalized so that peak transmission is equal to 1."
+   },
+   {
+    "src": "SVO:SDSS.u",
+    "loc": "VOTable, PARAM DetectorType <DESCRIPTION>",
+    "quote": "Detector type. 0:Energy counter, 1:Photon counter."
+   }
+  ],
+  "caveat": "The SVO tooltip text quoted above also appears under λ pivot, but the saved curves show the pivot is NOT evaluated on the energy-normalised curve: SVO's pivot equals sqrt(int lambda T_ph / int T_ph/lambda) with T_ph the photon-counting response (agreement to the 0.01 A printed, all 16 bands, DERIVED), whereas lambda_mean, lambda_cen, FWHM and W_eff do use the energy-counting response.",
+  "width_choice": "Tooltip width = SVO FWHM; the half-maximum band edges are lambda_cen -/+ FWHM/2 (DERIVED). W_eff (equivalent rectangle width) is listed too; W_eff/FWHM ranges from 0.83 (2MASS J, shoulder near half maximum) to 1.17 (SDSS z, long red tail)."
+ },
+ "band_menu": [
+  {
+   "band": "U",
+   "system": "Johnson-Cousins",
+   "lambda_um": 0.3585,
+   "fwhm_um": 0.0653,
+   "w_eff_um": 0.064,
+   "half_max_um": [
+    0.3278,
+    0.3931
+   ],
+   "svo_id": "Generic/Bessell.U"
+  },
+  {
+   "band": "B",
+   "system": "Johnson-Cousins",
+   "lambda_um": 0.4371,
+   "fwhm_um": 0.0948,
+   "w_eff_um": 0.0959,
+   "half_max_um": [
+    0.3885,
+    0.4832
+   ],
+   "svo_id": "Generic/Bessell.B"
+  },
+  {
+   "band": "V",
+   "system": "Johnson-Cousins",
+   "lambda_um": 0.5478,
+   "fwhm_um": 0.0852,
+   "w_eff_um": 0.0893,
+   "half_max_um": [
+    0.5013,
+    0.5865
+   ],
+   "svo_id": "Generic/Bessell.V"
+  },
+  {
+   "band": "R",
+   "system": "Johnson-Cousins",
+   "lambda_um": 0.6498,
+   "fwhm_um": 0.1567,
+   "w_eff_um": 0.1591,
+   "half_max_um": [
+    0.5653,
+    0.722
+   ],
+   "svo_id": "Generic/Bessell.R"
+  },
+  {
+   "band": "I",
+   "system": "Johnson-Cousins",
+   "lambda_um": 0.802,
+   "fwhm_um": 0.1543,
+   "w_eff_um": 0.1495,
+   "half_max_um": [
+    0.7283,
+    0.8826
+   ],
+   "svo_id": "Generic/Bessell.I"
+  },
+  {
+   "band": "u",
+   "system": "SDSS",
+   "lambda_um": 0.3557,
+   "fwhm_um": 0.0566,
+   "w_eff_um": 0.0541,
+   "half_max_um": [
+    0.3295,
+    0.3861
+   ],
+   "svo_id": "SLOAN/SDSS.u"
+  },
+  {
+   "band": "g",
+   "system": "SDSS",
+   "lambda_um": 0.4703,
+   "fwhm_um": 0.1176,
+   "w_eff_um": 0.1065,
+   "half_max_um": [
+    0.416,
+    0.5335
+   ],
+   "svo_id": "SLOAN/SDSS.g"
+  },
+  {
+   "band": "r",
+   "system": "SDSS",
+   "lambda_um": 0.6176,
+   "fwhm_um": 0.1131,
+   "w_eff_um": 0.1056,
+   "half_max_um": [
+    0.5622,
+    0.6753
+   ],
+   "svo_id": "SLOAN/SDSS.r"
+  },
+  {
+   "band": "i",
+   "system": "SDSS",
+   "lambda_um": 0.749,
+   "fwhm_um": 0.1253,
+   "w_eff_um": 0.1103,
+   "half_max_um": [
+    0.6917,
+    0.8171
+   ],
+   "svo_id": "SLOAN/SDSS.i"
+  },
+  {
+   "band": "z",
+   "system": "SDSS",
+   "lambda_um": 0.8947,
+   "fwhm_um": 0.0998,
+   "w_eff_um": 0.1164,
+   "half_max_um": [
+    0.8291,
+    0.929
+   ],
+   "svo_id": "SLOAN/SDSS.z"
+  },
+  {
+   "band": "y",
+   "system": "Pan-STARRS1",
+   "lambda_um": 0.9628,
+   "fwhm_um": 0.0665,
+   "w_eff_um": 0.0639,
+   "half_max_um": [
+    0.9196,
+    0.9861
+   ],
+   "svo_id": "PAN-STARRS/PS1.y"
+  },
+  {
+   "band": "J",
+   "system": "2MASS",
+   "lambda_um": 1.2393,
+   "fwhm_um": 0.183,
+   "w_eff_um": 0.152,
+   "half_max_um": [
+    1.1636,
+    1.3466
+   ],
+   "svo_id": "2MASS/2MASS.J"
+  },
+  {
+   "band": "H",
+   "system": "2MASS",
+   "lambda_um": 1.6495,
+   "fwhm_um": 0.258,
+   "w_eff_um": 0.241,
+   "half_max_um": [
+    1.5216,
+    1.7796
+   ],
+   "svo_id": "2MASS/2MASS.H"
+  },
+  {
+   "band": "Ks",
+   "system": "2MASS",
+   "lambda_um": 2.1639,
+   "fwhm_um": 0.2771,
+   "w_eff_um": 0.2506,
+   "half_max_um": [
+    2.026,
+    2.3031
+   ],
+   "svo_id": "2MASS/2MASS.Ks"
+  },
+  {
+   "band": "L'",
+   "system": "MKO-NIR",
+   "lambda_um": 3.7572,
+   "fwhm_um": 0.6999,
+   "w_eff_um": 0.6829,
+   "half_max_um": [
+    3.4232,
+    4.1232
+   ],
+   "svo_id": "MKO/NSFCam.Lp"
+  },
+  {
+   "band": "M'",
+   "system": "MKO-NIR",
+   "lambda_um": 4.683,
+   "fwhm_um": 0.2416,
+   "w_eff_um": 0.2406,
+   "half_max_um": [
+    4.5636,
+    4.8052
+   ],
+   "svo_id": "MKO/NSFCam.Mp"
+  }
+ ],
+ "bands": {
+  "U": {
+   "label": "U",
+   "system": "Johnson-Cousins (Bessell 1990 passbands)",
+   "svo_filter_id": "Generic/Bessell.U",
+   "lambda_pivot": {
+    "value": 3584.78,
+    "unit": "Angstrom",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 3584.78 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 3605.07,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 3605.07 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 652.84,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 652.84 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 640.4,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 640.40 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 3604.52,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 3604.52 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:Bessell.U",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.3585 um; half-maximum band = lambda_cen -/+ FWHM/2 = 3278-3931 A (0.328-0.393 um); lambda_mean/lambda_pivot - 1 = +0.57%; recomputed from the saved VOTable curve: pivot 3584.78 A (photon-counting response), FWHM 652.84 A and W_eff 640.40 A (energy-counting response), photon-response FWHM 665 A",
+   "tooltip": "U (Johnson-Cousins): λ = 0.358 µm (pivot), FWHM 0.065 µm (0.328–0.393 µm)",
+   "alternatives": [
+    {
+     "value": 3597,
+     "unit": "A (lambda_p, revised photonic passband)",
+     "src": "BM12",
+     "loc": "Table 5 (\"Adopted additional ZP magnitudes and passband parameters\"), lambda_p row",
+     "quote": "λp 3597 4377 5488 6515 7981",
+     "note": "revised photonic (photon-counting) UBVRI passbands; FWHM row: \"625 890 830 1443 1499\" (U B V R I, Angstrom)"
+    },
+    {
+     "value": 625,
+     "unit": "A (FWHM, revised passband)",
+     "src": "BM12",
+     "loc": "Table 5, Delta-lambda_fwhm row",
+     "quote": "∆λf whm 625 890 830 1443 1499"
+    },
+    {
+     "value": "Bessell (1990) UX column",
+     "src": "B90",
+     "loc": "Table 2 \"Normalized standard passbands\" (OCR)",
+     "quote": "NORMALIZED STANDARD PASSBANDS",
+     "note": "SVO Generic/Bessell.U reproduces the B90 Table 2 UX column point by point (300-420 nm, 5 nm step; e.g. 1.000 at 370 nm); DERIVED check"
+    }
+   ]
+  },
+  "B": {
+   "label": "B",
+   "system": "Johnson-Cousins (Bessell 1990 passbands)",
+   "svo_filter_id": "Generic/Bessell.B",
+   "lambda_pivot": {
+    "value": 4371.07,
+    "unit": "Angstrom",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 4371.07 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 4413.08,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 4413.08 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 947.62,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 947.62 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 959.2,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 959.20 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 4358.33,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 4358.33 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:Bessell.B",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.4371 um; half-maximum band = lambda_cen -/+ FWHM/2 = 3885-4832 A (0.388-0.483 um); lambda_mean/lambda_pivot - 1 = +0.96%; recomputed from the saved VOTable curve: pivot 4371.07 A (photon-counting response), FWHM 947.62 A and W_eff 959.20 A (energy-counting response), photon-response FWHM 893 A",
+   "tooltip": "B (Johnson-Cousins): λ = 0.437 µm (pivot), FWHM 0.095 µm (0.388–0.483 µm)",
+   "alternatives": [
+    {
+     "value": 4377,
+     "unit": "A (lambda_p)",
+     "src": "BM12",
+     "loc": "Table 5, lambda_p row",
+     "quote": "λp 3597 4377 5488 6515 7981"
+    },
+    {
+     "value": 890,
+     "unit": "A (FWHM)",
+     "src": "BM12",
+     "loc": "Table 5, Delta-lambda_fwhm row",
+     "quote": "∆λf whm 625 890 830 1443 1499"
+    },
+    {
+     "value": "Bessell (1990) B column (not BX)",
+     "src": "B90",
+     "loc": "Table 2 (OCR)",
+     "quote": "380 0.120 0.134",
+     "note": "row 380 nm: BX = 0.120, B = 0.134; SVO Generic/Bessell.B has 0.134 at 3800 A, i.e. the B column (DERIVED check, all 21 points)"
+    }
+   ]
+  },
+  "V": {
+   "label": "V",
+   "system": "Johnson-Cousins (Bessell 1990 passbands)",
+   "svo_filter_id": "Generic/Bessell.V",
+   "lambda_pivot": {
+    "value": 5477.7,
+    "unit": "Angstrom",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 5477.70 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 5512.1,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 5512.10 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 852.44,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 852.44 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 893.1,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 893.10 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 5439.27,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 5439.27 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:Bessell.V",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.5478 um; half-maximum band = lambda_cen -/+ FWHM/2 = 5013-5865 A (0.501-0.587 um); lambda_mean/lambda_pivot - 1 = +0.63%; recomputed from the saved VOTable curve: pivot 5477.70 A (photon-counting response), FWHM 852.44 A and W_eff 893.10 A (energy-counting response), photon-response FWHM 818 A",
+   "tooltip": "V (Johnson-Cousins): λ = 0.548 µm (pivot), FWHM 0.085 µm (0.501–0.587 µm)",
+   "alternatives": [
+    {
+     "value": 5488,
+     "unit": "A (lambda_p)",
+     "src": "BM12",
+     "loc": "Table 5, lambda_p row",
+     "quote": "λp 3597 4377 5488 6515 7981"
+    },
+    {
+     "value": 830,
+     "unit": "A (FWHM)",
+     "src": "BM12",
+     "loc": "Table 5, Delta-lambda_fwhm row",
+     "quote": "∆λf whm 625 890 830 1443 1499"
+    }
+   ],
+   "note": "SVO page header for Generic/Bessell.V reads \"Description (?) : Bessell B generic filter\" (an SVO typo; the Band Name, filter ID and curve are V)."
+  },
+  "R": {
+   "label": "R",
+   "system": "Johnson-Cousins (Bessell 1990 passbands; Cousins R)",
+   "svo_filter_id": "Generic/Bessell.R",
+   "lambda_pivot": {
+    "value": 6498.09,
+    "unit": "Angstrom",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 6498.09 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 6585.92,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 6585.92 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1567.06,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1567.06 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1591.0,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1591.00 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 6436.47,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 6436.47 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:Bessell.R",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.6498 um; half-maximum band = lambda_cen -/+ FWHM/2 = 5653-7220 A (0.565-0.722 um); lambda_mean/lambda_pivot - 1 = +1.35%; recomputed from the saved VOTable curve: pivot 6498.09 A (photon-counting response), FWHM 1567.06 A and W_eff 1591.00 A (energy-counting response), photon-response FWHM 1398 A",
+   "tooltip": "R (Johnson-Cousins): λ = 0.650 µm (pivot), FWHM 0.157 µm (0.565–0.722 µm)",
+   "alternatives": [
+    {
+     "value": 6515,
+     "unit": "A (lambda_p)",
+     "src": "BM12",
+     "loc": "Table 5, lambda_p row",
+     "quote": "λp 3597 4377 5488 6515 7981"
+    },
+    {
+     "value": 1443,
+     "unit": "A (FWHM)",
+     "src": "BM12",
+     "loc": "Table 5, Delta-lambda_fwhm row",
+     "quote": "∆λf whm 625 890 830 1443 1499",
+     "note": "BM12 FWHM (photon passband) is 8% narrower than the SVO FWHM 1567 A computed on the Bessell (1990) energy response"
+    }
+   ],
+   "note": "Largest pivot-vs-mean spread of the menu (mean 6585.92 A is 1.35% redder than the pivot) because of the long red tail of the Bessell R passband."
+  },
+  "I": {
+   "label": "I",
+   "system": "Johnson-Cousins (Bessell 1990 passbands; Cousins I)",
+   "svo_filter_id": "Generic/Bessell.I",
+   "lambda_pivot": {
+    "value": 8020.14,
+    "unit": "Angstrom",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 8020.14 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 8059.88,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 8059.88 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1543.11,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1543.11 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1495.1,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1495.10 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 8054.53,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 8054.53 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:Bessell.I",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.8020 um; half-maximum band = lambda_cen -/+ FWHM/2 = 7283-8826 A (0.728-0.883 um); lambda_mean/lambda_pivot - 1 = +0.50%; recomputed from the saved VOTable curve: pivot 8020.14 A (photon-counting response), FWHM 1543.11 A and W_eff 1495.10 A (energy-counting response), photon-response FWHM 1526 A",
+   "tooltip": "I (Johnson-Cousins): λ = 0.802 µm (pivot), FWHM 0.154 µm (0.728–0.883 µm)",
+   "alternatives": [
+    {
+     "value": 7981,
+     "unit": "A (lambda_p)",
+     "src": "BM12",
+     "loc": "Table 5, lambda_p row",
+     "quote": "λp 3597 4377 5488 6515 7981"
+    },
+    {
+     "value": 1499,
+     "unit": "A (FWHM)",
+     "src": "BM12",
+     "loc": "Table 5, Delta-lambda_fwhm row",
+     "quote": "∆λf whm 625 890 830 1443 1499"
+    }
+   ]
+  },
+  "u": {
+   "label": "u",
+   "system": "SDSS (2.5 m imager, full system response incl. atmosphere)",
+   "svo_filter_id": "SLOAN/SDSS.u",
+   "lambda_pivot": {
+    "value": 3556.52,
+    "unit": "Angstrom",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 3556.52 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 3572.18,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 3572.18 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 565.8,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 565.80 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 540.97,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 540.97 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 3578.03,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 3578.03 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.3557 um; half-maximum band = lambda_cen -/+ FWHM/2 = 3295-3861 A (0.330-0.386 um); lambda_mean/lambda_pivot - 1 = +0.44%; recomputed from the saved VOTable curve: pivot 3556.52 A (photon-counting response), FWHM 565.80 A and W_eff 540.97 A (energy-counting response), photon-response FWHM 582 A",
+   "tooltip": "u (SDSS): λ = 0.356 µm (pivot), FWHM 0.057 µm (0.330–0.386 µm)",
+   "alternatives": [
+    {
+     "value": 3557,
+     "unit": "A (lambda_eff, wavelength-weighted average; u' g' r' i' z' design system at 1.2 airmass)",
+     "src": "F96",
+     "loc": "Table 2a \"Characteristics of the SDSS photometric system (1.2 airmass)\", first row (OCR)",
+     "quote": "Aeff2)15 (Â) 3557 4825 6261 7672 9097",
+     "note": "OCR of lambda_eff with footnotes 1),2); F96 text: \"The first row gives the wavelength-weighted average\""
+    },
+    {
+     "value": 599,
+     "unit": "A (\"FWHM of an effective Gaussian bandpass\", not the curve FWHM)",
+     "src": "F96",
+     "loc": "Table 2a, FWHM row and footnote 5 (OCR)",
+     "quote": "FWHM (Â) 599 1379 1382 1535 1370 ... 5) FWHM of an effective Gaussian bandpass derived from a."
+    },
+    {
+     "value": [
+      3498,
+      3203,
+      3844
+     ],
+     "unit": "A (lambda_eff [photon-weighted], 50%-of-peak blue edge, red edge), SDSS \"public\" response, no atmosphere",
+     "src": "D10",
+     "loc": "Table 2 \"Filter characteristics\", row SDSS \"public\"",
+     "quote": "SDSS \"public\" 3498 3203 3844 4627 4022 5330 6139 5593 6748 7467 6903 8171 8927 8271 9449",
+     "note": "D10 Table 2 note: \"SDSS \"public\" means the response function that is made public through the world wide web (2001). All characteristics are without atmosphere transmissions.\""
+    }
+   ],
+   "profile_reference": {
+    "value": "SDSS DR7",
+    "src": "SVO:SDSS.u",
+    "loc": "browse page",
+    "quote": "Reference for filter response: SDSS DR7"
+   }
+  },
+  "g": {
+   "label": "g",
+   "system": "SDSS (2.5 m imager, full system response incl. atmosphere)",
+   "svo_filter_id": "SLOAN/SDSS.g",
+   "lambda_pivot": {
+    "value": 4702.5,
+    "unit": "Angstrom",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 4702.50 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 4750.82,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 4750.82 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1175.63,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1175.63 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1064.68,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1064.68 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 4747.33,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 4747.33 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.4703 um; half-maximum band = lambda_cen -/+ FWHM/2 = 4160-5335 A (0.416-0.534 um); lambda_mean/lambda_pivot - 1 = +1.03%; recomputed from the saved VOTable curve: pivot 4702.50 A (photon-counting response), FWHM 1175.63 A and W_eff 1064.68 A (energy-counting response), photon-response FWHM 1263 A",
+   "tooltip": "g (SDSS): λ = 0.470 µm (pivot), FWHM 0.118 µm (0.416–0.534 µm)",
+   "alternatives": [
+    {
+     "value": 4825,
+     "unit": "A (lambda_eff, wavelength-weighted average; u' g' r' i' z' design system at 1.2 airmass)",
+     "src": "F96",
+     "loc": "Table 2a \"Characteristics of the SDSS photometric system (1.2 airmass)\", first row (OCR)",
+     "quote": "Aeff2)15 (Â) 3557 4825 6261 7672 9097",
+     "note": "OCR of lambda_eff with footnotes 1),2); F96 text: \"The first row gives the wavelength-weighted average\""
+    },
+    {
+     "value": 1379,
+     "unit": "A (\"FWHM of an effective Gaussian bandpass\", not the curve FWHM)",
+     "src": "F96",
+     "loc": "Table 2a, FWHM row and footnote 5 (OCR)",
+     "quote": "FWHM (Â) 599 1379 1382 1535 1370 ... 5) FWHM of an effective Gaussian bandpass derived from a."
+    },
+    {
+     "value": [
+      4627,
+      4022,
+      5330
+     ],
+     "unit": "A (lambda_eff [photon-weighted], 50%-of-peak blue edge, red edge), SDSS \"public\" response, no atmosphere",
+     "src": "D10",
+     "loc": "Table 2 \"Filter characteristics\", row SDSS \"public\"",
+     "quote": "SDSS \"public\" 3498 3203 3844 4627 4022 5330 6139 5593 6748 7467 6903 8171 8927 8271 9449",
+     "note": "D10 Table 2 note: \"SDSS \"public\" means the response function that is made public through the world wide web (2001). All characteristics are without atmosphere transmissions.\""
+    }
+   ],
+   "profile_reference": {
+    "value": "SDSS DR7",
+    "src": "SVO:SDSS.g",
+    "loc": "browse page",
+    "quote": "Reference for filter response: SDSS DR7"
+   }
+  },
+  "r": {
+   "label": "r",
+   "system": "SDSS (2.5 m imager, full system response incl. atmosphere)",
+   "svo_filter_id": "SLOAN/SDSS.r",
+   "lambda_pivot": {
+    "value": 6175.58,
+    "unit": "Angstrom",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 6175.58 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 6204.29,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 6204.29 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1130.56,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1130.56 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1055.51,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1055.51 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 6187.58,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 6187.58 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.6176 um; half-maximum band = lambda_cen -/+ FWHM/2 = 5622-6753 A (0.562-0.675 um); lambda_mean/lambda_pivot - 1 = +0.46%; recomputed from the saved VOTable curve: pivot 6175.58 A (photon-counting response), FWHM 1130.56 A and W_eff 1055.51 A (energy-counting response), photon-response FWHM 1150 A",
+   "tooltip": "r (SDSS): λ = 0.618 µm (pivot), FWHM 0.113 µm (0.562–0.675 µm)",
+   "alternatives": [
+    {
+     "value": 6261,
+     "unit": "A (lambda_eff, wavelength-weighted average; u' g' r' i' z' design system at 1.2 airmass)",
+     "src": "F96",
+     "loc": "Table 2a \"Characteristics of the SDSS photometric system (1.2 airmass)\", first row (OCR)",
+     "quote": "Aeff2)15 (Â) 3557 4825 6261 7672 9097",
+     "note": "OCR of lambda_eff with footnotes 1),2); F96 text: \"The first row gives the wavelength-weighted average\""
+    },
+    {
+     "value": 1382,
+     "unit": "A (\"FWHM of an effective Gaussian bandpass\", not the curve FWHM)",
+     "src": "F96",
+     "loc": "Table 2a, FWHM row and footnote 5 (OCR)",
+     "quote": "FWHM (Â) 599 1379 1382 1535 1370 ... 5) FWHM of an effective Gaussian bandpass derived from a."
+    },
+    {
+     "value": [
+      6139,
+      5593,
+      6748
+     ],
+     "unit": "A (lambda_eff [photon-weighted], 50%-of-peak blue edge, red edge), SDSS \"public\" response, no atmosphere",
+     "src": "D10",
+     "loc": "Table 2 \"Filter characteristics\", row SDSS \"public\"",
+     "quote": "SDSS \"public\" 3498 3203 3844 4627 4022 5330 6139 5593 6748 7467 6903 8171 8927 8271 9449",
+     "note": "D10 Table 2 note: \"SDSS \"public\" means the response function that is made public through the world wide web (2001). All characteristics are without atmosphere transmissions.\""
+    }
+   ],
+   "profile_reference": {
+    "value": "SDSS DR7",
+    "src": "SVO:SDSS.r",
+    "loc": "browse page",
+    "quote": "Reference for filter response: SDSS DR7"
+   }
+  },
+  "i": {
+   "label": "i",
+   "system": "SDSS (2.5 m imager, full system response incl. atmosphere)",
+   "svo_filter_id": "SLOAN/SDSS.i",
+   "lambda_pivot": {
+    "value": 7489.98,
+    "unit": "Angstrom",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 7489.98 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 7519.27,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 7519.27 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1253.3,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1253.30 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1102.57,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1102.57 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 7543.91,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 7543.91 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.7490 um; half-maximum band = lambda_cen -/+ FWHM/2 = 6917-8171 A (0.692-0.817 um); lambda_mean/lambda_pivot - 1 = +0.39%; recomputed from the saved VOTable curve: pivot 7489.98 A (photon-counting response), FWHM 1253.30 A and W_eff 1102.56 A (energy-counting response), photon-response FWHM 1239 A",
+   "tooltip": "i (SDSS): λ = 0.749 µm (pivot), FWHM 0.125 µm (0.692–0.817 µm)",
+   "alternatives": [
+    {
+     "value": 7672,
+     "unit": "A (lambda_eff, wavelength-weighted average; u' g' r' i' z' design system at 1.2 airmass)",
+     "src": "F96",
+     "loc": "Table 2a \"Characteristics of the SDSS photometric system (1.2 airmass)\", first row (OCR)",
+     "quote": "Aeff2)15 (Â) 3557 4825 6261 7672 9097",
+     "note": "OCR of lambda_eff with footnotes 1),2); F96 text: \"The first row gives the wavelength-weighted average\""
+    },
+    {
+     "value": 1535,
+     "unit": "A (\"FWHM of an effective Gaussian bandpass\", not the curve FWHM)",
+     "src": "F96",
+     "loc": "Table 2a, FWHM row and footnote 5 (OCR)",
+     "quote": "FWHM (Â) 599 1379 1382 1535 1370 ... 5) FWHM of an effective Gaussian bandpass derived from a."
+    },
+    {
+     "value": [
+      7467,
+      6903,
+      8171
+     ],
+     "unit": "A (lambda_eff [photon-weighted], 50%-of-peak blue edge, red edge), SDSS \"public\" response, no atmosphere",
+     "src": "D10",
+     "loc": "Table 2 \"Filter characteristics\", row SDSS \"public\"",
+     "quote": "SDSS \"public\" 3498 3203 3844 4627 4022 5330 6139 5593 6748 7467 6903 8171 8927 8271 9449",
+     "note": "D10 Table 2 note: \"SDSS \"public\" means the response function that is made public through the world wide web (2001). All characteristics are without atmosphere transmissions.\""
+    }
+   ],
+   "profile_reference": {
+    "value": "SDSS DR7",
+    "src": "SVO:SDSS.i",
+    "loc": "browse page",
+    "quote": "Reference for filter response: SDSS DR7"
+   }
+  },
+  "z": {
+   "label": "z",
+   "system": "SDSS (2.5 m imager, full system response incl. atmosphere)",
+   "svo_filter_id": "SLOAN/SDSS.z",
+   "lambda_pivot": {
+    "value": 8946.71,
+    "unit": "Angstrom",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 8946.71 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 8992.26,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 8992.26 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 998.5,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 998.50 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1164.01,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1164.01 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 8790.52,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 8790.52 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.8947 um; half-maximum band = lambda_cen -/+ FWHM/2 = 8291-9290 A (0.829-0.929 um); lambda_mean/lambda_pivot - 1 = +0.51%; recomputed from the saved VOTable curve: pivot 8946.71 A (photon-counting response), FWHM 998.50 A and W_eff 1164.01 A (energy-counting response), photon-response FWHM 994 A",
+   "tooltip": "z (SDSS): λ = 0.895 µm (pivot), FWHM 0.100 µm (0.829–0.929 µm)",
+   "alternatives": [
+    {
+     "value": 9097,
+     "unit": "A (lambda_eff, wavelength-weighted average; u' g' r' i' z' design system at 1.2 airmass)",
+     "src": "F96",
+     "loc": "Table 2a \"Characteristics of the SDSS photometric system (1.2 airmass)\", first row (OCR)",
+     "quote": "Aeff2)15 (Â) 3557 4825 6261 7672 9097",
+     "note": "OCR of lambda_eff with footnotes 1),2); F96 text: \"The first row gives the wavelength-weighted average\""
+    },
+    {
+     "value": 1370,
+     "unit": "A (\"FWHM of an effective Gaussian bandpass\", not the curve FWHM)",
+     "src": "F96",
+     "loc": "Table 2a, FWHM row and footnote 5 (OCR)",
+     "quote": "FWHM (Â) 599 1379 1382 1535 1370 ... 5) FWHM of an effective Gaussian bandpass derived from a."
+    },
+    {
+     "value": [
+      8927,
+      8271,
+      9449
+     ],
+     "unit": "A (lambda_eff [photon-weighted], 50%-of-peak blue edge, red edge), SDSS \"public\" response, no atmosphere",
+     "src": "D10",
+     "loc": "Table 2 \"Filter characteristics\", row SDSS \"public\"",
+     "quote": "SDSS \"public\" 3498 3203 3844 4627 4022 5330 6139 5593 6748 7467 6903 8171 8927 8271 9449",
+     "note": "D10 Table 2 note: \"SDSS \"public\" means the response function that is made public through the world wide web (2001). All characteristics are without atmosphere transmissions.\""
+    }
+   ],
+   "profile_reference": {
+    "value": "SDSS DR7",
+    "src": "SVO:SDSS.z",
+    "loc": "browse page",
+    "quote": "Reference for filter response: SDSS DR7"
+   },
+   "note": "SDSS z has W_eff (1164 A) > FWHM (998.5 A): the red side is a long CCD-QE tail below half maximum."
+  },
+  "y": {
+   "label": "y",
+   "system": "Pan-STARRS1 (Tonry et al. 2012 system, incl. 1.2 airmasses)",
+   "svo_filter_id": "PAN-STARRS/PS1.y",
+   "lambda_pivot": {
+    "value": 9627.79,
+    "unit": "Angstrom",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 9627.79 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 9644.63,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 9644.63 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 665.08,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 665.08 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 638.98,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 638.98 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 9528.63,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 9528.63 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:PS1.y",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 0.9628 um; half-maximum band = lambda_cen -/+ FWHM/2 = 9196-9861 A (0.920-0.986 um); lambda_mean/lambda_pivot - 1 = +0.17%; recomputed from the saved VOTable curve: pivot 9627.79 A (photon-counting response), FWHM 665.08 A and W_eff 638.98 A (energy-counting response), photon-response FWHM 628 A",
+   "tooltip": "y (Pan-STARRS1): λ = 0.963 µm (pivot), FWHM 0.067 µm (0.920–0.986 µm)",
+   "alternatives": [
+    {
+     "value": 962,
+     "unit": "nm (Tonry's \"pivot\" = integral of lambda A(nu) dln nu / <A>, 1.2 airmasses)",
+     "src": "T12",
+     "loc": "Table 4 \"Pan-STARRS1 Bandpass Parameters\", row yP1 (columns <A>, lambda_eff, lambda_B, lambda_R, ...)",
+     "quote": "yP1 0.0393 962 918 1001 23.33 0.13 18.43 18.24",
+     "note": "lambda_B = 918 nm, lambda_R = 1001 nm from a least-squares square-bandpass fit (width 83 nm DERIVED); table note: \"filter \"pivot\" wavelength [nm] described by Bessell & Murphy (2012)\""
+    },
+    {
+     "value": 9730.05,
+     "unit": "A (lambda_pivot, LSST/Rubin y, SVO, throughputs v1.5 incl. zenith atmosphere)",
+     "src": "SVO:LSST.y",
+     "loc": "Mathematical properties, lambda pivot (Calculated)",
+     "quote": "λ pivot (?) : 9730.05 ------- (Angstrom)",
+     "note": "LSST/Rubin y alternative: FWHM \"FWHM (?) : 930.04 ------- (Angstrom)\", W_eff 871.83 A; pivot 1.1% redder than PS1 y"
+    }
+   ],
+   "profile_reference": {
+    "value": "U. Hawaii",
+    "src": "SVO:PS1.y",
+    "loc": "browse page",
+    "quote": "Reference for filter response: U. Hawaii"
+   },
+   "svo_comment": {
+    "value": "Including the nominal 1.2 airmasses of the Pan-STARRS1 standard atmospheric extinction.",
+    "src": "SVO:PS1.y",
+    "loc": "browse page, Comments",
+    "quote": "Comments (?) : Including the nominal 1.2 airmasses of the Pan-STARRS1 standard atmospheric extinction."
+   },
+   "note": "Chosen: Pan-STARRS1 y (published system paper T12 saved; SVO curve includes 1.2 airmasses). LSST/Rubin y is given as the alternative."
+  },
+  "J": {
+   "label": "J",
+   "system": "2MASS (Cohen et al. 2003 relative spectral response, incl. atmosphere)",
+   "svo_filter_id": "2MASS/2MASS.J",
+   "lambda_pivot": {
+    "value": 12393.09,
+    "unit": "Angstrom",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 12393.09 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 12444.9,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 12444.90 12350 (Angstrom)"
+   },
+   "fwhm": {
+    "value": 1830.2,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 1830.20 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 1520.26,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 1520.26 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 12550.78,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 12550.78 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 1.2393 um; half-maximum band = lambda_cen -/+ FWHM/2 = 11636-13466 A (1.164-1.347 um); lambda_mean/lambda_pivot - 1 = +0.42%; recomputed from the saved VOTable curve: pivot 12393.09 A (photon-counting response), FWHM 1830.20 A and W_eff 1520.26 A (energy-counting response), photon-response FWHM 2149 A",
+   "tooltip": "J (2MASS): λ = 1.239 µm (pivot), FWHM 0.183 µm (1.164–1.347 µm)",
+   "alternatives": [
+    {
+     "value": 1.235,
+     "unit": "um (lambda_iso, Vega)",
+     "src": "C03",
+     "loc": "Table 2 \"Zero magnitude attributes of 2MASS bands\", column lambda(iso)",
+     "quote": "J 0.162 5.082E-14 3.129E-13 1.235 3.189E+13 1594 2.428E+14",
+     "note": "columns: Bandwidth (um), In-Band flux, F_lambda(iso), lambda(iso), Bandwidth (Hz), F_nu(iso), nu(iso). SVO lists these lambda_iso as the \"Specified\" values of lambda_ref/mean/eff"
+    },
+    {
+     "value": 0.162,
+     "unit": "um (\"Bandwidth\", C03 Table 2 first column)",
+     "src": "C03",
+     "loc": "Table 2, Bandwidth column",
+     "quote": "J 0.162 5.082E-14 3.129E-13 1.235 3.189E+13 1594 2.428E+14"
+    }
+   ],
+   "profile_reference": {
+    "value": "2MASS at IPAC documentation",
+    "src": "SVO:2MASS.J",
+    "loc": "browse page",
+    "quote": "Reference for filter response: 2MASS at IPAC documentation"
+   },
+   "note": "The 2MASS J response has a shoulder near half maximum, so the FWHM depends on the response convention: SVO 1830.20 A on the energy-normalised curve (half-max points 11636-13466 A) vs 2149 A on the photon curve (11316-13465 A) (DERIVED from the saved VOTable). The SVO VOTable reports the C03 \"Specified\" 12350 A in its WavelengthMean/Eff/Ref fields; the HTML Calculated column is used here."
+  },
+  "H": {
+   "label": "H",
+   "system": "2MASS (Cohen et al. 2003 relative spectral response, incl. atmosphere)",
+   "svo_filter_id": "2MASS/2MASS.H",
+   "lambda_pivot": {
+    "value": 16494.95,
+    "unit": "Angstrom",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 16494.95 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 16550.93,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 16550.93 16620 (Angstrom)"
+   },
+   "fwhm": {
+    "value": 2580.01,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 2580.01 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 2410.18,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 2410.18 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 16506.13,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 16506.13 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 1.6495 um; half-maximum band = lambda_cen -/+ FWHM/2 = 15216-17796 A (1.522-1.780 um); lambda_mean/lambda_pivot - 1 = +0.34%; recomputed from the saved VOTable curve: pivot 16494.95 A (photon-counting response), FWHM 2580.01 A and W_eff 2410.18 A (energy-counting response), photon-response FWHM 2610 A",
+   "tooltip": "H (2MASS): λ = 1.649 µm (pivot), FWHM 0.258 µm (1.522–1.780 µm)",
+   "alternatives": [
+    {
+     "value": 1.662,
+     "unit": "um (lambda_iso, Vega)",
+     "src": "C03",
+     "loc": "Table 2 \"Zero magnitude attributes of 2MASS bands\", column lambda(iso)",
+     "quote": "H 0.251 2.843E-14 1.133E-13 1.662 2.778E+13 1024 1.783E+14",
+     "note": "columns: Bandwidth (um), In-Band flux, F_lambda(iso), lambda(iso), Bandwidth (Hz), F_nu(iso), nu(iso). SVO lists these lambda_iso as the \"Specified\" values of lambda_ref/mean/eff"
+    },
+    {
+     "value": 0.251,
+     "unit": "um (\"Bandwidth\", C03 Table 2 first column)",
+     "src": "C03",
+     "loc": "Table 2, Bandwidth column",
+     "quote": "H 0.251 2.843E-14 1.133E-13 1.662 2.778E+13 1024 1.783E+14"
+    }
+   ],
+   "profile_reference": {
+    "value": "2MASS at IPAC documentation",
+    "src": "SVO:2MASS.H",
+    "loc": "browse page",
+    "quote": "Reference for filter response: 2MASS at IPAC documentation"
+   },
+   "note": "The SVO VOTable reports the C03 \"Specified\" 16620 A in WavelengthMean/Eff/Ref; the HTML Calculated column (pivot 16494.95 A) is used here."
+  },
+  "Ks": {
+   "label": "Ks",
+   "system": "2MASS (Cohen et al. 2003 relative spectral response, incl. atmosphere)",
+   "svo_filter_id": "2MASS/2MASS.Ks",
+   "lambda_pivot": {
+    "value": 21638.61,
+    "unit": "Angstrom",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 21638.61 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 21691.42,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 21691.42 21590 (Angstrom)"
+   },
+   "fwhm": {
+    "value": 2771.26,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 2771.26 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 2506.19,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 2506.19 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 21645.85,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 21645.85 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Photon counter",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Photon counter"
+   },
+   "components": {
+    "value": "Filter + Instrument + Atmosphere",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter + Instrument + Atmosphere"
+   },
+   "derived": "DERIVED: lambda_pivot = 2.1639 um; half-maximum band = lambda_cen -/+ FWHM/2 = 20260-23031 A (2.026-2.303 um); lambda_mean/lambda_pivot - 1 = +0.24%; recomputed from the saved VOTable curve: pivot 21638.61 A (photon-counting response), FWHM 2771.26 A and W_eff 2506.19 A (energy-counting response), photon-response FWHM 2785 A",
+   "tooltip": "Ks (2MASS): λ = 2.164 µm (pivot), FWHM 0.277 µm (2.026–2.303 µm)",
+   "alternatives": [
+    {
+     "value": 2.159,
+     "unit": "um (lambda_iso, Vega)",
+     "src": "C03",
+     "loc": "Table 2 \"Zero magnitude attributes of 2MASS bands\", column lambda(iso)",
+     "quote": "Ks 0.262 1.122E-14 4.283E-14 2.159 1.682E+13 666.7 1.390E+14",
+     "note": "columns: Bandwidth (um), In-Band flux, F_lambda(iso), lambda(iso), Bandwidth (Hz), F_nu(iso), nu(iso). SVO lists these lambda_iso as the \"Specified\" values of lambda_ref/mean/eff"
+    },
+    {
+     "value": 0.262,
+     "unit": "um (\"Bandwidth\", C03 Table 2 first column)",
+     "src": "C03",
+     "loc": "Table 2, Bandwidth column",
+     "quote": "Ks 0.262 1.122E-14 4.283E-14 2.159 1.682E+13 666.7 1.390E+14"
+    }
+   ],
+   "profile_reference": {
+    "value": "2MASS at IPAC documentation",
+    "src": "SVO:2MASS.Ks",
+    "loc": "browse page",
+    "quote": "Reference for filter response: 2MASS at IPAC documentation"
+   },
+   "note": "The SVO VOTable reports the C03 \"Specified\" 21590 A in WavelengthMean/Eff/Ref; the HTML Calculated column (pivot 21638.61 A) is used here."
+  },
+  "Lp": {
+   "label": "L'",
+   "system": "MKO-NIR (Tokunaga et al. 2002 filter set; IRTF NSFCam curve, filter only)",
+   "svo_filter_id": "MKO/NSFCam.Lp",
+   "lambda_pivot": {
+    "value": 37571.67,
+    "unit": "Angstrom",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 37571.67 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 37741.36,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 37741.36 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 6999.09,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 6999.09 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 6829.13,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 6829.13 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 37732.04,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 37732.04 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 3.7572 um; half-maximum band = lambda_cen -/+ FWHM/2 = 34232-41232 A (3.423-4.123 um); lambda_mean/lambda_pivot - 1 = +0.45%; recomputed from the saved VOTable curve: pivot 37571.67 A (photon-counting response), FWHM 6999.09 A and W_eff 6829.13 A (energy-counting response), photon-response FWHM 6974 A",
+   "tooltip": "L' (MKO-NIR): λ = 3.757 µm (pivot), FWHM 0.700 µm (3.423–4.123 µm)",
+   "alternatives": [
+    {
+     "value": 3.752,
+     "unit": "um (lambda_pivot, MKO L', incl. ATRAN atmosphere at 2 mm PWV)",
+     "src": "TV05",
+     "loc": "Table 2 \"Isophotal, Effective, Mean, and Pivot Wavelengths for the MKO-NIR filters\" (columns lambda_iso, lambda_eff, lambda'_eff, lambda_0, lambda_pivot)",
+     "quote": "L' 3.754 3.717 3.727 3.757 3.752",
+     "note": "TV05 Sec. 2: \"The measured filter response curves2 given by Tokunaga et al. (2002) were used for R(λ)\", footnote 2 = the IRTF NSFCam filter page"
+    },
+    {
+     "value": "3.770 (center); 3.420-4.120 (50% points)",
+     "unit": "um",
+     "src": "T02",
+     "loc": "Table 1 \"Filter Center, Cut-on, and Cut-off Wavelengths\"",
+     "quote": "L' 3.770 3.420 4.120 ... The cut-on and cut-off wave- lengths correspond to where the transmis- sion is 50% of the peak.",
+     "note": "DERIVED: FWHM = 4.120 - 3.420 = 0.700 um (SVO 0.6999 um)"
+    }
+   ],
+   "profile_reference": {
+    "value": "NSFCam",
+    "src": "SVO:NSFCam.Lp",
+    "loc": "browse page",
+    "quote": "Reference for filter response: NSFCam"
+   },
+   "note": "SVO MKO/NSFCam.Lp is the filter-only curve of the IRTF NSFCam L' (MKO-NIR set; SVO ProfileReference http://irtfweb.ifa.hawaii.edu/~nsfcam2/Filter_Profiles.html). Its pivot 3.7572 um matches the TV05 MKO L' pivot 3.752 um (with atmosphere) to 0.14%."
+  },
+  "Mp": {
+   "label": "M'",
+   "system": "MKO-NIR (Tokunaga et al. 2002 filter set; IRTF NSFCam curve, filter only)",
+   "svo_filter_id": "MKO/NSFCam.Mp",
+   "lambda_pivot": {
+    "value": 46830.29,
+    "unit": "Angstrom",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, \"Mathematical properties\", λ pivot row, Calculated column",
+    "quote": "λ pivot (?) : 46830.29 ------- (Angstrom)"
+   },
+   "lambda_mean": {
+    "value": 46848.24,
+    "unit": "Angstrom (SVO lambda_mean, on the energy-counting response)",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, λ mean row, Calculated column",
+    "quote": "λ mean (?) : 46848.24 ------- (Angstrom)"
+   },
+   "fwhm": {
+    "value": 2416.01,
+    "unit": "Angstrom (SVO FWHM, on the energy-counting response)",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, FWHM row",
+    "quote": "FWHM (?) : 2416.01 ------- (Angstrom)"
+   },
+   "w_eff": {
+    "value": 2406.0,
+    "unit": "Angstrom (SVO W_eff = integral T / max T, energy-counting response)",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, W eff row",
+    "quote": "W eff (?) : 2406.00 ------- (Angstrom)"
+   },
+   "lambda_cen": {
+    "value": 46843.92,
+    "unit": "Angstrom (midpoint of the two half-maximum points)",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, λ cen row",
+    "quote": "λ cen (?) : 46843.92 ------- (Angstrom)"
+   },
+   "detector_type": {
+    "value": "Energy counter",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page, Filter Description",
+    "quote": "Detector Type (?) : Energy counter"
+   },
+   "components": {
+    "value": "Filter",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page",
+    "quote": "Transmission components: Filter"
+   },
+   "derived": "DERIVED: lambda_pivot = 4.6830 um; half-maximum band = lambda_cen -/+ FWHM/2 = 45636-48052 A (4.564-4.805 um); lambda_mean/lambda_pivot - 1 = +0.04%; recomputed from the saved VOTable curve: pivot 46830.29 A (photon-counting response), FWHM 2416.01 A and W_eff 2406.00 A (energy-counting response), photon-response FWHM 2408 A",
+   "tooltip": "M' (MKO-NIR): λ = 4.683 µm (pivot), FWHM 0.242 µm (4.564–4.805 µm)",
+   "alternatives": [
+    {
+     "value": 4.684,
+     "unit": "um (lambda_pivot, MKO M', incl. atmosphere at 2 mm PWV)",
+     "src": "TV05",
+     "loc": "Table 2, row M'",
+     "quote": "M' 4.702 4.680 4.681 4.684 4.684"
+    },
+    {
+     "value": "4.680 (center); 4.570-4.790 (50% points)",
+     "unit": "um",
+     "src": "T02",
+     "loc": "Table 1",
+     "quote": "M' 4.680 4.570 4.790 ... The cut-on and cut-off wave- lengths correspond to where the transmis- sion is 50% of the peak.",
+     "note": "DERIVED: FWHM = 4.790 - 4.570 = 0.220 um (SVO 0.2416 um)"
+    }
+   ],
+   "profile_reference": {
+    "value": "NSFCam",
+    "src": "SVO:NSFCam.Mp",
+    "loc": "browse page",
+    "quote": "Reference for filter response: NSFCam"
+   },
+   "note": "Pivot 4.6830 um matches the TV05 MKO M' pivot 4.684 um to 0.02%. The SVO FWHM 0.2416 um is wider than the T02 50%-point specification (0.220 um)."
+  }
+ },
+ "moon": {
+  "apparent_diameter_mean": {
+   "value": 1896,
+   "unit": "arcsec (= 31.6 arcmin; NSSDC \"Mean values at opposition from Earth\", \"Distance from Earth (equator, km) 378,000\")",
+   "src": "NSSDC",
+   "loc": "Orbital parameters table, block \"Mean values at opposition from Earth\"",
+   "quote": "Mean values at opposition from Earth Distance from Earth (equator, km) 378,000 Apparent diameter (seconds of arc) 1896",
+   "derived": "DERIVED check: 2 x 1737.4 km / 378,000 km = 1896.1\" (reproduces 1896\"). Geocentric mean at the semimajor axis 384,400 km: 1864.5\" = 31.08'. The 378,000 km = 384,400 km minus one Earth equatorial radius (6378.1 km) = 378,022 km, consistent with an observer on the equator with the Moon overhead (interpretation; NSSDC says only \"equator\").",
+   "alternatives": [
+    {
+     "value": 1864.5,
+     "unit": "arcsec (geocentric, at the mean distance = semimajor axis)",
+     "src": "NSSDC",
+     "loc": "Orbital parameters (semimajor axis) and Bulk parameters (volumetric mean radius)",
+     "quote": "Semimajor axis (10 6 km) 0.3844 ... Volumetric mean radius (km) 1737.4 6371.0 0.2727",
+     "note": "DERIVED 2R/a"
+    }
+   ],
+   "inputs": [
+    {
+     "value": 1737.4,
+     "unit": "km (volumetric mean radius)",
+     "src": "NSSDC",
+     "loc": "Bulk parameters table",
+     "quote": "Volumetric mean radius (km) 1737.4 6371.0 0.2727"
+    },
+    {
+     "value": 6378.1,
+     "unit": "km (Earth equatorial radius, Earth column)",
+     "src": "NSSDC",
+     "loc": "Bulk parameters table",
+     "quote": "Equatorial radius (km) 1738.1 6378.1 0.2725"
+    }
+   ]
+  },
+  "apparent_diameter_range": {
+   "value": [
+    1761,
+    2008
+   ],
+   "unit": "arcsec (geocentric; = 29.35-33.46 arcmin)",
+   "src": "NSSDC",
+   "loc": "note under Orbital parameters (distance range); Bulk parameters (radius)",
+   "quote": "The orbit changes over the course of the year so the distance from the Moon to Earth roughly ranges from 357,000 km to 407,000 km",
+   "derived": "DERIVED: 2 x 1737.4 / 407,000 km = 1761.0\"; 2 x 1737.4 / 357,000 km = 2007.6\". At the NSSDC mean apogee/perigee (0.4055 / 0.3633 x 10^6 km): 1767.5\" / 1972.8\". Max/min = 1.140 (14% larger at closest approach). A topocentric observer with the Moon at the zenith is one Earth radius closer, which enlarges the disk by up to 1.8%.",
+   "alternatives": [
+    {
+     "value": [
+      1767.5,
+      1972.8
+     ],
+     "unit": "arcsec at mean apogee / mean perigee",
+     "src": "NSSDC",
+     "loc": "Orbital parameters table",
+     "quote": "Perigee (10 6 km)* 0.3633 Apogee (10 6 km)* 0.4055",
+     "note": "NSSDC footnote: \"These represent mean apogee and perigee for the lunar orbit\""
+    }
+   ],
+   "note": "NSSDC gives the distance range, not the apparent-diameter range; the range here is arithmetic on NSSDC numbers. No saved source states the range in arcsec."
+  },
+  "recommended": "For a \"Moon for scale\" overlay: 1896\" (31.6', NSSDC, quoted) or the geocentric mean 1865\" (31.1', DERIVED); either is about half a degree. Range 1761\"-2008\" (29.35'-33.46') DERIVED from the NSSDC distance range."
+ },
+ "moffat": {
+  "beta_kolmogorov": {
+   "value": 4.765,
+   "unit": "dimensionless (Moffat beta best matching the Kolmogorov long-exposure seeing PSF)",
+   "src": "T01",
+   "loc": "Sec. 2.4 \"The ability of the Moffat function to match the atmospheric turbulence prediction of the PSF\"",
+   "quote": "For a given FWHM, we have evaluated the value of β that minimizes the difference between the prediction of the atmospheric turbulence theory and the Moffat function by minimizing the χ2 of the fit between both PSFs. An optimum value of β ~ 4.765 was found.",
+   "context_quotes": [
+    {
+     "src": "T01",
+     "loc": "Abstract",
+     "quote": "shown to provide the best fit to the PSF predicted from atmospheric turbulence theory when β ~ 4.765"
+    },
+    {
+     "src": "T01",
+     "loc": "Sec. 2.4",
+     "quote": "The theory of atmospheric turbulence predicts the PSF to be the Fourier transform of exp[-(kb)5/3 ] (Fried 1966; Woolf 1982), where FWHM = 2.9207006b and b is a scaling parameter."
+    },
+    {
+     "src": "T01P",
+     "loc": "published version, Fig. 2 caption (OCR; \"b\" = beta)",
+     "quote": "using a Moffat function with a b value of 4.765"
+    },
+    {
+     "src": "T01",
+     "loc": "Sec. 2.4",
+     "quote": "β=5 (to simulate the turbulence prediction)"
+    }
+   ],
+   "derived": "DERIVED check (Hankel transform of exp[-(kb)^(5/3)]): FWHM = 2.9207006 b (T01: 2.9207006 b). Best Moffat at the same FWHM, both normalised to unit total flux, r < 3 FWHM: beta = 4.734 (unweighted chi2) / 4.770 (r-weighted). If instead both are normalised to unit PEAK, the best beta is 6.21; T01 does not state its normalisation, but its Eq. (1) Moffat is flux-normalised and the unit-flux fit reproduces 4.765, so the number is tied to that fitting convention."
+  },
+  "beta_common": {
+   "value": 2.5,
+   "unit": "dimensionless (the usual default/empirical choice; real PSFs have broader wings than Kolmogorov theory)",
+   "src": "T01",
+   "loc": "Sec. 2.4",
+   "quote": "current packages of data reduction in IRAF suggest a default value of β = 2.5",
+   "alternatives": [
+    {
+     "value": 2.5,
+     "src": "IRAF-DAO",
+     "loc": "daopars, parameter \"function\", option moffat25",
+     "quote": "An elliptical Moffat function with a beta parameter of 2.5.",
+     "note": "DAOPHOT also offers moffat15 (\"An elliptical Moffat function with a beta parameter of 1.5.\"); the daopars default function is gauss: \".ls function = \"gauss\"\""
+    },
+    {
+     "value": "gauss (default analytic PSF)",
+     "src": "IRAF-DAO",
+     "loc": "daopars, parameter list",
+     "quote": "function = \"gauss\""
+    },
+    {
+     "value": "INDEF (beta fitted)",
+     "src": "IRAF-RIM",
+     "loc": "imexamine radial-profile parameter file",
+     "quote": "beta,r,h,INDEF,,,Moffat beta parameter",
+     "note": "current IRAF imexamine has no fixed default beta"
+    },
+    {
+     "value": "INDEF (fitted; lower limit 2.1)",
+     "src": "IRAF-PSFM",
+     "loc": "psfmeasure parameter file",
+     "quote": "beta,r,h,INDEF,2.1,,Moffat beta parameter"
+    },
+    {
+     "value": "2.5-4",
+     "src": "T01",
+     "loc": "Sec. 3.2 \"The effective radius\"",
+     "quote": "For the values of β typically present in real images (2.5 < β < 4; see Saglia et al. 1993)"
+    },
+    {
+     "value": [
+      5,
+      2.5,
+      1.5
+     ],
+     "src": "T01",
+     "loc": "Sec. 2.4",
+     "quote": "β=5 (to simulate the turbulence prediction), 2.5 (the default value of the IRAF package), and 1.5 (to model a large \"wing\" in the PSF)"
+    }
+   ],
+   "note": "The word \"default\" is T01's (\"suggest a default value of β = 2.5\"); in the IRAF sources saved here 2.5 is the fixed beta of the DAOPHOT moffat25 PSF option, while imexamine/psfmeasure fit beta (INDEF). Physically: T01 Sec. 2.4 attributes the broader wings of real PSFs to telescope optics as well as the atmosphere.",
+   "context_quotes": [
+    {
+     "src": "T01",
+     "loc": "Sec. 2.4",
+     "quote": "the PSFs usually measured in real images have bigger \"wings\", or equivalently smaller values of β, than those expected from the turbulence theory (e.g. Saglia et al. 1993). This is because the real seeing not only depends on atmospheric conditions but is also caused by imperfections in telescope optics."
+    }
+   ]
+  },
+  "moffat_form": {
+   "value": "PSF(r) = (beta-1)/(pi alpha^2) [1 + (r/alpha)^2]^(-beta);  FWHM = 2 alpha sqrt(2^(1/beta) - 1)",
+   "src": "T01",
+   "loc": "Sec. 2.1, Eq. (1)",
+   "quote": "with the full width at half maximum, FWHM=2α",
+   "note": "The text layer drops the square-root sign and the superscript (\"FWHM=2α 21/β - 1\"); the formula is FWHM = 2 alpha sqrt(2^(1/beta) - 1). Unit total flux.",
+   "derived": "DERIVED: alpha/FWHM = 1.2636 for beta = 4.765 and 0.8846 for beta = 2.5"
+  }
+ },
+ "airy": {
+  "fwhm_unobstructed": {
+   "value": 1.029,
+   "unit": "lambda/D (radians on the sky; = 1.029 lambda f# in the focal plane)",
+   "src": "RBH12",
+   "loc": "Sec. 4.4 \"Camera\"",
+   "quote": "For an Airy disc imaged at a focal ratio of f# the spot has FWHM = 1.029 λ f#",
+   "derived": "DERIVED: [2 J1(v)/v]^2 = 1/2 at v = 1.61634; with v = pi D theta / lambda, FWHM = 2 v / pi = 1.02899 lambda/D. Focal plane -> sky: divide by the focal length f# D. First dark ring at 1.2197 lambda/D (the familiar 1.22).",
+   "alternatives": [
+    {
+     "value": 1.028,
+     "unit": "lambda/D",
+     "src": "D15",
+     "loc": "Sec. 2.2 \"Monte Carlo Radiative Transfer Simulations\" (PSF used to convolve the model images)",
+     "quote": "the FWHM of an airy disk is 1.028λ/D",
+     "note": "truncation of 1.02899 rather than rounding"
+    }
+   ]
+  },
+  "fwhm_obstructed": {
+   "value": [
+    {
+     "eps": 0.0,
+     "fwhm_lambda_over_D": 1.029,
+     "fwhm_ratio_to_clear": 1.0,
+     "first_dark_ring_radius_lambda_over_D": 1.2197,
+     "peak_intensity_ratio_(1-eps^2)^2": 1.0
+    },
+    {
+     "eps": 0.1,
+     "fwhm_lambda_over_D": 1.0233,
+     "fwhm_ratio_to_clear": 0.9944,
+     "first_dark_ring_radius_lambda_over_D": 1.2051,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.9801
+    },
+    {
+     "eps": 0.2,
+     "fwhm_lambda_over_D": 1.0068,
+     "fwhm_ratio_to_clear": 0.9784,
+     "first_dark_ring_radius_lambda_over_D": 1.1665,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.9216
+    },
+    {
+     "eps": 0.3,
+     "fwhm_lambda_over_D": 0.9811,
+     "fwhm_ratio_to_clear": 0.9535,
+     "first_dark_ring_radius_lambda_over_D": 1.1145,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.8281
+    },
+    {
+     "eps": 0.33,
+     "fwhm_lambda_over_D": 0.972,
+     "fwhm_ratio_to_clear": 0.9446,
+     "first_dark_ring_radius_lambda_over_D": 1.0977,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.7941
+    },
+    {
+     "eps": 0.35,
+     "fwhm_lambda_over_D": 0.9656,
+     "fwhm_ratio_to_clear": 0.9384,
+     "first_dark_ring_radius_lambda_over_D": 1.0863,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.77
+    },
+    {
+     "eps": 0.4,
+     "fwhm_lambda_over_D": 0.9486,
+     "fwhm_ratio_to_clear": 0.9219,
+     "first_dark_ring_radius_lambda_over_D": 1.0577,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.7056
+    },
+    {
+     "eps": 0.45,
+     "fwhm_lambda_over_D": 0.9306,
+     "fwhm_ratio_to_clear": 0.9044,
+     "first_dark_ring_radius_lambda_over_D": 1.0291,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.636
+    },
+    {
+     "eps": 0.5,
+     "fwhm_lambda_over_D": 0.9117,
+     "fwhm_ratio_to_clear": 0.886,
+     "first_dark_ring_radius_lambda_over_D": 1.0009,
+     "peak_intensity_ratio_(1-eps^2)^2": 0.5625
+    }
+   ],
+   "unit": "lambda/D",
+   "src": null,
+   "loc": null,
+   "quote": null,
+   "status": "NOT FOUND in a saved primary source as FWHM values; table is DERIVED",
+   "derived": "DERIVED (computed here): annular pupil of outer diameter D and central obstruction eps (linear ratio), I(v) = I0 [2 J1(v)/v - eps^2 2 J1(eps v)/(eps v)]^2 / (1 - eps^2)^2 with v = pi D theta / lambda (standard annular-aperture Fraunhofer pattern; spiders ignored); FWHM from I = I(0)/2. Validation: the computed first-dark-ring radii reproduce Mahajan's tabulation (TOO, TABLE 10, row \"Min.\") to the 0.01 printed: 1.22, 1.21, 1.17, 1.11, 1.06, 1.00 lambda F for eps = 0-0.5.",
+   "validation_quote": {
+    "src": "TOO",
+    "loc": "TABLE 10 (attributed to Mahajan, \"Aberration Theory Made Simple\"), first \"Min.\" row; radius in units of lambda F",
+    "quote": "TABLE 10 : EFFECT OF CENTRAL OBSTRUCTION ON NORMALIZED PSF INTENSITY DISTRIBUTION (Source: Aberration Theory Made Simple , Mahajan) ... Min. 1.22 1.21 1.17 1.11 1.06 1"
+   },
+   "context_quotes": [
+    {
+     "src": "TOO",
+     "loc": "Sec. 7.1 summary list",
+     "quote": "(3) reduction in the size of central maxima, by a ratio closely approximated with 1- o 2 + o 4",
+     "note": "refers to the first-minimum size (eps = 0.5: 1 - eps^2 + eps^4 = 0.8125 vs DERIVED first-zero ratio 0.821); the FWHM shrinks less (ratio 0.886 at eps = 0.5)"
+    },
+    {
+     "src": "TOO",
+     "loc": "text above TABLE 10",
+     "quote": "Pattern radius r is in units of λF"
+    }
+   ],
+   "note": "The core narrows with obstruction: about -2% at eps = 0.2, -5% at 0.3, -8% at 0.4, -11% at 0.5, while light moves into the rings (for the same source and outer diameter D the peak intensity falls by (1-eps^2)^2 relative to the clear aperture: (1-eps^2) from the lost collecting area times (1-eps^2) from the lower fraction of the light in the core). Searched ADS full text, arXiv and NASA NTRS: Mahajan (1986 JOSA A 3, 470) and Tschunko (1974 Appl. Opt. 13, 1820) treat this but are paywalled; no saved document quotes FWHM(eps). The explorer can compute the same numbers from the formula."
+  }
+ }
+}

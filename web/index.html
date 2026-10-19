@@ -13,6 +13,7 @@
 <header>
   <div class="bar">
     <span class="mark">Instrument Explorer</span>
+    <span class="seg" id="instSeg" title="Spectrograph: a slit (or fibers), a collimator, a disperser, and a camera, with the spectra on the detector. Imager: a telescope feeding a detector mosaic, directly or through a reimager, with the image of the sky on the mosaic."><button id="iSpec" type="button">Spectrograph</button><button id="iImg" type="button">Imager</button></span>
     <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
     <span class="presetnote">Presets approximate the instrument's optical characteristics, not the optical layout.</span>
@@ -23,7 +24,7 @@
 
 <main>
   <div class="stats" id="stats"></div>
-  <div class="panels">
+  <div class="panels only-spec">
     <section class="panel" id="lvPanel">
       <div class="ph"><h2 title="The spectrograph seen from above, in the plane of the dispersion. Element sizes are to scale: the collimator focal length F_tel × W, the beam diameter W, the illuminated grating length, the camera focal length, and the detector. The distances between the collimator, the grating, and the camera are not specified by the design and are drawn short. White light is drawn as gray rays; after the grating each color is one wavelength, from deep indigo (shortest) to orange-gold (longest), with three rays per wavelength meeting at its focus on the detector. The Spatial view shows the plane along the slit instead.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
         <span class="seg sm only-grat" id="lvViewSeg" title="Spectral: the plane of the dispersion, seen from above, with rays colored by wavelength. Spatial: the plane that holds the slit length, unfolded onto one axis at the central wavelength, with rays colored by position along the slit: each point leaves the collimator as a parallel bundle, the bundles cross at the grating (the pupil), and the camera images the slit onto the detector, inverted and scaled by f_cam / f_col."><button id="vSpec" type="button">Spectral</button><button id="vSpat" type="button">Spatial</button><button id="v3d" type="button" title="The instrument in three dimensions: the dispersion plane with the slit direction as the third axis. Drag to turn it; Top is the Spectral view, Side looks along the dispersion plane.">3D</button></span>
@@ -70,7 +71,40 @@
   </div>
 
 
-  <div class="controls">
+  <div class="panels only-img" id="imgPanels">
+    <section class="panel" id="ilvPanel">
+      <div class="ph"><h2 title="The imager drawn to scale. Telescope: the whole telescope, folded as built, with light from the sky arriving from the left. Instrument: from the telescope focus to the detector, unfolded. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
+        <span class="seg sm" id="ivSeg" title="Telescope: the whole telescope, to scale. Instrument: from the telescope focus to the detector, to scale."><button id="ivTel" type="button">Telescope</button><button id="ivInst" type="button">Instrument</button></span>
+        <button id="ilvOptsBtn" class="ghost lv" type="button" title="Drawing options: the Cassegrain primary's focal ratio and focus position, and the labels. None of the options changes a number on the page.">Mod layout</button>
+        <span class="seg sm" title="Auto scale refits the drawing to the panel after each change. Fixed scale holds the millimeters per pixel. Scroll to zoom; drag to pan. Zooming or panning switches to Fixed scale."><button id="ilvAuto" type="button">Auto scale</button><button id="ilvFixed" type="button">Fixed scale</button></span>
+        <button id="ilvReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Refit</button></div>
+      <canvas id="cvIL" aria-label="Optical layout"></canvas>
+      <div class="ptsbox only-iinst" title="To scale: heights and lengths at one scale. Stretched: heights magnified (by the factor in the caption) so that a long, thin instrument fills the panel; lengths stay to scale, and the angles on the page are steeper than the true ones."><span>Heights</span>
+        <span class="seg sm"><button id="isOff" type="button">To scale</button><button id="isOn" type="button">Stretched</button></span></div>
+      <div id="ilSub" class="lcap" hidden></div>
+      <button id="ilvExpand" class="ghost lvx" type="button" aria-label="Expand the layout" title="Expand the layout to fill the window (Esc returns)."></button>
+      <div id="ilvOpts" class="lvopts" hidden>
+        <div class="ctl only-icass" title="Focal ratio of the Cassegrain primary mirror. The final focal ratio is set by the Telescope box; the primary's sets how far the secondary sits from the primary, and so the drawing only.">
+          <label for="iF1"><span>Primary focal ratio</span><span class="val" id="vF1"></span></label>
+          <input type="range" id="iF1" min="1" max="4" step="0.01">
+        </div>
+        <div class="ctl only-icass" title="How far behind the primary the Cassegrain focus lies, in units of the aperture D. Changes only the drawing.">
+          <label for="iBk"><span>Focus behind the primary</span><span class="val" id="vBk"></span></label>
+          <input type="range" id="iBk" min="0.05" max="1" step="0.01">
+        </div>
+        <div class="caserow" title="Show or hide the labels, the field angle in the beam, and the scale bar."><span>Labels and marks</span>
+          <span class="seg sm"><button id="ianOn" type="button">Show</button><button id="ianOff" type="button">Hide</button></span></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2 title="The sky on the detector mosaic: each chip drawn over the patch of sky the chip covers, on a synthetic field of stars and galaxies. Parts of chips outside the field circle are gray. Each star is drawn with the image the telescope and atmosphere give (seeing, or the Airy pattern when diffraction-limited), integrated over the pixels: scroll to zoom in until the pixels show. The synthetic field is illustrative; the brightness is stretched for display, and nothing on the page depends on the field. Hover for the position, the chip and the pixel; drag to pan, double-click to reset.">Sky</h2><span class="sub" id="sSub"></span>
+        <span class="seg sm" title="Draw the full Moon's disk, centered on the field, for scale."><button id="imMoon" type="button">Moon</button></span></div>
+      <canvas id="cvS" aria-label="The sky on the detector mosaic"></canvas>
+      <button id="szReset" class="ghost dzr" type="button" hidden title="Back to the whole mosaic (double-click does the same).">Reset zoom</button>
+    </section>
+  </div>
+
+  <div class="controls only-spec">
     <section>
       <h2 title="The telescope that feeds the spectrograph.">Telescope</h2>
       <div class="ctl" title="Diameter of the primary mirror. At a fixed slit width on the sky, the angle the slit subtends in the collimated beam is φD/W, so a bigger telescope needs a proportionally bigger beam (and grating) for the same resolving power.">
@@ -197,6 +231,89 @@
       <div class="rds" id="rDet"></div>
     </section>
   </div>
+
+  <div class="controls only-img icontrols">
+    <section>
+      <h2 title="The telescope at the focus the imager uses.">Telescope</h2>
+      <div class="ctl" title="Diameter of the primary mirror (or lens). The aperture sets the light collected and the diffraction width λ / D; the image scale depends on the focal length F D.">
+        <label for="iD"><span>Aperture, <i>D</i></span><span class="val" id="vD_"></span></label>
+        <input type="range" id="iD" min="-1.3" max="1.62" step="0.005">
+      </div>
+      <div class="ctl" title="Focal ratio F = f_tel / D at the focus the imager uses. With a direct imager the focal length F D sets the plate scale, 206265 / (F D) arcsec per mm.">
+        <label for="iF"><span>Focal ratio</span><span class="val" id="vF_"></span></label>
+        <input type="range" id="iF" min="0" max="1.7" step="0.005">
+      </div>
+      <div class="ctl" title="Central obstruction ε: the diameter of the secondary mirror (or the prime-focus unit) with the baffles, as a fraction of D. The obstruction removes 1 − ε² of the area and moves light from the Airy core into the rings.">
+        <label for="iEps"><span>Central obstruction, <i>ε</i></span><span class="val" id="vEps"></span></label>
+        <input type="range" id="iEps" min="0" max="0.6" step="0.005">
+      </div>
+      <div class="ctl" title="Diameter of the usable field: the telescope's corrected field (over which the telescope and any corrector give good images), or a smaller field stop in the instrument. The field is the part of the mosaic inside this circle.">
+        <label for="iFld"><span>Field diameter</span><span class="val" id="vFld"></span></label>
+        <input type="range" id="iFld" min="-1" max="2.78" step="0.005">
+      </div>
+      <div class="caserow" title="The kind of telescope. Prime: the instrument sits at the primary mirror's own focus, in the incoming beam. Cassegrain: behind the primary, after a convex secondary lengthens the focal ratio. Schmidt: a spherical mirror behind a thin corrector plate at the mirror's center of curvature; the plate is the aperture stop, so the mirror is larger than the aperture, and the detector sits at the focus inside the tube. Refractor: an objective lens, with the focus behind the lens and nothing in the beam. Changes the drawing and the position of the pupil."><span>Design</span>
+        <select id="iTel"><option value="prime">Prime focus</option><option value="cass">Cassegrain</option><option value="schmidt">Schmidt</option><option value="refr">Refractor</option></select></div>
+      <div class="rds" id="rTelI"></div>
+    </section>
+    <section>
+      <h2 title="The band observed and the blur of a star's image.">Sky</h2>
+      <div class="caserow" title="The band observed. The band's wavelength enters only through the diffraction width λ / D."><span>Band</span><select id="iBand"></select></div>
+      <div class="caserow" title="Seeing: from the ground, the atmosphere blurs each star (a Moffat profile, with the diffraction width added in quadrature). Diffraction: in space, or with adaptive optics, the image is the Airy pattern of the annular aperture at the band's wavelength."><span>Image</span>
+        <span class="seg sm"><button id="ipSee" type="button">Seeing</button><button id="ipDiff" type="button">Diffraction</button></span></div>
+      <div class="ctl only-isee" title="FWHM of a star's image from the atmosphere (at the band's wavelength).">
+        <label for="iSee"><span>Seeing FWHM</span><span class="val" id="vSee"></span></label>
+        <input type="range" id="iSee" min="-1" max="0.6" step="0.005">
+      </div>
+      <div class="rds" id="rSkyI"></div>
+    </section>
+    <section>
+      <h2 title="What lies between the telescope focus and the detector.">Optics</h2>
+      <div class="caserow" title="Direct: the detector at the telescope focus. Reimaged: a collimator makes each star's light parallel, a pupil holds the filter, and a camera of focal ratio F_cam forms the image; the system then works at f/F_cam."><span>Imager</span>
+        <span class="seg sm"><button id="ioDir" type="button">Direct</button><button id="ioRe" type="button">Reimaged</button></span></div>
+      <div class="ctl only-ire" title="Diameter W of the collimated beam, and of the pupil where the filter sits. The collimator's focal length is F W. The field angles in the beam are the sky angles magnified by D / W.">
+        <label for="iW"><span>Beam, <i>W</i></span><span class="val" id="vW_"></span></label>
+        <input type="range" id="iW" min="0.7" max="2.7" step="0.005">
+      </div>
+      <div class="ctl only-ire" title="Focal ratio of the camera on the beam, F_cam = f_cam / W, which is the focal ratio of the whole system: the effective focal length is F_cam D. A camera faster than the telescope reduces the image scale (a focal reducer); a slower one enlarges the image (as adaptive-optics cameras do to sample λ / D).">
+        <label for="iFc"><span>Camera focal ratio</span><span class="val" id="vFc_"></span></label>
+        <input type="range" id="iFc" min="-0.3" max="2" step="0.002">
+      </div>
+      <div class="rds" id="rOptI"></div>
+    </section>
+    <section>
+      <h2 title="One chip of the mosaic.">Detector</h2>
+      <div class="caserow"><select id="iDet" title="Common chip formats."></select></div>
+      <div class="ctl" title="Pixels across one chip.">
+        <label for="iNx"><span>Pixels across</span><span class="val" id="vNx_"></span></label>
+        <input type="range" id="iNx" min="2.4" max="4.21" step="0.001">
+      </div>
+      <div class="ctl" title="Pixels up one chip.">
+        <label for="iNy"><span>Pixels up</span><span class="val" id="vNy_"></span></label>
+        <input type="range" id="iNy" min="2.4" max="4.21" step="0.001">
+      </div>
+      <div class="ctl" title="Pixel pitch. The pixel scale is 206265 p / f_eff.">
+        <label for="iPix"><span>Pixel size</span><span class="val" id="vPix_"></span></label>
+        <input type="range" id="iPix" min="2" max="30" step="0.1">
+      </div>
+      <div class="rds" id="rDetI"></div>
+    </section>
+    <section>
+      <h2 title="The chips tiled into a mosaic at the focus.">Mosaic</h2>
+      <div class="ctl" title="Chips across the mosaic. A preset's own pattern of rows gives way to a full grid when moved.">
+        <label for="iCol"><span>Chips across</span><span class="val" id="vCol"></span></label>
+        <input type="range" id="iCol" min="1" max="16" step="1">
+      </div>
+      <div class="ctl" title="Rows of chips.">
+        <label for="iRow"><span>Rows</span><span class="val" id="vRow"></span></label>
+        <input type="range" id="iRow" min="1" max="16" step="1">
+      </div>
+      <div class="ctl" title="Gap between neighboring chips (packages and wiring leave a margin around the pixels).">
+        <label for="iGap"><span>Gap</span><span class="val" id="vGap"></span></label>
+        <input type="range" id="iGap" min="0" max="20" step="0.05">
+      </div>
+      <div class="rds" id="rMosI"></div>
+    </section>
+  </div>
 </main>
 
 <footer>
@@ -205,14 +322,18 @@
 
 <dialog id="about" class="about" aria-labelledby="aboutTitle">
   <div class="abhead"><h2 id="aboutTitle">About the model</h2><button id="aboutClose" class="ghost" type="button" aria-label="Close">×</button></div>
-  <p>The collimator and camera are ideal (aberration-free), and the dispersers are plane.</p>
-  <p>The numbers are measured by tracing rays through the vector grating equation and Snell's law, from the slit to the detector; the closed forms of the design notes (R φ = 2 tan δ W/D in Littrow, F<sub>cam</sub> ≥ n<sub>pix</sub> p/(φ D), and the rest) are reproduced by the trace and checked in the validation suite.</p>
-  <p>The resolving power is the FWHM of the slit image, with the grating's diffraction limit and the pixel width added in quadrature; blaze efficiency is the scalar sinc² envelope, relative to the peak.</p>
-  <p>Presets come from the instrument papers and manuals. The presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Fiber-fed instruments are entered as the slit of equal line width.</p>
+  <p class="only-img">The telescope, collimator and camera are ideal thin optics, so each star images to a point at f_eff tan θ from the axis; the numbers come from tracing rays through the optics and are checked against the closed forms (plate scale 206265 / f_eff, pupil position, field angle in the beam) in the validation suite. A star's image is the seeing (a Moffat profile, with the diffraction width added in quadrature) or the Airy pattern of the annular aperture; the band sets only the wavelength of the diffraction width. The field of stars and galaxies is synthetic and illustrative.</p>
+  <p class="only-spec">The collimator and camera are ideal (aberration-free), and the dispersers are plane.</p>
+  <p class="only-spec">The numbers are measured by tracing rays through the vector grating equation and Snell's law, from the slit to the detector; the closed forms of the design notes (R φ = 2 tan δ W/D in Littrow, F<sub>cam</sub> ≥ n<sub>pix</sub> p/(φ D), and the rest) are reproduced by the trace and checked in the validation suite.</p>
+  <p class="only-spec">The resolving power is the FWHM of the slit image, with the grating's diffraction limit and the pixel width added in quadrature; blaze efficiency is the scalar sinc² envelope, relative to the peak.</p>
+  <p class="only-spec">Presets come from the instrument papers and manuals. The presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Fiber-fed instruments are entered as the slit of equal line width.</p>
 </dialog>
 
 <script src="physics.js"></script>
+<script src="imager.js"></script>
 <script src="presets.js"></script>
+<script src="ipresets.js"></script>
+<script src="imgapp.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

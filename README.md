@@ -5,6 +5,11 @@ camera, the disperser and the detector; read off the resolving power, wavelength
 dispersion, sampling and pixel scale; see the instrument drawn to scale (in the plane of the dispersion,
 along the slit, or in 3D) and the spectra as they fall on the detector.
 
+A second mode, **Imager** (the Spectrograph | Imager switch in the header, 2026-10-19), does the same for
+imaging: a telescope (prime focus, Cassegrain, Schmidt or refractor) feeding a detector mosaic directly or
+through a reimager (collimator, pupil and filter, camera); read off the pixel scale, field, sampling and étendue;
+see the telescope or the instrument drawn to scale and the sky as the mosaic records it. See **Imager mode** below.
+
 Sibling of spex, ismex, ionbal, dustex and lensex. The physics follows the Via notes "Notes on
 Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose worked example
 (6.5 m, 1″ slit, R2 echelle) is the first block of the validation suite.
@@ -129,6 +134,58 @@ slit height is not important"); the overview strip above the spectrum; then the 
   useful"; grating mode shows the detector again, and spex's `_norm.bin` was removed from web/); the image-slicer slider (2026-10-17). `physics.js` still takes a
 number of slices N, which the validation of the notes' worked example uses. An Imaging mode (the grating
 replaced by a mirror: field of view and pixel scale) is planned; an exposure-time calculator is not in v1.
+
+## Imager mode
+
+Charlie's calls (2026-10-19): a mode of its own behind a header switch (its layout, controls and presets differ
+from the spectrograph's), presets of real imaging instruments, direct imagers included, a pedagogical page first.
+The "focal ratio is speed" lesson (signal per pixel from an extended source ∝ (p/F)²) belongs in a separate memo,
+not on the page. The band's wavelength enters only the diffraction width.
+
+- **Engine** (`web/imager.js`, window.IM): every optic is an ideal thin element acting on the ray slope
+  t = tan θ (t′ = t − h/f), so a star images to one point at f_eff tan θ and the chain is exact. Telescopes:
+  prime focus, Cassegrain (primary f/F1, secondary placed for the magnification F/F1 with the focus a set
+  distance behind the primary; F1 and that distance are drawing options), Schmidt (the aperture stop at the
+  corrector, at the mirror's center of curvature, so the mirror is larger than the aperture and the exit
+  pupil lies past the focus), refractor. Reimaged: collimator f_col = F W one focal length past the focus, the
+  pupil (where the bundles cross) at f_col + f_col²/L past the collimator (L the exit pupil's distance before the
+  focus), the camera f_cam = F_cam W just past the pupil; the effective focal ratio is F_cam. Mosaic: centered
+  rows (top to bottom) of one chip format, with optional gaps per column and row, a shift per column (Roman's
+  arc) and chips placed by hand (HSC's four turned chips). The field circle (a telescope's corrected field or an
+  instrument's field stop) cuts the mosaic: the field is the chips inside the circle, its solid angle exact
+  (rectangles under f tan θ) for whole chips and summed on a grid for cut ones. PSF: seeing (Moffat β = 4.765,
+  Trujillo+01, with the diffraction width in quadrature) or diffraction (the annular Airy pattern, J1 by the
+  trapezoid rule on its integral representation).
+- **Optical layout**: Telescope (the whole telescope folded as built, light from the left) or Instrument
+  (from the telescope focus on, unfolded). Three field points (top, center and bottom of the field: brick,
+  gray, teal) each send an annular bundle (the central obstruction's shadow inside). Heights: To scale |
+  Stretched (Instrument view only; heights × the largest of 1, 1.5, 2, 3, 4, 5, 6, 8, 10 … that fits the panel,
+  stated in the caption; the field-angle arc drawn at the angle on the page and labeled with the true angle).
+- **Sky**: a synthetic, seeded field of stars and galaxies, the same at every scale: one-magnitude slices on
+  their own grids of tiles (about twelve objects a tile), the brightest slices that fit about 5000 objects
+  drawn, plus one fixed 20 mag target star near the center (1.7″, 1.1″) so that small diffraction-limited fields
+  show the Airy rings. Brightness is flux per max(detector pixel, screen pixel), so zooming in turns into the
+  pixelated image without a jump; white is the peak of a star 4 mag brighter than the (continuous) depth; each
+  object is drawn out to where it falls below half the stretch's knee, with a tapered edge. Zoomed in past
+  2.5 screen pixels per detector pixel, each star is integrated over the pixels. Optional full-Moon outline
+  (1896″, NSSDC).
+- **Constants** (data/imaging/constants.md): band wavelengths are the SVO pivot wavelengths; Moffat β; the
+  Moon; the annular Airy FWHM checked against an independent table.
+- **Presets** (web/ipresets.js, 21; sources data/imaging/{widefield,megacam_ztf_small,hst,space_wide,reimagers}.md,
+  documents in rawdata/imaging/): LSSTCam, HSC, DECam, MegaCam, ZTF, an 80 mm refractor with a CMOS camera,
+  ACS/WFC, WFC3/UVIS, WFC3/IR (reimaged through the published cold-mask pupil), Euclid VIS, Roman WFI, NIRCam
+  short and long wavelength (reimaged), FORS2 (standard and high resolution), IMACS f/2, LRIS red, MOSFIRE,
+  NIRC2 narrow, medium and wide. Things worth knowing: HST's published focal ratios (f/25, f/31, f/11) give
+  pixels 3–10% too coarse because the detectors tilt 21–24°, so the presets use the focal lengths that reproduce
+  the scales (the design values for WFC3); the nominal fields of LSSTCam (3.5°) and HSC (1.5°) are smaller than
+  the mosaics, whose CCDs the published areas and pixel counts count whole; NIRC2's internal optics are not
+  published (W, f_col and f_cam are estimates from the aperture masks; they leave the scale unchanged); HSC's
+  central obstruction is not published (ε = 0 in the preset); square and rectangular field stops (FORS2's
+  slit unit, LRIS's slit-mask area) are not modeled; the JWST and Keck pupils are hexagonal, the model's annular.
+- **Checks**: `node validate_img.js` (ideal imaging, scales, the Cassegrain and Schmidt geometry, the pupil
+  position and beam angle tan φ = (D/W) tan θ, mosaic geometry and field areas against brute-force sums, the
+  Airy pattern, and every preset against the published pixel scales, fields, areas and pixel counts; 131 pass,
+  plus [INFO] lines for the circular or differently defined ones). deploy.sh runs it too.
 
 ## Physics and assumptions
 

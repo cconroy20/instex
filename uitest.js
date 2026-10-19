@@ -70,7 +70,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   const D = async () => ev(`(() => { const d = window.__instex.design(); return d.c ? { R: d.c.Reff, Rs: d.c.Rs, npix: d.c.npix, ps: d.c.pixScale, dl: d.c.dlpix,
       lo: d.range && d.range[0], hi: d.range && d.range[1], fcol: d.fcol, n: d.orders.length, bad: d.bad || null, flags: d.flags.map(f => f.k) } : { bad: d.bad || "no c" }; })()`);
   const vis = async sel => ev(`(e => !!e && e.offsetParent !== null)(document.querySelector(${JSON.stringify(sel)}))`);
-  const fit = async () => ev(`(() => { const r = document.querySelector(".controls").getBoundingClientRect(); return { bottom: r.bottom, vh: innerHeight, sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }; })()`);
+  const fit = async () => ev(`(() => { const r = [...document.querySelectorAll(".controls")].find(e => e.offsetParent !== null).getBoundingClientRect(); return { bottom: r.bottom, vh: innerHeight, sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }; })()`);
   await send("Page.enable"); await send("Runtime.enable"); await send("Log.enable");
   await size(1440, 900);
 
@@ -664,6 +664,83 @@ const rel = (a, b) => Math.abs(a / b - 1);
   check("phone width: no sideways scroll", ph.sw <= ph.cw, `${ph.sw} vs ${ph.cw}`);
   await shot("09_phone.png");
   await size(1440, 900);
+
+  // ------------------------------------------------------------ Imager mode (2026-10-19)
+  await size(1440, 900); await go();
+  const r0 = await ev(`window.__instex.design().c.Reff`);
+  await ev(`document.getElementById("iImg").click()`); await sleep(500);
+  {
+    const st = await ev(`({ cls: document.body.className, spec: getComputedStyle(document.querySelector(".panels.only-spec")).display, img: getComputedStyle(document.getElementById("imgPanels")).display,
+      stats: document.querySelectorAll("#stats .stat").length, ps: window.__instex.img().design().pixScale, hash: location.hash, menu: document.getElementById("preset").options.length })`);
+    check("Imager switch: imager panels shown, spectrograph hidden", /inst-img/.test(st.cls) && st.spec === "none" && st.img !== "none", st.cls);
+    check("Imager default: four figures in the strip, 0.258″/px", st.stats === 4 && Math.abs(st.ps - 0.25783) < 1e-4, `${st.stats} figures, ${st.ps}`);
+    check("Imager: the link says inst=img", /inst=img/.test(st.hash), st.hash);
+    check("Imager: the preset menu lists the imager presets", st.menu > 15, st.menu + " options");
+  }
+  await ev(`document.getElementById("iSpec").click()`); await sleep(400);
+  check("back to the Spectrograph: its state kept", (await ev(`document.body.className.includes("inst-spec") && Math.abs(window.__instex.design().c.Reff - ${r0}) < 1e-6`)));
+  // every imager preset: no errors, one screen at both laptop sizes
+  {
+    const ids = await ev(`window.IX_IPRESETS.map(p => p.id)`);
+    for (const [w, h] of [[1440, 900], [1280, 800]]) {
+      await size(w, h);
+      const over = [], bad = [];
+      for (const id of ids) {
+        await send("Page.navigate", { url: URL0 + "?r=" + Math.random() + "#inst=img&ipreset=" + id }); await sleep(500);
+        const f = await fit(); if (!(f.bottom <= f.vh + 0.5 && f.sw <= f.cw)) over.push(`${id} ${f.bottom.toFixed(0)}`);
+        const r = await ev(`({ p: document.getElementById("preset").value, bad: window.__instex.img().design().bad || "" })`);
+        if (r.p !== id || r.bad) bad.push(id + ":" + r.p + r.bad);
+      }
+      check(`${w}x${h}: every imager preset loads by its link (${ids.length})`, bad.length === 0, bad.join(", "));
+      check(`${w}x${h}: every imager preset's controls fit`, over.length === 0, over.join(", "));
+    }
+    await size(1440, 900);
+  }
+  // the link carries the state, the drawing options and a preset's mosaic pattern
+  await go("#inst=img&ipreset=hsc");
+  await ev(`window.__instex.img().set({ D: 7.5, tel: "schmidt", stretch: true, view: "inst", seeing: 1.1 })`); await sleep(400);
+  {
+    const h1 = await ev(`location.hash`), s1 = await ev(`JSON.stringify(window.__instex.img().state())`);
+    await go(h1);
+    const s2 = await ev(`JSON.stringify(window.__instex.img().state())`);
+    check("Imager link round trip (state, drawing options, the HSC rows, gaps and turned chips)", s1 === s2, h1.slice(0, 120));
+    check("Imager: a changed preset is Custom", (await ev(`document.getElementById("preset").value`)) === "custom");
+  }
+  // stretch: the Instrument view of a long, thin reimager fills the panel
+  await go("#inst=img&ipreset=mosfirei&i.view=inst");
+  const capA = await ev(`document.getElementById("ilSub").textContent`);
+  await ev(`document.getElementById("isOn").click()`); await sleep(300);
+  const capB = await ev(`document.getElementById("ilSub").textContent`);
+  check("Stretched heights: the caption gives the factor", !/stretched/.test(capA) && /Heights stretched × \d/.test(capB), capB.slice(0, 40));
+  // sky zoom: the wheel zooms about the pointer, the reset button appears, double-click resets
+  await go("#inst=img");
+  {
+    const z = await ev(`(async () => { const c = document.getElementById("cvS"), r = c.getBoundingClientRect();
+      for (let k = 0; k < 8; k++) { c.dispatchEvent(new WheelEvent("wheel", { deltaY: -300, clientX: r.left + r.width * 0.55, clientY: r.top + r.height * 0.45, bubbles: true, cancelable: true })); await new Promise(q => setTimeout(q, 20)); }
+      const a = window.__instex.img().zoom().z, btn = !document.getElementById("szReset").hidden;
+      c.dispatchEvent(new MouseEvent("dblclick", { bubbles: true })); await new Promise(q => setTimeout(q, 50));
+      return { a, btn, b: window.__instex.img().zoom().z }; })()`);
+    check("Sky: wheel zooms in, Reset zoom shows, double-click resets", z.a > 10 && z.btn && z.b === 1, JSON.stringify(z));
+  }
+  // the header note on one line in the Imager too, at a larger default font
+  {
+    const r = await ev(`(() => { document.documentElement.style.fontSize = "18px"; const n = document.querySelector(".presetnote"); const lh = parseFloat(getComputedStyle(n).lineHeight); const k = Math.round(n.getBoundingClientRect().height / lh); document.documentElement.style.fontSize = ""; return k; })()`);
+    check("Imager 1440x900: header note on one line (root font 18px)", r === 1, r + " lines");
+  }
+  // speed: the whole page redrawn (layout and sky) for the largest mosaic
+  await go("#inst=img&ipreset=lsst");
+  {
+    const t = await ev(`(() => { const t0 = performance.now(); for (let i = 0; i < 5; i++) window.__instex.img().set({ seeing: 0.7 + 0.01 * i }); return (performance.now() - t0) / 5; })()`);
+    check("Imager redraw time (LSSTCam, 189 chips)", t < 250, `${t.toFixed(1)} ms per frame`);
+  }
+  await go("#inst=img&ipreset=nirc2n");
+  {
+    const t = await ev(`(async () => { const c = document.getElementById("cvS"), r = c.getBoundingClientRect(), t0 = performance.now();
+      for (let k = 0; k < 6; k++) { c.dispatchEvent(new WheelEvent("wheel", { deltaY: -300, clientX: r.left + r.width * 0.6, clientY: r.top + r.height * 0.4, bubbles: true, cancelable: true })); }
+      return (performance.now() - t0) / 6; })()`);
+    check("Sky zoom redraw time (NIRC2, pixel mode with Airy rings)", t < 250, `${t.toFixed(1)} ms per step`);
+  }
+  await shot("10_imager.png");
 
   // ------------------------------------------------------------ speed
   await go("#mode=echelle");

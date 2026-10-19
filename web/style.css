@@ -145,9 +145,12 @@ footer p{margin:.5em 0;max-width:120ch}
 .about p{margin:.6em 0}
 #aboutClose{font-size:1.15rem;line-height:1;padding:2px 9px}
 
-@media (max-width:1240px){
-  .mark{font-size:1.45rem}                                            /* the header note stays on one line */
+/* the header note stays on one line: below 1540 px (with the Spectrograph | Imager switch) a smaller title and menu */
+@media (max-width:1540px){
+  .mark{font-size:1.45rem}
   #preset{width:205px;min-width:0}
+}
+@media (max-width:1240px){
   .controls{grid-template-columns:repeat(3,minmax(0,1fr))}
   .controls .c-disp{grid-column:span 2}
 }
@@ -172,3 +175,23 @@ footer p{margin:.5em 0;max-width:120ch}
 .c-disp .rd.wide{grid-column:1 / -1}
 .c-disp .rd.wide b{white-space:normal;text-align:right}
 @media (max-width:860px){ .c-disp .rds{grid-template-columns:minmax(0,1fr)} }
+
+/* ---- Imager mode */
+body.inst-spec .only-img, body.inst-img .only-spec{display:none !important}
+body:not(.it-cass) .only-icass{display:none}
+body:not(.iv-inst) .only-iinst{display:none}
+body:not(.io-re) .only-ire{display:none}
+body:not(.ip-seeing) .only-isee{display:none}
+.icontrols{grid-template-columns:repeat(5,minmax(196px,1fr))}
+#cvS{cursor:crosshair}
+.seg[hidden]{display:none}
+.caserow.wraprow{flex-wrap:wrap;row-gap:3px}
+#cvS.zoomed{cursor:grab}
+#cvIL{cursor:grab}
+#instSeg button{font-size:.84rem;padding:2px 9px}
+body.ilv-expanded{overflow:hidden}
+body.ilv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}
+body.ilv-expanded #ilvPanel{position:fixed;inset:10px;z-index:50;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+body.ilv-expanded #ilvPanel canvas{flex:1 1 auto;height:auto;min-height:0}
+@media (max-width:1240px){ .icontrols{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:860px){ .icontrols{grid-template-columns:minmax(0,1fr)} }

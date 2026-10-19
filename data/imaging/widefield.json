@@ -1,0 +1,1689 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER mode presets: wide-field prime-focus / survey imagers (Rubin LSSTCam, Subaru HSC, Blanco DECam)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/widefield.md (same content as Markdown). Structure follows data/round4/*.json: sources{key: cite, file, url}; per instrument: title, preset (machine-readable summary of the recommended explorer inputs), recommended_preset (prose), params, performance (validation targets), not_found, conflicts, notes.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document (rawdata/imaging/<inst>/). derived = arithmetic done here from sourced values (shown). alternatives = other sourced values (conflicts). Every quote was machine-checked against the saved file's extracted text (pdftotext -layout and raw; HTML tag-stripped text and raw source; .py/.yaml as is).",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, division slash (U+2215), tilde operator and degree-ring glyphs normalised; whitespace collapsed (a quote also passes if it matches with all whitespace removed, which covers PDF line breaks and HTML <sup> splits such as 'deg 2'); ' ... ' joins non-adjacent pieces.",
+  "frames": "Rows are listed top to bottom in the orientation of the cited layout figure (LSSTCam: CTN-001 Fig. 1 focal-plane frame; HSC: A18 Fig. 1 / Subaru CCDPosition figure; DECam: F15 Fig. 23, north up). x = along a row, y = across rows. Gaps are between the active pixel areas of neighbouring CCDs unless stated."
+ },
+ "sources": {
+  "I19": {
+   "cite": "Ivezic, Z., Kahn, S. M., Tyson, J. A., et al. 2019, ApJ 873, 111, \"LSST: From Science Drivers to Reference Design and Anticipated Data Products\", arXiv:0805.2366v5 (23 May 2018; page header \"Draft version August 13, 2019\"). Table 1 = baseline design; Sec. 2.6 = telescope and camera",
+   "file": "rawdata/imaging/lsstcam/Ivezic2019_ApJ873_111_LSST_arXiv0805.2366.pdf",
+   "url": "https://arxiv.org/pdf/0805.2366"
+  },
+  "SB09": {
+   "cite": "LSST Science Collaboration 2009, \"LSST Science Book, Version 2.0\", arXiv:0912.0201 (596 pp.); Sec. 1.6 table \"Main System and Survey Characteristics\" (p. 20), Ch. 2 \"LSST System Design\" (Sec. 2.3 \"Optics and Telescope Design\", Sec. 2.4 \"Camera\"). Pre-construction design values",
+   "file": "rawdata/imaging/lsstcam/LSST_ScienceBook_v2.0_arXiv0912.0201.pdf",
+   "url": "https://arxiv.org/pdf/0912.0201"
+  },
+  "RKN": {
+   "cite": "NSF-DOE Vera C. Rubin Observatory, \"Key numbers\" page for scientists (\"Date last updated: 20 May 2026\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lsstcam/rubin_key-numbers.html",
+   "url": "https://rubinobservatory.org/for-scientists/rubin-101/key-numbers"
+  },
+  "ROD": {
+   "cite": "Rubin Observatory (lsst.org), \"Rubin Observatory Optical Design\" page (legacy lsst.org site; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lsstcam/lsst_org_tel-site_optical_design.html",
+   "url": "https://www.lsst.org/about/tel-site/optical_design"
+  },
+  "CTN1": {
+   "cite": "Plazas Malagon, A. A., Digel, S. W., Roodman, A., et al. (LSST Camera Team), \"LSSTCam and LSSTComCam Focal Plane Layouts\", Camera Technical Note CTN-001, latest revision 2026-03-24, doi:10.71929/rubin/2584019 (Fig. 1 = LSSTCam layout by raft, sensor and amplifier, ITL vs e2v)",
+   "file": "rawdata/imaging/lsstcam/Rubin_CTN-001_FocalPlaneLayouts_2026-03-24.pdf",
+   "url": "https://ctn-001.lsst.io/CTN-001.pdf"
+  },
+  "M26": {
+   "cite": "MacBride, S. P., Roodman, A., Marshall, S., et al. 2026, \"The On-Sky Performance of the LSST Camera CCD Array\", arXiv:2606.31806v1 (SPIE 2026 proceedings preprint)",
+   "file": "rawdata/imaging/lsstcam/MacBride2026_LSSTCam_CCD_onsky_arXiv2606.31806.pdf",
+   "url": "https://arxiv.org/pdf/2606.31806"
+  },
+  "OBSL": {
+   "cite": "Rubin Observatory / LSST Data Management, obs_lsst camera geometry for LSSTCam (policy/cameraHeader.yaml, policy/rafts.yaml, policy/cameraTransforms.yaml, policy/lsstCam/R??.yaml), GitHub lsst/obs_lsst at commit 56defa3 (fetched 2026-10-19). Nominal pipeline geometry: CCD formats, raft and CCD centres (mm), plate scale. The header notes that the e2v in-raft offsets were copied from ITL",
+   "file": "rawdata/imaging/lsstcam/obs_lsst_56defa3/",
+   "url": "https://github.com/lsst/obs_lsst/tree/56defa3d2a0fd9c1c61c8647b9534e3533e08115/policy"
+  },
+  "BAT": {
+   "cite": "batoid ray-tracer (J. Meyers), optical prescription batoid/data/LSST/LSST_r.yaml, GitHub jmeyers314/batoid commit fc7e155 (2023-11-08); used only for the M1 radius of curvature and the pupil obscuration fraction (third-party model of the Rubin design, not an observatory document)",
+   "file": "rawdata/imaging/lsstcam/batoid_LSST_r_yaml_fc7e155.yaml",
+   "url": "https://github.com/jmeyers314/batoid/blob/fc7e155/batoid/data/LSST/LSST_r.yaml"
+  },
+  "A18": {
+   "cite": "Aihara, H., Arimoto, N., Armstrong, R., et al. 2018, PASJ 70, S4, \"The Hyper Suprime-Cam SSP Survey: Overview and survey design\", arXiv:1704.05858v3 (Sec. 2, Table 1, Fig. 1 CCD layout). Its text layer renders the arcsec glyph as \"00\" (e.g. \"1200\" = 12\", \"0.16800\" = 0.168\") and arcmin as \"0\" (\"5.730\" = 5.73')",
+   "file": "rawdata/imaging/hsc/Aihara2018_PASJ70_S4_HSC-SSP_arXiv1704.05858.pdf",
+   "url": "https://arxiv.org/pdf/1704.05858"
+  },
+  "SHP": {
+   "cite": "Subaru Telescope (NAOJ), \"HSC instrument parameters\" page (fetched 2026-10-19)",
+   "file": "rawdata/imaging/hsc/subaru_HSC_parameters.html",
+   "url": "https://subarutelescope.org/Observing/Instruments/HSC/parameters.html"
+  },
+  "SHC": {
+   "cite": "Subaru Telescope (NAOJ), \"HSC CCDs\" page (CCD information), with its figures saved alongside: subaru_HSC_CCDPosition.png (\"Hyper Suprime-Cam CCD arrangement [Updated in October 2026]\") and subaru_HSC_CCDformat.png (per-CCD format); fetched 2026-10-19",
+   "file": "rawdata/imaging/hsc/subaru_HSC_ccd.html",
+   "url": "https://subarutelescope.org/Observing/Instruments/HSC/ccd.html"
+  },
+  "STP": {
+   "cite": "Subaru Telescope (NAOJ), \"Physical parameters of Subaru Telescope\" page (fetched 2026-10-19)",
+   "file": "rawdata/imaging/hsc/subaru_Telescope_Parameters.html",
+   "url": "https://subarutelescope.org/Observing/Telescope/Parameters/index.html"
+  },
+  "SSP": {
+   "cite": "HSC-SSP survey site (NAOJ), \"About HSC\" page (?p=16): wide-field corrector, CCD dewar, focal plane assembly (fetched 2026-10-19)",
+   "file": "rawdata/imaging/hsc/hsc_ssp_about_HSC_p16.html",
+   "url": "https://hsc.mtk.nao.ac.jp/ssp/?p=16"
+  },
+  "SPH": {
+   "cite": "Subaru Telescope (NAOJ), HSC project page \"Camera System\" (fetched 2026-10-19)",
+   "file": "rawdata/imaging/hsc/subaru_Projects_HSC_hsccamera.html",
+   "url": "https://subarutelescope.org/Projects/HSC/hsccamera.html"
+  },
+  "S15": {
+   "cite": "Sugai, H., Tamura, N., Karoji, H., et al. 2015, JATIS 1, 035001, \"Prime Focus Spectrograph for the Subaru telescope: massively multiplexed optical and near-infrared fiber spectrograph\", arXiv:1507.00725 (PFS uses the HSC Wide Field Corrector); SAME FILE as rawdata/presets/pfs/ (round 4 key S15)",
+   "file": "rawdata/imaging/hsc/Sugai2015_JATIS1_035001_PFS_arXiv1507.00725.pdf",
+   "url": "https://arxiv.org/pdf/1507.00725"
+  },
+  "SPFS": {
+   "cite": "Subaru Telescope (NAOJ), PFS \"Basic instrument parameters\" page (plate scale behind the HSC/PFS Wide Field Corrector); SAME FILE as rawdata/presets/pfs/subaru_pfs_basic-instrument-parameters.html (round 4 key SUBP)",
+   "file": "rawdata/imaging/hsc/subaru_pfs_basic-instrument-parameters.html",
+   "url": "https://subarutelescope.org/Observing/Instruments/PFS/basic-instrument-parameters.html"
+  },
+  "OBSS": {
+   "cite": "Rubin/HSC pipeline obs_subaru, HSC camera geometry hsc/camera/camera.py, GitHub lsst/obs_subaru (last change to the file: commit 4db6579, 2024-07-15; fetched 2026-10-19). CCD bboxes, centres (in 15-um pixels), yaw, plate scale. Lists the 104 science + 8 focus CCDs (not the 4 guiders)",
+   "file": "rawdata/imaging/hsc/obs_subaru_hsc_camera_camera.py",
+   "url": "https://github.com/lsst/obs_subaru/blob/main/hsc/camera/camera.py"
+  },
+  "F15": {
+   "cite": "Flaugher, B., Diehl, H. T., Honscheid, K., et al. 2015, AJ 150, 150, \"The Dark Energy Camera\", arXiv:1504.02900 (Sec. 2 optics, Table 1 prescription, Sec. 3 CCDs, Fig. 23 focal-plane map). Its text layer renders the arcsec glyph as \"00\" (\"0.26300\" = 0.263\")",
+   "file": "rawdata/imaging/decam/Flaugher2015_AJ150_150_DECam_arXiv1504.02900.pdf",
+   "url": "https://arxiv.org/pdf/1504.02900"
+  },
+  "NDH": {
+   "cite": "Shaw, R. A. (ed.), NOAO Data Handbook, Version 2.2, May 2015 (NOIRLab scidoc1203), Ch. 4 \"Dark Energy Camera v1.2\", Table 4-1 \"DECam Camera Characteristics\" (p. 4-3). Its text layer drops the degree sign (\"2 diameter\" = 2.2 deg diameter per the other sources) and the mu (\"15 m\")",
+   "file": "rawdata/imaging/decam/NOAO_Data_Handbook_v2.2_2015_scidoc1203.pdf",
+   "url": "https://noirlab.edu/science/sites/default/files/media/archives/documents/scidoc1203.pdf"
+  },
+  "CDC": {
+   "cite": "NSF NOIRLab / CTIO, \"DECam Characteristics\" page (\"Main Characteristics of Focal Plane\"; fetched 2026-10-19; same content as the archived www.ctio.noirlab.edu/noao/content/DECam-What, whose live server returned HTTP 500)",
+   "file": "rawdata/imaging/decam/noirlab_DECam_characteristics.html",
+   "url": "https://noirlab.edu/science/programs/ctio/instruments/Dark-Energy-Camera/characteristics"
+  },
+  "NDM": {
+   "cite": "NSF NOIRLab / CTIO, \"Dark Energy Camera (DECam)\" instrument page (fetched 2026-10-19)",
+   "file": "rawdata/imaging/decam/noirlab_DECam_main.html",
+   "url": "https://noirlab.edu/science/programs/ctio/instruments/Dark-Energy-Camera"
+  },
+  "BOP": {
+   "cite": "NSF NOIRLab / CTIO, Blanco 4-m \"Basic Optical Parameters\" page (primary mirror data; \"Updated on April 30, 2021\"; the used clear aperture is dated \"August 00\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/decam/noirlab_Blanco_Basic-Optical-Parameters.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope/optical-properties/Basic-Optical-Parameters"
+  },
+  "BAF": {
+   "cite": "NSF NOIRLab / CTIO, Blanco 4-m \"Available Foci & Instruments\" page (\"Updated on May 19, 2021\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/decam/noirlab_Blanco_Available-Foci.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope/optical-properties/Available-Foci"
+  },
+  "BTP": {
+   "cite": "NSF NOIRLab / CTIO, \"Victor M. Blanco 4-meter Telescope\" page (fetched 2026-10-19)",
+   "file": "rawdata/imaging/decam/noirlab_Blanco_4m_telescope.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope"
+  },
+  "OBSD": {
+   "cite": "Rubin/DECam pipeline obs_decam, DECam camera geometry decam/camGeom/camera.py, GitHub lsst/obs_decam (last change to the file: commit e24428b, 2025-06-18; fetched 2026-10-19). CCD bboxes and centres (mm), plate scale; science CCDs only",
+   "file": "rawdata/imaging/decam/obs_decam_camGeom_camera.py",
+   "url": "https://github.com/lsst/obs_decam/blob/main/decam/camGeom/camera.py"
+  }
+ },
+ "lsstcam": {
+  "title": "Rubin Observatory Simonyi Survey Telescope / LSSTCam (three-mirror Paul-Baker telescope + three-lens refractive corrector; 189-CCD science mosaic in 21 rafts)",
+  "preset": {
+   "D_m": 8.36,
+   "eps": 0.612,
+   "F": 1.233,
+   "f_eff_mm": 10310,
+   "telescope_type": "three-mirror (modified Paul-Baker), M1+M3 monolith, camera with 3 refractive lenses + filter",
+   "primary_F": 1.19,
+   "field_diameter_deg": 3.5,
+   "chip_nx": 4096,
+   "chip_ny": 4004,
+   "chip_nx_ITL": 4072,
+   "chip_ny_ITL": 4000,
+   "pitch_um": 10.0,
+   "n_science_chips": 189,
+   "rows": [
+    9,
+    9,
+    9,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    15,
+    9,
+    9,
+    9
+   ],
+   "chip_long_axis": "along rows (the 4096/4072-px serial direction lies along focal-plane x; chips are within 2.3% of square)",
+   "gap_x_mm": 1.29,
+   "gap_y_mm": 2.21,
+   "raft_gap_x_mm": 1.54,
+   "raft_gap_y_mm": 2.46,
+   "cell_pitch_mm": 42.25,
+   "raft_pitch_mm": 127.0,
+   "pixel_scale_arcsec": 0.2
+  },
+  "recommended_preset": "D = 8.36 m (M1 outer clear aperture; 8.4 m nominal), eps = 0.612 (5.12 m M1 inner clear diameter / 8.36 m; set by the M1 annulus around the M3 that shares the M1M3 monolith -- the 3.4-3.5 m M2 and the 1.8 m camera opening lie inside it), F = 1.233 (Rubin key numbers; = 10310.2 mm / 8.36 m DERIVED), f_eff = 10310 mm DERIVED from the pipeline plate scale 20.0059\"/mm (Science Book: \"10.3 m\"), telescope type: three-mirror modified Paul-Baker with M1 and M3 on one substrate, then a three-lens fused-silica corrector (L1 1.55 m, L2, L3 = cryostat window) with the 0.75 m filter just before L3, all in the converging beam; M1 f/1.19 (DERIVED, R = 19.835 m / 2 / 8.36 m; drawing only). Field 3.5 deg diameter (9.6 deg^2), 64 cm focal plane. Detector: 189 science CCDs, 10 um pixels, in 21 rafts of 3 x 3 on a 127.0 mm raft pitch (42.25 mm CCD pitch within a raft): 117 e2v CCD250 (4096 x 4004) in 13 rafts + 72 ITL STA-3800C (4072 x 4000) in 8 rafts. Rows (top to bottom, centred): 9, 9, 9, 15, 15, 15, 15, 15, 15, 15, 15, 15, 9, 9, 9 (raft rows 3, 5, 5, 5, 3). Gaps between active areas (nominal pipeline geometry, DERIVED): within a raft 1.29 mm (x) / 2.21 mm (y) for e2v, 1.53 / 2.25 mm for ITL; across a raft boundary 1.54 / 2.46 mm (e2v-e2v), 1.78 / 2.50 mm (ITL-ITL), 1.66 / 2.48 mm (mixed). For a single-format preset use 4096 x 4004 with gaps 1.29 / 2.21 mm and raft gaps 1.54 / 2.46 mm. Corner rafts (not science): 4 x (2 guide ITL 4k x 4k + 2 wavefront ITL 4k x 2k). Validate: 0.2\"/px (0.20006 DERIVED), 9.6 deg^2 / 3.5 deg, 3.2 Gpix nominal (3,091,580,928 science pixels DERIVED), etendue 319 m^2 deg^2, active science area 9.55 deg^2 DERIVED.",
+  "params": {
+   "telescope_aperture": {
+    "value": 8.36,
+    "unit": "m (M1 outer clear aperture)",
+    "src": "ROD",
+    "loc": "Optical design page, para. 4",
+    "quote": "The Rubin Observatory primary mirror is highly annular (ring-shaped), having an outer clear aperture of 8.36 m and an inner diameter of 5.12 m, giving an effective collecting area of a 6.67 m filled aperture.",
+    "alternatives": [
+     {
+      "value": 8.4,
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Primary mirror diameter: 8.4 m",
+      "note": "nominal / physical diameter"
+     },
+     {
+      "value": 8.4,
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Final f-ratio, aperture f/1.234, 8.4 m"
+     },
+     {
+      "value": 8.4,
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The primary mirror (M1) is 8.4 m in diameter with a 5.1-m inner clear aperture."
+     },
+     {
+      "value": 8.36,
+      "src": "BAT",
+      "loc": "opticalSystem header",
+      "quote": "pupilSize: 8.36  # Pupil fits inside a square with this side length"
+     },
+     {
+      "value": "6.49 (mean effective)",
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Mean effective aperture: 6.49 m (area weighted over FOV)",
+      "note": "area-equivalent, includes vignetting"
+     },
+     {
+      "value": "6.67 / 6.7 (on-axis area-equivalent)",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The on-axis collecting area is 35 m2 , equivalent to a 6.7-m diameter unobscured clear aperture."
+     },
+     {
+      "value": "~6.4 (effective, with vignetting)",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "having an outer diameter of 8.4 m and inner diameter of 5.0 m, creating an effective filled aperture of ~6.4 m in diameter once vignetting is taken into account"
+     }
+    ],
+    "derived": "DERIVED: pi/4 (8.36^2 - 5.12^2) = 34.30 m^2 = 6.61 m filled; pi/4 (8.4^2 - 5.1^2) = 34.99 m^2 = 6.68 m filled (SB09 \"35 m2\", ROD \"6.67 m\")."
+   },
+   "central_obstruction": {
+    "value": 0.612,
+    "unit": "linear ratio (obscuration diameter / D)",
+    "src": "BAT",
+    "loc": "opticalSystem header",
+    "quote": "pupilObscuration: 0.612  # Fractional pupil central obscuration",
+    "alternatives": [
+     {
+      "value": "5.12 / 8.36 = 0.612",
+      "src": "ROD",
+      "loc": "Optical design page, para. 4",
+      "quote": "having an outer clear aperture of 8.36 m and an inner diameter of 5.12 m"
+     },
+     {
+      "value": "5.1 / 8.4 = 0.607",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The primary mirror (M1) is 8.4 m in diameter with a 5.1-m inner clear aperture."
+     },
+     {
+      "value": "5.0 / 8.4 = 0.595",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "having an outer diameter of 8.4 m and inner diameter of 5.0 m"
+     },
+     {
+      "value": "M1 clear annulus 2.558-4.18 m radius = 0.612",
+      "src": "BAT",
+      "loc": "M1 obscuration",
+      "quote": "type: ClearAnnulus ... outer: 4.18 ... inner: 2.558"
+     }
+    ],
+    "note": "What sets it: the inner edge of the M1 clear annulus. M1 and M3 are one monolith (\"The primary and tertiary mirrors were fabricated from a single piece of Ohara E6 low-expansion glass\", ROD); M3 (5.0 m) fills the centre. The secondary (3.4 m, SB09; 3.5 m, ROD) and the 1.8 m camera opening in M2 are smaller than the 5.12 m M1 inner diameter, so they add no further on-axis obscuration in this description. Off axis the camera vignettes (RKN mean effective aperture 6.49 m).",
+    "derived": "DERIVED: 5.12/8.36 = 0.6124; 2 x 2.558 / 8.36 = 0.6120."
+   },
+   "telescope_focus": {
+    "value": "three-mirror modified Paul-Baker (M1, M2, M3) feeding a three-lens refractive corrector; flat focal surface inside the camera",
+    "unit": "",
+    "src": "I19",
+    "loc": "Table 1",
+    "quote": "Optical Config. 3-mirror modified Paul-Baker",
+    "alternatives": [
+     {
+      "value": "modified Paul-Baker three-mirror system with three refractive lenses and a filter",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The LSST optical design shown in Figure 2.4 is a modified Paul-Baker three-mirror system (M1, M2, M3) with three refractive lenses (L1, L2, L3) and a color filter before the sensor at the focal plane."
+     },
+     {
+      "value": "compact three-mirror telescope + refractive corrector",
+      "src": "ROD",
+      "loc": "Optical design page, para. 1",
+      "quote": "a compact three-mirror telescope augmented by a large refractive corrector, the whole capable of delivering a 3.5 degree field of view covering a 64 cm diameter flat focal plane"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 1.233,
+    "unit": "f/# (final)",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Final f-ratio: f/1.233",
+    "alternatives": [
+     {
+      "value": 1.234,
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Final f-ratio, aperture f/1.234, 8.4 m"
+     },
+     {
+      "value": 1.23,
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Final f/ratio; plate scale f/1.23 50 microns/arcsec"
+     }
+    ],
+    "derived": "DERIVED: 10310.2 mm / 8.36 m = f/1.2333; / 8.4 m = f/1.2274."
+   },
+   "effective_focal_length": {
+    "value": 10310.2,
+    "unit": "mm (DERIVED from the pipeline plate scale)",
+    "src": "OBSL",
+    "loc": "cameraTransforms.yaml",
+    "quote": "plateScale : 20.005867576692737         # plate scale, in arcseconds on sky/mm",
+    "alternatives": [
+     {
+      "value": 10300,
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The effective focal length of the optical system is 10.3 m, making the final f/number 1.23. The plate scale is 50 microns per arcsecond at the focal surface."
+     },
+     {
+      "value": "10499 (from 50.9 um/arcsec)",
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Plate Scale 50.9 µm/arcsec (0.2” pix)",
+      "note": "50.9 um/\" x 206264.8 = 10499 mm DERIVED; inconsistent with its own 0.2\" pixel and with SB09/OBSL"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 20.005868 \"/mm = 10310.2 mm; 1/20.005868 = 49.985 um/arcsec."
+   },
+   "primary_focal_ratio": {
+    "value": 1.19,
+    "unit": "f/# of M1 (drawing only)",
+    "src": "BAT",
+    "loc": "M1 surface",
+    "quote": "name: M1 ... R: 19.835",
+    "derived": "DERIVED: f_M1 = R/2 = 9.9175 m; 9.9175 / 8.36 = f/1.186 (f/1.181 for 8.4 m). Not stated in an observatory document found here (BAT is a third-party prescription)."
+   },
+   "corrected_field": {
+    "value": 3.5,
+    "unit": "deg diameter (9.6 deg^2)",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Field of View (FOV): 3.5 deg (9.6 deg 2 )",
+    "alternatives": [
+     {
+      "value": "9.6 deg^2 (3.5 deg)",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Area and diameter of field of view 9.6 deg2 (3.5 deg)"
+     },
+     {
+      "value": "9.62 deg^2",
+      "src": "ROD",
+      "loc": "Optical design page, para. 1",
+      "quote": "Rubin Observatory views a 9.62 square-degree patch of sky"
+     },
+     {
+      "value": "64 cm focal plane",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "view (FOV) covers a 64-cm diameter flat focal surface"
+     },
+     {
+      "value": "63 cm",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "First camera lens; focal plane diameter Lens: 1.55 m field of view: 63 cm"
+     },
+     {
+      "value": "0.64 m",
+      "src": "I19",
+      "loc": "Sec. 2.6.2",
+      "quote": "sampling the 9.6 deg2 field ... of-view (0.64 m diameter) with 0.2×0.2 arcsec2 pixels"
+     }
+    ],
+    "note": "Illumination: \"The image brightness is constant to a field radius of 1.2 degrees and gradually decreases afterward by about 10% at the 1.75-degree field edge.\" (SB09 Sec. 2.3); ROD: throughput \"63% at the center of the detector (or image plane) out to a field radius of 0.7 degrees, gradually dropping to 57% at full field (or 1.75 degrees)\". The square raft array reaches 2.05 deg radius at its outer corners (DERIVED from OBSL), i.e. beyond the 1.75 deg design radius.",
+    "derived": "DERIVED: pi x 1.75^2 = 9.62 deg^2; 3.5 deg x 3600 / 20.0059 \"/mm = 629.8 mm."
+   },
+   "optics_placement": {
+    "value": "corrector L1 (1.55 m) and L2 at the camera front; filter (0.75 m, 13.5-26.2 mm thick zero-power meniscus) between L2 and L3; L3 = cryostat window; all in the converging f/1.23 beam",
+    "unit": "",
+    "src": "SB09",
+    "loc": "Sec. 2.3",
+    "quote": "Spectral filters reside between the second and third refractive lens as shown on the right side of Figure 2.4. ... The 0.75-m diameter spectral filter is located just prior to L3. The filter thickness varies from 13.5 to 26.2 mm depending on the choice of spectral band ... The last refractive element, L3, is used as the vacuum barrier to the detector cryostat.",
+    "alternatives": [
+     {
+      "value": "three fused-silica lenses + filter",
+      "src": "ROD",
+      "loc": "Optical design page, para. 5",
+      "quote": "The camera optics consist of three large fused-silica lenses and a filter. The largest lens (L1) is 1.55 m in diameter"
+     },
+     {
+      "value": "L3 = cryostat entrance window",
+      "src": "I19",
+      "loc": "Sec. 2.6.2",
+      "quote": "The entrance window to the cryostat is the third (L3) of the three refractive lenses"
+     }
+    ]
+   },
+   "detector": {
+    "value": {
+     "e2v": "Teledyne e2v CCD250, 4096 x 4004 active px",
+     "ITL": "ITL STA-3800C, 4072 x 4000 active px"
+    },
+    "unit": "px (x = serial direction, y)",
+    "src": "OBSL",
+    "loc": "cameraHeader.yaml, CCD_E2V and CCD_ITL",
+    "quote": "CCD_E2V : &CCD_E2V ... bbox : [[0, 0], [4095, 4003]] ... CCD_ITL : &CCD_ITL ... bbox : [[0, 0], [4071, 3999]]",
+    "alternatives": [
+     {
+      "value": "4K x 4K, 10 um",
+      "src": "I19",
+      "loc": "Sec. 2.6.2",
+      "quote": "tiled by 189 4K×4K CCD science sensors with 10 µm pixels"
+     },
+     {
+      "value": "~4k x 4k, 16 segments of ~500 x 2000",
+      "src": "M26",
+      "loc": "Sec. 1",
+      "quote": "Each science CCD is ~ 4k × 4k pixels, read out in parallel via sixteen amplifiers, each responsible for a ~ 500 × 2000 pixel segment."
+     },
+     {
+      "value": "vendors",
+      "src": "M26",
+      "loc": "Sec. 1",
+      "quote": "CCD250 from Teledyne e2v (e2v) and STA-3800C from Imaging Technology Laboratory (ITL)"
+     },
+     {
+      "value": "segment data regions 512 x 2002 (e2v), 509 x 2000 (ITL)",
+      "src": "OBSL",
+      "loc": "cameraHeader.yaml, AMP_E2V / AMP_ITL",
+      "quote": "rawDataBBox             : [[10,   0], [512,    2002]]  # data region in raw data ... rawDataBBox             : [[3,    0], [509,    2000]]  # data region in raw data"
+     }
+    ],
+    "derived": "DERIVED: 8 x 512 = 4096 and 2 x 2002 = 4004 (e2v); 8 x 509 = 4072 and 2 x 2000 = 4000 (ITL). Active area 40.96 x 40.04 mm (e2v), 40.72 x 40.00 mm (ITL)."
+   },
+   "pixel_pitch": {
+    "value": 10.0,
+    "unit": "um",
+    "src": "OBSL",
+    "loc": "cameraHeader.yaml",
+    "quote": "pixelSize : [0.010, 0.010]          # in mm",
+    "alternatives": [
+     {
+      "value": 10,
+      "src": "RKN",
+      "loc": "Camera list",
+      "quote": "Pixel size: 10 microns"
+     },
+     {
+      "value": 10,
+      "src": "M26",
+      "loc": "Sec. 1",
+      "quote": "The pixel pitch of the LSSTCam CCDs is 10 µm, corresponding to 0.2 arcseconds per pixel"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 189,
+    "unit": "CCDs (21 rafts x 9)",
+    "src": "I19",
+    "loc": "Fig. 12 caption",
+    "quote": "Nine sensors are assembled into a raft; the 21 rafts are outlined in red. There are 189 science sensors, for a total of 3.2 gigapixels.",
+    "alternatives": [
+     {
+      "value": 189,
+      "src": "RKN",
+      "loc": "Camera list",
+      "quote": "Focal plane: 189 4k x 4k science CCD chips"
+     },
+     {
+      "value": 189,
+      "src": "M26",
+      "loc": "Sec. 1",
+      "quote": "The science focal plane is composed of 189 CCDs."
+     },
+     {
+      "value": "117 e2v (13 rafts) + 72 ITL (8 rafts)",
+      "src": "OBSL",
+      "loc": "lsstCam/R??.yaml",
+      "quote": "R22 :\n  detectorType : E2V ... R20 :\n  detectorType : ITL",
+      "note": "per-raft detectorType: ITL = R01, R02, R03, R10, R20, R41, R42, R43; E2V = R11-R14, R21-R24, R30-R34 (DERIVED count)"
+     },
+     {
+      "value": "13 e2v + 9 ITL rafts",
+      "src": "M26",
+      "loc": "Sec. 1",
+      "quote": "Thirteen e2v RTMs and 9 ITL RTMs make the science focal plane.",
+      "note": "CONFLICT: sums to 22, not 21; OBSL and the CTN-001 Fig. 1 colouring give 8 ITL science rafts"
+     }
+    ]
+   },
+   "other_chips": {
+    "value": "4 corner rafts: 8 guide CCDs (ITL STA-3800C, 4072 x 4000) + 8 wavefront CCDs (ITL STA-4400B, 4072 x 2000, mounted +/-2 mm from focus)",
+    "unit": "",
+    "src": "M26",
+    "loc": "Sec. 1",
+    "quote": "The science focal plane is supplemented by 8 wavefront CCDs and 8 guider CCDs in the corners of the focal plane, each installed in one of 4 corner RTMs. ... The guider CCDs are ITL STA-3800C CCDs, and the wavefront CCDs are ITL STA-4400B CCDs, each ~ 4k × ~ 2k.",
+    "alternatives": [
+     {
+      "value": "wavefront bbox 4072 x 2000",
+      "src": "OBSL",
+      "loc": "cameraHeader.yaml, CCD_ITL_WF",
+      "quote": "CCD_ITL_WF : &CCD_ITL_WF ... bbox : [[0, 0], [4071, 1999]]"
+     },
+     {
+      "value": "corner rafts hold guide and wavefront sensors",
+      "src": "I19",
+      "loc": "Fig. 12 caption",
+      "quote": "Also shown are the four corner rafts, where the guide sensors and wavefront sensors are located."
+     }
+    ],
+    "note": "M26 says the wavefront CCDs are \"each ~ 4k × ~ 2k\" in the same sentence as the guiders; OBSL gives the guiders the full ITL 4072 x 4000 format (CCD_ITL_G inherits CCD_ITL) and the wavefront sensors 4072 x 2000."
+   },
+   "mosaic_rows": {
+    "value": [
+     9,
+     9,
+     9,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     15,
+     9,
+     9,
+     9
+    ],
+    "unit": "science CCDs per row, top to bottom, rows centred",
+    "src": "OBSL",
+    "loc": "rafts.yaml + cameraHeader.yaml RAFT_ITL/RAFT_E2V",
+    "quote": "R01 :\n    offset : [-127.0, -254.0]           # offset of centre of raft, mm ... S00: &S00_ITL                       # Sensor (0, 0) ... offset : [-42.25, -42.25]",
+    "alternatives": [
+     {
+      "value": "5 x 5 raft grid minus 4 corner rafts (layout figure)",
+      "src": "CTN1",
+      "loc": "Fig. 1 caption",
+      "quote": "Figure 1: LSSTCam focal plane layout.",
+      "note": "raft rows R41-R43 (3), R30-R34 (5), R20-R24 (5), R10-R14 (5), R01-R03 (3) read off the figure"
+     },
+     {
+      "value": "3 x 3 rafts",
+      "src": "I19",
+      "loc": "Sec. 2.6.2",
+      "quote": "The detectors are grouped into 3×3 rafts"
+     }
+    ],
+    "derived": "DERIVED from OBSL: raft centres on a 127.0 mm grid at x, y in {-254, -127, 0, 127, 254} mm with the four (+/-254, +/-254) corners holding the guide/wavefront rafts; CCD centres at -42.25, 0, +42.25 mm within each raft. Grouping the 189 science CCD centres by y gives 9, 9, 9, 15 (x9), 9, 9, 9 from top to bottom; every row is symmetric about x = 0 (9-rows span x = -169.25 ... 169.25 mm, 15-rows x = -296.25 ... 296.25 mm). Raft rows = 3, 5, 5, 5, 3. Field centre = centre of CCD R22_S11."
+   },
+   "chip_orientation": {
+    "value": "all science CCDs yaw 0: serial (long, 4096/4072 px) direction along focal-plane x, i.e. along the rows; parallel (4004/4000 px) along y",
+    "unit": "",
+    "src": "OBSL",
+    "loc": "cameraHeader.yaml, CCD_E2V",
+    "quote": "# This is the orientation we need to put the serial direction along the x-axis",
+    "note": "The chips are within 2.3% of square (4096 x 4004; 4072 x 4000), so the orientation hardly matters for drawing. Per-raft files list yaw 0.0 for every science CCD (e.g. R20, R22)."
+   },
+   "chip_gaps": {
+    "value": {
+     "e2v_intra_raft_x_mm": 1.29,
+     "e2v_intra_raft_y_mm": 2.21,
+     "ITL_intra_raft_x_mm": 1.53,
+     "ITL_intra_raft_y_mm": 2.25,
+     "raft_boundary_x_mm": {
+      "e2v-e2v": 1.54,
+      "ITL-ITL": 1.78,
+      "ITL-e2v": 1.66
+     },
+     "raft_boundary_y_mm": {
+      "e2v-e2v": 2.46,
+      "ITL-ITL": 2.5,
+      "ITL-e2v": 2.48
+     }
+    },
+    "unit": "mm between active pixel areas (DERIVED from nominal pipeline geometry)",
+    "src": "OBSL",
+    "loc": "cameraHeader.yaml RAFT_ITL / RAFT_E2V; rafts.yaml",
+    "quote": "S01: &S01_ITL                       # Sensor (0, 1) ... offset : [  0.00, -42.25] ... N.b. these offsets are copied from ITL and have not been checked on the sky or from drawings",
+    "alternatives": [
+     {
+      "value": "package gaps \"less than a few hundred um\", fill factor 93%",
+      "src": "SB09",
+      "loc": "Sec. 2.4",
+      "quote": "positioned in close proximity to one another with gaps of less than a few hundred µm. The resulting “fill factor,” i.e., the fraction of the focal plane covered by pixels, is 93%.",
+      "note": "mechanical package gaps, not gaps between active areas"
+     },
+     {
+      "value": "fill factor >90%",
+      "src": "RKN",
+      "loc": "Camera list",
+      "quote": "Filling factor: >90%"
+     }
+    ],
+    "derived": "DERIVED: CCD pitch 42.25 mm within a raft; across a raft boundary the neighbouring CCD centres are 127.0 - 2 x 42.25 = 42.50 mm apart. Gap = pitch - active size: e2v 42.25 - 40.96 = 1.29 (x), 42.25 - 40.04 = 2.21 (y); ITL 42.25 - 40.72 = 1.53 (x), 42.25 - 40.00 = 2.25 (y); raft boundary e2v 42.50 - 40.96 = 1.54 (x), 42.50 - 40.04 = 2.46 (y); ITL 1.78 / 2.50; mixed 42.50 - (40.96 + 40.72)/2 = 1.66 (x), 2.48 (y). Fill factor 40.96 x 40.04 / 42.25^2 = 91.9% (e2v), 91.2% (ITL). Nominal design geometry: OBSL notes the e2v in-raft offsets were copied from ITL; as-built gaps NOT FOUND."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.2,
+    "unit": "arcsec/px",
+    "src": "RKN",
+    "loc": "Camera list",
+    "quote": "Pixel scale: 0.2 arcsec/pixel",
+    "alternatives": [
+     {
+      "value": 0.2,
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Pixel size; pixel count 10 microns (0.2 arcsec); 3.2 Gpixels"
+     },
+     {
+      "value": "0.20006 (DERIVED)",
+      "src": "OBSL",
+      "loc": "cameraTransforms.yaml",
+      "quote": "plateScale : 20.005867576692737         # plate scale, in arcseconds on sky/mm",
+      "note": "20.005868 \"/mm x 0.010 mm = 0.200059\"/px"
+     },
+     {
+      "value": "0.1965 (DERIVED from 50.9 um/\")",
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Plate Scale 50.9 µm/arcsec (0.2” pix)",
+      "note": "10 / 50.9 = 0.1965\"; conflicts with the 0.2\" in the same row"
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": {
+     "diameter_deg": 3.5,
+     "area_deg2": 9.6
+    },
+    "unit": "",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Field of View (FOV): 3.5 deg (9.6 deg 2 )",
+    "derived": "DERIVED: active science pixel area (189 CCDs, no gaps) = 309,158 mm^2 x (20.0059/3600)^2 = 9.55 deg^2."
+   },
+   "total_pixels": {
+    "value": "3.2 Gpix",
+    "unit": "pixels (science array)",
+    "src": "RKN",
+    "loc": "Camera list",
+    "quote": "Pixel count: 3.2 Gpixels",
+    "alternatives": [
+     {
+      "value": "3.2 Gigapix",
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Pixel count 3.2 Gigapix"
+     }
+    ],
+    "derived": "DERIVED: 117 x 4096 x 4004 + 72 x 4072 x 4000 = 3,091,580,928 science pixels (3.09 Gpix); 189 x 4096^2 = 3.17 Gpix for nominal 4k x 4k."
+   },
+   "etendue": {
+    "value": 319,
+    "unit": "m^2 deg^2",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Etendue (AΩ): 319 m 2 deg 2",
+    "alternatives": [
+     {
+      "value": 319,
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Field of view, étendue 9.6 deg2 , 319 m2 deg2"
+     },
+     {
+      "value": 319,
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The LSST étendue (including the effects of camera vignetting) is 319 m2 deg2 ."
+     },
+     {
+      "value": 319.5,
+      "src": "ROD",
+      "loc": "Optical design page, para. 8",
+      "quote": "The resulting etendue (the product of aperture area in square meters and field of view in square degrees) is 319.5 m 2 deg 2 ."
+     }
+    ],
+    "derived": "DERIVED check: pi/4 x 6.49^2 x 9.6 = 318 m^2 deg^2 (RKN mean effective aperture); the unvignetted on-axis area 34.3 m^2 x 9.6 = 329."
+   }
+  },
+  "not_found": [
+   "As-built gaps between CCDs and rafts: only the nominal pipeline geometry (OBSL; its e2v in-raft offsets are \"copied from ITL\") and the Science Book \"gaps of less than a few hundred um\" between packages. The camera layout reference LCA-13381 (cited by CTN-001) is on DocuShare behind a login.",
+   "An observatory-document value for the M1 focal ratio (only BAT R = 19.835 m, third-party prescription).",
+   "A statement of the field-of-view radius beyond which the corner science CCDs are vignetted (only the 1.2 deg / 1.75 deg illumination statements of SB09/ROD)."
+  ],
+  "conflicts": [
+   "D: 8.36 m outer clear aperture (ROD, BAT) vs 8.4 m (RKN, I19, SB09 physical diameter). Effective: 6.49 m mean over the FOV (RKN) vs 6.67 m (ROD) vs 6.7 m on axis (SB09) vs ~6.4 m with vignetting (I19).",
+   "M1 inner diameter: 5.12 m (ROD; BAT 2 x 2.558 = 5.116 m) vs 5.1 m (SB09) vs 5.0 m (I19) -> eps 0.612 / 0.607 / 0.595.",
+   "Final focal ratio: f/1.233 (RKN) vs f/1.234 (I19) vs f/1.23 (SB09).",
+   "Plate scale: 20.0059\"/mm = 49.985 um/\" (OBSL) and 50 um/\" (SB09) vs 50.9 um/\" (I19 Table 1, which also says 0.2\" pixels; 50.9 um/\" would give 0.1965\"/px).",
+   "Secondary diameter: 3.4 m (SB09, I19) vs 3.5 m (ROD).",
+   "Rafts by vendor: 13 e2v + 8 ITL (OBSL per-raft detectorType; CTN-001 Fig. 1 colours) vs \"Thirteen e2v RTMs and 9 ITL RTMs\" (M26, which sums to 22 of 21 science rafts).",
+   "Etendue 319 (RKN, I19, SB09) vs 319.5 m^2 deg^2 (ROD). Field 9.6 (RKN, I19, SB09) vs 9.62 deg^2 (ROD). Focal plane 64 cm (SB09 text, ROD) vs 63 cm (SB09 table) vs 0.64 m (I19).",
+   "Pixel count: \"3.2 Gpix\" (nominal 4k x 4k) vs 3.09 Gpix from the actual formats (DERIVED)."
+  ],
+  "notes": [
+   "Two CCD formats: a single-format explorer preset can use the e2v format (4096 x 4004, 117 of 189 CCDs) and the e2v gaps; the ITL rafts (R01, R02, R03, R10, R20, R41, R42, R43) are 4072 x 4000 with slightly larger gaps.",
+   "Coordinates: OBSL and CTN-001 Fig. 1 are in the focal-plane frame (\"The view is looking down from above the focal plane, i.e., through the LSSTCam lenses\", CTN-001); the layout is symmetric under 90 deg rotation at the raft level, so rows vs columns is a convention.",
+   "The field centre falls on the centre of CCD R22_S11 (raft R22 at (0, 0), sensor S11 at offset (0, 0); OBSL), not in a gap."
+  ]
+ },
+ "hsc": {
+  "title": "Subaru 8.2 m / Hyper Suprime-Cam (prime-focus imager behind a 7-element Wide Field Corrector with ADC; 104 science CCDs)",
+  "preset": {
+   "D_m": 8.2,
+   "eps": null,
+   "F": 2.25,
+   "F_published": 2.2,
+   "f_eff_mm": 18416,
+   "telescope_type": "prime focus with 7-element Wide Field Corrector (5 lenses + 2-element lateral-shift ADC)",
+   "primary_F": 1.83,
+   "field_diameter_deg": 1.5,
+   "chip_nx": 2048,
+   "chip_ny": 4176,
+   "pitch_um": 15.0,
+   "n_science_chips": 104,
+   "rows": [
+    7,
+    13,
+    15,
+    15,
+    15,
+    15,
+    13,
+    7
+   ],
+   "rotated_chips": 4,
+   "chip_long_axis": "along columns (perpendicular to the rows) for 100 CCDs; the 4 CCDs beside the 7-CCD top and bottom rows are rotated 90 deg (long axis along the row)",
+   "gap_x_mm": 1.12,
+   "gap_y_mm": 4.51,
+   "gap_y_central_mm": 1.13,
+   "col_pitch_mm": 31.85,
+   "row_pitch_mm": 67.15,
+   "pixel_scale_arcsec": 0.168
+  },
+  "recommended_preset": "D = 8.2 m (Subaru effective primary diameter), eps = NOT FOUND (no published central-obscuration value for the prime-focus unit with the HSC Wide Field Corrector in the obtainable sources; Miyazaki et al. 2018 / Komiyama et al. 2018, PASJ 70 S1/S2, are paywalled behind a site block), F = 2.25 = f_eff / D DERIVED (published \"F/2.2\" for the telescope + WFC, S15), f_eff = 18,416 mm DERIVED from the pipeline plate scale 11.2\"/mm (= 0.168\"/15 um), prime focus with the 7-element Wide Field Corrector (five lenses + an ADC, first lens 820 mm), filters and shutter in the converging beam ahead of the dewar; primary f/1.83 (DERIVED, 15 m / 8.2 m). Field 1.5 deg diameter (1.77 deg^2 effective), unvignetted to 10' diameter, 26% vignetting at 0.75 deg. Detector: 104 science Hamamatsu S10892-02 fully depleted CCDs, 2048 x 4176 active px (sold as \"2048 x 4096\"), 15 um. Rows (top to bottom, centred, long axis along the columns): 7, 13, 15, 15, 15, 15, 13, 7 = 100, plus 4 more science CCDs rotated 90 deg (long axis along the row) sitting left and right of the 7-CCD top row and of the 7-CCD bottom row, flush with the row edge nearest the centre. Gaps (DERIVED from the pipeline geometry): 1.12 mm (75 px, 12.6\") between neighbours in a row; 4.51 mm (300 px, 50.5\") between rows, except 1.13 mm where the two mirror-image halves of the mosaic meet back to back (central row boundary over the 9 central columns). Column pitch 31.85 mm, row pitch 67.15 mm. Published: \"approximately 12 arcsec and 53 arcsec\". Not science: 4 autoguider + 8 focus CCDs (same format) at the row ends. Validate: 0.168\"/px, 1.5 deg, 1.77 deg^2, 870 Mpix (= 104 x 2048 x 4096).",
+  "params": {
+   "telescope_aperture": {
+    "value": 8.2,
+    "unit": "m (effective diameter of the primary)",
+    "src": "STP",
+    "loc": "Primary mirror",
+    "quote": "Effective diameter: 8.2 m",
+    "alternatives": [
+     {
+      "value": 8.2,
+      "src": "A18",
+      "loc": "Abstract",
+      "quote": "Hyper Suprime-Cam (HSC) is a wide-field imaging camera on the prime focus of the 8.2m Subaru telescope"
+     },
+     {
+      "value": 8.2,
+      "src": "S15",
+      "loc": "Abstract",
+      "quote": "science fibers distributed across a 1.3-deg diameter field of view at the Subaru 8.2-m telescope"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": null,
+    "unit": "NOT FOUND",
+    "src": "SSP",
+    "loc": "Wide-field Corrector",
+    "quote": "The fully assembled WFC has a diameter of 970 mm and a height of 1.7 m.",
+    "note": "No central-obscuration value or prime-focus-unit outer diameter was found in the obtainable sources. The WFC barrel (970 mm) and first lens (820 mm) give only a lower bound on the shadow: 0.97 / 8.2 = 0.118 (DERIVED, NOT the obscuration -- the prime focus unit, hexapod, rotator and dewar surround the WFC). The instrument papers Miyazaki et al. 2018 (PASJ 70, S1) and Komiyama et al. 2018 (PASJ 70, S2) are not on arXiv and academic.oup.com refused automated download (HTTP 403)."
+   },
+   "telescope_focus": {
+    "value": "prime focus with the HSC Wide Field Corrector (WFC; 7 elements incl. ADC) and Prime Focus Unit (hexapod, rotator)",
+    "unit": "",
+    "src": "A18",
+    "loc": "Sec. 2",
+    "quote": "The instrument has a large and optically very sophisticated seven-element Wide-Field Corrector (WFC), designed and built by Canon, Inc. The WFC incorporates an Atmospheric Dispersion Corrector (ADC)",
+    "alternatives": [
+     {
+      "value": "five lenses + one ADC element",
+      "src": "SSP",
+      "loc": "Wide-field Corrector",
+      "quote": "The wide-field corrector (WFC) is composed of five lenses and one atmospheric dispersion corrector (ADC) element. The first lens has an effective aperture of 820 mm"
+     },
+     {
+      "value": "seven lenses",
+      "src": "SPH",
+      "loc": "Wide Field Corrector",
+      "quote": "Seven Lenses (watery color) are assembled together by the ceramic lens barrel"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 2.2,
+    "unit": "f/# (telescope + WFC, published)",
+    "src": "S15",
+    "loc": "Sec. 2.1 Microlens",
+    "quote": "transforms the F-ratio F∕2.2 of the Subaru telescope plus WFC at prime focus into a slower F-ratio of F∕2.8.",
+    "alternatives": [
+     {
+      "value": "2.25 (DERIVED)",
+      "src": "OBSS",
+      "loc": "plateScale",
+      "quote": "config.plateScale = 11.2  # plate scale, in arcseconds on sky/mm",
+      "note": "18416.5 mm / 8200 mm = 2.246"
+     },
+     {
+      "value": 2.2,
+      "src": "S15",
+      "loc": "Sec. 1",
+      "quote": "F∕2.2 beam from the telescope wide field corrector (WFC) is increased to F∕2.8 by a microlens"
+     },
+     {
+      "value": "2.0 (prime focus with corrector, Suprime-Cam era)",
+      "src": "STP",
+      "loc": "Foci",
+      "quote": "Primary focus : F/2.0 (with corrector)",
+      "note": "refers to the older prime-focus corrector"
+     }
+    ]
+   },
+   "effective_focal_length": {
+    "value": 18416.5,
+    "unit": "mm (DERIVED from the pipeline plate scale)",
+    "src": "OBSS",
+    "loc": "plateScale",
+    "quote": "config.plateScale = 11.2  # plate scale, in arcseconds on sky/mm",
+    "alternatives": [
+     {
+      "value": "18254 (from 8 mm = 90.4\")",
+      "src": "SPFS",
+      "loc": "Prime Focus Instrument table",
+      "quote": "Positioner pitch 8 mm (90.4 arcsec at the FoV center, 82.4 arcsec at the edge)",
+      "note": "206264.8 / (90.4/8) = 18254 mm DERIVED"
+     },
+     {
+      "value": "18417 (from 0.168\"/15 um)",
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Pixel scale 15µm ≃ 0.16800",
+      "note": "A18 text layer renders 0.168\" as \"0.16800\"; 0.015 x 206264.8 / 0.168 = 18417 mm DERIVED"
+     },
+     {
+      "value": "18040 (F/2.2 x 8.2 m)",
+      "src": "S15",
+      "loc": "Sec. 2.1",
+      "quote": "transforms the F-ratio F∕2.2 of the Subaru telescope plus WFC at prime focus",
+      "note": "DERIVED 2.2 x 8.2 m"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 11.2 \"/mm = 18416.5 mm; 18416.5 / 8200 = f/2.246."
+   },
+   "primary_focal_ratio": {
+    "value": 1.83,
+    "unit": "f/# of the primary (drawing only)",
+    "src": "STP",
+    "loc": "Primary mirror",
+    "quote": "Focal length: 15 m",
+    "derived": "DERIVED: 15 m / 8.2 m = f/1.83."
+   },
+   "corrected_field": {
+    "value": 1.5,
+    "unit": "deg diameter",
+    "src": "A18",
+    "loc": "Table 1",
+    "quote": "Field of View 1.5◦ diameter",
+    "alternatives": [
+     {
+      "value": "90 arcmin diameter",
+      "src": "SHP",
+      "loc": "parameters table",
+      "quote": "Field of view 90 arcmin diameter"
+     },
+     {
+      "value": "unvignetted to 10' diameter; 26% at 0.75 deg",
+      "src": "A18",
+      "loc": "Sec. 2",
+      "quote": "The corrector gives an unvignetted field of view to a diameter of 10 arcmin; vignetting is a roughly linear function of field radius from that point, reaching 26% at the edge of the field at 0.75◦ ."
+     },
+     {
+      "value": "vignetting 0 at 0.15 deg",
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Vignetting 0 at 0.15◦ ; 26% at edge",
+      "note": "CONFLICT with the text: 0.15 deg vs 10' diameter (0.083 deg radius)"
+     },
+     {
+      "value": "498 mm corrected focal plane",
+      "src": "SSP",
+      "loc": "Wide-field Corrector",
+      "quote": "the camera has excellent image quality over the 498 mm diameter focal plane"
+     },
+     {
+      "value": "60 cm focal plane (CCD array)",
+      "src": "SPH",
+      "loc": "CCD",
+      "quote": "The focal plane (60 cm in diameter) is"
+     }
+    ],
+    "derived": "DERIVED: 498 mm x 11.2 \"/mm = 1.55 deg; the outermost science-CCD corner is 293.7 mm = 54.8' from the pipeline origin (OBSS), beyond the 45' corrected radius (A18: regions \"more than 49 arcmin from the center are masked\")."
+   },
+   "optics_placement": {
+    "value": "WFC (5 lenses + ADC) ahead of the camera unit (filter exchanger with up to 6 filters, roll shutter, dewar); filters in the converging beam between the WFC and the dewar",
+    "unit": "",
+    "src": "SPH",
+    "loc": "Camera System",
+    "quote": "The camera part consists of arrays of CCD light sensors, cryogenic vacuum dewar that cools CCDs, CCD readout electronics, filters, shutter and filter exchanger unit.",
+    "alternatives": [
+     {
+      "value": "up to 6 filters",
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Filter Exchanger 6 filters installed at a time"
+     }
+    ],
+    "note": "The exact filter position (distance ahead of the focal plane, beam speed at the filter) is in Kawanomoto et al. 2018 (PASJ 70, 66; not obtainable here)."
+   },
+   "detector": {
+    "value": "Hamamatsu S10892-02 fully depleted CCD, 2048 x 4176 active px (4 x 512 columns)",
+    "unit": "px",
+    "src": "OBSS",
+    "loc": "detectorList bbox",
+    "quote": "config.detectorList[0].bbox_y1 = 4175 ... config.detectorList[0].bbox_x1 = 2047",
+    "alternatives": [
+     {
+      "value": "2048 x 4096 (nominal)",
+      "src": "SHP",
+      "loc": "parameters table",
+      "quote": "Hamamatsu Photonics KK 2048 × 4096 (S10892-02)"
+     },
+     {
+      "value": "2048 x 4096",
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Detectors Hamamatsu Photonics KK 2048x4096 (S10892-02)"
+     },
+     {
+      "value": "2048 x 4176 active (figure)",
+      "src": "SHC",
+      "loc": "CCD format figure (subaru_HSC_CCDformat.png)",
+      "quote": "The following plots show the typical quantum efficiency (left) and format (right) of the CCDs.",
+      "note": "the format figure (image, not text) shows four 512-px channels and 4176 px of active rows inside a 2144 x 4241 raw frame"
+     },
+     {
+      "value": "200 um thick, 15 um pixels",
+      "src": "SSP",
+      "loc": "CCD and Readout Electronics",
+      "quote": "The device are 200 um thick and pixel size is 15 um"
+     }
+    ],
+    "derived": "DERIVED: 2048 x 0.015 = 30.72 mm; 4176 x 0.015 = 62.64 mm. A18 Fig. 1 quotes 5.73' x 11.47' = 2048 x 4096 x 0.168\"; with 4176 rows the chip is 11.69'."
+   },
+   "pixel_pitch": {
+    "value": 15.0,
+    "unit": "um",
+    "src": "SHP",
+    "loc": "parameters table",
+    "quote": "Pixel size 15 μm",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "OBSS",
+      "loc": "detectorList",
+      "quote": "config.detectorList[0].pixelSize_x = 0.015  # in mm"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 104,
+    "unit": "CCDs",
+    "src": "SHP",
+    "loc": "parameters table",
+    "quote": "104 for science + 4 for auto guider + 8 for focus monitoring",
+    "alternatives": [
+     {
+      "value": 104,
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Number of CCDs 104 science, 4 autoguide, 8 for monitoring the focus(1)"
+     },
+     {
+      "value": 104,
+      "src": "SHC",
+      "loc": "HSC CCDs",
+      "quote": "There are 104 main science CCDs, which provide a 90 arcmin field-of-view in diameter, as well as 4 CCDs for auto guider and 8 CCDs for focus monitoring."
+     }
+    ],
+    "derived": "DERIVED: OBSS lists 112 detectors, 104 with detectorType 0 (science) and 8 with detectorType 1 (focus); the 4 guiders are not in the file."
+   },
+   "other_chips": {
+    "value": "4 autoguider + 8 focus-monitoring CCDs (same 2048 x 4176 devices), at the ends of rows 2-7",
+    "unit": "",
+    "src": "A18",
+    "loc": "Fig. 1 caption",
+    "quote": "There are 104 science chips (indicated in blue), 4 chips used for auto-guiding (in yellow) and 8 chips for monitoring the focus (in light red). Each chip is identified with a number from 0 to 115.",
+    "alternatives": [
+     {
+      "value": "focus CCDs in the pipeline geometry",
+      "src": "OBSS",
+      "loc": "detectorList[104]",
+      "quote": "config.detectorList[104].detectorType = 1"
+     }
+    ]
+   },
+   "mosaic_rows": {
+    "value": [
+     7,
+     13,
+     15,
+     15,
+     15,
+     15,
+     13,
+     7
+    ],
+    "unit": "unrotated science CCDs per row, top to bottom, rows centred (+ 4 rotated CCDs, see note)",
+    "src": "A18",
+    "loc": "Fig. 1 (text layer: CCD IDs row by row)",
+    "quote": "77 69 61 53 45 37 29 ... 103 101 ... 109 95 89 83 76 68 60 52 44 36 28 21 15 9 107 ... 111 99 94 88 82 75 67 59 51 43 35 27 20 14 8 3 105 ... 115 98 93 87 81 74 66 58 50 42 34 26 19 13 7 2 113 ... 114 97 92 86 80 73 65 57 49 41 33 25 18 12 6 1 112 ... 110 96 91 85 79 72 64 56 48 40 32 24 17 11 5 0 104 ... 108 90 84 78 71 63 55 47 39 31 23 16 10 4 106 ... 102 100 ... 70 62 54 46 38 30 22",
+    "alternatives": [
+     {
+      "value": "same arrangement (figure)",
+      "src": "SHC",
+      "loc": "CCD arrangement figure (subaru_HSC_CCDPosition.png)",
+      "quote": "The CCDs are arranged on the focal plane with two different gaps of approximately 12 arcsec and 53 arcsec between neighboring CCDs. The following figure shows the CCD arrangement.",
+      "note": "figure \"Hyper Suprime-Cam CCD arrangement [Updated in October 2026]\" (image): 104 science, 8 focusing, 4 autoguider; DET-IDs as in A18"
+     },
+     {
+      "value": "rotated CCDs 100-103 (yaw ~90/270 deg)",
+      "src": "OBSS",
+      "loc": "detectorList[100]-[103]",
+      "quote": "config.detectorList[100].yawDeg = 269.9887411 ... config.detectorList[103].yawDeg = 90.0182958"
+     }
+    ],
+    "derived": "DERIVED: in A18 Fig. 1 IDs 0-103 are science, 104-111 focus, 112-115 guide. Science IDs per text row: 7 (77...29); 13 (95...9, between focus 109/107); 15; 15; 15; 15 (between focus/guide IDs at the ends); 13 (90...4, between focus 108/106); 7 (70...22); plus 103/101 (top) and 102/100 (bottom) = 104. OBSS geometry: unrotated CCDs on a 31.85 mm column grid; every row symmetric about x = 0 (7-row x = -110.9...110.9 mm, 13-row -206.4...206.4, 15-row -238.3...238.3). Rotated CCDs 1_31/1_35 (IDs 103/101) occupy x = -175.1...-112.5 and +112.6...+175.2 mm, y = 205.0...235.7 mm, beside the top row (x = -110.9...110.9, y = 205.0...267.6): bottom-aligned with it, 1.6 mm from its end CCDs; 0_35/0_31 (102/100) mirror them at the bottom."
+   },
+   "chip_orientation": {
+    "value": "long axis (4176 px) along the columns, perpendicular to the rows (yaw 0 or 180 deg); CCDs 100-103 rotated 90 deg (long axis along the row)",
+    "unit": "",
+    "src": "OBSS",
+    "loc": "detectorList",
+    "quote": "config.detectorList[0].yawDeg = 180.0042795 ... config.detectorList[73].yawDeg = 0.009948 ... config.detectorList[102].yawDeg = 90.0296679",
+    "note": "The two halves of the mosaic (CCD names 0_xx and 1_xx) are related by a 180 deg rotation about the mosaic centre, which lies at (0, +3.0 mm) in the pipeline frame (e.g. 0_31 at y = -214.34, 1_31 at +220.34 mm). The pipeline origin falls on CCD 0_12 (DET-ID 049), 2.4 mm inside its top edge."
+   },
+   "chip_gaps": {
+    "value": {
+     "within_row_x_mm": 1.12,
+     "between_rows_y_mm": 4.51,
+     "between_halves_y_mm": 1.13
+    },
+    "unit": "mm between active areas (DERIVED from the pipeline geometry)",
+    "src": "OBSS",
+    "loc": "detectorList offsets",
+    "quote": "config.detectorList[49].offset_x = 0.015*0.28 ... config.detectorList[49].offset_y = 0.015*-1925.76 ... config.detectorList[50].offset_y = 0.015*2325.48",
+    "alternatives": [
+     {
+      "value": "~12\" and ~53\"",
+      "src": "SHP",
+      "loc": "Notes",
+      "quote": "The CCDs are arranged on the focal plane with two different gaps of approximately 12 arcsec and 53 arcsec between neighboring CCDs."
+     },
+     {
+      "value": "~12\" and ~53\"",
+      "src": "A18",
+      "loc": "Sec. 2",
+      "quote": "Gaps between chips are small, typically 1200 in one dimension and 5300 in the other.",
+      "note": "text layer renders 12\" as \"1200\" and 53\" as \"5300\""
+     },
+     {
+      "value": "0.3 mm between packages",
+      "src": "SSP",
+      "loc": "Focal Plane Assembly",
+      "quote": "116 CCDs (including 4 for auto-guiding and, 8 for auto-focusing) are tiled on the cold plate with 0.3 mm gaps between adjacent CCDs.",
+      "note": "mechanical package gap, not the gap between active areas"
+     },
+     {
+      "value": "fill factor >90%, four-side buttable",
+      "src": "SSP",
+      "loc": "CCD and Readout Electronics",
+      "quote": "With this four-side buttable package, the focal plane has a filling factor over 90%."
+     },
+     {
+      "value": "three-side buttable",
+      "src": "A18",
+      "loc": "Sec. 2",
+      "quote": "These chips are three-side buttable and each have four independent readout amplifiers.",
+      "note": "CONFLICT with SSP \"four-side buttable\""
+     }
+    ],
+    "derived": "DERIVED from OBSS (CCD centres in 15 um px, active 30.72 x 62.64 mm): gaps between neighbours in a row (x): n = 92, median 1.123 mm (1.075-1.201) = 75 px = 12.6\"; between rows (y): n = 76, median 4.506 mm (4.443-4.583) = 300 px = 50.5\"; at the back-to-back boundary between the two halves (9 central columns, y = +3.0 mm): n = 9, median 1.128 mm (1.08-1.15). Example: 0_12 (y = -28.89 mm) and 1_12 (+34.88 mm): 63.77 - 62.64 = 1.13 mm. In rows 3-6 the 3 outermost columns on one side (and in rows 2 and 7 the 2 outermost on one side) belong to the other half and sit 3.4 mm higher/lower than their row neighbours. Column pitch 30.72 + 1.12 = 31.85 mm; row pitch 62.64 + 4.51 = 67.15 mm. Published \"53 arcsec\" vs DERIVED 50.5\" (4.51 mm at 11.2\"/mm)."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.168,
+    "unit": "arcsec/px",
+    "src": "A18",
+    "loc": "Table 1",
+    "quote": "Pixel scale 15µm ≃ 0.16800",
+    "alternatives": [
+     {
+      "value": 0.17,
+      "src": "SHP",
+      "loc": "parameters table",
+      "quote": "Pixel scale 0.17″"
+     },
+     {
+      "value": 0.17,
+      "src": "SSP",
+      "loc": "CCD and Readout Electronics",
+      "quote": "pixel size is 15 um, subtending 0.17â€ on the sky",
+      "note": "mojibake for 0.17\""
+     },
+     {
+      "value": "0.168 (DERIVED)",
+      "src": "OBSS",
+      "loc": "plateScale",
+      "quote": "config.plateScale = 11.2  # plate scale, in arcseconds on sky/mm",
+      "note": "11.2 x 0.015 = 0.168"
+     }
+    ],
+    "note": "A18 text layer renders 0.168\" as \"0.16800\"."
+   },
+   "field_of_view": {
+    "value": {
+     "diameter_deg": 1.5,
+     "area_deg2": 1.77
+    },
+    "unit": "",
+    "src": "A18",
+    "loc": "Sec. 2",
+    "quote": "Regions of the focal plane more than 49 arcmin from the center are masked, giving an effective area of about 1.77 deg2 .",
+    "alternatives": [
+     {
+      "value": "1.8 deg^2, 1.5 deg",
+      "src": "SSP",
+      "loc": "About HSC",
+      "quote": "The camera has a total of 870 Megapixels, covering a field of view of 1.8 deg 2 , 1.5 degrees in diameter."
+     },
+     {
+      "value": "90'",
+      "src": "SHP",
+      "loc": "parameters table",
+      "quote": "Field of view 90 arcmin diameter"
+     }
+    ],
+    "derived": "DERIVED: pi x 0.75^2 = 1.767 deg^2; 104 x 30.72 x 62.64 mm^2 x (11.2/3600)^2 = 1.94 deg^2 of active pixels before masking."
+   },
+   "total_pixels": {
+    "value": "870 Mpix",
+    "unit": "pixels",
+    "src": "SSP",
+    "loc": "About HSC",
+    "quote": "The camera has a total of 870 Megapixels",
+    "alternatives": [
+     {
+      "value": "870 million",
+      "src": "SPH",
+      "loc": "hscPipe",
+      "quote": "HSC has 870 million pixels in total"
+     }
+    ],
+    "derived": "DERIVED: 104 x 2048 x 4096 = 872.4 M (the quoted figure matches the nominal science format); 104 x 2048 x 4176 = 889.5 M active science pixels; 116 x 2048 x 4176 = 992.1 M for all CCDs."
+   },
+   "etendue": {
+    "value": null,
+    "unit": "NOT PUBLISHED as a number",
+    "src": "A18",
+    "loc": "Sec. 2",
+    "quote": "The étendue of HSC is the largest of all existing wide-field optical imaging cameras",
+    "derived": "DERIVED upper bound without the (unknown) obscuration: pi/4 x 8.2^2 x 1.77 = 93.5 m^2 deg^2."
+   }
+  },
+  "not_found": [
+   "Central obscuration (eps) of the Subaru prime focus with HSC: not in A18, the Subaru/HSC web pages, S15 or the pipeline files. Likely in Miyazaki et al. 2018 (PASJ 70, S1) or Komiyama et al. 2018 (PASJ 70, S2), which have no arXiv versions; OUP blocked automated download (HTTP 403 Cloudflare).",
+   "A published effective focal length or plate scale in mm for the HSC focus: only the pipeline value 11.2\"/mm (OBSS), the 0.168\"/15 um pixel (A18), F/2.2 (S15) and the PFS positioner pitch 8 mm = 90.4\" (SPFS).",
+   "Filter position and beam speed at the filter (Kawanomoto et al. 2018, PASJ 70, 66; not obtainable).",
+   "A published numerical etendue."
+  ],
+  "conflicts": [
+   "Focal ratio: F/2.2 (S15) vs 2.25 from the 11.2\"/mm plate scale (DERIVED) vs \"Primary focus : F/2.0 (with corrector)\" on the Subaru telescope page (older corrector).",
+   "CCD format: 2048 x 4096 (SHP, A18, SSP \"2Kx4K\") vs 2048 x 4176 active rows (OBSS bbox, SHC format figure).",
+   "Pixel scale: 0.168\" (A18; OBSS 11.2 x 0.015) vs 0.17\" (SHP, SSP).",
+   "Gaps: \"approximately 12 arcsec and 53 arcsec\" (SHP, SHC, A18) vs 12.6\" and 50.5\" (DERIVED from OBSS at 11.2\"/mm) vs \"0.3 mm gaps between adjacent CCDs\" (SSP; package gaps).",
+   "Buttability: \"three-side buttable\" (A18) vs \"four-side buttable package\" (SSP).",
+   "Vignetting: unvignetted to 10' diameter (A18 text) vs \"0 at 0.15 deg\" (A18 Table 1).",
+   "Field area: 1.77 deg^2 (A18) vs 1.8 deg^2 (SSP); WFC corrector: \"seven-element\" (A18), \"Seven Lenses\" (SPH) vs \"five lenses and one ... (ADC) element\" (SSP)."
+  ],
+  "notes": [
+   "Explorer mapping: rows [7, 13, 15, 15, 15, 15, 13, 7] of 2048 x 4176 chips with the long axis vertical, column pitch 31.85 mm (gap 1.12 mm), row gap 4.51 mm (1.13 mm at the central boundary, between rows 4 and 5, over the 9 central columns), plus 4 rotated chips: left and right of the top row and of the bottom row, bottom-aligned (top row) / top-aligned (bottom row) with the row, i.e. on the side nearer the field centre.",
+   "With F = 2.2 and D = 8.2 m the explorer would give 0.1715\"/px (vs 0.168\"); F = 2.246 reproduces 0.168\"/px.",
+   "The guiders (IDs 112-115) and focus CCDs (104-111) occupy the row ends of rows 2-7 in the A18/SHC figures (rows 2 and 7: focus at both ends; rows 3 and 6: focus; rows 4 and 5: guiders)."
+  ]
+ },
+ "decam": {
+  "title": "CTIO Blanco 4 m / Dark Energy Camera (prime focus, 5-element fused-silica corrector; 62 science CCDs)",
+  "preset": {
+   "D_m": 3.934,
+   "eps": 0.42,
+   "F": 2.98,
+   "F_published": 3.0,
+   "f_eff_mm": 11736,
+   "telescope_type": "prime focus with 5-element corrector (C1-C5, C5 = dewar window); filter between C3 and C4",
+   "primary_F": 2.7,
+   "field_diameter_deg": 2.2,
+   "chip_nx": 2048,
+   "chip_ny": 4096,
+   "pitch_um": 15.0,
+   "n_science_chips": 62,
+   "rows": [
+    3,
+    4,
+    5,
+    6,
+    6,
+    7,
+    7,
+    6,
+    6,
+    5,
+    4,
+    3
+   ],
+   "chip_long_axis": "along the rows (sky orientation of Flaugher+15 Fig. 23, north up)",
+   "gap_x_mm": 2.3,
+   "gap_y_mm": 3.0,
+   "pixel_scale_arcsec": 0.2637
+  },
+  "recommended_preset": "D = 3.934 m (Blanco used clear aperture; nominal 4 m, mirror 4022.9 mm), eps = 0.42 (1651 mm central obscuration / 3934 mm, listed as the \"PF cage baffle for f/8 M2\" in the 2000-era Blanco table -- no DECam-specific value found), F = 2.98 = f_eff/D DERIVED (published \"effective focal ratio is f/3.0\", F15), f_eff = 11,736 mm DERIVED from the plate scale 17.575\"/mm (pipeline) / 17.57\"/mm (NOAO handbook) / 56.88 um per arcsec (F15), prime focus with the 5-element DECam corrector (C1-C3, filter, C4, C5 = dewar window), all fused silica, filter in the converging beam; primary f/2.7 (F15; DERIVED 2.65 for the 4022.9 mm mirror). Field 2.2 deg diameter, 3 deg^2. Detector: 62 science LBNL fully depleted CCDs, 2048 x 4096, 15 um. Rows (north to south, centred, long axis along the row): 3, 4, 5, 6, 6, 7, 7, 6, 6, 5, 4, 3. Gaps: 2.3 mm (153 px) between neighbours in a row (short edges), 3.0 mm (201 px) between rows (long edges); the field centre falls in the row gap between S4 and N4. Not science: 8 focus/alignment 2k x 2k CCDs (\"F\") + 4 guide 2k x 2k (\"G\"). Validate: 0.2637\"/px centre, 0.2626\" edge; 2.2 deg; 3 deg^2; 520 Mpix science (570 Mpix with guide/focus).",
+  "params": {
+   "telescope_aperture": {
+    "value": 3.934,
+    "unit": "m (primary used clear aperture)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Used clear aperture diam 3934 mm (August 00 after installation of seal CH2922-A001)",
+    "alternatives": [
+     {
+      "value": 4.0,
+      "src": "BTP",
+      "loc": "telescope table",
+      "quote": "Diameter: Primary M1 4 meters",
+      "note": "nominal"
+     },
+     {
+      "value": 4.0229,
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Mirror diameter 4022.9 mm (see CH2150.260-A001)",
+      "note": "mirror blank"
+     },
+     {
+      "value": 3.9654,
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Bare mirror clear aperture diam 3965.4 mm"
+     },
+     {
+      "value": "3.810 (M1 semi-diameter 1905 mm in the DECam prescription)",
+      "src": "F15",
+      "loc": "Table 1",
+      "quote": "M1 -21311.600 Cer-Vit 1905 -1.0976",
+      "note": "the design-table \"Radius (mm)\" column = clear semi-diameter"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.42,
+    "unit": "linear ratio (1651 mm / 3934 mm)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Central obscuration diam 1651 mm (PF cage baffle for f/8 M2)",
+    "alternatives": [
+     {
+      "value": "light-collecting area 10.014 m^2",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Light-collecting area 10.014 m^2",
+      "note": "pi/4 (3.934^2 - 1.651^2) = 10.014 m^2 DERIVED, so the area uses the 1651 mm obscuration"
+     },
+     {
+      "value": "M1 central hole 1317.8 mm",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Central hole diam 1317.8 mm",
+      "note": "1317.8 / 4022.9 = 0.328 (hole, not the shadow)"
+     }
+    ],
+    "note": "What sets it: the prime-focus cage and its baffle. The value is listed for the f/8 Cassegrain configuration (baffle on the prime-focus cage, data dated August 2000, before DECam); F15 Sec. 2.8 says the cage was rebuilt for DECam (\"it was necessary to redesign and fabricate a new, sturdier cage\") with a light baffle sized to the corrector clear aperture. No DECam-era obscuration value found.",
+    "derived": "DERIVED: 1651 / 3934 = 0.4197."
+   },
+   "telescope_focus": {
+    "value": "prime focus with the DECam 5-element corrector, camera on a hexapod in a new prime-focus cage",
+    "unit": "",
+    "src": "F15",
+    "loc": "Abstract",
+    "quote": "The Dark Energy Camera is a new imager with a 2.2-degree diameter field of view mounted at the prime focus of the Victor M. Blanco 4-meter telescope",
+    "alternatives": [
+     {
+      "value": "Ritchey-Chretien telescope (Cassegrain f/8 also available)",
+      "src": "BTP",
+      "loc": "telescope table",
+      "quote": "Optical Design Ritchey-Chretien Cassegrain"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 3.0,
+    "unit": "f/# (effective, with the corrector)",
+    "src": "F15",
+    "loc": "Sec. 2.2",
+    "quote": "The effective focal ratio is f/3.0. The pixel scale is 56.88 µm per arcsecond at the center of the focal plane and 57.12 µm per arcsecond at the edge.",
+    "alternatives": [
+     {
+      "value": "2.98 (DERIVED)",
+      "src": "OBSD",
+      "loc": "plateScale",
+      "quote": "config.plateScale = 17.575",
+      "note": "206264.8/17.575 = 11736.3 mm; / 3934 mm = 2.983"
+     },
+     {
+      "value": "2.9-3.0 (design range)",
+      "src": "F15",
+      "loc": "Sec. 2.1.1",
+      "quote": "The optical designs that we explored fell naturally into the range f/2.9–f/3.0 (56-57µm/arcsec)"
+     },
+     {
+      "value": 2.7,
+      "src": "CDC",
+      "loc": "focal-plane table",
+      "quote": "Instrument F ratio f/2.7",
+      "note": "the primary focal ratio, not the corrected beam"
+     },
+     {
+      "value": 2.7,
+      "src": "NDH",
+      "loc": "Table 4-1",
+      "quote": "Focal ratio f2.7",
+      "note": "text layer drops the slash"
+     },
+     {
+      "value": "2.87 (old prime focus)",
+      "src": "BAF",
+      "loc": "Prime Focus",
+      "quote": "Prime Focus f/2.87. Plate scale = 18.0 arcsec/mm or 0.26\"/15micron pixel",
+      "note": "pre-DECam corrector (18.0 \"/mm = 11459 mm DERIVED)"
+     }
+    ]
+   },
+   "effective_focal_length": {
+    "value": 11736.3,
+    "unit": "mm (DERIVED from the plate scale)",
+    "src": "OBSD",
+    "loc": "plateScale",
+    "quote": "config.plateScale = 17.575",
+    "alternatives": [
+     {
+      "value": "11739.6 (from 17.57\"/mm)",
+      "src": "NDH",
+      "loc": "Table 4-1",
+      "quote": "Plate scale 17.57 arcsec/mm"
+     },
+     {
+      "value": "11732.3 (from 56.88 um/\")",
+      "src": "F15",
+      "loc": "Sec. 2.2",
+      "quote": "The pixel scale is 56.88 µm per arcsecond at the center of the focal plane"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 17.575 = 11736.3 mm; 206264.8 / 17.57 = 11739.6 mm; 0.05688 x 206264.8 = 11732.3 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 2.7,
+    "unit": "f/# of the primary (drawing only)",
+    "src": "F15",
+    "loc": "Sec. 2.1.1",
+    "quote": "The focal ratio at prime focus of the Blanco 4-meter telescope is f/2.7 (52 µm/arcsec).",
+    "alternatives": [
+     {
+      "value": "R = 21311.6 mm",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Radius of curvature 21311.6 mm concave"
+     }
+    ],
+    "derived": "DERIVED: f_M1 = 21311.6/2 = 10655.8 mm; / 4022.9 mm = f/2.65; / 3934 mm = f/2.71."
+   },
+   "corrected_field": {
+    "value": 2.2,
+    "unit": "deg diameter",
+    "src": "F15",
+    "loc": "Sec. 2.1.1",
+    "quote": "The field of view of the camera was specified at 2.2 degrees in diameter",
+    "alternatives": [
+     {
+      "value": "focal plane radius 225.8 mm",
+      "src": "F15",
+      "loc": "Table 1",
+      "quote": "Focal Plane 0.000 225.8 0"
+     },
+     {
+      "value": "2.2 deg, 3 deg^2",
+      "src": "CDC",
+      "loc": "focal-plane table",
+      "quote": "3 square degree (2.2 degree field of view)"
+     },
+     {
+      "value": "no science CCD vignetted",
+      "src": "F15",
+      "loc": "Sec. 3.3",
+      "quote": "happened that none of the science chips was vignetted."
+     }
+    ],
+    "derived": "DERIVED: 2 x 225.8 mm x 17.575 \"/mm = 2.205 deg; outermost science-CCD corner at 224.3 mm (1.095 deg) from the pipeline origin (OBSD)."
+   },
+   "optics_placement": {
+    "value": "C1, C2, C3, filter (1 of 4 slide positions; 8 filters), C4, C5 = dewar window, focal plane; filters 620 mm diameter, 13 mm thick, in the converging beam; 0-14 deg incidence",
+    "unit": "",
+    "src": "F15",
+    "loc": "Fig. 3 caption",
+    "quote": "The elements, from right to left, are C1, C2, C3, a plano-plano filter (1 of 4 positions is shown), C4, C5 (Dewar window), and the focal plane array.",
+    "alternatives": [
+     {
+      "value": "filter substrates",
+      "src": "F15",
+      "loc": "Sec. 2.3",
+      "quote": "The filters are interference filters on 13mm thick plano-plano fused silica substrates."
+     },
+     {
+      "value": "incidence angles",
+      "src": "F15",
+      "loc": "Fig. 3 caption",
+      "quote": "The full range of incidence angles on the filters is 0 − 14◦ ."
+     }
+    ]
+   },
+   "detector": {
+    "value": "LBNL fully depleted p-channel CCD, 2048 x 4096, 250 um thick",
+    "unit": "px",
+    "src": "F15",
+    "loc": "Table 7",
+    "quote": "Pixel array 2048 × 4096 2048 × 4096",
+    "alternatives": [
+     {
+      "value": "62 x 2048x4096",
+      "src": "CDC",
+      "loc": "focal-plane table",
+      "quote": "62, 2048x4096 pixel red-sensitive science CCDs from LBNL, 520 megapixels total (570 Mpix including guide and focus CCDs)"
+     },
+     {
+      "value": "bbox 2048 x 4096",
+      "src": "OBSD",
+      "loc": "detectorList[0]",
+      "quote": "config.detectorList[0].bbox_y1 = 4095 ... config.detectorList[0].bbox_x1 = 2047"
+     }
+    ],
+    "derived": "DERIVED: 30.72 x 61.44 mm active."
+   },
+   "pixel_pitch": {
+    "value": 15.0,
+    "unit": "um",
+    "src": "F15",
+    "loc": "Abstract",
+    "quote": "The CCDs have 15µm × 15µm pixels with a plate scale of 0.26300 per pixel.",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "OBSD",
+      "loc": "detectorList[0]",
+      "quote": "config.detectorList[0].pixelSize_x = 0.015"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 62,
+    "unit": "CCDs",
+    "src": "F15",
+    "loc": "Abstract",
+    "quote": "plane comprises 62 2k×4k CCDs for imaging and 12 2k×2k CCDs for guiding and focus.",
+    "alternatives": [
+     {
+      "value": "62 (60.5 useful)",
+      "src": "NDM",
+      "loc": "overview",
+      "quote": "with 62 science CCDs (60.5 useful) with 520 megapixels",
+      "note": "N30 not functional; one more with a dead amplifier"
+     },
+     {
+      "value": 62,
+      "src": "NDH",
+      "loc": "Sec. 4.1",
+      "quote": "focal plane array (FPA) consisting of sixty-two 2K×4K CCDs"
+     }
+    ]
+   },
+   "other_chips": {
+    "value": "8 focus/alignment (\"F\", 2k x 2k, +/-1.5 mm from focus) + 4 guide (\"G\", 2k x 2k)",
+    "unit": "",
+    "src": "F15",
+    "loc": "Fig. 23 caption",
+    "quote": "The DECam Focal Plane showing the 62 2k × 4k, 8 2k × 2k CCDs (labeled “F”) for the adaptive optics system, and 4 2k × 2k (labeled “G”) for guiding.",
+    "alternatives": [
+     {
+      "value": "8 wave-front sensing + 4 guide",
+      "src": "NDH",
+      "loc": "Sec. 4.1",
+      "quote": "focal plane of 62 science CCDs, 8 wave-front sensing CCDs, 4 guide CCDs"
+     },
+     {
+      "value": "F = focus and alignment",
+      "src": "CDC",
+      "loc": "figure text",
+      "quote": "The 2k x 2k CCDs labeled as \"F\" are used for focus and alignment control; those labeled as \"G\" are used for guiding."
+     }
+    ]
+   },
+   "mosaic_rows": {
+    "value": [
+     3,
+     4,
+     5,
+     6,
+     6,
+     7,
+     7,
+     6,
+     6,
+     5,
+     4,
+     3
+    ],
+    "unit": "science CCDs per row, north to south (Fig. 23 sky orientation), rows centred",
+    "src": "OBSD",
+    "loc": "detectorList (names and offsets)",
+    "quote": "config.detectorList[0].name = 'S29' ... config.detectorList[0].offset_x = -185.59199999999998 ... config.detectorList[0].offset_y = -63.748000000000005",
+    "alternatives": [
+     {
+      "value": "focal-plane map",
+      "src": "F15",
+      "loc": "Fig. 23 caption",
+      "quote": "The label (e.g. S30) indicates a position on the focal plane.",
+      "note": "rows read off Fig. 23: S29-S31 / S25-S28 / S20-S24 / S14-S19 / S8-S13 / S1-S7 / N1-N7 / N8-N13 / N14-N19 / N20-N24 / N25-N28 / N29-N31"
+     },
+     {
+      "value": "hexagon pattern; centre in the S4/N4 gap",
+      "src": "NDH",
+      "loc": "Sec. 4.1.1 Focal Plane",
+      "quote": "The CCDs are mounted on an aluminum plate in a hexagon pattern (see Figure 4-3) and are coplanar to approximately 15 μm (RMS). Note that the center of the field falls inside a gap between the S4 and N4 CCDs.",
+      "note": "Symbol-font mu (U+F06D) normalised to μ"
+     }
+    ],
+    "derived": "DERIVED from OBSD: grouping the 62 CCD centres by offset_x gives 12 lines of 3, 4, 5, 6, 6, 7 (S29-31, S25-28, S20-24, S14-19, S8-13, S1-7) and 7, 6, 6, 5, 4, 3 (N1-7 ... N29-31) at x = -185.6, -151.9, -118.1, -84.4, -50.7, -16.9, +16.9, ..., +185.5 mm (pitch 33.7 mm); each line is centred on 0 along y (e.g. S29-S31 at y = -63.75 ... +63.78 mm, S1-S7 at -191.22 ... +191.27). These pipeline lines are the rows of F15 Fig. 23 (north up; the pipeline frame is the transposed FITS/\"pixel\" orientation)."
+   },
+   "chip_orientation": {
+    "value": "long axis (4096 px) along the rows in Fig. 23 (north up); in the pipeline/FITS frame the 4096-px axis is y and the rows run along y",
+    "unit": "",
+    "src": "CDC",
+    "loc": "Inter-CCD Gaps",
+    "quote": "3.0 mm (201 pixels) along long edge (e.g., between S4 and N4); 2.3 mm (153 pixels) along short edge (e.g., between N4 and N5)",
+    "note": "S4 and N4 are in adjacent rows (S1-S7, N1-N7) and share a long edge; N4 and N5 are neighbours in one row and share a short edge, so the long axis runs along the row. F15 Fig. 23 caption: \"When the focal plane is viewed with the real-time display at the telescope and also with default SAOImage DS9 settings, the direction labeled “North” is displayed to the left and “East” at the top.\""
+   },
+   "chip_gaps": {
+    "value": {
+     "within_row_x_mm": 2.3,
+     "between_rows_y_mm": 3.0
+    },
+    "unit": "mm",
+    "src": "NDH",
+    "loc": "Table 4-1",
+    "quote": "Inter-CCD gaps ... Rows: 3.0 mm (201 pix) ... Columns: 2.3 mm (153 pix)",
+    "alternatives": [
+     {
+      "value": "3.0 mm long edge / 2.3 mm short edge",
+      "src": "CDC",
+      "loc": "Inter-CCD Gaps",
+      "quote": "3.0 mm (201 pixels) along long edge (e.g., between S4 and N4); 2.3 mm (153 pixels) along short edge (e.g., between N4 and N5)"
+     },
+     {
+      "value": "pipeline: 2.30 / 3.02 mm",
+      "src": "OBSD",
+      "loc": "detectorList[27], [34], [35]",
+      "quote": "config.detectorList[27].offset_x = -16.892000000000003 ... config.detectorList[34].offset_x = 16.908 ... config.detectorList[35].offset_y = 63.708",
+      "note": "DERIVED: S4-N4 33.80 - 30.72 = 3.08 mm; N4-N5 63.73 - 61.44 = 2.29 mm"
+     }
+    ],
+    "derived": "DERIVED from OBSD: within-row (short-edge) gaps n = 50, median 2.301 mm (2.148-2.448); between-row (long-edge) gaps from row-centre spacing 2.99-3.09 mm (mean 3.02). 201 px x 15 um = 3.015 mm (53.0\"); 153 px = 2.295 mm (40.3\")."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.2637,
+    "unit": "arcsec/px (centre; 0.2626 at the edge)",
+    "src": "CDC",
+    "loc": "focal-plane table",
+    "quote": "0.2637 arcsec/pixel (center), 0.2626 arcsec/pixel (edge)",
+    "alternatives": [
+     {
+      "value": "0.2637 / 0.2626",
+      "src": "NDH",
+      "loc": "Table 4-1",
+      "quote": "Pixel scale of FPA, center/edge 0.2637 / 0.2626 arcsec/pixel"
+     },
+     {
+      "value": 0.263,
+      "src": "F15",
+      "loc": "Abstract",
+      "quote": "with a plate scale of 0.26300 per pixel",
+      "note": "text layer renders 0.263\" as \"0.26300\""
+     },
+     {
+      "value": 0.263,
+      "src": "NDM",
+      "loc": "overview",
+      "quote": "at 0.263 arcsecond/pixel resolution"
+     }
+    ],
+    "derived": "DERIVED: 15 / 56.88 = 0.2637\"; 15 / 57.12 = 0.2626\"; 17.575 x 0.015 = 0.2636\"."
+   },
+   "field_of_view": {
+    "value": {
+     "diameter_deg": 2.2,
+     "area_deg2": 3.0
+    },
+    "unit": "",
+    "src": "CDC",
+    "loc": "focal-plane table",
+    "quote": "3 square degree (2.2 degree field of view)",
+    "alternatives": [
+     {
+      "value": "3 deg^2",
+      "src": "NDH",
+      "loc": "Sec. 4.1",
+      "quote": "It features a 3 deg2 field of view (FoV)"
+     }
+    ],
+    "derived": "DERIVED: 62 x 30.72 x 61.44 mm^2 x (17.575/3600)^2 = 2.79 deg^2 of active pixels; pi x 1.1^2 = 3.80 deg^2 for the full 2.2 deg circle."
+   },
+   "total_pixels": {
+    "value": "520 Mpix science (570 Mpix with guide and focus CCDs)",
+    "unit": "pixels",
+    "src": "CDC",
+    "loc": "focal-plane table",
+    "quote": "62, 2048x4096 pixel red-sensitive science CCDs from LBNL, 520 megapixels total (570 Mpix including guide and focus CCDs)",
+    "alternatives": [
+     {
+      "value": "570 Mpix",
+      "src": "F15",
+      "loc": "Abstract",
+      "quote": "The 570 Mpixel focal plane comprises 62 2k×4k CCDs for imaging and 12 2k×2k CCDs for guiding and focus."
+     }
+    ],
+    "derived": "DERIVED: 62 x 2048 x 4096 = 520,093,696; + 12 x 2048^2 = 570,425,344."
+   },
+   "etendue": {
+    "value": null,
+    "unit": "NOT PUBLISHED",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Light-collecting area 10.014 m^2",
+    "derived": "DERIVED: 10.014 m^2 x 3 deg^2 = 30.0 m^2 deg^2 (geometric, pre-DECam obscuration)."
+   }
+  },
+  "not_found": [
+   "A central obscuration measured or specified for the DECam prime-focus configuration (cage + corrector + baffle): only the 1651 mm \"PF cage baffle for f/8 M2\" in the Blanco table (data dated August 2000).",
+   "A published etendue.",
+   "Which aperture the DECam optical design takes as the stop: F15 Table 1 gives M1 a 1905 mm semi-diameter (3.81 m), smaller than the 3934 mm used clear aperture; the f/3.0 statement (F15) fits ~3.9 m (DERIVED 11,736 / 3,934 = 2.98)."
+  ],
+  "conflicts": [
+   "D: 3.934 m used clear aperture (BOP) vs 4 m nominal (BTP, F15) vs 4.0229 m mirror (BOP) vs 3.81 m M1 clear semi-diameter x 2 in the DECam prescription (F15 Table 1).",
+   "Focal ratio: f/3.0 effective (F15) vs f/2.9-3.0 design range (F15) vs \"Instrument F ratio f/2.7\" (CDC) and \"Focal ratio f2.7\" (NDH), which is the primary focal ratio (F15: \"The focal ratio at prime focus of the Blanco 4-meter telescope is f/2.7\") vs f/2.87 old prime focus (BAF).",
+   "Plate scale: 17.575\"/mm (OBSD) vs 17.57\"/mm (NDH) vs 56.88 um/\" = 17.581\"/mm (F15) vs 18.0\"/mm (BAF, old corrector).",
+   "Pixel scale: 0.2637\" centre / 0.2626\" edge (CDC, NDH, F15 DERIVED) vs 0.263\" (F15 abstract, NDM) vs 0.26\" (BAF).",
+   "Field: 3 deg^2 (CDC, NDH, NDM, BTP) vs 2.79 deg^2 of active pixels (DERIVED) vs 3.80 deg^2 for the 2.2 deg circle (DERIVED); 2.2 deg (F15, CDC) vs NDH Table 4-1 \"2 diameter circular field\" (degree glyph lost in the text layer).",
+   "Focus CCDs: \"for the adaptive optics system\" (F15 Fig. 23) vs \"wave-front sensing\" (NDH) vs \"focus and alignment control\" (CDC)."
+  ],
+  "notes": [
+   "Explorer mapping: rows [3, 4, 5, 6, 6, 7, 7, 6, 6, 5, 4, 3], chips 4096 px along the row and 2048 px across, 2.3 mm gaps within a row and 3.0 mm between rows; rows with even and odd chip counts are offset by half a chip pitch because each row is centred. 12 rows, so the field centre falls in the gap between the two central 7-chip rows (S1-S7 / N1-N7), as NDH states.",
+   "With D = 3.934 m and F = 2.98 the explorer reproduces 0.2637\"/px at 15 um; with F = 3.0 it gives 0.2622\"/px.",
+   "N30 is not functional (CDC: \"Note that CCD N30 is not functional. CCD S30 was not functional 2014-2016.\"); NDM counts \"60.5 useful\" science CCDs."
+  ]
+ }
+}

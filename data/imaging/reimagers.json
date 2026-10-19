@@ -1,0 +1,2757 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER mode presets, reimaged imagers (focal reducers + AO camera): VLT/FORS2 (SR; HR noted), Magellan/IMACS f/2, Keck/LRIS (red; blue noted), Keck/MOSFIRE, Keck/NIRC2 (narrow; medium, wide)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/reimagers.md (same content as Markdown tables). Same entry structure as data/round4/mosfire.json and data/round5/grisms.json; 'preset_inputs' per instrument holds the explorer inputs for the reimaged-imager model.",
+  "model": "telescope focus (D, F_tel) -> ideal collimator f_col (= F_tel x W) -> collimated beam / pupil of diameter W -> ideal camera f_cam -> detector. Effective focal ratio = f_cam / W; pixel scale = 206265 x p / (D x F_tel x f_cam / f_col).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/imaging/<inst>/ or an existing rawdata/presets/ file (existing round keys reused: KTG02, VLTSPE, FUM117, AR92, FD300V, EUT, CS98N9/N11/N15, D11, BD03, LCOUM, LCOT, O95, KLDET, KLH, M10, M12, MDDR, MPSR, KMD). derived = arithmetic done here from sourced values (shown). alternatives = other sourced values (conflicts). 'NOT FOUND' marks a gap; no value is filled from memory.",
+  "quote_check": "Every quote (and every alternative's quote) was machine-checked by scripts against the extracted text of the saved file: pdftotext -layout and -raw for PDFs, an HTML-to-text pass for web pages, an astropy header dump for the FITS file, tesseract OCR for the two scans without a usable text layer (AR92 and the NIRC2 mask drawings, KNRM). Normalisation: NFKC, curly quotes/primes/dashes/minus/tilde/multiplication signs mapped to ASCII, '|' table separators dropped, whitespace collapsed; a piece may also match after joining hyphenated line breaks or with all spaces removed (pdftotext glyph spacing such as 6.' 8). ' ... ' joins non-adjacent pieces. Result: see check_summary.",
+  "check_summary": "266 quotes checked, 0 failures"
+ },
+ "sources": {
+  "KTG02": {
+   "cite": "W. M. Keck Observatory, \"Keck Telescope and Facility Instrument Guide\" (August 2002 update; PDF created 2002-09-11): Sec. 3 telescope optics, Table 2 foci, Sec. 4.9 AO facility and NIRC2 -- SAME FILE as round-2/round-4 key KTG02",
+   "file": "rawdata/presets/deimos/keck_telescope_guide_ktelinstupdate.pdf",
+   "url": "https://www2.keck.hawaii.edu/observing/kecktelgde/ktelinstupdate.pdf"
+  },
+  "H17": {
+   "cite": "Huby, E., Bottom, M., Femenia, B., et al. 2017, A&A 600, A46, \"On-sky performance of the QACITS pointing control technique with the Keck/NIRC2 vortex coronagraph\", arXiv:1701.06397 (Table 1: Keck pupil configuration used to model NIRC2)",
+   "file": "rawdata/imaging/nirc2/Huby2017_AA600_A46_QACITS_KeckNIRC2_arXiv1701.06397.pdf",
+   "url": "https://arxiv.org/pdf/1701.06397"
+  },
+  "SE17": {
+   "cite": "Serabyn, E., Huby, E., Matthews, K., et al. 2017, AJ 153, 43, \"The W. M. Keck Observatory infrared vortex coronagraph and a first image of HIP 79124 B\", arXiv:1612.03093",
+   "file": "rawdata/imaging/nirc2/Serabyn2017_AJ153_43_KeckVortex_arXiv1612.03093.pdf",
+   "url": "https://arxiv.org/pdf/1612.03093"
+  },
+  "VLTSPE": {
+   "cite": "ESO, \"Requirements for VLT UT Instruments\", VLT-SPE-ESO-10000-2723, Issue 1 (18.03.2005): Table 2 'Cassegrain focus optical parameters', Sec. 3.2.4 light baffling -- SAME FILE as round-5 key VLTSPE",
+   "file": "rawdata/presets/uves/VLT-SPE-ESO-10000-2723_is1_Requirements_for_VLT_UT_Instruments.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/develop/documents/VLT-SPE-ESO-10000-2723_is1.pdf"
+  },
+  "FUM117": {
+   "cite": "ESO, \"FORS2 User Manual\", VLT-MAN-ESO-13100-1543, Issue 117 (change log to 117.1, October 05, 2026) -- SAME FILE as round-5 key FUM117",
+   "file": "rawdata/presets/fors2/ESO_FORS2_UserManual_VLT-MAN-ESO-13100-1543_P117_3.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/fors/doc/VLT-MAN-ESO-13100-1543_P117_3.pdf"
+  },
+  "AR92": {
+   "cite": "Appenzeller, I. & Rupprecht, G. 1992, The Messenger 67, 18, \"FORS - the Focal Reducer for the VLT\" (ADS scan, no text layer; quotes from a tesseract OCR of the 300-dpi page images). DESIGN values -- SAME FILE as round-5 key AR92",
+   "file": "rawdata/presets/fors2/Appenzeller1992_Msngr67_18_FORS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1992Msngr..67...18A"
+  },
+  "FD300V": {
+   "cite": "ESO FORS pipeline static calibration FORS2_DIST_300V_10_free_00_1.fits (fors-calib-5.0.1; FORS2/UT1, MIT chip 1; primary header quoted from an astropy dump) -- SAME FILE as round-5 key FD300V",
+   "file": "rawdata/presets/fors2/fors-calib-5.0.1_cal_FORS2_DIST_300V_10_free_00_1.fits",
+   "url": "https://ftp.eso.org/pub/dfs/pipelines/instruments/fors/fors-calib-5.0.1.tar.gz"
+  },
+  "EUT": {
+   "cite": "ESO, \"The VLT 8.2-meter Unit Telescopes\" web page -- SAME FILE as round-5 key EUT",
+   "file": "rawdata/presets/fors2/eso_vlt_ut_telescopes.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut.html"
+  },
+  "FINST": {
+   "cite": "ESO, FORS \"Instrument Description\" web page (footer \"Last Update: 05.10.26\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/fors2/eso_fors_inst_index.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/fors/inst/index.html"
+  },
+  "FOVW": {
+   "cite": "ESO, FORS \"Overview\" web page (footer \"Last Update: 05.10.26\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/fors2/eso_fors_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/fors/overview.html"
+  },
+  "FMIT": {
+   "cite": "ESO, FORS \"CCD upgrade MIT (old)\" web page announcing the 2001-2002 MIT mosaic and its field geometry (footer \"Last Update: 29.03.11\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/fors2/eso_fors_inst_CCD-upgrade-MIT-old.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/fors/inst/CCD-upgrade-MIT-old.html"
+  },
+  "EM1": {
+   "cite": "ESO, VLT \"The primary mirrors\" (M1 unit) web page: REOSC test results of the first two 8.2-m mirrors (footer \"Last Update: 07.03.11\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/fors2/eso_vlt_ut_m1unit.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/m1unit.html"
+  },
+  "EM2": {
+   "cite": "ESO, VLT \"The Secondary Mirror, M2 Unit\" web page (specification table; footer \"Last Update: 10.03.11\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/fors2/eso_vlt_ut_m2unit.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/m2unit.html"
+  },
+  "CS98N9": {
+   "cite": "Dressler, A. & Bigelow, B., IMACS System Specifications v1.1 (1998, Carnegie LaTeX2HTML), node9 \"Optical Design\" (f/11 design parameters) -- SAME FILE as round-4 key CS98N9",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node9.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node9.html"
+  },
+  "CS98N11": {
+   "cite": "IMACS System Specifications v1.1 (1998), node11 \"Collimator\" -- SAME FILE as round-4 key CS98N11",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node11.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node11.html"
+  },
+  "CS98N15": {
+   "cite": "IMACS System Specifications v1.1 (1998), node15 \"Short Camera\" (DESIGN values) -- SAME FILE as round-4 key CS98N15",
+   "file": "rawdata/presets/imacs/carnegie_imacs_spec_node15.html",
+   "url": "https://instrumentation.obs.carnegiescience.edu/imacs/spec/node15.html"
+  },
+  "D11": {
+   "cite": "Dressler, A., et al. 2011, PASP 123, 288, \"IMACS: The Inamori-Magellan Areal Camera & Spectrograph on Magellan-Baade\" -- accepted manuscript, SAME FILE as round-4 key D11",
+   "file": "rawdata/presets/imacs/Dressler2011_PASP123_288_IMACS_accepted_manuscript_CarnegieFTP.pdf",
+   "url": "ftp://ftp.obs.carnegiescience.edu/pub/dressler/imacs/IMACS_manuscript_accepted.pdf"
+  },
+  "BD03": {
+   "cite": "Bigelow, B. C. & Dressler, A. 2003, Proc. SPIE 4841, 1727, \"IMACS, the multi-object spectrograph and imager for Magellan: a status report\" -- SAME FILE as round-4 key BD03",
+   "file": "rawdata/presets/imacs/Bigelow2003_SPIE4841_1727_IMACS_status_report.pdf",
+   "url": "https://asdflkj.net/Publications/spie4841_1727.pdf"
+  },
+  "LCOUM": {
+   "cite": "Las Campanas Observatory, \"IMACS User Manual\" web page (readout table \"as of Aug. 2018\") -- SAME FILE as round-4 key LCOUM",
+   "file": "rawdata/presets/imacs/lco_imacs_user_manual.html",
+   "url": "https://www.lco.cl/technical-documentation/imacs-user-manual/"
+  },
+  "LCOT": {
+   "cite": "Las Campanas Observatory, \"Magellan Telescopes\" web page -- SAME FILE as round-1/round-4 key LCOT",
+   "file": "rawdata/presets/imacs/lco_magellan_telescopes.html",
+   "url": "https://www.lco.cl/magellan-telescopes/"
+  },
+  "M18": {
+   "cite": "Males, J. R., Close, L. M., Miller, K., et al. 2018, Proc. SPIE 10703, \"MagAO-X: project status and first laboratory results\", arXiv:1807.04315 (Sec. 4.1: as-built Magellan Clay M1/M2/M3; Clay is the twin of the Baade telescope that carries IMACS)",
+   "file": "rawdata/imaging/imacs/Males2018_SPIE10703_MagAO-X_status_arXiv1807.04315.pdf",
+   "url": "https://arxiv.org/pdf/1807.04315"
+  },
+  "O95": {
+   "cite": "Oke, J. B., et al. 1995, PASP 107, 375, \"The Keck Low-Resolution Imaging Spectrometer\" (ADS scan; quotes from its OCR text layer, which reads f/ as '//' and y as 'j') -- SAME FILE as round-1 key O95",
+   "file": "rawdata/presets/longslit_lris/Oke1995_PASP107_375_LRIS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1995PASP..107..375O"
+  },
+  "KLDET": {
+   "cite": "W. M. Keck Observatory, LRIS \"Detectors\" web page -- SAME FILE as round-1 key KLDET",
+   "file": "rawdata/presets/longslit_lris/keck_lris_detectors.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/detectors.html"
+  },
+  "KLH": {
+   "cite": "W. M. Keck Observatory, LRIS home page -- SAME FILE as round-1 key KLH (its detector sentence predates the 2021 Mark IV CCD)",
+   "file": "rawdata/presets/longslit_lris/keck_lris_lrishome.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/lrishome.html"
+  },
+  "KLCS": {
+   "cite": "W. M. Keck Observatory, LRIS \"Coordinate Systems\" web page (slitmask region in the LRIS focal-plane frame; HTTP Last-Modified 2008-08-19; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_coordinate_systems.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/coordinate_systems.html"
+  },
+  "KLCOL": {
+   "cite": "W. M. Keck Observatory, LRIS \"Collimator\" technical page (physical specifications of the off-axis paraboloid; HTTP Last-Modified 2008-08-19; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_collimator_tec.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/collimator_tec.html"
+  },
+  "KLFL": {
+   "cite": "W. M. Keck Observatory, LRIS \"Field lens\" technical page (HTTP Last-Modified 2008-08-19; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_fieldlens_tec.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/fieldlens_tec.html"
+  },
+  "KLF": {
+   "cite": "W. M. Keck Observatory, LRIS \"Filters\" web page (HTTP Last-Modified 2026-02-04; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_filters.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/filters.html"
+  },
+  "KLN": {
+   "cite": "W. M. Keck Observatory, \"LRIS News\" web page (entries 2010-2021; HTTP Last-Modified 2024-09-12; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_news.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/news.html"
+  },
+  "KLRU": {
+   "cite": "W. M. Keck Observatory, \"LRIS red upgrade notes\" (2009 LBNL 2k x 4k mosaic: astrometry, plate scale, chip gap; HTTP Last-Modified 2014-05-15; fetched 2026-10-19) -- describes a RETIRED detector",
+   "file": "rawdata/imaging/lris/keck_lris_lris-red-upgrade-notes.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/lris-red-upgrade-notes.html"
+  },
+  "KLREF": {
+   "cite": "W. M. Keck Observatory, \"LRIS References\" web page (HTTP Last-Modified 2010-10-10; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lris/keck_lris_lris_refs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/lris/lris_refs.html"
+  },
+  "KLB05": {
+   "cite": "C. Steidel (P.I.), \"LRIS-B Overview\" web page (\"December 2000 (updated June 2002)\"), Internet Archive capture of 2005-11-25 (the page is no longer on the Keck site)",
+   "file": "rawdata/imaging/lris/wayback20051125_keck_lris_lrisb.html",
+   "url": "https://web.archive.org/web/20051125094320id_/http://www2.keck.hawaii.edu:80/inst/lris/lrisb.html"
+  },
+  "S04": {
+   "cite": "Steidel, C. C., Shapley, A. E., Pettini, M., et al. 2004, ApJ 604, 534, \"A Survey of Star-forming Galaxies in the 1.4 < z < 2.5 Redshift Desert: Overview of Methods and Results\", arXiv:astro-ph/0401439, Appendix \"The LRIS-B Spectrograph\"",
+   "file": "rawdata/imaging/lris/Steidel2004_ApJ604_534_LRISB_appendix_arXiv-astro-ph0401439.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0401439"
+  },
+  "M12": {
+   "cite": "McLean, I. S., et al. 2012, Proc. SPIE 8446, 84460J, \"MOSFIRE, the Multi-Object Spectrometer For Infra-Red Exploration at the Keck Observatory\" -- SAME FILE as round-4 key M12",
+   "file": "rawdata/presets/mosfire/McLean2012_SPIE8446_84460J_MOSFIRE_ucla.pdf",
+   "url": "https://irlab.astro.ucla.edu/instruments/mosfire/documents/84460J.pdf"
+  },
+  "M10": {
+   "cite": "McLean, I. S., et al. 2010, Proc. SPIE 7735, 77351E, \"Design and development of MOSFIRE\" (author version) -- SAME FILE as round-4 key M10",
+   "file": "rawdata/presets/mosfire/ucla_MOSFIRE_SPIE_paper.pdf",
+   "url": "https://irlab.astro.ucla.edu/instruments/mosfire/documents/MOSFIRE%20SPIE%20paper.pdf"
+  },
+  "MDDR": {
+   "cite": "MOSFIRE team, Detailed Design Report v2.00 (April 6, 2007) -- SAME FILE as round-4 key MDDR",
+   "file": "rawdata/presets/mosfire/ucla_MOSFIRE_DDR_Report_v2_2007-04-06.pdf",
+   "url": "https://irlab.astro.ucla.edu/instruments/mosfire/documents/MOSFIRE%20DDR%20Report%20v2.pdf"
+  },
+  "MPSR": {
+   "cite": "MOSFIRE team, Pre-Ship Review v2.0 (April 11, 2011) -- SAME FILE as round-4 key MPSR",
+   "file": "rawdata/presets/mosfire/ucla_MOSFIRE_PSR_Report_v2_2011.pdf",
+   "url": "https://irlab.astro.ucla.edu/instruments/mosfire/documents/MOSFIRE%20PSR%20Report%20v2.pdf"
+  },
+  "KMD": {
+   "cite": "W. M. Keck Observatory, MOSFIRE \"Detector\" web page -- SAME FILE as round-4 key KMD",
+   "file": "rawdata/presets/mosfire/keck_mosfire_detector.html",
+   "url": "https://www2.keck.hawaii.edu/inst/mosfire/detector.html"
+  },
+  "KNG": {
+   "cite": "W. M. Keck Observatory, NIRC2 \"General Specifications\" web page (\"partly from the original NIRC2 proposal by Keith Matthews and Tom Soifer, and partly from information on the as-built instrument\"; HTTP Last-Modified 2025-04-21; fetched 2026-10-19)",
+   "file": "rawdata/imaging/nirc2/keck_nirc2_genspecs.html",
+   "url": "https://www2.keck.hawaii.edu/inst/nirc2/genspecs.html"
+  },
+  "KNOM": {
+   "cite": "W. M. Keck Observatory, \"NIRC2 Observer's Manual\" web page (Sec. 1.2 optical path, Table 5.1 cameras; HTTP Last-Modified 2025-12-03; fetched 2026-10-19)",
+   "file": "rawdata/imaging/nirc2/keck_nirc2_ObserversManual.html",
+   "url": "https://www2.keck.hawaii.edu/inst/nirc2/ObserversManual.html"
+  },
+  "KNRM": {
+   "cite": "P. Tuthill, aperture-mask drawings linked from the Keck NIRC2 specifications page as \"Non Redundant Aperture Mask info\": p. 1 \"9 hole Pupil Mask For NIRC2\" and p. 3 \"18 hole Pupil Mask For NIRC2\" (25 Nov 2002; hole centres in mm), p. 2 and p. 4 \"Keck Pupil Mask\" (25 Sep 2001, ISI/Berkeley; the same Golay layouts drawn on the 36-segment Keck primary, \"110cm\" and \"57cm holes\"). Scanned drawings without a text layer (CVISION, 2006): quotes from tesseract OCR of 200- and 400-dpi renderings; hole coordinates and circle positions were read off the page images (see Notes)",
+   "file": "rawdata/imaging/nirc2/keck_nirc2_nonRedundantApMask_Tuthill_drawings.pdf",
+   "url": "https://www2.keck.hawaii.edu/inst/nirc2/nonRedundantApMask.pdf"
+  },
+  "T06": {
+   "cite": "Tuthill, P., Lloyd, J., Ireland, M., et al. 2006, Proc. SPIE 6272, 62723A, \"Sparse-Aperture Adaptive Optics\" (copy hosted on the Keck NIRC2 specifications page)",
+   "file": "rawdata/imaging/nirc2/Tuthill2006_SPIE6272_62723A_SparseApertureAO_keck_nirc2.pdf",
+   "url": "https://www2.keck.hawaii.edu/inst/nirc2/Tuthill_2006.pdf"
+  },
+  "S16": {
+   "cite": "Service, M., Lu, J. R., Campbell, R., et al. 2016, PASP 128, 095004, \"A New Distortion Solution for NIRC2 on the Keck II Telescope\" (publisher PDF from IOP)",
+   "file": "rawdata/imaging/nirc2/Service2016_PASP128_095004_NIRC2distortion.pdf",
+   "url": "https://iopscience.iop.org/article/10.1088/1538-3873/128/967/095004/pdf"
+  }
+ },
+ "fors2": {
+  "short": "VLT/FORS2 (imaging, SR collimator; HR noted)",
+  "title": "VLT (UT1 Antu) / FORS2 imaging (IMG) -- all-dioptric focal reducer at the Cassegrain focus; standard-resolution (SR) collimator, high-resolution (HR) collimator as the alternative",
+  "summary": "complete. Telescope from the VLT interface spec (entrance pupil 8115.0 mm set by M2, f/13.4106, 108827 mm, 528 um/\"; M2 1116 mm -> eps = 0.1375 DERIVED; M1 f/1.8). Optics from the manual and ESO's instrument page: f_col 1233 mm (SR) / 616 mm (HR), pupil 90 / 44.5 mm (published; 91.9 / 45.9 mm DERIVED as f_col/F), f_cam 280 mm, final f/3.13 / 6.25; broadband filters in the parallel beam, interference filters in the converging beam. MIT mosaic: 2 chips of 4096 x 2048 x 15 um stacked in y, one gap of 480 um (32 px DERIVED) with 30 um x-offset and 0.08 deg rotation. Field: SR limited by the MOS unit in the focal plane to ~6.8' x 6.8' (7.1' x 7.1' nominal; mosaic covers 8.6' DERIVED), HR limited by the CCDs (4.2-4.3') with camera-lens vignetting in the corners. Validation: 0.12591\"/px measured (SR, unbinned; DERIVED 0.12519), HR 0.06323 (DERIVED 0.06255). Gaps: no source states the gap in pixels or the pupil position relative to the filter wheels; W published (90 mm) and W = f_col/F (91.9 mm) differ by 2%.",
+  "recommended_preset": "SR collimator, MIT mosaic, unbinned 15 um pixels (the default imaging readout is 2x2 binned = 0.25\"/px). D = 8.115 m (entrance pupil, set by M2; 8.2 m = M1), eps = 1116/8115 = 0.1375 DERIVED (secondary alone, sky baffle retracted), F_tel = 13.4106 (Cassegrain), f_col = 1233 mm, W = 1233/13.4106 = 91.9 mm DERIVED (ESO quotes a 90 mm pupil), f_cam = 280 mm (effective f/3.05 DERIVED; manual f/3.13), filters in the collimated beam (broadband) or converging beam (interference), detector = 2 rows of 1 chip (4096 x 2048 each, 15 um) with a 480 um (32 px) gap between the rows, field = 6.8' x 6.8' square (MOS-unit limit). Validate: 0.12591\"/px measured on Antu (model 0.12519 DERIVED, -0.6%), 0.25\"/px binned, field 6.8' x 6.8'. HR alternative: f_col = 616 mm, W = 44.5 mm (45.9 DERIVED), final f/6.25, 0.06323\"/px measured (0.06255 DERIVED), field 4.2-4.3' square limited by the CCDs with vignetted corners.",
+  "preset_inputs": {
+   "mode": "SR collimator; unbinned 15 um pixels",
+   "D_m": 8.115,
+   "D_note": "entrance pupil diameter (VLTSPE); M1 is 8.2 m",
+   "eps_DERIVED": 0.1375,
+   "eps_note": "1116 mm M2 / 8115 mm; 0.191 if the 1550 mm sky baffle is deployed (DERIVED)",
+   "F_tel": 13.4106,
+   "f_tel_mm": 108827,
+   "focus": "Cassegrain (UT1 Antu)",
+   "primary_F_drawing": 1.8,
+   "f_col_mm": 1233,
+   "W_mm_DERIVED": 91.9,
+   "W_mm_published": 90,
+   "f_cam_mm": 280,
+   "effective_F_DERIVED": 3.05,
+   "final_F_published": 3.13,
+   "filters": "broadband: parallel (collimated) beam, 3 wheels; interference: converging beam of the camera, 2 wheels",
+   "detector": {
+    "chip_Nx": 4096,
+    "chip_Ny": 2048,
+    "pitch_um": 15,
+    "n_chips": 2,
+    "rows": [
+     1,
+     1
+    ],
+    "gap_between_rows_um": 480,
+    "gap_between_rows_px_DERIVED": 32,
+    "row2_x_offset_um": 30,
+    "row2_rotation_deg": 0.08,
+    "default_imaging_binning": "2x2"
+   },
+   "field": {
+    "limit": "MOS unit in the telescope focal plane (square)",
+    "dims_arcmin": [
+     6.8,
+     6.8
+    ],
+    "nominal_arcmin": [
+     7.1,
+     7.1
+    ],
+    "detector_extent_arcmin_DERIVED": [
+     8.6,
+     8.66
+    ],
+    "mosaic_offset": "mosaic offset 33\" from the optical axis"
+   },
+   "validation": {
+    "pixel_scale_arcsec_unbinned": 0.12591,
+    "pixel_scale_arcsec_2x2": 0.25,
+    "fov_arcmin": "6.8 x 6.8"
+   },
+   "HR_alternative": {
+    "f_col_mm": 616,
+    "W_mm_published": 44.5,
+    "W_mm_DERIVED": 45.9,
+    "final_F_published": 6.25,
+    "pixel_scale_arcsec_unbinned_measured": 0.06323,
+    "pixel_scale_DERIVED": 0.06255,
+    "field": "4.2-4.3' square, limited by the CCDs; corners vignetted by the camera lenses"
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 8.115,
+    "unit": "m (entrance pupil diameter, Cassegrain)",
+    "src": "VLTSPE",
+    "loc": "Sec. 3.2.1, Table 2 (Cassegrain focus optical parameters)",
+    "quote": "Entrance pupil diameter 8115.0 mm",
+    "note": "Same convention as the FORS2 spectrograph preset (round 5 audit: D = 8.115 m).",
+    "alternatives": [
+     {
+      "value": 8.2,
+      "src": "EUT",
+      "loc": "page title",
+      "quote": "The VLT 8.2-meter Unit Telescopes",
+      "note": "M1 diameter, nominal"
+     },
+     {
+      "value": "pupil set by M2",
+      "src": "VLTSPE",
+      "loc": "Sec. 3.2.4 (Light baffling)",
+      "quote": "The pupil is determined by the secondary mirror which is designed to cover the 8 m aperture for the Nasmyth unvignetted field of view."
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.1375,
+    "unit": "linear ratio (secondary obscuration / D)",
+    "src": "VLTSPE",
+    "loc": "Sec. 3.2.4 (Light baffling)",
+    "quote": "If the baffle is not used, the central obstruction is that produced by the secondary mirror alone (1116 mm diameter).",
+    "alternatives": [
+     {
+      "value": "1116 mm",
+      "src": "EM2",
+      "loc": "M2 specification table",
+      "quote": "Optical useful diameter ... 1116 mm"
+     },
+     {
+      "value": "1550 mm (sky baffle deployed)",
+      "src": "VLTSPE",
+      "loc": "Sec. 3.2.4",
+      "quote": "These baffles can be extended to a diameter of 1550 mm according to the needs of the instrument."
+     }
+    ],
+    "derived": "DERIVED: 1116 / 8115 = 0.1375 (0.1361 relative to 8200 mm); with the baffle deployed 1550 / 8115 = 0.191. No source says which baffle setting FORS2 uses.",
+    "is_derived": true
+   },
+   "telescope_focus": {
+    "value": "UT1 (Antu) Cassegrain",
+    "unit": null,
+    "src": "FOVW",
+    "loc": "Overview, para 1",
+    "quote": "FORS2 is a multi mode (imaging, polarimetry, long slit and multi-object spectroscopy) optical instrument mounted on the UT1 Cassegrain focus.",
+    "alternatives": [
+     {
+      "value": "Antu since June 2004",
+      "src": "FUM117",
+      "loc": "Sec. 4.2",
+      "quote": "The plate scales have also been measured in June 2004 when FORS2 was moved to Antu and FORS1 to Kueyen."
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 13.4106,
+    "unit": "f/# (Cassegrain)",
+    "src": "VLTSPE",
+    "loc": "Table 2",
+    "quote": "Focal ratio 13.4106",
+    "alternatives": [
+     {
+      "value": "F/15 (collimator design label)",
+      "src": "FINST",
+      "loc": "Instrument description",
+      "quote": "two remotely exchangeable F/15 collimators",
+      "note": "nominal label of the collimators, not the telescope f-ratio"
+     },
+     {
+      "value": 13.28,
+      "src": "FUM117",
+      "loc": "Sec. 2.3.1 (528 um/arcsec with 8.2 m)",
+      "quote": "FORS2 reduces the VLT Cassegrain image scale of 528 µm/arcsec",
+      "note": "round-5 DERIVED value before the VLTSPE audit"
+     }
+    ],
+    "derived": "DERIVED check: 108827 / 8115.0 = 13.4106"
+   },
+   "telescope_focal_length": {
+    "value": 108827,
+    "unit": "mm (Cassegrain)",
+    "src": "VLTSPE",
+    "loc": "Table 2",
+    "quote": "Focal length 108827 mm",
+    "alternatives": [
+     {
+      "value": "528 um/arcsec",
+      "src": "VLTSPE",
+      "loc": "Table 2",
+      "quote": "Image scale slightly field dependent 528 µm/arcsec"
+     },
+     {
+      "value": "528 um/arcsec",
+      "src": "FUM117",
+      "loc": "Sec. 2.3.1",
+      "quote": "FORS2 reduces the VLT Cassegrain image scale of 528 µm/arcsec to 0.′′ 25/pixel with the SR collimator"
+     }
+    ],
+    "derived": "DERIVED: 108827 mm / 206264.8 = 527.6 um/arcsec"
+   },
+   "primary_focal_ratio": {
+    "value": 1.8,
+    "unit": "f/# (M1; drawing only)",
+    "src": "EM1",
+    "loc": "Sec. on test results",
+    "quote": "fast aspheres(f/1.8 with a nominal conic constant -1.00469)",
+    "alternatives": [
+     {
+      "value": "R = 28800 mm",
+      "src": "EM1",
+      "loc": "Table 3 (Radius of curvature, specification column)",
+      "quote": "Radius of curvature ... 28800 ± 100"
+     }
+    ],
+    "derived": "DERIVED: f(M1) = 28800 / 2 = 14400 mm; 14400 / 8200 = f/1.756"
+   },
+   "collimator_type": {
+    "value": "refractive (all-dioptric); two exchangeable collimators, SR and HR",
+    "unit": null,
+    "src": "FUM117",
+    "loc": "Sec. 2.1",
+    "quote": "FORS was designed as an all-dioptric instrument for the wavelength range from 330 nm to 1100 nm",
+    "alternatives": [
+     {
+      "value": "first lens group = collimator, images the entrance pupil",
+      "src": "AR92",
+      "loc": "p. 18-19",
+      "quote": "The first group of lenses (the collimator) produces a paral- lel beam and also forms an image of the telescope’s entrance pupil (i.e. of the main mirror)."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": {
+     "SR": 1233,
+     "HR": 616
+    },
+    "unit": "mm",
+    "src": "FUM117",
+    "loc": "Sec. 2.3.1, Table 2.2",
+    "quote": "collimator focal length 1233 mm 616 mm",
+    "alternatives": [
+     {
+      "value": {
+       "SR": 1233,
+       "HR": 616
+      },
+      "src": "FINST",
+      "loc": "Instrument description",
+      "quote": "F/15 collimators of focal length f1233mm (COLL_SR) and f616 mm (COLL_HR)"
+     },
+     {
+      "value": {
+       "SR": 1230,
+       "HR": 615
+      },
+      "src": "AR92",
+      "loc": "p. 19 (design)",
+      "quote": "f of 1230 mm and a collimated beam ... high-resolution collimator (f = 615 mm,"
+     }
+    ]
+   },
+   "pupil_diameter": {
+    "value": {
+     "SR": 90,
+     "HR": 44.5
+    },
+    "unit": "mm (collimated beam / pupil)",
+    "src": "FINST",
+    "loc": "Instrument description",
+    "quote": "giving a 90 mm and a 44.5 mm diameter pupil",
+    "alternatives": [
+     {
+      "value": {
+       "SR": 90,
+       "HR": 45
+      },
+      "src": "AR92",
+      "loc": "p. 19 (design)",
+      "quote": "f of 1230 mm and a collimated beam diameter of 90 mm. ... collimated beam diameter 45 mm)"
+     },
+     {
+      "value": "filters >= 138 mm in the parallel beam",
+      "src": "FUM117",
+      "loc": "Sec. 2.3.3",
+      "quote": "The diameter of user provided filters shall not be smaller than 138mm (parallel beam) to avoid vignetting which would be equivalent to a reduction of the main mirror diameter.",
+      "note": "clear aperture needed for the full field, larger than the axial beam"
+     }
+    ],
+    "derived": "DERIVED (model W = f_col / F_tel): SR 1233 / 13.4106 = 91.94 mm; HR 616 / 13.4106 = 45.93 mm. Published 90 mm = 1233 / f/13.7 and 44.5 mm = 616 / f/13.8 (DERIVED); 'F/15' would give 82.2 / 41.1 mm."
+   },
+   "camera_type": {
+    "value": "refractive, fixed (shared by both collimators)",
+    "unit": null,
+    "src": "AR92",
+    "loc": "p. 19",
+    "quote": "The camera has a fixed focal length of",
+    "alternatives": [
+     {
+      "value": "second lens group focuses the parallel beam",
+      "src": "AR92",
+      "loc": "p. 18-19",
+      "quote": "The second group of len- ses (the camera) then focuses the paral- lel beam onto the CCD detector"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 280,
+    "unit": "mm",
+    "src": "FUM117",
+    "loc": "Table 2.2",
+    "quote": "camera focal length 280 mm 280 mm",
+    "alternatives": [
+     {
+      "value": 280,
+      "src": "FINST",
+      "loc": "Instrument description",
+      "quote": "Together with the f280mm, F/3.1 camera the reduction factors are 4.4 and 2.2 respectively."
+     }
+    ]
+   },
+   "effective_focal_ratio": {
+    "value": {
+     "SR": 3.13,
+     "HR": 6.25
+    },
+    "unit": "final f/#",
+    "src": "FUM117",
+    "loc": "Table 2.2",
+    "quote": "final f-ratio 3.13 6.25",
+    "alternatives": [
+     {
+      "value": {
+       "SR": 3.1,
+       "HR": 6.2
+      },
+      "src": "AR92",
+      "loc": "p. 19 (design)",
+      "quote": "focal ratio is 3.1; with the high-resolution collimator this changes to 6.2"
+     }
+    ],
+    "derived": "DERIVED: f_cam / W = 280 / 91.94 = 3.045 (SR), 280 / 45.93 = 6.10 (HR); with the published pupils 280 / 90 = 3.11, 280 / 44.5 = 6.29. Focal reduction f_col / f_cam = 4.40 (SR), 2.20 (HR), as FINST states."
+   },
+   "filter_location": {
+    "value": "broadband filters in the parallel (collimated) beam, 3 wheels; interference filters in two wheels in the converging beam of the camera, before the shutter and CCD",
+    "unit": null,
+    "src": "FUM117",
+    "loc": "Sec. 2.1",
+    "quote": "the broadband filter wheel in the parallel beam. Furthermore the camera, the interference filter wheels in the converging beam and the exposure shutter in front of the CCD.",
+    "alternatives": [
+     {
+      "value": "7 broadband (3 parallel-beam wheels), 8 interference (2 convergent-beam wheels)",
+      "src": "FUM117",
+      "loc": "Sec. 2.3.2",
+      "quote": "FORS2 provides positions for 7 broadband filters in any of the three wheels of the parallel beam section and for 8 interference filters in two wheels of convergent beam section."
+     },
+     {
+      "value": "interference filters 115 mm, converging beam",
+      "src": "FUM117",
+      "loc": "Sec. 2.3.3",
+      "quote": "Interference filters (115±0.25mm) are used in the converging beam of the camera."
+     },
+     {
+      "value": "interference filters outside the parallel beam (design reason)",
+      "src": "AR92",
+      "loc": "p. 19",
+      "quote": "interference filters have to be inserted outside the parallel beam."
+     }
+    ]
+   },
+   "detector": {
+    "value": "MIT/LL mosaic of two 2k x 4k CCDs (CCID-20), 15 um pixels (E2V mosaic, same format, visitor mode)",
+    "unit": null,
+    "src": "FUM117",
+    "loc": "Sec. 2.7.1",
+    "quote": "The standard detector mosaic of FORS2 consists of two 2k×4k MIT CCDs (the pixel size is 15 × 15 µm)",
+    "alternatives": [
+     {
+      "value": "MIT/LL mosaic, chip CCID20-14-5-6",
+      "src": "FD300V",
+      "loc": "primary header",
+      "quote": "ESO DET CHIP1 ID = CCID20-14-5-6 / Detector chip identification"
+     }
+    ]
+   },
+   "chip_format": {
+    "value": {
+     "Nx": 4096,
+     "Ny": 2048
+    },
+    "unit": "pixels per chip (photosensitive)",
+    "src": "FUM117",
+    "loc": "Table 2.9",
+    "quote": "photosensitive pixels (nchips × nx × ny ) 2×4096×2048 2×4096×2048",
+    "alternatives": [
+     {
+      "value": {
+       "Nx": 4096,
+       "Ny": 2048
+      },
+      "src": "FD300V",
+      "loc": "primary header",
+      "quote": "ESO DET CHIP1 NX = 4096 / # of pixels along X ... ESO DET CHIP1 NY = 2048 / # of pixels along Y"
+     }
+    ]
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um",
+    "src": "FUM117",
+    "loc": "Table 2.9",
+    "quote": "pixel size (µm) 15 15",
+    "alternatives": [
+     {
+      "value": 15.0,
+      "src": "FD300V",
+      "loc": "primary header",
+      "quote": "ESO DET CHIP1 PSZX = 15.0 / Size of pixel in X"
+     }
+    ]
+   },
+   "n_chips": {
+    "value": 2,
+    "unit": "chips",
+    "src": "FUM117",
+    "loc": "Table 2.9",
+    "quote": "photosensitive pixels (nchips × nx × ny ) 2×4096×2048"
+   },
+   "chip_layout": {
+    "value": {
+     "rows": [
+      1,
+      1
+     ],
+     "chip_in_row": "4096 (x) x 2048 (y)",
+     "stacking": "chip 1 (upper) above chip 2 (lower), gap along y"
+    },
+    "unit": null,
+    "src": "FUM117",
+    "loc": "Sec. 2.7.1",
+    "quote": "In both mosaics the detectors are flat and the bottom (‘chip 2’) detector is rotated and shifted with respect to the upper (‘chip 1’) detector.",
+    "alternatives": [
+     {
+      "value": "gap between upper and lower detectors",
+      "src": "FUM117",
+      "loc": "Sec. 3.x (acquisition)",
+      "quote": "This position is around 30 arc seconds above the gap between the upper and lower detectors"
+     },
+     {
+      "value": "mosaic offset from the axis",
+      "src": "FUM117",
+      "loc": "Sec. 2.3.1",
+      "quote": "The two CCDs of each mosaic are mounted slightly offset from the optical axis by 33′′ for operational reasons."
+     }
+    ]
+   },
+   "chip_gaps": {
+    "value": {
+     "between_rows_um": 480,
+     "x_offset_um": 30,
+     "rotation_deg": 0.08
+    },
+    "unit": "um; deg",
+    "src": "FUM117",
+    "loc": "Table 2.7 (detector geometry; columns rotation (deg), X-offset (um), Y-offset (um))",
+    "quote": "MIT (red) 0.08 30.0 480.0",
+    "alternatives": [
+     {
+      "value": {
+       "YGAP": 480.0,
+       "XGAP": 30.0,
+       "RGAP": 0.08278
+      },
+      "src": "FD300V",
+      "loc": "primary header",
+      "quote": "ESO DET CHIP1 YGAP = 480.0 / Gap between chips along y ... ESO DET CHIP1 XGAP = 30.0 / Gap between chips along x ... ESO DET CHIP1 RGAP = 0.08278 / Gap rotation between chips 1 and 2"
+     },
+     {
+      "value": {
+       "between_rows_um": 1390,
+       "x_offset_um": -10.5,
+       "rotation_deg": 0.025
+      },
+      "src": "FUM117",
+      "loc": "Table 2.7",
+      "quote": "E2V (blue) 0.025 -10.5 1390",
+      "note": "E2V mosaic (visitor mode)"
+     }
+    ],
+    "derived": "DERIVED: 480 / 15 = 32 px = 4.03\" at 0.12591\"/px (16 binned px); 30 um = 2 px offset in x."
+   },
+   "field_limit": {
+    "value": "SR: the MOS unit (slit arms) in the telescope focal plane, larger CCD mosaic; HR: the CCDs, corners vignetted by the camera lenses",
+    "unit": null,
+    "src": "FUM117",
+    "loc": "Sec. 2.3.1",
+    "quote": "The field of view of FORS2 with the MIT/E2V CCDs is restricted by the MOS unit in the focal plane of the unit telescope to about 6.8×6.8 arcminutes for the SR collimator. In case of the HR collimator the corners of the field of view are vignetted by the camera lenses.",
+    "alternatives": [
+     {
+      "value": "SR: MOS unit; HR: size of the two CCDs",
+      "src": "FMIT",
+      "loc": "New Field Geometry",
+      "quote": "With the standard resolution collimator the field will be restricted by the geometry of the MOS unit which is permanently in the field of view ... The field of view will be limited by the size of the two CCD (two green rectangles)."
+     },
+     {
+      "value": "SR mosaic larger than the field; HR corners vignetted",
+      "src": "FINST",
+      "loc": "Instrument description",
+      "quote": "In standard resolution SR-mode the CCD mosaic will be larger than the unvignetted field in the focal plane. In high resolution HR-mode the corners of theCCDs are vignetted by thecamera optics."
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": {
+     "SR": "6.8' x 6.8' (unvignetted); 7.1' x 7.1' nominal",
+     "HR": "4.3' x 4.3'"
+    },
+    "unit": "arcmin (square)",
+    "src": "FUM117",
+    "loc": "Table 2.2 and note (1)",
+    "quote": "Field of View 7.′ 1×7.′ 1(1) 4.′ 3×4.′ 3 ... observation is ∼ 6.′ 8×6.′ 8 due to vignetting by the MOS arms.",
+    "alternatives": [
+     {
+      "value": {
+       "SR": "7.1 x 7.1 (6.8 x 6.8 unvignetted)",
+       "HR": "4.25 x 4.25"
+      },
+      "src": "FOVW",
+      "loc": "Overview",
+      "quote": "The corresponding field sizes are 7.1' x 7.1' (~ 6.8' x 6.8' of which is not vignetted by the MOS arms) and 4.25' x 4.25' respectively."
+     },
+     {
+      "value": {
+       "SR": "7.1 x 7.1",
+       "HR": "4.2 x 4.2"
+      },
+      "src": "FINST",
+      "loc": "Instrument description",
+      "quote": "The resulting field of view is 7.1'x7.1' with the standard resolution collimator (SR) and 4.2'x4.2' with the high resolution collimator (HR) for the mosaiced CCDs."
+     },
+     {
+      "value": {
+       "SR": "6.8 x 6.8 (square)",
+       "HR": ">= 2' diameter (circular)"
+      },
+      "src": "AR92",
+      "loc": "p. 19 (1992 design, before the 2k x 4k mosaics)",
+      "quote": "The available field of view in the two modes will be 6.8’ x 6.8’ (square) and (at least) 2’ diameter (circular)"
+     }
+    ],
+    "derived": "DERIVED mosaic extent: x 4096 x 0.12591\" = 8.60', y (2 x 2048 + 32) x 0.12591\" = 8.66' (SR, larger than the 6.8' field); HR 4096 x 0.06323\" = 4.32'."
+   }
+  },
+  "performance": {
+   "pixel_scale_SR": {
+    "value": 0.12591,
+    "unit": "arcsec per unbinned 15-um pixel (measured, FORS2/Antu, SR, omega Cen, I band, June 2004)",
+    "src": "FUM117",
+    "loc": "Sec. 4.2, Table 4.2",
+    "quote": "FORS2/Antu SR ω Cen I 0.12591±0.00002",
+    "alternatives": [
+     {
+      "value": {
+       "1x1": 0.125,
+       "2x2": 0.25
+      },
+      "src": "FUM117",
+      "loc": "Table 2.2 (nominal)",
+      "quote": "Pixel Scale (2x2) ∼0.′′ 25/pixel ∼0.′′ 125/pixel"
+     },
+     {
+      "value": 0.126,
+      "src": "FD300V",
+      "loc": "primary header",
+      "quote": "HIERARCH ESO INS PIXSCALE = 0.126 / pixel scale in arcsec/pixel"
+     },
+     {
+      "value": [
+       0.12604,
+       0.12607
+      ],
+      "src": "FUM117",
+      "loc": "Table 4.2 (FORS2 on Yepun, before 2004)",
+      "quote": "FORS2/Yepun SR 47 Tuc I 0.12604±0.00003 ... FORS2/Yepun SR Pal 3 I 0.12607±0.00003"
+     }
+    ],
+    "derived": "DERIVED (model): 206264.8 x 0.015 mm / (108827 mm x 280/1233) = 0.12519\"/px (-0.57% vs measured); from 528 um/\": 0.015 / (0.528 x 280/1233) = 0.12510"
+   },
+   "pixel_scale_HR": {
+    "value": 0.06323,
+    "unit": "arcsec per unbinned pixel (measured, FORS2/Yepun, HR, Pal 3)",
+    "src": "FUM117",
+    "loc": "Table 4.2",
+    "quote": "FORS2/Yepun HR Pal 3 I 0.06323±0.00003",
+    "alternatives": [
+     {
+      "value": 0.0632,
+      "src": "FUM117",
+      "loc": "Table 2.2 (nominal)",
+      "quote": "Pixel Scale (1x1) ∼0.′′ 125/pixel ∼0.′′ 0632/pixel"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 x 0.015 / (108827 x 280/616) = 0.06255\"/px (-1.1%)"
+   },
+   "field_of_view": {
+    "value": "6.8' x 6.8' (SR, unvignetted); 4.25' x 4.25' (HR)",
+    "unit": "arcmin",
+    "src": "FOVW",
+    "loc": "Overview",
+    "quote": "The corresponding field sizes are 7.1' x 7.1' (~ 6.8' x 6.8' of which is not vignetted by the MOS arms) and 4.25' x 4.25' respectively."
+   }
+  },
+  "not_found": [
+   "The inter-chip gap in pixels or arcsec as a stated number: only the 480 um y-offset (FUM117 Table 2.7, header YGAP); 32 px / 4.0\" is DERIVED.",
+   "The axial position of the pupil relative to the three parallel-beam filter wheels (the manual places them 'in the parallel beam' only).",
+   "Which M2 sky-baffle setting (1116 mm bare M2 or 1550 mm deployed) FORS2 uses; eps = 0.1375 assumes the bare M2.",
+   "Collimator and camera optical prescriptions (element count, glasses); not needed by the ideal-optics model.",
+   "An as-built pupil diameter tied to the 13.4106 f-ratio: ESO's 90 / 44.5 mm and the 1992 design 90 / 45 mm both imply f/13.7-13.8, not f/13.41."
+  ],
+  "conflicts": [
+   "Pupil (beam) diameter: 90 mm SR / 44.5 mm HR (FINST) vs 90 / 45 mm (AR92 design) vs 91.9 / 45.9 mm DERIVED from f_col / 13.4106 vs 82.2 / 41.1 mm if the 'F/15 collimators' label (FINST) were the input f-ratio.",
+   "Final f-ratio: 3.13 / 6.25 (FUM117) vs 3.1 / 6.2 (AR92, FINST 'F/3.1') vs 3.05 / 6.10 DERIVED from f_cam / (f_col / F_tel).",
+   "HR field: 4.3' x 4.3' (FUM117 Table 2.2) vs 4.25' (FOVW) vs 4.2' (FINST; FMIT) vs 'at least 2' diameter' (AR92, 1992 design for a smaller detector). SR field: 7.1' x 7.1' nominal vs ~6.8' x 6.8' unvignetted (FUM117, FOVW, FINST).",
+   "Pixel scale (SR, unbinned): 0.12591 measured on Antu (2004) vs 0.12604-0.12607 on Yepun vs ~0.125 nominal vs 0.126 (pipeline header) vs 0.12519 DERIVED from the VLTSPE focal length (0.6% low). HR: 0.06323 measured vs 0.0632 nominal vs 0.06255 DERIVED.",
+   "Telescope aperture: 8.115 m entrance pupil (VLTSPE) vs 8.2 m M1 (EUT); primary f/1.8 (EM1 text) vs f/1.756 DERIVED from R = 28800 mm and 8.2 m."
+  ],
+  "notes": [
+   "Reuse: telescope, collimator, camera and detector values are the round-5 FORS2 records (FUM117, AR92, FD300V, VLTSPE); new here are the imaging field (FUM117 Sec. 2.3.1, FOVW, FINST, FMIT), the filter locations, the pupil diameters stated by ESO (FINST), the chip-gap geometry (FUM117 Table 2.7 + FD300V header), M1 f/1.8 and the M2 size (EM1, EM2).",
+   "Imaging mode puts no disperser in the beam: the grism wheel is empty and the camera sits on the collimator axis (same straight-through geometry as the grism presets).",
+   "Two filter planes: broadband filters sit in the collimated beam (every field point uses the whole filter; filter size >= 138 mm for the full field), interference filters in the converging beam just before the CCD (AR92: to avoid position-dependent bandpasses in the parallel beam).",
+   "Default imaging readout is 2x2 binned, 200 kHz, low gain (FUM117 Sec. 2.7.1: \"200kHz,2x2,low — direct imaging IMG, OCC IPOL IPOL\"); the validation scale is quoted per unbinned pixel.",
+   "The two chips are offset 33\" from the optical axis so that the field centre falls on chip 1 (unbinned y ~ 238 of chip 1 in SR, FUM117) and the gap falls between two MOS slits (FMIT)."
+  ]
+ },
+ "imacs_f2": {
+  "short": "Magellan/IMACS f/2 (imaging)",
+  "title": "Magellan I (Baade) / IMACS f/2 (\"short\") camera imaging -- refractive collimator on the f/11 Gregorian Nasmyth focus, straight-through f/2 camera (the spectrograph presets use the f/4 camera)",
+  "summary": "complete. Baade 6.5 m at f/11 (71526.4 mm, 1998 design), primary f/1.25, central obscuration 29% (measured for the twin Clay telescope; secondary baffle). Collimator 1648.46 mm with a 150 mm pupil (round-4 records). f/2 camera: 355.6 mm (BD03 Table 1, CS98N15), f/2.38 imaging -> f_cam / W = 2.37 DERIVED. Filters: 165-mm square filters in a Filter Server in the converging beam just in front of the CCD; narrow-band filters at the pupil. Detector since Dec 2017: Mosaic3, eight 2K x 4K x 15 um E2V CCDs in a 4 x 2 array = 2 rows of 4 chips; gaps 1.37 mm (91 px) between long sides (within a row) and 1.08 mm (72 px) between short sides (between rows). Field: the 8192-px mosaic spans 28' with gaps; light is unvignetted to R = 12', ~10% vignetted at R = 15', and baffled beyond (corners dark) -> 670 sq arcmin (DERIVED 676 for a R = 15' circle on the mosaic). Validation: 0.200\"/px (DERIVED 0.2005), 27.4' field. Weak points: collimator and telescope scale are 1998 design values; the obscuration is the Clay value; which f/2 mosaic edge is the long side is inferred from the 4 x 2 layout.",
+  "recommended_preset": "D = 6.5 m, eps = 0.29 (Clay twin, secondary baffle), F_tel = 11.0 (f/11 Gregorian Nasmyth; 71526.4 mm design), f_col = 1648.46 mm, W = 150 mm (= f_col / F, DERIVED 149.8), f_cam = 355.6 mm (f/2.37 DERIVED; published f/2.38 imaging), filters in the converging beam just ahead of the detector, Mosaic3: 2 rows of 4 chips (each 2048 x 4096, 15 um), 91 px (1.37 mm) gaps between chips in a row and a 72 px (1.08 mm) gap between the rows, field = mosaic (28.3' x 27.6' DERIVED with gaps) cut by a 30'-diameter circular stop (vignetting from R = 12' to ~10% at R = 15'). Validate: 0.200\"/px (model 0.2005), 670 sq arcmin illuminated (model 676 DERIVED), mosaic '28 arcminutes across (including chip gaps)'.",
+  "preset_inputs": {
+   "D_m": 6.5,
+   "eps": 0.29,
+   "eps_note": "measured for Magellan Clay (twin of Baade), 'defined by the secondary baffle'",
+   "F_tel": 11.0,
+   "f_tel_mm": 71526.4,
+   "focus": "Nasmyth (Baade west platform), f/11 Gregorian + ADC corrector",
+   "primary_F_drawing": 1.25,
+   "f_col_mm": 1648.46,
+   "W_mm": 150,
+   "W_mm_DERIVED": 149.8,
+   "f_cam_mm": 355.6,
+   "effective_F_DERIVED": 2.37,
+   "effective_F_published": 2.38,
+   "filters": "Filter Server (15 slots, 165 mm square): converging beam, just in front of the CCD; narrow-band filters: at the spectrograph pupil (disperser-wheel holders)",
+   "detector": {
+    "name": "Mosaic3 (on f/2 since Dec 2017)",
+    "chip_Nx": 2048,
+    "chip_Ny": 4096,
+    "pitch_um": 15,
+    "n_chips": 8,
+    "rows": [
+     4,
+     4
+    ],
+    "gap_in_row_mm": 1.37,
+    "gap_in_row_px": 91,
+    "gap_between_rows_mm": 1.08,
+    "gap_between_rows_px": 72
+   },
+   "field": {
+    "limit": "camera baffles + tertiary vignetting: circular stop on a square mosaic",
+    "circle_diameter_arcmin": 30,
+    "unvignetted_radius_arcmin": 12,
+    "vignetting_at_R15_pct": 10,
+    "mosaic_extent_arcmin_DERIVED": [
+     28.3,
+     27.6
+    ],
+    "illuminated_area_sq_arcmin": 670
+   },
+   "validation": {
+    "pixel_scale_arcsec": 0.2,
+    "fov": "27.4' (LCOUM) / 28' across incl. gaps (D11); 670 sq arcmin"
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 6.5,
+    "unit": "m (primary diameter)",
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "primary diameter: 6.5 m (255.9 inches)",
+    "alternatives": [
+     {
+      "value": 6.5,
+      "src": "LCOUM",
+      "loc": "1.B Basic Component Layout",
+      "quote": "It is fed by the telescope’s 6.5m primary, f/11 Gregorian secondary, and flat tertiary mirrors, and a corrector."
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.29,
+    "unit": "linear ratio (central obscuration / D)",
+    "src": "M18",
+    "loc": "Sec. 4.1 'The Clay Telescope'",
+    "quote": "The central obscuration is 29% (defined by the secondary baffle)",
+    "note": "Measured for Magellan Clay, the twin of Baade (LCOT: \"the twin 6.5 meter Magellan telescopes\"); no Baade-specific value found. The 29% is read as a diameter ratio (MagAO-X pupil model); the source does not say linear vs area."
+   },
+   "telescope_focus": {
+    "value": "Nasmyth, f/11 Gregorian secondary + flat tertiary + ADC corrector; west Nasmyth platform of Baade",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B Basic Component Layout",
+    "quote": "It is fed by the telescope’s 6.5m primary, f/11 Gregorian secondary, and flat tertiary mirrors, and a corrector.",
+    "alternatives": [
+     {
+      "value": "Gregorian secondary designed with the collimator",
+      "src": "LCOUM",
+      "loc": "1.B",
+      "quote": "in effect, the Gregorian secondary is the first optical element in the IMACS collimator"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 11,
+    "unit": "f/#",
+    "src": "LCOT",
+    "loc": "para 2",
+    "quote": "The principal foci are f/11 at the two Nasmyth locations",
+    "derived": "DERIVED: 71526.4 mm / 6500 mm = f/11.004"
+   },
+   "telescope_focal_length": {
+    "value": 71526.4,
+    "unit": "mm (f/11 configuration, 1998 design)",
+    "src": "CS98N9",
+    "loc": "f/11 design-parameter table",
+    "quote": "focal length: 71526.4 mm (2816 inches)",
+    "alternatives": [
+     {
+      "value": "346.77 um/arcsec",
+      "src": "CS98N9",
+      "loc": "same table",
+      "quote": "plate scale: 346.77 microns/arc-sec"
+     }
+    ]
+   },
+   "primary_focal_ratio": {
+    "value": 1.25,
+    "unit": "f/# (drawing only)",
+    "src": "LCOT",
+    "loc": "para 3",
+    "quote": "They are f/1.25 paraboloids"
+   },
+   "collimator_type": {
+    "value": "refractive, all-spherical (field lens + 4 elements)",
+    "unit": null,
+    "src": "CS98N11",
+    "loc": "Collimator",
+    "quote": "consisting of a field lens and 4 collimating elements",
+    "alternatives": [
+     {
+      "value": "all-transmitting, all-spherical",
+      "src": "LCOUM",
+      "loc": "1.B",
+      "quote": "The all-transmitting (all-spherical-optics) collimator in IMACS contributes very little in the way of additional aberrations"
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 1648.46,
+    "unit": "mm (1998 design value; no as-built value published)",
+    "src": "CS98N11",
+    "loc": "design-parameter table",
+    "quote": "focal length: 1648.46 mm (64.90 inches)",
+    "note": "Round-4 record (data/round4/imacs.md): consistent with the as-built 0.111\"/px of the f/4 camera (DERIVED 1648.6 mm)."
+   },
+   "pupil_diameter": {
+    "value": 150,
+    "unit": "mm (collimated beam)",
+    "src": "CS98N11",
+    "loc": "design-parameter table",
+    "quote": "output beam diameter: 150 mm (5.9 inches)",
+    "alternatives": [
+     {
+      "value": 150,
+      "src": "BD03",
+      "loc": "Sec. 1",
+      "quote": "Two cameras are used to re-image the 150mm-"
+     }
+    ],
+    "derived": "DERIVED: f_col / F = 1648.46 / 11.004 = 149.8 mm"
+   },
+   "camera_type": {
+    "value": "f/2 'short' camera: all-transmitting glass-and-oil lens with two aspheres, in-line with the collimator (straight through); imaging uses the open position of the disperser wheel",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B 'The f/2 Channel in IMACS'",
+    "quote": "The all-transmitting, double-asphere, glass-and-oil-lens f/2.5 “short” camera (known as f/2) works in-line with the IMACS collimator (no reflection) for imaging.",
+    "alternatives": [
+     {
+      "value": "eight lenses in four groups",
+      "src": "BD03",
+      "loc": "Sec. 3.4",
+      "quote": "The f/2 camera uses eight lenses in four groups (doublet-singlet-quartet-singlet)."
+     },
+     {
+      "value": "open disperser position for f/2 imaging",
+      "src": "D11",
+      "loc": "Sec. 3.4.4",
+      "quote": "There are 5 locations for dispersers and an open aperture position for direct imaging with the f/2 camera"
+     },
+     {
+      "value": "9 elements, 3 aspheres (design)",
+      "src": "CS98N15",
+      "loc": "Short Camera",
+      "quote": "The camera consists of 9 elements, including three aspheric surfaces"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 355.6,
+    "unit": "mm",
+    "src": "BD03",
+    "loc": "Table 1 (IMACS camera specifications), F/2 column",
+    "quote": "Focal length 641.8 mm 355.6 mm",
+    "alternatives": [
+     {
+      "value": 355.6,
+      "src": "CS98N15",
+      "loc": "design-parameter table",
+      "quote": "focal length: 355.6 mm (14.00 inches)"
+     }
+    ]
+   },
+   "effective_focal_ratio": {
+    "value": 2.38,
+    "unit": "f/# (imaging)",
+    "src": "BD03",
+    "loc": "Table 1, F/2 column",
+    "quote": "f/2.38 (imaging), f/1.47 (ana.)",
+    "alternatives": [
+     {
+      "value": 2.3,
+      "src": "D11",
+      "loc": "Sec. 3.1",
+      "quote": "f/2.3 “short” camera (abbreviated ‘f/2’ in this paper)"
+     },
+     {
+      "value": 2.5,
+      "src": "LCOUM",
+      "loc": "1.B",
+      "quote": "glass-and-oil-lens f/2.5 “short” camera (known as f/2)"
+     }
+    ],
+    "derived": "DERIVED: f_cam / W = 355.6 / 150 = 2.371"
+   },
+   "filter_location": {
+    "value": "Filter Server (15 x 165-mm square filters) in the converging beam just in front of the Mosaic CCD camera; narrow-band filters in holders at the spectrograph pupil",
+    "unit": null,
+    "src": "D11",
+    "loc": "Sec. 3.4.3 'Filters and Shutters'",
+    "quote": "Just in front of the Mosaic CCD Cameras, the f/2 and f/4 cameras are each slotted to accept a Shutter and Filter Server.",
+    "alternatives": [
+     {
+      "value": "converging beam location",
+      "src": "D11",
+      "loc": "Sec. 3.4.4",
+      "quote": "these perform better at the spectrograph pupil rather than the converging beam location of the Filter Servers."
+     },
+     {
+      "value": "165 mm square, 15 per server",
+      "src": "LCOUM",
+      "loc": "The Choice of Filters",
+      "quote": "They are “jukebox style” with 15 black-anodized aluminum frames designed to hold 6.5-inch (165 mm) square filters"
+     },
+     {
+      "value": "narrow-band in the parallel beam",
+      "src": "LCOUM",
+      "loc": "1.B 'The f/2 Channel in IMACS'",
+      "quote": "parallel light of the beam is the idea place for narrow-band filters"
+     }
+    ]
+   },
+   "detector": {
+    "value": "Mosaic3 on f/2 since December 2017: eight E2V deep-depletion 2K x 4K x 15 um CCDs, 8192 x 8192 px",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B 'The IMACS Mosaic CCD Cameras'",
+    "quote": "As of December 2017, Mosaic2 is on f/4 and Mosaic3 is on f/2.",
+    "alternatives": [
+     {
+      "value": "8 CCDs, 8192 x 8192, 2K x 4K x 15 um",
+      "src": "LCOUM",
+      "loc": "1.B",
+      "quote": "Mosaic2 and Mosaic3 each use eight thinned CCDs manufactured by E2V to produce a 8192 x 8192 pixel mosaic. These CCDs are all 2K x 4K x 15-micron devices"
+     }
+    ]
+   },
+   "chip_format": {
+    "value": {
+     "Nx": 2048,
+     "Ny": 4096
+    },
+    "unit": "pixels per chip",
+    "src": "LCOUM",
+    "loc": "1.B",
+    "quote": "These CCDs are all 2K x 4K x 15-micron devices"
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um",
+    "src": "LCOUM",
+    "loc": "1.B",
+    "quote": "These CCDs are all 2K x 4K x 15-micron devices"
+   },
+   "n_chips": {
+    "value": 8,
+    "unit": "chips",
+    "src": "LCOUM",
+    "loc": "1.B",
+    "quote": "Mosaic2 and Mosaic3 each use eight thinned CCDs"
+   },
+   "chip_layout": {
+    "value": {
+     "rows": [
+      4,
+      4
+     ],
+     "chip_in_row": "2048 (x) x 4096 (y)"
+    },
+    "unit": null,
+    "src": "D11",
+    "loc": "Sec. 8 'The Mosaic CCD Cameras'",
+    "quote": "Each of the two IMACS detector systems consists of eight back-illuminated 2K x 4K 15µm pixel devices mounted as a 4 × 2 array on a single baseplate",
+    "derived": "DERIVED: 4 chips x 2048 = 8192 px across a row, 2 rows x 4096 = 8192 px; chips side by side in a row meet at their long (4096-px) sides, the two rows meet at their short sides (LCOUM's f/4 note that spectra along the 2048-px axis cross '4 CCDs and 3 chip gaps' fixes this orientation)."
+   },
+   "chip_gaps": {
+    "value": {
+     "in_row_long_sides_mm": 1.37,
+     "in_row_px": 91,
+     "between_rows_short_sides_mm": 1.08,
+     "between_rows_px": 72
+    },
+    "unit": "mm; px",
+    "src": "LCOUM",
+    "loc": "1.B 'The IMACS Mosaic CCD Cameras' (Mosaic3)",
+    "quote": "The gap between the short sides of the CCDs are 1.08 mm = 8.0 arcsec (72 pixels). The gaps between the longer sides are about 1.37 mm = 10.1 arcsec (91 pixels).",
+    "alternatives": [
+     {
+      "value": {
+       "short_sides_mm": 0.86,
+       "short_px": 57,
+       "long_sides_mm": 1.38,
+       "long_px": 92
+      },
+      "src": "LCOUM",
+      "loc": "1.B (Mosaic2, on f/4 since 2017)",
+      "quote": "The gap between the short sides of the CCDs are 0.86 mm = 11.4 arcsec (57 pixels). The gaps between the longer sides are larger, about 1.38 mm = 18.4 arcsec (92 pixels)."
+     },
+     {
+      "value": {
+       "both_mm": 0.93,
+       "px": 62
+      },
+      "src": "LCOUM",
+      "loc": "1.B (Mosaic1, retired)",
+      "quote": "with of gaps of about 0.93 mm = 12.4″ (62 pixels)"
+     }
+    ],
+    "derived": "DERIVED: the arcsec values in LCOUM are at the scale of the camera each mosaic served when written (Mosaic3 at f/4: 72 x 0.111 = 8.0\", 91 x 0.111 = 10.1\"); at f/2: 72 x 0.2005 = 14.4\", 91 x 0.2005 = 18.2\". 1.37 mm / 15 um = 91.3 px; 1.08 mm / 15 um = 72.0 px."
+   },
+   "field_limit": {
+    "value": "square mosaic cut by a circular stop: vignetting by the tertiary from R = 12' (0%) to R = 15' (~10%), light cut off by baffles inside the camera beyond, so the mosaic corners are dark",
+    "unit": null,
+    "src": "LCOUM",
+    "loc": "1.B 'The f/2 Channel in IMACS'",
+    "quote": "The field is vignetted in the corners (by the tertiary and its mounting assembly), changing from 0% at R = 12 arcmin to ~10% at R = 15 arcmin. Beyond this, light is cut off by bafflles inside the camera: the corners of the square field of the CCD mosaic camera are missing",
+    "alternatives": [
+     {
+      "value": "vignetted beyond R = 12', 9% at R = 15', baffled beyond",
+      "src": "D11",
+      "loc": "Sec. 3.1 (Fig. 2 text)",
+      "quote": "The f/2 field under fills the array: it becomes vignetted beyond the R = 12′ radius, amounting to 9% light-loss at R = 15′ . The light is baffled beyond this, so the corners of the Mosaic are not illuminated"
+     },
+     {
+      "value": "30' diameter outer circle",
+      "src": "D11",
+      "loc": "Fig. 2 caption",
+      "quote": "The outer circle is the full but partially vignetted field of 30′ diameter."
+     },
+     {
+      "value": "30' diameter f/11 field",
+      "src": "CS98N9",
+      "loc": "f/11 design-parameter table",
+      "quote": "field of view: 30 arc-min dia."
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": "27.4' diameter (LCOUM); mosaic 28' across including gaps; 670 sq arcmin illuminated (656 on pixels)",
+    "unit": "arcmin",
+    "src": "LCOUM",
+    "loc": "1.B 'The f/2 Channel in IMACS'",
+    "quote": "The f/2 focus delivers an 27.4 arcmin diameter field at a (central) scale of 0.200 arcsec per pixel.",
+    "alternatives": [
+     {
+      "value": "28' across incl. gaps",
+      "src": "D11",
+      "loc": "Fig. 2 caption",
+      "quote": "The solid lines show the projection of the CCD Mosaic in f/2, which measures 28 arcminutes across (including chip gaps)."
+     },
+     {
+      "value": "670 sq arcmin (656 on pixels)",
+      "src": "LCOUM",
+      "loc": "Field layout for the f/4 and f/2 channels",
+      "quote": "The f/2 camera accesses the largest possible field, 670 sq arcmin, 656 of which are covered by CCD pixels"
+     },
+     {
+      "value": "27.5' diameter",
+      "src": "D11",
+      "loc": "Sec. 3.1",
+      "quote": "a 27.5 arcmin diameter field sampled at 0.20′′ pixel−1"
+     },
+     {
+      "value": "27.2' x 27.2'",
+      "src": "BD03",
+      "loc": "Table 1, F/2 column",
+      "quote": "Field of view 15.46 arcmin X 15.46 arcmin 27.2 arcmin X 27.2 arcmin"
+     },
+     {
+      "value": "27' x 27' (design)",
+      "src": "CS98N15",
+      "loc": "design-parameter table",
+      "quote": "field of view: 27 x 27 arc-min"
+     }
+    ],
+    "derived": "DERIVED: mosaic without gaps 8192 x 0.20052\" = 27.38' (= the quoted 27.4'); with gaps x (8192 + 3 x 91) = 28.29', y (8192 + 72) = 27.62'; area of a R = 15' circle on that mosaic = 676 sq arcmin (published 670); a R = 13.7' circle would give only 589."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.2,
+    "unit": "arcsec/pixel (central)",
+    "src": "LCOUM",
+    "loc": "1.B 'The f/2 Channel in IMACS'",
+    "quote": "at a (central) scale of 0.200 arcsec per pixel",
+    "alternatives": [
+     {
+      "value": "5.0 px/arcsec",
+      "src": "BD03",
+      "loc": "Table 1, F/2 column",
+      "quote": "Pixel scale 9.0 pixels/arcsec 5.0 pixels/arcsec"
+     },
+     {
+      "value": 0.201,
+      "src": "BD03",
+      "loc": "Sec. 1",
+      "quote": "at 0.111 and 0.201 arcsec/pixel"
+     },
+     {
+      "value": 0.2,
+      "src": "CS98N15",
+      "loc": "design-parameter table",
+      "quote": "scale: 0.200 arc-sec/px"
+     }
+    ],
+    "derived": "DERIVED (model): 206264.8 x 0.015 / (71526.4 x 355.6 / 1648.46) = 0.20052\"/px"
+   },
+   "field_of_view": {
+    "value": "27.4' (diameter as quoted) / 670 sq arcmin",
+    "unit": "arcmin",
+    "src": "LCOUM",
+    "loc": "1.B",
+    "quote": "The f/2 focus delivers an 27.4 arcmin diameter field"
+   }
+  },
+  "not_found": [
+   "A Baade-specific central obscuration: only the Clay value (29%, MagAO-X, 'defined by the secondary baffle'); not stated whether it is linear or by area (read as linear).",
+   "As-built collimator focal length and telescope focal length behind the ADC corrector (1998 design values used, as for the f/4 preset).",
+   "The physical size of the camera-internal baffle (only its effect: light cut off beyond R ~ 15').",
+   "Which mosaic axis is x on the sky in f/2 imaging; the row/column assignment follows the 4 x 2 layout and the long/short-side gap description."
+  ],
+  "conflicts": [
+   "f/2 camera focal ratio: f/2.38 imaging (BD03) vs f/2.3 (D11) vs f/2.5 (LCOUM); DERIVED 355.6 / 150 = 2.37.",
+   "Field: 27.4' diameter (LCOUM) vs 27.5' diameter (D11 Sec. 3.1) vs 27.2' x 27.2' (BD03) vs 27' x 27' (CS98N15 design) vs 28' across including gaps (D11 Fig. 2) vs the 30'-diameter partially vignetted circle (D11). The 27.4' equals the gap-free mosaic width (DERIVED 27.38'); the illuminated area (670 sq arcmin) needs a R ~ 15' circle (DERIVED 676).",
+   "Vignetting at R = 15': ~10% (LCOUM) vs 9% (D11).",
+   "Pixel scale: 0.200 (LCOUM, CS98N15) vs 0.201 (BD03 Sec. 1) vs 5.0 px/arcsec (BD03 Table 1); DERIVED 0.2005.",
+   "Gap sizes differ between mosaics: Mosaic3 1.08 / 1.37 mm (now on f/2) vs Mosaic2 0.86 / 1.38 mm vs Mosaic1 0.93 mm."
+  ],
+  "notes": [
+   "Reuse: telescope (CS98N9, LCOT), collimator and pupil (CS98N11, BD03), f/2 camera focal length (BD03, CS98N15) are the round-4 IMACS records; new here are the f/2 imaging field, filter location, the Mosaic3 layout and gaps, and the obscuration (M18).",
+   "The f/2 camera is in line with the collimator: imaging uses the open position of the disperser wheel (no fold), unlike f/4 imaging, which uses a silvered mirror in the disperser wheel.",
+   "Detector history: Mosaic1 (SITe, both cameras) to 2008; Mosaic2 on f/2 2008-2017; Mosaic3 on f/2 since December 2017 (LCOUM).",
+   "The Durham IFU, MMTF and the guiders are not part of the imaging preset; the two outboard guiders can shadow 1-2' arcs at the top and bottom of the f/2 field (LCOUM)."
+  ]
+ },
+ "lris": {
+  "short": "Keck/LRIS (imaging, red side; blue side noted)",
+  "title": "Keck I / LRIS imaging -- off-axis paraboloid collimator at the f/15 Cassegrain focus, dichroic in the collimated beam, red camera (flat mirror on the grating turret for imaging) and blue camera",
+  "summary": "complete for the red side; blue camera focal length NOT FOUND. Telescope: Keck I Cassegrain, D = 10.95 m (KTG02; '10-m', '11 m outer perimeter' in O95), f/13.7 real (O95; f/13.66 DERIVED from KTG02's 149.6 m), primary focal length 17.5 m, central obscuration 0.24 of the circumscribed 10.93 m (H17, Keck II pupil; same design). Optics (round-1 records): paraboloidal collimator 2000 mm (78.75 in, KLCOL), 141 mm pupil image (O95; 146 mm DERIVED as f_col/F), red camera 305 mm (f/1.56 under-filled). Filters: red filters in the collimated beam just in front of the camera (~241 mm), blue filters in the collimated beam before the blue camera, tilted ~6 deg; space for narrow-band filters in the f/15 beam behind the entrance aperture. Detector: red = one monolithic LBNL 4k x 4k, 15 um (Mark IV, 2021; no gaps); blue = two E2V 2k x 4k, 15 um with a 13\" gap (96 px DERIVED). Field: 6' x 7.8' published; the usable field is set by the instrument entrance (slitmask area 262 x 348 mm = 6.0' x 8.0' DERIVED), centred ~6-7' off axis; the red 4k detector (9.2' DERIVED) over-covers it. Validation 0.135\"/px (both sides; DERIVED 0.1352-0.1356).",
+  "recommended_preset": "Red side, current detector. D = 10.95 m, eps = 0.24, F_tel = 13.7 (O95 'real focal ratio', 11-m outer perimeter; 13.66 = 149.6 m / 10.95 m DERIVED), f_col = 2000 mm, W = 2000/13.7 = 146 mm DERIVED (O95's pupil image: 141 mm), f_cam = 305 mm (effective f/2.08 DERIVED), filters in the collimated beam just ahead of the camera, detector = 1 chip of 4096 x 4096 x 15 um (rows [1]), field = rectangle 6.0' x 8.0' (instrument entrance / slitmask area; published 6' x 7.8'), the detector larger than the field. Validate: 0.135\"/px (model 0.1352 with O95's 1.375\"/mm; 0.1356 with KTG02's 149.6 m), field 6' x 7.8'. Blue-side alternative: same collimator and pupil (dichroic in the collimated beam), f_cam NOT FOUND (305 mm DERIVED from the matched 0.135\"/px), detector rows [2] (two 2048 x 4096 x 15 um chips side by side, long sides adjacent) with a 13\" = 96 px (1.44 mm DERIVED) gap, field 5.5' x 8.0'.",
+  "preset_inputs": {
+   "side": "red (imaging with the flat mirror on the grating turret)",
+   "D_m": 10.95,
+   "eps": 0.24,
+   "eps_note": "0.24 of the circumscribed 10.93 m (H17, Keck II); same primary design on Keck I",
+   "F_tel": 13.7,
+   "F_tel_alt_DERIVED": 13.66,
+   "f_tel_mm": 150000,
+   "focus": "Keck I Cassegrain (f/15 secondary)",
+   "primary_F_drawing_DERIVED": 1.6,
+   "f_col_mm": 2000,
+   "W_mm_DERIVED": 146.0,
+   "W_mm_published_pupil_image": 141,
+   "f_cam_mm": 305,
+   "effective_F_DERIVED": 2.08,
+   "filters": "red: collimated beam just in front of the camera lens (~241 mm filters); blue: collimated beam directly before the blue camera (tilted ~6 deg); narrow-band option: f/15 converging beam behind the entrance aperture",
+   "detector": {
+    "name": "LBNL 4k x 4k Mark IV (since 2021)",
+    "chip_Nx": 4096,
+    "chip_Ny": 4096,
+    "pitch_um": 15,
+    "n_chips": 1,
+    "rows": [
+     1
+    ],
+    "gaps": null
+   },
+   "field": {
+    "limit": "instrument entrance field (slitmask area, field lens, collimator); not the detector",
+    "dims_arcmin": [
+     6.0,
+     8.0
+    ],
+    "published_arcmin": [
+     6,
+     7.8
+    ],
+    "off_axis": "field centred ~6-7' off the telescope axis (x from 4' to 10', y +/- 4')",
+    "detector_extent_arcmin_DERIVED": [
+     9.2,
+     9.2
+    ]
+   },
+   "validation": {
+    "pixel_scale_arcsec": 0.135,
+    "fov_arcmin": "6 x 7.8"
+   },
+   "blue_alternative": {
+    "f_col_mm": 2000,
+    "W_mm_DERIVED": 146.0,
+    "f_cam_mm": "NOT FOUND (305 DERIVED from the matched scale)",
+    "detector": {
+     "chip_Nx": 2048,
+     "chip_Ny": 4096,
+     "pitch_um": 15,
+     "n_chips": 2,
+     "rows": [
+      2
+     ],
+     "gap_arcsec": 13,
+     "gap_px_DERIVED": 96,
+     "gap_mm_DERIVED": 1.44
+    },
+    "field_arcmin": [
+     5.5,
+     8.0
+    ],
+    "pixel_scale_arcsec": 0.135
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 10.95,
+    "unit": "m (maximum diameter of the segmented primary)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "note": "Explorer convention for Keck (as for the DEIMOS and MOSFIRE presets): D = 10.95 m.",
+    "alternatives": [
+     {
+      "value": 11,
+      "src": "O95",
+      "loc": "Sec. 2, p. 376",
+      "quote": "the outer perimeter ofthe mirror has a diameter of 11 m which gives a real focal ratio of//13.7.",
+      "note": "outer perimeter, used for the real f-ratio"
+     },
+     {
+      "value": 10,
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "The Keck 10-m telescope is a Ritchey-Chrétien design.",
+      "note": "nominal"
+     },
+     {
+      "value": 9.96,
+      "src": "KTG02",
+      "loc": "Sec. 3.1.1",
+      "quote": "is equivalent to that with a circular aperture 9.96 m in diameter.",
+      "note": "area-equivalent"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.24,
+    "unit": "central obstruction diameter / circumscribed pupil diameter (10.93 m)",
+    "src": "H17",
+    "loc": "Sec. 2, Table 1 (Pupil configuration of the Keck telescope)",
+    "quote": "Central obstruction diam. 0.24",
+    "note": "Measured/modelled for Keck II (NIRC2); Keck I has the same primary and secondary design (KTG02 Sec. 3.1). Used for LRIS, MOSFIRE and NIRC2.",
+    "alternatives": [
+     {
+      "value": "2.6 m on a 10 m primary",
+      "src": "SE17",
+      "loc": "Sec. 2",
+      "quote": "for a 2.6 m central obscuration, a 10 m diameter primary has Ls = 0.07"
+     },
+     {
+      "value": "circumscribed circle 10.93 m",
+      "src": "H17",
+      "loc": "Sec. 2",
+      "quote": "as the diameter of the circumscribed circle, i.e. 10.93 m."
+     }
+    ],
+    "derived": "DERIVED: 0.24 x 10.93 m = 2.62 m; 2.62 / 10.95 = 0.239; SE17's 2.6 m / 10.95 m = 0.237"
+   },
+   "telescope_focus": {
+    "value": "Keck I Cassegrain (f/15 secondary)",
+    "unit": null,
+    "src": "KLH",
+    "loc": "description",
+    "quote": "operating at the Cassegrain focus of Keck I.",
+    "alternatives": [
+     {
+      "value": "f/15 Cassegrain",
+      "src": "KTG02",
+      "loc": "Sec. 4.2",
+      "quote": "LRIS is an imaging spectrometer which operates at the f/15 Cassegrain focus of the Keck I tele"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 13.7,
+    "unit": "f/# (real, for the 11-m outer perimeter)",
+    "src": "O95",
+    "loc": "Sec. 2, p. 376",
+    "quote": "the outer perimeter ofthe mirror has a diameter of 11 m which gives a real focal ratio of//13.7.",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "The Cassegrain focal length is 150 m so that the nominal focal ratio is//15.",
+      "note": "nominal"
+     }
+    ],
+    "derived": "DERIVED: 150 m / 10.95 m = 13.70; KTG02 149.6 m / 10.95 m = 13.66"
+   },
+   "telescope_focal_length": {
+    "value": 150,
+    "unit": "m (Cassegrain)",
+    "src": "O95",
+    "loc": "Sec. 2",
+    "quote": "The Cassegrain focal length is 150 m",
+    "alternatives": [
+     {
+      "value": 149.6,
+      "src": "KTG02",
+      "loc": "Table 2 (f/15 column)",
+      "quote": "Focal length (m) 149.6 249.7 395.0"
+     },
+     {
+      "value": "1.375 arcsec/mm",
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "The scale at the Cassegrain focus is 1.375 arcsec per mm."
+     },
+     {
+      "value": "0.725 mm/arcsec",
+      "src": "KTG02",
+      "loc": "Table 2 (f/15 column)",
+      "quote": "Scale (mm/arcsec) 0.725 1.211 1.915"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 150000 mm = 1.3751\"/mm; 206264.8 / 149600 = 1.3788\"/mm"
+   },
+   "primary_focal_ratio": {
+    "value": 1.6,
+    "unit": "f/# (drawing only)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "derived": "DERIVED: 17.5 / 10.95 = f/1.598 (17.5 / 10 = f/1.75)",
+    "is_derived": true
+   },
+   "collimator_type": {
+    "value": "off-axis paraboloid mirror (axis coincident with the telescope axis, field off-axis), shared by the red and blue sides; low-power field lens 100 mm inside the focal plane",
+    "unit": null,
+    "src": "KLCOL",
+    "loc": "page text",
+    "quote": "The LRIS collimator is an off-axis paraboloid made of BK7 glass which has its optical axis coincident with the telescope and spectrograph optical axis.",
+    "alternatives": [
+     {
+      "value": "off-axis parabolic reflector",
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "The only practical solution for the collimator was an off-axis parabolic reflector."
+     },
+     {
+      "value": "shared by both channels",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "Because both the red and blue channels of the spectrograph share the same paraboloidal reflecting collimator"
+     },
+     {
+      "value": "field lens moves the pupil near the collimator focus",
+      "src": "KLFL",
+      "loc": "page text",
+      "quote": "This low powered meniscus lens moves the pupil close to the focus of the collimator and to a location which is suitable for the red gratings and the blue grisms."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": 2000,
+    "unit": "mm",
+    "src": "O95",
+    "loc": "Sec. 2, p. 376",
+    "quote": "The collimator focal length was then set at 2000 mm and the camera focal length at 305 mm.",
+    "alternatives": [
+     {
+      "value": "78.75 in (true parabolic focal length)",
+      "src": "KLCOL",
+      "loc": "Physical Specifications table",
+      "quote": "True parabolic focal length | 78.75 in."
+     }
+    ],
+    "derived": "DERIVED: 78.75 in x 25.4 = 2000.25 mm"
+   },
+   "pupil_diameter": {
+    "value": 141,
+    "unit": "mm (outside diameter of the pupil image formed by collimator + field lens)",
+    "src": "O95",
+    "loc": "Sec. 2, p. 377",
+    "quote": "The pupil image has an outside diameter of 141 mm",
+    "alternatives": [
+     {
+      "value": "about 150 mm (design target)",
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "the beam size inside the instrument should be about 150 mm"
+     }
+    ],
+    "derived": "DERIVED (model W = f_col / F_tel): 2000 / 13.70 = 146.0 mm (2000 / 13.66 = 146.4). The 141 mm pupil image is formed by the collimator plus the field lens, which shifts the pupil; the ideal-collimator model needs 146 mm."
+   },
+   "camera_type": {
+    "value": "red: fast all-refracting lens camera (Epps), f/1.56 under-filled; imaging via a flat mirror on the grating turret. Blue (LRIS-B, 2000): all-refractive, 12 CaF2 and fused-silica elements",
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 3",
+    "quote": "a fast broad-passband all-refracting camera concept was adopted.",
+    "alternatives": [
+     {
+      "value": "f/1.56 (under-filled)",
+      "src": "O95",
+      "loc": "Sec. 3, p. 378",
+      "quote": "It's (under-filled) //1.56 focal ratio"
+     },
+     {
+      "value": "imaging mirror on the turret",
+      "src": "O95",
+      "loc": "Sec. 5",
+      "quote": "the mirror for direct imaging on the grating turret"
+     },
+     {
+      "value": "blue camera",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "The camera is all refractive, constructed from 12 CaFl and fused silica elements"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": 305,
+    "unit": "mm (red camera)",
+    "src": "O95",
+    "loc": "Sec. 2, p. 376",
+    "quote": "The collimator focal length was then set at 2000 mm and the camera focal length at 305 mm.",
+    "alternatives": [
+     {
+      "value": "blue camera: same image scale as the red (focal length not stated)",
+      "src": "KLB05",
+      "loc": "What is LRIS-B?",
+      "quote": "The blue camera was designed to produce very close to the same image scale at the detector as the red camera, so that with the new science grade CCD mosaic on the blue side, the pixel scale is 0.015/0.024 times that on the red side, or about 0.135\"/pix."
+     },
+     {
+      "value": "blue-camera paper: McCarthy et al. 1998, SPIE 3355, 81 (not obtained)",
+      "src": "KLREF",
+      "loc": "reference list",
+      "quote": "Blue channel of the Keck low-resolution imaging spectrometer that describes the blue channel of the spectrograph."
+     }
+    ],
+    "derived": "DERIVED (blue, from the matched 0.135\"/15-um pixel and the shared 2000 mm collimator): f_cam = 206264.8 x 0.015 x 2000 / (0.135 x 150000) = 305.6 mm. The blue-camera paper (McCarthy et al. 1998, SPIE 3355, 81; listed in KLREF) was not obtained."
+   },
+   "effective_focal_ratio": {
+    "value": 2.08,
+    "unit": "f/# (f_cam / W)",
+    "src": "O95",
+    "loc": "Sec. 2, p. 376",
+    "quote": "The collimator focal length was then set at 2000 mm and the camera focal length at 305 mm.",
+    "derived": "DERIVED: 305 / 146.0 = 2.09 (model W); 305 / 141 = 2.16 (O95 pupil image); f_tel x f_cam / f_col / D = 150 x 0.1525 / 10.95 = f/2.09",
+    "is_derived": true
+   },
+   "filter_location": {
+    "value": "red: collimated beam just in front of the camera lens (~241 mm diameter); blue: collimated beam directly before the blue camera, tilted ~6 deg; optional narrow-band filters in the f/15 converging beam just behind the entrance aperture",
+    "unit": null,
+    "src": "O95",
+    "loc": "Sec. 4, p. 380",
+    "quote": "The option which was adopted was to put the filters just in front of the camera lens. ... They would still have to be large, about 241 mm in diameter",
+    "alternatives": [
+     {
+      "value": "parallel beams between disperser and camera",
+      "src": "O95",
+      "loc": "Sec. 2",
+      "quote": "There is also provision for inserting filters in the parallel beams between the dispersing elements and the cameras. These are needed when the spectrograph is used for imaging"
+     },
+     {
+      "value": "narrow-band option in the f/15 beam",
+      "src": "O95",
+      "loc": "Sec. 4",
+      "quote": "space was provided to allow such filters to be mounted directly behind the entrance aperture in the //15 telescope beam"
+     },
+     {
+      "value": "blue filters in the parallel beam",
+      "src": "KLF",
+      "loc": "Blue Side Filters",
+      "quote": "The LRIS blue filters lie in the parallel beam directly before the blue camera lens front element."
+     },
+     {
+      "value": "blue filters tilted ~6 deg",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "after which it passes through a selectable filter (tilted by about 6 degrees with respect to the collimated beam to avoid internal reflections) and into the LRIS-B camera."
+     }
+    ]
+   },
+   "detector": {
+    "value": "red: one monolithic LBNL 4k x 4k fully depleted CCD, 15 um (Mark IV, installed 2021); blue: two E2V (Marconi) 2k x 4k CCDs, 15 um",
+    "unit": null,
+    "src": "KLDET",
+    "loc": "detector table",
+    "quote": "LBNL 4k x 4k CCD 500-micron thick deep-depletion 15 µm pixels, science grade (Mark IV, installed in May 2021)",
+    "alternatives": [
+     {
+      "value": "monolithic 4k x 4k replaced the mosaic",
+      "src": "KLN",
+      "loc": "New LRIS Red CCD (Mark IV), 2021-Aug-19",
+      "quote": "A new monolithic 4k x 4k thick CCD has been installed to replace the old Mark 3 LRIS red side mosaic (late April 2021)."
+     },
+     {
+      "value": "blue: 2 x 2K x 4K E2V",
+      "src": "KLDET",
+      "loc": "detector table",
+      "quote": "2 x 2K x 4K Marconi (E2V) CCDs, backside 15 µm pixels, science grade"
+     },
+     {
+      "value": "red: mosaic of two LBNL 2k x 4k (outdated)",
+      "src": "KLH",
+      "loc": "description",
+      "quote": "The red camera uses a mosaic of two LBNL 2k x 4k fully depleted, high resistivity CCD detectors",
+      "note": "home-page text predating the 2021 Mark IV"
+     }
+    ]
+   },
+   "chip_format": {
+    "value": {
+     "red": "4096 x 4096",
+     "blue": "2048 x 4096 per chip"
+    },
+    "unit": "pixels",
+    "src": "KLN",
+    "loc": "2021-Aug-19",
+    "quote": "A new monolithic 4k x 4k thick CCD",
+    "alternatives": [
+     {
+      "value": "2048 x 4096 (blue)",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "This was replaced in 2002 June by a science grade mosaic of two EEV (Marconi) 2048 × 4096 devices"
+     }
+    ]
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um (both sides)",
+    "src": "KLDET",
+    "loc": "detector table",
+    "quote": "LBNL 4k x 4k CCD 500-micron thick deep-depletion 15 µm pixels",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "The plate scale at the detector is 0.135′′ per 15µm pixel."
+     }
+    ]
+   },
+   "n_chips": {
+    "value": {
+     "red": 1,
+     "blue": 2
+    },
+    "unit": "chips",
+    "src": "KLN",
+    "loc": "2021-Aug-19",
+    "quote": "A new monolithic 4k x 4k thick CCD has been installed",
+    "alternatives": [
+     {
+      "value": 2,
+      "src": "KLDET",
+      "loc": "detector table (blue)",
+      "quote": "2 x 2K x 4K Marconi (E2V) CCDs"
+     }
+    ]
+   },
+   "chip_layout": {
+    "value": {
+     "red_rows": [
+      1
+     ],
+     "blue_rows": [
+      2
+     ],
+     "blue_chip_in_row": "2048 (x) x 4096 (y), long sides adjacent"
+    },
+    "unit": null,
+    "src": "S04",
+    "loc": "Appendix (LRIS-B detector)",
+    "quote": "with the exception of a 13′′ inter-chip gap that runs parallel to the dispersion direction, and which coincides with the bar that is used to support the slit masks in the slit mask frames.",
+    "derived": "DERIVED: two 2048 x 4096 chips forming a 4096 x 4096 mosaic must meet along their 4096-px sides -> one row of two chips (or, equivalently, two rows of one 4096 x 2048 chip)."
+   },
+   "chip_gaps": {
+    "value": {
+     "red": "none (single chip)",
+     "blue_arcsec": 13
+    },
+    "unit": "arcsec",
+    "src": "S04",
+    "loc": "Appendix",
+    "quote": "with the exception of a 13′′ inter-chip gap",
+    "alternatives": [
+     {
+      "value": "24.96-27.91\" (retired 2009-2021 red mosaic)",
+      "src": "KLRU",
+      "loc": "Gap",
+      "quote": "the distance between the first column of the two red CCDs, at pixel (0,4096) is 24.96 arcsec and at pixel (0,0) is 27.91 arcsec.",
+      "note": "retired red mosaic (2009-2021); KLRU's heading calls this distance 'the gap'; the two chips were slightly tilted, hence the range"
+     }
+    ],
+    "derived": "DERIVED (blue): 13\" / 0.135\"/px = 96 px = 1.44 mm at 15 um."
+   },
+   "field_limit": {
+    "value": "instrument entrance field: slitmask area 262 x 348 mm in the focal plane (6.0' x 8.0'), field lens and collimator; the field is off-axis (x 4'-10', y +/- 4'); the current red detector (9.2' DERIVED) is larger than the field",
+    "unit": null,
+    "src": "KLCS",
+    "loc": "LRIS Coordinate System",
+    "quote": "In this coordinate system, the slitmask covers the region X=174 to 436 mm, and Y=-174 to 174 mm.",
+    "alternatives": [
+     {
+      "value": "6 x 8 arcmin usable, off-axis",
+      "src": "O95",
+      "loc": "Sec. 2, p. 377",
+      "quote": "The field of view which can be used is 6 by 8 arcmin. In the 6 arcmin direction (called x) the field is off axis from 4 to 10 arcmin while in the perpendicular direction (called j) it is + or - 4 arcmin."
+     },
+     {
+      "value": "7.8' set by the 1993 Tek CCD",
+      "src": "O95",
+      "loc": "Sec. 6",
+      "quote": "As a result the field of view in the j direction is 7.8 arcmin instead of 8 arcmin as originally anticipated."
+     },
+     {
+      "value": "slit mask centred 6' off axis",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "a slitmask (or long slit) is deployed in the telescope focal plane, at a position centered 6′ off axis."
+     },
+     {
+      "value": "slight vignetting at the field corners",
+      "src": "KLCOL",
+      "loc": "Light beams on the collimator",
+      "quote": "It should be noted that there is a little vignetting at the outside corners of the field."
+     }
+    ],
+    "derived": "DERIVED: 262 mm x 1.375\"/mm = 360\" = 6.00'; 348 mm x 1.375 = 478.5\" = 7.98' (with KTG02's 0.725 mm/\": 6.02' x 8.00'); slitmask centre X = 305 mm = 6.99' off axis. Red Mark IV: 4096 x 0.135\" = 9.22' > field."
+   },
+   "field_of_view": {
+    "value": "6' x 7.8'",
+    "unit": "arcmin",
+    "src": "KLH",
+    "loc": "description",
+    "quote": "The field of view in both modes of operation is 6×7.8 arcmin.",
+    "alternatives": [
+     {
+      "value": "6 x 7.8",
+      "src": "O95",
+      "loc": "Abstract",
+      "quote": "The field of view in both spectrographic and imaging modes is 6 by 7.8 arcmin."
+     },
+     {
+      "value": "5.5 x 8.0 (blue and red, 2004)",
+      "src": "S04",
+      "loc": "Appendix",
+      "quote": "simultaneously observe the same 5′.5 by 8′.0 field of view"
+     },
+     {
+      "value": "full 8.0' on the blue side, ~7.3' on the red (2002 detector)",
+      "src": "KLB05",
+      "loc": "What is LRIS-B?",
+      "quote": "so that the full 8.0' field is useable on the blue side (as opposed to ~7.3 arc minutes on the red side with the current detector)."
+     }
+    ]
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.135,
+    "unit": "arcsec/pixel (red and blue)",
+    "src": "KLDET",
+    "loc": "detector table",
+    "quote": "Plate scale | 0.135\"/pix | 0.135\"/pix",
+    "alternatives": [
+     {
+      "value": 0.135,
+      "src": "KLRU",
+      "loc": "Astrometry (2009 red mosaic, Pal 5)",
+      "quote": "Based on these images, the plate scale of the new red mosaic is 0.135 arcsec/pix in both the column and row directions."
+     },
+     {
+      "value": 0.135,
+      "src": "S04",
+      "loc": "Appendix (blue)",
+      "quote": "The plate scale at the detector is 0.135′′ per 15µm pixel."
+     },
+     {
+      "value": "4.685 px/arcsec (24-um Tek, 1993)",
+      "src": "O95",
+      "loc": "Sec. 6",
+      "quote": "The actual scale at the CCD is 4.685 pixels per arcsec.",
+      "note": "= 0.2134\"/24 um -> 0.1334\"/15 um DERIVED"
+     }
+    ],
+    "derived": "DERIVED (model): 1.375\"/mm x 0.015 mm x 2000/305 = 0.13525\"/px (O95 scale); 206264.8 x 0.015 / (149600 x 305/2000) = 0.13562 (KTG02 focal length)"
+   },
+   "field_of_view": {
+    "value": "6' x 7.8'",
+    "unit": "arcmin",
+    "src": "KLH",
+    "loc": "description",
+    "quote": "The field of view in both modes of operation is 6×7.8 arcmin."
+   }
+  },
+  "not_found": [
+   "The blue-camera focal length (McCarthy et al. 1998, SPIE 3355, 81 is paywalled and was not obtained; Keck's LRIS pages give only the matched 0.135\"/px). 305 mm is DERIVED from the matched scale.",
+   "The current (2021, Mark IV) red detector's on-sky footprint and any vignetting by the dewar window or filter frames: the pages give only 0.135\"/px; the field limit is taken from the instrument entrance (slitmask area) and O95.",
+   "A Keck I-specific central obscuration (the 0.24 is from the Keck II NIRC2 pupil model; same telescope design).",
+   "The physical gap of the blue mosaic in mm (only 13\" on the sky)."
+  ],
+  "conflicts": [
+   "Telescope f-ratio: f/13.7 real (O95, 11-m outer perimeter) vs f/13.66 DERIVED (KTG02: 149.6 m / 10.95 m) vs nominal f/15.",
+   "Pupil: 141 mm pupil-image outside diameter (O95 Sec. 2-3) vs 'about 150 mm' design target (O95) vs 146 mm DERIVED (f_col / F) for the ideal-collimator model.",
+   "Field: 6' x 7.8' (O95 abstract, KLH; the 7.8' was set by the 1993 Tek CCD) vs 6' x 8' usable optics field (O95 Sec. 2) vs 5.5' x 8.0' (S04) vs ~7.3' red slit length with the 2002 red detector (KLB05) vs 6.0' x 8.0' DERIVED from the slitmask area (KLCS).",
+   "Pixel scale: 0.135 (KLDET, KLH, KLRU measured 2009) vs 0.1334 DERIVED by scaling O95's 4.685 px/\" (24 um) to 15 um (KLRU itself notes the 2.5% difference from the 0.132 it expected) vs 0.1352-0.1356 DERIVED from f_col/f_cam.",
+   "Red detector: one monolithic 4k x 4k (KLDET, KLN, 2021) vs 'a mosaic of two LBNL 2k x 4k' (KLH description, outdated)."
+  ],
+  "notes": [
+   "Reuse: collimator 2000 mm, camera 305 mm, 141 mm pupil, f/13.7, 1.375\"/mm, current detectors and 0.135\"/px are the round-1 long-slit LRIS records (O95, KLDET, KLH); new here are the imaging field (KLCS, O95 Sec. 2), filter locations (O95 Sec. 4, KLF, S04), the 2021 single-chip red CCD (KLN), the blue-side detector and gap (S04), the collimator's true focal length (KLCOL) and the Keck obscuration (H17).",
+   "Imaging on the red side uses an overcoated-silver flat mirror on the grating turret in place of the grating (O95 Sec. 5); in the drawing this is a fold at the disperser position, as in the spectrograph presets, with zero dispersion. The blue side images by stowing the grism (KLB05).",
+   "The LRIS field is off-axis: the slitmask centre sits at X = 305 mm = ~7' from the telescope axis (KLCS; S04 says 6'); the explorer can treat it as centred.",
+   "Detector history (red): Tek 2048^2 x 24 um (1993-2009, 0.211-0.2134\"/px), two LBNL 2k x 4k (2009-2021, 25-28\" gap, KLRU), one LBNL 4k x 4k (since April/May 2021)."
+  ]
+ },
+ "mosfire": {
+  "short": "Keck/MOSFIRE (imaging)",
+  "title": "Keck I / MOSFIRE imaging -- cryogenic refractive collimator and camera at the Cassegrain focus; flat mirror on the grating turret for imaging",
+  "summary": "complete; everything optical is the round-4 MOSFIRE record (data/round4/mosfire.md), re-quoted here: Keck I Cassegrain f/13.66 (0.72516 mm/\"), f_col 1813.0 mm, f_cam 250.0 mm (design values, confirmed by the as-built 7.25x reduction), W = 132.7 mm DERIVED (125.0 mm 'stipulated' at f/14.50), H2RG 2048 x 2048 x 18 um (17.984 um at 77 K), 0.1798\"/px. New here: imaging uses the mirror back-to-back with the grating; the double filter wheel sits in the collimated beam just before the pupil wheel (170-mm filters tilted 6 deg; Lyot stop at the pupil); the field is the 2040 x 2040 active area (6.113' square) intersected with a 6.9' (414\") circular baffle in front of the field lens; Keck obscuration 0.24 (H17). Gap: as-built f_col / f_cam / beam not published (design values used).",
+  "recommended_preset": "D = 10.95 m, eps = 0.24, F_tel = 13.66 (Keck I Cassegrain as re-imaged by MOSFIRE; 149.572 m effective focal length), f_col = 1813.0 mm, W = 1813.0/13.66 = 132.7 mm DERIVED, f_cam = 250.0 mm (effective f/1.88 DERIVED), filters in the collimated beam just ahead of the pupil (Lyot) stop, detector = 1 chip, 2048 x 2048 x 18 um (17.984 um at 77 K; 2040 x 2040 active area used for the field), field = 6.113' square cut by a 6.9'-diameter circle (corners vignetted). Validate: 0.1798\"/px (model 0.17985 DERIVED with 17.984 um), 6.1' x 6.1' field, 6.9' circle.",
+  "preset_inputs": {
+   "D_m": 10.95,
+   "eps": 0.24,
+   "F_tel": 13.66,
+   "f_tel_mm": 149572,
+   "focus": "Keck I Cassegrain (f/15 secondary), rotating module",
+   "primary_F_drawing_DERIVED": 1.6,
+   "f_col_mm": 1813.0,
+   "W_mm_DERIVED": 132.7,
+   "W_mm_stipulated_design": 125.0,
+   "f_cam_mm": 250.0,
+   "effective_F_DERIVED": 1.88,
+   "filters": "double filter wheel (2 x 6 positions, 170-mm filters tilted 6 deg) in the collimated beam just before the pupil wheel (Lyot stop at the pupil)",
+   "imaging_fold": "flat mirror back-to-back with the grating on the turret, set at 20 deg to the incoming beam (40 deg deviation)",
+   "detector": {
+    "name": "Teledyne HAWAII-2RG",
+    "chip_Nx": 2048,
+    "chip_Ny": 2048,
+    "active_used": [
+     2040,
+     2040
+    ],
+    "pitch_um": 18.0,
+    "pitch_um_77K": 17.984,
+    "n_chips": 1,
+    "rows": [
+     1
+    ],
+    "gaps": null
+   },
+   "field": {
+    "limit": "detector (2040 px active) and a circular baffle in front of the field lens (414\" = 6.9'); CSU square baffle sized to match",
+    "square_arcmin": 6.113,
+    "circle_diameter_arcmin": 6.9
+   },
+   "validation": {
+    "pixel_scale_arcsec": 0.1798,
+    "fov_arcmin": "6.1 x 6.1 (6.113 square within a 6.9 circle)"
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 10.95,
+    "unit": "m (maximum diameter of the segmented primary)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "note": "Round-4 convention (data/round4/mosfire.md telescope_aperture)."
+   },
+   "central_obstruction": {
+    "value": 0.24,
+    "unit": "central obstruction diameter / circumscribed pupil (10.93 m)",
+    "src": "H17",
+    "loc": "Table 1",
+    "quote": "Central obstruction diam. 0.24",
+    "note": "Keck II value; same telescope design on Keck I (see the LRIS entry).",
+    "alternatives": [
+     {
+      "value": "2.6 m on 10 m",
+      "src": "SE17",
+      "loc": "Sec. 2",
+      "quote": "for a 2.6 m central obscuration, a 10 m diameter primary has Ls = 0.07"
+     }
+    ]
+   },
+   "telescope_focus": {
+    "value": "Keck I Cassegrain, rotating module",
+    "unit": null,
+    "src": "M12",
+    "loc": "Sec. 2",
+    "quote": "It is a large vacuum-cryogenic instrument mounted in a rotating module at the Keck 1 Cassegrain focus."
+   },
+   "telescope_focal_ratio": {
+    "value": 13.66,
+    "unit": "f/#",
+    "src": "M12",
+    "loc": "Sec. 3 'Imaging Plate Scale'",
+    "quote": "MOSFIRE’s optical system was designed to re-image the Keck Cassegrain f/13.66 focal plane (nominal scale is 0.72516 mm/\")",
+    "alternatives": [
+     {
+      "value": 14.5,
+      "src": "M10",
+      "loc": "Sec. 3.1",
+      "quote": "The telescope's effective focal length is 149.572 m as it is used with MOSFIRE, such that the effective f/ratio is f/14.50.",
+      "note": "design value paired with the stipulated 125.0 mm beam (round-4 conflict)"
+     }
+    ]
+   },
+   "telescope_focal_length": {
+    "value": 149572,
+    "unit": "mm (effective, as used with MOSFIRE)",
+    "src": "M10",
+    "loc": "Sec. 3.1",
+    "quote": "The telescope's effective focal length is 149.572 m as it is used with MOSFIRE",
+    "derived": "DERIVED: 149.572 / 10.95 = f/13.660"
+   },
+   "primary_focal_ratio": {
+    "value": 1.6,
+    "unit": "f/# (drawing only)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "derived": "DERIVED: 17.5 / 10.95 = 1.598",
+    "is_derived": true
+   },
+   "collimator_type": {
+    "value": "refractive, six elements (large CaF2 field lens, fold flat with tip/tilt flexure control, five-element group)",
+    "unit": null,
+    "src": "M10",
+    "loc": "Sec. 3.1",
+    "quote": "The six-element collimator contains a large CaF2 field lens separated from a second lens group."
+   },
+   "collimator_focal_length": {
+    "value": 1813.0,
+    "unit": "mm (design)",
+    "src": "M10",
+    "loc": "Sec. 3.1",
+    "quote": "Thus the collimator's focal length must be 1813.0 mm so as to produce a (stipulated) 125.0-mm beam diameter.",
+    "stage": "design (2007 DDR / 2010); as-built 7.25x reduction confirms (round 4)",
+    "alternatives": [
+     {
+      "value": 1813.0,
+      "src": "MDDR",
+      "loc": "Sec. 5.1.2.4",
+      "quote": "Thus the collimator's focal length must be 1813.0 mm so as to produce a (stipulated) 125.0-mm beam diameter."
+     }
+    ]
+   },
+   "pupil_diameter": {
+    "value": 132.7,
+    "unit": "mm (DERIVED, f_col / F_tel)",
+    "src": "M10",
+    "loc": "Sec. 3.1",
+    "quote": "Thus the collimator's focal length must be 1813.0 mm so as to produce a (stipulated) 125.0-mm beam diameter.",
+    "alternatives": [
+     {
+      "value": 125.0,
+      "src": "MDDR",
+      "loc": "Sec. 5.1.2.4",
+      "quote": "The (monochromatic) pupil diameter is 125.0 mm as intended.",
+      "note": "at the effective f/14.50"
+     }
+    ],
+    "derived": "DERIVED: 1813.0 / 13.66 = 132.7 mm (full 10.95 m primary); 1813.0 / 14.50 = 125.0 mm (design 'effective' f-ratio)",
+    "is_derived": true
+   },
+   "camera_type": {
+    "value": "refractive, 7-element all-spherical (CaF2, CaF2, S-FTM16, S-FPL51, BaF2, BaF2, S-FTM16 field flattener)",
+    "unit": null,
+    "src": "M10",
+    "loc": "Sec. 3.1",
+    "quote": "The camera is composed of two elements of CaF2, followed by lenses of S-FTM16, S-FPL51, two elements of BaF2 and a field-flattener of S-FTM16."
+   },
+   "camera_focal_length": {
+    "value": 250.0,
+    "unit": "mm (design)",
+    "src": "MDDR",
+    "loc": "Sec. 5.1.2.5",
+    "quote": "The resulting camera requires a 250.0 mm focal length and a 270.0 mm entrance aperture such that it operates at f/0.93 (under-filled)",
+    "alternatives": [
+     {
+      "value": 250,
+      "src": "M10",
+      "loc": "Sec. 3.1",
+      "quote": "The resulting camera requires a 250 mm focal length and a 270 mm entrance aperture such that it operates at f/0.93 (under-filled)"
+     },
+     {
+      "value": "focal reduction 7.25",
+      "src": "M12",
+      "loc": "Sec. 3 'Imaging Plate Scale'",
+      "quote": "with a plate scale of 0.18\"/pixel, which is a focal reduction of 7.25 times"
+     }
+    ],
+    "derived": "DERIVED: 1813.0 / 250.0 = 7.252"
+   },
+   "effective_focal_ratio": {
+    "value": 1.88,
+    "unit": "f/# (f_cam / W)",
+    "src": "MDDR",
+    "loc": "Sec. 5.1.2.5",
+    "quote": "The resulting camera requires a 250.0 mm focal length",
+    "derived": "DERIVED: 250.0 / 132.7 = 1.884 (250.0 / 125.0 = 2.00 at the design beam); the camera's own f/0.93 refers to its 270 mm under-filled entrance aperture",
+    "is_derived": true
+   },
+   "imaging_fold": {
+    "value": "flat mirror mounted back-to-back with the grating on the turret; imaging-mirror setting 20 deg to the incoming beam",
+    "unit": null,
+    "src": "M12",
+    "loc": "Sec. 2",
+    "quote": "A mirror mounted back-to-back with the grating enables MOSFIRE to change from spectroscopy to imaging mode.",
+    "alternatives": [
+     {
+      "value": "imaging mirror at 20 deg",
+      "src": "MDDR",
+      "loc": "Sec. 5.2.1.8.1",
+      "quote": "1) imaging mirror: 20º"
+     }
+    ]
+   },
+   "filter_location": {
+    "value": "double filter wheel in the collimated beam, just after the collimator and before the pupil (Lyot) wheel; 170-mm filters tilted 6 deg",
+    "unit": null,
+    "src": "MDDR",
+    "loc": "Sec. 5.2.1.1 (Overall Layout and Constraints)",
+    "quote": "Light exits the collimator lens barrel and passes through the filter wheel before reaching the pupil wheel.",
+    "alternatives": [
+     {
+      "value": "Lyot stop at the pupil; 170 mm filters tilted 6 deg",
+      "src": "M10",
+      "loc": "Sec. 3.1",
+      "quote": "A Lyot stop is located at the pupil. The MOSFIRE filters, made by Barr Associates (Westford, MA) are 170 mm in diameter and tilted 6.0 degrees with respect to the optical axis to avoid ghost images."
+     },
+     {
+      "value": "clear aperture ~156 mm",
+      "src": "MDDR",
+      "loc": "Sec. 5.2.1.8.2",
+      "quote": "The design accommodates filters up to 170 mm in diameter, which provides ample area for the required clear aperture (~156 mm)"
+     },
+     {
+      "value": "cold stop iris",
+      "src": "M12",
+      "loc": "Sec. 2",
+      "quote": "The cold stop is implemented with an iris that can be opened to a circle that circumscribes the image of the Keck primary mirror or can be closed down to a hexagon that matches the primary mirror shape."
+     }
+    ]
+   },
+   "detector": {
+    "value": "Teledyne HAWAII-2RG HgCdTe, 2048 x 2048",
+    "unit": null,
+    "src": "KMD",
+    "loc": "detector table",
+    "quote": "Detector size | 2048×2048 pix",
+    "alternatives": [
+     {
+      "value": "2048 x 2048, 18 um",
+      "src": "M10",
+      "loc": "Table 1",
+      "quote": "2048 x 2048 Teledyne H2-RG and ASIC; 18 µm pixels"
+     }
+    ]
+   },
+   "chip_format": {
+    "value": {
+     "Nx": 2048,
+     "Ny": 2048,
+     "active_used": "2040 x 2040"
+    },
+    "unit": "pixels",
+    "src": "M12",
+    "loc": "Sec. 2",
+    "quote": "projected onto the active detector area (2040 x 2040 pixels)",
+    "note": "M12 does not say why 2040 (an H2RG has a border of reference pixels; not stated in the MOSFIRE sources)."
+   },
+   "pixel_pitch": {
+    "value": 18.0,
+    "unit": "um (17.984 um at 77 K)",
+    "src": "M10",
+    "loc": "Table 1",
+    "quote": "2048 x 2048 Teledyne H2-RG and ASIC; 18 µm pixels",
+    "alternatives": [
+     {
+      "value": 17.984,
+      "src": "M12",
+      "loc": "Sec. 3",
+      "quote": "onto the H2RG detector (17.984 μm pitch at 77 K)"
+     }
+    ]
+   },
+   "n_chips": {
+    "value": 1,
+    "unit": "chip",
+    "src": "KMD",
+    "loc": "detector table",
+    "quote": "Detector size | 2048×2048 pix"
+   },
+   "chip_layout": {
+    "value": {
+     "rows": [
+      1
+     ]
+    },
+    "unit": null,
+    "src": "KMD",
+    "loc": "detector table",
+    "quote": "Detector size | 2048×2048 pix"
+   },
+   "field_limit": {
+    "value": "detector active area (2040 px) intersected with a circular baffle in front of the field lens (414\" = 6.9', ~ the unvignetted collimator field); the CSU square baffle is sized to match",
+    "unit": null,
+    "src": "M12",
+    "loc": "Sec. 3 'Field of View'",
+    "quote": "The angular size of the sky area imaged onto the MOSFIRE detector is limited by the size of the detector (2040 pixels x 0.1798\"/pixel=366.79\" square, projected onto the sky), by the CSU baffle close to the telescope focus, and by a circular baffle in front of the field lens just after the CSU, which has a measured angular diameter projected onto the sky of 414\" (6.9') and corresponds closely to the unvignetted collimator field of view. Thus, the geometry of the MOSFIRE field is a 6.113' square intersected with a 6.9' diameter circle.",
+    "alternatives": [
+     {
+      "value": "CSU baffle sized to match; 414\" circle",
+      "src": "MPSR",
+      "loc": "slide 'Field of View'",
+      "quote": "the CSU square baffle sized to match ... a circular baffle in front of the field lens just after the CSU (d = 414\" = 6.9′ ~unvignetted collimator field of view)"
+     },
+     {
+      "value": "corners vignetted by the field lens",
+      "src": "M10",
+      "loc": "Sec. 4 (Performance), Fig. 11 text",
+      "quote": "In imaging mode, the field of view is vignetted slightly by the field lens in the corners of the detector"
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": "6.113' x 6.113' square within a 6.9' diameter circle",
+    "unit": "arcmin",
+    "src": "M12",
+    "loc": "Sec. 2",
+    "quote": "For imaging this is a 6.9' diameter field projected onto the active detector area (2040 x 2040 pixels) which therefore covers 6.113' x 6.113'.",
+    "alternatives": [
+     {
+      "value": "6.12 x 6.12, corners vignetted",
+      "src": "KMD",
+      "loc": "detector table",
+      "quote": "Detector projected FOV | 6.12×6.12 arcmin corners vignetted"
+     },
+     {
+      "value": "6.14 x 6.14 (design)",
+      "src": "M10",
+      "loc": "Abstract",
+      "quote": "multi-object spectroscopy over a 6.14' x 6.14' field of view"
+     },
+     {
+      "value": "~6.9' diameter",
+      "src": "M12",
+      "loc": "Abstract",
+      "quote": "imaging over a field of view of ~6.9' diameter with ~0.18\" per pixel sampling."
+     }
+    ],
+    "derived": "DERIVED: 2040 x 0.1798\" = 366.8\" = 6.113'; half-diagonal 4.32' > 3.45' circle radius, so the corners are cut"
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.1798,
+    "unit": "arcsec/pixel (imaging)",
+    "src": "M12",
+    "loc": "Sec. 3 'Imaging Plate Scale'",
+    "quote": "Assuming that the Keck plate scale is exactly correct the measured pixel size in imaging mode at the detector maps to 0.1798\" on the sky.",
+    "alternatives": [
+     {
+      "value": 0.1798,
+      "src": "KMD",
+      "loc": "detector table",
+      "quote": "Scale | 0.1798”/pix"
+     },
+     {
+      "value": 0.18,
+      "src": "M10",
+      "loc": "Table 1 (design)",
+      "quote": "Pixel Scale 0.18\" in imaging mode"
+     }
+    ],
+    "derived": "DERIVED (model): 206264.8 x 0.017984 x 1813.0 / (149572 x 250.0) = 0.17985\"/px (0.18001 for 18.000 um)"
+   },
+   "field_of_view": {
+    "value": "6.1' x 6.1' (6.113' square in a 6.9' circle)",
+    "unit": "arcmin",
+    "src": "M12",
+    "loc": "Sec. 2",
+    "quote": "which therefore covers 6.113' x 6.113'."
+   }
+  },
+  "not_found": [
+   "As-built f_col, f_cam and pupil diameter (design values 1813.0 / 250.0 / 125.0 mm; the measured 0.1798\"/px and 7.25x reduction confirm the ratio) -- as in round 4.",
+   "The reason for the 2040 x 2040 'active' area (likely the H2RG reference-pixel border; not stated in the saved MOSFIRE sources).",
+   "The axial distance between the filter wheels and the pupil (only the order: filter wheel, then pupil wheel)."
+  ],
+  "conflicts": [
+   "Telescope f-ratio and beam: f/13.66 (M12) with 132.7 mm DERIVED vs effective f/14.50 with the stipulated 125.0 mm (M10, MDDR) -- round-4 conflict, unchanged.",
+   "Imaging field: 6.113' (M12) vs 6.12' (KMD) vs 6.14' (M10 design); circle 6.9' / 414\" (M12, MPSR).",
+   "Pixel pitch: 18 um nominal (M10, KMD) vs 17.984 um at 77 K (M12)."
+  ],
+  "notes": [
+   "Reuse: all telescope, collimator, camera, beam and detector values are the round-4 records (data/round4/mosfire.md, same keys M10, M12, MDDR, MPSR, KMD, KTG02); new here are the imaging fold, the filter location, the circular field stop and the obscuration.",
+   "Imaging geometry: the turret's flat mirror sits where the grating sits in spectroscopy (camera-collimator angle 40 deg); for the ideal-optics imager this is a fold with no dispersion.",
+   "The circular baffle sits in front of the field lens just behind the CSU, i.e. close to the telescope focus, so it acts as a field stop (414\" on the sky)."
+  ]
+ },
+ "nirc2": {
+  "short": "Keck/NIRC2 (AO imager; narrow camera main, medium and wide noted)",
+  "title": "Keck II / NIRC2 -- near-IR camera behind the Keck II AO system (f/15 AO output); collimator, cold pupil-mask wheel, two filter wheels, three selectable all-reflective cameras (narrow 10 mas, medium 20 mas, wide 40 mas)",
+  "summary": "telescope, AO output, detector, field and pixel scales complete; the internal optics (collimator and camera focal lengths, pupil size) are NOT published in any source found. AO output: f/15 with the telescope's f-ratio and pupil position (KNG, KTG02), i.e. the Keck f/15 focal length 149.6 m -> F = 13.66 for D = 10.95 m; obscuration 0.24 of the 10.93-m circumscribed pupil (H17). Optical train (KNOM): focal-plane slit/mask slides (also the per-camera field baffle) -> collimator -> pupil-mask wheel -> two 18-position filter wheels (collimated beam, near the pupil: the aperture masks sit in filter-wheel slots, T06) -> grism slide -> one of three cameras ('all reflecting, gold-coated', KTG02) -> Aladdin-3 InSb 1024 x 1024 x 27 um. Robust DERIVED values (from the published scales only): camera/collimator magnification f_cam/f_col = 3.744 (narrow), 1.877 (medium), 0.938 (wide); effective focal ratio at the detector 51.2 / 25.6 / 12.8. Inferred values (DERIVED from Tuthill's aperture-mask drawings, flagged): pupil scale 2.303 mm per metre of primary -> W = 25.2 mm, f_col = 344 mm, f_cam = 1290 / 647 / 323 mm. Validation: 0.009942\"/px (9.952 mas pre-2015, 9.971 mas after the 2015-04-13 realignment), 0.019829, 0.039686\"/px; fields 10\", 20\", 40\" (detector-limited).",
+  "recommended_preset": "Narrow camera. D = 10.95 m, eps = 0.24, F_tel = 13.66 (AO output f/15 'same f/# and pupil location as the telescope'; f_eff = 149.6 m), focus = AO relay output on the Keck II left Nasmyth platform, f_col = 344 mm and W = 25.2 mm (DERIVED inference from the aperture-mask drawings, not published), f_cam = 1290 mm (DERIVED from the published scale; f_cam/f_col = 3.744 is robust), effective f/51.2 at the detector (robust DERIVED), filters in the collimated beam just after the pupil-mask wheel (near the pupil), detector = 1 chip, 1024 x 1024 x 27 um, field = the detector (10.2\" square; the focal-plane mask slide supplies a matching baffle per camera). Validate: 0.009942\"/px (Keck page; 9.952 mas pre-2015 and 9.971 mas post-2015 measured, S16), 10\" x 10\". Medium: f_cam = 647 mm (x1.877), 0.019829\"/px, 20\" field, f/25.6. Wide: f_cam = 323 mm (x0.938), 0.039686\"/px, 40\" field, f/12.8.",
+  "preset_inputs": {
+   "camera": "narrow (main); medium and wide below",
+   "D_m": 10.95,
+   "eps": 0.24,
+   "F_tel": 13.66,
+   "F_tel_note": "AO output f/15 (nominal) = Keck f/15 focal length 149.6 m; 149.6 / 10.95 = 13.66 DERIVED",
+   "f_tel_mm": 149600,
+   "focus": "Keck II AO bench output (left Nasmyth), f/15, pupil location as the telescope's",
+   "primary_F_drawing_DERIVED": 1.6,
+   "f_col_mm_DERIVED_inferred": 344,
+   "W_mm_DERIVED_inferred": 25.2,
+   "pupil_scale_mm_per_m_DERIVED_inferred": 2.303,
+   "cameras": {
+    "narrow": {
+     "f_cam_mm_DERIVED": 1290,
+     "f_cam_over_f_col_DERIVED": 3.744,
+     "effective_F_DERIVED": 51.2,
+     "pixel_scale_arcsec": 0.009942,
+     "fov_arcsec": 10
+    },
+    "medium": {
+     "f_cam_mm_DERIVED": 647,
+     "f_cam_over_f_col_DERIVED": 1.877,
+     "effective_F_DERIVED": 25.6,
+     "pixel_scale_arcsec": 0.019829,
+     "fov_arcsec": 20
+    },
+    "wide": {
+     "f_cam_mm_DERIVED": 323,
+     "f_cam_over_f_col_DERIVED": 0.938,
+     "effective_F_DERIVED": 12.8,
+     "pixel_scale_arcsec": 0.039686,
+     "fov_arcsec": 40
+    }
+   },
+   "filters": "two 18-position filter wheels in the collimated beam just after the pupil-mask wheel (near the pupil); aperture masks are mounted in filter-wheel slots",
+   "pupil_masks": "6 selectable: circumscribed circle (fixed), inscribed hexagon (fixed, 'fixedhex'), inscribed circle (rotating), 3 hexagons (rotating), spectroscopy mask",
+   "detector": {
+    "name": "Aladdin-3 InSb",
+    "chip_Nx": 1024,
+    "chip_Ny": 1024,
+    "pitch_um": 27,
+    "n_chips": 1,
+    "rows": [
+     1
+    ],
+    "gaps": null
+   },
+   "field": {
+    "limit": "detector (1024 px); focal-plane slit/mask slides provide a matched baffle for each camera",
+    "square_arcsec_DERIVED": {
+     "narrow": 10.18,
+     "medium": 20.3,
+     "wide": 40.64
+    }
+   },
+   "validation": {
+    "pixel_scale_arcsec": {
+     "narrow": 0.009942,
+     "narrow_pre2015_measured": 0.009952,
+     "narrow_post2015_measured": 0.009971,
+     "medium": 0.019829,
+     "wide": 0.039686
+    },
+    "fov_arcsec": {
+     "narrow": "10 x 10",
+     "medium": "20 x 20",
+     "wide": "40 x 40"
+    }
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": 10.95,
+    "unit": "m (maximum diameter of the segmented primary)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "alternatives": [
+     {
+      "value": 10.93,
+      "src": "H17",
+      "loc": "Sec. 2",
+      "quote": "as the diameter of the circumscribed circle, i.e. 10.93 m.",
+      "note": "circumscribed circle of the NIRC2 pupil model"
+     },
+     {
+      "value": "9 m inscribed circle",
+      "src": "H17",
+      "loc": "Sec. 2",
+      "quote": "Lyot stop almost matches the inscribed circle in the hexagonal entrance pupil, which is 9 m in diameter."
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.24,
+    "unit": "central obstruction diameter / circumscribed pupil diameter",
+    "src": "H17",
+    "loc": "Sec. 2, Table 1 (Pupil configuration of the Keck telescope and Lyot stop mask used for the vortex coronagraph in NIRC2)",
+    "quote": "Central obstruction diam. 0.24",
+    "alternatives": [
+     {
+      "value": "2.6 m on a 10 m primary",
+      "src": "SE17",
+      "loc": "Sec. 2",
+      "quote": "for a 2.6 m central obscuration, a 10 m diameter primary has Ls = 0.07"
+     },
+     {
+      "value": "pupil masks block spiders and secondary obstruction",
+      "src": "KNOM",
+      "loc": "1.2 Optical path",
+      "quote": "two rotating masks designed to block light from the spiders as well as the secondary obstruction"
+     }
+    ],
+    "derived": "DERIVED: 0.24 x 10.93 = 2.62 m; / 10.95 m = 0.239"
+   },
+   "telescope_focus": {
+    "value": "output of the Keck II AO system (left Nasmyth platform), f/15, same f/# and pupil location as the bare telescope",
+    "unit": null,
+    "src": "KTG02",
+    "loc": "Sec. 4.9",
+    "quote": "The output of the AO system is identical to that of the telescope with the same f/# and with the pupil at the same distance in front of the focal plane.",
+    "alternatives": [
+     {
+      "value": "left Nasmyth, behind the AO bench",
+      "src": "KNOM",
+      "loc": "1.1",
+      "quote": "NIRC2 is positioned behind the AO bench on the Left Nasmyth Platform of Keck II."
+     },
+     {
+      "value": "2nd OAP reproduces f/# and pupil",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.1 (AO optical path)",
+      "quote": "a 2nd OAP to reproduce the telescope's f/# and pupil location with respect to the focal plane"
+     },
+     {
+      "value": "F/15 left Nasmyth focus",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.3.1",
+      "quote": "Location Keck II Adaptive Optics Facility F/15 Left Nasmyth Focus"
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 13.66,
+    "unit": "f/# at the AO output (nominal f/15)",
+    "src": "KNG",
+    "loc": "General Specifications table",
+    "quote": "Input f/ ratio | f/15",
+    "alternatives": [
+     {
+      "value": "f/15 beam, same f/# as the telescope",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.2",
+      "quote": "The AO system currently outputs an f/15 beam (same f/# and pupil location as the telescopes’)"
+     },
+     {
+      "value": "149.6 m (f/15 focal length)",
+      "src": "KTG02",
+      "loc": "Table 2 (f/15 column)",
+      "quote": "Focal length (m) 149.6 249.7 395.0"
+     }
+    ],
+    "derived": "DERIVED: f/15 focus focal length 149.6 m / 10.95 m = f/13.66 (same convention as the MOSFIRE and DEIMOS presets)",
+    "is_derived": true
+   },
+   "telescope_focal_length": {
+    "value": 149.6,
+    "unit": "m (f/15 focus; reproduced by the AO relay)",
+    "src": "KTG02",
+    "loc": "Table 2 (f/15 column)",
+    "quote": "Focal length (m) 149.6 249.7 395.0"
+   },
+   "primary_focal_ratio": {
+    "value": 1.6,
+    "unit": "f/# (drawing only)",
+    "src": "KTG02",
+    "loc": "Sec. 3.1.1",
+    "quote": "mum diameter of the primary is 10.95 m and its focal length, 17.5 m.",
+    "derived": "DERIVED: 17.5 / 10.95 = 1.598",
+    "is_derived": true
+   },
+   "optical_train": {
+    "value": "AO focus -> CaF2 window -> preslit blades -> focal-plane slit and mask slides -> collimator -> pupil-mask wheel -> two filter wheels -> shutter -> grism slide -> camera -> detector",
+    "unit": null,
+    "src": "KNOM",
+    "loc": "1.2 Optical path",
+    "quote": "The beam comes to a focus where there are two slide mechanisms. ... A third use of the slit and mask sliders is to provide a focal plane baffle for imaging through the three cameras. After the slit and mask sliders, the light is collimated.",
+    "alternatives": [
+     {
+      "value": "pupil masks then filter wheels",
+      "src": "KNOM",
+      "loc": "1.2",
+      "quote": "Beneath the slit is a wheel which provides a selection of pupil masks, including one for spectroscopy, and two rotating masks designed to block light from the spiders as well as the secondary obstruction. Next comes two filter wheels with 18 positions each."
+     },
+     {
+      "value": "grism slide, then camera",
+      "src": "KNOM",
+      "loc": "1.2",
+      "quote": "The beam next passes through a grism slide, with three slots plus an open position. ... Last in the optical path is one of three selectable cameras."
+     }
+    ]
+   },
+   "collimator_focal_length": {
+    "value": "NOT FOUND (published); 344 mm DERIVED by inference",
+    "unit": "mm",
+    "src": "KNRM",
+    "loc": "pp. 1-4 (mask drawings; see derived)",
+    "quote": "9 Hole Golay (110cm holes) ... Hole diameter 2.5mm ... 18 Hole Golay (57cm holes) ... Hole diameter 1.15mm",
+    "derived": "DERIVED (inference, not a published value): the NIRC2 9-hole and 18-hole aperture masks (hole centres in mm, pp. 1, 3) are mirror images of Tuthill's Keck pupil masks drawn on the 36-segment primary (pp. 2, 4): a similarity fit of hole centres gives 64.714 (9-hole, 9 holes, rms 1.6 drawing px) and 64.740 (18-hole, 18 holes, rms 1.9 px) drawing px per NIRC2 mm; the segment grid on the same drawings gives 116.17 px per half flat-to-flat = 0.7794 m (segments '1.8 m across the corners', KTG02) = 149.05 px/m. Pupil scale = 149.05 / 64.727 = 2.303 mm per metre of primary (2.5 mm holes -> 1.086 m, cf. '110cm holes'). The masks sit in filter-wheel slots (T06), i.e. at the NIRC2 pupil. Then f_col = 2.303e-3 x 149.6 m = 344.5 mm (because W/D = f_col/f_tel).",
+    "is_derived": true
+   },
+   "pupil_diameter": {
+    "value": "NOT FOUND (published); 25.2 mm DERIVED by inference",
+    "unit": "mm",
+    "src": "KNRM",
+    "loc": "p. 1 (9-hole NIRC2 mask), p. 3 (18-hole)",
+    "quote": "Mask diameter 31.496mm",
+    "alternatives": [
+     {
+      "value": "masks in filter-wheel slots",
+      "src": "T06",
+      "loc": "Sec. 2.1",
+      "quote": "These masks, with 18-hole and 9-hole Golay-type non-redundant array layouts, were mounted in spare slots within two of the filter wheels of the camera."
+     }
+    ],
+    "derived": "DERIVED (inference): 2.303 mm/m x 10.95 m = 25.2 mm (25.2 mm for the 10.93-m circumscribed circle); fits inside the 31.496-mm mask blanks. f_col / F_tel = 344.5 / 13.66 = 25.2 mm (consistent by construction).",
+    "is_derived": true
+   },
+   "camera_type": {
+    "value": "three selectable cameras, all reflecting, gold-coated, at 50 K",
+    "unit": null,
+    "src": "KTG02",
+    "loc": "Sec. 4.9.3.1 (NIRC2 specifications, Optics)",
+    "quote": "All reflecting, gold-coated",
+    "alternatives": [
+     {
+      "value": "nominal 0.01/0.02/0.04\"/px",
+      "src": "KNOM",
+      "loc": "1.2",
+      "quote": "Last in the optical path is one of three selectable cameras. These have nominal scales of 0.01, 0.02, and 0.04 arcsec/pixel"
+     },
+     {
+      "value": "medium camera field curvature",
+      "src": "KNOM",
+      "loc": "5.1.1",
+      "quote": "Also note that the medium-field camera has significant field curvature"
+     }
+    ]
+   },
+   "camera_focal_length": {
+    "value": {
+     "narrow": 1290,
+     "medium": 647,
+     "wide": 323
+    },
+    "unit": "mm (DERIVED; not published)",
+    "src": "KNG",
+    "loc": "General Specifications (pixel scale)",
+    "quote": "Narrow camera: 0.009942 arcsec/pixel (+/- 0.00005\") Medium camera: 0.019829 arcsec/pixel Wide camera: 0.039686 arcsec/pixel",
+    "derived": "DERIVED: effective focal length at the detector = 206264.8 x 0.027 mm / scale = 560.2 m (narrow), 280.9 m (medium), 140.3 m (wide); magnification f_cam/f_col = f_eff / 149.6 m = 3.744 / 1.877 / 0.938 (robust: needs only the published scales and the f/15 focal length); with the inferred f_col = 344.5 mm: f_cam = 1290 / 647 / 323 mm. Using the measured narrow scales: 9.952 mas -> 1289 mm, 9.971 mas -> 1286 mm.",
+    "is_derived": true
+   },
+   "effective_focal_ratio": {
+    "value": {
+     "narrow": 51.2,
+     "medium": 25.6,
+     "wide": 12.8
+    },
+    "unit": "f/# at the detector (DERIVED)",
+    "src": "KNG",
+    "loc": "General Specifications",
+    "quote": "Narrow camera: 0.009942 arcsec/pixel (+/- 0.00005\") Medium camera: 0.019829 arcsec/pixel Wide camera: 0.039686 arcsec/pixel",
+    "derived": "DERIVED: f_eff / D = 560.2 / 10.95 = 51.2; 280.9 / 10.95 = 25.6; 140.3 / 10.95 = 12.8 (= f_cam / W, independent of the pupil inference)",
+    "is_derived": true
+   },
+   "filter_location": {
+    "value": "two 18-position filter wheels in the collimated beam just after the pupil-mask wheel (near the pupil)",
+    "unit": null,
+    "src": "KNOM",
+    "loc": "1.2 Optical path",
+    "quote": "Next comes two filter wheels with 18 positions each.",
+    "alternatives": [
+     {
+      "value": "pupil masks fitted in filter-wheel slots",
+      "src": "T06",
+      "loc": "Sec. 2.1",
+      "quote": "These masks, with 18-hole and 9-hole Golay-type non-redundant array layouts, were mounted in spare slots within two of the filter wheels of the camera."
+     }
+    ]
+   },
+   "pupil_masks": {
+    "value": "circumscribed circle (fixed); inscribed hexagon masking spiders (fixed); inscribed circle masking spiders (rotating); 3 hexagons (rotating); plus a spectroscopy mask",
+    "unit": null,
+    "src": "KNG",
+    "loc": "Pupil masks",
+    "quote": "1 circular fixed, circumscribes the telescope pupil. 1 hexagonal fixed, inscribes the telescope pupil and masks spiders.",
+    "alternatives": [
+     {
+      "value": "rotating masks",
+      "src": "KNG",
+      "loc": "Pupil masks",
+      "quote": "1 circular rotating, inscribes the telescope pupil and masks the spiders. 3 hexagonal, rotating."
+     },
+     {
+      "value": "circumscribed mask has no central obscuration",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.3.1",
+      "quote": "Circumscribed, non-rotating No central obscuration"
+     }
+    ]
+   },
+   "detector": {
+    "value": "Aladdin-3 InSb, 1024 x 1024, 27 um pixels (Archon controller since 2023-11-20)",
+    "unit": null,
+    "src": "KNG",
+    "loc": "Detector",
+    "quote": "1024x1024 InSb Aladdin-III array, 27 micron pixels",
+    "alternatives": [
+     {
+      "value": "1024 x 1024, 27 um",
+      "src": "KNOM",
+      "loc": "1.4",
+      "quote": "The detector is a 1024x1024 Aladdin-3 array with 27 µm pixels."
+     },
+     {
+      "value": "original array still in use",
+      "src": "KNG",
+      "loc": "intro",
+      "quote": "but the detector is still the original Aladdin III InSb 1024x1024 array."
+     }
+    ]
+   },
+   "chip_format": {
+    "value": {
+     "Nx": 1024,
+     "Ny": 1024
+    },
+    "unit": "pixels",
+    "src": "KNG",
+    "loc": "Detector",
+    "quote": "1024x1024 InSb Aladdin-III array"
+   },
+   "pixel_pitch": {
+    "value": 27,
+    "unit": "um",
+    "src": "KNG",
+    "loc": "Detector",
+    "quote": "1024x1024 InSb Aladdin-III array, 27 micron pixels"
+   },
+   "n_chips": {
+    "value": 1,
+    "unit": "chip",
+    "src": "KNG",
+    "loc": "Detector",
+    "quote": "1024x1024 InSb Aladdin-III array"
+   },
+   "chip_layout": {
+    "value": {
+     "rows": [
+      1
+     ]
+    },
+    "unit": null,
+    "src": "KNG",
+    "loc": "Detector",
+    "quote": "1024x1024 InSb Aladdin-III array"
+   },
+   "field_limit": {
+    "value": "the detector; for each camera the focal-plane slit/mask slides put a matching baffle in place",
+    "unit": null,
+    "src": "KNOM",
+    "loc": "5.1.1",
+    "quote": "For imaging, when a new camera is selected, the appropriate masks in the slit and slitmask slides are automatically put into place.",
+    "alternatives": [
+     {
+      "value": "focal plane baffle for the three cameras",
+      "src": "KNOM",
+      "loc": "1.2",
+      "quote": "A third use of the slit and mask sliders is to provide a focal plane baffle for imaging through the three cameras."
+     }
+    ]
+   },
+   "field_of_view": {
+    "value": {
+     "narrow": "10 x 10",
+     "medium": "20 x 20",
+     "wide": "40 x 40"
+    },
+    "unit": "arcsec",
+    "src": "KNG",
+    "loc": "Field of view",
+    "quote": "Narrow camera: 10x10 arcsec Medium camera: 20x20 arcsec Wide camera: 40x40 arcsec",
+    "alternatives": [
+     {
+      "value": "Table 5.1",
+      "src": "KNOM",
+      "loc": "5.1.1, Table 5.1",
+      "quote": "wide cam04 0.04 | 0.04 | 40x40 | M | medium cam02 0.02 | 0.02 | 20x20 | K | narrow cam01 0.01 | 0.01 | 10x10 | J"
+     },
+     {
+      "value": "narrow 10\" FOV",
+      "src": "KTG02",
+      "loc": "Sec. 4.9.3.1",
+      "quote": "Narrow: 0.01''/pix, 10'' FOV"
+     }
+    ],
+    "derived": "DERIVED: 1024 x 0.009942 = 10.18\"; 1024 x 0.019829 = 20.30\"; 1024 x 0.039686 = 40.64\""
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": {
+     "narrow": 0.009942,
+     "medium": 0.019829,
+     "wide": 0.039686
+    },
+    "unit": "arcsec/pixel",
+    "src": "KNG",
+    "loc": "Pixel scale",
+    "quote": "Narrow camera: 0.009942 arcsec/pixel (+/- 0.00005\") Medium camera: 0.019829 arcsec/pixel Wide camera: 0.039686 arcsec/pixel",
+    "alternatives": [
+     {
+      "value": {
+       "narrow_pre2015": 0.009952
+      },
+      "src": "S16",
+      "loc": "Table 2 (Yelda et al. 2010 row)",
+      "quote": "Yelda et al. (2010) 9.952 ± 0.002 0.252 ± 0.009",
+      "note": "mas/px, before the 2015-04-13 realignment"
+     },
+     {
+      "value": {
+       "narrow_post2015": 0.009971
+      },
+      "src": "S16",
+      "loc": "Table 2 (M53, May 2015)",
+      "quote": "M53—May 9.971 ± 0.004 ± 0.001 0.262 ± 0.020 ± 0.002",
+      "note": "mas/px, after the realignment"
+     },
+     {
+      "value": "after 2015 April 13",
+      "src": "S16",
+      "loc": "Sec. 6",
+      "quote": "observations obtained with the Keck NIRC2 narrow camera after 2015 April 13, when the optical system was realigned."
+     }
+    ],
+    "derived": "Model check: with f_col/f_cam taken from these scales the model reproduces them by construction; an independent check needs the internal focal lengths (NOT FOUND)."
+   },
+   "field_of_view": {
+    "value": {
+     "narrow": "10 x 10",
+     "medium": "20 x 20",
+     "wide": "40 x 40"
+    },
+    "unit": "arcsec",
+    "src": "KNG",
+    "loc": "Field of view",
+    "quote": "Narrow camera: 10x10 arcsec Medium camera: 20x20 arcsec Wide camera: 40x40 arcsec"
+   }
+  },
+  "not_found": [
+   "NIRC2 collimator focal length, camera focal lengths and the pupil diameter: no instrument paper exists (KNG: 'partly from the original NIRC2 proposal by Keith Matthews and Tom Soifer'); not in KNG, KNOM, KTG02 or the papers read. Searched: ADS full text (NIRC2 + collimator/pupil/f-ratio), Keck NIRC2 pages (genspecs, Observer's Manual, specs, technical pages), vortex/QACITS papers (H17, SE17), KPIC phase II (arXiv:2502.01863), Liger filter/pupil paper (arXiv:2104.01226). Sitarski et al. 2014 (SPIE 9148, NIRC2 Zemax model) was not obtained (no open copy found).",
+   "Whether the pupil-mask wheel or the filter wheels sit exactly at the pupil (only the order is published; the aperture masks in the filter wheels imply the filter wheels are at or near it).",
+   "Measured scales for the medium and wide cameras beyond the Keck table values (no uncertainties quoted).",
+   "The collimator and camera optical types beyond 'All reflecting, gold-coated' (KTG02)."
+  ],
+  "conflicts": [
+   "Narrow-camera scale: 0.009942 +/- 0.00005\" (KNG) vs 9.952 +/- 0.002 mas (Yelda et al. 2010, pre-2015, quoted in S16) vs 9.971 +/- 0.004 mas (S16, after the 2015-04-13 realignment) vs nominal 0.01 (KNOM, KTG02).",
+   "AO output f-ratio: 'f/15' (KNG, KTG02) is the nominal label; with D = 10.95 m the f/15 focal length 149.6 m gives f/13.66 (DERIVED).",
+   "Central obscuration: 0.24 of 10.93 m = 2.62 m (H17) vs 2.6 m on a 10 m primary (SE17, 0.26).",
+   "Aperture-mask hole sizes vs the old Keck masks: 9-hole 2.5 mm -> 1.086 m DERIVED (Keck mask '110cm holes'); 18-hole 1.15 mm -> 0.499 m DERIVED (Keck mask '57cm holes'), i.e. the NIRC2 18-hole holes are undersized by 12% while the hole positions match to 0.3%."
+  ],
+  "notes": [
+   "Read this preset as two tiers: tier 1 (sourced or robust DERIVED): D, eps, F_tel, f_eff per camera, f_cam/f_col magnifications, effective focal ratios, detector, fields, scales. Tier 2 (inferred DERIVED, flagged): W = 25.2 mm and f_col = 344 mm from the mask drawings, hence the absolute f_cam values. Changing W leaves the pixel scale, field and effective f-ratio unchanged.",
+   "Mask-drawing fit (KNRM, DERIVED here): circle centres were measured on 200-dpi renderings of pp. 2 and 4 (ring-filter peak finding; radii 86 and 42 px), NIRC2 hole centres were read off pp. 1 and 3 (OCR confirms several: '(2.52110,7.85996)', '(-9.58012,6.11331)', '5.92876,7.20237)', '-9.20181,1.53327)', '6.10974,-4.08020)'); the best similarity transform is a mirror image with ~0 deg rotation, residual 0.27% of the pattern radius. Segment grid: horizontal hexagon edges every 116.14 px (p. 2) and 116.21 px (p. 4) = half the 1.5588-m flat-to-flat of a 1.8-m (corner-to-corner) segment.",
+   "AO relay: K-mirror rotator, OAP collimator imaging the primary on the 349-actuator DM (7 mm pitch = 56.25 cm on the primary, KTG02), second OAP restoring f/15 and the pupil position; NIRC2 therefore sees the telescope's f/15 beam and pupil geometry (eps, spiders).",
+   "Coronagraph spots and the vortex masks sit in the focal-plane slit slide; Lyot stops are the pupil masks (fixedhex since 2019, KNOM). Not part of the imaging preset."
+  ]
+ }
+}

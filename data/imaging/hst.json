@@ -1,0 +1,1637 @@
+{
+ "_meta": {
+  "project": "instex Imager Explorer presets -- HST: ACS/WFC, WFC3/UVIS, WFC3/IR (shared OTA block)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/hst.md (same content as Markdown tables, in the format of data/round4/mosfire.md). Entries may carry 'stage' (design vs as-built), 'check' (ocr / figure for figure labels without a text layer) and 'pdf_page' (page of the saved PDF where the quote was found; STScI handbook printed page = PDF page - 1, OTA Handbook printed page = PDF page - 6). Each channel carries 'explorer_inputs' (compact numbers for the app; DERIVED values flagged in the basis strings).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from the saved document. derived = arithmetic done here from sourced values. alternatives = other sourced values (conflicts). Quotes were machine-checked against the saved file's extracted text (pdftotext -layout and raw per page; HTML text with tags stripped; plain-text Tiny Tim tables) after whitespace/glyph normalisation; figure labels without a text layer were checked against tesseract OCR of the page rendered at 300 dpi (marked check: ocr); one figure dimension (OTA pupil obscuration radius 396.0 mm) is visual only (check: figure).",
+  "quote_normalisation": "NFKC; curly quotes, primes and double primes, en/em dashes, minus signs, the multiplication sign (x), micro/mu (u) and bullets normalised; the Clampin 2002 text layer renders the double prime as two U+0001 characters (mapped to \"); ' ... ' joins non-adjacent pieces; table rows quoted as whitespace-separated cells; matching also tried with line-break hyphens removed and with all whitespace removed (table layouts).",
+  "quote_check_counts": {
+   "text": 143,
+   "ocr": 4,
+   "figure": 1
+  }
+ },
+ "sources": {
+  "ACSIHB": {
+   "cite": "Stark, D. V., et al. 2025, \"ACS Instrument Handbook for Cycle 34\", Version 25.0, December 2025 (Baltimore: STScI); PDF export of the hst-docs.stsci.edu handbook (PDF created 2026-01-27). Page numbers are the printed page numbers; the PDF page is printed page + 1",
+   "file": "rawdata/imaging/acs/acs_ihb_cycle34.pdf",
+   "url": "https://hst-docs.stsci.edu/acsihb/files/147481397/221483033/4/1769607179448/acs_ihb.pdf"
+  },
+  "ACSDHB": {
+   "cite": "STScI, ACS Data Handbook, Sec. 1.1 \"Instrument Design and Capabilities\" (web page; footer dated December 2025; fetched 2026-10-19)",
+   "file": "rawdata/imaging/acs/acsdhb_1-1_instrument_design_and_capabilities.html",
+   "url": "https://hst-docs.stsci.edu/acsdhb/chapter-1-acs-overview/1-1-instrument-design-and-capabilities"
+  },
+  "C02": {
+   "cite": "Clampin, M., Hartig, G., Ford, H. C., et al. 2002, \"Status of the Advanced Camera for Surveys\", in The 2002 HST Calibration Workshop, eds. S. Arribas, A. Koekemoer & B. Whitmore (Baltimore: STScI), p. 3 (STScI-hosted PDF)",
+   "file": "rawdata/imaging/acs/Clampin2002_HSTCalWorkshop_ACS_inflight_performance_stsci.pdf",
+   "url": "https://www.stsci.edu/largefiles/hst/HST_overview/documents/calworkshop/workshop2002/CW2002_Papers/clampin.pdf"
+  },
+  "S05": {
+   "cite": "Sirianni, M., Jee, M. J., Benitez, N., et al. 2005, PASP 117, 1049, \"The Photometric Performance and Calibration of the HST Advanced Camera for Surveys\", arXiv:astro-ph/0507614 (accepted version)",
+   "file": "rawdata/imaging/acs/Sirianni2005_PASP117_1049_ACS_photometric_arXiv-astro-ph0507614.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0507614"
+  },
+  "SM3B": {
+   "cite": "NASA/GSFC, Hubble Space Telescope Servicing Mission 3B Media Reference Guide (2002), Sec. 4 \"Science Instruments\" (ACS pages 4-1 to 4-4; pre-installation values)",
+   "file": "rawdata/imaging/acs/NASA_SM3B_MediaGuide_sec4_ACS_lhea.pdf",
+   "url": "https://lhea.gsfc.nasa.gov/archive/sm3b/art/pdf/media-guide/sec4.pdf"
+  },
+  "WFC3IHB": {
+   "cite": "Marinelli, M. & Green, J. 2025, \"Wide Field Camera 3 Instrument Handbook for Cycle 34\", Version 18.0, December 2025 (Baltimore: STScI); PDF export of the hst-docs.stsci.edu handbook. Page numbers are the printed page numbers; the PDF page is printed page + 1",
+   "file": "rawdata/imaging/wfc3/wfc3_ihb_cycle34.pdf",
+   "url": "https://hst-docs.stsci.edu/wfc3ihb/files/148522437/221483560/2/1778683284839/wfc3ihb.pdf"
+  },
+  "W3CDR": {
+   "cite": "WFC3 project (NASA/GSFC), \"WFC3 Critical Design Review\", December 2000, configuration slides (PDF title \"1-04_C~1\", created 2001-03-15; design stage). Retrieved from the Internet Archive snapshot of 2021-03-20 (original bytes, id_ URL); the original GSFC URL now returns an HTML page. The text layer renders the micro sign as 'm' (\"15 mm pixels\" = 15 um)",
+   "file": "rawdata/imaging/wfc3/WFC3_CDR_Dec2000_cdr_config_GSFC_wayback20210320.pdf",
+   "url": "https://web.archive.org/web/20210320011902id_/https://wfc3.gsfc.nasa.gov/docs/cdr_config.pdf"
+  },
+  "ISR0814": {
+   "cite": "Hook, R. & Stoehr, F. 2008, \"WFC3 Support in Tiny Tim\", WFC3 Instrument Science Report 2008-14 (June 27, 2008)",
+   "file": "rawdata/imaging/wfc3/WFC3-ISR-2008-14_HookStoehr_TinyTim_WFC3.pdf",
+   "url": "https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2008/WFC3-2008-14.pdf"
+  },
+  "ISR1213": {
+   "cite": "Biretta, J. 2012, \"TinyTIM Modeling of WFC3/IR Images\", WFC3 Instrument Science Report 2012-13 (July 9, 2012); reproduces the Tiny Tim wfc3_ir.pup pupil table",
+   "file": "rawdata/imaging/wfc3/WFC3-ISR-2012-13_Biretta_TinyTim_WFC3IR.pdf",
+   "url": "https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2012/WFC3-2012-13.pdf"
+  },
+  "ISR1410": {
+   "cite": "Biretta, J. 2014, \"Improved TinyTIM Models for WFC3/IR\", WFC3 Instrument Science Report 2014-10 (May 8, 2014); on-orbit fit of the IR cold-mask parameters",
+   "file": "rawdata/imaging/wfc3/WFC3-ISR-2014-10_Biretta_Improved_TinyTim_WFC3IR_coldmask.pdf",
+   "url": "https://www.stsci.edu/files/live/sites/www/files/home/hst/instrumentation/wfc3/documentation/instrument-science-reports-isrs/_documents/2014/WFC3-2014-10.pdf"
+  },
+  "PRIMOTA": {
+   "cite": "STScI, The Hubble Space Telescope Primer for Cycle 34, \"HST Primer: Optical Performance, Guiding Performance, and Observing Efficiency\" (web page; fetched 2026-10-19); OTA characteristics table",
+   "file": "rawdata/imaging/hst/primer_cycle34_hst-primer-optical-performance-guiding-performance-and-observing-efficiency.html",
+   "url": "https://hst-docs.stsci.edu/hsp/the-hubble-space-telescope-primer-for-cycle-34/hst-primer-optical-performance-guiding-performance-and-observing-efficiency"
+  },
+  "PRIMSI": {
+   "cite": "STScI, The Hubble Space Telescope Primer for Cycle 34, \"HST Primer: Scientific Instruments ACS, WFC3, and FGS\" (web page; fetched 2026-10-19)",
+   "file": "rawdata/imaging/hst/primer_cycle34_hst-primer-scientific-instruments-acs-wfc3-and-fgs.html",
+   "url": "https://hst-docs.stsci.edu/hsp/the-hubble-space-telescope-primer-for-cycle-34/hst-primer-scientific-instruments-acs-wfc3-and-fgs"
+  },
+  "PRIMCMP": {
+   "cite": "STScI, The Hubble Space Telescope Primer for Cycle 34, \"HST Primer: Scientific Instrument Comparisons\" (web page; fetched 2026-10-19); optical and near-IR imaging comparison tables",
+   "file": "rawdata/imaging/hst/primer_cycle34_hst-primer-scientific-instrument-comparisons.html",
+   "url": "https://hst-docs.stsci.edu/hsp/the-hubble-space-telescope-primer-for-cycle-34/hst-primer-scientific-instrument-comparisons"
+  },
+  "OTAHB": {
+   "cite": "Burrows, C. J. 1990, \"Hubble Space Telescope Optical Telescope Assembly Handbook\", Version 1.0, May 1990 (Baltimore: STScI); NTRS 19920008265 (scanned document with an OCR text layer; OCR typos such as \"Chretian\", \"baffie\" are in the text layer). Page numbers are printed page numbers; PDF page = printed + 6",
+   "file": "rawdata/imaging/hst/Burrows1990_HST_OTA_Handbook_v1.0_NTRS19920008265.pdf",
+   "url": "https://ntrs.nasa.gov/api/citations/19920008265/downloads/19920008265.pdf"
+  },
+  "L12": {
+   "cite": "Lallo, M. D. 2012, Optical Engineering 51, 011011, \"Experience with the Hubble Space Telescope: twenty years of an archetype\", arXiv:1203.0002 (author version; the text layer renders f-prime as \"f !\" and arcsec as \"!\")",
+   "file": "rawdata/imaging/hst/Lallo2012_OptEng51_011011_HST_20yr_arXiv1203.0002.pdf",
+   "url": "https://arxiv.org/pdf/1203.0002"
+  },
+  "TT63": {
+   "cite": "Krist, J. & Hook, R. 2004, \"The Tiny Tim User's Guide\", Version 6.3, June 2004 (tinytim.pdf in the final Tiny Tim source release, GitHub spacetelescope/tinytim, commit c3d06ef, commit message \"7.5\", 2020-01-22)",
+   "file": "rawdata/imaging/hst/TinyTim_UsersGuide_v6.3_2004_github_c3d06ef.pdf",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/tinytim.pdf"
+  },
+  "TTACS": {
+   "cite": "Tiny Tim 7.5 pupil table acswfc1.pup (\"Advanced Camera for Surveys WFC1 information\", dated March 2003), GitHub spacetelescope/tinytim commit c3d06ef",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_acswfc1.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/acswfc1.pup"
+  },
+  "TTUVIS": {
+   "cite": "Tiny Tim 7.5 pupil table wfc3_uvis1.pup (dated March 2008, updated 2010-2011), GitHub spacetelescope/tinytim commit c3d06ef",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_wfc3_uvis1.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/wfc3_uvis1.pup"
+  },
+  "TTIR": {
+   "cite": "Tiny Tim 7.5 pupil table wfc3_ir.pup (dated April 2008, updated 2011; pre-ISR-2014-10 cold-mask values), GitHub spacetelescope/tinytim commit c3d06ef",
+   "file": "rawdata/imaging/hst/tinytim_c3d06ef_wfc3_ir.pup",
+   "url": "https://raw.githubusercontent.com/spacetelescope/tinytim/c3d06ef/wfc3_ir.pup"
+  }
+ },
+ "hst_ota": {
+  "title": "HST Optical Telescope Assembly (OTA): 2.4 m f/24 Ritchey-Chretien Cassegrain shared by all three channels",
+  "recommended_preset": "D = 2.4 m; eps = 0.330 (linear; the central obscuration is the secondary-mirror baffle, radius 396.0 mm of the 1200 mm pupil radius); spider = 4 vanes in a cross (along the V2 and V3 axes), 25.654 mm wide (= 0.0214 of the pupil radius; Tiny Tim uses 0.022); plus 3 primary-mirror pads (not part of the explorer model); OTA f/24, f = 57.6 m, 3.58 arcsec/mm on axis. The three channels below each relay this focus to the detector with their own corrector optics.",
+  "params": {
+   "telescope_aperture": {
+    "value": 2.4,
+    "unit": "m (primary mirror diameter)",
+    "src": "PRIMOTA",
+    "loc": "OTA characteristics table",
+    "quote": "Aperture 2.4 m",
+    "alternatives": [
+     {
+      "value": 2.4,
+      "src": "OTAHB",
+      "loc": "Sec. 1.3.2.2, p. 13",
+      "quote": "The OTA (Figure 1.5) is the core of the ST and includes the 2.4-m, F/24, Ritchey- Chretian Cassegrain-type telescope.",
+      "pdf_page": 19
+     },
+     {
+      "value": 2.4,
+      "src": "L12",
+      "loc": "Sec. 2, Table 1 (Optical parameters for HST), arXiv p. 8",
+      "quote": "2400 mm diameter circular annulus sandwich design, with 600 mm central opening",
+      "pdf_page": 8
+     },
+     {
+      "value": "45,239 cm2 unobstructed area",
+      "src": "WFC3IHB",
+      "loc": "Sec. 9.4 (Count Rates: Imaging), p. 266",
+      "quote": "A is the area of an unobstructed 2.4-m telescope (i.e., 45,239 cm2).",
+      "note": "DERIVED: pi x 120^2 = 45,239 cm2",
+      "pdf_page": 267
+     }
+    ]
+   },
+   "telescope_focal_ratio": {
+    "value": 24,
+    "unit": "f/# (OTA)",
+    "src": "PRIMOTA",
+    "loc": "OTA characteristics table",
+    "quote": "Focal Ratio f /24",
+    "alternatives": [
+     {
+      "value": 24,
+      "src": "OTAHB",
+      "loc": "Sec. 1.3.2.2, p. 13",
+      "quote": "2.4-m, F/24, Ritchey- Chretian Cassegrain-type telescope",
+      "pdf_page": 19
+     },
+     {
+      "value": 24,
+      "src": "L12",
+      "loc": "Sec. 2, Table 1 (Optical parameters for HST), arXiv p. 8",
+      "quote": "focal ratio (system) = f/24",
+      "pdf_page": 8
+     }
+    ]
+   },
+   "telescope_focal_length": {
+    "value": 57.6,
+    "unit": "m (OTA effective focal length)",
+    "src": "OTAHB",
+    "loc": "Sec. 4.2.8 (Astigmatism), p. 42",
+    "quote": "F = Effective focal length = 57.6 meters.",
+    "alternatives": [
+     {
+      "value": 57.6,
+      "src": "L12",
+      "loc": "Sec. 2, Table 1 (Optical parameters for HST), arXiv p. 8",
+      "quote": "Focal length (system) f ! = 57600 mm, focal ratio (system) = f/24",
+      "note": "text-layer glyph: \"f !\" = f'",
+      "pdf_page": 8
+     }
+    ],
+    "derived": "DERIVED: 24 x 2.4 m = 57.6 m",
+    "pdf_page": 48
+   },
+   "telescope_plate_scale": {
+    "value": 3.58,
+    "unit": "arcsec/mm (on axis)",
+    "src": "PRIMOTA",
+    "loc": "OTA characteristics table",
+    "quote": "Plate Scale (on axis) 3.58 arcsec/mm",
+    "alternatives": [
+     {
+      "value": "3.60-3.37 (across the field)",
+      "src": "L12",
+      "loc": "Sec. 2, Table 1 (Optical parameters for HST), arXiv p. 8",
+      "quote": "at a plate scale from 3.60 - 3.37!/mm",
+      "note": "text-layer glyph: \"!\" = arcsec",
+      "pdf_page": 8
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 57600 mm = 3.581 arcsec/mm"
+   },
+   "telescope_design": {
+    "value": "Ritchey-Chretien Cassegrain",
+    "unit": null,
+    "src": "PRIMOTA",
+    "loc": "OTA characteristics table",
+    "quote": "Design Ritchey-Chretien Cassegrain"
+   },
+   "central_obstruction_eps": {
+    "value": 0.33,
+    "unit": "linear ratio (obscuration radius / pupil radius)",
+    "src": "ISR0814",
+    "loc": "Sec. 'Comparisons between Tiny Tim simulations and Test Data', p. 8",
+    "quote": "The central obstruction size was increased from the nominal HST (0.330) value to 0.455 of the pupil radius.",
+    "alternatives": [
+     {
+      "value": 0.33,
+      "src": "OTAHB",
+      "loc": "Sec. 4.1.2 (Diffraction), p. 34-35",
+      "quote": "Because the secondary obscuration is 0.33, the rings consist of a sequence of a brighter ring followed by two fainter rings",
+      "pdf_page": 40
+     },
+     {
+      "value": 0.33,
+      "src": "L12",
+      "loc": "Sec. 2, Table 1 (Optical parameters for HST), arXiv p. 8",
+      "quote": "Central obscuration = 33% (diametric)",
+      "pdf_page": 8
+     },
+     {
+      "value": 0.33,
+      "src": "TTACS",
+      "loc": "OTA pupil block",
+      "quote": "0.330 = OTA Secondary Mirror Radius",
+      "note": "same line in TTUVIS and TTIR; Tiny Tim pupil units = fraction of the pupil (primary) radius (ISR0814)"
+     },
+     {
+      "value": "396.0 mm of 1200 mm (radii)",
+      "src": "OTAHB",
+      "loc": "Figure 4.1 'OTA Entrance Pupil', p. 36",
+      "quote": "1200 ... 396.0",
+      "check": "figure: read visually from the scanned figure; not machine-checkable",
+      "note": "dimensions read visually from the scanned figure (no text layer); OCR of rotated renders recovers \"1200\" but not \"396.0\". DERIVED: 396.0/1200 = 0.3300"
+     },
+     {
+      "value": "4930 of 45240 cm2 (areas)",
+      "src": "OTAHB",
+      "loc": "Sec. 3 (throughput), p. 29",
+      "quote": "The total HST entrance pupil area is 45240 cm2. Of this, 4930 cm2 is covered by the secondary obscuration",
+      "note": "DERIVED: sqrt(4930/45240) = 0.3301",
+      "pdf_page": 35
+     }
+    ],
+    "note": "The 0.33 obscuration is the secondary-mirror baffle (OTAHB p. 34: \"due to the secondary baffie central obscuration\" [OCR 'baffie' = baffle]), not the secondary mirror itself: L12 Table 1 gives \"281 mm diameter (310 mm with housing)\" (DERIVED 310/2400 = 0.129).",
+    "pdf_page": 8
+   },
+   "spider": {
+    "value": "4 vanes in a cross along the V2 and V3 axes, 25.654 mm wide",
+    "unit": "mm (full vane width at the entrance pupil)",
+    "src": "OTAHB",
+    "loc": "Figure 4.1 'OTA Entrance Pupil', p. 36",
+    "quote": "804.0 ... 25 .654",
+    "check": "ocr: figure label (image, no text layer); checked against tesseract OCR of the page rendered at 300 dpi",
+    "alternatives": [
+     {
+      "value": "0.022 of the pupil radius",
+      "src": "ISR1213",
+      "loc": "Appendix (wfc3_ir.pup listing), p. 21",
+      "quote": "Optical Telescope Assembly pupil information ... 0.330 = OTA Secondary Mirror Radius ... 0.022 = OTA Spider Width",
+      "pdf_page": 21
+     },
+     {
+      "value": "0.022 of the pupil radius",
+      "src": "TTACS",
+      "loc": "OTA pupil block",
+      "quote": "0.022 = OTA Spider Width",
+      "note": "same line in TTUVIS, TTIR and ISR1213 Appendix; DERIVED 0.022 x 1200 mm = 26.4 mm"
+     },
+     {
+      "value": "spider + pads area 1320 cm2",
+      "src": "OTAHB",
+      "loc": "Sec. 3, p. 29",
+      "quote": "1320 cm2 by the primary mirror pad supports and secondary mirror spider supports. Thus the total clear aperture is 38990 cm2",
+      "pdf_page": 35
+     },
+     {
+      "value": "perpendicular spider spikes",
+      "src": "ACSIHB",
+      "loc": "Sec. 5.6.4 (Geometric Distortions), p. 118",
+      "quote": "stretch enhances the spider diffraction patterns, which the distortion renders non-perpendicular",
+      "pdf_page": 119
+     }
+    ],
+    "derived": "DERIVED: 25.654/1200 = 0.0214 of the pupil radius; 4 vanes x 25.654 mm x (1200 - 396) mm = 825 cm2 (the remaining ~495 cm2 of the 1320 cm2 is the three pads, radius 0.065 x 1200 = 78 mm each per TTACS: 3 x pi x 7.8^2 = 573 cm2, partly overlapping the vanes)",
+    "note": "The vane count and orientation are read from Figure 4.1 (vanes drawn on the +V2/-V2 and +V3/-V3 axes; the 804.0 mm label is the vane length from the obscuration edge to the rim, 1200 - 396 = 804 DERIVED). Values '804.0' and '25 .654' are in the OCR of the 300-dpi render; the vane count is visual only."
+   },
+   "primary_pads": {
+    "value": "3 pads, radius 0.065 of the pupil radius",
+    "unit": "fraction of pupil radius",
+    "src": "TTACS",
+    "loc": "OTA pupil block",
+    "quote": "0.8921 0.0000 0.065 = OTA Pad 1 (V3, V2, Pad Radius)",
+    "note": "Not part of the explorer's pupil model; listed for completeness."
+   }
+  },
+  "not_found": [
+   "A text (non-figure) statement of the number of spider vanes; the count comes from OTA Handbook Figure 4.1 only."
+  ],
+  "conflicts": [
+   "Spider width: 25.654 mm (OTAHB Figure 4.1; 0.0214 of the radius) vs 0.022 of the radius = 26.4 mm (Tiny Tim pupil tables).",
+   "Central obscuration: 0.330 radius ratio (ISR0814, Tiny Tim, OTAHB, L12) is the secondary baffle; the secondary mirror is only 281 mm (310 mm with housing) in diameter (L12), i.e. 0.12-0.13 of D. Use 0.330."
+  ],
+  "notes": []
+ },
+ "acs_wfc": {
+  "title": "HST / ACS Wide Field Channel (two butted 4096 x 2048 SITe CCDs, 15 um pixels, three silver mirrors IM1-IM3 correcting the OTA spherical aberration; filters in the converging beam)",
+  "recommended_preset": "Model as DIRECT. D = 2.4 m, eps = 0.330, 4-vane spider 25.7 mm (OTA block). Effective focal ratio: published f/25 (C02, S05; consistent with the beam at the 22-deg tilted focal surface, DERIVED 24.9-25.1) and f/26 (Tiny Tim); the explorer's square-pixel direct model reproduces the published mean 0.050\"/px only with F = 25.78 (f_eff = 61.88 m, DERIVED) -- recommended. Optics: IM1 (spherical) images the HST pupil onto IM2 (anamorphic asphere = corrector), IM3 (Schmidt-like plate) sends the beam through the two filter wheels onto the CCDs: the pupil image is on a mirror, the filters are in the converging beam, and no pupil diameter or mirror focal lengths are published in the sources found. Detector: rows (top to bottom) [1 chip] [1 chip] = WFC1 over WFC2, each Nx = 4096 x Ny = 2048, 15 um, gap 50 px = 0.750 mm = 2.5\" between the long edges. Validate: 0.05\"/px (chip centres 0.0493 x 0.0486 WFC1, 0.0498 x 0.0503 WFC2; rhombic pixels, 8% diagonal stretch), FOV 202\" x 202\", 16,777,216 active pixels (DERIVED). Status: \"WFC may be offered as shared risk in Cycle 34\" (ACSIHB).",
+  "params": {
+   "channel_focal_ratio": {
+    "value": 25,
+    "unit": "f/# (effective, WFC)",
+    "src": "C02",
+    "loc": "Sec. 1 (Introduction), p. 3",
+    "quote": "WFC is an f/25 camera which employs three reflective optics.",
+    "alternatives": [
+     {
+      "value": 25,
+      "src": "S05",
+      "loc": "Sec. 2 (instrument description), arXiv p. 4",
+      "quote": "The f/25 focal length of the WFC gives a plate scale of 0.′′ 05 pixel−1 and a near critical sampling in the I-band.",
+      "pdf_page": 4
+     },
+     {
+      "value": 26,
+      "src": "TT63",
+      "loc": "tiny1 camera-selection menu (example session), p. 9",
+      "quote": "15) ACS - Wide Field Channel (f/26)",
+      "pdf_page": 9
+     },
+     {
+      "value": 25.78,
+      "src": "ACSIHB",
+      "loc": "Sec. 3.3.1 + Table 3.1",
+      "quote": "The 15 × 15 µm2 pixels provide ~0.05 arcsec/pixel spatial resolution",
+      "note": "DERIVED: F = 0.015 mm x 206264.8 / (0.05\" x 2400 mm) = 25.78 (f_eff = 61.88 m); with the Table 7.11 mean scale 0.049547\"/px: F = 26.02",
+      "pdf_page": 27
+     }
+    ],
+    "derived": "DERIVED: f/25 -> 0.0516\"/px, f/26 -> 0.0496\"/px for 15 um. Interpretation (not stated in the sources): the CCD is tilted 22 deg (ACSDHB), so the mean projected pixel side is cos-averaged: side factor sqrt((cos^2 22 + 1)/2) = 0.9643; 0.050\"/0.9643 = 0.05185\"/px at the focal surface -> F = 24.86 (0.0495\" -> 25.11), i.e. the published f/25 is the beam at the tilted focal surface while the sky scale is ~3.6% finer.",
+    "pdf_page": 1
+   },
+   "channel_focal_length": {
+    "value": null,
+    "unit": "m",
+    "src": null,
+    "loc": null,
+    "quote": null,
+    "derived": "Not published in the sources found. DERIVED: 25 x 2.4 m = 60.0 m (f/25); 26 x 2.4 m = 62.4 m (f/26); 61.88 m from 15 um / 0.050\"/px; 62.44 m from the Table 7.11 mean 0.049547\"/px."
+   },
+   "optics_layout": {
+    "value": "IM1 (spherical) -> IM2 (anamorphic asphere, corrector, at the pupil image) -> IM3 (Schmidt-like plate) -> two WFC/HRC filter wheels -> CCDs",
+    "unit": null,
+    "src": "C02",
+    "loc": "Sec. 1, p. 3",
+    "quote": "The ﬁrst mirror in the optical chain is a spherical mirror IM1, which images the HST pupil onto the mirror IM2. The mirror IM2 is an anamorphic asphere ﬁgured for the inverse conic error on the HST primary mirror ... IM2 images onto mirror IM3, a Schmidt-like plate, which corrects astigmatism over the ﬁeld of view, and images the beam through two ﬁlter wheels onto the WFC focal plane.",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "S05",
+      "loc": "Sec. 2, arXiv p. 4",
+      "quote": "IM1, a spherical mirror which images the HST pupil onto the IM2. This mirror is an anamorphic asphere figured with the inverse spherical aberration of the HST primary mirror",
+      "pdf_page": 4
+     },
+     {
+      "value": "three silver mirrors, filter wheels, detector",
+      "src": "ACSIHB",
+      "loc": "Sec. 3.3.2 + Figure 3.2, p. 27-28",
+      "quote": "Each channel has independent corrective optics to compensate for spherical aberration in the HST primary mirror. The WFC has silver-coated optics to optimize instrument throughput in the visible and near-IR.",
+      "pdf_page": 28
+     },
+     {
+      "value": "Figure 3.2 labels",
+      "src": "ACSIHB",
+      "loc": "Figure 3.2 'ACS optical design: Wide Field Channel', p. 28",
+      "quote": "WFC detector ... WFC/HRC ... filter wheels ... IM1 ... IM3 ... IM2 ... From OTA",
+      "check": "ocr: figure label (image, no text layer); checked against tesseract OCR of the page rendered at 300 dpi",
+      "note": "figure order along the ray: From OTA -> IM1 -> IM2 -> IM3 -> filter wheels -> WFC detector"
+     }
+    ],
+    "note": "Explorer mode: DIRECT. The only pupil image is on IM2 (a mirror); the filters sit in the converging f/25 beam between IM3 and the CCDs. No pupil diameter, collimator or camera focal length is published in the sources found (the design paper Woodruff & Cahill 1998, SPIE 3356, 249 is paywalled and was not consulted).",
+    "pdf_page": 1
+   },
+   "detector_tilt": {
+    "value": 22,
+    "unit": "deg (focal surface tilt to the chief ray)",
+    "src": "ACSDHB",
+    "loc": "Sec. 1.1",
+    "quote": "The WFC detector is tilted by 22°, so its projected diagonals differ by 8%.",
+    "alternatives": [
+     {
+      "value": 22,
+      "src": "ACSIHB",
+      "loc": "Sec. 10.4, p. 374",
+      "quote": "The WFC detector is tilted at 22° giving an elongation of 8%",
+      "pdf_page": 375
+     }
+    ]
+   },
+   "detector": {
+    "value": "2 SITe CCDs, each 4096 x 2048 active pixels",
+    "unit": "pixels per chip (Nx = 4096 columns x Ny = 2048 rows)",
+    "src": "ACSIHB",
+    "loc": "Sec. 4.2.1, p. 44",
+    "quote": "The WFC detector consists of two 4096 × 2048 charge-coupled devices (CCDs) that are sensitive from the blue edge of the visual spectrum to the near-IR, called WFC1 and WFC2.",
+    "alternatives": [
+     {
+      "value": "2 x 2048 x 4096",
+      "src": "ACSIHB",
+      "loc": "Table 3.1, p. 33",
+      "quote": "Image 2 × 2048 × 4096 pixels ... Format",
+      "pdf_page": 34
+     },
+     {
+      "value": "4096 columns x 2048 rows",
+      "src": "ACSIHB",
+      "loc": "Sec. 4.2.5 (CCD Readout Format), p. 46",
+      "quote": "The final images of each CCD consist of 24 columns of physical prescan, 4096 columns of pixel data, and another 24 columns of physical prescan. Each column consists of 2048 rows of pixel data followed by 20 rows of virtual overscan",
+      "pdf_page": 47
+     },
+     {
+      "value": "raw 4144 x 2068",
+      "src": "ACSIHB",
+      "loc": "Sec. 4.2.5, p. 46",
+      "quote": "Each WFC CCD is read out as a 4144 × 2068 pixel2 array, including physical prescans and virtual overscans.",
+      "note": "the 48 prescan columns and 20 overscan rows are not light-sensitive",
+      "pdf_page": 47
+     },
+     {
+      "value": "2048 x 4096, 15 um",
+      "src": "S05",
+      "loc": "Sec. 2, arXiv p. 4",
+      "quote": "two Scientific Imaging Technologies (SITe) 2048 x 4096 15 µm Charge Coupled Devices (CCDs)",
+      "pdf_page": 4
+     }
+    ],
+    "pdf_page": 45
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um",
+    "src": "ACSIHB",
+    "loc": "Table 3.1, p. 33",
+    "quote": "Pixel Size 15 × 15 μm2",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "ACSIHB",
+      "loc": "Sec. 3.3.1, p. 26",
+      "quote": "The 15 × 15 µm2 pixels provide ~0.05 arcsec/pixel spatial resolution",
+      "pdf_page": 27
+     },
+     {
+      "value": 15,
+      "src": "PRIMSI",
+      "loc": "ACS section",
+      "quote": "a long wavelength halo fix, and 15 × 15 μm pixels"
+     },
+     {
+      "value": 15,
+      "src": "S05",
+      "loc": "Sec. 2.1, arXiv p. 6",
+      "quote": "Each pixel is 15 × 15 µm in size.",
+      "pdf_page": 6
+     }
+    ],
+    "pdf_page": 34
+   },
+   "n_chips": {
+    "value": 2,
+    "unit": "chips",
+    "src": "ACSIHB",
+    "loc": "Sec. 4.2.1, p. 44",
+    "quote": "The WFC detector consists of two 4096 × 2048 charge-coupled devices (CCDs)",
+    "pdf_page": 45
+   },
+   "chip_layout_rows": {
+    "value": "2 rows x 1 chip: WFC1 (top), WFC2 (bottom); butted along the 4096-px edge",
+    "unit": null,
+    "src": "ACSIHB",
+    "loc": "Figure 7.9 caption, p. 203",
+    "quote": "The WFC data products from the calibration pipeline will be oriented so that WFC1 (chip 1, which uses amplifiers A and B) is on top.",
+    "alternatives": [
+     {
+      "value": "butted into an effective 4096 x 4096 array",
+      "src": "ACSIHB",
+      "loc": "Sec. 4.2.1, p. 44",
+      "quote": "are butted together to create an effective 4096 × 4096 pixel2 (202 × 202 arcsec2) array",
+      "pdf_page": 45
+     },
+     {
+      "value": "WFC2 lower half",
+      "src": "ACSIHB",
+      "loc": "Figure 10.111 note, p. 376",
+      "quote": "This figure is rotated 180° with respect to the pipeline calibration products, where WFC2 is the lower half of the detector.",
+      "pdf_page": 377
+     }
+    ],
+    "pdf_page": 204
+   },
+   "chip_gap": {
+    "value": {
+     "pixels": 50,
+     "arcsec": 2.5,
+     "mm": 0.75
+    },
+    "unit": "gap between the chips' long edges",
+    "src": "ACSIHB",
+    "loc": "Sec. 4.2.1, p. 44",
+    "quote": "with a gap corresponding to approximately 50 pixels (2.5 arcsec) between the chips.",
+    "alternatives": [
+     {
+      "value": "750 um",
+      "src": "PRIMSI",
+      "loc": "WFC3/UVIS paragraph",
+      "quote": "a smaller inter-chip gap (465 μm rather than 750 μm)",
+      "note": "750 um is the ACS/WFC gap (465 um WFC3/UVIS)"
+     },
+     {
+      "value": "50 pixels",
+      "src": "ACSIHB",
+      "loc": "Sec. 7.7.1, p. 188",
+      "quote": "The gap between the two CCDs is equivalent to 50 pixels.",
+      "pdf_page": 189
+     },
+     {
+      "value": "2.5 arcsec",
+      "src": "ACSIHB",
+      "loc": "Sec. 10.4.1, p. 375",
+      "quote": "There is a 2.5 arcsecond gap between the two chips.",
+      "pdf_page": 376
+     },
+     {
+      "value": "about 50 pixels",
+      "src": "S05",
+      "loc": "Fig. 2 caption, arXiv p. 55",
+      "quote": "The gap between the two WFC chips is about 50 pixel wide.",
+      "pdf_page": 55
+     }
+    ],
+    "derived": "DERIVED: 50 px x 15 um = 0.750 mm (matches the Primer's 750 um); 50 x 0.05\" = 2.5\"",
+    "pdf_page": 45
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.05,
+    "unit": "arcsec/px (mean)",
+    "src": "ACSIHB",
+    "loc": "Table 3.1, p. 33",
+    "quote": "Plate Scale ~0.05 × 0.05 arcsec2/pixel",
+    "alternatives": [
+     {
+      "value": 0.05,
+      "src": "ACSIHB",
+      "loc": "Sec. 5.3 (Wide Field Optical CCD Imaging), p. 104",
+      "quote": "The plate scale is 0.050 arcseconds per pixel",
+      "pdf_page": 105
+     },
+     {
+      "value": 0.05,
+      "src": "PRIMSI",
+      "loc": "ACS section",
+      "quote": "The plate scale is 0.050 arcsec/pixel."
+     },
+     {
+      "value": 0.049,
+      "src": "PRIMCMP",
+      "loc": "optical imaging table (Pixel scale row)",
+      "quote": "Pixel scale (arcsec) 0.040 0.049",
+      "note": "columns: WFC3/UVIS, ACS/WFC"
+     },
+     {
+      "value": 0.0495,
+      "src": "TTACS",
+      "loc": "WFC block",
+      "quote": "0.0495 = Wide Field Channel nominal pixel size (arcsec)"
+     },
+     {
+      "value": 0.05,
+      "src": "C02",
+      "loc": "Sec. 1, p. 4",
+      "quote": "plate scale of the WFC is 0.05\" pixel−1",
+      "note": "text layer drops the arcsec glyph",
+      "pdf_page": 2
+     }
+    ],
+    "pdf_page": 34
+   },
+   "pixel_scale_anisotropy": {
+    "value": {
+     "WFC1_x": 0.0493,
+     "WFC1_y": 0.0486,
+     "WFC2_x": 0.0498,
+     "WFC2_y": 0.0503,
+     "axis_angle_WFC1_deg": 84.9,
+     "axis_angle_WFC2_deg": 86.1
+    },
+    "unit": "arcsec/px at chip centres; angle between projected x and y axes",
+    "src": "ACSIHB",
+    "loc": "Sec. 10.4.1, p. 375",
+    "quote": "The angle between the X and Y axes is 84.9° for WFC1 and 86.1° for WFC2. ... At the center of chip WFC1, the scale in the X direction is 0.0493 arcsecond/pixel, and 0.0486 arcsecond/pixel in the Y direction. In the case of WFC2, the scale is 0.0498 arcsecond/pixel in the X direction, and 0.0503 arcsecond/pixel in the Y direction.",
+    "alternatives": [
+     {
+      "value": {
+       "WFC1": [
+        0.049313,
+        0.048651
+       ],
+       "WFC2": [
+        0.049895,
+        0.050328
+       ]
+      },
+      "src": "ACSIHB",
+      "loc": "Table 7.11 (Plate scales and axis angles), p. 204",
+      "quote": "WFC1 2124 1024 264.21 198.55 0.049313 0.048651 ... WFC2 2124 1024 259.97 302.48 0.049895 0.050328",
+      "note": "sx, sy at the aperture reference pixels",
+      "pdf_page": 205
+     },
+     {
+      "value": "rhombic pixels, 8% diagonal stretch",
+      "src": "ACSIHB",
+      "loc": "Sec. 5.3, p. 104",
+      "quote": "This produces an 8% stretching of one pixel diagonal compared to the other. As a result, WFC pixels project on the sky as rhombuses rather than squares.",
+      "pdf_page": 105
+     },
+     {
+      "value": "scale varies ~10% corner to corner",
+      "src": "ACSIHB",
+      "loc": "Sec. 10.4.1, p. 375",
+      "quote": "Between the corner of WFC nearest to the V1 axis and the diagonally opposite corner, the scale increases by 10%.",
+      "pdf_page": 376
+     }
+    ],
+    "derived": "DERIVED: 1/cos(22 deg) = 1.0785 (the 8% diagonal stretch); mean of the four Table 7.11 scales = 0.049547\"/px",
+    "pdf_page": 376
+   },
+   "field_of_view": {
+    "value": "202 x 202",
+    "unit": "arcsec",
+    "src": "ACSIHB",
+    "loc": "Table 3.1, p. 33",
+    "quote": "Field of View 202 × 202 arcsec2",
+    "alternatives": [
+     {
+      "value": "202 x 202",
+      "src": "PRIMSI",
+      "loc": "ACS section",
+      "quote": "The camera has a 202\" ×202\" field of view from 350 nm to 1100 nm."
+     },
+     {
+      "value": "WFC1 201 x 100, WFC2 203 x 103",
+      "src": "ACSIHB",
+      "loc": "Sec. 10.4.1, p. 375",
+      "quote": "Therefore, WFC1 forms a slightly distorted rectangle 201 × 100 arcsecond2 in size, while WFC2 is 203 × 103 arcsecond2.",
+      "pdf_page": 376
+     },
+     {
+      "value": "200 x 204",
+      "src": "SM3B",
+      "loc": "Fig. 4-1 table, p. 4-2",
+      "quote": "Wide Field 350 – 1050 4096 x 4096 15 x 15 200 x 204",
+      "note": "pre-installation (2002) value",
+      "pdf_page": 2
+     }
+    ],
+    "derived": "DERIVED: 4096 x 0.0493\" = 201.9\"; explorer at F = 25.78: width 4096 x 0.050 = 204.8\", height (2 x 2048 + 50) x 0.050 = 207.3\" (the published 202 x 202 reflects the 0.0486-0.0503 mean scales)",
+    "pdf_page": 34
+   },
+   "total_pixels": {
+    "value": 16777216,
+    "unit": "active pixels",
+    "src": null,
+    "loc": null,
+    "quote": null,
+    "alternatives": [
+     {
+      "value": "4k x 4k",
+      "src": "PRIMCMP",
+      "loc": "optical imaging table (Number of pixels row)",
+      "quote": "Number of pixels 4k x 4k 4k x 4k"
+     }
+    ],
+    "derived": "DERIVED: 2 x 4096 x 2048 = 16,777,216 (Primer: \"4k x 4k\")"
+   }
+  },
+  "not_found": [
+   "A published effective focal length (m) for WFC; only the f-ratios f/25 (C02, S05) and f/26 (Tiny Tim).",
+   "Pupil diameter at IM2, the IM1/IM2/IM3 focal lengths, or any collimator/camera description: none in the handbooks, C02, S05 or the SM3B guide. The optical-design paper (Woodruff & Cahill 1998, Proc. SPIE 3356, 249) is behind the SPIE paywall and was not consulted.",
+   "The physical gap in mm is given only by the Primer (750 um); the handbook gives pixels and arcsec."
+  ],
+  "conflicts": [
+   "Effective focal ratio: f/25 (C02, S05) vs f/26 (Tiny Tim v6.3 menu) vs 25.78 DERIVED from 0.050\"/px and 15 um (26.02 from the Table 7.11 mean). The f/25 value is consistent with the beam at the 22-deg tilted focal surface (DERIVED 24.9-25.1); the sky scale is finer by the tilt projection.",
+   "Mean pixel scale: 0.05 / 0.050 (ACSIHB, Primer instrument page) vs 0.049 (Primer comparison table) vs 0.0495 (Tiny Tim) vs 0.049547 (DERIVED mean of ACSIHB Table 7.11).",
+   "FOV: 202 x 202 (ACSIHB, Primer) vs 200 x 204 (SM3B 2002, pre-installation) vs WFC1 201 x 100 + WFC2 203 x 103 (ACSIHB Sec. 10.4.1)."
+  ],
+  "notes": [
+   "Status: ACSIHB (Cycle 34) repeats in most sections: \"WFC may be offered as shared risk in Cycle 34 and receive minimal support and calibration.\"",
+   "The explorer's square-pixel direct model cannot show the rhombic projected pixels (84.9/86.1 deg axis angles) or the ~10% corner-to-corner scale change; the validation numbers above are field-centre / mean values."
+  ],
+  "explorer_inputs": {
+   "mode": "DIRECT",
+   "D_m": 2.4,
+   "eps": 0.33,
+   "spider": {
+    "n_vanes": 4,
+    "width_mm": 25.654,
+    "orientation": "cross (V2/V3 axes)"
+   },
+   "F_eff_recommended": 25.78,
+   "F_eff_recommended_basis": "DERIVED: reproduces the published mean 0.050\"/px with 15 um pixels (f_eff = 61.88 m)",
+   "F_eff_published": [
+    25,
+    26
+   ],
+   "f_eff_m_published": null,
+   "pupil": "IM1 images the OTA pupil onto IM2 (corrector mirror); filters in the converging beam after IM3; no W/f_col/f_cam published",
+   "chip": {
+    "Nx": 4096,
+    "Ny": 2048,
+    "pitch_um": 15
+   },
+   "n_chips": 2,
+   "rows": [
+    1,
+    1
+   ],
+   "row_names": [
+    "WFC1 (top)",
+    "WFC2 (bottom)"
+   ],
+   "gap": {
+    "px": 50,
+    "mm": 0.75,
+    "arcsec": 2.5,
+    "between": "rows (long edges)"
+   },
+   "validate": {
+    "pixel_scale_arcsec": 0.05,
+    "pixel_scale_chip_centres": {
+     "WFC1": [
+      0.0493,
+      0.0486
+     ],
+     "WFC2": [
+      0.0498,
+      0.0503
+     ]
+    },
+    "fov_arcsec": [
+     202,
+     202
+    ],
+    "n_pixels": 16777216
+   }
+  }
+ },
+ "wfc3_uvis": {
+  "title": "HST / WFC3 UVIS channel (two butted 4096 x 2051 e2v CCDs, 15 um pixels; M1 hyperbola + anamorphic-asphere corrector mirror; filters (SOFA) in the converging beam)",
+  "recommended_preset": "Model as DIRECT. D = 2.4 m, eps = 0.330, 4-vane spider 25.7 mm (OTA block); the UVIS optics are unobstructed (ISR0814). Effective focal ratio: published f/31 (WFC3IHB Table 2.1; CDR 2000), but the same CDR slide gives \"OTA + WFC3 focal length = 78,000 mm\" (= f/32.5, DERIVED), which reproduces the published 0.0395-0.040\"/px for 15 um pixels (0.0397\"/px DERIVED); f/31 gives 0.0416\"/px and is consistent with the beam at the 21-deg tilted focal surface (DERIVED 31.2-31.6). Recommended for the explorer: F = 32.5 (f_eff = 78.0 m). Optics: pick-off mirror -> M1 (hyperbola) -> corrector mirror (anamorphic asphere) -> SOFA filter wheels -> shutter -> CCDs (WFC3IHB Figure 2.1); no pupil diameter or relay focal lengths published. Detector: rows (top to bottom) [1 chip] [1 chip] = UVIS1 over UVIS2, each Nx = 4096 x Ny = 2051, 15 um, gap 31 +/- 0.1 px = 0.465 mm = 1.2\". Validate: 0.0395\"/px (chip centres 0.0396 x 0.0393 UVIS1, 0.0400 x 0.0398 UVIS2; rhombic, 86.1 deg), FOV 162\" x 162\", 16,801,792 active pixels (DERIVED).",
+  "params": {
+   "channel_focal_ratio": {
+    "value": 31,
+    "unit": "f/# (effective, UVIS)",
+    "src": "WFC3IHB",
+    "loc": "Table 2.1 (Characteristics of the two WFC3 channels), p. 24",
+    "quote": "UVIS 31 CCD 200-1000 2 × 2051 × 4096 0.0395 × 0.0395 162 × 162",
+    "alternatives": [
+     {
+      "value": 31,
+      "src": "W3CDR",
+      "loc": "slide 9 'Wide Field Optical Diagram' (UVIS Channel)",
+      "quote": "UVIS Channel • FOV 160 X 160 arc sec •F/31 • OTA + WFC3 focal length = 78,000 mm",
+      "note": "design stage (Dec 2000)",
+      "pdf_page": 9
+     },
+     {
+      "value": 32.5,
+      "src": "W3CDR",
+      "loc": "slide 9",
+      "quote": "OTA + WFC3 focal length = 78,000 mm",
+      "note": "DERIVED: 78,000 mm / 2400 mm = f/32.5",
+      "pdf_page": 9
+     }
+    ],
+    "derived": "DERIVED: f/31 -> f = 74.4 m -> 0.04159\"/px for 15 um; 78,000 mm -> 0.03967\"/px; 0.0395\"/px -> f_eff = 78.33 m (F = 32.64); 0.040\"/px -> 77.35 m (F = 32.23). Interpretation (not stated in the sources): tilt 21 deg about the diagonal -> mean projected side factor sqrt((cos^2 21 + 1)/2) = 0.9674; 0.0395\"/0.9674 = 0.04083\"/px at the focal surface -> F = 31.57 (0.040\" -> 31.18), i.e. f/31 is the beam at the tilted focal surface.",
+    "note": "table row: Channel, f-ratio, Detector type, Spectral range (nm), Detector pixel format, Pixel scale (arcsec), Field of view (arcsec)",
+    "pdf_page": 25
+   },
+   "channel_focal_length": {
+    "value": 78.0,
+    "unit": "m (OTA + WFC3 UVIS, design)",
+    "src": "W3CDR",
+    "loc": "slide 9 'Wide Field Optical Diagram'",
+    "quote": "OTA + WFC3 focal length = 78,000 mm",
+    "stage": "design (CDR, December 2000)",
+    "derived": "DERIVED check: 0.015 mm x 206264.8 / 78,000 mm = 0.03967\"/px (published 0.0395 x 0.0395, 0.040)",
+    "pdf_page": 9
+   },
+   "optics_layout": {
+    "value": "pick-off mirror -> M1 (hyperbola) -> corrector mirror (anamorphic asphere) -> SOFA filters -> shutter -> 4k x 4k CCD",
+    "unit": null,
+    "src": "WFC3IHB",
+    "loc": "Figure 2.1 (Schematic optical layout), p. 24",
+    "quote": "CORRECTOR MIRROR ... (ANAMORPHIC ASPHERE) ... 4kx4k CCD ... SHUTTER ... SOFA",
+    "check": "ocr: figure label (image, no text layer); checked against tesseract OCR of the page rendered at 300 dpi",
+    "alternatives": [
+     {
+      "value": "anamorphic aspherical correctors",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.1, p. 23",
+      "quote": "Optical elements (anamorphic aspherical correctors) in each channel correct separately for the ~1/2 wave spherical aberration of the HST primary mirror.",
+      "pdf_page": 24
+     },
+     {
+      "value": "patterned after ACS/WFC",
+      "src": "WFC3IHB",
+      "loc": "Sec. 6.3, p. 108",
+      "quote": "In concept and functionality, as well as in many design details, the WFC3 UVIS channel is patterned after the ACS /WFC channel.",
+      "pdf_page": 109
+     },
+     {
+      "value": "filters in SOFA",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.1, p. 24",
+      "quote": "Filters and grisms are contained in the UVIS Selectable Optical Filter Assembly (SOFA) and the IR Filter Select Mechanism (FSM).",
+      "pdf_page": 25
+     },
+     {
+      "value": "unobstructed",
+      "src": "ISR0814",
+      "loc": "Sec. 'Characteristics of WFC3', p. 2",
+      "quote": "The optical design is unobstructed apart from a cold-stop within the IR channel.",
+      "pdf_page": 2
+     }
+    ],
+    "note": "Explorer mode: DIRECT. Figure 2.1 also labels M1 \"(HYPERBOLA)\" (OCR \"Mit (HYPERBOLA)\"). No text in the sources says where the UVIS pupil image lies, and no pupil diameter or mirror focal lengths are published (the optical-design paper Turner-Valle et al. 2004, SPIE 5487, 317 is paywalled and was not consulted)."
+   },
+   "detector_tilt": {
+    "value": 21,
+    "unit": "deg about one CCD diagonal",
+    "src": "WFC3IHB",
+    "loc": "Appendix B.1, p. 480",
+    "quote": "The WFC3 UVIS detector is tilted at ~21° about one of its diagonals, producing a rhomboidal elongation of ~7%.",
+    "alternatives": [
+     {
+      "value": 21,
+      "src": "WFC3IHB",
+      "loc": "Sec. 6.4.1, p. 109",
+      "quote": "Because the detector is tilted around its diagonal axis 21° with respect to the incident beam",
+      "pdf_page": 110
+     }
+    ],
+    "pdf_page": 481
+   },
+   "detector": {
+    "value": "2 e2v CCDs, each 4096 x 2051 active pixels",
+    "unit": "pixels per chip (Nx = 4096 columns x Ny = 2051 rows)",
+    "src": "WFC3IHB",
+    "loc": "Sec. 5.2.2, p. 54",
+    "quote": "Both CCDs are 2051 × 4096 devices with 15 × 15 μm square pixels. There are 2051 rows by 4096 columns",
+    "alternatives": [
+     {
+      "value": "2 butted 2051 x 4096",
+      "src": "WFC3IHB",
+      "loc": "Table 5.1 (WFC3 Detector Characteristics), p. 53",
+      "quote": "Pixel Format 2 butted 2051 × 4096, 1024 × 1024 (1014 × 1014 active) 31-pixel gap (1.2\")",
+      "note": "columns: UVIS, IR",
+      "pdf_page": 54
+     },
+     {
+      "value": "raw 4206 x 4140",
+      "src": "WFC3IHB",
+      "loc": "Sec. 6.7 ('Overscan Regions'), p. 151",
+      "quote": "which combined with the 4096 × 2051 science pixels, result in a raw image size of 4206 × 4140 pixels.",
+      "pdf_page": 152
+     }
+    ],
+    "pdf_page": 55
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um",
+    "src": "WFC3IHB",
+    "loc": "Table 5.1, p. 53",
+    "quote": "Pixel Size 15 μm × 15 μm 18 μm × 18 μm",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "PRIMSI",
+      "loc": "WFC3/UVIS paragraph",
+      "quote": "an ultraviolet-optimized anti-reflective coating and 15 × 15 μm pixels"
+     },
+     {
+      "value": 15,
+      "src": "W3CDR",
+      "loc": "slide 11 'UVIS Channel Detector'",
+      "quote": "Pixel size: 15 mm",
+      "note": "text layer renders um as 'mm'",
+      "pdf_page": 11
+     }
+    ],
+    "note": "columns: UVIS, IR",
+    "pdf_page": 54
+   },
+   "n_chips": {
+    "value": 2,
+    "unit": "chips",
+    "src": "WFC3IHB",
+    "loc": "Sec. 5.2.2, p. 55",
+    "quote": "The two WFC3 CCDs are aligned together along their long dimension to create a 2 × 1 mosaic.",
+    "pdf_page": 56
+   },
+   "chip_layout_rows": {
+    "value": "2 rows x 1 chip: UVIS1 (top), UVIS2 (bottom); butted along the 4096-px edge",
+    "unit": null,
+    "src": "WFC3IHB",
+    "loc": "Figure 5.6 caption, p. 68",
+    "quote": "Distribution of full-well depth (in electrons) for UVIS1 (top half) and UVIS2 (bottom half).",
+    "alternatives": [
+     {
+      "value": "4096 x 4102 + gap",
+      "src": "WFC3IHB",
+      "loc": "Sec. 6.3, p. 108",
+      "quote": "the detectors in the WFC3 UVIS channel are two 4096 × 2051 pixel CCDs, butted together to yield a 4096 × 4102 light-sensitive array with a ~31 pixel (1.2 arcsec) gap.",
+      "pdf_page": 109
+     },
+     {
+      "value": "chip 1 top",
+      "src": "WFC3IHB",
+      "loc": "Figure 5.4 caption, p. 65",
+      "quote": "UVIS chip 1 (top) and chip 2 (bottom) fringe pattern",
+      "pdf_page": 66
+     }
+    ],
+    "pdf_page": 69
+   },
+   "chip_gap": {
+    "value": {
+     "pixels": 31,
+     "arcsec": 1.2,
+     "mm": 0.465
+    },
+    "unit": "gap between the chips' long edges",
+    "src": "WFC3IHB",
+    "loc": "Sec. 5.2.2, p. 55",
+    "quote": "This butted configuration is equivalent to a 4102 × 4096 array, but with a gap of 31 ± 0.1 pixels between the two chips (1.2 arcsec on the sky).",
+    "alternatives": [
+     {
+      "value": "465 um",
+      "src": "PRIMSI",
+      "loc": "WFC3/UVIS paragraph",
+      "quote": "a smaller inter-chip gap (465 μm rather than 750 μm)"
+     },
+     {
+      "value": "31 pixels",
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "31-pixel gap (1.2\")",
+      "pdf_page": 54
+     },
+     {
+      "value": "~1.2 arcsec",
+      "src": "WFC3IHB",
+      "loc": "Appendix B.2, p. 483",
+      "quote": "There is a ~1.2 arcsec gap between the two CCD chips.",
+      "pdf_page": 484
+     }
+    ],
+    "derived": "DERIVED: 31 px x 15 um = 0.465 mm (matches the Primer's 465 um); 31 x 0.0395\" = 1.22\"",
+    "pdf_page": 56
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.0395,
+    "unit": "arcsec/px",
+    "src": "WFC3IHB",
+    "loc": "Table 2.1, p. 24",
+    "quote": "UVIS 31 CCD 200-1000 2 × 2051 × 4096 0.0395 × 0.0395 162 × 162",
+    "alternatives": [
+     {
+      "value": 0.04,
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "Plate Scale 0.040\"/pixel 0.13\"/pixel",
+      "note": "columns: UVIS, IR",
+      "pdf_page": 54
+     },
+     {
+      "value": 0.04,
+      "src": "PRIMSI",
+      "loc": "WFC3/UVIS paragraph",
+      "quote": "The plate scale is 0.04 arcsec/pixel."
+     },
+     {
+      "value": 0.04,
+      "src": "PRIMCMP",
+      "loc": "optical imaging table",
+      "quote": "Pixel scale (arcsec) 0.040 0.049"
+     },
+     {
+      "value": 0.04,
+      "src": "TTUVIS",
+      "loc": "UVIS1 block",
+      "quote": "0.0400 = nominal pixel size (arcsec)"
+     }
+    ],
+    "pdf_page": 25
+   },
+   "pixel_scale_anisotropy": {
+    "value": {
+     "UVIS1_x": 0.0396,
+     "UVIS1_y": 0.0393,
+     "UVIS2_x": 0.04,
+     "UVIS2_y": 0.0398,
+     "axis_angle_deg": 86.1
+    },
+    "unit": "arcsec/px at chip centres; angle between projected x and y axes",
+    "src": "WFC3IHB",
+    "loc": "Appendix B.2, p. 483",
+    "quote": "At the center of UVIS1 (CCD Chip 1), the scale in the x-direction is 0.0396 arcsec/pixel, and 0.0393 arcsec/pixel in the y-direction. For UVIS2 (CCD Chip 2), these scales are 0.0400 arcsec/pixel, and 0.0398 arcsec/pixel, respectively.",
+    "alternatives": [
+     {
+      "value": "rhombus, 86.1 deg",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.2, p. 25",
+      "quote": "the UVIS field projected onto the sky is shaped like a rhombus, with an acute angle between the x- and y-axes of the detector of approximately 86.1°.",
+      "pdf_page": 26
+     },
+     {
+      "value": "rhomboidal pixels 0.0395\" on a side",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.2, p. 25",
+      "quote": "thus the UVIS pixels are rhomboidal, measuring 0.0395 arcsec on each side",
+      "pdf_page": 26
+     },
+     {
+      "value": "scale +3.5% corner to corner",
+      "src": "WFC3IHB",
+      "loc": "Appendix B.2, p. 483",
+      "quote": "Between the corner of the UVIS image nearest to Amp A and the diagonally opposite corner near Amp D, the overall scale increases by 3.5%.",
+      "pdf_page": 484
+     }
+    ],
+    "derived": "DERIVED: 1/cos(21 deg) = 1.071 (the ~7% rhomboidal elongation)",
+    "pdf_page": 484
+   },
+   "field_of_view": {
+    "value": "162 x 162",
+    "unit": "arcsec (rhomboidal)",
+    "src": "WFC3IHB",
+    "loc": "Table 2.1, p. 24",
+    "quote": "UVIS 31 CCD 200-1000 2 × 2051 × 4096 0.0395 × 0.0395 162 × 162",
+    "alternatives": [
+     {
+      "value": "162 x 162",
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "Field of View on Sky Rhomboidal, 162\" × 162\"",
+      "pdf_page": 54
+     },
+     {
+      "value": "UVIS1 162 x 81, UVIS2 164 x 81",
+      "src": "WFC3IHB",
+      "loc": "Appendix B.2, p. 483",
+      "quote": "UVIS1 forms a slightly distorted rectangle 162 × 81 arcsec in size, while UVIS2 subtends 164×81 arcsec.",
+      "pdf_page": 484
+     },
+     {
+      "value": "162 x 162 (26,183 arcsec2)",
+      "src": "PRIMCMP",
+      "loc": "optical imaging table",
+      "quote": "162\" x 162\" (26,183)"
+     },
+     {
+      "value": "160 x 160",
+      "src": "W3CDR",
+      "loc": "slide 9",
+      "quote": "FOV 160 X 160 arc sec",
+      "note": "design stage (Dec 2000)",
+      "pdf_page": 9
+     }
+    ],
+    "derived": "DERIVED: 4096 x 0.0395\" = 161.8\"; height (4102 + 31) x 0.0395\" = 163.3\"",
+    "pdf_page": 25
+   },
+   "total_pixels": {
+    "value": 16801792,
+    "unit": "active pixels",
+    "src": null,
+    "loc": null,
+    "quote": null,
+    "derived": "DERIVED: 2 x 4096 x 2051 = 16,801,792"
+   }
+  },
+  "not_found": [
+   "Any statement of where the UVIS pupil image lies, its diameter, or the M1/corrector focal lengths (handbook text gives only \"anamorphic aspherical correctors\"; Figure 2.1 shows the elements). The optical-design paper (Turner-Valle et al. 2004, Proc. SPIE 5487, 317) and Kimble et al. 2008 (SPIE 7010, 70101E) are paywalled; not consulted.",
+   "An as-built (post-CDR) effective focal length; only the CDR design value 78,000 mm."
+  ],
+  "conflicts": [
+   "Effective focal ratio f/31 (WFC3IHB Table 2.1; W3CDR) vs the CDR's own 78,000 mm (= f/32.5 DERIVED) vs f/32.2-32.6 DERIVED from the published pixel scales. f/31 matches the beam at the 21-deg tilted focal surface (DERIVED 31.2-31.6, interpretation).",
+   "Pixel scale 0.0395 (Table 2.1, Sec. 2.2) vs 0.040 (Table 5.1, Tiny Tim, Primer comparison table) vs 0.04 (Primer, Sec. 1.3).",
+   "FOV 162 x 162 (as built) vs 160 x 160 (CDR design)."
+  ],
+  "notes": [
+   "The explorer's square-pixel direct model cannot show the rhombic (86.1 deg) projected pixels or the 3.5% corner-to-corner scale change."
+  ],
+  "explorer_inputs": {
+   "mode": "DIRECT",
+   "D_m": 2.4,
+   "eps": 0.33,
+   "spider": {
+    "n_vanes": 4,
+    "width_mm": 25.654,
+    "orientation": "cross (V2/V3 axes)"
+   },
+   "F_eff_recommended": 32.5,
+   "F_eff_recommended_basis": "CDR design focal length 78,000 mm / 2.4 m (DERIVED); reproduces 0.0397\"/px with 15 um pixels",
+   "F_eff_published": [
+    31
+   ],
+   "f_eff_m_published": 78.0,
+   "pupil": "not published (Figure 2.1: M1 hyperbola + anamorphic-asphere corrector mirror; SOFA filters in the converging beam)",
+   "chip": {
+    "Nx": 4096,
+    "Ny": 2051,
+    "pitch_um": 15
+   },
+   "n_chips": 2,
+   "rows": [
+    1,
+    1
+   ],
+   "row_names": [
+    "UVIS1 (top)",
+    "UVIS2 (bottom)"
+   ],
+   "gap": {
+    "px": 31,
+    "mm": 0.465,
+    "arcsec": 1.2,
+    "between": "rows (long edges)"
+   },
+   "validate": {
+    "pixel_scale_arcsec": 0.0395,
+    "pixel_scale_chip_centres": {
+     "UVIS1": [
+      0.0396,
+      0.0393
+     ],
+     "UVIS2": [
+      0.04,
+      0.0398
+     ]
+    },
+    "fov_arcsec": [
+     162,
+     162
+    ],
+    "n_pixels": 16801792
+   }
+  }
+ },
+ "wfc3_ir": {
+  "title": "HST / WFC3 IR channel (one Teledyne HgCdTe 1024 x 1024 array, 1014 x 1014 active, 18 um pixels; hyperbola + ellipse relay, cold pupil mask and refractive corrector plate near the re-imaged OTA pupil, filter wheel in the cold shroud)",
+  "recommended_preset": "Model as DIRECT (simplest) or as REIMAGED with the published cold-mask pupil. D = 2.4 m, eps = 0.330 (OTA) -- but the cold mask is the stop: outer radius 0.9755, central obscuration 0.354 (design) or 0.370 (on-orbit fit), spider width 0.061 (design) or 0.077 (fit), all in units of the OTA pupil radius re-imaged at the mask (ISR0814, ISR1410); DERIVED effective D = 2.341 m and eps = 0.363 (design) / 0.379 (fit) relative to the mask's outer edge. Effective focal ratio: published f/11 (WFC3IHB Table 2.1; CDR), but the CDR's \"OTA + WFC3 focal length = 29,000 mm\" (= f/12.08) reproduces the geometric-mean scale sqrt(0.135 x 0.121) = 0.1278\"/px (0.1280\"/px DERIVED); f/11 gives 0.1406\"/px (the untilted-axis scale 0.135\"/px implies f/11.46). Recommended for DIRECT: F = 12.08 (f_eff = 29.0 m). REIMAGED equivalent (DERIVED from the cold-mask pupil radius 7.13 mm by design): W = 14.26 mm, f_col = 24 x 14.26 = 342.2 mm, f_cam = 29,000 x 14.26/2400 = 172.3 mm (f/12.08; or 156.9 mm for f/11). This is an ideal-optics equivalent: the real relay (hyperbola + ellipse mirrors, then the cold pupil mask and refractive corrector plate) has no collimated beam, and the filter wheel sits in the cold shroud next to the mask (Figure 2.1), not stated in text to be at the pupil. Detector: rows [1 chip], Nx = Ny = 1014 active (1024 x 1024 with a 5-px reference-pixel border), 18 um, no gaps. Validate: 0.135 x 0.121\"/px (aspect 0.90; nominal 0.13), FOV 136\" x 123\" (4.65 arcmin2), 1,028,196 active pixels (DERIVED).",
+  "params": {
+   "channel_focal_ratio": {
+    "value": 11,
+    "unit": "f/# (effective, IR)",
+    "src": "WFC3IHB",
+    "loc": "Table 2.1, p. 24",
+    "quote": "IR 11 HgCdTe 800-1700 1014 × 1014 0.135 × 0.121 136 × 123",
+    "alternatives": [
+     {
+      "value": 11,
+      "src": "W3CDR",
+      "loc": "slide 9 'Wide Field Optical Diagram' (IR Channel)",
+      "quote": "IR Channel • FOV 123 X 139 arc sec •F/11 • OTA + WFC3 focal length = 29,000 mm",
+      "note": "design stage (Dec 2000)",
+      "pdf_page": 9
+     },
+     {
+      "value": 12.08,
+      "src": "W3CDR",
+      "loc": "slide 9",
+      "quote": "OTA + WFC3 focal length = 29,000 mm",
+      "note": "DERIVED: 29,000 mm / 2400 mm = f/12.08",
+      "pdf_page": 9
+     }
+    ],
+    "derived": "DERIVED: f/11 -> f = 26.4 m -> 0.1406\"/px for 18 um; 29,000 mm -> 0.1280\"/px; 0.135\"/px (x, untilted axis) -> f = 27.50 m (F = 11.46); 0.121\"/px (y, tilted axis) -> 30.68 m (F = 12.79); geometric mean 0.1278\"/px -> 29.05 m (F = 12.10); 0.13\"/px -> 28.56 m (F = 11.90). Interpretation (not stated in the sources): the 24-deg tilt about x foreshortens y by cos 24 = 0.914 (0.135 x 0.914 = 0.1233 vs 0.121 published), so f/11 is close to the beam f-ratio implied by the untilted x scale.",
+    "pdf_page": 25
+   },
+   "channel_focal_length": {
+    "value": 29.0,
+    "unit": "m (OTA + WFC3 IR, design)",
+    "src": "W3CDR",
+    "loc": "slide 9 'Wide Field Optical Diagram'",
+    "quote": "OTA + WFC3 focal length = 29,000 mm",
+    "stage": "design (CDR, December 2000)",
+    "derived": "DERIVED check: 0.018 mm x 206264.8 / 29,000 mm = 0.1280\"/px (published 0.135 x 0.121, geometric mean 0.1278; nominal 0.13)",
+    "pdf_page": 9
+   },
+   "optics_layout": {
+    "value": "channel select mirror -> fold flat -> two-mirror focus/alignment mechanism (hyperbola, ellipse) -> cold pupil mask -> refractive corrector plate -> filter wheel (FSM) -> HgCdTe detector",
+    "unit": null,
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.3 (IR Channel Characteristics), p. 184",
+    "quote": "Components of the IR channel include: the Channel Select Mechanism (CSM), which directs on-axis light from the HST OTA to the IR channel; a flat folding mirror; a two-mirror mechanism for providing focus and alignment adjustments; the Refractive Corrector Plate (RCP), which applies the spherical-aberration correction; the IR filter wheel (FSM or Filter Selection Mechanism); and finally the HgCdTe IR detector package.",
+    "alternatives": [
+     {
+      "value": "Figure 2.1 labels",
+      "src": "WFC3IHB",
+      "loc": "Figure 2.1, p. 24",
+      "quote": "HYPERBOLA ... PUPIL MASK (COLD) ... REFRACTIVE CORRECTOR PLATE ... COLD SHROUD ... ELLIPSE ... IR FILTER SELECT",
+      "check": "ocr: figure label (image, no text layer); checked against tesseract OCR of the page rendered at 300 dpi",
+      "note": "figure order along the IR ray: channel select mirror -> fold mirror -> hyperbola -> ellipse -> pupil mask (cold) -> refractive corrector plate -> IR filter select mechanism / cold shroud -> 1k x 1k IR detector"
+     },
+     {
+      "value": "filters in the cold shroud",
+      "src": "WFC3IHB",
+      "loc": "Sec. 2.3 (Spectral Elements), p. 28",
+      "quote": "The filter wheel and all of its filters are housed, along with the HgCdTe detector package, in a cold shroud maintained at –35°C",
+      "pdf_page": 29
+     },
+     {
+      "value": "refractive corrector + co-located cold stop",
+      "src": "W3CDR",
+      "loc": "slide 10 'Highlights Of Post-SRR Changes'",
+      "quote": "Reflective IR optical configuration changed to a refractive system – Incorporation of a refractive corrector plate (RCP) and an optimized ‘co-located’cold stop",
+      "note": "design stage (Dec 2000)",
+      "pdf_page": 10
+     },
+     {
+      "value": "cold stop",
+      "src": "ISR0814",
+      "loc": "Sec. 'Characteristics of WFC3', p. 2",
+      "quote": "The only refractive elements are windows to the detectors and a weak refractive corrector plate in the IR channel.",
+      "pdf_page": 2
+     }
+    ],
+    "note": "Explorer mode: DIRECT at the effective F, or REIMAGED with the DERIVED ideal equivalent (cold_mask_pupil below). No as-built focal lengths of the hyperbola/ellipse relay and no distance from the cold mask to the detector are published in the sources found.",
+    "pdf_page": 185
+   },
+   "cold_mask_pupil": {
+    "value": {
+     "pupil_radius_mm": 7.13,
+     "W_mm": 14.26
+    },
+    "unit": "OTA pupil image at the cold mask (radius by design; W DERIVED = 2 x 7.13)",
+    "src": "ISR1410",
+    "loc": "Sec. 'Discussion', p. 10",
+    "quote": "The TinyTIM model expresses the properties of the cold mask in units of the OTA pupil radius, which by design is 7.13mm at the cold mask.",
+    "alternatives": [
+     {
+      "value": "near the re-imaged OTA pupil",
+      "src": "ISR1410",
+      "loc": "Results, p. 3",
+      "quote": "The cold mask is a physical mask inside the detector dewar, which lies near the position of the re-imaged OTA pupil",
+      "pdf_page": 3
+     },
+     {
+      "value": "cold stop in the PSF model",
+      "src": "WFC3IHB",
+      "loc": "Sec. 7.6 (IR Optical Performance), p. 198",
+      "quote": "This PSF model includes the pupil geometry, including the cold stop, residual aberration, the mid-frequency wavefront error of the OTA",
+      "pdf_page": 199
+     }
+    ],
+    "derived": "DERIVED ideal reimager: pupil magnification 2400/14.26 = 168.3; f_col = F_tel x W = 24 x 14.26 = 342.2 mm; f_cam = F_eff x W = 12.08 x 14.26 = 172.3 mm (29.0 m effective) or 11 x 14.26 = 156.9 mm (f/11); 163.4 mm reproduces the untilted-axis 0.135\"/px.",
+    "pdf_page": 10
+   },
+   "cold_mask_geometry": {
+    "value": {
+     "outer_radius": 0.9755,
+     "central_obscuration_radius": 0.354,
+     "spider_width": 0.061
+    },
+    "unit": "fraction of the OTA pupil radius at the mask (design / pre-launch, from Telfer 2006 via Hartig)",
+    "src": "ISR0814",
+    "loc": "Sec. 'Cold-Mask Geometry', p. 7",
+    "quote": "The central obscuration radius was 0.354, the outer radius of the cold mask 0.9755 and the spider width 0.061, all expressed in units of the radius of the HST primary at the pupil.",
+    "stage": "design (pre-launch)",
+    "alternatives": [
+     {
+      "value": {
+       "central_obscuration_radius": 0.37,
+       "spider_width": 0.077,
+       "mask_offset": [
+        0.02,
+        -0.02
+       ]
+      },
+      "src": "ISR1410",
+      "loc": "Table 1 (Improved TinyTIM Cold Mask Parameters), p. 6",
+      "quote": "Secondary Radius 0.354 0.370 0.007 ... Spider Width 0.061 0.077 0.001 ... Mask Position 0.00, 0.00 0.02, -0.02 0.01",
+      "note": "on-orbit fit to PSFs (old value, new value, uncertainty); \"Units are fraction of the OTA primary mirror pupil radius as re-imaged at the cold pupil mask.\"",
+      "pdf_page": 6
+     },
+     {
+      "value": "spider 0.432 mm (Telfer) vs 0.526 mm (Ball)",
+      "src": "ISR1410",
+      "loc": "Sec. 'Discussion', p. 10",
+      "quote": "They give a value of 0.432mm for the spider widths. ... Discussions with Hartig (2012) uncovered a Ball Aerospace memo which gives a larger value of 0.526mm, or about 20% larger, for the cold mask spiders.",
+      "pdf_page": 10
+     },
+     {
+      "value": {
+       "central_obscuration_radius": 0.354,
+       "spider_width": 0.061,
+       "outer_radius": 0.9755
+      },
+      "src": "TTIR",
+      "loc": "cold mask block",
+      "quote": "0.354 = WFC3 IR Secondary radius 0.061 = WFC3 IR Spider width 0.9755 = WFC3 IR Outer radius of cold mask"
+     },
+     {
+      "value": "cold-mask spiders ~20% wider than the pre-launch model",
+      "src": "ISR1213",
+      "loc": "Results, p. 8",
+      "quote": "which implies that the cold mask spider thicknesses are about 20% too small in the TinyTIM model",
+      "pdf_page": 8
+     },
+     {
+      "value": "does not cover the pads",
+      "src": "ISR0814",
+      "loc": "Sec. 'Cold-Mask Geometry', p. 7",
+      "quote": "The cold mask does not cover the pads holding the HST primary.",
+      "pdf_page": 7
+     }
+    ],
+    "derived": "DERIVED: stop diameter on the primary = 0.9755 x 2.4 m = 2.341 m; eps relative to the mask's outer edge = 0.354/0.9755 = 0.363 (design) or 0.370/0.9755 = 0.379 (fit); cold-mask spider width projected on the primary = 0.061 x 1200 = 73 mm (design) or 0.077 x 1200 = 92 mm (fit); at the mask 0.061 x 7.13 = 0.435 mm, 0.077 x 7.13 = 0.549 mm.",
+    "pdf_page": 7
+   },
+   "detector_tilt": {
+    "value": 24,
+    "unit": "deg about the detector x axis",
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.4.1, p. 185",
+    "quote": "The IR focal plane is tilted by 24° with respect to the incoming beam.",
+    "alternatives": [
+     {
+      "value": 24,
+      "src": "WFC3IHB",
+      "loc": "Appendix B.1, p. 480",
+      "quote": "The IR detector has a ~24° tilt about its x-axis, creating a rectangular elongation of ~10%.",
+      "pdf_page": 481
+     }
+    ],
+    "pdf_page": 186
+   },
+   "detector": {
+    "value": "1 Teledyne HgCdTe array, 1024 x 1024 pixels, 1014 x 1014 light-sensitive",
+    "unit": "pixels (Nx = Ny = 1014 active)",
+    "src": "WFC3IHB",
+    "loc": "Sec. 5.6.1, p. 91",
+    "quote": "of the 1024 × 1024 pixels, only the inner 1014 × 1014 pixels are light-sensitive. The five outer rows and columns of pixels all around the array use fixed capacitances to provide constant-voltage reference values.",
+    "alternatives": [
+     {
+      "value": "1024 x 1024 (1014 x 1014 active)",
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "1024 × 1024 (1014 × 1014 active)",
+      "pdf_page": 54
+     },
+     {
+      "value": "1014 x 1014",
+      "src": "WFC3IHB",
+      "loc": "Table 2.1, p. 24",
+      "quote": "IR 11 HgCdTe 800-1700 1014 × 1014 0.135 × 0.121 136 × 123",
+      "pdf_page": 25
+     },
+     {
+      "value": "1014 x 1014",
+      "src": "PRIMCMP",
+      "loc": "near-IR imaging table (Number of pixels row)",
+      "quote": "Number of pixels 1014 x 1014 256 x 256 256 x 256"
+     }
+    ],
+    "pdf_page": 92
+   },
+   "pixel_pitch": {
+    "value": 18,
+    "unit": "um",
+    "src": "WFC3IHB",
+    "loc": "Sec. 5.6.1, p. 90",
+    "quote": "The WFC3 IR detector contains 1024 × 1024 square pixels of 18 × 18 micron physical size.",
+    "alternatives": [
+     {
+      "value": 18,
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "Pixel Size 15 μm × 15 μm 18 μm × 18 μm",
+      "note": "columns: UVIS, IR",
+      "pdf_page": 54
+     },
+     {
+      "value": 18,
+      "src": "PRIMSI",
+      "loc": "WFC3/IR paragraph",
+      "quote": "The detector is a 1K by 1K HgCdTe Teledyne array with 18 × 18 μm pixels."
+     },
+     {
+      "value": 18,
+      "src": "W3CDR",
+      "loc": "slide 9",
+      "quote": "1k X 1k HgCdTe array, 18 mm pixels",
+      "note": "text layer renders um as 'mm'",
+      "pdf_page": 9
+     }
+    ],
+    "pdf_page": 91
+   },
+   "n_chips": {
+    "value": 1,
+    "unit": "chip",
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.4.1, p. 185",
+    "quote": "The inner 1014 × 1014 pixels of the IR detector are exposed to incoming light. There are no gaps in the field",
+    "pdf_page": 186
+   },
+   "chip_layout_rows": {
+    "value": "1 row x 1 chip",
+    "unit": null,
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.4.1, p. 185",
+    "quote": "There are no gaps in the field (such as the gap between the two CCDs in the UVIS channel)",
+    "pdf_page": 186
+   },
+   "chip_gap": {
+    "value": null,
+    "unit": "no gap (single array)",
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.4.1, p. 185",
+    "quote": "There are no gaps in the field",
+    "pdf_page": 186
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": {
+     "x": 0.135,
+     "y": 0.121
+    },
+    "unit": "arcsec/px (field centre)",
+    "src": "WFC3IHB",
+    "loc": "Appendix B.3, p. 486",
+    "quote": "At field center, the x- and y-scales are 0.135 and 0.121 arcsec/pixel, respectively.",
+    "alternatives": [
+     {
+      "value": "0.135 x 0.121",
+      "src": "WFC3IHB",
+      "loc": "Table 2.1, p. 24",
+      "quote": "IR 11 HgCdTe 800-1700 1014 × 1014 0.135 × 0.121 136 × 123",
+      "pdf_page": 25
+     },
+     {
+      "value": 0.13,
+      "src": "WFC3IHB",
+      "loc": "Table 5.1, p. 53",
+      "quote": "Plate Scale 0.040\"/pixel 0.13\"/pixel",
+      "note": "columns: UVIS, IR",
+      "pdf_page": 54
+     },
+     {
+      "value": 0.13,
+      "src": "PRIMSI",
+      "loc": "WFC3/IR paragraph",
+      "quote": "The plate scale is 0.13 arcsec/pixel."
+     },
+     {
+      "value": 0.13,
+      "src": "TTIR",
+      "loc": "pixel size line",
+      "quote": "0.13 = WFC3 IR pixel size"
+     }
+    ],
+    "derived": "DERIVED: geometric mean sqrt(0.135 x 0.121) = 0.1278\"/px; aspect 0.121/0.135 = 0.896",
+    "pdf_page": 487
+   },
+   "pixel_scale_anisotropy": {
+    "value": "rectangular pixels, aspect ~0.90 (x 0.135, y 0.121), shape varies slightly across the field",
+    "unit": null,
+    "src": "WFC3IHB",
+    "loc": "Sec. 7.4.1, p. 185",
+    "quote": "Thus the field of view as projected onto the sky is rectangular, with an aspect ratio of ~0.90. The pixels projected onto the sky are also rectangular, covering approximately 0.135 × 0.121 arcsec, with the shape varying slightly across the field.",
+    "alternatives": [
+     {
+      "value": "plate scale change 2% in x, 6% in y",
+      "src": "WFC3IHB",
+      "loc": "Appendix B.1, p. 480",
+      "quote": "For the WFC3 UVIS and IR channels, this variation in plate scale amounts to a change of 3.5% in x and y, and 2% in x and 6% in y, respectively, over the full field.",
+      "pdf_page": 481
+     }
+    ],
+    "pdf_page": 186
+   },
+   "field_of_view": {
+    "value": "136 x 123",
+    "unit": "arcsec",
+    "src": "WFC3IHB",
+    "loc": "Table 2.1, p. 24",
+    "quote": "IR 11 HgCdTe 800-1700 1014 × 1014 0.135 × 0.121 136 × 123",
+    "alternatives": [
+     {
+      "value": "136 x 123 (4.65 arcmin2)",
+      "src": "WFC3IHB",
+      "loc": "Sec. 7.4.1, p. 185",
+      "quote": "The field of view on the sky is 136 × 123 arcsec, or 4.65 arcmin2.",
+      "pdf_page": 186
+     },
+     {
+      "value": "123 x 136 (16,728 arcsec2)",
+      "src": "PRIMCMP",
+      "loc": "near-IR imaging table",
+      "quote": "123\" x 136\" (16,728)"
+     },
+     {
+      "value": "123 x 139",
+      "src": "W3CDR",
+      "loc": "slide 9",
+      "quote": "FOV 123 X 139 arc sec",
+      "note": "design stage (Dec 2000)",
+      "pdf_page": 9
+     }
+    ],
+    "derived": "DERIVED: 1014 x 0.135\" = 136.9\"; 1014 x 0.121\" = 122.7\"; at F = 12.08 (square pixels): 1014 x 0.1280 = 129.8\" on a side",
+    "pdf_page": 25
+   },
+   "total_pixels": {
+    "value": 1028196,
+    "unit": "active pixels",
+    "src": null,
+    "loc": null,
+    "quote": null,
+    "derived": "DERIVED: 1014 x 1014 = 1,028,196 (1024 x 1024 = 1,048,576 including the reference-pixel border)"
+   }
+  },
+  "not_found": [
+   "As-built focal lengths of the IR relay mirrors (hyperbola, ellipse), the distance from the cold mask to the detector, and a text statement that the filter wheel sits at the pupil (Figure 2.1 shows the FSM beside the cold pupil mask and RCP; text says only that filters share the cold shroud with the detector).",
+   "An as-built (post-CDR) effective focal length; only the CDR design value 29,000 mm.",
+   "Telfer (2006) and the Ball Aerospace cold-mask memo are unpublished internal memos (cited in ISR0814/ISR1410); not available."
+  ],
+  "conflicts": [
+   "Effective focal ratio f/11 (WFC3IHB Table 2.1; W3CDR) vs the CDR's own 29,000 mm (= f/12.08 DERIVED) vs F = 11.46 (x scale 0.135) / 12.79 (y scale 0.121) / 12.10 (geometric mean) DERIVED from the published scales.",
+   "Pixel scale 0.135 x 0.121 (Table 2.1, Sec. 7.4.1, App. B.3) vs 0.13 nominal (Table 5.1, Primer, Tiny Tim).",
+   "Cold mask: central obscuration 0.354 (design; ISR0814, Tiny Tim) vs 0.370 +/- 0.007 (on-orbit fit, ISR1410); spider width 0.061 (= 0.432 mm, Telfer) vs 0.077 +/- 0.001 (fit) vs 0.526 mm (Ball memo, = 0.0738 DERIVED); mask offset 0.02, -0.02 (fit). ISR1410 attributes part of the difference to on-orbit focus moves changing the pupil scale at the mask.",
+   "FOV 136 x 123 (as built) vs 123 x 139 (CDR design)."
+  ],
+  "notes": [
+   "The explorer's square-pixel direct model gives one scale; the real projected pixel is 0.135 x 0.121 (24-deg tilt about x)."
+  ],
+  "explorer_inputs": {
+   "mode": "DIRECT (or REIMAGED ideal equivalent below)",
+   "D_m": 2.4,
+   "eps": 0.33,
+   "spider": {
+    "n_vanes": 4,
+    "width_mm": 25.654,
+    "orientation": "cross (V2/V3 axes)"
+   },
+   "cold_mask_stop": {
+    "outer_radius_frac": 0.9755,
+    "D_eff_m": 2.341,
+    "obscuration_radius_frac": [
+     0.354,
+     0.37
+    ],
+    "eps_rel_to_mask": [
+     0.363,
+     0.379
+    ],
+    "spider_width_frac": [
+     0.061,
+     0.077
+    ],
+    "note": "design / on-orbit fit; fractions of the OTA pupil radius; D_eff and eps DERIVED"
+   },
+   "F_eff_recommended": 12.08,
+   "F_eff_recommended_basis": "CDR design focal length 29,000 mm / 2.4 m (DERIVED); reproduces the geometric-mean scale 0.128\"/px with 18 um pixels",
+   "F_eff_published": [
+    11
+   ],
+   "f_eff_m_published": 29.0,
+   "reimaged_equivalent": {
+    "W_mm": 14.26,
+    "f_col_mm": 342.2,
+    "f_cam_mm": 172.3,
+    "f_cam_mm_if_f11": 156.9,
+    "basis": "DERIVED from the cold-mask pupil radius 7.13 mm by design (ISR 2014-10); ideal optics, not the real hyperbola+ellipse relay"
+   },
+   "chip": {
+    "Nx": 1014,
+    "Ny": 1014,
+    "pitch_um": 18,
+    "Nx_total": 1024,
+    "Ny_total": 1024
+   },
+   "n_chips": 1,
+   "rows": [
+    1
+   ],
+   "row_names": [
+    "IR"
+   ],
+   "gap": null,
+   "validate": {
+    "pixel_scale_arcsec": [
+     0.135,
+     0.121
+    ],
+    "pixel_scale_nominal": 0.13,
+    "fov_arcsec": [
+     136,
+     123
+    ],
+    "n_pixels": 1028196
+   }
+  }
+ }
+}
