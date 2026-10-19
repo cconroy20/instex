@@ -282,6 +282,8 @@
       <h2 title="What lies between the telescope focus and the detector.">Optics</h2>
       <div class="caserow" title="Direct: the detector at the telescope focus. Reimaged: a collimator makes each star's light parallel, a pupil holds the filter, and a camera of focal ratio F_cam forms the image; the system then works at f/F_cam."><span>Imager</span>
         <span class="seg sm"><button id="ioDir" type="button">Direct</button><button id="ioRe" type="button">Reimaged</button></span></div>
+      <div class="caserow only-ire" title="One camera: the reimager images the whole field. Pyramid: a four-sided pyramid mirror at the telescope focus splits the field into quadrants and sends each to its own collimator, camera and detector (as in the Palomar 4-Shooter); each camera then takes only its quadrant's field."><span>Split</span>
+        <span class="seg sm"><button id="isp1" type="button">One camera</button><button id="isp4" type="button">Pyramid (4)</button></span></div>
       <div class="ctl only-ire" title="Diameter W of the collimated beam, and of the pupil where the filter sits. The collimator's focal length is F W. The field angles in the beam are the sky angles magnified by D / W.">
         <label for="iW"><span>Beam, <i>W</i></span><span class="val" id="vW_"></span></label>
         <input type="range" id="iW" min="0.7" max="2.7" step="0.005">
@@ -293,33 +295,47 @@
       <div class="rds" id="rOptI"></div>
     </section>
     <section>
-      <h2 title="One chip of the mosaic.">Detector</h2>
-      <div class="caserow"><select id="iDet" title="Common chip formats."></select></div>
-      <div class="ctl" title="Pixels across one chip.">
+      <h2 title="One chip of the mosaic, or a photographic plate.">Detector</h2>
+      <div class="caserow" title="CCD (or infrared array): a grid of pixels. Plate: a photographic emulsion on glass, with no pixels; a star's image is spread by the emulsion, and the plate is digitized later by a scanner in steps of its own."><span>Detector</span>
+        <span class="seg sm"><button id="idCcd" type="button">CCD</button><button id="idPlate" type="button">Plate</button></span></div>
+      <div class="caserow only-iccd"><select id="iDet" title="Common chip formats."></select></div>
+      <div class="ctl only-iccd" title="Pixels across one chip.">
         <label for="iNx"><span>Pixels across</span><span class="val" id="vNx_"></span></label>
         <input type="range" id="iNx" min="2.4" max="4.21" step="0.001">
       </div>
-      <div class="ctl" title="Pixels up one chip.">
+      <div class="ctl only-iccd" title="Pixels up one chip.">
         <label for="iNy"><span>Pixels up</span><span class="val" id="vNy_"></span></label>
         <input type="range" id="iNy" min="2.4" max="4.21" step="0.001">
       </div>
-      <div class="ctl" title="Pixel pitch. The pixel scale is 206265 p / f_eff.">
+      <div class="ctl only-iccd" title="Pixel pitch. The pixel scale is 206265 p / f_eff.">
         <label for="iPix"><span>Pixel size</span><span class="val" id="vPix_"></span></label>
         <input type="range" id="iPix" min="2" max="30" step="0.1">
+      </div>
+      <div class="ctl only-iplate" title="The side of the square plate.">
+        <label for="iPlate"><span>Plate size</span><span class="val" id="vPlate"></span></label>
+        <input type="range" id="iPlate" min="1.7" max="2.75" step="0.002">
+      </div>
+      <div class="ctl only-iplate" title="How far the emulsion spreads a star's light (a FWHM on the plate, in micrometers): set by the grain and by light scattered inside the emulsion.">
+        <label for="iGrain"><span>Emulsion spread</span><span class="val" id="vGrain"></span></label>
+        <input type="range" id="iGrain" min="0.7" max="1.8" step="0.005">
+      </div>
+      <div class="ctl only-iplate" title="The step at which the plate was later digitized: the scan's pixel.">
+        <label for="iScan"><span>Scan step</span><span class="val" id="vScan"></span></label>
+        <input type="range" id="iScan" min="0.7" max="1.8" step="0.005">
       </div>
       <div class="rds" id="rDetI"></div>
     </section>
     <section>
       <h2 title="The chips tiled into a mosaic at the focus.">Mosaic</h2>
-      <div class="ctl" title="Chips across the mosaic. A preset's own pattern of rows gives way to a full grid when moved.">
+      <div class="ctl only-iccd" title="Chips across the mosaic. A preset's own pattern of rows gives way to a full grid when moved.">
         <label for="iCol"><span>Chips across</span><span class="val" id="vCol"></span></label>
         <input type="range" id="iCol" min="1" max="16" step="1">
       </div>
-      <div class="ctl" title="Rows of chips.">
+      <div class="ctl only-iccd" title="Rows of chips.">
         <label for="iRow"><span>Rows</span><span class="val" id="vRow"></span></label>
         <input type="range" id="iRow" min="1" max="16" step="1">
       </div>
-      <div class="ctl" title="Gap between neighboring chips (packages and wiring leave a margin around the pixels).">
+      <div class="ctl only-iccd" title="Gap between neighboring chips (packages and wiring leave a margin around the pixels).">
         <label for="iGap"><span>Gap</span><span class="val" id="vGap"></span></label>
         <input type="range" id="iGap" min="0" max="20" step="0.05">
       </div>

@@ -176,6 +176,14 @@ function design(P) {
   S.imageSpread = Math.abs(yA[yA.length - 1].h - yB[yB.length - 1].h);   // ~0: every ray from one star meets
   S.Feff = S.feff / Dmm;
   S.plate = RAD / S.feff;                                        // arcsec per mm at the detector
+  // a photographic plate: one square of emulsion with no pixels; the pixel-based numbers use the step at which the
+  // plate was later scanned, and the emulsion's own spread (grain, um on the plate) adds to the image's width
+  if (P.det === "plate") {
+    S.isPlate = true;
+    S.plateMM = P.plateMM || 355.6; S.scan = P.scan || 25; S.grain = P.grain || 25;
+    P = Object.assign({}, P, { pix: S.scan, Nx: Math.round(S.plateMM * 1000 / S.scan), Ny: Math.round(S.plateMM * 1000 / S.scan), rows: [1], gapsX: null, gapsY: null, shiftY: null, extra: null });
+    S.P = P;
+  }
   S.pixmm = P.pix / 1000;
   S.pixScale = S.plate * S.pixmm;                                // arcsec per pixel (on axis)
 
@@ -254,6 +262,15 @@ function design(P) {
     let z = zStop, h = 0, u = tc;
     for (const e of el) { h += u * (e.z - z); z = e.z; u = u - h / e.f; if (e.kind === "collimator") break; }
     S.phiMax = Math.atan(Math.abs(u));                           // half-angle of the field in the beam (rad)
+    // a pyramid at the focus sends each quadrant to its own camera, centered on that quadrant: each camera takes the
+    // half-diagonal of one chip (the farthest point from its own axis), not the whole field
+    if (P.split === "pyramid") {
+      S.split = true;
+      let r = 0;
+      for (const c of chips) if (c.active) r = Math.max(r, Math.hypot(c.w / 2, c.h / 2));
+      S.phiMax = Math.atan(r / S.fcam);
+      S.quad = r;
+    }
     S.zPtraced = z - h / u;                                      // where the chief ray crosses the axis
     S.focalField = 2 * S.ftel * tc;                              // the field's diameter at the telescope focus (mm)
     S.beamMag = P.D * 1000 / P.W;                                // the angular magnification D / W
@@ -266,18 +283,19 @@ function design(P) {
   // or diffraction alone; the first two drawn as Moffat profiles with the diffraction width added in quadrature
   const blur = P.psf === "optics" ? (P.blur || 1) : P.seeing;
   S.fwhm = P.psf === "diff" ? S.fwhmDiff : Math.sqrt(blur * blur + S.fwhmDiff * S.fwhmDiff);
+  if (S.isPlate) { S.fwhmEmul = S.grain / 1000 * S.plate; S.fwhm = Math.sqrt(S.fwhm * S.fwhm + S.fwhmEmul * S.fwhmEmul); }
   S.sampling = S.fwhm / S.pixScale;                              // pixels per FWHM
   S.nyquistPix = P.lam * 1e-3 / (2 * Dmm) * RAD;                 // the pixel that Nyquist-samples the optics' cutoff, lambda / 2D
 
   // ---- flags
-  if (S.sampling < 2) flag("samp", "undersampled");
+  if (S.sampling < 2) flag("samp", S.isPlate ? "the scan undersamples the image" : "undersampled");
   return S;
 }
 
 // the default imager (the page's Reset all): a 4 m f/3 prime-focus telescope with a 3 x 3 mosaic of 4k x 4k chips
 const DEF = {
   D: 4, F: 3, eps: 0.3, field: 120, tel: "prime", F1: 2, back: 0.2,
-  nasmyth: false, backN: 0.8,
+  nasmyth: false, backN: 0.8, det: "ccd", plateMM: 355.6, scan: 25, grain: 25, split: "none",
   band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,

@@ -1,0 +1,983 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER mode preset: Palomar 200-inch Hale / 4-Shooter (pyramid-split four-camera reimaging CCD imager at the Cassegrain focus)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/fourshooter.md (same content as Markdown). Structure follows data/imaging/widefield.json: sources{key: cite, file, url}; instrument entry: title, preset (machine-readable explorer inputs), recommended_preset (prose), params, performance (validation targets), not_found, conflicts, notes.",
+  "model": "Cassegrain focus (D, F_tel) -> four-faceted reflecting pyramid at the focal plane -> per quadrant: ideal collimator f_col (= F_tel x W) -> pupil of diameter W -> ideal camera f_cam -> CCD. Effective focal ratio = f_cam / W; pixel scale = 206265 x p / (D x F_tel x f_cam / f_col).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/imaging/fourshooter/ (OG82 and PDS: existing rawdata/presets/longslit_dbsp/ files). derived = arithmetic done here from sourced values (shown). alternatives = other sourced values (conflicts). value null = NOT FOUND; nothing is filled from memory.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication and tilde signs mapped to ASCII; whitespace collapsed; a piece also passes after joining hyphenated line breaks ('-' + whitespace removed) or with all whitespace removed; ' ... ' joins non-adjacent pieces. OCR glyph errors in the source text are kept verbatim inside the quotes.",
+  "quote_check": "Machine-checked by script against: pdftotext -layout and -raw (the ADS scans' text layers are OCR); tesseract 5.5.1 OCR of the page images for P84, G84 and B61 (no text layer) and for CPM86 pp. 348-349 and S86 p. 992; tag-stripped and raw HTML for PHT and PDS; the decoded ADS API record for G87OE.",
+  "check_summary": "102 quotes checked, 0 failures",
+  "frames": "North up, east left (S94 Fig. 1, P96 Fig. 1, N95 Fig. 1a); CCD numbering 1 (NE), 4 (NW), 2 (SE), 3 (SW). Rows listed top to bottom."
+ },
+ "sources": {
+  "G87OE": {
+   "cite": "Gunn, J. E., Carr, M., Danielson, G. E., Lorenz, E. O., Lucinio, R., Nenow, V. E., Smith, J. D., Westphal, J. A., Schneider, D. P., & Zimmerman, B. A. 1987, Optical Engineering 26(8), 779, \"Four-shooter: a large format charge-coupled-device camera for the Hale telescope\", doi:10.1117/12.7974149 -- THE 4-SHOOTER INSTRUMENT PAPER. Full text NOT OBTAINED (SPIE Digital Library only; the download was refused by the publisher's bot wall, 2026-10-19). Saved here: the ADS API record (bibliographic data + abstract), fetched 2026-10-19",
+   "file": "rawdata/imaging/fourshooter/ADS_record_1987OptEn_26_779G_Gunn_FourShooter.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/1987OptEn..26..779G (full text: https://doi.org/10.1117/12.7974149)"
+  },
+  "G84": {
+   "cite": "Gunn, J. E., Carr, M., Chang, J., Danielson, G. E., Lorenz, E. O., Lucinio, R., Nenow, V. E., Smith, D. J., Westphal, J. A., & Zimmerman, B. A. 1984, BAAS 16, 477, abstract 17.01 \"A Large-Format, High-Efficiency CCD Camera for the Hale Telescope\" (164th AAS meeting). ADS scan without a text layer; quotes from a tesseract 5.5.1 OCR of the 400-dpi page image",
+   "file": "rawdata/imaging/fourshooter/Gunn1984_BAAS16_477_FourShooter_abstract_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1984BAAS...16..477G"
+  },
+  "P84": {
+   "cite": "Porter, A. 1984, I.A.P.P.P. Communications 17, 33, \"The Four Shooter: Two Dimensional Photometry at Mt. Palomar\" (paper presented at the 1984 I.A.P.P.P. symposium; Table I 'Four-Shooter Specifications', Fig. 1 schematic). ADS scan without a text layer; quotes from a tesseract 5.5.1 OCR of the 300-dpi page images",
+   "file": "rawdata/imaging/fourshooter/Porter1984_IAPPP17_33_FourShooter_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1984IAPPP..17...33P"
+  },
+  "S85": {
+   "cite": "Schneider, D. P., Lawrence, C. R., Schmidt, M., Gunn, J. E., Turner, E. L., Burke, B. F., & Dhawan, V. 1985, ApJ 294, 66, \"Deep optical and radio observations of the gravitational lens system 2016+112\" (Sec. II, first 4-Shooter data). ADS scan; quotes checked against its OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Schneider1985_ApJ294_66_2016+112_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1985ApJ...294...66S"
+  },
+  "S86": {
+   "cite": "Schneider, D. P., Gunn, J. E., Turner, E. L., Lawrence, C. R., Hewitt, J. N., Schmidt, M., & Burke, B. F. 1986, AJ 91, 991, \"The third image, the redshift of the lens, and new components of the gravitational lens 2016+112\" (Sec. IIa: first description of the 4-Shooter auxiliary spectrograph). ADS scan; quotes checked against its OCR text layer and a tesseract OCR of p. 992",
+   "file": "rawdata/imaging/fourshooter/Schneider1986_AJ91_991_2016+112_4ShooterSpectrograph_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986AJ.....91..991S"
+  },
+  "CPM86": {
+   "cite": "Campbell, B., Persson, S. E., & McGregor, P. J. 1986, ApJ 305, 336, \"Images of Star-forming Regions. I. Optical and Radio Morphology of the Bipolar Outflow Source GL 490\" (Appendix I 'The 4-Shooter CCD camera system', pp. 348-349). ADS scan; quotes checked against its OCR text layer and a tesseract OCR of pp. 348-349",
+   "file": "rawdata/imaging/fourshooter/Campbell1986_ApJ305_336_StarFormingRegionsI_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986ApJ...305..336C"
+  },
+  "C86": {
+   "cite": "Cohen, J. G. 1986, AJ 92, 1039, \"Color gradients in three Virgo ellipticals\" (Sec. II). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Cohen1986_AJ92_1039_VirgoEllipticals_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986AJ.....92.1039C"
+  },
+  "Z87": {
+   "cite": "Zaritsky, D., Shaya, E. J., Scoville, N. Z., Sargent, A. I., & Tytler, D. 1987, AJ 93, 1514, \"Polarized CCD imaging of the Horsehead Nebula (B33) and Monoceros R2\" (Sec. II and Fig. 1). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Zaritsky1987_AJ93_1514_PolarizedCCD_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987AJ.....93.1514Z"
+  },
+  "G87P": {
+   "cite": "Gunn, J. E., Emory, E. B., Harris, F. H., & Oke, J. B. 1987, PASP 99, 518, \"The Palomar Observatory CCD camera\" -- the Palomar LN2 Dewar + CCD electronics paper (NOT the 4-Shooter optics paper; it cites the 4-Shooter paper as 'Gunn et al. 1987, Optical Engineering, in press' = G87OE). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Gunn1987_PASP99_518_PalomarCCDcamera_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987PASP...99..518G"
+  },
+  "S91": {
+   "cite": "Saha, A. & Hoessel, J. G. 1991, AJ 101, 465, \"UGC-A86: a Local Group galaxy candidate\" (Figs. 1-3 captions, plates). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Saha1991_AJ101_465_UGC-A86_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1991AJ....101..465S"
+  },
+  "D92": {
+   "cite": "Dressler, A. & Gunn, J. E. 1992, ApJS 78, 1, \"Spectroscopy of galaxies in distant clusters. IV. A catalog of photometry and spectroscopy for galaxies in seven clusters with 0.35 < z < 0.55\" (Sec. 2, p. 2). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Dressler1992_ApJS78_1_DistantClustersIV_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1992ApJS...78....1D"
+  },
+  "S94": {
+   "cite": "Schneider, D. P., Schmidt, M., & Gunn, J. E. 1994, AJ 107, 1245, \"Spectroscopic CCD surveys for quasars at large redshift. III. The Palomar Transit Grism Survey catalog\" (Sec. 2.1 'Survey technique' and Fig. 1 focal-plane diagram, p. 1246; Sec. 2.2, p. 1247). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Schneider1994_AJ107_1245_PTGS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1994AJ....107.1245S"
+  },
+  "N95": {
+   "cite": "Neuschaefer, L. W. & Windhorst, R. A. 1995, ApJS 96, 371, \"Observation and reduction methods of deep Palomar 200 inch 4-Shooter mosaics\" (Sec. 2.1, Fig. 1). ADS scan; OCR text layer (renders arcsec as '' and degrees as '!')",
+   "file": "rawdata/imaging/fourshooter/Neuschaefer1995_ApJS96_371_4ShooterMosaics_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1995ApJS...96..371N"
+  },
+  "P96": {
+   "cite": "Postman, M., Lubin, L. M., Gunn, J. E., Oke, J. B., Hoessel, J. G., Schneider, D. P., & Christensen, J. A. 1996, AJ 111, 615, \"The Palomar Distant Clusters Survey. I. The cluster catalog\" (Sec. 2.1 and Fig. 1 focal-plane diagram, pp. 616-617). ADS scan; OCR text layer",
+   "file": "rawdata/imaging/fourshooter/Postman1996_AJ111_615_PDCS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996AJ....111..615P"
+  },
+  "B61": {
+   "cite": "Bowen, I. S. 1961, \"The 200-inch Hale Telescope\", in Telescopes (Stars and Stellar Systems; U. of Chicago Press), p. 1 (Sec. 1 'Optics', p. 2; Sec. 3 'Observer's cage', p. 8). ADS scan without a text layer; quotes from a tesseract 5.5.1 OCR of the 300-dpi page images",
+   "file": "rawdata/imaging/fourshooter/Bowen1961_Telescopes_200inchHale_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1961tele.book....1B"
+  },
+  "PHT": {
+   "cite": "Palomar Observatory (Caltech), \"The 200-inch (5.1-meter) Hale Telescope\" public page, section 'The 200-inch Mirror and Foci' (fetched 2026-10-19)",
+   "file": "rawdata/imaging/fourshooter/palomar_about_telescopes_hale.html",
+   "url": "https://sites.astro.caltech.edu/palomar/about/telescopes/hale.html"
+  },
+  "OG82": {
+   "cite": "Oke, J. B. & Gunn, J. E. 1982, PASP 94, 586, \"An efficient low- and moderate-resolution spectrograph for the Hale telescope\" (DBSP; ADS scan, OCR text layer) -- SAME FILE as the long-slit round key OG82",
+   "file": "rawdata/presets/longslit_dbsp/OkeGunn1982_PASP94_586_DBSP_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982PASP...94..586O"
+  },
+  "PDS": {
+   "cite": "Palomar Observatory, \"Double Spectrograph (DBSP) Technical Specifications\" v2.1 (last updated 09 Feb 2018; fetched 2026-10-16) -- SAME FILE as the long-slit round key PDS",
+   "file": "rawdata/presets/longslit_dbsp/palomar_dbspspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspspecs.html"
+  }
+ },
+ "fourshooter": {
+  "title": "Palomar 200-inch Hale / 4-Shooter (Cassegrain f/16; four-faceted reflecting pyramid at the focus feeding four reimaging Schmidt cameras, each with a TI 800 x 800 CCD)",
+  "preset": {
+   "mode": "direct imaging, unbinned 15-um pixels; 4-Shooter as described 1984-1996",
+   "D_m": 5.08,
+   "D_note": "200-in primary (B61); 5.1 m rounded (PHT)",
+   "eps_DERIVED": 0.36,
+   "eps_note": "72-in prime-focus cage (carries the Cassegrain secondary) / 200 in (B61); the 40-in primary hole (0.20) is inside the cage shadow; spiders not quantified",
+   "F_tel": 16.0,
+   "f_tel_mm": 81280.0,
+   "F_tel_alternatives": "f/15.7 (OG82); f/15.80 DERIVED from 2.57\"/mm (PDS)",
+   "telescope_type": "Cassegrain (f/3.3 paraboloid + f/16 hyperboloid in the prime-focus cage)",
+   "focus": "Cassegrain (image ~5 ft behind the primary's front surface, B61)",
+   "primary_F_drawing": 3.3,
+   "plate_scale_focus_arcsec_per_mm_DERIVED": 2.5377,
+   "imager": "reimaged x 4 behind a pyramid splitter",
+   "splitter": {
+    "type": "four-faceted reflecting pyramid (WF/PC-type focal-plane image splitter)",
+    "position": "coincident with the Cassegrain f/16 focal plane",
+    "n_facets": 4,
+    "facet_per_quadrant": true,
+    "incidence_angle_deg": 5,
+    "facet_tilt_deg_DERIVED": 5,
+    "beam_deviation_from_reversed_axis_deg_DERIVED": 10,
+    "beam_direction": "back up toward the telescope, one beam per facet, to four cameras in separate housings around the incoming beam; diagonal routing DERIVED from geometry",
+    "facet_shape": "not published (P84: the pyramid 'flattens the field')",
+    "quadrant_at_focus_mm_DERIVED": 105.6,
+    "pyramid_extent_mm_DERIVED": 211.0,
+    "sky_gap_arcsec": 1,
+    "sky_gap_alternatives": "'few arcseconds' unusable (P96); ~4\" strip in the grism survey (S94)",
+    "unexposed_px_per_chip": "20 rows/columns along the two chip edges that meet at the apex",
+    "slit_in_one_facet": "auxiliary-spectrograph slit 1.5\" x 2.0' (S86); appears as a diagonal line in images (S91)"
+   },
+   "cameras": {
+    "n": 4,
+    "type": "collimator (not described) + small Schmidt camera, one per quadrant",
+    "f_col_mm": null,
+    "W_mm": null,
+    "f_cam_mm": null,
+    "f_cam_over_f_col_DERIVED": 0.1136,
+    "reduction_DERIVED": 8.8,
+    "effective_F_published": 1.8,
+    "effective_F_DERIVED": 1.818,
+    "f_eff_mm_DERIVED": 9236.0,
+    "drawing_placeholder_NOT_PUBLISHED": {
+     "f_col_mm": 1000,
+     "W_mm": 62.5,
+     "f_cam_mm": 113.6,
+     "basis": "f_col ~ the 'about a meter' pyramid-to-filter distance (S94); W = f_col / 16"
+    },
+    "achromatic_range_A": [
+     4000,
+     10000
+    ]
+   },
+   "filters": "one 4-in circular filter per camera in two independently rotating wheels near the cameras (~1 m above the pyramid), collimated beam; per-quadrant filters possible (Gunn g r i, N95; WF/PC F555W/F785LP, P96; grisms, S94)",
+   "detector": {
+    "name": "Texas Instruments 800 x 800 (WF/PC type)",
+    "chip_nx": 800,
+    "chip_ny": 800,
+    "readout_format_px": [
+     800,
+     816
+    ],
+    "pitch_um": 15.0,
+    "chip_size_mm_DERIVED": 12.0,
+    "n_chips": 4,
+    "rows": [
+     2,
+     2
+    ],
+    "layout": "2 x 2 contiguous on the sky, one chip per pyramid facet; chips physically separate in their own housings",
+    "numbering_top_to_bottom": [
+     [
+      1,
+      4
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "orientation": "north up, east left: chip 1 NE, 4 NW, 2 SE, 3 SW; readout columns parallel in all four",
+    "gap_on_sky_arcsec": 1,
+    "unexposed_edge_px": 20
+   },
+   "field": {
+    "dims_arcmin": [
+     8.93,
+     8.93
+    ],
+    "published": "8'56\" x 8'56\" = 1600 x 1600 px (P84); 8.9' (S94, P96)",
+    "per_quadrant_arcmin": 4.47,
+    "exposed_dims_arcmin_DERIVED": [
+     8.71,
+     8.71
+    ],
+    "limit": "the four CCDs (field set by detector size through the 8.80x reducing cameras)"
+   },
+   "validation": {
+    "pixel_scale_arcsec": 0.335,
+    "pixel_scale_alternatives": [
+     0.336,
+     0.334,
+     0.33
+    ],
+    "fov_arcmin": "8.9 (8'56\") square",
+    "final_F": 1.8
+   }
+  },
+  "recommended_preset": "D = 5.08 m (200-in primary, B61; '5.1 m', PHT), eps = 0.36 DERIVED (72-in prime-focus cage, which carries the Cassegrain secondary, / 200 in; the 40-in hole is inside its shadow), Cassegrain f/16 (P84, B61, PHT; f = 81,280 mm DERIVED from 3200 in; 2.538\"/mm), primary f/3.3 (drawing only). Splitter: a four-faceted reflecting pyramid coincident with the Cassegrain focal plane (S94, P96, P84), the WF/PC focal-plane image splitter design (G84); light meets the facets at ~5 deg incidence (Z87), so each quadrant is sent back up ~10 deg off axis (DERIVED) to its own reimager. Each reimager: collimated beam (CPM86) -> 4-in filter in one of two wheels ~1 m above the pyramid (S94) -> small Schmidt camera (P84) at f/1.8 (P84; f/1.818 DERIVED from 0.335\"/px), i.e. f_cam/f_col = 0.1136 DERIVED; f_col, W and f_cam are NOT published. Detectors: four TI 800 x 800 CCDs, 15 um (CPM86), 2 x 2 contiguous on the sky (chip 1 NE, 4 NW, 2 SE, 3 SW; readout columns parallel), no sky gap by design but a ~1\" unusable crack along the facet edges (C86; 'few arcsec', P96) and 20 dark px along the two apex edges of each chip (S94, P96). Validate: 0.335\"/px (P84 Table I, S94, D92, N95), field 8'56\" x 8'56\" = 1600 x 1600 px (P84; 8.9', S94/P96), 4.4' per camera (CPM86).",
+  "params": {
+   "telescope_aperture": {
+    "value": 5.08,
+    "unit": "m (primary mirror diameter, 200 in)",
+    "src": "B61",
+    "loc": "Sec. 1 'Optics', p. 2",
+    "quote": "The main mirror has a diameter of 200 inches and has a 40-inch hole in the center.",
+    "alternatives": [
+     {
+      "value": 5.1,
+      "src": "PHT",
+      "loc": "page title / 'The 200-inch Mirror and Foci'",
+      "quote": "The 200-inch (5.1-meter) Hale Telescope",
+      "note": "rounded"
+     },
+     {
+      "value": "200 in. (5 m)",
+      "src": "Z87",
+      "loc": "Sec. II, p. 1514",
+      "quote": "using the 200 in. (5 m) telescope of the Palomar Observatory"
+     },
+     {
+      "value": "20 m^2 collecting area",
+      "src": "PHT",
+      "loc": "'The 200-inch Mirror and Foci'",
+      "quote": "The primary mirror's area, about 31,000 square inches or 20 square meters",
+      "note": "pi/4 x 5.08^2 = 20.27 m^2 (unobstructed disk, DERIVED); with eps = 0.36 the clear annulus is 17.64 m^2 (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED: 200 in x 25.4 mm/in = 5080 mm."
+   },
+   "central_obstruction": {
+    "value": 0.36,
+    "unit": "linear ratio (obscuration diameter / D)",
+    "src": "B61",
+    "loc": "Sec. 3 'Observer's cage', p. 8",
+    "quote": "As constructed, the cage is 72 inches in diameter and is centered on the optic axis. ... The lower part carries all optical parts, including the secondary mirrors for the coudé and Cassegrain foci",
+    "note": "What sets it: the prime-focus observer's cage at the top of the tube, 72 in across, whose lower section carries the f/16 Cassegrain hyperboloid; at the Cassegrain focus the cage shadow is the central obscuration (the DBSP, another Cassegrain instrument, sized its collimator secondaries to 'the shadow of the prime-focus cage', OG82). The 40-in central hole in the primary (ratio 0.20) lies inside that shadow. Spider vanes are not quantified in any saved source. Bowen's value is the as-built 1961 cage; no 4-Shooter-era (1983-1990) measurement was found.",
+    "alternatives": [
+     {
+      "value": "72 in cage 'without intercepting appreciably more light ... than ... a Newtonian mirror'",
+      "src": "B61",
+      "loc": "Sec. 3, p. 8",
+      "quote": "a cage for the observer may be placed directly at the prime focus without intercepting ap- preciably more light from the incoming beam than would be cut off by a New- tonian mirror."
+     },
+     {
+      "value": "cage shadow = Cassegrain obscuration (DBSP)",
+      "src": "OG82",
+      "loc": "p. 587",
+      "quote": "This allows the secondaries to be no larger than the shadow of the prime-focus cage in the collimated beam"
+     },
+     {
+      "value": 0.2,
+      "src": "B61",
+      "loc": "Sec. 1, p. 2",
+      "quote": "The main mirror has a diameter of 200 inches and has a 40-inch hole in the center.",
+      "note": "40-in hole / 200 in = 0.20 (DERIVED); hidden behind the cage shadow, so it does not set eps"
+     }
+    ],
+    "derived": "DERIVED: 72 in / 200 in = 0.360 (1829 mm / 5080 mm); area blocked eps^2 = 13.0%.",
+    "is_derived": true
+   },
+   "telescope_focus": {
+    "value": "Cassegrain (f/16 hyperboloid secondary in the prime-focus cage; image behind the primary)",
+    "unit": "",
+    "src": "P84",
+    "loc": "Sec. III, p. 34",
+    "quote": "It is mounted at the Cassegrain focus, behind the mirror. The f/16 beam from the secondary is focused on a four-sided optical pyramid",
+    "alternatives": [
+     {
+      "value": "Cassegrain",
+      "src": "G84",
+      "loc": "abstract 17.01",
+      "quote": "has been built for the Cassegrain focus of the Hale Telescope."
+     },
+     {
+      "value": "Cassegrain",
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "which is mounted at the ... Cassegrain focus of the Hale telescope."
+     },
+     {
+      "value": "Cassegrain",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 616",
+      "quote": "mounted at the Cassegrain focus of the Hale telescope."
+     },
+     {
+      "value": "Cassegrain image ~5 ft behind the primary's front surface",
+      "src": "B61",
+      "loc": "Sec. 1, p. 2",
+      "quote": "The light from this mirror passes through the hole in the center of the main mirror and forms an image about 5 feet back of the front surface of this mirror."
+     },
+     {
+      "value": "instrument rotator ('instrument base angle')",
+      "src": "N95",
+      "loc": "Sec. 2.3, p. 375",
+      "quote": "200 inch Cassegrain instrument base angle in multiples of 90°"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 16.0,
+    "unit": "f/# (Cassegrain)",
+    "src": "P84",
+    "loc": "Sec. III, p. 34 and Fig. 1 (label 'f/16 beam')",
+    "quote": "The f/16 beam from the secondary is focused on a four-sided optical pyramid",
+    "alternatives": [
+     {
+      "value": 16,
+      "src": "B61",
+      "loc": "Sec. 1, p. 2",
+      "quote": "One of these yields a focal length of 3200 inches or a focal ratio of F16."
+     },
+     {
+      "value": 16,
+      "src": "PHT",
+      "loc": "'The 200-inch Mirror and Foci'",
+      "quote": "Cassegrain focus (f/16, focal length 3,200 inches or 81.3 meters)"
+     },
+     {
+      "value": 15.7,
+      "src": "OG82",
+      "loc": "Sec. II 'Design Requirements', p. 586",
+      "quote": "The focal ratio of the Cassegrain of the Hale telescope is //15.7 and the scale is 2.5 arc sec mm-1.",
+      "note": "OCR renders f/15.7 as '//15.7'"
+     },
+     {
+      "value": 15.8,
+      "src": "PDS",
+      "loc": "item 3 'Scale'",
+      "quote": "Scale 2.57″/mm at the slit",
+      "note": "DERIVED: 206264.8 / 2.57 = 80259 mm; / 5080 mm = f/15.80"
+     }
+    ],
+    "derived": "DERIVED: 81280 mm / 5080 mm = f/16.00."
+   },
+   "effective_focal_length": {
+    "value": 81280.0,
+    "unit": "mm (telescope, Cassegrain)",
+    "src": "B61",
+    "loc": "Sec. 1, p. 2",
+    "quote": "One of these yields a focal length of 3200 inches or a focal ratio of F16.",
+    "alternatives": [
+     {
+      "value": 81300,
+      "src": "PHT",
+      "loc": "'The 200-inch Mirror and Foci'",
+      "quote": "Cassegrain focus (f/16, focal length 3,200 inches or 81.3 meters)"
+     },
+     {
+      "value": 79756,
+      "src": "OG82",
+      "loc": "Sec. II 'Design Requirements', p. 586",
+      "quote": "The focal ratio of the Cassegrain of the Hale telescope is //15.7 and the scale is 2.5 arc sec mm-1.",
+      "note": "15.7 x 5080 = 79756 mm (DERIVED); 2.5\"/mm -> 82,506 mm (DERIVED); the two OG82 numbers disagree by 3%"
+     },
+     {
+      "value": 80259,
+      "src": "PDS",
+      "loc": "item 3 'Scale'",
+      "quote": "Scale 2.57″/mm at the slit",
+      "note": "206264.8 / 2.57 = 80259 mm (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED: 3200 in x 25.4 = 81,280 mm; plate scale 206264.8 / 81280 = 2.5377\"/mm (394.1 um per arcsec)."
+   },
+   "primary_focal_ratio": {
+    "value": 3.3,
+    "unit": "f/# of the primary (drawing only)",
+    "src": "B61",
+    "loc": "Sec. 1, p. 2",
+    "quote": "It is ground and polished in the form of a paraboloid of 660-inch focal length; thus the focal ratio is F3.3.",
+    "alternatives": [
+     {
+      "value": 3.3,
+      "src": "PHT",
+      "loc": "'The 200-inch Mirror and Foci'",
+      "quote": "paraboloid (f/3.3, focal length 660 inches or 16.76 meters)"
+     }
+    ],
+    "derived": "DERIVED: 660 in x 25.4 = 16,764 mm; / 5080 mm = f/3.30."
+   },
+   "splitter": {
+    "value": "four-faceted reflecting pyramid at (coincident with) the Cassegrain focal plane; one facet per field quadrant",
+    "unit": "",
+    "src": "S94",
+    "loc": "Sec. 2.1, p. 1246",
+    "quote": "The focal plane of the telescope is coincident with a reflective four-faceted pyramid in the 4-Shooter that directs the incoming light to four reimaging cameras.",
+    "note": "Porter adds that the pyramid also flattens the field, i.e. the facets are presumably not plane, but no source gives their figure. The splitter is the WF/PC (Hubble) focal-plane image-splitter design (G84; CPM86 'analogous to the Wide Field/Planetary Camera').",
+    "alternatives": [
+     {
+      "value": "four-sided optical pyramid at the f/16 focus; flattens the field and reflects the quadrants",
+      "src": "P84",
+      "loc": "Sec. III, p. 34",
+      "quote": "The f/16 beam from the secondary is focused on a four-sided optical pyramid which both flattens the field and reflects the different quadrants to the four chips, each in a separate housing."
+     },
+     {
+      "value": "reflecting pyramid at Cass focus (schematic)",
+      "src": "P84",
+      "loc": "Fig. 1, p. 35",
+      "quote": "REFLECTING PYRAMID AT CASS FOCUS"
+     },
+     {
+      "value": "pyramid close to the focal plane",
+      "src": "CPM86",
+      "loc": "Appendix I, pp. 348-349",
+      "quote": "It is analogous to the Wide Field/Planetary Camera which is to be flown in the Hubble Space Telescope. A pyramid close to ... the focal plane splits the incoming light into four collimated beams"
+     },
+     {
+      "value": "WF/PC focal-plane image splitter",
+      "src": "G84",
+      "loc": "abstract 17.01",
+      "quote": "A camera making use of the focal-plane image splitter devel ... oped for the Spacé Telescope Wide-Field/Planetary Camera",
+      "note": "OCR glyph: 'Spacé' = Space"
+     },
+     {
+      "value": "pyramid of four focal-plane mirrors",
+      "src": "D92",
+      "loc": "Sec. 2, p. 2",
+      "quote": "The 4-Shooter reimages with a pyramid of four focal plane mirrors to produce an image scale of 0'335 pixel-1."
+     },
+     {
+      "value": "same at P96",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 616",
+      "quote": "The focal plane of the telescope is coincident with a reflective four-faceted pyramid in the 4-Shooter. The pyramid directs the incoming light into four reimaging cam- eras."
+     },
+     {
+      "value": "why: chips cannot abut",
+      "src": "P84",
+      "loc": "Sec. III, p. 34",
+      "quote": "This is done because the light- sensitive parts of the chips cannot be fit flush together physically."
+     }
+    ]
+   },
+   "pyramid_angle": {
+    "value": 5,
+    "unit": "deg (angle of incidence on the pyramid facets)",
+    "src": "Z87",
+    "loc": "Sec. II, pp. 1514-1517",
+    "quote": "The angle of incidence at this mirror is about 5°, ... leading to an instrumental polarization of ^0.8%.",
+    "note": "Only published geometric angle. The facet tilt, facet size and apex height are NOT published.",
+    "derived": "DERIVED (geometry, assuming the quoted incidence is that of the beam centre arriving along the telescope axis): each facet is tilted ~5 deg from the plane normal to the axis (a very flat pyramid), and each reflected beam leaves ~2 x 5 = 10 deg from the reversed telescope axis, i.e. back up toward the primary; at 1 m from the pyramid its axis is ~176 mm off the telescope axis (1000 x tan 10 deg), well clear of the incoming f/16 cone (half-angle atan(1/32) = 1.8 deg; radius 31 mm at 1 m plus the field). Facet orientation: the quadrant boundaries form a cross (S94 Fig. 1), so with plane facets the four pyramid edges lie along that cross and each facet's tilt is along a field diagonal; the four beams then leave toward the four corners of the field. This follows from geometry, not from a source."
+   },
+   "beam_routing": {
+    "value": "each facet sends its quadrant back up (toward the telescope) at a small angle to its own reimaging camera + CCD, in a separate housing; filters ~1 m above the pyramid",
+    "unit": "",
+    "src": "S94",
+    "loc": "Sec. 2.1, p. 1246",
+    "quote": "The filters are placed in two wheels located near the cameras (about a meter above the pyramid); each detector requires a 4 in. circular filter.",
+    "alternatives": [
+     {
+      "value": "schematic: f/16 beam down onto the pyramid; reflected beams up and outward to two (of four) reimaging cameras, CCD at the top of each",
+      "src": "P84",
+      "loc": "Fig. 1, p. 35",
+      "quote": "Figure 1. Schematic diagram of the Four-Shooter."
+     },
+     {
+      "value": "chips physically well separated",
+      "src": "Z87",
+      "loc": "Sec. II, p. 1514",
+      "quote": "A pyr- amid mirror splits the field into four CCD chips which, al- though physically well separated, image contiguous areas of the sky."
+     },
+     {
+      "value": "each chip in its own housing",
+      "src": "P84",
+      "loc": "Sec. III, p. 34",
+      "quote": "reflects the different quadrants to the four chips, each in a separate housing."
+     }
+    ]
+   },
+   "dead_zone": {
+    "value": 1,
+    "unit": "arcsec (unusable crack on the sky along the facet edges / at the apex)",
+    "src": "C86",
+    "loc": "Sec. II, p. 1039",
+    "quote": "force the bright star about 50 arcsec west of the nucleus of NGC 4472 to fall on the apex of the 4-Shooter pyramid (thus falling through the approximately 1 arcsec crack between the chips).",
+    "note": "By design there is NO sky gap: each CCD is set to see past its facet edge, so 20 pixels along the two CCD edges that meet at the apex see no sky (pyramid shadow), and the four sky images abut. What is lost on the sky is the thin strip imaged by the imperfect facet edges.",
+    "alternatives": [
+     {
+      "value": "no gap by design; 20 unexposed rows/columns per chip; 'few arcseconds' unusable",
+      "src": "P96",
+      "loc": "Sec. 2.1, pp. 616-617",
+      "quote": "The CCDs are positioned so that there should be no gaps in sky coverage along the pyramid facets (there are typically about 20 rows/columns of pixels that do not see the sky due ... to pyramid shadowing), but the few arcseconds of sky lo- cated where the CCDs join are not usable because of imper- fections in the pyramid surface along the facets."
+     },
+     {
+      "value": "20 px along two edges of each CCD",
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "the CCDs are positioned so that each sees the apex of the pyramid; this results in 20 pixels along two edges of each CCD that are not exposed to the sky."
+     },
+     {
+      "value": "~4 arcsec strip without objects (grism survey)",
+      "src": "S94",
+      "loc": "Sec. 2.2, p. 1248",
+      "quote": "there is actually a small strip ^*4\" wide, between the south and north subsur- veys, where no objects can be found.",
+      "note": "slitless-grism extraction, which also loses the tilted spectra near the edges; OCR '^*4\"' = ~4\""
+     },
+     {
+      "value": "visible boundary line",
+      "src": "S91",
+      "loc": "Fig. 1 caption (plate)",
+      "quote": "The horizontal division through the middle of the picture is where the field is divided between the chips"
+     }
+    ],
+    "derived": "DERIVED: 20 px x 0.335\" = 6.7\" of each chip unexposed along its two apex edges; 1\" = 0.39 mm at the f/16 focal plane (1 / 2.5377) = 3.0 px on the CCD."
+   },
+   "reimaging_cameras": {
+    "value": "four reimaging cameras, one per quadrant: collimated beam -> filter -> small Schmidt camera -> CCD",
+    "unit": "",
+    "src": "P84",
+    "loc": "Sec. III, pp. 34 and 36",
+    "quote": "Each of the four beams is then reimaged to increase the speed of the optical system. In effect, the re- ... imaging optics are small Schmidt telescopes and the effective f/ratio is decreased to 1.8!",
+    "note": "Collimator type and focal length, Schmidt camera focal length and aperture, pupil diameter and position: NOT FOUND (the instrument paper G87OE could not be obtained; its abstract says only 'reimaging optics').",
+    "alternatives": [
+     {
+      "value": "collimated beams through separate filters and cameras",
+      "src": "CPM86",
+      "loc": "Appendix I, p. 349",
+      "quote": "the focal plane splits the incoming light into four collimated beams which pass through four separate filters and cameras to four Texas Instruments 800 x 800 CCD chips."
+     },
+     {
+      "value": "reimaging optics",
+      "src": "G87OE",
+      "loc": "abstract",
+      "quote": "reimaging optics are then used to yield a scale of 0.33 arcsec/pixel."
+     },
+     {
+      "value": "achromatic 4000-10000 A",
+      "src": "S94",
+      "loc": "Sec. 1, p. 1246",
+      "quote": "superior optics (achromatic focus between 4000 and 10 000 Â)",
+      "note": "OCR 'Â' = Angstrom"
+     },
+     {
+      "value": "auxiliary spectrograph channel (NOT the imaging cameras): Cassegrain Schmidt camera f/1.33, 3-in beam, triplet collimator",
+      "src": "S86",
+      "loc": "Sec. IIa, p. 992",
+      "quote": "The collimator is a cemented triplet of fused silica and fluorite ... It is fed with a modified Bowen- type Cassegrain Schmidt camera with a buried secondary operating at f/1.3 3 in a 3 in. beam.",
+      "note": "text-layer OCR 'f/1.3 3' = f/1.33; these are the spectrograph's optics behind the slit in one pyramid facet"
+     }
+    ]
+   },
+   "final_focal_ratio": {
+    "value": 1.8,
+    "unit": "f/# at the CCD (published)",
+    "src": "P84",
+    "loc": "Sec. III, p. 36",
+    "quote": "imaging optics are small Schmidt telescopes and the effective f/ratio is decreased to 1.8!",
+    "derived": "DERIVED from the 0.335\"/px scale: 0.335\" / 0.015 mm = 22.333\"/mm at the CCD -> f_eff = 206264.8 / 22.333 = 9236 mm -> f/1.818 on D = 5080 mm (f/1.8 exactly would give 9144 mm and 0.3384\"/px, 1.0% coarser than 0.335)."
+   },
+   "camera_reduction": {
+    "value": 0.1136,
+    "unit": "f_cam / f_col (DERIVED)",
+    "src": "P84",
+    "loc": "Table I, p. 36",
+    "quote": "Image Scale: 0.335 arcsec per pixel",
+    "derived": "DERIVED: (206264.8 x 0.015 / 0.335) / 81280 = 9236 / 81280 = 0.1136, i.e. a 8.80x reduction of the f/16 image (f/16 -> f/1.818). From the two published f-ratios alone: 1.8 / 16 = 0.1125 (8.89x).",
+    "is_derived": true
+   },
+   "collimator_and_pupil": {
+    "value": null,
+    "unit": "mm (f_col, W, f_cam)",
+    "src": "G87OE",
+    "loc": "abstract (full paper not obtained)",
+    "quote": "reimaging optics are then used to yield a scale of 0.33 arcsec/pixel.",
+    "note": "NOT FOUND: no saved source gives the collimator focal length, the pupil (collimated-beam) diameter W, or the camera focal length of the imaging channels. Order-of-magnitude bound only (DERIVED, not a design value): the filters sit in the collimated beam (CPM86) 'about a meter above the pyramid' (S94), so the collimator is roughly <= 1 m from the f/16 focus, f_col <~ 1000 mm and W = f_col / 16 <~ 62 mm. Cross-check from the auxiliary spectrograph (different optics, S86): f/1.33 camera in a 76.2 mm (3 in) beam -> f_cam = 101 mm; its 0.426\"/px implies f_eff = 7263 mm, so f_col = 101 x 81280 / 7263 = 1134 mm and W = 71 mm (DERIVED; 7%% below the stated 3 in)."
+   },
+   "filters": {
+    "value": "one 4-in circular filter per camera, in two independently rotating wheels near the cameras (~1 m above the pyramid), in each camera's collimated beam; each quadrant can carry a different filter",
+    "unit": "",
+    "src": "S94",
+    "loc": "Sec. 2.1, p. 1246",
+    "quote": "The filters are placed in two wheels located near the cameras (about a meter above the pyramid); each detector requires a 4 in. circular filter. This construction allows one to assign individual filters to a specific CCD",
+    "alternatives": [
+     {
+      "value": "two independently rotating wheels in front of the four cameras",
+      "src": "Z87",
+      "loc": "Sec. II, p. 1517",
+      "quote": "In front of the four CCD cameras within the four-shooter are two inde- pendently rotating filter wheels."
+     },
+     {
+      "value": "separate filter per collimated beam",
+      "src": "CPM86",
+      "loc": "Appendix I, p. 349",
+      "quote": "four collimated beams which pass through four separate filters and cameras"
+     },
+     {
+      "value": "leading pair / trailing pair filter sets (scan mode)",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 617",
+      "quote": "the 4-Shooter can be equipped with one set of filters for the leading two cameras (CCDs 1 and 4, see Fig. 1) in the scan and another set for the trailing ones (CCDs 2 and 3)."
+     },
+     {
+      "value": "Gunn g r i",
+      "src": "N95",
+      "loc": "Sec. 2.1, p. 372",
+      "quote": "with contiguous mosaics in the Gunn gri filters."
+     },
+     {
+      "value": "WF/PC F555W and F785LP",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 617",
+      "quote": "Images of each field are obtained in two fil- ters, the F555W and F785LP of HSTs Wide Field/Planetary Camera"
+     },
+     {
+      "value": "grisms in front of all four CCDs (slitless mode)",
+      "src": "S94",
+      "loc": "Fig. 1 caption, p. 1246",
+      "quote": "grisms are placed in front of all four CCDs for the spectroscopic survey."
+     }
+    ]
+   },
+   "detector": {
+    "value": "Texas Instruments 800 x 800 CCD (the WF/PC chip type), one per quadrant",
+    "unit": "px",
+    "src": "P84",
+    "loc": "Sec. III, p. 34",
+    "quote": "It uses four 800 x 800 TI CCD chips to get four times the usual amount of field; hence its name.",
+    "alternatives": [
+     {
+      "value": "WF/PC TI chips",
+      "src": "P84",
+      "loc": "Sec. III, p. 34",
+      "quote": "ST will carry a Wide-Field/Planetary Camera (WFPC), for which Texas Instruments has de- signed and built large CCD’s with low readout noise."
+     },
+     {
+      "value": "four 800x800 TI CCDs",
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "The detectors are four 800X800 Texas Instruments CCDs (denoted as detectors 1, 2, 3, and 4)."
+     },
+     {
+      "value": "4 x 800x800 TI, 1600x1600 contiguous",
+      "src": "G84",
+      "loc": "abstract 17.01",
+      "quote": "It uses 4 800x800 Texas Instruments charge-coupled devices to cover a 1600x1600 pixel contiguous field"
+     },
+     {
+      "value": "800 x 816 px read out per chip",
+      "src": "Z87",
+      "loc": "Sec. II, p. 1517",
+      "quote": "Each chip covers one quarter of the 9'X9' field and comprises 800x816 pixels with a scale of 0\"33 pixel-1.",
+      "note": "816 = 800 + 16 extra columns; S94 reads 'extended registers (overscanned pixels that are written into each line of data)', and its binned line lengths 408 = 816/2 and 272 = 816/3 (DERIVED) match an 816-px line; interpretation, not stated"
+     },
+     {
+      "value": "spectrograph CCD: thinned, back-illuminated TI 800x800, 15 um, 140 K",
+      "src": "S86",
+      "loc": "Sec. IIa, p. 992",
+      "quote": "The detector is a Texas Instruments thinned, back-illumi- nated 800 x 800 CCD with 15 wu pixels operated at 140 K",
+      "note": "the auxiliary spectrograph's detector (same chip type); tesseract OCR 'wu' = um"
+     }
+    ],
+    "derived": "DERIVED: active area 800 x 15 um = 12.0 x 12.0 mm per chip."
+   },
+   "pixel_pitch": {
+    "value": 15,
+    "unit": "um",
+    "src": "CPM86",
+    "loc": "Appendix I, p. 349",
+    "quote": "The final scale is a nominal 0\"334 per 15 fxm square pixel, giving each camera a field",
+    "note": "Text-layer OCR: 0\"334 = 0.334\", 'fxm' = um (tesseract reads '07334 per 15 um square pixel').",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "S86",
+      "loc": "Sec. IIa, p. 992",
+      "quote": "800 x 800 CCD with 15 wu pixels",
+      "note": "spectrograph CCD; tesseract OCR"
+     }
+    ]
+   },
+   "n_chips": {
+    "value": 4,
+    "unit": "CCDs",
+    "src": "P84",
+    "loc": "Sec. III, p. 34",
+    "quote": "It uses four 800 x 800 TI CCD chips",
+    "alternatives": [
+     {
+      "value": 4,
+      "src": "N95",
+      "loc": "Sec. 2.1, p. 372",
+      "quote": "Each frame consists of four simultaneously exposed 800 X 800 TI CCDs"
+     }
+    ]
+   },
+   "mosaic_layout": {
+    "value": {
+     "rows": [
+      2,
+      2
+     ],
+     "numbering_top_to_bottom": [
+      [
+       1,
+       4
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     "chip1": "NE corner (north up, east left)",
+     "chip2": "SE",
+     "readout": "columns parallel in all four chips"
+    },
+    "unit": "",
+    "src": "S94",
+    "loc": "Sec. 2.1 and Fig. 1, p. 1246",
+    "quote": "The four CCDs image a contiguous 2X2 matrix of sky, and the CCDs are oriented such that the readout direc- tions of each detector are parallel",
+    "alternatives": [
+     {
+      "value": "chip 1 = NE corner",
+      "src": "Z87",
+      "loc": "Fig. 1 caption, p. 1517",
+      "quote": "have a fixed orientation with respect to the sky so that chip 1 samples the northeast comer of the field.",
+      "note": "OCR 'comer' = corner"
+     },
+     {
+      "value": "camera 2 = SE corner",
+      "src": "CPM86",
+      "loc": "Appendix I, p. 349",
+      "quote": "The best camera of the four in terms of image quality is camera No. 2, in the southeast corner"
+     },
+     {
+      "value": "1 4 / 2 3 (N up, W right)",
+      "src": "N95",
+      "loc": "Fig. 1a 'One Four-Shooter Frame', p. 373",
+      "quote": "Referencing scheme for (¿z) CCDs within a 4-Shooter frame, numbered from 1-4",
+      "note": "Fig. 1a draws CCD 1 top-left, CCD 4 top-right, CCD 2 bottom-left, CCD 3 bottom-right, read off the figure; OCR '(¿z)' = (a)"
+     },
+     {
+      "value": "1 4 / 2 3 (P96 Fig. 1, North up)",
+      "src": "P96",
+      "loc": "Fig. 1, p. 616",
+      "quote": "A schematic diagram of the configuration of the 4-Shooter focal plane during the gathering of the survey data. The four CCDs are denoted as 1, 2, 3, and 4."
+     },
+     {
+      "value": "internal misalignment ~0.1 deg",
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "During the survey, the internal misalign- ment of the CCDs was typically 0.1 deg."
+     }
+    ]
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.335,
+    "unit": "arcsec/px (unbinned)",
+    "src": "P84",
+    "loc": "Table I 'Four-Shooter Specifications', p. 36",
+    "quote": "Image Scale: 0.335 arcsec per pixel",
+    "alternatives": [
+     {
+      "value": 0.335,
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "The cameras produce an image scale of 0.335\" pixel-1"
+     },
+     {
+      "value": "~0.335",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 616",
+      "quote": "The cameras produce an image scale of approximately 0.335\" pixel-1"
+     },
+     {
+      "value": 0.335,
+      "src": "D92",
+      "loc": "Sec. 2, p. 2",
+      "quote": "to produce an image scale of 0'335 pixel-1.",
+      "note": "OCR 0'335 = 0.335\""
+     },
+     {
+      "value": 0.335,
+      "src": "N95",
+      "loc": "Sec. 3.1, p. 381",
+      "quote": "We rebinned our images by converting groups of 3 X 3 pixels to 2 X 2 pixels, and tested that this procedure preserved flux. This increased the 4-Shooter pixel scale from 0''335 to 0''502",
+      "note": "native 0.335\"; rebinned by 3/2 to 0.502\" (0.335 x 1.5 = 0.5025, DERIVED) for its catalogs"
+     },
+     {
+      "value": 0.336,
+      "src": "S85",
+      "loc": "Sec. II, p. 66",
+      "quote": "The 4-Shooter uses a pyramid to split the beam into four sections, which are independently reimaged onto four 800 x 800 Texas Instruments CCDs at a scale of 0'.'336 per pixel."
+     },
+     {
+      "value": "0.334 (nominal)",
+      "src": "CPM86",
+      "loc": "Appendix I, p. 349",
+      "quote": "The final scale is a nominal 0\"334 per 15 fxm square pixel"
+     },
+     {
+      "value": 0.33,
+      "src": "G87OE",
+      "loc": "abstract",
+      "quote": "reimaging optics are then used to yield a scale of 0.33 arcsec/pixel."
+     },
+     {
+      "value": 0.33,
+      "src": "Z87",
+      "loc": "Sec. II, p. 1517",
+      "quote": "800x816 pixels with a scale of 0\"33 pixel-1."
+     }
+    ],
+    "derived": "DERIVED model check: 206264.8 x 0.015 / (81280 x 0.1136) = 0.3350\"/px by construction; with the published f/1.8 instead: 206264.8 x 0.015 / (1.8 x 5080) = 0.3384\"/px."
+   },
+   "field_of_view": {
+    "value": {
+     "published": "8'56\" x 8'56\" (1600 x 1600 px)",
+     "arcmin": 8.93,
+     "per_quadrant_arcmin": 4.47
+    },
+    "unit": "",
+    "src": "P84",
+    "loc": "Table I, p. 36",
+    "quote": "Field of View: 1600 x 1600 pixels ... 8'56\"",
+    "alternatives": [
+     {
+      "value": "8.9' on a side",
+      "src": "S94",
+      "loc": "Sec. 2.1, p. 1246",
+      "quote": "the field of view is 8.9' on a side"
+     },
+     {
+      "value": "8.9' on a side",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 616",
+      "quote": "the instrument’s entire field of view is 8.9' on a side."
+     },
+     {
+      "value": "9' x 9'",
+      "src": "P84",
+      "loc": "Sec. III, p. 34",
+      "quote": "it produces a 9 x 9 arcminute field of view"
+     },
+     {
+      "value": "~9' x 9'",
+      "src": "N95",
+      "loc": "Sec. 2.1, p. 372",
+      "quote": "and covers ~9' X 9'."
+     },
+     {
+      "value": "9' x 9'",
+      "src": "Z87",
+      "loc": "Sec. II, p. 1517",
+      "quote": "Each chip covers one quarter of the 9'X9' field"
+     },
+     {
+      "value": "~8.5' on a side",
+      "src": "G84",
+      "loc": "abstract 17.01",
+      "quote": "contiguous field about 8.5 arc- minutes on a side."
+     },
+     {
+      "value": "~60 arcmin^2",
+      "src": "N95",
+      "loc": "p. 377",
+      "quote": "Each 4-Shooter frame covered about ~ 60 arcmin2"
+     },
+     {
+      "value": "4.4' x 4.4' per camera",
+      "src": "CPM86",
+      "loc": "Appendix I, p. 349",
+      "quote": "giving each camera a field 4'4 x 4’4 square.",
+      "note": "tesseract OCR (text layer: \"4'A x 4'A\"); = 4.4' x 4.4'"
+     },
+     {
+      "value": "2 x 780 px = 520\" usable width (scan survey)",
+      "src": "P96",
+      "loc": "Sec. 2.1, p. 617",
+      "quote": "The effec- tive size of the field for this project is ^2X780 pixels, or a width of 520\"."
+     }
+    ],
+    "derived": "DERIVED: 1600 x 0.335\" = 536.0\" = 8.93' = 8'56\" (matches P84); one chip 800 x 0.335\" = 268.0\" = 4.47'; sky actually reaching the chips 2 x 780 px = 1560 px = 522.6\" = 8.71' (P96: 520\"); area 79.8 arcmin^2 (full) / 75.9 arcmin^2 (exposed). At the f/16 focal plane one quadrant spans 268.0\" / 2.5377 = 105.6 mm (103.0 mm exposed), so the pyramid must cover about 211 x 211 mm (diagonal 299 mm)."
+   },
+   "system_efficiency": {
+    "value": "~50% at peak including telescope losses",
+    "unit": "",
+    "src": "G87OE",
+    "loc": "abstract",
+    "quote": "Optical coatings are incorporated to yield a throughput at peak efficiency of nearly 50 percent, including telescope losses.",
+    "alternatives": [
+     {
+      "value": "~40% photon efficiency on the sky",
+      "src": "G84",
+      "loc": "abstract 17.01",
+      "quote": "The photon efficiency on the sky is about 40%"
+     },
+     {
+      "value": "30% in the red (telescope + camera)",
+      "src": "P84",
+      "loc": "Sec. III, p. 37",
+      "quote": "The quantum efficiency of the telescope-camera system has been measured to be 30 % in the red."
+     }
+    ]
+   },
+   "image_quality": {
+    "value": "< 0.7\" FWHM measured on the sky; most of a point source's light in one pixel",
+    "unit": "",
+    "src": "G84",
+    "loc": "abstract 17.01",
+    "quote": "The reimaging optics in the camera deliver most of the light from a point source into one pixel, and images on the sky smaller than 0.7 arcseconds FWHM have been measured."
+   },
+   "in_service": {
+    "value": "Cassegrain 4-Shooter in use from spring 1984 (tests March 1984; first published data June 1984) through at least 1989",
+    "unit": "",
+    "src": "P84",
+    "loc": "Sec. I, p. 33; Table I, p. 36",
+    "quote": "This spring a-new CCD camera called the Four-Shooter (for a reason which will be- come apparent) was mounted on the 5-meter Hale telescope at Mt. Palomar. ... Testing performed by D.P.Schneider, March 1984",
+    "alternatives": [
+     {
+      "value": "installed 1983",
+      "src": "P96",
+      "loc": "Sec. 1, p. 616",
+      "quote": "The 4-Shooter CCD mosaic camera on the Hale 5 m (in- stalled in 1983)"
+     },
+     {
+      "value": "first data 1984 June",
+      "src": "S85",
+      "loc": "Sec. II, p. 66",
+      "quote": "1984 June with a new imaging device, the 4-Shooter"
+     },
+     {
+      "value": "runs 1985-1989",
+      "src": "N95",
+      "loc": "Sec. 2.1, p. 372",
+      "quote": "All data were obtained during observing runs in 1985-1989"
+     },
+     {
+      "value": "auxiliary spectrograph first used 1985 July",
+      "src": "S86",
+      "loc": "Sec. IIa, p. 992",
+      "quote": "Seven exposures of 2016 + 112 were acquired with the 4- Shooter spectrograph on 23 July 1985."
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "The 4-Shooter instrument paper itself (Gunn et al. 1987, Optical Engineering 26, 779 = G87OE): only the ADS abstract was obtained (SPIE blocked the download). PASP 99, 518 (Gunn, Emory, Harris & Oke 1987) is the Palomar Dewar + CCD-electronics paper, not the 4-Shooter optics paper; it cites G87OE for the 4-Shooter.",
+   "Imaging-channel optics: collimator type and focal length, collimated-beam (pupil) diameter W and its position, Schmidt-camera focal length and aperture. Only f/1.8 at the CCD (P84) and the 0.335\"/px scale are published; f_cam/f_col = 0.1136 is DERIVED. The explorer needs W only for the drawing (order-of-magnitude bound W <~ 62 mm, DERIVED, see collimator_and_pupil).",
+   "Pyramid figure and dimensions: facet shape (P84 says the pyramid 'flattens the field', so possibly curved), facet tilt (only the ~5 deg angle of incidence, Z87), physical size (~211 mm square DERIVED from the field), and the direction in which each beam leaves (diagonal routing DERIVED from geometry).",
+   "A 4-Shooter-era central obscuration: only the 72-in prime-focus cage of the 1961 description (B61) -> eps = 0.36 DERIVED; spider-vane widths not found.",
+   "Physical gap between chips: irrelevant optically (each chip has its own camera); the chips sit in separate housings (P84) and are 'physically well separated' (Z87).",
+   "Later upgrades (other CCDs, new cameras) and the decommissioning date: none found in the saved sources; every description from 1984 to 1996 has four TI 800 x 800 CCDs at ~0.335\"/px."
+  ],
+  "conflicts": [
+   "Primary source: the brief cites Gunn et al. 1987, PASP 99, 518 as the 4-Shooter paper; that paper is 'The Palomar Observatory CCD camera' (Gunn, Emory, Harris & Oke; Dewars and electronics) and cites 'Gunn, J. E., et al. 1987, Optical Engineering, in press' for the 4-Shooter -> Opt. Eng. 26, 779 (G87OE).",
+   "Cassegrain f-ratio: f/16 (P84; B61 3200-in focal length; PHT 81.3 m) vs f/15.7 (OG82) vs f/15.80 DERIVED from the DBSP slit scale 2.57\"/mm (PDS); OG82's own '2.5 arc sec mm-1' implies f/16.24 (DERIVED).",
+   "Pixel scale: 0.335\" (P84 Table I, S94, D92, N95; P96 'approximately') vs 0.336\" (S85, first data) vs 0.334\" nominal (CPM86) vs 0.33\" (G87OE abstract, Z87, rounded); f/1.8 (P84) would give 0.338\" (DERIVED).",
+   "Field: 8'56\" x 8'56\" (P84 Table I; = 1600 x 0.335\" DERIVED) vs 8.9' (S94, P96) vs 9' x 9' (P84 text, N95, Z87) vs ~8.5' (G84, first announcement) vs ~60 arcmin^2 (N95; the 1600-px square is 79.8 arcmin^2 DERIVED, 75.9 arcmin^2 with the 20-px shadowed edges removed); usable scan width 520\" (P96) or 496\" (S94 grism survey).",
+   "Dead zone between quadrants: ~1\" crack (C86) vs 'the few arcseconds of sky ... not usable' (P96) vs a ~4\" strip without objects in the grism survey (S94); no gap by design, with 20 px per chip edge unexposed (S94, P96).",
+   "Per-chip format: 800 x 800 (P84, S94, P96, N95, G84) vs 800 x 816 read out (Z87; the extra 16 columns are probably the extended-register overscan, S94; interpretation).",
+   "Installation: 1983 (P96) vs mounted 'this spring' of 1984 (P84, tests March 1984; S85 first data 1984 June).",
+   "System efficiency: nearly 50% at peak incl. telescope (G87OE) vs ~40% (G84) vs 30% in the red (P84, 1984 measurement)."
+  ],
+  "notes": [
+   "Explorer mapping (pyramid splitter): telescope Cassegrain, D = 5.08 m, eps = 0.36, F = 16 (f = 81,280 mm), primary f/3.3. Pyramid at the f/16 focal plane, four facets, one per field quadrant, angle of incidence ~5 deg -> each quadrant reflected back up ~10 deg off axis (DERIVED) into its own reimager: collimator (f_col, W not published) -> filter (4-in, collimated beam) -> small Schmidt camera (f/1.8 published; f/1.818 DERIVED) -> TI 800 x 800, 15 um CCD. Each chip sees 4.47' (800 px x 0.335\"); the four sky quadrants abut in a 2 x 2 square 8.93' on a side with a ~1\" unusable crack along the cross; 20 px along the two apex edges of each chip are dark (pyramid shadow).",
+   "Drawing placeholder (NOT a published design value): f_col = 1000 mm (the 'about a meter' pyramid-to-filter distance, S94) -> W = 1000 / 16 = 62.5 mm, f_cam = 0.1136 x 1000 = 113.6 mm (f_cam / W = 1.818); only the ratio f_cam / f_col affects the pixel scale.",
+   "Heritage: the splitter is the focal-plane image splitter developed for Hubble's Wide Field/Planetary Camera (G84, CPM86), and the CCDs are the TI chips built for WF/PC (P84); the predecessor was Gunn & Westphal's prime-focus PFUEI (P84: the 4-Shooter's 'simpler optical system with better coatings' vs PFUEI's 22 glass/air surfaces).",
+   "Other modes: an auxiliary long-slit spectrograph behind a slit cut into one pyramid facet (S86: 1.5\" x 2.0', Cassegrain Schmidt camera f/1.33 in a 3-in beam, 0.426\"/px; the slit shows as a diagonal line in direct images, S91), simultaneous imaging on the other quadrants (S86), slitless grisms in front of all four CCDs, and drift-scan (transit) imaging with the CCD columns aligned east-west, triple-clocked (S94; G87OE 'scanning mode').",
+   "Preset configuration: the direct-imaging Cassegrain 4-Shooter as described 1984-1996 (no later upgrade found). Unbinned 0.335\"/px; N95 resampled 3 x 3 px into 2 x 2 (0.502\"/px) for its catalogs.",
+   "Quote-check caveats: all journal sources are ADS page scans; their text layers are OCR and carry glyph errors that are kept verbatim in the quotes (e.g. '0\"334' = 0.334\", 'fxm'/'wu' = um, '//15.7' = f/15.7, '^' = ~, 'Â' = Angstrom). The three scans without a text layer (P84, G84, B61) and the pages CPM86 pp. 348-349 and S86 p. 992 were OCR'd here with tesseract 5.5.1."
+  ]
+ }
+}

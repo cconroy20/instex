@@ -181,10 +181,11 @@ body.inst-spec .only-img, body.inst-img .only-spec{display:none !important}
 body:not(.it-cass):not(.it-greg) .only-icass, body:not(.it-cass):not(.it-greg) .only-i2m{display:none}
 body:not(.it-cass):not(.it-greg):not(.it-korsch):not(.it-pb) .only-imirr{display:none}
 body.in-nas .only-iax, body:not(.in-nas) .only-inas{display:none}
-body:not(.iv-inst) .only-iinst{display:none}
+body:not(.iv-inst) .only-iinst, body.isplit .only-iinst{display:none}
 body:not(.io-re) .only-ire{display:none}
 body:not(.ip-seeing) .only-isee{display:none}
 body:not(.ip-optics) .only-iopt{display:none}
+body.idet-plate .only-iccd, body:not(.idet-plate) .only-iplate{display:none}
 .icontrols{grid-template-columns:repeat(5,minmax(196px,1fr))}
 #cvS{cursor:crosshair}
 .seg[hidden]{display:none}

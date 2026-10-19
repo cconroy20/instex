@@ -241,6 +241,47 @@ window.IX_IPRESETS.push(
       { what: "field 10.8′", q: "fieldX", value: 10.8, info: true, src: "Persson+13: the pixels alone (2 × 2040 × 0.159″ = 10.81′); the model's field across includes the gap between the detectors" },
     ] },
 );
+// ---------------------------------------------------------------- previous generation (Charlie's picks, 2026-10-19): data/imaging/{poss,twomass}.md
+window.IX_IPRESETS.push(
+  { id: "poss1", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-I plates (red, E)",
+    note: "The first Palomar Observatory Sky Survey (1949-1958): 14-inch glass plates, bent to the Schmidt's curved focal surface, in the 48-inch Schmidt behind its original single-lens corrector (the aperture stop, 49.5 inches). The red plates: 103a-E emulsion behind a red Plexiglas filter (6200-6700 Å), 40-60 minutes, to about 20.0 mag. A plate has no pixels: the emulsion's resolving power (80 lines per mm) is taken as a spread of 12.5 µm (one line pair, derived), and the Digitized Sky Survey (DSS-1) later scanned these plates in 25.3 µm steps (1.7″). The field circle takes in the whole plate (unvignetted to 5.4°; the corners lose 0.1-0.2 mag). The plateholder's obstruction is not published: 0.32 is the plate's own size, a lower bound. Sources in data/imaging/poss.md.",
+    state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20,
+             det: "plate", plateMM: 355.6, grain: 12.5, scan: 25.2845 },
+    pub: [
+      { what: "plate scale 67.19″/mm", q: "plateScale", value: 67.187, info: true, src: "Harrington 1952; circular: F was derived from it" },
+      { what: "6.6° × 6.6° per plate", q: "fieldX", value: 6.6 * 60, tol: 0.01, src: "Abell 1958" },
+      { what: "DSS-1 scan 1.7″/px", q: "pixScale", value: 1.7, info: true, src: "STScI DSS pages (25.2845 µm steps)" },
+    ] },
+  { id: "poss2", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-II plates (red, F)",
+    note: "The second Palomar Sky Survey (1985-2002): the same telescope and 14-inch plates, with a new achromatic doublet corrector (images under 0.5″ over 6.5° from 3900 to 9000 Å) and plateholders reground to the focal surface. The red plates: IIIa-F emulsion behind an RG610 filter, 70-90 minutes, to about 20.8 mag. The finer emulsion (250 lines per mm) is taken as a spread of 4 µm (derived); the Digitized Sky Survey (DSS-2) scanned these plates in 15 µm steps (1.0″). The obstruction is a lower bound (the plate's size). Sources in data/imaging/poss.md.",
+    state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20.8,
+             det: "plate", plateMM: 355.6, grain: 4, scan: 15 },
+    pub: [
+      { what: "plate scale 67.19″/mm", q: "plateScale", value: 67.19, info: true, src: "Reid+91; circular: F was derived from it" },
+      { what: "6.6° × 6.6° per plate", q: "fieldX", value: 6.6 * 60, tol: 0.01, src: "Reid+91" },
+      { what: "DSS-2 scan 1.0″/px", q: "pixScale", value: 1.0, tol: 0.01, src: "STScI DSS pages (15 µm steps)" },
+    ] },
+  { id: "twomass", tel: "2MASS 1.3 m", name: "2MASS / camera (one of three bands)",
+    note: "The Two Micron All Sky Survey: two 1.3 m classical Cassegrain telescopes (Mt. Hopkins and CTIO), each with a camera that splits the beam with dichroics onto three 256 × 256 HgCdTe arrays (J, H and Ks at once; one band drawn), reimaged through a cold Lyot stop. F comes from the published plate scale (the usual f/13.5 is a rounded label). The pupil's size is not published (only the reduction, 0.24), so W = 30 mm is the drawing's assumption. The survey scanned in declination while the secondary tilted back to hold each 1.3 s exposure still (freeze-frame scanning); each point was imaged six times, and the Atlas images were resampled to 1″ pixels. The display opens at 15.5 mag, near the survey's limits (10σ: J 15.8, H 15.1, Ks 14.3 required). Sources in data/imaging/twomass.md.",
+    state: { D: 1.3, eps: 0.178, F: 13.26, tel: "cass", F1: 2.0, back: 0.405, field: 12.1, optics: "reimaged", W: 30, Fc: 3.188, band: "Ks", psf: "seeing", depth: 15.5,
+             Nx: 256, Ny: 256, pix: 40, rows: [1] },
+    pub: [
+      { what: "pixel scale 1.991″/px", q: "pixScale", value: 1.991, info: true, src: "Skrutskie+06; circular: F_cam was derived from it" },
+      { what: "field 8.5′ × 8.5′", q: "fieldX", value: 8.5, tol: 0.01, src: "Skrutskie+06" },
+      { what: "65,536 px per band", q: "npix", value: 65536, tol: 1e-9, src: "256 × 256" },
+    ] },
+);
+window.IX_IPRESETS.push(
+  { id: "fourshooter", tel: "Palomar 200-inch", name: "Palomar 200-inch / 4-Shooter",
+    note: "The 4-Shooter (1984-1996), an early CCD camera at the Hale telescope's f/16 Cassegrain focus: a flat four-sided pyramid at the focus (the WF/PC splitter design, its facets tilted about 5°) reflects each quadrant of the field back up to its own reimaging camera (a collimator, a 4-inch filter, a small Schmidt camera at f/1.8) and its own 800 × 800 TI CCD; the four quadrants abut on the sky with about 1″ lost along the pyramid's edges. The cameras' focal lengths and pupil are not published: f_col = 1000 mm, W = 62.5 mm and f_cam = 114 mm are the drawing's placeholders, set to give the published f/1.8 and 0.335″/px. ε is the 1961 prime-focus cage (72 inches), which carries the secondary. Sources in data/imaging/fourshooter.md.",
+    state: { D: 5.08, eps: 0.36, F: 16, tel: "cass", F1: 3.3, field: 15, optics: "reimaged", split: "pyramid", W: 62.5, Fc: 1.8176, band: "r", psf: "seeing",
+             Nx: 800, Ny: 800, pix: 15, rows: [2, 2], gapX: 0.045, gapY: 0.045 },
+    pub: [
+      { what: "pixel scale 0.335″/px", q: "pixScale", value: 0.335, info: true, src: "Gunn+84, Porter 1984; circular: F_cam was derived from it" },
+      { what: "field 8′56″ × 8′56″", q: "fieldX", value: 8 + 56 / 60, tol: 0.01, src: "Schneider+86" },
+      { what: "2.56 Mpix", q: "npix", value: 2560000, tol: 1e-9, src: "4 × 800 × 800" },
+    ] },
+);
 // Gemini North / NIRI: one collimator and three cameras
 for (const [cam, fc, ps, fov, psf] of [["f/6", 228.8, 0.1171, 119.9, "seeing"], ["f/14", 536.8, 0.0499, 51.1, "diff"], ["f/32", 1223.2, 0.0219, 22.4, "diff"]]) {
   window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (cam === "f/6" ? "" : " (with Altair AO)"),

@@ -1,0 +1,1356 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER preset: 2MASS (two identical 1.3 m Cassegrain telescopes, Mt. Hopkins and CTIO, each with a three-channel J/H/Ks NICMOS3 camera; freeze-frame scanning survey)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/twomass.md (same content as Markdown). Structure follows data/imaging/widefield.json / tess.json: sources{key: cite, file, url}; twomass: title, preset (machine-readable explorer inputs), preset_alt_coldstop, recommended_preset (prose), params (telescope, camera, detector), survey (freeze-frame scanning), performance (validation targets), not_found, conflicts, notes (+ notes_quotes).",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/imaging/2mass/. DERIVED = arithmetic done here (shown). alternatives = other sourced values (conflicts). Every quote except those from sources or entries with check = \"image\" was machine-checked against the saved file's extracted text: pdftotext -layout and -raw per page, tag-stripped HTML and raw HTML source (null padding removed, Latin-1), the ADS JSON record raw and field by field.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, dashes, minus, primes and the acute accent used as an arcsec mark (U+00B4) normalised; NUL bytes removed; in the S06 text layer the control character used for mu restored as mu and those used for superscript minus, sigma and tilde dropped; whitespace collapsed (a quote also passes if it matches with all whitespace removed, which covers HTML <sub> splits such as \"K s\"); \" ... \" joins non-adjacent pieces of the same page or file.",
+  "frames": "One 256 x 256 array per band; x = rows of the array. On the sky the arrays are rotated ~0.2-0.4 deg from north-south (columns ~along declination, the scan direction)."
+ },
+ "sources": {
+  "S06": {
+   "cite": "Skrutskie, M. F., Cutri, R. M., Stiening, R., Weinberg, M. D., Schneider, S., Carpenter, J. M., et al. 2006, AJ 131, 1163, \"The Two Micron All Sky Survey (2MASS)\" (publisher PDF, 21 pp.; journal pages 1163-1183 = PDF pp. 1-21). Table 1 = survey parameters; Sec. 2.2 arrays, cameras and bandpasses; Sec. 2.3 telescopes; Sec. 2.4 site conditions; Sec. 3.2 image acquisition; Sec. 3.3 tiling; Sec. 4.3 Atlas Images. Its text layer renders the arcsec glyph as \"B\" after a digit (2B0 = 2.0\"), as \"00\" after an integer (5700 = 57\", 100 = 1\", 8300 = 83\", 1000 = 10\", 5000 = 50\"), the arcmin glyph as \"A\" (8A5 = 8.5'), the degree glyph as \"N\" (0N3 = 0.3 deg), \"x\" as \";\" and \"=\" as \"1/4\" (the single glyph U+00BC); the superscript minus, sigma, mu and tilde are control characters (mu restored, the others dropped in the normalised text)",
+   "file": "rawdata/imaging/2mass/Skrutskie2006_AJ131_1163_2MASS.pdf",
+   "url": "https://iopscience.iop.org/article/10.1086/498708/pdf"
+  },
+  "M96": {
+   "cite": "Milligan, S., Cranton, B. W., Skrutskie, M. F. 1996, Proc. SPIE 2863, 2, \"Development of a three-channel SWIR camera, for ground-based astronomical imaging. (Two micron all sky survey, 2MASS)\", in Current Developments in Optical Design and Engineering VI. ONLY THE ABSTRACT was obtained: the NASA ADS record (API response saved as is, fields bibcode/title/author/abstract/pub/volume/page/year/doi). The paper itself (the camera prescription) is behind the SPIE paywall and was not obtained",
+   "file": "rawdata/imaging/2mass/ADS_abstract_Milligan1996_SPIE2863_2.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/1996SPIE.2863....2M/abstract"
+  },
+  "GM20": {
+   "cite": "Garcia-Mejia, J., Charbonneau, D., Fabricant, D., Irwin, J. M., Fata, R., Zajac, J. M., Doherty, P. E. 2020, \"The Tierras Observatory: An ultra-precise photometer to characterize nearby terrestrial exoplanets\", Proc. SPIE 11445 (paper 11445-168), arXiv:2012.09744v1. Sec. 2.1 describes the refurbished 2MASS North 1.3 m telescope (clear apertures, primary hole, native focus position); Sec. 6.1 says it had no baffles during 2MASS. A later user of the northern telescope, not a 2MASS document",
+   "file": "rawdata/imaging/2mass/GarciaMejia2020_Tierras_SPIE_arXiv2012.09744.pdf",
+   "url": "https://arxiv.org/pdf/2012.09744"
+  },
+  "ES-TOC": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. Table of Contents: title and author list",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_explsup.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/explsup.html"
+  },
+  "ES-I.1": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. I.1 \"2MASS Overview\": last updated 2006 December 20",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec1_1.new.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec1_1.new.html"
+  },
+  "ES-I.3": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. I.3 \"Executive Summary of 2MASS All-Sky Release Data Products\": last updated 2004 Sept 2",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec1_3.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec1_3.html"
+  },
+  "ES-II.4": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. II.4 \"Atlas Images\": last updated 2004 Sept 2",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec2_4.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec2_4.html"
+  },
+  "ES-III.1a": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.1.a \"Telescopes\": last updated 2018 Jul 16 (R. Stiening)",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_1a.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_1a.html"
+  },
+  "ES-III.1b": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.1.b \"Camera and Detectors\" (Tables 1-3): last updated 2008 September 3 (M. Skrutskie & R. Cutri)",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_1b.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_1b.html"
+  },
+  "ES-III.1b1": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.1.b1 \"System Transmission\": component transmission data and the camera optical configuration",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_1b1.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_1b1.html"
+  },
+  "ES-III.1c": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.1.c \"Observatory Site Conditions\": last updated 2003 Mar 04",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_1c.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_1c.html"
+  },
+  "ES-III.2a": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.2.a \"Scanning Strategy\": last updated 2003 March 4 (M. Skrutskie)",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_2a.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_2a.html"
+  },
+  "ES-III.2b": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. III.2.b \"Survey Strategy\": last update 2003 March 5 (M. Skrutskie)",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec3_2b.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec3_2b.html"
+  },
+  "ES-IV.3": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. IV.3 \"Atlas Image Generation\": last updated 2006 October 10 (the page title still reads \"Second Incremental Data Release\")",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec4_3.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec4_3.html"
+  },
+  "ES-VI.1": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. VI.1 \"Comparison of Achieved Performance ... with Level 1 Science Specification\": last updated 2003 March 21; the sigma in \"10-sigma\" is an image (figures/sigma.gif), so the text reads \"10-\"",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec6_1.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec6_1.html"
+  },
+  "ES-VI.2": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. VI.2 \"Photometric Sensitivity\" (Table 2): last updated 2005 October 12",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec6_2.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec6_2.html"
+  },
+  "ES-VI.4a": {
+   "cite": "Cutri, R. M., Skrutskie, M. F., Van Dyk, S., Beichman, C. A., Carpenter, J. M., Chester, T., et al., \"Explanatory Supplement to the 2MASS All Sky Data Release and Extended Mission Products\" (IPAC/Caltech web document; each page carries its own \"Last Updated\" date), fetched 2026-10-19. Sec. VI.4.a \"Absolute Calibration\" (Table 1, from Cohen et al. 2003): last updated 2008 December 28",
+   "file": "rawdata/imaging/2mass/irsa_2mass_explsup_sec6_4a.html",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/sec6_4a.html"
+  },
+  "ESF-III.1b.2": {
+   "cite": "Explanatory Supplement figure (IMAGE; read visually, not machine-checked): Sec. III.1.b Figure 2: ray trace of the three-channel camera optics",
+   "file": "rawdata/imaging/2mass/figures/seciii1bf2.gif",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/figures/seciii1bf2.gif",
+   "check": "image"
+  },
+  "ESF-III.1b.8": {
+   "cite": "Explanatory Supplement figure (IMAGE; read visually, not machine-checked): Sec. III.1.b Figure 8: projected alignment of the J, H, Ks arrays on the sky (5\" scale bar)",
+   "file": "rawdata/imaging/2mass/figures/seciii1bf8.gif",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/figures/seciii1bf8.gif",
+   "check": "image"
+  },
+  "ESF-III.1b.9": {
+   "cite": "Explanatory Supplement figure (IMAGE; read visually, not machine-checked): Sec. III.1.b Figure 9: integration-cycle timing vs. the secondary-mirror waveform",
+   "file": "rawdata/imaging/2mass/figures/seciii1bf9.jpg",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/figures/seciii1bf9.jpg",
+   "check": "image"
+  },
+  "ESF-III.2a.1": {
+   "cite": "Explanatory Supplement figure (IMAGE; read visually, not machine-checked): Sec. III.2.a Figure 1: camera frames vs. a survey tile",
+   "file": "rawdata/imaging/2mass/figures/seciii2af1.jpg",
+   "url": "https://irsa.ipac.caltech.edu/data/2MASS/docs/releases/allsky/doc/figures/seciii2af1.jpg",
+   "check": "image"
+  }
+ },
+ "twomass": {
+  "title": "2MASS: two identical 1.3 m classical Cassegrain telescopes (Mt. Hopkins, CTIO), each with a cryogenic three-channel reimaging camera (J, H, Ks at once through two dichroics; one 256 x 256 NICMOS3 per band, 40 um = 2.0\"); freeze-frame scanning survey",
+  "preset": {
+   "mode": "reimaged",
+   "tel": "cass",
+   "telescope_type": "classical Cassegrain (paraboloidal primary f/2.0, hyperboloidal secondary), 1.3 m, open tube, equatorial fork; the secondary tilts in declination for freeze-frame scanning; two identical telescopes (Mt. Hopkins, Arizona; Cerro Tololo, Chile)",
+   "focus": "Cassegrain",
+   "D_m": 1.3,
+   "D_note": "primary mirror 1300 mm (1280 mm clear, GM20); the camera's cold Lyot stops pass 90% of the pupil diameter (1.17 m equivalent, DERIVED; see preset_alt_coldstop)",
+   "eps": 0.178,
+   "eps_note": "232-mm secondary / 1300-mm primary (DERIVED; 228/1280 = 0.178 from GM20); no baffles during 2MASS; the 200-mm primary hole lies inside the secondary shadow",
+   "F": 13.26,
+   "F_note": "f_eff / 1.3 m from the published Cassegrain plate scale 11.97\"/mm (DERIVED); published label f/13.5",
+   "F_published": 13.5,
+   "f_eff_cass_mm": 17232,
+   "plate_scale_cass_arcsec_per_mm": 11.97,
+   "primary_F": 2.0,
+   "back_over_D": 0.405,
+   "back_note": "native Cassegrain focus 527 mm behind the primary vertex (GM20); drawing only",
+   "field_arcmin": 12.1,
+   "field_note": "no telescope corrected field is published; 12.1' just encloses the 8.49' square array (diagonal 12.01'); a cryogenic field stop at the Cassegrain focus is slightly smaller than the array image",
+   "imager": "reimaged (cryogenic, all-refractive, all-spherical; 1 common collimating lens + 2 dichroics + 6 lenses per band; Lyot stop and filter at a pupil image in each band)",
+   "W_mm": null,
+   "W_note": "NOT FOUND (pupil / Lyot-stop diameter is in Milligan et al. 1996, not obtained); the pixel scale and field do not depend on W",
+   "Fc": 3.188,
+   "Fc_note": "f_eff / 1.3 m with f_eff = 40 um x 206264.8 / 1.991\" = 4144 mm (DERIVED); design F/3.5 (M96) is the 90%-cold-stopped beam (4144 / 1170 = 3.54)",
+   "f_eff_mm": 4144,
+   "f_cam_over_f_col": 0.2405,
+   "Fc_published": 3.5,
+   "cold_stop": "Lyot stop diameter = 90% of the pupil image (S06)",
+   "band": "Ks",
+   "bands": [
+    "J",
+    "H",
+    "Ks"
+   ],
+   "bands_simultaneous": "J, H, Ks imaged at once through two dichroics (J reflected first, H reflected second, Ks straight through)",
+   "bandpass_50pct_um": {
+    "J": [
+     1.11,
+     1.4
+    ],
+    "H": [
+     1.51,
+     1.79
+    ],
+    "Ks": [
+     2.0,
+     2.31
+    ]
+   },
+   "lambda_iso_um": {
+    "J": 1.235,
+    "H": 1.662,
+    "Ks": 2.159
+   },
+   "Nx": 256,
+   "Ny": 256,
+   "pix_um": 40,
+   "n_chips": 1,
+   "n_chips_note": "one NICMOS3 per band, three per camera, co-aligned (not a mosaic)",
+   "rows": [
+    1
+   ],
+   "gaps": "none (single array per band)",
+   "detector": "Rockwell NICMOS3 HgCdTe, 256 x 256, 40 um, four 128 x 128 quadrants",
+   "psf": "seeing",
+   "seeing_arcsec": 1.0,
+   "seeing_note": "S06 Sec. 2.1: a typical seeing disc is 1\" FWHM; the measured frame FWHM of 2.5-2.8\" includes the 2\" pixels",
+   "pixel_scale_arcsec": 1.991,
+   "pixel_scale_per_band": {
+    "North": {
+     "J": 1.997,
+     "H": 2.006,
+     "Ks": 1.984
+    },
+    "South": {
+     "J": 1.989,
+     "H": 1.992,
+     "Ks": 1.98
+    }
+   },
+   "fov_arcmin": [
+    8.49,
+    8.49
+   ],
+   "survey": {
+    "technique": "freeze-frame scanning: continuous declination scan at 57\"/s; the secondary tilts against the scan (sawtooth) to hold the image still for each 1.3 s exposure, then flies back during readout/reset",
+    "exposure_s": 1.3,
+    "read1_s": 0.051,
+    "frame_cycle_s": 1.455,
+    "collect_s": 1.351,
+    "step_arcsec": {
+     "north": 82.6,
+     "south": 82.3
+    },
+    "frames_per_point": 6,
+    "total_exposure_s": 7.8,
+    "tile": "504\" (RA) x (6 deg + 8.5') (Dec); 273 (N) / 274 (S) frames; ~7 min per scan; 59,650 tiles",
+    "raw_pixel_arcsec": 1.991,
+    "atlas_pixel_arcsec": 1.0,
+    "atlas_image_px": [
+     512,
+     1024
+    ],
+    "atlas_image_arcmin": [
+     8.53,
+     17.07
+    ]
+   },
+   "validate": {
+    "pixel_scale_arcsec": 1.991,
+    "fov_arcmin": [
+     8.5,
+     8.5
+    ],
+    "total_pixels_per_band": 65536,
+    "limiting_mag_10sigma_required": {
+     "J": 15.8,
+     "H": 15.1,
+     "Ks": 14.3
+    },
+    "limiting_mag_10sigma_mean_achieved": {
+     "J": 16.42,
+     "H": 15.48,
+     "Ks": 14.81
+    },
+    "image_fwhm_arcsec": "2.5 best; 2.6-2.8 Mt. Hopkins mean; 2.5-2.7 CTIO",
+    "etendue_m2deg2_DERIVED": 0.0258
+   },
+   "pub_suggested": [
+    {
+     "what": "pixel scale 1.991″/px (mean of six arrays; 1.980-2.006)",
+     "q": "pixScale",
+     "value": 1.991,
+     "info": true,
+     "src": "Skrutskie+06; circular: F_cam was derived from it"
+    },
+    {
+     "what": "field 8.5′ × 8.5′",
+     "q": "fieldX",
+     "value": 8.5,
+     "tol": 0.01,
+     "src": "Skrutskie+06 (256 × 1.991″ = 8.49′)"
+    },
+    {
+     "what": "field 8.5′ × 8.5′",
+     "q": "fieldY",
+     "value": 8.5,
+     "tol": 0.01,
+     "src": "Skrutskie+06"
+    },
+    {
+     "what": "65,536 pixels per band (256 × 256)",
+     "q": "npix",
+     "value": 65536,
+     "tol": 1e-06,
+     "src": "NICMOS3 format"
+    },
+    {
+     "what": "étendue 0.0258 m² deg² (DERIVED: 1.285 m² × 0.0200 deg²)",
+     "q": "etendue",
+     "value": 0.0258,
+     "info": true,
+     "src": "no published value; 0.0207 with the 1.17 m cold stop"
+    }
+   ],
+   "pub_unmodelled": "design final focal ratio F/3.5 (Milligan+96; the model gives 3.19 with D = 1.3 m, 3.54 with D = 1.17 m); Cassegrain plate scale 11.97″/mm (Skrutskie+06; circular, F was derived from it)",
+   "flags": "F DERIVED from the published plate scale (label f/13.5); F_cam DERIVED from the pixel scale (design F/3.5 refers to the cold-stopped beam); eps DERIVED from the secondary diameter; W, f_col, f_cam NOT FOUND (only their ratio); field circle chosen to enclose the array"
+  },
+  "preset_alt_coldstop": {
+   "purpose": "variant with the aperture set by the cold Lyot stop (90% of the pupil diameter); same pixel scale and field",
+   "D_m": 1.17,
+   "eps": 0.198,
+   "F": 14.73,
+   "Fc": 3.542,
+   "basis": "DERIVED: D = 0.9 x 1.3 m; eps = 0.232 / 1.17 (assumes the stop does not also mask the centre: not published); F = 17,232 / 1170; Fc = 4144 / 1170 (matches the design F/3.5 of M96)"
+  },
+  "recommended_preset": "Classical Cassegrain, reimaged. D = 1.3 m (primary; 1280 mm clear), eps = 0.178 (232-mm secondary / 1300 mm, DERIVED; no baffles during 2MASS), F = 13.26 DERIVED from the published Cassegrain plate scale 11.97\"/mm (f_eff = 17,232 mm; published label f/13.5), primary f/2.0 (R = 5200 mm, paraboloid; drawing only), Cassegrain focus 527 mm behind the primary vertex (back = 0.405 D). Camera: LN2 cryostat behind a ZnSe window; a cryogenic field stop at the Cassegrain focus, one common Infrasil collimating lens, two dichroics in the nearly collimated beam (J reflected first, H reflected by the second, Ks straight through), then six lenses per band forming a pupil image with a cold Lyot stop of 90% of the pupil diameter and the band filter beside it; all 19 lenses spherical CaF2/Infrasil, design F/3.5. W (pupil diameter) NOT FOUND; F_cam = 3.188 DERIVED from 40 um at 1.991\"/px (f_eff = 4144 mm; f_cam/f_col = 0.2405). Detector per band: one Rockwell NICMOS3 HgCdTe 256 x 256, 40 um; three co-aligned arrays per camera, rows [1], no gaps. Field 8.5 x 8.5 arcmin (circle 12.1' encloses it). Survey: freeze-frame scanning at 57\"/s in declination, secondary sawtooth holds each 1.3 s exposure (1.455 s cycle), step 82.6\" (N) / 82.3\" (S), six frames per point = 7.8 s; tiles 504\" x (6 deg + 8.5'), 273/274 frames; Atlas Images resampled to 1\"/px (512 x 1024 px) from the 2\" raw pixels. Validate: 1.991\"/px (1.980-2.006 by array), 8.5' field, 10-sigma limits J/H/Ks 15.8/15.1/14.3 required, 16.42/15.48/14.81 mean achieved, image FWHM 2.5-2.8\". Band: Ks (J and H identical optics; plate scales within 1%).",
+  "params": {
+   "telescope_aperture": {
+    "value": 1.3,
+    "unit": "m (primary mirror; two identical telescopes)",
+    "src": "S06",
+    "loc": "Sec. 2.3, p. 1166",
+    "quote": "2MASS used two custom 1.3 m equatorial telescopes.",
+    "note": "The camera's cold Lyot stops are 90% of the pupil diameter (S06 Sec. 2.2, under cold_stop below), so the beam that reaches the detectors comes from the central 0.9 x 1.3 = 1.17 m of the primary (DERIVED, assuming the pupil image is the 1.3 m primary). The explorer preset keeps D = 1.3 m; the cold-stop variant is given as preset_alt_coldstop.",
+    "alternatives": [
+     {
+      "value": 1.3,
+      "src": "ES-III.1a",
+      "loc": "Sec. III.1.a, para. 1",
+      "quote": "The 2MASS project was carried out with two identical 1.3-meter aperture, open-tube, equatorial fork-mount telescopes."
+     },
+     {
+      "value": "1300 mm primary",
+      "src": "ES-III.1a",
+      "loc": "Sec. III.1.a.i Optics",
+      "quote": "Primary Mirror: 1300 mm diameter, radius of curvature 5200 mm, conic constant -1.000"
+     },
+     {
+      "value": 1.28,
+      "src": "GM20",
+      "loc": "Sec. 2.1, PDF p. 4",
+      "quote": "The parabolic primary mirror has a radius of curvature of R = 5200 mm, and a clear diameter of D1,clear = 1280 mm.",
+      "note": "clear aperture of the northern telescope (Tierras refurbishment)"
+     },
+     {
+      "value": 1.3,
+      "src": "S06",
+      "loc": "Table 1, p. 1164",
+      "quote": "1.3 m equatorial Cassegrain"
+     }
+    ],
+    "derived": "DERIVED: cold-stop-limited aperture 0.9 x 1300 = 1170 mm (0.9 x 1280 = 1152 mm on the GM20 clear aperture)."
+   },
+   "central_obstruction": {
+    "value": 0.178,
+    "unit": "linear ratio (DERIVED: secondary diameter / primary diameter)",
+    "src": "ES-III.1a",
+    "loc": "Sec. III.1.a.i Optics",
+    "quote": "Secondary Mirror: 232 mm diameter, radius of curvature 965.7 mm, conic constant -1.847",
+    "note": "What sets eps: the secondary mirror. The telescope carried no light baffles during 2MASS (GM20 Sec. 6.1), and the 200-mm primary hole (GM20) lies inside the secondary's shadow (200/1300 = 0.154). The size of the secondary cell and of its tilt (freeze-frame) mechanism is not published. Whether the cold Lyot stop also masks the centre is not published; if it trims only the outer edge, eps relative to the 1.17 m stopped beam is 232/1170 = 0.198 (DERIVED).",
+    "alternatives": [
+     {
+      "value": "228 mm secondary clear / 1280 mm primary clear",
+      "src": "GM20",
+      "loc": "Sec. 2.1, PDF p. 4",
+      "quote": "The hyperbolic (K = -1.847) secondary mirror has R = 965.7 mm, and D2,clear = 228 mm."
+     },
+     {
+      "value": "no baffles during 2MASS",
+      "src": "GM20",
+      "loc": "Sec. 6.1 (Telescope Baffling), PDF p. 16",
+      "quote": "the 1.3-m telescope was not equipped with light baffles while the 2MASS and PAIRITEL projects were carried out"
+     },
+     {
+      "value": "primary hole 200 mm",
+      "src": "GM20",
+      "loc": "Sec. 2, PDF p. 4",
+      "quote": "Aiming for a larger FOV was impractical due to vignetting at the primary mirror hole (Dhole = 200 mm)."
+     }
+    ],
+    "derived": "DERIVED: 232 / 1300 = 0.1785; 228 / 1280 = 0.1781; primary hole 200 / 1300 = 0.154 (smaller, so not the limit); 232 / 1170 = 0.198 against the cold-stopped beam."
+   },
+   "telescope_focus": {
+    "value": "classical Cassegrain (paraboloidal primary, hyperboloidal secondary), open tube, equatorial fork mount; the secondary is articulated in declination for freeze-frame scanning",
+    "unit": "",
+    "src": "S06",
+    "loc": "Sec. 2.3, p. 1166",
+    "quote": "For each telescope, the primary mirror, composed of Corning ultra-low expansion glass, is parabolic with a radius of curvature of 5200 mm. The secondary conic constant is 1.847 with a radius of curvature of 965.7 mm.",
+    "note": "Not a Ritchey-Chretien: an RC has a hyperboloidal primary, while the 2MASS primary has conic constant -1.000 (a paraboloid). In the S06 text layer the minus sign of the secondary conic is a control character (dropped from the normalised quote); ES-III.1a and GM20 print -1.847. Paraxial check (DERIVED from the published radii): with the focus 527 mm behind the primary vertex (GM20) the secondary magnification is 6.627, f = 6.627 x 2600 mm = 17,230 mm, plate scale 11.971\"/mm, matching S06's 11.97\"/mm; the classical-Cassegrain condition K2 = -((m+1)/(m-1))^2 = -1.847 holds at m = 6.570 (back focus 499 mm).",
+    "alternatives": [
+     {
+      "value": "Cassegrain focus mount; articulated secondary",
+      "src": "ES-III.1a",
+      "loc": "Sec. III.1.a, para. 1",
+      "quote": "These telescopes have been provided with a Cassegrain focus mount for the infrared cameras and a secondary mirror, which is articulated in the declination direction."
+     },
+     {
+      "value": "primary conic -1.000 (paraboloid)",
+      "src": "ES-III.1a",
+      "loc": "Sec. III.1.a.i Optics",
+      "quote": "Primary Mirror: 1300 mm diameter, radius of curvature 5200 mm, conic constant -1.000"
+     },
+     {
+      "value": "1.3 m equatorial Cassegrain",
+      "src": "S06",
+      "loc": "Table 1, p. 1164",
+      "quote": "1.3 m equatorial Cassegrain"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 13.26,
+    "unit": "f/# at the Cassegrain focus (DERIVED: f_eff / 1.3 m from the published plate scale; published f/13.5)",
+    "src": "S06",
+    "loc": "Sec. 2.3, p. 1166",
+    "quote": "These optics provide a Cassegrain focal ratio of f/13.5 and a Cassegrain plate scale of 11B97 mm",
+    "note": "The two published numbers disagree by 1.8%: f/13.5 x 1.3 m = 17,550 mm would give 11.75\"/mm. The paraxial prescription at the 527-mm back focus gives 11.971\"/mm (telescope_focus), so the plate scale is the consistent number and f/13.5 a rounded label. The model's final pixel scale does not depend on F (only on F_cam x D).",
+    "alternatives": [
+     {
+      "value": 13.5,
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1164",
+      "quote": "A cryogenic field stop lies at the f /13.5 telescope Cassegrain focal plane directly behind the dewar window."
+     },
+     {
+      "value": "13.5 (with 11.94\"/mm)",
+      "src": "GM20",
+      "loc": "Sec. 2.1, PDF p. 4",
+      "quote": "They provide a Cassegrain focal ratio of f /13.5 and a plate scale of 11.9400 mm",
+      "note": "GM20 text layer: \"11.9400 mm-1\" = 11.94\" mm^-1; 11.94\"/mm gives f = 17,275 mm, f/13.29 (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 11.97 = 17,231.8 mm; / 1300 mm = f/13.255. From GM20: 206264.8 / 11.94 = 17,275.1 mm = f/13.289. Nominal: 13.5 x 1300 = 17,550 mm = 11.753\"/mm."
+   },
+   "effective_focal_length_cassegrain": {
+    "value": 17232,
+    "unit": "mm (DERIVED from the 11.97\"/mm Cassegrain plate scale)",
+    "src": "S06",
+    "loc": "Sec. 2.3, p. 1166",
+    "quote": "Cassegrain plate scale of 11B97 mm",
+    "alternatives": [
+     {
+      "value": 17275,
+      "src": "GM20",
+      "loc": "Sec. 2.1, PDF p. 4",
+      "quote": "a plate scale of 11.9400 mm",
+      "note": "11.94\"/mm (DERIVED 17,275 mm)"
+     },
+     {
+      "value": 17550,
+      "src": "S06",
+      "loc": "Sec. 2.3, p. 1166",
+      "quote": "Cassegrain focal ratio of f/13.5",
+      "note": "13.5 x 1300 mm (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 11.97 = 17,231.8 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 2.0,
+    "unit": "f/# of the primary (DERIVED; drawing only)",
+    "src": "ES-III.1a",
+    "loc": "Sec. III.1.a.i Optics",
+    "quote": "Primary Mirror: 1300 mm diameter, radius of curvature 5200 mm",
+    "derived": "DERIVED: f1 = R/2 = 2600 mm; 2600 / 1300 = f/2.00. Secondary: R = 965.7 mm, f2 = -482.85 mm (convex); at the 527-mm back focus it sits 2190 mm in front of the primary, 410 mm inside the prime focus, where the axial beam is 205 mm wide (DERIVED, paraxial; the 232-mm secondary is 13% larger)."
+   },
+   "cassegrain_focus_position": {
+    "value": 527,
+    "unit": "mm behind the primary vertex (northern telescope, native focal plane; back/D = 0.405 DERIVED)",
+    "src": "GM20",
+    "loc": "Sec. 2.1, PDF p. 4",
+    "quote": "at the native focal plane, located 527 mm behind the primary vertex",
+    "alternatives": [
+     {
+      "value": "field stop 10 cm behind the dewar window",
+      "src": "S06",
+      "loc": "Fig. 1 caption, p. 1165",
+      "quote": "Light enters through the ZnSe window at right. The Cassegrain focal plane lies 10 cm behind the window at a cryogenic field stop."
+     }
+    ],
+    "derived": "DERIVED: 527 / 1300 = 0.405 D. The 2MASS camera position during the survey is not published separately."
+   },
+   "field": {
+    "value": "8.5 x 8.5 (set by the arrays; the cryogenic field stop at the Cassegrain focus is slightly undersized relative to the array images)",
+    "unit": "arcmin",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1164",
+    "quote": "The field stop, located at the overlapping conjugate images of the arrays themselves, is slightly undersized relative to the array images in order to prevent light from scattering from the rough edge of the sapphire array substrate.",
+    "note": "No corrected or unvignetted telescope field is published for 2MASS. GM20 (Sec. 2), designing a focal reducer for the same telescope, found a field larger than about 0.5 deg impractical because of vignetting at the 200-mm primary hole. For the explorer's circular field use 12.1' (just encloses the 8.50' square array, diagonal 12.01' DERIVED).",
+    "derived": "DERIVED: 256 px x 1.991\"/px = 509.7\" = 8.49'; diagonal 720.8\" = 12.01'. At the Cassegrain focus the array image is 509.7\" / 11.97\"/mm = 42.6 mm square (the field-stop size, approximately)."
+   },
+   "imager": {
+    "value": "reimaged, all refractive and cryogenic: field stop at the Cassegrain focus, one common collimating lens, two dichroics in the nearly collimated beam, then per band six lenses that form a pupil image (cold Lyot stop + filter) and reimage the sky on the array",
+    "unit": "",
+    "src": "M96",
+    "loc": "ADS abstract",
+    "quote": "The low irradiance of astronomical sources, combined with background limited performance of the detectors, mandated a reimaging configuration and the enclosure of the camera optics within the cold volume.",
+    "alternatives": [
+     {
+      "value": "one common lens + six lenses per band",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "The first Infrasil lens, common to all bands, relays nearly collimated light to beamsplitting mirrors. Following the beam splitters, the light for each band encounters independent identical sets of six lenses, which relay images of the sky onto the three arrays."
+     },
+     {
+      "value": "seven lenses per path",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "path to each array traverses seven lenses."
+     },
+     {
+      "value": "19 elements, all spherical",
+      "src": "M96",
+      "loc": "ADS abstract",
+      "quote": "The final F/3.5 optical design uses fifteen CaF<SUB>2</SUB> elements and four Infrasil elements in an all-spherical configuration.",
+      "note": "1 common + 3 x 6 = 19 lenses (DERIVED), consistent with S06"
+     },
+     {
+      "value": "all lenses spherical, Infrasil or CaF2",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "The lenses were composed of water-free fused silica (Infrasil) or calcium fluoride. All lens surfaces were spherical."
+     },
+     {
+      "value": "LN2 cryostat; ZnSe window",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1164",
+      "quote": "A liquid nitrogen cryostat encloses all of the 2MASS optical elements and arrays with the exception of the ZnSe dewar entrance window."
+     }
+    ]
+   },
+   "collimator": {
+    "value": null,
+    "unit": "mm (focal length NOT FOUND)",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1165",
+    "quote": "The first Infrasil lens, common to all bands, relays nearly collimated light to beamsplitting mirrors.",
+    "note": "The collimator is the single Infrasil lens just behind the field stop, shared by the three bands. Its focal length and the beam diameter are in Milligan et al. (1996), which was not obtained. In the model f_col = F x W."
+   },
+   "cold_stop": {
+    "value": "Lyot stop at a pupil image in each band, diameter 90% of the pupil image (pupil diameter W NOT FOUND)",
+    "unit": "",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1165",
+    "quote": "These calcium fluoride and Infrasil lenses form pupil images at three Lyot stops adjacent to the band-limiting interference filters. The stop diameter is 90% of the pupil diameter to permit some freedom for misalignment of the three stops relative to one another.",
+    "note": "The pupil (Lyot-stop) diameter in mm is not in any source obtained (Milligan et al. 1996 has the prescription). The model's pixel scale and field do not depend on W (f_col = F W, f_cam = F_cam W)."
+   },
+   "camera_focal_ratio": {
+    "value": 3.188,
+    "unit": "F_cam = f_eff / D (DERIVED from the mean pixel scale with D = 1.3 m; design F/3.5 for the cold-stopped beam)",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1165",
+    "quote": "The average plate scale for all six arrays (three northern and three southern) was 1B991 pixel",
+    "note": "F/3.5 (M96) is the design focal ratio of the beam at the detector. With the full 1.3 m aperture the published pixel scale implies f/3.19; with the 90% cold stop (1.17 m) it implies f/3.54, i.e. the design F/3.5 refers to the stopped beam (DERIVED consistency check).",
+    "alternatives": [
+     {
+      "value": 3.5,
+      "src": "M96",
+      "loc": "ADS abstract",
+      "quote": "The final F/3.5 optical design uses fifteen CaF<SUB>2</SUB> elements"
+     },
+     {
+      "value": "2.0\" per 40 um pixel",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "When mounted on the 2MASS telescopes ( Figure 7 ) each pixel subtended approximately 2.0\" on the sky."
+     }
+    ],
+    "derived": "DERIVED: f_eff = 0.040 mm x 206264.8 / 1.991 = 4143.9 mm; / 1300 = 3.188; / 1170 = 3.542. Reduction f_cam / f_col = f_eff / f_Cass = 4143.9 / 17231.8 = 0.2405. Per band (ES-III.1b Table 2): North J 1.997 -> 3.178, H 2.006 -> 3.164, Ks 1.984 -> 3.199; South J 1.989 -> 3.191, H 1.992 -> 3.186, Ks 1.980 -> 3.205 (all /1.3 m)."
+   },
+   "image_quality_optics": {
+    "value": "~90% of a laboratory point source's energy within one 40 um pixel; diffraction limited over the format at Ks, nearly so at J and H (design)",
+    "unit": "",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "For a laboratory point source, the optics concentrated approximately 90% of the image's energy onto a square area defined by one 40 micron NICMOS3 pixel.",
+    "alternatives": [
+     {
+      "value": "diffraction limited at Ks (design)",
+      "src": "M96",
+      "loc": "ADS abstract",
+      "quote": "The design is diffraction limited over the full format in the Ks spectral band, and is nearly so in the J and H bands."
+     }
+    ]
+   },
+   "dichroic_split": {
+    "value": "J reflected by the first (\"J\") dichroic; H transmitted by it and reflected by the second (\"H\") dichroic; Ks transmitted by both (straight through)",
+    "unit": "",
+    "src": "ES-III.1b1",
+    "loc": "Sec. III.1.b1, \"Camera optical configuration\"",
+    "quote": "J-band experiences only a reflection off of the \"J-band dichroic.\" H-band must traverse the J-band dichroic and then experience a reflection off of the \"H-band dichroic.\" Ks band traverses both dichroics.",
+    "alternatives": [
+     {
+      "value": "J reflected first, Ks undeviated",
+      "src": "S06",
+      "loc": "Fig. 1 caption, p. 1165",
+      "quote": "Two dichroic mirrors immediately follow this common lens to split the light between the three bandpasses with the J-band light reflected first and the Ks-band light undeviated."
+     },
+     {
+      "value": "paths in the ray trace",
+      "src": "ES-III.1b1",
+      "loc": "Sec. III.1.b1",
+      "quote": "In Figure 1, the straight-through light path leads to the K s array, the upper path to the J array, and the lower one to H."
+     },
+     {
+      "value": "ray trace (IMAGE)",
+      "src": "ESF-III.1b.2",
+      "loc": "Figure 2",
+      "quote": "ray trace: one shared front group, a fold to each of two side channels, one straight-through channel; three array housings",
+      "check": "image"
+     },
+     {
+      "value": "all three arrays view the same sky",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "A raytrace ( Figure 2 ) of the system shows that each array viewed the same region of the sky via beamsplitting dichroics."
+     }
+    ]
+   },
+   "filters": {
+    "value": {
+     "J": [
+      1.11,
+      1.4
+     ],
+     "H": [
+      1.51,
+      1.79
+     ],
+     "Ks": [
+      2.0,
+      2.31
+     ]
+    },
+    "unit": "um, 50% transmission points of optics + camera (no atmosphere)",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i, Table 1",
+    "quote": "Table 1 - 2MASS 50% Transmission ... J 1.11 - 1.40 um 1.12 - 1.36 * um H 1.51 - 1.79 um 1.51 - 1.78 um K s 2.00 - 2.31 um 2.02 - 2.30 um",
+    "note": "One band-limiting interference filter per channel, next to the Lyot stop (near a pupil image, in the reimaged beam). With the atmosphere: J 1.12-1.36 (the red edge is set by H2O and CO2), H 1.51-1.78, Ks 2.02-2.30 um.",
+    "alternatives": [
+     {
+      "value": "filters near each Lyot stop",
+      "src": "S06",
+      "loc": "Fig. 1 caption, p. 1165",
+      "quote": "Broadband filters near each Lyot stop primarily define the bands."
+     },
+     {
+      "value": "filter near a pupil image",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "A band-limiting interference filter located near a pupil image established the system bandpass."
+     },
+     {
+      "value": {
+       "J": 1.235,
+       "H": 1.662,
+       "Ks": 2.159
+      },
+      "src": "ES-VI.4a",
+      "loc": "Table 1 (Cohen et al. 2003 isophotal wavelengths, um; bandwidths 0.162, 0.251, 0.262 um)",
+      "quote": "J 1.235 ± 0.006 0.162 ± 0.001 ... H 1.662 ± 0.009 0.251 ± 0.002 ... K s 2.159 ± 0.011 0.262 ± 0.002"
+     },
+     {
+      "value": {
+       "J": 1.24,
+       "H": 1.66,
+       "Ks": 2.16
+      },
+      "src": "ES-I.1",
+      "loc": "Sec. I.1",
+      "quote": "capable of observing the sky simultaneously at J (1.24 µm), H (1.66 µm), and K s (2.16 µm)."
+     },
+     {
+      "value": {
+       "J": 1.25,
+       "H": 1.65,
+       "Ks": 2.16
+      },
+      "src": "S06",
+      "loc": "Abstract, p. 1163",
+      "quote": "in the near-infrared J (1.25 µm), H (1.65 µm), and Ks (2.16 µm) bandpasses"
+     },
+     {
+      "value": "Ks 2.00-2.31 um",
+      "src": "S06",
+      "loc": "Table 1, p. 1164",
+      "quote": "J, H, and Ks (2.00-2.31µm)"
+     }
+    ]
+   },
+   "detector": {
+    "value": {
+     "type": "NICMOS3 HgCdTe (Rockwell)",
+     "format_px": [
+      256,
+      256
+     ],
+     "pitch_um": 40
+    },
+    "unit": "px; um",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1164",
+    "quote": "Each 2MASS camera contains three NICMOS3 256 ; 256 HgCdTe arrays manufactured by Rockwell International Science Center, now Rockwell Scientific. These arrays have 40 µm pixel pitch and are sensitive between wavelengths of 0.8 and 2.5 µm.",
+    "alternatives": [
+     {
+      "value": "40 um pixel",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "one 40 micron NICMOS3 pixel."
+     },
+     {
+      "value": "256 x 256",
+      "src": "ES-I.1",
+      "loc": "Sec. I.1",
+      "quote": "Each telescope was equipped with a three-channel camera, each channel consisting of a 256×256 array of HgCdTe detectors"
+     },
+     {
+      "value": "four 128 x 128 quadrants",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.ii Electronics",
+      "quote": "A complete readout of the array, obtained by simultaneous readout of the four independent 128x128 quadrants of the NICMOS3 device, required approximately 51 milliseconds."
+     }
+    ],
+    "derived": "DERIVED: 256 x 40 um = 10.24 mm square; 65,536 px per array."
+   },
+   "n_chips": {
+    "value": 3,
+    "unit": "arrays per camera, one per band, co-aligned on the same sky through the dichroics (not a mosaic); two cameras (north, south)",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "Each 2MASS camera consisted of a liquid nitrogen cryostat ( Figure 1 ) which contained three 256x256 NICMOS3 arrays.",
+    "note": "For the explorer: one 256 x 256 chip, rows [1], no gaps; the three bands are identical copies. The northern H array was replaced in 1999 August with no change of plate scale.",
+    "alternatives": [
+     {
+      "value": "H array replaced 1999, plate scale unchanged",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "Even the H-band plate scale remained unchanged at 2B006 pixel"
+     }
+    ]
+   },
+   "array_registration": {
+    "value": "common centre within 10\"; arrays rotated ~0.2-0.4 deg from north-south so a star crosses one or two columns in its six frames",
+    "unit": "",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i and Table 3",
+    "quote": "The x-y adjustment permitted the three arrays to have a common center to within 10\"",
+    "alternatives": [
+     {
+      "value": "registration < 200 um (< 10\")",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "which enables the relative registration of the arrays to better than <200 µm, or <1000 on the sky."
+     },
+     {
+      "value": {
+       "North1": {
+        "J": 0.372,
+        "H": 0.44,
+        "Ks": 0.326
+       },
+       "North2": {
+        "J": -0.303,
+        "H": -0.42,
+        "Ks": 0.265
+       },
+       "South": {
+        "J": 0.225,
+        "H": 0.252,
+        "Ks": 0.175
+       }
+      },
+      "src": "ES-III.1b",
+      "loc": "Table 3 (deg relative to N-S)",
+      "quote": "Table 3 - Array rotation angles (degrees relative to North-South) J H Ks Nscans North1 0.372+/-.020 0.440+/-.022 0.326+/-.019 15814"
+     },
+     {
+      "value": "~0.3 deg",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "During the survey the arrays were rotated 0N3 from the celestial coordinate system so that stars crossed one array column"
+     },
+     {
+      "value": "alignment figure (IMAGE)",
+      "src": "ESF-III.1b.8",
+      "loc": "Figure 8",
+      "quote": "North Array Period 1 ... North Array Period 2 ... South Array; 5\" scale bar; J, H, K corners offset by a few arcsec",
+      "check": "image"
+     }
+    ]
+   },
+   "readout": {
+    "value": {
+     "gain_e_per_ADU": 8,
+     "read_noise_e_CDS": 40,
+     "full_well_e": 400000,
+     "readout_ms": 51,
+     "adc_bits": 16
+    },
+    "unit": "electrons; ms; bits",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.ii Electronics",
+    "quote": "The gain of the 2MASS electronics was approximately 8 electrons per analog-to-digital count. The array bias voltage was set to 1.00 V to produce a dynamic range of 50,000 counts or 400,000 electrons. The system read noise in a doubly-correlated difference was 5 counts or 40 electrons.",
+    "alternatives": [
+     {
+      "value": "4.5 ADU read noise (36 e- DERIVED)",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "with a typical readout noise level of 4.5 ADU in a doubly correlated difference image."
+     },
+     {
+      "value": "sky noise dominates",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.ii",
+      "quote": "In the standard 1.3 s integration, sky photon noise dominated the read noise in all three bands"
+     }
+    ]
+   }
+  },
+  "survey": {
+   "freeze_frame": {
+    "value": "the telescope scans continuously in declination while tracking in hour angle; the secondary tilts opposite the scan in a sawtooth, holding the image still on the arrays for each 1.3 s exposure, then flies back while the arrays are read and reset",
+    "unit": "",
+    "src": "ES-III.1a",
+    "loc": "Sec. III.1.a, para. 1",
+    "quote": "During Survey data-taking the telescope moved continuously in declination at approximately 57´´ s -1 , while tracking in hour angle at the sidereal rate. The articulated secondary executes a sawtooth motion, which freezes the image of the sky on the focal plane during the frame exposures.",
+    "alternatives": [
+     {
+      "value": "secondary tilts during the exposure, flies back after",
+      "src": "S06",
+      "loc": "Sec. 3.2, p. 1167",
+      "quote": "During a 1.3 s exposure the secondary mirror tilted smoothly to freeze the 8A5 ; 8A5 field of view relative to the focal plane despite the telescope's declination motion. Aberrations introduced by the secondary tilt were minimal compared with the system's PSF. At the end of a 1.3 s exposure the secondary rapidly tilted back to its start position, while the camera electronics read out and reset the arrays."
+     },
+     {
+      "value": "tilts opposite the scan direction",
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a, para. 1",
+      "quote": "While the entire telescope scanned in the declination direction at a constant right ascension, the telescope's secondary mirror tilted opposite the scan direction and momentarily froze the focal plane image."
+     },
+     {
+      "value": "timing diagram (IMAGE)",
+      "src": "ESF-III.1b.9",
+      "loc": "Figure 9",
+      "quote": "UMASS Cycle Type 2: Telescope controls frame timing; Secondary Waveform (sawtooth); Reset, Readout, Read1 Integration, Integration time",
+      "check": "image"
+     }
+    ],
+    "derived": "DERIVED: during the 1.351 s of data collection the sky moves 57 x 1.351 = 77.0\" past the telescope, i.e. 77.0 / 11.97 = 6.4 mm at the Cassegrain focus, which the secondary tilt cancels. The tilt angle of the secondary is not published."
+   },
+   "scan_rate": {
+    "value": 57,
+    "unit": "arcsec/s in declination",
+    "src": "S06",
+    "loc": "Sec. 3.2, p. 1167",
+    "quote": "Observations proceeded while the telescope scanned steadily in declination at a rate of 5700 s",
+    "alternatives": [
+     {
+      "value": 57,
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a",
+      "quote": "The 2MASS arrays imaged the sky while the telescope scanned smoothly in declination at a rate of 57´´ per second."
+     }
+    ]
+   },
+   "exposure_per_frame": {
+    "value": 1.3,
+    "unit": "s (Read_2 - Read_1 difference); plus a 51 ms Read_1 image for bright stars",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1166",
+    "quote": "The data system recorded two complete reads of the array: one immediately following the array reset and another 1.3 s later.",
+    "alternatives": [
+     {
+      "value": "Read_2 at 1.351 s after reset",
+      "src": "ES-VI.1",
+      "loc": "Sec. VI.1",
+      "quote": "The first read (often referred to as \"Read_1\" throughout the Supplement) occurred 51 msec after array reset and represents an effective 51 msec exposure image. The second read (\"Read_2\") occurred 1.351 sec after reset."
+     },
+     {
+      "value": "saturation 8-9 mag (1.3 s), 4-5 mag (51 ms)",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1166",
+      "quote": "The 1.3 s duration exposures saturated for stars between 8-9 mag. The 51 ms exposure extended the unsaturated regime to sources as bright as 4 -5 mag."
+     }
+    ]
+   },
+   "frame_cycle": {
+    "value": 1.455,
+    "unit": "s per frame (1.351 s collecting data, the rest flyback and readout)",
+    "src": "S06",
+    "loc": "Sec. 3.2, p. 1167",
+    "quote": "The frame-to-frame time interval was 1.455 s, of which 1.351 s were used to collect data, with the remainder used for secondary flyback and array readout.",
+    "alternatives": [
+     {
+      "value": 1.455,
+      "src": "ES-III.2b",
+      "loc": "Sec. III.2.b.iv Time Requirements",
+      "quote": "The integration time for a frame included: two 51 ms resets (one occurred during the secondary flyback period, the second started as the secondary began scanning), one 51 ms \"Read_1\" (R1) integration, and one 1.3 s \"Read_2\" (R2) integration. An additional 5 ms of delay was added to allow for overhead and settling. The total dwell time on the sky for a single frame is thus 1.455 s."
+     },
+     {
+      "value": "dead time < 0.1 s; 84% of the night on sky",
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a",
+      "quote": "The dead-time between frames was less than 0.1 sec, and was used for secondary flyback and array reset."
+     }
+    ],
+    "derived": "DERIVED: 2 x 0.051 + 0.051 + 1.3 + 0.005 = 1.458 s from the listed pieces (ES-III.2b states 1.455 s)."
+   },
+   "frames_per_point": {
+    "value": 6,
+    "unit": "frames per sky position; 6 x 1.3 s = 7.8 s total",
+    "src": "S06",
+    "loc": "Table 1, p. 1164",
+    "quote": "6 ; 1.3 s per frame = 7.8 s total",
+    "alternatives": [
+     {
+      "value": 7.8,
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a",
+      "quote": "The camera imaged each point on the sky six times for a total integration time of 7.8 sec."
+     },
+     {
+      "value": "0 to 7 frames per Atlas pixel",
+      "src": "ES-IV.3",
+      "loc": "Sec. IV.3",
+      "quote": "any one pixel in the Atlas Image may represent the average of anywhere from zero to seven frames."
+     }
+    ],
+    "derived": "DERIVED: 509.7\" frame / 82.6\" step = 6.17 (north), / 82.3\" = 6.19 (south): six full apparitions, occasionally seven."
+   },
+   "step_per_frame": {
+    "value": {
+     "north": 82.6,
+     "south": 82.3
+    },
+    "unit": "arcsec in declination per frame (just under 1/6 of the frame)",
+    "src": "ES-III.2b",
+    "loc": "Sec. III.2.b.i Tile Definitions",
+    "quote": "The cameras acquired 273 images of each survey tile in overlapping frames (see Sec IV.4.b Figure 1 ) with a declination step size between frames of 82.6´´ at the northern site and 274 frames with a step size of 82.3´´ at the southern site.",
+    "note": "The step is a non-integer number of pixels (41.5 px) and the arrays are rotated ~0.3 deg, so the six images of a star fall at different sub-pixel positions in both directions.",
+    "alternatives": [
+     {
+      "value": 83,
+      "src": "S06",
+      "loc": "Sec. 3.2, p. 1167",
+      "quote": "scan rate thus produced an 8300 spatial offset between frames-slightly smaller than one-sixth of the camera field of view-yielding six independent"
+     },
+     {
+      "value": {
+       "north": 82.6,
+       "south": 82.3
+      },
+      "src": "S06",
+      "loc": "Sec. 3.2, p. 1168",
+      "quote": "The step size in declination was slightly different between the northern (82B6 per step) and southern (82B3 per step) hemisphere facilities."
+     },
+     {
+      "value": "sub-pixel dithering",
+      "src": "S06",
+      "loc": "Sec. 3.2, p. 1168",
+      "quote": "Along the scan direction (declination) subpixel stepping was achieved by setting the telescope scan rate so that each step was a noninteger multiple of the pixel size."
+     }
+    ],
+    "derived": "DERIVED: 57\"/s x 1.455 s = 82.9\"; 82.6 / 1.991 = 41.5 px."
+   },
+   "tile": {
+    "value": {
+     "ra_width_arcsec": 504,
+     "dec_length": "6 deg + one frame (8.5')",
+     "frames": {
+      "north": 273,
+      "south": 274
+     },
+     "n_tiles": 59650
+    },
+    "unit": "arcsec; deg; frames",
+    "src": "ES-III.2b",
+    "loc": "Sec. III.2.b.i Tile Definitions",
+    "quote": "The right ascension width of a tile was 504´´, set by the intersection of the sky coverage of each of the three slightly offset arrays.",
+    "note": "Tiles overlap by ~10% in RA (~50\") and by one frame in declination between declination bands; the tiles were grouped in 6-deg declination bands.",
+    "alternatives": [
+     {
+      "value": "6 deg + 8.5'",
+      "src": "ES-III.2b",
+      "loc": "Sec. III.2.b.i",
+      "quote": "The declination length of each tile was 6° plus one full frame (8.5´) to provide overlap between tiles in adjacent declination \"bands\"."
+     },
+     {
+      "value": "59,650 tiles",
+      "src": "ES-III.2b",
+      "loc": "Sec. III.2.b.i",
+      "quote": "The sky was divided into 59,650 unique \"tiles\" for 2MASS operations"
+     },
+     {
+      "value": "8.5' x 6 deg; 273/274 frames",
+      "src": "S06",
+      "loc": "Sec. 3.3, p. 1168",
+      "quote": "Scans consisted of 273 (northern site) or 274 (southern site) frames acquired as the telescope scanned steadily in declination. A scan covered a region of sky that was one 8A5 camera field of view wide in right ascension and 6 long in declination."
+     },
+     {
+      "value": "10% RA overlap",
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a",
+      "quote": "Thus, all 2MASS Tiles overlap by 10% in right ascension (approximately 50´´)"
+     },
+     {
+      "value": "frames vs tile (IMAGE)",
+      "src": "ESF-III.2a.1",
+      "loc": "Figure 1",
+      "quote": "Right Ascension 8.5 arcmin; ~273 frames (6 degrees); Declination",
+      "check": "image"
+     }
+    ],
+    "derived": "DERIVED: 273 x 82.6\" = 6.26 deg; 274 x 82.3\" = 6.26 deg (6 deg + 8.5' + the partial-coverage frames at both ends). 273 x 1.455 s = 397 s = 6.6 min per scan (ES-III.2b: \"approximately 7 minutes\")."
+   },
+   "scan_duration": {
+    "value": 7,
+    "unit": "min per 273-frame scan (approximately, with overhead)",
+    "src": "ES-III.2b",
+    "loc": "Sec. III.2.b.iv Time Requirements",
+    "quote": "A 273 frame survey scan required approximately 7 minutes (including overhead)."
+   },
+   "atlas_images": {
+    "value": {
+     "pixel_arcsec": 1.0,
+     "format_px": [
+      512,
+      1024
+     ],
+     "size_arcmin": [
+      8.53,
+      17.07
+     ],
+     "overlap_px": 54,
+     "per_tile_per_band": 23
+    },
+    "unit": "resampled coadd of the six 1.3 s frames (raw pixel 2.0\")",
+    "src": "ES-IV.3",
+    "loc": "Sec. IV.3, para. 1",
+    "quote": "The reduced \"Read 2-Read 1\" frames for each 6°-long scan were spatially registered and combined into a series of 8.53´×17.07´ (512×1024 pixel, 1´´ per pixel) Atlas Images.",
+    "note": "Kernel: each 2\" camera pixel is spread with a flux-preserving Gaussian smoothing kernel of width h = 0.35 (in units of the camera pixel, by the Fig. 2 caption; 0.7\" if L = 2\", DERIVED interpretation) onto the 1\" grid; h = 0.1 was optimal for point sources, 0.35 adopted for extended sources. The best Atlas-image stars have FWHM ~2.5\".",
+    "alternatives": [
+     {
+      "value": "1.00\"/px, 512 x 1024, 54 px overlap",
+      "src": "S06",
+      "loc": "Sec. 4.3, p. 1171",
+      "quote": "The output Atlas Images were written to FITS standard images in 512 ; 1024 pixel (1B00 pixel"
+     },
+     {
+      "value": "common 1\" grid for J, H, Ks",
+      "src": "S06",
+      "loc": "Sec. 4.3, p. 1171",
+      "quote": "Before frame combination, all J, H, and Ks frames were resampled on the same 1B00 pixel"
+     },
+     {
+      "value": "23 images per tile per band (22 x 512x1024 + one 512x698)",
+      "src": "ES-II.4",
+      "loc": "Sec. II.4",
+      "quote": "The image data from each Tile are divided into twenty-three separate Atlas Images in each band. Twenty-two of these are 512×1024 (1\"/pix) in size, and one is 512×698 (1\"/pixel)."
+     },
+     {
+      "value": "kernel h = 0.35",
+      "src": "ES-IV.3",
+      "loc": "Sec. IV.3.ii",
+      "quote": "Based on point sources, the optimal value for h =0.1. An empirical selection based on the pipeline performance on extended sources suggests h =0.35."
+     },
+     {
+      "value": "kernel caption",
+      "src": "ES-IV.3",
+      "loc": "Sec. IV.3, Figure 2 caption",
+      "quote": "Figure 2: Gaussian kernel with h =0.35 convolved over pixel with active linear size L =1.0."
+     },
+     {
+      "value": "raw pixel L = 2\"",
+      "src": "ES-IV.3",
+      "loc": "Sec. IV.3.ii",
+      "quote": "where ( x j ,y j ) is the center of the j th pixel with linear scale L =2´´."
+     }
+    ],
+    "derived": "DERIVED: 512\" = 8.53', 1024\" = 17.07'."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 1.991,
+    "unit": "arcsec/px (mean of the six arrays); nominal 2.0",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1165",
+    "quote": "The average plate scale for all six arrays (three northern and three southern) was 1B991 pixel",
+    "alternatives": [
+     {
+      "value": {
+       "North": {
+        "J": 1.997,
+        "H": 2.006,
+        "Ks": 1.984
+       },
+       "South": {
+        "J": 1.989,
+        "H": 1.992,
+        "Ks": 1.98
+       }
+      },
+      "src": "ES-III.1b",
+      "loc": "Table 2 (arcsec/px)",
+      "quote": "Table 2 - Array platescales (arcseconds per pixel) J H Ks North1 and 2 1.997 2.006 1.984 South 1.989 1.992 1.980"
+     },
+     {
+      "value": "max 2.006 (north H), min 1.980 (south Ks)",
+      "src": "S06",
+      "loc": "Sec. 2.2, p. 1165",
+      "quote": "with a maximum of 2B006 pixel"
+     },
+     {
+      "value": 2.0,
+      "src": "ES-I.1",
+      "loc": "Sec. I.1",
+      "quote": "near-infrared bands with a pixel size of 2.0´´."
+     },
+     {
+      "value": "<1% between bands",
+      "src": "ES-III.1b",
+      "loc": "Sec. III.1.b.i",
+      "quote": "Platescale varies by <1% between the three bands."
+     }
+    ],
+    "derived": "DERIVED: (1.997 + 2.006 + 1.984 + 1.989 + 1.992 + 1.980) / 6 = 1.9913."
+   },
+   "field_of_view": {
+    "value": "8.5 x 8.5",
+    "unit": "arcmin (one frame; 256 x 1.991\" = 8.49' DERIVED)",
+    "src": "S06",
+    "loc": "Sec. 2.2, p. 1164",
+    "quote": "Two dichroic mirrors within each camera (Fig. 1) permit simultaneous imaging of an 8A5 ; 8A5 field",
+    "alternatives": [
+     {
+      "value": "tile width 504\" = 8.4' (intersection of the three arrays)",
+      "src": "ES-III.2b",
+      "loc": "Sec. III.2.b.i",
+      "quote": "The right ascension width of a tile was 504´´"
+     },
+     {
+      "value": "8.5' frame",
+      "src": "ES-III.2a",
+      "loc": "Sec. III.2.a",
+      "quote": "one camera frame (8.5´) wide in right ascension"
+     }
+    ],
+    "derived": "DERIVED: 256 x 1.991 = 509.7\" = 8.49'; area 0.0200 deg^2."
+   },
+   "limiting_magnitude_requirement": {
+    "value": {
+     "J": 15.8,
+     "H": 15.1,
+     "Ks": 14.3
+    },
+    "unit": "mag (Vega, 2MASS system), point sources, S/N = 10 (Level 1 requirement, |b| > 10 deg)",
+    "src": "S06",
+    "loc": "Abstract, p. 1163",
+    "quote": "yielded a 10 point-source detection level of better than 15.8, 15.1, and 14.3 mag at the J, H, and Ks bands, respectively, for virtually the entire sky.",
+    "note": "The text layer drops the sigma: \"10 point-source\" = 10-sigma.",
+    "alternatives": [
+     {
+      "value": {
+       "J": 15.8,
+       "H": 15.1,
+       "Ks": 14.3
+      },
+      "src": "ES-VI.1",
+      "loc": "Sec. VI.1 table, Photometric sensitivity",
+      "quote": "10- at 15.8, 15.1, 14.3 mag at J, H, K s respectively for |b|>10°"
+     },
+     {
+      "value": {
+       "J": 15.8,
+       "H": 15.1,
+       "Ks": 14.3
+      },
+      "src": "S06",
+      "loc": "Table 1, p. 1164",
+      "quote": "15.8, 15.1, and 14.3 mag for J, H, and Ks , respectively"
+     },
+     {
+      "value": {
+       "J": 15.0,
+       "H": 14.2,
+       "Ks": 13.5
+      },
+      "src": "ES-VI.1",
+      "loc": "Sec. VI.1 table, Extended Source Catalog",
+      "quote": "10- at J<15.0, H<14.2, K s <13.5 mag",
+      "note": "extended sources, 10-sigma"
+     }
+    ]
+   },
+   "limiting_magnitude_achieved": {
+    "value": {
+     "J": 16.42,
+     "H": 15.48,
+     "Ks": 14.81
+    },
+    "unit": "mag, S/N = 10 (M10), mean over all All-Sky Release tiles (no confusion)",
+    "src": "ES-VI.2",
+    "loc": "Sec. VI.2, Table 2",
+    "quote": "Table 2 - M 10 Statistics for Tiles in the All-Sky Data Release Band Min Max Mean Std.Dev. J 15.787 16.951 16.422 0.135 H 14.821 16.044 15.484 0.175 K s 14.264 15.340 14.808 0.162",
+    "note": "Tile-to-tile range: J 15.8-16.95, H 14.8-16.0, Ks 14.3-15.3 mag (std. dev. 0.14-0.18 mag).",
+    "alternatives": [
+     {
+      "value": "0.5-0.6 mag deeper than required at J and Ks, 0.3 at H",
+      "src": "ES-VI.2",
+      "loc": "Sec. VI.2",
+      "quote": "The average magnitudes at which SNR=10 are achieved are 0.5--0.6 mag fainter than the Survey's Level 1 Requirements in the J- and K s -bands, and 0.3 mag fainter in the H-band."
+     }
+    ]
+   },
+   "image_fwhm": {
+    "value": {
+     "best": 2.5,
+     "Mt_Hopkins_mean_1997_98": 2.8,
+     "Mt_Hopkins_mean_after_1999": 2.6,
+     "CTIO": [
+      2.5,
+      2.7
+     ]
+    },
+    "unit": "arcsec FWHM measured on the 2\" frames (seeing x optics x 2\" pixels x sampling)",
+    "src": "ES-III.1c",
+    "loc": "Sec. III.1.c.ii Image Quality",
+    "quote": "The best images for the Mt. Hopkins facility have seeing of ~2.5´´ FWHM, while the average from 1997 to the 1998 monsoon shutdown was 2.8´´ FWHM.",
+    "note": "For the explorer's seeing input use the atmospheric FWHM (S06 Sec. 2.1 calls 1\" FWHM a typical seeing disc; quoted below); the 2.5-2.8\" values are what the coarse 2\" pixels and sampling deliver.",
+    "alternatives": [
+     {
+      "value": 2.6,
+      "src": "ES-III.1c",
+      "loc": "Sec. III.1.c.ii",
+      "quote": "Adjustments made at the end of the 1999 monsoon further improved the image quality, and the average seeing improved to 2.6´´ FWHM."
+     },
+     {
+      "value": [
+       2.5,
+       2.7
+      ],
+      "src": "ES-III.1c",
+      "loc": "Sec. III.1.c.ii",
+      "quote": "The CTIO facility consistently achieved ~2.5´´-2.7´´ FWHM."
+     },
+     {
+      "value": 2.5,
+      "src": "S06",
+      "loc": "Sec. 2.4, p. 1166",
+      "quote": "camera optics, and sampling pattern combined to produce a system PSF of 2B5 under the best seeing conditions."
+     },
+     {
+      "value": "typical seeing 1\"",
+      "src": "S06",
+      "loc": "Sec. 2.1, p. 1164",
+      "quote": "with a typical 100 FWHM seeing disc."
+     }
+    ]
+   },
+   "total_pixels": {
+    "value": 65536,
+    "unit": "pixels per band (one 256 x 256 array); 196,608 per camera (DERIVED)",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "three 256x256 NICMOS3 arrays.",
+    "derived": "DERIVED: 256^2 = 65,536; x 3 = 196,608."
+   },
+   "etendue": {
+    "value": 0.0258,
+    "unit": "m^2 deg^2 per band (DERIVED; no published value)",
+    "src": "ES-III.1a",
+    "loc": "Sec. III.1.a.i Optics",
+    "quote": "Primary Mirror: 1300 mm diameter ... Secondary Mirror: 232 mm diameter",
+    "derived": "DERIVED: pi/4 (1.3^2 - 0.232^2) = 1.285 m^2 x (509.7\"/3600)^2 = 0.02005 deg^2 -> 0.0258 m^2 deg^2; with the 90% cold stop pi/4 (1.17^2 - 0.232^2) = 1.033 m^2 -> 0.0207."
+   }
+  },
+  "not_found": [
+   "Pupil (Lyot-stop) diameter W and the collimator and camera focal lengths: only their ratio follows from the plate scales (f_cam/f_col = 0.2405 DERIVED). They are in Milligan, Cranton & Skrutskie (1996, SPIE 2863, 2), which was not obtained (SPIE paywall, no open copy; only the ADS abstract). As for HAWK-I, the explorer drawing would need an assumed W (the pixel scale and field do not depend on it).",
+   "Whether the cold Lyot stop also masks the central obscuration (affects eps for the stopped beam).",
+   "Size of the secondary-mirror cell and of the tilt (freeze-frame) mechanism behind it, and the tilt amplitude/angle of the secondary.",
+   "A corrected or unvignetted field of the 1.3 m telescope; the shape and exact size of the cryogenic field stop (only \"slightly undersized relative to the array images\").",
+   "The 2MASS camera's own back focal distance on the telescope (only the native 527-mm focus of the northern telescope from GM20).",
+   "Southern-telescope clear apertures (GM20 measured the northern telescope only; the telescopes are described as identical)."
+  ],
+  "conflicts": [
+   "Cassegrain focal ratio: f/13.5 (S06, GM20) vs 11.97\"/mm (S06) and 11.94\"/mm (GM20) plate scales, which give f/13.26 and f/13.29 with D = 1.3 m (DERIVED). The paraxial prescription at the 527-mm back focus reproduces 11.971\"/mm, so f/13.5 is a rounded label.",
+   "Final focal ratio: design F/3.5 (M96) vs 3.19 DERIVED from the pixel scale with D = 1.3 m; with the 90% cold stop (1.17 m) the pixel scale gives 3.54. Not a real conflict if F/3.5 refers to the stopped beam.",
+   "Mirror diameters: primary 1300 mm (ES-III.1a) vs 1280 mm clear (GM20); secondary 232 mm (ES-III.1a) vs 228 mm clear (GM20). Same eps (0.178).",
+   "Read noise per correlated double sample: 40 e- (5 counts, ES-III.1b) vs 4.5 ADU x 8 e-/ADU = 36 e- (S06, DERIVED).",
+   "Frame timing: ES-III.2b lists two 51 ms resets + 51 ms Read_1 + 1.3 s + 5 ms = 1.458 s (DERIVED) but states 1.455 s; S06 gives 1.455 s with 1.351 s collecting.",
+   "Frame step: 82.6\" / 82.3\" (ES-III.2b, S06 Sec. 3.2) vs 83\" (S06 Sec. 3.2, rounded) vs 57\"/s x 1.455 s = 82.9\" (DERIVED).",
+   "Array rotation: \"~0.3 deg\" (S06) vs the measured -0.42 to +0.44 deg per array and period (ES-III.1b Table 3; the northern J and H arrays changed sign after the 1999 H-array replacement).",
+   "Band centres: J 1.24 / H 1.66 / Ks 2.16 um (ES-I.1) vs 1.25 / 1.65 / 2.16 (S06 abstract) vs isophotal 1.235 / 1.662 / 2.159 (Cohen et al. 2003 via ES-VI.4a).",
+   "Optics transmission: \"~70%\" for the integrated optical assembly (ES-III.1b) vs \"over 80%\" for all lenses combined (ES-III.1b1; lenses only, so not necessarily a conflict)."
+  ],
+  "notes": [
+   "Telescope model: Cassegrain, D = 1.3 m, eps = 0.178, F = 13.26 (published f/13.5), primary f/2.0; the explorer's \"cass\" type. The real primary is a paraboloid, the secondary a hyperboloid (K = -1.847): a classical Cassegrain, not a Ritchey-Chretien.",
+   "Camera model: reimaged with an ideal collimator f_col = F W and camera f_cam = F_cam W, F_cam = 3.188. The real camera is a dioptric relay: field stop at the Cassegrain focus, one common lens that nearly collimates the beam, two dichroic beam splitters in that beam, then an identical six-lens group per band that forms a pupil image (Lyot stop + interference filter) and reimages the sky onto a NICMOS3 array. Only the reduction f_cam/f_col = 0.2405 is fixed by the published plate scales.",
+   "Bands: the three channels are optically identical and see the same sky (common centre within 10\"); per-array plate scales differ by < 1% (1.980-2.006\"/px). One preset serves J, H and Ks; switching band changes only lambda.",
+   "Cold stop: the Lyot stops are 90% of the pupil diameter, so the effective light-collecting aperture is 1.17 m (DERIVED); the design F/3.5 matches this stopped beam. preset_alt_coldstop gives the variant D = 1.17 m, eps = 0.198, F = 14.73, F_cam = 3.542.",
+   "Freeze-frame scanning: instead of stepping and settling, the whole telescope scans steadily north-south at 57\"/s while the secondary mirror tilts the other way so the image stands still on the arrays for each 1.3 s exposure; then the secondary snaps back (< 0.1 s, during reset/readout) and the next frame starts 82.6\" further along, just under 1/6 of the 8.5' frame. Every point is therefore seen six times (7.8 s), at six different sub-pixel positions (non-integer step + ~0.3 deg array rotation), which the pipeline exploits to build Atlas Images on a 1\" grid from 2\" pixels.",
+   "Sampling: the raw 2\" pixels undersample even 1\" seeing; measured frame FWHM is 2.5-2.8\". The Atlas Images (1\" pixels) are a kernel-smoothed coadd, not a higher-resolution optical image."
+  ],
+  "notes_quotes": [
+   {
+    "value": "lenses concentrated light ~90% in one pixel",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "the optics concentrated approximately 90% of the image's energy onto a square area defined by one 40 micron NICMOS3 pixel."
+   },
+   {
+    "value": "sub-pixel dithering improves Atlas resolution",
+    "src": "ES-III.2a",
+    "loc": "Sec. III.2.a",
+    "quote": "This sub-pixel \"dithering\" improved the ultimate spatial resolution of the final coadded Atlas Images relative to a single undersampled image taken with 2.0´´ pixels."
+   },
+   {
+    "value": "six frames per point, 7.8 s",
+    "src": "ES-III.2a",
+    "loc": "Sec. III.2.a",
+    "quote": "The camera imaged each point on the sky six times for a total integration time of 7.8 sec."
+   },
+   {
+    "value": "cross-scan sub-pixel stepping",
+    "src": "S06",
+    "loc": "Sec. 3.2, p. 1168",
+    "quote": "In the cross-scan direction (right ascension) subpixel stepping was achieved by rotating the arrays such that a given star crossed a full column while the source stepped down the array."
+   },
+   {
+    "value": "telescopes identical",
+    "src": "ES-III.1a",
+    "loc": "Sec. III.1.a",
+    "quote": "two identical 1.3-meter aperture, open-tube, equatorial fork-mount telescopes"
+   },
+   {
+    "value": "camera optics detail in Milligan+96",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b",
+    "quote": "A detailed description of the 2MASS camera optical design appears in Milligan et al. (1996, SPIE Proceedings Volume 2863, p. 2)."
+   },
+   {
+    "value": "identical six-lens set per band",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "Each optical path had six other lenses. This set of six lenses was identical for each band."
+   },
+   {
+    "value": "optical assembly transmission ~70%",
+    "src": "ES-III.1b",
+    "loc": "Sec. III.1.b.i",
+    "quote": "All optical elements were anti-reflection coated and the integrated optical assembly transmitted ~70% of the incident light."
+   },
+   {
+    "value": "lens transmission > 80%",
+    "src": "ES-III.1b1",
+    "loc": "Sec. III.1.b1, Camera Lens Coatings",
+    "quote": "The total transmission for all lenses combined is over 80% (ie, 0.97 7 approximately), across each of the three camera bands."
+   },
+   {
+    "value": "isophotal wavelengths (Cohen+03)",
+    "src": "ES-VI.4a",
+    "loc": "Sec. VI.4.a",
+    "quote": "The isophotal wavelengths, bandpasses, and fluxes for zero magnitude for the three 2MASS bands from Cohen et al. (2003) are listed in Table 1 below."
+   },
+   {
+    "value": "step size depends on plate scale",
+    "src": "ES-III.2b",
+    "loc": "Sec. III.2.b.i",
+    "quote": "The slight difference in step size results from the very small plate scale differences between the different cameras in each system and the need to obtain precise sub-pixel offsets in each of the six apparitions of a star."
+   }
+  ]
+ }
+}

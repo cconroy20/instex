@@ -1,0 +1,2861 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER presets: the Palomar Observatory Sky Surveys on photographic plates with the Oschin 48-inch Schmidt (POSS-I 1949-1958, POSS-II 1985-2002) and their digitization at STScI (DSS-1, DSS-2)",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/poss.md (same content as Markdown). Structure follows data/imaging/megacam_ztf_small.json: each parameter has value, unit, src (key into sources), loc, quote, optional alternatives / derived / note / check. The 'preset' object of each survey is the machine-readable summary for the explorer (a Schmidt telescope feeding ONE photographic plate: no pixels, no gaps; fineness from the emulsion and from the scan step).",
+  "rule": "Every value carries src, loc and a short verbatim quote from a document saved unmodified under rawdata/imaging/poss/ (D20 is the ZTF paper already saved under rawdata/imaging/ztf/). DERIVED = arithmetic done here (shown). alternatives = other sourced values (conflicts). null = not published.",
+  "quote_check": "All quote pieces (split on ' ... ') were machine-checked by script against: tesseract 5.5.1 OCR (pdftoppm 300 dpi greyscale, --psm 1) of the ADS scans (none has a usable text layer); pdftotext -layout and -raw of the arXiv PDFs; tag-stripped HTML; the FITS header cards of the DSS cutouts; the UTF-16 plate list decoded to UTF-8. Comparison removes whitespace and table separators, joins line-end hyphenation and normalises Unicode (NFKC), quotes, dashes, mu and degree glyphs; a few pieces match only after hyphens are dropped as well (check = 'loose'). OCR quotes keep the OCR's errors; each mangled number is flagged in a note and was read off the page image. Double-quoted fragments inside notes (OCR glosses such as \"{/2.44\", and FITS cards of the sibling headers) were checked the same way. Values marked IMAGE (R91 Fig. 1 band ranges, the wavelength range of R91's image-quality sentence) are not machine-checkable.",
+  "quote_check_result": "229 quote entries checked, 0 failures, 0 matched only loosely (hyphens dropped)"
+ },
+ "sources": {
+  "H52": {
+   "cite": "Harrington, R. G. 1952, PASP 64, 275, \"The 48-inch Schmidt-type Telescope at Palomar Observatory\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/Harrington1952_PASP64_275_48inchSchmidt_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1952PASP...64..275H"
+  },
+  "R91": {
+   "cite": "Reid, I. N., Brewer, C., Brucato, R. J., et al. 1991, PASP 103, 661, \"The Second Palomar Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images); OCR renders the arcsec mark after a digit as a stray glyph or digit (\"67'19\" = 67\".19, \"05\" = 0\".5, \"0734\" = 0\".34) and B_J/R_F/I_N as \"B,\"/\"R,\"/\"I,\"",
+   "file": "rawdata/imaging/poss/Reid1991_PASP103_661_SecondPalomarSkySurvey_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1991PASP..103..661R"
+  },
+  "A58": {
+   "cite": "Abell, G. O. 1958, ApJS 3, 211, \"The Distribution of Rich Clusters of Galaxies\" (Sec. II a, 'Observational Material', describes the POSS-I plates). ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images); only pp. 211-222 were OCR'd",
+   "file": "rawdata/imaging/poss/Abell1958_ApJS3_211_RichClusters_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1958ApJS....3..211A"
+  },
+  "A59": {
+   "cite": "Abell, G. O. 1959, ASP Leaflet No. 366 (Leaflets 8, 121), \"The National Geographic Society-Palomar Observatory Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/Abell1959_ASPLeaflet366_NGS-POSS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1959ASPL....8..121A"
+  },
+  "LD73": {
+   "cite": "Lund, J. M., & Dixon, R. S. 1973, PASP 85, 230, \"A User's Guide to the Palomar Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/LundDixon1973_PASP85_230_UsersGuidePSS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1973PASP...85..230L"
+  },
+  "KR77": {
+   "cite": "King, I. R., & Raff, M. I. 1977, PASP 89, 120, \"Magnitude-Diameter Relations for Star Images on the Palomar Sky Survey Prints\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images) (OCR renders mu as \"u\")",
+   "file": "rawdata/imaging/poss/KingRaff1977_PASP89_120_MagnitudeDiameter_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1977PASP...89..120K"
+  },
+  "L90": {
+   "cite": "Lasker, B. M., Sturch, C. R., McLean, B. J., et al. 1990, AJ 99, 2019, \"The Guide Star Catalog. I. Astronomical Foundations and Image Processing\" (the PDS scanning used for the GSC-I and, per M00/L96, the DSS-1). ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images); OCR renders mu as \"w\"/\"z\"/\"p\"",
+   "file": "rawdata/imaging/poss/Lasker1990_AJ99_2019_GSC-I_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1990AJ.....99.2019L"
+  },
+  "RD93": {
+   "cite": "Reid, N., & Djorgovski, S. 1993, in Sky Surveys: Protostars to Protogalaxies, ASP Conf. Ser. 43, 125, \"The Second Palomar Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/ReidDjorgovski1993_ASPC43_125_POSS-II_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1993ASPC...43..125R"
+  },
+  "LP93": {
+   "cite": "Lasker, B. M., & Postman, M. 1993, ASP Conf. Ser. 43, 131, \"The Digitization of the Second Palomar Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images); OCR renders mu as \"y\"/\"p\" and the superscript 2 as \"?\"",
+   "file": "rawdata/imaging/poss/LaskerPostman1993_ASPC43_131_POSS-II_digitization_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1993ASPC...43..131L"
+  },
+  "R94": {
+   "cite": "Reid, I. N. 1994, in Astronomy from Wide-Field Imaging, IAU Symp. 161, 29, \"The Second Palomar Sky Survey\" (one-page summary). ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/Reid1994_IAUS161_29_POSS-II_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1994IAUS..161...29R"
+  },
+  "L96": {
+   "cite": "Lasker, B. M., Doggett, J., McLean, B., et al. 1996, ASP Conf. Ser. 101, 88, \"The Palomar-ST ScI Digitized Sky Survey (POSS-II): Preliminary Data Availability\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images); OCR renders the superscript 2 as \"7\" (\"230407\" = 23040^2)",
+   "file": "rawdata/imaging/poss/Lasker1996_ASPC101_88_PalomarSTScI_DSS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996ASPC..101...88L"
+  },
+  "M00": {
+   "cite": "McLean, B. J., Greene, G. R., Lattanzi, M. G., & Pirenne, B. 2000, ASP Conf. Ser. 216, 145, \"The Status of the Second Generation Digitized Sky Survey and Guide Star Catalog\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/McLean2000_ASPC216_145_DSS-II_GSC-II_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/2000ASPC..216..145M"
+  },
+  "C87": {
+   "cite": "California Institute of Technology 1987, PASP 99, 451, \"Announcement of Availability of the Second Palomar Observatory Sky Survey\". ADS scan, no usable text layer; quotes are from tesseract OCR of the page images (OCR errors kept; key numbers read off the page images)",
+   "file": "rawdata/imaging/poss/Caltech1987_PASP99_451_POSS-II_announcement_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987PASP...99..451."
+  },
+  "D98": {
+   "cite": "Djorgovski, S. G., Gal, R. R., Odewahn, S. C., et al. 1998, in Wide Field Surveys in Cosmology, XIV IAP Colloq., p. 89, \"The Palomar Digital Sky Survey (DPOSS)\", arXiv:astro-ph/9809187 (arXiv version; text layer renders the degree sign as \"◦\")",
+   "file": "rawdata/imaging/poss/Djorgovski1998_DPOSS_IAPColloq14_arXiv-astro-ph9809187.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/9809187"
+  },
+  "L08": {
+   "cite": "Lasker, B. M., Lattanzi, M. G., McLean, B. J., et al. 2008, AJ 136, 735, \"The Second-Generation Guide Star Catalog: Description and Properties\", arXiv:0807.2522 (arXiv version; Table 1 lists every survey's plate material and scan sampling)",
+   "file": "rawdata/imaging/poss/Lasker2008_AJ136_735_GSC-II_arXiv0807.2522.pdf",
+   "url": "https://arxiv.org/pdf/0807.2522"
+  },
+  "D20": {
+   "cite": "Dekany, R., Smith, R. M., Riddle, R., et al. 2020, PASP 132, 038001, \"The Zwicky Transient Facility: Observing System\", arXiv:2008.04923 -- the same file and key as in data/imaging/megacam_ztf_small.md (the Oschin Schmidt as it is today)",
+   "file": "rawdata/imaging/ztf/Dekany2020_PASP132_038001_ZTF_ObservingSystem_arXiv2008.04923.pdf",
+   "url": "https://arxiv.org/pdf/2008.04923"
+  },
+  "SDH": {
+   "cite": "STScI/MAST, \"MAST DSS\" home page (page stamped \"Last Modified: Jul 23, 2024 17:38\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/poss/stsci_mast_dss_index.html",
+   "url": "https://archive.stsci.edu/dss/"
+  },
+  "SDG": {
+   "cite": "STScI/MAST, DSS \"Getting Started\" page (page stamped \"Last Modified: Jul 23, 2024 17:38\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/poss/stsci_mast_dss_getting_started.html",
+   "url": "https://archive.stsci.edu/dss/getting_started.html"
+  },
+  "GSO": {
+   "cite": "STScI Catalogs and Surveys Group, \"Sky Survey overview\" (SkySurveys.htm; HTTP Last-Modified 2016-06-20; fetched 2026-10-19)",
+   "file": "rawdata/imaging/poss/stsci_gsss_SkySurveys.htm",
+   "url": "https://gsss.stsci.edu/SkySurveys/SkySurveys.htm"
+  },
+  "GST": {
+   "cite": "STScI Catalogs and Surveys Group, \"Sky Survey List\" (Surveys.htm: table of every digitized survey -- epoch, emulsion+filter, depth, declination zones, number of plates, scan pixel size, GSC and DSS generation; plus the MAST survey-name mapping; HTTP Last-Modified 2016-06-20; fetched 2026-10-19)",
+   "file": "rawdata/imaging/poss/stsci_gsss_Surveys.htm",
+   "url": "https://gsss.stsci.edu/SkySurveys/Surveys.htm"
+  },
+  "GSD": {
+   "cite": "STScI Catalogs and Surveys Group, \"Digitized Sky Survey - Data Organization\" (DSS Description.htm; HTTP Last-Modified 2016-06-20; fetched 2026-10-19)",
+   "file": "rawdata/imaging/poss/stsci_gsss_DSS_Description.htm",
+   "url": "https://gsss.stsci.edu/SkySurveys/DSS%20Description.htm"
+  },
+  "GSP": {
+   "cite": "STScI Catalogs and Surveys Group, SurveyPlateList.txt (\"compiled from the observatory plate logs\", linked from GST; one row per digitized plate: plate ID, telescope, label, survey, region, centre RA/Dec, grade, epoch, UT; UTF-16 text, 8192 rows; HTTP Last-Modified 2008-08-04; fetched 2026-10-19). Counts quoted from it are DERIVED tallies",
+   "file": "rawdata/imaging/poss/stsci_gsss_SurveyPlateList_UTF-16.txt",
+   "url": "https://gsss.stsci.edu/SkySurveys/SurveyPlateList.txt"
+  },
+  "HE": {
+   "cite": "STScI/MAST DSS cutout, survey poss1_red (POSS-I E), 2' x 2' at M101 (14 03 12.6 +54 20 57), FITS, retrieved 2026-10-19; the header carries the plate's metadata (plate XE133, label E1409) and its scan parameters",
+   "file": "rawdata/imaging/poss/stsci_dss_cutout_M101_poss1_red.fits",
+   "url": "https://archive.stsci.edu/cgi-bin/dss_search?v=poss1_red&r=14+03+12.6&d=%2B54+20+57&e=J2000&h=2.0&w=2.0&f=fits&c=none"
+  },
+  "HO": {
+   "cite": "STScI/MAST DSS cutout, survey poss1_blue (POSS-I O), same position, FITS header (plate XO133, label O1409; scanned at 15 um)",
+   "file": "rawdata/imaging/poss/stsci_dss_cutout_M101_poss1_blue.fits",
+   "url": "https://archive.stsci.edu/cgi-bin/dss_search?v=poss1_blue&r=14+03+12.6&d=%2B54+20+57&e=J2000&h=2.0&w=2.0&f=fits&c=none"
+  },
+  "HJ": {
+   "cite": "STScI/MAST DSS cutout, survey poss2ukstu_blue (POSS-II J), same position, FITS header (plate XJ175, label SJ06159)",
+   "file": "rawdata/imaging/poss/stsci_dss_cutout_M101_poss2ukstu_blue.fits",
+   "url": "https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_blue&r=14+03+12.6&d=%2B54+20+57&e=J2000&h=2.0&w=2.0&f=fits&c=none"
+  },
+  "HF": {
+   "cite": "STScI/MAST DSS cutout, survey poss2ukstu_red (POSS-II F), same position, FITS header (plate XP174, label SF05135)",
+   "file": "rawdata/imaging/poss/stsci_dss_cutout_M101_poss2ukstu_red.fits",
+   "url": "https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_red&r=14+03+12.6&d=%2B54+20+57&e=J2000&h=2.0&w=2.0&f=fits&c=none"
+  },
+  "HN": {
+   "cite": "STScI/MAST DSS cutout, survey poss2ukstu_ir (POSS-II N), same position, FITS header (plate XI175, label SN07392)",
+   "file": "rawdata/imaging/poss/stsci_dss_cutout_M101_poss2ukstu_ir.fits",
+   "url": "https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=14+03+12.6&d=%2B54+20+57&e=J2000&h=2.0&w=2.0&f=fits&c=none"
+  }
+ },
+ "poss1": {
+  "title": "POSS-I: National Geographic Society - Palomar Observatory Sky Survey (48-inch Schmidt, original singlet corrector; 103a-O and 103a-E plates; 1949-1958) and its DSS-1 digitization",
+  "recommended_preset": "Schmidt, plate at the prime focus inside the tube. D = 1.2573 m (49.5-in clear aperture at the corrector = the stop; H52), spherical mirror 1828.8 mm (72 in), R = 6125.5 mm (241.16 in), stop at the centre of curvature (D20). f_eff = 3070.0 mm DERIVED from the plate scale 67.187\"/mm (H52; f/2.442, published f/2.44). eps NOT PUBLISHED (DERIVED lower bound 0.319 from the 14-inch plate; four vanes, D20). Detector: one 14 x 14 in (355.6 mm) glass plate, 1 mm thick, bent to the spherical focal surface (R ~ 3.07 m); 6.6 x 6.6 deg (43.56 deg2); unvignetted 5.4 deg diameter (field circle 324'; the mirror walk-off reproduces it, 5.34 deg). Bands: O = 103a-O unfiltered (lambda_eff ~4100 A, ~1100 A wide), E = 103a-E + red Plexiglas 2444 (6200-6700 A). Emulsion 80 lines/mm; smallest star images ~30 um (2.0\"). Exposures 10-15 min (O), 40-60 min (E); limits O 21.1, E 20.0. Survey: 936 fields on a 6-deg grid (overlap >= 0.6 deg) to dec -33. DSS-1 (POSS-I E): 25.2845 um (1.70\"/px), 14000 x 14000 px per plate; POSS-I O later at 15 um (1.0\"/px, 23040 x 23040).",
+  "preset": {
+   "id": "poss1",
+   "name": "Palomar 48-inch Schmidt / POSS-I plates",
+   "tel": "schmidt",
+   "optics": "direct",
+   "era": "1949-1958",
+   "D_m": 1.2573,
+   "D_basis": "49.5-in clear aperture at the corrector = the aperture stop (H52)",
+   "eps": null,
+   "eps_published": false,
+   "eps_lower_bound": 0.319,
+   "eps_note": "No obscuration is published. 0.319 = area-equivalent of the 14-inch plate alone (DERIVED lower bound); the plateholder is larger. Four support vanes (D20), width unpublished.",
+   "F": 2.442,
+   "F_published": 2.44,
+   "f_eff_mm": 3070.0,
+   "f_eff_basis": "206264.8 / 67.187\"/mm (H52 plate scale)",
+   "mirror_D_mm": 1828.8,
+   "mirror_R_mm": 6125.5,
+   "stop_to_mirror_mm": 6125.5,
+   "corrector": {
+    "type": "singlet aspheric plate (plate glass), figured both sides",
+    "usable_D_mm": 1270,
+    "overall_D_mm": 1346.2,
+    "thickness_mm": 9.53,
+    "corrected_for_A": 4358
+   },
+   "focal_surface_R_mm": 3070.9,
+   "focal_surface_note": "spherical, radius = focal length (R91: 120.9 in); the plate is bent to it",
+   "plate_scale_arcsec_per_mm": 67.187,
+   "field_unvignetted_deg": 5.4,
+   "field_circle_arcmin": 324,
+   "field_circle_note": "unvignetted circle (A58/R91 5.4 deg; H52 28.6 cm = 5.34 deg). The plate's corners reach 9.39 deg across (563') with only 0.1-0.2 mag loss.",
+   "plate_corner_circle_arcmin": 563,
+   "detector": {
+    "type": "photographic_plate",
+    "n_plates": 1,
+    "pixels": null,
+    "size_mm": [
+     355.6,
+     355.6
+    ],
+    "size_deg_published": [
+     6.6,
+     6.6
+    ],
+    "size_deg_derived": [
+     6.637,
+     6.637
+    ],
+    "area_deg2_published": 43.56,
+    "thickness_mm": 1.0,
+    "glass": true,
+    "curved": true,
+    "bent_to_radius_mm": 3070.9,
+    "usable_area_deg": 6.43,
+    "usable_area_note": "photographic area on the Atlas prints (LD73)",
+    "emulsions": {
+     "O": "Kodak 103a-O (unfiltered)",
+     "E": "Kodak 103a-E + red Plexiglas 2444"
+    },
+    "resolving_power_lines_per_mm": 80,
+    "smallest_star_image_um": 30,
+    "smallest_star_image_arcsec": 2.0,
+    "grain_size_um": null,
+    "contrast_gamma": [
+     1.5,
+     2.0
+    ]
+   },
+   "bands": [
+    {
+     "k": "O",
+     "emulsion": "103a-O",
+     "filter": null,
+     "lam_eff_A": 4100,
+     "passband_A": 1100,
+     "range_A_derived": [
+      3550,
+      4650
+     ],
+     "blue_edge_note": "corrector transmission falls off below 3600 A, ~0 at 3200 A (H52)",
+     "exposure_min": [
+      10,
+      15
+     ],
+     "mlim": 21.1,
+     "mlim_system": "photographic"
+    },
+    {
+     "k": "E",
+     "emulsion": "103a-E",
+     "filter": "red Plexiglas 2444",
+     "lam_eff_A": 6500,
+     "range_A": [
+      6200,
+      6700
+     ],
+     "exposure_min": [
+      40,
+      60
+     ],
+     "mlim": 20.0,
+     "mlim_system": "photored"
+    }
+   ],
+   "survey": {
+    "n_fields": 936,
+    "n_plates": 1872,
+    "spacing_deg": 6.0,
+    "overlap_deg": 0.6,
+    "dec_south_deg": -33,
+    "dec_south_original_plan_deg": -27,
+    "dates": "1949-11 to 1958-12 (99% by 1956-06)"
+   },
+   "scans": {
+    "DSS-1": {
+     "plates": "POSS-I E (glass copies)",
+     "step_um": 25.2845,
+     "step_um_nominal": 25,
+     "arcsec_per_px": 1.7,
+     "npix": [
+      14000,
+      14000
+     ],
+     "scanner": "modified PDS 2020G",
+     "aperture_um": 50,
+     "aperture_note": "50 um smoothly apodized, documented for the GSC-I scans (L90)",
+     "compression": "H-transform, 10x, lossy (102 CD-ROMs)"
+    },
+    "15um": {
+     "plates": "POSS-I O (all) and 123 POSS-I E plates",
+     "step_um": [
+      15.0295,
+      15.0
+     ],
+     "arcsec_per_px": 1.01,
+     "npix": [
+      23040,
+      23040
+     ],
+     "scanner": "GAMMA (laser PDS)"
+    }
+   },
+   "pub": [
+    {
+     "what": "plate scale 67.187\"/mm",
+     "q": "plateScale",
+     "value": 67.187,
+     "info": true,
+     "src": "Harrington 1952; circular: f was derived from it"
+    },
+    {
+     "what": "f/2.44",
+     "q": "F",
+     "value": 2.44,
+     "tol": 0.002,
+     "src": "Harrington 1952"
+    },
+    {
+     "what": "14-inch plate covers 6.6 deg",
+     "q": "fieldX",
+     "value": 396.0,
+     "tol": 0.01,
+     "src": "Harrington 1952 (DERIVED 6.637 deg)"
+    },
+    {
+     "what": "unvignetted field 5.4 deg",
+     "q": "fieldUnvignetted",
+     "value": 324.0,
+     "tol": 0.012,
+     "src": "Abell 1958, Reid+91; mirror walk-off gives 5.34 deg"
+    },
+    {
+     "what": "DSS-1 1.7\"/px at 25.28 um",
+     "q": "scanScale",
+     "value": 1.7,
+     "tol": 0.005,
+     "src": "DSS FITS header; STScI pages"
+    }
+   ]
+  },
+  "telescope": {
+   "telescope_aperture": {
+    "value": 1.2573,
+    "unit": "m (clear aperture at the corrector plate = the aperture stop)",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The clear aperture in the camera is 49.5 inches (125.73 cm), giving a focal ratio of {/2.44.",
+    "note": "OCR \"{/2.44\" = f/2.44 (page image). For a Schmidt the entrance pupil is the stop at the corrector; the mirror (72 in) is larger.",
+    "alternatives": [
+     {
+      "value": 1.27,
+      "src": "H52",
+      "loc": "p. 278",
+      "quote": "The correcting plate, C, is of 4 inch (9.53 mm) selected plate glass with an over-all diameter of 53 inches (134.62 cm) and a usable aperture of 50 inches (127 cm).",
+      "note": "usable aperture of the corrector plate itself (50 in); overall 53 in (1.346 m). OCR \"4 inch\" = 3/8 inch (page image)",
+      "check": "ocr"
+     },
+     {
+      "value": 1.2573,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "The correcting plate has a clear aperture of 49.5 inches",
+      "note": "same value restated in 1991",
+      "check": "ocr"
+     },
+     {
+      "value": 1.244,
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "singlet aspheric (nominally zero power) corrector plate in the plane of the stop (diameter 1244 mm)",
+      "note": "D20's figure for the ORIGINAL singlet corrector at the stop; 13 mm smaller than H52's 49.5 in -- see conflicts",
+      "check": "text"
+     },
+     {
+      "value": 1.2,
+      "src": "R91",
+      "loc": "Sec. 1",
+      "quote": "48-inch (1.2-m) Oschin telescope",
+      "note": "nominal 48-inch name",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "primary_mirror": {
+    "value": {
+     "diameter_mm": 1828.8,
+     "radius_of_curvature_mm": 6125.5,
+     "figure": "spherical, aluminized Pyrex"
+    },
+    "unit": "mm",
+    "src": "H52",
+    "loc": "p. 277",
+    "quote": "The principal objective, 4, is a concave spherical pyrex-glass mirror coated with aluminum. It has a diameter of 72 inches (182.88 cm) ... The radius of curvature is 241.16 inches (612.54 cm) and the effective focal length 121 inches (307 cm).",
+    "note": "OCR \"4\" = A (the drawing letter). D20 records the same mirror for ZTF (cite by key).",
+    "alternatives": [
+     {
+      "value": {
+       "diameter_mm": 1828,
+       "stop_distance_mm": 6124
+      },
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "The telescope originally consisted of a concave spherical mirror (diameter 1828 mm), an aperture stop located at the center of curvature of this mirror (6124 mm away)",
+      "note": "the mirror and stop geometry, unchanged since 1948; same record as megacam_ztf_small.md 'primary_mirror'",
+      "check": "text"
+     },
+     {
+      "value": {
+       "diameter_in": 72,
+       "radius_of_curvature_in": 241
+      },
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "primary mirror is of diameter 72 inches (1.8 m) with a radius of curvature of 241 inches.",
+      "check": "ocr"
+     }
+    ],
+    "derived": "72 in = 1828.8 mm; 241.16 in = 6125.5 mm; mirror focal length R/2 = 3062.7 mm (D20: 3062 mm).",
+    "check": "ocr"
+   },
+   "stop_position": {
+    "value": "at the mirror's centre of curvature (6124 mm in front of the mirror); the corrector plate sits in the stop",
+    "unit": "",
+    "src": "D20",
+    "loc": "Sec. 3.1",
+    "quote": "an aperture stop located at the center of curvature of this mirror (6124 mm away), and a singlet aspheric (nominally zero power) corrector plate in the plane of the stop",
+    "note": "H52 gives no stop distance; D20's record of the original design is used (cite D20 as in megacam_ztf_small.md).",
+    "alternatives": [
+     {
+      "value": "conventional Schmidt",
+      "src": "H52",
+      "loc": "p. 277",
+      "quote": "The optical path in this instrument conforms to the conventional schmidt design.",
+      "check": "ocr"
+     }
+    ],
+    "check": "text"
+   },
+   "corrector": {
+    "value": {
+     "type": "singlet aspheric plate, plate glass, figured on both sides",
+     "thickness_mm": 9.53,
+     "overall_diameter_mm": 1346.2,
+     "usable_diameter_mm": 1270,
+     "neutral_zone_radius_mm": 508,
+     "corrected_for_A": 4358
+    },
+    "unit": "",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The correcting plate, C, is of 4 inch (9.53 mm) selected plate glass with an over-all diameter of 53 inches (134.62 cm) and a usable aperture of 50 inches (127 cm). It is figured on both sides, the neutral zone being 20 inches (50.8 cm) from the center. The correction is for 44358.",
+    "note": "OCR \"4 inch\" = 3/8 inch and \"44358\" = lambda 4358 (page image).",
+    "alternatives": [
+     {
+      "value": "figured for minimum chromatic aberration at 4358 A; image quality degrades in the near-IR",
+      "src": "R91",
+      "loc": "Sec. 3.1",
+      "quote": "The original corrector plate is of plate glass, figured to give the minimum chromatic aberration at \\4358 (MA63). As a result, the image quality deteriorates significantly at near-infrared wavelengths",
+      "check": "ocr"
+     },
+     {
+      "value": "UV transmission: falls off at 3600 A, ~40% at 3400 A, ~0 at 3200 A",
+      "src": "H52",
+      "loc": "p. 278",
+      "quote": "The transmission begins to fall off at A 3600, is about 40 percent at 4 3400, and becomes essentially zero at 4 3200.",
+      "note": "OCR \"A\"/\"4\" = lambda; this sets the blue end of the unfiltered 103a-O band",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "telescope_focal_ratio": {
+    "value": 2.44,
+    "unit": "f/# (on the 49.5-in clear aperture)",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The clear aperture in the camera is 49.5 inches (125.73 cm), giving a focal ratio of {/2.44.",
+    "alternatives": [
+     {
+      "value": 2.44,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "giving a focal ratio of f/2.44",
+      "check": "ocr"
+     }
+    ],
+    "derived": "From the published plate scale: f = 206264.8 / 67.187 = 3070.0 mm; 3070.0 / 1257.3 = f/2.442. From 121 in: 3073.4 / 1257.3 = f/2.444.",
+    "check": "ocr"
+   },
+   "effective_focal_length": {
+    "value": 3.07,
+    "unit": "m (DERIVED from the plate scale 67.187\"/mm)",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The plate scale is 1 mm = 677187.",
+    "note": "OCR \"677187\" = 67\".187 (page image).",
+    "alternatives": [
+     {
+      "value": 3.0734,
+      "src": "H52",
+      "loc": "p. 277",
+      "quote": "the effective focal length 121 inches (307 cm).",
+      "note": "121 in = 3073.4 mm",
+      "check": "ocr"
+     },
+     {
+      "value": 3.0709,
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "in the case of the Oschin Schmidt, 120.9 inches (3.07 m).",
+      "note": "R91's focal-surface radius, 'equivalent to the focal length'; 120.9 in = 3070.9 mm",
+      "check": "ocr"
+     },
+     {
+      "value": 3.0627,
+      "src": "H52",
+      "loc": "p. 277",
+      "quote": "The radius of curvature is 241.16 inches (612.54 cm)",
+      "note": "R/2 = 3062.7 mm, the mirror's paraxial focal length (D20: 3062 mm)",
+      "check": "ocr"
+     },
+     {
+      "value": 3.0694,
+      "src": "HE",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSCALE=                67.20 /Detector: Plate Scale arcsec per mm",
+      "note": "206264.8 / 67.20 = 3069.4 mm, the scale the DSS astrometry adopts",
+      "check": "fits"
+     }
+    ],
+    "derived": "206264.8 / 67.187 = 3070.04 mm. The four published routes (3062.7, 3069.4, 3070.0-3070.9, 3073.4 mm) agree to 0.35%.",
+    "check": "ocr"
+   },
+   "focal_surface": {
+    "value": "spherical, concave toward the mirror, radius = focal length (~3.07 m); plates bent to it in the plateholder",
+    "unit": "",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "Since the focal plane is spherical the plates must be bent to the proper spherical radius while being exposed.",
+    "alternatives": [
+     {
+      "value": 3070.9,
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "In a classical Schmidt telescope the focal plane is a spherical surface with a radius of curvature equivalent to the focal length of the telescope—in the case of the Oschin Schmidt, 120.9 inches (3.07 m). The 1-mm thick glass plates are bent to shape by the plate-holder mandrels (Harrington 1952, Fig. 4).",
+      "note": "radius in mm (DERIVED 120.9 in)",
+      "check": "ocr"
+     },
+     {
+      "value": 3058.2,
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "the mandrels had been figured to a smaller radius of curvature than the focal length of the telescope—typically 120.4 inches",
+      "note": "the POSS-I-era mandrels as found in the late 1980s (120.4 in = 3058.2 mm); reground for POSS-II",
+      "check": "ocr"
+     },
+     {
+      "value": 3062,
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "This design produced a focal plane of excellent image quality approximately mid-way between stop and primary mirror, having a radius of curvature of 3062 mm.",
+      "note": "the ZTF paper's value for the original design",
+      "check": "text"
+     },
+     {
+      "value": "bend test to R = 100 in (2540 mm) for one minute before use",
+      "src": "H52",
+      "loc": "p. 279",
+      "quote": "Normal procedure is to bend each plate to a radius of 100 inches (254 cm) for a period of one minute before using it in the schmidt camera.",
+      "note": "a breakage test, tighter than the working radius",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "central_obstruction": {
+    "value": null,
+    "unit": "linear eps: NOT PUBLISHED",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "the ring girder and blade assembly, which supports the plateholder, B, at the center of the tube.",
+    "note": "No source gives the plateholder's size or an obscured fraction. What sets it: the plateholder with the bent 14-inch plate, at the focus inside the tube, held by a ring girder and vanes.",
+    "alternatives": [
+     {
+      "value": "four vanes, in the plane of the ring girder, held the plate focus hub",
+      "src": "D20",
+      "loc": "Sec. 4.1 (Instrument support structure)",
+      "quote": "a four-vane structure was used to support a mechanical screw driven focus hub which held the photographic plates at prime focus. The four-vane structure lay in the same plane as the telescope ring-girder",
+      "note": "vane width not published",
+      "check": "text"
+     },
+     {
+      "value": 0.319,
+      "src": "H52",
+      "loc": "p. 278",
+      "quote": "The 48-inch schmidt camera is designed to use either 14-inch (35.56 cm) or 10-inch (25.4 cm) square glass photographic plates",
+      "note": "DERIVED LOWER BOUND, not a published value: the 14-inch plate alone, as an area-equivalent circle on the 49.5-in pupil",
+      "check": "ocr"
+     }
+    ],
+    "derived": "Lower bound from the plate alone: area-equivalent diameter of a 355.6 mm square = 355.6 x sqrt(4/pi) = 401.3 mm; / 1257.3 mm = eps 0.319 (10.2% of the pupil area). The real plateholder (frame, mandrel, loading mechanism) is larger, so the true eps is larger.",
+    "check": "ocr"
+   },
+   "shutter": {
+    "value": "clam-shell shutter just behind the corrector, opening to pass the full 49.5-in beam",
+    "unit": "",
+    "src": "H52",
+    "loc": "p. 279",
+    "quote": "The exposure shutter, F, is located in the upper end of the tube just behind the correcting plate. ... to accommodate the entire 49.5-inch incident beam.",
+    "check": "ocr"
+   }
+  },
+  "plate": {
+   "plate_size": {
+    "value": {
+     "in": [
+      14,
+      14
+     ],
+     "mm": [
+      355.6,
+      355.6
+     ],
+     "thickness_mm": 1.0,
+     "glass": true
+    },
+    "unit": "",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The 48-inch schmidt camera is designed to use either 14-inch (35.56 cm) or 10-inch (25.4 cm) square glass photographic plates 0.040 inch (1 mm) in thickness.",
+    "note": "The survey used the 14-inch plates (A58, A59). 10-inch plates were the other option.",
+    "alternatives": [
+     {
+      "value": 355.0,
+      "src": "HE",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSIZEX=              355.000 /Detector: Plate X Dimension mm",
+      "note": "the DSS plate metadata: 355 x 355 mm",
+      "check": "fits"
+     },
+     {
+      "value": 355,
+      "src": "L90",
+      "loc": "Sec. III a 1",
+      "quote": "In order to facilitate the rapid mounting of Schmidt plates (355 mm square)",
+      "check": "ocr"
+     },
+     {
+      "value": "1-mm-thick Palomar originals",
+      "src": "L90",
+      "loc": "Sec. III a 1",
+      "quote": "particularly the 1-mm-thick Palomar originals, are not sufficiently flat",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "plate_field": {
+    "value": {
+     "deg": [
+      6.6,
+      6.6
+     ],
+     "area_deg2": 43.56
+    },
+    "unit": "deg",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The 14 14 inch plate, 6°6 X 6°6, covers 43.56 square degrees.",
+    "note": "OCR drops the multiplication sign (\"14 14\" = 14 x 14) and renders 6.6 as \"6°6\".",
+    "alternatives": [
+     {
+      "value": {
+       "deg": [
+        6.6,
+        6.6
+       ]
+      },
+      "src": "A58",
+      "loc": "Sec. II a",
+      "quote": "Each of the 14 X 14-inch photographic plates employed covers a field 6°6 square",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "deg": [
+        6.6,
+        6.6
+       ]
+      },
+      "src": "A59",
+      "loc": "p. 1",
+      "quote": "can cover an area of the sky 6.6 degrees square",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "deg": [
+        6.43,
+        6.43
+       ]
+      },
+      "src": "LD73",
+      "loc": "Sec. VII item 1",
+      "quote": "The actual photographic area on each print ... measures 6°43 square and not 6°6 square as men- tioned in the literature.",
+      "note": "the exposed area on the Atlas PRINTS (6.6 deg includes the black margin)",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "deg": [
+        6.4,
+        6.4
+       ]
+      },
+      "src": "L90",
+      "loc": "Sec. II a (Quick V survey)",
+      "quote": "grid of 6°4 plates on 6°0 centers as in the original National Geographic Society-Palomar Observatory Sky Survey",
+      "note": "L90's figure for the plate field on the POSS grid",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "deg": [
+        6.0,
+        6.0
+       ]
+      },
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "the 6° x 6° field covered by the 14-inch plates",
+      "check": "ocr"
+     }
+    ],
+    "derived": "355.6 mm x 67.187\"/mm = 23,891\" = 6.637 deg per side; area 44.05 deg2 (the published 43.56 = 6.6^2). Diagonal 502.9 mm = 9.386 deg.",
+    "check": "ocr"
+   },
+   "field_unvignetted": {
+    "value": 5.4,
+    "unit": "deg (diameter)",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "The non-vignetted field is 5°4 in diameter. The computed loss in limiting magni- tude because of vignetting at the extreme corners of a plate is less than 0.2 mag.",
+    "alternatives": [
+     {
+      "value": 5.34,
+      "src": "H52",
+      "loc": "p. 278",
+      "quote": "This combination of aperture and focal ratio gives a field free of vignetting 1114 inches (28.6 cm) in diameter at the focus. The greatest loss due to vignetting at the corners of the plate is 0. 1 magnitude.",
+      "note": "OCR \"1114\" = 11 1/4 in (page image); 286 mm x 67.187\"/mm = 5.338 deg (DERIVED); corner loss 0.1 mag",
+      "check": "ocr"
+     },
+     {
+      "value": 5.4,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "the unvignetted field is of only 5°4 diameter.",
+      "check": "ocr"
+     },
+     {
+      "value": "30 deg2 unvignetted",
+      "src": "RD93",
+      "loc": "p. 129",
+      "quote": "the 30 square-degree unvignetted 48-inch Schmidt fields",
+      "note": "inconsistent with 5.4 deg diameter (22.9 deg2, DERIVED) -- see conflicts",
+      "check": "ocr"
+     }
+    ],
+    "derived": "Mirror walk-off only (the explorer's Schmidt geometry): a 1257.3 mm beam pivoting about the stop 6125.5 mm from a 1828.8 mm mirror stays on the mirror for tan(theta) <= (914.4 - 628.65)/6125.5 = 0.04665, theta <= 2.671 deg -> unvignetted diameter 5.34 deg, reproducing H52's 28.6 cm (5.34 deg) exactly. The plate corners (radius 4.69 deg) lose part of the beam but only 0.1-0.2 mag (H52, A58).",
+    "check": "ocr"
+   }
+  },
+  "bands": {
+   "O": {
+    "value": {
+     "emulsion": "Kodak 103a-O",
+     "filter": null,
+     "lam_eff_A": 4100,
+     "passband_A": 1100
+    },
+    "unit": "Angstrom",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "with the blue plates being unfiltered 103a-O and the red _ plates combining 103a-E emulsion with a red plexiglass 2444 filter. The resultant spectral response functions (see MA63) give effective wavelengths of ~ 4100 A in the blue (with a passband of ~ 1100 A) and ~ 6500 A in the red (passband ~ 500 A).",
+    "note": "Unfiltered: the blue end is set by the corrector glass and the atmosphere (H52: transmission falls off below 3600 A, ~0 at 3200 A), the red end by the 103a-O sensitivity (edge not given numerically in the sources obtained).",
+    "alternatives": [
+     {
+      "value": "blue-sensitive Kodak 103a-O",
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "red-sensitive (Kodak 103a-E) and blue-sensitive (Kodak 103a-O) photographs",
+      "check": "ocr"
+     },
+     {
+      "value": "103a-O unfiltered",
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XO           POSS-I O        δ ≥ −30◦        1950-58     103aO unfiltered      O        21.0          935     N/Y",
+      "check": "text"
+     },
+     {
+      "value": "103aO, no filter",
+      "src": "HO",
+      "loc": "FITS header (DSS)",
+      "quote": "EMULSION= '103aO   '           /Detector: Emulsion ... FILTER  = '        '           /Detector: Filter",
+      "check": "fits"
+     }
+    ],
+    "derived": "Range implied by R91's lambda_eff -/+ passband/2: ~3550-4650 A (rough; R91's response curves are in MA63, not obtained).",
+    "check": "ocr"
+   },
+   "E": {
+    "value": {
+     "emulsion": "Kodak 103a-E",
+     "filter": "red Plexiglas (no. 2444)",
+     "range_A": [
+      6200,
+      6700
+     ],
+     "lam_eff_A": 6500
+    },
+    "unit": "Angstrom",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "The red plate-filter combination has a wave-length range of \\ 6200 (filter cut off) to \\ 6700, with an effec- tive wave length near \\ 6500.",
+    "note": "OCR \"\\\" = lambda. Blue edge set by the filter, red edge by the emulsion. The 6200-6700 A band brackets H-alpha.",
+    "alternatives": [
+     {
+      "value": {
+       "range_A": [
+        6000,
+        6700
+       ],
+       "filter": "No. 160 red plexiglass"
+      },
+      "src": "H52",
+      "loc": "p. 280",
+      "quote": "For Eastman 103a-E spectroscopic plates used in combination with a No. 160 red plexiglass filter ... The No. 160 plexiglass filter, used with 103a-E plates, has a spectral sensitivity range from about A 6000 to A 6700, almost identical to that of a Wratten No. 29 filter.",
+      "note": "1952 description; filter number differs from the later sources -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "lam_eff_A": 6500,
+       "passband_A": 500,
+       "filter": "red plexiglass 2444"
+      },
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "the red _ plates combining 103a-E emulsion with a red plexiglass 2444 filter ... ~ 6500 A in the red (passband ~ 500 A).",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "filter": "red Plexiglas 2444"
+      },
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "The red plates of the original survey were taken on Kodak 103a-E emulsion in combination with a red Plexiglas 2444 filter.",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "filter": "red plexiglass no. 2444"
+      },
+      "src": "L08",
+      "loc": "Table 1 note 3",
+      "quote": "POSS-I E filter was red plexiglass no. 2444",
+      "check": "text"
+     },
+     {
+      "value": {
+       "filter": "plexi"
+      },
+      "src": "HE",
+      "loc": "FITS header (DSS)",
+      "quote": "EMULSION= '103aE   '           /Detector: Emulsion ... FILTER  = 'plexi   '           /Detector: Filter",
+      "check": "fits"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "emulsion": {
+   "resolving_power": {
+    "value": 80,
+    "unit": "lines per mm (103a emulsions)",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "The 103a emulsion is a moderately coarse-grained emulsion, with a resolution of 80 lines mm“!, but with high contrast.",
+    "note": "OCR \"mm“!\" = mm^-1. 'Lines per mm' is quoted without saying whether a line pair is meant.",
+    "derived": "1/80 mm = 12.5 um = 0.84\" at 67.19\"/mm.",
+    "check": "ocr"
+   },
+   "smallest_star_image": {
+    "value": 30,
+    "unit": "um (diameter of the smallest stellar images = the emulsion's resolution limit)",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "The smallest stellar images have a diameter of about 30 yw, about the limit of resolution of the Eastman 103a emulsions used",
+    "note": "OCR \"yw\" = mu (page image: 30 mu).",
+    "alternatives": [
+     {
+      "value": {
+       "diameter_um": 30,
+       "m_b": 21.1,
+       "m_r": 20.5
+      },
+      "src": "KR77",
+      "loc": "Table I",
+      "quote": "30u 21.1 20.5",
+      "note": "image diameter on the Atlas PRINTS (contact copies, same scale) vs magnitude: the faintest tabulated row; diameters judged 'where the image was a fairly dark gray but not quite black'",
+      "check": "ocr"
+     },
+     {
+      "value": "seeing <= 3\"",
+      "src": "A58",
+      "loc": "Sec. II a",
+      "quote": "when the seeing disk of a stellar image was not more than 3 seconds of arc in diameter.",
+      "note": "survey acceptance condition",
+      "check": "ocr"
+     }
+    ],
+    "derived": "30 um x 67.187\"/mm = 2.0\".",
+    "check": "ocr"
+   },
+   "grain_size": {
+    "value": null,
+    "unit": "NOT PUBLISHED as a number in the sources obtained",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "The 103a emulsion is a moderately coarse-grained emulsion",
+    "note": "Only qualitative ('moderately coarse-grained'); the resolving power (80 lines/mm) and the smallest image size (30 um) stand in for it.",
+    "check": "ocr"
+   },
+   "contrast": {
+    "value": [
+     1.5,
+     2.0
+    ],
+    "unit": "gamma (original plates, D-19, 5 min)",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "All plates were developed in standard formula D-19 developer for 5 minutes; the resulting contrasts are between 1.5 and 2.0.",
+    "check": "ocr"
+   }
+  },
+  "performance": {
+   "exposure_time": {
+    "value": {
+     "O_min": [
+      10,
+      15
+     ],
+     "E_min": [
+      40,
+      60
+     ]
+    },
+    "unit": "minutes",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "They ranged from 10 to 15 minutes for the blue exposures and from 40 to 60 minutes for the red.",
+    "alternatives": [
+     {
+      "value": {
+       "O_min": [
+        10,
+        12
+       ],
+       "E_min": [
+        45,
+        60
+       ]
+      },
+      "src": "H52",
+      "loc": "p. 280",
+      "quote": "Normal exposure times for Eastman 103a-O spectroscopic plates is from 10 to 12 minutes without filter. For Eastman 103a-E spectroscopic plates used in combination with a No. 160 red plexiglass filter, exposure times are from 45 to 60 minutes.",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "O_min": 10,
+       "E_min": 45
+      },
+      "src": "A59",
+      "loc": "p. 3",
+      "quote": "usually about ten minutes for -the blue plates and about forty-five minutes for the red.",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "O_min": 20,
+       "E_min": 40
+      },
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "With relatively short exposure times (20 minutes in the blue, 40 minutes in the red)",
+      "note": "R91's summary of MA63; disagrees with the contemporaneous sources -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "O_min": 12,
+       "E_min": 50
+      },
+      "src": "HE",
+      "loc": "FITS headers (DSS), plates O1409 / E1409",
+      "quote": "EXPOSURE=                 50.0 /Observation: Exposure Minutes",
+      "note": "one field's actual exposures (HO header: \"EXPOSURE=                 12.0\")",
+      "check": "fits"
+     }
+    ],
+    "check": "ocr"
+   },
+   "limiting_magnitude": {
+    "value": {
+     "O": 21.1,
+     "E": 20.0
+    },
+    "unit": "mag (O: photographic; E: 'photored', ~Kron & Smith 1951 system); every star of that magnitude leaves a recognizable image",
+    "src": "A58",
+    "loc": "Sec. II a",
+    "quote": "The limiting photographic magnitude for the blue plates is 21.1, and the limiting photored magnitude for the red plates is 20.0.",
+    "alternatives": [
+     {
+      "value": {
+       "O": 21.0,
+       "E": 20.0
+      },
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-I E XE 1950-58 103aE Epg 20.0 +90:-30 936 1.0/1.7\" 2 1 STScI ... POSS-I O XO 1950-58 103aO Opg 21.0 +90:-30 936 1.0\" 2 2 STScI",
+      "check": "html"
+     },
+     {
+      "value": {
+       "O": 21.0,
+       "E": 20.0
+      },
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XE(3)        POSS-I E        δ ≥ −30◦        1950-58   103aE+red plexiglass    E        20.0          935     N/N",
+      "check": "text"
+     },
+     {
+      "value": 20.3,
+      "src": "H52",
+      "loc": "p. 280",
+      "quote": "Limiting photographic magnitude on the 48-inch schmidt plates is 20.3.",
+      "note": "1952, early in the survey",
+      "check": "ocr"
+     },
+     {
+      "value": "21st magnitude",
+      "src": "A59",
+      "loc": "p. 1",
+      "quote": "images are recorded of stars of the 21st magnitude",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "plate_scale": {
+    "value": 67.187,
+    "unit": "arcsec/mm",
+    "src": "H52",
+    "loc": "p. 278",
+    "quote": "The plate scale is 1 mm = 677187.",
+    "note": "OCR \"677187\" = 67\".187 (page image).",
+    "alternatives": [
+     {
+      "value": 67.19,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "a plate scale of 67’19 per millimeter.",
+      "note": "OCR \"67’19\" = 67\".19",
+      "check": "ocr"
+     },
+     {
+      "value": 67.1,
+      "src": "A58",
+      "loc": "Sec. II a",
+      "quote": "the image scale is thus 67.1 seconds of arc per millimeter.",
+      "check": "ocr"
+     },
+     {
+      "value": 67.2,
+      "src": "HE",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSCALE=                67.20 /Detector: Plate Scale arcsec per mm",
+      "check": "fits"
+     },
+     {
+      "value": 67.14,
+      "src": "LD73",
+      "loc": "Sec. VII item 1",
+      "quote": "the nominal plate scale of 67’14 mm—!.",
+      "note": "nominal PRINT scale; LD73 measures 67.38/66.78\"/mm on the paper prints (X/Y), from paper stretch",
+      "check": "ocr"
+     },
+     {
+      "value": "about two inches per degree",
+      "src": "A59",
+      "loc": "p. 1",
+      "quote": "(about two inches per degree)",
+      "note": "rough: 50.8 mm/deg = 70.9\"/mm",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "survey": {
+   "n_fields": {
+    "value": 936,
+    "unit": "fields (to dec -33; 1872 plates, one O + one E per field)",
+    "src": "LD73",
+    "loc": "Sec. I",
+    "quote": "photographs of 936 different fields of the sky yielding a total of 1872 photo- graphs.",
+    "alternatives": [
+     {
+      "value": 935,
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "While this allowed coverage of the sky in only 935 plate pairs (879 to —27°)",
+      "check": "ocr"
+     },
+     {
+      "value": 879,
+      "src": "A58",
+      "loc": "Sec. II a",
+      "quote": "The survey covers the sky from the north celestial pole down to declination —27° on 879 pairs of photographs",
+      "note": "the original plan (to -27 deg)",
+      "check": "ocr"
+     },
+     {
+      "value": 879,
+      "src": "A59",
+      "loc": "p. 2",
+      "quote": "This northern three-quarters of the sky (down to declination—27°) was divided into 879 fields, each 6 degrees on a side.",
+      "check": "ocr"
+     },
+     {
+      "value": 936,
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-I E XE 1950-58 103aE Epg 20.0 +90:-30 936",
+      "check": "html"
+     },
+     {
+      "value": 935,
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XO           POSS-I O        δ ≥ −30◦        1950-58     103aO unfiltered      O        21.0          935     N/Y",
+      "check": "text"
+     },
+     {
+      "value": 935,
+      "src": "M00",
+      "loc": "Table 1",
+      "quote": "POSS-I 1950-58 E 20.0 +90:—30 935",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "E_regions": 936,
+       "E_plates": 937,
+       "O_regions": 930,
+       "O_plates": 933
+      },
+      "src": "GSP",
+      "loc": "rows with Survey = POSSI-E / POSSI-O",
+      "quote": "Palomar Schmidt",
+      "note": "DERIVED tallies of the plate list (STScI's digitized plates; 'XE001A'/'XE001B' are two plates of one field)",
+      "check": "list"
+     }
+    ],
+    "check": "ocr"
+   },
+   "field_spacing": {
+    "value": 6.0,
+    "unit": "deg between plate centres",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "The original survey was taken with a six-degree spacing between plate centers.",
+    "alternatives": [
+     {
+      "value": 6.0,
+      "src": "L08",
+      "loc": "Table 1 note",
+      "quote": "POSS-I and Pal-QV surveys utilized a 6◦ grid of telescope pointings, with minimum plate overlap, while the other surveys used a 5◦ degree grid.",
+      "check": "text"
+     },
+     {
+      "value": {
+       "overlap_deg": 0.6
+      },
+      "src": "A58",
+      "loc": "Sec. II a",
+      "quote": "The fields for the sky survey were selected to allow for an overlap of at least 0°6 along adjacent edges.",
+      "check": "ocr"
+     },
+     {
+      "value": "small overlap, mostly vignetted",
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "allows only a small overlap between adjacent fields, with most of this overlap lying in the vignetted regions.",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "dec_zones": "-30, -24, ..., +84, +90 (21 zones, 6 deg apart)"
+      },
+      "src": "GSP",
+      "loc": "centre declinations of the POSSI-E rows",
+      "quote": "Palomar Schmidt",
+      "note": "DERIVED from the plate list (zone counts 57, 55, 60, ... 10, 2 plates)",
+      "check": "list"
+     }
+    ],
+    "derived": "Overlap = plate width - spacing = 6.6 - 6.0 = 0.6 deg (= A58's figure); 6.64 - 6.0 = 0.64 deg with the DERIVED plate width.",
+    "check": "ocr"
+   },
+   "sky_coverage": {
+    "value": "dec >= -33 deg (blue + red); -27 deg in the original plan; red-only Whiteoak extension to about -42/-45 deg",
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "to a declination limit of —27° (Wilson 1952) but was extended to —33° ... Whiteoak further extended the survey to a declination of — 45° (or a zenith distance of 78°) using red plates only.",
+    "alternatives": [
+     {
+      "value": "dec > -33",
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "From 1949 to 1958, the 48-inch Palomar Schmidt telescope was used to photographically survey the entire sky above declination —33°",
+      "check": "ocr"
+     },
+     {
+      "value": "+90 to -30 (zones)",
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-I O XO 1950-58 103aO Opg 21.0 +90:-30 936",
+      "check": "html"
+     },
+     {
+      "value": "dec >= -30",
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XE(3)        POSS-I E        δ ≥ −30◦",
+      "check": "text"
+     },
+     {
+      "value": "Whiteoak extension to -42 deg, 1964/5",
+      "src": "R94",
+      "loc": "p. 29",
+      "quote": "(with plates for the Whiteoak extension, to 5, = -42°, taken in 1964/5)",
+      "note": "OCR \"5,\" = delta_1950",
+      "check": "ocr"
+     },
+     {
+      "value": "Whiteoak extension to about -45 deg, red only, amber Plexiglas",
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "This series extends the southern limit of the survey to about —45° declination. Only one photograph, in red light, was taken of each field for the extension.",
+      "check": "ocr"
+     },
+     {
+      "value": "Whiteoak extension made in 1962",
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "In 1962, J. B. Whiteoak made a series of photographs with the Palomar Schmidt telescope",
+      "note": "vs 1964/5 in R94 -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": 33660,
+      "src": "D20",
+      "loc": "Sec. 1",
+      "quote": "ZTF observes the same number (33,660) of square degrees as POSS",
+      "note": "deg2; DERIVED: the sky north of -39.2 deg; north of -33 deg is 31,860 deg2",
+      "check": "text"
+     }
+    ],
+    "derived": "Sky north of dec -33: 41,253 x (1 + sin 33)/2 = 31,860 deg2; north of -30: 30,940 deg2. Lowest POSS-I E centre in GSP: -30.74 deg -> southern edge -34.1 deg.",
+    "check": "ocr"
+   },
+   "dates": {
+    "value": {
+     "first_plate": "1949-11-11 (rejected)",
+     "99_percent_by": "1956-06-20",
+     "last_plate": "1958-12-10"
+    },
+    "unit": "",
+    "src": "RD93",
+    "loc": "pp. 125-126",
+    "quote": "the first plate (rejected!) taken on November 11th, 1949. ... In fact, 99 % of the plates were taken by June 20, 1956 - and the final 1 % was not completed until Dec 10, 1958.",
+    "alternatives": [
+     {
+      "value": "first accepted plates July 1949; completed late 1956",
+      "src": "R91",
+      "loc": "Sec. 2",
+      "quote": "with the first ac- cepted plates being taken in July 1949 and the survey completed in late 1956.",
+      "note": "July 1949 precedes RD93's first plate (Nov 1949) -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": "1949-1958",
+      "src": "LD73",
+      "loc": "Sec. I",
+      "quote": "From 1949 to 1958, the 48-inch Palomar Schmidt telescope",
+      "check": "ocr"
+     },
+     {
+      "value": "Nov 1949 - Dec 1958",
+      "src": "R94",
+      "loc": "p. 29",
+      "quote": "between November 1949 and December 1958",
+      "check": "ocr"
+     },
+     {
+      "value": "1950-58",
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-I E XE 1950-58",
+      "check": "html"
+     },
+     {
+      "value": "1950-1957",
+      "src": "D20",
+      "loc": "Sec. 1",
+      "quote": "the 14-inch photographic plates used on the same telescope during the two color Palomar Optical all Sky Survey (POSS) from 1950 to 1957",
+      "check": "text"
+     },
+     {
+      "value": {
+       "earliest": "1949-11-19",
+       "latest": "1958-12-10"
+      },
+      "src": "GSP",
+      "loc": "UT column of the POSSI-E rows",
+      "quote": "1958-12-10T10:12:00.",
+      "note": "DERIVED range of the digitized plates (one row carries a mistyped epoch 2049.894 with UT 1949-11-23)",
+      "check": "list"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "digitization": {
+   "dss1_plates": {
+    "value": "POSS-I E (north) + SERC-J (south) make up the published DSS-1 (102 CD-ROMs, 10x lossy H-transform compression)",
+    "unit": "",
+    "src": "M00",
+    "loc": "Sec. 2",
+    "quote": "The originally published Digitized Sky Survey consisted of the Palomar POSS-I E survey and the SERC-J survey scanned at 25 micron resolution with modified PDS microdensitometers (Laidler et al. 1994).",
+    "alternatives": [
+     {
+      "value": "POSS-I (E) + SERC J; 10x H-transform; 102 CD-ROMs",
+      "src": "L96",
+      "loc": "Sec. 2",
+      "quote": "A very similar problem with earlier ST ScI scans of the POSS-I (E) and the SERC J surveys led to the development of the Digitized Sky Survey—I, based on 10X compression with loss, using the H-transform (White et al. 1992), and occupying 102 printed CD-ROMs.",
+      "check": "ocr"
+     },
+     {
+      "value": "POSS-I E in DSS 1",
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-I E XE 1950-58 103aE Epg 20.0 +90:-30 936 1.0/1.7\" 2 1 STScI",
+      "note": "DSS 1/2 column = 1",
+      "check": "html"
+     },
+     {
+      "value": "DSS1 = Pal-QV (North)",
+      "src": "GST",
+      "loc": "MAST survey mapping note",
+      "quote": "DSS1 = Pal-QV (North), SERC-J/SERC-EJ (South) DEPRECATED & No Longer Supported",
+      "note": "contradicts the same page's table and M00/L96 -- see conflicts",
+      "check": "html"
+     },
+     {
+      "value": "scans of glass copies",
+      "src": "L08",
+      "loc": "Table 1 note",
+      "quote": "Scans performed on glass copies of the S, XE and XO plates, rather than on the original plates.",
+      "check": "text"
+     }
+    ],
+    "check": "ocr"
+   },
+   "dss1_scan_step": {
+    "value": 25.2845,
+    "unit": "um (sample interval)",
+    "src": "HE",
+    "loc": "FITS header (DSS), plate E1409",
+    "quote": "XPIXELSZ=              25.2845 /Scan: Pixel Size microns",
+    "alternatives": [
+     {
+      "value": 25,
+      "src": "M00",
+      "loc": "Sec. 2",
+      "quote": "scanned at 25 micron resolution",
+      "check": "ocr"
+     },
+     {
+      "value": 25,
+      "src": "SDG",
+      "loc": "Getting Started",
+      "quote": "The digital images have a pixel size of either 25 microns (1.7 arcsec per pixel) or 15 microns (1.0 arcsec per pixel)",
+      "check": "html"
+     },
+     {
+      "value": 25,
+      "src": "GSO",
+      "loc": "overview",
+      "quote": "a pixel size of either 25 or 15 microns (1.7 or 1.0 arcsec respectively)",
+      "check": "html"
+     },
+     {
+      "value": 25.284,
+      "src": "L90",
+      "loc": "Table IV (PDS scanning configuration)",
+      "quote": "Sample interval 25.284 wm",
+      "note": "the GSC-I configuration (Quick-V and SERC-J plates); footnote: \"This parameter was 25.000 um before 5 March, 1985.\"; OCR \"wm\" = um",
+      "check": "ocr"
+     },
+     {
+      "value": 25,
+      "src": "L08",
+      "loc": "Table 1 note 3",
+      "quote": "scanned at 25 micron sampling except 123 plates scanned at 15 micron",
+      "note": "123 POSS-I E plates, mostly south of -18 deg, were scanned at 15 um instead",
+      "check": "text"
+     }
+    ],
+    "check": "fits"
+   },
+   "dss1_pixel_scale": {
+    "value": 1.7,
+    "unit": "arcsec/pixel",
+    "src": "HE",
+    "loc": "FITS header (DSS)",
+    "quote": "CD1_1   =        -0.0004722193 /GetImage: rotation matrix coefficient",
+    "note": "The cutout's local WCS; 0.0004722193 deg = 1.700\".",
+    "alternatives": [
+     {
+      "value": 1.7,
+      "src": "SDH",
+      "loc": "home page",
+      "quote": "to a pixel scale of about 1.7 arcseconds per pixel for the POSS, SERC, and Palomar Quick-V surveys",
+      "check": "html"
+     },
+     {
+      "value": 1.7,
+      "src": "SDG",
+      "loc": "Getting Started",
+      "quote": "25 microns (1.7 arcsec per pixel)",
+      "check": "html"
+     },
+     {
+      "value": 1.7,
+      "src": "GSD",
+      "loc": "Data Organization",
+      "quote": "survey plate scan was either 14000x14000 (1.7\" pixels) or 23040x23040 (1.0\" pixels) in size.",
+      "check": "html"
+     },
+     {
+      "value": 1.7,
+      "src": "L90",
+      "loc": "Abstract",
+      "quote": "The plates were digitized into 14 000 x 14 000 rasters at a 25 wm (1°77) sampling interval using modified PDS microdensitometers.",
+      "note": "OCR \"1°77\" = 1\".7 (page image); GSC-I plates",
+      "check": "ocr"
+     },
+     {
+      "value": 1.73,
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "1.0 arcsec instead of 1.73 arcsec used in the DSS.",
+      "note": "1.73\" matches no plate scale x 25.28 um on the Palomar plates (1.70\") -- see conflicts",
+      "check": "text"
+     }
+    ],
+    "derived": "25.2845 um x 67.20\"/mm = 1.699\"; x 67.187\"/mm = 1.699\".",
+    "check": "fits"
+   },
+   "dss1_scan_size": {
+    "value": [
+     14000,
+     14000
+    ],
+    "unit": "pixels per plate",
+    "src": "SDG",
+    "loc": "Getting Started",
+    "quote": "and are 14000 x 14000 or 23040 x 23040 npixels perl side.",
+    "alternatives": [
+     {
+      "value": [
+       14000,
+       13999
+      ],
+      "src": "HE",
+      "loc": "FITS header (DSS)",
+      "quote": "XPIXELS =                14000 /Scan: X Dimension ... YPIXELS =                13999 /Scan: Y Dimension",
+      "check": "fits"
+     },
+     {
+      "value": {
+       "pixels": [
+        14000,
+        14000
+       ],
+       "scan_size_mm": 355,
+       "volume": "400 Mbytes"
+      },
+      "src": "L90",
+      "loc": "Table IV",
+      "quote": "Scan size 355 mm sqpare ... Image size 14000 x 14000 pixels",
+      "note": "OCR \"sqpare\" = square",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "pixels": [
+        14000,
+        14000
+       ],
+       "volume_GB": 0.4
+      },
+      "src": "GSO",
+      "loc": "overview",
+      "quote": "These images are 14000x14000 (0.4GB) or 23040x23040 pixels (1.1GB) in size",
+      "check": "html"
+     }
+    ],
+    "derived": "14000 x 25.2845 um = 354.0 mm = 6.61 deg at 67.20\"/mm (the whole 355-mm plate).",
+    "check": "html"
+   },
+   "dss1_aperture": {
+    "value": 50,
+    "unit": "um (smoothly apodized scanning aperture, GSC-I PDS configuration)",
+    "src": "L90",
+    "loc": "Sec. III a",
+    "quote": "In order to avoid astrometric errors due to aliasing, the plates are fil- tered through a 50 wm smoothly apodized aperture before sampling",
+    "note": "OCR \"wm\" = um. Stated for the GSC-I scans (L90); M00 and L96 say the POSS-I E scans used the same modified PDS machines, but neither restates the aperture.",
+    "alternatives": [
+     {
+      "value": "25 x 60 um lower aperture, projected",
+      "src": "L90",
+      "loc": "Table IV",
+      "quote": "Lower aperture projected 25 wm x 60 pm",
+      "note": "the PDS slit as projected on the plate",
+      "check": "ocr"
+     },
+     {
+      "value": "25 um is 'slightly too coarse'; full extraction needs 12-18 um",
+      "src": "L90",
+      "loc": "Sec. III a",
+      "quote": "The adopted sample interval is 25 zm. This is slightly too coarse to extract all available information from the plates, which have image sizes as small as 40 wm (visual full width)",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "later_15um_scans": {
+    "value": {
+     "POSS-I O": "all plates at 15 um (1.0\")",
+     "POSS-I E": "123 plates at 15 um"
+    },
+    "unit": "",
+    "src": "GST",
+    "loc": "survey table",
+    "quote": "POSS-I O XO 1950-58 103aO Opg 21.0 +90:-30 936 1.0\" 2 2 STScI",
+    "note": "POSS-I O was digitized only in the second (GSC-II/DSS-2) campaign, on the GAMMA machines at 15 um; it appears in MAST as 'POSS1 Blue'.",
+    "alternatives": [
+     {
+      "value": {
+       "x_um": 15.0295,
+       "y_um": 15.0,
+       "pixels": [
+        23040,
+        23040
+       ]
+      },
+      "src": "HO",
+      "loc": "FITS header (DSS), plate O1409",
+      "quote": "XPIXELS =                23040 /Scan: X Dimension ... XPIXELSZ=              15.0295 /Scan: Pixel Size microns ... YPIXELSZ=              15.0000 /Scan: Pixel Size microns",
+      "check": "fits"
+     },
+     {
+      "value": "POSS1 Blue = POSS-I O",
+      "src": "GST",
+      "loc": "MAST survey mapping note",
+      "quote": "POSS1 Blue = POSS-I O",
+      "check": "html"
+     }
+    ],
+    "check": "html"
+   }
+  },
+  "not_found": [
+   "The plateholder's size or any obscured fraction (no linear or area obstruction published); the vane width of the four-vane plateholder support. eps is left null; 0.319 is a DERIVED lower bound from the 14-inch plate alone.",
+   "Numerical grain size of 103a-O/E (only 'moderately coarse-grained', 80 lines/mm, smallest images ~30 um).",
+   "The 103a-O red cut-off and full O/E response curves (in Minkowski & Abell 1963, 'Basic Astronomical Data' p. 481, which is not on ADS full text and was not obtained; R91 cites it as MA63).",
+   "The scanning aperture actually used for the POSS-I E DSS-1 scans (the 50 um apodized aperture is documented for the GSC-I plates); the scan-step history of the POSS-I E campaign (25.000 vs 25.284 um).",
+   "Exposure times per plate beyond the published ranges (the GSP plate list has no exposure column; single-plate values come from DSS FITS headers)."
+  ],
+  "conflicts": [
+   "Aperture: 49.5 in = 1257.3 mm clear aperture (H52, R91) vs 1244 mm for the original singlet corrector at the stop (D20). The recommended D follows H52, the telescope's own description; H52 also gives 50 in usable / 53 in overall for the corrector glass.",
+   "Focal length / plate scale: 67.187\"/mm (H52) -> 3070.0 mm; 67.19 (R91); 67.20 (DSS headers) -> 3069.4 mm; 67.1 (A58); 121 in = 3073.4 mm (H52); R/2 = 3062.7 mm (H52 radius; D20 3062 mm). Spread 0.35%.",
+   "Unvignetted field: 5.4 deg diameter (A58, R91) and 11.25 in = 5.34 deg (H52) vs '30 square-degree unvignetted' (RD93; a 5.4-deg circle is 22.9 deg2).",
+   "Corner vignetting loss: 0.1 mag (H52) vs < 0.2 mag (A58).",
+   "Plate field: 6.6 x 6.6 deg (H52, A58, A59, R91 Sec. 3) vs 6.43 deg photographic area on the prints (LD73) vs 6.4 deg (L90) vs '6 x 6 deg field' (R91 Sec. 2); DERIVED 6.64 deg for 355.6 mm at 67.187\"/mm.",
+   "Red filter: 'No. 160 red plexiglass', 6000-6700 A (H52, 1952) vs red Plexiglas 2444 (R91, LD73, L08), 6200 (filter cut-off)-6700 A (A58).",
+   "Exposure times: O 10-12 / E 45-60 min (H52); O 10-15 / E 40-60 (A58); ~10 / ~45 (A59) vs 20 / 40 min (R91).",
+   "Limiting magnitude: O 21.1, E 20.0 (A58) vs O 21.0 (GST, L08, M00) vs 20.3 photographic (H52, 1952).",
+   "Number of fields: 936 fields / 1872 plates (LD73, GST) vs 935 (R91, L08, M00) vs 879 to -27 deg (A58, A59). GSP has 936 E regions but 930 O regions.",
+   "Southern limit: -33 deg (R91, LD73) vs +90:-30 zones (GST, M00) / dec >= -30 (L08) -- the latter quote plate-centre zones (lowest centre -30.7 deg, edge ~-34 deg).",
+   "Dates: first accepted plates July 1949 (R91) vs first plate, rejected, 11 Nov 1949 (RD93; earliest GSP plate 19 Nov 1949); end late 1956 (R91) vs 99% by June 1956 and last on 10 Dec 1958 (RD93, R94, GSP) vs 1950-58 (GST, M00) vs 1950-1957 (D20).",
+   "Whiteoak extension: to -45 deg (R91) / 'about -45' (LD73) vs -42 deg, taken 1964/5 (R94); LD73 says the series was made in 1962.",
+   "Which plates are DSS-1 north: POSS-I E (M00, L96, GST table) vs 'DSS1 = Pal-QV (North)' in GST's MAST mapping note (the Quick-V survey was the GSC-I plate material, L90).",
+   "DSS-1 pixel: 25 um / 1.7\" (STScI pages, M00) vs 25.2845 um (FITS header) / 25.284 um (L90 Table IV, after 5 March 1985; 25.000 before) vs 1.73\" (D98)."
+  ],
+  "notes": [
+   "Schmidt geometry for the drawing: corrector = stop at the mirror's centre of curvature, 6125 mm in front of the 1829 mm spherical mirror; the plate (bent to R ~ 3.07 m, concave toward the mirror) sits half-way, facing the mirror, in a plateholder carried by vanes from the ring girder. The mirror is oversized so that beams up to 2.67 deg off axis stay on it -- the same walk-off that the ZTF records describe (megacam_ztf_small.md, D20).",
+   "The plate replaces the CCD mosaic: one 355.6 mm (14 in) square of 1-mm glass, no pixels and no gaps. Its fineness: ~30 um smallest star images (2.0\"), emulsion resolving power 80 lines/mm; digitized later at 25.28 um (1.70\", DSS-1, E plates) or 15 um (1.0\", O plates and 123 E plates).",
+   "MA63 (Minkowski & Abell 1963) is the standard POSS-I reference but has no ADS full text; every POSS-I number here comes from the documents listed above (H52 for the telescope; A58, A59, LD73 and R91, which summarises MA63, for the survey; L90, M00, L96, L08, the STScI pages and the DSS FITS headers for the scans)."
+  ]
+ },
+ "poss2": {
+  "title": "POSS-II: Second Palomar Observatory Sky Survey (Oschin Schmidt with the 1985 achromatic doublet; IIIa-J, IIIa-F, IV-N plates; 1985-2002) and its DSS-2 digitization",
+  "recommended_preset": "As POSS-I but with the 1985 Grubb Parsons achromatic doublet corrector (LLF6 + UBK7; < 0.5\" images over 6.5 x 6.5 deg from 3900 to 9000 A). D = 1.2573 m (49.5 in; R91), f/2.44, 67.19\"/mm -> f_eff = 3069.9 mm DERIVED; same mirror and stop; eps NOT PUBLISHED (>= 0.319 DERIVED). Plate: 14-in, 1-mm glass vacuum-held on mandrels reground to R = 120.9 in (3.07 m); filter in the plateholder. Bands: J = IIIa-J + GG395 (~4800 A), F = IIIa-F + RG610 (~6500 A), N = IV-N + RG9 (~8500 A). Emulsion 250 lines/mm; plates rejected if images exceed 40 um (3\"). Exposures 50-70 (J), 70-90 (F), 90+ (N) min; limits B_J 22.5, R_F 20.8, I_N 19.5. Survey: 894 fields on a 5-deg grid, dec >= 0. DSS-2: 15 um (1.0\"/px; header 15.0295 x 15.0), 23040 x 23040 px per plate, 42-um laser spot.",
+  "preset": {
+   "id": "poss2",
+   "name": "Palomar 48-inch Oschin Schmidt / POSS-II plates",
+   "tel": "schmidt",
+   "optics": "direct",
+   "era": "1985-2002",
+   "D_m": 1.2573,
+   "D_basis": "49.5-in clear aperture (R91); D20 gives a 1244.6-mm entrance pupil for the ZTF era",
+   "eps": null,
+   "eps_published": false,
+   "eps_lower_bound": 0.319,
+   "eps_note": "No obscuration published; 0.319 = the 14-inch plate alone (DERIVED lower bound).",
+   "F": 2.442,
+   "F_published": 2.44,
+   "f_eff_mm": 3069.9,
+   "f_eff_basis": "206264.8 / 67.19\"/mm (R91)",
+   "mirror_D_mm": 1828.8,
+   "mirror_R_mm": 6125.5,
+   "stop_to_mirror_mm": 6125.5,
+   "corrector": {
+    "type": "achromatic doublet, Schott LLF6 + O'Hara BK7W (UBK7), Grubb Parsons, UKST design",
+    "installed": 1985,
+    "D_mm": null,
+    "image_quality": "< 0.5\" over 6.5 x 6.5 deg, 3900-9000 A; circle of confusion 0.34\"; astigmatic (30 um defocus elongates)"
+   },
+   "focal_surface_R_mm": 3070.9,
+   "focal_surface_note": "mandrels reground to 120.9 in; vacuum hold-down +/-15 um",
+   "plate_scale_arcsec_per_mm": 67.19,
+   "field_unvignetted_deg": 5.4,
+   "field_circle_arcmin": 324,
+   "plate_corner_circle_arcmin": 563,
+   "filter_in_plateholder": {
+    "clearance_mm_centre": 2,
+    "clearance_mm_edge": 20
+   },
+   "detector": {
+    "type": "photographic_plate",
+    "n_plates": 1,
+    "pixels": null,
+    "size_mm": [
+     355.6,
+     355.6
+    ],
+    "size_deg_published": [
+     6.6,
+     6.6
+    ],
+    "size_deg_alt": [
+     6.5,
+     6.5
+    ],
+    "thickness_mm": 1.0,
+    "glass": true,
+    "curved": true,
+    "bent_to_radius_mm": 3070.9,
+    "emulsions": {
+     "J": "Kodak IIIa-J + GG395",
+     "F": "Kodak IIIa-F + RG610",
+     "N": "Kodak IV-N + RG9"
+    },
+    "resolving_power_lines_per_mm": 250,
+    "max_star_image_um": 40,
+    "max_star_image_arcsec": 2.7,
+    "grain_size_um": null,
+    "hypersensitization_gain": {
+     "IIIa": [
+      5,
+      10
+     ],
+     "IV-N": 100
+    }
+   },
+   "bands": [
+    {
+     "k": "J",
+     "emulsion": "IIIa-J",
+     "filter": "GG395",
+     "filter_alt": "GG385",
+     "lam_eff_A": 4800,
+     "range_A_fig1": [
+      3550,
+      5850
+     ],
+     "half_peak_A_fig1": [
+      4400,
+      5500
+     ],
+     "exposure_min": [
+      50,
+      70
+     ],
+     "mlim": 22.5,
+     "mlim_system": "B_J"
+    },
+    {
+     "k": "F",
+     "emulsion": "IIIa-F",
+     "filter": "RG610",
+     "lam_eff_A": 6500,
+     "range_A_fig1": [
+      5900,
+      7150
+     ],
+     "half_peak_A_fig1": [
+      6250,
+      6940
+     ],
+     "exposure_min": [
+      70,
+      90
+     ],
+     "mlim": 20.8,
+     "mlim_system": "R_F (Cousins-calibrated)"
+    },
+    {
+     "k": "N",
+     "emulsion": "IV-N",
+     "filter": "RG9",
+     "lam_eff_A": 8500,
+     "range_A_fig1": [
+      6980,
+      9650
+     ],
+     "half_peak_A_fig1": [
+      7630,
+      9210
+     ],
+     "exposure_min": [
+      90,
+      null
+     ],
+     "mlim": 19.5,
+     "mlim_system": "I_N (Cousins-calibrated)"
+    }
+   ],
+   "survey": {
+    "n_fields": 894,
+    "n_plates": 2682,
+    "spacing_deg": 5.0,
+    "overlap_deg": 1.6,
+    "dec_south_deg": 0,
+    "dates": "1985-2002 (corrector 1985; J/F done ~1999-2000, N 2002)"
+   },
+   "scans": {
+    "DSS-2": {
+     "plates": "POSS-II J, F, N originals",
+     "step_um": 15.0,
+     "step_um_header": [
+      15.0295,
+      15.0
+     ],
+     "arcsec_per_px": 1.008,
+     "npix": [
+      23040,
+      23040
+     ],
+     "scanner": "GAMMA 1/2 (laser-illuminated, 5-channel PDS)",
+     "spot_um": 42,
+     "spot_note": "Gaussian laser spot (L08); 30 um apodized aperture in the 1993 plan (LP93)",
+     "volume_GB": 1.1,
+     "compression": "H-transform, ~7-10x, lossy"
+    }
+   },
+   "pub": [
+    {
+     "what": "plate scale 67.19\"/mm",
+     "q": "plateScale",
+     "value": 67.19,
+     "info": true,
+     "src": "Reid+91; circular: f was derived from it"
+    },
+    {
+     "what": "f/2.44",
+     "q": "F",
+     "value": 2.44,
+     "tol": 0.002,
+     "src": "Reid+91"
+    },
+    {
+     "what": "unvignetted field 5.4 deg",
+     "q": "fieldUnvignetted",
+     "value": 324.0,
+     "tol": 0.012,
+     "src": "Reid+91; mirror walk-off gives 5.34 deg"
+    },
+    {
+     "what": "DSS-2 1.0\"/px at 15 um",
+     "q": "scanScale",
+     "value": 1.008,
+     "tol": 0.01,
+     "src": "STScI; DSS FITS header 15.0 um x 67.20\"/mm"
+    },
+    {
+     "what": "emulsion 250 lines/mm = 0.27\"",
+     "q": "emulsionRes",
+     "value": 0.269,
+     "info": true,
+     "src": "Reid+91 (DERIVED conversion)"
+    }
+   ]
+  },
+  "telescope": {
+   "telescope_aperture": {
+    "value": 1.2573,
+    "unit": "m (clear aperture at the corrector = the aperture stop)",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "The correcting plate has a clear aperture of 49.5 inches and the effective focal length of the system is 121 inches, giving a focal ratio of f/2.44",
+    "note": "R91 restates the 1952 values for the telescope with the new doublet.",
+    "alternatives": [
+     {
+      "value": 1.2446,
+      "src": "D20",
+      "loc": "Table 1",
+      "quote": "Entrance pupil diameter 1244.6 mm",
+      "note": "ZTF-era entrance pupil (doublet + trim plate), the record used in megacam_ztf_small.md; 1% smaller than 49.5 in -- see conflicts",
+      "check": "text"
+     },
+     {
+      "value": 1.2,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "The Oschin 48-inch (1.2-m) Schmidt camera",
+      "note": "nominal",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "primary_mirror": {
+    "value": {
+     "diameter_mm": 1828.8,
+     "radius_of_curvature_mm": 6121.4
+    },
+    "unit": "mm",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "primary mirror is of diameter 72 inches (1.8 m) with a radius of curvature of 241 inches.",
+    "note": "Unchanged since 1948: H52 gives 241.16 in (6125.5 mm); D20 1828 mm and 6124 mm (megacam_ztf_small.md 'primary_mirror').",
+    "alternatives": [
+     {
+      "value": {
+       "diameter_mm": 1828,
+       "stop_distance_mm": 6124
+      },
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "concave spherical mirror (diameter 1828 mm), an aperture stop located at the center of curvature of this mirror (6124 mm away)",
+      "check": "text"
+     }
+    ],
+    "derived": "241 in = 6121.4 mm (R91, rounded); 241.16 in = 6125.5 mm (H52).",
+    "check": "ocr"
+   },
+   "corrector": {
+    "value": {
+     "type": "achromatic doublet (Schott LLF6 + O'Hara BK7W = Schott UBK7), UKST design",
+     "maker": "Grubb Parsons",
+     "installed": 1985
+    },
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 3.1",
+    "quote": "A new achromatic corrector plate was constructed by Grubb Parsons and installed in the telescope in 1985. This lens, made to the same design as the UK Schmidt Telescope (UKST) achromat described by Wynne 1981, is a doublet in construction, combining Schott type-LLF6 glass with O'Hara BK7W (equivalent to Schott UBK7).",
+    "note": "THE change from POSS-I: the singlet plate (figured for 4358 A) was replaced by an achromat so that red and near-IR images stay sharp. Its diameter and thickness are not given.",
+    "alternatives": [
+     {
+      "value": "contact-cemented achromatic doublet, Grubb-Parsons, 1982",
+      "src": "D20",
+      "loc": "Sec. 3.1",
+      "quote": "In 1982, in order to improve de- livered image quality, the original singlet aspheric plate was replaced with a contact-cemented achromatic doublet ... cated by Grubb-Parsons in the United Kingdom.",
+      "note": "D20 dates the swap to 1982 -- see conflicts; ZTF still uses this doublet, with a trim plate added (megacam_ztf_small.md 'optics_train')",
+      "check": "text"
+     },
+     {
+      "value": "delivered mid-1985",
+      "src": "RD93",
+      "loc": "p. 126",
+      "quote": "it was not until mid-1985, when Grubb Parsons delivered the new corrector, that survey plate-taking could start",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "image_quality": {
+    "value": {
+     "image_size_arcsec_max": 0.5,
+     "wavelength_A": [
+      3900,
+      9000
+     ],
+     "field_deg": [
+      6.5,
+      6.5
+     ],
+     "circle_of_confusion_arcsec": 0.34
+    },
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 3.1",
+    "quote": "The resultant image size is better than 05 for in-focus point sources over the full 6.5 x 6.5 degree field for 3900 ... For in-focus images the circle of confusion is only 0734 in diameter, and the image size is determined by the seeing disk.",
+    "note": "OCR \"05\" = 0\".5 and \"0734\" = 0\".34; the wavelength range 3900 <= lambda <= 9000 A was read from the page image (OCR garbles it).",
+    "alternatives": [
+     {
+      "value": "astigmatic: 30 um defocus elongates images",
+      "src": "R91",
+      "loc": "Sec. 3.1",
+      "quote": "The corrector, however, has a significant astigmatic component. ... However, moving as little as 30 um outside the image plane leads to significant image elonga- tion",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "telescope_focal_ratio": {
+    "value": 2.44,
+    "unit": "f/#",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "giving a focal ratio of f/2.44",
+    "derived": "206264.8 / 67.19 = 3069.9 mm; / 1257.3 mm = f/2.442.",
+    "check": "ocr"
+   },
+   "effective_focal_length": {
+    "value": 3.0699,
+    "unit": "m (DERIVED from the plate scale 67.19\"/mm)",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "giving a focal ratio of f/2.44 and a plate scale of 67’19 per millimeter.",
+    "note": "OCR \"67’19\" = 67\".19 (page image).",
+    "alternatives": [
+     {
+      "value": 3.0734,
+      "src": "R91",
+      "loc": "Sec. 3",
+      "quote": "the effective focal length of the system is 121 inches",
+      "note": "121 in = 3073.4 mm",
+      "check": "ocr"
+     },
+     {
+      "value": 3.0709,
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "in the case of the Oschin Schmidt, 120.9 inches (3.07 m).",
+      "note": "focal-surface radius = focal length",
+      "check": "ocr"
+     },
+     {
+      "value": 3.0694,
+      "src": "HF",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSCALE=                67.20 /Detector: Plate Scale arcsec per mm",
+      "note": "206264.8 / 67.20",
+      "check": "fits"
+     }
+    ],
+    "derived": "206264.8 / 67.19 = 3069.9 mm.",
+    "check": "ocr"
+   },
+   "focal_surface": {
+    "value": "spherical, R = focal length = 120.9 in (3.07 m); plates vacuum-held on mandrels reground to that radius",
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 3.2",
+    "quote": "In a classical Schmidt telescope the focal plane is a spherical surface with a radius of curvature equivalent to the focal length of the telescope—in the case of the Oschin Schmidt, 120.9 inches (3.07 m).",
+    "alternatives": [
+     {
+      "value": "vacuum hold-down to +/-15 um",
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "Running at a pressure of 430 mm of mercury, this forces the plate to conform to the figured mandrel to an accuracy of +15 pm.",
+      "note": "OCR \"+15 pm\" = +/-15 um",
+      "check": "ocr"
+     },
+     {
+      "value": "mandrels reground (were 120.4 in)",
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "All of the mandrels have been reground to the correct radius of curvature.",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "plateholder_and_filter": {
+    "value": "filter mounted in the plateholder, ~2 mm in front of the plate at the centre, >20 mm at the edge; nitrogen-flushed for IIIa plates; plateholder located by three points on the central spider",
+    "unit": "",
+    "src": "R91",
+    "loc": "Secs. 3.2-3.3",
+    "quote": "the plateholders cur- rently in use with the survey have the filters installed directly (as at UKST), rather than in a separate bracket in the telescope, with the clearance between plate and filter varying from ~ 2 mm at the plate center to more than 20 mm at the edge. ... The plateholder is located in position in the telescope by three defining points mounted on the central spider.",
+    "note": "The flat filter in front of the curved plate explains the 2 -> 20 mm clearance.",
+    "check": "ocr"
+   },
+   "central_obstruction": {
+    "value": null,
+    "unit": "linear eps: NOT PUBLISHED",
+    "src": "R91",
+    "loc": "Sec. 3.3",
+    "quote": "The plateholder is located in position in the telescope by three defining points mounted on the central spider.",
+    "note": "As for POSS-I: no size of the plateholder (now carrying the filter) is published. DERIVED lower bound from the 14-inch plate: eps >= 0.319.",
+    "alternatives": [
+     {
+      "value": "four-vane plateholder support (original configuration, kept until PTF)",
+      "src": "D20",
+      "loc": "Sec. 4.1 (Instrument support structure)",
+      "quote": "a four-vane structure was used to support a mechanical screw driven focus hub which held the photographic plates at prime focus.",
+      "check": "text"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "plate": {
+   "plate_size": {
+    "value": {
+     "in": [
+      14,
+      14
+     ],
+     "mm": [
+      355.6,
+      355.6
+     ],
+     "thickness_mm": 1.0
+    },
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "Although the 14 x 14 inch plates cover 6°6 x 6°6 on the sky, the unvignetted field is of only 5°4 diameter.",
+    "alternatives": [
+     {
+      "value": "1-mm glass",
+      "src": "R91",
+      "loc": "Sec. 3.2",
+      "quote": "The 1-mm thick glass plates are bent to shape by the plate-holder mandrels",
+      "check": "ocr"
+     },
+     {
+      "value": 355.0,
+      "src": "HF",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSIZEX=              355.000 /Detector: Plate X Dimension mm",
+      "check": "fits"
+     },
+     {
+      "value": "copies on 14 x 14-inch glass and 14 x 17-inch film",
+      "src": "C87",
+      "loc": "announcement",
+      "quote": "contact-printed first negative copies on 14 x 14-inch glass plates",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   },
+   "plate_field": {
+    "value": {
+     "deg": [
+      6.6,
+      6.6
+     ]
+    },
+    "unit": "deg",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "the 14 x 14 inch plates cover 6°6 x 6°6 on the sky",
+    "alternatives": [
+     {
+      "value": {
+       "deg": [
+        6.5,
+        6.5
+       ]
+      },
+      "src": "R91",
+      "loc": "Sec. 3.1",
+      "quote": "over the full 6.5 x 6.5 degree field",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "deg": [
+        6.5,
+        6.5
+       ]
+      },
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "(6.5◦ square each with 5◦ spacings)",
+      "check": "text"
+     },
+     {
+      "value": {
+       "deg": [
+        6.5,
+        6.5
+       ]
+      },
+      "src": "SDH",
+      "loc": "home page",
+      "quote": "The 6.5-degree x 6.5-degree plates are scanned",
+      "check": "html"
+     }
+    ],
+    "derived": "355.6 mm x 67.19\"/mm = 6.637 deg.",
+    "check": "ocr"
+   },
+   "field_unvignetted": {
+    "value": 5.4,
+    "unit": "deg (diameter)",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "the unvignetted field is of only 5°4 diameter.",
+    "note": "Same stop and mirror as POSS-I, so the same walk-off (DERIVED 5.34 deg).",
+    "check": "ocr"
+   }
+  },
+  "bands": {
+   "J": {
+    "value": {
+     "emulsion": "Kodak IIIa-J",
+     "filter": "Schott GG395",
+     "lam_eff_A": 4800,
+     "range_A_image": [
+      3550,
+      5850
+     ],
+     "half_peak_A_image": [
+      4400,
+      5500
+     ]
+    },
+    "unit": "Angstrom",
+    "src": "R91",
+    "loc": "Sec. 2 and Fig. 1",
+    "quote": "three passbands: blue (IIIa-J emulsion and GG395 filter —). ~ 4800 A)",
+    "note": "OCR \"—). ~ 4800 A\" = lambda_eff ~ 4800 A (page image). Ranges marked _image were read off R91 Fig. 1 (log relative response; curves plotted down to 10% of peak), +/-50 A, not machine-checkable. Blue edge from the filter, red edge from the emulsion (R91).",
+    "alternatives": [
+     {
+      "value": "GG385",
+      "src": "C87",
+      "loc": "announcement",
+      "quote": "Illa-J + GG385",
+      "note": "OCR \"Illa-J\" = IIIa-J",
+      "check": "ocr"
+     },
+     {
+      "value": "GG385",
+      "src": "R94",
+      "loc": "p. 29",
+      "quote": "blue (IIIa-J + GG385 filter)",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "filter": "GG385",
+       "lam_A": 4800
+      },
+      "src": "L96",
+      "loc": "Table 1",
+      "quote": "Filter GG385 RG610 RG9",
+      "check": "ocr"
+     },
+     {
+      "value": "GG385",
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XJ           POSS-II J         δ ≥ 0◦        1987-00      IIIaJ+GG385          BJ       22.5          897     Y/Y",
+      "check": "text"
+     },
+     {
+      "value": "GG395",
+      "src": "HJ",
+      "loc": "FITS header (DSS)",
+      "quote": "FILTER  = 'GG395   '           /Detector: Filter",
+      "check": "fits"
+     },
+     {
+      "value": "GG395",
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-II J XJ 1987-98 IIIaJ +GG395 Jpg 22.5 +90:+00 897",
+      "check": "html"
+     },
+     {
+      "value": {
+       "lam_eff_nm": 480
+      },
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "IIIa-J + GG395, λef f ∼ 480 nm",
+      "check": "text"
+     }
+    ],
+    "check": "ocr"
+   },
+   "F": {
+    "value": {
+     "emulsion": "Kodak IIIa-F",
+     "filter": "Schott RG610",
+     "lam_eff_A": 6500,
+     "range_A_image": [
+      5900,
+      7150
+     ],
+     "half_peak_A_image": [
+      6250,
+      6940
+     ]
+    },
+    "unit": "Angstrom",
+    "src": "R91",
+    "loc": "Sec. 2 and Fig. 1",
+    "quote": "red (IIIa-F and RG610—),4 ~ 6500 A)",
+    "note": "OCR \"—),4 ~ 6500 A\" = lambda_eff ~ 6500 A. Ranges from Fig. 1 (IMAGE). The J and F bands avoid Na D (R91).",
+    "alternatives": [
+     {
+      "value": {
+       "lam_eff_nm": 650
+      },
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "red, IIIa-F + RG610, λef f ∼ 650 nm",
+      "check": "text"
+     },
+     {
+      "value": "IIIaF + RG610",
+      "src": "HF",
+      "loc": "FITS header (DSS)",
+      "quote": "EMULSION= 'IIIaF   '           /Detector: Emulsion ... FILTER  = 'RG610   '           /Detector: Filter",
+      "check": "fits"
+     }
+    ],
+    "check": "ocr"
+   },
+   "N": {
+    "value": {
+     "emulsion": "Kodak IV-N (hypersensitized)",
+     "filter": "Schott RG9",
+     "lam_eff_A": 8500,
+     "range_A_image": [
+      6980,
+      9650
+     ],
+     "half_peak_A_image": [
+      7630,
+      9210
+     ]
+    },
+    "unit": "Angstrom",
+    "src": "R91",
+    "loc": "Sec. 2 and Fig. 1",
+    "quote": "and in the near-infrared (IVN and RG9—),, ~ 8500 A).",
+    "note": "OCR \"—),, ~ 8500 A\" = lambda_eff ~ 8500 A. Ranges from Fig. 1 (IMAGE).",
+    "alternatives": [
+     {
+      "value": {
+       "lam_eff_nm": 850
+      },
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "very near-IR, IV-N + RG9, λef f ∼ 850 nm",
+      "check": "text"
+     },
+     {
+      "value": "IVN + RG9",
+      "src": "HN",
+      "loc": "FITS header (DSS)",
+      "quote": "EMULSION= 'IVN     '           /Detector: Emulsion ... FILTER  = 'RG9     '           /Detector: Filter",
+      "check": "fits"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "emulsion": {
+   "resolving_power": {
+    "value": 250,
+    "unit": "lines per mm (IIIa-J, IIIa-F, IV-N)",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "Both the type-IIIa and the IVN emulsions have a higher contrast (photographic gamma) and have three times the resolving power, at 250 lines mm’.",
+    "note": "OCR \"mm’\" = mm^-1.",
+    "derived": "1/250 mm = 4.0 um = 0.27\" at 67.19\"/mm; 3.1x the 103a's 80 lines/mm.",
+    "check": "ocr"
+   },
+   "image_size_limit": {
+    "value": 40,
+    "unit": "um (plates rejected if star images are larger)",
+    "src": "R91",
+    "loc": "Sec. 5",
+    "quote": "or if the images exceed 40 microns (3 arc seconds) in size.",
+    "derived": "40 um x 67.19\"/mm = 2.7\" (R91 rounds to 3\").",
+    "check": "ocr"
+   },
+   "grain_size": {
+    "value": null,
+    "unit": "NOT PUBLISHED as a number",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "The smaller grain size leads to significantly higher uniformity in the sky background of the modern plates",
+    "note": "Only 'finer grain' / 'smaller grain size'; no grain diameter.",
+    "check": "ocr"
+   },
+   "hypersensitization_gain": {
+    "value": {
+     "IIIa": [
+      5,
+      10
+     ],
+     "IV-N": 100
+    },
+    "unit": "speed gain factor",
+    "src": "R91",
+    "loc": "Sec. 4",
+    "quote": "The typical gain in speed obtained by these hypersensitizing techniques is a factor of 5-10 for the IIIa plates and up to a factor of 100 for the IVN plates.",
+    "check": "ocr"
+   }
+  },
+  "performance": {
+   "exposure_time": {
+    "value": {
+     "J_min": [
+      50,
+      70
+     ],
+     "F_min": [
+      70,
+      90
+     ],
+     "N_min": "90+"
+    },
+    "unit": "minutes",
+    "src": "R91",
+    "loc": "Sec. 6",
+    "quote": "slightly longer exposures—90+ minutes as against 50—70 minutes for the J plates and 70-90 minutes for the F plates",
+    "alternatives": [
+     {
+      "value": {
+       "JF_min": [
+        60,
+        70
+       ],
+       "N_min": [
+        80,
+        90
+       ]
+      },
+      "src": "R91",
+      "loc": "Sec. 3.4",
+      "quote": "Given the longer exposure times of the current survey (60-70 minutes J,F; 80-90 minutes N)",
+      "check": "ocr"
+     },
+     {
+      "value": "J plates only if the optimum exposure >= 50 min; <= 35 min on the brightest nights",
+      "src": "R91",
+      "loc": "Sec. 5",
+      "quote": "on the brightest nights we can tolerate no more than 35 minutes exposure time. To maintain a higher degree of uniformity, J plates are taken only if the optimum expo- sure time is at least 50 minutes.",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "J_min": 80,
+       "F_min": 85,
+       "N_min": 70
+      },
+      "src": "HJ",
+      "loc": "FITS headers (DSS), plates SJ06159 / SF05135 / SN07392",
+      "quote": "EXPOSURE=                 80.0 /Observation: Exposure Minutes",
+      "note": "one field each (HF: \"EXPOSURE=                 85.0\"; HN: \"EXPOSURE=                 70.0\")",
+      "check": "fits"
+     }
+    ],
+    "check": "ocr"
+   },
+   "limiting_magnitude": {
+    "value": {
+     "J": 22.5,
+     "F": 20.8,
+     "N": 19.5
+    },
+    "unit": "mag (B_J; R_F, I_N on the Cousins system), stellar, seeing <= 1.5\"",
+    "src": "R91",
+    "loc": "Sec. 5",
+    "quote": "Typical limiting magnitudes for the POSS II plates are ... B, (lim) = 22.5 mag ... R,(lim) = 20.8 mag , I,(lim) = 19.5 mag . ... These limits are for stellar objects in good seeing (= 1.5 are seconds) and can vary by up to +0.4 magnitude from plate to plate.",
+    "note": "OCR \"B,\" = B_J, \"(= 1.5 are seconds)\" = (<= 1.5 arc seconds), \"+0.4\" = +/-0.4.",
+    "alternatives": [
+     {
+      "value": {
+       "J": 22.5,
+       "F": 21.5,
+       "N": 19.5
+      },
+      "src": "RD93",
+      "loc": "p. 126",
+      "quote": "Limiting magnitudes for point sources are typically 22.5, 21.5 and 19.5 respectively.",
+      "note": "F differs -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "J": 22.5,
+       "F": 20.8,
+       "N": 19.5
+      },
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "Typical limiting magnitudes reached are BJ ∼ 22.5, RF ∼ 20.8, and IN ∼ 19.5",
+      "check": "text"
+     },
+     {
+      "value": {
+       "J": 22.5,
+       "F": 20.8,
+       "N": 19.5
+      },
+      "src": "L96",
+      "loc": "Table 1",
+      "quote": "Limiting mag 22.5 20.8 19.5",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "J": 22.5,
+       "F": 20.8,
+       "N": 19.5
+      },
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-II F XP 1987-98 IIIaF +RG610 Fpg 20.8 +90:+00 897",
+      "check": "html"
+     }
+    ],
+    "check": "ocr"
+   },
+   "plate_scale": {
+    "value": 67.19,
+    "unit": "arcsec/mm",
+    "src": "R91",
+    "loc": "Sec. 3",
+    "quote": "a plate scale of 67’19 per millimeter.",
+    "alternatives": [
+     {
+      "value": 67.2,
+      "src": "HF",
+      "loc": "FITS header (DSS)",
+      "quote": "PLTSCALE=                67.20 /Detector: Plate Scale arcsec per mm",
+      "check": "fits"
+     },
+     {
+      "value": 67,
+      "src": "C87",
+      "loc": "announcement",
+      "quote": "a scale of approximately 67 arcseconds per millimeter.",
+      "check": "ocr"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "survey": {
+   "n_fields": {
+    "value": 894,
+    "unit": "fields (each in J, F and N: 2682 plates)",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "we can restrict the current survey to the 894 fields north of (and including) the celestial equator. Thus, both surveys cover the 72 fields at 0° declination.",
+    "alternatives": [
+     {
+      "value": 894,
+      "src": "C87",
+      "loc": "announcement",
+      "quote": "The survey consists of 894 fields from the north celestial pole to the equator at a spacing of 5 degrees",
+      "check": "ocr"
+     },
+     {
+      "value": 2682,
+      "src": "L96",
+      "loc": "Sec. 1",
+      "quote": "processing of all fields in the three passbands (2682 plates total)",
+      "note": "= 3 x 894",
+      "check": "ocr"
+     },
+     {
+      "value": 897,
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-II J XJ 1987-98 IIIaJ +GG395 Jpg 22.5 +90:+00 897",
+      "note": "J and F 897, N 890",
+      "check": "html"
+     },
+     {
+      "value": 897,
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XP           POSS-II F         δ ≥ 0◦        1987-99      IIIaF+RG610          RF       20.8          897     Y/Y",
+      "check": "text"
+     },
+     {
+      "value": {
+       "J_regions": 897,
+       "F_regions": 897,
+       "N_regions": 890
+      },
+      "src": "GSP",
+      "loc": "rows with Survey = POSSII-J/F/N",
+      "quote": "Oschin Schmidt - Doublet",
+      "note": "DERIVED tallies of the digitized plates (J 907, F 905, N 904 plates incl. retakes; the zone at dec 0 has 72-73 F plates)",
+      "check": "list"
+     }
+    ],
+    "check": "ocr"
+   },
+   "field_spacing": {
+    "value": 5.0,
+    "unit": "deg between plate centres",
+    "src": "R91",
+    "loc": "Sec. 2",
+    "quote": "adopted a five-degree field spacing.",
+    "alternatives": [
+     {
+      "value": 5.0,
+      "src": "RD93",
+      "loc": "p. 126",
+      "quote": "The photographic survey will eventually cover 894 fields spaced 5° apart",
+      "check": "ocr"
+     },
+     {
+      "value": 5.0,
+      "src": "L96",
+      "loc": "Sec. 1",
+      "quote": "covers all of the northern sky in 894 fields on a 5°-grid",
+      "check": "ocr"
+     },
+     {
+      "value": "about half the area covered twice per band",
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "Approximately half of the survey area is covered at least twice in each band, due to plate overlaps.",
+      "check": "text"
+     }
+    ],
+    "derived": "Overlap along a declination column: 6.6 - 5.0 = 1.6 deg (6.64 - 5.0 = 1.64 deg DERIVED), vs 0.6 deg for POSS-I.",
+    "check": "ocr"
+   },
+   "sky_coverage": {
+    "value": "dec >= 0 (plate centres 0 to +90 deg); the sky to dec ~ -3 deg",
+    "unit": "",
+    "src": "D98",
+    "loc": "Sec. 2",
+    "quote": "The POSS-II covers the entire northern sky (δ > −3◦ ) with 894 overlaping fields",
+    "alternatives": [
+     {
+      "value": "+90:+00 zones",
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-II N XI 1987-02 IV-N +RG9 Ipg 19.5 +90:+00 890",
+      "check": "html"
+     },
+     {
+      "value": "north celestial pole to the equator",
+      "src": "C87",
+      "loc": "announcement",
+      "quote": "from the north celestial pole to the equator",
+      "check": "ocr"
+     }
+    ],
+    "derived": "Sky north of -3 deg: 41,253 x (1 + sin 3)/2 = 21,706 deg2.",
+    "check": "text"
+   },
+   "dates": {
+    "value": {
+     "corrector_installed": 1985,
+     "plates": "1985/86 - 2002"
+    },
+    "unit": "",
+    "src": "R91",
+    "loc": "Sec. 3.1",
+    "quote": "installed in the telescope in 1985.",
+    "alternatives": [
+     {
+      "value": "survey-quality plates mostly from mid-1987",
+      "src": "RD93",
+      "loc": "p. 126",
+      "quote": "Most of this work was completed by mid-1987, the point from which the majority of plates taken have been of survey quality.",
+      "check": "ocr"
+     },
+     {
+      "value": 1987,
+      "src": "R94",
+      "loc": "p. 29",
+      "quote": "In 1987, plate-taking started for the second Palomar Sky Survey, POSS II",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "J": "1987-98",
+       "F": "1987-98",
+       "N": "1987-02"
+      },
+      "src": "GST",
+      "loc": "survey table",
+      "quote": "POSS-II F XP 1987-98",
+      "check": "html"
+     },
+     {
+      "value": {
+       "J": "1987-00",
+       "F": "1987-99",
+       "N": "1989-02"
+      },
+      "src": "L08",
+      "loc": "Table 1",
+      "quote": "XI           POSS-II N         δ ≥ 0◦        1989-02        IV-N +RG9          IN       19.5          897     N/Y",
+      "check": "text"
+     },
+     {
+      "value": {
+       "J": "1985-09-17 to 2000-03-25",
+       "F": "1986-06-12 to 1999-11-10",
+       "N": "1988-02-08 to 2002-03-07"
+      },
+      "src": "GSP",
+      "loc": "UT column of the POSSII rows",
+      "quote": "Oschin Schmidt - Doublet",
+      "note": "DERIVED ranges of the digitized plates",
+      "check": "list"
+     }
+    ],
+    "check": "ocr"
+   }
+  },
+  "digitization": {
+   "dss2_scan_step": {
+    "value": 15.0,
+    "unit": "um (nominal sample interval; header: 15.0295 x 15.0000)",
+    "src": "LP93",
+    "loc": "Overview",
+    "quote": "we adopted a 15 ym sampling interval (Laidler, et al. 1992), to be used with a 30 pm apodized aperture. With these parameters, each plate consists of an image 23040? in size, with a data volume of 1.06 Gbytes.",
+    "note": "OCR \"15 ym\" = 15 um, \"30 pm\" = 30 um, \"23040?\" = 23040^2.",
+    "alternatives": [
+     {
+      "value": {
+       "x_um": 15.0295,
+       "y_um": 15.0
+      },
+      "src": "HF",
+      "loc": "FITS header (DSS), plate SF05135",
+      "quote": "XPIXELSZ=              15.0295 /Scan: Pixel Size microns ... YPIXELSZ=              15.0000 /Scan: Pixel Size microns",
+      "note": "same in the J and N headers (HJ, HN)",
+      "check": "fits"
+     },
+     {
+      "value": 15,
+      "src": "RD93",
+      "loc": "p. 127",
+      "quote": "The plates are being digitized with 15-micron (1 arcsec) pixels, in rasters of 23,040 square, giving about 1 GB per plate in an uncompressed form",
+      "check": "ocr"
+     },
+     {
+      "value": 15,
+      "src": "D98",
+      "loc": "Sec. 2",
+      "quote": "The plates are scanned with 15-micron (1.0 arcsec) pixels, in rasters of 23,040 square, giving ∼ 1 GB/plate",
+      "check": "text"
+     },
+     {
+      "value": 15,
+      "src": "M00",
+      "loc": "Sec. 2",
+      "quote": "we are now scanning the additional plate material at 15 microns.",
+      "check": "ocr"
+     },
+     {
+      "value": 15,
+      "src": "SDG",
+      "loc": "Getting Started",
+      "quote": "15 microns (1.0 arcsec per pixel)",
+      "check": "html"
+     }
+    ],
+    "check": "ocr"
+   },
+   "dss2_pixel_scale": {
+    "value": 1.0,
+    "unit": "arcsec/pixel",
+    "src": "SDH",
+    "loc": "home page",
+    "quote": "and to about 1.0 arcseconds per pixel for the POSS-II surveys.",
+    "alternatives": [
+     {
+      "value": 1.007,
+      "src": "HF",
+      "loc": "FITS header (DSS)",
+      "quote": "CD1_1   =        -0.0002798093 /GetImage: rotation matrix coefficient",
+      "note": "0.0002798093 deg = 1.0073\" (local WCS; CD2_2 0.0002791901 deg = 1.0051\")",
+      "check": "fits"
+     },
+     {
+      "value": 1.0,
+      "src": "LP93",
+      "loc": "Abstract",
+      "quote": "are being digitized at 1” resolution.",
+      "check": "ocr"
+     },
+     {
+      "value": 1.0,
+      "src": "L96",
+      "loc": "Sec. 1",
+      "quote": "the use of a 1” sampling interval",
+      "check": "ocr"
+     },
+     {
+      "value": 1.0,
+      "src": "GSD",
+      "loc": "Data Organization",
+      "quote": "23040x23040 (1.0\" pixels)",
+      "check": "html"
+     }
+    ],
+    "derived": "15.0 um x 67.20\"/mm = 1.008\"; 15.0295 um x 67.20 = 1.010\".",
+    "check": "html"
+   },
+   "dss2_scan_size": {
+    "value": [
+     23040,
+     23040
+    ],
+    "unit": "pixels per plate",
+    "src": "HF",
+    "loc": "FITS header (DSS)",
+    "quote": "XPIXELS =                23040 /Scan: X Dimension ... YPIXELS =                23040 /Scan: Y Dimension",
+    "alternatives": [
+     {
+      "value": {
+       "pixels": "23040^2",
+       "GB": 1.1
+      },
+      "src": "L96",
+      "loc": "Sec. 1",
+      "quote": "The scans are of dimension 230407, which corresponds to 1.1 Gbyte per plate (for a 2.8 Tbyte survey total).",
+      "note": "OCR \"230407\" = 23040^2",
+      "check": "ocr"
+     },
+     {
+      "value": {
+       "pixels": [
+        23040,
+        23040
+       ],
+       "GB": 1.1
+      },
+      "src": "GSO",
+      "loc": "overview",
+      "quote": "23040x23040 pixels (1.1GB)",
+      "check": "html"
+     }
+    ],
+    "derived": "23040 x 15.0 um = 345.6 mm = 6.45 deg; 23040 x 15.0295 um = 346.3 mm = 6.46 deg (at 67.20\"/mm): the scan stops ~5 mm short of the 355.6-mm plate edges.",
+    "check": "fits"
+   },
+   "dss2_scanner_spot": {
+    "value": 42,
+    "unit": "um (laser spot, Gaussian; GAMMA machines)",
+    "src": "L08",
+    "loc": "Sec. 3.1",
+    "quote": "as a 42 µm Gaussian spot. This size gives low aliasing with the adopted 15 µm sampling.",
+    "note": "The PDS 2020G machines rebuilt as the laser-illuminated, multichannel GAMMA 1 and 2.",
+    "alternatives": [
+     {
+      "value": 30,
+      "src": "LP93",
+      "loc": "Overview",
+      "quote": "to be used with a 30 pm apodized aperture.",
+      "note": "the 1993 plan (OCR \"30 pm\" = 30 um) -- see conflicts",
+      "check": "ocr"
+     },
+     {
+      "value": "laser-illuminated 5-channel",
+      "src": "L96",
+      "loc": "Sec. 1",
+      "quote": "were rebuilt as laser-illuminated 5-channel systems",
+      "check": "ocr"
+     }
+    ],
+    "derived": "42 um x 67.19\"/mm = 2.8\" FWHM-scale spot; 30 um = 2.0\".",
+    "check": "text"
+   },
+   "dss2_plates_scanned": {
+    "value": "original plates",
+    "unit": "",
+    "src": "D98",
+    "loc": "Sec. 2",
+    "quote": "(a) the original plates are scanned, rather than second copies",
+    "alternatives": [
+     {
+      "value": "compressed 10x (H-transform)",
+      "src": "L96",
+      "loc": "Sec. 2",
+      "quote": "The same approach and the same compression factor were adopted for the POSS-II.",
+      "check": "ocr"
+     },
+     {
+      "value": "typically compressed by 7",
+      "src": "GSO",
+      "loc": "overview",
+      "quote": "We typically compress the data by a factor of 7",
+      "check": "html"
+     }
+    ],
+    "check": "text"
+   }
+  },
+  "not_found": [
+   "Diameter and thickness of the 1985 achromatic doublet (only glasses, maker and design origin).",
+   "Plateholder size / obscured fraction and vane width (eps not published; DERIVED lower bound 0.319 from the plate).",
+   "Numerical grain size of IIIa-J/F and IV-N (only 250 lines/mm and the 40-um image rejection limit).",
+   "Tabulated band edges: the J/F/N ranges come from reading R91 Fig. 1 (IMAGE, +/-50 A).",
+   "Whether the J filter was GG395 or GG385 for all plates (sources split; see conflicts)."
+  ],
+  "conflicts": [
+   "Doublet corrector date: installed 1985 (R91), delivered mid-1985 (RD93) vs 'In 1982 ... replaced' (D20).",
+   "Aperture: 49.5 in = 1257.3 mm (R91, as in 1952) vs entrance pupil 1244.6 mm (D20 Table 1, ZTF era with the trim plate) -- 1%.",
+   "Mirror radius: 241 in (R91, rounded) vs 241.16 in (H52) vs 6124 mm (D20).",
+   "J filter: GG395 (R91, D98, GST, the DSS FITS header) vs GG385 (C87, R94, L96, L08).",
+   "F limiting magnitude: 20.8 (R91, D98, L96, GST) vs 21.5 (RD93).",
+   "Exposure times: 50-70 J / 70-90 F / 90+ N min (R91 Sec. 6) vs 60-70 J,F / 80-90 N min (R91 Sec. 3.4).",
+   "Plate field: 6.6 x 6.6 deg (R91 Sec. 3) vs 6.5 x 6.5 deg (R91 Sec. 3.1, D98, STScI pages).",
+   "Number of fields: 894 (R91, C87, RD93, L96, LP93) vs 897 (GST, L08; GSP has 897 J and F regions, 890 N).",
+   "Start date: corrector 1985 and first plates Sept 1985 (GSP) vs 'In 1987, plate-taking started' (R94) vs 1987-98 (GST); end 1998-2002 by band.",
+   "Scanning aperture: 30 um apodized aperture (LP93, the 1993 plan) vs 42 um Gaussian laser spot (L08, the GAMMA machines as used).",
+   "DSS-2 pixel: 15 um square (LP93, RD93, D98) vs 15.0295 x 15.0000 um (FITS headers); compression 10x (L96) vs 'typically ... 7' (GSO)."
+  ],
+  "notes": [
+   "What changed from POSS-I (R91 Sec. 3): an achromatic doublet corrector (1985) replaced the singlet plate; the plateholder mandrels were reground to R = 120.9 in and given a vacuum hold-down (+/-15 um); filters moved into the plateholders with nitrogen flushing; a stiffer defining frame (Oct 1989, flexure +/-5 um); an autoguider; a night-sky photometer and a 16-spot sensitometer. Emulsions went from 103a (80 lines/mm) to hypersensitized IIIa-J, IIIa-F and IV-N (250 lines/mm), three bands instead of two, 5-deg instead of 6-deg spacing, and dec >= 0 only. Mirror, aperture, f/2.44, plate scale and 14-inch plates are unchanged.",
+   "ZTF records that still apply (megacam_ztf_small.md, key D20): the 1828 mm spherical mirror, the stop at its centre of curvature 6124 mm away, the 3062 mm focal-surface radius, and the Grubb-Parsons doublet itself (ZTF adds a trim plate in front of it and a flattening cryostat window; its 1244.6 mm entrance pupil is a ZTF-era value).",
+   "The plate as detector: no pixels; the fineness is set by the emulsion (250 lines/mm = 4 um, 0.27\"; star images <= 40 um = 2.7\" on accepted plates) and by the scan (15 um = 1.0\", with a 42 um laser spot)."
+  ]
+ }
+}

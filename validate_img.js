@@ -87,6 +87,19 @@ for (const [lab, o] of [["prime direct", {}], ["cass direct", { tel: "cass", F: 
   }
 }
 
+// ---------------------------------------------------------------- 3d. photographic plates and the pyramid splitter
+{
+  const P = mk({ tel: "schmidt", D: 1.22, F: 2.5, eps: 0.3, field: 600, det: "plate", plateMM: 355.6, scan: 25, grain: 20, seeing: 2 });
+  check("plate: one square plate, the scan's pixels = plate size / step", P.nChips === 1 && P.P.Nx === Math.round(355600 / 25) && Math.abs(P.cw - 355.6) < 0.03, P.P.Nx + " px");
+  check("plate: scan pixel = plate scale x step", rel(P.pixScale, P.plate * 0.025) < 1e-12, P.pixScale.toFixed(4) + "″");
+  check("plate: the emulsion's spread adds in quadrature", rel(P.fwhm, Math.hypot(2, P.fwhmDiff, 0.020 * P.plate)) < 1e-12, P.fwhm.toFixed(4) + "″");
+  check("plate: field = the plate's size on the sky", Math.abs(P.fieldX - 2 * Math.atan(177.8 / P.feff) / DEG) < 1e-6, P.fieldX.toFixed(3) + "°");
+  const base4 = { tel: "cass", D: 5.08, eps: 0.3, F: 16, F1: 3.3, field: 15, optics: "reimaged", W: 60, Fc: 4, Nx: 800, Ny: 800, pix: 15, nCol: 2, nRow: 2, gapX: 1 };
+  const A = mk(base4), Q = mk(Object.assign({ split: "pyramid" }, base4));
+  check("pyramid: the same scale and field as one camera", rel(Q.pixScale, A.pixScale) < 1e-12 && rel(Q.areaDeg2, A.areaDeg2) < 1e-12);
+  check("pyramid: each camera takes one chip's half-diagonal (tan phi = r / f_cam)", rel(Math.tan(Q.phiMax), Math.hypot(6, 6) / Q.fcam) < 1e-9 && Q.phiMax < A.phiMax, (Q.phiMax / DEG).toFixed(3) + "° vs " + (A.phiMax / DEG).toFixed(3) + "°");
+}
+
 // ---------------------------------------------------------------- 4. reimager
 for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 11, F1: 2, W: 120, Fc: 2.5 }]) {
   const S = mk(o);
@@ -173,7 +186,7 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
   const band = k => window.IX_BANDS.find(b => b.k === k).lam;
   const Q = {
     pixScale: S => S.pixScale, fieldX: S => S.fieldX * 60, fieldY: S => S.fieldY * 60, area: S => S.areaDeg2,
-    npix: S => S.npix, etendue: S => S.etendue,
+    npix: S => S.npix, etendue: S => S.etendue, plateScale: S => S.plate,
   };
   const ids = new Set();
   for (const p of window.IX_IPRESETS) {

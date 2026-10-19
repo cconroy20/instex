@@ -187,6 +187,16 @@ not on the page. The band's wavelength enters only the diffraction width.
   pupil), Gemini NIRI f/6, f/14, f/32 (the 7.9 m pupil of the undersized secondary), VLT HAWK-I (UT4 Nasmyth; the
   pupil size is not published, so W = 100 mm is the drawing's assumption), TESS (one camera, an optics blur of
   24″; the strong distortion is left out). Ten presets in this round, 31 in all.
+- **Previous generation** (Charlie's picks, 2026-10-19; data/imaging/{poss,twomass,fourshooter}.md): the Palomar
+  Sky Surveys on plates (POSS-I red E plates, POSS-II red F plates), the 2MASS camera, and the Palomar 200-inch
+  4-Shooter. Two new features: a **photographic plate** detector (Detector: CCD | Plate; one square plate with no
+  pixels, drawn as the negative the survey prints show, with value-noise grain of the emulsion's spread fixed on the
+  plate; the emulsion's spread adds in quadrature to the image; the pixel-based numbers use the later scan's step,
+  DSS-1 25.3 µm and DSS-2 15 µm; a preset may set the display depth to its plates' limit), and a **pyramid splitter**
+  (Optics: Split: One camera | Pyramid (4); the 4-Shooter's flat pyramid, facets tilted 5°, reflects each quadrant
+  back 10° off the axis to its own camera, centered on that quadrant, so each camera takes one chip's
+  half-diagonal; the Instrument view draws two of the four arms, the Telescope view a box at the focus). The
+  4-Shooter's and 2MASS's internal focal lengths and pupils are not published: placeholders, flagged in the notes.
 - **Presets** (web/ipresets.js, the first 21; sources data/imaging/{widefield,megacam_ztf_small,hst,space_wide,reimagers}.md,
   documents in rawdata/imaging/): LSSTCam, HSC, DECam, MegaCam, ZTF, an 80 mm refractor with a CMOS camera,
   ACS/WFC, WFC3/UVIS, WFC3/IR (reimaged through the published cold-mask pupil), Euclid VIS, Roman WFI, NIRCam

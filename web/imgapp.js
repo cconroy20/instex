@@ -62,6 +62,9 @@ const SL = [
   ["iBk", "back", false, false, v => v.toFixed(2) + " D"],
   ["iBkN", "backN", false, false, v => v.toFixed(2) + " D"],
   ["iDepth", "depth", false, false, v => v.toFixed(1) + " mag"],
+  ["iPlate", "plateMM", true, false, v => sig(v, 3) + " mm"],
+  ["iGrain", "grain", true, false, v => sig(v, 2) + " µm"],
+  ["iScan", "scan", true, false, v => sig(v, 2) + " µm"],
 ];
 // a readout's element: v<name>_ where the spectrograph already uses v<name>
 const vEl = id => $("v" + id.slice(1) + "_") || $("v" + id.slice(1));
@@ -96,6 +99,8 @@ const segs = [
   bindSeg([["ivTel", "tel"], ["ivInst", "inst"]], () => S.view, v => { S.view = v; lview.fit = true; }, true),
   bindSeg([["isOff", false], ["isOn", true]], () => !!S.stretch, v => { S.stretch = v; lview.fit = true; }, true),
   bindSeg([["ifAx", false], ["ifNa", true]], () => !!S.nasmyth, v => { S.nasmyth = v; lview.fit = true; }, true),
+  bindSeg([["idCcd", "ccd"], ["idPlate", "plate"]], () => S.det || "ccd", v => { S.det = v; zoom.reset(); }),
+  bindSeg([["isp1", "none"], ["isp4", "pyramid"]], () => S.split || "none", v => { S.split = v; lview.fit = true; }),
   bindSeg([["ianOn", true], ["ianOff", false]], () => S.annot !== false, v => { S.annot = v; }, true),
   bindSeg([["ilvAuto", "auto"], ["ilvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true),
 ];
@@ -139,7 +144,7 @@ function syncControls() {
   const di = DETS.findIndex(d => d.Nx === S.Nx && d.Ny === S.Ny && d.pix === S.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
 }
-const bodyClasses = () => ["it-" + S.tel, S.nasmyth ? "in-nas" : "in-ax", "io-" + (S.optics === "reimaged" ? "re" : "dir"), "ip-" + S.psf, "iv-" + S.view, ilvExpanded ? "ilv-expanded" : ""];
+const bodyClasses = () => [S.split === "pyramid" && S.optics === "reimaged" ? "isplit" : "", "idet-" + (S.det || "ccd"), "it-" + S.tel, S.nasmyth ? "in-nas" : "in-ax", "io-" + (S.optics === "reimaged" ? "re" : "dir"), "ip-" + S.psf, "iv-" + S.view, ilvExpanded ? "ilv-expanded" : ""];
 
 function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S.band).lam : 0.6 }); }
 
@@ -147,11 +152,12 @@ function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S
 function applyPreset(p) {
   const st = clone(DEF);
   Object.assign(st, p.state);
-  for (const k of ["view", "annot", "moon", "stretch", "depth"]) st[k] = S[k];         // the reader's view, not the preset's
+  // the reader's view and drawing options carry over, except a depth the preset sets (a plate's limiting magnitude)
+  for (const k of ["view", "annot", "moon", "stretch", "depth"]) if (!(k in p.state)) st[k] = S[k];         // the reader's view, not the preset's
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
+const CHOICES = { split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
 function hashParts() {
   const parts = [];
   for (const k of Object.keys(DEF)) {
@@ -195,7 +201,12 @@ function renderText(Dz, P) {
   if (Dz.bad) { st.innerHTML = `<div class="flags" style="margin-left:0;max-width:none"><span class="flag">${Dz.bad}</span></div>`; }
   else {
     const fx = Dz.fieldX * 3600, fy = Dz.fieldY * 3600;
-    const items = [
+    const items = Dz.isPlate ? [
+      ["Plate scale", sig(Dz.plate, 3) + "″/mm", `Sky angle per millimeter of the plate: 206265 / f_eff, with f_eff = ${fLen(Dz.feff)}. A plate has no pixels.`],
+      ["Field", fAng(fx) + " × " + fAng(fy) + `<small>${fArea(Dz.areaDeg2)}</small>`, "The sky on one plate."],
+      ["Image size", fAng(Dz.fwhm) + `<small>${sig(Dz.fwhm / Dz.plate * 1000, 3)} µm on the plate</small>`, `FWHM of a star's image: the seeing, diffraction and the emulsion's own spread (${sig(Dz.grain, 3)} µm = ${fAng(Dz.fwhmEmul)}) added in quadrature.`],
+      ["Étendue", sig(Dz.etendue, 3) + " m² deg²", "Collecting area times the field's solid angle, A Ω: the figure of merit for surveying the sky."],
+    ] : [
       ["Pixel scale", fAng(Dz.pixScale) + "/px", `Sky angle per pixel at the field center: 206265 p / f_eff, with f_eff = ${P.optics === "reimaged" ? "F_cam D" : "F D"} = ${fLen(Dz.feff)}. Only the effective focal length and the pixel size matter.`],
       ["Field", fAng(fx) + " × " + fAng(fy) + `<small>${fArea(Dz.areaDeg2)}</small>`, "The sky covered by the chips inside the corrected field: across the mosaic through its center, then the area of the chips alone (the gaps between chips excluded)."],
       ["Sampling", sig(Dz.sampling, 3) + " px" + `<small>FWHM ${fAng(Dz.fwhm)}</small>`, `Pixels across the FWHM of a star's image. Below about 2 the image is undersampled (Nyquist): a ${P.psf === "diff" ? "diffraction-limited image needs pixels no larger than λ/2D = " + fAng(Dz.nyquistPix) : "seeing-limited image needs pixels no larger than half the seeing FWHM"}.`],
@@ -223,19 +234,27 @@ function renderText(Dz, P) {
     ["Camera", fLen(Dz.fcam), "f_cam = F_cam W."],
     ["Effective focal ratio", "f/" + sig(Dz.Feff, 3), "f_eff / D = F_tel f_cam / f_col = F_cam: the reimager makes the telescope an f/F_cam telescope of the same aperture."],
     [Dz.red < 1 ? "Focal reducer" : "Focal enlarger", "× " + sig(Dz.red, 3), "f_cam / f_col: the image scale relative to the telescope focus."],
-    ["Field angle in the beam", "±" + sig(Dz.phiMax / DEG, 3) + "°", `Half-angle of the field (to the mosaic's farthest corner) in the collimated beam: tan φ = (D / W) tan θ, where D / W = ${sig(Dz.beamMag, 3)}. A big telescope with a small beam makes a modest sky field into a wide field for the camera.`],
+    ["Field angle in the beam", "±" + sig(Dz.phiMax / DEG, 3) + "°", Dz.split ? `Half-angle of the field each camera takes: with the pyramid, each camera is centered on its own quadrant, so it sees the half-diagonal of one chip, not the whole field (in the beam, tan φ = (D / W) tan θ, D / W = ${sig(Dz.beamMag, 3)}).` : `Half-angle of the field (to the mosaic's farthest corner) in the collimated beam: tan φ = (D / W) tan θ, where D / W = ${sig(Dz.beamMag, 3)}. A big telescope with a small beam makes a modest sky field into a wide field for the camera.`],
     ["Field at the telescope focus", "Ø " + fLen(Dz.focalField), "The diameter at the telescope focus that the collimator must take in."],
   ]);
   else rows($("rOptI"), [
     ["Detector at the focus", "f/" + sig(P.F, 3), "A direct imager: the detector sits at the telescope focus (behind a corrector, filter and window, all treated as ideal), so the telescope alone sets the image scale."],
     ["Effective focal length", fLen(Dz.feff)],
   ]);
-  rows($("rDetI"), [
+  if (Dz.isPlate) rows($("rDetI"), [
+    ["Plate", sig(Dz.plateMM, 4) + " mm square (" + sig(Dz.plateMM / 25.4, 3) + " in)"],
+    ["On the sky", fAng(Dz.plateMM * Dz.plate) + " square"],
+    ["Emulsion spread", fAng(Dz.fwhmEmul), "The emulsion's own spreading of a star's light, as a FWHM on the sky."],
+    ["Scan step", sig(Dz.scan, 3) + " µm = " + fAng(Dz.pixScale), "The plate was digitized later in steps of this size: the scan's pixels."],
+    ["Scan", grp(Dz.P.Nx) + " × " + grp(Dz.P.Ny) + " px"],
+  ]);
+  else rows($("rDetI"), [
     ["Chip size", sig(Dz.cw, 3) + " × " + sig(Dz.ch, 3) + " mm"],
     ["Chip on the sky", fAng(Dz.cw * Dz.plate) + " × " + fAng(Dz.ch * Dz.plate)],
     ["Nyquist pixel, λ / 2D", sig(Dz.nyquistPix / Dz.plate * 1000, 3) + " µm", "λ / 2D = " + fAng(Dz.nyquistPix) + " on the sky: the pixel that samples the finest detail the aperture passes (the optics' cutoff D / λ), here in micrometers at the detector."],
   ]);
-  rows($("rMosI"), [
+  if (Dz.isPlate) rows($("rMosI"), [["Plates", "1"], ["Pixels", "none (" + fPix(Dz.P.Nx * Dz.P.Ny) + " in the scan)"]]);
+  else rows($("rMosI"), [
     ["Chips", Dz.nWhole === Dz.nChips ? String(Dz.nChips) : Dz.nChips + " (" + (Dz.nChips - Dz.nWhole) + " cut by the field)", Dz.nWhole === Dz.nChips ? "" : "The field circle passes over some chips: their parts outside the circle (gray on the sky) are counted out of the field and the pixels."],
     ["Mosaic size", sig(Dz.mosaic.x1 - Dz.mosaic.x0, 3) + " × " + sig(Dz.mosaic.y1 - Dz.mosaic.y0, 3) + " mm"],
     ["Pixels", Dz.bad ? "–" : fPix(Dz.npix), "Pixels inside the field."],
@@ -343,7 +362,10 @@ function drawLayout(Dz, P) {
     const pathOf = pts => {
       // incoming from xIn, then the folded segments; the primary point moved onto its curved surface
       const out = [[xIn, pts[0].h + pts.tVal * (xIn - X(pts[0].z))]];
-      pts.forEach(p => out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]));
+      for (const p of pts) {
+        if (Dz.split && p.z > Dz.zF + 1e-9) { out.push([X(Dz.zF), hAt(pts, Dz.zF)]); break; }   // the pyramid instrument: drawn as a box at the focus
+        out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]);
+      }
       return two || tma ? foldN(out) : out;
     };
     for (let f = 0; f < 3; f++) {
@@ -400,8 +422,59 @@ function drawLayout(Dz, P) {
       for (const p of pts) if (p.z > z0 + 1e-9) out.push([X(p.z), p.h]);
       return out;
     };
+    if (Dz.reim && Dz.split) {
+      // A flat four-sided pyramid at the focus (the WF/PC and 4-Shooter splitter): each facet tilts TAU from the
+      // focal plane, so it sends its quadrant's light back toward the telescope, 2 TAU off the axis, to a camera of
+      // its own above the focus.  Two facets drawn: the upper on the line through the apex along (sin TAU, cos TAU),
+      // the lower along (sin TAU, -cos TAU).  Each camera's axis runs through its quadrant's center (q from the axis
+      // at the focus), so each arm is traced in its own frame and reflected about its facet.  The center of the
+      // field falls on the apex.
+      const TAU = 5 * DEG;
+      const chipC = Math.max(...Dz.chips.filter(c => c.active).map(c => Math.abs(c.y)));
+      const q = chipC * Dz.fcol / Dz.fcam;
+      const dC = Dz.zC - Dz.zF, dCam = Dz.zCam - Dz.zF, dDet = Dz.zDet - Dz.zF, dP = Dz.zP - Dz.zF;
+      const facet = sg => [Math.sin(TAU), sg * Math.cos(TAU)];
+      const refl = (sg, x, y) => { const l = facet(sg), k = 2 * (x * l[0] + y * l[1]); return [k * l[0] - x, k * l[1] - y]; };
+      z0 = Dz.zF - 1.05 * dDet;
+      const arm = (pts, sg) => {
+        let u = 0;
+        for (let i = 0; i + 1 < pts.length; i++) if (pts[i].z < Dz.zF && pts[i + 1].z >= Dz.zF) u = (pts[i + 1].h - pts[i].h) / (pts[i + 1].z - pts[i].z);
+        const hf = hAt(pts, Dz.zF), t = Math.tan(TAU);
+        const xFace = sg * hf * t / (1 - sg * u * t);                    // where the ray meets its facet (unfolded)
+        const out = [[X(z0), hf + u * (X(z0))], [xFace, hf + u * xFace]];
+        let hl = hf + u * xFace - sg * q, uu = u, d = xFace;
+        for (const [dd, f] of [[dC, Dz.fcol], [dCam, Dz.fcam], [dDet, null]]) {
+          hl += uu * (dd - d); d = dd;
+          out.push(refl(sg, d, hl + sg * q));
+          if (f) uu -= hl / f;
+        }
+        return out;
+      };
+      for (const [f, sg] of [[0, 1], [2, -1]]) for (const side of ["up", "dn"]) { const [inner, outer] = rays[f][side]; polys.push({ f, a: arm(inner, sg), b: arm(outer, sg) }); }
+      for (const side of ["up", "dn"]) { const [inner, outer] = rays[1][side]; polys.push({ f: 1, a: [[X(z0), hAt(inner, z0)], [0, hAt(inner, Dz.zF)]], b: [[X(z0), hAt(outer, z0)], [0, hAt(outer, Dz.zF)]] }); }
+      // apertures along each arm: the largest distance of its rays from the arm's axis at that point
+      const aperA = (dd, sg) => {
+        let m = 0;
+        for (const r of [rays[sg > 0 ? 0 : 2]]) for (const sd of ["up", "dn"]) for (const pts of r[sd]) {
+          let u = 0; for (let i = 0; i + 1 < pts.length; i++) if (pts[i].z < Dz.zF && pts[i + 1].z >= Dz.zF) u = (pts[i + 1].h - pts[i].h) / (pts[i + 1].z - pts[i].z);
+          let hl = hAt(pts, Dz.zF) - sg * q, uu = u, d = 0;
+          for (const [d2, f] of [[dC, Dz.fcol], [dCam, Dz.fcam], [dDet, null]]) { if (dd <= d2 + 1e-9) { m = Math.max(m, Math.abs(hl + uu * (dd - d))); break; } hl += uu * (d2 - d); d = d2; if (f) uu -= hl / f; }
+        }
+        return m;
+      };
+      const hp = 1.6 * q + 0.5 * aperA(0, 1);
+      elems.push({ k: "pyramid", hh: hp, tau: TAU });
+      for (const sg of [1, -1]) {
+        const lab = sg > 0, ang = Math.atan2(...(() => { const r = refl(sg, 1, 0); return [r[1], r[0]]; })());
+        const at = d => refl(sg, d, sg * q);
+        elems.push({ k: "lensA", p: at(dC), ang, hh: aperA(dC, sg) * 1.06 + 1, lab: lab ? "collimator" : null, sub: "f " + fLen(Dz.fcol) });
+        elems.push({ k: "plateA", p: at(dP), ang, hh: P.W / 2 * 1.08, lab: lab ? "pupil and filter" : null, sub: "Ø " + fLen(P.W) });
+        elems.push({ k: "lensA", p: at(dCam), ang, hh: aperA(dCam, sg) * 1.06 + 1, lab: lab ? "camera" : null, sub: "f/" + sig(P.Fc, 3) + ", f " + fLen(Dz.fcam) });
+        elems.push({ k: "detA", p: at(dDet), ang, hh: Dz.ch / 2, lab: lab ? "CCD (1 of 4)" : null });
+      }
+    } else
     for (let f = 0; f < 3; f++) for (const side of ["up", "dn"]) { const [inner, outer] = rays[f][side]; polys.push({ f, a: pathOf(inner), b: pathOf(outer) }); }
-    if (Dz.reim) {
+    if (Dz.reim && Dz.split) { /* the arms' elements are in place */ } else if (Dz.reim) {
       const aper = z => { let m = 0; for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) m = Math.max(m, Math.abs(hAt(pts, z))); return m; };
       elems.push({ k: "focus", x: 0, hh: aper(Dz.zF) * 1.15 });
       elems.push({ k: "lens", x: X(Dz.zC), hh: aper(Dz.zC) * 1.06, lab: "collimator", sub: "f " + fLen(Dz.fcol) });
@@ -413,7 +486,9 @@ function drawLayout(Dz, P) {
     }
   }
   // the detector: across the beam, or along the page past a Nasmyth fold (the beam then travels downward)
-  if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true, sgn: -1 });
+  if (!tel && Dz.reim && Dz.split) { /* the arms carry their own detectors */ }
+  else if (tel && Dz.reim && Dz.split) elems.push({ k: "camera", x: X(Dz.zF) + 0.05 * Dz.Dmm, hh: 0.06 * Dz.Dmm, lab4: true });
+  else if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true, sgn: -1 });
   else if (tel && Dz.tma === "korsch") elems.push({ k: "det", x: Dz.xFold, y: X(Dz.zDet) - Dz.xFold, rot: true, sgn: 1, korsch: true });
   else elems.push({ k: "det", x: X(Dz.zDet), pb: tel && Dz.tma === "pb" });
   // ---- fit
@@ -421,16 +496,19 @@ function drawLayout(Dz, P) {
   const grow = (x, y) => { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); };
   for (const p of polys) for (const q of p.a.concat(p.b)) grow(q[0], q[1]);
   if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { grow(0, e.hh); grow(0, -e.hh); }
-  const detE = elems[elems.length - 1], detH = Dz.mosaic.y1 - Dz.mosaic.y0;
-  if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
-  for (const e of elems) if (e.k === "tertiary3" || e.k === "flat") { grow(e.x, e.hh); grow(e.x, -e.hh); }
+  const detE = elems.find(e => e.k === "det"), detH = Dz.mosaic.y1 - Dz.mosaic.y0;
+  if (!detE) { /* pyramid arms: grown from their elements below */ }
+  else if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
   else { grow(detE.x, detH / 2); grow(detE.x, -detH / 2); }
+  for (const e of elems) if (e.k === "tertiary3" || e.k === "flat") { grow(e.x, e.hh); grow(e.x, -e.hh); }
+  for (const e of elems) if (e.k === "lensA" || e.k === "plateA" || e.k === "detA") { grow(e.p[0], e.p[1] + e.hh); grow(e.p[0], e.p[1] - e.hh); }
+  for (const e of elems) if (e.k === "pyramid") { grow(Math.sin(e.tau) * e.hh, Math.cos(e.tau) * e.hh); grow(Math.sin(e.tau) * e.hh, -Math.cos(e.tau) * e.hh); }
   const mL = 30, mR = tel ? 120 : 30, mT = 34, mB = 54;
   const sxFit = (w - mL - mR) / Math.max(1e-9, bx1 - bx0), syFit = (h - mT - mB) / Math.max(1e-9, by1 - by0);
   // stretched (Instrument view): heights scaled by the largest step of 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20 ... that
   // still fits the panel
   const KS = [1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30, 40, 50, 60, 80, 100];
-  const kFit = !tel && P.stretch ? KS.filter(q => q <= syFit / sxFit + 1e-9).pop() || 1 : 1;
+  const kFit = !tel && P.stretch && !(Dz.reim && Dz.split) ? KS.filter(q => q <= syFit / sxFit + 1e-9).pop() || 1 : 1;
   if (lview.fit || lview.mode === "auto" || !(lview.s > 0)) {
     const sFit = Math.min(sxFit, syFit / kFit);
     lview.s = sFit; lview.k = kFit;
@@ -438,7 +516,7 @@ function drawLayout(Dz, P) {
     lview.oy = mT + (h - mT - mB) / 2 + sFit * kFit * (by0 + by1) / 2;
     lview.fit = false;
   }
-  const sc = lview.s, ky = tel || !P.stretch ? 1 : lview.k, T = (x, y) => [lview.ox + sc * x, lview.oy - sc * ky * y];
+  const sc = lview.s, ky = tel || !P.stretch || (Dz.reim && Dz.split) ? 1 : lview.k, T = (x, y) => [lview.ox + sc * x, lview.oy - sc * ky * y];
   // ---- bundles: translucent annular sheets, each field point in its color
   g.save();
   for (const p of polys) {
@@ -457,6 +535,7 @@ function drawLayout(Dz, P) {
   // ---- elements
   const annot = P.annot !== false;
   const labels = [], obstacles = [];                              // canvas boxes the labels keep clear of
+  if (!tel) obstacles.push([0, 0, 240, 40]);                       // the floating Heights control
   for (const e of elems) {
     if (e.k === "objective") {
       const c = T(0, 0); lens(g, c[0], c[1], Dmm / 2 * sc);
@@ -477,6 +556,21 @@ function drawLayout(Dz, P) {
       for (let i = -20; i <= 20; i++) { const hh = e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
       mirror(g, pts, -1);
       labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: "obstruction ε " + eps.toFixed(2), at: T(e.x, e.baffle), dx: 0, dy: -18, al: "center" });
+    } else if (e.k === "pyramid") {
+      const l1 = [Math.sin(e.tau) * e.hh, Math.cos(e.tau) * e.hh];
+      mirror(g, [T(0, 0), T(l1[0], l1[1])], 1); mirror(g, [T(0, 0), T(l1[0], -l1[1])], 1);
+      const a0 = T(0, 0);
+      labels.push({ t: "pyramid mirror", s: "4 facets at " + Math.round(e.tau / DEG) + "°, 2 drawn", at: a0, pref: [[a0[0] + 16, a0[1] - 8]] });
+    } else if (e.k === "lensA" || e.k === "plateA" || e.k === "detA") {
+      const c = T(e.p[0], e.p[1]);
+      g.save(); g.translate(c[0], c[1]); g.rotate(-e.ang);
+      if (e.k === "lensA") lens(g, 0, 0, e.hh * sc);
+      else if (e.k === "plateA") plate(g, 0, 0, e.hh * sc, "rgba(176,150,206,0.32)", "rgba(110,86,140,0.8)");
+      else { g.fillStyle = "#151a24"; g.fillRect(-3, -e.hh * sc, 6, 2 * e.hh * sc); }
+      g.restore();
+      const ex = Math.abs(Math.sin(e.ang)) * e.hh * sc, ey = Math.abs(Math.cos(e.ang)) * e.hh * sc;
+      obstacles.push([c[0] - ex - 4, c[1] - ey - 4, c[0] + ex + 4, c[1] + ey + 4]);
+      if (e.lab) labels.push({ t: e.lab, s: e.sub, at: [c[0], c[1] - ey], pref: [[c[0] + ex + 8, c[1] - ey - 26]] });
     } else if (e.k === "tertiary3") {
       // concave, facing the light from the left: the edges curl toward it
       const pts = [];
@@ -494,7 +588,7 @@ function drawLayout(Dz, P) {
       const a = T(e.x - 0.035 * Dz.Dmm, e.hh), b = T(e.x, -e.hh);
       g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
       g.strokeStyle = "rgba(90,84,78,0.7)"; g.lineWidth = 1; g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
-      labels.push({ t: "camera and detector", s: "in the secondary's shadow", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) });
+      labels.push(e.lab4 ? { t: "pyramid and four cameras", s: "see the Instrument view", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) } : { t: "camera and detector", s: "in the secondary's shadow", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) });
     } else if (e.k === "tertiary") {
       const pts = [];
       for (let i = -10; i <= 10; i++) { const hh = e.hh * i / 10; pts.push(T(e.x - hh, hh)); }
@@ -586,6 +680,7 @@ function drawLayout(Dz, P) {
     cap.style.setProperty("--capL", Math.round(x0 + len * sc + 18) + "px");
     cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."
+      : Dz.reim && Dz.split ? "A flat pyramid at the focus reflects each quadrant back, 10° off the axis, to its own camera (two of four drawn; in 3D the arms run along the field's diagonals). The field's center falls on the apex."
       : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the pupil, where the filter sits, and the camera focuses each one onto the detector." : "Each star's cone of light converges onto the detector; the filter sits in the converging beam.");
   } else $("ilSub").hidden = true;
 }
@@ -696,7 +791,7 @@ function drawSky(Dz, P) {
   const vis = chips.filter(c => c.X + c.Wd / 2 >= vx0 && c.X - c.Wd / 2 <= vx1 && c.Y + c.Ht / 2 >= vy0 && c.Y - c.Ht / 2 <= vy1);
   for (const c of vis) {
     const r = rectOf(c);
-    g.fillStyle = c.active ? "#0b111c" : "#b9b4ac"; g.fillRect(...r);
+    g.fillStyle = !c.active ? "#b9b4ac" : Dz.isPlate ? PLATE_FOG : "#0b111c"; g.fillRect(...r);
   }
   // ---- the sky image, on the active chips
   // clip to the field circle
@@ -712,7 +807,7 @@ function drawSky(Dz, P) {
     const objs = sky.list;
     skyGeom.mDraw = sky.mDraw; skyGeom.capped = sky.mDraw < depth - 0.05; skyGeom.nObj = objs.length;
     const flux = m => Math.pow(10, -0.4 * (m - 20));
-    if (ppx >= 2.5) {
+    if (ppx >= 2.5 && !Dz.isPlate) {
       // pixel mode: the flux in each detector pixel (the star's image integrated over the pixel)
       // white: the peak pixel of a star 4 magnitudes brighter than the faintest drawn (the depth set, or what a wide
       // view can hold); objects are drawn out to where they fall below half the stretch's knee (W / 80)
@@ -817,7 +912,11 @@ function drawSky(Dz, P) {
       if (!offS) offS = document.createElement("canvas");
       offS.width = bw; offS.height = bh;
       const og = offS.getContext("2d"), im = og.createImageData(bw, bh);
-      paint(buf, im.data, W);
+      if (Dz.isPlate) {
+        // the emulsion's grain: value noise on a lattice of the grain size, fixed on the plate
+        const gmm = Dz.grain / 1000, kx = 1 / (sd * Dz.plate * gmm);       // grain cells per device px
+        paintPlate(buf, im.data, W, bw, bh, (x, y) => grainNoise((vx0 + (x + 0.5) / sd) / Dz.plate / gmm, (vy1 - (y + 0.5) / sd) / Dz.plate / gmm), Math.min(1, Math.pow(1 / (1.5 * kx), 2)));
+      } else paint(buf, im.data, W);
       og.putImageData(im, 0, 0);
       g.save();
       g.beginPath(); for (const c of act) g.rect(...rectOf(c)); g.clip();
@@ -826,8 +925,8 @@ function drawSky(Dz, P) {
       g.restore();
     }
   }
-  // pixel grid when zoomed in far enough
-  if (ppx >= 7) {
+  // pixel grid when zoomed in far enough (a plate has none)
+  if (ppx >= 7 && !Dz.isPlate) {
     g.strokeStyle = "rgba(128,128,128,0.4)"; g.lineWidth = 1;
     g.beginPath();
     for (const c of act) {
@@ -903,12 +1002,30 @@ function drawSky(Dz, P) {
   // ---- header readout: the pointer's position, or the star size
   const sub = $("sSub");
   const sAng = a => (a < 0 ? "−" : "") + fAng(Math.abs(a));
-  if (hover) sub.innerHTML = `<b>${sAng(hover.x)}</b>, <b>${sAng(hover.y)}</b>` + (hover.chip ? ` · chip <b>${hover.chip}</b> · pixel <b>${hover.i + 1}</b>, <b>${hover.j + 1}</b>` : "");
+  if (hover) sub.innerHTML = `<b>${sAng(hover.x)}</b>, <b>${sAng(hover.y)}</b>` + (hover.chip ? (Dz.isPlate ? ` · on the plate <b>${sig(Math.abs(hover.x) / Dz.plate, 3)}</b>, <b>${sig(Math.abs(hover.y) / Dz.plate, 3)}</b> mm from the center` : ` · chip <b>${hover.chip}</b> · pixel <b>${hover.i + 1}</b>, <b>${hover.j + 1}</b>`) : "");
   else sub.innerHTML = "";
   // the depth reached: the slider's own, or less in a view too wide to draw that many objects
   const vd = $("vDepth"), dp = P.depth || 25;
   vd.textContent = skyGeom && skyGeom.capped ? dp.toFixed(1) + " mag (" + skyGeom.mDraw.toFixed(1) + " here)" : dp.toFixed(1) + " mag";
   vd.title = skyGeom && skyGeom.capped ? "A view this wide holds too many objects to draw one by one: it shows down to " + skyGeom.mDraw.toFixed(1) + " mag. Zoom in to reach the depth set." : "";
+}
+// a photographic plate, drawn as the negative the survey prints show: dark stars on the light, fogged plate, with
+// the emulsion's grain (amplitude fading out when the grain is finer than the screen's pixels)
+const PLATE_FOG = "#e6e0d2";
+function grainNoise(u, v) {
+  const i = Math.floor(u), j = Math.floor(v), fu = u - i, fv = v - j;
+  const h = (a, b) => (hash4(a | 0, b | 0, 7, 11) / 4294967296) * 2 - 1;
+  const su = fu * fu * (3 - 2 * fu), sv = fv * fv * (3 - 2 * fv);
+  return (h(i, j) * (1 - su) + h(i + 1, j) * su) * (1 - sv) + (h(i, j + 1) * (1 - su) + h(i + 1, j + 1) * su) * sv;
+}
+function paintPlate(buf, data, W, bw, bh, noise, amp) {
+  const a = W / 40, top = Math.asinh(W / a), fog = [230, 224, 210], ink = [24, 22, 20];
+  for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
+    const i = y * bw + x, v = buf[i];
+    let d = v > 0 ? Math.min(1, Math.asinh(v / a) / top) : 0;
+    if (amp > 0.02) d = Math.max(0, Math.min(1, d + amp * noise(x, y) * (0.13 + 0.35 * d * (1 - d))));
+    data[4 * i] = fog[0] + (ink[0] - fog[0]) * d; data[4 * i + 1] = fog[1] + (ink[1] - fog[1]) * d; data[4 * i + 2] = fog[2] + (ink[2] - fog[2]) * d; data[4 * i + 3] = 255;
+  }
 }
 // asinh stretch to white over the dark chip
 function paint(buf, data, W) {
