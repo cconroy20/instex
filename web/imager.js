@@ -69,19 +69,28 @@ function design(P) {
   // ---- telescope, unfolded along z (mm): elements are { z, f, kind }
   const el = [];
   let zF, zXP, zStop = 0;                                        // the telescope focus, its exit pupil, the aperture stop
-  if (P.tel === "cass") {
-    // Cassegrain: primary of focal length f1 = F1 D, convex secondary at s, focus b behind the primary.
-    // Magnification m = F / F1; the secondary's object (the prime focus) lies p = f1 - s beyond it and its image
-    // q = m p beyond it, so s = (m f1 - b) / (m + 1).
+  if (P.tel === "cass" || P.tel === "greg") {
+    // Two mirrors: a primary of focal length f1 = F1 D and a secondary at s that sends the light back past the
+    // primary to a focus b behind its vertex, magnifying by m = F / F1.  Cassegrain: a convex secondary inside the
+    // prime focus (its object, the prime focus, lies p = f1 - s beyond it; the image q = m p), so
+    // s = (m f1 - b) / (m + 1).  Gregorian: a concave secondary beyond the prime focus (p = s - f1 in front of it),
+    // so s = (m f1 + b) / (m - 1).  Nasmyth: a flat tertiary on the axis, a3 in front of the primary, turns the beam
+    // to the side; the focus then lies backN D from the axis (b = backN D - a3).  A flat fold changes no number.
+    const greg = P.tel === "greg";
     const F1 = Math.min(P.F1 || 2, P.F / 1.02), f1 = F1 * Dmm, m = P.F / F1;   // the secondary must slow the beam (m > 1)
-    const b = (P.back === undefined || P.back === null ? 0.2 : P.back) * Dmm;
-    const s = (m * f1 - b) / (m + 1), p = f1 - s, q = m * p, f2 = m * p / (1 - m);
+    const a3 = 0.2 * Dmm;
+    const b = P.nasmyth ? (P.backN === undefined || P.backN === null ? 0.8 : P.backN) * Dmm - a3
+                        : (P.back === undefined || P.back === null ? 0.2 : P.back) * Dmm;
+    const s = greg ? (m * f1 + b) / (m - 1) : (m * f1 - b) / (m + 1);
+    const p = greg ? s - f1 : f1 - s, q = m * p;
+    const f2 = greg ? p * q / (p + q) : m * p / (1 - m);
     el.push({ z: 0, f: f1, kind: "primary" }, { z: s, f: f2, kind: "secondary" });
     zF = s + q;
     // the exit pupil: the image of the primary formed by the secondary (a chief ray from the primary's center)
     const u2 = 1 - s / f2;
     zXP = s - s / u2;
-    Object.assign(S, { F1, f1, m, s, p, q, f2, back: b, secD: 0 });
+    Object.assign(S, { F1, f1, m, s, p, q, f2, back: b, secD: 0, greg });
+    if (P.nasmyth) { S.nasmyth = true; S.a3 = a3; S.zM3 = 2 * s - a3; }   // the tertiary, along the light's path
   } else if (P.tel === "schmidt") {
     // the stop (the corrector, ideal: no power) at the center of curvature; a chief ray through the stop's center
     // meets the mirror at 2 f t and leaves with slope -t, so the exit pupil is the stop's own image, at 2 f
@@ -238,6 +247,7 @@ function design(P) {
 // the default imager (the page's Reset all): a 4 m f/3 prime-focus telescope with a 3 x 3 mosaic of 4k x 4k chips
 const DEF = {
   D: 4, F: 3, eps: 0.3, field: 120, tel: "prime", F1: 2, back: 0.2,
+  nasmyth: false, backN: 0.8,
   band: "r", psf: "seeing", seeing: 0.8,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,

@@ -84,13 +84,17 @@
       <div id="ilSub" class="lcap" hidden></div>
       <button id="ilvExpand" class="ghost lvx" type="button" aria-label="Expand the layout" title="Expand the layout to fill the window (Esc returns)."></button>
       <div id="ilvOpts" class="lvopts" hidden>
-        <div class="ctl only-icass" title="Focal ratio of the Cassegrain primary mirror. The final focal ratio is set by the Telescope box; the primary's sets how far the secondary sits from the primary, and so the drawing only.">
+        <div class="ctl only-icass" title="Focal ratio of the primary mirror of a Cassegrain or Gregorian telescope. The final focal ratio is set by the Telescope box; the primary's sets how far the secondary sits from the primary, and so the drawing only.">
           <label for="iF1"><span>Primary focal ratio</span><span class="val" id="vF1"></span></label>
           <input type="range" id="iF1" min="1" max="4" step="0.01">
         </div>
-        <div class="ctl only-icass" title="How far behind the primary the Cassegrain focus lies, in units of the aperture D. Changes only the drawing.">
+        <div class="ctl only-icass only-iax" title="How far behind the primary the axial focus lies, in units of the aperture D. Changes only the drawing.">
           <label for="iBk"><span>Focus behind the primary</span><span class="val" id="vBk"></span></label>
           <input type="range" id="iBk" min="0.05" max="1" step="0.01">
+        </div>
+        <div class="ctl only-icass only-inas" title="How far from the telescope's axis the Nasmyth focus lies (the flat tertiary sits 0.2 D in front of the primary), in units of the aperture D. Changes only the drawing.">
+          <label for="iBkN"><span>Nasmyth focus from the axis</span><span class="val" id="vBkN"></span></label>
+          <input type="range" id="iBkN" min="0.3" max="1.5" step="0.01">
         </div>
         <div class="caserow" title="Show or hide the labels, the field angle in the beam, and the scale bar."><span>Labels and marks</span>
           <span class="seg sm"><button id="ianOn" type="button">Show</button><button id="ianOff" type="button">Hide</button></span></div>
@@ -253,8 +257,10 @@
         <label for="iFld"><span>Field diameter</span><span class="val" id="vFld"></span></label>
         <input type="range" id="iFld" min="-1" max="2.78" step="0.005">
       </div>
-      <div class="caserow" title="The kind of telescope. Prime: the instrument sits at the primary mirror's own focus, in the incoming beam. Cassegrain: behind the primary, after a convex secondary lengthens the focal ratio. Schmidt: a spherical mirror behind a thin corrector plate at the mirror's center of curvature; the plate is the aperture stop, so the mirror is larger than the aperture, and the detector sits at the focus inside the tube. Refractor: an objective lens, with the focus behind the lens and nothing in the beam. Changes the drawing and the position of the pupil."><span>Design</span>
-        <select id="iTel"><option value="prime">Prime focus</option><option value="cass">Cassegrain</option><option value="schmidt">Schmidt</option><option value="refr">Refractor</option></select></div>
+      <div class="caserow" title="The kind of telescope. Prime: the instrument sits at the primary mirror's own focus, in the incoming beam. Cassegrain: a convex secondary inside the prime focus lengthens the focal ratio and sends the light back through the primary. Gregorian: a concave secondary beyond the prime focus does the same (as on the Magellan telescopes). Schmidt: a spherical mirror behind a thin corrector plate at the mirror's center of curvature; the plate is the aperture stop, so the mirror is larger than the aperture, and the detector sits at the focus inside the tube. Refractor: an objective lens, with the focus behind the lens and nothing in the beam. Changes the drawing and the position of the pupil."><span>Design</span>
+        <select id="iTel"><option value="prime">Prime focus</option><option value="cass">Cassegrain</option><option value="greg">Gregorian</option><option value="schmidt">Schmidt</option><option value="refr">Refractor</option></select></div>
+      <div class="caserow only-i2m" title="Where the light comes to focus. Axial: behind the primary, through the hole in the primary (the Cassegrain or Gregorian focus). Nasmyth: a flat tertiary mirror on the axis turns the beam to the side, to a platform on the elevation axis, where a large or heavy instrument can sit without tilting. The flat fold changes no number on the page."><span>Focus</span>
+        <span class="seg sm"><button id="ifAx" type="button">Axial</button><button id="ifNa" type="button">Nasmyth</button></span></div>
       <div class="rds" id="rTelI"></div>
     </section>
     <section>

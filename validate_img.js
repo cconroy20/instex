@@ -53,6 +53,22 @@ for (const [lab, o] of [["prime direct", {}], ["cass direct", { tel: "cass", F: 
   check("the obstructed center is blocked geometrically by a secondary of p / f1 of D", S.p / S.f1 > 0 && S.p / S.f1 < 0.5, (S.p / S.f1).toFixed(3));
 }
 
+// ---------------------------------------------------------------- 3b. Gregorian and Nasmyth
+{
+  const G = mk({ tel: "greg", F: 11, F1: 1.25, D: 6.5, back: 0.3 }), D = G.Dmm;
+  check("Gregorian: concave secondary beyond the prime focus", G.f2 > 0 && G.s > G.f1, `s ${(G.s / 1000).toFixed(3)} m, f1 ${(G.f1 / 1000).toFixed(3)} m`);
+  check("Gregorian: the secondary images the prime focus (1/q = 1/f2 - 1/p, real object)", rel(1 / G.q, 1 / G.f2 - 1 / G.p) < 1e-12);
+  check("Gregorian: focus b behind the primary", Math.abs(G.zF - 2 * G.s - 0.3 * D) < 1e-6);
+  check("Gregorian: f_eff = F D, one star one point", rel(G.feff, 11 * D) < 1e-12 && G.imageSpread < 1e-9 * D, (G.feff / 1000).toFixed(3) + " m");
+  const vi = 1 / (1 / G.f2 - 1 / G.s);
+  check("Gregorian: exit pupil = the primary imaged by the secondary", Math.abs((G.s + vi) - G.zXP) < 1e-6 * D, (G.zXP / 1000).toFixed(3) + " m");
+  for (const tel of ["cass", "greg"]) {
+    const A = mk({ tel, F: 15, F1: 1.75, D: 10 }), N = mk({ tel, F: 15, F1: 1.75, D: 10, nasmyth: true, backN: 0.8 });
+    check(`${tel} Nasmyth: the flat tertiary changes no number (pixel scale, field, sampling)`, rel(N.pixScale, A.pixScale) < 1e-12 && rel(N.areaDeg2, A.areaDeg2) < 1e-12 && rel(N.sampling, A.sampling) < 1e-12);
+    check(`${tel} Nasmyth: the tertiary between the secondary and the primary, the focus 0.8 D from the axis`, N.zM3 > N.s && N.zM3 < N.zF && Math.abs((N.zF - N.zM3) - 0.8 * N.Dmm) < 1e-6, ((N.zF - N.zM3) / N.Dmm).toFixed(3) + " D");
+  }
+}
+
 // ---------------------------------------------------------------- 4. reimager
 for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 11, F1: 2, W: 120, Fc: 2.5 }]) {
   const S = mk(o);

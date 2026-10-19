@@ -19,7 +19,7 @@ const bandOf = k => BANDS.find(b => b.k === k) || BANDS[0];
 // the instrument's defaults (imager.js) and the drawing's
 const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false, depth: 25 });
 // drawing-only keys (they keep a preset's name)
-const DRAWING = new Set(["F1", "back", "view", "annot", "moon", "stretch", "depth"]);
+const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "view", "annot", "moon", "stretch", "depth"]);
 let S = clone(DEF), presetId = "custom";
 const PRESETS = window.IX_IPRESETS || [];
 
@@ -59,6 +59,7 @@ const SL = [
   ["iGap", "gapX", false, false, v => sig(v, 2) + " mm"],
   ["iF1", "F1", false, false, v => "f/" + v.toFixed(2)],
   ["iBk", "back", false, false, v => v.toFixed(2) + " D"],
+  ["iBkN", "backN", false, false, v => v.toFixed(2) + " D"],
   ["iDepth", "depth", false, false, v => v.toFixed(1) + " mag"],
 ];
 // a readout's element: v<name>_ where the spectrograph already uses v<name>
@@ -93,6 +94,7 @@ const segs = [
   bindSeg([["ioDir", "direct"], ["ioRe", "reimaged"]], () => S.optics, v => { S.optics = v; lview.fit = true; zoom.reset(); }),
   bindSeg([["ivTel", "tel"], ["ivInst", "inst"]], () => S.view, v => { S.view = v; lview.fit = true; }, true),
   bindSeg([["isOff", false], ["isOn", true]], () => !!S.stretch, v => { S.stretch = v; lview.fit = true; }, true),
+  bindSeg([["ifAx", false], ["ifNa", true]], () => !!S.nasmyth, v => { S.nasmyth = v; lview.fit = true; }, true),
   bindSeg([["ianOn", true], ["ianOff", false]], () => S.annot !== false, v => { S.annot = v; }, true),
   bindSeg([["ilvAuto", "auto"], ["ilvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true),
 ];
@@ -136,7 +138,7 @@ function syncControls() {
   const di = DETS.findIndex(d => d.Nx === S.Nx && d.Ny === S.Ny && d.pix === S.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
 }
-const bodyClasses = () => ["it-" + S.tel, "io-" + (S.optics === "reimaged" ? "re" : "dir"), "ip-" + S.psf, "iv-" + S.view, ilvExpanded ? "ilv-expanded" : ""];
+const bodyClasses = () => ["it-" + S.tel, S.nasmyth ? "in-nas" : "in-ax", "io-" + (S.optics === "reimaged" ? "re" : "dir"), "ip-" + S.psf, "iv-" + S.view, ilvExpanded ? "ilv-expanded" : ""];
 
 function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S.band).lam : 0.6 }); }
 
@@ -148,7 +150,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { tel: ["prime", "cass", "schmidt", "refr"], psf: ["seeing", "diff"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
+const CHOICES = { tel: ["prime", "cass", "greg", "schmidt", "refr"], psf: ["seeing", "diff"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
 function hashParts() {
   const parts = [];
   for (const k of Object.keys(DEF)) {
@@ -298,7 +300,7 @@ function drawLayout(Dz, P) {
   g.clearRect(0, 0, w, h);
   if (!(cv.width > 0 && cv.height > 0)) return;
   if (Dz.bad) { message(g, w, h, Dz.bad); return; }
-  const tel = P.view === "tel", cass = P.tel === "cass", Dmm = Dz.Dmm, eps = Dz.eps;
+  const tel = P.view === "tel", two = P.tel === "cass" || P.tel === "greg", Dmm = Dz.Dmm, eps = Dz.eps;
   const ts = fieldSlopes(Dz);
   // rays: for each field point, the annulus's inner and outer edges on each side
   const edgeA = [eps > 0.002 ? eps : 0.002, 1];
@@ -308,17 +310,34 @@ function drawLayout(Dz, P) {
   let X, z0, polys = [], elems = [], marks = [];
   if (tel) {
     // the telescope folded on the page: light arrives from the left, the primary at x = 0
-    const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt";
+    const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt", nas = !!Dz.nasmyth, a3 = Dz.a3 || 0;
     // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded
-    X = z => (z < 0 ? z : refr ? z : cass ? (z <= s ? -z : z - 2 * s) : -z);
-    const xs = [0, X(Dz.zF), X(Dz.zDet)].concat(cass ? [-s] : []).concat(schm ? [Dz.zStop] : []);
+    X = z => (z < 0 ? z : refr ? z : two ? (z <= s ? -z : z - 2 * s) : -z);
+    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(nas ? [] : [X(Dz.zDet)]).concat(two ? [-s] : []).concat(schm ? [Dz.zStop] : []);
     const xIn = Math.min(...xs) - 0.12 * Math.max(Dmm, Math.max(...xs) - Math.min(...xs));
     z0 = xIn;
+    // a Nasmyth tertiary: the flat on the line (x + a3) + y = 0 (45 degrees, through the axis a3 in front of the
+    // primary) turns the returning beam downward on the page; past it the drawing is reflected about that line
+    const foldN = line => {
+      if (!nas) return line;
+      const L = q => q[0] + a3 + q[1], out = line.slice(0, 3);
+      let folded = false;
+      for (let i = 3; i < line.length; i++) {
+        const A = out[out.length - 1], B = line[i];
+        if (!folded && L(A) < 0 && L(B) >= 0) {
+          const t = -L(A) / (L(B) - L(A));
+          out.push([A[0] + t * (B[0] - A[0]), A[1] + t * (B[1] - A[1])]);
+          folded = true;
+        }
+        out.push(folded ? [-a3 - B[1], -(B[0] + a3)] : B);
+      }
+      return out;
+    };
     const pathOf = pts => {
       // incoming from xIn, then the folded segments; the primary point moved onto its curved surface
       const out = [[xIn, pts[0].h + pts.tVal * (xIn - X(pts[0].z))]];
       pts.forEach(p => out.push([p.z === 0 && !refr ? -sag1(p.h) : X(p.z), p.h]));
-      return out;
+      return two ? foldN(out) : out;
     };
     for (let f = 0; f < 3; f++) {
       const r = rays[f];
@@ -330,16 +349,21 @@ function drawLayout(Dz, P) {
     }
     // primary: its curve, with the Cassegrain hole sized to pass the returning beam
     let hole = 0;
-    if (cass) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
+    if (two && !nas) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
     // the mirror as large as the bundles it catches (a Schmidt's mirror is larger than its stop)
     let mir = Dmm / 2;
     if (schm) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) mir = Math.max(mir, Math.abs(hAt(pts, 0)) * 1.02);
-    elems.push({ k: refr ? "objective" : "primary", hole: cass ? hole * 1.08 : 0, hh: mir });
+    elems.push({ k: refr ? "objective" : "primary", hole: two ? hole * 1.08 : 0, hh: mir });
     if (schm) elems.push({ k: "corrector", x: Dz.zStop, hh: Dmm / 2 });
-    if (refr) { /* nothing in the beam */ } else if (cass) {
+    if (refr) { /* nothing in the beam */ } else if (two) {
       let sec = 0;
       for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) sec = Math.max(sec, Math.abs(pts[1].h));
-      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: Math.max(sec * 1.04, eps * Dmm / 2) });
+      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg });
+      if (nas) {
+        let t3 = 0;
+        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
+        elems.push({ k: "tertiary", x: -a3, hh: t3 * 1.12 });
+      }
     } else {
       // the prime-focus unit: the instrument in the beam, as wide as the obstruction
       elems.push({ k: "pfu", x: -Dz.zF, hh: Math.max(eps * Dmm / 2, (Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.2) });
@@ -367,14 +391,17 @@ function drawLayout(Dz, P) {
       elems.push({ k: "filter", x: X(Dz.zF - 0.35 * lin), hh: Math.abs(hAt(rays[0].up[1], Dz.zF - 0.35 * lin)) * 1.1, lab: "filter" });
     }
   }
-  elems.push({ k: "det", x: X(Dz.zDet) });
+  // the detector: across the beam, or along the page past a Nasmyth fold (the beam then travels downward)
+  if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true });
+  else elems.push({ k: "det", x: X(Dz.zDet) });
   // ---- fit
   let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
   const grow = (x, y) => { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); };
   for (const p of polys) for (const q of p.a.concat(p.b)) grow(q[0], q[1]);
   if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { grow(0, e.hh); grow(0, -e.hh); }
-  const detX = X(Dz.zDet), detH = Dz.mosaic.y1 - Dz.mosaic.y0;
-  grow(detX, detH / 2); grow(detX, -detH / 2);
+  const detE = elems[elems.length - 1], detH = Dz.mosaic.y1 - Dz.mosaic.y0;
+  if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
+  else { grow(detE.x, detH / 2); grow(detE.x, -detH / 2); }
   const mL = 30, mR = tel ? 120 : 30, mT = 34, mB = 54;
   const sxFit = (w - mL - mR) / Math.max(1e-9, bx1 - bx0), syFit = (h - mT - mB) / Math.max(1e-9, by1 - by0);
   // stretched (Instrument view): heights scaled by the largest step of 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20 ... that
@@ -423,9 +450,15 @@ function drawLayout(Dz, P) {
     } else if (e.k === "secondary") {
       if (e.baffle > e.hh * 1.01) { const a = T(e.x - 0.004 * Dmm, e.baffle), b = T(e.x - 0.004 * Dmm, -e.baffle); g.fillStyle = "rgba(120,114,106,0.35)"; g.fillRect(a[0] - 5, a[1], 5, b[1] - a[1]); }
       const pts = [];
-      for (let i = -20; i <= 20; i++) { const hh = e.hh * i / 20; pts.push(T(e.x - hh * hh / (4 * Math.abs(Dz.f2)), hh)); }
+      // convex (Cassegrain: the edges curl away from the primary) or concave (Gregorian: toward it)
+      for (let i = -20; i <= 20; i++) { const hh = e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
       mirror(g, pts, -1);
-      labels.push({ t: "secondary", s: "obstruction ε " + eps.toFixed(2), at: T(e.x, e.baffle), dx: 0, dy: -18, al: "center" });
+      labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: "obstruction ε " + eps.toFixed(2), at: T(e.x, e.baffle), dx: 0, dy: -18, al: "center" });
+    } else if (e.k === "tertiary") {
+      const pts = [];
+      for (let i = -10; i <= 10; i++) { const hh = e.hh * i / 10; pts.push(T(e.x - hh, hh)); }
+      mirror(g, pts, 1);
+      labels.push({ t: "tertiary (flat)", s: "to the Nasmyth focus", at: T(e.x - e.hh, e.hh) });
     } else if (e.k === "pfu") {
       const a = T(e.x - 0.06 * Dz.zF, e.hh), b = T(e.x, -e.hh);
       g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
@@ -456,9 +489,15 @@ function drawLayout(Dz, P) {
       const bands = [];
       for (const c of Dz.chips) { const k = c.y.toFixed(4); if (!bands.find(b => b.k === k)) bands.push({ k, y0: c.y - c.h / 2, y1: c.y + c.h / 2 }); }
       const wpx = Math.max(4, Math.min(9, 0.012 * (by1 - by0) * sc));
+      if (e.rot) {
+        // past the fold the beam travels down the page: the mosaic lies across it (heights h map to x = x3 - h)
+        for (const b of bands) { const a = T(e.x - b.y1, e.y), c2 = T(e.x - b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(a[0], a[1], c2[0] - a[0], wpx); }
+        const tip = T(e.x - Dz.mosaic.y0, e.y);
+        labels.push({ t: "Nasmyth focus", s: Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
+      } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);
-      if (!(tel && P.tel === "prime")) labels.push({ t: "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
+      if (!(tel && P.tel === "prime") && !e.rot) labels.push({ t: "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
     }
   }
   // the field angle in the beam, at the pupil

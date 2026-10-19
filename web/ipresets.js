@@ -171,8 +171,8 @@ window.IX_IPRESETS = [
       { what: "field 4.25′", q: "fieldX", value: 4.25, tol: 0.015, src: "FORS2 manual" },
     ] },
   { id: "imacsf2", tel: "Magellan 6.5 m", name: "Magellan / IMACS f/2 imaging",
-    note: "IMACS with the f/2 camera: collimator 1648 mm, beam 150 mm, camera 356 mm; the Mosaic3 camera (2 rows of 4 CCDs) since 2017. A circular field stop of about 30′ (the camera baffles) cuts the mosaic's corners. The Gregorian focus is drawn as a Cassegrain; ε is measured on the twin telescope (Clay). Sources in data/imaging/reimagers.md.",
-    state: { D: 6.5, eps: 0.29, F: 11, tel: "cass", F1: 1.25, field: 30, optics: "reimaged", W: 149.86, Fc: 2.3729, band: "r", psf: "seeing",
+    note: "IMACS with the f/2 camera: collimator 1648 mm, beam 150 mm, camera 356 mm; the Mosaic3 camera (2 rows of 4 CCDs) since 2017. A circular field stop of about 30′ (the camera baffles) cuts the mosaic's corners. IMACS sits on the Baade telescope's west Nasmyth platform: an f/11 Gregorian secondary, then a flat tertiary that turns the beam to the side; ε is measured on the twin telescope (Clay). Sources in data/imaging/reimagers.md.",
+    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, F1: 1.25, field: 30, optics: "reimaged", W: 149.86, Fc: 2.3729, band: "r", psf: "seeing",
              Nx: 2048, Ny: 4096, pix: 15, rows: [4, 4], gapX: 1.37, gapY: 1.08 },
     pub: [
       { what: "pixel scale 0.200″/px", q: "pixScale", value: 0.2, tol: 0.01, src: "LCO IMACS pages" },
@@ -198,8 +198,8 @@ window.IX_IPRESETS = [
 // Keck II / NIRC2 behind adaptive optics: three cameras on one collimator
 for (const [cam, fc, ps, fov] of [["narrow", 1290, 0.009942, 10], ["medium", 647, 0.019829, 20], ["wide", 323, 0.039686, 40]]) {
   window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)",
-    note: "NIRC2 behind the Keck II adaptive optics: the AO bench delivers the telescope's f/15 focal length; a collimator, a pupil-mask wheel and filter wheels in the collimated beam, and three cameras (narrow, medium, wide). One 1024 × 1024 Aladdin-3 detector of 27 µm. The internal focal lengths and the pupil size are not published: W, f_col and f_cam are estimates from the aperture masks' geometry (they leave the pixel scale and field unchanged). The Keck pupil is hexagonal; the model's is a circular annulus. Sources in data/imaging/reimagers.md.",
-    state: { D: 10.95, eps: 0.24, F: 13.66, tel: "cass", F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
+    note: "NIRC2 sits on the Keck II left Nasmyth platform (a flat tertiary turns the beam to the side), behind the adaptive-optics bench, which delivers the telescope's f/15 focal length and pupil position (the AO relay is not drawn); a collimator, a pupil-mask wheel and filter wheels in the collimated beam, and three cameras (narrow, medium, wide). One 1024 × 1024 Aladdin-3 detector of 27 µm. The internal focal lengths and the pupil size are not published: W, f_col and f_cam are estimates from the aperture masks' geometry (they leave the pixel scale and field unchanged). The Keck pupil is hexagonal; the model's is a circular annulus. Sources in data/imaging/reimagers.md.",
+    state: { D: 10.95, eps: 0.24, F: 13.66, tel: "cass", nasmyth: true, F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
     pub: [
       { what: "pixel scale " + ps + "″/px", q: "pixScale", value: ps, info: true, src: "Keck NIRC2 pages; circular: f_cam was derived from it" },

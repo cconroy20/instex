@@ -144,8 +144,11 @@ not on the page. The band's wavelength enters only the diffraction width.
 
 - **Engine** (`web/imager.js`, window.IM): every optic is an ideal thin element acting on the ray slope
   t = tan θ (t′ = t − h/f), so a star images to one point at f_eff tan θ and the chain is exact. Telescopes:
-  prime focus, Cassegrain (primary f/F1, secondary placed for the magnification F/F1 with the focus a set
-  distance behind the primary; F1 and that distance are drawing options), Schmidt (the aperture stop at the
+  prime focus, Cassegrain (primary f/F1, convex secondary placed for the magnification F/F1 with the focus a set
+  distance behind the primary; F1 and that distance are drawing options), Gregorian (a concave secondary beyond
+  the prime focus, s = (m f1 + b)/(m − 1); Magellan), either one with its focus Axial (behind the primary) or
+  Nasmyth (a flat tertiary 0.2 D in front of the primary turns the beam to the side; drawing only: a flat fold
+  changes no number; IMACS on Magellan Baade and NIRC2 on Keck II, Charlie's review 2026-10-19), Schmidt (the aperture stop at the
   corrector, at the mirror's center of curvature, so the mirror is larger than the aperture and the exit
   pupil lies past the focus), refractor. Reimaged: collimator f_col = F W one focal length past the focus, the
   pupil (where the bundles cross) at f_col + f_col²/L past the collimator (L the exit pupil's distance before the

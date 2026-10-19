@@ -178,7 +178,8 @@ footer p{margin:.5em 0;max-width:120ch}
 
 /* ---- Imager mode */
 body.inst-spec .only-img, body.inst-img .only-spec{display:none !important}
-body:not(.it-cass) .only-icass{display:none}
+body:not(.it-cass):not(.it-greg) .only-icass, body:not(.it-cass):not(.it-greg) .only-i2m{display:none}
+body.in-nas .only-iax, body:not(.in-nas) .only-inas{display:none}
 body:not(.iv-inst) .only-iinst{display:none}
 body:not(.io-re) .only-ire{display:none}
 body:not(.ip-seeing) .only-isee{display:none}
