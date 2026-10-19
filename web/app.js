@@ -198,7 +198,9 @@ function buildPresetMenu() {
     gr.ps.push(p);
   }
   groups.sort((x, y) => y.D - x.D || x.t.localeCompare(y.t));
+  // a group of one (each telescope in the Telescopes mode) is one line, under its own name
   for (const gr of groups) {
+    if (gr.ps.length === 1 && inst === "tel") { const o = document.createElement("option"); o.value = gr.ps[0].id; o.textContent = gr.ps[0].name; psel.appendChild(o); continue; }
     const og = document.createElement("optgroup"); og.label = gr.t;
     for (const p of gr.ps) { const o = document.createElement("option"); o.value = p.id; o.textContent = p.name.replace(/^[^/]*\/\s*/, ""); og.appendChild(o); }
     psel.appendChild(og);

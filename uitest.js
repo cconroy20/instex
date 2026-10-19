@@ -775,9 +775,28 @@ const rel = (a, b) => Math.abs(a / b - 1);
   await go();
   await ev(`document.getElementById("iTelMode").click()`); await sleep(700);
   {
-    const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, stats: document.querySelectorAll("#stats .stat").length, hash: location.hash, menu: document.getElementById("preset").options.length })`);
+    const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, stats: document.querySelectorAll("#stats .stat").length, hash: location.hash, menu: document.getElementById("preset").options.length, groups: document.querySelectorAll("#preset optgroup").length, nt: window.IX_TELESCOPES.length, names: [...document.getElementById("preset").options].map(o => o.textContent) })`);
     check("Telescopes switch: its panels shown, the others hidden", /inst-tel/.test(st.cls) && st.tel !== "none" && st.img === "none", st.cls);
-    check("Telescopes: five figures in the strip, the telescopes in the menu, the link says inst=tel", st.stats === 5 && st.menu >= 5 && /inst=tel/.test(st.hash), JSON.stringify(st));
+    check("Telescopes: five figures in the strip, one menu line per telescope (no groups), the link says inst=tel", st.stats === 5 && st.menu === st.nt + 1 && st.groups === 0 && /inst=tel/.test(st.hash), JSON.stringify(st));
+    const ri = await ev(`document.getElementById("rTelT").textContent`);
+    check("Telescopes: no instruments or locations listed", !/Instruments|Where/.test(ri), ri.slice(0, 120));
+    const cap = await ev(`document.getElementById("tlSub").hidden`);
+    check("Telescopes: no caption under the optical layout", cap === true, String(cap));
+  }
+  // the two Nasmyth platforms are drawn on opposite sides; links to the old Keck I/II and Baade/Clay entries still load
+  {
+    const side = {};
+    for (const [tid, a, b] of [["keck", "nasr", "nasl"], ["magellan", "nasw", "nase"]]) {
+      for (const fid of [a, b]) { await nav("#inst=tel&t.tel=" + tid + "&t.focus=" + fid); side[tid + "/" + fid] = await ev(`window.__instex.tel().focusAt()`); }
+      const A = side[tid + "/" + a], B = side[tid + "/" + b];
+      check(`Telescopes: ${tid} ${a} and ${b} drawn on opposite sides`, A && B && A.y < 0 && B.y > 0 && Math.abs(A.x - B.x) < 1e-9, JSON.stringify([A, B]));
+    }
+    const old = [];
+    for (const [o, n] of [["keck1", "keck"], ["keck2", "keck"], ["baade", "magellan"], ["clay", "magellan"]]) {
+      await nav("#inst=tel&t.tel=" + o + "&t.focus=nasr");
+      const s = await ev(`window.__instex.tel().state().tel`); if (s !== n) old.push(o + " -> " + s);
+    }
+    check("Telescopes: old links (keck1, keck2, baade, clay) open the merged telescope", old.length === 0, old.join(", "));
   }
   {
     const tels = await ev(`window.IX_TELESCOPES.map(t => [t.id, t.foci.map(f => f.id)])`), bad = [], over = [];
@@ -800,6 +819,13 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("Telescopes: redraw on a band change", t < 300, `${t.toFixed(0)} ms`);
     const a = await ev(`window.__instex.tel().pupil().area`);
     check("Telescopes: HST's clear area 3.899 m² on the page", Math.abs(a / 3.899 - 1) < 0.002, a.toFixed(4));
+    // the seeing-limited image: the slider sets the seeing, and the link keeps it
+    const r = await ev(`(() => { const T = window.__instex.tel(), t0 = performance.now(); T.set({ see: 1.2 }); const ms = performance.now() - t0, a = T.seeing(); T.set({ see: 0.8 }); return { ms, a, b: T.seeing(), hash: location.hash, lbl: document.getElementById("vtSee").textContent }; })()`);
+    check("Telescopes: the seeing-limited image follows the seeing (HST in V: 1.2″ and 0.8″)", Math.abs(r.a.fwhm - 1.2) < 0.03 && Math.abs(r.b.fwhm - 0.8) < 0.03 && r.b.peak > 0 && r.b.peak < 0.01 && r.lbl === "0.80″", JSON.stringify(r));
+    check("Telescopes: redraw on a seeing change", r.ms < 600, `${r.ms.toFixed(0)} ms`);
+    await nav("#inst=tel&t.tel=hst&t.focus=cass&t.see=1.5");
+    const k = await ev(`({ s: window.__instex.tel().state().see, v: document.getElementById("vtSee").textContent })`);
+    check("Telescopes: a link with t.see sets the seeing", k.s === 1.5 && k.v === "1.5″", JSON.stringify(k));
   }
   await shot("11_telescopes.png");
 

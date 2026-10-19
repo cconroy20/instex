@@ -118,7 +118,7 @@
       <div id="tlSub" class="lcap" hidden></div>
     </section>
     <section class="panel">
-      <div class="ph"><h2 title="Left: the entrance pupil to scale (the primary, less the central obstruction, the spider vanes and anything else in the beam). Right: the image of a star the pupil makes, its diffraction pattern at the band's wavelength (the Fourier transform of the pupil, drawn on a log scale over five decades or linearly). The pupil's shape sets the pattern: segments give a six-fold pattern, vanes give spikes.">Pupil and image</h2></div>
+      <div class="ph"><h2 title="Left: the entrance pupil to scale (the primary, less the central obstruction, the spider vanes and anything else in the beam). Middle: the diffraction-limited image of a star the pupil makes, with perfect optics and no atmosphere (the Fourier transform of the pupil, at the band's wavelength). Right: the seeing-limited image, through a Kolmogorov atmosphere in a long exposure (the telescope's transfer function times the atmosphere's), on a larger angular scale: see the scale bars. Log stretch over five decades, or linear. The pupil's shape sets the pattern: segments give a six-fold pattern, vanes give spikes.">Pupil and image</h2></div>
       <canvas id="cvP" aria-label="The pupil and the image of a star"></canvas>
     </section>
   </div>
@@ -362,10 +362,14 @@
       <div class="rds" id="rTelT"></div>
     </section>
     <section>
-      <h2 title="The image of a star: the band sets the wavelength of the diffraction pattern.">Image</h2>
+      <h2 title="The image of a star: the band sets the wavelength of the diffraction pattern, and the seeing the blur of the atmosphere.">Image</h2>
       <div class="caserow" title="The band observed: its wavelength sets the scale of the diffraction pattern (λ / D)."><span>Band</span><select id="tBand"></select></div>
       <div class="caserow" title="Log: five decades, to show the rings and spikes. Linear: the core as the eye sees it."><span>Stretch</span>
         <span class="seg sm"><button id="tsLog" type="button">Log</button><button id="tsLin" type="button">Linear</button></span></div>
+      <div class="ctl" title="FWHM of a star's image from the atmosphere alone, at the band's wavelength (the seeing-limited image adds the telescope's diffraction).">
+        <label for="tSee"><span>Seeing FWHM</span><span class="val" id="vtSee"></span></label>
+        <input type="range" id="tSee" min="-1" max="0.6" step="0.005">
+      </div>
       <div class="rds" id="rImgT"></div>
     </section>
     <section>

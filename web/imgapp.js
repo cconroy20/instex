@@ -19,7 +19,7 @@ const bandOf = k => BANDS.find(b => b.k === k) || BANDS[0];
 // the instrument's defaults (imager.js) and the drawing's
 const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false, depth: 25 });
 // drawing-only keys (they keep a preset's name)
-const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "view", "annot", "moon", "stretch", "depth"]);
+const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "nasSide", "view", "annot", "moon", "stretch", "depth"]);
 let S = clone(DEF), presetId = "custom";
 const PRESETS = window.IX_IPRESETS || [];
 
@@ -157,7 +157,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
+const CHOICES = { nasSide: ["down", "up"], split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
 function hashParts() {
   const parts = [];
   for (const k of Object.keys(DEF)) {
@@ -342,10 +342,12 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     // a Nasmyth tertiary: the flat on the line (x + a3) + y = 0 (45 degrees, through the axis a3 in front of the
     // primary) turns the returning beam downward on the page; past it the drawing is reflected about that line
     // A Korsch telescope's flat (on y = x - xF, the light arriving from the right) likewise turns the beam downward.
-    // fold(line, x0, dir, i0): dir +1 for light traveling right, -1 for left; the first segment from point i0 on
-    // that crosses the mirror line is split there, and everything past it reflected
-    const fold = (line, x0, dir, i0) => {
-      const L = q => dir * (q[0] - x0) + q[1], out = line.slice(0, i0);
+    // A Nasmyth fold on the other side (a left or east platform) turns it up instead.
+    // fold(line, x0, dir, i0, s): dir +1 for light traveling right, -1 for left; s +1 to turn the beam down the page,
+    // -1 up; the first segment from point i0 on that crosses the mirror line is split there, and everything past it
+    // reflected about that line
+    const fold = (line, x0, dir, i0, s = 1) => {
+      const L = q => dir * (q[0] - x0) + s * q[1], out = line.slice(0, i0);
       let folded = false;
       for (let i = i0; i < line.length; i++) {
         const A = out[out.length - 1], B = line[i];
@@ -354,11 +356,12 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
           out.push([A[0] + t * (B[0] - A[0]), A[1] + t * (B[1] - A[1])]);
           folded = true;
         }
-        out.push(folded ? [x0 - dir * B[1], -dir * (B[0] - x0)] : B);
+        out.push(folded ? [x0 - dir * s * B[1], -s * dir * (B[0] - x0)] : B);
       }
       return out;
     };
-    const foldN = line => (nas ? fold(line, -a3, 1, 3) : tma === "korsch" ? fold(line, Dz.xFold, -1, 4) : line);
+    const nsg = P.nasSide === "up" ? -1 : 1;                           // which side the Nasmyth platform is drawn on
+    const foldN = line => (nas ? fold(line, -a3, 1, 3, nsg) : tma === "korsch" ? fold(line, Dz.xFold, -1, 4) : line);
     const sag3 = hh => (tma ? hh * hh / (4 * Dz.f3) : 0);
     const pathOf = pts => {
       // incoming from xIn, then the folded segments; the primary point moved onto its curved surface
@@ -394,7 +397,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       if (nas) {
         let t3 = 0;
         for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
-        elems.push({ k: "tertiary", x: -a3, hh: t3 * 1.12 });
+        elems.push({ k: "tertiary", x: -a3, hh: t3 * 1.12, s: nsg });
       }
       if (tma) {
         let t3 = 0;
@@ -489,7 +492,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   // the detector: across the beam, or along the page past a Nasmyth fold (the beam then travels downward)
   if (!tel && Dz.reim && Dz.split) { /* the arms carry their own detectors */ }
   else if (tel && Dz.reim && Dz.split) elems.push({ k: "camera", x: X(Dz.zF) + 0.05 * Dz.Dmm, hh: 0.06 * Dz.Dmm, lab4: true });
-  else if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true, sgn: -1 });
+  else if (tel && Dz.nasmyth) { const s = P.nasSide === "up" ? -1 : 1; elems.push({ k: "det", x: -Dz.a3, y: -s * (X(Dz.zDet) + Dz.a3), rot: true, sgn: -s, up: s < 0 }); }
   else if (tel && Dz.tma === "korsch") elems.push({ k: "det", x: Dz.xFold, y: X(Dz.zDet) - Dz.xFold, rot: true, sgn: 1, korsch: true });
   else elems.push({ k: "det", x: X(Dz.zDet), pb: tel && Dz.tma === "pb" });
   // ---- fit
@@ -498,6 +501,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   for (const p of polys) for (const q of p.a.concat(p.b)) grow(q[0], q[1]);
   if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { grow(0, e.hh); grow(0, -e.hh); }
   const detE = elems.find(e => e.k === "det"), detH = Dz.mosaic.y1 - Dz.mosaic.y0;
+  tg.det = detE ? { x: detE.x, y: detE.y || 0 } : null;           // where the focus was drawn (for the tests)
   if (!detE) { /* pyramid arms: grown from their elements below */ }
   else if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
   else { grow(detE.x, detH / 2); grow(detE.x, -detH / 2); }
@@ -592,9 +596,9 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       labels.push(e.lab4 ? { t: "pyramid and four cameras", s: "see the Instrument view", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) } : { t: "camera and detector", s: "in the secondary's shadow", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) });
     } else if (e.k === "tertiary") {
       const pts = [];
-      for (let i = -10; i <= 10; i++) { const hh = e.hh * i / 10; pts.push(T(e.x - hh, hh)); }
+      for (let i = -10; i <= 10; i++) { const hh = e.hh * i / 10; pts.push(T(e.x - (e.s || 1) * hh, hh)); }
       mirror(g, pts, 1);
-      labels.push({ t: "tertiary (flat)", s: "to the Nasmyth focus", at: T(e.x - e.hh, e.hh) });
+      labels.push({ t: "tertiary (flat)", s: "to the Nasmyth focus", at: T(e.x - (e.s || 1) * e.hh, e.hh) });
     } else if (e.k === "pfu") {
       const a = T(e.x - 0.06 * Dz.zF, e.hh), b = T(e.x, -e.hh);
       g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
@@ -626,10 +630,17 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       for (const c of Dz.chips) { const k = c.y.toFixed(4); if (!bands.find(b => b.k === k)) bands.push({ k, y0: c.y - c.h / 2, y1: c.y + c.h / 2 }); }
       const wpx = Math.max(4, Math.min(9, 0.012 * (by1 - by0) * sc));
       if (e.rot) {
-        // past the fold the beam travels down the page: the mosaic lies across it (heights h map to x = x3 - h)
-        for (const b of bands) { const a = T(e.x + e.sgn * b.y1, e.y), c2 = T(e.x + e.sgn * b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(Math.min(a[0], c2[0]), a[1], Math.abs(c2[0] - a[0]), wpx); }
+        // past the fold the beam travels down the page (up for a Nasmyth platform on the other side): the mosaic lies
+        // across it (heights h map to x = x3 - h, or x3 + h going up)
+        const dy = e.up ? -wpx : 0;
+        for (const b of bands) { const a = T(e.x + e.sgn * b.y1, e.y), c2 = T(e.x + e.sgn * b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(Math.min(a[0], c2[0]), a[1] + dy, Math.abs(c2[0] - a[0]), wpx); }
         const tip = T(e.x, e.y);
-        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: P.telMode ? "" : Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
+        const sub = P.telMode ? "" : Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", lh = sub ? 31 : 16;
+        // beside the focus first, clear of the converging beam
+        let half = 0;
+        for (const b of bands) half = Math.max(half, Math.abs(T(e.x + e.sgn * b.y1, e.y)[0] - tip[0]), Math.abs(T(e.x + e.sgn * b.y0, e.y)[0] - tip[0]));
+        const px = tip[0] + half + 12, pref = [[px, tip[1] + (e.up ? -wpx : wpx) / 2 - lh / 2], [px, tip[1] - lh - 2], [px, tip[1] + 2]];
+        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: sub, at: [tip[0], tip[1] + (e.up ? -wpx : wpx)], pref });
       } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);
@@ -677,7 +688,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0 + len * sc, y0); g.moveTo(x0, y0 - 4); g.lineTo(x0, y0 + 4); g.moveTo(x0 + len * sc, y0 - 4); g.lineTo(x0 + len * sc, y0 + 4); g.stroke();
     halo(g, fLen(len), x0 + len * sc / 2, y0 - 10, "#4f4a44", `12px ${FONT}`, "center");
     const cap = $(tg.cap);
-    cap.hidden = false;
+    cap.hidden = !!P.telMode;                                         // the Telescopes mode draws no caption (Charlie, 10-19)
     cap.style.setProperty("--capL", Math.round(x0 + len * sc + 18) + "px");
     cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."

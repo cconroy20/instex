@@ -234,7 +234,7 @@ window.IX_IPRESETS.push(
     ] },
   { id: "fourstar", tel: "Magellan 6.5 m", name: "Magellan / FourStar (Baade)",
     note: "FourStar on the Baade telescope's east Nasmyth platform: the f/11 Gregorian focus, turned to the side by a flat tertiary. A field-lens doublet images the primary onto a cold stop (the 130 mm pupil), and the camera works at f/3.6; the filters sit near the focal plane. Four HAWAII-2RG detectors (2040 × 2040 active) in a 2 × 2 grid; the published gaps range from 18″ to 24″ (2.0 mm used). Sources in data/imaging/magellan.md.",
-    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, F1: 1.25, field: 20, optics: "reimaged", W: 130, Fc: 3.6, band: "Ks", psf: "seeing",
+    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, nasSide: "up", F1: 1.25, field: 20, optics: "reimaged", W: 130, Fc: 3.6, band: "Ks", psf: "seeing",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2, 2], gapX: 2.0, gapY: 2.0 },
     pub: [
       { what: "pixel scale 0.159″/px", q: "pixScale", value: 0.159, tol: 0.01, src: "Persson+13; f/3.6 published" },
@@ -317,7 +317,7 @@ window.IX_IPRESETS.push(
 for (const [cam, fc, ps, fov] of [["narrow", 1290, 0.009942, 10], ["medium", 647, 0.019829, 20], ["wide", 323, 0.039686, 40]]) {
   window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)",
     note: "NIRC2 sits on the Keck II left Nasmyth platform (a flat tertiary turns the beam to the side), behind the adaptive-optics bench, which delivers the telescope's f/15 focal length and pupil position (the AO relay is not drawn); a collimator, a pupil-mask wheel and filter wheels in the collimated beam, and three cameras (narrow, medium, wide). One 1024 × 1024 Aladdin-3 detector of 27 µm. The internal focal lengths and the pupil size are not published: W, f_col and f_cam are estimates from the aperture masks' geometry (they leave the pixel scale and field unchanged). The Keck pupil is hexagonal; the model's is a circular annulus. Sources in data/imaging/reimagers.md.",
-    state: { D: 10.95, eps: 0.24, F: 13.66, tel: "cass", nasmyth: true, F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
+    state: { D: 10.95, eps: 0.24, F: 13.66, tel: "cass", nasmyth: true, nasSide: "up", F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
     pub: [
       { what: "pixel scale " + ps + "″/px", q: "pixScale", value: ps, info: true, src: "Keck NIRC2 pages; circular: f_cam was derived from it" },

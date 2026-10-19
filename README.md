@@ -146,12 +146,30 @@ central obstruction, spider vanes (each pixel's coverage by a vane found exactly
 vane's strip: sampling quantized a 2.6 cm vane by 9%) and pads; the image is |FFT|², drawn on a log (five decades) or
 linear stretch. The strip: collecting area (measured from the mask) and the equal-area circle, focal ratio and focal
 length, plate scale, the diffraction FWHM (measured from the image: within 0.3% of the annular Airy FWHM), field.
-Telescopes (web/tpresets.js; sources data/telescopes/{keck,magellan,hst}.md): Keck I and II (36 segments of 0.9 m
-sides, a 2.6 m obstruction, six 25 mm vanes; Cassegrain, both Nasmyths, bent Cassegrain, and the historical f/25 and
-f/40, whose undersized secondary is the stop), Magellan Baade and Clay (f/11 Gregorian Nasmyth West and East and the
-folded ports, Clay's f/5 Cassegrain and f/16 adaptive secondary; four vanes from points 0.34 m off center), HST (the
-OTA Handbook's pupil: 3.899 m² clear, reproduced exactly). The collecting area is geometric; each focus lists its
-reflections, but no reflectivity is applied.
+Telescopes (web/tpresets.js; sources data/telescopes/{keck,magellan,hst}.md), one menu line each: Keck 10 m (Keck I
+and II as one, the same design: 36 segments of 0.9 m sides, a 2.6 m obstruction, six 25 mm vanes; Cassegrain, both
+Nasmyths, bent Cassegrain, and the historical f/25 of Keck I and f/40 of Keck II, whose undersized secondary is the
+stop), Magellan 6.5 m (Clay, the twin with more foci: f/11 Gregorian Nasmyth West and East and the folded ports, the f/5
+Cassegrain and the f/16 adaptive secondary; four vanes from points 0.34 m off center, two widened to 1.5 in by the MagAO
+cable trays), Hubble 2.4 m (the OTA Handbook's pupil: 3.899 m² clear, reproduced exactly). Charlie (10-19): the two
+Nasmyth platforms are drawn on opposite sides (right or West folds down the page, left or East up; IM option nasSide,
+also set on the Imager's FourStar and NIRC2); no instruments are listed at the ports. Links to the old keck1, keck2,
+baade and clay entries open the merged telescope. Pupil and image (10-19, his asks: "those are just diffraction-limited, right? should be made
+clear in the panel"; "why is the pupil image so fuzzy"; "should include a version with an atmosphere side-by-side"):
+three images, the entrance pupil (drawn from its own raster at the screen's resolution: the FFT grid has only 128
+cells across the pupil), the diffraction-limited image ("perfect optics, no atmosphere") and the seeing-limited image
+(TP.seeingPSF: the telescope's transfer function, the transform of its diffraction-limited image, times the
+Kolmogorov long-exposure transfer function exp[−3.44 (s/r0)^(5/3)], r0 = 0.976 λ / seeing, transformed back
+(sources in data/telescopes/seeing.md: 3.44 = 6.88/2 from Sarazin & Roddier 1990 and Tokovinin 2002, printed by
+Coulman 1985 after Fried 1966; 0.976 from Martinez et al. 2010, the unrounded form of their 0.98); the grid
+puts the pupil at most 512 cells across so the autocorrelation does not wrap, and the image shows 4 FWHM). The seeing
+slider (Image box, 0.1–4″, default 0.8″, link key t.see) is the FWHM at the band's wavelength (λ only enters the
+diffraction, as in the Imager). Readouts: the seeing-limited FWHM (measured) and the peak relative to the
+diffraction-limited image of the same star. HST's seeing-limited image is labeled "if on the ground". Checked
+against an independent 1-D Hankel transform for a round pupil (FWHM and peak within 0.05%), the seeing → 0 limit
+(the Airy FWHM) and the large-telescope limit (the seeing set). The FFT now tabulates its twiddles and copies
+columns out (8× faster: 30 ms for 1024²). The collecting area is geometric; each focus lists its reflections,
+but no reflectivity is applied.
 
 ## Imager mode
 

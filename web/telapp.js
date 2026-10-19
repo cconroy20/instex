@@ -12,7 +12,7 @@ const TELS = window.IX_TELESCOPES || [];
 const clone = o => JSON.parse(JSON.stringify(o));
 
 // ------------------------------------------------------------------ state
-const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log" };
+const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8 };
 let S = clone(DEF);
 const telOf = () => TELS.find(t => t.id === S.tel) || TELS[0];
 const focusOf = () => { const t = telOf(); return t.foci.find(f => f.id === S.focus) || t.foci[0]; };
@@ -29,6 +29,9 @@ const bindSeg = (pairs, get, set) => {
   segs.push(() => { for (const [id, val] of pairs) $(id).setAttribute("aria-pressed", String(get() === val)); });
 };
 bindSeg([["tsLog", "log"], ["tsLin", "linear"]], () => S.stretch, v => { S.stretch = v; });
+// the seeing FWHM, on a log slider (0.1 to 4 arcsec)
+const seeIn = $("tSee");
+seeIn.addEventListener("input", () => { S.see = +Math.pow(10, +seeIn.value).toPrecision(3); H.schedule(); });
 function syncControls() {
   const t = telOf(), f = focusOf();
   if (fsel.dataset.tel !== t.id) {
@@ -38,6 +41,7 @@ function syncControls() {
   }
   fsel.value = f.id; S.focus = f.id;
   bsel.value = S.band;
+  seeIn.value = Math.log10(S.see); $("vtSee").textContent = sig(S.see, 2) + "″";
   segs.forEach(g => g());
 }
 
@@ -47,7 +51,7 @@ function params() {
   const t = telOf(), f = focusOf();
   const fieldMM = 2 * f.F * t.D * 1000 * Math.tan((f.field || 10) / 60 * DEG / 2);
   return Object.assign(clone(IM.DEF), {
-    D: t.D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.F1, back: f.back, nasmyth: !!f.nasmyth, backN: f.backN,
+    D: t.D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.F1, back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, nasSide: f.side || "down",
     field: f.field || 10, optics: "direct", Nx: 1000, Ny: 1000, pix: fieldMM, rows: [1], band: S.band, lam: bandOf().lam, psf: "diff",
     view: "tel", annot: true, stretch: false, telMode: true,
   });
@@ -55,15 +59,36 @@ function params() {
 
 // ------------------------------------------------------------------ the pupil and its diffraction pattern: tpupil.js (window.TP)
 const { N, Q } = window.TP;
-let cache = { key: null };
+let cache = { key: null }, scache = { key: null }, icache = { key: null };
 function pupilAndPSF(pu, eps) {
   const key = JSON.stringify([pu, eps]);
   if (cache.key !== key) cache = Object.assign({ key }, window.TP.pupilAndPSF(pu, eps));
   return cache;
 }
+// the image through the atmosphere (lam in m, the seeing FWHM in radians)
+function seeingPSF(pu, eps, lam, see) {
+  const key = JSON.stringify([pu, eps, lam, see]);
+  if (scache.key !== key) scache = Object.assign({ key }, window.TP.seeingPSF(pu, eps, lam, see));
+  return scache;
+}
+// the pupil for drawing, at the screen's resolution (the FFT grid has only 128 cells across the pupil)
+function pupilImage(pu, eps, n, ext) {
+  const key = JSON.stringify([pu, eps, n, ext]);
+  if (icache.key !== key) icache = { key, m: window.TP.pupilImage(pu, eps, n, ext) };
+  return icache.m;
+}
+const pupilOf = () => { const t = telOf(), f = focusOf(); return Object.assign({}, t.pupil, f.pupil || {}); };
+const epsOf = () => { const t = telOf(), f = focusOf(); return f.eps !== undefined ? f.eps : t.eps; };
 
 // ------------------------------------------------------------------ results strip and readouts
-function renderText(Dz, P, pp) {
+// "6 × 25 mm", or "2 × 19.1 mm, 2 × 38.1 mm" when the widths differ
+const vaneText = vs => {
+  if (!vs.length) return "none drawn";
+  const n = new Map();
+  for (const v of vs) n.set(v.w, (n.get(v.w) || 0) + 1);
+  return [...n].map(([w, k]) => k + " × " + sig(w * 1000, 3) + " mm").join(", ");
+};
+function renderText(Dz, P, pp, ps) {
   const t = telOf(), f = focusOf(), lam = P.lam;
   const fwhm = pp.fwPix * lam * 1e-6 / (Q * t.pupil.D) * RAD;      // arcsec
   const items = [
@@ -78,69 +103,67 @@ function renderText(Dz, P, pp) {
     ["Primary", "Ø " + sig(t.D, 3) + " m, f/" + sig(t.F1, 3), t.primaryNote || ""],
     ["Secondary", f.secondary || "–"],
     ["Reflections", String(f.refl || "–"), "Mirrors the light meets before this focus."],
-    ["Where", f.where || "–"],
-    ["Instruments", f.instruments || "–"],
   ]);
   rows($("rImgT"), [
     ["Wavelength", Math.round(lam * 1e4).toLocaleString("en-US") + " Å"],
-    ["λ / D", fAng(lam * 1e-6 / t.D * RAD)],
-    ["Image pixel", fAng(lam * 1e-6 / (Q * t.pupil.D) * RAD), "The drawn pattern's pixel: λ / (" + Q + " D)."],
+    ["λ / D", fAng(lam * 1e-6 / t.D * RAD), "The diffraction-limited image is drawn in pixels of λ / (" + Q + " D) = " + fAng(lam * 1e-6 / (Q * t.pupil.D) * RAD) + "."],
+    ["Seeing-limited FWHM", fAng(ps.fwPix * ps.pix * RAD), "Measured from the image through the atmosphere: the seeing and the telescope's diffraction together."],
+    ["Peak vs diffraction-limited", sig(100 * ps.peak, 2) + "%", "The peak brightness of the seeing-limited image, relative to the diffraction-limited image of the same star (the same total light)."],
   ]);
   const eps = f.eps !== undefined ? f.eps : t.eps;
   rows($("rPupT"), [
     ["Primary", t.pupil.kind === "hex" ? (t.pupil.rings * (t.pupil.rings + 1) * 3) + " hexagonal segments" : "one mirror"],
     ["Central obstruction", "Ø " + sig(eps * t.D, 3) + " m (ε " + eps.toFixed(3) + ")"],
-    ["Spider vanes", (t.pupil.vanes || []).length ? (t.pupil.vanes.length + " × " + sig(t.pupil.vanes[0].w * 1000, 3) + " mm") : "none drawn"],
+    ["Spider vanes", vaneText(t.pupil.vanes || [])],
     ["Area vs a full circle", sig(100 * pp.area / (Math.PI / 4 * t.D * t.D), 3) + "%"],
-  ].concat(f.pupilNote ? [["Note", "see the tooltip", f.pupilNote]] : []));
+  ].concat(f.pupilNote || t.pupilNote ? [["Note", "see the tooltip", f.pupilNote || t.pupilNote]] : []));
 }
 
 // ------------------------------------------------------------------ the pupil and image panel
 const RAMP = [[0, 0, 0], [70, 22, 16], [166, 58, 36], [230, 140, 60], [250, 214, 150], [255, 250, 238]];
 const rampAt = v => { const u = Math.max(0, Math.min(1, v)) * (RAMP.length - 1), k = Math.min(RAMP.length - 2, Math.floor(u)), f = u - k; return [0, 1, 2].map(i => RAMP[k][i] + (RAMP[k + 1][i] - RAMP[k][i]) * f); };
-function drawPupil(pp, P) {
+// three images side by side: the entrance pupil, the diffraction-limited image of a star, and the seeing-limited one
+function drawPupil(pp, P, ps) {
   const cv = $("cvP"), { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
   if (!(cv.width > 0 && cv.height > 0)) return;
-  const t = telOf(), half = Math.floor(w / 2), pad = 14, top = 22, side = Math.min(half - 2 * pad, h - top - 40);
-  // the pupil: the mask's central region, light where it transmits
-  const span = Math.ceil(t.pupil.D * 0.55 / pp.dx), c = N / 2;
-  const oc = document.createElement("canvas"); oc.width = 2 * span; oc.height = 2 * span;
-  const og = oc.getContext("2d"), id = og.createImageData(2 * span, 2 * span);
-  for (let j = 0; j < 2 * span; j++) for (let i = 0; i < 2 * span; i++) {
-    const v = pp.mask[(c - span + j) * N + (c - span + i)], k = 4 * (j * 2 * span + i);
-    id.data[k] = 240 - 150 * v; id.data[k + 1] = 236 - 110 * v; id.data[k + 2] = 228 - 60 * v; id.data[k + 3] = 255;
-  }
-  og.putImageData(id, 0, 0);
-  const x0 = pad, y0 = top;
-  g.imageSmoothingEnabled = true; g.drawImage(oc, x0, y0 + (h - top - 40 - side) / 2, side, side);
-  g.fillStyle = "#4f4a44"; g.font = `12.5px ${FONT}`; g.textAlign = "center"; g.textBaseline = "alphabetic";
-  g.fillText("Entrance pupil, Ø " + sig(t.pupil.D, 3) + " m", x0 + side / 2, top - 6);
-  // the image: the pattern's central region, log or linear
-  const M = 128, ext = 2 * M;                                        // the central 16 lambda / D
-  const oc2 = document.createElement("canvas"); oc2.width = ext; oc2.height = ext;
-  const og2 = oc2.getContext("2d"), id2 = og2.createImageData(ext, ext);
-  for (let j = 0; j < ext; j++) for (let i = 0; i < ext; i++) {
-    const v = pp.psf[(c - M + j) * N + (c - M + i)], k = 4 * (j * ext + i);
-    const u = S.stretch === "log" ? (Math.log10(Math.max(v, 1e-12)) + 5) / 5 : Math.min(1, v * 4);
-    const col = rampAt(u); id2.data[k] = col[0]; id2.data[k + 1] = col[1]; id2.data[k + 2] = col[2]; id2.data[k + 3] = 255;
-  }
-  og2.putImageData(id2, 0, 0);
-  const x1 = half + pad, ys = y0 + (h - top - 40 - side) / 2;
-  g.imageSmoothingEnabled = false; g.drawImage(oc2, x1, ys, side, side); g.imageSmoothingEnabled = true;
-  g.fillText("Image of a star at " + Math.round(P.lam * 1e4).toLocaleString("en-US") + " Å (" + (S.stretch === "log" ? "log, 5 decades" : "linear") + ")", x1 + side / 2, top - 6);
-  // a scale bar under the image: a round angle
-  const pixA = P.lam * 1e-6 / (Q * t.pupil.D) * RAD, pxPerArc = side / ext / pixA;
-  const target = side * 0.3 / pxPerArc, p10 = Math.pow(10, Math.floor(Math.log10(target)));
-  const len = [1, 2, 5, 10].map(k => k * p10).reduce((b, q) => (Math.abs(q - target) < Math.abs(b - target) ? q : b), p10);
-  const yb = ys + side + 16;
-  g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x1, yb); g.lineTo(x1 + len * pxPerArc, yb); g.stroke();
-  g.textAlign = "left"; g.fillText(fAng(len), x1 + len * pxPerArc + 8, yb + 4);
-  // and one under the pupil: a round length
-  const pxPerM = side / (2 * span * pp.dx), tm = side * 0.3 / pxPerM, q10 = Math.pow(10, Math.floor(Math.log10(tm)));
-  const lm = [1, 2, 5, 10].map(k => k * q10).reduce((b, q) => (Math.abs(q - tm) < Math.abs(b - tm) ? q : b), q10);
-  g.beginPath(); g.moveTo(x0, yb); g.lineTo(x0 + lm * pxPerM, yb); g.stroke();
-  g.fillText(lm >= 1 ? sig(lm, 2) + " m" : sig(lm * 100, 2) + " cm", x0 + lm * pxPerM + 8, yb + 4);
+  const t = telOf(), pu = pupilOf(), eps = epsOf(), dpr = window.devicePixelRatio || 1, lam = P.lam * 1e-6;
+  const col = Math.floor(w / 3), top = 40, side = Math.max(40, Math.min(col - 24, h - top - 40));
+  const ys = top + (h - top - 40 - side) / 2, xs = [0, 1, 2].map(k => k * col + (col - side) / 2), yb = ys + side + 16;
+  const label = (x, t1, t2) => {
+    g.textAlign = "center"; g.fillStyle = "#4f4a44"; g.font = `12.5px ${FONT}`; g.fillText(t1, x + side / 2, ys - 22);
+    g.fillStyle = MUTED; g.font = `11.5px ${FONT}`; g.fillText(t2, x + side / 2, ys - 7);
+  };
+  // a scale bar under an image: a round length near 0.3 of the image
+  const bar = (x, perPx, text) => {
+    const tm = side * 0.3 * perPx, p10 = Math.pow(10, Math.floor(Math.log10(tm)));
+    const len = [1, 2, 5, 10].map(k => k * p10).reduce((b, q) => (Math.abs(q - tm) < Math.abs(b - tm) ? q : b), p10);
+    g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x, yb); g.lineTo(x + len / perPx, yb); g.stroke();
+    g.fillStyle = "#4f4a44"; g.font = `12.5px ${FONT}`; g.textAlign = "left"; g.fillText(text(len), x + len / perPx + 8, yb + 4);
+  };
+  const blit = (n, fill, x, smooth) => {
+    const oc = document.createElement("canvas"); oc.width = n; oc.height = n;
+    const og = oc.getContext("2d"), id = og.createImageData(n, n);
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) fill(i, j, id.data, 4 * (j * n + i));
+    og.putImageData(id, 0, 0);
+    g.imageSmoothingEnabled = smooth; g.drawImage(oc, x, ys, side, side); g.imageSmoothingEnabled = true;
+  };
+  const shade = v => rampAt(S.stretch === "log" ? (Math.log10(Math.max(v, 1e-12)) + 5) / 5 : Math.min(1, v * 4));
+  // the pupil, 1.1 D across, at the screen's resolution: light where the pupil transmits
+  const n = 2 * Math.max(16, Math.round(side * dpr / 2)), ext = 1.1 * pu.D, pm = pupilImage(pu, eps, n, ext);   // n even: the pupil's center on a cell corner
+  blit(n, (i, j, d, k) => { const v = pm[j * n + i]; d[k] = 240 - 150 * v; d[k + 1] = 236 - 110 * v; d[k + 2] = 228 - 60 * v; d[k + 3] = 255; }, xs[0], false);
+  label(xs[0], "Entrance pupil", "Ø " + sig(t.pupil.D, 3) + " m");
+  bar(xs[0], ext / side, lm => (lm >= 1 ? sig(lm, 2) + " m" : sig(lm * 100, 2) + " cm"));
+  // the diffraction-limited image: the central 16 λ / D of the pattern
+  const M = 128, c = N / 2;
+  blit(2 * M, (i, j, d, k) => { const col3 = shade(pp.psf[(c - M + j) * N + (c - M + i)]); d[k] = col3[0]; d[k + 1] = col3[1]; d[k + 2] = col3[2]; d[k + 3] = 255; }, xs[1], false);
+  label(xs[1], "Diffraction-limited", "perfect optics, no atmosphere");
+  bar(xs[1], lam / (Q * t.pupil.D) * RAD * 2 * M / side, fAng);
+  // the seeing-limited image: 4 FWHM across (the seeing and diffraction together, estimated)
+  const fw = Math.hypot(S.see / RAD, 1.03 * lam / t.D), hw = Math.min(N / 2 - 1, Math.max(8, Math.round(2 * fw / ps.pix)));
+  blit(2 * hw, (i, j, d, k) => { const col3 = shade(ps.psf[(c - hw + j) * N + (c - hw + i)]); d[k] = col3[0]; d[k + 1] = col3[1]; d[k + 2] = col3[2]; d[k + 3] = 255; }, xs[2], true);
+  label(xs[2], "Seeing-limited", (t.space ? "if on the ground, " : "") + sig(S.see, 2) + "″ seeing" + (t.space ? "" : ", long exposure"));
+  bar(xs[2], ps.pix * RAD * 2 * hw / side, fAng);
 }
 
 // ------------------------------------------------------------------ the layout panel: zoom, pan, refit
@@ -163,36 +186,42 @@ const tlview = { mode: "auto", s: 0, k: 1, ox: 0, oy: 0, fit: true };
 }
 
 // ------------------------------------------------------------------ main
-let cur = null, curP = null, curPP = null;
-function draw() { if (cur) IMG.drawLayoutOn({ cv: "cvTL", cap: "tlSub", lv: tlview }, cur, curP); }
+let cur = null, curP = null, curPP = null, curPS = null;
+const tlTarget = { cv: "cvTL", cap: "tlSub", lv: tlview };
+function draw() { if (cur) IMG.drawLayoutOn(tlTarget, cur, curP); }
 function render() {
   if (!TELS.length) return;
   syncControls();
   curP = params();
   cur = IM.design(curP);
   const t = telOf(), f = focusOf();
-  curPP = pupilAndPSF(Object.assign({}, t.pupil, f.pupil || {}), f.eps !== undefined ? f.eps : t.eps);
-  renderText(cur, curP, curPP);
+  curPP = pupilAndPSF(pupilOf(), epsOf());
+  curPS = seeingPSF(pupilOf(), epsOf(), curP.lam * 1e-6, S.see / RAD);
+  renderText(cur, curP, curPP, curPS);
   H.fitPanels();
   if (tlview.mode === "auto") tlview.fit = true;
   draw();
-  drawPupil(curPP, curP);
+  drawPupil(curPP, curP, curPS);
 }
+// links made before Keck I and II became one telescope, and Magellan one (Clay)
+const OLD_IDS = { keck1: "keck", keck2: "keck", baade: "magellan", clay: "magellan" };
 const PRESETS = TELS.map(t => ({ id: t.id, tel: t.group, name: t.name, state: { D: t.D } }));
 return {
   render, PRESETS,
   presetId: () => S.tel,
   applyPreset: p => { S.tel = p.id; S.focus = ""; tlview.fit = true; H.schedule(); },
   reset: () => { S = clone(DEF); tlview.fit = true; H.schedule(); },
-  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []),
+  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []).concat(S.see !== DEF.see ? ["t.see=" + S.see] : []),
   readHash: kv => {
-    if (kv["t.tel"] && TELS.find(t => t.id === kv["t.tel"])) S.tel = kv["t.tel"];
+    const id = OLD_IDS[kv["t.tel"]] || kv["t.tel"];
+    if (id && TELS.find(t => t.id === id)) S.tel = id;
     if (kv["t.focus"]) S.focus = kv["t.focus"];
     if (kv["t.band"] && IMG.BANDS.find(b => b.k === kv["t.band"])) S.band = kv["t.band"];
     if (kv["t.stretch"] === "log" || kv["t.stretch"] === "linear") S.stretch = kv["t.stretch"];
+    if (kv["t.see"] && isFinite(+kv["t.see"]) && +kv["t.see"] >= 0.1 && +kv["t.see"] <= 4) S.see = +kv["t.see"];
   },
-  redraw: () => { if (cur) { draw(); drawPupil(curPP, curP); } },
-  test: { state: () => clone(S), design: () => cur, pupil: () => curPP && { area: curPP.area, fwPix: curPP.fwPix }, set: o => { Object.assign(S, o); render(); H.scheduleHash(); } },
+  redraw: () => { if (cur) { draw(); drawPupil(curPP, curP, curPS); } },
+  test: { state: () => clone(S), design: () => cur, focusAt: () => tlTarget.det && { ...tlTarget.det }, pupil: () => curPP && { area: curPP.area, fwPix: curPP.fwPix }, seeing: () => curPS && { fwhm: curPS.fwPix * curPS.pix * RAD, peak: curPS.peak }, set: o => { Object.assign(S, o); render(); H.scheduleHash(); } },
 };
 };
 })();

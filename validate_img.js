@@ -193,6 +193,28 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
     const v = TP.pupilAndPSF({ kind: "circle", D: 2.4, vanes: [{ ang, w, full: true }] }, 0), ex = 2 * Math.sqrt(1.44 - w * w / 4) * w;
     check(`a full vane ${w * 1000} mm wide at ${ang}°: removes its strip`, rel(Math.PI * 1.44 - v.area, ex) < 3e-3, (Math.PI * 1.44 - v.area).toFixed(5) + " vs " + ex.toFixed(5) + " m²");
   }
+  // the seeing-limited image (the 2-D transfer functions), against an independent 1-D Hankel transform for a round
+  // pupil: PSF(θ) ∝ ∫ T_tel(s) T_atm(s) J0(2π θ s / λ) s ds, T_tel = (2/π)(acos u − u √(1 − u²)), u = s / D,
+  // T_atm = exp[−K_OTF (s / r0)^(5/3)]; and its peak relative to the diffraction-limited image, ∫ T_tel T_atm s ds / ∫ T_tel s ds
+  const RAD = 206264.806, J0 = x => { let a = 0; const n = 400; for (let k = 0; k <= n; k++) { const t = Math.PI * k / n; a += (k === 0 || k === n ? 0.5 : 1) * Math.cos(x * Math.sin(t)); } return a / n; };
+  const hankel = (D, lam, see) => {
+    const r0 = TP.K_FWHM * lam / see, ns = 600, T = s => { const u = s / D; return (2 / Math.PI) * (Math.acos(u) - u * Math.sqrt(1 - u * u)) * Math.exp(-TP.K_OTF * Math.pow(s / r0, 5 / 3)); };
+    const prof = th => { let a = 0; for (let k = 1; k < ns; k++) { const s = D * k / ns; a += T(s) * J0(2 * Math.PI * th * s / lam) * s; } return a; };
+    const p0 = prof(0); let lo = 0, hi = 4 * Math.hypot(see, lam / D);
+    for (let it = 0; it < 50; it++) { const m = (lo + hi) / 2; if (prof(m) > p0 / 2) lo = m; else hi = m; }
+    let den = 0; for (let k = 1; k < ns; k++) { const u = k / ns; den += (2 / Math.PI) * (Math.acos(u) - u * Math.sqrt(1 - u * u)) * D * u; }
+    return { fwhm: 2 * lo, peak: p0 / den };
+  };
+  for (const [lam, see] of [[0.55e-6, 0.8], [2.16e-6, 0.8], [2.16e-6, 0.3]]) {
+    const ps = TP.seeingPSF({ kind: "circle", D: 2.4 }, 0, lam, see / RAD), hk = hankel(2.4, lam, see / RAD), fw = ps.fwPix * ps.pix;
+    check(`seeing-limited image, D 2.4 m, ${lam * 1e6} µm, ${see}″ seeing: FWHM = the Hankel transform's`, rel(fw, hk.fwhm) < 5e-3, (fw * RAD).toFixed(4) + " vs " + (hk.fwhm * RAD).toFixed(4) + "″");
+    check(`seeing-limited image, D 2.4 m, ${lam * 1e6} µm, ${see}″ seeing: peak vs diffraction-limited = the Hankel transform's`, rel(ps.peak, hk.peak) < 0.01, ps.peak.toExponential(4) + " vs " + hk.peak.toExponential(4));
+  }
+  // the limits: seeing far wider than λ / D gives the seeing set; seeing far narrower gives the diffraction image
+  const big = TP.seeingPSF({ kind: "circle", D: 10 }, 0, 0.55e-6, 0.8 / RAD);
+  check("seeing-limited image, D 10 m in V: FWHM = the seeing set (0.976 λ / r0 with K_OTF)", rel(big.fwPix * big.pix * RAD, 0.8) < 3e-3, (big.fwPix * big.pix * RAD).toFixed(4) + "″");
+  const tiny = TP.seeingPSF({ kind: "circle", D: 2.4 }, 0, 0.55e-6, 0.002 / RAD);
+  check("seeing-limited image, seeing → 0: the diffraction-limited FWHM", rel(tiny.fwPix * tiny.pix / (0.55e-6 / 2.4), IM.airyFWHM(0)) < 4e-3, (tiny.fwPix * tiny.pix / (0.55e-6 / 2.4)).toFixed(4) + " λ/D");
 }
 
 // ---------------------------------------------------------------- 6c. the Telescopes mode's telescopes (web/tpresets.js)

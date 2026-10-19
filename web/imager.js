@@ -295,7 +295,7 @@ function design(P) {
 // the default imager (the page's Reset all): a 4 m f/3 prime-focus telescope with a 3 x 3 mosaic of 4k x 4k chips
 const DEF = {
   D: 4, F: 3, eps: 0.3, field: 120, tel: "prime", F1: 2, back: 0.2,
-  nasmyth: false, backN: 0.8, det: "ccd", plateMM: 355.6, scan: 25, grain: 25, split: "none",
+  nasmyth: false, backN: 0.8, nasSide: "down", det: "ccd", plateMM: 355.6, scan: 25, grain: 25, split: "none",
   band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,
