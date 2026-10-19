@@ -73,7 +73,7 @@ function design(P) {
     // Cassegrain: primary of focal length f1 = F1 D, convex secondary at s, focus b behind the primary.
     // Magnification m = F / F1; the secondary's object (the prime focus) lies p = f1 - s beyond it and its image
     // q = m p beyond it, so s = (m f1 - b) / (m + 1).
-    const F1 = Math.min(P.F1 || 2, P.F / 1.5), f1 = F1 * Dmm, m = P.F / F1;
+    const F1 = Math.min(P.F1 || 2, P.F / 1.02), f1 = F1 * Dmm, m = P.F / F1;   // the secondary must slow the beam (m > 1)
     const b = (P.back === undefined || P.back === null ? 0.2 : P.back) * Dmm;
     const s = (m * f1 - b) / (m + 1), p = f1 - s, q = m * p, f2 = m * p / (1 - m);
     el.push({ z: 0, f: f1, kind: "primary" }, { z: s, f: f2, kind: "secondary" });
