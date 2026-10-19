@@ -186,7 +186,7 @@ not on the page. The band's wavelength enters only the diffraction width.
   Megacam (Clay f/5 Cassegrain) and FourStar (Baade f/11 Gregorian Nasmyth, reimaged through a 130 mm cold
   pupil), Gemini NIRI f/6, f/14, f/32 (the 7.9 m pupil of the undersized secondary), VLT HAWK-I (UT4 Nasmyth; the
   pupil size is not published, so W = 100 mm is the drawing's assumption), TESS (one camera, an optics blur of
-  24″; the strong distortion is left out). 33 presets in all.
+  24″; the strong distortion is left out). Ten presets in this round, 31 in all.
 - **Presets** (web/ipresets.js, the first 21; sources data/imaging/{widefield,megacam_ztf_small,hst,space_wide,reimagers}.md,
   documents in rawdata/imaging/): LSSTCam, HSC, DECam, MegaCam, ZTF, an 80 mm refractor with a CMOS camera,
   ACS/WFC, WFC3/UVIS, WFC3/IR (reimaged through the published cold-mask pupil), Euclid VIS, Roman WFI, NIRCam
