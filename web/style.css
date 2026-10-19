@@ -186,6 +186,10 @@ body:not(.ip-seeing) .only-isee{display:none}
 #cvS{cursor:crosshair}
 .seg[hidden]{display:none}
 .caserow.wraprow{flex-wrap:wrap;row-gap:3px}
+/* the depth slider in the detector plane's header */
+.hdepth{display:flex;align-items:center;gap:6px;flex:0 0 auto;font-size:.86rem;color:var(--muted)}
+.hdepth input[type=range]{width:110px}
+.hdepth .val{color:var(--ink);font-variant-numeric:tabular-nums;font-size:.86rem;min-width:4.6em}
 #cvS.zoomed{cursor:grab}
 #cvIL{cursor:grab}
 #instSeg button{font-size:.84rem;padding:2px 9px}

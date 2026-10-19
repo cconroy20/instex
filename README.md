@@ -8,7 +8,7 @@ along the slit, or in 3D) and the spectra as they fall on the detector.
 A second mode, **Imager** (the Spectrograph | Imager switch in the header, 2026-10-19), does the same for
 imaging: a telescope (prime focus, Cassegrain, Schmidt or refractor) feeding a detector mosaic directly or
 through a reimager (collimator, pupil and filter, camera); read off the pixel scale, field, sampling and étendue;
-see the telescope or the instrument drawn to scale and the sky as the mosaic records it. See **Imager mode** below.
+see the telescope or the instrument drawn to scale and the detector plane (the mosaic on a synthetic sky). See **Imager mode** below.
 
 Sibling of spex, ismex, ionbal, dustex and lensex. The physics follows the Via notes "Notes on
 Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose worked example
@@ -161,11 +161,14 @@ not on the page. The band's wavelength enters only the diffraction width.
   gray, teal) each send an annular bundle (the central obstruction's shadow inside). Heights: To scale |
   Stretched (Instrument view only; heights × the largest of 1, 1.5, 2, 3, 4, 5, 6, 8, 10 … that fits the panel,
   stated in the caption; the field-angle arc drawn at the angle on the page and labeled with the true angle).
-- **Sky**: a synthetic, seeded field of stars and galaxies, the same at every scale: one-magnitude slices on
-  their own grids of tiles (about twelve objects a tile), the brightest slices that fit about 5000 objects
-  drawn, plus one fixed 20 mag target star near the center (1.7″, 1.1″) so that small diffraction-limited fields
-  show the Airy rings. Brightness is flux per max(detector pixel, screen pixel), so zooming in turns into the
-  pixelated image without a jump; white is the peak of a star 4 mag brighter than the (continuous) depth; each
+- **Detector plane** (the right panel; "Sky" until Charlie's rename, 2026-10-19): a synthetic, seeded field of
+  stars and galaxies, the same at every scale: one-magnitude slices on their own grids of tiles (about twelve
+  objects a tile), plus one fixed 20 mag target star near the center (1.7″, 1.1″) so that small
+  diffraction-limited fields show the Airy rings. A **Depth** slider in the panel header (16–29 mag, default 25;
+  his ask) sets the faintest magnitude drawn, a stand-in for exposure time; a view too wide to draw that many
+  objects one by one (about 15,000) stops at the magnitude that fits, and the readout says so ("27.0 mag (21.7
+  here)"). Brightness is flux per max(detector pixel, screen pixel), so zooming in turns into the
+  pixelated image without a jump; white is the peak of a star 4 mag brighter than the depth drawn; each
   object is drawn out to where it falls below half the stretch's knee, with a tapered edge. Zoomed in past
   2.5 screen pixels per detector pixel, each star is integrated over the pixels. Optional full-Moon outline
   (1896″, NSSDC).

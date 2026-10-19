@@ -97,9 +97,11 @@
       </div>
     </section>
     <section class="panel">
-      <div class="ph"><h2 title="The sky on the detector mosaic: each chip drawn over the patch of sky the chip covers, on a synthetic field of stars and galaxies. Parts of chips outside the field circle are gray. Each star is drawn with the image the telescope and atmosphere give (seeing, or the Airy pattern when diffraction-limited), integrated over the pixels: scroll to zoom in until the pixels show. The synthetic field is illustrative; the brightness is stretched for display, and nothing on the page depends on the field. Hover for the position, the chip and the pixel; drag to pan, double-click to reset.">Sky</h2><span class="sub" id="sSub"></span>
+      <div class="ph"><h2 title="The detector plane: the mosaic's chips, each drawn over the patch of sky the chip covers, on a synthetic field of stars and galaxies. Parts of chips outside the field circle are gray. Each star is drawn with the image the telescope and atmosphere give (seeing, or the Airy pattern when diffraction-limited), integrated over the pixels: scroll to zoom in until the pixels show. The synthetic field is illustrative; the brightness is stretched for display, and nothing on the page depends on the field. Hover for the position, the chip and the pixel; drag to pan, double-click to reset.">Detector plane</h2>
+        <span class="hdepth" title="How deep the image goes: the faintest stars and galaxies shown, in magnitudes (a stand-in for the exposure time). The display's white level follows the depth, so a deeper image shows more faint objects and saturates more of the bright ones. A wide view holds too many objects to draw one by one; zoom in to reach the depth set."><label for="iDepth">Depth</label><input type="range" id="iDepth" min="16" max="29" step="0.1"><span class="val" id="vDepth"></span></span>
+        <span class="sub" id="sSub"></span>
         <span class="seg sm" title="Draw the full Moon's disk, centered on the field, for scale."><button id="imMoon" type="button">Moon</button></span></div>
-      <canvas id="cvS" aria-label="The sky on the detector mosaic"></canvas>
+      <canvas id="cvS" aria-label="The detector plane: the mosaic on the sky"></canvas>
       <button id="szReset" class="ghost dzr" type="button" hidden title="Back to the whole mosaic (double-click does the same).">Reset zoom</button>
     </section>
   </div>

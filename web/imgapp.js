@@ -17,9 +17,9 @@ const bandOf = k => BANDS.find(b => b.k === k) || BANDS[0];
 
 // ------------------------------------------------------------------ state
 // the instrument's defaults (imager.js) and the drawing's
-const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false });
+const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false, depth: 25 });
 // drawing-only keys (they keep a preset's name)
-const DRAWING = new Set(["F1", "back", "view", "annot", "moon", "stretch"]);
+const DRAWING = new Set(["F1", "back", "view", "annot", "moon", "stretch", "depth"]);
 let S = clone(DEF), presetId = "custom";
 const PRESETS = window.IX_IPRESETS || [];
 
@@ -59,6 +59,7 @@ const SL = [
   ["iGap", "gapX", false, false, v => sig(v, 2) + " mm"],
   ["iF1", "F1", false, false, v => "f/" + v.toFixed(2)],
   ["iBk", "back", false, false, v => v.toFixed(2) + " D"],
+  ["iDepth", "depth", false, false, v => v.toFixed(1) + " mag"],
 ];
 // a readout's element: v<name>_ where the spectrograph already uses v<name>
 const vEl = id => $("v" + id.slice(1) + "_") || $("v" + id.slice(1));
@@ -143,7 +144,7 @@ function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S
 function applyPreset(p) {
   const st = clone(DEF);
   Object.assign(st, p.state);
-  for (const k of ["view", "annot", "moon", "stretch"]) st[k] = S[k];         // the reader's view, not the preset's
+  for (const k of ["view", "annot", "moon", "stretch", "depth"]) st[k] = S[k];         // the reader's view, not the preset's
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
@@ -513,24 +514,26 @@ function drawLayout(Dz, P) {
 /* An illustrative high-latitude field, the same at every scale: stars and galaxies in one-magnitude slices, each
    slice laid out on its own grid of tiles (about a dozen objects per tile, so faint slices use small tiles), each
    tile filled from a random generator seeded by the slice and the tile.  The counts are made up to look like a
-   deep field; nothing on the page depends on them.  A view draws the brightest slices that fit about 5000 objects. */
+   deep field; nothing on the page depends on them.  The reader's depth sets the faintest magnitude drawn; a view too
+   wide to draw that many objects (about 15,000) stops at the magnitude that fits, and the header says so. */
 const STAR_N = m => 300 * Math.pow(10, 0.2 * (m - 18));          // per deg^2 brighter than m (illustrative)
 const GAL_N = m => 2000 * Math.pow(10, 0.4 * (m - 20));
-const M0 = 6, M1 = 27, PER_TILE = 12, NMAX = 5000;
+const M0 = 6, M1 = 29, PER_TILE = 12, NMAX = 15000;
 function rng(seed) {
   let a = seed >>> 0;
   return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
 const hash4 = (a, b, c, d) => { let x = 2166136261; for (const v of [a, b, c, d]) { x ^= v & 0xffff; x = Math.imul(x, 16777619); x ^= (v >>> 16) & 0xffff; x = Math.imul(x, 16777619); } return x >>> 0; };
 function poisson(r, lam) { const L = Math.exp(-lam); let k = 0, p = 1; do { k++; p *= r(); } while (p > L); return k - 1; }
-function skyObjects(x0, x1, y0, y1) {
+function skyObjects(x0, x1, y0, y1, depth) {
   const A = (x1 - x0) * (y1 - y0) / (3600 * 3600);               // deg^2
+  // the faintest magnitude this view can hold (about NMAX objects), and the one drawn
+  let a = M0, b = M1;
+  for (let k = 0; k < 40; k++) { const c = 0.5 * (a + b); if ((STAR_N(c) + GAL_N(c)) * A > NMAX) b = c; else a = c; }
+  const mCap = 0.5 * (a + b), mDraw = Math.min(depth, mCap, M1);
   const out = [];
-  let mLim = M0;
-  for (let k = M0; k < M1; k++) {
+  for (let k = M0; k < mDraw; k++) {
     const ns = (STAR_N(k + 1) - STAR_N(k)), ng = (GAL_N(k + 1) - GAL_N(k));
-    if (out.length + (ns + ng) * A > NMAX) break;
-    mLim = k + 1;
     for (const [typ, nk] of [[0, ns], [1, ng]]) {
       const n = nk / (3600 * 3600), Tt = Math.sqrt(PER_TILE / n);  // per arcsec^2; tile side (arcsec)
       const i0 = Math.floor(x0 / Tt), i1 = Math.floor(x1 / Tt), j0 = Math.floor(y0 / Tt), j1 = Math.floor(y1 / Tt);
@@ -545,17 +548,14 @@ function skyObjects(x0, x1, y0, y1) {
             o.re = Math.min(120, 0.4 * Math.pow(10, -0.2 * (m - 23)) * Math.exp(0.3 * z));
             o.q = 0.3 + 0.7 * r(); o.pa = Math.PI * r(); o.n = r() < 0.7 ? 1 : 4;
           } else { r(); r(); r(); r(); }
-          if (x >= x0 && x <= x1 && y >= y0 && y <= y1) out.push(o);
+          if (x >= x0 && x <= x1 && y >= y0 && y <= y1 && m <= mDraw) out.push(o);
         }
       }
     }
   }
-  // the depth as a continuous magnitude (the white point follows it, so the display does not jump a slice at a time)
-  let a = M0, b = M1;
-  for (let k = 0; k < 40; k++) { const c = 0.5 * (a + b); if ((STAR_N(c) + GAL_N(c)) * A > NMAX) b = c; else a = c; }
   // a fixed target star near the center, as an observation is pointed at something (it shows the image's rings)
-  out.push({ x: TARGET.x, y: TARGET.y, m: TARGET.m, gal: false });
-  return { list: out, mLim, mCont: 0.5 * (a + b) };
+  if (TARGET.m <= mDraw) out.push({ x: TARGET.x, y: TARGET.y, m: TARGET.m, gal: false });
+  return { list: out, mDraw, mCap };
 }
 const TARGET = { x: 1.7, y: 1.1, m: 20 };
 
@@ -627,15 +627,16 @@ function drawSky(Dz, P) {
   const act = vis.filter(c => c.active);
   if (act.length) {
     const marg = Math.max(psf.rmax * 0.5, 4 * psf.fwhm);
-    const sky = skyObjects(vx0 - marg - 120, vx1 + marg + 120, vy0 - marg - 120, vy1 + marg + 120);
+    const depth = P.depth || 25;
+    const sky = skyObjects(vx0 - marg - 120, vx1 + marg + 120, vy0 - marg - 120, vy1 + marg + 120, depth);
     const objs = sky.list;
-    skyGeom.mLim = sky.mLim; skyGeom.nObj = objs.length;
+    skyGeom.mDraw = sky.mDraw; skyGeom.capped = sky.mDraw < depth - 0.05; skyGeom.nObj = objs.length;
     const flux = m => Math.pow(10, -0.4 * (m - 20));
     if (ppx >= 2.5) {
       // pixel mode: the flux in each detector pixel (the star's image integrated over the pixel)
-      // white: the peak pixel of a star 4 magnitudes brighter than the faintest drawn; objects are drawn out to
-      // where they fall below half the stretch's knee (W / 80)
-      const W = flux(sky.mCont - 4) * pixA * pixA / psf.total, lev = W / 80;
+      // white: the peak pixel of a star 4 magnitudes brighter than the faintest drawn (the depth set, or what a wide
+      // view can hold); objects are drawn out to where they fall below half the stretch's knee (W / 80)
+      const W = flux(sky.mDraw - 4) * pixA * pixA / psf.total, lev = W / 80;
       const bufs = [];
       for (const c of act) {
         const cx0 = c.X - c.Wd / 2, cy1 = c.Y + c.Ht / 2;               // the chip's top-left on the sky
@@ -695,7 +696,7 @@ function drawSky(Dz, P) {
       const blur = Math.sqrt(Math.pow(0.68 * ppx * dpr, 2) + 0.9);   // the pixel's box and one device pixel (device px)
       // white: the peak of a star 4 magnitudes brighter than the faintest drawn, as drawn here
       const fwR = Math.sqrt(Math.pow(psf.fwhm * sd, 2) + blur * blur), alR = IM.moffatAlpha(fwR, MOFFAT_BETA);
-      const W = flux(sky.mCont - 4) * cellA / (Math.PI * alR * alR / (MOFFAT_BETA - 1)), lev = W / 80;
+      const W = flux(sky.mDraw - 4) * cellA / (Math.PI * alR * alR / (MOFFAT_BETA - 1)), lev = W / 80;
       for (const o of objs) {
         const F = flux(o.m);
         const px = (o.x - vx0) * sd, py = (vy1 - o.y) * sd;
@@ -823,7 +824,11 @@ function drawSky(Dz, P) {
   const sub = $("sSub");
   const sAng = a => (a < 0 ? "−" : "") + fAng(Math.abs(a));
   if (hover) sub.innerHTML = `<b>${sAng(hover.x)}</b>, <b>${sAng(hover.y)}</b>` + (hover.chip ? ` · chip <b>${hover.chip}</b> · pixel <b>${hover.i + 1}</b>, <b>${hover.j + 1}</b>` : "");
-  else sub.innerHTML = `<span class="lg">star FWHM <b>${fAng(Dz.fwhm)}</b> = <b>${sig(Dz.sampling, 3)}</b> px</span>`;
+  else sub.innerHTML = "";
+  // the depth reached: the slider's own, or less in a view too wide to draw that many objects
+  const vd = $("vDepth"), dp = P.depth || 25;
+  vd.textContent = skyGeom && skyGeom.capped ? dp.toFixed(1) + " mag (" + skyGeom.mDraw.toFixed(1) + " here)" : dp.toFixed(1) + " mag";
+  vd.title = skyGeom && skyGeom.capped ? "A view this wide holds too many objects to draw one by one: it shows down to " + skyGeom.mDraw.toFixed(1) + " mag. Zoom in to reach the depth set." : "";
 }
 // asinh stretch to white over the dark chip
 function paint(buf, data, W) {

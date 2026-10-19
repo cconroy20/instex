@@ -722,6 +722,18 @@ const rel = (a, b) => Math.abs(a / b - 1);
       return { a, btn, b: window.__instex.img().zoom().z }; })()`);
     check("Sky: wheel zooms in, Reset zoom shows, double-click resets", z.a > 10 && z.btn && z.b === 1, JSON.stringify(z));
   }
+  // the depth slider: a deeper image draws more objects in a zoomed view, and a wide view says what it reaches
+  await go("#inst=img");
+  {
+    const r = await ev(`(async () => { const c = document.getElementById("cvS"), rr = c.getBoundingClientRect();
+      for (let k = 0; k < 6; k++) { c.dispatchEvent(new WheelEvent("wheel", { deltaY: -300, clientX: rr.left + rr.width * 0.55, clientY: rr.top + rr.height * 0.45, bubbles: true, cancelable: true })); await new Promise(q => setTimeout(q, 20)); }
+      const n = d => { window.__instex.img().set({ depth: d }); return window.__instex.img().skyGeom().nObj; };
+      return { shallow: n(20), deep: n(27) }; })()`);
+    check("Depth: a deeper image draws more objects", r.deep > 3 * r.shallow && r.shallow >= 1, JSON.stringify(r));
+    await go("#inst=img&i.depth=27");
+    const t = await ev(`document.getElementById("vDepth").textContent`);
+    check("Depth: a wide view says how deep it reaches", /27\.0 mag \(\d+\.\d here\)/.test(t), t);
+  }
   // the header note on one line in the Imager too, at a larger default font
   {
     const r = await ev(`(() => { document.documentElement.style.fontSize = "18px"; const n = document.querySelector(".presetnote"); const lh = parseFloat(getComputedStyle(n).lineHeight); const k = Math.round(n.getBoundingClientRect().height / lh); document.documentElement.style.fontSize = ""; return k; })()`);
