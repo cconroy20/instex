@@ -1,0 +1,1770 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- IMAGER mode presets: ESO VST / OmegaCAM, LBT / LBC-Blue, LBT / LBC-Red",
+  "compiled": "2026-10-19",
+  "companion": "data/imaging/vst_lbc.md (same content as Markdown). Structure follows data/imaging/widefield.json: sources{key: cite, file, url}; per preset: title, preset (machine-readable explorer inputs), recommended_preset (prose), params, performance (validation targets), not_found, conflicts, notes.",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document (rawdata/imaging/vst/ or rawdata/imaging/lbc/). derived = arithmetic done here from sourced values (shown). alternatives = other sourced values (conflicts). Every quote (main, alternative, figure caption and quotes cited in notes) was machine-checked against the saved file's extracted text: pdftotext -layout and raw for PDFs; tag-stripped text and raw source for HTML; .ini/.ahead as is.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, division slash, tilde operator, soft hyphen, non-breaking spaces, micro sign and white-bullet degree glyphs normalised; whitespace collapsed (a quote also passes if it matches with all whitespace removed); ' ... ' joins non-adjacent pieces.",
+  "figures": "Values read from figure images (LBTO LBC layout drawings and optics drawing; Bellini & Bedin 2010 Fig. 1, a raster) cannot be text-checked: each carries a \"figure\" object with the image file, the annotation as read, the machine-checked caption sentence from the page, and the tesseract OCR evidence.",
+  "frames": "Rows are listed top to bottom. VST: Table 2 of the OmegaCAM manual (north up, east right at position angle 0). LBC: LBTO focal-plane drawings and Bellini & Bedin 2010 Fig. 1 (chip #4 on top; chips #3, #2, #1 left to right). x = along a row, y = across rows. Gaps are between light-sensitive areas."
+ },
+ "sources": {
+  "MAN": {
+   "cite": "Smoker, J. & OmegaCAM consortium, \"OmegaCAM User Manual\", ESO Doc. No. VST-MAN-OCM-23110-3110 (file name VST-MAN-OCM-23100-3110), Issue 109.1, 17/12/2021 (latest released issue; P109 Phase 2). Sec. 2.1 overview, Figs. 2-3, Sec. 2.2.1 science array and gaps, Table 1 CCD parameters, Table 2 CCD layout, Sec. 2.4 shutter timing, Sec. 2.8 astrometric properties, Sec. 2.9.1 baffles",
+   "file": "rawdata/imaging/vst/ESO_OmegaCAM_UserManual_VST-MAN-OCM-23100-3110_P109v1.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/omegacam/doc/VST-MAN-OCM-23100-3110_p109_v1.pdf"
+  },
+  "EOI": {
+   "cite": "ESO, \"OmegaCAM @ VST: Instrument Description\" page (\"Last Update: 30.04.19\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/vst/eso_omegacam_instrument_description.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/omegacam/inst.html"
+  },
+  "EVS": {
+   "cite": "ESO, \"VLT Survey Telescope (VST)\" page for science users (\"Last Update: 05.01.23\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/vst/eso_sci_paranal_telescopes_vst.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/vst.html"
+  },
+  "EPV": {
+   "cite": "ESO (public pages), \"VLT Survey Telescope\" page with fact table (fetched 2026-10-19)",
+   "file": "rawdata/imaging/vst/eso_public_vst.html",
+   "url": "https://www.eso.org/public/teles-instr/paranal-observatory/surveytelescopes/vst/"
+  },
+  "EPM": {
+   "cite": "ESO (public pages), \"The VST mirrors\" page with the \"Mirror Characteristics\" table (fetched 2026-10-19)",
+   "file": "rawdata/imaging/vst/eso_public_vst_mirror.html",
+   "url": "https://www.eso.org/public/teles-instr/paranal-observatory/surveytelescopes/vst/mirror/"
+  },
+  "K11": {
+   "cite": "Kuijken, K. 2011, The Messenger 146, 8, \"OmegaCAM: ESO's Newest Imager\"",
+   "file": "rawdata/imaging/vst/Kuijken2011_Msngr146_8_OmegaCAM.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.146-dec11/messenger-no146-8-11.pdf"
+  },
+  "CS11": {
+   "cite": "Capaccioli, M. & Schipani, P. 2011, The Messenger 146, 2, \"The VLT Survey Telescope Opens to the Sky: History of a Commissioning\"",
+   "file": "rawdata/imaging/vst/CapaccioliSchipani2011_Msngr146_2_VST.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.146-dec11/messenger-no146-2-7.pdf"
+  },
+  "K02": {
+   "cite": "Kuijken, K., Bender, R., Cappellaro, E., et al. 2002, The Messenger 110, 15, \"OmegaCAM: the 16k x 16k CCD Camera for the VLT Survey Telescope\" (design-phase description)",
+   "file": "rawdata/imaging/vst/Kuijken2002_Msngr110_15_OmegaCAM.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.110-dec02/messenger-no110-15-18.pdf"
+  },
+  "A98": {
+   "cite": "Arnaboldi, M., Capaccioli, M., Mancini, D., et al. 1998, The Messenger 93, 30, \"VST: VLT Survey Telescope\" (proposal-era design)",
+   "file": "rawdata/imaging/vst/Arnaboldi1998_Msngr93_30_VST.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.93-sep98/messenger-no93-30-35.pdf"
+  },
+  "A10": {
+   "cite": "Arcidiacono, C., Ragazzoni, R., Umbriaco, G., Farinato, J., et al. 2010, Proc. SPIE 7733, 773357, \"The opto-mechanical alignment procedure of the VLT Survey Telescope\", arXiv:1009.2611v1",
+   "file": "rawdata/imaging/vst/Arcidiacono2010_SPIE7733_VST_alignment_arXiv1009.2611.pdf",
+   "url": "https://arxiv.org/pdf/1009.2611"
+  },
+  "I05": {
+   "cite": "Iwert, O., Baade, D., Balestra, A., et al., \"The OmegaCAM 16K x 16K CCD detector system for the ESO VLT Survey Telescope (VST)\", Scientific Detector Workshop 2005 (Taormina) paper, ESO Optical Detector Group copy linked from the OmegaCAM manuals page",
+   "file": "rawdata/imaging/vst/Iwert2005_OmegaCAM_CCD_detector_system_SDW2005_eso_poster-oi-2005.pdf",
+   "url": "http://www.eso.org/sci/facilities/develop/detectors/optdet/docs/papers/poster-oi-2005.pdf"
+  },
+  "R14": {
+   "cite": "Ripepi, V., Cignoni, M., Tosi, M., et al. 2014, MNRAS 442, 1897, \"STEP: the VST survey of the SMC and the Magellanic Bridge - I.\", arXiv:1405.1028v1 (Sec. 2.2 \"The VST telescope and OmegaCAM\")",
+   "file": "rawdata/imaging/vst/Ripepi2014_MNRAS442_1897_STEP_arXiv1405.1028.pdf",
+   "url": "https://arxiv.org/pdf/1405.1028"
+  },
+  "S24": {
+   "cite": "Schipani, P., Covino, S., Snik, F., et al. 2024, Proc. SPIE 13096, 130967L, \"VSTPOL: making the VST a large survey telescope for optical polarimetry\", arXiv:2505.07113v1 (Sec. 4.1 \"The starting situation\")",
+   "file": "rawdata/imaging/vst/Schipani2024_SPIE13096_VSTPOL_arXiv2505.07113.pdf",
+   "url": "https://arxiv.org/pdf/2505.07113"
+  },
+  "EMD": {
+   "cite": "ESO, \"OmegaCAM @ VST: Manuals\" page (list of user-manual issues with change notes; \"Last Update: 25.02.22\"; fetched 2026-10-19)",
+   "file": "rawdata/imaging/vst/eso_omegacam_manuals.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/omegacam/doc.html"
+  },
+  "THV": {
+   "cite": "THELI data-reduction package (M. Schirmer), instrument configuration OMEGACAM@VST.ini and astrometric distortion-free header template OMEGACAM@VST.ahead (per-chip CRPIX/CD from a scamp solution), GitHub schirmermischa/THELI commit 02fe489 (2024-07-08). Third-party pipeline file, used only as an on-sky cross-check of the gaps and pixel scale",
+   "file": [
+    "rawdata/imaging/vst/theli_02fe489_OMEGACAM@VST.ini",
+    "rawdata/imaging/vst/theli_02fe489_OMEGACAM@VST.ahead"
+   ],
+   "url": "https://github.com/schirmermischa/THELI/tree/02fe4894d19b8062b71b8ea14b2df22b9ea54474/config/instruments"
+  },
+  "G08": {
+   "cite": "Giallongo, E., Ragazzoni, R., Grazian, A., et al. 2008, A&A 482, 349, \"The performance of the blue prime focus Large Binocular Camera at the Large Binocular Telescope\", arXiv:0801.1474v3 (Sec. 2.1 LBC-Blue, Sec. 2.2 LBC-Red)",
+   "file": "rawdata/imaging/lbc/Giallongo2008_AA482_349_LBC_arXiv0801.1474v3.pdf",
+   "url": "https://arxiv.org/pdf/0801.1474v3"
+  },
+  "R16": {
+   "cite": "Rothberg, B., Kuhn, O., Edwards, M. L., Hill, J. M., et al. 2016, Proc. SPIE 9906, 990622, \"Current status of the facility instrumentation suite at the Large Binocular Telescope Observatory\", arXiv:1608.00037v1 (Sec. 1, Table 1, Sec. 3.1 LBCs). Its text layer renders primes as \"0\"/\"00\" (e.g. \"230 x 250\" = 23' x 25', \"270\" = 27', \"1800\" = 18\")",
+   "file": "rawdata/imaging/lbc/Rothberg2016_SPIE9906_LBTO_instruments_arXiv1608.00037.pdf",
+   "url": "https://arxiv.org/pdf/1608.00037"
+  },
+  "BB10": {
+   "cite": "Bellini, A. & Bedin, L. R. 2010, A&A 517, A34, \"Ground-based CCD astrometry with wide field imagers. IV. An improved geometric-distortion correction for the blue prime-focus camera at the LBT\", arXiv:1005.0848v1 (Sec. 2, Fig. 1 mosaic layout with gap estimates, Table 4 inter-chip solution, Sec. 5)",
+   "file": "rawdata/imaging/lbc/BelliniBedin2010_AA517_A34_LBC-Blue_astrometry_arXiv1005.0848.pdf",
+   "url": "https://arxiv.org/pdf/1005.0848"
+  },
+  "LOV": {
+   "cite": "LBTO Science Operations, \"LBC Overview\" page (fetched 2026-10-19)",
+   "file": "rawdata/imaging/lbc/lbto_scienceops_lbc_overview.html",
+   "url": "https://scienceops.lbto.org/lbc/"
+  },
+  "LOP": {
+   "cite": "LBTO Science Operations, LBC \"Optics\" page, with its figure of the optical elements (diameters in mm, saved as lbto_scienceops_lbc_optics_Screen-Shot-2016-07-22-at-11.45.07-AM.png); fetched 2026-10-19",
+   "file": "rawdata/imaging/lbc/lbto_scienceops_lbc_optics.html",
+   "images": [
+    "rawdata/imaging/lbc/lbto_scienceops_lbc_optics_Screen-Shot-2016-07-22-at-11.45.07-AM.png"
+   ],
+   "url": "https://scienceops.lbto.org/lbc/lbc-instrument-characteristics/optics/"
+  },
+  "LFP": {
+   "cite": "LBTO Science Operations, LBC \"Focal Plane Layout\" page, with its two layout drawings (LBC-Blue: lbto_LBCB_FPoutline_labelled-e1689640983125.jpg; LBC-Red: lbto_LBCR_FPoutline_labelled-e1689641000711.jpg); fetched 2026-10-19",
+   "file": "rawdata/imaging/lbc/lbto_scienceops_lbc_focal-plane-layout.html",
+   "images": [
+    "rawdata/imaging/lbc/lbto_LBCB_FPoutline_labelled-e1689640983125.jpg",
+    "rawdata/imaging/lbc/lbto_LBCR_FPoutline_labelled-e1689641000711.jpg"
+   ],
+   "url": "https://scienceops.lbto.org/lbc/lbc-instrument-characteristics/focal-plane-layout/"
+  },
+  "LQF": {
+   "cite": "Large Binocular Telescope Observatory, \"Quick Facts\" page (telescope structure and optics list; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lbc/lbto_quick-facts.html",
+   "url": "https://www.lbto.org/quick-facts/"
+  },
+  "LIO": {
+   "cite": "Large Binocular Telescope Observatory, \"Instruments Overview\" page (LBC paragraph; fetched 2026-10-19)",
+   "file": "rawdata/imaging/lbc/lbto_instruments-overview.html",
+   "url": "https://www.lbto.org/instruments-overview/"
+  },
+  "THL": {
+   "cite": "THELI data-reduction package (M. Schirmer), instrument configurations LBC_BLUE@LBT.ini, LBC_RED@LBT.ini and LBC_BLUE@LBT.ahead, GitHub schirmermischa/THELI commit 02fe489 (2024-07-08). Third-party pipeline files; used only for the pixel-scale alternative",
+   "file": [
+    "rawdata/imaging/lbc/theli_02fe489_LBC_BLUE@LBT.ini",
+    "rawdata/imaging/lbc/theli_02fe489_LBC_RED@LBT.ini",
+    "rawdata/imaging/lbc/theli_02fe489_LBC_BLUE@LBT.ahead"
+   ],
+   "url": "https://github.com/schirmermischa/THELI/tree/02fe4894d19b8062b71b8ea14b2df22b9ea54474/config/instruments"
+  }
+ },
+ "vst_omegacam": {
+  "title": "ESO VLT Survey Telescope (VST) 2.6 m / OmegaCAM (Cassegrain focus of a modified Ritchey-Chretien; two-lens corrector + dewar-window lens; 32 science CCDs)",
+  "preset": {
+   "D_m": 2.61,
+   "eps": 0.36,
+   "F": 5.57,
+   "F_published": 5.5,
+   "f_eff_mm": 14526,
+   "telescope_type": "Cassegrain (modified Ritchey-Chretien: concave hyperbolic M1, convex hyperbolic M2, no tertiary); focus behind the primary",
+   "focus": "Cassegrain",
+   "secondary": "convex",
+   "tertiary": null,
+   "primary_F": 1.82,
+   "field_diameter_deg": 1.47,
+   "imager": "direct (detector at the corrector focus)",
+   "optics": "two-lens wide-field corrector (L1, L2) behind the M1 cell, then the filter (inside OmegaCAM), then the dewar entrance window = third lens; ADC + single lens alternative (not offered since P99)",
+   "chip_nx": 2048,
+   "chip_ny": 4100,
+   "pitch_um": 15.0,
+   "n_science_chips": 32,
+   "rows": [
+    8,
+    8,
+    8,
+    8
+   ],
+   "chip_long_axis": "along the columns (4100-px axis N-S at position angle 0; the 2048-px axis lies along the rows)",
+   "gap_x_mm": 1.5,
+   "gap_y_mm": [
+    5.64,
+    0.82,
+    5.64
+   ],
+   "gap_y_note": "between rows 1-2, 2-3 and 3-4 counted from the top (north): wide gaps where a readout register faces the neighbouring row, narrow central gap between the two halves",
+   "pixel_scale_arcsec": 0.213
+  },
+  "recommended_preset": "D = 2.61 m (M1 aperture; 2650 mm blank), eps = 0.36 (0.938 m M2 / 2.61 m DERIVED; a lower bound -- the M2 baffle and the \"chimney\" baffle are not dimensioned in any source found), F = 5.57 = f_eff/D DERIVED (published \"f/5.5 modified Ritchey-Chretien\"), f_eff = 14,526 mm DERIVED from the manual's 0.213\"/px at 15 um for the two-lens corrector (the 0.214\"/px of the ESO page gives 14,458 mm; the manual's \"1mm=14.3 arcsec\" gives 14,424 mm). Telescope: Cassegrain focus of a modified Ritchey-Chretien (concave hyperbolic meniscus M1, convex hyperbolic M2, no tertiary; the two-lens corrector is mounted on the back side of the M1 cell, so the focus lies behind the primary). Primary f/1.82 DERIVED from R = 9509 mm (drawing only; ESO's \"(f/3.6)\" is R/D). Corrected field 1.47 deg diameter (A10; 1.5 deg in the 1998 design, 1.4 deg in K02 and the manual's \"All CCDs fit inside a circle of diameter 1.4 degrees\"); 1 deg x 1 deg science array. Optics: direct imager; two-lens corrector (two spherical lenses, L1 and L2) + planar filter + spherical dewar entrance window acting as the third lens, all in the converging beam; an ADC + single-lens corrector exists but has not been offered since P99. Detector: 32 science e2v CCD44-82, 2048 x 4100 used (2048 x 4102 active), 15 um, in 4 rows of 8 (N up, E right at PA 0), 4100-px axis along the columns. Gaps (manual \"average gap sizes\"): 1.5 mm between the long sides (within a row, 7 per row); between rows 5.64, 0.82, 5.64 mm (top to bottom; the wide gaps carry the readout registers / bond wires). Not science: 4 auxiliary 2k x 4k CCDs (2 guide G1/G2, 2 image-analysis at +/-2 mm from focus) 15.9 mm outside the array. Validate: 0.213\"/px (two-lens; 0.214 on the ESO page; 0.215 with ADC), 1 deg x 1 deg, 268 Mpix science (16k x 16k), fill factor 91.4%.",
+  "params": {
+   "telescope_aperture": {
+    "value": 2.61,
+    "unit": "m (M1 aperture)",
+    "src": "CS11",
+    "loc": "Introduction, p. 2",
+    "quote": "a 2.61-metre aperture",
+    "alternatives": [
+     {
+      "value": 2.61,
+      "src": "EPV",
+      "loc": "fact table",
+      "quote": "Diameter. Primary M1: 2.61 m"
+     },
+     {
+      "value": 2.61,
+      "src": "A10",
+      "loc": "Sec. 1",
+      "quote": "The VST is a 2.61 m Alt-az f/5.5 modified Ritchey-Chretien telescope"
+     },
+     {
+      "value": 2.65,
+      "src": "EPM",
+      "loc": "Mirror Characteristics table / text",
+      "quote": "The VST primary mirror is the larger of the two, with a diameter of 265 cm and a thickness of 14 cm.",
+      "note": "physical M1 diameter (table: \"diameter 2650 mm\")"
+     },
+     {
+      "value": 2.6,
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "a 2.6m modified Richie-Chretien alt-az telescope",
+      "note": "nominal"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.36,
+    "unit": "linear ratio (M2 diameter / D) -- lower bound",
+    "src": "EPV",
+    "loc": "text and fact table",
+    "quote": "a primary mirror (M1) with a diameter of 2.61 m and a smaller secondary mirror (M2) with a diameter of 93.8 cm",
+    "alternatives": [
+     {
+      "value": "M2 0.938 m",
+      "src": "EPV",
+      "loc": "fact table",
+      "quote": "Diameter. Secondary M2: 0.938 m"
+     },
+     {
+      "value": "M2 938 mm, M1 hole 600 mm",
+      "src": "EPM",
+      "loc": "Mirror Characteristics table",
+      "quote": "diameter 2650 mm 938 mm hole 600 mm 130 mm",
+      "note": "600 / 2610 = 0.23 (M1 hole, inside the M2 shadow)"
+     },
+     {
+      "value": "baffles: M2, chimney, M1 plug (not dimensioned)",
+      "src": "MAN",
+      "loc": "Sec. 2.9.1, p. 26",
+      "quote": "flatfields are consistent with M2, chimney and M1 plug together removing foremost an oval/circular",
+      "note": "the new (2014) baffling system; no obscuration diameter given"
+     }
+    ],
+    "note": "What sets it: the convex secondary (0.938 m) and its baffle; the M2 baffle and the M1 \"chimney\" baffle are not dimensioned in any source found, so 0.36 is a lower bound on the true linear obscuration.",
+    "derived": "DERIVED: 0.938 / 2.61 = 0.359; 0.938 / 2.65 = 0.354; M1 hole 0.600 / 2.61 = 0.230."
+   },
+   "telescope_focus": {
+    "value": "Cassegrain focus of a modified Ritchey-Chretien two-mirror telescope (concave hyperbolic M1, convex hyperbolic M2, no tertiary), with a refractive field corrector",
+    "unit": "",
+    "src": "R14",
+    "loc": "Sec. 2.2",
+    "quote": "The primary mirror is a concave 2.6 m hyperbolic meniscus ... The convex hyperbolic secondary mirror is controlled by a hexapod with 5 degrees of freedom.",
+    "alternatives": [
+     {
+      "value": "Cassegrain",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "OmegaCAM (see Fig. 1) is the wide-field imager for the Cassegrain focus of the VLT Survey Telescope (VST)"
+     },
+     {
+      "value": "f/5.5 modified Ritchey-Chretien",
+      "src": "EVS",
+      "loc": "main text",
+      "quote": "It features a f/5.5 modified Ritchey-Chretien optical layout"
+     },
+     {
+      "value": "2-mirror telescope + 3-lens field corrector",
+      "src": "S24",
+      "loc": "Sec. 4.1",
+      "quote": "The VST is a 2-mirror telescope equipped with a field corrector composed of 3 lenses."
+     },
+     {
+      "value": "corrector behind the M1 cell",
+      "src": "S24",
+      "loc": "Sec. 4.1",
+      "quote": "2-lens corrector mechanical support is connected to the back side of the primary mirror cell",
+      "note": "so the focus lies behind (below) the primary"
+     },
+     {
+      "value": "Cassegrain (design)",
+      "src": "A98",
+      "loc": "Sec. 3.2",
+      "quote": "The VLT Survey Telescope is a 2.6-m telescope, designed for Cassegrain operations"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 5.5,
+    "unit": "f/# (published, telescope)",
+    "src": "CS11",
+    "loc": "Introduction, p. 2",
+    "quote": "it features an f/5.5 modified Ritchey-Chretien optical layout",
+    "alternatives": [
+     {
+      "value": 5.5,
+      "src": "A10",
+      "loc": "Sec. 1",
+      "quote": "The VST is a 2.61 m Alt-az f/5.5 modified Ritchey-Chretien telescope"
+     },
+     {
+      "value": "5.57 (DERIVED)",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "at 0.21 arcsec per pixel (0.213 for the two-lens corrector, 0.215 for the ADC configuration)",
+      "note": "14,526 mm / 2,610 mm = 5.565 with the two-lens corrector; 14,391 / 2,610 = 5.51 for 0.215\"/px (ADC)"
+     }
+    ],
+    "derived": "DERIVED: f_eff / D = 14525.7 / 2610 = 5.565 (two-lens corrector, 0.213\"/px); 14457.8 / 2610 = 5.539 (0.214\"/px); 5.5 x 2610 = 14355 mm would give 0.2155\"/px."
+   },
+   "effective_focal_length": {
+    "value": 14526,
+    "unit": "mm (DERIVED from the published pixel scale)",
+    "src": "MAN",
+    "loc": "Sec. 2.1, p. 4",
+    "quote": "at 0.21 arcsec per pixel (0.213 for the two-lens corrector, 0.215 for the ADC configuration)",
+    "alternatives": [
+     {
+      "value": "14424 (from 14.3\"/mm)",
+      "src": "MAN",
+      "loc": "Sec. 2.4 (shutter timing), p. 19",
+      "quote": "Here, X is in mm with respect to the center of the detector mosaic (1mm=14.3 arcsec)"
+     },
+     {
+      "value": "14458 (from 0.214\"/px)",
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "at 0.21 arcsec per pixel (0.214 for the two-lens corrector, 0.215 for the ADC configuration)"
+     },
+     {
+      "value": "14458 (from 0.214\"/px)",
+      "src": "R14",
+      "loc": "Sec. 2.2",
+      "quote": "with 0.214 arcsec per pixel scale (for the two-lens corrector, 0.215 for the ADC configuration)"
+     },
+     {
+      "value": "14497 (from 0.21343\"/px, THELI on-sky solution)",
+      "src": "THV",
+      "loc": "OMEGACAM@VST.ahead, chip 1",
+      "quote": "CD1_1   =      5.929255407E-05",
+      "note": "mean |CD1_1| over the 32 chips = 5.9285e-5 deg = 0.21343\"/px DERIVED"
+     },
+     {
+      "value": "14355 (f/5.5 x 2.61 m)",
+      "src": "CS11",
+      "loc": "Introduction",
+      "quote": "a 2.61-metre aperture"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 x 0.015 mm / 0.213\" = 14525.7 mm; / 0.214\" = 14457.8 mm; / 0.215\" = 14390.6 mm (ADC); 206264.8 / 14.3 = 14424.1 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 1.82,
+    "unit": "f/# of M1 (DERIVED; drawing only)",
+    "src": "EPM",
+    "loc": "Mirror Characteristics table",
+    "quote": "radius of curvature 9509 mm (f/3.6) 4374 mm (f/4.7)",
+    "note": "ESO's \"(f/3.6)\" and \"(f/4.7)\" are R/D (9509/2650 = 3.59; 4374/938 = 4.66), not focal ratios. M2: R = 4374 mm, f = 2187 mm (convex).",
+    "derived": "DERIVED: f_M1 = 9509 / 2 = 4754.5 mm; / 2610 mm = f/1.822; / 2650 mm = f/1.794."
+   },
+   "corrected_field": {
+    "value": 1.47,
+    "unit": "deg diameter (corrected Cassegrain field)",
+    "src": "A10",
+    "loc": "Sec. 1",
+    "quote": "with a corrected Cassegrain Field of View (FoV) diameter of 1.47degrees",
+    "alternatives": [
+     {
+      "value": 1.5,
+      "src": "A98",
+      "loc": "Sec. 3.2",
+      "quote": "with a corrected FOV diameter of 1.5 degree",
+      "note": "1998 design"
+     },
+     {
+      "value": 1.4,
+      "src": "K02",
+      "loc": "Sec. 2",
+      "quote": "a constant focal plane scale of 0.21arcsec per 15 µm pixel over a 1.4 degree diameter field"
+     },
+     {
+      "value": "1.4 (all CCDs)",
+      "src": "MAN",
+      "loc": "Fig. 3 caption, p. 6",
+      "quote": "All CCDs fit inside a circle of diameter 1.4 degrees on the sky."
+     },
+     {
+      "value": "1 deg unvignetted (1 x 1 deg)",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "The VST provides a 1 degree unvignetted field of view"
+     },
+     {
+      "value": "1 deg x 1 deg corrected",
+      "src": "EVS",
+      "loc": "main text",
+      "quote": "within a corrected field of view of 1°x 1°"
+     }
+    ],
+    "derived": "DERIVED: science-array diagonal = sqrt(256.26^2 + 258.10^2) = 363.7 mm = 1.435 deg at 14.2\"/mm, so \"1.4 degrees\" is rounded; 1.47 deg = 372.7 mm."
+   },
+   "optics_placement": {
+    "value": "L1 + L2 (two-lens corrector, in the telescope behind the M1 cell) -> filter (inside OmegaCAM, ~14 mm thick, ~30 cm square) -> dewar entrance window = spherical third lens -> CCDs; all in the converging beam. Alternative: ADC (two counter-rotating prism pairs) + one lens, not offered since P99",
+    "unit": "",
+    "src": "MAN",
+    "loc": "Fig. 2 caption, p. 5",
+    "quote": "the incoming light passes through two spherical lenses, a planar filter, and the spherical dewar entrance window before reaching the CCDs on the right",
+    "alternatives": [
+     {
+      "value": "third lens + filters inside OmegaCAM",
+      "src": "S24",
+      "loc": "Sec. 4.1",
+      "quote": "The third lens is physically hosted in the OmegaCAM instrument, as well as the filters."
+     },
+     {
+      "value": "dewar window = third and final optical element",
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "The dewar entrance window of the cryostat of OmegaCAM is the third and final optical element."
+     },
+     {
+      "value": "ADC configuration",
+      "src": "CS11",
+      "loc": "Introduction",
+      "quote": "an atmospheric dispersion compensator coupled with a single-lens wide-field corrector plus the dewar window"
+     },
+     {
+      "value": "ADC = one lens + two counter-rotating prism pairs",
+      "src": "K02",
+      "loc": "Sec. 3.3",
+      "quote": "consisting of one lens and two counter-rotating prism pairs"
+     },
+     {
+      "value": "ADC withdrawn",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "Note that from P99 the ADC will not be offered."
+     },
+     {
+      "value": "filter size",
+      "src": "K11",
+      "loc": "p. 9",
+      "quote": "the filters are very large, some 30 cm x 30 cm!"
+     }
+    ]
+   },
+   "detector": {
+    "value": "e2v CCD44-82, 2048 x 4100 px used (2048 x 4102 active)",
+    "unit": "px",
+    "src": "MAN",
+    "loc": "Table 1, p. 10",
+    "quote": "Active Pixel Area 2048 x 4102 pixels (2048x4100 used)",
+    "alternatives": [
+     {
+      "value": "4100 x 2048 light-sensitive",
+      "src": "MAN",
+      "loc": "Sec. 2.2.1, p. 8",
+      "quote": "The light-sensitive area consists of 4100x2048 pixels"
+     },
+     {
+      "value": "CCD44-82, 3-edge buttable",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "The CCDs are thinned, blue-sensitive, 3-edge buttable CCD44-82 devices from e2v"
+     },
+     {
+      "value": "2k by 4k",
+      "src": "K11",
+      "loc": "p. 8",
+      "quote": "buttable 2k by 4k CCDs manufactured by e2V"
+     },
+     {
+      "value": "16384 x 16384 px array",
+      "src": "K02",
+      "loc": "Sec. 3.1",
+      "quote": "for a total area of 16384 × 16384 15 µm pixels (26 × 26 cm!)"
+     }
+    ],
+    "derived": "DERIVED: active 2048 x 15 um = 30.72 mm by 4100 x 15 um = 61.50 mm per CCD."
+   },
+   "pixel_pitch": {
+    "value": 15.0,
+    "unit": "um",
+    "src": "MAN",
+    "loc": "Table 1, p. 10",
+    "quote": "Pixel size 15 µm",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "I05",
+      "loc": "Sec. 1",
+      "quote": "mosaic of 2K x 4K e2v CCDs with 15µm pixels"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 32,
+    "unit": "CCDs",
+    "src": "MAN",
+    "loc": "Sec. 2.1, p. 4",
+    "quote": "which OmegaCAM samples with a 32-CCD, 16k x 16k detector mosaic",
+    "alternatives": [
+     {
+      "value": "8 x 4 mosaic",
+      "src": "I05",
+      "loc": "Sec. 1",
+      "quote": "The focal plane consists of an 8 x 4 mosaic of 2K x 4K e2v CCDs"
+     },
+     {
+      "value": 32,
+      "src": "K02",
+      "loc": "Sec. 3.1",
+      "quote": "It consists of a ‘science array’ of 32 thinned"
+     }
+    ]
+   },
+   "other_chips": {
+    "value": "4 auxiliary 2k x 4k CCDs around the edges: 2 guide (G1, G2) in focus, 2 image-analysis (IF, EF) at -/+2 mm from focus; 15.9 mm from the science array",
+    "unit": "",
+    "src": "MAN",
+    "loc": "Fig. 3 text, p. 6",
+    "quote": "Two of the auxiliary CCDs are mounted out of the focal plane (Extra- and Intra-focal; IF & EF), at displacements ±2mm ... Auxiliary CCDs G1 and G2 are used for guiding.",
+    "alternatives": [
+     {
+      "value": "same format",
+      "src": "K02",
+      "loc": "Sec. 3.1",
+      "quote": "lie four ‘auxiliary CCDs’, of the same format"
+     },
+     {
+      "value": "four 2K x 4K",
+      "src": "I05",
+      "loc": "Sec. 1",
+      "quote": "accompanied by four 2K x 4K CCDs on the periphery for the opto-mechanical control of the telescope"
+     },
+     {
+      "value": "15.9 mm from the array",
+      "src": "MAN",
+      "loc": "Sec. 2.2.1, p. 8",
+      "quote": "between science array and auxiliary CCDs: 15.9mm (1060 pix)"
+     }
+    ]
+   },
+   "mosaic_rows": {
+    "value": [
+     8,
+     8,
+     8,
+     8
+    ],
+    "unit": "science CCDs per row, top (N) to bottom, at PA 0; rows aligned (not staggered)",
+    "src": "MAN",
+    "loc": "Table 2, p. 14",
+    "quote": "N (at PA 0 degrees) #89 #90 #91 #92 #93 #94 #95 #96",
+    "alternatives": [
+     {
+      "value": "layout orientation",
+      "src": "MAN",
+      "loc": "Sec. 2.2.1, p. 11",
+      "quote": "At the default sky position angle of zero degrees this layout corresponds to N at the top, and East to the right."
+     },
+     {
+      "value": "8 x 4",
+      "src": "I05",
+      "loc": "Sec. 1",
+      "quote": "an 8 x 4 mosaic of 2K x 4K e2v CCDs"
+     }
+    ],
+    "note": "Table 2 lists CCDs #89-#96 (top), #81-#88, #73-#80, #65-#72 (bottom): 4 rows of 8."
+   },
+   "chip_orientation": {
+    "value": "4100-px (long) axis along the columns (N-S at PA 0); 2048-px axis along the rows; upper-half CCDs rotated 180 deg so every readout register faces away from the centre",
+    "unit": "",
+    "src": "MAN",
+    "loc": "Sec. 2.1, p. 4",
+    "quote": "Each CCD is of 2k x 4k format and subtends ∼ 7.3′ × 14.6′ on the sky.",
+    "alternatives": [
+     {
+      "value": "readout registers",
+      "src": "MAN",
+      "loc": "Sec. 2.2.1, p. 11",
+      "quote": "In the lower half of the CCD array, the readout register is at the ”bottom” (southern edge) of the CCDs, whereas in the upper (northern) half the CCDs are rotated through 180 degrees."
+     },
+     {
+      "value": "7.3 x 14.6 arcmin",
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "Each chip subtends approximately 7.3x14.6' on the sky."
+     }
+    ],
+    "note": "8 columns x 2048 px = 16384 px and 4 rows x 4100 px = 16400 px make the \"16k x 16k\" array only with the long axis along the columns; 8 x 7.3' = 4 x 14.6' = 58.4'."
+   },
+   "chip_gaps": {
+    "value": {
+     "within_row_x_mm": 1.5,
+     "between_rows_y_mm_top_to_bottom": [
+      5.64,
+      0.82,
+      5.64
+     ]
+    },
+    "unit": "mm between light-sensitive areas (\"average gap sizes\")",
+    "src": "MAN",
+    "loc": "Sec. 2.2.1, p. 8",
+    "quote": "between the long sides of the CCDs: 1.5mm (100 pix=21.5 ... central gap along the short sides: 0.82mm (55 pix=11.8 ... wide gap along short sides: 5.64mm (376 pix=80.5",
+    "alternatives": [
+     {
+      "value": "1.5 mm strips + two 5.7 mm bands (25\" and 85\")",
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "There are narrow gaps between the individual CCDs, resulting in 1.5mm wide, insensitive strips across the focal plane. In addition there are two broader insensitive bands, each 5.7mm wide, which is where the CCD bond wires are. The gaps translate to 25\" and 85\" on the sky respectively."
+     },
+     {
+      "value": "package borders",
+      "src": "MAN",
+      "loc": "Sec. 2.2.1, p. 8",
+      "quote": "surrounded by a border whose width is 0.16mm on the short side opposite the readout register, 0.5mm along the long sides of the CCD, and 5mm on the side of the readout register"
+     },
+     {
+      "value": "THELI on-sky: x 93 px (1.39 mm; 82-102 px); y 362 / 51 / 361 px (5.42 / 0.77 / 5.41 mm)",
+      "src": "THV",
+      "loc": "OMEGACAM@VST.ahead (CRPIX per chip) + OMEGACAM@VST.ini (CUTY)",
+      "quote": "CRPIX1  =      8.433258042E+03 ... CRPIX1  =      6.289155894E+03",
+      "note": "DERIVED from the per-chip CRPIX of one astrometric solution; +/-2 px from the assumed start of the active rows; 15 um px"
+     },
+     {
+      "value": "fill factor 91.4%",
+      "src": "MAN",
+      "loc": "Sec. 2.1, p. 4",
+      "quote": "the overall geometric filling factor of the array is 91.4%"
+     }
+    ],
+    "note": "Assignment of the gaps: the 7 long-side gaps lie between neighbours in a row. Of the 3 short-side (row) gaps the central one (0.82 mm) separates the two halves, whose 0.16 mm borders face each other; the two wide ones (5.64 mm) lie between rows 1-2 and 3-4, where a 5 mm readout-register border faces the next row (manual: lower-half registers at the south edge, upper half rotated 180 deg; ESO page: \"two broader insensitive bands\").",
+    "derived": "DERIVED: border check -- the two facing 0.16 mm borders account for 0.32 of the 0.82 mm central gap and a 5 mm + 0.16 mm pair for 5.16 of the 5.64 mm wide gaps, leaving ~0.5 mm of mechanical clearance in both. Array 8 x 30.72 + 7 x 1.5 = 256.26 mm by 4 x 61.50 + 2 x 5.64 + 0.82 = 258.10 mm; fill factor 32 x 30.72 x 61.50 / (256.26 x 258.10) = 91.4% -- reproduces the manual's 91.4%. THELI: mean chip pitch along a row 2140.8 px -> gap 92.8 px (82-102 over 28 pairs); row-to-row gaps between active areas 361.5, 51.3, 360.9 px, taking the active rows to start at raw row 1 (CUTY=3 rows) or 101 (CUTY=102 rows, below 100 overscan rows)."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.213,
+    "unit": "arcsec/px (two-lens corrector; 0.215 with ADC)",
+    "src": "MAN",
+    "loc": "Sec. 2.8 \"Astrometric Properties\", p. 22",
+    "quote": "The pixel scale with ADC in is 0.215 ... With the ADC out – hence two-lens corrector in – it is 0.213",
+    "alternatives": [
+     {
+      "value": 0.214,
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "at 0.21 arcsec per pixel (0.214 for the two-lens corrector, 0.215 for the ADC configuration)"
+     },
+     {
+      "value": 0.214,
+      "src": "R14",
+      "loc": "Sec. 2.2",
+      "quote": "with 0.214 arcsec per pixel scale (for the two-lens corrector, 0.215 for the ADC configuration)"
+     },
+     {
+      "value": 0.214,
+      "src": "THV",
+      "loc": "OMEGACAM@VST.ini",
+      "quote": "PIXSCALE=0.214"
+     },
+     {
+      "value": "0.21343 (DERIVED, on-sky)",
+      "src": "THV",
+      "loc": "OMEGACAM@VST.ahead",
+      "quote": "CD2_2   =      5.928486259E-05"
+     },
+     {
+      "value": 0.21,
+      "src": "K11",
+      "loc": "p. 8",
+      "quote": "The array samples a full square degree at 0.21 arcseconds per pixel resolution"
+     }
+    ],
+    "note": "MAN Sec. 2.8: \"The radial plate scale is constant over the field to better than 1 part in 1000\", so the centre value equals the average."
+   },
+   "field_of_view": {
+    "value": {
+     "width_deg": 1.0,
+     "height_deg": 1.0,
+     "area_deg2": 1.0
+    },
+    "unit": "",
+    "src": "MAN",
+    "loc": "Fig. 3 caption, p. 6",
+    "quote": "The science array covers a 1 degree x 1 degree area of sky, with 16k x 16k pixels of 0.21 arcsec.",
+    "alternatives": [
+     {
+      "value": "1 x 1 deg, gaps 25-85\"",
+      "src": "EOI",
+      "loc": "Instrument Description",
+      "quote": "The scientific detector array covers 1x1 degree on the sky, with gaps of 25-85\" between chips."
+     },
+     {
+      "value": "1 deg x 1 deg",
+      "src": "CS11",
+      "loc": "Introduction",
+      "quote": "with a corrected field of view of 1 degree by 1 degree"
+     }
+    ],
+    "derived": "DERIVED: 256.26 x 258.10 mm at 14.2\"/mm (0.213\"/15 um) = 60.6' x 61.1' = 1.011 x 1.018 deg (1.03 deg^2 bounding box); active pixels 32 x 30.72 x 61.50 mm^2 = 0.94 deg^2."
+   },
+   "total_pixels": {
+    "value": "268 Mpix science (16k x 16k)",
+    "unit": "pixels",
+    "src": "MAN",
+    "loc": "Sec. 2.2.1 heading, p. 8",
+    "quote": "The 268-Million Pixel Science Array",
+    "alternatives": [
+     {
+      "value": "almost 300 million (incl. auxiliary CCDs)",
+      "src": "K11",
+      "loc": "p. 8",
+      "quote": "consisting of almost 300 million pixels in total"
+     },
+     {
+      "value": "300-megapixel",
+      "src": "K11",
+      "loc": "abstract",
+      "quote": "OmegaCAM, the 300-megapixel widefield optical camera"
+     }
+    ],
+    "derived": "DERIVED: 32 x 2048 x 4100 = 268,697,600; with the 4 auxiliary CCDs 36 x 2048 x 4100 = 302,284,800."
+   }
+  },
+  "not_found": [
+   "The diameter of the central obscuration as built (M2 baffle / M1 \"chimney\" baffle): only the 0.938 m M2 diameter (EPV, EPM) and the 600 mm M1 hole (EPM) are published; the 2014 baffle upgrade (MAN Sec. 2.9.1) is described without dimensions.",
+   "An effective focal length or plate scale in \"/mm stated as such: f_eff is DERIVED from the published pixel scale (0.213\"/px) and checked against the manual's \"1mm=14.3 arcsec\" (shutter section) and f/5.5 x 2.61 m.",
+   "The as-built per-gap geometry: the manual gives \"average gap sizes\" only; the THELI pipeline header gives one on-sky solution (cross-check only).",
+   "The VST optical prescription (conic constants, vertex spacing, corrector radii): not in any open document found (Marra et al. 2005 SPIE 5962 and Schipani et al. papers are behind the SPIE paywall)."
+  ],
+  "conflicts": [
+   "Pixel scale (two-lens corrector): 0.213\"/px (MAN, P109) vs 0.214\"/px (EOI, R14, THELI ini) vs 0.21343 (THELI astrometric solution, DERIVED) vs the manual's own \"1mm=14.3 arcsec\" = 0.2145\"/px; ADC: 0.215\"/px (all).",
+   "Gaps: 1.5 / 0.82 / 5.64 mm and 21.5\" / 11.8\" / 80.5\" (MAN) vs 1.5 mm and 5.7 mm, 25 and 85 arcsec (EOI) vs on-sky 1.39 / 0.77 / 5.42 mm (THELI astrometric header, DERIVED). The MAN arcsec values imply 0.214-0.215\"/px (100 px = 21.5\", 376 px = 80.5\").",
+   "Corrected field diameter: 1.47 deg (A10) vs 1.5 deg (A98, 1998 design) vs 1.4 deg (K02; MAN \"All CCDs fit inside a circle of diameter 1.4 degrees\") vs \"1 degree unvignetted field of view\" (MAN, i.e. the 1 x 1 deg array).",
+   "M1 diameter: 2.61 m aperture (CS11, EPV, A10) vs 2.65 m blank (EPM) vs 2.6 m nominal (MAN, EVS).",
+   "Mirror \"focal ratios\": EPM lists M1 \"(f/3.6)\" and M2 \"(f/4.7)\", which are R/D; the M1 focal ratio is f/1.82 (DERIVED, R/2D).",
+   "Total pixels: 268 Mpix science (MAN) vs \"300-megapixel\" / \"almost 300 million\" (K11, includes the 4 auxiliary CCDs: 302 Mpix DERIVED)."
+  ],
+  "notes": [
+   "Explorer mapping: rows [8, 8, 8, 8], chips 2048 px along the row and 4100 px across (long axis along the columns), 1.5 mm gaps within a row; row gaps 5.64, 0.82, 5.64 mm top to bottom. Even number of rows and columns, so the field centre falls on the cross formed by the central 0.82 mm row gap and the middle 1.5 mm column gap.",
+   "With D = 2.61 m and F = 5.565 (f_eff = 14,526 mm) the explorer reproduces 0.213\"/px at 15 um; with the published f/5.5 it gives 0.2155\"/px (the ADC value is 0.215).",
+   "Doc number: the manual's title page reads VST-MAN-OCM-23110-3110 while the ESO file name is VST-MAN-OCM-23100-3110.",
+   "CCD 77 has been out of operation since P108 (EMD: \"P108 Phase 1 108.1 1.4.2 P108 phase 1. CCD 77 out of operation.\"); the layout still has 32 science CCD positions."
+  ]
+ },
+ "lbt_lbc_blue": {
+  "title": "LBT 8.4 m (SX) / LBC-Blue (prime focus, 6-lens fused-silica corrector incl. cryostat window; 4 science CCDs)",
+  "preset": {
+   "D_m": 8.4,
+   "eps": 0.106,
+   "eps_note": "lower bound (M1 hole); LBC-body shadow not published",
+   "F": 1.45,
+   "F_published": 1.45,
+   "f_eff_mm": 12180,
+   "telescope_type": "prime focus with Wynne-type corrector (5 fused-silica lenses + cryostat-window meniscus); filters between L5 and L6",
+   "focus": "prime",
+   "secondary": null,
+   "tertiary": null,
+   "primary_F": 1.142,
+   "field_diameter_deg": 0.52,
+   "imager": "direct (detector at the corrector focus)",
+   "chip_nx": 2048,
+   "chip_ny": 4608,
+   "pitch_um": 13.5,
+   "n_science_chips": 4,
+   "rows": [
+    1,
+    3
+   ],
+   "rotated_chips": 1,
+   "chip_long_axis": "bottom row (chips #3, #2, #1 left to right): long (4608-px) axis along the columns; top row: chip #4 rotated 90 deg, long axis along the row",
+   "gap_x_mm": 1.0,
+   "gap_y_mm": 1.03,
+   "top_chip_offset_note": "centred per LBTO / R16; BB10 Fig. 1 and Table 4 put it 75-77 px (1.0 mm) toward chip #3",
+   "pixel_scale_arcsec": 0.2297,
+   "pixel_scale_kind": "measured at the chip-2 reference point, ~2.3 arcmin from the rotator axis (BB10); the explorer value from f_eff is 0.2286",
+   "pixel_scale_avg_arcsec": 0.2255
+  },
+  "recommended_preset": "D = 8.4 m (one LBT primary, nominal; 8.417 m physical), eps = 0.106 is only a lower bound (0.889 m M1 central hole / 8.417 m); the shadow of the LBC body on its swing arm sets the real obscuration and is NOT FOUND. F = 1.45 and f_eff = 12,180 mm (G08: \"The focal length of the optical corrector is 12180mm and the final focal ratio is F/1.45\"; 12180/8400 = 1.450). Telescope: prime focus of the parabolic F/1.142 primary, no secondary or tertiary; the LBC hangs on the SX prime-focus swing arm. Corrector: Wynne-type, 5 fused-silica lenses (L1 810 mm) + the cryostat window (positive meniscus, almost no power) = 6 lenses; two filter wheels between L5 and L6; derotator carries filters + cryostat. Direct imager. Corrected field 110 mm diameter = 0.52 deg DERIVED (R16; LBTO drawing \"Corrected field 5% (Ø=110mm)\", 0% vignetting inside Ø 102.8 mm); G08 quotes ~30' corrected and 27' unvignetted. Detector: 4 science e2v CCD42-90, 2048 x 4608, 13.5 um. Rows (top to bottom, centred): [1, 3] -- chip #4 rotated 90 deg on top (long axis along the row), chips #3, #2, #1 below (long axis along the columns). Gaps (G08): 1.0 mm (74 px, 16.7\") between the three vertical chips, 1.03 mm (76 px, 17.2\") between them and chip #4. On-sky (BB10, DERIVED): 62 / 65 px and 52 px (0.84 / 0.88 / 0.70 mm). Not science: 2 technical CCDs left and right of the array (guide beside #1, extra-focal -0.8 mm beside #3). Validate: 0.2297\"/px measured at chip-2 reference near the field centre (BB10; 0.2286 DERIVED from 12,180 mm), 0.2254-0.2255\"/px field average (G08, BB10 median, LBTO); 23.6' x 25.3' (G08); 4 x 2048 x 4608 = 37.7 Mpix DERIVED.",
+  "params": {
+   "telescope_aperture": {
+    "value": 8.4,
+    "unit": "m (one LBT primary; nominal)",
+    "src": "R16",
+    "loc": "Sec. 1",
+    "quote": "Each mirror is 8.4 meters in diameter",
+    "alternatives": [
+     {
+      "value": 8.417,
+      "src": "LQF",
+      "loc": "Two Primary Mirrors",
+      "quote": "Primary Physical Diameter: 8.417 meter",
+      "note": "physical diameter; clear aperture not published in the sources found"
+     },
+     {
+      "value": 8.4,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "the large telescope diameter (8.4m)"
+     },
+     {
+      "value": "11.8 (binocular equivalent; not for one LBC)",
+      "src": "R16",
+      "loc": "Abstract",
+      "quote": "LBT encompasses two 8.4 meter primary mirrors on a single mount yielding an effective collecting area of 11.8"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.106,
+    "unit": "linear ratio -- lower bound (M1 central hole / M1 diameter)",
+    "src": "LQF",
+    "loc": "Two Primary Mirrors",
+    "quote": "Central Hole Physical Diameter: 0.889 meter",
+    "alternatives": [
+     {
+      "value": "L1 lens 810 mm (inside the LBC body)",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "the largest lens of the corrector has a considerable diameter (810 mm)",
+      "note": "810 / 8400 = 0.096: the body that holds L1 is larger"
+     }
+    ],
+    "note": "What sets it: at prime focus the shadow of the LBC itself (corrector hub, derotator, cryostat; L1 lens alone is 810 mm) on its swing arm, and the 0.889 m hole in M1. The outer diameter of the LBC body / swing-arm hub is NOT published in the sources found, so the true obscuration is NOT FOUND; 0.106 (hole) is a strict lower bound.",
+    "derived": "DERIVED: 0.889 / 8.417 = 0.1056; 0.889 / 8.4 = 0.1058."
+   },
+   "telescope_focus": {
+    "value": "prime focus of the parabolic F/1.142 primary (no secondary, no tertiary); LBC (corrector + camera) on a swing arm in the converging beam, SX (left) side",
+    "unit": "",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "The LBCs are comprised of two wide-field imagers, one blue optimized at the f/1.14 prime focus on SX, and one red optimized at the f/1.14 prime focus on DX.",
+    "alternatives": [
+     {
+      "value": "prime focus swing arms",
+      "src": "LOV",
+      "loc": "LBC Overview",
+      "quote": "The Large Binocular Cameras (LBCs) are two wide-field imagers mounted on the prime focus (F/1.14) swing arms of the LBT."
+     },
+     {
+      "value": "parabolic primary",
+      "src": "LQF",
+      "loc": "Two Primary Mirrors",
+      "quote": "Primary Figure: parabolic"
+     },
+     {
+      "value": "spider swing-arm",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "They are each mounted on a spider swing-arm that can be deployed above their respective primary mirror"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 1.45,
+    "unit": "f/# (final, with corrector)",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "The focal length of the optical corrector is 12180mm and the final focal ratio is F/1.45.",
+    "alternatives": [
+     {
+      "value": 1.45,
+      "src": "G08",
+      "loc": "Sec. 2",
+      "quote": "The fast focal ratio (F/1.45) allows efficient deep imaging over a FoV of approximately 30 arcmin in diameter."
+     },
+     {
+      "value": 1.46,
+      "src": "G08",
+      "loc": "Sec. 2.1 (detectors)",
+      "quote": "The final constraint is imposed by the instrument's fast focal ratio (F/1.46)"
+     },
+     {
+      "value": 1.46,
+      "src": "BB10",
+      "loc": "Sec. 2",
+      "quote": "The final LBC-Blue focal-ratio is F/1.46."
+     },
+     {
+      "value": 1.47,
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "The final focal ratio of the corrector is F/1.47."
+     }
+    ],
+    "derived": "DERIVED: 12180 / 8400 = 1.450; 12180 / 8417 = 1.447."
+   },
+   "effective_focal_length": {
+    "value": 12180,
+    "unit": "mm",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "The focal length of the optical corrector is 12180mm",
+    "alternatives": [
+     {
+      "value": "12205 (from 16.9\"/mm)",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "At the f/1.47 LBC focus, the focal plane scale is 16.9 arcsec/mm"
+     },
+     {
+      "value": "12122 (from 0.2297\"/px measured at chip-2 reference)",
+      "src": "BB10",
+      "loc": "Table 4 caption",
+      "quote": "The absolute x-scale factor of chip [2] in its reference pixel is 229.7±0.1 mas."
+     },
+     {
+      "value": "12348 (f/1.47 x 8.4 m)",
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "The final focal ratio of the corrector is F/1.47."
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 12180 = 16.935\"/mm -> 0.2286\"/px at 13.5 um; 206264.8 / 16.9 = 12205 mm; 206264.8 x 0.0135 / 0.2297 = 12122 mm; 1.47 x 8400 = 12348 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 1.142,
+    "unit": "f/# of M1 (drawing only)",
+    "src": "LQF",
+    "loc": "Two Primary Mirrors",
+    "quote": "Primary Focal Ratio: F/1.142",
+    "alternatives": [
+     {
+      "value": 1.14,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The focal ratio of the primary mirror (F/1.14)"
+     }
+    ],
+    "derived": "DERIVED: f_M1 = 1.142 x 8.417 m = 9.61 m (if the ratio refers to the physical diameter; 9.59 m for 8.4 m)."
+   },
+   "corrected_field": {
+    "value": 0.52,
+    "unit": "deg diameter (110 mm corrected field, DERIVED)",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "The corrected fields have a diameter of 110 mm and 108.2 mm for LBC Blue and LBC Red",
+    "alternatives": [
+     {
+      "value": "27 arcmin unvignetted",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The unvignetted FoV is 27 arcmin in diameter"
+     },
+     {
+      "value": "~30 arcmin corrected",
+      "src": "G08",
+      "loc": "Abstract",
+      "quote": "The corrected field-of-view of each camera is approximately 30 arcminutes in diameter"
+     },
+     {
+      "value": "\"equivalent to 27' in diameter\"",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "(equivalent to 270 in diameter), respectively",
+      "note": "text layer renders 27′ as \"270\"; 27' = 95.7 mm at 16.935\"/mm, inconsistent with 110 mm"
+     },
+     {
+      "value": "5% light loss at the corrected-field edge",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "There is a 5% loss of energy in the blue channel at the edge of the corrected field"
+     }
+    ],
+    "figure": {
+     "src": "LFP",
+     "image": "lbto_LBCB_FPoutline_labelled-e1689640983125.jpg",
+     "annotations": "Corrected field 5% (Ø=110mm); 0% (Ø=102.8mm); 50% (Ø=117.4mm)",
+     "caption_quote": "The circles denote radii of the corrected fields (black circles) and percentage vignetting at a given radius (blue, green and red circles).",
+     "ocr": "tesseract: \"50% (@=117.4mm)\", \"0% Q=102.8mm)\", \"110mm)\", \"Corrected field\", \"5% (@\""
+    },
+    "derived": "DERIVED: 110 mm x 16.935\"/mm = 1863\" = 31.0' = 0.517 deg; 102.8 mm (0% vignetting) = 29.0' = 0.484 deg; 27' = 0.45 deg. The chip corners reach r ~ 58-60 mm from the rotator axis (DERIVED from the layout), i.e. just outside the 110 mm circle -- the corner vignetting LBTO describes."
+   },
+   "optics_placement": {
+    "value": "L1 (810 mm) - L2 (400) - L3 (260, ellipsoidal surface) - L4 (220) - L5 (216) - filter (160) - L6 = cryostat window (130), all fused silica; two filter wheels between L5 and L6 on the derotator",
+    "unit": "",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "Two filter wheels are placed between the last two lenses.",
+    "alternatives": [
+     {
+      "value": "Wynne design, lenses 2 and 3 split; cryostat window",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "an additional lens is present that has a positive meniscus of almost no net power, which is the CCD cryostat window"
+     },
+     {
+      "value": "five fixed lenses",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "Each one of the five fixed lenses is kinematically mounted"
+     },
+     {
+      "value": "fused silica",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "All the lenses are in fused silica"
+     },
+     {
+      "value": "aspheric lens #3",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The optical surfaces are spherical or plane, except lens #3"
+     },
+     {
+      "value": "filter wheel between 5th and 6th lens",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "A filter wheel sits between the 5th and 6th corrective lens"
+     },
+     {
+      "value": "filters 159.8 mm",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "LBC Blue filters are 159.8 mm in diameter (155 mm opening)"
+     }
+    ],
+    "figure": {
+     "src": "LOP",
+     "image": "lbto_scienceops_lbc_optics_Screen-Shot-2016-07-22-at-11.45.07-AM.png",
+     "annotations": "Blue - Silica -: L6 - 130, F. - 160, L5 - 216, L4 - 220, L3 - 260, L2 - 400, L1 - 810",
+     "caption_quote": "LBC optical elements. The diameters are shown in mm.",
+     "ocr": "tesseract: \"16-130\", \"F.- 160\", \"15-216\", \"14-220\", \"13-260\", \"12-400\", \"L1-810\""
+    }
+   },
+   "detector": {
+    "value": "e2v CCD42-90 (thinned, blue), 2048 x 4608 px",
+    "unit": "px",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "an array of four E2V 42-90 (4608×2048 pixels) chips cover the corrected field",
+    "alternatives": [
+     {
+      "value": "2048 x 4608 science region",
+      "src": "BB10",
+      "loc": "Sec. 2",
+      "quote": "to define the borders of the 2048×4608 pixel scientific regions"
+     }
+    ],
+    "derived": "DERIVED: 2048 x 13.5 um = 27.648 mm by 4608 x 13.5 um = 62.208 mm."
+   },
+   "pixel_pitch": {
+    "value": 13.5,
+    "unit": "um",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "The LBC focal planes consist of four EEV42-90 CCDs (2048 x 4608 pixels, 13.5 microns x 13.5 microns per pixel)",
+    "alternatives": [
+     {
+      "value": 13.5,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "(13.5µm in size or 0.2254 arcsec)"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 4,
+    "unit": "CCDs",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "The LBCs each contain six E2V CCD detectors, four of which are used for science.",
+    "alternatives": [
+     {
+      "value": 4,
+      "src": "LOV",
+      "loc": "LBC Overview",
+      "quote": "The focal plane of each LBC consists of four 4608 x 2048 E2V detectors"
+     }
+    ]
+   },
+   "other_chips": {
+    "value": "2 technical CCDs, one either side of the science array: guide (beside chip #1) and extra-focal focus/collimation (beside chip #3, 0.8 mm below focus); format 256 x 2048 (G08) or 512 x 2048 (R16)",
+    "unit": "",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "There are two technical chips, one on either side of the focal plane array. The one closest to chip #1 is used for guiding and the one closest to chip #3 is set 0.8 mm below the focal plane",
+    "alternatives": [
+     {
+      "value": "E2V 42-10, 256 x 2048",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "while two E2V 42-10 of 256×2048 px are used to acquire short exposure images for guiding and wavefront control"
+     },
+     {
+      "value": "E2V 420-90 custom, 512 x 2048",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "They are E2V 420-90 custom made 512 × 2048 (13.5 µm square) pixel CCDs"
+     }
+    ]
+   },
+   "mosaic_rows": {
+    "value": [
+     1,
+     3
+    ],
+    "unit": "science CCDs per row, top to bottom (orientation of the LBTO / BB10 layout figures); rows centred",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "arranged such that three of the chips are butted along their long edges, with the fourth chip rotated counterclockwise by 90 degrees and centered along the top of the other CCDs",
+    "alternatives": [
+     {
+      "value": "chip numbering",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "The three CCDs that are arranged with their long edges together are numbered from right to left, chip #1 to chip #3, the top rotated CCD is chip #4."
+     },
+     {
+      "value": "rotated clockwise, centred",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "A fourth CCD is rotated clockwise 90 degrees and centered along the top of the three science CCDs."
+     },
+     {
+      "value": "rotated anti-clockwise, centred (LBC-Blue)",
+      "src": "BB10",
+      "loc": "Sec. 2",
+      "quote": "with three chips contiguous longside, and the fourth one rotated 90 degrees anti-clockwise, and centered above the others"
+     },
+     {
+      "value": "unconventional layout",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The four science chips are placed in an unconventional fashion, with the fourth chip rotated 90"
+     }
+    ]
+   },
+   "chip_orientation": {
+    "value": "chips #1-#3: 2048 px along the row, 4608 px along the columns; chip #4: 4608 px along the row (rotated 90 deg)",
+    "unit": "",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "Each CCD covers approximately 7.8 arcmin x 17.6 arcmin",
+    "note": "7.8' x 17.6' = 2048 x 4608 px at ~0.229\"/px; three chips side by side give ~23.6' across, 17.6' + 7.8' + gap gives ~25.3' high."
+   },
+   "chip_gaps": {
+    "value": {
+     "within_row_x_mm": 1.0,
+     "between_rows_y_mm": 1.03
+    },
+    "unit": "mm",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "The gaps between the vertical chips are 1mm, which corresponds to 74 pixels or equivalently 16.7 arcsec in the focal plane of LBC-Blue. The gap between the vertical chips and the horizontal chip is 1.03mm (76 pixels, 17.2 arcsec).",
+    "alternatives": [
+     {
+      "value": "70 px (~18\")",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "with a gap of 70 pixels",
+      "note": "0.945 mm at 13.5 um"
+     },
+     {
+      "value": "~18\" (70 px)",
+      "src": "LIO",
+      "loc": "LBC paragraph",
+      "quote": "with gaps between the chips of ~18 arcseconds (70 pixels)"
+     },
+     {
+      "value": "on-sky: 62 px (#1-#2), 65 px (#2-#3), 52 px (#4 to the row)",
+      "src": "BB10",
+      "loc": "Table 4",
+      "quote": "(xcorr [2] )k 3135.0 1025.00 −1088.1 948.36 ... (ycorr [2] )k 2311.2 2305.00 2307.4 5684.9",
+      "note": "DERIVED: 3135.0 - 1025.0 - 2048 = 62.0; 1025.0 + 1088.1 - 2048 = 65.1; 5684.9 - 2305.0 - 2304 - 1024 = 51.9 px (distortion-corrected frame in chip-2 pixels) = 0.84 / 0.88 / 0.70 mm"
+     },
+     {
+      "value": "Fig. 1 \"row estimates\": 63 px, 60 px, 50 px between work images",
+      "src": "BB10",
+      "loc": "Fig. 1 + Sec. 2",
+      "quote": "Row estimates of the intra-chip gaps are expressed as the nearest integer pixel.",
+      "note": "Fig. 1 is a raster: \"63\", \"60\", \"907 px\" and \"6273 px\" confirmed by tesseract OCR, \"757 px\", \"50 px\" and \"6710 px\" read by eye (OCR gave \"7507 px\"). Work images are 2050 x 4610 (1 border px per side), so the active gaps are 65, 62 and 52 px; chip #4 sits 757 px from the left edge and 907 px from the right, i.e. 75 px toward chip #3"
+     }
+    ]
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.2297,
+    "unit": "arcsec/px at the chip-2 reference point (~2' from the rotator axis); 0.2254-0.2255 field average",
+    "src": "BB10",
+    "loc": "Table 4 caption / Sec. 5",
+    "quote": "The absolute x-scale factor of chip [2] in its reference pixel is 229.7±0.1 mas.",
+    "alternatives": [
+     {
+      "value": "0.2255 average",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "the average pixel scale for both LBC Blue and LBC Red is 0.2255 arcsec/pixel"
+     },
+     {
+      "value": "0.2254",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "with a sampling of about 0.2254 arcsec/pixel"
+     },
+     {
+      "value": "0.2254 median",
+      "src": "BB10",
+      "loc": "Sec. 4",
+      "quote": "adopting for it the median value of 225.4 mas/pixel"
+     },
+     {
+      "value": 0.2255,
+      "src": "R16",
+      "loc": "Table 1",
+      "quote": "LBC Blue SX Prime Imaging 0.33-0.67 230 × 250 0.2255"
+     },
+     {
+      "value": 0.224,
+      "src": "THL",
+      "loc": "LBC_BLUE@LBT.ini",
+      "quote": "PIXSCALE=0.2240"
+     },
+     {
+      "value": "0.2286 (DERIVED, centre)",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The focal length of the optical corrector is 12180mm"
+     }
+    ],
+    "note": "Pincushion distortion (\"always below 1.75% even at the edge\", G08) makes the \"/px fall outward, so the centre value (~0.229-0.230) exceeds the field average (0.2255).",
+    "derived": "DERIVED: 206264.8 x 0.0135 / 12180 = 0.2286\"/px; 16.9 x 0.0135 = 0.2282\"/px."
+   },
+   "field_of_view": {
+    "value": {
+     "width_arcmin": 23.6,
+     "height_arcmin": 25.3
+    },
+    "unit": "",
+    "src": "G08",
+    "loc": "Sec. 2.1",
+    "quote": "providing a scientific image of 23.6 × 25.3arcmin2",
+    "alternatives": [
+     {
+      "value": "~25' x 23'",
+      "src": "LOV",
+      "loc": "LBC Overview",
+      "quote": "which cover a corrected field of view of ~25′ x 23′ at ~0.225″/pix (13.5 mic/pixel)"
+     },
+     {
+      "value": "23' x 25'",
+      "src": "LIO",
+      "loc": "LBC paragraph",
+      "quote": "The science field of view is approximately 23 arcmin x 25 arcmin."
+     },
+     {
+      "value": "~24' x 25'",
+      "src": "BB10",
+      "loc": "Sec. 2",
+      "quote": "providing a total Field of View (FoV) of ∼24′ ×25′"
+     },
+     {
+      "value": "23 x 23 arcmin^2 (abstract)",
+      "src": "G08",
+      "loc": "Abstract",
+      "quote": "the chip area is equivalent to a 23 × 23 arcmin2 field"
+     }
+    ],
+    "derived": "DERIVED: (3 x 27.648 + 2 x 1.0) = 84.94 mm by (62.208 + 1.03 + 27.648) = 90.89 mm; at the 0.2255\"/px average (16.70\"/mm) = 23.65' x 25.30' (reproduces G08); at 16.935\"/mm = 23.97' x 25.65'. Active area 4 x 27.648 x 62.208 mm^2 = 0.148 deg^2 at 16.70\"/mm."
+   },
+   "total_pixels": {
+    "value": 37748736,
+    "unit": "science pixels (DERIVED; no published total found)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "The LBC focal planes consist of four EEV42-90 CCDs (2048 x 4608 pixels",
+    "derived": "DERIVED: 4 x 2048 x 4608 = 37,748,736 (37.7 Mpix)."
+   }
+  },
+  "not_found": [
+   "The central obscuration at prime focus: the outer diameter of the LBC body (corrector hub + derotator + cryostat) and its swing-arm hub are not published in any source found; only the 0.889 m M1 central hole (LQF) and the 810 mm L1 lens (G08) are. Hill et al. 2008 (SPIE 7012, \"Prime focus active optics with the LBT\", extra-focal pupil analysis) may contain it but is behind the SPIE paywall.",
+   "The LBT clear aperture (only the 8.417 m physical diameter and the nominal 8.4 m are in the saved sources).",
+   "The optical prescription of the correctors (radii, spacings): only element diameters (LOP figure) and the 12,180 mm blue focal length (G08). Speziali et al. 2008 (SPIE 7014) and Diolaiti et al. 2003 (SPIE 4841) are behind the SPIE paywall.",
+   "A published total pixel count (37.7 Mpix is DERIVED)."
+  ],
+  "conflicts": [
+   "Final focal ratio: F/1.45 with f = 12,180 mm (G08 Sec. 2.1) vs F/1.46 (G08 detector paragraph; BB10) vs F/1.47 (LOP, LFP).",
+   "Plate scale: 16.935\"/mm (DERIVED from 12,180 mm) vs 16.9\"/mm (LFP, LIO) vs 0.2297\"/px = 17.01\"/mm measured at chip 2 (BB10) vs 0.2255\"/px \"average\" = 16.70\"/mm (LFP, LIO, R16) vs 0.2254\"/px (G08, BB10 median) vs 0.2240 (THELI ini). The centre/average difference is real (pincushion distortion up to 1.75%); the 0.5% difference between 12,180 mm and the BB10 centre value is not explained in the sources.",
+   "Chip gaps: 1.0 mm / 74 px / 16.7\" in the row and 1.03 mm / 76 px / 17.2\" to chip #4 (G08) vs 70 pixels / 18 arcsec (R16, LIO; 70 px x 0.2255\" = 15.8\") vs on-sky 62 / 65 px in the row and 52 px to chip #4 (BB10 Table 4 DERIVED; Fig. 1 row estimates 63 / 60 / 50 px between work-image borders).",
+   "Corrected field: 110 mm (R16; LFP drawing \"5%\" circle) = 31' vs \"approximately 30 arcmin\" (G08 abstract) vs \"unvignetted FoV is 27 arcmin\" (G08) vs R16 \"(equivalent to 27' in diameter)\" (= 95.7 mm, inconsistent with its own 110 mm) vs 0% vignetting circle 102.8 mm = 29.0' (LFP drawing).",
+   "Field of view: 23.6' x 25.3' (G08 Sec. 2.1) vs \"23 x 23 arcmin2\" (G08 abstract) vs ~24' x 25' (BB10) vs ~23' x 25' (R16, LIO, LFP, LOV).",
+   "Rotation of chip #4: \"counterclockwise\" (LFP) and \"anti-clockwise\" (BB10) vs \"clockwise\" (R16); \"centered\" (LFP, R16, BB10 text) vs BB10 Fig. 1 / Table 4: shifted 75-77 px (1.0 mm) toward chip #3.",
+   "Technical chips: E2V 42-10, 256 x 2048 (G08) vs E2V 420-90 custom, 512 x 2048 (R16)."
+  ],
+  "notes": [
+   "Explorer mapping: rows [1, 3] top to bottom; bottom row = chips #3, #2, #1 (left to right) with 2048 px along the row and 4608 px across, 1.0 mm apart; top row = chip #4 rotated 90 deg (4608 px along the row, 2048 px across), 1.03 mm above the bottom row. The top chip is 62.2 mm wide, the bottom row 84.9 mm, so the top chip leaves ~11 mm free on each side.",
+   "Field centre: the rotator axis is on chip #2 at pixel [1035, 2924] (LFP: \"The rotation centers are located on chip 2, at [1035,2924] for LBC-Blue and [1078,2913] for LBC-Red\"), about 431 px = 5.8 mm below the centre of the mosaic bounding box (\"+\" at (1025, 3355) on chip 2 in BB10 Fig. 1; DERIVED, assuming both use the same chip-2 pixel frame). A row-centred drawing therefore puts the optical axis ~5.8 mm too high.",
+   "Chip corners lie 58-60 mm from the rotator axis (DERIVED from the BB10 Table 4 chip centres and the LFP rotation centre, assuming one chip-2 pixel frame), outside the 55 mm radius of the 110 mm corrected field: the corner vignetting of LBC-Blue noted on LOP.",
+   "With D = 8.4 m and F = 1.45 (f_eff = 12,180 mm) the explorer gives 0.2286\"/px at 13.5 um at the centre; the published 0.2255 is a field average (pincushion distortion), and BB10 measured 0.2297 near the centre."
+  ]
+ },
+ "lbt_lbc_red": {
+  "title": "LBT 8.4 m (DX) / LBC-Red (prime focus, 6-lens BK7 corrector incl. cryostat window; 4 science CCDs)",
+  "preset": {
+   "D_m": 8.4,
+   "eps": 0.106,
+   "eps_note": "lower bound (M1 hole); LBC-body shadow not published",
+   "F": 1.453,
+   "F_published": 1.47,
+   "f_eff_mm": 12205,
+   "telescope_type": "prime focus with Wynne-type corrector (5 BK7 lenses, one aspheric, + cryostat-window lens); filters between L5 and L6",
+   "focus": "prime",
+   "secondary": null,
+   "tertiary": null,
+   "primary_F": 1.142,
+   "field_diameter_deg": 0.56,
+   "imager": "direct (detector at the corrector focus)",
+   "chip_nx": 2048,
+   "chip_ny": 4608,
+   "pitch_um": 13.5,
+   "n_science_chips": 4,
+   "rows": [
+    1,
+    3
+   ],
+   "rotated_chips": 1,
+   "chip_long_axis": "bottom row (chips #3, #2, #1 left to right): long (4608-px) axis along the columns; top row: chip #4 rotated 90 deg, long axis along the row",
+   "gap_x_mm": 0.945,
+   "gap_y_mm": 0.945,
+   "pixel_scale_arcsec": 0.2255,
+   "pixel_scale_kind": "field average (LBTO); no centre value published -- 0.2282 DERIVED from 16.9\"/mm",
+   "pixel_scale_avg_arcsec": 0.2255
+  },
+  "recommended_preset": "D = 8.4 m (DX primary, nominal), eps = 0.106 lower bound only (as LBC-Blue; LBC-body shadow NOT FOUND). F = 1.453 and f_eff = 12,205 mm DERIVED from the LBTO plate scale 16.9\"/mm stated \"for both LBC Blue and LBC Red\" (no red-specific focal length published; G08: red focal length and plate scale \"almost equivalent\" to blue); LBTO also quotes \"the f/1.47 LBC focus\". Telescope: prime focus of the parabolic F/1.142 primary on the DX side. Corrector: 6 BK7 lenses (5 spherical, 1 aspherical; L1 810 mm) incl. the cryostat window, plane filter between L5 and L6, redesigned after LBC-Blue to reduce corner vignetting. Direct imager. Corrected field 118.5 mm diameter = 0.56 deg DERIVED (LBTO red drawing \"Corrected field (Ø=118.5mm)\", OCR-checked) -- conflicts with R16 \"108.2 mm\". Detector: 4 science e2v CCD42-90 deep-depletion, 2048 x 4608, 13.5 um, same layout as LBC-Blue: rows [1, 3], chip #4 rotated on top. Gaps: 70 px = 0.945 mm DERIVED (R16 \"a gap of 70 pixels\", LBTO \"~18 arcseconds (70 pixels)\", stated for both LBCs); no red-specific measurement found. Not science: 2 technical CCDs as LBC-Blue. Validate: 0.2255\"/px average (LBTO, R16); 0.2282\"/px at the centre DERIVED from 16.9\"/mm; ~23' x 25'; 37.7 Mpix DERIVED.",
+  "params": {
+   "telescope_aperture": {
+    "value": 8.4,
+    "unit": "m (one LBT primary; nominal)",
+    "src": "R16",
+    "loc": "Sec. 1",
+    "quote": "Each mirror is 8.4 meters in diameter",
+    "alternatives": [
+     {
+      "value": 8.417,
+      "src": "LQF",
+      "loc": "Two Primary Mirrors",
+      "quote": "Primary Physical Diameter: 8.417 meter",
+      "note": "physical diameter; clear aperture not published in the sources found"
+     },
+     {
+      "value": 8.4,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "the large telescope diameter (8.4m)"
+     },
+     {
+      "value": "11.8 (binocular equivalent; not for one LBC)",
+      "src": "R16",
+      "loc": "Abstract",
+      "quote": "LBT encompasses two 8.4 meter primary mirrors on a single mount yielding an effective collecting area of 11.8"
+     }
+    ]
+   },
+   "central_obstruction": {
+    "value": 0.106,
+    "unit": "linear ratio -- lower bound (M1 central hole / M1 diameter)",
+    "src": "LQF",
+    "loc": "Two Primary Mirrors",
+    "quote": "Central Hole Physical Diameter: 0.889 meter",
+    "alternatives": [
+     {
+      "value": "L1 lens 810 mm (inside the LBC body)",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "the largest lens of the corrector has a considerable diameter (810 mm)",
+      "note": "810 / 8400 = 0.096: the body that holds L1 is larger"
+     }
+    ],
+    "note": "What sets it: at prime focus the shadow of the LBC itself (corrector hub, derotator, cryostat; L1 lens alone is 810 mm) on its swing arm, and the 0.889 m hole in M1. The outer diameter of the LBC body / swing-arm hub is NOT published in the sources found, so the true obscuration is NOT FOUND; 0.106 (hole) is a strict lower bound.",
+    "derived": "DERIVED: 0.889 / 8.417 = 0.1056; 0.889 / 8.4 = 0.1058."
+   },
+   "telescope_focus": {
+    "value": "prime focus of the parabolic F/1.142 primary (no secondary, no tertiary); LBC (corrector + camera) on a swing arm in the converging beam, DX (right) side",
+    "unit": "",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "The LBCs are comprised of two wide-field imagers, one blue optimized at the f/1.14 prime focus on SX, and one red optimized at the f/1.14 prime focus on DX.",
+    "alternatives": [
+     {
+      "value": "prime focus swing arms",
+      "src": "LOV",
+      "loc": "LBC Overview",
+      "quote": "The Large Binocular Cameras (LBCs) are two wide-field imagers mounted on the prime focus (F/1.14) swing arms of the LBT."
+     },
+     {
+      "value": "parabolic primary",
+      "src": "LQF",
+      "loc": "Two Primary Mirrors",
+      "quote": "Primary Figure: parabolic"
+     },
+     {
+      "value": "spider swing-arm",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "They are each mounted on a spider swing-arm that can be deployed above their respective primary mirror"
+     }
+    ]
+   },
+   "focal_ratio": {
+    "value": 1.453,
+    "unit": "f/# (DERIVED from the LBTO plate scale)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "At the f/1.47 LBC focus, the focal plane scale is 16.9 arcsec/mm, and, thus, the average pixel scale for both LBC Blue and LBC Red is 0.2255 arcsec/pixel.",
+    "alternatives": [
+     {
+      "value": 1.47,
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "The final focal ratio of the corrector is F/1.47."
+     },
+     {
+      "value": "\"almost equivalent\" to blue (F/1.45)",
+      "src": "G08",
+      "loc": "Sec. 2.2",
+      "quote": "The focal length, and hence the plate scale, are almost equivalent to the the blue channel design."
+     }
+    ],
+    "note": "LBTO is internally inconsistent: f/1.47 x 8.4 m = 12,348 mm gives 16.70\"/mm = 0.2255\"/px (the stated average), while 16.9\"/mm gives 12,205 mm = f/1.453. The average pixel scale is lowered by the pincushion distortion, so 16.9\"/mm (central) and 0.2255\"/px (average) are both plausible; f/1.47 then matches the average, not the paraxial value.",
+    "derived": "DERIVED: 206264.8 / 16.9 = 12205 mm; / 8400 = 1.453."
+   },
+   "effective_focal_length": {
+    "value": 12205,
+    "unit": "mm (DERIVED; no red-specific value published)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "At the f/1.47 LBC focus, the focal plane scale is 16.9 arcsec/mm",
+    "alternatives": [
+     {
+      "value": "12348 (f/1.47 x 8.4 m)",
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "The final focal ratio of the corrector is F/1.47."
+     },
+     {
+      "value": "12180 (blue value, \"almost equivalent\")",
+      "src": "G08",
+      "loc": "Sec. 2.1 / 2.2",
+      "quote": "The focal length of the optical corrector is 12180mm ... are almost equivalent to the the blue channel design"
+     },
+     {
+      "value": "12348 (from the 0.2255\"/px average)",
+      "src": "LIO",
+      "loc": "LBC paragraph",
+      "quote": "the average pixel scale for both LBC Blue and LBC Red is 0.2255 arcsec/pixel"
+     }
+    ],
+    "derived": "DERIVED: 206264.8 / 16.9 = 12205.0 mm -> 0.2282\"/px at the centre; 206264.8 x 0.0135 / 0.2255 = 12348 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 1.142,
+    "unit": "f/# of M1 (drawing only)",
+    "src": "LQF",
+    "loc": "Two Primary Mirrors",
+    "quote": "Primary Focal Ratio: F/1.142",
+    "alternatives": [
+     {
+      "value": 1.14,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The focal ratio of the primary mirror (F/1.14)"
+     }
+    ],
+    "derived": "DERIVED: f_M1 = 1.142 x 8.417 m = 9.61 m (if the ratio refers to the physical diameter; 9.59 m for 8.4 m)."
+   },
+   "corrected_field": {
+    "value": 0.56,
+    "unit": "deg diameter (118.5 mm corrected field, DERIVED)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text + LBC-Red drawing",
+    "quote": "The circles denote radii of the corrected fields (black circles) and percentage vignetting at a given radius (blue, green and red circles).",
+    "alternatives": [
+     {
+      "value": "108.2 mm",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "The corrected fields have a diameter of 110 mm and 108.2 mm for LBC Blue and LBC Red"
+     },
+     {
+      "value": "red optics redesigned to reduce corner vignetting",
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "LBC-Blue was installed first, and vignetting was discovered at the corners of the array. The optics were redesigned to reduce this in LBC-Red"
+     },
+     {
+      "value": "red vignetting below that of the corrected area",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "while in the red channel the percentage of vignetting is well below that for the corrected area"
+     }
+    ],
+    "figure": {
+     "src": "LFP",
+     "image": "lbto_LBCR_FPoutline_labelled-e1689641000711.jpg",
+     "annotations": "Corrected field (Ø=118.5mm); V=10% (Ø=133.5mm)",
+     "caption_quote": "The first 2 images below show the relative positions of the four science and two technical detectors for LBC Blue (left) and LBC Red (right).",
+     "ocr": "tesseract on the image rotated 90 deg: \"Corectedfield (@=118.5mm)\"; the \"V=10% (Ø=133.5mm)\" label was read by eye only"
+    },
+    "derived": "DERIVED: 118.5 mm x 16.9\"/mm = 2003\" = 33.4' = 0.556 deg; 108.2 mm = 30.5' = 0.508 deg; 133.5 mm (10% vignetting) = 0.627 deg."
+   },
+   "optics_placement": {
+    "value": "L1 (810 mm) - L2 (374) - L3 (270) - L4 (234) - L5 (230) - filter (190) - L6 = cryostat window (156), BK7, one aspheric surface; filter wheels between L5 and L6",
+    "unit": "",
+    "src": "G08",
+    "loc": "Sec. 2.2",
+    "quote": "The red channel design is similar to that of the blue channel, with 6 lenses (5 spherical and 1 aspherical) and a plane filter.",
+    "alternatives": [
+     {
+      "value": "BK7",
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "The LBC-Red lenses are BK7 borosilicate for better performance in the  V-Z  wavelengths."
+     },
+     {
+      "value": "filter wheels",
+      "src": "LOP",
+      "loc": "Optics text",
+      "quote": "Two filter wheels are located between the final two elements, the last of which being the almost-zero-power cryostat window."
+     },
+     {
+      "value": "filters 189.6 mm",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "while LBC Red filters are 189.6 mm in diameter (185 mm opening)"
+     }
+    ],
+    "figure": {
+     "src": "LOP",
+     "image": "lbto_scienceops_lbc_optics_Screen-Shot-2016-07-22-at-11.45.07-AM.png",
+     "annotations": "Red - BK7 -: L6 - 156, F. - 190, L5 - 230, L4 - 234, L3 - 270, L2 - 374, L1 - 810",
+     "caption_quote": "LBC optical elements. The diameters are shown in mm.",
+     "ocr": "tesseract: \"L6- 156\", \"F.-190\", \"13-230\" (L5), \"L4-234\", \"13-270\", \"12-374\", \"L1-810\""
+    }
+   },
+   "detector": {
+    "value": "e2v CCD42-90 deep-depletion, 2048 x 4608 px",
+    "unit": "px",
+    "src": "G08",
+    "loc": "Sec. 2.2",
+    "quote": "The red channel is equipped with 4 high-resistivity, deep-depletion 42-90 E2V detectors",
+    "alternatives": [
+     {
+      "value": "2048 x 4608",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "are E2V 420-90s with 2048 × 4608 (13.5 µm square pixels)"
+     }
+    ]
+   },
+   "pixel_pitch": {
+    "value": 13.5,
+    "unit": "um",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "The LBC focal planes consist of four EEV42-90 CCDs (2048 x 4608 pixels, 13.5 microns x 13.5 microns per pixel)",
+    "alternatives": [
+     {
+      "value": 13.5,
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "(13.5µm in size or 0.2254 arcsec)"
+     }
+    ]
+   },
+   "n_science_chips": {
+    "value": 4,
+    "unit": "CCDs",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "The LBCs each contain six E2V CCD detectors, four of which are used for science.",
+    "alternatives": [
+     {
+      "value": 4,
+      "src": "LOV",
+      "loc": "LBC Overview",
+      "quote": "The focal plane of each LBC consists of four 4608 x 2048 E2V detectors"
+     }
+    ]
+   },
+   "other_chips": {
+    "value": "2 technical CCDs, one either side of the science array: guide (beside chip #1) and extra-focal focus/collimation (beside chip #3, 0.8 mm below focus); format 256 x 2048 (G08) or 512 x 2048 (R16)",
+    "unit": "",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "There are two technical chips, one on either side of the focal plane array. The one closest to chip #1 is used for guiding and the one closest to chip #3 is set 0.8 mm below the focal plane",
+    "alternatives": [
+     {
+      "value": "E2V 42-10, 256 x 2048",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "while two E2V 42-10 of 256×2048 px are used to acquire short exposure images for guiding and wavefront control"
+     },
+     {
+      "value": "E2V 420-90 custom, 512 x 2048",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "They are E2V 420-90 custom made 512 × 2048 (13.5 µm square) pixel CCDs"
+     }
+    ]
+   },
+   "mosaic_rows": {
+    "value": [
+     1,
+     3
+    ],
+    "unit": "science CCDs per row, top to bottom (orientation of the LBTO / BB10 layout figures); rows centred",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "arranged such that three of the chips are butted along their long edges, with the fourth chip rotated counterclockwise by 90 degrees and centered along the top of the other CCDs",
+    "alternatives": [
+     {
+      "value": "chip numbering",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "The three CCDs that are arranged with their long edges together are numbered from right to left, chip #1 to chip #3, the top rotated CCD is chip #4."
+     },
+     {
+      "value": "rotated clockwise, centred",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "A fourth CCD is rotated clockwise 90 degrees and centered along the top of the three science CCDs."
+     },
+     {
+      "value": "rotated anti-clockwise, centred (LBC-Blue)",
+      "src": "BB10",
+      "loc": "Sec. 2",
+      "quote": "with three chips contiguous longside, and the fourth one rotated 90 degrees anti-clockwise, and centered above the others"
+     },
+     {
+      "value": "unconventional layout",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The four science chips are placed in an unconventional fashion, with the fourth chip rotated 90"
+     }
+    ]
+   },
+   "chip_orientation": {
+    "value": "chips #1-#3: 2048 px along the row, 4608 px along the columns; chip #4: 4608 px along the row (rotated 90 deg)",
+    "unit": "",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "Each CCD covers approximately 7.8 arcmin x 17.6 arcmin",
+    "note": "7.8' x 17.6' = 2048 x 4608 px at ~0.229\"/px; three chips side by side give ~23.6' across, 17.6' + 7.8' + gap gives ~25.3' high."
+   },
+   "chip_gaps": {
+    "value": {
+     "within_row_x_mm": 0.945,
+     "between_rows_y_mm": 0.945
+    },
+    "unit": "mm (DERIVED from 70 px x 13.5 um)",
+    "src": "R16",
+    "loc": "Sec. 3.1",
+    "quote": "with a gap of 70 pixels",
+    "alternatives": [
+     {
+      "value": "~18\" (70 px)",
+      "src": "LIO",
+      "loc": "LBC paragraph",
+      "quote": "with gaps between the chips of ~18 arcseconds (70 pixels)"
+     },
+     {
+      "value": "~18\"",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "with gaps between the chips of ~18 arcseconds"
+     },
+     {
+      "value": "1.0 / 1.03 mm (LBC-Blue values)",
+      "src": "G08",
+      "loc": "Sec. 2.1",
+      "quote": "The gaps between the vertical chips are 1mm, which corresponds to 74 pixels or equivalently 16.7 arcsec in the focal plane of LBC-Blue."
+     }
+    ],
+    "note": "No LBC-Red-specific gap measurement found; R16 and LBTO state the 70 px / ~18\" figure for both cameras (70 px x 0.2255\" = 15.8\", so the two numbers disagree by 14%).",
+    "derived": "DERIVED: 70 x 13.5 um = 0.945 mm; 18\" / 16.9\"/mm = 1.07 mm."
+   }
+  },
+  "performance": {
+   "pixel_scale": {
+    "value": 0.2255,
+    "unit": "arcsec/px (field average; no measured centre value found)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "the average pixel scale for both LBC Blue and LBC Red is 0.2255 arcsec/pixel",
+    "alternatives": [
+     {
+      "value": 0.2255,
+      "src": "R16",
+      "loc": "Table 1",
+      "quote": "LBC Red DX Prime Imaging 0.55-1.11 23 × 25 0.2255"
+     },
+     {
+      "value": 0.224,
+      "src": "THL",
+      "loc": "LBC_RED@LBT.ini",
+      "quote": "INSTRUMENT=LBC_RED@LBT ... PIXSCALE=0.2240"
+     },
+     {
+      "value": "0.2282 (DERIVED, centre)",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "the focal plane scale is 16.9 arcsec/mm"
+     }
+    ],
+    "note": "As for LBC-Blue the centre value exceeds the average because of pincushion distortion (LBTO red distortion map: \"the circles mark the 2% and 3% distortion limits\").",
+    "derived": "DERIVED: 16.9\"/mm x 0.0135 mm = 0.2282\"/px; 206264.8 x 0.0135 / 12205 = 0.2282\"/px."
+   },
+   "field_of_view": {
+    "value": {
+     "width_arcmin": 23,
+     "height_arcmin": 25
+    },
+    "unit": "",
+    "src": "LIO",
+    "loc": "LBC paragraph",
+    "quote": "The science field of view is approximately 23 arcmin x 25 arcmin.",
+    "alternatives": [
+     {
+      "value": "~25' x 23'",
+      "src": "LFP",
+      "loc": "Focal Plane Layout text",
+      "quote": "The science field of view is approximately 25 arcmin x 23 arcmin."
+     },
+     {
+      "value": "23' x 25'",
+      "src": "R16",
+      "loc": "Sec. 3.1",
+      "quote": "This yields a 230 × 250 FOV."
+     }
+    ],
+    "derived": "DERIVED: with 0.945 mm gaps, 84.83 mm x 90.80 mm; at 0.2255\"/px (16.70\"/mm) = 23.6' x 25.3'."
+   },
+   "total_pixels": {
+    "value": 37748736,
+    "unit": "science pixels (DERIVED; no published total found)",
+    "src": "LFP",
+    "loc": "Focal Plane Layout text",
+    "quote": "The LBC focal planes consist of four EEV42-90 CCDs (2048 x 4608 pixels",
+    "derived": "DERIVED: 4 x 2048 x 4608 = 37,748,736 (37.7 Mpix)."
+   }
+  },
+  "not_found": [
+   "The central obscuration at prime focus: the outer diameter of the LBC body (corrector hub + derotator + cryostat) and its swing-arm hub are not published in any source found; only the 0.889 m M1 central hole (LQF) and the 810 mm L1 lens (G08) are. Hill et al. 2008 (SPIE 7012, \"Prime focus active optics with the LBT\", extra-focal pupil analysis) may contain it but is behind the SPIE paywall.",
+   "The LBT clear aperture (only the 8.417 m physical diameter and the nominal 8.4 m are in the saved sources).",
+   "The optical prescription of the correctors (radii, spacings): only element diameters (LOP figure) and the 12,180 mm blue focal length (G08). Speziali et al. 2008 (SPIE 7014) and Diolaiti et al. 2003 (SPIE 4841) are behind the SPIE paywall.",
+   "An LBC-Red-specific effective focal length or measured pixel scale at the field centre (only the shared LBTO 16.9\"/mm and 0.2255\"/px average, and G08 \"almost equivalent\").",
+   "An LBC-Red-specific chip-gap measurement (only the shared 70 px / ~18\" statement).",
+   "A published total pixel count (37.7 Mpix is DERIVED)."
+  ],
+  "conflicts": [
+   "Focal ratio / plate scale: LBTO states both \"f/1.47\" (12,348 mm = 16.70\"/mm = 0.2255\"/px) and \"16.9 arcsec/mm\" (12,205 mm = f/1.453 = 0.2282\"/px) for the same focus; G08 calls the red focal length \"almost equivalent\" to the blue 12,180 mm (F/1.45).",
+   "Corrected field: 118.5 mm (LFP red drawing, OCR-checked; consistent with LOP \"The optics were redesigned to reduce this in LBC-Red\") vs 108.2 mm (R16) vs R16 \"(equivalent to 27' in diameter)\".",
+   "Chip gaps: 70 px = 0.945 mm (R16, LIO) vs ~18\" = 1.07 mm at 16.9\"/mm (LFP, LIO) -- the two halves of the same LBTO statement disagree by 14%; G08 gives 1.0 / 1.03 mm for LBC-Blue only.",
+   "Pixel scale: 0.2255\"/px average (LFP, LIO, R16) vs 0.2240 (THELI ini) vs 0.2282 at the centre (DERIVED from 16.9\"/mm).",
+   "Rotation of chip #4 and technical-chip format: as for LBC-Blue."
+  ],
+  "notes": [
+   "Explorer mapping as LBC-Blue: rows [1, 3], chip #4 rotated on top; 0.945 mm gaps (70 px) in both directions.",
+   "Field centre: rotator axis on chip #2 at [1078, 2913] (LFP), i.e. ~442 px = 6.0 mm below the mosaic bounding-box centre if the red layout matches BB10's blue geometry (DERIVED; not measured for red).",
+   "With D = 8.4 m and F = 1.453 (f_eff = 12,205 mm) the explorer gives 0.2282\"/px at the centre; the published 0.2255 is the field average. Using LBTO's f/1.47 instead (12,348 mm) reproduces 0.2255 exactly, but that mixes the average scale into the paraxial focal length.",
+   "LBC-Red is mounted on the DX (right) primary, LBC-Blue on SX (left); the two are normally used together (binocular mode), each as an independent 8.4 m prime-focus camera."
+  ]
+ }
+}

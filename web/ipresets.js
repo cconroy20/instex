@@ -36,8 +36,8 @@ for (let i = 0; i < 14; i++) { LSST_GX.push(i % 3 === 2 ? 1.66 : 1.29); LSST_GY.
 window.IX_IPRESETS = [
   // ---------------------------------------------------------------- ground, direct (data/imaging/widefield.md, megacam_ztf_small.md)
   { id: "lsst", tel: "Rubin 8.4 m", name: "Rubin / LSSTCam",
-    note: "Rubin Observatory (Simonyi Survey Telescope) with LSSTCam: a three-mirror telescope (drawn as a Cassegrain) and a three-lens corrector, the filter in the converging beam. 189 science CCDs in 21 rafts of 3 × 3; the e2v format (4096 × 4004) stands for both chip types (ITL 4072 × 4000) and the gaps are the nominal pipeline geometry (within a raft and between rafts). Central obstruction: the primary's inner clear edge (the tertiary shares the glass). The field circle takes in the whole focal plane: the 3.5° field is nominal, and the CCDs alone cover the published 9.6 deg². Sources in data/imaging/widefield.md.",
-    state: { D: 8.36, eps: 0.612, F: 1.233, tel: "cass", F1: 1.19, field: 250, optics: "direct", band: "r", psf: "seeing",
+    note: "Rubin Observatory (Simonyi Survey Telescope) with LSSTCam: a three-mirror Paul-Baker telescope (the tertiary shares the primary's glass and sends the light back up to the camera in the secondary's shadow) and a three-lens corrector, the filter in the converging beam. 189 science CCDs in 21 rafts of 3 × 3; the e2v format (4096 × 4004) stands for both chip types (ITL 4072 × 4000) and the gaps are the nominal pipeline geometry (within a raft and between rafts). Central obstruction: the primary's inner clear edge (the tertiary shares the glass). The field circle takes in the whole focal plane: the 3.5° field is nominal, and the CCDs alone cover the published 9.6 deg². Sources in data/imaging/widefield.md.",
+    state: { D: 8.36, eps: 0.612, F: 1.233, tel: "pb", F1: 1.19, field: 250, optics: "direct", band: "r", psf: "seeing",
              Nx: 4096, Ny: 4004, pix: 10, rows: [9, 9, 9, 15, 15, 15, 15, 15, 15, 15, 15, 15, 9, 9, 9], gapX: 1.29, gapY: 2.21, gapsX: LSST_GX, gapsY: LSST_GY },
     pub: [
       { what: "pixel scale 0.2″/px", q: "pixScale", value: 0.2, tol: 0.01, src: "Ivezić+19; F = 1.233 from the Rubin key numbers" },
@@ -118,8 +118,8 @@ window.IX_IPRESETS = [
       { what: "1.03 Mpix", q: "npix", value: 1028196, tol: 1e-6, src: "1014 × 1014" },
     ] },
   { id: "euclid", tel: "Euclid 1.2 m", name: "Euclid / VIS",
-    note: "Euclid's visible imager: the detectors sit at the focus of a Korsch three-mirror telescope (drawn as a Cassegrain), with no optics between; F from the as-built focal length (24.87 m). 36 CCDs of 4096 × 4132 in a 6 × 6 grid, the wide gaps between rows. ε is an estimate from the published pupil model (no ratio is published). Sources in data/imaging/space_wide.md.",
-    state: { D: 1.2, eps: 0.33, F: 20.73, tel: "cass", field: 70, optics: "direct", band: "I", psf: "diff",
+    note: "Euclid's visible imager: the detectors sit at the focus of a Korsch three-mirror telescope, with no optics between; F from the as-built focal length (24.87 m). 36 CCDs of 4096 × 4132 in a 6 × 6 grid, the wide gaps between rows. ε is an estimate from the published pupil model (no ratio is published). Sources in data/imaging/space_wide.md.",
+    state: { D: 1.2, eps: 0.33, F: 20.73, tel: "korsch", field: 70, optics: "direct", band: "I", psf: "diff",
              Nx: 4096, Ny: 4132, pix: 12, rows: [6, 6, 6, 6, 6, 6], gapX: 1.56, gapY: 7.82 },
     pub: [
       { what: "pixel scale 0.100″/px", q: "pixScale", value: 0.1, info: true, src: "circular: F was derived from the as-built plate scale" },
@@ -128,8 +128,8 @@ window.IX_IPRESETS = [
       { what: "609 Mpix", q: "npix", value: 609288192, tol: 1e-6, src: "36 × 4096 × 4132" },
     ] },
   { id: "roman", tel: "Roman 2.4 m", name: "Roman / WFI",
-    note: "The Roman Wide Field Instrument: 18 H4RG-10 detectors (4088 × 4088 active) at the focus of a three-mirror telescope (drawn as a Cassegrain), the filters at the exit pupil in the converging beam. The detectors lie in an arc: each column shifted up to the pre-flight position (gaps from the 2022 pre-flight model). F and ε are 2015 design values. Sources in data/imaging/space_wide.md.",
-    state: { D: 2.36, eps: 0.30, F: 7.9, tel: "cass", F1: 1.2, field: 90, optics: "direct", band: "H", psf: "diff",
+    note: "The Roman Wide Field Instrument: 18 H4RG-10 detectors (4088 × 4088 active) at the focus of a three-mirror telescope (drawn as a Korsch), the filters at the exit pupil in the converging beam. The detectors lie in an arc: each column shifted up to the pre-flight position (gaps from the 2022 pre-flight model). F and ε are 2015 design values. Sources in data/imaging/space_wide.md.",
+    state: { D: 2.36, eps: 0.30, F: 7.9, tel: "korsch", F1: 1.2, field: 90, optics: "direct", band: "H", psf: "diff",
              Nx: 4088, Ny: 4088, pix: 10, rows: [6, 6, 6], gapX: 3.43, gapY: 3.0, gapsY: [7.68, 2.98], shiftY: [30.19, 8.81, 0, 0, 8.81, 30.19] },
     pub: [
       { what: "pixel scale 0.11″/px", q: "pixScale", value: 0.11, tol: 0.012, src: "Roman WFI pages; F and D from the 2015 design" },
@@ -137,8 +137,8 @@ window.IX_IPRESETS = [
       { what: "300.8 Mpix", q: "npix", value: 300811392, tol: 1e-6, src: "18 × 4088 × 4088" },
     ] },
   { id: "nircamsw", tel: "JWST 6.6 m", name: "JWST / NIRCam short wavelength",
-    note: "NIRCam reimages the telescope focus: a collimator, a 31 mm pupil holding the filter and pupil wheels, and a camera (here the short-wavelength channel, f/18). Two modules of 2 × 2 detectors side by side. D is the entrance pupil (the primary is 18 hexagonal segments; the model's pupil is a circular annulus, so the diffraction pattern is approximate) and ε is an estimate from the empty central segment. Sources in data/imaging/space_wide.md.",
-    state: { D: 6.6, eps: 0.2, F: 19.91, tel: "cass", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 18.0, band: "Ks", psf: "diff",
+    note: "JWST is a three-mirror anastigmat (drawn as a Korsch); NIRCam reimages the telescope focus: a collimator, a 31 mm pupil holding the filter and pupil wheels, and a camera (here the short-wavelength channel, f/18). Two modules of 2 × 2 detectors side by side. D is the entrance pupil (the primary is 18 hexagonal segments; the model's pupil is a circular annulus, so the diffraction pattern is approximate) and ε is an estimate from the empty central segment. Sources in data/imaging/space_wide.md.",
+    state: { D: 6.6, eps: 0.2, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 18.0, band: "Ks", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [4, 4], gapX: 2.59, gapY: 2.59, gapsX: [2.59, 24.77, 2.59] },
     pub: [
       { what: "pixel scale 0.031″/px", q: "pixScale", value: 0.031, tol: 0.012, src: "JDox (in flight); W and f/18 from Huff 2005" },
@@ -147,7 +147,7 @@ window.IX_IPRESETS = [
     ] },
   { id: "nircamlw", tel: "JWST 6.6 m", name: "JWST / NIRCam long wavelength",
     note: "NIRCam's long-wavelength channel shares the collimator and pupil (behind a dichroic) with a camera at f/9: one detector per module. The pupil is drawn as a circular annulus (the real one is hexagonal). Sources in data/imaging/space_wide.md.",
-    state: { D: 6.6, eps: 0.2, F: 19.91, tel: "cass", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 9.0, band: "M′", psf: "diff",
+    state: { D: 6.6, eps: 0.2, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 9.0, band: "M′", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2], gapX: 13.39 },
     pub: [
       { what: "pixel scale 0.063″/px", q: "pixScale", value: 0.063, tol: 0.012, src: "JDox (in flight)" },
@@ -195,6 +195,83 @@ window.IX_IPRESETS = [
       { what: "field 6.1′ square", q: "fieldX", value: 6.113, tol: 0.01, src: "McLean+12" },
     ] },
 ];
+// ---------------------------------------------------------------- round 2 (2026-10-19, Charlie's picks): data/imaging/{vst_lbc,magellan,niri_hawki,tess}.md
+window.IX_IPRESETS.push(
+  { id: "omegacam", tel: "VST 2.6 m", name: "VST / OmegaCAM",
+    note: "The VLT Survey Telescope (a modified Ritchey-Chrétien Cassegrain) with OmegaCAM behind a two-lens corrector: 32 CCDs in four rows of eight; the two wide gaps between rows hold the readout registers, the narrow middle gap separates the two halves. ε is a lower bound (the secondary alone; the baffles are not published). F comes from the published 0.213″/px. Sources in data/imaging/vst_lbc.md.",
+    state: { D: 2.61, eps: 0.36, F: 5.57, tel: "cass", F1: 1.82, field: 88.2, optics: "direct", band: "r", psf: "seeing",
+             Nx: 2048, Ny: 4100, pix: 15, rows: [8, 8, 8, 8], gapX: 1.5, gapY: 5.64, gapsY: [5.64, 0.82, 5.64] },
+    pub: [
+      { what: "pixel scale 0.213″/px", q: "pixScale", value: 0.213, info: true, src: "OmegaCAM manual; circular: F was derived from it" },
+      { what: "field 1° × 1°", q: "fieldX", value: 60, tol: 0.03, src: "ESO OmegaCAM pages" },
+      { what: "268 Mpix", q: "npix", value: 268697600, tol: 1e-6, src: "32 × 2048 × 4100" },
+    ] },
+  { id: "lbcb", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Blue",
+    note: "One of the Large Binocular Camera's two prime-focus imagers (LBC-Blue, on one of the LBT's two 8.4 m mirrors), behind a five-lens corrector: three CCDs in a row and a fourth turned by 90° above them, the optical axis on the middle chip (the mosaic drawn off center). ε is a lower bound (the primary's central hole; the camera's shadow is not published). The corrected field is 110 mm (0.52°) across, and the circle here is set to take in the whole mosaic. Sources in data/imaging/vst_lbc.md.",
+    state: { D: 8.4, eps: 0.106, F: 1.45, tel: "prime", F1: 1.142, field: 40, optics: "direct", band: "g", psf: "seeing",
+             Nx: 2048, Ny: 4608, pix: 13.5, rows: [3], gapX: 1.0, gapY: 1.03, shiftY: [-8.539, -8.539, -8.539], extra: [{ x: 0, y: 37.419, rot: true }] },
+    pub: [
+      { what: "pixel scale 0.2297″/px near the center (measured)", q: "pixScale", value: 0.2297, tol: 0.01, src: "Bellini & Bedin 2010; F = 1.45 from Giallongo+08" },
+      { what: "pixel scale 0.2255″/px (field average)", q: "pixScale", value: 0.2255, info: true, src: "LBTO; the average includes the pincushion distortion, which the model leaves out" },
+      { what: "37.7 Mpix", q: "npix", value: 37748736, tol: 1e-6, src: "4 × 2048 × 4608" },
+    ] },
+  { id: "lbcr", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Red",
+    note: "LBC-Red, the red-optimized twin of LBC-Blue on the LBT's other 8.4 m mirror (deep-depletion CCDs, a corrector of BK7 lenses); the same layout of four CCDs. F comes from LBTO's 16.9″/mm (sources quote f/1.45 to f/1.47). ε is a lower bound. Sources in data/imaging/vst_lbc.md.",
+    state: { D: 8.4, eps: 0.106, F: 1.453, tel: "prime", F1: 1.142, field: 40, optics: "direct", band: "i", psf: "seeing",
+             Nx: 2048, Ny: 4608, pix: 13.5, rows: [3], gapX: 0.945, gapY: 0.945, shiftY: [-8.297, -8.297, -8.297], extra: [{ x: 0, y: 37.577, rot: true }] },
+    pub: [
+      { what: "pixel scale 0.2255″/px (field average)", q: "pixScale", value: 0.2255, info: true, src: "LBTO; an average over the distorted field; F was derived from the same page's 16.9″/mm" },
+      { what: "37.7 Mpix", q: "npix", value: 37748736, tol: 1e-6, src: "4 × 2048 × 4608" },
+    ] },
+  { id: "megacamm", tel: "Magellan 6.5 m", name: "Magellan / Megacam (Clay)",
+    note: "Megacam at the Clay telescope's f/5 Cassegrain focus (a convex secondary, not the f/11 Gregorian), behind a three-lens corrector and a field flattener that is also the dewar window: 36 CCDs in nine rows of four, long axis along the rows; within each row the gaps run wide, narrow, wide. ε is the secondary alone. F comes from the published plate scale (0.169 mm/″). No longer offered at Las Campanas. Sources in data/imaging/magellan.md.",
+    state: { D: 6.5, eps: 0.28, F: 5.36, tel: "cass", F1: 1.25, field: 35, optics: "direct", band: "r", psf: "seeing",
+             Nx: 4608, Ny: 2048, pix: 13.5, rows: [4, 4, 4, 4, 4, 4, 4, 4, 4], gapX: 1.01, gapY: 1.01, gapsX: [5.24, 1.01, 5.24] },
+    pub: [
+      { what: "pixel scale 0.08″/px", q: "pixScale", value: 0.08, info: true, src: "McLeod+15; circular: F was derived from the plate scale" },
+      { what: "field 25′ × 25′", q: "fieldY", value: 25, tol: 0.03, src: "McLeod+15 (24′ in other sources, pixels alone)" },
+      { what: "340 Mpix (36 × 2048 × 4608)", q: "npix", value: 339738624, info: true, src: "McLeod+15; the 35′ corrected field cuts the mosaic's corners (reaching 36′), whose pixels the model counts out" },
+    ] },
+  { id: "fourstar", tel: "Magellan 6.5 m", name: "Magellan / FourStar (Baade)",
+    note: "FourStar on the Baade telescope's east Nasmyth platform: the f/11 Gregorian focus, turned to the side by a flat tertiary. A field-lens doublet images the primary onto a cold stop (the 130 mm pupil), and the camera works at f/3.6; the filters sit near the focal plane. Four HAWAII-2RG detectors (2040 × 2040 active) in a 2 × 2 grid; the published gaps range from 18″ to 24″ (2.0 mm used). Sources in data/imaging/magellan.md.",
+    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, F1: 1.25, field: 20, optics: "reimaged", W: 130, Fc: 3.6, band: "Ks", psf: "seeing",
+             Nx: 2040, Ny: 2040, pix: 18, rows: [2, 2], gapX: 2.0, gapY: 2.0 },
+    pub: [
+      { what: "pixel scale 0.159″/px", q: "pixScale", value: 0.159, tol: 0.01, src: "Persson+13; f/3.6 published" },
+      { what: "field 10.8′", q: "fieldX", value: 10.8, info: true, src: "Persson+13: the pixels alone (2 × 2040 × 0.159″ = 10.81′); the model's field across includes the gap between the detectors" },
+    ] },
+);
+// Gemini North / NIRI: one collimator and three cameras
+for (const [cam, fc, ps, fov, psf] of [["f/6", 228.8, 0.1171, 119.9, "seeing"], ["f/14", 536.8, 0.0499, 51.1, "diff"], ["f/32", 1223.2, 0.0219, 22.4, "diff"]]) {
+  window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (cam === "f/6" ? "" : " (with Altair AO)"),
+    note: "NIRI at the Gemini North Cassegrain focus: a collimator, a 38 mm cold pupil and three cameras (f/6, f/14, f/32), one 1024 × 1024 InSb array of 27 µm. D is the 7.9 m entrance pupil set by Gemini's deliberately undersized secondary (the primary is 8.1 m); ε from the secondary's central hole. The camera focal lengths are not published as such: they follow from the pupil and the published pixel scales. The f/14 and f/32 cameras are normally used behind the Altair adaptive optics (which keeps the f/16 beam and the pupil). NIRI is not currently offered. Sources in data/imaging/niri_hawki.md.",
+    state: { D: 7.9, eps: 0.164, F: 16.22, tel: "cass", F1: 1.8, field: 7, optics: "reimaged", W: 38, Fc: fc / 38, band: "Ks", psf,
+             Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
+    pub: [
+      { what: "pixel scale " + ps + "″/px", q: "pixScale", value: ps, info: true, src: "Gemini NIRI pages; circular: f_cam was derived from it" },
+      { what: "field " + fov + "″", q: "fieldX", value: fov / 60, info: true, src: "Gemini NIRI pages" },
+    ] });
+}
+window.IX_IPRESETS.push(
+  { id: "hawki", tel: "VLT 8.2 m", name: "VLT / HAWK-I",
+    note: "HAWK-I on UT4's Nasmyth A platform (a flat tertiary turns the f/15 beam to the side): an all-reflective reimager whose powered entrance window images the pupil onto a camera mirror that is the cold stop, working at f/4.36; the filters sit just in front of the detectors. The pupil's size is not published (only the reduction, 4.36/15), so the beam W = 100 mm is the drawing's assumption and the field angle in the beam is illustrative. Four HAWAII-2RG detectors (2040 × 2040 active) in a 2 × 2 grid. The ground-layer adaptive optics (GRAAL) adds no optics to this path. Sources in data/imaging/niri_hawki.md.",
+    state: { D: 8.0, eps: 0.1395, F: 15, tel: "cass", nasmyth: true, F1: 1.8, field: 15, optics: "reimaged", W: 100, Fc: 4.36, band: "Ks", psf: "seeing",
+             Nx: 2040, Ny: 2040, pix: 18, rows: [2, 2], gapX: 2.9, gapY: 2.7 },
+    pub: [
+      { what: "pixel scale 0.106″/px (0.1064 measured)", q: "pixScale", value: 0.1064, tol: 0.01, src: "HAWK-I manual; f/4.36 published" },
+      { what: "field 7.5′", q: "fieldX", value: 7.5, tol: 0.015, src: "HAWK-I manual" },
+    ] },
+  { id: "tess", tel: "TESS 10.5 cm", name: "TESS / one camera",
+    note: "One of TESS's four identical cameras: a seven-element f/1.4 lens (a refractor here) of 105 mm aperture with four CCDs at its focus, the optical axis in the gap between them. The lens's own aberrations set the image (about half a star's light in one pixel), modeled as an optics blur of 24″ FWHM. The field is strongly distorted (a corner pixel covers 21% less sky than a central one), which the model leaves out. Gaps from the in-flight focal-plane geometry. Sources in data/imaging/tess.md.",
+    state: { D: 0.105, eps: 0, F: 1.3905, tel: "refr", field: 2110, optics: "direct", band: "I", psf: "optics", blur: 24,
+             Nx: 2048, Ny: 2048, pix: 15, rows: [2, 2], gapX: 1.74, gapY: 1.58 },
+    pub: [
+      { what: "pixel scale 21″/px", q: "pixScale", value: 21, tol: 0.015, src: "Ricker+15 (\"21 arcseconds\"); f = 146 mm from Chrisp+15" },
+      { what: "field 24° × 24°", q: "fieldX", value: 24 * 60, info: true, src: "Ricker+15; the model's linear scale gives about 24.8° (the distortion is left out)" },
+      { what: "16.8 Mpix per camera", q: "npix", value: 16777216, tol: 1e-6, src: "4 × 2048 × 2048" },
+    ] },
+);
+
 // Keck II / NIRC2 behind adaptive optics: three cameras on one collimator
 for (const [cam, fc, ps, fov] of [["narrow", 1290, 0.009942, 10], ["medium", 647, 0.019829, 20], ["wide", 323, 0.039686, 40]]) {
   window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)",

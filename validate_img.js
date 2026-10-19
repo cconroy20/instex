@@ -69,6 +69,24 @@ for (const [lab, o] of [["prime direct", {}], ["cass direct", { tel: "cass", F: 
   }
 }
 
+// ---------------------------------------------------------------- 3c. three-mirror telescopes
+{
+  const L = mk({ tel: "pb", D: 8.36, F: 1.233, F1: 1.19 }), D = L.Dmm;
+  check("Paul-Baker (Rubin-like): f_eff = F D, one star one point", rel(L.feff, 1.233 * D) < 1e-9 && L.imageSpread < 1e-9 * D, (L.feff / 1000).toFixed(3) + " m");
+  check("Paul-Baker: convex secondary, concave tertiary", L.f2 < 0 && L.f3 > 0, `f2 ${(L.f2 / 1000).toFixed(2)} m, f3 ${(L.f3 / 1000).toFixed(2)} m`);
+  // the drawing's mirror positions alone land near Rubin's mirrors (rawdata/imaging/lsstcam/batoid_LSST_r_yaml:
+  // M2 R = 6.788 m, M3 R = 8.3445 m; a third-party model of the design), a check that the drawing is sensible
+  check("Paul-Baker defaults land near Rubin's mirrors (f2 = -R2/2 = -3.394 m, f3 = R3/2 = 4.172 m, within 10%)", Math.abs(-L.f2 / 3394 - 1) < 0.1 && Math.abs(L.f3 / 4172 - 1) < 0.1, `${(100 * (-L.f2 / 3394 - 1)).toFixed(1)}%, ${(100 * (L.f3 / 4172 - 1)).toFixed(1)}%`);
+  for (const [lab, o] of [["Korsch (JWST-like)", { D: 6.6, F: 19.91, F1: 1.2 }], ["Korsch (Roman-like)", { D: 2.36, F: 7.9, F1: 1.2 }], ["Korsch (Euclid-like)", { D: 1.2, F: 20.73, F1: 1.2 }]]) {
+    const K = mk(Object.assign({ tel: "korsch" }, o));
+    check(`${lab}: f_eff = F D, one star one point`, rel(K.feff, o.F * K.Dmm) < 1e-9 && K.imageSpread < 1e-9 * K.Dmm, (K.feff / 1000).toFixed(2) + " m");
+    check(`${lab}: convex secondary, concave tertiary`, K.f2 < 0 && K.f3 > 0, `f2 ${(K.f2 / 1000).toFixed(3)} m, f3 ${(K.f3 / 1000).toFixed(3)} m`);
+    // the intermediate image: a ray from infinity crosses the axis between the secondary and the tertiary
+    const p = K.trace(K.Dmm / 2, 0);
+    check(`${lab}: an intermediate image between the secondary and the tertiary`, Math.sign(p[1].h) !== Math.sign(p[2].h));
+  }
+}
+
 // ---------------------------------------------------------------- 4. reimager
 for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 11, F1: 2, W: 120, Fc: 2.5 }]) {
   const S = mk(o);

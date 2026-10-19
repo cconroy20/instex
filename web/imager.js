@@ -91,6 +91,27 @@ function design(P) {
     zXP = s - s / u2;
     Object.assign(S, { F1, f1, m, s, p, q, f2, back: b, secD: 0, greg });
     if (P.nasmyth) { S.nasmyth = true; S.a3 = a3; S.zM3 = 2 * s - a3; }   // the tertiary, along the light's path
+  } else if (P.tel === "korsch" || P.tel === "pb") {
+    // Three mirrors.  The drawing fixes where the mirrors and the focus sit; the secondary's and tertiary's focal
+    // lengths are then the two that give the focal ratio F and put the image at that focus (paraxial: a unit ray
+    // from infinity leaves the tertiary with slope u3 = -/+ 1 / (F D) and reaches the axis at the focus).
+    //   Paul-Baker (Rubin): secondary at 0.62 f1, a concave tertiary at the primary's center (0.02 D in front of
+    //     the vertex), the light sent back up to a focus at 0.85 of the way to the secondary (in the secondary's
+    //     shadow, where the camera sits); no intermediate image.
+    //   Korsch (Euclid, Roman, JWST): secondary at 0.9 f1, an intermediate image, the light through the primary's
+    //     hole to a concave tertiary 0.35 D behind the primary, back to a flat 0.12 D behind the primary (with a
+    //     hole for the light passing to the tertiary) that turns the beam 90 degrees, the focus 0.6 D past the flat.
+    const pb = P.tel === "pb", F1 = P.F1 || (pb ? 1.2 : 1.2), f1 = F1 * Dmm;
+    const s = (pb ? 0.62 : 0.9) * f1;
+    let z3, zFoc, x3, xFold = null, zFold = null;
+    if (pb) { x3 = -0.02 * Dmm; z3 = 2 * s + x3; const xFoc = -0.85 * s; zFoc = z3 + (x3 - xFoc); }
+    else { x3 = 0.35 * Dmm; z3 = 2 * s + x3; xFold = 0.12 * Dmm; zFold = z3 + (x3 - xFold); zFoc = zFold + 0.6 * Dmm; }
+    const h2 = 1 - s / f1, u3 = (pb ? -1 : 1) / (P.F * Dmm), h3 = -u3 * (zFoc - z3);
+    const u2 = (h3 - h2) / (z3 - s), f2 = -h2 / (u2 + 1 / f1), f3 = h3 / (u2 - u3);
+    el.push({ z: 0, f: f1, kind: "primary" }, { z: s, f: f2, kind: "secondary" }, { z: z3, f: f3, kind: "tertiary" });
+    zF = zFoc;
+    Object.assign(S, { F1, f1, s, f2, f3, z3, x3, xFold, zFold, tma: pb ? "pb" : "korsch", m: P.F / F1 });
+    zXP = null;                                                   // found below by tracing the chief ray
   } else if (P.tel === "schmidt") {
     // the stop (the corrector, ideal: no power) at the center of curvature; a chief ray through the stop's center
     // meets the mirror at 2 f t and leaves with slope -t, so the exit pupil is the stop's own image, at 2 f
@@ -106,6 +127,12 @@ function design(P) {
     Object.assign(S, { F1: P.F, f1, m: 1 });
   }
   S.zStop = zStop;
+  if (zXP === null) {
+    // the exit pupil: where a chief ray (from the primary's center) crosses the axis after the last mirror
+    let z = 0, h = 0, u = 1e-4;
+    for (const e of el) { h += u * (e.z - z); z = e.z; u -= h / e.f; }
+    zXP = z - h / u;
+  }
   S.ftel = P.F * Dmm;
   S.plateTel = RAD / S.ftel;                                     // arcsec per mm at the telescope focus
   S.zF = zF; S.zXP = zXP; S.Lp = zF - zXP;                       // the exit pupil lies Lp before the focus
@@ -235,7 +262,10 @@ function design(P) {
 
   // ---- PSF: diffraction (annular Airy) and seeing (Moffat); lambda only enters the diffraction width
   S.fwhmDiff = airyFWHM(eps) * P.lam * 1e-3 / Dmm * RAD;          // arcsec
-  S.fwhm = P.psf === "diff" ? S.fwhmDiff : Math.sqrt(P.seeing * P.seeing + S.fwhmDiff * S.fwhmDiff);
+  // seeing (from the ground), the optics' own blur (a camera whose aberrations set the image, as TESS's lenses do),
+  // or diffraction alone; the first two drawn as Moffat profiles with the diffraction width added in quadrature
+  const blur = P.psf === "optics" ? (P.blur || 1) : P.seeing;
+  S.fwhm = P.psf === "diff" ? S.fwhmDiff : Math.sqrt(blur * blur + S.fwhmDiff * S.fwhmDiff);
   S.sampling = S.fwhm / S.pixScale;                              // pixels per FWHM
   S.nyquistPix = P.lam * 1e-3 / (2 * Dmm) * RAD;                 // the pixel that Nyquist-samples the optics' cutoff, lambda / 2D
 
@@ -248,7 +278,7 @@ function design(P) {
 const DEF = {
   D: 4, F: 3, eps: 0.3, field: 120, tel: "prime", F1: 2, back: 0.2,
   nasmyth: false, backN: 0.8,
-  band: "r", psf: "seeing", seeing: 0.8,
+  band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,
 };

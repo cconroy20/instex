@@ -84,7 +84,7 @@
       <div id="ilSub" class="lcap" hidden></div>
       <button id="ilvExpand" class="ghost lvx" type="button" aria-label="Expand the layout" title="Expand the layout to fill the window (Esc returns)."></button>
       <div id="ilvOpts" class="lvopts" hidden>
-        <div class="ctl only-icass" title="Focal ratio of the primary mirror of a Cassegrain or Gregorian telescope. The final focal ratio is set by the Telescope box; the primary's sets how far the secondary sits from the primary, and so the drawing only.">
+        <div class="ctl only-imirr" title="Focal ratio of the primary mirror of a two- or three-mirror telescope. The final focal ratio is set by the Telescope box; the primary's sets how far the secondary sits from the primary, and so the drawing only.">
           <label for="iF1"><span>Primary focal ratio</span><span class="val" id="vF1"></span></label>
           <input type="range" id="iF1" min="1" max="4" step="0.01">
         </div>
@@ -257,8 +257,8 @@
         <label for="iFld"><span>Field diameter</span><span class="val" id="vFld"></span></label>
         <input type="range" id="iFld" min="-1" max="2.78" step="0.005">
       </div>
-      <div class="caserow" title="The kind of telescope. Prime: the instrument sits at the primary mirror's own focus, in the incoming beam. Cassegrain: a convex secondary inside the prime focus lengthens the focal ratio and sends the light back through the primary. Gregorian: a concave secondary beyond the prime focus does the same (as on the Magellan telescopes). Schmidt: a spherical mirror behind a thin corrector plate at the mirror's center of curvature; the plate is the aperture stop, so the mirror is larger than the aperture, and the detector sits at the focus inside the tube. Refractor: an objective lens, with the focus behind the lens and nothing in the beam. Changes the drawing and the position of the pupil."><span>Design</span>
-        <select id="iTel"><option value="prime">Prime focus</option><option value="cass">Cassegrain</option><option value="greg">Gregorian</option><option value="schmidt">Schmidt</option><option value="refr">Refractor</option></select></div>
+      <div class="caserow" title="The kind of telescope. Prime: the instrument sits at the primary mirror's own focus, in the incoming beam. Cassegrain: a convex secondary inside the prime focus lengthens the focal ratio and sends the light back through the primary. Gregorian: a concave secondary beyond the prime focus does the same (as on the Magellan telescopes). Three-mirror: a concave tertiary corrects a wide field; Korsch (Euclid, Roman, JWST): through the primary's hole to a tertiary behind the primary, then a fold flat to the side; Paul-Baker (Rubin): a tertiary at the primary's center sends the light back up to a camera in the secondary's shadow. The mirrors' positions are the drawing's; their focal lengths are solved to give the focal ratio set above. Schmidt: a spherical mirror behind a thin corrector plate at the mirror's center of curvature; the plate is the aperture stop, so the mirror is larger than the aperture, and the detector sits at the focus inside the tube. Refractor: an objective lens, with the focus behind the lens and nothing in the beam. Changes the drawing and the position of the pupil."><span>Design</span>
+        <select id="iTel"><option value="prime">Prime focus</option><option value="cass">Cassegrain</option><option value="greg">Gregorian</option><option value="korsch">Three-mirror (Korsch)</option><option value="pb">Three-mirror (Paul-Baker)</option><option value="schmidt">Schmidt</option><option value="refr">Refractor</option></select></div>
       <div class="caserow only-i2m" title="Where the light comes to focus. Axial: behind the primary, through the hole in the primary (the Cassegrain or Gregorian focus). Nasmyth: a flat tertiary mirror on the axis turns the beam to the side, to a platform on the elevation axis, where a large or heavy instrument can sit without tilting. The flat fold changes no number on the page."><span>Focus</span>
         <span class="seg sm"><button id="ifAx" type="button">Axial</button><button id="ifNa" type="button">Nasmyth</button></span></div>
       <div class="rds" id="rTelI"></div>
@@ -266,11 +266,15 @@
     <section>
       <h2 title="The band observed and the blur of a star's image.">Sky</h2>
       <div class="caserow" title="The band observed. The band's wavelength enters only through the diffraction width λ / D."><span>Band</span><select id="iBand"></select></div>
-      <div class="caserow" title="Seeing: from the ground, the atmosphere blurs each star (a Moffat profile, with the diffraction width added in quadrature). Diffraction: in space, or with adaptive optics, the image is the Airy pattern of the annular aperture at the band's wavelength."><span>Image</span>
-        <span class="seg sm"><button id="ipSee" type="button">Seeing</button><button id="ipDiff" type="button">Diffraction</button></span></div>
+      <div class="caserow" title="Seeing: from the ground, the atmosphere blurs each star (a Moffat profile, with the diffraction width added in quadrature). Diffraction: in space, or with adaptive optics, the image is the Airy pattern of the annular aperture at the band's wavelength. Optics: the camera's own aberrations set the image (a fast lens such as TESS's), drawn as a Moffat profile of the blur's FWHM."><span>Image</span>
+        <span class="seg sm"><button id="ipSee" type="button">Seeing</button><button id="ipDiff" type="button">Diffraction</button><button id="ipOpt" type="button">Optics</button></span></div>
       <div class="ctl only-isee" title="FWHM of a star's image from the atmosphere (at the band's wavelength).">
         <label for="iSee"><span>Seeing FWHM</span><span class="val" id="vSee"></span></label>
         <input type="range" id="iSee" min="-1" max="0.6" step="0.005">
+      </div>
+      <div class="ctl only-iopt" title="FWHM of a star's image from the optics' own aberrations.">
+        <label for="iBlur"><span>Optics blur FWHM</span><span class="val" id="vBlur"></span></label>
+        <input type="range" id="iBlur" min="-1.3" max="2" step="0.005">
       </div>
       <div class="rds" id="rSkyI"></div>
     </section>

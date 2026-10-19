@@ -148,7 +148,10 @@ not on the page. The band's wavelength enters only the diffraction width.
   distance behind the primary; F1 and that distance are drawing options), Gregorian (a concave secondary beyond
   the prime focus, s = (m f1 + b)/(m − 1); Magellan), either one with its focus Axial (behind the primary) or
   Nasmyth (a flat tertiary 0.2 D in front of the primary turns the beam to the side; drawing only: a flat fold
-  changes no number; IMACS on Magellan Baade and NIRC2 on Keck II, Charlie's review 2026-10-19), Schmidt (the aperture stop at the
+  changes no number; IMACS on Magellan Baade and NIRC2 on Keck II, Charlie's review 2026-10-19), three-mirror
+  (Korsch: Euclid, Roman, JWST; Paul-Baker: Rubin; the drawing fixes where the mirrors sit and the secondary's
+  and tertiary's focal lengths are solved to give F and put the image at the drawn focus; the Paul-Baker
+  defaults land within 6% of Rubin's mirrors), Schmidt (the aperture stop at the
   corrector, at the mirror's center of curvature, so the mirror is larger than the aperture and the exit
   pupil lies past the focus), refractor. Reimaged: collimator f_col = F W one focal length past the focus, the
   pupil (where the bundles cross) at f_col + f_col²/L past the collimator (L the exit pupil's distance before the
@@ -157,8 +160,9 @@ not on the page. The band's wavelength enters only the diffraction width.
   arc) and chips placed by hand (HSC's four turned chips). The field circle (a telescope's corrected field or an
   instrument's field stop) cuts the mosaic: the field is the chips inside the circle, its solid angle exact
   (rectangles under f tan θ) for whole chips and summed on a grid for cut ones. PSF: seeing (Moffat β = 4.765,
-  Trujillo+01, with the diffraction width in quadrature) or diffraction (the annular Airy pattern, J1 by the
-  trapezoid rule on its integral representation).
+  Trujillo+01, with the diffraction width in quadrature), the optics' own blur (the same profile; TESS, whose
+  lenses set the image), or diffraction (the annular Airy pattern, J1 by the trapezoid rule on its integral
+  representation).
 - **Optical layout**: Telescope (the whole telescope folded as built, light from the left) or Instrument
   (from the telescope focus on, unfolded). Three field points (top, center and bottom of the field: brick,
   gray, teal) each send an annular bundle (the central obstruction's shadow inside). Heights: To scale |
@@ -177,7 +181,13 @@ not on the page. The band's wavelength enters only the diffraction width.
   (1896″, NSSDC).
 - **Constants** (data/imaging/constants.md): band wavelengths are the SVO pivot wavelengths; Moffat β; the
   Moon; the annular Airy FWHM checked against an independent table.
-- **Presets** (web/ipresets.js, 21; sources data/imaging/{widefield,megacam_ztf_small,hst,space_wide,reimagers}.md,
+- **Presets, round 2** (Charlie's picks, 2026-10-19; data/imaging/{vst_lbc,magellan,niri_hawki,tess}.md): VST
+  OmegaCAM, LBT LBC-Blue and LBC-Red (three CCDs and a turned fourth, the axis on the middle chip), Magellan
+  Megacam (Clay f/5 Cassegrain) and FourStar (Baade f/11 Gregorian Nasmyth, reimaged through a 130 mm cold
+  pupil), Gemini NIRI f/6, f/14, f/32 (the 7.9 m pupil of the undersized secondary), VLT HAWK-I (UT4 Nasmyth; the
+  pupil size is not published, so W = 100 mm is the drawing's assumption), TESS (one camera, an optics blur of
+  24″; the strong distortion is left out). 33 presets in all.
+- **Presets** (web/ipresets.js, the first 21; sources data/imaging/{widefield,megacam_ztf_small,hst,space_wide,reimagers}.md,
   documents in rawdata/imaging/): LSSTCam, HSC, DECam, MegaCam, ZTF, an 80 mm refractor with a CMOS camera,
   ACS/WFC, WFC3/UVIS, WFC3/IR (reimaged through the published cold-mask pupil), Euclid VIS, Roman WFI, NIRCam
   short and long wavelength (reimaged), FORS2 (standard and high resolution), IMACS f/2, LRIS red, MOSFIRE,

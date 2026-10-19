@@ -64,7 +64,26 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const r = await send("Page.captureScreenshot", { format: "png" });
     fs.writeFileSync(path.join(OUT, name), Buffer.from(r.result.data, "base64"));
   };
-  const go = async (hash = "") => { await send("Page.navigate", { url: URL0 + "?r=" + Math.random() + hash }); await sleep(900); };
+  // wait until the page has loaded and drawn (the test hook exists and the panels have their fitted height)
+  const ready = async tok => {
+    for (let k = 0; k < 100; k++) {
+      const r = await send("Runtime.evaluate", { expression: `!!(window.__instex && document.body.className && document.readyState === "complete" && location.search.includes(${JSON.stringify(String(tok))}))`, returnByValue: true });
+      if (r.result && r.result.result && r.result.result.value) { await sleep(250); return true; }
+      await sleep(100);
+    }
+    return false;
+  };
+  // (a navigation that stalls is tried once more; a second stall stops the run, naming the page)
+  const nav = async hash => {
+    for (let tries = 0; tries < 2; tries++) {
+      const tok = Math.random();
+      await send("Page.navigate", { url: URL0 + "?r=" + tok + hash });
+      if (await ready(tok)) return;
+      console.log(`[note] the page did not load in time (${hash || "default"}); trying again`);
+    }
+    throw new Error("page did not load: " + (hash || "default"));
+  };
+  const go = async (hash = "") => { await nav(hash); await sleep(350); };
   const setRange = async (sel, v) => { await ev(`(e => { e.value = ${v}; e.dispatchEvent(new Event("input", {bubbles: true})); })(document.querySelector(${JSON.stringify(sel)}))`); await sleep(120); };
   const click = async sel => { await ev(`document.querySelector(${JSON.stringify(sel)}).click()`); await sleep(150); };
   const D = async () => ev(`(() => { const d = window.__instex.design(); return d.c ? { R: d.c.Reff, Rs: d.c.Rs, npix: d.c.npix, ps: d.c.pixScale, dl: d.c.dlpix,
@@ -653,7 +672,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   // every preset at the smaller laptop screen (the tighter one)
   {
     const ids = await ev(`window.IX_PRESETS.map(p => p.id)`), over = [];
-    for (const id of ids) { await send("Page.navigate", { url: URL0 + "?r=" + Math.random() + "#preset=" + id }); await sleep(450); const f = await fit(); if (!(f.bottom <= f.vh + 0.5 && f.sw <= f.cw)) over.push(`${id} ${f.bottom.toFixed(0)}`); }
+    for (const id of ids) { await nav("#preset=" + id); const f = await fit(); if (!(f.bottom <= f.vh + 0.5 && f.sw <= f.cw)) over.push(`${id} ${f.bottom.toFixed(0)}`); }
     check(`1280x800: every preset's controls fit (${ids.length})`, over.length === 0, over.join(", "));
   }
   // the phone layout: the header's buttons are not covered by the panel's boxes
@@ -686,7 +705,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await size(w, h);
       const over = [], bad = [];
       for (const id of ids) {
-        await send("Page.navigate", { url: URL0 + "?r=" + Math.random() + "#inst=img&ipreset=" + id }); await sleep(500);
+        await nav("#inst=img&ipreset=" + id);
         const f = await fit(); if (!(f.bottom <= f.vh + 0.5 && f.sw <= f.cw)) over.push(`${id} ${f.bottom.toFixed(0)}`);
         const r = await ev(`({ p: document.getElementById("preset").value, bad: window.__instex.img().design().bad || "" })`);
         if (r.p !== id || r.bad) bad.push(id + ":" + r.p + r.bad);

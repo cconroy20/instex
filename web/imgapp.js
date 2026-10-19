@@ -49,6 +49,7 @@ const SL = [
   ["iEps", "eps", false, false, v => v.toFixed(2)],
   ["iFld", "field", true, false, v => fAng(v * 60)],
   ["iSee", "seeing", true, false, v => sig(v, 2) + "″"],
+  ["iBlur", "blur", true, false, v => fAng(v, 2)],
   ["iW", "W", true, false, v => sig(v, 3) + " mm"],
   ["iFc", "Fc", true, false, v => "f/" + sig(v, 3)],
   ["iNx", "Nx", true, true, v => grp(v)],
@@ -90,7 +91,7 @@ function bindSeg(pairs, get, set, drawingOnly = false) {
 // the layout view: mm -> canvas px scale s along the axis, k times that across it (the Instrument view's stretch)
 const lview = { mode: "auto", s: 0, k: 1, ox: 0, oy: 0, fit: true };
 const segs = [
-  bindSeg([["ipSee", "seeing"], ["ipDiff", "diff"]], () => S.psf, v => { S.psf = v; }),
+  bindSeg([["ipSee", "seeing"], ["ipDiff", "diff"], ["ipOpt", "optics"]], () => S.psf, v => { S.psf = v; }),
   bindSeg([["ioDir", "direct"], ["ioRe", "reimaged"]], () => S.optics, v => { S.optics = v; lview.fit = true; zoom.reset(); }),
   bindSeg([["ivTel", "tel"], ["ivInst", "inst"]], () => S.view, v => { S.view = v; lview.fit = true; }, true),
   bindSeg([["isOff", false], ["isOn", true]], () => !!S.stretch, v => { S.stretch = v; lview.fit = true; }, true),
@@ -150,7 +151,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { tel: ["prime", "cass", "greg", "schmidt", "refr"], psf: ["seeing", "diff"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
+const CHOICES = { tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k) };
 function hashParts() {
   const parts = [];
   for (const k of Object.keys(DEF)) {
@@ -215,7 +216,7 @@ function renderText(Dz, P) {
   rows($("rSkyI"), [
     ["Wavelength", grp(lamA) + " Å", "The band's wavelength, used only for the diffraction width λ / D."],
     ["Diffraction FWHM", fAng(Dz.fwhmDiff), `The core of the Airy pattern: ${sig(IM.airyFWHM(Dz.eps), 4)} λ / D for a central obstruction of ${Dz.eps.toFixed(2)} (1.029 λ / D without one).`],
-    ["Star FWHM", fAng(Dz.fwhm), P.psf === "diff" ? "Diffraction-limited (in space, or with adaptive optics): the Airy pattern alone." : "Seeing and diffraction added in quadrature (an approximation; the seeing profile is drawn as a Moffat function)."],
+    ["Star FWHM", fAng(Dz.fwhm), P.psf === "diff" ? "Diffraction-limited (in space, or with adaptive optics): the Airy pattern alone." : P.psf === "optics" ? "The optics' own blur and diffraction added in quadrature (drawn as a Moffat profile)." : "Seeing and diffraction added in quadrature (an approximation; the seeing profile is drawn as a Moffat function)."],
   ]);
   if (P.optics === "reimaged") rows($("rOptI"), [
     ["Collimator", fLen(Dz.fcol), "f_col = F_tel W: the collimator takes the telescope's beam and makes each star's light parallel, W wide."],
@@ -311,33 +312,39 @@ function drawLayout(Dz, P) {
   if (tel) {
     // the telescope folded on the page: light arrives from the left, the primary at x = 0
     const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt", nas = !!Dz.nasmyth, a3 = Dz.a3 || 0;
-    // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded
-    X = z => (z < 0 ? z : refr ? z : two ? (z <= s ? -z : z - 2 * s) : -z);
-    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(nas ? [] : [X(Dz.zDet)]).concat(two ? [-s] : []).concat(schm ? [Dz.zStop] : []);
+    const tma = Dz.tma, z3 = Dz.z3, x3 = Dz.x3;
+    // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded (a
+    // three-mirror telescope's tertiary sends the light back to the left)
+    X = z => (z < 0 ? z : refr ? z : tma ? (z <= s ? -z : z <= z3 ? z - 2 * s : x3 - (z - z3)) : two ? (z <= s ? -z : z - 2 * s) : -z);
+    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(nas || tma === "korsch" ? [] : [X(Dz.zDet)]).concat(two || tma ? [-s] : []).concat(tma ? [x3] : []).concat(schm ? [Dz.zStop] : []);
     const xIn = Math.min(...xs) - 0.12 * Math.max(Dmm, Math.max(...xs) - Math.min(...xs));
     z0 = xIn;
     // a Nasmyth tertiary: the flat on the line (x + a3) + y = 0 (45 degrees, through the axis a3 in front of the
     // primary) turns the returning beam downward on the page; past it the drawing is reflected about that line
-    const foldN = line => {
-      if (!nas) return line;
-      const L = q => q[0] + a3 + q[1], out = line.slice(0, 3);
+    // A Korsch telescope's flat (on y = x - xF, the light arriving from the right) likewise turns the beam downward.
+    // fold(line, x0, dir, i0): dir +1 for light traveling right, -1 for left; the first segment from point i0 on
+    // that crosses the mirror line is split there, and everything past it reflected
+    const fold = (line, x0, dir, i0) => {
+      const L = q => dir * (q[0] - x0) + q[1], out = line.slice(0, i0);
       let folded = false;
-      for (let i = 3; i < line.length; i++) {
+      for (let i = i0; i < line.length; i++) {
         const A = out[out.length - 1], B = line[i];
         if (!folded && L(A) < 0 && L(B) >= 0) {
           const t = -L(A) / (L(B) - L(A));
           out.push([A[0] + t * (B[0] - A[0]), A[1] + t * (B[1] - A[1])]);
           folded = true;
         }
-        out.push(folded ? [-a3 - B[1], -(B[0] + a3)] : B);
+        out.push(folded ? [x0 - dir * B[1], -dir * (B[0] - x0)] : B);
       }
       return out;
     };
+    const foldN = line => (nas ? fold(line, -a3, 1, 3) : tma === "korsch" ? fold(line, Dz.xFold, -1, 4) : line);
+    const sag3 = hh => (tma ? hh * hh / (4 * Dz.f3) : 0);
     const pathOf = pts => {
       // incoming from xIn, then the folded segments; the primary point moved onto its curved surface
       const out = [[xIn, pts[0].h + pts.tVal * (xIn - X(pts[0].z))]];
-      pts.forEach(p => out.push([p.z === 0 && !refr ? -sag1(p.h) : X(p.z), p.h]));
-      return two ? foldN(out) : out;
+      pts.forEach(p => out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]));
+      return two || tma ? foldN(out) : out;
     };
     for (let f = 0; f < 3; f++) {
       const r = rays[f];
@@ -349,13 +356,15 @@ function drawLayout(Dz, P) {
     }
     // primary: its curve, with the Cassegrain hole sized to pass the returning beam
     let hole = 0;
-    if (two && !nas) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
+    if ((two && !nas) || tma === "korsch") for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
     // the mirror as large as the bundles it catches (a Schmidt's mirror is larger than its stop)
     let mir = Dmm / 2;
     if (schm) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) mir = Math.max(mir, Math.abs(hAt(pts, 0)) * 1.02);
-    elems.push({ k: refr ? "objective" : "primary", hole: two ? hole * 1.08 : 0, hh: mir });
+    // (a Paul-Baker's tertiary fills the primary's central hole, the obstruction)
+    if (tma === "pb") hole = eps * Dmm / 2;
+    elems.push({ k: refr ? "objective" : "primary", hole: two || tma === "korsch" ? hole * 1.08 : hole, hh: mir });
     if (schm) elems.push({ k: "corrector", x: Dz.zStop, hh: Dmm / 2 });
-    if (refr) { /* nothing in the beam */ } else if (two) {
+    if (refr) { /* nothing in the beam */ } else if (two || tma) {
       let sec = 0;
       for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) sec = Math.max(sec, Math.abs(pts[1].h));
       elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg });
@@ -364,6 +373,18 @@ function drawLayout(Dz, P) {
         for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
         elems.push({ k: "tertiary", x: -a3, hh: t3 * 1.12 });
       }
+      if (tma) {
+        let t3 = 0;
+        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, z3)));
+        elems.push({ k: "tertiary3", x: x3, hh: t3 * 1.05, pb: tma === "pb" });
+      }
+      if (tma === "korsch") {
+        // the flat: a hole for the light on its way to the tertiary, an annulus for the light coming back
+        let inner = 0, outer = 0;
+        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) { inner = Math.max(inner, Math.abs(hAt(pts, 2 * s + Dz.xFold))); outer = Math.max(outer, Math.abs(hAt(pts, Dz.zFold))); }
+        elems.push({ k: "flat", x: Dz.xFold, inner: inner * 1.08, hh: Math.max(outer * 1.12, inner * 1.5) });
+      }
+      if (tma === "pb") elems.push({ k: "camera", x: X(Dz.zF), hh: Math.max((Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.25, 0.05 * Dmm) });
     } else {
       // the prime-focus unit: the instrument in the beam, as wide as the obstruction
       elems.push({ k: "pfu", x: -Dz.zF, hh: Math.max(eps * Dmm / 2, (Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.2) });
@@ -392,8 +413,9 @@ function drawLayout(Dz, P) {
     }
   }
   // the detector: across the beam, or along the page past a Nasmyth fold (the beam then travels downward)
-  if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true });
-  else elems.push({ k: "det", x: X(Dz.zDet) });
+  if (tel && Dz.nasmyth) elems.push({ k: "det", x: -Dz.a3, y: -(X(Dz.zDet) + Dz.a3), rot: true, sgn: -1 });
+  else if (tel && Dz.tma === "korsch") elems.push({ k: "det", x: Dz.xFold, y: X(Dz.zDet) - Dz.xFold, rot: true, sgn: 1, korsch: true });
+  else elems.push({ k: "det", x: X(Dz.zDet), pb: tel && Dz.tma === "pb" });
   // ---- fit
   let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
   const grow = (x, y) => { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); };
@@ -401,6 +423,7 @@ function drawLayout(Dz, P) {
   if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { grow(0, e.hh); grow(0, -e.hh); }
   const detE = elems[elems.length - 1], detH = Dz.mosaic.y1 - Dz.mosaic.y0;
   if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
+  for (const e of elems) if (e.k === "tertiary3" || e.k === "flat") { grow(e.x, e.hh); grow(e.x, -e.hh); }
   else { grow(detE.x, detH / 2); grow(detE.x, -detH / 2); }
   const mL = 30, mR = tel ? 120 : 30, mT = 34, mB = 54;
   const sxFit = (w - mL - mR) / Math.max(1e-9, bx1 - bx0), syFit = (h - mT - mB) / Math.max(1e-9, by1 - by0);
@@ -454,6 +477,24 @@ function drawLayout(Dz, P) {
       for (let i = -20; i <= 20; i++) { const hh = e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
       mirror(g, pts, -1);
       labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: "obstruction ε " + eps.toFixed(2), at: T(e.x, e.baffle), dx: 0, dy: -18, al: "center" });
+    } else if (e.k === "tertiary3") {
+      // concave, facing the light from the left: the edges curl toward it
+      const pts = [];
+      for (let i = -24; i <= 24; i++) { const hh = e.hh * i / 24; pts.push(T(e.x - hh * hh / (4 * Dz.f3), hh)); }
+      mirror(g, pts, 1);
+      labels.push({ t: e.pb ? "tertiary (concave)" : "tertiary (concave)", s: e.pb ? "at the primary's center" : "behind the primary", at: T(e.x, -e.hh), pref: [] });
+    } else if (e.k === "flat") {
+      for (const sg of [1, -1]) {
+        const pts = [];
+        for (let i = 0; i <= 10; i++) { const hh = sg * (e.inner + (e.hh - e.inner) * i / 10); pts.push(T(e.x + hh, hh)); }
+        mirror(g, pts, 1);
+      }
+      labels.push({ t: "fold flat", s: "a hole passes the light to the tertiary", at: T(e.x + e.hh, e.hh) });
+    } else if (e.k === "camera") {
+      const a = T(e.x - 0.035 * Dz.Dmm, e.hh), b = T(e.x, -e.hh);
+      g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
+      g.strokeStyle = "rgba(90,84,78,0.7)"; g.lineWidth = 1; g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
+      labels.push({ t: "camera and detector", s: "in the secondary's shadow", at: T(e.x - 0.02 * Dz.Dmm, -e.hh) });
     } else if (e.k === "tertiary") {
       const pts = [];
       for (let i = -10; i <= 10; i++) { const hh = e.hh * i / 10; pts.push(T(e.x - hh, hh)); }
@@ -491,13 +532,13 @@ function drawLayout(Dz, P) {
       const wpx = Math.max(4, Math.min(9, 0.012 * (by1 - by0) * sc));
       if (e.rot) {
         // past the fold the beam travels down the page: the mosaic lies across it (heights h map to x = x3 - h)
-        for (const b of bands) { const a = T(e.x - b.y1, e.y), c2 = T(e.x - b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(a[0], a[1], c2[0] - a[0], wpx); }
-        const tip = T(e.x - Dz.mosaic.y0, e.y);
-        labels.push({ t: "Nasmyth focus", s: Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
+        for (const b of bands) { const a = T(e.x + e.sgn * b.y1, e.y), c2 = T(e.x + e.sgn * b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(Math.min(a[0], c2[0]), a[1], Math.abs(c2[0] - a[0]), wpx); }
+        const tip = T(e.x, e.y);
+        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", at: [tip[0], tip[1] + wpx] });
       } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);
-      if (!(tel && P.tel === "prime") && !e.rot) labels.push({ t: "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
+      if (!(tel && P.tel === "prime") && !e.rot && !e.pb) labels.push({ t: "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
     }
   }
   // the field angle in the beam, at the pupil

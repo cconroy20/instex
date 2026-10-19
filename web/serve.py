@@ -41,7 +41,7 @@ class H(http.server.SimpleHTTPRequestHandler):
                 t = 0
             return '%s?t=%d' % (name, t)
 
-        html = re.sub(r'\b(app\.js|physics\.js|presets\.js|style\.css)\b', stamp, html)
+        html = re.sub(r'\b(app\.js|physics\.js|presets\.js|imager\.js|ipresets\.js|imgapp\.js|style\.css)\b', stamp, html)
         body = html.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
@@ -54,4 +54,9 @@ if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8765
     print("http://localhost:%d/" % port)
-    http.server.HTTPServer(("", port), H).serve_forever()
+    # threaded, with a longer listen queue: a browser opens several connections at once (the page loads seven files),
+    # and the default queue of 5 overflowed into reset connections
+    class Server(http.server.ThreadingHTTPServer):
+        request_queue_size = 64
+        daemon_threads = True
+    Server(("", port), H).serve_forever()
