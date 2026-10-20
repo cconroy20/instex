@@ -20,17 +20,31 @@ function toXYZ(e, n, u, lat) {
   return [-n * sl + u * cl, e, n * cl + u * sl];
 }
 // the baselines between the antennas switched on (on !== false): X, Y, Z (m) and the length on the ground (m), as
-// typed arrays (a 2000-antenna array has two million baselines)
-function baselines(ants, lat) {
-  const on = ants.filter(a => a.on !== false), N = on.length, nb = N * (N - 1) / 2;
+// typed arrays. An array with more than maxPairs baselines (10,000 antennas make 50 million) gets a random draw of
+// maxPairs pairs (seeded, so the draw is the same each time); total is the full count.
+function baselines(ants, lat, maxPairs = Infinity, seed = 7) {
+  const on = ants.filter(a => a.on !== false), N = on.length, total = N * (N - 1) / 2, sub = total > maxPairs, nb = sub ? maxPairs : total;
   const X = new Float64Array(nb), Y = new Float64Array(nb), Z = new Float64Array(nb), len = new Float64Array(nb);
   const sl = Math.sin(lat), cl = Math.cos(lat);
-  let k = 0;
-  for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++, k++) {
+  const put = (k, i, j) => {
     const de = on[j].e - on[i].e, dn = on[j].n - on[i].n, du = (on[j].u || 0) - (on[i].u || 0);
     X[k] = -dn * sl + du * cl; Y[k] = de; Z[k] = dn * cl + du * sl; len[k] = Math.hypot(de, dn, du);
+  };
+  if (sub) {
+    const rnd = rng(seed);
+    for (let k = 0; k < nb; k++) { const i = Math.floor(rnd() * N); let j = Math.floor(rnd() * (N - 1)); if (j >= i) j++; put(k, Math.min(i, j), Math.max(i, j)); }
+  } else {
+    let k = 0;
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) put(k++, i, j);
   }
-  return { X, Y, Z, len, length: nb };
+  return { X, Y, Z, len, length: nb, total, sub };
+}
+// the shortest and longest baselines on the ground over all pairs (exact, without keeping the pairs)
+function extremes(ants) {
+  const on = ants.filter(a => a.on !== false), N = on.length;
+  let lo = Infinity, hi = 0;
+  for (let i = 0; i < N; i++) { const a = on[i]; for (let j = i + 1; j < N; j++) { const b = on[j], de = b.e - a.e, dn = b.n - a.n, du = (b.u || 0) - (a.u || 0), d2 = de * de + dn * dn + du * du; if (d2 < lo) lo = d2; if (d2 > hi) hi = d2; } }
+  return N > 1 ? { bmin: Math.sqrt(lo), bmax: Math.sqrt(hi) } : { bmin: 0, bmax: 0 };
 }
 // (u, v) in the baseline's units for hour angle H and declination dec (radians)
 function uvAt(b, H, dec) {
@@ -58,7 +72,7 @@ function hoursUp(dur, dec, lat, elMin) {
 // whole observation) }. The samples (wavelengths) run over the hour angles above the elevation limit, then the
 // baselines, then the frequencies; the time step coarsens to keep the count within the budget.
 function sample(o) {
-  const B = baselines(o.ants, o.lat), nb = B.length, BX = B.X, BY = B.Y, BZ = B.Z;
+  const B = o.B || baselines(o.ants, o.lat, o.maxPairs), nb = B.length, BX = B.X, BY = B.Y, BZ = B.Z;
   const nCh = o.bw > 0 ? Math.max(2, o.nCh || 8) : 1;
   const nus = nCh === 1 ? [o.nu] : Array.from({ length: nCh }, (_, k) => o.nu - o.bw / 2 + o.bw * k / (nCh - 1));
   let step = o.step || 1 / 60;
@@ -372,16 +386,25 @@ function layout(kind, N, size, dish, seed = 1, p = 1) {
   };
   if (kind === "random") {
     // each antenna the best of up to 500 tries: the first clear of the others, else the one farthest from them
-    const R = size / 2, rnd = rng(seed);
+    // (the neighbors found through a hash of cells gap wide: only an antenna within the 3 x 3 cells can be too close)
+    const R = size / 2, rnd = rng(seed), cells = new Map(), key = (i, j) => i * 1048576 + j;
+    const near = (e, n) => {
+      const ci = Math.floor(e / gap), cj = Math.floor(n / gap);
+      let d = Infinity;
+      for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) for (const q of cells.get(key(ci + a, cj + b)) || []) d = Math.min(d, Math.hypot(q[0] - e, q[1] - n));
+      return d;
+    };
     for (let k = 0; k < N; k++) {
       let best = null, bd = -1;
       for (let t = 0; t < 500; t++) {
-        const r = R * Math.pow(rnd(), p / 2), th = 2 * Math.PI * rnd(), e = r * Math.cos(th), n = r * Math.sin(th);
-        let d = Infinity; for (const q of P) d = Math.min(d, Math.hypot(q[0] - e, q[1] - n));
+        const r = R * Math.pow(rnd(), p / 2), th = 2 * Math.PI * rnd(), e = r * Math.cos(th), n = r * Math.sin(th), d = near(e, n);
         if (d > bd) { bd = d; best = [e, n]; }
         if (d >= gap) break;
       }
       P.push(best);
+      const kk = key(Math.floor(best[0] / gap), Math.floor(best[1] / gap));
+      if (!cells.has(kk)) cells.set(kk, []);
+      cells.get(kk).push(best);
     }
   } else if (kind === "grid") {
     const k = Math.ceil(Math.sqrt(N)), rowsN = Math.ceil(N / k), h = (k - 1) / 2 || 1, half = size / (2 * Math.SQRT2);
@@ -396,15 +419,25 @@ function layout(kind, N, size, dish, seed = 1, p = 1) {
   else if (kind === "T") arms([[270, size / 2], [90, size / 2], [180, size / 2]]);
   else if (kind === "Y") arms([[0, size / Math.sqrt(3)], [120, size / Math.sqrt(3)], [240, size / Math.sqrt(3)]]);
   else if (kind === "cross") arms([[0, size / 2], [90, size / 2], [180, size / 2], [270, size / 2]]);
-  let dmin = Infinity;
-  for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) dmin = Math.min(dmin, Math.hypot(P[i][0] - P[j][0], P[i][1] - P[j][1]));
+  const dmin = closest(P, gap);
   const f = dmin > 0 && dmin < gap * (1 - 1e-9) ? gap / dmin : 1;
   return P.map(q => [q[0] * f, q[1] * f, 0]);
+}
+// the closest pair's separation if under gap (else Infinity), through a hash of cells gap wide
+function closest(P, gap) {
+  const cells = new Map(), key = (i, j) => i * 1048576 + j;
+  P.forEach((q, k) => { const kk = key(Math.floor(q[0] / gap), Math.floor(q[1] / gap)); if (!cells.has(kk)) cells.set(kk, []); cells.get(kk).push(k); });
+  let d = Infinity;
+  P.forEach((q, k) => {
+    const ci = Math.floor(q[0] / gap), cj = Math.floor(q[1] / gap);
+    for (let a = -1; a <= 1; a++) for (let b = -1; b <= 1; b++) for (const m of cells.get(key(ci + a, cj + b)) || []) if (m > k) d = Math.min(d, Math.hypot(P[m][0] - q[0], P[m][1] - q[1]));
+  });
+  return d < gap ? d : Infinity;
 }
 
 // ------------------------------------------------------------------ scales
 // the ground baselines' lengths (m), sorted
-const lengths = (ants, lat) => baselines(ants, lat).len.sort();
+const lengths = (ants, lat, maxPairs) => baselines(ants, lat, maxPairs).len.sort();
 // a percentile of a sorted list (linear between ranks)
 function pctile(sorted, p) {
   if (!sorted.length) return NaN;
@@ -412,7 +445,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { DEG, RAD, C, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { DEG, RAD, C, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

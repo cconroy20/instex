@@ -1,0 +1,10834 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: Deep Synoptic Array (DSA, formerly DSA-2000)",
+  "compiled": "2026-10-20",
+  "companion": "data/interf/dsa2000.md (same content as Markdown, with the full quote table).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/interf/dsa/ (params{} holds the full records; top-level fields name their src alongside). DERIVED = arithmetic done here (shown). INFERRED = a mapping no source states. NOT FOUND = a gap. Nothing is filled from memory.",
+  "units": "positions in metres: e east, n north, u up, local ENU about the array centroid (as given by ENU, 0.1 m); angles in degrees unless stated; frequencies in GHz",
+  "scope": "Current design only (project baseline at the Final Design Review, 2026): 1650 x 6.155 m. The superseded 2000 x 5 m whitepaper-era design appears only in alternatives and historical_configs."
+ },
+ "sources": {
+  "ETC": {
+   "cite": "Deep Synoptic Array project, \"DSA Sensitivity Calculator\", version 2.0 (October 2026): web page with User guide, Methods (Sec. 1.1 Array, 4.2 Survey mosaics, 4.3 Targeted observations, 5.1 Natural weighting, 14 Survey plan, 15 Implementation) and \"DSA specifications\" table; states \"The instrument parameters assume the DSA project baseline at the Final Design Review\". Saved as served; the embedded JavaScript was NOT run. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_sensitivity_index.html",
+   "url": "https://www.deepsynoptic.org/sensitivity/index.html"
+  },
+  "ENU": {
+   "cite": "Data table antennas_enu.json loaded by the DSA Sensitivity Calculator (ETC Sec. 15: \"antenna positions and site latitude\"); config \"dsa1650_P305_v2.5.6.8\"; 1650 antennas as E, N, U arrays (m, 0.1 m), frame \"local ENU (m) relative to array centroid\", plus site_lat_deg, site_lon_deg, site_height_m. HTTP Last-Modified 2026-10-07 00:01:13 GMT (response headers saved in hdr_antennas_enu.json.txt). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_sensitivity_data_antennas_enu.json",
+   "url": "https://www.deepsynoptic.org/sensitivity/data/antennas_enu.json"
+  },
+  "PSF": {
+   "cite": "Data table psf_uniform.json loaded by the DSA Sensitivity Calculator (ETC Sec. 15: \"uniformly weighted localization PSF at zenith and 1.35 GHz\"); config dsa1650_P305_v2.5.6.8; uniform and natural_check beam fits (bmaj, bmin, pa; no units in the file). HTTP Last-Modified 2026-10-20 18:14:13 GMT (headers in hdr_psf_uniform.json.txt). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_sensitivity_data_psf_uniform.json",
+   "url": "https://www.deepsynoptic.org/sensitivity/data/psf_uniform.json"
+  },
+  "OVW": {
+   "cite": "Deep Synoptic Array web site, Overview page (DSA, formerly DSA-2000: dishes, band, footprint, resolution). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_overview.html",
+   "url": "https://www.deepsynoptic.org/page/overview"
+  },
+  "TECH": {
+   "cite": "Deep Synoptic Array web site, Technology page (antenna, mount and drive package). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_technology.html",
+   "url": "https://www.deepsynoptic.org/page/technology"
+  },
+  "NEWS1": {
+   "cite": "Deep Synoptic Array web site, News item \"Caltech Readies to Build World's Most Sensitive Radio Telescope\", dated June 11th, 2026. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_news_1.html",
+   "url": "https://www.deepsynoptic.org/news/1"
+  },
+  "NEWS3": {
+   "cite": "Deep Synoptic Array web site, News item \"Caltech Radio Telescope Project brings potential local job opportunities, school partnerships\", dated September 30th, 2026 (excerpt of an Ely Times article). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_news_3.html",
+   "url": "https://www.deepsynoptic.org/news/3"
+  },
+  "CSD": {
+   "cite": "M. McLaughlin, F. Walter, G. Hallinan, V. Ravi (eds.), \"DSA Community Science Document\", web version dated 2026-09-11 (deepsynoptic.org). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/deepsynoptic/deepsynoptic_dsa-community-science-document.html",
+   "url": "https://www.deepsynoptic.org/page/dsa-community-science-document"
+  },
+  "PTA": {
+   "cite": "T. Cohen et al., \"Optimal Pulsar Timing Array Strategies with the Deep Synoptic Array\", arXiv:2610.00836v1 (2026-09-30), Sec. 4.2.1 DSA. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/arxiv_2610.00836v1.pdf",
+   "url": "https://arxiv.org/pdf/2610.00836v1"
+  },
+  "WP": {
+   "cite": "G. Hallinan et al., \"The DSA-2000 -- A Radio Survey Camera\", Astro2020 APC white paper, arXiv:1907.07648v1 (2019): Sec. 2.2, Table 1 \"Baseline DSA-2000 specifications\", Figure 7 (superseded 2000 x 5 m design). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/arxiv_1907.07648v1.pdf",
+   "url": "https://arxiv.org/pdf/1907.07648v1"
+  },
+  "IM21": {
+   "cite": "\"21 cm Intensity Mapping with the DSA-2000\", arXiv:2311.00896v2 (2023), Sec. 1-2 (5 m design; antenna steering). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/arxiv_2311.00896v2.pdf",
+   "url": "https://arxiv.org/pdf/2311.00896v2"
+  },
+  "BSM": {
+   "cite": "\"Physics beyond the Standard Model with the DSA-2000\", arXiv:2505.23892v2 (2025), Sec. 1 and its specification table (2000 x 5 m design). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/arxiv_2505.23892v2.pdf",
+   "url": "https://arxiv.org/pdf/2505.23892v2"
+  },
+  "POLISH": {
+   "cite": "\"Deep Radio Interferometric Imaging with POLISH: DSA-2000 and weak lensing\", arXiv:2111.03249v2 (2021), Sec. 1 (earlier site plan; PSF width). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/arxiv_2111.03249v2.pdf",
+   "url": "https://arxiv.org/pdf/2111.03249v2"
+  },
+  "WPLOC": {
+   "cite": "GitHub dsa110/DSA2000-Whitepaper-Simulation, dsa2000-loc.cfg at commit 0d1aea7340fc (master): CASA cfg, header \"# observatory=OVRO_MMA\", \"# coordsys=LOC OVRO_MMA\", columns x y z diam name, 2003 rows, diam 5; last changed 2020-12-29 (\"Update with Dave's new config without overlapping antennas.\"; commit list saved as github_api_commits_dsa2000-loc.cfg.json). Whitepaper-era configuration; superseded. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/dsa2000-wp-sim/dsa2000-loc.cfg",
+   "url": "https://raw.githubusercontent.com/dsa110/DSA2000-Whitepaper-Simulation/0d1aea7340fc2dbdf7ef62e2740817110a924dc2/dsa2000-loc.cfg"
+  },
+  "WPW": {
+   "cite": "As WPLOC, 20210226W.cfg (2048 rows, diam 5); added 2023-01-17 (\"Sneak in the W config.\"; github_api_commits_20210226W.cfg.json). Superseded. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/dsa2000-wp-sim/20210226W.cfg",
+   "url": "https://raw.githubusercontent.com/dsa110/DSA2000-Whitepaper-Simulation/0d1aea7340fc2dbdf7ef62e2740817110a924dc2/20210226W.cfg"
+  },
+  "WPCOM": {
+   "cite": "GitHub REST commit lists for WPLOC and WPW (path-filtered). Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/dsa2000-wp-sim/github_api_commits_dsa2000-loc.cfg.json",
+   "url": "https://api.github.com/repos/dsa110/DSA2000-Whitepaper-Simulation/commits?path=dsa2000-loc.cfg (and ?path=20210226W.cfg)"
+  },
+  "WPREAD": {
+   "cite": "As WPLOC, README.md and simobs.py (text only; not run): how the LOC cfg files were used in CASA. Fetched 2026-10-20",
+   "file": "rawdata/interf/dsa/dsa2000-wp-sim/README.md",
+   "url": "https://raw.githubusercontent.com/dsa110/DSA2000-Whitepaper-Simulation/0d1aea7340fc2dbdf7ef62e2740817110a924dc2/README.md (and simobs.py)"
+  }
+ },
+ "site": {
+  "lat_deg": 39.55393,
+  "lon_deg": -114.42415,
+  "elev_m": 1746.3,
+  "name": "Spring Valley, Nevada",
+  "src": {
+   "lat_deg": "ENU",
+   "lon_deg": "ENU",
+   "elev_m": "ENU",
+   "name": "ETC"
+  },
+  "elev_datum": "NOT FOUND (site_height_m: ellipsoidal or above sea level not stated)",
+  "reference_point": "array centroid (ENU frame origin; INFERRED that site_lat/lon/height locate it)"
+ },
+ "dish_m": 6.155,
+ "dish_src": "ETC (6.15 in OVW, CSD)",
+ "n_antennas": 1650,
+ "n_antennas_src": "ETC (and ENU, OVW, CSD)",
+ "tracking": {
+  "tracks": true,
+  "mount": "azimuth-elevation (fully steerable)",
+  "mount_src": "TECH, IM21, WP",
+  "mount_type_inferred": "alt-az",
+  "max_abs_ha_h": 2.0,
+  "min_elev_deg": 20.0,
+  "centred_on": "transit",
+  "src": "ETC",
+  "loc": "User guide; Methods 4.3",
+  "note": "The +-2 h / 20 deg window is the sensitivity-calculator model of targeted tracks (verbatim quote in params.tracking); survey pointings last 21 min. Mechanical slew/elevation limits NOT FOUND.",
+  "survey_pointing_min": 21,
+  "survey_pointing_src": "ETC",
+  "ha_window_dec_minus30_h": 0.566,
+  "ha_window_dec_minus30_published_h": 0.57
+ },
+ "elev_limit_deg": 20,
+ "elev_limit_src": "ETC (Methods 4.3; consistent with survey limit dec > -30.45 deg, DERIVED); PTA assumes 10 deg for pulsar timing",
+ "bands": [
+  {
+   "name": "DSA 0.7-2 GHz",
+   "lo_GHz": 0.7,
+   "hi_GHz": 2.0,
+   "bw_GHz": 1.3,
+   "range_src": "ETC",
+   "bw_src": "OVW",
+   "bw_derived": "DERIVED: 2.00 - 0.70 = 1.30 GHz, covered instantaneously (OVW)",
+   "range_quote": "observing from 0.70 to 2.00 GHz in two linear polarizations.",
+   "bw_quote": "dishes instantaneously covering the 0.7 – 2 GHz frequency range",
+   "pol": "dual linear",
+   "continuum_windows_MHz": 130.2,
+   "n_continuum_windows": 10
+  }
+ ],
+ "bw_note": "bw_GHz = the whole 0.70-2.00 GHz band, covered instantaneously (OVW, PTA); the Radio Camera images it as ten 130.2-MHz continuum windows (ETC).",
+ "pb_relation": {
+  "fwhm_deg_x_GHz": 3.36,
+  "formula": "theta_PB[deg] = 3.36 / nu[GHz] (Gaussian model)",
+  "shape": "Gaussian",
+  "valid_GHz": [
+   0.7,
+   2.0
+  ],
+  "k_lambda_over_D": 1.204,
+  "k_note": "DERIVED with D = 6.155 m",
+  "src": "ETC",
+  "loc": "Methods 1.1 Array; DSA specifications table"
+ },
+ "configs": {
+  "FDR": {
+   "label": "dsa1650_P305_v2.5.6.8 (project baseline at the Final Design Review)",
+   "src": "ENU",
+   "n_ant": 1650,
+   "antennas": [
+    {
+     "name": "ant0001",
+     "e": 208.4,
+     "n": -1900.1,
+     "u": -23.6
+    },
+    {
+     "name": "ant0002",
+     "e": 249.4,
+     "n": -331.3,
+     "u": -13.3
+    },
+    {
+     "name": "ant0003",
+     "e": 223.5,
+     "n": -309.2,
+     "u": -13.3
+    },
+    {
+     "name": "ant0004",
+     "e": -154.8,
+     "n": -111.8,
+     "u": -10.3
+    },
+    {
+     "name": "ant0005",
+     "e": -267.0,
+     "n": -628.3,
+     "u": -14.4
+    },
+    {
+     "name": "ant0006",
+     "e": -93.7,
+     "n": -258.3,
+     "u": -12.3
+    },
+    {
+     "name": "ant0007",
+     "e": 432.4,
+     "n": -756.8,
+     "u": -16.4
+    },
+    {
+     "name": "ant0008",
+     "e": -360.1,
+     "n": -37.3,
+     "u": -12.3
+    },
+    {
+     "name": "ant0009",
+     "e": 318.7,
+     "n": -153.7,
+     "u": -11.3
+    },
+    {
+     "name": "ant0010",
+     "e": 56.0,
+     "n": 751.2,
+     "u": -14.4
+    },
+    {
+     "name": "ant0011",
+     "e": 705.7,
+     "n": -464.0,
+     "u": -13.4
+    },
+    {
+     "name": "ant0012",
+     "e": -321.7,
+     "n": -713.2,
+     "u": -19.4
+    },
+    {
+     "name": "ant0013",
+     "e": 98.8,
+     "n": -1000.4,
+     "u": -19.4
+    },
+    {
+     "name": "ant0014",
+     "e": 647.5,
+     "n": 497.4,
+     "u": -12.4
+    },
+    {
+     "name": "ant0015",
+     "e": -580.9,
+     "n": -90.7,
+     "u": -11.4
+    },
+    {
+     "name": "ant0016",
+     "e": 100.3,
+     "n": 919.9,
+     "u": -14.4
+    },
+    {
+     "name": "ant0017",
+     "e": 954.8,
+     "n": -487.3,
+     "u": -14.4
+    },
+    {
+     "name": "ant0018",
+     "e": 429.5,
+     "n": 1138.5,
+     "u": -12.4
+    },
+    {
+     "name": "ant0019",
+     "e": -629.4,
+     "n": -692.6,
+     "u": -15.4
+    },
+    {
+     "name": "ant0020",
+     "e": 867.0,
+     "n": -899.6,
+     "u": -18.5
+    },
+    {
+     "name": "ant0021",
+     "e": 686.0,
+     "n": -1237.6,
+     "u": -21.5
+    },
+    {
+     "name": "ant0022",
+     "e": 1161.6,
+     "n": 18.7,
+     "u": -14.4
+    },
+    {
+     "name": "ant0023",
+     "e": -783.2,
+     "n": -507.9,
+     "u": -13.4
+    },
+    {
+     "name": "ant0024",
+     "e": 79.8,
+     "n": -1733.8,
+     "u": -22.6
+    },
+    {
+     "name": "ant0025",
+     "e": -227.1,
+     "n": 1077.6,
+     "u": -9.4
+    },
+    {
+     "name": "ant0026",
+     "e": 557.3,
+     "n": -1220.1,
+     "u": -19.5
+    },
+    {
+     "name": "ant0027",
+     "e": -1369.4,
+     "n": 3104.9,
+     "u": -0.2
+    },
+    {
+     "name": "ant0028",
+     "e": -462.8,
+     "n": 757.0,
+     "u": -9.4
+    },
+    {
+     "name": "ant0029",
+     "e": 8432.4,
+     "n": 1432.6,
+     "u": 94.9
+    },
+    {
+     "name": "ant0030",
+     "e": 1786.8,
+     "n": 3610.3,
+     "u": 1.4
+    },
+    {
+     "name": "ant0031",
+     "e": -524.7,
+     "n": -1381.0,
+     "u": -21.5
+    },
+    {
+     "name": "ant0032",
+     "e": 1173.9,
+     "n": -853.1,
+     "u": -16.5
+    },
+    {
+     "name": "ant0033",
+     "e": -271.9,
+     "n": 1257.2,
+     "u": -9.5
+    },
+    {
+     "name": "ant0034",
+     "e": 333.7,
+     "n": -1949.6,
+     "u": -23.6
+    },
+    {
+     "name": "ant0035",
+     "e": 1251.1,
+     "n": -602.8,
+     "u": -15.5
+    },
+    {
+     "name": "ant0036",
+     "e": -572.2,
+     "n": 919.9,
+     "u": -9.4
+    },
+    {
+     "name": "ant0037",
+     "e": 666.2,
+     "n": 1142.1,
+     "u": -6.5
+    },
+    {
+     "name": "ant0038",
+     "e": 1077.2,
+     "n": -1445.3,
+     "u": -22.6
+    },
+    {
+     "name": "ant0039",
+     "e": -1143.4,
+     "n": -1107.4,
+     "u": -16.5
+    },
+    {
+     "name": "ant0040",
+     "e": -5788.9,
+     "n": -6441.8,
+     "u": -39.2
+    },
+    {
+     "name": "ant0041",
+     "e": -356.3,
+     "n": -1986.0,
+     "u": -23.7
+    },
+    {
+     "name": "ant0042",
+     "e": -1087.1,
+     "n": -796.6,
+     "u": -17.5
+    },
+    {
+     "name": "ant0043",
+     "e": 1272.4,
+     "n": -93.5,
+     "u": -12.5
+    },
+    {
+     "name": "ant0044",
+     "e": 1489.6,
+     "n": -1879.9,
+     "u": -22.8
+    },
+    {
+     "name": "ant0045",
+     "e": -1293.7,
+     "n": -609.1,
+     "u": -12.5
+    },
+    {
+     "name": "ant0046",
+     "e": 687.7,
+     "n": 1699.6,
+     "u": -9.6
+    },
+    {
+     "name": "ant0047",
+     "e": -852.7,
+     "n": -1405.3,
+     "u": -22.5
+    },
+    {
+     "name": "ant0048",
+     "e": 1640.8,
+     "n": -283.3,
+     "u": -14.5
+    },
+    {
+     "name": "ant0049",
+     "e": 900.3,
+     "n": -2196.7,
+     "u": -26.8
+    },
+    {
+     "name": "ant0050",
+     "e": -892.7,
+     "n": 1143.0,
+     "u": -12.5
+    },
+    {
+     "name": "ant0051",
+     "e": -502.8,
+     "n": 1283.0,
+     "u": -11.5
+    },
+    {
+     "name": "ant0052",
+     "e": -121.8,
+     "n": -2160.4,
+     "u": -22.7
+    },
+    {
+     "name": "ant0053",
+     "e": -3024.3,
+     "n": 2387.4,
+     "u": -2.5
+    },
+    {
+     "name": "ant0054",
+     "e": -622.0,
+     "n": -1937.2,
+     "u": -23.7
+    },
+    {
+     "name": "ant0055",
+     "e": -1069.3,
+     "n": 1139.3,
+     "u": -12.5
+    },
+    {
+     "name": "ant0056",
+     "e": 464.2,
+     "n": -2231.2,
+     "u": -24.7
+    },
+    {
+     "name": "ant0057",
+     "e": -1017.9,
+     "n": 1155.2,
+     "u": -12.5
+    },
+    {
+     "name": "ant0058",
+     "e": -790.2,
+     "n": 1684.1,
+     "u": -6.6
+    },
+    {
+     "name": "ant0059",
+     "e": 909.2,
+     "n": -2415.8,
+     "u": -28.9
+    },
+    {
+     "name": "ant0060",
+     "e": -1300.9,
+     "n": -1565.2,
+     "u": -19.7
+    },
+    {
+     "name": "ant0061",
+     "e": -547.7,
+     "n": -1997.6,
+     "u": -23.7
+    },
+    {
+     "name": "ant0062",
+     "e": 1703.2,
+     "n": -1222.4,
+     "u": -18.7
+    },
+    {
+     "name": "ant0063",
+     "e": -1549.4,
+     "n": -614.6,
+     "u": -15.6
+    },
+    {
+     "name": "ant0064",
+     "e": 844.7,
+     "n": 1761.9,
+     "u": -10.6
+    },
+    {
+     "name": "ant0065",
+     "e": 1300.8,
+     "n": -1812.1,
+     "u": -23.7
+    },
+    {
+     "name": "ant0066",
+     "e": 5889.6,
+     "n": 1878.2,
+     "u": 40.7
+    },
+    {
+     "name": "ant0067",
+     "e": 421.6,
+     "n": 2057.5,
+     "u": -8.7
+    },
+    {
+     "name": "ant0068",
+     "e": -175.9,
+     "n": 2282.7,
+     "u": -5.7
+    },
+    {
+     "name": "ant0069",
+     "e": -1063.8,
+     "n": -604.0,
+     "u": -13.5
+    },
+    {
+     "name": "ant0070",
+     "e": -526.9,
+     "n": -2151.0,
+     "u": -22.7
+    },
+    {
+     "name": "ant0071",
+     "e": 571.2,
+     "n": -2404.1,
+     "u": -26.8
+    },
+    {
+     "name": "ant0072",
+     "e": -1604.6,
+     "n": 891.3,
+     "u": -10.6
+    },
+    {
+     "name": "ant0073",
+     "e": -1521.2,
+     "n": -629.3,
+     "u": -15.5
+    },
+    {
+     "name": "ant0074",
+     "e": 1610.9,
+     "n": 1159.6,
+     "u": -9.6
+    },
+    {
+     "name": "ant0075",
+     "e": 1540.3,
+     "n": 1338.1,
+     "u": -10.7
+    },
+    {
+     "name": "ant0076",
+     "e": -956.6,
+     "n": -1976.6,
+     "u": -24.7
+    },
+    {
+     "name": "ant0077",
+     "e": -1572.2,
+     "n": -1137.7,
+     "u": -17.6
+    },
+    {
+     "name": "ant0078",
+     "e": -1350.0,
+     "n": 1046.7,
+     "u": -11.6
+    },
+    {
+     "name": "ant0079",
+     "e": 183.0,
+     "n": 2104.4,
+     "u": -6.7
+    },
+    {
+     "name": "ant0080",
+     "e": 2012.9,
+     "n": -226.7,
+     "u": -13.7
+    },
+    {
+     "name": "ant0081",
+     "e": -732.2,
+     "n": -2280.7,
+     "u": -25.8
+    },
+    {
+     "name": "ant0082",
+     "e": -385.5,
+     "n": 2042.9,
+     "u": -7.7
+    },
+    {
+     "name": "ant0083",
+     "e": -1679.7,
+     "n": -147.5,
+     "u": -11.6
+    },
+    {
+     "name": "ant0084",
+     "e": 8568.1,
+     "n": 316.6,
+     "u": 109.9
+    },
+    {
+     "name": "ant0085",
+     "e": -879.0,
+     "n": 1625.5,
+     "u": -11.6
+    },
+    {
+     "name": "ant0086",
+     "e": 469.9,
+     "n": 2005.2,
+     "u": -6.7
+    },
+    {
+     "name": "ant0087",
+     "e": 2155.5,
+     "n": -1224.5,
+     "u": -19.8
+    },
+    {
+     "name": "ant0088",
+     "e": 576.9,
+     "n": -2281.7,
+     "u": -24.8
+    },
+    {
+     "name": "ant0089",
+     "e": -1527.0,
+     "n": -1425.5,
+     "u": -20.7
+    },
+    {
+     "name": "ant0090",
+     "e": 2119.7,
+     "n": -963.2,
+     "u": -17.8
+    },
+    {
+     "name": "ant0091",
+     "e": 2005.0,
+     "n": 779.0,
+     "u": -9.7
+    },
+    {
+     "name": "ant0092",
+     "e": 1274.0,
+     "n": -2013.4,
+     "u": -23.8
+    },
+    {
+     "name": "ant0093",
+     "e": -6926.7,
+     "n": 3392.4,
+     "u": 15.0
+    },
+    {
+     "name": "ant0094",
+     "e": 671.8,
+     "n": 2254.2,
+     "u": -5.8
+    },
+    {
+     "name": "ant0095",
+     "e": 372.5,
+     "n": -2718.9,
+     "u": -28.9
+    },
+    {
+     "name": "ant0096",
+     "e": 1898.9,
+     "n": -1186.6,
+     "u": -18.7
+    },
+    {
+     "name": "ant0097",
+     "e": 1378.7,
+     "n": -2276.6,
+     "u": -27.9
+    },
+    {
+     "name": "ant0098",
+     "e": 994.7,
+     "n": 1827.1,
+     "u": -10.7
+    },
+    {
+     "name": "ant0099",
+     "e": -392.4,
+     "n": -2894.2,
+     "u": -26.0
+    },
+    {
+     "name": "ant0100",
+     "e": -1634.2,
+     "n": -652.6,
+     "u": -15.6
+    },
+    {
+     "name": "ant0101",
+     "e": 1859.8,
+     "n": 1362.1,
+     "u": -7.7
+    },
+    {
+     "name": "ant0102",
+     "e": -1220.2,
+     "n": -2105.3,
+     "u": -22.8
+    },
+    {
+     "name": "ant0103",
+     "e": -1814.5,
+     "n": -1155.5,
+     "u": -15.7
+    },
+    {
+     "name": "ant0104",
+     "e": -2027.6,
+     "n": 477.4,
+     "u": -9.7
+    },
+    {
+     "name": "ant0105",
+     "e": 2047.6,
+     "n": 215.0,
+     "u": -10.7
+    },
+    {
+     "name": "ant0106",
+     "e": -454.0,
+     "n": -2460.2,
+     "u": -28.8
+    },
+    {
+     "name": "ant0107",
+     "e": 179.6,
+     "n": 2525.9,
+     "u": -9.8
+    },
+    {
+     "name": "ant0108",
+     "e": -1166.8,
+     "n": 2303.8,
+     "u": -6.9
+    },
+    {
+     "name": "ant0109",
+     "e": 946.8,
+     "n": -2801.2,
+     "u": -31.0
+    },
+    {
+     "name": "ant0110",
+     "e": 1867.2,
+     "n": 1290.0,
+     "u": -7.7
+    },
+    {
+     "name": "ant0111",
+     "e": 4023.7,
+     "n": -9108.1,
+     "u": -16.1
+    },
+    {
+     "name": "ant0112",
+     "e": -1487.1,
+     "n": 1936.4,
+     "u": -7.8
+    },
+    {
+     "name": "ant0113",
+     "e": -1673.8,
+     "n": -1828.5,
+     "u": -21.8
+    },
+    {
+     "name": "ant0114",
+     "e": -1557.2,
+     "n": 755.5,
+     "u": -10.6
+    },
+    {
+     "name": "ant0115",
+     "e": 1776.6,
+     "n": 2097.2,
+     "u": -6.9
+    },
+    {
+     "name": "ant0116",
+     "e": 1398.9,
+     "n": -2435.8,
+     "u": -27.0
+    },
+    {
+     "name": "ant0117",
+     "e": 1990.3,
+     "n": -2018.7,
+     "u": -26.0
+    },
+    {
+     "name": "ant0118",
+     "e": -902.2,
+     "n": 1904.8,
+     "u": -6.7
+    },
+    {
+     "name": "ant0119",
+     "e": 1043.9,
+     "n": 2767.4,
+     "u": -3.0
+    },
+    {
+     "name": "ant0120",
+     "e": 227.5,
+     "n": -4073.7,
+     "u": -31.6
+    },
+    {
+     "name": "ant0121",
+     "e": -844.7,
+     "n": -2445.0,
+     "u": -28.9
+    },
+    {
+     "name": "ant0122",
+     "e": -1682.1,
+     "n": 1733.3,
+     "u": -7.8
+    },
+    {
+     "name": "ant0123",
+     "e": -2080.3,
+     "n": -728.6,
+     "u": -15.7
+    },
+    {
+     "name": "ant0124",
+     "e": 1388.3,
+     "n": -2586.5,
+     "u": -28.0
+    },
+    {
+     "name": "ant0125",
+     "e": -1417.4,
+     "n": -2305.0,
+     "u": -25.9
+    },
+    {
+     "name": "ant0126",
+     "e": -1751.8,
+     "n": 1114.6,
+     "u": -8.7
+    },
+    {
+     "name": "ant0127",
+     "e": -822.0,
+     "n": 2503.6,
+     "u": -7.9
+    },
+    {
+     "name": "ant0128",
+     "e": -78.4,
+     "n": 9977.4,
+     "u": 54.8
+    },
+    {
+     "name": "ant0129",
+     "e": 51.9,
+     "n": -3230.6,
+     "u": -32.2
+    },
+    {
+     "name": "ant0130",
+     "e": -2246.4,
+     "n": -247.3,
+     "u": -10.7
+    },
+    {
+     "name": "ant0131",
+     "e": -1881.8,
+     "n": 1504.1,
+     "u": -7.8
+    },
+    {
+     "name": "ant0132",
+     "e": 306.5,
+     "n": 2419.3,
+     "u": -5.8
+    },
+    {
+     "name": "ant0133",
+     "e": -114.5,
+     "n": -3113.6,
+     "u": -30.1
+    },
+    {
+     "name": "ant0134",
+     "e": 3564.2,
+     "n": -6962.3,
+     "u": -26.1
+    },
+    {
+     "name": "ant0135",
+     "e": 2336.4,
+     "n": -1167.7,
+     "u": -16.9
+    },
+    {
+     "name": "ant0136",
+     "e": -1896.1,
+     "n": -1572.8,
+     "u": -18.8
+    },
+    {
+     "name": "ant0137",
+     "e": -405.3,
+     "n": -2949.2,
+     "u": -26.0
+    },
+    {
+     "name": "ant0138",
+     "e": 655.6,
+     "n": -3151.8,
+     "u": -31.1
+    },
+    {
+     "name": "ant0139",
+     "e": 1213.0,
+     "n": -2816.8,
+     "u": -27.1
+    },
+    {
+     "name": "ant0140",
+     "e": 2535.7,
+     "n": -861.1,
+     "u": -18.9
+    },
+    {
+     "name": "ant0141",
+     "e": -1117.1,
+     "n": -2752.2,
+     "u": -31.0
+    },
+    {
+     "name": "ant0142",
+     "e": -448.7,
+     "n": 2723.9,
+     "u": -3.9
+    },
+    {
+     "name": "ant0143",
+     "e": -2216.4,
+     "n": 1169.4,
+     "u": -10.8
+    },
+    {
+     "name": "ant0144",
+     "e": -2095.1,
+     "n": -791.8,
+     "u": -15.7
+    },
+    {
+     "name": "ant0145",
+     "e": -1437.8,
+     "n": -2638.5,
+     "u": -29.0
+    },
+    {
+     "name": "ant0146",
+     "e": 1565.8,
+     "n": 2088.7,
+     "u": -8.9
+    },
+    {
+     "name": "ant0147",
+     "e": -737.1,
+     "n": -3412.2,
+     "u": -30.3
+    },
+    {
+     "name": "ant0148",
+     "e": 1966.2,
+     "n": 2108.5,
+     "u": -6.0
+    },
+    {
+     "name": "ant0149",
+     "e": 2563.2,
+     "n": -484.0,
+     "u": -13.9
+    },
+    {
+     "name": "ant0150",
+     "e": -170.6,
+     "n": 2702.1,
+     "u": -5.9
+    },
+    {
+     "name": "ant0151",
+     "e": -1399.5,
+     "n": 2333.2,
+     "u": -5.9
+    },
+    {
+     "name": "ant0152",
+     "e": 415.9,
+     "n": 1571.8,
+     "u": -11.5
+    },
+    {
+     "name": "ant0153",
+     "e": -3370.9,
+     "n": -7299.9,
+     "u": -42.4
+    },
+    {
+     "name": "ant0154",
+     "e": 40.8,
+     "n": -3465.3,
+     "u": -32.3
+    },
+    {
+     "name": "ant0155",
+     "e": 148.5,
+     "n": 1273.2,
+     "u": -11.5
+    },
+    {
+     "name": "ant0156",
+     "e": -2154.6,
+     "n": -158.2,
+     "u": -13.7
+    },
+    {
+     "name": "ant0157",
+     "e": -2989.1,
+     "n": -7643.5,
+     "u": -43.6
+    },
+    {
+     "name": "ant0158",
+     "e": -5922.7,
+     "n": 4515.7,
+     "u": 6.3
+    },
+    {
+     "name": "ant0159",
+     "e": -1635.8,
+     "n": -2371.7,
+     "u": -27.0
+    },
+    {
+     "name": "ant0160",
+     "e": -1099.9,
+     "n": -3081.4,
+     "u": -32.2
+    },
+    {
+     "name": "ant0161",
+     "e": 463.3,
+     "n": -3255.8,
+     "u": -29.2
+    },
+    {
+     "name": "ant0162",
+     "e": -714.8,
+     "n": 3134.8,
+     "u": -4.1
+    },
+    {
+     "name": "ant0163",
+     "e": 1513.1,
+     "n": -3145.1,
+     "u": -31.3
+    },
+    {
+     "name": "ant0164",
+     "e": -2149.0,
+     "n": 1354.1,
+     "u": -12.8
+    },
+    {
+     "name": "ant0165",
+     "e": 2617.0,
+     "n": -1348.5,
+     "u": -21.0
+    },
+    {
+     "name": "ant0166",
+     "e": -1367.6,
+     "n": 2547.0,
+     "u": -5.0
+    },
+    {
+     "name": "ant0167",
+     "e": -2645.4,
+     "n": -1248.9,
+     "u": -19.0
+    },
+    {
+     "name": "ant0168",
+     "e": 1037.0,
+     "n": 3140.1,
+     "u": 0.8
+    },
+    {
+     "name": "ant0169",
+     "e": -2215.4,
+     "n": -1458.4,
+     "u": -23.9
+    },
+    {
+     "name": "ant0170",
+     "e": 895.9,
+     "n": 3183.5,
+     "u": -1.2
+    },
+    {
+     "name": "ant0171",
+     "e": -2486.5,
+     "n": -894.4,
+     "u": -14.9
+    },
+    {
+     "name": "ant0172",
+     "e": -2065.6,
+     "n": -1661.1,
+     "u": -21.9
+    },
+    {
+     "name": "ant0173",
+     "e": -986.1,
+     "n": -3423.5,
+     "u": -28.3
+    },
+    {
+     "name": "ant0174",
+     "e": -152.6,
+     "n": 3172.4,
+     "u": -1.1
+    },
+    {
+     "name": "ant0175",
+     "e": 2121.8,
+     "n": 2046.2,
+     "u": -8.0
+    },
+    {
+     "name": "ant0176",
+     "e": -2347.8,
+     "n": 637.2,
+     "u": -11.8
+    },
+    {
+     "name": "ant0177",
+     "e": 2083.7,
+     "n": -2617.6,
+     "u": -28.2
+    },
+    {
+     "name": "ant0178",
+     "e": -1949.7,
+     "n": 1955.5,
+     "u": -7.9
+    },
+    {
+     "name": "ant0179",
+     "e": -85.7,
+     "n": 3417.0,
+     "u": -0.3
+    },
+    {
+     "name": "ant0180",
+     "e": 1523.1,
+     "n": 3390.5,
+     "u": 2.6
+    },
+    {
+     "name": "ant0181",
+     "e": 166.8,
+     "n": 3400.4,
+     "u": 2.8
+    },
+    {
+     "name": "ant0182",
+     "e": -2135.9,
+     "n": 1680.9,
+     "u": -6.9
+    },
+    {
+     "name": "ant0183",
+     "e": 2097.9,
+     "n": -2411.3,
+     "u": -24.1
+    },
+    {
+     "name": "ant0184",
+     "e": 871.0,
+     "n": -3683.0,
+     "u": -34.5
+    },
+    {
+     "name": "ant0185",
+     "e": -909.7,
+     "n": 2893.3,
+     "u": -4.1
+    },
+    {
+     "name": "ant0186",
+     "e": -1105.1,
+     "n": -3271.7,
+     "u": -28.3
+    },
+    {
+     "name": "ant0187",
+     "e": -2494.0,
+     "n": -154.3,
+     "u": -13.8
+    },
+    {
+     "name": "ant0188",
+     "e": 2840.4,
+     "n": -1050.6,
+     "u": -20.1
+    },
+    {
+     "name": "ant0189",
+     "e": -1607.2,
+     "n": -2818.8,
+     "u": -31.2
+    },
+    {
+     "name": "ant0190",
+     "e": -2303.9,
+     "n": 3444.6,
+     "u": -0.7
+    },
+    {
+     "name": "ant0191",
+     "e": -275.6,
+     "n": -3718.4,
+     "u": -32.4
+    },
+    {
+     "name": "ant0192",
+     "e": -532.8,
+     "n": -3619.6,
+     "u": -32.4
+    },
+    {
+     "name": "ant0193",
+     "e": 1979.1,
+     "n": 2932.9,
+     "u": -1.3
+    },
+    {
+     "name": "ant0194",
+     "e": -350.7,
+     "n": 9332.7,
+     "u": 42.8
+    },
+    {
+     "name": "ant0195",
+     "e": 3138.0,
+     "n": -307.8,
+     "u": -12.1
+    },
+    {
+     "name": "ant0196",
+     "e": -1723.2,
+     "n": 2239.5,
+     "u": -10.0
+    },
+    {
+     "name": "ant0197",
+     "e": -1209.9,
+     "n": -3321.7,
+     "u": -33.3
+    },
+    {
+     "name": "ant0198",
+     "e": -2404.1,
+     "n": 1638.9,
+     "u": -7.0
+    },
+    {
+     "name": "ant0199",
+     "e": 299.4,
+     "n": -3697.7,
+     "u": -32.4
+    },
+    {
+     "name": "ant0200",
+     "e": 1211.7,
+     "n": 3514.3,
+     "u": 1.6
+    },
+    {
+     "name": "ant0201",
+     "e": 2383.0,
+     "n": -2350.4,
+     "u": -28.2
+    },
+    {
+     "name": "ant0202",
+     "e": -2738.0,
+     "n": -701.1,
+     "u": -16.0
+    },
+    {
+     "name": "ant0203",
+     "e": 1940.9,
+     "n": -3087.4,
+     "u": -28.4
+    },
+    {
+     "name": "ant0204",
+     "e": -1136.4,
+     "n": 3168.8,
+     "u": -2.2
+    },
+    {
+     "name": "ant0205",
+     "e": -2426.9,
+     "n": -1731.0,
+     "u": -20.0
+    },
+    {
+     "name": "ant0206",
+     "e": 2456.6,
+     "n": -2647.6,
+     "u": -26.4
+    },
+    {
+     "name": "ant0207",
+     "e": 1439.3,
+     "n": 3072.9,
+     "u": -0.2
+    },
+    {
+     "name": "ant0208",
+     "e": 309.8,
+     "n": 3598.4,
+     "u": 2.6
+    },
+    {
+     "name": "ant0209",
+     "e": -979.2,
+     "n": 3171.4,
+     "u": -2.2
+    },
+    {
+     "name": "ant0210",
+     "e": -190.3,
+     "n": -4386.6,
+     "u": -36.8
+    },
+    {
+     "name": "ant0211",
+     "e": -2326.8,
+     "n": 1863.3,
+     "u": -9.0
+    },
+    {
+     "name": "ant0212",
+     "e": 1290.8,
+     "n": -3972.2,
+     "u": -31.7
+    },
+    {
+     "name": "ant0213",
+     "e": -1329.4,
+     "n": 5739.1,
+     "u": 9.9
+    },
+    {
+     "name": "ant0214",
+     "e": -2070.5,
+     "n": -2770.0,
+     "u": -26.3
+    },
+    {
+     "name": "ant0215",
+     "e": -1790.3,
+     "n": -3338.4,
+     "u": -31.5
+    },
+    {
+     "name": "ant0216",
+     "e": 2826.6,
+     "n": 2142.6,
+     "u": -0.3
+    },
+    {
+     "name": "ant0217",
+     "e": 3310.3,
+     "n": -426.2,
+     "u": -10.2
+    },
+    {
+     "name": "ant0218",
+     "e": -2982.3,
+     "n": -4316.5,
+     "u": -34.5
+    },
+    {
+     "name": "ant0219",
+     "e": 2252.7,
+     "n": 5649.2,
+     "u": 21.8
+    },
+    {
+     "name": "ant0220",
+     "e": 2229.9,
+     "n": 2758.5,
+     "u": -3.3
+    },
+    {
+     "name": "ant0221",
+     "e": -1102.2,
+     "n": -3924.7,
+     "u": -33.6
+    },
+    {
+     "name": "ant0222",
+     "e": -2754.0,
+     "n": -1902.3,
+     "u": -21.2
+    },
+    {
+     "name": "ant0223",
+     "e": 2720.4,
+     "n": 2418.9,
+     "u": -3.4
+    },
+    {
+     "name": "ant0224",
+     "e": -522.6,
+     "n": 4070.7,
+     "u": 6.3
+    },
+    {
+     "name": "ant0225",
+     "e": 353.9,
+     "n": -4610.2,
+     "u": -38.0
+    },
+    {
+     "name": "ant0226",
+     "e": -2762.6,
+     "n": 990.4,
+     "u": -11.0
+    },
+    {
+     "name": "ant0227",
+     "e": -1679.6,
+     "n": 2994.7,
+     "u": -5.3
+    },
+    {
+     "name": "ant0228",
+     "e": 990.7,
+     "n": 3660.7,
+     "u": 0.5
+    },
+    {
+     "name": "ant0229",
+     "e": -2891.6,
+     "n": -356.0,
+     "u": -13.0
+    },
+    {
+     "name": "ant0230",
+     "e": -2168.0,
+     "n": 1963.1,
+     "u": -7.0
+    },
+    {
+     "name": "ant0231",
+     "e": 93.6,
+     "n": 3865.5,
+     "u": 2.5
+    },
+    {
+     "name": "ant0232",
+     "e": -2184.7,
+     "n": 2471.2,
+     "u": -5.2
+    },
+    {
+     "name": "ant0233",
+     "e": -2577.2,
+     "n": -2738.8,
+     "u": -25.4
+    },
+    {
+     "name": "ant0234",
+     "e": -2703.0,
+     "n": 769.2,
+     "u": -13.0
+    },
+    {
+     "name": "ant0235",
+     "e": -2709.0,
+     "n": -1832.3,
+     "u": -21.2
+    },
+    {
+     "name": "ant0236",
+     "e": -1559.6,
+     "n": 3302.3,
+     "u": -0.4
+    },
+    {
+     "name": "ant0237",
+     "e": -2774.8,
+     "n": 318.0,
+     "u": -13.9
+    },
+    {
+     "name": "ant0238",
+     "e": 1642.1,
+     "n": 3481.9,
+     "u": 1.5
+    },
+    {
+     "name": "ant0239",
+     "e": -1494.9,
+     "n": 743.8,
+     "u": -13.6
+    },
+    {
+     "name": "ant0240",
+     "e": -375.0,
+     "n": 3841.8,
+     "u": 5.5
+    },
+    {
+     "name": "ant0241",
+     "e": 2439.4,
+     "n": -5615.9,
+     "u": -38.3
+    },
+    {
+     "name": "ant0242",
+     "e": -6665.8,
+     "n": 4488.5,
+     "u": 14.6
+    },
+    {
+     "name": "ant0243",
+     "e": 3210.7,
+     "n": -919.9,
+     "u": -19.2
+    },
+    {
+     "name": "ant0244",
+     "e": 85.0,
+     "n": 3854.9,
+     "u": 2.5
+    },
+    {
+     "name": "ant0245",
+     "e": 536.1,
+     "n": 3732.0,
+     "u": 3.6
+    },
+    {
+     "name": "ant0246",
+     "e": -5140.8,
+     "n": 971.1,
+     "u": -11.5
+    },
+    {
+     "name": "ant0247",
+     "e": -1342.5,
+     "n": 3491.3,
+     "u": -1.4
+    },
+    {
+     "name": "ant0248",
+     "e": -1057.1,
+     "n": 3835.0,
+     "u": 0.4
+    },
+    {
+     "name": "ant0249",
+     "e": 1993.6,
+     "n": -3614.3,
+     "u": -29.7
+    },
+    {
+     "name": "ant0250",
+     "e": 3372.3,
+     "n": 1123.6,
+     "u": -8.3
+    },
+    {
+     "name": "ant0251",
+     "e": 1438.7,
+     "n": -4004.7,
+     "u": -35.8
+    },
+    {
+     "name": "ant0252",
+     "e": -2198.0,
+     "n": -3146.1,
+     "u": -29.5
+    },
+    {
+     "name": "ant0253",
+     "e": 131.5,
+     "n": -4375.8,
+     "u": -34.8
+    },
+    {
+     "name": "ant0254",
+     "e": -3102.2,
+     "n": -371.6,
+     "u": -9.1
+    },
+    {
+     "name": "ant0255",
+     "e": -4356.6,
+     "n": 7502.8,
+     "u": 20.8
+    },
+    {
+     "name": "ant0256",
+     "e": -6427.6,
+     "n": 416.6,
+     "u": -11.6
+    },
+    {
+     "name": "ant0257",
+     "e": -2460.5,
+     "n": -2497.0,
+     "u": -25.3
+    },
+    {
+     "name": "ant0258",
+     "e": -2922.0,
+     "n": -1364.9,
+     "u": -20.1
+    },
+    {
+     "name": "ant0259",
+     "e": -535.3,
+     "n": 4038.2,
+     "u": 6.4
+    },
+    {
+     "name": "ant0260",
+     "e": 701.7,
+     "n": -4719.9,
+     "u": -36.1
+    },
+    {
+     "name": "ant0261",
+     "e": 2891.2,
+     "n": 2137.2,
+     "u": -0.3
+    },
+    {
+     "name": "ant0262",
+     "e": 2608.6,
+     "n": -2738.0,
+     "u": -26.5
+    },
+    {
+     "name": "ant0263",
+     "e": 2683.3,
+     "n": 2598.4,
+     "u": 0.6
+    },
+    {
+     "name": "ant0264",
+     "e": -3131.4,
+     "n": 1086.5,
+     "u": -12.2
+    },
+    {
+     "name": "ant0265",
+     "e": -2939.8,
+     "n": -1956.9,
+     "u": -23.3
+    },
+    {
+     "name": "ant0266",
+     "e": -6293.3,
+     "n": 5896.2,
+     "u": 9.8
+    },
+    {
+     "name": "ant0267",
+     "e": 1196.4,
+     "n": -4447.8,
+     "u": -35.0
+    },
+    {
+     "name": "ant0268",
+     "e": -1657.5,
+     "n": -5668.8,
+     "u": -37.1
+    },
+    {
+     "name": "ant0269",
+     "e": -3281.9,
+     "n": -125.0,
+     "u": -11.2
+    },
+    {
+     "name": "ant0270",
+     "e": -3030.5,
+     "n": 936.8,
+     "u": -15.1
+    },
+    {
+     "name": "ant0271",
+     "e": 3156.5,
+     "n": -2350.3,
+     "u": -25.5
+    },
+    {
+     "name": "ant0272",
+     "e": -2488.6,
+     "n": -3152.8,
+     "u": -29.6
+    },
+    {
+     "name": "ant0273",
+     "e": -655.5,
+     "n": -4459.4,
+     "u": -32.9
+    },
+    {
+     "name": "ant0274",
+     "e": -3362.6,
+     "n": -1734.6,
+     "u": -22.5
+    },
+    {
+     "name": "ant0275",
+     "e": -1976.9,
+     "n": 3383.8,
+     "u": -1.5
+    },
+    {
+     "name": "ant0276",
+     "e": 2979.4,
+     "n": 1949.5,
+     "u": -3.3
+    },
+    {
+     "name": "ant0277",
+     "e": -1711.8,
+     "n": 3118.4,
+     "u": 1.7
+    },
+    {
+     "name": "ant0278",
+     "e": 2047.5,
+     "n": -4288.3,
+     "u": -32.1
+    },
+    {
+     "name": "ant0279",
+     "e": 3442.4,
+     "n": -823.0,
+     "u": -16.3
+    },
+    {
+     "name": "ant0280",
+     "e": -2887.7,
+     "n": 1797.9,
+     "u": -7.2
+    },
+    {
+     "name": "ant0281",
+     "e": -1735.4,
+     "n": -3754.1,
+     "u": -31.7
+    },
+    {
+     "name": "ant0282",
+     "e": 3119.4,
+     "n": -2228.8,
+     "u": -26.5
+    },
+    {
+     "name": "ant0283",
+     "e": -3879.2,
+     "n": -1687.4,
+     "u": -16.7
+    },
+    {
+     "name": "ant0284",
+     "e": 2236.7,
+     "n": 3434.8,
+     "u": 1.3
+    },
+    {
+     "name": "ant0285",
+     "e": -1430.8,
+     "n": -4297.0,
+     "u": -33.9
+    },
+    {
+     "name": "ant0286",
+     "e": -3543.7,
+     "n": -475.5,
+     "u": -11.3
+    },
+    {
+     "name": "ant0287",
+     "e": 5.3,
+     "n": -4615.2,
+     "u": -36.0
+    },
+    {
+     "name": "ant0288",
+     "e": 2697.9,
+     "n": -3359.7,
+     "u": -27.8
+    },
+    {
+     "name": "ant0289",
+     "e": -1164.1,
+     "n": 4224.3,
+     "u": 3.2
+    },
+    {
+     "name": "ant0290",
+     "e": -2831.4,
+     "n": -2872.0,
+     "u": -27.6
+    },
+    {
+     "name": "ant0291",
+     "e": 1992.8,
+     "n": 6018.8,
+     "u": 23.5
+    },
+    {
+     "name": "ant0292",
+     "e": -2288.3,
+     "n": 3106.4,
+     "u": 0.5
+    },
+    {
+     "name": "ant0293",
+     "e": 605.4,
+     "n": 4378.5,
+     "u": 1.1
+    },
+    {
+     "name": "ant0294",
+     "e": -2616.5,
+     "n": 2805.7,
+     "u": -0.5
+    },
+    {
+     "name": "ant0295",
+     "e": 426.4,
+     "n": -4558.5,
+     "u": -35.0
+    },
+    {
+     "name": "ant0296",
+     "e": -7813.7,
+     "n": -597.4,
+     "u": 1.9
+    },
+    {
+     "name": "ant0297",
+     "e": -2159.1,
+     "n": -3118.4,
+     "u": -29.5
+    },
+    {
+     "name": "ant0298",
+     "e": -2591.7,
+     "n": 6272.0,
+     "u": 13.1
+    },
+    {
+     "name": "ant0299",
+     "e": 5975.6,
+     "n": 2419.7,
+     "u": 43.4
+    },
+    {
+     "name": "ant0300",
+     "e": 2616.2,
+     "n": -3706.0,
+     "u": -31.9
+    },
+    {
+     "name": "ant0301",
+     "e": -1445.2,
+     "n": -4541.4,
+     "u": -35.1
+    },
+    {
+     "name": "ant0302",
+     "e": -2752.1,
+     "n": 2381.3,
+     "u": -5.4
+    },
+    {
+     "name": "ant0303",
+     "e": -3060.5,
+     "n": -2555.2,
+     "u": -24.6
+    },
+    {
+     "name": "ant0304",
+     "e": 3856.8,
+     "n": -1327.7,
+     "u": -17.6
+    },
+    {
+     "name": "ant0305",
+     "e": 1725.8,
+     "n": -4469.4,
+     "u": -36.1
+    },
+    {
+     "name": "ant0306",
+     "e": 1228.3,
+     "n": -4606.5,
+     "u": -36.1
+    },
+    {
+     "name": "ant0307",
+     "e": 425.3,
+     "n": -4993.3,
+     "u": -36.3
+    },
+    {
+     "name": "ant0308",
+     "e": -3557.0,
+     "n": 543.1,
+     "u": -10.3
+    },
+    {
+     "name": "ant0309",
+     "e": -3765.0,
+     "n": -522.8,
+     "u": -14.5
+    },
+    {
+     "name": "ant0310",
+     "e": -3432.7,
+     "n": 338.1,
+     "u": -11.3
+    },
+    {
+     "name": "ant0311",
+     "e": -311.0,
+     "n": 4272.5,
+     "u": 3.2
+    },
+    {
+     "name": "ant0312",
+     "e": -3670.9,
+     "n": 761.5,
+     "u": -8.4
+    },
+    {
+     "name": "ant0313",
+     "e": -2597.0,
+     "n": -3210.4,
+     "u": -31.7
+    },
+    {
+     "name": "ant0314",
+     "e": 7420.3,
+     "n": -347.3,
+     "u": 62.3
+    },
+    {
+     "name": "ant0315",
+     "e": -3440.4,
+     "n": -1519.4,
+     "u": -22.4
+    },
+    {
+     "name": "ant0316",
+     "e": -3657.2,
+     "n": -927.0,
+     "u": -20.4
+    },
+    {
+     "name": "ant0317",
+     "e": 3473.8,
+     "n": -3098.8,
+     "u": -34.0
+    },
+    {
+     "name": "ant0318",
+     "e": -910.1,
+     "n": -4769.1,
+     "u": -34.2
+    },
+    {
+     "name": "ant0319",
+     "e": 1839.6,
+     "n": 80.6,
+     "u": -12.6
+    },
+    {
+     "name": "ant0320",
+     "e": 1876.4,
+     "n": 4352.9,
+     "u": 3.9
+    },
+    {
+     "name": "ant0321",
+     "e": 2125.3,
+     "n": -4283.3,
+     "u": -35.1
+    },
+    {
+     "name": "ant0322",
+     "e": -1176.7,
+     "n": -4714.4,
+     "u": -34.2
+    },
+    {
+     "name": "ant0323",
+     "e": -2638.7,
+     "n": -3747.7,
+     "u": -32.0
+    },
+    {
+     "name": "ant0324",
+     "e": -2811.8,
+     "n": 2306.8,
+     "u": -4.4
+    },
+    {
+     "name": "ant0325",
+     "e": 3467.2,
+     "n": -1972.0,
+     "u": -23.6
+    },
+    {
+     "name": "ant0326",
+     "e": -1312.0,
+     "n": 4390.1,
+     "u": 3.0
+    },
+    {
+     "name": "ant0327",
+     "e": 3900.2,
+     "n": -630.2,
+     "u": -9.6
+    },
+    {
+     "name": "ant0328",
+     "e": -2217.7,
+     "n": -4016.1,
+     "u": -34.0
+    },
+    {
+     "name": "ant0329",
+     "e": 3057.1,
+     "n": 3721.6,
+     "u": 11.8
+    },
+    {
+     "name": "ant0330",
+     "e": 1314.2,
+     "n": 4806.5,
+     "u": 4.7
+    },
+    {
+     "name": "ant0331",
+     "e": 970.2,
+     "n": 4716.2,
+     "u": 6.8
+    },
+    {
+     "name": "ant0332",
+     "e": 488.0,
+     "n": 5001.1,
+     "u": 7.7
+    },
+    {
+     "name": "ant0333",
+     "e": 3335.7,
+     "n": 2656.8,
+     "u": 7.2
+    },
+    {
+     "name": "ant0334",
+     "e": 3478.7,
+     "n": 2264.5,
+     "u": 5.3
+    },
+    {
+     "name": "ant0335",
+     "e": 2880.1,
+     "n": 3070.5,
+     "u": 4.3
+    },
+    {
+     "name": "ant0336",
+     "e": -854.4,
+     "n": 4970.0,
+     "u": 6.7
+    },
+    {
+     "name": "ant0337",
+     "e": -3455.6,
+     "n": 1652.1,
+     "u": -4.5
+    },
+    {
+     "name": "ant0338",
+     "e": -2166.9,
+     "n": 3746.3,
+     "u": 0.2
+    },
+    {
+     "name": "ant0339",
+     "e": -2846.8,
+     "n": -8173.5,
+     "u": -43.2
+    },
+    {
+     "name": "ant0340",
+     "e": 2724.0,
+     "n": 3648.9,
+     "u": 8.0
+    },
+    {
+     "name": "ant0341",
+     "e": 1463.7,
+     "n": -5106.8,
+     "u": -38.5
+    },
+    {
+     "name": "ant0342",
+     "e": -3599.8,
+     "n": 1224.1,
+     "u": -8.5
+    },
+    {
+     "name": "ant0343",
+     "e": -2.1,
+     "n": 4686.2,
+     "u": 2.9
+    },
+    {
+     "name": "ant0344",
+     "e": 2967.7,
+     "n": 4571.2,
+     "u": 14.3
+    },
+    {
+     "name": "ant0345",
+     "e": -1570.9,
+     "n": 4287.6,
+     "u": 2.0
+    },
+    {
+     "name": "ant0346",
+     "e": -1114.8,
+     "n": -4798.5,
+     "u": -34.2
+    },
+    {
+     "name": "ant0347",
+     "e": 2617.2,
+     "n": -3829.5,
+     "u": -32.0
+    },
+    {
+     "name": "ant0348",
+     "e": -3597.3,
+     "n": -1877.4,
+     "u": -22.6
+    },
+    {
+     "name": "ant0349",
+     "e": -2255.9,
+     "n": 4231.8,
+     "u": 3.9
+    },
+    {
+     "name": "ant0350",
+     "e": -2063.9,
+     "n": -3968.1,
+     "u": -33.9
+    },
+    {
+     "name": "ant0351",
+     "e": -3570.6,
+     "n": -449.7,
+     "u": -11.3
+    },
+    {
+     "name": "ant0352",
+     "e": -434.7,
+     "n": 4775.8,
+     "u": 2.9
+    },
+    {
+     "name": "ant0353",
+     "e": -2155.8,
+     "n": 3978.9,
+     "u": -0.9
+    },
+    {
+     "name": "ant0354",
+     "e": 2060.5,
+     "n": -4902.3,
+     "u": -34.6
+    },
+    {
+     "name": "ant0355",
+     "e": 3754.8,
+     "n": 1834.4,
+     "u": 1.3
+    },
+    {
+     "name": "ant0356",
+     "e": 2936.6,
+     "n": -3344.0,
+     "u": -30.9
+    },
+    {
+     "name": "ant0357",
+     "e": 198.6,
+     "n": -5297.9,
+     "u": -34.5
+    },
+    {
+     "name": "ant0358",
+     "e": -442.8,
+     "n": -3186.9,
+     "u": -30.1
+    },
+    {
+     "name": "ant0359",
+     "e": -6491.6,
+     "n": 2484.5,
+     "u": 0.9
+    },
+    {
+     "name": "ant0360",
+     "e": 797.7,
+     "n": -5353.5,
+     "u": -35.6
+    },
+    {
+     "name": "ant0361",
+     "e": -3807.6,
+     "n": 456.8,
+     "u": -11.5
+    },
+    {
+     "name": "ant0362",
+     "e": 363.8,
+     "n": 4745.9,
+     "u": 4.9
+    },
+    {
+     "name": "ant0363",
+     "e": -1044.6,
+     "n": 4875.0,
+     "u": 1.7
+    },
+    {
+     "name": "ant0364",
+     "e": -3673.4,
+     "n": -812.4,
+     "u": -17.4
+    },
+    {
+     "name": "ant0365",
+     "e": -2646.4,
+     "n": -4020.5,
+     "u": -32.2
+    },
+    {
+     "name": "ant0366",
+     "e": -3958.1,
+     "n": 225.2,
+     "u": -10.6
+    },
+    {
+     "name": "ant0367",
+     "e": 4014.6,
+     "n": -295.8,
+     "u": -11.6
+    },
+    {
+     "name": "ant0368",
+     "e": 1056.5,
+     "n": -5287.0,
+     "u": -36.6
+    },
+    {
+     "name": "ant0369",
+     "e": -3603.6,
+     "n": 1184.5,
+     "u": -8.5
+    },
+    {
+     "name": "ant0370",
+     "e": -2046.2,
+     "n": 2706.8,
+     "u": -1.2
+    },
+    {
+     "name": "ant0371",
+     "e": -1558.6,
+     "n": 4776.5,
+     "u": 0.7
+    },
+    {
+     "name": "ant0372",
+     "e": -3138.3,
+     "n": -3387.5,
+     "u": -29.0
+    },
+    {
+     "name": "ant0373",
+     "e": 1404.6,
+     "n": 4559.1,
+     "u": 2.9
+    },
+    {
+     "name": "ant0374",
+     "e": -3435.4,
+     "n": 1944.0,
+     "u": -4.6
+    },
+    {
+     "name": "ant0375",
+     "e": -3943.8,
+     "n": -434.6,
+     "u": -16.6
+    },
+    {
+     "name": "ant0376",
+     "e": 3379.8,
+     "n": 2960.0,
+     "u": 10.1
+    },
+    {
+     "name": "ant0377",
+     "e": -3802.9,
+     "n": -2126.9,
+     "u": -24.8
+    },
+    {
+     "name": "ant0378",
+     "e": 4037.7,
+     "n": -185.2,
+     "u": -9.6
+    },
+    {
+     "name": "ant0379",
+     "e": 3340.6,
+     "n": 3249.9,
+     "u": 15.0
+    },
+    {
+     "name": "ant0380",
+     "e": 3062.9,
+     "n": -4395.1,
+     "u": -34.6
+    },
+    {
+     "name": "ant0381",
+     "e": -1842.9,
+     "n": -5155.8,
+     "u": -36.7
+    },
+    {
+     "name": "ant0382",
+     "e": 371.8,
+     "n": 5438.7,
+     "u": 10.3
+    },
+    {
+     "name": "ant0383",
+     "e": 3619.3,
+     "n": -3059.7,
+     "u": -33.1
+    },
+    {
+     "name": "ant0384",
+     "e": -1868.5,
+     "n": 4460.6,
+     "u": 3.8
+    },
+    {
+     "name": "ant0385",
+     "e": -706.4,
+     "n": -5382.0,
+     "u": -36.6
+    },
+    {
+     "name": "ant0386",
+     "e": 4046.2,
+     "n": 1230.3,
+     "u": -0.7
+    },
+    {
+     "name": "ant0387",
+     "e": -1549.3,
+     "n": -5009.0,
+     "u": -34.5
+    },
+    {
+     "name": "ant0388",
+     "e": 4294.0,
+     "n": 181.6,
+     "u": -3.8
+    },
+    {
+     "name": "ant0389",
+     "e": -1514.1,
+     "n": 4539.6,
+     "u": 1.9
+    },
+    {
+     "name": "ant0390",
+     "e": 3824.5,
+     "n": 2254.5,
+     "u": 9.1
+    },
+    {
+     "name": "ant0391",
+     "e": 1480.2,
+     "n": 5143.5,
+     "u": 11.4
+    },
+    {
+     "name": "ant0392",
+     "e": -209.4,
+     "n": -4934.9,
+     "u": -37.2
+    },
+    {
+     "name": "ant0393",
+     "e": -3377.2,
+     "n": 2942.2,
+     "u": 0.1
+    },
+    {
+     "name": "ant0394",
+     "e": 1768.7,
+     "n": -5000.9,
+     "u": -35.5
+    },
+    {
+     "name": "ant0395",
+     "e": 4050.7,
+     "n": -1777.6,
+     "u": -22.9
+    },
+    {
+     "name": "ant0396",
+     "e": -1001.5,
+     "n": -5571.6,
+     "u": -37.9
+    },
+    {
+     "name": "ant0397",
+     "e": -2199.2,
+     "n": -4639.7,
+     "u": -36.4
+    },
+    {
+     "name": "ant0398",
+     "e": -2474.8,
+     "n": -4424.2,
+     "u": -35.4
+    },
+    {
+     "name": "ant0399",
+     "e": 4190.0,
+     "n": -2311.6,
+     "u": -25.1
+    },
+    {
+     "name": "ant0400",
+     "e": 2406.0,
+     "n": -4663.3,
+     "u": -37.5
+    },
+    {
+     "name": "ant0401",
+     "e": 807.2,
+     "n": -5412.4,
+     "u": -35.7
+    },
+    {
+     "name": "ant0402",
+     "e": -185.4,
+     "n": -5770.2,
+     "u": -37.0
+    },
+    {
+     "name": "ant0403",
+     "e": -2563.6,
+     "n": 4338.1,
+     "u": 3.7
+    },
+    {
+     "name": "ant0404",
+     "e": 3189.2,
+     "n": 3881.7,
+     "u": 11.7
+    },
+    {
+     "name": "ant0405",
+     "e": 1398.3,
+     "n": -5378.0,
+     "u": -37.8
+    },
+    {
+     "name": "ant0406",
+     "e": 951.4,
+     "n": 4876.3,
+     "u": 6.7
+    },
+    {
+     "name": "ant0407",
+     "e": 3949.6,
+     "n": 2819.4,
+     "u": 18.8
+    },
+    {
+     "name": "ant0408",
+     "e": -187.3,
+     "n": 5438.8,
+     "u": 10.3
+    },
+    {
+     "name": "ant0409",
+     "e": 1690.3,
+     "n": -5316.1,
+     "u": -35.8
+    },
+    {
+     "name": "ant0410",
+     "e": 3978.8,
+     "n": -2892.7,
+     "u": -28.2
+    },
+    {
+     "name": "ant0411",
+     "e": -4490.7,
+     "n": 2942.5,
+     "u": -1.6
+    },
+    {
+     "name": "ant0412",
+     "e": 1928.7,
+     "n": 4799.8,
+     "u": 8.6
+    },
+    {
+     "name": "ant0413",
+     "e": 1391.0,
+     "n": 4481.9,
+     "u": 2.9
+    },
+    {
+     "name": "ant0414",
+     "e": 3108.0,
+     "n": 3638.2,
+     "u": 11.9
+    },
+    {
+     "name": "ant0415",
+     "e": 3878.1,
+     "n": 1968.3,
+     "u": 6.2
+    },
+    {
+     "name": "ant0416",
+     "e": -3900.1,
+     "n": -1981.0,
+     "u": -26.8
+    },
+    {
+     "name": "ant0417",
+     "e": -3821.1,
+     "n": 1878.7,
+     "u": -5.8
+    },
+    {
+     "name": "ant0418",
+     "e": -3865.0,
+     "n": -1437.2,
+     "u": -21.7
+    },
+    {
+     "name": "ant0419",
+     "e": -3065.6,
+     "n": 3830.4,
+     "u": 1.8
+    },
+    {
+     "name": "ant0420",
+     "e": -4086.5,
+     "n": 1005.5,
+     "u": -9.7
+    },
+    {
+     "name": "ant0421",
+     "e": 2343.0,
+     "n": -4972.3,
+     "u": -37.7
+    },
+    {
+     "name": "ant0422",
+     "e": 1208.2,
+     "n": 5362.7,
+     "u": 15.3
+    },
+    {
+     "name": "ant0423",
+     "e": 2382.6,
+     "n": 4278.8,
+     "u": 7.8
+    },
+    {
+     "name": "ant0424",
+     "e": 1714.9,
+     "n": 4436.8,
+     "u": 5.9
+    },
+    {
+     "name": "ant0425",
+     "e": 4357.3,
+     "n": 787.5,
+     "u": 0.1
+    },
+    {
+     "name": "ant0426",
+     "e": 3973.3,
+     "n": 1704.0,
+     "u": 5.2
+    },
+    {
+     "name": "ant0427",
+     "e": 8098.2,
+     "n": -417.1,
+     "u": 103.5
+    },
+    {
+     "name": "ant0428",
+     "e": -3216.9,
+     "n": 3626.5,
+     "u": -1.2
+    },
+    {
+     "name": "ant0429",
+     "e": -3467.7,
+     "n": -3934.9,
+     "u": -33.5
+    },
+    {
+     "name": "ant0430",
+     "e": -1923.2,
+     "n": 4994.9,
+     "u": 4.4
+    },
+    {
+     "name": "ant0431",
+     "e": -3509.6,
+     "n": -3192.3,
+     "u": -28.1
+    },
+    {
+     "name": "ant0432",
+     "e": 4279.2,
+     "n": -1820.2,
+     "u": -20.0
+    },
+    {
+     "name": "ant0433",
+     "e": 117.0,
+     "n": -5862.7,
+     "u": -36.0
+    },
+    {
+     "name": "ant0434",
+     "e": 4470.3,
+     "n": -876.3,
+     "u": -13.0
+    },
+    {
+     "name": "ant0435",
+     "e": -2188.3,
+     "n": -10008.2,
+     "u": -53.6
+    },
+    {
+     "name": "ant0436",
+     "e": -7311.4,
+     "n": -416.3,
+     "u": 0.5
+    },
+    {
+     "name": "ant0437",
+     "e": 4659.8,
+     "n": 48.3,
+     "u": -1.0
+    },
+    {
+     "name": "ant0438",
+     "e": 3839.2,
+     "n": -2707.1,
+     "u": -28.1
+    },
+    {
+     "name": "ant0439",
+     "e": 1207.4,
+     "n": 5448.4,
+     "u": 15.2
+    },
+    {
+     "name": "ant0440",
+     "e": -2540.1,
+     "n": 4131.0,
+     "u": 0.8
+    },
+    {
+     "name": "ant0441",
+     "e": -2213.8,
+     "n": -4998.5,
+     "u": -35.7
+    },
+    {
+     "name": "ant0442",
+     "e": 216.3,
+     "n": -6209.9,
+     "u": -41.4
+    },
+    {
+     "name": "ant0443",
+     "e": 4436.6,
+     "n": 1312.8,
+     "u": 9.0
+    },
+    {
+     "name": "ant0444",
+     "e": 2693.9,
+     "n": -4909.8,
+     "u": -37.8
+    },
+    {
+     "name": "ant0445",
+     "e": -902.4,
+     "n": 5226.6,
+     "u": 5.5
+    },
+    {
+     "name": "ant0446",
+     "e": -1404.7,
+     "n": -5703.3,
+     "u": -36.0
+    },
+    {
+     "name": "ant0447",
+     "e": -3836.4,
+     "n": 2795.4,
+     "u": -2.1
+    },
+    {
+     "name": "ant0448",
+     "e": 3723.7,
+     "n": 2934.1,
+     "u": 16.9
+    },
+    {
+     "name": "ant0449",
+     "e": 1610.1,
+     "n": 5203.5,
+     "u": 14.3
+    },
+    {
+     "name": "ant0450",
+     "e": 1844.2,
+     "n": -5519.3,
+     "u": -38.0
+    },
+    {
+     "name": "ant0451",
+     "e": 850.2,
+     "n": -5843.2,
+     "u": -37.1
+    },
+    {
+     "name": "ant0452",
+     "e": -299.5,
+     "n": -7260.2,
+     "u": -41.5
+    },
+    {
+     "name": "ant0453",
+     "e": -385.7,
+     "n": 5355.9,
+     "u": 10.4
+    },
+    {
+     "name": "ant0454",
+     "e": -4257.5,
+     "n": 1035.6,
+     "u": -10.8
+    },
+    {
+     "name": "ant0455",
+     "e": 2568.6,
+     "n": 4715.6,
+     "u": 13.4
+    },
+    {
+     "name": "ant0456",
+     "e": -3019.4,
+     "n": -3992.2,
+     "u": -32.3
+    },
+    {
+     "name": "ant0457",
+     "e": -1659.5,
+     "n": -5742.9,
+     "u": -37.1
+    },
+    {
+     "name": "ant0458",
+     "e": 589.4,
+     "n": 5446.7,
+     "u": 9.3
+    },
+    {
+     "name": "ant0459",
+     "e": -4029.6,
+     "n": -1134.7,
+     "u": -15.7
+    },
+    {
+     "name": "ant0460",
+     "e": -3903.1,
+     "n": 1475.3,
+     "u": -7.7
+    },
+    {
+     "name": "ant0461",
+     "e": 3891.9,
+     "n": -3364.3,
+     "u": -31.4
+    },
+    {
+     "name": "ant0462",
+     "e": -2308.8,
+     "n": -7781.0,
+     "u": -41.5
+    },
+    {
+     "name": "ant0463",
+     "e": 3353.6,
+     "n": 4307.6,
+     "u": 22.3
+    },
+    {
+     "name": "ant0464",
+     "e": 3775.0,
+     "n": 3439.8,
+     "u": 20.6
+    },
+    {
+     "name": "ant0465",
+     "e": -4188.2,
+     "n": -2247.1,
+     "u": -24.1
+    },
+    {
+     "name": "ant0466",
+     "e": -5197.2,
+     "n": -4140.5,
+     "u": -31.8
+    },
+    {
+     "name": "ant0467",
+     "e": 4305.6,
+     "n": 2283.3,
+     "u": 13.8
+    },
+    {
+     "name": "ant0468",
+     "e": -3564.9,
+     "n": 3451.2,
+     "u": -0.3
+    },
+    {
+     "name": "ant0469",
+     "e": -711.4,
+     "n": -6436.9,
+     "u": -39.6
+    },
+    {
+     "name": "ant0470",
+     "e": -3170.0,
+     "n": 4145.4,
+     "u": 1.5
+    },
+    {
+     "name": "ant0471",
+     "e": -4122.5,
+     "n": 2055.0,
+     "u": -3.0
+    },
+    {
+     "name": "ant0472",
+     "e": -1249.0,
+     "n": -6109.4,
+     "u": -39.4
+    },
+    {
+     "name": "ant0473",
+     "e": 2172.3,
+     "n": -5550.7,
+     "u": -39.1
+    },
+    {
+     "name": "ant0474",
+     "e": 372.6,
+     "n": 5510.7,
+     "u": 10.3
+    },
+    {
+     "name": "ant0475",
+     "e": -4673.7,
+     "n": -1222.6,
+     "u": -18.2
+    },
+    {
+     "name": "ant0476",
+     "e": 781.3,
+     "n": -6133.2,
+     "u": -39.3
+    },
+    {
+     "name": "ant0477",
+     "e": -342.8,
+     "n": -6176.6,
+     "u": -39.3
+    },
+    {
+     "name": "ant0478",
+     "e": -3190.7,
+     "n": 4027.2,
+     "u": 1.6
+    },
+    {
+     "name": "ant0479",
+     "e": 4580.3,
+     "n": -1941.3,
+     "u": -24.3
+    },
+    {
+     "name": "ant0480",
+     "e": 5900.6,
+     "n": -3251.2,
+     "u": 25.1
+    },
+    {
+     "name": "ant0481",
+     "e": 4003.8,
+     "n": -2903.5,
+     "u": -28.2
+    },
+    {
+     "name": "ant0482",
+     "e": -2920.3,
+     "n": -3971.9,
+     "u": -33.2
+    },
+    {
+     "name": "ant0483",
+     "e": -505.9,
+     "n": 5783.9,
+     "u": 11.0
+    },
+    {
+     "name": "ant0484",
+     "e": -2697.3,
+     "n": 4582.7,
+     "u": 3.4
+    },
+    {
+     "name": "ant0485",
+     "e": 1321.9,
+     "n": -1200.3,
+     "u": -19.6
+    },
+    {
+     "name": "ant0486",
+     "e": -914.9,
+     "n": 1290.7,
+     "u": -9.5
+    },
+    {
+     "name": "ant0487",
+     "e": 1529.2,
+     "n": 5564.6,
+     "u": 17.1
+    },
+    {
+     "name": "ant0488",
+     "e": -4350.4,
+     "n": -911.4,
+     "u": -17.9
+    },
+    {
+     "name": "ant0489",
+     "e": 26.5,
+     "n": -6585.9,
+     "u": -40.7
+    },
+    {
+     "name": "ant0490",
+     "e": -2042.0,
+     "n": -5606.0,
+     "u": -36.1
+    },
+    {
+     "name": "ant0491",
+     "e": 3152.7,
+     "n": -4504.1,
+     "u": -34.7
+    },
+    {
+     "name": "ant0492",
+     "e": -2531.0,
+     "n": -5237.3,
+     "u": -35.0
+    },
+    {
+     "name": "ant0493",
+     "e": -954.4,
+     "n": 5824.3,
+     "u": 15.9
+    },
+    {
+     "name": "ant0494",
+     "e": 4925.2,
+     "n": 413.7,
+     "u": 4.8
+    },
+    {
+     "name": "ant0495",
+     "e": 544.8,
+     "n": -3955.8,
+     "u": -32.6
+    },
+    {
+     "name": "ant0496",
+     "e": 4738.7,
+     "n": 1400.8,
+     "u": 10.8
+    },
+    {
+     "name": "ant0497",
+     "e": -1120.2,
+     "n": 5825.0,
+     "u": 14.9
+    },
+    {
+     "name": "ant0498",
+     "e": 1506.7,
+     "n": -5787.4,
+     "u": -40.1
+    },
+    {
+     "name": "ant0499",
+     "e": -1898.0,
+     "n": 5350.5,
+     "u": 8.1
+    },
+    {
+     "name": "ant0500",
+     "e": -3983.4,
+     "n": 3106.4,
+     "u": 0.7
+    },
+    {
+     "name": "ant0501",
+     "e": 2072.1,
+     "n": -5819.5,
+     "u": -39.3
+    },
+    {
+     "name": "ant0502",
+     "e": 3785.5,
+     "n": 4009.4,
+     "u": 29.3
+    },
+    {
+     "name": "ant0503",
+     "e": -4534.7,
+     "n": 106.8,
+     "u": -10.9
+    },
+    {
+     "name": "ant0504",
+     "e": 2948.8,
+     "n": 4517.9,
+     "u": 14.4
+    },
+    {
+     "name": "ant0505",
+     "e": 2651.3,
+     "n": 5208.7,
+     "u": 24.0
+    },
+    {
+     "name": "ant0506",
+     "e": 6015.2,
+     "n": -2918.5,
+     "u": 8.2
+    },
+    {
+     "name": "ant0507",
+     "e": -2649.2,
+     "n": -4924.2,
+     "u": -35.8
+    },
+    {
+     "name": "ant0508",
+     "e": -3410.3,
+     "n": 3980.8,
+     "u": -0.5
+    },
+    {
+     "name": "ant0509",
+     "e": -3857.9,
+     "n": -4045.1,
+     "u": -31.8
+    },
+    {
+     "name": "ant0510",
+     "e": -4944.5,
+     "n": 35.3,
+     "u": -11.2
+    },
+    {
+     "name": "ant0511",
+     "e": 4014.9,
+     "n": 3362.1,
+     "u": 23.5
+    },
+    {
+     "name": "ant0512",
+     "e": -3921.7,
+     "n": -3651.6,
+     "u": -32.6
+    },
+    {
+     "name": "ant0513",
+     "e": -4203.6,
+     "n": -2919.8,
+     "u": -28.4
+    },
+    {
+     "name": "ant0514",
+     "e": 5058.2,
+     "n": -1628.5,
+     "u": -20.5
+    },
+    {
+     "name": "ant0515",
+     "e": -2317.7,
+     "n": 5110.8,
+     "u": 4.2
+    },
+    {
+     "name": "ant0516",
+     "e": -4583.7,
+     "n": -661.9,
+     "u": -14.0
+    },
+    {
+     "name": "ant0517",
+     "e": -4843.3,
+     "n": -1508.0,
+     "u": -21.3
+    },
+    {
+     "name": "ant0518",
+     "e": 4687.5,
+     "n": 2946.2,
+     "u": 26.3
+    },
+    {
+     "name": "ant0519",
+     "e": -4736.9,
+     "n": -783.6,
+     "u": -11.1
+    },
+    {
+     "name": "ant0520",
+     "e": 92.2,
+     "n": -2575.4,
+     "u": -28.9
+    },
+    {
+     "name": "ant0521",
+     "e": 4412.1,
+     "n": 2608.0,
+     "u": 20.6
+    },
+    {
+     "name": "ant0522",
+     "e": 4766.1,
+     "n": 201.0,
+     "u": 2.9
+    },
+    {
+     "name": "ant0523",
+     "e": 2137.6,
+     "n": 5570.2,
+     "u": 19.9
+    },
+    {
+     "name": "ant0524",
+     "e": 609.1,
+     "n": 6260.4,
+     "u": 15.6
+    },
+    {
+     "name": "ant0525",
+     "e": -973.9,
+     "n": -6604.7,
+     "u": -41.8
+    },
+    {
+     "name": "ant0526",
+     "e": 5119.4,
+     "n": 1608.2,
+     "u": 20.4
+    },
+    {
+     "name": "ant0527",
+     "e": -3833.7,
+     "n": 3245.9,
+     "u": 0.7
+    },
+    {
+     "name": "ant0528",
+     "e": -4609.3,
+     "n": -1619.8,
+     "u": -22.2
+    },
+    {
+     "name": "ant0529",
+     "e": 3991.5,
+     "n": 4311.1,
+     "u": 34.0
+    },
+    {
+     "name": "ant0530",
+     "e": 6208.9,
+     "n": -1336.8,
+     "u": 13.5
+    },
+    {
+     "name": "ant0531",
+     "e": 1202.7,
+     "n": 6055.2,
+     "u": 22.7
+    },
+    {
+     "name": "ant0532",
+     "e": 4709.1,
+     "n": -2850.1,
+     "u": -28.7
+    },
+    {
+     "name": "ant0533",
+     "e": 5065.1,
+     "n": -551.9,
+     "u": -8.4
+    },
+    {
+     "name": "ant0534",
+     "e": -5891.8,
+     "n": 6383.3,
+     "u": 13.7
+    },
+    {
+     "name": "ant0535",
+     "e": -2792.8,
+     "n": 4972.8,
+     "u": 3.1
+    },
+    {
+     "name": "ant0536",
+     "e": 5096.7,
+     "n": 368.5,
+     "u": 7.6
+    },
+    {
+     "name": "ant0537",
+     "e": -4452.0,
+     "n": 1879.1,
+     "u": -6.2
+    },
+    {
+     "name": "ant0538",
+     "e": 1330.8,
+     "n": 5996.0,
+     "u": 18.7
+    },
+    {
+     "name": "ant0539",
+     "e": 388.2,
+     "n": 6818.4,
+     "u": 19.0
+    },
+    {
+     "name": "ant0540",
+     "e": -2143.7,
+     "n": -5889.5,
+     "u": -36.4
+    },
+    {
+     "name": "ant0541",
+     "e": -144.4,
+     "n": -6702.0,
+     "u": -41.9
+    },
+    {
+     "name": "ant0542",
+     "e": 2820.7,
+     "n": 5392.0,
+     "u": 24.8
+    },
+    {
+     "name": "ant0543",
+     "e": 3478.2,
+     "n": -5041.0,
+     "u": -33.3
+    },
+    {
+     "name": "ant0544",
+     "e": -4851.4,
+     "n": 6574.2,
+     "u": 11.4
+    },
+    {
+     "name": "ant0545",
+     "e": 1692.6,
+     "n": 6065.7,
+     "u": 27.6
+    },
+    {
+     "name": "ant0546",
+     "e": 3370.3,
+     "n": 4493.7,
+     "u": 26.2
+    },
+    {
+     "name": "ant0547",
+     "e": -155.2,
+     "n": 6501.5,
+     "u": 11.3
+    },
+    {
+     "name": "ant0548",
+     "e": -2014.2,
+     "n": 5667.1,
+     "u": 11.8
+    },
+    {
+     "name": "ant0549",
+     "e": -4956.8,
+     "n": 364.0,
+     "u": -14.3
+    },
+    {
+     "name": "ant0550",
+     "e": 4690.4,
+     "n": 3044.1,
+     "u": 26.2
+    },
+    {
+     "name": "ant0551",
+     "e": -2766.0,
+     "n": 5536.4,
+     "u": 10.7
+    },
+    {
+     "name": "ant0552",
+     "e": 3898.4,
+     "n": 3592.4,
+     "u": 24.5
+    },
+    {
+     "name": "ant0553",
+     "e": 3102.7,
+     "n": 5093.5,
+     "u": 24.9
+    },
+    {
+     "name": "ant0554",
+     "e": 4338.8,
+     "n": 3380.6,
+     "u": 29.3
+    },
+    {
+     "name": "ant0555",
+     "e": 1691.1,
+     "n": -6202.8,
+     "u": -38.6
+    },
+    {
+     "name": "ant0556",
+     "e": -3227.3,
+     "n": 4752.3,
+     "u": 5.1
+    },
+    {
+     "name": "ant0557",
+     "e": -571.4,
+     "n": -6373.8,
+     "u": -39.6
+    },
+    {
+     "name": "ant0558",
+     "e": 921.7,
+     "n": -6546.7,
+     "u": -38.8
+    },
+    {
+     "name": "ant0559",
+     "e": -1279.0,
+     "n": -6475.2,
+     "u": -39.8
+    },
+    {
+     "name": "ant0560",
+     "e": -2618.9,
+     "n": 5177.6,
+     "u": 5.0
+    },
+    {
+     "name": "ant0561",
+     "e": 2964.2,
+     "n": -5211.1,
+     "u": -37.2
+    },
+    {
+     "name": "ant0562",
+     "e": -3707.8,
+     "n": 4149.6,
+     "u": 1.2
+    },
+    {
+     "name": "ant0563",
+     "e": 4839.4,
+     "n": 2224.7,
+     "u": 19.4
+    },
+    {
+     "name": "ant0564",
+     "e": 308.7,
+     "n": 6396.9,
+     "u": 15.4
+    },
+    {
+     "name": "ant0565",
+     "e": 5204.9,
+     "n": -790.9,
+     "u": -6.5
+    },
+    {
+     "name": "ant0566",
+     "e": -3858.1,
+     "n": -4512.7,
+     "u": -34.1
+    },
+    {
+     "name": "ant0567",
+     "e": -4845.4,
+     "n": 917.3,
+     "u": -11.2
+    },
+    {
+     "name": "ant0568",
+     "e": 3680.9,
+     "n": -2548.0,
+     "u": -29.9
+    },
+    {
+     "name": "ant0569",
+     "e": -4088.8,
+     "n": -3886.1,
+     "u": -32.8
+    },
+    {
+     "name": "ant0570",
+     "e": -4382.3,
+     "n": -3441.0,
+     "u": -29.8
+    },
+    {
+     "name": "ant0571",
+     "e": -3867.2,
+     "n": 4344.6,
+     "u": 4.0
+    },
+    {
+     "name": "ant0572",
+     "e": 2401.9,
+     "n": 6006.7,
+     "u": 29.4
+    },
+    {
+     "name": "ant0573",
+     "e": -4763.5,
+     "n": 2593.5,
+     "u": -2.6
+    },
+    {
+     "name": "ant0574",
+     "e": 1063.6,
+     "n": 6461.5,
+     "u": 22.3
+    },
+    {
+     "name": "ant0575",
+     "e": 5096.8,
+     "n": 1581.4,
+     "u": 20.4
+    },
+    {
+     "name": "ant0576",
+     "e": -5193.7,
+     "n": -1036.8,
+     "u": -14.5
+    },
+    {
+     "name": "ant0577",
+     "e": 1028.1,
+     "n": 6508.6,
+     "u": 25.3
+    },
+    {
+     "name": "ant0578",
+     "e": -2199.9,
+     "n": -5692.3,
+     "u": -37.3
+    },
+    {
+     "name": "ant0579",
+     "e": -1087.5,
+     "n": -6579.1,
+     "u": -41.8
+    },
+    {
+     "name": "ant0580",
+     "e": -6807.5,
+     "n": -2121.1,
+     "u": -20.3
+    },
+    {
+     "name": "ant0581",
+     "e": 2277.3,
+     "n": -6252.4,
+     "u": -38.8
+    },
+    {
+     "name": "ant0582",
+     "e": -3112.7,
+     "n": -5238.6,
+     "u": -39.2
+    },
+    {
+     "name": "ant0583",
+     "e": -363.2,
+     "n": 9982.6,
+     "u": 51.8
+    },
+    {
+     "name": "ant0584",
+     "e": 2844.8,
+     "n": -5828.5,
+     "u": -35.6
+    },
+    {
+     "name": "ant0585",
+     "e": 246.4,
+     "n": -6819.0,
+     "u": -40.0
+    },
+    {
+     "name": "ant0586",
+     "e": 692.9,
+     "n": 6862.7,
+     "u": 25.9
+    },
+    {
+     "name": "ant0587",
+     "e": 2476.0,
+     "n": 2657.8,
+     "u": -0.4
+    },
+    {
+     "name": "ant0588",
+     "e": 3881.7,
+     "n": -4960.0,
+     "u": -30.4
+    },
+    {
+     "name": "ant0589",
+     "e": -4258.6,
+     "n": 3769.5,
+     "u": -0.9
+    },
+    {
+     "name": "ant0590",
+     "e": 1915.2,
+     "n": 6491.4,
+     "u": 40.1
+    },
+    {
+     "name": "ant0591",
+     "e": -3870.4,
+     "n": -4543.9,
+     "u": -34.1
+    },
+    {
+     "name": "ant0592",
+     "e": 4780.9,
+     "n": -3240.2,
+     "u": -28.9
+    },
+    {
+     "name": "ant0593",
+     "e": -4348.9,
+     "n": -3153.3,
+     "u": -29.6
+    },
+    {
+     "name": "ant0594",
+     "e": 5221.7,
+     "n": -2316.5,
+     "u": -21.9
+    },
+    {
+     "name": "ant0595",
+     "e": 1901.4,
+     "n": -6261.2,
+     "u": -37.7
+    },
+    {
+     "name": "ant0596",
+     "e": 692.1,
+     "n": -7038.1,
+     "u": -40.3
+    },
+    {
+     "name": "ant0597",
+     "e": -1658.0,
+     "n": -6942.2,
+     "u": -41.3
+    },
+    {
+     "name": "ant0598",
+     "e": -5230.2,
+     "n": 834.5,
+     "u": -11.5
+    },
+    {
+     "name": "ant0599",
+     "e": 515.4,
+     "n": -6982.1,
+     "u": -41.2
+    },
+    {
+     "name": "ant0600",
+     "e": 648.6,
+     "n": -2288.6,
+     "u": -23.8
+    },
+    {
+     "name": "ant0601",
+     "e": 2205.1,
+     "n": 6458.5,
+     "u": 42.0
+    },
+    {
+     "name": "ant0602",
+     "e": -676.0,
+     "n": -6891.5,
+     "u": -39.1
+    },
+    {
+     "name": "ant0603",
+     "e": -2574.5,
+     "n": -5735.7,
+     "u": -41.4
+    },
+    {
+     "name": "ant0604",
+     "e": 6483.0,
+     "n": -537.4,
+     "u": 31.4
+    },
+    {
+     "name": "ant0605",
+     "e": -5324.4,
+     "n": -1389.5,
+     "u": -20.7
+    },
+    {
+     "name": "ant0606",
+     "e": -5089.7,
+     "n": 36.9,
+     "u": -9.4
+    },
+    {
+     "name": "ant0607",
+     "e": 852.2,
+     "n": -6677.6,
+     "u": -38.9
+    },
+    {
+     "name": "ant0608",
+     "e": -4374.0,
+     "n": 3855.3,
+     "u": 4.0
+    },
+    {
+     "name": "ant0609",
+     "e": 2831.0,
+     "n": 5563.9,
+     "u": 24.6
+    },
+    {
+     "name": "ant0610",
+     "e": 2701.6,
+     "n": 5936.1,
+     "u": 37.3
+    },
+    {
+     "name": "ant0611",
+     "e": -2903.3,
+     "n": -5582.3,
+     "u": -37.4
+    },
+    {
+     "name": "ant0612",
+     "e": 1059.3,
+     "n": 6639.0,
+     "u": 25.1
+    },
+    {
+     "name": "ant0613",
+     "e": 5166.8,
+     "n": 3589.5,
+     "u": 42.6
+    },
+    {
+     "name": "ant0614",
+     "e": 5253.3,
+     "n": 2456.1,
+     "u": 31.0
+    },
+    {
+     "name": "ant0615",
+     "e": -606.3,
+     "n": 6576.8,
+     "u": 13.2
+    },
+    {
+     "name": "ant0616",
+     "e": -3421.8,
+     "n": 4974.0,
+     "u": 3.8
+    },
+    {
+     "name": "ant0617",
+     "e": -4886.3,
+     "n": 2182.4,
+     "u": -5.6
+    },
+    {
+     "name": "ant0618",
+     "e": -972.7,
+     "n": -6895.5,
+     "u": -40.1
+    },
+    {
+     "name": "ant0619",
+     "e": -2672.7,
+     "n": 5658.2,
+     "u": 13.6
+    },
+    {
+     "name": "ant0620",
+     "e": 5384.2,
+     "n": -1906.2,
+     "u": -16.9
+    },
+    {
+     "name": "ant0621",
+     "e": 2567.8,
+     "n": -6772.2,
+     "u": -42.5
+    },
+    {
+     "name": "ant0622",
+     "e": 4704.9,
+     "n": -4071.1,
+     "u": -32.4
+    },
+    {
+     "name": "ant0623",
+     "e": 4167.8,
+     "n": 4041.9,
+     "u": 34.0
+    },
+    {
+     "name": "ant0624",
+     "e": 3232.7,
+     "n": -5906.2,
+     "u": -35.9
+    },
+    {
+     "name": "ant0625",
+     "e": 531.5,
+     "n": 6590.3,
+     "u": 20.2
+    },
+    {
+     "name": "ant0626",
+     "e": -2060.5,
+     "n": 2533.3,
+     "u": -5.2
+    },
+    {
+     "name": "ant0627",
+     "e": 5533.7,
+     "n": -1730.1,
+     "u": -11.0
+    },
+    {
+     "name": "ant0628",
+     "e": -2153.5,
+     "n": -6997.5,
+     "u": -40.5
+    },
+    {
+     "name": "ant0629",
+     "e": -5099.3,
+     "n": -2743.7,
+     "u": -26.0
+    },
+    {
+     "name": "ant0630",
+     "e": 3761.6,
+     "n": -5314.2,
+     "u": -23.7
+    },
+    {
+     "name": "ant0631",
+     "e": -5487.1,
+     "n": -199.5,
+     "u": -15.7
+    },
+    {
+     "name": "ant0632",
+     "e": -5104.2,
+     "n": -2166.5,
+     "u": -23.7
+    },
+    {
+     "name": "ant0633",
+     "e": 5046.4,
+     "n": -2914.1,
+     "u": -22.0
+    },
+    {
+     "name": "ant0634",
+     "e": -2675.6,
+     "n": -6269.3,
+     "u": -39.0
+    },
+    {
+     "name": "ant0635",
+     "e": 5704.9,
+     "n": -948.3,
+     "u": 4.0
+    },
+    {
+     "name": "ant0636",
+     "e": 9.9,
+     "n": -7105.1,
+     "u": -39.3
+    },
+    {
+     "name": "ant0637",
+     "e": -3512.9,
+     "n": 5039.6,
+     "u": 4.7
+    },
+    {
+     "name": "ant0638",
+     "e": -2335.9,
+     "n": -6713.6,
+     "u": -42.3
+    },
+    {
+     "name": "ant0639",
+     "e": -4734.8,
+     "n": 1911.0,
+     "u": -2.4
+    },
+    {
+     "name": "ant0640",
+     "e": -4839.3,
+     "n": 1495.5,
+     "u": -5.3
+    },
+    {
+     "name": "ant0641",
+     "e": -3405.0,
+     "n": -5147.2,
+     "u": -38.3
+    },
+    {
+     "name": "ant0642",
+     "e": 1802.4,
+     "n": 6499.6,
+     "u": 35.1
+    },
+    {
+     "name": "ant0643",
+     "e": 1621.8,
+     "n": -7107.9,
+     "u": -42.5
+    },
+    {
+     "name": "ant0644",
+     "e": -1453.9,
+     "n": 6856.1,
+     "u": 16.8
+    },
+    {
+     "name": "ant0645",
+     "e": 5290.0,
+     "n": 2140.2,
+     "u": 28.1
+    },
+    {
+     "name": "ant0646",
+     "e": 2843.5,
+     "n": -6619.1,
+     "u": -37.4
+    },
+    {
+     "name": "ant0647",
+     "e": 1783.2,
+     "n": -7261.3,
+     "u": -40.7
+    },
+    {
+     "name": "ant0648",
+     "e": -4256.0,
+     "n": 4236.0,
+     "u": 4.8
+    },
+    {
+     "name": "ant0649",
+     "e": -4358.0,
+     "n": -4619.5,
+     "u": -37.5
+    },
+    {
+     "name": "ant0650",
+     "e": 5753.2,
+     "n": -2447.8,
+     "u": -10.4
+    },
+    {
+     "name": "ant0651",
+     "e": 5647.2,
+     "n": 1344.5,
+     "u": 28.0
+    },
+    {
+     "name": "ant0652",
+     "e": -3782.8,
+     "n": 4756.8,
+     "u": 4.8
+    },
+    {
+     "name": "ant0653",
+     "e": -4804.4,
+     "n": 2535.3,
+     "u": -1.6
+    },
+    {
+     "name": "ant0654",
+     "e": -5133.8,
+     "n": -1901.8,
+     "u": -22.7
+    },
+    {
+     "name": "ant0655",
+     "e": 3670.0,
+     "n": -5286.8,
+     "u": -28.6
+    },
+    {
+     "name": "ant0656",
+     "e": 4733.7,
+     "n": 3491.8,
+     "u": 31.0
+    },
+    {
+     "name": "ant0657",
+     "e": -5455.1,
+     "n": 514.4,
+     "u": -11.7
+    },
+    {
+     "name": "ant0658",
+     "e": -4143.0,
+     "n": 4427.5,
+     "u": 3.8
+    },
+    {
+     "name": "ant0659",
+     "e": -5514.4,
+     "n": -665.8,
+     "u": -12.7
+    },
+    {
+     "name": "ant0660",
+     "e": -5412.6,
+     "n": -1552.7,
+     "u": -20.8
+    },
+    {
+     "name": "ant0661",
+     "e": 5294.5,
+     "n": 2251.9,
+     "u": 28.1
+    },
+    {
+     "name": "ant0662",
+     "e": 2483.1,
+     "n": 2633.6,
+     "u": -0.4
+    },
+    {
+     "name": "ant0663",
+     "e": 2730.5,
+     "n": 6469.6,
+     "u": 50.8
+    },
+    {
+     "name": "ant0664",
+     "e": 3458.9,
+     "n": 5511.6,
+     "u": 40.3
+    },
+    {
+     "name": "ant0665",
+     "e": -5298.5,
+     "n": -1356.7,
+     "u": -16.7
+    },
+    {
+     "name": "ant0666",
+     "e": 2023.0,
+     "n": -6833.1,
+     "u": -41.3
+    },
+    {
+     "name": "ant0667",
+     "e": 4636.1,
+     "n": 3751.9,
+     "u": 34.9
+    },
+    {
+     "name": "ant0668",
+     "e": 4956.9,
+     "n": 3481.3,
+     "u": 37.8
+    },
+    {
+     "name": "ant0669",
+     "e": -1773.7,
+     "n": 6800.8,
+     "u": 12.8
+    },
+    {
+     "name": "ant0670",
+     "e": -3313.4,
+     "n": -9552.0,
+     "u": -49.4
+    },
+    {
+     "name": "ant0671",
+     "e": -2768.5,
+     "n": -6008.0,
+     "u": -41.8
+    },
+    {
+     "name": "ant0672",
+     "e": -3373.6,
+     "n": 3417.4,
+     "u": -0.1
+    },
+    {
+     "name": "ant0673",
+     "e": -187.3,
+     "n": 6970.0,
+     "u": 16.8
+    },
+    {
+     "name": "ant0674",
+     "e": -3769.8,
+     "n": -5184.4,
+     "u": -36.6
+    },
+    {
+     "name": "ant0675",
+     "e": 3561.7,
+     "n": -6429.8,
+     "u": -31.6
+    },
+    {
+     "name": "ant0676",
+     "e": 2495.6,
+     "n": -6925.7,
+     "u": -42.6
+    },
+    {
+     "name": "ant0677",
+     "e": 5608.1,
+     "n": -1004.1,
+     "u": -2.9
+    },
+    {
+     "name": "ant0678",
+     "e": -5241.0,
+     "n": 1001.1,
+     "u": -11.6
+    },
+    {
+     "name": "ant0679",
+     "e": 587.3,
+     "n": 7322.9,
+     "u": 27.4
+    },
+    {
+     "name": "ant0680",
+     "e": 5485.9,
+     "n": -3010.5,
+     "u": -5.4
+    },
+    {
+     "name": "ant0681",
+     "e": 5203.9,
+     "n": 3207.4,
+     "u": 34.7
+    },
+    {
+     "name": "ant0682",
+     "e": 647.5,
+     "n": 7230.6,
+     "u": 29.5
+    },
+    {
+     "name": "ant0683",
+     "e": -561.1,
+     "n": -7574.5,
+     "u": -42.9
+    },
+    {
+     "name": "ant0684",
+     "e": -3805.9,
+     "n": -5212.9,
+     "u": -36.6
+    },
+    {
+     "name": "ant0685",
+     "e": 5053.4,
+     "n": -3816.4,
+     "u": -20.5
+    },
+    {
+     "name": "ant0686",
+     "e": -5066.6,
+     "n": -2949.8,
+     "u": -29.0
+    },
+    {
+     "name": "ant0687",
+     "e": -1314.2,
+     "n": -7308.5,
+     "u": -41.7
+    },
+    {
+     "name": "ant0688",
+     "e": 1813.0,
+     "n": 6938.7,
+     "u": 46.6
+    },
+    {
+     "name": "ant0689",
+     "e": -3507.7,
+     "n": -5959.5,
+     "u": -39.1
+    },
+    {
+     "name": "ant0690",
+     "e": -443.7,
+     "n": 7287.3,
+     "u": 18.5
+    },
+    {
+     "name": "ant0691",
+     "e": -1519.6,
+     "n": -1021.3,
+     "u": -16.6
+    },
+    {
+     "name": "ant0692",
+     "e": 3676.1,
+     "n": 5261.5,
+     "u": 40.4
+    },
+    {
+     "name": "ant0693",
+     "e": -3798.1,
+     "n": 4906.1,
+     "u": 4.6
+    },
+    {
+     "name": "ant0694",
+     "e": -17.3,
+     "n": -7671.2,
+     "u": -45.0
+    },
+    {
+     "name": "ant0695",
+     "e": -4569.1,
+     "n": -4087.9,
+     "u": -34.3
+    },
+    {
+     "name": "ant0696",
+     "e": -3360.3,
+     "n": 5615.7,
+     "u": 14.3
+    },
+    {
+     "name": "ant0697",
+     "e": 1918.5,
+     "n": -7220.3,
+     "u": -43.7
+    },
+    {
+     "name": "ant0698",
+     "e": 628.1,
+     "n": -7746.6,
+     "u": -42.1
+    },
+    {
+     "name": "ant0699",
+     "e": -2450.2,
+     "n": -6869.0,
+     "u": -41.5
+    },
+    {
+     "name": "ant0700",
+     "e": 2746.0,
+     "n": 6423.8,
+     "u": 50.8
+    },
+    {
+     "name": "ant0701",
+     "e": -5535.9,
+     "n": -2086.6,
+     "u": -24.1
+    },
+    {
+     "name": "ant0702",
+     "e": 5632.4,
+     "n": -2617.3,
+     "u": -17.4
+    },
+    {
+     "name": "ant0703",
+     "e": 3868.5,
+     "n": -5997.5,
+     "u": -29.3
+    },
+    {
+     "name": "ant0704",
+     "e": 660.2,
+     "n": -7522.4,
+     "u": -40.8
+    },
+    {
+     "name": "ant0705",
+     "e": -1719.6,
+     "n": -7131.7,
+     "u": -41.6
+    },
+    {
+     "name": "ant0706",
+     "e": -2813.0,
+     "n": 6282.7,
+     "u": 10.9
+    },
+    {
+     "name": "ant0707",
+     "e": 5926.9,
+     "n": -193.7,
+     "u": 16.9
+    },
+    {
+     "name": "ant0708",
+     "e": 4503.9,
+     "n": 4640.6,
+     "u": 46.4
+    },
+    {
+     "name": "ant0709",
+     "e": -5230.5,
+     "n": 2977.7,
+     "u": -2.2
+    },
+    {
+     "name": "ant0710",
+     "e": -4675.1,
+     "n": 3764.2,
+     "u": 0.8
+    },
+    {
+     "name": "ant0711",
+     "e": -91.8,
+     "n": 7358.0,
+     "u": 20.4
+    },
+    {
+     "name": "ant0712",
+     "e": -2498.2,
+     "n": 6525.4,
+     "u": 15.8
+    },
+    {
+     "name": "ant0713",
+     "e": 4359.5,
+     "n": 4440.8,
+     "u": 42.6
+    },
+    {
+     "name": "ant0714",
+     "e": 5663.3,
+     "n": -1243.4,
+     "u": 2.0
+    },
+    {
+     "name": "ant0715",
+     "e": -3994.6,
+     "n": 4832.2,
+     "u": 2.6
+    },
+    {
+     "name": "ant0716",
+     "e": 5720.5,
+     "n": 1420.4,
+     "u": 32.9
+    },
+    {
+     "name": "ant0717",
+     "e": 6235.5,
+     "n": 714.5,
+     "u": 40.6
+    },
+    {
+     "name": "ant0718",
+     "e": -1663.0,
+     "n": -923.2,
+     "u": -16.6
+    },
+    {
+     "name": "ant0719",
+     "e": -545.6,
+     "n": 7344.6,
+     "u": 18.4
+    },
+    {
+     "name": "ant0720",
+     "e": 1763.7,
+     "n": -5228.4,
+     "u": -36.7
+    },
+    {
+     "name": "ant0721",
+     "e": 2367.3,
+     "n": 6958.1,
+     "u": 59.4
+    },
+    {
+     "name": "ant0722",
+     "e": 5298.5,
+     "n": 2526.6,
+     "u": 31.0
+    },
+    {
+     "name": "ant0723",
+     "e": -4907.6,
+     "n": -8386.6,
+     "u": -43.7
+    },
+    {
+     "name": "ant0724",
+     "e": 2764.0,
+     "n": -6995.6,
+     "u": -41.8
+    },
+    {
+     "name": "ant0725",
+     "e": -958.7,
+     "n": -7870.9,
+     "u": -43.3
+    },
+    {
+     "name": "ant0726",
+     "e": 766.3,
+     "n": -7606.4,
+     "u": -40.9
+    },
+    {
+     "name": "ant0727",
+     "e": -5612.0,
+     "n": 381.2,
+     "u": -11.8
+    },
+    {
+     "name": "ant0728",
+     "e": 5788.1,
+     "n": -4696.3,
+     "u": 65.3
+    },
+    {
+     "name": "ant0729",
+     "e": -3628.8,
+     "n": 7618.0,
+     "u": 20.1
+    },
+    {
+     "name": "ant0730",
+     "e": -5594.3,
+     "n": 1292.7,
+     "u": -9.9
+    },
+    {
+     "name": "ant0731",
+     "e": 5765.3,
+     "n": -1747.8,
+     "u": -11.2
+    },
+    {
+     "name": "ant0732",
+     "e": 898.2,
+     "n": -10057.9,
+     "u": -49.3
+    },
+    {
+     "name": "ant0733",
+     "e": 3383.6,
+     "n": -6582.6,
+     "u": -35.6
+    },
+    {
+     "name": "ant0734",
+     "e": 1268.1,
+     "n": 7365.8,
+     "u": 38.3
+    },
+    {
+     "name": "ant0735",
+     "e": -4544.7,
+     "n": -4830.6,
+     "u": -36.8
+    },
+    {
+     "name": "ant0736",
+     "e": 3651.2,
+     "n": 5934.3,
+     "u": 57.9
+    },
+    {
+     "name": "ant0737",
+     "e": -931.1,
+     "n": -7492.4,
+     "u": -44.8
+    },
+    {
+     "name": "ant0738",
+     "e": -2335.6,
+     "n": 6880.4,
+     "u": 15.5
+    },
+    {
+     "name": "ant0739",
+     "e": 3801.4,
+     "n": -5403.7,
+     "u": -23.8
+    },
+    {
+     "name": "ant0740",
+     "e": 3884.4,
+     "n": 5649.9,
+     "u": 58.0
+    },
+    {
+     "name": "ant0741",
+     "e": -2885.5,
+     "n": -6627.7,
+     "u": -41.4
+    },
+    {
+     "name": "ant0742",
+     "e": -204.6,
+     "n": -7718.2,
+     "u": -41.0
+    },
+    {
+     "name": "ant0743",
+     "e": -5637.2,
+     "n": -1281.9,
+     "u": -15.9
+    },
+    {
+     "name": "ant0744",
+     "e": 5658.5,
+     "n": -3130.2,
+     "u": -5.6
+    },
+    {
+     "name": "ant0745",
+     "e": -4041.7,
+     "n": -5730.3,
+     "u": -38.2
+    },
+    {
+     "name": "ant0746",
+     "e": 1924.1,
+     "n": -7689.4,
+     "u": -43.3
+    },
+    {
+     "name": "ant0747",
+     "e": 75.5,
+     "n": -10040.7,
+     "u": -50.3
+    },
+    {
+     "name": "ant0748",
+     "e": 183.2,
+     "n": -7939.9,
+     "u": -44.3
+    },
+    {
+     "name": "ant0749",
+     "e": -2049.2,
+     "n": 7292.4,
+     "u": 17.2
+    },
+    {
+     "name": "ant0750",
+     "e": -5608.9,
+     "n": 596.9,
+     "u": -11.8
+    },
+    {
+     "name": "ant0751",
+     "e": 3717.3,
+     "n": -644.9,
+     "u": -11.4
+    },
+    {
+     "name": "ant0752",
+     "e": -3714.2,
+     "n": -5782.0,
+     "u": -39.0
+    },
+    {
+     "name": "ant0753",
+     "e": 6865.9,
+     "n": 5879.9,
+     "u": 96.3
+    },
+    {
+     "name": "ant0754",
+     "e": -2401.7,
+     "n": -7508.3,
+     "u": -44.2
+    },
+    {
+     "name": "ant0755",
+     "e": -4438.2,
+     "n": -4865.5,
+     "u": -34.7
+    },
+    {
+     "name": "ant0756",
+     "e": -5851.3,
+     "n": -401.1,
+     "u": -14.0
+    },
+    {
+     "name": "ant0757",
+     "e": -4174.0,
+     "n": 4589.4,
+     "u": 3.6
+    },
+    {
+     "name": "ant0758",
+     "e": 1610.4,
+     "n": 7130.4,
+     "u": 46.5
+    },
+    {
+     "name": "ant0759",
+     "e": 4446.4,
+     "n": -5185.2,
+     "u": -18.0
+    },
+    {
+     "name": "ant0760",
+     "e": -921.2,
+     "n": 7689.8,
+     "u": 15.0
+    },
+    {
+     "name": "ant0761",
+     "e": 2615.4,
+     "n": 6531.4,
+     "u": 55.8
+    },
+    {
+     "name": "ant0762",
+     "e": 800.2,
+     "n": -8154.9,
+     "u": -45.6
+    },
+    {
+     "name": "ant0763",
+     "e": 1445.9,
+     "n": -7711.4,
+     "u": -46.2
+    },
+    {
+     "name": "ant0764",
+     "e": 1095.9,
+     "n": -7969.6,
+     "u": -43.4
+    },
+    {
+     "name": "ant0765",
+     "e": 595.3,
+     "n": 7574.7,
+     "u": 30.1
+    },
+    {
+     "name": "ant0766",
+     "e": -5614.8,
+     "n": -2020.9,
+     "u": -23.1
+    },
+    {
+     "name": "ant0767",
+     "e": 2777.6,
+     "n": 6505.6,
+     "u": 55.7
+    },
+    {
+     "name": "ant0768",
+     "e": 2571.9,
+     "n": -7860.7,
+     "u": -44.7
+    },
+    {
+     "name": "ant0769",
+     "e": -5572.0,
+     "n": -1875.6,
+     "u": -23.0
+    },
+    {
+     "name": "ant0770",
+     "e": -4732.2,
+     "n": 4127.8,
+     "u": 2.6
+    },
+    {
+     "name": "ant0771",
+     "e": -6157.4,
+     "n": 925.1,
+     "u": -7.4
+    },
+    {
+     "name": "ant0772",
+     "e": -5061.4,
+     "n": -3342.1,
+     "u": -29.2
+    },
+    {
+     "name": "ant0773",
+     "e": 1652.5,
+     "n": -8174.6,
+     "u": -46.8
+    },
+    {
+     "name": "ant0774",
+     "e": -5743.8,
+     "n": 2538.7,
+     "u": -2.4
+    },
+    {
+     "name": "ant0775",
+     "e": -7074.0,
+     "n": 3071.2,
+     "u": 15.0
+    },
+    {
+     "name": "ant0776",
+     "e": 6011.1,
+     "n": -2382.8,
+     "u": -5.6
+    },
+    {
+     "name": "ant0777",
+     "e": 3517.1,
+     "n": 6469.4,
+     "u": 72.4
+    },
+    {
+     "name": "ant0778",
+     "e": 2550.6,
+     "n": -7321.8,
+     "u": -42.1
+    },
+    {
+     "name": "ant0779",
+     "e": -2530.5,
+     "n": -7714.3,
+     "u": -44.5
+    },
+    {
+     "name": "ant0780",
+     "e": -5516.3,
+     "n": -3538.4,
+     "u": -32.7
+    },
+    {
+     "name": "ant0781",
+     "e": 2013.9,
+     "n": 7725.0,
+     "u": 64.7
+    },
+    {
+     "name": "ant0782",
+     "e": 4453.0,
+     "n": 5706.5,
+     "u": 61.6
+    },
+    {
+     "name": "ant0783",
+     "e": 6043.6,
+     "n": 2835.0,
+     "u": 49.2
+    },
+    {
+     "name": "ant0784",
+     "e": -5609.2,
+     "n": -3323.5,
+     "u": -29.7
+    },
+    {
+     "name": "ant0785",
+     "e": 5812.8,
+     "n": 3105.5,
+     "u": 43.3
+    },
+    {
+     "name": "ant0786",
+     "e": -1258.6,
+     "n": -8004.2,
+     "u": -46.5
+    },
+    {
+     "name": "ant0787",
+     "e": 5339.4,
+     "n": 3347.7,
+     "u": 42.6
+    },
+    {
+     "name": "ant0788",
+     "e": -6042.7,
+     "n": -920.8,
+     "u": -15.3
+    },
+    {
+     "name": "ant0789",
+     "e": -3124.8,
+     "n": 6111.7,
+     "u": 14.0
+    },
+    {
+     "name": "ant0790",
+     "e": 5984.1,
+     "n": 1736.2,
+     "u": 40.6
+    },
+    {
+     "name": "ant0791",
+     "e": -1787.1,
+     "n": 7025.9,
+     "u": 14.5
+    },
+    {
+     "name": "ant0792",
+     "e": -2738.5,
+     "n": -6855.2,
+     "u": -42.6
+    },
+    {
+     "name": "ant0793",
+     "e": -3557.5,
+     "n": -6795.7,
+     "u": -43.0
+    },
+    {
+     "name": "ant0794",
+     "e": 4679.8,
+     "n": 7827.2,
+     "u": 138.1
+    },
+    {
+     "name": "ant0795",
+     "e": -5641.5,
+     "n": 2194.6,
+     "u": -3.2
+    },
+    {
+     "name": "ant0796",
+     "e": -4326.6,
+     "n": -8987.6,
+     "u": -48.1
+    },
+    {
+     "name": "ant0797",
+     "e": 5564.0,
+     "n": 3707.9,
+     "u": 45.2
+    },
+    {
+     "name": "ant0798",
+     "e": 3373.2,
+     "n": 6795.1,
+     "u": 77.1
+    },
+    {
+     "name": "ant0799",
+     "e": -5900.2,
+     "n": -605.5,
+     "u": -12.1
+    },
+    {
+     "name": "ant0800",
+     "e": -3900.3,
+     "n": -6537.9,
+     "u": -42.9
+    },
+    {
+     "name": "ant0801",
+     "e": -3923.8,
+     "n": 6321.5,
+     "u": 12.3
+    },
+    {
+     "name": "ant0802",
+     "e": -1000.6,
+     "n": 8184.4,
+     "u": 20.3
+    },
+    {
+     "name": "ant0803",
+     "e": -5094.1,
+     "n": 7272.2,
+     "u": 16.5
+    },
+    {
+     "name": "ant0804",
+     "e": -1324.6,
+     "n": 7646.5,
+     "u": 15.9
+    },
+    {
+     "name": "ant0805",
+     "e": -2128.5,
+     "n": -6935.1,
+     "u": -40.5
+    },
+    {
+     "name": "ant0806",
+     "e": -5805.0,
+     "n": -2644.0,
+     "u": -28.5
+    },
+    {
+     "name": "ant0807",
+     "e": 4676.0,
+     "n": 5208.9,
+     "u": 54.8
+    },
+    {
+     "name": "ant0808",
+     "e": -5903.8,
+     "n": 628.8,
+     "u": -11.1
+    },
+    {
+     "name": "ant0809",
+     "e": -4116.8,
+     "n": -6119.8,
+     "u": -39.6
+    },
+    {
+     "name": "ant0810",
+     "e": -4366.0,
+     "n": -8225.6,
+     "u": -44.1
+    },
+    {
+     "name": "ant0811",
+     "e": -5066.6,
+     "n": 4512.8,
+     "u": 2.1
+    },
+    {
+     "name": "ant0812",
+     "e": -4701.9,
+     "n": -5047.4,
+     "u": -37.1
+    },
+    {
+     "name": "ant0813",
+     "e": -5119.7,
+     "n": 4231.7,
+     "u": 4.2
+    },
+    {
+     "name": "ant0814",
+     "e": 2759.6,
+     "n": -7961.3,
+     "u": -43.9
+    },
+    {
+     "name": "ant0815",
+     "e": 6263.8,
+     "n": 1710.7,
+     "u": 46.4
+    },
+    {
+     "name": "ant0816",
+     "e": 994.2,
+     "n": 7636.0,
+     "u": 40.0
+    },
+    {
+     "name": "ant0817",
+     "e": -2543.6,
+     "n": -7306.6,
+     "u": -42.0
+    },
+    {
+     "name": "ant0818",
+     "e": 4722.1,
+     "n": -5752.5,
+     "u": 0.3
+    },
+    {
+     "name": "ant0819",
+     "e": 4093.5,
+     "n": -6531.9,
+     "u": -10.0
+    },
+    {
+     "name": "ant0820",
+     "e": 6455.9,
+     "n": 410.9,
+     "u": 40.4
+    },
+    {
+     "name": "ant0821",
+     "e": -5163.1,
+     "n": -4146.8,
+     "u": -31.8
+    },
+    {
+     "name": "ant0822",
+     "e": 3569.5,
+     "n": 1335.8,
+     "u": -3.5
+    },
+    {
+     "name": "ant0823",
+     "e": 1356.0,
+     "n": 9829.3,
+     "u": 86.9
+    },
+    {
+     "name": "ant0824",
+     "e": 6510.8,
+     "n": 1023.6,
+     "u": 41.3
+    },
+    {
+     "name": "ant0825",
+     "e": 3908.8,
+     "n": 5930.7,
+     "u": 64.7
+    },
+    {
+     "name": "ant0826",
+     "e": -103.4,
+     "n": 8262.3,
+     "u": 28.3
+    },
+    {
+     "name": "ant0827",
+     "e": -2935.4,
+     "n": 7147.4,
+     "u": 15.0
+    },
+    {
+     "name": "ant0828",
+     "e": 5886.6,
+     "n": -2676.2,
+     "u": -3.6
+    },
+    {
+     "name": "ant0829",
+     "e": 402.9,
+     "n": -8512.8,
+     "u": -44.0
+    },
+    {
+     "name": "ant0830",
+     "e": 6607.5,
+     "n": -1415.9,
+     "u": 12.1
+    },
+    {
+     "name": "ant0831",
+     "e": -6232.7,
+     "n": -1656.4,
+     "u": -18.6
+    },
+    {
+     "name": "ant0832",
+     "e": -3128.6,
+     "n": 6799.2,
+     "u": 15.3
+    },
+    {
+     "name": "ant0833",
+     "e": -3150.8,
+     "n": -7136.5,
+     "u": -41.1
+    },
+    {
+     "name": "ant0834",
+     "e": 2980.3,
+     "n": 7543.1,
+     "u": 94.5
+    },
+    {
+     "name": "ant0835",
+     "e": 5710.3,
+     "n": 3538.5,
+     "u": 48.1
+    },
+    {
+     "name": "ant0836",
+     "e": 2433.5,
+     "n": -7500.9,
+     "u": -44.2
+    },
+    {
+     "name": "ant0837",
+     "e": 4687.7,
+     "n": 5987.6,
+     "u": 68.1
+    },
+    {
+     "name": "ant0838",
+     "e": 4447.3,
+     "n": 4036.2,
+     "u": 38.8
+    },
+    {
+     "name": "ant0839",
+     "e": 3307.7,
+     "n": -7461.7,
+     "u": -37.6
+    },
+    {
+     "name": "ant0840",
+     "e": -626.1,
+     "n": -4880.6,
+     "u": -35.2
+    },
+    {
+     "name": "ant0841",
+     "e": 2455.2,
+     "n": 7521.7,
+     "u": 75.7
+    },
+    {
+     "name": "ant0842",
+     "e": -548.2,
+     "n": -8282.7,
+     "u": -44.7
+    },
+    {
+     "name": "ant0843",
+     "e": -4646.3,
+     "n": 4687.8,
+     "u": 6.3
+    },
+    {
+     "name": "ant0844",
+     "e": -296.7,
+     "n": 8017.5,
+     "u": 26.6
+    },
+    {
+     "name": "ant0845",
+     "e": -923.4,
+     "n": -8333.8,
+     "u": -45.9
+    },
+    {
+     "name": "ant0846",
+     "e": -2396.2,
+     "n": -8077.0,
+     "u": -45.9
+    },
+    {
+     "name": "ant0847",
+     "e": 1232.4,
+     "n": -7277.6,
+     "u": -41.6
+    },
+    {
+     "name": "ant0848",
+     "e": -3089.9,
+     "n": -7507.4,
+     "u": -41.5
+    },
+    {
+     "name": "ant0849",
+     "e": 1140.1,
+     "n": 8352.5,
+     "u": 52.1
+    },
+    {
+     "name": "ant0850",
+     "e": -2078.1,
+     "n": 7386.1,
+     "u": 17.0
+    },
+    {
+     "name": "ant0851",
+     "e": -5949.3,
+     "n": -3851.1,
+     "u": -28.3
+    },
+    {
+     "name": "ant0852",
+     "e": 1410.0,
+     "n": -8394.9,
+     "u": -42.0
+    },
+    {
+     "name": "ant0853",
+     "e": -4598.5,
+     "n": 5340.6,
+     "u": 7.8
+    },
+    {
+     "name": "ant0854",
+     "e": 3163.5,
+     "n": -4062.8,
+     "u": -35.4
+    },
+    {
+     "name": "ant0855",
+     "e": -5619.3,
+     "n": -4411.0,
+     "u": -35.3
+    },
+    {
+     "name": "ant0856",
+     "e": 1793.2,
+     "n": 7754.3,
+     "u": 60.7
+    },
+    {
+     "name": "ant0857",
+     "e": -5894.3,
+     "n": 1774.6,
+     "u": -2.3
+    },
+    {
+     "name": "ant0858",
+     "e": -3737.5,
+     "n": 6257.5,
+     "u": 14.5
+    },
+    {
+     "name": "ant0859",
+     "e": -6135.0,
+     "n": 1164.6,
+     "u": -5.4
+    },
+    {
+     "name": "ant0860",
+     "e": -3908.0,
+     "n": -6420.5,
+     "u": -41.8
+    },
+    {
+     "name": "ant0861",
+     "e": 5630.4,
+     "n": -5090.6,
+     "u": 62.1
+    },
+    {
+     "name": "ant0862",
+     "e": 2357.4,
+     "n": -6576.8,
+     "u": -41.2
+    },
+    {
+     "name": "ant0863",
+     "e": -1641.4,
+     "n": -8395.5,
+     "u": -44.1
+    },
+    {
+     "name": "ant0864",
+     "e": -1013.1,
+     "n": 7812.0,
+     "u": 15.8
+    },
+    {
+     "name": "ant0865",
+     "e": 2274.1,
+     "n": 5691.1,
+     "u": -2.8
+    },
+    {
+     "name": "ant0866",
+     "e": 6596.1,
+     "n": -281.9,
+     "u": 40.3
+    },
+    {
+     "name": "ant0867",
+     "e": 6074.5,
+     "n": 3240.5,
+     "u": 51.0
+    },
+    {
+     "name": "ant0868",
+     "e": -4743.3,
+     "n": -5871.5,
+     "u": -41.8
+    },
+    {
+     "name": "ant0869",
+     "e": -3175.0,
+     "n": 3263.0,
+     "u": 0.0
+    },
+    {
+     "name": "ant0870",
+     "e": 2138.3,
+     "n": -8288.5,
+     "u": -45.1
+    },
+    {
+     "name": "ant0871",
+     "e": 5209.1,
+     "n": 4917.8,
+     "u": 59.6
+    },
+    {
+     "name": "ant0872",
+     "e": -6525.0,
+     "n": -430.5,
+     "u": -10.7
+    },
+    {
+     "name": "ant0873",
+     "e": -99.5,
+     "n": 8239.2,
+     "u": 28.3
+    },
+    {
+     "name": "ant0874",
+     "e": -886.9,
+     "n": 8294.3,
+     "u": 21.2
+    },
+    {
+     "name": "ant0875",
+     "e": 6466.4,
+     "n": 1828.9,
+     "u": 53.1
+    },
+    {
+     "name": "ant0876",
+     "e": 2512.6,
+     "n": -5735.7,
+     "u": -38.4
+    },
+    {
+     "name": "ant0877",
+     "e": 6638.4,
+     "n": 618.1,
+     "u": 46.2
+    },
+    {
+     "name": "ant0878",
+     "e": -3166.8,
+     "n": 7302.9,
+     "u": 17.7
+    },
+    {
+     "name": "ant0879",
+     "e": 805.2,
+     "n": -8758.9,
+     "u": -45.4
+    },
+    {
+     "name": "ant0880",
+     "e": -7006.6,
+     "n": 3153.1,
+     "u": 13.0
+    },
+    {
+     "name": "ant0881",
+     "e": -1613.3,
+     "n": -8062.0,
+     "u": -42.6
+    },
+    {
+     "name": "ant0882",
+     "e": 2932.8,
+     "n": 7519.5,
+     "u": 92.6
+    },
+    {
+     "name": "ant0883",
+     "e": 5585.8,
+     "n": -2072.1,
+     "u": -15.1
+    },
+    {
+     "name": "ant0884",
+     "e": 6362.3,
+     "n": 2251.7,
+     "u": 50.1
+    },
+    {
+     "name": "ant0885",
+     "e": 3378.7,
+     "n": 6998.4,
+     "u": 83.9
+    },
+    {
+     "name": "ant0886",
+     "e": 2350.6,
+     "n": 7722.1,
+     "u": 74.5
+    },
+    {
+     "name": "ant0887",
+     "e": -6248.8,
+     "n": 434.9,
+     "u": -9.4
+    },
+    {
+     "name": "ant0888",
+     "e": -3225.0,
+     "n": 6915.0,
+     "u": 15.1
+    },
+    {
+     "name": "ant0889",
+     "e": -2752.6,
+     "n": 2496.7,
+     "u": -5.4
+    },
+    {
+     "name": "ant0890",
+     "e": 6678.1,
+     "n": 2289.2,
+     "u": 57.8
+    },
+    {
+     "name": "ant0891",
+     "e": -3663.1,
+     "n": -7263.0,
+     "u": -43.5
+    },
+    {
+     "name": "ant0892",
+     "e": -323.4,
+     "n": -8745.0,
+     "u": -47.4
+    },
+    {
+     "name": "ant0893",
+     "e": 3113.3,
+     "n": -7857.9,
+     "u": -38.9
+    },
+    {
+     "name": "ant0894",
+     "e": 3843.6,
+     "n": -7364.2,
+     "u": -22.8
+    },
+    {
+     "name": "ant0895",
+     "e": 4688.5,
+     "n": -6428.2,
+     "u": 10.7
+    },
+    {
+     "name": "ant0896",
+     "e": -6151.0,
+     "n": 1060.7,
+     "u": -5.4
+    },
+    {
+     "name": "ant0897",
+     "e": -4640.9,
+     "n": -176.4,
+     "u": -12.0
+    },
+    {
+     "name": "ant0898",
+     "e": -2116.2,
+     "n": 7785.0,
+     "u": 17.6
+    },
+    {
+     "name": "ant0899",
+     "e": -4618.1,
+     "n": 5382.7,
+     "u": 13.7
+    },
+    {
+     "name": "ant0900",
+     "e": -4262.1,
+     "n": -6738.4,
+     "u": -42.3
+    },
+    {
+     "name": "ant0901",
+     "e": 5654.1,
+     "n": -4571.4,
+     "u": 45.5
+    },
+    {
+     "name": "ant0902",
+     "e": -4030.7,
+     "n": 6684.8,
+     "u": 15.9
+    },
+    {
+     "name": "ant0903",
+     "e": -5701.7,
+     "n": -4092.4,
+     "u": -32.2
+    },
+    {
+     "name": "ant0904",
+     "e": 1211.6,
+     "n": 6243.7,
+     "u": 22.5
+    },
+    {
+     "name": "ant0905",
+     "e": 6713.0,
+     "n": -607.9,
+     "u": 34.1
+    },
+    {
+     "name": "ant0906",
+     "e": 1138.2,
+     "n": 8638.8,
+     "u": 59.7
+    },
+    {
+     "name": "ant0907",
+     "e": 1547.5,
+     "n": 7982.6,
+     "u": 58.5
+    },
+    {
+     "name": "ant0908",
+     "e": -4599.7,
+     "n": -6488.2,
+     "u": -41.3
+    },
+    {
+     "name": "ant0909",
+     "e": -3336.2,
+     "n": 8970.3,
+     "u": 24.5
+    },
+    {
+     "name": "ant0910",
+     "e": 742.7,
+     "n": -8846.6,
+     "u": -47.5
+    },
+    {
+     "name": "ant0911",
+     "e": 4420.9,
+     "n": 3546.0,
+     "u": 31.1
+    },
+    {
+     "name": "ant0912",
+     "e": -6511.9,
+     "n": -108.0,
+     "u": -9.7
+    },
+    {
+     "name": "ant0913",
+     "e": 714.5,
+     "n": -5579.2,
+     "u": -36.8
+    },
+    {
+     "name": "ant0914",
+     "e": -677.2,
+     "n": -8839.8,
+     "u": -46.5
+    },
+    {
+     "name": "ant0915",
+     "e": 3759.8,
+     "n": -9503.1,
+     "u": -18.5
+    },
+    {
+     "name": "ant0916",
+     "e": -5988.7,
+     "n": 3745.1,
+     "u": 8.8
+    },
+    {
+     "name": "ant0917",
+     "e": 1408.8,
+     "n": 8448.6,
+     "u": 63.9
+    },
+    {
+     "name": "ant0918",
+     "e": -3685.4,
+     "n": -2478.8,
+     "u": -25.9
+    },
+    {
+     "name": "ant0919",
+     "e": 5996.4,
+     "n": 4486.1,
+     "u": 61.3
+    },
+    {
+     "name": "ant0920",
+     "e": 6807.9,
+     "n": 256.7,
+     "u": 54.0
+    },
+    {
+     "name": "ant0921",
+     "e": -1250.3,
+     "n": -8495.5,
+     "u": -46.1
+    },
+    {
+     "name": "ant0922",
+     "e": -6254.0,
+     "n": -2145.5,
+     "u": -20.8
+    },
+    {
+     "name": "ant0923",
+     "e": -1228.5,
+     "n": 8091.9,
+     "u": 18.4
+    },
+    {
+     "name": "ant0924",
+     "e": 443.8,
+     "n": 8550.2,
+     "u": 40.9
+    },
+    {
+     "name": "ant0925",
+     "e": -6158.9,
+     "n": 2907.5,
+     "u": -1.0
+    },
+    {
+     "name": "ant0926",
+     "e": -6768.1,
+     "n": -1668.5,
+     "u": -15.1
+    },
+    {
+     "name": "ant0927",
+     "e": -3904.0,
+     "n": 8572.2,
+     "u": 23.7
+    },
+    {
+     "name": "ant0928",
+     "e": 1882.6,
+     "n": -8627.7,
+     "u": -47.5
+    },
+    {
+     "name": "ant0929",
+     "e": -4001.5,
+     "n": 3042.7,
+     "u": 0.7
+    },
+    {
+     "name": "ant0930",
+     "e": -1781.6,
+     "n": 8061.0,
+     "u": 17.3
+    },
+    {
+     "name": "ant0931",
+     "e": -3203.8,
+     "n": -8011.7,
+     "u": -44.2
+    },
+    {
+     "name": "ant0932",
+     "e": 6657.4,
+     "n": -1391.9,
+     "u": 12.0
+    },
+    {
+     "name": "ant0933",
+     "e": 2744.8,
+     "n": -8265.6,
+     "u": -42.3
+    },
+    {
+     "name": "ant0934",
+     "e": 2468.5,
+     "n": 8169.1,
+     "u": 88.9
+    },
+    {
+     "name": "ant0935",
+     "e": -435.6,
+     "n": 8492.0,
+     "u": 24.0
+    },
+    {
+     "name": "ant0936",
+     "e": -2613.0,
+     "n": -8625.8,
+     "u": -45.7
+    },
+    {
+     "name": "ant0937",
+     "e": 751.6,
+     "n": 8764.5,
+     "u": 50.6
+    },
+    {
+     "name": "ant0938",
+     "e": 7041.1,
+     "n": 818.0,
+     "u": 57.7
+    },
+    {
+     "name": "ant0939",
+     "e": 4902.4,
+     "n": 6182.2,
+     "u": 80.8
+    },
+    {
+     "name": "ant0940",
+     "e": -4550.8,
+     "n": 6646.8,
+     "u": 16.6
+    },
+    {
+     "name": "ant0941",
+     "e": 390.8,
+     "n": -9447.1,
+     "u": -48.4
+    },
+    {
+     "name": "ant0942",
+     "e": -2038.0,
+     "n": -4728.9,
+     "u": -36.4
+    },
+    {
+     "name": "ant0943",
+     "e": -5291.1,
+     "n": 5159.7,
+     "u": 12.4
+    },
+    {
+     "name": "ant0944",
+     "e": 5123.0,
+     "n": -6276.8,
+     "u": 34.5
+    },
+    {
+     "name": "ant0945",
+     "e": -6174.5,
+     "n": 3220.9,
+     "u": 3.9
+    },
+    {
+     "name": "ant0946",
+     "e": 6660.3,
+     "n": 3395.4,
+     "u": 62.3
+    },
+    {
+     "name": "ant0947",
+     "e": -3370.2,
+     "n": 7637.2,
+     "u": 17.2
+    },
+    {
+     "name": "ant0948",
+     "e": 65.3,
+     "n": 8736.4,
+     "u": 37.7
+    },
+    {
+     "name": "ant0949",
+     "e": -3879.6,
+     "n": -7212.3,
+     "u": -45.6
+    },
+    {
+     "name": "ant0950",
+     "e": 5761.1,
+     "n": 5036.5,
+     "u": 67.1
+    },
+    {
+     "name": "ant0951",
+     "e": 6538.3,
+     "n": 2613.4,
+     "u": 59.8
+    },
+    {
+     "name": "ant0952",
+     "e": 1660.9,
+     "n": -8893.6,
+     "u": -46.8
+    },
+    {
+     "name": "ant0953",
+     "e": -2229.0,
+     "n": 8519.3,
+     "u": 20.6
+    },
+    {
+     "name": "ant0954",
+     "e": -6043.7,
+     "n": -3854.7,
+     "u": -29.4
+    },
+    {
+     "name": "ant0955",
+     "e": 3880.5,
+     "n": -7591.3,
+     "u": -6.0
+    },
+    {
+     "name": "ant0956",
+     "e": 3488.4,
+     "n": -7538.3,
+     "u": -34.8
+    },
+    {
+     "name": "ant0957",
+     "e": -1649.4,
+     "n": 5683.4,
+     "u": 11.9
+    },
+    {
+     "name": "ant0958",
+     "e": -6260.4,
+     "n": -3606.3,
+     "u": -29.4
+    },
+    {
+     "name": "ant0959",
+     "e": 2200.2,
+     "n": -8714.3,
+     "u": -44.7
+    },
+    {
+     "name": "ant0960",
+     "e": 6066.2,
+     "n": 4223.9,
+     "u": 63.4
+    },
+    {
+     "name": "ant0961",
+     "e": -3827.1,
+     "n": 6979.6,
+     "u": 14.7
+    },
+    {
+     "name": "ant0962",
+     "e": -3841.9,
+     "n": 7148.9,
+     "u": 14.5
+    },
+    {
+     "name": "ant0963",
+     "e": 5493.0,
+     "n": -622.2,
+     "u": 2.3
+    },
+    {
+     "name": "ant0964",
+     "e": -3558.9,
+     "n": -7995.2,
+     "u": -46.3
+    },
+    {
+     "name": "ant0965",
+     "e": -848.6,
+     "n": 9063.0,
+     "u": 31.2
+    },
+    {
+     "name": "ant0966",
+     "e": 7124.8,
+     "n": -48.0,
+     "u": 53.7
+    },
+    {
+     "name": "ant0967",
+     "e": 6914.9,
+     "n": 1519.3,
+     "u": 61.7
+    },
+    {
+     "name": "ant0968",
+     "e": 5224.2,
+     "n": 4791.2,
+     "u": 56.7
+    },
+    {
+     "name": "ant0969",
+     "e": -2025.2,
+     "n": -8677.5,
+     "u": -47.6
+    },
+    {
+     "name": "ant0970",
+     "e": 4327.2,
+     "n": -7818.5,
+     "u": 19.4
+    },
+    {
+     "name": "ant0971",
+     "e": 4530.6,
+     "n": -7170.7,
+     "u": 20.0
+    },
+    {
+     "name": "ant0972",
+     "e": -5953.4,
+     "n": 3615.9,
+     "u": 3.9
+    },
+    {
+     "name": "ant0973",
+     "e": 141.4,
+     "n": 8908.6,
+     "u": 47.4
+    },
+    {
+     "name": "ant0974",
+     "e": -4267.7,
+     "n": -955.0,
+     "u": -17.8
+    },
+    {
+     "name": "ant0975",
+     "e": -4654.4,
+     "n": 6249.0,
+     "u": 12.9
+    },
+    {
+     "name": "ant0976",
+     "e": -5810.8,
+     "n": -5116.1,
+     "u": -34.0
+    },
+    {
+     "name": "ant0977",
+     "e": -1.5,
+     "n": -9305.7,
+     "u": -47.1
+    },
+    {
+     "name": "ant0978",
+     "e": 6701.6,
+     "n": 3118.0,
+     "u": 63.4
+    },
+    {
+     "name": "ant0979",
+     "e": -2962.9,
+     "n": 8134.6,
+     "u": 18.8
+    },
+    {
+     "name": "ant0980",
+     "e": 7258.6,
+     "n": 523.7,
+     "u": 62.5
+    },
+    {
+     "name": "ant0981",
+     "e": -1917.6,
+     "n": 8382.5,
+     "u": 19.9
+    },
+    {
+     "name": "ant0982",
+     "e": -576.1,
+     "n": -8940.5,
+     "u": -46.6
+    },
+    {
+     "name": "ant0983",
+     "e": -5317.5,
+     "n": -5330.5,
+     "u": -37.8
+    },
+    {
+     "name": "ant0984",
+     "e": 2087.5,
+     "n": -8880.1,
+     "u": -48.9
+    },
+    {
+     "name": "ant0985",
+     "e": -6906.3,
+     "n": -1222.0,
+     "u": -9.2
+    },
+    {
+     "name": "ant0986",
+     "e": 6617.5,
+     "n": 4081.9,
+     "u": 66.9
+    },
+    {
+     "name": "ant0987",
+     "e": -1885.3,
+     "n": -8880.4,
+     "u": -46.8
+    },
+    {
+     "name": "ant0988",
+     "e": 1396.3,
+     "n": 8713.7,
+     "u": 67.5
+    },
+    {
+     "name": "ant0989",
+     "e": 3119.3,
+     "n": -8663.6,
+     "u": -44.0
+    },
+    {
+     "name": "ant0990",
+     "e": -1403.4,
+     "n": -8957.9,
+     "u": -47.8
+    },
+    {
+     "name": "ant0991",
+     "e": 1101.3,
+     "n": -9150.8,
+     "u": -48.0
+    },
+    {
+     "name": "ant0992",
+     "e": 4809.9,
+     "n": -6814.4,
+     "u": 26.2
+    },
+    {
+     "name": "ant0993",
+     "e": 3815.5,
+     "n": -7727.1,
+     "u": -15.2
+    },
+    {
+     "name": "ant0994",
+     "e": -6633.4,
+     "n": -1285.5,
+     "u": -13.9
+    },
+    {
+     "name": "ant0995",
+     "e": -1434.8,
+     "n": 8313.5,
+     "u": 19.1
+    },
+    {
+     "name": "ant0996",
+     "e": -6029.3,
+     "n": 6214.0,
+     "u": 8.8
+    },
+    {
+     "name": "ant0997",
+     "e": -3063.8,
+     "n": -8275.2,
+     "u": -46.4
+    },
+    {
+     "name": "ant0998",
+     "e": -6881.7,
+     "n": -211.9,
+     "u": -4.0
+    },
+    {
+     "name": "ant0999",
+     "e": -2328.0,
+     "n": -8715.8,
+     "u": -45.7
+    },
+    {
+     "name": "ant1000",
+     "e": 5710.7,
+     "n": 5048.0,
+     "u": 67.1
+    },
+    {
+     "name": "ant1001",
+     "e": 477.6,
+     "n": -9254.7,
+     "u": -48.1
+    },
+    {
+     "name": "ant1002",
+     "e": 1243.9,
+     "n": -5932.9,
+     "u": -36.2
+    },
+    {
+     "name": "ant1003",
+     "e": -6288.5,
+     "n": -4203.3,
+     "u": -29.8
+    },
+    {
+     "name": "ant1004",
+     "e": -4462.4,
+     "n": 8119.6,
+     "u": 18.9
+    },
+    {
+     "name": "ant1005",
+     "e": 3054.7,
+     "n": -253.2,
+     "u": -12.1
+    },
+    {
+     "name": "ant1006",
+     "e": -3794.2,
+     "n": -7446.9,
+     "u": -43.8
+    },
+    {
+     "name": "ant1007",
+     "e": -5382.5,
+     "n": 5743.4,
+     "u": 12.8
+    },
+    {
+     "name": "ant1008",
+     "e": 5521.5,
+     "n": -6346.4,
+     "u": 81.1
+    },
+    {
+     "name": "ant1009",
+     "e": 3516.6,
+     "n": -8220.7,
+     "u": -23.6
+    },
+    {
+     "name": "ant1010",
+     "e": -2778.7,
+     "n": 8136.2,
+     "u": 20.9
+    },
+    {
+     "name": "ant1011",
+     "e": -1405.2,
+     "n": 8795.1,
+     "u": 24.4
+    },
+    {
+     "name": "ant1012",
+     "e": -6392.1,
+     "n": 3343.7,
+     "u": 7.6
+    },
+    {
+     "name": "ant1013",
+     "e": 3958.7,
+     "n": 2889.9,
+     "u": 18.8
+    },
+    {
+     "name": "ant1014",
+     "e": -4944.6,
+     "n": -6600.2,
+     "u": -42.7
+    },
+    {
+     "name": "ant1015",
+     "e": -1791.8,
+     "n": -9705.6,
+     "u": -49.0
+    },
+    {
+     "name": "ant1016",
+     "e": -5937.3,
+     "n": 3795.3,
+     "u": 6.8
+    },
+    {
+     "name": "ant1017",
+     "e": -2979.6,
+     "n": 8094.4,
+     "u": 16.8
+    },
+    {
+     "name": "ant1018",
+     "e": -2793.9,
+     "n": -4917.9,
+     "u": -36.8
+    },
+    {
+     "name": "ant1019",
+     "e": -5941.1,
+     "n": 4345.4,
+     "u": 7.4
+    },
+    {
+     "name": "ant1020",
+     "e": -1363.8,
+     "n": -8966.4,
+     "u": -47.8
+    },
+    {
+     "name": "ant1021",
+     "e": -2482.0,
+     "n": 7118.1,
+     "u": 13.2
+    },
+    {
+     "name": "ant1022",
+     "e": -3621.2,
+     "n": 1954.7,
+     "u": -5.7
+    },
+    {
+     "name": "ant1023",
+     "e": -4516.1,
+     "n": -6712.4,
+     "u": -43.5
+    },
+    {
+     "name": "ant1024",
+     "e": 1872.7,
+     "n": -3826.8,
+     "u": -31.8
+    },
+    {
+     "name": "ant1025",
+     "e": 6908.3,
+     "n": 2990.5,
+     "u": 67.2
+    },
+    {
+     "name": "ant1026",
+     "e": 7178.5,
+     "n": 281.3,
+     "u": 60.6
+    },
+    {
+     "name": "ant1027",
+     "e": 7293.4,
+     "n": -503.8,
+     "u": 65.5
+    },
+    {
+     "name": "ant1028",
+     "e": -799.0,
+     "n": 8818.5,
+     "u": 26.5
+    },
+    {
+     "name": "ant1029",
+     "e": -4348.6,
+     "n": -7519.1,
+     "u": -44.3
+    },
+    {
+     "name": "ant1030",
+     "e": -2789.5,
+     "n": -8464.1,
+     "u": -46.6
+    },
+    {
+     "name": "ant1031",
+     "e": -6170.2,
+     "n": -4498.8,
+     "u": -26.9
+    },
+    {
+     "name": "ant1032",
+     "e": 5869.5,
+     "n": 5143.6,
+     "u": 73.9
+    },
+    {
+     "name": "ant1033",
+     "e": -194.7,
+     "n": 9021.3,
+     "u": 36.3
+    },
+    {
+     "name": "ant1034",
+     "e": 6279.6,
+     "n": 4933.6,
+     "u": 74.7
+    },
+    {
+     "name": "ant1035",
+     "e": -1798.6,
+     "n": -9233.5,
+     "u": -49.3
+    },
+    {
+     "name": "ant1036",
+     "e": 6522.4,
+     "n": 3860.7,
+     "u": 59.2
+    },
+    {
+     "name": "ant1037",
+     "e": 1844.7,
+     "n": -9080.2,
+     "u": -49.1
+    },
+    {
+     "name": "ant1038",
+     "e": -599.9,
+     "n": -9558.6,
+     "u": -50.5
+    },
+    {
+     "name": "ant1039",
+     "e": -2053.6,
+     "n": 8627.6,
+     "u": 20.5
+    },
+    {
+     "name": "ant1040",
+     "e": -1093.2,
+     "n": 9848.7,
+     "u": 35.0
+    },
+    {
+     "name": "ant1041",
+     "e": -4512.9,
+     "n": 6519.0,
+     "u": 14.7
+    },
+    {
+     "name": "ant1042",
+     "e": -736.7,
+     "n": 9290.0,
+     "u": 37.8
+    },
+    {
+     "name": "ant1043",
+     "e": -3351.8,
+     "n": 8058.4,
+     "u": 18.7
+    },
+    {
+     "name": "ant1044",
+     "e": 7300.0,
+     "n": 580.7,
+     "u": 69.5
+    },
+    {
+     "name": "ant1045",
+     "e": 3679.8,
+     "n": -8184.5,
+     "u": -23.7
+    },
+    {
+     "name": "ant1046",
+     "e": 5194.1,
+     "n": 6475.5,
+     "u": 91.3
+    },
+    {
+     "name": "ant1047",
+     "e": -7097.2,
+     "n": -730.9,
+     "u": -7.3
+    },
+    {
+     "name": "ant1048",
+     "e": 4811.4,
+     "n": 7045.0,
+     "u": 114.0
+    },
+    {
+     "name": "ant1049",
+     "e": 1491.4,
+     "n": -9254.2,
+     "u": -46.2
+    },
+    {
+     "name": "ant1050",
+     "e": 131.5,
+     "n": -9656.2,
+     "u": -49.7
+    },
+    {
+     "name": "ant1051",
+     "e": 996.4,
+     "n": 9194.8,
+     "u": 64.9
+    },
+    {
+     "name": "ant1052",
+     "e": -3481.9,
+     "n": 7864.6,
+     "u": 13.9
+    },
+    {
+     "name": "ant1053",
+     "e": 7143.2,
+     "n": 2084.1,
+     "u": 71.3
+    },
+    {
+     "name": "ant1054",
+     "e": -3730.5,
+     "n": -7932.0,
+     "u": -45.4
+    },
+    {
+     "name": "ant1055",
+     "e": -6384.0,
+     "n": -4263.2,
+     "u": -24.0
+    },
+    {
+     "name": "ant1056",
+     "e": -2908.2,
+     "n": -8641.8,
+     "u": -47.9
+    },
+    {
+     "name": "ant1057",
+     "e": 1971.4,
+     "n": 9126.9,
+     "u": 93.8
+    },
+    {
+     "name": "ant1058",
+     "e": -4788.8,
+     "n": 6849.2,
+     "u": 14.2
+    },
+    {
+     "name": "ant1059",
+     "e": -6551.3,
+     "n": -3506.8,
+     "u": -23.7
+    },
+    {
+     "name": "ant1060",
+     "e": 2577.8,
+     "n": -8916.9,
+     "u": -46.1
+    },
+    {
+     "name": "ant1061",
+     "e": -6058.3,
+     "n": -4763.2,
+     "u": -29.0
+    },
+    {
+     "name": "ant1062",
+     "e": 7660.1,
+     "n": 4229.4,
+     "u": 85.7
+    },
+    {
+     "name": "ant1063",
+     "e": -4223.3,
+     "n": -7767.8,
+     "u": -43.5
+    },
+    {
+     "name": "ant1064",
+     "e": -5359.4,
+     "n": 5925.2,
+     "u": 10.7
+    },
+    {
+     "name": "ant1065",
+     "e": -5246.3,
+     "n": 6549.5,
+     "u": 14.1
+    },
+    {
+     "name": "ant1066",
+     "e": -5380.6,
+     "n": -6487.0,
+     "u": -40.9
+    },
+    {
+     "name": "ant1067",
+     "e": -2595.8,
+     "n": 8217.2,
+     "u": 20.8
+    },
+    {
+     "name": "ant1068",
+     "e": 952.5,
+     "n": -9432.0,
+     "u": -48.4
+    },
+    {
+     "name": "ant1069",
+     "e": -272.2,
+     "n": -9319.9,
+     "u": -47.2
+    },
+    {
+     "name": "ant1070",
+     "e": -7147.3,
+     "n": -733.8,
+     "u": -7.4
+    },
+    {
+     "name": "ant1071",
+     "e": 6649.2,
+     "n": 4316.9,
+     "u": 69.7
+    },
+    {
+     "name": "ant1072",
+     "e": -7095.0,
+     "n": -1149.2,
+     "u": -7.4
+    },
+    {
+     "name": "ant1073",
+     "e": -5432.2,
+     "n": 5796.8,
+     "u": 12.7
+    },
+    {
+     "name": "ant1074",
+     "e": -924.9,
+     "n": 5793.4,
+     "u": 11.0
+    },
+    {
+     "name": "ant1075",
+     "e": -4351.9,
+     "n": 7170.3,
+     "u": 16.1
+    },
+    {
+     "name": "ant1076",
+     "e": -1961.1,
+     "n": 9623.8,
+     "u": 30.1
+    },
+    {
+     "name": "ant1077",
+     "e": -1950.9,
+     "n": -9273.7,
+     "u": -48.4
+    },
+    {
+     "name": "ant1078",
+     "e": -1497.9,
+     "n": -9506.2,
+     "u": -48.6
+    },
+    {
+     "name": "ant1079",
+     "e": -3527.8,
+     "n": -8307.7,
+     "u": -43.7
+    },
+    {
+     "name": "ant1080",
+     "e": 7453.5,
+     "n": -409.4,
+     "u": 75.3
+    },
+    {
+     "name": "ant1081",
+     "e": 4437.9,
+     "n": -7637.2,
+     "u": 31.5
+    },
+    {
+     "name": "ant1082",
+     "e": -5269.1,
+     "n": -6301.4,
+     "u": -44.6
+    },
+    {
+     "name": "ant1083",
+     "e": 5362.9,
+     "n": 6488.7,
+     "u": 94.1
+    },
+    {
+     "name": "ant1084",
+     "e": -6826.9,
+     "n": -1541.1,
+     "u": -17.2
+    },
+    {
+     "name": "ant1085",
+     "e": -4881.0,
+     "n": -7378.6,
+     "u": -44.5
+    },
+    {
+     "name": "ant1086",
+     "e": 5953.3,
+     "n": 5582.8,
+     "u": 81.4
+    },
+    {
+     "name": "ant1087",
+     "e": -37.4,
+     "n": 9527.5,
+     "u": 54.5
+    },
+    {
+     "name": "ant1088",
+     "e": -4087.8,
+     "n": 325.7,
+     "u": -11.6
+    },
+    {
+     "name": "ant1089",
+     "e": 412.1,
+     "n": 9354.8,
+     "u": 58.8
+    },
+    {
+     "name": "ant1090",
+     "e": 2013.8,
+     "n": -9153.6,
+     "u": -48.2
+    },
+    {
+     "name": "ant1091",
+     "e": 2107.4,
+     "n": 8531.2,
+     "u": 83.6
+    },
+    {
+     "name": "ant1092",
+     "e": 1106.8,
+     "n": 9229.6,
+     "u": 66.9
+    },
+    {
+     "name": "ant1093",
+     "e": -5187.3,
+     "n": -6724.4,
+     "u": -43.0
+    },
+    {
+     "name": "ant1094",
+     "e": 1507.1,
+     "n": 5792.3,
+     "u": 17.9
+    },
+    {
+     "name": "ant1095",
+     "e": 7082.0,
+     "n": 1935.8,
+     "u": 63.4
+    },
+    {
+     "name": "ant1096",
+     "e": 479.6,
+     "n": -9679.0,
+     "u": -49.7
+    },
+    {
+     "name": "ant1097",
+     "e": 3182.8,
+     "n": -8833.5,
+     "u": -41.3
+    },
+    {
+     "name": "ant1098",
+     "e": -6551.3,
+     "n": 3812.4,
+     "u": 13.2
+    },
+    {
+     "name": "ant1099",
+     "e": -4518.9,
+     "n": 1854.2,
+     "u": -6.2
+    },
+    {
+     "name": "ant1100",
+     "e": 6884.0,
+     "n": 3225.1,
+     "u": 68.1
+    },
+    {
+     "name": "ant1101",
+     "e": 222.5,
+     "n": -6127.9,
+     "u": -41.3
+    },
+    {
+     "name": "ant1102",
+     "e": -4346.2,
+     "n": -7413.1,
+     "u": -44.1
+    },
+    {
+     "name": "ant1103",
+     "e": 5991.5,
+     "n": 5672.8,
+     "u": 81.3
+    },
+    {
+     "name": "ant1104",
+     "e": -5033.7,
+     "n": 135.3,
+     "u": -11.3
+    },
+    {
+     "name": "ant1105",
+     "e": -2708.7,
+     "n": 8755.7,
+     "u": 23.1
+    },
+    {
+     "name": "ant1106",
+     "e": 7219.0,
+     "n": 2710.7,
+     "u": 73.0
+    },
+    {
+     "name": "ant1107",
+     "e": -3935.2,
+     "n": 7800.9,
+     "u": 19.7
+    },
+    {
+     "name": "ant1108",
+     "e": -2638.1,
+     "n": -8859.2,
+     "u": -46.0
+    },
+    {
+     "name": "ant1109",
+     "e": -6430.2,
+     "n": -4608.5,
+     "u": -24.2
+    },
+    {
+     "name": "ant1110",
+     "e": -6321.1,
+     "n": 4269.7,
+     "u": 13.1
+    },
+    {
+     "name": "ant1111",
+     "e": -81.9,
+     "n": 9363.4,
+     "u": 43.8
+    },
+    {
+     "name": "ant1112",
+     "e": -6033.2,
+     "n": 4534.6,
+     "u": 7.2
+    },
+    {
+     "name": "ant1113",
+     "e": 4687.1,
+     "n": 6595.7,
+     "u": 95.5
+    },
+    {
+     "name": "ant1114",
+     "e": -1098.0,
+     "n": -9699.7,
+     "u": -48.8
+    },
+    {
+     "name": "ant1115",
+     "e": -2242.4,
+     "n": 9107.7,
+     "u": 24.8
+    },
+    {
+     "name": "ant1116",
+     "e": 8143.7,
+     "n": 3188.2,
+     "u": 90.7
+    },
+    {
+     "name": "ant1117",
+     "e": 3881.7,
+     "n": -8591.0,
+     "u": -9.3
+    },
+    {
+     "name": "ant1118",
+     "e": 5213.8,
+     "n": -7752.6,
+     "u": 90.8
+    },
+    {
+     "name": "ant1119",
+     "e": -4155.1,
+     "n": 7505.8,
+     "u": 19.9
+    },
+    {
+     "name": "ant1120",
+     "e": -6699.0,
+     "n": 3460.9,
+     "u": 13.2
+    },
+    {
+     "name": "ant1121",
+     "e": 4236.3,
+     "n": -8189.2,
+     "u": 30.0
+    },
+    {
+     "name": "ant1122",
+     "e": -956.8,
+     "n": 9309.3,
+     "u": 34.8
+    },
+    {
+     "name": "ant1123",
+     "e": 1066.1,
+     "n": -9881.8,
+     "u": -49.1
+    },
+    {
+     "name": "ant1124",
+     "e": -5964.0,
+     "n": -5414.2,
+     "u": -34.4
+    },
+    {
+     "name": "ant1125",
+     "e": -1142.1,
+     "n": 7371.4,
+     "u": 15.3
+    },
+    {
+     "name": "ant1126",
+     "e": 2037.5,
+     "n": -9389.8,
+     "u": -49.6
+    },
+    {
+     "name": "ant1127",
+     "e": 6607.0,
+     "n": 4222.0,
+     "u": 69.9
+    },
+    {
+     "name": "ant1128",
+     "e": -280.9,
+     "n": -9776.5,
+     "u": -47.8
+    },
+    {
+     "name": "ant1129",
+     "e": -820.4,
+     "n": -9784.7,
+     "u": -49.9
+    },
+    {
+     "name": "ant1130",
+     "e": 4534.5,
+     "n": -8108.9,
+     "u": 43.9
+    },
+    {
+     "name": "ant1131",
+     "e": -3328.6,
+     "n": 2673.3,
+     "u": -5.8
+    },
+    {
+     "name": "ant1132",
+     "e": 7618.7,
+     "n": 420.0,
+     "u": 74.1
+    },
+    {
+     "name": "ant1133",
+     "e": -3665.8,
+     "n": -8467.8,
+     "u": -47.0
+    },
+    {
+     "name": "ant1134",
+     "e": -7113.5,
+     "n": -1397.7,
+     "u": -10.4
+    },
+    {
+     "name": "ant1135",
+     "e": -1815.5,
+     "n": -9567.8,
+     "u": -49.8
+    },
+    {
+     "name": "ant1136",
+     "e": 2403.4,
+     "n": -7343.6,
+     "u": -44.0
+    },
+    {
+     "name": "ant1137",
+     "e": 118.0,
+     "n": -9842.9,
+     "u": -46.9
+    },
+    {
+     "name": "ant1138",
+     "e": 5011.5,
+     "n": 7144.5,
+     "u": 120.7
+    },
+    {
+     "name": "ant1139",
+     "e": 2394.5,
+     "n": -9468.4,
+     "u": -48.8
+    },
+    {
+     "name": "ant1140",
+     "e": 1806.9,
+     "n": 9760.4,
+     "u": 101.9
+    },
+    {
+     "name": "ant1141",
+     "e": 358.2,
+     "n": 7861.6,
+     "u": 28.8
+    },
+    {
+     "name": "ant1142",
+     "e": 7065.9,
+     "n": 2962.2,
+     "u": 70.1
+    },
+    {
+     "name": "ant1143",
+     "e": 7559.4,
+     "n": 1036.1,
+     "u": 72.1
+    },
+    {
+     "name": "ant1144",
+     "e": 1655.8,
+     "n": 9261.3,
+     "u": 81.7
+    },
+    {
+     "name": "ant1145",
+     "e": 3345.5,
+     "n": -5061.8,
+     "u": -33.2
+    },
+    {
+     "name": "ant1146",
+     "e": 7395.0,
+     "n": 2035.2,
+     "u": 71.1
+    },
+    {
+     "name": "ant1147",
+     "e": -519.4,
+     "n": 9393.1,
+     "u": 36.7
+    },
+    {
+     "name": "ant1148",
+     "e": -5159.7,
+     "n": -6891.7,
+     "u": -43.1
+    },
+    {
+     "name": "ant1149",
+     "e": 1300.4,
+     "n": -9648.8,
+     "u": -47.8
+    },
+    {
+     "name": "ant1150",
+     "e": -516.7,
+     "n": -9991.6,
+     "u": -49.2
+    },
+    {
+     "name": "ant1151",
+     "e": 2495.8,
+     "n": 4753.6,
+     "u": 13.4
+    },
+    {
+     "name": "ant1152",
+     "e": 6005.2,
+     "n": 5682.3,
+     "u": 81.3
+    },
+    {
+     "name": "ant1153",
+     "e": 7173.7,
+     "n": 2684.2,
+     "u": 73.1
+    },
+    {
+     "name": "ant1154",
+     "e": -1550.1,
+     "n": 9184.5,
+     "u": 27.9
+    },
+    {
+     "name": "ant1155",
+     "e": -6595.4,
+     "n": 3973.9,
+     "u": 11.0
+    },
+    {
+     "name": "ant1156",
+     "e": -4759.5,
+     "n": -7609.1,
+     "u": -44.7
+    },
+    {
+     "name": "ant1157",
+     "e": -3888.2,
+     "n": 7904.9,
+     "u": 18.6
+    },
+    {
+     "name": "ant1158",
+     "e": -3148.1,
+     "n": -8623.6,
+     "u": -47.0
+    },
+    {
+     "name": "ant1159",
+     "e": -341.2,
+     "n": 3508.3,
+     "u": -0.3
+    },
+    {
+     "name": "ant1160",
+     "e": -312.9,
+     "n": 9546.3,
+     "u": 44.5
+    },
+    {
+     "name": "ant1161",
+     "e": -1898.8,
+     "n": 5134.3,
+     "u": 7.3
+    },
+    {
+     "name": "ant1162",
+     "e": -5980.2,
+     "n": -5398.9,
+     "u": -34.4
+    },
+    {
+     "name": "ant1163",
+     "e": -2095.5,
+     "n": -6609.8,
+     "u": -42.1
+    },
+    {
+     "name": "ant1164",
+     "e": -5535.8,
+     "n": 6081.6,
+     "u": 8.4
+    },
+    {
+     "name": "ant1165",
+     "e": -1830.0,
+     "n": 9018.1,
+     "u": 26.0
+    },
+    {
+     "name": "ant1166",
+     "e": 4451.4,
+     "n": -1479.7,
+     "u": -20.1
+    },
+    {
+     "name": "ant1167",
+     "e": -2968.8,
+     "n": -9001.7,
+     "u": -46.4
+    },
+    {
+     "name": "ant1168",
+     "e": -1994.4,
+     "n": 4467.2,
+     "u": 3.8
+    },
+    {
+     "name": "ant1169",
+     "e": 3319.3,
+     "n": -4977.1,
+     "u": -35.1
+    },
+    {
+     "name": "ant1170",
+     "e": -2888.0,
+     "n": 8692.4,
+     "u": 22.1
+    },
+    {
+     "name": "ant1171",
+     "e": -4521.5,
+     "n": 7478.8,
+     "u": 16.7
+    },
+    {
+     "name": "ant1172",
+     "e": 4563.2,
+     "n": -504.7,
+     "u": -10.0
+    },
+    {
+     "name": "ant1173",
+     "e": -5123.9,
+     "n": 6394.3,
+     "u": 12.4
+    },
+    {
+     "name": "ant1174",
+     "e": 6499.5,
+     "n": 5146.6,
+     "u": 80.3
+    },
+    {
+     "name": "ant1175",
+     "e": 4651.5,
+     "n": 7832.9,
+     "u": 138.2
+    },
+    {
+     "name": "ant1176",
+     "e": -5731.4,
+     "n": 5692.2,
+     "u": 10.6
+    },
+    {
+     "name": "ant1177",
+     "e": 7234.5,
+     "n": 3414.5,
+     "u": 71.7
+    },
+    {
+     "name": "ant1178",
+     "e": -2448.8,
+     "n": 8848.6,
+     "u": 19.0
+    },
+    {
+     "name": "ant1179",
+     "e": -6396.1,
+     "n": -1792.8,
+     "u": -17.8
+    },
+    {
+     "name": "ant1180",
+     "e": 6868.0,
+     "n": 4297.4,
+     "u": 70.5
+    },
+    {
+     "name": "ant1181",
+     "e": -929.2,
+     "n": 9314.1,
+     "u": 34.8
+    },
+    {
+     "name": "ant1182",
+     "e": 1856.0,
+     "n": -9799.3,
+     "u": -48.1
+    },
+    {
+     "name": "ant1183",
+     "e": 505.6,
+     "n": 9574.6,
+     "u": 64.4
+    },
+    {
+     "name": "ant1184",
+     "e": -6716.1,
+     "n": 3624.3,
+     "u": 15.1
+    },
+    {
+     "name": "ant1185",
+     "e": 5336.3,
+     "n": -3831.6,
+     "u": 8.3
+    },
+    {
+     "name": "ant1186",
+     "e": 5108.0,
+     "n": -3822.9,
+     "u": -20.5
+    },
+    {
+     "name": "ant1187",
+     "e": 4538.8,
+     "n": -3440.5,
+     "u": -29.9
+    },
+    {
+     "name": "ant1188",
+     "e": 7.4,
+     "n": -2355.2,
+     "u": -26.8
+    },
+    {
+     "name": "ant1189",
+     "e": -4080.6,
+     "n": -5220.7,
+     "u": -35.8
+    },
+    {
+     "name": "ant1190",
+     "e": -3191.1,
+     "n": -3923.7,
+     "u": -34.3
+    },
+    {
+     "name": "ant1191",
+     "e": 4720.2,
+     "n": -6264.2,
+     "u": 10.8
+    },
+    {
+     "name": "ant1192",
+     "e": 6720.7,
+     "n": -1363.3,
+     "u": 12.0
+    },
+    {
+     "name": "ant1193",
+     "e": -6636.3,
+     "n": 3366.1,
+     "u": 8.3
+    },
+    {
+     "name": "ant1194",
+     "e": 4967.1,
+     "n": -3748.2,
+     "u": -20.4
+    },
+    {
+     "name": "ant1195",
+     "e": 5766.0,
+     "n": -2639.8,
+     "u": -8.5
+    },
+    {
+     "name": "ant1196",
+     "e": 6031.4,
+     "n": -2047.6,
+     "u": -0.5
+    },
+    {
+     "name": "ant1197",
+     "e": 5248.1,
+     "n": -2765.0,
+     "u": -25.1
+    },
+    {
+     "name": "ant1198",
+     "e": 7299.8,
+     "n": 446.1,
+     "u": 66.5
+    },
+    {
+     "name": "ant1199",
+     "e": 6320.8,
+     "n": -2075.3,
+     "u": 4.2
+    },
+    {
+     "name": "ant1200",
+     "e": 6543.3,
+     "n": -1146.6,
+     "u": 16.2
+    },
+    {
+     "name": "ant1201",
+     "e": 6850.6,
+     "n": -972.5,
+     "u": 27.9
+    },
+    {
+     "name": "ant1202",
+     "e": 5977.0,
+     "n": -2929.0,
+     "u": 8.2
+    },
+    {
+     "name": "ant1203",
+     "e": 5135.8,
+     "n": -5430.2,
+     "u": 30.3
+    },
+    {
+     "name": "ant1204",
+     "e": 5996.5,
+     "n": -2825.4,
+     "u": 8.2
+    },
+    {
+     "name": "ant1205",
+     "e": -6842.2,
+     "n": 2991.1,
+     "u": 8.3
+    },
+    {
+     "name": "ant1206",
+     "e": 7824.2,
+     "n": 2295.7,
+     "u": 79.5
+    },
+    {
+     "name": "ant1207",
+     "e": 7970.7,
+     "n": -372.6,
+     "u": 90.7
+    },
+    {
+     "name": "ant1208",
+     "e": 3086.6,
+     "n": -1355.4,
+     "u": -19.2
+    },
+    {
+     "name": "ant1209",
+     "e": 8116.4,
+     "n": -198.4,
+     "u": 94.5
+    },
+    {
+     "name": "ant1210",
+     "e": -6363.7,
+     "n": 5069.6,
+     "u": 12.5
+    },
+    {
+     "name": "ant1211",
+     "e": 4931.5,
+     "n": -4872.2,
+     "u": -4.1
+    },
+    {
+     "name": "ant1212",
+     "e": 3371.9,
+     "n": -1508.7,
+     "u": -22.4
+    },
+    {
+     "name": "ant1213",
+     "e": 3252.0,
+     "n": -1321.7,
+     "u": -20.3
+    },
+    {
+     "name": "ant1214",
+     "e": 1512.9,
+     "n": -1714.9,
+     "u": -20.7
+    },
+    {
+     "name": "ant1215",
+     "e": 6402.8,
+     "n": -1366.0,
+     "u": 13.3
+    },
+    {
+     "name": "ant1216",
+     "e": 5508.5,
+     "n": -3351.2,
+     "u": 0.4
+    },
+    {
+     "name": "ant1217",
+     "e": 5595.1,
+     "n": -4638.8,
+     "u": 46.5
+    },
+    {
+     "name": "ant1218",
+     "e": 5561.3,
+     "n": -3875.1,
+     "u": 18.1
+    },
+    {
+     "name": "ant1219",
+     "e": 6717.2,
+     "n": -1048.8,
+     "u": 26.0
+    },
+    {
+     "name": "ant1220",
+     "e": -6310.4,
+     "n": 5981.6,
+     "u": 9.7
+    },
+    {
+     "name": "ant1221",
+     "e": -5802.6,
+     "n": 6641.2,
+     "u": 12.6
+    },
+    {
+     "name": "ant1222",
+     "e": -6044.5,
+     "n": 6010.4,
+     "u": 12.0
+    },
+    {
+     "name": "ant1223",
+     "e": -5812.5,
+     "n": 5623.4,
+     "u": 8.5
+    },
+    {
+     "name": "ant1224",
+     "e": 7903.2,
+     "n": 3842.2,
+     "u": 87.6
+    },
+    {
+     "name": "ant1225",
+     "e": 5368.6,
+     "n": -3077.0,
+     "u": -14.3
+    },
+    {
+     "name": "ant1226",
+     "e": -6434.9,
+     "n": 4431.2,
+     "u": 12.9
+    },
+    {
+     "name": "ant1227",
+     "e": 4808.7,
+     "n": -1558.0,
+     "u": -18.3
+    },
+    {
+     "name": "ant1228",
+     "e": -6780.9,
+     "n": 3859.6,
+     "u": 11.9
+    },
+    {
+     "name": "ant1229",
+     "e": 4988.4,
+     "n": -4777.4,
+     "u": 4.9
+    },
+    {
+     "name": "ant1230",
+     "e": -7012.8,
+     "n": -4351.7,
+     "u": -20.7
+    },
+    {
+     "name": "ant1231",
+     "e": 6091.7,
+     "n": -2782.8,
+     "u": 18.2
+    },
+    {
+     "name": "ant1232",
+     "e": -6575.4,
+     "n": 3182.0,
+     "u": 8.5
+    },
+    {
+     "name": "ant1233",
+     "e": -7524.0,
+     "n": -837.3,
+     "u": -4.8
+    },
+    {
+     "name": "ant1234",
+     "e": -6621.3,
+     "n": 4725.7,
+     "u": 14.5
+    },
+    {
+     "name": "ant1235",
+     "e": 6011.1,
+     "n": -2848.5,
+     "u": 8.2
+    },
+    {
+     "name": "ant1236",
+     "e": 5661.5,
+     "n": -4652.8,
+     "u": 46.5
+    },
+    {
+     "name": "ant1237",
+     "e": 2054.3,
+     "n": 9179.1,
+     "u": 93.7
+    },
+    {
+     "name": "ant1238",
+     "e": 2155.6,
+     "n": 690.5,
+     "u": -12.7
+    },
+    {
+     "name": "ant1239",
+     "e": 8516.2,
+     "n": -64.9,
+     "u": 111.0
+    },
+    {
+     "name": "ant1240",
+     "e": -7798.2,
+     "n": -754.0,
+     "u": 3.9
+    },
+    {
+     "name": "ant1241",
+     "e": -7087.6,
+     "n": -677.8,
+     "u": -7.3
+    },
+    {
+     "name": "ant1242",
+     "e": -7692.2,
+     "n": -1033.2,
+     "u": -1.0
+    },
+    {
+     "name": "ant1243",
+     "e": -6451.2,
+     "n": 2810.7,
+     "u": 6.8
+    },
+    {
+     "name": "ant1244",
+     "e": -6755.8,
+     "n": 3462.5,
+     "u": 13.2
+    },
+    {
+     "name": "ant1245",
+     "e": -6877.9,
+     "n": 2968.9,
+     "u": 5.3
+    },
+    {
+     "name": "ant1246",
+     "e": -2636.7,
+     "n": 2729.2,
+     "u": -0.9
+    },
+    {
+     "name": "ant1247",
+     "e": 5089.8,
+     "n": -2938.1,
+     "u": -22.0
+    },
+    {
+     "name": "ant1248",
+     "e": 1529.4,
+     "n": 946.4,
+     "u": -13.6
+    },
+    {
+     "name": "ant1249",
+     "e": 2281.5,
+     "n": -349.9,
+     "u": -12.7
+    },
+    {
+     "name": "ant1250",
+     "e": -7123.8,
+     "n": -489.6,
+     "u": -5.3
+    },
+    {
+     "name": "ant1251",
+     "e": 4550.4,
+     "n": 7498.4,
+     "u": 127.6
+    },
+    {
+     "name": "ant1252",
+     "e": 5726.9,
+     "n": -3546.9,
+     "u": 25.1
+    },
+    {
+     "name": "ant1253",
+     "e": 2174.4,
+     "n": -43.5,
+     "u": -12.7
+    },
+    {
+     "name": "ant1254",
+     "e": 8271.8,
+     "n": 1471.1,
+     "u": 90.1
+    },
+    {
+     "name": "ant1255",
+     "e": -7805.6,
+     "n": -591.2,
+     "u": 1.9
+    },
+    {
+     "name": "ant1256",
+     "e": 4340.4,
+     "n": -3573.7,
+     "u": -28.8
+    },
+    {
+     "name": "ant1257",
+     "e": 5155.0,
+     "n": 7045.1,
+     "u": 121.7
+    },
+    {
+     "name": "ant1258",
+     "e": -6701.7,
+     "n": -4660.1,
+     "u": -17.6
+    },
+    {
+     "name": "ant1259",
+     "e": 3540.4,
+     "n": 500.1,
+     "u": -8.3
+    },
+    {
+     "name": "ant1260",
+     "e": -6858.1,
+     "n": 2945.1,
+     "u": 8.3
+    },
+    {
+     "name": "ant1261",
+     "e": 6592.3,
+     "n": 6234.1,
+     "u": 97.2
+    },
+    {
+     "name": "ant1262",
+     "e": 1088.9,
+     "n": 811.3,
+     "u": -10.5
+    },
+    {
+     "name": "ant1263",
+     "e": -7143.8,
+     "n": -1403.5,
+     "u": -10.5
+    },
+    {
+     "name": "ant1264",
+     "e": -5835.5,
+     "n": -2687.2,
+     "u": -27.6
+    },
+    {
+     "name": "ant1265",
+     "e": 3535.2,
+     "n": -9605.6,
+     "u": -29.6
+    },
+    {
+     "name": "ant1266",
+     "e": 2061.0,
+     "n": 9790.2,
+     "u": 107.8
+    },
+    {
+     "name": "ant1267",
+     "e": 5443.3,
+     "n": -5072.4,
+     "u": 43.3
+    },
+    {
+     "name": "ant1268",
+     "e": 4915.5,
+     "n": -7371.9,
+     "u": 40.5
+    },
+    {
+     "name": "ant1269",
+     "e": 7410.3,
+     "n": 4990.5,
+     "u": 89.4
+    },
+    {
+     "name": "ant1270",
+     "e": 7960.5,
+     "n": -301.6,
+     "u": 90.7
+    },
+    {
+     "name": "ant1271",
+     "e": 5705.3,
+     "n": -5711.0,
+     "u": 91.6
+    },
+    {
+     "name": "ant1272",
+     "e": 5085.7,
+     "n": -7736.7,
+     "u": 78.9
+    },
+    {
+     "name": "ant1273",
+     "e": 5465.3,
+     "n": -6425.9,
+     "u": 68.1
+    },
+    {
+     "name": "ant1274",
+     "e": 4932.4,
+     "n": 7604.0,
+     "u": 134.2
+    },
+    {
+     "name": "ant1275",
+     "e": 2517.1,
+     "n": 1477.3,
+     "u": -10.0
+    },
+    {
+     "name": "ant1276",
+     "e": 5604.9,
+     "n": -5716.4,
+     "u": 68.6
+    },
+    {
+     "name": "ant1277",
+     "e": 4997.6,
+     "n": 6760.1,
+     "u": 108.1
+    },
+    {
+     "name": "ant1278",
+     "e": 3021.8,
+     "n": -228.2,
+     "u": -12.1
+    },
+    {
+     "name": "ant1279",
+     "e": 2355.0,
+     "n": 9394.4,
+     "u": 105.3
+    },
+    {
+     "name": "ant1280",
+     "e": 1914.5,
+     "n": 1258.1,
+     "u": -6.7
+    },
+    {
+     "name": "ant1281",
+     "e": 6773.0,
+     "n": -1070.4,
+     "u": 28.0
+    },
+    {
+     "name": "ant1282",
+     "e": 4882.2,
+     "n": -5781.2,
+     "u": 16.2
+    },
+    {
+     "name": "ant1283",
+     "e": 3189.3,
+     "n": -9885.1,
+     "u": -42.8
+    },
+    {
+     "name": "ant1284",
+     "e": 8429.4,
+     "n": 1638.7,
+     "u": 94.9
+    },
+    {
+     "name": "ant1285",
+     "e": -7312.8,
+     "n": -657.9,
+     "u": -0.6
+    },
+    {
+     "name": "ant1286",
+     "e": 2127.1,
+     "n": 9769.9,
+     "u": 114.8
+    },
+    {
+     "name": "ant1287",
+     "e": -3585.3,
+     "n": 8724.7,
+     "u": 21.7
+    },
+    {
+     "name": "ant1288",
+     "e": -6349.0,
+     "n": 5037.7,
+     "u": 12.5
+    },
+    {
+     "name": "ant1289",
+     "e": 6779.5,
+     "n": 5661.3,
+     "u": 94.6
+    },
+    {
+     "name": "ant1290",
+     "e": 4558.7,
+     "n": 7508.1,
+     "u": 127.6
+    },
+    {
+     "name": "ant1291",
+     "e": 2949.4,
+     "n": 40.6,
+     "u": -13.0
+    },
+    {
+     "name": "ant1292",
+     "e": -6552.2,
+     "n": 233.7,
+     "u": -6.7
+    },
+    {
+     "name": "ant1293",
+     "e": 3405.6,
+     "n": -9680.2,
+     "u": -35.6
+    },
+    {
+     "name": "ant1294",
+     "e": 875.9,
+     "n": 633.1,
+     "u": -11.4
+    },
+    {
+     "name": "ant1295",
+     "e": 5035.8,
+     "n": -7819.9,
+     "u": 78.9
+    },
+    {
+     "name": "ant1296",
+     "e": 2458.8,
+     "n": -36.0,
+     "u": -13.8
+    },
+    {
+     "name": "ant1297",
+     "e": -6597.6,
+     "n": 5006.0,
+     "u": 13.3
+    },
+    {
+     "name": "ant1298",
+     "e": 5286.3,
+     "n": 7203.5,
+     "u": 130.4
+    },
+    {
+     "name": "ant1299",
+     "e": 2041.4,
+     "n": 9715.2,
+     "u": 103.9
+    },
+    {
+     "name": "ant1300",
+     "e": 1466.8,
+     "n": 858.5,
+     "u": -13.6
+    },
+    {
+     "name": "ant1301",
+     "e": 2505.6,
+     "n": -606.9,
+     "u": -13.9
+    },
+    {
+     "name": "ant1302",
+     "e": 8363.4,
+     "n": 11.4,
+     "u": 111.2
+    },
+    {
+     "name": "ant1303",
+     "e": -6044.3,
+     "n": 6389.2,
+     "u": 10.6
+    },
+    {
+     "name": "ant1304",
+     "e": -5005.6,
+     "n": -7632.8,
+     "u": -43.9
+    },
+    {
+     "name": "ant1305",
+     "e": -6286.2,
+     "n": 2111.4,
+     "u": 2.2
+    },
+    {
+     "name": "ant1306",
+     "e": -6050.6,
+     "n": 1620.8,
+     "u": -1.4
+    },
+    {
+     "name": "ant1307",
+     "e": 4167.7,
+     "n": -500.3,
+     "u": -10.7
+    },
+    {
+     "name": "ant1308",
+     "e": 3893.3,
+     "n": -2274.5,
+     "u": -24.9
+    },
+    {
+     "name": "ant1309",
+     "e": 4600.7,
+     "n": 7524.1,
+     "u": 130.6
+    },
+    {
+     "name": "ant1310",
+     "e": 3156.7,
+     "n": -279.2,
+     "u": -10.1
+    },
+    {
+     "name": "ant1311",
+     "e": -1601.8,
+     "n": -10050.5,
+     "u": -50.5
+    },
+    {
+     "name": "ant1312",
+     "e": 1557.3,
+     "n": -9768.6,
+     "u": -49.0
+    },
+    {
+     "name": "ant1313",
+     "e": 2200.5,
+     "n": 9529.0,
+     "u": 105.2
+    },
+    {
+     "name": "ant1314",
+     "e": 5642.1,
+     "n": -5729.6,
+     "u": 68.6
+    },
+    {
+     "name": "ant1315",
+     "e": -3794.6,
+     "n": -1953.8,
+     "u": -20.8
+    },
+    {
+     "name": "ant1316",
+     "e": 5695.4,
+     "n": -4639.7,
+     "u": 65.4
+    },
+    {
+     "name": "ant1317",
+     "e": 554.8,
+     "n": 1778.6,
+     "u": -9.6
+    },
+    {
+     "name": "ant1318",
+     "e": -46.8,
+     "n": -678.3,
+     "u": -15.4
+    },
+    {
+     "name": "ant1319",
+     "e": -5746.3,
+     "n": 6640.4,
+     "u": 13.6
+    },
+    {
+     "name": "ant1320",
+     "e": 4745.7,
+     "n": -1736.7,
+     "u": -20.3
+    },
+    {
+     "name": "ant1321",
+     "e": 3054.6,
+     "n": -324.3,
+     "u": -12.1
+    },
+    {
+     "name": "ant1322",
+     "e": 233.5,
+     "n": 706.8,
+     "u": -9.4
+    },
+    {
+     "name": "ant1323",
+     "e": 6941.6,
+     "n": 5688.0,
+     "u": 95.4
+    },
+    {
+     "name": "ant1324",
+     "e": 2570.8,
+     "n": 13.7,
+     "u": -13.9
+    },
+    {
+     "name": "ant1325",
+     "e": -6426.3,
+     "n": -3491.8,
+     "u": -22.5
+    },
+    {
+     "name": "ant1326",
+     "e": 2285.3,
+     "n": 9277.8,
+     "u": 96.5
+    },
+    {
+     "name": "ant1327",
+     "e": 5670.2,
+     "n": -3681.8,
+     "u": 35.1
+    },
+    {
+     "name": "ant1328",
+     "e": 6263.9,
+     "n": -2049.2,
+     "u": 1.3
+    },
+    {
+     "name": "ant1329",
+     "e": 3715.6,
+     "n": -1328.7,
+     "u": -17.6
+    },
+    {
+     "name": "ant1330",
+     "e": 2087.9,
+     "n": 9784.3,
+     "u": 114.8
+    },
+    {
+     "name": "ant1331",
+     "e": -1354.7,
+     "n": 9749.1,
+     "u": 33.1
+    },
+    {
+     "name": "ant1332",
+     "e": -6185.3,
+     "n": 547.3,
+     "u": -6.4
+    },
+    {
+     "name": "ant1333",
+     "e": -7201.4,
+     "n": -4302.0,
+     "u": -18.8
+    },
+    {
+     "name": "ant1334",
+     "e": 8599.2,
+     "n": 290.1,
+     "u": 109.9
+    },
+    {
+     "name": "ant1335",
+     "e": 5294.8,
+     "n": -6503.3,
+     "u": 48.1
+    },
+    {
+     "name": "ant1336",
+     "e": 3615.8,
+     "n": 6398.0,
+     "u": 72.4
+    },
+    {
+     "name": "ant1337",
+     "e": 7177.6,
+     "n": 5111.8,
+     "u": 86.6
+    },
+    {
+     "name": "ant1338",
+     "e": 6267.1,
+     "n": -2108.7,
+     "u": 4.2
+    },
+    {
+     "name": "ant1339",
+     "e": 6411.4,
+     "n": 6037.0,
+     "u": 92.6
+    },
+    {
+     "name": "ant1340",
+     "e": -6023.2,
+     "n": 464.5,
+     "u": -12.2
+    },
+    {
+     "name": "ant1341",
+     "e": 5785.1,
+     "n": -4657.0,
+     "u": 65.3
+    },
+    {
+     "name": "ant1342",
+     "e": 8188.0,
+     "n": -477.6,
+     "u": 120.4
+    },
+    {
+     "name": "ant1343",
+     "e": 1757.9,
+     "n": -230.1,
+     "u": -15.6
+    },
+    {
+     "name": "ant1344",
+     "e": 500.1,
+     "n": -137.6,
+     "u": -12.4
+    },
+    {
+     "name": "ant1345",
+     "e": -805.1,
+     "n": 694.4,
+     "u": -10.4
+    },
+    {
+     "name": "ant1346",
+     "e": -4101.1,
+     "n": -9080.1,
+     "u": -49.1
+    },
+    {
+     "name": "ant1347",
+     "e": 5231.7,
+     "n": 7180.5,
+     "u": 121.5
+    },
+    {
+     "name": "ant1348",
+     "e": 5705.6,
+     "n": -5763.0,
+     "u": 94.5
+    },
+    {
+     "name": "ant1349",
+     "e": 1302.6,
+     "n": 9945.3,
+     "u": 86.8
+    },
+    {
+     "name": "ant1350",
+     "e": -6679.5,
+     "n": 5053.1,
+     "u": 13.2
+    },
+    {
+     "name": "ant1351",
+     "e": 4838.0,
+     "n": -1064.6,
+     "u": -15.3
+    },
+    {
+     "name": "ant1352",
+     "e": 739.8,
+     "n": 1009.0,
+     "u": -6.5
+    },
+    {
+     "name": "ant1353",
+     "e": -6937.9,
+     "n": -1630.2,
+     "u": -13.3
+    },
+    {
+     "name": "ant1354",
+     "e": -6990.9,
+     "n": 3101.2,
+     "u": 13.1
+    },
+    {
+     "name": "ant1355",
+     "e": -1438.0,
+     "n": 741.9,
+     "u": -13.5
+    },
+    {
+     "name": "ant1356",
+     "e": 2204.5,
+     "n": -3763.1,
+     "u": -32.8
+    },
+    {
+     "name": "ant1357",
+     "e": 2297.6,
+     "n": 2614.8,
+     "u": 0.7
+    },
+    {
+     "name": "ant1358",
+     "e": 1471.2,
+     "n": 1738.6,
+     "u": -11.7
+    },
+    {
+     "name": "ant1359",
+     "e": -4533.3,
+     "n": -8494.4,
+     "u": -51.6
+    },
+    {
+     "name": "ant1360",
+     "e": -3424.1,
+     "n": -9562.4,
+     "u": -49.4
+    },
+    {
+     "name": "ant1361",
+     "e": 2161.7,
+     "n": -3279.4,
+     "u": -30.5
+    },
+    {
+     "name": "ant1362",
+     "e": -5915.1,
+     "n": 1616.7,
+     "u": -3.3
+    },
+    {
+     "name": "ant1363",
+     "e": 5766.3,
+     "n": -5702.6,
+     "u": 91.5
+    },
+    {
+     "name": "ant1364",
+     "e": -4639.5,
+     "n": 7924.2,
+     "u": 20.0
+    },
+    {
+     "name": "ant1365",
+     "e": -88.6,
+     "n": -4188.2,
+     "u": -34.7
+    },
+    {
+     "name": "ant1366",
+     "e": -6019.9,
+     "n": -6221.9,
+     "u": -37.2
+    },
+    {
+     "name": "ant1367",
+     "e": 3110.1,
+     "n": -9724.2,
+     "u": -44.5
+    },
+    {
+     "name": "ant1368",
+     "e": 4470.2,
+     "n": 7158.7,
+     "u": 108.1
+    },
+    {
+     "name": "ant1369",
+     "e": 457.5,
+     "n": 2765.5,
+     "u": -6.0
+    },
+    {
+     "name": "ant1370",
+     "e": 4583.6,
+     "n": 7678.5,
+     "u": 138.4
+    },
+    {
+     "name": "ant1371",
+     "e": 3951.5,
+     "n": 622.1,
+     "u": -7.6
+    },
+    {
+     "name": "ant1372",
+     "e": -6134.6,
+     "n": 1088.1,
+     "u": -5.4
+    },
+    {
+     "name": "ant1373",
+     "e": -4975.6,
+     "n": -8041.6,
+     "u": -46.4
+    },
+    {
+     "name": "ant1374",
+     "e": 2740.0,
+     "n": 1761.9,
+     "u": -8.2
+    },
+    {
+     "name": "ant1375",
+     "e": -5916.7,
+     "n": 1031.2,
+     "u": -9.2
+    },
+    {
+     "name": "ant1376",
+     "e": 4804.5,
+     "n": -6785.2,
+     "u": 26.2
+    },
+    {
+     "name": "ant1377",
+     "e": 2767.6,
+     "n": 8991.6,
+     "u": 108.7
+    },
+    {
+     "name": "ant1378",
+     "e": -473.4,
+     "n": -2454.6,
+     "u": -28.8
+    },
+    {
+     "name": "ant1379",
+     "e": 495.4,
+     "n": -713.1,
+     "u": -18.4
+    },
+    {
+     "name": "ant1380",
+     "e": 2025.2,
+     "n": 188.6,
+     "u": -10.7
+    },
+    {
+     "name": "ant1381",
+     "e": -2598.4,
+     "n": 9263.1,
+     "u": 23.4
+    },
+    {
+     "name": "ant1382",
+     "e": -6463.0,
+     "n": 5651.6,
+     "u": 9.9
+    },
+    {
+     "name": "ant1383",
+     "e": -5164.7,
+     "n": -1514.5,
+     "u": -18.6
+    },
+    {
+     "name": "ant1384",
+     "e": -3234.9,
+     "n": 8180.8,
+     "u": 20.6
+    },
+    {
+     "name": "ant1385",
+     "e": 2018.3,
+     "n": 2064.6,
+     "u": -6.0
+    },
+    {
+     "name": "ant1386",
+     "e": 1896.2,
+     "n": -2796.6,
+     "u": -28.2
+    },
+    {
+     "name": "ant1387",
+     "e": -6128.3,
+     "n": -3068.6,
+     "u": -27.0
+    },
+    {
+     "name": "ant1388",
+     "e": 4422.2,
+     "n": -892.3,
+     "u": -12.9
+    },
+    {
+     "name": "ant1389",
+     "e": -6963.7,
+     "n": -4332.8,
+     "u": -20.6
+    },
+    {
+     "name": "ant1390",
+     "e": -6827.9,
+     "n": 3808.5,
+     "u": 11.9
+    },
+    {
+     "name": "ant1391",
+     "e": 194.3,
+     "n": 14.6,
+     "u": -10.3
+    },
+    {
+     "name": "ant1392",
+     "e": 4515.8,
+     "n": 6935.9,
+     "u": 101.3
+    },
+    {
+     "name": "ant1393",
+     "e": 1233.3,
+     "n": 9893.7,
+     "u": 86.9
+    },
+    {
+     "name": "ant1394",
+     "e": -5836.1,
+     "n": -2627.2,
+     "u": -27.5
+    },
+    {
+     "name": "ant1395",
+     "e": -6115.9,
+     "n": 334.9,
+     "u": -12.3
+    },
+    {
+     "name": "ant1396",
+     "e": 2726.4,
+     "n": 7507.0,
+     "u": 80.7
+    },
+    {
+     "name": "ant1397",
+     "e": 3975.5,
+     "n": -1607.3,
+     "u": -22.8
+    },
+    {
+     "name": "ant1398",
+     "e": -1400.8,
+     "n": 1956.6,
+     "u": -7.8
+    },
+    {
+     "name": "ant1399",
+     "e": 1664.4,
+     "n": 9567.1,
+     "u": 91.3
+    },
+    {
+     "name": "ant1400",
+     "e": 5111.9,
+     "n": -7723.9,
+     "u": 78.9
+    },
+    {
+     "name": "ant1401",
+     "e": -159.3,
+     "n": -3069.9,
+     "u": -30.1
+    },
+    {
+     "name": "ant1402",
+     "e": 3188.7,
+     "n": 803.3,
+     "u": -9.2
+    },
+    {
+     "name": "ant1403",
+     "e": 2706.6,
+     "n": 3819.7,
+     "u": 6.9
+    },
+    {
+     "name": "ant1404",
+     "e": 5523.6,
+     "n": -4025.6,
+     "u": 27.0
+    },
+    {
+     "name": "ant1405",
+     "e": -632.3,
+     "n": -805.2,
+     "u": -15.4
+    },
+    {
+     "name": "ant1406",
+     "e": 4384.9,
+     "n": 6001.1,
+     "u": 67.3
+    },
+    {
+     "name": "ant1407",
+     "e": 4688.3,
+     "n": 148.0,
+     "u": -1.1
+    },
+    {
+     "name": "ant1408",
+     "e": 1815.4,
+     "n": -2792.1,
+     "u": -28.2
+    },
+    {
+     "name": "ant1409",
+     "e": 3238.8,
+     "n": -9883.1,
+     "u": -42.8
+    },
+    {
+     "name": "ant1410",
+     "e": 4103.9,
+     "n": -3776.6,
+     "u": -33.8
+    },
+    {
+     "name": "ant1411",
+     "e": 2151.6,
+     "n": 3552.8,
+     "u": 2.3
+    },
+    {
+     "name": "ant1412",
+     "e": -1596.2,
+     "n": 983.6,
+     "u": -8.6
+    },
+    {
+     "name": "ant1413",
+     "e": 1032.6,
+     "n": -7267.8,
+     "u": -41.6
+    },
+    {
+     "name": "ant1414",
+     "e": 3389.8,
+     "n": -5337.2,
+     "u": -33.5
+    },
+    {
+     "name": "ant1415",
+     "e": -6720.7,
+     "n": 2926.5,
+     "u": 8.5
+    },
+    {
+     "name": "ant1416",
+     "e": 3252.5,
+     "n": 1680.9,
+     "u": -2.4
+    },
+    {
+     "name": "ant1417",
+     "e": 5484.3,
+     "n": 5336.2,
+     "u": 68.1
+    },
+    {
+     "name": "ant1418",
+     "e": 4289.3,
+     "n": 5846.5,
+     "u": 67.5
+    },
+    {
+     "name": "ant1419",
+     "e": 3519.6,
+     "n": 7153.2,
+     "u": 87.7
+    },
+    {
+     "name": "ant1420",
+     "e": -6627.5,
+     "n": 5096.0,
+     "u": 13.2
+    },
+    {
+     "name": "ant1421",
+     "e": -984.3,
+     "n": -165.7,
+     "u": -13.4
+    },
+    {
+     "name": "ant1422",
+     "e": 2563.1,
+     "n": 4428.0,
+     "u": 13.6
+    },
+    {
+     "name": "ant1423",
+     "e": -5231.4,
+     "n": 7171.2,
+     "u": 17.5
+    },
+    {
+     "name": "ant1424",
+     "e": -7745.5,
+     "n": -961.7,
+     "u": -1.1
+    },
+    {
+     "name": "ant1425",
+     "e": -4374.1,
+     "n": -8827.4,
+     "u": -48.0
+    },
+    {
+     "name": "ant1426",
+     "e": -6165.1,
+     "n": 2165.3,
+     "u": 2.3
+    },
+    {
+     "name": "ant1427",
+     "e": -3672.5,
+     "n": -18.1,
+     "u": -14.4
+    },
+    {
+     "name": "ant1428",
+     "e": 6550.4,
+     "n": -1459.9,
+     "u": 13.1
+    },
+    {
+     "name": "ant1429",
+     "e": 4762.1,
+     "n": -7262.2,
+     "u": 29.7
+    },
+    {
+     "name": "ant1430",
+     "e": -2299.1,
+     "n": 9478.8,
+     "u": 29.2
+    },
+    {
+     "name": "ant1431",
+     "e": 243.8,
+     "n": 9886.7,
+     "u": 58.0
+    },
+    {
+     "name": "ant1432",
+     "e": 224.5,
+     "n": -511.6,
+     "u": -17.4
+    },
+    {
+     "name": "ant1433",
+     "e": 8514.8,
+     "n": 380.9,
+     "u": 103.0
+    },
+    {
+     "name": "ant1434",
+     "e": 1300.6,
+     "n": -3386.4,
+     "u": -34.4
+    },
+    {
+     "name": "ant1435",
+     "e": -5746.9,
+     "n": -6656.6,
+     "u": -43.4
+    },
+    {
+     "name": "ant1436",
+     "e": -6447.3,
+     "n": 3275.3,
+     "u": -3.9
+    },
+    {
+     "name": "ant1437",
+     "e": 3345.0,
+     "n": -2357.2,
+     "u": -27.6
+    },
+    {
+     "name": "ant1438",
+     "e": 1150.2,
+     "n": 2330.9,
+     "u": -6.9
+    },
+    {
+     "name": "ant1439",
+     "e": 3533.2,
+     "n": -9724.8,
+     "u": -28.7
+    },
+    {
+     "name": "ant1440",
+     "e": 932.5,
+     "n": 4221.8,
+     "u": 3.2
+    },
+    {
+     "name": "ant1441",
+     "e": -7041.6,
+     "n": 3091.4,
+     "u": 13.0
+    },
+    {
+     "name": "ant1442",
+     "e": -3365.1,
+     "n": -3520.4,
+     "u": -30.2
+    },
+    {
+     "name": "ant1443",
+     "e": -6482.2,
+     "n": 5297.0,
+     "u": 11.2
+    },
+    {
+     "name": "ant1444",
+     "e": 5428.4,
+     "n": -6438.3,
+     "u": 68.1
+    },
+    {
+     "name": "ant1445",
+     "e": -6515.6,
+     "n": -4431.5,
+     "u": -24.2
+    },
+    {
+     "name": "ant1446",
+     "e": -469.4,
+     "n": -1435.4,
+     "u": -21.5
+    },
+    {
+     "name": "ant1447",
+     "e": 1226.1,
+     "n": 4134.5,
+     "u": 3.2
+    },
+    {
+     "name": "ant1448",
+     "e": -5629.5,
+     "n": 927.9,
+     "u": -12.9
+    },
+    {
+     "name": "ant1449",
+     "e": 2312.1,
+     "n": 3086.8,
+     "u": 4.5
+    },
+    {
+     "name": "ant1450",
+     "e": 2033.6,
+     "n": -3550.1,
+     "u": -29.6
+    },
+    {
+     "name": "ant1451",
+     "e": -2654.6,
+     "n": -9918.6,
+     "u": -49.6
+    },
+    {
+     "name": "ant1452",
+     "e": -3545.4,
+     "n": 288.6,
+     "u": -12.3
+    },
+    {
+     "name": "ant1453",
+     "e": -1497.1,
+     "n": 5962.5,
+     "u": 14.7
+    },
+    {
+     "name": "ant1454",
+     "e": 525.1,
+     "n": 9829.6,
+     "u": 66.1
+    },
+    {
+     "name": "ant1455",
+     "e": 831.5,
+     "n": -5787.7,
+     "u": -37.0
+    },
+    {
+     "name": "ant1456",
+     "e": 8084.3,
+     "n": 2805.0,
+     "u": 89.9
+    },
+    {
+     "name": "ant1457",
+     "e": -3155.3,
+     "n": 1285.9,
+     "u": -9.2
+    },
+    {
+     "name": "ant1458",
+     "e": -6383.6,
+     "n": 5291.8,
+     "u": 11.3
+    },
+    {
+     "name": "ant1459",
+     "e": 8153.2,
+     "n": -389.1,
+     "u": 103.5
+    },
+    {
+     "name": "ant1460",
+     "e": 5641.0,
+     "n": -5113.0,
+     "u": 62.1
+    },
+    {
+     "name": "ant1461",
+     "e": 4228.7,
+     "n": -4575.6,
+     "u": -33.4
+    },
+    {
+     "name": "ant1462",
+     "e": -242.0,
+     "n": 2020.4,
+     "u": -6.7
+    },
+    {
+     "name": "ant1463",
+     "e": 3727.3,
+     "n": 1262.7,
+     "u": -2.5
+    },
+    {
+     "name": "ant1464",
+     "e": -7704.2,
+     "n": -598.3,
+     "u": 4.0
+    },
+    {
+     "name": "ant1465",
+     "e": 4778.8,
+     "n": -8063.8,
+     "u": 69.8
+    },
+    {
+     "name": "ant1466",
+     "e": -2623.9,
+     "n": 2197.6,
+     "u": -6.3
+    },
+    {
+     "name": "ant1467",
+     "e": -229.4,
+     "n": 2338.1,
+     "u": -5.8
+    },
+    {
+     "name": "ant1468",
+     "e": -4387.5,
+     "n": -8439.9,
+     "u": -51.4
+    },
+    {
+     "name": "ant1469",
+     "e": 7725.5,
+     "n": 4253.4,
+     "u": 85.6
+    },
+    {
+     "name": "ant1470",
+     "e": 6029.3,
+     "n": -2937.5,
+     "u": 18.1
+    },
+    {
+     "name": "ant1471",
+     "e": -1969.3,
+     "n": 9504.9,
+     "u": 26.3
+    },
+    {
+     "name": "ant1472",
+     "e": 1477.1,
+     "n": -462.5,
+     "u": -16.5
+    },
+    {
+     "name": "ant1473",
+     "e": 2758.8,
+     "n": 7902.2,
+     "u": 91.2
+    },
+    {
+     "name": "ant1474",
+     "e": -2458.2,
+     "n": -3433.1,
+     "u": -31.7
+    },
+    {
+     "name": "ant1475",
+     "e": -3749.6,
+     "n": 2373.7,
+     "u": -2.9
+    },
+    {
+     "name": "ant1476",
+     "e": 4677.9,
+     "n": 238.8,
+     "u": -1.0
+    },
+    {
+     "name": "ant1477",
+     "e": 1004.3,
+     "n": -2859.9,
+     "u": -27.1
+    },
+    {
+     "name": "ant1478",
+     "e": 2119.4,
+     "n": 4708.0,
+     "u": 9.6
+    },
+    {
+     "name": "ant1479",
+     "e": -4537.0,
+     "n": -2912.6,
+     "u": -29.6
+    },
+    {
+     "name": "ant1480",
+     "e": 6766.8,
+     "n": -1167.4,
+     "u": 24.0
+    },
+    {
+     "name": "ant1481",
+     "e": 438.3,
+     "n": -38.8,
+     "u": -11.3
+    },
+    {
+     "name": "ant1482",
+     "e": 2347.9,
+     "n": 9409.6,
+     "u": 105.3
+    },
+    {
+     "name": "ant1483",
+     "e": -3355.6,
+     "n": -9580.7,
+     "u": -49.4
+    },
+    {
+     "name": "ant1484",
+     "e": -2919.1,
+     "n": 9160.2,
+     "u": 24.4
+    },
+    {
+     "name": "ant1485",
+     "e": -1735.6,
+     "n": -52.5,
+     "u": -11.6
+    },
+    {
+     "name": "ant1486",
+     "e": -1953.5,
+     "n": 3324.6,
+     "u": -1.5
+    },
+    {
+     "name": "ant1487",
+     "e": -5906.3,
+     "n": 1884.5,
+     "u": 0.7
+    },
+    {
+     "name": "ant1488",
+     "e": -3777.5,
+     "n": -1893.3,
+     "u": -20.7
+    },
+    {
+     "name": "ant1489",
+     "e": -1278.8,
+     "n": 9663.2,
+     "u": 33.2
+    },
+    {
+     "name": "ant1490",
+     "e": -201.4,
+     "n": 9844.7,
+     "u": 52.0
+    },
+    {
+     "name": "ant1491",
+     "e": 4616.5,
+     "n": -3917.6,
+     "u": -32.2
+    },
+    {
+     "name": "ant1492",
+     "e": 6157.2,
+     "n": -2300.9,
+     "u": -0.7
+    },
+    {
+     "name": "ant1493",
+     "e": 7429.8,
+     "n": 5083.2,
+     "u": 89.3
+    },
+    {
+     "name": "ant1494",
+     "e": -1534.5,
+     "n": 3951.3,
+     "u": -0.7
+    },
+    {
+     "name": "ant1495",
+     "e": 3854.0,
+     "n": 2662.4,
+     "u": 11.9
+    },
+    {
+     "name": "ant1496",
+     "e": -7145.4,
+     "n": -4354.7,
+     "u": -18.8
+    },
+    {
+     "name": "ant1497",
+     "e": -5237.6,
+     "n": 7082.1,
+     "u": 17.6
+    },
+    {
+     "name": "ant1498",
+     "e": 1661.4,
+     "n": -2996.5,
+     "u": -30.3
+    },
+    {
+     "name": "ant1499",
+     "e": -6106.9,
+     "n": 930.0,
+     "u": -7.3
+    },
+    {
+     "name": "ant1500",
+     "e": 430.7,
+     "n": 4875.8,
+     "u": 4.8
+    },
+    {
+     "name": "ant1501",
+     "e": 2560.4,
+     "n": 2636.2,
+     "u": -0.4
+    },
+    {
+     "name": "ant1502",
+     "e": -6679.0,
+     "n": -4580.1,
+     "u": -19.5
+    },
+    {
+     "name": "ant1503",
+     "e": -5593.8,
+     "n": 6979.2,
+     "u": 17.4
+    },
+    {
+     "name": "ant1504",
+     "e": 3237.3,
+     "n": -2787.5,
+     "u": -27.8
+    },
+    {
+     "name": "ant1505",
+     "e": -3630.0,
+     "n": -1234.6,
+     "u": -19.5
+    },
+    {
+     "name": "ant1506",
+     "e": 4020.8,
+     "n": -9063.9,
+     "u": -16.1
+    },
+    {
+     "name": "ant1507",
+     "e": 223.8,
+     "n": -2076.4,
+     "u": -24.7
+    },
+    {
+     "name": "ant1508",
+     "e": -2859.5,
+     "n": -9880.6,
+     "u": -47.6
+    },
+    {
+     "name": "ant1509",
+     "e": 1893.0,
+     "n": 937.5,
+     "u": -11.7
+    },
+    {
+     "name": "ant1510",
+     "e": -2766.7,
+     "n": 6238.7,
+     "u": 13.0
+    },
+    {
+     "name": "ant1511",
+     "e": -4821.4,
+     "n": -8472.8,
+     "u": -43.8
+    },
+    {
+     "name": "ant1512",
+     "e": -4650.4,
+     "n": -2648.4,
+     "u": -26.6
+    },
+    {
+     "name": "ant1513",
+     "e": -2900.8,
+     "n": -1320.5,
+     "u": -18.1
+    },
+    {
+     "name": "ant1514",
+     "e": -4871.3,
+     "n": 3480.4,
+     "u": 2.9
+    },
+    {
+     "name": "ant1515",
+     "e": 1742.1,
+     "n": 4204.4,
+     "u": 4.0
+    },
+    {
+     "name": "ant1516",
+     "e": 3473.3,
+     "n": 5973.0,
+     "u": 50.9
+    },
+    {
+     "name": "ant1517",
+     "e": 6196.5,
+     "n": -2273.0,
+     "u": -3.7
+    },
+    {
+     "name": "ant1518",
+     "e": -6320.6,
+     "n": 659.8,
+     "u": -6.5
+    },
+    {
+     "name": "ant1519",
+     "e": -2945.9,
+     "n": 2124.0,
+     "u": -6.4
+    },
+    {
+     "name": "ant1520",
+     "e": -5977.0,
+     "n": -4835.9,
+     "u": -32.0
+    },
+    {
+     "name": "ant1521",
+     "e": -810.5,
+     "n": -10052.8,
+     "u": -51.3
+    },
+    {
+     "name": "ant1522",
+     "e": -1635.9,
+     "n": 9561.4,
+     "u": 28.3
+    },
+    {
+     "name": "ant1523",
+     "e": 5537.4,
+     "n": 6542.7,
+     "u": 103.9
+    },
+    {
+     "name": "ant1524",
+     "e": -157.4,
+     "n": -4833.9,
+     "u": -37.2
+    },
+    {
+     "name": "ant1525",
+     "e": -456.1,
+     "n": -4263.8,
+     "u": -31.8
+    },
+    {
+     "name": "ant1526",
+     "e": 4329.9,
+     "n": -8315.2,
+     "u": 26.8
+    },
+    {
+     "name": "ant1527",
+     "e": 673.4,
+     "n": 5090.5,
+     "u": 5.6
+    },
+    {
+     "name": "ant1528",
+     "e": -774.6,
+     "n": 837.7,
+     "u": -11.4
+    },
+    {
+     "name": "ant1529",
+     "e": -3646.8,
+     "n": -3494.2,
+     "u": -28.3
+    },
+    {
+     "name": "ant1530",
+     "e": 5769.7,
+     "n": -5730.3,
+     "u": 91.5
+    },
+    {
+     "name": "ant1531",
+     "e": 4236.7,
+     "n": -2551.4,
+     "u": -27.2
+    },
+    {
+     "name": "ant1532",
+     "e": 8537.1,
+     "n": 945.2,
+     "u": 102.9
+    },
+    {
+     "name": "ant1533",
+     "e": 3842.3,
+     "n": -9484.4,
+     "u": -18.6
+    },
+    {
+     "name": "ant1534",
+     "e": -1215.5,
+     "n": -2919.6,
+     "u": -28.1
+    },
+    {
+     "name": "ant1535",
+     "e": 158.9,
+     "n": 1183.0,
+     "u": -9.4
+    },
+    {
+     "name": "ant1536",
+     "e": -5563.6,
+     "n": -1693.2,
+     "u": -21.0
+    },
+    {
+     "name": "ant1537",
+     "e": 3297.3,
+     "n": 2196.7,
+     "u": 4.4
+    },
+    {
+     "name": "ant1538",
+     "e": -6987.2,
+     "n": -1647.9,
+     "u": -13.4
+    },
+    {
+     "name": "ant1539",
+     "e": 3119.7,
+     "n": 7390.0,
+     "u": 86.6
+    },
+    {
+     "name": "ant1540",
+     "e": 3898.2,
+     "n": -4735.7,
+     "u": -31.3
+    },
+    {
+     "name": "ant1541",
+     "e": -3113.8,
+     "n": 5504.5,
+     "u": 7.5
+    },
+    {
+     "name": "ant1542",
+     "e": -2378.1,
+     "n": 9369.3,
+     "u": 29.3
+    },
+    {
+     "name": "ant1543",
+     "e": -1987.3,
+     "n": -10085.0,
+     "u": -50.6
+    },
+    {
+     "name": "ant1544",
+     "e": 966.6,
+     "n": 2812.6,
+     "u": -3.0
+    },
+    {
+     "name": "ant1545",
+     "e": 4103.5,
+     "n": -194.3,
+     "u": -6.7
+    },
+    {
+     "name": "ant1546",
+     "e": -6569.9,
+     "n": 4981.2,
+     "u": 13.3
+    },
+    {
+     "name": "ant1547",
+     "e": -5718.9,
+     "n": -3348.5,
+     "u": -29.8
+    },
+    {
+     "name": "ant1548",
+     "e": 2742.1,
+     "n": 7817.6,
+     "u": 91.3
+    },
+    {
+     "name": "ant1549",
+     "e": -2440.2,
+     "n": 949.2,
+     "u": -9.9
+    },
+    {
+     "name": "ant1550",
+     "e": 3787.3,
+     "n": -2320.4,
+     "u": -21.9
+    },
+    {
+     "name": "ant1551",
+     "e": 7490.2,
+     "n": 3455.4,
+     "u": 79.3
+    },
+    {
+     "name": "ant1552",
+     "e": 864.9,
+     "n": -5338.3,
+     "u": -35.6
+    },
+    {
+     "name": "ant1553",
+     "e": -2241.3,
+     "n": 4585.4,
+     "u": 3.6
+    },
+    {
+     "name": "ant1554",
+     "e": 4202.9,
+     "n": 5274.5,
+     "u": 47.1
+    },
+    {
+     "name": "ant1555",
+     "e": 3903.7,
+     "n": 2818.2,
+     "u": 18.9
+    },
+    {
+     "name": "ant1556",
+     "e": -3879.3,
+     "n": -4719.0,
+     "u": -35.3
+    },
+    {
+     "name": "ant1557",
+     "e": -5342.7,
+     "n": -7197.6,
+     "u": -42.6
+    },
+    {
+     "name": "ant1558",
+     "e": -3872.0,
+     "n": 7985.9,
+     "u": 18.5
+    },
+    {
+     "name": "ant1559",
+     "e": -984.9,
+     "n": 3406.1,
+     "u": -2.3
+    },
+    {
+     "name": "ant1560",
+     "e": -6863.2,
+     "n": 3339.8,
+     "u": 13.1
+    },
+    {
+     "name": "ant1561",
+     "e": -4076.4,
+     "n": -832.0,
+     "u": -15.7
+    },
+    {
+     "name": "ant1562",
+     "e": 2388.2,
+     "n": 154.7,
+     "u": -13.8
+    },
+    {
+     "name": "ant1563",
+     "e": -6604.0,
+     "n": -1873.4,
+     "u": -20.0
+    },
+    {
+     "name": "ant1564",
+     "e": 3403.4,
+     "n": 2750.1,
+     "u": 7.2
+    },
+    {
+     "name": "ant1565",
+     "e": 4268.4,
+     "n": -3910.3,
+     "u": -32.0
+    },
+    {
+     "name": "ant1566",
+     "e": 568.3,
+     "n": -5104.3,
+     "u": -34.4
+    },
+    {
+     "name": "ant1567",
+     "e": -2122.3,
+     "n": 9483.3,
+     "u": 27.2
+    },
+    {
+     "name": "ant1568",
+     "e": -461.4,
+     "n": 6536.7,
+     "u": 13.3
+    },
+    {
+     "name": "ant1569",
+     "e": 169.2,
+     "n": -3800.9,
+     "u": -34.5
+    },
+    {
+     "name": "ant1570",
+     "e": -3738.6,
+     "n": 2349.5,
+     "u": -2.9
+    },
+    {
+     "name": "ant1571",
+     "e": 3434.3,
+     "n": 3924.7,
+     "u": 20.5
+    },
+    {
+     "name": "ant1572",
+     "e": 1832.9,
+     "n": -395.3,
+     "u": -15.6
+    },
+    {
+     "name": "ant1573",
+     "e": -827.9,
+     "n": 9846.9,
+     "u": 38.0
+    },
+    {
+     "name": "ant1574",
+     "e": -873.1,
+     "n": -638.4,
+     "u": -14.4
+    },
+    {
+     "name": "ant1575",
+     "e": 4712.7,
+     "n": 4652.4,
+     "u": 47.2
+    },
+    {
+     "name": "ant1576",
+     "e": 7089.7,
+     "n": 5476.7,
+     "u": 95.4
+    },
+    {
+     "name": "ant1577",
+     "e": -6467.4,
+     "n": 5081.9,
+     "u": 12.4
+    },
+    {
+     "name": "ant1578",
+     "e": -5119.0,
+     "n": 6995.7,
+     "u": 17.8
+    },
+    {
+     "name": "ant1579",
+     "e": -4864.0,
+     "n": -8372.3,
+     "u": -43.7
+    },
+    {
+     "name": "ant1580",
+     "e": -40.5,
+     "n": 1583.4,
+     "u": -7.5
+    },
+    {
+     "name": "ant1581",
+     "e": 2012.3,
+     "n": 7183.0,
+     "u": 53.3
+    },
+    {
+     "name": "ant1582",
+     "e": -7725.0,
+     "n": -571.1,
+     "u": 4.0
+    },
+    {
+     "name": "ant1583",
+     "e": 3669.5,
+     "n": 214.1,
+     "u": -9.4
+    },
+    {
+     "name": "ant1584",
+     "e": 7180.2,
+     "n": -615.3,
+     "u": 50.6
+    },
+    {
+     "name": "ant1585",
+     "e": 45.7,
+     "n": 7067.8,
+     "u": 18.7
+    },
+    {
+     "name": "ant1586",
+     "e": -2264.2,
+     "n": -1432.3,
+     "u": -18.9
+    },
+    {
+     "name": "ant1587",
+     "e": -1121.1,
+     "n": -9292.2,
+     "u": -46.2
+    },
+    {
+     "name": "ant1588",
+     "e": -6338.9,
+     "n": 5769.5,
+     "u": 9.9
+    },
+    {
+     "name": "ant1589",
+     "e": -2583.1,
+     "n": -2028.1,
+     "u": -21.2
+    },
+    {
+     "name": "ant1590",
+     "e": -1021.9,
+     "n": -2122.7,
+     "u": -27.8
+    },
+    {
+     "name": "ant1591",
+     "e": 2153.2,
+     "n": 8165.5,
+     "u": 79.1
+    },
+    {
+     "name": "ant1592",
+     "e": 3768.2,
+     "n": -3829.4,
+     "u": -32.6
+    },
+    {
+     "name": "ant1593",
+     "e": -5607.6,
+     "n": -2544.7,
+     "u": -25.3
+    },
+    {
+     "name": "ant1594",
+     "e": -1108.2,
+     "n": 3911.5,
+     "u": 0.4
+    },
+    {
+     "name": "ant1595",
+     "e": 1321.1,
+     "n": 3403.8,
+     "u": 2.6
+    },
+    {
+     "name": "ant1596",
+     "e": -6537.7,
+     "n": -3924.6,
+     "u": -20.9
+    },
+    {
+     "name": "ant1597",
+     "e": 6739.4,
+     "n": -1260.6,
+     "u": 24.0
+    },
+    {
+     "name": "ant1598",
+     "e": 4657.9,
+     "n": 7817.6,
+     "u": 138.2
+    },
+    {
+     "name": "ant1599",
+     "e": -772.1,
+     "n": -809.8,
+     "u": -15.4
+    },
+    {
+     "name": "ant1600",
+     "e": 1725.5,
+     "n": 5229.5,
+     "u": 14.3
+    },
+    {
+     "name": "ant1601",
+     "e": -6280.7,
+     "n": 738.6,
+     "u": -8.5
+    },
+    {
+     "name": "ant1602",
+     "e": 8164.2,
+     "n": 1919.0,
+     "u": 89.2
+    },
+    {
+     "name": "ant1603",
+     "e": -906.3,
+     "n": 5181.8,
+     "u": 5.5
+    },
+    {
+     "name": "ant1604",
+     "e": 1511.7,
+     "n": 9085.7,
+     "u": 76.0
+    },
+    {
+     "name": "ant1605",
+     "e": -3046.6,
+     "n": 9073.7,
+     "u": 25.5
+    },
+    {
+     "name": "ant1606",
+     "e": 2371.9,
+     "n": 9464.0,
+     "u": 105.2
+    },
+    {
+     "name": "ant1607",
+     "e": -4408.1,
+     "n": 3574.7,
+     "u": 1.1
+    },
+    {
+     "name": "ant1608",
+     "e": -6227.4,
+     "n": -5357.6,
+     "u": -29.6
+    },
+    {
+     "name": "ant1609",
+     "e": -1429.5,
+     "n": -10049.5,
+     "u": -51.4
+    },
+    {
+     "name": "ant1610",
+     "e": -585.8,
+     "n": 6532.5,
+     "u": 13.3
+    },
+    {
+     "name": "ant1611",
+     "e": -2067.0,
+     "n": 2963.6,
+     "u": -4.4
+    },
+    {
+     "name": "ant1612",
+     "e": 118.5,
+     "n": -8959.3,
+     "u": -45.6
+    },
+    {
+     "name": "ant1613",
+     "e": -5104.4,
+     "n": -4026.1,
+     "u": -33.6
+    },
+    {
+     "name": "ant1614",
+     "e": 5664.9,
+     "n": -4569.4,
+     "u": 64.5
+    },
+    {
+     "name": "ant1615",
+     "e": -86.4,
+     "n": -10088.4,
+     "u": -50.3
+    },
+    {
+     "name": "ant1616",
+     "e": 6513.7,
+     "n": -1867.4,
+     "u": 8.1
+    },
+    {
+     "name": "ant1617",
+     "e": 3505.9,
+     "n": -1063.3,
+     "u": -19.4
+    },
+    {
+     "name": "ant1618",
+     "e": 2223.2,
+     "n": 4355.6,
+     "u": 8.8
+    },
+    {
+     "name": "ant1619",
+     "e": 3351.3,
+     "n": 5528.6,
+     "u": 40.4
+    },
+    {
+     "name": "ant1620",
+     "e": 4306.8,
+     "n": 1834.7,
+     "u": 5.0
+    },
+    {
+     "name": "ant1621",
+     "e": 568.6,
+     "n": -4328.0,
+     "u": -35.8
+    },
+    {
+     "name": "ant1622",
+     "e": -3730.1,
+     "n": -3365.2,
+     "u": -28.3
+    },
+    {
+     "name": "ant1623",
+     "e": -4205.1,
+     "n": 8195.9,
+     "u": 23.0
+    },
+    {
+     "name": "ant1624",
+     "e": 1414.8,
+     "n": -6326.9,
+     "u": -40.6
+    },
+    {
+     "name": "ant1625",
+     "e": -2492.1,
+     "n": 9407.3,
+     "u": 25.2
+    },
+    {
+     "name": "ant1626",
+     "e": 62.3,
+     "n": 1690.6,
+     "u": -8.6
+    },
+    {
+     "name": "ant1627",
+     "e": 2594.2,
+     "n": -517.0,
+     "u": -13.9
+    },
+    {
+     "name": "ant1628",
+     "e": -1014.5,
+     "n": 2061.2,
+     "u": -5.7
+    },
+    {
+     "name": "ant1629",
+     "e": 4104.9,
+     "n": 5565.4,
+     "u": 51.9
+    },
+    {
+     "name": "ant1630",
+     "e": 1797.5,
+     "n": 326.2,
+     "u": -11.6
+    },
+    {
+     "name": "ant1631",
+     "e": 3309.9,
+     "n": -6284.3,
+     "u": -37.3
+    },
+    {
+     "name": "ant1632",
+     "e": 328.6,
+     "n": 6681.1,
+     "u": 19.2
+    },
+    {
+     "name": "ant1633",
+     "e": 5651.2,
+     "n": -3419.0,
+     "u": 0.2
+    },
+    {
+     "name": "ant1634",
+     "e": 4742.5,
+     "n": 2809.3,
+     "u": 26.3
+    },
+    {
+     "name": "ant1635",
+     "e": 4995.7,
+     "n": -7589.5,
+     "u": 68.2
+    },
+    {
+     "name": "ant1636",
+     "e": 4303.3,
+     "n": 1684.1,
+     "u": 5.0
+    },
+    {
+     "name": "ant1637",
+     "e": 4550.2,
+     "n": 4576.3,
+     "u": 46.4
+    },
+    {
+     "name": "ant1638",
+     "e": 976.8,
+     "n": 9965.9,
+     "u": 74.8
+    },
+    {
+     "name": "ant1639",
+     "e": 1079.2,
+     "n": -4948.9,
+     "u": -35.3
+    },
+    {
+     "name": "ant1640",
+     "e": -5232.6,
+     "n": -3623.7,
+     "u": -31.5
+    },
+    {
+     "name": "ant1641",
+     "e": -4868.5,
+     "n": -4014.2,
+     "u": -33.5
+    },
+    {
+     "name": "ant1642",
+     "e": -5171.9,
+     "n": -5192.3,
+     "u": -38.5
+    },
+    {
+     "name": "ant1643",
+     "e": -5469.5,
+     "n": -5721.4,
+     "u": -40.2
+    },
+    {
+     "name": "ant1644",
+     "e": -5294.6,
+     "n": -6272.1,
+     "u": -40.6
+    },
+    {
+     "name": "ant1645",
+     "e": -5046.7,
+     "n": -6305.1,
+     "u": -44.4
+    },
+    {
+     "name": "ant1646",
+     "e": -7224.7,
+     "n": -1029.9,
+     "u": -5.5
+    },
+    {
+     "name": "ant1647",
+     "e": 2798.2,
+     "n": 8904.5,
+     "u": 117.8
+    },
+    {
+     "name": "ant1648",
+     "e": 2824.7,
+     "n": 8875.3,
+     "u": 117.9
+    },
+    {
+     "name": "ant1649",
+     "e": -3983.1,
+     "n": -9145.1,
+     "u": -50.1
+    },
+    {
+     "name": "ant1650",
+     "e": -4891.0,
+     "n": -5294.5,
+     "u": -37.4
+    }
+   ],
+   "antenna_names_note": "INFERRED: ENU gives no names; ant0001..ant1650 = position in the file order",
+   "bmax_m": 20299.14,
+   "bmax_pair": [
+    "ant1349",
+    "ant1543"
+   ],
+   "bmin_m": 10.2,
+   "bmin_pair": [
+    "ant0296",
+    "ant1255"
+   ],
+   "bmax_horiz_m": 20298.68,
+   "bmin_horiz_m": 10.2,
+   "baselines_derived": "DERIVED: 3-D separations over all 1,360,425 pairs of ENU; horizontal = sqrt(de^2 + dn^2)",
+   "extent_m": {
+    "e": [
+     -7813.7,
+     8599.2
+    ],
+    "n": [
+     -10088.4,
+     9982.6
+    ],
+    "u": [
+     -53.6,
+     138.4
+    ]
+   },
+   "baseline_quantiles_m": {
+    "p10": 3096.9,
+    "p25": 5142.2,
+    "median": 7932.3,
+    "p75": 10979.1,
+    "p90": 13660.9
+   },
+   "published": {
+    "n_baselines": 1360425,
+    "bmin_m": 10.2,
+    "bmax_m": 20300,
+    "src": "ETC",
+    "loc": "Methods 1.1 Array",
+    "footprint_km": [
+     20,
+     16
+    ],
+    "footprint_src": "OVW",
+    "beam_natural_arcsec": [
+     3.03,
+     2.31
+    ],
+    "beam_natural_pa_deg": 90.6,
+    "beam_freq_GHz": 1.35,
+    "beam_src": "ETC Methods 5.1 (zenith snapshot)",
+    "beam_uniform_arcsec": [
+     2.031,
+     1.569
+    ],
+    "beam_uniform_pa_deg": 94.11,
+    "beam_uniform_src": "PSF"
+   },
+   "header_quote": {
+    "src": "ENU",
+    "loc": "header",
+    "quote": "\"frame\":\"local ENU (m) relative to array centroid\""
+   }
+  }
+ },
+ "historical_configs": {
+  "dsa2000-loc.cfg": {
+   "n_ant": 2003,
+   "dish_m": 5.0,
+   "bmax_m": 15000.33,
+   "bmin_m": 8.75,
+   "x_range_m": [
+    -7500.38,
+    7499.93
+   ],
+   "y_range_m": [
+    -7502.82,
+    7492.63
+   ],
+   "median_baseline_m": 2607.6,
+   "frac_baselines_4_6km": 0.1749,
+   "src": "WPLOC",
+   "note": "DERIVED statistics only (antenna lists not copied). CASA LOC frame about the OVRO_MMA position (simulation placeholder, not the Nevada site). Superseded 5 m design."
+  },
+  "20210226W.cfg": {
+   "n_ant": 2048,
+   "dish_m": 5.0,
+   "bmax_m": 15393.62,
+   "bmin_m": 8.85,
+   "x_range_m": [
+    -7872.425,
+    7484.111
+   ],
+   "y_range_m": [
+    -7717.517,
+    7489.371
+   ],
+   "median_baseline_m": 6304.4,
+   "frac_baselines_4_6km": 0.2268,
+   "src": "WPW",
+   "note": "DERIVED statistics only (antenna lists not copied). CASA LOC frame about the OVRO_MMA position (simulation placeholder, not the Nevada site). Superseded 5 m design."
+  }
+ },
+ "beam": {
+  "natural": {
+   "bmaj_arcsec": 3.03,
+   "bmin_arcsec": 2.31,
+   "pa_deg": 90.6,
+   "freq_GHz": 1.35,
+   "src": "ETC",
+   "loc": "Methods 5.1",
+   "scaling": "1/nu; N-S axis x 1/cos(ZA)"
+  },
+  "uniform": {
+   "bmaj_arcsec": 2.0311889522950133,
+   "bmin_arcsec": 1.5692742379724927,
+   "pa_deg": 94.11310696601811,
+   "freq_GHz": 1.35,
+   "src": "PSF",
+   "weighting": "uniform, uv cells of 1/FOV for a 2.0-arcmin localization image"
+  },
+  "natural_check": {
+   "bmaj_arcsec": 3.026110985887066,
+   "bmin_arcsec": 2.310305219978891,
+   "pa_deg": 90.33817445014576,
+   "src": "PSF"
+  }
+ },
+ "geometry": {
+  "frame": "local ENU about the array centroid, as given by ENU (no conversion applied; values copied)",
+  "equatorial_from_enu": "INFERRED (standard local-to-equatorial rotation): X_eq = -sin(lat0) n + cos(lat0) u, Y_eq = e, Z_eq = cos(lat0) n + sin(lat0) u, lat0 = 39.55393 deg (ENU site_lat_deg); X_eq in the meridian plane toward the equator, Y_eq east, Z_eq toward the north celestial pole",
+  "lat0_deg": 39.55393,
+  "note": "u spans -53.6 to 138.4 m (terrain plus Earth curvature over +-10 km); keep it for w-terms and the equatorial rotation"
+ },
+ "params": {
+  "project_status": {
+   "value": "Deep Synoptic Array (DSA), formerly DSA-2000; Final Design Review completed summer 2026; construction target 2029",
+   "unit": "",
+   "src": "NEWS3",
+   "loc": "paragraph 2",
+   "quote": "completed its final design review this summer and is ready for federal environmental reviews and eventual construction in a remote valley about 30 miles north of Highway 50",
+   "alternatives": [
+    {
+     "value": "name: DSA, formerly DSA-2000",
+     "src": "OVW",
+     "loc": "first paragraph",
+     "quote": "The Deep Synoptic Array (DSA, formerly DSA-2000) will be a world-leading radio survey telescope and multi-messenger discovery engine."
+    },
+    {
+     "value": "build by 2029",
+     "src": "NEWS1",
+     "loc": "paragraph 3",
+     "quote": "The DSA team plans to build the telescope by 2029, with science operations commencing soon after."
+    },
+    {
+     "value": "\"under construction\"",
+     "src": "PTA",
+     "loc": "Sec. 4.2.1",
+     "quote": "The Deep Synoptic Array is a 1650-dish array under construction in Eastern Nevada, expected to"
+    },
+    {
+     "value": "parameters = project baseline at the Final Design Review",
+     "src": "ETC",
+     "loc": "Methods, preamble",
+     "quote": "The instrument parameters assume the DSA project baseline at the Final Design Review."
+    }
+   ]
+  },
+  "site_name": {
+   "value": "Spring Valley, Nevada (Northern Spring Valley, White Pine County)",
+   "unit": "",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "at Spring Valley, Nevada (latitude φ = +39.554°)",
+   "alternatives": [
+    {
+     "value": "Northern Spring Valley; White Pine County",
+     "src": "NEWS3",
+     "loc": "paragraph 1",
+     "quote": "construct the world’s most sensitive radio telescope in Northern Spring Valley"
+    },
+    {
+     "value": "Eastern Nevada",
+     "src": "PTA",
+     "loc": "Sec. 4.2.1",
+     "quote": "The Deep Synoptic Array is a 1650-dish array under construction in Eastern Nevada, expected to"
+    },
+    {
+     "value": "Big Smoky Valley, Nevada (earlier plan; superseded)",
+     "src": "POLISH",
+     "loc": "Sec. 1",
+     "quote": "Deep Synoptic Array in the Big Smoky Valley, Nevada, will contain and combine an unprecedented 2000 antennas"
+    },
+    {
+     "value": "candidate sites in California and Nevada (2019)",
+     "src": "WP",
+     "loc": "Sec. 2 Technical Overview (site paragraph)",
+     "quote": "A number of potential sites have been identified in both California and Nevada"
+    }
+   ]
+  },
+  "lat_deg": {
+   "value": 39.55393,
+   "unit": "deg (N positive)",
+   "src": "ENU",
+   "loc": "header field site_lat_deg",
+   "quote": "\"site_lat_deg\":39.55393",
+   "alternatives": [
+    {
+     "value": 39.554,
+     "src": "ETC",
+     "loc": "Methods 1.1 Array",
+     "quote": "at Spring Valley, Nevada (latitude φ = +39.554°)"
+    },
+    {
+     "value": 39.55,
+     "src": "ETC",
+     "loc": "DSA specifications table, Site",
+     "quote": "Site Spring Valley, Nevada (latitude +39.55°)"
+    }
+   ]
+  },
+  "lon_deg": {
+   "value": -114.42415,
+   "unit": "deg (E positive; West negative)",
+   "src": "ENU",
+   "loc": "header field site_lon_deg",
+   "quote": "\"site_lon_deg\":-114.42415"
+  },
+  "elev_m": {
+   "value": 1746.3,
+   "unit": "m (datum NOT FOUND: ellipsoidal or above sea level not stated)",
+   "src": "ENU",
+   "loc": "header field site_height_m",
+   "quote": "\"site_height_m\":1746.3"
+  },
+  "reference_point": {
+   "value": "array centroid (E, N, U origin); site_lat/lon/height of the file INFERRED to be the centroid position",
+   "unit": "",
+   "src": "ENU",
+   "loc": "header field frame",
+   "quote": "\"frame\":\"local ENU (m) relative to array centroid\"",
+   "derived": "DERIVED: mean E = -0.0003 m, mean N = -0.0012 m, mean U = -0.0001 m over the 1650 antennas (zero to the 0.1 m rounding), confirming the centroid origin"
+  },
+  "config_id": {
+   "value": "dsa1650_P305_v2.5.6.8",
+   "unit": "",
+   "src": "ENU",
+   "loc": "header field config",
+   "quote": "\"config\":\"dsa1650_P305_v2.5.6.8\"",
+   "alternatives": [
+    {
+     "value": "same configuration for the PSF table",
+     "src": "PSF",
+     "loc": "field config",
+     "quote": "\"config\": \"dsa1650_P305_v2.5.6.8\""
+    },
+    {
+     "value": "the calculator loads its positions from this file",
+     "src": "ETC",
+     "loc": "Methods 15 Implementation, data-file table",
+     "quote": "antennas_enu.json antenna positions and site latitude"
+    }
+   ]
+  },
+  "n_antennas": {
+   "value": 1650,
+   "unit": "",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "The DSA consists of N = 1650 antennas of diameter D = 6.155 m",
+   "derived": "DERIVED: ENU holds 1650 E, N and U values, 1650 distinct (E, N) pairs",
+   "alternatives": [
+    {
+     "value": 1650,
+     "src": "OVW",
+     "loc": "first paragraph",
+     "quote": "The array will consist of 1650 × 6.15m dishes instantaneously covering the 0.7 – 2 GHz frequency range"
+    },
+    {
+     "value": 1650,
+     "src": "CSD",
+     "loc": "1 Introduction",
+     "quote": "will consist of 1650 6.15-m dishes operating at radio frequencies of 700 MHz to 2 GHz"
+    },
+    {
+     "value": 1650,
+     "src": "NEWS1",
+     "loc": "paragraph 3",
+     "quote": "the DSA will consist of 1,650 radio dishes, each slightly more than 6 meters in diameter"
+    },
+    {
+     "value": 2000,
+     "src": "WP",
+     "loc": "Table 1 (superseded design)",
+     "quote": "Reflectors 2000 × 5-m dishes"
+    },
+    {
+     "value": "redesign 2000 -> fewer, larger dishes",
+     "src": "PTA",
+     "loc": "Sec. 4.2.1",
+     "quote": "was originally designed with 2000 dishes, but recently underwent a redesign that reduced the number of dishes but increased their diameter from 5 m to 6.15 m"
+    }
+   ]
+  },
+  "dish_m": {
+   "value": 6.155,
+   "unit": "m",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "The DSA consists of N = 1650 antennas of diameter D = 6.155 m (geometric area A = πD²/4 = 29.75 m²)",
+   "alternatives": [
+    {
+     "value": 6.155,
+     "src": "ETC",
+     "loc": "DSA specifications table, Antennas",
+     "quote": "Antennas 1,650 × 6.155 m"
+    },
+    {
+     "value": 6.15,
+     "src": "OVW",
+     "loc": "first paragraph",
+     "quote": "The array will consist of 1650 × 6.15m dishes instantaneously covering the 0.7 – 2 GHz frequency range"
+    },
+    {
+     "value": 6.15,
+     "src": "CSD",
+     "loc": "1 Introduction",
+     "quote": "will consist of 1650 6.15-m dishes operating at radio frequencies of 700 MHz to 2 GHz"
+    },
+    {
+     "value": "slightly more than 6 m",
+     "src": "NEWS1",
+     "loc": "paragraph 3",
+     "quote": "each slightly more than 6 meters in diameter"
+    },
+    {
+     "value": 5.0,
+     "src": "WP",
+     "loc": "Table 1 (superseded 2019 design)",
+     "quote": "Reflectors 2000 × 5-m dishes"
+    },
+    {
+     "value": 5.0,
+     "src": "BSM",
+     "loc": "Sec. 1 (superseded design)",
+     "quote": "The DSA-2000 will be an interferometric array of 2000 × 5 m antennas to be built in a radio-quiet"
+    }
+   ]
+  },
+  "footprint": {
+   "value": "20 km x 16 km",
+   "unit": "",
+   "src": "OVW",
+   "loc": "first paragraph",
+   "quote": "spanning an area of 20 km × 16 km in a radio-quiet valley in Nevada",
+   "derived": "DERIVED from ENU: E spans -7813.7 to 8599.2 m (16.4 km), N spans -10088.4 to 9982.6 m (20.1 km); max distance from the centroid 10400.3 m",
+   "alternatives": [
+    {
+     "value": "about 20 x 16 km",
+     "src": "NEWS1",
+     "loc": "paragraph 3",
+     "quote": "The array will span an area of about 20 x 16 kilometers."
+    },
+    {
+     "value": "10.5 x 12 miles = 16.90 x 19.31 km (DERIVED, 1 mile = 1.609344 km)",
+     "src": "NEWS3",
+     "loc": "paragraph 2",
+     "quote": "deploy 1,650 individual radio dishes across a 10.5-by-12-mile footprint"
+    },
+    {
+     "value": "15 km diameter (superseded 2019 preliminary configuration)",
+     "src": "WP",
+     "loc": "Figure 7 caption",
+     "quote": "A preliminary configuration for the DSA-2000 spanning a 15 km diameter area."
+    }
+   ]
+  },
+  "baselines": {
+   "value": "1,360,425 baselines from 10.2 m to 20.3 km",
+   "unit": "",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "The antenna configuration provides 1,360,425 baselines from 10.2 m to 20.3 km.",
+   "derived": "DERIVED from ENU: 1650 x 1649 / 2 = 1360425 pairs; 3-D Bmax = 20299.14 m (ant1349-ant1543; horizontal 20298.68 m), Bmin = 10.20 m (ant0296-ant1255; horizontal 10.20 m)",
+   "alternatives": [
+    {
+     "value": "1,360,425; 10 m to 20.3 km",
+     "src": "ETC",
+     "loc": "DSA specifications table, Baselines",
+     "quote": "Baselines 1,360,425; 10 m to 20.3 km"
+    }
+   ]
+  },
+  "baseline_distribution": {
+   "value": "most baselines between 4 and 6 km (CSD statement; NOT reproduced by ENU, see conflicts)",
+   "unit": "",
+   "src": "CSD",
+   "loc": "Sec. 8.5 Ultra-deep neutral hydrogen observations of nearby galaxies (Figure 8.9 discussion)",
+   "quote": "DSA-2000 on the contrary has most baselines with lengths between 4 and 6 km",
+   "derived": "DERIVED from ENU: baseline length quartiles 5142 / 7932 / 10979 m (25/50/75%), 10th/90th percentiles 3097 / 13661 m; 16.4% of baselines in 4-6 km, 1.16% below 1 km, 6 below 20 m; most populated 1-km bin 7-8 km (9.2%)"
+  },
+  "freq_range": {
+   "value": [
+    0.7,
+    2.0
+   ],
+   "unit": "GHz",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "observing from 0.70 to 2.00 GHz in two linear polarizations.",
+   "alternatives": [
+    {
+     "value": "0.70-2.00 GHz, dual linear polarization",
+     "src": "ETC",
+     "loc": "DSA specifications table, Frequency range",
+     "quote": "Frequency range 0.70–2.00 GHz, dual linear polarization"
+    },
+    {
+     "value": "0.7-2 GHz, instantaneous",
+     "src": "OVW",
+     "loc": "first paragraph",
+     "quote": "dishes instantaneously covering the 0.7 – 2 GHz frequency range"
+    },
+    {
+     "value": "700 MHz to 2 GHz",
+     "src": "CSD",
+     "loc": "1 Introduction",
+     "quote": "operating at radio frequencies of 700 MHz to 2 GHz"
+    },
+    {
+     "value": "0.7-2 GHz simultaneously",
+     "src": "PTA",
+     "loc": "Sec. 4.2.1",
+     "quote": "to cover 0.7-2 GHz simultaneously"
+    }
+   ]
+  },
+  "bandwidth": {
+   "value": 1.3,
+   "unit": "GHz (instantaneous; the whole band at once)",
+   "src": "OVW",
+   "loc": "first paragraph",
+   "quote": "dishes instantaneously covering the 0.7 – 2 GHz frequency range",
+   "derived": "DERIVED: 2.00 - 0.70 = 1.30 GHz; the ten Radio Camera continuum windows total 10 x 130.2 = 1302 MHz",
+   "alternatives": [
+    {
+     "value": "1.3 GHz (2019 design)",
+     "src": "WP",
+     "loc": "Table 1",
+     "quote": "Bandwidth 1.3 GHz"
+    },
+    {
+     "value": "ten 130.2-MHz continuum windows",
+     "src": "ETC",
+     "loc": "DSA specifications table, Radio Camera",
+     "quote": "imaging: ten 130.2-MHz continuum windows (Stokes I, V), three HI cubes"
+    },
+    {
+     "value": "FRB-search sub-bands 880-980, 1310-1510, 1650-1950 MHz",
+     "src": "ETC",
+     "loc": "DSA specifications table, Chronoscope, FRB search",
+     "quote": "bands 880–980, 1310–1510 and 1650–1950 MHz"
+    }
+   ]
+  },
+  "primary_beam": {
+   "value": "Gaussian, FWHM = 3.36 deg / nu_GHz",
+   "unit": "deg",
+   "src": "ETC",
+   "loc": "Methods 1.1 Array",
+   "quote": "The primary beam is modeled as a Gaussian of FWHM θ_P = 3.36°/ν_GHz.",
+   "derived": "DERIVED: FWHM = 1.204 x lambda/D with D = 6.155 m (3.36 deg in rad x 6.155 m / 0.299792 m); 4.80 deg at 0.70 GHz, 2.49 deg at 1.35 GHz, 1.68 deg at 2.00 GHz",
+   "alternatives": [
+    {
+     "value": "2.49 deg at 1.35 GHz",
+     "src": "ETC",
+     "loc": "DSA specifications table, Primary beam",
+     "quote": "Primary beam 3.36°/ν GHz FWHM (2.49° at 1.35 GHz)"
+    },
+    {
+     "value": "FoV 10.6 deg2 (2019 5 m design)",
+     "src": "WP",
+     "loc": "Table 1",
+     "quote": "Field of View 10.6 deg2"
+    },
+    {
+     "value": "FoV 10 deg2 at 1.4 GHz (5 m design)",
+     "src": "BSM",
+     "loc": "specification table",
+     "quote": "Field of view (FoV) 10 deg2 at 1.4 GHz"
+    }
+   ]
+  },
+  "mount": {
+   "value": "fully steerable azimuth-elevation mount (alt-az type INFERRED from \"azimuth and elevation\")",
+   "unit": "",
+   "src": "TECH",
+   "loc": "A Low-cost Antenna and Receiver Package",
+   "quote": "A low-cost fully steerable antenna, mount and drive package",
+   "alternatives": [
+    {
+     "value": "azimuth + elevation, tracking capable (2019 design)",
+     "src": "WP",
+     "loc": "Sec. 2.2",
+     "quote": "5 m dishes serviced by fully motorized elevation, azimuth and tracking capable mounts / drives"
+    },
+    {
+     "value": "azimuth + elevation; unlike DSA-110 (elevation only)",
+     "src": "IM21",
+     "loc": "Sec. 2",
+     "quote": "The antennas will be fully steerable in both azimuth and elevation, differing from the pathfinder DSA-10 and DSA-110 dishes that are steerable in elevation only."
+    },
+    {
+     "value": "mount='alt-az' in the whitepaper CASA simulation",
+     "src": "WPREAD",
+     "loc": "simobs.py, sm.setconfig call",
+     "quote": "mount='alt-az'"
+    }
+   ]
+  },
+  "tracking": {
+   "value": "tracks; targeted tracks centred on transit, |HA| <= 2 h and elevation >= 20 deg (calculator model)",
+   "unit": "",
+   "src": "ETC",
+   "loc": "User guide, Observation: survey or targeted",
+   "quote": "The DSA can track a source for at most ±2 hours of hour angle around transit, and only above 20° elevation; longer requests are split over several transits (100 hours is 25 transits of 4 hours).",
+   "derived": "DERIVED: window at dec -30 deg for el >= 20 deg at lat 39.55393: cos H = (sin 20 - sin(lat) sin(dec)) / (cos(lat) cos(dec)) gives |H| <= 0.566 h",
+   "alternatives": [
+    {
+     "value": "|HA| <= 2 h, el >= 20 deg; +-0.57 h at dec -30",
+     "src": "ETC",
+     "loc": "Methods 4.3 Targeted observations",
+     "quote": "Tracks are centered on transit and limited to |HA| ≤ 2 h and elevation ≥ 20°."
+    },
+    {
+     "value": "+-0.57 h at dec -30",
+     "src": "ETC",
+     "loc": "Methods 4.3 Targeted observations",
+     "quote": "(at δ = −30° the elevation limit allows ±0.57 h)"
+    },
+    {
+     "value": "about +-0.6 h at dec -30",
+     "src": "ETC",
+     "loc": "User guide",
+     "quote": "Near the southern limit of the sky the window is shorter: at declination −30° only about ±0.6 hours is available."
+    },
+    {
+     "value": "survey: 21-minute pointings",
+     "src": "ETC",
+     "loc": "DSA specifications table, Survey",
+     "quote": "Pointings 12,850 per pass, 21 minutes each, hexagonal grid (1.667° × 1.45°)"
+    },
+    {
+     "value": "2019 design optimised for 15-min tracks",
+     "src": "WP",
+     "loc": "Figure 7 caption",
+     "quote": "The final configuration will be optimized for 15-min tracks."
+    }
+   ]
+  },
+  "elev_limit_deg": {
+   "value": 20,
+   "unit": "deg (lower limit used by the calculator for targeted tracks; a mechanical limit is NOT FOUND)",
+   "src": "ETC",
+   "loc": "Methods 4.3 Targeted observations",
+   "quote": "Tracks are centered on transit and limited to |HA| ≤ 2 h and elevation ≥ 20°.",
+   "derived": "DERIVED: a source transits at elevation 90 - (lat - dec); el = 20 deg at transit for dec = 20 + 39.55393 - 90 = -30.446 deg, matching the survey limit dec > -30.45 deg (ETC Sec. 14); dec -30 transits at 20.45 deg",
+   "alternatives": [
+    {
+     "value": "survey covers dec > -30.45 deg",
+     "src": "ETC",
+     "loc": "Methods 14 Survey plan",
+     "quote": "The Cadenced All-Sky Survey covers δ > −30.45° with 12,850 pointings"
+    },
+    {
+     "value": "sky coverage dec >= -30 deg",
+     "src": "ETC",
+     "loc": "DSA specifications table, Sky coverage",
+     "quote": "Sky coverage δ ≥ −30°, 30,940 deg²"
+    },
+    {
+     "value": 10,
+     "src": "PTA",
+     "loc": "Sec. 4.2.1 (assumption for pulsar timing)",
+     "quote": "minimum elevation limit of 10◦ , yielding a Dec. range of −41◦ < Dec. < 90◦",
+     "note": "DERIVED: el 10 deg at transit for dec = -40.45 deg (the paper quotes -41)"
+    }
+   ]
+  },
+  "synth_beam_natural": {
+   "value": {
+    "bmaj_arcsec": 3.03,
+    "bmin_arcsec": 2.31,
+    "pa_deg": 90.6,
+    "freq_GHz": 1.35,
+    "where": "zenith snapshot"
+   },
+   "unit": "arcsec",
+   "src": "ETC",
+   "loc": "Methods 5.1 Natural weighting",
+   "quote": "is 3.03″ (east–west) × 2.31″ (north–south), position angle 90.6°.",
+   "derived": "DERIVED: lambda/Bmax at 1.35 GHz = 0.22207 m / 20299.1 m = 2.256 arcsec; beam / (lambda/Bmax) = 1.34 (E-W) and 1.02 (N-S)",
+   "alternatives": [
+    {
+     "value": "3.0 x 2.3 arcsec at 1.35 GHz, zenith",
+     "src": "ETC",
+     "loc": "DSA specifications table",
+     "quote": "Resolution (natural weighting) 3.0″ × 2.3″ at 1.35 GHz, zenith"
+    },
+    {
+     "value": {
+      "bmaj": 3.026110985887066,
+      "bmin": 2.310305219978891,
+      "pa": 90.33817445014576
+     },
+     "src": "PSF",
+     "loc": "natural_check",
+     "quote": "\"bmaj\": 3.026110985887066"
+    },
+    {
+     "value": "scales as 1/nu; N-S axis grows as 1/cos ZA",
+     "src": "ETC",
+     "loc": "Methods 5.1",
+     "quote": "It scales as 1/ν, and away from zenith the north–south axis grows as 1/cos ZA."
+    },
+    {
+     "value": "3.0 arcsec",
+     "src": "OVW",
+     "loc": "first paragraph",
+     "quote": "with a spatial resolution of 3.0 arcseconds"
+    },
+    {
+     "value": "3.5 arcsec (2019 design)",
+     "src": "WP",
+     "loc": "Table 1",
+     "quote": "Spatial Resolution 3.5 arcsec"
+    },
+    {
+     "value": "3.5 arcsec (CSD tables of the DSA-2000 baseline reference design)",
+     "src": "CSD",
+     "loc": "Sec. 8 requirements tables",
+     "quote": "DSA-2000 baseline reference design match to project Spatial resolution 3.5"
+    },
+    {
+     "value": "3.3 arcsec at 1.4 GHz (5 m design)",
+     "src": "BSM",
+     "loc": "specification table",
+     "quote": "Angular resolution 3.3” at 1.4 GHz"
+    },
+    {
+     "value": "roughly 3 arcsec (2021 layout)",
+     "src": "POLISH",
+     "loc": "Sec. 1",
+     "quote": "With a PSF width of roughly 3 ”"
+    }
+   ]
+  },
+  "synth_beam_uniform": {
+   "value": {
+    "bmaj_arcsec": 2.0311889522950133,
+    "bmin_arcsec": 1.5692742379724927,
+    "pa_deg": 94.11310696601811,
+    "freq_GHz": 1.35
+   },
+   "unit": "arcsec (unit INFERRED; the file gives none)",
+   "src": "PSF",
+   "loc": "uniform",
+   "quote": "\"bmaj\": 2.0311889522950133",
+   "alternatives": [
+    {
+     "value": "weighting definition",
+     "src": "PSF",
+     "loc": "weighting",
+     "quote": "\"weighting\": \"uniform, uv cells of 1/FOV for a 2.0-arcmin localization image\""
+    },
+    {
+     "value": "zenith, 1.35 GHz, HA 0",
+     "src": "PSF",
+     "loc": "freq_MHz, hour_angle_deg, zenith",
+     "quote": "\"freq_MHz\": 1350.0"
+    }
+   ]
+  },
+  "survey": {
+   "value": "12,850 pointings per pass, 21 min each, hexagonal grid 1.667 x 1.45 deg; five passes",
+   "unit": "",
+   "src": "ETC",
+   "loc": "DSA specifications table, Survey",
+   "quote": "Pointings 12,850 per pass, 21 minutes each, hexagonal grid (1.667° × 1.45°)",
+   "alternatives": [
+    {
+     "value": "budget",
+     "src": "ETC",
+     "loc": "Methods 14 Survey plan",
+     "quote": "a budget of 5 × 12,850 = 64,250 pointing-epochs of 21 minutes"
+    }
+   ]
+  },
+  "wp_configs": {
+   "value": "two whitepaper-era LOC cfg files (5 m dishes; superseded)",
+   "unit": "",
+   "src": "WPLOC",
+   "loc": "header lines 1-2",
+   "quote": "# observatory=OVRO_MMA # coordsys=LOC OVRO_MMA",
+   "alternatives": [
+    {
+     "value": "LOC = tangent plane at the CASA OVRO_MMA position",
+     "src": "WPREAD",
+     "loc": "README, Simulating visibilities",
+     "quote": "The cfg file used is the uvw coordinates of the array on the tangent plane set in `simobs.py`"
+    },
+    {
+     "value": "simobs.py call",
+     "src": "WPREAD",
+     "loc": "simobs.py, sm.setconfig call",
+     "quote": "coordsystem='local', referencelocation=pos_ovro_mma"
+    },
+    {
+     "value": "W config header",
+     "src": "WPW",
+     "loc": "header lines 1-2",
+     "quote": "# observatory=OVRO_MMA # coordsys=LOC OVRO_MMA"
+    },
+    {
+     "value": "loc cfg last change",
+     "src": "WPCOM",
+     "loc": "commit list of dsa2000-loc.cfg",
+     "quote": "Update with Dave's new config without overlapping antennas."
+    }
+   ]
+  }
+ },
+ "not_found": [
+  "Mechanical elevation and azimuth limits of the antennas, slew rates, and whether over-the-top motion exists; the 20 deg elevation and +-2 h hour-angle limits are the sensitivity-calculator model of targeted tracks (ETC).",
+  "Datum of ENU site_height_m (1746.3 m): ellipsoidal or above sea level is not stated; no geodetic (ITRF/WGS84) antenna coordinates are published in the saved sources.",
+  "Antenna names/IDs: ENU lists positions only; names here are file-order indices (INFERRED).",
+  "An explicit statement that site_lat/lon/height in ENU is the position of the centroid origin (INFERRED from \"relative to array centroid\").",
+  "The method behind the CSD statement that \"most baselines\" lie between 4 and 6 km (figure-based; not reproduced, see conflicts).",
+  "Antenna positions of any configuration other than dsa1650_P305_v2.5.6.8 for the 1650 x 6.155 m design (the DSA2000-Cal repository keeps its antenna_config.txt files on a private server; not used).",
+  "Instantaneous bandwidth per correlator mode beyond \"instantaneously covering 0.7-2 GHz\" (OVW) and the ten 130.2-MHz continuum windows (ETC); exact window edges not stated."
+ ],
+ "conflicts": [
+  "Dish diameter: 6.155 m (ETC Methods 1.1 and specifications table) vs 6.15 m (OVW, CSD, PTA) vs \"slightly more than 6 meters\" (NEWS1); 5 m in the superseded 2019-2025 design (WP, IM21, BSM). Adopted 6.155 m (the calculator's FDR baseline).",
+  "Antenna count: 1650 (ETC, ENU, OVW, CSD, NEWS1, PTA) vs 2000 (WP, BSM, POLISH; superseded) vs 2003 and 2048 rows in the whitepaper-era cfg files (WPLOC, WPW; DERIVED counts).",
+  "Footprint: ENU spans 16.4 km (E-W) x 20.1 km (N-S) DERIVED vs \"20 km x 16 km\" (OVW), \"about 20 x 16 kilometers\" (NEWS1), \"10.5-by-12-mile\" = 16.90 x 19.31 km (NEWS3, DERIVED). The ENU extents match OVW to 0.4% (N-S) and 2.6% (E-W).",
+  "Baselines: ENU gives Bmin 10.20 m, Bmax 20299.14 m (DERIVED) vs ETC \"from 10.2 m to 20.3 km\" (agree) and the specifications table \"10 m to 20.3 km\" (rounded).",
+  "Baseline distribution: CSD \"most baselines with lengths between 4 and 6 km\" vs ENU 16.4% in 4-6 km, median 7.93 km (DERIVED); the whitepaper-era cfgs give 17.5% (WPLOC) and 22.7% (WPW). The CSD text predates or differs from the FDR layout; not reproduced.",
+  "Natural-weighted beam position angle: 90.6 deg (ETC Methods 5.1 text) vs 90.34 deg (PSF natural_check); sizes agree (3.03 x 2.31 vs 3.026 x 2.310 arcsec).",
+  "Resolution: 3.0 arcsec (OVW), 3.0 x 2.3 arcsec natural at 1.35 GHz zenith (ETC) vs 3.5 arcsec (WP 2019; CSD reference-design tables) and 3.3 arcsec at 1.4 GHz (BSM, 5 m design).",
+  "Elevation limit: 20 deg in the calculator (ETC) vs 10 deg assumed for pulsar timing (PTA, which quotes dec > -41 deg; DERIVED dec > -40.45 deg at lat 39.55393).",
+  "Site: Spring Valley, Nevada (ETC, NEWS3) vs Big Smoky Valley, Nevada (POLISH 2021, earlier plan); 2019 candidate sites in California and Nevada (WP).",
+  "Status: \"under construction\" (PTA, 2026-09-30) vs \"ready for federal environmental reviews and eventual construction\" after the Final Design Review (NEWS3, 2026-09-30).",
+  "Southern HA window at dec -30 deg for el >= 20 deg: 0.566 h DERIVED vs \"+-0.57 h\" (ETC Methods 4.3) and \"about +-0.6 hours\" (ETC User guide); agree to rounding."
+ ],
+ "notes": [
+  "Positions: e, n, u in metres exactly as given by ENU (local ENU about the array centroid; 0.1 m). For Earth-rotation synthesis rotate to the equatorial frame with geometry.equatorial_from_enu and lat0 = 39.55393 deg.",
+  "Primary beam: Gaussian FWHM 3.36 deg / nu_GHz (ETC) = 1.204 lambda/D for D = 6.155 m (DERIVED); 4.80 / 2.49 / 1.68 deg at 0.70 / 1.35 / 2.00 GHz.",
+  "Tracking: fully steerable az-el dishes (TECH, IM21, WP); the calculator limits targeted tracks to |HA| <= 2 h about transit and elevation >= 20 deg, and the survey uses 21-minute pointings. Unlike DSA-110 (elevation-only, meridian), DSA tracks.",
+  "Synthesized beam at zenith, 1.35 GHz: natural 3.03 x 2.31 arcsec PA 90.6 deg (ETC), uniform 2.03 x 1.57 arcsec PA 94.1 deg (PSF). lambda/Bmax = 2.26 arcsec (DERIVED).",
+  "historical_configs: the whitepaper-era cfg files (WPLOC 2003 antennas within +-7.5 km, Bmax 15000.3 m; WPW 2048 antennas, Bmax 15393.6 m; DERIVED) belong to the superseded 2000 x 5 m design and are given as statistics only."
+ ]
+}

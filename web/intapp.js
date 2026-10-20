@@ -42,12 +42,14 @@ function loadImg(k) {
   im.src = q.file;
 }
 const BUDGET = 2e6;                                                  // samples per observation, at most
+const MAXPAIRS = 1e5;                                                // baselines drawn at random beyond this many
 const C_UV = "#2f6a9e", C_MIR = "#9dbcd9", C_NOW = "#c2621d";        // samples, mirror points, the moment played
 
 // ------------------------------------------------------------------ formats
 const fLen = m => (m >= 1000 ? sig(m / 1000, 3) + " km" : sig(m, 3) + " m");
 const fLam = (m, d = 3) => (m >= 1 ? sig(m, d) + " m" : m >= 0.01 ? sig(m * 100, d) + " cm" : m >= 1e-3 ? sig(m * 1000, d) + " mm" : sig(m * 1e6, d) + " µm");
 const fNu = (g, d = 4) => (g >= 1 ? sig(g, d) + " GHz" : sig(g * 1000, d) + " MHz");
+const fDur = h => (h < 1 ? Math.round(h * 60) + " min" : sig(h, 3) + " h");
 const fDeg = d => (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(d).toFixed(1) + "°";
 const r125 = x => { const p = Math.pow(10, Math.floor(Math.log10(x))), m = x / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; };
 // a round angle (arcsec) in the unit it is shown in
@@ -62,7 +64,7 @@ function defaultsFor(a) {
   const d = a.defaults, c = a.configs.find(q => q.id === d.cfg) || a.configs[0], b = a.bands.find(q => q.k === d.band) || a.bands[0];
   const est = C / (d.nu * 1e9) / c.bmax * RAD;                       // lambda / B_max, arcsec
   return { arr: a.id, cfg: c.id, lay: "built", na: c.ants.length, ext: +c.bmax.toPrecision(2), seed: 1, conc: 1, dec: d.dec, dur: d.dur, el: null, band: b.k, nu: d.nu, bw: 0, wt: "natural", rob: 0.5,
-    sky: "double", size: niceAng(5 * est), field: niceAng(25 * est), uvv: "uv", off: [], mv: {} };
+    sky: "double", size: niceAng(5 * est), field: niceAng(25 * est), uvv: "uv", bstr: "lin", off: [], mv: {} };
 }
 let S = ARRS.length ? defaultsFor(ARRS[0]) : {};
 const arrOf = () => arrById(S.arr);
@@ -95,6 +97,7 @@ const bindSeg = (pairs, get, set) => {
 };
 bindSeg([["rwNat", "natural"], ["rwRob", "robust"], ["rwUni", "uniform"]], () => S.wt, v => { S.wt = v; });
 bindSeg([["ruvC", "uv"], ["ruvA", "amp"]], () => S.uvv, v => { S.uvv = v; });
+bindSeg([["rbLin", "lin"], ["rbLog", "log"]], () => S.bstr, v => { S.bstr = v; });
 const csel = $("rCfg"), bsel = $("rBand"), ssel = $("rSky"), lsel = $("rLay");
 const LAYS = [["built", "As built"], ["random", "Random"], ["grid", "Grid"], ["line", "Line, east–west"], ["L", "L"], ["T", "T"], ["Y", "Y"], ["cross", "Cross"], ["ring", "Ring"]];
 for (const [k, t] of LAYS) { const o = document.createElement("option"); o.value = k; o.textContent = t; lsel.appendChild(o); }
@@ -148,10 +151,10 @@ function syncControls() {
   $("rCfgRow").hidden = gen || sd; $("rNaRow").hidden = !gen; $("rExtRow").hidden = !gen; $("rConcRow").hidden = !gen || S.lay === "ring"; $("rRedraw").hidden = S.lay !== "random";
   put("rConc", S.conc, S.conc === 1 ? "even" : S.conc.toFixed(2));
   $("rExt").min = String(Math.log10(Math.max(20, 3 * a.dish)));
-  put("rNa", Math.log10(S.na), String(S.na));
+  put("rNa", Math.log10(S.na), S.na.toLocaleString("en-US"));
   put("rExt", Math.log10(S.ext), fLen(S.ext));
   put("rDec", S.dec, fDeg(S.dec));
-  put("rDur", S.dur, S.dur > 0 ? sig(S.dur, 3) + " h" : "snapshot");
+  put("rDur", S.dur, S.dur > 0 ? fDur(S.dur) : "snapshot");
   put("rEl", elOf(), Math.round(elOf() * 10) / 10 + "°" + (S.el === null ? "" : ""));
   put("rNu", S.nu, fNu(S.nu, 3) + " (" + fLam(C / (S.nu * 1e9), 2) + ")");
   put("rBw", S.bw, S.bw > 0 ? fNu(S.bw) : "one frequency");
@@ -171,12 +174,16 @@ function syncControls() {
 // While a slider moves, a coarser image grid keeps the page responsive; the full grid follows when it stops.
 let quickUntil = 0, refineTimer = 0;
 function quick() { quickUntil = performance.now() + 250; clearTimeout(refineTimer); refineTimer = setTimeout(() => H.schedule(), 280); }
-let vcache = { key: null }, tcache = { key: null };
+let vcache = { key: null }, tcache = { key: null }, pcache = { key: null };
 function compute(fast) {
   const a = arrOf(), ants = antsNow(), lat = a.lat * DEG, dec = S.dec * DEG, elMin = elOf() * DEG;
   const nu = S.nu * 1e9, bw = S.bw * 1e9, lam = C / nu;
-  const L = RI.lengths(ants, lat), on = ants.filter(x => x.on).length;
-  const R = { a, ants, lat, nu, bw, lam, L, on, nb: L.length, Bmax: L[L.length - 1] || 0, Bmin: L[0] || 0 };
+  // the baselines (a random draw of MAXPAIRS beyond that many), their lengths sorted, and the exact extremes, kept
+  // while the layout stays the same
+  const akey = JSON.stringify([S.arr, S.cfg, S.lay, S.na, S.ext, S.seed, S.conc, S.off, S.mv]);
+  if (pcache.key !== akey) { const B = RI.baselines(ants, lat, MAXPAIRS); B.len.sort(); pcache = { key: akey, B, ex: RI.extremes(ants) }; }
+  const B = pcache.B, L = B.len, on = ants.filter(x => x.on).length;
+  const R = { a, ants, lat, nu, bw, lam, L, on, nb: B.total, nbUsed: B.length, sub: B.sub, Bmax: pcache.ex.bmax, Bmin: pcache.ex.bmin };
   R.pb = pbOf(S.nu);
   R.up = RI.hoursUp(S.dur, dec, lat, elMin);
   R.transit = RI.elevation(0, dec, lat) / DEG;
@@ -200,10 +207,10 @@ function compute(fast) {
   for (let it = 0; it < 60; it++) {
     nCh = bw > 0 ? Math.max(2, Math.min(64, Math.ceil((bw / nu) / (0.2618 * step)))) : 1;
     const nt = S.dur > 0 ? S.dur / step + 1 : 1;
-    if (R.nb * nCh * nt <= BUDGET) break;
+    if (R.nbUsed * nCh * nt <= BUDGET) break;
     if (S.dur > 0) step *= 1.25; else break;
   }
-  const full = RI.sample({ ants, lat, dec, elMin, dur: S.dur, nu, bw, nCh, step });
+  const full = RI.sample({ ants, lat, dec, elMin, dur: S.dur, nu, bw, nCh, step, B });
   R.full = full; R.step = step; R.nCh = nCh;
   // while playing, the samples up to the moment played: a prefix, the samples running in time order
   Sm = full;
@@ -215,7 +222,8 @@ function compute(fast) {
   if (!Sm.n) return R;
   // the uniform and robust weights count samples in uv cells: an image about 250 beams across, or coarser where
   // the time samples (or the channels) lie further apart on the longest track, so that a track fills its cells
-  const cell = Math.max(R.ext / 250, 1.5 * 0.2618 * step * R.ext, nCh > 1 ? 1.5 * (bw / (nCh - 1)) / nu * R.ext : 0);
+  // (with the baselines a random draw, cells sqrt(total / drawn) wider hold as many samples as the full set's would)
+  const cell = Math.max(R.ext / 250, 1.5 * 0.2618 * step * R.ext, nCh > 1 ? 1.5 * (bw / (nCh - 1)) / nu * R.ext : 0) * (R.sub ? Math.sqrt(R.nb / R.nbUsed) : 1);
   R.cell = cell;
   w = RI.weigh(Sm, S.wt, S.rob, cell);
   }
@@ -275,12 +283,12 @@ function renderText(R) {
     return;
   }
   rows($("rArrR"), [
-    ["Antennas", (R.on < tot ? R.on + " of " + tot : String(tot)) + " × " + sig(a.dish, 3) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in this configuration, each a dish of this diameter. Click an antenna in the drawing to switch off or on; drag to move."],
-    ["Baselines", String(R.nb), "Every pair of antennas is a baseline: N (N − 1) / 2 of them."],
+    ["Antennas", (R.on < tot ? R.on.toLocaleString("en-US") + " of " + tot.toLocaleString("en-US") : tot.toLocaleString("en-US")) + " × " + sig(a.dish, 3) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in this configuration, each a dish of this diameter. Click an antenna in the drawing to switch off or on; drag to move."],
+    ["Baselines", R.nb.toLocaleString("en-US"), "Every pair of antennas is a baseline: N (N − 1) / 2 of them." + (R.sub ? " Beyond " + MAXPAIRS.toLocaleString("en-US") + ", the page uses a random draw of that many pairs (" + R.nbUsed.toLocaleString("en-US") + " here): the uv coverage and the beam come out the same, statistically, as with all the pairs." : "")],
     ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, about λ / B_max."],
     ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Two dishes cannot stand closer than a dish diameter, so no baseline is shorter than that."],
   ]);
-  const upTxt = R.up < 0 || (S.dur > 0 && R.up === 0) ? "below the limit" : S.dur > 0 ? sig(R.up, 3) + " of " + sig(S.dur, 3) + " h" : "yes";
+  const upTxt = R.up < 0 || (S.dur > 0 && R.up === 0) ? "below the limit" : S.dur > 0 ? fDur(R.up) + " of " + fDur(S.dur) : "yes";
   rows($("rObsR"), [
     ["Above the limit", upTxt, "The part of the observation with the source above the elevation limit. Hour angles with the source below the limit give no samples."],
     ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|. The array is at latitude " + fDeg(a.lat) + "."],
@@ -317,7 +325,7 @@ function drawArray(R) {
     alview.oy = top + (h - top - bot - dy * alview.s) / 2 + (n1 + (dy - (n1 - n0)) / 2) * alview.s;
     alview.fit = false;
   }
-  const xy = antScreen(ants), rr = Math.max(2.6, a.dish / 2 * alview.s);
+  const xy = antScreen(ants), rr = Math.max(ants.length > 2000 ? 1.2 : ants.length > 500 ? 1.8 : 2.6, a.dish / 2 * alview.s);
   ants.forEach((p, k) => {
     const [x, y] = xy[k];
     g.beginPath(); g.arc(x, y, k === hoverAnt ? rr + 1.5 : rr, 0, 2 * Math.PI);
@@ -428,8 +436,10 @@ function drawDish(g, w, h, a) {
 const RAMP = [[0, 0, 0], [70, 22, 16], [166, 58, 36], [230, 140, 60], [250, 214, 150], [255, 250, 238]];
 const BLUE = [[0, 0, 0], [14, 34, 70], [30, 78, 140], [84, 140, 205], [170, 205, 238], [236, 244, 252]];
 const at = (P, v) => { const u = Math.max(0, Math.min(1, v)) * (P.length - 1), k = Math.min(P.length - 2, Math.floor(u)), f = u - k; return [0, 1, 2].map(i => P[k][i] + (P[k + 1][i] - P[k][i]) * f); };
-// positive values warm (black, brick, orange, cream), negative cool (black to blue), on a linear scale
+// positive values warm (black, brick, orange, cream), negative cool (black to blue), on a linear scale; or the size
+// |v| over three decades, the sign kept in the color
 const shade = v => (v >= 0 ? at(RAMP, v) : at(BLUE, -v));
+const shadeLog = v => { const t = (Math.log10(Math.max(Math.abs(v), 1e-12)) + 3) / 3; return v >= 0 ? at(RAMP, t) : at(BLUE, t); };
 // a unit for wavelengths on the uv axes
 const uvUnit = x => (x >= 1e9 ? [1e9, "Gλ"] : x >= 1e6 ? [1e6, "Mλ"] : x >= 1e3 ? [1e3, "kλ"] : [1, "λ"]);
 let geom = null;
@@ -437,13 +447,11 @@ function drawPanel(R) {
   const cv = $("cvU"), { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
   if (!(cv.width > 0 && cv.height > 0)) return;
-  const dpr = window.devicePixelRatio || 1, cw = w / 2, ch = h / 2, head = 40, foot = 30;
+  const dpr = window.devicePixelRatio || 1, cw = w / 2, ch = h / 2, head = 32, foot = 30;
   const side = Math.max(40, Math.floor(Math.min(cw - 28, ch - head - foot)));
   const X = k => Math.round(k * cw + (cw - side) / 2), Y = r => Math.round(r * ch + head + (ch - head - foot - side) / 2);
-  const label = (x, y, t1, t2, col) => {
-    g.textAlign = "center"; g.fillStyle = col || "#4f4a44"; g.font = `12.5px ${FONT}`; g.fillText(t1, x + side / 2, y - 22);
-    g.fillStyle = MUTED; g.font = `11.5px ${FONT}`; g.fillText(t2, x + side / 2, y - 7);
-  };
+  // each square's title, centered above the square
+  const label = (x, y, t) => { g.textAlign = "center"; g.fillStyle = "#4f4a44"; g.font = `15px ${FONT}`; g.fillText(t, x + side / 2, y - 10); };
   const bar = (x, y, perPx, text) => {
     const tm = side * 0.3 * perPx, len = niceAng(tm), yb = y + side + 16;
     g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x, yb); g.lineTo(x + len / perPx, yb); g.stroke();
@@ -455,13 +463,8 @@ function drawPanel(R) {
   // ---- top left: the uv coverage, or the visibility amplitude against uv distance: a square plot (u and v at one
   // scale), the tick labels to its left and below, the Coverage | Amplitude switch under it
   const ul = 40, ps = side - ul, x0 = X(0) + ul, y0 = Y(0), [U, un] = uvUnit(R.ext * 1.05);
-  const nt = R.full.up.length, played = play ? (Sm.upNow || 0) : nt;
-  if (S.uvv === "uv" && R.single) label(X(0) + ul / 2, Y(0), "uv coverage", "every spacing within the aperture; darker: more weight");
-  else if (S.uvv === "uv") {
-    let t1 = R.nb + " baselines" + (S.dur > 0 ? " × " + played + " times" : "") + (R.nCh > 1 ? " × " + R.nCh + " frequencies" : "");
-    g.font = `11.5px ${FONT}`; if (g.measureText(t1 + "; pale: mirror points").width < cw - 16) t1 += "; pale: mirror points";
-    label(X(0) + ul / 2, Y(0), play ? "uv coverage to hour angle " + (play.h >= 0 ? "+" : "−") + Math.abs(play.h).toFixed(1) + " h" : "uv coverage", t1);
-  } else label(X(0) + ul / 2, Y(0), "Visibility amplitude", imgOf(S.sky) ? "the sky's (times the primary beam), at the samples" : "the sky's, at the samples (without the primary beam)");
+  if (S.uvv === "uv") label(X(0) + ul / 2, Y(0), play && !R.single ? "uv coverage, hour angle " + (play.h >= 0 ? "+" : "−") + Math.abs(play.h).toFixed(1) + " h" : "uv coverage");
+  else label(X(0) + ul / 2, Y(0), "Visibility amplitude");
   const ext = R.ext * 1.05, ppx = Math.round(ps * dpr), plotH = ps;
   g.fillStyle = "#fff"; g.fillRect(x0, y0, ps, ps);
   const box = $("uvBox"), cvr = cv.getBoundingClientRect(), pr = cv.parentElement.getBoundingClientRect();
@@ -535,11 +538,11 @@ function drawPanel(R) {
   }
   // ---- the images: the field's center (half the grid) into a square, east to the left and north up
   const n = R.n, m = n / 2;
-  const blit = (img, x, y, scale) => {
+  const blit = (img, x, y, scale, sh = shade) => {
     const oc = document.createElement("canvas"); oc.width = m; oc.height = m;
     const og = oc.getContext("2d"), id = og.createImageData(m, m);
     for (let r = 0; r < m; r++) for (let c = 0; c < m; c++) {
-      const i = m / 2 - c, j = m / 2 - r, col = shade(img[((j + n) % n) * n + ((i + n) % n)] * scale), k = 4 * (r * m + c);
+      const i = m / 2 - c, j = m / 2 - r, col = sh(img[((j + n) % n) * n + ((i + n) % n)] * scale), k = 4 * (r * m + c);
       id.data[k] = col[0]; id.data[k + 1] = col[1]; id.data[k + 2] = col[2]; id.data[k + 3] = 255;
     }
     og.putImageData(id, 0, 0);
@@ -549,8 +552,10 @@ function drawPanel(R) {
   geom = { side, toPx, field: S.field };
   // ---- top right: the synthesized beam
   if (none) empty(X(1), Y(0), "no samples");
-  else blit(R.D.beam, X(1), Y(0), 1);
-  label(X(1), Y(0), R.single ? "Beam" : "Synthesized beam", R.single ? "the dish's diffraction pattern" : "the image of a point source; blue below zero");
+  else blit(R.D.beam, X(1), Y(0), 1, S.bstr === "log" ? shadeLog : shade);
+  { const box = $("bsBox"), cvr = cv.getBoundingClientRect(), pr = cv.parentElement.getBoundingClientRect();
+    box.style.left = Math.round(cvr.left - pr.left + X(1) + side - box.offsetWidth) + "px"; box.style.top = Math.round(cvr.top - pr.top + Y(0) + side + 4) + "px"; }
+  label(X(1), Y(0), R.single ? "Beam" : "Synthesized beam");
   bar(X(1), Y(0), 1 / toPx, a => fAng(a, 2));
   // ---- bottom left: the sky
   {
@@ -570,8 +575,8 @@ function drawPanel(R) {
     g.textAlign = "center"; g.fillText("N", cx, cy - 22); g.textAlign = "right"; g.fillText("E", cx - 22, cy + 4);
     g.restore();
   }
-  const skyName = SKIES.find(q => q[0] === S.sky)[1].toLowerCase(), simg = imgOf(S.sky);
-  label(X(0), Y(1), "Sky", simg ? simg.what + ", " + fAng(S.size, 3) + " wide" : (S.sky === "point" ? "a point source" : skyName + ", " + SIZE_LABEL[S.sky].toLowerCase() + " " + fAng(S.size, 2)) + (R.pb > 0 && R.pb * RAD / 2 * toPx < side * 0.7 ? "; dashed: primary beam" : ""));
+  const simg = imgOf(S.sky);
+  label(X(0), Y(1), "Input image");
   // the image's credit, on the image (light on the dark sky, lower right)
   if (simg) { g.fillStyle = "rgba(220,214,204,.92)"; g.font = `10.5px ${FONT}`; g.textAlign = "right"; g.fillText(simg.credit, X(0) + side - 6, Y(1) + side - 7); }
   if (R.loading) { g.fillStyle = "rgba(220,214,204,.9)"; g.font = `12.5px ${FONT}`; g.textAlign = "center"; g.fillText("reading the image…", X(0) + side / 2, Y(1) + side / 2); }
@@ -587,7 +592,7 @@ function drawPanel(R) {
       if (ax < side / 4) { g.strokeStyle = "rgba(255,250,238,.95)"; g.lineWidth = 1.3; g.beginPath(); g.ellipse(cx, cy, ax, bx, Math.atan2(-Math.cos(bm.pa * DEG), -Math.sin(bm.pa * DEG)), 0, 2 * Math.PI); g.stroke(); }
     }
   }
-  label(X(1), Y(1), R.single ? "Map" : "Dirty image", R.single ? (R.drop ? "the dish's spacings reach beyond this image's pixels" : "the sky convolved with the dish's beam") : R.drop > 0.01 ? "the longest baselines lie beyond this image's pixels" : "the sky as the array images the sky");
+  label(X(1), Y(1), R.single ? "Map" : "Dirty image");
   bar(X(1), Y(1), 1 / toPx, a => fAng(a, 2));
 }
 
@@ -638,7 +643,7 @@ return {
   reset: () => { stopPlay(); S = defaultsFor(arrOf()); alview.fit = true; H.schedule(); },
   hashParts: () => {
     const D = defaultsFor(arrOf()), out = ["r.arr=" + encodeURIComponent(S.arr)];
-    for (const k of ["cfg", "lay", "na", "ext", "seed", "conc", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
+    for (const k of ["cfg", "lay", "na", "ext", "seed", "conc", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv", "bstr"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
     if (S.off.length) out.push("r.off=" + S.off.join("."));
     const mv = Object.keys(S.mv); if (mv.length) out.push("r.mv=" + mv.map(k => k + ":" + S.mv[k][0] + ":" + S.mv[k][1]).join("_"));
     return out;
@@ -650,13 +655,14 @@ return {
     const b = a.bands.find(q => q.k === kv["r.band"]); if (b) S.band = b.k;
     const num = (k, lo, hi) => { const v = kv["r." + k]; if (v === undefined || v === "") return; const x = Number(v); if (isFinite(x) && x >= lo && x <= hi && (!POS.has(k) || x > 0)) S[k] = x; };
     if (LAYS.some(q => q[0] === kv["r.lay"])) S.lay = kv["r.lay"];
-    if (kv["r.na"] && Number.isInteger(+kv["r.na"]) && +kv["r.na"] >= 2 && +kv["r.na"] <= 200) S.na = +kv["r.na"];
+    if (kv["r.na"] && Number.isInteger(+kv["r.na"]) && +kv["r.na"] >= 2 && +kv["r.na"] <= 10000) S.na = +kv["r.na"];
     if (kv["r.seed"] && Number.isInteger(+kv["r.seed"]) && +kv["r.seed"] >= 1) S.seed = +kv["r.seed"];
     num("ext", 1, 3e5); num("conc", 1, 2);
     num("dec", -90, 90); num("dur", 0, 24); num("el", 0, 90); num("nu", 0, 2000); num("bw", 0, 100); num("rob", -2, 2); num("size", 1e-4, 1e5); num("field", 1e-3, 1e5);
     if (["natural", "robust", "uniform"].includes(kv["r.wt"])) S.wt = kv["r.wt"];
     if (SKIES.some(q => q[0] === kv["r.sky"])) S.sky = kv["r.sky"];
     if (kv["r.uvv"] === "amp" || kv["r.uvv"] === "uv") S.uvv = kv["r.uvv"];
+    if (kv["r.bstr"] === "lin" || kv["r.bstr"] === "log") S.bstr = kv["r.bstr"];
     const N = pads().ants.length;
     if (kv["r.off"]) S.off = [...new Set(kv["r.off"].split(".").map(Number).filter(k => Number.isInteger(k) && k >= 0 && k < N))].sort((x, y) => x - y);
     if (kv["r.mv"]) for (const t of kv["r.mv"].split("_")) { const [k, e, n] = t.split(":").map(Number); if (Number.isInteger(k) && k >= 0 && k < N && isFinite(e) && isFinite(n)) S.mv[k] = [e, n]; }

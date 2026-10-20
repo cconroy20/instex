@@ -914,10 +914,16 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const rA = await ev(`${I}.result().Bmax`); await click("#rRedraw"); await sleep(400);
     const rB = await ev(`({ B: ${I}.result().Bmax, seed: ${I}.state().seed, rd: document.getElementById("rRedraw").offsetParent !== null })`);
     check("Random: the ↻ button draws a new layout", rB.rd && rB.seed === 2 && Math.abs(rB.B - rA) > 1e-6, JSON.stringify({ rA, rB }));
+    // 10,000 antennas: a random draw of baselines, the true count in the readout, a redraw in reasonable time
+    {
+      const big = await ev(`(() => { const T = ${I}; T.set({ na: 10000, ext: 30000 }); const t0 = performance.now(); T.set({ dec: 41 }); const ms = performance.now() - t0, q = T.result(); return { ms, nb: q.nb, n: q.n, beam: !!q.beam, row: [...document.querySelectorAll("#rArrR .rd")].map(e => e.textContent).find(x => /Baselines/.test(x)) }; })()`);
+      check("10,000 antennas: 49,995,000 baselines read out, at most 2 million samples, a fitted beam, a redraw under 1 s", big.nb === 49995000 && big.n <= 2e6 && big.beam && /49,995,000/.test(big.row) && big.ms < 1000, JSON.stringify(big));
+      await ev(`${I}.set({ na: 27, ext: 3400, dec: 40 })`);
+    }
     await ev(`(e => { e.value = "built"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rLay"))`); await sleep(300);
     check("As built: the configuration again", (await ev(`${I}.result().nb`)) === 351 && (await vis("#rCfgRow")));
     // the link round-trips
-    await ev(`${I}.set({ cfg: "B", dec: -12.5, dur: 5.5, el: 20, band: "C", nu: 6.5, bw: 2, wt: "robust", rob: -0.5, sky: "ring", size: 3.5, field: 40, uvv: "amp", off: [2, 7], mv: { 4: [120.5, -33] } })`); await sleep(400);
+    await ev(`${I}.set({ cfg: "B", dec: -12.5, dur: 5.5, el: 20, band: "C", nu: 6.5, bw: 2, wt: "robust", rob: -0.5, sky: "ring", size: 3.5, field: 40, uvv: "amp", bstr: "log", off: [2, 7], mv: { 4: [120.5, -33] } })`); await sleep(400);
     {
       const w1 = await ev(`${I}.state()`), h1 = await ev(`location.hash`);
       await nav(h1);
@@ -931,6 +937,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await go("#inst=int&r.dec=abc&r.field=-3&r.wt=heavy&r.cfg=Z&r.off=x.99");
     const bad = await ev(`${I}.state()`);
     check("Interferometer: malformed link values are ignored", bad.dec === 40 && bad.field > 0 && bad.wt === "natural" && bad.cfg === "C" && bad.off.length === 0, JSON.stringify(bad));
+    // the beam's stretch: Log brightens the far sidelobes (the beam square's mean pixel value rises)
+    {
+      await go("#inst=int&r.dur=0");
+      const mean = `(() => { const c = document.getElementById("cvU"), g = c.getContext("2d"), G = ${I}.geom(), d = window.devicePixelRatio || 1, r = c.getBoundingClientRect(); const x = Math.round((c.width / d / 2 + (c.width / d / 2 - G.side) / 2) * d), y = Math.round((32 + (c.height / d / 2 - 32 - 30 - G.side) / 2) * d), s = Math.round(G.side * d), px = g.getImageData(x, y, s, s).data; let a = 0; for (let k = 0; k < px.length; k += 4) a += px[k] + px[k + 1] + px[k + 2]; return a / (px.length / 4); })()`;
+      const m1 = await ev(mean); await click("#rbLog"); await sleep(300);
+      const m2 = await ev(mean), lg = await ev(`({ s: ${I}.state().bstr, h: location.hash })`);
+      check("the beam's Log stretch brightens the sidelobes; the link carries it", lg.s === "log" && /r\.bstr=log/.test(lg.h) && m2 > 2 * m1, JSON.stringify({ m1, m2, lg }));
+    }
     // the image squares' scale: the field across the square
     await go("#inst=int");
     const gm = await ev(`${I}.geom()`);

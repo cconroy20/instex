@@ -219,7 +219,7 @@ bandwidth; hours above the limit, elevation at transit, primary beam), Image (na
 the robust parameter, the sky model and its size; the fitted beam, the peak sidelobe, the largest scale). The Array
 box's Layout menu (his ask, 10-20: "distribute antenna randomly or uniformly over an area, or in various shapes (L, Y,
 etc.) with the number of antenna an adjustable parameter"): As built (the configuration's pads) or a made-up layout of
-2-200 of the array's dishes at its site, with an Antennas and a Size slider (Size = the longest baseline): Random
+2-10,000 (200 at first; 10,000 his ask, 10-20) of the array's dishes at its site, with an Antennas and a Size slider (Size = the longest baseline): Random
 (uniform over a disc, no two dishes within 1.2 diameters; seeded, ↻ draws anew), Grid (square, the diagonal = Size),
 Line east-west, L, T, Y and Cross (one antenna at the junction, the rest evenly along the arms), Ring; a layout too
 crowded for its dishes is spread to 1.2 diameters. Concentration slider (his ask, 10-20: "would be neat if array
@@ -263,6 +263,13 @@ the longest baselines match Table 7.3 exactly, the 5th and 80th percentile basel
 maximum recoverable scales to 3%, and the robust-0.5 beam (1 h at −23°) the Handbook's 0.574 λ / L80 to 8%; the Cycle 13
 resolution table's beams are 12-24% wider for C-2 to C-10 because they describe the 50-antenna configurations. Peak
 sidelobes are the Handbook's order (5-20% vs 5-13%), not equal (its measuring region is not stated).
+Panel titles (his asks, 10-20): no lines under the titles, titles 15 px, the lower left "Input image"; the beam has a
+Linear | Log switch under it (r.bstr; Log = |beam| over three decades, 1 to 0.001 of the peak, the sign kept in the color:
+warm positive, blue negative).
+Large arrays: beyond 100,000 baselines (about 450 antennas) the page draws a random, seeded 100,000 pairs (interf.js
+baselines); the readout gives the true count (10,000 antennas: 49,995,000) and "drawn", the longest and shortest
+baselines are exact (interf.js extremes, over all pairs, about 0.1 s at 10,000), the random layout's spacing check and
+the anti-crowding pass go through a hash of cells 1.2 dishes wide. The time step then coarsens to keep 2 million samples.
 Image sky (his ask, 10-20: "something much more complex, like an image of the M101 galaxy", then "as high res as
 possible. so use an optical M101 image"): M101 (Hubble), the ESA/Hubble mosaic heic0602a from the full-resolution Large
 JPEG (15852 × 12392 px, 0.050″) in gray, resized to 8000 px (0.099″) and turned 3.5° north-up, 8368 × 6732 px, 828.4″
@@ -273,6 +280,15 @@ the full credit with acknowledgements is in the About dialog. Sources: data/inte
 the Size to its width and the Field to 20′. Bug found on the way (fixed, 10-20): the images' screen scale was half the
 true one (the square shows the field, not the grid's 2 × field): scale bars read twice their length, the sky's points sat
 at half their separation, and the beam ellipse was half size; the dirty image itself was right; uitest now checks it.
+DSA-2000 (his ask, 10-20: "just do DSA-2000"; data/interf/dsa2000.md): the 1650-dish design approved at the Final
+Design Review (dsa1650_P305_v2.5.6.8, from the project's sensitivity calculator, v2.0 October 2026, antennas_enu.json
+about the centroid; the name keeps 2000 from the superseded 2000 x 5 m design); 6.155 m dishes, Spring Valley, Nevada
+(39.554 N); one band 0.7-2.0 GHz covered at once; primary beam 3.36 deg / nu(GHz); the calculator's 20 deg limit
+(mechanical limits NOT FOUND); defaults 1.35 GHz, a 21-minute pointing at dec +40. Baselines 10.2 m to 20.3 km
+(1,360,425), so a random draw of 100,000; the natural zenith snapshot beam 3.05 x 2.33" PA 90.5 against the calculator's
+3.03 x 2.31" PA 90.6; uniform 2.16 x 1.65" against the project PSF's 2.03 x 1.57" (uv cell not stated). Found on the
+way: with the baselines a random draw, uniform weighting needs cells sqrt(total / drawn) wider (else the draw's empty
+cells push uniform toward natural: 27% too wide); with that, the draw's uniform beam matches all pairs to 0.1%.
 Found while building: the uniform-weighted beam depends on the uv cell (an image-size choice the OSS does not state):
 with the page's cell the VLA beams are 0.80-0.86 of the OSS table, approaching 0.96 with cells for an image ~3000 beams
 across and 5 s sampling; natural / uniform (1.47) and snapshot / full (1.28) agree with the OSS's ~1.5 and ~1.3. The

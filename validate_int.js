@@ -15,7 +15,9 @@
 // 5. The arrays (web/rpresets.js) against their records (data/interf/*.json): antenna counts, longest baselines vs
 //    the published tables; the VLA's beam ratios (natural / uniform, snapshot / full) against the OSS notes, and
 //    the OSS beam table as INFO lines (the uniform beam depends on the uv cell, which the OSS does not state); ALMA's
-//    baseline statistics, largest scale and robust-0.5 beam against its Technical Handbook, sidelobes as INFO.
+//    baseline statistics, largest scale and robust-0.5 beam against its Technical Handbook, sidelobes as INFO;
+//    DSA-2000's baselines and zenith-snapshot beams against its sensitivity calculator, and the random draw of
+//    baselines (beyond 100,000) against the full set.
 "use strict";
 const RI = require("./web/interf.js");
 
@@ -314,6 +316,21 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   check("ALMA: 0.983 λ / L5 within 3% of the Handbook's maximum recoverable scales at 100 GHz", bad.mrs.length === 0, bad.mrs.join(", "));
   check("ALMA: the robust-0.5 beam (1 h at dec −23°, 100 GHz) within 8% of the Handbook's 0.574 λ / L80", bad.beam.length === 0, bad.beam.join(", "));
   info("ALMA: the Cycle 13 resolution table describes the 50-antenna configurations", "its beams are 12-24% wider than 0.574 λ / L80 for C-2 to C-10 (the record's Conflicts); the pads here are the 43-antenna sets");
+}
+
+{
+  const a = ARRS.find(q => q.id === "dsa2000"), j = require("./data/interf/dsa2000.json"), P = j.configs.FDR.published;
+  const ants = a.configs[0].ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), ex = RI.extremes(ants);
+  check(`DSA-2000: ${j.n_antennas} dishes of ${j.dish_m} m; baselines ${P.bmin_m} m to ${P.bmax_m / 1000} km (the calculator)`, ants.length === 1650 && Math.abs(ex.bmin - P.bmin_m) < 0.05 && rel(ex.bmax, P.bmax_m) < 0.001, `${ex.bmin.toFixed(2)} m to ${(ex.bmax / 1000).toFixed(3)} km`);
+  const snap = (wt, maxP) => {
+    const nu = P.beam_freq_GHz * 1e9, B = RI.baselines(ants, a.lat * DEG, maxP), S = RI.sample({ ants, lat: a.lat * DEG, dec: a.lat * DEG, elMin: 0, dur: 0, nu, bw: 0, B });
+    const ext = ex.bmax * nu / C, w = RI.weigh(S, wt, 0, ext / 250 * (B.sub ? Math.sqrt(B.total / B.length) : 1));
+    for (let k = 0, pix = 0.05 / ext; k < 3; k++, pix *= 3) { const G = RI.grid(S, w, 512, 1 / (512 * pix)), D = RI.dirty(G.g, null, 512), f = RI.fitBeam(D.beam, 512, pix); if (f) return f; }
+  };
+  const nat = snap("natural", 1e5), uniD = snap("uniform", 1e5), uniA = snap("uniform", Infinity);
+  check(`DSA-2000: the natural zenith snapshot beam at ${P.beam_freq_GHz} GHz within 3% of the calculator's ${P.beam_natural_arcsec.join(" x ")}″, PA ${P.beam_natural_pa_deg}°`, rel(nat.maj * RAD, P.beam_natural_arcsec[0]) < 0.03 && rel(nat.min * RAD, P.beam_natural_arcsec[1]) < 0.03 && Math.abs(nat.pa - P.beam_natural_pa_deg) < 2, `${(nat.maj * RAD).toFixed(3)} x ${(nat.min * RAD).toFixed(3)}″, PA ${nat.pa.toFixed(1)}°`);
+  check("DSA-2000: the uniform beam from a 100,000-pair draw matches all 1,360,425 pairs (1%)", rel(uniD.maj, uniA.maj) < 0.01 && rel(uniD.min, uniA.min) < 0.01, `${(uniD.maj * RAD).toFixed(3)} x ${(uniD.min * RAD).toFixed(3)} vs ${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
+  check(`DSA-2000: the uniform beam within 10% of the project's PSF ${P.beam_uniform_arcsec.join(" x ")}″ (the uv cell is not stated)`, rel(uniA.maj * RAD, P.beam_uniform_arcsec[0]) < 0.1 && rel(uniA.min * RAD, P.beam_uniform_arcsec[1]) < 0.1, `${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
 }
 
 console.log(`\n${npass} pass, ${nfail} fail`);

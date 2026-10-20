@@ -162,9 +162,9 @@
           <h2 title="The array: the antennas and where the antennas stand.">Array</h2>
           <div class="caserow" id="rLayRow" title="As built: the array's own pads, in one of the array's configurations. Or a made-up layout of any number of the array's antennas (same dishes, same site): random over a disc, a square grid, an east-west line, the shapes L, T, Y and a cross (antennas spaced evenly along the arms), or a ring."><span>Layout</span><select id="rLay"></select><button id="rRedraw" class="ghost" type="button" hidden title="Draw a new random layout." aria-label="Draw a new random layout">↻</button></div>
           <div class="caserow" id="rCfgRow" title="The array's configuration: the pads the antennas stand on. The antennas are moved between configurations, compact to extended, over the observatory's cycle."><span>Configuration</span><select id="rCfg"></select></div>
-          <div class="ctl" id="rNaRow" hidden title="The number of antennas in the made-up layout. N antennas make N (N − 1) / 2 baselines.">
+          <div class="ctl" id="rNaRow" hidden title="The number of antennas in the made-up layout, 2 to 10,000. N antennas make N (N − 1) / 2 baselines.">
             <label for="rNa"><span>Antennas</span><span class="val" id="vrNa"></span></label>
-            <input type="range" id="rNa" min="0.301" max="2.301" step="0.001">
+            <input type="range" id="rNa" min="0.301" max="4" step="0.001">
           </div>
           <div class="ctl" id="rExtRow" hidden title="The layout's size: about the layout's longest baseline (the disc's or ring's diameter, the line's length, the span of the grid's diagonal or of the shape's arms). A layout too crowded for the dishes is spread out.">
             <label for="rExt"><span>Size</span><span class="val" id="vrExt"></span></label>
@@ -222,6 +222,7 @@
         <button id="rPlay" class="ghost lv" type="button" title="Play the observation: the hour angle runs from the start of the observation to the end, and the uv tracks grow as the Earth turns (the samples of the moment played in orange).">▶ Play</button>
         <span class="hdepth" title="The field of the three images, across: the same for all three, and kept when the array, the configuration, or the frequency changes."><label for="rField">Field</label><input type="range" id="rField" min="-2.5" max="4" step="0.005"><span class="val" id="vrField"></span></span></div>
       <canvas id="cvU" aria-label="The uv coverage, the synthesized beam, the model sky, and the dirty image"></canvas>
+      <div class="ptsbox uvbox" id="bsBox" title="The synthesized beam's stretch. Linear: the beam as is, scaled to its peak. Log: the beam's size, |beam|, over three decades (1 to 0.001 of the peak), positive warm and negative blue, to show the faint far sidelobes."><span class="seg sm"><button id="rbLin" type="button">Linear</button><button id="rbLog" type="button">Log</button></span></div>
       <div class="ptsbox uvbox" id="uvBox" title="The uv coverage, or the amplitude of the sky's visibility at each sample against the sample's distance from the center of the uv plane (the model's curve drawn when the model is round)."><span class="seg sm"><button id="ruvC" type="button">Coverage</button><button id="ruvA" type="button">Amplitude</button></span></div>
     </section>
   </div>
