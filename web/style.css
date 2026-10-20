@@ -180,7 +180,7 @@ footer p{margin:.5em 0;max-width:120ch}
 @media (max-width:860px){ .c-disp .rds{grid-template-columns:minmax(0,1fr)} }
 
 /* ---- Imager mode */
-body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, body.inst-tel .only-spec, body:not(.inst-tel) .only-tel{display:none !important}
+body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, body.inst-tel .only-spec, body:not(.inst-tel) .only-tel, body.inst-int .only-img, body.inst-int .only-spec, body:not(.inst-int) .only-int{display:none !important}
 /* the Telescopes mode: the layout and its controls on the left, the pupil-and-image panel the full height on the right */
 .tgrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:12px;align-items:stretch}
 .tleft{display:flex;flex-direction:column;min-width:0}
@@ -188,8 +188,17 @@ body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, bod
 .tright canvas{flex:1 1 0;height:0;min-height:0}
 .tcontrols{grid-template-columns:repeat(2,minmax(0,1fr))}
 body.inst-tel #stats{display:none}                  /* no summary strip in the Telescopes mode: the figures are in the boxes */
+body.inst-int #stats, body.inst-int .presetnote{display:none}      /* the Interferometer: no strip, and the note on optical presets does not apply */
+.rcontrols{grid-template-columns:repeat(3,minmax(0,1fr))}
+.rcontrols .rd b{white-space:normal}
+.acap{left:var(--capLA,26px)}
+.uvbox{left:auto;top:auto;padding:0;background:transparent}
+.wraprow{flex-wrap:wrap;row-gap:3px}
+.rcontrols [hidden]{display:none !important}
+#rRedraw{padding:0 7px;font-size:1rem;line-height:1.35}
+#rPlay:disabled{opacity:.45;cursor:default}
 @media (max-width:860px){
-  .tgrid,.tcontrols{grid-template-columns:minmax(0,1fr)}
+  .tgrid,.tcontrols,.rcontrols{grid-template-columns:minmax(0,1fr)}
   .tright canvas{flex:none;height:640px}
 }
 #cvTL{cursor:grab}
@@ -205,6 +214,8 @@ body.idet-plate .only-iccd, body:not(.idet-plate) .only-iplate{display:none}
 #cvS{cursor:crosshair}
 .seg[hidden]{display:none}
 .caserow.wraprow{flex-wrap:wrap;row-gap:3px}
+.rcontrols [hidden]{display:none !important}
+#rRedraw{padding:0 7px;font-size:1rem;line-height:1.35}
 /* the depth slider in the detector plane's header */
 .hdepth{display:flex;align-items:center;gap:6px;flex:0 0 auto;font-size:.86rem;color:var(--muted)}
 .hdepth input[type=range]{width:110px}

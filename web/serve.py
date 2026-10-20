@@ -41,7 +41,7 @@ class H(http.server.SimpleHTTPRequestHandler):
                 t = 0
             return '%s?t=%d' % (name, t)
 
-        html = re.sub(r'\b(app\.js|physics\.js|presets\.js|imager\.js|ipresets\.js|imgapp\.js|tpresets\.js|tpupil\.js|telapp\.js|style\.css)\b', stamp, html)
+        html = re.sub(r'\b(app\.js|physics\.js|presets\.js|imager\.js|ipresets\.js|imgapp\.js|tpresets\.js|tpupil\.js|telapp\.js|interf\.js|rpresets\.js|intapp\.js|style\.css)\b', stamp, html)
         body = html.encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")

@@ -853,6 +853,105 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
   await shot("11_telescopes.png");
 
+  // ------------------------------------------------------------ the Interferometer mode
+  await go("#inst=int");
+  {
+    const I = `window.__instex.int()`;
+    const st = await ev(`({ cls: document.body.className, int: getComputedStyle(document.getElementById("intPanels")).display, tel: getComputedStyle(document.getElementById("telPanels")).display, strip: getComputedStyle(document.getElementById("stats")).display, note: getComputedStyle(document.querySelector(".presetnote")).display, hash: location.hash, menu: document.getElementById("preset").options.length, groups: document.querySelectorAll("#preset optgroup").length, na: window.IX_ARRAYS.length })`);
+    check("Interferometer: its panels shown, the others hidden, no strip and no preset note", /inst-int/.test(st.cls) && st.int !== "none" && st.tel === "none" && st.strip === "none" && st.note === "none", JSON.stringify(st));
+    check("Interferometer: one menu line per array, the link says inst=int", st.menu === st.na + 1 && st.groups === 0 && /inst=int/.test(st.hash), JSON.stringify(st));
+    const r0 = await ev(`${I}.result()`);
+    const pbTxt = await ev(`[...document.querySelectorAll("#rObsR .rd")].map(e => e.textContent).find(x => /Primary beam/.test(x))`);
+    check("VLA C at 1.5 GHz: 351 baselines, a fitted beam, the primary beam 42′ / 1.5 = 28.0′", r0.nb === 351 && r0.beam && /28\.0′/.test(pbTxt), JSON.stringify({ nb: r0.nb, pb: pbTxt }));
+    await ev(`${I}.set({ dur: 0 })`);
+    const sn = await ev(`({ n: ${I}.result().n, dis: document.getElementById("rPlay").disabled, v: document.getElementById("vrDur").textContent })`);
+    check("a snapshot: one sample per baseline, and nothing to play", sn.n === 351 && sn.dis && sn.v === "snapshot", JSON.stringify(sn));
+    await ev(`${I}.set({ dur: 8 })`);
+    const bw = {};
+    for (const c of ["A", "D"]) { await ev(`${I}.set({ cfg: "${c}" })`); bw[c] = await ev(`${I}.result().beam.maj`); }
+    check("the beam scales with the array: D's / A's near B_max(A) / B_max(D) = 35.5", bw.D / bw.A > 28 && bw.D / bw.A < 43, (bw.D / bw.A).toFixed(1));
+    await ev(`${I}.set({ cfg: "C", nu: 1.5 })`);
+    const f1 = await ev(`${I}.result()`); await ev(`${I}.set({ band: "S", nu: 3 })`); const f2 = await ev(`${I}.result()`);
+    check("twice the frequency: half the beam and half the primary beam", Math.abs(f1.beam.maj / f2.beam.maj - 2) < 0.06 && Math.abs(f1.pb / f2.pb - 2) < 1e-6, `${(f1.beam.maj / f2.beam.maj).toFixed(3)}, ${(f1.pb / f2.pb).toFixed(3)}`);
+    await ev(`${I}.set({ band: "L", nu: 1.5 })`);
+    const W = {};
+    for (const wt of ["natural", "robust", "uniform"]) { await ev(`${I}.set({ wt: "${wt}" })`); W[wt] = await ev(`({ b: ${I}.result().beam.maj, rob: !document.getElementById("rRobRow").hidden })`); }
+    check("weighting: uniform beam < robust < natural; the robust slider shows for robust only", W.uniform.b < W.robust.b && W.robust.b < W.natural.b && W.robust.rob && !W.natural.rob && !W.uniform.rob, JSON.stringify(W));
+    check("natural / uniform beam near the OSS's 1.5", W.natural.b / W.uniform.b > 1.3 && W.natural.b / W.uniform.b < 1.8, (W.natural.b / W.uniform.b).toFixed(2));
+    await ev(`${I}.set({ wt: "natural", dec: -50 })`);
+    const lo = await ev(`({ n: ${I}.result().n, up: [...document.querySelectorAll("#rObsR .rd")].map(e => e.textContent).find(x => /Above the limit/.test(x)) })`);
+    check("dec −50° from the VLA transits at 6°, below the 8° limit: no samples", lo.n === 0 && /below the limit/.test(lo.up), JSON.stringify(lo));
+    await ev(`${I}.set({ dec: 40, bw: 1 })`);
+    const mf = await ev(`${I}.result()`);
+    check("a 1 GHz band: many frequencies per baseline, more samples", mf.nCh > 1 && mf.n > 351 * 100, JSON.stringify({ nCh: mf.nCh, n: mf.n }));
+    await ev(`${I}.set({ bw: 0 })`);
+    // click an antenna off, and drag another
+    const xy = await ev(`${I}.antXY(5)`);
+    await ev(`(() => { const c = document.getElementById("cvA"); c.dispatchEvent(new MouseEvent("mousedown", { clientX: ${xy[0]}, clientY: ${xy[1]}, bubbles: true })); window.dispatchEvent(new MouseEvent("mouseup", { clientX: ${xy[0]}, clientY: ${xy[1]}, bubbles: true })); })()`); await sleep(300);
+    const off = await ev(`({ nb: ${I}.result().nb, off: ${I}.state().off, restore: !document.getElementById("rRestore").hidden })`);
+    check("a click switches an antenna off: 26 antennas, 325 baselines, the Restore button shows", off.nb === 325 && off.off.length === 1 && off.restore, JSON.stringify(off));
+    const xy2 = await ev(`${I}.antXY(0)`), B0 = await ev(`${I}.result().Bmin + ${I}.result().Bmax`);
+    await ev(`(() => { const c = document.getElementById("cvA"); c.dispatchEvent(new MouseEvent("mousedown", { clientX: ${xy2[0]}, clientY: ${xy2[1]}, bubbles: true })); window.dispatchEvent(new MouseEvent("mousemove", { clientX: ${xy2[0] - 80}, clientY: ${xy2[1] + 60}, bubbles: true })); window.dispatchEvent(new MouseEvent("mouseup", { clientX: ${xy2[0] - 80}, clientY: ${xy2[1] + 60}, bubbles: true })); })()`); await sleep(500);
+    const mv = await ev(`({ mv: ${I}.state().mv, off: ${I}.state().off.length, hash: location.hash, xy: ${I}.antXY(0) })`);
+    check("a drag moves an antenna (and does not switch it off); the link carries the move", Object.keys(mv.mv).length === 1 && mv.mv[0] && mv.off === 1 && Math.abs(mv.xy[0] - (xy2[0] - 80)) < 2 && Math.abs(mv.xy[1] - (xy2[1] + 60)) < 2 && /r\.mv=0:/.test(mv.hash) && /r\.off=/.test(mv.hash), JSON.stringify({ mv: mv.mv, xy2, xy: mv.xy, hash: mv.hash.slice(0, 120) }));
+    await click("#rRestore"); await sleep(200);
+    check("Restore: every antenna back", (await ev(`${I}.result().nb`)) === 351);
+    // made-up layouts: the rows that show, the antenna count, a new random draw
+    await ev(`(e => { e.value = "Y"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rLay"))`); await sleep(300);
+    const ly = await ev(`({ s: ${I}.state(), nb: ${I}.result().nb, B: ${I}.result().Bmax, cfg: document.getElementById("rCfgRow").offsetParent !== null, na: document.getElementById("rNaRow").offsetParent !== null, rd: document.getElementById("rRedraw").offsetParent !== null })`);
+    check("a Y layout: the configuration's count and longest baseline to start, the Antennas and Size rows in place of Configuration", ly.s.lay === "Y" && ly.s.na === 27 && ly.nb === 351 && Math.abs(ly.B - ly.s.ext) < 1 && !ly.cfg && ly.na && !ly.rd, JSON.stringify({ lay: ly.s.lay, na: ly.s.na, ext: ly.s.ext, B: ly.B, cfg: ly.cfg, na2: ly.na, rd: ly.rd }));
+    await setRange("#rNa", Math.log10(10)); await sleep(400);
+    check("Antennas 10: 45 baselines", (await ev(`${I}.result().nb`)) === 45);
+    await ev(`(e => { e.value = "random"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rLay"))`); await sleep(300);
+    const rA = await ev(`${I}.result().Bmax`); await click("#rRedraw"); await sleep(400);
+    const rB = await ev(`({ B: ${I}.result().Bmax, seed: ${I}.state().seed, rd: document.getElementById("rRedraw").offsetParent !== null })`);
+    check("Random: the ↻ button draws a new layout", rB.rd && rB.seed === 2 && Math.abs(rB.B - rA) > 1e-6, JSON.stringify({ rA, rB }));
+    await ev(`(e => { e.value = "built"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rLay"))`); await sleep(300);
+    check("As built: the configuration again", (await ev(`${I}.result().nb`)) === 351 && (await vis("#rCfgRow")));
+    // the link round-trips
+    await ev(`${I}.set({ cfg: "B", dec: -12.5, dur: 5.5, el: 20, band: "C", nu: 6.5, bw: 2, wt: "robust", rob: -0.5, sky: "ring", size: 3.5, field: 40, uvv: "amp", off: [2, 7], mv: { 4: [120.5, -33] } })`); await sleep(400);
+    {
+      const w1 = await ev(`${I}.state()`), h1 = await ev(`location.hash`);
+      await nav(h1);
+      check("Interferometer: the link round-trips every setting (as built)", JSON.stringify(await ev(`${I}.state()`)) === JSON.stringify(w1), h1);
+    }
+    await ev(`${I}.set({ lay: "random", na: 41, ext: 7300, seed: 5, off: [3], mv: {} })`); await sleep(400);
+    const want = await ev(`${I}.state()`), h = await ev(`location.hash`);
+    await nav(h);
+    const got = await ev(`${I}.state()`);
+    check("Interferometer: the link round-trips every setting (a random layout)", JSON.stringify(got) === JSON.stringify(want), h);
+    await go("#inst=int&r.dec=abc&r.field=-3&r.wt=heavy&r.cfg=Z&r.off=x.99");
+    const bad = await ev(`${I}.state()`);
+    check("Interferometer: malformed link values are ignored", bad.dec === 40 && bad.field > 0 && bad.wt === "natural" && bad.cfg === "C" && bad.off.length === 0, JSON.stringify(bad));
+    // play
+    await go("#inst=int");
+    await click("#rPlay");
+    const p1 = await ev(`({ on: ${I}.playing(), lbl: document.getElementById("rPlay").textContent })`);
+    await sleep(3000);
+    const pm = await ev(`${I}.result().n`);
+    await sleep(3600);
+    const p2 = await ev(`({ on: ${I}.playing(), n: ${I}.result().n, lbl: document.getElementById("rPlay").textContent })`);
+    check("Play runs the hour angle through: part of the samples midway, all at the end", p1.on && /Stop/.test(p1.lbl) && pm > 0 && pm < p2.n && !p2.on && p2.n === 351 * 961 && /Play/.test(p2.lbl), JSON.stringify({ p1, pm, p2 }));
+    await click("#rPlay"); await sleep(400);
+    await setRange("#rDec", 20); await sleep(300);
+    check("moving a control stops Play", !(await ev(`${I}.playing()`)));
+    // the arrays and configurations fit at both laptop sizes
+    const arrs = await ev(`window.IX_ARRAYS.map(a => [a.id, a.configs.map(c => c.id)])`), over = [];
+    for (const [w, hh] of [[1440, 900], [1280, 800]]) {
+      await size(w, hh);
+      for (const [aid, cids] of arrs) for (const cid of cids) {
+        await nav("#inst=int&r.arr=" + aid + "&r.cfg=" + encodeURIComponent(cid));
+        const fz = await fit(); if (!(fz.bottom <= fz.vh + 0.5 && fz.sw <= fz.cw)) over.push(`${aid}/${cid}@${w} ${fz.bottom.toFixed(0)}`);
+      }
+    }
+    check("Interferometer: every array and configuration fits at both laptop sizes", over.length === 0, over.join(", "));
+    await size(1440, 900);
+    await go("#inst=int");
+    const tt = await ev(`(() => { const t0 = performance.now(); for (let i = 0; i < 4; i++) ${I}.set({ dec: 40 + i }); return (performance.now() - t0) / 4; })()`);
+    check("Interferometer redraw time (VLA C, 8 h)", tt < 400, `${tt.toFixed(0)} ms per frame`);
+  }
+  await shot("12_interferometer.png");
+
   // speed: the whole page redrawn (layout and sky) for the largest mosaic
   await go("#inst=img&ipreset=lsst");
   {

@@ -1,0 +1,5756 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: ALMA 12-m Array, Cycle 13 configurations C-1 ... C-10",
+  "compiled": "2026-10-20",
+  "companion": "data/interf/alma.md (same content as Markdown)",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/interf/alma/. \"derived\" = arithmetic done here (shown); \"inferred\" = a mapping no source states; NOT FOUND listed in not_found.",
+  "quote_check": "246 quote records (181 distinct quotes) machine-checked against the saved files' extracted text (pdftotext -layout and -raw for PDFs, split by page; tag-stripped text and raw source for HTML; the cfg, JSON and .py files as is; the casacore table by decoding its ISM index): all pass (2026-10-20).",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), tilde operator, division slash, the ring/bullet degree signs and soft hyphens normalised; whitespace collapsed; a quote also passes with PDF line-end hyphenation closed up or with all whitespace removed (table rows); ' ... ' joins non-adjacent pieces on one page.",
+  "frame": "antennas[].e/n/u: metres East/North/Up in the local ENU frame at the array centre lat -23.02917 deg, lon -67.754649 deg (TH Sec. 2.1), ellipsoidal height 5056.8 m (u datum = the CASA reference height). See params.enu_conversion.",
+  "antenna_name": "The cfg files carry pad names only (5th column \"pad#\"); name = pad.",
+  "json_usage": "configs[\"C-5\"].antennas -> [{name, e, n, u}]; site.lat_deg for the Earth-rotation tracks; bands[].lo_GHz/hi_GHz/bw_GHz; res_table.rows[\"C-5\"].theta_max_arcsec[k] at res_table.freqs_GHz[k]."
+ },
+ "sources": {
+  "CFG": {
+   "cite": "CASA data repository (casa-data, NRAO open Bitbucket), directory alma/simmos: alma.cycle13.1.cfg ... alma.cycle13.10.cfg, the CASA simulator antenna-position files for the ALMA Cycle 13 12-m configurations C-1 ... C-10 (43 antennas each; added in commit 6d3899caf00, 2026-02-18, \"CAS-14730 add cycle 13 configuration files\"); fetched 2026-10-20",
+   "file": "rawdata/interf/alma/alma.cycle13.{1..10}.cfg",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa-data/raw/alma/simmos/alma.cycle13.N.cfg (N = 1..10)"
+  },
+  "CFGZIP": {
+   "cite": "ALMA Science Portal, Cycle 13 documents, \"alma-configuration-files\": ALMA_cycle13_configuration_files.zip (17.1 KB; the same ten alma.cycle13.N.cfg, byte-identical to CFG; zip entries dated 2024-03-05) and its item page; fetched 2026-10-20",
+   "file": "rawdata/interf/alma/ALMA_cycle13_configuration_files.zip",
+   "url": "https://almascience.nrao.edu/documents-and-tools/cycle13/alma-configuration-files/@@download/file/ALMA_cycle13_configuration_files.zip"
+  },
+  "CFGPREV": {
+   "cite": "casa-data alma/simmos: alma.cycle11.N.cfg and alma.cycle12.N.cfg (N = 1..10), downloaded only to compare with Cycle 13 (all 20 byte-identical to the Cycle 13 file with the same N); fetched 2026-10-20",
+   "file": "rawdata/interf/alma/casadata_prev_cycles/",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa-data/raw/alma/simmos/alma.cycle{11,12}.N.cfg"
+  },
+  "GITC": {
+   "cite": "casa-data REST API commit history of alma/simmos/alma.cycle13.1.cfg (JSON; one commit, 6d3899caf00762c71c54a9d8085450648b7128c6, authorTimestamp 1771437164000 ms = 2026-02-18 17:52:44 UTC; the same single commit is the history of every alma.cycle13.N.cfg); fetched 2026-10-20",
+   "file": "rawdata/interf/alma/casadata_commits_alma.cycle13.1.cfg.json",
+   "url": "https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa-data/commits?path=alma/simmos/alma.cycle13.1.cfg&limit=5"
+  },
+  "GITF": {
+   "cite": "casa-data REST API file listing of alma/simmos (JSON, 253 files, isLastPage true): ALMA 12-m cycle files run to alma.cycle13.N.cfg; no cycle14 files; fetched 2026-10-20",
+   "file": "rawdata/interf/alma/casadata_files_alma_simmos.json",
+   "url": "https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa-data/files/alma/simmos?limit=1000"
+  },
+  "OBS": {
+   "cite": "CASA casa-data geodetic/Observatories casacore table (binary: table.dat descriptor, table.f0 IncrementalStMan data; latest commit on table.f0 625e774c108, 2025-12-11): row \"ALMA\" (row 0), the observatory position CASA uses for \"observatory=ALMA\". BINARY READ-OFF: values decoded from the ISM bucket index (row 0 offsets), little-endian doubles; fetched 2026-10-20 (git-LFS objects)",
+   "file": "rawdata/interf/alma/casadata_geodetic_Observatories/",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa-data/raw/geodetic/Observatories/table.f0 (and table.dat, table.f1, table.info)"
+  },
+  "SIMU": {
+   "cite": "CASA casa6 source, casatasks/src/private/simutil.py (commit 1efb2921add, 2026-06-01): readantenna() (cfg header keys observatory/COFA/coordsys; LOC needs a known observatory or COFA), locxyz2itrf() (local tangent plane to ECEF, WGS84 a, b), baselineLengths(). Read only, never executed or imported",
+   "file": "rawdata/interf/alma/casa_code/casa6_casatasks_private_simutil.py",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/raw/casatasks/src/private/simutil.py"
+  },
+  "PG": {
+   "cite": "ALMA Cycle 13 Proposer's Guide, ALMA Doc. 13.2, ver. 1.0, 19 March 2026 (G. C. Privon, L. Cerrigone, A. Corvillon, A. Kawamura, G. Popping, D. Rebolledo; doi 10.5281/zenodo.18793859): Cycle 13 CfP and Table 1 (timeline), Sec. 4.3.3 + Table 3 (configuration schedule), App. A.1 (number of antennas), A.2 (configurations), Table A-1 (angular resolution), Table A-2 (MRS), Table A-4 (receiver bands), A.5.3 (Bands 9-10), A.6.1 + Table A-5 (basebands, correlator), A.8 (source restrictions, shadowing, declination limit)",
+   "file": "rawdata/interf/alma/ALMA_Cycle13_Proposers_Guide.pdf",
+   "url": "https://almascience.org/documents-and-tools/cycle13/alma-proposers-guide"
+  },
+  "TH": {
+   "cite": "ALMA Cycle 13 Technical Handbook, Doc 13.3, version 1.0, 1 March 2026 (ed. P. C. Cortes; Ch. 7 by R. Loomis): Sec. 2.1-2.2 (site, 12-m Array), Ch. 3 (primary beam), Table 4.1 + Secs. 4.4-4.5 (receivers, IF bandwidth), Sec. 5.2 (WSU mention), Sec. 7.2 (configurations, notional C43-X), Table 7.1 (angular resolution), Table 7.2 (MRS), Table 7.3 (baseline statistics of the notional configurations), Sec. 7.3 (shadowing, latitude), Sec. 7.4 (Eqs. 7.3-7.4, Briggs robust 0.5), Table 7.5 (peak sidelobes), Sec. 7.6 (Eq. 7.6), Sec. 7.7 (primary beam FWHM), Sec. 10.3.1 (Eq. 10.5), App. A.1 (antennas)",
+   "file": "rawdata/interf/alma/ALMA_Cycle13_Technical_Handbook.pdf",
+   "url": "https://almascience.org/documents-and-tools/cycle13/alma-technical-handbook"
+  },
+  "PRIM": {
+   "cite": "Observing with ALMA - A Primer (Cycle 13), Doc 13.1, ver. 1, 25/27 Feb 2026 (G. Schieven): Level One Science Aims, \"ALMA Full Operations Specifications\" table, MRS rule of thumb",
+   "file": "rawdata/interf/alma/ALMA_Cycle13_Primer_Doc13.1.pdf",
+   "url": "https://almascience.nrao.edu/documents-and-tools/cycle13/alma-science-primer/@@download/file/ALMA-C13Primer-v1.pdf"
+  },
+  "DOCS": {
+   "cite": "ALMA Science Portal, \"Cycle 13\" documents-and-tools listing page (links to the Proposer's Guide, Technical Handbook, configuration files, Primer); fetched 2026-10-20",
+   "file": "rawdata/interf/alma/almascience_cycle13_documents.html",
+   "url": "https://almascience.org/documents-and-tools/cycle13"
+  },
+  "SCHED": {
+   "cite": "ALMA Science Portal, \"Configuration Schedule\" page (Cycle 13 by block + complete tentative Cycle 13 schedule); fetched 2026-10-20",
+   "file": "rawdata/interf/alma/almascience_observing_configuration_schedule.html",
+   "url": "https://almascience.nrao.edu/observing/observing-configuration-schedule"
+  },
+  "WSU": {
+   "cite": "ALMA Science Portal, \"ALMA2030 WSU (Overview)\" page on the Wideband Sensitivity Upgrade; fetched 2026-10-20",
+   "file": "rawdata/interf/alma/almascience_alma2030_wsu.html",
+   "url": "https://almascience.nrao.edu/about-alma/alma2030-wsu"
+  },
+  "C14": {
+   "cite": "ALMA Science Portal URL documents-and-tools/cycle14 (pattern of the Cycle 13 page): HTTP 404, body {\"error_type\": \"NotFound\"}; fetched 2026-10-20",
+   "file": "rawdata/interf/alma/almascience_cycle14_documents_HTTP404.json",
+   "url": "https://almascience.org/documents-and-tools/cycle14"
+  },
+  "PB4": {
+   "cite": "ALMA Project Book, Chapter 4, \"Antennas\", T. Andersen and P. Napier (last changed 2001-Feb-06; Acrobat web capture): Sec. 4.2.4 Range of Motion. Design-era (pre-construction) specification, not a production-antenna or Cycle 13 document",
+   "file": "rawdata/interf/alma/ALMA_ProjectBook_Ch4_Antennas_Andersen_Napier.pdf",
+   "url": "https://www.cv.nrao.edu/~demerson/almapbk/construc/chap4/chap4.pdf"
+  }
+ },
+ "cycle": 13,
+ "cycle_label": "ALMA Cycle 13 (1 October 2026 - 30 September 2027); current on 2026-10-20",
+ "cycle_src": {
+  "src": "PG",
+  "loc": "Cycle 13 Call for Proposals [PDF p. 6]",
+  "quote": "is pleased to announce the ALMA Cycle 13 Call for Proposals (CfP) for scientific observations to be scheduled from October 2026 to September 2027",
+  "alternatives": [
+   {
+    "src": "PG",
+    "loc": "Table 1 (Cycle 13 timeline) [PDF p. 7]",
+    "quote": "01 October 2026 Start of ALMA Cycle 13 Science Observations (anticipated) 30 September 2027 End of ALMA Cycle 13",
+    "value": "start 1 October 2026 (anticipated); end 30 September 2027"
+   },
+   {
+    "src": "SCHED",
+    "loc": "Cycle 13 - by Block, block 4",
+    "quote": "2026-10-19 2026-10-26 PI ( Observing Report ) C-3 15-500",
+    "value": "C-3 in use in the week of 2026-10-20 (block 4, 2026-10-19 to 2026-10-26, 15-500 m)"
+   },
+   {
+    "src": "GITC",
+    "loc": "values[0].message",
+    "quote": "CAS-14730 add cycle 13 configuration files",
+    "value": "Cycle 13 configuration files are the latest in casa-data (added 2026-02-18; no cycle 14 files)"
+   },
+   {
+    "src": "GITF",
+    "loc": "values[]",
+    "quote": "\"alma.cycle13.1.cfg\",\"alma.cycle13.10.cfg\",\"alma.cycle13.2.cfg\"",
+    "value": "file listing ends at cycle 13"
+   },
+   {
+    "src": "C14",
+    "loc": "response body",
+    "quote": "{\"error_type\": \"NotFound\"}",
+    "value": "no Cycle 14 documents page (HTTP 404)"
+   }
+  ],
+  "note": "Today (2026-10-20) falls inside Cycle 13, so Cycle 13 is the current cycle; No Cycle 14 documents page (C14: HTTP 404) or configuration files (GITF: no cycle14 file) exist. The Cycle 13 configuration files are byte-identical to the Cycle 11 and Cycle 12 files (CFGPREV), consistent with PG Sec. 1.3."
+ },
+ "site": {
+  "lat_deg": -23.02917,
+  "lon_deg": -67.754649,
+  "elev_m": 5000,
+  "src": {
+   "src": "TH",
+   "loc": "Sec. 2.1 (The ALMA Telescope) [PDF p. 11]",
+   "quote": "The array is located on the Chajnantor plain of the Chilean Andes (lat.=–23.02917◦ , long.=–67.754649◦ )",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.3 (Shadowing) [PDF p. 97]",
+     "quote": "Given ALMA’s location (latitude=−23.02917◦ )",
+     "value": "latitude -23.02917 deg (shadowing section)"
+    },
+    {
+     "src": "PG",
+     "loc": "Sec. 2.2 (The ALMA telescope) [PDF p. 8]",
+     "quote": "The Array is located on the Chajnantor plateau of the Chilean Andes at latitude = −23.029◦ , longitude = −67.755◦ and an altitude of 5000 m.",
+     "value": "-23.029 deg, -67.755 deg, 5000 m"
+    }
+   ],
+   "note": "Used here as the ARRAY CENTRE (origin of e, n, u). It lies 696.5 m south and 28.7 m east of the CASA LOC origin (DERIVED below), inside the compact core: the C-1 centroid is 66 m from it."
+  },
+  "elev_src": {
+   "src": "TH",
+   "loc": "Sec. 2.1 [PDF p. 11]",
+   "quote": "are all located at the 5000-meter altitude site referred to as the Array Operations Site (AOS)",
+   "alternatives": [
+    {
+     "src": "PG",
+     "loc": "Sec. 2.2 [PDF p. 8]",
+     "quote": "and an altitude of 5000 m.",
+     "value": "5000 m"
+    },
+    {
+     "src": "PRIM",
+     "loc": "Introduction [PDF p. 5]",
+     "quote": "Located on the Chajnantor plain of the Chilean Andes at an elevation of about 5000 m",
+     "value": "about 5000 m"
+    },
+    {
+     "src": "OBS",
+     "loc": "Observatories table, row 0 (Name ALMA, Type WGS84), column Height (UNIT m) [BINARY READ-OFF]",
+     "quote": "ALMA ... WGS84 ... MMA Memo 261, Radford ... Height 5056.8",
+     "value": "5056.8 m WGS84 height of the CASA \"ALMA\" observatory position"
+    }
+   ],
+   "note": "The 5000 m is a rounded site altitude; the CASA reference height is 5056.8 m (ellipsoidal, WGS84). Compact-configuration pads sit 1.3-7.8 m below that reference (cfg z values)."
+  },
+  "casa_loc_origin": {
+   "lat_deg": -23.022886,
+   "lon_deg": -67.754929,
+   "height_m": 5056.8,
+   "src": "OBS",
+   "array_centre_in_loc_frame_m": [
+    28.723,
+    -696.472,
+    -0.038
+   ]
+  }
+ },
+ "dish_m": 12,
+ "dish_src": {
+  "src": "TH",
+  "loc": "Sec. 2.2 (The 12-m Array) [PDF p. 11]",
+  "quote": "The 12-m Array consists of fifty 12-meter diameter antennas",
+  "alternatives": [
+   {
+    "src": "CFG",
+    "loc": "alma.cycle13.1.cfg line 4 (4th column)",
+    "quote": "-33.89412596 -712.7516484 -2.330089496 12. A001",
+    "file": "rawdata/interf/alma/alma.cycle13.1.cfg",
+    "value": "diam column = 12. for every antenna in all ten cfg files"
+   },
+   {
+    "src": "TH",
+    "loc": "App. A.1 (Design and Properties) [PDF p. 205]",
+    "quote": "ALMA is composed of a total of 66 antennas, 54 with a diameter of 12 m and 12 with a diameter of 7 m.",
+    "value": "54 of 66 antennas are 12 m"
+   }
+  ],
+  "derived": "diam values found in the cfg files: [12.0]"
+ },
+ "blockage_m": 0.75,
+ "blockage_src": {
+  "src": "TH",
+  "loc": "Sec. 3.2 (Single-dish Response) [PDF p. 18]",
+  "quote": "each 12-m antenna has a secondary reflector and support arms that block an effective area of 0.75 m diameter on the primary surface",
+  "alternatives": [
+   {
+    "src": "TH",
+    "loc": "App. A.1 [PDF p. 206]",
+    "quote": "The subreflector has a diameter of 750 mm.",
+    "value": "subreflector 750 mm"
+   }
+  ]
+ },
+ "n_ant_cfg": 43,
+ "n_ant_offered_min": 43,
+ "n_ant_config": 50,
+ "n_ant_src": {
+  "src": "TH",
+  "loc": "Sec. 7.2 (Configurations) [PDF p. 96]",
+  "quote": "For simulation and project planning purposes, configurations referred to as “notional configurations” of 43 12-m antennas (C43-X) are available on the Science Portal and in CASA.",
+  "alternatives": [
+   {
+    "src": "PG",
+    "loc": "App. A.1 (Number of antennas) [PDF p. 38]",
+    "quote": "At least forty-three 12-m antennas will be offered in the 12-m Array.",
+    "value": "at least 43 offered"
+   },
+   {
+    "src": "PG",
+    "loc": "Sec. 4.3.3 [PDF p. 22]",
+    "quote": "While each config- uration contains fifty 12-m antennas ... the OT considers the full range of 43 to 50-antenna configurations",
+    "value": "50 per configuration; OT considers 43-50"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 7.2 [PDF p. 96]",
+    "quote": "ALMA is committed to providing at least 43 antennas for each 12-m Array observation and on average provides more than 43 antennas",
+    "value": "50 used, >= 43 committed"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 7.2 [PDF p. 96]",
+    "quote": "which are the 43 pads in each configuration that have the highest operational priority in terms of antenna availability",
+    "value": "notional = the 43 highest-priority pads"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 7.2 footnote 2 [PDF p. 96]",
+    "quote": "ALMA’s 54 12-m antennas can be distributed among 192 “antenna pads”",
+    "value": "54 12-m antennas, 192 pads"
+   }
+  ],
+  "derived": "Count of data rows in each alma.cycle13.N.cfg: [43, 43, 43, 43, 43, 43, 43, 43, 43, 43] (all pad names unique: True).",
+  "note": "The 50-antenna pad lists behind the PG/TH theta ranges are NOT FOUND in any downloadable file."
+ },
+ "elev_limit_deg": 2,
+ "elev_limit_max_deg": 125,
+ "zenith_avoid_radius_deg": 0.2,
+ "elev_limit_src": {
+  "src": "PB4",
+  "loc": "Sec. 4.2.4 (Range of Motion) [PDF p. 5]",
+  "quote": "Minimum elevation angle for observations: 2 deg Maximum elevation angle for observations: 125 deg. Cone of avoidance at the zenith: 0.2 deg in radius for normal sidereal tracking.",
+  "alternatives": [
+   {
+    "src": "PB4",
+    "loc": "Sec. 4.2.4 [PDF p. 5]",
+    "quote": "Range of azimuth motion: 270 degrees either side of due north.",
+    "value": "azimuth range +/- 270 deg from North"
+   },
+   {
+    "src": "PB4",
+    "loc": "Sec. 4.2.4 [PDF p. 5]",
+    "quote": "Stow position for wind survival: elevation 15 deg",
+    "value": "wind-survival stow at 15 deg elevation"
+   },
+   {
+    "src": "PB4",
+    "loc": "Sec. 4.2.4 [PDF p. 5]",
+    "quote": "there will be a region around the zenith about 30 deg in radius, where azimuth switching times are degraded",
+    "value": "degraded switching within ~30 deg of zenith"
+   }
+  ],
+  "note": "Design-era (pre-construction) project-book value; no Cycle 13 document states the hardware elevation range (TH, PG, PRIM, OT manuals searched; NOT FOUND there)."
+ },
+ "min_transit_elev_deg": 20,
+ "dec_limit_deg": [
+  null,
+  47
+ ],
+ "min_transit_elev_src": {
+  "src": "PG",
+  "loc": "App. A.8 (Source restrictions) [PDF p. 47]",
+  "quote": "The adopted upper declination limit for ALMA is +47◦ , corresponding to a maximum elevation of 20◦ at the ALMA site. The ALMA OT gives a warning for objects from +37 through +47◦ declination, corre- sponding to transits between 20 and 30-degrees elevation.",
+  "alternatives": [
+   {
+    "src": "TH",
+    "loc": "Sec. 7.3 (Shadowing) [PDF p. 97]",
+    "quote": "targets as far North as declination +47◦ can in principle be observed, corresponding to a maximum source elevation at the Chajnantor site of ∼ 20◦",
+    "value": "+47 deg = max elevation ~20 deg; shadowing at low elevation"
+   },
+   {
+    "src": "PG",
+    "loc": "App. A.8 [PDF p. 47]",
+    "quote": "For the 12-m Array, this shadowing becomes signif- icant (> 5%) in the most compact configuration for sources with declinations lower than −65◦ or higher than +20◦ .",
+    "value": "12-m shadowing > 5% (most compact) for Dec < -65 or > +20"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 7.3 [PDF p. 97]",
+    "quote": "the shadowing fraction can be as large as 55% for sources observed with the most compact 12-m Array configuration",
+    "value": "shadowing fraction up to 55% in C-1"
+   },
+   {
+    "src": "PRIM",
+    "loc": "Level One Science Aims, III [PDF p. 8]",
+    "quote": "This requirement applies to all sources visible to ALMA that transit at an elevation greater than 20 degrees.",
+    "value": "design aim: sources transiting above 20 deg"
+   },
+   {
+    "src": "PG",
+    "loc": "Sec. 4.3.1 (Weather), Figure 2 caption [PDF p. 20]",
+    "quote": "show the PWV observing limits adopted for the ALMA bands for an elevation of 60 degrees.",
+    "value": "PWV limits quoted for 60 deg elevation"
+   }
+  ],
+  "inferred": "A per-scan minimum observing elevation (track cut-off) is NOT FOUND in the Cycle 13 documents; \"20 deg\" here is the transit-elevation floor, not a tracking limit."
+ },
+ "pb_relation": {
+  "fwhm_coeff": 1.13,
+  "formula": "FWHM = 1.13 lambda / D",
+  "fwhm_100GHz_arcsec": 58,
+  "model": "Airy pattern scaled to the FWHM (CASA)",
+  "src": "TH",
+  "loc": "Sec. 3.2 (Single-dish Response) [PDF p. 18]",
+  "quote": "The actual ALMA 12-m antennas (and the ALMA 7-m antennas) have measured primary beam FWHM values of ∼1.13 λ/D.",
+  "alternatives": [
+   {
+    "src": "TH",
+    "loc": "Sec. 7.7 (Mosaicing) [PDF p. 110]",
+    "quote": "The resulting F W HM of the ALMA 12-m antennas is measured to be F W HM = 1.13 D ... = 58′′ at 100 GHz, and it varies inversely with frequency.",
+    "value": "58\" at 100 GHz"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 7.7 [PDF p. 110]",
+    "quote": "The ALMA feedhorns were designed to illuminate the dish with a -12 dB edge taper to provide a nearly Gaussian primary beam with low sidelobes",
+    "value": "-12 dB edge taper"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 10.3.1 (Antenna Primary Beam Pattern), Eq. 10.5 [PDF p. 161]",
+    "quote": "θ = 1.13λ/D",
+    "value": "Eq. 10.5 theta = 1.13 lambda / D (half-power width)"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 10.3.1 [PDF p. 161]",
+    "quote": "The current primary beam model for ALMA antennas in CASA is an Airy pattern scaled in angular extent such that its FWHM matches θ in the equation above.",
+    "value": "CASA PB model = Airy pattern scaled to that FWHM"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 3.2, Eq. 3.4 [PDF p. 17]",
+    "quote": "HPBW Primary Beam = 1.02 × λ/D.",
+    "value": "uniform illumination would give 1.02 lambda / D"
+   },
+   {
+    "src": "PRIM",
+    "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+    "quote": "12-m Primary beam (“) ~19.4” × (300/ν GHz)",
+    "value": "~19.4\" x (300/nu GHz) (12-m)"
+   }
+  ],
+  "derived": "1.13 x (c/100 GHz) / 12 m = 58.23\" (TH: 58\"); at 300 GHz 19.41\" (PRIM: ~19.4\"). c = 299 792 458 m/s (SI)."
+ },
+ "bw_per_pol_GHz": 7.5,
+ "n_basebands": 4,
+ "baseband_usable_GHz": 1.875,
+ "bw_band9_10_walsh_GHz": 15,
+ "bw_src": {
+  "src": "TH",
+  "loc": "Sec. 2.2 [PDF p. 12]",
+  "quote": "The 7.5 GHz total IF bandwidth from the selected receiver is divided into four 1.875 GHz-wide basebands",
+  "alternatives": [
+   {
+    "src": "TH",
+    "loc": "Sec. 4.5 (The Cycle 13 Receivers) [PDF p. 36]",
+    "quote": "The IF effective bandwidth is 7.5 GHz per polarization (after passing through the IF processing units), so the total instantaneous receiver bandwidth is the same for Bands 1–8. ... The effective system bandwidth available in Bands 9 and 10 is therefore double that of the 2SB receivers (15 GHz).",
+    "value": "7.5 GHz per polarization, Bands 1-8; Bands 9-10 double (15 GHz)"
+   },
+   {
+    "src": "TH",
+    "loc": "Sec. 2.2 [PDF p. 12]",
+    "quote": "down-converts the signals to an intermediate frequency with 7.5 GHz of bandwidth per polarization",
+    "value": "7.5 GHz per polarization from the receiver"
+   },
+   {
+    "src": "PG",
+    "loc": "App. A.5.3 [PDF p. 43]",
+    "quote": "This mode doubles the continuum bandwidth to 15 GHz",
+    "value": "Bands 9-10: 90-deg Walsh switching doubles continuum bandwidth to 15 GHz (default on in Cycle 13)"
+   },
+   {
+    "src": "PG",
+    "loc": "App. A.6.1 [PDF p. 43]",
+    "quote": "The ALMA IF system provides up to four basebands (per parallel polarization) that can be independently placed within the two receiver sidebands.",
+    "value": "up to four basebands per polarization"
+   },
+   {
+    "src": "PG",
+    "loc": "Table A-5 [PDF p. 44]",
+    "quote": "1875 15.6 31.2 120 TDM",
+    "value": "widest spectral window 1875 MHz (TDM, 15.6 MHz channels)"
+   },
+   {
+    "src": "PRIM",
+    "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+    "quote": "Correlator: Total Bandwidth 16 GHz (2 polarizations × 4 basebands × 2 GHz/baseband)",
+    "value": "Primer: 16 GHz total = 2 pol x 4 basebands x 2 GHz"
+   }
+  ],
+  "note": "2 GHz is the nominal baseband width; 1.875 GHz is the usable width after anti-aliasing filters (TH Sec. 4.5: \"reduced to an effective total bandwidth of 3.75 GHz\"). For continuum sensitivity use 7.5 GHz per polarization (15 GHz in Bands 9-10)."
+ },
+ "bands": [
+  {
+   "name": "Band 1",
+   "band": 1,
+   "lo_GHz": 35.0,
+   "hi_GHz": 50.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 40.0,
+   "type": "SSB",
+   "if_GHz": [
+    4.0,
+    12.0
+   ],
+   "wavelength_mm": [
+    8.5,
+    6.0
+   ],
+   "lo1_GHz": [
+    31.0,
+    38.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "1 35 – 50 8.5 – 6 4 – 12 SSB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "1 35.0 – 50.0/ 31.0 – 38.0 SSB 4 – 12 7.5 <25 <32"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 2",
+   "band": 2,
+   "lo_GHz": 67.0,
+   "hi_GHz": 116.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 75.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    12.0
+   ],
+   "wavelength_mm": [
+    4.5,
+    2.6
+   ],
+   "lo1_GHz": [
+    79.0,
+    104.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "2 67 – 116 4.5 – 2.6 4 – 12 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "2 67.0 – 116.0/ 79 – 104 2SB 4 – 12 7.5 <30,417 <437"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 3",
+   "band": 3,
+   "lo_GHz": 84.0,
+   "hi_GHz": 116.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 100.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    8.0
+   ],
+   "wavelength_mm": [
+    3.6,
+    2.6
+   ],
+   "lo1_GHz": [
+    92.0,
+    108.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "3 84 – 116 3.6 – 2.6 4–8 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "3 84.0 – 116.0/ 92 – 108 2SB 4–8 7.5 <398 <438"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 4",
+   "band": 4,
+   "lo_GHz": 125.0,
+   "hi_GHz": 163.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 150.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    8.0
+   ],
+   "wavelength_mm": [
+    2.4,
+    1.8
+   ],
+   "lo1_GHz": [
+    133.0,
+    155.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "4 125 – 163 2.4 – 1.8 4–8 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "4 125.0 – 163.0/ 133 – 155 2SB 4–8 7.5 <51 <82"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 5",
+   "band": 5,
+   "lo_GHz": 158.0,
+   "hi_GHz": 211.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 185.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    8.0
+   ],
+   "wavelength_mm": [
+    1.9,
+    1.4
+   ],
+   "lo1_GHz": [
+    166.0,
+    203.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "5 158 – 211 1.9 – 1.4 4–8 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "5 158.0 – 211.0/ 166 – 203 2SB 4–8 7.5 <55 <75"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 6",
+   "band": 6,
+   "lo_GHz": 211.0,
+   "hi_GHz": 275.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 230.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.5,
+    10.0
+   ],
+   "wavelength_mm": [
+    1.4,
+    1.1
+   ],
+   "lo1_GHz": [
+    221.0,
+    265.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "6 211 – 275 1.4 – 1.1 4.5 – 10 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "6 211.0 – 275.0/ 221 – 265 2SB 4.5 – 103 7.5 <83 <136"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 7",
+   "band": 7,
+   "lo_GHz": 275.0,
+   "hi_GHz": 373.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 345.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    8.0
+   ],
+   "wavelength_mm": [
+    1.1,
+    0.8
+   ],
+   "lo1_GHz": [
+    283.0,
+    365.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "7 275 – 373 1.1 – 0.8 4–8 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "7 275.0 – 373.0/ 283 – 365 2SB 4–8 7.5 <147 <219"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 8",
+   "band": 8,
+   "lo_GHz": 385.0,
+   "hi_GHz": 500.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 7.5,
+   "rep_GHz": 460.0,
+   "type": "2SB",
+   "if_GHz": [
+    4.0,
+    8.0
+   ],
+   "wavelength_mm": [
+    0.78,
+    0.6
+   ],
+   "lo1_GHz": [
+    393.0,
+    492.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "8 385 – 500 0.78 – 0.60 4–8 2SB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "8 385.0 – 500.0/ 393 – 492 2SB 4–8 7.5 <196 <292"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 9",
+   "band": 9,
+   "lo_GHz": 602.0,
+   "hi_GHz": 720.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 15.0,
+   "rep_GHz": 650.0,
+   "type": "DSB",
+   "if_GHz": [
+    4.0,
+    12.0
+   ],
+   "wavelength_mm": [
+    0.5,
+    0.42
+   ],
+   "lo1_GHz": [
+    610.0,
+    712.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "9 602 – 720 0.50 – 0.42 4 – 12 DSB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "9 602.0 – 720.0/ 610 – 712 DSB 4 – 12 7.5(15)5 <175 <261"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  },
+  {
+   "name": "Band 10",
+   "band": 10,
+   "lo_GHz": 787.0,
+   "hi_GHz": 950.0,
+   "bw_GHz": 7.5,
+   "bw_GHz_max": 15.0,
+   "rep_GHz": 870.0,
+   "type": "DSB",
+   "if_GHz": [
+    4.0,
+    12.0
+   ],
+   "wavelength_mm": [
+    0.38,
+    0.32
+   ],
+   "lo1_GHz": [
+    795.0,
+    942.0
+   ],
+   "src": {
+    "src": "PG",
+    "loc": "Table A-4 (Properties of ALMA Cycle 13 Receiver Bands) [PDF p. 42]",
+    "quote": "10 787 – 950 0.38 – 0.32 4 – 12 DSB"
+   },
+   "bw_src": {
+    "src": "TH",
+    "loc": "Table 4.1 (ALMA receiver specifications), column \"Inst. IF bandw. (GHz)\" [PDF p. 31]",
+    "quote": "10 787.0 – 950.0/ 795 – 942 DSB 4 – 12 7.5(15)5 <2309 <344"
+   },
+   "rep_src": "PG Table A-1 / TH Table 7.1 header \"Freq. (GHz)\""
+  }
+ ],
+ "bands_notes": [
+  {
+   "src": "PG",
+   "loc": "Table A-4 caption [PDF p. 42]",
+   "quote": "These are the nominal frequency ranges for continuum observations."
+  },
+  {
+   "src": "PG",
+   "loc": "Sec. 1.1 (Band 2 on the 12-m Array) [PDF p. 7]",
+   "quote": "Band 2, covering 67–116 GHz, is offered for the 12-m Array, including full polarization with a single pointing."
+  },
+  {
+   "src": "TH",
+   "loc": "Table 4.1 note 4 [PDF p. 31]",
+   "quote": "Maximum instantaneous IF bandwidth, limited by the back-end filters and spectrometers."
+  },
+  {
+   "src": "PG",
+   "loc": "Cycle 13 Call for Proposals [PDF p. 6]",
+   "quote": "In Cycle 13, Bands 1 through 10 are offered in configurations C-1 through C-10."
+  }
+ ],
+ "configs": {
+  "C-1": {
+   "file": "rawdata/interf/alma/alma.cycle13.1.cfg",
+   "sha256": "c6ecb7c643346786b5f779007a3a3a0d46a327240ad6c819ae09b0728d4d31af",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A001",
+     "e": -62.617,
+     "n": -16.28,
+     "u": -2.29
+    },
+    {
+     "name": "A002",
+     "e": -46.177,
+     "n": -13.137,
+     "u": -2.289
+    },
+    {
+     "name": "A003",
+     "e": -51.282,
+     "n": 4.488,
+     "u": -2.286
+    },
+    {
+     "name": "A004",
+     "e": -34.144,
+     "n": -27.319,
+     "u": -2.293
+    },
+    {
+     "name": "A005",
+     "e": -3.477,
+     "n": -47.96,
+     "u": -2.293
+    },
+    {
+     "name": "A006",
+     "e": -7.776,
+     "n": -24.993,
+     "u": -2.292
+    },
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A008",
+     "e": -19.241,
+     "n": 9.395,
+     "u": -2.692
+    },
+    {
+     "name": "A009",
+     "e": -38.558,
+     "n": 32.645,
+     "u": -2.688
+    },
+    {
+     "name": "A010",
+     "e": -49.617,
+     "n": 42.912,
+     "u": -2.404
+    },
+    {
+     "name": "A011",
+     "e": 9.103,
+     "n": -39.404,
+     "u": -2.442
+    },
+    {
+     "name": "A013",
+     "e": -27.757,
+     "n": -6.183,
+     "u": -2.287
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A016",
+     "e": -49.343,
+     "n": 62.565,
+     "u": -2.496
+    },
+    {
+     "name": "A017",
+     "e": -35.435,
+     "n": 11.52,
+     "u": -2.29
+    },
+    {
+     "name": "A018",
+     "e": -69.962,
+     "n": -29.506,
+     "u": -2.295
+    },
+    {
+     "name": "A019",
+     "e": -79.027,
+     "n": -14.738,
+     "u": -2.293
+    },
+    {
+     "name": "A022",
+     "e": -72.367,
+     "n": 43.729,
+     "u": -2.29
+    },
+    {
+     "name": "A023",
+     "e": -88.127,
+     "n": 28.9,
+     "u": -2.096
+    },
+    {
+     "name": "A024",
+     "e": -103.198,
+     "n": 11.814,
+     "u": -2.093
+    },
+    {
+     "name": "A025",
+     "e": -113.246,
+     "n": -8.422,
+     "u": -1.899
+    },
+    {
+     "name": "A026",
+     "e": -115.596,
+     "n": -35.79,
+     "u": -1.887
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A028",
+     "e": -85.773,
+     "n": 51.033,
+     "u": -2.097
+    },
+    {
+     "name": "A030",
+     "e": -97.204,
+     "n": -1.999,
+     "u": -2.297
+    },
+    {
+     "name": "A031",
+     "e": -124.623,
+     "n": 1.582,
+     "u": -1.89
+    },
+    {
+     "name": "A033",
+     "e": -134.161,
+     "n": -58.532,
+     "u": -1.597
+    },
+    {
+     "name": "A034",
+     "e": -105.625,
+     "n": -21.701,
+     "u": -1.889
+    },
+    {
+     "name": "A035",
+     "e": -54.765,
+     "n": -29.717,
+     "u": -2.291
+    },
+    {
+     "name": "A036",
+     "e": -44.122,
+     "n": -49.887,
+     "u": -2.288
+    },
+    {
+     "name": "A038",
+     "e": -109.22,
+     "n": -68.64,
+     "u": -1.897
+    },
+    {
+     "name": "A039",
+     "e": -92.912,
+     "n": -74.678,
+     "u": -1.894
+    },
+    {
+     "name": "A040",
+     "e": -71.062,
+     "n": -81.389,
+     "u": -2.293
+    },
+    {
+     "name": "A041",
+     "e": -51.816,
+     "n": -82.136,
+     "u": -2.294
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A044",
+     "e": -108.79,
+     "n": -83.902,
+     "u": -1.289
+    },
+    {
+     "name": "A045",
+     "e": -92.228,
+     "n": -90.348,
+     "u": -1.293
+    },
+    {
+     "name": "A046",
+     "e": -65.39,
+     "n": -65.694,
+     "u": -2.295
+    },
+    {
+     "name": "A047",
+     "e": -48.377,
+     "n": -98.123,
+     "u": -2.29
+    },
+    {
+     "name": "A048",
+     "e": -30.246,
+     "n": -92.473,
+     "u": -2.789
+    },
+    {
+     "name": "A049",
+     "e": 1.629,
+     "n": -77.447,
+     "u": -3.289
+    },
+    {
+     "name": "A050",
+     "e": -43.769,
+     "n": -67.863,
+     "u": -2.29
+    }
+   ],
+   "lmin_m": 15.06,
+   "lmax_m": 160.69,
+   "derived": {
+    "lmin_3d_m": 15.058,
+    "lmax_3d_m": 160.691,
+    "lmin_horiz_m": 15.052,
+    "lmax_horiz_m": 160.691,
+    "l05_zenith_instant_m": 21.39,
+    "l80_zenith_instant_m": 107.67,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 21.35,
+    "l80_proj_ha_pm1h_m": 107.03,
+    "lmax_proj_ha_pm1h_m": 160.69,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -60.6,
+     -27.0,
+     -2.2
+    ],
+    "u_range_m": [
+     -3.29,
+     -1.29
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 3.3141,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 3.3163,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 28.404,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 28.464,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 161.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-1 161 m θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-1 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 21.4,
+    "th73_l80_m": 107.1,
+    "th73_max_m": 160.7,
+    "th73_name": "C43-1",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 3.31,
+    "theta_min_100GHz_arcsec": 3.07,
+    "theta_mrs_100GHz_arcsec": 28.5,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-2": {
+   "file": "rawdata/interf/alma/alma.cycle13.2.cfg",
+   "sha256": "464fa1a5713d4ad7c25b14c03c4853bdc0a18a0f85ddc0b717169ddb12d958c7",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A001",
+     "e": -62.617,
+     "n": -16.28,
+     "u": -2.29
+    },
+    {
+     "name": "A002",
+     "e": -46.177,
+     "n": -13.137,
+     "u": -2.289
+    },
+    {
+     "name": "A003",
+     "e": -51.282,
+     "n": 4.488,
+     "u": -2.286
+    },
+    {
+     "name": "A004",
+     "e": -34.144,
+     "n": -27.319,
+     "u": -2.293
+    },
+    {
+     "name": "A005",
+     "e": -3.477,
+     "n": -47.96,
+     "u": -2.293
+    },
+    {
+     "name": "A006",
+     "e": -7.776,
+     "n": -24.993,
+     "u": -2.292
+    },
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A008",
+     "e": -19.241,
+     "n": 9.395,
+     "u": -2.692
+    },
+    {
+     "name": "A010",
+     "e": -49.617,
+     "n": 42.912,
+     "u": -2.404
+    },
+    {
+     "name": "A011",
+     "e": 9.103,
+     "n": -39.404,
+     "u": -2.442
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A016",
+     "e": -49.343,
+     "n": 62.565,
+     "u": -2.496
+    },
+    {
+     "name": "A017",
+     "e": -35.435,
+     "n": 11.52,
+     "u": -2.29
+    },
+    {
+     "name": "A019",
+     "e": -79.027,
+     "n": -14.738,
+     "u": -2.293
+    },
+    {
+     "name": "A022",
+     "e": -72.367,
+     "n": 43.729,
+     "u": -2.29
+    },
+    {
+     "name": "A023",
+     "e": -88.127,
+     "n": 28.9,
+     "u": -2.096
+    },
+    {
+     "name": "A024",
+     "e": -103.198,
+     "n": 11.814,
+     "u": -2.093
+    },
+    {
+     "name": "A025",
+     "e": -113.246,
+     "n": -8.422,
+     "u": -1.899
+    },
+    {
+     "name": "A026",
+     "e": -115.596,
+     "n": -35.79,
+     "u": -1.887
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A033",
+     "e": -134.161,
+     "n": -58.532,
+     "u": -1.597
+    },
+    {
+     "name": "A034",
+     "e": -105.625,
+     "n": -21.701,
+     "u": -1.889
+    },
+    {
+     "name": "A035",
+     "e": -54.765,
+     "n": -29.717,
+     "u": -2.291
+    },
+    {
+     "name": "A036",
+     "e": -44.122,
+     "n": -49.887,
+     "u": -2.288
+    },
+    {
+     "name": "A039",
+     "e": -92.912,
+     "n": -74.678,
+     "u": -1.894
+    },
+    {
+     "name": "A040",
+     "e": -71.062,
+     "n": -81.389,
+     "u": -2.293
+    },
+    {
+     "name": "A041",
+     "e": -51.816,
+     "n": -82.136,
+     "u": -2.294
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A044",
+     "e": -108.79,
+     "n": -83.902,
+     "u": -1.289
+    },
+    {
+     "name": "A045",
+     "e": -92.228,
+     "n": -90.348,
+     "u": -1.293
+    },
+    {
+     "name": "A047",
+     "e": -48.377,
+     "n": -98.123,
+     "u": -2.29
+    },
+    {
+     "name": "A048",
+     "e": -30.246,
+     "n": -92.473,
+     "u": -2.789
+    },
+    {
+     "name": "A049",
+     "e": 1.629,
+     "n": -77.447,
+     "u": -3.289
+    },
+    {
+     "name": "A050",
+     "e": -43.769,
+     "n": -67.863,
+     "u": -2.29
+    },
+    {
+     "name": "A058",
+     "e": -74.073,
+     "n": -149.925,
+     "u": -1.794
+    },
+    {
+     "name": "A066",
+     "e": -83.435,
+     "n": 79.783,
+     "u": -2.492
+    },
+    {
+     "name": "A068",
+     "e": -169.23,
+     "n": 45.308,
+     "u": -0.602
+    },
+    {
+     "name": "A069",
+     "e": -188.274,
+     "n": -92.997,
+     "u": -0.037
+    },
+    {
+     "name": "A060",
+     "e": -34.012,
+     "n": -166.382,
+     "u": -1.49
+    },
+    {
+     "name": "A062",
+     "e": -108.266,
+     "n": -132.468,
+     "u": -1.243
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    }
+   ],
+   "lmin_m": 15.06,
+   "lmax_m": 313.69,
+   "derived": {
+    "lmin_3d_m": 15.058,
+    "lmax_3d_m": 313.69,
+    "lmin_horiz_m": 15.052,
+    "lmax_horiz_m": 313.666,
+    "l05_zenith_instant_m": 27.47,
+    "l80_zenith_instant_m": 144.22,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 26.94,
+    "l80_proj_ha_pm1h_m": 143.76,
+    "lmax_proj_ha_pm1h_m": 313.68,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -58.4,
+     -36.0,
+     -2.2
+    ],
+    "u_range_m": [
+     -5.63,
+     -0.04
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 2.4683,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 2.469,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 22.513,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 22.564,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 314.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-2 314 m θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-2 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 27.0,
+    "th73_l80_m": 143.8,
+    "th73_max_m": 313.7,
+    "th73_name": "C43-2",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 3.18,
+    "theta_min_100GHz_arcsec": 2.92,
+    "theta_mrs_100GHz_arcsec": 22.6,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-3": {
+   "file": "rawdata/interf/alma/alma.cycle13.3.cfg",
+   "sha256": "4b91ef94309055b74435cee311717ef174f6901a2924feb083b161196cd63eb7",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A001",
+     "e": -62.617,
+     "n": -16.28,
+     "u": -2.29
+    },
+    {
+     "name": "A002",
+     "e": -46.177,
+     "n": -13.137,
+     "u": -2.289
+    },
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A008",
+     "e": -19.241,
+     "n": 9.395,
+     "u": -2.692
+    },
+    {
+     "name": "A010",
+     "e": -49.617,
+     "n": 42.912,
+     "u": -2.404
+    },
+    {
+     "name": "A011",
+     "e": 9.103,
+     "n": -39.404,
+     "u": -2.442
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A016",
+     "e": -49.343,
+     "n": 62.565,
+     "u": -2.496
+    },
+    {
+     "name": "A022",
+     "e": -72.367,
+     "n": 43.729,
+     "u": -2.29
+    },
+    {
+     "name": "A023",
+     "e": -88.127,
+     "n": 28.9,
+     "u": -2.096
+    },
+    {
+     "name": "A024",
+     "e": -103.198,
+     "n": 11.814,
+     "u": -2.093
+    },
+    {
+     "name": "A025",
+     "e": -113.246,
+     "n": -8.422,
+     "u": -1.899
+    },
+    {
+     "name": "A026",
+     "e": -115.596,
+     "n": -35.79,
+     "u": -1.887
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A033",
+     "e": -134.161,
+     "n": -58.532,
+     "u": -1.597
+    },
+    {
+     "name": "A034",
+     "e": -105.625,
+     "n": -21.701,
+     "u": -1.889
+    },
+    {
+     "name": "A035",
+     "e": -54.765,
+     "n": -29.717,
+     "u": -2.291
+    },
+    {
+     "name": "A036",
+     "e": -44.122,
+     "n": -49.887,
+     "u": -2.288
+    },
+    {
+     "name": "A040",
+     "e": -71.062,
+     "n": -81.389,
+     "u": -2.293
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A044",
+     "e": -108.79,
+     "n": -83.902,
+     "u": -1.289
+    },
+    {
+     "name": "A045",
+     "e": -92.228,
+     "n": -90.348,
+     "u": -1.293
+    },
+    {
+     "name": "A047",
+     "e": -48.377,
+     "n": -98.123,
+     "u": -2.29
+    },
+    {
+     "name": "A048",
+     "e": -30.246,
+     "n": -92.473,
+     "u": -2.789
+    },
+    {
+     "name": "A049",
+     "e": 1.629,
+     "n": -77.447,
+     "u": -3.289
+    },
+    {
+     "name": "A050",
+     "e": -43.769,
+     "n": -67.863,
+     "u": -2.29
+    },
+    {
+     "name": "A058",
+     "e": -74.073,
+     "n": -149.925,
+     "u": -1.794
+    },
+    {
+     "name": "A060",
+     "e": -34.012,
+     "n": -166.382,
+     "u": -1.49
+    },
+    {
+     "name": "A062",
+     "e": -108.266,
+     "n": -132.468,
+     "u": -1.243
+    },
+    {
+     "name": "A066",
+     "e": -83.435,
+     "n": 79.783,
+     "u": -2.492
+    },
+    {
+     "name": "A068",
+     "e": -169.23,
+     "n": 45.308,
+     "u": -0.602
+    },
+    {
+     "name": "A069",
+     "e": -188.274,
+     "n": -92.997,
+     "u": -0.037
+    },
+    {
+     "name": "A070",
+     "e": 79.375,
+     "n": -66.395,
+     "u": -4.049
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A073",
+     "e": -233.872,
+     "n": -28.218,
+     "u": 0.26
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A075",
+     "e": -91.373,
+     "n": 177.406,
+     "u": -1.488
+    },
+    {
+     "name": "A076",
+     "e": -164.793,
+     "n": -205.614,
+     "u": 0.987
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A085",
+     "e": 120.882,
+     "n": 204.888,
+     "u": -7.796
+    },
+    {
+     "name": "A088",
+     "e": -99.891,
+     "n": 269.079,
+     "u": -0.549
+    }
+   ],
+   "lmin_m": 15.06,
+   "lmax_m": 500.2,
+   "derived": {
+    "lmin_3d_m": 15.058,
+    "lmax_3d_m": 500.199,
+    "lmin_horiz_m": 15.052,
+    "lmax_horiz_m": 500.122,
+    "l05_zenith_instant_m": 37.85,
+    "l80_zenith_instant_m": 236.08,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 37.62,
+    "l80_proj_ha_pm1h_m": 235.11,
+    "lmax_proj_ha_pm1h_m": 500.2,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -60.3,
+     -18.9,
+     -2.2
+    ],
+    "u_range_m": [
+     -7.8,
+     2.97
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 1.5078,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 1.5097,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 16.166,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 16.16,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 500.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-3 500 m θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-3 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 37.6,
+    "th73_l80_m": 235.4,
+    "th73_max_m": 500.2,
+    "th73_name": "C43-3",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 2.39,
+    "theta_min_100GHz_arcsec": 1.91,
+    "theta_mrs_100GHz_arcsec": 16.2,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-4": {
+   "file": "rawdata/interf/alma/alma.cycle13.4.cfg",
+   "sha256": "3ee8be08abd4275a18f511f8aaa765069a21d77241ec4bef515aabd21d7832af",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A001",
+     "e": -62.617,
+     "n": -16.28,
+     "u": -2.29
+    },
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A008",
+     "e": -19.241,
+     "n": 9.395,
+     "u": -2.692
+    },
+    {
+     "name": "A011",
+     "e": 9.103,
+     "n": -39.404,
+     "u": -2.442
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A016",
+     "e": -49.343,
+     "n": 62.565,
+     "u": -2.496
+    },
+    {
+     "name": "A022",
+     "e": -72.367,
+     "n": 43.729,
+     "u": -2.29
+    },
+    {
+     "name": "A023",
+     "e": -88.127,
+     "n": 28.9,
+     "u": -2.096
+    },
+    {
+     "name": "A024",
+     "e": -103.198,
+     "n": 11.814,
+     "u": -2.093
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A033",
+     "e": -134.161,
+     "n": -58.532,
+     "u": -1.597
+    },
+    {
+     "name": "A035",
+     "e": -54.765,
+     "n": -29.717,
+     "u": -2.291
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A044",
+     "e": -108.79,
+     "n": -83.902,
+     "u": -1.289
+    },
+    {
+     "name": "A045",
+     "e": -92.228,
+     "n": -90.348,
+     "u": -1.293
+    },
+    {
+     "name": "A047",
+     "e": -48.377,
+     "n": -98.123,
+     "u": -2.29
+    },
+    {
+     "name": "A048",
+     "e": -30.246,
+     "n": -92.473,
+     "u": -2.789
+    },
+    {
+     "name": "A049",
+     "e": 1.629,
+     "n": -77.447,
+     "u": -3.289
+    },
+    {
+     "name": "A058",
+     "e": -74.073,
+     "n": -149.925,
+     "u": -1.794
+    },
+    {
+     "name": "A060",
+     "e": -34.012,
+     "n": -166.382,
+     "u": -1.49
+    },
+    {
+     "name": "A062",
+     "e": -108.266,
+     "n": -132.468,
+     "u": -1.243
+    },
+    {
+     "name": "A066",
+     "e": -83.435,
+     "n": 79.783,
+     "u": -2.492
+    },
+    {
+     "name": "A068",
+     "e": -169.23,
+     "n": 45.308,
+     "u": -0.602
+    },
+    {
+     "name": "A069",
+     "e": -188.274,
+     "n": -92.997,
+     "u": -0.037
+    },
+    {
+     "name": "A070",
+     "e": 79.375,
+     "n": -66.395,
+     "u": -4.049
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A073",
+     "e": -233.872,
+     "n": -28.218,
+     "u": 0.26
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A075",
+     "e": -91.373,
+     "n": 177.406,
+     "u": -1.488
+    },
+    {
+     "name": "A076",
+     "e": -164.793,
+     "n": -205.614,
+     "u": 0.987
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A085",
+     "e": 120.882,
+     "n": 204.888,
+     "u": -7.796
+    },
+    {
+     "name": "A086",
+     "e": -349.288,
+     "n": -67.389,
+     "u": 2.965
+    },
+    {
+     "name": "A088",
+     "e": -99.891,
+     "n": 269.079,
+     "u": -0.549
+    },
+    {
+     "name": "A089",
+     "e": -144.429,
+     "n": -378.971,
+     "u": 6.971
+    },
+    {
+     "name": "A090",
+     "e": 249.694,
+     "n": 124.9,
+     "u": -11.92
+    },
+    {
+     "name": "A092",
+     "e": 130.784,
+     "n": -370.622,
+     "u": -1.835
+    },
+    {
+     "name": "A087",
+     "e": 182.276,
+     "n": -186.994,
+     "u": -6.907
+    },
+    {
+     "name": "A091",
+     "e": -399.697,
+     "n": 92.348,
+     "u": -0.566
+    },
+    {
+     "name": "A093",
+     "e": 0.176,
+     "n": 391.055,
+     "u": -2.939
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    }
+   ],
+   "lmin_m": 15.06,
+   "lmax_m": 783.55,
+   "derived": {
+    "lmin_3d_m": 15.058,
+    "lmax_3d_m": 783.548,
+    "lmin_horiz_m": 15.052,
+    "lmax_horiz_m": 783.486,
+    "l05_zenith_instant_m": 54.97,
+    "l80_zenith_instant_m": 370.71,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 54.08,
+    "l80_proj_ha_pm1h_m": 368.66,
+    "lmax_proj_ha_pm1h_m": 783.55,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -62.4,
+     -29.8,
+     -2.2
+    ],
+    "u_range_m": [
+     -11.92,
+     6.97
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.9614,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.9628,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 11.236,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 11.24,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 784.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-4 784 m θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-4 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 54.1,
+    "th73_l80_m": 369.2,
+    "th73_max_m": 783.5,
+    "th73_name": "C43-4",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 1.41,
+    "theta_min_100GHz_arcsec": 1.2,
+    "theta_mrs_100GHz_arcsec": 11.2,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-5": {
+   "file": "rawdata/interf/alma/alma.cycle13.5.cfg",
+   "sha256": "f09287f275919a73b40cacdd6d338367f67be671429bc94ac7215fe60e2e1a8f",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A011",
+     "e": 9.103,
+     "n": -39.404,
+     "u": -2.442
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A022",
+     "e": -72.367,
+     "n": 43.729,
+     "u": -2.29
+    },
+    {
+     "name": "A024",
+     "e": -103.198,
+     "n": 11.814,
+     "u": -2.093
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A033",
+     "e": -134.161,
+     "n": -58.532,
+     "u": -1.597
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A045",
+     "e": -92.228,
+     "n": -90.348,
+     "u": -1.293
+    },
+    {
+     "name": "A047",
+     "e": -48.377,
+     "n": -98.123,
+     "u": -2.29
+    },
+    {
+     "name": "A058",
+     "e": -74.073,
+     "n": -149.925,
+     "u": -1.794
+    },
+    {
+     "name": "A060",
+     "e": -34.012,
+     "n": -166.382,
+     "u": -1.49
+    },
+    {
+     "name": "A062",
+     "e": -108.266,
+     "n": -132.468,
+     "u": -1.243
+    },
+    {
+     "name": "A066",
+     "e": -83.435,
+     "n": 79.783,
+     "u": -2.492
+    },
+    {
+     "name": "A068",
+     "e": -169.23,
+     "n": 45.308,
+     "u": -0.602
+    },
+    {
+     "name": "A069",
+     "e": -188.274,
+     "n": -92.997,
+     "u": -0.037
+    },
+    {
+     "name": "A070",
+     "e": 79.375,
+     "n": -66.395,
+     "u": -4.049
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A073",
+     "e": -233.872,
+     "n": -28.218,
+     "u": 0.26
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A075",
+     "e": -91.373,
+     "n": 177.406,
+     "u": -1.488
+    },
+    {
+     "name": "A076",
+     "e": -164.793,
+     "n": -205.614,
+     "u": 0.987
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A085",
+     "e": 120.882,
+     "n": 204.888,
+     "u": -7.796
+    },
+    {
+     "name": "A086",
+     "e": -349.288,
+     "n": -67.389,
+     "u": 2.965
+    },
+    {
+     "name": "A087",
+     "e": 182.276,
+     "n": -186.994,
+     "u": -6.907
+    },
+    {
+     "name": "A088",
+     "e": -99.891,
+     "n": 269.079,
+     "u": -0.549
+    },
+    {
+     "name": "A089",
+     "e": -144.429,
+     "n": -378.971,
+     "u": 6.971
+    },
+    {
+     "name": "A090",
+     "e": 249.694,
+     "n": 124.9,
+     "u": -11.92
+    },
+    {
+     "name": "A091",
+     "e": -399.697,
+     "n": 92.348,
+     "u": -0.566
+    },
+    {
+     "name": "A092",
+     "e": 130.784,
+     "n": -370.622,
+     "u": -1.835
+    },
+    {
+     "name": "A093",
+     "e": 0.176,
+     "n": 391.055,
+     "u": -2.939
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    },
+    {
+     "name": "A096",
+     "e": -433.959,
+     "n": 354.328,
+     "u": -1.634
+    },
+    {
+     "name": "A104",
+     "e": -617.706,
+     "n": 184.59,
+     "u": -3.686
+    },
+    {
+     "name": "A134",
+     "e": -162.804,
+     "n": -572.327,
+     "u": 1.518
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "A101",
+     "e": -264.141,
+     "n": 513.936,
+     "u": 0.414
+    },
+    {
+     "name": "A105",
+     "e": 413.296,
+     "n": -514.368,
+     "u": -7.357
+    },
+    {
+     "name": "A108",
+     "e": 635.776,
+     "n": 44.098,
+     "u": -21.783
+    },
+    {
+     "name": "A111",
+     "e": 307.492,
+     "n": 744.03,
+     "u": -7.774
+    }
+   ],
+   "lmin_m": 15.08,
+   "lmax_m": 1397.88,
+   "derived": {
+    "lmin_3d_m": 15.077,
+    "lmax_3d_m": 1397.877,
+    "lmin_horiz_m": 15.077,
+    "lmax_horiz_m": 1397.846,
+    "l05_zenith_instant_m": 91.84,
+    "l80_zenith_instant_m": 626.02,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 90.68,
+    "l80_proj_ha_pm1h_m": 623.2,
+    "lmax_proj_ha_pm1h_m": 1397.88,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -47.4,
+     -0.0,
+     -3.0
+    ],
+    "u_range_m": [
+     -21.78,
+     6.97
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.569,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.5695,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 6.687,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 6.703,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 1400.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-5 1.4 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-5 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 90.9,
+    "th73_l80_m": 623.8,
+    "th73_max_m": 1397.9,
+    "th73_name": "C43-5",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.89,
+    "theta_min_100GHz_arcsec": 0.72,
+    "theta_mrs_100GHz_arcsec": 6.7,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-6": {
+   "file": "rawdata/interf/alma/alma.cycle13.6.cfg",
+   "sha256": "b20fa619a518a3e0f9ce10a6789f304f524110dc3c23d095d501c689352f0c73",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A015",
+     "e": -17.983,
+     "n": 36.905,
+     "u": -2.692
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A043",
+     "e": -11.617,
+     "n": -70.062,
+     "u": -2.796
+    },
+    {
+     "name": "A060",
+     "e": -34.012,
+     "n": -166.382,
+     "u": -1.49
+    },
+    {
+     "name": "A066",
+     "e": -83.435,
+     "n": 79.783,
+     "u": -2.492
+    },
+    {
+     "name": "A068",
+     "e": -169.23,
+     "n": 45.308,
+     "u": -0.602
+    },
+    {
+     "name": "A069",
+     "e": -188.274,
+     "n": -92.997,
+     "u": -0.037
+    },
+    {
+     "name": "A070",
+     "e": 79.375,
+     "n": -66.395,
+     "u": -4.049
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A073",
+     "e": -233.872,
+     "n": -28.218,
+     "u": 0.26
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A075",
+     "e": -91.373,
+     "n": 177.406,
+     "u": -1.488
+    },
+    {
+     "name": "A076",
+     "e": -164.793,
+     "n": -205.614,
+     "u": 0.987
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A085",
+     "e": 120.882,
+     "n": 204.888,
+     "u": -7.796
+    },
+    {
+     "name": "A086",
+     "e": -349.288,
+     "n": -67.389,
+     "u": 2.965
+    },
+    {
+     "name": "A087",
+     "e": 182.276,
+     "n": -186.994,
+     "u": -6.907
+    },
+    {
+     "name": "A088",
+     "e": -99.891,
+     "n": 269.079,
+     "u": -0.549
+    },
+    {
+     "name": "A089",
+     "e": -144.429,
+     "n": -378.971,
+     "u": 6.971
+    },
+    {
+     "name": "A090",
+     "e": 249.694,
+     "n": 124.9,
+     "u": -11.92
+    },
+    {
+     "name": "A091",
+     "e": -399.697,
+     "n": 92.348,
+     "u": -0.566
+    },
+    {
+     "name": "A092",
+     "e": 130.784,
+     "n": -370.622,
+     "u": -1.835
+    },
+    {
+     "name": "A093",
+     "e": 0.176,
+     "n": 391.055,
+     "u": -2.939
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    },
+    {
+     "name": "A096",
+     "e": -433.959,
+     "n": 354.328,
+     "u": -1.634
+    },
+    {
+     "name": "A101",
+     "e": -264.141,
+     "n": 513.936,
+     "u": 0.414
+    },
+    {
+     "name": "A104",
+     "e": -617.706,
+     "n": 184.59,
+     "u": -3.686
+    },
+    {
+     "name": "A105",
+     "e": 413.296,
+     "n": -514.368,
+     "u": -7.357
+    },
+    {
+     "name": "A108",
+     "e": 635.776,
+     "n": 44.098,
+     "u": -21.783
+    },
+    {
+     "name": "A110",
+     "e": 157.92,
+     "n": -853.89,
+     "u": -8.571
+    },
+    {
+     "name": "A111",
+     "e": 307.492,
+     "n": 744.03,
+     "u": -7.774
+    },
+    {
+     "name": "A115",
+     "e": -204.627,
+     "n": -951.074,
+     "u": 2.471
+    },
+    {
+     "name": "A116",
+     "e": 710.006,
+     "n": 614.315,
+     "u": -22.732
+    },
+    {
+     "name": "A122",
+     "e": -1166.704,
+     "n": 706.464,
+     "u": -19.67
+    },
+    {
+     "name": "A134",
+     "e": -162.804,
+     "n": -572.327,
+     "u": 1.518
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "A120",
+     "e": -797.564,
+     "n": -1030.195,
+     "u": -12.257
+    },
+    {
+     "name": "A121",
+     "e": 1094.566,
+     "n": 241.199,
+     "u": -48.827
+    },
+    {
+     "name": "A123",
+     "e": 357.627,
+     "n": -1265.621,
+     "u": 13.742
+    },
+    {
+     "name": "A128",
+     "e": -153.078,
+     "n": -1597.302,
+     "u": -9.595
+    }
+   ],
+   "lmin_m": 15.08,
+   "lmax_m": 2516.92,
+   "derived": {
+    "lmin_3d_m": 15.077,
+    "lmax_3d_m": 2516.917,
+    "lmin_horiz_m": 15.077,
+    "lmax_horiz_m": 2516.897,
+    "l05_zenith_instant_m": 151.21,
+    "l80_zenith_instant_m": 1180.63,
+    "lmin_proj_ha_pm1h_m": 14.65,
+    "l05_proj_ha_pm1h_m": 147.91,
+    "l80_proj_ha_pm1h_m": 1170.9,
+    "lmax_proj_ha_pm1h_m": 2516.9,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -33.0,
+     -84.3,
+     -5.1
+    ],
+    "u_range_m": [
+     -48.83,
+     13.74
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.3027,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.3031,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 4.091,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 4.11,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 2500.0,
+    "pg_lmin_m": 15.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-6 2.5 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-6 15 m θM RS"
+    },
+    "th73_min_m": 14.6,
+    "th73_l05_m": 148.6,
+    "th73_l80_m": 1172.5,
+    "th73_max_m": 2516.9,
+    "th73_name": "C43-6",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.54,
+    "theta_min_100GHz_arcsec": 0.4,
+    "theta_mrs_100GHz_arcsec": 4.11,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-7": {
+   "file": "rawdata/interf/alma/alma.cycle13.7.cfg",
+   "sha256": "a8abc0dce01b2eaa8098ca11c5c4181e45e830b219b18b63619826ffa6dd2630",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A007",
+     "e": -12.788,
+     "n": -4.204,
+     "u": -2.291
+    },
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A042",
+     "e": -26.34,
+     "n": -66.814,
+     "u": -2.793
+    },
+    {
+     "name": "A072",
+     "e": 60.371,
+     "n": 96.512,
+     "u": -5.634
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A075",
+     "e": -91.373,
+     "n": 177.406,
+     "u": -1.488
+    },
+    {
+     "name": "A076",
+     "e": -164.793,
+     "n": -205.614,
+     "u": 0.987
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A085",
+     "e": 120.882,
+     "n": 204.888,
+     "u": -7.796
+    },
+    {
+     "name": "A086",
+     "e": -349.288,
+     "n": -67.389,
+     "u": 2.965
+    },
+    {
+     "name": "A087",
+     "e": 182.276,
+     "n": -186.994,
+     "u": -6.907
+    },
+    {
+     "name": "A088",
+     "e": -99.891,
+     "n": 269.079,
+     "u": -0.549
+    },
+    {
+     "name": "A089",
+     "e": -144.429,
+     "n": -378.971,
+     "u": 6.971
+    },
+    {
+     "name": "A090",
+     "e": 249.694,
+     "n": 124.9,
+     "u": -11.92
+    },
+    {
+     "name": "A091",
+     "e": -399.697,
+     "n": 92.348,
+     "u": -0.566
+    },
+    {
+     "name": "A092",
+     "e": 130.784,
+     "n": -370.622,
+     "u": -1.835
+    },
+    {
+     "name": "A093",
+     "e": 0.176,
+     "n": 391.055,
+     "u": -2.939
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    },
+    {
+     "name": "A096",
+     "e": -433.959,
+     "n": 354.328,
+     "u": -1.634
+    },
+    {
+     "name": "A101",
+     "e": -264.141,
+     "n": 513.936,
+     "u": 0.414
+    },
+    {
+     "name": "A104",
+     "e": -617.706,
+     "n": 184.59,
+     "u": -3.686
+    },
+    {
+     "name": "A105",
+     "e": 413.296,
+     "n": -514.368,
+     "u": -7.357
+    },
+    {
+     "name": "A108",
+     "e": 635.776,
+     "n": 44.098,
+     "u": -21.783
+    },
+    {
+     "name": "A110",
+     "e": 157.92,
+     "n": -853.89,
+     "u": -8.571
+    },
+    {
+     "name": "A111",
+     "e": 307.492,
+     "n": 744.03,
+     "u": -7.774
+    },
+    {
+     "name": "A115",
+     "e": -204.627,
+     "n": -951.074,
+     "u": 2.471
+    },
+    {
+     "name": "A116",
+     "e": 710.006,
+     "n": 614.315,
+     "u": -22.732
+    },
+    {
+     "name": "A120",
+     "e": -797.564,
+     "n": -1030.195,
+     "u": -12.257
+    },
+    {
+     "name": "A121",
+     "e": 1094.566,
+     "n": 241.199,
+     "u": -48.827
+    },
+    {
+     "name": "A122",
+     "e": -1166.704,
+     "n": 706.464,
+     "u": -19.67
+    },
+    {
+     "name": "A123",
+     "e": 357.627,
+     "n": -1265.621,
+     "u": 13.742
+    },
+    {
+     "name": "A124",
+     "e": 419.522,
+     "n": 1342.599,
+     "u": -10.777
+    },
+    {
+     "name": "A125",
+     "e": -1304.573,
+     "n": -737.2,
+     "u": -34.52
+    },
+    {
+     "name": "A126",
+     "e": 1212.999,
+     "n": -383.434,
+     "u": -31.429
+    },
+    {
+     "name": "A127",
+     "e": -911.946,
+     "n": 1236.181,
+     "u": 8.138
+    },
+    {
+     "name": "A128",
+     "e": -153.078,
+     "n": -1597.302,
+     "u": -9.595
+    },
+    {
+     "name": "A134",
+     "e": -162.804,
+     "n": -572.327,
+     "u": 1.518
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "A118",
+     "e": 727.12,
+     "n": -926.127,
+     "u": 6.164
+    },
+    {
+     "name": "A129",
+     "e": 1116.337,
+     "n": 1212.379,
+     "u": -40.918
+    },
+    {
+     "name": "A130",
+     "e": -1729.222,
+     "n": -124.176,
+     "u": -29.433
+    },
+    {
+     "name": "A132",
+     "e": -481.207,
+     "n": 2025.657,
+     "u": 2.354
+    }
+   ],
+   "lmin_m": 64.06,
+   "lmax_m": 3637.81,
+   "derived": {
+    "lmin_3d_m": 64.062,
+    "lmax_3d_m": 3637.807,
+    "lmin_horiz_m": 64.06,
+    "lmax_horiz_m": 3637.788,
+    "l05_zenith_instant_m": 237.08,
+    "l80_zenith_instant_m": 1679.8,
+    "lmin_proj_ha_pm1h_m": 63.97,
+    "l05_proj_ha_pm1h_m": 235.09,
+    "l80_proj_ha_pm1h_m": 1672.0,
+    "lmax_proj_ha_pm1h_m": 3637.81,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     -39.8,
+     6.6,
+     -7.8
+    ],
+    "u_range_m": [
+     -48.83,
+     13.74
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.2121,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.2123,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 2.584,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 2.586,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 3600.0,
+    "pg_lmin_m": 64.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-7 3.6 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-7 64 m θM RS"
+    },
+    "th73_min_m": 64.0,
+    "th73_l05_m": 235.2,
+    "th73_l80_m": 1673.1,
+    "th73_max_m": 3637.8,
+    "th73_name": "C43-7",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.3,
+    "theta_min_100GHz_arcsec": 0.27,
+    "theta_mrs_100GHz_arcsec": 2.58,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-8": {
+   "file": "rawdata/interf/alma/alma.cycle13.8.cfg",
+   "sha256": "5cb66fd35a3677db74ef930230a9b388a892c33524953677bb5d68f27bfe4d23",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A027",
+     "e": -121.866,
+     "n": -49.488,
+     "u": -1.898
+    },
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A082",
+     "e": 182.229,
+     "n": -63.868,
+     "u": -7.676
+    },
+    {
+     "name": "A083",
+     "e": -230.344,
+     "n": 188.887,
+     "u": 2.968
+    },
+    {
+     "name": "A087",
+     "e": 182.276,
+     "n": -186.994,
+     "u": -6.907
+    },
+    {
+     "name": "A089",
+     "e": -144.429,
+     "n": -378.971,
+     "u": 6.971
+    },
+    {
+     "name": "A090",
+     "e": 249.694,
+     "n": 124.9,
+     "u": -11.92
+    },
+    {
+     "name": "A091",
+     "e": -399.697,
+     "n": 92.348,
+     "u": -0.566
+    },
+    {
+     "name": "A092",
+     "e": 130.784,
+     "n": -370.622,
+     "u": -1.835
+    },
+    {
+     "name": "A093",
+     "e": 0.176,
+     "n": 391.055,
+     "u": -2.939
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    },
+    {
+     "name": "A096",
+     "e": -433.959,
+     "n": 354.328,
+     "u": -1.634
+    },
+    {
+     "name": "A101",
+     "e": -264.141,
+     "n": 513.936,
+     "u": 0.414
+    },
+    {
+     "name": "A104",
+     "e": -617.706,
+     "n": 184.59,
+     "u": -3.686
+    },
+    {
+     "name": "A105",
+     "e": 413.296,
+     "n": -514.368,
+     "u": -7.357
+    },
+    {
+     "name": "A108",
+     "e": 635.776,
+     "n": 44.098,
+     "u": -21.783
+    },
+    {
+     "name": "A110",
+     "e": 157.92,
+     "n": -853.89,
+     "u": -8.571
+    },
+    {
+     "name": "A111",
+     "e": 307.492,
+     "n": 744.03,
+     "u": -7.774
+    },
+    {
+     "name": "A115",
+     "e": -204.627,
+     "n": -951.074,
+     "u": 2.471
+    },
+    {
+     "name": "A116",
+     "e": 710.006,
+     "n": 614.315,
+     "u": -22.732
+    },
+    {
+     "name": "A118",
+     "e": 727.12,
+     "n": -926.127,
+     "u": 6.164
+    },
+    {
+     "name": "A120",
+     "e": -797.564,
+     "n": -1030.195,
+     "u": -12.257
+    },
+    {
+     "name": "A121",
+     "e": 1094.566,
+     "n": 241.199,
+     "u": -48.827
+    },
+    {
+     "name": "A122",
+     "e": -1166.704,
+     "n": 706.464,
+     "u": -19.67
+    },
+    {
+     "name": "A123",
+     "e": 357.627,
+     "n": -1265.621,
+     "u": 13.742
+    },
+    {
+     "name": "A124",
+     "e": 419.522,
+     "n": 1342.599,
+     "u": -10.777
+    },
+    {
+     "name": "A125",
+     "e": -1304.573,
+     "n": -737.2,
+     "u": -34.52
+    },
+    {
+     "name": "A126",
+     "e": 1212.999,
+     "n": -383.434,
+     "u": -31.429
+    },
+    {
+     "name": "A127",
+     "e": -911.946,
+     "n": 1236.181,
+     "u": 8.138
+    },
+    {
+     "name": "A128",
+     "e": -153.078,
+     "n": -1597.302,
+     "u": -9.595
+    },
+    {
+     "name": "A129",
+     "e": 1116.337,
+     "n": 1212.379,
+     "u": -40.918
+    },
+    {
+     "name": "A130",
+     "e": -1729.222,
+     "n": -124.176,
+     "u": -29.433
+    },
+    {
+     "name": "A131",
+     "e": 1337.022,
+     "n": -1193.221,
+     "u": 26.671
+    },
+    {
+     "name": "A132",
+     "e": -481.207,
+     "n": 2025.657,
+     "u": 2.354
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "W207",
+     "e": -2836.604,
+     "n": 2109.058,
+     "u": -66.408
+    },
+    {
+     "name": "W210",
+     "e": -1224.581,
+     "n": 3521.806,
+     "u": 16.938
+    },
+    {
+     "name": "P401",
+     "e": 2252.06,
+     "n": 2202.012,
+     "u": -115.036
+    },
+    {
+     "name": "A133",
+     "e": -1203.842,
+     "n": -1163.784,
+     "u": -36.005
+    },
+    {
+     "name": "S301",
+     "e": 1662.325,
+     "n": -2695.788,
+     "u": -15.155
+    },
+    {
+     "name": "S307",
+     "e": 4734.308,
+     "n": -1859.065,
+     "u": -59.125
+    },
+    {
+     "name": "P404",
+     "e": 2943.808,
+     "n": 2642.726,
+     "u": -125.701
+    },
+    {
+     "name": "P410",
+     "e": 3662.61,
+     "n": 5340.607,
+     "u": -158.537
+    }
+   ],
+   "lmin_m": 113.02,
+   "lmax_m": 8547.79,
+   "derived": {
+    "lmin_3d_m": 113.022,
+    "lmax_3d_m": 8547.792,
+    "lmin_horiz_m": 112.995,
+    "lmax_horiz_m": 8547.789,
+    "l05_zenith_instant_m": 430.23,
+    "l80_zenith_instant_m": 3543.95,
+    "lmin_proj_ha_pm1h_m": 109.62,
+    "l05_proj_ha_pm1h_m": 427.75,
+    "l80_proj_ha_pm1h_m": 3527.29,
+    "lmax_proj_ha_pm1h_m": 8547.79,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     240.6,
+     217.6,
+     -19.9
+    ],
+    "u_range_m": [
+     -158.54,
+     26.67
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.1006,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.1006,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 1.423,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 1.421,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 8500.0,
+    "pg_lmin_m": 110.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-8 8.5 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-8 110 m θM RS"
+    },
+    "th73_min_m": 110.4,
+    "th73_l05_m": 427.3,
+    "th73_l80_m": 3527.3,
+    "th73_max_m": 8547.7,
+    "th73_name": "C43-8",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.2,
+    "theta_min_100GHz_arcsec": 0.12,
+    "theta_mrs_100GHz_arcsec": 1.42,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-9": {
+   "file": "rawdata/interf/alma/alma.cycle13.9.cfg",
+   "sha256": "337a7ea0e09f739fec142e6fdf4ebeb97d0459dc7d66043aa0424b7dbfff3440",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A074",
+     "e": 74.994,
+     "n": -151.52,
+     "u": -4.437
+    },
+    {
+     "name": "A094",
+     "e": -351.247,
+     "n": -307.654,
+     "u": -3.453
+    },
+    {
+     "name": "A101",
+     "e": -264.141,
+     "n": 513.936,
+     "u": 0.414
+    },
+    {
+     "name": "A104",
+     "e": -617.706,
+     "n": 184.59,
+     "u": -3.686
+    },
+    {
+     "name": "A105",
+     "e": 413.296,
+     "n": -514.368,
+     "u": -7.357
+    },
+    {
+     "name": "A108",
+     "e": 635.776,
+     "n": 44.098,
+     "u": -21.783
+    },
+    {
+     "name": "A110",
+     "e": 157.92,
+     "n": -853.89,
+     "u": -8.571
+    },
+    {
+     "name": "A111",
+     "e": 307.492,
+     "n": 744.03,
+     "u": -7.774
+    },
+    {
+     "name": "A115",
+     "e": -204.627,
+     "n": -951.074,
+     "u": 2.471
+    },
+    {
+     "name": "A116",
+     "e": 710.006,
+     "n": 614.315,
+     "u": -22.732
+    },
+    {
+     "name": "A118",
+     "e": 727.12,
+     "n": -926.127,
+     "u": 6.164
+    },
+    {
+     "name": "A120",
+     "e": -797.564,
+     "n": -1030.195,
+     "u": -12.257
+    },
+    {
+     "name": "A121",
+     "e": 1094.566,
+     "n": 241.199,
+     "u": -48.827
+    },
+    {
+     "name": "A122",
+     "e": -1166.704,
+     "n": 706.464,
+     "u": -19.67
+    },
+    {
+     "name": "A123",
+     "e": 357.627,
+     "n": -1265.621,
+     "u": 13.742
+    },
+    {
+     "name": "A124",
+     "e": 419.522,
+     "n": 1342.599,
+     "u": -10.777
+    },
+    {
+     "name": "A125",
+     "e": -1304.573,
+     "n": -737.2,
+     "u": -34.52
+    },
+    {
+     "name": "A126",
+     "e": 1212.999,
+     "n": -383.434,
+     "u": -31.429
+    },
+    {
+     "name": "A127",
+     "e": -911.946,
+     "n": 1236.181,
+     "u": 8.138
+    },
+    {
+     "name": "A128",
+     "e": -153.078,
+     "n": -1597.302,
+     "u": -9.595
+    },
+    {
+     "name": "A129",
+     "e": 1116.337,
+     "n": 1212.379,
+     "u": -40.918
+    },
+    {
+     "name": "A130",
+     "e": -1729.222,
+     "n": -124.176,
+     "u": -29.433
+    },
+    {
+     "name": "A131",
+     "e": 1337.022,
+     "n": -1193.221,
+     "u": 26.671
+    },
+    {
+     "name": "A132",
+     "e": -481.207,
+     "n": 2025.657,
+     "u": 2.354
+    },
+    {
+     "name": "A133",
+     "e": -1203.842,
+     "n": -1163.784,
+     "u": -36.005
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "W207",
+     "e": -2836.604,
+     "n": 2109.058,
+     "u": -66.408
+    },
+    {
+     "name": "W209",
+     "e": -1737.688,
+     "n": 4048.194,
+     "u": -14.033
+    },
+    {
+     "name": "W210",
+     "e": -1224.581,
+     "n": 3521.806,
+     "u": 16.938
+    },
+    {
+     "name": "S301",
+     "e": 1662.325,
+     "n": -2695.788,
+     "u": -15.155
+    },
+    {
+     "name": "S303",
+     "e": 3310.845,
+     "n": -5310.54,
+     "u": -247.37
+    },
+    {
+     "name": "S306",
+     "e": 3902.314,
+     "n": -1935.543,
+     "u": -57.094
+    },
+    {
+     "name": "S307",
+     "e": 4734.308,
+     "n": -1859.065,
+     "u": -59.125
+    },
+    {
+     "name": "P401",
+     "e": 2252.06,
+     "n": 2202.012,
+     "u": -115.036
+    },
+    {
+     "name": "P402",
+     "e": 3652.953,
+     "n": 2258.949,
+     "u": -164.111
+    },
+    {
+     "name": "P404",
+     "e": 2943.808,
+     "n": 2642.726,
+     "u": -125.701
+    },
+    {
+     "name": "P410",
+     "e": 3662.61,
+     "n": 5340.607,
+     "u": -158.537
+    },
+    {
+     "name": "P411",
+     "e": 4839.296,
+     "n": 6477.465,
+     "u": -210.993
+    },
+    {
+     "name": "W202",
+     "e": -6516.53,
+     "n": 1825.992,
+     "u": -339.305
+    },
+    {
+     "name": "S305",
+     "e": 3478.681,
+     "n": -6094.075,
+     "u": -254.144
+    },
+    {
+     "name": "S308",
+     "e": 5353.661,
+     "n": -5396.113,
+     "u": -261.498
+    },
+    {
+     "name": "P405",
+     "e": 3759.639,
+     "n": 2686.087,
+     "u": -150.633
+    },
+    {
+     "name": "P409",
+     "e": 3799.038,
+     "n": 4355.997,
+     "u": -164.571
+    }
+   ],
+   "lmin_m": 375.51,
+   "lmax_m": 13894.83,
+   "derived": {
+    "lmin_3d_m": 375.509,
+    "lmax_3d_m": 13894.829,
+    "lmin_horiz_m": 375.347,
+    "lmax_horiz_m": 13894.611,
+    "l05_zenith_instant_m": 753.65,
+    "l80_zenith_instant_m": 6500.02,
+    "lmin_proj_ha_pm1h_m": 362.42,
+    "l05_proj_ha_pm1h_m": 746.82,
+    "l80_proj_ha_pm1h_m": 6474.38,
+    "lmax_proj_ha_pm1h_m": 13894.61,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     808.6,
+     283.1,
+     -62.6
+    ],
+    "u_range_m": [
+     -339.31,
+     26.67
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.0548,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.0548,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 0.814,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 0.814,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 13900.0,
+    "pg_lmin_m": 368.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-9 13.9 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-9 368 m θM RS"
+    },
+    "th73_min_m": 367.6,
+    "th73_l05_m": 746.9,
+    "th73_l80_m": 6482.6,
+    "th73_max_m": 13894.2,
+    "th73_name": "C43-9",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.074,
+    "theta_min_100GHz_arcsec": 0.062,
+    "theta_mrs_100GHz_arcsec": 0.81,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  },
+  "C-10": {
+   "file": "rawdata/interf/alma/alma.cycle13.10.cfg",
+   "sha256": "5ec3e3084229df8d2bd3783f8545f2690a8140fa199b9e7657ef37a508c3345c",
+   "n_ant": 43,
+   "dish_m": 12,
+   "antennas": [
+    {
+     "name": "A122",
+     "e": -1166.704,
+     "n": 706.464,
+     "u": -19.67
+    },
+    {
+     "name": "A123",
+     "e": 357.627,
+     "n": -1265.621,
+     "u": 13.742
+    },
+    {
+     "name": "A124",
+     "e": 419.522,
+     "n": 1342.599,
+     "u": -10.777
+    },
+    {
+     "name": "A125",
+     "e": -1304.573,
+     "n": -737.2,
+     "u": -34.52
+    },
+    {
+     "name": "A126",
+     "e": 1212.999,
+     "n": -383.434,
+     "u": -31.429
+    },
+    {
+     "name": "A127",
+     "e": -911.946,
+     "n": 1236.181,
+     "u": 8.138
+    },
+    {
+     "name": "A128",
+     "e": -153.078,
+     "n": -1597.302,
+     "u": -9.595
+    },
+    {
+     "name": "A129",
+     "e": 1116.337,
+     "n": 1212.379,
+     "u": -40.918
+    },
+    {
+     "name": "A131",
+     "e": 1337.022,
+     "n": -1193.221,
+     "u": 26.671
+    },
+    {
+     "name": "A132",
+     "e": -481.207,
+     "n": 2025.657,
+     "u": 2.354
+    },
+    {
+     "name": "A133",
+     "e": -1203.842,
+     "n": -1163.784,
+     "u": -36.005
+    },
+    {
+     "name": "A134",
+     "e": -162.804,
+     "n": -572.327,
+     "u": 1.518
+    },
+    {
+     "name": "A135",
+     "e": 356.068,
+     "n": 329.015,
+     "u": -11.977
+    },
+    {
+     "name": "A136",
+     "e": -615.41,
+     "n": 267.696,
+     "u": -3.474
+    },
+    {
+     "name": "P401",
+     "e": 2252.06,
+     "n": 2202.012,
+     "u": -115.036
+    },
+    {
+     "name": "P402",
+     "e": 3652.953,
+     "n": 2258.949,
+     "u": -164.111
+    },
+    {
+     "name": "P403",
+     "e": 3486.753,
+     "n": 2617.905,
+     "u": -140.798
+    },
+    {
+     "name": "P404",
+     "e": 2943.808,
+     "n": 2642.726,
+     "u": -125.701
+    },
+    {
+     "name": "P406",
+     "e": 3901.957,
+     "n": 3230.032,
+     "u": -160.91
+    },
+    {
+     "name": "P407",
+     "e": 4301.13,
+     "n": 3535.905,
+     "u": -198.374
+    },
+    {
+     "name": "P408",
+     "e": 4099.042,
+     "n": 3842.302,
+     "u": -182.126
+    },
+    {
+     "name": "P409",
+     "e": 3799.038,
+     "n": 4355.997,
+     "u": -164.571
+    },
+    {
+     "name": "P410",
+     "e": 3662.61,
+     "n": 5340.607,
+     "u": -158.537
+    },
+    {
+     "name": "P411",
+     "e": 4839.296,
+     "n": 6477.465,
+     "u": -210.993
+    },
+    {
+     "name": "P412",
+     "e": 5167.985,
+     "n": 8264.028,
+     "u": -199.174
+    },
+    {
+     "name": "P413",
+     "e": 6423.403,
+     "n": 8583.133,
+     "u": -246.005
+    },
+    {
+     "name": "S301",
+     "e": 1662.325,
+     "n": -2695.788,
+     "u": -15.155
+    },
+    {
+     "name": "S302",
+     "e": 2364.43,
+     "n": -4299.446,
+     "u": -180.733
+    },
+    {
+     "name": "S303",
+     "e": 3310.845,
+     "n": -5310.54,
+     "u": -247.37
+    },
+    {
+     "name": "S304",
+     "e": 3438.62,
+     "n": -2123.362,
+     "u": -103.586
+    },
+    {
+     "name": "S305",
+     "e": 3478.681,
+     "n": -6094.075,
+     "u": -254.144
+    },
+    {
+     "name": "S306",
+     "e": 3902.314,
+     "n": -1935.543,
+     "u": -57.094
+    },
+    {
+     "name": "S307",
+     "e": 4734.308,
+     "n": -1859.065,
+     "u": -59.125
+    },
+    {
+     "name": "S308",
+     "e": 5353.661,
+     "n": -5396.113,
+     "u": -261.498
+    },
+    {
+     "name": "S309",
+     "e": 6264.43,
+     "n": -5737.666,
+     "u": -286.301
+    },
+    {
+     "name": "W201",
+     "e": -7626.095,
+     "n": 527.002,
+     "u": -445.266
+    },
+    {
+     "name": "W202",
+     "e": -6516.53,
+     "n": 1825.992,
+     "u": -339.305
+    },
+    {
+     "name": "W205",
+     "e": -4446.707,
+     "n": 1933.83,
+     "u": -148.826
+    },
+    {
+     "name": "W206",
+     "e": -3101.552,
+     "n": 2053.352,
+     "u": -78.002
+    },
+    {
+     "name": "W207",
+     "e": -2836.604,
+     "n": 2109.058,
+     "u": -66.408
+    },
+    {
+     "name": "W208",
+     "e": -1987.483,
+     "n": 4102.203,
+     "u": -30.922
+    },
+    {
+     "name": "W209",
+     "e": -1737.688,
+     "n": 4048.194,
+     "u": -14.033
+    },
+    {
+     "name": "W210",
+     "e": -1224.581,
+     "n": 3521.806,
+     "u": 16.938
+    }
+   ],
+   "lmin_m": 256.12,
+   "lmax_m": 16196.58,
+   "derived": {
+    "lmin_3d_m": 256.124,
+    "lmax_3d_m": 16196.584,
+    "lmin_horiz_m": 255.567,
+    "lmax_horiz_m": 16195.358,
+    "l05_zenith_instant_m": 1235.44,
+    "l80_zenith_instant_m": 8750.87,
+    "lmin_proj_ha_pm1h_m": 244.41,
+    "l05_proj_ha_pm1h_m": 1226.1,
+    "l80_proj_ha_pm1h_m": 8687.79,
+    "lmax_proj_ha_pm1h_m": 16195.98,
+    "n_baselines": 903,
+    "centroid_enu_m": [
+     1217.7,
+     889.0,
+     -111.2
+    ],
+    "u_range_m": [
+     -445.27,
+     26.67
+    ],
+    "theta_res_100GHz_eq74_tableL80_arcsec": 0.0409,
+    "theta_res_100GHz_eq74_cfgL80_arcsec": 0.0409,
+    "theta_mrs_100GHz_eq76_tableL05_arcsec": 0.495,
+    "theta_mrs_100GHz_eq76_cfgL05_arcsec": 0.496,
+    "method": "3-D and horizontal lengths over all 903 antenna pairs; percentiles by linear interpolation; \"proj_ha_pm1h\" = uv-distance for Dec = -23.02917 deg at 21 hour angles from -1 h to +1 h (TH Table 7.3 convention INFERRED); theta from TH Eq. 7.4 / 7.6 at 100 GHz.",
+    "identical_to_cycle11_cycle12_and_portal_zip": true
+   },
+   "published": {
+    "pg_lmax_m": 16200.0,
+    "pg_lmin_m": 244.0,
+    "pg_lmax_src": {
+     "src": "PG",
+     "loc": "Table A-1, column Lmax [PDF p. 39]",
+     "quote": "C-10 16.2 km θmax"
+    },
+    "pg_lmin_src": {
+     "src": "PG",
+     "loc": "Table A-2, column Lmin [PDF p. 40]",
+     "quote": "C-10 244 m θM RS"
+    },
+    "th73_min_m": 244.0,
+    "th73_l05_m": 1228.1,
+    "th73_l80_m": 8685.9,
+    "th73_max_m": 16194.0,
+    "th73_name": "C43-10",
+    "th73_src": "TH Table 7.3 (see top-level th_table73)",
+    "theta_max_100GHz_arcsec": 0.057,
+    "theta_min_100GHz_arcsec": 0.051,
+    "theta_mrs_100GHz_arcsec": 0.5,
+    "theta_src": "res_table.rows / mrs_table.rows"
+   }
+  }
+ },
+ "res_table": {
+  "freqs_GHz": [
+   40.0,
+   75.0,
+   100.0,
+   150.0,
+   185.0,
+   230.0,
+   345.0,
+   460.0,
+   650.0,
+   870.0
+  ],
+  "bands": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "rows": {
+   "7-m": {
+    "theta_arcsec": [
+     31.8,
+     16.9,
+     12.7,
+     8.47,
+     6.87,
+     5.52,
+     3.68,
+     2.76,
+     1.95,
+     1.46
+    ],
+    "theta_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "7-m θ (′′ ) 31.8 16.9 12.7 8.47 6.87 5.52 3.68 2.76 1.95 1.46"
+    }
+   },
+   "C-1": {
+    "theta_max_arcsec": [
+     8.28,
+     4.42,
+     3.31,
+     2.21,
+     1.79,
+     1.44,
+     0.96,
+     0.72,
+     0.51,
+     0.38
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-1 θmax (′′ ) 8.28 4.42 3.31 2.21 1.79 1.44 0.96 0.72 0.51 0.38"
+    },
+    "theta_min_arcsec": [
+     7.69,
+     4.1,
+     3.07,
+     2.05,
+     1.66,
+     1.34,
+     0.89,
+     0.67,
+     0.47,
+     0.35
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 7.69 4.10 3.07 2.05 1.66 1.34 0.89 0.67 0.47 0.35"
+    }
+   },
+   "C-2": {
+    "theta_max_arcsec": [
+     7.96,
+     4.24,
+     3.18,
+     2.12,
+     1.72,
+     1.38,
+     0.92,
+     0.69,
+     0.49,
+     0.37
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-2 θmax (′′ ) 7.96 4.24 3.18 2.12 1.72 1.38 0.92 0.69 0.49 0.37"
+    },
+    "theta_min_arcsec": [
+     7.31,
+     3.89,
+     2.92,
+     1.95,
+     1.58,
+     1.27,
+     0.85,
+     0.64,
+     0.45,
+     0.34
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 7.31 3.89 2.92 1.95 1.58 1.27 0.85 0.64 0.45 0.34"
+    }
+   },
+   "C-3": {
+    "theta_max_arcsec": [
+     5.97,
+     3.19,
+     2.39,
+     1.59,
+     1.29,
+     1.04,
+     0.69,
+     0.52,
+     0.37,
+     0.27
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-3 θmax (′′ ) 5.97 3.19 2.39 1.59 1.29 1.04 0.69 0.52 0.37 0.27"
+    },
+    "theta_min_arcsec": [
+     4.79,
+     2.55,
+     1.91,
+     1.28,
+     1.03,
+     0.83,
+     0.55,
+     0.42,
+     0.29,
+     0.22
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 4.79 2.55 1.91 1.28 1.03 0.83 0.55 0.42 0.29 0.22"
+    }
+   },
+   "C-4": {
+    "theta_max_arcsec": [
+     3.54,
+     1.88,
+     1.41,
+     0.94,
+     0.76,
+     0.61,
+     0.41,
+     0.31,
+     0.22,
+     0.16
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-4 θmax (′′ ) 3.54 1.88 1.41 0.94 0.76 0.61 0.41 0.31 0.22 0.16"
+    },
+    "theta_min_arcsec": [
+     2.99,
+     1.6,
+     1.2,
+     0.8,
+     0.65,
+     0.52,
+     0.35,
+     0.26,
+     0.18,
+     0.14
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 2.99 1.60 1.20 0.80 0.65 0.52 0.35 0.26 0.18 0.14"
+    }
+   },
+   "C-5": {
+    "theta_max_arcsec": [
+     2.22,
+     1.18,
+     0.89,
+     0.59,
+     0.48,
+     0.39,
+     0.26,
+     0.19,
+     0.14,
+     0.1
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-5 θmax (′′ ) 2.22 1.18 0.89 0.59 0.48 0.39 0.26 0.19 0.14 0.10"
+    },
+    "theta_min_arcsec": [
+     1.8,
+     0.96,
+     0.72,
+     0.48,
+     0.39,
+     0.31,
+     0.21,
+     0.16,
+     0.11,
+     0.083
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 1.80 0.96 0.72 0.48 0.39 0.31 0.21 0.16 0.11 0.083"
+    }
+   },
+   "C-6": {
+    "theta_max_arcsec": [
+     1.34,
+     0.72,
+     0.54,
+     0.36,
+     0.29,
+     0.23,
+     0.16,
+     0.12,
+     0.082,
+     0.061
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-6 θmax (′′ ) 1.34 0.72 0.54 0.36 0.29 0.23 0.16 0.12 0.082 0.061"
+    },
+    "theta_min_arcsec": [
+     0.99,
+     0.53,
+     0.4,
+     0.26,
+     0.21,
+     0.17,
+     0.11,
+     0.086,
+     0.061,
+     0.046
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 0.99 0.53 0.40 0.26 0.21 0.17 0.11 0.086 0.061 0.046"
+    }
+   },
+   "C-7": {
+    "theta_max_arcsec": [
+     0.74,
+     0.39,
+     0.3,
+     0.2,
+     0.16,
+     0.13,
+     0.086,
+     0.064,
+     0.046,
+     0.034
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-7 θmax (′′ ) 0.74 0.39 0.30 0.20 0.16 0.13 0.086 0.064 0.046 0.034"
+    },
+    "theta_min_arcsec": [
+     0.67,
+     0.36,
+     0.27,
+     0.18,
+     0.14,
+     0.12,
+     0.077,
+     0.058,
+     0.041,
+     0.031
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 0.67 0.36 0.27 0.18 0.14 0.12 0.077 0.058 0.041 0.031"
+    }
+   },
+   "C-8": {
+    "theta_max_arcsec": [
+     0.5,
+     0.27,
+     0.2,
+     0.13,
+     0.11,
+     0.087,
+     0.058,
+     0.043,
+     0.031,
+     0.023
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-8 θmax (′′ ) 0.50 0.27 0.20 0.13 0.11 0.087 0.058 0.043 0.031 0.023"
+    },
+    "theta_min_arcsec": [
+     0.31,
+     0.17,
+     0.12,
+     0.083,
+     0.067,
+     0.054,
+     0.036,
+     0.027,
+     0.019,
+     0.014
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 0.31 0.17 0.12 0.083 0.067 0.054 0.036 0.027 0.019 0.014"
+    }
+   },
+   "C-9": {
+    "theta_max_arcsec": [
+     0.19,
+     0.1,
+     0.074,
+     0.049,
+     0.04,
+     0.032,
+     0.021,
+     0.016,
+     0.011,
+     0.0085
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-9 θmax (′′ ) 0.19 0.10 0.074 0.049 0.040 0.032 0.021 0.016 0.011 0.0085"
+    },
+    "theta_min_arcsec": [
+     0.16,
+     0.083,
+     0.062,
+     0.041,
+     0.034,
+     0.027,
+     0.018,
+     0.013,
+     0.01,
+     0.0071
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 0.16 0.083 0.062 0.041 0.034 0.027 0.018 0.013 0.010 0.0071"
+    }
+   },
+   "C-10": {
+    "theta_max_arcsec": [
+     0.14,
+     0.076,
+     0.057,
+     0.038,
+     0.031,
+     0.025,
+     0.017,
+     0.012,
+     0.0088,
+     0.0066
+    ],
+    "theta_max_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "C-10 θmax (′′ ) 0.14 0.076 0.057 0.038 0.031 0.025 0.017 0.012 0.0088 0.0066"
+    },
+    "theta_min_arcsec": [
+     0.13,
+     0.068,
+     0.051,
+     0.034,
+     0.028,
+     0.022,
+     0.015,
+     0.011,
+     0.0078,
+     0.0059
+    ],
+    "theta_min_src": {
+     "src": "TH",
+     "loc": "Table 7.1 (identical numbers in PG Table A-1) [PDF p. 97]",
+     "quote": "θmin (′′ ) 0.13 0.068 0.051 0.034 0.028 0.022 0.015 0.011 0.0078 0.0059"
+    }
+   }
+  },
+  "definition": {
+   "value": "theta_res ~ 0.574 lambda / L80 (L80 = 80th-percentile projected uv-distance); general k lambda / Lmax with 0.7 < k < 1.2; FWHM of the synthesized-beam main lobe; CASA simulations with Briggs robust = 0.5",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 7.4.1 (Definition of angular resolution), Eq. 7.4 [PDF p. 101]",
+   "quote": "Via simulations using the ALMA notional configurations, the following equation was empirically determined: 0.574λ θres ≈ [radians]",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1, Eq. 7.3 [PDF p. 101]",
+     "quote": "where θres is the FWHM of the main lobe of the synthesized beam; k is a factor that depends on the uv-plane weighting function",
+     "value": "Eq. 7.3: theta_res = k lambda / Lmax, FWHM of the main lobe"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1 [PDF p. 101]",
+     "quote": "For commonly used weighting schemes, k is typically in the range 0.7 < k < 1.2.",
+     "value": "0.7 < k < 1.2"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1 [PDF p. 101]",
+     "quote": "ALMA uses the 80th percentile projected baseline uv-distance as a more robust proxy",
+     "value": "L80 = 80th percentile projected baseline"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.2 (Effects of weighting scheme) [PDF p. 102]",
+     "quote": "Unless otherwise specified, the angular resolutions and time ratios presented in this chapter were computed using CASA simulations with Briggs weighting and robust = 0.5.",
+     "value": "Briggs robust = 0.5"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.2 [PDF p. 102]",
+     "quote": "the angular resolution varies from 0.7′′ (robust = −2) to 1.2′′ (robust = 2)",
+     "value": "robust -2 to 2 spans 0.7\" to 1.2\" for C43-4 at 100 GHz"
+    },
+    {
+     "src": "TH",
+     "loc": "Table 7.1 caption [PDF p. 97]",
+     "quote": "θ is a guideline value for the angular resolution achievable with a given combination of band and configuration, assuming a source at -23 deg Dec. For the 12-m Array, a θmax and θmin are shown to convey the range of possible resolutions provided by the 50-antenna configurations, depending on the available antenna pads used by actual operational configurations.",
+     "value": "Table 7.1/A-1: guideline value at -23 deg Dec; theta_max/theta_min = range over 50-antenna operational configurations"
+    },
+    {
+     "src": "TH",
+     "loc": "Table 7.1 caption [PDF p. 97]",
+     "quote": "For sources transiting at lower elevations, the North- South angular measures will increase proportional to 1/sin(elevation).",
+     "value": "N-S size grows as 1/sin(elevation)"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.2 [PDF p. 96]",
+     "quote": "Real-world configurations often use pads of the next more compact C-X configuration and typically have +4.3% (+/- 1.4%) larger beams than the notional configurations provided for simulations, apart from C-8 (+10.4%) and C-9 (-7.1%).",
+     "value": "operational configurations: beams +4.3% (C-8 +10.4%, C-9 -7.1%) vs notional"
+    },
+    {
+     "src": "PRIM",
+     "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+     "quote": "Angular Resolution (“) ~0.2” × (300/ν GHz) × ( 1 km / maximum baseline )",
+     "value": "Primer rule of thumb: ~0.2\" x (300/nu GHz) x (1 km / max baseline)"
+    }
+   ]
+  },
+  "caption_src": {
+   "src": "PG",
+   "loc": "Table A-1 caption [PDF p. 39]",
+   "quote": "θ is a guideline value for the angular resolution achievable with a given combination of band and configuration, assuming a source at -23 deg Dec."
+  },
+  "freq_src": {
+   "src": "TH",
+   "loc": "Table 7.1 header [PDF p. 97]",
+   "quote": "Band 1 2 3 4 5 6 7 8 9 10 Freq (GHz) 40 75 100 150 185 230 345 460 650 870"
+  },
+  "pg_identical": "DERIVED: every theta_max / theta_min row of TH Table 7.1 occurs verbatim (whitespace removed) in PG Table A-1."
+ },
+ "mrs_table": {
+  "freqs_GHz": [
+   40.0,
+   75.0,
+   100.0,
+   150.0,
+   185.0,
+   230.0,
+   345.0,
+   460.0,
+   650.0,
+   870.0
+  ],
+  "bands": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "rows": {
+   "7-m": {
+    "theta_mrs_arcsec": [
+     167.0,
+     88.9,
+     66.7,
+     44.5,
+     36.1,
+     29.0,
+     19.3,
+     14.5,
+     10.3,
+     7.67
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "7-m θM RS (′′ ) 167 88.9 66.7 44.5 36.1 29.0 19.3 14.5 10.3 7.67"
+    }
+   },
+   "C-1": {
+    "theta_mrs_arcsec": [
+     71.2,
+     38.0,
+     28.5,
+     19.0,
+     15.4,
+     12.4,
+     8.25,
+     6.19,
+     4.38,
+     3.27
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-1 θM RS (′′ ) 71.2 38.0 28.5 19.0 15.4 12.4 8.25 6.19 4.38 3.27"
+    }
+   },
+   "C-2": {
+    "theta_mrs_arcsec": [
+     56.5,
+     30.1,
+     22.6,
+     15.0,
+     12.2,
+     9.81,
+     6.54,
+     4.9,
+     3.47,
+     2.59
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-2 θM RS (′′ ) 56.5 30.1 22.6 15.0 12.2 9.81 6.54 4.90 3.47 2.59"
+    }
+   },
+   "C-3": {
+    "theta_mrs_arcsec": [
+     40.5,
+     21.6,
+     16.2,
+     10.8,
+     8.73,
+     7.02,
+     4.68,
+     3.51,
+     2.48,
+     1.86
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-3 θM RS (′′ ) 40.5 21.6 16.2 10.8 8.73 7.02 4.68 3.51 2.48 1.86"
+    }
+   },
+   "C-4": {
+    "theta_mrs_arcsec": [
+     28.0,
+     14.9,
+     11.2,
+     7.5,
+     6.08,
+     4.89,
+     3.26,
+     2.44,
+     1.73,
+     1.29
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-4 θM RS (′′ ) 28.0 14.9 11.2 7.50 6.08 4.89 3.26 2.44 1.73 1.29"
+    }
+   },
+   "C-5": {
+    "theta_mrs_arcsec": [
+     16.8,
+     8.93,
+     6.7,
+     4.47,
+     3.62,
+     2.91,
+     1.94,
+     1.46,
+     1.03,
+     0.77
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-5 θM RS (′′ ) 16.8 8.93 6.70 4.47 3.62 2.91 1.94 1.46 1.03 0.77"
+    }
+   },
+   "C-6": {
+    "theta_mrs_arcsec": [
+     10.3,
+     5.48,
+     4.11,
+     2.74,
+     2.22,
+     1.78,
+     1.19,
+     0.89,
+     0.63,
+     0.47
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-6 θM RS (′′ ) 10.3 5.48 4.11 2.74 2.22 1.78 1.19 0.89 0.63 0.47"
+    }
+   },
+   "C-7": {
+    "theta_mrs_arcsec": [
+     6.45,
+     3.44,
+     2.58,
+     1.72,
+     1.4,
+     1.12,
+     0.75,
+     0.56,
+     0.4,
+     0.3
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-7 θM RS (′′ ) 6.45 3.44 2.58 1.72 1.40 1.12 0.75 0.56 0.40 0.30"
+    }
+   },
+   "C-8": {
+    "theta_mrs_arcsec": [
+     3.55,
+     1.89,
+     1.42,
+     0.95,
+     0.77,
+     0.62,
+     0.41,
+     0.31,
+     0.22,
+     0.16
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-8 θM RS (′′ ) 3.55 1.89 1.42 0.95 0.77 0.62 0.41 0.31 0.22 0.16"
+    }
+   },
+   "C-9": {
+    "theta_mrs_arcsec": [
+     2.03,
+     1.08,
+     0.81,
+     0.54,
+     0.44,
+     0.35,
+     0.24,
+     0.18,
+     0.13,
+     0.093
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-9 θM RS (′′ ) 2.03 1.08 0.81 0.54 0.44 0.35 0.24 0.18 0.13 0.093"
+    }
+   },
+   "C-10": {
+    "theta_mrs_arcsec": [
+     1.25,
+     0.67,
+     0.5,
+     0.33,
+     0.27,
+     0.22,
+     0.14,
+     0.11,
+     0.077,
+     0.057
+    ],
+    "src": {
+     "src": "TH",
+     "loc": "Table 7.2 (identical numbers in PG Table A-2) [PDF p. 99]",
+     "quote": "C-10 θM RS (′′ ) 1.25 0.67 0.50 0.33 0.27 0.22 0.14 0.11 0.077 0.057"
+    }
+   }
+  },
+  "definition": {
+   "value": "theta_MRS ~ 0.983 lambda / L5 (L5 = 5th percentile of uv-distance)",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 7.6 (Large Spatial Scale Response), Eq. 7.6 [PDF p. 108]",
+   "quote": "ALMA uses the 5th percentile shortest baseline L5 instead of the very shortest baseline Lmin to calculate θM RS ; using simulations of configurations the following equation was empirically determined: 0.983 λ θM RS ≈ [radians]",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.6 [PDF p. 108]",
+     "quote": "and L5 is the 5th percentile of uv-distance in meters",
+     "value": "L5 = 5th percentile of uv-distance"
+    },
+    {
+     "src": "PG",
+     "loc": "Table A-2 caption [PDF p. 40]",
+     "quote": "is computed using the 5th percentile baseline (L05) from Table 7.3 and Equation 7.6 in the Technical Handbook.",
+     "value": "PG Table A-2 uses L05 from TH Table 7.3 + Eq. 7.6"
+    },
+    {
+     "src": "PRIM",
+     "loc": "Glossary-style text on MRS [PDF p. 29]",
+     "quote": "and is defined to be 0.6 × (wave- ... length/minimum baseline) in radians",
+     "value": "Primer: MRS = 0.6 lambda / minimum baseline"
+    }
+   ]
+  },
+  "pg_identical": "DERIVED: every row of TH Table 7.2 occurs verbatim (whitespace removed) in PG Table A-2."
+ },
+ "th_table73": {
+  "configs": {
+   "7-m": {
+    "min": 8.7,
+    "l05": 9.1,
+    "l80": 30.7,
+    "max": 45.0
+   },
+   "C43-1": {
+    "min": 14.6,
+    "l05": 21.4,
+    "l80": 107.1,
+    "max": 160.7
+   },
+   "C43-2": {
+    "min": 14.6,
+    "l05": 27.0,
+    "l80": 143.8,
+    "max": 313.7
+   },
+   "C43-3": {
+    "min": 14.6,
+    "l05": 37.6,
+    "l80": 235.4,
+    "max": 500.2
+   },
+   "C43-4": {
+    "min": 14.6,
+    "l05": 54.1,
+    "l80": 369.2,
+    "max": 783.5
+   },
+   "C43-5": {
+    "min": 14.6,
+    "l05": 90.9,
+    "l80": 623.8,
+    "max": 1397.9
+   },
+   "C43-6": {
+    "min": 14.6,
+    "l05": 148.6,
+    "l80": 1172.5,
+    "max": 2516.9
+   },
+   "C43-7": {
+    "min": 64.0,
+    "l05": 235.2,
+    "l80": 1673.1,
+    "max": 3637.8
+   },
+   "C43-8": {
+    "min": 110.4,
+    "l05": 427.3,
+    "l80": 3527.3,
+    "max": 8547.7
+   },
+   "C43-9": {
+    "min": 367.6,
+    "l05": 746.9,
+    "l80": 6482.6,
+    "max": 13894.2
+   },
+   "C43-10": {
+    "min": 244.0,
+    "l05": 1228.1,
+    "l80": 8685.9,
+    "max": 16194.0
+   }
+  },
+  "src": [
+   {
+    "src": "TH",
+    "loc": "Table 7.3 [PDF p. 99]",
+    "quote": "Configuration 7-m C43-1 C43-2 C43-3 C43-4 C43-5 ... Minimum baseline (m) 8.7 14.6 14.6 14.6 14.6 14.6 ... 5th percentile or L05 (m) 9.1 21.4 27.0 37.6 54.1 90.9 ... 80th percentile or L80 (m) 30.7 107.1 143.8 235.4 369.2 623.8 ... Maximum baseline (m) 45.0 160.7 313.7 500.2 783.5 1397.9"
+   },
+   {
+    "src": "TH",
+    "loc": "Table 7.3 [PDF p. 99]",
+    "quote": "Configuration C43-6 C43-7 C43-8 C43-9 C43-10 ... Minimum baseline (m) 14.6 64.0 110.4 367.6 244.0 ... 5th percentile or L05 (m) 148.6 235.2 427.3 746.9 1228.1 ... 80th percentile or L80 (m) 1172.5 1673.1 3527.3 6482.6 8685.9 ... Maximum baseline (m) 2516.9 3637.8 8547.7 13894.2 16194.0"
+   }
+  ],
+  "projection": {
+   "value": "Table 7.3 baselines are projected for a source transiting at zenith",
+   "unit": "",
+   "src": "TH",
+   "loc": "Table 7.3 caption [PDF p. 99]",
+   "quote": "Table 7.3: Basic parameters of the notional 7-m Array and 12-m Array configurations. The baselines are projected for a source transiting at zenith.",
+   "inferred": "The track length behind Table 7.3 is not stated. Projecting the cfg baselines for a source at Dec = -23.02917 deg over hour angles -1 h to +1 h (21 samples) reproduces Table 7.3: min within 1.4%, L05 within 0.47%, L80 within 0.15%, max within 0.012%; the instantaneous transit values are 0.1-1.8% off in L05/L80 (see configs.*.derived)."
+  }
+ },
+ "sidelobe_table": {
+  "configs": {
+   "7-m": {
+    "natural": 44.0,
+    "briggs_0p5": 42.2,
+    "uniform": 39.0
+   },
+   "C43-1": {
+    "natural": 5.5,
+    "briggs_0p5": 7.8,
+    "uniform": 7.7
+   },
+   "C43-2": {
+    "natural": 5.0,
+    "briggs_0p5": 6.6,
+    "uniform": 16.7
+   },
+   "C43-3": {
+    "natural": 6.2,
+    "briggs_0p5": 6.7,
+    "uniform": 12.4
+   },
+   "C43-4": {
+    "natural": 10.4,
+    "briggs_0p5": 7.3,
+    "uniform": 11.0
+   },
+   "C43-5": {
+    "natural": 6.3,
+    "briggs_0p5": 8.0,
+    "uniform": 13.1
+   },
+   "C43-6": {
+    "natural": 4.6,
+    "briggs_0p5": 6.2,
+    "uniform": 11.3
+   },
+   "C43-7": {
+    "natural": 9.6,
+    "briggs_0p5": 5.6,
+    "uniform": 11.2
+   },
+   "C43-8": {
+    "natural": 7.8,
+    "briggs_0p5": 9.7,
+    "uniform": 10.1
+   },
+   "C43-9": {
+    "natural": 11.1,
+    "briggs_0p5": 9.6,
+    "uniform": 8.5
+   },
+   "C43-10": {
+    "natural": 13.0,
+    "briggs_0p5": 11.3,
+    "uniform": 12.0
+   }
+  },
+  "units": "percent (peak sidelobe level)",
+  "src": [
+   {
+    "src": "TH",
+    "loc": "Table 7.5 [PDF p. 106]",
+    "quote": "natural 44.0% 5.5% 5.0% 6.2% 10.4% 6.3% ... briggs (R = 0.5) 42.2% 7.8% 6.6% 6.7% 7.3% 8.0% ... uniform 39.0% 7.7% 16.7% 12.4% 11.0% 13.1%"
+   },
+   {
+    "src": "TH",
+    "loc": "Table 7.5 [PDF p. 106]",
+    "quote": "natural 4.6% 9.6% 7.8% 11.1% 13.0% ... briggs (R = 0.5) 6.2% 5.6% 9.7% 9.6% 11.3% ... uniform 11.3% 11.2% 10.1% 8.5% 12.0%"
+   }
+  ],
+  "caption_src": {
+   "src": "TH",
+   "loc": "Table 7.5 caption [PDF p. 106]",
+   "quote": "Table 7.5: Peak sidelobe levels for a 1-hour observation of an unresolved source at a declination of −23◦ with the different notional array configurations."
+  }
+ },
+ "schedule": [
+  {
+   "start": "2026 October 1",
+   "config": "C-3",
+   "lmax": "0.50 km",
+   "lst_best": "∼ 22—10 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2026 October 1 C-3 0.50 km ∼ 22—10 h"
+   }
+  },
+  {
+   "start": "2026 October 20",
+   "config": "C-2",
+   "lmax": "0.31 km",
+   "lst_best": "∼ 23—11 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2026 October 20 C-2 0.31 km ∼ 23—11 h"
+   }
+  },
+  {
+   "start": "2026 November 10",
+   "config": "C-1",
+   "lmax": "0.16 km",
+   "lst_best": "∼ 1—13 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2026 November 10 C-1 0.16 km ∼ 1—13 h"
+   }
+  },
+  {
+   "start": "2026 November 30",
+   "config": "C-2",
+   "lmax": "0.31 km",
+   "lst_best": "∼ 2—14 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2026 November 30 C-2 0.31 km ∼ 2—14 h"
+   }
+  },
+  {
+   "start": "2026 December 20",
+   "config": "C-3",
+   "lmax": "0.50 km",
+   "lst_best": "∼ 4—15 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2026 December 20 C-3 0.50 km ∼ 4—15 h"
+   }
+  },
+  {
+   "start": "2027 January 10",
+   "config": "C-4",
+   "lmax": "0.78 km",
+   "lst_best": "∼ 5—17 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 January 10 C-4 0.78 km ∼ 5—17 h"
+   }
+  },
+  {
+   "start": "2027 February 1",
+   "config": "No observations due to maintenance",
+   "lmax": null,
+   "lst_best": "",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 February 1 No observations due to maintenance"
+   }
+  },
+  {
+   "start": "2027 March 1",
+   "config": "C-4",
+   "lmax": "0.78 km",
+   "lst_best": "∼ 8—21 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 March 1 C-4 0.78 km ∼ 8—21 h"
+   }
+  },
+  {
+   "start": "2027 March 20",
+   "config": "C-5",
+   "lmax": "1.4 km",
+   "lst_best": "∼ 9—23 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 March 20 C-5 1.4 km ∼ 9—23 h"
+   }
+  },
+  {
+   "start": "2027 April 20",
+   "config": "C-6",
+   "lmax": "2.5 km",
+   "lst_best": "∼ 11—1 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 April 20 C-6 2.5 km ∼ 11—1 h"
+   }
+  },
+  {
+   "start": "2027 May 20",
+   "config": "C-7",
+   "lmax": "3.6 km",
+   "lst_best": "∼ 13—3 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 May 20 C-7 3.6 km ∼ 13—3 h"
+   }
+  },
+  {
+   "start": "2027 June 20",
+   "config": "C-8",
+   "lmax": "8.5 km",
+   "lst_best": "∼ 14—5 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 June 20 C-8 8.5 km ∼ 14—5 h"
+   }
+  },
+  {
+   "start": "2027 July 11",
+   "config": "C-9",
+   "lmax": "13.9 km",
+   "lst_best": "∼ 16—6 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 July 11 C-9 13.9 km ∼ 16—6 h"
+   }
+  },
+  {
+   "start": "2027 July 30",
+   "config": "C-10",
+   "lmax": "16.2 km",
+   "lst_best": "∼ 17—7 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 July 30 C-10 16.2 km ∼ 17—7 h"
+   }
+  },
+  {
+   "start": "2027 August 20",
+   "config": "C-9",
+   "lmax": "13.9 km",
+   "lst_best": "∼ 19—8 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 August 20 C-9 13.9 km ∼ 19—8 h"
+   }
+  },
+  {
+   "start": "2027 September 10",
+   "config": "C-8",
+   "lmax": "8.5 km",
+   "lst_best": "∼ 20—9 h",
+   "src": {
+    "src": "PG",
+    "loc": "Table 3 (Planned 12-m Array Configuration Schedule for Cycle 13) [PDF p. 23]",
+    "quote": "2027 September 10 C-8 8.5 km ∼ 20—9 h"
+   }
+  }
+ ],
+ "comparison_stats": {
+  "max_abs_lmax": 2.584,
+  "max_rel_lmax": 0.00016,
+  "max_abs_lmin": 12.12445,
+  "proj_rel_min": 0.01409,
+  "proj_rel_l05": 0.00467,
+  "proj_rel_l80": 0.00146,
+  "proj_rel_max": 0.00012,
+  "inst_rel_l05_l80": [
+   0.00052957068660781,
+   0.01753605691167533
+  ],
+  "theta_finer_c2_c10": [
+   0.11688590964174117,
+   0.24319344363816664
+  ],
+  "mrs_rel": 0.01009,
+  "c1_theta": [
+   3.3141,
+   3.31
+  ],
+  "c10_theta": [
+   0.0409,
+   0.051,
+   0.057
+  ]
+ },
+ "params": {
+  "cycle": {
+   "value": "Cycle 13: observations October 2026 - September 2027 (current on 2026-10-20; started 1 October 2026)",
+   "unit": "",
+   "src": "PG",
+   "loc": "Cycle 13 Call for Proposals [PDF p. 6]",
+   "quote": "is pleased to announce the ALMA Cycle 13 Call for Proposals (CfP) for scientific observations to be scheduled from October 2026 to September 2027",
+   "alternatives": [
+    {
+     "src": "PG",
+     "loc": "Table 1 (Cycle 13 timeline) [PDF p. 7]",
+     "quote": "01 October 2026 Start of ALMA Cycle 13 Science Observations (anticipated) 30 September 2027 End of ALMA Cycle 13",
+     "value": "start 1 October 2026 (anticipated); end 30 September 2027"
+    },
+    {
+     "src": "SCHED",
+     "loc": "Cycle 13 - by Block, block 4",
+     "quote": "2026-10-19 2026-10-26 PI ( Observing Report ) C-3 15-500",
+     "value": "C-3 in use in the week of 2026-10-20 (block 4, 2026-10-19 to 2026-10-26, 15-500 m)"
+    },
+    {
+     "src": "GITC",
+     "loc": "values[0].message",
+     "quote": "CAS-14730 add cycle 13 configuration files",
+     "value": "Cycle 13 configuration files are the latest in casa-data (added 2026-02-18; no cycle 14 files)"
+    },
+    {
+     "src": "GITF",
+     "loc": "values[]",
+     "quote": "\"alma.cycle13.1.cfg\",\"alma.cycle13.10.cfg\",\"alma.cycle13.2.cfg\"",
+     "value": "file listing ends at cycle 13"
+    },
+    {
+     "src": "C14",
+     "loc": "response body",
+     "quote": "{\"error_type\": \"NotFound\"}",
+     "value": "no Cycle 14 documents page (HTTP 404)"
+    }
+   ],
+   "note": "Today (2026-10-20) falls inside Cycle 13, so Cycle 13 is the current cycle; No Cycle 14 documents page (C14: HTTP 404) or configuration files (GITF: no cycle14 file) exist. The Cycle 13 configuration files are byte-identical to the Cycle 11 and Cycle 12 files (CFGPREV), consistent with PG Sec. 1.3."
+  },
+  "config_unchanged": {
+   "value": "configurations, angular resolutions and MRSs unchanged from previous cycles",
+   "unit": "",
+   "src": "PG",
+   "loc": "Sec. 1.3 (Angular Resolution and Maximum Recoverable Scale Tables) [PDF p. 7]",
+   "quote": "The configurations, ARs, and MRSs have not changed from what was achieved in previous cycles.",
+   "derived": "sha256 comparison: alma.cycle13.N.cfg == alma.cycle12.N.cfg == alma.cycle11.N.cfg (byte-identical) for N = 1..10, and == the Science Portal zip entry (CFGZIP). Checked: True"
+  },
+  "site_latlon": {
+   "value": "lat -23.02917 deg, lon -67.754649 deg (array location, Chajnantor)",
+   "unit": "deg",
+   "src": "TH",
+   "loc": "Sec. 2.1 (The ALMA Telescope) [PDF p. 11]",
+   "quote": "The array is located on the Chajnantor plain of the Chilean Andes (lat.=–23.02917◦ , long.=–67.754649◦ )",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.3 (Shadowing) [PDF p. 97]",
+     "quote": "Given ALMA’s location (latitude=−23.02917◦ )",
+     "value": "latitude -23.02917 deg (shadowing section)"
+    },
+    {
+     "src": "PG",
+     "loc": "Sec. 2.2 (The ALMA telescope) [PDF p. 8]",
+     "quote": "The Array is located on the Chajnantor plateau of the Chilean Andes at latitude = −23.029◦ , longitude = −67.755◦ and an altitude of 5000 m.",
+     "value": "-23.029 deg, -67.755 deg, 5000 m"
+    }
+   ],
+   "note": "Used here as the ARRAY CENTRE (origin of e, n, u). It lies 696.5 m south and 28.7 m east of the CASA LOC origin (DERIVED below), inside the compact core: the C-1 centroid is 66 m from it."
+  },
+  "site_elevation": {
+   "value": 5000,
+   "unit": "m (nominal altitude of the Array Operations Site)",
+   "src": "TH",
+   "loc": "Sec. 2.1 [PDF p. 11]",
+   "quote": "are all located at the 5000-meter altitude site referred to as the Array Operations Site (AOS)",
+   "alternatives": [
+    {
+     "src": "PG",
+     "loc": "Sec. 2.2 [PDF p. 8]",
+     "quote": "and an altitude of 5000 m.",
+     "value": "5000 m"
+    },
+    {
+     "src": "PRIM",
+     "loc": "Introduction [PDF p. 5]",
+     "quote": "Located on the Chajnantor plain of the Chilean Andes at an elevation of about 5000 m",
+     "value": "about 5000 m"
+    },
+    {
+     "src": "OBS",
+     "loc": "Observatories table, row 0 (Name ALMA, Type WGS84), column Height (UNIT m) [BINARY READ-OFF]",
+     "quote": "ALMA ... WGS84 ... MMA Memo 261, Radford ... Height 5056.8",
+     "value": "5056.8 m WGS84 height of the CASA \"ALMA\" observatory position"
+    }
+   ],
+   "note": "The 5000 m is a rounded site altitude; the CASA reference height is 5056.8 m (ellipsoidal, WGS84). Compact-configuration pads sit 1.3-7.8 m below that reference (cfg z values)."
+  },
+  "casa_loc_origin": {
+   "value": "lon -67.754929 deg, lat -23.022886 deg, height 5056.8 m (WGS84): CASA observatory \"ALMA\" = origin of the cfg LOC frame",
+   "unit": "deg, deg, m",
+   "src": "OBS",
+   "loc": "Observatories table (casacore), row 0: Name, Type, Long, Lat, Height, Source [BINARY READ-OFF via the ISM index; byte offsets 516 (MJD), 524 (Long), 532 (Lat), 540 (Height), 572 (Name)]",
+   "quote": "ALMA ... WGS84 ... MMA Memo 261, Radford ... Long -67.754929 Lat -23.022886 Height 5056.8",
+   "alternatives": [
+    {
+     "src": "OBS",
+     "loc": "table.dat column descriptors [BINARY READ-OFF]",
+     "quote": "List of Observatory positions ... Long ... UNIT ... deg ... Lat ... Height",
+     "value": "columns and units: Long, Lat in deg, Height in m"
+    },
+    {
+     "src": "SIMU",
+     "loc": "readantenna()",
+     "quote": "posobs=me.measure(me.observatory(t),'WGS84')",
+     "value": "LOC needs a known observatory (or COFA); a known name gives posobs = me.observatory(name)"
+    },
+    {
+     "src": "SIMU",
+     "loc": "readantenna()",
+     "quote": "To use local coordinates in the antenna position file, you must either use a known observatory name, or provide the COFA explicitly",
+     "value": "error text when neither is available"
+    },
+    {
+     "src": "SIMU",
+     "loc": "readantenna() docstring",
+     "quote": "# COFA=-67.75,-23.02",
+     "value": "docstring example COFA (rounded)"
+    }
+   ],
+   "note": "The cfg files have \"observatory=ALMA\" and no COFA line (CFG header), so CASA reads them relative to this table row. The decoded row also has MJD 51420.9486, Comment \"+/- 5mas\", and X, Y, Z = 1761.87, -4307.63, -1977.71 m (meaning not documented; not used)."
+  },
+  "cfg_format": {
+   "value": "LOC = local tangent plane; columns x y z diam pad (metres; no antenna names, pad names only); observatory=ALMA; no COFA",
+   "unit": "",
+   "src": "CFG",
+   "loc": "alma.cycle13.1.cfg ... alma.cycle13.10.cfg, header lines 1-3 (identical in all ten)",
+   "quote": "# observatory=ALMA # coordsys=LOC (local tangent plane) # x y z diam pad#",
+   "file": "rawdata/interf/alma/alma.cycle13.1.cfg",
+   "alternatives": [
+    {
+     "src": "CFG",
+     "loc": "alma.cycle13.1.cfg line 4",
+     "quote": "-33.89412596 -712.7516484 -2.330089496 12. A001",
+     "file": "rawdata/interf/alma/alma.cycle13.1.cfg",
+     "value": "first data row of C-1"
+    },
+    {
+     "src": "CFGZIP",
+     "loc": "item page \"alma-configuration-files\"",
+     "quote": "ALMA_cycle13_configuration_files.zip",
+     "file": "rawdata/interf/alma/almascience_cycle13_configuration_files_view.html",
+     "value": "the same ten files on the Science Portal (zip, byte-identical)"
+    },
+    {
+     "src": "DOCS",
+     "loc": "Cycle 13 document list",
+     "quote": "alma-proposers-guide ... alma-technical-handbook ... alma-configuration-files",
+     "value": "listed among the Cycle 13 documents"
+    },
+    {
+     "src": "SIMU",
+     "loc": "readantenna() docstring",
+     "quote": "coordsys can be XYZ=earth-centered, UTM=easting,northing,altitude, or LOC=xoffset,yoffset,height",
+     "value": "LOC = x offset, y offset, height"
+    }
+   ]
+  },
+  "loc_definition": {
+   "value": "x = East, y = North, z = Up (normal to the WGS84 ellipsoid) relative to the observatory reference point; metres",
+   "unit": "",
+   "src": "SIMU",
+   "loc": "locxyz2itrf() docstring",
+   "quote": "The \"local\" (x, y, z) are measured relative to the closest point to (lat, longitude) on the WGS84 reference ellipsoid, with z normal to the ellipsoid and y pointing north.",
+   "alternatives": [
+    {
+     "src": "SIMU",
+     "loc": "locxyz2itrf()",
+     "quote": "x = Nploczcphimlocysphi * clmb - locx * slmb",
+     "value": "x enters along the local east vector (-sin lon, cos lon, 0)"
+    },
+    {
+     "src": "SIMU",
+     "loc": "locxyz2itrf()",
+     "quote": "a = 6378137.0      # WGS84 equatorial semimajor axis",
+     "value": "WGS84 a"
+    },
+    {
+     "src": "SIMU",
+     "loc": "locxyz2itrf()",
+     "quote": "b = 6356752.3142   # WGS84 polar semimajor axis",
+     "value": "WGS84 b"
+    }
+   ],
+   "derived": "Re-implemented here (not executed from the download): ECEF = locxyz2itrf(lat0, lon0, h0, x, y, z) is exactly ECEF_ref(lat0, lon0, h0) + R^T [x, y, z] with the standard ENU rotation (round-trip check ENU->ECEF->ENU at the reference: max error 3.6e-10 m)."
+  },
+  "enu_conversion": {
+   "value": "e, n, u (metres) = local ENU at the TH array centre (lat -23.02917, lon -67.754649, ellipsoidal height 5056.8 m)",
+   "unit": "m",
+   "src": "TH",
+   "loc": "Sec. 2.1 [PDF p. 11]",
+   "quote": "The array is located on the Chajnantor plain of the Chilean Andes (lat.=–23.02917◦ , long.=–67.754649◦ )",
+   "derived": "Each cfg (x, y, z) -> ECEF with the CASA locxyz2itrf formula at the OBS reference (lat -23.022886, lon -67.754929, h 5056.8 m, WGS84 a, b from SIMU) -> ENU at the array centre (WGS84; h = 5056.8 m chosen so u keeps the cfg height datum). The array centre sits at (x, y, z) = (28.723, -696.472, -0.038) m in the cfg LOC frame. The conversion is a rigid rotation + translation (3-D baseline lengths change by < 2e-9 m); it differs from the plain translation e = x - 28.723, n = y + 696.472, u = z + 0.038 by at most 0.912 m (C-10 outer pads; the two tangent planes are 0.0063 deg apart). u is relative to the ellipsoidal height 5056.8 m (the CASA reference height), not to the 5000 m nominal altitude.",
+   "inferred": "Taking the TH lat/lon as the \"array centre\" is a choice: TH calls it the location of the array; no document calls it the centre of a configuration."
+  },
+  "n_antennas": {
+   "value": "43 antennas in each cfg (notional C43-X); configurations are 50-antenna; at least 43 offered",
+   "unit": "antennas",
+   "src": "TH",
+   "loc": "Sec. 7.2 (Configurations) [PDF p. 96]",
+   "quote": "For simulation and project planning purposes, configurations referred to as “notional configurations” of 43 12-m antennas (C43-X) are available on the Science Portal and in CASA.",
+   "alternatives": [
+    {
+     "src": "PG",
+     "loc": "App. A.1 (Number of antennas) [PDF p. 38]",
+     "quote": "At least forty-three 12-m antennas will be offered in the 12-m Array.",
+     "value": "at least 43 offered"
+    },
+    {
+     "src": "PG",
+     "loc": "Sec. 4.3.3 [PDF p. 22]",
+     "quote": "While each config- uration contains fifty 12-m antennas ... the OT considers the full range of 43 to 50-antenna configurations",
+     "value": "50 per configuration; OT considers 43-50"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.2 [PDF p. 96]",
+     "quote": "ALMA is committed to providing at least 43 antennas for each 12-m Array observation and on average provides more than 43 antennas",
+     "value": "50 used, >= 43 committed"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.2 [PDF p. 96]",
+     "quote": "which are the 43 pads in each configuration that have the highest operational priority in terms of antenna availability",
+     "value": "notional = the 43 highest-priority pads"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.2 footnote 2 [PDF p. 96]",
+     "quote": "ALMA’s 54 12-m antennas can be distributed among 192 “antenna pads”",
+     "value": "54 12-m antennas, 192 pads"
+    }
+   ],
+   "note": "The 50-antenna pad lists behind the PG/TH theta ranges are NOT FOUND in any downloadable file.",
+   "derived": "Count of data rows in each alma.cycle13.N.cfg: [43, 43, 43, 43, 43, 43, 43, 43, 43, 43] (all pad names unique: True)."
+  },
+  "dish": {
+   "value": 12,
+   "unit": "m (12-m Array antenna diameter)",
+   "src": "TH",
+   "loc": "Sec. 2.2 (The 12-m Array) [PDF p. 11]",
+   "quote": "The 12-m Array consists of fifty 12-meter diameter antennas",
+   "alternatives": [
+    {
+     "src": "CFG",
+     "loc": "alma.cycle13.1.cfg line 4 (4th column)",
+     "quote": "-33.89412596 -712.7516484 -2.330089496 12. A001",
+     "file": "rawdata/interf/alma/alma.cycle13.1.cfg",
+     "value": "diam column = 12. for every antenna in all ten cfg files"
+    },
+    {
+     "src": "TH",
+     "loc": "App. A.1 (Design and Properties) [PDF p. 205]",
+     "quote": "ALMA is composed of a total of 66 antennas, 54 with a diameter of 12 m and 12 with a diameter of 7 m.",
+     "value": "54 of 66 antennas are 12 m"
+    }
+   ],
+   "derived": "diam values found in the cfg files: [12.0]"
+  },
+  "blockage": {
+   "value": 0.75,
+   "unit": "m (effective blocked diameter: subreflector + support arms)",
+   "src": "TH",
+   "loc": "Sec. 3.2 (Single-dish Response) [PDF p. 18]",
+   "quote": "each 12-m antenna has a secondary reflector and support arms that block an effective area of 0.75 m diameter on the primary surface",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "App. A.1 [PDF p. 206]",
+     "quote": "The subreflector has a diameter of 750 mm.",
+     "value": "subreflector 750 mm"
+    }
+   ]
+  },
+  "baseline_range": {
+   "value": "15 m to ~16 km",
+   "unit": "m",
+   "src": "TH",
+   "loc": "Sec. 2.1 [PDF p. 11]",
+   "quote": "The antenna foundation distribution yields baselines (distances between two antennas) ranging from 15 m to ∼16 km",
+   "alternatives": [
+    {
+     "src": "PG",
+     "loc": "App. A.2 (Array configurations) [PDF p. 38]",
+     "quote": "transition from the most compact (with maximum baselines of ∼160 m) up to the most extended configuration (maximum baselines of 16.2 km in Cycle 13)",
+     "value": "~160 m to 16.2 km maximum baselines"
+    }
+   ]
+  },
+  "theta_res_definition": {
+   "value": "theta_res ~ 0.574 lambda / L80 (L80 = 80th-percentile projected uv-distance); general k lambda / Lmax with 0.7 < k < 1.2; FWHM of the synthesized-beam main lobe; CASA simulations with Briggs robust = 0.5",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 7.4.1 (Definition of angular resolution), Eq. 7.4 [PDF p. 101]",
+   "quote": "Via simulations using the ALMA notional configurations, the following equation was empirically determined: 0.574λ θres ≈ [radians]",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1, Eq. 7.3 [PDF p. 101]",
+     "quote": "where θres is the FWHM of the main lobe of the synthesized beam; k is a factor that depends on the uv-plane weighting function",
+     "value": "Eq. 7.3: theta_res = k lambda / Lmax, FWHM of the main lobe"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1 [PDF p. 101]",
+     "quote": "For commonly used weighting schemes, k is typically in the range 0.7 < k < 1.2.",
+     "value": "0.7 < k < 1.2"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.1 [PDF p. 101]",
+     "quote": "ALMA uses the 80th percentile projected baseline uv-distance as a more robust proxy",
+     "value": "L80 = 80th percentile projected baseline"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.2 (Effects of weighting scheme) [PDF p. 102]",
+     "quote": "Unless otherwise specified, the angular resolutions and time ratios presented in this chapter were computed using CASA simulations with Briggs weighting and robust = 0.5.",
+     "value": "Briggs robust = 0.5"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.4.2 [PDF p. 102]",
+     "quote": "the angular resolution varies from 0.7′′ (robust = −2) to 1.2′′ (robust = 2)",
+     "value": "robust -2 to 2 spans 0.7\" to 1.2\" for C43-4 at 100 GHz"
+    },
+    {
+     "src": "TH",
+     "loc": "Table 7.1 caption [PDF p. 97]",
+     "quote": "θ is a guideline value for the angular resolution achievable with a given combination of band and configuration, assuming a source at -23 deg Dec. For the 12-m Array, a θmax and θmin are shown to convey the range of possible resolutions provided by the 50-antenna configurations, depending on the available antenna pads used by actual operational configurations.",
+     "value": "Table 7.1/A-1: guideline value at -23 deg Dec; theta_max/theta_min = range over 50-antenna operational configurations"
+    },
+    {
+     "src": "TH",
+     "loc": "Table 7.1 caption [PDF p. 97]",
+     "quote": "For sources transiting at lower elevations, the North- South angular measures will increase proportional to 1/sin(elevation).",
+     "value": "N-S size grows as 1/sin(elevation)"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.2 [PDF p. 96]",
+     "quote": "Real-world configurations often use pads of the next more compact C-X configuration and typically have +4.3% (+/- 1.4%) larger beams than the notional configurations provided for simulations, apart from C-8 (+10.4%) and C-9 (-7.1%).",
+     "value": "operational configurations: beams +4.3% (C-8 +10.4%, C-9 -7.1%) vs notional"
+    },
+    {
+     "src": "PRIM",
+     "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+     "quote": "Angular Resolution (“) ~0.2” × (300/ν GHz) × ( 1 km / maximum baseline )",
+     "value": "Primer rule of thumb: ~0.2\" x (300/nu GHz) x (1 km / max baseline)"
+    }
+   ]
+  },
+  "theta_mrs_definition": {
+   "value": "theta_MRS ~ 0.983 lambda / L5 (L5 = 5th percentile of uv-distance)",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 7.6 (Large Spatial Scale Response), Eq. 7.6 [PDF p. 108]",
+   "quote": "ALMA uses the 5th percentile shortest baseline L5 instead of the very shortest baseline Lmin to calculate θM RS ; using simulations of configurations the following equation was empirically determined: 0.983 λ θM RS ≈ [radians]",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.6 [PDF p. 108]",
+     "quote": "and L5 is the 5th percentile of uv-distance in meters",
+     "value": "L5 = 5th percentile of uv-distance"
+    },
+    {
+     "src": "PG",
+     "loc": "Table A-2 caption [PDF p. 40]",
+     "quote": "is computed using the 5th percentile baseline (L05) from Table 7.3 and Equation 7.6 in the Technical Handbook.",
+     "value": "PG Table A-2 uses L05 from TH Table 7.3 + Eq. 7.6"
+    },
+    {
+     "src": "PRIM",
+     "loc": "Glossary-style text on MRS [PDF p. 29]",
+     "quote": "and is defined to be 0.6 × (wave- ... length/minimum baseline) in radians",
+     "value": "Primer: MRS = 0.6 lambda / minimum baseline"
+    }
+   ]
+  },
+  "table73_projection": {
+   "value": "Table 7.3 baselines are projected for a source transiting at zenith",
+   "unit": "",
+   "src": "TH",
+   "loc": "Table 7.3 caption [PDF p. 99]",
+   "quote": "Table 7.3: Basic parameters of the notional 7-m Array and 12-m Array configurations. The baselines are projected for a source transiting at zenith.",
+   "inferred": "The track length behind Table 7.3 is not stated. Projecting the cfg baselines for a source at Dec = -23.02917 deg over hour angles -1 h to +1 h (21 samples) reproduces Table 7.3: min within 1.4%, L05 within 0.47%, L80 within 0.15%, max within 0.012%; the instantaneous transit values are 0.1-1.8% off in L05/L80 (see configs.*.derived)."
+  },
+  "pb_relation": {
+   "value": "FWHM = 1.13 lambda / D (measured, 12-m and 7-m antennas); = 58\" at 100 GHz for D = 12 m",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 3.2 (Single-dish Response) [PDF p. 18]",
+   "quote": "The actual ALMA 12-m antennas (and the ALMA 7-m antennas) have measured primary beam FWHM values of ∼1.13 λ/D.",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.7 (Mosaicing) [PDF p. 110]",
+     "quote": "The resulting F W HM of the ALMA 12-m antennas is measured to be F W HM = 1.13 D ... = 58′′ at 100 GHz, and it varies inversely with frequency.",
+     "value": "58\" at 100 GHz"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.7 [PDF p. 110]",
+     "quote": "The ALMA feedhorns were designed to illuminate the dish with a -12 dB edge taper to provide a nearly Gaussian primary beam with low sidelobes",
+     "value": "-12 dB edge taper"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 10.3.1 (Antenna Primary Beam Pattern), Eq. 10.5 [PDF p. 161]",
+     "quote": "θ = 1.13λ/D",
+     "value": "Eq. 10.5 theta = 1.13 lambda / D (half-power width)"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 10.3.1 [PDF p. 161]",
+     "quote": "The current primary beam model for ALMA antennas in CASA is an Airy pattern scaled in angular extent such that its FWHM matches θ in the equation above.",
+     "value": "CASA PB model = Airy pattern scaled to that FWHM"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 3.2, Eq. 3.4 [PDF p. 17]",
+     "quote": "HPBW Primary Beam = 1.02 × λ/D.",
+     "value": "uniform illumination would give 1.02 lambda / D"
+    },
+    {
+     "src": "PRIM",
+     "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+     "quote": "12-m Primary beam (“) ~19.4” × (300/ν GHz)",
+     "value": "~19.4\" x (300/nu GHz) (12-m)"
+    }
+   ],
+   "derived": "1.13 x (c/100 GHz) / 12 m = 58.23\" (TH: 58\"); at 300 GHz 19.41\" (PRIM: ~19.4\"). c = 299 792 458 m/s (SI)."
+  },
+  "bandwidth": {
+   "value": 7.5,
+   "unit": "GHz per polarization (4 basebands x 1.875 GHz); Bands 9-10: 15 GHz with 90-deg Walsh switching",
+   "src": "TH",
+   "loc": "Sec. 2.2 [PDF p. 12]",
+   "quote": "The 7.5 GHz total IF bandwidth from the selected receiver is divided into four 1.875 GHz-wide basebands",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 4.5 (The Cycle 13 Receivers) [PDF p. 36]",
+     "quote": "The IF effective bandwidth is 7.5 GHz per polarization (after passing through the IF processing units), so the total instantaneous receiver bandwidth is the same for Bands 1–8. ... The effective system bandwidth available in Bands 9 and 10 is therefore double that of the 2SB receivers (15 GHz).",
+     "value": "7.5 GHz per polarization, Bands 1-8; Bands 9-10 double (15 GHz)"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 2.2 [PDF p. 12]",
+     "quote": "down-converts the signals to an intermediate frequency with 7.5 GHz of bandwidth per polarization",
+     "value": "7.5 GHz per polarization from the receiver"
+    },
+    {
+     "src": "PG",
+     "loc": "App. A.5.3 [PDF p. 43]",
+     "quote": "This mode doubles the continuum bandwidth to 15 GHz",
+     "value": "Bands 9-10: 90-deg Walsh switching doubles continuum bandwidth to 15 GHz (default on in Cycle 13)"
+    },
+    {
+     "src": "PG",
+     "loc": "App. A.6.1 [PDF p. 43]",
+     "quote": "The ALMA IF system provides up to four basebands (per parallel polarization) that can be independently placed within the two receiver sidebands.",
+     "value": "up to four basebands per polarization"
+    },
+    {
+     "src": "PG",
+     "loc": "Table A-5 [PDF p. 44]",
+     "quote": "1875 15.6 31.2 120 TDM",
+     "value": "widest spectral window 1875 MHz (TDM, 15.6 MHz channels)"
+    },
+    {
+     "src": "PRIM",
+     "loc": "\"ALMA Full Operations Specifications\" table [PDF p. 8]",
+     "quote": "Correlator: Total Bandwidth 16 GHz (2 polarizations × 4 basebands × 2 GHz/baseband)",
+     "value": "Primer: 16 GHz total = 2 pol x 4 basebands x 2 GHz"
+    }
+   ],
+   "note": "2 GHz is the nominal baseband width; 1.875 GHz is the usable width after anti-aliasing filters (TH Sec. 4.5: \"reduced to an effective total bandwidth of 3.75 GHz\"). For continuum sensitivity use 7.5 GHz per polarization (15 GHz in Bands 9-10)."
+  },
+  "wsu": {
+   "value": "Wideband Sensitivity Upgrade (WSU) is upcoming, not part of the Cycle 13 capabilities (PG does not mention it; TH mentions it only for a future spectrometer)",
+   "unit": "",
+   "src": "TH",
+   "loc": "Sec. 5.2 (The ACA Spectrometer) [PDF p. 73]",
+   "quote": "Total Power GPU Spectrometer (TPGS), under preparation for the upcoming Wideband Sensitivity Upgrade (WSU).",
+   "alternatives": [
+    {
+     "src": "WSU",
+     "loc": "Benefits of the WSU (Initial Cycle of Observations: 2x upgrade)",
+     "quote": "2x increase in available instantaneous bandwidth",
+     "value": "WSU initial goal: 2x instantaneous bandwidth"
+    },
+    {
+     "src": "WSU",
+     "loc": "overview text",
+     "quote": "the broadening of the receiver Intermediate Frequency (IF) bandwidth by at least a factor of two",
+     "value": "IF bandwidth to be broadened by >= 2x"
+    }
+   ],
+   "note": "No WSU start date or cycle is given in the saved documents (NOT FOUND)."
+  },
+  "elevation_hw": {
+   "value": "2 deg minimum, 125 deg maximum (over the top), 0.2 deg zenith cone of avoidance (design specification, 2001)",
+   "unit": "deg",
+   "src": "PB4",
+   "loc": "Sec. 4.2.4 (Range of Motion) [PDF p. 5]",
+   "quote": "Minimum elevation angle for observations: 2 deg Maximum elevation angle for observations: 125 deg. Cone of avoidance at the zenith: 0.2 deg in radius for normal sidereal tracking.",
+   "alternatives": [
+    {
+     "src": "PB4",
+     "loc": "Sec. 4.2.4 [PDF p. 5]",
+     "quote": "Range of azimuth motion: 270 degrees either side of due north.",
+     "value": "azimuth range +/- 270 deg from North"
+    },
+    {
+     "src": "PB4",
+     "loc": "Sec. 4.2.4 [PDF p. 5]",
+     "quote": "Stow position for wind survival: elevation 15 deg",
+     "value": "wind-survival stow at 15 deg elevation"
+    },
+    {
+     "src": "PB4",
+     "loc": "Sec. 4.2.4 [PDF p. 5]",
+     "quote": "there will be a region around the zenith about 30 deg in radius, where azimuth switching times are degraded",
+     "value": "degraded switching within ~30 deg of zenith"
+    }
+   ],
+   "note": "Design-era (pre-construction) project-book value; no Cycle 13 document states the hardware elevation range (TH, PG, PRIM, OT manuals searched; NOT FOUND there)."
+  },
+  "elevation_obs": {
+   "value": "sources must transit above 20 deg elevation: declination limit +47 deg = maximum elevation 20 deg; OT warning for transits 20-30 deg",
+   "unit": "deg",
+   "src": "PG",
+   "loc": "App. A.8 (Source restrictions) [PDF p. 47]",
+   "quote": "The adopted upper declination limit for ALMA is +47◦ , corresponding to a maximum elevation of 20◦ at the ALMA site. The ALMA OT gives a warning for objects from +37 through +47◦ declination, corre- sponding to transits between 20 and 30-degrees elevation.",
+   "alternatives": [
+    {
+     "src": "TH",
+     "loc": "Sec. 7.3 (Shadowing) [PDF p. 97]",
+     "quote": "targets as far North as declination +47◦ can in principle be observed, corresponding to a maximum source elevation at the Chajnantor site of ∼ 20◦",
+     "value": "+47 deg = max elevation ~20 deg; shadowing at low elevation"
+    },
+    {
+     "src": "PG",
+     "loc": "App. A.8 [PDF p. 47]",
+     "quote": "For the 12-m Array, this shadowing becomes signif- icant (> 5%) in the most compact configuration for sources with declinations lower than −65◦ or higher than +20◦ .",
+     "value": "12-m shadowing > 5% (most compact) for Dec < -65 or > +20"
+    },
+    {
+     "src": "TH",
+     "loc": "Sec. 7.3 [PDF p. 97]",
+     "quote": "the shadowing fraction can be as large as 55% for sources observed with the most compact 12-m Array configuration",
+     "value": "shadowing fraction up to 55% in C-1"
+    },
+    {
+     "src": "PRIM",
+     "loc": "Level One Science Aims, III [PDF p. 8]",
+     "quote": "This requirement applies to all sources visible to ALMA that transit at an elevation greater than 20 degrees.",
+     "value": "design aim: sources transiting above 20 deg"
+    },
+    {
+     "src": "PG",
+     "loc": "Sec. 4.3.1 (Weather), Figure 2 caption [PDF p. 20]",
+     "quote": "show the PWV observing limits adopted for the ALMA bands for an elevation of 60 degrees.",
+     "value": "PWV limits quoted for 60 deg elevation"
+    }
+   ],
+   "inferred": "A per-scan minimum observing elevation (track cut-off) is NOT FOUND in the Cycle 13 documents; \"20 deg\" here is the transit-elevation floor, not a tracking limit."
+  }
+ },
+ "not_found": [
+  "The 50-antenna pad lists of the operational C-1 ... C-10 configurations (PG/TH quote theta ranges for 50-antenna configurations; only the 43-antenna notional C43-X files are published in CASA and on the Science Portal).",
+  "The exact track length / hour-angle range behind TH Table 7.3 (INFERRED here as about +/- 1 h by reproduction) and the simulation set-up behind the Cycle 13 theta_max / theta_min ranges.",
+  "An official per-scan minimum observing elevation (track cut-off) for Cycle 13; the documents give only the transit-elevation floor (declination limit +47 deg = 20 deg) and shadowing guidance. The hardware 2-125 deg range is from the 2001 project book, not a current document.",
+  "A Cycle 13 statement of the hardware azimuth range or slew rates (only the 2001 PB4 azimuth +/- 270 deg).",
+  "An \"array centre\" defined as such: the TH lat/lon is \"the array location\"; the cfg LOC origin is the CASA observatory position, 696.5 m north of it.",
+  "The WSU first-science cycle (WSU page and TH give no date).",
+  "The meaning of the X, Y, Z columns (1761.87, -4307.63, -1977.71 m) of the CASA Observatories ALMA row."
+ ],
+ "conflicts": [
+  "Minimum baseline: 15.05 m between pads in the cfg (C-1 ... C-4) vs 14.6 m in TH Table 7.3 vs \"15 m\" in PG Table A-2 and TH Sec. 2.1. Table 7.3 baselines are projected (zenith-transit source); projecting over +/- 1 h gives 14.65 m (matches).",
+  "C-8, C-9, C-10 minimum baseline: cfg 113.0, 375.5, 256.1 m (3-D) vs TH Table 7.3 110.4, 367.6, 244.0 m and PG Lmin 110, 368, 244 m; the projection over +/- 1 h gives 109.6, 362.4, 244.4 m (C-8, C-10 agree; C-9 differs by 1.4%).",
+  "Angular resolution: TH Eq. 7.4 (0.574 lambda/L80) with the Table 7.3 L80 reproduces the Cycle 13 theta_max only for C-1 (3.31\" vs 3.31\" at 100 GHz); for C-2 ... C-10 it gives beams 12-24% finer than the tabulated theta_min (e.g. C-10: 0.0409\" vs theta_min 0.051\", theta_max 0.057\"). The Cycle 13 table (new presentation, PG Sec. 1.3) describes the 50-antenna operational configurations (TH Table 7.1 caption), not the C43-X cfg files; Eq. 7.6 does reproduce the MRS table (within 1.0%).",
+  "MRS: TH Eq. 7.6 0.983 lambda/L5 (used for PG/TH Tables A-2/7.2) vs Primer \"0.6 x (wavelength/minimum baseline)\".",
+  "Bandwidth: TH 7.5 GHz per polarization (4 x 1.875 GHz usable) vs Primer \"16 GHz (2 polarizations x 4 basebands x 2 GHz/baseband)\" (nominal 2 GHz basebands, both polarizations).",
+  "Site: TH lat -23.02917, lon -67.754649 vs PG -23.029, -67.755 (rounded) vs the CASA LOC origin -23.022886, -67.754929 (696.5 m further north). Altitude 5000 m (TH, PG; rounded) vs 5056.8 m (CASA WGS84 height).",
+  "Current-configuration dates: PG Table 3 has C-2 from 2026 October 20; the Science Portal schedule (fetched 2026-10-20) has C-3 through block 4 (to 2026-10-26) and C-2 from 25-Oct-2026. The portal block table lists \"beam 1.4\"\" for C-3 at 100 GHz vs PG theta_max/theta_min 2.39\"/1.91\"."
+ ],
+ "notes": [
+  "For uv tracks: e, n, u of the antennas are a rigid frame at lat -23.02917 deg; baseline (dE, dN, dU) -> equatorial X = -sin(lat) dN + cos(lat) dU, Y = dE, Z = cos(lat) dN + sin(lat) dU, then the usual (u, v, w) rotation by hour angle and declination (standard; the reproduction of TH Table 7.3 above used exactly this).",
+  "TH Eq. 7.6 (theta_MRS ~ 0.983 lambda / L5) with the Table 7.3 L05 reproduces the TH Table 7.2 / PG Table A-2 MRS values within 1.0% (e.g. C-1: 28.4\" vs 28.5\" at 100 GHz); Eq. 7.4 does not reproduce the Cycle 13 resolution ranges (Conflicts).",
+  "Primary beam: FWHM = 1.13 lambda / D (12 m: 58\" at 100 GHz, 19.4\" at 300 GHz); CASA models it as an Airy pattern scaled to that FWHM; effective blockage 0.75 m.",
+  "Peak sidelobe levels (TH Table 7.5, 1-hour observation at Dec -23 deg, notional C43-X) are a validation target for the dirty beam (Briggs 0.5: 6-11%).",
+  "Downloaded but not cited (searched for an elevation range / limits; nothing usable): not_cited/Mangum2006_PASP118_1257_ALMA_prototype_antennas_astro-ph0609329v1.pdf (Mangum et al. 2006, PASP 118, 1257 (arXiv astro-ph/0609329v1): searched for an elevation range; none stated); not_cited/Beasley2006_ALMA_overview_astro-ph0606376v1.pdf (Beasley, Murowinski, Tarenghi 2006 (arXiv astro-ph/0606376v1): no antenna range of motion); not_cited/WoottenThompson2009_ProcIEEE_ALMA_arXiv0904.3739v1.pdf (Wootten & Thompson 2009, Proc. IEEE (arXiv 0904.3739v1): no antenna range of motion); not_cited/ATNF_RadioSchool2001_alma.pdf (ATNF Radio School 2001 ALMA slides: no range of motion); not_cited/ALMA_webOT_Reference_Manual_Cycle13.pdf (Cycle 13 web-OT Reference Manual: no elevation limit value); not_cited/ALMA_webOT_UserManual_Cycle13.pdf (Cycle 13 web-OT User Manual: no elevation limit value); not_cited/help_almascience_kb_index.html (ALMA Helpdesk knowledgebase index (article 402 URL redirected to the index)); not_cited/almascience_news.html (Science Portal news page (served an old news list; nothing on Cycle 14)); not_cited/almascience_cycle13_*.view.html (Science Portal item pages used to locate the OT manuals and the Primer)."
+ ],
+ "not_cited_downloads": [
+  {
+   "file": "rawdata/interf/alma/not_cited/Mangum2006_PASP118_1257_ALMA_prototype_antennas_astro-ph0609329v1.pdf",
+   "why": "Mangum et al. 2006, PASP 118, 1257 (arXiv astro-ph/0609329v1): searched for an elevation range; none stated"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/Beasley2006_ALMA_overview_astro-ph0606376v1.pdf",
+   "why": "Beasley, Murowinski, Tarenghi 2006 (arXiv astro-ph/0606376v1): no antenna range of motion"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/WoottenThompson2009_ProcIEEE_ALMA_arXiv0904.3739v1.pdf",
+   "why": "Wootten & Thompson 2009, Proc. IEEE (arXiv 0904.3739v1): no antenna range of motion"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/ATNF_RadioSchool2001_alma.pdf",
+   "why": "ATNF Radio School 2001 ALMA slides: no range of motion"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/ALMA_webOT_Reference_Manual_Cycle13.pdf",
+   "why": "Cycle 13 web-OT Reference Manual: no elevation limit value"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/ALMA_webOT_UserManual_Cycle13.pdf",
+   "why": "Cycle 13 web-OT User Manual: no elevation limit value"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/help_almascience_kb_index.html",
+   "why": "ALMA Helpdesk knowledgebase index (article 402 URL redirected to the index)"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/almascience_news.html",
+   "why": "Science Portal news page (served an old news list; nothing on Cycle 14)"
+  },
+  {
+   "file": "rawdata/interf/alma/not_cited/almascience_cycle13_*.view.html",
+   "why": "Science Portal item pages used to locate the OT manuals and the Primer"
+  }
+ ]
+}

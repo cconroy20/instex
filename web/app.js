@@ -41,7 +41,7 @@ const M = () => (S.mode === "grating" ? S.g : S.e);
 const PRESETS = window.IX_PRESETS || [];
 let presetId = "custom";
 // the instrument: "spec" (spectrograph, this file) or "img" (imager, imgapp.js)
-let inst = "spec", IMG = null, TEL = null;
+let inst = "spec", IMG = null, TEL = null, INT = null;
 
 const DETS = [
   { name: "2k × 4k, 15 µm", Nx: 4096, Ny: 2048, pix: 15 },
@@ -191,16 +191,16 @@ function buildPresetMenu() {
   psel.innerHTML = "";
   { const o = document.createElement("option"); o.value = "custom"; o.textContent = "Custom"; psel.appendChild(o); }
   const groups = [];
-  for (const p of (inst === "img" ? IMG.PRESETS : inst === "tel" ? TEL.PRESETS : PRESETS)) {
+  for (const p of (inst === "img" ? IMG.PRESETS : inst === "tel" ? TEL.PRESETS : inst === "int" ? INT.PRESETS : PRESETS)) {
     const t = p.tel || "Other";
     let gr = groups.find(x => x.t === t);
     if (!gr) { gr = { t, D: p.state.D, ps: [] }; groups.push(gr); }
     gr.ps.push(p);
   }
   groups.sort((x, y) => y.D - x.D || x.t.localeCompare(y.t));
-  // a group of one (each telescope in the Telescopes mode) is one line, under its own name
+  // a group of one (each telescope in the Telescopes mode, each array in the Interferometer mode) is one line, under its own name
   for (const gr of groups) {
-    if (gr.ps.length === 1 && inst === "tel") { const o = document.createElement("option"); o.value = gr.ps[0].id; o.textContent = gr.ps[0].name; psel.appendChild(o); continue; }
+    if (gr.ps.length === 1 && (inst === "tel" || inst === "int")) { const o = document.createElement("option"); o.value = gr.ps[0].id; o.textContent = gr.ps[0].name; psel.appendChild(o); continue; }
     const og = document.createElement("optgroup"); og.label = gr.t;
     for (const p of gr.ps) { const o = document.createElement("option"); o.value = p.id; o.textContent = p.name.replace(/^[^/]*\/\s*/, ""); og.appendChild(o); }
     psel.appendChild(og);
@@ -209,6 +209,7 @@ function buildPresetMenu() {
 psel.addEventListener("change", () => {
   if (inst === "img") { const q = IMG.PRESETS.find(x => x.id === psel.value); if (q) IMG.applyPreset(q); else { IMG.custom(); scheduleHash(); } return; }
   if (inst === "tel") { const q = TEL.PRESETS.find(x => x.id === psel.value); if (q) TEL.applyPreset(q); return; }
+  if (inst === "int") { const q = INT.PRESETS.find(x => x.id === psel.value); if (q) INT.applyPreset(q); return; }
   const p = PRESETS.find(q => q.id === psel.value);
   if (!p) { presetId = "custom"; scheduleHash(); return; }
   applyPreset(p);
@@ -225,6 +226,7 @@ function applyPreset(p) {
 $("reset").addEventListener("click", () => {
   if (inst === "img") { IMG.reset(); return; }
   if (inst === "tel") { TEL.reset(); return; }
+  if (inst === "int") { INT.reset(); return; }
   S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto";
   stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
 });
@@ -259,7 +261,7 @@ function syncControls() {
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
   buildPresetMenu();
-  psel.value = inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : presetId;
+  psel.value = inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : inst === "int" ? INT.presetId() : presetId;
 }
 
 function params() {
@@ -279,8 +281,8 @@ let hashTimer = 0, lastHash = null;
 function scheduleHash() { clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 180); }
 function writeHash() {
   let parts = [];
-  if (inst === "img" || inst === "tel") {
-    parts = ["inst=" + inst, ...(inst === "img" ? IMG.hashParts() : TEL.hashParts())];
+  if (inst === "img" || inst === "tel" || inst === "int") {
+    parts = ["inst=" + inst, ...(inst === "img" ? IMG.hashParts() : inst === "tel" ? TEL.hashParts() : INT.hashParts())];
     lastHash = "#" + parts.join("&");
     try { history.replaceState(null, "", lastHash); } catch (e) { /* file:// */ }
     return;
@@ -303,6 +305,7 @@ function readHash() {
   for (const p of h.split("&")) { const [k, v] = p.split("="); if (k) kv[k] = decodeURIComponent(v || ""); }
   if (kv.inst === "img") { inst = "img"; IMG.readHash(kv); return; }
   if (kv.inst === "tel") { inst = "tel"; TEL.readHash(kv); return; }
+  if (kv.inst === "int") { inst = "int"; INT.readHash(kv); return; }
   if (kv.preset) { const p = PRESETS.find(q => q.id === kv.preset); if (p) applyPreset(p); }
   // a value of the wrong kind (a typed-in link) is ignored: the key keeps its default (or the preset's value)
   const NUL = Symbol("skip");
@@ -1726,6 +1729,7 @@ function render() {
   syncControls();
   if (inst === "img") { IMG.render(); scheduleHash(); return; }
   if (inst === "tel") { TEL.render(); scheduleHash(); return; }
+  if (inst === "int") { INT.render(); scheduleHash(); return; }
   curP = params();
   cur = IX.design(curP);
   // a wide detector chip (2k x 4k and the like) leaves room: the layout panel takes more of the width
@@ -1783,35 +1787,37 @@ function fitPanels() {
   if (innerWidth <= 860) { const had = !!root.style.getPropertyValue("--ph"); root.style.removeProperty("--ph"); return had; }
   if (lvExpanded) return false;
   // (in the Telescopes mode the layout's height sets the left column's, and the pupil-and-image panel stretches to it)
-  const h0 = $(inst === "img" ? "cvS" : inst === "tel" ? "cvTL" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : inst === "tel" ? ".tcontrols" : ".controls.only-spec");
+  const h0 = $(inst === "img" ? "cvS" : inst === "tel" ? "cvTL" : inst === "int" ? "cvA" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : inst === "tel" ? ".tcontrols" : inst === "int" ? ".rcontrols" : ".controls.only-spec");
   if (!h0 || !ctl) return false;
   const want = Math.round(Math.min(PH_MAX, Math.max(PH_MIN, h0 + innerHeight - 6 - (ctl.getBoundingClientRect().bottom + scrollY))));
   if (Math.abs(want - h0) < 1) return false;
   root.style.setProperty("--ph", want + "px");
   return true;
 }
-window.addEventListener("resize", () => { fitPanels(); if (inst === "img") { IMG.redraw(); return; } if (inst === "tel") { TEL.redraw(); return; } if (cur) { drawLayout(cur, curP); drawRight(); } });
+window.addEventListener("resize", () => { fitPanels(); if (inst === "img") { IMG.redraw(); return; } if (inst === "tel") { TEL.redraw(); return; } if (inst === "int") { INT.redraw(); return; } if (cur) { drawLayout(cur, curP); drawRight(); } });
 
 // test hooks
 window.__instex = {
   state: () => clone(S), design: () => cur, params: () => curP, spGeo: () => spGeo, rot3: () => ({ m: R3.m.map(r => r.slice()), az: R3.az, el: R3.el }),
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
-  inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test, tel: () => TEL.test,
+  inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test, tel: () => TEL.test, int: () => INT.test,
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom }, labels: () => placedLabels.map(l => ({ ...l })),
 };
 
 // the imager: its own module, handed the shared helpers
 IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
 TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
-const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips.", tel: "Back to the first telescope at its first focus." };
+INT = window.INTAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
+const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips.", tel: "Back to the first telescope at its first focus.", int: "Back to the defaults for this array: its default configuration, band and source." };
 function syncInst() {
   $("iSpec").setAttribute("aria-pressed", String(inst === "spec"));
   $("iImg").setAttribute("aria-pressed", String(inst === "img"));
   $("iTelMode").setAttribute("aria-pressed", String(inst === "tel"));
+  $("iIntMode").setAttribute("aria-pressed", String(inst === "int"));
   $("reset").title = RESET_TITLE[inst];
 }
-for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"], ["iTelMode", "tel"]]) $(id).addEventListener("click", () => {
+for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"], ["iTelMode", "tel"], ["iIntMode", "int"]]) $(id).addEventListener("click", () => {
   if (inst === v) return;
   inst = v; zoom.reset(); lview.fit = true; stopCoast(); schedule();
 });

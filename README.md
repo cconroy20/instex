@@ -5,6 +5,9 @@ camera, the disperser and the detector; read off the resolving power, wavelength
 dispersion, sampling and pixel scale; see the instrument drawn to scale (in the plane of the dispersion,
 along the slit, or in 3D) and the spectra as they fall on the detector.
 
+A fourth mode, **Interferometer** (2026-10-20), is a radio array: the uv plane its baselines sample as the Earth turns,
+and the synthesized beam and dirty image of a model sky. See **Interferometer mode** below.
+
 A second mode, **Imager** (the Spectrograph | Imager switch in the header, 2026-10-19), does the same for
 imaging: a telescope (prime focus, Cassegrain, Schmidt or refractor) feeding a detector mosaic directly or
 through a reimager (collimator, pupil and filter, camera); read off the pixel scale, field, sampling and étendue;
@@ -200,6 +203,65 @@ length, off-axis apertures, mirror spans, hexagon lattice rotation, round and el
 widening and bounded struts, blocking polygons. The pupil and the images were drawn upside down before (HST's pads);
 +y is now up. The collecting area is geometric; each focus lists its reflections,
 but no reflectivity is applied.
+
+## Interferometer mode
+
+The fourth header button (2026-10-20; Charlie: "another mode - radio interferometry? UV planes and all that"; his calls:
+radio only, VLA and ALMA to start, CLEAN later). An array of antennas at one site: the **Array** panel draws the
+antennas on the ground (north up, east right; click an antenna to switch it off, drag one to move it, Restore puts the
+array back), and **uv plane and images** is a 2 × 2 panel: the uv coverage (each sample dark blue, its mirror point
+(−u, −v) pale; or the visibility amplitude of the model sky against uv distance), the synthesized (dirty) beam, the
+model sky, and the dirty image, the three images over one Field (slider in the panel header), linear, each scaled to
+its own peak, negative values blue, east to the left. ▶ Play runs the hour angle through the observation in six
+seconds (the moment played in orange); any change stops it. Boxes: Array (configuration, elevation limit; antennas,
+baselines, longest and shortest baseline), Observation (declination, duration centered on transit, band, frequency,
+bandwidth; hours above the limit, elevation at transit, primary beam), Image (natural, robust or uniform weighting,
+the robust parameter, the sky model and its size; the fitted beam, the peak sidelobe, the largest scale). The Array
+box's Layout menu (his ask, 10-20: "distribute antenna randomly or uniformly over an area, or in various shapes (L, Y,
+etc.) with the number of antenna an adjustable parameter"): As built (the configuration's pads) or a made-up layout of
+2-200 of the array's dishes at its site, with an Antennas and a Size slider (Size = the longest baseline): Random
+(uniform over a disc, no two dishes within 1.2 diameters; seeded, ↻ draws anew), Grid (square, the diagonal = Size),
+Line east-west, L, T, Y and Cross (one antenna at the junction, the rest evenly along the arms), Ring; a layout too
+crowded for its dishes is spread to 1.2 diameters. A regular grid's baselines are few and repeated (36 antennas: 630
+baselines, 60 different), so its snapshot beam has grating lobes near the peak (88%); an even Y's snapshot sidelobe is
+41% against the real VLA's 27%. No strip,
+and the header note on optical presets is hidden in this mode.
+
+Engine (web/interf.js, window.RI): ground baselines (east, north, up) turned to the equatorial X, Y, Z at the site's
+latitude, (u, v) = the baseline's projection toward the source at hour angle H in wavelengths, samples dropped while the
+source is below the elevation limit; 30 s steps, coarsened (with the channels across a wide band, spaced like the time
+samples on the longest track) to keep at most 2 million samples. Weights: natural, uniform (1 / the count in the
+sample's uv cell, mirror points included) or Briggs robust (f² = (5 × 10^−R)² / (Σ W² / Σ w)); the cell is 1/250 of the
+uv extent, or 1.5 × the spacing of the samples on the longest track if coarser (so that a sparse track fills its cells).
+Gridding nearest-cell, each sample and its mirror; one complex FFT gives beam + i image (W and W V are Hermitian). The
+image grid spans twice the field (the sky and sidelobes do not wrap into the field), up to 1024 across (512 while a
+slider moves, refined 0.28 s after it stops). The sky models (point, two points east-west, Gaussian, uniform disc, thin
+ring 0.9 to 1 of the radius), times a Gaussian primary beam of the observatory's half-power width, are imaged by FFT;
+the amplitude plot uses the closed forms (J1 by its one-period integral, tabulated to x = 30, asymptotic beyond). The
+beam: an elliptical Gaussian fitted (least squares on ln b) to the main lobe above half the peak, on a grid of its own
+(pixels 1/20 of the shortest fringe); the peak sidelobe: the largest |b| outside the main lobe (b > 0 around the
+center, at most 1.5 FWHM out). The largest scale: 0.983 λ / L5, L5 the 5th-percentile ground baseline (ALMA's
+definition, used for both arrays).
+
+Arrays (web/rpresets.js, built by `node make_rpresets.js` from data/interf/*.json; sources in data/interf/*.md):
+VLA (A, B, C, D from CASA's vla.*.cfg, cross-checked against NRAO's pad table to 2 mm rms; latitude of the pad table's
+array center; 25 m; the 8° hard elevation limit; bands P to Q (the 4-band system is left out: under development, and the
+primary-beam relation is stated from P up); the primary beam 42′ / ν(GHz), 50′ / ν(GHz) at P band). ALMA (Cycle 13,
+current 1 Oct 2026 to 30 Sep 2027: the ten 12-m configurations C-1 to C-10 from CASA's alma.cycle13.N.cfg, byte-identical
+to Cycles 11 and 12 and to the Science Portal's zip; these are the notional 43-antenna sets (the 50-antenna pad lists are
+NOT FOUND); positions about the Technical Handbook's array location; 12 m; the 2° hardware limit (2001 Project Book:
+no current value found; the Proposer's Guide asks only that a source transit above 20°); the primary beam 1.13 λ / D;
+Bands 1-10 with 7.5 GHz per polarization, which the page lays out as one contiguous band about the frequency (ALMA's
+basebands sit in two sidebands, so the real coverage is two separated pieces)). ALMA against its Technical Handbook:
+the longest baselines match Table 7.3 exactly, the 5th and 80th percentile baselines to 2% and 1%, 0.983 λ / L5 the
+maximum recoverable scales to 3%, and the robust-0.5 beam (1 h at −23°) the Handbook's 0.574 λ / L80 to 8%; the Cycle 13
+resolution table's beams are 12-24% wider for C-2 to C-10 because they describe the 50-antenna configurations. Peak
+sidelobes are the Handbook's order (5-20% vs 5-13%), not equal (its measuring region is not stated).
+Found while building: the uniform-weighted beam depends on the uv cell (an image-size choice the OSS does not state):
+with the page's cell the VLA beams are 0.80-0.86 of the OSS table, approaching 0.96 with cells for an image ~3000 beams
+across and 5 s sampling; natural / uniform (1.47) and snapshot / full (1.28) agree with the OSS's ~1.5 and ~1.3. The
+cfg files' shortest baselines are longer than the OSS's Bmin (C: 78 m vs 35.5 m: the OSS puts one north-arm antenna on
+pad N1 in C, which the cfg file does not).
 
 ## Imager mode
 
