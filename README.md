@@ -145,7 +145,10 @@ entrance pupil beside the image of a star it makes. The pupil (web/tpupil.js) is
 central obstruction, spider vanes (each pixel's coverage by a vane found exactly from the pixel's overlap with the
 vane's strip: sampling quantized a 2.6 cm vane by 9%) and pads; the image is |FFT|², drawn on a log (five decades) or
 linear stretch. The strip: collecting area (measured from the mask) and the equal-area circle, focal ratio and focal
-length, plate scale, the diffraction FWHM (measured from the image: within 0.3% of the annular Airy FWHM), field.
+length, plate scale, the diffraction FWHM (measured from the image: within 0.3% of the annular Airy FWHM); then (his
+asks, 10-19) the field was dropped and then the whole strip: the Telescope box now lists the focal ratio, focal
+length, plate scale and collecting area, and the Image box the diffraction-limited FWHM (the focus's field still
+sets the drawing's bundles).
 Telescopes (web/tpresets.js; sources data/telescopes/{keck,magellan,hst}.md), one menu line each: Keck 10 m (Keck I
 and II as one, the same design: 36 segments of 0.9 m sides, a 2.6 m obstruction, six 25 mm vanes; Cassegrain, both
 Nasmyths, bent Cassegrain, and the historical f/25 of Keck I and f/40 of Keck II, whose undersized secondary is the
@@ -168,7 +171,19 @@ diffraction, as in the Imager). Readouts: the seeing-limited FWHM (measured) and
 diffraction-limited image of the same star. HST's seeing-limited image is labeled "if on the ground". Checked
 against an independent 1-D Hankel transform for a round pupil (FWHM and peak within 0.05%), the seeing → 0 limit
 (the Airy FWHM) and the large-telescope limit (the seeing set). The FFT now tabulates its twiddles and copies
-columns out (8× faster: 30 ms for 1024²). The collecting area is geometric; each focus lists its reflections,
+columns out (8× faster: 30 ms for 1024²). Keck's focal ratios (his question, 10-19: the strip said f/13.7, the focus f/15): the strip divides the
+focal length by the full 10.949 m outline (the beam drawn), while Keck names its foci by the nominal 10 m (KOR90 Sec.
+4.1); his choice "#1": keep both, the strip's small text adds "f/15 on the nominal 10 m" (tpresets nominalD), with
+the reason in the tooltip. Then (his asks, 10-19): "build the 2x2", "remove the pupil box at bottom right", "keep the angular
+scale for the two images the same and fixed, with a slider bar to adjust manually": the Pupil box is gone and the
+pupil-and-image panel runs the full height beside the layout and its two control boxes (a .tgrid: left column =
+layout + controls, fitPanels sizes the layout). The panel is 2 x 2: the entrance pupil and the radial profiles (both
+images' ring averages for the same star, relative to the diffraction-limited peak, log-log, a dashed line at the
+images' edge) above, the diffraction-limited and seeing-limited images below over one field, set by the Field slider
+in the panel header (0.05–5″, default 2″, link key t.field; kept across telescopes, bands and seeing). Both images
+come from one grid (TP.seeingGrid: 1.5 times the field or 6 seeing FWHM, rounded up to a few sizes, 2048 cells when
+the pupil needs more than 512), the diffraction-limited one from the fine grid (8 pixels per λ / D) while the field
+fits inside 120 λ / D. The collecting area is geometric; each focus lists its reflections,
 but no reflectivity is applied.
 
 ## Imager mode

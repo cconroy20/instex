@@ -775,13 +775,17 @@ const rel = (a, b) => Math.abs(a / b - 1);
   await go();
   await ev(`document.getElementById("iTelMode").click()`); await sleep(700);
   {
-    const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, stats: document.querySelectorAll("#stats .stat").length, hash: location.hash, menu: document.getElementById("preset").options.length, groups: document.querySelectorAll("#preset optgroup").length, nt: window.IX_TELESCOPES.length, names: [...document.getElementById("preset").options].map(o => o.textContent) })`);
+    const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, strip: getComputedStyle(document.getElementById("stats")).display, hash: location.hash, menu: document.getElementById("preset").options.length, groups: document.querySelectorAll("#preset optgroup").length, nt: window.IX_TELESCOPES.length, names: [...document.getElementById("preset").options].map(o => o.textContent) })`);
     check("Telescopes switch: its panels shown, the others hidden", /inst-tel/.test(st.cls) && st.tel !== "none" && st.img === "none", st.cls);
-    check("Telescopes: five figures in the strip, one menu line per telescope (no groups), the link says inst=tel", st.stats === 5 && st.menu === st.nt + 1 && st.groups === 0 && /inst=tel/.test(st.hash), JSON.stringify(st));
+    check("Telescopes: no summary strip, one menu line per telescope (no groups), the link says inst=tel", st.strip === "none" && st.menu === st.nt + 1 && st.groups === 0 && /inst=tel/.test(st.hash), JSON.stringify(st));
     const ri = await ev(`document.getElementById("rTelT").textContent`);
     check("Telescopes: no instruments or locations listed", !/Instruments|Where/.test(ri), ri.slice(0, 120));
     const cap = await ev(`document.getElementById("tlSub").hidden`);
     check("Telescopes: no caption under the optical layout", cap === true, String(cap));
+    const fr = await ev(`[...document.querySelectorAll("#rTelT .rd")].map(e => e.textContent).find(x => /Focal ratio/.test(x))`);
+    check("Telescopes: Keck's focal ratio gives the name's f/15 on the nominal 10 m", /f\/13\.7/.test(fr) && /f\/15 on the nominal 10 m/.test(fr), fr);
+    const out = await ev(`document.getElementById("rTelT").textContent + " | " + document.getElementById("rImgT").textContent`);
+    check("Telescopes: the boxes carry the plate scale, collecting area and diffraction FWHM", /Plate scale1\.38″\/mm/.test(out) && /Collecting area71\.5 m²/.test(out) && /Diffraction-limited FWHM11\.2 mas/.test(out), out);
   }
   // the two Nasmyth platforms are drawn on opposite sides; links to the old Keck I/II and Baade/Clay entries still load
   {
@@ -826,6 +830,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await nav("#inst=tel&t.tel=hst&t.focus=cass&t.see=1.5");
     const k = await ev(`({ s: window.__instex.tel().state().see, v: document.getElementById("vtSee").textContent })`);
     check("Telescopes: a link with t.see sets the seeing", k.s === 1.5 && k.v === "1.5″", JSON.stringify(k));
+    // the 2 x 2 panel: no Pupil box; the panel runs the full height beside the layout and its controls; the field of
+    // the two images is the reader's, kept across telescopes and bands
+    await nav("#inst=tel&t.tel=hst&t.focus=cass&t.field=0.5");
+    const L = await ev(`(() => { const T = window.__instex.tel(), a = T.state().field; T.set({ tel: "keck", focus: "", band: "Ks" }); const r = document.querySelector(".tright").getBoundingClientRect(), c = document.querySelector(".tcontrols").getBoundingClientRect(), l = document.getElementById("tlPanel").getBoundingClientRect();
+      return { a, b: T.state().field, v: document.getElementById("vtField").textContent, pup: !!document.getElementById("rPupT"), boxes: document.querySelectorAll(".tcontrols section").length, top: r.top - l.top, bottom: r.bottom - c.bottom }; })()`);
+    check("Telescopes: no Pupil box (two control boxes)", !L.pup && L.boxes === 2, JSON.stringify(L));
+    check("Telescopes: the pupil-and-image panel spans the layout and the controls", Math.abs(L.top) < 1.5 && Math.abs(L.bottom) < 1.5, JSON.stringify(L));
+    check("Telescopes: the images' field (t.field) is kept across telescopes and bands", L.a === 0.5 && L.b === 0.5 && L.v === "0.50″", JSON.stringify(L));
   }
   await shot("11_telescopes.png");
 

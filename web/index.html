@@ -110,16 +110,37 @@
     </section>
   </div>
 
-  <div class="panels only-tel" id="telPanels">
-    <section class="panel" id="tlPanel">
-      <div class="ph"><h2 title="The telescope drawn to scale at the chosen focus, light from the sky arriving from the left. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves. Scroll to zoom, drag to pan, double-click to refit.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
-        <button id="tlReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Refit</button></div>
-      <canvas id="cvTL" aria-label="The telescope"></canvas>
-      <div id="tlSub" class="lcap" hidden></div>
-    </section>
-    <section class="panel">
-      <div class="ph"><h2 title="Left: the entrance pupil to scale (the primary, less the central obstruction, the spider vanes and anything else in the beam). Middle: the diffraction-limited image of a star the pupil makes, with perfect optics and no atmosphere (the Fourier transform of the pupil, at the band's wavelength). Right: the seeing-limited image, through a Kolmogorov atmosphere in a long exposure (the telescope's transfer function times the atmosphere's), on a larger angular scale: see the scale bars. Log stretch over five decades, or linear. The pupil's shape sets the pattern: segments give a six-fold pattern, vanes give spikes.">Pupil and image</h2></div>
-      <canvas id="cvP" aria-label="The pupil and the image of a star"></canvas>
+  <div class="tgrid only-tel" id="telPanels">
+    <div class="tleft">
+      <section class="panel" id="tlPanel">
+        <div class="ph"><h2 title="The telescope drawn to scale at the chosen focus, light from the sky arriving from the left. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves. Scroll to zoom, drag to pan, double-click to refit.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
+          <button id="tlReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Refit</button></div>
+        <canvas id="cvTL" aria-label="The telescope"></canvas>
+        <div id="tlSub" class="lcap" hidden></div>
+      </section>
+      <div class="controls tcontrols">
+        <section>
+          <h2 title="The telescope's foci: one primary with different secondaries (and flat tertiaries) gives different focal ratios and plate scales.">Telescope</h2>
+          <div class="caserow" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see."><span>Focus</span><select id="tFocus"></select></div>
+          <div class="rds" id="rTelT"></div>
+        </section>
+        <section>
+          <h2 title="The image of a star: the band sets the wavelength of the diffraction pattern, and the seeing the blur of the atmosphere.">Image</h2>
+          <div class="caserow" title="The band observed: its wavelength sets the scale of the diffraction pattern (λ / D)."><span>Band</span><select id="tBand"></select></div>
+          <div class="caserow" title="Log: five decades, to show the rings and spikes. Linear: the core as the eye sees it."><span>Stretch</span>
+            <span class="seg sm"><button id="tsLog" type="button">Log</button><button id="tsLin" type="button">Linear</button></span></div>
+          <div class="ctl" title="FWHM of a star's image from the atmosphere alone, at the band's wavelength (the seeing-limited image adds the telescope's diffraction).">
+            <label for="tSee"><span>Seeing FWHM</span><span class="val" id="vtSee"></span></label>
+            <input type="range" id="tSee" min="-1" max="0.6" step="0.005">
+          </div>
+          <div class="rds" id="rImgT"></div>
+        </section>
+      </div>
+    </div>
+    <section class="panel tright">
+      <div class="ph"><h2 title="Top left: the entrance pupil to scale (the primary, less the central obstruction, the spider vanes and anything else in the beam). Bottom: the image of a star, diffraction-limited (perfect optics, no atmosphere: the Fourier transform of the pupil, at the band's wavelength) and seeing-limited (through a Kolmogorov atmosphere in a long exposure: the telescope's transfer function times the atmosphere's), both over the same field, set by the slider. Each image is scaled to its own peak, on a log stretch over five decades or linearly. Top right: the two images' radial profiles for the same star, so the same total light, relative to the diffraction-limited peak; the dashed line marks the edge of the images.">Pupil and image</h2><span class="sp" aria-hidden="true"></span>
+        <span class="hdepth" title="The field of both images of a star, in arcseconds across: the same for both, and kept when the telescope, band or seeing changes."><label for="tField">Field</label><input type="range" id="tField" min="-1.301" max="0.699" step="0.005"><span class="val" id="vtField"></span></span></div>
+      <canvas id="cvP" aria-label="The pupil, the radial profiles, and the diffraction- and seeing-limited images of a star"></canvas>
     </section>
   </div>
 
@@ -353,28 +374,6 @@
         <input type="range" id="iGap" min="0" max="20" step="0.05">
       </div>
       <div class="rds" id="rMosI"></div>
-    </section>
-  </div>
-  <div class="controls only-tel tcontrols">
-    <section>
-      <h2 title="The telescope's foci: one primary with different secondaries (and flat tertiaries) gives different focal ratios and plate scales.">Telescope</h2>
-      <div class="caserow" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see."><span>Focus</span><select id="tFocus"></select></div>
-      <div class="rds" id="rTelT"></div>
-    </section>
-    <section>
-      <h2 title="The image of a star: the band sets the wavelength of the diffraction pattern, and the seeing the blur of the atmosphere.">Image</h2>
-      <div class="caserow" title="The band observed: its wavelength sets the scale of the diffraction pattern (λ / D)."><span>Band</span><select id="tBand"></select></div>
-      <div class="caserow" title="Log: five decades, to show the rings and spikes. Linear: the core as the eye sees it."><span>Stretch</span>
-        <span class="seg sm"><button id="tsLog" type="button">Log</button><button id="tsLin" type="button">Linear</button></span></div>
-      <div class="ctl" title="FWHM of a star's image from the atmosphere alone, at the band's wavelength (the seeing-limited image adds the telescope's diffraction).">
-        <label for="tSee"><span>Seeing FWHM</span><span class="val" id="vtSee"></span></label>
-        <input type="range" id="tSee" min="-1" max="0.6" step="0.005">
-      </div>
-      <div class="rds" id="rImgT"></div>
-    </section>
-    <section>
-      <h2 title="The entrance pupil: what collects the light.">Pupil</h2>
-      <div class="rds" id="rPupT"></div>
     </section>
   </div>
 </main>

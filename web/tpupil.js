@@ -98,26 +98,33 @@ function pupilImage(pu, eps, n, ext) { return Float32Array.from(raster(pu, eps, 
 // Tokovinin 2002 Eqs. 15, 16), printed as 3.44 by Coulman 1985 Eq. 5.2 after Fried 1966.  K_FWHM: 0.976 (Martinez et
 // al. 2010, The Messenger 141, note 1), the FWHM of that transfer function's image (0.9755 by transform; Sarazin &
 // Roddier and Tokovinin round to 0.98).  Sources: data/telescopes/seeing.md.  lam in m, the seeing FWHM in radians.
-// The grid: N cells of dx, the pupil `across` cells wide (at most N / 2, so the autocorrelation does not wrap), the
-// image pixel lam / (N dx).  Also returned: the peak relative to the diffraction-limited image of the same flux
-// (the sum of the transfer function with and without the atmosphere).
-const K_OTF = 3.44, K_FWHM = 0.976;
-function seeingPSF(pu, eps, lam, see) {
-  const ld = lam / pu.D, r0 = K_FWHM * lam / see, fw = Math.hypot(see, 1.03 * ld);
-  const across = Math.round(Math.min(N / 2, Math.max(128, 12 * fw / ld)));
-  const dx = pu.D / across, { m: re } = raster(pu, eps, N, dx, 2), im = new Float64Array(N * N);
-  fft2(re, im, N);
+// The grid: n cells of dx, the pupil `across` cells wide (at most n / 2, so the autocorrelation does not wrap), the
+// image pixel lam / (n dx) = (across / n) lam / D.  The grid covers 6 FWHM, or 1.5 times the field drawn, whichever
+// is wider; across is rounded up to one of a few sizes (a small change of the field drawn reuses the last image).
+// Returned with the seeing-limited image: the diffraction-limited image on the same grid, and the seeing-limited
+// peak relative to the diffraction-limited one for the same light (the sums of the transfer function with and
+// without the atmosphere).
+const K_OTF = 3.44, K_FWHM = 0.976, ACROSS = [128, 192, 256, 384, 512, 768, 1024];
+function seeingGrid(pu, lam, see, field = 0) {
+  const ld = lam / pu.D, want = Math.max(1.5 * field, 6 * Math.hypot(see, 1.03 * ld)) / ld;
+  return ACROSS.find(a => a >= want) || ACROSS[ACROSS.length - 1];
+}
+function seeingPSF(pu, eps, lam, see, across = seeingGrid(pu, lam, see)) {
+  const r0 = K_FWHM * lam / see, n = across > 512 ? 2048 : 1024;
+  const dx = pu.D / across, { m: re } = raster(pu, eps, n, dx, 2), im = new Float64Array(n * n);
+  fft2(re, im, n);
   for (let k = 0; k < re.length; k++) { re[k] = re[k] ** 2 + im[k] ** 2; im[k] = 0; }
-  fft2(re, im, N);                                                   // the transfer function (even: the sign of s does not matter)
+  const diff = centered(re, im, n, false);                          // the diffraction-limited image, on this grid
+  fft2(re, im, n);                                                   // the transfer function (even: the sign of s does not matter)
   let s0 = 0, s1 = 0;
-  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
-    const k = j * N + i, sx = (i < N / 2 ? i : i - N) * dx, sy = (j < N / 2 ? j : j - N) * dx;
+  for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+    const k = j * n + i, sx = (i < n / 2 ? i : i - n) * dx, sy = (j < n / 2 ? j : j - n) * dx;
     const a = Math.exp(-K_OTF * Math.pow(Math.hypot(sx, sy) / r0, 5 / 3));
     s0 += re[k]; re[k] *= a; im[k] *= a; s1 += re[k];
   }
-  fft2(re, im, N);
-  const psf = centered(re, im, N, false);
-  return { psf, pix: lam / (N * dx), fwPix: fwhmPix(psf, N), r0, peak: s1 / s0, across };
+  fft2(re, im, n);
+  const psf = centered(re, im, n, false);
+  return { psf, diff, n, pix: lam / (n * dx), fwPix: fwhmPix(psf, n), r0, peak: s1 / s0, across };
 }
 // radix-2 FFT in place (re, im of length n, contiguous), with the bit reversal and twiddles tabulated once per n;
 // the 2-D transform by rows, then by columns copied out to a contiguous buffer (strided access is slow)
@@ -155,7 +162,7 @@ function fft2(re, im, n) {
 }
 
 
-const API = { N, Q, K_OTF, K_FWHM, inPupil, raster, pupilAndPSF, pupilImage, seeingPSF, fft2 };
+const API = { N, Q, K_OTF, K_FWHM, inPupil, raster, pupilAndPSF, pupilImage, seeingGrid, seeingPSF, fft2 };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.TP = API;
 })(typeof window !== "undefined" ? window : globalThis);

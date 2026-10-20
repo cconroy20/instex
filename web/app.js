@@ -1782,7 +1782,8 @@ function fitPanels() {
   const root = document.documentElement;
   if (innerWidth <= 860) { const had = !!root.style.getPropertyValue("--ph"); root.style.removeProperty("--ph"); return had; }
   if (lvExpanded) return false;
-  const h0 = $(inst === "img" ? "cvS" : inst === "tel" ? "cvP" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : inst === "tel" ? ".controls.only-tel" : ".controls.only-spec");
+  // (in the Telescopes mode the layout's height sets the left column's, and the pupil-and-image panel stretches to it)
+  const h0 = $(inst === "img" ? "cvS" : inst === "tel" ? "cvTL" : "cvD").clientHeight, ctl = document.querySelector(inst === "img" ? ".controls.only-img" : inst === "tel" ? ".tcontrols" : ".controls.only-spec");
   if (!h0 || !ctl) return false;
   const want = Math.round(Math.min(PH_MAX, Math.max(PH_MIN, h0 + innerHeight - 6 - (ctl.getBoundingClientRect().bottom + scrollY))));
   if (Math.abs(want - h0) < 1) return false;
