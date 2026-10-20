@@ -19,15 +19,18 @@ function toXYZ(e, n, u, lat) {
   const sl = Math.sin(lat), cl = Math.cos(lat);
   return [-n * sl + u * cl, e, n * cl + u * sl];
 }
-// the baselines between the antennas switched on (on !== false): X, Y, Z (m) and the length on the ground (m)
+// the baselines between the antennas switched on (on !== false): X, Y, Z (m) and the length on the ground (m), as
+// typed arrays (a 2000-antenna array has two million baselines)
 function baselines(ants, lat) {
-  const on = ants.filter(a => a.on !== false), out = [];
-  for (let i = 0; i < on.length; i++) for (let j = i + 1; j < on.length; j++) {
+  const on = ants.filter(a => a.on !== false), N = on.length, nb = N * (N - 1) / 2;
+  const X = new Float64Array(nb), Y = new Float64Array(nb), Z = new Float64Array(nb), len = new Float64Array(nb);
+  const sl = Math.sin(lat), cl = Math.cos(lat);
+  let k = 0;
+  for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++, k++) {
     const de = on[j].e - on[i].e, dn = on[j].n - on[i].n, du = (on[j].u || 0) - (on[i].u || 0);
-    const [X, Y, Z] = toXYZ(de, dn, du, lat);
-    out.push({ i, j, X, Y, Z, len: Math.hypot(de, dn, du) });
+    X[k] = -dn * sl + du * cl; Y[k] = de; Z[k] = dn * cl + du * sl; len[k] = Math.hypot(de, dn, du);
   }
-  return out;
+  return { X, Y, Z, len, length: nb };
 }
 // (u, v) in the baseline's units for hour angle H and declination dec (radians)
 function uvAt(b, H, dec) {
@@ -55,7 +58,7 @@ function hoursUp(dur, dec, lat, elMin) {
 // whole observation) }. The samples (wavelengths) run over the hour angles above the elevation limit, then the
 // baselines, then the frequencies; the time step coarsens to keep the count within the budget.
 function sample(o) {
-  const B = baselines(o.ants, o.lat), nb = B.length;
+  const B = baselines(o.ants, o.lat), nb = B.length, BX = B.X, BY = B.Y, BZ = B.Z;
   const nCh = o.bw > 0 ? Math.max(2, o.nCh || 8) : 1;
   const nus = nCh === 1 ? [o.nu] : Array.from({ length: nCh }, (_, k) => o.nu - o.bw / 2 + o.bw * k / (nCh - 1));
   let step = o.step || 1 / 60;
@@ -67,18 +70,47 @@ function sample(o) {
   let k = 0;
   for (const h of up) {
     const H = h * 15 * DEG, sh = Math.sin(H), ch = Math.cos(H);
-    for (const b of B) {
-      const u0 = sh * b.X + ch * b.Y, v0 = -sd * ch * b.X + sd * sh * b.Y + cd * b.Z;
+    for (let q = 0; q < nb; q++) {
+      const u0 = sh * BX[q] + ch * BY[q], v0 = -sd * ch * BX[q] + sd * sh * BY[q] + cd * BZ[q];
       for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; k++; }
     }
   }
   return { u, v, n: m, nb, nCh, nus, Hs, up, step, B };
 }
 
+// ------------------------------------------------------------------ a single dish
+// A filled aperture, an ellipse ew x ns (m) uniformly illuminated, at frequency nu (Hz): the dish measures every
+// spacing within the aperture at once, each with the weight of the aperture's autocorrelation (the overlap of two
+// copies of the ellipse that far apart, the "Chinese hat" (2 / pi) (acos x - x sqrt(1 - x^2)) of the scaled spacing
+// x), so the synthesized beam is the diffraction pattern (the Airy pattern's power). Samples on a lattice over half
+// the uv plane (the grid adds the mirror points; the center counts half), with the weights in w0.
+function aperture(ew, ns, nu, R = 72) {
+  const lam = C / nu, au = ew / lam, av = ns / lam, uu = [], vv = [], ww = [];
+  for (let j = 0; j <= R; j++) for (let i = -R; i <= R; i++) {
+    if (j === 0 && i < 0) continue;
+    const u = i / R * au, v = j / R * av, x = Math.hypot(i / R, j / R);
+    if (x >= 1) continue;
+    uu.push(u); vv.push(v); ww.push((i === 0 && j === 0 ? 0.5 : 1) * (2 / Math.PI) * (Math.acos(x) - x * Math.sqrt(1 - x * x)));
+  }
+  return { u: Float32Array.from(uu), v: Float32Array.from(vv), w0: Float32Array.from(ww), n: uu.length, nb: 0, nCh: 1, nus: [nu], Hs: [0], up: [0], step: 0, single: { ew, ns, nu } };
+}
+// the aperture's weights put straight onto an n x n grid of cells du wide (the lattice of samples above, gridded,
+// would alias against the grid's cells): each cell the autocorrelation at the cell's center
+function apertureGrid(ap, n, du) {
+  const g = new Float64Array(n * n), lam = C / ap.nu, au = ap.ew / lam, av = ap.ns / lam, h = n / 2;
+  const P = Math.min(h - 1, Math.ceil(au / du)), Q = Math.min(h - 1, Math.ceil(av / du));
+  for (let q = -Q; q <= Q; q++) for (let p = -P; p <= P; p++) {
+    const x = Math.hypot(p * du / au, q * du / av);
+    if (x < 1) g[((q + n) % n) * n + ((p + n) % n)] = (2 / Math.PI) * (Math.acos(x) - x * Math.sqrt(1 - x * x));
+  }
+  return { g, drop: au > (h - 1) * du || av > (h - 1) * du ? 1 : 0 };
+}
+
 // ------------------------------------------------------------------ weighting
 // Each sample's weight: natural (all 1), uniform (1 / W, with W the count of samples and mirror points in the
 // sample's cell, cell wavelengths wide) or Briggs robust R (1 / (1 + W f^2), f^2 = (5 x 10^-R)^2 / (sum W^2 / sum w)).
 function weigh(S, scheme, R, cell) {
+  if (S.w0) return Float32Array.from(S.w0);                          // a single dish: the aperture's own weights
   const w = new Float32Array(S.n).fill(1);
   if (scheme === "natural" || !S.n) return w;
   let M = 0;
@@ -142,10 +174,33 @@ function visibilities(s, n) {
 const RING_IN = 0.9;
 // The model on a wrapped n x n grid of pixels pix (radians) wide, each pixel's flux (sub-sampled over the pixel),
 // times a Gaussian primary beam of FWHM pb (radians; 0 for none).
-function skyImage(model, size, n, pix, pb) {
+// An image model: img = { w, h, v, scale } (brightness v * scale, row 0 at the top = north, column 0 at the left =
+// east; scale 1 when absent), size = the
+// image's width (radians), centered; each grid pixel takes the image's mean over the pixel (sub-sampled
+// bilinearly), so the flux follows the brightness times the area.
+function skyImage(model, size, n, pix, pb, img) {
   const s = new Float64Array(n * n), h = n / 2;
   const put = (i, j, f) => { if (i <= -h || i >= h || j <= -h || j >= h) return; s[((j + n) % n) * n + ((i + n) % n)] += f; };
   const A = (l, m) => (pb > 0 ? Math.exp(-4 * Math.LN2 * (l * l + m * m) / (pb * pb)) : 1);
+  if (model === "image") {
+    if (!img) return s;
+    const ip = size / img.w, hw = img.w * ip / 2, hh = img.h * ip / 2, sc = img.scale || 1;
+    const at = (l, m) => {
+      const x = (hw - l) / ip - 0.5, y = (hh - m) / ip - 0.5, i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j;
+      const v = (a, b) => (a < 0 || b < 0 || a >= img.w || b >= img.h ? 0 : img.v[b * img.w + a] * sc);
+      return v(i, j) * (1 - fx) * (1 - fy) + v(i + 1, j) * fx * (1 - fy) + v(i, j + 1) * (1 - fx) * fy + v(i + 1, j + 1) * fx * fy;
+    };
+    const Ki = Math.min(h - 1, Math.ceil(hw / pix) + 1), Kj = Math.min(h - 1, Math.ceil(hh / pix) + 1), sub = Math.max(1, Math.min(6, Math.ceil(pix / ip)));
+    let tot = 0;
+    const vals = [];
+    for (let j = -Kj; j <= Kj; j++) for (let i = -Ki; i <= Ki; i++) {
+      let a = 0;
+      for (let b = 0; b < sub; b++) for (let c = 0; c < sub; c++) a += at((i + (c + 0.5) / sub - 0.5) * pix, (j + (b + 0.5) / sub - 0.5) * pix);
+      if (a > 0) { vals.push([i, j, a]); tot += a; }
+    }
+    if (tot > 0) for (const [i, j, a] of vals) put(i, j, a / tot * A(i * pix, j * pix));
+    return s;
+  }
   if (model === "point") { put(0, 0, A(0, 0)); return s; }
   if (model === "double") {
     // each point shared among its four nearest pixels (bilinear)
@@ -195,6 +250,28 @@ function vis(model, size, u, v) {
   if (model === "disc") return Lam(Math.PI * size * q);
   const r2 = size / 2, r1 = RING_IN * r2;
   return (r2 * r2 * Lam(2 * Math.PI * q * r2) - r1 * r1 * Lam(2 * Math.PI * q * r1)) / (r2 * r2 - r1 * r1);
+}
+
+// An image's pyramid: each level the one before averaged 2 x 2 (kept as 16-bit, scaled), down to 256 pixels across;
+// level 0 is the image itself ({ w, h, v, scale }). The page images the sky from the level whose pixels are just
+// below half the grid's, so that the sampling in skyImage averages the image over each grid pixel.
+function pyramid(img0) {
+  const L = [img0];
+  while (L[L.length - 1].w > 256 && L[L.length - 1].h > 256) {
+    const a = L[L.length - 1], w = Math.floor(a.w / 2), h = Math.floor(a.h / 2), v = new Uint16Array(w * h), f = (a.scale || 1) / 4 * 65535;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const k = 2 * y * a.w + 2 * x;
+      v[y * w + x] = Math.min(65535, Math.round((a.v[k] + a.v[k + 1] + a.v[k + a.w] + a.v[k + a.w + 1]) * f));
+    }
+    L.push({ w, h, v, scale: 1 / 65535, factor: (a.factor || 1) * 2 });
+  }
+  return L;
+}
+// the level for a grid pixel pix, an image of width size (same units)
+function level(L, size, pix) {
+  let best = L[0];
+  for (const q of L) if (size / q.w <= pix / 2) best = q;
+  return best;
 }
 
 // ------------------------------------------------------------------ the beam's size and sidelobes
@@ -260,52 +337,74 @@ function sidelobe(b, n, rmax) {
 
 // ------------------------------------------------------------------ made-up layouts
 // N antennas spanning about size (m, the longest baseline): random over a disc, a square grid, an east-west line,
-// the shapes L, T, Y and a cross (one antenna at the junction, the rest spaced evenly along the arms), or a ring.
-// A layout whose antennas would stand closer than DISH_GAP dishes is spread out (scaled up as a whole).
+// the shapes L, T, Y and a cross (one antenna at the junction, the rest along the arms), or a ring. The
+// concentration p places the n-th of m antennas out along an arm at (n / m)^p of the arm's length (1 = even
+// spacing; the VLA's arms follow p = 1.716), and does the same to the line's and the grid's coordinates from the
+// center; a random layout's radii go as u^(p / 2) of the disc's (u uniform: 1 = uniform over the area). Antennas
+// closer than DISH_GAP dishes are pushed apart: outward along an arm, a line or a grid axis; a layout still too
+// crowded (a ring) is spread out as a whole.
 const LAYOUTS = ["random", "grid", "line", "L", "T", "Y", "cross", "ring"], DISH_GAP = 1.2;
 // a seeded random number generator (mulberry32), so that a random layout comes back the same from a link
 function rng(seed) {
   let a = (seed >>> 0) || 1;
   return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
-function layout(kind, N, size, dish, seed = 1) {
-  const P = [];
+// coordinates t in [-1, 1] (sorted) warped to half * sign(t) |t|^p, then pushed apart from the middle outward to at
+// least gap
+function axis(ts, half, p, gap) {
+  const x = ts.map(t => half * Math.sign(t) * Math.pow(Math.abs(t), p));
+  let mid = 0; x.forEach((v, i) => { if (Math.abs(v) < Math.abs(x[mid])) mid = i; });
+  for (let i = mid + 1; i < x.length; i++) x[i] = Math.max(x[i], x[i - 1] + gap);
+  for (let i = mid - 1; i >= 0; i--) x[i] = Math.min(x[i], x[i + 1] - gap);
+  return x;
+}
+function layout(kind, N, size, dish, seed = 1, p = 1) {
+  const P = [], gap = DISH_GAP * dish;
   // arms: [azimuth (degrees east of north), length (m)]
   const arms = list => {
     P.push([0, 0]);
     const m = list.map(() => 0);
     for (let k = 0; k < N - 1; k++) m[k % list.length]++;
-    list.forEach(([az, len], j) => { for (let k = 1; k <= m[j]; k++) { const r = len * k / m[j]; P.push([r * Math.sin(az * DEG), r * Math.cos(az * DEG)]); } });
+    list.forEach(([az, len], j) => {
+      let r0 = 0;
+      for (let k = 1; k <= m[j]; k++) { const r = Math.max(len * Math.pow(k / m[j], p), r0 + gap); P.push([r * Math.sin(az * DEG), r * Math.cos(az * DEG)]); r0 = r; }
+    });
   };
   if (kind === "random") {
+    // each antenna the best of up to 500 tries: the first clear of the others, else the one farthest from them
     const R = size / 2, rnd = rng(seed);
     for (let k = 0; k < N; k++) {
-      let e = 0, n = 0;
+      let best = null, bd = -1;
       for (let t = 0; t < 500; t++) {
-        const r = R * Math.sqrt(rnd()), th = 2 * Math.PI * rnd();
-        e = r * Math.cos(th); n = r * Math.sin(th);
-        if (P.every(p => Math.hypot(p[0] - e, p[1] - n) >= DISH_GAP * dish)) break;
+        const r = R * Math.pow(rnd(), p / 2), th = 2 * Math.PI * rnd(), e = r * Math.cos(th), n = r * Math.sin(th);
+        let d = Infinity; for (const q of P) d = Math.min(d, Math.hypot(q[0] - e, q[1] - n));
+        if (d > bd) { bd = d; best = [e, n]; }
+        if (d >= gap) break;
       }
-      P.push([e, n]);
+      P.push(best);
     }
   } else if (kind === "grid") {
-    const k = Math.ceil(Math.sqrt(N)), rowsN = Math.ceil(N / k), s = size / Math.SQRT2 / Math.max(1, k - 1);
-    for (let i = 0; i < N; i++) P.push([((i % k) - (k - 1) / 2) * s, (Math.floor(i / k) - (rowsN - 1) / 2) * s]);
-  } else if (kind === "line") for (let i = 0; i < N; i++) P.push([N > 1 ? (i / (N - 1) - 0.5) * size : 0, 0]);
-  else if (kind === "ring") for (let i = 0; i < N; i++) { const th = 2 * Math.PI * i / N; P.push([size / 2 * Math.sin(th), size / 2 * Math.cos(th)]); }
+    const k = Math.ceil(Math.sqrt(N)), rowsN = Math.ceil(N / k), h = (k - 1) / 2 || 1, half = size / (2 * Math.SQRT2);
+    const xs = axis(Array.from({ length: k }, (_, j) => (j - (k - 1) / 2) / h), half, p, gap);
+    const ys = axis(Array.from({ length: rowsN }, (_, j) => (j - (rowsN - 1) / 2) / h), half, p, gap);
+    for (let i = 0; i < N; i++) P.push([xs[i % k], ys[Math.floor(i / k)]]);
+  } else if (kind === "line") {
+    const xs = axis(Array.from({ length: N }, (_, i) => (N > 1 ? 2 * i / (N - 1) - 1 : 0)), size / 2, p, gap);
+    for (const x of xs) P.push([x, 0]);
+  } else if (kind === "ring") for (let i = 0; i < N; i++) { const th = 2 * Math.PI * i / N; P.push([size / 2 * Math.sin(th), size / 2 * Math.cos(th)]); }
   else if (kind === "L") arms([[90, size / Math.SQRT2], [0, size / Math.SQRT2]]);
   else if (kind === "T") arms([[270, size / 2], [90, size / 2], [180, size / 2]]);
   else if (kind === "Y") arms([[0, size / Math.sqrt(3)], [120, size / Math.sqrt(3)], [240, size / Math.sqrt(3)]]);
   else if (kind === "cross") arms([[0, size / 2], [90, size / 2], [180, size / 2], [270, size / 2]]);
   let dmin = Infinity;
   for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) dmin = Math.min(dmin, Math.hypot(P[i][0] - P[j][0], P[i][1] - P[j][1]));
-  const f = dmin > 0 && dmin < DISH_GAP * dish ? DISH_GAP * dish / dmin : 1;
-  return P.map(p => [p[0] * f, p[1] * f, 0]);
+  const f = dmin > 0 && dmin < gap * (1 - 1e-9) ? gap / dmin : 1;
+  return P.map(q => [q[0] * f, q[1] * f, 0]);
 }
 
 // ------------------------------------------------------------------ scales
 // the ground baselines' lengths (m), sorted
-const lengths = (ants, lat) => baselines(ants, lat).map(b => b.len).sort((x, y) => x - y);
+const lengths = (ants, lat) => baselines(ants, lat).len.sort();
 // a percentile of a sorted list (linear between ranks)
 function pctile(sorted, p) {
   if (!sorted.length) return NaN;
@@ -313,7 +412,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { DEG, RAD, C, RING_IN, LAYOUTS, DISH_GAP, rng, layout, toXYZ, baselines, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { DEG, RAD, C, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

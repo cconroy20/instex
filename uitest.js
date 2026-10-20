@@ -902,6 +902,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("a Y layout: the configuration's count and longest baseline to start, the Antennas and Size rows in place of Configuration", ly.s.lay === "Y" && ly.s.na === 27 && ly.nb === 351 && Math.abs(ly.B - ly.s.ext) < 1 && !ly.cfg && ly.na && !ly.rd, JSON.stringify({ lay: ly.s.lay, na: ly.s.na, ext: ly.s.ext, B: ly.B, cfg: ly.cfg, na2: ly.na, rd: ly.rd }));
     await setRange("#rNa", Math.log10(10)); await sleep(400);
     check("Antennas 10: 45 baselines", (await ev(`${I}.result().nb`)) === 45);
+    await setRange("#rNa", Math.log10(27)); await ev(`${I}.set({ dur: 0 })`);
+    const sEven = await ev(`${I}.result().side`), shown = await vis("#rConcRow");
+    await setRange("#rConc", 1.716); await sleep(400);
+    const cc = await ev(`({ side: ${I}.result().side, conc: ${I}.state().conc, v: document.getElementById("vrConc").textContent })`);
+    check("Concentration: shown for a Y; at 1.716 a snapshot's peak sidelobe falls below even spacing's", shown && cc.conc === 1.72 && cc.v === "1.72" && Math.abs(cc.side) < Math.abs(sEven), JSON.stringify({ sEven, cc }));
+    await ev(`${I}.set({ lay: "ring", dur: 8 })`);
+    check("Concentration: hidden for a ring", !(await vis("#rConcRow")));
+    await ev(`${I}.set({ lay: "Y", conc: 1 })`);
     await ev(`(e => { e.value = "random"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rLay"))`); await sleep(300);
     const rA = await ev(`${I}.result().Bmax`); await click("#rRedraw"); await sleep(400);
     const rB = await ev(`({ B: ${I}.result().Bmax, seed: ${I}.state().seed, rd: document.getElementById("rRedraw").offsetParent !== null })`);
@@ -915,7 +923,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await nav(h1);
       check("Interferometer: the link round-trips every setting (as built)", JSON.stringify(await ev(`${I}.state()`)) === JSON.stringify(w1), h1);
     }
-    await ev(`${I}.set({ lay: "random", na: 41, ext: 7300, seed: 5, off: [3], mv: {} })`); await sleep(400);
+    await ev(`${I}.set({ lay: "random", na: 41, ext: 7300, seed: 5, conc: 1.8, off: [3], mv: {} })`); await sleep(400);
     const want = await ev(`${I}.state()`), h = await ev(`location.hash`);
     await nav(h);
     const got = await ev(`${I}.state()`);
@@ -923,6 +931,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await go("#inst=int&r.dec=abc&r.field=-3&r.wt=heavy&r.cfg=Z&r.off=x.99");
     const bad = await ev(`${I}.state()`);
     check("Interferometer: malformed link values are ignored", bad.dec === 40 && bad.field > 0 && bad.wt === "natural" && bad.cfg === "C" && bad.off.length === 0, JSON.stringify(bad));
+    // the image squares' scale: the field across the square
+    await go("#inst=int");
+    const gm = await ev(`${I}.geom()`);
+    check("the images' screen scale: the square is the field across", Math.abs(gm.toPx * gm.field - gm.side) < 1e-6, JSON.stringify(gm));
+    // the M101 sky: read from its file into a pyramid, drawn at its width, with its credit
+    await ev(`(e => { e.value = "m101"; e.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("rSky"))`);
+    let mr = null;
+    for (let k = 0; k < 100; k++) { await sleep(200); mr = await ev(`${I}.result()`); if (!mr.loading) break; }
+    const ms = await ev(`${I}.state()`);
+    check("M101: the image loads (a pyramid level for the grid), at 828″ wide, the field 20′", !mr.loading && mr.imgLevel && mr.imgLevel.w >= 256 && Math.abs(ms.size - 828.43) < 0.01 && ms.field === 1200, JSON.stringify({ lvl: mr.imgLevel, size: ms.size, field: ms.field }));
+    await ev(`${I}.set({ field: 30 })`);
+    const fine = await ev(`${I}.result().imgLevel`);
+    check("M101: a narrow field reads the image's finest level (8368 pixels, 0.099″)", fine.w === 8368 && Math.abs(fine.pix - 0.099) < 0.001, JSON.stringify(fine));
     // play
     await go("#inst=int");
     await click("#rPlay");

@@ -222,7 +222,13 @@ etc.) with the number of antenna an adjustable parameter"): As built (the config
 2-200 of the array's dishes at its site, with an Antennas and a Size slider (Size = the longest baseline): Random
 (uniform over a disc, no two dishes within 1.2 diameters; seeded, ↻ draws anew), Grid (square, the diagonal = Size),
 Line east-west, L, T, Y and Cross (one antenna at the junction, the rest evenly along the arms), Ring; a layout too
-crowded for its dishes is spread to 1.2 diameters. A regular grid's baselines are few and repeated (36 antennas: 630
+crowded for its dishes is spread to 1.2 diameters. Concentration slider (his ask, 10-20: "would be neat if array
+'concentration' was a slider"; all layouts but Ring): the n-th of m antennas out along an arm (the line, the grid's axes
+from the middle) at (n / m)^p of the arm, p = 1 (even) to 2 (3 at first; his "it seems too intense", 10-20: at 3 the inner antennas
+clump at the minimum spacing and 63% of an arm sits in its inner quarter, against the VLA's 45%); Random's radii go as u^(p/2) (1 = uniform over the area);
+crowded inner antennas are pushed outward to 1.2 dishes, so the size holds. The VLA's W and E arms follow r ∝ n^1.716
+to 0.1% over pads 2-72 (fitted to data/interf/vla.json; pad 1 and the N arm sit off the law); a 27-antenna Y snapshot
+at the C size has a 41% peak sidelobe at p = 1 and 28% at p = 1.716 (the real C configuration: 27%). A regular grid's baselines are few and repeated (36 antennas: 630
 baselines, 60 different), so its snapshot beam has grating lobes near the peak (88%); an even Y's snapshot sidelobe is
 41% against the real VLA's 27%. No strip,
 and the header note on optical presets is hidden in this mode.
@@ -257,6 +263,16 @@ the longest baselines match Table 7.3 exactly, the 5th and 80th percentile basel
 maximum recoverable scales to 3%, and the robust-0.5 beam (1 h at −23°) the Handbook's 0.574 λ / L80 to 8%; the Cycle 13
 resolution table's beams are 12-24% wider for C-2 to C-10 because they describe the 50-antenna configurations. Peak
 sidelobes are the Handbook's order (5-20% vs 5-13%), not equal (its measuring region is not stated).
+Image sky (his ask, 10-20: "something much more complex, like an image of the M101 galaxy", then "as high res as
+possible. so use an optical M101 image"): M101 (Hubble), the ESA/Hubble mosaic heic0602a from the full-resolution Large
+JPEG (15852 × 12392 px, 0.050″) in gray, resized to 8000 px (0.099″) and turned 3.5° north-up, 8368 × 6732 px, 828.4″
+wide, web/img/m101_hubble.jpg (13.3 MB, read only when chosen; read through a canvas in strips, so no canvas is larger
+than 4 million pixels; kept as a pyramid, 8-bit then 16-bit 2 × 2 averages, the level for a grid the one with pixels just
+below half the grid's). CC BY 4.0; the credit "Image: European Space Agency & NASA (CC BY 4.0)" is drawn on the image,
+the full credit with acknowledgements is in the About dialog. Sources: data/interf/images.md. Choosing the image sets
+the Size to its width and the Field to 20′. Bug found on the way (fixed, 10-20): the images' screen scale was half the
+true one (the square shows the field, not the grid's 2 × field): scale bars read twice their length, the sky's points sat
+at half their separation, and the beam ellipse was half size; the dirty image itself was right; uitest now checks it.
 Found while building: the uniform-weighted beam depends on the uv cell (an image-size choice the OSS does not state):
 with the page's cell the VLA beams are 0.80-0.86 of the OSS table, approaching 0.96 with cells for an image ~3000 beams
 across and 5 s sampling; natural / uniform (1.47) and snapshot / full (1.28) agree with the OSS's ~1.5 and ~1.3. The

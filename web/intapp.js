@@ -10,8 +10,37 @@ const { fAng } = IMG.fmt;
 const DEG = RI.DEG, RAD = RI.RAD, C = RI.C;
 const ARRS = window.IX_ARRAYS || [];
 const clone = o => JSON.parse(JSON.stringify(o));
-const SKIES = [["point", "Point"], ["double", "Two points"], ["gaussian", "Gaussian"], ["disc", "Uniform disc"], ["ring", "Ring"]];
-const SIZE_LABEL = { point: "Size", double: "Separation", gaussian: "FWHM", disc: "Diameter", ring: "Diameter" };
+// Image skies (sources and credits in data/interf/images.md): the image's file, width (arcsec) and the credit drawn
+// with the image; the brightness is the picture's own (the 8-bit gray value)
+const IMGS = [
+  { k: "m101", name: "M101 (Hubble)", file: "img/m101_hubble.jpg", width: 828.43, what: "M101 in visible light", credit: "Image: European Space Agency & NASA (CC BY 4.0)" },
+];
+const SKIES = [["point", "Point"], ["double", "Two points"], ["gaussian", "Gaussian"], ["disc", "Uniform disc"], ["ring", "Ring"]].concat(IMGS.map(q => [q.k, q.name]));
+const SIZE_LABEL = { point: "Size", double: "Separation", gaussian: "FWHM", disc: "Diameter", ring: "Diameter", m101: "Width" };
+const imgOf = k => IMGS.find(q => q.k === k);
+// the images, read once from their files into a pyramid of brightness arrays; a large image is read through a
+// canvas in strips (a canvas the image's full size would exceed some browsers' limits)
+const imgData = {}, imgBusy = {};
+function loadImg(k) {
+  const q = imgOf(k);
+  if (!q || imgData[k] || imgBusy[k]) return;
+  imgBusy[k] = true;
+  const im = new Image();
+  im.onload = () => {
+    const w = im.naturalWidth, h = im.naturalHeight, v = new Uint8Array(w * h), rowsPer = Math.max(1, Math.floor(4e6 / w));
+    const c = document.createElement("canvas"); c.width = w; c.height = rowsPer;
+    const g = c.getContext("2d", { willReadFrequently: true });
+    for (let y0 = 0; y0 < h; y0 += rowsPer) {
+      const m = Math.min(rowsPer, h - y0);
+      g.clearRect(0, 0, w, rowsPer); g.drawImage(im, 0, y0, w, m, 0, 0, w, m);
+      const d = g.getImageData(0, 0, w, m).data;
+      for (let j = 0; j < w * m; j++) v[y0 * w + j] = d[4 * j];
+    }
+    imgData[k] = RI.pyramid({ w, h, v, scale: 1 / 255 }); imgBusy[k] = false; vcache.key = null; tcache.key = null; H.schedule();
+  };
+  im.onerror = () => { imgBusy[k] = false; };
+  im.src = q.file;
+}
 const BUDGET = 2e6;                                                  // samples per observation, at most
 const C_UV = "#2f6a9e", C_MIR = "#9dbcd9", C_NOW = "#c2621d";        // samples, mirror points, the moment played
 
@@ -32,7 +61,7 @@ const arrById = id => ARRS.find(a => a.id === id) || ARRS[0];
 function defaultsFor(a) {
   const d = a.defaults, c = a.configs.find(q => q.id === d.cfg) || a.configs[0], b = a.bands.find(q => q.k === d.band) || a.bands[0];
   const est = C / (d.nu * 1e9) / c.bmax * RAD;                       // lambda / B_max, arcsec
-  return { arr: a.id, cfg: c.id, lay: "built", na: c.ants.length, ext: +c.bmax.toPrecision(2), seed: 1, dec: d.dec, dur: d.dur, el: null, band: b.k, nu: d.nu, bw: 0, wt: "natural", rob: 0.5,
+  return { arr: a.id, cfg: c.id, lay: "built", na: c.ants.length, ext: +c.bmax.toPrecision(2), seed: 1, conc: 1, dec: d.dec, dur: d.dur, el: null, band: b.k, nu: d.nu, bw: 0, wt: "natural", rob: 0.5,
     sky: "double", size: niceAng(5 * est), field: niceAng(25 * est), uvv: "uv", off: [], mv: {} };
 }
 let S = ARRS.length ? defaultsFor(ARRS[0]) : {};
@@ -47,8 +76,8 @@ const pbOf = nu => { const a = arrOf(), p = a.pb; return p.arcminGHz ? ((p.band 
 let lcache = { key: null };
 function pads() {
   if (S.lay === "built") return { ants: cfgOf().ants, names: cfgOf().names || [] };
-  const key = JSON.stringify([S.lay, S.na, S.ext, arrOf().dish, S.seed]);
-  if (lcache.key !== key) { const ants = RI.layout(S.lay, S.na, S.ext, arrOf().dish, S.seed); lcache = { key, ants, names: ants.map((_, k) => "antenna " + (k + 1)) }; }
+  const key = JSON.stringify([S.lay, S.na, S.ext, arrOf().dish, S.seed, S.conc]);
+  if (lcache.key !== key) { const ants = RI.layout(S.lay, S.na, S.ext, arrOf().dish, S.seed, S.conc); lcache = { key, ants, names: ants.map((_, k) => "antenna " + (k + 1)) }; }
   return lcache;
 }
 // the antennas now: the layout's, with the reader's moves and switches
@@ -82,15 +111,20 @@ bsel.addEventListener("change", () => {
   stopPlay(); S.band = bsel.value; const b = bandOf();
   S.nu = b.rep || +((b.lo + b.hi) / 2).toPrecision(4); S.bw = Math.min(S.bw, b.bw); H.schedule();
 });
-ssel.addEventListener("change", () => { stopPlay(); S.sky = ssel.value; H.schedule(); });
+ssel.addEventListener("change", () => {
+  stopPlay(); S.sky = ssel.value;
+  // an image comes at its own width, with the field a little wider
+  const q = imgOf(S.sky); if (q) { S.size = q.width; S.field = niceAng(1.25 * q.width); }
+  H.schedule();
+});
 // sliders: [id, key, log10?, digits]
-const SL = [["rNa", "na", true], ["rExt", "ext", true], ["rDec", "dec", false], ["rDur", "dur", false], ["rEl", "el", false], ["rNu", "nu", false], ["rBw", "bw", false], ["rRob", "rob", false], ["rSize", "size", true], ["rField", "field", true]];
+const SL = [["rNa", "na", true], ["rExt", "ext", true], ["rConc", "conc", false], ["rDec", "dec", false], ["rDur", "dur", false], ["rEl", "el", false], ["rNu", "nu", false], ["rBw", "bw", false], ["rRob", "rob", false], ["rSize", "size", true], ["rField", "field", true]];
 for (const [id, key, lg] of SL) $(id).addEventListener("input", () => {
   stopPlay();
   const x = +$(id).value, v = lg ? Math.pow(10, x) : x;
   S[key] = key === "na" ? Math.round(v) : lg ? +v.toPrecision(key === "ext" ? 2 : 3) : +v.toFixed(key === "nu" || key === "bw" ? 4 : 2);
   // a new count or size makes a new layout: the switches and moves of the old one no longer apply
-  if (key === "na" || key === "ext") { S.off = []; S.mv = {}; alview.fit = true; }
+  if (key === "na" || key === "ext" || key === "conc") { S.off = []; S.mv = {}; alview.fit = true; }
   quick();
   H.schedule();
 });
@@ -109,7 +143,10 @@ function syncControls() {
   const put = (id, v, txt) => { const el = $(id); if (document.activeElement !== el) el.value = String(v); $("v" + id).textContent = txt; };
   lsel.value = S.lay;
   const gen = S.lay !== "built";
-  $("rCfgRow").hidden = gen; $("rNaRow").hidden = !gen; $("rExtRow").hidden = !gen; $("rRedraw").hidden = S.lay !== "random";
+  const sd = !!a.single;
+  $("rLayRow").hidden = sd; $("rElRow").hidden = sd; $("rDurRow").hidden = sd; $("rBwRow").hidden = sd; $("rWtRow").hidden = sd;
+  $("rCfgRow").hidden = gen || sd; $("rNaRow").hidden = !gen; $("rExtRow").hidden = !gen; $("rConcRow").hidden = !gen || S.lay === "ring"; $("rRedraw").hidden = S.lay !== "random";
+  put("rConc", S.conc, S.conc === 1 ? "even" : S.conc.toFixed(2));
   $("rExt").min = String(Math.log10(Math.max(20, 3 * a.dish)));
   put("rNa", Math.log10(S.na), String(S.na));
   put("rExt", Math.log10(S.ext), fLen(S.ext));
@@ -123,10 +160,10 @@ function syncControls() {
   put("rField", Math.log10(S.field), fAng(S.field));
   $("lrSize").textContent = SIZE_LABEL[S.sky];
   $("rSizeRow").hidden = S.sky === "point";
-  $("rRobRow").hidden = S.wt !== "robust";
+  $("rRobRow").hidden = S.wt !== "robust" || sd;
   $("rRestore").hidden = !modified();
   $("rPlay").textContent = play ? "■ Stop" : "▶ Play";
-  $("rPlay").disabled = !(S.dur > 0);
+  $("rPlay").disabled = !(S.dur > 0) || sd;
   segs.forEach(g => g());
 }
 
@@ -143,12 +180,23 @@ function compute(fast) {
   R.pb = pbOf(S.nu);
   R.up = RI.hoursUp(S.dur, dec, lat, elMin);
   R.transit = RI.elevation(0, dec, lat) / DEG;
+  let Sm, w, step = 1 / 120, nCh = 1;
+  if (a.single) {
+    // a single dish: every spacing within the illuminated aperture at once, weighted by the aperture's
+    // autocorrelation; no Earth rotation, and no primary-beam taper (a map is made by scanning the beam over the sky)
+    const ap = RI.aperture(a.single.ew, a.single.ns, nu), big = Math.max(a.single.ew, a.single.ns);
+    Object.assign(R, { single: true, pb: 0, nb: 0, Bmax: big, Bmin: 0, ext: big / lam, full: ap, step: 0, nCh: 1 });
+    R.reach = Math.abs(S.dec - a.lat) <= a.zenLimit;
+    Sm = R.reach ? ap : Object.assign({}, ap, { n: 0 });
+    R.S = Sm;
+    if (!Sm.n) return R;
+    w = ap.w0;
+  } else {
   if (R.nb === 0) return R;
   // the extent of the uv plane: the longest baseline at the band's highest frequency
   R.ext = R.Bmax * (nu + bw / 2) / C;
   // the time step (30 s) and the channels across the band, coarsened together to stay within the budget; the
   // channels are spaced like the time samples on the longest track
-  let step = 1 / 120, nCh = 1;
   for (let it = 0; it < 60; it++) {
     nCh = bw > 0 ? Math.max(2, Math.min(64, Math.ceil((bw / nu) / (0.2618 * step)))) : 1;
     const nt = S.dur > 0 ? S.dur / step + 1 : 1;
@@ -158,7 +206,7 @@ function compute(fast) {
   const full = RI.sample({ ants, lat, dec, elMin, dur: S.dur, nu, bw, nCh, step });
   R.full = full; R.step = step; R.nCh = nCh;
   // while playing, the samples up to the moment played: a prefix, the samples running in time order
-  let Sm = full;
+  Sm = full;
   if (play) {
     const k = full.up.filter(h => h <= play.h + 1e-9).length, m = k * full.nb * full.nCh;
     Sm = Object.assign({}, full, { u: full.u.subarray(0, m), v: full.v.subarray(0, m), n: m, upNow: k });
@@ -169,12 +217,15 @@ function compute(fast) {
   // the time samples (or the channels) lie further apart on the longest track, so that a track fills its cells
   const cell = Math.max(R.ext / 250, 1.5 * 0.2618 * step * R.ext, nCh > 1 ? 1.5 * (bw / (nCh - 1)) / nu * R.ext : 0);
   R.cell = cell;
-  const w = RI.weigh(Sm, S.wt, S.rob, cell);
+  w = RI.weigh(Sm, S.wt, S.rob, cell);
+  }
+  // the weights on a grid: the samples gridded, or a single dish's aperture put straight onto the cells
+  const gridAt = (nn, du) => (R.single ? RI.apertureGrid(Sm.single, nn, du) : RI.grid(Sm, w, nn, du));
   // the beam's size and sidelobes, measured on a grid of its own (pixels 1/20 of the shortest fringe), coarser
   // if the main lobe does not fit
   const nm = fast ? 256 : 512;
   for (let k = 0, pixm = 0.05 / R.ext; k < 3; k++, pixm *= 3) {
-    const Gm = RI.grid(Sm, w, nm, 1 / (nm * pixm)), Dm = RI.dirty(Gm.g, null, nm);
+    const Gm = gridAt(nm, 1 / (nm * pixm)), Dm = RI.dirty(Gm.g, null, nm);
     const f = RI.fitBeam(Dm.beam, nm, pixm);
     if (f) { R.beam = f; R.side = RI.sidelobe(Dm.beam, nm, 1.5 * f.maj / pixm); break; }
   }
@@ -184,13 +235,18 @@ function compute(fast) {
   let n = 256; while (n < Math.min(1024, 2 * sideCss * dpr)) n *= 2;
   if (fast && n > 256) n /= 2;
   const F = S.field / RAD, pix = 2 * F / n;
-  const G = RI.grid(Sm, w, n, 1 / (2 * F));
-  R.drop = G.drop / Sm.n;
-  const key = JSON.stringify([S.sky, S.size, n, pix, R.pb]);
-  if (vcache.key !== key) vcache = { key, V: RI.visibilities(RI.skyImage(S.sky, S.size / RAD, n, pix, R.pb), n) };
+  const G = gridAt(n, 1 / (2 * F));
+  R.drop = R.single ? G.drop : G.drop / Sm.n;
+  const im = imgOf(S.sky), pyr = im ? imgData[S.sky] : null, model = im ? "image" : S.sky;
+  if (im && !pyr) { loadImg(S.sky); R.loading = true; }
+  // the pyramid's level for this grid: pixels just below half the grid's
+  const imd = pyr ? RI.level(pyr, S.size / RAD, pix) : null;
+  R.imgLevel = imd ? { w: imd.w, pix: S.size / imd.w } : null;
+  const key = JSON.stringify([S.sky, S.size, n, pix, R.pb, imd ? imd.w : 0]);
+  if (vcache.key !== key) vcache = { key, V: RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
   const D = RI.dirty(G.g, vcache.V, n);
-  const tkey = JSON.stringify([S.sky, S.size, n, pix]);
-  if (tcache.key !== tkey) tcache = { key: tkey, s: RI.skyImage(S.sky, S.size / RAD, n, pix, 0) };
+  const tkey = JSON.stringify([S.sky, S.size, n, pix, imd ? imd.w : 0]);
+  if (tcache.key !== tkey) tcache = { key: tkey, s: RI.skyImage(model, S.size / RAD, n, pix, 0, imd) };
   Object.assign(R, { n, pix, F, D, sky: tcache.s, w });
   return R;
 }
@@ -198,8 +254,28 @@ function compute(fast) {
 // ------------------------------------------------------------------ readouts
 function renderText(R) {
   const a = R.a, tot = R.ants.length, nmv = Object.keys(S.mv).length;
+  if (R.single) {
+    const sd = a.single, bm = R.beam;
+    rows($("rArrR"), [
+      ["Reflector", "Ø " + sig(a.dish, 3) + " m", a.dishNote || ""],
+      ["Illuminated", sig(sd.ew, 3) + " × " + sig(sd.ns, 3) + " m", "The part of the reflector the feed illuminates (east-west × north-south), drawn blue; the page takes the illumination as uniform. " + (sd.note || "")],
+      ["Spacings", "all, 0 to " + fLen(Math.max(sd.ew, sd.ns)), "A filled aperture measures every spacing within the illuminated area at once, each weighted by how often the spacing occurs across the aperture (the aperture's autocorrelation), including the zero spacing: the total flux."],
+      ["Zenith-angle limit", sig(a.zenLimit, 3) + "°", "The dish is fixed; the feed moves to point within this angle of the zenith."],
+    ]);
+    rows($("rObsR"), [
+      ["Within reach", R.reach ? "yes" : "no", "Declinations " + fDeg(a.lat - a.zenLimit) + " to " + fDeg(a.lat + a.zenLimit) + ": the source must pass within " + sig(a.zenLimit, 3) + "° of the zenith (latitude " + fDeg(a.lat) + ")."],
+      ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|."],
+      ["Field of view", "the beam", "A single dish sees one beam at a time; a map is made by scanning the beam across the sky, so the map has no primary-beam taper."],
+    ]);
+    rows($("rImgR"), [
+      ["Beam", bm ? fAng(bm.maj * RAD, 3) + " × " + fAng(bm.min * RAD, 3) + ", PA " + Math.round(bm.pa) + "°" : "–", "The FWHM of the dish's beam, a Gaussian fitted to the main lobe of the diffraction pattern of the illuminated aperture (about 1.03 λ / D). " + (a.beamNote || "")],
+      ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + sig(Math.abs(R.side) * 100, 2) + "%" : "–", "The first ring of the diffraction pattern (1.75% for a uniformly illuminated circle); a filled aperture's beam has no negative sidelobes."],
+      ["Largest scale", "all", "The dish measures the zero spacing, the total flux, so no structure is resolved out, however large."],
+    ]);
+    return;
+  }
   rows($("rArrR"), [
-    ["Antennas", (R.on < tot ? R.on + " of " + tot : String(tot)) + " × " + sig(a.dish, 3) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in this configuration, each a dish of this diameter. Click an antenna in the drawing to switch the antenna off or on; drag an antenna to move the antenna."],
+    ["Antennas", (R.on < tot ? R.on + " of " + tot : String(tot)) + " × " + sig(a.dish, 3) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in this configuration, each a dish of this diameter. Click an antenna in the drawing to switch off or on; drag to move."],
     ["Baselines", String(R.nb), "Every pair of antennas is a baseline: N (N − 1) / 2 of them."],
     ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, about λ / B_max."],
     ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Two dishes cannot stand closer than a dish diameter, so no baseline is shorter than that."],
@@ -231,6 +307,7 @@ function drawArray(R) {
   g.clearRect(0, 0, w, h);
   if (!(w > 0 && h > 0)) return;
   const ants = R.ants, a = R.a;
+  if (a.single) { drawDish(g, w, h, a); return; }
   if (alview.fit) {
     let e0 = Infinity, e1 = -Infinity, n0 = Infinity, n1 = -Infinity;
     for (const p of ants) { e0 = Math.min(e0, p.e); e1 = Math.max(e1, p.e); n0 = Math.min(n0, p.n); n1 = Math.max(n1, p.n); }
@@ -263,13 +340,34 @@ function drawArray(R) {
     g.fillStyle = "#4f4a44"; g.textAlign = "center"; g.font = `12.5px ${FONT}`; g.fillText(fLen(len), x0 + px / 2, y0 - 8);
     document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
   const lname = (LAYS.find(q => q[0] === S.lay) || LAYS[0])[1];
-  $("alSub").textContent = (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + "Click an antenna to switch the antenna off or on; drag an antenna to move the antenna.";
+  $("alSub").textContent = (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + "Click an antenna to switch off or on; drag to move.";
+}
+// a single dish, from above: the reflector (gray) and the illuminated aperture (blue), to scale
+function drawDish(g, w, h, a) {
+  const sd = a.single, D = a.dish;
+  if (alview.fit) { alview.s = Math.min(w - 60, h - 110) / (1.15 * D); alview.ox = w / 2; alview.oy = (h - 30) / 2; alview.fit = false; }
+  const X = e => alview.ox + e * alview.s, Y = n => alview.oy - n * alview.s;
+  g.fillStyle = "#f1ede5"; g.strokeStyle = "#a9a39a"; g.lineWidth = 1.2;
+  g.beginPath(); g.arc(X(0), Y(0), D / 2 * alview.s, 0, 2 * Math.PI); g.fill(); g.stroke();
+  g.fillStyle = "rgba(47,106,158,.55)"; g.strokeStyle = C_UV;
+  g.beginPath(); g.ellipse(X(sd.x0 || 0), Y(sd.y0 || 0), sd.ew / 2 * alview.s, sd.ns / 2 * alview.s, 0, 0, 2 * Math.PI); g.fill(); g.stroke();
+  g.font = `12.5px ${FONT}`; g.fillStyle = "#4f4a44"; g.textAlign = "left";
+  g.fillText("reflector, Ø " + sig(D, 3) + " m", X(D / 2 * 0.72) + 6, Y(D / 2 * 0.72) - 6);
+  g.fillStyle = "#fff"; g.textAlign = "center"; g.fillText("illuminated, " + sig(sd.ew, 3) + " × " + sig(sd.ns, 3) + " m", X(0), Y(0) + 4);
+  g.strokeStyle = "#6a6560"; g.fillStyle = "#6a6560"; g.lineWidth = 1.3; g.font = `12px ${FONT}`;
+  { const x0 = w - 34, y0 = 52; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0, y0 - 24); g.moveTo(x0, y0); g.lineTo(x0 + 24, y0); g.stroke(); g.textAlign = "center"; g.fillText("N", x0, y0 - 29); g.textAlign = "left"; g.fillText("E", x0 + 28, y0 + 4); }
+  { const len = r125(w * 0.2 / alview.s), px = len * alview.s, x0 = 26, y0 = h - 22;
+    g.strokeStyle = "#4f4a44"; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0 + px, y0); g.stroke();
+    g.beginPath(); g.moveTo(x0, y0 - 4); g.lineTo(x0, y0 + 4); g.moveTo(x0 + px, y0 - 4); g.lineTo(x0 + px, y0 + 4); g.stroke();
+    g.fillStyle = "#4f4a44"; g.textAlign = "center"; g.font = `12.5px ${FONT}`; g.fillText(fLen(len), x0 + px / 2, y0 - 8);
+    document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
+  $("alSub").textContent = a.caption || "A single dish: one filled aperture in place of many antennas.";
 }
 {
   const cv = $("cvA");
   let drag = null;
   const pick = ev => {
-    if (!cur) return -1;
+    if (!cur || cur.single) return -1;
     const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, xy = antScreen(cur.ants), rr = Math.max(7, cur.a.dish / 2 * alview.s + 3);
     let best = -1, bd = rr;
     xy.forEach(([x, y], k) => { const d = Math.hypot(x - mx, y - my); if (d < bd) { bd = d; best = k; } });
@@ -334,6 +432,7 @@ const at = (P, v) => { const u = Math.max(0, Math.min(1, v)) * (P.length - 1), k
 const shade = v => (v >= 0 ? at(RAMP, v) : at(BLUE, -v));
 // a unit for wavelengths on the uv axes
 const uvUnit = x => (x >= 1e9 ? [1e9, "Gλ"] : x >= 1e6 ? [1e6, "Mλ"] : x >= 1e3 ? [1e3, "kλ"] : [1, "λ"]);
+let geom = null;
 function drawPanel(R) {
   const cv = $("cvU"), { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
@@ -351,22 +450,23 @@ function drawPanel(R) {
     g.fillStyle = "#4f4a44"; g.font = `12.5px ${FONT}`; g.textAlign = "left"; g.fillText(text(len), x + len / perPx + 8, yb + 4);
   };
   const empty = (x, y, txt) => { g.fillStyle = "#f1ede5"; g.fillRect(x, y, side, side); g.fillStyle = MUTED; g.font = `12.5px ${FONT}`; g.textAlign = "center"; g.fillText(txt, x + side / 2, y + side / 2); };
-  if (!R.nb) { for (let k = 0; k < 4; k++) empty(X(k % 2), Y(k >> 1), "fewer than two antennas"); return; }
+  if (!R.nb && !R.single) { for (let k = 0; k < 4; k++) empty(X(k % 2), Y(k >> 1), "fewer than two antennas"); return; }
   const Sm = R.S, none = !Sm || !Sm.n;
   // ---- top left: the uv coverage, or the visibility amplitude against uv distance: a square plot (u and v at one
   // scale), the tick labels to its left and below, the Coverage | Amplitude switch under it
   const ul = 40, ps = side - ul, x0 = X(0) + ul, y0 = Y(0), [U, un] = uvUnit(R.ext * 1.05);
   const nt = R.full.up.length, played = play ? (Sm.upNow || 0) : nt;
-  if (S.uvv === "uv") {
+  if (S.uvv === "uv" && R.single) label(X(0) + ul / 2, Y(0), "uv coverage", "every spacing within the aperture; darker: more weight");
+  else if (S.uvv === "uv") {
     let t1 = R.nb + " baselines" + (S.dur > 0 ? " × " + played + " times" : "") + (R.nCh > 1 ? " × " + R.nCh + " frequencies" : "");
     g.font = `11.5px ${FONT}`; if (g.measureText(t1 + "; pale: mirror points").width < cw - 16) t1 += "; pale: mirror points";
     label(X(0) + ul / 2, Y(0), play ? "uv coverage to hour angle " + (play.h >= 0 ? "+" : "−") + Math.abs(play.h).toFixed(1) + " h" : "uv coverage", t1);
-  } else label(X(0) + ul / 2, Y(0), "Visibility amplitude", "the sky's, at the samples (without the primary beam)");
+  } else label(X(0) + ul / 2, Y(0), "Visibility amplitude", imgOf(S.sky) ? "the sky's (times the primary beam), at the samples" : "the sky's, at the samples (without the primary beam)");
   const ext = R.ext * 1.05, ppx = Math.round(ps * dpr), plotH = ps;
   g.fillStyle = "#fff"; g.fillRect(x0, y0, ps, ps);
   const box = $("uvBox"), cvr = cv.getBoundingClientRect(), pr = cv.parentElement.getBoundingClientRect();
   box.style.left = Math.round(cvr.left - pr.left + x0 + ps / 2 - box.offsetWidth / 2) + "px"; box.style.top = Math.round(cvr.top - pr.top + y0 + ps + 30) + "px";
-  if (none) empty(x0, y0, R.up < 0 || (S.dur > 0 && R.up === 0) ? "the source is below the limit" : "no samples");
+  if (none) empty(x0, y0, R.single ? "the source is out of reach" : R.up < 0 || (S.dur > 0 && R.up === 0) ? "the source is below the limit" : "no samples");
   else if (S.uvv === "uv") {
     // the samples, rasterized at the screen's resolution (a canvas call per sample would be slow)
     const W = ppx, Hh = ppx, oc = document.createElement("canvas"); oc.width = W; oc.height = Hh;
@@ -381,8 +481,14 @@ function drawPanel(R) {
     };
     const stride = Math.max(1, Math.floor(Sm.n / 1.2e6)), r0 = dpr > 1.5 ? 1 : 0;
     const cU = [47, 106, 158], cM = [157, 188, 217], cN = [194, 98, 29];
-    for (let k = 0; k < Sm.n; k += stride) dot(-Sm.u[k], -Sm.v[k], cM, r0);
-    for (let k = 0; k < Sm.n; k += stride) dot(Sm.u[k], Sm.v[k], cU, r0);
+    if (Sm.w0) {
+      // a single dish: the lattice of spacings, shaded by the aperture's autocorrelation (both halves alike)
+      const sp = W / (2 * ext) * (Math.max(R.a.single.ew, R.a.single.ns) / R.lam) / 72, rr = Math.max(0, Math.ceil(sp / 2));
+      for (let k = 0; k < Sm.n; k++) { const t = Sm.w0[k], c = [0, 1, 2].map(i => Math.round(cM[i] + (cU[i] - cM[i]) * Math.min(1, t))); dot(Sm.u[k], Sm.v[k], c, rr); dot(-Sm.u[k], -Sm.v[k], c, rr); }
+    } else {
+      for (let k = 0; k < Sm.n; k += stride) dot(-Sm.u[k], -Sm.v[k], cM, r0);
+      for (let k = 0; k < Sm.n; k += stride) dot(Sm.u[k], Sm.v[k], cU, r0);
+    }
     if (play && Sm.n) { const m = R.full.nb * R.full.nCh; for (let k = Math.max(0, Sm.n - m); k < Sm.n; k++) { dot(Sm.u[k], Sm.v[k], cN, r0 + 1); dot(-Sm.u[k], -Sm.v[k], cN, r0 + 1); } }
     og.putImageData(id, 0, 0);
     g.drawImage(oc, x0, y0, ps, ps);
@@ -390,16 +496,19 @@ function drawPanel(R) {
     // amplitude against uv distance: the model's curve (when the model is round) and the samples on it
     const W = ppx, Hh = ppx, oc = document.createElement("canvas"); oc.width = W; oc.height = Hh;
     const og = oc.getContext("2d"), id = og.createImageData(W, Hh), d = id.data;
-    const stride = Math.max(1, Math.floor(Sm.n / 4e5));
+    const stride = Math.max(1, Math.floor(Sm.n / 4e5)), isImg = !!imgOf(S.sky), Vg = vcache.V, n0 = R.n, du0 = 1 / (2 * R.F), V0 = Vg.re[0] || 1;
+    // an image's visibility: the sky's transform on the image grid, at the sample's cell
+    const ampAt = (u, v) => { if (!isImg) return Math.abs(RI.vis(S.sky, S.size / RAD, u, v)); const p = Math.round(u / du0), q = Math.round(v / du0); if (Math.abs(p) >= n0 / 2 || Math.abs(q) >= n0 / 2) return NaN; const c = ((q + n0) % n0) * n0 + (p + n0) % n0; return Math.hypot(Vg.re[c], Vg.im[c]) / V0; };
     for (let k = 0; k < Sm.n; k += stride) {
-      const q = Math.hypot(Sm.u[k], Sm.v[k]), A = Math.abs(RI.vis(S.sky, S.size / RAD, Sm.u[k], Sm.v[k]));
+      const q = Math.hypot(Sm.u[k], Sm.v[k]), A = ampAt(Sm.u[k], Sm.v[k]);
+      if (!isFinite(A)) continue;
       const x = Math.round(q / ext * (W - 1)), y = Math.round((1 - A / 1.08) * (Hh - 1));
       if (x < 0 || y < 0 || x >= W || y >= Hh) continue;
       const kk = 4 * (y * W + x); d[kk] = 47; d[kk + 1] = 106; d[kk + 2] = 158; d[kk + 3] = 255;
     }
     og.putImageData(id, 0, 0);
     g.drawImage(oc, x0, y0, ps, ps);
-    if (S.sky !== "double") {
+    if (S.sky !== "double" && !isImg) {
       g.strokeStyle = "#4f4a44"; g.lineWidth = 1.1; g.beginPath();
       for (let q = 0; q <= 400; q++) { const uq = ext * q / 400, A = Math.abs(RI.vis(S.sky, S.size / RAD, uq, 0)), x = x0 + uq / ext * ps, y = y0 + (1 - A / 1.08) * plotH; q ? g.lineTo(x, y) : g.moveTo(x, y); }
       g.stroke();
@@ -436,11 +545,12 @@ function drawPanel(R) {
     og.putImageData(id, 0, 0);
     g.imageSmoothingEnabled = true; g.drawImage(oc, x, y, side, side);
   };
-  const toPx = side / (2 * R.F * RAD);                               // screen pixels per arcsec
+  const toPx = side / (R.F * RAD);                                   // screen pixels per arcsec (the square shows the field)
+  geom = { side, toPx, field: S.field };
   // ---- top right: the synthesized beam
   if (none) empty(X(1), Y(0), "no samples");
   else blit(R.D.beam, X(1), Y(0), 1);
-  label(X(1), Y(0), "Synthesized beam", "the image of a point source; blue below zero");
+  label(X(1), Y(0), R.single ? "Beam" : "Synthesized beam", R.single ? "the dish's diffraction pattern" : "the image of a point source; blue below zero");
   bar(X(1), Y(0), 1 / toPx, a => fAng(a, 2));
   // ---- bottom left: the sky
   {
@@ -452,7 +562,7 @@ function drawPanel(R) {
     for (const [l, mm] of pts) { g.beginPath(); g.arc(X(0) + side / 2 - l * toPx, Y(1) + side / 2 - mm * toPx, 3, 0, 2 * Math.PI); g.fill(); }
     // the primary beam's half-power circle
     const rp = R.pb * RAD / 2 * toPx;
-    if (rp < side * 0.7) { g.strokeStyle = "rgba(220,214,204,.85)"; g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); g.arc(X(0) + side / 2, Y(1) + side / 2, rp, 0, 2 * Math.PI); g.stroke(); g.setLineDash([]); }
+    if (R.pb > 0 && rp < side * 0.7) { g.strokeStyle = "rgba(220,214,204,.85)"; g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); g.arc(X(0) + side / 2, Y(1) + side / 2, rp, 0, 2 * Math.PI); g.stroke(); g.setLineDash([]); }
     // the compass: north up, east to the left (the sky seen from below)
     g.strokeStyle = "rgba(220,214,204,.9)"; g.fillStyle = "rgba(220,214,204,.9)"; g.lineWidth = 1.2; g.font = `11px ${FONT}`;
     const cx = X(0) + side - 14, cy = Y(1) + 34;
@@ -460,8 +570,11 @@ function drawPanel(R) {
     g.textAlign = "center"; g.fillText("N", cx, cy - 22); g.textAlign = "right"; g.fillText("E", cx - 22, cy + 4);
     g.restore();
   }
-  const skyName = SKIES.find(q => q[0] === S.sky)[1].toLowerCase();
-  label(X(0), Y(1), "Sky", (S.sky === "point" ? "a point source" : skyName + ", " + SIZE_LABEL[S.sky].toLowerCase() + " " + fAng(S.size, 2)) + (R.pb * RAD / 2 * toPx < side * 0.7 ? "; dashed: primary beam" : ""));
+  const skyName = SKIES.find(q => q[0] === S.sky)[1].toLowerCase(), simg = imgOf(S.sky);
+  label(X(0), Y(1), "Sky", simg ? simg.what + ", " + fAng(S.size, 3) + " wide" : (S.sky === "point" ? "a point source" : skyName + ", " + SIZE_LABEL[S.sky].toLowerCase() + " " + fAng(S.size, 2)) + (R.pb > 0 && R.pb * RAD / 2 * toPx < side * 0.7 ? "; dashed: primary beam" : ""));
+  // the image's credit, on the image (light on the dark sky, lower right)
+  if (simg) { g.fillStyle = "rgba(220,214,204,.92)"; g.font = `10.5px ${FONT}`; g.textAlign = "right"; g.fillText(simg.credit, X(0) + side - 6, Y(1) + side - 7); }
+  if (R.loading) { g.fillStyle = "rgba(220,214,204,.9)"; g.font = `12.5px ${FONT}`; g.textAlign = "center"; g.fillText("reading the image…", X(0) + side / 2, Y(1) + side / 2); }
   bar(X(0), Y(1), 1 / toPx, a => fAng(a, 2));
   // ---- bottom right: the dirty image, with the fitted beam at its lower left
   if (none) empty(X(1), Y(1), "no samples");
@@ -474,7 +587,7 @@ function drawPanel(R) {
       if (ax < side / 4) { g.strokeStyle = "rgba(255,250,238,.95)"; g.lineWidth = 1.3; g.beginPath(); g.ellipse(cx, cy, ax, bx, Math.atan2(-Math.cos(bm.pa * DEG), -Math.sin(bm.pa * DEG)), 0, 2 * Math.PI); g.stroke(); }
     }
   }
-  label(X(1), Y(1), "Dirty image", R.drop > 0.01 ? "the longest baselines lie beyond this image's pixels" : "the sky as the array images the sky");
+  label(X(1), Y(1), R.single ? "Map" : "Dirty image", R.single ? (R.drop ? "the dish's spacings reach beyond this image's pixels" : "the sky convolved with the dish's beam") : R.drop > 0.01 ? "the longest baselines lie beyond this image's pixels" : "the sky as the array images the sky");
   bar(X(1), Y(1), 1 / toPx, a => fAng(a, 2));
 }
 
@@ -525,7 +638,7 @@ return {
   reset: () => { stopPlay(); S = defaultsFor(arrOf()); alview.fit = true; H.schedule(); },
   hashParts: () => {
     const D = defaultsFor(arrOf()), out = ["r.arr=" + encodeURIComponent(S.arr)];
-    for (const k of ["cfg", "lay", "na", "ext", "seed", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
+    for (const k of ["cfg", "lay", "na", "ext", "seed", "conc", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
     if (S.off.length) out.push("r.off=" + S.off.join("."));
     const mv = Object.keys(S.mv); if (mv.length) out.push("r.mv=" + mv.map(k => k + ":" + S.mv[k][0] + ":" + S.mv[k][1]).join("_"));
     return out;
@@ -539,7 +652,7 @@ return {
     if (LAYS.some(q => q[0] === kv["r.lay"])) S.lay = kv["r.lay"];
     if (kv["r.na"] && Number.isInteger(+kv["r.na"]) && +kv["r.na"] >= 2 && +kv["r.na"] <= 200) S.na = +kv["r.na"];
     if (kv["r.seed"] && Number.isInteger(+kv["r.seed"]) && +kv["r.seed"] >= 1) S.seed = +kv["r.seed"];
-    num("ext", 1, 3e5);
+    num("ext", 1, 3e5); num("conc", 1, 2);
     num("dec", -90, 90); num("dur", 0, 24); num("el", 0, 90); num("nu", 0, 2000); num("bw", 0, 100); num("rob", -2, 2); num("size", 1e-4, 1e5); num("field", 1e-3, 1e5);
     if (["natural", "robust", "uniform"].includes(kv["r.wt"])) S.wt = kv["r.wt"];
     if (SKIES.some(q => q[0] === kv["r.sky"])) S.sky = kv["r.sky"];
@@ -550,7 +663,7 @@ return {
     alview.fit = true;
   },
   redraw: () => { if (cur) { drawArray(cur); drawPanel(cur); } },
-  test: { state: () => clone(S), result: () => cur && { nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play,
+  test: { state: () => clone(S), result: () => cur && { nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play,
     antXY: k => { const xy = antScreen(cur.ants)[k], r = $("cvA").getBoundingClientRect(); return [r.left + xy[0], r.top + xy[1]]; } },
 };
 };

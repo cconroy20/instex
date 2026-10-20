@@ -160,7 +160,7 @@
       <div class="controls rcontrols">
         <section>
           <h2 title="The array: the antennas and where the antennas stand.">Array</h2>
-          <div class="caserow" title="As built: the array's own pads, in one of the array's configurations. Or a made-up layout of any number of the array's antennas (same dishes, same site): random over a disc, a square grid, an east-west line, the shapes L, T, Y and a cross (antennas spaced evenly along the arms), or a ring."><span>Layout</span><select id="rLay"></select><button id="rRedraw" class="ghost" type="button" hidden title="Draw a new random layout." aria-label="Draw a new random layout">↻</button></div>
+          <div class="caserow" id="rLayRow" title="As built: the array's own pads, in one of the array's configurations. Or a made-up layout of any number of the array's antennas (same dishes, same site): random over a disc, a square grid, an east-west line, the shapes L, T, Y and a cross (antennas spaced evenly along the arms), or a ring."><span>Layout</span><select id="rLay"></select><button id="rRedraw" class="ghost" type="button" hidden title="Draw a new random layout." aria-label="Draw a new random layout">↻</button></div>
           <div class="caserow" id="rCfgRow" title="The array's configuration: the pads the antennas stand on. The antennas are moved between configurations, compact to extended, over the observatory's cycle."><span>Configuration</span><select id="rCfg"></select></div>
           <div class="ctl" id="rNaRow" hidden title="The number of antennas in the made-up layout. N antennas make N (N − 1) / 2 baselines.">
             <label for="rNa"><span>Antennas</span><span class="val" id="vrNa"></span></label>
@@ -170,7 +170,11 @@
             <label for="rExt"><span>Size</span><span class="val" id="vrExt"></span></label>
             <input type="range" id="rExt" min="1.5" max="5.301" step="0.002">
           </div>
-          <div class="ctl" title="The lowest elevation at which the antennas observe. Below the limit a source gives no samples, so a low source's tracks are cut short. The default is the observatory's stated limit.">
+          <div class="ctl" id="rConcRow" hidden title="How the antennas crowd toward the center. Along an arm (and along the line, and the grid's rows and columns from the middle), the n-th of m antennas out sits at (n / m)^p of the arm's length: p = 1 spaces the antennas evenly, a larger p packs more of the antennas near the center and fewer far out. The VLA's arms follow p = 1.716 (fitted to the pads). For Random, the radii go as u^(p / 2) of the disc's: p = 1 is uniform over the area. Antennas are kept at least 1.2 dishes apart.">
+            <label for="rConc"><span>Concentration</span><span class="val" id="vrConc"></span></label>
+            <input type="range" id="rConc" min="1" max="2" step="0.01">
+          </div>
+          <div class="ctl" id="rElRow" title="The lowest elevation at which the antennas observe. Below the limit a source gives no samples, so a low source's tracks are cut short. The default is the observatory's stated limit.">
             <label for="rEl"><span>Elevation limit</span><span class="val" id="vrEl"></span></label>
             <input type="range" id="rEl" min="0" max="60" step="0.5">
           </div>
@@ -182,7 +186,7 @@
             <label for="rDec"><span>Declination</span><span class="val" id="vrDec"></span></label>
             <input type="range" id="rDec" min="-90" max="90" step="0.5">
           </div>
-          <div class="ctl" title="How long the array observes, centered on the source's transit. 0 is a snapshot: one sample per baseline. A longer track fills in the uv plane as the Earth turns (Earth-rotation synthesis).">
+          <div class="ctl" id="rDurRow" title="How long the array observes, centered on the source's transit. 0 is a snapshot: one sample per baseline. A longer track fills in the uv plane as the Earth turns (Earth-rotation synthesis).">
             <label for="rDur"><span>Duration</span><span class="val" id="vrDur"></span></label>
             <input type="range" id="rDur" min="0" max="24" step="0.1">
           </div>
@@ -191,7 +195,7 @@
             <label for="rNu"><span>Frequency</span><span class="val" id="vrNu"></span></label>
             <input type="range" id="rNu" min="1" max="2" step="0.001">
           </div>
-          <div class="ctl" title="The band observed at once, centered on the frequency. Each baseline then samples a short radial streak of the uv plane, one point per frequency (multi-frequency synthesis), which fills the uv plane further.">
+          <div class="ctl" id="rBwRow" title="The band observed at once, centered on the frequency. Each baseline then samples a short radial streak of the uv plane, one point per frequency (multi-frequency synthesis), which fills the uv plane further.">
             <label for="rBw"><span>Bandwidth</span><span class="val" id="vrBw"></span></label>
             <input type="range" id="rBw" min="0" max="1" step="0.01">
           </div>
@@ -199,12 +203,12 @@
         </section>
         <section>
           <h2 title="How the samples are weighted to make the image, and the model sky being imaged.">Image</h2>
-          <div class="caserow wraprow" title="Natural: all samples count the same, so the crowded short baselines dominate: the best sensitivity and a broad beam. Uniform: each patch of the uv plane counts the same, however many samples fall in the patch: a sharper beam, lower sidelobes near the center, and more noise. Robust (Briggs) weighting runs between the two."><span>Weighting</span><span class="seg sm"><button id="rwNat" type="button">Natural</button><button id="rwRob" type="button">Robust</button><button id="rwUni" type="button">Uniform</button></span></div>
+          <div class="caserow wraprow" id="rWtRow" title="Natural: all samples count the same, so the crowded short baselines dominate: the best sensitivity and a broad beam. Uniform: each patch of the uv plane counts the same, however many samples fall in the patch: a sharper beam, lower sidelobes near the center, and more noise. Robust (Briggs) weighting runs between the two."><span>Weighting</span><span class="seg sm"><button id="rwNat" type="button">Natural</button><button id="rwRob" type="button">Robust</button><button id="rwUni" type="button">Uniform</button></span></div>
           <div class="ctl" id="rRobRow" title="Briggs's robust parameter: about −2 is close to uniform weighting, +2 close to natural; 0.5 is a common choice.">
             <label for="rRob"><span>Robust</span><span class="val" id="vrRob"></span></label>
             <input type="range" id="rRob" min="-2" max="2" step="0.1">
           </div>
-          <div class="caserow" title="The model sky at the center of the field: a point source, two equal points east and west of the center, a Gaussian, a uniform disc, or a thin ring. Each has the same total flux."><span>Sky</span><select id="rSky"></select></div>
+          <div class="caserow" title="The model sky at the center of the field: a point source, two equal points east and west of the center, a Gaussian, a uniform disc, a thin ring, or the galaxy M101 as Hubble sees it (13.8′ wide at its true size; the Size slider moves the galaxy nearer or farther). Each has the same total flux."><span>Sky</span><select id="rSky"></select></div>
           <div class="ctl" id="rSizeRow" title="The model's size: the separation of the two points, the Gaussian's FWHM, or the disc's or ring's diameter.">
             <label for="rSize"><span id="lrSize">Size</span><span class="val" id="vrSize"></span></label>
             <input type="range" id="rSize" min="-3" max="3.6" step="0.005">
@@ -463,6 +467,7 @@
 <dialog id="about" class="about" aria-labelledby="aboutTitle">
   <div class="abhead"><h2 id="aboutTitle">About the model</h2><button id="aboutClose" class="ghost" type="button" aria-label="Close">×</button></div>
   <p class="only-int">Each pair of antennas is a baseline. Seen from the source at hour angle H and declination δ, a baseline samples the sky's visibility at (u, v), the baseline's projection on the plane facing the source, in wavelengths; as the Earth turns, each sample moves along an ellipse, and each sample also gives a mirror point (−u, −v). Samples with the source below the elevation limit are left out. A wide band spreads each sample into a radial streak, one point per frequency, over one contiguous band about the frequency (ALMA's basebands really sit in two sidebands). The antenna positions are the observatories' configuration files (for ALMA, the 43-antenna sets of the current cycle); the made-up layouts use the array's dishes at the array's site.</p>
+  <p class="only-int">The M101 sky is the Hubble mosaic heic0602a, in gray, resized to 8000 pixels across (0.099″ a pixel) and turned 3.5° to put north up, with the picture's brightness as the sky's. Image: European Space Agency &amp; NASA. Acknowledgements: Project Investigators for the original Hubble data: K.D. Kuntz (GSFC), F. Bresolin (University of Hawaii), J. Trauger (JPL), J. Mould (NOAO), and Y.-H. Chu (University of Illinois, Urbana); Image processing: Davide De Martin (ESA/Hubble); CFHT image: Canada-France-Hawaii Telescope/J.-C. Cuillandre/Coelum; NOAO image: George Jacoby, Bruce Bohannan, Mark Hanna/NOAO/AURA/NSF. License: CC BY 4.0.</p>
   <p class="only-int">The weighted samples are gridded and Fourier transformed: the weights give the synthesized (dirty) beam, and the weights times the model sky's visibilities give the dirty image, the sky times the primary beam (a Gaussian of the stated half-power width), convolved with the beam. Uniform and robust weighting count the samples in uv cells about 1/250 of the uv plane's extent. The beam's size is the FWHM of a Gaussian fitted to the beam's main lobe. The model leaves out noise, calibration, the w term of wide fields, the smearing of a sample over the sample's integration time and channel width, and deconvolution (CLEAN).</p>
   <p class="only-img">The telescope, collimator and camera are ideal thin optics, so each star images to a point at f_eff tan θ from the axis; the numbers come from tracing rays through the optics and are checked against the closed forms (plate scale 206265 / f_eff, pupil position, field angle in the beam) in the validation suite. A star's image is the seeing (a Moffat profile, with the diffraction width added in quadrature) or the Airy pattern of the annular aperture; the band sets only the wavelength of the diffraction width. The field of stars and galaxies is synthetic and illustrative.</p>
   <p class="only-spec">The collimator and camera are ideal (aberration-free), and the dispersers are plane.</p>

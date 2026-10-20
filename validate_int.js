@@ -6,6 +6,10 @@
 //    real and symmetric, a point source's dirty image is the beam, a double's is the sum of two shifted beams.
 // 3. The beam fit recovers a Gaussian's FWHMs and position angle; weighting limits (robust +5 = natural, -5 = uniform).
 // 4. The sky models' visibilities: J1 against its series, the closed forms against the FFT of the models' images.
+// 3b. A single dish: the filled aperture's beam is the Airy pattern (FWHM 1.029 lambda / D, first ring 1.75% of the
+//     peak), an elliptical aperture's beam elliptical in the inverse ratio.
+// 4a. Image skies: the flux kept, east and north the right way round, an image of a Gaussian matching the closed
+//    form, the pyramid's levels averaging the image, the level chosen for a grid.
 // 4b. Made-up layouts: the counts, the longest baselines of the shapes, the random layout's disc and seed, the
 //    grid's redundant baselines, the spreading of a crowded layout.
 // 5. The arrays (web/rpresets.js) against their records (data/interf/*.json): antenna counts, longest baselines vs
@@ -163,6 +167,42 @@ const DEG = RI.DEG, RAD = RI.RAD, C = RI.C;
   }
 }
 
+// ---------------------------------------------------------------- 3b. a single dish
+{
+  const nu = 1.4e9, lam = C / nu, D = 200, S = RI.aperture(D, D, nu), w = RI.weigh(S, "natural");
+  const pix = lam / D / 12, n = 512, G = RI.apertureGrid(S.single, n, 1 / (n * pix)), Db = RI.dirty(G.g, null, n), f = RI.fitBeam(Db.beam, n, pix);
+  // the first ring: the largest value beyond the first null along a cut
+  let ring = 0, past = false; for (let i = 1; i < n / 2; i++) { const b = Db.beam[i]; if (b < 0.001) past = true; if (past) ring = Math.max(ring, b); if (past && i * pix > 3 * lam / D) break; }
+  check("a filled circular aperture: the beam's FWHM is the Airy pattern's 1.029 λ / D (to 2%)", rel(f.maj, 1.029 * lam / D) < 0.02 && rel(f.min, 1.029 * lam / D) < 0.02, `${(f.maj / (lam / D)).toFixed(4)} λ / D`);
+  let bmin = Infinity; for (const x of Db.beam) bmin = Math.min(bmin, x);
+  check("a filled circular aperture: the first ring 1.75% of the peak, no negative sidelobes", Math.abs(ring - 0.0175) < 0.002 && bmin > -0.003, `${(100 * ring).toFixed(2)}%, min ${bmin.toExponential(1)}`);
+  const E = RI.aperture(240, 160, nu), Ge = RI.apertureGrid(E.single, n, 1 / (n * pix)), De = RI.dirty(Ge.g, null, n), fe = RI.fitBeam(De.beam, n, pix);
+  check("an elliptical aperture 240 x 160 m: the beam 1.5 times longer north-south, PA 0", rel(fe.maj / fe.min, 1.5) < 0.03 && Math.min(fe.pa, 180 - fe.pa) < 1, `${(fe.maj / fe.min).toFixed(3)}, PA ${fe.pa.toFixed(1)}`);
+}
+
+// ---------------------------------------------------------------- 4a. image skies
+{
+  const W = 200, Hh = 120, v = new Float32Array(W * Hh);
+  // one bright pixel at the image's left (east) edge, halfway down, and one at the top (north) edge, in the middle
+  v[60 * W + 0] = 1; v[0 * W + 100] = 1;
+  const size = 200e-6, n = 512, pix = 1e-6, sI = RI.skyImage("image", size, n, pix, 0, { w: W, h: Hh, v });
+  let tot = 0, ce = 0, cn = 0;
+  for (let k = 0; k < n * n; k++) if (sI[k]) { tot += sI[k]; let i = k % n, j = Math.floor(k / n); if (i >= n / 2) i -= n; if (j >= n / 2) j -= n; if (i > 50) ce += sI[k]; if (j > 30) cn += sI[k]; }
+  check("an image sky: the flux sums to 1; the left column lies east (l > 0), the top row north (m > 0)", Math.abs(tot - 1) < 1e-9 && Math.abs(ce - 0.5) < 1e-6 && Math.abs(cn - 0.5) < 1e-6, `${tot.toFixed(6)}, east ${ce.toFixed(3)}, north ${cn.toFixed(3)}`);
+  // an image of a Gaussian (FWHM 20 image pixels) against the closed form
+  const G = 256, gv = new Float32Array(G * G), fw = 20;
+  for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) gv[y * G + x] = Math.exp(-4 * Math.LN2 * ((x - G / 2 + 0.5) ** 2 + (y - G / 2 + 0.5) ** 2) / (fw * fw));
+  const gsz = 300e-6, Vg = RI.visibilities(RI.skyImage("image", gsz, 512, 1.3e-6, 0, { w: G, h: G, v: gv }), 512), du = 1 / (512 * 1.3e-6);
+  let worst = 0;
+  for (const [pp, qq] of [[2, 0], [0, 4], [5, 3], [9, -6]]) { const k = ((qq + 512) % 512) * 512 + (pp + 512) % 512; worst = Math.max(worst, Math.abs(Math.hypot(Vg.re[k], Vg.im[k]) - RI.vis("gaussian", fw * gsz / G, pp * du, qq * du))); }
+  check("an image of a Gaussian: its visibility matches the closed form", worst < 0.01, worst.toExponential(2));
+  // the pyramid: each level halves the image and keeps its mean brightness; the level for a grid pixel
+  const u8 = new Uint8Array(1024 * 768); for (let k = 0; k < u8.length; k++) u8[k] = (k * 37) % 256;
+  const L = RI.pyramid({ w: 1024, h: 768, v: u8, scale: 1 / 255 }), mean = q => { let a = 0; for (const x of q.v) a += x * q.scale; return a / q.v.length; };
+  check("the pyramid: levels 1024, 512, 256 wide, each keeping the mean brightness", L.map(q => q.w).join(",") === "1024,512,256" && L.every(q => Math.abs(mean(q) - mean(L[0])) < 1e-4), L.map(q => q.w + ":" + mean(q).toFixed(5)).join(" "));
+  check("the level for a grid: pixels just below half the grid's", RI.level(L, 1024, 0.5).w === 1024 && RI.level(L, 1024, 2).w === 1024 && RI.level(L, 1024, 4).w === 512 && RI.level(L, 1024, 100).w === 256);
+}
+
 // ---------------------------------------------------------------- 4b. made-up layouts
 {
   const ok = [];
@@ -181,6 +221,19 @@ const DEG = RI.DEG, RAD = RI.RAD, C = RI.C;
   const G = RI.layout("grid", 36, 5000, 25), vec = new Set();
   for (let i = 0; i < 36; i++) for (let j = i + 1; j < 36; j++) { let de = G[j][0] - G[i][0], dn = G[j][1] - G[i][1]; if (dn < -1e-6 || (Math.abs(dn) < 1e-6 && de < 0)) { de = -de; dn = -dn; } vec.add(Math.round(de) + "," + Math.round(dn)); }
   check("a 6 x 6 grid: 630 baselines but only ((2 x 6 - 1)^2 - 1) / 2 = 60 different ones", vec.size === 60, vec.size);
+  // concentration: the n-th of m antennas along an arm at (n / m)^p of the arm, the longest baseline unchanged
+  {
+    const P = RI.layout("Y", 28, 5000, 25, 1, 2), a = 5000 / Math.sqrt(3);
+    const north = P.filter(q => Math.abs(q[0]) < 1e-6 && q[1] > 0).map(q => q[1]).sort((x, y) => x - y);
+    let e = 0; north.forEach((r, k) => { e = Math.max(e, Math.abs(r - a * Math.pow((k + 1) / 9, 2))); });
+    check("concentration 2: a Y's 9 antennas per arm at (n / 9)^2 of the arm, the longest baseline still the size", north.length === 9 && e < 1e-9 && rel(span(P), 5000) < 1e-9, `${e.toExponential(2)}, ${span(P).toFixed(1)} m`);
+    const Pc = RI.layout("line", 40, 2000, 25, 1, 3);
+    let gm = Infinity; for (let i = 1; i < Pc.length; i++) gm = Math.min(gm, Pc[i][0] - Pc[i - 1][0]);
+    check("concentration 3 on a line: crowded antennas pushed apart to 1.2 dishes, the ends kept", Math.abs(gm - 30) < 1e-9 && Math.abs(Pc[0][0] + 1000) < 1e-9 && Math.abs(Pc[39][0] - 1000) < 1e-9, `closest ${gm.toFixed(2)} m`);
+    const med = q => { const r = q.map(x => Math.hypot(x[0], x[1])).sort((x, y) => x - y); return r[Math.floor(r.length / 2)]; };
+    const m1 = med(RI.layout("random", 400, 20000, 12, 4, 1)), m2 = med(RI.layout("random", 400, 20000, 12, 4, 2));
+    check("random: uniform over the disc at 1 (median radius R / √2), crowded to the center at 2 (median R / 2)", rel(m1, 10000 / Math.SQRT2) < 0.08 && rel(m2, 5000) < 0.1, `${m1.toFixed(0)} m, ${m2.toFixed(0)} m`);
+  }
   const crowd = RI.layout("grid", 49, 60, 25);
   let cm = Infinity; for (let i = 0; i < 49; i++) for (let j = i + 1; j < 49; j++) cm = Math.min(cm, Math.hypot(crowd[i][0] - crowd[j][0], crowd[i][1] - crowd[j][1]));
   check("a layout too crowded for its dishes is spread to 1.2 diameters", Math.abs(cm - 30) < 1e-9, cm.toFixed(3) + " m");
@@ -204,6 +257,24 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
 }
 {
   const a = ARRS.find(q => q.id === "vla"), j = require("./data/interf/vla.json");
+  // the arms' power law, fitted to the pads (W and E arms, pads 2 to 72; pad 1 sits off the law): the tooltip's 1.716
+  {
+    const pads = {};
+    for (const c of ["A", "B", "C", "D"]) for (const q of j.configs[c].antennas) pads[q.pad] = Math.hypot(q.e, q.n);
+    for (const arm of ["W", "E"]) {
+      const L = Object.entries(pads).map(([k, r]) => [k.match(new RegExp("^" + arm + "0*(\\d+)$")), r]).filter(q => q[0] && +q[0][1] >= 2).map(q => [Math.log(+q[0][1]), Math.log(q[1])]);
+      const n = L.length, mx = L.reduce((a, q) => a + q[0], 0) / n, my = L.reduce((a, q) => a + q[1], 0) / n;
+      let sxy = 0, sxx = 0; for (const [x, y] of L) { sxy += (x - mx) * (y - my); sxx += (x - mx) * (x - mx); }
+      check(`VLA ${arm} arm: the pads follow r ∝ n^1.716 (fitted over ${n} pads)`, n === 23 && Math.abs(sxy / sxx - 1.716) < 0.003, (sxy / sxx).toFixed(4));
+    }
+  }
+  // the lesson: a snapshot of 27 antennas on a Y the size of the C configuration, even and concentrated
+  {
+    const snap = P => { const ants = P.map(q => ({ e: q[0], n: q[1], u: 0 })), S = RI.sample({ ants, lat: a.lat * DEG, dec: 40 * DEG, elMin: 0, dur: 0, nu: 1.5e9, bw: 0 }), ext = 3387 * 1.5e9 / C, w = RI.weigh(S, "natural");
+      for (let k = 0, pix = 0.05 / ext; k < 3; k++, pix *= 3) { const G = RI.grid(S, w, 512, 1 / (512 * pix)), D = RI.dirty(G.g, null, 512), f = RI.fitBeam(D.beam, 512, pix); if (f) return Math.abs(RI.sidelobe(D.beam, 512, 1.5 * f.maj / pix)); } };
+    const ev = snap(RI.layout("Y", 27, 3387, 25, 1, 1)), cc = snap(RI.layout("Y", 27, 3387, 25, 1, 1.716));
+    check("a Y snapshot: the VLA's concentration (1.716) lowers the peak sidelobe below even spacing's", cc < ev, `${(100 * cc).toFixed(0)}% vs ${(100 * ev).toFixed(0)}%`);
+  }
   check("VLA: 27 antennas in each of A, B, C, D", a.configs.length === 4 && a.configs.every(c => c.ants.length === 27));
   for (const c of a.configs) {
     const L = RI.lengths(c.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), a.lat * DEG), oss = j.configs[c.id].published;
