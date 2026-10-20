@@ -122,6 +122,10 @@
         <section>
           <h2 title="The telescope's foci: one primary with different secondaries (and flat tertiaries) gives different focal ratios and plate scales.">Telescope</h2>
           <div class="caserow" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see."><span>Focus</span><select id="tFocus"></select></div>
+          <div class="ctl" id="tTrackRow" hidden title="The tracker follows a star across the fixed primary: its angle off the array's axis moves the pupil across the mirror array (the radius of curvature times the angle), and the part of the pupil off the array collects nothing.">
+            <label for="tTrack"><span>Tracker</span><span class="val" id="vtTrack"></span></label>
+            <input type="range" id="tTrack" min="-6" max="6" step="0.05">
+          </div>
           <div class="rds" id="rTelT"></div>
         </section>
         <section>

@@ -1,0 +1,1275 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Hobby-Eberly Telescope (HET) after the Wide Field Upgrade -- prime focus and the moving entrance pupil",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/het.md (same content as Markdown). Structure follows keck.json / magellan.json for a single telescope: sources{key: cite, file, url}; het: title, telescope (machine-readable primary, pupil, foci list; refs point to sourced params as 'het.<param>'), params, not_found, conflicts, notes.",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/het/. derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (its caption or a nearby text quote is checked). NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, middle dot, the degree sign and the white-bullet degree glyph (U+25E6) normalised; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page (PDF p. = page index of the saved PDF; for the GMT OAD this equals the printed 'Page N of 262'), tag-stripped text and raw source for HTML (UTF-8), .py and .md as is",
+  "pupil_frame": "pyHETobs frame (metres on the primary seen from the sky; x right, y up; segment columns along y)",
+  "design_vs_asbuilt": "H21, G21, K21, MDO describe the upgraded HET (2015-); H21 Table 1 gives the original HET for comparison; pyHETobs = third-party pupil model",
+  "check_result": "82 quotes checked against the saved files, 0 failures (2026-10-19)"
+ },
+ "sources": {
+  "H21": {
+   "cite": "Hill, G. J., Lee, H., MacQueen, P. J., et al. 2021, \"The HETDEX Instrumentation: Hobby-Eberly Telescope Wide-field Upgrade and VIRUS\", AJ 162, 298 (2021AJ....162..298H), arXiv:2110.03843 (Draft version December 13, 2021): Sec. 1 introduction, Sec. 3 Wide Field Upgrade (3.2 tracker, 3.3 WFC), Fig. 6 pupil illumination, Sec. 5 throughput, Table 1 HET properties, Table 4 WFU performance. The pdftotext layer renders a prime after a number as '0' (22' -> '220', 0.6\" -> '0.600', 9' -> '90'); quotes avoid or keep those glyph runs verbatim",
+   "file": "rawdata/telescopes/het/Hill2021_AJ162_298_HETDEX_Instrumentation_WFU_VIRUS_arXiv2110.03843.pdf",
+   "url": "https://arxiv.org/pdf/2110.03843"
+  },
+  "MDO": {
+   "cite": "McDonald Observatory (The University of Texas at Austin), \"10 m Hobby-Eberly Telescope\" research-facilities page: 'Telescope Parameters' and 'Mechanical' tables, instrument list (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/het/mcdonald_utexas_research-facilities_HET.html",
+   "url": "https://mcdonald.utexas.edu/research-facilities/HET"
+  },
+  "MDOP": {
+   "cite": "McDonald Observatory public site, \"Hobby-Eberly Telescope\" page: 'The Telescope's Unique Design' and 'Telescope Facts' (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/het/mcdonaldobservatory_org_research_telescopes_HET.html",
+   "url": "https://mcdonaldobservatory.org/research/telescopes/HET"
+  },
+  "K21": {
+   "cite": "Kanodia, S., Halverson, S., Ninan, J. P., et al. 2021, \"A Harsh Test of Far-field Scrambling with the Habitable-zone Planet Finder and the Hobby-Eberly Telescope\", ApJ 912, 15 (2021ApJ...912...15K), arXiv:2103.05148 (Draft version May 6, 2021): Sec. 2 The Hobby-Eberly Telescope, Figs. 1-3, Appendix A (pyHETobs)",
+   "file": "rawdata/telescopes/het/Kanodia2021_ApJ912_15_HPF_HET_pupil_scrambling_arXiv2103.05148.pdf",
+   "url": "https://arxiv.org/pdf/2103.05148"
+  },
+  "G21": {
+   "cite": "Gebhardt, K., Mentuch Cooper, E., Ciardullo, R., et al. 2021, \"The Hobby-Eberly Telescope Dark Energy Experiment (HETDEX) Survey Design, Reductions, and Detections\", ApJ 923, 217 (2021ApJ...923..217G), arXiv:2110.04298 (Draft version October 12, 2021): Secs. 5-6",
+   "file": "rawdata/telescopes/het/Gebhardt2021_ApJ923_217_HETDEX_survey_arXiv2110.04298.pdf",
+   "url": "https://arxiv.org/pdf/2110.04298"
+  },
+  "PHP": {
+   "cite": "pyHETobs (J. P. Ninan, GitHub indiajoe/pyHETobs, commit 77a062b, 2025-02-26): pyHETobs/HETparams.py, the static HET-model parameters behind K21's pupil simulations. Third-party model (not an observatory document)",
+   "file": "rawdata/telescopes/het/pyHETobs_77a062b_HETparams.py",
+   "url": "https://github.com/indiajoe/pyHETobs/blob/77a062b2814e01d4f98315e7ad3f245abb15313e/pyHETobs/HETparams.py"
+  },
+  "PHU": {
+   "cite": "pyHETobs commit 77a062b: pyHETobs/HET_pupil.py (primary-mirror segment grid, pupil with WFC shadow and two support beams, mirror-curvature projection)",
+   "file": "rawdata/telescopes/het/pyHETobs_77a062b_HET_pupil.py",
+   "url": "https://github.com/indiajoe/pyHETobs/blob/77a062b2814e01d4f98315e7ad3f245abb15313e/pyHETobs/HET_pupil.py"
+  },
+  "PHT": {
+   "cite": "pyHETobs commit 77a062b: pyHETobs/HET_Tracker.py (pupil position on the primary vs star offset)",
+   "file": "rawdata/telescopes/het/pyHETobs_77a062b_HET_Tracker.py",
+   "url": "https://github.com/indiajoe/pyHETobs/blob/77a062b2814e01d4f98315e7ad3f245abb15313e/pyHETobs/HET_Tracker.py"
+  }
+ },
+ "het": {
+  "title": "Hobby-Eberly Telescope after the Wide Field Upgrade (2015-): prime focus with the four-mirror Wide Field Corrector; moving entrance pupil",
+  "telescope": {
+   "name": "Hobby-Eberly Telescope (HET), after the Wide Field Upgrade",
+   "site": "Mt. Fowlkes, McDonald Observatory, west Texas",
+   "mount": "fixed elevation 55 deg; azimuth rotation on air bearings; x-y-z tracker + hexapod at prime focus",
+   "optical_design": "spherical segmented primary + four-mirror prime-focus corrector",
+   "primary": {
+    "n_segments": 91,
+    "spares": 6,
+    "segment_flat_to_flat_m": 1.0,
+    "shape": "spherical",
+    "radius_of_curvature_m": 26.164,
+    "radius_alternatives_m": [
+     26.0
+    ],
+    "array_size_m": "11 x 10 (MDOP); 11.1 (G21); DERIVED 9.91 x 11.11",
+    "material": "Zerodur, 50 mm thick at the edge",
+    "fixed_elevation_deg": 55,
+    "refs": [
+     "het.n_segments",
+     "het.segment_size",
+     "het.array_outline",
+     "het.primary_radius",
+     "het.primary_material",
+     "het.site_design"
+    ]
+   },
+   "pupil": {
+    "outline": "10 m circular pupil (set by the WFC) that slides over a 91-segment hexagonal spherical array (9.91 x 11.11 m, DERIVED); the illuminated pupil is the overlap",
+    "frame": "pyHETobs frame: x, y in metres on the primary seen from the sky; x to the right, y 'vertically up' (pyHETobs CCAS code); segment columns along y, segment vertices along +/-x. Tracker axes (H21): x perpendicular to the bridge, y along it.",
+    "D_m": 10.0,
+    "D_basis": "pupil diameter at the centre of the track",
+    "eps": 0.45,
+    "central_obscuration_diameter_m": 4.5,
+    "central_obscuration_basis": "WFC/PFIP shadow: K21 (citing Booth et al. 2006) and pyHETobs; H21 Fig. 6A read-off 0.43-0.45",
+    "support_bars": {
+     "n": 2,
+     "width_m": 0.29,
+     "inner_edge_abs_x_m": 1.3,
+     "outer_edge_abs_x_m": 1.59,
+     "orientation": "parallel to pupil y, crossing the whole pupil",
+     "basis": "pyHETobs approximation ('Approximate sice from figure 7 in Wolf et. al. on MARS'); the real tracker-bridge and hexapod-strut shadows are more complex (H21 Fig. 6)"
+    },
+    "other_obstructions": [
+     "fibre bundles beside the central obscuration (K21)",
+     "CCAS tower shadow on East tracks at azimuths 41-97 deg (K21)",
+     "off the field centre the WFC mirror holes do not line up with the central obstruction (H21 Fig. 6 caption)"
+    ],
+    "segments": {
+     "n": 91,
+     "shape": "regular hexagon, flats at +/-y",
+     "flat_to_flat_m": 1.0,
+     "corner_to_corner_m_DERIVED": 1.1547,
+     "gap_m": 0.011,
+     "gap_range_mm": [
+      6.2,
+      15.8
+     ],
+     "n_rings_DERIVED": 5,
+     "array_extent_m_DERIVED": [
+      9.91,
+      11.11
+     ],
+     "radius_of_curvature_m": 26.164,
+     "centres_DERIVED": [
+      {
+       "x_m": -4.3778,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": -4.3778,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": -4.3778,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": -4.3778,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": -4.3778,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": -4.3778,
+       "y_m": 2.5275
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": -3.033
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": -2.022
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": -1.011
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": 0.0
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": 1.011
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": 2.022
+      },
+      {
+       "x_m": -3.5022,
+       "y_m": 3.033
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": -3.5385
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": 2.5275
+      },
+      {
+       "x_m": -2.6267,
+       "y_m": 3.5385
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": -4.044
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": -3.033
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": -2.022
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": -1.011
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": 0.0
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": 1.011
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": 2.022
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": 3.033
+      },
+      {
+       "x_m": -1.7511,
+       "y_m": 4.044
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": -4.5495
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": -3.5385
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": 2.5275
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": 3.5385
+      },
+      {
+       "x_m": -0.8756,
+       "y_m": 4.5495
+      },
+      {
+       "x_m": 0.0,
+       "y_m": -5.055
+      },
+      {
+       "x_m": 0.0,
+       "y_m": -4.044
+      },
+      {
+       "x_m": 0.0,
+       "y_m": -3.033
+      },
+      {
+       "x_m": 0.0,
+       "y_m": -2.022
+      },
+      {
+       "x_m": 0.0,
+       "y_m": -1.011
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 0.0
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 1.011
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 2.022
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 3.033
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 4.044
+      },
+      {
+       "x_m": 0.0,
+       "y_m": 5.055
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": -4.5495
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": -3.5385
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": 2.5275
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": 3.5385
+      },
+      {
+       "x_m": 0.8756,
+       "y_m": 4.5495
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": -4.044
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": -3.033
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": -2.022
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": -1.011
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": 0.0
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": 1.011
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": 2.022
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": 3.033
+      },
+      {
+       "x_m": 1.7511,
+       "y_m": 4.044
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": -3.5385
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": 2.5275
+      },
+      {
+       "x_m": 2.6267,
+       "y_m": 3.5385
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": -3.033
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": -2.022
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": -1.011
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": 0.0
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": 1.011
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": 2.022
+      },
+      {
+       "x_m": 3.5022,
+       "y_m": 3.033
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": -2.5275
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": -1.5165
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": -0.5055
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": 0.5055
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": 1.5165
+      },
+      {
+       "x_m": 4.3778,
+       "y_m": 2.5275
+      }
+     ],
+     "centres_note": "pyHETobs grid: columns x = 0, +/-0.8755, ... +/-4.3778 m holding 11, 10, 9, 8, 7, 6 segments; pitch 1.011 m along y (odd columns offset by 0.5055 m)"
+    },
+    "travel": {
+     "rule": "pupil centre moves over the primary by R x (star offset from the primary axis); pyHETobs: ~2 x the tracker displacement",
+     "tracker_range_deg": 12,
+     "pupil_shift_at_6deg_m_DERIVED": 2.74,
+     "pyHETobs_tracker_radius_deg": 8.4,
+     "pupil_shift_at_8p4deg_m_DERIVED": 3.836,
+     "track_time_min_to_max": [
+      "50 min at dec -10.0",
+      "2.8 h at dec +67.2"
+     ]
+    },
+    "obstructed_pupil_area_m2_DERIVED": 59.05,
+    "effective_area_vs_pupil_shift_DERIVED": [
+     {
+      "tracker_angle_deg": 0,
+      "pupil_shift_m": 0.0,
+      "area_m2": 55.5,
+      "fraction_of_obstructed_pupil": 0.94,
+      "equivalent_diameter_m": 8.4
+     },
+     {
+      "tracker_angle_deg": 2,
+      "pupil_shift_m": 0.913,
+      "area_m2": [
+       49.5,
+       49.9
+      ],
+      "fraction_of_obstructed_pupil": [
+       0.84,
+       0.85
+      ]
+     },
+     {
+      "tracker_angle_deg": 4,
+      "pupil_shift_m": 1.827,
+      "area_m2": [
+       40.9,
+       42.1
+      ],
+      "fraction_of_obstructed_pupil": [
+       0.69,
+       0.71
+      ]
+     },
+     {
+      "tracker_angle_deg": 6,
+      "pupil_shift_m": 2.74,
+      "area_m2": [
+       32.8,
+       34.1
+      ],
+      "fraction_of_obstructed_pupil": [
+       0.55,
+       0.58
+      ],
+      "note": "edge of the 12 deg range"
+     },
+     {
+      "tracker_angle_deg": 8.4,
+      "pupil_shift_m": 3.836,
+      "area_m2": [
+       26.6,
+       27.4
+      ],
+      "fraction_of_obstructed_pupil": [
+       0.45,
+       0.46
+      ],
+      "note": "pyHETobs limit (partly illuminated tracks)"
+     }
+    ],
+    "effective_area_basis": "numpy raster of the pyHETobs geometry (shifts along x, y and the diagonal give the ranges); K21 Fig. 3b read-off: ~55.5 m^2 peak (West), ~48 m^2 (East, CCAS shadow), ~23-33 m^2 at the track ends; K21 text: factor of 2, effective diameter ~8.5 -> 5.5 m",
+    "refs": [
+     "het.pupil_diameter",
+     "het.central_obscuration",
+     "het.support_struts",
+     "het.n_segments",
+     "het.segment_size",
+     "het.segment_gap",
+     "het.array_outline",
+     "het.primary_radius",
+     "het.tracker_range",
+     "het.pupil_travel",
+     "het.effective_area",
+     "het.ccas_shadow"
+    ]
+   },
+   "foci": [
+    {
+     "id": "HET-PF-WFC",
+     "name": "Prime focus with the Wide Field Corrector (f/3.65; 2015-)",
+     "status": "in use",
+     "corrector": {
+      "name": "Wide Field Corrector (WFC, 'Harold C. Simmons Dark Energy Optical System')",
+      "type": "four-mirror corrector + aspheric corrector plate at the exit pupil",
+      "mirrors": {
+       "M2": "concave, 1 m",
+       "M3": "concave, 1 m, central hole (light enters through it)",
+       "M4": "convex, 0.23 m",
+       "M5": "concave, 0.9 m"
+      },
+      "ref": "het.wfc"
+     },
+     "focal_length_m": 36.5,
+     "F": 3.65,
+     "F_basis": "36.5 m / 10 m pupil",
+     "plate_scale_arcsec_per_mm": 5.65,
+     "plate_scale_arcsec_per_mm_DERIVED": 5.6511,
+     "plate_scale_mm_per_arcsec": 0.177,
+     "field_arcmin": 22,
+     "field_science_arcmin": 18,
+     "field_mm_DERIVED": 233.6,
+     "focal_surface": "concave sphere R = 984 mm centred on the exit pupil",
+     "n_reflections_DERIVED": 5,
+     "mirrors": [
+      "M1 spherical primary (91 segments)",
+      "WFC M2",
+      "WFC M3",
+      "WFC M4",
+      "WFC M5"
+     ],
+     "location": "on the tracker at the prime focus, ~13 m from the primary (R/2 DERIVED), moving over the focal sphere; the PFIP rides on the tracker with a Rho-axis field rotator",
+     "instruments_current": [
+      "VIRUS (fibre IFUs)",
+      "LRS2",
+      "HPF (fibre to the pier basement)"
+     ],
+     "instruments_planned": [
+      "HRS2"
+     ],
+     "pupil_obstructions": {
+      "central_obscuration_diameter_m": 4.5,
+      "eps": 0.45,
+      "support_bars": "2 x 0.29 m at |x| = 1.30-1.59 m (pyHETobs)",
+      "note": "pupil moves over the array during a track (see pupil.travel)",
+      "refs": [
+       "het.central_obscuration",
+       "het.support_struts"
+      ]
+     },
+     "refs": {
+      "focal_length": "het.focal_length",
+      "plate_scale": "het.plate_scale",
+      "field": "het.field",
+      "wfc": "het.wfc",
+      "focal_surface": "het.focal_surface",
+      "image_quality": "het.image_quality_vignetting",
+      "tracker": "het.tracker",
+      "instruments": "het.instruments"
+     }
+    },
+    {
+     "id": "HET-PF-SAC",
+     "name": "Prime focus with the original spherical aberration corrector (f/4.64; 1997-2013)",
+     "status": "historical",
+     "corrector": {
+      "name": "spherical aberration corrector (SAC)",
+      "type": "4-mirror double-Gregorian type (Jungquist 1999)",
+      "ref": "het.pre_upgrade"
+     },
+     "focal_length_m": 42.718,
+     "F": 4.64,
+     "plate_scale_arcsec_per_mm": 4.83,
+     "field_arcmin": 4,
+     "field_mm": 50,
+     "pupil_diameter_m": 9.2,
+     "n_reflections_DERIVED": 5,
+     "location": "prime focus on the original tracker",
+     "instruments_past": [],
+     "instruments_note": "pre-upgrade instrument suite not compiled here",
+     "pupil_obstructions": {
+      "note": "pre-upgrade obstruction NOT FOUND"
+     },
+     "refs": {
+      "all": "het.pre_upgrade"
+     }
+    }
+   ]
+  },
+  "params": {
+   "site_design": {
+    "value": "Mt. Fowlkes, McDonald Observatory, west Texas; fixed-elevation telescope (55 deg), rotates in azimuth on air bearings; x-y tracker at prime focus",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 1, PDF p. 3",
+    "quote": "HET is located on Mt. Fowlkes at McDonald Observatory in west Texas.",
+    "alternatives": [
+     {
+      "value": "fixed elevation 55 deg",
+      "src": "MDO",
+      "loc": "Mechanical table",
+      "quote": "Fixed Elevation Telescope Elevation Angle 55 degrees"
+     },
+     {
+      "value": "zenith angle 35 deg",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "points at a fixed zenith angle of 35"
+     },
+     {
+      "value": "always tilted at 55 deg",
+      "src": "MDOP",
+      "loc": "The Telescope's Unique Design",
+      "quote": "the HET's mirror is always tilted at 55 degrees above the horizon."
+     },
+     {
+      "value": "azimuth on air bearings; ~70% of the sky",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "The HET can be moved in azimuth on air-bearings to access about 70% of the sky visible at McDonald Observatory"
+     }
+    ]
+   },
+   "upgrade_dates": {
+    "value": "Wide Field Upgrade: HET off line Sep 2013; WFC installed May 2015; first light 29 Jul 2015; full science Jun 2018",
+    "unit": "",
+    "src": "H21",
+    "loc": "Table 2, PDF p. 63",
+    "quote": "HET taken off line Sep-2013 ... Wide Field Corrector installation May-2015 ... First Light 29-Jul-2015 ... Full science operations commence without bright-time engineering periods Jun-2018"
+   },
+   "n_segments": {
+    "value": 91,
+    "unit": "identical hexagonal segments (6 spares)",
+    "src": "H21",
+    "loc": "Sec. 1, PDF p. 3",
+    "quote": "11 m hexagonal-shaped spherical primary mirror made from 91 identical 1-m hexagonal segments",
+    "alternatives": [
+     {
+      "value": "91 (6 spares)",
+      "src": "MDO",
+      "loc": "Mechanical table",
+      "quote": "Segments 91 (6 spares)"
+     },
+     {
+      "value": 91,
+      "src": "G21",
+      "loc": "Sec. 6 (Basic Reductions), PDF p. 10",
+      "quote": "a 11.1-m spherically shaped primary mirror, which consists of 91 separate hexagonal segments."
+     },
+     {
+      "value": 91,
+      "src": "PHU",
+      "loc": "create_primary_mirror_grid",
+      "quote": "PrimaryMirrorGrid[cposition] = np.arange(-5,6)*(2*self.SegmentMirrorApothem + Gap)",
+      "note": "central column of 11 segments; the next columns hold 10, 9, 8, 7, 6 on each side: 11 + 2 x 40 = 91 (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED: 91 = 1 + 6 x (1 + 2 + 3 + 4 + 5): a hexagonal array of 5 rings around a centre segment."
+   },
+   "segment_size": {
+    "value": 1.0,
+    "unit": "m flat-to-flat (apothem 0.5 m; 'Hexagonal, 1m diameter')",
+    "src": "PHP",
+    "loc": "HETparams.py (primary mirror)",
+    "quote": "SegmentMirrorApothem = 0.5 # meters # Apothem of hexagonal segment mirror",
+    "alternatives": [
+     {
+      "value": "Hexagonal, 1m diameter",
+      "src": "MDO",
+      "loc": "Mechanical table",
+      "quote": "Segment size Hexagonal, 1m diameter"
+     },
+     {
+      "value": "1-m hexagonal segments",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "91 identical 1-m hexagonal segments"
+     },
+     {
+      "value": "1 m each",
+      "src": "K21",
+      "loc": "Sec. 2, PDF p. 3",
+      "quote": "of 91 hexagonal segments of 1 m each"
+     }
+    ],
+    "note": "'1 m' in the observatory sources is not defined as flat-to-flat or corner-to-corner; pyHETobs builds the hexagon with apothem 0.5 m (flats at +/-0.5 m in y, vertices at +/-0.577 m in x).",
+    "derived": "DERIVED: corner-to-corner = 2 x 0.5/cos 30 deg = 1.1547 m; side 0.5774 m; area 2 sqrt(3) x 0.5^2 = 0.8660 m^2; 91 segments = 78.81 m^2."
+   },
+   "segment_gap": {
+    "value": 11,
+    "unit": "mm average (6.2-15.8 mm)",
+    "src": "PHP",
+    "loc": "HETparams.py (primary mirror)",
+    "quote": "Gap = 0.011 # 6.2 to 15.8 mm # 11 mm on average",
+    "note": "Third-party model value; no observatory document with the gap found.",
+    "derived": "DERIVED: segment pitch 1.011 m along a column, 0.8755 m between columns; gap area fraction 1 - (0.5/0.5055)^2 = 2.2%."
+   },
+   "array_outline": {
+    "value": "11 by 10 m hexagonal array",
+    "unit": "",
+    "src": "MDOP",
+    "loc": "The Telescope's Unique Design",
+    "quote": "It's made up of 91 hexagonal mirrors that form a reflecting surface measuring 11 by 10 meters.",
+    "alternatives": [
+     {
+      "value": "11 m",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "11 m hexagonal-shaped spherical primary mirror"
+     },
+     {
+      "value": "11.1 m",
+      "src": "G21",
+      "loc": "Sec. 6 (Basic Reductions), PDF p. 10",
+      "quote": "a 11.1-m spherically shaped primary mirror"
+     },
+     {
+      "value": "effective 10 m, actual 11 m",
+      "src": "MDOP",
+      "loc": "Telescope Facts",
+      "quote": "Effective Diameter: 10 meters Actual Diameter: 11 meters"
+     },
+     {
+      "value": "pyHETobs columns",
+      "src": "PHU",
+      "loc": "PrimaryMirror.__init__",
+      "quote": "self.ColumnPositions = (3*self.SegmentMirrorApothem/np.sqrt(3)+self.ColumnGap) * np.arange(6) # Only positive coordinates"
+     }
+    ],
+    "derived": "DERIVED (pyHETobs layout: 11 columns 0.8755 m apart along x, segments 1.011 m apart along y, segment vertices along x): array spans 2 x (4.3778 + 0.5774) = 9.91 m in x and 2 x (5.055 + 0.5) = 11.11 m in y, i.e. the 11.1 m 'diameter' runs along the columns (pyHETobs y; its CCAS code calls y 'vertically up') and the outline's corners lie on the y axis."
+   },
+   "primary_radius": {
+    "value": 26.164,
+    "unit": "m (spherical; radius of curvature)",
+    "src": "PHP",
+    "loc": "HETparams.py (primary mirror)",
+    "quote": "RadiusOfCurvatureHETprimary = 26.164 # meters Radius of curvature of HET primary mirror",
+    "alternatives": [
+     {
+      "value": "26 m",
+      "src": "MDO",
+      "loc": "Mechanical table",
+      "quote": "Shape Spherical Radius of Curvature 26 m"
+     },
+     {
+      "value": "temperature dependent; set nightly",
+      "src": "H21",
+      "loc": "Sec. 3.1, PDF p. 8",
+      "quote": "This process sets the radius of curvature of the primary mirror."
+     }
+    ],
+    "derived": "DERIVED: paraxial focal length R/2 = 13.08 m (f/1.31 on the 10 m pupil); the WFC focal length 36.5 m is set by the corrector."
+   },
+   "primary_material": {
+    "value": "Zerodur segments, 50 mm thick at the edge; mirror 13.5 t",
+    "unit": "",
+    "src": "MDO",
+    "loc": "Mechanical table",
+    "quote": "Weight 13.5 t (27,000 lbs) (250lb/segment) Thickness 50 mm (2 inches) at the edge Material Zerodur",
+    "alternatives": [
+     {
+      "value": "13 tons, 52 mm",
+      "src": "MDOP",
+      "loc": "Telescope Facts",
+      "quote": "Weight: 13 tons Thickness: 52 mm Material: Schott “Zerodur”"
+     }
+    ]
+   },
+   "focal_length": {
+    "value": 36.5,
+    "unit": "m (prime focus with the WFC)",
+    "src": "MDO",
+    "loc": "Telescope Parameters (Primary Mirror, prime focus)",
+    "quote": "Focal length 36.500 m (120') F-ratio 3.65",
+    "alternatives": [
+     {
+      "value": "36,500 mm @ f/3.65",
+      "src": "H21",
+      "loc": "Table 1, PDF p. 62",
+      "quote": "Focal length @ Focal-ratio 42,718 @ f/4.64 36,500 mm @ f/3.65"
+     },
+     {
+      "value": "f/3.65 for fibres",
+      "src": "H21",
+      "loc": "Sec. 3.3, PDF p. 10",
+      "quote": "The corrector is designed for feeding optical fibers at f/3.65 to minimize focal ratio degradation"
+     }
+    ],
+    "derived": "DERIVED: 36.5/10.0 = f/3.65 on the 10 m pupil."
+   },
+   "plate_scale": {
+    "value": 5.65,
+    "unit": "arcsec/mm",
+    "src": "MDO",
+    "loc": "Telescope Parameters",
+    "quote": "Plate scale 5.65 arcsec/mm",
+    "alternatives": [
+     {
+      "value": 5.65,
+      "src": "H21",
+      "loc": "Table 1, PDF p. 62",
+      "quote": "Plate scale (arcsec./mm) 4.83 5.65"
+     }
+    ],
+    "derived": "DERIVED: 206264.8/36500 = 5.6511\"/mm (0.1770 mm/\"); uniform over the field (H21 Sec. 3.3)."
+   },
+   "field": {
+    "value": "22 arcmin diameter (18' science, 22' incl. guiding/wavefront sensing)",
+    "unit": "",
+    "src": "H21",
+    "loc": "Table 1, PDF p. 62",
+    "quote": "Field of View (arcmin. diameter) 4.0 (science and guiding) 18.0 science, 22.0 guiding",
+    "alternatives": [
+     {
+      "value": "22 arcmin",
+      "src": "MDO",
+      "loc": "Telescope Parameters",
+      "quote": "Field of view 22 arcmin"
+     },
+     {
+      "value": "22' (pdftotext '220') with a 10 m pupil",
+      "src": "H21",
+      "loc": "Sec. 3.3, PDF p. 9",
+      "quote": "diameter field of view and a 10 m pupil diameter. The periphery of the field is used for guiding and wavefront sensing"
+     },
+     {
+      "value": "70 x larger area",
+      "src": "H21",
+      "loc": "Table 4, PDF p. 64",
+      "quote": "22 arcmin 4 arcmin 22 arcmin 70 times larger area at same"
+     },
+     {
+      "value": "120 x larger",
+      "src": "MDOP",
+      "loc": "intro",
+      "quote": "expanding the telescope's field of view to an area of sky 120 times larger than before."
+     }
+    ],
+    "derived": "DERIVED: 22' x 60/5.6511 = 233.6 mm; 18' -> 191.1 mm. (22/4)^2 = 30.3 in area: neither the '70 times' nor the '120 times' is the ratio of field diameters squared (see conflicts)."
+   },
+   "wfc": {
+    "value": "four-mirror corrector: M2, M3 concave 1 m; M4 convex 0.23 m; M5 concave 0.9 m; light enters through a central hole in M3; aspheric corrector plate at the exit pupil",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 3.3, PDF pp. 9-10; Fig. 3 caption",
+    "quote": "The WFC is a four-mirror design with two concave one- meter diameter mirrors (M2, M3), one concave 0.9 m diameter mirror (M5), and one convex 0.23 m ... diameter mirror (M4).",
+    "alternatives": [
+     {
+      "value": "central hole in M3; ACP at the exit pupil",
+      "src": "H21",
+      "loc": "Fig. 3 caption, PDF p. 10",
+      "quote": "aspheric corrector plate (ACP) located at the exit pupil. Light enters the corrector from the primary mirror through the central hole in M3 and is focused on the concave focal surface (FS) as indicated by the ray tracing."
+     },
+     {
+      "value": "four reflecting surfaces",
+      "src": "H21",
+      "loc": "Sec. 3.3, PDF p. 10",
+      "quote": "With four surfaces, reflective coatings for the WFC are required to have high reflectance (95% or better from 3500 Å to 1.8 µm)"
+     },
+     {
+      "value": "name",
+      "src": "H21",
+      "loc": "footnote 4, PDF p. 4",
+      "quote": "The WFC is named the Harold C. Simmons Dark Energy Optical System."
+     },
+     {
+      "value": "sealed, entrance and exit windows",
+      "src": "H21",
+      "loc": "Sec. 3.3, PDF p. 11",
+      "quote": "led us to adopt a sealed design for the WFC, with entrance and exit windows and careful sealing of the WFC housing."
+     }
+    ],
+    "derived": "DERIVED: reflections to the focal surface = 1 (spherical primary, M1) + 4 (WFC M2-M5) = 5; plus transmissive windows and the ACP."
+   },
+   "focal_surface": {
+    "value": "concave spherical, radius 984 mm, centred on the exit pupil (chief rays normal to it)",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 3.3, PDF p. 10",
+    "quote": "This fiber alignment is achieved with a concave spherical focal surface of radius 984 mm, centered on the exit pupil."
+   },
+   "image_quality_vignetting": {
+    "value": "design image quality 0.6\" FWHM or better over the field (pdftotext '0.600'); WFC vignetting up to 10% for the edge IFUs at 9' radius, tracker centred",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 3.3, PDF p. 10; Sec. 5, PDF p. 37",
+    "quote": "The imaging performance is 0.600 FWHM or better over the entire field of view, and vignetting is minimized. ... vignetting in the WFC that has a maximum loss of 10% for the edge IFUs at 90 field radius, with the tracker centered.",
+    "alternatives": [
+     {
+      "value": "median on-axis 1.3\" (50% EE) in 1.0\" seeing",
+      "src": "H21",
+      "loc": "Table 4, PDF p. 64",
+      "quote": "Median on-axis image quality 1.25 arcsec 1.7 arcsec 1.3 arcsec 50% encircled energy diameter"
+     }
+    ]
+   },
+   "instruments": {
+    "value": "all fibre-fed at prime focus (f/3.65): VIRUS, LRS2, HPF; HRS2 to come",
+    "unit": "",
+    "src": "MDO",
+    "loc": "Instruments",
+    "quote": "All at Prime Focus (f/3.65): Habitable-zone Planet Finder (HPF) Visible Integral-field Replicable Unit Spectrograph (VIRUS) Low Resolution Spectrograph #2",
+    "alternatives": [
+     {
+      "value": "HPF and HRS in the pier basement",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "the latter two instruments reside in temperature- controlled enclosures located in the basement inside the telescope pier."
+     },
+     {
+      "value": "all new instruments fibre-fed",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "All the new instrumentation is fiber-fed so as to exploit the azimuthal scrambling inherent to fiber transmission."
+     }
+    ]
+   },
+   "tracker": {
+    "value": "x-y-z tracker (third generation): bridge spans the upper hexagon, moves on two x stages; carriage moves along the bridge (y); hexapod for fine motion; keeps the WFC normal to the primary at the correct distance; motion volume ~7 x 7 x 4 m^3",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 3.2, PDF pp. 8-9",
+    "quote": "Its purpose is to position the WFC accurately normal to, and at the correct distance from, the primary mirror vertex as it follows the sky motion of targets. ... The tracker bridge spans the upper hexagon of the telescope structure, moving on two x-axis stages with skew sensing to maintain alignment. A carriage moves up and down the tracker bridge (the y-axis), and supports the hexapod that provides the fine adjustment in the other degrees of freedom. ... The total volume of motion is about 7 × 7 × 4 m3",
+    "alternatives": [
+     {
+      "value": "PFIP on the tracker; Rho-axis field rotator",
+      "src": "H21",
+      "loc": "Sec. 3.4, PDF p. 11; Fig. 4 caption",
+      "quote": "The Prime Focus Instrument Package (PFIP; Vattiat et al. 2012, 2014) rides on the tracker ... The Rho axis field rotator keeps the position angle of the Focal assembly fixed on sky during a track."
+     },
+     {
+      "value": "payload 3 t",
+      "src": "H21",
+      "loc": "Sec. 3, PDF p. 6",
+      "quote": "the new tracker has a much higher payload of 3 metric tonnes to accommodate the new wide field corrector (WFC) and prime focus instrument package (PFIP), a five-fold increase."
+     }
+    ]
+   },
+   "tracker_range": {
+    "value": 12,
+    "unit": "deg (angular range of the tracker on the focal sphere = the primary's 12 deg diameter field: +/-6 deg)",
+    "src": "MDO",
+    "loc": "Mechanical table",
+    "quote": "Angular range of tracker on sphere 12 degrees",
+    "alternatives": [
+     {
+      "value": "12 deg diameter",
+      "src": "G21",
+      "loc": "Sec. 6 (Basic Reductions), PDF p. 10",
+      "quote": "follows the object in x, y, and z as it moves across the primary mirror's 12◦ diameter field-of-view."
+     },
+     {
+      "value": "8.4 deg radius in pyHETobs",
+      "src": "PHP",
+      "loc": "HETparams.py (X-Y tracker)",
+      "quote": "## offset radius upto which Tracker can track Tracker_Radius = 8.4 *u.deg"
+     },
+     {
+      "value": "altitudes 48-65 deg",
+      "src": "K21",
+      "loc": "Sec. 2, PDF p. 3",
+      "quote": "whereas the PFIP can track objects from altitudes ranging from 48◦ to 65◦ ."
+     },
+     {
+      "value": "track times 50 min to 2.8 h",
+      "src": "H21",
+      "loc": "Table 1, PDF p. 62",
+      "quote": "Minimum track time (@ declination, note 3) 50 minutes (@-10.0◦ ) Maximum track time (@ declination) 2.8 hours (@+67.2◦ )"
+     }
+    ],
+    "note": "MDO and G21 agree on 12 deg (diameter); pyHETobs allows 8.4 deg for partially illuminated tracks (MDO footnote: '-12.0 to +74.0 deg' for tracks 'without a fully illuminated pupil at track center'); K21's 48-65 deg altitude range is asymmetric about 55 deg."
+   },
+   "pupil_travel": {
+    "value": "pupil footprint moves over the primary by R x (star offset angle): +/-2.74 m at the 6 deg edge of the 12 deg range (DERIVED)",
+    "unit": "",
+    "src": "PHT",
+    "loc": "pupil_Xoff_Yoff_foraltaz (comment)",
+    "quote": "# The pupil footprint simply shift by the radius of curvature of primary mirror multiplied by the offset angle of the star!",
+    "alternatives": [
+     {
+      "value": "pupil shift ~2 x tracker shift",
+      "src": "PHU",
+      "loc": "EffectiveActivePupil docstring",
+      "quote": "Note - xoff and yoff are not same as tracker position. There is a multiplicative factor (~ 2) since it is half way between center of curvature and mirror."
+     },
+     {
+      "value": "pupil sweeps over the primary",
+      "src": "H21",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "sweeps over the primary mirror as the x-y tracker follows objects for between 50 minutes"
+     },
+     {
+      "value": "tracker positions in metres (Fig. 6)",
+      "src": "H21",
+      "loc": "Fig. 6 caption, PDF p. 16",
+      "quote": "(A) the center of a track (0, 0), (B) (0.4, 0.4), (C) (1.5, 0), and (D) (0.4, -1.6), all in meters. The change in illumination of the pupil as it moves off the edge of the mirror during a track is evident."
+     }
+    ],
+    "derived": "DERIVED: 26.164 m x 6 deg (0.10472 rad) = 2.740 m; x 8.4 deg = 3.836 m. With the 10 m pupil and a 9.91 x 11.11 m array, the pupil already overhangs the array's +/-x vertices at track centre and leaves the mirror progressively toward the track ends."
+   },
+   "pupil_diameter": {
+    "value": 10.0,
+    "unit": "m (at the centre of the track; set by the WFC)",
+    "src": "H21",
+    "loc": "Table 1 / Table 4, PDF pp. 62, 64",
+    "quote": "Aperture on axis 9.2 m 10.0 m ... Pupil diameter 10 m class 9.2 m 10.0 m At center of track",
+    "alternatives": [
+     {
+      "value": 10.0,
+      "src": "MDO",
+      "loc": "Telescope Parameters",
+      "quote": "Diameter 10.0 m (433\")",
+      "note": "433 in = 11.0 m (DERIVED), the array size, not 10 m: internal inconsistency on the page"
+     },
+     {
+      "value": "10 m WFC pupil on the primary",
+      "src": "PHP",
+      "loc": "HETparams.py (WFC and pupil)",
+      "quote": "PupilDia = 10.0 # meters # Outer diameter of the WFC pupil on Primary mirror"
+     }
+    ]
+   },
+   "central_obscuration": {
+    "value": 4.5,
+    "unit": "m diameter (WFC/PFIP shadow)",
+    "src": "K21",
+    "loc": "Sec. 2, PDF p. 3",
+    "quote": "It has a central obscuration 4.5 m in diameter (Booth et al. 2006)",
+    "alternatives": [
+     {
+      "value": 4.5,
+      "src": "PHP",
+      "loc": "HETparams.py",
+      "quote": "CentralShadowDiaWFC = 4.5 # meter # Diameter of the central obscuration."
+     },
+     {
+      "value": "WFC shadow (figure)",
+      "src": "K21",
+      "loc": "Fig. 2 caption, PDF p. 4",
+      "quote": "The circular obscuration in the middle is the shadow cast by the Wide-Field corrector (WFC), whereas the two vertical bars mark the support structure."
+     },
+     {
+      "value": "~0.43-0.45 of the pupil (FIGURE READ-OFF)",
+      "src": "H21",
+      "loc": "Fig. 6 caption, PDF p. 16",
+      "quote": "The left four images show views from the Pupil Viewer camera at image field center",
+      "figure_readoff": "H21 Fig. 6 (A), track centre: across the dark centre the hole spans 234 px of the 520 px bright pupil horizontally (0.45) and 226 px vertically (0.43), measured on the embedded 2034 x 1136 px image -> 4.3-4.5 m for a 10 m pupil"
+     }
+    ],
+    "note": "K21 cites Booth et al. 2006 (SPIE 6267, WFU design), not obtained. Off the field centre 'the holes in the WFC mirrors are not aligned with the central obstruction of the pupil' (H21 Fig. 6 caption).",
+    "derived": "DERIVED: eps = 4.5/10.0 = 0.45; obscured area pi/4 x 4.5^2 = 15.90 m^2."
+   },
+   "support_struts": {
+    "value": "two support-beam shadows parallel to the pupil y axis at |x| = 1.30-1.59 m, 0.29 m wide (pyHETobs model); real shadows of the tracker bridge and WFC hexapod struts are more complex",
+    "unit": "",
+    "src": "PHP",
+    "loc": "HETparams.py (WFC and pupil)",
+    "quote": "BeamPosition = 1.3 # meters on both side # position of the two beam's shadow from the center of the pupil BeamWidth = 0.29 # meters # width of the beam shadow",
+    "alternatives": [
+     {
+      "value": "bars from x = +/-1.3 to +/-1.59 m",
+      "src": "PHU",
+      "loc": "create_illuminated_pupil",
+      "quote": "BeamLeft = Polygon([(-BeamPosition,10),(-BeamPosition,-10),(-BeamPosition-BeamWidth,-10),(-BeamPosition-BeamWidth,10)])"
+     },
+     {
+      "value": "size from a MARS figure",
+      "src": "PHU",
+      "loc": "create_illuminated_pupil",
+      "quote": "# Approximate sice from figure 7 in Wolf et. al. on MARS"
+     },
+     {
+      "value": "two supports + fibre bundles",
+      "src": "K21",
+      "loc": "Sec. 2, PDF p. 4",
+      "quote": "The pupil is ob- scured by the WFC in the center, two support structure on each side of the obscuration, as well as fiber bun- dles with the instrument fibers."
+     },
+     {
+      "value": "struts visible in the pupil viewer",
+      "src": "K21",
+      "loc": "Fig. 1 caption, PDF p. 3",
+      "quote": "The central obscuration with the PFIP, as well as the support strusses."
+     },
+     {
+      "value": "WFC + tracker-bridge obstructions (FIGURE READ-OFF)",
+      "src": "H21",
+      "loc": "Fig. 6 caption, PDF p. 16",
+      "quote": "(E) illustrates the pupil illumination model that incorporates the obstructions of the WFC and the tracker bridge, as well as the pupil position on the primary mirror.",
+      "figure_readoff": "H21 Fig. 6 (A)-(D): besides the central disc, about eight straight dark bands cross the annulus in several directions (the hexapod struts and bridge), two of them roughly parallel on either side of the disc; (E) shows two broad parallel bars plus triangular strut patterns. Widths not readable."
+     }
+    ],
+    "note": "Bars are infinite strips in y (they cross the whole pupil) in pyHETobs.",
+    "derived": "DERIVED: bar shadow on the annulus 2 x 0.29 m x (chord length outside the 4.5 m disc) = 3.58 m^2; the obstructed 10 m pupil = 78.54 - 15.90 - 3.58 = 59.05 m^2 (raster 59.0-59.1)."
+   },
+   "effective_area": {
+    "value": "effective (illuminated) area varies along a track: ~55.5 m^2 at track centre to ~23-31 m^2 at the track ends; up to x2",
+    "unit": "",
+    "src": "K21",
+    "loc": "Sec. 2, PDF p. 4; Fig. 3b",
+    "quote": "the pupil area can change by as much as a factor of 2 between the track extrema and its median position",
+    "alternatives": [
+     {
+      "value": "effective diameter ~8.5 m to 5.5 m",
+      "src": "K21",
+      "loc": "footnote 5, PDF p. 4",
+      "quote": "This is equivalent to a change in the effective pupil diameter from ∼ 8.5 m to 5.5 m."
+     },
+     {
+      "value": "max at altitude 55 deg (FIGURE READ-OFF)",
+      "src": "K21",
+      "loc": "Fig. 3 caption, PDF p. 5",
+      "quote": "As expected, the telescope pupil is maximum when the mirror and WFC are perfectly aligned, and the object altitude is 55◦ .",
+      "figure_readoff": "K21 Fig. 3b (pyHETobs simulation of 1211 HPF exposures): West track peaks at ~55.5 m^2 at 55 deg and falls to ~31 m^2 at 48.5 deg and ~33 m^2 at 61.5 deg; East track (CCAS-tower shadow) peaks at ~48 m^2 and falls to ~23 m^2 at 48 deg"
+     },
+     {
+      "value": "HETDEX normalises to 50 m^2",
+      "src": "G21",
+      "loc": "Sec. 6.16 (Throughput), PDF p. 20",
+      "quote": "Our definition of throughput is based on a 50 m2 clear aperture"
+     },
+     {
+      "value": "pupil falls off the primary at track ends",
+      "src": "G21",
+      "loc": "Sec. 5 (Dither Sequence), PDF p. 10",
+      "quote": "especially near the ends of the track, since part of the WFC's pupil falls off the projection of the primary."
+     }
+    ],
+    "derived": "DERIVED (numpy raster of the pyHETobs geometry: 91 hexagons, apothem 0.5 m, 11 mm gaps; 10 m pupil minus 4.5 m disc minus the two 0.29 m bars; mirror projected by r -> R sin(r/R)): track centre 55.5 m^2 = 94% of the 59.05 m^2 obstructed pupil (equivalent diameter 8.40 m; 95.2% of the bare 10 m circle is covered by glass); pupil shifted 0.91 m (2 deg): 49.5-49.9 m^2; 1.83 m (4 deg): 40.9-42.1 m^2; 2.74 m (6 deg, track end): 32.8-34.1 m^2 (55-58%); 3.84 m (8.4 deg): 26.6-27.4 m^2 (45-46%). Ranges span shifts along x, y and the diagonal."
+   },
+   "ccas_shadow": {
+    "value": "Center of Curvature Alignment System tower shadows the pupil on East tracks at azimuths 41-97 deg",
+    "unit": "",
+    "src": "K21",
+    "loc": "Sec. 2, PDF p. 4",
+    "quote": "In addition, the CCAS tower obscures part of the pupil for observations in the East track between azimuths 41◦ - 97◦ .",
+    "alternatives": [
+     {
+      "value": "28 m tower ~15 m away at az 68.59 deg",
+      "src": "K21",
+      "loc": "Sec. 2, PDF p. 3",
+      "quote": "atop a 28 m tower situated approximately 15 m away from the telescope at azimuth 68.59◦"
+     },
+     {
+      "value": "pyHETobs CCAS geometry",
+      "src": "PHP",
+      "loc": "HETparams.py (CCAS tower)",
+      "quote": "CCAS_azimuth = 68.593 *u.deg TelescopePierToCC = 16.433 #meters, Horizontal distance from telescope pier to CC CCASDia = 4.191 #meters, Diamter of CCAS dome"
+     }
+    ]
+   },
+   "pre_upgrade": {
+    "value": "original HET (1997-2013): 9.2 m pupil set by the 4-mirror double-Gregorian spherical aberration corrector (SAC); f/4.64, 42.718 m, 4.83\"/mm, 4' field",
+    "unit": "",
+    "src": "H21",
+    "loc": "Sec. 1, PDF p. 3",
+    "quote": "The pupil was originally 9.2 m in diameter, set by the design of the prime focus spherical aberration corrector ... The original 4-mirror double-Gregorian type corrector (Jungquist 1999) had a 4 arcmin (50 mm) diameter science field of view.",
+    "alternatives": [
+     {
+      "value": "42,718 @ f/4.64; 4.83\"/mm",
+      "src": "H21",
+      "loc": "Table 1, PDF p. 62",
+      "quote": "Focal length @ Focal-ratio 42,718 @ f/4.64 36,500 mm @ f/3.65 Plate scale (arcsec./mm) 4.83 5.65"
+     },
+     {
+      "value": "first light Dec 1996",
+      "src": "MDO",
+      "loc": "Initial Construction",
+      "quote": "First light Dec 1996"
+     }
+    ],
+    "derived": "DERIVED: 206264.8/42718 = 4.829\"/mm; 42.718/9.2 = f/4.64; 4' x 60/4.829 = 49.7 mm (H21 '50 mm'). Reflections: 1 + 4 = 5 (DERIVED, as now)."
+   }
+  },
+  "not_found": [
+   "An observatory statement of the central-obstruction diameter: 4.5 m comes from K21 (citing Booth et al. 2006, SPIE, not obtained) and pyHETobs; H21 Fig. 6 is consistent (FIGURE READ-OFF).",
+   "The real geometry (number, widths, angles) of the tracker-bridge and WFC-hexapod strut shadows; only pyHETobs' two 0.29 m bars, which its author scaled from a MARS figure.",
+   "Segment gap and the flat-to-flat vs corner-to-corner meaning of '1 m' in an observatory document (pyHETobs: apothem 0.5 m, gaps 6.2-15.8 mm).",
+   "Orientation of the segment array relative to the tracker axes and the sky (pyHETobs frame only).",
+   "An official effective collecting area vs tracker position (only the pyHETobs-based K21 Fig. 3b and the DERIVED raster; HETDEX normalises to 50 m^2).",
+   "Pre-upgrade central obstruction and SAC mirror sizes; WFC entrance/exit window and ACP details."
+  ],
+  "conflicts": [
+   "Primary radius of curvature: 26.164 m (pyHETobs) vs '26 m' (MDO).",
+   "Primary size: '11 m' (H21; MDOP 'Actual Diameter') vs '11.1-m' (G21) vs '11 by 10 meters' (MDOP) vs 9.91 x 11.11 m (DERIVED from pyHETobs). MDO lists 'Diameter 10.0 m (433\")', but 433 in = 11.0 m.",
+   "Tracker range: 12 deg (MDO 'Angular range of tracker on sphere'; G21 '12 deg diameter field-of-view') vs 8.4 deg radius (pyHETobs, for partly illuminated tracks) vs altitudes 48-65 deg (K21), i.e. -7/+10 deg about 55 deg.",
+   "Field gain: '70 times larger area' (H21 Table 4) vs 'an area of sky 120 times larger' (MDOP); (22'/4')^2 = 30 (DERIVED).",
+   "Field: 22' (MDO) vs 18' science + 22' guiding (H21 Table 1).",
+   "Mirror mass/thickness: 13.5 t, 50 mm at the edge (MDO) vs 13 tons, 52 mm (MDOP); telescope weight 153 tons (MDO) vs 80 tons (MDOP).",
+   "Support shadows: two straight bars (pyHETobs, K21 Fig. 2) vs several crossing struts in the pupil-viewer images (H21 Fig. 6)."
+  ],
+  "notes": [
+   "The HET has one science focus, the prime focus on the tracker; every instrument is fibre-fed from it. The primary is spherical and fixed at 55 deg elevation; the tracker follows the star for 50 min to 2.8 h.",
+   "Pupil drawing: 10 m circle with a 4.5 m central disc and two 0.29 m bars at |x| = 1.30-1.59 m, intersected with the 91-hexagon array (centres in pupil.segments.centres_DERIVED); shift the circle by R x angle (up to +/-2.74 m) to show the moving pupil.",
+   "Reflections at the focal surface: M1 + four WFC mirrors = 5 (DERIVED), the same count as the original 4-mirror SAC.",
+   "f-number on the 10 m pupil: 36.5/10 = 3.65; plate scale 206264.8/36500 = 5.651\"/mm."
+  ]
+ }
+}

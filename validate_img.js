@@ -223,18 +223,24 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
   require("./web/tpresets.js");
   const TP = require("./web/tpupil.js");
   for (const t of window.IX_TELESCOPES) {
-    const c = TP.pupilAndPSF(t.pupil, t.eps);
+    // (a tracker telescope's pupil: a circle on the array, centered when the tracker is)
+    const pupAt = deg => Object.assign({}, t.pupil, t.tracker ? { stop: { x: t.tracker.R * deg * Math.PI / 180, y: 0, d: t.tracker.d } } : {});
+    const c = TP.pupilAndPSF(pupAt(0), t.eps);
+    for (const [deg, lo, hi] of t.areaTrack || []) {
+      const a = TP.pupilAndPSF(pupAt(deg), t.eps).area;
+      check(`${t.id}: collecting area with the tracker ${deg}° off center, ${lo}–${hi} m²`, a >= lo * 0.985 && a <= hi * 1.015, `model ${a.toFixed(2)} m² (DERIVED from pyHETobs, shifts along x, y and the diagonal)`);
+    }
     if (t.area) {
       const r = c.area / t.area.value - 1;
       if (t.area.info) console.log(`[INFO] ${t.id}: collecting area ${t.area.value} m²: model ${c.area.toFixed(3)} (${(100 * r).toFixed(2)}%) -- ${t.area.src}`);
       else check(`${t.id}: collecting area ${t.area.value} m²`, Math.abs(r) <= (t.area.tol || 0.005), `model ${c.area.toFixed(4)}, ${(100 * r).toFixed(2)}% -- ${t.area.src}`);
     }
     if (t.segmentsArea) {
-      const bare = TP.pupilAndPSF(Object.assign({}, t.pupil, { gap: 0, vanes: [] }), 0), r = bare.area / t.segmentsArea.value - 1;
+      const bare = TP.pupilAndPSF(Object.assign({}, t.pupil, { gap: 0, vanes: [], blocks: [] }), 0), r = bare.area / t.segmentsArea.value - 1;
       check(`${t.id}: the segments alone, ${t.segmentsArea.value} m²`, Math.abs(r) <= t.segmentsArea.tol, `model ${bare.area.toFixed(3)}, ${(100 * r).toFixed(2)}% -- ${t.segmentsArea.src}`);
     }
     for (const f of t.foci) {
-      const P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D: t.D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.F1, back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55 });
+      const D = f.D || t.D, P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.f1 ? t.f1 / D : t.F1, back: f.back, a3: f.a3, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55, corrector: f.corrector });
       const S = IM.design(P);
       check(`${t.id} ${f.id}: designs without error, one star one point`, !S.bad && S.imageSpread < 1e-9 * S.Dmm);
       if (f.plate) check(`${t.id} ${f.id}: plate scale ${f.plate}″/mm`, rel(S.plate, f.plate) < 0.003, `model ${S.plate.toFixed(4)}″/mm`);

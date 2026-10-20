@@ -1,0 +1,3728 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: ESO Very Large Telescope, Unit Telescopes UT1-UT4 (all foci; entrance pupil)",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/vlt.md (same content as Markdown). Structure as keck.json: sources{key: cite, file, url}; common (shared UT design: params, machine-readable pupil, primary, combined foci, not_found, conflicts, notes); ut1..ut4 each with telescope{name, site, mount, optical_design, primary, pupil, foci[]}, params, not_found, conflicts, notes. Focus and pupil fields carry refs (common.<param> / utN.<param>) into the sourced params.",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/telescopes/vlt/ (files reused from earlier rounds are byte-identical copies, marked in the cite). derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (not text-checkable; the caption or link-text quote is checked). INFERRED = a reasoned mapping no source states. NOT FOUND = a gap. Nothing is filled from memory.",
+  "quote_check": "160 quotes machine-checked against the saved files' extracted text (pdftotext -layout and -raw for PDFs; tag-stripped text and raw source for HTML, decoded as UTF-8 or windows-1252; the .py as is): all pass (2026-10-19). GIF figures are not text-checkable: their values are FIGURE READ-OFFs attached to a checked caption or link-text quote.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator and soft hyphens normalised; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "design_vs_asbuilt": "WB (1998) and SPEC (2005) give the nominal design of the UTs; EM1/WB Table 3.3 the as-built primaries; EINS (May 2026) the current instrument locations; A13/A17 the UT4 deformable secondary (2016); HCI the pupil model after the ERIS pupil document.",
+  "pupil_frame": "Vane coordinates are in the hcipy make_vlt_aperture frame (metres on the pupil, angle from +x; each vane a segment from start_xy to end_xy). The orientation of this frame relative to the elevation axis and the Nasmyth A/B sides is not documented.",
+  "refs": "Telescope-object refs name params as common.<id> or utN.<id>.",
+  "check_result": "160 quotes machine-checked against the saved files' extracted text (pdftotext -layout and -raw for PDFs; tag-stripped text and raw source for HTML, decoded as UTF-8 or windows-1252; the .py as is): all pass (2026-10-19). GIF figures are not text-checkable: their values are FIGURE READ-OFFs attached to a checked caption or link-text quote."
+ },
+ "sources": {
+  "SPEC": {
+   "cite": "ESO, \"Requirements for VLT UT Instruments\", VLT-SPE-ESO-10000-2723, Issue 1 (18.03.2005; merged from the Cassegrain and Nasmyth interface documents): Sec. 3.1.2 site, Sec. 3.2.1 Table 2 (Cassegrain) and Table 3 (Nasmyth) focus optical parameters, Sec. 3.2.2 image quality, Sec. 3.2.4 light baffling, Sec. 3.2.7 range of movement, Sec. 3.3.10 Nasmyth covers, Sec. 4.7 focus position, Figs. 3-4 (front and side views of a UT), Appendix B (Nasmyth flange A/B drawings). Copy of round-5/imaging key VLTSPE (rawdata/presets/uves/, byte-identical)",
+   "file": "rawdata/telescopes/vlt/VLT-SPE-ESO-10000-2723_is1_Requirements_for_VLT_UT_Instruments.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/develop/documents/VLT-SPE-ESO-10000-2723_is1.pdf"
+  },
+  "WB": {
+   "cite": "ESO 1998, \"The VLT White Book\" (VLT Whitebook, text as of the UT1 first light, May 1998; ESO PDF edition created 2009-04-24, ESO book_0004): Sec. 2.2 main mirrors (Table 2.1), Ch. 3 optics: 3.1 concept (Table 3.1 foci), 3.2 primary (Tables 3.2-3.3), 3.3 secondary (Table 3.4), 3.4 Nasmyth (tertiary) mirror, 3.5 sky baffling, 3.6 Cassegrain focus, 3.7 Nasmyth focus, 3.8 coude focus (Table 3.6), 3.9 coating; Ch. 2.6 and 9.3. PDF page = printed page; the PDF holds only figure thumbnails: the full-size figures are the WBF files",
+   "file": "rawdata/telescopes/vlt/ESO1998_VLT_WhiteBook_book_0004.pdf",
+   "url": "https://www.eso.org/public/archives/books/pdfsm/book_0004.pdf"
+  },
+  "WBF": {
+   "cite": "Full-size figures of the web edition of the VLT White Book (1998), Internet Archive captures of 1998-07-05 (wb-fig-0301 Fig. 3.1 optical layout with dimensions; 0309 Fig. 3.9 beam paths near M3; 0312/0313 Figs. 3.12-3.13 Cassegrain design and data; 0316/0317 Figs. 3.16-3.17 Nasmyth design and data; 0323 Fig. 3.23 coude train; 0601 Fig. 6.1 main structure; 0603 Fig. 6.3 Nasmyth platform). Figure read-offs only; each is checked through its WB caption quote",
+   "file": "rawdata/telescopes/vlt/whitebook_figures/",
+   "url": "https://web.archive.org/web/19980705id_/http://www.eso.org/outreach/info-events/ut1fl/whitebook/images/wb-fig-0316.gif (and wb-fig-0301, -0309, -0312, -0313, -0317, -0323, -0601, -0603)"
+  },
+  "EUT": {
+   "cite": "ESO, \"The VLT 8.2-meter Unit Telescopes\" overview web page (footer Last Update 05.01.23; fetched 2026-10-17) -- copy of round-5/imaging key EUT (rawdata/presets/fors2/eso_vlt_ut_telescopes.html, byte-identical)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_telescopes_ut.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut.html"
+  },
+  "EOPT": {
+   "cite": "ESO, \"VLT optical layout\" drawing linked from the UT page (GIF, dated January 1996 on the drawing; fetched 2026-10-19). Figure read-off only (its link text is checked in EUT); the same drawing as WB Fig. 3.1",
+   "file": "rawdata/telescopes/vlt/eso_ut_optlao6.gif",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/optlao6.gif"
+  },
+  "EM1": {
+   "cite": "ESO UT pages, \"The VLT primary mirrors\" (Dierickx, P., Enard, D., Geyl, R., Paseri, J., Cayrel, M., Beraud, P., \"The VLT primary mirrors: mirror production and measured performance\", SPIE paper text, 1996; page footer Last Update 07.03.11; fetched 2026-10-19): Sec. 1, Table 2 (blanks), Table 3 (first two finished mirrors)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_telescopes_ut_m1unit.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/m1unit.html"
+  },
+  "EM2": {
+   "cite": "ESO UT pages, \"The Secondary Mirror, M2 Unit\" (Last Update 10.03.11; fetched 2026-10-19): design, M2 specifications (focusing range)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_telescopes_ut_m2unit.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/m2unit.html"
+  },
+  "EM3": {
+   "cite": "ESO UT pages, \"The M1 Cell and M3 Tower\" (Last Update 07.03.11; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_telescopes_ut_m1cellm3.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/m1cellm3.html"
+  },
+  "ENAS": {
+   "cite": "ESO UT pages, \"VLT Nasmyth Adapter-Rotator\" (Last Update 10.03.11; fetched 2026-10-19): the M4 unit",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_telescopes_ut_nasmyth.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/ut/nasmyth.html"
+  },
+  "EINS": {
+   "cite": "ESO, \"Paranal Instrumentation\" table of offered instruments by telescope and focus (Last Update 09.05.26; fetched 2026-10-19). In the HTML the ESPRESSO and interferometric cells span all four UT rows (rowspan 4)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_instruments.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments.html"
+  },
+  "EDEC": {
+   "cite": "ESO, \"Paranal Decommissioned Instruments\" list (Last Update 09.05.26; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned.html"
+  },
+  "EDNACO": {
+   "cite": "ESO, NaCo decommissioned-instrument page (Last Update 02.10.19; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_naco.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/naco.html"
+  },
+  "EDISAAC": {
+   "cite": "ESO, ISAAC decommissioned-instrument page (Last Update 06.03.14; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_isaac.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/isaac.html"
+  },
+  "EDSINF": {
+   "cite": "ESO, SINFONI decommissioned-instrument page (Last Update 03.10.19; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_sinfoni.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/sinfoni.html"
+  },
+  "EDVIMOS": {
+   "cite": "ESO, VIMOS decommissioned-instrument page (Last Update 19.12.13; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_vimos.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/vimos.html"
+  },
+  "EDVISIR": {
+   "cite": "ESO, VISIR decommissioned-instrument page (Last Update 28.05.26; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_visir.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/visir.html"
+  },
+  "EDFORS": {
+   "cite": "ESO, FORS (FORS1 decommissioned) page (Last Update 05.07.21; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/vlt/eso_sci_paranal_decommissioned_fors1.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/fors1.html"
+  },
+  "VLTIM": {
+   "cite": "ESO, \"VLTI User Manual\", VLT-MAN-ESO-15000-4552, Issue 105 (28/08/2019): Sec. 4.1.1 the Unit Telescopes, Fig. 3 UT coude train",
+   "file": "rawdata/telescopes/vlt/VLT-MAN-ESO-15000-4552_v105_VLTI_User_Manual.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/vlti/documents/VLT-MAN-ESO-15000-4552_v105.pdf"
+  },
+  "EUM": {
+   "cite": "ESO, ESPRESSO User Manual, VLT-MAN-ESO-319963-666 (file ESPRESSO_User_Manual_P117.pdf): Sec. 3.1 the Coude Train -- copy of round-5 key EUM (rawdata/presets/espresso/, byte-identical)",
+   "file": "rawdata/telescopes/vlt/ESPRESSO_User_Manual_P117_VLT-MAN-ESO-319963-666.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/espresso/ESPRESSO_User_Manual_P117.pdf"
+  },
+  "HCI": {
+   "cite": "hcipy (High Contrast Imaging for Python; Por et al.), hcipy/aperture/realistic.py, function make_vlt_aperture, GitHub ehpor/hcipy commit ee20b03 (2026-08-14). Third-party pupil model (not an ESO document); its docstring cites the ERIS pupil document VLT-SPE-AES-11310-0006 (not public). Copy of the Magellan record key HCI (rawdata/telescopes/magellan/, byte-identical); read only, never executed",
+   "file": "rawdata/telescopes/vlt/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "B19": {
+   "cite": "Beuzit, J.-L., Vigan, A., Mouillet, D., et al. 2019, A&A 631, A155, \"SPHERE: the exoplanet imager for the Very Large Telescope\", arXiv:1902.04080v2 (Sec. 4.5, telescope limitations: low wind effect)",
+   "file": "rawdata/telescopes/vlt/Beuzit2019_AA631_A155_SPHERE_arXiv1902.04080v2.pdf",
+   "url": "https://arxiv.org/pdf/1902.04080v2"
+  },
+  "S18": {
+   "cite": "Schmid, H. M., Bazzon, A., Roelfsema, R., et al. 2018, A&A 619, A9, \"SPHERE/ZIMPOL high resolution polarimetric imager. I.\", arXiv:1808.05008v1 (Table 9: geometric parameters of the telescope pupil, UT3)",
+   "file": "rawdata/telescopes/vlt/Schmid2018_AA619_A9_SPHERE_ZIMPOL_arXiv1808.05008v1.pdf",
+   "url": "https://arxiv.org/pdf/1808.05008v1"
+  },
+  "K21": {
+   "cite": "Kammerer, J., Kasper, M., Ireland, M. J., et al. 2021, A&A 646, A36, \"Mid-infrared photometry of the T Tauri triple system with kernel phase interferometry\", arXiv:2012.11418v2 (VISIR-NEAR at the UT4 Cassegrain focus; Fig. 1 pupil model)",
+   "file": "rawdata/telescopes/vlt/Kammerer2021_AA646_A36_VISIR-NEAR_kernelphase_arXiv2012.11418v2.pdf",
+   "url": "https://arxiv.org/pdf/2012.11418v2"
+  },
+  "M20": {
+   "cite": "Maire, A.-L., Huby, E., Absil, O., et al. 2020, JATIS 6, 035003, \"Design, pointing control, and on-sky performance of the mid-infrared vortex coronagraph for the VLT/NEAR experiment\", arXiv:2012.08190v1 (UT4 Cassegrain pupil)",
+   "file": "rawdata/telescopes/vlt/Maire2020_JATIS6_035003_VISIR-NEAR_vortex_arXiv2012.08190v1.pdf",
+   "url": "https://arxiv.org/pdf/2012.08190v1"
+  },
+  "D18": {
+   "cite": "Davies, R., Esposito, S., Schmid, H.-M., et al. 2018, Proc. SPIE 10702, \"ERIS: revitalising an adaptive optics instrument for the VLT\", arXiv:1807.05089v1 (Fig. 8 NIX gvAPP pupil mask)",
+   "file": "rawdata/telescopes/vlt/Davies2018_SPIE10702_ERIS_arXiv1807.05089v1.pdf",
+   "url": "https://arxiv.org/pdf/1807.05089v1"
+  },
+  "G26": {
+   "cite": "GRAVITY+ Collaboration (Abuter, R., et al.) 2026, A&A 707, A115, \"First light for the GRAVITY+ Adaptive Optics: extreme adaptive optics for the Very Large Telescope Interferometer\", arXiv:2509.21431v2 (Secs. 3.1.1, 3.2.1, 3.2.2; spider re-coating; UT collecting area)",
+   "file": "rawdata/telescopes/vlt/GRAVITYplus2026_AA707_A115_GPAO_firstlight_arXiv2509.21431v2.pdf",
+   "url": "https://arxiv.org/pdf/2509.21431v2"
+  },
+  "A06": {
+   "cite": "Arsenault, R., et al. 2006, The Messenger 123, 6, \"The VLT Adaptive Optics Facility Project: Telescope Systems\"",
+   "file": "rawdata/telescopes/vlt/Arsenault2006_Msngr123_6_AOF_TelescopeSystems.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.123-mar06/messenger-no123-6-10.pdf"
+  },
+  "A13": {
+   "cite": "Arsenault, R., et al. 2013, The Messenger 151, 14, \"Delivery of the Second Generation VLT Secondary Mirror (M2) Unit to ESO\" (the deformable secondary mirror, DSM)",
+   "file": "rawdata/telescopes/vlt/Arsenault2013_Msngr151_14_DSM_delivery.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.151-mar13/messenger-no151-14-19.pdf"
+  },
+  "A17": {
+   "cite": "Arsenault, R., et al. 2017, The Messenger 168, 8, \"The Adaptive Optics Facility: Commissioning Progress and Results\" (installation of the DSM on UT4)",
+   "file": "rawdata/telescopes/vlt/Arsenault2017_Msngr168_8_AOF_commissioning.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.168-jun17/messenger-no168-8-14.pdf"
+  }
+ },
+ "common": {
+  "title": "UT1-UT4: shared optical design, foci and pupil; combined foci",
+  "params": {
+   "identical_design": {
+    "value": "UT1-UT4 are of identical design; instruments and (since 2016) the UT4 secondary differ",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.2 (The Unit Telescopes), p. 7 [PDF p. 13]",
+    "quote": "The four Unit Telescopes (UT1-4) are of identical design but may not be identically equipped.",
+    "alternatives": [
+     {
+      "value": "UT names",
+      "src": "EINS",
+      "loc": "instrument table, Telescope column",
+      "quote": "UT1 (Antu) FORS2 KMOS ESPRESSO GRAVITY MATISSE Visitor focus ... UT2 (Kueyen) FLAMES UVES ... UT3 (Melipal) SPHERE XSHOOTER CRIRES ... UT4 (Yepun) HAWK-I ERIS MUSE"
+     }
+    ]
+   },
+   "site": {
+    "value": "Cerro Paranal, northern Chile, 2635 m",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.1.2 (VLT location), p. 4 [PDF p. 10]",
+    "quote": "The Very Large Telescope is located on Cerro Paranal in northern Chile, at a distance of 130 km from the city of Antofagasta, at an altitude of 2635 m above sea level."
+   },
+   "mount_and_azimuth": {
+    "value": "alt-azimuth; azimuth measured eastwards from the South point",
+    "unit": "",
+    "src": "EUT",
+    "loc": "Description",
+    "quote": "The unit telescope has alt-azimuth mount.",
+    "alternatives": [
+     {
+      "value": "azimuth zero = South, increasing to the East",
+      "src": "SPEC",
+      "loc": "Sec. 3.2.7 (Range of telescope movement), p. 11 [PDF p. 17]",
+      "quote": "The telescope can be moved about the Azimuth axis in the range –180◦ to +360◦ measured eastwards from the South-point."
+     }
+    ]
+   },
+   "optical_design": {
+    "value": "Ritchey-Chretien at Nasmyth; Cassegrain is not RC (field coma); M1 conic and radius and the M2 position are changed by active optics between the two",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.1 (Concept), PDF p. 57",
+    "quote": "In the Nasmyth configuration, the design is of the Ritchey-Chrétien type , i.e., the telescopes are nominally free of field coma. However, the Cassegrain focus is not of the Ritchey- Chrétien type. Conversion between the two foci implies a repositioning of the secondary mirror and a change of the conic constant and radius of curvature of the primary mirror.",
+    "alternatives": [
+     {
+      "value": "RC at Nasmyth, field coma at Cassegrain",
+      "src": "SPEC",
+      "loc": "Sec. 3.2.2 (Optical image quality), p. 7 [PDF p. 13]",
+      "quote": "The unit telescopes at Nasmyth are of classical Ritchey-Chret́ien (RC) design and therefore have field astigmatism. At Cassegrain they deviate from the RC design and in addition to field astigramtism suffer from field coma.",
+      "note": "verbatim, including the misprint \"astigramtism\""
+     },
+     {
+      "value": "M1 curvature changed, M2 refocused",
+      "src": "EUT",
+      "loc": "Optical Layout",
+      "quote": "When changing between Cassegrain and Nasmyth/coudé operation, the curvature of M1 must be changed (active optics) and the secondary mirror must be refocused."
+     }
+    ]
+   },
+   "foci_list": {
+    "value": "two Nasmyth foci, one Cassegrain, one coude per UT; plus the coherent (interferometric) and incoherent combined foci of the array",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.1 (VLT Optics), p. 7 [PDF p. 13]",
+    "quote": "Each VLT Unit Telescope has two Nasmyth foci, a Cassegrain and a coudé focus. In addition, the beams from the four Unit Telescopes can be combined in the coherent (interferometric) focus.",
+    "alternatives": [
+     {
+      "value": "4 foci per UT, M1-M8; 17 with the interferometric focus",
+      "src": "WB",
+      "loc": "Sec. 3.1, PDF p. 57",
+      "quote": "The four individual VLT 8.2-m telescopes each have four foci : two Nasmyth, one Cassegrain and one Coudé . The optical lay-out, including eight mirrors (M1 to M8) and with the main dimensions, is shown in Fig. 3.1. ... Adding the interferometric focus (cf. Chapter 9 ), brings the total number to 17."
+     }
+    ]
+   },
+   "primary_diameter": {
+    "value": 8.2,
+    "unit": "m (physical outer diameter of the meniscus; 8200 +/- 2 mm specified)",
+    "src": "WB",
+    "loc": "Sec. 2.2, Table 2.1 (Main Mirror Parameters), PDF p. 25",
+    "quote": "Diameter 8200 mm 1116 mm 1242 x 866 mm (elliptical)",
+    "alternatives": [
+     {
+      "value": "8200 +/- 2 mm specified; blanks 1-4 8201.52-8201.74 mm",
+      "src": "WB",
+      "loc": "Sec. 3.2.3, Table 3.2, PDF p. 63",
+      "quote": "Outer diameter 8200 ± 2 8201.52 8201.74 8201.72 8201.74 mm"
+     },
+     {
+      "value": "8185.9 mm reflective (RED) diameter (figure)",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, Fig. 3.16 caption, PDF p. 77",
+      "quote": "Figure 3.16 [GIF: 61k]. Optical design of the Nasmyth focus. The diameters diameters indicated are those of the reflective surfaces.",
+      "figure_readoff": "whitebook_figures/wb-fig-0316.gif (and -0312.gif for Cassegrain): primary mirror M1 labelled \"RED 8185.9\" across its reflecting surface"
+     },
+     {
+      "value": "\"8-.2-m\" (web copy of the 1996 paper)",
+      "src": "EM1",
+      "loc": "Abstract",
+      "quote": "The primary mirrors of the ESO 8-m class Very Large Telescopes are actively supported, thin Zerodur menisci, 8-.2-m diameter."
+     }
+    ],
+    "note": "Not the entrance pupil: M2 is the stop (see entrance_pupil_nasmyth / entrance_pupil_cassegrain). RED = reflective (reflecting-surface) diameter, per the WB caption."
+   },
+   "primary_central_hole": {
+    "value": 1.0,
+    "unit": "m (diameter of the M1 centre hole; 1000 +/- 0.5 mm specified)",
+    "src": "WB",
+    "loc": "Table 3.2, PDF p. 63",
+    "quote": "1000 ± 0.5 999.81 999.93 999.87 999.72 mm",
+    "alternatives": [
+     {
+      "value": "1000 +/- 0.5 mm (web copy)",
+      "src": "EM1",
+      "loc": "Table 2",
+      "quote": "Diameter. center hole 1000 ± 0.5 999.81 999.93 999.87 mm"
+     }
+    ],
+    "note": "Inside the 1.116 m M2 shadow, so it does not show in the entrance pupil; the M3 tower passes through it (EM3)."
+   },
+   "primary_thickness": {
+    "value": 0.175,
+    "unit": "m",
+    "src": "WB",
+    "loc": "Sec. 2.2, PDF p. 24",
+    "quote": "The 8.2-m Zerodur primary mirrors (Fig. 2.4) are 175 mm thick and their shape is actively controlled ( active optics ) by means of 150 axial force actuators",
+    "alternatives": [
+     {
+      "value": "177 mm (blank specification 177+2-0 mm)",
+      "src": "WB",
+      "loc": "Table 2.1, PDF p. 25 (Table 3.2 specifies 177+2-0 mm)",
+      "quote": "Thickness 177 mm 130 mm 140 mm"
+     }
+    ]
+   },
+   "primary_radius": {
+    "value": 28.8,
+    "unit": "m (radius of curvature, specified 28800 +/- 100 mm; mirrors 1-3 measured 28762.9, 28760.0, 28762.6 mm)",
+    "src": "WB",
+    "loc": "Sec. 3.2.3, Table 3.3 (Optical Properties of VLT Main Mirrors), PDF p. 65",
+    "quote": "Radius of curvature 28800 ± 100 28762.9 28760.0 28762.6",
+    "alternatives": [
+     {
+      "value": "mirror 2 measured 28764.9 mm (web copy of the 1996 paper)",
+      "src": "EM1",
+      "loc": "Table 3",
+      "quote": "Radius of curvature 28800 ± 100 28762.9 28764.9 mm"
+     },
+     {
+      "value": "+28,975 mm \"Curvature (radius)\" (the blank, Table 3.2 \"Concave surface Curvature 28975\")",
+      "src": "WB",
+      "loc": "Table 2.1",
+      "quote": "Curvature (radius) +28,975 mm -4550 mm > 63,000 m"
+     }
+    ],
+    "note": "Which mirror went to which UT is not stated (NOT FOUND). The 28975 mm of Table 2.1 equals the spin-cast blank concave curvature of Table 3.2, not the optical radius.",
+    "derived": "DERIVED: f1 = R/2 = 28800/2 = 14400 mm; measured mirrors 14381.5, 14380.0, 14381.3 mm."
+   },
+   "primary_focal_ratio": {
+    "value": 1.8,
+    "unit": "f/# (nominal; = 14.4 m / 8.0 m entrance pupil)",
+    "src": "EM1",
+    "loc": "Sec. 5 (results), text under Fig. 10",
+    "quote": "(f/1.8 with a nominal conic constant -1.00469)",
+    "derived": "DERIVED: 14400 / 8000 = f/1.80; 14400 / 8200 = f/1.756 (physical diameter); 14400 / 8185.9 = f/1.759 (reflective diameter)."
+   },
+   "primary_conic": {
+    "value": -1.004616,
+    "unit": "(conic constant, passive mode, specified)",
+    "src": "EM1",
+    "loc": "Table 3 (Results first two mirrors)",
+    "quote": "Conic constant (passive mode) -1.004616 -1.004457 -1.005089",
+    "alternatives": [
+     {
+      "value": -1.00469,
+      "src": "EM1",
+      "loc": "Sec. 5, text under Fig. 10",
+      "quote": "(f/1.8 with a nominal conic constant -1.00469)"
+     },
+     {
+      "value": "mirror 3: -1.004392 (WB Table 3.3, layout-split in the PDF text)",
+      "src": "WB",
+      "loc": "Table 3.3, PDF p. 65",
+      "quote": "Radius of curvature 28800 ± 100 28762.9 28760.0 28762.6"
+     }
+    ],
+    "note": "The conic is changed actively between Nasmyth (RC) and Cassegrain (optical_design); which configuration -1.004616 refers to is not stated."
+   },
+   "primary_material_coating": {
+    "value": "Zerodur meniscus, 150 axial actuators (active optics); aluminium coating (sputtered), recoated about every 18 months",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.9 (Coating), PDF p. 84",
+    "quote": "The coating unit for the VLT 8.2-m mirrors has been designed for the deposition of highly reflective, homogeneous aluminium coatings.",
+    "alternatives": [
+     {
+      "value": "recoating interval",
+      "src": "SPEC",
+      "loc": "Sec. 3.2.3, p. 10 [PDF p. 16]",
+      "quote": "The primary and tertiary mirrors of the VLT UTs are recoated on average every 18 months."
+     }
+    ]
+   },
+   "secondary": {
+    "value": "convex hyperbolic beryllium (Dornier M2 unit, UT1-UT3; UT4 until 2016): minimum optical diameter 1116 mm (1119.98 mm mechanical), R = -4553.57 mm, K = -1.66926 +/- 0.003 (specified); central 46 mm internal obscuration",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.3.1, Table 3.4 (Specifications of M2 Mirrors), PDF pp. 67-68",
+    "quote": "1116 mm ca. 1119.8 mm ... 1120 mm 1119.98 mm ... 46 mm 45.9 mm ... Radius of curvature -4553.57 mm -4554.62 mm ... -1.66926 ± ... Conic costant -1.69980",
+    "alternatives": [
+     {
+      "value": "1116 mm, R = -4550 mm",
+      "src": "WB",
+      "loc": "Table 2.1",
+      "quote": "Diameter 8200 mm 1116 mm 1242 x 866 mm (elliptical) ... Curvature (radius) +28,975 mm -4550 mm > 63,000 m"
+     },
+     {
+      "value": "1.12 m, 50 mm thick, convex hyperbolic",
+      "src": "WB",
+      "loc": "Sec. 2.2, PDF p. 25",
+      "quote": "The light-weight, M2 mirror is made of Beryllium and weighs 51 kg (Fig. 2.6). It measures 1.12-m in diameter and is 50 mm thick. The form is convex and hyperbolic."
+     },
+     {
+      "value": "1.1 m",
+      "src": "WB",
+      "loc": "Sec. 3.3, PDF p. 67",
+      "quote": "The M2 mirror is a convex, hyperbolic mirror with an external diameter of 1.1 metres."
+     },
+     {
+      "value": "\"slightly in excess of 1 meter\"",
+      "src": "EM2",
+      "loc": "Design",
+      "quote": "The M2 mirror is a convex hyperbolic mirror with an external diameter slightly in excess of 1 meter."
+     },
+     {
+      "value": "rigid convex hyperboloid",
+      "src": "EUT",
+      "loc": "Active Optics",
+      "quote": "The M2 mirror itself is configured as a rigid lightweight convex hyperboloid."
+     }
+    ],
+    "note": "Table 3.4 rows: minimum optical diameter (specified / measured), maximum mechanical diameter, internal obscuration diameter, radius of curvature, conic constant (specified -1.66926 +/- 0.003; the \"measured\" -1.69980 is outside that tolerance as printed, and the label is misspelt \"costant\" in the source). The 46 mm central obscuration of M2 lies inside the M2 shadow (it only sees the M1 centre, itself obscured)."
+   },
+   "secondary_positions": {
+    "value": "M2 vertex 12396.43 mm above the M1 vertex at Nasmyth, 12426.95 mm at Cassegrain (figures); focusing range -39.0 to +8 mm with zero = nominal Cassegrain position",
+    "unit": "",
+    "src": "EM2",
+    "loc": "M2 Specifications, Drives, Focusing",
+    "quote": "Range -39.0 mm to +8 mm Nominal Cassegrain position at zero",
+    "alternatives": [
+     {
+      "value": "12396.43 mm (Nasmyth)",
+      "src": "WB",
+      "loc": "Fig. 3.16 caption",
+      "quote": "Figure 3.16 [GIF: 61k]. Optical design of the Nasmyth focus. The diameters diameters indicated are those of the reflective surfaces.",
+      "figure_readoff": "wb-fig-0316.gif: vertical dimension \"12396.43\" from the M1 vertex line to M2"
+     },
+     {
+      "value": "12426.95 mm (Cassegrain)",
+      "src": "WB",
+      "loc": "Fig. 3.12 caption",
+      "quote": "Figure 3.12 [GIF: 51k]. Optical design of the Cassegrain focus. The diameters diameters indicated are those of the reflective surfaces",
+      "figure_readoff": "wb-fig-0312.gif: vertical dimension \"12426.95\" from the M1 vertex to M2"
+     },
+     {
+      "value": "M2 9896 mm above the elevation axis",
+      "src": "EUT",
+      "loc": "Optical Layout (link to the drawing)",
+      "quote": "VLT optical layout",
+      "figure_readoff": "eso_ut_optlao6.gif (= WB Fig. 3.1, wb-fig-0301.gif): \"9896\" from the elevation (X) axis up to M2, \"2500\" from the axis down to M1"
+     }
+    ],
+    "derived": "DERIVED: 9896 + 2500 = 12396 mm (consistent with 12396.43). M2 to Nasmyth focus = 9896 + 6800 = 16696 mm; 16696 / 1113.1 mm (exit pupil at M2) = f/15.0. M2 to Cassegrain focus = 12426.95 + 2500 = 14926.95 mm; / 1113.1 = f/13.41. Difference of the two M2 positions 30.5 mm, inside the -39.0/+8 mm focusing range."
+   },
+   "tertiary": {
+    "value": "flat elliptical M3, 1242 x 866 mm, at 45 deg on top of the M3 tower 2.5 m above the M1 vertex (on the elevation axis); rotates about the telescope axis to feed Nasmyth A or B; flipped out of the beam (parallel to the tower axis) for Cassegrain",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 2.2, PDF p. 25",
+    "quote": "The 45 o , flat and elliptically shaped, tertiary mirror M3 (Fig. 2.7) is mounted on top of the M3 Tower that is fixed in the center of the M1 Cell.",
+    "alternatives": [
+     {
+      "value": "1242 x 866 mm (table)",
+      "src": "WB",
+      "loc": "Table 2.1",
+      "quote": "Diameter 8200 mm 1116 mm 1242 x 866 mm (elliptical)"
+     },
+     {
+      "value": "890 x 1260 mm^2 (text)",
+      "src": "WB",
+      "loc": "Sec. 3.4, PDF p. 71",
+      "quote": "The tertiary mirror assemblies for the VLT UTs consist of optical flats (elliptical shape, 890 x 1260 mm 2 )."
+     },
+     {
+      "value": "2.5 m above M1",
+      "src": "WB",
+      "loc": "Sec. 3.4.1, PDF p. 71",
+      "quote": "The Tertiary Mirror Assembly being located on the M3 Tower 2.5-metres above the Primary Mirror"
+     },
+     {
+      "value": "M1 vertex to elevation-axis intersection 2500 mm",
+      "src": "WB",
+      "loc": "Sec. 3.6.1, PDF p. 75",
+      "quote": "The distance between the vertex of the primary mirror and the intersection point of the elevation axis with the optical axis is 2500 mm."
+     },
+     {
+      "value": "rotation feeds the two Nasmyth foci",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, PDF p. 77",
+      "quote": "The tertiary mirror M3 bends the nominal optical axis along the nominal elevation axis. The two Nasmyth foci are fed by a rotation of the tertiary mirror about the telescope axis."
+     },
+     {
+      "value": "flipped for Cassegrain",
+      "src": "WB",
+      "loc": "Sec. 3.4, PDF p. 71",
+      "quote": "In Cassegrain configuration, the M3 Mirror Assembly is remotely flipped in towed position, parallel to the axis of M3 Tower (Fig. 3.9)."
+     },
+     {
+      "value": "tower rotates; mirror moved away for Cassegrain",
+      "src": "EM3",
+      "loc": "Overview",
+      "quote": "The M3 Tower is mounted in the center of the M1 Cell and can rotate along its axis (ideally coincident with the azimuth axis of the telescope). It supports the elliptical tertiary mirror. ... A mechanism at the top of theM3 Tower is used to move the mirror away from the optical path when using the Cassegrain instrument."
+     },
+     {
+      "value": "beam paths near M3 (figure)",
+      "src": "WB",
+      "loc": "Sec. 3.4, Fig. 3.9 caption",
+      "quote": "Figure 3.9 [GIF: 171k]. Beam paths near the M3 Mirror, during operation at the Nasmyth foci (left) and at the Cassegrain focus (right).",
+      "figure_readoff": "wb-fig-0309.gif: Nasmyth panel, M3 at 45 deg on the M3 tower folds the beam sideways to the Nasmyth focus; Cassegrain panel, the M3 assembly stands vertical beside the converging beam, which passes down through the M3 tower to the Cassegrain focus"
+     }
+    ],
+    "note": "Projected on the pupil, the 1242 x 866 mm flat at 45 deg spans about 878 x 866 mm (DERIVED: 1242 x cos 45 deg), inside the 1116 mm M2 shadow, so at Nasmyth it adds no obscuration in this description. At Cassegrain the stowed M3 does show: see cass_m3_shadow."
+   },
+   "pupil_stop": {
+    "value": "the aperture stop is the secondary mirror M2 (the UTs have no conventional baffles)",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.4 (Light baffling), p. 10 [PDF p. 16]",
+    "quote": "The pupil is determined by the secondary mirror which is designed to cover the 8 m aperture for the Nasmyth unvignetted field of view.",
+    "alternatives": [
+     {
+      "value": "pupil on M2 (Cassegrain)",
+      "src": "WB",
+      "loc": "Sec. 3.6.1, PDF p. 75",
+      "quote": "The pupil is on M2 and the unvignetted field of view is the maximum field of view without vignetting by the primary mirror."
+     },
+     {
+      "value": "\"Pupil Secondary mirror M2\" (figure label)",
+      "src": "WB",
+      "loc": "Fig. 3.16 caption",
+      "quote": "Figure 3.16 [GIF: 61k]. Optical design of the Nasmyth focus. The diameters diameters indicated are those of the reflective surfaces.",
+      "figure_readoff": "wb-fig-0316.gif: M2 labelled \"Pupil / Secondary mirror M2\", \"RED 1116\""
+     },
+     {
+      "value": "M2 defines the aperture stop (2026)",
+      "src": "G26",
+      "loc": "Sec. 3.2.1",
+      "quote": "Relevant optical elements are the secondary mirror M2 that defines the aperture stop of the telescope, the DM located in M8 and conjugated with M2"
+     },
+     {
+      "value": "exit pupil 1113.1 mm (at M2)",
+      "src": "WB",
+      "loc": "Figs. 3.13 / 3.17 captions",
+      "quote": "Figure 3.13 [GIF: 39k]. Nominal optical design data at Cassegrain focus. ... Figure 3.17 [GIF: 39k]. Nominal optical design data at Nasmyth focus.",
+      "figure_readoff": "wb-fig-0313.gif and wb-fig-0317.gif: \"Exit pupil dia. EXP 1113.1 mm\" at both foci"
+     }
+    ],
+    "note": "Because M2 is the stop, off-axis beams walk across M1 and are vignetted by its edge beyond the unvignetted field (2.68 arcmin Cassegrain, 7.15 arcmin Nasmyth)."
+   },
+   "entrance_pupil_nasmyth": {
+    "value": 8.0,
+    "unit": "m (entrance pupil diameter at Nasmyth and coude, UT1-UT3)",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.1, Table 3 (Nasmyth focus optical parameters), p. 10 [PDF p. 16]",
+    "quote": "Entrance pupil diameter 8000 mm Focal ratio 15.000 - Focal length 120000 mm",
+    "alternatives": [
+     {
+      "value": "8000 mm nominal",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, PDF p. 77",
+      "quote": "The diameter of the entrance pupil is nominally 8000 mm."
+     },
+     {
+      "value": "inner 1120 mm / outer 8000 mm",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, PDF p. 77",
+      "quote": "The vignetting by M1, in percentage of the area of the entrance pupil (inner diameter 1120 mm, outer diameter 8000 mm) is shown in Fig. 3.19. Vignetting by the tertiary mirror starts with a total field of view of 20 arc minutes."
+     },
+     {
+      "value": "8.0 m (UT1-3 model)",
+      "src": "HCI",
+      "loc": "make_vlt_aperture docstring",
+      "quote": "diameter of the pupil will be 8.0 meters for UT1-3 and 8.1196 meters for UT4."
+     },
+     {
+      "value": "8200 mm outer, 1148 mm inner, 41 mm spiders (UT3 SPHERE model)",
+      "src": "S18",
+      "loc": "Table 9",
+      "quote": "din dout wspid geom. T geom [mm] [mm] [mm] ... telescope 1148 8200 41 VLT"
+     }
+    ],
+    "note": "The 8.2 m mirror is larger than the 8.0 m stop image: confirmed, the stop is M2 (pupil_stop). S18 uses the physical 8200 mm."
+   },
+   "entrance_pupil_cassegrain": {
+    "value": 8.115,
+    "unit": "m (entrance pupil diameter at Cassegrain)",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.1, Table 2 (Cassegrain focus optical parameters), p. 7 [PDF p. 13]",
+    "quote": "Entrance pupil diameter 8115.0 mm Focal ratio 13.4106 - Focal length 108827 mm",
+    "alternatives": [
+     {
+      "value": "inner 1120 mm / outer 8115 mm",
+      "src": "WB",
+      "loc": "Sec. 3.6.1, PDF p. 75",
+      "quote": "The vignetting by M1, in percents of the area of the entrance pupil (inner diameter 1120 mm, outer diameter 8115 mm) is plotted in Fig. 3.15."
+     },
+     {
+      "value": "8.1196 m (UT4 model after the ERIS pupil document)",
+      "src": "HCI",
+      "loc": "make_vlt_aperture",
+      "quote": "pupil_diameter = 8.1196  # meter ... central_obscuration_ratio = 0.6465 * 2 / pupil_diameter"
+     }
+    ],
+    "note": "At Cassegrain M2 sits 30.5 mm further from M1 (secondary_positions), so the same M2 stop maps to a larger entrance pupil. HCI applies 8.0 m to UT1-3 at every focus and 8.1196 m to UT4 (mimicking ERIS, a Cassegrain instrument)."
+   },
+   "central_obscuration": {
+    "value": 1.116,
+    "unit": "m diameter (the M2 mirror alone, sky baffle retracted)",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.4 (Light baffling), p. 10 [PDF p. 16]",
+    "quote": "the secondary mirror units of the VLT UTs are equipped with extensible annular baffles located on top of the M2 units at 11729 mm above the telescope's altitude axis. These baffles can be extended to a diameter of 1550 mm according to the needs of the instrument. If the baffle is not used, the central obstruction is that produced by the secondary mirror alone (1116 mm diameter).",
+    "alternatives": [
+     {
+      "value": "1120 mm inner diameter of the entrance pupil",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, PDF p. 77 (Sec. 3.6.1, PDF p. 75: 1120 mm at Cassegrain too)",
+      "quote": "The vignetting by M1, in percentage of the area of the entrance pupil (inner diameter 1120 mm, outer diameter 8000 mm) is shown in Fig. 3.19."
+     },
+     {
+      "value": "1.116 m (UT1-3 model)",
+      "src": "HCI",
+      "loc": "make_vlt_aperture",
+      "quote": "pupil_diameter = 8.0  # meter ... central_obscuration_ratio = 1.116 / pupil_diameter"
+     },
+     {
+      "value": "1148 mm (UT3 SPHERE model)",
+      "src": "S18",
+      "loc": "Table 9",
+      "quote": "telescope 1148 8200 41 VLT"
+     },
+     {
+      "value": "~14%",
+      "src": "M20",
+      "loc": "Sec. 3.1",
+      "quote": "In the case of the VLT (central obscuration ∼14%)"
+     },
+     {
+      "value": "1550 mm with the sky baffle deployed",
+      "src": "SPEC",
+      "loc": "Sec. 3.2.4, p. 10 [PDF p. 16]",
+      "quote": "These baffles can be extended to a diameter of 1550 mm according to the needs of the instrument."
+     },
+     {
+      "value": "1500 mm sky baffle deployed",
+      "src": "WB",
+      "loc": "Sec. 3.5, PDF p. 74",
+      "quote": "The Sky Baffle is located on top of the M2 Unit and has a diameter of 1500 mm when deployed."
+     }
+    ],
+    "note": "Circular. eps = 1.116 / 8.0 = 0.1395 at Nasmyth; 1.120 / 8.115 = 0.138 at Cassegrain; 1.55 / 8.0 = 0.194 with the baffle deployed (DERIVED). Intermediate baffle diameters are not possible (SPEC Sec. 3.2.4). UT4 since 2016: see ut4.pupil_ut4."
+   },
+   "spiders": {
+    "value": "4 vanes, 40 mm wide, in two pairs; each pair meets at a node 0.524 m from the centre on the 45-deg diagonal, the two vanes of a pair 101 deg apart; each vane line passes 0.4045 m from the centre, so the vanes do not cross the pupil and opposite vanes are parallel, 0.809 m apart",
+    "unit": "",
+    "src": "HCI",
+    "loc": "make_vlt_aperture (parameters and spider construction)",
+    "quote": "spider_width = 0.040  # meter ... spider_offset = 0.4045  # meter ... spider_outer_radius = 4.2197  # meter ... outer_diameter_M3_stow = 1.070  # meter ... angle_between_spiders = 101  # degrees",
+    "alternatives": [
+     {
+      "value": "inner radius formula",
+      "src": "HCI",
+      "loc": "make_vlt_aperture",
+      "quote": "spider_inner_radius = spider_offset / np.cos(np.radians(45 - (angle_between_spiders - 90) / 2))"
+     },
+     {
+      "value": "vane 1: from the node at -45 deg... (code)",
+      "src": "HCI",
+      "loc": "make_vlt_aperture",
+      "quote": "spider_start_1 = -spider_inner_radius * np.array([np.cos(np.pi / 4), np.sin(np.pi / 4)]) spider_end_1 = spider_outer_radius * np.array([np.cos(np.pi), np.sin(np.pi)])"
+     },
+     {
+      "value": "source of the model",
+      "src": "HCI",
+      "loc": "make_vlt_aperture docstring",
+      "quote": "This aperture is based on the ERIS pupil documentation: VLT-SPE-AES-11310-0006."
+     },
+     {
+      "value": "41 mm",
+      "src": "S18",
+      "loc": "Table 9",
+      "quote": "din dout wspid geom. T geom [mm] [mm] [mm] ... telescope 1148 8200 41 VLT"
+     },
+     {
+      "value": "5 cm",
+      "src": "B19",
+      "loc": "Sec. 4.5 (Telescope limitations: low wind effect)",
+      "quote": "spider profile (5 cm width)"
+     },
+     {
+      "value": "four spiders, four pupil quadrants",
+      "src": "B19",
+      "loc": "Sec. 4.5 (Telescope limitations: low wind effect)",
+      "quote": "each part of the pupil (four parts separated by the four spiders)"
+     },
+     {
+      "value": "offset (non-radial) struts seen in the UT4 Cassegrain pupil (figure)",
+      "src": "K21",
+      "loc": "Fig. 1 caption",
+      "quote": "Left: VLT Cassegrain pupil with an extended central obscuration due to the M3 baffle and four thin M2 support struts (“spiders”), rotated by 81.8 deg clockwise.",
+      "figure_readoff": "K21 Fig. 1 left (PDF p. 4): four thin struts that do not pass through the centre; each meets the central disc off-centre and opposite struts are parallel and laterally offset, as in the HCI construction"
+     },
+     {
+      "value": "spiders hold the M2 unit",
+      "src": "EUT",
+      "loc": "Description",
+      "quote": "and at the top the M2 Unit by means of metallic beams called \"spiders\"."
+     }
+    ],
+    "note": "No ESO document with the spider geometry was obtained: HCI (third-party) cites the non-public ERIS pupil document. Width: 40 mm (HCI) vs 41 mm (S18) vs 5 cm (B19).",
+    "derived": "DERIVED from the HCI construction (own arithmetic, code not run): node radius = 0.4045 / cos(39.5 deg) = 0.5242 m, nodes at +/-(0.3707, 0.3707) m; vanes run from the nodes to (+/-4.2197, 0) and (0, +/-4.2197) m, directions 174.50, 275.50 deg (from the node at 225 deg) and 354.50, 95.50 deg (from the node at 45 deg); 101 deg between vanes sharing a node, 79 deg between neighbours from different nodes; each vane line is 0.4045 m from the centre; length inside the 1.116-8.0 m annulus sqrt(4.0^2 - 0.4045^2) - sqrt(0.558^2 - 0.4045^2) = 3.595 m per vane; area blocked 0.575 m^2 (grid integration, 4 mm cells) = 1.17% of the annulus."
+   },
+   "spider_frame": {
+    "value": "HCI frame: x, y in metres on the pupil, angles from +x; orientation relative to the elevation axis or Nasmyth A/B NOT FOUND",
+    "unit": "",
+    "src": "K21",
+    "loc": "Fig. 1 caption",
+    "quote": "Left: VLT Cassegrain pupil with an extended central obscuration due to the M3 baffle and four thin M2 support struts (“spiders”), rotated by 81.8 deg clockwise.",
+    "note": "The pupil rotates on the sky with the alt-az mount; K21 gives only the rotation of their plot. NOT FOUND: the vane angles relative to the telescope axes."
+   },
+   "spider_coating": {
+    "value": "UT3 spiders coated against the low-wind effect in 2017; UT3 and UT4 re-coated, UT1-2 planned (geometry unchanged)",
+    "unit": "",
+    "src": "B19",
+    "loc": "Sec. 4.5 (Telescope limitations: low wind effect)",
+    "quote": "ESO has applied between August and November 2017 a dedicated coating on the spiders to reduce the thermal transfer causing the LWE.",
+    "alternatives": [
+     {
+      "value": "UT3-4 re-coated; UT1-2 next",
+      "src": "G26",
+      "loc": "Sec. 4.3.1 (Strehl versus magnitude and seeing)",
+      "quote": "which matches the fact that the spiders of UT3-4 have been re-coated with special painting to increase their thermal coupling with surrounding air. Re-coating the spiders of UT1-2 will be implemented in the next year as part of the GRAVITY+ project."
+     }
+    ]
+   },
+   "cass_m3_shadow": {
+    "value": "at Cassegrain the stowed M3 adds a bump to one side of the central obscuration (measured on UT4); 1.070 m square in the HCI UT4 model",
+    "unit": "",
+    "src": "M20",
+    "loc": "Fig. 1 caption (UT4 Cassegrain, VISIR-NEAR)",
+    "quote": "The central obscuration consists of a round shape due to the M2 mirror and a bump to the lower right due to the M3 mirror (black).",
+    "alternatives": [
+     {
+      "value": "M3 baffle extends the obscuration",
+      "src": "K21",
+      "loc": "Fig. 1 caption",
+      "quote": "Left: VLT Cassegrain pupil with an extended central obscuration due to the M3 baffle and four thin M2 support struts (“spiders”), rotated by 81.8 deg clockwise."
+     },
+     {
+      "value": "M3 shadow breaks the symmetry",
+      "src": "M20",
+      "loc": "Sec. 3.2",
+      "quote": "We recover the bias of ∼ 0.01 λ/D in each direction, due to the M3 shadow in the VLT pupil."
+     },
+     {
+      "value": "ERIS mask oversized for M3 in its folded position",
+      "src": "D18",
+      "loc": "Fig. 8 caption",
+      "quote": "marking the spider arms and deformable secondary mirror baffle, which is oversized in order to block thermal emission from M3 in its folded position."
+     },
+     {
+      "value": "HCI M3 cover: a 1.070 m square from x = 0 to 1.070 m, |y| <= 0.535 m",
+      "src": "HCI",
+      "loc": "make_vlt_aperture",
+      "quote": "m3_cover = make_inverted_aperture(make_rectangular_aperture(outer_diameter_M3_stow, center=[outer_diameter_M3_stow / 2, 0]))"
+     },
+     {
+      "value": "HCI: UT4 only",
+      "src": "HCI",
+      "loc": "make_vlt_aperture docstring",
+      "quote": "If this is True, a cover will be created for the M3 in stowed position. This M3 cover is only available on UT4, mimicking the ERIS pupil."
+     }
+    ],
+    "note": "The stowed M3 (WB Fig. 3.9) is the same on all four UTs by design, but the shadow is documented only for UT4 (VISIR-NEAR 2019, ERIS); UT1-3 Cassegrain: NOT FOUND. WB says there is no vignetting by the M1 central hole at Cassegrain.",
+    "derived": "DERIVED (HCI UT4 geometry): the cover blocks 0.52 m^2 outside the 1.293 m central disc (grid integration)."
+   },
+   "collecting_area": {
+    "value": "no ESO value found; 49.26 m^2 used by GRAVITY+",
+    "unit": "m^2",
+    "src": "G26",
+    "loc": "Sec. 4.2.1 (Transmission)",
+    "quote": "when scaled to the collecting area of the Unit Telescopes (49.26 m2)",
+    "alternatives": [
+     {
+      "value": "\"16-metre equivalent\" for four UTs combined",
+      "src": "WB",
+      "loc": "Sec. 2.6.2",
+      "quote": "When the full interferometric capability will be in place, use of the combined incoherent coudé focus may also be contemplated; this would offer the full light collecting power of a 16-metre equivalent diameter telescope."
+     }
+    ],
+    "derived": "DERIVED: Nasmyth UT1-3, pi/4 (8.0^2 - 1.116^2) = 49.29 m^2 annulus, minus 0.575 m^2 of vanes = 48.71 m^2; Cassegrain UT1-3, pi/4 (8.115^2 - 1.120^2) = 50.74 m^2, minus 0.584 m^2 = 50.15 m^2 (stowed-M3 shadow not included); UT4 Cassegrain (HCI) 50.47 m^2 annulus, 49.90 m^2 with vanes, 49.38 m^2 with the M3 cover. G26 49.26 m^2 is close to the annulus pi/4 (8.0^2 - 1.12^2) = 49.28 m^2."
+   },
+   "cass_optics": {
+    "value": "Cassegrain: F = 13.4106 on the 8115.0 mm entrance pupil, f = 108827 mm, 528 um/arcsec (slightly field dependent), 15 arcmin total / 2.68 arcmin unvignetted, image 474.4 / 85.0 mm, focal surface concave towards M2 with R = 1981.4 mm",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.1, Table 2, p. 7 [PDF p. 13]",
+    "quote": "Entrance pupil diameter 8115.0 mm Focal ratio 13.4106 - Focal length 108827 mm ... Object field of view total 15 arcmin unvignetted 2.68 arcmin vignetting (50 dia. field) 0.32 % vignetting (100 dia. field) 1.30 % ... Image field of view total 474.4 mm unvignetted 85.0 mm Image scale slightly field dependent 528 µm/arcsec Radius of image curvature concave towards M2 1981.4 mm",
+    "alternatives": [
+     {
+      "value": "13.41, 108,827 mm, 0.53 mm/arcsec, 15 / 2.7 arcmin, 475 / 85 mm, 2 reflections",
+      "src": "WB",
+      "loc": "Table 3.1 (VLT Foci Main Optical Parameters), PDF p. 58",
+      "quote": "No. of reflections 2 3 8 Focal length 108,827 mm 120,000 mm 378,400 mm Focal ratio 13.41 15.0 47.3 ... Scale 0.53 mm/arcsec 0.58 mm/ 1.84 mm/ ... Object FOV (total) 15 arcmin 30 arcmin 1 arcmin Object FOV (unvignetted) 2.7 arcmin 7.2 arcmin 1 arcmin ... Image FOV (total) 475 mm 1044 mm 110 mm Image FOV (unvignetted) 85 mm 250 mm 110 mm"
+     },
+     {
+      "value": "2.68 arcmin unvignetted (M1 edge); no central-hole vignetting",
+      "src": "WB",
+      "loc": "Sec. 3.6.1, PDF p. 75",
+      "quote": "With the nominal optical design and nominal M1 bevel size the unvignetted field of view is 2.68 arc minutes in diameter. There is no vignetting by the central hole."
+     },
+     {
+      "value": "field aberrations",
+      "src": "WB",
+      "loc": "Sec. 3.6.1",
+      "quote": "The field aberrations on the curved Cassegrain image are third order coma and astigmatism."
+     },
+     {
+      "value": "f/13.4 beam (UT4)",
+      "src": "M20",
+      "loc": "Sec. 3.3",
+      "quote": "the f/13.4 beam of the VLT Cassegrain focus"
+     },
+     {
+      "value": "\"f/13.6\" (ERIS AO input, as quoted by GPAO)",
+      "src": "G26",
+      "loc": "Sec. 3.2.2",
+      "quote": "adapted from a f/13.6 beam to a f/47 beam. The WFS are located at the Coudé"
+     },
+     {
+      "value": "nominal design data (figure)",
+      "src": "WB",
+      "loc": "Fig. 3.13 caption",
+      "quote": "Figure 3.13 [GIF: 39k]. Nominal optical design data at Cassegrain focus.",
+      "figure_readoff": "wb-fig-0313.gif: EPD 8115.0 mm, EXP 1113.1 mm, FNO 13.4106, EFL 108827 mm, FOV 15 arcmin total / 2.68 unvignetted, image 474.4 / 85.0 mm"
+     }
+    ],
+    "note": "\"(50 dia. field)\" and \"(100 dia. field)\" are the extracted text of 5' and 10' diameter fields (prime glyph lost). The f-number is defined on the 8115 mm entrance pupil.",
+    "derived": "DERIVED: 108827 / 8115.0 = 13.4106; plate scale 206264.8 / 108827 mm = 1.8953 arcsec/mm (1 / 0.528 = 1.894); 15 x 60 x 0.528 = 475.2 mm (table 474.4, scale field dependent); 2.68 x 60 x 0.528 = 84.9 mm. F on the 8.2 m mirror would be 13.27."
+   },
+   "cass_location": {
+    "value": "2500 mm below the M1 vertex (5000 mm below the elevation axis), on the optical axis behind the M1 cell; instrument focal plane 250 mm behind the rotator flange",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.6.1, PDF p. 75",
+    "quote": "The backfocal distance is 2500 mm; it is measured from the vertex of the primary mirror down to the Cassegrain focus.",
+    "alternatives": [
+     {
+      "value": "BFL 2500.00 (figure)",
+      "src": "WB",
+      "loc": "Fig. 3.12 caption",
+      "quote": "Figure 3.12 [GIF: 51k]. Optical design of the Cassegrain focus. The diameters diameters indicated are those of the reflective surfaces",
+      "figure_readoff": "wb-fig-0312.gif: \"BFL 2500.00\" from the M1 vertex down to the Cassegrain focus; beam diameter at the M1 hole \"dia 581.8 for 15' total field of view\"; \"Dia. centre hole 1000 +-0.5\""
+     },
+     {
+      "value": "5000 mm below the elevation axis (figure)",
+      "src": "EUT",
+      "loc": "Optical Layout link",
+      "quote": "VLT optical layout",
+      "figure_readoff": "eso_ut_optlao6.gif: \"5000\" from the elevation (X) axis down to the Cassegrain focus"
+     },
+     {
+      "value": "rotator back focal distance 250 mm",
+      "src": "SPEC",
+      "loc": "Sec. 4.7, p. 28 [PDF p. 34]",
+      "quote": "The focal plane of instruments attached directly to the rotator shall be located at a nominal on-axis Back Focal Distance (BFD) of 250 mm from the rotator instrument mounting flange."
+     }
+    ]
+   },
+   "nas_optics": {
+    "value": "Nasmyth (A and B): F = 15.000 on the 8000 mm entrance pupil, f = 120000 mm, 582 um/arcsec, 30 arcmin total / 7.15 arcmin unvignetted (M3 vignetting from 20 arcmin), image 1043.8 / 249.6 mm, focal surface concave towards M2 with R = 2089.6 mm",
+    "unit": "",
+    "src": "SPEC",
+    "loc": "Sec. 3.2.1, Table 3, p. 10 [PDF p. 16]",
+    "quote": "Entrance pupil diameter 8000 mm Focal ratio 15.000 - Focal length 120000 mm ... Object field of view total 30 arcmin unvignetted 7.15 arcmin vignetting (100 dia. field) 0.31 % vignetting (200 dia. field) 2.14 % ... Image field of view total 1043.8 mm unvignetted 249.6 mm Image scale slightly field dependent 582 µm/arcsec Radius of image curvature concave towards M2 2089.6 mm",
+    "alternatives": [
+     {
+      "value": "15.0, 120,000 mm, 0.58 mm/arcsec, 30 / 7.2 arcmin, 1044 / 250 mm, 3 reflections",
+      "src": "WB",
+      "loc": "Table 3.1, PDF p. 58",
+      "quote": "No. of reflections 2 3 8 Focal length 108,827 mm 120,000 mm 378,400 mm Focal ratio 13.41 15.0 47.3"
+     },
+     {
+      "value": "7.15 arcmin unvignetted; M3 vignetting from 20 arcmin",
+      "src": "WB",
+      "loc": "Sec. 3.7.1, PDF p. 77",
+      "quote": "With the nominal optical design and nominal M1 bevel size, the unvignetted field of view is 7.15 arcmin in diameter. There is no vignetting by the central hole."
+     },
+     {
+      "value": "M3 vignetting threshold",
+      "src": "WB",
+      "loc": "Sec. 3.7.1",
+      "quote": "Vignetting by the tertiary mirror starts with a total field of view of 20 arc minutes."
+     },
+     {
+      "value": "field aberration",
+      "src": "WB",
+      "loc": "Sec. 3.7.1",
+      "quote": "The only field aberration on the curved Nasmyth image is third order astigmatism."
+     },
+     {
+      "value": "nominal design data (figure)",
+      "src": "WB",
+      "loc": "Fig. 3.17 caption",
+      "quote": "Figure 3.17 [GIF: 39k]. Nominal optical design data at Nasmyth focus.",
+      "figure_readoff": "wb-fig-0317.gif: EPD 8000 mm, EXP 1113.1 mm, FNO 15.000, EFL 120000 mm, FOV 30 / 7.15 arcmin, image 1043.8 / 249.6 mm"
+     }
+    ],
+    "note": "\"(100 dia. field)\" and \"(200 dia. field)\" = 10' and 20' diameter fields in the extracted text. The f-number is defined on the 8000 mm entrance pupil.",
+    "derived": "DERIVED: 120000 / 8000 = 15.000; plate scale 206264.8 / 120000 mm = 1.7189 arcsec/mm (1 / 0.582 = 1.718); 30 x 60 x 0.582 = 1047.6 mm (table 1043.8); 7.15 x 60 x 0.582 = 249.7 mm. Magnification 120000 / 14400 = 8.33."
+   },
+   "nas_location": {
+    "value": "on the elevation axis, 6800 mm from the telescope (azimuth) axis on either side; the optical axis is 2.0 m above the Nasmyth platform floor (figure read-off); rotator flange BFD 250 mm",
+    "unit": "",
+    "src": "WB",
+    "loc": "Fig. 3.16 caption, PDF p. 77",
+    "quote": "Figure 3.16 [GIF: 61k]. Optical design of the Nasmyth focus. The diameters diameters indicated are those of the reflective surfaces.",
+    "figure_readoff": "wb-fig-0316.gif: horizontal dimension \"6800.0\" from the telescope axis (through M3) to the Nasmyth focus, on the M3 axis line \"2500.00\" above the M1 vertex; \"FOV 1043.8\"; M3 \"1242 x 866\"",
+    "alternatives": [
+     {
+      "value": "6800 mm (ESO drawing)",
+      "src": "EUT",
+      "loc": "Optical Layout link",
+      "quote": "VLT optical layout",
+      "figure_readoff": "eso_ut_optlao6.gif: \"6800\" from the Z (azimuth) axis to the Nasmyth focus on the X (elevation) axis; Nasmyth foci drawn on both sides"
+     },
+     {
+      "value": "altitude axis 13044.0, Nasmyth platform 11044.0 (figure)",
+      "src": "SPEC",
+      "loc": "Fig. 3 caption, p. 8 [PDF p. 14]",
+      "quote": "Figure 3: Front view of a Unit Telescope",
+      "figure_readoff": "SPEC Fig. 3 (PDF p. 14): level labels \"ALTITUDE AXIS 13044.0\", \"NASMYTH PLATFORM 11044.0\", \"OBSERVING FLOOR (AZIMUTH PLATFORM) 5244.0\", \"0.0\", basement \"-4450.0\" and \"-3100.0\"; foci labelled NASMYTH FOCUS (both sides), CASSEGRAIN FOCUS, COUDE FOCUS"
+     },
+     {
+      "value": "Nasmyth covers 2.56 m from the focal plane",
+      "src": "SPEC",
+      "loc": "Sec. 3.3.10, p. 18 [PDF p. 24]",
+      "quote": "These covers consist of roller-blind shutters on the inside of each altitude bearing shaft at a distance of 2.56m from the focal plane."
+     }
+    ],
+    "derived": "DERIVED: beam height above the Nasmyth platform = 13044.0 - 11044.0 = 2000 mm (SPEC Fig. 3 read-off; SPEC Sec. 4.7 says the actual height may deviate at individual foci)."
+   },
+   "nasmyth_sides": {
+    "value": "Platform A is on the east side and Platform B on the west side of the tube when the telescope is at azimuth 0 (pointing South)",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.7, PDF p. 77",
+    "quote": "There are two Nasmyth foci at each UT. The corresponding platforms are designated Platform A and Platform B . For azimuthal angle A = 0 o , Platform A is on the east side of the telescope tube and Platform B on the west side.",
+    "alternatives": [
+     {
+      "value": "azimuth zero at South",
+      "src": "SPEC",
+      "loc": "Sec. 3.2.7, p. 11 [PDF p. 17]",
+      "quote": "The telescope can be moved about the Azimuth axis in the range –180◦ to +360◦ measured eastwards from the South-point."
+     },
+     {
+      "value": "Platform A / B labelled (figure)",
+      "src": "WB",
+      "loc": "Fig. 6.1 caption",
+      "quote": "Figure 6.1 [GIF: 112k]. The VLT Main Structure with its main subsystems.",
+      "figure_readoff": "wb-fig-0601.gif: labels NASMYTH PLATFORM \"B\" (left in the drawing) and NASMYTH PLATFORM \"A\" (right), SPIDERS, TOP RING, M2 MASS DUMMY, COUDE TUBE"
+     },
+     {
+      "value": "Nasmyth B platform with UVES (figure)",
+      "src": "WB",
+      "loc": "Fig. 6.3 caption",
+      "quote": "Figure 6.3 [GIF: 30k]. Lay-out of the Nasmyth platform.",
+      "figure_readoff": "wb-fig-0603.gif: \"NASMYTH B\" platform carrying the \"NASMYTH INSTRUMENT (UVES)\""
+     }
+    ],
+    "note": "Same convention on all four UTs (one design). The A/B naming is published; left/right is not used by ESO. In the explorer convention (side \"up\" = left/east, \"down\" = right/west) A = east = \"up\", B = west = \"down\" (INFERRED mapping)."
+   },
+   "coude": {
+    "value": "coude: F = 47.3, f = 378400 mm, 1 arcmin field (110 mm), 1.835 mm/arcsec, 8 reflections (M1-M8); M4 concave cylinder R = 33100 mm in front of the Nasmyth adapter, M5 sphere R = 8975 mm, M6 cylinder R = 290000 mm, M7 sphere R = 5176.2 mm, M8 flat at a pupil image; focus below the telescope (basement)",
+    "unit": "",
+    "src": "WB",
+    "loc": "Sec. 3.8 (The Coude Focus), PDF pp. 82-83",
+    "quote": "The beam is sent to the Coudé Train by a concave cylindrical mirror ( M4 , R = 33,100 mm; in front of the the Nasmyth adapter). ... M5 : concave spherical mirror (R = 8975 mm); ... M6 : concave cylindrical mirror (R = 290,000 mm) - the cylinder direction is rotated by 90 o with respect to M4; ... M7 : concave spherical mirror ( R = 5176.2mm); and ... M8 : flat mirror.",
+    "alternatives": [
+     {
+      "value": "378,400 mm, f/47.3, 1 arcmin, 1.835 mm per arcsec",
+      "src": "WB",
+      "loc": "Sec. 3.8, PDF p. 83",
+      "quote": "The main characteristics are: Focal length = 378,400 mm; F/N : 47.3; FOV = 1 arcmin (diameter). The field scale is 1 arcsec = 1.835 mm."
+     },
+     {
+      "value": "mirror sizes and incidence angles",
+      "src": "WB",
+      "loc": "Table 3.6",
+      "quote": "M4 elliptical 115 x 82 mm 45 o ... M5 round 580 mm 4.0 o ... M6 elliptical 440 x 395 mm 25.0 o ... M7 round 275 mm 9.2 o ... M8 round 120 mm 11.8 o"
+     },
+     {
+      "value": "pupil image near M8",
+      "src": "WB",
+      "loc": "Sec. 3.8",
+      "quote": "An image of the telescope pupil is located near M8 to allow this mirror to be turned into an adaptive mirror."
+     },
+     {
+      "value": "8 reflections, 1 arcmin, 110 mm",
+      "src": "WB",
+      "loc": "Table 3.1",
+      "quote": "No. of reflections 2 3 8 Focal length 108,827 mm 120,000 mm 378,400 mm Focal ratio 13.41 15.0 47.3"
+     },
+     {
+      "value": "Strehl",
+      "src": "WB",
+      "loc": "Sec. 3.8",
+      "quote": "The Strehl ratio of the Coudé image on the optical axis is 0.91 at wavelength 2.25 µm and 1.0 at 10 µm."
+     },
+     {
+      "value": "below the main structure; feeds the delay lines",
+      "src": "WB",
+      "loc": "Sec. 3.1, PDF p. 57",
+      "quote": "The coudé focus is located below the main telescope structure. It also serves to send on the beam towards the interferometric delay lines and the interferometric focus."
+     },
+     {
+      "value": "one Nasmyth focus transferred to the basement",
+      "src": "EUT",
+      "loc": "Optical Layout",
+      "quote": "The Coudé focus is obtained by transferring one Nasmyth focus to another location in the telescope basement by means of a relay system. From the Coudé focus the light can be sent to the combination mode focus or to the interferometric focus."
+     },
+     {
+      "value": "M4 unit in the Nasmyth adapter",
+      "src": "ENAS",
+      "loc": "The M4 Unit",
+      "quote": "The M4 Unit bends the optical beam coming from the telescope to thefolded Nasmyth Focus and Coudé Focus. It is mounted on a linearbearing assembly which moves it into the optical path."
+     },
+     {
+      "value": "VLTI attaches to each UT coude focus",
+      "src": "VLTIM",
+      "loc": "Sec. 4.1.1",
+      "quote": "The VLTI can be attached to the Coudé foci of each UT (located underneath the azimuth platform of the telescope) to bring the stellar light from the Nasmyth focus to the entrance of a VLTI “light-duct”."
+     },
+     {
+      "value": "M2 pupil reimaged on M8 at 98 x 101 mm; GPAO DM in M8",
+      "src": "G26",
+      "loc": "Sec. 3.1.1",
+      "quote": "the pupil defined by the secondary mirror (M2) is reimaged on the mirror number 8 (M8) with a size of 98 × 101mm."
+     },
+     {
+      "value": "coude train drawing (figure)",
+      "src": "WB",
+      "loc": "Fig. 3.23 caption",
+      "quote": "Figure 3.23 [GIF: 17k]. The Coudé Optical Train.",
+      "figure_readoff": "wb-fig-0323.gif: M1-M3 fold to M4 at the Nasmyth focus side, down to M5/M6, across to M7, up to M8 and down to the coude focus on the telescope axis"
+     },
+     {
+      "value": "dimensions (figure)",
+      "src": "WB",
+      "loc": "Fig. 3.1 caption",
+      "quote": "Figure 3.1 [GIF: 59k]. Optical lay-out of the VLT with dimensions indicated.",
+      "figure_readoff": "wb-fig-0301.gif (= eso_ut_optlao6.gif): M4 at the Nasmyth focus 6800 mm off axis; M6 5428 mm and M5 8597 mm below the elevation axis; M8 10004 mm, M7 13315 mm and the COUDE FOCUS 15544 mm below the elevation axis, the coude focus on the azimuth (Z) axis; M5 6100 mm off axis"
+     }
+    ],
+    "note": "Which Nasmyth side (A or B) the VLTI coude train uses: NOT FOUND. The coude train was redesigned (cylindrical and spherical mirrors, 2.2 um and longer, 1 arcmin) relative to the original off-axis elliptical design (WB Sec. 3.8). Only two UTs had coude trains in the first phase (WB Sec. 9.3); the VLTI manual (2019) attaches to each UT.",
+    "derived": "DERIVED: 378400 / 8000 = 47.30 (F on the 8 m entrance pupil); 206264.8 / 378400 = 0.5451 arcsec/mm (1 / 1.835 = 0.5450); 1 arcmin x 60 x 1.835 = 110.1 mm. Coude focus level = 13044.0 - 15544 = -2500 mm, i.e. 2.5 m below the 0.0 ground level of SPEC Fig. 3 (basement)."
+   },
+   "iccf": {
+    "value": "incoherent combined coude focus (ICCF) in the Combined-Coude Laboratory: ESPRESSO, light from 1 or 4 UTs; its own coude trains pick up the beam on the Nasmyth B platforms, 4 prisms through the UT structure to the UT coude room, then a 2-mirror periscope and 2 lenses along the incoherent light ducts",
+    "unit": "",
+    "src": "EUM",
+    "loc": "Sec. 3.1 (The Coude Train), manual pp. 8-9 [PDF pp. 14-15]",
+    "quote": "The Coudé Trains pick up the light at the level of the Nasmyth- B platforms and redirect it using 4 prisms through the UT mechanical structure, down to the ... UT Coudé Rooms (CR). It is then directed along the incoherent light ducts into the CCL (see Fig. 2) by using a 2-mirrors periscope and 2 lenses.",
+    "alternatives": [
+     {
+      "value": "ICCF",
+      "src": "EUM",
+      "loc": "Sec. 3.1",
+      "quote": "The Incoherent Combined-Coudé Focus (ICCF) is the convergence point for the light of the four VLT UTs and is located in the CCL."
+     },
+     {
+      "value": "1-UT and 4-UT modes",
+      "src": "EUM",
+      "loc": "Sec. 3.1",
+      "quote": "The standard operation modes are 1-UT mode and 4-UT mode, in which light is fed from one or the 4 UTs, respectively."
+     },
+     {
+      "value": "ESPRESSO in the incoherent combined coude column; GRAVITY, MATISSE, visitor focus at the interferometric focus",
+      "src": "EINS",
+      "loc": "table header and UT1 row",
+      "quote": "Telescope Focus Nasmyth A Cassegrain Nasmyth B Incoherent Combined Coudé Interferometric ... UT1 (Antu) FORS2 KMOS ESPRESSO GRAVITY MATISSE Visitor focus"
+     }
+    ],
+    "note": "The number of reflections (prisms) to the ICCF and its f-ratio: NOT FOUND in the saved documents."
+   }
+  },
+  "pupil": {
+   "stop": "secondary mirror M2 (1116 mm minimum optical diameter); no conventional baffles",
+   "D_entrance_nasmyth_m": 8.0,
+   "D_entrance_cassegrain_m": 8.115,
+   "D_entrance_coude_m": 8.0,
+   "primary_physical_diameter_m": 8.2,
+   "primary_reflective_diameter_m": 8.1859,
+   "central_obscuration_diameter_m": 1.116,
+   "central_obscuration_shape": "circular (M2)",
+   "central_obscuration_alternatives_m": {
+    "WB_inner_diameter": 1.12,
+    "S18_UT3": 1.148,
+    "M20_fraction": "~14%",
+    "sky_baffle_deployed_SPEC": 1.55,
+    "sky_baffle_deployed_WB": 1.5
+   },
+   "eps_nasmyth": 0.1395,
+   "eps_cassegrain": 0.138,
+   "eps_note": "DERIVED: 1.116 / 8.0 = 0.1395; 1.120 / 8.115 = 0.138; 1.55 / 8.0 = 0.194 with the sky baffle",
+   "spiders": {
+    "n": 4,
+    "width_m": 0.04,
+    "width_alternatives_m": {
+     "S18": 0.041,
+     "B19": 0.05
+    },
+    "layout": "two pairs; each pair meets at a node 0.5242 m from the centre on the 45-deg diagonal (nodes at +/-(0.3707, 0.3707) m), the vanes of a pair 101 deg apart; every vane line passes 0.4045 m from the centre, so no vane crosses the pupil and opposite vanes are parallel and 0.809 m apart (DERIVED from HCI)",
+    "offset_from_centre_m": 0.4045,
+    "node_radius_m_DERIVED": 0.5242,
+    "angle_between_paired_vanes_deg": 101,
+    "outer_radius_m": 4.2197,
+    "vanes_model_frame": [
+     {
+      "start_xy_m": [
+       -0.3707,
+       -0.3707
+      ],
+      "end_xy_m": [
+       -4.2197,
+       0.0
+      ],
+      "angle_deg": 174.5,
+      "width_m": 0.04
+     },
+     {
+      "start_xy_m": [
+       -0.3707,
+       -0.3707
+      ],
+      "end_xy_m": [
+       0.0,
+       -4.2197
+      ],
+      "angle_deg": 275.5,
+      "width_m": 0.04
+     },
+     {
+      "start_xy_m": [
+       0.3707,
+       0.3707
+      ],
+      "end_xy_m": [
+       4.2197,
+       0.0
+      ],
+      "angle_deg": 354.5,
+      "width_m": 0.04
+     },
+     {
+      "start_xy_m": [
+       0.3707,
+       0.3707
+      ],
+      "end_xy_m": [
+       0.0,
+       4.2197
+      ],
+      "angle_deg": 95.5,
+      "width_m": 0.04
+     }
+    ],
+    "frame": "hcipy make_vlt_aperture frame (x, y in m on the pupil; angles from +x); orientation relative to the elevation axis and Nasmyth A/B NOT FOUND",
+    "crosses_whole_pupil": false,
+    "refs": [
+     "common.spiders",
+     "common.spider_frame"
+    ]
+   },
+   "other_obstructions": [
+    "M1 central hole 1.0 m and M2 internal obscuration 46 mm: inside the M2 shadow",
+    "M3 at Nasmyth projects to ~0.88 x 0.87 m: inside the M2 shadow (DERIVED)",
+    "Cassegrain: stowed M3 bump on one side of the central obscuration (documented on UT4 only; UT1-3 NOT FOUND)",
+    "optional sky baffle on top of M2: 1550 mm (SPEC) / 1500 mm (WB) when deployed"
+   ],
+   "collecting_area": {
+    "annulus_nasmyth_m2_DERIVED": 49.29,
+    "vanes_m2_DERIVED": 0.575,
+    "net_nasmyth_m2_DERIVED": 48.71,
+    "annulus_cassegrain_m2_DERIVED": 50.74,
+    "net_cassegrain_m2_DERIVED_no_M3": 50.15,
+    "G26_m2": 49.26,
+    "basis": "no ESO value found; DERIVED geometry (grid integration) and the GRAVITY+ value"
+   },
+   "refs": [
+    "common.pupil_stop",
+    "common.entrance_pupil_nasmyth",
+    "common.entrance_pupil_cassegrain",
+    "common.central_obscuration",
+    "common.spiders",
+    "common.cass_m3_shadow",
+    "common.collecting_area"
+   ]
+  },
+  "primary": {
+   "diameter_physical_m": 8.2,
+   "diameter_reflective_m": 8.1859,
+   "central_hole_m": 1.0,
+   "thickness_m": 0.175,
+   "radius_of_curvature_m": 28.8,
+   "radius_measured_m": [
+    28.7629,
+    28.76,
+    28.7626
+   ],
+   "focal_length_m_DERIVED": 14.4,
+   "F_nominal": 1.8,
+   "F_on_8p2m_DERIVED": 1.756,
+   "conic": -1.004616,
+   "conic_alternatives": [
+    -1.00469,
+    -1.004457,
+    -1.005089,
+    -1.004392
+   ],
+   "material": "Zerodur meniscus, 150 axial actuators (active optics)",
+   "coating": "aluminium",
+   "note": "M1 conic and radius are changed actively between Nasmyth (RC) and Cassegrain",
+   "refs": [
+    "common.primary_diameter",
+    "common.primary_central_hole",
+    "common.primary_radius",
+    "common.primary_focal_ratio",
+    "common.primary_conic",
+    "common.primary_material_coating"
+   ]
+  },
+  "combined_foci": [
+   {
+    "id": "ICCF",
+    "name": "Incoherent combined coude focus (Combined-Coude Laboratory)",
+    "instrument": "ESPRESSO (1-UT or 4-UT)",
+    "feed": "own coude trains: pick-up on each Nasmyth B platform, 4 prisms, 2-mirror periscope, 2 lenses",
+    "F": "NOT FOUND",
+    "ref": "common.iccf"
+   },
+   {
+    "id": "VLTI",
+    "name": "Interferometric (coherent) focus, VLTI laboratory",
+    "instruments": [
+     "GRAVITY",
+     "MATISSE",
+     "visitor focus"
+    ],
+    "feed": "UT coude foci (f/47.3) and delay lines",
+    "ref": "common.coude"
+   }
+  ],
+  "not_found": [
+   "An ESO document giving the spider geometry (width, offset, angles): the only numbers are the third-party HCI model (citing the non-public ERIS pupil document VLT-SPE-AES-11310-0006), S18 (41 mm width) and B19 (5 cm width). The orientation of the vane frame relative to the elevation axis and to Nasmyth A/B is NOT FOUND.",
+   "An official collecting area in m^2 (only DERIVED values and the 49.26 m^2 used by G26).",
+   "Which Nasmyth side (A or B) the VLTI coude train (M4-M8) uses; the f-ratio and number of reflections of the ESPRESSO coude trains (EUM: 4 prisms, a 2-mirror periscope and 2 lenses after the Nasmyth B pick-up).",
+   "The stowed-M3 shadow at the UT1-3 Cassegrain foci (documented only for UT4).",
+   "Assignment of the measured primaries (mirrors 1-3 of WB Table 3.3) to UT1-UT4.",
+   "The nominal beam height above the Nasmyth platform as text (ADWG-N drawings in SPEC Appendix B are not machine-readable; 2.0 m is a figure read-off of SPEC Fig. 3)."
+  ],
+  "conflicts": [
+   "Central obscuration: 1116 mm (SPEC, M2 alone; HCI UT1-3) vs 1120 mm (WB entrance-pupil inner diameter) vs 1148 mm (S18, UT3 model) vs ~14% (M20) vs 1293 mm (HCI UT4); with the sky baffle 1550 mm (SPEC) vs 1500 mm (WB).",
+   "Pupil outer diameter: 8000 mm Nasmyth and 8115.0 mm Cassegrain (SPEC, WB) vs 8200 mm (S18, the physical mirror) vs 8.1196 m (HCI UT4 Cassegrain).",
+   "Spider width: 40 mm (HCI) vs 41 mm (S18) vs 5 cm (B19).",
+   "M1 thickness 175 mm (WB Sec. 2.2, EM1) vs 177 mm (WB Table 2.1; blank spec 177+2-0). M1 radius: 28800 +/- 100 mm specified (measured 28760-28765 mm) vs \"+28,975 mm\" in WB Table 2.1 (the blank curvature). Mirror 2 measured 28760.0 mm (WB Table 3.3) vs 28764.9 mm (EM1 Table 3). M1 conic -1.004616 (specified, EM1 Table 3) vs -1.00469 (EM1 text).",
+   "M2: R = -4553.57 mm (WB Table 3.4) vs -4550 mm (WB Table 2.1); conic specified -1.66926 +/- 0.003 vs \"measured\" -1.69980 (outside the tolerance as printed); diameter 1116 mm optical / 1120 mm mechanical vs \"1.12 m\" (WB 2.2) vs \"1.1 metres\" (WB 3.3) vs \"slightly in excess of 1 meter\" (EM2).",
+   "M3: 1242 x 866 mm (WB Table 2.1, Fig. 3.16) vs 890 x 1260 mm^2 (WB Sec. 3.4).",
+   "Cassegrain f-ratio 13.4106 (SPEC) vs 13.41 (WB) vs f/13.4 (M20) vs f/13.6 (G26, for the ERIS AO input); scales 528 um/arcsec (SPEC) vs 0.53 mm/arcsec (WB); Nasmyth 582 vs 0.58; coude 1.835 (WB text) vs 1.84 (WB Table 3.1). Unvignetted fields 2.68 / 7.15 arcmin (SPEC, WB text) vs 2.7 / 7.2 (WB Table 3.1, rounded)."
+  ],
+  "notes": [
+   "One design for UT1-UT4 (SPEC Sec. 3.2); UT4 has had the deformable secondary since October 2016; instruments differ.",
+   "f-numbers are on the entrance pupil set by M2: f/13.4106 on 8115.0 mm (Cassegrain), f/15 on 8000 mm (Nasmyth), f/47.3 on 8000 mm (coude). Plate scale = 206264.8 / f: Cassegrain 1.895 arcsec/mm, Nasmyth 1.719 arcsec/mm, coude 0.545 arcsec/mm.",
+   "Reflections: Cassegrain 2 (M1, M2), Nasmyth 3 (M1, M2, flat M3), coude 8 (M1-M8).",
+   "Pupil drawing: disc 8.0 m (Nasmyth) or 8.115 m (Cassegrain) with a 1.116 m central disc; four 40 mm vanes from nodes at +/-(0.3707, 0.3707) m to (+/-4.2197, 0) and (0, +/-4.2197) m (vanes_model_frame); on UT4 Cassegrain use 8.1196 / 1.293 m and add the 1.070 m M3 square.",
+   "Nasmyth A = east, B = west at azimuth 0 (WB Sec. 3.7), with azimuth counted eastwards from South (SPEC Sec. 3.2.7)."
+  ]
+ },
+ "ut1": {
+  "title": "UT1 (Antu)",
+  "telescope": {
+   "name": "UT1 (Antu)",
+   "site": "Cerro Paranal, Chile, 2635 m (common.site)",
+   "mount": "alt-azimuth; azimuth from South, eastwards (common.mount_and_azimuth)",
+   "optical_design": "Ritchey-Chretien at Nasmyth; non-RC Cassegrain (common.optical_design)",
+   "secondary_unit": "Dornier beryllium M2 (common.secondary)",
+   "primary": {
+    "diameter_physical_m": 8.2,
+    "diameter_reflective_m": 8.1859,
+    "central_hole_m": 1.0,
+    "thickness_m": 0.175,
+    "radius_of_curvature_m": 28.8,
+    "radius_measured_m": [
+     28.7629,
+     28.76,
+     28.7626
+    ],
+    "focal_length_m_DERIVED": 14.4,
+    "F_nominal": 1.8,
+    "F_on_8p2m_DERIVED": 1.756,
+    "conic": -1.004616,
+    "conic_alternatives": [
+     -1.00469,
+     -1.004457,
+     -1.005089,
+     -1.004392
+    ],
+    "material": "Zerodur meniscus, 150 axial actuators (active optics)",
+    "coating": "aluminium",
+    "note": "M1 conic and radius are changed actively between Nasmyth (RC) and Cassegrain",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_central_hole",
+     "common.primary_radius",
+     "common.primary_focal_ratio",
+     "common.primary_conic",
+     "common.primary_material_coating"
+    ]
+   },
+   "pupil": {
+    "stop": "secondary mirror M2 (1116 mm minimum optical diameter); no conventional baffles",
+    "D_entrance_nasmyth_m": 8.0,
+    "D_entrance_cassegrain_m": 8.115,
+    "D_entrance_coude_m": 8.0,
+    "primary_physical_diameter_m": 8.2,
+    "primary_reflective_diameter_m": 8.1859,
+    "central_obscuration_diameter_m": 1.116,
+    "central_obscuration_shape": "circular (M2)",
+    "central_obscuration_alternatives_m": {
+     "WB_inner_diameter": 1.12,
+     "S18_UT3": 1.148,
+     "M20_fraction": "~14%",
+     "sky_baffle_deployed_SPEC": 1.55,
+     "sky_baffle_deployed_WB": 1.5
+    },
+    "eps_nasmyth": 0.1395,
+    "eps_cassegrain": 0.138,
+    "eps_note": "DERIVED: 1.116 / 8.0 = 0.1395; 1.120 / 8.115 = 0.138; 1.55 / 8.0 = 0.194 with the sky baffle",
+    "spiders": {
+     "n": 4,
+     "width_m": 0.04,
+     "width_alternatives_m": {
+      "S18": 0.041,
+      "B19": 0.05
+     },
+     "layout": "two pairs; each pair meets at a node 0.5242 m from the centre on the 45-deg diagonal (nodes at +/-(0.3707, 0.3707) m), the vanes of a pair 101 deg apart; every vane line passes 0.4045 m from the centre, so no vane crosses the pupil and opposite vanes are parallel and 0.809 m apart (DERIVED from HCI)",
+     "offset_from_centre_m": 0.4045,
+     "node_radius_m_DERIVED": 0.5242,
+     "angle_between_paired_vanes_deg": 101,
+     "outer_radius_m": 4.2197,
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        -4.2197,
+        0.0
+       ],
+       "angle_deg": 174.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        -4.2197
+       ],
+       "angle_deg": 275.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        4.2197,
+        0.0
+       ],
+       "angle_deg": 354.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        4.2197
+       ],
+       "angle_deg": 95.5,
+       "width_m": 0.04
+      }
+     ],
+     "frame": "hcipy make_vlt_aperture frame (x, y in m on the pupil; angles from +x); orientation relative to the elevation axis and Nasmyth A/B NOT FOUND",
+     "crosses_whole_pupil": false,
+     "refs": [
+      "common.spiders",
+      "common.spider_frame"
+     ]
+    },
+    "other_obstructions": [
+     "M1 central hole 1.0 m and M2 internal obscuration 46 mm: inside the M2 shadow",
+     "M3 at Nasmyth projects to ~0.88 x 0.87 m: inside the M2 shadow (DERIVED)",
+     "Cassegrain: stowed M3 bump on one side of the central obscuration (documented on UT4 only; UT1-3 NOT FOUND)",
+     "optional sky baffle on top of M2: 1550 mm (SPEC) / 1500 mm (WB) when deployed"
+    ],
+    "collecting_area": {
+     "annulus_nasmyth_m2_DERIVED": 49.29,
+     "vanes_m2_DERIVED": 0.575,
+     "net_nasmyth_m2_DERIVED": 48.71,
+     "annulus_cassegrain_m2_DERIVED": 50.74,
+     "net_cassegrain_m2_DERIVED_no_M3": 50.15,
+     "G26_m2": 49.26,
+     "basis": "no ESO value found; DERIVED geometry (grid integration) and the GRAVITY+ value"
+    },
+    "refs": [
+     "common.pupil_stop",
+     "common.entrance_pupil_nasmyth",
+     "common.entrance_pupil_cassegrain",
+     "common.central_obscuration",
+     "common.spiders",
+     "common.cass_m3_shadow",
+     "common.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "UT1-CASS",
+     "name": "Cassegrain f/13.41",
+     "status": "in use",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 108.827,
+     "F": 13.4106,
+     "F_defined_on": "entrance pupil 8115.0 mm (SPEC Table 2)",
+     "F_on_8p2m_DERIVED": 13.27,
+     "F_alternatives": [
+      13.41,
+      13.4,
+      13.6
+     ],
+     "plate_scale_arcsec_per_mm": 1.8953,
+     "plate_scale_mm_per_arcsec": 0.528,
+     "field": {
+      "total_arcmin": 15,
+      "unvignetted_arcmin": 2.68,
+      "total_mm": 474.4,
+      "unvignetted_mm": 85.0,
+      "vignetting_pct": {
+       "5'": 0.32,
+       "10'": 1.3
+      },
+      "note": "unvignetted = no vignetting by the M1 edge (M2 is the stop)"
+     },
+     "focal_surface_radius_m": 1.9814,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "not RC: third-order field coma and astigmatism",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2"
+     ],
+     "tertiary": "M3 flipped out of the beam, parallel to the M3 tower axis (its shadow shows in the pupil: cass_m3_shadow)",
+     "location": "on the optical axis 2500 mm below the M1 vertex (5000 mm below the elevation axis), below the M1 cell; instrument focal plane 250 mm behind the rotator flange",
+     "instruments_current": [
+      "FORS2"
+     ],
+     "instruments_past": [
+      "FORS1 (one of the two FORS; dismounted April 2009; UT NOT FOUND)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.115,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_cassegrain"
+      ],
+      "other": "stowed M3 adds a bump to the central obscuration (documented on UT4; UT1-3 NOT FOUND)"
+     },
+     "refs": {
+      "optics": "common.cass_optics",
+      "location": "common.cass_location",
+      "instruments": "ut1.instruments",
+      "history": "ut1.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT1-NASA",
+     "name": "Nasmyth A f/15",
+     "status": "no instrument offered",
+     "nasmyth_side": "A",
+     "compass_side": "east at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "up",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth A side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [],
+     "instruments_past": [
+      "NaCo (2014 - 1 Oct 2019)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut1.instruments",
+      "history": "ut1.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT1-NASB",
+     "name": "Nasmyth B f/15",
+     "status": "in use",
+     "nasmyth_side": "B",
+     "compass_side": "west at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "down",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth B side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "KMOS"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut1.instruments",
+      "history": "ut1.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT1-COUDE",
+     "name": "Coude f/47.3 (VLTI)",
+     "status": "in use (feeds the VLTI)",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 378.4,
+     "F": 47.3,
+     "F_defined_on": "8000 mm entrance pupil (DERIVED 378400 / 8000)",
+     "plate_scale_arcsec_per_mm": 0.5451,
+     "plate_scale_mm_per_arcsec": 1.835,
+     "field": {
+      "total_arcmin": 1,
+      "total_mm": 110
+     },
+     "n_reflections": 8,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "M4 (concave cylinder R 33.1 m, at the Nasmyth adapter)",
+      "M5 (sphere R 8.975 m, 580 mm)",
+      "M6 (cylinder R 290 m, 440 x 395 mm)",
+      "M7 (sphere R 5.1762 m, 275 mm)",
+      "M8 (flat 120 mm, at a pupil image; GPAO DM)"
+     ],
+     "location": "below the azimuth platform on the azimuth axis, 15544 mm below the elevation axis (figure read-off); light ducts to the VLTI delay lines",
+     "nasmyth_side_used": "NOT FOUND",
+     "instruments_current": [
+      "VLTI (GRAVITY, MATISSE, visitor focus)",
+      "ESPRESSO (own coude train from Nasmyth B)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.coude",
+      "iccf": "common.iccf",
+      "secondary": "common.secondary"
+     }
+    }
+   ]
+  },
+  "params": {
+   "instruments": {
+    "value": "Cassegrain: FORS2; Nasmyth A: none offered; Nasmyth B: KMOS; ESPRESSO (incoherent combined coude) and the VLTI (GRAVITY, MATISSE) can use UT1",
+    "unit": "",
+    "src": "EINS",
+    "loc": "table, UT1 (Antu) row (Last Update 09.05.26)",
+    "quote": "UT1 (Antu) FORS2 KMOS ESPRESSO GRAVITY MATISSE Visitor focus",
+    "alternatives": [
+     {
+      "value": "FORS2 on UT1",
+      "src": "EDFORS",
+      "loc": "Summary",
+      "quote": "FORS2 is installed on UT1 (Antu)"
+     },
+     {
+      "value": "column order",
+      "src": "EINS",
+      "loc": "table header",
+      "quote": "Telescope Focus Nasmyth A Cassegrain Nasmyth B Incoherent Combined Coudé Interferometric"
+     }
+    ],
+    "note": "In the HTML the UT1 Nasmyth A cell is empty (&nbsp;), then FORS2 (Cassegrain), KMOS (Nasmyth B); ESPRESSO and the interferometric cell span all four UT rows."
+   },
+   "history": {
+    "value": "NaCo on UT1 Nasmyth A from 2014 until its decommissioning (1 October 2019); FORS1 dismounted April 2009",
+    "unit": "",
+    "src": "EDNACO",
+    "loc": "Summary",
+    "quote": "It was installed at the Nasmyth B focus of UT4 from 2001 through 2013. In 2014 it was reinstalled on UT1 at the Nasmyth A.",
+    "alternatives": [
+     {
+      "value": "decommissioned 1 Oct 2019",
+      "src": "EDEC",
+      "loc": "UTs list",
+      "quote": "NaCo - Nasmyth Adaptive Optics System (NAOS) Near-Infrared Imager and Spectrograph (CONICA) (to be decommissioned on 1st October 2019)"
+     },
+     {
+      "value": "FORS1 removed for X-shooter, April 2009",
+      "src": "EDFORS",
+      "loc": "Summary",
+      "quote": "Two versions of FORS have been built, upgraded and moved to the Cassegrain foci of different telescopes in the past years. In April 2009, FORS1 was dismounted to make room for X-shooter, so only FORS2 is in operation."
+     }
+    ],
+    "note": "Which UT carried FORS1 and the earlier history of UT1 Nasmyth B (before KMOS): NOT FOUND in the saved documents."
+   }
+  },
+  "not_found": [
+   "Which UT carried FORS1, and the history of UT1 Nasmyth B before KMOS."
+  ],
+  "conflicts": [],
+  "notes": []
+ },
+ "ut2": {
+  "title": "UT2 (Kueyen)",
+  "telescope": {
+   "name": "UT2 (Kueyen)",
+   "site": "Cerro Paranal, Chile, 2635 m (common.site)",
+   "mount": "alt-azimuth; azimuth from South, eastwards (common.mount_and_azimuth)",
+   "optical_design": "Ritchey-Chretien at Nasmyth; non-RC Cassegrain (common.optical_design)",
+   "secondary_unit": "Dornier beryllium M2 (common.secondary)",
+   "primary": {
+    "diameter_physical_m": 8.2,
+    "diameter_reflective_m": 8.1859,
+    "central_hole_m": 1.0,
+    "thickness_m": 0.175,
+    "radius_of_curvature_m": 28.8,
+    "radius_measured_m": [
+     28.7629,
+     28.76,
+     28.7626
+    ],
+    "focal_length_m_DERIVED": 14.4,
+    "F_nominal": 1.8,
+    "F_on_8p2m_DERIVED": 1.756,
+    "conic": -1.004616,
+    "conic_alternatives": [
+     -1.00469,
+     -1.004457,
+     -1.005089,
+     -1.004392
+    ],
+    "material": "Zerodur meniscus, 150 axial actuators (active optics)",
+    "coating": "aluminium",
+    "note": "M1 conic and radius are changed actively between Nasmyth (RC) and Cassegrain",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_central_hole",
+     "common.primary_radius",
+     "common.primary_focal_ratio",
+     "common.primary_conic",
+     "common.primary_material_coating"
+    ]
+   },
+   "pupil": {
+    "stop": "secondary mirror M2 (1116 mm minimum optical diameter); no conventional baffles",
+    "D_entrance_nasmyth_m": 8.0,
+    "D_entrance_cassegrain_m": 8.115,
+    "D_entrance_coude_m": 8.0,
+    "primary_physical_diameter_m": 8.2,
+    "primary_reflective_diameter_m": 8.1859,
+    "central_obscuration_diameter_m": 1.116,
+    "central_obscuration_shape": "circular (M2)",
+    "central_obscuration_alternatives_m": {
+     "WB_inner_diameter": 1.12,
+     "S18_UT3": 1.148,
+     "M20_fraction": "~14%",
+     "sky_baffle_deployed_SPEC": 1.55,
+     "sky_baffle_deployed_WB": 1.5
+    },
+    "eps_nasmyth": 0.1395,
+    "eps_cassegrain": 0.138,
+    "eps_note": "DERIVED: 1.116 / 8.0 = 0.1395; 1.120 / 8.115 = 0.138; 1.55 / 8.0 = 0.194 with the sky baffle",
+    "spiders": {
+     "n": 4,
+     "width_m": 0.04,
+     "width_alternatives_m": {
+      "S18": 0.041,
+      "B19": 0.05
+     },
+     "layout": "two pairs; each pair meets at a node 0.5242 m from the centre on the 45-deg diagonal (nodes at +/-(0.3707, 0.3707) m), the vanes of a pair 101 deg apart; every vane line passes 0.4045 m from the centre, so no vane crosses the pupil and opposite vanes are parallel and 0.809 m apart (DERIVED from HCI)",
+     "offset_from_centre_m": 0.4045,
+     "node_radius_m_DERIVED": 0.5242,
+     "angle_between_paired_vanes_deg": 101,
+     "outer_radius_m": 4.2197,
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        -4.2197,
+        0.0
+       ],
+       "angle_deg": 174.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        -4.2197
+       ],
+       "angle_deg": 275.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        4.2197,
+        0.0
+       ],
+       "angle_deg": 354.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        4.2197
+       ],
+       "angle_deg": 95.5,
+       "width_m": 0.04
+      }
+     ],
+     "frame": "hcipy make_vlt_aperture frame (x, y in m on the pupil; angles from +x); orientation relative to the elevation axis and Nasmyth A/B NOT FOUND",
+     "crosses_whole_pupil": false,
+     "refs": [
+      "common.spiders",
+      "common.spider_frame"
+     ]
+    },
+    "other_obstructions": [
+     "M1 central hole 1.0 m and M2 internal obscuration 46 mm: inside the M2 shadow",
+     "M3 at Nasmyth projects to ~0.88 x 0.87 m: inside the M2 shadow (DERIVED)",
+     "Cassegrain: stowed M3 bump on one side of the central obscuration (documented on UT4 only; UT1-3 NOT FOUND)",
+     "optional sky baffle on top of M2: 1550 mm (SPEC) / 1500 mm (WB) when deployed"
+    ],
+    "collecting_area": {
+     "annulus_nasmyth_m2_DERIVED": 49.29,
+     "vanes_m2_DERIVED": 0.575,
+     "net_nasmyth_m2_DERIVED": 48.71,
+     "annulus_cassegrain_m2_DERIVED": 50.74,
+     "net_cassegrain_m2_DERIVED_no_M3": 50.15,
+     "G26_m2": 49.26,
+     "basis": "no ESO value found; DERIVED geometry (grid integration) and the GRAVITY+ value"
+    },
+    "refs": [
+     "common.pupil_stop",
+     "common.entrance_pupil_nasmyth",
+     "common.entrance_pupil_cassegrain",
+     "common.central_obscuration",
+     "common.spiders",
+     "common.cass_m3_shadow",
+     "common.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "UT2-CASS",
+     "name": "Cassegrain f/13.41",
+     "status": "no instrument offered",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 108.827,
+     "F": 13.4106,
+     "F_defined_on": "entrance pupil 8115.0 mm (SPEC Table 2)",
+     "F_on_8p2m_DERIVED": 13.27,
+     "F_alternatives": [
+      13.41,
+      13.4,
+      13.6
+     ],
+     "plate_scale_arcsec_per_mm": 1.8953,
+     "plate_scale_mm_per_arcsec": 0.528,
+     "field": {
+      "total_arcmin": 15,
+      "unvignetted_arcmin": 2.68,
+      "total_mm": 474.4,
+      "unvignetted_mm": 85.0,
+      "vignetting_pct": {
+       "5'": 0.32,
+       "10'": 1.3
+      },
+      "note": "unvignetted = no vignetting by the M1 edge (M2 is the stop)"
+     },
+     "focal_surface_radius_m": 1.9814,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "not RC: third-order field coma and astigmatism",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2"
+     ],
+     "tertiary": "M3 flipped out of the beam, parallel to the M3 tower axis (its shadow shows in the pupil: cass_m3_shadow)",
+     "location": "on the optical axis 2500 mm below the M1 vertex (5000 mm below the elevation axis), below the M1 cell; instrument focal plane 250 mm behind the rotator flange",
+     "instruments_current": [],
+     "instruments_past": [
+      "VISIR (to April 2026, decommissioned)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.115,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_cassegrain"
+      ],
+      "other": "stowed M3 adds a bump to the central obscuration (documented on UT4; UT1-3 NOT FOUND)"
+     },
+     "refs": {
+      "optics": "common.cass_optics",
+      "location": "common.cass_location",
+      "instruments": "ut2.instruments",
+      "history": "ut2.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT2-NASA",
+     "name": "Nasmyth A f/15",
+     "status": "in use",
+     "nasmyth_side": "A",
+     "compass_side": "east at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "up",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth A side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "FLAMES"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut2.instruments",
+      "history": "ut2.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT2-NASB",
+     "name": "Nasmyth B f/15",
+     "status": "in use",
+     "nasmyth_side": "B",
+     "compass_side": "west at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "down",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth B side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "UVES"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut2.instruments",
+      "history": "ut2.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT2-COUDE",
+     "name": "Coude f/47.3 (VLTI)",
+     "status": "in use (feeds the VLTI)",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 378.4,
+     "F": 47.3,
+     "F_defined_on": "8000 mm entrance pupil (DERIVED 378400 / 8000)",
+     "plate_scale_arcsec_per_mm": 0.5451,
+     "plate_scale_mm_per_arcsec": 1.835,
+     "field": {
+      "total_arcmin": 1,
+      "total_mm": 110
+     },
+     "n_reflections": 8,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "M4 (concave cylinder R 33.1 m, at the Nasmyth adapter)",
+      "M5 (sphere R 8.975 m, 580 mm)",
+      "M6 (cylinder R 290 m, 440 x 395 mm)",
+      "M7 (sphere R 5.1762 m, 275 mm)",
+      "M8 (flat 120 mm, at a pupil image; GPAO DM)"
+     ],
+     "location": "below the azimuth platform on the azimuth axis, 15544 mm below the elevation axis (figure read-off); light ducts to the VLTI delay lines",
+     "nasmyth_side_used": "NOT FOUND",
+     "instruments_current": [
+      "VLTI (GRAVITY, MATISSE, visitor focus)",
+      "ESPRESSO (own coude train from Nasmyth B)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.coude",
+      "iccf": "common.iccf",
+      "secondary": "common.secondary"
+     }
+    }
+   ]
+  },
+  "params": {
+   "instruments": {
+    "value": "Nasmyth A: FLAMES; Cassegrain: none offered; Nasmyth B: UVES",
+    "unit": "",
+    "src": "EINS",
+    "loc": "table, UT2 (Kueyen) row",
+    "quote": "UT2 (Kueyen) FLAMES UVES",
+    "alternatives": [
+     {
+      "value": "UVES at Nasmyth B (figure)",
+      "src": "WB",
+      "loc": "Fig. 6.3 caption",
+      "quote": "Figure 6.3 [GIF: 30k]. Lay-out of the Nasmyth platform.",
+      "figure_readoff": "wb-fig-0603.gif: \"NASMYTH B\" with \"NASMYTH INSTRUMENT (UVES)\" (1998 plan)"
+     }
+    ],
+    "note": "The UT2 Cassegrain cell is empty in the HTML."
+   },
+   "history": {
+    "value": "VISIR at the UT2 Cassegrain focus until the end of P116 (April 2026), then decommissioned",
+    "unit": "",
+    "src": "EDVISIR",
+    "loc": "Summary",
+    "quote": "and is located at the Cassegrain focus of UT2. ... At the end of P116 (April 2026), VISIR was decommissioned from standard observations at Paranal after close to 20 years of service.",
+    "note": "Earlier UT2 Cassegrain instruments (e.g. which UT X-shooter first used) NOT FOUND in the saved documents."
+   }
+  },
+  "not_found": [
+   "Earlier UT2 Cassegrain instruments and dates (before VISIR)."
+  ],
+  "conflicts": [],
+  "notes": []
+ },
+ "ut3": {
+  "title": "UT3 (Melipal)",
+  "telescope": {
+   "name": "UT3 (Melipal)",
+   "site": "Cerro Paranal, Chile, 2635 m (common.site)",
+   "mount": "alt-azimuth; azimuth from South, eastwards (common.mount_and_azimuth)",
+   "optical_design": "Ritchey-Chretien at Nasmyth; non-RC Cassegrain (common.optical_design)",
+   "secondary_unit": "Dornier beryllium M2 (common.secondary)",
+   "primary": {
+    "diameter_physical_m": 8.2,
+    "diameter_reflective_m": 8.1859,
+    "central_hole_m": 1.0,
+    "thickness_m": 0.175,
+    "radius_of_curvature_m": 28.8,
+    "radius_measured_m": [
+     28.7629,
+     28.76,
+     28.7626
+    ],
+    "focal_length_m_DERIVED": 14.4,
+    "F_nominal": 1.8,
+    "F_on_8p2m_DERIVED": 1.756,
+    "conic": -1.004616,
+    "conic_alternatives": [
+     -1.00469,
+     -1.004457,
+     -1.005089,
+     -1.004392
+    ],
+    "material": "Zerodur meniscus, 150 axial actuators (active optics)",
+    "coating": "aluminium",
+    "note": "M1 conic and radius are changed actively between Nasmyth (RC) and Cassegrain",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_central_hole",
+     "common.primary_radius",
+     "common.primary_focal_ratio",
+     "common.primary_conic",
+     "common.primary_material_coating"
+    ]
+   },
+   "pupil": {
+    "stop": "secondary mirror M2 (1116 mm minimum optical diameter); no conventional baffles",
+    "D_entrance_nasmyth_m": 8.0,
+    "D_entrance_cassegrain_m": 8.115,
+    "D_entrance_coude_m": 8.0,
+    "primary_physical_diameter_m": 8.2,
+    "primary_reflective_diameter_m": 8.1859,
+    "central_obscuration_diameter_m": 1.116,
+    "central_obscuration_shape": "circular (M2)",
+    "central_obscuration_alternatives_m": {
+     "WB_inner_diameter": 1.12,
+     "S18_UT3": 1.148,
+     "M20_fraction": "~14%",
+     "sky_baffle_deployed_SPEC": 1.55,
+     "sky_baffle_deployed_WB": 1.5
+    },
+    "eps_nasmyth": 0.1395,
+    "eps_cassegrain": 0.138,
+    "eps_note": "DERIVED: 1.116 / 8.0 = 0.1395; 1.120 / 8.115 = 0.138; 1.55 / 8.0 = 0.194 with the sky baffle",
+    "spiders": {
+     "n": 4,
+     "width_m": 0.04,
+     "width_alternatives_m": {
+      "S18": 0.041,
+      "B19": 0.05
+     },
+     "layout": "two pairs; each pair meets at a node 0.5242 m from the centre on the 45-deg diagonal (nodes at +/-(0.3707, 0.3707) m), the vanes of a pair 101 deg apart; every vane line passes 0.4045 m from the centre, so no vane crosses the pupil and opposite vanes are parallel and 0.809 m apart (DERIVED from HCI)",
+     "offset_from_centre_m": 0.4045,
+     "node_radius_m_DERIVED": 0.5242,
+     "angle_between_paired_vanes_deg": 101,
+     "outer_radius_m": 4.2197,
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        -4.2197,
+        0.0
+       ],
+       "angle_deg": 174.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        -4.2197
+       ],
+       "angle_deg": 275.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        4.2197,
+        0.0
+       ],
+       "angle_deg": 354.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        4.2197
+       ],
+       "angle_deg": 95.5,
+       "width_m": 0.04
+      }
+     ],
+     "frame": "hcipy make_vlt_aperture frame (x, y in m on the pupil; angles from +x); orientation relative to the elevation axis and Nasmyth A/B NOT FOUND",
+     "crosses_whole_pupil": false,
+     "refs": [
+      "common.spiders",
+      "common.spider_frame"
+     ]
+    },
+    "other_obstructions": [
+     "M1 central hole 1.0 m and M2 internal obscuration 46 mm: inside the M2 shadow",
+     "M3 at Nasmyth projects to ~0.88 x 0.87 m: inside the M2 shadow (DERIVED)",
+     "Cassegrain: stowed M3 bump on one side of the central obscuration (documented on UT4 only; UT1-3 NOT FOUND)",
+     "optional sky baffle on top of M2: 1550 mm (SPEC) / 1500 mm (WB) when deployed"
+    ],
+    "collecting_area": {
+     "annulus_nasmyth_m2_DERIVED": 49.29,
+     "vanes_m2_DERIVED": 0.575,
+     "net_nasmyth_m2_DERIVED": 48.71,
+     "annulus_cassegrain_m2_DERIVED": 50.74,
+     "net_cassegrain_m2_DERIVED_no_M3": 50.15,
+     "G26_m2": 49.26,
+     "basis": "no ESO value found; DERIVED geometry (grid integration) and the GRAVITY+ value"
+    },
+    "refs": [
+     "common.pupil_stop",
+     "common.entrance_pupil_nasmyth",
+     "common.entrance_pupil_cassegrain",
+     "common.central_obscuration",
+     "common.spiders",
+     "common.cass_m3_shadow",
+     "common.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "UT3-CASS",
+     "name": "Cassegrain f/13.41",
+     "status": "in use",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 108.827,
+     "F": 13.4106,
+     "F_defined_on": "entrance pupil 8115.0 mm (SPEC Table 2)",
+     "F_on_8p2m_DERIVED": 13.27,
+     "F_alternatives": [
+      13.41,
+      13.4,
+      13.6
+     ],
+     "plate_scale_arcsec_per_mm": 1.8953,
+     "plate_scale_mm_per_arcsec": 0.528,
+     "field": {
+      "total_arcmin": 15,
+      "unvignetted_arcmin": 2.68,
+      "total_mm": 474.4,
+      "unvignetted_mm": 85.0,
+      "vignetting_pct": {
+       "5'": 0.32,
+       "10'": 1.3
+      },
+      "note": "unvignetted = no vignetting by the M1 edge (M2 is the stop)"
+     },
+     "focal_surface_radius_m": 1.9814,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "not RC: third-order field coma and astigmatism",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2"
+     ],
+     "tertiary": "M3 flipped out of the beam, parallel to the M3 tower axis (its shadow shows in the pupil: cass_m3_shadow)",
+     "location": "on the optical axis 2500 mm below the M1 vertex (5000 mm below the elevation axis), below the M1 cell; instrument focal plane 250 mm behind the rotator flange",
+     "instruments_current": [
+      "X-shooter"
+     ],
+     "instruments_past": [
+      "SINFONI (decommissioned)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.115,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_cassegrain"
+      ],
+      "other": "stowed M3 adds a bump to the central obscuration (documented on UT4; UT1-3 NOT FOUND)"
+     },
+     "refs": {
+      "optics": "common.cass_optics",
+      "location": "common.cass_location",
+      "instruments": "ut3.instruments",
+      "history": "ut3.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT3-NASA",
+     "name": "Nasmyth A f/15",
+     "status": "in use",
+     "nasmyth_side": "A",
+     "compass_side": "east at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "up",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth A side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "SPHERE"
+     ],
+     "instruments_past": [
+      "ISAAC (to 12 Dec 2013)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut3.instruments",
+      "history": "ut3.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT3-NASB",
+     "name": "Nasmyth B f/15",
+     "status": "in use",
+     "nasmyth_side": "B",
+     "compass_side": "west at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "down",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth B side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "CRIRES"
+     ],
+     "instruments_past": [
+      "VIMOS (decommissioned)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut3.instruments",
+      "history": "ut3.history",
+      "secondary": "common.secondary",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT3-COUDE",
+     "name": "Coude f/47.3 (VLTI)",
+     "status": "in use (feeds the VLTI)",
+     "secondary": {
+      "name": "Dornier M2 unit (beryllium)",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.116,
+      "diameter_mechanical_m": 1.12,
+      "radius_m": -4.55357,
+      "conic": -1.66926,
+      "internal_obscuration_m": 0.046,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "height_above_elevation_axis_m": 9.896,
+      "is_stop": true,
+      "ref": "common.secondary"
+     },
+     "focal_length_m": 378.4,
+     "F": 47.3,
+     "F_defined_on": "8000 mm entrance pupil (DERIVED 378400 / 8000)",
+     "plate_scale_arcsec_per_mm": 0.5451,
+     "plate_scale_mm_per_arcsec": 1.835,
+     "field": {
+      "total_arcmin": 1,
+      "total_mm": 110
+     },
+     "n_reflections": 8,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "M4 (concave cylinder R 33.1 m, at the Nasmyth adapter)",
+      "M5 (sphere R 8.975 m, 580 mm)",
+      "M6 (cylinder R 290 m, 440 x 395 mm)",
+      "M7 (sphere R 5.1762 m, 275 mm)",
+      "M8 (flat 120 mm, at a pupil image; GPAO DM)"
+     ],
+     "location": "below the azimuth platform on the azimuth axis, 15544 mm below the elevation axis (figure read-off); light ducts to the VLTI delay lines",
+     "nasmyth_side_used": "NOT FOUND",
+     "instruments_current": [
+      "VLTI (GRAVITY, MATISSE, visitor focus)",
+      "ESPRESSO (own coude train from Nasmyth B)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "design pupil, UT1-UT3 (Dornier M2)",
+      "D_m": 8.0,
+      "central_obscuration_diameter_m": 1.116,
+      "central_obscuration_alternatives_m": [
+       1.12,
+       1.148,
+       1.55
+      ],
+      "central_obscuration_shape": "circular (M2; 1.55 m with the sky baffle deployed)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "common.central_obscuration",
+       "common.spiders",
+       "common.entrance_pupil_nasmyth"
+      ],
+      "other": "M3 (1242 x 866 mm at 45 deg) inside the M2 shadow (DERIVED); no further obstruction found"
+     },
+     "refs": {
+      "optics": "common.coude",
+      "iccf": "common.iccf",
+      "secondary": "common.secondary"
+     }
+    }
+   ]
+  },
+  "params": {
+   "instruments": {
+    "value": "Nasmyth A: SPHERE; Cassegrain: X-shooter; Nasmyth B: CRIRES",
+    "unit": "",
+    "src": "EINS",
+    "loc": "table, UT3 (Melipal) row",
+    "quote": "UT3 (Melipal) SPHERE XSHOOTER CRIRES"
+   },
+   "history": {
+    "value": "ISAAC at Nasmyth A until 12 Dec 2013 (removed for SPHERE); VIMOS at Nasmyth B; SINFONI at the Cassegrain focus (page of 2019)",
+    "unit": "",
+    "src": "EDISAAC",
+    "loc": "Summary",
+    "quote": "ISAAC has been removed from UT3 to allow the installation of SPHERE. The last data were taken on 12th December 2013. ... that lies at the Nasmyth A focus of UT3",
+    "alternatives": [
+     {
+      "value": "VIMOS Nasmyth B",
+      "src": "EDVIMOS",
+      "loc": "Summary",
+      "quote": "mounted on the Nasmyth focus B of UT3 Melipal"
+     },
+     {
+      "value": "SINFONI Cassegrain UT3",
+      "src": "EDSINF",
+      "loc": "Summary",
+      "quote": "currently installed at the Cassegrain focus of UT3"
+     }
+    ],
+    "note": "Dates for VIMOS and SINFONI at UT3 NOT FOUND (pages last updated 2013 and 2019)."
+   },
+   "pupil_measured": {
+    "value": "SPHERE/ZIMPOL model of the UT3 pupil: inner 1148 mm, outer 8200 mm, spiders 41 mm",
+    "unit": "",
+    "src": "S18",
+    "loc": "Table 9",
+    "quote": "Table 9. Geometric parameters for the telescope pupil, the intermediate pupil, and the pupil stop masks in the SPHERE visual coronagraph. ... din dout wspid geom. T geom [mm] [mm] [mm] ... telescope 1148 8200 41 VLT",
+    "note": "S18 uses the 8200 mm mirror as the outer diameter (the 8000 mm Nasmyth entrance pupil is set by M2, common.entrance_pupil_nasmyth). SPHERE is at UT3 Nasmyth A (EINS)."
+   }
+  },
+  "not_found": [
+   "Dates of VIMOS (Nasmyth B) and SINFONI (Cassegrain) at UT3."
+  ],
+  "conflicts": [
+   "UT3 pupil: S18 models 8200 / 1148 / 41 mm vs the design 8000 / 1116 mm and HCI 40 mm vanes."
+  ],
+  "notes": [
+   "SPHERE (Nasmyth A) measures the UT3 pupil (S18); UT3 spiders coated against the low-wind effect in 2017 (B19 does not name the UT in that sentence; G26: UT3-4 re-coated)."
+  ]
+ },
+ "ut4": {
+  "title": "UT4 (Yepun)",
+  "telescope": {
+   "name": "UT4 (Yepun)",
+   "site": "Cerro Paranal, Chile, 2635 m (common.site)",
+   "mount": "alt-azimuth; azimuth from South, eastwards (common.mount_and_azimuth)",
+   "optical_design": "Ritchey-Chretien at Nasmyth; non-RC Cassegrain (common.optical_design)",
+   "secondary_unit": "Deformable Secondary Mirror since October 2016 (ut4.dsm)",
+   "primary": {
+    "diameter_physical_m": 8.2,
+    "diameter_reflective_m": 8.1859,
+    "central_hole_m": 1.0,
+    "thickness_m": 0.175,
+    "radius_of_curvature_m": 28.8,
+    "radius_measured_m": [
+     28.7629,
+     28.76,
+     28.7626
+    ],
+    "focal_length_m_DERIVED": 14.4,
+    "F_nominal": 1.8,
+    "F_on_8p2m_DERIVED": 1.756,
+    "conic": -1.004616,
+    "conic_alternatives": [
+     -1.00469,
+     -1.004457,
+     -1.005089,
+     -1.004392
+    ],
+    "material": "Zerodur meniscus, 150 axial actuators (active optics)",
+    "coating": "aluminium",
+    "note": "M1 conic and radius are changed actively between Nasmyth (RC) and Cassegrain",
+    "refs": [
+     "common.primary_diameter",
+     "common.primary_central_hole",
+     "common.primary_radius",
+     "common.primary_focal_ratio",
+     "common.primary_conic",
+     "common.primary_material_coating"
+    ]
+   },
+   "pupil": {
+    "stop": "deformable secondary mirror (DSM, 1120 mm thin shell) since October 2016",
+    "D_entrance_nasmyth_m": "NOT FOUND with the DSM (design 8.0 m)",
+    "D_entrance_cassegrain_m": 8.1196,
+    "D_entrance_coude_m": 8.0,
+    "primary_physical_diameter_m": 8.2,
+    "primary_reflective_diameter_m": 8.1859,
+    "central_obscuration_diameter_m": 1.293,
+    "central_obscuration_shape": "circular (M2)",
+    "central_obscuration_alternatives_m": {
+     "WB_inner_diameter": 1.12,
+     "S18_UT3": 1.148,
+     "M20_fraction": "~14%",
+     "sky_baffle_deployed_SPEC": 1.55,
+     "sky_baffle_deployed_WB": 1.5
+    },
+    "eps_nasmyth": "NOT FOUND",
+    "eps_cassegrain": 0.1592,
+    "eps_note": "DERIVED: 1.293 / 8.1196 = 0.159",
+    "spiders": {
+     "n": 4,
+     "width_m": 0.04,
+     "width_alternatives_m": {
+      "S18": 0.041,
+      "B19": 0.05
+     },
+     "layout": "two pairs; each pair meets at a node 0.5242 m from the centre on the 45-deg diagonal (nodes at +/-(0.3707, 0.3707) m), the vanes of a pair 101 deg apart; every vane line passes 0.4045 m from the centre, so no vane crosses the pupil and opposite vanes are parallel and 0.809 m apart (DERIVED from HCI)",
+     "offset_from_centre_m": 0.4045,
+     "node_radius_m_DERIVED": 0.5242,
+     "angle_between_paired_vanes_deg": 101,
+     "outer_radius_m": 4.2197,
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        -4.2197,
+        0.0
+       ],
+       "angle_deg": 174.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        -0.3707,
+        -0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        -4.2197
+       ],
+       "angle_deg": 275.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        4.2197,
+        0.0
+       ],
+       "angle_deg": 354.5,
+       "width_m": 0.04
+      },
+      {
+       "start_xy_m": [
+        0.3707,
+        0.3707
+       ],
+       "end_xy_m": [
+        0.0,
+        4.2197
+       ],
+       "angle_deg": 95.5,
+       "width_m": 0.04
+      }
+     ],
+     "frame": "hcipy make_vlt_aperture frame (x, y in m on the pupil; angles from +x); orientation relative to the elevation axis and Nasmyth A/B NOT FOUND",
+     "crosses_whole_pupil": false,
+     "refs": [
+      "common.spiders",
+      "common.spider_frame"
+     ]
+    },
+    "other_obstructions": [
+     "M1 central hole 1.0 m and M2 internal obscuration 46 mm: inside the M2 shadow",
+     "M3 at Nasmyth projects to ~0.88 x 0.87 m: inside the M2 shadow (DERIVED)",
+     "Cassegrain: stowed M3 bump on one side of the central obscuration (documented on UT4 only; UT1-3 NOT FOUND)",
+     "optional sky baffle on top of M2: 1550 mm (SPEC) / 1500 mm (WB) when deployed"
+    ],
+    "collecting_area": {
+     "annulus_cassegrain_m2_DERIVED": 50.47,
+     "net_with_vanes_m2_DERIVED": 49.9,
+     "net_with_vanes_and_M3_cover_m2_DERIVED": 49.38,
+     "basis": "DERIVED from the HCI UT4 geometry; no ESO value"
+    },
+    "refs": [
+     "ut4.pupil_ut4",
+     "ut4.dsm",
+     "common.spiders",
+     "common.cass_m3_shadow"
+    ],
+    "D_entrance_cassegrain_basis": "HCI UT4 model after the ERIS pupil document (SPEC design value 8.115 m)",
+    "central_obscuration_basis": "HCI UT4 (0.6465 m radius); Nasmyth value with the DSM NOT FOUND",
+    "m3_cover_cassegrain": {
+     "shape": "square",
+     "side_m": 1.07,
+     "x_range_m": [
+      0.0,
+      1.07
+     ],
+     "y_range_m": [
+      -0.535,
+      0.535
+     ],
+     "frame": "HCI frame",
+     "blocked_outside_disc_m2_DERIVED": 0.52
+    }
+   },
+   "foci": [
+    {
+     "id": "UT4-CASS",
+     "name": "Cassegrain f/13.41",
+     "status": "in use",
+     "secondary": {
+      "name": "Deformable Secondary Mirror (DSM, AOF)",
+      "shape": "convex thin shell (Dornier prescription set by actuator commands)",
+      "diameter_m": 1.12,
+      "actuators": 1170,
+      "shell_thickness_m": 0.002,
+      "installed": "2016-10",
+      "is_stop": true,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "ref": "ut4.dsm"
+     },
+     "focal_length_m": 108.827,
+     "F": 13.4106,
+     "F_defined_on": "entrance pupil 8115.0 mm (SPEC Table 2)",
+     "F_on_8p2m_DERIVED": 13.27,
+     "F_alternatives": [
+      13.41,
+      13.4,
+      13.6
+     ],
+     "plate_scale_arcsec_per_mm": 1.8953,
+     "plate_scale_mm_per_arcsec": 0.528,
+     "field": {
+      "total_arcmin": 15,
+      "unvignetted_arcmin": 2.68,
+      "total_mm": 474.4,
+      "unvignetted_mm": 85.0,
+      "vignetting_pct": {
+       "5'": 0.32,
+       "10'": 1.3
+      },
+      "note": "unvignetted = no vignetting by the M1 edge (M2 is the stop)"
+     },
+     "focal_surface_radius_m": 1.9814,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "not RC: third-order field coma and astigmatism",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2"
+     ],
+     "tertiary": "M3 flipped out of the beam, parallel to the M3 tower axis (its shadow shows in the pupil: cass_m3_shadow)",
+     "location": "on the optical axis 2500 mm below the M1 vertex (5000 mm below the elevation axis), below the M1 cell; instrument focal plane 250 mm behind the rotator flange",
+     "instruments_current": [
+      "ERIS"
+     ],
+     "instruments_past": [
+      "VISIR-NEAR (visitor experiment, 2019)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "UT4 Cassegrain with the DSM (HCI UT4 model)",
+      "D_m": 8.1196,
+      "central_obscuration_diameter_m": 1.293,
+      "central_obscuration_shape": "circular plus the stowed-M3 bump",
+      "m3_cover": {
+       "shape": "square",
+       "side_m": 1.07,
+       "x_range_m": [
+        0.0,
+        1.07
+       ],
+       "y_range_m": [
+        -0.535,
+        0.535
+       ],
+       "frame": "HCI frame",
+       "blocked_outside_disc_m2_DERIVED": 0.52
+      },
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "refs": [
+       "ut4.pupil_ut4",
+       "common.cass_m3_shadow",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "optics": "common.cass_optics",
+      "location": "common.cass_location",
+      "instruments": "ut4.instruments",
+      "history": "ut4.history",
+      "secondary": "ut4.dsm",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT4-NASA",
+     "name": "Nasmyth A f/15",
+     "status": "in use",
+     "nasmyth_side": "A",
+     "compass_side": "east at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "up",
+     "secondary": {
+      "name": "Deformable Secondary Mirror (DSM, AOF)",
+      "shape": "convex thin shell (Dornier prescription set by actuator commands)",
+      "diameter_m": 1.12,
+      "actuators": 1170,
+      "shell_thickness_m": 0.002,
+      "installed": "2016-10",
+      "is_stop": true,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "ref": "ut4.dsm"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth A side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "HAWK-I (+ GRAAL)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "UT4 Nasmyth/coude with the DSM",
+      "D_m": "NOT FOUND (design 8.0)",
+      "central_obscuration_diameter_m": "NOT FOUND (Dornier design 1.116)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "other": "M3 inside the M2 shadow (DERIVED, design); optional sky baffle on the DSM unit NOT FOUND",
+      "refs": [
+       "ut4.pupil_ut4",
+       "ut4.dsm",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut4.instruments",
+      "history": "ut4.history",
+      "secondary": "ut4.dsm",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT4-NASB",
+     "name": "Nasmyth B f/15",
+     "status": "in use",
+     "nasmyth_side": "B",
+     "compass_side": "west at azimuth 0 (pointing South)",
+     "explorer_side_INFERRED": "down",
+     "secondary": {
+      "name": "Deformable Secondary Mirror (DSM, AOF)",
+      "shape": "convex thin shell (Dornier prescription set by actuator commands)",
+      "diameter_m": 1.12,
+      "actuators": 1170,
+      "shell_thickness_m": 0.002,
+      "installed": "2016-10",
+      "is_stop": true,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "ref": "ut4.dsm"
+     },
+     "tertiary": {
+      "shape": "flat ellipse at 45 deg",
+      "size_m": [
+       1.242,
+       0.866
+      ],
+      "size_alt_m": [
+       1.26,
+       0.89
+      ],
+      "height_above_M1_vertex_m": 2.5,
+      "on_axis": "elevation axis / telescope axis intersection",
+      "rotates_to": [
+       "Nasmyth A",
+       "Nasmyth B"
+      ],
+      "cassegrain": "flipped parallel to the M3 tower axis",
+      "ref": "common.tertiary"
+     },
+     "focal_length_m": 120.0,
+     "F": 15.0,
+     "F_defined_on": "entrance pupil 8000 mm (SPEC Table 3)",
+     "F_on_8p2m_DERIVED": 14.63,
+     "plate_scale_arcsec_per_mm": 1.7189,
+     "plate_scale_mm_per_arcsec": 0.582,
+     "field": {
+      "total_arcmin": 30,
+      "unvignetted_arcmin": 7.15,
+      "total_mm": 1043.8,
+      "unvignetted_mm": 249.6,
+      "vignetting_pct": {
+       "10'": 0.31,
+       "20'": 2.14
+      },
+      "M3_vignetting_from_arcmin": 20
+     },
+     "focal_surface_radius_m": 2.0896,
+     "focal_surface": "concave towards M2",
+     "exit_pupil_diameter_m": 1.1131,
+     "image_quality": "Ritchey-Chretien: third-order astigmatism only",
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 (flat)"
+     ],
+     "location": "on the elevation axis, 6800 mm from the telescope axis (focus on the Nasmyth B side), optical axis ~2.0 m above the platform floor (figure read-off); rotator flange BFD 250 mm",
+     "focus_distance_from_axis_m": 6.8,
+     "beam_height_above_platform_m_FIGURE": 2.0,
+     "instruments_current": [
+      "MUSE (+ GALACSI)"
+     ],
+     "instruments_past": [
+      "NaCo (2001-2013)"
+     ],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "UT4 Nasmyth/coude with the DSM",
+      "D_m": "NOT FOUND (design 8.0)",
+      "central_obscuration_diameter_m": "NOT FOUND (Dornier design 1.116)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "other": "M3 inside the M2 shadow (DERIVED, design); optional sky baffle on the DSM unit NOT FOUND",
+      "refs": [
+       "ut4.pupil_ut4",
+       "ut4.dsm",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "optics": "common.nas_optics",
+      "location": "common.nas_location",
+      "side": "common.nasmyth_sides",
+      "instruments": "ut4.instruments",
+      "history": "ut4.history",
+      "secondary": "ut4.dsm",
+      "tertiary": "common.tertiary"
+     }
+    },
+    {
+     "id": "UT4-COUDE",
+     "name": "Coude f/47.3 (VLTI)",
+     "status": "in use (feeds the VLTI)",
+     "secondary": {
+      "name": "Deformable Secondary Mirror (DSM, AOF)",
+      "shape": "convex thin shell (Dornier prescription set by actuator commands)",
+      "diameter_m": 1.12,
+      "actuators": 1170,
+      "shell_thickness_m": 0.002,
+      "installed": "2016-10",
+      "is_stop": true,
+      "vertex_from_M1_m": {
+       "nasmyth": 12.39643,
+       "cassegrain": 12.42695
+      },
+      "ref": "ut4.dsm"
+     },
+     "focal_length_m": 378.4,
+     "F": 47.3,
+     "F_defined_on": "8000 mm entrance pupil (DERIVED 378400 / 8000)",
+     "plate_scale_arcsec_per_mm": 0.5451,
+     "plate_scale_mm_per_arcsec": 1.835,
+     "field": {
+      "total_arcmin": 1,
+      "total_mm": 110
+     },
+     "n_reflections": 8,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "M4 (concave cylinder R 33.1 m, at the Nasmyth adapter)",
+      "M5 (sphere R 8.975 m, 580 mm)",
+      "M6 (cylinder R 290 m, 440 x 395 mm)",
+      "M7 (sphere R 5.1762 m, 275 mm)",
+      "M8 (flat 120 mm, at a pupil image; GPAO DM)"
+     ],
+     "location": "below the azimuth platform on the azimuth axis, 15544 mm below the elevation axis (figure read-off); light ducts to the VLTI delay lines",
+     "nasmyth_side_used": "NOT FOUND",
+     "instruments_current": [
+      "VLTI (GRAVITY, MATISSE, visitor focus)",
+      "ESPRESSO (own coude train from Nasmyth B)"
+     ],
+     "instruments_past": [],
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "UT4 Nasmyth/coude with the DSM",
+      "D_m": "NOT FOUND (design 8.0)",
+      "central_obscuration_diameter_m": "NOT FOUND (Dornier design 1.116)",
+      "spiders": {
+       "n": 4,
+       "width_m": 0.04,
+       "offset_m": 0.4045,
+       "angle_between_paired_vanes_deg": 101,
+       "crosses_whole_pupil": false
+      },
+      "other": "M3 inside the M2 shadow (DERIVED, design); optional sky baffle on the DSM unit NOT FOUND",
+      "refs": [
+       "ut4.pupil_ut4",
+       "ut4.dsm",
+       "common.spiders"
+      ]
+     },
+     "refs": {
+      "optics": "common.coude",
+      "iccf": "common.iccf",
+      "secondary": "ut4.dsm"
+     }
+    }
+   ]
+  },
+  "params": {
+   "instruments": {
+    "value": "Nasmyth A: HAWK-I (with GRAAL ground-layer AO); Cassegrain: ERIS; Nasmyth B: MUSE (with GALACSI)",
+    "unit": "",
+    "src": "EINS",
+    "loc": "table, UT4 (Yepun) row",
+    "quote": "UT4 (Yepun) HAWK-I ERIS MUSE",
+    "alternatives": [
+     {
+      "value": "AOF instruments at the two Nasmyth foci",
+      "src": "A06",
+      "loc": "p. 6",
+      "quote": "Two instruments have been identified for the two Nasmyth foci: Hawk-I with its AO module GRAAL allowing a Ground Layer Adaptive Optics correction and MUSE with GALACSI for GLAO correction and Laser Tomography Adaptive Optics correction."
+     },
+     {
+      "value": "ERIS at Cassegrain",
+      "src": "A13",
+      "loc": "p. 14",
+      "quote": "ERIS will be installed on the Cassegrain focus of UT4"
+     }
+    ]
+   },
+   "history": {
+    "value": "NaCo at UT4 Nasmyth B 2001-2013; VISIR-NEAR (visitor experiment) at the UT4 Cassegrain focus with the DSM (2019)",
+    "unit": "",
+    "src": "EDNACO",
+    "loc": "Summary",
+    "quote": "It was installed at the Nasmyth B focus of UT4 from 2001 through 2013. In 2014 it was reinstalled on UT1 at the Nasmyth A.",
+    "alternatives": [
+     {
+      "value": "VISIR-NEAR on UT4 Cassegrain",
+      "src": "K21",
+      "loc": "Sec. 2",
+      "quote": "VISIR-NEAR is mounted on the Cassegrain focus of Unit Telescope 4 (UT4)"
+     },
+     {
+      "value": "NEAR commissioning April 2019",
+      "src": "M20",
+      "loc": "Sec. 3.3",
+      "quote": "The VISIR-NEAR commissioning spanned ten half nights on 2019 April 3–13 UT"
+     }
+    ],
+    "note": "Earlier UT4 Cassegrain instruments (e.g. SINFONI before UT3) NOT FOUND in the saved documents."
+   },
+   "dsm": {
+    "value": "Deformable Secondary Mirror (AOF): 1120 mm, 2 mm thick Zerodur thin shell on 1170 voice-coil actuators, in a new M2 unit with the same spider interface; installed October 2016, telescope recommissioned by December 2016; offers the Cassegrain and Nasmyth focal stations like the Dornier M2",
+    "unit": "",
+    "src": "A13",
+    "loc": "DSM high-level functionality, p. 14",
+    "quote": "The DSM is contained in a complete new M2 unit that will replace the actual Dornier M2 unit of UT4. The hub structure implements the same interface as the existing one for the telescope spider and the current Laser Guide Star Facility launch telescope. ... The M2 mirror surface is defined by the thin-shell mirror, 1120 mm in diameter and 2 mm thick, and the reference body",
+    "alternatives": [
+     {
+      "value": "1170 actuators",
+      "src": "A06",
+      "loc": "p. 6",
+      "quote": "The present secondary mirror (M2) will be replaced by a new M2-Unit hosting a 1170-actuator deformable mirror."
+     },
+     {
+      "value": "1120 mm, 2 mm shell",
+      "src": "A06",
+      "loc": "p. 7",
+      "quote": "the deformable secondary design is 1120 mm in diameter and the thin shell is 2 mm 'thin'"
+     },
+     {
+      "value": "two focal stations",
+      "src": "A13",
+      "loc": "p. 15",
+      "quote": "The same adjustment possibilities are offered: two focal stations — Cassegrain and Nasmyth, focusing and centering"
+     },
+     {
+      "value": "installed Oct 2016, recommissioned Dec 2016",
+      "src": "A17",
+      "loc": "p. 8",
+      "quote": "The new M2 unit was installed in October 2016 during a shutdown of Unit Telescope 4 (UT4 — Yepun) and the whole telescope was recommissioned with the new M2 unit by December 2016."
+     },
+     {
+      "value": "plate scale change 1.00047 (Nasmyth B)",
+      "src": "A17",
+      "loc": "p. 9",
+      "quote": "The plate scale change was measured at 1.00047 ± 0.0005 on the Nasmyth B guide probe, which compares to 1.00067 when measured directly on HAWK-I"
+     },
+     {
+      "value": "emissivity 25% (Dornier) vs 24% (DSM)",
+      "src": "A17",
+      "loc": "p. 9",
+      "quote": "the emissivity was measured as 25% for the Dornier and 24% for the new M2 unit."
+     }
+    ],
+    "note": "The DSM shape (conic, radius) is set by commands to match the Dornier prescription (A13); not quoted here. The DSM sky baffle (if any): NOT FOUND.",
+    "derived": "DERIVED: a plate-scale factor of 1.00047 changes the Nasmyth focal length from 120000 mm to about 120056 mm (negligible, A17)."
+   },
+   "pupil_ut4": {
+    "value": "UT4 Cassegrain pupil (HCI model after the ERIS pupil document): 8.1196 m outer, 1.293 m central obscuration, the same four 40 mm vanes, plus the stowed-M3 cover (1.070 m square on one side)",
+    "unit": "",
+    "src": "HCI",
+    "loc": "make_vlt_aperture (UT4 branch)",
+    "quote": "pupil_diameter = 8.1196  # meter ... central_obscuration_ratio = 0.6465 * 2 / pupil_diameter",
+    "alternatives": [
+     {
+      "value": "M3 cover only on UT4 (ERIS)",
+      "src": "HCI",
+      "loc": "docstring",
+      "quote": "If this is True, a cover will be created for the M3 in stowed position. This M3 cover is only available on UT4, mimicking the ERIS pupil."
+     },
+     {
+      "value": "extended obscuration by the M3 baffle (VISIR-NEAR)",
+      "src": "K21",
+      "loc": "Fig. 1 caption",
+      "quote": "Left: VLT Cassegrain pupil with an extended central obscuration due to the M3 baffle and four thin M2 support struts (“spiders”), rotated by 81.8 deg clockwise."
+     },
+     {
+      "value": "round M2 shadow plus an M3 bump",
+      "src": "M20",
+      "loc": "Fig. 1 caption",
+      "quote": "The central obscuration consists of a round shape due to the M2 mirror and a bump to the lower right due to the M3 mirror (black)."
+     },
+     {
+      "value": "DSM baffle; M3 in folded position (ERIS mask)",
+      "src": "D18",
+      "loc": "Fig. 8 caption",
+      "quote": "marking the spider arms and deformable secondary mirror baffle, which is oversized in order to block thermal emission from M3 in its folded position."
+     }
+    ],
+    "note": "The UT4 Nasmyth pupil with the DSM (MUSE, HAWK-I): NOT FOUND (presumably the 8000 mm design pupil; the obscuration with the DSM unit is not documented). Whether the 1.293 m obscuration is the DSM unit or its baffle: not stated by HCI.",
+    "derived": "DERIVED: eps = 1.293 / 8.1196 = 0.159 (vs 1.116 / 8.0 = 0.140 for UT1-3); annulus pi/4 (8.1196^2 - 1.293^2) = 50.47 m^2; with vanes 49.90 m^2; with the M3 cover 49.38 m^2 (grid integration)."
+   }
+  },
+  "not_found": [
+   "The UT4 Nasmyth entrance pupil and central obscuration with the DSM (MUSE, HAWK-I); whether the HCI 1.293 m obscuration is the DSM unit or a baffle; a sky baffle on the DSM unit.",
+   "Earlier UT4 Cassegrain instruments (before ERIS)."
+  ],
+  "conflicts": [
+   "UT4 Cassegrain pupil 8.1196 m with 1.293 m obscuration (HCI) vs the design 8115 / 1120 mm (SPEC, WB, pre-DSM)."
+  ],
+  "notes": [
+   "DSM: plate scale change 1.00047 (A17) is negligible; the pupil at Cassegrain is modelled after the ERIS document (HCI)."
+  ]
+ }
+}

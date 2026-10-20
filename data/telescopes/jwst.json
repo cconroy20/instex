@@ -1,0 +1,1895 @@
+{
+ "_meta": {
+  "project": "instex TELESCOPES mode -- James Webb Space Telescope Optical Telescope Element (OTE): segmented primary and entrance pupil (STPSF pupil model), secondary support, the intermediate Cassegrain focus and the f/20 telescope focus",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/jwst.md (same content as Markdown). Structure as data/telescopes/hst.json: sources{key: cite, file, url}; telescope{key, name, imaging_record, recommended_preset, explorer_inputs, params, foci[], pupil{summary, explorer_inputs, segment_centres_STPSF, segment_vertices_STPSF, strut_polygons_STPSF, tpupil_format, params}, not_found, conflicts, notes}. Reuses data/imaging/space_wide.json (block jwst_nircam): source keys MC23, JDT and G06 are the same files under rawdata/imaging/jwst_nircam/ (SAME FILE); entries that restate an imaging value carry imaging_key. New documents are saved unmodified under rawdata/telescopes/jwst/.",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from the saved document; pdf_page = page of the saved PDF where the quote was found. derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). check 'ocr' = found in tesseract OCR of the figure; check 'figure' = FIGURE READ-OFF, read visually from a saved image (not machine-checkable).",
+  "coordinates": "V1 = boresight (origin at the primary vertex, MC23), +V3 away from the sunshield, +V2 completes a right-handed set (JDC). Pupil coordinates: entrance pupil seen from the sky looking in, x = +V2, y = +V3, metres (STPSF convention; STD, STU).",
+  "design_vs_asbuilt": "G06 (2006) is the pre-launch design (focal-surface position); MC23 (2023) and R23 (2023) the as-built/commissioned telescope; the STPSF pupil (2010 area budget, Ball drawings) is the model STScI uses for PSFs today.",
+  "quote_check": "102 quoted entries checked against the saved files: 90 matched in the text layer (pdftotext -layout and -raw per page; HTML tag-stripped and raw; .py/.rst raw text), 9 in tesseract OCR of figure renders, 3 FIGURE READ-OFF entries checked visually (labels on a photograph or image without readable text), 0 failing; plus 8 short quotations inside notes checked the same way.",
+  "check_result": {
+   "text": 90,
+   "ocr": 9,
+   "figure": 3,
+   "inline": 8,
+   "fail": 0,
+   "entries": 102,
+   "all_pass": true,
+   "checked": "2026-10-19"
+  },
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, en/em dashes, minus, multiplication sign (to x), division slash, tilde operator, soft hyphen and non-breaking/thin spaces normalised; whitespace collapsed; a quote also passes with PDF line-end hyphenation removed or kept as a hyphen, or with all whitespace removed (superscripts such as 'm2'); ' ... ' joins non-adjacent pieces; table rows are quoted as whitespace-separated cells."
+ },
+ "sources": {
+  "MC23": {
+   "cite": "McElwain, M. W., Feinberg, L. D., Perrin, M. D., et al. 2023, PASP 135, 058001, \"The James Webb Space Telescope Mission: Optical Telescope Element Design, Development, and Performance\", arXiv:2301.01779 (draft dated January 6, 2023): Sec. 3 'Telescope Architecture', Sec. 3.1 'Design Implementation', Table 1 'Optical Requirements', Table 2 'Telescope Optical Parameters' (V1, V2, V3 in mm; origin at the primary vertex), Fig. 4 (primary mirror dimensions; labels are image-only, checked by tesseract OCR of a 400-dpi render), Sec. 5.4. The text layer renders the arcmin prime as '0' ('180 x 90' = 18' x 9') -- SAME FILE as imaging key MC23 (data/imaging/space_wide.json)",
+   "file": "rawdata/imaging/jwst_nircam/McElwain2023_PASP135_058001_JWST_OTE_arXiv2301.01779.pdf",
+   "url": "https://arxiv.org/pdf/2301.01779"
+  },
+  "JDT": {
+   "cite": "STScI JWST User Documentation (JDox), \"JWST Telescope\" (notable update 25 Nov 2024; fetched 2026-10-19): primary, secondary, aft optics, deployments -- SAME FILE as imaging key JDT",
+   "file": "rawdata/imaging/jwst_nircam/jdox_jwst-observatory-hardware__jwst-telescope.html",
+   "url": "https://jwst-docs.stsci.edu/jwst-observatory-hardware/jwst-telescope"
+  },
+  "JDTF1": {
+   "cite": "JDox 'JWST Telescope', Figure 1 'JWST Optical Telescope Element (OTE) with components labeled' (OTE_entrance_pupil_annotated_Oct2016.png): photograph of the OTE from the front (October 2016, secondary stowed) with segment labels and the +V1, +V2, +V3 axes; labels on a photograph, checked visually (tesseract cannot read them)",
+   "file": "rawdata/telescopes/jwst/jdox_jwst-telescope_fig1_OTE_entrance_pupil_annotated_Oct2016.png",
+   "url": "https://jwst-docs.stsci.edu/files/216456682/216456691/1/1762453201147/OTE_entrance_pupil_annotated_Oct2016.png"
+  },
+  "JDTF2": {
+   "cite": "JDox 'JWST Telescope', Figure 2 'Schematic of the OTE from the side' (OTE_diagram_from_Gardner_2006_Fig_32.png; = Gardner et al. 2006 Fig. 32): ray trace with labels, checked by tesseract OCR of the PNG",
+   "file": "rawdata/telescopes/jwst/jdox_jwst-telescope_fig2_OTE_diagram_from_Gardner_2006_Fig_32.png",
+   "url": "https://jwst-docs.stsci.edu/files/216456682/216456690/1/1762453200674/OTE_diagram_from_Gardner_2006_Fig_32.png"
+  },
+  "JDC": {
+   "cite": "JDox, \"JWST Target Observability and Observatory Coordinate System\" (notable update 29 Dec 2024; fetched 2026-10-19): definition of the V1, V2, V3 axes",
+   "file": "rawdata/telescopes/jwst/jdox_jwst-observatory-hardware__jwst-target-observability-and-observatory-coordinate-system.html",
+   "url": "https://jwst-docs.stsci.edu/jwst-observatory-hardware/jwst-target-observability-and-observatory-coordinate-system"
+  },
+  "G06": {
+   "cite": "Gardner, J. P., Mather, J. C., Clampin, M., et al. 2006, Space Sci. Rev. 123, 485, \"The James Webb Space Telescope\", arXiv:astro-ph/0606175: Sec. 6.3 (OTE), Figs. 32-34, optical interface to the ISIM. PRE-LAUNCH DESIGN; Fig. 33 axis labels are image-only (tesseract OCR of a 400-dpi render) -- SAME FILE as imaging key G06",
+   "file": "rawdata/imaging/jwst_nircam/Gardner2006_SSRv123_485_JWST_arXiv0606175.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0606175"
+  },
+  "R23": {
+   "cite": "Rigby, J., Perrin, M., McElwain, M., et al. 2023, PASP 135, 048001, \"The Science Performance of JWST as Characterized in Commissioning\", arXiv:2207.05632v3: Sec. 4.3 'Shape of the point spread function', Sec. 4.4 'Transmission and contamination'",
+   "file": "rawdata/telescopes/jwst/Rigby2023_PASP135_048001_JWST_ScienceCommissioning_arXiv2207.05632v3.pdf",
+   "url": "https://arxiv.org/pdf/2207.05632v3"
+  },
+  "STC": {
+   "cite": "STScI STPSF (formerly WebbPSF), stpsf/constants.py at GitHub spacetelescope/stpsf commit 5ec94af (2026-10-19; file last changed in commit 9f81118, 2026-09-11): JWST_PRIMARY_SEGMENTS (vertex lists, metres), JWST_PRIMARY_STRUTS, JWST_PRIMARY_SEGMENT_CENTERS, circumscribed/inscribed diameters. Provenance in the file: Lightsey's '2010.03.16 Transmission X Area Budget.xls', Ball drawing 2220169 Rev B, OTE Cryogenic Optics ICD C327693. Read as text only (never imported or run)",
+   "file": "rawdata/telescopes/jwst/stpsf_5ec94af_constants.py",
+   "url": "https://raw.githubusercontent.com/spacetelescope/stpsf/5ec94af7d4dbf1ac5fa980a34f08cb71edb408eb/stpsf/constants.py"
+  },
+  "STO": {
+   "cite": "STPSF stpsf/optics.py at commit 5ec94af: docstring of the class that rasterises the JWST primary aperture from constants.py (WebbPrimaryAperture). Read as text only",
+   "file": "rawdata/telescopes/jwst/stpsf_5ec94af_optics.py",
+   "url": "https://raw.githubusercontent.com/spacetelescope/stpsf/5ec94af7d4dbf1ac5fa980a34f08cb71edb408eb/stpsf/optics.py"
+  },
+  "STD": {
+   "cite": "STPSF stpsf/opds.py at commit 5ec94af: comment on the pupil orientation convention (OPD.display_opd). Read as text only",
+   "file": "rawdata/telescopes/jwst/stpsf_5ec94af_opds.py",
+   "url": "https://raw.githubusercontent.com/spacetelescope/stpsf/5ec94af7d4dbf1ac5fa980a34f08cb71edb408eb/stpsf/opds.py"
+  },
+  "STU": {
+   "cite": "STPSF stpsf/utils.py at commit 5ec94af: annotate_ote_pupil_coords (draws the +V2 arrow along +x and the +V3 arrow along +y for the entrance-pupil orientation). Read as text only",
+   "file": "rawdata/telescopes/jwst/stpsf_5ec94af_utils.py",
+   "url": "https://raw.githubusercontent.com/spacetelescope/stpsf/5ec94af7d4dbf1ac5fa980a34f08cb71edb408eb/stpsf/utils.py"
+  },
+  "STR": {
+   "cite": "STPSF documentation docs/jwst.rst at commit 5ec94af ('JWST Instrument Model Details'): NIRSpec grating pupil mask, NIRISS CLEARP pupil",
+   "file": "rawdata/telescopes/jwst/stpsf_5ec94af_docs_jwst.rst",
+   "url": "https://raw.githubusercontent.com/spacetelescope/stpsf/5ec94af7d4dbf1ac5fa980a34f08cb71edb408eb/docs/jwst.rst"
+  }
+ },
+ "telescope": {
+  "key": "jwst",
+  "name": "James Webb Space Telescope -- Optical Telescope Element (OTE)",
+  "imaging_record": "data/imaging/space_wide.json#jwst_nircam (telescope rows: D, eps, F, EFL, field)",
+  "recommended_preset": "Three-mirror anastigmat with a flat fine steering mirror (FSM). Primary: 18 hexagonal beryllium segments, 1.32 m flat-to-flat, 7 mm gaps, two rings (6 A inside, 6 B + 6 C outside) around an empty hexagonal centre filled by the aft optics; circumscribed 6.6035 m in the STPSF pupil model (6.64 m in MC23), entrance pupil 6.6 m, inscribed 5.4733 m, area-equivalent 5.7 m; RoC 15879.7 mm, conic -0.9967 (f = 7.94 m, f/1.20 DERIVED). Segments are flat-side-up in the V2/V3 entrance pupil (edges perpendicular to V3, corners along V2); the outline is rotated 30 deg (corners toward +/-V3). Secondary: convex, 0.738 m, RoC 1778.9 mm, conic -1.6598, 7.169 m in front of the primary, on a deployable tripod whose three struts cross the pupil: one along +V3 (0.119 m wide in the model) and two at 30 deg either side of -V3 (0.122 m), all to r = 3.30 m. The secondary lies inside the central hole, so there is no circular obscuration. Collecting area 25.44 m^2 measured (25.4 m^2 JDox; 26.3 m^2 polished). Foci: an intermediate Cassegrain focus at the AOS entrance (EFL 59.4 m, f/9 DERIVED, 2 reflections), then tertiary (728 x 517 mm, behind the primary vertex) and FSM (172.5 mm, at the exit pupil) to the f/20 telescope focus (EFL 131.4 m, 1.570\"/mm DERIVED, ~18' x 9' field, 4 reflections) on a curved focal surface ~1.96 m behind the primary vertex, shared by NIRCam, NIRSpec, MIRI and FGS/NIRISS through pick-off mirrors.",
+  "explorer_inputs": {
+   "design": "three-mirror anastigmat (PM, SM, TM) + flat FSM at the exit pupil",
+   "D_m": 6.6,
+   "D_note": "entrance-pupil diameter (MC23); circumscribed 6.6035 m in the STPSF model (6.64 m in MC23 text); inscribed 5.4733 m; area-equivalent 5.7 m",
+   "F": 20,
+   "F_on_6p6m_DERIVED": 19.91,
+   "f_m": 131.4,
+   "plate_scale_arcsec_per_mm_DERIVED": 1.5697,
+   "field_arcmin": [
+    18,
+    9
+   ],
+   "primary": {
+    "R_mm": 15879.7,
+    "f_mm_DERIVED": 7939.85,
+    "F_DERIVED": 1.2,
+    "conic": -0.9967,
+    "size_mm": 6605.2,
+    "V1_mm": 0
+   },
+   "secondary": {
+    "D_mm": 738,
+    "R_mm": -1778.9,
+    "conic": -1.6598,
+    "V1_mm": 7169.0,
+    "magnification_DERIVED": 7.481
+   },
+   "cassegrain_focus": {
+    "f_m": 59.4,
+    "F_DERIVED": 9.0,
+    "plate_scale_arcsec_per_mm_DERIVED": 3.472,
+    "V1_mm_DERIVED": [
+     1388,
+     1402
+    ],
+    "where": "AOS entrance aperture (stray-light mask)"
+   },
+   "tertiary": {
+    "size_mm": [
+     728,
+     517
+    ],
+    "R_mm": 3016.2,
+    "conic": -0.6595,
+    "V1_mm": -796.3
+   },
+   "fsm": {
+    "D_mm": 172.5,
+    "V1_mm": 1047.8,
+    "role": "exit pupil, line-of-sight stabilisation"
+   },
+   "focal_surface": {
+    "V1_mm": -1960.0,
+    "curved": true,
+    "note": "~196 cm behind the PM vertex (G06, 2006 design)"
+   },
+   "reflections_to_focus": 4,
+   "collecting_area_m2": 25.44
+  },
+  "params": {
+   "telescope_design": {
+    "value": "three-mirror anastigmat (primary, secondary, tertiary) + flat fine steering mirror (FSM) at the exit pupil; segmented, deployable, beryllium mirrors, gold coated",
+    "unit": "",
+    "src": "MC23",
+    "loc": "Sec. 3.1 (Design Implementation)",
+    "quote": "The optical design of the telescope is a three-mirror anastigmat (TMA) that corrects spherical aberration, coma, astigmatism, and field curvature",
+    "imaging_key": "data/imaging/space_wide.json jwst_nircam.params.telescope_type",
+    "alternatives": [
+     {
+      "value": "primary, secondary, tertiary + 4th flat FSM",
+      "src": "JDT",
+      "loc": "Optical design and components",
+      "quote": "It has a 3-mirror anastigmat design, consisting of primary, secondary, and tertiary mirrors. A 4th flat mirror, called the fine steering mirror (FSM), is used for pointing stabilization and very small offset maneuvers."
+     },
+     {
+      "value": "FSM actively controlled",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "the telescope also includes a fine steering mirror (FSM) which is actively controlled to stabilize the line-of-sight optical path into the science instruments",
+      "pdf_page": 5
+     },
+     {
+      "value": "beryllium, gold coated, 0.6 to ~28 um",
+      "src": "JDT",
+      "loc": "JWST Telescope (introduction)",
+      "quote": "The mirrors are coated with gold to provide high reflectivity from 0.6 to just beyond 28 μm."
+     },
+     {
+      "value": "PM and SM open to the sky; tertiary and FSM inside the aft optics system (AOS)",
+      "src": "MC23",
+      "loc": "Sec. 3",
+      "quote": "The telescope’s primary mirror (PM) and secondary mirror (SM) are open to the celestial sky, but the tertiary and fine steering mirror are enclosed within the aft optics system (AOS).",
+      "pdf_page": 4
+     }
+    ],
+    "pdf_page": 5
+   },
+   "v_frame": {
+    "value": "+V1 = boresight (origin at the primary vertex), +V3 away from the sunshield, +V2 completes a right-handed set",
+    "unit": "",
+    "src": "JDC",
+    "loc": "JWST Observatory coordinate system",
+    "quote": "+V1 is the boresight of the telescope, +V3 points away from the sun shield, and +V2 is orthogonal to both of these",
+    "alternatives": [
+     {
+      "value": "origin at the PM vertex",
+      "src": "MC23",
+      "loc": "Fig. 1 caption",
+      "quote": "The V coordinate system origin is at the vertex of the primary mirror surface, along the boresight.",
+      "pdf_page": 4
+     },
+     {
+      "value": "V3 = anti-spacecraft (figure label)",
+      "src": "JDTF2",
+      "loc": "Figure 2 labels",
+      "quote": "V3 (anti-spacecraft)",
+      "check": "ocr"
+     }
+    ]
+   },
+   "n_segments": {
+    "value": 18,
+    "unit": "hexagonal segments",
+    "src": "MC23",
+    "loc": "Sec. 1",
+    "quote": "The JWST primary mirror is comprised of 18 hexagonal segments",
+    "alternatives": [
+     {
+      "value": 18,
+      "src": "G06",
+      "loc": "Fig. 34 caption",
+      "quote": "The primary mirror is made up of 18 hexagonal segments, each 1.32 m flat to flat.",
+      "pdf_page": 68
+     },
+     {
+      "value": 18,
+      "src": "JDT",
+      "loc": "Primary mirror",
+      "quote": "The primary mirror is comprised of 18 hexagonal segments"
+     },
+     {
+      "value": "18 segment polygons A1-1 ... C6-18",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_SEGMENTS",
+      "quote": "'A1-1', ... 'C6-18',"
+     }
+    ],
+    "note": "Three prescriptions (A, B, C), six of each (G06 Fig. 34; MC23 Fig. 4: 'The A-, B-, and C-segment prescriptions are separate and take advantage of the six-fold symmetry').",
+    "pdf_page": 2
+   },
+   "segment_layout": {
+    "value": "two rings around an empty centre: inner ring = 6 A segments; outer ring = 12 segments alternating B (at the outline's corners) and C (mid-side); 12 on the fixed centre section + 3 on each of two folding wings",
+    "unit": "",
+    "src": "MC23",
+    "loc": "Sec. 3",
+    "quote": "The 18 primary mirror segments are arranged in a close-packed configuration with twelve segments in the center section and three segments on each of two wings which were folded back for launch. No segment is located at the nominal center position, as it is filled with the aft optical structure that holds the telescope tertiary and fine steering mirrors.",
+    "alternatives": [
+     {
+      "value": "segment centres (m, entrance pupil x = +V2, y = +V3)",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_SEGMENT_CENTERS",
+      "quote": "('A1-1', (0.000000, 1.323500)), ... ('B1-7', (0.000000, 2.634719)), ... ('C2-10', (2.285926, 0.000000)),"
+     },
+     {
+      "value": "wings: B2, C2, B3 and B5, C5, B6",
+      "src": "JDT",
+      "loc": "Telescope deployments",
+      "quote": "each supporting three mirror segments (B2, C2, B3 and B5, C5, B6 in Figure 1 above)"
+     }
+    ],
+    "derived": "DERIVED (STC centres): A ring at r = 1.3235 m (azimuths 0, 60, ... deg from +V3); B at r = 2.6347 m (0, 60, ... deg from +V3: B1 on +V3); C at r = 2.2859 m (30, 90, ... deg from +V3: C2 on +V2). Pitch A1 to centre 1.3235 m; B and C sit slightly inside the flat-lattice positions (2 x 1.3235 = 2.647, sqrt(3) x 1.3235 = 2.292 m) because the coordinates are projections of a curved primary. 6 + 12 = 18.",
+    "pdf_page": 4
+   },
+   "segment_flat_to_flat": {
+    "value": 1.32,
+    "unit": "m (each segment, across the flats)",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "Each of the 18 primary mirror segments are 1.32 m (flat-to-flat) separated by 7 mm gaps",
+    "alternatives": [
+     {
+      "value": 1.32,
+      "src": "G06",
+      "loc": "Sec. 6.3.2",
+      "quote": "Each mirror segment is hexagonal with a 1.32 m flat-to-flat dimension.",
+      "pdf_page": 67
+     },
+     {
+      "value": "~1.4 m 'in diameter'",
+      "src": "JDT",
+      "loc": "Primary mirror",
+      "quote": "18 hexagonal segments, each ~1.4 m in diameter"
+     },
+     {
+      "value": "1.32 meters flat to flat (figure label)",
+      "src": "MC23",
+      "loc": "Fig. 4 label",
+      "quote": "1.32 meters flat to flat",
+      "check": "ocr"
+     },
+     {
+      "value": "A1-1 vertices (projected): corners at x = +/-0.758826, flats at y = 0.667604 and 1.976407",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_SEGMENTS 'A1-1'",
+      "quote": "[-0.38101, 0.667604], [-0.758826, 1.321999], [-0.38101, 1.976407], [0.38101, 1.976407], [0.758826, 1.321999], [0.38101, 0.667604],"
+     }
+    ],
+    "derived": "DERIVED from the STC polygons (projected onto the entrance pupil, gaps excluded): flat-to-flat 1.2957-1.3143 m (A: 1.3088/1.3143; B: 1.2957/1.3111; C: 1.3025/1.3055); the segments are 'not quite perfect hexagons' (STO).",
+    "pdf_page": 5
+   },
+   "segment_corner_to_corner": {
+    "value": 1.524,
+    "unit": "m (DERIVED from 1.32 m flat-to-flat)",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "Each of the 18 primary mirror segments are 1.32 m (flat-to-flat)",
+    "alternatives": [
+     {
+      "value": "1.517 m (STPSF segment 'radius' x 2)",
+      "src": "STC",
+      "loc": "JWST_SEGMENT_RADIUS",
+      "quote": "JWST_SEGMENT_RADIUS = 1.517 / 2"
+     }
+    ],
+    "note": "No source states the corner-to-corner size in words.",
+    "derived": "DERIVED: 1.32 x 2/sqrt(3) = 1.5242 m. STC polygons: corner-to-corner 1.5031-1.5177 m (A1-1 across the +/-V2 corners: 2 x 0.758826 = 1.5177 m).",
+    "pdf_page": 5
+   },
+   "segment_gap": {
+    "value": 7,
+    "unit": "mm (nominal, between neighbouring segments)",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "separated by 7 mm gaps",
+    "alternatives": [
+     {
+      "value": "nominally 7 mm",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "The gaps between segments, nominally 7 mm, were tracked during the deployment",
+      "pdf_page": 6
+     }
+    ],
+    "derived": "DERIVED from the STC polygons (36 neighbour pairs, nearest edge-to-edge distance): 7.61-7.67 mm, mean 7.65 mm.",
+    "pdf_page": 5
+   },
+   "segment_orientation": {
+    "value": "flat sides up: in the entrance-pupil V2/V3 frame (seen from the sky looking in, +V2 right, +V3 up) every segment has two edges perpendicular to V3 (flat top and bottom) and corners pointing along +/-V2; the outline (rotated 30 deg to the segments) has its corners toward +/-V3 (B1 at +V3, B4 at -V3) and its serrated flat sides centred on the C segments (C2 at +V2, C5 at -V2)",
+    "unit": "",
+    "src": "STC",
+    "loc": "JWST_PRIMARY_SEGMENTS 'A1-1' (the segment on +V3)",
+    "quote": "[-0.38101, 0.667604], [-0.758826, 1.321999], [-0.38101, 1.976407], [0.38101, 1.976407], [0.758826, 1.321999], [0.38101, 0.667604],",
+    "alternatives": [
+     {
+      "value": "entrance-pupil orientation = looking in to JWST",
+      "src": "STD",
+      "loc": "OPD.display_opd comment",
+      "quote": "The actual OPD data is stored in \"entrance pupil\" orientation, looking in to JWST, ... by convention and for consistency with the JWST WSS."
+     },
+     {
+      "value": "x = +V2, y = +V3 in the entrance-pupil plot",
+      "src": "STU",
+      "loc": "annotate_ote_pupil_coords",
+      "quote": "if orientation == 'entrance_pupil': ... v3sign = +1 ... ax.arrow(-xloc, -yloc, 0.2, 0, color=color, width=0.005) ... ax.arrow(-xloc, -yloc, 0, 0.2 * v3sign, color=color, width=0.005) ... '+V3', ... ax.text(-xloc + 0.4, -yloc, '+V2'"
+     },
+     {
+      "value": "+V3 strut = the strut along +y",
+      "src": "STO",
+      "loc": "WebbPrimaryAperture docstring",
+      "quote": "the secondary mirror support struts, including the bumps on the +V3 strut for the mid boom hinge and mag dampers."
+     },
+     {
+      "value": "photo from the front: +V3 up, +V2 right, +V1 toward the viewer; A1 and B1 above the AOS, flat-topped segments",
+      "src": "JDTF1",
+      "loc": "Figure 1 (labels on the photograph)",
+      "quote": "+V3 ... +V2 ... +V1 ... B1 ... A1 ... AOS (TM & FSM inside)",
+      "check": "figure"
+     },
+     {
+      "value": "outline rotated 30 deg relative to the segments",
+      "src": "R23",
+      "loc": "Sec. 4.3",
+      "quote": "when assembling a larger hexagon from smaller hexagons, the outline of the larger hexagon which is created is rotated 30 deg relative to the smaller ones.",
+      "pdf_page": 18
+     }
+    ],
+    "note": "Seen on the sky (or at the exit pupil) the pattern is mirrored: STD says the exit-pupil orientation is a vertical flip of the entrance pupil. The segment geometry is symmetric under V2 -> -V2 and the struts are symmetric too, so only segment names change between the views.",
+    "derived": "DERIVED (STC): edge directions of every A segment are 0, 60, 120 deg from +V2 (B and C within 0.25 deg), i.e. a pair of edges parallel to V2; A1-1 corners at (+/-0.7588, 1.3220) lie along +/-V2 from its centre. Outline corners: B outer corners at r = 3.3017 m; side midpoints: C outer corners at r = 3.0359 m; deepest notches ('middle corners of C segments') at r = 2.7367 m."
+   },
+   "circumscribed_diameter": {
+    "value": 6.6035,
+    "unit": "m (STPSF pupil model: outer corners of the B segments, projected on the entrance pupil)",
+    "src": "STC",
+    "loc": "JWST_CIRCUMSCRIBED_DIAMETER",
+    "quote": "JWST_CIRCUMSCRIBED_DIAMETER = 6.603464 # meters. Outer corners of B segments",
+    "imaging_key": "data/imaging/space_wide.json jwst_nircam.params.telescope_aperture (D = 6.6 m)",
+    "alternatives": [
+     {
+      "value": 6.64,
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "The PM circumscribed diameter is 6.64 m (segment flat-to-flat diameter is 6.575 m, entrance pupil diameter is 6.6 m) with an area equivalent to a 5.7 m circular filled aperture.",
+      "pdf_page": 5
+     },
+     {
+      "value": 6.6,
+      "src": "MC23",
+      "loc": "Sec. 1",
+      "quote": "this space telescope with a 6.6 m circumscribed diameter primary mirror",
+      "pdf_page": 2
+     },
+     {
+      "value": "6.6 m (figure label)",
+      "src": "JDTF2",
+      "loc": "Figure 2 label (= G06 Fig. 32)",
+      "quote": "PM diameter = 6.6 m (circumscribed circle)",
+      "check": "ocr"
+     },
+     {
+      "value": "6605.2 mm 'Phys. Size' of the primary",
+      "src": "MC23",
+      "loc": "Table 2",
+      "quote": "Primary 15879.7 concave -0.9967 0 0 0 6605.2",
+      "pdf_page": 6
+     }
+    ],
+    "derived": "DERIVED: largest vertex radius in the STC polygons = 3.30173 m -> 6.6035 m."
+   },
+   "outline_flat_to_flat": {
+    "value": 6.575,
+    "unit": "m (across the outer flat edges of opposite B segments)",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "segment flat-to-flat diameter is 6.575 m",
+    "alternatives": [
+     {
+      "value": "6.6 meters flat to flat (figure label; arrows touch the outer edges of B5 and B2)",
+      "src": "MC23",
+      "loc": "Fig. 4 label",
+      "quote": "6.6 meters flat to flat",
+      "check": "ocr"
+     },
+     {
+      "value": "6.6 meters flat to flat (figure label)",
+      "src": "G06",
+      "loc": "Fig. 34 label",
+      "quote": "6.6 meters flat to flat",
+      "check": "ocr"
+     },
+     {
+      "value": "B1 outer edge at y = 3.279674 m",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_SEGMENTS 'B1-7'",
+      "quote": "[0.38101, 3.279674],"
+     }
+    ],
+    "derived": "DERIVED (STC): 2 x 3.279674 = 6.5593 m between the outer flats of B1 and B4 (projected).",
+    "pdf_page": 5
+   },
+   "inscribed_diameter": {
+    "value": 5.4733,
+    "unit": "m (deepest notches of the outline: the 'middle corners' of the C segments)",
+    "src": "STC",
+    "loc": "JWST_INSCRIBED_DIAMETER",
+    "quote": "JWST_INSCRIBED_DIAMETER = 5.47334 # meters. Middle corners of C segments",
+    "derived": "DERIVED check: C2-10 corner (2.6580961, 0.651074495) has r = 2.7367 m -> 5.4733 m."
+   },
+   "entrance_pupil": {
+    "value": "the primary is the aperture stop (entrance pupil 6.6 m) for most modes; an oversized internal pupil stop sits near the FSM; coronagraphy and AMI use their own pupil masks",
+    "unit": "",
+    "src": "JDT",
+    "loc": "Primary mirror",
+    "quote": "The primary mirror serves as the aperture stop for most JWST observing modes, with the exceptions of coronagraphy and aperture masking interferometry (AMI).",
+    "alternatives": [
+     {
+      "value": "entrance pupil diameter 6.6 m",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "entrance pupil diameter is 6.6 m",
+      "pdf_page": 5
+     },
+     {
+      "value": "oversized internal pupil stop near the FSM",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "There is an oversized, internal pupil stop near the FSM to transfer the maximum PM collected energy and provide a well defined pupil for wavefront sensing.",
+      "pdf_page": 6
+     },
+     {
+      "value": "opaque border (the 'frill') around the PM edge",
+      "src": "JDT",
+      "loc": "Primary mirror",
+      "quote": "An opaque border around the outer edge of the primary helps minimize stray light"
+     }
+    ]
+   },
+   "equivalent_diameter": {
+    "value": 5.7,
+    "unit": "m (circle of the same area)",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "with an area equivalent to a 5.7 m circular filled aperture",
+    "derived": "DERIVED: sqrt(4 x 25.44 / pi) = 5.69 m.",
+    "pdf_page": 5
+   },
+   "collecting_area": {
+    "value": 25.44,
+    "unit": "m^2 (measured unobscured area: polished segments minus the strut shadows)",
+    "src": "MC23",
+    "loc": "Sec. 5.4",
+    "quote": "JWST’s unobscured collecting area was measured using the NIRCam pupil imaging lens to be 25.44 m2",
+    "alternatives": [
+     {
+      "value": 25.44,
+      "src": "MC23",
+      "loc": "Table 1 (Optical Requirements)",
+      "quote": "Optical Area in m2 >25.0 25.44",
+      "pdf_page": 3
+     },
+     {
+      "value": 25.4,
+      "src": "JDT",
+      "loc": "Primary mirror",
+      "quote": "The unobscured collecting area of the primary mirror is 25.4 m2."
+     },
+     {
+      "value": "26.3 m^2 polished; struts obscure a small portion",
+      "src": "JDT",
+      "loc": "Primary mirror",
+      "quote": "(The total polished area is slightly greater, 26.3 m2, but the secondary mirror support struts obscure a small portion.)"
+     },
+     {
+      "value": 25.44,
+      "src": "R23",
+      "loc": "Sec. 4.4",
+      "quote": "The measured value using the NIRCam pupil imaging lens was 25.44 m2.",
+      "pdf_page": 19
+     },
+     {
+      "value": "> 25 m^2 required",
+      "src": "MC23",
+      "loc": "Sec. 2",
+      "quote": "to have a total unobscured collecting area greater than 25 m2",
+      "pdf_page": 3
+     },
+     {
+      "value": "25 m^2 (2006 design)",
+      "src": "G06",
+      "loc": "Sec. 6.3.1",
+      "quote": "The optical telescope has a 25 m2 collecting area",
+      "pdf_page": 64
+     }
+    ],
+    "derived": "DERIVED (STC pupil model): 18 segment polygons = 26.641 m^2; strut polygons over the segments = 0.862 m^2 (exact clipping); clear = 25.779 m^2. Equal-area diameter of 25.44 m^2: 5.69 m.",
+    "pdf_page": 24
+   },
+   "central_hole": {
+    "value": "hexagonal hole (no segment at the centre; the AOS fills it), bounded by the inner edges of the six A segments: 1.335 m flat-to-flat (flats perpendicular to V3), 1.537 m corner-to-corner (corners on +/-V2), 1.544 m^2",
+    "unit": "",
+    "src": "MC23",
+    "loc": "Sec. 3",
+    "quote": "No segment is located at the nominal center position, as it is filled with the aft optical structure that holds the telescope tertiary and fine steering mirrors.",
+    "alternatives": [
+     {
+      "value": "A1-1 inner edge at y = 0.667604 m; A2-2 inner corner at x = 0.76866702",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_SEGMENTS 'A1-1', 'A2-2'",
+      "quote": "[0.38101, 0.667604], ... [0.76866702, 0.00383766],"
+     },
+     {
+      "value": "AOS seen in the hole (photo label)",
+      "src": "JDTF1",
+      "loc": "Figure 1",
+      "quote": "AOS (TM & FSM inside)",
+      "check": "figure"
+     }
+    ],
+    "derived": "DERIVED (STC): flat-to-flat 2 x 0.667604 = 1.3352 m; corner-to-corner 2 x 0.76868 = 1.5374 m; area (sqrt(3)/2) x 1.3352^2 = 1.544 m^2 (equal-area circle 1.402 m). As fractions of 6.6 m: 0.202 (flat-to-flat), 0.233 (corners), 0.212 (equal area). MC23's 1.32 m segments + 7 mm gaps give 1.32 + 2 x 0.007 = 1.334 m (as in data/imaging/space_wide.json, eps = 0.20).",
+    "pdf_page": 4
+   },
+   "primary_prescription": {
+    "value": "concave, RoC 15879.7 mm, conic -0.9967, physical size 6605.2 mm, vertex at the V-frame origin",
+    "unit": "mm",
+    "src": "MC23",
+    "loc": "Table 2 (Telescope Optical Parameters)",
+    "quote": "Primary 15879.7 concave -0.9967 0 0 0 6605.2",
+    "imaging_key": "data/imaging/space_wide.json jwst_nircam.params.primary_focal_ratio",
+    "derived": "DERIVED: focal length f = RoC/2 = 7939.85 mm; f/# = 7.940/6.6 = 1.203 (7.940/6.6035 = 1.202).",
+    "pdf_page": 6
+   },
+   "primary_focal_length": {
+    "value": 7.94,
+    "unit": "m (DERIVED from RoC)",
+    "src": "MC23",
+    "loc": "Table 2",
+    "quote": "Primary 15879.7 concave -0.9967 0 0 0 6605.2",
+    "derived": "DERIVED: 15879.7 / 2 = 7939.85 mm. No source states it in words.",
+    "pdf_page": 6
+   },
+   "primary_focal_ratio": {
+    "value": 1.2,
+    "unit": "f/# (DERIVED, on 6.6 m)",
+    "src": "MC23",
+    "loc": "Table 2",
+    "quote": "Primary 15879.7 concave -0.9967 0 0 0 6605.2",
+    "derived": "DERIVED: 7.93985 / 6.6 = 1.203; / 6.575 = 1.208; / 6.64 = 1.196.",
+    "pdf_page": 6
+   },
+   "secondary": {
+    "value": "convex, circular, 738 mm, RoC 1778.9 mm, conic -1.6598, vertex at V1 = 7169.0 mm (7.17 m in front of the primary vertex), on a deployable tripod; 6 actuators",
+    "unit": "mm",
+    "src": "MC23",
+    "loc": "Table 2",
+    "quote": "Secondary 1778.9 convex -1.6598 7169.0 0 0 738",
+    "alternatives": [
+     {
+      "value": "0.74 m convex circular",
+      "src": "JDT",
+      "loc": "Secondary mirror",
+      "quote": "The secondary mirror is a convex circular mirror 0.74 m in diameter."
+     },
+     {
+      "value": "tripod support",
+      "src": "G06",
+      "loc": "Sec. 6.3.1",
+      "quote": "The secondary mirror is supported by a deployable tripod support structure, which latches into position following deployment. This structure provides the necessary jitter stability with minimum beam blockage.",
+      "pdf_page": 66
+     }
+    ],
+    "derived": "DERIVED: f_SM = -1778.9/2 = -889.45 mm; SM magnification = EFL(PM+SM)/f_PM = 59400/7939.85 = 7.481; 0.738/6.6 = 0.112 of the aperture (lies inside the central hole, 1.335 m flat-to-flat).",
+    "pdf_page": 6
+   },
+   "tertiary": {
+    "value": "concave, RoC 3016.2 mm, conic -0.6595, 728 x 517 mm, at V1 = -796.3 mm (behind the primary vertex), V3 = -0.19 mm; inside the AOS; re-images the primary onto the FSM",
+    "unit": "mm",
+    "src": "MC23",
+    "loc": "Table 2",
+    "quote": "Tertiary 3016.2 concave -0.6595 -796.3 0 -0.19 728×517",
+    "alternatives": [
+     {
+      "value": "0.73 x 0.52 m, re-images the primary onto the FSM",
+      "src": "JDT",
+      "loc": "Aft optics",
+      "quote": "The tertiary mirror is a concave aspheric mirror with an elongated shape roughly 0.73 × 0.52 m in size. It re-images the primary aperture onto the FSM"
+     }
+    ],
+    "pdf_page": 6
+   },
+   "fine_steering_mirror": {
+    "value": "flat, 172.5 mm, at V1 = +1047.8 mm (in front of the primary vertex), V3 = -2.36 mm; at the exit pupil (image of the primary)",
+    "unit": "mm",
+    "src": "MC23",
+    "loc": "Table 2",
+    "quote": "Fine Steering flat 1047.8 0 -2.36 172.5",
+    "alternatives": [
+     {
+      "value": "exit pupil at the FSM",
+      "src": "JDT",
+      "loc": "Aft optics",
+      "quote": "The OTE exit pupil is the image of the primary that reflects off the fine steering mirror towards the ISIM focal plane and instruments."
+     },
+     {
+      "value": "FSM at the pupil image",
+      "src": "G06",
+      "loc": "Sec. 6.3.1",
+      "quote": "The FSM is located at the image of the pupil, after the tertiary mirror but forward of the focal plane interface to the ISIM.",
+      "pdf_page": 66
+     }
+    ],
+    "pdf_page": 6
+   },
+   "secondary_support": {
+    "value": "deployable tripod (three struts in the pupil); MC23: four composite tubes joined to the primary centre section as a four-bar linkage",
+    "unit": "",
+    "src": "MC23",
+    "loc": "Sec. 3.1",
+    "quote": "mounted to a tripod that consists of four composite tubes and connects to the primary center section in a four-bar linkage",
+    "alternatives": [
+     {
+      "value": "deployable tripod",
+      "src": "JDT",
+      "loc": "Telescope deployments",
+      "quote": "The secondary is supported by a deployable tripod support structure which also latched into position following deployment."
+     },
+     {
+      "value": "tripod",
+      "src": "G06",
+      "loc": "Table (OTE summary)",
+      "quote": "Secondary Mirror Tripod configuration for support structure",
+      "pdf_page": 61
+     },
+     {
+      "value": "three strut polygons + bumps on the +V3 strut",
+      "src": "STC",
+      "loc": "JWST_PRIMARY_STRUTS",
+      "quote": "'strut1', ... 'strut2', ... 'strut3', ... 'strut3_bumps',"
+     }
+    ],
+    "note": "The four tubes / three struts difference is not explained in the sources found (the pupil model has three struts; the +V3 strut carries the 'mid boom hinge', STO).",
+    "pdf_page": 6
+   }
+  },
+  "foci": [
+   {
+    "key": "cassegrain_intermediate",
+    "name": "Cassegrain (intermediate) focus, f/9 (DERIVED)",
+    "type": "intermediate focus (PM + SM)",
+    "status": "internal: no instrument; stray-light aperture mask",
+    "F_text": "f/9.0 (DERIVED, 59.4 / 6.6)",
+    "f_text": "59.4",
+    "plate_scale_text": "3.472; 0.288 (DERIVED)",
+    "field_text": "~18' x 9' (~311 x 156 mm, DERIVED)",
+    "F_DERIVED": 9.0,
+    "focal_length_m": 59.4,
+    "plate_scale_arcsec_per_mm_DERIVED": 3.472,
+    "n_reflections": 2,
+    "mirrors": [
+     "primary",
+     "secondary"
+    ],
+    "location": "just before the AOS entrance aperture in the primary's central hole, ~1.4 m in front of the primary vertex (V1 ~ +1.39 to +1.40 m, DERIVED)",
+    "instruments": [],
+    "summary": "The primary and secondary form a real Cassegrain image at the entrance of the aft optics system (AOS), where an aperture mask/fixed baffle blocks stray light. The beam continues to the tertiary (behind the primary vertex) and the FSM; no instrument uses this focus.",
+    "refs": {
+     "focal_length_m": "foci[0].params.focal_length",
+     "location": "foci[0].params.location"
+    },
+    "params": {
+     "focal_length": {
+      "value": 59.4,
+      "unit": "m (primary + secondary EFL)",
+      "src": "MC23",
+      "loc": "Table 2 note",
+      "quote": "The primary-to-secondary effective focal length (EFL) is 59400 mm.",
+      "derived": "DERIVED: f/# = 59.4 / 6.6 = 9.00; plate scale 206264.8 / 59400 = 3.472 arcsec/mm.",
+      "pdf_page": 6
+     },
+     "location": {
+      "value": "intermediate (Cassegrain) focus just before the AOS entrance aperture, which carries a stray-light aperture mask / fixed baffle; ~1.4 m in front of the primary vertex (DERIVED)",
+      "unit": "",
+      "src": "MC23",
+      "loc": "Sec. 3",
+      "quote": "The telescope Cassegrain focus is formed near the entrance to the AOS where an aperture mask is located for stray light suppression.",
+      "alternatives": [
+       {
+        "value": "initial Cassegrain focus before the AOS entrance aperture",
+        "src": "JDT",
+        "loc": "Secondary mirror",
+        "quote": "The primary and secondary first bring light to an initial Cassegrain focus just before the entrance aperture of the aft optics system, where a fixed baffle also helps to block stray light."
+       },
+       {
+        "value": "AOS entrance aperture = stray-light stop",
+        "src": "MC23",
+        "loc": "Sec. 3.1",
+        "quote": "The AOS entrance aperture is near the Cassegrain focus of the telescope and provides an aperture stop for stray light suppression.",
+        "pdf_page": 7
+       },
+       {
+        "value": "Cassegrain focus (figure label)",
+        "src": "JDTF2",
+        "loc": "Figure 2 label",
+        "quote": "Cassegrain focus",
+        "check": "ocr"
+       }
+      ],
+      "derived": "DERIVED from MC23 Table 2: the PM focus lies at V1 = 7939.9 mm, 770.9 mm beyond the SM (V1 = 7169.0); SM magnification m = 59400/7939.85 = 7.481 puts the Cassegrain image 5767 mm from the SM, at V1 = +1402 mm (the paraxial mirror equation with RoC_SM = 1778.9 gives 5781 mm -> V1 = +1388 mm; the difference reflects rounding in the table). The FSM (V1 = +1047.8) and the tertiary (V1 = -796.3) lie beyond it inside the AOS.",
+      "pdf_page": 4
+     }
+    }
+   },
+   {
+    "key": "ote_focus",
+    "name": "Telescope (OTE) focus f/20 at the ISIM focal surface",
+    "type": "TMA focus (shared by all instruments)",
+    "status": "in use",
+    "F_text": "f/20 (19.91 on 6.6 m)",
+    "f_text": "131.4",
+    "plate_scale_text": "1.5697; 0.6370 (DERIVED)",
+    "field_text": "~18' x 9' (~688 x 344 mm, DERIVED); outer edge vignetted",
+    "F": 20,
+    "focal_length_m": 131.4,
+    "plate_scale_arcsec_per_mm_DERIVED": 1.5697,
+    "plate_scale_mm_per_arcsec_DERIVED": 0.637,
+    "field_arcmin": [
+     18,
+     9
+    ],
+    "field_mm_DERIVED": [
+     688,
+     344
+    ],
+    "n_reflections": 4,
+    "mirrors": [
+     "primary",
+     "secondary",
+     "tertiary",
+     "fine steering mirror"
+    ],
+    "location": "curved focal surface ~1.96 m behind the primary vertex (G06, design), at the ISIM behind the primary backplane; exit pupil at the FSM (~3.0 m ahead, DERIVED)",
+    "instruments": [
+     "NIRCam",
+     "NIRSpec",
+     "MIRI",
+     "FGS/NIRISS (each through its own pick-off mirror(s); different parts of the field)"
+    ],
+    "summary": "One f/20 focus shared spatially: each science instrument and the guider picks off its own patch of the ~18' x 9' field with pick-off mirrors near the curved focal surface behind the primary (MC23: 'Each of the four science instruments has one or more pick-off mirrors near the focal plane of the telescope such that they observe offset parts of the sky.').",
+    "refs": {
+     "F": "foci[1].params.telescope_focal_ratio",
+     "focal_length_m": "foci[1].params.telescope_focal_length",
+     "plate_scale": "foci[1].params.plate_scale",
+     "field": "foci[1].params.field_of_view",
+     "location": "foci[1].params.focal_surface_position",
+     "exit_pupil": "foci[1].params.exit_pupil"
+    },
+    "params": {
+     "telescope_focal_ratio": {
+      "value": 20,
+      "unit": "f/# (OTE, effective)",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "The telescope is f/20 with an effective focal length of 131.4 m.",
+      "imaging_key": "data/imaging/space_wide.json jwst_nircam.params.telescope_focal_ratio",
+      "alternatives": [
+       {
+        "value": 20,
+        "src": "JDT",
+        "loc": "Optical design and components",
+        "quote": "The effective focal ratio of the OTE is f/20, and the effective focal length is 131.4 m."
+       },
+       {
+        "value": 20,
+        "src": "G06",
+        "loc": "Sec. 6.3.1",
+        "quote": "The telescope has an effective f/number of 20, and an effective focal length of 131.4 meters.",
+        "pdf_page": 64
+       },
+       {
+        "value": "f/#: 20.0 (figure label)",
+        "src": "JDTF2",
+        "loc": "Figure 2 label",
+        "quote": "f/#: 20.0",
+        "check": "ocr"
+       }
+      ],
+      "derived": "DERIVED: 131.4 / 6.6 = 19.91; / 6.6035 = 19.90; / 6.575 = 19.98; / 6.64 = 19.79.",
+      "pdf_page": 5
+     },
+     "telescope_focal_length": {
+      "value": 131.4,
+      "unit": "m (OTE effective focal length at the ISIM focal surface)",
+      "src": "MC23",
+      "loc": "Table 2 note",
+      "quote": "the three-mirror telescope EFL is 131400 mm",
+      "imaging_key": "data/imaging/space_wide.json jwst_nircam.params.effective_focal_length",
+      "alternatives": [
+       {
+        "value": 131.4,
+        "src": "JDT",
+        "loc": "Optical design and components",
+        "quote": "the effective focal length is 131.4 m"
+       },
+       {
+        "value": "131.4 m (figure label)",
+        "src": "JDTF2",
+        "loc": "Figure 2 label",
+        "quote": "Effective Focal Length: 131.4 m",
+        "check": "ocr"
+       }
+      ],
+      "pdf_page": 6
+     },
+     "plate_scale": {
+      "value": 1.5697,
+      "unit": "arcsec/mm (DERIVED)",
+      "src": "MC23",
+      "loc": "Table 2 note",
+      "quote": "the three-mirror telescope EFL is 131400 mm",
+      "derived": "DERIVED: 206264.8 / 131400 mm = 1.5697 arcsec/mm (0.6370 mm/arcsec). No source quotes a telescope plate scale; each instrument re-images the focal plane (G06: 'Each ISIM instrument reimages the telescope focal plane onto its detectors').",
+      "pdf_page": 6
+     },
+     "field_of_view": {
+      "value": "~18' x 9' (shared by all instruments; DERIVED ~688 x 344 mm)",
+      "unit": "arcmin",
+      "src": "MC23",
+      "loc": "Sec. 3.1",
+      "quote": "field is about ∼ 180 × 90 at the telescope focal plane",
+      "alternatives": [
+       {
+        "value": "V2 from -9.1' to +9.1' (18.2'); V3 span 9.1' (-5.7 to +3.4 on the axis labels)",
+        "src": "G06",
+        "loc": "Fig. 33 axis labels (Placement of the ISIM instruments in the telescope field of view)",
+        "quote": "-9.1 ... 9.1 ... Horizontal Field Position (arcmin in +V2 Axis) ... 5.7 ... +3.4",
+        "check": "ocr",
+        "note": "FIGURE READ-OFF of the axis-end labels; the V3 zero point of these labels is not stated; the outer black area is vignetted (G06 text)."
+       },
+       {
+        "value": "vignetting at the field edge",
+        "src": "G06",
+        "loc": "Sec. 6.3.1",
+        "quote": "The outer black area in the figure represents portions of the field of view that have some amount of vignetting.",
+        "pdf_page": 66
+       }
+      ],
+      "note": "The text layer renders the arcmin prime as '0' ('180 x 90' = 18' x 9'), as recorded in data/imaging/space_wide.md.",
+      "derived": "DERIVED: 18' = 1080\" / 1.5697 = 688 mm; 9' = 344 mm.",
+      "pdf_page": 5
+     },
+     "focal_surface_position": {
+      "value": "curved focal surface ~1.96 m behind the primary vertex (V1 ~ -1.96 m), at the ISIM interface",
+      "unit": "m",
+      "src": "G06",
+      "loc": "Sec. 6.3.3 'Optical interface'",
+      "quote": "The optical interface to the ISIM is a curved focal surface located approximately 196 cm behind the primary mirror vertex.",
+      "alternatives": [
+       {
+        "value": "focal surface drawn behind the PM and the tertiary (figure)",
+        "src": "JDTF2",
+        "loc": "Figure 2 labels",
+        "quote": "Focal Surface",
+        "check": "figure",
+        "note": "tesseract reads the two words separately ('Focal', 'Surface'); position checked visually"
+       },
+       {
+        "value": "pickoff mirrors at the ISIM focal surface",
+        "src": "JDT",
+        "loc": "Aft optics (Figure 2 caption)",
+        "quote": "Light exiting the OTE converges to the ISIM focal surface, where several pickoff mirrors redirect portions of the field to the science instruments."
+       }
+      ],
+      "note": "2006 design value; no post-launch V1 position of the focal surface was found. Radius of curvature of the focal surface: NOT FOUND.",
+      "pdf_page": 68
+     },
+     "exit_pupil": {
+      "value": "at the FSM (V1 = +1.048 m), ~3.0 m ahead of the focal surface (DERIVED)",
+      "unit": "",
+      "src": "JDT",
+      "loc": "Aft optics",
+      "quote": "The OTE exit pupil is the image of the primary that reflects off the fine steering mirror towards the ISIM focal plane and instruments.",
+      "derived": "DERIVED (approximate, along V1 only, ignoring the off-axis fold): 1047.8 - (-1960) = 3008 mm from the FSM to the focal surface; exit-pupil diameter ~ 3008 / 20 = 150 mm (FSM physical size 172.5 mm, MC23 Table 2)."
+     }
+    }
+   }
+  ],
+  "pupil": {
+   "summary": "Entrance pupil = the 18-segment primary (the aperture stop for most modes), seen from the sky with x = +V2, y = +V3: segments flat-side-up (edges perpendicular to V3), corners along V2; outline corners toward +/-V3; hexagonal central hole 1.335 m flat-to-flat / 1.537 m corner-to-corner (same orientation as the segments), inside which the 0.738 m secondary hides; three struts: +V3 (0.1189 m, with two bumps for the mid-boom hinge and magnetic dampers) and two lower struts at azimuth 150 and 210 deg from +V3 (0.1224 m), each from the centre to r = 3.30 m. Geometric clear area of the STPSF model 25.78 m^2 (measured 25.44 m^2). Diffraction: six bright spikes at 60 deg plus a fainter horizontal pair from the +V3 strut.",
+   "explorer_inputs": {
+    "kind": "hex18 (STPSF polygons)",
+    "frame": "entrance pupil seen from the sky looking in: x = +V2 (right), y = +V3 (up), metres",
+    "n_segments": 18,
+    "rings": "inner 6 (A1-A6, r = 1.3235 m); outer 12 (B1-B6 at r = 2.6347 m on the outline corners, C1-C6 at r = 2.2859 m mid-side); empty centre",
+    "segment_flat_to_flat_m": 1.32,
+    "segment_corner_to_corner_m_DERIVED": 1.524,
+    "segment_gap_m": 0.007,
+    "segment_orientation": "flat sides up: edges perpendicular to V3 at top and bottom, corners along +/-V2",
+    "outline_orientation": "rotated 30 deg to the segments: corners (B segments) toward +/-V3 and +/-30 deg from +/-V2; serrated flat sides centred on the C segments (+/-V2, +/-60 deg)",
+    "circumscribed_m": 6.6035,
+    "outline_flat_to_flat_m": 6.575,
+    "inscribed_m": 5.4733,
+    "central_hole": {
+     "shape": "hexagon, same orientation as the segments",
+     "flat_to_flat_m": 1.3352,
+     "corner_to_corner_m": 1.5374,
+     "area_m2": 1.544
+    },
+    "eps_equivalent_DERIVED": {
+     "hole_flat_to_flat_over_6p6": 0.202,
+     "hole_equal_area_over_6p6": 0.212,
+     "secondary_only": 0.112
+    },
+    "secondary_obscuration": "none beyond the hole (0.738 m secondary inside it)",
+    "struts": [
+     {
+      "name": "strut3 (+V3, deployment hinge)",
+      "azimuth_from_V3_deg": 0,
+      "angle_from_V2_deg": 90,
+      "width_m": 0.11887,
+      "r_m": [
+       0,
+       3.3
+      ],
+      "bumps": [
+       {
+        "r_m": [
+         2.14627,
+         2.3645
+        ],
+        "width_m": 0.16519
+       },
+       {
+        "r_m": [
+         2.48335,
+         2.54445
+        ],
+        "width_m": 0.13959
+       }
+      ]
+     },
+     {
+      "name": "strut1 (lower, +V2 side)",
+      "azimuth_from_V3_deg": 150,
+      "angle_from_V2_deg": -60,
+      "width_m": 0.12243,
+      "r_m": [
+       0,
+       3.3
+      ]
+     },
+     {
+      "name": "strut2 (lower, -V2 side)",
+      "azimuth_from_V3_deg": 210,
+      "angle_from_V2_deg": -120,
+      "width_m": 0.12243,
+      "r_m": [
+       0,
+       3.3
+      ]
+     }
+    ],
+    "areas_m2": {
+     "segments_STPSF_DERIVED": 26.641,
+     "struts_over_segments_DERIVED": 0.86183,
+     "clear_STPSF_DERIVED": 25.779,
+     "measured_unobscured": 25.44,
+     "JDox_unobscured": 25.4,
+     "JDox_polished": 26.3
+    },
+    "diffraction_spikes": "6 bright at 60 deg intervals (segment and outline edges) + 2 fainter horizontal (along V2) from the +V3 strut (R23)"
+   },
+   "segment_centres_STPSF": [
+    {
+     "name": "A1-1",
+     "x_V2_m": 0.0,
+     "y_V3_m": 1.3235,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "A2-2",
+     "x_V2_m": 1.146185,
+     "y_V3_m": 0.66175,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "A3-3",
+     "x_V2_m": 1.146185,
+     "y_V3_m": -0.66175,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "A4-4",
+     "x_V2_m": 0.0,
+     "y_V3_m": -1.3235,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "A5-5",
+     "x_V2_m": -1.146185,
+     "y_V3_m": -0.66175,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "A6-6",
+     "x_V2_m": -1.146185,
+     "y_V3_m": 0.66175,
+     "ring": "inner (A)"
+    },
+    {
+     "name": "B1-7",
+     "x_V2_m": 0.0,
+     "y_V3_m": 2.634719,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "B2-9",
+     "x_V2_m": 2.281734,
+     "y_V3_m": 1.31736,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "B3-11",
+     "x_V2_m": 2.281734,
+     "y_V3_m": -1.317359,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "B4-13",
+     "x_V2_m": 0.0,
+     "y_V3_m": -2.634719,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "B5-15",
+     "x_V2_m": -2.281734,
+     "y_V3_m": -1.31736,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "B6-17",
+     "x_V2_m": -2.281734,
+     "y_V3_m": 1.31736,
+     "ring": "outer (B)"
+    },
+    {
+     "name": "C1-8",
+     "x_V2_m": 1.142963,
+     "y_V3_m": 1.97967,
+     "ring": "outer (C)"
+    },
+    {
+     "name": "C2-10",
+     "x_V2_m": 2.285926,
+     "y_V3_m": 0.0,
+     "ring": "outer (C)"
+    },
+    {
+     "name": "C3-12",
+     "x_V2_m": 1.142963,
+     "y_V3_m": -1.97967,
+     "ring": "outer (C)"
+    },
+    {
+     "name": "C4-14",
+     "x_V2_m": -1.142963,
+     "y_V3_m": -1.97967,
+     "ring": "outer (C)"
+    },
+    {
+     "name": "C5-16",
+     "x_V2_m": -2.285926,
+     "y_V3_m": -0.0,
+     "ring": "outer (C)"
+    },
+    {
+     "name": "C6-18",
+     "x_V2_m": -1.142963,
+     "y_V3_m": 1.97967,
+     "ring": "outer (C)"
+    }
+   ],
+   "segment_vertices_STPSF": {
+    "A1-1": [
+     [
+      -0.381,
+      0.6676
+     ],
+     [
+      -0.7588,
+      1.322
+     ],
+     [
+      -0.381,
+      1.9764
+     ],
+     [
+      0.381,
+      1.9764
+     ],
+     [
+      0.7588,
+      1.322
+     ],
+     [
+      0.381,
+      0.6676
+     ]
+    ],
+    "A2-2": [
+     [
+      0.3877,
+      0.6638
+     ],
+     [
+      0.7655,
+      1.3182
+     ],
+     [
+      1.5211,
+      1.3182
+     ],
+     [
+      1.9021,
+      0.6582
+     ],
+     [
+      1.5243,
+      0.0038
+     ],
+     [
+      0.7687,
+      0.0038
+     ]
+    ],
+    "A3-3": [
+     [
+      0.7687,
+      -0.0038
+     ],
+     [
+      1.5243,
+      -0.0038
+     ],
+     [
+      1.9021,
+      -0.6582
+     ],
+     [
+      1.5211,
+      -1.3182
+     ],
+     [
+      0.7655,
+      -1.3182
+     ],
+     [
+      0.3877,
+      -0.6638
+     ]
+    ],
+    "A4-4": [
+     [
+      0.381,
+      -0.6676
+     ],
+     [
+      0.7588,
+      -1.322
+     ],
+     [
+      0.381,
+      -1.9764
+     ],
+     [
+      -0.381,
+      -1.9764
+     ],
+     [
+      -0.7588,
+      -1.322
+     ],
+     [
+      -0.381,
+      -0.6676
+     ]
+    ],
+    "A5-5": [
+     [
+      -0.3877,
+      -0.6638
+     ],
+     [
+      -0.7655,
+      -1.3182
+     ],
+     [
+      -1.5211,
+      -1.3182
+     ],
+     [
+      -1.9021,
+      -0.6582
+     ],
+     [
+      -1.5243,
+      -0.0038
+     ],
+     [
+      -0.7687,
+      -0.0038
+     ]
+    ],
+    "A6-6": [
+     [
+      -0.7687,
+      0.0038
+     ],
+     [
+      -1.5243,
+      0.0038
+     ],
+     [
+      -1.9021,
+      0.6582
+     ],
+     [
+      -1.5211,
+      1.3182
+     ],
+     [
+      -0.7655,
+      1.3182
+     ],
+     [
+      -0.3877,
+      0.6638
+     ]
+    ],
+    "B1-7": [
+     [
+      0.381,
+      3.2797
+     ],
+     [
+      0.7588,
+      2.6318
+     ],
+     [
+      0.381,
+      1.984
+     ],
+     [
+      -0.381,
+      1.984
+     ],
+     [
+      -0.7588,
+      2.6318
+     ],
+     [
+      -0.381,
+      3.2797
+     ]
+    ],
+    "B2-9": [
+     [
+      3.0308,
+      1.3099
+     ],
+     [
+      2.6586,
+      0.6587
+     ],
+     [
+      1.9087,
+      0.662
+     ],
+     [
+      1.5277,
+      1.322
+     ],
+     [
+      1.8998,
+      1.9731
+     ],
+     [
+      2.6498,
+      1.9698
+     ]
+    ],
+    "B3-11": [
+     [
+      2.6498,
+      -1.9698
+     ],
+     [
+      1.8998,
+      -1.9731
+     ],
+     [
+      1.5277,
+      -1.322
+     ],
+     [
+      1.9087,
+      -0.662
+     ],
+     [
+      2.6586,
+      -0.6587
+     ],
+     [
+      3.0308,
+      -1.3099
+     ]
+    ],
+    "B4-13": [
+     [
+      -0.381,
+      -3.2797
+     ],
+     [
+      -0.7588,
+      -2.6318
+     ],
+     [
+      -0.381,
+      -1.984
+     ],
+     [
+      0.381,
+      -1.984
+     ],
+     [
+      0.7588,
+      -2.6318
+     ],
+     [
+      0.381,
+      -3.2797
+     ]
+    ],
+    "B5-15": [
+     [
+      -3.0308,
+      -1.3099
+     ],
+     [
+      -2.6586,
+      -0.6587
+     ],
+     [
+      -1.9087,
+      -0.662
+     ],
+     [
+      -1.5277,
+      -1.322
+     ],
+     [
+      -1.8998,
+      -1.9731
+     ],
+     [
+      -2.6498,
+      -1.9698
+     ]
+    ],
+    "B6-17": [
+     [
+      -2.6498,
+      1.9698
+     ],
+     [
+      -1.8998,
+      1.9731
+     ],
+     [
+      -1.5277,
+      1.322
+     ],
+     [
+      -1.9087,
+      0.662
+     ],
+     [
+      -2.6586,
+      0.6587
+     ],
+     [
+      -3.0308,
+      1.3099
+     ]
+    ],
+    "C1-8": [
+     [
+      0.7652,
+      2.6275
+     ],
+     [
+      1.518,
+      2.6292
+     ],
+     [
+      1.8929,
+      1.9764
+     ],
+     [
+      1.5211,
+      1.3258
+     ],
+     [
+      0.7655,
+      1.3258
+     ],
+     [
+      0.3876,
+      1.9802
+     ]
+    ],
+    "C2-10": [
+     [
+      2.6581,
+      0.6511
+     ],
+     [
+      3.0359,
+      0.0
+     ],
+     [
+      2.6581,
+      -0.6511
+     ],
+     [
+      1.9087,
+      -0.6544
+     ],
+     [
+      1.5309,
+      0.0
+     ],
+     [
+      1.9087,
+      0.6544
+     ]
+    ],
+    "C3-12": [
+     [
+      1.8929,
+      -1.9764
+     ],
+     [
+      1.518,
+      -2.6292
+     ],
+     [
+      0.7652,
+      -2.6275
+     ],
+     [
+      0.3876,
+      -1.9802
+     ],
+     [
+      0.7655,
+      -1.3258
+     ],
+     [
+      1.5211,
+      -1.3258
+     ]
+    ],
+    "C4-14": [
+     [
+      -0.7652,
+      -2.6275
+     ],
+     [
+      -1.518,
+      -2.6292
+     ],
+     [
+      -1.8929,
+      -1.9764
+     ],
+     [
+      -1.5211,
+      -1.3258
+     ],
+     [
+      -0.7655,
+      -1.3258
+     ],
+     [
+      -0.3876,
+      -1.9802
+     ]
+    ],
+    "C5-16": [
+     [
+      -2.6581,
+      -0.6511
+     ],
+     [
+      -3.0359,
+      -0.0
+     ],
+     [
+      -2.6581,
+      0.6511
+     ],
+     [
+      -1.9087,
+      0.6544
+     ],
+     [
+      -1.5309,
+      -0.0
+     ],
+     [
+      -1.9087,
+      -0.6544
+     ]
+    ],
+    "C6-18": [
+     [
+      -1.8929,
+      1.9764
+     ],
+     [
+      -1.518,
+      2.6292
+     ],
+     [
+      -0.7652,
+      2.6275
+     ],
+     [
+      -0.3876,
+      1.9802
+     ],
+     [
+      -0.7655,
+      1.3258
+     ],
+     [
+      -1.5211,
+      1.3258
+     ]
+    ]
+   },
+   "strut_polygons_STPSF": {
+    "strut1": [
+     [
+      -0.053014,
+      -0.030607
+     ],
+     [
+      1.596986,
+      -2.888491
+     ],
+     [
+      1.703014,
+      -2.827276
+     ],
+     [
+      0.053014,
+      0.030607
+     ],
+     [
+      -0.053014,
+      -0.030607
+     ]
+    ],
+    "strut2": [
+     [
+      -0.053014,
+      0.030607
+     ],
+     [
+      -1.703014,
+      -2.827276
+     ],
+     [
+      -1.596986,
+      -2.888491
+     ],
+     [
+      0.053014,
+      -0.030607
+     ],
+     [
+      -0.053014,
+      0.030607
+     ]
+    ],
+    "strut3": [
+     [
+      0.059435,
+      -0.0
+     ],
+     [
+      0.059435,
+      3.3
+     ],
+     [
+      -0.059435,
+      3.3
+     ],
+     [
+      -0.059435,
+      0.0
+     ],
+     [
+      0.059435,
+      -0.0
+     ]
+    ],
+    "strut3_bumps": [
+     [
+      0.059435,
+      0.666
+     ],
+     [
+      0.059435,
+      2.14627
+     ],
+     [
+      0.082595,
+      2.14627
+     ],
+     [
+      0.082595,
+      2.3645
+     ],
+     [
+      0.059435,
+      2.3645
+     ],
+     [
+      0.059435,
+      2.48335
+     ],
+     [
+      0.069795,
+      2.48335
+     ],
+     [
+      0.069795,
+      2.54445
+     ],
+     [
+      0.059435,
+      2.54445
+     ],
+     [
+      0.059435,
+      3.279674
+     ],
+     [
+      -0.059435,
+      3.279674
+     ],
+     [
+      -0.059435,
+      2.54445
+     ],
+     [
+      -0.069795,
+      2.54445
+     ],
+     [
+      -0.069795,
+      2.48335
+     ],
+     [
+      -0.059435,
+      2.48335
+     ],
+     [
+      -0.059435,
+      2.3645
+     ],
+     [
+      -0.082595,
+      2.3645
+     ],
+     [
+      -0.082595,
+      2.14627
+     ],
+     [
+      -0.059435,
+      2.14627
+     ],
+     [
+      -0.059435,
+      0.666
+     ]
+    ]
+   },
+   "tpupil_format": {
+    "axes": "x = +V2, y = +V3 (entrance pupil, from the sky); ang in deg from +x toward +y; lengths in m",
+    "kind": "hex18 polygons (segment_vertices_STPSF)",
+    "D": 6.6035,
+    "vanes": [
+     {
+      "ang": 90,
+      "w": 0.11887,
+      "r0": 0,
+      "r1": 3.3
+     },
+     {
+      "ang": -60,
+      "w": 0.12243,
+      "r0": 0,
+      "r1": 3.3
+     },
+     {
+      "ang": -120,
+      "w": 0.12243,
+      "r0": 0,
+      "r1": 3.3
+     }
+    ]
+   },
+   "params": {
+    "outline": {
+     "value": "18 hexagons in two rings around a hexagonal hole; outline a serrated hexagon (a 'tricontagon': 30 outer edges, 3 per B and 2 per C segment, DERIVED) with corners toward +/-V3 and at +/-30 deg from +/-V2; circumscribed 6.6035 m, inscribed 5.4733 m",
+     "unit": "",
+     "src": "MC23",
+     "loc": "Fig. 4 caption",
+     "quote": "The primary mirror dimensions and the tiling configuration with 18 hexagonal-shaped segments to form a tricontagon.",
+     "alternatives": [
+      {
+       "value": "polygons of all 18 segments (metres, x = +V2, y = +V3, entrance pupil)",
+       "src": "STC",
+       "loc": "JWST_PRIMARY_SEGMENTS",
+       "quote": "JWST_PRIMARY_SEGMENTS = ("
+      }
+     ],
+     "note": "All vertices are reproduced in pupil.segment_vertices_STPSF (JSON).",
+     "pdf_page": 6
+    },
+    "struts": {
+     "value": "3 struts meeting at the pupil centre: one along +V3 (to r = 3.30 m, crossing A1 and B1 along their centre lines), two at 30 deg either side of -V3 (azimuth 150 and 210 deg from +V3, i.e. -60 and -120 deg from +V2; to r = 3.30 m, along the A3/A4 and A4/A5 gaps and across C3 and C4). Widths in the model: +V3 strut 0.1189 m; lower struts 0.1224 m; bumps on the +V3 strut 0.1652 m wide (r = 2.146-2.365 m) and 0.1396 m wide (r = 2.483-2.544 m)",
+     "unit": "m",
+     "src": "STC",
+     "loc": "JWST_PRIMARY_STRUTS",
+     "quote": "'strut1', ... [-0.05301375, -0.0306075], [1.59698625, -2.88849133], [1.70301375, -2.82727633], [0.05301375, 0.0306075], ... 'strut2', ... [-1.70301375, -2.82727633], [-1.59698625, -2.88849133], ... 'strut3', ... [5.94350000e-02, 3.30000000e00], [-5.94350000e-02, 3.30000000e00], ... [0.082595, 2.14627], [0.082595, 2.3645], ... [0.069795, 2.48335], [0.069795, 2.54445],",
+     "alternatives": [
+      {
+       "value": "bumps on the +V3 strut = mid boom hinge and mag dampers",
+       "src": "STO",
+       "loc": "WebbPrimaryAperture docstring",
+       "quote": "the secondary mirror support struts, including the bumps on the +V3 strut for the mid boom hinge and mag dampers."
+      },
+      {
+       "value": "one vertical strut -> two horizontal spikes",
+       "src": "R23",
+       "loc": "Sec. 4.3",
+       "quote": "six stronger diffraction spikes at 60 degree intervals created by the segment and aperture edges, plus two ... fainter horizontal spikes created by the vertical secondary mirror support.",
+       "pdf_page": 17
+      },
+      {
+       "value": "strut seen in pupil images next to C3 (bottom right)",
+       "src": "MC23",
+       "loc": "Fig. 25 caption",
+       "quote": "The large C3 segment event, which had the largest wavefront effect, can be seen next to the secondary mirror support strut (bottom right).",
+       "pdf_page": 28
+      }
+     ],
+     "note": "Strut widths and positions are known only from the STPSF pupil model; no paper found states them. Attachment: MC23 says the tripod joins the primary centre section; in the pupil model all three struts run from the centre to r = 3.30 m: the +V3 strut ends at the outer edge of B1 (3.2797 m), the lower struts pass the outer corners of C3 and C4 (3.036 m) and end outside the aperture.",
+     "derived": "DERIVED (STC): strut1 axis direction -60.00 deg from +V2 (azimuth 150.00 deg from +V3), width 0.12243 m (perpendicular distance between its long edges), far end (1.6500, -2.8579) m, r = 3.3000 m; strut2 mirror image (-120 deg, azimuth 210 deg); strut3 x = +/-0.059435 m (width 0.11887 m), y = 0 to 3.30 m. The lower struts are parallel to segment edges (edge directions 0, 60, 120 deg), so their diffraction spikes fall on the six segment spikes; only the +V3 strut adds a pair (horizontal, along V2), as R23 describes. Area over segments: strut1 0.270, strut2 0.270, strut3 0.310, bumps 0.011 m^2; total 0.862 m^2."
+    },
+    "secondary_obscuration": {
+     "value": "none beyond the central hole: the 0.738 m secondary lies inside the 1.335 m hexagonal hole, and the pupil model has no circular obscuration (only segments and struts)",
+     "unit": "",
+     "src": "MC23",
+     "loc": "Table 2",
+     "quote": "Secondary 1778.9 convex -1.6598 7169.0 0 0 738",
+     "alternatives": [
+      {
+       "value": "only the struts obscure the polished area",
+       "src": "JDT",
+       "loc": "Primary mirror",
+       "quote": "but the secondary mirror support struts obscure a small portion."
+      },
+      {
+       "value": "model = segments + struts",
+       "src": "STO",
+       "loc": "WebbPrimaryAperture docstring",
+       "quote": "This class has no wavefront errors, it's just the pupil geometry including the segments"
+      }
+     ],
+     "note": "A secondary-mirror baffle is not mentioned in any source found.",
+     "derived": "DERIVED: 0.738 m < hole flat-to-flat 1.335 m (inscribed circle of the hole), so the secondary's shadow falls in the hole. eps for a circular-obscuration explorer model: 0.20 (hole flat-to-flat / 6.6 m), 0.21 (equal-area hole / 6.6 m); the secondary alone 0.112.",
+     "pdf_page": 6
+    },
+    "other_obscurations": {
+     "value": "telescope: none beyond segments, gaps, hole and struts; instrument-specific pupil masks downstream: NIRISS CLEARP (pupil alignment reference), NIRSpec grating stop (8.41 x 7.91 m projected), coronagraph Lyot stops and the AMI mask",
+     "unit": "",
+     "src": "STR",
+     "loc": "NIRISS / NIRSpec sections",
+     "quote": "Note that long wavelength filters (>2.5 microns) are used with a pupil obscuration which includes the pupil alignment reference fixture. This is called the \"CLEARP\" pupil.",
+     "alternatives": [
+      {
+       "value": "NIRSpec grating stop",
+       "src": "STR",
+       "loc": "NIRSpec section",
+       "quote": "a rectangular pupil mask 8.41x7.91 m as projected onto the primary is added to the optical system at the pupil plane after the MSA."
+      },
+      {
+       "value": "NIRISS CLEARP strengthens the spikes",
+       "src": "R23",
+       "loc": "Sec. 4.3",
+       "quote": "NIRISS imaging PSFs at wavelengths ≥ 2.7 µm have stronger diffraction spikes due to additional pupil obscuration from the CLEARP pupil wheel position which must be used with those filters.",
+       "pdf_page": 18
+      }
+     ]
+    }
+   }
+  },
+  "not_found": [
+   "Strut widths, positions and attachment points in any JWST paper or JDox page: the only numbers are the STPSF pupil-model polygons (0.1189 m +V3 strut, 0.1224 m lower struts, 3.30 m long). Lightsey et al. 2012 (Opt. Eng. 51, 011003) and 2014 (SPIE 9143), cited by JDox for the OTE design, are not open access and were not obtained.",
+   "A written statement of the segment orientation in V2/V3 ('flat sides up'): taken from the STPSF vertex lists and the JDox Figure 1 photograph (visual), which agree.",
+   "A secondary-mirror baffle (none mentioned; the secondary sits inside the central hole).",
+   "A published plate scale at the telescope focus and at the Cassegrain (intermediate) focus: DERIVED only (1.5697 and 3.472 arcsec/mm).",
+   "The V1 position of the Cassegrain focus (DERIVED ~+1.39 to +1.40 m) and a post-launch V1 position and radius of curvature of the curved ISIM focal surface (G06 gives ~196 cm behind the vertex, 2006 design).",
+   "The V2/V3 position of the OTE field centre relative to the boresight in text; G06 Fig. 33 gives only axis labels (-9.1 to +9.1' in V2; -5.7 to +3.4' in V3, zero point not stated).",
+   "Segment corner-to-corner size in words (DERIVED 1.524 m from 1.32 m; STPSF 1.517 m)."
+  ],
+  "conflicts": [
+   "Circumscribed diameter: 6.64 m (MC23 Sec. 3.1) vs 6.6 m (MC23 Sec. 1; G06 Fig. 32 'PM diameter = 6.6 m (circumscribed circle)') vs 6.603464 m (STPSF, projected outer corners of the B segments) vs 6605.2 mm (MC23 Table 2 'Phys. Size'). MC23 also calls 6.6 m the entrance-pupil diameter.",
+   "Outline flat-to-flat: 6.575 m (MC23 text) vs '6.6 meters flat to flat' (MC23 Fig. 4 and G06 Fig. 34 labels) vs 6.559 m (STPSF projected, DERIVED).",
+   "Segment size: 1.32 m flat-to-flat (MC23, G06) vs '~1.4 m in diameter' (JDT) vs STPSF projected polygons 1.296-1.314 m flat-to-flat, 1.503-1.518 m corner-to-corner, and JWST_SEGMENT_RADIUS = 1.517/2.",
+   "Gaps: nominal 7 mm (MC23) vs 7.6-7.7 mm between the STPSF polygons (DERIVED).",
+   "Area: 25.44 m^2 measured (MC23 Table 1 and Sec. 5.4; R23) vs 25.4 m^2 (JDT) vs 25 m^2 (G06 design; requirement > 25 m^2) vs 25.78 m^2 from the STPSF polygons (DERIVED); polished area 26.3 m^2 (JDT) vs 26.64 m^2 (STPSF segments, DERIVED).",
+   "Secondary support: 'a tripod that consists of four composite tubes' (MC23) vs a 'tripod' (G06, JDT) and three strut polygons (STPSF).",
+   "Cassegrain-focus position (DERIVED only): V1 = +1402 mm from the EFL ratio vs +1389 mm from the paraxial mirror equation with the tabulated radii (table rounding)."
+  ],
+  "notes": [
+   "Pupil frame used throughout: entrance pupil seen from the sky looking in (STPSF convention, 'consistent with the JWST WSS'), x = +V2 to the right, y = +V3 up, metres. In this frame segment A1 and B1 lie on +V3, C2 on +V2, A4 and B4 on -V3. The +V3 strut is the one with the deployment hinge (STO). On the sky / exit pupil the picture is mirrored (STD).",
+   "Reflections: 2 to the Cassegrain (intermediate) focus (PM, SM); 4 to the telescope focal surface (PM, SM, TM, FSM); each instrument then starts with its own pick-off mirror(s) near the focal surface (MC23: 'one or more pickoff mirrors near the telescope’s focal surface').",
+   "Light path along V1 (MC23 Table 2, mm): PM vertex 0 -> SM +7169.0 -> Cassegrain focus ~+1395 (DERIVED) at the AOS entrance -> tertiary -796.3 (behind the PM vertex) -> FSM +1047.8 (exit pupil) -> curved focal surface ~-1960 (G06), behind the primary, where the ISIM pick-offs sit.",
+   "Explorer pupil: draw the 18 STPSF polygons (segment_vertices_STPSF) and subtract the three struts (strut_polygons_STPSF); a circular D/eps model is an approximation (D = 6.6 m, eps ~0.20 for the hexagonal hole).",
+   "The JDox Figure 1 photograph shows the secondary stowed: its strut positions are not the deployed geometry."
+  ]
+ }
+}

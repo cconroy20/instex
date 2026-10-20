@@ -1,0 +1,1682 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Giant Magellan Telescope (GMT, under construction) -- every focal station and the entrance pupil",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/gmt.md (same content as Markdown). Structure follows keck.json / magellan.json for a single telescope: sources{key: cite, file, url}; gmt: title, telescope (machine-readable primary, pupil, foci list; refs point to sourced params as 'gmt.<param>'), params, not_found, conflicts, notes.",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/gmt/. derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (its caption or a nearby text quote is checked). NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalisation": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, middle dot, the degree sign and the white-bullet degree glyph (U+25E6) normalised; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page (PDF p. = page index of the saved PDF; for the GMT OAD this equals the printed 'Page N of 262'), tag-stripped text and raw source for HTML (UTF-8), .py and .md as is",
+  "pupil_frame": "hcipy make_gmt_aperture frame (metres in the entrance pupil, angles from +x); orientation relative to the elevation axis NOT FOUND",
+  "design_vs_asbuilt": "OAD Rev. G (2021) = current architecture; ORD Rev. E (2021) = requirements; CoDR (2006) = conceptual design; SB18, F22, B14 = GMTO overviews; hcipy = third-party pupil model",
+  "check_result": "134 quotes checked against the saved files, 0 failures (2026-10-19)"
+ },
+ "sources": {
+  "OAD": {
+   "cite": "GMTO Corporation, \"GMT Observatory Architecture Document\", GMT-REQ-03215 Rev. G (10/04/2021, Released; B. Walls, B. Sitarski, A. Santana, G. Angeli, A. Bouchez, R. Goodrich, B. Bigelow, R. Millan-Gabet, O. McIrwin, J. Souza, A. Souza, M. Cox): Sec. 2.1 product breakdown, Sec. 3.1 optical design, optical layouts and focal stations (Tables 3-1 to 3-3), Sec. 4.2.2 M1 tolerances, Sec. 4.6 vignetting, Sec. 4.14 effective collecting area (Table 4-29). Page numbers = 'Page N of 262' = PDF page. This is the document hcipy cites (as Rev. F) for its GMT pupil",
+   "file": "rawdata/telescopes/gmt/GMT-REQ-03215_RevG_2021_Observatory_Architecture_Document_giantmagellan.pdf",
+   "url": "https://giantmagellan.org/wp-content/uploads/2022/04/GMT-REQ-03215_Observatory-Architecture-Rev-G..pdf"
+  },
+  "ORD": {
+   "cite": "GMTO Corporation, \"GMT Observatory Requirements Document\", GMT-REQ-03214 Rev. E (10/04/2021, Released): REQ-L2-ORD-106537 on-axis effective collecting area",
+   "file": "rawdata/telescopes/gmt/GMT-REQ-03214_RevE_2021_Observatory_Requirements_Document_giantmagellan.pdf",
+   "url": "https://giantmagellan.org/wp-content/uploads/2022/04/GMT-DOC-03214_Observatory-Requirements-Rev.-E.pdf"
+  },
+  "SB18": {
+   "cite": "GMTO Corporation 2018, \"The Giant Magellan Telescope Science Book 2018\" (PDF created 2018-08-28): Ch. 1 Introduction (1.2 The Design of the GMT, Table 1-1 Basic GMT Properties, Fig. 1-4 caption, 1.4 Focal Stations). Page = PDF page",
+   "file": "rawdata/telescopes/gmt/GMTO_2018_GMT_Science_Book_giantmagellan.pdf",
+   "url": "https://giantmagellan.org/wp-content/uploads/2021/11/GMTScienceBook2018.pdf"
+  },
+  "F22": {
+   "cite": "Fanson, J., Bernstein, R., Ashby, D., et al. 2022, \"Overview and status of the Giant Magellan Telescope project\", Proc. SPIE 12182, 121821C (2022SPIE12182E..1CF), GMTO-hosted copy: Sec. 3 Telescope design status, Figs. 1-2",
+   "file": "rawdata/telescopes/gmt/Fanson2022_SPIE12182_GMT_overview_status_giantmagellan.pdf",
+   "url": "https://giantmagellan.org/wp-content/uploads/2023/04/SPIE22.pdf"
+  },
+  "B14": {
+   "cite": "Bouchez, A. H., Acton, D. S., Biasi, R., et al. 2014, \"The Giant Magellan Telescope adaptive optics program\", Proc. SPIE 9148, 91480W (2014SPIE.9148E..0WB), GMTO-hosted copy: Sec. 1 introduction, Sec. 2.2, Fig. 2 'GMT on-axis pupil'",
+   "file": "rawdata/telescopes/gmt/Bouchez2014_SPIE9148_GMT_AO_program_giantmagellan.pdf",
+   "url": "https://giantmagellan.org/wp-content/uploads/2021/11/The-Giant-Magellan-Telescope-adaptive-optics-program.pdf"
+  },
+  "CODR6": {
+   "cite": "GMT Consortium 2006, GMT Conceptual Design Report, Chapter 6 'Optics' (GMT-ID-01467): Sec. 6.1-6.2.1, Table 6-1 'GMT Optical Prescription (no corrector)'. 2006 CONCEPTUAL DESIGN values; Internet Archive capture of 2013-06-24 (the gmto.org Resources copy)",
+   "file": "rawdata/telescopes/gmt/wayback20130624_GMT_CoDR2006_GMT-ID-01467_Chapter6_Optics.pdf",
+   "url": "https://web.archive.org/web/20130624210527id_/http://www.gmto.org/Resources/GMT-ID-01467-Chapter_6_Optics.pdf"
+  },
+  "CODR7": {
+   "cite": "GMT Consortium 2006, GMT Conceptual Design Report, Chapter 7 'Telescope Structure' (GMT-ID-01468): Sec. 7.1 overview (secondary truss shadow). 2006 CONCEPTUAL DESIGN; Internet Archive capture of 2013-06-24",
+   "file": "rawdata/telescopes/gmt/wayback20130624_GMT_CoDR2006_GMT-ID-01468_Chapter7_Telescope_Structure.pdf",
+   "url": "https://web.archive.org/web/20130624221840id_/http://www.gmto.org/Resources/GMT-ID-01468-Chapter_7_Telescope_Structure.pdf"
+  },
+  "HCI": {
+   "cite": "hcipy (High Contrast Imaging for Python; Por et al.), hcipy/aperture/realistic.py, function make_gmt_aperture, GitHub ehpor/hcipy commit ee20b03 (2026-08-14). Third-party pupil model (not an observatory document); its docstring cites GMT-REQ-03215 Rev. F plus 'internal GMTO files' -- SAME FILE as magellan.json key HCI (byte-identical copy saved here)",
+   "file": "rawdata/telescopes/gmt/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "HCIG": {
+   "cite": "hcipy, hcipy/aperture/generic.py (make_regular_polygon_aperture, make_elliptical_aperture, make_rotated_aperture definitions), same commit ee20b03 -- SAME FILE as magellan.json key HCIG (byte-identical copy)",
+   "file": "rawdata/telescopes/gmt/hcipy_ee20b03_aperture_generic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/generic.py"
+  },
+  "HCIF": {
+   "cite": "hcipy, hcipy/field/cartesian_grid.py (CartesianGrid.shift adds the shift to the coordinates; CartesianGrid.rotated multiplies them by R(angle)): the sign conventions of the aperture code, same commit ee20b03",
+   "file": "rawdata/telescopes/gmt/hcipy_ee20b03_field_cartesian_grid.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/field/cartesian_grid.py"
+  },
+  "HCIF2": {
+   "cite": "hcipy, hcipy/field/grid.py (Grid.shifted returns a copy shifted with CartesianGrid.shift), same commit ee20b03",
+   "file": "rawdata/telescopes/gmt/hcipy_ee20b03_field_grid.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/field/grid.py"
+  },
+  "HE22": {
+   "cite": "Hedglen, A. D., Close, L. M., Haffert, S. Y., et al. 2022, \"The Giant Magellan Telescope high contrast adaptive optics phasing testbed (p-HCAT)\", arXiv:2206.03614 (2022arXiv220603614H): abstract (segment gaps)",
+   "file": "rawdata/telescopes/gmt/Hedglen2022_GMT_pHCAT_arXiv2206.03614.pdf",
+   "url": "https://arxiv.org/pdf/2206.03614"
+  },
+  "K24": {
+   "cite": "Kautz, M. Y., Haffert, S. Y., Close, L. M., et al. 2024, \"Phasing the Giant Magellan Telescope: lab experiments and first on-sky demonstration\", JATIS 10, 049005 (2024JATIS..10d9005K), arXiv:2501.08388: Sec. 1 (segment gaps)",
+   "file": "rawdata/telescopes/gmt/Kautz2024_JATIS_PhasingGMT_arXiv2501.08388.pdf",
+   "url": "https://arxiv.org/pdf/2501.08388"
+  }
+ },
+ "gmt": {
+  "title": "Giant Magellan Telescope (under construction): direct Gregorian (narrow and wide field), folded ports, auxiliary, instrument-platform and gravity-invariant stations; entrance pupil",
+  "telescope": {
+   "name": "Giant Magellan Telescope (GMT)",
+   "site": "Las Campanas Peak (Cerro Las Campanas), Chile; 2,550 m (F22) / 2415 m platform (OAD) / 2518 m (B14)",
+   "status": "under construction",
+   "mount": "alt-azimuth; Gregorian Instrument Rotator 6 m x 9 m",
+   "optical_design": "aplanatic Gregorian, f/0.71 primary, f/8.16 final",
+   "primary": {
+    "n_segments": 7,
+    "segment_clear_aperture_m": 8.365,
+    "circumscribed_diameter_m": 25.448,
+    "radius_of_curvature_m": 36.0,
+    "conic": -0.998286,
+    "focal_length_m_DERIVED": 18.0,
+    "F": 0.71,
+    "F_basis": "18 m / 25.4 m",
+    "material": "borosilicate honeycomb (Caris Mirror Lab)",
+    "refs": [
+     "gmt.primary_prescription",
+     "gmt.primary_focal_length",
+     "gmt.primary_focal_ratio",
+     "gmt.primary_material"
+    ]
+   },
+   "secondary": {
+    "name": "Adaptive Secondary Mirror (ASM); identical Fast-steering Secondary Mirror (FSM) for commissioning/servicing",
+    "type": "Gregorian (after prime focus)",
+    "shape": "concave (aplanatic: ellipsoid)",
+    "n_segments": 7,
+    "segment_diameter_m": 1.05,
+    "segment_diameter_alternatives_m": [
+     1.063,
+     1.1
+    ],
+    "overall_diameter_m_CoDR2006": 3.2,
+    "radius_m_CoDR2006": 4.2058,
+    "conic_CoDR2006": -0.71087,
+    "m1_m2_separation_m_CoDR2006": 20.29,
+    "conjugate_altitude_m": 165,
+    "asm_actuators_per_segment": 672,
+    "face_sheet_mm": 2,
+    "magnification_DERIVED": 11.53,
+    "exit_pupil": {
+     "diameter_mm": 2935,
+     "below_m2_mm": 2320
+    },
+    "baffle_diameter_m": 3.6,
+    "refs": [
+     "gmt.m2_segments",
+     "gmt.m2_conjugation",
+     "gmt.m1_m2_separation",
+     "gmt.exit_pupil",
+     "gmt.m2_baffle"
+    ]
+   },
+   "pupil": {
+    "outline": "seven segments: an 8.365 m circular centre segment and six off-axis segments whose 8.365 m circular clear apertures project to ellipses (8.365 m tangential x 8.133 m radial), centred 8.657 m from the axis at 60 deg intervals",
+    "frame": "hcipy make_gmt_aperture frame (x, y in metres in the entrance pupil, angles from +x). Orientation relative to the elevation axis NOT FOUND; B14 Fig. 2 draws the same pupil rotated by 30 deg (segments at 30, 90, ... deg).",
+    "n_segments": 7,
+    "circumscribed_diameter_m": 25.448,
+    "circumscribed_basis": "CoDR Table 6-1; DERIVED 25.447 m from the OAD segment geometry",
+    "nominal_diameter_m": 25.4,
+    "segment_clear_aperture_m": 8.365,
+    "segment_polished_diameter_m": 8.405,
+    "off_axis_tilt_deg": 13.522,
+    "off_axis_centre_on_surface_m": 8.71,
+    "off_axis_centre_in_pupil_m_DERIVED": 8.657,
+    "segment_gaps": {
+     "on_to_off_axis_clear_aperture_m_DERIVED": 0.408,
+     "off_to_off_axis_clear_aperture_m_DERIVED": 0.349,
+     "physical_on_to_off_m_CoDR2006": 0.359,
+     "physical_off_to_off_m_CoDR2006": 0.295,
+     "hcipy_on_to_off_m": 0.447
+    },
+    "segments_DERIVED": [
+     {
+      "segment": "P7 (centre; FIGURE READ-OFF label)",
+      "x_m": 0.0,
+      "y_m": 0.0,
+      "shape": "circle",
+      "diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 1",
+      "angle_deg": 0,
+      "x_m": 8.6569,
+      "y_m": 0.0,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 2",
+      "angle_deg": 60,
+      "x_m": 4.3285,
+      "y_m": 7.4971,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 3",
+      "angle_deg": 120,
+      "x_m": -4.3284,
+      "y_m": 7.4971,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 4",
+      "angle_deg": 180,
+      "x_m": -8.6569,
+      "y_m": 0.0,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 5",
+      "angle_deg": 240,
+      "x_m": -4.3285,
+      "y_m": -7.4971,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     },
+     {
+      "segment": "off-axis 6",
+      "angle_deg": 300,
+      "x_m": 4.3285,
+      "y_m": -7.4971,
+      "shape": "ellipse",
+      "radial_diameter_m": 8.1331,
+      "tangential_diameter_m": 8.365
+     }
+    ],
+    "central_obscuration_diameter_m": 3.6,
+    "central_obscuration_basis": "M2 baffle circumscribing the M2 segments' range of motion (OAD Table 4-29)",
+    "central_obscuration_alternatives_m": {
+     "hcipy_hole": 3.495,
+     "CoDR2006_baffle": 3.2
+    },
+    "eps_explorer": 0.141,
+    "eps_note": "3.6/25.448; hcipy 3.495/25.448 = 0.137",
+    "m1_centre_hole_m": {
+     "CoDR2006": 1.78,
+     "note": "inside the baffle shadow; current size NOT FOUND"
+    },
+    "truss": {
+     "n_legs": 3,
+     "on_segments": "centre segment only (outer six unobstructed)",
+     "node_radius_m": 2.386,
+     "node_angles_deg": [
+      30,
+      150,
+      270
+     ],
+     "attachment_triangle": {
+      "circumdiameter_m": 4.93,
+      "vertex_angles_deg": [
+       30,
+       150,
+       270
+      ],
+      "note": "masked out entirely; its corners stick out of the 3.495 m hole to r = 2.465 m"
+     },
+     "legs_hcipy_DERIVED": [
+      {
+       "node_angle_deg": 270,
+       "node_xy_m": [
+        0.0,
+        -2.386
+       ],
+       "struts": [
+        {
+         "start_xy_m": [
+          0.0,
+          -2.386
+         ],
+         "direction_deg": 350.17,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          0.0,
+          -2.386
+         ],
+         "direction_deg": 189.83,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          0.05,
+          -2.409
+         ],
+         "direction_deg": 11.2,
+         "width_m": 0.115,
+         "edge_divergence_deg": 0.0
+        }
+       ]
+      },
+      {
+       "node_angle_deg": 30,
+       "node_xy_m": [
+        2.0663,
+        1.193
+       ],
+       "struts": [
+        {
+         "start_xy_m": [
+          2.0663,
+          1.193
+         ],
+         "direction_deg": 110.17,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          2.0663,
+          1.193
+         ],
+         "direction_deg": 309.83,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          2.0613,
+          1.2478
+         ],
+         "direction_deg": 131.2,
+         "width_m": 0.115,
+         "edge_divergence_deg": 0.0
+        }
+       ]
+      },
+      {
+       "node_angle_deg": 150,
+       "node_xy_m": [
+        -2.0663,
+        1.193
+       ],
+       "struts": [
+        {
+         "start_xy_m": [
+          -2.0663,
+          1.193
+         ],
+         "direction_deg": 230.17,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          -2.0663,
+          1.193
+         ],
+         "direction_deg": 69.83,
+         "width_at_start_m": 0.119,
+         "edge_divergence_deg": 1.16
+        },
+        {
+         "start_xy_m": [
+          -2.1113,
+          1.1612
+         ],
+         "direction_deg": 251.2,
+         "width_m": 0.115,
+         "edge_divergence_deg": 0.0
+        }
+       ]
+      }
+     ],
+     "strut_note": "directions and starting points follow hcipy's grid conventions (DERIVED); the diverging struts widen by 2 sin(1.16 deg) = 0.0405 m per metre; all struts end at the centre-segment rim (r = 4.1825 m)",
+     "shadow_area_m2": {
+      "OAD_mount_trusses_estimate": 5.463,
+      "OAD_allocation": 5.54,
+      "hcipy_raster_struts_DERIVED": 4.46,
+      "hcipy_raster_triangle_corners_DERIVED": 0.94,
+      "CoDR2006_fraction_of_centre_segment": 0.09
+     }
+    },
+    "asm_face_sheet_holes": "none in the current design (OAD 2021: continuous); the 2014 design had a small hole at each ASM segment centre, projected onto the outer segments",
+    "collecting_area_m2": {
+     "headline": 368,
+     "geometric_7_clear_apertures": 375.558,
+     "OAD_requirement_min": 358,
+     "ORD_requirement_min": 356,
+     "OAD_current_best_estimate": 357.008,
+     "hcipy_raster_DERIVED": 358.48
+    },
+    "refs": [
+     "gmt.n_segments",
+     "gmt.segment_clear_aperture",
+     "gmt.off_axis_tilt",
+     "gmt.off_axis_distance",
+     "gmt.segment_angles",
+     "gmt.circumscribed_diameter",
+     "gmt.segment_gaps",
+     "gmt.m2_baffle",
+     "gmt.central_hole_m1",
+     "gmt.truss",
+     "gmt.truss_hcipy",
+     "gmt.asm_holes",
+     "gmt.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "GMT-DGNF",
+     "name": "Direct Gregorian, narrow field (no corrector)",
+     "status": "planned (telescope under construction)",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m": 207.589,
+     "F_nominal": 8.16,
+     "F_basis": "207.589 m / 25.4 m (8.157 on 25.448 m)",
+     "plate_scale_arcsec_per_mm": 0.9936,
+     "plate_scale_arcsec_per_mm_quoted": 0.994,
+     "plate_scale_mm_per_arcsec": 1.0064,
+     "field_arcmin": 20,
+     "field_mm_DERIVED": 1208,
+     "field_note": ">= 10' required (Table 3-1); 20' usable, M2 vignetting rising to 7% at the edge; 0.6\" rms images at the 20' edge without corrector",
+     "wavelength_um": [
+      0.32,
+      25
+     ],
+     "n_reflections": 2,
+     "mirrors": [
+      "M1 (7 segments)",
+      "M2 ASM/FSM (7 segments)"
+     ],
+     "location": "on axis below M1, curved focal surface 5.83 m below the M1 vertex, in the DG Deployed Instrument Bay of the Gregorian Instrument Rotator (3 DG instruments stored 2.9 m off axis, deployed linearly); M3 retracted",
+     "instruments_planned": [
+      "GMACS",
+      "ComCam (commissioning camera, 6' field)"
+     ],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "focal_length": "gmt.final_focal_length",
+      "F": "gmt.final_focal_ratio",
+      "plate_scale": "gmt.plate_scale",
+      "field": "gmt.optical_layouts",
+      "vignetting": "gmt.vignetting",
+      "location": "gmt.gregorian_focus_location",
+      "station": "gmt.dg_station",
+      "reflections": "gmt.reflections",
+      "instruments": "gmt.instruments",
+      "image_quality": "gmt.image_quality"
+     }
+    },
+    {
+     "id": "GMT-DGWF",
+     "name": "Direct Gregorian, wide field (Corrector-ADC)",
+     "status": "planned",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m_DERIVED": 212.2,
+     "F_nominal": 8.34,
+     "F_basis": "Science Book 'with Wide Field Corrector'; focal length = 8.34 x 25.448 m (DERIVED)",
+     "plate_scale_arcsec_per_mm_DERIVED": 0.972,
+     "field_arcmin": 20,
+     "field_note": "20' corrected; partly vignetted by the AGWS (Table 3-3 note b); < 0.1\" images",
+     "wavelength_um": [
+      0.35,
+      1.3
+     ],
+     "wavelength_note": "0.35-1.3 um in the requirement; '350 nm to 1.0 um' in the OAD text",
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2"
+     ],
+     "refractive": [
+      "C-ADC L1 + ADC prisms (deployable, two powered prism surfaces)",
+      "L2 field lens inside each DGWF instrument"
+     ],
+     "location": "on axis; back focal distance 6.01 m from the M1 vertex",
+     "instruments_planned": [
+      "MANIFEST (fibre system feeding GMACS and G-CLEF over the 20' field)"
+     ],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "c_adc": "gmt.c_adc",
+      "layouts": "gmt.optical_layouts",
+      "instruments": "gmt.instruments"
+     }
+    },
+    {
+     "id": "GMT-FP",
+     "name": "Folded Port (3 stations) via the flat M3",
+     "status": "planned",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m": 207.589,
+     "F_nominal": 8.16,
+     "plate_scale_arcsec_per_mm": 0.9936,
+     "field_arcmin": 3,
+     "field_mm_DERIVED": 181,
+     "field_note": "M3 reflects a 3.0' unvignetted field (science fields < 30\"; 3' technical field for LTAO guide stars); M3 vignettes <= 48% of the 20' DG field when deployed",
+     "wavelength_um": [
+      0.45,
+      25
+     ],
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3 flat at 45 deg"
+     ],
+     "location": "M3 1.93 m ahead of the Gregorian focus; folded focus 1.93 m off axis, ~3.90 m below the M1 vertex (DERIVED); 3 instruments on the top surface of the GIR; M3 rotates about the axis to pick FP / AP / IP",
+     "instruments_planned": [
+      "GMTIFS",
+      "GMTNIRS"
+     ],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "m3": "gmt.m3",
+      "station": "gmt.fp_station",
+      "reflections": "gmt.reflections",
+      "instruments": "gmt.instruments",
+      "stations": "gmt.focal_stations"
+     }
+    },
+    {
+     "id": "GMT-AP",
+     "name": "Auxiliary Ports (2) on the elevation axis ('similar to Nasmyth')",
+     "status": "planned (no instrument named)",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m": "NOT FOUND (instrument-provided ~5 m relay from the folded focus; f/8.16 at the folded focus)",
+     "field_arcmin": 3,
+     "n_reflections": "3 to the folded focus + relay (NOT FOUND)",
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "instrument relay"
+     ],
+     "location": "outboard side of both C-rings on the elevation axis; gravity invariant; instrument provides de-rotation",
+     "instruments_planned": [
+      "e.g. high-contrast AO imagers (SB18)"
+     ],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "station": "gmt.ap_station",
+      "stations": "gmt.focal_stations"
+     }
+    },
+    {
+     "id": "GMT-IP",
+     "name": "Instrument Platform port",
+     "status": "planned",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m": "NOT FOUND (~5 m relay or fibre)",
+     "field_arcmin": 3,
+     "n_reflections": "3 + relay (NOT FOUND)",
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "relay"
+     ],
+     "location": "+Y side of the fixed Instrument Platform; 1D gravity variation; GIR held fixed",
+     "instruments_planned": [],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "station": "gmt.ip_station"
+     }
+    },
+    {
+     "id": "GMT-GIS",
+     "name": "Gravity Invariant Station (azimuth disk)",
+     "status": "planned",
+     "secondary": {
+      "name": "ASM (or FSM)",
+      "shape": "concave, 7 x 1.05 m segments",
+      "ref": "gmt.m2_segments"
+     },
+     "focal_length_m": "NOT FOUND (fibre or long relay)",
+     "field_arcmin": "instrument dependent",
+     "n_reflections": "NOT FOUND",
+     "location": "one side of the azimuth disk; light via a long relay through the elevation axis or via fibres from the DG or FP focus; GIR held fixed, so the field rotates at the fibre unit",
+     "instruments_planned": [
+      "G-CLEF (front-end on the Instrument Platform with its own tertiary and relay on the GIR; fibre to the vacuum spectrograph)"
+     ],
+     "pupil_obstructions": {
+      "applies": "all Gregorian foci (same M1/M2 pupil)",
+      "central_obscuration_diameter_m": 3.6,
+      "central_obscuration_alternatives_m": [
+       3.495,
+       3.2
+      ],
+      "truss": "3 legs on the centre segment only (hcipy: two 0.119 m diverging struts + one 0.115 m strut per leg; triangle 4.93 m)",
+      "segment_gaps": "0.35-0.41 m between clear apertures (DERIVED); 295/359 mm physical (CoDR 2006)",
+      "refs": [
+       "gmt.m2_baffle",
+       "gmt.truss",
+       "gmt.truss_hcipy",
+       "gmt.segment_gaps"
+      ]
+     },
+     "refs": {
+      "station": "gmt.gis_station",
+      "instruments": "gmt.instruments"
+     }
+    }
+   ],
+   "other_foci": [
+    {
+     "id": "GMT-PF",
+     "name": "Prime focus (calibration sources only; not a science focus)",
+     "focal_length_m_DERIVED": 18.0,
+     "F": 0.71,
+     "plate_scale_arcsec_per_mm_DERIVED": 11.46,
+     "n_reflections": 1,
+     "ref": "gmt.prime_focus"
+    }
+   ]
+  },
+  "params": {
+   "status_site": {
+    "value": "under construction on Las Campanas Peak (Cerro Las Campanas), Chile; 2,550 m altitude (F22)",
+    "unit": "",
+    "src": "F22",
+    "loc": "Sec. 3 (Telescope design status), PDF p. 3",
+    "quote": "The GMT is a 25.4 m aperture telescope being constructed on Las Campanas Peak (Cerro Las Campanas, 2,550 m altitude)",
+    "alternatives": [
+     {
+      "value": "leveled summit platform 2415 m",
+      "src": "OAD",
+      "loc": "Sec. 3.2.1 (Site Infrastructure), p. 51",
+      "quote": "The summit site includes the leveled platform on Las Campanas peak (2415 m above sea level)."
+     },
+     {
+      "value": "summit leveled to 2518 m (2014)",
+      "src": "B14",
+      "loc": "Sec. 1, PDF p. 3",
+      "quote": "has been leveled in preparation for construction, to an elevation of 2518 m above sea level."
+     }
+    ],
+    "note": "Three altitudes in three GMTO documents (see conflicts)."
+   },
+   "optical_design": {
+    "value": "aplanatic Gregorian: f/0.71 primary, f/8.16 final; doubly segmented (7 primary + 7 secondary segments, each pair conjugate)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1 (Optical Design), p. 42",
+    "quote": "The GMT has an aplanatic Gregorian optical prescription with an f/0.71 primary focal ratio and f/8.16 final focal ratio",
+    "alternatives": [
+     {
+      "value": "both mirrors concave ellipsoids",
+      "src": "SB18",
+      "loc": "Sec. 1.2 (The Design of the GMT), PDF p. 20",
+      "quote": "An aplanatic Gregorian design modifies the shape of the primary and secondary mirrors (both are concave ellipsoids) to improve the image quality across"
+     },
+     {
+      "value": "conjugate pairs P1-S1 ... P7-S7",
+      "src": "F22",
+      "loc": "Fig. 1 caption, PDF p. 4",
+      "quote": "Each active primary mirror segment reflects light to a corresponding secondary mirror segment (P1 to S1, and so on)."
+     },
+     {
+      "value": "f/8.0 (2006 design)",
+      "src": "CODR6",
+      "loc": "Sec. 6.2.1 (Prescription), PDF p. 2",
+      "quote": "The effective focal length for the combined primary-secondary mirror system is 203 meters (f/8.0) with the focus located 5.5 meters below the primary mirror vertex."
+     }
+    ]
+   },
+   "mount": {
+    "value": "alt-azimuth (C-ring elevation bearings); one large Gregorian Instrument Rotator (GIR, 6 m x 9 m) de-rotates DG and FP instruments",
+    "unit": "",
+    "src": "F22",
+    "loc": "Sec. 3, PDF p. 3",
+    "quote": "altitude-over-azimuth mount configuration using large C-ring elevation bearings and a 6 m x 9 m Gregorian Instrument Rotator (GIR) to de-rotate science instruments and the guiding system",
+    "alternatives": [
+     {
+      "value": "de-rotation by the GIR",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3 (Focal Stations), p. 47",
+      "quote": "Since the OSS motion axes are altitude and azimuth, it is necessary to de-rotate the image of the sky at the instrument foci. This is accomplished using a single large Gregorian Instrument Rotator (GIR)"
+     }
+    ]
+   },
+   "n_segments": {
+    "value": 7,
+    "unit": "circular segments (1 on-axis + 6 off-axis); 8 off-axis made incl. 1 spare",
+    "src": "OAD",
+    "loc": "Sec. 2.1.14 (M1 System), p. 35",
+    "quote": "M1 Segment Mirrors: 1 center segment and 7 off-axis segments, including 1 spare",
+    "alternatives": [
+     {
+      "value": "six off-axis in a hexagon + one centre",
+      "src": "CODR6",
+      "loc": "Sec. 6.1, PDF p. 1",
+      "quote": "six 8.4 meter, off-axis, circular mirrors arranged in a hexagon and a seventh 8.4 meter mirror in the center"
+     },
+     {
+      "value": "P1-P7 (P7 = centre)",
+      "src": "F22",
+      "loc": "Fig. 1 caption, PDF p. 4",
+      "quote": "consists of seven 8.4 m primary mirror segments (P1- P7) and seven 1.1 m secondary mirror segments (S1-S7)",
+      "figure_readoff": "OAD Fig. 3-2 (right), p. 43: rendered view labels the central segment P7 and the outer ring P1-P6 in order around it; S1-S7 drawn in the same pattern"
+     }
+    ]
+   },
+   "segment_clear_aperture": {
+    "value": 8.365,
+    "unit": "m (clear aperture of each circular segment, measured on the segment)",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 42",
+    "quote": "The primary mirror (M1) is composed of seven 8365 mm diameter clear aperture circular segments",
+    "alternatives": [
+     {
+      "value": "polished 8.405 m; figure spec on 8.365 m",
+      "src": "OAD",
+      "loc": "Sec. 4.2.2 (Optics Manufacturing and Mounting Tolerances), p. 160",
+      "quote": "The polished optical surface has a diameter of 8.405 m. The figure specification applies to a clear aperture with a diameter of 8.365 m centered on the optical surface."
+     },
+     {
+      "value": 8.365,
+      "src": "CODR6",
+      "loc": "Table 6-1, PDF p. 3",
+      "quote": "Segment diameter, Dc1 8.365 meters Circular clear aperture."
+     },
+     {
+      "value": "'8.4 m' nominal",
+      "src": "SB18",
+      "loc": "Sec. 1.2, PDF p. 20",
+      "quote": "Seven 8.4 m diameter segments form the GMT's primary mirror."
+     },
+     {
+      "value": "8.293 m (centre) / 8.350 m (off-axis) in the hcipy model",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "segment_size = 8.365 - 0.072 ... off_axis_segment_size = 8.365 - 0.015",
+      "note": "hcipy: 'Small corrections have been applied to match to the actual pupil from internal GMTO files.'"
+     }
+    ]
+   },
+   "off_axis_tilt": {
+    "value": 13.522,
+    "unit": "deg (tilt of each off-axis segment; its circular clear aperture projects to an ellipse)",
+    "src": "OAD",
+    "loc": "Sec. 4.14 (Effective Collecting Area), p. 183",
+    "quote": "collecting area given a clear aperture of 8.365 m per M1 segment (with the outer segments at a 13.522° tilt)",
+    "alternatives": [
+     {
+      "value": 13.522,
+      "src": "CODR6",
+      "loc": "Table 6-1",
+      "quote": "Off-axis segments tilted 13.522°."
+     },
+     {
+      "value": 13.522,
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "off_axis_tilt = np.deg2rad(13.522)"
+     }
+    ],
+    "derived": "DERIVED: projected off-axis segment = ellipse 8.365 m (tangential) x 8.365 cos 13.522 deg = 8.1331 m (radial); area pi/4 x 8.365 x 8.1331 = 53.433 m^2 each, 6 x = 320.601 m^2 (the OAD Table 4-29 figure, so the OAD uses this projection)."
+   },
+   "off_axis_distance": {
+    "value": 8.71,
+    "unit": "m (centre of each off-axis segment from the parent optical axis, on the M1 surface; +/- 2 mm)",
+    "src": "OAD",
+    "loc": "Sec. 4.2.2, p. 160",
+    "quote": "The center of the off-axis segment is at a distance r = 8.71 m from the parent axis. ... It is derived from a distance of 8710 ± 2 mm of the radial position of the segment.",
+    "alternatives": [
+     {
+      "value": "hcipy pupil-plane centre distance 8.653 m (DERIVED)",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "segment_distance = segment_size / 2 + off_axis_segment_size / 2 * np.cos(off_axis_tilt) + segment_gap",
+      "note": "8.293/2 + 8.350/2 x cos 13.522 deg + 0.447 = 8.6528 m (DERIVED)"
+     }
+    ],
+    "derived": "DERIVED (pupil plane): with the conic R = 36 m, k = -0.998286, a chord of 8.365 m tilted 13.522 deg spans r = 4.5904 to 12.7235 m; its midpoint (the projected ellipse centre) is at r = 8.6569 m, and the surface point r = 8.71 m projects onto that midpoint (4.1834 m along the 8.365 m chord). So in the entrance pupil the off-axis ellipses are centred 8.657 m from the axis, at 60 deg intervals; outer edge 12.7235 m -> circumscribed 25.447 m (CoDR 25.448 m)."
+   },
+   "segment_angles": {
+    "value": "off-axis segments every 60 deg; hcipy frame: centres at 0, 60, 120, 180, 240, 300 deg from +x",
+    "unit": "",
+    "src": "HCI",
+    "loc": "make_gmt_aperture (segment loop)",
+    "quote": "for i in range(6): rotation_angle = np.pi / 3 * i xc = segment_distance * np.cos(rotation_angle) yc = segment_distance * np.sin(rotation_angle)",
+    "alternatives": [
+     {
+      "value": "hexagon arrangement",
+      "src": "CODR6",
+      "loc": "Sec. 6.1, PDF p. 1",
+      "quote": "six 8.4 meter, off-axis, circular mirrors arranged in a hexagon"
+     },
+     {
+      "value": "ellipse evaluated on grid.shifted(center)",
+      "src": "HCIG",
+      "loc": "make_elliptical_aperture",
+      "quote": "g = grid.as_('cartesian').shifted(shift)"
+     },
+     {
+      "value": "drawn at 30, 90, ... 330 deg (FIGURE READ-OFF)",
+      "src": "B14",
+      "loc": "Fig. 2 caption, PDF p. 4",
+      "quote": "(Left) GMT on-axis pupil.",
+      "figure_readoff": "B14 Fig. 2 (left): off-axis segments drawn at 12, 2, 4, 6, 8 and 10 o'clock (90, 30, 330, 270, 210, 150 deg), i.e. rotated 30 deg from the hcipy frame; the absolute orientation is a drawing choice"
+     }
+    ],
+    "note": "hcipy evaluates make_elliptical_aperture(center=[xc, yc]) on grid.shifted(shift) with Grid.shift = 'self.coords += shift' (HCIF), which places each ellipse at -(xc, yc); the set of six angles (0, 60, ... 300 deg) is unchanged. The orientation of the hexagon relative to the elevation axis is NOT FOUND."
+   },
+   "circumscribed_diameter": {
+    "value": 25.448,
+    "unit": "m (circle through the outer edges of the off-axis segments)",
+    "src": "CODR6",
+    "loc": "Table 6-1, PDF p. 3",
+    "quote": "Diameter, D1 25.448 meters Non-circular aperture.",
+    "alternatives": [
+     {
+      "value": "25.4 m",
+      "src": "SB18",
+      "loc": "Table 1-1, PDF p. 22",
+      "quote": "Primary mirror diameter & collecting area 25.4 m, 368 m2"
+     },
+     {
+      "value": "25.4 m",
+      "src": "F22",
+      "loc": "Sec. 3",
+      "quote": "The GMT is a 25.4 m aperture telescope"
+     },
+     {
+      "value": 25.448,
+      "src": "HCI",
+      "loc": "make_gmt_aperture docstring",
+      "quote": "Otherwise, the diameter of the pupil will be 25.448 meters."
+     }
+    ],
+    "derived": "DERIVED from the OAD numbers: 2 x 12.7235 = 25.447 m (see off_axis_distance). The hcipy model, built from its smaller segment sizes, reaches 2 x 12.710 = 25.42 m (raster) but normalises to 25.448 m."
+   },
+   "segment_gaps": {
+    "value": "on-axis to off-axis 359 mm; off-axis to off-axis 295 mm (physical spacing, 2006 design)",
+    "unit": "",
+    "src": "CODR6",
+    "loc": "Sec. 6.2.1, PDF p. 2",
+    "quote": "The physical spacing between segments is 295 mm from one off-axis segment to another off-axis segment, and 359 mm from an off-axis segment to the center segment.",
+    "alternatives": [
+     {
+      "value": "0.359 + 0.088 = 0.447 m between centre and off-axis clear apertures (hcipy)",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "# 0.359 mm from the off-axis segment to the on-axis segment segment_gap = 0.359 + 0.088",
+      "note": "the comment's 'mm' is metres (0.359 m = the CoDR 359 mm)"
+     },
+     {
+      "value": "> 30 cm",
+      "src": "HE22",
+      "loc": "Abstract, PDF p. 1",
+      "quote": "the GMT primary mirror segments are separated by large > 30 cm gaps"
+     },
+     {
+      "value": "~30-100 cm",
+      "src": "K24",
+      "loc": "Sec. 1, PDF p. 2",
+      "quote": "by design as in the Giant Magellan Telescope (GMT, ∼30-100 cm gaps)."
+     }
+    ],
+    "derived": "DERIVED (clear apertures, OAD geometry): centre segment edge 4.1825 m, off-axis inner edge 4.5904 m -> 0.408 m radial gap; closest approach of neighbouring off-axis ellipses 0.349 m. The physical glass extends beyond the 8.365 m clear aperture (polished 8.405 m), so the physical gaps are smaller, consistent with CoDR's 359 / 295 mm."
+   },
+   "primary_prescription": {
+    "value": "R = 36 m, k = -0.998286 (parent conic, concave)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 4.2.2, p. 160",
+    "quote": "with R = 36 m and k = –0.998286.",
+    "alternatives": [
+     {
+      "value": "R1 = 36.000 m, K1 = -0.99829 (2006)",
+      "src": "CODR6",
+      "loc": "Table 6-1",
+      "quote": "Radius of curvature, R1 36.000 meters Conic constant, K1 -0.99829"
+     }
+    ]
+   },
+   "primary_focal_length": {
+    "value": 18.0,
+    "unit": "m (parent focal length = R/2)",
+    "src": "CODR6",
+    "loc": "Sec. 6.2.1, PDF p. 2",
+    "quote": "The 18.0 meter primary mirror focal length and 25.4 meter full aperture give the primary mirror assembly an f/0.7 focal ratio.",
+    "alternatives": [
+     {
+      "value": "'36,000 mm' (OAD text)",
+      "src": "OAD",
+      "loc": "Sec. 3.1.1, p. 42",
+      "quote": "circular segments with a focal length of 36,000 mm.",
+      "note": "36 m is the radius of curvature (OAD Sec. 4.2.2: R = 36 m); the focal length is R/2 = 18 m (see conflicts)"
+     }
+    ],
+    "derived": "DERIVED: R/2 = 36/2 = 18.0 m; 18.0/25.448 = f/0.707, 18.0/25.4 = f/0.709 (the OAD's 'f/0.71')."
+   },
+   "primary_focal_ratio": {
+    "value": 0.71,
+    "unit": "f/# (on 25.4 m)",
+    "src": "SB18",
+    "loc": "Table 1-1, PDF p. 22",
+    "quote": "Primary mirror f/# 0.71",
+    "alternatives": [
+     {
+      "value": 0.71,
+      "src": "OAD",
+      "loc": "Sec. 3.1.1",
+      "quote": "with an f/0.71 primary focal ratio"
+     },
+     {
+      "value": "f/0.7",
+      "src": "CODR6",
+      "loc": "Sec. 6.1",
+      "quote": "allows a very fast (f/0.7) primary mirror"
+     }
+    ]
+   },
+   "primary_material": {
+    "value": "borosilicate honeycomb segments cast at the Richard F. Caris Mirror Lab (University of Arizona)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 2.1.14, p. 35",
+    "quote": "The techniques used to cast, generate, polish and test the M1 Segment Mirrors are similar to those used for the MMT, Magellan Telescopes, LBT, and LSST.",
+    "alternatives": [
+     {
+      "value": "cast at the Richard F. Caris Mirror Lab",
+      "src": "OAD",
+      "loc": "Sec. 2.1.14, p. 35",
+      "quote": "Richard F. Caris Mirror Lab (RFCML), which is located on the campus of the University of Arizona."
+     },
+     {
+      "value": "seven borosilicate honeycomb segments",
+      "src": "B14",
+      "loc": "Sec. 1, PDF p. 2",
+      "quote": "The primary mirror will be composed of seven 8.4 m diameter borosilicate honeycomb segments"
+     }
+    ]
+   },
+   "m2_baffle": {
+    "value": 3.6,
+    "unit": "m (diameter of the M2 baffle, the on-axis central obscuration)",
+    "src": "OAD",
+    "loc": "Sec. 4.14, Table 4-29 (row REQ-L3-OAD-112952), p. 183",
+    "quote": "a 3.6-m baffle that circumscribes range of motion of M2 segments. Area of the truss shadowed by the M2 baffles is counted under the M2 baffle. Includes baffling out the triangular-shaped areas between the baffle and the Mount.",
+    "alternatives": [
+     {
+      "value": "3.2 m circular M2 baffle (2006)",
+      "src": "CODR6",
+      "loc": "Table 6-1",
+      "quote": "With 3.2 meter circular M2 baffle."
+     },
+     {
+      "value": "3.495 m central hole in the hcipy model",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "central_hole_size = 3.495 / segment_size",
+      "note": "passed to make_obstructed_circular_aperture(segment_size, central_hole_size): a 3.495 m dark disc"
+     },
+     {
+      "value": "10.850 m^2 (M2 baffle term)",
+      "src": "OAD",
+      "loc": "Table 4-29",
+      "quote": "M2 Baffle 10.850 10.850"
+     }
+    ],
+    "derived": "DERIVED: a 3.6 m disc is 10.179 m^2; the 10.850 m^2 allocation includes the triangular areas. Explorer eps (diameter ratio to 25.448 m) = 3.6/25.448 = 0.141 (hcipy 3.495 -> 0.137)."
+   },
+   "central_hole_m1": {
+    "value": 1.78,
+    "unit": "m (hole in the centre segment, 2006 design; 'likely ... around 1.9 m')",
+    "src": "CODR6",
+    "loc": "Sec. 6.2.1, PDF p. 2",
+    "quote": "The 1.78 m diameter hole in the center segment provides a 24 arcminute unvignetted field of view with corrector. It will likely be increased to around 1.9 m (26′) during design development.",
+    "alternatives": [
+     {
+      "value": "hidden by the M2 baffle",
+      "src": "OAD",
+      "loc": "Table 4-29 (on-axis segment row)",
+      "quote": "Since center segment's hole is obscured by M2 baffle, doesn't count against overall budget in this roll-up number."
+     }
+    ],
+    "note": "Current hole diameter NOT FOUND; it lies inside the 3.6 m baffle shadow, so it does not change the pupil.",
+    "figure_readoff": "OAD Fig. 3-2 (right), p. 43: the rendered P7 shows a central hole."
+   },
+   "truss": {
+    "value": "three-legged truss holding the M2 top end; its shadow falls on the centre segment only",
+    "unit": "",
+    "src": "F22",
+    "loc": "Fig. 2 caption, PDF p. 5",
+    "quote": "A three-legged truss supports the secondary mirror assembly for rigidity and to minimize obstructions of the telescope pupil.",
+    "alternatives": [
+     {
+      "value": "outer six segments unobstructed",
+      "src": "SB18",
+      "loc": "Fig. 1-4 caption, PDF p. 21",
+      "quote": "Note that the six outer segments of the primary mirror have a completely unobstructed view of the sky"
+     },
+     {
+      "value": "9% of the centre segment (2006)",
+      "src": "CODR7",
+      "loc": "Sec. 7.1, PDF p. 3",
+      "quote": "only shadowing 9% of the central segment and none of the outer segments."
+     },
+     {
+      "value": "mount trusses 5.54 m^2 allocation, 5.463 m^2 estimate",
+      "src": "OAD",
+      "loc": "Table 4-29 (REQ-L3-OAD-112950), p. 183",
+      "quote": "Mount Trusses 5.54 5.463"
+     },
+     {
+      "value": "3 legs (FIGURE READ-OFF)",
+      "src": "B14",
+      "loc": "Fig. 2 caption, PDF p. 4",
+      "quote": "(Left) GMT on-axis pupil.",
+      "figure_readoff": "B14 Fig. 2 (left; segments black, obstructions white): a white flower-shaped central obscuration and three groups of two to three straight white strut shadows, about 120 deg apart, cross the centre segment to its rim; none crosses an outer segment"
+     }
+    ],
+    "note": "Leg widths and angles come only from the third-party hcipy model (truss_hcipy)."
+   },
+   "truss_hcipy": {
+    "value": "hcipy: 3 legs at 120 deg; each = two diverging struts (0.119 m at the node, edges diverging 1.16 deg) from a node 2.386 m from the axis + one 0.115 m strut from 2.409 m; plus a triangular attachment (circumdiameter 4.93 m) masked out",
+    "unit": "",
+    "src": "HCI",
+    "loc": "make_gmt_aperture (spider block)",
+    "quote": "spider_1_width = 0.119 spider_2_width = 0.115 radius_spider_1 = 2.386 radius_spider_2 = 2.409 offset_spider_2 = -0.05 truss_size = 4.93 ... spider_mask *= 1 - make_diverging_spider(spider_1_start, spider_1_width, np.deg2rad(1.16), np.deg2rad(9.83) + offset_angle)(grid) spider_mask *= 1 - make_diverging_spider(spider_1_start, spider_1_width, np.deg2rad(1.16), np.deg2rad(180.0 - 9.83) + offset_angle)(grid) ... spider_mask *= 1 - make_diverging_spider(spider_2_start, spider_2_width, np.deg2rad(0.0), np.deg2rad(-11.2) + offset_angle)(grid)",
+    "alternatives": [
+     {
+      "value": "attachment triangle",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "spider_attachement_mask = 1 - make_regular_polygon_aperture(3, truss_size, angle=np.pi, center=None)(grid)"
+     },
+     {
+      "value": "struts only on the centre segment",
+      "src": "HCI",
+      "loc": "make_gmt_aperture",
+      "quote": "return center_segment * spider_mask * spider_attachement_mask"
+     },
+     {
+      "value": "grid conventions",
+      "src": "HCIF",
+      "loc": "CartesianGrid.shift / rotated",
+      "quote": "self.coords += shift ... coords = R @ xp.stack(list(self.coords))"
+     },
+     {
+      "value": "shifted = copy + shift",
+      "src": "HCIF2",
+      "loc": "Grid.shifted",
+      "quote": "grid = self.copy() grid.shift(shift) return grid"
+     },
+     {
+      "value": "odd-polygon test (sets the triangle orientation)",
+      "src": "HCIG",
+      "loc": "make_regular_polygon_aperture",
+      "quote": "thetas = np.arange(num_sides) * 2 * np.pi / num_sides + angle ... f_sub *= ((np.sin(theta) * x)[np.newaxis, :] - (np.cos(theta) * y)[:, np.newaxis]) <= apothem"
+     }
+    ],
+    "derived": "DERIVED (hcipy conventions applied: grid.shifted(p) adds p, grid.rotated(a) multiplies by R(a), so each strut starts at -p and runs along -orientation): nodes at r = 2.386 m, 30, 150, 270 deg (the triangle's vertices, r = 2.465 m, at the same angles, i.e. aimed at the gaps between outer segments). From the 270-deg node (0, -2.386) the two diverging struts run along 350.17 and 189.83 deg and the single strut from (0.05, -2.409) along 11.20 deg; the other legs are these rotated by 120 and 240 deg. Raster of the model (2 cm grid, numpy re-implementation): strut shadow on the centre segment 4.46 m^2 plus 0.94 m^2 of triangle corners outside the 3.495 m hole = 9.8% of an 8.365 m segment (CoDR '9%'); OAD trusses estimate 5.463 m^2."
+   },
+   "asm_holes": {
+    "value": "2014 ASM design: holes in each ASM face sheet at the segment centre (they project onto the outer segments); 2021: face sheets continuous",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Table 4-29 (REQ-L3-OAD-112958), p. 184",
+    "quote": "ASMS Center hole 0.000 0.000 ASMS & FSMS are",
+    "alternatives": [
+     {
+      "value": "holes in the 2014 pupil",
+      "src": "B14",
+      "loc": "Sec. 2.2, PDF p. 4",
+      "quote": "The apparent holes in the outer segments are projections of holes in the ASM face sheets, required to accommodate their central flexures.",
+      "figure_readoff": "B14 Fig. 2 (left): a small white dot at the centre of each outer segment"
+     }
+    ],
+    "note": "Table 4-29 row continues 'continuous' on the next line ('ASMS & FSMS are continuous'); the current pupil has no such holes."
+   },
+   "collecting_area": {
+    "value": 368,
+    "unit": "m^2 (headline value; 2006 design with a 3.2 m M2 baffle)",
+    "src": "SB18",
+    "loc": "Table 1-1, PDF p. 22",
+    "quote": "Primary mirror diameter & collecting area 25.4 m, 368 m2",
+    "alternatives": [
+     {
+      "value": "368 m^2 with 3.2 m baffle",
+      "src": "CODR6",
+      "loc": "Table 6-1, PDF p. 3",
+      "quote": "Effective area, A 368 m2"
+     },
+     {
+      "value": "375.558 m^2 geometric (7 clear apertures)",
+      "src": "OAD",
+      "loc": "Table 4-29, p. 183",
+      "quote": "On-Axis Collecting 320.601 375.558"
+     },
+     {
+      "value": ">= 358 m^2 incl. all baffling (requirement)",
+      "src": "OAD",
+      "loc": "Sec. 4.6, REQ-L3-OAD-63344, p. 171",
+      "quote": "The GMT shall have an effective collecting area of no less than 358 square meters, including all baffling."
+     },
+     {
+      "value": ">= 356 m^2 (ORD requirement)",
+      "src": "ORD",
+      "loc": "REQ-L2-ORD-106537, PDF p. 53",
+      "quote": "The GMT shall have an effective collecting are of no less than 356 square meters, including the impact of any obscurations."
+     },
+     {
+      "value": "357.008 m^2 current best estimate (356.354 allocated)",
+      "src": "OAD",
+      "loc": "Table 4-29 (final row), p. 184",
+      "quote": "FINAL EFFECTIVE 356.354 357.008"
+     },
+     {
+      "value": "375.6 m^2 on-axis (2006)",
+      "src": "CODR6",
+      "loc": "Sec. 6.2.1, PDF p. 3",
+      "quote": "The telescope has an effective on-axis collecting area of 375.6 m2"
+     }
+    ],
+    "derived": "DERIVED: 54.957 + 6 x 53.433 = 375.558 m^2 (OAD Table 4-29). Raster of the hcipy model: 358.48 m^2 (39.02 centre + 319.45 off-axis). Equivalent circle of 357 m^2: 21.3 m."
+   },
+   "vignetting": {
+    "value": "M2 segments critically sized: vignetting rises linearly from 0 on axis to 7% at the edge of the 20' field",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 43",
+    "quote": "The GMT M2 segments are critically sized with respect to the M1 segments, a compromise between throughput and the risk of collision between segments. Vignetting due to beam walk into the gaps between M2 segments increases linearly from zero on-axis to 7% at the edge of the useable 20′ diameter field of view.",
+    "alternatives": [
+     {
+      "value": "< 1% at 1.5', < 7% at 10'",
+      "src": "OAD",
+      "loc": "Sec. 4.6 (REQ-L3-OAD-36393, -39046), p. 171",
+      "quote": "vignetting < 1% at a field angle of 1.5 arcmin. ... vignetting < 7% at a field angle of 10 arcmin."
+     }
+    ]
+   },
+   "m2_segments": {
+    "value": "7 circular segments, 1050 mm clear aperture each, concave, each conjugate to one M1 segment; ASM (adaptive) or FSM (fast-steering) assembly",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 42",
+    "quote": "The secondary mirror (M2) is identically segmented and formed of 1050 mm diameter clear aperture circular segments.",
+    "alternatives": [
+     {
+      "value": "ASM and FSM, 7 x 1.05 m",
+      "src": "OAD",
+      "loc": "Sec. 3.2.4.2.1 (Top End and M2 System), p. 69",
+      "quote": "Both consist of seven 1.05 meter segments conjugated to the primary mirror segments as described above."
+     },
+     {
+      "value": "concave",
+      "src": "OAD",
+      "loc": "Sec. 3.1.1, p. 43",
+      "quote": "The concave M2 is easier to fabricate than the equivalent convex M2."
+     },
+     {
+      "value": "1.05 m",
+      "src": "SB18",
+      "loc": "Sec. 1.2, PDF p. 20",
+      "quote": "and is composed of seven 1.05 m diameter segments."
+     },
+     {
+      "value": "1.1 m",
+      "src": "F22",
+      "loc": "Fig. 1 caption, PDF p. 4",
+      "quote": "seven 1.1 m secondary mirror segments (S1-S7)"
+     },
+     {
+      "value": "1.063 m segments, 3.2 m overall, R2 = 4.2058 m, K2 = -0.71087 (2006)",
+      "src": "CODR6",
+      "loc": "Table 6-1",
+      "quote": "Diameter, D2 3.2 meter Pupil stop. Non-circular aperture. Radius of curvature, R2 4.2058 meters Conic constant, K2 -0.71087 Segment diameter, Dc2 1.063 meter"
+     },
+     {
+      "value": "2 mm face sheet, 672 actuators per ASM segment",
+      "src": "B14",
+      "loc": "Sec. 3, PDF p. 7",
+      "quote": "Each 1.05 m diameter ASM segment has 672 voice coil actuators, supporting a 2 mm thick Zerodur face sheet"
+     }
+    ],
+    "note": "The current M2 prescription (radius, conic, M1-M2 spacing) is in GMT-DOC-00010, not public (NOT FOUND); only the 2006 values are available."
+   },
+   "m2_conjugation": {
+    "value": "M2 conjugate to 165 m above M1 (enables wide-field GLAO)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 43",
+    "quote": "M2 is optically conjugated to a position 165 meters above M1, enabling ground-layer adaptive optics correction over a large field of view.",
+    "alternatives": [
+     {
+      "value": "~160 m above the ground",
+      "src": "SB18",
+      "loc": "Sec. 1.2, PDF p. 21",
+      "quote": "The GMT's Gregorian secondary is optically conjugated to a position ~160 meters above the ground"
+     }
+    ]
+   },
+   "m1_m2_separation": {
+    "value": 20.29,
+    "unit": "m (2006 design)",
+    "src": "CODR6",
+    "loc": "Table 6-1",
+    "quote": "M1-M2 separation, S 20.290 meters",
+    "note": "Current value NOT FOUND (GMT-DOC-00010)."
+   },
+   "exit_pupil": {
+    "value": "2935 mm diameter, 2320 mm below M2",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 43",
+    "quote": "The 2935 mm diameter telescope exit pupil is located 2320 mm below M2, and potentially accessible as a location for a flat field screen for instrument calibration."
+   },
+   "prime_focus": {
+    "value": "prime focus between M1 and M2 is used to insert calibration sources (not a science focus)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 43",
+    "quote": "The Gregorian design provides a prime focus at which calibration sources can be inserted, allowing an adaptive secondary mirror based AO system to be calibrated in daytime.",
+    "derived": "DERIVED: prime focal length = R/2 = 18.0 m (f/0.71); 206264.8/18000 = 11.46\"/mm."
+   },
+   "final_focal_length": {
+    "value": 207.589,
+    "unit": "m",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 42",
+    "quote": "The 207,589 mm focal length of the two- mirror telescope produces an image scale of 0.994 arcsec/mm at the Gregorian focal plane.",
+    "alternatives": [
+     {
+      "value": "202.745 m, f/8.0 (2006)",
+      "src": "CODR6",
+      "loc": "Table 6-1",
+      "quote": "Focal length, FL 202.745 meters Focal ratio, f f/8.0 Full 25.4m clear aperture."
+     }
+    ],
+    "derived": "DERIVED: 207.589/25.448 = f/8.157 (the 'f/8.16' is on the 25.4 m circumscribed aperture); 207.589/18.0 = 11.53 = M2 magnification."
+   },
+   "final_focal_ratio": {
+    "value": 8.16,
+    "unit": "f/# (on 25.4 m)",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1",
+    "quote": "and f/8.16 final focal ratio",
+    "alternatives": [
+     {
+      "value": "8.16 [8.34 with wide-field corrector]",
+      "src": "SB18",
+      "loc": "Table 1-1, PDF p. 22",
+      "quote": "Final f/# [with Wide Field Corrector] 8.16 [8.34]"
+     },
+     {
+      "value": "f/8.2",
+      "src": "B14",
+      "loc": "Sec. 1, PDF p. 2",
+      "quote": "at the final f/8.2 focus"
+     }
+    ]
+   },
+   "plate_scale": {
+    "value": 0.994,
+    "unit": "arcsec/mm (Gregorian focal plane)",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 42",
+    "quote": "produces an image scale of 0.994 arcsec/mm at the Gregorian focal plane.",
+    "alternatives": [
+     {
+      "value": 0.997,
+      "src": "SB18",
+      "loc": "Table 1-1, PDF p. 22",
+      "quote": "Focal plane scale 0.997 arcseconds/mm"
+     },
+     {
+      "value": 0.99,
+      "src": "B14",
+      "loc": "Sec. 1, PDF p. 2",
+      "quote": "with a plate scale of 0.99.arcsec/mm at the final f/8.2 focus"
+     },
+     {
+      "value": "'1 arcsec/mm'",
+      "src": "F22",
+      "loc": "Sec. 3, PDF p. 3",
+      "quote": "compact focal surface (1 arcsec/mm)"
+     },
+     {
+      "value": "1.0 mm per arcsecond",
+      "src": "SB18",
+      "loc": "Sec. 1.2, PDF p. 21",
+      "quote": "yielding a compact image scale of 1.0 mm per arcsecond"
+     }
+    ],
+    "derived": "DERIVED: 206264.8/207589 = 0.99362\"/mm (1.0064 mm/\")."
+   },
+   "gregorian_focus_location": {
+    "value": 5.83,
+    "unit": "m below the M1 vertex (curved Gregorian focal surface)",
+    "src": "OAD",
+    "loc": "Sec. 3.1.1, p. 42",
+    "quote": "The curved Gregorian focal surface is located 5830 mm below the primary mirror vertex.",
+    "alternatives": [
+     {
+      "value": "5.50 m (5.67 m with corrector), 2006",
+      "src": "CODR6",
+      "loc": "Sec. 6.1, PDF p. 2",
+      "quote": "The telescope will focus 5.50 meters below the primary mirror vertex (5.67 meters with the corrector and ADC)."
+     },
+     {
+      "value": "foci behind M1, inside the OSS",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3, p. 47",
+      "quote": "The GMT optical design places both the Direct and Folded Gregorian foci below the M1 assembly, within the OSS."
+     }
+    ]
+   },
+   "focal_surface": {
+    "value": "curved, concave toward the instruments; radius 2.203 m (2006 design)",
+    "unit": "",
+    "src": "CODR6",
+    "loc": "Table 6-1",
+    "quote": "Field curvature 2.203 meters Towards instrument.",
+    "alternatives": [
+     {
+      "value": "curved toward the instruments",
+      "src": "SB18",
+      "loc": "Sec. 1.2, PDF p. 21",
+      "quote": "The telescope focal plane is curved toward the instruments, simplifying the"
+     }
+    ],
+    "note": "Current radius NOT FOUND."
+   },
+   "image_quality": {
+    "value": "0.6\" rms image diameter at the edge of the 20' field without corrector; < 0.1\" with the corrector",
+    "unit": "",
+    "src": "SB18",
+    "loc": "Sec. 1.2, PDF p. 20",
+    "quote": "edge of a 20 arcminute diameter field of view, the GMT forms images with a (RMS) diameter of 0.6 arcseconds, improving to <0.1 arcseconds with corrective lenses."
+   },
+   "optical_layouts": {
+    "value": "DGNF >= 10' (0.32-25 um, no ADC); DGWF >= 20' with the C-ADC (0.35-1.3 um); FG >= 3' (0.45-25 um)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.2, Table 3-1, p. 45",
+    "quote": "REQ-L3-OAD-33858 Direct Gregorian Narrow ≥ 10′ ≤0.320 to ≥25 µm No Field (DGNF) REQ-L3-OAD-33863 Direct Gregorian Wide ≥ 20′ ≤0.350 to ≥1.3 µm Yes Field (DGWF) REQ-L3-OAD-33868 Folded Gregorian (FG) ≥ 3′ ≤0.45 to ≥25 µm No",
+    "note": "Table 3-1 cells as extracted; the 'Field (DGNF)' and 'Field (DGWF)' fragments belong to the layout names."
+   },
+   "c_adc": {
+    "value": "Corrector + ADC (C-ADC): 20' corrected field, 350 nm to 1.0 um (text) / 0.35-1.3 um (requirement); back focal distance 6.01 m; L1 + ADC deployable, L2 inside each DGWF instrument; f/8.34",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.2, p. 44",
+    "quote": "The C-ADC provides correction over a 20′ diameter field of view from 350 nm to 1.0 μm wavelength (Figure 3-4) into each instrument which uses the C-ADC. The additional optical elements increase the back focal distance (defined from the M1 vertex) to 6.01 m.",
+    "alternatives": [
+     {
+      "value": "0.350-1.3 um",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33875, p. 45",
+      "quote": "over the wavelength range 0.350 to 1.3 µm at the Direct Gregorian focus."
+     },
+     {
+      "value": "L1 + ADC deployable",
+      "src": "OAD",
+      "loc": "Sec. 3.1.2, p. 44",
+      "quote": "The first group of elements (L1 + ADC) must be deployable to enable observations outside of the C-ADC design wavelength"
+     },
+     {
+      "value": "L2 in each instrument",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33887, p. 45",
+      "quote": "Any Instrument operating in the Direct Gregorian Wide Field optical layout shall provide a C-ADC field lens (L2)."
+     },
+     {
+      "value": "f/8.34",
+      "src": "SB18",
+      "loc": "Table 1-1, PDF p. 22",
+      "quote": "Final f/# [with Wide Field Corrector] 8.16 [8.34]"
+     }
+    ],
+    "derived": "DERIVED: f/8.34 x 25.448 m = 212.2 m -> 0.972\"/mm (x 25.4 m = 211.8 m -> 0.974\"/mm); the C-ADC focal length and scale are NOT stated in the sources."
+   },
+   "m3": {
+    "value": "flat tertiary at 45 deg, 1930 mm ahead of the Gregorian focus; reflects a 3.0' field at a right angle; rotates about the optical axis to select FP / AP / IP; retracts for DG",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.2, p. 44",
+    "quote": "A Folded Gregorian focal station is implemented by inserting a flat tertiary mirror (M3) at 45° incidence angle 1930 mm from focus. ... The selected compromise is a 3.0 arcmin field of view reflected at a right angle 1930 mm ahead of focus.",
+    "alternatives": [
+     {
+      "value": "science fields < 30\", technical field >= 2'",
+      "src": "OAD",
+      "loc": "Sec. 3.1.2, p. 44",
+      "quote": "All FP/AP/IP instruments currently envisioned have a scientific field of view <30 arcsec. However, a technical field of view ≥ 2 arcmin is required to pass the natural and laser guide stars required to implement the NGAO and LTAO wavefront control modes."
+     },
+     {
+      "value": "rotates about the ROA",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33992, p. 50",
+      "quote": "The M3 shall provide a mechanism to rotate M3 about the Reference Optical Axis (ROA) and direct the Folded Gregorian beam to the Folded Port, Auxiliary Port, and Instrument Platform focal stations."
+     },
+     {
+      "value": "vignettes <= 48% of the 20' DG field",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33899, p. 46",
+      "quote": "The M3 shall vignette no more than 48% of the 20 arcmin diameter Direct Gregorian field when deployed."
+     },
+     {
+      "value": "52% of the DG field unvignetted",
+      "src": "OAD",
+      "loc": "Sec. 3.1.2, p. 44",
+      "quote": "The specified M3 volume leaves 52% of the Direct Gregorian field unvignetted (82% of the annular field of view outside of 5.9 arcmin radius)."
+     },
+     {
+      "value": "removable",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33903, p. 46",
+      "quote": "M3 must be removed from the Direct Gregorian optical path to enable the DGNF and DGWF optical layouts."
+     }
+    ],
+    "derived": "DERIVED: a flat fold keeps f = 207.589 m and 0.994\"/mm; the folded focus lies 1.93 m from the optical axis at 5.83 - 1.93 = 3.90 m below the M1 vertex. 3' x 60 / 0.99362 = 181 mm."
+   },
+   "reflections": {
+    "value": "direct Gregorian 2 reflections; folded Gregorian (M3) 3",
+    "unit": "",
+    "src": "B14",
+    "loc": "Sec. 1, PDF p. 2",
+    "quote": "utilizing either the direct Gregorian focus (2 reflections), or a folded Gregorian focus provided by a steerable M3 located below the primary mirror (3 reflections).",
+    "note": "AP, IP and GIS add instrument-provided relays or fibres after M3 (reflection count NOT FOUND)."
+   },
+   "focal_stations": {
+    "value": "DG (1 deployed, 20'; 2D gravity; mount de-rotation), FP (3, 3'; 2D; mount), GIS (1; invariant; instrument), AP (2, 3'; invariant; instrument), IP (1, 3'; 1D; instrument)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, Table 3-3, p. 49",
+    "quote": "REQ-L3-OAD-33953 Direct Gregorian (DG) 1a 20′ b 2D Mount REQ-L3-OAD-33959 Folded Port (FP) 3 3′ 2D Mount REQ-L3-OAD-33965 Gravity Invariant 1 N/Ac Invariant Instrument (GIS) REQ-L3-OAD-33971 Auxiliary Port (AP) 2 3′ Invariant Instrument REQ-L3-OAD-33977 Instrument Platform 1 3′ 1D Instrument (IP)",
+    "alternatives": [
+     {
+      "value": "DG deployed bay; DGWF vignetted by the AGWS (Table 3-3 notes a, b)",
+      "src": "OAD",
+      "loc": "Table 3-3 notes, p. 49",
+      "quote": "The DG focal station is in the DG Deployed Instrument Bay. ... The DG port in the DGWF optical layout will be partially vignetted by the AGWS."
+     },
+     {
+      "value": "up to 10 instruments",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3, p. 49",
+      "quote": "These five focal stations enable a diverse set of up to 10 instruments to be simultaneously mounted on the OSS and available every night."
+     },
+     {
+      "value": "4 DG stations inside the GIR, 3 folded on top",
+      "src": "SB18",
+      "loc": "Sec. 1.4 (Focal Stations), PDF p. 25",
+      "quote": "within a large Gregorian Instrument Rotator (GIR) that provides four stations at the direct Gregorian focus inside the GIR, and three at the folded Gregorian focus on the top side of the GIR."
+     }
+    ],
+    "note": "Table 3-3 notes: a = the DG focal station is in the DG Deployed Instrument Bay; b = the DG port in the DGWF layout is partly vignetted by the AGWS; c = GIS field depends on the instrument."
+   },
+   "dg_station": {
+    "value": "three DG instruments stored on the GIR (2.9 m off-axis) and deployed linearly onto the optical axis",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, p. 47",
+    "quote": "Three Direct Gregorian instruments, two large and one small with similar interfaces, can be stored on the GIR and deployed linearly onto the Reference Optical Axis.",
+    "alternatives": [
+     {
+      "value": "2.9 m off-axis storage",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33989 rationale, p. 50",
+      "quote": "Deployment of DG instruments from a storage locations 2.9 m off-axis to the Reference Optical Axis is required by the architectural design of the focal stations."
+     }
+    ]
+   },
+   "fp_station": {
+    "value": "three Folded Port instruments on the top surface of the GIR",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, p. 48",
+    "quote": "instruments, also identical in volume and interfaces, can be mounted on the top surface of the GIR."
+   },
+   "gis_station": {
+    "value": "Gravity Invariant Station on one side of the azimuth disk, fed by a long relay through the elevation axis or by fibres from DG/FP; GIR held at a fixed angle",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, p. 48",
+    "quote": "A location for a large instrument requiring a stable gravity vector is provided on one side of the Azimuth disk, referred to as the Gravity Invariant Station (GIS). It is possible to direct light to this instrument either through a long optical relay passing through the elevation axis (and the Auxiliary Port instrument volume), or via optical fibers for the DG or FP focus.",
+    "alternatives": [
+     {
+      "value": "GIR fixed -> rotating field at the GIS fibre unit",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3, p. 48",
+      "quote": "The GIR must be maintained at a fixed angle to use the GIS, leading to a rotating field at the GIS fiber injection unit."
+     },
+     {
+      "value": "G-CLEF: own tertiary + relay on the GIR, fibre unit on the IP",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3, p. 48",
+      "quote": "which uses an independent tertiary mirror and relay on the GIR, and a fiber injection unit on the fixed Instrument Platform."
+     }
+    ]
+   },
+   "ap_station": {
+    "value": "two Auxiliary Ports on the elevation axis, outboard of each C-ring; ~5 m optical relay from the FG focus; gravity invariant ('similar to Nasmyth')",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, p. 48",
+    "quote": "While the GMT does not have Nasmyth platforms, the Auxiliary Ports provide a similar gravity-invariant capability for narrow-field instruments. A mounting interface, utilities, and a volume are provided for two instruments on the elevation axis on the outboard side of both C-Rings.",
+    "alternatives": [
+     {
+      "value": "~5 m relay",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-33999 rationale, p. 50",
+      "quote": "An optical relay approximately 5 m in length is required to transfer the focal plane to the AP instrument volume."
+     },
+     {
+      "value": "outside the elevation bearings",
+      "src": "SB18",
+      "loc": "Sec. 1.4, PDF p. 25",
+      "quote": "The GMT also provides two auxiliary ports located outside the elevation bearings that accommodate smaller gravity-invariant instruments fed by an optical relay, such as high-contrast adaptive optics imagers."
+     }
+    ]
+   },
+   "ip_station": {
+    "value": "IP port on the +Y side of the fixed Instrument Platform; ~5 m relay or fibre; 1D gravity",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Sec. 3.1.3, p. 48",
+    "quote": "A location for an additional large instrument is provided on the +Y side of the fixed Instrument Platform, called the IP Port.",
+    "alternatives": [
+     {
+      "value": "GIR fixed; 1D gravity",
+      "src": "OAD",
+      "loc": "Sec. 3.1.3, p. 48",
+      "quote": "leading to a rotating field at the instrument. The IP port is subjected to a gravity vector varying in only one dimension."
+     },
+     {
+      "value": "~5 m relay or fibre",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-34003 rationale, p. 50",
+      "quote": "The IP instrument volume must be fed by either a ~5-m optical relay or fiber."
+     }
+    ]
+   },
+   "instruments": {
+    "value": "first-generation plan (OAD 2021): DG: GMACS, MANIFEST (DGWF + C-ADC), ComCam; FP: GMTIFS, GMTNIRS; GIS: G-CLEF (front end on the IP, fibre feed)",
+    "unit": "",
+    "src": "OAD",
+    "loc": "Secs. 2.1.22-2.1.25, pp. 38-40",
+    "quote": "It will be located at the Direct Gregorian port. ... GMTIFS will be located at the Folded Port. ... GMTNIRS will be located at the Folded Port. ... MANIFEST is located at the Direct Gregorian focus and makes use of the Direct Gregorian Wide Field optical layout, which includes the Corrector-ADC subsystem.",
+    "alternatives": [
+     {
+      "value": "G-CLEF at the GIS",
+      "src": "OAD",
+      "loc": "Sec. 2.1.21, p. 38",
+      "quote": "The G-CLEF spectrograph is vacuum-enclosed and located on the Gravity-Invariant Instrument Station (GIS) on azimuth structure, in order to optimize wavelength stability. The spectrograph is fed by an optical fiber from a Front-End unit located on the Instrument Platform (IP)."
+     },
+     {
+      "value": "ComCam at DG, 6' field",
+      "src": "OAD",
+      "loc": "REQ-L3-OAD-35637, p. 143",
+      "quote": "The Commissioning Camera (ComCam) shall be located at the Direct Gregorian (DG) focal station."
+     },
+     {
+      "value": "ComCam images 6.0'",
+      "src": "OAD",
+      "loc": "Sec. 2.1.20, p. 38",
+      "quote": "GLAO performance evaluation, by simultaneously imaging a 6.0 arcmin diameter field of view"
+     },
+     {
+      "value": "MANIFEST feeds GMACS and G-CLEF over the 20' field",
+      "src": "OAD",
+      "loc": "Sec. 2.1.25, p. 40",
+      "quote": "which it enables access to the GMT’s full 20 arcmin diameter field of view. Initially MANIFEST fibers will feed the GMACS and G-CLEF instruments"
+     }
+    ],
+    "note": "The first quote's 'It' is GMACS (Sec. 2.1.22)."
+   }
+  },
+  "not_found": [
+   "Current M2 prescription (radius, conic, overall size, M1-M2 separation): in GMT-DOC-00010, not public; only the 2006 CoDR values (R2 = 4.2058 m, K2 = -0.71087, 1.063 m segments, 3.2 m, 20.290 m).",
+   "Current diameter of the M1 centre-segment hole (CoDR 2006: 1.78 m, 'likely ... around 1.9 m'); it is hidden by the 3.6 m baffle anyway.",
+   "Truss leg widths and angles in an observatory document: only the third-party hcipy model (citing GMTO internal files) gives them; the OAD gives only the shadow area (5.463 m^2).",
+   "Orientation of the segment hexagon and truss relative to the elevation axis.",
+   "Focal length and plate scale with the C-ADC (only 'f/8.34'), and the current focal-surface radius (CoDR 2006: 2.203 m).",
+   "Reflection counts and relay optics at the AP, IP and GIS stations (instrument-provided), and the M3 size.",
+   "Physical (glass) segment diameter beyond the 8.405 m polished surface, so the current physical gap widths."
+  ],
+  "conflicts": [
+   "Plate scale: 0.994\"/mm (OAD; 206264.8/207589 = 0.9936 DERIVED) vs 0.997\"/mm (SB18 Table 1-1) vs 0.99\"/mm at 'f/8.2' (B14) vs '1 arcsec/mm' (F22) and '1.0 mm per arcsecond' (SB18 text).",
+   "Primary focal length: the OAD text says the segments have 'a focal length of 36,000 mm', but 36 m is the radius of curvature (OAD Sec. 4.2.2; CoDR R1 = 36.000 m); CoDR: '18.0 meter primary mirror focal length'; f/0.71 x 25.4 m = 18.0 m. 18 m adopted.",
+   "Final focus: f/8.16, 207.589 m, 5.83 m below the M1 vertex (OAD 2021) vs f/8.0, 202.745 m, 5.50 m (CoDR 2006).",
+   "M2 segment diameter: 1.05 m (OAD, SB18, B14) vs 1.063 m (CoDR 2006) vs '1.1 m' (F22 Fig. 1 caption).",
+   "Central obscuration: 3.6 m M2 baffle (OAD 2021) vs 3.2 m baffle (CoDR 2006) vs 3.495 m hole (hcipy).",
+   "Collecting area: 368 m^2 (SB18, CoDR with the 3.2 m baffle) vs 375.558 m^2 geometric (OAD) vs >= 358 m^2 (OAD REQ-L3-OAD-63344) vs >= 356 m^2 (ORD REQ-L2-ORD-106537, also the OAD Table 4-29 margin note) vs 357.008 m^2 current best estimate (OAD Table 4-29) vs 358.48 m^2 (hcipy raster, DERIVED).",
+   "Site altitude: 2,550 m (F22 2022) vs 2518 m leveled summit (B14 2014) vs 2415 m leveled platform (OAD 2021).",
+   "C-ADC wavelength range: 350 nm to 1.0 um (OAD Sec. 3.1.2 text) vs 0.350 to 1.3 um (OAD Table 3-1 and REQ-L3-OAD-33875).",
+   "DG stations: 'four stations at the direct Gregorian focus inside the GIR' (SB18) vs three stored DG instruments plus the deployed bay (OAD Sec. 3.1.3, REQ-L3-OAD-69511).",
+   "ASM face sheets: holes at each segment centre (B14 2014, visible in the pupil) vs continuous face sheets (OAD 2021 Table 4-29).",
+   "M2 conjugation: 165 m above M1 (OAD) vs ~160 m above the ground (SB18, CoDR).",
+   "Segment gaps: 359 / 295 mm physical (CoDR 2006) vs 0.408 / 0.349 m between clear apertures (DERIVED from OAD numbers) vs 0.447 m (hcipy centre-to-off-axis) vs '> 30 cm' (HE22) vs '~30-100 cm' (K24)."
+  ],
+  "notes": [
+   "Pupil drawing: centre disc 8.365 m; six ellipses 8.365 x 8.133 m (minor axis radial) centred 8.657 m out at 0, 60, ... 300 deg (segments_DERIVED); 3.6 m central disc; three truss legs on the centre segment only (legs_hcipy_DERIVED). The explorer's eps = 0.141 of 25.448 m.",
+   "Every Gregorian focus shares one pupil (M2 is the conjugate of M1 segment by segment); M3 and the C-ADC sit after the focus/below M1 and add no pupil obstruction in these sources.",
+   "f-numbers refer to D = 25.4 m: f/8.16 = 207.589/25.4 (8.157 on 25.448 m); plate scale depends only on the focal length.",
+   "2006 CoDR values (CODR6, CODR7) are the conceptual design; the OAD Rev. G (2021) is the current architecture."
+  ]
+ }
+}

@@ -1,0 +1,895 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Yerkes Observatory 40-inch refractor",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/yerkes.md (same content as Markdown). Structure: sources{key: cite, file, url}; yerkes{title, telescope{objective, pupil, foci[1]}, params, color_curve (machine-readable secondary spectrum), not_found, conflicts, notes}.",
+  "rule": "Every value carries src, loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/yerkes/ (ADS article scans). Quotes reproduce the ADS OCR text layer verbatim, artefacts included (e.g. \"io''6\" for 10\".6, \"d=\" for plus-minus); check \"ocr\" = matched against tesseract OCR of the rendered page (recipes in ocr_recipes); figure_readoff = read from the page image by eye. derived = arithmetic done here. INFERRED = reasoned, not stated. Nothing is filled from memory.",
+  "ocr_recipes": {
+   "FOX": {
+    "pages": [
+     15
+    ],
+    "dpi": 400,
+    "rotate": 90,
+    "psm": 6,
+    "note": "Table IV is printed sideways; page rendered with pdftoppm at 400 dpi, rotated 90 deg (sips), tesseract --psm 6"
+   },
+   "HC97": {
+    "pages": [
+     1,
+     2
+    ],
+    "dpi": 300,
+    "rotate": 0,
+    "psm": 6,
+    "note": "no text layer; pdftoppm 300 dpi, tesseract --psm 6"
+   }
+  },
+  "check_result": "64 quotes machine-checked against the saved files (51 against the PDF text layers via pdftotext -layout, -raw and default; 13 against tesseract OCR of rendered pages): all pass; 2 figure read-offs are visual only (2026-10-19). Normalisation: Unicode NFKC; curly quotes, primes, dashes, minus and multiplication signs normalised; whitespace collapsed; a quote also passes with line-end hyphenation removed or closed up, or with all whitespace (and hyphens) removed; ' ... ' joins non-adjacent pieces."
+ },
+ "sources": {
+  "H97": {
+   "cite": "Hale, G. E. 1897, ApJ 6, 37, \"The Yerkes Observatory of the University of Chicago. IV. The Forty-Inch Telescope, Dome, and Rising Floor\" (pp. 40-44: rising floor, mounting, tube, objective; frontispiece dated May 11, 1897). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Hale1897_ApJ6_37_YerkesIV_FortyInchTelescope_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1897ApJ.....6...37H"
+  },
+  "HC97": {
+   "cite": "Hale, G. E. 1897, Yerkes Observatory Bulletin No. 2, \"Completion of the Yerkes Telescope\", YerOB 2, 147 (pp. 147-149). ADS scan WITHOUT a text layer: quotes are checked against tesseract OCR of the pages (check \"ocr\")",
+   "file": "rawdata/telescopes/yerkes/Hale1897_YerOB2_147_CompletionYerkesTelescope_ADSscan.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1897YerOB...2..147H/ADS_PDF"
+  },
+  "K96": {
+   "cite": "Keeler, J. E. 1896, ApJ 3, 154, \"Test of the Forty-Inch Objective of the Yerkes Observatory\" (October 1895 acceptance test at Cambridgeport). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Keeler1896_ApJ3_154_TestFortyInchObjective_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1896ApJ.....3..154K"
+  },
+  "HE99": {
+   "cite": "Hale, G. E. & Ellerman, F. 1899, ApJ 10, 87, \"On the spectra of stars of Secchi's fourth type. I.\" (pp. 93-95 \"Description of the instruments\": 40-inch aperture, focal length, temperature coefficient, colour curve at -18 C (figure), Brashear correcting lens). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/HaleEllerman1899_ApJ10_87_FourthTypeSpectra_ColorCurve_ADSscan.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1899ApJ....10...87H/ADS_PDF"
+  },
+  "R00": {
+   "cite": "Ritchey, G. W. 1900, ApJ 12, 352, \"Celestial Photography with the 40-inch Visual Telescope of the Yerkes Observatory\" (yellow colour screen + isochromatic plates). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Ritchey1900_ApJ12_352_Photography40inchVisual_ADSscan.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1900ApJ....12..352R/ADS_PDF"
+  },
+  "FOX": {
+   "cite": "Fox, P. 1908, ApJ 27, 237, \"An Investigation of the Forty-Inch Objective of the Yerkes Observatory\" (Hartmann zonal test, Tables I-III; colour curve Table IV (objective alone, PDF p. 15 = printed p. 251, printed sideways: checked by OCR) and Table V (with the Bruce correcting lens)). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Fox1908_ApJ27_237_InvestigationFortyInchObjective_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1908ApJ....27..237F"
+  },
+  "S10": {
+   "cite": "Schlesinger, F. 1910, ApJ 32, 372, \"Photographic Determinations of Stellar Parallax Made with the Yerkes Refractor. I\" (pp. 373-374 colour/plates; p. 377 focal length and scale). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Schlesinger1910_ApJ32_372_ParallaxYerkesRefractor_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1910ApJ....32..372S"
+  },
+  "B17": {
+   "cite": "Barnard, E. E. 1917, AJ 31, 24 (No. 723), \"Focal Length of the 40-inch Telescope of the Yerkes Observatory\". ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/Barnard1917_AJ31_24_FocalLength40inch_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1917AJ.....31...24B"
+  },
+  "P93": {
+   "cite": "Anon. 1893, PASP 5, 224, \"40-inch Refractor of the Yerkes Observatory\" (note on the mounting shown at the 1893 World's Fair). ADS article scan (PDF with the ADS OCR text layer; quotes keep its OCR artefacts verbatim)",
+   "file": "rawdata/telescopes/yerkes/PASP1893_5_224_FortyInchRefractorYerkes_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1893PASP....5..224."
+  }
+ },
+ "yerkes": {
+  "title": "Yerkes Observatory 40-inch refractor: objective, focus, plate scale, colour curve, pupil",
+  "telescope": {
+   "name": "Yerkes Observatory 40-inch refractor (Alvan Clark objective, Warner & Swasey mounting)",
+   "site": "Williams Bay, Wisconsin",
+   "mount": "equatorial",
+   "first_light": "1897-05-21",
+   "optical_design": "achromatic doublet refractor; no mirrors",
+   "objective": {
+    "type": "air-spaced achromatic doublet (crown front, flint rear), Alvan Clark & Sons, 1895",
+    "clear_aperture_m": 1.016,
+    "focal_length_m": 19.354,
+    "F_DERIVED": 19.05,
+    "crown": {
+     "thickness_centre_in": 2.5,
+     "thickness_edge_in": 0.75,
+     "weight_lb": 200,
+     "basis": "H97 page image (figure_readoff)"
+    },
+    "flint": {
+     "thickness_centre_in": 1.5,
+     "thickness_edge_in": 2.0,
+     "weight_lb": ">300",
+     "basis": "H97 page image (figure_readoff)"
+    },
+    "separation_in": 8.375,
+    "separation_alternatives_in": {
+     "B17": 8.6,
+     "K96": "about 7"
+    },
+    "glass": "crown and flint discs by Mantois (Paris); glass types NOT FOUND",
+    "temperature_coefficient_mm_per_C_DERIVED": 0.39,
+    "refs": [
+     "yerkes.clear_aperture",
+     "yerkes.objective_design",
+     "yerkes.focal_length",
+     "yerkes.principal_plane",
+     "yerkes.temperature_coefficient"
+    ]
+   },
+   "pupil": {
+    "D_m": 1.016,
+    "eps": 0.0,
+    "central_obscuration_m": null,
+    "spiders": null,
+    "shape": "circle",
+    "basis": "clear aperture 40 in (HE99); no obstruction INFERRED (refractor)",
+    "refs": [
+     "yerkes.pupil",
+     "yerkes.clear_aperture"
+    ],
+    "tpupil_format": {
+     "kind": "circle",
+     "D": 1.016,
+     "eps": 0.0,
+     "vanes": []
+    }
+   },
+   "foci": [
+    {
+     "id": "Y40-VIS",
+     "name": "Refractor focus (visual objective)",
+     "status": "historical research instrument (1897 onward); the saved sources describe 1895-1917 use",
+     "secondary": null,
+     "focal_length_mm": 19354,
+     "F": 19.05,
+     "F_defined_on_D_m": 1.016,
+     "plate_scale_arcsec_per_mm": 10.67,
+     "plate_scale_mm_per_arcsec": 0.0937,
+     "plate_scale_DERIVED_from_f": 10.657,
+     "field": {
+      "photographic_plate_arcmin": [
+       35,
+       45
+      ],
+      "plate_cm": [
+       20,
+       25
+      ],
+      "unvignetted": "NOT FOUND",
+      "colour_screen_field_arcmin": 14
+     },
+     "n_reflections": 0,
+     "n_refracting_surfaces": 4,
+     "mirrors": [],
+     "optics": [
+      "crown lens (front)",
+      "flint lens (rear)"
+     ],
+     "location": "eye end of the 60-ft tube, ~18.97 m behind the crown lens (B17 tape: 18966 mm from the crown outer surface at 50 F); focus moves with temperature (-17.5 mm per -45 C) and with wavelength (colour curve)",
+     "chromatic": {
+      "best_focus_A": 5730,
+      "defocus_mm_at": {
+       "4862": 12.6,
+       "4340": 51.3,
+       "4102": 88.5,
+       "3969": 119.3,
+       "6563": 9.2,
+       "6800": 16.4
+      },
+      "basis": "DERIVED from FOX Table IV (see yerkes.color_curve)"
+     },
+     "modes": [
+      "visual (micrometer)",
+      "photographic: yellow screen + isochromatic plate (Ritchey 1900) or unscreened isochromatic plates (Schlesinger 1910)",
+      "spectroscopic: Bruce spectrograph with Brashear correcting lens (HE99, FOX Table V)"
+     ],
+     "pupil": {
+      "D_m": 1.016,
+      "eps": 0.0,
+      "central_obscuration_m": null,
+      "spiders": null,
+      "shape": "circle",
+      "basis": "clear aperture 40 in (HE99); no obstruction INFERRED (refractor)",
+      "refs": [
+       "yerkes.pupil",
+       "yerkes.clear_aperture"
+      ],
+      "tpupil_format": {
+       "kind": "circle",
+       "D": 1.016,
+       "eps": 0.0,
+       "vanes": []
+      }
+     },
+     "refs": [
+      "yerkes.focal_length",
+      "yerkes.focal_ratio",
+      "yerkes.plate_scale",
+      "yerkes.photographic_field",
+      "yerkes.color_curve_fox",
+      "yerkes.tube"
+     ]
+    }
+   ]
+  },
+  "params": {
+   "site_and_mount": {
+    "value": "Yerkes Observatory, Williams Bay, Wisconsin; equatorial mounting by Warner & Swasey; rising floor 75 ft diameter",
+    "unit": "",
+    "src": "H97",
+    "loc": "pp. 40, 41",
+    "quote": "awarded to Messrs. Warner & Swasey, not only because of the well-known excellence of their workmanship",
+    "alternatives": [
+     {
+      "value": "Williams Bay, Wisconsin",
+      "src": "HC97",
+      "loc": "p. 147",
+      "quote": "Massachusetts, to Williams Bay, Wisconsin.",
+      "check": "ocr"
+     },
+     {
+      "value": "rising floor 75 ft, 23 ft travel",
+      "src": "H97",
+      "loc": "p. 40",
+      "quote": "the rising floor of the Yerkes Observatory must be 75 feet in diameter, and have a vertical motion of 23 feet."
+     }
+    ]
+   },
+   "first_light": {
+    "value": "objective mounted 1897 May 20; first observations on the evening of 1897 May 21",
+    "unit": "",
+    "src": "HC97",
+    "loc": "p. 147 (Bulletin No. 2)",
+    "quote": "on account of cloudy weather no observations could be made until the evening of May 21.",
+    "check": "ocr",
+    "alternatives": [
+     {
+      "value": "objective arrived May 19, assembled the following day",
+      "src": "HC97",
+      "loc": "p. 147",
+      "quote": "They arrived safely at Williams Bay on.May 19",
+      "check": "ocr",
+      "note": "OCR 'on.May' = on May"
+     },
+     {
+      "value": "assembled on the following day (May 20)",
+      "src": "HC97",
+      "loc": "p. 147",
+      "quote": "This work was successfully completed on the following day",
+      "check": "ocr"
+     },
+     {
+      "value": "mounting practically complete 1897 May 11",
+      "src": "H97",
+      "loc": "p. 41 (frontispiece)",
+      "quote": "The frontispiece shows the Yerkes telescope as it appeared on May ii, 1897, when Messrs. Warner & Swasey’s work had been practically completed.",
+      "note": "OCR 'May ii' = May 11"
+     },
+     {
+      "value": "objective completed September 1895",
+      "src": "K96",
+      "loc": "p. 154",
+      "quote": "In September, 1895, Mr. Alvan G. Clark reported that the forty- inch object glass of the Yerkes Observatory was completed."
+     }
+    ]
+   },
+   "largest_refractor": {
+    "value": "the largest refracting telescope: 4 inches larger than the largest previous equatorial refractor (the Lick 36-inch)",
+    "unit": "",
+    "src": "H97",
+    "loc": "p. 41",
+    "quote": "Representing as it does an increase in aperture of but four inches over the largest equatorial refractor hitherto constructed",
+    "alternatives": [
+     {
+      "value": "largest refracting telescope in the world (1893)",
+      "src": "P93",
+      "loc": "note",
+      "quote": "is the largest refracting telescope in the world."
+     },
+     {
+      "value": "Lick 36-inch",
+      "src": "H97",
+      "loc": "p. 42",
+      "quote": "designing and constructing the mounting of the thirty-six inch Lick refractor."
+     }
+    ]
+   },
+   "clear_aperture": {
+    "value": 1.016,
+    "unit": "m (40 inches)",
+    "src": "HE99",
+    "loc": "p. 93 (Description of the instruments)",
+    "quote": "The object-glass of the telescope, which was made by Alvan Clark & Sons, has a clear aperture of 40 inches (102 cm).",
+    "alternatives": [
+     {
+      "value": "forty-inch",
+      "src": "H97",
+      "loc": "p. 43",
+      "quote": "The forty-inch objective of the Yerkes telescope was made by the firm of Alvan Clark & Sons from disks furnished by Mantois of Paris."
+     },
+     {
+      "value": "zones tested to r = 470-480 mm",
+      "src": "FOX",
+      "loc": "p. 249",
+      "quote": "corresponding to the de- pression in the zonal curve at r =470—480 mm",
+      "note": "the outermost zones of the Hartmann test reach r = 480 mm (0.96 m diameter)"
+     }
+    ],
+    "derived": "DERIVED: 40 x 25.4 = 1016 mm (HE99 rounds to 102 cm)."
+   },
+   "objective_design": {
+    "value": "Alvan Clark & Sons doublet: crown lens in front (sky side), flint lens behind, air-spaced ~8.4-8.6 in; discs by Mantois (Paris)",
+    "unit": "",
+    "src": "H97",
+    "loc": "p. 43",
+    "quote": "it weighs 200 pounds. The flint lens, which is separated from the crown by a distance of",
+    "figure_readoff": "page image p. 43 (PDF p. 14): \"The crown lens is about 2 1/2 inches thick at the center and 3/4 of an inch at the edge; it weighs 200 pounds. The flint lens, which is separated from the crown by a distance of 8 3/8 inches, is about 1 1/2 inches thick at the center, 2 inches thick at the edge, and weighs over 300 pounds.\" (the ADS text layer drops the fractions)",
+    "alternatives": [
+     {
+      "value": "crown = outer lens",
+      "src": "B17",
+      "loc": "p. 24",
+      "quote": "the distance from the center of the outer surface of the crown (outer) lens to the focal plane of the micrometer wires."
+     },
+     {
+      "value": "separation 8.6 in (218 mm)",
+      "src": "B17",
+      "loc": "p. 24",
+      "quote": "separated by 8.6 inches [218 mm.] )"
+     },
+     {
+      "value": "separation about 7 in",
+      "src": "K96",
+      "loc": "p. 154",
+      "quote": "The construction of the objective is quite similar to that of the Lick telescope, the lenses being separated by a space of about seven inches."
+     },
+     {
+      "value": "flint over 300 lb",
+      "src": "H97",
+      "loc": "p. 43",
+      "quote": "thick at the edge, and weighs over 300 pounds. The lenses are mounted upon aluminium bearings in a cast-iron cell."
+     },
+     {
+      "value": "1000 lb with cell",
+      "src": "K96",
+      "loc": "p. 154",
+      "quote": "Their weight, with that of the cast-iron cell in which they are mounted, is one thousand pounds."
+     }
+    ],
+    "note": "Glass types (catalogue names, indices) are NOT FOUND: the sources say only crown and flint discs by Mantois. Separation conflict: 8 3/8 in (H97) vs 8.6 in (B17) vs \"about seven inches\" (K96, 1895 test)."
+   },
+   "focal_length": {
+    "value": 19.354,
+    "unit": "m (at 50 F, from micrometer measures of star distances)",
+    "src": "B17",
+    "loc": "p. 24",
+    "quote": "The focal length as determined by my micrometer measures of star distances used in the determination of the value of the micrometer screw is 762.0 inches (19354 mm.)",
+    "alternatives": [
+     {
+      "value": "1936 cm",
+      "src": "HE99",
+      "loc": "p. 93",
+      "quote": "Its focal length for distinct vision, as determined from photographs of star trails, is 1936 d= cm.",
+      "note": "OCR 'd=' = the plus-minus sign (page image: '1936+-cm')"
+     },
+     {
+      "value": "19.36 m",
+      "src": "S10",
+      "loc": "p. 377",
+      "quote": "As the focal length of the telescope is 19.36 meters"
+     },
+     {
+      "value": "very nearly 62 ft (18.90 m)",
+      "src": "H97",
+      "loc": "p. 43",
+      "quote": "The focal length of the objective is very nearly 62 feet."
+     },
+     {
+      "value": "19354 mm used by Fox",
+      "src": "FOX",
+      "loc": "p. 244",
+      "quote": "putign TI have taken Barnard’s value, 19,354 mm, for the focal length",
+      "note": "OCR 'putign TI' = 'computing T I'"
+     },
+     {
+      "value": "tape: crown surface to focus 746.7 in (18966 mm); lens-space centre to focus 739.9 in (18793 mm)",
+      "src": "B17",
+      "loc": "p. 24",
+      "quote": "This distance was 746.7 inches (18966 mm.), with a temperature of 50° F. The distance from the center of the space between the two lenses (they are separated by 8.6 inches [218 mm.] ) to the focal plane was 739.9 inches (18793 mm.)."
+     }
+    ],
+    "note": "The effective focal length exceeds the lens-to-focus distance: B17 places the rear principal point 22.1 in (561 mm) in front of the centre of the lens space, i.e. 15.3 in (389 mm) outside the crown surface.",
+    "derived": "DERIVED: 62 ft x 0.3048 = 18.90 m; 19354/1016 = f/19.05; 19360/1016 = f/19.06."
+   },
+   "principal_plane": {
+    "value": "effective focal length measured from a point 22.1 in (561 mm) beyond the centre of the lens space, 15.3 in (389 mm) outside the crown",
+    "unit": "",
+    "src": "B17",
+    "loc": "p. 24",
+    "quote": "the actual focus of the large lens must be measured from a point 22.1 inches (561 mm.) beyond the center of the space between the two lenses, or 15.3 inches (389 mm.) beyond (outside) the outer surface of the crown lens.",
+    "derived": "DERIVED check: 19354 - 18793 = 561 mm; 19354 - 18966 = 388 mm."
+   },
+   "focal_ratio": {
+    "value": 19.05,
+    "unit": "f/# (DERIVED, 19.354 m / 1.016 m)",
+    "src": "B17",
+    "loc": "p. 24",
+    "quote": "is 762.0 inches (19354 mm.)",
+    "derived": "DERIVED: 19354 / 1016 = 19.049; with HE99 1936 cm / 102 cm = 18.98."
+   },
+   "temperature_coefficient": {
+    "value": "focal length decreases 17.5 mm for a 45 C fall in temperature",
+    "unit": "mm per 45 C",
+    "src": "HE99",
+    "loc": "p. 93",
+    "quote": "The focal length has been measured at various tem- peratures, and has been found to decrease 17.5 mm for a fall in temperature of 45°C.",
+    "alternatives": [
+     {
+      "value": "large seasonal effect (numbers unpublished in B17)",
+      "src": "B17",
+      "loc": "p. 24",
+      "quote": "the effect upon it of the very great temperature changes to which it is subjected from summer to winter"
+     }
+    ],
+    "derived": "DERIVED: 17.5/45 = 0.39 mm per C; Fox plates at 20-22 C vs HE99 curve at -18 C differ by ~40 C, i.e. ~15 mm of focus."
+   },
+   "plate_scale": {
+    "value": 10.67,
+    "unit": "arcsec/mm (1\" = 0.0937 mm at 50 F)",
+    "src": "B17",
+    "loc": "p. 24",
+    "quote": "1\" = 0.0037 inch = 0.0937 mm.",
+    "alternatives": [
+     {
+      "value": "10.6\"/mm",
+      "src": "S10",
+      "loc": "p. 377",
+      "quote": "As the focal length of the telescope is 19.36 meters, one milli- meter on the plate corresponds to io''6.",
+      "note": "OCR 'io''6' = 10\".6"
+     }
+    ],
+    "derived": "DERIVED: 1/0.0937 = 10.67\"/mm; 206264.8/19354 = 10.657\"/mm; 206264.8/19360 = 10.654\"/mm."
+   },
+   "tube": {
+    "value": "steel tube 60 ft long, 52 in diameter at the centre, 42 in at the objective end, 38 in at the eye end, 6 tons",
+    "unit": "",
+    "src": "H97",
+    "loc": "p. 42",
+    "quote": "is 52 inches at the center, 42 inches at the objective end and 38 inches at the eye end. It is 60 feet long, and weighs 6 tons.",
+    "alternatives": [
+     {
+      "value": "64 ft (1893 description)",
+      "src": "P93",
+      "loc": "note",
+      "quote": "The tube is oí steel, 64 feet long, and 52 inches in diameter at the center",
+      "note": "OCR 'oí' = 'of'"
+     }
+    ],
+    "note": "Conflict: 60 ft (H97, as built 1897) vs 64 ft (P93, 1893 World's Fair description). B17: the effective focal length is 1-2 ft longer than the tube length suggests.",
+    "derived": "DERIVED: 60 ft = 18.29 m; 64 ft = 19.51 m; focal length 19.35 m."
+   },
+   "photographic_field": {
+    "value": "20 x 25 cm parallax plates = about 35' x 45'",
+    "unit": "",
+    "src": "S10",
+    "loc": "p. 377",
+    "quote": "The dimensions of the plates employed (20 cm by 25 cm) therefore correspond to about 35 and 45 minutes of arc.",
+    "alternatives": [
+     {
+      "value": "colour screens 14' square",
+      "src": "R00",
+      "loc": "p. 354",
+      "quote": "The plane-parallel color screens used in the trials of this pro- cess are 2.4 mm thick and cover a field 14 minutes of arc square"
+     },
+     {
+      "value": "solar image ~7 in",
+      "src": "H97",
+      "loc": "p. 44",
+      "quote": "The solar image at the focus of the telescope is nearly seven inches in diameter"
+     }
+    ],
+    "note": "No unvignetted or corrected field of the objective is published in the saved sources (NOT FOUND); these are the plate/screen formats used.",
+    "derived": "DERIVED: 200 mm x 10.66\"/mm = 35.5', 250 mm = 44.4'; Sun 1920\" / 10.66 = 180 mm = 7.1 in."
+   },
+   "color_curve_fox": {
+    "value": "secondary spectrum of the visual objective (objective alone, ~21 C): focus shortest near 5700-5760 A; +12.6 mm at H-beta 4862, +51 mm at H-gamma 4340, +89 mm at H-delta 4102, +119 mm at 3969 A, +16 mm at 6800 A",
+    "unit": "mm (focal readings, mean of 3 zones)",
+    "src": "FOX",
+    "loc": "Table IV (p. 251), OCR",
+    "quote": "1. Arcturus. TEMP.=21°6 2. Vega. TEMP.=20° 3. Vega. TEMP.=22%0",
+    "check": "ocr",
+    "alternatives": [
+     {
+      "value": "6800 A: 461.63",
+      "src": "FOX",
+      "loc": "Table IV row 6800 (Arcturus)",
+      "quote": "462.41 | 462.81 | 459.66 | 461.63",
+      "check": "ocr"
+     },
+     {
+      "value": "5732 A: 445.28 (minimum)",
+      "src": "FOX",
+      "loc": "Table IV row 5732 (Arcturus)",
+      "quote": "446.14 | 446.63 | 443.06 | 445.28",
+      "check": "ocr"
+     },
+     {
+      "value": "4862 A: 457.88",
+      "src": "FOX",
+      "loc": "Table IV row 4862 (Arcturus)",
+      "quote": "459.18 | 459.08 | 455.37 | 457-88",
+      "check": "ocr"
+     },
+     {
+      "value": "4340 A: 496.62",
+      "src": "FOX",
+      "loc": "Table IV row 4340 (Arcturus)",
+      "quote": "498.77 | 498.28 | 492.82 | 496.62",
+      "check": "ocr"
+     },
+     {
+      "value": "4102 A: 533.82",
+      "src": "FOX",
+      "loc": "Table IV row 4102 (Arcturus)",
+      "quote": "536.65 | 534.52 | 530.29 | 533-82",
+      "check": "ocr"
+     },
+     {
+      "value": "6563 A: 454.41 (Vega 20 C)",
+      "src": "FOX",
+      "loc": "Table IV row 6563 (Vega, plate 2)",
+      "quote": "455-10 | 455.69 | 452.44 | 454.41",
+      "check": "ocr"
+     },
+     {
+      "value": "5760 A: 445.18 (minimum)",
+      "src": "FOX",
+      "loc": "Table IV row 5760 (Vega, plate 2)",
+      "quote": "446.07 | 446.89 | 442.58 | 445.18",
+      "check": "ocr"
+     },
+     {
+      "value": "3969 A: 564.48",
+      "src": "FOX",
+      "loc": "Table IV row 3969 (Vega, plate 2)",
+      "quote": "§66.37 | 565.92 | 561.16 | 564.48",
+      "check": "ocr",
+      "note": "OCR '§66.37' = 566.37"
+     },
+     {
+      "value": "method",
+      "src": "FOX",
+      "loc": "p. 249",
+      "quote": "A re-examination of the color-curve of the objective was a part of my programme, and for this purpose I assembled a small spectrograph and made tests by means of extra-focal star spectra."
+     },
+     {
+      "value": "zones",
+      "src": "FOX",
+      "loc": "p. 249",
+      "quote": "had apertures measuring 6X16 cm, on three different zones at radii ^ = 170, 310, and 450 mm."
+     },
+     {
+      "value": "direction of the scale",
+      "src": "FOX",
+      "loc": "p. 240",
+      "quote": "Small values of the focal setting indicate short focal length."
+     }
+    ],
+    "note": "Full machine-readable curve in yerkes.color_curve (both plates). The reading scale is the one used for Table I (smaller = shorter focus; INFERRED to apply to Table IV, whose header reads \"Focal Reading in mm\").",
+    "derived": "DERIVED (Arcturus plate): 457.88 - 445.28 = 12.60 mm (4862); 496.62 - 445.28 = 51.34 (4340); 533.82 - 445.28 = 88.54 (4102); 461.63 - 445.28 = 16.35 (6800). Vega plate: 564.48 - 445.18 = 119.30 mm (3969). Blur circle = defocus x D/f: H-delta 88.54/19.05 = 4.65 mm = 49.5\"; H-beta 12.60/19.05 = 0.66 mm = 7.0\"; 3969 A 119.30/19.05 = 6.26 mm = 66.7\"."
+   },
+   "color_curve_hale_ellerman": {
+    "value": "colour curve at -18 C (figure): flat enough to photograph 5000-6500 A in one exposure; steep in the blue",
+    "unit": "",
+    "src": "HE99",
+    "loc": "pp. 94-95",
+    "quote": "the color curve corresponding to a temperature of —i8°C., and illustrated in the ... accompanying figure, will suffice. It will be seen that the curve is flat enough to permit fairly satisfactory photographs of the spectral region lying between \\ 5000 and X6500 to be taken in a single exposure.",
+    "figure_readoff": "figure \"COLOR CURVE OF FORTY-INCH OBJECTIVE\" (p. 94; curve A, objective alone): focus readings ~155 mm at ~3950 A, ~135 at 4000, ~95 at 4150, ~70 at 4400, ~40 at 4800, ~30 at 5200, minimum ~26 mm near 5600-5800 A, ~30 at 6400, ~40 at 6600 A; i.e. ~130 mm between the minimum and 3950 A (read by eye; 1 grid cell = 10 mm x 400 A). Curve B (with the correcting lens) spans ~55-67 mm over ~4200-4900 A",
+    "alternatives": [
+     {
+      "value": "determined by Frost, Wadsworth and Ellerman",
+      "src": "HE99",
+      "loc": "p. 94",
+      "quote": "ing to various temperatures has been determined by Professor Frost, Professor Wadsworth, and one of the present writers."
+     },
+     {
+      "value": "Fox: practically identical to Ellerman's",
+      "src": "FOX",
+      "loc": "p. 250",
+      "quote": "tically identical with that by"
+     }
+    ],
+    "note": "OCR in the quote: '—i8°C.' = -18 C, '\\ 5000' and 'X6500' = lambda 5000, lambda 6500."
+   },
+   "correcting_lens": {
+    "value": "Brashear correcting lens (32 mm, 30 cm ahead of the slit) moves the 4500 A focus ~60 mm toward the objective and flattens the blue colour curve (spectroscopy)",
+    "unit": "",
+    "src": "HE99",
+    "loc": "p. 95",
+    "quote": "The introduction of the correcting lens causes the focal plane corresponding to X4500 to move about 60 mm toward the 40-inch objective. At the same time the color curve is made much flatter in the blue region",
+    "alternatives": [
+     {
+      "value": "lens geometry",
+      "src": "HE99",
+      "loc": "p. 95",
+      "quote": "It consists of a compound lens of 32 mm aperture, supported in the cone of rays from the 40-inch objective at a distance of 30 cm from the slit."
+     },
+     {
+      "value": "Fox Table V: with the correcting lens",
+      "src": "FOX",
+      "loc": "p. 253",
+      "quote": "Color-Curve with Correcting Lens"
+     }
+    ]
+   },
+   "photographic_use": {
+    "value": "photography with the visual objective: yellow screen + isochromatic plates (Ritchey) or unscreened isochromatic plates whose sensitivity gap leaves only 5200-5700 A in focus (Schlesinger); 4500 A light forms a ~2 mm blur",
+    "unit": "",
+    "src": "S10",
+    "loc": "pp. 373-374",
+    "quote": "For exposures of moderate length the only part of the spectrum that is effective in forming the image is included between A 5200 and A 5700, a region that is all in fairly good focus for a proper setting of the plate.",
+    "alternatives": [
+     {
+      "value": "2 mm blur at 4500 A",
+      "src": "S10",
+      "loc": "pp. 373-374",
+      "quote": "light of this wave-length is so much out of ... focus that it is spread into a circle about 2 mm in diameter by the time it reaches the plate"
+     },
+     {
+      "value": "screen + isochromatic plate, flat part of the colour curve",
+      "src": "R00",
+      "loc": "p. 353",
+      "quote": "only a short region of thé spectrum, for which the colorrcurve. of the 40-inch objective is very nearly flat, is used in producing the photograph."
+     },
+     {
+      "value": "blue loss in the glass",
+      "src": "R00",
+      "loc": "p. 353",
+      "quote": "It is estimated that between 60 and 70 per cent, of the blue light is lost in transmission through the 40-Jnch objective,: while about 35 per cent, of the visual, rays are thus lost."
+     }
+    ],
+    "derived": "DERIVED check: Arcturus 4540 A reading 477.84 - 445.28 = 32.6 mm defocus -> blur 32.6 / 19.05 = 1.71 mm, consistent with Schlesinger's \"about 2 mm\" at 4500 A."
+   },
+   "zonal_quality": {
+    "value": "excellent figure: centre zones focus a few mm short of the edge; Hartmann criterion T < 0.5 (\"pre-eminently good\") on all plate pairs; better when the lens is horizontal",
+    "unit": "",
+    "src": "FOX",
+    "loc": "pp. 240, 244",
+    "quote": "It is at once apparent that the center of the objective is of appre- ciably shorter focal length than the edge, confirming the earlier extra- focal investigations.",
+    "alternatives": [
+     {
+      "value": "T < 0.5",
+      "src": "FOX",
+      "loc": "p. 244",
+      "quote": "Hartmann classes an objective as, “pre-eminently good,” when T is less than 0.5; here all of the different pairs of images give values well within this class"
+     },
+     {
+      "value": "flexure",
+      "src": "FOX",
+      "loc": "p. 244",
+      "quote": "giving better results when it lies horizontally."
+     },
+     {
+      "value": "170 mm zone 3-4 mm short",
+      "src": "FOX",
+      "loc": "p. 253",
+      "quote": "Zone ^ = 170 mm is between three and four millimeters shorter than the outer zones"
+     }
+    ]
+   },
+   "pupil": {
+    "value": "unobstructed circular pupil: the objective rim, 1.016 m (40 in) clear aperture; no central obscuration and no spider vanes",
+    "unit": "",
+    "src": "HE99",
+    "loc": "p. 93",
+    "quote": "has a clear aperture of 40 inches (102 cm).",
+    "note": "INFERRED from the design (a two-lens objective in a cell at the top of the tube; nothing in front of it): no saved source mentions any obstruction, and none describes one. The cell and its aluminium bearings lie outside the 40-inch clear aperture (INFERRED). The test diaphragms of FOX (60 holes of 2 cm) were temporary."
+   }
+  },
+  "color_curve": {
+   "source": "FOX Table IV (\"Color-Curve of Forty-Inch Objective\", objective alone), mean of three zones (r = 450, 310, 170 mm); focal readings in mm on an arbitrary scale (Fox: \"Small values of the focal setting indicate short focal length\")",
+   "plate1_Arcturus_21.6C": [
+    {
+     "lambda_A": 6800,
+     "reading_mm": 461.63,
+     "defocus_mm_DERIVED": 16.35,
+     "blur_diameter_mm_DERIVED": 0.86,
+     "blur_diameter_arcsec_DERIVED": 9.1
+    },
+    {
+     "lambda_A": 6270,
+     "reading_mm": 450.66,
+     "defocus_mm_DERIVED": 5.38,
+     "blur_diameter_mm_DERIVED": 0.28,
+     "blur_diameter_arcsec_DERIVED": 3.0
+    },
+    {
+     "lambda_A": 5893,
+     "reading_mm": 446.35,
+     "defocus_mm_DERIVED": 1.07,
+     "blur_diameter_mm_DERIVED": 0.06,
+     "blur_diameter_arcsec_DERIVED": 0.6
+    },
+    {
+     "lambda_A": 5732,
+     "reading_mm": 445.28,
+     "defocus_mm_DERIVED": 0.0,
+     "blur_diameter_mm_DERIVED": 0.0,
+     "blur_diameter_arcsec_DERIVED": 0.0
+    },
+    {
+     "lambda_A": 5490,
+     "reading_mm": 445.52,
+     "defocus_mm_DERIVED": 0.24,
+     "blur_diameter_mm_DERIVED": 0.01,
+     "blur_diameter_arcsec_DERIVED": 0.1
+    },
+    {
+     "lambda_A": 5283,
+     "reading_mm": 447.33,
+     "defocus_mm_DERIVED": 2.05,
+     "blur_diameter_mm_DERIVED": 0.11,
+     "blur_diameter_arcsec_DERIVED": 1.1
+    },
+    {
+     "lambda_A": 5184,
+     "reading_mm": 448.82,
+     "defocus_mm_DERIVED": 3.54,
+     "blur_diameter_mm_DERIVED": 0.19,
+     "blur_diameter_arcsec_DERIVED": 2.0
+    },
+    {
+     "lambda_A": 4862,
+     "reading_mm": 457.88,
+     "defocus_mm_DERIVED": 12.6,
+     "blur_diameter_mm_DERIVED": 0.66,
+     "blur_diameter_arcsec_DERIVED": 7.0
+    },
+    {
+     "lambda_A": 4710,
+     "reading_mm": 465.38,
+     "defocus_mm_DERIVED": 20.1,
+     "blur_diameter_mm_DERIVED": 1.06,
+     "blur_diameter_arcsec_DERIVED": 11.2
+    },
+    {
+     "lambda_A": 4540,
+     "reading_mm": 477.84,
+     "defocus_mm_DERIVED": 32.56,
+     "blur_diameter_mm_DERIVED": 1.71,
+     "blur_diameter_arcsec_DERIVED": 18.2
+    },
+    {
+     "lambda_A": 4383,
+     "reading_mm": 491.92,
+     "defocus_mm_DERIVED": 46.64,
+     "blur_diameter_mm_DERIVED": 2.45,
+     "blur_diameter_arcsec_DERIVED": 26.1
+    },
+    {
+     "lambda_A": 4340,
+     "reading_mm": 496.62,
+     "defocus_mm_DERIVED": 51.34,
+     "blur_diameter_mm_DERIVED": 2.7,
+     "blur_diameter_arcsec_DERIVED": 28.7
+    },
+    {
+     "lambda_A": 4308,
+     "reading_mm": 501.45,
+     "defocus_mm_DERIVED": 56.17,
+     "blur_diameter_mm_DERIVED": 2.95,
+     "blur_diameter_arcsec_DERIVED": 31.4
+    },
+    {
+     "lambda_A": 4272,
+     "reading_mm": 506.2,
+     "defocus_mm_DERIVED": 60.92,
+     "blur_diameter_mm_DERIVED": 3.2,
+     "blur_diameter_arcsec_DERIVED": 34.1
+    },
+    {
+     "lambda_A": 4227,
+     "reading_mm": 512.03,
+     "defocus_mm_DERIVED": 66.75,
+     "blur_diameter_mm_DERIVED": 3.5,
+     "blur_diameter_arcsec_DERIVED": 37.3
+    },
+    {
+     "lambda_A": 4110,
+     "reading_mm": 533.29,
+     "defocus_mm_DERIVED": 88.01,
+     "blur_diameter_mm_DERIVED": 4.62,
+     "blur_diameter_arcsec_DERIVED": 49.2
+    },
+    {
+     "lambda_A": 4102,
+     "reading_mm": 533.82,
+     "defocus_mm_DERIVED": 88.54,
+     "blur_diameter_mm_DERIVED": 4.65,
+     "blur_diameter_arcsec_DERIVED": 49.5
+    }
+   ],
+   "plate2_Vega_20C": [
+    {
+     "lambda_A": 6563,
+     "reading_mm": 454.41,
+     "defocus_mm_DERIVED": 9.23,
+     "blur_diameter_mm_DERIVED": 0.48,
+     "blur_diameter_arcsec_DERIVED": 5.2
+    },
+    {
+     "lambda_A": 5760,
+     "reading_mm": 445.18,
+     "defocus_mm_DERIVED": 0.0,
+     "blur_diameter_mm_DERIVED": 0.0,
+     "blur_diameter_arcsec_DERIVED": 0.0
+    },
+    {
+     "lambda_A": 5240,
+     "reading_mm": 446.97,
+     "defocus_mm_DERIVED": 1.79,
+     "blur_diameter_mm_DERIVED": 0.09,
+     "blur_diameter_arcsec_DERIVED": 1.0
+    },
+    {
+     "lambda_A": 4862,
+     "reading_mm": 457.02,
+     "defocus_mm_DERIVED": 11.84,
+     "blur_diameter_mm_DERIVED": 0.62,
+     "blur_diameter_arcsec_DERIVED": 6.6
+    },
+    {
+     "lambda_A": 4580,
+     "reading_mm": 473.94,
+     "defocus_mm_DERIVED": 28.76,
+     "blur_diameter_mm_DERIVED": 1.51,
+     "blur_diameter_arcsec_DERIVED": 16.1
+    },
+    {
+     "lambda_A": 4340,
+     "reading_mm": 496.27,
+     "defocus_mm_DERIVED": 51.09,
+     "blur_diameter_mm_DERIVED": 2.68,
+     "blur_diameter_arcsec_DERIVED": 28.6
+    },
+    {
+     "lambda_A": 4102,
+     "reading_mm": 534.06,
+     "defocus_mm_DERIVED": 88.88,
+     "blur_diameter_mm_DERIVED": 4.67,
+     "blur_diameter_arcsec_DERIVED": 49.7
+    },
+    {
+     "lambda_A": 3969,
+     "reading_mm": 564.48,
+     "defocus_mm_DERIVED": 119.3,
+     "blur_diameter_mm_DERIVED": 6.26,
+     "blur_diameter_arcsec_DERIVED": 66.7
+    }
+   ],
+   "derived_note": "DERIVED: defocus = reading - minimum reading of the same plate (Arcturus 445.28 mm at 5732 A; Vega 445.18 mm at 5760 A); geometric blur-circle diameter = defocus x D/f = defocus / 19.05; in arcsec = blur x 10.657 \"/mm. Values were read from the page image and cross-checked with the OCR (OCR-mangled cells such as 4383 \"4QOT.92\" and 4308 \"SoT.45\" were read visually).",
+   "refs": [
+    "yerkes.color_curve_fox",
+    "yerkes.color_curve_hale_ellerman",
+    "yerkes.photographic_use"
+   ]
+  },
+  "not_found": [
+   "Glass types of the crown and flint (catalogue names, refractive indices, dispersions): only \"disks furnished by Mantois of Paris\" (H97). The Brashear account of the discs (Popular Astronomy 1, 1893-94, cited by H97) was not obtained (ADS returned HTTP 504).",
+   "An unvignetted or corrected field of view of the objective, and the focal-surface curvature.",
+   "Lens radii of curvature (the prescription).",
+   "A published secondary-spectrum coefficient in modern form (the colour curves of FOX and HE99 are the measurements; the defocus/blur values here are DERIVED).",
+   "Barnard's temperature results (B17: \"an investigation, which is not yet printed\")."
+  ],
+  "conflicts": [
+   "Focal length: 19354 mm at 50 F (B17, micrometer; used by FOX) vs 1936 cm (HE99, star trails) vs 19.36 m (S10) vs \"very nearly 62 feet\" = 18.90 m (H97). Lens-to-focus distances 18966 mm (crown surface) and 18793 mm (lens-space centre) are not focal lengths (B17).",
+   "Lens separation: 8 3/8 in (H97, page image) vs 8.6 in = 218 mm (B17) vs \"about seven inches\" (K96, 1895 test, before the lenses were re-positioned).",
+   "Tube length: 60 ft (H97, 1897) vs 64 ft (P93, 1893).",
+   "Plate scale: 1\" = 0.0937 mm -> 10.67\"/mm (B17) vs 10.6\"/mm (S10) vs 10.657\"/mm DERIVED from 19354 mm.",
+   "Clear aperture: 40 in = 1016 mm (DERIVED) vs \"102 cm\" (HE99, rounded)."
+  ],
+  "notes": [
+   "Pupil for the explorer: a filled circle of D = 1.016 m (eps = 0, no vanes): the diffraction pattern is the pure Airy pattern. Pedagogically the dominant aberration is chromatic: the colour curve (yerkes.color_curve) moves the focus by ~13 mm at H-beta and ~89 mm at H-delta relative to the best (5700 A) focus, i.e. geometric blur circles of ~7\" and ~50\" -- far larger than the 0.14\" Airy radius at 5500 A (DERIVED 1.22 x 550e-9 / 1.016 rad).",
+   "Reflections: none (refractor); 4 glass-air surfaces. F = 19.354/1.016 = f/19.05 (DERIVED).",
+   "The objective was accepted in October 1895 after Keeler's test (K96), shipped to Williams Bay and first used on 1897 May 21 (HC97); Fox (1908) used the Hartmann test (T < 0.5)."
+  ]
+ }
+}

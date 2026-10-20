@@ -325,7 +325,15 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   const ts = fieldSlopes(Dz);
   // rays: for each field point, the annulus's inner and outer edges on each side
   const edgeA = [eps > 0.002 ? eps : 0.002, 1];
-  const rays = ts.map(t => ({ t, up: edgeA.map(a => Dz.trace(a * Dmm / 2, t)), dn: edgeA.map(a => Dz.trace(-a * Dmm / 2, t)) }));
+  // (an off-axis telescope, in the Telescopes mode: the aperture's center offAxis m from the parent's axis, so the
+  // light fills one side of the axis only)
+  const off = tel && P.offAxis ? P.offAxis * 1000 : 0, SIDES = off ? ["up"] : ["up", "dn"];
+  // (a mirror narrower than the pupil on one side, the HET's array under a moved pupil: the light there misses the
+  // mirror, so the bundle stops at the mirror's edge)
+  const sp = tel && P.mirrorSpans && !off ? [Math.min(...P.mirrorSpans.map(q => q[0])), Math.max(...P.mirrorSpans.map(q => q[1]))].map(v => v * 2000 / Dmm) : [-1, 1];
+  const outUp = Math.min(1, sp[1]), outDn = Math.min(1, -sp[0]);
+  const rays = ts.map(t => (off ? { t, up: [Dz.trace(off - Dmm / 2, t), Dz.trace(off + Dmm / 2, t)] }
+                                : { t, up: [edgeA[0], outUp].map(a => Dz.trace(a * Dmm / 2, t)), dn: [edgeA[0], outDn].map(a => Dz.trace(-a * Dmm / 2, t)) }));
   // ---- world geometry (mm) for the chosen view: a list of polylines per bundle, and the elements
   const sag1 = hh => hh * hh / (4 * Dz.f1);
   let X, z0, polys = [], elems = [], marks = [];
@@ -336,7 +344,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded (a
     // three-mirror telescope's tertiary sends the light back to the left)
     X = z => (z < 0 ? z : refr ? z : tma ? (z <= s ? -z : z <= z3 ? z - 2 * s : x3 - (z - z3)) : two ? (z <= s ? -z : z - 2 * s) : -z);
-    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(nas || tma === "korsch" ? [] : [X(Dz.zDet)]).concat(two || tma ? [-s] : []).concat(tma ? [x3] : []).concat(schm ? [Dz.zStop] : []);
+    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(Dz.corr ? [X(Dz.corr.z)] : []).concat(nas || tma === "korsch" ? [] : [X(Dz.zDet)]).concat(two || tma ? [-s] : []).concat(tma ? [x3] : []).concat(schm ? [Dz.zStop] : []);
     const xIn = Math.min(...xs) - 0.12 * Math.max(Dmm, Math.max(...xs) - Math.min(...xs));
     z0 = xIn;
     // a Nasmyth tertiary: the flat on the line (x + a3) + y = 0 (45 degrees, through the axis a3 in front of the
@@ -374,7 +382,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     };
     for (let f = 0; f < 3; f++) {
       const r = rays[f];
-      for (const side of ["up", "dn"]) {
+      for (const side of SIDES) {
         const [inner, outer] = r[side];
         inner.tVal = r.t; outer.tVal = r.t;
         polys.push({ f, a: pathOf(inner), b: pathOf(outer) });
@@ -382,38 +390,48 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     }
     // primary: its curve, with the Cassegrain hole sized to pass the returning beam
     let hole = 0;
-    if ((two && !nas) || tma === "korsch") for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
+    if ((two && (!nas || a3 < 0)) || tma === "korsch") for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
     // the mirror as large as the bundles it catches (a Schmidt's mirror is larger than its stop)
     let mir = Dmm / 2;
-    if (schm) for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) mir = Math.max(mir, Math.abs(hAt(pts, 0)) * 1.02);
+    if (schm) for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) mir = Math.max(mir, Math.abs(hAt(pts, 0)) * 1.02);
     // (a Paul-Baker's tertiary fills the primary's central hole, the obstruction)
     if (tma === "pb") hole = eps * Dmm / 2;
-    elems.push({ k: refr ? "objective" : "primary", hole: two || tma === "korsch" ? hole * 1.08 : hole, hh: mir });
+    // where the mirror is, across the drawing's cross-section (heights, mm): the off-axis section; or as given
+    // (mirrorSpans, m: a segmented primary cut through its center, or a mirror array wider than the pupil)
+    const spans = off ? [[off - Dmm / 2, off + Dmm / 2]] : P.mirrorSpans ? P.mirrorSpans.map(q => [q[0] * 1000, q[1] * 1000]) : null;
+    elems.push({ k: refr ? "objective" : "primary", hole: two || tma === "korsch" ? hole * 1.08 : hole, Dlab: P.Dmirror ? P.Dmirror * 1000 : null, hh: spans ? Math.max(...spans.map(q => Math.max(Math.abs(q[0]), Math.abs(q[1])))) : mir, spans, off });
     if (schm) elems.push({ k: "corrector", x: Dz.zStop, hh: Dmm / 2 });
     if (refr) { /* nothing in the beam */ } else if (two || tma) {
-      let sec = 0;
-      for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) sec = Math.max(sec, Math.abs(pts[1].h));
-      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg });
+      let sec = 0, sLo = Infinity, sHi = -Infinity;
+      for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) { sec = Math.max(sec, Math.abs(pts[1].h)); sLo = Math.min(sLo, pts[1].h); sHi = Math.max(sHi, pts[1].h); }
+      const pad = 0.04 * (sHi - sLo);
+      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: off ? 0 : Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg, span: off ? [sLo - pad, sHi + pad] : null });
       if (nas) {
         let t3 = 0;
-        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
+        for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
         elems.push({ k: "tertiary", x: -a3, hh: t3 * 1.12, s: nsg });
       }
       if (tma) {
         let t3 = 0;
-        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, z3)));
+        for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, z3)));
         elems.push({ k: "tertiary3", x: x3, hh: t3 * 1.05, pb: tma === "pb" });
       }
       if (tma === "korsch") {
         // the flat: a hole for the light on its way to the tertiary, an annulus for the light coming back
         let inner = 0, outer = 0;
-        for (const r of rays) for (const sd of ["up", "dn"]) for (const pts of r[sd]) { inner = Math.max(inner, Math.abs(hAt(pts, 2 * s + Dz.xFold))); outer = Math.max(outer, Math.abs(hAt(pts, Dz.zFold))); }
+        for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) { inner = Math.max(inner, Math.abs(hAt(pts, 2 * s + Dz.xFold))); outer = Math.max(outer, Math.abs(hAt(pts, Dz.zFold))); }
         elems.push({ k: "flat", x: Dz.xFold, inner: inner * 1.08, hh: Math.max(outer * 1.12, inner * 1.5) });
       }
       if (tma === "pb") elems.push({ k: "camera", x: X(Dz.zF), hh: Math.max((Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.25, 0.05 * Dmm) });
     } else {
-      // the prime-focus unit: the instrument in the beam, as wide as the obstruction
-      elems.push({ k: "pfu", x: -Dz.zF, hh: Math.max(eps * Dmm / 2, (Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.2) });
+      // the prime-focus unit: the instrument in the beam, as wide as the obstruction (with a corrector that changes
+      // the focal length, the unit holds the corrector too)
+      elems.push({ k: "pfu", x: -Dz.zF, hh: Math.max(eps * Dmm / 2, (Dz.mosaic.y1 - Dz.mosaic.y0) / 2 * 1.2), corr: Dz.corr ? X(Dz.corr.z) : null });
+      if (Dz.corr) {
+        let ch = 0;
+        for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) ch = Math.max(ch, Math.abs(hAt(pts, Dz.corr.z)));
+        elems.push({ k: "lens", x: X(Dz.corr.z), hh: ch * 1.1, lab: (P.corrector && P.corrector.label) || "corrector", sub: (P.corrector && P.corrector.sub) || "f/" + sig(Dz.F1, 3) + " to f/" + sig(P.F, 3) });
+      }
     }
   } else {
     // the instrument from the telescope focus on, unfolded, light traveling to the right
@@ -499,7 +517,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
   const grow = (x, y) => { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); };
   for (const p of polys) for (const q of p.a.concat(p.b)) grow(q[0], q[1]);
-  if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { grow(0, e.hh); grow(0, -e.hh); }
+  if (tel) for (const e of elems) if (e.hh && (e.k === "primary" || e.k === "objective")) { if (e.spans) for (const q of e.spans) { grow(0, q[0]); grow(0, q[1]); } else { grow(0, e.hh); grow(0, -e.hh); } }
   const detE = elems.find(e => e.k === "det"), detH = Dz.mosaic.y1 - Dz.mosaic.y0;
   tg.det = detE ? { x: detE.x, y: detE.y || 0 } : null;           // where the focus was drawn (for the tests)
   if (!detE) { /* pyramid arms: grown from their elements below */ }
@@ -546,21 +564,30 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       const c = T(0, 0); lens(g, c[0], c[1], Dmm / 2 * sc);
       { const a = T(0, Dmm / 2); labels.push({ t: "objective", s: "Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: a }); }
     } else if (e.k === "primary") {
-      const n = 60, top = [], bot = [];
-      for (let i = 0; i <= n; i++) {
-        const hh = e.hh * i / n;
-        if (hh < e.hole) continue;
-        top.push(T(-sag1(hh), hh)); bot.push(T(-sag1(hh), -hh));
+      if (e.spans) {
+        // the mirror only where it is (each span drawn alone, less the central hole)
+        for (const [lo, hi] of e.spans) {
+          const pts = [];
+          for (let i = 0; i <= 60; i++) { const hh = lo + (hi - lo) * i / 60; if (Math.abs(hh) < e.hole) { if (pts.length) { mirror(g, pts.splice(0), 1); } continue; } pts.push(T(-sag1(hh), hh)); }
+          if (pts.length) mirror(g, pts, 1);
+        }
+      } else {
+        const n = 60, top = [], bot = [];
+        for (let i = 0; i <= n; i++) {
+          const hh = e.hh * i / n;
+          if (hh < e.hole) continue;
+          top.push(T(-sag1(hh), hh)); bot.push(T(-sag1(hh), -hh));
+        }
+        mirror(g, top, 1); mirror(g, bot, 1);
       }
-      mirror(g, top, 1); mirror(g, bot, 1);
-      { const a = T(0, e.hh), sch = P.tel === "schmidt"; labels.push({ t: sch ? "mirror" : "primary", s: "Ø " + fLen(2 * e.hh) + (sch ? ", f " + fLen(Dz.f1) : ", f/" + sig(Dz.F1, 3)), at: a, pref: [[a[0] + 14, a[1] - 4]] }); }
+      { const a = T(0, e.hh), sch = P.tel === "schmidt"; labels.push({ t: sch ? "mirror" : e.off ? "primary (off-axis)" : "primary", s: P.primarySub ? P.primarySub + ", f/" + sig(Dz.F1, 3) : "Ø " + fLen(e.Dlab || (e.off ? Dmm : e.spans ? Dmm : 2 * e.hh)) + (sch ? ", f " + fLen(Dz.f1) : ", f/" + sig(e.Dlab ? Dz.f1 / e.Dlab : Dz.F1, 3)) + (e.off ? " parent" : ""), at: a, pref: [[a[0] + 14, a[1] - 4]] }); }
     } else if (e.k === "secondary") {
       if (e.baffle > e.hh * 1.01) { const a = T(e.x - 0.004 * Dmm, e.baffle), b = T(e.x - 0.004 * Dmm, -e.baffle); g.fillStyle = "rgba(120,114,106,0.35)"; g.fillRect(a[0] - 5, a[1], 5, b[1] - a[1]); }
       const pts = [];
       // convex (Cassegrain: the edges curl away from the primary) or concave (Gregorian: toward it)
-      for (let i = -20; i <= 20; i++) { const hh = e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
+      for (let i = -20; i <= 20; i++) { const hh = e.span ? e.span[0] + (e.span[1] - e.span[0]) * (i + 20) / 40 : e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
       mirror(g, pts, -1);
-      labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: "obstruction ε " + eps.toFixed(2), at: T(e.x, e.baffle), dx: 0, dy: -18, al: "center" });
+      labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: e.span ? "off-axis: nothing in the beam" : "obstruction ε " + eps.toFixed(2), at: T(e.x, e.span ? e.span[1] : e.baffle), dx: 0, dy: -18, al: "center" });
     } else if (e.k === "pyramid") {
       const l1 = [Math.sin(e.tau) * e.hh, Math.cos(e.tau) * e.hh];
       mirror(g, [T(0, 0), T(l1[0], l1[1])], 1); mirror(g, [T(0, 0), T(l1[0], -l1[1])], 1);
@@ -600,10 +627,10 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       mirror(g, pts, 1);
       labels.push({ t: "tertiary (flat)", s: "to the Nasmyth focus", at: T(e.x - (e.s || 1) * e.hh, e.hh) });
     } else if (e.k === "pfu") {
-      const a = T(e.x - 0.06 * Dz.zF, e.hh), b = T(e.x, -e.hh);
+      const a = T(e.x - 0.06 * Dz.zF, e.hh), b = T(e.corr !== null && e.corr !== undefined ? e.corr + 0.01 * Dz.zF : e.x, -e.hh);
       g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
       g.strokeStyle = "rgba(90,84,78,0.7)"; g.lineWidth = 1; g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
-      labels.push({ t: "prime-focus unit and detector", s: "obstruction ε " + eps.toFixed(2), at: T(e.x - 0.03 * Dz.zF, e.hh) });
+      labels.push({ t: P.pfuLabel || "prime-focus unit and detector", s: P.pfuSub || "obstruction ε " + eps.toFixed(2), at: T(e.x - 0.03 * Dz.zF, e.hh) });
     } else if (e.k === "lens") {
       const c = T(e.x, 0); lens(g, c[0], c[1], e.hh * sc * ky);
       { const hw = 0.11 * 2 * e.hh * sc * ky + 3; obstacles.push([c[0] - hw, c[1] - e.hh * sc * ky, c[0] + hw, c[1] + e.hh * sc * ky]); }
@@ -640,7 +667,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
         let half = 0;
         for (const b of bands) half = Math.max(half, Math.abs(T(e.x + e.sgn * b.y1, e.y)[0] - tip[0]), Math.abs(T(e.x + e.sgn * b.y0, e.y)[0] - tip[0]));
         const px = tip[0] + half + 12, pref = [[px, tip[1] + (e.up ? -wpx : wpx) / 2 - lh / 2], [px, tip[1] - lh - 2], [px, tip[1] + 2]];
-        labels.push({ t: e.korsch ? "focus" : "Nasmyth focus", s: sub, at: [tip[0], tip[1] + (e.up ? -wpx : wpx)], pref });
+        labels.push({ t: P.focusLabel || (e.korsch ? "focus" : "Nasmyth focus"), s: sub, at: [tip[0], tip[1] + (e.up ? -wpx : wpx)], pref });
       } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);

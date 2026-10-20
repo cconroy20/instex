@@ -78,7 +78,7 @@ function design(P) {
     // to the side; the focus then lies backN D from the axis (b = backN D - a3).  A flat fold changes no number.
     const greg = P.tel === "greg";
     const F1 = Math.min(P.F1 || 2, P.F / 1.02), f1 = F1 * Dmm, m = P.F / F1;   // the secondary must slow the beam (m > 1)
-    const a3 = 0.2 * Dmm;
+    const a3 = P.a3 !== undefined && P.a3 !== null ? P.a3 * 1000 : 0.2 * Dmm;   // (a3 < 0: behind the primary, through its hole)
     const b = P.nasmyth ? (P.backN === undefined || P.backN === null ? 0.8 : P.backN) * Dmm - a3
                         : (P.back === undefined || P.back === null ? 0.2 : P.back) * Dmm;
     const s = greg ? (m * f1 + b) / (m - 1) : (m * f1 - b) / (m + 1);
@@ -120,6 +120,14 @@ function design(P) {
     el.push({ z: 0, f: f1, kind: "primary" });
     zF = f1; zXP = 2 * f1;
     Object.assign(S, { F1: P.F, f1, m: 1 });
+  } else if (P.tel === "prime" && P.corrector && P.F1 && Math.abs(P.F / P.F1 - 1) > 1e-6) {
+    // a prime-focus corrector that changes the focal length (Subaru's, HET's): drawn as one thin lens a distance d
+    // (m) before the primary's own focus, of the power that takes the primary's f/F1 cone to f/F (a Barlow lens when
+    // F > F1: the image q = m d past it, m = F / F1, so 1/m = 1 + d/f_c)
+    const F1 = P.F1, f1 = F1 * Dmm, m = P.F / F1, d = P.corrector.d * 1000, zC = f1 - d, fC = d / (1 / m - 1);
+    el.push({ z: 0, f: f1, kind: "primary" }, { z: zC, f: fC, kind: "corrector" });
+    zF = zC + m * d; zXP = null;
+    Object.assign(S, { F1, f1, m, corr: { z: zC, f: fC, d } });
   } else {
     const f1 = P.F * Dmm;
     el.push({ z: 0, f: f1, kind: P.tel === "refr" ? "objective" : "primary" });

@@ -3,34 +3,65 @@
    the image is |FFT|^2 of the mask, so one image pixel is lambda / (Q D).  Pupils: a circle, or hexagonal segments
    in rings around a missing center; less a central obstruction (eps D across), spider vanes ({ ang, w, full, from,
    x0, y0 }: a bar through (x0, y0) when full, else a ray from (x0, y0) outward along ang; (x0, y0) defaults to the
-   center) and pads ({ r, ang, d }).  Also the long-exposure image through the atmosphere (seeingPSF). */
+   center) and pads ({ r, ang, d }).  Also the long-exposure image through the atmosphere (seeingPSF).
+   Further pupil options: rot (the hexagon lattice turned, degrees), rings0 (0 keeps the central segment), kind
+   "circles" with segs [{ x, y, d, hole }] (separate round mirrors), stop { x, y, d } (a circular stop off the
+   center).  The obstruction (eps D across) and any vanes are centered on the stop when there is one; a vane may end
+   at to (m from its start: a short widening of a strut), widen outward (div, degrees per edge) and stop at rmax (m
+   from the center); blocks are polygons in the beam ([[x, y], ...], m); a seg with dr is an ellipse (an off-axis
+   mirror seen from the sky). */
 (function (root) {
 "use strict";
 const N = 1024, Q = 8, DEG = Math.PI / 180;
+// a point in a polygon ([[x, y], ...], m), by the crossing count
+function inPoly(poly, x, y) {
+  let c = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+  }
+  return c;
+}
 function inPupil(pu, eps, x, y, noVanes) {
   const r = Math.hypot(x, y), R = pu.D / 2;
   if (pu.kind === "hex") {
     // segments: pointy-topped hexagons on a lattice of the flat-to-flat size, rings 1 ... n around a missing center
+    // (rings0 = 0 keeps the center); the lattice turned by rot degrees (30 makes the hexagons flat-topped)
     const s = pu.flat, a = s / 2 - (pu.gap || 0) / 2;
+    if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c + y * sn; y = -x * sn + y * c; x = xr; }
     const rf = (2 * y) / (Math.sqrt(3) * s), qf = x / s - rf / 2;      // lattice coordinates of the point
     let hit = false;
     const q0 = Math.round(qf), r0 = Math.round(rf);
     for (let dq = -1; dq <= 1 && !hit; dq++) for (let dr = -1; dr <= 1 && !hit; dr++) {
       const qq = q0 + dq, rr = r0 + dr, ring = Math.max(Math.abs(qq), Math.abs(rr), Math.abs(qq + rr));
-      if (ring < 1 || ring > pu.rings) continue;
+      if (ring < (pu.rings0 === undefined ? 1 : pu.rings0) || ring > pu.rings) continue;
       const cx = s * (qq + rr / 2), cy = s * Math.sqrt(3) / 2 * rr, px = x - cx, py = y - cy;
       let ok = true;
       for (const t of [0, 60, 120]) { const c = Math.cos(t * DEG), sn = Math.sin(t * DEG); if (Math.abs(px * c + py * sn) > a) { ok = false; break; } }
       if (ok) hit = true;
     }
     if (!hit) return false;
+    if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c - y * sn; y = x * sn + y * c; x = xr; }   // back to the sky frame
+  } else if (pu.kind === "circles") {
+    // separate round mirrors ({ x, y, d } in m: GMT's seven), each with its own central hole (hole, m) if any; an
+    // off-axis mirror seen from the sky is an ellipse, dr across in the radial direction (from the center) and d along
+    if (!(pu.segs || []).some(c => {
+      const dx = x - c.x, dy = y - c.y;
+      if (c.dr) { const ph = Math.atan2(c.y, c.x), u = dx * Math.cos(ph) + dy * Math.sin(ph), v = -dx * Math.sin(ph) + dy * Math.cos(ph); return (u / (c.dr / 2)) ** 2 + (v / (c.d / 2)) ** 2 <= 1; }
+      const d = Math.hypot(dx, dy); return d <= c.d / 2 && d >= (c.hole || 0) / 2;
+    })) return false;
   } else if (r > R) return false;
+  // a circular stop off the center ({ x, y, d } in m: HET's pupil, which moves across the fixed mirror array)
+  if (pu.stop && Math.hypot(x - pu.stop.x, y - pu.stop.y) > pu.stop.d / 2) return false;
   if (pu.clip && r > pu.clip / 2) return false;                      // a circular stop (an undersized secondary)
-  if (r < eps * pu.D / 2) return false;
+  const ox = pu.stop ? pu.stop.x : 0, oy = pu.stop ? pu.stop.y : 0, Dob = pu.stop ? pu.stop.d : pu.D;
+  if (Math.hypot(x - ox, y - oy) < eps * Dob / 2) return false;
   if (!noVanes) for (const v of pu.vanes || []) {
-    const c = Math.cos(v.ang * DEG), sn = Math.sin(v.ang * DEG), X = x - (v.x0 || 0), Y = y - (v.y0 || 0), along = X * c + Y * sn, across = -X * sn + Y * c;
-    if (Math.abs(across) < v.w / 2 && (v.full ? Math.abs(along) >= (v.from || 0) : along >= (v.from || 0))) return false;
+    const c = Math.cos(v.ang * DEG), sn = Math.sin(v.ang * DEG), X = x - ox - (v.x0 || 0), Y = y - oy - (v.y0 || 0), along = X * c + Y * sn, across = -X * sn + Y * c;
+    const hw = v.w / 2 + (v.div ? Math.max(0, along) * Math.tan(v.div * DEG) : 0);
+    if (Math.abs(across) < hw && (v.full ? Math.abs(along) >= (v.from || 0) : along >= (v.from || 0)) && !(v.to && Math.abs(along) > v.to) && !(v.rmax && Math.hypot(x - ox, y - oy) > v.rmax)) return false;
   }
+  for (const b of pu.blocks || []) if (inPoly(b, x - ox, y - oy)) return false;
   for (const p of pu.pads || []) { const px = p.r * Math.cos(p.ang * DEG), py = p.r * Math.sin(p.ang * DEG); if (Math.hypot(x - px, y - py) < p.d / 2) return false; }
   return true;
 }
@@ -46,10 +77,12 @@ function raster(pu, eps, n, dx, sub = 4) {
     // the vanes: each covers the part of the pixel within its strip, from the overlap of the pixel's extent across
     // the vane (a box of width dx (|cos| + |sin|)) with the vane's width
     if (v > 0) for (const vn of pu.vanes || []) {
-      const xc = (i - n / 2 + 0.5) * dx - (vn.x0 || 0), yc = (j - n / 2 + 0.5) * dx - (vn.y0 || 0), c = Math.cos(vn.ang * DEG), sn = Math.sin(vn.ang * DEG);
+      const xc = (i - n / 2 + 0.5) * dx - (pu.stop ? pu.stop.x : 0) - (vn.x0 || 0), yc = (j - n / 2 + 0.5) * dx - (pu.stop ? pu.stop.y : 0) - (vn.y0 || 0), c = Math.cos(vn.ang * DEG), sn = Math.sin(vn.ang * DEG);
       const along = xc * c + yc * sn, across = -xc * sn + yc * c;
-      if (!(vn.full ? Math.abs(along) >= (vn.from || 0) : along >= (vn.from || 0))) continue;
-      const pw = dx * (Math.abs(c) + Math.abs(sn)), lo = Math.max(across - pw / 2, -vn.w / 2), hi = Math.min(across + pw / 2, vn.w / 2);
+      if (!(vn.full ? Math.abs(along) >= (vn.from || 0) : along >= (vn.from || 0)) || (vn.to && Math.abs(along) > vn.to)) continue;
+      if (vn.rmax && Math.hypot(xc + (vn.x0 || 0), yc + (vn.y0 || 0)) > vn.rmax) continue;
+      const hw = vn.w / 2 + (vn.div ? Math.max(0, along) * Math.tan(vn.div * DEG) : 0);
+      const pw = dx * (Math.abs(c) + Math.abs(sn)), lo = Math.max(across - pw / 2, -hw), hi = Math.min(across + pw / 2, hw);
       if (hi > lo) v *= 1 - (hi - lo) / pw;
     }
     m[j * n + i] = v; area += v;

@@ -1,0 +1,2106 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Subaru Telescope 8.2 m (NAOJ), every focus and the entrance pupil",
+  "compiled": "2026-10-19",
+  "companion": "data/telescopes/subaru.md (same content as Markdown). Structure: sources{key: cite, file, url}; subaru{title, telescope{primary, pupil_default, foci[] (each with its own pupil block)}, params, not_found, conflicts, notes}. Focus and pupil fields carry refs (subaru.<param>) into the sourced params.",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/subaru/, or an existing file already used by data/imaging/widefield.json (STP, A18, SSP, S15, SPFS, OBSS) or data/telescopes/magellan.json (HCI, HCIG) -- SAME FILE. derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (not text-checkable; its caption/label quote is checked). INFERRED = reasoned, not stated by a source. NOT FOUND = gap. Nothing is filled from memory.",
+  "table2_column_order": [
+   "prime (optical, no corrector)",
+   "Cassegrain optical",
+   "Nasmyth optical with image rotator",
+   "Nasmyth optical without rotator",
+   "Cassegrain infrared",
+   "Nasmyth infrared with image rotator",
+   "Nasmyth infrared without rotator"
+  ],
+  "refs": "Telescope-object refs name params as subaru.<id>.",
+  "check_result": "125 quotes machine-checked against the saved files' extracted text (pdftotext -layout, -raw and default for PDFs; tag-stripped text and raw source for HTML; .py as is): all pass (2026-10-19). 2 figure read-offs (FIGURE READ-OFF) are visual only; their label quotes are among the checked quotes."
+ },
+ "sources": {
+  "I04": {
+   "cite": "Iye, M., Karoji, H., Ando, H., Kaifu, N., Kodaira, K., et al. 2004, PASJ 56, 381, \"Current Performance and On-Going Improvements of the 8.2 m Subaru Telescope\", arXiv:astro-ph/0405012v2 (Sec. 2.1 Optics, Table 1 optical components, Table 2 seven focal configurations, Secs. 2.3-2.5, 3, 4.6-4.9)",
+   "file": "rawdata/telescopes/subaru/Iye2004_PASJ56_381_SubaruPerformance_arXiv0405012.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0405012"
+  },
+  "STP": {
+   "cite": "Subaru Telescope (NAOJ), \"Physical parameters of Subaru Telescope\" page (fetched 2026-10-19) -- SAME FILE as imaging key STP (data/imaging/widefield.md)",
+   "file": "rawdata/imaging/hsc/subaru_Telescope_Parameters.html",
+   "url": "https://subarutelescope.org/Observing/Telescope/Parameters/index.html"
+  },
+  "SAB": {
+   "cite": "Subaru Telescope (NAOJ), \"Overview of Subaru Telescope\" page, Specifications of Subaru Telescope (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_en_about_index.html",
+   "url": "https://subarutelescope.org/en/about/"
+  },
+  "SF6": {
+   "cite": "Subaru Telescope (NAOJ), \"Features of the Subaru Telescope\" no. 6, \"Four foci\" (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_en_about_features_6.html",
+   "url": "https://subarutelescope.org/en/about/features/6.html"
+  },
+  "SOLD": {
+   "cite": "Subaru Telescope (NAOJ), archived \"Specifications\" page (old site, Introduction/telescope.html) with the figure \"Subaru's Four Foci\" saved alongside as subaru_old_Introduction_img_telescope_foci1_e.jpg (image file dated 2013-04-12 in its EXIF; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_old_Introduction_telescope.html",
+   "url": "https://subarutelescope.org/old/Introduction/telescope.html"
+  },
+  "SINS": {
+   "cite": "Subaru Telescope (NAOJ), \"Instruments\" introduction page (facility, visiting, hibernating and decommissioned instruments; fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_index.html",
+   "url": "https://subarutelescope.org/Instruments/"
+  },
+  "SAO": {
+   "cite": "Subaru Telescope (NAOJ), AO (AO188 / AO3k) instrument page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_AO_index.html",
+   "url": "https://subarutelescope.org/Instruments/AO/index.html"
+  },
+  "SHDS": {
+   "cite": "Subaru Telescope (NAOJ), HDS instrument page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_HDS_index.html",
+   "url": "https://subarutelescope.org/Instruments/HDS/index.html"
+  },
+  "SIRCS": {
+   "cite": "Subaru Telescope (NAOJ), IRCS instrument page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_IRCS_index.html",
+   "url": "https://subarutelescope.org/Instruments/IRCS/index.html"
+  },
+  "SFOC": {
+   "cite": "Subaru Telescope (NAOJ), FOCAS instrument page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_FOCAS_index.html",
+   "url": "https://subarutelescope.org/Instruments/FOCAS/index.html"
+  },
+  "SHSC": {
+   "cite": "Subaru Telescope (NAOJ), HSC instrument page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Instruments_HSC_index.html",
+   "url": "https://subarutelescope.org/Instruments/HSC/index.html"
+  },
+  "SSCAM": {
+   "cite": "Subaru Telescope (NAOJ), archived Suprime-Cam page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Archive_Instruments_SCam_index.html",
+   "url": "https://subarutelescope.org/Archive/Instruments/SCam/index.html"
+  },
+  "SCOM": {
+   "cite": "Subaru Telescope (NAOJ), archived COMICS page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Archive_Instruments_COMICS_index.html",
+   "url": "https://subarutelescope.org/Archive/Instruments/COMICS/index.html"
+  },
+  "SFMOS": {
+   "cite": "Subaru Telescope (NAOJ), archived FMOS page (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Archive_Instruments_FMOS_index.html",
+   "url": "https://subarutelescope.org/Archive/Instruments/FMOS/index.html"
+  },
+  "SHSP": {
+   "cite": "Subaru Telescope (NAOJ), HSC project page \"HSC Project\" (fetched 2026-10-19)",
+   "file": "rawdata/telescopes/subaru/subaru_Projects_HSC_HSCProject.html",
+   "url": "https://subarutelescope.org/Projects/HSC/HSCProject.html"
+  },
+  "M02": {
+   "cite": "Miyazaki, S., Komiyama, Y., Sekiguchi, M., Okamura, S., et al. 2002, PASJ 54, 833, \"Subaru Prime Focus Camera -- Suprime-Cam\", arXiv:astro-ph/0211006 (Abstract, Secs. 1, 2.3, 2.8 PFU, 2.9 corrector, Table 6)",
+   "file": "rawdata/telescopes/subaru/Miyazaki2002_PASJ54_833_SuprimeCam_arXiv0211006.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0211006"
+  },
+  "A18": {
+   "cite": "Aihara, H., et al. 2018, PASJ 70, S4, \"The Hyper Suprime-Cam SSP Survey: Overview and survey design\", arXiv:1704.05858v3 -- SAME FILE as imaging key A18",
+   "file": "rawdata/imaging/hsc/Aihara2018_PASJ70_S4_HSC-SSP_arXiv1704.05858.pdf",
+   "url": "https://arxiv.org/pdf/1704.05858"
+  },
+  "SSP": {
+   "cite": "HSC-SSP survey site (NAOJ), \"About HSC\" page (?p=16): wide-field corrector, prime focus unit -- SAME FILE as imaging key SSP",
+   "file": "rawdata/imaging/hsc/hsc_ssp_about_HSC_p16.html",
+   "url": "https://hsc.mtk.nao.ac.jp/ssp/?p=16"
+  },
+  "S15": {
+   "cite": "Sugai, H., et al. 2015, JATIS 1, 035001, \"Prime Focus Spectrograph for the Subaru telescope\", arXiv:1507.00725 -- SAME FILE as imaging key S15",
+   "file": "rawdata/imaging/hsc/Sugai2015_JATIS1_035001_PFS_arXiv1507.00725.pdf",
+   "url": "https://arxiv.org/pdf/1507.00725"
+  },
+  "SPFS": {
+   "cite": "Subaru Telescope (NAOJ), PFS \"Basic instrument parameters\" page -- SAME FILE as imaging key SPFS",
+   "file": "rawdata/imaging/hsc/subaru_pfs_basic-instrument-parameters.html",
+   "url": "https://subarutelescope.org/Observing/Instruments/PFS/basic-instrument-parameters.html"
+  },
+  "OBSS": {
+   "cite": "Rubin/HSC pipeline obs_subaru, hsc/camera/camera.py (commit 4db6579, 2024-07-15) -- SAME FILE as imaging key OBSS",
+   "file": "rawdata/imaging/hsc/obs_subaru_hsc_camera_camera.py",
+   "url": "https://github.com/lsst/obs_subaru/blob/main/hsc/camera/camera.py"
+  },
+  "W14": {
+   "cite": "Wang, S.-Y., Braun, D. F., Schwochert, M. A., Huang, P.-J., et al. 2014, Proc. SPIE 9147, 91475Q, \"Prime focus instrument of prime focus spectrograph for Subaru telescope\", arXiv:1408.2877 (PFI cable wrapper vs the POpt2 prime focus unit)",
+   "file": "rawdata/telescopes/subaru/Wang2014_SPIE9147_PFS_PrimeFocusInstrument_arXiv1408.2877.pdf",
+   "url": "https://arxiv.org/pdf/1408.2877"
+  },
+  "L09": {
+   "cite": "Lozi, J., Martinache, F., & Guyon, O. 2009, PASP 121, 1232, \"Phase-Induced Amplitude Apodization on Centrally Obscured Pupils: Design and First Laboratory Demonstration for the Subaru Telescope Pupil\", arXiv:0903.5001 (Secs. 2, 2.1, Figs. 1-2). SCExAO = IR Nasmyth pupil",
+   "file": "rawdata/telescopes/subaru/Lozi2009_PASP121_1232_PIAA_SubaruPupil_arXiv0903.5001.pdf",
+   "url": "https://arxiv.org/pdf/0903.5001"
+  },
+  "K18": {
+   "cite": "Kühn, J., Serabyn, E., Lozi, J., Jovanovic, N., et al. 2018, PASP 130, 035001, \"An H-band Vector Vortex Coronagraph for the Subaru Coronagraphic Extreme-adaptive Optics System\", arXiv:1712.02040 (Sec. 2.3.1, Table 2 SCExAO entrance pupil, Sec. 2.4.1)",
+   "file": "rawdata/telescopes/subaru/Kuhn2018_PASP130_035001_SCExAO_VectorVortex_arXiv1712.02040.pdf",
+   "url": "https://arxiv.org/pdf/1712.02040"
+  },
+  "MA20": {
+   "cite": "Martinache, F., Ceau, A., Laugier, R., Kammerer, J., et al. 2020, A&A 636, A72, \"Kernel-phase analysis: Aperture modeling prescriptions that minimize calibration errors\", arXiv:2003.02032 (Sec. 3, Fig. 4: SCExAO pupil mask)",
+   "file": "rawdata/telescopes/subaru/Martinache2020_AA636_A72_KernelPhase_SubaruPupil_arXiv2003.02032.pdf",
+   "url": "https://arxiv.org/pdf/2003.02032"
+  },
+  "LU22": {
+   "cite": "Lucas, M., Bottom, M., Guyon, O., Lozi, J., et al. 2022, Proc. SPIE 12184, 121844E, \"A visible-light Lyot coronagraph for SCExAO/VAMPIRES\", arXiv:2208.02380 (Fig. 2 caption: SCExAO pupil)",
+   "file": "rawdata/telescopes/subaru/Lucas2022_SPIE12184_VAMPIRES_Lyot_arXiv2208.02380.pdf",
+   "url": "https://arxiv.org/pdf/2208.02380"
+  },
+  "G22": {
+   "cite": "Guyon, O., Ahn, K., Akiyama, M., Currie, T., et al. 2022, Proc. SPIE 12185, 121856J, \"High contrast and high angular imaging at Subaru Telescope\", arXiv:2208.01809 (Sec. 2, Fig. 1: the NasIR platform)",
+   "file": "rawdata/telescopes/subaru/Guyon2022_SPIE12185_SubaruHighContrast_NasIR_arXiv2208.01809.pdf",
+   "url": "https://arxiv.org/pdf/2208.01809"
+  },
+  "HCI": {
+   "cite": "hcipy, hcipy/aperture/realistic.py, functions make_subaru_lyot_stop / make_subaru_aperture, GitHub ehpor/hcipy commit ee20b03 (2026-08-14). Third-party pupil model (\"based on the Nasmyth-IR pupil (Julien Lozi priv. communications)\") -- SAME FILE as magellan.json key HCI",
+   "file": "rawdata/telescopes/magellan/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "HCIG": {
+   "cite": "hcipy, hcipy/aperture/generic.py (make_spider_infinite definition), same commit ee20b03 -- SAME FILE as magellan.json key HCIG",
+   "file": "rawdata/telescopes/magellan/hcipy_ee20b03_aperture_generic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/generic.py"
+  }
+ },
+ "subaru": {
+  "title": "Subaru Telescope 8.2 m: prime focus (HSC; Suprime-Cam historical), Cassegrain (optical and IR secondaries), optical and IR Nasmyth (with and without image rotator)",
+  "telescope": {
+   "name": "Subaru Telescope (NAOJ), 8.2 m",
+   "site": "Maunakea, Hawaii (4139 m)",
+   "mount": "altitude-azimuth",
+   "first_light": "1998-12-24 (engineering)",
+   "optical_design": "modified Ritchey-Chretien with interchangeable top units: prime focus unit (corrector), optical Cassegrain M2, optical Nasmyth M2, IR (chopping) M2 used at Cassegrain and IR Nasmyth",
+   "primary": {
+    "D_effective_m": 8.2,
+    "D_physical_m": 8.3,
+    "thickness_m": 0.2,
+    "material": "ULE, thin meniscus, 261 actuators",
+    "focal_length_mm": 15000,
+    "F": 1.83,
+    "radius_mm": -30000,
+    "conic": -1.008350515,
+    "coating": "aluminium",
+    "refs": [
+     "subaru.primary_effective_diameter",
+     "subaru.primary_physical_diameter",
+     "subaru.primary_meniscus",
+     "subaru.primary_focal_length",
+     "subaru.primary_radius_conic"
+    ]
+   },
+   "pupil_default": {
+    "D_m": 7.9475,
+    "D_basis": "IR M2 stop without image rotator (I04 Table 2); measured 7.92 m (L09), 7.95 m (HCI)",
+    "central_obscuration_m": 2.369,
+    "central_obscuration_basis": "measured at the IR Nasmyth by SCExAO (K18 2.369 m; L09 0.30 x 7.92 = 2.38 m; HCI 0.307 x 7.95 = 2.44 m; MA20 2.3 m)",
+    "eps": 0.3,
+    "spiders": {
+     "n": 4,
+     "width_m": 0.23,
+     "width_alternatives_m": {
+      "L09": 0.224,
+      "K18": 0.237,
+      "HCI": 0.184
+     },
+     "angle_from_horizontal_deg": 51.75,
+     "origin_offset_m": 0.661,
+     "origin_offset_alt_m": {
+      "HCI": 0.659
+     },
+     "vanes_model_frame": [
+      {
+       "start_xy_m": [
+        0.661,
+        0.0
+       ],
+       "angle_deg": 51.75
+      },
+      {
+       "start_xy_m": [
+        0.661,
+        0.0
+       ],
+       "angle_deg": -51.75
+      },
+      {
+       "start_xy_m": [
+        -0.661,
+        0.0
+       ],
+       "angle_deg": 231.75
+      },
+      {
+       "start_xy_m": [
+        -0.661,
+        0.0
+       ],
+       "angle_deg": 128.25
+      }
+     ],
+     "vane_line_offset_from_centre_m_DERIVED": 0.519,
+     "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+     "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+     "refs": [
+      "subaru.spider_width",
+      "subaru.spider_geometry",
+      "subaru.top_units_and_spider"
+     ]
+    },
+    "refs": [
+     "subaru.central_obscuration_nsir",
+     "subaru.pupil_diameter_nsir_measured",
+     "subaru.spider_width",
+     "subaru.spider_geometry"
+    ],
+    "note": "The only measured Subaru pupil (IR Nasmyth, SCExAO input). For the optical foci use D = 8.2 m; their obscuration is NOT FOUND."
+   },
+   "foci": [
+    {
+     "id": "PF-HSC",
+     "name": "Prime focus with the HSC Wide-Field Corrector (POpt2)",
+     "status": "in use (HSC; PFS shares the corrector and POpt2)",
+     "secondary": null,
+     "focal_length_mm": 18416.5,
+     "F": 2.25,
+     "F_defined_on_D_m": 8.2,
+     "plate_scale_arcsec_per_mm": 11.2,
+     "plate_scale_mm_per_arcsec": 0.0893,
+     "field": {
+      "diameter_deg": 1.5,
+      "unvignetted_diameter_arcmin": 10,
+      "vignetting_at_edge": 0.26,
+      "pfs_field_deg2": 1.25
+     },
+     "n_reflections": 1,
+     "mirrors": [
+      "M1"
+     ],
+     "location": "top end, 15 m above the primary, inside the prime focus unit POpt2 (hexapod, instrument rotator); 7-element WFC (5 lenses + ADC) ahead of the dewar",
+     "instruments_current": [
+      "HSC",
+      "PFS"
+     ],
+     "instruments_past": [],
+     "pupil": {
+      "D_m": 8.2,
+      "D_basis": "primary effective diameter (I04 Table 2 prime column: pupil 8200 mm)",
+      "central_obscuration_m": null,
+      "central_obscuration_basis": "NOT FOUND: outer diameter of the prime focus unit (POpt2 for HSC/PFS). Lower bounds 0.97 m (WFC barrel) and ~1.04 m (POpt2 inner diameter, DERIVED)",
+      "eps": null,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.prime_focus_obscuration",
+       "subaru.prime_focus_unit_popt2",
+       "subaru.hsc_wfc"
+      ],
+      "eps_lower_bound_DERIVED": 0.127
+     },
+     "refs": [
+      "subaru.hsc_wfc",
+      "subaru.hsc_focal_ratio",
+      "subaru.hsc_plate_scale",
+      "subaru.hsc_field",
+      "subaru.prime_focus_location",
+      "subaru.prime_focus_unit_popt2"
+     ],
+     "F_published": 2.2,
+     "focal_length_basis": "DERIVED from the 11.2\"/mm pipeline plate scale",
+     "plate_scale_edge_arcsec_per_mm_DERIVED": 10.3,
+     "corrector": "7 elements (5 lenses + 1 ADC element), first lens 820 mm",
+     "n_reflections_note": "1 mirror (M1) + refractive corrector"
+    },
+    {
+     "id": "PF-SCAM",
+     "name": "Prime focus with the Suprime-Cam corrector (historical)",
+     "status": "historical: Suprime-Cam (developed 1999, decommissioned S17A); FMOS also used the prime focus (to May 2016; its corrector NOT FOUND)",
+     "secondary": null,
+     "focal_length_mm": 15317,
+     "F": 1.868,
+     "F_defined_on_D_m": 8.2,
+     "plate_scale_arcsec_per_mm": 13.47,
+     "plate_scale_mm_per_arcsec": 0.0742,
+     "field": {
+      "mosaic_arcmin": [
+       34,
+       27
+      ],
+      "unvignetted_diameter_arcmin": 30
+     },
+     "n_reflections": 1,
+     "mirrors": [
+      "M1"
+     ],
+     "location": "prime focus unit on the top ring; camera interface flange 230 mm behind the prime focus; 3-lens Wynne corrector incl. lateral-shift ADC",
+     "instruments_current": [],
+     "instruments_past": [
+      "Suprime-Cam (1999-S17A)",
+      "FMOS (to May 2016)"
+     ],
+     "pupil": {
+      "D_m": 8.2,
+      "D_basis": "primary effective diameter",
+      "central_obscuration_m": null,
+      "central_obscuration_basis": "NOT FOUND: outer diameter of the Suprime-Cam-era prime focus unit (no lower bound beyond the corrector, first lens 506.8 mm)",
+      "eps": null,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.prime_focus_obscuration",
+       "subaru.suprimecam_focus"
+      ]
+     },
+     "refs": [
+      "subaru.suprimecam_focus",
+      "subaru.suprimecam_history",
+      "subaru.prime_focus_location",
+      "subaru.instruments_prime",
+      "subaru.prime_focus_corrector_2004"
+     ],
+     "F_published": 1.86,
+     "focal_length_basis": "DERIVED from 0.202\"/15-um pixel (M02)",
+     "F_alt_published": 2.0,
+     "corrector": "3-lens Wynne type + ADC (first lens 506.8 mm)"
+    },
+    {
+     "id": "CS-OPT",
+     "name": "Cassegrain, optical secondary",
+     "status": "in use (FOCAS; MOIRCS secondary NOT FOUND)",
+     "secondary": {
+      "name": "M2 Opt/Cass",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.33,
+      "radius_mm": -5524.297,
+      "conic": -1.917322232,
+      "distance_from_M1_mm": 12652.174,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 100000,
+     "F": 12.195,
+     "F_defined_on_D_m": 8.2,
+     "plate_scale_arcsec_per_mm": 2.062658,
+     "plate_scale_mm_per_arcsec": 0.4848,
+     "field": {
+      "diameter_arcmin": 6,
+      "focal_surface_radius_mm": 5630.3
+     },
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2 Opt/Cass"
+     ],
+     "location": "behind the primary, focus 3000 mm behind the M1 vertex (through the central hole); instrument rotator; Cassegrain ADC; 4 standby ports + CIAX exchanger",
+     "instruments_current": [
+      "FOCAS",
+      "MOIRCS (which M2: NOT FOUND)"
+     ],
+     "instruments_past": [],
+     "pupil": {
+      "D_m": 8.2,
+      "D_basis": "I04 Table 2 (pupil 8200 mm: the optical M2s do not limit the beam)",
+      "central_obscuration_m": null,
+      "central_obscuration_basis": "NOT FOUND for the optical top units. Lower bound = the bare M2 (1.33 m, eps 0.162); the measured IR top unit casts 2.37 m",
+      "eps": null,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.secondary_mirrors",
+       "subaru.ir_secondary_stop"
+      ],
+      "eps_lower_bound_DERIVED": 0.162
+     },
+     "refs": [
+      "subaru.focal_lengths",
+      "subaru.f_ratios",
+      "subaru.plate_scales",
+      "subaru.fields",
+      "subaru.back_focus",
+      "subaru.instruments_cass",
+      "subaru.cassegrain_hole",
+      "subaru.cassegrain_ao_2004"
+     ],
+     "F_published": 12.2,
+     "ritchey_chretien": true
+    },
+    {
+     "id": "CS-IR",
+     "name": "Cassegrain, infrared (chopping) secondary",
+     "status": "available configuration (I04); no current IR Cassegrain instrument found (COMICS retired S20B)",
+     "secondary": {
+      "name": "M2 IR (Cass/Nasmyth)",
+      "shape": "convex hyperboloid, silver, chopping/tip-tilt",
+      "diameter_m": 1.265,
+      "radius_mm": -5524.297,
+      "conic": -1.917322232,
+      "distance_from_M1_mm": 12652.174,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 100000,
+     "F": 12.373,
+     "F_defined_on_D_m": 8.0819,
+     "plate_scale_arcsec_per_mm": 2.062658,
+     "plate_scale_mm_per_arcsec": 0.4848,
+     "field": {
+      "diameter_arcmin": 6,
+      "focal_surface_radius_mm": 5630.3
+     },
+     "n_reflections": 2,
+     "mirrors": [
+      "M1",
+      "M2 IR"
+     ],
+     "location": "same Cassegrain focus, 3000 mm behind the M1 vertex; IR M2 undersized = aperture stop (8.0819 m)",
+     "instruments_current": [],
+     "instruments_past": [
+      "COMICS (mid-IR, to S20B)",
+      "AO36 + CIAO, AO36 + IRCS (2000s; which M2: NOT FOUND, IR M2 INFERRED)"
+     ],
+     "pupil": {
+      "D_m": 8.0819,
+      "D_basis": "IR M2 is the stop (I04 Table 2; DERIVED check in ir_secondary_stop)",
+      "central_obscuration_m": 2.369,
+      "central_obscuration_basis": "INFERRED from the IR Nasmyth measurement (same IR top unit; K18 2.369 m)",
+      "eps": 0.293,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.ir_secondary_stop",
+       "subaru.central_obscuration_nsir"
+      ]
+     },
+     "refs": [
+      "subaru.ir_secondary",
+      "subaru.ir_secondary_stop",
+      "subaru.focal_lengths",
+      "subaru.f_ratios"
+     ],
+     "ritchey_chretien": true
+    },
+    {
+     "id": "NS-OPT-IMR",
+     "name": "Optical Nasmyth with image rotator",
+     "status": "in use (HDS; blue and red rotators)",
+     "secondary": {
+      "name": "M2 Opt/Nas",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.4,
+      "radius_mm": -5877.42,
+      "conic": -1.865055214,
+      "distance_from_M1_mm": 12484.3,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 104207.0,
+     "F": 12.708,
+     "F_defined_on_D_m": 8.2,
+     "plate_scale_arcsec_per_mm": 1.979385,
+     "plate_scale_mm_per_arcsec": 0.5052,
+     "field": {
+      "diameter_arcmin": 3.5,
+      "focal_surface_radius_mm": 6108.5
+     },
+     "n_reflections": 6,
+     "mirrors": [
+      "M1",
+      "M2 Opt/Nas",
+      "M3 (optical Nasmyth tertiary)",
+      "image rotator x 3"
+     ],
+     "location": "optical Nasmyth platform; focus 4992.6 mm behind the M1 vertex (unfolded); distance from the telescope axis NOT FOUND",
+     "instruments_current": [
+      "HDS"
+     ],
+     "instruments_past": [],
+     "pupil": {
+      "D_m": 8.2,
+      "D_basis": "I04 Table 2 (pupil 8200 mm: the optical M2s do not limit the beam)",
+      "central_obscuration_m": null,
+      "central_obscuration_basis": "NOT FOUND for the optical top units. Lower bound = the bare M2 (1.40 m, eps 0.171); the measured IR top unit casts 2.37 m",
+      "eps": null,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.secondary_mirrors",
+       "subaru.ir_secondary_stop"
+      ],
+      "eps_lower_bound_DERIVED": 0.171
+     },
+     "refs": [
+      "subaru.focal_lengths",
+      "subaru.f_ratios",
+      "subaru.back_focus",
+      "subaru.derotators",
+      "subaru.instruments_nsopt",
+      "subaru.tertiaries"
+     ],
+     "F_published": 12.6,
+     "ritchey_chretien": true
+    },
+    {
+     "id": "NS-OPT",
+     "name": "Optical Nasmyth without image rotator",
+     "status": "available (I04 Table 2); HDS rotator use is optional (INFERRED from SHDS: \"if you consider to employ either image rotator\")",
+     "secondary": {
+      "name": "M2 Opt/Nas",
+      "shape": "convex hyperboloid",
+      "diameter_m": 1.4,
+      "radius_mm": -5877.42,
+      "conic": -1.865055214,
+      "distance_from_M1_mm": 12484.3,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 102244.5,
+     "F": 12.469,
+     "F_defined_on_D_m": 8.2,
+     "plate_scale_arcsec_per_mm": 2.017378,
+     "plate_scale_mm_per_arcsec": 0.4957,
+     "field": {
+      "diameter_arcmin": 6,
+      "focal_surface_radius_mm": 6106.6
+     },
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2 Opt/Nas",
+      "M3 (optical Nasmyth tertiary)"
+     ],
+     "location": "optical Nasmyth platform; focus 4600 mm behind the M1 vertex (unfolded); M2 refocused to 12492.4 mm (DERIVED)",
+     "instruments_current": [
+      "HDS"
+     ],
+     "instruments_past": [],
+     "pupil": {
+      "D_m": 8.2,
+      "D_basis": "I04 Table 2 (pupil 8200 mm: the optical M2s do not limit the beam)",
+      "central_obscuration_m": null,
+      "central_obscuration_basis": "NOT FOUND for the optical top units. Lower bound = the bare M2 (1.40 m, eps 0.171); the measured IR top unit casts 2.37 m",
+      "eps": null,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.secondary_mirrors",
+       "subaru.ir_secondary_stop"
+      ],
+      "eps_lower_bound_DERIVED": 0.171
+     },
+     "refs": [
+      "subaru.focal_lengths",
+      "subaru.f_ratios",
+      "subaru.back_focus",
+      "subaru.rc_flags"
+     ],
+     "F_published": 12.6,
+     "ritchey_chretien": false
+    },
+    {
+     "id": "NS-IR-IMR",
+     "name": "Infrared Nasmyth with image rotator",
+     "status": "configuration in I04 Table 2; current use NOT FOUND",
+     "secondary": {
+      "name": "M2 IR (Cass/Nasmyth)",
+      "shape": "convex hyperboloid, silver, chopping/tip-tilt",
+      "diameter_m": 1.265,
+      "radius_mm": -5524.297,
+      "conic": -1.917322232,
+      "distance_from_M1_mm": 12652.174,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 108512.4,
+     "F": 13.612,
+     "F_defined_on_D_m": 7.9716,
+     "plate_scale_arcsec_per_mm": 1.90085,
+     "plate_scale_mm_per_arcsec": 0.5261,
+     "field": {
+      "diameter_arcmin": 3.5,
+      "focal_surface_radius_mm": 5635.2
+     },
+     "n_reflections": 6,
+     "mirrors": [
+      "M1",
+      "M2 IR (moved)",
+      "M3 (IR Nasmyth tertiary)",
+      "image rotator x 3"
+     ],
+     "location": "IR Nasmyth platform; focus 4600 mm behind the M1 vertex (unfolded); IR M2 at 12619.7 mm (DERIVED)",
+     "instruments_current": [],
+     "instruments_past": [],
+     "pupil": {
+      "D_m": 7.9716,
+      "D_basis": "IR M2 stop at the IR-Nasmyth spacing with image rotator (I04 Table 2)",
+      "central_obscuration_m": 2.369,
+      "central_obscuration_basis": "measured at the IR Nasmyth by SCExAO (K18; alternatives 2.30-2.44 m); which rotator configuration the measurement used is NOT FOUND",
+      "eps": 0.297,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.central_obscuration_nsir",
+       "subaru.pupil_diameter_nsir_measured"
+      ]
+     },
+     "refs": [
+      "subaru.focal_lengths",
+      "subaru.f_ratios",
+      "subaru.ir_secondary_nasmyth_use",
+      "subaru.ir_secondary_stop"
+     ],
+     "F_published": 13.6,
+     "ritchey_chretien": false
+    },
+    {
+     "id": "NS-IR",
+     "name": "Infrared Nasmyth without image rotator (AO188/AO3k feed)",
+     "status": "in use (AO188/AO3k: IRCS, IRD, SCExAO; past OHS/CISCO)",
+     "secondary": {
+      "name": "M2 IR (Cass/Nasmyth)",
+      "shape": "convex hyperboloid, silver, chopping/tip-tilt",
+      "diameter_m": 1.265,
+      "radius_mm": -5524.297,
+      "conic": -1.917322232,
+      "distance_from_M1_mm": 12652.174,
+      "ref": "subaru.secondary_mirrors"
+     },
+     "focal_length_mm": 110605.2,
+     "F": 13.917,
+     "F_defined_on_D_m": 7.9475,
+     "plate_scale_arcsec_per_mm": 1.864884,
+     "plate_scale_mm_per_arcsec": 0.5362,
+     "field": {
+      "diameter_arcmin": 6,
+      "focal_surface_radius_mm": 5636.3
+     },
+     "n_reflections": 3,
+     "mirrors": [
+      "M1",
+      "M2 IR (moved)",
+      "M3 (IR Nasmyth tertiary)"
+     ],
+     "location": "IR Nasmyth platform, AO188/AO3k + Nasmyth beam switcher; focus 4992.6 mm behind the M1 vertex (unfolded); IR M2 at 12612.4 mm (DERIVED)",
+     "instruments_current": [
+      "AO188/AO3k + IRCS",
+      "IRD",
+      "SCExAO (CHARIS, VAMPIRES, ...)"
+     ],
+     "instruments_past": [
+      "OHS/CISCO",
+      "HiCIAO"
+     ],
+     "pupil": {
+      "D_m": 7.9475,
+      "D_basis": "IR M2 stop without image rotator (I04 Table 2); measured 7.92 m (L09), 7.95 m (HCI)",
+      "central_obscuration_m": 2.369,
+      "central_obscuration_basis": "measured at the IR Nasmyth by SCExAO (K18 2.369 m; L09 0.30 x 7.92 = 2.38 m; HCI 0.307 x 7.95 = 2.44 m; MA20 2.3 m)",
+      "eps": 0.3,
+      "spiders": {
+       "n": 4,
+       "width_m": 0.23,
+       "width_alternatives_m": {
+        "L09": 0.224,
+        "K18": 0.237,
+        "HCI": 0.184
+       },
+       "angle_from_horizontal_deg": 51.75,
+       "origin_offset_m": 0.661,
+       "origin_offset_alt_m": {
+        "HCI": 0.659
+       },
+       "vanes_model_frame": [
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": 51.75
+        },
+        {
+         "start_xy_m": [
+          0.661,
+          0.0
+         ],
+         "angle_deg": -51.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 231.75
+        },
+        {
+         "start_xy_m": [
+          -0.661,
+          0.0
+         ],
+         "angle_deg": 128.25
+        }
+       ],
+       "vane_line_offset_from_centre_m_DERIVED": 0.519,
+       "frame": "SCExAO pupil frame (x = pupil horizontal as in L09/K18; hcipy make_subaru_lyot_stop convention: each vane a half-line from start_xy outward); orientation relative to the elevation axis NOT FOUND",
+       "measured_at": "IR Nasmyth (SCExAO input pupil) only; INFERRED identical at every focus (same telescope spider, I04)",
+       "refs": [
+        "subaru.spider_width",
+        "subaru.spider_geometry",
+        "subaru.top_units_and_spider"
+       ]
+      },
+      "refs": [
+       "subaru.central_obscuration_nsir",
+       "subaru.pupil_diameter_nsir_measured",
+       "subaru.spider_width",
+       "subaru.spider_geometry"
+      ]
+     },
+     "refs": [
+      "subaru.focal_lengths",
+      "subaru.f_ratios",
+      "subaru.instruments_nsir",
+      "subaru.central_obscuration_nsir",
+      "subaru.spider_width",
+      "subaru.spider_geometry"
+     ],
+     "ritchey_chretien": false,
+     "n_reflections_note": "3 to the Nasmyth focus; AO188/AO3k internal reflections NOT FOUND",
+     "feed_configuration_note": "which IR-Nasmyth configuration AO188 uses is NOT FOUND; the measured 7.92-7.95 m pupil matches 7947.5 mm (no rotator)"
+    }
+   ]
+  },
+  "params": {
+   "site": {
+    "value": "Maunakea, Hawaii: 19 deg 49' 32\" N, 155 deg 28' 34\" W (NAD83); 4139 m; elevation axis at 4163 m",
+    "unit": "",
+    "src": "STP",
+    "loc": "Observatory",
+    "quote": "Latitude: +19° 49' 32'' N (NAD83) Longitude: 155° 28' 34'' W (NAD83) Altitude: 4139 m (Elevation axis is at 4163 m) Mounting: altitude-azimuth (Alt-Az)",
+    "alternatives": [
+     {
+      "value": "19 deg 49' 43\" N, 155 deg 28' 50\" W, 4139 m (site selection)",
+      "src": "I04",
+      "loc": "Sec. 2.5",
+      "quote": "The Subaru site was chosen at a latitude of 19◦ 49′ 43′′ N, longitude of 155◦ 28′ 50′′ W, and altitude of 4139 m"
+     },
+     {
+      "value": "same as STP",
+      "src": "SAB",
+      "loc": "Location",
+      "quote": "Latitude and longitude: 19d 49m 32s N, 155d 28m 34s W (based on NAD83)"
+     }
+    ],
+    "note": "The 2004 paper quotes the site-survey coordinates (datum not stated); the observatory pages give NAD83. Not used by the explorer."
+   },
+   "telescope_design": {
+    "value": "alt-azimuth; modified Ritchey-Chretien with three interchangeable secondaries (Cassegrain f/12.2, Nasmyth f/12.6) plus a prime-focus unit; four foci",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.1 (Optics)",
+    "quote": "The Subaru Telescope has an 8.2 m F/1.83 primary mirror with a focal length of 15 m. Three secondary mirrors are installed, each comprising a modified Ritchey–Cretien system at the F/12.2 Cassegrain or F/12.6 Nasmyth foci.",
+    "alternatives": [
+     {
+      "value": "Ritchey-Chretien, four foci",
+      "src": "SAB",
+      "loc": "Specifications, Telescope Structure",
+      "quote": "Basic Optics: Ritchey-Chretian System Foci: Four Primary focus: F2.0 (with corrector lens) Cassegrain focus: F12.2 Nasmyth focus (optical): F12.6 Nasmyth focus (infrared): F13.6"
+     },
+     {
+      "value": "four foci",
+      "src": "SF6",
+      "loc": "Four foci",
+      "quote": "The Subaru Telescope has four focal points: the primary focus, the Cassegrain focus, and two Nasmyth foci."
+     }
+    ],
+    "note": "Table 2 of I04 marks which configurations are Ritchey-Chretien (see rc_flags): the IR Nasmyth and the optical Nasmyth without image rotator are not."
+   },
+   "primary_effective_diameter": {
+    "value": 8.2,
+    "unit": "m (effective reflecting surface; the pupil at the optical foci and prime focus)",
+    "src": "I04",
+    "loc": "Sec. 2.3",
+    "quote": "The finished mirror has a physical diameter of 8.3 m, a thickness of 20 cm and a weight of 22.8 tonnes. The diameter of the effective reflecting surface is 8.2 m, and the focal length is 15 m.",
+    "alternatives": [
+     {
+      "value": 8.2,
+      "src": "STP",
+      "loc": "Primary mirror",
+      "quote": "Effective diameter: 8.2 m"
+     },
+     {
+      "value": 8.2,
+      "src": "SAB",
+      "loc": "Specifications, Primary Mirror",
+      "quote": "Effective diameter (diameter of light affecting area): 8.2 m (27 ft.)"
+     },
+     {
+      "value": "8200 mm",
+      "src": "I04",
+      "loc": "Table 1",
+      "quote": "M1(Primary) 8200 -30000 -1.008350515 –"
+     }
+    ]
+   },
+   "primary_physical_diameter": {
+    "value": 8.3,
+    "unit": "m (physical blank/mirror; the outer 5 cm in radius is not part of the effective surface)",
+    "src": "I04",
+    "loc": "Sec. 2.3",
+    "quote": "The finished mirror has a physical diameter of 8.3 m",
+    "alternatives": [
+     {
+      "value": "8.3 m blank, 30 cm thick before grinding",
+      "src": "I04",
+      "loc": "Sec. 2.3",
+      "quote": "The primary mirror blank, 8.3 m in diameter and 30 cm in thickness, was manufactured using Ultra Low Expansion (ULE) glass by Corning Incorporated"
+     },
+     {
+      "value": "8.3 m (realuminization)",
+      "src": "I04",
+      "loc": "Sec. 4.8",
+      "quote": "The latest realuminization of the 8.3 m primary mirror was conducted in 2003 August."
+     }
+    ],
+    "derived": "DERIVED: (8.3 - 8.2)/2 = 0.05 m annulus outside the effective surface."
+   },
+   "primary_meniscus": {
+    "value": "thin meniscus ULE, 20 cm thick, 22.8 t, actively supported by 261 force actuators in 8 rings (inserted in pockets in the back)",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.2 (Active Mirror Support)",
+    "quote": "monolithic, thin meniscus zero-expansion glass was adopted for the primary mirror. ... a support system consisting of 261 actuators distributed in 8 rings was adopted to support the mirror.",
+    "alternatives": [
+     {
+      "value": "20 cm, ULE",
+      "src": "STP",
+      "loc": "Primary mirror",
+      "quote": "Thickness: 20 cm Weight: 22.8 t Material: ULE (ultra-low thermal expansion glass)"
+     },
+     {
+      "value": "pockets",
+      "src": "I04",
+      "loc": "Sec. 2.2",
+      "quote": "the actuators are inserted into “pockets” bored into the back of the blank at the 261 actuator locations"
+     }
+    ],
+    "derived": "DERIVED: aspect ratio 8.2 m / 0.20 m = 41."
+   },
+   "primary_focal_length": {
+    "value": 15.0,
+    "unit": "m (f/1.83 on 8.2 m)",
+    "src": "I04",
+    "loc": "Sec. 2.1",
+    "quote": "The Subaru Telescope has an 8.2 m F/1.83 primary mirror with a focal length of 15 m.",
+    "alternatives": [
+     {
+      "value": 15,
+      "src": "STP",
+      "loc": "Primary mirror",
+      "quote": "Focal length: 15 m"
+     },
+     {
+      "value": "R = 30000 mm -> 15000 mm",
+      "src": "I04",
+      "loc": "Table 1",
+      "quote": "M1(Primary) 8200 -30000 -1.008350515 –"
+     },
+     {
+      "value": "1.83 (Table 2, prime focus without corrector)",
+      "src": "I04",
+      "loc": "Table 2",
+      "quote": "Effective F ratio 1.83 12.195 12.708 12.469 12.373 13.612 13.917"
+     }
+    ],
+    "derived": "DERIVED: R/2 = 30000/2 = 15000 mm; 15000/8200 = f/1.829."
+   },
+   "primary_radius_conic": {
+    "value": "R = -30000 mm, K = -1.008350515 (hyperboloid)",
+    "unit": "",
+    "src": "I04",
+    "loc": "Table 1 (Parameters of optical components)",
+    "quote": "Mirror Diameter Radius of Aspheric Distance to curvature constant previous surface (mm) (mm) (mm) M1(Primary) 8200 -30000 -1.008350515 –",
+    "alternatives": [
+     {
+      "value": "r = 30000 mm, e^2 = 1.00835 (K = -1.00835)",
+      "src": "M02",
+      "loc": "Table 6 (fabrication data of the corrector, surface k = 1 = primary)",
+      "quote": "1 30000 1.00835"
+     }
+    ],
+    "note": "'Aspheric constant' = conic constant K (I04 Table 1); M02 lists the eccentricity squared e^2 = -K. Sign of R differs by convention."
+   },
+   "design_history": {
+    "value": "primary enlarged from 7.5 m to 8.2 m late in the design with the radius of curvature kept, so the prime-focus ratio went from f/2.0 to f/1.83",
+    "unit": "",
+    "src": "M02",
+    "loc": "Sec. 2.9 (Optics and the Corrector)",
+    "quote": "At the late stage of an engineering model study of the Subaru Telescope, it was decided to increase the size of the primary mirror from 7.5 m to 8.2 m. The radius of the curvature of the primary mirror was, however, kept unchanged so that the effects of this change on other design specifications became minimal. Accordingly, the F- ratio of the prime focus changed from 2.0 to 1.83",
+    "alternatives": [
+     {
+      "value": "7.5 m originally",
+      "src": "I04",
+      "loc": "Sec. 1",
+      "quote": "Conceptual planning for the 8.2 m (originally 7.5 m) Subaru Telescope began in the summer of 1984"
+     }
+    ],
+    "note": "Likely origin of the \"F/2.0 (with corrector)\" prime-focus value still on the observatory pages (see prime_focus_published_F)."
+   },
+   "first_light": {
+    "value": "engineering first light 1998 December 24; open use from 2000 December",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 1",
+    "quote": "the engineering First Light of the Subaru Telescope was achieved on 1998 December 24."
+   },
+   "secondary_mirrors": {
+    "value": {
+     "M2 Opt/Cass": "1330 mm, R = -5524.297 mm, K = -1.917322232, 12652.174 mm from M1",
+     "M2 Opt/Nas": "1400 mm, R = -5877.420 mm, K = -1.865055214, 12484.300 mm from M1",
+     "M2 IR/Cass (also IR Nasmyth)": "1265 mm, R = -5524.297 mm, K = -1.917322232, 12652.174 mm from M1"
+    },
+    "unit": "",
+    "src": "I04",
+    "loc": "Table 1",
+    "quote": "M2(Opt/Cass) 1330 -5524.297 -1.917322232 -12652.174 M2(Opt/Nas) 1400 -5877.420 -1.865055214 -12484.300 M2(IR/Cass) 1265 -5524.297 -1.917322232 -12652.174",
+    "note": "All three are convex hyperboloids (K < -1; the sign convention of I04 Table 1 gives both mirrors negative R). The IR M2 has the optical Cassegrain prescription but is smaller (1265 vs 1330 mm), and so becomes the aperture stop (see ir_secondary_stop).",
+    "derived": "DERIVED (paraxial, mirror equation, f2 = |R|/2): Opt/Cass s = 15000 - 12652.174 = 2347.826 mm, image 15652.17 mm from M2 -> 3000.0 mm behind the M1 vertex, m = 6.6667, f = 100000 mm (= Table 2). Opt/Nas at 12484.300 mm: image 4992.6 mm behind the vertex, f = 104207.1 mm (= Table 2 Nasmyth-optical with image rotator)."
+   },
+   "ir_secondary": {
+    "value": "IR M2: lightweight ULE, 185 kg, silver coated; tip-tilt and chopping (60\" amplitude, up to 3 Hz, 80% duty cycle)",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 4.6 (Infrared Secondary Mirror)",
+    "quote": "The tip-tilt and chopping infrared secondary mirror (Itoh et al. 1998) is made of light-weight ULE glass (185 kg) and has a silver coating. ... The maximum chopping frequency currently available is 3 Hz with a duty cycle of 80% and a position error of < 0. ′′ 1 rms.",
+    "alternatives": [
+     {
+      "value": "chopping and tip-tilt, for NIR/MIR",
+      "src": "I04",
+      "loc": "Sec. 2.1",
+      "quote": "The infrared secondary mirror has chopping and tip-tilt correction capabilities, which are useful for near-infrared observations and indispensable for mid-infrared observations."
+     }
+    ]
+   },
+   "ir_secondary_nasmyth_use": {
+    "value": "the IR M2 also serves the IR Nasmyth focus: it is moved along the optical axis and the primary figure is force-corrected; optical and IR M2s can be swapped between Nasmyth foci if needed",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.1",
+    "quote": "the infrared Cassegrain secondary can be used for observations at the infrared Nasmyth focus by moving the infrared secondary mirror along the optical axis and applying a force correction on the primary mirror shape. Although the coating and pupil size are different, the infrared secondary can be used for optical Nasmyth observations, and the optical secondary can be used for infrared Nasmyth observations, if necessary.",
+    "derived": "DERIVED (paraxial, IR M2 f2 = 2762.149 mm, solving for the Table 2 back focus): IR Nasmyth with image rotator (back focus 4600 mm) needs M1-M2 = 12619.7 mm -> f = 108512.4 mm; without rotator (4992.6 mm) 12612.4 mm -> f = 110605.2 mm; i.e. the IR M2 sits 33-40 mm closer to M1 than at the Cassegrain focus (12652.174 mm). Optical Nasmyth without rotator (4600 mm): Opt/Nas M2 at 12492.4 mm -> f = 102244.5 mm."
+   },
+   "ir_secondary_stop": {
+    "value": "the IR M2 (1265 mm) is the aperture stop: pupil 8081.9 mm at the IR Cassegrain, 7971.6 / 7947.5 mm at the IR Nasmyth (with / without image rotator); 8200 mm at all optical foci",
+    "unit": "mm",
+    "src": "I04",
+    "loc": "Table 2 (Pupil diameter row)",
+    "quote": "Pupil diameter (mm) 8200 8200 8200 8200 8081.9 7971.6 7947.5",
+    "derived": "DERIVED: an on-axis beam from the full 8.2 m primary has a footprint D (f1 - d)/f1 on the M2: 1283.5 mm at the Cassegrain spacing (fits the 1330 mm optical M2, overfills the 1265 mm IR M2) and 1375.2 mm on the 1400 mm Opt/Nas M2. Stop = 1265 x f1/(f1 - d): 8081.9 mm at 12652.174 mm (Table 2: 8081.9); 7971.6 mm at 12619.7 mm (7971.6); 7947.5 mm at 12612.4 mm (7947.5). The three published IR pupil diameters follow exactly from the 1265 mm IR M2."
+   },
+   "focal_configurations": {
+    "value": "seven configurations (columns): prime optical; Cassegrain optical (instrument rotator); Nasmyth optical with image rotator; Nasmyth optical without; Cassegrain infrared (instrument rotator); Nasmyth infrared with image rotator; Nasmyth infrared without",
+    "unit": "",
+    "src": "I04",
+    "loc": "Table 2 (Parameters of seven focal configurations), header rows",
+    "quote": "Focus Primary Cass. Nasmyth Nasmyth Cass. Nasmyth Nasmyth wavelength optical optical optical optical infrared infrared infrared Image derotation Instr. Rot. Instr. Rot. Ima. Rot. None Instr.Rot. Ima. Rot. None"
+   },
+   "rc_flags": {
+    "value": [
+     "NA",
+     "Yes",
+     "Yes",
+     "No",
+     "Yes",
+     "No",
+     "No"
+    ],
+    "unit": "Ritchey-Chretien? (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Ritchey–Cretien NA Yes Yes No Yes No No"
+   },
+   "focal_lengths": {
+    "value": [
+     15000,
+     100000,
+     104207.0,
+     102244.5,
+     100000,
+     108512.4,
+     110605.2
+    ],
+    "unit": "mm (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Focal length (mm) 15000 100000 104207.0 102244.5 100000 108512.4 110605.2",
+    "note": "The prime-focus column is the bare primary (15 m); the corrected prime foci are in suprimecam_focus and hsc_focal_ratio."
+   },
+   "f_ratios": {
+    "value": [
+     1.83,
+     12.195,
+     12.708,
+     12.469,
+     12.373,
+     13.612,
+     13.917
+    ],
+    "unit": "f / pupil diameter (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Effective F ratio 1.83 12.195 12.708 12.469 12.373 13.612 13.917",
+    "derived": "DERIVED: the effective F is the focal length divided by the PUPIL diameter of the same column: 100000/8200 = 12.195; 104207.0/8200 = 12.708; 102244.5/8200 = 12.469; 100000/8081.9 = 12.373; 108512.4/7971.6 = 13.612; 110605.2/7947.5 = 13.917; 15000/8200 = 1.829."
+   },
+   "back_focus": {
+    "value": [
+     "NA",
+     3000,
+     4992.6,
+     4600,
+     3000,
+     4600,
+     4992.6
+    ],
+    "unit": "mm behind the primary-mirror vertex, along the (unfolded) optical axis (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Back focus (mm) NA 3000 4992.6 4600 3000 4600 4992.6",
+    "note": "I04 does not say from which point the back focus is measured; the paraxial check (DERIVED, secondary_mirrors and ir_secondary_nasmyth_use) reproduces 3000 and 4992.6 mm as distances behind the M1 vertex. For the Nasmyth foci this is the unfolded distance; the tertiary position and the focus distance from the telescope axis are NOT FOUND."
+   },
+   "fields": {
+    "value": [
+     30,
+     6,
+     3.5,
+     6,
+     6,
+     3.5,
+     6
+    ],
+    "unit": "arcmin diameter (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Field of view (arcmin) 30 6 3.5 6 6 3.5 6",
+    "alternatives": [
+     {
+      "value": "Cassegrain 6'; optical Nasmyth 4' (text)",
+      "src": "I04",
+      "loc": "Sec. 2.1",
+      "quote": "The Cassegrain focus offers a 6′ field of view in combination with either the optical or infrared secondary mirror, depending on the instrument to be used. The optical Nasmyth focus utilizes a dedicated secondary mirror to cover a 4′ field of view"
+     },
+     {
+      "value": "Cassegrain 0.1 deg",
+      "src": "SF6",
+      "loc": "Instruments Mounted at Each Focus, 4",
+      "quote": "Maximum diameter of field of view: 0.1 degrees of arc Focal ratio 12.2"
+     }
+    ],
+    "note": "The 30' of the prime column is the field of the original prime-focus corrector (I04 Sec. 2.1, prime_focus_corrector_2004)."
+   },
+   "field_curvature": {
+    "value": [
+     "NA",
+     5630.3,
+     6108.5,
+     6106.6,
+     5630.3,
+     5635.2,
+     5636.3
+    ],
+    "unit": "mm (focal-surface radius, Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Field curvature (mm) NA 5630.3 6108.5 6106.6 5630.3 5635.2 5636.3"
+   },
+   "plate_scales": {
+    "value": [
+     13.75099,
+     2.062658,
+     1.979385,
+     2.017378,
+     2.062658,
+     1.90085,
+     1.864884
+    ],
+    "unit": "arcsec/mm (Table 2 column order)",
+    "src": "I04",
+    "loc": "Table 2",
+    "quote": "Plate scale 13.75099 2.062658 1.979385 2.017378 2.062658 1.900850 1.864884",
+    "note": "Units not printed in the table; the values equal 206264.8 / f[mm] (DERIVED), i.e. arcsec per mm.",
+    "derived": "DERIVED: 206264.8/15000 = 13.75099; /100000 = 2.062648; /104207.0 = 1.979379; /102244.5 = 2.017369; /108512.4 = 1.900842; /110605.2 = 1.864876 (agree with the table to 1e-5)."
+   },
+   "published_f_ratios": {
+    "value": "Prime F/2.0 (with corrector); Cassegrain F/12.2; Nasmyth optical F/12.6; Nasmyth infrared F/13.6",
+    "unit": "",
+    "src": "STP",
+    "loc": "Foci",
+    "quote": "Primary focus : F/2.0 (with corrector) Cassegrain focus: F/12.2 Nasmyth foci: F/12.6 (optical) and F/13.6 (infrared)",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "SF6",
+      "loc": "Instruments Mounted at Each Focus",
+      "quote": "Focal ratio: 2.0 Including corrective optical systems"
+     },
+     {
+      "value": "same",
+      "src": "SOLD",
+      "loc": "Specifications",
+      "quote": "-Primary focus: F2.0 (with corrector lens) -Cassegrain focus: F12.2 -Nasmyth focus (optical): F12.6 -Nasmyth focus (infrared): F13.6"
+     }
+    ],
+    "note": "Rounded/nominal values: F/12.2 = 12.195 (Cass); F/13.6 = 13.612 (IR Nasmyth with image rotator); F/12.6 lies between 12.469 and 12.708 (optical Nasmyth without / with rotator). The prime-focus F/2.0 does not match Suprime-Cam (F/1.86) or HSC (F/2.2): see conflicts."
+   },
+   "prime_focus_corrector_2004": {
+    "value": "30' field at F/2, images better than 0.23\" to the edge, with a new ADC (Suprime-Cam era corrector)",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.1",
+    "quote": "An ambitious wide-field prime-focus corrector with a new type of atmospheric dispersion compensator (Nariai 1994) allows for a 30′ field of view at F/2 with an optical image quality of better than 0. ′′ 23, right up to the edge of the field."
+   },
+   "prime_focus_location": {
+    "value": "prime focus 15 m above the primary mirror (at the top end, inside the prime focus unit)",
+    "unit": "",
+    "src": "SHSP",
+    "loc": "Research Background and Objectives",
+    "quote": "Subaru Telescope has the unique prime focus (主焦点) located 15 m above the primary mirror",
+    "alternatives": [
+     {
+      "value": "PFU on the top ring",
+      "src": "M02",
+      "loc": "Sec. 2.8 (Frame Structure)",
+      "quote": "The PFU is mounted and fixed on the top ring of the telescope. The interface between the telescope and the camera is a torus flange located behind the prime focus by 230 mm."
+     }
+    ]
+   },
+   "suprimecam_focus": {
+    "value": "Suprime-Cam: prime focus F/1.86 with a 3-lens Wynne-type corrector incl. ADC; 0.202\"/15-um pixel; 34' x 27' mosaic, 30' unvignetted",
+    "unit": "",
+    "src": "M02",
+    "loc": "Abstract; Secs. 1, 2.3",
+    "quote": "Suprime-Cam covers a field of view 34’×27’, a unique facility among the the 8-10 m class telescopes, with a resolution of 0.”202 per pixel. ... The wide-field corrector is basically a three-lens Wynne-type, but has a new type of atmospheric dispersion corrector. The corrector provides a flat focal plane and an un-vignetted field of view of 30’ in diameter.",
+    "alternatives": [
+     {
+      "value": "F/1.86",
+      "src": "M02",
+      "loc": "Sec. 1",
+      "quote": "The fast F-ratio of 1.86 of the prime focus requires a tight tolerance."
+     },
+     {
+      "value": "15 um pixels",
+      "src": "M02",
+      "loc": "Sec. 2.3.1",
+      "quote": "pixel size (15 µm) multiplied by the F-ratio (1.86)"
+     },
+     {
+      "value": "0.20\"/px, 34' x 27'",
+      "src": "SSCAM",
+      "loc": "Introduction",
+      "quote": "located at the prime focus of Subaru Telescope, which covers a 34' x 27' field of view with a pixel scale of 0.20''."
+     },
+     {
+      "value": "decommissioned S17A",
+      "src": "SSCAM",
+      "loc": "banner",
+      "quote": "Suprime-Cam has been decommissioned in S17A."
+     },
+     {
+      "value": "first lens 506.8 mm (aperture column)",
+      "src": "M02",
+      "loc": "Table 6",
+      "quote": "2 506.8 326.76 55.94 BSL7Y 1.518880 1.53097 1.50770"
+     }
+    ],
+    "derived": "DERIVED: 0.202\"/0.015 mm = 13.47\"/mm -> f = 206264.8/13.47 = 15317 mm; 15317/8200 = f/1.868 (published F/1.86). Corrector glasses BSL7Y, PBM5, BSM51Y, PBM2Y, S-FPL51 (Table 6)."
+   },
+   "hsc_wfc": {
+    "value": "HSC Wide-Field Corrector: 7 elements (5 lenses + ADC; Canon), first lens 820 mm, assembled WFC 970 mm diameter x 1.7 m; on a hexapod in the prime focus unit",
+    "unit": "",
+    "src": "A18",
+    "loc": "Sec. 2",
+    "quote": "The instrument has a large and optically very sophisticated seven-element Wide-Field Corrector (WFC), designed and built by Canon, Inc. The WFC incorporates an Atmospheric Dispersion Corrector (ADC)",
+    "alternatives": [
+     {
+      "value": "5 lenses + 1 ADC element; 820 mm first lens",
+      "src": "SSP",
+      "loc": "Wide-field Corrector",
+      "quote": "The wide-field corrector (WFC) is composed of five lenses and one atmospheric dispersion corrector (ADC) element. The first lens has an effective aperture of 820 mm"
+     },
+     {
+      "value": "970 mm x 1.7 m",
+      "src": "SSP",
+      "loc": "Wide-field Corrector",
+      "quote": "The fully assembled WFC has a diameter of 970 mm and a height of 1.7 m."
+     },
+     {
+      "value": "hexapod",
+      "src": "SSP",
+      "loc": "Prime Focus Unit",
+      "quote": "Six actuators attached to the outside of the PFU control the alignment of the WFC and CCD dewar."
+     }
+    ]
+   },
+   "hsc_focal_ratio": {
+    "value": 2.2,
+    "unit": "f/# (telescope + WFC, published)",
+    "src": "S15",
+    "loc": "Sec. 2.1",
+    "quote": "transforms the F-ratio F∕2.2 of the Subaru telescope plus WFC at prime focus into a slower F-ratio of F∕2.8.",
+    "alternatives": [
+     {
+      "value": "2.25 (DERIVED from 11.2\"/mm)",
+      "src": "OBSS",
+      "loc": "plateScale",
+      "quote": "config.plateScale = 11.2  # plate scale, in arcseconds on sky/mm"
+     }
+    ],
+    "derived": "DERIVED: f_eff = 206264.8/11.2 = 18416.5 mm; 18416.5/8200 = f/2.246 (imaging key widefield.json hsc.effective_focal_length)."
+   },
+   "hsc_plate_scale": {
+    "value": 11.2,
+    "unit": "arcsec/mm (field centre; pipeline value)",
+    "src": "OBSS",
+    "loc": "plateScale",
+    "quote": "config.plateScale = 11.2  # plate scale, in arcseconds on sky/mm",
+    "alternatives": [
+     {
+      "value": "8 mm = 90.4\" centre, 82.4\" edge",
+      "src": "SPFS",
+      "loc": "Prime Focus Instrument table",
+      "quote": "Positioner pitch 8 mm (90.4 arcsec at the FoV center, 82.4 arcsec at the edge)"
+     }
+    ],
+    "derived": "DERIVED: 90.4/8 = 11.30\"/mm at the centre and 82.4/8 = 10.30\"/mm at the edge of the PFS field: the WFC focal surface has strong (pincushion-type) scale change with field radius."
+   },
+   "hsc_field": {
+    "value": "1.5 deg diameter; unvignetted to 10' diameter, 26% vignetting at the 0.75 deg edge",
+    "unit": "",
+    "src": "A18",
+    "loc": "Table 1; Sec. 2",
+    "quote": "The corrector gives an unvignetted field of view to a diameter of 10 arcmin; vignetting is a roughly linear function of field radius from that point, reaching 26% at the edge of the field at 0.75◦ .",
+    "alternatives": [
+     {
+      "value": "1.5 deg",
+      "src": "A18",
+      "loc": "Table 1",
+      "quote": "Field of View 1.5◦ diameter"
+     },
+     {
+      "value": "HSC at the prime focus",
+      "src": "SHSC",
+      "loc": "Introduction",
+      "quote": "The Hyper Suprime-Cam (HSC) is a gigantic mosaic CCD camera, which is attached at the prime focus of Subaru Telescope."
+     },
+     {
+      "value": "PFS 1.25 deg^2",
+      "src": "SINS",
+      "loc": "Facility instruments",
+      "quote": "allows simultaneous observations of approximately 2,400 targets using multiple fibers across a wide field of about 1.25 square degrees"
+     }
+    ]
+   },
+   "prime_focus_unit_popt2": {
+    "value": "HSC and PFS share the prime focus unit POpt2 (hexapod + instrument rotator); its inner diameter exceeds 1.04 m (DERIVED)",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 2.3",
+    "quote": "the PFI is installed in Subaru’s housing structure, called prime focus unit POpt2, whose rotator provides PFI with the rotating part and the nonrotating part with respect to the telescope structure.",
+    "alternatives": [
+     {
+      "value": "cable wrapper 10 mm smaller than the POpt2 inner diameter; ~1030 mm",
+      "src": "W14",
+      "loc": "Sec. 2.3 (cable wrapper)",
+      "quote": "The outer diameter of the cable wrapper is limited by the requirement from Subaru to be 10mm smaller than the inner diameter of POpt2. ... The outer diameter of the cable wrapper is about 1030mm."
+     }
+    ],
+    "derived": "DERIVED: POpt2 inner diameter ~ 1030 + 10 = 1040 mm, so its outer diameter (the prime-focus central obscuration) is > 1.04 m: eps > 1.04/8.2 = 0.127. The outer diameter itself is NOT FOUND."
+   },
+   "prime_focus_obscuration": {
+    "value": null,
+    "unit": "NOT FOUND",
+    "src": "SSP",
+    "loc": "Wide-field Corrector; Prime Focus Unit",
+    "quote": "The fully assembled WFC has a diameter of 970 mm and a height of 1.7 m.",
+    "note": "No published central-obscuration diameter for the prime-focus configuration (HSC/PFS in POpt2, or Suprime-Cam in its PFU) in the obtainable sources. Lower bounds only: WFC barrel 0.97 m (eps 0.118), POpt2 inner diameter ~1.04 m (eps 0.127, prime_focus_unit_popt2). Miyazaki et al. 2018 / Komiyama et al. 2018 (PASJ 70 S1, S2), which describe the PFU, are paywalled (OUP returned HTTP 403)."
+   },
+   "tertiaries": {
+    "value": "two tertiary flats in a tertiary-mirror tower, one for each Nasmyth focus; inserted/removed in ~12 min",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.4",
+    "quote": "The tertiary mirror tower houses two tertiary mirrors, one for the optical Nasmyth and the other for the infrared Nasmyth foci. These tertiary mirrors can be inserted and ... removed in about 12 minutes.",
+    "alternatives": [
+     {
+      "value": "M3 sends the beam sideways",
+      "src": "SF6",
+      "loc": "Four foci",
+      "quote": "The Nasmyth foci direct the light, after reflection by the secondary mirror, sideways via a tertiary mirror."
+     }
+    ],
+    "note": "Tertiary size, its height above M1 and any extra obscuration by the tower: NOT FOUND. (I04 calls them tertiary mirrors; flatness is not stated in the saved text.)"
+   },
+   "derotators": {
+    "value": "instrument rotators at prime focus and Cassegrain; three-mirror image rotators at the optical and IR Nasmyth foci (optional: Table 2 lists Nasmyth configurations with and without)",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 4.7",
+    "quote": "The instrument rotators for field derotation are installed at the prime focus and Cassegrain focus, while three-mirror image derotators are equipped at Nasmyth-Opt and Nasmyth-IR foci.",
+    "alternatives": [
+     {
+      "value": "NsOpt image rotators blue and red",
+      "src": "SHDS",
+      "loc": "news item",
+      "quote": "The reflectivity of NsOpt image rotator (both blue and red) has been degraded."
+     }
+    ],
+    "derived": "DERIVED reflections: Nasmyth with image rotator = 3 (M1, M2, M3) + 3 = 6."
+   },
+   "adc": {
+    "value": "ADCs (counter-rotating direct-vision prism pairs) at Cassegrain and Nasmyth; prime-focus ADC built into the corrector",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 4.7",
+    "quote": "The atmospheric dispersion corrector (ADC) units, comprising a counter-rotating pair of direct-vision prisms with matching silicon oil, are installed at the Cassegrain and Nasmyth foci to compensate for atmospheric dispersion down to an elevation angle of 30◦"
+   },
+   "top_units_and_spider": {
+    "value": "one telescope spider holds an inner ring into which the interchangeable top units lock (secondary-mirror units or the prime focus unit); top units kept in a carousel, exchange takes 3-6 h",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.4; Sec. 2.5",
+    "quote": "The secondary mirror unit is suspended by a torsion-resistant spider with a special locking mechanism to secure the secondary mirror units or primary focus unit into the inner ring supported by the spider ... All the secondary mirror units and the prime focus unit are housed in a carousel on the top-unit floor.",
+    "alternatives": [
+     {
+      "value": "exchange 3-6 h",
+      "src": "I04",
+      "loc": "Sec. 2.5",
+      "quote": "Exchanging these top units is achieved by manipulating the top unit handling system (Kurakami et al. 2003), and takes 3 to 6 hours"
+     },
+     {
+      "value": "4 vanes (figure)",
+      "src": "SOLD",
+      "loc": "\"Subaru's Four Foci\" figure",
+      "quote": "Subaru's Four Foci",
+      "figure_readoff": "subaru_old_Introduction_img_telescope_foci1_e.jpg: rendering of the telescope with the top ring at the top; four straight vanes run from the ring to the central prime-focus unit (label \"1: Prime Focus\"); labels \"2: Nasmyth Focus (Optical)\" and \"3: Nasmyth Focus (Infrared)\" mark the two side platforms, \"4: Cassegrain Focus\" the space below the mirror cell"
+     }
+    ],
+    "note": "Because the spider is telescope structure and the top units lock into its inner ring, the four vanes are INFERRED to be the same at every focus; their width and geometry are measured only in the IR Nasmyth pupil (spider_width, spider_geometry). The central obscuration differs per top unit and is measured only for the IR top unit at the IR Nasmyth."
+   },
+   "spider_width": {
+    "value": 0.224,
+    "unit": "m (vane thickness in the pupil; 4 vanes), IR Nasmyth pupil of 7.92 m",
+    "src": "L09",
+    "loc": "Sec. 2.1",
+    "quote": "The spider vanes of the Subaru Telescope are 224 mm thick, for a total pupil diameter of 7.92 m.",
+    "alternatives": [
+     {
+      "value": "22 cm",
+      "src": "L09",
+      "loc": "Sec. 2",
+      "quote": "On the Subaru Telescope pupil, the size of the central obstruction (30 %, linear) and spider thickness (22cm) require that the coronagraph is designed to remove the diffraction features they create in the focal plane."
+     },
+     {
+      "value": "0.23 m, four arms",
+      "src": "K18",
+      "loc": "Sec. 2.3.1",
+      "quote": "the Subaru entrance pupil consists of an 8.2-m primary aperture containing a 2.35-m diameter central obscuration from the secondary mirror, which is supported by four 0.23-m wide “spider” arms"
+     },
+     {
+      "value": "0.029 of 8.2 m = 0.237 m",
+      "src": "K18",
+      "loc": "Table 2",
+      "quote": "Ratio of spiders thickness to primary diameter e/Dp = 0.029 e = 0.237 m"
+     },
+     {
+      "value": "0.184 m (hcipy model)",
+      "src": "HCI",
+      "loc": "make_subaru_lyot_stop",
+      "quote": "spider_width = 0.184  # m"
+     }
+    ],
+    "note": "All measured values are for the SCExAO input, i.e. the IR Nasmyth pupil behind AO188 (HCI: \"based on the Nasmyth-IR pupil\"). As fractions of the pupil: 0.224/7.92 = 0.0283 (L09), 0.029 (K18), 0.184/7.95 = 0.0231 (HCI)."
+   },
+   "spider_geometry": {
+    "value": "4 non-intersecting vanes at +/-51.75 deg to the pupil horizontal; each pair starts from a point offset 0.66 m from the centre along the horizontal (offset cross)",
+    "unit": "",
+    "src": "K18",
+    "loc": "Table 2 (SCExAO entrance pupil)",
+    "quote": "Spiders orientation angle vs. horizontal θ = 51.75° Spiders origin decenter along the horizontal δ/Dp = 0.081 δ = 0.661 m",
+    "alternatives": [
+     {
+      "value": "51.75 deg = angle of the top-right vane from the horizontal",
+      "src": "L09",
+      "loc": "Sec. 2.1",
+      "quote": "β the angle between the horizontal axis x and the top right vane of the Subaru Telescope pupil"
+     },
+     {
+      "value": "not 45 deg",
+      "src": "L09",
+      "loc": "Fig. 2 caption",
+      "quote": "since the spider vane angle β is 51.75◦ and not 45◦"
+     },
+     {
+      "value": "non-intersecting",
+      "src": "MA20",
+      "loc": "Sec. 3 (Fig. 4 reference aperture)",
+      "quote": "characterized by its large (2.3 m diameter) central obstruction and non-intersecting thick spider vanes at the non-trivial angle of 51.75 degrees (Lozi et al. 2009)."
+     },
+     {
+      "value": "hcipy: start points (+/-0.659, 0) m, angles +/-51.75 and 180 -/+ 51.75 deg",
+      "src": "HCI",
+      "loc": "make_subaru_lyot_stop",
+      "quote": "spider_offset = 0.659  # m, spider intersection offset spider_angle = 51.75  # deg ... spider1 = make_spider_infinite((spider_offset, 0), spider_angle, spider_width) spider2 = make_spider_infinite((spider_offset, 0), -spider_angle, spider_width) spider3 = make_spider_infinite((-spider_offset, 0), spider_angle + 180, spider_width) spider4 = make_spider_infinite((-spider_offset, 0), -spider_angle + 180, spider_width)"
+     },
+     {
+      "value": "half-line spiders",
+      "src": "HCIG",
+      "loc": "make_spider_infinite docstring",
+      "quote": "Make an infinite spider starting at `p` and extending at an angle `angle`."
+     }
+    ],
+    "note": "Frame: pupil x = \"horizontal\" of the SCExAO pupil images; its orientation relative to the telescope elevation axis or the sky is NOT FOUND (alt-az: the pupil rotates on the sky).",
+    "derived": "DERIVED: each vane line passes 0.519 m (= 0.661 sin 51.75 deg) from the pupil centre (0.518 m with hcipy 0.659); vanes 1 and 3 (and 2 and 4) are parallel, 1.038 m apart. Exposed vane length from the obscuration edge to the rim along such a line: 3.002 m (K18: D 8.2, Ds 2.369) / 2.836 m (HCI: D 7.95, 0.307)."
+   },
+   "central_obscuration_nsir": {
+    "value": 2.369,
+    "unit": "m diameter (0.289 of 8.2 m), SCExAO entrance pupil = IR Nasmyth",
+    "src": "K18",
+    "loc": "Table 2",
+    "quote": "Ratio of secondary to primary mirror diameter Ds/Dp = 0.289 Ds = 2.369 m, Rs = 1.184 m",
+    "alternatives": [
+     {
+      "value": "2.35 m (text)",
+      "src": "K18",
+      "loc": "Sec. 2.3.1",
+      "quote": "containing a 2.35-m diameter central obscuration from the secondary mirror"
+     },
+     {
+      "value": "30% linear",
+      "src": "L09",
+      "loc": "Sec. 2",
+      "quote": "the size of the central obstruction (30 %, linear)"
+     },
+     {
+      "value": "2.3 m",
+      "src": "MA20",
+      "loc": "Sec. 3",
+      "quote": "characterized by its large (2.3 m diameter) central obstruction"
+     },
+     {
+      "value": "0.307 of 7.95 m (hcipy)",
+      "src": "HCI",
+      "loc": "make_subaru_aperture",
+      "quote": "inner_diameter_fraction=0.307,"
+     },
+     {
+      "value": "31% of 7.79 m (SCExAO undersized pupil)",
+      "src": "LU22",
+      "loc": "Fig. 2 caption",
+      "quote": "The aperture diameter is 95% of the Subaru clear aperture; effectively 7.79 m. The central obstruction is 31% of this diameter."
+     }
+    ],
+    "note": "The obscuration (~2.3-2.44 m) is much larger than the 1.265 m IR M2 itself, so it is set by the IR top unit (M2 housing/baffle); which structure is NOT FOUND. Measured for the IR Nasmyth only.",
+    "derived": "DERIVED diameters: L09 0.30 x 7.92 = 2.376 m; HCI 0.307 x 7.95 = 2.441 m; LU22 0.31 x 7.79 = 2.415 m. As a fraction of 7.9475 m (I04 IR Nasmyth pupil): 2.369/7.9475 = 0.298."
+   },
+   "pupil_diameter_nsir_measured": {
+    "value": 7.92,
+    "unit": "m (IR Nasmyth pupil as seen by SCExAO)",
+    "src": "L09",
+    "loc": "Sec. 2.1",
+    "quote": "The spider vanes of the Subaru Telescope are 224 mm thick, for a total pupil diameter of 7.92 m.",
+    "alternatives": [
+     {
+      "value": 7.95,
+      "src": "HCI",
+      "loc": "make_subaru_lyot_stop",
+      "quote": "pupil_diameter = 7.95  # m"
+     },
+     {
+      "value": "7.92 m nominal",
+      "src": "MA20",
+      "loc": "Sec. 3",
+      "quote": "across the aperture nominal diameter of 7.92 meters."
+     },
+     {
+      "value": "7.9475 / 7.9716 m (design)",
+      "src": "I04",
+      "loc": "Table 2",
+      "quote": "Pupil diameter (mm) 8200 8200 8200 8200 8081.9 7971.6 7947.5"
+     },
+     {
+      "value": "hcipy source",
+      "src": "HCI",
+      "loc": "make_subaru_aperture docstring",
+      "quote": "This pupil is based on the Nasmyth-IR pupil (Julien Lozi priv. communications)."
+     }
+    ],
+    "note": "K18 Table 2 normalises its pupil to 'Dp = 8.2 m' (the primary), not to the IR stop."
+   },
+   "nasmyth_naming": {
+    "value": "named by band, optical (NsOpt) and infrared (NsIR); on opposite sides of the telescope; no left/right or compass naming published",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.4",
+    "quote": "The tertiary mirror tower houses two tertiary mirrors, one for the optical Nasmyth and the other for the infrared Nasmyth foci.",
+    "alternatives": [
+     {
+      "value": "two platforms",
+      "src": "G22",
+      "loc": "Fig. 1 caption",
+      "quote": "The NasIR platform is one of two large gravity-invariant platforms on the telescope’s side (right).",
+      "note": "'(right)' refers to the right-hand panel of the figure, not to a side of the telescope"
+     },
+     {
+      "value": "figure",
+      "src": "SOLD",
+      "loc": "\"Subaru's Four Foci\"",
+      "quote": "Subaru's Four Foci",
+      "figure_readoff": "telescope_foci1_e.jpg: \"2: Nasmyth Focus (Optical)\" points to the platform on the right of the drawing, \"3: Nasmyth Focus (Infrared)\" to the platform on the left (with a person for scale); the drawing has no compass and the viewing direction is not stated"
+     }
+    ],
+    "note": "Left/right or east/west assignment of the Nasmyth platforms: NOT FOUND in any saved document."
+   },
+   "instruments_prime": {
+    "value": "current: HSC (imaging), PFS (fibre spectrograph); past: Suprime-Cam (to S17A), FMOS (to May 2016)",
+    "unit": "",
+    "src": "SINS",
+    "loc": "Facility instruments; Decommissioned instruments",
+    "quote": "Suprime-Cam - Subaru Prime Focus Camera - provides optical imaging over a large field of view with a mosaic of CCDs (opening until S17A).",
+    "alternatives": [
+     {
+      "value": "FMOS at prime focus",
+      "src": "SFMOS",
+      "loc": "Introduction",
+      "quote": "in the 30-arcmin diamter field of view at the Subaru prime focus"
+     },
+     {
+      "value": "FMOS end",
+      "src": "SFMOS",
+      "loc": "ATTENTION",
+      "quote": "FMOS will be decomissioned at the end of May 2016"
+     },
+     {
+      "value": "prime focus: FMOS, Suprime-Cam",
+      "src": "SOLD",
+      "loc": "Instruments, 1) Prime Focus",
+      "quote": "Instruments designed to take advantage of the large field of view at prime focus Fiber Multi-Object Spectrograph (FMOS) Subaru Prime Focus Camera (Suprime-Cam)"
+     }
+    ]
+   },
+   "instruments_cass": {
+    "value": "current: FOCAS, MOIRCS; past: COMICS (mid-IR, IR M2, not available since S20B), CIAO + AO36, IRCS (moved to the IR Nasmyth with AO188)",
+    "unit": "",
+    "src": "SOLD",
+    "loc": "Instruments, 4) Cassegrain Focus",
+    "quote": "A variety of instruments tailored to a wide range of research goals Multi-Object Infrared Camera and Spectrograph (MOIRCS) Faint Object Camera and Spectrograph (FOCAS) Cooled Mid-Infrared Camera and Spectrograph (COMICS)",
+    "alternatives": [
+     {
+      "value": "FOCAS",
+      "src": "SFOC",
+      "loc": "Introduction",
+      "quote": "The Faint Object Camera and Spectrograph (FOCAS) is a versatile optical imaging and spectroscopy unit which can be installed at the Cassegrain focus of Subaru Telescope."
+     },
+     {
+      "value": "COMICS",
+      "src": "SCOM",
+      "loc": "Introduction",
+      "quote": "installed at the Cassegrain focus of Subaru Telescope and provides both imaging and spectroscopic capabilities from 7.5-25 um."
+     },
+     {
+      "value": "COMICS retired",
+      "src": "SINS",
+      "loc": "Decommissioned instruments",
+      "quote": "COMICS - Cooled Mid-Infrared Camera and Spectrograph - provides imaging and spectroscopy from 7.5-25 microns (not available since S20B)."
+     },
+     {
+      "value": "2004: FOCAS, IRCS, COMICS, CIAO at Cassegrain",
+      "src": "I04",
+      "loc": "Sec. 3",
+      "quote": "These instruments are deployed at the prime focus (Suprime-Cam), optical Nasmyth focus (HDS), infrared Nasmyth focus (OHS), and Cassegrain focus (FOCAS, IRCS, COMICS, and CIAO) as shown in figure 13."
+     },
+     {
+      "value": "four standby ports",
+      "src": "I04",
+      "loc": "Sec. 4.9",
+      "quote": "There are four stand-by platform ports on the Cassegrain floor where the remaining three instruments can be kept alive"
+     }
+    ],
+    "note": "Which secondary (optical or IR) MOIRCS uses: NOT FOUND. FOCAS: optical (the Cassegrain ADC, SFOC); COMICS: IR M2 (chopping, I04 Sec. 2.1, INFERRED from mid-IR use)."
+   },
+   "instruments_nsopt": {
+    "value": "HDS (High Dispersion Spectrograph), with blue and red image rotators",
+    "unit": "",
+    "src": "SHDS",
+    "loc": "Introduction",
+    "quote": "The High Dispersion Spectrograph (HDS), which is located at the Optical Nasmyth platform, provides optical spectroscopy in the range 3 000 - 10 000 Angstroms",
+    "alternatives": [
+     {
+      "value": "HDS",
+      "src": "SOLD",
+      "loc": "Instruments, 2) Nasmyth Focus (Optical)",
+      "quote": "Heavy instruments such as high resolution spectrographs High Dispersion Spectrograph (HDS)"
+     }
+    ]
+   },
+   "instruments_nsir": {
+    "value": "AO188 / AO3k (facility AO) feeding IRCS, IRD, SCExAO (+CHARIS, VAMPIRES, ...) and visitors via the Nasmyth beam switcher; past: OHS/CISCO",
+    "unit": "",
+    "src": "SAO",
+    "loc": "Introduction",
+    "quote": "AO188 is installed at the IR Nasmyth platform of Subaru telescope.",
+    "alternatives": [
+     {
+      "value": "IRCS",
+      "src": "SIRCS",
+      "loc": "Introduction",
+      "quote": "The Infrared Camera and Spectrograph (IRCS) is installed at the Infrared Nasmyth focus of Subaru Telescope"
+     },
+     {
+      "value": "SCExAO on the Nasmyth platform behind AO188",
+      "src": "K18",
+      "loc": "Sec. 2.4.1",
+      "quote": "the SCExAO instrument is located on the Nasmyth platform of the Subaru Telescope, between the AO188 first generation AO system"
+     },
+     {
+      "value": "OHS at the IR Nasmyth (2004)",
+      "src": "I04",
+      "loc": "Sec. 3",
+      "quote": "infrared Nasmyth focus (OHS)"
+     },
+     {
+      "value": "IRCS, AO188",
+      "src": "SOLD",
+      "loc": "Instruments, 3) Nasmyth Focus (Infrared)",
+      "quote": "Infrared Camera and Spectrograph (IRCS) 188-Element Adaptive Optics (AO)"
+     }
+    ],
+    "note": "Number of reflections inside AO188/AO3k and which IR-Nasmyth configuration (with/without image rotator) feeds it: NOT FOUND. The hcipy 7.95 m matches the no-rotator IR Nasmyth pupil (7947.5 mm, DERIVED comparison)."
+   },
+   "cassegrain_hole": {
+    "value": "Cassegrain light passes through a central hole in the primary; hole diameter NOT FOUND",
+    "unit": "",
+    "src": "SF6",
+    "loc": "Four foci",
+    "quote": "The Cassegrain focus forms an image by reflecting light off the secondary mirror and directing it through a hole in the center of the primary mirror."
+   },
+   "collecting_area": {
+    "value": null,
+    "unit": "m^2 -- no official value found",
+    "src": "STP",
+    "loc": "Primary mirror",
+    "quote": "Effective diameter: 8.2 m",
+    "derived": "DERIVED: full 8.2 m disc = 52.81 m^2 (upper bound). IR Nasmyth models: K18 (8.2 m, 2.369 m, 4 x 0.237 m vanes, offset 0.661 m) annulus 48.40 - vanes 2.85 = 45.56 m^2; HCI (7.95 m, 0.307, 4 x 0.184 m, 0.659 m) 44.96 - 2.09 = 42.87 m^2; L09 (7.92 m, 0.30, 0.224 m) 44.83 - 2.56 = 42.27 m^2."
+   },
+   "cassegrain_ao_2004": {
+    "value": "in 2004 the Cassegrain unit housed the first AO system (AO36), used with IRCS and CIAO at Cassegrain",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.4",
+    "quote": "The Cassegrain unit also houses the adaptive optics system, located in front of the acquisition and guiding system.",
+    "alternatives": [
+     {
+      "value": "AO36 decommissioned",
+      "src": "SINS",
+      "loc": "Decommissioned instruments",
+      "quote": "AO36 - Subaru 36-elements Adaptive Optics system - delivers diffraction-limited images in the near-infrared."
+     },
+     {
+      "value": "CIAO decommissioned",
+      "src": "SINS",
+      "loc": "Decommissioned instruments",
+      "quote": "CIAO - Coronagraphic Imager - provides a near-infrared imaging capability in the vicinity of bright sources."
+     }
+    ],
+    "note": "Which secondary (optical or IR) the Cassegrain AO36/CIAO/IRCS combination used: NOT FOUND."
+   },
+   "suprimecam_history": {
+    "value": "Suprime-Cam developed in 1999; decommissioned S17A; replaced by HSC (7x the field)",
+    "unit": "",
+    "src": "SHSP",
+    "loc": "Research Background and Objectives",
+    "quote": "In 1999, our group had developed a Prime Focus Camera,",
+    "alternatives": [
+     {
+      "value": "HSC 7x wider",
+      "src": "SHSP",
+      "loc": "Research Background and Objectives",
+      "quote": "Therefore, we decided to build Hyper Suprime-Cam in 2002 whose field of view is seven times wider than that of Suprime-Cam."
+     }
+    ]
+   },
+   "coatings": {
+    "value": "M1 aluminium (vacuum evaporation in the enclosure; >91% at 500 nm on witness samples); IR M2 silver",
+    "unit": "",
+    "src": "I04",
+    "loc": "Sec. 2.6; Sec. 4.6",
+    "quote": "The vacuum-coating chamber contains aluminum filaments for the evaporative coating of aluminum (Hayashi et al. 1998)."
+   }
+  },
+  "not_found": [
+   "Central obscuration at the prime focus (outer diameter of the prime focus unit POpt2 / Suprime-Cam PFU): only lower bounds (0.97 m WFC, ~1.04 m POpt2 inner diameter). Miyazaki+2018 and Komiyama+2018 (PASJ 70 S1/S2) were not obtainable (OUP HTTP 403).",
+   "Central obscuration of the optical Cassegrain and optical Nasmyth top units (only the bare M2 diameters 1.33 m and 1.40 m); the IR Cassegrain value is INFERRED from the IR Nasmyth measurement.",
+   "Spider vane widths measured at any focus other than the IR Nasmyth; the orientation of the SCExAO pupil frame (51.75 deg \"vs horizontal\") relative to the elevation axis or the sky.",
+   "Left/right or east/west naming of the Nasmyth platforms (the observatory names them optical and infrared).",
+   "Tertiary-mirror size and position (height above M1), hence the distance of each Nasmyth focus from the telescope axis; central-hole diameter of the primary.",
+   "Which secondary MOIRCS uses at the Cassegrain; which IR-Nasmyth configuration (with/without image rotator) feeds AO188/AO3k, and the reflection count inside AO188/AO3k.",
+   "An official collecting area in m^2.",
+   "Suprime-Cam first-light date (not in the saved text)."
+  ],
+  "conflicts": [
+   "Prime-focus focal ratio: \"F/2.0 (with corrector)\" (STP, SAB, SF6, SOLD; also I04 \"30' field of view at F/2\", the original 7.5 m design value per M02) vs F/1.86 for Suprime-Cam (M02; f/1.87 DERIVED from 0.202\"/px) vs F/2.2 for the HSC WFC (S15; f/2.25 DERIVED from 11.2\"/mm).",
+   "Optical Nasmyth: F/12.6 published vs 12.708 (with image rotator) and 12.469 (without) in I04 Table 2; field 4' (I04 text) vs 3.5' / 6' (I04 Table 2).",
+   "IR Nasmyth pupil diameter: 7947.5 / 7971.6 mm (I04 design) vs 7.92 m (L09, MA20) vs 7.95 m (HCI); SCExAO internal mask 7.79 m (LU22, undersized by design).",
+   "IR Nasmyth central obscuration: 2.369 m (K18 Table 2) vs 2.35 m (K18 text) vs 2.3 m (MA20) vs 0.30 x 7.92 = 2.38 m (L09) vs 0.307 x 7.95 = 2.44 m (HCI) vs 0.31 x 7.79 = 2.41 m (LU22).",
+   "Spider vane width: 224 mm (L09) / \"22cm\" (L09) / 0.23 m and 0.237 m (K18) vs 0.184 m (HCI model). Origin offset 0.661 m (K18) vs 0.659 m (HCI).",
+   "Site: 19 49 32 N, 155 28 34 W (NAD83; STP, SAB) vs 19 49 43 N, 155 28 50 W (I04, datum not stated)."
+  ],
+  "notes": [
+   "Explorer conventions used here: F = focal length / pupil diameter of the same configuration (I04 Table 2); plate scale = 206264.8 / f; reflections count mirrors only (correctors and AO optics excluded).",
+   "One spider for all foci: the four thick (~0.22-0.24 m) vanes at +/-51.75 deg, offset 0.66 m from the centre, are part of the telescope (top ring + inner ring); the top units (PFU, M2 units) lock into the inner ring (I04). Only the central obscuration changes with the top unit.",
+   "The IR secondary (1265 mm) is deliberately undersized: it is the aperture stop at the IR foci (8.08 m Cassegrain, 7.95-7.97 m Nasmyth), keeping warm structure outside the primary out of the IR beam; the published pupil diameters follow from the M2 size and spacing (DERIVED in ir_secondary_stop).",
+   "The Nasmyth foci are fed by moving the Opt/Nas or IR M2 along the axis (I04); the paraxial check reproduces every Table 2 focal length and back focus (DERIVED in secondary_mirrors and ir_secondary_nasmyth_use)."
+  ]
+ }
+}

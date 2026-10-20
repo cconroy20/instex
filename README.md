@@ -183,7 +183,22 @@ images' edge) above, the diffraction-limited and seeing-limited images below ove
 in the panel header (0.05–5″, default 2″, link key t.field; kept across telescopes, bands and seeing). Both images
 come from one grid (TP.seeingGrid: 1.5 times the field or 6 seeing FWHM, rounded up to a few sizes, 2048 cells when
 the pupil needs more than 512), the diffraction-limited one from the fine grid (8 pixels per λ / D) while the field
-fits inside 120 λ / D. The collecting area is geometric; each focus lists its reflections,
+fits inside 120 λ / D. Ten telescopes since 10-19 (his picks from a list of 32: the starter set VLT, Subaru, GMT, JWST, DKIST and
+HET, and the Yerkes 40-inch), each sourced by an agent into data/telescopes/<id>.md/json with the files under
+rawdata/telescopes/<id>/: VLT (8.0 m pupil at Nasmyth, 8.115 m at Cassegrain: the secondary is the stop; Nasmyth A
+east drawn up, B west down; tertiary 2.5 m above the primary), Subaru (prime focus with HSC's corrector drawn as one
+lens of its power, Cassegrain, optical and infrared Nasmyth; the infrared secondary is the stop, 7.95 m; the
+obstruction measured only at infrared Nasmyth), GMT (seven mirrors, the outer six ellipses seen from the sky; the
+truss on the central mirror only; direct Gregorian and the folded port, its flat below the primary), JWST (18
+hexagons and the struts after STScI's STPSF model; the f/20 path drawn as a generic three-mirror layout, and the f/9
+Cassegrain image), DKIST (off-axis: the light on one side, nothing in the beam; Gregorian f/13 and the prime focus's
+heat stop), HET (a Tracker slider moves the 10 m pupil across the fixed 91-segment array: 55.9 m² centered, 32.8 m²
+at 6°, as the pyHETobs geometry gives; the four-mirror corrector drawn as one lens), Yerkes 40-inch (a refractor;
+its color error from Fox 1908 Table IV as a readout: 27″ of blur in B). New engine and drawing options: per-focus
+pupil D, the tertiary's place a3 (negative: behind the primary), prime-focus correctors that change the focal
+length, off-axis apertures, mirror spans, hexagon lattice rotation, round and elliptical segments, offset stops,
+widening and bounded struts, blocking polygons. The pupil and the images were drawn upside down before (HST's pads);
++y is now up. The collecting area is geometric; each focus lists its reflections,
 but no reflectivity is applied.
 
 ## Imager mode

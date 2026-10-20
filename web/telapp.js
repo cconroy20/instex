@@ -12,11 +12,15 @@ const TELS = window.IX_TELESCOPES || [];
 const clone = o => JSON.parse(JSON.stringify(o));
 
 // ------------------------------------------------------------------ state
-const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2 };
+const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2, track: 0 };
 let S = clone(DEF);
 const telOf = () => TELS.find(t => t.id === S.tel) || TELS[0];
 const focusOf = () => { const t = telOf(); return t.foci.find(f => f.id === S.focus) || t.foci[0]; };
 const bandOf = () => IMG.BANDS.find(b => b.k === S.band) || IMG.BANDS[0];
+// the entrance pupil's diameter at this focus (the VLT's is 8.115 m at Cassegrain, 8.0 m at Nasmyth), and the
+// primary's focal ratio on it (from the primary's focal length when the telescope gives one)
+const Dof = () => focusOf().D || telOf().D;
+const F1of = () => { const t = telOf(); return t.f1 ? t.f1 / Dof() : t.F1; };
 
 // ------------------------------------------------------------------ controls
 const fsel = $("tFocus"), bsel = $("tBand");
@@ -32,6 +36,9 @@ bindSeg([["tsLog", "log"], ["tsLin", "linear"]], () => S.stretch, v => { S.stret
 // the seeing FWHM, on a log slider (0.1 to 4 arcsec)
 const seeIn = $("tSee");
 seeIn.addEventListener("input", () => { S.see = +Math.pow(10, +seeIn.value).toPrecision(3); H.schedule(); });
+// the HET's tracker angle (degrees off the array's axis; the slider shows only for a telescope with a tracker)
+const trackIn = $("tTrack");
+trackIn.addEventListener("input", () => { S.track = +(+trackIn.value).toFixed(2); H.schedule(); });
 // the field of both images of a star (arcsec across, 0.05 to 5), on a log slider in the panel's header
 const fieldIn = $("tField");
 fieldIn.addEventListener("input", () => { S.field = +Math.pow(10, +fieldIn.value).toPrecision(3); H.schedule(); });
@@ -46,6 +53,8 @@ function syncControls() {
   bsel.value = S.band;
   seeIn.value = Math.log10(S.see); $("vtSee").textContent = sig(S.see, 2) + "″";
   fieldIn.value = Math.log10(S.field); $("vtField").textContent = fAng(S.field, 2);
+  $("tTrackRow").hidden = !t.tracker;
+  if (t.tracker) { trackIn.min = -t.tracker.range; trackIn.max = t.tracker.range; trackIn.value = S.track; $("vtTrack").textContent = (S.track > 0 ? "+" : S.track < 0 ? "−" : "") + Math.abs(S.track).toFixed(1) + "°"; }
   segs.forEach(g => g());
 }
 
@@ -53,11 +62,16 @@ function syncControls() {
 // (a square "detector" as wide as the focus's field, so the drawing's bundles come from the field's edge and center)
 function params() {
   const t = telOf(), f = focusOf();
-  const fieldMM = 2 * f.F * t.D * 1000 * Math.tan((f.field || 10) / 60 * DEG / 2);
+  const fieldMM = 2 * f.F * Dof() * 1000 * Math.tan((f.field || 10) / 60 * DEG / 2);
   return Object.assign(clone(IM.DEF), {
-    D: t.D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.F1, back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, nasSide: f.side || "down",
+    D: Dof(), eps: f.drawEps !== undefined ? f.drawEps : t.drawEps !== undefined ? t.drawEps : f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: F1of(), back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, nasSide: f.side || "down",
     field: f.field || 10, optics: "direct", Nx: 1000, Ny: 1000, pix: fieldMM, rows: [1], band: S.band, lam: bandOf().lam, psf: "diff",
     view: "tel", annot: true, stretch: false, telMode: true,
+    // drawing options a focus (or its telescope) may carry: an off-axis aperture (m from the parent's axis), the
+    // mirror's spans across the cross-section (m), a prime-focus corrector that changes the focal length
+    offAxis: f.offAxis !== undefined ? f.offAxis : t.offAxis, corrector: f.corrector,
+    mirrorSpans: t.tracker ? [[t.tracker.span[0] - trackShift(), t.tracker.span[1] - trackShift()]] : f.mirrorSpans || t.mirrorSpans,
+    pfuLabel: f.pfuLabel, pfuSub: f.pfuSub, a3: f.a3, Dmirror: t.Dmirror, focusLabel: f.focusLabel, primarySub: t.primarySub,
   });
 }
 
@@ -82,19 +96,42 @@ function pupilImage(pu, eps, n, ext) {
   if (icache.key !== key) icache = { key, m: window.TP.pupilImage(pu, eps, n, ext) };
   return icache.m;
 }
-const pupilOf = () => { const t = telOf(), f = focusOf(); return Object.assign({}, t.pupil, f.pupil || {}); };
+// (a telescope with a tracker, the HET: the pupil, a circle of tracker.d, slides across the fixed mirror array by
+// the radius of curvature times the tracker's angle, along x)
+const trackShift = () => { const t = telOf(); return t.tracker ? t.tracker.R * S.track * DEG : 0; };
+const pupilOf = () => {
+  const t = telOf(), f = focusOf(), pu = Object.assign({}, t.pupil, f.pupil || {});
+  if (t.tracker) pu.stop = { x: trackShift(), y: 0, d: t.tracker.d };
+  return pu;
+};
 const epsOf = () => { const t = telOf(), f = focusOf(); return f.eps !== undefined ? f.eps : t.eps; };
+let acache = { key: null };
+function arrayImage(pu, n, ext) {
+  const key = JSON.stringify([pu, n, ext]);
+  if (acache.key !== key) acache = { key, m: window.TP.pupilImage(pu, 0, n, ext) };
+  return acache.m;
+}
 
 // ------------------------------------------------------------------ results strip and readouts
+// a refractor's color error at this band: how far its focus lies from the best focus, and the blur that leaves at
+// the best focus (the measured color curve, interpolated; "not measured" outside it)
+function colorRow(t, lam) {
+  const L = lam * 1e4, c = t.color, tip = "The objective's color curve (Fox 1908): each wavelength comes to its own focus. The blur is the out-of-focus cone's width at the best focus (" + c.reduce((a, q) => (q[1] < a[1] ? q : a))[0].toLocaleString("en-US") + " Å): the distance times D / f. The images here are drawn for an ideal lens.";
+  if (L < c[0][0] || L > c[c.length - 1][0]) return ["Out of focus by", "not measured here", tip];
+  let k = 0; while (k + 2 < c.length && c[k + 1][0] < L) k++;
+  const u = (L - c[k][0]) / (c[k + 1][0] - c[k][0]), dz = c[k][1] + u * (c[k + 1][1] - c[k][1]);
+  const f = t.F1 * t.D, blurMM = dz * t.D / f, blur = blurMM * RAD / (f * 1000);   // the blur: mm across, then arcsec
+  return ["Out of focus by", sig(dz, 2) + " mm (a " + fAng(blur, 2) + " blur)", tip];
+}
 function renderText(Dz, P, pp, ps) {
   const t = telOf(), f = focusOf(), lam = P.lam;
-  const fwhm = pp.fwPix * lam * 1e-6 / (Q * t.pupil.D) * RAD;      // arcsec
+  const fwhm = pp.fwPix * lam * 1e-6 / (Q * pupilOf().D) * RAD;    // arcsec
   // (no summary strip in this mode, his call: the figures are in the boxes)
   const nom = t.nominalD ? Math.round(Dz.feff / 1000 / t.nominalD) : 0;
   rows($("rTelT"), [
-    ["Primary", "Ø " + sig(t.D, 3) + " m, f/" + sig(t.F1, 3), t.primaryNote || ""],
+    [t.refractor ? "Objective" : "Primary", t.primarySub ? t.primarySub + ", f " + sig(t.f1, 3) + " m" : t.Dmirror ? "Ø " + sig(t.Dmirror, 3) + " m, f/" + sig(t.f1 / t.Dmirror, 3) + " (the pupil Ø " + (Math.abs(Dof() * 10 - Math.round(Dof() * 10)) < 1e-6 ? Dof().toFixed(1) : String(+Dof().toFixed(3))) + " m)" : "Ø " + sig(Dof(), 3) + " m, f/" + sig(F1of(), 3), t.primaryNote || ""],
     ["Secondary", f.secondary || "–"],
-    ["Reflections", String(f.refl || "–"), "Mirrors the light meets before this focus."],
+    ["Reflections", String(f.refl === undefined || f.refl === null ? "–" : f.refl), "Mirrors the light meets before this focus."],
     ["Focal ratio", "f/" + sig(f.F, 3) + (nom ? ` (f/${nom} on the nominal ${t.nominalD} m)` : ""),
       "The focal ratio at this focus. One primary with different secondaries gives different foci." + (nom ? ` The focal ratio here is the focal length over the primary's full ${sig(t.D, 4)} m (corner to corner); the observatory names its foci by the nominal ${t.nominalD} m aperture, so the same focal length is f/${nom} in the focus's name.` : "")],
     ["Focal length", fLen(Dz.feff)],
@@ -103,11 +140,11 @@ function renderText(Dz, P, pp, ps) {
   ]);
   rows($("rImgT"), [
     ["Wavelength", Math.round(lam * 1e4).toLocaleString("en-US") + " Å"],
-    ["λ / D", fAng(lam * 1e-6 / t.D * RAD), "The angular scale of the diffraction pattern: the core's FWHM is about 1.0 λ / D."],
+    ["λ / D", fAng(lam * 1e-6 / Dof() * RAD), "The angular scale of the diffraction pattern: the core's FWHM is about 1.0 λ / D."],
     ["Diffraction-limited FWHM", fAng(fwhm), "The FWHM of the diffraction pattern's core, measured from the pattern drawn (λ / D sets the scale; the pupil's shape sets the details)."],
     ["Seeing-limited FWHM", fAng(ps.fwPix * ps.pix * RAD), "Measured from the image through the atmosphere: the seeing and the telescope's diffraction together."],
     ["Peak vs diffraction-limited", sig(100 * ps.peak, 2) + "%", "The peak brightness of the seeing-limited image, relative to the diffraction-limited image of the same star (the same total light)."],
-  ]);
+  ].concat(t.color ? [colorRow(t, lam)] : []));
 }
 
 // ------------------------------------------------------------------ the pupil and image panel
@@ -137,7 +174,7 @@ function drawPupil(pp, P, ps) {
   if (!(cv.width > 0 && cv.height > 0)) return;
   const t = telOf(), f = focusOf(), pu = pupilOf(), eps = epsOf(), dpr = window.devicePixelRatio || 1, lam = P.lam * 1e-6;
   cv.title = f.pupilNote || t.pupilNote || "";
-  const ld = lam / t.D * RAD, cw = w / 2, ch = h / 2, head = 40, foot = 30;
+  const ld = lam / Dof() * RAD, cw = w / 2, ch = h / 2, head = 40, foot = 30;
   const side = Math.max(40, Math.floor(Math.min(cw - 28, ch - head - foot)));
   const X = k => Math.round(k * cw + (cw - side) / 2), Y = r => Math.round(r * ch + head + (ch - head - foot - side) / 2);
   const label = (x, y, t1, t2, col) => {
@@ -154,32 +191,38 @@ function drawPupil(pp, P, ps) {
   };
   const shade = v => rampAt(S.stretch === "log" ? (Math.log10(Math.max(v, 1e-12)) + 5) / 5 : Math.min(1, v * 4));
   // an image's central field into the square at (x, y): img is n x n with its center at n/2 and pixels of pix
-  // arcsec; the half-field hw (pixels) may be fractional, so the square's scale is exact
+  // arcsec; the half-field hw (pixels) may be fractional, so the square's scale is exact.  Rows run up in y (the
+  // pupil's +y is up on the page), so the canvas takes them in reverse.
   const blitField = (img, n, pix, x, y) => {
     const hw = S.field / 2 / pix, K = Math.min(n / 2 - 1, Math.ceil(hw) + 1), m = 2 * K, c = n / 2;
     const oc = document.createElement("canvas"); oc.width = m; oc.height = m;
     const og = oc.getContext("2d"), id = og.createImageData(m, m);
     for (let j = 0; j < m; j++) for (let i = 0; i < m; i++) {
-      const col3 = shade(img[(c - K + j) * n + (c - K + i)]), k = 4 * (j * m + i);
+      const col3 = shade(img[(c + K - j) * n + (c - K + i)]), k = 4 * (j * m + i);
       id.data[k] = col3[0]; id.data[k + 1] = col3[1]; id.data[k + 2] = col3[2]; id.data[k + 3] = 255;
     }
     og.putImageData(id, 0, 0);
     g.imageSmoothingEnabled = true; g.drawImage(oc, K + 0.5 - hw, K + 0.5 - hw, 2 * hw, 2 * hw, x, y, side, side);
   };
-  // the pupil, 1.1 D across, at the screen's resolution: light where the pupil transmits
+  // the pupil, 1.1 D across, at the screen's resolution: light where the pupil transmits (under a moving pupil, the
+  // whole mirror array in a paler tone)
   const n = 2 * Math.max(16, Math.round(side * dpr / 2)), ext = 1.1 * pu.D, pm = pupilImage(pu, eps, n, ext);   // n even: the pupil's center on a cell corner
+  const arr = pu.stop ? arrayImage(Object.assign({}, pu, { stop: null, vanes: [], blocks: [] }), n, ext) : null;
   {
     const oc = document.createElement("canvas"); oc.width = n; oc.height = n;
     const og = oc.getContext("2d"), id = og.createImageData(n, n);
-    for (let k = 0; k < n * n; k++) { const v = pm[k]; id.data[4 * k] = 240 - 150 * v; id.data[4 * k + 1] = 236 - 110 * v; id.data[4 * k + 2] = 228 - 60 * v; id.data[4 * k + 3] = 255; }
+    for (let k = 0; k < n * n; k++) {
+      const q = (n - 1 - Math.floor(k / n)) * n + (k % n), v = pm[q], a = arr ? arr[q] * (1 - v) : 0;   // +y up on the page
+      id.data[4 * k] = 240 - 150 * v - 34 * a; id.data[4 * k + 1] = 236 - 110 * v - 26 * a; id.data[4 * k + 2] = 228 - 60 * v - 12 * a; id.data[4 * k + 3] = 255;
+    }
     og.putImageData(id, 0, 0);
     g.imageSmoothingEnabled = false; g.drawImage(oc, X(0), Y(0), side, side); g.imageSmoothingEnabled = true;
   }
-  label(X(0), Y(0), "Entrance pupil", "Ø " + sig(t.pupil.D, 3) + " m");
+  label(X(0), Y(0), "Entrance pupil", "Ø " + sig(Dof(), 3) + " m" + (t.tracker ? ", " + (S.track ? sig(Math.abs(trackShift()), 2) + " m off the array's center" : "at the array's center") : ""));
   bar(X(0), Y(0), ext / side, lm => (lm >= 1 ? sig(lm, 2) + " m" : sig(lm * 100, 2) + " cm"));
   // the two images over the same field: the diffraction-limited one from the fine grid (8 pixels per λ / D) while
   // the field fits inside it, else from the seeing grid
-  const pixF = lam / (Q * t.pupil.D) * RAD, pixS = ps.pix * RAD, fine = S.field / 2 <= 60 * ld;
+  const pixF = lam / (Q * pu.D) * RAD, pixS = ps.pix * RAD, fine = S.field / 2 <= 60 * ld;
   blitField(fine ? pp.psf : ps.diff, fine ? N : ps.n, fine ? pixF : pixS, X(0), Y(1));
   label(X(0), Y(1), "Diffraction-limited", "perfect optics, no atmosphere", C_DIFF);
   bar(X(0), Y(1), S.field / side, fAng);
@@ -277,7 +320,7 @@ return {
   presetId: () => S.tel,
   applyPreset: p => { S.tel = p.id; S.focus = ""; tlview.fit = true; H.schedule(); },
   reset: () => { S = clone(DEF); tlview.fit = true; H.schedule(); },
-  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []).concat(S.see !== DEF.see ? ["t.see=" + S.see] : []).concat(S.field !== DEF.field ? ["t.field=" + S.field] : []),
+  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []).concat(S.see !== DEF.see ? ["t.see=" + S.see] : []).concat(S.field !== DEF.field ? ["t.field=" + S.field] : []).concat(S.track && telOf().tracker ? ["t.track=" + S.track] : []),
   readHash: kv => {
     const id = OLD_IDS[kv["t.tel"]] || kv["t.tel"];
     if (id && TELS.find(t => t.id === id)) S.tel = id;
@@ -286,6 +329,7 @@ return {
     if (kv["t.stretch"] === "log" || kv["t.stretch"] === "linear") S.stretch = kv["t.stretch"];
     if (kv["t.see"] && isFinite(+kv["t.see"]) && +kv["t.see"] >= 0.1 && +kv["t.see"] <= 4) S.see = +kv["t.see"];
     if (kv["t.field"] && isFinite(+kv["t.field"]) && +kv["t.field"] >= 0.05 && +kv["t.field"] <= 5) S.field = +kv["t.field"];
+    if (kv["t.track"] && isFinite(+kv["t.track"]) && Math.abs(+kv["t.track"]) <= 10) S.track = +kv["t.track"];
   },
   redraw: () => { if (cur) { draw(); drawPupil(curPP, curP, curPS); } },
   test: { state: () => clone(S), design: () => cur, focusAt: () => tlTarget.det && { ...tlTarget.det }, pupil: () => curPP && { area: curPP.area, fwPix: curPP.fwPix }, seeing: () => curPS && { fwhm: curPS.fwPix * curPS.pix * RAD, peak: curPS.peak }, set: o => { Object.assign(S, o); render(); H.scheduleHash(); } },

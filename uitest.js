@@ -837,6 +837,18 @@ const rel = (a, b) => Math.abs(a / b - 1);
       return { a, b: T.state().field, v: document.getElementById("vtField").textContent, pup: !!document.getElementById("rPupT"), boxes: document.querySelectorAll(".tcontrols section").length, top: r.top - l.top, bottom: r.bottom - c.bottom }; })()`);
     check("Telescopes: no Pupil box (two control boxes)", !L.pup && L.boxes === 2, JSON.stringify(L));
     check("Telescopes: the pupil-and-image panel spans the layout and the controls", Math.abs(L.top) < 1.5 && Math.abs(L.bottom) < 1.5, JSON.stringify(L));
+    // the HET's tracker: its slider shows for the HET alone; moving the pupil off the array lowers the collecting area
+    await nav("#inst=tel&t.tel=het&t.focus=pf");
+    const H0 = await ev(`(() => { const T = window.__instex.tel(), a0 = T.pupil().area, row = !document.getElementById("tTrackRow").hidden; T.set({ track: 6 }); const a6 = T.pupil().area, hash = location.hash; T.set({ tel: "keck", focus: "" }); return { a0, a6, row, hash, rowKeck: !document.getElementById("tTrackRow").hidden }; })()`);
+    check("Telescopes: HET's tracker slider (shown for HET only) moves the pupil off the array: 55.9 to 32.8 m²", H0.row && !H0.rowKeck && Math.abs(H0.a0 - 55.88) < 0.3 && Math.abs(H0.a6 - 32.84) < 0.3, JSON.stringify(H0));
+    await nav("#inst=tel&t.tel=het&t.focus=pf&t.track=4");
+    const H4 = await ev(`({ a: window.__instex.tel().pupil().area, v: document.getElementById("vtTrack").textContent })`);
+    check("Telescopes: a link with t.track sets HET's tracker (4°: 41.1 m²)", Math.abs(H4.a - 41.08) < 0.3 && H4.v === "+4.0°", JSON.stringify(H4));
+    // the Yerkes refractor's color error: large in B, small near its best focus (V)
+    const Y = {};
+    for (const b of ["B", "V"]) { await nav("#inst=tel&t.tel=yerkes&t.focus=focus&t.band=" + b); Y[b] = await ev(`[...document.querySelectorAll("#rImgT .rd")].map(e => e.textContent).find(x => /Out of focus/.test(x)) || ""`); }
+    const arc = t => { const m = t.match(/a ([\d.]+) ?(″|mas) blur/); return m ? (+m[1]) * (m[2] === "mas" ? 0.001 : 1) : NaN; };
+    check("Telescopes: Yerkes's objective is out of focus in B (about 27″ of blur), nearly in focus in V", arc(Y.B) > 20 && arc(Y.B) < 35 && arc(Y.V) < 1, JSON.stringify(Y));
     check("Telescopes: the images' field (t.field) is kept across telescopes and bands", L.a === 0.5 && L.b === 0.5 && L.v === "0.50″", JSON.stringify(L));
   }
   await shot("11_telescopes.png");
