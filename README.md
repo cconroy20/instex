@@ -263,6 +263,12 @@ the longest baselines match Table 7.3 exactly, the 5th and 80th percentile basel
 maximum recoverable scales to 3%, and the robust-0.5 beam (1 h at −23°) the Handbook's 0.574 λ / L80 to 8%; the Cycle 13
 resolution table's beams are 12-24% wider for C-2 to C-10 because they describe the 50-antenna configurations. Peak
 sidelobes are the Handbook's order (5-20% vs 5-13%), not equal (its measuring region is not stated).
+Play ▶ Hours | ▶ Antennas, a second line under the panel's title (his asks, 10-20: an antenna play "below the button for
+temporal play", then "not well laid-out" for the floating button, and "a log or geometric rate, not linear in time"):
+Antennas adds the antennas switched on one at a time in a fixed random order (seeded shuffle), k = 2 (N/2)^(t/6 s) (the
+count grows by the same factor each second), with the observation as set; the antennas not yet added are drawn
+hollow (pale blue), the uv title counts them, and the baselines grow as k (k - 1) / 2. Either animation stops the
+other; any control stops both; off for a single dish. Time Play's title now gives the true hour angle (15.04° an hour).
 Panel titles (his asks, 10-20): no lines under the titles, titles 15 px, the lower left "Input image"; the beam has a
 Linear | Log switch under it (r.bstr; Log = |beam| over three decades, 1 to 0.001 of the peak, the sign kept in the color:
 warm positive, blue negative).
@@ -280,8 +286,8 @@ the full credit with acknowledgements is in the About dialog. Sources: data/inte
 the Size to its width and the Field to 20′. Bug found on the way (fixed, 10-20): the images' screen scale was half the
 true one (the square shows the field, not the grid's 2 × field): scale bars read twice their length, the sky's points sat
 at half their separation, and the beam ellipse was half size; the dirty image itself was right; uitest now checks it.
-DSA-2000 (his ask, 10-20: "just do DSA-2000"; data/interf/dsa2000.md): the 1650-dish design approved at the Final
-Design Review (dsa1650_P305_v2.5.6.8, from the project's sensitivity calculator, v2.0 October 2026, antennas_enu.json
+DSA-2000 (his ask, 10-20: "just do DSA-2000"; data/interf/dsa2000.md; the project is now the DSA, formerly DSA-2000):
+the 1650-dish design of the Final Design Review (completed 2026) (dsa1650_P305_v2.5.6.8, from the project's sensitivity calculator, v2.0 October 2026, antennas_enu.json
 about the centroid; the name keeps 2000 from the superseded 2000 x 5 m design); 6.155 m dishes, Spring Valley, Nevada
 (39.554 N); one band 0.7-2.0 GHz covered at once; primary beam 3.36 deg / nu(GHz); the calculator's 20 deg limit
 (mechanical limits NOT FOUND); defaults 1.35 GHz, a 21-minute pointing at dec +40. Baselines 10.2 m to 20.3 km
@@ -289,6 +295,42 @@ about the centroid; the name keeps 2000 from the superseded 2000 x 5 m design); 
 3.03 x 2.31" PA 90.6; uniform 2.16 x 1.65" against the project PSF's 2.03 x 1.57" (uv cell not stated). Found on the
 way: with the baselines a random draw, uniform weighting needs cells sqrt(total / drawn) wider (else the draw's empty
 cells push uniform toward natural: 27% too wide); with that, the draw's uniform beam matches all pairs to 0.1%.
+Arecibo (his ask, 10-20: "a large single dish (Arecebo)"; data/interf/arecibo.md): a single dish, interf.js aperture /
+apertureGrid: the Gregorian feed's illuminated 236.5 x 213.4 m (east-west x north-south on the meridian, INFERRED)
+of the 305 m reflector, taken as uniformly lit (the real illumination tapers to -7 dB at the edge; the platform and
+dome block part of it), its weights the aperture's autocorrelation put straight onto the grid's cells (a lattice of
+samples gridded aliased and made the beam negative); beam 1.037 lambda / D, first ring 1.73% (Airy 1.029, 1.75%), no
+negative values; within 19.7 deg of the zenith (declinations -1.36 to +38.04 deg, the guide's -1.33 to +38.03); the
+Gregorian receivers 327 MHz to X band (the carriage-house line feed, which lit the whole dish, left out). Beams against
+the 2017 users' guide's Table 3 within 12% for each receiver (L-wide 3.18' x 3.53' vs 3.1' x 3.5'); the measured first
+sidelobe is about 4.6% (blockage), the model's 1.75%. No layout, configuration, elevation limit, duration, bandwidth,
+weighting or Play; the right-hand squares are "Beam" and "Map"; the largest scale "all". Collapse note in the caption.
+Bug found (fixed, 10-20; his "dragging the decl slider to unphysical values creates an error"): with an extended sky
+(Gaussian, disc, ring, M101) and the source below the limit, the computation returned before making the input image,
+and the input-image panel threw; the image grid and the input image are now made first; uitest sweeps it.
+Physics audit (10-20, his "triple check the physics here - no mistakes!!"): three independent auditors (geometry,
+sampling and array data; imaging, weighting and beams; every number and sentence shown), each finding verified here.
+Fixed: (1) the hour angle ran at 15 deg/h of time, now the sidereal 15.041 (IERS 7.2921150e-5 rad/s); (2) the uniform
+and robust uv cell blew up for large drawn arrays over long tracks (DSA-2000, 12 h, uniform: +59% sidelobe against the
+truth's -16%): the cell is now 1/250 of the longest baseline, sqrt(total/drawn) wider for a drawn set, and for a sparse
+set as wide as the samples' spacing but no wider than the cell holding four samples on average; (3) the time step, the
+channels (up to 512, centers of equal slices of the band) and the number of drawn pairs (20,000 to 100,000) are chosen
+together within the 2-million-sample budget, snapshots included (a DSA snapshot with a band used to take 6.4 million);
+(4) the band is kept within the receiver's; (5) the random draw is of distinct pairs; (6) the point skies' visibilities
+are exact (a point split between pixels lost 2-4% at long spacings); (7) the amplitude plot is the sky's visibility
+without the primary beam for every sky; (8) the largest scale is each observatory's own: the VLA OSS table for the VLA as
+built (scaled as 1 / frequency, halved for a snapshot; it was ALMA's rule, 1.7-4.7x too small), ALMA's 0.983 lambda/L5
+for ALMA and every other array or layout, and "-" with no samples; (9) false or loose text: uniform weighting does not
+always lower the sidelobes (it raises them for most ALMA configurations); "no baseline shorter than a dish" holds on the
+ground only (shadowing, left out, is now in the About list); the VLA C configuration's empty N1 pad, ALMA's 43 vs 50
+antennas, DSA's name and 6.155 m dishes, Arecibo's measured sidelobes (3.9-4.6%) and declination range (the guide's),
+each array's elevation-limit source, the field's reset, M101's frame; (10) a note on the images when samples fall beyond
+the image grid's pixels; (11) beams in one unit, primary beams to two figures. Verified correct by the auditors: the
+uv transform against an independent projection (20,000 random cases, 2e-10 m), the VLA and ALMA positions re-converted
+from the raw files (0.5 mm), DSA-2000's beams and position angles against the project's own fits, the dirty-image
+packing, normalization and orientation (an asymmetric sky; now a validation check), gridding, the Briggs form, the
+sky models and J1, the single dish's Airy pattern. Left as notes: the fitted FWHM runs 0.8-1.9% above the true
+half-power width (a Gaussian fit to a non-Gaussian lobe); the DSA calculator's +-2 h track model is not enforced.
 Found while building: the uniform-weighted beam depends on the uv cell (an image-size choice the OSS does not state):
 with the page's cell the VLA beams are 0.80-0.86 of the OSS table, approaching 0.96 with cells for an image ~3000 beams
 across and 5 s sampling; natural / uniform (1.47) and snapshot / full (1.28) agree with the OSS's ~1.5 and ~1.3. The

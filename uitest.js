@@ -862,7 +862,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("Interferometer: one menu line per array, the link says inst=int", st.menu === st.na + 1 && st.groups === 0 && /inst=int/.test(st.hash), JSON.stringify(st));
     const r0 = await ev(`${I}.result()`);
     const pbTxt = await ev(`[...document.querySelectorAll("#rObsR .rd")].map(e => e.textContent).find(x => /Primary beam/.test(x))`);
-    check("VLA C at 1.5 GHz: 351 baselines, a fitted beam, the primary beam 42′ / 1.5 = 28.0′", r0.nb === 351 && r0.beam && /28\.0′/.test(pbTxt), JSON.stringify({ nb: r0.nb, pb: pbTxt }));
+    check("VLA C at 1.5 GHz: 351 baselines, a fitted beam, the primary beam 42′ / 1.5 = 28′", r0.nb === 351 && r0.beam && /28′/.test(pbTxt), JSON.stringify({ nb: r0.nb, pb: pbTxt }));
     await ev(`${I}.set({ dur: 0 })`);
     const sn = await ev(`({ n: ${I}.result().n, dis: document.getElementById("rPlay").disabled, v: document.getElementById("vrDur").textContent })`);
     check("a snapshot: one sample per baseline, and nothing to play", sn.n === 351 && sn.dis && sn.v === "snapshot", JSON.stringify(sn));
@@ -881,6 +881,25 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await ev(`${I}.set({ wt: "natural", dec: -50 })`);
     const lo = await ev(`({ n: ${I}.result().n, up: [...document.querySelectorAll("#rObsR .rd")].map(e => e.textContent).find(x => /Above the limit/.test(x)) })`);
     check("dec −50° from the VLA transits at 6°, below the 8° limit: no samples", lo.n === 0 && /below the limit/.test(lo.up), JSON.stringify(lo));
+    // below the horizon with an extended sky: the input image still drawn, no error (a disc dragged to dec -90
+    // once threw in the input image's panel)
+    {
+      const e0 = errors.length;
+      for (const sky of ["gaussian", "disc", "ring"]) for (const d of [-60, -90, 90]) await ev(`${I}.set({ sky: "${sky}", size: 60, dec: ${d} })`);
+      check("extended skies below the horizon (and at the poles): no page error", errors.length === e0, errors.slice(e0).join(" | "));
+      await ev(`${I}.set({ sky: "double", size: 60 })`);
+    }
+    // Arecibo: a single dish, every spacing at once, its beam near the guide's 3.1' x 3.5' at 1.42 GHz; the rows a
+    // dish lacks are hidden, Play off, the largest scale "all"
+    {
+      await nav("#inst=int&r.arr=arecibo");
+      const ar = await ev(`({ r: ${I}.result(), lay: document.getElementById("rLayRow").offsetParent !== null, dur: document.getElementById("rDurRow").offsetParent !== null, wt: document.getElementById("rWtRow").offsetParent !== null, play: document.getElementById("rPlay").disabled, las: [...document.querySelectorAll("#rImgR .rd")].map(e => e.textContent).find(x => /Largest scale/.test(x)) })`);
+      const bm = ar.r.beam;
+      check("Arecibo: a filled aperture; the beam about 3.2′ x 3.5′ at 1.42 GHz; no layout, duration or weighting; Play off; all scales", ar.r.n > 1000 && bm && Math.abs(bm.min * 206265 / 60 - 3.18) < 0.1 && Math.abs(bm.maj * 206265 / 60 - 3.53) < 0.1 && !ar.lay && !ar.dur && !ar.wt && ar.play && /all/.test(ar.las), JSON.stringify({ n: ar.r.n, maj: bm && bm.maj * 206265 / 60, min: bm && bm.min * 206265 / 60, lay: ar.lay, dur: ar.dur, wt: ar.wt, play: ar.play, las: ar.las }));
+      await ev(`${I}.set({ dec: 50 })`);
+      check("Arecibo: a source 32° from the zenith is out of reach: no samples", (await ev(`${I}.result().n`)) === 0);
+      await go("#inst=int");
+    }
     await ev(`${I}.set({ dec: 40, bw: 1 })`);
     const mf = await ev(`${I}.result()`);
     check("a 1 GHz band: many frequencies per baseline, more samples", mf.nCh > 1 && mf.n > 351 * 100, JSON.stringify({ nCh: mf.nCh, n: mf.n }));
@@ -945,6 +964,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
       const m2 = await ev(mean), lg = await ev(`({ s: ${I}.state().bstr, h: location.hash })`);
       check("the beam's Log stretch brightens the sidelobes; the link carries it", lg.s === "log" && /r\.bstr=log/.test(lg.h) && m2 > 2 * m1, JSON.stringify({ m1, m2, lg }));
     }
+    // the audit's cases (10-20): DSA-2000 uniform over long tracks against the dense-sampling truth (2.01" x 1.55",
+    // -16%); a band kept within the receiver's; a snapshot with a band within the budget; samples beyond the grid
+    {
+      await nav("#inst=int&r.arr=dsa2000&r.dec=40&r.dur=8&r.wt=uniform");
+      const d8 = await ev(`${I}.result()`);
+      check("DSA-2000, 8 h, uniform: 2.01″ × 1.55″ and a −16% sidelobe (the dense-sampling truth), within 3%", Math.abs(d8.beam.maj * 206265 / 2.01 - 1) < 0.03 && Math.abs(d8.beam.min * 206265 / 1.55 - 1) < 0.03 && Math.abs(d8.side + 0.16) < 0.03, JSON.stringify({ maj: d8.beam.maj * 206265, min: d8.beam.min * 206265, side: d8.side, K: d8.K }));
+      await nav("#inst=int&r.arr=dsa2000&r.nu=0.7&r.bw=1.3&r.dur=0");
+      const db = await ev(`${I}.result()`);
+      check("a band at the receiver's edge stays within the receiver (0.7-1.35 GHz), and a snapshot with a band keeps within 2 million samples", db.nus[0] >= 0.7e9 && db.nus[1] <= 1.35e9 && db.n <= 2e6, JSON.stringify({ nus: db.nus, n: db.n }));
+      await nav("#inst=int&r.cfg=A&r.field=1000");
+      const dr = await ev(`${I}.result().drop`);
+      check("VLA A over a 17′ field: samples beyond the image's pixels counted (and noted on the images)", dr > 0.2, dr);
+    }
     // the image squares' scale: the field across the square
     await go("#inst=int");
     const gm = await ev(`${I}.geom()`);
@@ -966,10 +998,27 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const pm = await ev(`${I}.result().n`);
     await sleep(3600);
     const p2 = await ev(`({ on: ${I}.playing(), n: ${I}.result().n, lbl: document.getElementById("rPlay").textContent })`);
-    check("Play runs the hour angle through: part of the samples midway, all at the end", p1.on && /Stop/.test(p1.lbl) && pm > 0 && pm < p2.n && !p2.on && p2.n === 351 * 961 && /Play/.test(p2.lbl), JSON.stringify({ p1, pm, p2 }));
+    check("Play runs the hour angle through: part of the samples midway, all at the end", p1.on && /Stop/.test(p1.lbl) && pm > 0 && pm < p2.n && !p2.on && p2.n === 351 * 961 && /Hours/.test(p2.lbl), JSON.stringify({ p1, pm, p2 }));
     await click("#rPlay"); await sleep(400);
     await setRange("#rDec", 20); await sleep(300);
     check("moving a control stops Play", !(await ev(`${I}.playing()`)));
+    // Add antennas: from 2 to all 27, the baselines N (N - 1) / 2 on the way, the full array at the end
+    {
+      await go("#inst=int");
+      await click("#rPlayA");
+      const a1 = await ev(`({ a: ${I}.adding(), lbl: document.getElementById("rPlayA").textContent })`);
+      await sleep(2500);
+      const mid = await ev(`({ a: ${I}.adding(), nb: ${I}.result().nb })`);
+      await sleep(4200);
+      const end = await ev(`({ a: ${I}.adding(), nb: ${I}.result().nb, lbl: document.getElementById("rPlayA").textContent })`);
+      check("Play antennas: 2 to 27 antennas in six seconds (geometrically), the baselines k (k - 1) / 2 midway, all 351 at the end", a1.a && /Stop/.test(a1.lbl) && mid.a && mid.nb === mid.a.k * (mid.a.k - 1) / 2 && mid.a.k > 2 && mid.a.k < 27 && !end.a && end.nb === 351 && /Antennas/.test(end.lbl), JSON.stringify({ a1, mid, end }));
+      await click("#rPlayA"); await sleep(300); await click("#rPlay"); await sleep(300);
+      check("Play stops Add antennas", !(await ev(`${I}.adding()`)) && (await ev(`${I}.playing()`)));
+      await click("#rPlay"); await sleep(200);
+      await go("#inst=int&r.arr=arecibo");
+      check("Add antennas is off for a single dish", await ev(`document.getElementById("rPlayA").disabled`));
+      await go("#inst=int");
+    }
     // the arrays and configurations fit at both laptop sizes
     const arrs = await ev(`window.IX_ARRAYS.map(a => [a.id, a.configs.map(c => c.id)])`), over = [];
     for (const [w, hh] of [[1440, 900], [1280, 800]]) {

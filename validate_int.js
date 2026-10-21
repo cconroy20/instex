@@ -53,6 +53,12 @@ const DEG = RI.DEG, RAD = RI.RAD, C = RI.C;
   }
   check("a source that never rises is never up", RI.hoursUp(24, -70 * DEG, 34 * DEG, 0) === 0);
   check("a circumpolar source is up all 24 h", Math.abs(RI.hoursUp(24, 80 * DEG, 34 * DEG, 0) - 24) < 1e-9);
+  check("the hour angle runs at the Earth's sidereal rate: 360° in 23.934 h of time (IERS 7.2921150e-5 rad/s)", Math.abs(2 * Math.PI / RI.HA_PER_H - 23.9345) < 1e-3, (2 * Math.PI / RI.HA_PER_H).toFixed(5) + " h");
+  {
+    // a source on the equator seen from the equator sets 6 sidereal hours after transit: 5.984 h of time
+    let h = 0; while (RI.elevation((h + 1e-4) * RI.HA_PER_H, 0, 0) > 0) h += 1e-4;
+    check("from the equator, an equatorial source sets 5.984 h (6 sidereal h) after transit", Math.abs(h - 5.9836) < 2e-3, h.toFixed(4) + " h");
+  }
   // a baseline with a north-south part (Z != 0): TMS Eq. 4.5, the track is the ellipse u^2 + ((v - Z cos dec) / sin dec)^2
   // = X^2 + Y^2, centered at (0, Z cos dec) (data/interf/formulas.md G6)
   {
@@ -114,6 +120,31 @@ const DEG = RI.DEG, RAD = RI.RAD, C = RI.C;
   // the primary beam: a point at the half-power radius comes through at half its flux
   const pb = 30 * pix2, s = RI.skyImage("double", 2 * 15 * pix2, n, pix2, pb);
   check("the primary beam halves a source at its half-power radius", Math.abs(s[15] - 0.25) < 1e-9 && Math.abs(s[n - 15] - 0.25) < 1e-9, s[15]);
+}
+
+// an asymmetric sky (one point east of the center, one north of it, one at the center): the dirty image's peaks fall
+// where the sky's points are (east at l > 0, north at m > 0), so no axis is mirrored
+{
+  const n = 256, pix = 1e-6, W = 101, img = new Float32Array(W * W);
+  img[50 * W + 50] = 1; img[50 * W + 30] = 1; img[15 * W + 50] = 1;        // the center; 20 columns left (east); 35 rows up (north)
+  const ants = Array.from({ length: 24 }, (_, k) => ({ e: 900 * Math.cos(2.4 * k) * Math.sqrt(k / 24), n: 900 * Math.sin(2.4 * k) * Math.sqrt(k / 24), u: 0 }));
+  const S = RI.sample({ ants, lat: 34 * DEG, dec: 60 * DEG, elMin: 0, dur: 10, nu: 30e9, bw: 0, step: 0.05 });
+  const G = RI.grid(S, RI.weigh(S, "natural"), n, 1 / (n * pix)), sky = RI.skyImage("image", W * pix, n, pix, 0, { w: W, h: W, v: img });
+  const D = RI.dirty(G.g, RI.visibilities(sky, n), n), at = (i, j) => D.img[((j + n) % n) * n + ((i + n) % n)];
+  const east = at(20, 0), north = at(0, 35), west = at(-20, 0), south = at(0, -35);
+  check("an asymmetric sky: the dirty image's peaks east (l > 0) and north (m > 0), where the sky's points are, and not mirrored", east > 0.8 * at(0, 0) && north > 0.8 * at(0, 0) && Math.abs(west) < 0.4 * east && Math.abs(south) < 0.4 * north, `E ${east.toFixed(3)} N ${north.toFixed(3)} W ${west.toFixed(3)} S ${south.toFixed(3)}`);
+  // the point skies' exact visibilities against their images' FFT and the closed forms
+  const pv = RI.pointVis("double", 30e-6, n, 1 / (n * pix), 0), du = 1 / (n * pix);
+  let e2 = 0; for (const p of [3, 40, 90, -77]) e2 = Math.max(e2, Math.abs(pv.re[(p + n) % n] - Math.cos(Math.PI * p * du * 30e-6)));
+  check("two points: the exact visibility cos(π u s) on the grid (no loss at long spacings)", e2 < 1e-12, e2.toExponential(2));
+  // the random draw of baselines: distinct pairs
+  const big = Array.from({ length: 600 }, (_, k) => ({ e: 5000 * Math.cos(2.4 * k) * Math.sqrt(k / 600), n: 5000 * Math.sin(2.4 * k) * Math.sqrt(k / 600), u: 0 }));
+  const Bd = RI.baselines(big, 0.6, 50000), keys = new Set();
+  for (let k = 0; k < Bd.length; k++) keys.add(Bd.X[k].toFixed(6) + "," + Bd.Y[k].toFixed(6));
+  check("a random draw of 50,000 of 179,700 baselines: 50,000 distinct pairs", Bd.sub && Bd.length === 50000 && keys.size === 50000, keys.size);
+  // the channels: the centers of equal slices of the band
+  const Sc = RI.sample({ ants: [{ e: 0, n: 0 }, { e: 1000, n: 0 }], lat: 0.6, dec: 0.6, elMin: 0, dur: 0, nu: 1.5e9, bw: 1e9, nCh: 4 });
+  check("four channels across 1.0-2.0 GHz at 1.125, 1.375, 1.625, 1.875 GHz", Sc.nus.map(x => x / 1e9).join(",") === "1.125,1.375,1.625,1.875", Sc.nus.join(","));
 }
 
 // ---------------------------------------------------------------- 3. beam fit and weighting
@@ -250,7 +281,7 @@ const info = (name, detail) => console.log(`[INFO] ${name}  --  ${detail}`);
 function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   const c = a.configs.find(q => q.id === cfg), ants = c.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), nu = nuG * 1e9;
   const S = RI.sample({ ants, lat: a.lat * DEG, dec: dec * DEG, elMin: a.elLimit * DEG, dur, nu, bw: 0, step: 1 / 120 });
-  const ext = c.bmax * nu / C, w = RI.weigh(S, wt, rob, Math.max(ext / 250, 1.5 * 0.2618 * S.step * ext));
+  const ext = c.bmax * nu / C, w = RI.weigh(S, wt, rob, Math.max(ext / 250, 1.5 * RI.HA_PER_H * S.step * ext));
   for (let k = 0, pix = 0.05 / ext; k < 3; k++, pix *= 3) {
     const G = RI.grid(S, w, 512, 1 / (512 * pix)), D = RI.dirty(G.g, null, 512), f = RI.fitBeam(D.beam, 512, pix);
     if (f) return Math.sqrt(f.maj * f.min) * RAD;
@@ -331,6 +362,21 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   check(`DSA-2000: the natural zenith snapshot beam at ${P.beam_freq_GHz} GHz within 3% of the calculator's ${P.beam_natural_arcsec.join(" x ")}″, PA ${P.beam_natural_pa_deg}°`, rel(nat.maj * RAD, P.beam_natural_arcsec[0]) < 0.03 && rel(nat.min * RAD, P.beam_natural_arcsec[1]) < 0.03 && Math.abs(nat.pa - P.beam_natural_pa_deg) < 2, `${(nat.maj * RAD).toFixed(3)} x ${(nat.min * RAD).toFixed(3)}″, PA ${nat.pa.toFixed(1)}°`);
   check("DSA-2000: the uniform beam from a 100,000-pair draw matches all 1,360,425 pairs (1%)", rel(uniD.maj, uniA.maj) < 0.01 && rel(uniD.min, uniA.min) < 0.01, `${(uniD.maj * RAD).toFixed(3)} x ${(uniD.min * RAD).toFixed(3)} vs ${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
   check(`DSA-2000: the uniform beam within 10% of the project's PSF ${P.beam_uniform_arcsec.join(" x ")}″ (the uv cell is not stated)`, rel(uniA.maj * RAD, P.beam_uniform_arcsec[0]) < 0.1 && rel(uniA.min * RAD, P.beam_uniform_arcsec[1]) < 0.1, `${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
+}
+
+{
+  const a = ARRS.find(q => q.id === "arecibo"), j = require("./data/interf/arecibo.json");
+  check(`Arecibo: a ${a.single.ew} x ${a.single.ns} m illuminated aperture of the ${a.dish} m dish; within ${a.zenLimit}° of the zenith, so declinations ${(a.lat - a.zenLimit).toFixed(2)}° to ${(a.lat + a.zenLimit).toFixed(2)}° (the guide's ${j.dec_range_deg.map(x => x.toFixed(2)).join(" to ")}°)`, Math.abs(a.lat - a.zenLimit - j.dec_range_deg[0]) < 0.05 && Math.abs(a.lat + a.zenLimit - j.dec_range_deg[1]) < 0.05);
+  const bad = [];
+  for (const b of j.beam.filter(q => ["327", "430", "lbw", "sbw", "sbn", "sbh", "cb", "xb"].includes(q.receiver))) {
+    const nu = b.freq_GHz * 1e9, lam = C / nu, S = RI.aperture(a.single.ew, a.single.ns, nu), pix = lam / a.single.ew / 12, n = 512;
+    const f = RI.fitBeam(RI.dirty(RI.apertureGrid(S.single, n, 1 / (n * pix)).g, null, n).beam, n, pix);
+    const ew = f.pa > 45 && f.pa < 135 ? f.maj : f.min, ns = f.pa > 45 && f.pa < 135 ? f.min : f.maj;
+    const ok = rel(ew * RAD / 60, b.fwhm_az_arcmin) < 0.12 && rel(ns * RAD / 60, b.fwhm_za_arcmin) < 0.12;
+    if (!ok) bad.push(`${b.receiver}: ${(ew * RAD / 60).toFixed(2)} x ${(ns * RAD / 60).toFixed(2)}′ vs ${b.fwhm_az_arcmin} x ${b.fwhm_za_arcmin}′`);
+    if (b.receiver === "lbw") info("Arecibo L-wide at 1.42 GHz, uniform illumination of the illuminated ellipse", `${(ew * RAD / 60).toFixed(2)}′ x ${(ns * RAD / 60).toFixed(2)}′ (east-west x north-south) vs the guide's ${b.fwhm_az_arcmin}′ x ${b.fwhm_za_arcmin}′`);
+  }
+  check("Arecibo: the uniformly lit aperture's beam within 12% of the guide's measured beam for each Gregorian receiver (azimuth = east-west, zenith angle = north-south on the meridian)", bad.length === 0, bad.join("; "));
 }
 
 console.log(`\n${npass} pass, ${nfail} fail`);

@@ -42,13 +42,16 @@ function loadImg(k) {
   im.src = q.file;
 }
 const BUDGET = 2e6;                                                  // samples per observation, at most
-const MAXPAIRS = 1e5;                                                // baselines drawn at random beyond this many
+const MAXPAIRS = 1e5, MINPAIRS = 2e4;                                // baselines drawn at random beyond MAXPAIRS
 const C_UV = "#2f6a9e", C_MIR = "#9dbcd9", C_NOW = "#c2621d";        // samples, mirror points, the moment played
 
 // ------------------------------------------------------------------ formats
 const fLen = m => (m >= 1000 ? sig(m / 1000, 3) + " km" : sig(m, 3) + " m");
 const fLam = (m, d = 3) => (m >= 1 ? sig(m, d) + " m" : m >= 0.01 ? sig(m * 100, d) + " cm" : m >= 1e-3 ? sig(m * 1000, d) + " mm" : sig(m * 1e6, d) + " µm");
 const fNu = (g, d = 4) => (g >= 1 ? sig(g, d) + " GHz" : sig(g * 1000, d) + " MHz");
+// two angles (arcsec) in the unit the first is shown in
+const fAng2 = (a, b, n = 3) => { const u = a >= 3600 * 0.995 ? [3600, "°"] : a >= 60 * 0.995 ? [60, "′"] : a >= 0.1 ? [1, "″"] : [0.001, " mas"]; return sig(a / u[0], n) + (u[1] === " mas" ? "" : u[1]) + " × " + sig(b / u[0], n) + u[1]; };
+const fDish = d => String(+d.toPrecision(4));
 const fDur = h => (h < 1 ? Math.round(h * 60) + " min" : sig(h, 3) + " h");
 const fDeg = d => (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(d).toFixed(1) + "°";
 const r125 = x => { const p = Math.pow(10, Math.floor(Math.log10(x))), m = x / p; return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; };
@@ -82,10 +85,22 @@ function pads() {
   if (lcache.key !== key) { const ants = RI.layout(S.lay, S.na, S.ext, arrOf().dish, S.seed, S.conc); lcache = { key, ants, names: ants.map((_, k) => "antenna " + (k + 1)) }; }
   return lcache;
 }
-// the antennas now: the layout's, with the reader's moves and switches
+// the antennas now: the layout's, with the reader's moves and switches; while the antennas are being added, the ones
+// not yet added are pending (off, and drawn apart)
 function antsNow() {
   const off = new Set(S.off), P = pads();
-  return P.ants.map((p, k) => { const m = S.mv[k]; return { e: m ? m[0] : p[0], n: m ? m[1] : p[1], u: m ? 0 : p[2] || 0, on: !off.has(k), name: P.names[k] || "" }; });
+  const A = P.ants.map((p, k) => { const m = S.mv[k]; return { e: m ? m[0] : p[0], n: m ? m[1] : p[1], u: m ? 0 : p[2] || 0, on: !off.has(k), name: P.names[k] || "" }; });
+  if (aplay) { const live = addOrder(A.length).filter(k => A[k].on); live.slice(aplay.k).forEach(k => { A[k].on = false; A[k].pending = true; }); }
+  return A;
+}
+// the order in which the antennas are added: a fixed random shuffle (seeded, so the same each time)
+let ocache = { n: -1 };
+function addOrder(N) {
+  if (ocache.n === N) return ocache.o;
+  const rnd = RI.rng(11), o = Array.from({ length: N }, (_, k) => k);
+  for (let k = N - 1; k > 0; k--) { const j = Math.floor(rnd() * (k + 1)); const t = o[k]; o[k] = o[j]; o[j] = t; }
+  ocache = { n: N, o };
+  return o;
 }
 const modified = () => S.off.length > 0 || Object.keys(S.mv).length > 0;
 
@@ -147,6 +162,9 @@ function syncControls() {
   lsel.value = S.lay;
   const gen = S.lay !== "built";
   const sd = !!a.single;
+  // the tooltips that depend on the array
+  $("rElRow").title = "The lowest elevation at which the antennas observe. Below the limit a source gives no samples, so a low source's tracks are cut short. The default: " + (a.elNote || "the observatory's limit.");
+  $("rCfgRow").title = a.configs.length > 1 ? "The array's configuration: the pads the antennas stand on. The antennas are moved between configurations, compact to extended, over the observatory's cycle." + (cfgOf().note ? " " + cfgOf().note : "") : "The array's one configuration." + (a.antNote ? " " + a.antNote : "");
   $("rLayRow").hidden = sd; $("rElRow").hidden = sd; $("rDurRow").hidden = sd; $("rBwRow").hidden = sd; $("rWtRow").hidden = sd;
   $("rCfgRow").hidden = gen || sd; $("rNaRow").hidden = !gen; $("rExtRow").hidden = !gen; $("rConcRow").hidden = !gen || S.lay === "ring"; $("rRedraw").hidden = S.lay !== "random";
   put("rConc", S.conc, S.conc === 1 ? "even" : S.conc.toFixed(2));
@@ -165,8 +183,10 @@ function syncControls() {
   $("rSizeRow").hidden = S.sky === "point";
   $("rRobRow").hidden = S.wt !== "robust" || sd;
   $("rRestore").hidden = !modified();
-  $("rPlay").textContent = play ? "■ Stop" : "▶ Play";
+  $("rPlay").textContent = play ? "■ Stop" : "▶ Hours";
   $("rPlay").disabled = !(S.dur > 0) || sd;
+  $("rPlayA").textContent = aplay ? "■ Stop" : "▶ Antennas";
+  $("rPlayA").disabled = sd || onCount() < 3;
   segs.forEach(g => g());
 }
 
@@ -174,26 +194,59 @@ function syncControls() {
 // While a slider moves, a coarser image grid keeps the page responsive; the full grid follows when it stops.
 let quickUntil = 0, refineTimer = 0;
 function quick() { quickUntil = performance.now() + 250; clearTimeout(refineTimer); refineTimer = setTimeout(() => H.schedule(), 280); }
-let vcache = { key: null }, tcache = { key: null }, pcache = { key: null };
+let vcache = { key: null }, tcache = { key: null }, pcache = { key: null }, v0cache = { key: null }, ecache = { key: null };
 function compute(fast) {
   const a = arrOf(), ants = antsNow(), lat = a.lat * DEG, dec = S.dec * DEG, elMin = elOf() * DEG;
-  const nu = S.nu * 1e9, bw = S.bw * 1e9, lam = C / nu;
-  // the baselines (a random draw of MAXPAIRS beyond that many), their lengths sorted, and the exact extremes, kept
-  // while the layout stays the same
-  const akey = JSON.stringify([S.arr, S.cfg, S.lay, S.na, S.ext, S.seed, S.conc, S.off, S.mv]);
-  if (pcache.key !== akey) { const B = RI.baselines(ants, lat, MAXPAIRS); B.len.sort(); pcache = { key: akey, B, ex: RI.extremes(ants) }; }
-  const B = pcache.B, L = B.len, on = ants.filter(x => x.on).length;
-  const R = { a, ants, lat, nu, bw, lam, L, on, nb: B.total, nbUsed: B.length, sub: B.sub, Bmax: pcache.ex.bmax, Bmin: pcache.ex.bmin };
+  // the band observed, kept within the receiver's band
+  const bnd = bandOf(), bLo = Math.max(bnd.lo, S.nu - S.bw / 2), bHi = Math.min(bnd.hi, S.nu + S.bw / 2);
+  const nu = S.nu * 1e9, bw = Math.max(0, bHi - bLo) * 1e9, nuC = (bLo + bHi) / 2 * 1e9, lam = C / nu;
+  // The time step, the channels and the baselines used. Samples lie sp apart (a fraction of a baseline's length)
+  // along a track and along a band's streak, sp starting at 30 s of the Earth's turn (1/381) and widening until the
+  // samples fit the budget, with at most 512 channels and at least 2 across a band. All the baselines up to
+  // MAXPAIRS; beyond that a random draw of distinct pairs, MINPAIRS to MAXPAIRS of them, fewer when the observation
+  // needs many samples per baseline, so that the tracks and streaks stay finely sampled. The draws are nested (the
+  // first K pairs of one seeded sequence), so the picture does not jump as K changes.
+  const nOn = ants.filter(x => x.on).length, total = nOn * (nOn - 1) / 2;
+  let step = 1 / 120, nCh = 1, K = total;
+  for (let it = 0, sp = RI.HA_PER_H / 120; it < 200; it++, sp *= 1.1) {
+    step = sp / RI.HA_PER_H;
+    const nt = S.dur > 0 ? Math.floor(S.dur / step) + 1 : 1;
+    nCh = bw > 0 ? Math.max(2, Math.min(512, Math.ceil((bw / nuC) / sp))) : 1;
+    K = total > MAXPAIRS ? Math.max(MINPAIRS, Math.min(MAXPAIRS, Math.floor(BUDGET / (nt * nCh)))) : total;
+    if (K * nCh * nt <= BUDGET || (nt === 1 && nCh === (bw > 0 ? 2 : 1))) break;
+  }
+  // the baselines, their lengths sorted, and the exact extremes, kept while the layout (and the draw) stays the same
+  const lkey = JSON.stringify([S.arr, S.cfg, S.lay, S.na, S.ext, S.seed, S.conc, S.off, S.mv, aplay ? aplay.k : 0]), akey = lkey + "|" + K;
+  if (ecache.key !== lkey) ecache = { key: lkey, ex: RI.extremes(ants) };
+  if (pcache.key !== akey) { const B = RI.baselines(ants, lat, total > MAXPAIRS ? K : Infinity); B.len.sort(); pcache = { key: akey, B }; }
+  const B = pcache.B, L = B.len, on = nOn;
+  const R = { a, ants, lat, nu, bw, lam, L, on, nb: B.total, nbUsed: B.length, sub: B.sub, Bmax: ecache.ex.bmax, Bmin: ecache.ex.bmin };
   R.pb = pbOf(S.nu);
+  // the image grid: twice the field across (so that the beam's sidelobes and the sky do not wrap into the field),
+  // at about one pixel per screen pixel; and the input image on the grid, drawn whether or not there are samples
+  {
+    const cv = $("cvU"), dpr = window.devicePixelRatio || 1, sideCss = Math.max(80, Math.min(cv.clientWidth / 2 - 28, cv.clientHeight / 2 - 70));
+    let n = 256; while (n < Math.min(1024, 2 * sideCss * dpr)) n *= 2;
+    if (fast && n > 256) n /= 2;
+    const F = S.field / RAD, pix = 2 * F / n;
+    const im = imgOf(S.sky), pyr = im ? imgData[S.sky] : null, model = im ? "image" : S.sky;
+    if (im && !pyr) { loadImg(S.sky); R.loading = true; }
+    // the pyramid's level for this grid: pixels just below half the grid's
+    const imd = pyr ? RI.level(pyr, S.size / RAD, pix) : null;
+    R.imgLevel = imd ? { w: imd.w, pix: S.size / imd.w } : null;
+    const tkey = JSON.stringify([S.sky, S.size, n, pix, imd ? imd.w : 0]);
+    if (tcache.key !== tkey) tcache = { key: tkey, s: RI.skyImage(model, S.size / RAD, n, pix, 0, imd) };
+    Object.assign(R, { n, pix, F, sky: tcache.s, grid: { n, pix, F, model, imd } });
+  }
   R.up = RI.hoursUp(S.dur, dec, lat, elMin);
   R.transit = RI.elevation(0, dec, lat) / DEG;
-  let Sm, w, step = 1 / 120, nCh = 1;
+  let Sm, w;
   if (a.single) {
     // a single dish: every spacing within the illuminated aperture at once, weighted by the aperture's
     // autocorrelation; no Earth rotation, and no primary-beam taper (a map is made by scanning the beam over the sky)
     const ap = RI.aperture(a.single.ew, a.single.ns, nu), big = Math.max(a.single.ew, a.single.ns);
     Object.assign(R, { single: true, pb: 0, nb: 0, Bmax: big, Bmin: 0, ext: big / lam, full: ap, step: 0, nCh: 1 });
-    R.reach = Math.abs(S.dec - a.lat) <= a.zenLimit;
+    R.reach = a.decRange ? S.dec >= a.decRange[0] && S.dec <= a.decRange[1] : Math.abs(S.dec - a.lat) <= a.zenLimit;
     Sm = R.reach ? ap : Object.assign({}, ap, { n: 0 });
     R.S = Sm;
     if (!Sm.n) return R;
@@ -201,16 +254,8 @@ function compute(fast) {
   } else {
   if (R.nb === 0) return R;
   // the extent of the uv plane: the longest baseline at the band's highest frequency
-  R.ext = R.Bmax * (nu + bw / 2) / C;
-  // the time step (30 s) and the channels across the band, coarsened together to stay within the budget; the
-  // channels are spaced like the time samples on the longest track
-  for (let it = 0; it < 60; it++) {
-    nCh = bw > 0 ? Math.max(2, Math.min(64, Math.ceil((bw / nu) / (0.2618 * step)))) : 1;
-    const nt = S.dur > 0 ? S.dur / step + 1 : 1;
-    if (R.nbUsed * nCh * nt <= BUDGET) break;
-    if (S.dur > 0) step *= 1.25; else break;
-  }
-  const full = RI.sample({ ants, lat, dec, elMin, dur: S.dur, nu, bw, nCh, step, B });
+  R.ext = R.Bmax * (nuC + bw / 2) / C;
+  const full = RI.sample({ ants, lat, dec, elMin, dur: S.dur, nu: nuC, bw, nCh, step, B });
   R.full = full; R.step = step; R.nCh = nCh;
   // while playing, the samples up to the moment played: a prefix, the samples running in time order
   Sm = full;
@@ -220,10 +265,13 @@ function compute(fast) {
   }
   R.S = Sm;
   if (!Sm.n) return R;
-  // the uniform and robust weights count samples in uv cells: an image about 250 beams across, or coarser where
-  // the time samples (or the channels) lie further apart on the longest track, so that a track fills its cells
-  // (with the baselines a random draw, cells sqrt(total / drawn) wider hold as many samples as the full set's would)
-  const cell = Math.max(R.ext / 250, 1.5 * 0.2618 * step * R.ext, nCh > 1 ? 1.5 * (bw / (nCh - 1)) / nu * R.ext : 0) * (R.sub ? Math.sqrt(R.nb / R.nbUsed) : 1);
+  // The uniform and robust weights count samples in uv cells: an image about 250 beams across (cells 1/250 of the
+  // longest baseline in wavelengths). A sparse set of samples (few baselines, coarse steps) gets cells as wide as
+  // its samples' spacing along the tracks and streaks, so that a track fills its cells, but no wider than the cells
+  // that hold four samples on average (a dense set fills its cells anyway). With the baselines a random draw, the
+  // cells are sqrt(total / drawn) wider, so as to hold as many samples as the full set's would.
+  const gap = 1.5 * Math.max(RI.HA_PER_H * step, nCh > 1 ? (bw / nuC) / nCh : 0) * R.ext, fill = R.ext * Math.sqrt(2 * Math.PI / Sm.n);
+  const cell = R.sub ? R.ext / 250 * Math.sqrt(R.nb / R.nbUsed) : Math.max(R.ext / 250, Math.min(gap, fill));
   R.cell = cell;
   w = RI.weigh(Sm, S.wt, S.rob, cell);
   }
@@ -237,25 +285,13 @@ function compute(fast) {
     const f = RI.fitBeam(Dm.beam, nm, pixm);
     if (f) { R.beam = f; R.side = RI.sidelobe(Dm.beam, nm, 1.5 * f.maj / pixm); break; }
   }
-  // the image grid: twice the field across (so that the beam's sidelobes and the sky do not wrap into the field),
-  // at about one pixel per screen pixel
-  const cv = $("cvU"), dpr = window.devicePixelRatio || 1, sideCss = Math.max(80, Math.min(cv.clientWidth / 2 - 28, cv.clientHeight / 2 - 70));
-  let n = 256; while (n < Math.min(1024, 2 * sideCss * dpr)) n *= 2;
-  if (fast && n > 256) n /= 2;
-  const F = S.field / RAD, pix = 2 * F / n;
+  // the dirty image: the weights times the sky's (times the primary beam) visibilities, on the image grid
+  const { n, pix, F, model, imd } = R.grid;
   const G = gridAt(n, 1 / (2 * F));
   R.drop = R.single ? G.drop : G.drop / Sm.n;
-  const im = imgOf(S.sky), pyr = im ? imgData[S.sky] : null, model = im ? "image" : S.sky;
-  if (im && !pyr) { loadImg(S.sky); R.loading = true; }
-  // the pyramid's level for this grid: pixels just below half the grid's
-  const imd = pyr ? RI.level(pyr, S.size / RAD, pix) : null;
-  R.imgLevel = imd ? { w: imd.w, pix: S.size / imd.w } : null;
   const key = JSON.stringify([S.sky, S.size, n, pix, R.pb, imd ? imd.w : 0]);
-  if (vcache.key !== key) vcache = { key, V: RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
-  const D = RI.dirty(G.g, vcache.V, n);
-  const tkey = JSON.stringify([S.sky, S.size, n, pix, imd ? imd.w : 0]);
-  if (tcache.key !== tkey) tcache = { key: tkey, s: RI.skyImage(model, S.size / RAD, n, pix, 0, imd) };
-  Object.assign(R, { n, pix, F, D, sky: tcache.s, w });
+  if (vcache.key !== key) vcache = { key, V: RI.pointVis(model, S.size / RAD, n, 1 / (2 * F), R.pb) || RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
+  Object.assign(R, { D: RI.dirty(G.g, vcache.V, n), w });
   return R;
 }
 
@@ -265,41 +301,46 @@ function renderText(R) {
   if (R.single) {
     const sd = a.single, bm = R.beam;
     rows($("rArrR"), [
-      ["Reflector", "Ø " + sig(a.dish, 3) + " m", a.dishNote || ""],
-      ["Illuminated", sig(sd.ew, 3) + " × " + sig(sd.ns, 3) + " m", "The part of the reflector the feed illuminates (east-west × north-south), drawn blue; the page takes the illumination as uniform. " + (sd.note || "")],
-      ["Spacings", "all, 0 to " + fLen(Math.max(sd.ew, sd.ns)), "A filled aperture measures every spacing within the illuminated area at once, each weighted by how often the spacing occurs across the aperture (the aperture's autocorrelation), including the zero spacing: the total flux."],
-      ["Zenith-angle limit", sig(a.zenLimit, 3) + "°", "The dish is fixed; the feed moves to point within this angle of the zenith."],
+      ["Reflector", "Ø " + fDish(a.dish) + " m", a.dishNote || ""],
+      ["Illuminated", sig(sd.ew, 3) + " × " + sig(sd.ns, 3) + " m", "The part of the reflector the feed illuminates (east-west × north-south), drawn blue. The page takes the illumination as uniform. " + (sd.note || "")],
+      ["Spacings", "all, 0 to " + fLen(Math.max(sd.ew, sd.ns)), "A filled aperture measures all the spacings within the illuminated area at once, each weighted by how often the spacing occurs across the aperture (the aperture's autocorrelation), including the zero spacing: the total flux."],
+      ["Zenith-angle limit", sig(a.zenLimit, 3) + "°", "The dish is fixed, and the feed moves to point within this angle of the zenith."],
     ]);
     rows($("rObsR"), [
-      ["Within reach", R.reach ? "yes" : "no", "Declinations " + fDeg(a.lat - a.zenLimit) + " to " + fDeg(a.lat + a.zenLimit) + ": the source must pass within " + sig(a.zenLimit, 3) + "° of the zenith (latitude " + fDeg(a.lat) + ")."],
+      ["Within reach", R.reach ? "yes" : "no", "Declinations " + fDeg(a.decRange ? a.decRange[0] : a.lat - a.zenLimit) + " to " + fDeg(a.decRange ? a.decRange[1] : a.lat + a.zenLimit) + " (the users' guide): the source must pass within " + sig(a.zenLimit, 3) + "° of the zenith (latitude " + fDeg(a.lat) + ")."],
       ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|."],
-      ["Field of view", "the beam", "A single dish sees one beam at a time; a map is made by scanning the beam across the sky, so the map has no primary-beam taper."],
+      ["Field of view", "the beam", "A single dish sees one beam at a time. A map is made by scanning the beam across the sky, so the map has no primary-beam taper."],
     ]);
     rows($("rImgR"), [
-      ["Beam", bm ? fAng(bm.maj * RAD, 3) + " × " + fAng(bm.min * RAD, 3) + ", PA " + Math.round(bm.pa) + "°" : "–", "The FWHM of the dish's beam, a Gaussian fitted to the main lobe of the diffraction pattern of the illuminated aperture (about 1.03 λ / D). " + (a.beamNote || "")],
-      ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + sig(Math.abs(R.side) * 100, 2) + "%" : "–", "The first ring of the diffraction pattern (1.75% for a uniformly illuminated circle); a filled aperture's beam has no negative sidelobes."],
-      ["Largest scale", "all", "The dish measures the zero spacing, the total flux, so no structure is resolved out, however large."],
+      ["Beam", bm ? fAng2(bm.maj * RAD, bm.min * RAD) + ", PA " + Math.round(bm.pa) + "°" : "–", "The FWHM of the dish's beam, a Gaussian fitted to the main lobe of the diffraction pattern of the uniformly lit aperture (≈ 1.03 λ / D). " + (a.beamNote || "")],
+      ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + sig(Math.abs(R.side) * 100, 2) + "%" : "–", "The first ring of the diffraction pattern (1.75% for a uniformly illuminated circle). A filled aperture's beam has no negative sidelobes."],
+      ["Largest scale", "all", "The dish measures the zero spacing, the total flux, so structures of any size are recovered."],
     ]);
     return;
   }
   rows($("rArrR"), [
-    ["Antennas", (R.on < tot ? R.on.toLocaleString("en-US") + " of " + tot.toLocaleString("en-US") : tot.toLocaleString("en-US")) + " × " + sig(a.dish, 3) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in this configuration, each a dish of this diameter. Click an antenna in the drawing to switch off or on; drag to move."],
-    ["Baselines", R.nb.toLocaleString("en-US"), "Every pair of antennas is a baseline: N (N − 1) / 2 of them." + (R.sub ? " Beyond " + MAXPAIRS.toLocaleString("en-US") + ", the page uses a random draw of that many pairs (" + R.nbUsed.toLocaleString("en-US") + " here): the uv coverage and the beam come out the same, statistically, as with all the pairs." : "")],
-    ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, about λ / B_max."],
-    ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Two dishes cannot stand closer than a dish diameter, so no baseline is shorter than that."],
+    ["Antennas", (R.on < tot ? R.on.toLocaleString("en-US") + " of " + tot.toLocaleString("en-US") : tot.toLocaleString("en-US")) + " × " + fDish(a.dish) + " m" + (nmv ? " (" + nmv + " moved)" : ""), "The antennas in " + (S.lay === "built" ? "this configuration" : "this layout") + ", each a dish of this diameter. Click an antenna in the drawing to remove or restore the antenna, and drag an antenna to move the antenna." + (S.lay === "built" && a.antNote ? " " + a.antNote : "")],
+    ["Baselines", R.nb.toLocaleString("en-US"), "Each pair of antennas is a baseline: N antennas make N (N − 1) / 2." + (R.sub ? " Beyond " + MAXPAIRS.toLocaleString("en-US") + ", the page uses a random draw of distinct pairs, " + MINPAIRS.toLocaleString("en-US") + " to " + MAXPAIRS.toLocaleString("en-US") + " (fewer for long tracks and wide bands, which need more samples per baseline; " + R.nbUsed.toLocaleString("en-US") + " here): the uv coverage and the beam come out the same, statistically, as with all the pairs." : "")],
+    ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, ≈ λ / B_max."],
+    ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Dishes stand at least a dish diameter apart, so on the ground no baseline is shorter than a dish. Seen from a low source a baseline can look shorter, but then one dish shades the other (shadowing, which the page omits)." + (S.lay === "built" && cfgOf().note ? " " + cfgOf().note : "")],
   ]);
-  const upTxt = R.up < 0 || (S.dur > 0 && R.up === 0) ? "below the limit" : S.dur > 0 ? fDur(R.up) + " of " + fDur(S.dur) : "yes";
+  const upTxt = R.up < 0 || (S.dur > 0 && R.up === 0) ? "below the limit" : S.dur > 0 ? (R.up >= 1 ? sig(R.up, 3) : fDur(R.up)) + " of " + fDur(S.dur) : "yes";
   rows($("rObsR"), [
     ["Above the limit", upTxt, "The part of the observation with the source above the elevation limit. Hour angles with the source below the limit give no samples."],
     ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|. The array is at latitude " + fDeg(a.lat) + "."],
-    ["Primary beam", fAng(R.pb * RAD, 3), `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}). Sources far outside the primary beam are not seen.`],
+    ["Primary beam", fAng(R.pb * RAD, 2), `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. Sources far outside the primary beam are not seen.`],
   ]);
-  const L5 = RI.pctile(R.L, 5), las = L5 > 0 ? 0.983 * R.lam / L5 * RAD : NaN;
+  // the largest scale: the VLA's own table for the VLA as built (scaled as 1 / frequency within the band, halved for a
+  // snapshot), ALMA's 0.983 lambda / L5 for ALMA and for every other array or layout
+  const L5 = RI.pctile(R.L, 5), asBuilt = S.lay === "built" && !modified(), tab = a.las && asBuilt && a.las.bands[S.band];
+  let las = L5 > 0 ? 0.983 * R.lam / L5 * RAD : NaN, lasSrc = a.lasSource && asBuilt ? a.lasSource : "ALMA's rule, 0.983 λ / L5, with L5 the 5th-percentile baseline length (the ALMA Technical Handbook)";
+  if (tab) { las = tab.v[a.las.cfgs.indexOf(S.cfg)] * tab.nu / S.nu * (S.dur > 0 ? 1 : 0.5); lasSrc = a.las.src + ": the largest structure imaged reasonably well in a full synthesis, " + tab.v[a.las.cfgs.indexOf(S.cfg)] + "″ at " + tab.nu + " GHz, scaled as 1 / frequency" + (S.dur > 0 ? "" : ", and halved for a snapshot"); }
+  if (!(R.S && R.S.n)) las = NaN;
   const bm = R.beam;
   rows($("rImgR"), [
-    ["Beam", bm ? fAng(bm.maj * RAD, 3) + " × " + fAng(bm.min * RAD, 3) + ", PA " + Math.round(bm.pa) + "°" : R.S && R.S.n ? "–" : "no samples", "The synthesized beam, the resolution: the FWHM of an elliptical Gaussian fitted to the synthesized beam's main lobe (major × minor axis), and the position angle of the major axis, east of north."],
-    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within about ten beams of the center), relative to the peak: negative sidelobes are the dark rings and troughs."],
-    ["Largest scale", isFinite(las) ? "≈ " + fAng(las, 2) : "–", "The largest recoverable scale, about the largest structure the array images well: 0.983 λ / L5, with L5 the shortest 5% of the baselines (ALMA's definition). A smooth source much larger than this scale is resolved out: the source's flux goes missing."],
+    ["Beam", bm ? fAng2(bm.maj * RAD, bm.min * RAD) + ", PA " + Math.round(bm.pa) + "°" : R.S && R.S.n ? "–" : "no samples", "The synthesized beam, the resolution: the FWHM of an elliptical Gaussian fitted to the synthesized beam's main lobe (major × minor axis), and the position angle of the major axis, east of north."],
+    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within ~10 beams of the center), relative to the peak. Negative sidelobes are the blue rings and troughs."],
+    ["Largest scale", isFinite(las) ? "≈ " + fAng(las, 2) : "–", "The largest recoverable scale, approximately the largest structure the array images well (" + lasSrc + "). A smooth source much larger than this scale is resolved out, and the source's flux goes missing."],
   ]);
 }
 
@@ -329,7 +370,7 @@ function drawArray(R) {
   ants.forEach((p, k) => {
     const [x, y] = xy[k];
     g.beginPath(); g.arc(x, y, k === hoverAnt ? rr + 1.5 : rr, 0, 2 * Math.PI);
-    if (p.on) { g.fillStyle = C_UV; g.fill(); } else { g.fillStyle = "#fff"; g.fill(); g.strokeStyle = "#a9a39a"; g.lineWidth = 1.2; g.stroke(); }
+    if (p.on) { g.fillStyle = C_UV; g.fill(); } else if (p.pending) { g.fillStyle = "#fff"; g.fill(); g.strokeStyle = C_MIR; g.lineWidth = 1.2; g.stroke(); } else { g.fillStyle = "#fff"; g.fill(); g.strokeStyle = "#a9a39a"; g.lineWidth = 1.2; g.stroke(); }
   });
   if (hoverAnt >= 0 && hoverAnt < ants.length) {
     const p = ants[hoverAnt], [x, y] = xy[hoverAnt];
@@ -348,7 +389,7 @@ function drawArray(R) {
     g.fillStyle = "#4f4a44"; g.textAlign = "center"; g.font = `12.5px ${FONT}`; g.fillText(fLen(len), x0 + px / 2, y0 - 8);
     document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
   const lname = (LAYS.find(q => q[0] === S.lay) || LAYS[0])[1];
-  $("alSub").textContent = (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + "Click an antenna to switch off or on; drag to move.";
+  $("alSub").textContent = (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + "Click an antenna to remove or restore the antenna, and drag an antenna to move the antenna.";
 }
 // a single dish, from above: the reflector (gray) and the illuminated aperture (blue), to scale
 function drawDish(g, w, h, a) {
@@ -463,7 +504,7 @@ function drawPanel(R) {
   // ---- top left: the uv coverage, or the visibility amplitude against uv distance: a square plot (u and v at one
   // scale), the tick labels to its left and below, the Coverage | Amplitude switch under it
   const ul = 40, ps = side - ul, x0 = X(0) + ul, y0 = Y(0), [U, un] = uvUnit(R.ext * 1.05);
-  if (S.uvv === "uv") label(X(0) + ul / 2, Y(0), play && !R.single ? "uv coverage, hour angle " + (play.h >= 0 ? "+" : "−") + Math.abs(play.h).toFixed(1) + " h" : "uv coverage");
+  if (S.uvv === "uv") label(X(0) + ul / 2, Y(0), play && !R.single ? "uv coverage, hour angle " + (play.h >= 0 ? "+" : "−") + Math.abs(play.h * RI.HA_PER_H / (15 * DEG)).toFixed(1) + " h" : aplay ? "uv coverage, " + aplay.k.toLocaleString("en-US") + " antennas" : "uv coverage");
   else label(X(0) + ul / 2, Y(0), "Visibility amplitude");
   const ext = R.ext * 1.05, ppx = Math.round(ps * dpr), plotH = ps;
   g.fillStyle = "#fff"; g.fillRect(x0, y0, ps, ps);
@@ -499,8 +540,11 @@ function drawPanel(R) {
     // amplitude against uv distance: the model's curve (when the model is round) and the samples on it
     const W = ppx, Hh = ppx, oc = document.createElement("canvas"); oc.width = W; oc.height = Hh;
     const og = oc.getContext("2d"), id = og.createImageData(W, Hh), d = id.data;
-    const stride = Math.max(1, Math.floor(Sm.n / 4e5)), isImg = !!imgOf(S.sky), Vg = vcache.V, n0 = R.n, du0 = 1 / (2 * R.F), V0 = Vg.re[0] || 1;
-    // an image's visibility: the sky's transform on the image grid, at the sample's cell
+    const stride = Math.max(1, Math.floor(Sm.n / 4e5)), isImg = !!imgOf(S.sky), n0 = R.n, du0 = 1 / (2 * R.F);
+    // an image's visibility: the transform of the input image (without the primary beam, as for the closed forms of
+    // the other skies), at the sample's cell
+    if (isImg && v0cache.key !== tcache.key) v0cache = { key: tcache.key, V: RI.visibilities(R.sky, n0) };
+    const Vg = isImg ? v0cache.V : null, V0 = isImg ? Vg.re[0] || 1 : 1;
     const ampAt = (u, v) => { if (!isImg) return Math.abs(RI.vis(S.sky, S.size / RAD, u, v)); const p = Math.round(u / du0), q = Math.round(v / du0); if (Math.abs(p) >= n0 / 2 || Math.abs(q) >= n0 / 2) return NaN; const c = ((q + n0) % n0) * n0 + (p + n0) % n0; return Math.hypot(Vg.re[c], Vg.im[c]) / V0; };
     for (let k = 0; k < Sm.n; k += stride) {
       const q = Math.hypot(Sm.u[k], Sm.v[k]), A = ampAt(Sm.u[k], Sm.v[k]);
@@ -593,6 +637,13 @@ function drawPanel(R) {
     }
   }
   label(X(1), Y(1), R.single ? "Map" : "Dirty image");
+  // when the longest baselines fall beyond the image grid (a field many beams wide), the images show the shorter
+  // baselines only: say so on the images
+  if (!none && R.drop > 0.01) {
+    g.fillStyle = "rgba(220,214,204,.92)"; g.font = `10.5px ${FONT}`; g.textAlign = "left";
+    const t = Math.round(100 * Math.min(1, R.drop)) + "% of the samples beyond these pixels: narrow the field";
+    for (const yy of [Y(0), Y(1)]) g.fillText(t, X(1) + 6, yy + 14);
+  }
   bar(X(1), Y(1), 1 / toPx, a => fAng(a, 2));
 }
 
@@ -601,7 +652,7 @@ function drawPanel(R) {
 // Earth turns; any change stops it.
 let play = null;
 const PLAY_MS = 6000;
-function stopPlay() { if (play) { play = null; cancelAnimationFrame(playRAF); } }
+function stopPlay() { if (play) { play = null; cancelAnimationFrame(playRAF); } if (aplay) { aplay = null; cancelAnimationFrame(aplayRAF); } }
 let playRAF = 0;
 function tick() {
   if (!play) return;
@@ -614,8 +665,29 @@ function tick() {
 $("rPlay").addEventListener("click", () => {
   if (play) { stopPlay(); H.schedule(); return; }
   if (!(S.dur > 0)) return;
+  stopPlay();
   play = { t0: performance.now(), h: -S.dur / 2 };
   tick();
+});
+// Adding the antennas: from 2 to all those switched on, in a fixed random order, with the observation as set, at a
+// steady rate in the logarithm: k = 2 (N / 2)^(t / T), the count growing by the same factor each second; the
+// baselines grow as k (k - 1) / 2
+let aplay = null, aplayRAF = 0;
+const onCount = () => { const P = pads(), off = new Set(S.off); let n = 0; for (let k = 0; k < P.ants.length; k++) if (!off.has(k)) n++; return n; };
+function tickA() {
+  if (!aplay) return;
+  const f = Math.min(1, (performance.now() - aplay.t0) / PLAY_MS), k = Math.max(2, Math.min(aplay.N, Math.round(2 * Math.pow(aplay.N / 2, f))));
+  if (k !== aplay.k || f >= 1) { aplay.k = k; draw(true); }
+  if (f >= 1) { aplay = null; draw(false); return; }
+  aplayRAF = requestAnimationFrame(tickA);
+}
+$("rPlayA").addEventListener("click", () => {
+  if (aplay) { stopPlay(); H.schedule(); return; }
+  const N = onCount();
+  if (arrOf().single || N < 3) return;
+  stopPlay();
+  aplay = { t0: performance.now(), N, k: 0 };                         // (k 0: the first frame draws)
+  tickA();
 });
 
 // ------------------------------------------------------------------ main
@@ -631,7 +703,7 @@ function draw(fast) {
 }
 function render() {
   if (!ARRS.length) return;
-  if (play) return;                                                  // the animation draws its own frames
+  if (play || aplay) return;                                         // the animations draw their own frames
   draw(performance.now() < quickUntil);
 }
 const PRESETS = ARRS.map(a => ({ id: a.id, tel: a.name, name: a.name, state: { D: a.dish } }));
@@ -669,7 +741,7 @@ return {
     alview.fit = true;
   },
   redraw: () => { if (cur) { drawArray(cur); drawPanel(cur); } },
-  test: { state: () => clone(S), result: () => cur && { nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play,
+  test: { state: () => clone(S), result: () => cur && { nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel, nus: cur.full && cur.full.nus && [Math.min(...cur.full.nus), Math.max(...cur.full.nus)], K: cur.nbUsed }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play, adding: () => aplay && { ...aplay },
     antXY: k => { const xy = antScreen(cur.ants)[k], r = $("cvA").getBoundingClientRect(); return [r.left + xy[0], r.top + xy[1]]; } },
 };
 };

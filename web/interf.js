@@ -12,6 +12,9 @@
 "use strict";
 const TP = root.TP || require("./tpupil.js");
 const DEG = Math.PI / 180, RAD = 180 / Math.PI * 3600, C = 299792458;
+// the hour angle's advance per hour of time (radians): the Earth's mean rotation rate against the stars,
+// 7.2921150e-5 rad/s (IERS; data/interf/formulas.md G12), times 3600 s; 15.041 degrees, not 15
+const HA_PER_H = 7.2921150e-5 * 3600;
 
 // ------------------------------------------------------------------ geometry
 // a baseline from local east, north, up (m) at latitude lat to the equatorial X, Y, Z (m)
@@ -21,7 +24,7 @@ function toXYZ(e, n, u, lat) {
 }
 // the baselines between the antennas switched on (on !== false): X, Y, Z (m) and the length on the ground (m), as
 // typed arrays. An array with more than maxPairs baselines (10,000 antennas make 50 million) gets a random draw of
-// maxPairs pairs (seeded, so the draw is the same each time); total is the full count.
+// maxPairs distinct pairs (seeded, so the draw is the same each time); total is the full count.
 function baselines(ants, lat, maxPairs = Infinity, seed = 7) {
   const on = ants.filter(a => a.on !== false), N = on.length, total = N * (N - 1) / 2, sub = total > maxPairs, nb = sub ? maxPairs : total;
   const X = new Float64Array(nb), Y = new Float64Array(nb), Z = new Float64Array(nb), len = new Float64Array(nb);
@@ -31,8 +34,13 @@ function baselines(ants, lat, maxPairs = Infinity, seed = 7) {
     X[k] = -dn * sl + du * cl; Y[k] = de; Z[k] = dn * cl + du * sl; len[k] = Math.hypot(de, dn, du);
   };
   if (sub) {
-    const rnd = rng(seed);
-    for (let k = 0; k < nb; k++) { const i = Math.floor(rnd() * N); let j = Math.floor(rnd() * (N - 1)); if (j >= i) j++; put(k, Math.min(i, j), Math.max(i, j)); }
+    const rnd = rng(seed), seen = new Set();
+    for (let k = 0; k < nb;) {
+      const i = Math.floor(rnd() * N); let j = Math.floor(rnd() * (N - 1)); if (j >= i) j++;
+      const a = Math.min(i, j), b = Math.max(i, j), key = a * N + b;
+      if (seen.has(key)) continue;
+      seen.add(key); put(k++, a, b);
+    }
   } else {
     let k = 0;
     for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) put(k++, i, j);
@@ -53,7 +61,8 @@ function uvAt(b, H, dec) {
 }
 // the source's elevation (radians) at hour angle H from latitude lat
 const elevation = (H, dec, lat) => Math.asin(Math.max(-1, Math.min(1, Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(H))));
-// the hour angles of an observation dur hours long centered on the meridian, step hours apart (one for a snapshot)
+// the times of an observation dur hours long centered on the meridian, step hours apart (one for a snapshot), in
+// hours of time from the transit (the hour angle is HA_PER_H times the time)
 function hourAngles(dur, step) {
   if (!(dur > 0)) return [0];
   const n = Math.max(2, Math.round(dur / step) + 1);
@@ -63,7 +72,7 @@ function hourAngles(dur, step) {
 function hoursUp(dur, dec, lat, elMin) {
   if (!(dur > 0)) return elevation(0, dec, lat) >= elMin ? 0 : -1;
   const Hs = hourAngles(dur, 1 / 120);
-  let k = 0; for (const h of Hs) if (elevation(h * 15 * DEG, dec, lat) >= elMin) k++;
+  let k = 0; for (const h of Hs) if (elevation(h * HA_PER_H, dec, lat) >= elMin) k++;
   return dur * k / Hs.length;
 }
 
@@ -74,16 +83,17 @@ function hoursUp(dur, dec, lat, elMin) {
 function sample(o) {
   const B = o.B || baselines(o.ants, o.lat, o.maxPairs), nb = B.length, BX = B.X, BY = B.Y, BZ = B.Z;
   const nCh = o.bw > 0 ? Math.max(2, o.nCh || 8) : 1;
-  const nus = nCh === 1 ? [o.nu] : Array.from({ length: nCh }, (_, k) => o.nu - o.bw / 2 + o.bw * k / (nCh - 1));
+  // the channels: the centers of nCh equal slices of the band
+  const nus = nCh === 1 ? [o.nu] : Array.from({ length: nCh }, (_, k) => o.nu + o.bw * ((k + 0.5) / nCh - 0.5));
   let step = o.step || 1 / 60;
   if (o.dur > 0 && o.budget && nb * nCh * (o.dur / step + 1) > o.budget) step = o.dur / Math.max(1, Math.floor(o.budget / Math.max(1, nb * nCh)) - 1);
   const Hs = hourAngles(o.dur, step);
-  const up = Hs.filter(h => (o.hMax === undefined || h <= o.hMax + 1e-9) && elevation(h * 15 * DEG, o.dec, o.lat) >= o.elMin);
+  const up = Hs.filter(h => (o.hMax === undefined || h <= o.hMax + 1e-9) && elevation(h * HA_PER_H, o.dec, o.lat) >= o.elMin);
   const m = nb * nCh * up.length, u = new Float32Array(m), v = new Float32Array(m);
   const sd = Math.sin(o.dec), cd = Math.cos(o.dec), f = nus.map(nu => nu / C);
   let k = 0;
   for (const h of up) {
-    const H = h * 15 * DEG, sh = Math.sin(H), ch = Math.cos(H);
+    const H = h * HA_PER_H, sh = Math.sin(H), ch = Math.cos(H);
     for (let q = 0; q < nb; q++) {
       const u0 = sh * BX[q] + ch * BY[q], v0 = -sd * ch * BX[q] + sd * sh * BY[q] + cd * BZ[q];
       for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; k++; }
@@ -173,6 +183,18 @@ function dirty(W, V, n) {
   if (!(b0 > 0)) return { beam, img };
   for (let k = 0; k < n * n; k++) { beam[k] = re[k] / b0; if (img) img[k] = -im[k] / b0; }
   return { beam, img };
+}
+// The visibilities of the point skies on an n x n grid of cells du wide, exactly (a point between pixels shared among
+// them would lose amplitude at long spacings): a point at the center, V = A(0); two points at l = +-size / 2,
+// V = A(size / 2) cos(pi u size); A the Gaussian primary beam of FWHM pb (0 for none). Null for the other models.
+function pointVis(model, size, n, du, pb) {
+  if (model !== "point" && model !== "double") return null;
+  const A = l => (pb > 0 ? Math.exp(-4 * Math.LN2 * l * l / (pb * pb)) : 1), re = new Float64Array(n * n), im = new Float64Array(n * n);
+  for (let q = 0; q < n; q++) for (let p = 0; p < n; p++) {
+    const u = (p >= n / 2 ? p - n : p) * du;
+    re[q * n + p] = model === "point" ? A(0) : A(size / 2) * Math.cos(Math.PI * u * size);
+  }
+  return { re, im };
 }
 // the forward transform of a real image (wrapped, origin at index 0): its visibilities on the grid
 function visibilities(s, n) {
@@ -445,7 +467,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { DEG, RAD, C, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

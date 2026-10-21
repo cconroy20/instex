@@ -1,0 +1,1741 @@
+{
+ "_meta": {
+  "title": "Arecibo 305-m telescope (Gregorian feed) for the instex Interferometer mode: filled-aperture comparison",
+  "compiled": "2026-10-20",
+  "record": "data/interf/arecibo.md",
+  "conventions": "src = source key in sources; loc = location in that document; quote = verbatim text (checked by machine against the saved file). DERIVED = arithmetic done here; INFERRED = a mapping no source states."
+ },
+ "sources": {
+  "GUIDE": {
+   "cite": "C. Salter (NAIC), \"An Astronomer's Guide to the Arecibo 305-m Telescope\", last revised October 30, 2017 (18 pp.; PDF version of the Arecibo users' guide; Table 1 site and telescope, Table 2 tracking time, Table 3 available receivers). Internet Archive capture 2020-03-09 (SHA-1 matches the archive digest DVG3DRMA...). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_astronomers_guide_2017.pdf",
+   "url": "http://web.archive.org/web/20200309172943/http://www.naic.edu/~astro/guide/guide.pdf"
+  },
+  "RXT": {
+   "cite": "NAIC Arecibo Observatory, \"Arecibo Observatory Receivers\" receiver parameter table (~astro/RXstatus/rcvrtabz.shtml), Tsys column from the last system check Wed Aug 5 2020; Internet Archive capture 2020-08-10 (identical digest ELMBXAYM... in every capture through 2023-01-19). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_rxstatus_rcvrtabz_20200810.html",
+   "url": "http://web.archive.org/web/20200810184337/http://www.naic.edu/~astro/RXstatus/rcvrtabz.shtml"
+  },
+  "RXL": {
+   "cite": "NAIC Arecibo Observatory, \"Arecibo Observatory L-Wide Band Receiver\" status page (~astro/RXstatus/Lwide/Lwide.shtml; page footer \"Last updated: Friday, 15-Feb-2008\", B. M. Lewis); Internet Archive capture 2020-07-14. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_rxstatus_lwide_20200714.html",
+   "url": "http://web.archive.org/web/20200714213939/http://www.naic.edu:80/~astro/RXstatus/Lwide/Lwide.shtml"
+  },
+  "PHB": {
+   "cite": "P. Perillat (NAIC), \"Beam Widths vs lambda. All rcvrs, 2004\" (feb 2005), system-performance page ~phil/sysperf/misc/hpbw_vs_lambda_2004.html (calibration data Mar 2004 - Feb 2005, 5 < za < 14 deg); Internet Archive capture 2020-12-05 (same digest as the 2006 captures). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_phil_hpbw_vs_lambda_2004_20201205.html",
+   "url": "http://web.archive.org/web/20201205083735/http://www.naic.edu/~phil/sysperf/misc/hpbw_vs_lambda_2004.html"
+  },
+  "EXPP": {
+   "cite": "NAIC Arecibo Upgrading Program, \"Expected Gregorian Performance\" (memo on shaped-subreflector design G92-03, adopted 28 July 1992; Table 1 design parameters, Table 2 expected performance at ZA 15 and 20 deg, Table 3 efficiency and sidelobes), techinfo/teltech/upgrade/expperfw.htm; Internet Archive capture 2004-12-05. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_upgrade_expperfw_20041205.htm",
+   "url": "http://web.archive.org/web/20041205045805/http://www.naic.edu:80/techinfo/teltech/upgrade/expperfw.htm"
+  },
+  "UPOV": {
+   "cite": "NAIC, \"Arecibo Observatory Upgrading Program Overview\" (dated 17 March 1997; D. Campbell, M. Davis), techinfo/teltech/upgrade/overview.htm; Internet Archive capture 2004-08-10 (same digest as the 1997 capture). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/naic_upgrade_overview_20040810.htm",
+   "url": "http://web.archive.org/web/20040810194641/http://www.naic.edu:80/techinfo/teltech/upgrade/overview.htm"
+  },
+  "HEILES": {
+   "cite": "C. Heiles, P. Perillat, M. Nolan et al., \"All-Stokes Parameterization of the Main Beam and First Sidelobe for the Arecibo Radio Telescope\", arXiv:astro-ph/0107349v1 (18 Jul 2001; \"accepted by PASP\"); Table 1 measured September 2000. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_astro-ph_0107349v1_heiles2001_beam.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0107349v1"
+  },
+  "BURTON": {
+   "cite": "W. B. Burton, R. Braun, J. N. Chengalur, \"Arecibo imaging of compact high-velocity clouds\", arXiv:astro-ph/0102085v1 (6 Feb 2001; \"accepted for publication in A&A\"), Sect. 2 observations. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_astro-ph_0102085v1_burton2001_chvc.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0102085v1"
+  },
+  "ALFALFA": {
+   "cite": "R. Giovanelli, M. P. Haynes, B. R. Kent et al., \"The Arecibo Legacy Fast ALFA Survey: I. Science Goals, Survey Design and Strategy\", arXiv:astro-ph/0508301v1 (12 Aug 2005; \"to appear in Astron. J.\"), Sects. 1-3 (ALFA description). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_astro-ph_0508301v1_giovanelli2005_alfalfa.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0508301v1"
+  },
+  "GALFA": {
+   "cite": "J. E. G. Peek, C. Heiles, \"The GALFA-HI Survey: Techniques\", arXiv:0810.1283v1 (2008), Sect. 8.2 ground screen. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_0810.1283v1_peek_heiles2008_galfa.pdf",
+   "url": "https://arxiv.org/pdf/0810.1283v1"
+  },
+  "OSTEN": {
+   "cite": "R. A. Osten, T. S. Bastian, \"Wideband Spectroscopy of Two Radio Bursts on AD Leonis\", arXiv:astro-ph/0509815v1 (27 Sep 2005; ApJ 637, 1016 per the arXiv record), Sect. 1. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_astro-ph_0509815v1_osten_bastian2006.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0509815v1"
+  },
+  "COLLOQ": {
+   "cite": "T. Ghosh, C. Salter, \"Radio Astronomy with the Arecibo 305m Telescope: In Contemporaneous Context\" (Colloquium), arXiv:2604.08775v1 (dated April 13, 2026; 26 pp.), Sects. I and V. Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/arxiv_2604.08775v1_ghosh_salter2026_colloquium.pdf",
+   "url": "https://arxiv.org/pdf/2604.08775v1"
+  },
+  "NSFC": {
+   "cite": "U.S. National Science Foundation, News Release 20-011, \"Arecibo Observatory's 305-meter telescope suffers collapse\", December 1, 2020 (news_summ.jsp?cntn_id=301737); Internet Archive capture 2020-12-02 (on 2026-10-20 the live news_summ.jsp URL redirects to the general NSF news index, and the later slug URL .../news/arecibo-observatorys-305-meter-telescope-suffers redirects to a 404 page). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/nsf_news_301737_collapse_20201202.html",
+   "url": "http://web.archive.org/web/20201202121104/https://www.nsf.gov/news/news_summ.jsp?cntn_id=301737"
+  },
+  "NSFD": {
+   "cite": "U.S. National Science Foundation, News Release 20-010, \"NSF begins planning for decommissioning of Arecibo Observatory's 305-meter telescope due to safety concerns\", November 19, 2020 (with November 24 update; news_summ.jsp?cntn_id=301674); Internet Archive capture 2020-12-03, served gzip-encoded and saved as received (.html.gz). Fetched 2026-10-20",
+   "file": "rawdata/interf/arecibo/nsf_news_301674_decommission_20201203.html.gz",
+   "url": "http://web.archive.org/web/20201203182946/https://www.nsf.gov/news/news_summ.jsp?cntn_id=301674&org=NSF&from=news"
+  }
+ },
+ "site": {
+  "lat_deg": 18.3435,
+  "lon_deg": -66.7530833,
+  "elev_m": 497,
+  "elev_note": "height of the reflector centre of curvature above MSL (GUIDE Table 1)",
+  "src": {
+   "lat_deg": "GUIDE",
+   "lon_deg": "GUIDE",
+   "elev_m": "GUIDE"
+  }
+ },
+ "dish_m": 305,
+ "dish_src": "GUIDE",
+ "radius_of_curvature_m": 265,
+ "roc_src": "GUIDE",
+ "illuminated": {
+  "d_za_m": 213.36,
+  "d_az_m": 236.52,
+  "ns_m": 213.36,
+  "ew_m": 236.52,
+  "ns_ew_note": "INFERRED: ns/ew apply on the meridian (za direction = N-S); in general the 213 m axis lies along the azimuth arm, which rotates with azimuth",
+  "rounded_m": [
+   213,
+   237
+  ],
+  "equiv_circle_d_m": 225,
+  "area_m2": 39635,
+  "offset_downhill_m": 14.326,
+  "uphill_ft": 303,
+  "downhill_ft": 397,
+  "transverse_half_ft": 388,
+  "illumination": {
+   "form": "I(r) = 1 - (1 - 10^(taper/10)) (r/R)^rolloff",
+   "edge_taper_db": -7,
+   "rolloff": 6,
+   "R_m": 106.68,
+   "axis_ratio_a": 1.108571
+  },
+  "line_feed_430_d_m": 305,
+  "vignetting": {
+   "model": "DERIVED: the design aperture (EXPP Table 1: x from -397 to +303 ft, y = +-388 ft, ellipse about x0 = -47 ft) is mapped onto the sphere (radius 870 ft, GUIDE) for a beam at zenith angle za; an aperture point (x, y) reflects at C - sqrt(R^2 - x^2 - y^2) s + x e_x + y e_y and lies on the dish if its angle from the downward vertical is <= the rim half-angle asin(500/870). gain_factor = (sum of field on dish / sum of field)^2 with field = sqrt(EXPP power illumination, -7 dB edge, rolloff 6), feed power fixed.",
+   "rim_half_angle_deg": 35.08,
+   "onset_za_deg": 14.7,
+   "onset_basis": "DERIVED: uphill edge x = +303 ft reaches the rim when za = asin(500/870) - asin(303/870) = 35.080 - 20.382",
+   "table": [
+    {
+     "za_deg": 0,
+     "area_on_dish_frac": 1.0,
+     "gain_factor": 1.0,
+     "gain_db": 0.0
+    },
+    {
+     "za_deg": 10,
+     "area_on_dish_frac": 1.0,
+     "gain_factor": 1.0,
+     "gain_db": 0.0
+    },
+    {
+     "za_deg": 14,
+     "area_on_dish_frac": 1.0,
+     "gain_factor": 1.0,
+     "gain_db": 0.0
+    },
+    {
+     "za_deg": 14.7,
+     "area_on_dish_frac": 1.0,
+     "gain_factor": 1.0,
+     "gain_db": 0.0
+    },
+    {
+     "za_deg": 15,
+     "area_on_dish_frac": 0.998,
+     "gain_factor": 0.9979,
+     "gain_db": -0.01
+    },
+    {
+     "za_deg": 16,
+     "area_on_dish_frac": 0.9841,
+     "gain_factor": 0.9807,
+     "gain_db": -0.08
+    },
+    {
+     "za_deg": 17,
+     "area_on_dish_frac": 0.9655,
+     "gain_factor": 0.9543,
+     "gain_db": -0.2
+    },
+    {
+     "za_deg": 18,
+     "area_on_dish_frac": 0.9443,
+     "gain_factor": 0.9217,
+     "gain_db": -0.35
+    },
+    {
+     "za_deg": 19,
+     "area_on_dish_frac": 0.9214,
+     "gain_factor": 0.8846,
+     "gain_db": -0.53
+    },
+    {
+     "za_deg": 19.7,
+     "area_on_dish_frac": 0.9048,
+     "gain_factor": 0.8569,
+     "gain_db": -0.67
+    }
+   ],
+   "compare": "EXPP design: \"about 1.0 dB\" loss at maximum za; EXPP Table 2 1400 MHz 11 -> 9 K/Jy from ZA 15 to 20 = -0.87 dB (DERIVED); this simple model gives -0.67 dB at 19.7 deg."
+  },
+  "src": {
+   "d_za_m": "EXPP",
+   "d_az_m": "EXPP",
+   "rounded_m": "GUIDE",
+   "equiv_circle_d_m": "EXPP",
+   "area_m2": "EXPP",
+   "offset_downhill_m": "EXPP",
+   "illumination": "EXPP",
+   "line_feed_430_d_m": "GUIDE",
+   "orientation": "EXPP"
+  }
+ },
+ "zenith_limit_deg": 19.7,
+ "zenith_min_tracking_deg": 1.06,
+ "zenith_src": "GUIDE",
+ "dec_range_deg": [
+  -1.3333,
+  38.0333
+ ],
+ "dec_range_src": "GUIDE",
+ "dec_range_derived_deg": [
+  -1.3565,
+  38.0435
+ ],
+ "beam": [
+  {
+   "receiver": "430chg",
+   "freq_GHz": 0.43,
+   "freq_basis": "band centre (DERIVED)",
+   "fwhm_az_arcmin": 10,
+   "fwhm_za_arcmin": 12,
+   "fwhm_arcmin": 11.0,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "430chg 0.425 – 0.435 70 - 120 10 - 20 3.5 - 10 10 × 12",
+   "derived_check": {
+    "pred_az_arcmin": 8.015,
+    "pred_za_arcmin": 8.015,
+    "basis": "1.02 lambda / 305 m (line feed, full dish)"
+   }
+  },
+  {
+   "receiver": "327",
+   "freq_GHz": 0.327,
+   "freq_basis": "band centre (DERIVED)",
+   "fwhm_az_arcmin": 14,
+   "fwhm_za_arcmin": 15,
+   "fwhm_arcmin": 14.5,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "327 0.312 – 0.342 90 + Tsky 10.5 11 14 × 15",
+   "derived_check": {
+    "pred_az_arcmin": 13.592,
+    "pred_za_arcmin": 15.067,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "430",
+   "freq_GHz": 0.43,
+   "freq_basis": "band centre (DERIVED)",
+   "fwhm_az_arcmin": 10,
+   "fwhm_za_arcmin": 12,
+   "fwhm_arcmin": 11.0,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "430 0.425 – 0.435 35 + Tsky 11 5 10 × 12",
+   "derived_check": {
+    "pred_az_arcmin": 10.336,
+    "pred_za_arcmin": 11.458,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "lbw",
+   "freq_GHz": 1.42,
+   "freq_basis": "stated by RXL: \"Beam Size (at 1.42 GHz): 3.1x3.5\"",
+   "fwhm_az_arcmin": 3.1,
+   "fwhm_za_arcmin": 3.5,
+   "fwhm_arcmin": 3.3,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "lbw 1.120 – 1.730 25 10.5 2.4 3.1 × 3.5",
+   "derived_check": {
+    "pred_az_arcmin": 3.13,
+    "pred_za_arcmin": 3.47,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "sbw",
+   "freq_GHz": 2.45,
+   "freq_basis": "band centre (DERIVED; measurement frequency NOT FOUND)",
+   "fwhm_az_arcmin": 1.8,
+   "fwhm_za_arcmin": 2.0,
+   "fwhm_arcmin": 1.9,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "sbw 1.800 – 3.100 32 9.5 3.4 1.8 × 2.0",
+   "derived_check": {
+    "pred_az_arcmin": 1.814,
+    "pred_za_arcmin": 2.011,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "sbn",
+   "freq_GHz": 2.335,
+   "freq_basis": "centre of 2.24-2.43 (DERIVED; two sub-ranges 2.240-2.340 and 2.330-2.430)",
+   "fwhm_az_arcmin": 1.8,
+   "fwhm_za_arcmin": 2.0,
+   "fwhm_arcmin": 1.9,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "sbn 2.240 – 2.340 25 10 2.5 1.8 × 2.0 2.330 – 2.430 25 10 2.5 1.8 × 2.0",
+   "derived_check": {
+    "pred_az_arcmin": 1.903,
+    "pred_za_arcmin": 2.11,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "sbh",
+   "freq_GHz": 3.5,
+   "freq_basis": "band centre (DERIVED; measurement frequency NOT FOUND)",
+   "fwhm_az_arcmin": 1.35,
+   "fwhm_za_arcmin": 1.5,
+   "fwhm_arcmin": 1.425,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "sbh 3.000 – 4.000 29 8.8 3.3 1.35 × 1.5",
+   "derived_check": {
+    "pred_az_arcmin": 1.27,
+    "pred_za_arcmin": 1.408,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "cb",
+   "freq_GHz": 5.0,
+   "freq_basis": "INFERRED from Table 3 note c (\"At 5 GHz\", attached to the SEFD entry)",
+   "fwhm_az_arcmin": 0.9,
+   "fwhm_za_arcmin": 1.0,
+   "fwhm_arcmin": 0.95,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "cb 3.850 – 6.050 31 8 3.9c 0.9 × 1.0",
+   "derived_check": {
+    "pred_az_arcmin": 0.889,
+    "pred_za_arcmin": 0.985,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "xb",
+   "freq_GHz": 9.0,
+   "freq_basis": "INFERRED from Table 3 note e (\"At 9 GHz\", attached to the SEFD entry)",
+   "fwhm_az_arcmin": 0.5,
+   "fwhm_za_arcmin": 0.6,
+   "fwhm_arcmin": 0.55,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "xb 8.0 – 10.0 33 4.5 7.5e 0.5 × 0.6",
+   "derived_check": {
+    "pred_az_arcmin": 0.494,
+    "pred_za_arcmin": 0.547,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "ALFA center pixel",
+   "freq_GHz": 1.375,
+   "freq_basis": "band centre (DERIVED; measurement frequency NOT FOUND)",
+   "fwhm_az_arcmin": 3.3,
+   "fwhm_za_arcmin": 3.7,
+   "fwhm_arcmin": 3.5,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "Center Pix 1.225 – 1.525 30 11 2.8 3.3 × 3.7",
+   "derived_check": {
+    "pred_az_arcmin": 3.232,
+    "pred_za_arcmin": 3.583,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  },
+  {
+   "receiver": "ALFA outer pixels",
+   "freq_GHz": 1.375,
+   "freq_basis": "band centre (DERIVED; measurement frequency NOT FOUND)",
+   "fwhm_az_arcmin": 3.3,
+   "fwhm_za_arcmin": 3.7,
+   "fwhm_arcmin": 3.5,
+   "fwhm_arcmin_basis": "DERIVED: (az + za)/2, the average PHB plots",
+   "src": "GUIDE",
+   "loc": "Table 3 (HPBW, Az x ZA, arcmin; zenith angles below 15 deg; Arecibo staff)",
+   "quote": "Outer Pixs 1.225 – 1.525 30 8.5 3.5 3.3 × 3.7",
+   "derived_check": {
+    "pred_az_arcmin": 3.232,
+    "pred_za_arcmin": 3.583,
+    "basis": "1.02 lambda / 236.52 m (az) and / 213.36 m (za) at freq_GHz (PHB relation; axis mapping INFERRED)"
+   }
+  }
+ ],
+ "beam_alt": [
+  {
+   "receiver": "lbw",
+   "freq_GHz": 1.42,
+   "fwhm_az_arcmin": 3.1,
+   "fwhm_za_arcmin": 3.5,
+   "src": "RXL",
+   "loc": "1. Basic Information",
+   "quote": "Beam Size (at 1.42 GHz): | 3.1x3.5 |",
+   "note": "order az x za assumed as in GUIDE"
+  },
+  {
+   "receiver": "LBW",
+   "freq_GHz": 1.42,
+   "fwhm_az_arcmin": 3.1,
+   "fwhm_za_arcmin": 3.7,
+   "src": "BURTON",
+   "loc": "Sect. 2 (citing Heiles 1999)",
+   "quote": "The FWHM beamwidth measured with the wide L–band (LBW) feed at 1420 MHz is 3.1 × 3.7 arcmin in the azimuth and zenith–angle directions, respectively"
+  },
+  {
+   "receiver": "430 (Gregorian, 430G)",
+   "freq_GHz": 0.43,
+   "fwhm_arcmin": 10.9,
+   "src": "HEILES",
+   "loc": "Table 1 (za 10 deg, Sept 2000)",
+   "quote": "430G 430 B1634+269 10 .039 0.33 10.3 10.9 0.66 0.88",
+   "sidelobe_peak_frac": 0.039
+  },
+  {
+   "receiver": "LBW",
+   "freq_GHz": 1.175,
+   "fwhm_arcmin": 4.0,
+   "src": "HEILES",
+   "loc": "Table 1 (za 10 deg, Sept 2000)",
+   "quote": "LBW 1175 B1634+269 10 .043 0.32 8.7 4.0 0.56 0.75",
+   "sidelobe_peak_frac": 0.043
+  },
+  {
+   "receiver": "LBW",
+   "freq_GHz": 1.415,
+   "fwhm_arcmin": 3.4,
+   "src": "HEILES",
+   "loc": "Table 1 (za 10 deg, Sept 2000)",
+   "quote": "LBW 1415 B1634+269 10 .046 0.32 7.5 3.4 0.50 0.67",
+   "sidelobe_peak_frac": 0.046
+  },
+  {
+   "receiver": "LBW",
+   "freq_GHz": 1.666,
+   "fwhm_arcmin": 2.9,
+   "src": "HEILES",
+   "loc": "Table 1 (za 10 deg, Sept 2000)",
+   "quote": "LBW 1666 B1634+269 10 .042 0.31 6.9 2.9 0.48 0.62",
+   "sidelobe_peak_frac": 0.042
+  },
+  {
+   "receiver": "ALFA (all 7 beams)",
+   "freq_GHz": null,
+   "fwhm_az_arcmin": 3.3,
+   "fwhm_za_arcmin": 3.8,
+   "src": "ALFALFA",
+   "loc": "Sect. 3",
+   "quote": "for which the beam sizes are 3.3′ along the azimuth direction and 3.8′ along the zenith angle directon, with small variations from one beam to the other"
+  }
+ ],
+ "beam_relation": {
+  "K": 1.02,
+  "D_eff_m": 225,
+  "form": "fwhm_rad = K lambda / D",
+  "src": "PHB",
+  "per_axis_INFERRED": "za axis D = 213.36 m, az axis D = 236.52 m"
+ },
+ "sidelobes": {
+  "first_peak_frac_heiles2001": [
+   {
+    "receiver": "430G",
+    "freq_GHz": 0.43,
+    "frac": 0.039
+   },
+   {
+    "receiver": "LBW",
+    "freq_GHz": 1.175,
+    "frac": 0.043
+   },
+   {
+    "receiver": "LBW",
+    "freq_GHz": 1.415,
+    "frac": 0.046
+   },
+   {
+    "receiver": "LBW",
+    "freq_GHz": 1.666,
+    "frac": 0.042
+   }
+  ],
+  "first_peak_src": "HEILES",
+  "alfa_beam0_first_ring_db": -15,
+  "alfa_outer_db": [
+   -8,
+   -7
+  ],
+  "alfa_src": "ALFALFA",
+  "design_peak_db_with_blockage_za15": {
+   "0.25": -12.2,
+   "0.5": -13.5,
+   "1": -15.1,
+   "5": -16.0
+  },
+  "design_src": "EXPP"
+ },
+ "bands": [
+  {
+   "name": "430chg",
+   "lo_GHz": 0.425,
+   "hi_GHz": 0.435,
+   "bw_GHz": 0.01,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization) ; GUIDE: line feed \"bandwidth of only 10 MHz\"",
+   "feed": "carriage-house 430-MHz line feed (illuminates the full 305 m at zenith)",
+   "status_2017_2020": "damaged by Hurricane Maria Sept 2017 (GUIDE note g); listed DOWN/archived in RXT 2020",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "430chg 0.425 – 0.435 70 - 120 10 - 20 3.5 - 10 10 × 12"
+  },
+  {
+   "name": "327",
+   "lo_GHz": 0.312,
+   "hi_GHz": 0.342,
+   "bw_GHz": 0.03,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "327 0.312 – 0.342 90 + Tsky 10.5 11 14 × 15"
+  },
+  {
+   "name": "430",
+   "lo_GHz": 0.425,
+   "hi_GHz": 0.435,
+   "bw_GHz": 0.01,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "430 0.425 – 0.435 35 + Tsky 11 5 10 × 12"
+  },
+  {
+   "name": "lbw",
+   "lo_GHz": 1.12,
+   "hi_GHz": 1.73,
+   "bw_GHz": 0.61,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (L-wide)",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "lbw 1.120 – 1.730 25 10.5 2.4 3.1 × 3.5"
+  },
+  {
+   "name": "sbw",
+   "lo_GHz": 1.8,
+   "hi_GHz": 3.1,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (S-low in RXT)",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "sbw 1.800 – 3.100 32 9.5 3.4 1.8 × 2.0"
+  },
+  {
+   "name": "sbn",
+   "lo_GHz": 2.24,
+   "hi_GHz": 2.43,
+   "bw_GHz": 0.19,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (S-narrow)",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "sbn 2.240 – 2.340 25 10 2.5 1.8 × 2.0 2.330 – 2.430 25 10 2.5 1.8 × 2.0"
+  },
+  {
+   "name": "sbh",
+   "lo_GHz": 3.0,
+   "hi_GHz": 4.0,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (S-high)",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "sbh 3.000 – 4.000 29 8.8 3.3 1.35 × 1.5"
+  },
+  {
+   "name": "cb",
+   "lo_GHz": 3.85,
+   "hi_GHz": 6.05,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (C-band)",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "cb 3.850 – 6.050 31 8 3.9c 0.9 × 1.0"
+  },
+  {
+   "name": "cbwd",
+   "lo_GHz": 4.0,
+   "hi_GHz": 8.0,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (C-band wide)",
+   "status_2017_2020": "commissioning Oct 2017 (GUIDE note d); not in RXT 2020",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "cbwd 4.000 – 8.000 – – – –"
+  },
+  {
+   "name": "xb",
+   "lo_GHz": 8.0,
+   "hi_GHz": 10.0,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian single pixel (X-band)",
+   "status_2017_2020": "RXT 2020: \"Not available until further notice.\"",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "xb 8.0 – 10.0 33 4.5 7.5e 0.5 × 0.6"
+  },
+  {
+   "name": "ALFA",
+   "lo_GHz": 1.225,
+   "hi_GHz": 1.525,
+   "bw_GHz": 0.3,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit per polarization)",
+   "feed": "Gregorian 7-feed array, beam 0",
+   "status_2017_2020": "available 2020 (RXT)",
+   "src": "GUIDE",
+   "loc": "Table 3",
+   "quote": "Center Pix 1.225 – 1.525 30 11 2.8 3.3 × 3.7"
+  },
+  {
+   "name": "C-high",
+   "lo_GHz": 5.9,
+   "hi_GHz": 8.1,
+   "bw_GHz": 1.0,
+   "bw_basis": "DERIVED: min(hi - lo, 1 GHz IF limit)",
+   "feed": "Gregorian single pixel",
+   "status_2017_2020": "not in GUIDE 2017 Table 3; RXT 2020 lists it under Archived, DOWN",
+   "src": "RXT",
+   "loc": "Receiver Parameters table, Archived section",
+   "quote": "C-high | 5.9-8.1 | Dual Linear (dual beam in future) | 2.5-7.5* | 26-29* | 0.75x0.65 | DOWN",
+   "beam_az_za_arcmin_INFERRED_order": [
+    0.65,
+    0.75
+   ]
+  }
+ ],
+ "rxt_2020_rows": [
+  {
+   "name": "327 - MHz",
+   "lo_GHz": 0.312,
+   "hi_GHz": 0.342,
+   "beam_arcmin_as_printed": "15x14",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "327 - MHz | 0.312 - 0.342 | Circular with Hybrid, Native Linear | 11* | 113* | 15x14",
+   "section": "available"
+  },
+  {
+   "name": "430 - MHz",
+   "lo_GHz": 0.422,
+   "hi_GHz": 0.442,
+   "beam_arcmin_as_printed": "12x10",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "430 - MHz | 0.422 - 0.442 | Dual Circular | 11* | 50* | 12x10",
+   "section": "available"
+  },
+  {
+   "name": "ALFA",
+   "lo_GHz": 1.225,
+   "hi_GHz": 1.525,
+   "beam_arcmin_as_printed": "3.8x3.3",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "ALFA | 1.225-1.525 | Dual Linear | 10* | 30* | 3.8x3.3",
+   "section": "available"
+  },
+  {
+   "name": "L-wide",
+   "lo_GHz": 1.15,
+   "hi_GHz": 1.73,
+   "beam_arcmin_as_printed": "3.5x3.1",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "L-wide | 1.15 - 1.73 | Dual Linear | 9-11* | 25-40* | 3.5x3.1",
+   "section": "available"
+  },
+  {
+   "name": "S-low",
+   "lo_GHz": 1.8,
+   "hi_GHz": 3.1,
+   "beam_arcmin_as_printed": "2.0x1.8",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "S-low | 1.8 - 3.1 | Dual Linear | 8* | 40* | 2.0x1.8",
+   "section": "available"
+  },
+  {
+   "name": "S-narrow",
+   "lo_GHz": 2.33,
+   "hi_GHz": 2.43,
+   "beam_arcmin_as_printed": "2.0x1.8",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "S-narrow | 2.33 - 2.43 | Dual Circular | 10* | 25* | 2.0x1.8",
+   "section": "available"
+  },
+  {
+   "name": "S-high",
+   "lo_GHz": 3.0,
+   "hi_GHz": 4.0,
+   "beam_arcmin_as_printed": "1.5x1.35",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "S-high | 3-4 | Dual Linear | 7-10* | 31-37* | 1.5x1.35",
+   "section": "available"
+  },
+  {
+   "name": "C",
+   "lo_GHz": 3.85,
+   "hi_GHz": 6.0,
+   "beam_arcmin_as_printed": "1.0x0.9",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "C | 3.85 - 6.00 | Dual Linear | 4-8.5* | 29-40* | 1.0x0.9",
+   "section": "available"
+  },
+  {
+   "name": "X",
+   "lo_GHz": 7.8,
+   "hi_GHz": 10.2,
+   "beam_arcmin_as_printed": "0.57x0.5",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "X | 7.8 - 10.2 | Dual Circular | 2.0-5.5* | 28-32* | 0.57x0.5 | 178 Not available until further notice.",
+   "section": "listed available, \"Not available until further notice.\""
+  },
+  {
+   "name": "800 - MHz",
+   "lo_GHz": 0.705,
+   "hi_GHz": 0.8,
+   "beam_arcmin_as_printed": "6.3",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "800 - MHz | 0.705-0.800 | Native Linear | 9* | 120* | 6.3 | DOWN",
+   "section": "archived"
+  },
+  {
+   "name": "CH 430 - MHz",
+   "lo_GHz": 0.425,
+   "hi_GHz": 0.435,
+   "beam_arcmin_as_printed": "9.5x8.5",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "CH 430 - MHz | 0.425 - 0.435 | Dual Circular | 20* | 120* | 9.5x8.5 | DOWN",
+   "section": "archived"
+  },
+  {
+   "name": "610 - MHz",
+   "lo_GHz": 0.6075,
+   "hi_GHz": 0.6115,
+   "beam_arcmin_as_printed": "8x7",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "610 - MHz | 0.6075 - 0.6115 | Dual Linear | 11* | 102* | 8x7 | DOWN",
+   "section": "archived"
+  },
+  {
+   "name": "L-narrow",
+   "lo_GHz": 1.28,
+   "hi_GHz": 1.5,
+   "beam_arcmin_as_printed": "3.6x3.4",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "L-narrow | 1.280 - 1.50 | Dual Circular | 8-10* | 25-30* | 3.6x3.4 | DOWN",
+   "section": "archived"
+  },
+  {
+   "name": "C-high",
+   "lo_GHz": 5.9,
+   "hi_GHz": 8.1,
+   "beam_arcmin_as_printed": "0.75x0.65",
+   "src": "RXT",
+   "loc": "Receiver Parameters table",
+   "quote": "C-high | 5.9-8.1 | Dual Linear (dual beam in future) | 2.5-7.5* | 26-29* | 0.75x0.65 | DOWN",
+   "section": "archived"
+  }
+ ],
+ "if_bw_GHz_max": 1.0,
+ "if_bw_src": "GUIDE",
+ "tracking": {
+  "table": [
+   {
+    "dec_deg": -1,
+    "time_hmm": "0:31",
+    "hours": 0.5167,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "–1◦ 0:31",
+    "derived_hours": 0.5058,
+    "derived_minus_guide_min": -0.7
+   },
+   {
+    "dec_deg": 0,
+    "time_hmm": "0:58",
+    "hours": 0.9667,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "0◦ 0:58",
+    "derived_hours": 0.9748,
+    "derived_minus_guide_min": 0.5
+   },
+   {
+    "dec_deg": 2,
+    "time_hmm": "1:30",
+    "hours": 1.5,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "2◦ 1:30",
+    "derived_hours": 1.4956,
+    "derived_minus_guide_min": -0.3
+   },
+   {
+    "dec_deg": 5,
+    "time_hmm": "2:18",
+    "hours": 2.3,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "5◦ 2:18",
+    "derived_hours": 1.9785,
+    "derived_minus_guide_min": -19.3
+   },
+   {
+    "dec_deg": 10,
+    "time_hmm": "2:27",
+    "hours": 2.45,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "10◦ 2:27",
+    "derived_hours": 2.4574,
+    "derived_minus_guide_min": 0.4
+   },
+   {
+    "dec_deg": 15,
+    "time_hmm": "2:42",
+    "hours": 2.7,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "15◦ 2:42",
+    "derived_hours": 2.7038,
+    "derived_minus_guide_min": 0.2
+   },
+   {
+    "dec_deg": 20,
+    "time_hmm": "2:46",
+    "hours": 2.7667,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "20◦ 2:46",
+    "derived_hours": 2.7728,
+    "derived_minus_guide_min": 0.4
+   },
+   {
+    "dec_deg": 25,
+    "time_hmm": "2:40",
+    "hours": 2.6667,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "25◦ 2:40",
+    "derived_hours": 2.6643,
+    "derived_minus_guide_min": -0.1
+   },
+   {
+    "dec_deg": 30,
+    "time_hmm": "2:20",
+    "hours": 2.3333,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "30◦ 2:20",
+    "derived_hours": 2.329,
+    "derived_minus_guide_min": -0.3
+   },
+   {
+    "dec_deg": 35,
+    "time_hmm": "1:35",
+    "hours": 1.5833,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "35◦ 1:35",
+    "derived_hours": 1.58,
+    "derived_minus_guide_min": -0.2
+   },
+   {
+    "dec_deg": 37,
+    "time_hmm": "0:57",
+    "hours": 0.95,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "37◦ 0:57",
+    "derived_hours": 0.9604,
+    "derived_minus_guide_min": 0.6
+   },
+   {
+    "dec_deg": 38,
+    "time_hmm": "0:07",
+    "hours": 0.1167,
+    "src": "GUIDE",
+    "loc": "Table 2",
+    "quote": "38◦ 0:07",
+    "derived_hours": 0.1997,
+    "derived_minus_guide_min": 5.0
+   }
+  ],
+  "src": "GUIDE",
+  "loc": "Table 2",
+  "definition": "rise-to-set duration within the za limit",
+  "max_hours": 2.7667,
+  "max_at_dec_deg": 20,
+  "derived_formula": "DERIVED: 2 H / 15 h, cos H = (cos 19.7 - sin(lat) sin(dec)) / (cos(lat) cos(dec)), lat = 18.34350",
+  "slew_az_deg_per_min": 24,
+  "slew_za_deg_per_min": 2.4,
+  "azimuth_range_deg": [
+   0,
+   720
+  ]
+ },
+ "status": {
+  "first_light": "late 1963",
+  "first_light_src": "COLLOQ",
+  "aux_cable_failure": "2020-08-10",
+  "aux_cable_src": "NSFD",
+  "operations_end": "2020-08 (first auxiliary-cable break)",
+  "operations_end_src": "COLLOQ",
+  "main_cable_break": "2020-11-06",
+  "main_cable_src": "NSFD",
+  "decommission_announced": "2020-11-19",
+  "decommission_src": "NSFD",
+  "collapse": "2020-12-01T07:55-04:00",
+  "collapse_note": "approximately 7:55 a.m. Atlantic Standard Time (UTC-4)",
+  "collapse_src": "NSFC",
+  "years_of_service": 57,
+  "years_src": "NSFD",
+  "page_note": "The 305-m telescope stopped observing after an auxiliary cable failed on 10 August 2020; NSF announced its decommissioning on 19 November 2020, and the instrument platform fell into the dish on 1 December 2020."
+ },
+ "params": {
+  "site": [
+   {
+    "name": "lat_deg",
+    "value": 18.3435,
+    "unit": "deg (N positive)",
+    "src": "GUIDE",
+    "loc": "Table 1, Site, Latitude",
+    "quote": "Latitude 18◦ 20′ 36.6′′ N",
+    "derived": "18 + 20/60 + 36.6/3600 = 18.3435000 deg"
+   },
+   {
+    "name": "lon_deg",
+    "value": -66.7530833,
+    "unit": "deg (E positive; West negative)",
+    "src": "GUIDE",
+    "loc": "Table 1, Site, Longitude (Geodetic)",
+    "quote": "Longitude (Geodetic) 66◦ 45′ 11.1′′ W",
+    "derived": "-(66 + 45/60 + 11.1/3600) = -66.7530833 deg"
+   },
+   {
+    "name": "elev_m",
+    "value": 497,
+    "unit": "m above MSL (reflector centre of curvature, not the dish surface)",
+    "src": "GUIDE",
+    "loc": "Table 1, Site",
+    "quote": "Elevation of reflector center of curvature 497 m (1630 ft) above MSL",
+    "derived": "dish vertex (lowest point of the spherical cap, one radius of curvature below the centre of curvature) = 497 - 265 = 232 m above MSL; no source states the vertex or ground height"
+   },
+   {
+    "name": "site_desc",
+    "value": "karst hills of Puerto Rico, about 10 miles south of the city of Arecibo",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2",
+    "quote": "The Observatory lies in the karst hills of the Caribbean island of Puerto Rico, some 10 miles south of the coastal city of Arecibo."
+   }
+  ],
+  "dish": [
+   {
+    "name": "dish_m",
+    "value": 305,
+    "unit": "m (diameter of the spherical cap)",
+    "src": "GUIDE",
+    "loc": "Table 1, Primary Reflector",
+    "quote": "Diameter of Spherical cap 305 m (1000 ft)",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Sect. 2.1",
+      "quote": "305 m (1000 ft) in diameter and 51 m (167 ft) deep"
+     },
+     {
+      "src": "NSFD",
+      "loc": "Engineering summary",
+      "quote": "a radio dish 1,000 feet (305 meters) wide in diameter with a 900-ton instrument platform hanging 450 feet above"
+     }
+    ]
+   },
+   {
+    "name": "radius_of_curvature_m",
+    "value": 265,
+    "unit": "m",
+    "src": "GUIDE",
+    "loc": "Table 1, Primary Reflector",
+    "quote": "Radius of Curvature 265 m (870 ft)"
+   },
+   {
+    "name": "depth_m",
+    "value": 51,
+    "unit": "m",
+    "src": "GUIDE",
+    "loc": "Sect. 2.1",
+    "quote": "305 m (1000 ft) in diameter and 51 m (167 ft) deep"
+   },
+   {
+    "name": "surface_rms_mm",
+    "value": 2,
+    "unit": "mm rms",
+    "src": "GUIDE",
+    "loc": "Table 1, Primary Reflector",
+    "quote": "Surface Accuracy 2 mm (rms)",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Forward Gain",
+      "quote": "The sensitivity rolls off at high frequencies due to the 2.3 mm surface roughness of the primary spherical reflector.",
+      "note": "1992 design value"
+     }
+    ]
+   },
+   {
+    "name": "platform",
+    "value": "900-ton triangular platform 137 m above the reflector, on 18 cables from 3 towers",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.1",
+    "quote": "Suspended 137 m (450 ft) above the reflector is a 900-ton triangular platform, supported by 18 cables suspended from 3 reinforced concrete towers."
+   },
+   {
+    "name": "aperture_blockage",
+    "value": "platform and support cables lie in the incoming beam",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 3, position switching",
+    "quote": "with the suspended platform and a good fraction of its support cables being situated within the volume traversed by the incoming rays focused on the telescope feed",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Constraints",
+      "quote": "The physical blockage corresponds to approximately two percent of the 1000 foot aperture, equivalent to a circular aperture of 140 ft diameter.",
+      "note": "design estimate"
+     },
+     {
+      "src": "HEILES",
+      "loc": "Abstract",
+      "quote": "with the blocked area equal to about 10% of the effective area (this corresponds to 5% physical blockage)",
+      "note": "from the measured sidelobe/beam ratios"
+     },
+     {
+      "src": "HEILES",
+      "loc": "Sect. 4.4",
+      "quote": "corresponds to about 13% blockage",
+      "note": "from the HPBW-vs-wavelength fit, 6-70 cm"
+     }
+    ]
+   },
+   {
+    "name": "gregorian",
+    "value": "Gregorian dome with shaped secondary and tertiary; 0.3-10 GHz",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.1",
+    "quote": "The system housed in the Gregorian dome provides continuous frequency coverage from 300 MHz to 10 GHz using a pair of shaped (secondary and tertiary) subreflectors"
+   }
+  ],
+  "illuminated": [
+   {
+    "name": "illum_gregorian_m",
+    "value": [
+     213,
+     237
+    ],
+    "unit": "m x m (at zenith)",
+    "src": "GUIDE",
+    "loc": "Table 1, Illuminated Area (at zenith), Gregorian Feeds",
+    "quote": "Gregorian Feeds 213 × 237 m (700 × 776 ft)",
+    "derived": "700 ft x 0.3048 = 213.36 m; 776 ft x 0.3048 = 236.52 m",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Table 1, I. Geometry a)",
+      "quote": "a) Aperture size and offset: 700 ft 776 ft, 47 ft downhill offset"
+     },
+     {
+      "src": "PHB",
+      "loc": "text",
+      "quote": "The AO dish optics is 213m by 237 m (700 by 776 feet)."
+     },
+     {
+      "src": "OSTEN",
+      "loc": "Sect. 1",
+      "quote": "illumination area 213 m×237 m at zenith"
+     },
+     {
+      "src": "BURTON",
+      "loc": "Sect. 2",
+      "quote": "illuminating the primary over an area of about 210×240 meters in extent",
+      "note": "rounded"
+     }
+    ]
+   },
+   {
+    "name": "illum_orientation",
+    "value": "smaller (700 ft = 213 m) along the uphill-downhill (zenith-angle) direction, larger (776 ft = 237 m) transverse (azimuth direction)",
+    "unit": "",
+    "src": "EXPP",
+    "loc": "Forward Gain",
+    "quote": "The aperture in this design is elliptical, being larger in the transverse dimension than in the uphill-downhill direction.",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Table 1, coordinate definition",
+      "quote": "x is positive towards increasing zenith angle"
+     },
+     {
+      "src": "EXPP",
+      "loc": "Table 1, I. Geometry a) 1-3",
+      "quote": "1) uphill dimension x = +303 ft ... 2) downhill dimension x = -397 ft ... 3) transverse dimension y = 388 ft"
+     },
+     {
+      "src": "HEILES",
+      "loc": "Sect. 3.1",
+      "quote": "Arecibo’s beam is elliptical by design; φbeam should be 90◦, meaning that the za beam is larger than the az beam."
+     },
+     {
+      "src": "ALFALFA",
+      "loc": "Sect. 3",
+      "quote": "The major axis of the ellipse is linked to the azimuth of the receiver, so its orientation on the sky changes with telescope configuration."
+     }
+    ],
+    "note": "Mapping 213 m to the za direction and 237 m to the azimuth direction follows EXPP (x = increasing za; 303 + 397 = 700 ft along x, 2 x 388 = 776 ft along y). On the meridian the za direction is north-south, so ns_m = 213, ew_m = 237 at transit (INFERRED from the geometry; no source states ns/ew)."
+   },
+   {
+    "name": "illum_offset",
+    "value": 47,
+    "unit": "ft downhill of the paraxial ray (aperture centre at x = -47 ft)",
+    "src": "EXPP",
+    "loc": "Table 1, I. Geometry a); Table 1 header",
+    "quote": "a) Aperture size and offset: 700 ft 776 ft, 47 ft downhill offset",
+    "derived": "47 ft = 14.33 m; aperture centre (303 - 397)/2 = -47 ft",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Table 1, header",
+      "quote": "via the three reflectors to the center of the aperture at x = -47 ft"
+     },
+     {
+      "src": "UPOV",
+      "loc": "Ground screen",
+      "quote": "The newly completed Gregorian subreflector moves the illumination pattern 15 m downhill, further reducing vignetting noise."
+     }
+    ]
+   },
+   {
+    "name": "illum_area_m2",
+    "value": 39635,
+    "unit": "m2 (= 225 m circle)",
+    "src": "EXPP",
+    "loc": "Forward Gain",
+    "quote": "The selected dimensions are 397 feet downhill from the paraxial ray, 303 feet uphill from the paraxial ray, and 388 feet transverse, giving an illuminated area of 426,600 square feet (39,635 square meters). The illuminated area is equal to that of a 225 m diameter circle.",
+    "derived": "pi/4 x 213.36 x 236.52 = 39635 m2; sqrt(213.36 x 236.52) = 224.64 m",
+    "alt": [
+     {
+      "src": "PHB",
+      "loc": "text",
+      "quote": "The gregorian optics is designed for a 700 x 776 feet (213 x 237 meters) illumination. The geometrical mean of this is 225 meters."
+     }
+    ]
+   },
+   {
+    "name": "illum_function",
+    "value": {
+     "form": "I(r) = 1 - (1 - taper) (r/R)^rolloff",
+     "R_ft": 350,
+     "a": "776/700",
+     "edge_taper_db": -7,
+     "rolloff": 6
+    },
+    "unit": "power illumination of the primary (design G92-03)",
+    "src": "EXPP",
+    "loc": "Table 1, II. Aperture power illumination functions a)",
+    "quote": "I(r) = 1 - (1 - taper) (r/R)^rolloff, where R = 350 ft and r =[x^2 + (y/a)^2] with a = 776/700: ... 9) edge taper = -7 dB ... 10) rolloff exponent = 6",
+    "alt": [
+     {
+      "src": "PHB",
+      "loc": "text",
+      "quote": "It has a geometric taper of about 9 db.",
+      "note": "measured-era statement; a different definition from the -7 dB design power taper (not reconciled in the sources)"
+     },
+     {
+      "src": "EXPP",
+      "loc": "Antenna Noise c)",
+      "quote": "choose an aperture illumination which is nearly uniform over much of the area and then rolls off sharply near the edge"
+     }
+    ],
+    "note": "r is printed as [x^2 + (y/a)^2]; read as the elliptical radius sqrt((x - x0)^2 + (y/a)^2) about the aperture centre x0 = -47 ft (INFERRED: the square root and the centring are not printed)."
+   },
+   {
+    "name": "illum_vs_za",
+    "value": "different parts of the spherical primary are illuminated as the feed moves; at high za the illumination spills over the uphill rim onto the ground screen",
+    "unit": "",
+    "src": "BURTON",
+    "loc": "Sect. 2",
+    "quote": "Different sections of the spherical reflector are illuminated, however, depending on the source position. In order to minimize beam distortions and gain variations caused when the illuminated pattern spills over the edges of the primary surface, we constrained most of the observations to moderate zenith angles, less than 17◦",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Forward Gain",
+      "quote": "One of the major requirements is the reduction of vignetting at high zenith angles to keep the sensitivity high and the system temperature low. The feed design is offset so the aperture is larger downhill of the paraxial ray, moving the illumination away from the uphill edge of the primary."
+     },
+     {
+      "src": "EXPP",
+      "loc": "Forward Gain",
+      "quote": "At maximum zenith angle, the sensitivity will be reduced about 1.0 dB by vignetting."
+     },
+     {
+      "src": "EXPP",
+      "loc": "Antenna Noise b)",
+      "quote": "At high zenith angles, vignetting over the edge of the primary would be a contributor, but the ground screen shields almost all of the spillover energy from the ground."
+     },
+     {
+      "src": "EXPP",
+      "loc": "Table 2, Effective Aperture, 1400 MHz (ZA 15 vs ZA = 20)",
+      "quote": "1400 MHz | 11 K/Jy | 9 K/Jy"
+     },
+     {
+      "src": "GALFA",
+      "loc": "Sect. 8.2",
+      "quote": "the ground screen is only illuminated towards the edges of our declination range, near −1◦ and 38◦"
+     },
+     {
+      "src": "UPOV",
+      "loc": "Ground screen",
+      "quote": "addition of a screen 16 m high and 1 km long around the perimeter of the reflector"
+     },
+     {
+      "src": "COLLOQ",
+      "loc": "Sect. V",
+      "quote": "A 50-ft-high stainless steel ground screen around the dish made the system temperature (Tsys) far less dependent on the telescope Zenith Angle by deflecting the vignetted beam onto the sky"
+     }
+    ]
+   },
+   {
+    "name": "illum_line_feed_430",
+    "value": 305,
+    "unit": "m (430-MHz carriage-house line feed, at zenith)",
+    "src": "GUIDE",
+    "loc": "Table 1, Illuminated Area (at zenith)",
+    "quote": "430-MHz Line Feed 305 m (1000 ft)",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Sect. 2.1",
+      "quote": "This 430-MHz feed has the unique advantage of illuminating the entire reflector (at zenith), but has a bandwidth of only 10 MHz"
+     }
+    ]
+   }
+  ],
+  "pointing": [
+   {
+    "name": "zenith_limit_deg",
+    "value": 19.7,
+    "unit": "deg (pointing; 1.06-19.7 deg in tracking mode)",
+    "src": "GUIDE",
+    "loc": "Table 1, Pointing Limits, Zenith Angle",
+    "quote": "Zenith Angle 0◦ –19◦.7 (1◦.06 –19◦.7 in tracking mode)",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Sect. 2.1",
+      "quote": "can be independently positioned anywhere up to ∼ 20◦ from the vertical"
+     },
+     {
+      "src": "HEILES",
+      "loc": "Sect. 7",
+      "quote": "near Arecibo’s za limit of 20◦"
+     }
+    ]
+   },
+   {
+    "name": "azimuth_range_deg",
+    "value": [
+     0,
+     720
+    ],
+    "unit": "deg",
+    "src": "GUIDE",
+    "loc": "Table 1, Pointing Limits, Azimuth",
+    "quote": "Azimuth 0◦ –720◦"
+   },
+   {
+    "name": "dec_range",
+    "value": [
+     -1.3333,
+     38.0333
+    ],
+    "unit": "deg (-1 20 < Dec < +38 02)",
+    "src": "GUIDE",
+    "loc": "Table 1, Declination range",
+    "quote": "Declination range −1◦ 20′ < Dec < +38◦ 02′",
+    "derived": "lat -/+ 19.7 deg = -1.3565 / 38.0435 deg = -1 21.4 / +38 02.6 (agrees with GUIDE to 1.4 arcmin)",
+    "alt": [
+     {
+      "src": "ALFALFA",
+      "loc": "Sect. 1",
+      "quote": "declination limits of the Arecibo telescope, −2◦ < Decl. < +38◦",
+      "note": "rounded/conservative"
+     }
+    ]
+   },
+   {
+    "name": "slew_rates",
+    "value": {
+     "az_deg_per_min": 24,
+     "za_deg_per_min": 2.4
+    },
+    "unit": "deg/min",
+    "src": "GUIDE",
+    "loc": "Table 1, Slew Rates",
+    "quote": "Azimuth 24◦ /min Zenith Angle 2◦.4/min"
+   },
+   {
+    "name": "pointing_rms_arcsec",
+    "value": 5,
+    "unit": "arcsec rms",
+    "src": "GUIDE",
+    "loc": "Table 1",
+    "quote": "Pointing Accuracy ∼5′′ (rms)"
+   }
+  ],
+  "tracking": [
+   {
+    "name": "tracking_mechanism",
+    "value": "azimuth arm (360 deg) plus Gregorian dome and carriage house moving along the arm up to ~20 deg from vertical",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.1",
+    "quote": "on opposite sides of which a carriage house and a geodetic (Gregorian) dome can be independently positioned anywhere up to ∼ 20◦ from the vertical. Electric motors drive the azimuth arm, the Gregorian dome and the carriage house to point to and track any requested celestial position with millimeter precision (3 mm ∼ 5 arcsec)."
+   },
+   {
+    "name": "tracking_table_caption",
+    "value": "Table 2 gives the rise-to-set tracking duration",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.1",
+    "quote": "Celestial tracking duration (rise to set) is given in Table 2.",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Table 2 heading",
+      "quote": "Table 2: Tracking Time Declination Tracking Time (deg) (h:mm)"
+     }
+    ]
+   }
+  ],
+  "receivers": [
+   {
+    "name": "receiver_table_scope",
+    "value": "Table 3: name, range, Tsys, gain, SEFD, HPBW (az x za) for za below 15 deg, measured by staff",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.2",
+    "quote": "The columns of the table give the receiver name, frequency range, the typical System Temperature (Tsys ), Gain, System Equivalent Flux Density (SEFD) and Half Power Beamwidth (HPBW) for zenith angles below 15◦ (as measured by Arecibo staff.)",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Table 3 header",
+      "quote": "HPBWa,f ... Az × ZA (Arcmin)"
+     },
+     {
+      "src": "GUIDE",
+      "loc": "Table 3 note a",
+      "quote": "The HPBW in ZA increases with zenith angle."
+     }
+    ]
+   },
+   {
+    "name": "if_bandwidth_GHz",
+    "value": 1.0,
+    "unit": "GHz per polarization (maximum instantaneous, IF/fibre chain)",
+    "src": "GUIDE",
+    "loc": "Sect. 2.3",
+    "quote": "providing an instantaneous bandwidth of up to 1 GHz per polarization"
+   },
+   {
+    "name": "alfa",
+    "value": "7 feeds (hexagon + centre), dual linear, 1225-1525 MHz; beam 0 ~11 K/Jy, beams 1-6 ~8.5 K/Jy",
+    "unit": "",
+    "src": "ALFALFA",
+    "loc": "Sect. 3",
+    "quote": "their spectral response is optimized for the range 1225–1525 MHz",
+    "alt": [
+     {
+      "src": "GUIDE",
+      "loc": "Sect. 2.2",
+      "quote": "ALFA is a seven-feed survey instrument, covering a band of 1225-1525 MHz."
+     },
+     {
+      "src": "ALFALFA",
+      "loc": "Sect. 3",
+      "quote": "gain (≃ 11 K/Jy) than the peripheral beams 1–6 (gain of ≃ 8.5 K/Jy)"
+     },
+     {
+      "src": "ALFALFA",
+      "loc": "Sect. 3",
+      "quote": "a circular pattern in the sky maps on the focal plane as an ellipse of axial ratio 1.15"
+     }
+    ]
+   },
+   {
+    "name": "cbwd_note",
+    "value": "C-band wide installed July 2017, commissioning",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Table 3 note d",
+    "quote": "The C-Band Wide receiver was installed in the Gregorian Dome in July 2017, and is cur- rently (October 30, 2017) being commissioned."
+   },
+   {
+    "name": "rxt_epoch",
+    "value": "RXT Tsys column from the system check of Wed Aug 5 2020",
+    "unit": "",
+    "src": "RXT",
+    "loc": "table header",
+    "quote": "Tsys from last system check (Wed Aug 5 06:49 2020)"
+   },
+   {
+    "name": "lbw_feed_taper",
+    "value": "-16 dB edge taper (new ring-loaded L-wide horn, on the tertiary)",
+    "unit": "",
+    "src": "RXL",
+    "loc": "6. Technical Info",
+    "quote": "-16 dB edge taper compared to -12 dB"
+   }
+  ],
+  "beam_relation": [
+   {
+    "name": "hpbw_relation",
+    "value": "hpbw = K lambda / D, K = 1.02 (uniform), D = 213 x 237 m optics; geometric mean 225 m",
+    "unit": "",
+    "src": "PHB",
+    "loc": "text",
+    "quote": "hpbw=K * lambda/Diameter ... For uniform illumination on a spherical dish K=1.02.",
+    "alt": [
+     {
+      "src": "PHB",
+      "loc": "Fig 2 text",
+      "quote": "The hpbw is converted to diameter using diam=1.02*lambda/hpbw (1.02 is the constant for uniform illumination)."
+     },
+     {
+      "src": "PHB",
+      "loc": "method",
+      "quote": "The value plotted is the average hpbw (the average of the major and minor axis). The zenith angle has been limited to 5 < za < 14 degrees."
+     },
+     {
+      "src": "HEILES",
+      "loc": "Sect. 2.4",
+      "quote": "Arecibo’s theoretical gain, without blockage, is KperJy ≈ 11, which is equivalent to a uniformly illuminated circular aperture with radius 94 m."
+     }
+    ]
+   },
+   {
+    "name": "heiles_epoch",
+    "value": "Sept 2000 measurements; LBW gain falls with frequency (reflector irregularities); adjustments planned for early 2001",
+    "unit": "",
+    "src": "HEILES",
+    "loc": "Sect. 3",
+    "quote": "This is almost certainly a result of irregularities in the main reflector; a program of adjustments is planned for early 2001."
+   },
+   {
+    "name": "beam_shape_vs_uniform",
+    "value": "main beam narrower and sidelobes higher than an unblocked uniform aperture of the same effective area (blockage)",
+    "unit": "",
+    "src": "HEILES",
+    "loc": "Abstract",
+    "quote": "The main beam width is smaller and the sidelobe levels higher than for a uniformly-illuminated aperture of the same effective area."
+   }
+  ],
+  "sidelobes": [
+   {
+    "name": "first_sidelobe_peak_frac",
+    "value": {
+     "430G_0.430GHz": 0.039,
+     "LBW_1.175GHz": 0.043,
+     "LBW_1.415GHz": 0.046,
+     "LBW_1.666GHz": 0.042
+    },
+    "unit": "fraction of main-beam peak (Pn,FS), za 10 deg, Sept 2000",
+    "src": "HEILES",
+    "loc": "Table 1 column Pn,FS; definition Sect. 4.1",
+    "quote": "The peak power in the first sidelobe, as a fraction of the peak of the main beam, is Pn,FS,U,I",
+    "derived": "10 log10: 0.039 -> -14.1 dB; 0.043 -> -13.7 dB; 0.046 -> -13.4 dB; 0.042 -> -13.8 dB",
+    "alt": [
+     {
+      "src": "HEILES",
+      "loc": "Table 1",
+      "quote": "LBW 1415 B1634+269 10 .046 0.32 7.5 3.4 0.50 0.67"
+     },
+     {
+      "src": "HEILES",
+      "loc": "Sect. 3",
+      "quote": "measured during September 2000"
+     }
+    ],
+    "note": "The quoted definition carries the subscripts U,I (ideal-aperture case); Table 1 heads the same quantity Pn,FS for the observations."
+   },
+   {
+    "name": "alfa_sidelobes",
+    "value": {
+     "beam0_first_ring_db": -15,
+     "outer_beams_db": [
+      -8,
+      -7
+     ]
+    },
+    "unit": "dB below peak",
+    "src": "ALFALFA",
+    "loc": "Sect. 3",
+    "quote": "with a first sidelobe ring near 15 dB below the response at beam center",
+    "alt": [
+     {
+      "src": "ALFALFA",
+      "loc": "Sect. 3",
+      "quote": "reaching levels near 7–8 dB below peak response, on the section away from the array center"
+     }
+    ]
+   },
+   {
+    "name": "design_peak_sidelobe_db",
+    "value": {
+     "0.25GHz": -12.2,
+     "0.5GHz": -13.5,
+     "1GHz": -15.1,
+     "5GHz": -16.0
+    },
+    "unit": "dB, with blockage, ZA 15 deg (design G92-03)",
+    "src": "EXPP",
+    "loc": "Table 3 (With Blockage); Table 2 (ZA 15o column)",
+    "quote": "With Blockage | -12.2 dB | -13.5 dB | -15.1 dB | -16 dB",
+    "alt": [
+     {
+      "src": "EXPP",
+      "loc": "Table 2, Peak Sidelobe Level (ZA 15o, ZA = 20o)",
+      "quote": "Peak Sidelobe Level | 250 MHz | -12.2 dB | -11.2 dB"
+     },
+     {
+      "src": "EXPP",
+      "loc": "Sidelobe Level",
+      "quote": "The blockage increases the first sidelobe by about 2 dB (see Table 3)."
+     }
+    ]
+   }
+  ],
+  "history": [
+   {
+    "name": "first_light",
+    "value": "late 1963",
+    "unit": "",
+    "src": "COLLOQ",
+    "loc": "Sect. I",
+    "quote": "When the giant 305-m dish saw first light in late 1963"
+   },
+   {
+    "name": "construction_upgrades",
+    "value": "built 1960-63; upgraded 1972-74 and 1992-98",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2",
+    "quote": "It was constructed in 1960-63 and upgraded, first in 1972-74, and again in 1992-98."
+   },
+   {
+    "name": "gregorian_design",
+    "value": "design G92-03 adopted 28 July 1992",
+    "unit": "",
+    "src": "EXPP",
+    "loc": "Summary",
+    "quote": "adopted the shaped subreflector design known as G92-03 at their meeting on 28 July 1992"
+   },
+   {
+    "name": "ground_screen_1993",
+    "value": "ground screen completed August 1993",
+    "unit": "",
+    "src": "UPOV",
+    "loc": "Upgrading program components",
+    "quote": "Installation of a Ground Screen, to reduce noise generated by radiation from the ground - completed in August 1993"
+   },
+   {
+    "name": "alfa_installed",
+    "value": "ALFA installed April 2004",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Sect. 2.2",
+    "quote": "This was installed in April 2004."
+   },
+   {
+    "name": "hurricane_maria",
+    "value": "Sept 2017 damage to the 430-MHz line feed",
+    "unit": "",
+    "src": "GUIDE",
+    "loc": "Table 3 note g",
+    "quote": "The 430-MHz CH line feed was severely damaged by the passage of Hurricane Maria in Sept. 2017."
+   }
+  ],
+  "status": [
+   {
+    "name": "aux_cable_failure",
+    "value": "2020-08-10",
+    "unit": "date",
+    "src": "NSFD",
+    "loc": "Engineering summary",
+    "quote": "On Aug. 10, 2020, an auxiliary cable failed, slipping from its socket in one of the towers and leaving a 100-foot gash in the dish below."
+   },
+   {
+    "name": "end_of_operations",
+    "value": "August 2020 (first auxiliary-cable break)",
+    "unit": "",
+    "src": "COLLOQ",
+    "loc": "Sect. V",
+    "quote": "continued apace until August 2020, when the first auxiliary-cable break suspended operations for good"
+   },
+   {
+    "name": "main_cable_break",
+    "value": "2020-11-06",
+    "unit": "date",
+    "src": "NSFD",
+    "loc": "November 19, 2020 text",
+    "quote": "a main cable broke on the same tower Nov. 6",
+    "alt": [
+     {
+      "src": "NSFC",
+      "loc": "Background",
+      "quote": "However, a second cable broke Nov. 6."
+     }
+    ]
+   },
+   {
+    "name": "decommission_announced",
+    "value": "2020-11-19",
+    "unit": "date",
+    "src": "NSFD",
+    "loc": "News Release 20-010, November 19, 2020",
+    "quote": "the U.S. National Science Foundation will begin plans to decommission the 305-meter telescope, which for 57 years has served as a world-class resource for radio astronomy, planetary, solar system and geospace research.",
+    "alt": [
+     {
+      "src": "NSFD",
+      "loc": "heading",
+      "quote": "NSF begins planning for decommissioning of Arecibo Observatory’s 305-meter telescope due to safety concerns"
+     },
+     {
+      "src": "NSFD",
+      "loc": "dateline",
+      "quote": "November 19, 2020"
+     }
+    ]
+   },
+   {
+    "name": "collapse",
+    "value": "2020-12-01 about 07:55 AST",
+    "unit": "date/time",
+    "src": "NSFC",
+    "loc": "News Release 20-011, first paragraph",
+    "quote": "The instrument platform of the 305-meter telescope at Arecibo Observatory in Puerto Rico fell at approximately 7:55 a.m. Atlantic Standard Time Dec. 1, resulting in damage to the dish and surrounding facilities.",
+    "alt": [
+     {
+      "src": "NSFC",
+      "loc": "heading",
+      "quote": "Arecibo Observatory’s 305-meter telescope suffers collapse"
+     },
+     {
+      "src": "NSFC",
+      "loc": "dateline",
+      "quote": "December 1, 2020"
+     },
+     {
+      "src": "NSFC",
+      "loc": "investigation",
+      "quote": "Initial findings indicate that the top section of all three of the 305-meter telescope’s support towers broke off. As the 900-ton instrument platform fell, the telescope’s support cables also dropped."
+     },
+     {
+      "src": "NSFC",
+      "loc": "injuries",
+      "quote": "No injuries were reported as a result of the collapse."
+     }
+    ]
+   }
+  ]
+ },
+ "not_found": [
+  "The frequency at which GUIDE Table 3 HPBWs were measured, except lbw (1.42 GHz, RXL); cb and xb use the SEFD-note frequencies (5 and 9 GHz, INFERRED); other entries use band centres (DERIVED).",
+  "Measured first-sidelobe levels for the S, C and X receivers (only design values, EXPP Table 3; measured values exist only for 430G and LBW in HEILES, and ALFA in ALFALFA).",
+  "Per-receiver instantaneous bandwidths: only the 1 GHz per polarization IF limit (GUIDE Sect. 2.3) and the 10 MHz line-feed bandwidth are stated; bands[].bw_GHz is DERIVED.",
+  "A measured gain or illuminated-area curve versus zenith angle beyond 15 deg: only qualitative statements (BURTON, EXPP) and the design table at ZA 15 and 20 deg (EXPP Table 2); the vignetting table here is DERIVED from the design geometry.",
+  "A statement of which illuminated-aperture axis lies north-south: EXPP gives uphill-downhill (za) vs transverse; ns/ew at transit is INFERRED.",
+  "The geodetic datum of the GUIDE latitude/longitude, and the ground or dish-vertex height (GUIDE gives the centre-of-curvature height, 497 m).",
+  "The exact date of the last astronomical observation (COLLOQ: August 2020; RXT last system check Wed Aug 5 2020; aux cable failure Aug 10, 2020).",
+  "Tracking-time loss inside the 1.06 deg tracking-mode minimum za (no table declination lies within 1.06 deg of the latitude)."
+ ],
+ "conflicts": [
+  "Declination range: GUIDE -1 20 < Dec < +38 02; ALFALFA -2 < Dec < +38; DERIVED lat -/+ 19.7 deg = -1 21.4 / +38 02.6; GALFA ground-screen illumination \"near -1 and 38\".",
+  "Illuminated area: 213 x 237 m (GUIDE, PHB, OSTEN; 700 x 776 ft EXPP) vs \"about 210x240 meters\" (BURTON, rounded).",
+  "L-wide beam: 3.1 x 3.5 arcmin (GUIDE, RXL at 1.42 GHz; RXT 3.5x3.1) vs 3.1 x 3.7 at 1420 MHz (BURTON citing Heiles 1999) vs mean 3.4 at 1415 MHz (HEILES, Sept 2000; HEILES says reflector adjustments were planned for early 2001).",
+  "ALFA beam: 3.3 x 3.7 (GUIDE) vs 3.3 x 3.8 (ALFALFA; RXT 3.8x3.3).",
+  "Band edges GUIDE vs RXT: 430 0.425-0.435 vs 0.422-0.442; lbw 1.120-1.730 vs 1.15-1.73 (RXL also 1.15-1.73); cb 3.850-6.050 vs 3.85-6.00; xb 8.0-10.0 vs 7.8-10.2; sbn 2.240-2.430 vs S-narrow 2.33-2.43.",
+  "Tracking time: GUIDE Table 2 agrees with the DERIVED rise-to-set geometry (za <= 19.7 deg) to within 1 minute except Dec +5 (GUIDE 2:18 vs DERIVED 1:59) and Dec +38 (0:07 vs 0:12; this row is sensitive to the exact za limit).",
+  "Zenith-angle limit: 19.7 deg (GUIDE Table 1) vs \"up to ~20 deg from the vertical\" (GUIDE text) and \"za limit of 20 deg\" (HEILES).",
+  "Ground screen height: 16 m (UPOV; GALFA) vs 50 ft = 15.24 m (COLLOQ).",
+  "Surface accuracy: 2 mm rms (GUIDE 2017) vs 2.3 mm (EXPP, 1992 design).",
+  "Edge taper: -7 dB primary power illumination (EXPP design) vs \"geometric taper of about 9 db\" (PHB); different definitions, not reconciled in the sources.",
+  "Blockage: about 2% of the 1000-ft aperture, a 140-ft circle (EXPP design) vs 5% physical / 10% of effective area (HEILES sidelobe fit) vs 13% (HEILES HPBW-vs-wavelength fit).",
+  "Vignetting at maximum za: EXPP \"about 1.0 dB\"; EXPP Table 2 at 1400 MHz 11 -> 9 K/Jy (ZA 15 -> 20) = -0.87 dB DERIVED; the DERIVED geometric model gives -0.67 dB at 19.7 deg."
+ ]
+}
