@@ -51,6 +51,27 @@
      DEIMOS, ZShooter, Hectospec, Hectochelle, G-CLEF, ESPRESSO, UVES, X-Shooter, FEROS, HARPS, 4MOST, PFS, APOGEE,
      DESI and Via; lens for MIKE and M2FS/IFUM (one lens group in double pass as collimator and camera), IMACS,
      LDSS-3, MOSFIRE, Binospec, FORS2, MUSE and Boombox.  DEIMOS and Binospec gratings are plane REFLECTION gratings.
+   - Camera type (cam) changes only the drawing as well: a catadioptric mirror camera with an internal focus (a
+     corrector, a spherical mirror, the detector and its dewar inside the beam) for HIRES (Vogt et al. 1994),
+     Hectospec (Fabricant et al. 2005; hardware manual) and Hectochelle (Szentgyorgyi et al. 2011); a lens elsewhere.
+   - Layout values (drawing only, from the sources' layouts): Hectospec and Hectochelle are Schmidt-geometry benches,
+     an on-axis spherical collimator (tilt 0, the fiber slit inside the returning beam) with the grating at the
+     mirror's center of curvature, 2749 mm (hardware manual, as-built Zemax prescription) and 2737 mm (Szentgyorgyi
+     et al. 2011, Table 2) from the collimator; HIRES tilts its spherical collimator by 1.75 deg (Vogt et al. 1994)
+     and the collimator-to-echelle path, 2940 mm, is MEASURED from the side view of Vogt et al. Fig. 1, scaled by
+     the 4155 mm slit-to-collimator distance; the LRIS red grating sits near the telescope focal plane (Oke et al.
+     1995), so the collimator-to-grating path is set to f_col, 2000 mm.
+   - Double pass (dpass, echelle mode, drawing only): MIKE's one lens group is both collimator and camera, the
+     prisms are crossed twice and the echelle stands 400 mm (red) and 600 mm (blue) from the lens, the cameras'
+     external stop (Bernstein et al. 2003, Sec. 2.2).
+   - DEIMOS (data/layout/deimos.md): the flat tent mirror in the collimated beam folds the beam 47 deg toward the
+     slit-mask side (face 18.5 deg to the axis: DEEP2 optical model TNT_ANG 71.5 deg, tent drawing D3605; the beam
+     arrives 5.1 deg off the axis from the 4.5' field center) at 0.73 of a 2443 mm collimator-to-grating path, the
+     grating standing at the collimator's pupil image; the fold, the 0.73 and the 2443 mm are COMPUTED from those
+     sourced pieces and checked against the camera axis on drawing D0001.  The collimator tilt, -2.8 deg, is half the
+     5.7 deg between the incoming chief ray and the returned beam (the slit lies off the collimator's axis, the
+     returned beam passes inboard of the slit mask); the grating is Flipped so that the camera sits outboard of the
+     slit mask, as in the Keck layout drawing.
    - Number of objects (nObj) counts every spectrum on the detector: single-object slits 1 (HIRES, MIKE, MagE,
      FIRE, ESI, UVES, X-Shooter, ZShooter); fiber spectrographs all fibers on the slit, science, sky and calibration
      (HARPS 2, FEROS 2, ESPRESSO 4 = 2 fibers x 2 pupil slices, G-CLEF MR 3, Boombox 36, M2FS 128, Hectochelle 240,
@@ -69,7 +90,7 @@ const PRESETS = [
     id: "lris", tel: "Keck 10 m", name: "Keck / LRIS red, 600/7500, 1″",
     note: "Keck I LRIS red channel (Oke et al. 1995; Keck grating table): f_col 2000 mm, camera 305 mm, 44° camera–collimator angle, 600/7500 grating, 4k × 4k 15 µm. The preset uses a 1″ long slit; the preset's 30 objects are the average slit-mask load of the z ~ 3 surveys (25–35 per mask; Steidel et al. 2003, Cooke et al. 2005).",
     state: { mode: "grating", D: 10.95, F: 13.7,
-      g: { slitW: 1, nObj: 30, col: "mirror", W: 2000 / 13.7, fcam: 305, gType: "refl", G: 600, m: 1, lamB1: 7500, lamC: 7500, psi: 44, tAlpha: null, Nx: 4096, Ny: 4096, pix: 15 } },
+      g: { slitW: 1, nObj: 30, col: "mirror", layLen: 2000, W: 2000 / 13.7, fcam: 305, gType: "refl", G: 600, m: 1, lamB1: 7500, lamC: 7500, psi: 44, tAlpha: null, Nx: 4096, Ny: 4096, pix: 15 } },
     pub: [
       { what: "dispersion 0.80 Å/px", q: "dlpix", value: 0.80, tol: 0.05, src: "Keck LRIS grating table" },
       { what: "coverage 3275 Å", q: "span", value: 3275, info: true, src: "Keck LRIS grating table (the tabulated coverage is the tabulated dispersion × 4094 px, 3275/0.80, and the page calls both calculated: this line repeats the dispersion line)" },
@@ -81,7 +102,7 @@ const PRESETS = [
     id: "hires", tel: "Keck 10 m", name: "Keck / HIRES red XD, 0.861″",
     note: "Keck I HIRES with the red cross-disperser (Vogt et al. 1994; HIRES manual 1994; Keck pages): R2.8 echelle 52.68 /mm at 70.5°, in plane with 2θ = 10°, 250 /mm cross-disperser turning 40°, f_col 4155 mm, camera 763 mm, 3-chip 15 µm mosaic (gaps not modeled). Central wavelength chosen, not sourced.",
     state: { mode: "echelle", D: 10.95, F: 13.7,
-      e: { slitW: 0.861, nObj: 1, col: "mirror", W: 4154.7 / 13.7, fcam: 762.7, eG: 52.68, eDelta: 70.5, gamma: 0, theta: 5, xd: "grating", xG: 250, xPsi: 40,
+      e: { slitW: 0.861, nObj: 1, col: "mirror", cam: "mirror", colTilt: 1.75, layLen: 2940, W: 4154.7 / 13.7, fcam: 762.7, eG: 52.68, eDelta: 70.5, gamma: 0, theta: 5, xd: "grating", xG: 250, xPsi: 40,
            xGlass: "silica", xA: 40, xPasses: 1, lamC: 6000, Nx: 4096, Ny: 6144, pix: 15 } },
     pub: [
       { what: "R (calculated) 48,000 at 0.861″, slit-limited", q: "Rs", value: 48000, tol: 0.05, src: "Keck HIRES slit table, calculated column (R × slit = 40,800–41,300″ across the table's rows; measured with the red cross-disperser: 50,000)" },
@@ -94,7 +115,7 @@ const PRESETS = [
     id: "mikered", tel: "Magellan 6.5 m", name: "Magellan / MIKE red, 1″", inst: "MIKE", setting: "red, 1″",
     note: "Magellan Clay MIKE red arm (Bernstein et al. 2003 manuscript; LCO manual): R2 echelle 52.6 /mm at 63.5°, quasi-Littrow (angles not published: 0 here), double-pass 500 mm camera/collimator at f/3.3, one 47° PBM2 prism in double pass, 2k × 4k 15 µm. Central wavelength = middle of the LCO standard setting (the prism angle is not published, so where the orders fall is not either).",
     state: { mode: "echelle", D: 6.5, F: 500 / 150,
-      e: { slitW: 1, nObj: 1, col: "lens", W: 150, fcam: 500, eG: 52.6, eDelta: 63.5, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
+      e: { slitW: 1, nObj: 1, col: "lens", dpass: true, layLen: 400, W: 150, fcam: 500, eG: 52.6, eDelta: 63.5, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
            xGlass: "PBM2Y", xA: 47, xPasses: 2, lamC: 6750, Nx: 4096, Ny: 2048, pix: 15 } },
     pub: [
       { what: "R 19,000 at 1″ (design, slit-limited)", q: "Rs", value: 19000, tol: 0.08, src: "Bernstein et al. 2003 (54,000 at 0.35″, the same R × slit; LCO manual: 22,000)" },
@@ -107,7 +128,7 @@ const PRESETS = [
     id: "mikeblue", tel: "Magellan 6.5 m", name: "Magellan / MIKE blue, 1″", inst: "MIKE", setting: "blue, 1″",
     note: "Magellan Clay MIKE blue arm (Bernstein et al. 2003 manuscript): R2.6 echelle 52.7 /mm at 69.0°, quasi-Littrow (angles not published: 0 here), double-pass 550 mm camera/collimator, two 38° fused-silica prisms in double pass (four prism passes, each at minimum deviation: the prism angles are not published), 2k × 4k 15 µm. Central wavelength = middle of the LCO standard setting.",
     state: { mode: "echelle", D: 6.5, F: 550 / 150,
-      e: { slitW: 1, nObj: 1, col: "lens", W: 150, fcam: 550, eG: 52.7, eDelta: 69.0, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
+      e: { slitW: 1, nObj: 1, col: "lens", dpass: true, layLen: 600, W: 150, fcam: 550, eG: 52.7, eDelta: 69.0, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
            xGlass: "silica", xA: 38, xPasses: 4, lamC: 4100, Nx: 4096, Ny: 2048, pix: 15 } },
     pub: [
       { what: "R 25,000 at 1″ (design, slit-limited)", q: "Rs", value: 25000, tol: 0.08, src: "Bernstein et al. 2003 (71,000 at 0.35″, the same R × slit; LCO manual: 28,000)" },
@@ -263,7 +284,7 @@ const PRESETS = [
     id: "deimos", tel: "Keck 10 m", name: "Keck / DEIMOS, 1200G, 0.75″",
     note: "Keck II DEIMOS (Keck DEIMOS pages; Faber's 1995 grating table): collimator mirror 86.50 in, beam 6.33 in (f/13.67 on the 10.95 m primary), camera 15.00 in, fixed camera–collimator angle 44.451°, 1200G at λc = 8000 Å (blaze 7500 Å, the value consistent with the listed 26.7° blaze angle), 8192 × 8192 mosaic of 15 µm pixels (CCD gaps not modeled).",
     state: { mode: "grating", D: 10.95, F: 86.50 / 6.33,
-      g: { slitW: 0.75, nObj: 129, col: "mirror", W: 6.33 * 25.4, fcam: 15.00 * 25.4, gType: "refl", G: 1200, m: 1, lamB1: 7500, lamC: 8000, psi: 44.451, tAlpha: null,
+      g: { slitW: 0.75, nObj: 129, col: "mirror", colTilt: -2.8, layLen: 2443, foldOn: true, foldAng: 313, foldPos: 0.73, gFlip: true, W: 6.33 * 25.4, fcam: 15.00 * 25.4, gType: "refl", G: 1200, m: 1, lamB1: 7500, lamC: 8000, psi: 44.451, tAlpha: null,
            Nx: 8192, Ny: 8192, pix: 15 } },
     pub: [
       { what: "0.324 Å/px", q: "dlpix", value: 0.324, tol: 0.02, src: "Faber 1995 grating table, 1200 l/mm at 8000 Å" },
@@ -342,7 +363,7 @@ const PRESETS = [
     id: "hectospec", tel: "MMT 6.5 m", name: "MMT / Hectospec, 270 gpm, Hα",
     note: "MMT Hectospec (Fabricant et al. 2005; Hectospec manuals): 250 µm (1.5″) fibers at f/5.3 entered as the slit of equal line width (1.30″), spherical collimator mirror, 259 mm beam, catadioptric camera 397 mm, fixed 35° camera–collimator angle, 270 gpm reflection grating (blaze 5200 Å) set up at Hα (α = 22.83°, β = −12.17°), two E2V 42-90 CCDs 4608 × 2048 of 13.5 µm (4608 along the dispersion), 300 fibers. Decommissioned in 2026.",
     state: { mode: "grating", D: 6.5, F: 5.3,
-      g: { slitW: S3 * 1.5, nObj: 300, col: "mirror", W: 259, fcam: 397, gType: "refl", G: 270, m: 1, lamB1: 5200, lamC: 6563, psi: 35, tAlpha: null,
+      g: { slitW: S3 * 1.5, nObj: 300, col: "mirror", cam: "mirror", colTilt: 0, layLen: 2749, W: 259, fcam: 397, gType: "refl", G: 270, m: 1, lamB1: 5200, lamC: 6563, psi: 35, tAlpha: null,
            Nx: 4608, Ny: 4096, pix: 13.5 } },
     pub: [
       { what: "1.21 Å/px", q: "dlpix", value: 1.21, tol: 0.03, src: "Hectospec observers manual (F05: 1.2)" },
@@ -357,7 +378,7 @@ const PRESETS = [
     id: "hectochelle", tel: "MMT 6.5 m", name: "MMT / Hectochelle, RV31",
     note: "MMT Hectochelle (Szentgyorgyi et al. 2011; observers guide 2023): 250 µm fibers (1.47″ at f/5.4 on 6.5 m; 1.5″ in the guide) entered as the slit of equal line width (1.27″), spherical Schmidt collimator, 254 mm beam, catadioptric camera 25.3 in (642.6 mm, observers guide; the paper's 0.49 reduction implies 670.6 mm), 110 /mm R2 echelle (64.5°) used in ONE order selected by an interference filter: order 31 with the RV31 filter (5230 Å), 15° between the beams (α 72°, β 57°), two E2V 42-90 CCDs 4608 × 2048 of 13.5 µm, 240 fibers. Decommissioned in 2026.",
     state: { mode: "grating", D: 6.5, F: 5.4,
-      g: { slitW: S3 * 0.250 / (5.4 * 6500) * 206264.806, nObj: 240, col: "mirror", W: 254, fcam: 25.3 * 25.4, gType: "refl", G: 110, m: 31, lamB1: 2 * Math.sin(64.5 * Math.PI / 180) / 110 * 1e7, lamC: 5230, psi: 15, tAlpha: null,
+      g: { slitW: S3 * 0.250 / (5.4 * 6500) * 206264.806, nObj: 240, col: "mirror", cam: "mirror", colTilt: 0, layLen: 2737, W: 254, fcam: 25.3 * 25.4, gType: "refl", G: 110, m: 31, lamB1: 2 * Math.sin(64.5 * Math.PI / 180) / 110 * 1e7, lamC: 5230, psi: 15, tAlpha: null,
            Nx: 4608, Ny: 4096, pix: 13.5 } },
     pub: [
       { what: "nominal R 32,000 at 5200 Å, from the fiber-image diameter", q: "Rdiam", value: 32000, tol: 0.08, src: "Szentgyorgyi et al. 2011" },

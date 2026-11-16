@@ -209,7 +209,8 @@ body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, bod
 .tright canvas{flex:1 1 0;height:0;min-height:0}
 .tcontrols{grid-template-columns:repeat(2,minmax(0,1fr))}
 body.inst-tel #stats{display:none}                  /* no summary strip in the Telescopes mode: the figures are in the boxes */
-body.inst-int #stats, body.inst-int .presetnote{display:none}      /* the Interferometer: no strip, and the note on optical presets does not apply */
+body.inst-int #stats, body.inst-int .pnote{display:none}      /* the Interferometer: no strip, and the note on optical presets does not apply (the pedagogical disclaimer stays) */
+.pedonly{font-style:normal;color:var(--ink)}
 .rcontrols{grid-template-columns:repeat(3,minmax(0,1fr))}
 .rcontrols .rd b{white-space:normal}
 .acap{left:var(--capLA,26px)}

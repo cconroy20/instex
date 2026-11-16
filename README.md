@@ -42,11 +42,25 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   on the page for either collimator, the far side of 180° turning clockwise; everything beyond it is drawn
   reflected about it) and Fold position (fraction of the way from the collimator to the grating), Grating turns
   light (As drawn | Flipped: the grating tilted the other way, so it turns the light to the other side; the
-  grating and everything after it reflected about the collimated beam's axis), Labels and marks (Show | Hide: the text,
+  grating and everything after it reflected about the collimated beam's axis), Camera (Lens | Mirror: see below),
+  Labels and marks (Show | Hide: the text,
   the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
   ~2.85 m collimated beam, collimator tilt 0, grating Flipped: the fold and the grating turn the light the same
   way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
-  changes the drawing only (a real mirror is achromatic, a real lens is not). Labels are placed last
+  changes the drawing only (a real mirror is achromatic, a real lens is not). The Camera option in Mod layout (Lens | Mirror)
+  is drawing-only as well and, like the other Mod layout options, keeps a preset's name: Mirror draws a catadioptric camera with an internal focus (HIRES, Hectospec, Hectochelle), a
+  weak two-lens corrector where the lens would stand, a spherical mirror 3.3 f_cam beyond the corrector, and the focus
+  1.08 f_cam in front of the mirror (the Hectospec and Hectochelle prescriptions give 3.2–3.5 and 1.07–1.08), where the
+  detector, its field flattener and a dewar 0.85 L_x wide and 0.3 f_cam long sit inside the arriving beam; each
+  wavelength's bundle is drawn less the dewar's shadow and returns as a hollow cone, and rays that meet the dewar
+  stop there. Spatial and 3D draw the mirror camera as a lens. Presets carry layout values where the sources give
+  them (presets.js header: Hectospec and Hectochelle tilt 0 with the grating at the collimator's center of curvature;
+  HIRES tilt 1.75° and a 2.94 m echelle path measured from Vogt et al. Fig. 1; LRIS a 2 m path). Double pass
+  (echelle mode, key e.dpass, set by the MIKE presets; no control yet): one lens is drawn as both collimator and
+  camera, the echelle at the collimated beam length from that lens (MIKE 400 and 600 mm, the cameras' external stop),
+  the cross-disperser near the echelle and crossed by both beams, and the returning beam drawn a few degrees off the
+  incoming one so that the detector clears the slit (in the instrument the two sit side by side across the orders,
+  out of the page; the caption says so). Labels are placed last
   (2026-10-18): each candidate position is scored by what is already drawn under the label, read back from the
   canvas (darkness × opacity over 2 × 2 px cells through a summed-area table; pale beam and glass tints count a
   little), by any overlap with a label already placed (heavily), and by its rank in the label's own list; a label
@@ -78,7 +92,7 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   above: white light as gray rays, then seven wavelengths as colored rays (matplotlib plasma 0.04–0.80, indigo
   short to orange-gold long, lightness rising) meeting at their foci on the detector, with the W arrow, the
   grating normal with α and β, and each element's key number. Spatial is the plane that holds the slit length,
-  unfolded onto one axis at λc (a mirror collimator drawn as a lens; the fold, flip and tilt options do not
+  unfolded onto one axis at λc (a mirror collimator or camera drawn as a lens; the fold, flip and tilt options do not
   apply). Slit points (control at the drawing's top left): 3 fixed (the two ends of the recorded slit length,
   detector height × f_col / f_cam, and its center) or 1 free (a single point, dragged along the slit or by its
   image along the detector); colored brick (top) / gray (center) / teal (bottom), each leaving the collimator as a parallel bundle at slope −h / f_col whose

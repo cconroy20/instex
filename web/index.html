@@ -18,7 +18,7 @@
       <select id="preset"></select></label>
     <label class="presetlab" id="settingLab" for="setting" title="The instrument's settings: its arms, channels, gratings, bands or cameras." hidden>Setting
       <select id="setting"></select></label>
-    <span class="presetnote">Presets approximate the instrument's optical characteristics, not the detailed, as-built optical layout.</span>
+    <span class="presetnote"><span class="pedonly">For pedagogical use only.</span> <span class="pnote">Presets approximate the instrument's optical characteristics, not the detailed, as-built optical layout.</span></span>
     <button id="refsBtn" class="ghost" type="button" title="The sources of the selected preset's numbers, and of the model.">References</button>
     <button id="aboutBtn" class="ghost" type="button" title="About the model: how the numbers are computed, and what the model leaves out.">About</button>
     <button id="reset" class="ghost" type="button" title="Back to the defaults for the whole instrument: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset all</button>
@@ -62,6 +62,8 @@
         </div>
         <div class="caserow" title="Which way the grating turns the light. Flipped tilts the grating the other way about the incoming beam, so the diffracted beam, camera, and detector move to the other side. The flipped layout is a mirror image of the default with the same numbers; the switch changes only the drawing."><span>Grating turns light</span>
           <span class="seg sm"><button id="gfOff" type="button">As drawn</button><button id="gfOn" type="button">Flipped</button></span></div>
+        <div class="caserow" title="Camera: a lens (refracting), or a catadioptric mirror camera with an internal focus (HIRES, Hectospec, Hectochelle): a weak corrector, then a spherical mirror that returns the light to a focus inside the arriving beam, where the detector and its dewar block the middle of the beam. Both are ideal here, so the camera type changes only the drawing."><span>Camera</span>
+          <span class="seg sm" id="camSeg"><button id="kLens" type="button">Lens</button><button id="kMirror" type="button">Mirror</button></span></div>
         <div class="caserow" title="Show or hide the text and construction marks: labels, numbers, the beam diameter W, the grating normal with α and β, and the scale bar. Hidden leaves the optics and the rays."><span>Labels and marks</span>
           <span class="seg sm"><button id="anOn" type="button">Show</button><button id="anOff" type="button">Hide</button></span></div>
       </div>

@@ -15,9 +15,9 @@ window.addEventListener("error", e => {
 const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
-  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
+  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15 },
-  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
+  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, xd: "grating", xG: 300, xPsi: 10,
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15 },
 };
@@ -99,7 +99,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos"]);
+const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass"]);
 
 function markCustom() {
   presetId = "custom";
@@ -151,6 +151,7 @@ const segs = [
     S.g.gKind = v; aimGrism(l0);                      // keep the undeviated wavelength where it was
   }),
   bindSeg([["cLens", "lens"], ["cMirror", "mirror"]], () => M().col, v => { M().col = v; }),
+  bindSeg([["kLens", "lens"], ["kMirror", "mirror"]], () => (M().cam === "mirror" ? "mirror" : "lens"), v => { M().cam = v; }, true),
   bindSeg([["foOff", false], ["foOn", true]], () => !!M().foldOn, v => { M().foldOn = v; }, true),
   bindSeg([["gfOff", false], ["gfOn", true]], () => !!M().gFlip, v => { M().gFlip = v; }, true),
   bindSeg([["anOn", true], ["anOff", false]], () => M().annot !== false, v => { M().annot = v; }, true),
@@ -298,7 +299,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, xd: m.xd, xG: m.xG, xPsi: m.xPsi,
@@ -327,7 +328,7 @@ function writeHash() {
 }
 // keys that must be positive, and the allowed values of the string-valued keys
 const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA"]);
-const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], view: ["spectral", "spatial", "3d"],
+const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
   const h = location.hash.slice(1);
@@ -526,7 +527,16 @@ function drawLayout(Dz, P) {
   const tg = v2(Math.sin(a), Math.cos(a));                       // along the grating surface
   const Fp = addv(Gc, sc(tg, W / (2 * Math.cos(a)))), Fm = addv(Gc, sc(tg, -W / (2 * Math.cos(a))));
   let ac, xd;
-  if (ech) {
+  // Double pass (MIKE): one lens is both collimator and camera.  The beams overlap in the echelle's dispersion plane
+  // (the slit sits beside the detector, across the orders); the returning beam is drawn at the small angle dpPsi
+  // that puts the detector clear of the slit, and the echelle at dpD1 from the lens.
+  const dpass = ech && !!P.dpass;
+  const dpD1Auto = Math.max(1.6 * W, 0.8 * fcol), dpD1 = P.layLen > 0 ? P.layLen : dpD1Auto;
+  const dpPsi = dpass ? Math.atan((0.62 * Dz.Lx + 0.05 * fcam) / (dpD1 + fcam)) : 0;
+  if (dpass) {
+    ac = v2(-Math.cos(dpPsi), -Math.sin(dpPsi));
+    $("lSub").textContent = "Double pass: one lens is both collimator and camera. The beams overlap in this plane; the returning beam is drawn " + (dpPsi / IX.DEG).toFixed(1) + "° off so that the detector clears the slit, which sits beside the detector out of the page.";
+  } else if (ech) {
     const psiD = 30 * IX.DEG;                                     // schematic: the real separation is out of the plane
     ac = v2(-Math.cos(psiD), Math.sin(psiD));
     const th = Math.abs(P.theta || 0);
@@ -557,37 +567,81 @@ function drawLayout(Dz, P) {
     return { k, l, X, b: addv(sc(ac, Math.cos(ph)), sc(xd, Math.sin(ph))) };
   });
   const Wp = Math.max(W, Dz.Wp);
+  // A mirror camera (catadioptric with an internal focus, as in HIRES, Hectospec and Hectochelle): a weak two-lens
+  // corrector where a lens camera would stand, a spherical mirror farther along the arm, and the focus back inside
+  // the arriving beam, where the detector and its dewar block the middle of that beam.  Drawing only: the image
+  // scale is f_cam either way.  The spacings follow the Hectospec and Hectochelle prescriptions (the mirror 3.2 and
+  // 3.5 f_cam past the corrector, the focus 1.08 and 1.07 f_cam in front of the mirror, the second corrector lens
+  // 0.29 and 0.26 f_cam past the first).
+  const camMir = P.cam === "mirror";
+  const LmC = 3.3 * fcam, fFoc = 1.08 * fcam, Rm = 2 * fFoc, dK2 = 0.27 * fcam;
+  const dDet = camMir ? LmC - fFoc : fcam;                       // camera (corrector) to the detector, along the arm
   // spacing between the elements is not part of the design: choose it so the camera arm clears
   // the incoming beam (when the camera-collimator angle allows) and the camera clears the collimator
   const tf = Math.tan(Math.max(...beams.map(bm => Math.abs(Math.atan(bm.X / fcam)))));
   const sinPsi = Math.abs(ac[1]), cosPsi = -ac[0];
   let d2 = 0.6 * Wp + 0.1 * fcam + (ech ? 1.2 * Wp : 0) + (trans || grism ? 0.8 * Wp + 0.1 * fcam : 0);
   if (sinPsi > 0.2 && cosPsi > 0) for (let it = 0; it < 3; it++) d2 = Math.max(d2, (0.55 * W + 0.55 * Wp + d2 * tf + 0.25 * W) / sinPsi);
-  if (cosPsi > 0) d1 = Math.max(d1, d2 * cosPsi + 0.25 * W + 0.06 * fcol);
+  if (cosPsi > 0) d1 = Math.max(d1, (d2 + (camMir ? LmC : 0)) * cosPsi + 0.25 * W + 0.06 * fcol);
   if (P.foldOn) d1 = Math.max(d1, 2.2 * W);                    // room for a fold mirror along the way
-  lastD1Auto = d1;
+  lastD1Auto = dpass ? dpD1Auto : d1;
   if (P.layLen > 0) d1 = P.layLen;                               // the Layout option: collimated beam length
+  if (dpass) { d1 = dpD1; d2 = d1 / Math.cos(dpPsi); }
   Gc[0] = fcol + d1;
   const Fp2 = addv(Gc, sc(tg, W / (2 * Math.cos(a)))), Fm2 = addv(Gc, sc(tg, -W / (2 * Math.cos(a))));
   Fp[0] = Fp2[0]; Fp[1] = Fp2[1]; Fm[0] = Fm2[0]; Fm[1] = Fm2[1];
   const C = addv(Gc, sc(ac, d2));
-  const XDc = ech ? addv(Gc, sc(ac, d2 * 0.5)) : null;
+  const XDc = ech ? addv(Gc, sc(ac, d2 * (dpass ? 0.3 : 0.5))) : null;      // double pass: the prism near the echelle (Bernstein et al. 2003)
   // beam edges where they meet the camera plane
   const hit = (p, b) => { const t = dt(addv(C, sc(p, -1)), ac) / dt(b, ac); return addv(p, sc(b, t)); };
-  for (const bm of beams) { bm.Ep = hit(Fp, bm.b); bm.Em = hit(Fm, bm.b); bm.Q = addv(addv(C, sc(ac, fcam)), sc(xd, bm.X)); }
+  for (const bm of beams) { bm.Ep = hit(Fp, bm.b); bm.Em = hit(Fm, bm.b); bm.Q = addv(addv(C, sc(ac, dDet)), sc(xd, bm.X)); }
   // the rays drawn: NR wavelengths spanning the detector (grating mode) or the central order (echelle mode)
   const NR = ech ? 5 : 7, lR0 = fan[0][1], lR1 = fan[fan.length - 1][1], mRay = fan[0][2], rays = [];
   for (let j = 0; j < NR; j++) {
     const p = Dz.pos(lR0 + (lR1 - lR0) * j / (NR - 1), mRay);
     if (!p) continue;
     const ph = Math.atan(p[0] / fcam);
-    rays.push({ t: j / (NR - 1), X: p[0], b: addv(sc(ac, Math.cos(ph)), sc(xd, Math.sin(ph))), Q: addv(addv(C, sc(ac, fcam)), sc(xd, p[0])) });
+    rays.push({ t: j / (NR - 1), X: p[0], b: addv(sc(ac, Math.cos(ph)), sc(xd, Math.sin(ph))), Q: addv(addv(C, sc(ac, dDet)), sc(xd, p[0])) });
   }
-  const Lx = Dz.Lx, Dc = addv(C, sc(ac, fcam));
+  const Lx = Dz.Lx, Dc = addv(C, sc(ac, dDet));
   const det0 = addv(Dc, sc(xd, -Lx / 2)), det1 = addv(Dc, sc(xd, Lx / 2));
   let lensHalf = 0;
   for (const bm of beams) for (const E of [bm.Ep, bm.Em]) lensHalf = Math.max(lensHalf, Math.abs(dt(addv(E, sc(C, -1)), xd)));
   lensHalf *= 1.06;
+  // the mirror camera's parts (see camMir above): the second corrector lens, the spherical mirror (center of
+  // curvature Ccc, radius Rm = 2 x the focus distance), the dewar behind the detector (toward the corrector) and the
+  // field flattener in front of the detector, which is also the dewar window
+  let MIR = null;
+  if (camMir) {
+    const Mc = addv(C, sc(ac, LmC)), Ccc = addv(Mc, sc(ac, -Rm)), uv = p => { const q = addv(p, sc(C, -1)); return [dt(q, ac), dt(q, xd)]; };
+    const mhit = (p, b) => { const q = addv(p, sc(Ccc, -1)), qb = dt(q, b); return addv(p, sc(b, -qb + Math.sqrt(Math.max(0, qb * qb - dt(q, q) + Rm * Rm)))); };
+    let half = 0.53 * Wp, half2 = lensHalf;
+    for (const bm of beams) for (const F of [Fp, Fm]) {
+      half = Math.max(half, 1.06 * Math.abs(uv(mhit(F, bm.b))[1]));
+      const t = (dK2 - uv(F)[0]) / dt(bm.b, ac);
+      half2 = Math.max(half2, 1.06 * Math.abs(uv(addv(F, sc(bm.b, t)))[1]));
+    }
+    const psM = Math.asin(Math.min(0.95, half / Rm));
+    const arc = Array.from({ length: 41 }, (_, k) => { const ps = psM * (1 - 2 * k / 40); return addv(Ccc, addv(sc(ac, Rm * Math.cos(ps)), sc(xd, Rm * Math.sin(ps)))); });
+    const dewL = 0.3 * fcam, dewH = 0.85 * Lx, u0 = dDet - dewL;
+    const at = (u, v) => addv(addv(C, sc(ac, u)), sc(xd, v));
+    const dewar = [at(u0, dewH), at(dDet, dewH), at(dDet, -dewH), at(u0, -dewH)];
+    // where a ray from p along b first meets the dewar (its back face, toward the corrector, or a side), or null
+    const block = (p, b) => {
+      const [pu, pv] = uv(p), bu = dt(b, ac), bv = dt(b, xd);
+      if (bu <= 0) return null;
+      const t0 = (u0 - pu) / bu, v0 = pv + t0 * bv;
+      if (t0 > 0 && Math.abs(v0) <= dewH) return addv(p, sc(b, t0));
+      if (Math.abs(bv) > 1e-12) for (const sg of [1, -1]) {
+        const ts = (sg * dewH - pv) / bv, us = pu + ts * bu;
+        if (ts > 0 && us >= u0 && us <= dDet) return addv(p, sc(b, ts));
+      }
+      return null;
+    };
+    // the dewar's shadow in a bundle running along b: from the dewar's back corners to the mirror
+    const shadow = b => { const B0 = at(u0, dewH), B1 = at(u0, -dewH); return [B0, B1, mhit(B1, b), mhit(B0, b)]; };
+    MIR = { Mc, mhit, half, half2, arc, dewar, dewL, dewH, block, shadow, C2: addv(C, sc(ac, dK2)), Fl: addv(Dc, sc(ac, 0.05 * fcam)) };
+  }
   const Lt = 0.28 * fcol, tHalf = Lt / (2 * P.F);
   // A mirror collimator folds the beam: everything after it is the unfolded drawing reflected
   // about the mirror, a line through (f_col, 0) tilted by tau, chosen so the returning beam clears
@@ -633,7 +687,7 @@ function drawLayout(Dz, P) {
     SP = { mag, Ly, hMax, xG, xC, xD, fields, free, colHalf, camHalf,
       box: [v2(-Lt, hMax + tilt * Lt + tHalf), v2(-Lt, -hMax - tilt * Lt - tHalf), v2(fcol, colHalf), v2(fcol, -colHalf),
             v2(xC, camHalf), v2(xC, -camHalf), v2(xD + 0.04 * fcam, Ly / 2), v2(xD + 0.04 * fcam, -Ly / 2)] };
-    $("lSub").textContent = (free ? "drag the point along the slit; " : "") + "along the slit, unfolded (a mirror drawn as a lens), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
+    $("lSub").textContent = (free ? "drag the point along the slit; " : "") + "along the slit, unfolded (mirrors drawn as lenses), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
   }
   // ---- 3D view (grating mode): the dispersion-plane drawing above, with the slit direction as a third axis.
   // World coordinates: x, y the drawing's (after the folds, which are reflections in the dispersion plane and
@@ -777,7 +831,8 @@ function drawLayout(Dz, P) {
   }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
-  const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q)].map(Mpost);
+  const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q),
+    ...(MIR ? [MIR.arc[0], MIR.arc[MIR.arc.length - 1], addv(MIR.Mc, sc(ac, 0.04 * MIR.half)), ...MIR.dewar, addv(MIR.C2, sc(xd, MIR.half2)), addv(MIR.C2, sc(xd, -MIR.half2))] : [])].map(Mpost);
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
   for (const p of view3d ? box3 : spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
@@ -1012,13 +1067,32 @@ function drawLayout(Dz, P) {
   // dispersed light: per wavelength a faint band and three rays (the beam's two edges and its center) from the
   // grating through the camera to their common focus on the detector
   const gPt0 = y => addv(Gc, sc(tg, y / Math.cos(a)));
-  for (const r of rays) {
-    const c = rampRGB(r.t), Ea = hit(Fp, r.b), Eb = hit(Fm, r.b);
-    poly([Fp, Ea, Eb, Fm], rgba(c, 0.045), null);
-    poly([Ea, r.Q, Eb], rgba(c, 0.07), null);
+  if (MIR) {
+    // a mirror camera: each wavelength's bundle runs through the corrector to the mirror, less the dewar's shadow,
+    // and comes back as a hollow cone to its focus on the detector (canvas clip + even-odd fill cut the shadow out)
+    const cut = (outer, inner, fill) => {
+      const trace = ps => ps.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
+      g.save(); g.beginPath(); trace(outer); g.closePath(); g.clip();
+      g.beginPath(); trace(outer); g.closePath(); trace(inner); g.closePath(); g.fillStyle = fill; g.fill("evenodd"); g.restore();
+    };
+    for (const r of rays) {
+      const c = rampRGB(r.t), Ma = MIR.mhit(Fp, r.b), Mb = MIR.mhit(Fm, r.b), sh = MIR.shadow(r.b);
+      cut([Fp, Ma, Mb, Fm], sh, rgba(c, 0.045));
+      cut([Ma, r.Q, Mb], [sh[2], r.Q, sh[3]], rgba(c, 0.07));
+    }
+    // the rays: on to the mirror and back to the focus, or stopped where they meet the dewar
+    const ray = (F0, r, col, lw) => { const B = MIR.block(F0, r.b); path(B ? [F0, B] : [F0, MIR.mhit(F0, r.b), r.Q], col, lw); };
+    for (const r of rays) for (const y of [-W / 2, W / 2]) ray(gPt0(y), r, rgba(rampRGB(r.t), 0.6), 0.9);
+    for (const r of rays) ray(Gc, r, rgba(rampRGB(r.t), 0.95), 1.5);
+  } else {
+    for (const r of rays) {
+      const c = rampRGB(r.t), Ea = hit(Fp, r.b), Eb = hit(Fm, r.b);
+      poly([Fp, Ea, Eb, Fm], rgba(c, 0.045), null);
+      poly([Ea, r.Q, Eb], rgba(c, 0.07), null);
+    }
+    for (const r of rays) for (const y of [-W / 2, W / 2]) { const F0 = gPt0(y); path([F0, hit(F0, r.b), r.Q], rgba(rampRGB(r.t), 0.6), 0.9); }
+    for (const r of rays) path([Gc, hit(Gc, r.b), r.Q], rgba(rampRGB(r.t), 0.95), 1.5);
   }
-  for (const r of rays) for (const y of [-W / 2, W / 2]) { const F0 = gPt0(y); path([F0, hit(F0, r.b), r.Q], rgba(rampRGB(r.t), 0.6), 0.9); }
-  for (const r of rays) path([Gc, hit(Gc, r.b), r.Q], rgba(rampRGB(r.t), 0.95), 1.5);
   fold = false;
   // slit: two jaws
   {
@@ -1033,6 +1107,10 @@ function drawLayout(Dz, P) {
     steel(() => { g.beginPath(); g.moveTo(e0[0], e0[1]); g.quadraticCurveTo(cc[0], cc[1], e1[0], e1[1]); }, e0, e1);
     const cs = ends(e0, e1);
     req(3, "collimator", [cs[1], cs[0], cs[2], cs[3]], INK, 13, { sub: "f = " + mm(fcol) });
+  } else if (dpass) {
+    let lo = -W / 2, hi = W / 2;
+    for (const bm of beams) for (const E of [bm.Ep, bm.Em]) { const y = Mpost(E)[1]; lo = Math.min(lo, y); hi = Math.max(hi, y); }
+    lens(v2(fcol, (lo + hi) / 2), v2(1, 0), (hi - lo) / 2 * 1.06, "collimator and camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), true);
   } else lens(v2(fcol, 0), v2(1, 0), W / 2 * 1.06, "collimator", "f = " + mm(fcol), true);
   if (foldOn) {
     // the flat fold mirror, hatched on the back (the side away from the arriving beam)
@@ -1050,6 +1128,10 @@ function drawLayout(Dz, P) {
     const pp = v2(-ac[1], ac[0]);
     let half = 0;
     for (const bm of beams) for (const F of [Fp, Fm]) { const t = dt(addv(XDc, sc(F, -1)), ac) / dt(bm.b, ac); const E = addv(F, sc(bm.b, t)); half = Math.max(half, Math.abs(dt(addv(E, sc(XDc, -1)), pp))); }
+    if (dpass) for (const y of [-W / 2, W / 2]) {               // the incoming beam crosses the prism too
+      const E = v2(XDc[0] - (y - XDc[1]) * ac[1] / ac[0], y);
+      half = Math.max(half, Math.abs(dt(addv(E, sc(XDc, -1)), pp)));
+    }
     half *= 1.08;
     const th = Math.max(0.05 * half, 5 / s);
     const c0 = addv(XDc, sc(pp, half)), c1 = addv(XDc, sc(pp, -half));
@@ -1061,7 +1143,39 @@ function drawLayout(Dz, P) {
     }
     req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : sig(P.xG, 3) + " /mm" });
   }
-  lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false);
+  if (!MIR) { if (!dpass) lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false); }   // double pass: the collimator lens
+  else {
+    // a thin element across the axis at c (light arriving along +axis): the front face bulges toward the light by
+    // sagA, the back face by sagB away from the light (sagB < 0: toward the light, a meniscus); fractions of the
+    // element's length on the screen, edge thickness teF likewise
+    const element = (c, axis, half, sagA, sagB, teF) => {
+      const perp2 = v2(-axis[1], axis[0]), q0 = T(addv(c, sc(perp2, half))), q1 = T(addv(c, sc(perp2, -half)));
+      const o = T(c), o1 = T(addv(c, sc(axis, 10 / s))), al = Math.hypot(o1[0] - o[0], o1[1] - o[1]) || 1, ax = [(o1[0] - o[0]) / al, (o1[1] - o[1]) / al];
+      const ql = Math.hypot(q1[0] - q0[0], q1[1] - q0[1]) || 1, te = Math.max(2, teF * ql), mx = (q0[0] + q1[0]) / 2, my = (q0[1] + q1[1]) / 2;
+      const off = (p, d) => [p[0] + ax[0] * d, p[1] + ax[1] * d];
+      const a0 = off(q0, -te / 2), a1 = off(q1, -te / 2), b0 = off(q0, te / 2), b1 = off(q1, te / 2);
+      const ka = off([mx, my], -te / 2 - 2 * sagA * ql), kb = off([mx, my], te / 2 + 2 * sagB * ql);
+      g.beginPath(); g.moveTo(a0[0], a0[1]); g.quadraticCurveTo(ka[0], ka[1], a1[0], a1[1]);
+      g.lineTo(b1[0], b1[1]); g.quadraticCurveTo(kb[0], kb[1], b0[0], b0[1]); g.closePath();
+      const gr = g.createLinearGradient(...off([mx, my], -te), ...off([mx, my], te));
+      gr.addColorStop(0, "rgba(150,196,232,0.5)"); gr.addColorStop(0.5, "rgba(196,225,246,0.5)"); gr.addColorStop(1, "rgba(150,196,232,0.5)");
+      g.fillStyle = gr; g.fill(); g.strokeStyle = GLASS_EDGE; g.lineWidth = 1.2; g.lineJoin = "round"; g.stroke(); g.lineJoin = "miter";
+      return [q0, q1];
+    };
+    // the corrector: a weak biconvex lens, then a meniscus convex toward the grating (as in Hectospec and Hectochelle)
+    const k1 = element(C, ac, lensHalf, 0.03, 0.012, 0.05);
+    element(MIR.C2, ac, MIR.half2, 0.022, -0.04, 0.06);
+    req(4, "corrector", ends(k1[0], k1[1]), INK, 13, { optional: true });
+    // the spherical mirror, facing the corrector, hatched on the back
+    const arcS = MIR.arc.map(T), e0 = arcS[0], e1 = arcS[arcS.length - 1];
+    const nH = Math.max(6, Math.round(Math.hypot(e1[0] - e0[0], e1[1] - e0[1]) / 7));
+    hatch(Array.from({ length: nH + 1 }, (_, k) => MIR.arc[Math.round(k * (MIR.arc.length - 1) / nH)]), [ac, xd]);
+    steel(() => { g.beginPath(); arcS.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]))); }, e0, e1);
+    { const cs = ends(e0, e1); req(3, "camera f/" + sig(Dz.Fcam, 3), [cs[0], cs[1], cs[2], cs[3]], INK, 13, { sub: "f = " + mm(fcam) }); }
+    // the dewar inside the beam, behind the detector, and the field flattener (its window) in front of the detector
+    poly(MIR.dewar, "rgba(64,69,76,0.88)", STEEL, 1);
+    element(MIR.Fl, sc(ac, -1), 0.85 * Lx / 2 * 1.25, 0.16, -0.05, 0.08);
+  }
   // grating: true length and angle; a reflection grating's facets drawn schematically (12 teeth), a
   // transmission grating as a plate with its rulings running through it
   const n2 = v2(-Math.cos(a), Math.sin(a));
@@ -1134,7 +1248,8 @@ function drawLayout(Dz, P) {
   // detector: the chip (its package behind the face), the spectrum along its face, and the focus of each wavelength
   {
     const dep = 6 / s;
-    poly([det0, det1, addv(det1, sc(ac, dep)), addv(det0, sc(ac, dep))], STEEL, null);
+    const back = MIR ? -dep : dep;                                 // the package lies away from the arriving light
+    poly([det0, det1, addv(det1, sc(ac, back)), addv(det0, sc(ac, back))], STEEL, null);
     const q0 = T(det0), q1 = T(det1), gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
     for (const r of rays) gr.addColorStop(Math.min(1, Math.max(0, (r.X + Lx / 2) / Lx)), rgba(rampRGB(r.t), 1));
     g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = rays.length ? gr : INK; g.lineWidth = 3.5; g.stroke();
@@ -1143,7 +1258,8 @@ function drawLayout(Dz, P) {
       g.beginPath(); g.arc(q[0], q[1], 3.4, 0, 2 * Math.PI); g.fillStyle = rgba(rampRGB(r.t), 1); g.fill();
       g.strokeStyle = "#fff"; g.lineWidth = 1.5; g.stroke();
     }
-    const lp = T(Dc), off = T(addv(Dc, sc(ac, 0.06 * fcam)));
+    // the label beyond the package (with a mirror camera, beyond the dewar's far end, toward the corrector)
+    const lp = T(MIR ? addv(Dc, sc(ac, -MIR.dewL)) : Dc), off = T(addv(Dc, sc(ac, MIR ? -MIR.dewL - 0.06 * fcam : 0.06 * fcam)));
     const dx = off[0] - lp[0], dy = off[1] - lp[1], n = Math.hypot(dx, dy) || 1;
     req(2, "detector", [[lp[0] + dx / n * 14, lp[1] + dy / n * 14, dx > 0 ? "left" : "right"], ...ends(q0, q1, 14, 16)], INK, 13, { sub: mm(Lx) });
   }
