@@ -1,0 +1,1435 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Nicholas U. Mayall 4-m Telescope (KPNO): DESI prime focus, historical Mosaic prime focus and Cassegrain foci, entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/mayall.md (same content as Markdown). Structure follows elt.json: sources{key: cite, file, url}; mayall: title, telescope (machine-readable optics, pupil and foci; refs point to params as mayall.<param>), explorer_preset (the proposed web/tpresets.js entry, not applied), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/mayall/. derived = arithmetic done here (shown). alternatives = other sourced values. figure_readoff = a value read off a saved figure or image (the caption or link text is the checked quote). INFERRED = reasoned, stated by no source. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign, tilde operator, approximately-equal sign, inequality signs, micro sign and degree glyphs normalized; whitespace collapsed; a quote also passes with PDF line-end hyphenation removed or closed up, or with all whitespace (and hyphens) removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout, -raw and default for PDFs; HTML tag-stripped (comments removed; tags to a space and tags removed) and raw source; .zmx, .yaml and .py as is.",
+  "pupil_frame": "M24 Fig. 45 end view: x = east, y = north, seen from the sky (telescope at zenith)",
+  "check_result": "126 quotes checked against the saved files, 0 failures (2026-11-16)"
+ },
+ "sources": {
+  "KMP": {
+   "cite": "KPNO (NOIRLab), \"KPNO 4 Meter Mayall - Basic Parameters and Facts\" (\"Mayall Parameters\"; \"This page describes the current 4 Meter configuration\"; fetched 2026-11-16). The source holds an older primary radius, 21336.0 mm, inside an HTML comment (not displayed)",
+   "file": "rawdata/telescopes/mayall/kpno_misc_mayall_params.html",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/mayall_params.html"
+  },
+  "NMP": {
+   "cite": "NOIRLab, \"KPNO 4 Meter Mayall - Basic Parameters and Facts\" (the same table on the NOIRLab science site; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/mayall/noirlab_Mayall_basic-parameters.html",
+   "url": "https://noirlab.edu/science/programs/kpno/telescopes/nicholas-mayall-4m-telescope/basic-parameters"
+  },
+  "KLF": {
+   "cite": "KPNO, \"4-METER TELESCOPE OPTICAL DIAGRAM (dimensions in millimeters)\", image linked from KMP as \"Optical Layout Figure\" (JPEG, EXIF date 2010-03-05). Image only: values are FIGURE READ-OFFs; the checked quote is the KMP link text",
+   "file": "rawdata/telescopes/mayall/kpno_Mayall_files_4mlayout.metric.jpg",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/Mayall_files/4mlayout.metric.jpg"
+  },
+  "KZ8": {
+   "cite": "KPNO, ZEMAX lens file of the f/7.8 Ritchey-Chretien configuration (\"KPNO 4m f/8 Zemax OPT Model 000202 CFWH/NOAO\"), linked from KMP as \"Download 4-m f/7.6 ZEMAX file\". Read as text only",
+   "file": "rawdata/telescopes/mayall/kpno_Mayall_files_kp4mf8.zmx",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/Mayall_files/kp4mf8.zmx"
+  },
+  "KZ15": {
+   "cite": "KPNO, ZEMAX lens file of the f/15 infrared configuration (\"KPNO4M15 960522\"), linked from KMP. Read as text only",
+   "file": "rawdata/telescopes/mayall/kpno_Mayall_files_kp4mf15.zmx",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/Mayall_files/kp4mf15.zmx"
+  },
+  "KMF": {
+   "cite": "KPNO, \"Additional facts relevant to use of the 4-m for large science programs\" (file dated 100223, i.e. 2010-02-23), linked from KMP",
+   "file": "rawdata/telescopes/mayall/kpno_Mayall_files_Morefacts_100223.pdf",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/Mayall_files/Morefacts_100223.pdf"
+  },
+  "J98": {
+   "cite": "Jacoby, G. H., Liang, M., Vaughnn, D., Reed, R. & Armandroff, T. 1998, \"A New Wide-Field Corrector for the Kitt Peak Mayall 4-m Telescope\", Proc. SPIE 3355, 721 (preprint copy on the KPNO site, PDF created 2009-07-08): Table 1 (optical prescription of the 4mPFC), Secs. 1-3",
+   "file": "rawdata/telescopes/mayall/Jacoby1998_SPIE3355_721_Mayall_4mPFC_kpno_4m_WF_corrector.pdf",
+   "url": "https://www-kpno.kpno.noirlab.edu/kpno-misc/4m_WF_corrector.pdf"
+  },
+  "D22": {
+   "cite": "DESI Collaboration (Abareshi, B., et al.) 2022, AJ 164, 207, \"Overview of the Instrumentation for the Dark Energy Spectroscopic Instrument\", arXiv:2205.10939 (Secs. 2, 3, 4.2). SAME FILE as presets key D22 (data/presets_research.md), byte-identical copy",
+   "file": "rawdata/telescopes/mayall/DESI2022_InstrumentOverview_arXiv2205.10939.pdf",
+   "url": "https://arxiv.org/pdf/2205.10939"
+  },
+  "FDR": {
+   "cite": "DESI Collaboration 2016, \"The DESI Experiment Part II: Instrument Design\", arXiv:1611.00037 (Final Design Report: Sec. 2.1 Tables 2.1-2.3, Secs. 2.2.5-2.2.6, 8.2.2.3). SAME FILE as presets key FDR, byte-identical copy",
+   "file": "rawdata/telescopes/mayall/DESI2016_FDR_PartII_Instrument_arXiv1611.00037.pdf",
+   "url": "https://arxiv.org/pdf/1611.00037"
+  },
+  "M24": {
+   "cite": "Miller, T. N., Doel, P., Gutierrez, G., Besuner, R., Brooks, D., et al. 2024, AJ 168, 95, \"The Optical Corrector for the Dark Energy Spectroscopic Instrument\", arXiv:2306.06310v1 (Tables 1-5, Table 21, Sec. 3.7, Fig. 45, Sec. 5.3)",
+   "file": "rawdata/telescopes/mayall/Miller2024_AJ168_95_DESI_Corrector_arXiv2306.06310.pdf",
+   "url": "https://arxiv.org/pdf/2306.06310"
+  },
+  "SS12": {
+   "cite": "Schlegel, D. & Sholl, M. 2012, \"A Letter to the NSF Astronomy Portfolio Review: NOAO 4-m Telescopes for Future Surveys\", arXiv:1203.0590 (3 pp.)",
+   "file": "rawdata/telescopes/mayall/SchlegelSholl2012_NOAO_4m_Telescopes_Future_Surveys_arXiv1203.0590.pdf",
+   "url": "https://arxiv.org/pdf/1203.0590"
+  },
+  "D19": {
+   "cite": "Dey, A., Schlegel, D. J., Lang, D., et al. 2019, AJ 157, 168, \"Overview of the DESI Legacy Imaging Surveys\", arXiv:1804.08657 (Sec. 4: MzLS and Mosaic-3)",
+   "file": "rawdata/telescopes/mayall/Dey2019_AJ157_168_LegacySurveys_arXiv1804.08657.pdf",
+   "url": "https://arxiv.org/pdf/1804.08657"
+  },
+  "SSY": {
+   "cite": "specsim (DESI quick simulator), specsim/data/config/desi.yaml at GitHub desihub/specsim commit 0983fb2 (2023-11-16): telescope constants \"copied from desimodel/data/desi.yaml\". Read as text only",
+   "file": "rawdata/telescopes/mayall/specsim_0983fb2_data_config_desi.yaml",
+   "url": "https://github.com/desihub/specsim/blob/0983fb2653ac4f8a18fdab36654112553da38754/specsim/data/config/desi.yaml"
+  },
+  "SSI": {
+   "cite": "specsim, specsim/instrument.py, same commit 0983fb2 (the effective-area formula). Read only, never executed",
+   "file": "rawdata/telescopes/mayall/specsim_0983fb2_instrument.py",
+   "url": "https://github.com/desihub/specsim/blob/0983fb2653ac4f8a18fdab36654112553da38754/specsim/instrument.py"
+  }
+ },
+ "mayall": {
+  "title": "Mayall 4-m (KPNO): prime focus with the DESI corrector; historical Mosaic prime focus, f/7.8 and f/15 Cassegrain; entrance pupil",
+  "telescope": {
+   "name": "Nicholas U. Mayall 4-meter Telescope (Kitt Peak National Observatory)",
+   "site": "Kitt Peak, Arizona, 2123.2 m (KMP)",
+   "mount": "equatorial (horseshoe); Serrurier truss (FDR, D22)",
+   "status": "in operation; DESI at the prime focus since 2019 (D22); Cassegrain retired 2018 (FDR, D22)",
+   "optical_design": "Ritchey-Chretien (hyperbolic primary): prime focus with a corrector; f/7.8 RC and f/15 infrared Cassegrain secondaries on a flip ring (removed 2018); coude (unused)",
+   "primary": {
+    "material": "fused quartz, 61 cm thick",
+    "mirror_diameter_mm": 4011.6,
+    "bare_clear_aperture_mm": 4002.6,
+    "used_clear_aperture_mm": 3797,
+    "inner_mask_mm": 1346,
+    "central_hole_mm": 1324,
+    "radius_of_curvature_mm": 21318.0,
+    "radius_of_curvature_mm_before_2014": 21336.0,
+    "conic": -1.09763,
+    "focal_length_mm_DERIVED": 10659.0,
+    "F_on_3797_DERIVED": 2.807,
+    "refs": [
+     "mayall.primary_mirror",
+     "mayall.used_clear_aperture",
+     "mayall.primary_radius_of_curvature",
+     "mayall.primary_focal_length",
+     "mayall.primary_conic",
+     "mayall.central_hole"
+    ]
+   },
+   "secondaries": {
+    "f7.8": {
+     "shape": "convex hyperboloid",
+     "radius_of_curvature_mm": 9643.0,
+     "conic": -5.2951,
+     "clear_aperture_mm": 1191.6,
+     "distance_from_primary_mm": 7492.0,
+     "refs": [
+      "mayall.cass_f78_secondary"
+     ]
+    },
+    "f15": {
+     "shape": "convex hyperboloid (aperture stop in the KPNO model)",
+     "radius_of_curvature_mm": 5000.2,
+     "conic": -3.09014,
+     "clear_aperture_mm": 742.7,
+     "distance_from_primary_mm": 8634.5,
+     "refs": [
+      "mayall.cass_f15",
+      "mayall.cass_f15_stop"
+     ]
+    }
+   },
+   "top_end_desi": {
+    "cage_diameter_m": 1.8,
+    "vanes": 12,
+    "vane_sets": 4,
+    "vane_thickness_mm": 19,
+    "vane_width_along_beam_mm": 200,
+    "insertion_offset_deg": 11.5,
+    "insertion_offset_cm": 18,
+    "vane_direction_deg_FIGURE_READOFF": 51.25,
+    "upper_ring_ID_m_min": 4.6,
+    "upper_ring_OD_m_max": 5.45,
+    "refs": [
+     "mayall.top_end_desi",
+     "mayall.spider_desi_count",
+     "mayall.spider_desi_size",
+     "mayall.spider_desi_geometry"
+    ]
+   },
+   "pupil": {
+    "frame": "M24 Fig. 45 end view: x = east, y = north, seen from the sky (telescope at zenith)",
+    "D_m": 3.797,
+    "desi": {
+     "eps": 0.4741,
+     "obscuration_m": 1.8,
+     "vanes": [
+      {
+       "ang": 51.25,
+       "w": 0.03,
+       "x0": 0.7505,
+       "y0": 0.4967
+      },
+      {
+       "ang": 128.75,
+       "w": 0.03,
+       "x0": -0.7505,
+       "y0": 0.4967
+      },
+      {
+       "ang": 231.25,
+       "w": 0.03,
+       "x0": -0.7505,
+       "y0": -0.4967
+      },
+      {
+       "ang": 308.75,
+       "w": 0.03,
+       "x0": 0.7505,
+       "y0": -0.4967
+      }
+     ],
+     "area_m2": 8.658
+    },
+    "pre_desi": {
+     "eps": 0.4348,
+     "obscuration_m": 1.651,
+     "vanes": "NOT FOUND (preset: DESI vanes extended to r = 0.8255 m)",
+     "vanes_preset": [
+      {
+       "ang": 51.25,
+       "w": 0.03,
+       "x0": 0.7013,
+       "y0": 0.4354
+      },
+      {
+       "ang": 128.75,
+       "w": 0.03,
+       "x0": -0.7013,
+       "y0": 0.4354
+      },
+      {
+       "ang": 231.25,
+       "w": 0.03,
+       "x0": -0.7013,
+       "y0": -0.4354
+      },
+      {
+       "ang": 308.75,
+       "w": 0.03,
+       "x0": 0.7013,
+       "y0": -0.4354
+      }
+     ],
+     "area_m2_no_vanes": 9.182
+    },
+    "refs": [
+     "mayall.used_clear_aperture",
+     "mayall.obscuration_desi",
+     "mayall.obscuration_pre_desi",
+     "mayall.collecting_area",
+     "mayall.spider_desi_geometry",
+     "mayall.pupil_frame"
+    ]
+   },
+   "foci": [
+    {
+     "id": "pf",
+     "name": "Prime focus, DESI corrector",
+     "status": "in use (DESI, since 2019)",
+     "focal_length_m": 13.92,
+     "F_on_axis_quoted": 3.68,
+     "F_average_quoted": 3.86,
+     "F_DERIVED": 3.666,
+     "plate_scale_arcsec_per_mm": 14.819,
+     "field_deg": 3.2,
+     "field_mm": 811.8,
+     "n_reflections": 1,
+     "corrector": "C1, C2, ADC1, ADC2, C3, C4 (C1 8690.8 mm above the primary; C1-C4 2026.0 mm)",
+     "focal_surface_from_primary_mm_DERIVED": 11115.8,
+     "refs": [
+      "mayall.desi_corrector",
+      "mayall.desi_focal_length",
+      "mayall.desi_focal_ratio_quoted",
+      "mayall.desi_field",
+      "mayall.desi_focal_surface",
+      "mayall.desi_thin_lens"
+     ]
+    },
+    {
+     "id": "mosaic",
+     "name": "Prime focus, Mosaic corrector (4mPFC)",
+     "status": "historical (to 2018 February 12)",
+     "focal_length_mm_DERIVED": 11833.9,
+     "F_quoted": 3.14,
+     "F_DERIVED": 3.117,
+     "plate_scale_arcsec_per_mm": 17.43,
+     "field_arcmin": "36 x 36 (51 diagonal)",
+     "n_reflections": 1,
+     "focal_surface_from_primary_mm_DERIVED": 10738.0,
+     "refs": [
+      "mayall.mosaic_corrector",
+      "mayall.mosaic_plate_scale",
+      "mayall.mosaic_field",
+      "mayall.mosaic_cameras",
+      "mayall.mosaic_thin_lens"
+     ]
+    },
+    {
+     "id": "cass8",
+     "name": "Cassegrain f/7.8 (Ritchey-Chretien)",
+     "status": "historical (to 2018)",
+     "focal_length_mm": 31258.7,
+     "F_DERIVED": 8.2325,
+     "F_quoted": 7.8,
+     "plate_scale_arcsec_per_mm_DERIVED": 6.5986,
+     "back_focus_mm": 1814.2,
+     "field_arcmin": "NOT FOUND",
+     "n_reflections": 2,
+     "refs": [
+      "mayall.cass_f78_secondary",
+      "mayall.cass_f78_focus",
+      "mayall.cass_f78_naming",
+      "mayall.cass_f78_field"
+     ]
+    },
+    {
+     "id": "cass15",
+     "name": "Cassegrain f/15 (infrared)",
+     "status": "historical (to 2018)",
+     "focal_length_mm": 57160.3,
+     "F_DERIVED": 15.054,
+     "plate_scale_arcsec_per_mm_DERIVED": 3.6085,
+     "back_focus_mm": 2260.5,
+     "field_arcmin": "NOT FOUND",
+     "n_reflections": 2,
+     "refs": [
+      "mayall.cass_f15",
+      "mayall.cass_f15_stop"
+     ]
+    }
+   ],
+   "other_foci": "coude (in the original design, unused; the M3 weldment removed for DESI, FDR)"
+  },
+  "explorer_preset": {
+   "id": "mayall",
+   "group": "Mayall 4 m",
+   "name": "Mayall 4 m",
+   "D": 3.797,
+   "Dmirror": 4.0116,
+   "f1": 10.659,
+   "eps": 0.4741,
+   "hole": 1.324,
+   "primaryNote": "A fused-quartz hyperboloid (conic −1.098, the Ritchey–Chrétien primary) 4.01 m across and 61 cm thick, with a 1.324 m central hole; radius of curvature 21.318 m (f = 10.66 m, f/2.8 on the 3.797 m mask). Masks set the pupil at 3.797 m outside and 1.346 m inside. Since 2019 the telescope carries the DESI corrector and fiber focal plane at the prime focus; the Cassegrain foci were retired in 2018.",
+   "pupil": {
+    "kind": "circle",
+    "D": 3.797,
+    "vanes": [
+     {
+      "ang": 51.25,
+      "w": 0.03,
+      "x0": 0.7505,
+      "y0": 0.4967
+     },
+     {
+      "ang": 128.75,
+      "w": 0.03,
+      "x0": -0.7505,
+      "y0": 0.4967
+     },
+     {
+      "ang": 231.25,
+      "w": 0.03,
+      "x0": -0.7505,
+      "y0": -0.4967
+     },
+     {
+      "ang": 308.75,
+      "w": 0.03,
+      "x0": 0.7505,
+      "y0": -0.4967
+     }
+    ]
+   },
+   "pupilNote": "DESI's top end, seen from the sky with north up and east right: the 1.8 m cage and four sets of three vanes, the three of each set one above another, so each set casts one shadow. The vanes leave the cage 11.5° from the diagonals, toward the east–west line, so that the cage resists roll. Each vane is 19 mm thick; drawn 30 mm wide, the width desimodel uses for the published 8.658 m².",
+   "area": {
+    "value": 8.658,
+    "src": "KPNO Mayall parameters; DESI Collaboration 2022: 8.658 m² with DESI (the 3.797 m aperture less the 1.8 m cage and four 30 mm vanes, as desimodel computes the area); 9.182 m² before DESI (1.651 m cage, vanes not subtracted)"
+   },
+   "foci": [
+    {
+     "id": "pf",
+     "name": "Prime focus f/3.9 (DESI corrector)",
+     "kind": "Prime focus",
+     "variant": "DESI",
+     "F": 3.666,
+     "plate": 14.819,
+     "design": "prime",
+     "field": 192,
+     "refl": 1,
+     "corrector": {
+      "d": 1.49,
+      "label": "DESI corrector",
+      "sub": "six lenses (two form the ADC), drawn as one lens of their power"
+     },
+     "pfuLabel": "DESI focal plane",
+     "pfuSub": "5,020 robotic fiber positioners",
+     "secondary": "none: the six-lens corrector and the fiber focal plane sit in the prime-focus cage",
+     "fieldNote": "3.2° across, on a convex focal surface 812 mm across (radius 4.98 m). f/3.68 on axis and 3.86 averaged over the field (13.92 m focal length on axis: f/3.67 on the 3.797 m pupil). The corrector (C1 1.14 m across, 8.69 m above the primary, 2.03 m long) is drawn as one lens 1.49 m before the primary's focus, which puts the focus at the real focal surface, 11.12 m from the primary."
+    },
+    {
+     "id": "mosaic",
+     "name": "Prime focus f/3.1 (Mosaic corrector, historical)",
+     "kind": "Prime focus",
+     "variant": "Mosaic (historical)",
+     "F": 3.1166,
+     "plate": 17.43,
+     "design": "prime",
+     "field": 51,
+     "eps": 0.4348,
+     "refl": 1,
+     "pupil": {
+      "vanes": [
+       {
+        "ang": 51.25,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 128.75,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 231.25,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": -0.4354
+       },
+       {
+        "ang": 308.75,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": -0.4354
+       }
+      ]
+     },
+     "pupilNote": "Before DESI the prime-focus cage was 1.651 m across. The spider of that era is not published: DESI's four vanes are drawn, extended inward to the smaller cage.",
+     "corrector": {
+      "d": 0.72,
+      "label": "Mosaic corrector (4mPFC)",
+      "sub": "four fused-silica lenses and a Risley-prism ADC, drawn as one lens of their power"
+     },
+     "pfuLabel": "Mosaic CCD camera",
+     "pfuSub": "8k × 8k, 36′ × 36′",
+     "secondary": "none: the corrector and the Mosaic camera sat in the 1.651 m prime-focus cage",
+     "fieldNote": "36′ × 36′ (51′ diagonal), flat and unvignetted; 17.43″/mm at the center and 16.39″/mm at the corner (f/3.14 on the 3.76 m clear aperture of the design, f/3.12 on 3.797 m). The corrector is drawn as one lens 0.72 m before the primary's focus, which puts the focus at the design's focal surface, 10.74 m from the primary. Used until February 2018 (Mosaic-3)."
+    },
+    {
+     "id": "cass8",
+     "name": "Cassegrain f/7.8 (Ritchey–Chrétien, historical)",
+     "kind": "Cassegrain",
+     "variant": "f/7.8 (historical)",
+     "F": 8.2325,
+     "plate": 6.5986,
+     "design": "cass",
+     "back": 0.4778,
+     "field": null,
+     "eps": 0.4348,
+     "refl": 2,
+     "pupil": {
+      "vanes": [
+       {
+        "ang": 51.25,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 128.75,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 231.25,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": -0.4354
+       },
+       {
+        "ang": 308.75,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": -0.4354
+       }
+      ]
+     },
+     "pupilNote": "Before DESI the prime-focus cage was 1.651 m across. The spider of that era is not published: DESI's four vanes are drawn, extended inward to the smaller cage.",
+     "secondary": "convex hyperboloid (conic −5.295), 1.19 m across, 7.492 m from the primary, carried in the prime-focus cage on the flip ring",
+     "fieldNote": "Named f/7.8 for the 4.0 m mirror (31.26 m focal length; f/8.23 on the 3.797 m pupil). The focus lies 1.814 m behind the primary's vertex, 152 mm past the instrument rotator. The field is not published (KPNO's optical model traces 5′; the Risley-prism ADC passes 298″). Retired in 2018, when DESI replaced the flip ring."
+    },
+    {
+     "id": "cass15",
+     "name": "Cassegrain f/15 (infrared, historical)",
+     "kind": "Cassegrain",
+     "variant": "f/15 infrared (historical)",
+     "F": 15.054,
+     "plate": 3.6085,
+     "design": "cass",
+     "back": 0.5953,
+     "field": null,
+     "eps": 0.4348,
+     "refl": 2,
+     "pupil": {
+      "vanes": [
+       {
+        "ang": 51.25,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 128.75,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": 0.4354
+       },
+       {
+        "ang": 231.25,
+        "w": 0.03,
+        "x0": -0.7013,
+        "y0": -0.4354
+       },
+       {
+        "ang": 308.75,
+        "w": 0.03,
+        "x0": 0.7013,
+        "y0": -0.4354
+       }
+      ]
+     },
+     "pupilNote": "Before DESI the prime-focus cage was 1.651 m across. The spider of that era is not published: DESI's four vanes are drawn, extended inward to the smaller cage.",
+     "secondary": "convex hyperboloid (conic −3.090), 0.743 m across, 8.635 m from the primary (the flip-in infrared secondary)",
+     "fieldNote": "57.16 m focal length (f/15.05 on the 3.797 m pupil). In KPNO's optical model the 0.743 m secondary is the stop, with an entrance pupil 3.883 m across, larger than the 3.797 m mask. The focus lies 2.26 m behind the primary's vertex, 599 mm past the instrument rotator. The field is not published (the model traces 5′). Retired in 2018."
+    }
+   ]
+  },
+  "params": {
+   "site": {
+    "value": "Kitt Peak, Arizona: 111:35:59.6 W, 31:57:50.5 N, 2123.2 m",
+    "unit": "",
+    "src": "KMP",
+    "loc": "Location",
+    "quote": "Longitude: 111:35:59.6 W, Latitude: 31:57:50.5 N, Altitude: 2123.2 m MSL",
+    "alternatives": [
+     {
+      "value": "80 km WSW of Tucson, ~2021 m",
+      "src": "D22",
+      "loc": "Sec. 2.2",
+      "quote": "located approximately 80km WSW of Tucson, Arizona at an altitude of approximately 2021m"
+     }
+    ],
+    "note": "The two altitudes differ by 102 m (see Conflicts). Not used by the explorer."
+   },
+   "design_history": {
+    "value": "Ritchey-Chretien telescope (hyperbolic primary) built for a prime focus, a coude focus and a wide-field RC Cassegrain focus; commissioned 1973; equatorial mount",
+    "unit": "",
+    "src": "D22",
+    "loc": "Sec. 2.2",
+    "quote": "The Mayall telescope is a Ritchey-Chrétien (RC) design that was built to support a prime focus and a coudé focus, in addition to a hyperbolic secondary for the wide-field RC focus",
+    "alternatives": [
+     {
+      "value": "commissioned 1973",
+      "src": "SS12",
+      "loc": "p. 1",
+      "quote": "The Mayall and Blanco telescopes were designed in the 1960s and commissioned in 1973 and 1974."
+     },
+     {
+      "value": "equatorial mount",
+      "src": "FDR",
+      "loc": "Sec. 2.1.1 (ADC)",
+      "quote": "(required for an equatorial mount telescope)"
+     },
+     {
+      "value": "split top ring: the inner ring flipped between secondary and prime focus",
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "The top ring of the telescope was consequently constructed as a pair of concentric rings (a ‘split ring’) such that the inner ring could be flipped around to switch between a secondary mirror and prime focus."
+     }
+    ]
+   },
+   "primary_mirror": {
+    "value": "fused quartz, 4011.6 mm across (bare clear aperture 4002.6 mm), 61 cm thick",
+    "unit": "mm",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Mirror diameter 4011.6 mm (Drawing 2106-E1) Bare mirror clear aperture diam 4002.6 mm",
+    "alternatives": [
+     {
+      "value": "61 cm thick fused quartz",
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "The telescope’s primary mirror was polished from a 61cm thick disk of fused quartz."
+     },
+     {
+      "value": "4000 mm (design table)",
+      "src": "M24",
+      "loc": "Table 4",
+      "quote": "Primary -21318.000 8690.802 4000 Mirror"
+     },
+     {
+      "value": "3.8 m",
+      "src": "FDR",
+      "loc": "Sec. 2.1",
+      "quote": "The Mayall telescope primary mirror (M1) is 3.8 m diameter"
+     }
+    ],
+    "note": "Dmirror = 4.0116 m in the preset (the physical mirror; the pupil is the 3.797 m mask)."
+   },
+   "used_clear_aperture": {
+    "value": 3797,
+    "unit": "mm (the pupil diameter D at all foci)",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Used clear aperture diam 3797 mm (Measured by Phil Massey)",
+    "alternatives": [
+     {
+      "value": 3797,
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "The unmasked aperture is 3797 mm and the central hole diameter is 1324 mm."
+     },
+     {
+      "value": "outer mask 3797 mm, inner mask 1346 mm",
+      "src": "M24",
+      "loc": "Sec. 2.2",
+      "quote": "The primary mirror is fitted with two masks that define its aperture, an outer mask with diameter 3797mm, and an inner mask with diameter 1346mm."
+     },
+     {
+      "value": "3.797 m",
+      "src": "M24",
+      "loc": "Table 2",
+      "quote": "Primary mirror outer clear aperture 3.797 meters diameter"
+     },
+     {
+      "value": "3.797 m (desimodel)",
+      "src": "SSY",
+      "loc": "instrument.constants",
+      "quote": "primary_mirror_diameter: 3.797 m"
+     },
+     {
+      "value": "3760 mm (1998 corrector design)",
+      "src": "J98",
+      "loc": "Table 1, note 1",
+      "quote": "Conic Constant is -1.09763, Clear Aperture is 3760 mm"
+     },
+     {
+      "value": "entrance pupil 3950 mm (f/8 model)",
+      "src": "KZ8",
+      "loc": "header",
+      "quote": "ENPD 3.95E+3"
+     },
+     {
+      "value": "entrance pupil 3883.4 mm (f/15 model, the secondary is the stop)",
+      "src": "KZ15",
+      "loc": "header",
+      "quote": "ENPD 3.8834E+3"
+     },
+     {
+      "value": "3.8 m",
+      "src": "SS12",
+      "loc": "Table 1",
+      "quote": "Mayall/BigBOSS 3.8 m 1.8 m 0.9 7.0 deg2 55.4 m2 deg2"
+     }
+    ],
+    "note": "The masks were in place before DESI (the KPNO value is credited to a measurement by P. Massey); the explorer uses D = 3.797 m for all foci. The f/15 model's 3883.4 mm stop is larger than the mask, so the mask sets the pupil there too (INFERRED)."
+   },
+   "primary_radius_of_curvature": {
+    "value": 21318.0,
+    "unit": "mm (concave)",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Radius of curvature 21318.0 mm concave",
+    "alternatives": [
+     {
+      "value": "21318.0 mm (NOIRLab copy of the table)",
+      "src": "NMP",
+      "loc": "Basic Optical Data",
+      "quote": "Radius of curvature 21318.0 mm concave Conic constant -1.09763"
+     },
+     {
+      "value": "21.318 m, updated from the published 21.336 m",
+      "src": "M24",
+      "loc": "Sec. 5.3",
+      "quote": "In the case of the radius, the updated value was 21.318meters, 18mm shorter than the published value of 21.336meters."
+     },
+     {
+      "value": "-21318.000 mm (as-built DESI prescription)",
+      "src": "M24",
+      "loc": "Table 4",
+      "quote": "Primary -21318.000 8690.802 4000 Mirror"
+     },
+     {
+      "value": "21336 mm (1998)",
+      "src": "J98",
+      "loc": "Table 1",
+      "quote": "Primary Mirror (Focus! Focus Varies)1 21336 mm 9976.9 mm Reflection 4000 mm"
+     },
+     {
+      "value": "21336.0 mm (curvature -4.6869e-5 /mm)",
+      "src": "KZ8",
+      "loc": "SURF 3 (PRIMARY)",
+      "quote": "CURV -4.686914140000000000E-005"
+     },
+     {
+      "value": "21.3 m, f = 10.7 m",
+      "src": "FDR",
+      "loc": "Sec. 2.1",
+      "quote": "has a radius of curvature of 21.3 m, and a focal length of 10.7 m"
+     }
+    ],
+    "derived": "1 / 4.68691414e-5 = 21336.0 mm (KZ8, the pre-2014 value). The 21336.0 mm row survives in KMP only as an HTML comment."
+   },
+   "primary_focal_length": {
+    "value": 10659.0,
+    "unit": "mm (f/2.807 on 3.797 m)",
+    "src": "M24",
+    "loc": "Sec. 5.3 (R) ; DERIVED",
+    "quote": "the updated value was 21.318meters",
+    "alternatives": [
+     {
+      "value": "f/2.8",
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "change the focal ratio of the telescope from f/2.8 to approximately f/3.9"
+     },
+     {
+      "value": "f/2.8",
+      "src": "J98",
+      "loc": "Sec. 1",
+      "quote": "the original doublet and triplet correctors ... for the Mayall 4-m (f/2.8) telescope on Kitt Peak"
+     },
+     {
+      "value": "10668.0 mm to the prime focus, f/2.81 (layout figure)",
+      "src": "KMP",
+      "loc": "Telescope (link text)",
+      "quote": "Optical Layout Figure",
+      "note": "FIGURE READ-OFF of KLF"
+     }
+    ],
+    "figure_readoff": "KLF: \"PRIME FOCUS f/2.81\"; dimension 10668.0 from the prime focus to the primary's vertex.",
+    "derived": "f1 = 21318.0 / 2 = 10659.0 mm; 10659.0 / 3797 = f/2.807; on the 4011.6 mm mirror f/2.657. The 1973-2014 value 21336 mm gives 10668.0 mm and f/2.810 on 3797 mm, the figure's \"f/2.81\"."
+   },
+   "primary_conic": {
+    "value": -1.09763,
+    "unit": "",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Conic constant -1.09763",
+    "alternatives": [
+     {
+      "value": -1.09763,
+      "src": "M24",
+      "loc": "Table 5",
+      "quote": "k = -1.09763"
+     },
+     {
+      "value": -1.09763,
+      "src": "KZ8",
+      "loc": "SURF 3",
+      "quote": "CONI -1.09763"
+     }
+    ],
+    "note": "A hyperboloid (K < -1): the Ritchey-Chretien primary."
+   },
+   "central_hole": {
+    "value": 1324,
+    "unit": "mm (diameter of the hole in the primary)",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Central hole diam 1324 mm",
+    "alternatives": [
+     {
+      "value": 1324,
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "the central hole diameter is 1324 mm"
+     },
+     {
+      "value": "inner mask 1.346 m",
+      "src": "M24",
+      "loc": "Table 2",
+      "quote": "Primary mirror inner clear aperture 1.346 meters diameter"
+     }
+    ],
+    "note": "Preset hole = 1.324 (inside every focus's central obstruction)."
+   },
+   "obscuration_desi": {
+    "value": 1800,
+    "unit": "mm (diameter; DESI cage)",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Central obscuration diam 1800 mm (DESI cage)",
+    "alternatives": [
+     {
+      "value": "1.8 m (desimodel)",
+      "src": "SSY",
+      "loc": "instrument.constants",
+      "quote": "obscuration_diameter: 1.8 m"
+     },
+     {
+      "value": "cage outer diameter <= 1.8 m (requirement)",
+      "src": "M24",
+      "loc": "Table 21",
+      "quote": "Cage outer diameter ≤ 1.8 m"
+     },
+     {
+      "value": "corrector shadow ~1762 mm",
+      "src": "M24",
+      "loc": "Sec. 2.2",
+      "quote": "The corrector lenses mounted in their barrel assembly cause an obscuration of the incoming light, a circular shadow of roughly 1762mm diameter."
+     },
+     {
+      "value": "on-axis transmission 77.5%",
+      "src": "M24",
+      "loc": "Sec. 2.2",
+      "quote": "reducing the transmission to only 77.5% on-axis"
+     },
+     {
+      "value": "cage larger than the hole",
+      "src": "D22",
+      "loc": "Sec. 4.2",
+      "quote": "it is larger than the central hole of the primary mirror"
+     },
+     {
+      "value": "1.8 m (BigBOSS study)",
+      "src": "SS12",
+      "loc": "Table 1",
+      "quote": "Mayall/BigBOSS 3.8 m 1.8 m 0.9 7.0 deg2 55.4 m2 deg2"
+     }
+    ],
+    "derived": "eps = 1800 / 3797 = 0.4741 (1762 / 3797 = 0.4641). Unobstructed fraction 1 - 0.4741^2 = 0.775, the 77.5% on axis (M24)."
+   },
+   "obscuration_pre_desi": {
+    "value": 1651,
+    "unit": "mm (diameter; the old prime-focus cage, all foci before 2018)",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Central obscuration diam 1651 mm (PF cage)",
+    "alternatives": [
+     {
+      "value": "1968 mm at 7976 mm (\"Bottom of the Secondary\")",
+      "src": "J98",
+      "loc": "Table 1",
+      "quote": "Bottom of the Secondary (Obscuration) - 7976 mm - 1968 mm"
+     },
+     {
+      "value": "stop annulus 660-1975 mm radius (f/8 model)",
+      "src": "KZ8",
+      "loc": "SURF 2 (STOP)",
+      "quote": "CLAP 6.6E+2 1.975E+3 0"
+     }
+    ],
+    "figure_readoff": "KLF: \"PF CAGE\" 1651 across, the lower end of the cage 7400 from the primary.",
+    "derived": "eps = 1651 / 3797 = 0.4348; area pi/4 (3.797^2 - 1.651^2) = 9.1825 m^2 = KMP's 9.182 m^2, so the KPNO area subtracts the 1651 mm cage and no vanes."
+   },
+   "collecting_area": {
+    "value": "8.658 (DESI); 9.182 (before DESI)",
+    "unit": "m^2",
+    "src": "KMP",
+    "loc": "Basic Optical Data, Primary Mirror",
+    "quote": "Light-collecting area 8.658 m² (DESI)",
+    "alternatives": [
+     {
+      "value": "8.658 m^2 on axis",
+      "src": "D22",
+      "loc": "Sec. 4.2",
+      "quote": "As a result, the effective area of the telescope is 8.658 m2"
+     },
+     {
+      "value": "9.182 m^2",
+      "src": "KMP",
+      "loc": "Basic Optical Data",
+      "quote": "Light-collecting area 9.182 m²"
+     },
+     {
+      "value": "support width 0.03 m",
+      "src": "SSY",
+      "loc": "instrument.constants",
+      "quote": "support_width: 0.03 m"
+     },
+     {
+      "value": "area formula",
+      "src": "SSI",
+      "loc": "Instrument.__init__",
+      "quote": "support_area = 0.5*(D - obs) * self.support_width"
+     }
+    ],
+    "derived": "desimodel/specsim: pi/4 (3.797^2 - 1.8^2) - 4 x 0.5 (3.797 - 1.8) x 0.03 = 8.7783 - 0.1198 = 8.6585 m^2 = 8.658. The explorer raster of the proposed pupil (slanted 30 mm vanes): 8.656 m^2 (tpupil.js, DERIVED); with 19 mm vanes 8.701 m^2."
+   },
+   "top_end_desi": {
+    "value": "new single top ring on the Serrurier truss (ID >= 4.6 m, OD <= 5.45 m); cage of three rings on four rails, 1.8 m across",
+    "unit": "",
+    "src": "D22",
+    "loc": "Sec. 4.2",
+    "quote": "The new top ring mounts to the telescope’s Serrurier truss via eight truss members that attach to the ring at four locations",
+    "alternatives": [
+     {
+      "value": "ring ID >= 4.6 m, OD <= 5.45 m",
+      "src": "M24",
+      "loc": "Table 21",
+      "quote": "Outer Ring ID ≥ 4.6 m Outer Ring OD ≤ 5.45 m"
+     },
+     {
+      "value": "three rings, four rails",
+      "src": "D22",
+      "loc": "Sec. 4.2",
+      "quote": "The prime focus cage has three rings that are held in place with four rails."
+     }
+    ]
+   },
+   "spider_desi_count": {
+    "value": "12 vanes: four sets of three (one set per cage rail; PM, C and FP vanes at three heights)",
+    "unit": "",
+    "src": "M24",
+    "loc": "Sec. 3.7",
+    "quote": "Three vanes connect each of the four cage rails to the upper ring, making a total of 12 vanes.",
+    "alternatives": [
+     {
+      "value": "four sets of three",
+      "src": "D22",
+      "loc": "Sec. 4.2",
+      "quote": "attached to the top ring with four sets of three vanes"
+     },
+     {
+      "value": "four fins (2016 design)",
+      "src": "FDR",
+      "loc": "Sec. 2.2.5",
+      "quote": "The PF Cage will be attached to the telescope outer ring through a set of four fins"
+     },
+     {
+      "value": "no middle vanes (2016 design)",
+      "src": "FDR",
+      "loc": "Sec. 2.2.6.1",
+      "quote": "The current DESI design does not have the middle vanes used originally in the Mayall telescope as these were found to over-constrain the mounting system."
+     },
+     {
+      "value": "a middle vane was needed (as built)",
+      "src": "M24",
+      "loc": "Sec. 3.7.1",
+      "quote": "in order to meet the deflection requirements a middle vane is needed"
+     }
+    ],
+    "figure_readoff": "M24 Fig. 45 (right, end view): four vane lines (NE, NW, SW, SE); the three vanes of a set overlap in projection, so the pupil shows four shadows.",
+    "note": "As built (M24, D22) the top end has middle vanes, unlike the 2016 design (FDR)."
+   },
+   "spider_desi_size": {
+    "value": "each vane 19 mm thick, 200 mm wide (along the beam); drawn 30 mm wide (desimodel)",
+    "unit": "mm",
+    "src": "M24",
+    "loc": "Sec. 3.7.2",
+    "quote": "The spider vanes (or vanes, or fins) are 19mm thick and 200mm wide.",
+    "alternatives": [
+     {
+      "value": "thickness <= 25.4 mm (requirement)",
+      "src": "M24",
+      "loc": "Table 21",
+      "quote": "Vane thickness ≤ 25.4 mm"
+     },
+     {
+      "value": "0.03 m (desimodel support width)",
+      "src": "SSY",
+      "loc": "instrument.constants",
+      "quote": "support_width: 0.03 m"
+     }
+    ],
+    "note": "The 30 mm desimodel width reproduces the published 8.658 m^2 (collecting_area); the extra width over 19 mm presumably covers the cable trays and the imperfect overlap of each set of three (INFERRED; M24: \"Each vane also has tapped holes for mounting cable trays\")."
+   },
+   "spider_desi_geometry": {
+    "value": "vanes leave the 1.8 m cage 11.5 deg from the diagonals (toward the E-W line), pairs displaced in opposite directions; each vane runs at 51.25 deg to the E-W line to the upper ring near the diagonal",
+    "unit": "",
+    "src": "M24",
+    "loc": "Sec. 3.7.1",
+    "quote": "The insertion was displaced 11.5degrees from the 45degree line with pairs of vanes moving in opposite directions.",
+    "alternatives": [
+     {
+      "value": "18 cm along the cage circumference",
+      "src": "D22",
+      "loc": "Sec. 4.2",
+      "quote": "but rather are displaced by 18 cm along the circumference of the cage such that pairs of vanes move in opposite directions"
+     },
+     {
+      "value": "figure",
+      "src": "M24",
+      "loc": "Fig. 45 caption",
+      "quote": "Right: end view showing the vane positions connecting the cage rails and upper ring."
+     }
+    ],
+    "figure_readoff": "M24 Fig. 45 right (end view, N up, E right; pixel line fits to the four vane tracks, scale from the 1.8 m cage = 242 px): insertion points at 33.0, 146.5, 213.2, 326.7 deg (expected 33.5 = 45 - 11.5); vane directions 51.44, 129.15, 231.50, 308.81 deg (mean |angle from E-W| 51.25 deg); each line passes 0.27-0.29 m from the center and reaches 45 deg at r = 2.45-2.52 m (the ring brackets).",
+    "derived": "18 cm / (11.5 deg x pi/180) = 0.897 m: the insertion radius equals the 1.8 m cage radius. Preset vanes: rays from (+/-0.9 cos 33.5, +/-0.9 sin 33.5) = (+/-0.7505, +/-0.4967) m at 51.25, 128.75, 231.25, 308.75 deg."
+   },
+   "spider_pre_desi": {
+    "value": "NOT FOUND (number, widths, layout of the 1973-2018 spider fins)",
+    "unit": "",
+    "src": "FDR",
+    "loc": "Sec. 2.2.6.1",
+    "quote": "The spider vanes are of the same design as the fins in use on the Mayall telescope.",
+    "alternatives": [
+     {
+      "value": "the old fins were part of the top end",
+      "src": "KMF",
+      "loc": "Q1",
+      "quote": "This does not include the inner (flip) ring structure or the supporting spider fins"
+     }
+    ],
+    "note": "The preset draws the DESI vanes at the pre-DESI foci, extended inward to the 1.651 m cage (INFERRED: same design of fin, layout NOT FOUND)."
+   },
+   "flip_ring_and_cassegrain_retired": {
+    "value": "the flip ring, and with the ring the Cassegrain foci, removed for DESI in 2018",
+    "unit": "",
+    "src": "FDR",
+    "loc": "Sec. 2.2.6",
+    "quote": "Since DESI is not required to support operation of Cassegrain instruments, the inner flip ring in the original Mayall design is no longer required.",
+    "alternatives": [
+     {
+      "value": "flip ring eliminated",
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "The flip ring was eliminated for DESI to save significant weight."
+     },
+     {
+      "value": "Mayall shut down 2018 February 12 for DESI",
+      "src": "D19",
+      "loc": "Sec. 4",
+      "quote": "The Mosaic-3 camera was decommissioned and the Mayall telescope shut down on February 12, 2018 to prepare for the installation of the DESI instrument."
+     },
+     {
+      "value": "old cage contents",
+      "src": "KMF",
+      "loc": "Q1",
+      "quote": "The weight of the current Prime Focus cage is about 7000 kg. This includes the cage structure, Prime Focus corrector and the Mosaic instrument, f/8 cell and secondary mirror, and f/15 flip-in secondary"
+     }
+    ]
+   },
+   "desi_corrector": {
+    "value": "six lenses (C1-C4 fused silica, ADC1-2 borosilicate); C1 1.14 m, 8.69 m above the primary; C1 front to C4 back 2.026 m",
+    "unit": "",
+    "src": "D22",
+    "loc": "Sec. 3",
+    "quote": "The new DESI prime focus corrector has six lenses, each approximately a meter in diameter, that change the focal ratio of the telescope from f/2.8 to approximately f/3.9",
+    "alternatives": [
+     {
+      "value": "C1 1.14 m, C4 1.03 m",
+      "src": "D22",
+      "loc": "Sec. 3.2",
+      "quote": "C1 has a diameter of 1.14m and mass of 201 kg, and C4 has a diameter of 1.03m and mass of 237kg."
+     },
+     {
+      "value": "~8 m above the primary",
+      "src": "D22",
+      "loc": "Sec. 3",
+      "quote": "The first element of the DESI corrector is approximately 8m above the primary mirror of the Mayall telescope."
+     },
+     {
+      "value": "primary to C1: 8690.802 mm",
+      "src": "M24",
+      "loc": "Table 4",
+      "quote": "Primary -21318.000 8690.802 4000 Mirror"
+     },
+     {
+      "value": "C1 front",
+      "src": "M24",
+      "loc": "Table 4",
+      "quote": "C1 front -1184.990 136.590 1140 Fused silica"
+     },
+     {
+      "value": "C4 back to the focal surface: 399.007 mm",
+      "src": "M24",
+      "loc": "Table 4",
+      "quote": "C4 back 5185.790 399.007 1034"
+     },
+     {
+      "value": "F/2.8 to F/3.9",
+      "src": "M24",
+      "loc": "Sec. 2.2",
+      "quote": "The lenses furthermore change the converging rays leaving the primary from F/2.8 to approximately F/3.9"
+     }
+    ],
+    "derived": "Table 4 spacings (mm): 8690.802 + 136.590 + 475.217 + 44.720 + 190.874 + 60.150 + 24.850 + 60.150 + 199.257 + 80.086 + 537.186 + 216.920 + 399.007 = 11115.8 mm from the primary's vertex to the focal-surface vertex; C1 front to C4 back 2026.0 mm."
+   },
+   "desi_focal_length": {
+    "value": 13.92,
+    "unit": "m (on axis)",
+    "src": "M24",
+    "loc": "Table 2",
+    "quote": "Focal length 13.920 meters on-axis",
+    "alternatives": [
+     {
+      "value": "14.572 m average over the field",
+      "src": "M24",
+      "loc": "Table 2",
+      "quote": "14.572 meters average over FOV"
+     },
+     {
+      "value": "67.48 um/arcsec on axis",
+      "src": "M24",
+      "loc": "Table 2",
+      "quote": "Plate scale 67.48 microns arcsec−1 on-axis"
+     },
+     {
+      "value": "243.0 mm/deg on axis",
+      "src": "FDR",
+      "loc": "Table 2.2",
+      "quote": "Plate scale 243.0 mm/deg on-axis"
+     }
+    ],
+    "derived": "F = 13.920 / 3.797 = 3.666 (on axis); plate = 1000 / 67.48 = 14.819 arcsec/mm = 206264.8 / 13920 (14.818); FDR 243.0 mm/deg / 3600 = 67.50 um/arcsec."
+   },
+   "desi_focal_ratio_quoted": {
+    "value": "f/3.68 on axis, 3.86 averaged over the field (\"approximately f/3.9\")",
+    "unit": "",
+    "src": "M24",
+    "loc": "Table 2",
+    "quote": "F/# 3.68 on-axis 3.86 average over FOV",
+    "alternatives": [
+     {
+      "value": "f/3.68 at the center",
+      "src": "D22",
+      "loc": "Sec. 3.2",
+      "quote": "The focal ratio is f/3.68 at the center of the field and increases toward the edge."
+     },
+     {
+      "value": "requirement f/3.7 to f/4.3",
+      "src": "M24",
+      "loc": "Table 1",
+      "quote": "F/# variation F/3.7 to F/4.3"
+     }
+    ],
+    "note": "13.920 / 3.797 = 3.666 is slightly below the quoted 3.68 (see Conflicts); the preset uses F = 3.666 (focal length over the pupil) and names the focus by the project's f/3.9."
+   },
+   "desi_field": {
+    "value": "3.2 deg (811.8 mm); vignetting from 1.45 deg, transmission 72% at the 1.6 deg edge",
+    "unit": "",
+    "src": "M24",
+    "loc": "Table 2",
+    "quote": "Field of view 3.2 degrees diameter, circular 811.8 mm diameter at the focal plane",
+    "alternatives": [
+     {
+      "value": "5020 fibers on a 0.812 m focal surface",
+      "src": "D22",
+      "loc": "Sec. 1",
+      "quote": "onto 5020 robotic fiber positioners on the 0.812m diameter, aspheric focal surface"
+     },
+     {
+      "value": "first light with the corrector 2019 April 1",
+      "src": "D22",
+      "loc": "Fig. 3 caption",
+      "quote": "obtained with the corrector on the first night of observations (1 April 2019)"
+     }
+    ]
+   },
+   "desi_focal_surface": {
+    "value": "aspheric, convex, vertex radius 4977.994 mm, 812 mm across; 11.116 m from the primary's vertex (DERIVED)",
+    "unit": "mm",
+    "src": "M24",
+    "loc": "Table 4",
+    "quote": "Focal surface -4977.994 ... 812",
+    "alternatives": [
+     {
+      "value": "convex, radius > 3000 mm (requirement)",
+      "src": "D22",
+      "loc": "Sec. 3.1",
+      "quote": "the radius of curvature must be greater than 3000 mm (convex)"
+     }
+    ],
+    "derived": "see desi_corrector: 11115.8 mm from the primary, 456.8 mm beyond the primary's own focus (10659.0 mm)."
+   },
+   "desi_thin_lens": {
+    "value": "corrector drawn as one thin lens d = 1.49 m before the primary's focus",
+    "unit": "m",
+    "src": "M24",
+    "loc": "Tables 2 and 4",
+    "quote": "Focal length 13.920 meters on-axis",
+    "derived": "imager.js puts the focus m d past the lens (m = F / F1 = 13920 / 10659 = 1.3059); the focus lands 10659 + (m - 1) d from the primary. For the real 11115.8 mm: d = 456.8 / 0.3059 = 1493 mm. The lens sits 9.169 m from the primary, between C1 and C2 (8.69-9.35 m). Checked with web/imager.js design(): zF = 11114.8 mm."
+   },
+   "mosaic_corrector": {
+    "value": "4mPFC: four fused-silica lenses and a Risley-prism ADC (two pairs, UBK7 and LLF6); lens #1 9.977 m from the primary; focal surface 10.738 m from the primary (1998 design)",
+    "unit": "",
+    "src": "J98",
+    "loc": "Sec. 1; Table 1",
+    "quote": "This paper describes the 4-m prime focus corrector (4mPFC), a new four-element corrector that has been built specifically for wide-field optical imaging.",
+    "alternatives": [
+     {
+      "value": "lens #1",
+      "src": "J98",
+      "loc": "Table 1",
+      "quote": "Lens #1 1379.88 mm 39.80 mm SiO2 419.86 mm"
+     },
+     {
+      "value": "lens #4",
+      "src": "J98",
+      "loc": "Table 1",
+      "quote": "Lens #4 362.67 mm 28.60 mm SiO2 230.82 mm"
+     },
+     {
+      "value": "materials",
+      "src": "J98",
+      "loc": "Fig. 2 caption",
+      "quote": "Elements #1, #2, #3, and #4 are SiO2. The ADC materials comprising RP1 and RP2 are UBK7 (rear) and LLF6 (front)"
+     },
+     {
+      "value": "the KPNO name: f/3.1 corrector",
+      "src": "KMP",
+      "loc": "Prime Focus",
+      "quote": "Prime Focus (f/3.1) Corrector and ADC Prisms"
+     },
+     {
+      "value": "reference",
+      "src": "KMP",
+      "loc": "Prime Focus",
+      "quote": "The 4-m prime focus corrector is described in Jacoby, Liang, Vaughnn, Reed, and Armandroff (1988 SPIE, 3355, 721)",
+      "note": "SPIE 3355 is the 1998 volume; \"1988\" on the page is a typo"
+     }
+    ],
+    "derived": "Table 1 thickness column after the primary (mm): 9976.9 + 39.80 + 1.50 + 39.85 + 127.14 + 15.08 + 66.18 + 12.59 + 12.98 + 9.39 + 13.50 + 13.11 + 285.80 + 28.60 + 44.60 + 12.0 + 11.83 + 15.38 + 11.80 = 10738.0 mm (with the Mosaic filter and dewar window)."
+   },
+   "mosaic_plate_scale": {
+    "value": 17.43,
+    "unit": "arcsec/mm (center, VRI)",
+    "src": "J98",
+    "loc": "Sec. 3.1",
+    "quote": "the plate scale is precisely as predicted: 17.43”/mm in VRI (center), and 16.39”/mm in VRI (corner, 0.42° out). These correspond to effective focal ratios of 3.14 at the center and 3.34 at the corner.",
+    "alternatives": [
+     {
+      "value": "57 um per arcsec",
+      "src": "J98",
+      "loc": "Fig. 4 caption",
+      "quote": "One arcsecond corresponds to 57µm."
+     },
+     {
+      "value": "f/3.14",
+      "src": "J98",
+      "loc": "Sec. 2.4",
+      "quote": "f/# (3.14 for the Mayall 4-m)"
+     }
+    ],
+    "derived": "f = 206264.8 / 17.43 = 11833.9 mm; F = 11833.9 / 3797 = 3.117 (3.147 on the 3760 mm clear aperture of the design, the paper's 3.14); 0.015 mm x 17.43 = 0.261 arcsec per 15 um pixel."
+   },
+   "mosaic_field": {
+    "value": "36 x 36 arcmin flat, unvignetted (51 arcmin diagonal; corner 0.42 deg)",
+    "unit": "arcmin",
+    "src": "J98",
+    "loc": "Abstract",
+    "quote": "The Kitt Peak Mayall 4-m telescope required a new prime focus corrector having a flat focal plane covering 36 arcmin on a side (51 arcmin diagonal) to accommodate the Mosaic 8K x 8K CCD system.",
+    "alternatives": [
+     {
+      "value": "focal surface 176.6 mm (diagonal)",
+      "src": "J98",
+      "loc": "Table 1",
+      "quote": "Focal Surface (Mosaic) - - - 176.6 mm"
+     },
+     {
+      "value": "up to 36 arcmin with the old optics",
+      "src": "SS12",
+      "loc": "p. 1",
+      "quote": "The current secondary mirrors support instruments with fields-of-view up to 36 arcmin."
+     }
+    ],
+    "note": "Preset field = 51 (the circle that holds the 36' square)."
+   },
+   "mosaic_cameras": {
+    "value": "Mosaic (8K x 8K) behind the 4mPFC from 1998; Mosaic-1.1 (eight e2v 2k x 4k); Mosaic-3 (four LBNL 4k x 4k, first light 2015 October) for MzLS 2016-2018; decommissioned 2018 February 12",
+    "unit": "",
+    "src": "D19",
+    "loc": "Sec. 4",
+    "quote": "MzLS used the Mosaic-3 camera at the prime focus of the 4-meter Mayall telescope at Kitt Peak National Observatory.",
+    "alternatives": [
+     {
+      "value": "Mosaic-1.1",
+      "src": "D19",
+      "loc": "Sec. 4",
+      "quote": "The previous version, known as Mosaic-1.1, was a blue-sensitive camera equipped with eight thinned 2048×4096 15µm pixel format e2v CCDs."
+     },
+     {
+      "value": "Mosaic-3 first light",
+      "src": "D19",
+      "loc": "Sec. 4",
+      "quote": "Mosaic-3 saw first light in October 2015"
+     },
+     {
+      "value": "earlier correctors",
+      "src": "J98",
+      "loc": "Sec. 1",
+      "quote": "For 25 years, the original doublet and triplet correctors"
+     }
+    ]
+   },
+   "mosaic_thin_lens": {
+    "value": "corrector drawn as one thin lens d = 0.72 m before the primary's focus",
+    "unit": "m",
+    "src": "J98",
+    "loc": "Table 1; Sec. 3.1",
+    "quote": "Lens #1 1379.88 mm 39.80 mm SiO2 419.86 mm",
+    "derived": "m = 11833.9 / 10659.0 = 1.1102; d = (10738.0 - 10659.0) / 0.1102 = 717 mm (641 mm with the 1998 primary, f1 = 10668 mm). Checked with web/imager.js design() at d = 0.72: zF = 10736.2 mm."
+   },
+   "cass_f78_secondary": {
+    "value": "convex hyperboloid, R 9643.0 mm, K -5.2951, clear aperture 1191.6 mm, 7492.0 mm from the primary",
+    "unit": "mm",
+    "src": "KMP",
+    "loc": "F/7.8 Secondary Mirror",
+    "quote": "F/7.8 Secondary Mirror Distance from primary 7492.0 mm Radius of curvature 9643.0 mm convex Conic constant -5.2951 Clear aperture diam 1191.6 mm (CHECK)",
+    "alternatives": [
+     {
+      "value": "7491.98 mm; K -5.29507",
+      "src": "KZ8",
+      "loc": "SURF 3-4",
+      "quote": "DISZ -7.491983435E+3"
+     },
+     {
+      "value": "conic",
+      "src": "KZ8",
+      "loc": "SURF 4 (F/8 SECONDARY)",
+      "quote": "CONI -5.2950700141"
+     },
+     {
+      "value": "7492.0 (layout)",
+      "src": "KMP",
+      "loc": "Telescope (link text)",
+      "quote": "Optical Layout Figure",
+      "note": "FIGURE READ-OFF of KLF: \"RITCHEY-CHRÉTIEN f/7.8\", 7492.0"
+     }
+    ]
+   },
+   "cass_f78_focus": {
+    "value": "EFL 31258.7 mm; focus 1814.2 mm behind the primary's vertex, 152.4 mm behind the instrument rotator",
+    "unit": "mm",
+    "src": "KMP",
+    "loc": "F/7.8 Secondary Mirror",
+    "quote": "Secondary to RC focus 9306.2 mm Instrument rotator to RC focus 152.4 mm Effective focal length 31258.7 mm",
+    "alternatives": [
+     {
+      "value": "1814.17 mm behind the vertex (model)",
+      "src": "KZ8",
+      "loc": "SURF 5",
+      "quote": "DISZ 1.8141650532E+3"
+     },
+     {
+      "value": "Risley prisms: 45.3 mm = 298 arcsec",
+      "src": "KMP",
+      "loc": "Risley Prisms - Cass Focus",
+      "quote": "Clear Field f/7.8 45.3 mm = 298 arcsec"
+     }
+    ],
+    "figure_readoff": "KLF: 1814.2 from the primary's vertex to the \"R-C FOCUS\"; offsets 736.6, 342.9, 241.3, 152.4 for the instrument rotator and autoguider.",
+    "derived": "back focus 9306.2 - 7492.0 = 1814.2 mm (preset back = 1814.2 / 3797 = 0.4778 D); F = 31258.7 / 3797 = 8.2325 (7.810 on the 4002.6 mm bare aperture, the name f/7.8); plate = 206264.8 / 31258.7 = 6.5986 arcsec/mm (Risley: 298 / 45.3 = 6.58). web/imager.js design() with these inputs puts the secondary at 7487.3 mm with f2 = -4812.9 mm (real 7492.0 mm and 9643.0 / 2 = 4821.5 mm)."
+   },
+   "cass_f78_naming": {
+    "value": "f/7.8 (KPNO, layout) vs f/7.6 (link text) vs f/8 (model name and SS12)",
+    "unit": "",
+    "src": "KMP",
+    "loc": "F/7.8 Secondary Mirror",
+    "quote": "F/7.8 Secondary Mirror",
+    "alternatives": [
+     {
+      "value": "f/7.6",
+      "src": "KMP",
+      "loc": "link",
+      "quote": "Download 4-m f/7.6 ZEMAX file"
+     },
+     {
+      "value": "f/8",
+      "src": "KZ8",
+      "loc": "header",
+      "quote": "NAME KPNO 4m f/8 Zemax OPT Model 000202"
+     }
+    ]
+   },
+   "cass_f78_field": {
+    "value": "NOT FOUND (no published Cassegrain field); model traces +/-2.5 arcmin",
+    "unit": "arcmin",
+    "src": "KZ8",
+    "loc": "YFLD",
+    "quote": "YFLD 4.167E-2 2.917E-2 0 -2.917E-2 -4.167E-2",
+    "note": "YFLD in degrees: 0.04167 deg = 2.5 arcmin. Preset field = null (the drawing then uses 10')."
+   },
+   "cass_f15": {
+    "value": "convex hyperboloid R 5000.2 mm, K -3.09014, clear aperture 742.7 mm, 8634.5 mm from the primary; EFL 57160.3 mm; focus 2260.5 mm behind the primary's vertex",
+    "unit": "mm",
+    "src": "KMP",
+    "loc": "F/15 Secondary Mirror",
+    "quote": "F/15 Secondary Mirror Distance from primary 8634.5 mm Radius of curvature 5000.2 mm convex Conic constant -3.09014 Clear aperture 742.7 mm Secondary to SQIID focus 10895 mm Instrument rotator to SQIID focus 598.7 mm Effective focal length 57160.3 mm",
+    "alternatives": [
+     {
+      "value": "2259.97 mm behind the vertex (model)",
+      "src": "KZ15",
+      "loc": "SURF 5",
+      "quote": "DISZ 2.259969E+3"
+     },
+     {
+      "value": "flip-in secondary",
+      "src": "KMF",
+      "loc": "Q1",
+      "quote": "f/15 flip-in secondary"
+     }
+    ],
+    "figure_readoff": "KLF: \"IR f/15\" secondary at 8634.5 from the primary.",
+    "derived": "back 10895 - 8634.5 = 2260.5 mm (0.5953 D); F = 57160.3 / 3797 = 15.054; plate = 206264.8 / 57160.3 = 3.6085 arcsec/mm. web/imager.js design(): secondary at 8628.6 mm, f2 = -2495.9 mm (real 8634.5 and 2500.1 mm)."
+   },
+   "cass_f15_stop": {
+    "value": "the 742.7 mm f/15 secondary is the stop in the KPNO model (entrance pupil 3883.4 mm)",
+    "unit": "",
+    "src": "KZ15",
+    "loc": "SURF 4",
+    "quote": "STOP TYPE STANDARD CURV -1.999920003200000100E-004",
+    "alternatives": [
+     {
+      "value": "entrance pupil 3883.4 mm",
+      "src": "KZ15",
+      "loc": "header",
+      "quote": "ENPD 3.8834E+3"
+     }
+    ]
+   },
+   "coude": {
+    "value": "a coude focus in the original design; the M3 weldment and the upper central baffle were removed for DESI",
+    "unit": "",
+    "src": "FDR",
+    "loc": "Sec. 8.2.2.3",
+    "quote": "The upper portion of the baffle and the heavy weldment designed to hold an M3 mirror for the Coudé light path (no longer used) vignette the wide DESI field of view.",
+    "figure_readoff": "KLF: central baffle 940 across, reaching 3747 above the primary's vertex (inside the 1651 mm cage shadow)."
+   },
+   "pupil_frame": {
+    "value": "end view of the DESI top end with N up and E right, the telescope at zenith (seen from the sky)",
+    "unit": "",
+    "src": "M24",
+    "loc": "Fig. 45 caption",
+    "quote": "Right: end view showing the vane positions connecting the cage rails and upper ring.",
+    "note": "The figure labels N, S, E, W and the NE, NW, SW and SE vanes; the preset uses x = east, y = north in that view. On an equatorial mount the pattern stays fixed on the sky."
+   }
+  },
+  "not_found": [
+   "The pre-DESI spider: number of fins, widths and layout (1973-2018); the preset draws the DESI vanes at the historical foci (INFERRED).",
+   "The Cassegrain fields at f/7.8 and f/15 (only the KPNO models' +/-2.5 arcmin and the Risley-prism ADC's 298 arcsec clear field); the Cassegrain instruments list was not compiled.",
+   "An official DESI vane shadow width (as built 19 mm per vane; desimodel uses 0.03 m) and the pupil orientation relative to the sky in a text source (only Fig. 45 of M24, labeled N/S/E/W).",
+   "The DESI hexapod and cage outer shroud diameter beyond the <= 1.8 m requirement (KMP lists 1800 mm \"DESI cage\").",
+   "When the f/15 secondary and the coude focus were last used; the original prime-focus correctors' focal ratios and fields (J98 names doublet and triplet correctors only)."
+  ],
+  "conflicts": [
+   "Primary radius of curvature: 21318.0 mm (KMP current, M24 as-built \"updated value\", measured 2014, confirmed 2018) vs 21336 mm (J98 1998, KZ8 model, KLF 10668.0 = R/2, KMP HTML comment) vs 21.3 m (FDR).",
+   "Pupil diameter: 3797 mm used clear aperture (KMP, D22, M24, SSY) vs 3760 mm clear aperture (J98 1998 design) vs 3950 mm (KZ8 model ENPD) vs 3883.4 mm (KZ15 model, secondary as stop) vs 3.8 m (FDR, SS12) vs 4000 mm (M24 Table 4, J98 Table 1 mirror) vs 4002.6 mm bare clear aperture vs 4011.6 mm mirror (KMP).",
+   "Inner edge: central hole 1324 mm (KMP, D22) vs inner mask 1346 mm (M24) vs 1320 mm stop annulus (KZ8).",
+   "Central obstruction with DESI: 1800 mm cage (KMP, SSY) vs 1762 mm corrector shadow (M24); before DESI: 1651 mm (KMP, KLF) vs 1968 mm \"Bottom of the Secondary (Obscuration)\" (J98 Table 1).",
+   "Primary focal ratio: f/2.8 (D22, J98, M24) vs f/2.81 (KLF, 10668 / 3797) vs f/2.807 (DERIVED from 21318 mm).",
+   "DESI focal ratio: f/3.68 on axis (D22, M24 Table 2) vs 3.666 = 13.920 / 3.797 (DERIVED) vs 3.86 field average (M24) vs \"approximately f/3.9\" (D22, M24) vs f/3.85 and f/3.9 (FDR, fiber injection).",
+   "Mosaic focal ratio: f/3.14 (J98, on 3.76 m) vs f/3.117 on 3.797 m (DERIVED) vs \"f/3.1\" (KMP).",
+   "f/7.8 naming: f/7.8 (KMP, KLF; = 31258.7 / 4002.6) vs \"f/7.6\" (KMP link text) vs \"f/8\" (KZ8 name, SS12) vs f/8.23 on the 3.797 m pupil (DERIVED).",
+   "DESI vanes: 12 vanes in four sets of three with middle (C) vanes (M24, D22, as built) vs four fins without the middle vanes (FDR 2016 design). Width 19 mm (M24) vs 0.03 m (SSY desimodel).",
+   "Site altitude: 2123.2 m (KMP) vs \"approximately 2021m\" (D22).",
+   "KMP cites J98 as \"1988 SPIE, 3355, 721\"; SPIE volume 3355 is the 1998 meeting (J98 cites Muller et al. in \"SPIE Conference 3355, this volume\")."
+  ],
+  "notes": [
+   "Explorer conventions: F = focal length / 3.797 m; plate scale = 206264.8 / f (arcsec/mm); back = distance of the Cassegrain focus behind the primary's vertex in units of D; reflections count mirrors only.",
+   "Pupil frame: M24 Fig. 45 end view (N up, E right, seen from the sky with the telescope at zenith); on the equatorial mount the vane pattern keeps its orientation on the sky.",
+   "The DESI focal ratio varies across the field (f/3.68 to f/3.85-4.23 at the edge, D22, with anamorphic plate scale); the preset uses the on-axis focal length.",
+   "Light-collecting areas: KPNO's 9.182 m^2 equals the 3.797/1.651 m annulus exactly (DERIVED), so the vanes were not subtracted; the DESI 8.658 m^2 subtracts the 1.8 m cage and four 30 mm supports (DERIVED from SSY/SSI).",
+   "File provenance: KZ8/KZ15 (ZEMAX text), SSY/SSI (specsim) were read as text and never executed."
+  ]
+ }
+}

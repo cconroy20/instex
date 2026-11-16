@@ -1,0 +1,773 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Vera C. Rubin Observatory Simonyi Survey Telescope, the LSSTCam focus and the entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/rubin.md (same content as Markdown). Structure follows elt.json: sources{key: cite, file, url}; rubin: title, telescope (machine-readable mirrors, camera, pupil and focus; refs point to params as rubin.<param>), explorer_preset (the proposed web/tpresets.js entry, not applied), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/rubin/. derived = arithmetic done here (shown). alternatives = other sourced values. figure_readoff = a value read off a saved figure (nearby text is the checked quote). INFERRED = reasoned, stated by no source. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign, tilde operator, approximately-equal sign, inequality signs, micro sign and degree glyphs normalized; whitespace collapsed; a quote also passes with PDF line-end hyphenation removed or closed up, or with all whitespace (and hyphens) removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout, -raw and default for PDFs; HTML tag-stripped (comments removed; tags to a space and tags removed) and raw source; .yaml and .py as is.",
+  "pupil_frame": "imSim pupil-plane frame (bars at 45 and 135 deg); orientation relative to the elevation axis NOT FOUND",
+  "check_result": "69 quotes checked against the saved files, 0 failures (2026-11-16)"
+ },
+ "sources": {
+  "I19": {
+   "cite": "Ivezic, Z., Kahn, S. M., Tyson, J. A., et al. 2019, ApJ 873, 111, \"LSST: From Science Drivers to Reference Design and Anticipated Data Products\", arXiv:0805.2366v5 (Table 1; Sec. 2.6.1 Telescope and Site). SAME FILE as imaging key I19 (data/imaging/widefield.md), byte-identical copy",
+   "file": "rawdata/telescopes/rubin/Ivezic2019_ApJ873_111_LSST_arXiv0805.2366.pdf",
+   "url": "https://arxiv.org/pdf/0805.2366"
+  },
+  "SB09": {
+   "cite": "LSST Science Collaboration 2009, \"LSST Science Book, Version 2.0\", arXiv:0912.0201 (Sec. 1.6 table; Sec. 2.3 Optics and Telescope Design; Fig. 2.8; Sec. 3.4.1). Pre-construction design values. SAME FILE as imaging key SB09, byte-identical copy",
+   "file": "rawdata/telescopes/rubin/LSST_ScienceBook_v2.0_arXiv0912.0201.pdf",
+   "url": "https://arxiv.org/pdf/0912.0201"
+  },
+  "ROD": {
+   "cite": "Rubin Observatory (lsst.org), \"Rubin Observatory Optical Design\" page (legacy site; fetched 2026-10-19). SAME FILE as imaging key ROD, byte-identical copy",
+   "file": "rawdata/telescopes/rubin/lsst_org_tel-site_optical_design.html",
+   "url": "https://www.lsst.org/about/tel-site/optical_design"
+  },
+  "RKN": {
+   "cite": "NSF-DOE Vera C. Rubin Observatory, \"Key numbers\" page (\"Date last updated: 20 May 2026\"; fetched 2026-10-19). SAME FILE as imaging key RKN, byte-identical copy",
+   "file": "rawdata/telescopes/rubin/rubin_key-numbers.html",
+   "url": "https://rubinobservatory.org/for-scientists/rubin-101/key-numbers"
+  },
+  "BAT": {
+   "cite": "batoid ray tracer (J. Meyers), optical prescription batoid/data/LSST/LSST_r.yaml, GitHub jmeyers314/batoid commit fc7e155 (2023-11-08). Third-party model of the Rubin design (surface radii, conics, vertex positions along the axis, clear apertures). SAME FILE as imaging key BAT, byte-identical copy. Read as text only",
+   "file": "rawdata/telescopes/rubin/batoid_LSST_r_yaml_fc7e155.yaml",
+   "url": "https://github.com/jmeyers314/batoid/blob/fc7e155/batoid/data/LSST/LSST_r.yaml"
+  },
+  "OBSL": {
+   "cite": "Rubin Observatory / LSST Data Management, obs_lsst policy/cameraTransforms.yaml at commit 56defa3 (the pipeline plate scale). SAME FILE as imaging key OBSL (obs_lsst_56defa3/cameraTransforms.yaml), byte-identical copy",
+   "file": "rawdata/telescopes/rubin/obs_lsst_56defa3_cameraTransforms.yaml",
+   "url": "https://github.com/lsst/obs_lsst/blob/56defa3d2a0fd9c1c61c8647b9534e3533e08115/policy/cameraTransforms.yaml"
+  },
+  "K06": {
+   "cite": "Krabbendam, V. L., Burge, J. H., Claver, C. F., Cuerden, B., Davison, W., Gressler, W. J., Kingsley, J., Martin, H. M., Neill, D. R., Olivier, S., Phillion, D., Sebag, J., Sweeney, D. & the LSST Collaboration, \"LSST Telescope Design Developments\", conference poster (cites companion posters #26.20 and #26.21; PDF created 2006-01-18), hosted by the University of Arizona LOFT group. Text: vanes; images: the pupil model and the M1M3 drawing (FIGURE READ-OFFs). THE 2006 DESIGN",
+   "file": "rawdata/telescopes/rubin/Krabbendam2006_LSST_Telescope_Design_Developments_poster_loft.pdf",
+   "url": "https://wp.optics.arizona.edu/loft/wp-content/uploads/sites/6/2025/03/LSST_Telescope_Design_Developments.pdf"
+  },
+  "IMS": {
+   "cite": "imSim (LSST DESC image simulator), imsim/diffraction.py at GitHub LSSTDESC/imSim commit 6ce7c43 (2026-02-02): RUBIN_SPIDER_GEOMETRY, the projection of the Rubin spider in the pupil plane used for diffraction spikes. Third-party model. Read only, never executed",
+   "file": "rawdata/telescopes/rubin/imsim_6ce7c43_diffraction.py",
+   "url": "https://github.com/LSSTDESC/imSim/blob/6ce7c43/imsim/diffraction.py"
+  },
+  "T26": {
+   "cite": "Taranto, A., Rodeghiero, G., Rosignoli, L., Pai, A., Drlica-Wagner, A., et al. 2026, \"Modeling of the diffuse background produced by the Vera C. Rubin Observatory M2 baffle scattered light\", arXiv:2606.31793v1 (SPIE 2026 preprint): Secs. 1-2",
+   "file": "rawdata/telescopes/rubin/M2baffle_scattered_light_arXiv2606.31793.pdf",
+   "url": "https://arxiv.org/pdf/2606.31793"
+  },
+  "RSP": {
+   "cite": "NSF-DOE Vera C. Rubin Observatory, \"Diffraction spikes\" (Rubin Basics page; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/rubin/rubin_explore_diffraction-spikes.html",
+   "url": "https://rubinobservatory.org/explore/rubin-basics/diffraction-spikes"
+  }
+ },
+ "rubin": {
+  "title": "Rubin Observatory Simonyi Survey Telescope: three-mirror (M1M3 monolith) LSSTCam focus; entrance pupil",
+  "telescope": {
+   "name": "Vera C. Rubin Observatory, Simonyi Survey Telescope",
+   "site": "Cerro Pachon, Chile, 2652 m (I19)",
+   "mount": "alt-azimuth (SB09)",
+   "status": "in operation (LSSTCam)",
+   "optical_design": "three-mirror modified Paul-Baker (Mersenne-Schmidt); M1 and M3 on one monolith; three-lens refractive corrector and filter in the camera; one focus",
+   "primary": {
+    "outer_clear_diameter_m": 8.36,
+    "nominal_diameter_m": 8.4,
+    "inner_clear_diameter_m": 5.12,
+    "radius_of_curvature_m": 19.835,
+    "conic": -1.215,
+    "focal_length_m_DERIVED": 9.9175,
+    "F1_DERIVED": 1.1863,
+    "refs": [
+     "rubin.m1_outer",
+     "rubin.m1_inner",
+     "rubin.m1_radius",
+     "rubin.m1m3_monolith"
+    ]
+   },
+   "secondary": {
+    "shape": "convex",
+    "diameter_m": 3.4,
+    "clear_outer_m": 3.42,
+    "central_opening_m": 1.8,
+    "radius_of_curvature_m": 6.788,
+    "conic": -0.222,
+    "vertex_above_M1_vertex_m": 6.1562,
+    "refs": [
+     "rubin.m2",
+     "rubin.m1_m2_spacing"
+    ]
+   },
+   "tertiary": {
+    "shape": "concave, on the M1M3 monolith",
+    "diameter_m": 5.0,
+    "clear_outer_m": 5.016,
+    "radius_of_curvature_m": 8.3445,
+    "conic": 0.155,
+    "vertex_above_M1_vertex_m": -0.2338,
+    "central_hole_mm_2006_FIGURE_READOFF": [
+     1067,
+     1054.7
+    ],
+    "refs": [
+     "rubin.m3",
+     "rubin.m3_hole"
+    ]
+   },
+   "camera": {
+    "body_diameter_m": 1.6,
+    "body_length_m": 3.5,
+    "L1_m": 1.55,
+    "L1_above_M1_vertex_m": 3.397,
+    "focal_plane_above_M1_vertex_m_DERIVED": 4.429,
+    "refs": [
+     "rubin.camera",
+     "rubin.corrector"
+    ]
+   },
+   "pupil": {
+    "frame": "imSim pupil-plane frame; orientation relative to the elevation axis NOT FOUND",
+    "D_m": 8.36,
+    "eps": 0.612,
+    "vanes": [
+     {
+      "ang": 135,
+      "w": 0.05,
+      "full": true,
+      "x0": -0.28284,
+      "y0": -0.28284
+     },
+     {
+      "ang": 45,
+      "w": 0.05,
+      "full": true,
+      "x0": 0.28284,
+      "y0": -0.28284
+     },
+     {
+      "ang": 135,
+      "w": 0.05,
+      "full": true,
+      "x0": 0.28284,
+      "y0": 0.28284
+     },
+     {
+      "ang": 45,
+      "w": 0.05,
+      "full": true,
+      "x0": -0.28284,
+      "y0": 0.28284
+     }
+    ],
+    "vane_area_m2_DERIVED": 0.654,
+    "area_m2_DERIVED": 33.68,
+    "refs": [
+     "rubin.eps",
+     "rubin.spider",
+     "rubin.spider_frame",
+     "rubin.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "cam",
+     "name": "LSSTCam focus (three mirrors + three lenses)",
+     "status": "in use",
+     "focal_length_mm_DERIVED": 10310.2,
+     "F_quoted": 1.234,
+     "F_DERIVED": 1.2333,
+     "plate_scale_arcsec_per_mm": 20.0059,
+     "field_deg": 3.5,
+     "field_mm": 640,
+     "n_reflections": 3,
+     "location": "flat focal plane inside LSSTCam, in the shadow of M2, 4.43 m above the M1 vertex (DERIVED from BAT)",
+     "refs": [
+      "rubin.focal_ratio",
+      "rubin.plate_scale",
+      "rubin.field",
+      "rubin.camera"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "rubin",
+   "group": "Rubin 8.4 m",
+   "name": "Rubin (Simonyi) 8.4 m",
+   "D": 8.36,
+   "Dmirror": 8.4,
+   "f1": 9.9175,
+   "eps": 0.612,
+   "primaryNote": "M1 and M3 share one 8.4 m monolith of Ohara E6 glass. M1 is the outer annulus, 8.36 m clear outside and 5.12 m inside, with a radius of curvature of 19.835 m (f = 9.92 m, f/1.19); the 5.0 m M3 fills the center (radius of curvature 8.34 m), with the M3 vertex 0.23 m below M1's. A hole through the center of M3 (1.06 m across in a 2006 drawing) holds alignment equipment.",
+   "pupil": {
+    "kind": "circle",
+    "D": 8.36,
+    "vanes": [
+     {
+      "ang": 135,
+      "w": 0.05,
+      "full": true,
+      "x0": -0.28284,
+      "y0": -0.28284
+     },
+     {
+      "ang": 45,
+      "w": 0.05,
+      "full": true,
+      "x0": 0.28284,
+      "y0": -0.28284
+     },
+     {
+      "ang": 135,
+      "w": 0.05,
+      "full": true,
+      "x0": 0.28284,
+      "y0": 0.28284
+     },
+     {
+      "ang": 45,
+      "w": 0.05,
+      "full": true,
+      "x0": -0.28284,
+      "y0": 0.28284
+     }
+    ]
+   },
+   "pupilNote": "An annulus 8.36 m across with a 5.12 m hole (M3 fills the center of the glass), crossed by eight 50 mm vanes in four parallel pairs 0.8 m apart, which hold M2 and the camera (imSim's model; the Science Book puts the vanes' area at ~0.7 m²). The orientation relative to the elevation axis is not published; the camera rotates between exposures, so the spikes turn on the sky.",
+   "area": {
+    "value": 33.68,
+    "info": true,
+    "src": "DERIVED: the 8.36/5.116 m annulus (34.33 m²) less eight 50 mm vane segments (0.65 m²; the Science Book's ~0.7 m²); the Science Book quotes 35 m² on axis"
+   },
+   "foci": [
+    {
+     "id": "cam",
+     "name": "LSSTCam focus f/1.23 (three mirrors)",
+     "kind": "Camera focus",
+     "F": 1.2333,
+     "plate": 20.0059,
+     "design": "pb",
+     "field": 210,
+     "refl": 3,
+     "secondary": "convex 3.4 m with a 1.8 m central opening for the camera, 6.16 m above M1's vertex; then the concave 5.0 m M3 at the center of the primary's glass",
+     "fieldNote": "3.5° across (9.6 deg²) on a flat 64 cm focal plane, behind three fused-silica lenses (L1 1.55 m) and a filter, not drawn. Drawn as the explorer's Paul–Baker layout: the focal length and plate scale are Rubin's and the M1–M2 spacing matches (6.15 m drawn, 6.16 m real); the real M3 vertex lies 0.23 m behind M1's vertex (drawn 0.17 m in front), and the real focal plane lies 4.43 m above M1's vertex (drawn 5.23 m)."
+    }
+   ]
+  },
+  "params": {
+   "site_mount": {
+    "value": "Cerro Pachon, Chile, 2652 m; alt-azimuth",
+    "unit": "",
+    "src": "I19",
+    "loc": "Sec. 2.6.1",
+    "quote": "elevation: 2652 m",
+    "alternatives": [
+     {
+      "value": "Cerro Pachon",
+      "src": "I19",
+      "loc": "Sec. 1",
+      "quote": "Cerro Pachón in northern Chile"
+     },
+     {
+      "value": "alt-azimuth",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Configuration three-mirror, Alt-azimuth"
+     }
+    ]
+   },
+   "optical_design": {
+    "value": "three-mirror modified Paul-Baker (Mersenne-Schmidt) telescope with M1 and M3 on one monolith, then a three-lens refractive corrector and filter in the camera",
+    "unit": "",
+    "src": "I19",
+    "loc": "Table 1",
+    "quote": "Optical Config. 3-mirror modified Paul-Baker",
+    "alternatives": [
+     {
+      "value": "modified Paul-Baker Mersenne-Schmidt",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "a novel three-mirror design (modified Paul-Baker Mersenne-Schmidt system; Angel et al. 2000) with a very fast f/1.234 beam."
+     },
+     {
+      "value": "light path",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "The collected light is reflected to a 3.4 m convex secondary, then onto a 5 m concave tertiary, and finally into the three refractive lenses of the camera"
+     },
+     {
+      "value": "Paul-Baker, one captured focus",
+      "src": "K06",
+      "loc": "abstract",
+      "quote": "The telescope optical system is based on a Paul-Baker three element design with a single captured focus for the dedicated instrument."
+     }
+    ]
+   },
+   "m1_outer": {
+    "value": "8.36 m outer clear aperture (8.4 m nominal; 8417 mm glass in the 2006 drawing)",
+    "unit": "m",
+    "src": "ROD",
+    "loc": "Optical design, para. 4",
+    "quote": "having an outer clear aperture of 8.36 m and an inner diameter of 5.12 m, giving an effective collecting area of a 6.67 m filled aperture",
+    "alternatives": [
+     {
+      "value": "8.4 m",
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Primary mirror diameter: 8.4 m"
+     },
+     {
+      "value": "8.4 m",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Physical diameter of optics M1: 8.4m M2: 3.4m M3: 5.02 m"
+     },
+     {
+      "value": "8.36 m pupil",
+      "src": "BAT",
+      "loc": "opticalSystem",
+      "quote": "pupilSize: 8.36  # Pupil fits inside a square with this side length"
+     },
+     {
+      "value": "M1 clear annulus 2.558-4.18 m radius",
+      "src": "BAT",
+      "loc": "M1 obscuration",
+      "quote": "type: ClearAnnulus outer: 4.18 inner: 2.558"
+     },
+     {
+      "value": "the same circles in the spider model",
+      "src": "IMS",
+      "loc": "RUBIN_SPIDER_GEOMETRY",
+      "quote": "circles=np.array([[0.0, 0.0, 2.558], [0.0, 0.0, 4.18]]),"
+     }
+    ],
+    "figure_readoff": "K06 M1M3 drawing (2006 design): \"Ø8417 mm ± 1 mm (PRIMARY OUTER EDGE)\", \"Ø8405 mm\" at the front surface, \"Ø5066 mm (TERTIARY OUTER EDGE)\". The checked quote for the drawing is the K06 M1-M3 text (m1m3_monolith).",
+    "note": "Preset D = 8.36 (the clear aperture); Dmirror = 8.4 (nominal)."
+   },
+   "m1_inner": {
+    "value": "5.12 m (M1 clear inner diameter; M3 occupies the center of the glass)",
+    "unit": "m",
+    "src": "ROD",
+    "loc": "Optical design, para. 4",
+    "quote": "an inner diameter of 5.12 m",
+    "alternatives": [
+     {
+      "value": "5.1 m",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The primary mirror (M1) is 8.4 m in diameter with a 5.1-m inner clear aperture. The tertiary mirror (M3) is 5 m in diameter."
+     },
+     {
+      "value": "5.0 m",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "having an outer diameter of 8.4 m and inner diameter of 5.0 m, creating an effective filled aperture of ~6.4 m in diameter once vignetting is taken into account"
+     },
+     {
+      "value": "5 m",
+      "src": "T26",
+      "loc": "Sec. 1",
+      "quote": "M1 corresponds to the concave outer annulus with an inner diameter of 5m"
+     },
+     {
+      "value": "2 x 2.558 = 5.116 m",
+      "src": "BAT",
+      "loc": "M1 obscuration",
+      "quote": "outer: 4.18 inner: 2.558"
+     }
+    ]
+   },
+   "eps": {
+    "value": 0.612,
+    "unit": "linear (obstruction diameter / D)",
+    "src": "BAT",
+    "loc": "opticalSystem",
+    "quote": "pupilObscuration: 0.612  # Fractional pupil central obscuration",
+    "note": "The same value as the Imager mode (data/imaging/widefield.md).",
+    "derived": "5.12 / 8.36 = 0.6124; 2 x 2.558 / 8.36 = 0.6120. The obstruction is the inner edge of the M1 annulus: M2 (3.4 m), the M2 baffle and the 1.6 m camera lie in front of that edge on axis."
+   },
+   "m1_radius": {
+    "value": 19.835,
+    "unit": "m (radius of curvature; conic -1.215)",
+    "src": "BAT",
+    "loc": "M1",
+    "quote": "name: M1 surface: type: Asphere R: 19.835 conic: -1.215",
+    "note": "Third-party prescription (no observatory document with the M1 radius was found).",
+    "derived": "f1 = 19.835 / 2 = 9.9175 m; F1 = 9.9175 / 8.36 = 1.1863 (f/1.181 on 8.4 m)."
+   },
+   "m1m3_monolith": {
+    "value": "M1 and M3 polished on one 8.4 m blank of Ohara E6 glass (spin-cast honeycomb; the M1M3)",
+    "unit": "",
+    "src": "ROD",
+    "loc": "Optical design, para. 3",
+    "quote": "The primary and tertiary mirrors were fabricated from a single piece of Ohara E6 low-expansion glass, resulting in the monolithic Rubin Observatory Primary/Tertiary Mirror (M1M3).",
+    "alternatives": [
+     {
+      "value": "one substrate",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "allowing M1 and M3 to be fabricated from a single substrate"
+     },
+     {
+      "value": "2006 design",
+      "src": "K06",
+      "loc": "M1-M3 Monolith panel",
+      "quote": "LSST has adopted a monolithic mirror design for the primary and tertiary surfaces."
+     },
+     {
+      "value": "glass mass",
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Mirror (M1+M3 glass mirror only) weight: 35,900 lbs (16,284 kg)"
+     }
+    ]
+   },
+   "m3": {
+    "value": "5.0 m concave (5.016 m clear), R 8.3445 m, conic 0.155; vertex 0.2338 m behind M1's vertex; clear annulus 0.55-2.508 m radius",
+    "unit": "m",
+    "src": "BAT",
+    "loc": "M3",
+    "quote": "name: M3 surface: type: Asphere R: 8.3445 conic: 0.155 ... outer: 2.508 inner: 0.55 coordSys: z: -0.2338",
+    "alternatives": [
+     {
+      "value": "5.02 m",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Physical diameter of optics M1: 8.4m M2: 3.4m M3: 5.02 m"
+     },
+     {
+      "value": "5.0 m",
+      "src": "ROD",
+      "loc": "Optical design, para. 3",
+      "quote": "an 8.4-m primary mirror, a 3.5-m convex secondary mirror, and a 5.0-m tertiary mirror"
+     },
+     {
+      "value": "5 m concave",
+      "src": "I19",
+      "loc": "Sec. 2.6.1",
+      "quote": "then onto a 5 m concave tertiary"
+     }
+    ],
+    "figure_readoff": "K06 M1M3 drawing (2006): \"Ø5066 mm (TERTIARY OUTER EDGE)\"; the tertiary is ground into the center of the blank, below the primary surface.",
+    "derived": "f3 = 8.3445 / 2 = 4.172 m. z = -0.2338 m: the M3 vertex lies 0.234 m behind (below) the M1 vertex."
+   },
+   "m3_hole": {
+    "value": "a central hole through M3 (1067 mm at the front, 1054.7 mm at the back in the 2006 drawing) for alignment equipment",
+    "unit": "mm",
+    "src": "ROD",
+    "loc": "Optical design, para. 4",
+    "quote": "The hole in the tertiary mirror is used to mount equipment for maintaining precise control of Rubin Observatory's optical alignment.",
+    "alternatives": [
+     {
+      "value": "M3 clear inner radius 0.55 m",
+      "src": "BAT",
+      "loc": "M3 obscuration",
+      "quote": "outer: 2.508 inner: 0.55"
+     }
+    ],
+    "figure_readoff": "K06 M1M3 drawing: \"Ø1067 mm [Ø42.01]\" (item 12, at the surface) and \"Ø1054.7 mm + 2 mm - 0 mm\" (through the blank), centered on the axis.",
+    "note": "Inside the camera's shadow; not part of the pupil. The preset does not set hole (see Explorer schema)."
+   },
+   "m2": {
+    "value": "convex 3.4 m (100 mm thick ULE meniscus) with a 1.8 m central opening for the camera; R 6.788 m, conic -0.222; clear annulus 0.9-1.71 m radius",
+    "unit": "m",
+    "src": "SB09",
+    "loc": "Sec. 2.3",
+    "quote": "The 3.4-m convex secondary mirror (M2) has a 1.8-m inner opening. The LSST camera is inserted through this opening in order to access the focal surface.",
+    "alternatives": [
+     {
+      "value": "3.5 m",
+      "src": "ROD",
+      "loc": "Optical design, para. 3",
+      "quote": "an 8.4-m primary mirror, a 3.5-m convex secondary mirror, and a 5.0-m tertiary mirror"
+     },
+     {
+      "value": "1.8 m hole holds the camera",
+      "src": "ROD",
+      "loc": "Optical design, para. 4",
+      "quote": "The 1.8 m diameter hole in the secondary mirror holds the camera body and associated readout electronics."
+     },
+     {
+      "value": "3.45 m",
+      "src": "T26",
+      "loc": "Sec. 1",
+      "quote": "The secondary mirror is a convex 3.45m diameter mirror"
+     },
+     {
+      "value": "3.4 m, 100 mm ULE",
+      "src": "T26",
+      "loc": "Sec. 2",
+      "quote": "The Rubin M2 mirror is a 3.4m diameter, 100mm thick Ultra Low Expansion (ULE) glass meniscus."
+     },
+     {
+      "value": "prescription",
+      "src": "BAT",
+      "loc": "M2",
+      "quote": "name: M2 surface: type: Asphere R: 6.788 conic: -0.222"
+     },
+     {
+      "value": "clear annulus",
+      "src": "BAT",
+      "loc": "M2 obscuration",
+      "quote": "outer: 1.71 inner: 0.9 coordSys: z: 6.1562006"
+     }
+    ],
+    "derived": "f2 = -6.788 / 2 = -3.394 m (convex); clear outer diameter 2 x 1.71 = 3.42 m, inner 1.80 m."
+   },
+   "m1_m2_spacing": {
+    "value": 6.1562,
+    "unit": "m (M1 vertex to M2 vertex)",
+    "src": "BAT",
+    "loc": "M2 coordSys",
+    "quote": "outer: 1.71 inner: 0.9 coordSys: z: 6.1562006",
+    "alternatives": [
+     {
+      "value": "6.4 m from M2 vertex to M3 vertex",
+      "src": "ROD",
+      "loc": "Optical design, para. 3",
+      "quote": "The system length is a very compact 6.4 m from the vertex of the secondary mirror to the vertex of the tertiary mirror."
+     }
+    ],
+    "derived": "6.1562 + 0.2338 = 6.390 m from the M2 vertex to the M3 vertex (ROD: 6.4 m). 6.1562 / 9.9175 = 0.621 f1 (imager.js \"pb\" uses 0.62 f1)."
+   },
+   "camera": {
+    "value": "LSSTCam: body ~1.6 m across and 3.5 m long, inside the M2 opening; L1 (1.55 m) 3.397 m above M1's vertex; flat focal plane 4.429 m above M1's vertex (DERIVED)",
+    "unit": "m",
+    "src": "SB09",
+    "loc": "Fig. 2.8 caption",
+    "quote": "The camera body is approximately 1.6 m in diameter and 3.5 m in length. The optic, L1, is 1.57 m in diameter.",
+    "alternatives": [
+     {
+      "value": "L1 1.55 m",
+      "src": "ROD",
+      "loc": "Optical design, para. 5",
+      "quote": "The largest lens (L1) is 1.55 m in diameter"
+     },
+     {
+      "value": "camera position",
+      "src": "BAT",
+      "loc": "LSSTCamera",
+      "quote": "name: LSSTCamera coordSys: z: 3.3974725882045593"
+     },
+     {
+      "value": "detector position within the camera",
+      "src": "BAT",
+      "loc": "Detector",
+      "quote": "name: Detector surface: type: Plane obscuration: type: ClearCircle radius: 0.4 coordSys: z: 1.03195202"
+     },
+     {
+      "value": "L1 1.6 m",
+      "src": "T26",
+      "loc": "Sec. 1",
+      "quote": "with the first lens (L1) having a diameter of 1.6m"
+     },
+     {
+      "value": "3,060 kg",
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Camera weight: 6,746 lbs (3,060 kg)"
+     }
+    ],
+    "derived": "focal plane z = 3.39747 + 1.03195 = 4.4294 m above M1's vertex = 0.7195 x the M1-M2 spacing; L1 front at 3.397 m."
+   },
+   "focal_ratio": {
+    "value": 1.233,
+    "unit": "f/# (final)",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Final f-ratio: f/1.233",
+    "alternatives": [
+     {
+      "value": 1.234,
+      "src": "I19",
+      "loc": "Table 1",
+      "quote": "Final f-ratio, aperture f/1.234, 8.4 m"
+     },
+     {
+      "value": 1.23,
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The effective focal length of the optical system is 10.3 m, making the final f/number 1.23. The plate scale is 50 microns per arcsecond at the focal surface."
+     }
+    ],
+    "derived": "10310.2 mm / 8.36 m = 1.2333 (preset F); / 8.4 m = 1.2274."
+   },
+   "plate_scale": {
+    "value": 20.0059,
+    "unit": "arcsec/mm (pipeline)",
+    "src": "OBSL",
+    "loc": "cameraTransforms.yaml",
+    "quote": "plateScale : 20.005867576692737",
+    "alternatives": [
+     {
+      "value": "50 um/arcsec, f = 10.3 m",
+      "src": "SB09",
+      "loc": "Sec. 2.3",
+      "quote": "The plate scale is 50 microns per arcsecond at the focal surface."
+     }
+    ],
+    "derived": "f = 206264.8 / 20.005868 = 10310.2 mm."
+   },
+   "field": {
+    "value": "3.5 deg (9.6 deg^2) on a 64 cm flat focal plane",
+    "unit": "deg",
+    "src": "RKN",
+    "loc": "Telescope list",
+    "quote": "Field of View (FOV): 3.5 deg (9.6 deg 2 )",
+    "alternatives": [
+     {
+      "value": "64 cm flat focal plane",
+      "src": "ROD",
+      "loc": "Optical design, para. 1",
+      "quote": "a 3.5 degree field of view covering a 64 cm diameter flat focal plane"
+     },
+     {
+      "value": "9.6 deg^2",
+      "src": "SB09",
+      "loc": "Sec. 1.6 table",
+      "quote": "Area and diameter of field of view 9.6 deg2 (3.5 deg)"
+     }
+    ],
+    "note": "Preset field = 210 arcmin."
+   },
+   "corrector": {
+    "value": "three fused-silica lenses (clear apertures 1.55, 1.10, 0.72 m; L3 = cryostat window) and a 0.75 m filter, in the converging beam inside the camera",
+    "unit": "",
+    "src": "SB09",
+    "loc": "Sec. 2.3",
+    "quote": "The three fused-silica refractive elements, which have clear apertures of 1.55 m, 1.10 m, and 0.72 m",
+    "alternatives": [
+     {
+      "value": "three lenses and a filter",
+      "src": "ROD",
+      "loc": "Optical design, para. 5",
+      "quote": "The camera optics consist of three large fused-silica lenses and a filter."
+     },
+     {
+      "value": "L1 in the model",
+      "src": "BAT",
+      "loc": "L1",
+      "quote": "name: L1_entrance surface: type: Sphere R: 2.824 obscuration: type: ClearCircle radius: 0.775"
+     }
+    ],
+    "note": "The \"pb\" drawing has no corrector option; the lenses are not drawn."
+   },
+   "spider": {
+    "value": "eight 50 mm vanes holding M2 and the camera, in four parallel pairs: four straight bars across the pupil, each 0.4 m from the center (imSim), total vane area ~0.7 m^2",
+    "unit": "",
+    "src": "K06",
+    "loc": "Diffraction PSF panel",
+    "quote": "The support of the LSST secondary and instrument assembly is done by 8×50mm thick structural vanes resulting in the pupil geometry shown (above left).",
+    "alternatives": [
+     {
+      "value": "~0.7 m^2 of vanes",
+      "src": "SB09",
+      "loc": "Sec. 3.4.1",
+      "quote": "The relatively small cross-section (∼ 0.7m2) of the support vanes holding the secondary and camera assemblies results in very low intensity diffraction spikes."
+     },
+     {
+      "value": "imSim lines (normal, distance, half-width)",
+      "src": "IMS",
+      "loc": "RUBIN_SPIDER_GEOMETRY",
+      "quote": "[1 / np.sqrt(2.0), 1 / np.sqrt(2.0), -0.4, 0.025], ... [-1 / np.sqrt(2.0), 1 / np.sqrt(2.0), -0.4, 0.025], ... [1 / np.sqrt(2.0), 1 / np.sqrt(2.0), 0.4, 0.025], ... [-1 / np.sqrt(2.0), 1 / np.sqrt(2.0), 0.4, 0.025],"
+     },
+     {
+      "value": "row format",
+      "src": "IMS",
+      "loc": "Geometry docstring",
+      "quote": "[nx, ny, d, thickness]. (nx, ny) is the normal to the line and d is such that d*(nx, ny) lies on the line."
+     },
+     {
+      "value": "the \"thickness\" is a half-width",
+      "src": "IMS",
+      "loc": "dist_thick_line",
+      "quote": "out_v[:] = np.abs(np.abs(n.dot(point[..., None])[..., 0] - d_ext) - thickness_ext)"
+     },
+     {
+      "value": "struts hold M2 and the camera",
+      "src": "RSP",
+      "loc": "text",
+      "quote": "primarily the struts holding Rubin’s secondary mirror and camera in place"
+     }
+    ],
+    "figure_readoff": "K06 pupil image (2006): an annulus crossed by four pairs of parallel vanes, the pairs vertical above and below and horizontal left and right of the hole, the bars of each pair 55-56 px apart on a 579 px outer diameter, i.e. 0.80 m apart and 0.40 m from the center for 8.4 m (0.40 m for 8.36 m); the hole of that model spans 332 px (4.8 m).",
+    "derived": "imSim: |n.p - d| < 0.025 m, so each bar is 0.05 m wide (K06: 50 mm), at +/-0.4 m from the center along the 45 and 135 deg normals. Each bar crosses the M1 annulus twice: 2 (sqrt(4.18^2 - 0.4^2) - sqrt(2.558^2 - 0.4^2)) = 3.269 m; four bars x 3.269 m x 0.05 m = 0.654 m^2 (SB09 ~0.7 m^2). The bars cross one another 0.566 m from the center, inside the obstruction. Preset: full bars {ang 135, (x0, y0) = (-0.28284, -0.28284)}, {45, (0.28284, -0.28284)}, {135, (0.28284, 0.28284)}, {45, (-0.28284, 0.28284)}, w 0.05."
+   },
+   "spider_frame": {
+    "value": "imSim's pupil frame (bars at +/-45 deg); the 2006 pupil image shows the same pattern turned 45 deg; orientation relative to the elevation axis NOT FOUND; the camera rotates between exposures",
+    "unit": "",
+    "src": "RSP",
+    "loc": "text",
+    "quote": "Because Rubin’s camera rotates between one exposure and the next, the pattern rotates relative to the sky.",
+    "alternatives": [
+     {
+      "value": "imSim models the spider",
+      "src": "IMS",
+      "loc": "module docstring",
+      "quote": "Routines to implement diffraction due to the Rubin spider."
+     }
+    ]
+   },
+   "collecting_area": {
+    "value": "35 m^2 on axis (SB09); 6.67 m filled-aperture equivalent (ROD); 33.68 m^2 explorer pupil (DERIVED)",
+    "unit": "m^2",
+    "src": "SB09",
+    "loc": "Sec. 2.3",
+    "quote": "The on-axis collecting area is 35 m2, equivalent to a 6.7-m diameter unobscured clear aperture.",
+    "alternatives": [
+     {
+      "value": "6.67 m filled aperture",
+      "src": "ROD",
+      "loc": "Optical design, para. 4",
+      "quote": "giving an effective collecting area of a 6.67 m filled aperture"
+     },
+     {
+      "value": "6.49 m mean over the field (with vignetting)",
+      "src": "RKN",
+      "loc": "Telescope list",
+      "quote": "Mean effective aperture: 6.49 m (area weighted over FOV)"
+     }
+    ],
+    "derived": "pi/4 (8.36^2 - 5.116^2) = 34.33 m^2; less 0.654 m^2 of vanes = 33.68 m^2 (tpupil.js raster of the preset pupil: 33.678). ROD 6.67 m -> 34.94 m^2; RKN 6.49 m -> 33.08 m^2."
+   },
+   "m2_baffle": {
+    "value": "a baffle of parallel circular vanes surrounds the M2 assembly and shields M3 from direct sky light; diameter NOT FOUND",
+    "unit": "",
+    "src": "T26",
+    "loc": "Sec. 2",
+    "quote": "A critical element of the M2 assembly is the M2 baffle, which surrounds the secondary mirror assembly.",
+    "alternatives": [
+     {
+      "value": "function",
+      "src": "T26",
+      "loc": "Sec. 2",
+      "quote": "the M2 baffle acts to intercept light that would otherwise directly illuminate M3 and subsequently the detector."
+     }
+    ],
+    "note": "On axis the baffle lies in front of M3, inside the 5.12 m M1 inner edge (INFERRED from the function of the baffle); the preset obstruction is the M1 inner edge."
+   }
+  },
+  "not_found": [
+   "An observatory document with the M1, M2 and M3 radii, conics and spacings (the as-built optical prescription); BAT (third party) supplies them.",
+   "The current spider geometry in an observatory document: the 8 x 50 mm vanes are from the 2006 poster (K06), the bar positions from imSim; whether the as-built top end keeps that layout is not stated.",
+   "The pupil orientation relative to the elevation axis (imSim and K06 differ by 45 deg in their frames).",
+   "The M2 baffle diameter; the camera's outer diameter as built (SB09 gives ~1.6 m for the design).",
+   "A published unvignetted field radius (SB09: brightness constant to 1.2 deg, down ~10% at 1.75 deg)."
+  ],
+  "conflicts": [
+   "M1 diameter: 8.36 m clear (ROD, BAT) vs 8.4 m (RKN, I19, SB09) vs 8417 mm outer edge in the 2006 drawing (K06).",
+   "M1 inner diameter: 5.12 m (ROD; BAT 5.116 m) vs 5.1 m (SB09) vs 5.0 m (I19, T26).",
+   "M2 diameter: 3.4 m (SB09, I19, K06, T26 Sec. 2) vs 3.5 m (ROD) vs 3.45 m (T26 Sec. 1); BAT clear 3.42 m.",
+   "M3 diameter: 5.0 m (ROD, I19, K06) vs 5.02 m (SB09) vs 5066 mm outer edge (K06 drawing) vs 5.016 m clear (BAT).",
+   "L1 diameter: 1.55 m (ROD, SB09 clear aperture) vs 1.57 m (SB09 Fig. 2.8) vs 1.6 m (T26).",
+   "Final focal ratio: f/1.233 (RKN) vs f/1.234 (I19, T26) vs f/1.23 (SB09).",
+   "Spider frame: the K06 pupil image shows the vane pairs vertical and horizontal; imSim places the bars at 45 and 135 deg. Both have bars 0.4 m from the center.",
+   "Collecting area: 35 m^2 on axis (SB09) vs 6.67 m filled aperture = 34.94 m^2 (ROD) vs 33.68 m^2 (DERIVED, annulus less vanes) vs 6.49 m mean over the field = 33.08 m^2 (RKN, with vignetting)."
+  ],
+  "notes": [
+   "Explorer conventions: F = f / 8.36 m; plate scale = 206264.8 / f; reflections count mirrors only (the camera adds three lenses and a filter).",
+   "BAT coordinates: z along the axis toward the sky with M1's vertex at 0; M2 at +6.1562 m, M3 at -0.2338 m, L1 at +3.3975 m, the detector at +4.4294 m.",
+   "The pupil and the M3 hole: light reaching the central 5.12 m of the glass lands on M3 and never reaches M2 as part of the M1 beam, so the M1 annulus is the pupil.",
+   "File provenance: BAT (yaml) and IMS (py) were read as text and never executed."
+  ]
+ }
+}

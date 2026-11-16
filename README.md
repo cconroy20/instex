@@ -186,7 +186,8 @@ also set on the Imager's FourStar and NIRC2); no instruments are listed at the p
 baade and clay entries open the merged telescope. Pupil and image (10-19, his asks: "those are just diffraction-limited, right? should be made
 clear in the panel"; "why is the pupil image so fuzzy"; "should include a version with an atmosphere side-by-side"):
 three images, the entrance pupil (drawn from its own raster at the screen's resolution: the FFT grid has only 128
-cells across the pupil), the diffraction-limited image ("perfect optics, no atmosphere") and the seeing-limited image
+cells across the pupil), the diffraction-limited image (titled without a subtitle since 11-16, his call; the panel's
+tooltip says perfect optics, no atmosphere) and the seeing-limited image (subtitle: the seeing FWHM)
 (TP.seeingPSF: the telescope's transfer function, the transform of its diffraction-limited image, times the
 Kolmogorov long-exposure transfer function exp[−3.44 (s/r0)^(5/3)], r0 = 0.976 λ / seeing, transformed back
 (sources in data/telescopes/seeing.md: 3.44 = 6.88/2 from Sarazin & Roddier 1990 and Tokovinin 2002, printed by
@@ -236,8 +237,41 @@ models; ESO gives no width), so the model's 991 m² sits 1.4% above ESO's 978 m�
 (nominalD with nominalDec 2). Drawn as a three-mirror (Korsch) layout: the focal length and plate scale are exact,
 the tertiary (at the primary's vertex in the ELT) and the two fold flats M4 and M5 (drawn as one) are schematic.
 
-The Focus menu's tooltip is the selected focus's note (fieldNote in web/tpresets.js: the field, and what the drawing
-shows only schematically); each option carries its own note too (2026-11-16, his ask).
+Eleven more telescopes (2026-11-16, his list: "the Blanco, SDSS 2.5m, 4MOST, etc.", then MMT, Mayall and Rubin, then
+Gemini, LBT, TMT, Hale and Oschin), each sourced by an agent into data/telescopes/<id>.md/json (rawdata/telescopes/<id>/)
+and entered from the research file's proposed entry: VISTA (the undersized secondary is the stop: a 3.70 m pupil on
+the 4.10 m mirror; Cassegrain 4MOST | VIRCAM), MMT (f/5 wide field with three correctors, f/9, f/15 adaptive with its
+own 6.37 m pupil), Blanco (prime focus DECam | Mosaic II; Cassegrain f/8 and the retired f/14.5, f/30; DECam's fins and
+filter-changer housing in the pupil), SDSS 2.5 m (one f/5 Cassegrain in three eras), Mayall (prime focus DESI | Mosaic;
+the retired Cassegrain foci; 8.658 m² reproduced exactly), Rubin (the Paul-Baker drawing; M1 a ring around M3 in one
+glass, so no baffle), Gemini (North and South as one; Cassegrain up-looking and side ports), Hale (prime focus three
+ways, Cassegrain f/16, coudé f/30 drawn unfolded), Oschin 48-inch Schmidt (ZTF | POSS-II | POSS-I; the camera in the
+beam), TMT (492 hexagons, validated), LBT (binocular: the layout draws one side, the 3D view both; prime focus uses the
+8.4 m mirror, LBTI both, whose pupil gives a fringed image). Each new telescope's research file lists its gaps; the
+inferences that reach the page are said in the notes (VISTA's and the Oschin's vane angles from photographs and
+diffraction spikes, MMIRS on the bare f/5, Blanco's fin widths from the DES PSF code). 22 telescopes in all.
+
+Focus buttons (2026-11-16, his ask, for every telescope): one button per kind of focus (each focus's kind in
+web/tpresets.js: Nasmyth, Cassegrain, Folded port, Prime focus, ...) and, when the chosen kind has several foci, a row
+of variants below (each focus's variant: Nasmyth West | East | East, MagAO f/16 on Magellan). Each button's tooltip
+is its focus's name and note (fieldNote: the field, and what the drawing shows only schematically).
+
+3D view (2026-11-16, his ask; Telescopes mode only, no tube or truss): the Optical layout's 2D | 3D switch (link key
+t.view). web/tel3d.js lays the telescope out as the 2D drawing does (imgapp.js layoutGeom, split out of the 2D
+drawing so both use one geometry; the 2D output is byte-identical to before) with a third axis added, the telescope
+standing with the sky overhead. The primary is tiled from the pupil (tpupil.js tiles: hexagonal segments, GMT's
+round mirrors, or one mirror), each outline lifted onto the paraboloid, with the mirror's central hole: the sourced
+one (tpresets hole: Magellan 1.3 m, HST 0.6 m, VLT 1.0 m, GMT's central mirror 1.78 m) or else the largest any of
+the telescope's foci needs (the 2D drawing cuts it only at a focus whose light goes through it). GMT's secondary is
+tiled like its primary; the baffle (the central obstruction, where wider than the secondary) and the spider vanes and
+blocks sit just above the secondary or across the prime-focus unit. The on-axis star's light is a warm translucent
+sheet (and its inner edge, the obstruction's shadow), the top and bottom of the field their edges only (brick and
+teal), the incoming starlight a few rays. A ray at pupil point (px, py) is traced across the axis with the field slope
+and out of the page with none (ideal round optics: the two traces add), then folded as in 2D. Mirrors are silver
+(JWST's gold: tpresets coating) with a specular highlight. Orbit controls as in the spectrograph's 3D view (drag to
+turn, shift- or right-drag to pan, scroll to zoom, double-click to reset; snaps Top (from the sky, oriented as the
+Pupil panel), Side, Oblique). uitest audits each telescope and focus: one point per star at the drawn focus, the 2D
+rays retraced in the drawing's plane, the hole and the secondary large enough for the light.
 
 ## Interferometer mode
 

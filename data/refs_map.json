@@ -1902,6 +1902,209 @@
     "text": "Cayrel 2012, Proc. SPIE 8444, 84441X",
     "ads": "2012SPIE.8444E..1XC"
    }
+  ],
+  "vista": [
+   {
+    "file": "data/telescopes/vista.json",
+    "key": "S15",
+    "text": "Sutherland et al. 2015, A&A 575, A25",
+    "ads": "2015A&A...575A..25S"
+   },
+   {
+    "file": "data/telescopes/vista.json",
+    "key": "UM",
+    "text": "ESO, VIRCAM/VISTA User Manual"
+   },
+   {
+    "file": "data/telescopes/vista.json",
+    "key": "UM19",
+    "text": "4MOST Consortium, 4MOST User Manual"
+   }
+  ],
+  "mmt": [
+   {
+    "file": "data/telescopes/mmt.json",
+    "key": "TR35",
+    "text": "Fabricant, McLeod & West 1999, MMTO Technical Report 35"
+   },
+   {
+    "file": "data/telescopes/mmt.json",
+    "key": "ICD03",
+    "text": "Blanco & Schmidt 2003, MMTO Technical Memorandum 03-4"
+   },
+   {
+    "file": "data/telescopes/mmt.json",
+    "key": "MMTT",
+    "text": "MMT Observatory, The Telescope Today page"
+   }
+  ],
+  "blanco": [
+   {
+    "file": "data/telescopes/blanco.json",
+    "key": "F15",
+    "text": "Flaugher et al. 2015, AJ 150, 150",
+    "ads": "2015AJ....150..150F"
+   },
+   {
+    "file": "data/telescopes/blanco.json",
+    "key": "BOP",
+    "text": "NSF NOIRLab / CTIO, Blanco basic optical parameters page"
+   },
+   {
+    "file": "data/telescopes/blanco.json",
+    "key": "BAF",
+    "text": "NSF NOIRLab / CTIO, Blanco foci and instruments page"
+   }
+  ],
+  "sdss": [
+   {
+    "file": "data/telescopes/sdss.json",
+    "key": "G06",
+    "text": "Gunn et al. 2006, AJ 131, 2332",
+    "ads": "2006AJ....131.2332G"
+   },
+   {
+    "file": "data/telescopes/sdss.json",
+    "key": "S25",
+    "text": "Smee et al. 2025, AJ 170, 260",
+    "ads": "2025AJ....170..260S"
+   },
+   {
+    "file": "data/telescopes/sdss.json",
+    "key": "APOP",
+    "text": "Gunn, Kent & Mannery 1995, SDSS technical note 19950322-01"
+   }
+  ],
+  "mayall": [
+   {
+    "file": "data/telescopes/mayall.json",
+    "key": "D22",
+    "text": "DESI Collaboration 2022, AJ 164, 207",
+    "ads": "2022AJ....164..207D"
+   },
+   {
+    "file": "data/telescopes/mayall.json",
+    "key": "M24",
+    "text": "Miller et al. 2024, AJ 168, 95",
+    "ads": "2024AJ....168...95M"
+   },
+   {
+    "file": "data/telescopes/mayall.json",
+    "key": "KMP",
+    "text": "KPNO, Mayall basic parameters and facts page"
+   }
+  ],
+  "rubin": [
+   {
+    "file": "data/telescopes/rubin.json",
+    "key": "I19",
+    "text": "Ivezic et al. 2019, ApJ 873, 111",
+    "ads": "2019ApJ...873..111I"
+   },
+   {
+    "file": "data/telescopes/rubin.json",
+    "key": "SB09",
+    "text": "LSST Science Collaboration 2009, arXiv:0912.0201 (Science Book)"
+   },
+   {
+    "file": "data/telescopes/rubin.json",
+    "key": "ROD",
+    "text": "Rubin Observatory, optical design page"
+   }
+  ],
+  "oschin": [
+   {
+    "file": "data/telescopes/oschin.json",
+    "key": "H52",
+    "text": "Harrington 1952, PASP 64, 275",
+    "ads": "1952PASP...64..275H"
+   },
+   {
+    "file": "data/telescopes/oschin.json",
+    "key": "D20",
+    "text": "Dekany et al. 2020, PASP 132, 038001",
+    "ads": "2020PASP..132c8001D"
+   },
+   {
+    "file": "data/telescopes/oschin.json",
+    "key": "B19",
+    "text": "Bellm et al. 2019, PASP 131, 018002",
+    "ads": "2019PASP..131a8002B"
+   }
+  ],
+  "gemini": [
+   {
+    "file": "data/telescopes/gemini.json",
+    "key": "G96",
+    "text": "Gillett et al. 1996, RMxAC 4, 75",
+    "ads": "1996RMxAC...4...75G"
+   },
+   {
+    "file": "data/telescopes/gemini.json",
+    "key": "GTEL",
+    "text": "Gemini Observatory, The Telescopes page"
+   },
+   {
+    "file": "data/telescopes/gemini.json",
+    "key": "GZMN",
+    "text": "Gemini Observatory, Gemini North Zemax prescription"
+   }
+  ],
+  "hale": [
+   {
+    "file": "data/telescopes/hale.json",
+    "key": "B61",
+    "text": "Bowen 1961, The 200-inch Hale Telescope (Stars and Stellar Systems 1)",
+    "ads": "1961tele.book....1B"
+   },
+   {
+    "file": "data/telescopes/hale.json",
+    "key": "A48",
+    "text": "Anderson 1948, PASP 60, 221",
+    "ads": "1948PASP...60..221A"
+   },
+   {
+    "file": "data/telescopes/hale.json",
+    "key": "PHT",
+    "text": "Palomar Observatory, The 200-inch Hale Telescope page"
+   }
+  ],
+  "tmt": [
+   {
+    "file": "data/telescopes/tmt.json",
+    "key": "S13",
+    "text": "Sanders 2013, J. Astrophys. Astr. 34, 81",
+    "ads": "2013JApA...34...81S"
+   },
+   {
+    "file": "data/telescopes/tmt.json",
+    "key": "OAD43",
+    "text": "TMT International Observatory, Observatory Architecture Document (2026)"
+   },
+   {
+    "file": "data/telescopes/tmt.json",
+    "key": "TOP",
+    "text": "TMT International Observatory, Optics page"
+   }
+  ],
+  "lbt": [
+   {
+    "file": "data/telescopes/lbt.json",
+    "key": "GH09",
+    "text": "Green & Hill 2009, Astro2010 white paper",
+    "ads": "2009astro2010P..19G"
+   },
+   {
+    "file": "data/telescopes/lbt.json",
+    "key": "H16",
+    "text": "Hinz et al. 2016, Proc. SPIE 9907, 990704",
+    "ads": "2016SPIE.9907E..04H"
+   },
+   {
+    "file": "data/telescopes/lbt.json",
+    "key": "LQF",
+    "text": "Large Binocular Telescope Observatory, Quick Facts page"
+   }
   ]
  },
  "int": {

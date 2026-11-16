@@ -1,0 +1,1310 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: VISTA, ESO's 4.1 m survey telescope (Cassegrain foci for 4MOST and VIRCAM; entrance pupil)",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/vista.md (same content as Markdown). Structure follows elt.json: sources{key: cite, file, url}; vista: title, telescope (machine-readable mirrors, pupil, foci; refs point to sourced params as 'vista.<param>'), explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/vista/ (files reused from round 4 are byte-identical copies, marked in the cite). derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure (the caption quote is checked). INFERRED = a choice no source states. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), the degree sign and the ordinal sign used as a degree normalized; soft hyphens removed; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8); .py as is.",
+  "pupil_frame": "S15 Sec. 5: x along the altitude axis, y perpendicular to the altitude and optical axes (meters in the on-axis entrance pupil); orientation on the sky NOT FOUND",
+  "design_vs_asbuilt": "S15 Table 2 gives the as-built mirrors; UM (2021) the VIRCAM-era telescope; 4MOST numbers from the 4MOST Consortium (UM19, EUSUB, WS19, DJ19, W26) and ESO pages (E4M, ESOI, E4MP); H14 and G14 are 2014 concept and alternative designs.",
+  "check_result": "128 quotes checked against the saved files, 0 failures (2026-11-16); the FIGURE READ-OFFs (W26 Figs. 1 and 3, G14 Fig. 2) are not text-checkable: their captions are."
+ },
+ "sources": {
+  "S15": {
+   "cite": "Sutherland, W., Emerson, J., Dalton, G., Atad-Ettedgui, E., Beard, S., Bennett, R., Bezawada, N., Born, A., Caldwell, M., Clark, P., et al. 2015, A&A 575, A25, \"The Visible and Infrared Survey Telescope for Astronomy (VISTA): Design, technical overview, and performance\", arXiv:1409.4780v2 (author version; DOI 10.1051/0004-6361/201424973): Sec. 2, Sec. 4 optics (Tables 1-2, Secs. 4.1-4.4), Sec. 5 mirrors, Sec. 6.3 telescope tube (top ring, spiders, barrel), Sec. 13.7. PDF p. = printed page",
+   "file": "rawdata/telescopes/vista/Sutherland2015_AA575_A25_VISTA_arXiv1409.4780v2.pdf",
+   "url": "https://arxiv.org/pdf/1409.4780v2"
+  },
+  "UM": {
+   "cite": "ESO, \"VIRCAM/VISTA User Manual\", VIS-MAN-ESO-06000-0002, Issue 108 (01/06/2021; Ivanov, Szeifert & Haeussler), the last issue on the VIRCAM documentation page: Secs. 1, 3 (Table 2), 5 (the VISTA telescope), 6",
+   "file": "rawdata/telescopes/vista/VIS-MAN-ESO-06000-0002_v108_VIRCAM_VISTA_User_Manual.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/vircam/doc/VIS-MAN-ESO-06000-0002_v108.pdf"
+  },
+  "ESOV": {
+   "cite": "ESO, \"VISTA\" telescope page for science users (Last Update 05.01.23; fetched 2026-10-17). Copy of round-4 key ESOV (rawdata/presets/4most/, byte-identical)",
+   "file": "rawdata/telescopes/vista/eso_vista_telescope.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/telescopes/vista.html"
+  },
+  "ESOVP": {
+   "cite": "ESO public page \"Visible and Infrared Survey Telescope for Astronomy\" (technical information box; fetched 2026-10-17). Copy of round-4 key ESOVP (rawdata/presets/4most/, byte-identical)",
+   "file": "rawdata/telescopes/vista/eso_public_vista.html",
+   "url": "https://www.eso.org/public/teles-instr/paranal-observatory/surveytelescopes/vista/"
+  },
+  "ESOVM": {
+   "cite": "ESO public page \"The VISTA mirror\" (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/vista/eso_public_vista_mirror.html",
+   "url": "https://www.eso.org/public/teles-instr/paranal-observatory/surveytelescopes/vista/mirror/"
+  },
+  "EVIR": {
+   "cite": "ESO, \"VIRCAM @ VISTA\" overview page, now under Paranal Decommissioned Instruments (Last Update 16.08.23; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/vista/eso_sci_paranal_decommissioned_vircam.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/vircam.html"
+  },
+  "EVIRD": {
+   "cite": "ESO, VIRCAM documentation page (Last Update 16.08.23; fetched 2026-11-16): the list of user-manual issues, the latest for P109 (file v108)",
+   "file": "rawdata/telescopes/vista/eso_sci_paranal_vircam_doc.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/vircam/doc.html"
+  },
+  "E06": {
+   "cite": "Emerson, J., McPherson, A. & Sutherland, W. 2006, \"Visible and Infrared Survey Telescope for Astronomy: Progress Report\", The Messenger 126, 41 (one of the two reference papers ESO asks VISTA users to cite)",
+   "file": "rawdata/telescopes/vista/Emerson2006_Msngr126_41_VISTA_progress.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.126-dec06/messenger-no126-41-42.pdf"
+  },
+  "E10": {
+   "cite": "Emerson, J. & Sutherland, W. 2010, \"The Visible and Infrared Survey Telescope for Astronomy (VISTA): Looking Back at Commissioning\", The Messenger 139, 2",
+   "file": "rawdata/telescopes/vista/Emerson2010_Msngr139_2_VISTA_commissioning.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.139-mar10/messenger-no139-2-5.pdf"
+  },
+  "E23": {
+   "cite": "Emerson, J., Ivanov, V. D., Szeifert, T., Haeussler, B., Munoz Mateos, J. C., Rejkuba, M., Arnaboldi, M., Petr-Gotzens, M. G., Hilker, M., Irwin, M., Cross, N., et al. 2023, \"VIRCAM Operations End at VISTA\", The Messenger 191, 42 (DOI 10.18727/0722-6691/5341)",
+   "file": "rawdata/telescopes/vista/Emerson2023_Msngr191_42_VIRCAM_operations_end.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.191-sep23/messenger-no191-42-45.pdf"
+  },
+  "E4M": {
+   "cite": "ESO, \"4MOST\" overview page for science users (Last Update 12.05.26; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/vista/eso_sci_paranal_instruments_4most.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/4most.html"
+  },
+  "ESOI": {
+   "cite": "ESO, \"4MOST - Instrument Description\" page (Last Update 12.05.26; fetched 2026-10-17). Copy of round-4 key ESOI (rawdata/presets/4most/, byte-identical)",
+   "file": "rawdata/telescopes/vista/eso_4most_inst.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/4most/inst.html"
+  },
+  "E4MP": {
+   "cite": "ESO public page \"4MOST\" under VISTA (technical box: focus, first light; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/vista/eso_public_vista_4most.html",
+   "url": "https://www.eso.org/public/teles-instr/paranal-observatory/surveytelescopes/vista/4most/"
+  },
+  "UM19": {
+   "cite": "4MOST Consortium, \"4MOST User Manual\", VIS-MAN-4MOST-47110-9800-0001, Issue 2.00, 2019-09-26: Sec. 6.1.2.1 (WFC/ADC), Sec. 6.1.2.4 (fiber positioner). Copy of round-4 key UM19 (rawdata/presets/4most/, byte-identical)",
+   "file": "rawdata/telescopes/vista/4MOST_User_Manual_VIS-MAN-4MOST-47110-9800-0001_2_00.pdf",
+   "url": "https://www.4most.eu/cms/files/VIS-MAN-4MOST-47110-9800-0001_2_00-4MOST-User-Manual.pdf"
+  },
+  "DJ19": {
+   "cite": "de Jong, R. S., et al. 2019, The Messenger 175, 3, \"4MOST: Project overview and information for the First Call for Proposals\". Copy of round-4 key DJ19 (byte-identical)",
+   "file": "rawdata/telescopes/vista/deJong2019_Messenger175_3_4MOST_overview.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.175-mar19/messenger-no175-3-11.pdf"
+  },
+  "EUSUB": {
+   "cite": "4MOST Consortium web page \"Subsystems\" (www.4most.eu, fetched 2026-10-17): the WFC/ADC paragraph. Copy of round-4 key EUSUB (byte-identical)",
+   "file": "rawdata/telescopes/vista/4most-eu_facility_subsystems.html",
+   "url": "https://www.4most.eu/cms/facility/subsystems/"
+  },
+  "WS19": {
+   "cite": "de Jong, R. S. 2019, \"4MOST: Overview and instrument\", talk slides, ESO workshop \"Preparing for 4MOST\", Garching, 6 May 2019 (Zenodo 3244904; post-FDR): slide 14 (WFC/ADC), slide 16 (metrology, focal surface). Copy of round-4 key WS19 (byte-identical)",
+   "file": "rawdata/telescopes/vista/deJong2019_ESO-workshop_4MOST_overview_slides_zenodo3244904.pdf",
+   "url": "https://zenodo.org/records/3244904/files/4MOST_Workshop_Overview_deJong_2019-05-06v0.1.pdf"
+  },
+  "H14": {
+   "cite": "Haynes, R., et al. 2014, Proc. SPIE 9147, \"The 4MOST instrument concept overview\" (copy hosted on 4most.eu; CONCEPT design): Sec. 2, Sec. 2.3 (WFC). Copy of round-4 key H14 (byte-identical)",
+   "file": "rawdata/telescopes/vista/Haynes2014_SPIE9147_4MOST_concept_overview_4most-eu.pdf",
+   "url": "https://www.4most.eu/cms/files/HaynesR._The-4MOST-instrument-concept-overview_SPIE-9147-243.pdf"
+  },
+  "G14": {
+   "cite": "Gillingham, P. & Saunders, W. 2014, Proc. SPIE 9151, \"A wide field corrector with loss-less and purely passive atmospheric dispersion correction\", arXiv:1407.2193v1: an ALTERNATIVE 4MOST corrector for VISTA (four singlets, gravity-driven ADC), compared with the 2012 baseline; not the corrector built",
+   "file": "rawdata/telescopes/vista/Gillingham2014_SPIE9151_4MOST_passive_ADC_WFC_arXiv1407.2193v1.pdf",
+   "url": "https://arxiv.org/pdf/1407.2193v1"
+  },
+  "ETC19": {
+   "cite": "4MOST Consortium, \"4FS ETC description\" (9 pp., PDF created 2019-12-04; hosted on 4most.eu): telescope vignetting entry. Copy of round-4 key ETC19 (byte-identical)",
+   "file": "rawdata/telescopes/vista/4most-eu_4FS_ETC_description_2019.pdf",
+   "url": "https://www.4most.eu/cms/files/4FS_ETC_description.pdf"
+  },
+  "QTEL": {
+   "cite": "qmostetc 2.6.1 (the public 4MOST exposure-time calculator), file qmostetc/telescope.py, Telescope.vista(): the hard-coded telescope area. Extracted unmodified from qmostetc-2.6.1.tar.gz (sha256 681a87f1163235408b44e71e04cc94720afea344a230e10c4407704e5ebea45b, the tarball of round-4 key TOAD); read only, never executed",
+   "file": "rawdata/telescopes/vista/qmostetc-2.6.1_qmostetc_telescope.py",
+   "url": "https://gitlab.4most.eu/api/v4/projects/212/packages/pypi/files/681a87f1163235408b44e71e04cc94720afea344a230e10c4407704e5ebea45b/qmostetc-2.6.1.tar.gz"
+  },
+  "W26": {
+   "cite": "Winkler, R., Sun, W., Sablowski, D., Liebner, T., Streicher, O., Frey, S., Stilz, I., Pramskiy, A., Smedley, S., Szeifert, T., Rio Fernandes, D. & Zins, G. 2026, \"On-sky Fibre-Target-Alignment of the 4MOST instrument: calibration and performance\", arXiv:2606.27882v1 (Proc. SPIE 14149): Sec. 1 (Figs. 1, 3: the telescope with 4MOST and the metrology cameras on the spider), Sec. 4.1",
+   "file": "rawdata/telescopes/vista/Winkler2026_4MOST_FTA_onsky_arXiv2606.27882v1.pdf",
+   "url": "https://arxiv.org/pdf/2606.27882v1"
+  }
+ },
+ "vista": {
+  "title": "VISTA (ESO, Paranal): one Cassegrain focus with the 4MOST corrector (current) or the VIRCAM corrector (2009-2023), and a bare test focus; entrance pupil",
+  "telescope": {
+   "name": "VISTA (Visible and Infrared Survey Telescope for Astronomy)",
+   "site": "Cerro Paranal, Chile: a subsidiary summit 2518 m high, ~1.5 km NNE of the main summit (S15, ESOVP)",
+   "status": "operating; 4MOST at the Cassegrain focus since 2025 (first light), VIRCAM 2009-2023 (E23, E4MP, E4M)",
+   "mount": "alt-azimuth; one Cassegrain focal station on a rotator behind the M1 cell (S15)",
+   "optical_design": "quasi-Ritchey-Chretien two-mirror telescope, f/1 hyperboloid primary, 1.24 m convex hyperboloid secondary; each instrument carries a separate corrector (S15)",
+   "primary": {
+    "diameter_m": 4.1,
+    "clear_aperture_m": 3.96,
+    "central_hole_m": 1.2,
+    "thickness_m": 0.17,
+    "material": "Zerodur",
+    "radius_of_curvature_mm": 8094.2,
+    "conic": -1.12979,
+    "focal_length_m_DERIVED": 4.0471,
+    "F_quoted": 1.0,
+    "F_on_4p10_DERIVED": 0.9871,
+    "F_on_3p70_DERIVED": 1.0938,
+    "refs": [
+     "vista.primary_diameter",
+     "vista.primary_central_hole",
+     "vista.primary_prescription",
+     "vista.primary_focal_length",
+     "vista.primary_focal_ratio"
+    ]
+   },
+   "secondary": {
+    "shape": "convex hyperboloid, conic -5.5494",
+    "diameter_mm": 1241.5,
+    "clear_aperture_mm": 1240.5,
+    "radius_of_curvature_mm": 4018.9,
+    "m1_m2_spacing_mm": 2725.7,
+    "is_aperture_stop": true,
+    "mount": "hexapod (5 axes)",
+    "refs": [
+     "vista.secondary",
+     "vista.m1_m2_spacing",
+     "vista.aperture_stop"
+    ]
+   },
+   "pupil": {
+    "frame": "S15 Sec. 5: x along the altitude axis, y perpendicular to the altitude and optical axes; on-axis pupil; orientation on the sky NOT FOUND",
+    "entrance_pupil_diameter_m": 3.7,
+    "entrance_pupil_real_ray_m_DERIVED": 3.705,
+    "entrance_pupil_paraxial_m_DERIVED": 3.8,
+    "envelope_over_vircam_field_m": 3.95,
+    "off_axis_shift_m_at_0p825deg_DERIVED": 0.12,
+    "central_obstruction": {
+     "what": "annular baffle around M2 (VIRCAM era)",
+     "diameter_m": 1.63,
+     "eps_on_3p70_DERIVED": 0.4405,
+     "fourmost_baffle": "NOT FOUND (modified for 4MOST, H14)"
+    },
+    "spider": {
+     "n_legs": 4,
+     "n_legs_basis": "FIGURE READ-OFF (W26 Figs. 1, 3) with S15's two attachment points",
+     "width_m": 0.036,
+     "arrangement": "two pairs, slanted and non-radial, joining the ~1.4 m central barrel at two opposite points on the altitude axis",
+     "explorer_rays": [
+      {
+       "from_m": [
+        0.7,
+        0
+       ],
+       "ang_deg": 60
+      },
+      {
+       "from_m": [
+        0.7,
+        0
+       ],
+       "ang_deg": -60
+      },
+      {
+       "from_m": [
+        -0.7,
+        0
+       ],
+       "ang_deg": 120
+      },
+      {
+       "from_m": [
+        -0.7,
+        0
+       ],
+       "ang_deg": 240
+      }
+     ],
+     "angles_basis": "INFERRED (rough read-off of W26 Fig. 3); NOT FOUND as numbers"
+    },
+    "collecting_area_m2": {
+     "fourmost_etc": 8.452,
+     "explorer_pupil_DERIVED": 8.491,
+     "annulus_DERIVED": 8.665
+    },
+    "refs": [
+     "vista.aperture_stop",
+     "vista.entrance_pupil_diameter",
+     "vista.pupil_envelope",
+     "vista.central_obstruction",
+     "vista.spider",
+     "vista.spider_width",
+     "vista.spider_angles",
+     "vista.pupil_frame",
+     "vista.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "wfc",
+     "name": "Cassegrain with the 4MOST Wide Field Corrector and ADC",
+     "status": "current (first light 2025)",
+     "focal_length_m_DERIVED": 12.2521,
+     "plate_scale_um_per_arcsec": 59.4,
+     "plate_scale_arcsec_per_mm_DERIVED": 16.835,
+     "F_on_3p70_DERIVED": 3.3114,
+     "F_baseline_quoted": 3.32,
+     "field_deg": {
+      "4MOST": 2.6,
+      "ESO": 2.5
+     },
+     "fiber_field_deg2": [
+      4.1,
+      4.2
+     ],
+     "focal_surface": "curved, 535 mm across; radius NOT FOUND",
+     "position": "NOT FOUND (explorer: VIRCAM's 1.1726 m behind the vertex)",
+     "corrector": "four lens groups, two counter-rotating ADC prisms, largest lens ~950 mm, ADC to 55 deg",
+     "reflections": 2,
+     "refs": [
+      "vista.fourmost_wfc",
+      "vista.fourmost_plate_scale",
+      "vista.fourmost_focal_ratio",
+      "vista.fourmost_field",
+      "vista.fourmost_focal_surface",
+      "vista.fourmost_focus_position"
+     ]
+    },
+    {
+     "id": "vircam",
+     "name": "Cassegrain with the VIRCAM corrector",
+     "status": "2009-2023",
+     "focal_length_m": 12.072,
+     "F_quoted": 3.25,
+     "F_on_3p70_DERIVED": 3.2627,
+     "plate_scale_arcsec_per_mm_DERIVED": 17.0862,
+     "plate_scale_UM": 17.0887,
+     "field_deg": 1.65,
+     "telescope_unvignetted_deg": 2.0,
+     "focal_plane": "flat, 350 mm",
+     "position_m_behind_M1_vertex": 1.1726,
+     "corrector": "95 cm Infrasil window, three Infrasil lenses, filter",
+     "reflections": 2,
+     "refs": [
+      "vista.vircam_focal_length",
+      "vista.vircam_focal_ratio",
+      "vista.vircam_plate_scale",
+      "vista.vircam_focus_position",
+      "vista.vircam_field",
+      "vista.vircam_corrector"
+     ]
+    },
+    {
+     "id": "bare",
+     "name": "bare Cassegrain (no lenses; commissioning tests)",
+     "status": "test only",
+     "focal_length_m_DERIVED_paraxial": 11.8557,
+     "F_on_3p70_DERIVED": 3.2042,
+     "plate_scale_arcsec_per_mm_DERIVED": 17.3979,
+     "field_arcmin": 5,
+     "position_m_behind_M1_vertex": 1.1532,
+     "m2_moved_mm": 2.1,
+     "reflections": 2,
+     "refs": [
+      "vista.bare_test_focus"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "vista",
+   "group": "VISTA 4.1 m",
+   "name": "VISTA 4.1 m",
+   "D": 3.7,
+   "Dmirror": 4.1,
+   "f1": 4.0471,
+   "eps": 0.4405,
+   "hole": 1.2,
+   "primaryNote": "A Zerodur meniscus 4.10 m across (3.96 m clear) and 17 cm thick with a 1.20 m central hole: a hyperboloid with radius of curvature 8.094 m (f = 4.05 m, f/0.99 on 4.1 m), the most strongly curved mirror of this size. The 1.24 m secondary is undersized and is the stop, so each point of the field uses a 3.70 m circle of the primary.",
+   "pupil": {
+    "kind": "circle",
+    "D": 3.7,
+    "vanes": [
+     {
+      "ang": 60,
+      "w": 0.036,
+      "x0": 0.7
+     },
+     {
+      "ang": -60,
+      "w": 0.036,
+      "x0": 0.7
+     },
+     {
+      "ang": 120,
+      "w": 0.036,
+      "x0": -0.7
+     },
+     {
+      "ang": 240,
+      "w": 0.036,
+      "x0": -0.7
+     }
+    ]
+   },
+   "pupilNote": "On the axis: the 3.70 m circle of the primary that the undersized secondary passes, less the 1.63 m baffle around the secondary and four 36 mm spider legs in two pairs, which leave the central barrel at opposite points on the altitude axis (horizontal here). The legs' angles (±60°) are a rough reading of photographs. Off the axis the 3.70 m circle shifts across the primary by up to 0.12 m.",
+   "area": {
+    "value": 8.452,
+    "info": true,
+    "src": "4MOST exposure-time calculator (qmostetc 2.6.1), hard-coded; the pupil drawn here: 8.49 m² (DERIVED, data/telescopes/vista.md)"
+   },
+   "foci": [
+    {
+     "id": "wfc",
+     "name": "Cassegrain f/3.3 (4MOST corrector)",
+     "F": 3.3114,
+     "plate": 16.835,
+     "design": "cass",
+     "back": 0.31692,
+     "field": 156,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.24 m (the stop), 2.73 m above the primary; then 4MOST's Wide Field Corrector, four lens groups with two counter-rotating ADC prisms (not drawn)",
+     "where": "behind the primary, on the Cassegrain rotator: the 2436-fiber positioner on a curved focal surface 535 mm across",
+     "fieldNote": "2.6° nearly unvignetted (ESO's pages give 2.5°); the fibers cover a hexagon of 4.1–4.2 deg². F and the plate scale come from the published 59.4 µm per arcsecond (12.25 m, f/3.31 on the 3.70 m pupil). The corrector is not drawn, and the focus is placed where VIRCAM's was (1.17 m behind the primary's vertex): 4MOST's is not published."
+    },
+    {
+     "id": "vircam",
+     "name": "Cassegrain f/3.25 (VIRCAM, 2009–2023)",
+     "F": 3.2627,
+     "plate": 17.0862,
+     "design": "cass",
+     "back": 0.31692,
+     "field": 99,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.24 m (the stop), 2.73 m above the primary; then the camera's vacuum window and three fused-silica corrector lenses (not drawn)",
+     "where": "1.17 m behind the primary's vertex, inside the VIRCAM cryostat on the Cassegrain rotator",
+     "fieldNote": "1.65° (a flat field 350 mm across); the telescope is unvignetted to 2°. The corrector lenses are not drawn: without them the drawing puts the secondary 2.737 m above the primary (2.726 m in the telescope) for the same 12.072 m focal length."
+    },
+    {
+     "id": "bare",
+     "name": "Bare Cassegrain f/3.2 (test focus, no corrector)",
+     "F": 3.2042,
+     "plate": 17.398,
+     "design": "cass",
+     "back": 0.31168,
+     "field": 5,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.24 m, moved 2.1 mm toward the primary",
+     "where": "1.153 m behind the primary's vertex (commissioning tests only)",
+     "fieldNote": "≈5′ usable, limited by coma: the mirrors are not an exact Ritchey–Chrétien pair. The 11.86 m focal length is paraxial, DERIVED from the mirror prescription."
+    }
+   ]
+  },
+  "params": {
+   "status_site": {
+    "value": "Cerro Paranal, Chile, on a subsidiary summit 2518 m high, ~1.5 km NNE of the main summit (the VLT)",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "VISTA is sited on a subsidiary summit of elevation 2518 m, ap- proximately 1.5 km NNE from the main Paranal summit",
+    "alternatives": [
+     {
+      "value": "2518 m",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "Altitude: 2518 m"
+     },
+     {
+      "value": "2500 m (VIRCAM manual, Sec. 1)",
+      "src": "UM",
+      "loc": "Sec. 1, PDF p. 7",
+      "quote": "elevation 2500 m above sea level"
+     },
+     {
+      "value": "2635.43 m (VIRCAM manual, Table 2)",
+      "src": "UM",
+      "loc": "Table 2, PDF p. 12",
+      "quote": "Altitude above sea level 2635.43 m"
+     },
+     {
+      "value": "first light 11 December 2009 (telescope)",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "First Light date: 11 December 2009"
+     },
+     {
+      "value": "a UK in-kind contribution, provisionally accepted by ESO in December 2009",
+      "src": "ESOVP",
+      "loc": "main text",
+      "quote": "The telescope was provisionally accepted by ESO on 10 December 2009 and is now operated by ESO."
+     }
+    ]
+   },
+   "instrument_history": {
+    "value": "VIRCAM (near-infrared camera) 2009-2023, the last observation on the night of 5/6 March 2023; 4MOST (fiber spectrograph, first light 2025) in the same Cassegrain position, now the only instrument",
+    "unit": "",
+    "src": "E23",
+    "loc": "abstract, PDF p. 1",
+    "quote": "made its last observation on the night of 5/6 March 2023",
+    "alternatives": [
+     {
+      "value": "VIRCAM observing dates 2009-10-15 to 2023-03-05",
+      "src": "E23",
+      "loc": "Fig. 2 (sky map of the VIRCAM public surveys), PDF p. 3",
+      "quote": "Observing dates: 20091015–20230305"
+     },
+     {
+      "value": "4MOST to replace VIRCAM",
+      "src": "E23",
+      "loc": "Conclusion, PDF p. 4",
+      "quote": "VIRCAM is soon to be replaced by the 4-metre Multi-Object Spectroscopic Tele- scope (4MOST"
+     },
+     {
+      "value": "4MOST takes the VIRCAM position",
+      "src": "E4MP",
+      "loc": "main text",
+      "quote": "4MOST will occupy the VISTA Infrared Camera (VIRCAM) position"
+     },
+     {
+      "value": "4MOST at the Cassegrain focus, first light 2025",
+      "src": "E4MP",
+      "loc": "technical box",
+      "quote": "Focus: Cassegrain ... First light date: 2025"
+     },
+     {
+      "value": "4MOST is the only instrument at VISTA (2026)",
+      "src": "E4M",
+      "loc": "summary",
+      "quote": "4MOST is the only instrument installed at VISTA"
+     },
+     {
+      "value": "VIRCAM listed under decommissioned instruments",
+      "src": "EVIR",
+      "loc": "navigation and summary",
+      "quote": "Decommissioned Instruments ... VISTA VIRCAM"
+     },
+     {
+      "value": "the last VIRCAM/VISTA manual, for P109 (file v108, the UM source here)",
+      "src": "EVIRD",
+      "loc": "Documentation",
+      "quote": "VISTA User Manual for P109 Phase 1 and 2 (no changes in respect to P108)"
+     }
+    ]
+   },
+   "optical_design": {
+    "value": "quasi-Ritchey-Chretien two-mirror telescope: a very fast f/1.0 hyperboloid primary and a 1.24 m convex hyperboloid secondary; one Cassegrain focus, each instrument carrying a separate corrector",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 4",
+    "quote": "the VISTA telescope is a quasi-Ritchey- Chretien 2-mirror telescope with a very fast f /1.0 primary mir- ror, and a moderately large 1.24 m secondary mirror giving a sin- gle f /3.25 Cassegrain focal station",
+    "alternatives": [
+     {
+      "value": "each instrument has its own corrector",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 4",
+      "quote": "with any VISTA instrument including its own wavelength-specific field corrector lenses"
+     },
+     {
+      "value": "conics optimized together with the VIRCAM corrector, so not exactly Ritchey-Chretien",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 5",
+      "quote": "This leads to mirror conic constants which are slightly different from an exact Ritchey-Chretien system"
+     },
+     {
+      "value": "Modified Ritchey-Chretien reflector with corrector lenses in the camera",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "Optical design: Modified Ritchey-Chrétien Reflector with corrector lenses in camera"
+     },
+     {
+      "value": "quasi-RC, f/1 primary, f/3.25 Cassegrain",
+      "src": "ESOV",
+      "loc": "main text",
+      "quote": "quasi-Ritchey-Chretien optics with a fast f/1 primary mirror giving an f/3.25 focus to the instrument at Cassegrain"
+     }
+    ]
+   },
+   "mount_and_focus": {
+    "value": "alt-azimuth; the Cassegrain is the only focal station (one large instrument at a time, on a Cassegrain rotator behind the M1 cell)",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "The Cassegrain is the only focal station, so VISTA carries one large instrument at any time",
+    "alternatives": [
+     {
+      "value": "alt-azimuth",
+      "src": "S15",
+      "loc": "Table 1, PDF p. 5",
+      "quote": "Mount type Alt-azimuth"
+     },
+     {
+      "value": "the rotator on the back of the M1 cell",
+      "src": "S15",
+      "loc": "Sec. 6.4, PDF p. 11",
+      "quote": "The Cassegrain rotator is attached in a recess on the back of the M1 Cell"
+     },
+     {
+      "value": "alt-azimuth fork mount",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "Mount: Alt-Azimuth fork mount"
+     }
+    ]
+   },
+   "primary_diameter": {
+    "value": "4.10 m physical; 3.96 m clear aperture",
+    "unit": "m",
+    "src": "S15",
+    "loc": "Table 2 (as-built mirror parameters), PDF p. 5",
+    "quote": "M1 4100 3960 8094.2 -1.12979",
+    "alternatives": [
+     {
+      "value": "4.10 m",
+      "src": "S15",
+      "loc": "Table 1, PDF p. 5",
+      "quote": "Primary mirror diameter 4.10 m"
+     },
+     {
+      "value": "4.10 m",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "Diameter. Primary M1: 4.10 m"
+     },
+     {
+      "value": "4.10 m, f/1",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "with a 4.10-m fast f/1 primary mirror (M1)"
+     },
+     {
+      "value": "Table 2 column heads",
+      "src": "S15",
+      "loc": "Table 2, PDF p. 5",
+      "quote": "Mirror Physical diameter Clear aperture Radius of curvature Conic constant"
+     }
+    ]
+   },
+   "primary_central_hole": {
+    "value": "1.20",
+    "unit": "m (diameter)",
+    "src": "S15",
+    "loc": "Sec. 5.1, PDF p. 7",
+    "quote": "of 4.10 m outer diameter with a 1.20 m diameter central hole, a thickness of 17 cm",
+    "alternatives": [
+     {
+      "value": "Zerodur solid meniscus",
+      "src": "S15",
+      "loc": "Sec. 5.1, PDF p. 7",
+      "quote": "The mirror geometry is a solid meniscus"
+     }
+    ]
+   },
+   "primary_prescription": {
+    "value": "hyperboloid, radius of curvature 8094.2 mm, conic -1.12979 (as built)",
+    "unit": "mm",
+    "src": "S15",
+    "loc": "Table 2, PDF p. 5",
+    "quote": "M1 4100 3960 8094.2 -1.12979",
+    "alternatives": [
+     {
+      "value": "hyperboloid of f/1.0",
+      "src": "S15",
+      "loc": "Sec. 2, PDF p. 2",
+      "quote": "The 4.1 m diameter primary mir- ror is a hyperboloid of f /1.0 focal ratio"
+     },
+     {
+      "value": "more than 800 um from the best-fit sphere",
+      "src": "S15",
+      "loc": "Sec. 5.1, PDF p. 7",
+      "quote": "deviation over 800 µm from the best-fit sphere"
+     },
+     {
+      "value": "the most highly curved mirror of its size",
+      "src": "ESOVM",
+      "loc": "main text",
+      "quote": "is the most highly curved mirror ever made of this size and quality"
+     }
+    ]
+   },
+   "primary_focal_length": {
+    "value": 4.0471,
+    "unit": "m (DERIVED)",
+    "src": "S15",
+    "loc": "Table 2, PDF p. 5",
+    "quote": "M1 4100 3960 8094.2 -1.12979",
+    "derived": "R/2 = 8094.2/2 = 4047.1 mm (paraxial, from the vertex radius of curvature)."
+   },
+   "primary_focal_ratio": {
+    "value": "f/1 (f/1.0)",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 4",
+    "quote": "with a very fast f /1.0 primary mir- ror",
+    "alternatives": [
+     {
+      "value": "f/1",
+      "src": "ESOV",
+      "loc": "main text",
+      "quote": "with a fast f/1 primary mirror"
+     },
+     {
+      "value": "photographic f/ratio 1.0",
+      "src": "ESOVM",
+      "loc": "main text",
+      "quote": "This mirror has a photographic f/ratio of 1.0"
+     },
+     {
+      "value": "4-m f/1",
+      "src": "E06",
+      "loc": "Telescope and mirrors, PDF p. 2",
+      "quote": "no one has ever polished a 4-m f/1 pri- mary before"
+     },
+     {
+      "value": "4.1-m f/1",
+      "src": "E10",
+      "loc": "Primary mirror (M1) polishing, PDF p. 2",
+      "quote": "4.1-metre f/1 mirror is the most highly curved large mirror ever polished"
+     }
+    ],
+    "derived": "4047.1 mm / 4100 mm = f/0.9871 (the f/1 headline); on the 3.96 m clear aperture f/1.0220; on the 3.70 m entrance pupil f/1.0938 (the explorer's F1 = f1/D)."
+   },
+   "secondary": {
+    "value": "convex hyperboloid, Astrosital, 1241.5 mm physical (1240.5 mm clear), radius of curvature 4018.9 mm, conic -5.5494; on a hexapod",
+    "unit": "mm",
+    "src": "S15",
+    "loc": "Table 2, PDF p. 5",
+    "quote": "M2 1241.5 1240.5 4018.9 -5.5494",
+    "alternatives": [
+     {
+      "value": "1241.5 mm, 156 mm thick",
+      "src": "S15",
+      "loc": "Sec. 5.4, PDF p. 9",
+      "quote": "The M2 has a diameter of 1241.5 mm, central thickness 156 mm"
+     },
+     {
+      "value": "1.24 m convex hyperboloid",
+      "src": "S15",
+      "loc": "Sec. 2, PDF p. 2",
+      "quote": "together with a 1.24 m convex hyperboloid secondary mirror"
+     },
+     {
+      "value": "1.24 m",
+      "src": "ESOVP",
+      "loc": "technical box",
+      "quote": "Diameter. Secondary M2: 1.24 m"
+     },
+     {
+      "value": "'f/3 hyperboloid' secondary, 1.24 m",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "The f/3 hyperboloid-shaped secondary (M2) has a diameter of 1.24-m."
+     },
+     {
+      "value": "five-axis hexapod",
+      "src": "S15",
+      "loc": "Sec. 2, PDF p. 3",
+      "quote": "the sec- ondary mirror is mounted on a hexapod for 5-axis position con- trol"
+     }
+    ],
+    "derived": "R2/2 = 2009.45 mm: f/1.62 on 1.2415 m. The manual's 'f/3' does not match the prescription (Conflicts)."
+   },
+   "m1_m2_spacing": {
+    "value": 2725.7,
+    "unit": "mm",
+    "src": "S15",
+    "loc": "Table 1, PDF p. 5",
+    "quote": "M1 - M2 spacing 2725.7 mm",
+    "alternatives": [
+     {
+      "value": "2.725 m",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 4",
+      "quote": "a separation of only 2.725 m from M1 to M2"
+     }
+    ],
+    "derived": "2725.7/4047.1 = 0.673 f1: the secondary sits 1.32 m inside the prime focus."
+   },
+   "aperture_stop": {
+    "value": "the secondary: undersized, M2 is the aperture stop (no cold stop in VIRCAM); the same with 4MOST",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 4",
+    "quote": "the 1.24 m secondary mirror is undersized to form the aperture stop",
+    "alternatives": [
+     {
+      "value": "the full M2 is used",
+      "src": "S15",
+      "loc": "Sec. 5.4, PDF p. 9",
+      "quote": "Since the M2 forms the aperture stop for the optical system, the full diameter of M2 is used optically"
+     },
+     {
+      "value": "no cold stop",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 4",
+      "quote": "frared camera does not use re-imaging or a cold stop"
+     },
+     {
+      "value": "4MOST era: the undersized M2",
+      "src": "ETC19",
+      "loc": "table, Telescope vignetting, PDF p. 2",
+      "quote": "The undersized M2 also influences the shape of the light cone that is coupled into the fibre."
+     }
+    ]
+   },
+   "entrance_pupil_diameter": {
+    "value": "3.70",
+    "unit": "m (the circle of M1 each field point uses)",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 4",
+    "quote": "so each detector pixel views a 3.70 m off-centre circle on the primary mirror",
+    "alternatives": [
+     {
+      "value": "3.70 m entrance pupil",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "The entrance pupil has a diameter of 3.70-m."
+     }
+    ],
+    "derived": "Real-ray trace of the Table 2 prescription (scratch script, exact conics): an axial ray reaching the edge of the 1240.5 mm clear M2 leaves M1 at 1852.6 mm from the axis, so the on-axis pupil is 3.705 m. The paraxial image of M2 in M1 (8.348 m behind the M1 vertex, magnification 3.063) would give 3.80 m: the fast primary makes the paraxial value 2.5% too large."
+   },
+   "pupil_envelope": {
+    "value": 3.95,
+    "unit": "m (envelope of the field points' circles on M1)",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 4",
+    "quote": "the envelope of these is a 3.95 m circle",
+    "alternatives": [
+     {
+      "value": "clear aperture of M1",
+      "src": "S15",
+      "loc": "Table 2, PDF p. 5",
+      "quote": "M1 4100 3960 8094.2 -1.12979"
+     }
+    ],
+    "derived": "Paraxial chief ray through the center of M2 at 0.825 deg (the VIRCAM field edge): 8348 mm x tan 0.825 deg = 120 mm on M1, so the 3.70 m circle shifts by 0.12 m and the envelope is 3.70 + 2 x 0.12 = 3.94 m (S15: 3.95 m; M1 clear aperture 3.96 m)."
+   },
+   "central_obstruction": {
+    "value": "the polished annular M2 baffle, 1.63 m outer diameter (VIRCAM era); 4MOST modified the baffles (size NOT FOUND)",
+    "unit": "m",
+    "src": "S15",
+    "loc": "Sec. 4.2, PDF p. 6",
+    "quote": "The warm Narcissus baf- fle around M2 is a polished aluminium annular baffle of 1.63 m outer diameter",
+    "alternatives": [
+     {
+      "value": "used in the design's diffraction",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 5",
+      "quote": "including diffraction with the 1.63 m diameter M2 baffle"
+     },
+     {
+      "value": "the 1.4 m top-end barrel hidden behind the baffle",
+      "src": "S15",
+      "loc": "Sec. 6.3, PDF p. 11",
+      "quote": "The barrel is hidden from the detectors by the 1.63 m M2 Baffle below."
+     },
+     {
+      "value": "M1 central hole (inside the baffle's shadow)",
+      "src": "S15",
+      "loc": "Sec. 5.1, PDF p. 7",
+      "quote": "with a 1.20 m diameter central hole"
+     },
+     {
+      "value": "4MOST: baffles modified",
+      "src": "H14",
+      "loc": "Sec. 2.3, PDF p. 6",
+      "quote": "The WFC optical design requires modifications to the current VISTA telescope baffles, in order to minimize background “sky” entering the fibres."
+     },
+     {
+      "value": "4MOST: new M2 baffle",
+      "src": "H14",
+      "loc": "Sec. 2.3, PDF p. 6",
+      "quote": "The WFC M1 baffle and the M2 baffle are shown in Figure 3."
+     }
+    ],
+    "derived": "eps = 1.63/3.70 = 0.4405 on the entrance pupil (1.63/4.10 = 0.3976 on the full mirror). The M2 (1.24 m), the barrel (~1.4 m) and the M1 hole (1.20 m) lie inside the baffle's 1.63 m shadow."
+   },
+   "spider": {
+    "value": "four legs in two pairs, slanted (not in one plane) and non-radial, each pair joining the central barrel at one of two opposite points; the four 4MOST metrology cameras are mounted on the spider",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 6.3, PDF p. 11",
+    "quote": "the spiders are slanted upwards, and are non-radial, joining the central bar- rel at two opposite points",
+    "alternatives": [
+     {
+      "value": "hoses along one leg",
+      "src": "S15",
+      "loc": "Sec. 6.3, PDF p. 11",
+      "quote": "in an insulated channel along the top of one spider leg"
+     },
+     {
+      "value": "4MOST metrology cameras on the M2 spider",
+      "src": "W26",
+      "loc": "Sec. 1.1, PDF p. 2",
+      "quote": "The Metrology System consists of 4 cameras that are mounted on the M2 spider of the VISTA telescope"
+     },
+     {
+      "value": "Fig. 1 caption",
+      "src": "W26",
+      "loc": "Fig. 1, PDF p. 2",
+      "quote": "3 of the 4 Metrology cameras are visible at the Spider."
+     },
+     {
+      "value": "Fig. 3 caption",
+      "src": "W26",
+      "loc": "Fig. 3, PDF p. 3",
+      "quote": "Front view of the VISTA telescope with MetCams during installation."
+     },
+     {
+      "value": "spider mounts added for 4MOST",
+      "src": "H14",
+      "loc": "Sec. 2, PDF p. 4",
+      "quote": "M2 spider mounts for the Metrology and Calibration units"
+     }
+    ],
+    "figure_readoff": "W26 Fig. 3 (photograph from the front, telescope at the horizon) and Fig. 1 (left, CAD model): two dark truss legs leave each side of the barrel, one toward the upper and one toward the lower part of the top ring, four legs in all. With the telescope at the horizon the two attachment points lie left and right, on the altitude axis.",
+    "note": "Number of legs: four from the figures (not stated as a number in the text)."
+   },
+   "spider_width": {
+    "value": 0.036,
+    "unit": "m (each leg, total width)",
+    "src": "S15",
+    "loc": "Sec. 6.3, PDF p. 11",
+    "quote": "The spiders (each 36 mm total width)",
+    "alternatives": [
+     {
+      "value": "ridged sides",
+      "src": "S15",
+      "loc": "Sec. 4.2, PDF p. 6",
+      "quote": "ridges on the spider vanes"
+     },
+     {
+      "value": "2% vignetting by the vanes (4MOST ETC)",
+      "src": "ETC19",
+      "loc": "table, Telescope vignetting, PDF p. 2",
+      "quote": "This includes a vignetting of 2% due to the angle of illumination of the spider vanes."
+     }
+    ]
+   },
+   "spider_angles": {
+    "value": "NOT FOUND as numbers; the explorer draws each leg at +/-60 deg from the altitude axis, from points 0.70 m off the center on that axis (INFERRED)",
+    "unit": "deg",
+    "src": "W26",
+    "loc": "Fig. 3, PDF p. 3",
+    "quote": "Front view of the VISTA telescope with MetCams during installation.",
+    "alternatives": [
+     {
+      "value": "barrel diameter",
+      "src": "S15",
+      "loc": "Sec. 6.3, PDF p. 11",
+      "quote": "it has a diameter of ≈ 1.4 m and mass 1 tonne"
+     },
+     {
+      "value": "top ring",
+      "src": "S15",
+      "loc": "Sec. 6.3, PDF p. 11",
+      "quote": "The top-ring has an inner diameter of 4.5 m"
+     }
+    ],
+    "derived": "Attachment points at +/-0.70 m on the altitude axis (half the ~1.4 m barrel). A leg from (0.70, 0) at 60 deg reaches the 4.5 m top ring at polar angle 44 deg (near the diagonal, as in the CAD view) and the 3.70 m pupil edge at 41 deg; inside the pupil each leg shows 1.20 m between the 1.63 m baffle and the 3.70 m edge.",
+    "figure_readoff": "Rough reading of W26 Fig. 3 (a perspective photograph, not along the axis): the two right-hand legs run at ~49 deg and ~70 deg from the horizontal (mean ~60 deg); the CAD view (W26 Fig. 1) shows the legs meeting the top ring near its diagonals."
+   },
+   "pupil_frame": {
+    "value": "x along the altitude axis, y perpendicular to the altitude and optical axes (the downward tangent to M1); z along the optical axis",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 5, PDF p. 7",
+    "quote": "x is parallel to the telescope altitude axis, and y is perpen- dicular to both, i.e. the downward tangent to the primary mirror",
+    "note": "Whether a published drawing is seen from the sky or from the focus is moot here: the two pairs of legs are symmetric about both axes."
+   },
+   "collecting_area": {
+    "value": 8.452,
+    "unit": "m^2 (4MOST exposure-time calculator, hard-coded)",
+    "src": "QTEL",
+    "loc": "Telescope.vista()",
+    "quote": "telescope_area = 8.452*u.m**2",
+    "alternatives": [
+     {
+      "value": "docstring",
+      "src": "QTEL",
+      "loc": "Telescope.vista() docstring",
+      "quote": "The telescope area (8.452 m²) and the projected fiber area"
+     }
+    ],
+    "derived": "Explorer pupil: pi/4 (3.70^2 - 1.63^2) = 8.665 m^2 for the annulus; less the four 36 mm legs as drawn (1.20 m each inside the pupil): 8.491 m^2 (tpupil.js pupilAndPSF; 8.492 on a 2 mm raster), 0.46% above 8.452. With the legs as drawn, 8.452 m^2 implies a 1.65 m obstruction. The full 4.10 m disk is 13.20 m^2 (12.07 m^2 less the 1.20 m hole). ESO publishes no collecting area (NOT FOUND)."
+   },
+   "vircam_focal_length": {
+    "value": 12.072,
+    "unit": "m (telescope + VIRCAM corrector)",
+    "src": "S15",
+    "loc": "Table 1, PDF p. 5",
+    "quote": "System focal length (with IR corrector) 12.072 m",
+    "alternatives": [
+     {
+      "value": "12.072 m",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "The focal length is 12.072-m."
+     },
+     {
+      "value": "r = 12072 mm (theta + 44 theta^3 - 10300 theta^5)",
+      "src": "S15",
+      "loc": "Sec. 4.1, Eq. 1, PDF p. 5",
+      "quote": "r(θ) = 12072 mm (θ + 44 θ3 − 10 300 θ5 )"
+     },
+     {
+      "value": "13 000 mm",
+      "src": "ESOVP",
+      "loc": "main text",
+      "quote": "a 13 000 mm f/3.25 mirror lens"
+     }
+    ]
+   },
+   "vircam_focal_ratio": {
+    "value": "f/3.25",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "this produces an f /3.25 Cassegrain focus located behind the M1 cell",
+    "alternatives": [
+     {
+      "value": "f/3.25",
+      "src": "UM",
+      "loc": "Sec. 1, PDF p. 7",
+      "quote": "giving an f/3.25 focus ratio at the Cassegrain focus"
+     },
+     {
+      "value": "f/3.25 converging beam at the filters",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 6",
+      "quote": "The filters operate in the converging f /3.25 beam"
+     }
+    ],
+    "derived": "12.072/3.70 = f/3.2627 on the entrance pupil (the explorer's F); 12.072/4.10 = f/2.9444 on the full mirror. The quoted f/3.25 is 12.072 m on 3.714 m."
+   },
+   "vircam_plate_scale": {
+    "value": 17.0862,
+    "unit": "arcsec/mm (on axis; DERIVED from 12.072 m)",
+    "src": "UM",
+    "loc": "Sec. 6.2, PDF p. 17",
+    "quote": "on-axis plate scale on the camera focal plane of 17.0887 arcsec mm−1 , with a focal length of 12.07 m",
+    "alternatives": [
+     {
+      "value": "mean pixel 0.339 arcsec (20 um pixels)",
+      "src": "S15",
+      "loc": "Table 1, PDF p. 5",
+      "quote": "Mean pixel scale 0.339 arcsec"
+     }
+    ],
+    "derived": "206264.8/12072 = 17.0862 arcsec/mm (the explorer's plate); UM's 17.0887 arcsec/mm is 12.0702 m. Pincushion distortion makes the radial scale 2.4% finer at the field corner (S15 Eq. 1)."
+   },
+   "vircam_focus_position": {
+    "value": 1.1726,
+    "unit": "m behind the M1 vertex (pole)",
+    "src": "S15",
+    "loc": "Sec. 4.2, PDF p. 6",
+    "quote": "The VIRCAM focal plane is located 1172.6 mm below the pole of the primary mirror",
+    "alternatives": [
+     {
+      "value": "~1.17 m behind the M1 cell",
+      "src": "S15",
+      "loc": "Sec. 2, PDF p. 2",
+      "quote": "Cassegrain focus located behind the M1 cell, ≈ 1.17 m below the M1 pole"
+     },
+     {
+      "value": "rotator face 725 mm below the pole",
+      "src": "S15",
+      "loc": "Sec. 4.2, PDF p. 6",
+      "quote": "the Cassegrain rotator back face is 725 mm below the primary pole"
+     }
+    ],
+    "derived": "back = 1.1726/3.70 = 0.31692 D. The explorer's two-mirror model (f1 = 4.0471 m, F = 3.2627, back 1.1726 m) puts the secondary at 2736.6 mm; the true spacing is 2725.7 mm (the corrector's weak power accounts for the 0.4%)."
+   },
+   "vircam_field": {
+    "value": 1.65,
+    "unit": "deg (diameter; flat, 350 mm)",
+    "src": "S15",
+    "loc": "Table 1, PDF p. 5",
+    "quote": "Field of view (VIRCAM) 1.65 degree (diameter)",
+    "alternatives": [
+     {
+      "value": "350 mm flat field",
+      "src": "S15",
+      "loc": "Sec. 4.1, PDF p. 5",
+      "quote": "350 mm, 1.65 degree diameter flat field"
+     },
+     {
+      "value": "telescope unvignetted to 2 deg",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "The unvi- gnetted field of view is 2 deg (but VIRCAM uses only ∼1.6 deg)."
+     },
+     {
+      "value": "top ring sized for 4 deg",
+      "src": "S15",
+      "loc": "Sec. 6.3, PDF p. 11",
+      "quote": "which is sized to not vignette a 4 degree diameter field of view"
+     },
+     {
+      "value": "cold baffle vignetting",
+      "src": "S15",
+      "loc": "Sec. 4.2, PDF p. 6",
+      "quote": "the vignetting is zero at angles ≤ 0.69 deg, rising to 1% at the corner of the field"
+     }
+    ],
+    "derived": "1.65 x 3600/17.086 = 347.6 mm at the axial scale (350 mm with the pincushion distortion)."
+   },
+   "vircam_corrector": {
+    "value": "a flat 95 cm Infrasil vacuum window, three Infrasil corrector lenses (one asphere), then the filter, 15 mm above the detectors",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 4.1, PDF p. 5",
+    "quote": "the incoming converging beam is transmitted through the flat Infrasil cryostat window, then through three Infrasil cor- rector lenses, then the passband filter",
+    "alternatives": [
+     {
+      "value": "3 Infrasil lenses",
+      "src": "ESOV",
+      "loc": "main text",
+      "quote": "includes a wide-field corrector lens system (3 infrasil lenses)"
+     }
+    ]
+   },
+   "image_quality": {
+    "value": "FWHM 0.51 arcsec (telescope + VIRCAM, pixels included, no seeing)",
+    "unit": "arcsec",
+    "src": "ESOV",
+    "loc": "main text",
+    "quote": "is expected to have a full width at half maximum (FWHM) of 0.51 arcsec",
+    "alternatives": [
+     {
+      "value": "~0.51 arcsec without seeing",
+      "src": "UM",
+      "loc": "Sec. 1, PDF p. 7",
+      "quote": "of ∼0.51 arcsec (without the seeing effects)"
+     }
+    ]
+   },
+   "coating": {
+    "value": "protected silver at the start of VIRCAM operations (2008), aluminum since 2011",
+    "unit": "",
+    "src": "UM",
+    "loc": "Sec. 5, PDF p. 13",
+    "quote": "The mirrors were coated with silver at the start of the VIR- CAM operations in 2008",
+    "alternatives": [
+     {
+      "value": "aluminum from 2011",
+      "src": "UM",
+      "loc": "Sec. 5, PDF p. 13",
+      "quote": "it was replaced with aluminum coating in 2011"
+     }
+    ]
+   },
+   "bare_test_focus": {
+    "value": "no corrector: M2 moved 2.1 mm toward M1, focus 1153.2 mm behind the M1 pole, ~5 arcmin usable field (commissioning tests only)",
+    "unit": "",
+    "src": "S15",
+    "loc": "Sec. 4.3, PDF p. 6",
+    "quote": "The solution is to move M2 downward by 2.1 mm with the hexapod, and locate the detector at the new focus 1153.2 mm below M1 pole.",
+    "alternatives": [
+     {
+      "value": "~5 arcmin field",
+      "src": "S15",
+      "loc": "Sec. 4.3, PDF p. 7",
+      "quote": "and gives a usable field of view ∼ 5 arcmin diameter"
+     }
+    ],
+    "derived": "Paraxial two-mirror system with d = 2725.7 - 2.1 = 2723.6 mm: EFL = f1 f2/(f1 + f2 - d) = 11855.7 mm, the focus 1153.5 mm behind the M1 vertex (S15: 1153.2 mm). F = 11.8557/3.70 = 3.2042; plate 17.3979 arcsec/mm; back = 1.1532/3.70 = 0.31168 D."
+   },
+   "fourmost_wfc": {
+    "value": "Wide Field Corrector with ADC: four lens groups, two of the four being counter-rotating prisms (ADC to 55 deg zenith distance), the largest lens ~950 mm; on the Cassegrain rotator",
+    "unit": "",
+    "src": "EUSUB",
+    "loc": "Wide Field and Atmospheric Dispersion Corrector",
+    "quote": "The system consists of 4 lenses with 2 counter-rotating prisms.",
+    "alternatives": [
+     {
+      "value": "slide 14",
+      "src": "WS19",
+      "loc": "slide 14, PDF p. 11",
+      "quote": "4 Lenses Groups with 2 ... counter-rotating prisms"
+     },
+     {
+      "value": "largest lens",
+      "src": "WS19",
+      "loc": "slide 14, PDF p. 11",
+      "quote": "Largest lens ~950mm"
+     },
+     {
+      "value": "ADC to 55 deg",
+      "src": "UM19",
+      "loc": "Sec. 6.1.2.1, PDF p. 12",
+      "quote": "The ADC corrects for atmospheric dispersion up to 55 degrees zenith distance"
+     },
+     {
+      "value": "on the Cassegrain rotator",
+      "src": "H14",
+      "loc": "Sec. 2.3, PDF p. 6",
+      "quote": "attached to the Cassegrain instrument rotator"
+     },
+     {
+      "value": "2012 baseline: two rotating ADC doublets",
+      "src": "G14",
+      "loc": "Sec. 1, PDF p. 1",
+      "quote": "using a standard atmospheric dispersion corrector (ADC) comprising two doublets with inclined interfaces between the two glasses, which rotate around the optical axis"
+     },
+     {
+      "value": "4MOST built for the 4.1 m VISTA",
+      "src": "E4MP",
+      "loc": "main text",
+      "quote": "built for ESO’s 4.1-metre Visible and Infrared Survey Telescope for Astronomy (VISTA)"
+     }
+    ]
+   },
+   "fourmost_plate_scale": {
+    "value": 59.4,
+    "unit": "um/arcsec",
+    "src": "UM19",
+    "loc": "Sec. 6.1.2.1, PDF p. 12",
+    "quote": "plate scale of the WFC is about 59.4μm/arcsec",
+    "alternatives": [
+     {
+      "value": "59.4 um/arcsec",
+      "src": "EUSUB",
+      "loc": "WFC/ADC",
+      "quote": "The plate scale of the WFC is about 59.4 μm/arcsec."
+     },
+     {
+      "value": "~60 um/arcsec (2026, on sky)",
+      "src": "W26",
+      "loc": "Sec. 4.1, PDF p. 22",
+      "quote": "The 4MOST plate scale is approximately 60 µm per arc second"
+     },
+     {
+      "value": "~63 um/arcsec (2014 concept)",
+      "src": "H14",
+      "loc": "Sec. 2.3, PDF p. 6",
+      "quote": "a nominal working focal ratio of f/3.32 and image scale of ~63µm/arcsec"
+     },
+     {
+      "value": "spine pitch 9.542 mm ~ 161 arcsec",
+      "src": "UM19",
+      "loc": "Sec. 6.1.2.4, PDF p. 13",
+      "quote": "The pitch between spine tips is 9.542 mm (~161 arcsec)"
+     }
+    ],
+    "derived": "f = 59.4 um x 206264.8 = 12.2521 m; plate = 1000/59.4 = 16.8350 arcsec/mm; 9.542 mm/161 arcsec = 59.3 um/arcsec."
+   },
+   "fourmost_focal_ratio": {
+    "value": "f/3.32 (the 2012-2014 baseline corrector); not stated for the corrector as built",
+    "unit": "",
+    "src": "H14",
+    "loc": "Sec. 2.3, PDF p. 6",
+    "quote": "a nominal working focal ratio of f/3.32",
+    "alternatives": [
+     {
+      "value": "baseline f/3.32 vs the alternative's f/3.20",
+      "src": "G14",
+      "loc": "Sec. 4.1, PDF p. 10",
+      "quote": "Nearly 4% faster focal ratio: f/3.20 rather than f/3.32."
+     }
+    ],
+    "derived": "12.2521/3.70 = f/3.3114 on the entrance pupil (the explorer's F), consistent with the baseline f/3.32 (f/3.32 on 3.70 m is 12.284 m, 59.55 um/arcsec); on the full 4.10 m mirror f/2.9883 (round 4's f/2.99). H14's ~63 um/arcsec would be 12.995 m, f/3.51 on 3.70 m (Conflicts)."
+   },
+   "fourmost_field": {
+    "value": "2.6 deg diameter, nearly unvignetted (4MOST Consortium); 2.5 deg (ESO); a hexagonal fiber field of 4.1-4.2 deg^2",
+    "unit": "deg",
+    "src": "UM19",
+    "loc": "Sec. 6.1.2.1, PDF p. 12",
+    "quote": "The WFC creates a nearly unvignetted image of 2.6 degrees diameter in the focal surface of the telescope.",
+    "alternatives": [
+     {
+      "value": "2.6 deg focal surface",
+      "src": "DJ19",
+      "loc": "p. 4, PDF p. 4",
+      "quote": "creates a focal surface with a 2.6-degree diameter."
+     },
+     {
+      "value": "2.6 deg",
+      "src": "WS19",
+      "loc": "slide 14, PDF p. 11",
+      "quote": "Field Ø = 2.6 degree"
+     },
+     {
+      "value": "2.5 deg (ESO, 2026)",
+      "src": "E4M",
+      "loc": "summary",
+      "quote": "4MOST features a 2.5-degree diameter field-of-view with 2436 science fibres in the focal plane."
+     },
+     {
+      "value": "hexagon 4.1 deg^2 (ESO)",
+      "src": "ESOI",
+      "loc": "Baseline Specification",
+      "quote": "Field-of-View in hexagon 4.1 degree2"
+     },
+     {
+      "value": "~2.5 deg (2014 concept)",
+      "src": "H14",
+      "loc": "Sec. 2.3, PDF p. 6",
+      "quote": "has an ~2.5° diameter field of view"
+     },
+     {
+      "value": "2.5 deg baseline (2014), corrector designs to 3 deg",
+      "src": "S15",
+      "loc": "Sec. 4.4, PDF p. 7",
+      "quote": "the 4MOST baseline is currently 2.5 degrees"
+     }
+    ]
+   },
+   "fourmost_focal_surface": {
+    "value": "535 mm across, curved (spherical, with the exit pupil at the center of curvature: the 2012-2014 requirement); radius NOT FOUND",
+    "unit": "mm",
+    "src": "WS19",
+    "loc": "slide 14, PDF p. 11",
+    "quote": "535 mm Focal Diameter",
+    "alternatives": [
+     {
+      "value": "slide 16",
+      "src": "WS19",
+      "loc": "slide 16, PDF p. 13",
+      "quote": "Focal Surface ... 535mm diam"
+     },
+     {
+      "value": "spherical focal surface, exit pupil concentric (requirement)",
+      "src": "G14",
+      "loc": "Sec. 1, PDF p. 1",
+      "quote": "with the exit pupil concentric with the spherical focal surface"
+     },
+     {
+      "value": "positioner modules curved to follow the focal surface",
+      "src": "H14",
+      "loc": "Fig. 5 caption, PDF p. 6",
+      "quote": "The modules are slightly curved to follow the focal surface."
+     }
+    ],
+    "derived": "535 mm/59.4 um = 2.502 deg; 2.6 deg at 59.4 um/arcsec would be 556.0 mm (Conflicts)."
+   },
+   "fourmost_focus_position": {
+    "value": "NOT FOUND for the corrector as built; the 2014 alternative design put the focal surface ~1.16 m behind the M1 vertex (FIGURE READ-OFF)",
+    "unit": "m",
+    "src": "G14",
+    "loc": "Fig. 2, PDF p. 2",
+    "quote": "Figure 2. Relationship of corrector lens to primary and secondary telescope mirrors.",
+    "figure_readoff": "G14 Fig. 2 (the alternative four-singlet design, rendered at 120 dpi): M2 at 272 px from the M1 vertex (2.7257 m, so ~100 px/m; the 1.24 m M2 spans ~125 px); the spherical focal surface 116 px behind the vertex, ~1.16 m; two lenses ~0.5-0.7 m in front of the vertex and two ~0.7-0.8 m behind.",
+    "note": "The explorer places the 4MOST focus where VIRCAM's was (1.1726 m behind the vertex): schematic."
+   }
+  },
+  "not_found": [
+   "The angles of the four spider legs in the pupil, and the exact radius at which the legs meet the central barrel (S15 gives the barrel as ≈ 1.4 m across and the legs as joining the barrel at two opposite points); the explorer's +/-60 deg from (+/-0.70, 0) m is INFERRED from photographs.",
+   "The 4MOST-era baffle around the secondary (H14: the baffles were modified for 4MOST, and a WFC M1 baffle added); the explorer keeps VIRCAM's 1.63 m.",
+   "The 4MOST focal-surface position (back focal distance) and radius of curvature, the corrector's prescription and the as-built focal ratio; only the 59.4 um/arcsec plate scale, the 535 mm focal diameter and the 2012-2014 baseline f/3.32 are published.",
+   "Whether the M1-M2 spacing changed for 4MOST.",
+   "An ESO collecting area for VISTA (the 4MOST ETC's 8.452 m^2 is the only number found).",
+   "The orientation of the pupil (and the spider) on the sky: the pupil is fixed to the tube of an alt-azimuth telescope, and the Cassegrain rotator turns the instrument."
+  ],
+  "conflicts": [
+   "Pupil diameter: 3.70 m (S15, UM) vs 3.705 m (DERIVED, real-ray trace) vs 3.80 m (DERIVED paraxial image of M2, too large for the fast primary) vs the 3.95 m envelope (S15) vs the 3.96 m clear aperture (S15 Table 2) vs the 4.10 m mirror (headline).",
+   "Focal length with VIRCAM: 12.072 m (S15 Table 1, UM Sec. 5) vs 12.07 m and 17.0887 arcsec/mm = 12.0702 m (UM Sec. 6.2) vs '13 000 mm' (ESOVP).",
+   "VIRCAM focal ratio: f/3.25 quoted (S15, UM, ESOV, ESOVP) vs f/3.263 on 3.70 m and f/2.944 on 4.10 m (DERIVED).",
+   "4MOST field: 2.6 deg (UM19, DJ19, WS19) vs 2.5 deg (E4M, ESOI, H14, S15) vs 2.50 deg (DERIVED from the 535 mm focal diameter at 59.4 um/arcsec); fiber hexagon 4.1 deg^2 (ESOI) vs >4.2 deg^2 (UM19, WS19).",
+   "4MOST plate scale: 59.4 um/arcsec (UM19, EUSUB) vs ~60 um/arcsec (W26) vs ~63 um/arcsec (H14 concept: 12.995 m, f/3.51 on 3.70 m, which does not match H14's own f/3.32 = 59.55 um/arcsec on 3.70 m) vs '~60 mm/arcsec' (WS19 slide 16, a unit slip).",
+   "4MOST focal ratio: f/3.32 (H14; G14's 2012 baseline) vs f/3.20 (G14's alternative design, not built) vs f/3.311 on 3.70 m and f/2.988 on 4.10 m (DERIVED from 59.4 um/arcsec; round 4 quoted f/2.99 on 4.10 m).",
+   "Secondary: 'f/3 hyperboloid' (UM Sec. 5) vs R2 = 4018.9 mm, f/1.62 on 1.2415 m (DERIVED from S15 Table 2).",
+   "Unvignetted field: 2 deg (UM) vs the 1.65 deg VIRCAM field with cold-baffle vignetting from 0.69 deg to 1% at the corner (S15) vs a top ring sized for 4 deg (S15).",
+   "Site altitude: 2518 m (S15, ESOVP) vs 2500 m (UM Sec. 1) vs 2635.43 m (UM Table 2).",
+   "4MOST corrector: four lens groups with two counter-rotating prisms (EUSUB, WS19; built) vs the 2012 baseline with two rotating ADC doublets, six elements (G14) vs G14's alternative of four singlets with a laterally displaced ADC element."
+  ],
+  "notes": [
+   "One focus, two instruments: VIRCAM was VISTA's only instrument from 2009 to March 2023; 4MOST took the same Cassegrain position (first light 2025), and ESO's 4MOST page (May 2026) calls 4MOST 'the only instrument installed at VISTA'. The mirrors serve both; each instrument brings a separate corrector, so the focal length and plate scale differ.",
+   "VISTA has no cold stop: the undersized secondary is the stop, so the pupil is smaller than the primary and moves across the primary with field angle (up to 0.12 m at 0.825 deg). The explorer draws the on-axis pupil.",
+   "Round 4 (data/round4/4most.md) used D = 4.10 m and derived f/2.99 for the 4MOST focus; on the 3.70 m entrance pupil the same 59.4 um/arcsec gives f/3.31, consistent with the baseline f/3.32. The spectrograph presets are not changed here.",
+   "The pupil frame follows S15 Sec. 5 (x along the altitude axis); with two symmetric pairs of legs the drawn pupil is the same seen from the sky or from the focus.",
+   "The 4MOST ETC's 8.452 m^2 and the explorer pupil (8.491 m^2) differ by 0.46%; with the legs as drawn, 8.452 m^2 corresponds to a 1.65 m obstruction."
+  ]
+ }
+}

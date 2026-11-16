@@ -313,14 +313,10 @@ function hAt(pts, z) {
   const L = pts[pts.length - 1];
   return L.h + (L.u || 0) * (z - L.z);
 }
-// tg: the canvas, its caption and its view state (the Telescopes mode draws into its own panel with this function)
-function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
-  const lview = tg.lv;
-  const cv = $(tg.cv);
-  const { g, w, h } = fitCanvas(cv);
-  g.clearRect(0, 0, w, h);
-  if (!(cv.width > 0 && cv.height > 0)) return;
-  if (Dz.bad) { message(g, w, h, Dz.bad); return; }
+// The drawing's geometry (mm, on the page: x along the axis, the light from the left; y up the page): each bundle's
+// edges as polylines and the elements.  The Telescopes mode's 3D view (tel3d.js) uses the same geometry, with a third
+// axis out of the page (pathOf3).
+function layoutGeom(Dz, P) {
   const tel = P.view === "tel", two = P.tel === "cass" || P.tel === "greg", Dmm = Dz.Dmm, eps = Dz.eps;
   const ts = fieldSlopes(Dz);
   // rays: for each field point, the annulus's inner and outer edges on each side
@@ -336,7 +332,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
                                 : { t, up: [edgeA[0], outUp].map(a => Dz.trace(a * Dmm / 2, t)), dn: [edgeA[0], outDn].map(a => Dz.trace(-a * Dmm / 2, t)) }));
   // ---- world geometry (mm) for the chosen view: a list of polylines per bundle, and the elements
   const sag1 = hh => hh * hh / (4 * Dz.f1);
-  let X, z0, polys = [], elems = [], marks = [];
+  let X, z0, polys = [], elems = [], marks = [], pathOf3 = null;
   if (tel) {
     // the telescope folded on the page: light arrives from the left, the primary at x = 0
     const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt", nas = !!Dz.nasmyth, a3 = Dz.a3 || 0;
@@ -361,10 +357,10 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
         const A = out[out.length - 1], B = line[i];
         if (!folded && L(A) < 0 && L(B) >= 0) {
           const t = -L(A) / (L(B) - L(A));
-          out.push([A[0] + t * (B[0] - A[0]), A[1] + t * (B[1] - A[1])]);
+          out.push(A.map((v, k) => v + t * (B[k] - v)));                  // (a third coordinate, out of the page, rides along)
           folded = true;
         }
-        out.push(folded ? [x0 - dir * s * B[1], -s * dir * (B[0] - x0)] : B);
+        out.push(folded ? [x0 - dir * s * B[1], -s * dir * (B[0] - x0), ...B.slice(2)] : B);
       }
       return out;
     };
@@ -377,6 +373,16 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       for (const p of pts) {
         if (Dz.split && p.z > Dz.zF + 1e-9) { out.push([X(Dz.zF), hAt(pts, Dz.zF)]); break; }   // the pyramid instrument: drawn as a box at the focus
         out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]);
+      }
+      return two || tma ? foldN(out) : out;
+    };
+    // (the 3D view) a skew ray: py traced at its height across the axis in the page's plane with the field slope t,
+    // pz at its height out of the page with no slope (ideal round optics: the two traces add); points [x, y, z]
+    pathOf3 = (py, pz, t) => {
+      const out = [[xIn, py[0].h + t * (xIn - X(py[0].z)), pz[0].h]];
+      for (let i = 0; i < py.length; i++) {
+        const p = py[i], q = pz[i], rho = Math.hypot(p.h, q.h);
+        out.push([p.z === 0 && !refr ? -sag1(rho) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(rho) : X(p.z), p.h, q.h]);
       }
       return two || tma ? foldN(out) : out;
     };
@@ -513,6 +519,17 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   else if (tel && Dz.nasmyth) { const s = P.nasSide === "up" ? -1 : 1; elems.push({ k: "det", x: -Dz.a3, y: -s * (X(Dz.zDet) + Dz.a3), rot: true, sgn: -s, up: s < 0 }); }
   else if (tel && Dz.tma === "korsch") elems.push({ k: "det", x: Dz.xFold, y: X(Dz.zDet) - Dz.xFold, rot: true, sgn: 1, korsch: true });
   else elems.push({ k: "det", x: X(Dz.zDet), pb: tel && Dz.tma === "pb" });
+  return { tel, two, Dmm, eps, sag1, polys, elems, marks, rays, SIDES, off, ts, X, xIn: z0, pathOf3 };
+}
+// tg: the canvas, its caption and its view state (the Telescopes mode draws into its own panel with this function)
+function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
+  const lview = tg.lv;
+  const cv = $(tg.cv);
+  const { g, w, h } = fitCanvas(cv);
+  g.clearRect(0, 0, w, h);
+  if (!(cv.width > 0 && cv.height > 0)) return;
+  if (Dz.bad) { message(g, w, h, Dz.bad); return; }
+  const { tel, Dmm, eps, sag1, polys, elems, marks } = layoutGeom(Dz, P);
   // ---- fit
   let bx0 = Infinity, bx1 = -Infinity, by0 = Infinity, by1 = -Infinity;
   const grow = (x, y) => { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); };
@@ -1166,7 +1183,7 @@ function render() {
 return {
   render, reset, applyPreset, custom: () => { presetId = "custom"; }, hashParts, readHash, bodyClasses, PRESETS,
   // for the Telescopes mode: the telescope drawing, and the formatting helpers
-  drawLayoutOn: (tg, Dz, P) => drawLayout(Dz, P, tg), fmt: { fAng, fLen, fArea }, BANDS,
+  drawLayoutOn: (tg, Dz, P) => drawLayout(Dz, P, tg), layoutGeom, halo, fmt: { fAng, fLen, fArea }, BANDS,
   presetId: () => presetId,
   redraw: () => { if (cur) { drawLayout(cur, curP); drawSky(cur, curP); } },
   escape: () => { if (ilvExpanded) { setExpanded(false); return true; } if (!$("ilvOpts").hidden) { $("ilvOpts").hidden = true; return true; } return false; },

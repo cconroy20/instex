@@ -1,0 +1,856 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Sloan Foundation 2.5 m telescope (SDSS) -- foci and entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/sdss.md (same content as Markdown). Structure follows elt.json: sources{key: cite, file, url}; sdss: title, telescope, explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/sdss/. derived = arithmetic done here (shown). alternatives = other sourced values. figure_readoff = a value read off a saved figure (the caption is checked). INFERRED marks a reasoned guess no source states. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), degree-like glyphs, division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), no-break space and soft hyphen normalized; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; \" ... \" joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8); .py as is; the e-print tarball's .tex member.",
+  "check_result": "83 quotes checked against the saved files, 0 failures (2026-11-16); the FIGURE READ-OFFs (G06 Figs. 13 and 17, decoded from the e-print source) are not text-checkable: their captions and file names are"
+ },
+ "sources": {
+  "G06": {
+   "cite": "Gunn, J. E., Siegmund, W. A., Mannery, E. J., et al. 2006, AJ 131, 2332, \"The 2.5 m Telescope of the Sloan Digital Sky Survey\", arXiv:astro-ph/0602326v1 (abstract; Sec. 2.2 optical design; Tables 1-2 prescriptions; Sec. 2.5 mirrors; Sec. 3.2 structure; Sec. 4 baffles; figure captions). SAME FILE as apogee.json key G06",
+   "file": "rawdata/telescopes/sdss/Gunn2006_AJ131_2332_SDSS_2.5m_telescope_arXiv0602326.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0602326"
+  },
+  "G06S": {
+   "cite": "The arXiv source of G06 (e-print tarball: ms.tex and the figures as EPS files wrapping JPEGs). Figures 13 (photograph) and 17 (obstruction vs. field angle) were read by decoding the embedded JPEG data (ASCII85 + DCT) as data; no PostScript was executed",
+   "file": "rawdata/telescopes/sdss/Gunn2006_arXiv0602326_eprint_source.tar.gz",
+   "url": "https://arxiv.org/e-print/astro-ph/0602326"
+  },
+  "W19": {
+   "cite": "Wilson, J. C., Hearty, F. R., Skrutskie, M. F., et al. 2019, PASP 131, 055001, \"The Apache Point Observatory Galactic Evolution Experiment (APOGEE) Spectrographs\", arXiv:1902.00928. SAME FILE as apogee.json key W19",
+   "file": "rawdata/telescopes/sdss/Wilson2019_PASP131_055001_APOGEE_spectrographs_arXiv1902.00928.pdf",
+   "url": "https://arxiv.org/pdf/1902.00928"
+  },
+  "APOP": {
+   "cite": "Gunn, J. E., Kent, S. M. & Mannery, E., SDSS Telescope Technical Note 19950322-01, \"2.5-m Telescope Optical Prescription\" (Zemax KENT003 camera configuration, 1995-03-22), APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25mopticalprescription.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25mopticalprescription/"
+  },
+  "APOS": {
+   "cite": "Gunn, J. E., SDSS Telescope Technical Note 19961022, \"2.5m Telescope spectrographic optical design\" (kmg001, 13 Apr 95; additions 1999), APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25mspectrographicopticaldesign.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25mspectrographicopticaldesign/"
+  },
+  "APOO": {
+   "cite": "Waddell, P., Mannery, E. J., Gunn, J. E. & Kent, S. M., SDSS Telescope Technical Note 19980416, \"The Sloan Digital Sky Survey 2.5-meter telescope: optics\", APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25mtelescopeoptics.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25mtelescopeoptics/"
+  },
+  "APOL": {
+   "cite": "Siegmund, W., SDSS Telescope Technical Note 19960616, \"2.5m Telescope light baffles\" (pupil edges from the Zemax ray trace; Table 1 focal-surface scales), APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25mlightbaffles.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25mlightbaffles/"
+  },
+  "APOA": {
+   "cite": "Siegmund, W. A., Limmongkol, S., Hull, C. L. & Milsom, D., SDSS Telescope Technical Note 19980215, \"Sloan Digital Sky Survey 2.5-m telescope: light baffles\" (Sec. 5 Pupil obstructions and differential vignetting), APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25mlightbafflesaddendum.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25mlightbafflesaddendum/"
+  },
+  "APOI": {
+   "cite": "Siegmund, W. & Waddell, P., SDSS Telescope Technical Note 19980421, \"Support and adjustment of the internal light baffles\", APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdssengsupportinternallightbaffles.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdssengsupportinternallightbaffles/"
+  },
+  "APOM": {
+   "cite": "Siegmund, W., Carey, L., Owen, R. & Waddell, P., SDSS Telescope Technical Note 19980903, \"SDSS 2.5-m telescope secondary measurements\", APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdsseng25msecondarymeasurements.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdsseng25msecondarymeasurements/"
+  },
+  "APOB": {
+   "cite": "Siegmund, W. & Buffaloe, M., SDSS Telescope Technical Note 19970703, \"Primary & Secondary baffle measurements\", APO web page (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_sdssengprimaryandsecondarybafflemeasurement.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/sdss/sdssengprimaryandsecondarybafflemeasurement/"
+  },
+  "APOT": {
+   "cite": "Apache Point Observatory, \"SDSS 2.5m\" general information page (site header with the elevation; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/sdss/apo_telescopeinfo25m.html",
+   "url": "https://www.apo.nmsu.edu/mainpage/telescopeinfo25m/"
+  },
+  "S25": {
+   "cite": "Smee, S. A., Barkhouser, R. H., Hammond, R. P., et al. 2025, AJ 170, 260, \"The New SDSS 2.5 m Telescope Wide-field Corrector for SDSS-V\", doi:10.3847/1538-3881/adf735 (open access; Sec. 2 optical design, Table 1 prescription, Secs. 6.6-6.8 commissioning)",
+   "file": "rawdata/telescopes/sdss/Smee2025_AJ170_260_SDSS-V_wide-field_corrector.pdf",
+   "url": "https://iopscience.iop.org/article/10.3847/1538-3881/adf735/pdf"
+  },
+  "K26": {
+   "cite": "Kollmeier, J. A., Rix, H.-W., Aerts, C., et al. 2026, AJ 171, 52, \"Sloan Digital Sky Survey-V: Pioneering Panoptic Spectroscopy\", arXiv:2507.06989v1 (Sec. 3 MOS instrumentation: 3.2 robotic Focal Plane System, 3.3 Wide Field Corrector)",
+   "file": "rawdata/telescopes/sdss/Kollmeier2026_AJ171_52_SDSS-V_arXiv2507.06989.pdf",
+   "url": "https://arxiv.org/pdf/2507.06989"
+  },
+  "CIO": {
+   "cite": "SDSS-V coordio software, src/coordio/defaults.py, GitHub sdss/coordio commit 9e35029 (2025-07-14): plate scales, wok position, maximum field radius. Read only",
+   "file": "rawdata/telescopes/sdss/coordio_9e35029_defaults.py",
+   "url": "https://github.com/sdss/coordio/blob/9e3502992d137acf4d1d776b6c955746323145d2/src/coordio/defaults.py"
+  },
+  "IS20": {
+   "cite": "Infante-Sainz, R., Trujillo, I. & Román, J. 2020, MNRAS 491, 5317, \"The Sloan Digital Sky Survey extended point spread functions\", arXiv:1911.01430v2 (Sec. 3.1: diffraction spikes)",
+   "file": "rawdata/telescopes/sdss/InfanteSainz2020_MNRAS491_5317_SDSS_extendedPSF_arXiv1911.01430.pdf",
+   "url": "https://arxiv.org/pdf/1911.01430"
+  }
+ },
+ "sdss": {
+  "title": "Sloan Foundation 2.5 m telescope (SDSS, Apache Point): the f/5 Cassegrain focus with the SDSS-V corrector, the plug-plate spectroscopic corrector and the imaging camera; entrance pupil",
+  "telescope": {
+   "name": "Sloan Foundation 2.5 m telescope (SDSS)",
+   "site": "Apache Point Observatory, New Mexico, 2788 m (APOT)",
+   "status": "operational (SDSS-V); first light May 1998 (G06)",
+   "mount": "altitude-azimuth (G06); a roll-off enclosure and a co-moving wind baffle (G06 Sec. 4)",
+   "optical_design": "modified two-corrector Ritchey-Chretien, f/2.25 primary, f/5 final (G06)",
+   "primary": {
+    "clear_diameter_mm": 2500,
+    "stop_diameter_mm": 2517.17,
+    "radius_of_curvature_mm": 11249.86,
+    "conic": -1.285,
+    "focal_length_mm_DERIVED": 5624.93,
+    "F_quoted": 2.25,
+    "central_hole_m": 1.17,
+    "refs": [
+     "sdss.primary",
+     "sdss.entrance_pupil_outer",
+     "sdss.central_hole"
+    ]
+   },
+   "secondary": {
+    "clear_diameter_mm": 1080,
+    "vertex_radius_mm": 7194.245,
+    "conic": -11.968,
+    "distance_from_primary_mm": {
+     "imaging": 3646.14,
+     "plug_plate": 3644.46,
+     "sdss_v": 3645.17
+    },
+    "refs": [
+     "sdss.secondary"
+    ]
+   },
+   "pupil": {
+    "D_m": 2.51717,
+    "eps_on_axis": 0.5103,
+    "secondary_baffle_tip_mm": 1284.6,
+    "obstruction_area_fraction_on_axis": {
+     "central": 0.26,
+     "conical_baffle": 0.026,
+     "total": 0.286
+    },
+    "obstruction_area_fraction_field_edge": {
+     "central": 0.269,
+     "conical_baffle": 0.049,
+     "total": 0.318
+    },
+    "vanes": "NOT FOUND (along the diagonals of a square frame)",
+    "collecting_area_m2_DERIVED": {
+     "secondary_baffle_only": 3.68,
+     "with_conical_baffle": 3.553
+    },
+    "refs": [
+     "sdss.central_obscuration",
+     "sdss.total_obstruction",
+     "sdss.secondary_vanes"
+    ]
+   },
+   "foci": [
+    {
+     "id": "SD-FPS",
+     "name": "Cassegrain f/5, SDSS-V robotic FPS",
+     "status": "operational since 2021",
+     "corrector": "three fused-silica lenses (L1-L3)",
+     "plate_scale_mm_per_deg": 217.7358,
+     "focal_length_mm_DERIVED": 12475.3,
+     "F_on_2p517_DERIVED": 4.9561,
+     "focal_surface_radius_mm": 9199.322,
+     "focus_behind_M1_vertex_mm_DERIVED": 776.48,
+     "field_deg": 3.0,
+     "n_reflections": 2,
+     "refs": [
+      "sdss.focus_sdssv",
+      "sdss.plate_scale_sdssv",
+      "sdss.focal_plane_position"
+     ]
+    },
+    {
+     "id": "SD-PLUG",
+     "name": "Cassegrain f/5, plug plates (SDSS-I to -IV)",
+     "status": "historical (to 2020)",
+     "corrector": "Gascoigne + spectroscopic corrector",
+     "plate_scale_mm_per_deg_DERIVED": 217.64,
+     "focal_length_mm_DERIVED": 12469.3,
+     "F_on_2p517_DERIVED": 4.9537,
+     "focus_behind_M1_vertex_mm_DERIVED": 756.7,
+     "field_deg": 3.0,
+     "n_reflections": 2,
+     "refs": [
+      "sdss.focus_plugplate"
+     ]
+    },
+    {
+     "id": "SD-IMG",
+     "name": "Cassegrain f/5, imaging camera (SDSS-I/II)",
+     "status": "historical",
+     "corrector": "Gascoigne + imaging corrector (camera window, filters)",
+     "focal_length_mm": 12428.7,
+     "F_on_2p517_DERIVED": 4.9376,
+     "focus_behind_M1_vertex_mm_DERIVED": 759.45,
+     "field_deg": "2.72 photometric, 3.02 astrometric",
+     "n_reflections": 2,
+     "refs": [
+      "sdss.focus_imaging"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "sdss",
+   "group": "Sloan 2.5 m",
+   "name": "Sloan 2.5 m (SDSS)",
+   "D": 2.517,
+   "f1": 5.6249,
+   "eps": 0.5103,
+   "hole": 1.17,
+   "nominalD": 2.5,
+   "primaryNote": "A Hextek borosilicate honeycomb mirror, nearly hyperbolic (conic −1.285), radius of curvature 11.25 m (f = 5.62 m, f/2.25 on the nominal 2.5 m), with a 1.17 m central hole; a 2.52 m stop just above the mirror masks the turned edge of the mirror. A modified Ritchey-Chrétien with a 1.08 m secondary only 3.6 m away and two transmitting correctors gives a 3° field at f/5. First light May 1998 at Apache Point Observatory, New Mexico.",
+   "pupil": {
+    "kind": "circle",
+    "D": 2.517
+   },
+   "pupilNote": "On axis the inner edge is the 1.285 m tip of the secondary's baffle (26.0% of the area); a cone hung between the mirrors blocks another 2.6% (28.6% in all; not drawn). The secondary's support vanes run along the diagonals of the square secondary frame, but their number and width are not published, so none are drawn.",
+   "area": {
+    "value": 3.553,
+    "info": true,
+    "src": "DERIVED: the 2.517 m pupil less the 28.6% obstruction on axis (Siegmund et al., SDSS technical note 19980215); the vanes and wires not included"
+   },
+   "foci": [
+    {
+     "id": "fps",
+     "name": "Cassegrain f/5 (SDSS-V robots)",
+     "kind": "Cassegrain",
+     "variant": "SDSS-V robotic fibers",
+     "F": 4.9561,
+     "plate": 16.534,
+     "design": "cass",
+     "back": 0.3085,
+     "field": 180,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.08 m (conic −11.98), 3.645 m in front of the primary; then the three-lens SDSS-V corrector (fused silica, 730 to 680 mm), the first lens just above the primary's vertex",
+     "where": "the Cassegrain rotator: 500 robotic fiber positioners for BOSS and APOGEE on a focal surface of radius 9.20 m, 0.776 m behind the primary's vertex",
+     "fieldNote": "3° across. F from the 217.7358 mm/° plate scale of the SDSS-V software (60.48 µm/″); 2″ fibers. In use since 2021. The three corrector lenses are not drawn."
+    },
+    {
+     "id": "plug",
+     "name": "Cassegrain f/5 (plug plates, historical)",
+     "kind": "Cassegrain",
+     "variant": "Plug plates (to 2020)",
+     "F": 4.954,
+     "plate": 16.542,
+     "design": "cass",
+     "back": 0.3006,
+     "field": 180,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.08 m, 3.644 m in front of the primary; the Gascoigne corrector at the primary's vertex and a thin aspheric spectroscopic corrector 87 mm before the focus",
+     "where": "the Cassegrain rotator: drilled plug plates bent to the focal surface, 0.757 m behind the primary's vertex",
+     "fieldNote": "3° across (1.5° at 327.4 mm from the center). F from the design image height at 30′; 3″ fibers for SDSS, 2″ for BOSS and APOGEE. The two correctors are not drawn."
+    },
+    {
+     "id": "img",
+     "name": "Cassegrain f/5 (imaging camera, historical)",
+     "kind": "Cassegrain",
+     "variant": "Imaging camera",
+     "F": 4.9376,
+     "plate": 16.596,
+     "design": "cass",
+     "back": 0.3017,
+     "field": 180,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.08 m, 3.646 m in front of the primary; the Gascoigne corrector and the camera's thick aspheric corrector, which carries the filters",
+     "where": "the Cassegrain rotator: the 54-CCD drift-scan camera, the focus 0.759 m behind the primary's vertex",
+     "fieldNote": "3° across (2.72° photometric, 3.02° astrometric). F from the 12.43 m focal length of the 1995 design (60.4 µm/″ published). Used in the early years of SDSS. The two correctors are not drawn."
+    }
+   ]
+  },
+  "params": {
+   "status_site": {
+    "value": "the Sloan Foundation 2.5 m at Apache Point Observatory, New Mexico, 2788 m; first light May 1998, survey operations from 2000; dedicated to SDSS-V since 2020",
+    "unit": "",
+    "src": "G06",
+    "loc": "Abstract, PDF p. 2",
+    "quote": "The telescope had first light in May 1998 and began regular survey operations in 2000.",
+    "alternatives": [
+     {
+      "value": "2788 m",
+      "src": "APOT",
+      "loc": "site header",
+      "quote": "Elev. 2788 m"
+     },
+     {
+      "value": "still in use for SDSS-V",
+      "src": "K26",
+      "loc": "Sec. 3, PDF p. 30",
+      "quote": "Observatory (APO) in New Mexico SDSS-V continues to use the 2.5m Sloan Foundation Telescope"
+     },
+     {
+      "value": "history of use: imaging, then plug plates, now robots",
+      "src": "APOT",
+      "loc": "page text",
+      "quote": "In the early stages of SDSS, a large imaging camera was used to image a large fraction of the northern sky, but since the late 2000s, the telescope has been used exclusively for wide-field spectroscopic observations, with fiber fed spectrographs. Until the 2020s, this was achieved using spectroscopic plug plates, but this is now achieved using robotic fiber positioners"
+     },
+     {
+      "value": "altitude-azimuth",
+      "src": "G06",
+      "loc": "Sec. 3.1, PDF p. 15",
+      "quote": "telescope is an altitude-azimuth design similar to the Apache Point Observatory (APO)"
+     }
+    ]
+   },
+   "optical_design": {
+    "value": "a modified two-corrector Ritchey-Chretien: 2.5 m f/2.25 primary, 1.08 m secondary, a Gascoigne corrector near the primary vertex and one of a pair of aspheric correctors near the focus (imaging or spectroscopy); f/5",
+    "unit": "",
+    "src": "G06",
+    "loc": "Abstract, PDF p. 1",
+    "quote": "modified two-corrector Ritchey-Chrétien design which has a 2.5-m, f /2.25 primary, a 1.08-m secondary, a Gascoigne astigmatism corrector, and one of a pair",
+    "alternatives": [
+     {
+      "value": "the second piece of the abstract",
+      "src": "G06",
+      "loc": "Abstract, PDF p. 2",
+      "quote": "of interchangeable highly aspheric correctors near the focal plane, one for imaging and the other for spectroscopy. The final focal ratio is f /5."
+     },
+     {
+      "value": "f/5.0 net",
+      "src": "W19",
+      "loc": "Sec. 2.1, PDF p. 5",
+      "quote": "is a modified two-corrector Ritchey-Chrétien design with a net focal ratio of f/5.0"
+     },
+     {
+      "value": "two mirrors, two transmitting correctors",
+      "src": "APOA",
+      "loc": "Abstract",
+      "quote": "The two-mirror optical design includes two transmitting correcting elements."
+     },
+     {
+      "value": "SDSS-V: a new three-element corrector",
+      "src": "K26",
+      "loc": "Sec. 3.3, PDF p. 33",
+      "quote": "This necessitated the design and implementation of a new three-element wide field corrector for the SDSS 2.5m telescope at APO."
+     }
+    ]
+   },
+   "primary": {
+    "value": "2.5 m, f/2.25, nearly hyperbolic: radius of curvature 11249.86 mm, conic -1.285 (plus 6th- and 8th-order terms); a Hextek borosilicate honeycomb",
+    "unit": "",
+    "src": "APOP",
+    "loc": "Surface data summary (KENT003)",
+    "quote": "STO EVENASPH -11249.86 -3646.14 MIRROR 2503.645 -1.285",
+    "alternatives": [
+     {
+      "value": "c = -8.889e-5 /mm, k = -1.285, clear 2500 mm",
+      "src": "G06",
+      "loc": "Table 1, PDF p. 56",
+      "quote": "1 −8.889e-5 0.0 -air 3.81e-22 −1.52e-29 -1.285 2500"
+     },
+     {
+      "value": "2.5 m f/2.25",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 8",
+      "quote": "The design uses a 2.5-m f /2.25 primary with a 1.08-m secondary"
+     },
+     {
+      "value": "borosilicate honeycomb (Hextek)",
+      "src": "G06",
+      "loc": "Sec. 2.5.1, PDF p. 12",
+      "quote": "The primary mirror borosilicate honeycomb blank was cast by Hextek Corporation"
+     },
+     {
+      "value": "SDSS-V prescription: R = -11251.63 mm, k = -1.2859",
+      "src": "S25",
+      "loc": "Table 1, PDF p. 7",
+      "quote": "M1 −11251.63 −3645.17"
+     }
+    ],
+    "derived": "f1 = 11249.86/2 = 5624.93 mm; F1 = 5624.93/2500 = 2.2500 (2.2346 on the 2.517 m stop). Explorer f1 = 5.6249 m."
+   },
+   "entrance_pupil_outer": {
+    "value": 2.517,
+    "unit": "m (as built: the outer aperture stop just above the primary)",
+    "src": "APOL",
+    "loc": "Baffle design: Entrance pupil",
+    "quote": "Entrance pupil Outer edge R1258.585 mm, 92.04 mm in front of the primary vertex",
+    "alternatives": [
+     {
+      "value": "2.52 m stop",
+      "src": "G06",
+      "loc": "Sec. 4.2, PDF p. 34",
+      "quote": "The 2.52 m diameter of the outer aperture stop was chosen to mask the surface of the primary near its outer edge because of a slightly turned edge which occurred during polishing."
+     },
+     {
+      "value": "stop just above the primary",
+      "src": "G06",
+      "loc": "Sec. 4.4.2, PDF p. 37",
+      "quote": "The primary mirror aperture stop is located just above the primary mirror and defines the outer edge of the entrance pupil."
+     },
+     {
+      "value": "2500 mm in the 1995 design",
+      "src": "APOP",
+      "loc": "General lens data (KENT003)",
+      "quote": "Entr. Pup. Dia. : 2500"
+     },
+     {
+      "value": "design pupil radius 1250 mm, 625 mm obscuration",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 9",
+      "quote": "the pupil radius is 1250.00 mm with a 625 mm central obscuration, taken (not quite correctly) at the primary"
+     }
+    ],
+    "derived": "D = 2 x 1258.585 = 2517.17 mm (the explorer D); nominal 2.5 m (nominalD)."
+   },
+   "central_hole": {
+    "value": 1.17,
+    "unit": "m (diameter; its baffle 1.20 m)",
+    "src": "G06",
+    "loc": "Sec. 2.2, PDF p. 8",
+    "quote": "The central hole in the primary is 1.17 m in diameter; its baffle is slightly larger, 1.20 m.",
+    "note": "The mirror's inner edge as finished lies farther out than designed (damage during generation, G06 Sec. 4.2 and Sec. 6.1); the 1.20 m primary-baffle annulus masks the rolled-off inner edge, and on axis both lie inside the 1.285 m secondary-baffle shadow."
+   },
+   "secondary": {
+    "value": "convex, 1.08 m clear (1.1 m blank), vertex radius 7194 mm (the same curvature as the primary, as in the Bowen-Vaughan flat-field design), conic -11.97; 3.646 m (imaging), 3.644 m (plug-plate spectroscopy), 3.645 m (SDSS-V) in front of the primary",
+    "unit": "",
+    "src": "G06",
+    "loc": "Table 1 and Table 2, PDF p. 56",
+    "quote": "2 −1.390e-4 −3646.14 air 1.79e-19 −11.97 1080",
+    "alternatives": [
+     {
+      "value": "spectroscopic spacing",
+      "src": "G06",
+      "loc": "Table 2, PDF p. 56",
+      "quote": "2 −1.390e-4 -3644.46 air 1.79e-19 −11.97 1080"
+     },
+     {
+      "value": "R 7194.245 mm, 1079.861 mm, k -11.968 (Zemax)",
+      "src": "APOP",
+      "loc": "Surface data summary",
+      "quote": "2 EVENASPH -7194.245 3621.59 MIRROR 1079.861 -11.968"
+     },
+     {
+      "value": "SDSS-V spacing",
+      "src": "S25",
+      "loc": "Table 1, PDF p. 7",
+      "quote": "M2 −7193.99 3545.20"
+     },
+     {
+      "value": "1.1 m, almost half the primary",
+      "src": "G06",
+      "loc": "Sec. 2.5.2, PDF p. 13",
+      "quote": "The SDSS secondary is of diameter 1.1m, almost half that of the primary, necessary for an unvignetted large focal plane."
+     },
+     {
+      "value": "3.6 m from the primary",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 8",
+      "quote": "The telescope is quite short-coupled, with the secondary only 3.6 m in front of the primary."
+     }
+    ],
+    "derived": "R2 = 1/1.390e-4 = 7194 mm (convex; f2 = -3597 mm). Secondary/pupil = 1.08/2.517 = 0.429, smaller than the baffle shadow (0.510)."
+   },
+   "central_obscuration": {
+    "value": 0.5103,
+    "unit": "diameter ratio on axis: the secondary-baffle tip, 1.2846 m, over the 2.517 m stop (26.0% of the area)",
+    "src": "APOL",
+    "loc": "Baffle design: Entrance pupil",
+    "quote": "Inner edge R601.161 mm, 39.168 mm in front of the primary vertex R642.318 mm, 459.895 in front of the secondary vertex",
+    "alternatives": [
+     {
+      "value": "secondary-baffle tip 1285 mm",
+      "src": "G06",
+      "loc": "Fig. 20 caption, PDF p. 80",
+      "quote": "The baffle tip, machined from aluminum alloy, is 1285 mm in outside diameter and 206 mm high."
+     },
+     {
+      "value": "measured 1285.7 mm (spec 1284.6 mm)",
+      "src": "APOB",
+      "loc": "Secondary Baffle",
+      "quote": "The outside diameter of the tip of ring 5 (the secondary baffle tip) was 1285.7 mm with a range of 0.8 mm p-v. The specifications were 1284.6 and 7.6 mm respectively."
+     },
+     {
+      "value": "the tip defines the inner edge within 0.7 deg of the axis",
+      "src": "APOL",
+      "loc": "Baffle design",
+      "quote": "For the inner 0.7° field radius, the inner edge of the entrance pupil is defined by the secondary baffle tip."
+     },
+     {
+      "value": "26.0% central + 2.6% conical baffle",
+      "src": "APOL",
+      "loc": "Introduction",
+      "quote": "The design shown has a central obscuration of 26.0% ( Figure 1 ). The conical baffle adds an additional 2.6%."
+     },
+     {
+      "value": "design: 1.30 m with baffles, 27%",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 8",
+      "quote": "which, with its baffles (1.30 m diameter), obscures 27% of the incoming beam"
+     },
+     {
+      "value": "design: f/10 cone of the central obscuration",
+      "src": "S25",
+      "loc": "Sec. 2.1.3, PDF p. 4",
+      "quote": "no rays at all within the f/10 (2°.86) cone of the central obscuration, and no rays outside of the f/5 (5°.71) cone of the full telescope aperture"
+     }
+    ],
+    "derived": "eps = 2 x 642.318 / 2517.17 = 0.5103; eps^2 = 0.2604 (the 26.0%). With the measured 1285.7 mm: 0.5108. The 1995 design: 625/1250 = 0.500 (f/10 inside f/5); G06's 1.30 m on 2.5 m: 0.520 (27.0%)."
+   },
+   "total_obstruction": {
+    "value": "28.6% of the area on axis, 31.8% at the field edge (secondary, primary and conical baffles; the secondary vanes, the conical baffle's wires and the wind baffle's central disk not included)",
+    "unit": "",
+    "src": "APOA",
+    "loc": "Sec. 5",
+    "quote": "The total obstruction, not including vanes that support the secondary, conical baffle and the central disk at the end of the wind baffle, is 28.6% on-axis and 31.8% at the field edge.",
+    "alternatives": [
+     {
+      "value": "the same, G06",
+      "src": "G06",
+      "loc": "Sec. 4.3, PDF p. 35",
+      "quote": "The resulting total obstruction is 28.6% on-axis and 31.8% at the field edge, resulting in differential vignetting of 3.2%."
+     },
+     {
+      "value": "central 26.0/26.9%, conical 2.6/4.9%",
+      "src": "APOA",
+      "loc": "Sec. 6",
+      "quote": "The central obstruction of the pupil is 26.0% on-axis and 26.9% at the field edge. The conical baffle adds 2.6% on-axis and 4.9% at the field edge. The supports for the secondary mirror and the conical baffle will add a small amount of additional blockage."
+     },
+     {
+      "value": "28.6% on axis",
+      "src": "APOI",
+      "loc": "Introduction",
+      "quote": "blocks only 28.6% of the pupil area on-axis"
+     },
+     {
+      "value": "conical baffle: 1239 mm across, 725 mm high",
+      "src": "G06",
+      "loc": "Fig. 21 caption, PDF p. 81",
+      "quote": "The baffle is made of graphite fiber epoxy, has an outside diameter of 1239 mm, is 725 mm high, and weighs 10 kg."
+     },
+     {
+      "value": "conical baffle hung on 8 wires",
+      "src": "APOI",
+      "loc": "Introduction",
+      "quote": "can be controlled by adjusting the length of 8 wires using turnbuckles"
+     },
+     {
+      "value": "Fig. 17 is the file f17.eps",
+      "src": "G06S",
+      "loc": "ms.tex, Figure 17",
+      "quote": "\\figurenum{17} \\epsscale{0.9} \\dfplot{f17.eps}"
+     }
+    ],
+    "derived": "Equal-area equivalent of 28.6%: eps = sqrt(0.286) = 0.535. Collecting area on axis: pi/4 x 2.51717^2 x (1 - 0.286) = 3.553 m^2 (3.680 m^2 with only the secondary-baffle shadow). Where in the pupil the conical baffle's 2.6% falls is NOT FOUND, so the explorer draws only the 0.5103 disk.",
+    "figure_readoff": "G06 Fig. 17 (G06S f17.eps, decoded JPEG 612 x 459): aperture obstruction (%) vs. field angle, three curves: total ~28.6% flat to 0.5 deg, rising to ~31.8% at 1.5 deg; central ~26.0% to 0.7 deg, ~26.9% at 1.5 deg; conical baffle ~2.6% rising to ~4.9%. Caption checked: \"Obstruction of the fully-baffled SDSS 2.5 m aperture.\""
+   },
+   "secondary_vanes": {
+    "value": "the secondary hangs from a space frame on tension rods (the \"secondary vanes\") running along the diagonals of a square steel frame; their number and width are NOT FOUND",
+    "unit": "",
+    "src": "G06",
+    "loc": "Sec. 3.4.3, PDF p. 23",
+    "quote": "The assemblies are attached to a space frame supported by tension rods attached to the square frame affixed to the telescope’s carbon fiber truss (Figure 13).",
+    "alternatives": [
+     {
+      "value": "vanes in tension",
+      "src": "G06",
+      "loc": "Sec. 3.2, PDF p. 16",
+      "quote": "With adequate tension in the secondary vanes (see Figure 13), the rotation mode of the secondary about its optical axis can be kept above 10 Hz. The square secondary frame is efficient at resisting this tension."
+     },
+     {
+      "value": "along the diagonals",
+      "src": "APOM",
+      "loc": "Introduction",
+      "quote": "Two actuators that act along the diagonals (parallel to the secondary support vanes) drive the end of the lever opposite the secondary."
+     },
+     {
+      "value": "spikes in single exposures",
+      "src": "IS20",
+      "loc": "Sec. 3.1, PDF p. 8",
+      "quote": "The diffraction spikes, produced by the secondary mir- ror structure of the telescope that are visible in individual images of stars in the SDSS survey"
+     },
+     {
+      "value": "Fig. 13 caption",
+      "src": "G06",
+      "loc": "Fig. 13 caption, PDF p. 73",
+      "quote": "The secondary truss (black) is graphite fiber epoxy, while the secondary frame (white) is steel."
+     },
+     {
+      "value": "Fig. 13 is the file f13.eps",
+      "src": "G06S",
+      "loc": "ms.tex, Figure 13",
+      "quote": "\\figurenum{13} \\dfplot{f13.eps}"
+     }
+    ],
+    "note": "Explorer: no vanes drawn. Four vanes on the two diagonals is the natural reading of \"along the diagonals\" and the square frame, but it is INFERRED, and no width is published.",
+    "figure_readoff": "G06 Fig. 13 (G06S f13.eps, decoded JPEG 363 x 273, the telescope in October 1995): thin rods run diagonally from the corners of the white square secondary frame toward the secondary's cell; at this resolution neither their number nor their width can be read."
+   },
+   "wind_baffle": {
+    "value": "a square wind baffle surrounds the telescope; the sky end of the wind baffle has an annular opening formed by a central disk and a panel with a circular hole",
+    "unit": "",
+    "src": "G06",
+    "loc": "Sec. 4.2, PDF p. 33",
+    "quote": "The sky-facing end of the wind baffle contains an annular opening formed by a central disk and a panel with a circular opening (both supported by the wind baffle frame).",
+    "note": "The central disk lies in the secondary's shadow for the 3 deg field (the size of the disk is NOT FOUND); APOA excludes the disk from the 28.6%."
+   },
+   "focal_plane_position": {
+    "value": "0.76 m behind the primary's vertex (the 1995 design)",
+    "unit": "",
+    "src": "G06",
+    "loc": "Sec. 2.2, PDF p. 8",
+    "quote": "The output f /ratio is 5.0, and the focal plane is 0.76 m behind the vertex of the primary in order to clear the primary mirror support cell and allow space for the instruments.",
+    "alternatives": [
+     {
+      "value": "SDSS-V wok vertex in the Zemax frame",
+      "src": "CIO",
+      "loc": "defaults",
+      "quote": "APO_WOK_Z_OFFSET_ZEMAX = -776.4791 - POSITIONER_HEIGHT"
+     }
+    ],
+    "derived": "Sums of the published spacings from the primary's vertex: imaging 759.45 mm (G06 Table 1: -3646.14 + 3621.59 + 12 + 714 + 45 + 5 + 8), plug-plate spectroscopy 756.70 mm (Table 2), SDSS-V 776.48 mm (S25 Table 1: -3645.17 + 3545.20 + 50 + 450 + 40 + 201.45 + 50 + 85), which matches coordio's 776.4791 mm. Explorer back = 0.30171, 0.30062 and 0.30847 (in units of 2.51717 m)."
+   },
+   "gascoigne_corrector": {
+    "value": "the common (Gascoigne) corrector: an 8th-order asphere on a plano plate of Corning 7940 fused silica, 802 mm across, 12.83 mm thick, at the vertex of the primary (722 mm clear); used with both final correctors until 2021",
+    "unit": "",
+    "src": "S25",
+    "loc": "Sec. 2.1, PDF p. 2",
+    "quote": "it is manufactured from Corning 7940 fused silica, 802 mm in diameter and 12.83 mm thick at the center.",
+    "alternatives": [
+     {
+      "value": "at the vertex",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 8",
+      "quote": "The first (“Gascoigne”) element is approximately coincident with the vertex of the primary mirror."
+     },
+     {
+      "value": "at the vertex (optics note)",
+      "src": "APOO",
+      "loc": "Sec. 2",
+      "quote": "In our case, this optic is at approximately the vertex of the primary."
+     },
+     {
+      "value": "clear 722 mm",
+      "src": "G06",
+      "loc": "Table 1, PDF p. 56",
+      "quote": "3 3621.59 fq 2.321e-5 −1.173e-10 −7.87e-17 1.59e-22 722"
+     }
+    ]
+   },
+   "focus_sdssv": {
+    "value": "SDSS-V (since 2021): a three-element fused-silica corrector (L1 just above the primary's vertex, L2, L3 85 mm before a focal surface of radius 9199 mm) feeding 500 robotic fiber positioners (BOSS and APOGEE fibers, 2\" at APO)",
+    "unit": "",
+    "src": "S25",
+    "loc": "Sec. 2.2, PDF p. 6",
+    "quote": "The SDSS-V final optical design consists of three fused silica elements",
+    "alternatives": [
+     {
+      "value": "Table 1: L1",
+      "src": "S25",
+      "loc": "Table 1, PDF p. 7",
+      "quote": "L1 front 627.021 50.00 −3.591E–4"
+     },
+     {
+      "value": "focal surface",
+      "src": "S25",
+      "loc": "Table 1, PDF p. 7",
+      "quote": "Focal srf −9199.322"
+     },
+     {
+      "value": "L1 position",
+      "src": "S25",
+      "loc": "Sec. 2.2, PDF p. 7",
+      "quote": "L1 is a weakly positive meniscus element, located just above the vertex of M1."
+     },
+     {
+      "value": "L3 position",
+      "src": "S25",
+      "loc": "Sec. 2.2, PDF p. 7",
+      "quote": "Finally, L3 is a plano-convex element 85 mm from the focal surface"
+     },
+     {
+      "value": "installed August 2021",
+      "src": "K26",
+      "loc": "Sec. 3.3, PDF p. 34",
+      "quote": "The SDSS-V wide field corrector was installed and commissioned on-sky between late July and early August of 2021."
+     },
+     {
+      "value": "500 positioners",
+      "src": "K26",
+      "loc": "Sec. 3.2, PDF p. 32",
+      "quote": "Each FPS unit has 500 fiber positioners in a fixed hexagonal array in the focal plane of the telescope"
+     },
+     {
+      "value": "2\" fibers at APO",
+      "src": "K26",
+      "loc": "Sec. 3.2, PDF p. 32",
+      "quote": "the on sky fiber diameter is 1.3 arcseconds at LCO and 2 arcseconds at APO"
+     },
+     {
+      "value": "FPS installed December 2021",
+      "src": "K26",
+      "loc": "Sec. 3.2, PDF p. 33",
+      "quote": "The first FPS unit arrived at Apache Point in November 2021 and was installed and commissioned on the 2.5-m Sloan Telescope in December 2021."
+     }
+    ],
+    "derived": "L1 front 99.97 mm in front of the primary's vertex, L2 front 400.03 mm and L3 front 641.48 mm behind the vertex, the focal surface 776.48 mm behind (sums of Table 1 spacings). A paraxial trace of Table 1 (n = 1.4608 for fused silica, the APOS value at 530 nm; scratch script) gives f = 12578 mm with the paraxial focus within 0.8 mm of the design surface."
+   },
+   "plate_scale_sdssv": {
+    "value": 217.7358,
+    "unit": "mm/deg (APO; the SDSS-V coordinate software)",
+    "src": "CIO",
+    "loc": "defaults",
+    "quote": "PLATE_SCALE = {\"APO\": 217.7358, \"LCO\": 330.275}  # mm/deg",
+    "alternatives": [
+     {
+      "value": "maximum field radius 1.5 deg",
+      "src": "CIO",
+      "loc": "defaults",
+      "quote": "APO_MAX_FIELD_R = 1.5  # max field radius (deg)"
+     },
+     {
+      "value": "12.5 m, 60.6 um/arcsec",
+      "src": "S25",
+      "loc": "Sec. 2, PDF p. 2",
+      "quote": "length of 12.5 m ( f/5), the resulting plate scale is ... 60.6 μm arcsec−1"
+     }
+    ],
+    "derived": "217.7358 mm/deg = 60.482 um/arcsec = 16.534 \"/mm; f = 217.7358 x 180/pi = 12475.3 mm; F = 4.9561 on 2.51717 m (4.9901 on 2.5 m). Explorer: F 4.9561, plate 16.534, field 180 arcmin."
+   },
+   "focus_plugplate": {
+    "value": "SDSS-I to -IV spectroscopy (to 2020): the Gascoigne corrector plus a thin, strongly aspheric spectroscopic corrector (727 mm across, 10.11 mm thick) 87 mm in front of the focal surface, clamped in the plug-plate cartridge; 3 deg field; fibers 3\" (SDSS) and 2\" (BOSS, APOGEE)",
+    "unit": "",
+    "src": "S25",
+    "loc": "Sec. 2.1, PDF p. 3",
+    "quote": "The spectroscopic corrector is 727 mm in diameter, 10.11 mm thick at the center, and located 672 mm behind the Gascoigne corrector and 87 mm in front of the focal surface.",
+    "alternatives": [
+     {
+      "value": "Table 2 surfaces 5-7",
+      "src": "G06",
+      "loc": "Table 2, PDF p. 56",
+      "quote": "5 −4.307e-4 672.64 fq"
+     },
+     {
+      "value": "clamped in the cartridges",
+      "src": "APOO",
+      "loc": "Sec. 2",
+      "quote": "while the final element for spectroscopy will be clamped into place with the plug-plate cartridges"
+     },
+     {
+      "value": "design image heights",
+      "src": "APOS",
+      "loc": "Colors and field angles",
+      "quote": "Tr: 30.00' 5300A fb=-0.143 h= -108.818"
+     },
+     {
+      "value": "1.5 deg at 327.4 mm, mean 60.624 um/arcsec",
+      "src": "APOL",
+      "loc": "Table 1",
+      "quote": "Spectrograph FOV 1.5 327.372 60.624 147.262"
+     },
+     {
+      "value": "3\" fibers (SDSS)",
+      "src": "G06",
+      "loc": "Sec. 2.1, PDF p. 6",
+      "quote": "to be compared to the 3′′ diameter fibers"
+     },
+     {
+      "value": "2\" fibers (APOGEE; the text layer prints 2\" as \"200\")",
+      "src": "W19",
+      "loc": "Sec. 3.1, PDF p. 9",
+      "quote": "Given the Sloan Foundation Telescope’s f/5 beam, the fiber core subtends 200"
+     },
+     {
+      "value": "non-telecentric; plates drilled while bent",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 9",
+      "quote": "the most straightforward way to deal with the lack of telecentricity is to drill the plug-plates for the fibers while the plates are deformed slightly"
+     }
+    ],
+    "derived": "f from the design image height at 30': 108.818 mm / tan 0.5 deg = 12469.3 mm (217.64 mm/deg, 60.45 um/arcsec, 16.542 \"/mm); F = 4.9537 on 2.51717 m. Paraxial trace of G06 Table 2 (n = 1.4608): 12461.6 mm. Explorer: F 4.954, plate 16.542."
+   },
+   "focus_imaging": {
+    "value": "the SDSS imaging camera (SDSS-I/II): 30 2048 x 2048 photometric CCDs and 24 2048 x 400 astrometric and focus CCDs in drift scan behind a thick aspheric corrector that carries the filters; EFL 12428.7 mm in the 1995 design",
+    "unit": "",
+    "src": "APOP",
+    "loc": "General lens data (KENT003)",
+    "quote": "Eff. Focal Len. : 12428.7",
+    "alternatives": [
+     {
+      "value": "image-space F/# 4.97147 (on 2500 mm)",
+      "src": "APOP",
+      "loc": "General lens data",
+      "quote": "Image Space F/# : 4.97147"
+     },
+     {
+      "value": "60.4 um/arcsec",
+      "src": "G06",
+      "loc": "Sec. 2.2, PDF p. 9",
+      "quote": "The overall scale is 60.4 microns/arcsecond; one pixel is 0.403 arcseconds = 24 µm."
+     },
+     {
+      "value": "camera CCDs",
+      "src": "G06",
+      "loc": "Sec. 1, PDF p. 2",
+      "quote": "consists of 30 2048 × 2048 SITe/Tektronix CCDs and 24 2048 × 400 CCDs"
+     },
+     {
+      "value": "the corrector is the camera window",
+      "src": "APOO",
+      "loc": "Sec. 2",
+      "quote": "That associated with imaging actually serves as the front window and mechanical support for the camera detectors and cryostat walls"
+     },
+     {
+      "value": "photometric field 2.72 deg, astrometric 3.02 deg",
+      "src": "APOA",
+      "loc": "Sec. 2",
+      "quote": "the 2.72° diameter photometric field of view must be much less than 1%. Variable vignetting of the 3.02° diameter astrometric field of view must be less 2%."
+     },
+     {
+      "value": "photometric mean scale 60.258 um/arcsec",
+      "src": "APOL",
+      "loc": "Table 1",
+      "quote": "Extreme photometric FOV 1.363 295.696 60.258 133.812"
+     },
+     {
+      "value": "2400 hours of imaging in all",
+      "src": "S25",
+      "loc": "Sec. 6.8, PDF p. 21",
+      "quote": "the best imaging in i’ ever recorded in 2400 hr of SDSS imaging"
+     }
+    ],
+    "derived": "F = 12428.7/2517.17 = 4.9376; plate 206264.8/12428.7 = 16.596 \"/mm (60.26 um/arcsec; 0.0604 x 206264.8 = 12458 mm from G06's 60.4). A paraxial trace of G06 Table 1 (n = 1.4608) gives 12429.3 mm. Explorer: F 4.9376, plate 16.596, field 180 arcmin."
+   },
+   "reflections": {
+    "value": 2,
+    "unit": "mirrors (then two or three transmitting corrector elements)",
+    "src": "APOA",
+    "loc": "Abstract",
+    "quote": "The two-mirror optical design includes two transmitting correcting elements."
+   }
+  },
+  "not_found": [
+   "The number and width of the secondary support vanes (G06, APOM: tension rods along the diagonals of a square frame; G06 Fig. 13 is too coarse to read).",
+   "An official collecting area (DERIVED 3.553 m^2 on axis from the 28.6% obstruction).",
+   "Where in the pupil the conical baffle's 2.6% (on axis) falls, the eight support wires' size, and the size of the wind baffle's central disk.",
+   "The as-built inner diameter of the primary's optical surface (only \"larger than designed\"; the 1.17 m hole is the design value).",
+   "The primary blank's outer diameter (the 2.52 m stop masks a turned edge).",
+   "An operational plate scale for the plug-plate era from an SDSS document (the explorer uses the design image height at 30').",
+   "The orientation of the secondary frame (and so of any diffraction spikes) relative to the altitude axis."
+  ],
+  "conflicts": [
+   "Pupil diameter: 2.517 m as-built stop (APOL R1258.585 mm; G06 \"2.52 m\") vs 2.5 m design and nominal (G06, APOP).",
+   "Central obstruction: 1.2846 m secondary-baffle tip (APOL ray, spec) vs 1.2857 m measured (APOB) vs 1.285 m (G06 Fig. 20) vs 1.28 m (G06 text) vs 1.30 m \"with its baffles\" (G06 Sec. 2.2, 27%) vs the 625 mm design radius (G06, APOS; eps 0.50, f/10 inside f/5 in S25).",
+   "Obstruction fractions: 26.0% central + 2.6% conical = 28.6% on axis (APOL, APOA, APOI, G06) vs 27% (G06 Sec. 2.2, the design with 1.30 m).",
+   "Plate scale: 60.6 um/arcsec at f/5 (G06, S25) vs 60.4 (G06, imaging) vs 60.26 imaging EFL (APOP, DERIVED) vs 60.258 photometric mean and 60.624 spectroscopic mean to 1.5 deg (APOL) vs 60.48 (217.7358 mm/deg, CIO) vs 60.45 at 30' in the spectroscopic design (APOS, DERIVED).",
+   "Final focal ratio: f/5 (G06, W19 \"f /5.0\", S25) vs 4.97147 (APOP image-space F/#, on 2.5 m) vs 4.938-4.956 on the 2.517 m stop (DERIVED).",
+   "Secondary: 1.08 m (G06 abstract, Table 1) vs 1.1 m (G06 Sec. 2.5.2) vs 1079.861 mm (APOP); vertex radius 7194 mm (G06, APOP) vs the blank generated to a 7331 mm sphere (G06 Sec. 2.5.2, the best-fit sphere, not the vertex radius).",
+   "G06 Sec. 2.2: \"one pixel is 0.403 arcseconds = 24 µm\" vs 24/60.4 = 0.397 arcsec (DERIVED)."
+  ],
+  "notes": [
+   "The three explorer foci share one pupil and one primary-secondary pair; they differ in the correctors, the secondary spacing (3646.14, 3644.46, 3645.17 mm) and the focal surface (0.759, 0.757, 0.776 m behind the primary's vertex).",
+   "APOGEE (2011-2020 on plug plates, now on the robots) and BOSS share the f/5 focus; the APOGEE spectrograph preset is in data/round5/apogee.md (same G06 and W19 files).",
+   "The obstruction grows off axis (31.8% at 1.5 deg) because the conical and primary baffles emerge from the secondary-baffle shadow beyond 0.5-0.7 deg; the explorer pupil is the on-axis one.",
+   "The roll-off enclosure and the wind baffle sit outside the beam; the wind baffle's central disk lies in the secondary's shadow (APOA excludes it from the 28.6%)."
+  ]
+ }
+}

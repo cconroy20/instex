@@ -12,27 +12,28 @@ const TELS = window.IX_TELESCOPES || [];
 const clone = o => JSON.parse(JSON.stringify(o));
 
 // ------------------------------------------------------------------ state
-const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2, track: 0 };
+const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2, track: 0, view: "2d" };
 let S = clone(DEF);
 const telOf = () => TELS.find(t => t.id === S.tel) || TELS[0];
 const focusOf = () => { const t = telOf(); return t.foci.find(f => f.id === S.focus) || t.foci[0]; };
 const bandOf = () => IMG.BANDS.find(b => b.k === S.band) || IMG.BANDS[0];
 // the entrance pupil's diameter at this focus (the VLT's is 8.115 m at Cassegrain, 8.0 m at Nasmyth), and the
 // primary's focal ratio on it (from the primary's focal length when the telescope gives one)
-const Dof = () => focusOf().D || telOf().D;
-const F1of = () => { const t = telOf(); return t.f1 ? t.f1 / Dof() : t.F1; };
+const Dof = (f = focusOf()) => f.D || telOf().D;
+const F1of = (f = focusOf()) => { const t = telOf(); return t.f1 ? t.f1 / Dof(f) : t.F1; };
 
 // ------------------------------------------------------------------ controls
-const fsel = $("tFocus"), bsel = $("tBand");
+const bsel = $("tBand");
 for (const b of IMG.BANDS) { const o = document.createElement("option"); o.value = b.k; o.textContent = b.k + "  " + Math.round(b.lam * 1e4).toLocaleString("en-US") + " Å"; o.title = b.note || ""; bsel.appendChild(o); }
 bsel.addEventListener("change", () => { S.band = bsel.value; H.schedule(); });
-fsel.addEventListener("change", () => { S.focus = fsel.value; tlview.fit = true; H.schedule(); });
 const segs = [];
 const bindSeg = (pairs, get, set) => {
   for (const [id, val] of pairs) $(id).addEventListener("click", () => { set(val); H.schedule(); });
   segs.push(() => { for (const [id, val] of pairs) $(id).setAttribute("aria-pressed", String(get() === val)); });
 };
 bindSeg([["tsLog", "log"], ["tsLin", "linear"]], () => S.stretch, v => { S.stretch = v; });
+// the optical layout in 2D (the telescope cut through its axis) or 3D (tel3d.js)
+bindSeg([["tv2d", "2d"], ["tv3d", "3d"]], () => S.view, v => { S.view = v; stopCoast(); v3.fit = true; tlview.fit = true; });
 // the seeing FWHM, on a log slider (0.1 to 4 arcsec)
 const seeIn = $("tSee");
 seeIn.addEventListener("input", () => { S.see = +Math.pow(10, +seeIn.value).toPrecision(3); H.schedule(); });
@@ -42,31 +43,57 @@ trackIn.addEventListener("input", () => { S.track = +(+trackIn.value).toFixed(2)
 // the field of both images of a star (arcsec across, 0.05 to 5), on a log slider in the panel's header
 const fieldIn = $("tField");
 fieldIn.addEventListener("input", () => { S.field = +Math.pow(10, +fieldIn.value).toPrecision(3); H.schedule(); });
+// the focus: a button for each kind of focus (Nasmyth, Cassegrain, Folded port, ...), and below them, when the chosen
+// kind has several foci, a button for each (sides, secondaries); each button's tooltip is its focus's name and note
+const kindOf = q => q.kind || q.name, tipOf = q => q.name + (q.fieldNote ? ". " + q.fieldNote : "");
+const pickFocus = id => { if (id !== S.focus) { S.focus = id; tlview.fit = true; v3.fit = true; H.schedule(); } };
+function focusButtons(t, f) {
+  const K = $("tFocusKinds"), V = $("tFocusVars"), kinds = [...new Set(t.foci.map(kindOf))];
+  if (K.dataset.tel !== t.id) {
+    K.innerHTML = "";
+    for (const k of kinds) {
+      const b = document.createElement("button"); b.type = "button"; b.textContent = k; b.dataset.kind = k;
+      b.addEventListener("click", () => { if (kindOf(focusOf()) !== k) pickFocus(telOf().foci.find(q => kindOf(q) === k).id); });
+      K.appendChild(b);
+    }
+    K.dataset.tel = t.id;
+  }
+  for (const b of K.children) {
+    const g = t.foci.filter(q => kindOf(q) === b.dataset.kind), on = b.dataset.kind === kindOf(f);
+    b.setAttribute("aria-pressed", String(on));
+    b.title = g.length === 1 ? tipOf(g[0]) : on ? tipOf(f) : g.map(q => q.name).join("; ");
+  }
+  const vars = t.foci.filter(q => kindOf(q) === kindOf(f));
+  $("tFocusVarRow").hidden = vars.length < 2;
+  if (vars.length < 2) return;
+  const key = t.id + "|" + kindOf(f);
+  if (V.dataset.key !== key) {
+    V.innerHTML = "";
+    for (const q of vars) { const b = document.createElement("button"); b.type = "button"; b.textContent = q.variant || q.name; b.dataset.id = q.id; b.title = tipOf(q); b.addEventListener("click", () => pickFocus(q.id)); V.appendChild(b); }
+    V.dataset.key = key;
+  }
+  for (const b of V.children) b.setAttribute("aria-pressed", String(b.dataset.id === f.id));
+}
 function syncControls() {
   const t = telOf(), f = focusOf();
-  if (fsel.dataset.tel !== t.id) {
-    fsel.innerHTML = "";
-    for (const q of t.foci) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.name; if (q.fieldNote) o.title = q.fieldNote; fsel.appendChild(o); }
-    fsel.dataset.tel = t.id;
-  }
-  fsel.value = f.id; S.focus = f.id;
-  // the focus's note (its field, and what the drawing shows only schematically) as the menu's tooltip; else the row's
-  if (f.fieldNote) fsel.title = f.fieldNote; else fsel.removeAttribute("title");
+  S.focus = f.id;
+  focusButtons(t, f);
   bsel.value = S.band;
   seeIn.value = Math.log10(S.see); $("vtSee").textContent = sig(S.see, 2) + "″";
   fieldIn.value = Math.log10(S.field); $("vtField").textContent = fAng(S.field, 2);
   $("tTrackRow").hidden = !t.tracker;
+  $("tl3dBox").hidden = S.view !== "3d";
   if (t.tracker) { trackIn.min = -t.tracker.range; trackIn.max = t.tracker.range; trackIn.value = S.track; $("vtTrack").textContent = (S.track > 0 ? "+" : S.track < 0 ? "−" : "") + Math.abs(S.track).toFixed(1) + "°"; }
   segs.forEach(g => g());
 }
 
 // ------------------------------------------------------------------ the telescope at this focus, as the imager's engine sees it
 // (a square "detector" as wide as the focus's field, so the drawing's bundles come from the field's edge and center)
-function params() {
-  const t = telOf(), f = focusOf();
-  const fieldMM = 2 * f.F * Dof() * 1000 * Math.tan((f.field || 10) / 60 * DEG / 2);
+function params(f = focusOf()) {
+  const t = telOf();
+  const fieldMM = 2 * f.F * Dof(f) * 1000 * Math.tan((f.field || 10) / 60 * DEG / 2);
   return Object.assign(clone(IM.DEF), {
-    D: Dof(), eps: f.drawEps !== undefined ? f.drawEps : t.drawEps !== undefined ? t.drawEps : f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: F1of(), back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, nasSide: f.side || "down",
+    D: Dof(f), eps: f.drawEps !== undefined ? f.drawEps : t.drawEps !== undefined ? t.drawEps : f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: F1of(f), back: f.back, nasmyth: !!f.nasmyth, backN: f.backN, nasSide: f.side || "down",
     field: f.field || 10, optics: "direct", Nx: 1000, Ny: 1000, pix: fieldMM, rows: [1], band: S.band, lam: bandOf().lam, psf: "diff",
     view: "tel", annot: true, stretch: false, telMode: true,
     // drawing options a focus (or its telescope) may carry: an off-axis aperture (m from the parent's axis), the
@@ -227,10 +254,10 @@ function drawPupil(pp, P, ps) {
   // the field fits inside it, else from the seeing grid
   const pixF = lam / (Q * pu.D) * RAD, pixS = ps.pix * RAD, fine = S.field / 2 <= 60 * ld;
   blitField(fine ? pp.psf : ps.diff, fine ? N : ps.n, fine ? pixF : pixS, X(0), Y(1));
-  label(X(0), Y(1), "Diffraction-limited", "perfect optics, no atmosphere", C_DIFF);
+  label(X(0), Y(1), "Diffraction-limited", "", C_DIFF);
   bar(X(0), Y(1), S.field / side, fAng);
   blitField(ps.psf, ps.n, pixS, X(1), Y(1));
-  label(X(1), Y(1), "Seeing-limited", (t.space ? "if on the ground, " : "") + sig(S.see, 2) + "″ seeing" + (t.space ? "" : ", long exposure"), C_SEE);
+  label(X(1), Y(1), "Seeing-limited", (t.space ? "if on the ground, " : "") + sig(S.see, 2) + "″ seeing", C_SEE);
   bar(X(1), Y(1), S.field / side, fAng);
   // the radial profiles, for the same total light: relative to the diffraction-limited peak
   const x0 = Math.round(cw + 52), x1 = Math.round(w - 14), y0 = Y(0), y1 = Y(0) + side, YMIN = -7;
@@ -278,29 +305,103 @@ function drawPupil(pp, P, ps) {
   });
 }
 
-// ------------------------------------------------------------------ the layout panel: zoom, pan, refit
+// ------------------------------------------------------------------ the layout panel: zoom, pan, refit; in 3D, turn
 const tlview = { mode: "auto", s: 0, k: 1, ox: 0, oy: 0, fit: true };
+// the 3D view: az about the vertical, el above the horizon (orbit controls, as the spectrograph's 3D view has: turn
+// without limit, tilt from straight over to straight under, no roll; a quick release keeps turning and slows)
+const V3HOME = [-0.6, 0.35];
+const v3 = { az: V3HOME[0], el: V3HOME[1], mode: "auto", s: 0, ox: 0, oy: 0, fit: true, turning: false };
+const is3 = () => S.view === "3d";
+let coast = null, coastRAF = 0, drawRAF = 0;
+function stopCoast() { coast = null; cancelAnimationFrame(coastRAF); v3.turning = false; }
+const setPose = (az, el) => { v3.az = az; v3.el = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, el)); };
+const drawSoon = () => { if (!drawRAF) drawRAF = requestAnimationFrame(() => { drawRAF = 0; draw(); }); };
+for (const [id, az, el] of [["tvTop", 0, Math.PI / 2], ["tvSide", 0, 0], ["tvObl", V3HOME[0], V3HOME[1]]])
+  $(id).addEventListener("click", () => { stopCoast(); setPose(az, el); v3.fit = true; draw(); });
 {
   const cv = $("cvTL");
   let drag = null;
   cv.addEventListener("wheel", ev => {
     if (!cur) return;
-    ev.preventDefault(); tlview.mode = "fixed";
+    ev.preventDefault();
+    const V = is3() ? v3 : tlview; V.mode = "fixed";
     const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, f = Math.exp(-ev.deltaY * 0.0022);
-    tlview.ox = mx - (mx - tlview.ox) * f; tlview.oy = my - (my - tlview.oy) * f; tlview.s *= f;
+    V.ox = mx - (mx - V.ox) * f; V.oy = my - (my - V.oy) * f; V.s *= f;
     draw();
   }, { passive: false });
-  cv.addEventListener("mousedown", ev => { drag = { x: ev.clientX, y: ev.clientY, ox: tlview.ox, oy: tlview.oy }; cv.style.cursor = "grabbing"; });
-  window.addEventListener("mousemove", ev => { if (!drag || !cur) return; tlview.mode = "fixed"; tlview.ox = drag.ox + ev.clientX - drag.x; tlview.oy = drag.oy + ev.clientY - drag.y; draw(); });
-  window.addEventListener("mouseup", () => { if (drag) { drag = null; cv.style.cursor = ""; } });
-  cv.addEventListener("dblclick", () => { tlview.fit = true; tlview.mode = "auto"; draw(); });
-  $("tlReset").addEventListener("click", () => { tlview.fit = true; tlview.mode = "auto"; draw(); });
+  cv.addEventListener("mousedown", ev => {
+    const V = is3() ? v3 : tlview;
+    stopCoast();
+    drag = { x: ev.clientX, y: ev.clientY, ox: V.ox, oy: V.oy, turn: is3() && !ev.shiftKey && ev.button === 0, az0: v3.az, el0: v3.el, lx: ev.clientX, ly: ev.clientY, lt: performance.now(), v: [0, 0] };
+    v3.turning = drag.turn;
+    cv.style.cursor = "grabbing";
+  });
+  window.addEventListener("mousemove", ev => {
+    if (!drag || !cur) return;
+    if (drag.turn) {
+      // a full panel height of drag turns the view by 360 degrees
+      const k = 2 * Math.PI / (cv.clientHeight || 400);
+      setPose(drag.az0 - (ev.clientX - drag.x) * k, drag.el0 + (ev.clientY - drag.y) * k);
+      const t = performance.now(), dt = Math.max(1, t - drag.lt);
+      drag.v = [-(ev.clientX - drag.lx) * k / dt, (ev.clientY - drag.ly) * k / dt];
+      drag.lx = ev.clientX; drag.ly = ev.clientY; drag.lt = t;
+      drawSoon();
+      return;
+    }
+    const V = is3() ? v3 : tlview; V.mode = "fixed";
+    V.ox = drag.ox + ev.clientX - drag.x; V.oy = drag.oy + ev.clientY - drag.y;
+    drawSoon();
+  });
+  window.addEventListener("mouseup", () => {
+    if (!drag) return;
+    if (drag.turn && performance.now() - drag.lt < 80 && Math.hypot(...drag.v) > 2e-4) {
+      coast = drag.v.map(x => x * 16);
+      const step = () => {
+        if (!coast || !is3()) { stopCoast(); draw(); return; }
+        setPose(v3.az + coast[0], v3.el + coast[1]);
+        coast = coast.map(x => x * 0.92);
+        draw();
+        if (Math.hypot(...coast) > 1e-4) coastRAF = requestAnimationFrame(step); else { coast = null; v3.turning = false; draw(); }
+      };
+      coastRAF = requestAnimationFrame(step);
+    } else if (drag.turn) { v3.turning = false; draw(); }
+    drag = null; cv.style.cursor = "";
+  });
+  cv.addEventListener("contextmenu", ev => { if (is3()) ev.preventDefault(); });     // right-drag pans
+  cv.addEventListener("dblclick", () => {
+    if (is3()) { stopCoast(); setPose(...V3HOME); v3.fit = true; v3.mode = "auto"; }
+    else { tlview.fit = true; tlview.mode = "auto"; }
+    draw();
+  });
+  $("tlReset").addEventListener("click", () => { tlview.fit = true; tlview.mode = "auto"; v3.fit = true; v3.mode = "auto"; draw(); });
 }
 
 // ------------------------------------------------------------------ main
 let cur = null, curP = null, curPP = null, curPS = null;
 const tlTarget = { cv: "cvTL", cap: "tlSub", lv: tlview };
-function draw() { if (cur) IMG.drawLayoutOn(tlTarget, cur, curP); }
+let last3 = null;
+// the primary's hole is the mirror's, not the focus's: as large as the largest any of the telescope's foci needs to
+// pass its light (the 2D drawing cuts it only at a focus whose light goes through it)
+function mirrorHole() {
+  let hole = 0;
+  for (const f of telOf().foci) {
+    const P = params(f), Dz = IM.design(P);
+    if (Dz.bad) continue;
+    const pr = IMG.layoutGeom(Dz, P).elems.find(e => e.k === "primary");
+    if (pr) hole = Math.max(hole, pr.hole || 0);
+  }
+  return hole;
+}
+// the pupil the 3D view tiles: a binocular telescope's one side (the two-mirror pupil of a combined focus is for the
+// Pupil panel; the 3D view draws the side twice)
+const pupil3 = () => { const t = telOf(), pu = pupilOf(); return t.binocular && pu.kind === "circles" ? Object.assign({}, t.pupil) : pu; };
+// the hole the 3D view cuts (radius, mm): the sourced one, else the largest the foci need
+const hole3 = () => (telOf().hole ? telOf().hole * 500 : mirrorHole());
+function draw() {
+  if (!cur) return;
+  if (is3()) { $("tlSub").hidden = true; last3 = window.TEL3D.draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0 }); }
+  else IMG.drawLayoutOn(tlTarget, cur, curP);
+}
 function render() {
   if (!TELS.length) return;
   syncControls();
@@ -312,18 +413,19 @@ function render() {
   renderText(cur, curP, curPP, curPS);
   H.fitPanels();
   if (tlview.mode === "auto") tlview.fit = true;
+  if (v3.mode === "auto") v3.fit = true;
   draw();
   drawPupil(curPP, curP, curPS);
 }
 // links made before Keck I and II became one telescope, and Magellan one (Clay)
 const OLD_IDS = { keck1: "keck", keck2: "keck", baade: "magellan", clay: "magellan" };
-const PRESETS = TELS.map(t => ({ id: t.id, tel: t.group, name: t.name, state: { D: t.D } }));
+const PRESETS = TELS.map(t => ({ id: t.id, tel: t.group, name: t.name, state: { D: t.Dmirror || t.D } }));   // (menu order: by the mirror)
 return {
   render, PRESETS,
   presetId: () => S.tel,
-  applyPreset: p => { S.tel = p.id; S.focus = ""; tlview.fit = true; H.schedule(); },
-  reset: () => { S = clone(DEF); tlview.fit = true; H.schedule(); },
-  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []).concat(S.see !== DEF.see ? ["t.see=" + S.see] : []).concat(S.field !== DEF.field ? ["t.field=" + S.field] : []).concat(S.track && telOf().tracker ? ["t.track=" + S.track] : []),
+  applyPreset: p => { S.tel = p.id; S.focus = ""; tlview.fit = true; v3.fit = true; H.schedule(); },
+  reset: () => { S = clone(DEF); stopCoast(); setPose(...V3HOME); tlview.fit = true; v3.fit = true; v3.mode = "auto"; H.schedule(); },
+  hashParts: () => ["t.tel=" + encodeURIComponent(S.tel), "t.focus=" + encodeURIComponent(focusOf().id)].concat(S.band !== DEF.band ? ["t.band=" + encodeURIComponent(S.band)] : []).concat(S.stretch !== DEF.stretch ? ["t.stretch=" + S.stretch] : []).concat(S.see !== DEF.see ? ["t.see=" + S.see] : []).concat(S.field !== DEF.field ? ["t.field=" + S.field] : []).concat(S.track && telOf().tracker ? ["t.track=" + S.track] : []).concat(S.view !== DEF.view ? ["t.view=" + S.view] : []),
   readHash: kv => {
     const id = OLD_IDS[kv["t.tel"]] || kv["t.tel"];
     if (id && TELS.find(t => t.id === id)) S.tel = id;
@@ -333,9 +435,10 @@ return {
     if (kv["t.see"] && isFinite(+kv["t.see"]) && +kv["t.see"] >= 0.1 && +kv["t.see"] <= 4) S.see = +kv["t.see"];
     if (kv["t.field"] && isFinite(+kv["t.field"]) && +kv["t.field"] >= 0.05 && +kv["t.field"] <= 5) S.field = +kv["t.field"];
     if (kv["t.track"] && isFinite(+kv["t.track"]) && Math.abs(+kv["t.track"]) <= 10) S.track = +kv["t.track"];
+    if (kv["t.view"] === "2d" || kv["t.view"] === "3d") S.view = kv["t.view"];
   },
   redraw: () => { if (cur) { draw(); drawPupil(curPP, curP, curPS); } },
-  test: { state: () => clone(S), design: () => cur, focusAt: () => tlTarget.det && { ...tlTarget.det }, pupil: () => curPP && { area: curPP.area, fwPix: curPP.fwPix }, seeing: () => curPS && { fwhm: curPS.fwPix * curPS.pix * RAD, peak: curPS.peak }, set: o => { Object.assign(S, o); render(); H.scheduleHash(); } },
+  test: { state: () => clone(S), design: () => cur, view3d: () => last3 && { n: last3.n, az: v3.az, el: v3.el }, geom: () => cur && { G: IMG.layoutGeom(cur, curP), P: curP, Dz: cur, pu: pupil3(), hole: hole3() }, focusAt: () => tlTarget.det && { ...tlTarget.det }, pupil: () => curPP && { area: curPP.area, fwPix: curPP.fwPix }, seeing: () => curPS && { fwhm: curPS.fwPix * curPS.pix * RAD, peak: curPS.peak }, set: o => { Object.assign(S, o); render(); H.scheduleHash(); } },
 };
 };
 })();

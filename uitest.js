@@ -882,7 +882,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await size(w, h);
       for (const [tid, fids] of tels) for (const fid of fids) {
         await nav("#inst=tel&t.tel=" + tid + "&t.focus=" + fid);
-        const r = await ev(`({ f: document.getElementById("tFocus").value, area: window.__instex.tel().pupil().area, fw: window.__instex.tel().pupil().fwPix })`);
+        const r = await ev(`({ f: window.__instex.tel().state().focus, area: window.__instex.tel().pupil().area, fw: window.__instex.tel().pupil().fwPix })`);
         if (r.f !== fid || !(r.area > 0) || !(r.fw > 0)) bad.push(tid + "/" + fid);
         const fz = await fit(); if (!(fz.bottom <= fz.vh + 0.5 && fz.sw <= fz.cw)) over.push(`${tid}/${fid} ${fz.bottom.toFixed(0)}`);
       }
@@ -896,15 +896,93 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const t = await ev(`(() => { const t0 = performance.now(); window.__instex.tel().set({ band: "Ks" }); window.__instex.tel().set({ band: "V" }); return (performance.now() - t0) / 2; })()`);
     check("Telescopes: redraw on a band change", t < 300, `${t.toFixed(0)} ms`);
   }
-  // the Focus menu's tooltip is the focus's note (the field, and what the drawing shows only schematically)
+  // the 3D view of the optical layout: the switch, its link, every telescope and focus drawn, the snaps, the time
   {
+    await go("#inst=tel&t.tel=keck");
+    await ev(`document.getElementById("tv3d").click()`); await sleep(500);
+    const a = await ev(`({ h: location.hash, box: !document.getElementById("tl3dBox").hidden, v: window.__instex.tel().view3d() })`);
+    check("Telescopes 3D: the switch draws the 3D view, shows the snaps and goes into the link", /t\.view=3d/.test(a.h) && a.box && a.v && a.v.n > 100, JSON.stringify(a).slice(0, 200));
+    const bad = [];
+    for (const t of await ev(`window.IX_TELESCOPES.map(t => [t.id, t.foci.map(f => f.id)])`)) for (const f of t[1]) {
+      await go(`#inst=tel&t.tel=${t[0]}&t.focus=${f}&t.view=3d`);
+      const v = await ev(`window.__instex.tel().view3d()`);
+      if (!v || !(v.n > 50)) bad.push(t[0] + "/" + f);
+    }
+    check("Telescopes 3D: every telescope and focus draws", bad.length === 0, bad.join(", "));
+    await go("#inst=tel&t.tel=elt&t.view=3d");
+    await ev(`document.getElementById("tvTop").click()`); await sleep(300);
+    const top = await ev(`window.__instex.tel().view3d()`);
+    const ms = await ev(`(() => { const t0 = performance.now(); for (let k = 0; k < 5; k++) document.getElementById("tvObl").click(); return (performance.now() - t0) / 5; })()`);
+    check("Telescopes 3D: Top looks straight down; the ELT (798 segments) redraws fast enough to turn", Math.abs(top.el - Math.PI / 2) < 1e-9 && ms < 120, `el ${top.el.toFixed(3)}, ${ms.toFixed(0)} ms per frame`);
+    await ev(`document.getElementById("tv2d").click()`); await sleep(300);
+    for (let k = 0; k < 20 && /t\.view/.test(await ev("location.hash")); k++) await sleep(100);   // (the link is written after the redraw)
+    check("Telescopes 3D: back to 2D, the snaps hidden and the link without t.view", (await ev(`document.getElementById("tl3dBox").hidden`)) && !/t\.view/.test(await ev("location.hash")));
+  }
+  // the 3D view's geometry, audited for every telescope and focus: (1) the rays of one star meet at one point; (2) for
+  // the field's center, where the focus is drawn; (3) in the drawing's plane the 3D rays retrace the 2D drawing; (4) the
+  // light returning through the primary fits its hole (or the tiles' empty center); (5) the secondary catches the light
+  {
+    const bad = [], info = [];
+    for (const [tid, fids] of await ev(`window.IX_TELESCOPES.map(t => [t.id, t.foci.map(f => f.id)])`)) for (const fid of fids) {
+      await go(`#inst=tel&t.tel=${tid}&t.focus=${fid}&t.view=3d`);
+      const r = await ev(`(() => {
+        const { G, P, Dz, pu, hole } = window.__instex.tel().geom(), D = Dz.Dmm, off = G.off || 0, NS = 16, R = D / 2, eps = Dz.eps;
+        const ring = (r, c = off) => Array.from({ length: NS }, (_, k) => [c + r * Math.cos(2 * Math.PI * k / NS), r * Math.sin(2 * Math.PI * k / NS)]);
+        const path = (px, py, t) => G.pathOf3(Dz.trace(px, t), Dz.trace(-py, 0), t);
+        const spread = E => Math.max(...E.map(a => Math.max(...E.map(b => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])))));
+        const stop = pu && pu.stop, cx = stop ? stop.x * 1000 : off, rO = stop ? stop.d * 500 : R;
+        const pts = ring(rO, cx).concat(eps > 0.002 && !off ? ring(eps * rO, cx) : []);
+        const res = {};
+        res.conv = Math.max(...G.ts.map(t => spread(pts.map(([x, y]) => { const q = path(x, y, t); return q[q.length - 1]; })))) / D;
+        const det = G.elems.find(e => e.k === "det"), E0 = (q => q[q.length - 1])(path(pts[0][0], pts[0][1], 0));
+        res.focus = det ? Math.hypot(E0[0] - det.x, E0[1] - (det.y || 0), E0[2]) / D : 0;
+        const spMax = P.mirrorSpans && !off ? Math.max(...P.mirrorSpans.map(q => q[1])) * 2000 / D : 1, h = off ? off + D / 2 : Math.min(1, spMax) * D / 2;
+        const two = G.polys[0].b, three = path(h, 0, G.ts[0]);
+        res.match = two.length === three.length ? Math.max(...two.map((p, i) => Math.hypot(p[0] - three[i][0], p[1] - three[i][1], three[i][2]))) / D : 1;
+        // the light after the secondary crossing the primary's vertex plane, moving away from the sky (+x)
+        let need = 0;
+        for (const t of G.ts) for (const [x, y] of pts) { const q = path(x, y, t); for (let i = 2; i + 1 < q.length; i++) { const A = q[i], B = q[i + 1]; if (A[0] < 0 && B[0] >= 0) { const u = -A[0] / (B[0] - A[0]); need = Math.max(need, Math.hypot(A[1] + u * (B[1] - A[1]), A[2] + u * (B[2] - A[2]))); } } }
+        const tl = pu ? window.TP.tiles(pu) : null;
+        const inPoly = (poly, x, y) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i], [xj, yj] = poly[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+        const holeR = tl && tl.length && !tl.some(p => inPoly(p, 0, 0)) ? Math.min(...tl.flat().map(([x, y]) => Math.hypot(x, y))) * 1000 : hole;
+        res.need = need; res.holeR = holeR;
+        const sec = G.elems.find(e => e.k === "secondary");
+        res.sec = 0;
+        if (sec && !sec.span) for (const t of G.ts) for (const [x, y] of pts) { const q = path(x, y, t); res.sec = Math.max(res.sec, Math.hypot(q[2][1], q[2][2]) / sec.hh); }
+        return res;
+      })()`);
+      const tag = `${tid}/${fid}`;
+      if (!(r.conv < 1e-6)) bad.push(`${tag}: rays spread ${r.conv.toExponential(1)} D`);
+      if (!(r.focus < 1e-6)) bad.push(`${tag}: focus off by ${r.focus.toExponential(1)} D`);
+      if (!(r.match < 1e-9)) bad.push(`${tag}: 3D differs from 2D by ${r.match.toExponential(1)} D`);
+      if (r.need > 0 && r.need > r.holeR * 1.001) bad.push(`${tag}: light needs a ${(2 * r.need / 1000).toFixed(3)} m hole, the mirror has ${(2 * r.holeR / 1000).toFixed(3)} m`);
+      if (r.sec > 1 + 1e-9) bad.push(`${tag}: light ${((r.sec - 1) * 100).toFixed(1)}% past the secondary's edge`);
+      if (r.need > 0) info.push(`${tag} ${(2 * r.need / 1000).toFixed(2)}/${(2 * r.holeR / 1000).toFixed(2)} m`);
+    }
+    check("Telescopes 3D audit: one point per star, at the drawn focus; the 2D rays retraced; the hole and the secondary large enough", bad.length === 0, bad.join("; ") || "hole needed/cut: " + info.join(", "));
+  }
+  // the focus buttons: a button per kind of focus, the variants of the chosen kind below; each button's tooltip is its
+  // focus's name and note (the field, and what the drawing shows only schematically)
+  {
+    await go("#inst=tel&t.tel=magellan");
+    const kinds = await ev(`[...document.querySelectorAll("#tFocusKinds button")].map(b => b.textContent)`);
+    await ev(`[...document.querySelectorAll("#tFocusKinds button")].find(b => b.textContent === "Nasmyth").click()`); await sleep(400);
+    const vars = await ev(`({ shown: !document.getElementById("tFocusVarRow").hidden, v: [...document.querySelectorAll("#tFocusVars button")].map(b => b.textContent) })`);
+    await ev(`[...document.querySelectorAll("#tFocusVars button")].find(b => /MagAO/.test(b.textContent)).click()`); await sleep(400);
+    for (let k = 0; k < 20 && !/t\.focus=asm16/.test(await ev("location.hash")); k++) await sleep(100);
+    const m = await ev(`({ f: window.__instex.tel().state().focus, h: location.hash })`);
+    await ev(`[...document.querySelectorAll("#tFocusKinds button")].find(b => b.textContent === "Cassegrain").click()`); await sleep(400);
+    const c = await ev(`({ f: window.__instex.tel().state().focus, hid: document.getElementById("tFocusVarRow").hidden })`);
+    check("Focus buttons: Magellan's Nasmyth, Folded port and Cassegrain; West, East and MagAO under Nasmyth, each in the link",
+      JSON.stringify(kinds) === JSON.stringify(["Nasmyth", "Folded port", "Cassegrain"]) && vars.shown && vars.v.length === 3 && m.f === "asm16" && /t\.focus=asm16/.test(m.h) && c.f === "cass5" && c.hid,
+      JSON.stringify({ kinds, vars, m: m.f, c }));
     await go("#inst=tel&t.tel=elt");
-    const a = await ev(`document.getElementById("tFocus").title`);
+    const a = await ev(`document.querySelector("#tFocusKinds button[aria-pressed=true]").title`);
     await go("#inst=tel&t.tel=jwst&t.focus=tel");
-    const b = await ev(`document.getElementById("tFocus").title`);
-    await ev(`(s => { s.value = "cass"; s.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("tFocus"))`); await sleep(500);
-    const c = await ev(`document.getElementById("tFocus").title`);
-    check("Telescopes: the Focus menu's tooltip is the focus's note, and follows the focus", /schematic/.test(a) && /schematic/.test(b) && /re-image/.test(c) && b !== c, JSON.stringify([a.slice(0, 40), b.slice(0, 40), c.slice(0, 40)]));
+    const b = await ev(`document.querySelector("#tFocusKinds button[aria-pressed=true]").title`);
+    await ev(`[...document.querySelectorAll("#tFocusKinds button")].find(b => /Intermediate/.test(b.textContent)).click()`); await sleep(500);
+    const c2 = await ev(`document.querySelector("#tFocusKinds button[aria-pressed=true]").title`);
+    check("Focus buttons: the tooltip is the focus's name and note, and follows the focus", /schematic/.test(a) && /schematic/.test(b) && /re-image/.test(c2) && b !== c2, JSON.stringify([a.slice(0, 50), b.slice(0, 50), c2.slice(0, 50)]));
   }
   await go("#inst=tel&t.tel=hst&t.focus=cass");
   {

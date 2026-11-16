@@ -1,0 +1,1245 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Víctor M. Blanco 4 m telescope (CTIO) -- foci and entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/blanco.md (same content as Markdown). Structure follows elt.json: sources{key: cite, file, url}; blanco: title, telescope (machine-readable primary, pupil, foci; refs point to sourced params as \"blanco.<param>\"), explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/blanco/. derived = arithmetic or a measurement done here (shown). alternatives = other sourced values. INFERRED marks a reasoned guess no source states. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), degree-like glyphs, division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), no-break space and soft hyphen normalized; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; \" ... \" joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8); .py and .yaml as is; FITS headers as 80-character cards.",
+  "pupil_frame": "Piff DECam_pupil_512uv.fits image axes (x = columns, y = rows; angles from +x); orientation relative to the sky NOT FOUND",
+  "check_result": "73 quotes checked against the saved files, 0 failures (2026-11-16); the Piff pupil-image measurements are DERIVED (scratch scripts, astropy), and the FITS header quotes are checked"
+ },
+ "sources": {
+  "F15": {
+   "cite": "Flaugher, B., Diehl, H. T., Honscheid, K., et al. 2015, AJ 150, 150, \"The Dark Energy Camera\", arXiv:1504.02900 (Sec. 2 optics, Table 1 prescription, Table 3 lenses, Sec. 2.8 prime focus cage). The text layer renders the arcsec glyph as \"00\". SAME FILE as widefield.json key F15",
+   "file": "rawdata/telescopes/blanco/Flaugher2015_AJ150_150_DECam_arXiv1504.02900.pdf",
+   "url": "https://arxiv.org/pdf/1504.02900"
+  },
+  "BOP": {
+   "cite": "NSF NOIRLab / CTIO, Blanco 4-m \"Basic Optical Parameters\" page (primary, the F/7.8 secondary and the retired F/14.5 and F/30 secondaries; \"Updated on April 30, 2021\"; the used clear aperture is dated \"August 00\"). SAME FILE as widefield.json key BOP",
+   "file": "rawdata/telescopes/blanco/noirlab_Blanco_Basic-Optical-Parameters.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope/optical-properties/Basic-Optical-Parameters"
+  },
+  "BAF": {
+   "cite": "NSF NOIRLab / CTIO, Blanco 4-m \"Available Foci & Instruments\" page (\"Updated on May 19, 2021\"). SAME FILE as widefield.json key BAF",
+   "file": "rawdata/telescopes/blanco/noirlab_Blanco_Available-Foci.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope/optical-properties/Available-Foci"
+  },
+  "BTP": {
+   "cite": "NSF NOIRLab / CTIO, \"Victor M. Blanco 4-meter Telescope\" page (facts table; \"Updated on June 10, 2021\"). SAME FILE as widefield.json key BTP",
+   "file": "rawdata/telescopes/blanco/noirlab_Blanco_4m_telescope.html",
+   "url": "https://noirlab.edu/science/programs/ctio/telescopes/victor-blanco-4m-telescope"
+  },
+  "CDC": {
+   "cite": "NSF NOIRLab / CTIO, \"DECam Characteristics\" page (focal-plane table). SAME FILE as widefield.json key CDC",
+   "file": "rawdata/telescopes/blanco/noirlab_DECam_characteristics.html",
+   "url": "https://noirlab.edu/science/programs/ctio/instruments/Dark-Energy-Camera/characteristics"
+  },
+  "OBSD": {
+   "cite": "Rubin/DECam pipeline obs_decam, decam/camGeom/camera.py (commit e24428b, 2025-06-18): plate scale. SAME FILE as widefield.json key OBSD. Read only",
+   "file": "rawdata/telescopes/blanco/obs_decam_camGeom_camera.py",
+   "url": "https://github.com/lsst/obs_decam/blob/main/decam/camGeom/camera.py"
+  },
+  "BAT": {
+   "cite": "batoid ray tracer (J. Meyers), optical model batoid/data/DECam/DECam.yaml, GitHub jmeyers314/batoid commit f40a30b (2021-04-06, the last change to the file; byte-identical at HEAD a923c3e, 2026-09-16): the Blanco/DECam baffles (cage end caps, filter-changer shadow, spider, mask) and optics. Third-party model; no provenance for the baffle dimensions is given in the file or the commit messages. Read only",
+   "file": "rawdata/telescopes/blanco/batoid_f40a30b_DECam.yaml",
+   "url": "https://github.com/jmeyers314/batoid/blob/f40a30b9d172ee5412a746bd10ef738d5a6ed9f2/batoid/data/DECam/DECam.yaml"
+  },
+  "PIFF": {
+   "cite": "Piff (PSFs in the Full FOV; M. Jarvis et al., the DES PSF code), piff/optical_model.py, GitHub rmjarvis/Piff commit 68dc30f (2026-04-24): optical_templates \"des\" and \"des_simple\" (DECam pupil: obscuration, struts). Third party. Read only",
+   "file": "rawdata/telescopes/blanco/piff_68dc30f_optical_model.py",
+   "url": "https://github.com/rmjarvis/Piff/blob/68dc30f10ce5aed26798cb827bb0429633965312/piff/optical_model.py"
+  },
+  "PIFFP": {
+   "cite": "Piff, share/DECam_pupil_512uv.fits (the pupil-plane image of the \"des\" template; 512 x 512, GS_SCALE 0.0087016 m per pixel), same commit 68dc30f (added to share/ in da77279, 2023-07-06; first added in 2016, b56fb0f \"added pupil\"). Third party; read as data with astropy, never executed",
+   "file": "rawdata/telescopes/blanco/piff_68dc30f_DECam_pupil_512uv.fits",
+   "url": "https://github.com/rmjarvis/Piff/blob/68dc30f10ce5aed26798cb827bb0429633965312/share/DECam_pupil_512uv.fits"
+  },
+  "PIFFN": {
+   "cite": "Piff, share/DECam_pupil_512.fits (the same pupil before the rotation to the u, v frame), same commit 68dc30f. Third party; read as data",
+   "file": "rawdata/telescopes/blanco/piff_68dc30f_DECam_pupil_512.fits",
+   "url": "https://github.com/rmjarvis/Piff/blob/68dc30f10ce5aed26798cb827bb0429633965312/share/DECam_pupil_512.fits"
+  },
+  "MOS": {
+   "cite": "NSF NOIRLab / CTIO, Retired Instruments, \"MOSAIC II CCD Imager\" page (\"Last updated: 9 August 2012\"; page \"Updated on May 27, 2021\"; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/blanco/noirlab_MOSAIC-II-CCD-Imager_retired.html",
+   "url": "https://noirlab.edu/science/programs/ctio/retired-instruments/MOSAIC-II-CCD-Imager"
+  },
+  "HYM": {
+   "cite": "NSF NOIRLab / CTIO, Retired Instruments, \"Hydra\" page (\"Updated on July 26, 2024\"; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/blanco/noirlab_Hydra_retired.html",
+   "url": "https://noirlab.edu/science/programs/ctio/retired-instruments/Hydra"
+  },
+  "HYD": {
+   "cite": "NSF NOIRLab / CTIO, Retired Instruments, Hydra \"Documentation\" page (\"Updated on April 29, 2024\"; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/blanco/noirlab_Hydra_Documentation_retired.html",
+   "url": "https://noirlab.edu/science/programs/ctio/retired-instruments/Hydra/Documentation"
+  },
+  "S07": {
+   "cite": "Stubbs, C. W., Slater, S. K., Brown, Y. J., et al. 2007, ASP Conf. Ser. 364, 373, \"Preliminary Results from Detector-Based Throughput Calibration of the CTIO Mosaic Imager and Blanco Telescope Using a Tunable Laser\", arXiv:astro-ph/0609260 (Sec. 2.1)",
+   "file": "rawdata/telescopes/blanco/Stubbs2006_CTIO_Mosaic_Blanco_throughput_arXiv0609260.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0609260"
+  },
+  "M07": {
+   "cite": "Miknaitis, G., Pignata, G., Rest, A., et al. 2007, ApJ 666, 674, \"The ESSENCE Supernova Survey: Survey Optimization, Observations, and Supernova Photometry\", arXiv:astro-ph/0701043 (Sec. 2.1.1 The Instrument)",
+   "file": "rawdata/telescopes/blanco/Miknaitis2007_ESSENCE_arXiv0701043.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0701043"
+  }
+ },
+ "blanco": {
+  "title": "Víctor M. Blanco 4 m (CTIO): DECam prime focus, the pre-DECam prime focus, the f/8 Cassegrain and the retired f/14.5 and f/30 foci; entrance pupil",
+  "telescope": {
+   "name": "Víctor M. Blanco 4-meter Telescope (CTIO)",
+   "site": "Cerro Tololo, Chile, 2207 m (BTP)",
+   "status": "operational; commissioned 1974 (BTP)",
+   "optical_design": "Ritchey-Chretien; prime focus with the DECam corrector (since 2012), Cassegrain f/8 (BTP, BAF)",
+   "primary": {
+    "mirror_diameter_m": 4.0229,
+    "bare_clear_aperture_m": 3.9654,
+    "used_clear_aperture_m": 3.934,
+    "nominal_m": 4.0,
+    "radius_of_curvature_mm": 21311.6,
+    "conic": -1.09763,
+    "focal_length_mm_DERIVED": 10655.8,
+    "F_quoted": 2.7,
+    "F_on_3p934_DERIVED": 2.7086,
+    "central_hole_mm": 1317.8,
+    "material": "Cer-Vit (F15 Table 1)",
+    "refs": [
+     "blanco.primary_diameter",
+     "blanco.primary_radius_of_curvature",
+     "blanco.primary_focal_ratio",
+     "blanco.primary_central_hole"
+    ]
+   },
+   "pupil": {
+    "frame": "the u, v image frame of Piff DECam_pupil_512uv.fits (x = columns, y = rows, angles from +x); batoid and Piff DECam_pupil_512.fits are the same pupil turned 90 deg; orientation on the sky NOT FOUND",
+    "D_m": 3.934,
+    "eps": 0.4197,
+    "obscuration_diameter_m": 1.651,
+    "filter_changer_block_uv_m": [
+     [
+      0.8786,
+      -0.459
+     ],
+     [
+      0.8786,
+      -0.3937
+     ],
+     [
+      0.902,
+      -0.3556
+     ],
+     [
+      0.932,
+      -0.3048
+     ],
+     [
+      0.955,
+      -0.254
+     ],
+     [
+      0.975,
+      -0.2032
+     ],
+     [
+      0.991,
+      -0.1524
+     ],
+     [
+      1.001,
+      -0.1016
+     ],
+     [
+      1.006,
+      -0.0508
+     ],
+     [
+      1.0119,
+      0.0
+     ],
+     [
+      1.006,
+      0.0508
+     ],
+     [
+      1.001,
+      0.1016
+     ],
+     [
+      0.991,
+      0.1524
+     ],
+     [
+      0.975,
+      0.2032
+     ],
+     [
+      0.955,
+      0.254
+     ],
+     [
+      0.932,
+      0.3048
+     ],
+     [
+      0.902,
+      0.3556
+     ],
+     [
+      0.8786,
+      0.3937
+     ],
+     [
+      0.8786,
+      0.459
+     ],
+     [
+      -0.8786,
+      0.459
+     ],
+     [
+      -0.8786,
+      0.3937
+     ],
+     [
+      -0.902,
+      0.3556
+     ],
+     [
+      -0.932,
+      0.3048
+     ],
+     [
+      -0.955,
+      0.254
+     ],
+     [
+      -0.975,
+      0.2032
+     ],
+     [
+      -0.991,
+      0.1524
+     ],
+     [
+      -1.001,
+      0.1016
+     ],
+     [
+      -1.006,
+      0.0508
+     ],
+     [
+      -1.0119,
+      0.0
+     ],
+     [
+      -1.006,
+      -0.0508
+     ],
+     [
+      -1.001,
+      -0.1016
+     ],
+     [
+      -0.991,
+      -0.1524
+     ],
+     [
+      -0.975,
+      -0.2032
+     ],
+     [
+      -0.955,
+      -0.254
+     ],
+     [
+      -0.932,
+      -0.3048
+     ],
+     [
+      -0.902,
+      -0.3556
+     ],
+     [
+      -0.8786,
+      -0.3937
+     ],
+     [
+      -0.8786,
+      -0.459
+     ]
+    ],
+    "fins": {
+     "n": 4,
+     "angles_deg": [
+      45,
+      135,
+      225,
+      315
+     ],
+     "widths_m": [
+      0.068,
+      0.068,
+      0.135,
+      0.068
+     ],
+     "basis": "Piff pupil image (measured); Piff des_simple 0.0666 m; batoid 0.019 m"
+    },
+    "collecting_area_m2": {
+     "noirlab": 10.014,
+     "explorer_pupil_DERIVED": 9.311,
+     "piff_image_DERIVED": 9.626
+    },
+    "refs": [
+     "blanco.central_obscuration",
+     "blanco.spider",
+     "blanco.filter_changer_shadow",
+     "blanco.pupil_frame",
+     "blanco.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "BL-PF",
+     "name": "Prime focus, DECam",
+     "status": "operational (2012 onwards, BAF)",
+     "focal_length_mm_DERIVED": 11736.3,
+     "F_quoted": 3.0,
+     "F_on_3p934_DERIVED": 2.9833,
+     "plate_scale_arcsec_per_mm": 17.575,
+     "field_deg": 2.2,
+     "corrector": "C1-C5 fused silica (C5 = Dewar window), filter between C3 and C4",
+     "focal_plane_above_M1_mm_DERIVED": 10781.19,
+     "n_reflections": 1,
+     "refs": [
+      "blanco.decam_focal_ratio",
+      "blanco.decam_field",
+      "blanco.decam_corrector"
+     ]
+    },
+    {
+     "id": "BL-PF287",
+     "name": "Prime focus f/2.87 (Mosaic II, BTC; historical)",
+     "status": "retired 2012",
+     "focal_length_mm_DERIVED": 11459.2,
+     "F_quoted": 2.87,
+     "F_on_3p934_DERIVED": 2.9129,
+     "plate_scale_arcsec_per_mm": 18.0,
+     "field_arcmin": "36 x 36 (Mosaic II)",
+     "corrector": "three lenses + ADC",
+     "n_reflections": 1,
+     "refs": [
+      "blanco.pf287_prime_focus",
+      "blanco.pf287_corrector"
+     ]
+    },
+    {
+     "id": "BL-C8",
+     "name": "Cassegrain f/8 (RC)",
+     "status": "operational (COSMOS)",
+     "focal_length_mm_DERIVED": 31409.7,
+     "F_quoted": 8,
+     "F_on_3p934_DERIVED": 7.984,
+     "plate_scale_arcsec_per_mm": 6.56,
+     "secondary": {
+      "clear_aperture_mm": 1295.4,
+      "radius_of_curvature_mm": 9569.6,
+      "conic": -5.2625,
+      "distance_from_primary_mm": 7494.25
+     },
+     "focus_behind_M1_vertex_mm_DERIVED": 1824.9,
+     "field_arcmin": 40,
+     "n_reflections": 2,
+     "refs": [
+      "blanco.f8_secondary",
+      "blanco.f8_focus",
+      "blanco.f8_field"
+     ]
+    },
+    {
+     "id": "BL-C14",
+     "name": "Cassegrain f/14.5 (retired)",
+     "focal_length_mm_DERIVED": 57925.6,
+     "F_on_3p934_DERIVED": 14.724,
+     "secondary": {
+      "radius_of_curvature_mm": 4986.5,
+      "conic": -3.044206,
+      "distance_from_primary_mm": 8621.2
+     },
+     "focus_behind_M1_vertex_mm_DERIVED": 2439.0,
+     "refs": [
+      "blanco.f14p5_secondary"
+     ]
+    },
+    {
+     "id": "BL-C30",
+     "name": "Cassegrain f/30 (retired)",
+     "focal_length_mm_DERIVED": 126701.6,
+     "F_on_3p934_DERIVED": 32.207,
+     "secondary": {
+      "radius_of_curvature_mm": 2115.3,
+      "conic": -2.8056,
+      "distance_from_primary_mm": 9687.1
+     },
+     "focus_behind_M1_vertex_mm_DERIVED": 1831.1,
+     "refs": [
+      "blanco.f30_secondary"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "blanco",
+   "group": "Blanco 4 m",
+   "name": "Blanco 4 m",
+   "D": 3.934,
+   "Dmirror": 4.0229,
+   "f1": 10.6558,
+   "eps": 0.4197,
+   "hole": 1.3178,
+   "primaryNote": "A Cer-Vit hyperboloid (conic −1.098) 4.02 m across with a 1.32 m central hole; radius of curvature 21.31 m (f = 10.66 m, f/2.7). A seal at the edge leaves a 3.934 m clear aperture. Commissioned in 1974 on Cerro Tololo, a near twin of the Mayall 4 m.",
+   "pupil": {
+    "kind": "circle",
+    "D": 3.934,
+    "vanes": [
+     {
+      "ang": 45,
+      "w": 0.068
+     },
+     {
+      "ang": 135,
+      "w": 0.068
+     },
+     {
+      "ang": 225,
+      "w": 0.135
+     },
+     {
+      "ang": 315,
+      "w": 0.068
+     }
+    ],
+    "blocks": [
+     [
+      [
+       0.8786,
+       -0.459
+      ],
+      [
+       0.8786,
+       -0.3937
+      ],
+      [
+       0.902,
+       -0.3556
+      ],
+      [
+       0.932,
+       -0.3048
+      ],
+      [
+       0.955,
+       -0.254
+      ],
+      [
+       0.975,
+       -0.2032
+      ],
+      [
+       0.991,
+       -0.1524
+      ],
+      [
+       1.001,
+       -0.1016
+      ],
+      [
+       1.006,
+       -0.0508
+      ],
+      [
+       1.0119,
+       0.0
+      ],
+      [
+       1.006,
+       0.0508
+      ],
+      [
+       1.001,
+       0.1016
+      ],
+      [
+       0.991,
+       0.1524
+      ],
+      [
+       0.975,
+       0.2032
+      ],
+      [
+       0.955,
+       0.254
+      ],
+      [
+       0.932,
+       0.3048
+      ],
+      [
+       0.902,
+       0.3556
+      ],
+      [
+       0.8786,
+       0.3937
+      ],
+      [
+       0.8786,
+       0.459
+      ],
+      [
+       -0.8786,
+       0.459
+      ],
+      [
+       -0.8786,
+       0.3937
+      ],
+      [
+       -0.902,
+       0.3556
+      ],
+      [
+       -0.932,
+       0.3048
+      ],
+      [
+       -0.955,
+       0.254
+      ],
+      [
+       -0.975,
+       0.2032
+      ],
+      [
+       -0.991,
+       0.1524
+      ],
+      [
+       -1.001,
+       0.1016
+      ],
+      [
+       -1.006,
+       0.0508
+      ],
+      [
+       -1.0119,
+       0.0
+      ],
+      [
+       -1.006,
+       -0.0508
+      ],
+      [
+       -1.001,
+       -0.1016
+      ],
+      [
+       -0.991,
+       -0.1524
+      ],
+      [
+       -0.975,
+       -0.2032
+      ],
+      [
+       -0.955,
+       -0.254
+      ],
+      [
+       -0.932,
+       -0.3048
+      ],
+      [
+       -0.902,
+       -0.3556
+      ],
+      [
+       -0.8786,
+       -0.3937
+      ],
+      [
+       -0.8786,
+       -0.459
+      ]
+     ]
+    ]
+   },
+   "pupilNote": "The pupil since DECam, in the frame of the DES pupil model (Piff): the 1.65 m shadow of the prime-focus cage, the filter-changer housing that sticks out on two sides to 1.01 m from the center, and the four fins that hold the cage, 68 mm wide (one 135 mm). The pupil's orientation on the sky is not published.",
+   "area": {
+    "value": 10.014,
+    "info": true,
+    "src": "NOIRLab, Blanco Basic Optical Parameters: the 3.934 m aperture less the 1651 mm obscuration (the fins and the filter-changer housing not included; the pupil drawn here: 9.31 m², DERIVED)"
+   },
+   "foci": [
+    {
+     "id": "pf",
+     "name": "Prime focus f/3 (DECam)",
+     "kind": "Prime focus",
+     "variant": "DECam",
+     "F": 2.9833,
+     "plate": 17.575,
+     "design": "prime",
+     "field": 132,
+     "refl": 1,
+     "corrector": {
+      "d": 1.237,
+      "label": "DECam corrector",
+      "sub": "five fused-silica lenses, drawn as one lens of their power"
+     },
+     "pfuLabel": "Dark Energy Camera (DECam)",
+     "pfuSub": "62 science CCDs over a 2.2° field",
+     "secondary": "none: the camera and its five-lens corrector sit at the prime focus, on a hexapod in the prime-focus cage",
+     "where": "the prime-focus cage: the focal plane 10.78 m above the primary's vertex",
+     "fieldNote": "2.2° across (3 deg²). F from the 17.575″/mm plate scale (f/3.0 published). The lens is placed so that the drawn focus falls 125 mm past the primary's own focus, as the real focal plane does; the lens's size is schematic (the real corrector runs from C1, 980 mm across and 1.78 m before the primary's focus, to the focal plane)."
+    },
+    {
+     "id": "pf287",
+     "name": "Prime focus f/2.87 (Mosaic II, historical)",
+     "kind": "Prime focus",
+     "variant": "f/2.87 (Mosaic II, historical)",
+     "F": 2.9129,
+     "plate": 18.0,
+     "design": "prime",
+     "field": 36,
+     "refl": 1,
+     "pupil": {
+      "blocks": []
+     },
+     "corrector": {
+      "d": 1.0,
+      "label": "triplet corrector and ADC",
+      "sub": "drawn as one lens of their power"
+     },
+     "pfuLabel": "Mosaic II imager",
+     "pfuSub": "eight 2k × 4k CCDs, 36′ × 36′",
+     "secondary": "none: a three-lens corrector and an atmospheric dispersion corrector at the prime focus",
+     "where": "the earlier prime-focus cage (until 2012)",
+     "fieldNote": "36′ × 36′ (Mosaic II, 0.27″ pixels); the corrected field is not published. F from the 18.0″/mm plate scale (f/2.87 on the nominal 4 m). The lens's place and size are schematic. Drawn without the DECam filter-changer housing."
+    },
+    {
+     "id": "cass8",
+     "name": "Cassegrain f/8",
+     "kind": "Cassegrain",
+     "variant": "f/8",
+     "F": 7.984,
+     "plate": 6.567,
+     "design": "cass",
+     "back": 0.4639,
+     "field": 40,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.295 m clear (conic −5.26), 7.494 m in front of the primary, on the front of the prime-focus cage",
+     "where": "the Cassegrain cage with its rotator and offset guider, 1.82 m behind the primary's vertex",
+     "pupilNote": "The pupil since DECam: the camera stays in the cage behind the f/8 secondary, so the DECam filter-changer housing is assumed to shadow this focus too (not published).",
+     "fieldNote": "40′ at the Hydra fiber plate; COSMOS uses 10′. F and the focus position are DERIVED from the published mirrors (f/7.8 on the 4.02 m mirror; 6.56″/mm published)."
+    },
+    {
+     "id": "cass14",
+     "name": "Cassegrain f/14.5 (retired)",
+     "kind": "Cassegrain",
+     "variant": "f/14.5 (retired)",
+     "F": 14.724,
+     "plate": 3.561,
+     "design": "cass",
+     "back": 0.62,
+     "field": null,
+     "refl": 2,
+     "pupil": {
+      "blocks": []
+     },
+     "secondary": "convex hyperboloid (radius of curvature 4.99 m, conic −3.04), 8.621 m in front of the primary; its size is not published",
+     "where": "behind the primary, 2.44 m from the vertex",
+     "fieldNote": "Retired. F, the plate scale and the focus position are DERIVED from the published prescription (f/14.4 on the 4.02 m mirror); the obstruction and fins of this configuration are not published (those of f/8 drawn)."
+    },
+    {
+     "id": "cass30",
+     "name": "Cassegrain f/30 (retired)",
+     "kind": "Cassegrain",
+     "variant": "f/30 (retired)",
+     "F": 32.207,
+     "plate": 1.628,
+     "design": "cass",
+     "back": 0.4655,
+     "field": null,
+     "refl": 2,
+     "pupil": {
+      "blocks": []
+     },
+     "secondary": "convex hyperboloid (radius of curvature 2.12 m, conic −2.81), 9.687 m in front of the primary; its size is not published",
+     "where": "behind the primary, 1.83 m from the vertex",
+     "fieldNote": "Retired. F is DERIVED from the published prescription: f/31.5 on the 4.02 m mirror, not the nominal f/30 (an undersized secondary acting as the stop would explain the name, but its size is not published)."
+    }
+   ]
+  },
+  "params": {
+   "status_site": {
+    "value": "operational on Cerro Tololo, Chile, 2207 m; commissioned 1974 (first light 1976 in the facts table); a near twin of the Mayall 4 m on Kitt Peak",
+    "unit": "",
+    "src": "BTP",
+    "loc": "intro and facts table",
+    "quote": "The Víctor M. Blanco 4-meter Telescope was commissioned in 1974. It is a near twin of the Mayall 4-meter telescope on Kitt Peak.",
+    "alternatives": [
+     {
+      "value": "2207 m",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "Altitude 2207 meters (7240 feet)"
+     },
+     {
+      "value": "first light 1976",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "First Light Date 1976"
+     }
+    ],
+    "note": "The facts table gives no mount type; the conflict between \"commissioned in 1974\" and \"First Light Date 1976\" is left as published."
+   },
+   "optical_design": {
+    "value": "Ritchey-Chretien: a hyperbolic primary (conic -1.09763) used at the prime focus with refractive correctors, or with a convex hyperbolic secondary (f/8, and the retired f/14.5 and f/30) at the Cassegrain focus",
+    "unit": "",
+    "src": "BTP",
+    "loc": "facts table",
+    "quote": "Optical Design Ritchey-Chretien Cassegrain",
+    "alternatives": [
+     {
+      "value": "prime focus f/2.87 (pre-DECam) and RC focus f/8",
+      "src": "BAF",
+      "loc": "page text",
+      "quote": "Prime Focus f/2.87. ... Ritchey-Chretien (RC) Focus f/8."
+     },
+     {
+      "value": "hyperbolic primary (Mosaic II era)",
+      "src": "S07",
+      "loc": "Sec. 2.1, PDF p. 5",
+      "quote": "the Blanco telescope uses a 4m hyperbolic primary mirror to deliver light to (in our configuration) the prime focus"
+     }
+    ]
+   },
+   "primary_diameter": {
+    "value": 3.934,
+    "unit": "m (used clear aperture: the explorer D)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Used clear aperture diam 3934 mm (August 00 after installation of seal CH2922-A001)",
+    "alternatives": [
+     {
+      "value": "4.0229 m mirror",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Mirror diameter 4022.9 mm (see CH2150.260-A001)"
+     },
+     {
+      "value": "3.9654 m bare-mirror clear aperture",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Bare mirror clear aperture diam 3965.4 mm"
+     },
+     {
+      "value": "4 m nominal",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "Diameter: Primary M1 4 meters"
+     },
+     {
+      "value": "3.810 m (M1 clear semi-diameter 1905 mm in the DECam design)",
+      "src": "F15",
+      "loc": "Table 1, PDF p. 12",
+      "quote": "M1 -21311.600 Cer-Vit 1905 -1.0976",
+      "note": "the design-table \"Radius (mm)\" column is the clear semi-diameter"
+     },
+     {
+      "value": "3.942 m (batoid mask)",
+      "src": "BAT",
+      "loc": "items MASK and opticalSystem",
+      "quote": "pupilSize: 3.942  # Pupil fits inside a square with this side length ... name: MASK ... inner: 1.971",
+      "note": "an annular mask 0.534 m above the primary, inner radius 1.971 m"
+     },
+     {
+      "value": "4.010 m (Piff diam)",
+      "src": "PIFF",
+      "loc": "optical_templates 'des' and 'des_simple'",
+      "quote": "'diam': 4.010,  # meters"
+     }
+    ],
+    "derived": "Piff pupil image (PIFFP): a least-squares circle through the outer edge pixels gives radius 1.9951 m (3.990 m across), centered on the image (scratch script)."
+   },
+   "primary_radius_of_curvature": {
+    "value": 21311.6,
+    "unit": "mm (concave; conic -1.09763: a hyperboloid)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Radius of curvature 21311.6 mm concave",
+    "alternatives": [
+     {
+      "value": "conic -1.09763",
+      "src": "BOP",
+      "loc": "Primary (\"M1\")",
+      "quote": "Conic constant -1.09763"
+     },
+     {
+      "value": "-21311.600 mm, conic -1.0976, Cer-Vit",
+      "src": "F15",
+      "loc": "Table 1, PDF p. 12",
+      "quote": "M1 -21311.600 Cer-Vit 1905 -1.0976"
+     },
+     {
+      "value": "21.3116 m, conic -1.09763 (batoid)",
+      "src": "BAT",
+      "loc": "item PM",
+      "quote": "name: PM surface: type: Quadric R: 21.3115998206672 conic: -1.09763"
+     }
+    ]
+   },
+   "primary_focal_ratio": {
+    "value": 2.7,
+    "unit": "f/# (the primary)",
+    "src": "F15",
+    "loc": "Sec. 2.1.1, PDF p. 7",
+    "quote": "The focal ratio at prime focus of the Blanco 4-meter telescope is f/2.7 (52 µm/arcsec).",
+    "alternatives": [
+     {
+      "value": "f/2.7 (DECam table, \"Instrument F ratio\")",
+      "src": "CDC",
+      "loc": "focal-plane table",
+      "quote": "Instrument F ratio f/2.7",
+      "note": "the primary, not the corrected DECam beam"
+     }
+    ],
+    "derived": "f1 = 21311.6/2 = 10655.8 mm; F1 = 10655.8/3934 = 2.7086 (on 4022.9 mm: 2.6488; on 4000 mm: 2.6639); 52 um/arcsec is 10.73 m."
+   },
+   "primary_central_hole": {
+    "value": 1317.8,
+    "unit": "mm (diameter)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Central hole diam 1317.8 mm",
+    "alternatives": [
+     {
+      "value": "1.3368 m (batoid clear annulus of the primary)",
+      "src": "BAT",
+      "loc": "item PM",
+      "quote": "type: ClearAnnulus outer: 2.005 inner: 0.6684"
+     }
+    ],
+    "note": "Inside the 1651 mm shadow of the prime-focus cage, so the hole does not set the pupil."
+   },
+   "collecting_area": {
+    "value": 10.014,
+    "unit": "m^2 (3.934 m less the 1651 mm obscuration; no fins or filter-changer shadow)",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Light-collecting area 10.014 m^2",
+    "derived": "pi/4 (3.934^2 - 1.651^2) = 10.014 m^2. The explorer pupil below (3.934 m, eps 0.4197, the filter-changer polygon and four fins of 0.068/0.068/0.135/0.068 m), rasterized on a 4000 x 4000 grid: 9.311 m^2 (the polygon removes 0.317 m^2 outside the cage shadow, the fins 0.386 m^2). The Piff pupil image itself has 9.626 m^2 clear (on its 3.990 m outer edge)."
+   },
+   "central_obscuration": {
+    "value": 1651,
+    "unit": "mm (diameter): eps = 1651/3934 = 0.4197",
+    "src": "BOP",
+    "loc": "Primary (\"M1\")",
+    "quote": "Central obscuration diam 1651 mm (PF cage baffle for f/8 M2)",
+    "alternatives": [
+     {
+      "value": "1.6508 m: the cage end caps (batoid)",
+      "src": "BAT",
+      "loc": "items ENDCAP_TOP, ENDCAP_BOTTOM",
+      "quote": "name: ENDCAP_TOP ... type: ObscCircle radius: 0.8254",
+      "note": "z = 12.02 and 11.49 m above the primary; the cage body (CAGE_MID, CAGE_BOT) has radius 0.7896 m and the shroud 0.8181 m"
+     },
+     {
+      "value": "0.4196 (Piff, \"from Zemax DECam model\")",
+      "src": "PIFF",
+      "loc": "optical_templates 'des_simple'",
+      "quote": "'obscuration': 0.301 / 0.7174, # from Zemax DECam model"
+     },
+     {
+      "value": "0.3 (batoid nominal pupil parameter)",
+      "src": "BAT",
+      "loc": "opticalSystem",
+      "quote": "pupilObscuration: 0.3  # Fractional pupil central obscuration",
+      "note": "a nominal value for ray generation; the baffle items set the actual shadow"
+     },
+     {
+      "value": "counterweight annulus in front of the DECam optics also acts as a light baffle",
+      "src": "F15",
+      "loc": "Sec. 2.8, PDF p. 18",
+      "quote": "When DECam is used, a new annular counterweight of the same mass as the secondary mirror assembly is mounted on the front of the cage in front of the DECam optics. It also acts as a light baffle."
+     }
+    ],
+    "note": "The 1651 mm value dates from the f/8 configuration of August 2000; the DECam cage was rebuilt in 2012 (F15 Sec. 2.8). batoid (1.6508 m end caps) and Piff (0.4196) give the same shadow for the DECam era.",
+    "derived": "1651/3934 = 0.41967; 0.301/0.7174 = 0.41957; batoid 2 x 0.8254 / (2 x 1.971) = 0.4188. Piff pupil image (PIFFP): a circle through the inner edge pixels (away from the filter-changer housing and the fins) has radius 0.8428 m (1.686 m across; 0.4224 of its 3.990 m outer edge)."
+   },
+   "prime_focus_cage": {
+    "value": "the DECam camera hangs in a rebuilt prime-focus cage, which is held to the upper rings of the telescope by four \"fins\" (the four-plane structure used by the earlier instruments)",
+    "unit": "",
+    "src": "F15",
+    "loc": "Sec. 2.8 Prime Focus Cage, PDF p. 17",
+    "quote": "The cage, in turn, is connected to the upper rings of the telescope by the four-plane\"fins\" structure that supported the previous instruments.",
+    "alternatives": [
+     {
+      "value": "the fins in Fig. 2",
+      "src": "F15",
+      "loc": "Fig. 2 caption, PDF p. 6",
+      "quote": "The cage is attached to the telescope by the four “fin” structures, which are also shown."
+     },
+     {
+      "value": "a light baffle of 8 annuli in front of the corrector",
+      "src": "F15",
+      "loc": "Sec. 2.8, PDF p. 18",
+      "quote": "A light baffle is attached to the cage in front of the corrector. It consists of a series of 8 concentric annuli that decrease in diameter as the distance from the front (mirror side) of the cage increases."
+     },
+     {
+      "value": "cryogen lines cross to the camera in the shadow of the fins",
+      "src": "F15",
+      "loc": "Sec. 4.2 Focal Plane Cooling System, PDF p. 43",
+      "quote": "The vacuum-jacketed line segments that cross from the outer ring of the telescope to the camera are only 1.5 inches in diameter and are partially shadowed by the fins, thus minimizing the obscuration of the primary mirror."
+     }
+    ]
+   },
+   "spider": {
+    "value": "four fins at 45 deg to the axes of the pupil models, three 0.068 m wide and one 0.135 m wide (Piff pupil image)",
+    "unit": "m",
+    "src": "PIFFP",
+    "loc": "image (512 x 512 pixels of 8.70 mm)",
+    "quote": "GS_SCALE= 0.008701614397419262 / GalSim image scale",
+    "alternatives": [
+     {
+      "value": "4 struts at 45 deg, 0.0666 m (Piff 'des_simple', tuned to donuts)",
+      "src": "PIFF",
+      "loc": "optical_templates 'des_simple'",
+      "quote": "'nstruts': 4, 'strut_thick': 0.0166,  # 66.5mm thick / 4010mm pupil # (tuned to match DECam big donut images) 'strut_angle': 45 * galsim.degrees,"
+     },
+     {
+      "value": "two 0.019 m bars crossing at the center, at +/-45 deg (batoid)",
+      "src": "BAT",
+      "loc": "item SPIDER",
+      "quote": "name: SPIDER ... type: ObscRectangle width: 0.019 height: 5 theta: 0.7853981634 ... type: ObscRectangle width: 0.019 height: 5 theta: -0.7853981634",
+      "note": "z = 9.75 m above the primary"
+     },
+     {
+      "value": "the pupil image is Piff's default for DECam",
+      "src": "PIFF",
+      "loc": "optical_templates 'des'",
+      "quote": "# This is normally what to use when working with DES (or other DECam) images. ... 'pupil_plane_im': 'DECam_pupil_512uv.fits'"
+     }
+    ],
+    "note": "The Piff image and the Piff strut model (66.5 mm, \"tuned to match DECam big donut images\") agree; batoid models the fins as 19 mm plates. That one fin is wider in the image fits the cryogen lines and cables that F15 says cross in the fins' shadow (INFERRED; the image carries no labels).",
+    "derived": "Measured on the Piff image (scratch script, astropy, read only): blocked area within 1.1-1.9 m along each fin divided by 0.8 m gives widths 0.0677 m at 45, 135 and 315 deg and 0.1353 m at 225 deg (x = image columns, y = rows, angles from +x); the fins run radially from the center (centroid offset of the wide fin 3 mm). Rounded for the explorer: 0.068 and 0.135 m."
+   },
+   "filter_changer_shadow": {
+    "value": "the DECam filter-changer and shutter housing extends the central shadow on two opposite sides to 1.012 m from the center over a width of 0.918 m",
+    "unit": "m",
+    "src": "BAT",
+    "loc": "item FILTER_OBSTRUCTION",
+    "quote": "name: FILTER_OBSTRUCTION ... type: ObscCircle radius: 0.7896 ... type: ObscPolygon",
+    "alternatives": [
+     {
+      "value": "the polygon (batoid frame)",
+      "src": "BAT",
+      "loc": "item FILTER_OBSTRUCTION",
+      "quote": "xs: [-0.459, -0.3937, -0.3556, -0.3048, -0.254, -0.2032, -0.1524, -0.1016, -0.0508, 0.0, 0.0508,"
+     },
+     {
+      "value": "filter changer and shutter between C3 and C4",
+      "src": "F15",
+      "loc": "Sec. 1 Introduction, PDF p. 4",
+      "quote": "The shutter and filter changer are located between the 3rd and 4th lenses."
+     }
+    ],
+    "note": "batoid places the housing at z = 10.31 m above the primary (between C3 and C4). For on-axis light the shadow in the entrance pupil has the housing's own size.",
+    "derived": "batoid polygon: a box |x| <= 0.459, |y| <= 0.8786 m with rounded caps to |y| = 1.0119 m (38 vertices). The Piff image shows the same outline along the image x axis (measured: |y| <= 0.46 m at |x| = 0.87 m, 0.117 m at 1.01 m), so the Piff image is the batoid frame turned 90 deg. The explorer block below is batoid's polygon with x and y exchanged (the Piff u, v frame)."
+   },
+   "pupil_frame": {
+    "value": "Piff stores the DECam pupil twice: DECam_pupil_512.fits (housing along the image y axis, as in batoid) and DECam_pupil_512uv.fits (the same image turned 90 deg); the explorer uses the uv image frame",
+    "unit": "",
+    "src": "PIFFN",
+    "loc": "FITS header",
+    "quote": "GS_SCALE= 0.0333938984375 / GalSim image scale",
+    "alternatives": [
+     {
+      "value": "the uv image header",
+      "src": "PIFFP",
+      "loc": "FITS header",
+      "quote": "CTYPE1  = 'LINEAR  '           / name of the world coordinate axis"
+     }
+    ],
+    "note": "Orientation of either frame relative to the declination axis or the sky: NOT FOUND (the non-uv image header has a different pixel scale, 0.0334, in units not stated).",
+    "derived": "Pixel comparison (scratch script): the uv image differs from the non-uv image in 4.8% of the pixels as stored and in 1.6% after a 90 deg rotation or a transpose (the residual is the different scale)."
+   },
+   "decam_focal_ratio": {
+    "value": 3.0,
+    "unit": "f/# (effective, with the corrector; published)",
+    "src": "F15",
+    "loc": "Sec. 2.2, PDF p. 10",
+    "quote": "The effective focal ratio is f/3.0. The pixel scale is 56.88 µm per arcsecond at the center of the focal plane and 57.12 µm per arcsecond at the edge.",
+    "alternatives": [
+     {
+      "value": "17.575 \"/mm (pipeline plate scale)",
+      "src": "OBSD",
+      "loc": "plateScale",
+      "quote": "config.plateScale = 17.575"
+     },
+     {
+      "value": "f/2.9-3.0 design range",
+      "src": "F15",
+      "loc": "Sec. 2.1.1, PDF p. 7",
+      "quote": "The optical designs that we explored fell naturally into the range f/2.9–f/3.0 (56-57µm/arcsec)"
+     }
+    ],
+    "derived": "f_eff = 206264.8/17.575 = 11736.3 mm; F = 11736.3/3934 = 2.9833 (on 4.0229 m: 2.917; 56.88 um/arcsec = 11732.3 mm). Explorer: F 2.9833, plate 17.575."
+   },
+   "decam_field": {
+    "value": 2.2,
+    "unit": "deg (diameter)",
+    "src": "F15",
+    "loc": "Sec. 2.1.1, PDF p. 7",
+    "quote": "The field of view of the camera was specified at 2.2 degrees in diameter",
+    "alternatives": [
+     {
+      "value": "focal-plane radius 225.8 mm",
+      "src": "F15",
+      "loc": "Table 1, PDF p. 12",
+      "quote": "Focal Plane 0.000 225.8 0"
+     },
+     {
+      "value": "3 deg^2",
+      "src": "CDC",
+      "loc": "focal-plane table",
+      "quote": "3 square degree (2.2 degree field of view)"
+     },
+     {
+      "value": "3 deg^2",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "DECam: 3 square degrees field"
+     }
+    ],
+    "derived": "2 x 225.8 mm x 17.575 \"/mm = 2.205 deg; explorer field 132 arcmin."
+   },
+   "decam_corrector": {
+    "value": "five fused-silica lenses: C1, C2, C3, the filter (one of four slots), C4 and C5 (the Dewar window); C1 (980.74 mm across) 8875 mm above the primary, the focal plane 1.9 m beyond",
+    "unit": "",
+    "src": "F15",
+    "loc": "Fig. 3 caption, PDF p. 8",
+    "quote": "The elements, from right to left, are C1, C2, C3, a plano-plano filter (1 of 4 positions is shown), C4, C5 (Dewar window), and the focal plane array. The primary mirror is approximately 8.9 m from the vertex of C1. The total length of the camera from C1 to the focal plane is approximately 1.9 m.",
+    "alternatives": [
+     {
+      "value": "M1 to C1 8875.037 mm",
+      "src": "F15",
+      "loc": "Table 1, PDF p. 12",
+      "quote": "-8875.037"
+     },
+     {
+      "value": "C1 980.74 mm across",
+      "src": "F15",
+      "loc": "Table 3, PDF p. 13",
+      "quote": "C1 110.54 278.02 980.74 172.7"
+     },
+     {
+      "value": "five-element corrector",
+      "src": "F15",
+      "loc": "Abstract, PDF p. 3",
+      "quote": "The camera consists of a five element optical corrector"
+     }
+    ],
+    "derived": "Table 1 spacings from C1 to the focal plane sum to 1906.155 mm, so the focal plane lies 8875.037 + 1906.155 = 10781.19 mm above the primary's vertex, 125.39 mm beyond the primary's own focus (10655.8 mm). In the imager.js prime-focus model the focus lies (m - 1) d past the primary's focus, m = F/F1 = 2.9833/2.7086 = 1.1014, so d = 125.39/0.1014 = 1.237 m puts the drawn focus where the real one is (the drawn lens then sits between C1 and C2)."
+   },
+   "pf287_prime_focus": {
+    "value": "prime focus f/2.87 before DECam: 18.0 \"/mm; Mosaic II (eight 2k x 4k CCDs, 36' x 36', 0.27\" pixels), and the BTC before it",
+    "unit": "",
+    "src": "BAF",
+    "loc": "Prime Focus",
+    "quote": "Prime Focus f/2.87. Plate scale = 18.0 arcsec/mm or 0.26\"/15micron pixel",
+    "alternatives": [
+     {
+      "value": "Mosaic II: 36' x 36'",
+      "src": "MOS",
+      "loc": "page text",
+      "quote": "FOV: 36x36 arcmin"
+     },
+     {
+      "value": "0.27\"/pixel",
+      "src": "MOS",
+      "loc": "page text",
+      "quote": "Pixel scale: 0.27\"/pixel"
+     },
+     {
+      "value": "Mosaic II replaced the BTC; retired 2012 for DECam",
+      "src": "MOS",
+      "loc": "page text",
+      "quote": "replaces the BTC camera previously used at prime focus on the V. M. Blanco 4-m telescope. Mosaic II will be retired in 2012 when it will be replaced by The Dark Energy Camera (DECam)."
+     },
+     {
+      "value": "f/2.87 beam; 0.6 deg on a side",
+      "src": "M07",
+      "loc": "Sec. 2.1.1, PDF p. 14",
+      "quote": "In the f/2.87 beam at prime focus, this yields a field of view of 0.6 degrees on a side for a total area of 0.36 square degrees on the sky."
+     }
+    ],
+    "derived": "f_eff = 206264.8/18.0 = 11459.2 mm: f/2.865 on 4.0 m (the published f/2.87), F = 2.9129 on 3.934 m. Explorer field 36 arcmin (the camera's field; the corrected field is NOT FOUND)."
+   },
+   "pf287_corrector": {
+    "value": "a three-lens corrector with an atmospheric dispersion corrector (two counter-rotating prisms)",
+    "unit": "",
+    "src": "S07",
+    "loc": "Sec. 2.1, PDF p. 6",
+    "quote": "plus four compound optical elements (the 3 corrector lenses plus the ADC)",
+    "alternatives": [
+     {
+      "value": "ADC of two rotating prisms",
+      "src": "M07",
+      "loc": "Sec. 2.1.1, PDF p. 14",
+      "quote": "All ESSENCE observations are taken through the Atmospheric Dispersion Corrector (ADC), which is composed of two independently rotating prisms"
+     },
+     {
+      "value": "one reflection at the prime focus",
+      "src": "S07",
+      "loc": "Sec. 2.1, PDF p. 6",
+      "quote": "When feeding prime focus, the telescope optics comprise one reflection from the Aluminium-"
+     }
+    ],
+    "note": "Positions and sizes of these elements: NOT FOUND (the drawing places the corrector schematically). S07 calls the beam \"f /2.5\"."
+   },
+   "f8_secondary": {
+    "value": "convex hyperboloid, 1295.4 mm clear aperture, R = 9569.6 mm, conic -5.2625, 7494.25 mm from the primary (\"F/7.8 secondary\")",
+    "unit": "",
+    "src": "BOP",
+    "loc": "F/7.8 secondary (\"M2\")",
+    "quote": "Distance from primary 7494.25 mm Radius of curvature 9569.6 mm convex Conic constant -5.2625 Clear aperture diam 1295.4 mm",
+    "alternatives": [
+     {
+      "value": "1.3 m",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "Diameter: Secondary M2 1.3 meters"
+     },
+     {
+      "value": "the secondary mounts on the front of the DECam cage",
+      "src": "F15",
+      "loc": "Sec. 2.8, PDF p. 18",
+      "quote": "Some community observers may want to use instruments at the Blanco Cassegrain focus. To this end, a secondary mirror may be mounted on the front end of the Prime Focus cage."
+     }
+    ]
+   },
+   "f8_focus": {
+    "value": "RC focus f/8, 6.56 \"/mm, in a hemispherical Cassegrain cage with an instrument rotator and offset guider; the focal plane 15.24 cm below the guider mounting surface",
+    "unit": "",
+    "src": "BAF",
+    "loc": "Ritchey-Chretien (RC) Focus",
+    "quote": "Ritchey-Chretien (RC) Focus f/8. Plate scale = 6.56 arcsec/mm",
+    "alternatives": [
+     {
+      "value": "cage, rotator, guider",
+      "src": "BAF",
+      "loc": "Ritchey-Chretien (RC) Focus",
+      "quote": "This focus is surrounded by a roughly hemispherical Cassegrain Cage. It is equipped with an instrument rotator and offset guider as standard equipment."
+     },
+     {
+      "value": "focal plane position",
+      "src": "BAF",
+      "loc": "Ritchey-Chretien (RC) Focus",
+      "quote": "The nominal focal plane is at a position 6\" (15.24 cm) below the Guider mounting surface."
+     },
+     {
+      "value": "COSMOS the only current f/8 instrument",
+      "src": "BAF",
+      "loc": "Ritchey-Chretien (RC) Focus",
+      "quote": "The only instrument currently available at f/8 is COSMOS"
+     }
+    ],
+    "derived": "Paraxial two-mirror trace with the BOP prescription (f1 = 10655.8 mm; secondary f2 = -4784.8 mm at 7494.25 mm, the prime focus 3161.55 mm beyond the secondary): image 9319.2 mm from the secondary, magnification 2.9477, f_eff = 31409.7 mm: F = 7.984 on 3.934 m, 7.808 on 4.0229 m (the table's \"F/7.8\"), 7.852 on 4.0 m; plate 206264.8/31409.7 = 6.567 \"/mm (published 6.56); the focus 9319.2 - 7494.25 = 1824.9 mm behind the primary's vertex (back = 1.8249/3.934 = 0.4639). The imager.js Cassegrain model with these F, F1 and back puts the secondary at 7494.26 mm, the published spacing."
+   },
+   "f8_field": {
+    "value": 40,
+    "unit": "arcmin (the Hydra fiber plate)",
+    "src": "HYD",
+    "loc": "page text",
+    "quote": "At f/8 the plate covers an area of 40' on the sky.",
+    "alternatives": [
+     {
+      "value": "40 arcmin",
+      "src": "HYM",
+      "loc": "page text",
+      "quote": "FOV: 40 arcmin"
+     },
+     {
+      "value": "COSMOS 10'",
+      "src": "BTP",
+      "loc": "facts table",
+      "quote": "COSMO: 10 arcminutes circular field of view"
+     },
+     {
+      "value": "Hydra at the Cassegrain focus",
+      "src": "HYM",
+      "loc": "page text",
+      "quote": "Hydra is a multi-object, fiber-fed spectrograph, Cassegrain instrument on the Blanco 4.0-m Telescope."
+     }
+    ],
+    "note": "Whether the 40' is corrected (a Cassegrain corrector or ADC) is NOT FOUND."
+   },
+   "f14p5_secondary": {
+    "value": "retired F/14.5 secondary: convex, R = 4986.5 mm, conic -3.044206, 8621.2 mm from the primary; clear aperture blank in the table",
+    "unit": "",
+    "src": "BOP",
+    "loc": "F/14.5 secondary: Retired!",
+    "quote": "F/14.5 secondary: Retired! Distance from primary 8.6212e03 mm Radius of curvature 4.9865e03 convex Conic constant -3.044206",
+    "derived": "Paraxial: p = 10655.8 - 8621.2 = 2034.6 mm, f2 = -2493.25 mm, image 11060.2 mm from the secondary, m = 5.4361, f_eff = 57925.6 mm: F = 14.724 on 3.934 m, 14.399 on 4.0229 m, 14.481 on 4.0 m; plate 3.561 \"/mm; the focus 2439.0 mm behind the vertex (back = 0.6200)."
+   },
+   "f30_secondary": {
+    "value": "retired F/30 secondary: convex, R = 2115.3 mm, conic -2.8056, 9687.1 mm from the primary; clear aperture blank in the table",
+    "unit": "",
+    "src": "BOP",
+    "loc": "F/30 secondary: Retired!",
+    "quote": "F/30 secondary: Retired! Distance from primary 9.6871e03 mm Radius of curvature 2.1153e03 convex Conic constant -2.8056",
+    "derived": "Paraxial: p = 968.7 mm, f2 = -1057.65 mm, image 11518.2 mm from the secondary, m = 11.8904, f_eff = 126701.6 mm: F = 32.207 on 3.934 m, 31.495 on 4.0229 m, 31.675 on 4.0 m (not 30: the size of the secondary, which could make the secondary the stop, is not published); plate 1.628 \"/mm; the focus 1831.1 mm behind the vertex (back = 0.4655)."
+   },
+   "reflections": {
+    "value": "1 at the prime focus (then the corrector), 2 at the Cassegrain foci",
+    "unit": "reflections",
+    "src": "S07",
+    "loc": "Sec. 2.1, PDF p. 6",
+    "quote": "When feeding prime focus, the telescope optics comprise one reflection from the Aluminium-",
+    "note": "Cassegrain: primary and secondary (two-mirror RC; no tertiary in any source)."
+   }
+  },
+  "not_found": [
+   "A DECam-era central obstruction or fin width in an observatory or DECam-team document: the 1651 mm value is the 2000-era \"PF cage baffle for f/8 M2\"; the DECam-era shadow and fin widths come from third-party pupil models (Piff, batoid), which disagree on the fins (0.068 vs 0.019 m).",
+   "The orientation of the pupil (fins, filter-changer housing) relative to the declination axis or the sky.",
+   "The clear apertures of the retired f/14.5 and f/30 secondaries (blank in the BOP table), the instruments that used them and the dates of their use.",
+   "The positions and sizes of the pre-DECam prime-focus corrector lenses and ADC, and the field they corrected (only the Mosaic II 36' x 36').",
+   "Whether the f/8 focus has a field corrector or ADC, and the corrected field at f/8 (40' is the Hydra fiber plate).",
+   "The mount type (the BTP facts table leaves \"Mount\" blank).",
+   "Which fin carries the DECam cryogen lines and cables (the wider fin in the Piff image is INFERRED to be that one)."
+  ],
+  "conflicts": [
+   "Primary diameter: 3.934 m used clear aperture (BOP) vs 3.9654 m bare-mirror clear aperture and 4.0229 m mirror (BOP) vs 4 m nominal (BTP) vs 3.810 m in the DECam design table (F15) vs 3.942 m (batoid mask) vs 3.990 m (Piff image outer edge, DERIVED) vs 4.010 m (Piff diam).",
+   "Fin width: 0.068 m (three) and 0.135 m (one) in the Piff pupil image (DERIVED) vs 0.0666 m for all four in Piff des_simple (\"tuned to match DECam big donut images\") vs 0.019 m in batoid.",
+   "Central obstruction: 1651 mm (BOP 2000; batoid end caps 1650.8 mm; Piff 0.4196 x D) vs 1.686 m in the Piff image (DERIVED) vs batoid's nominal pupilObscuration 0.3.",
+   "DECam focal ratio: f/3.0 (F15) vs 2.983 on 3.934 m from the 17.575 \"/mm plate scale (DERIVED) vs \"Instrument F ratio f/2.7\" (CDC; the primary's ratio).",
+   "Primary focal ratio: f/2.7 (F15, CDC) vs 2.7086 on 3.934 m and 2.6488 on 4.0229 m (DERIVED from R = 21311.6 mm).",
+   "f/8: \"F/7.8\" (BOP; 7.808 on the 4.0229 m mirror, DERIVED) vs \"f/8\" (BAF) vs 7.984 on 3.934 m (DERIVED); plate 6.56 \"/mm (BAF) vs 6.567 \"/mm (DERIVED).",
+   "Retired foci: \"F/14.5\" vs 14.40-14.72 and \"F/30\" vs 31.5-32.2 from the prescription (DERIVED, depending on the diameter).",
+   "Pre-DECam prime focus: f/2.87 (BAF, M07; 2.865 on 4.0 m from 18.0 \"/mm, DERIVED) vs \"the f /2.5 beam\" (S07).",
+   "Commissioning: \"commissioned in 1974\" vs \"First Light Date 1976\" (BTP, same page)."
+  ],
+  "notes": [
+   "Pupil frame: the u, v image frame of Piff's DECam_pupil_512uv.fits (x = columns, y = rows, angles from +x). The filter-changer housing lies along +/-x, the fins at 45, 135, 225 (the wide one) and 315 deg. batoid and Piff's DECam_pupil_512.fits show the same pupil turned 90 deg (housing along y).",
+   "One pupil serves every focus since 2012: the f/8 secondary mounts on the front of the DECam cage (F15 Sec. 2.8), so the cage shadow, the fins and (INFERRED) the filter-changer housing shadow the Cassegrain beam as well. The historical foci are drawn without the housing (pupil.blocks = []).",
+   "The f/8, f/14.5 and f/30 focal lengths and focus positions come from a paraxial two-mirror trace of the BOP prescription; the imager.js Cassegrain model, given F, F1 and back, reproduces the published mirror spacings to 0.01 mm (scratch script).",
+   "Collecting areas: BOP's 10.014 m^2 counts only the 1651 mm obstruction; the explorer pupil (fins and housing) has 9.311 m^2 (DERIVED).",
+   "DECam detector data and the DECam imager preset are in data/imaging/widefield.md (same keys F15, BOP, BAF, BTP, CDC, OBSD)."
+  ]
+ }
+}

@@ -118,15 +118,18 @@
   <div class="tgrid only-tel" id="telPanels">
     <div class="tleft">
       <section class="panel" id="tlPanel">
-        <div class="ph"><h2 title="The telescope drawn to scale at the chosen focus, light from the sky arriving from the left. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves. Scroll to zoom, drag to pan, double-click to refit.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
+        <div class="ph"><h2 title="The telescope drawn to scale at the chosen focus, light from the sky arriving from the left. Rays are colored by their place in the field: brick for the top of the field, gray for the center, teal for the bottom; each bundle is the annulus the central obstruction leaves. Scroll to zoom, drag to pan, double-click to refit. 3D: the telescope stands with the sky overhead; drag to turn it, shift- or right-drag to pan, double-click to reset.">Optical layout</h2><span class="sp" aria-hidden="true"></span>
+          <span class="seg sm" title="2D: the telescope cut through its axis, folded on the page. 3D: the same telescope in the round, with the primary's segments and the spider vanes that shape the pupil."><button id="tv2d" type="button">2D</button><button id="tv3d" type="button">3D</button></span>
           <button id="tlReset" class="ghost lv" type="button" title="Fit the drawing to the panel again (double-click does the same).">Refit</button></div>
         <canvas id="cvTL" aria-label="The telescope"></canvas>
+        <div class="ptsbox" id="tl3dBox" hidden title="Snap the 3D view. Top: seen from the sky, as the Pupil panel draws the pupil. Side: level with the primary. Oblique: from above and to the side."><span class="seg sm"><button id="tvTop" type="button">Top</button><button id="tvSide" type="button">Side</button><button id="tvObl" type="button">Oblique</button></span></div>
         <div id="tlSub" class="lcap" hidden></div>
       </section>
       <div class="controls tcontrols">
         <section>
           <h2 title="The telescope's foci: one primary with different secondaries (and flat tertiaries) gives different focal ratios and plate scales.">Telescope</h2>
-          <div class="caserow" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see."><span>Focus</span><select id="tFocus"></select></div>
+          <div class="caserow fseg" title="The focus: where the light comes to focus, and so the focal ratio and plate scale the instruments there see. Hover over a button for the focus's field and what the drawing shows only schematically."><span>Focus</span><span class="seg sm" id="tFocusKinds"></span></div>
+          <div class="caserow fseg" id="tFocusVarRow" hidden><span class="fpad"></span><span class="seg sm" id="tFocusVars"></span></div>
           <div class="ctl" id="tTrackRow" hidden title="The tracker follows a star across the fixed primary: its angle off the array's axis moves the pupil across the mirror array (the radius of curvature times the angle), and the part of the pupil off the array collects nothing.">
             <label for="tTrack"><span>Tracker</span><span class="val" id="vtTrack"></span></label>
             <input type="range" id="tTrack" min="-6" max="6" step="0.05">
@@ -503,6 +506,7 @@
 <script src="imgapp.js"></script>
 <script src="tpresets.js"></script>
 <script src="tpupil.js"></script>
+<script src="tel3d.js"></script>
 <script src="telapp.js"></script>
 <script src="interf.js"></script>
 <script src="rpresets.js"></script>

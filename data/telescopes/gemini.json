@@ -1,0 +1,1170 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: Gemini North (Maunakea) and Gemini South (Cerro Pachon): one design, entered as one telescope; the f/16 Cassegrain focus (up-looking and side-looking ports of the ISS); entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/gemini.md (same content as Markdown). Structure follows vista.json: sources{key: cite, file, url}; gemini: title, telescope (machine-readable mirrors, pupil, foci; refs point to sourced params as 'gemini.<param>'), explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/gemini/ (files reused from earlier rounds are byte-identical copies, marked in the cite). derived = arithmetic done here (shown). alternatives = other sourced values. figure_readoff = a value read off a saved figure or drawing (the caption or OCR text is checked). INFERRED = a choice no source states. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), the ordinal sign used as a degree normalized; soft hyphens and no-break spaces normalized; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces (which may sit on consecutive pages).",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF; the stated page is machine-checked); tesseract 5.5.1 OCR (300 dpi) for the PDFs without a text layer (GBAF1, GBAF2); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8 or windows-1252); .docx as the text of word/document.xml; .zmx as text (UTF-16 or UTF-8); .py as is.",
+  "check_result": "94 quotes checked against the saved files, 0 failures (2026-11-16)"
+ },
+ "sources": {
+  "GTEL": {
+   "cite": "Gemini Observatory, \"The Telescopes\" page (sections Instrument Support Structure, Optics, Baffles; \"Updated July 18, 2026\"; fetched 2026-10-19). Copy of key GTEL in data/imaging/niri_hawki.md (rawdata/imaging/niri/, byte-identical)",
+   "file": "rawdata/telescopes/gemini/gemini_telescopes.html",
+   "url": "https://www.gemini.edu/observing/telescopes-and-sites/telescopes"
+  },
+  "GZMN": {
+   "cite": "Gemini Observatory, Gemini North telescope prescription \"GN Zemax model\" GEM_F16_MK.zmx (\"GEMINI 8 METER RC, CURVED FIELD\"; linked from the Telescopes page). Surface 3 = M1, surface 4 = M2 (STOP); ENPD = entrance pupil diameter (mm); DIAM/CLAP/OBSC radii in mm. Copy of key GZMX in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/gemini_GEM_F16_MK.zmx",
+   "url": "https://www.gemini.edu/sciops/instruments/optics/GEM_F16_MK.zmx"
+  },
+  "GZMS": {
+   "cite": "Gemini Observatory, Gemini South telescope prescription \"GS Zemax model\" GEM_F16_CP.zmx (UTF-16 text; \"Updated: April 4, 2012\"; M1 from the REOSC acceptance test of 1998-12-12, M2 from the Zeiss acceptance test of 1999-05-18): surface 3 = M1, 4 = M2 (STOP), 5 = SF (the science fold); fetched 2026-11-16",
+   "file": "rawdata/telescopes/gemini/gemini_GEM_F16_CP.zmx",
+   "url": "https://www.gemini.edu/sciops/instruments/optics/GEM_F16_CP.zmx"
+  },
+  "GSPEC": {
+   "cite": "Gemini Observatory, \"Specifications & Interfaces\" page for instruments (ports, optical interface; fetched 2026-10-19). Copy of key GSPEC in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/gemini_specs-and-documents.html",
+   "url": "https://www.gemini.edu/instrumentation/future-instruments/specs-and-documents"
+  },
+  "GICD": {
+   "cite": "Gemini Observatory, ICD 1.5.3/1.9 \"Instrument Support Structure to Science Instruments\", Revision E (07/18/2018): Sec. 4.2 port positions, the optical-interface requirement. The .docx member of the downloaded package 1_5_3-1_9_ICD_package.zip (sha256 44771de3d673d8904a16d20c18f676fc614f5f6ea5fccbc655903e9cd5ea2464), extracted unmodified; text read from word/document.xml",
+   "file": "rawdata/telescopes/gemini/gemini_ICD_1.5.3-1.9_ISS_to_Science_Instruments_vE.docx",
+   "url": "https://www.gemini.edu/sciops/instruments/specifications/1_5_3-1_9_ICD_package.zip"
+  },
+  "G96": {
+   "cite": "Gillett, F. C., Mountain, M., Kurz, R., Simons, D. A., Smith, M., Boroson, T., \"The Gemini Telescopes Project\", Gemini Project Office report RPT-PS-G0064 (March 22, 1996). DESIGN-ERA values. Copy of key G96 in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/Gillett1996_GeminiTelescopesProject_RPT-PS-G0064.pdf",
+   "url": "https://webarchive.gemini.edu/documentation/webdocs/rpt/rpt-ps-g0064.pdf"
+  },
+  "B01": {
+   "cite": "Buchroeder, R. & Catone, J., \"Periscope Design Report, Gemini North and South LGS AO\", Preliminary Design Review material, Appendix T (May 24, 2001). Copy of key B01 in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/Buchroeder2001_GeminiLGSAO_PDR_appdxT_PeriscopeDesign.pdf",
+   "url": "https://webarchive.gemini.edu/documentation/webdocs/rev/mcao_pdr/appdxT_periscope_design.pdf"
+  },
+  "GBAF1": {
+   "cite": "Gemini 8-M Telescopes Project drawing 85-GP-1000-0007, Rev. A (initial release 05/15/96), \"Layout, f/16 baffling, 12 arcmin opt & 3.5 arcmin IR\" (linked from the Telescopes page as the permanently installed baffles; PDF without a text layer: quotes from a tesseract 5.5.1 OCR of the 300-dpi page turned upright, which reads the diameter sign as \"#\", \"9\" or \"@\")",
+   "file": "rawdata/telescopes/gemini/gemini_Baffle1-85-GP-1000-0007EA01.pdf",
+   "url": "https://www.gemini.edu/sciops/instruments/optics/Gemini_Baffle1-85-GP-1000-0007EA01.pdf"
+  },
+  "GBAF2": {
+   "cite": "Gemini 8-M Telescopes Project drawing 85-GP-1000-0011, Rev. A (02/15/96), \"Envelope, M2 assembly / secondary support struct.\" (linked from the Telescopes page; PDF without a text layer: quotes from a tesseract 5.5.1 OCR of the 300-dpi page turned upright)",
+   "file": "rawdata/telescopes/gemini/gemini_Baffle2-85-GP-1000-0011EA01.pdf",
+   "url": "https://www.gemini.edu/sciops/instruments/optics/Gemini_Baffle2-85-GP-1000-0011EA01.pdf"
+  },
+  "GFP": {
+   "cite": "Gemini Observatory web archive, fact sheet \"Primary mirror\" (Gemini North primary mirror facts; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_factsheet_primaryfacts.html",
+   "url": "https://webarchive.gemini.edu/media/factsheets/primaryfacts.html"
+  },
+  "GFS": {
+   "cite": "Gemini Observatory web archive, fact sheet \"Secondary Mirror\" (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_factsheet_secondaryfacts.html",
+   "url": "https://webarchive.gemini.edu/media/factsheets/secondaryfacts.html"
+  },
+  "GFV": {
+   "cite": "Gemini Observatory web archive, fact sheet \"Secondary Mirror Support\" (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_factsheet_secondarysupport.html",
+   "url": "https://webarchive.gemini.edu/media/factsheets/secondarysupport.html"
+  },
+  "GFC": {
+   "cite": "Gemini Observatory web archive, fact sheet \"Primary/Secondary Mirror Coatings\" (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_factsheet_coatingfacts.html",
+   "url": "https://webarchive.gemini.edu/media/factsheets/coatingfacts.html"
+  },
+  "GSIL": {
+   "cite": "Boccas, M., \"Coating Gemini's Mirrors with Protected Silver\", with the box \"Why Silver - A Scientific Perspective\" by T. Geballe, GeminiFocus (Gemini Observatory newsletter), December 2004 (PDF created 2004-11-16; linked from the Telescopes page as \"protected silver coatings\")",
+   "file": "rawdata/telescopes/gemini/gemini_GeminiNewsletter_Dec2004_GN_silver_coating_Boccas.pdf",
+   "url": "https://www.gemini.edu/files/docman/websplash/websplash2004-23/GN_silver_coating.pdf"
+  },
+  "GITC": {
+   "cite": "Gemini Observatory, \"Integration Time Calculator - Telescope Properties\" help page (\"Last update June 20, 2005; Phil Puxley\"; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_ITChelpTelProperties.html",
+   "url": "https://gemini.edu/sciops/instruments/itc/itcHelp/ITChelpTelProperties.html"
+  },
+  "GNICI": {
+   "cite": "Gemini Observatory web archive, \"NICI Pupil Masks\" page (Gemini South near-infrared coronagraphic imager; \"Last Modified: August 24, 2011\"; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_NICI_pupil-masks.html",
+   "url": "https://webarchive.gemini.edu/20210512-sciops--instruments--nici/pupil-masks.html"
+  },
+  "GWTEL": {
+   "cite": "Gemini web archive, NIRI Optical Overview pop-up \"Gemini Telescope\" (\"Last update August 15, 2000; Colin Aspin\"). Copy of key GWTEL in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/gemini_webarchive_niri_overview_GeminiTelescope.html",
+   "url": "https://webarchive.gemini.edu/sciops/instruments/niri/overview/GeminiTelescope.html"
+  },
+  "GALT": {
+   "cite": "Gemini Observatory, ALTAIR adaptive optics home page. Copy of key GALT in niri_hawki.md (byte-identical)",
+   "file": "rawdata/telescopes/gemini/gemini_altair.html",
+   "url": "https://www.gemini.edu/instrumentation/altair"
+  },
+  "SL05": {
+   "cite": "Sivaramakrishnan, A. & Lloyd, J. P. 2005, ApJ 633, 528, \"Spiders in Lyot Coronagraphs\", arXiv:astro-ph/0506564v1 (accepted version): Sec. 1. PDF p. = page index of the saved PDF",
+   "file": "rawdata/telescopes/gemini/SivaramakrishnanLloyd2005_ApJ633_528_SpidersInLyotCoronagraphs_arXiv0506564v1.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0506564v1"
+  },
+  "P06": {
+   "cite": "Park, R., Close, L. M., Siegler, N., Nielsen, E. L. & Stalcup, T. 2006, PASP 118, 159, \"A Reflective Gaussian Coronagraph for ExAO: Laboratory Performance\", arXiv:astro-ph/0610658v1: Sec. 2.2 (the test bench scaled to Gemini North)",
+   "file": "rawdata/telescopes/gemini/Park2006_PASP118_159_ReflectiveGaussianCoronagraph_arXiv0610658v1.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0610658v1"
+  },
+  "S14": {
+   "cite": "Savransky, D., Thomas, S. J., Poyneer, L. A., Dunn, J., Macintosh, B. A., Sadakuni, N., Dillon, D., Goodsell, S. J., Hartung, M., Hibon, P., et al. 2014, Proc. SPIE 9148, \"Automated Alignment and On-Sky Performance of the Gemini Planet Imager Coronagraph\", arXiv:1407.2313v1: Sec. 4, Fig. 6 (GPI pupil-viewer images on Gemini South)",
+   "file": "rawdata/telescopes/gemini/Savransky2014_SPIE9148_GPI_coronagraph_alignment_arXiv1407.2313v1.pdf",
+   "url": "https://arxiv.org/pdf/1407.2313v1"
+  },
+  "N22": {
+   "cite": "Nguyen, M. M., Nickson, B. F., Por, E. H., Soummer, R., Hagopian, J. G., Macintosh, B., Chilcote, J., Pueyo, L., Perrin, M. & Konopacky, Q. 2022, Proc. SPIE, \"GPI 2.0: Optical Designs for the Upgrade of the Gemini Planet Imager Coronagraphic system\", arXiv:2209.12955v1: Sec. 1, Sec. 3.2 (Lyot stops)",
+   "file": "rawdata/telescopes/gemini/Nguyen2022_SPIE_GPI2.0_optical_designs_arXiv2209.12955v1.pdf",
+   "url": "https://arxiv.org/pdf/2209.12955v1"
+  }
+ },
+ "gemini": {
+  "title": "Gemini North (Maunakea) and Gemini South (Cerro Pachon): one design, entered as one telescope; the f/16 Cassegrain focus (up-looking and side-looking ports of the ISS); entrance pupil",
+  "telescope": {
+   "name": "Gemini North (Frederick C. Gillett Gemini Telescope) and Gemini South: one design",
+   "sites": "Maunakea, Hawaii (Gemini North) and Cerro Pachon, Chile (Gemini South) (G96, GTEL)",
+   "mount": "alt-azimuth; the Cassegrain rotator carries the ISS (GTEL)",
+   "optical_design": "Ritchey-Chretien Cassegrain, Cassegrain only (no Nasmyth foci) (GTEL, G96)",
+   "coatings": "protected silver on the primary, secondary and science fold (GTEL, GITC)",
+   "primary": {
+    "diameter_m": 8.1,
+    "diameter_drawing_mm": 8090,
+    "central_hole_m": 1.2,
+    "central_hole_alt_m": 1.18,
+    "thickness_m": 0.2,
+    "material": "ULE",
+    "focal_length_m": 14.402,
+    "radius_of_curvature_mm": {
+     "GN": 28804.4,
+     "GS": 28791.6
+    },
+    "conic": {
+     "GN": -1.003825,
+     "GS": -1.0035
+    },
+    "F_on_7p9_DERIVED": 1.823,
+    "F_on_8p1_DERIVED": 1.778,
+    "refs": [
+     "gemini.primary_diameter",
+     "gemini.primary_focal_length",
+     "gemini.primary_central_hole"
+    ]
+   },
+   "secondary": {
+    "shape": "convex hyperboloid",
+    "diameter_m": 1.023,
+    "virtual_condition_mm": 1022.6554,
+    "central_hole_m": 0.168,
+    "central_hole_virtual_mm_FIGURE_READOFF": 168.5196,
+    "radius_of_curvature_mm": {
+     "GN": 4190.2,
+     "GS": 4190.4
+    },
+    "conic": {
+     "GN": -1.618,
+     "GS": -1.613
+    },
+    "m1_m2_spacing_mm": {
+     "GN": 12542.66,
+     "GS": 12536.24,
+     "drawing": 12539.326
+    },
+    "is_aperture_stop": true,
+    "mount": "tip-tilt and chopping",
+    "material": "Zerodur (SiC in the 1996 design)",
+    "refs": [
+     "gemini.secondary",
+     "gemini.m1_m2_spacing",
+     "gemini.secondary_central_hole",
+     "gemini.entrance_pupil_diameter"
+    ]
+   },
+   "pupil": {
+    "frame": "S14 Fig. 6 (GPI pupil viewer, Gemini South) turned by +27.05 deg: the vanes' meeting points on the x axis; orientation on the sky NOT FOUND",
+    "entrance_pupil_diameter_m": 7.9,
+    "entrance_pupil_paraxial_m_DERIVED": 7.92,
+    "central_obstruction": {
+     "ir": {
+      "what": "the 168 mm hole in the secondary (sky periscope), projected",
+      "diameter_m_DERIVED": 1.305,
+      "eps": 0.164
+     },
+     "optical": {
+      "what": "the deployable secondary baffle, extended",
+      "diameter_m": 2.003,
+      "eps_DERIVED": 0.2535
+     },
+     "ir_baffle_m": 1.1246,
+     "figure_readoff_eps_S14": 0.181
+    },
+    "spider": {
+     "n_vanes": 4,
+     "width_m": 0.01,
+     "arrangement": "two pairs, each meeting ~0.21 m off the center; the vanes of a pair at +/-46.5 deg from the line through the two meeting points (FIGURE READ-OFF)",
+     "explorer_rays": [
+      {
+       "from_m": [
+        0.214,
+        0
+       ],
+       "ang_deg": 46.5
+      },
+      {
+       "from_m": [
+        0.214,
+        0
+       ],
+       "ang_deg": -46.5
+      },
+      {
+       "from_m": [
+        -0.214,
+        0
+       ],
+       "ang_deg": 133.5
+      },
+      {
+       "from_m": [
+        -0.214,
+        0
+       ],
+       "ang_deg": 226.5
+      }
+     ],
+     "measured_in_S14_frame": {
+      "outward_deg": [
+       19.95,
+       107.14,
+       199.86,
+       286.83
+      ],
+      "offset_from_center_m": [
+       0.143,
+       0.167,
+       0.17,
+       0.141
+      ],
+      "meeting_points": [
+       {
+        "r_m": 0.195,
+        "polar_deg": -27.1
+       },
+       {
+        "r_m": 0.233,
+        "polar_deg": 153.0
+       }
+      ]
+     }
+    },
+    "collecting_area_m2": {
+     "official": "NOT FOUND",
+     "explorer_pupil_ir_DERIVED": 47.57,
+     "explorer_pupil_optical_DERIVED": 45.75
+    },
+    "refs": [
+     "gemini.entrance_pupil_diameter",
+     "gemini.central_obstruction",
+     "gemini.optical_baffle",
+     "gemini.spider",
+     "gemini.spider_width",
+     "gemini.spider_angles",
+     "gemini.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "up",
+     "name": "Cassegrain f/16, up-looking (bottom) port",
+     "focal_length_m": 128.12,
+     "F_quoted": 16,
+     "F_on_7p9_DERIVED": 16.2177,
+     "plate_scale_arcsec_per_mm": {
+      "GTEL": 1.61,
+      "GSPEC": 1.611,
+      "DERIVED": 1.60994
+     },
+     "field_arcmin": 10,
+     "reflections": 2,
+     "position": "4.0 m behind the primary's vertex",
+     "refs": [
+      "gemini.cassegrain_focal_length",
+      "gemini.plate_scale",
+      "gemini.focus_position",
+      "gemini.field"
+     ]
+    },
+    {
+     "id": "side",
+     "name": "Cassegrain f/16, side port (science fold)",
+     "focal_length_m": 128.12,
+     "F_on_7p9_DERIVED": 16.2177,
+     "field_arcmin": 7,
+     "reflections": 3,
+     "fold": {
+      "behind_vertex_m": 2.9,
+      "focus_off_axis_m": 1.1,
+      "focus_off_axis_ICD_DERIVED_m": 1.095
+     },
+     "refs": [
+      "gemini.science_fold",
+      "gemini.iss_ports",
+      "gemini.field"
+     ]
+    },
+    {
+     "id": "sideopt",
+     "name": "Cassegrain f/16, side port, optical baffle",
+     "eps_DERIVED": 0.2535,
+     "field_arcmin": 7,
+     "baffle_field_arcmin": 12.0,
+     "reflections": 3,
+     "refs": [
+      "gemini.optical_baffle"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "gemini",
+   "group": "Gemini 8.1 m",
+   "name": "Gemini 8.1 m",
+   "D": 7.9,
+   "Dmirror": 8.1,
+   "f1": 14.402,
+   "eps": 0.164,
+   "hole": 1.2,
+   "coating": "silver",
+   "primaryNote": "A thin ULE meniscus 8.1 m across and 20 cm thick with a 1.2 m central hole: a hyperboloid with f = 14.40 m (f/1.8), shaped by 120 actuators. The 1.02 m secondary is undersized and is the stop, so the entrance pupil is 7.9 m. All mirrors carry protected silver. Gemini North (Maunakea) and Gemini South (Cerro Pachón) are the same design.",
+   "pupil": {
+    "kind": "circle",
+    "D": 7.9,
+    "vanes": [
+     {
+      "ang": 46.5,
+      "w": 0.01,
+      "x0": 0.214
+     },
+     {
+      "ang": -46.5,
+      "w": 0.01,
+      "x0": 0.214
+     },
+     {
+      "ang": 133.5,
+      "w": 0.01,
+      "x0": -0.214
+     },
+     {
+      "ang": 226.5,
+      "w": 0.01,
+      "x0": -0.214
+     }
+    ]
+   },
+   "pupilNote": "The 7.9 m pupil set by the secondary, less the secondary's 168 mm central hole (1.30 m in the pupil), through which a periscope shows infrared instruments cold sky, and four 10 mm vanes in two pairs (read off a pupil image from the Gemini Planet Imager; the pattern's orientation on the sky is not published).",
+   "area": {
+    "value": 47.57,
+    "info": true,
+    "src": "DERIVED from the pupil drawn here (data/telescopes/gemini.md); Gemini publishes no collecting area"
+   },
+   "foci": [
+    {
+     "id": "up",
+     "name": "Cassegrain f/16, up-looking port",
+     "kind": "Cassegrain",
+     "variant": "Up-looking port",
+     "F": 16.2177,
+     "plate": 1.60994,
+     "design": "cass",
+     "back": 0.50633,
+     "field": 10,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 1.02 m (the stop) with a 168 mm central hole, 12.54 m above the primary",
+     "where": "the up-looking (bottom) port of the Instrument Support Structure, 4.0 m behind the primary's vertex",
+     "fieldNote": "10′ on this port. F is the published 128.12 m over the 7.9 m pupil (Gemini quotes f/16). The infrared configuration: the deployable baffle around the secondary retracted (1.12 m)."
+    },
+    {
+     "id": "side",
+     "name": "Cassegrain f/16, side port",
+     "kind": "Cassegrain",
+     "variant": "Side port",
+     "F": 16.2177,
+     "plate": 1.60994,
+     "design": "cass",
+     "nasmyth": true,
+     "a3": -2.9,
+     "backN": 0.13924,
+     "field": 7,
+     "refl": 3,
+     "focusLabel": "side-port focus",
+     "secondary": "convex hyperboloid, 1.02 m (the stop); then the flat science fold at 45°, 2.9 m behind the primary's vertex",
+     "where": "a side-looking port of the Instrument Support Structure, 1.1 m from the axis",
+     "fieldNote": "7′, set by the science fold's size. The infrared configuration (baffle retracted)."
+    },
+    {
+     "id": "sideopt",
+     "name": "Cassegrain f/16, side port, optical baffle",
+     "kind": "Cassegrain",
+     "variant": "Side port, optical baffle",
+     "F": 16.2177,
+     "plate": 1.60994,
+     "design": "cass",
+     "nasmyth": true,
+     "a3": -2.9,
+     "backN": 0.13924,
+     "field": 7,
+     "eps": 0.2535,
+     "refl": 3,
+     "focusLabel": "side-port focus",
+     "secondary": "convex hyperboloid, 1.02 m, with the deployable baffle extended to 2.0 m; then the flat science fold at 45°",
+     "where": "a side-looking port of the Instrument Support Structure, 1.1 m from the axis",
+     "fieldNote": "7′ (the extended baffle passes 12′). The baffle, 2.003 m across, blocks direct sky light for optical instruments and sets ε = 0.254; the periscope in the secondary is shuttered."
+    }
+   ]
+  },
+  "params": [
+   [
+    "sites",
+    {
+     "value": "two telescopes of one design: Gemini North (the Frederick C. Gillett Gemini Telescope) on Maunakea, Hawaii, and Gemini South on Cerro Pachon, Chile; entered here as one telescope",
+     "unit": "",
+     "src": "G96",
+     "loc": "Sec. 1, item 1, PDF p. 2",
+     "quote": "The two telescopes are identical in design",
+     "alternatives": [
+      {
+       "value": "one on Mauna Kea, one on Cerro Pachon",
+       "src": "G96",
+       "loc": "Sec. 1, item 1, PDF p. 2",
+       "quote": "One telescope will be located on Mauna Kea, Hawaii, and the other on Cerro Pachon in Chile."
+      },
+      {
+       "value": "twin observatories (2022)",
+       "src": "N22",
+       "loc": "Sec. 1, PDF p. 1",
+       "quote": "Since both Gemini North and South are twin observatories"
+      },
+      {
+       "value": "one prescription per telescope",
+       "src": "GTEL",
+       "loc": "Optics",
+       "quote": "Telescope Prescriptions: GN Zemax model | GS Zemax model (GN=MK/Mauna Kea and GS=CP/Cerro Pachon)."
+      }
+     ],
+     "note": "The two Zemax models differ slightly (M1 radius of curvature 28804.4 vs 28791.6 mm, M1-M2 spacing 12542.66 vs 12536.24 mm), so the focal length differs by 0.07% (DERIVED below); the explorer uses the published 128.12 m for both."
+    }
+   ],
+   [
+    "optical_design",
+    {
+     "value": "Ritchey-Chretien Cassegrain; a Cassegrain-only telescope (no Nasmyth foci), the instruments on the Instrument Support Structure (ISS) at the f/16 focus",
+     "unit": "",
+     "src": "GTEL",
+     "loc": "Optics",
+     "quote": "Telescope Optical Configuration: Ritchey-Chretien Cassegrain.",
+     "alternatives": [
+      {
+       "value": "Cassegrain only",
+       "src": "G96",
+       "loc": "Sec. 2, PDF p. 3",
+       "quote": "The stringent image quality requirements have led to a Cassegrain only telescope design"
+      },
+      {
+       "value": "no Nasmyth foci",
+       "src": "G96",
+       "loc": "Sec. 2, PDF p. 3",
+       "quote": "With no Nasmyth foci, the design has been optimized to minimize telescope contributions to the final image quality."
+      },
+      {
+       "value": "the Zemax model's name",
+       "src": "GZMN",
+       "loc": "header (NAME)",
+       "quote": "NAME GEMINI 8 METER RC, CURVED FIELD"
+      },
+      {
+       "value": "instruments on the ISS at Cassegrain",
+       "src": "GTEL",
+       "loc": "Instrument Support Structure",
+       "quote": "Instruments are mounted at the Cassegrain focus on the instrument support structure (ISS)."
+      }
+     ]
+    }
+   ],
+   [
+    "primary_diameter",
+    {
+     "value": 8.1,
+     "unit": "m (physical; 8.0 m in the 1996 design and in the Zemax models)",
+     "src": "GTEL",
+     "loc": "Optics: Primary Mirrors",
+     "quote": "Primary Mirrors: Each mirror is an f/1.8, 8.1 m diameter, 20 cm thick meniscus",
+     "alternatives": [
+      {
+       "value": "8.10 m",
+       "src": "GFP",
+       "loc": "fact sheet",
+       "quote": "Outside Diameter : 8.10meters/26.58feet"
+      },
+      {
+       "value": "8090 mm (drawing)",
+       "src": "GBAF1",
+       "loc": "drawing, primary outline (OCR)",
+       "quote": "8090.00"
+      },
+      {
+       "value": "8 m (design)",
+       "src": "G96",
+       "loc": "Sec. 1, item 1, PDF p. 2",
+       "quote": "The optics configuration for the Gemini telescopes is that of a 8-m diameter F/1.8 primary mirror"
+      },
+      {
+       "value": "8.0 m (model: semi-diameter 4000 mm)",
+       "src": "GZMN",
+       "loc": "surface 3 (M1)",
+       "quote": "DIAM 4000 1 0"
+      },
+      {
+       "value": "8.2 m (2000 web page; not the Gemini mirror)",
+       "src": "GWTEL",
+       "loc": "text",
+       "quote": "below the 8.2 meter primary mirror"
+      }
+     ],
+     "note": "A thin meniscus of ULE glass, 20 cm thick, on 120 axial actuators (GTEL; G96). The explorer draws the 7.9 m pupil (D) and shows the 8.1 m mirror as Dmirror."
+    }
+   ],
+   [
+    "entrance_pupil_diameter",
+    {
+     "value": 7.9,
+     "unit": "m (on-axis entrance pupil; the undersized secondary is the stop)",
+     "src": "GZMN",
+     "loc": "header (ENPD), surface 4",
+     "quote": "ENPD 7900 ... STOP",
+     "alternatives": [
+      {
+       "value": "7.9 m (Gemini South model)",
+       "src": "GZMS",
+       "loc": "header (ENPD)",
+       "quote": "ENPD 7.9E+3"
+      },
+      {
+       "value": "the secondary is the aperture stop",
+       "src": "B01",
+       "loc": "Sec. 1.2, PDF p. 5",
+       "quote": "which is the aperture stop of the Gemini telescope"
+      },
+      {
+       "value": "a pupil stop at the secondary (IR configuration, design)",
+       "src": "G96",
+       "loc": "Sec. 3, PDF p. 6",
+       "quote": "The IR configuration includes thin crosssection secondary vanes, a pupil stop at the secondary mirror"
+      },
+      {
+       "value": "the secondary drawn at the virtual condition, 1022.6554 mm",
+       "src": "GBAF2",
+       "loc": "View A-A and note 1 (OCR)",
+       "quote": "DIAMETERS SHOWN ARE VIRTUAL CONDITIONS OF THE f/16 SECONDARY ... @1022.6554)"
+      }
+     ],
+     "derived": "Paraxial image of the secondary in the primary (GZMN: f1 = 14402.2 mm, M1-M2 spacing 12542.66 mm): magnification 14402.2/(14402.2 - 12542.66) = 7.745, so the 1022.66 mm secondary maps to 7.92 m and the 168.5 mm hole to 1.31 m. Gemini's own models fix the pupil at 7.9 m."
+    }
+   ],
+   [
+    "primary_focal_length",
+    {
+     "value": 14.402,
+     "unit": "m (measured, without the secondary)",
+     "src": "GFP",
+     "loc": "fact sheet",
+     "quote": "Measured Focal Length w/o Secondary: 14.402 meters/47.25feet",
+     "alternatives": [
+      {
+       "value": "f/1.8",
+       "src": "GTEL",
+       "loc": "Optics: Primary Mirrors",
+       "quote": "Primary Mirrors: Each mirror is an f/1.8, 8.1 m diameter"
+      },
+      {
+       "value": "GN model: R = 28804.4 mm, conic -1.003825",
+       "src": "GZMN",
+       "loc": "surface 3 (M1)",
+       "quote": "CURV -3.47169182486e-005 ... CONI -1.003825"
+      },
+      {
+       "value": "GS model: R = 28791.6 mm, conic -1.0035",
+       "src": "GZMS",
+       "loc": "surface 3 (M1)",
+       "quote": "CURV -3.473235249169999800E-005 ... CONI -1.0035"
+      },
+      {
+       "value": "concave hyperboloid",
+       "src": "GFP",
+       "loc": "fact sheet",
+       "quote": "Optical Surface: Concave, hyperboloid"
+      },
+      {
+       "value": "drawing: primary focus 14400 mm above the vertex",
+       "src": "GBAF1",
+       "loc": "drawing (OCR)",
+       "quote": "PRIMARY FOCUS PRIMARY VERTEX"
+      }
+     ],
+     "derived": "R/2 = 14402.2 mm (GN), 14395.8 mm (GS). F1 = 14.402/7.9 = 1.8230 on the pupil (the explorer's F1 = f1/D); f/1.778 on 8.1 m. The drawing GBAF1 gives \"14400.00\" from the vertex to the primary focus (FIGURE READ-OFF; the OCR misses the number)."
+    }
+   ],
+   [
+    "primary_central_hole",
+    {
+     "value": 1.2,
+     "unit": "m (diameter)",
+     "src": "G96",
+     "loc": "Sec. 1, item 1, PDF p. 2",
+     "quote": "with a 1.2 m diameter central hole made of Corning ULETM glass",
+     "alternatives": [
+      {
+       "value": "1.2 m (model obscuration radius 600 mm)",
+       "src": "GZMN",
+       "loc": "surface 3 (M1)",
+       "quote": "OBSC 0 600"
+      },
+      {
+       "value": "1200 mm aperture plate (drawing)",
+       "src": "GBAF2",
+       "loc": "drawing (OCR)",
+       "quote": "1200.0 APERTURE PLATE"
+      },
+      {
+       "value": "1.18 m",
+       "src": "GFP",
+       "loc": "fact sheet",
+       "quote": "Central Cassegrain Hole : 1.18meters/3.87feet"
+      },
+      {
+       "value": "1.18 m",
+       "src": "GWTEL",
+       "loc": "text",
+       "quote": "1.18 meter diameter central primary hole"
+      }
+     ]
+    }
+   ],
+   [
+    "secondary",
+    {
+     "value": "convex hyperboloid of Zerodur, 1.023 m across, lightweighted, on a fast tip-tilt and chopping mount; radius of curvature 4190.2 mm, conic -1.618 (GN model)",
+     "unit": "m",
+     "src": "GFS",
+     "loc": "fact sheet",
+     "quote": "Diameter: 1.023 meters/3.36 feet",
+     "alternatives": [
+      {
+       "value": "1.0 m",
+       "src": "GTEL",
+       "loc": "Optics: Secondary Mirrors",
+       "quote": "Secondary Mirrors: Each secondary mirror is 1.0 m in diameter."
+      },
+      {
+       "value": "1.02 m, SiC (design)",
+       "src": "G96",
+       "loc": "Sec. 1, item 1, PDF p. 2",
+       "quote": "1.02 m diameter, articulated, SiC secondary mirror"
+      },
+      {
+       "value": "1022.6554 mm (virtual condition, drawing)",
+       "src": "GBAF2",
+       "loc": "View A-A (OCR)",
+       "quote": "@1022.6554)"
+      },
+      {
+       "value": "GN model: R2 = 4190.2 mm, conic -1.618",
+       "src": "GZMN",
+       "loc": "surface 4 (M2)",
+       "quote": "CURV -0.0002386520929789 ... CONI -1.618"
+      },
+      {
+       "value": "GS model: conic -1.613",
+       "src": "GZMS",
+       "loc": "surface 4 (M2)",
+       "quote": "CONI -1.613"
+      },
+      {
+       "value": "tip-tilt and chopping",
+       "src": "GTEL",
+       "loc": "Optics: Secondary Mirrors",
+       "quote": "Each secondary mirror is mounted on a rapid tip-tilt and chopping mechanism"
+      }
+     ],
+     "note": "Built of Zerodur by Schott and polished by Zeiss (GTEL); the 1996 design called for SiC (G96)."
+    }
+   ],
+   [
+    "m1_m2_spacing",
+    {
+     "value": 12542.66,
+     "unit": "mm (GN model; 12536.24 mm GS model)",
+     "src": "GZMN",
+     "loc": "surface 3 (M1)",
+     "quote": "DISZ -12542.664369",
+     "alternatives": [
+      {
+       "value": "12536.24 mm (GS)",
+       "src": "GZMS",
+       "loc": "surface 3 (M1)",
+       "quote": "DISZ -1.2536239633E+4"
+      },
+      {
+       "value": "12539.326 mm (drawing)",
+       "src": "GBAF1",
+       "loc": "drawing (OCR)",
+       "quote": "12539.326 4000.00"
+      }
+     ]
+    }
+   ],
+   [
+    "secondary_central_hole",
+    {
+     "value": 0.168,
+     "unit": "m (diameter)",
+     "src": "GFS",
+     "loc": "fact sheet",
+     "quote": "Central Hole Diameter: 0.168 meters/6.6 inches (hole enhances IR performance)",
+     "alternatives": [
+      {
+       "value": "0.168 m (design)",
+       "src": "G96",
+       "loc": "Sec. 1, item 1, PDF p. 2",
+       "quote": "secondary mirror with a 0.168-m diameter central hole"
+      },
+      {
+       "value": "168 mm, for the IR periscope",
+       "src": "B01",
+       "loc": "Sec. 1.2, PDF p. 5",
+       "quote": "Therefore, the secondary mirror has a 168 mm diameter hole through it"
+      },
+      {
+       "value": "the sky periscope",
+       "src": "GTEL",
+       "loc": "Baffles",
+       "quote": "There is also a sky periscope at the center of the secondary mirror for IR instruments to see sky rather than the primary's central obstruction."
+      },
+      {
+       "value": "shuttered for optical instruments",
+       "src": "GTEL",
+       "loc": "Baffles",
+       "quote": "This periscope is shuttered for optical instruments."
+      },
+      {
+       "value": "model: inner clear radius 77.55 mm",
+       "src": "GZMN",
+       "loc": "surface 4 (M2)",
+       "quote": "CLAP 77.55 512"
+      }
+     ],
+     "figure_readoff": "GBAF2 View A-A: the hole is drawn at the virtual condition, (Ø168.5196) mm; the OCR does not read the number."
+    }
+   ],
+   [
+    "central_obstruction",
+    {
+     "value": 0.164,
+     "unit": "linear ratio (IR configuration: the hole in the secondary, 1.30 m in the 7.9 m pupil)",
+     "src": "GNICI",
+     "loc": "Pupil masks text",
+     "quote": "The mask's central obscuration radius is 0.270 x the telescope pupil radius, compared to 0.164 for the telescope central obscuration.",
+     "alternatives": [
+      {
+       "value": "IR baffle: 1124.6 mm",
+       "src": "GBAF1",
+       "loc": "drawing (OCR)",
+       "quote": "#1124.6 (DEPLOYED IN THE INFRARED MODE)"
+      },
+      {
+       "value": "IR mode: 3.5 arcmin, 1124.6 mm",
+       "src": "GTEL",
+       "loc": "Baffles",
+       "quote": "The IR mode (retracted) works at 3.5 arcmin with retracted diameter 1124.6mm."
+      },
+      {
+       "value": "1.18 m of 8.1 m (lab simulator of Gemini North)",
+       "src": "P06",
+       "loc": "Sec. 2.2, PDF p. 6",
+       "quote": "scaling Gemini's 8.1m entrance pupil to 7.00 ± 0.05 mm and its 1.18m central obscuration to 1.02 ± 0.05 mm"
+      }
+     ],
+     "derived": "168/1023 = 0.1642 (GFS); 168.52/1022.66 = 0.1648 (GBAF2 virtual conditions); the hole projects to 1.305 m in the pupil (x 7.745). In the IR configuration the secondary and the retracted baffle (1.1246 m) lie inside that shadow. The model's inner clear radius 77.55 mm (GZMN) gives 155.1/1024 = 0.1515; P06's 1.18/8.1 = 0.146.",
+     "figure_readoff": "S14 Fig. 6 (top left, GPI pupil viewer, Gemini South, direct mode): circle fits give an obscuration 0.181 of the pupil's imaged diameter (1.43 m if that edge is the 7.9 m pupil); the obscuration center sits 0.24 m from the outer circle's center in the image."
+    }
+   ],
+   [
+    "optical_baffle",
+    {
+     "value": 2.003,
+     "unit": "m (the deployable baffle around the secondary, extended for optical instruments)",
+     "src": "GTEL",
+     "loc": "Baffles",
+     "quote": "The Optical mode (extended) works at 12.0 arcmin, with extended diameter 2003mm.",
+     "alternatives": [
+      {
+       "value": "2003 mm optical, 2096 mm maximum (drawing)",
+       "src": "GBAF1",
+       "loc": "drawing (OCR)",
+       "quote": "#2003 (DEPLOYED IN THE OPTICAL MODE) ... 92096 MAX DEPLOYABLE BAFFLE DIAMETER"
+      },
+      {
+       "value": "~2 m, for a 12 arcmin field (design)",
+       "src": "G96",
+       "loc": "Sec. 3, PDF p. 7",
+       "quote": "The optical configuration uses the fully deployed secondary baffle position, about 2 m diameter, to block direct sky illumination of a 12 arcmin field"
+      },
+      {
+       "value": "1.1-1.2 m intermediate position (design)",
+       "src": "G96",
+       "loc": "Sec. 3, PDF p. 7",
+       "quote": "an intermediate position with deployed diameter of between 1.1 and 1.2 m"
+      },
+      {
+       "value": "two positions",
+       "src": "GTEL",
+       "loc": "Baffles",
+       "quote": "Gemini has  permanently installed baffles   that are  deployable with two positions  - IR and Optical."
+      }
+     ],
+     "derived": "eps = 2.003/7.9 = 0.2535 with the optical baffle (the baffle sits in the incoming parallel beam and casts a shadow of the same size)."
+    }
+   ],
+   [
+    "spider",
+    {
+     "value": "four vanes (struts) holding the secondary; in the pupil they form two pairs, each pair meeting 0.21 m off the center, the two vanes of a pair at +/-46.5 deg from the line through the two meeting points",
+     "unit": "",
+     "src": "N22",
+     "loc": "Sec. 3.2, PDF p. 4",
+     "quote": "masking the four support struts of the secondary mirror on Gemini",
+     "alternatives": [
+      {
+       "value": "spiders visible in the pupil",
+       "src": "S14",
+       "loc": "Fig. 6 caption, PDF p. 8",
+       "quote": "Gemini pupil, central obscuration and spiders are visible."
+      },
+      {
+       "value": "two vanes (lab simulator)",
+       "src": "P06",
+       "loc": "Sec. 2.2, PDF p. 6",
+       "quote": "While we also wanted to include the diffracting effects of the secondary’s two spider vanes"
+      },
+      {
+       "value": "thin as seen from below",
+       "src": "GSIL",
+       "loc": "box \"Why Silver\", PDF p. 1",
+       "quote": "the supports required to hold Gemini's secondary mirror are very thin as viewed from below"
+      }
+     ],
+     "figure_readoff": "S14 Fig. 6 top left (the 300-dpi render, panel 860 px; scratch script: circle fits to the pupil edge and the obscuration, then straight-line fits to the four dark vanes between 1.8x the obscuration radius and 0.88x the pupil radius; residuals under 1.1 px). In the image frame (y up, origin at the obscuration center, scale 3.95 m per pupil radius) the vanes run outward at 19.95, 107.14, 199.86 and 286.83 deg and pass 0.143, 0.167, 0.170 and 0.141 m from the center. The vanes at 19.95 and 286.83 deg meet at r = 0.195 m, polar angle -27.1 deg; those at 107.14 and 199.86 deg at r = 0.233 m, 153.0 deg. Each pair is symmetric about the line through the meeting points (half-angles 46.56 and 46.36 deg). The native image is 234 px per panel, so offsets carry an uncertainty of ~0.04 m and angles ~1 deg.",
+     "note": "The figure shows Gemini South (GPI was there 2013-2022); the two telescopes share the design (G96, N22)."
+    }
+   ],
+   [
+    "spider_width",
+    {
+     "value": 0.01,
+     "unit": "m (each vane)",
+     "src": "GFV",
+     "loc": "fact sheet",
+     "quote": "Secondary Support Vanes: Ultra-thin steel 10mm/.39inch thick to reduce infrared",
+     "alternatives": [
+      {
+       "value": "1 cm",
+       "src": "SL05",
+       "loc": "Sec. 1, PDF p. 1",
+       "quote": "The 8 m Gemini telescope’s spider vanes are 1 cm thick."
+      },
+      {
+       "value": "1 cm width",
+       "src": "P06",
+       "loc": "Sec. 2.2, PDF p. 6",
+       "quote": "the actual 1 cm width vanes are too narrow for direct scaling"
+      },
+      {
+       "value": "thin vanes (design)",
+       "src": "G96",
+       "loc": "Sec. 3, PDF p. 6",
+       "quote": "thin crosssection secondary vanes"
+      }
+     ]
+    }
+   ],
+   [
+    "spider_angles",
+    {
+     "value": "explorer: four rays, from (+0.214, 0) m at +46.5 and -46.5 deg and from (-0.214, 0) m at 133.5 and 226.5 deg (the measured pattern turned by +27.05 deg so that the meeting points lie on the x axis, and made symmetric)",
+     "unit": "deg",
+     "src": "S14",
+     "loc": "Fig. 6 caption, PDF p. 8",
+     "quote": "Figure 6. Pupil viewer images of a 3.2 V magnitude star with all control loops closed and various configurations of the coronagraph components in place.",
+     "derived": "Rotation by +27.05 deg puts the measured vanes at 47.0, 134.2, 226.9 and 313.9 (= -46.1) deg and the meeting points at 0 and 180.05 deg; the symmetric model (r0 = 0.214 m, the mean of 0.195 and 0.233; half-angle 46.5 deg) departs from the measured vanes by at most 0.7 deg.",
+     "note": "INFERRED frame: no source gives the vanes' orientation relative to the telescope axes or the sky, so the drawing turns the measured pattern for a symmetric display."
+    }
+   ],
+   [
+    "cassegrain_focal_length",
+    {
+     "value": 128.12,
+     "unit": "m",
+     "src": "GTEL",
+     "loc": "Optics",
+     "quote": "Effective Focal Lengths of Telescopes at Cassegrain Focus: 128.12 m (f/16).",
+     "alternatives": [
+      {
+       "value": "128.120 m",
+       "src": "GFP",
+       "loc": "fact sheet",
+       "quote": "Effective Focal Length with Secondary: 128.120 meters/420.341feet"
+      },
+      {
+       "value": "f/16, 4 m behind the primary (design)",
+       "src": "G96",
+       "loc": "Sec. 1, item 1, PDF p. 2",
+       "quote": "providing an F/16 cassegrain focal plane 4 meters behind the primary mirror"
+      }
+     ],
+     "derived": "F = 128.12/7.9 = 16.2177 (the explorer's F; f/16.0 is 128.12 m on 8.0 m, f/15.82 on 8.1 m). Paraxial two-mirror EFL from the models (scratch script): GN 128092.6 mm, GS 128000.9 mm."
+    }
+   ],
+   [
+    "plate_scale",
+    {
+     "value": 1.61,
+     "unit": "arcsec/mm",
+     "src": "GTEL",
+     "loc": "Optics",
+     "quote": "Plate Scale at Cassegrain: 1.610 arcsec/mm.",
+     "alternatives": [
+      {
+       "value": "1.611 arcsec/mm",
+       "src": "GSPEC",
+       "loc": "Optical Interface",
+       "quote": "The plate scale at focus corresponds to 1.611 arc seconds per mm."
+      },
+      {
+       "value": "1.611 arcsec/mm (ICD)",
+       "src": "GICD",
+       "loc": "Optical interface requirement, rationale",
+       "quote": "The plate scale at focus corresponds to 1.611 arc seconds per mm."
+      }
+     ],
+     "derived": "206264.8/128120 = 1.60994 arcsec/mm (the explorer's plate); GN model 1.61028, GS model 1.61143."
+    }
+   ],
+   [
+    "focus_position",
+    {
+     "value": 4.0,
+     "unit": "m behind the primary's vertex (the up-looking port)",
+     "src": "G96",
+     "loc": "Sec. 1, item 1, PDF p. 2",
+     "quote": "providing an F/16 cassegrain focal plane 4 meters behind the primary mirror",
+     "alternatives": [
+      {
+       "value": "4000 mm from the primary vertex to the image plane (drawing)",
+       "src": "GBAF1",
+       "loc": "drawing (OCR)",
+       "quote": "12539.326 4000.00"
+      },
+      {
+       "value": "GS model: 2900 mm to the science fold, then 1100 mm",
+       "src": "GZMS",
+       "loc": "surfaces 5 (SF) and 6",
+       "quote": "COMM SF ... DISZ 2.9E+3 ... DISZ 1.1E+3"
+      }
+     ],
+     "derived": "Paraxial back focus from the models: 3996.0 mm (GN), 3998.1 mm (GS) behind the vertex. back = 4.0/7.9 = 0.50633 D. The explorer's two-mirror model (f1 = 14.402 m, F = 16.2177, back 4.0 m) puts the secondary 12.542 m above the primary (GN model 12.543 m)."
+    }
+   ],
+   [
+    "iss_ports",
+    {
+     "value": "the Instrument Support Structure on the Cassegrain rotator: an up-looking (bottom) port reached directly, and side-looking ports reached by a retractable 45-deg science fold; three ports carry science instruments (faces 1, 3, 5), the others the calibration unit and adaptive optics",
+     "unit": "",
+     "src": "GTEL",
+     "loc": "Instrument Support Structure",
+     "quote": "A science fold mirror mounted inside the ISS can be rotated to send the light from the telescope to any of four side-looking ports, or can be retracted so that the light goes to the up-looking port.",
+     "alternatives": [
+      {
+       "value": "three science ports",
+       "src": "GSPEC",
+       "loc": "Overview of Interfaces: Ports",
+       "quote": "There are three ports on the ISS available for science instruments: `side looking' or 'side ports' on Faces 3 and 5, and an `upward looking' or 'bottom port' on Face 1"
+      },
+      {
+       "value": "AO and calibration on side ports (design)",
+       "src": "G96",
+       "loc": "Sec. 3, PDF p. 7",
+       "quote": "in addition to a Calibration Unit and an Adaptive Optics (AO) unit on opposite sidelooking ports"
+      },
+      {
+       "value": "default ports",
+       "src": "GITC",
+       "loc": "Instrument port",
+       "quote": "The default location for mid-IR instruments (e.g. T-ReCS, Michelle) is the up-looking port and is the side port for other instruments."
+      }
+     ]
+    }
+   ],
+   [
+    "science_fold",
+    {
+     "value": "a flat at 45 deg in the converging beam, 2.9 m behind the primary's vertex; a side-port focus 1.1 m from the axis",
+     "unit": "m",
+     "src": "GZMS",
+     "loc": "surfaces 5 (SF) and 6",
+     "quote": "COMM SF ... DISZ 2.9E+3 ... DISZ 1.1E+3",
+     "alternatives": [
+      {
+       "value": "plane mirrors at 45 deg",
+       "src": "GTEL",
+       "loc": "Optics: Science Fold Mirrors",
+       "quote": "Science Fold Mirrors: These are plane mirrors at 45 degrees that reflect the converging beam near the Cassegrain focus"
+      },
+      {
+       "value": "bottom port at Z = -1595 mm",
+       "src": "GICD",
+       "loc": "Sec. 4.2.1",
+       "quote": "The port center is at (in mm) X = 0, Y = 0, Z = -1595"
+      },
+      {
+       "value": "side port at Y = -795, Z = -800 mm",
+       "src": "GICD",
+       "loc": "Sec. 4.2.2",
+       "quote": "The port center is at (in mm) X = 0, Y = -795, Z = -800"
+      },
+      {
+       "value": "focus 300 mm beyond the interface",
+       "src": "GICD",
+       "loc": "Optical interface requirement, rationale",
+       "quote": "The nominal telescope F/16 focus is 300mm from the mechanical interface of the ISS."
+      }
+     ],
+     "derived": "ICD check: the bottom-port focus lies at Z = -1595 - 300 = -1895 mm and the side-port focus at |Y| = 795 + 300 = 1095 mm, Z = -800 mm, so a fold on the axis at Z = -800 mm is 1095 mm from both foci (the model: 1100 mm). Explorer: a3 = -2.90 m (behind the primary), backN = 1.10/7.9 = 0.13924 (b = backN D - a3 = 4.0 m)."
+    }
+   ],
+   [
+    "field",
+    {
+     "value": "10 arcmin on the up-looking port, 7 arcmin on the side ports (the science fold's size); the optical baffle passes 12.0 arcmin, the IR baffle 3.5 arcmin",
+     "unit": "arcmin (diameter)",
+     "src": "GTEL",
+     "loc": "Optics: Field of View",
+     "quote": "Maximum 10 arcmin diameter on the bottom port, and 7 arcmin diameter on the side ports due to science fold mirror size.",
+     "alternatives": [
+      {
+       "value": "baffles do not allow 7.5 arcmin unvignetted",
+       "src": "GTEL",
+       "loc": "Baffles",
+       "quote": "They do not allow use of the full 7.5 arcmin field without vignetting."
+      }
+     ]
+    }
+   ],
+   [
+    "coatings",
+    {
+     "value": "protected silver (four layers) on the primary, secondary and science fold; Gemini South was the first to be fully coated (May 2004)",
+     "unit": "",
+     "src": "GTEL",
+     "loc": "Optics: Mirror Coatings",
+     "quote": "the primary and secondary mirrors and the science fold mirrors have protected silver coatings",
+     "alternatives": [
+      {
+       "value": "four-layer coating on all three",
+       "src": "GTEL",
+       "loc": "Silver vs. Aluminum",
+       "quote": "Gemini uses the 4-layer coating on all three telescope mirrors (primary, secondary, and science fold)."
+      },
+      {
+       "value": "silver on both telescopes",
+       "src": "GITC",
+       "loc": "Mirror coating",
+       "quote": "Currently the primary, secondary and tertiary (science fold) mirrors on both telescopes are silver coated."
+      },
+      {
+       "value": "Gemini South first, May 31, 2004",
+       "src": "GSIL",
+       "loc": "p. 1, PDF p. 1",
+       "quote": "n May 31, 2004 the Gemini ... South telescope became the ... first large telescope system to"
+      },
+      {
+       "value": "lower IR emissivity than aluminum",
+       "src": "GFC",
+       "loc": "fact sheet",
+       "quote": "Protected Silver Coating: Provides significantly lower Infrared emissivity than is"
+      },
+      {
+       "value": "recoated every ~5 years",
+       "src": "GTEL",
+       "loc": "Optics: Mirror Coatings",
+       "quote": "Mirrors are recoated every ~5 years to maintain performance."
+      }
+     ]
+    }
+   ],
+   [
+    "collecting_area",
+    {
+     "value": "NOT FOUND (Gemini publishes no collecting area); DERIVED 47.57 m^2 for the pupil drawn here (IR configuration), 45.75 m^2 with the optical baffle",
+     "unit": "m^2",
+     "src": "GSIL",
+     "loc": "p. 1, PDF p. 1",
+     "quote": "50-square-meter Gemini primary",
+     "derived": "tpupil.js raster (node, scratch script, 2000 and 3000 cells across): 47.566 m^2 for the 7.9 m circle less eps 0.164 and the four 10 mm vanes (47.698 without vanes; pi/4 (7.9^2 - 1.302^2) = 47.685); 45.748 m^2 with eps 0.2535. GSIL's 50 m^2 is the mirror surface to be coated (pi/4 x 8.1^2 = 51.5 m^2 less the 1.2 m hole: 50.4 m^2)."
+    }
+   ],
+   [
+    "ao_feed",
+    {
+     "value": "the adaptive optics systems (Altair at Gemini North, GeMS at Gemini South) take the f/16 beam on an ISS side port and pass an f/16 beam to the instruments",
+     "unit": "",
+     "src": "GALT",
+     "loc": "introduction",
+     "quote": "reproduces the telescope focal ratio (f/16), pupil size and pupil position",
+     "alternatives": [
+      {
+       "value": "GPI behind the Cassegrain focus",
+       "src": "N22",
+       "loc": "Sec. 1, PDF p. 1",
+       "quote": "behind the Cassegrain focus of the 8.1-m telescope"
+      }
+     ]
+    }
+   ]
+  ],
+  "not_found": [
+   "The orientation of the spider (and of the pupil) relative to the telescope's axes or the sky; the explorer turns the pattern measured on a GPI pupil-viewer image so that the vanes' meeting points lie on the x axis.",
+   "The spider geometry as numbers (meeting points, angles): only the count (four struts, N22), the width (10 mm, GFV, SL05) and a pupil image (S14 Fig. 6, FIGURE READ-OFF) were found.",
+   "An official collecting area (DERIVED 47.57 m^2 for the IR configuration drawn here).",
+   "A published real-ray entrance-pupil diameter: 7.9 m is the value fixed in Gemini's Zemax models (the paraxial image of the 1022.66 mm secondary is 7.92 m).",
+   "The vanes' cross-section profile and whether the 10 mm is the width seen from the sky (GFV says \"thick\"; P06 says \"width\")."
+  ],
+  "conflicts": [
+   "Primary diameter: 8.1 m (GTEL, GFP), 8090 mm (GBAF1) vs 8 m (G96 design; the Zemax semi-diameter 4000 mm) vs 8.2 m (GWTEL, a 2000 page).",
+   "Central hole: 1.2 m (G96; GZMN obscuration radius 600 mm; GBAF2 aperture plate 1200 mm) vs 1.18 m (GFP, GWTEL).",
+   "Secondary: 1.023 m (GFS), 1022.6554 mm (GBAF2, virtual condition) vs 1.0 m (GTEL) vs 1.02 m (G96); SiC (G96 design) vs Zerodur (GTEL, GFS).",
+   "Central obstruction in the IR configuration: 0.164 (GNICI; 168/1023 = 0.1642 DERIVED) vs 0.1515 (GZMN inner clear radius 77.55 mm) vs 0.146 (P06: 1.18 m of 8.1 m) vs 0.181 (FIGURE READ-OFF, S14 Fig. 6, relative to the imaged pupil edge).",
+   "Spider count: four struts (N22; four vanes in S14 Fig. 6) vs \"two spider vanes\" (P06, a lab simulator that modeled one vane).",
+   "Plate scale: 1.610 arcsec/mm (GTEL) vs 1.611 (GSPEC, GICD) vs 1.60994 (DERIVED from 128.12 m) vs 1.61028 (GN model) and 1.61143 (GS model).",
+   "Focal ratio: f/16 quoted (GTEL, G96, GALT) vs 16.2177 on the 7.9 m pupil (DERIVED; f/16.0 holds for an 8.0 m pupil).",
+   "Distance from the science fold to a side-port focus: 1100 mm (GZMS) vs 1095 mm (DERIVED from GICD: 795 mm to the port land plus 300 mm)."
+  ],
+  "notes": [
+   "One telescope for two: Gemini North and Gemini South share the design (G96: \"identical in design\"); the explorer entry stands for both, as the Keck entry does for Keck I and II. The prescriptions differ slightly (GZMN, GZMS); the pupil measurement is Gemini South's (GPI).",
+   "Cassegrain only: all instruments mount on the ISS at the single f/16 focus, on the up-looking port or on a side port behind the 45-deg science fold (one more silver reflection). The adaptive optics systems sit on side ports and pass the f/16 beam on (GALT).",
+   "The infrared design: the undersized secondary is the stop (7.9 m pupil), the secondary's 168 mm hole and a sky periscope show the infrared instruments cold sky in place of the primary's hole, the vanes are 10 mm thin, and the mirrors are silver. With the optical baffle extended (2.003 m) the obstruction grows to eps 0.254 and the periscope is shuttered.",
+   "The explorer offers the optical-baffle configuration as a third focus (a side port with eps 0.2535); the instrument's wavelength range sets the baffle position (GTEL: two positions, IR and Optical).",
+   "The NIRI preset (data/imaging/niri_hawki.md) uses D = 7.9 m, eps 0.164 and F = 16.22, the same telescope values."
+  ]
+ }
+}

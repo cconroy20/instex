@@ -1,0 +1,980 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: The 200-inch (5.08 m) Hale telescope at Palomar: prime focus (the observer's cage; f/3.3 bare, Wynne and Ross correctors), Cassegrain f/16, coude f/30; entrance pupil",
+  "compiled": "2026-11-16",
+  "companion": "data/telescopes/hale.md (same content as Markdown). Structure follows vista.json: sources{key: cite, file, url}; hale: title, telescope (machine-readable mirrors, pupil, foci; refs point to sourced params as 'hale.<param>'), explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/hale/ (files reused from earlier rounds are byte-identical copies, marked in the cite). derived = arithmetic done here (shown). alternatives = other sourced values. figure_readoff = a value read off a saved figure or drawing (the caption or OCR text is checked). INFERRED = a choice no source states. NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), the ordinal sign used as a degree normalized; soft hyphens and no-break spaces normalized; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces (which may sit on consecutive pages).",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF; the stated page is machine-checked); tesseract 5.5.1 OCR (300 dpi) for the PDFs without a text layer (B61); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8 or windows-1252); .docx as the text of word/document.xml; .zmx as text (UTF-16 or UTF-8); .py as is.",
+  "check_result": "68 quotes checked against the saved files, 0 failures (2026-11-16)"
+ },
+ "sources": {
+  "B61": {
+   "cite": "Bowen, I. S. 1961, \"The 200-inch Hale Telescope\", in Telescopes (Stars and Stellar Systems, Vol. 1; U. of Chicago Press), p. 1: Sec. 1 Optics (p. 2), Sec. 2 Telescope tube (p. 7), Sec. 3 Observer's cage (p. 8). ADS scan without a text layer: quotes from a tesseract 5.5.1 OCR of the 300-dpi page images (PDF p. = printed page for pp. 1-8; the OCR reads the fraction 1/2 as \"}\"). Copy of key B61 in data/imaging/fourshooter.md (byte-identical)",
+   "file": "rawdata/telescopes/hale/Bowen1961_Telescopes_200inchHale_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1961tele.book....1B"
+  },
+  "A48": {
+   "cite": "Anderson, J. A. 1948, PASP 60, 221, \"Optics of the 200-inch Hale Telescope\" (the seven mirrors). ADS scan; quotes checked against the scan's OCR text layer (which reads \"Inch\" as \"Înch\", the multiplication sign as \"χ\", 39 1/2 as \"39^\"). PDF p. 1 = printed p. 221",
+   "file": "rawdata/telescopes/hale/Anderson1948_PASP60_221_OpticsOfHaleTelescope_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1948PASP...60..221A"
+  },
+  "PHT": {
+   "cite": "Palomar Observatory (Caltech), \"The 200-inch (5.1-meter) Hale Telescope\" public page, sections 'The 200-inch Mirror and Foci' and 'Facility Instruments' (fetched 2026-10-19). Copy of key PHT in fourshooter.md (byte-identical)",
+   "file": "rawdata/telescopes/hale/palomar_about_telescopes_hale.html",
+   "url": "https://sites.astro.caltech.edu/palomar/about/telescopes/hale.html"
+  },
+  "HCI": {
+   "cite": "hcipy (Por et al.), hcipy/aperture/realistic.py, function make_hale_aperture (docstring: based on the pupil measured in Galicher et al. 2019), GitHub ehpor/hcipy commit ee20b03 (2026-08-14). Copy of key HCI in elt.md/gmt.md (byte-identical); read only, never executed",
+   "file": "rawdata/telescopes/hale/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "HCIG": {
+   "cite": "hcipy, hcipy/aperture/generic.py (make_obstructed_circular_aperture: the spider angles), commit ee20b03. Copy of key HCIG in elt.md (byte-identical); read only, never executed",
+   "file": "rawdata/telescopes/hale/hcipy_ee20b03_aperture_generic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/generic.py"
+  },
+  "G19": {
+   "cite": "Galicher, R., Baudoz, P., Delorme, J.-R., Mawet, D., Bottom, M., Wallace, J. K., Serabyn, E. & Shelton, C. 2019, A&A 631, A143, \"Minimization of non common path aberrations at the Palomar telescope using a self-coherent camera\", arXiv:1909.09130v1: Sec. 3, Fig. 3 (the Hale pupil imaged through PALM-3000, the stellar double coronagraph and PHARO)",
+   "file": "rawdata/telescopes/hale/Galicher2019_AA631_A143_PalomarSCC_arXiv1909.09130v1.pdf",
+   "url": "https://arxiv.org/pdf/1909.09130v1"
+  },
+  "C14": {
+   "cite": "Carlotti, A., Pueyo, L. & Mawet, D. 2014, A&A 566, A31, \"Apodized phase mask coronagraphs for arbitrary apertures. II. Comprehensive review of solutions for the vortex coronagraph\", arXiv:1404.2845v1: Sec. 3.2 (the spider thickness of current telescopes)",
+   "file": "rawdata/telescopes/hale/Carlotti2014_AA566_A31_APPC_vortex_arXiv1404.2845v1.pdf",
+   "url": "https://arxiv.org/pdf/1404.2845v1"
+  },
+  "OG82": {
+   "cite": "Oke, J. B. & Gunn, J. E. 1982, PASP 94, 586, \"An efficient low- and moderate-resolution spectrograph for the Hale telescope\" (DBSP; ADS scan, OCR text layer, which reads f/15.7 as \"//15.7\"). Copy of key OG82 in data/imaging/fourshooter.md (rawdata/presets/longslit_dbsp/, byte-identical)",
+   "file": "rawdata/telescopes/hale/OkeGunn1982_PASP94_586_DBSP_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982PASP...94..586O"
+  },
+  "PDS": {
+   "cite": "Palomar Observatory, \"Double Spectrograph (DBSP) Technical Specifications\" v2.1 (last updated 09 Feb 2018; fetched 2026-10-16). Copy of key PDS in fourshooter.md (byte-identical)",
+   "file": "rawdata/telescopes/hale/palomar_dbspspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspspecs.html"
+  },
+  "S94": {
+   "cite": "Schneider, D. P., Schmidt, M. & Gunn, J. E. 1994, AJ 107, 1245, \"Spectroscopic CCD surveys for quasars at large redshift. III. The Palomar Transit Grism Survey catalog\" (Sec. 2.1: the 4-Shooter at the Cassegrain focus). ADS scan; OCR text layer. Copy of key S94 in fourshooter.md (byte-identical)",
+   "file": "rawdata/telescopes/hale/Schneider1994_AJ107_1245_PTGS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1994AJ....107.1245S"
+  },
+  "PWASP": {
+   "cite": "Palomar Observatory, \"Wafer-Scale Imager for Prime (WaSP) Technical Specifications\" (facility deployment February 2018; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/hale/palomar_waspspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/waspspecs.html"
+  },
+  "PLFC": {
+   "cite": "Palomar Observatory, \"Large Format Camera (LFC) Technical Specifications\" (fetched 2026-11-16)",
+   "file": "rawdata/telescopes/hale/palomar_lfcspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/lfcspecs.html"
+  },
+  "PLFCC": {
+   "cite": "Palomar Observatory, \"Large Format Camera (LFC) Cookbook\" (the prime-focus scale and the Wynne corrector's vignetting; fetched 2026-11-16)",
+   "file": "rawdata/telescopes/hale/palomar_lfccookbook.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/lfccookbook.html"
+  }
+ },
+ "hale": {
+  "title": "The 200-inch (5.08 m) Hale telescope at Palomar: prime focus (the observer's cage; f/3.3 bare, Wynne and Ross correctors), Cassegrain f/16, coude f/30; entrance pupil",
+  "telescope": {
+   "name": "Hale 200-inch telescope (Palomar Observatory)",
+   "site": "Palomar Mountain, California (PHT)",
+   "mount": "equatorial horseshoe yoke; coude focus on the polar axis (B61)",
+   "optical_design": "f/3.3 paraboloid; prime focus in an observer's cage; Cassegrain f/16 and coude f/30 by convex hyperboloids in the cage (B61, A48)",
+   "coatings": "aluminum (PHT)",
+   "primary": {
+    "diameter_m": 5.08,
+    "diameter_in": 200,
+    "central_hole_m": 1.016,
+    "focal_length_m": 16.764,
+    "focal_length_in": 660,
+    "focal_length_alt_in_A48": 666,
+    "F": 3.3,
+    "thickness_edge_in": 24,
+    "material": "ribbed Pyrex",
+    "refs": [
+     "hale.primary_diameter",
+     "hale.primary_focal_length",
+     "hale.primary_central_hole",
+     "hale.primary_mirror"
+    ]
+   },
+   "secondaries": {
+    "cassegrain": {
+     "diameter_in": 41,
+     "eccentricity": 1.52
+    },
+    "coude": {
+     "diameters_in": [
+      36,
+      32
+     ],
+     "eccentricity": 1.25
+    },
+    "where": "the lower part of the prime-focus cage",
+    "refs": [
+     "hale.cassegrain",
+     "hale.coude",
+     "hale.observers_cage"
+    ]
+   },
+   "pupil": {
+    "frame": "G19 Fig. 3 image frame (vanes horizontal and vertical); orientation on the sky NOT FOUND",
+    "diameter_m": 5.08,
+    "central_obstruction": {
+     "measured_m_HCI": 1.86,
+     "eps": 0.3661,
+     "cage_m": 1.829,
+     "eps_cage": 0.36,
+     "figure_readoff_eps": 0.3687
+    },
+    "spider": {
+     "n_vanes": 4,
+     "angles_deg": [
+      0,
+      90,
+      180,
+      270
+     ],
+     "width_m": 0.0127,
+     "width_alt_m": {
+      "HCI": 0.048,
+      "figure_readoff_equivalent_width": 0.017
+     },
+     "attachments": {
+      "width_m": 0.12,
+      "to_m_from_center": 1.0232
+     }
+    },
+    "collecting_area_m2": {
+     "whole_mirror_PHT": 20,
+     "explorer_pupil_DERIVED": 17.43
+    },
+    "refs": [
+     "hale.central_obstruction",
+     "hale.observers_cage",
+     "hale.spider",
+     "hale.spider_width",
+     "hale.spider_attachments",
+     "hale.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "pf",
+     "name": "Prime focus, no corrector",
+     "focal_length_m": 16.764,
+     "F": 3.3,
+     "plate_scale_arcsec_per_mm": 12.304,
+     "field_arcmin_DERIVED": 2.6,
+     "reflections": 1,
+     "refs": [
+      "hale.prime_focus_bare"
+     ]
+    },
+    {
+     "id": "pfw",
+     "name": "Prime focus, Wynne corrector (LFC, WaSP)",
+     "focal_length_m_DERIVED": 17.189,
+     "F_DERIVED": 3.3836,
+     "plate_scale_arcsec_per_mm_DERIVED": 12.0,
+     "F_quoted": [
+      3.3,
+      3.33
+     ],
+     "field_arcmin": 24,
+     "reflections": 1,
+     "refs": [
+      "hale.wynne_corrector"
+     ]
+    },
+    {
+     "id": "pfr",
+     "name": "Prime focus, Ross corrector",
+     "F": [
+      3.6,
+      4.7
+     ],
+     "plate_scale_arcsec_per_mm_DERIVED": [
+      11.279,
+      8.639
+     ],
+     "field_in": 3,
+     "reflections": 1,
+     "refs": [
+      "hale.ross_correctors"
+     ]
+    },
+    {
+     "id": "cass",
+     "name": "Cassegrain f/16",
+     "focal_length_m": 81.28,
+     "F": 16.0,
+     "F_alt": [
+      15.7,
+      15.8
+     ],
+     "plate_scale_arcsec_per_mm": 2.5377,
+     "position_m_behind_front_surface": 1.524,
+     "field_arcmin": "NOT FOUND (4-Shooter 8.9 square)",
+     "reflections": 2,
+     "refs": [
+      "hale.cassegrain",
+      "hale.cassegrain_focus_position",
+      "hale.cassegrain_field"
+     ]
+    },
+    {
+     "id": "coude",
+     "name": "Coude f/30",
+     "focal_length_m": 152.4,
+     "F": 30.0,
+     "plate_scale_arcsec_per_mm": 1.3534,
+     "reflections": {
+      "south_of_+43": 3,
+      "north_of_+43": 5
+     },
+     "drawing": "INFERRED: unfolded, back 2.694 D",
+     "refs": [
+      "hale.coude",
+      "hale.coude_flats",
+      "hale.coude_drawing"
+     ]
+    },
+    {
+     "id": "east",
+     "name": "f/16 in the east arm (not proposed)",
+     "refs": [
+      "hale.east_arm_focus"
+     ]
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "hale",
+   "group": "Hale 5.1 m",
+   "name": "Hale 200-inch",
+   "D": 5.08,
+   "F1": 3.3,
+   "eps": 0.3661,
+   "hole": 1.016,
+   "primaryNote": "A ribbed Pyrex paraboloid 200 inches (5.08 m) across with a 40-inch central hole, 24 inches thick at the edge and aluminized; focal length 660 inches (16.76 m, f/3.3). The observer rides in a 72-inch cage at the prime focus, whose lower part also carries the Cassegrain and coudé secondaries.",
+   "pupil": {
+    "kind": "circle",
+    "D": 5.08,
+    "vanes": [
+     {
+      "ang": 0,
+      "w": 0.0127
+     },
+     {
+      "ang": 90,
+      "w": 0.0127
+     },
+     {
+      "ang": 180,
+      "w": 0.0127
+     },
+     {
+      "ang": 270,
+      "w": 0.0127
+     },
+     {
+      "ang": 0,
+      "w": 0.12,
+      "to": 1.0232
+     },
+     {
+      "ang": 90,
+      "w": 0.12,
+      "to": 1.0232
+     },
+     {
+      "ang": 180,
+      "w": 0.12,
+      "to": 1.0232
+     },
+     {
+      "ang": 270,
+      "w": 0.12,
+      "to": 1.0232
+     }
+    ]
+   },
+   "pupilNote": "The whole 5.08 m mirror, less the 1.86 m shadow of the prime-focus cage and the secondaries (as measured in a pupil image through PALM-3000; the cage is 72 inches) and four radial vanes, 0.25% of the aperture wide, with short wide attachments at the cage.",
+   "area": {
+    "value": 17.43,
+    "info": true,
+    "src": "DERIVED from the pupil drawn here (data/telescopes/hale.md); Palomar quotes ~20 m² for the whole mirror"
+   },
+   "foci": [
+    {
+     "id": "pf",
+     "name": "Prime focus f/3.3 (no corrector)",
+     "kind": "Prime focus",
+     "variant": "f/3.3, no corrector",
+     "F": 3.3,
+     "plate": 12.304,
+     "design": "prime",
+     "field": 2.6,
+     "eps": 0.36,
+     "refl": 1,
+     "pfuLabel": "observer's cage",
+     "pfuSub": "72 inches across, ε 0.36",
+     "secondary": "none: the observer's cage sits at the prime focus (the secondaries swung aside)",
+     "fieldNote": "The bare paraboloid gives good images over less than half an inch (2.6′); plates were taken behind a corrector."
+    },
+    {
+     "id": "pfw",
+     "name": "Prime focus f/3.38 (Wynne corrector; WaSP)",
+     "kind": "Prime focus",
+     "variant": "Wynne corrector (WaSP, LFC)",
+     "F": 3.3836,
+     "plate": 12.0,
+     "design": "prime",
+     "field": 24,
+     "eps": 0.36,
+     "refl": 1,
+     "corrector": {
+      "d": 0.5,
+      "label": "Wynne corrector",
+      "sub": "drawn as one lens of the same power"
+     },
+     "pfuLabel": "WaSP in the cage",
+     "pfuSub": "6144 × 6160 CCD, 0.18″ per pixel",
+     "secondary": "none: the camera and the corrector in the cage",
+     "fieldNote": "24′ (unvignetted to 22′ with the LFC). F and the plate scale come from WaSP's 0.18″ per 15 µm pixel (LFC: 0.175″ at the center); the corrector's place and size are schematic."
+    },
+    {
+     "id": "pfr",
+     "name": "Prime focus f/3.6 (Ross corrector, 1950s)",
+     "kind": "Prime focus",
+     "variant": "Ross corrector f/3.6 (1950s)",
+     "F": 3.6,
+     "plate": 11.279,
+     "design": "prime",
+     "field": 14.3,
+     "eps": 0.36,
+     "refl": 1,
+     "corrector": {
+      "d": 0.5,
+      "label": "Ross corrector",
+      "sub": "drawn as one lens of the same power"
+     },
+     "pfuLabel": "plateholder in the cage",
+     "secondary": "none: photographic plates behind F. E. Ross's corrector in the cage",
+     "fieldNote": "A field ~3 inches (14.3′) across; a second Ross lens gave f/4.7. The corrector's place and size are schematic."
+    },
+    {
+     "id": "cass",
+     "name": "Cassegrain f/16",
+     "kind": "Cassegrain",
+     "F": 16.0,
+     "plate": 2.5377,
+     "design": "cass",
+     "back": 0.3,
+     "field": 12.6,
+     "refl": 2,
+     "secondary": "convex hyperboloid, 41 inches (1.04 m), in the lower part of the cage, 13.6 m above the primary",
+     "where": "about 5 feet (1.52 m) behind the primary's front surface",
+     "fieldNote": "The telescope's Cassegrain field is not published: drawn 12.6′, the circle around the 4-Shooter's 8.9′ square. The DBSP documents give f/15.7–15.8."
+    },
+    {
+     "id": "coude",
+     "name": "Coudé f/30",
+     "kind": "Coude",
+     "F": 30.0,
+     "plate": 1.35344,
+     "design": "cass",
+     "back": 2.694,
+     "field": null,
+     "refl": "3 (one flat) or 5 (three flats)",
+     "secondary": "convex hyperboloid, 36 or 32 inches, in the cage; then a 36 × 53 inch flat at the intersection of the optic and polar axes",
+     "where": "the coudé room south of the telescope, down the polar axis",
+     "fieldNote": "Drawn unfolded, as a Cassegrain: the flat (one for objects south of +43°, three for northern ones) sends the beam down the polar axis. The secondary's place is taken from the 36-inch mirror filling the beam, so the drawn focus, 13.7 m behind the primary, is schematic."
+    }
+   ]
+  },
+  "params": [
+   [
+    "status",
+    {
+     "value": "Palomar Mountain, California; dedicated 1948, regular use from 12 November 1949; the largest effective telescope until 1993",
+     "unit": "",
+     "src": "PHT",
+     "loc": "page text",
+     "quote": "Dedicated in 1948 and the largest effective telescope in the world until 1993",
+     "alternatives": [
+      {
+       "value": "first regularly scheduled use, November 12, 1949",
+       "src": "B61",
+       "loc": "Introduction, PDF p. 1",
+       "quote": "the first regularly scheduled use of the telescope started on November 12, 1949."
+      }
+     ]
+    }
+   ],
+   [
+    "primary_diameter",
+    {
+     "value": 5.08,
+     "unit": "m (200 inches)",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The main mirror has a diameter of 200 inches and has a 40-inch hole in the center.",
+     "alternatives": [
+      {
+       "value": "5.1 m",
+       "src": "PHT",
+       "loc": "page title",
+       "quote": "The 200-inch (5.1-meter) Hale Telescope"
+      },
+      {
+       "value": "5.08 m (hcipy model)",
+       "src": "HCI",
+       "loc": "make_hale_aperture",
+       "quote": "pupil_diameter = 5.08  # meter"
+      }
+     ],
+     "derived": "200 in x 0.0254 = 5.080 m."
+    }
+   ],
+   [
+    "primary_focal_length",
+    {
+     "value": 16.764,
+     "unit": "m (660 inches; f/3.3)",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "It is ground and polished in the form of a paraboloid of 660-inch focal length; thus the focal ratio is F3.3.",
+     "alternatives": [
+      {
+       "value": "660 in, 16.76 m, f/3.3",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "paraboloid ( f /3.3, focal length 660 inches or 16.76 meters)"
+      },
+      {
+       "value": "666 in (55.5 ft)",
+       "src": "A48",
+       "loc": "item 1, PDF p. 1",
+       "quote": "a concave paraboloid of revolution, having a focal length of 666 inches (55.5 feet)"
+      }
+     ],
+     "derived": "660 x 25.4 = 16764 mm; F1 = 16.764/5.08 = 3.300; plate at the bare prime focus 206264.8/16764 = 12.304 arcsec/mm. A48's 666 in would be 16.916 m, f/3.33."
+    }
+   ],
+   [
+    "primary_central_hole",
+    {
+     "value": 1.016,
+     "unit": "m (40 inches)",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The main mirror has a diameter of 200 inches and has a 40-inch hole in the center.",
+     "alternatives": [
+      {
+       "value": "a 39 1/2-inch core cast the hole",
+       "src": "A48",
+       "loc": "PDF p. 2",
+       "quote": "At the center was a 39^-inch diameter cylindrical core about 28 inches in height to form the central hole in the mirror."
+      },
+      {
+       "value": "the coude flat's 36-inch tube passes through the hole",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "The flat at the intersection of the optic and polar axes is mounted on a tube 36-inches in diameter extending up through the hole in the main mirror."
+      }
+     ],
+     "derived": "40 x 0.0254 = 1.016 m (eps 0.20 on 5.08 m, inside the cage's shadow)."
+    }
+   ],
+   [
+    "primary_mirror",
+    {
+     "value": "ribbed Pyrex, 24 inches thick at the edge (19 5/8 in at the center, 23 1/2 in at the edge per Palomar), aluminized, 36 support mechanisms",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The main mirror has an over-all thickness of 24 inches at the edge and a finished weight of 29,000 pounds.",
+     "alternatives": [
+      {
+       "value": "ribbed Pyrex",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "All mirrors have a ribbed structure and are cast in flame Pyrex"
+      },
+      {
+       "value": "thickness 19 5/8 to 23 1/2 in",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "The mirror's thickness varies between 19 5⁄8 inches (49.8 cm) at the center and 23 1⁄2 inches (59.7 cm) at the outer edge."
+      },
+      {
+       "value": "aluminum",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "covered with a thin layer of aluminum"
+      },
+      {
+       "value": "the mirror cover as an iris, 80 to 200 inches",
+       "src": "B61",
+       "loc": "Sec. 2, PDF p. 8",
+       "quote": "permitting the use of apertures between 80 and 200 inches"
+      }
+     ]
+    }
+   ],
+   [
+    "observers_cage",
+    {
+     "value": 1.829,
+     "unit": "m (72 inches; the prime-focus cage on the axis, carrying the secondaries in the cage's lower part)",
+     "src": "B61",
+     "loc": "Sec. 3, PDF p. 8",
+     "quote": "As constructed, the cage is 72 inches in diameter and is centered on the optic axis.",
+     "alternatives": [
+      {
+       "value": "the lower part carries the secondaries",
+       "src": "B61",
+       "loc": "Sec. 3, PDF p. 8",
+       "quote": "The lower part carries all optical parts, including the secondary mirrors for the coudé and Cassegrain foci"
+      },
+      {
+       "value": "little more light lost than to a Newtonian flat",
+       "src": "B61",
+       "loc": "Sec. 3, PDF p. 8",
+       "quote": "a cage for the observer may be placed directly at the prime focus without intercepting ap- preciably more light from the incoming beam than would be cut off by a New- tonian mirror."
+      },
+      {
+       "value": "prime focus 30 inches above the cage floor",
+       "src": "B61",
+       "loc": "Sec. 3, PDF p. 8",
+       "quote": "The prime focus is located about 30 inches above the floor of the upper section of the cage."
+      },
+      {
+       "value": "DBSP: the cage's shadow",
+       "src": "OG82",
+       "loc": "Sec. III, PDF p. 2",
+       "quote": "the shadow of the prime-focus cage"
+      }
+     ],
+     "derived": "72/200 = 0.360 (the explorer's eps at the prime foci); 72 x 0.0254 = 1.829 m."
+    }
+   ],
+   [
+    "central_obstruction",
+    {
+     "value": 1.86,
+     "unit": "m (the measured pupil: eps 0.3661)",
+     "src": "HCI",
+     "loc": "make_hale_aperture",
+     "quote": "central_obscuration_diameter = 1.86  # meter",
+     "alternatives": [
+      {
+       "value": "hcipy's source",
+       "src": "HCI",
+       "loc": "make_hale_aperture docstring",
+       "quote": "The size of the spiders and the attachements were based on the actual pupil measurements from Figure 2 of [Galicher2019]_"
+      },
+      {
+       "value": "the pupil image",
+       "src": "G19",
+       "loc": "Fig. 3 caption, PDF p. 4",
+       "quote": "Measured intensity in pupil plane when observing the dome of the Palomar observatory through the 5m Hale tele- scope+SDC+Pharo."
+      }
+     ],
+     "derived": "eps = 1.86/5.08 = 0.3661 (the explorer's default); slightly larger than the 72-inch cage (0.360).",
+     "figure_readoff": "G19 Fig. 3 (the embedded 551 x 544 px image; scratch script: circle fits to the outer edge and the obscuration with outlier clipping): pupil 527.8 px, obscuration 194.6 px, ratio 0.3687 (1.873 m on 5.08 m). The arXiv version numbers the pupil image Fig. 3; hcipy cites the image as Fig. 2.",
+     "note": "The pupil was imaged through PALM-3000, the stellar double coronagraph and PHARO; G19 calls the SDC's place \"the primary focus\", while the obscuration matches the cage and the secondaries."
+    }
+   ],
+   [
+    "spider",
+    {
+     "value": "four radial vanes in a cross (0, 90, 180, 270 deg), with a short wide attachment where each meets the obscuration",
+     "unit": "",
+     "src": "G19",
+     "loc": "Fig. 3 caption, PDF p. 4",
+     "quote": "The spiders are the thin black horizontal and vertical lines.",
+     "alternatives": [
+      {
+       "value": "four spiders (hcipy)",
+       "src": "HCI",
+       "loc": "make_hale_aperture",
+       "quote": "make_obstructed_circular_aperture(pupil_diameter, central_obscuration_ratio, num_spiders=4, spider_width=spider_width)"
+      },
+      {
+       "value": "spider angles 0, 90, 180, 270 deg",
+       "src": "HCIG",
+       "loc": "make_obstructed_circular_aperture",
+       "quote": "spider_angles = np.linspace(0, 2 * np.pi, num_spiders, endpoint=False)"
+      },
+      {
+       "value": "the cage held by radial knife-edges",
+       "src": "B61",
+       "loc": "Sec. 3, PDF p. 8",
+       "quote": "It consists of two parts which are supported independently by separate sets of radial knife-edges from the telescope tube"
+      }
+     ],
+     "figure_readoff": "G19 Fig. 3: line fits to the four dark vanes give a cross tilted ~2 deg from the image axes (vertical arm -1.7 and -2.4 deg; horizontal arm 2.2 and 5.3 deg, the last disturbed by bright dome stripes), passing within 0.06 m of the obscuration center."
+    }
+   ],
+   [
+    "spider_width",
+    {
+     "value": 0.0127,
+     "unit": "m (0.25% of the aperture)",
+     "src": "C14",
+     "loc": "Sec. 3.2, PDF p. 8",
+     "quote": "of the Hale telescope at the Palomar observatory are 0.25% thick",
+     "alternatives": [
+      {
+       "value": "48 mm (hcipy)",
+       "src": "HCI",
+       "loc": "make_hale_aperture",
+       "quote": "spider_width = 2 * 0.024  # meter"
+      }
+     ],
+     "derived": "0.25% x 5.08 m = 12.7 mm (half an inch).",
+     "figure_readoff": "G19 Fig. 3: the equivalent width (the integrated deficit over the local background, which blur conserves) of each vane, 158-200 samples per arm with a linear background fit, has a median of 1.75 px = 0.0033 D = 0.017 m (16th-84th percentile 0.011-0.022 m). The apparent (blurred) dark width is 4.6-5.9 px = 0.045-0.057 m, close to hcipy's 48 mm."
+    }
+   ],
+   [
+    "spider_attachments",
+    {
+     "value": "a box 0.12 m wide at each vane's root, reaching 0.0932 m beyond the 1.86 m obscuration (1.0232 m from the center)",
+     "unit": "m",
+     "src": "HCI",
+     "loc": "make_hale_aperture",
+     "quote": "box_heigth = 2 * 0.06 ... box_width = 2 * 0.0932 + central_obscuration_diameter",
+     "figure_readoff": "G19 Fig. 3: on each arm the dark width (pixels below half the local background) is 6-9 px (0.06-0.09 m) from 0.04 to 0.07 m beyond the obscuration's edge, and falls to the vane's own (blurred) width by 0.09-0.11 m beyond the edge, in line with hcipy's box."
+    }
+   ],
+   [
+    "pupil_scale_check",
+    {
+     "value": "the off-axis subaperture drawn on the pupil image is nominally 1.5 m; the Lyot stop 88% of that subaperture",
+     "unit": "",
+     "src": "G19",
+     "loc": "Sec. 3, PDF p. 2",
+     "quote": "create a 1.5m off-axis pupil from the full 5m obscured pupil.",
+     "alternatives": [
+      {
+       "value": "Lyot stop 88%",
+       "src": "G19",
+       "loc": "Sec. 3, PDF p. 2",
+       "quote": "The Lyot stop diameter is 88 % of the off-axis pupil diameter"
+      }
+     ],
+     "figure_readoff": "G19 Fig. 3: the blue circle is 165.0 px across and the green one 145.4 px (ratio 0.882, the stated 88%). With the pupil at 5.08 m (527.8 px) the blue circle is 1.59 m; with the blue circle at 1.5 m the pupil would be 4.80 m. The figure's 1.5 m is a nominal value."
+    }
+   ],
+   [
+    "prime_focus_bare",
+    {
+     "value": "f/3.3 (16.764 m, 12.304 arcsec/mm); the field of good definition is under half an inch (< 2.6 arcmin) without a corrector",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "the diameter of the field of good definition of a paraboloid of this focal ratio is less than } inch, a corrector lens is normally introduced in front of the plate to extend this field.",
+     "alternatives": [
+      {
+       "value": "prime focus near the top of the tube",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "light comes to a focus near the top of the telescope at what is known as the prime focus"
+      },
+      {
+       "value": "direct photographs at the prime focus",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "Practically all direct photographs are taken at the prime focus."
+      }
+     ],
+     "derived": "1/2 in = 12.7 mm x 12.304 arcsec/mm = 156 arcsec = 2.6 arcmin (the explorer's field). The OCR \"}\" is the fraction 1/2 on the page image."
+    }
+   ],
+   [
+    "ross_correctors",
+    {
+     "value": "Ross correctors at f/3.6 and f/4.7, each correcting a field ~3 inches across (14.3 and 11.0 arcmin)",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The two most commonly used give focal ratios of F3.6 and F4.7 and pro- vide a well-corrected field about 3 inches in diameter.",
+     "alternatives": [
+      {
+       "value": "designed by F. E. Ross; a small telephoto effect",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "By introducing a small telephoto effect into such a lens, it is also possible to change the effective focal length of the system."
+      },
+      {
+       "value": "the corrector in the cage",
+       "src": "B61",
+       "loc": "Sec. 2, PDF p. 7",
+       "quote": "the cage, in which the corrector lens is mounted"
+      }
+     ],
+     "derived": "f/3.6: 18.288 m, 11.279 arcsec/mm, 76.2 mm = 14.3 arcmin; f/4.7: 23.876 m, 8.639 arcsec/mm, 11.0 arcmin. The corrector's distance from the focus is NOT FOUND."
+    }
+   ],
+   [
+    "wynne_corrector",
+    {
+     "value": "a Wynne corrector at the prime focus (LFC, 2000s; WaSP since 2018): 0.18 arcsec per 15 um pixel, 0.175 at the field center (LFC); 24 arcmin field, unvignetted to 22 arcmin",
+     "unit": "arcsec/px",
+     "src": "PLFCC",
+     "loc": "Introduction",
+     "quote": "At the prime focus ( f /3.33), the pixels correspond to ~ 0.18″/pixel (0.175″/pixel at the field center; 0.185″/pixel at the field edge).",
+     "alternatives": [
+      {
+       "value": "vignetting by the Wynne corrector",
+       "src": "PLFCC",
+       "loc": "Introduction",
+       "quote": "increases uniformally (due to the Wynne Corrector) to a maximum of 10% at the outer edge (25.3′ diameter circle)."
+      },
+      {
+       "value": "unvignetted to 22 arcmin",
+       "src": "PLFCC",
+       "loc": "Introduction",
+       "quote": "The field is unvignetted from the center of the mosaic out to a 22′ diameter circle."
+      },
+      {
+       "value": "LFC: f/3.3, field 24 arcmin",
+       "src": "PLFC",
+       "loc": "Camera parameters",
+       "quote": "located at Hale Telescope's prime focus ( f /3.3) ... Field diameter: 24′"
+      },
+      {
+       "value": "WaSP: 0.18 arcsec/px",
+       "src": "PWASP",
+       "loc": "Detectors",
+       "quote": "Plate Scale: 0.18\"/pixel"
+      },
+      {
+       "value": "WaSP: 15 um pixels",
+       "src": "PWASP",
+       "loc": "Detectors",
+       "quote": "Pixel Size: 15 µm square"
+      },
+      {
+       "value": "WaSP: f/3.3 prime focus, 18.4 x 18.5 arcmin",
+       "src": "PWASP",
+       "loc": "Telescope",
+       "quote": "200-inch prime focus, f /3.3. ... Field of view: 18.4′ x 18.5′."
+      },
+      {
+       "value": "WaSP 24 arcmin across (Palomar page)",
+       "src": "PHT",
+       "loc": "Facility Instruments",
+       "quote": "mounted at the prime focus of the telescope and covering 24 and 8.9 arcminutes across, respectively."
+      }
+     ],
+     "derived": "0.18 arcsec / 15 um = 12.0 arcsec/mm, f = 17.189 m, F = 3.3836 (the explorer's F and plate); the LFC's 0.175 at the center is 11.667 arcsec/mm, 17.680 m, f/3.480; the quoted f/3.33 is 16.916 m, 0.1829 arcsec/px. That WaSP sits behind the LFC's Wynne corrector is INFERRED (WaSP replaced LFC and shares the LFC's filter and shutter assembly; PWASP)."
+    }
+   ],
+   [
+    "cassegrain",
+    {
+     "value": "f/16, focal length 3200 inches (81.28 m), 2.538 arcsec/mm; a 41-inch convex hyperboloid (eccentricity ~1.52) in the cage",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "One of these yields a focal length of 3200 inches or a focal ratio of F16.",
+     "alternatives": [
+      {
+       "value": "f/16, 81.3 m",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "focus ( f /16, focal length 3,200 inches or 81.3 meters)"
+      },
+      {
+       "value": "41-inch secondary, e ~1.52",
+       "src": "A48",
+       "loc": "item 2, PDF p. 1",
+       "quote": "The Cassegrain convex, 41 inches in diameter, a hyperboloid of revolution, having an eccentricity of about 1.52"
+      },
+      {
+       "value": "f/15.7, 2.5 arcsec/mm (DBSP)",
+       "src": "OG82",
+       "loc": "Sec. II, PDF p. 1",
+       "quote": "The focal ratio of the Cassegrain of the Hale telescope is //15.7 and the scale is 2.5 arc sec mm-1."
+      },
+      {
+       "value": "2.57 arcsec/mm at the DBSP slit",
+       "src": "PDS",
+       "loc": "item 3 Scale",
+       "quote": "Scale 2.57″/mm at the slit"
+      }
+     ],
+     "derived": "3200 x 25.4 = 81280 mm; F = 81.28/5.08 = 16.000; plate 206264.8/81280 = 2.5377 arcsec/mm. For a paraboloid primary the secondary's eccentricity is (m + 1)/(m - 1) with m = 3200/660 = 4.848: 1.520 (A48: \"about 1.52\"). OG82's f/15.7 is 79.76 m and OG82's 2.5 arcsec/mm is 82.51 m (f/16.24); PDS's 2.57 arcsec/mm is 80.26 m (f/15.80)."
+    }
+   ],
+   [
+    "cassegrain_focus_position",
+    {
+     "value": 1.524,
+     "unit": "m behind the primary's front surface (about 5 feet)",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The light from this mirror passes through the hole in the center of the main mirror and forms an image about 5 feet back of the front surface of this mirror.",
+     "derived": "60 in = 1.524 m = 0.300 D (the explorer's back). The explorer's model (F1 3.3, F 16, b 1.524 m) puts the secondary 13.637 m above the primary (3.127 m inside the prime focus), where the on-axis beam is 0.948 m (37.3 in) across: the 41-inch secondary leaves room for the field."
+    }
+   ],
+   [
+    "cassegrain_field",
+    {
+     "value": "NOT FOUND for the telescope; the 4-Shooter (the widest Cassegrain imager found) covered 8.9 arcmin square",
+     "unit": "arcmin",
+     "src": "S94",
+     "loc": "Sec. 2.1, PDF p. 2",
+     "quote": "the field of view is 8.9' on a side",
+     "derived": "The circle around an 8.9 arcmin square is 12.6 arcmin across (the explorer's field)."
+    }
+   ],
+   [
+    "east_arm_focus",
+    {
+     "value": "the f/16 beam can be sent along the declination axis by a flat to a focus in the east arm of the yoke",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "It can also be reflected along the declination axis by a plane mirror to form an image in the east side arm of the yoke.",
+     "alternatives": [
+      {
+       "value": "an instrument in the east arm",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "or to an instrument in the east arm of the telescope"
+      }
+     ],
+     "note": "Not proposed for the explorer: the flat's place on the axis is NOT FOUND."
+    }
+   ],
+   [
+    "coude",
+    {
+     "value": "f/30, focal length ~6000 inches (152.4 m), 1.353 arcsec/mm; two convex hyperboloids (36 and 32 inches, eccentricity 1.25) in the cage; the focus on the polar axis below the south polar bearing",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "The other two hyperboloids give a focal length of about 6000 inches and a focal ratio of F30",
+     "alternatives": [
+      {
+       "value": "f/30, 152 m",
+       "src": "PHT",
+       "loc": "The 200-inch Mirror and Foci",
+       "quote": "the coudé focus ( f /30, focal length 6,000 inches or 152 meters)"
+      },
+      {
+       "value": "36 and 32 in, e 1.25",
+       "src": "A48",
+       "loc": "items 3 and 4, PDF p. 1",
+       "quote": "Two coudé hyperboloids, 36 and 32 inches in diameter, respectively, each of eccentricity 1.25, which provide a coudé focal length of 6000 inches (500 feet)"
+      },
+      {
+       "value": "the focus on the polar axis",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "at the coudé focus on the polar axis just below the south polar bearing"
+      },
+      {
+       "value": "seven mirrors in all",
+       "src": "A48",
+       "loc": "PDF p. 1",
+       "quote": "The Hale Telescope has, in all, seven mirrors"
+      }
+     ],
+     "derived": "6000 x 25.4 = 152400 mm; plate 206264.8/152400 = 1.3534 arcsec/mm; m = 6000/660 = 9.091, eccentricity (m + 1)/(m - 1) = 1.247 (1.250 with A48's 666 in)."
+    }
+   ],
+   [
+    "coude_flats",
+    {
+     "value": "one flat at the intersection of the optic and polar axes (south of +43 deg declination: 3 reflections); three flats around the primary for northern objects (5 reflections)",
+     "unit": "",
+     "src": "B61",
+     "loc": "Sec. 1, PDF p. 2",
+     "quote": "for which one reflection by a plane mirror placed at the intersection of the polar axis and the optic axis of the main mirror is sufficient to direct the light down the polar axis.",
+     "alternatives": [
+      {
+       "value": "three flats north of +43 deg",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "three flat mirrors are required to reflect the light around the primary mirror and on down the polar axis."
+      },
+      {
+       "value": "the first flat, 36 x 53 in",
+       "src": "A48",
+       "loc": "item 5, PDF p. 1",
+       "quote": "An oval coudé diagonal flat 36 χ 53 inches to reflect the light along the polar axis"
+      },
+      {
+       "value": "auxiliary flats for north of 50 deg (1948)",
+       "src": "A48",
+       "loc": "items 6 and 7, PDF pp. 1-2",
+       "quote": "Two auxiliary plane mirrors 28 and 20 inches in diam- ... for use with the coudé diagonal when bb- jects north of 50° declination are observed"
+      },
+      {
+       "value": "the flat on a 36-inch tube through the hole",
+       "src": "B61",
+       "loc": "Sec. 1, PDF p. 2",
+       "quote": "The flat at the intersection of the optic and polar axes is mounted on a tube 36-inches in diameter extending up through the hole in the main mirror."
+      }
+     ],
+     "note": "The flat's height above the primary (the intersection of the optic and polar axes) and the coude secondary's place in the cage are NOT FOUND."
+    }
+   ],
+   [
+    "coude_drawing",
+    {
+     "value": "explorer (INFERRED): drawn unfolded as a Cassegrain; the 36-inch coude secondary taken to fill the on-axis beam, so the secondary sits 3.018 m inside the prime focus and the unfolded focus 13.69 m behind the primary (back 2.694 D)",
+     "unit": "",
+     "src": "A48",
+     "loc": "items 3 and 4, PDF p. 1",
+     "quote": "Two coudé hyperboloids, 36 and 32 inches in diameter",
+     "derived": "p = (36/200) x 660 in = 118.8 in = 3.0175 m (the beam on the 36-inch mirror for an on-axis star); s = 16.764 - 3.0175 = 13.746 m; q = 9.0909 p = 27.432 m from the secondary; the focus 27.432 - 13.746 = 13.686 m behind the vertex; back = 13.686/5.08 = 2.694. With the 32-inch mirror: 10.30 m."
+    }
+   ],
+   [
+    "collecting_area",
+    {
+     "value": "~20 m^2 for the whole mirror (Palomar); DERIVED 17.43 m^2 for the pupil drawn here",
+     "unit": "m^2",
+     "src": "PHT",
+     "loc": "The 200-inch Mirror and Foci",
+     "quote": "The primary mirror's area, about 31,000 square inches or 20 square meters",
+     "derived": "pi/4 x 5.08^2 = 20.27 m^2 (31,416 in^2); tpupil.js raster (node, scratch script): 17.430 m^2 with eps 0.3661, four 12.7 mm vanes and the four attachment boxes (17.552 without vanes; 17.216 with hcipy's 48 mm vanes)."
+    }
+   ]
+  ],
+  "not_found": [
+   "The coude secondaries' places in the cage and the height of the coude flat (the intersection of the optic and polar axes) above the primary; the coude drawing is INFERRED.",
+   "The distance of the Wynne and Ross correctors from the focus and their prescriptions (the drawing places one thin lens 0.5 m before the primary's focus, schematic); whether WaSP uses the LFC's Wynne corrector.",
+   "A published Cassegrain field for the telescope (the 4-Shooter's 8.9 arcmin square is used).",
+   "The spider width in an observatory document: 0.25% of the aperture (C14) and hcipy's 48 mm are third-party values, and the pupil image gives 0.011-0.022 m (FIGURE READ-OFF).",
+   "The pupil's orientation on the sky (the drawing uses the G19 image frame, vanes horizontal and vertical); whether the prime-focus instruments add to the cage's obstruction.",
+   "The Cassegrain secondary's prescription (only the 41-inch diameter and eccentricity ~1.52, A48)."
+  ],
+  "conflicts": [
+   "Primary focal length: 660 in, f/3.3 (B61, PHT) vs 666 in (A48, 1948); the LFC cookbook's prime focus \"f/3.33\" matches 666 in.",
+   "Central obstruction: 72-inch cage, eps 0.360 (B61) vs 1.86 m, eps 0.3661 (HCI) vs 0.3687 (FIGURE READ-OFF of G19 Fig. 3).",
+   "Spider width: 12.7 mm (C14, 0.25%) vs 48 mm (HCI) vs 0.017 m equivalent width (FIGURE READ-OFF, 0.011-0.022 m); hcipy's value matches the blurred apparent width.",
+   "Prime focus with the Wynne corrector: 0.18 arcsec/px (PWASP, PLFC; f/3.384) vs 0.175 at the field center (PLFCC; f/3.480) vs \"f/3.33\" (PLFCC) vs \"f/3.3\" (PWASP, PLFC). WaSP's field: 18.4 x 18.5 arcmin (PWASP) vs 24 arcmin across (PHT; 24 arcmin is the LFC's field diameter, PLFC).",
+   "Cassegrain: f/16, 81.28 m, 2.538 arcsec/mm (B61, PHT) vs f/15.7 and 2.5 arcsec/mm (OG82, mutually inconsistent: 79.76 vs 82.51 m) vs 2.57 arcsec/mm at the DBSP slit (PDS; 80.26 m, f/15.80).",
+   "Coude flats: one flat south of +43 deg and three north of +43 deg (B61, 1961) vs the auxiliary flats for objects north of 50 deg (A48, 1948).",
+   "Central hole: 40 in (B61) vs the 39 1/2-inch core that cast the hole (A48).",
+   "G19 places the stellar double coronagraph \"at the primary focus\" of the Hale; the coronagraph sits between PALM-3000 and PHARO, and the pupil image shows the cage's obscuration."
+  ],
+  "notes": [
+   "The cage at the prime focus is the obstruction at all foci: the cage's lower part holds the three hyperboloids (the f/16 Cassegrain and two f/30 coude secondaries), which are swung into the beam when needed (B61). The explorer uses eps 0.3661 (the measured pupil) by default and 0.360 (the 72-inch cage) at the prime foci.",
+   "Prime focus: the bare paraboloid gives good images over less than half an inch (2.6 arcmin), so the cage instruments work behind correctors: Ross's lenses at f/3.6 and f/4.7 in the photographic era (B61), a Wynne corrector for LFC and WaSP since the 2000s (PLFCC; WaSP INFERRED).",
+   "The coude train (one flat for southern objects, three for northern) cannot be drawn: the explorer draws the coude focus unfolded as a Cassegrain-type focus, with the secondary's place INFERRED from the 36-inch coude secondary; the fieldNote says so. Leaving the coude out is the alternative.",
+   "The 4-Shooter preset (data/imaging/fourshooter.md) used D 5.08, eps 0.36 and F 16; this file adds the measured pupil (eps 0.3661) and the vanes.",
+   "The pupil frame is G19's image frame (vanes horizontal and vertical, as hcipy draws the vanes); the cross in the image is tilted ~2 deg, within the reading."
+  ]
+ }
+}

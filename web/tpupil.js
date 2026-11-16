@@ -67,6 +67,29 @@ function inPupil(pu, eps, x, y, noVanes) {
   for (const p of pu.pads || []) { const px = p.r * Math.cos(p.ang * DEG), py = p.r * Math.sin(p.ang * DEG); if (Math.hypot(x - px, y - py) < p.d / 2) return false; }
   return true;
 }
+// the mirror's outlines in the pupil (m, seen from the sky), for the 3D view: each hexagonal segment by the same
+// lattice, rings and cut as inPupil; each round or elliptical mirror; or, for one mirror (kind "circle"), null.
+// Gaps are kept; vanes, pads and the obstruction are not (the 3D view draws those itself).
+function tiles(pu) {
+  if (pu.kind === "hex") {
+    const s = pu.flat, a = s / 2 - (pu.gap || 0) / 2, R = a / Math.cos(30 * DEG), r0 = pu.rings0 === undefined ? 1 : pu.rings0;
+    const c = Math.cos((pu.rot || 0) * DEG), sn = Math.sin((pu.rot || 0) * DEG), out = [];
+    for (let q = -pu.rings; q <= pu.rings; q++) for (let r = -pu.rings; r <= pu.rings; r++) {
+      const ring = Math.max(Math.abs(q), Math.abs(r), Math.abs(q + r));
+      if (ring < r0 || ring > pu.rings) continue;
+      const cx = s * (q + r / 2), cy = s * Math.sqrt(3) / 2 * r;
+      if (pu.rcut && Math.hypot(cx, cy) > pu.rcut) continue;
+      // pointy-topped in the lattice's frame (flats facing +-x, as inPupil tests), turned by rot to the sky's
+      out.push(Array.from({ length: 6 }, (_, k) => { const t = (90 + 60 * k) * DEG, x = cx + R * Math.cos(t), y = cy + R * Math.sin(t); return [x * c - y * sn, x * sn + y * c]; }));
+    }
+    return out;
+  }
+  if (pu.kind === "circles") return (pu.segs || []).map(g => Array.from({ length: 40 }, (_, k) => {
+    const t = 2 * Math.PI * k / 40, ph = Math.atan2(g.y, g.x), u = (g.dr || g.d) / 2 * Math.cos(t), v = g.d / 2 * Math.sin(t);
+    return g.dr ? [g.x + u * Math.cos(ph) - v * Math.sin(ph), g.y + u * Math.sin(ph) + v * Math.cos(ph)] : [g.x + u, g.y + v];
+  }));
+  return null;
+}
 // the mask on an n x n grid of cells dx wide, centered on the pupil: each cell's covered fraction, the edges
 // supersampled sub x sub, and the vanes' coverage found exactly (sampling would quantize a thin vane)
 function raster(pu, eps, n, dx, sub = 4) {
@@ -197,7 +220,7 @@ function fft2(re, im, n) {
 }
 
 
-const API = { N, Q, K_OTF, K_FWHM, inPupil, raster, pupilAndPSF, pupilImage, seeingGrid, seeingPSF, fft2 };
+const API = { N, Q, K_OTF, K_FWHM, inPupil, tiles, raster, pupilAndPSF, pupilImage, seeingGrid, seeingPSF, fft2 };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.TP = API;
 })(typeof window !== "undefined" ? window : globalThis);
