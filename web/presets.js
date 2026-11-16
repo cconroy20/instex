@@ -4,6 +4,8 @@
    ~/via/docs/requirements/science_requirements.tex).  Each preset has an id, a telescope group (tel), a
    menu name ("Telescope / Instrument ..."; the menu drops the part before the slash), a note on where the
    numbers come from, the explorer state, and "pub": the published performance validate.js checks.
+   An instrument with several settings (arms, channels, gratings, bands) is one line in the Preset menu (inst) and its
+   presets are picked in the Setting menu beside it (setting); presets without inst are one line each.
    pub entries: { what, q, value, tol, src } or { ..., info: true }.
      q (what the model returns):
        R          effective resolving power at the central wavelength (slit, diffraction and pixel in quadrature);
@@ -89,7 +91,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "mikered", tel: "Magellan 6.5 m", name: "Magellan / MIKE red, 1″",
+    id: "mikered", tel: "Magellan 6.5 m", name: "Magellan / MIKE red, 1″", inst: "MIKE", setting: "red, 1″",
     note: "Magellan Clay MIKE red arm (Bernstein et al. 2003 manuscript; LCO manual): R2 echelle 52.6 /mm at 63.5°, quasi-Littrow (angles not published: 0 here), double-pass 500 mm camera/collimator at f/3.3, one 47° PBM2 prism in double pass, 2k × 4k 15 µm. Central wavelength = middle of the LCO standard setting (the prism angle is not published, so where the orders fall is not either).",
     state: { mode: "echelle", D: 6.5, F: 500 / 150,
       e: { slitW: 1, nObj: 1, col: "lens", W: 150, fcam: 500, eG: 52.6, eDelta: 63.5, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
@@ -102,7 +104,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "mikeblue", tel: "Magellan 6.5 m", name: "Magellan / MIKE blue, 1″",
+    id: "mikeblue", tel: "Magellan 6.5 m", name: "Magellan / MIKE blue, 1″", inst: "MIKE", setting: "blue, 1″",
     note: "Magellan Clay MIKE blue arm (Bernstein et al. 2003 manuscript): R2.6 echelle 52.7 /mm at 69.0°, quasi-Littrow (angles not published: 0 here), double-pass 550 mm camera/collimator, two 38° fused-silica prisms in double pass (four prism passes, each at minimum deviation: the prism angles are not published), 2k × 4k 15 µm. Central wavelength = middle of the LCO standard setting.",
     state: { mode: "echelle", D: 6.5, F: 550 / 150,
       e: { slitW: 1, nObj: 1, col: "lens", W: 150, fcam: 550, eG: 52.7, eDelta: 69.0, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
@@ -161,7 +163,7 @@ const PRESETS = [
   },
   // Magellan / LLAMAS: three arms of fiber-fed VPH spectrographs; the gratings are not published (data/round4/llamas.md)
   ...[["blue", 2233, 4222, 3417, 4947, 0.762, "1500–2500"], ["green", 1425, 5923, 4634, 7100, 1.204, "1400–2400"], ["red", 1070, 8466, 6771, 10000, 1.609, "1750–2500"]].map(([arm, G, lc, l0, l1, disp, Rlab]) => ({
-    id: "llamas" + arm[0], tel: "Magellan 6.5 m", name: "Magellan / LLAMAS " + arm + " (grating fitted)",
+    id: "llamas" + arm[0], tel: "Magellan 6.5 m", name: "Magellan / LLAMAS " + arm + " (grating fitted)", inst: "LLAMAS (gratings fitted)", setting: arm,
     note: "Magellan LLAMAS IFU, " + arm + " arm (Furesz et al. 2020; MIT LLAMAS pages, exposure-time calculator and pipeline tables): lenslets turn the native f/11 into f/4.4 at the 110 µm fibers; F = 4.0 is the collimator's acceptance (the fibers keep 95.6% of the light inside f/4), so the core enters at f/4.0, 110 µm / (4.0 × 6.5 m) = 0.873″ (the sky is sampled by 0.75″ lenslets), as the slit of equal line width, 0.756″; 300 spectra per detector, on-axis spherical collimator mirror 200 mm (beam 50 mm), camera 70 mm, e2v 2048 × 2048 of 13.5 µm. The VPH line density (" + G + " /mm) and the grating's symmetric angle are NOT published: they are fitted so the published band " + l0 + "–" + l1 + " Å fills the chip.",
     state: { mode: "grating", D: 6.5, F: 4.0,
       g: { slitW: S3 * 0.110 / (4.0 * 6500) * 206264.806, nObj: 300, col: "mirror", W: 50, fcam: 70, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
@@ -173,7 +175,7 @@ const PRESETS = [
   })),
   // Magellan / LDSS-3: VPH grisms between two prisms (data/round5/grisms.md; geometry from Carnegie's maskgen file)
   ...[["All", 400, 16.3, "silica", 6588, 2.040, null, "4250–10000"], ["Blue", 1090, 24.0, "S-LAL7", 5150, 0.6947, 1900, "3800–6200"], ["Red", 665, 24.0, "S-LAL7", 8321, 1.1818, 1810, "6000–10000"]].map(([k, G, Ap, gl, lc, disp, Rt, band]) => ({
-    id: "ldss3" + k.toLowerCase(), tel: "Magellan 6.5 m", name: "Magellan / LDSS-3 VPH-" + k + ", 0.75″",
+    id: "ldss3" + k.toLowerCase(), tel: "Magellan 6.5 m", name: "Magellan / LDSS-3 VPH-" + k + ", 0.75″", inst: "LDSS-3", setting: "VPH-" + k + ", 0.75″",
     note: "Magellan Clay LDSS-3 with the VPH-" + k + " grism (LCO LDSS-3 pages; Carnegie maskgen instrument file; measured arc solutions): f/11, refractive collimator 746.8 mm (beam 67.9 mm, derived), camera 173.1 mm, VPH grism " + G + " /mm" + (k === "Red" ? " (maskgen's value, changed there from 660 along with alignment values \"used for fitting actual data\"; the LCO grism table gives 660)" : "") + " between two " + (gl === "silica" ? "fused-silica" : "OHARA S-LAL7") + " prisms of apex " + Ap + "° (the VPH model exactly), Fermilab CCD 4096 × 2048 of 15 µm; 17 slits per mask (mean of 35 published masks).",
     state: { mode: "grating", D: 6.5, F: 11.0,
       g: { slitW: 0.75, nObj: 17, col: "lens", W: 746.77 / 11.0, fcam: 173.076, gType: "grism", G, m: 1, lamB1: 5000, lamC: lc, psi: 35, tAlpha: null,
@@ -234,7 +236,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "kcwib", tel: "Keck 10 m", name: "Keck / KCWI blue BM, Medium slicer",
+    id: "kcwib", tel: "Keck 10 m", name: "Keck / KCWI blue BM, Medium slicer", inst: "KCWI", setting: "blue (BM)",
     note: "Keck II KCWI blue arm (Morrissey et al. 2018; Keck KCWI pages): the image slicer at the f/13.7 focus (no fore-optics), Medium slicer 0.69″ × 20.4″ slices, 24 slices (≈3330 spaxels) per detector, spherical collimator mirror (f 2172.5 mm; the explorer's beam-matched value is 2192 mm), 160 mm pupil, articulated refractive camera 304.4 mm f/1.9, BM VPH 1900 /mm at α = 30° (β = 20.8° at 4500 Å), e2v CCD231-84 4112 × 4096 of 15 µm.",
     state: { mode: "grating", D: 10.95, F: 13.7,
       g: { slitW: 0.69, nObj: 3330, col: "mirror", W: 160, fcam: 304.4, gType: "trans", G: 1900, m: 1, lamB1: 5000, lamC: 4500, psi: 35, tAlpha: 30, Nx: 4112, Ny: 4096, pix: 15 } },
@@ -246,7 +248,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "kcrm", tel: "Keck 10 m", name: "Keck / KCRM red RL, Medium (angle derived)",
+    id: "kcrm", tel: "Keck 10 m", name: "Keck / KCRM red RL, Medium (angle derived)", inst: "KCWI", setting: "red (KCRM, RL)",
     note: "Keck II KCRM, the red arm of KCWI (Keck pages; KCWI data pipeline): the same slicer and collimator, Medium slicer 0.69″, camera 305 mm (an assumption: the KCRM camera is not published, and 305 mm is the single FCAM of the pipeline's kcwi.cfg, listed among the \"parameters that should be the same for both channels\"), RL VPH 530 /mm at α = 18.26° (NOT published: derived assuming β = α − 9° as for the blue gratings, which reproduces the published sample coverage), 4096 × 4096 of 15 µm (the exact format is not published).",
     state: { mode: "grating", D: 10.95, F: 13.7,
       g: { slitW: 0.69, nObj: 3330, col: "mirror", W: 160, fcam: 305, gType: "trans", G: 530, m: 1, lamB1: 5000, lamC: 8950, psi: 35, tAlpha: 18.26, Nx: 4096, Ny: 4096, pix: 15 } },
@@ -276,7 +278,7 @@ const PRESETS = [
   // Keck I / MOSFIRE: one reflection grating in orders 6, 5, 4, 3 for Y, J, H, K (data/round4/mosfire.md)
   ...[["Y", 6, 10373, 1.0855, 2.92, 3380, 9716, 11250], ["J", 5, 12450, 1.3028, 2.92, 3310, 11530, 13520],
       ["H", 4, 16321, 1.6269, 2.87, 3660, 14680, 18040], ["K", 3, 21760, 2.1691, 2.87, 3620, 19540, 23970]].map(([b, m, lc, disp, npx, Rm, lo, hi]) => ({
-    id: "mosfire" + b.toLowerCase(), tel: "Keck 10 m", name: "Keck / MOSFIRE " + b + ", 0.7″",
+    id: "mosfire" + b.toLowerCase(), tel: "Keck 10 m", name: "Keck / MOSFIRE " + b + ", 0.7″", inst: "MOSFIRE", setting: b + ", 0.7″",
     note: "Keck I MOSFIRE (McLean et al. 2012; Keck MOSFIRE pages): f/13.66 Cassegrain, six-element refractive collimator 1813 mm (beam 132.7 mm on the 10.95 m primary), camera 250 mm (reduction 7.25), 110.5 l/mm reflection grating blazed 21.93°, fixed 40° camera–collimator angle, " + b + " band in order " + m + " at λc = " + lc + " Å, HAWAII-2RG 2048 × 2048 of 18 µm; 28 slits per mask (MOSDEF average; the slit unit forms up to 46 slits from 92 bars).",
     state: { mode: "grating", D: 10.95, F: 13.66,
       g: { slitW: 0.7, nObj: 28, col: "lens", W: 1813.0 / 13.66, fcam: 250.0, gType: "refl", G: 110.5, m, lamB1: 2 * Math.sin(21.93 * Math.PI / 180) / 110.5 * 1e7, lamC: lc, psi: 40, tAlpha: null,
@@ -305,7 +307,7 @@ const PRESETS = [
     ["h", "H", "1470–1830", 24, 300, 16497.9, 46, 2048, 42, 51, 16719.5 - 16303.3, 50, 136.2],
     ["k", "K", "1990–2450", 24, 270, 22320.7, 34, 2048, 31, 38, 22587.9 - 22017.1, 37, 225.5],
   ].map(([id, arm, band, eG, xG, lamC, mC, Ny, mLo, mHi, span, mS, sep]) => ({
-    id: "zsh" + id, tel: "Keck 10 m", name: `Keck / ZShooter ${arm}, 0.7″ (design)`,
+    id: "zsh" + id, tel: "Keck 10 m", name: `Keck / ZShooter ${arm}, 0.7″ (design)`, inst: "ZShooter (design)", setting: `${arm}, 0.7″`,
     note: `ZShooter ${arm} channel (${band} nm, orders ${mLo}–${mHi}), the design adopted after the 2026 conceptual design review (ZShooter website; the project's simulator, built from the June 2026 Zemax design; Bailey et al. 2026). Keck I right Nasmyth focus, relayed to f/10 (the website quotes f/10.5, but the 1500 mm collimator, the 150 mm beam and the 530.6 µm/″ slit scale all give f/10); 0.70″ × 10″ slit; off-axis paraboloid collimator 1500 mm; R2 echelle ${eG} /mm at 65.6°, tilted 0.6° out of the plane (the in-plane angle is not published: 0 here); VPH cross-disperser ${xG} /mm; a 225 mm f/1.8 camera on the 125 mm white pupil, entered as the effective 270 mm camera with the VPH as ${(xG * 225 / 270).toFixed(1)} /mm; ${Ny === 4096 ? "a 2048 × 4096 qCCD" : "a 2048 × 2048 HgCdTe LmAPD"} of 15 µm, the dispersion along the 2048-px axis. Central wavelength: the blaze of order ${mC}, the order the simulator places nearest the detector's center. Not modeled: the dichroics that bound the passband (partial orders beyond the passband appear on the chip), the detector's rotation (5–9.5°) and offset${arm === "B" ? ", and the orders below the explorer's 3200 Å limit (the design reaches 3050 Å)" : ""}. Not built yet.`,
     state: { mode: "echelle", D: 10.95, F: 10.0,
       e: { slitW: 0.70, nObj: 1, col: "mirror", W: 150, fcam: 270, eG, eDelta: 65.6, gamma: 0.6, theta: 0, xd: "vph", xG: xG * 225 / 270, xPsi: 10,
@@ -380,7 +382,7 @@ const PRESETS = [
   },
   // VLT / FORS2: ruled grisms whose entrance faces are tilted 7.5° (data/round5/grisms.md)
   ...[["300V", 300, 21, "FK5HTi", 5849, 1.6549, 440, "4450–8700 Å (GG435)"], ["300I", 300, 26.7, "LF5", 8574, 1.6101, 660, "6000–11000 Å (OG590)"], ["600B", 600, 34, "FK5HTi", 4629, 0.7476, 780, "3300–6210 Å"]].map(([k, G, Ap, gl, lc, disp, Rm, band]) => ({
-    id: "fors2" + k.toLowerCase(), tel: "VLT 8.2 m", name: "VLT / FORS2 " + k + ", 1″",
+    id: "fors2" + k.toLowerCase(), tel: "VLT 8.2 m", name: "VLT / FORS2 " + k + ", 1″", inst: "FORS2", setting: k + ", 1″",
     note: "VLT FORS2 with GRIS_" + k + " (ESO FORS manual; 1995 FORS grism design; ESO pipeline calibration; VLT-SPE-ESO-10000-2723): Cassegrain entrance pupil 8115 mm (VLT-SPE Table 2: 8115.0 mm at f/13.4106), with F = 13.42 so that the plate scale is the manual's 528 µm/″; refractive collimator 1233 mm (beam 91.9 mm, derived), camera 280 mm, ruled grism " + G + " /mm on a " + (gl === "LF5" ? "LF5" : "FK5") + " prism of " + Ap + "°, the prism's entrance face tilted 7.5° in the dispersion plane (the direction inferred from ESO's numbers; no source states the direction), MIT mosaic 4096 × 4096 of 15 µm (two chips; the gap is not modeled); 50 slits per MXU mask (survey average).",
     state: { mode: "grating", D: 8.115, F: 13.28 * 8.2 / 8.115,
       g: { slitW: 1.0, nObj: 50, col: "lens", W: 1233 / (13.28 * 8.2 / 8.115), fcam: 280, gType: "grism", G, m: 1, lamB1: 5000, lamC: lc, psi: 35, tAlpha: null,
@@ -398,7 +400,7 @@ const PRESETS = [
   // equivalent round beam of 2 x 300 = 600 mm.  The cross-dispersers (a fused-silica prism plus a VPH grating) are not
   // published: an equivalent first-order VPH is estimated here.
   ...[["blue", "b", 757, 4380, [[3800.4, 161, 0.0063], [5229.7, 117, 0.0086]], 117, 161], ["red", "r", 407, 6548, [[5229.7, 117, 0.0086], [7844.5, 78, 0.0129]], 78, 117]].map(([arm, k, xG, lc, dl, m1, m2]) => ({
-    id: "espresso" + k, tel: "VLT 8.2 m", name: "VLT / ESPRESSO " + arm + ", singleHR (partly fitted)",
+    id: "espresso" + k, tel: "VLT 8.2 m", name: "VLT / ESPRESSO " + arm + ", singleHR (partly fitted)", inst: "ESPRESSO (partly fitted)", setting: arm + ", singleHR",
     note: "VLT ESPRESSO " + arm + " arm, singleHR 1-UT mode (Pepe et al. 2021; ESO ESPRESSO manual; design papers): 140 µm octagonal fiber (1.0″) entered as the slit of equal line width, 4 spectra (object and sky/reference fibers, each cut in two by the pupil slicer), collimator mirror 3000 mm (off-axis parabola, double pass) with an equivalent 600 mm beam (two 300 mm slices), 31.6 /mm R4 echelle (a 3 × 1 mosaic, δ = 76°, θ = 0; γ = 4.85° inferred from the order table, which then lists blaze-center wavelengths), cross-disperser an equivalent " + xG + " /mm VPH (the real prism + VPH is not published), camera 755 mm (fitted to the pixel dispersion of Pepe et al. 2021 Table 2; the design gives 800 mm), 9232 × 9216 of 10 µm. D = 8.2 m, the primary: no source gives the effective aperture of the coudé feed (140 µm = 1.0″ at F/3.5 implies 8.25 m).",
     state: { mode: "echelle", D: 8.2, F: 5.0,
       e: { slitW: S3 * 1.0, nObj: 4, col: "mirror", W: 600, fcam: 755, eG: 31.6, eDelta: 76.0, gamma: 4.85, theta: 0, xd: "vph", xG, xPsi: 10,
@@ -422,7 +424,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "uvesb", tel: "VLT 8.2 m", name: "VLT / UVES blue 390, 1″",
+    id: "uvesb", tel: "VLT 8.2 m", name: "VLT / UVES blue 390, 1″", inst: "UVES", setting: "blue 390, 1″",
     note: "VLT UVES blue arm, standard 390 nm setting with CD#2 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model for the cross-disperser angle): 8.0 m entrance pupil at f/10 (the value that reproduces the published scales), white-pupil collimator mirror 2000 mm, beam 200 mm, R4 echelle 41.59 /mm (δ = 76.0°, θ = 0, γ = 0.8°), cross-disperser 660 /mm at a 46.0° camera–collimator angle, camera 360 mm f/1.8, EEV 3000 × 2048 of 15 µm (the illuminated part of the 2k × 4k CCD).",
     state: { mode: "echelle", D: 8.0, F: 10,
       e: { slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 360, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, xd: "grating", xG: 660, xPsi: 46.0,
@@ -437,7 +439,7 @@ const PRESETS = [
     ],
   },
   {
-    id: "uvesr", tel: "VLT 8.2 m", name: "VLT / UVES red 580, 1″",
+    id: "uvesr", tel: "VLT 8.2 m", name: "VLT / UVES red 580, 1″", inst: "UVES", setting: "red 580, 1″",
     note: "VLT UVES red arm, standard 580 nm setting with CD#3 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model): 8.0 m entrance pupil at f/10, collimator mirror 2000 mm, beam 200 mm, R4 echelle 31.6 /mm (δ = 75.04°, θ = 0, γ = 0.8°), cross-disperser 600 /mm at 45.336°, camera 500 mm f/2.5, two 2k × 4k CCDs (4096 × 4096 of 15 µm; the 0.96 mm gap between the chips, where order 105 falls, is not modeled).",
     state: { mode: "echelle", D: 8.0, F: 10,
       e: { slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 500, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, xd: "grating", xG: 600, xPsi: 45.336,
@@ -460,7 +462,7 @@ const PRESETS = [
       xPrisms: [{ glass: "Infrasil-105K", A: 35 }, { glass: "ZnSe-105K", A: 22 }, { glass: "ZnSe-105K", A: 22 }, { glass: "ZnSe-105K", A: 22 }, { glass: "ZnSe-105K", A: 22 }, { glass: "Infrasil-105K", A: 35 }] },
       14528, 2048, 1024, 18, 0.9, 5600, 3.6, 0.245, 16, 18, 1400.8, 1511.5, "a 35° Infrasil and two 22° ZnSe prisms in double pass, at 105 K"],
   ].map(([id, arm, D, F, W, [cs, cf], eG, dl, gam, xd, lc, Nx, Ny, pix, slit, R, npx, ps, nOrd, mT, oLo, oHi, xdTxt]) => { const fc = 206264.8 / cs / (D * 1000) * W; return {
-    id: "xsh" + id, tel: "VLT 8.2 m", name: `VLT / X-Shooter ${arm}, ${slit.toFixed(1)}″`,
+    id: "xsh" + id, tel: "VLT 8.2 m", name: `VLT / X-Shooter ${arm}, ${slit.toFixed(1)}″`, inst: "X-Shooter", setting: `${arm}, ${slit.toFixed(1)}″`,
     note: `X-Shooter ${arm} arm (Vernet et al. 2011; ESO user manual): echelle ${eG} /mm at ${dl}°, in-plane offset 0, ${gam}° out of plane; ${xdTxt}; ${W} mm beam; mirror (Maksutov-type) collimator; camera f/${cf} (effective focal length ${fc.toFixed(1)} mm, from the published camera plate scale ${cs}″/mm and the beam on the 8115 mm Cassegrain entrance pupil, VLT-SPE-ESO-10000-2723 Table 2); detector area used ${Nx} × ${Ny} px of ${pix} µm.` +
       (id === "nir" ? " The NIR slit focal ratio is not published: f/6.5 assumed (the focal ratio changes only the drawing)." : ` Slit focal ratio f/${F.toFixed(2)} from the published slit plate scale (f_col = ${(F * W).toFixed(0)} mm).`) + " Central wavelength: the blaze of the middle order.",
     state: { mode: "echelle", D, F,
@@ -515,7 +517,7 @@ const PRESETS = [
       ["HRS", "blue", 3586, null, null, 4152, 3926, 4355, 0.0720, ["19,800", 6, 5]], ["HRS", "green", 2836, null, null, 5460, 5160, 5730, 0.0958, ["19,300", 20, 15]], ["HRS", "red", 2343, null, null, 6464, 6100, 6790, 0.1137, ["20,250", 8, 9]]].map(([sp, arm, G, al, cam, lc, l0, l1, disp, x]) => {
     const lrs = sp === "LRS", W = lrs ? 200 : 250, fcol = lrs ? 600 : 750, fcam = lrs ? 345 : 375;
     return {
-      id: "4most" + sp.toLowerCase()[0] + arm[0], tel: "VISTA 4.1 m", name: "VISTA / 4MOST " + sp + " " + arm + (lrs ? "" : " (concept optics)"),
+      id: "4most" + sp.toLowerCase()[0] + arm[0], tel: "VISTA 4.1 m", name: "VISTA / 4MOST " + sp + " " + arm + (lrs ? "" : " (concept optics)"), inst: "4MOST " + sp + (lrs ? "" : " (concept optics)"), setting: arm,
       note: "VISTA 4MOST " + sp + " " + arm + " arm (de Jong et al. 2019; 4MOST User Manual; 4MOST spectrograph papers" + (lrs ? " and the 2023 instrument-model table" : "") + "): 85 µm fibers, 1.45″ on the sky; the explorer enters the core at the f/3.0 fiber output, 85 µm / (3.0 × 4.1 m) = 1.43″, as the slit of equal line width (1.23″); 824 spectra per detector (812 science + 12 calibration), collimator mirror " + fcol + " mm (beam " + W + " mm), VPH " + G + " /mm" + (lrs ? " at α = " + al + "°, camera at " + cam + "° to the collimator" : " at the symmetric setting") + ", camera " + fcam + " mm" + (lrs ? " (f/1.73, 2016 design review)" : " (fitted to the published bands: the HRS as-built optics are not public)") + ", 6144 × 6160 pixels of 15 µm.",
       state: { mode: "grating", D: 4.10, F: fcol / W,
         g: { slitW: S3 * 0.085 / (3.0 * 4100) * 206264.806, nObj: 824, col: "mirror", W, fcam, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
@@ -537,7 +539,7 @@ const PRESETS = [
   // (data/round4/pfs.md); the medium-resolution red arm is a grism, which the explorer does not model
   ...[["blue", "b", 711.4, 7.2, 14.2, 4176, 4096, 0.7, 2500, 5000, 3800, 6500], ["red", "r", 556.7, 9.5, 16.5, 4176, 4096, 0.9, 3000, 8000, 6300, 9700],
       ["NIR", "n", 569.5, 14.9, 21.9, 4088, 4088, 0.8, 4500, 11000, 9400, 12600]].map(([arm, k, G, al, be, nx, ny, disp, Rp, lR, l0, l1]) => ({
-    id: "pfs" + k, tel: "Subaru 8.2 m", name: "Subaru / PFS " + arm + " arm",
+    id: "pfs" + k, tel: "Subaru 8.2 m", name: "Subaru / PFS " + arm + " arm", inst: "PFS", setting: arm + " arm",
     note: "Subaru PFS " + arm + " arm (Sugai et al. 2015; Barkhouser et al. 2014 design table; Subaru/IPMU PFS pages): fibers delivering f/2.8; core 129 µm at the spectrograph (cable A; 127 µm at the focal plane, 1.12″ on the sky through the microlens; Sugai et al. 2015 Table 1), entered at f/2.8, 129 µm / (2.8 × 8.2 m) = 1.16″, as the slit of equal line width; 616 spectra per detector (600 science + 16 engineering), Schmidt collimator mirror 693.5 mm (the slit-to-collimator distance; beam 248 mm at f/2.8), VPH " + G + " /mm at α = " + al + "°, β = " + be + "° (design values), camera 300 mm f/1.09, " + nx + " × " + ny + " pixels of 15 µm.",
     state: { mode: "grating", D: 8.2, F: 2.8,
       g: { slitW: S3 * 0.129 / (2.8 * 8200) * 206264.806, nObj: 616, col: "mirror", W: 693.5 / 2.8, fcam: 300, gType: "trans", G, m: 1, lamB1: 5000,
@@ -566,7 +568,7 @@ const PRESETS = [
   },
   ...[["B", 1103.5, 11.48, 212.8, 3600, 5930, 2000, 3000], ["R", 1157.4, 18.73, 213.6, 5660, 7720, 3500, 4500], ["Z", 992.5, 21.19, 214.0, 7470, 9800, 4000, 5500]]
     .map(([arm, G, al, fc, l0, l1, r0, r1]) => ({
-      id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m", name: `Mayall / DESI ${arm} arm`,
+      id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m", name: `Mayall / DESI ${arm} arm`, inst: "DESI", setting: `${arm} arm`,
       note: `DESI ${arm} arm (DESI Collaboration 2022; Final Design Report): fiber-fed, 107 µm core, 1.585″ on the sky at the field center; the explorer enters the core at the f/3.57 collimator, 107 µm / (3.57 × 3.797 m) = 1.63″, as the slit of equal line width, 1.41″; f/3.57 collimator with a 126 mm pupil, transmission grating ${G} /mm at ${al}° incidence (as built), ${fc} mm f/1.7 camera, 4k × 4k 15 µm. Central wavelength = middle of the arm's band.`,
       state: { mode: "grating", D: 3.797, F: 3.57,
         g: { slitW: S3 * 0.107 / (3.57 * 3797) * 206264.806, nObj: 500, col: "mirror", W: 126, fcam: fc, gType: "trans", G, m: 1, lamB1: 5000, lamC: (l0 + l1) / 2,
@@ -580,7 +582,7 @@ const PRESETS = [
       ],
     })),
   ...[["blue", 2101, 4848, 3600, 5900], ["red", 1157, 8011, 5700, 10000]].map(([arm, G, lc, l0, l1]) => ({
-    id: "boombox" + arm[0], tel: "Via (MMT and Magellan 6.5 m)", name: `Via / Boombox ${arm} (partly guessed)`,
+    id: "boombox" + arm[0], tel: "Via (MMT and Magellan 6.5 m)", name: `Via / Boombox ${arm} (partly guessed)`, inst: "Boombox (partly guessed)", setting: arm,
     note: `Boombox ${arm} channel (Via technical document): 6.5 m, 200 µm (1.2″) unmasked fibers, refractive-triplet collimator, binary transmission grating, f/1.5 camera, 2048 × 256 CCD with 15 µm pixels, band ${l0}-${l1} Å. GUESSED (the prescription is not in the document): fiber output f/5.3 as for Viaspec (the core enters at f/5.3, 200 µm / (5.3 × 6.5 m) = 1.20″, as the slit of equal line width, 1.04″), a 35 mm beam shared by both channels, and the groove density (${G} /mm) and central wavelength solved so the band exactly fills the 2048 pixels. Coverage therefore matches by construction. R and sampling depend on the guesses: the fiber image on the detector is 200 µm × f/1.5 / f/5.3, so both scale with the guessed f/5.3 (the dispersion is fixed by the documented band and pixel count).`,
     state: { mode: "grating", D: 6.5, F: 5.3,
       g: { slitW: S3 * 0.2 / (5.3 * 6500) * 206264.806, nObj: 36, col: "lens", W: 35, fcam: 1.5 * 35, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,

@@ -103,7 +103,7 @@ const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt
 
 function markCustom() {
   presetId = "custom";
-  $("preset").value = "custom";
+  showPreset("custom");
 }
 for (const [id, key, scope, lg, intg] of SL) {
   $(id).addEventListener("input", () => {
@@ -199,14 +199,45 @@ function buildPresetMenu() {
   }
   groups.sort((x, y) => y.D - x.D || x.t.localeCompare(y.t));
   // a group of one (each telescope in the Telescopes mode, each array in the Interferometer mode) is one line, under its own name
+  instOpts = {};
   for (const gr of groups) {
     if (gr.ps.length === 1 && (inst === "tel" || inst === "int")) { const o = document.createElement("option"); o.value = gr.ps[0].id; o.textContent = gr.ps[0].name; psel.appendChild(o); continue; }
     const og = document.createElement("optgroup"); og.label = gr.t;
-    for (const p of gr.ps) { const o = document.createElement("option"); o.value = p.id; o.textContent = p.name.replace(/^[^/]*\/\s*/, ""); og.appendChild(o); }
+    for (const p of gr.ps) {
+      if (p.inst && instOpts[instKey(p)]) continue;              // the instrument already has its line
+      const o = document.createElement("option"); o.value = p.id; o.textContent = p.inst || p.name.replace(/^[^/]*\/\s*/, "");
+      if (p.inst) { instOpts[instKey(p)] = o; o.dataset.first = p.id; }
+      og.appendChild(o);
+    }
     psel.appendChild(og);
   }
 }
-psel.addEventListener("change", () => {
+// An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and the
+// Setting menu beside it picks the setting. The instrument's line carries the selected setting's preset id as its value,
+// so the Preset menu's value is always the preset's id.
+const ssel = $("setting");
+let instOpts = {};                                               // instrument -> its line in the Preset menu
+const instKey = p => (p.tel || "") + "|" + p.inst;
+const presetList = () => (inst === "img" ? IMG.PRESETS : inst === "tel" ? TEL.PRESETS : inst === "int" ? INT.PRESETS : PRESETS);
+function showPreset(id) {
+  const L = presetList(), p = id === "custom" ? null : L.find(q => q.id === id);
+  const sibs = p && p.inst ? L.filter(q => q.inst && instKey(q) === instKey(p)) : [];
+  if (p && p.inst && instOpts[instKey(p)]) instOpts[instKey(p)].value = id;
+  psel.value = p ? id : "custom";
+  $("settingLab").hidden = sibs.length < 2;
+  if (sibs.length < 2) return;
+  if (ssel.dataset.inst !== instKey(p)) {
+    ssel.innerHTML = "";
+    for (const q of sibs) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.setting || q.name; ssel.appendChild(o); }
+    ssel.dataset.inst = instKey(p);
+  }
+  ssel.value = id;
+}
+ssel.addEventListener("change", () => { showPreset(ssel.value); psel.dispatchEvent(new Event("change")); });
+psel.addEventListener("change", ev => {
+  // an instrument picked in the Preset menu starts at its first setting (a change from the Setting menu keeps its choice)
+  const o = psel.selectedOptions[0];
+  if (ev.isTrusted && o && o.dataset.first) o.value = o.dataset.first;
   if (inst === "img") { const q = IMG.PRESETS.find(x => x.id === psel.value); if (q) IMG.applyPreset(q); else { IMG.custom(); scheduleHash(); } return; }
   if (inst === "tel") { const q = TEL.PRESETS.find(x => x.id === psel.value); if (q) TEL.applyPreset(q); return; }
   if (inst === "int") { const q = INT.PRESETS.find(x => x.id === psel.value); if (q) INT.applyPreset(q); return; }
@@ -221,13 +252,13 @@ function applyPreset(p) {
     else st[k] = p.state[k];
   }
   st.g.view = S.g.view;                           // the view (Spectral, Spatial, 3D) is the reader's, not the preset's
-  S = st; presetId = p.id; psel.value = p.id; zoom.reset(); lview.fit = true; schedule();
+  S = st; presetId = p.id; showPreset(p.id); zoom.reset(); lview.fit = true; schedule();
 }
 $("reset").addEventListener("click", () => {
   if (inst === "img") { IMG.reset(); return; }
   if (inst === "tel") { TEL.reset(); return; }
   if (inst === "int") { INT.reset(); return; }
-  S = clone(DEF); presetId = "custom"; psel.value = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto";
+  S = clone(DEF); presetId = "custom"; showPreset("custom"); zoom.reset(); lview.fit = true; lview.mode = "auto";
   stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
 });
 
@@ -261,7 +292,7 @@ function syncControls() {
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
   buildPresetMenu();
-  psel.value = inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : inst === "int" ? INT.presetId() : presetId;
+  showPreset(inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : inst === "int" ? INT.presetId() : presetId);
 }
 
 function params() {

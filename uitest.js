@@ -646,10 +646,17 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
 
   // ------------------------------------------------------------ presets
-  const presets = await ev(`[...document.querySelectorAll("#preset option")].map(o => o.value).filter(v => v !== "custom")`);
-  check("every preset in the menu", presets.length === (await ev(`window.IX_PRESETS.length`)) && presets.length >= 38, presets.length + ": " + presets.join(", "));
+  // (an instrument with several settings is one line in the Preset menu; its line takes the chosen setting's id)
+  const presets = await ev(`window.IX_PRESETS.map(p => p.id)`);
+  { const r = await ev(`(() => { const L = window.IX_PRESETS, opts = [...document.querySelectorAll("#preset option")].filter(o => o.value !== "custom");
+      const lines = new Set(L.map(p => (p.tel || "") + "|" + (p.inst || p.id)));
+      const lineOf = o => { const p = L.find(q => q.id === (o.dataset.first || o.value)); return p && (p.tel || "") + "|" + (p.inst || p.id); };
+      return { n: opts.length, want: lines.size, all: [...lines].every(k => opts.some(o => lineOf(o) === k)) }; })()`);
+    check("every instrument has one line in the Preset menu", r.n === r.want && r.all && presets.length >= 38, JSON.stringify(r) + `, ${presets.length} presets`); }
   for (const p of presets) {
-    await ev(`(s => { s.value = ${JSON.stringify(p)}; s.dispatchEvent(new Event("change")); })(document.querySelector("#preset"))`); await sleep(250);
+    await ev(`(id => { const L = window.IX_PRESETS, P = L.find(q => q.id === id), s = document.querySelector("#preset");
+        const o = [...s.options].find(o => { const q = L.find(x => x.id === (o.dataset.first || o.value)); return q && (q.id === id || (P.inst && q.inst === P.inst && q.tel === P.tel)); });
+        o.value = id; s.value = id; s.dispatchEvent(new Event("change")); })(${JSON.stringify(p)})`); await sleep(250);
     d = await D();
     const colWant = { lris: "mirror", hires: "mirror", mikered: "lens", mikeblue: "lens", harps: "mirror", desib: "mirror", desir: "mirror", desiz: "mirror", boomboxb: "lens", boomboxr: "lens", via: "mirror",
       deimos: "mirror", binospec: "lens", xshuvb: "mirror", xshvis: "mirror", xshnir: "mirror",
@@ -682,6 +689,31 @@ const rel = (a, b) => Math.abs(a / b - 1);
       const lh = parseFloat(getComputedStyle(n).lineHeight), out = { lines: Math.round(n.getBoundingClientRect().height / lh), gap: a.getBoundingClientRect().left - n.getBoundingClientRect().right, below: document.querySelector(".bar").classList.contains("note-below") };
       document.documentElement.style.fontSize = ""; return out; })(${JSON.stringify(fs)})`);
     check(`1440x900 header note on one line (root font ${fs || "default"})`, r.lines === 1, JSON.stringify(r));
+  }
+  // the Setting menu: an instrument with several settings is one line in the Preset menu, its settings in the Setting
+  // menu beside it; a link opens the right setting; at 1280 px the header stays on one row and the setting is not clipped
+  await size(1280, 800);
+  {
+    const bad = [];
+    for (const [hash, list] of [["", "IX_PRESETS"], ["#inst=img", "IX_IPRESETS"]]) {
+      const ids = await ev(`window.${list}.filter(p => p.inst).map(p => p.id)`);
+      for (const id of ids) {
+        await go((hash ? hash + "&" : "#") + (list === "IX_PRESETS" ? "preset=" : "ipreset=") + id);
+        const r = await ev(`(() => { const ps = document.getElementById("preset"), ss = document.getElementById("setting"), lab = document.getElementById("settingLab"),
+            b = document.getElementById("reset").getBoundingClientRect(), p = ps.getBoundingClientRect(), cs = getComputedStyle(ss),
+            ctx = document.createElement("canvas").getContext("2d"); ctx.font = cs.font;
+            const txt = ss.selectedOptions[0] ? ss.selectedOptions[0].textContent : "";
+            return { shown: !lab.hidden, val: ps.value, set: ss.value, oneRow: Math.abs(b.top - p.top) < 8, clip: ctx.measureText(txt).width > ss.clientWidth - 22, txt }; })()`);
+        if (!r.shown || r.val !== id || r.set !== id || !r.oneRow || r.clip) bad.push(id + " " + JSON.stringify(r));
+      }
+    }
+    check("Setting menu: each multi-setting preset opens with its instrument and setting, one header row and an unclipped setting at 1280 px", bad.length === 0, bad.join("; "));
+    await go("#preset=harps");
+    const h = await ev(`document.getElementById("settingLab").hidden`);
+    await go("#preset=xshuvb");
+    await ev(`(s => { s.value = "xshnir"; s.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("setting"))`); await sleep(400);
+    const n = await ev(`({ p: document.getElementById("preset").value, d: window.__instex.design().orders.length, h: location.hash })`);
+    check("Setting menu: hidden for a one-setting instrument (HARPS); choosing X-Shooter NIR in it loads that preset and its link", h && n.p === "xshnir" && /preset=xshnir/.test(n.h), JSON.stringify(n));
   }
   // the panels take the height left over: in the default (shorter) grating controls, the controls still end at the bottom
   await size(1440, 900); await go();

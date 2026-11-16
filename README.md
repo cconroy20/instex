@@ -704,6 +704,16 @@ dispersion to 0.2–0.9%. New glasses: OHARA S-LAL7, SCHOTT LF5 and N-BAK2. (8) 
 closer than their own width (IFU spaxels) are dimmed so the sum keeps one trace's brightness, and traces denser
 than the screen can show are thinned and widened (zooming in restores them).
 
+## Preset and Setting menus
+
+An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and a
+Setting menu beside it, shown only for such an instrument, picks the setting (2026-11-16, his ask: the spectrograph
+menu went from 62 lines to 33, the imager menu from 35 to 26). A preset carries inst (its line) and setting (its
+name in the Setting menu); presets without inst are one line each. The instrument's line holds the selected
+setting's preset id as its value, so the Preset menu's value and the links name the preset as before; choosing
+an instrument starts at its first setting. From 861 to 1540 px the two menus share the bar's room, each up to its
+own width, so the header stays on one row (uitest checks every multi-setting preset at 1280 px).
+
 ## References
 
 The References button in the header opens a dialog with the selected preset's main references (one to three,

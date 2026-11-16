@@ -101,7 +101,7 @@ window.IX_IPRESETS = [
       { what: "field 202″", q: "fieldX", value: 202 / 60, info: true, src: "ACS handbook (the pixels are rhombic; the model's are square)" },
       { what: "16.8 Mpix", q: "npix", value: 16777216, tol: 1e-6, src: "2 × 4096 × 2048" },
     ] },
-  { id: "uvis", tel: "Hubble 2.4 m", name: "HST / WFC3/UVIS",
+  { id: "uvis", tel: "Hubble 2.4 m", name: "HST / WFC3/UVIS", inst: "WFC3", setting: "UVIS",
     note: "Wide Field Camera 3, UVIS channel, modeled as direct. F = 32.5 is the design focal length (78.0 m) over D; the published f/31 describes the beam at the tilted (21°) focal surface. Two 4096 × 2051 CCDs. Sources in data/imaging/hst.md.",
     state: { D: 2.4, eps: 0.33, F: 32.5, tel: "cass", field: 10, optics: "direct", band: "V", psf: "diff",
              Nx: 4096, Ny: 2051, pix: 15, rows: [1, 1], gapX: 0.465, gapY: 0.465 },
@@ -109,7 +109,7 @@ window.IX_IPRESETS = [
       { what: "pixel scale 0.0395″/px", q: "pixScale", value: 0.0395, tol: 0.01, src: "WFC3 handbook; F from the design review's 78,000 mm" },
       { what: "16.8 Mpix", q: "npix", value: 16801792, tol: 1e-6, src: "2 × 4096 × 2051" },
     ] },
-  { id: "wfc3ir", tel: "Hubble 2.4 m", name: "HST / WFC3/IR",
+  { id: "wfc3ir", tel: "Hubble 2.4 m", name: "HST / WFC3/IR", inst: "WFC3", setting: "IR",
     note: "Wide Field Camera 3, IR channel, the one Hubble channel with a published pupil: a cold mask at the reimaged pupil (radius 7.13 mm), so the beam W = 14.26 mm. F_cam = 12.08 is the design focal length (29.0 m) over D; the published f/11 gives a pixel 10% too coarse (the 24° detector tilt). One 1014 × 1014 detector (active area of 1024 × 1024). Sources in data/imaging/hst.md.",
     state: { D: 2.4, eps: 0.33, F: 24, tel: "cass", field: 10, optics: "reimaged", W: 14.26, Fc: 12.083, band: "H", psf: "diff",
              Nx: 1014, Ny: 1014, pix: 18, rows: [1] },
@@ -136,7 +136,7 @@ window.IX_IPRESETS = [
       { what: "0.281 deg² active", q: "area", value: 0.281, tol: 0.02, src: "Roman WFI pages" },
       { what: "300.8 Mpix", q: "npix", value: 300811392, tol: 1e-6, src: "18 × 4088 × 4088" },
     ] },
-  { id: "nircamsw", tel: "JWST 6.6 m", name: "JWST / NIRCam short wavelength",
+  { id: "nircamsw", tel: "JWST 6.6 m", name: "JWST / NIRCam short wavelength", inst: "NIRCam", setting: "short wavelength",
     note: "JWST is a three-mirror anastigmat (drawn as a Korsch); NIRCam reimages the telescope focus: a collimator, a 31 mm pupil holding the filter and pupil wheels, and a camera (here the short-wavelength channel, f/18). Two modules of 2 × 2 detectors side by side. D is the entrance pupil (the primary is 18 hexagonal segments; the model's pupil is a circular annulus, so the diffraction pattern is approximate) and ε is an estimate from the empty central segment. Sources in data/imaging/space_wide.md.",
     state: { D: 6.6, eps: 0.2, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 18.0, band: "Ks", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [4, 4], gapX: 2.59, gapY: 2.59, gapsX: [2.59, 24.77, 2.59] },
@@ -145,7 +145,7 @@ window.IX_IPRESETS = [
       { what: "field 2 × 2.2′ × 2.2′ = 9.7 arcmin²", q: "area", value: 9.7 / 3600, info: true, src: "JDox; counts each module whole (gaps included)" },
       { what: "33.3 Mpix", q: "npix", value: 33292800, tol: 1e-6, src: "8 × 2040 × 2040" },
     ] },
-  { id: "nircamlw", tel: "JWST 6.6 m", name: "JWST / NIRCam long wavelength",
+  { id: "nircamlw", tel: "JWST 6.6 m", name: "JWST / NIRCam long wavelength", inst: "NIRCam", setting: "long wavelength",
     note: "NIRCam's long-wavelength channel shares the collimator and pupil (behind a dichroic) with a camera at f/9: one detector per module. The pupil is drawn as a circular annulus (the real one is hexagonal). Sources in data/imaging/space_wide.md.",
     state: { D: 6.6, eps: 0.2, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 9.0, band: "M′", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2], gapX: 13.39 },
@@ -154,7 +154,7 @@ window.IX_IPRESETS = [
       { what: "8.3 Mpix", q: "npix", value: 8323200, tol: 1e-6, src: "2 × 2040 × 2040" },
     ] },
   // ---------------------------------------------------------------- ground, reimaged (data/imaging/reimagers.md)
-  { id: "fors2sr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, standard resolution",
+  { id: "fors2sr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, standard resolution", inst: "FORS2 imaging", setting: "SR collimator",
     note: "FORS2 is a focal reducer: collimator 1233 mm (standard resolution), camera 280 mm, broadband filters in the collimated beam. Two 4096 × 2048 CCDs. The published field (6.8′ square) is set by the multi-object slit unit at the telescope focus, a square stop the model does not draw; the mosaic covers 8.6′. Sources in data/imaging/reimagers.md.",
     state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", F1: 1.8, field: 15, optics: "reimaged", W: 91.94, Fc: 3.0454, band: "R", psf: "seeing",
              Nx: 4096, Ny: 2048, pix: 15, rows: [1, 1], gapX: 0.48, gapY: 0.48 },
@@ -162,7 +162,7 @@ window.IX_IPRESETS = [
       { what: "pixel scale 0.1259″/px (measured)", q: "pixScale", value: 0.12591, tol: 0.01, src: "FORS2 manual" },
       { what: "field 6.8′ (square stop)", q: "fieldX", value: 6.8, info: true, src: "FORS2 manual; the stop is not modeled" },
     ] },
-  { id: "fors2hr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, high resolution",
+  { id: "fors2hr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, high resolution", inst: "FORS2 imaging", setting: "HR collimator",
     note: "FORS2 with the high-resolution collimator (616 mm): twice the image scale of the standard collimator with the same camera, a 4.25′ field set by the CCDs. Sources in data/imaging/reimagers.md.",
     state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", F1: 1.8, field: 15, optics: "reimaged", W: 45.93, Fc: 6.0958, band: "R", psf: "seeing",
              Nx: 4096, Ny: 2048, pix: 15, rows: [1, 1], gapX: 0.48, gapY: 0.48 },
@@ -206,7 +206,7 @@ window.IX_IPRESETS.push(
       { what: "field 1° × 1°", q: "fieldX", value: 60, tol: 0.03, src: "ESO OmegaCAM pages" },
       { what: "268 Mpix", q: "npix", value: 268697600, tol: 1e-6, src: "32 × 2048 × 4100" },
     ] },
-  { id: "lbcb", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Blue",
+  { id: "lbcb", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Blue", inst: "LBC", setting: "Blue",
     note: "One of the Large Binocular Camera's two prime-focus imagers (LBC-Blue, on one of the LBT's two 8.4 m mirrors), behind a five-lens corrector: three CCDs in a row and a fourth turned by 90° above the row, the optical axis on the middle chip (the mosaic drawn off center). ε is a lower bound (the primary's central hole; the camera's shadow is not published). The corrected field is 110 mm (0.52°) across, and the circle here is set to take in the whole mosaic. Sources in data/imaging/vst_lbc.md.",
     state: { D: 8.4, eps: 0.106, F: 1.45, tel: "prime", F1: 1.142, field: 40, optics: "direct", band: "g", psf: "seeing",
              Nx: 2048, Ny: 4608, pix: 13.5, rows: [3], gapX: 1.0, gapY: 1.03, shiftY: [-8.539, -8.539, -8.539], extra: [{ x: 0, y: 37.419, rot: true }] },
@@ -215,7 +215,7 @@ window.IX_IPRESETS.push(
       { what: "pixel scale 0.2255″/px (field average)", q: "pixScale", value: 0.2255, info: true, src: "LBTO; the average includes the pincushion distortion, which the model leaves out" },
       { what: "37.7 Mpix", q: "npix", value: 37748736, tol: 1e-6, src: "4 × 2048 × 4608" },
     ] },
-  { id: "lbcr", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Red",
+  { id: "lbcr", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Red", inst: "LBC", setting: "Red",
     note: "LBC-Red, the red-optimized twin of LBC-Blue on the LBT's other 8.4 m mirror (deep-depletion CCDs, a corrector of BK7 lenses); the same layout of four CCDs. F comes from LBTO's 16.9″/mm (sources quote f/1.45 to f/1.47). ε is a lower bound. Sources in data/imaging/vst_lbc.md.",
     state: { D: 8.4, eps: 0.106, F: 1.453, tel: "prime", F1: 1.142, field: 40, optics: "direct", band: "i", psf: "seeing",
              Nx: 2048, Ny: 4608, pix: 13.5, rows: [3], gapX: 0.945, gapY: 0.945, shiftY: [-8.297, -8.297, -8.297], extra: [{ x: 0, y: 37.577, rot: true }] },
@@ -243,7 +243,7 @@ window.IX_IPRESETS.push(
 );
 // ---------------------------------------------------------------- previous generation (Charlie's picks, 2026-10-19): data/imaging/{poss,twomass}.md
 window.IX_IPRESETS.push(
-  { id: "poss1", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-I plates (red, E)",
+  { id: "poss1", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-I plates (red, E)", inst: "POSS plates", setting: "POSS-I (red, E)",
     note: "The first Palomar Observatory Sky Survey (1949-1958): 14-inch glass plates, bent to the Schmidt's curved focal surface, in the 48-inch Schmidt behind the original single-lens corrector (the aperture stop, 49.5 inches). The red plates: 103a-E emulsion behind a red Plexiglas filter (6200-6700 Å), 40-60 minutes, to ≈20.0 mag. A plate has no pixels: the emulsion's resolving power (80 lines per mm) is taken as a spread of 12.5 µm (one line pair, derived), and the Digitized Sky Survey (DSS-1) later scanned these plates in 25.3 µm steps (1.7″). The field circle takes in the whole plate (unvignetted to 5.4°; the corners lose 0.1-0.2 mag). The plateholder's obstruction is not published: 0.32 is the plate's own size, a lower bound. Sources in data/imaging/poss.md.",
     state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20,
              det: "plate", plateMM: 355.6, grain: 12.5, scan: 25.2845 },
@@ -252,7 +252,7 @@ window.IX_IPRESETS.push(
       { what: "6.6° × 6.6° per plate", q: "fieldX", value: 6.6 * 60, tol: 0.01, src: "Abell 1958" },
       { what: "DSS-1 scan 1.7″/px", q: "pixScale", value: 1.7, info: true, src: "STScI DSS pages (25.2845 µm steps)" },
     ] },
-  { id: "poss2", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-II plates (red, F)",
+  { id: "poss2", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-II plates (red, F)", inst: "POSS plates", setting: "POSS-II (red, F)",
     note: "The second Palomar Sky Survey (1985-2002): the same telescope and 14-inch plates, with a new achromatic doublet corrector (images under 0.5″ over 6.5° from 3900 to 9000 Å) and plateholders reground to the focal surface. The red plates: IIIa-F emulsion behind an RG610 filter, 70-90 minutes, to ≈20.8 mag. The finer emulsion (250 lines per mm) is taken as a spread of 4 µm (derived); the Digitized Sky Survey (DSS-2) scanned these plates in 15 µm steps (1.0″). The obstruction is a lower bound (the plate's size). Sources in data/imaging/poss.md.",
     state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20.8,
              det: "plate", plateMM: 355.6, grain: 4, scan: 15 },
@@ -284,7 +284,7 @@ window.IX_IPRESETS.push(
 );
 // Gemini North / NIRI: one collimator and three cameras
 for (const [cam, fc, ps, fov, psf] of [["f/6", 228.8, 0.1171, 119.9, "seeing"], ["f/14", 536.8, 0.0499, 51.1, "diff"], ["f/32", 1223.2, 0.0219, 22.4, "diff"]]) {
-  window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (cam === "f/6" ? "" : " (with Altair AO)"),
+  window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (cam === "f/6" ? "" : " (with Altair AO)"), inst: "NIRI", setting: cam + (cam === "f/6" ? "" : " (Altair AO)"),
     note: "NIRI at the Gemini North Cassegrain focus: a collimator, a 38 mm cold pupil and three cameras (f/6, f/14, f/32), one 1024 × 1024 InSb array of 27 µm. D is the 7.9 m entrance pupil set by Gemini's deliberately undersized secondary (the primary is 8.1 m); ε from the secondary's central hole. The camera focal lengths are not published as such: they follow from the pupil and the published pixel scales. The f/14 and f/32 cameras are normally used behind the Altair adaptive optics (which keeps the f/16 beam and the pupil). NIRI is not currently offered. Sources in data/imaging/niri_hawki.md.",
     state: { D: 7.9, eps: 0.164, F: 16.22, tel: "cass", F1: 1.8, field: 7, optics: "reimaged", W: 38, Fc: fc / 38, band: "Ks", psf,
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
@@ -315,7 +315,7 @@ window.IX_IPRESETS.push(
 
 // Keck II / NIRC2 behind adaptive optics: three cameras on one collimator
 for (const [cam, fc, ps, fov] of [["narrow", 1290, 0.009942, 10], ["medium", 647, 0.019829, 20], ["wide", 323, 0.039686, 40]]) {
-  window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)",
+  window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)", inst: "NIRC2 (adaptive optics)", setting: cam + " camera",
     note: "NIRC2 sits on the Keck II left Nasmyth platform (a flat tertiary turns the beam to the side), behind the adaptive-optics bench, which delivers the telescope's f/15 focal length and pupil position (the AO relay is not drawn); a collimator, a pupil-mask wheel and filter wheels in the collimated beam, and three cameras (narrow, medium, wide). One 1024 × 1024 Aladdin-3 detector of 27 µm. The internal focal lengths and the pupil size are not published: W, f_col and f_cam are estimates from the aperture masks' geometry (they leave the pixel scale and field unchanged). The Keck pupil is hexagonal; the model's is a circular annulus. Sources in data/imaging/reimagers.md.",
     state: { D: 10.95, eps: 0.24, F: 13.66, tel: "cass", nasmyth: true, nasSide: "up", F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },

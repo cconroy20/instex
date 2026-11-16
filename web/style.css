@@ -28,6 +28,14 @@ header,main,footer{max-width:1560px;margin:0 auto;padding:0 22px}
 select{font:inherit;font-size:.9rem;color:var(--ink);background:#fff;border:1px solid var(--line);
   border-radius:5px;padding:2px 6px;max-width:100%}
 #preset{min-width:230px;width:240px}
+#settingLab[hidden]{display:none}                                   /* only for an instrument with several settings */
+/* the Setting menu takes the room the bar has, up to its own width, and shrinks before anything wraps */
+@media (min-width:861px){
+  #settingLab{flex:1 1 0;min-width:0;max-width:max-content}
+  #setting{flex:1 1 auto;min-width:0;width:auto}
+}
+/* from 861 to 1540 px the Preset menu shares the room with the Setting menu the same way (each up to its own width);
+   on a phone both wrap onto lines of their own */
 /* the note on a line of its own under the bar, when it would not fit on one line beside the menu (app.js fitHeader) */
 .bar.note-below .presetnote{order:10;flex:1 1 100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:-4px}                                 /* the open list still shows every name in full */
 
@@ -161,6 +169,10 @@ footer p{margin:.5em 0;max-width:120ch}
 @media (max-width:1540px){
   .mark{font-size:1.45rem}
   #preset{width:205px;min-width:0}
+}
+@media (min-width:861px) and (max-width:1540px){
+  .presetlab:not(#settingLab){flex:1 1 0;min-width:0;max-width:max-content}
+  .presetlab:not(#settingLab) #preset{flex:1 1 auto;width:auto;max-width:205px}
 }
 @media (max-width:1240px){
   .controls{grid-template-columns:repeat(3,minmax(0,1fr))}
