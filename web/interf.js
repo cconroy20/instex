@@ -237,6 +237,17 @@ function dirty(W, V, n) {
   for (let k = 0; k < n * n; k++) { beam[k] = re[k] / b0; if (img) img[k] = -im[k] / b0; }
   return { beam, img };
 }
+// The sky smoothed by the fitted beam (no sidelobes): the weights replaced by the transform of the beam's Gaussian,
+// exp(-pi^2 (maj^2 k1^2 + min^2 k2^2) / 4 ln 2), k1 and k2 the spacing along and across the major axis (pa east of
+// north), so that the image is the sky (times the primary beam) convolved with the Gaussian, in flux per beam
+function smoothed(V, beam, n, du) {
+  const W = new Float64Array(n * n), sp = Math.sin(beam.pa * DEG), cp = Math.cos(beam.pa * DEG), c = Math.PI * Math.PI / (4 * Math.LN2);
+  for (let q = 0; q < n; q++) for (let p = 0; p < n; p++) {
+    const u = (p >= n / 2 ? p - n : p) * du, v = (q >= n / 2 ? q - n : q) * du, k1 = u * sp + v * cp, k2 = u * cp - v * sp;
+    W[q * n + p] = Math.exp(-c * (beam.maj * beam.maj * k1 * k1 + beam.min * beam.min * k2 * k2));
+  }
+  return dirty(W, V, n).img;
+}
 // The visibilities of the point skies on an n x n grid of cells du wide, exactly (a point between pixels shared among
 // them would lose amplitude at long spacings): a point at the center, V = A(0); two points at l = +-size / 2,
 // V = A(size / 2) cos(pi u size); A the Gaussian primary beam of FWHM pb (0 for none). Null for the other models.
@@ -324,13 +335,19 @@ function skyImage(model, size, n, pix, pb, img) {
 // The models made for the Earth-scale and transit arrays, each of total flux 1 (before the primary beam):
 // - crescent (the EHT's M87*): the EHT Collaboration's synthetic crescent (2019 Paper IV, Appendix C.1): a thin ring
 //   of diameter size with the brightness 1 + 2A cos(phi - pa) around the ring (A = 0.23, brightest at position angle
-//   pa = 150 degrees east of north), blurred by a Gaussian of FWHM 10 uas on the 44 uas ring (CRESCENT.blur x size);
-//   the blur is taken across the ring only;
+//   pa = 150 degrees east of north), convolved with a circular Gaussian of FWHM 10 uas on the 44 uas ring
+//   (CRESCENT.blur x size). The convolution in closed form: with sigma the Gaussian's width and z = r r0 / sigma^2,
+//   I(r, phi) ~ exp(-(r - r0)^2 / 2 sigma^2) [I0e(z) + 2A cos(phi - pa) I1e(z)] (I0e, I1e the scaled modified Bessel
+//   functions e^-z I_n(z)); its visibility is crescentVis;
 // - corejet (a VLBI quasar, illustrative): a compact core (FWHM 0.06 size, a quarter of the flux) and a jet of six
 //   fading Gaussian knots out to size along position angle JET_PA;
 // - points (a transit array's field): POINTS_N point sources, seeded, scattered over a disc of diameter size, with a
 //   power-law spread of flux (N(>S) ~ S^-1.5, the faintest a hundredth of the brightest).
 const CRESCENT = { blur: 10 / 44, A: 0.23, pa: 150 }, JET_PA = 290, POINTS_N = 60;
+// the core-jet's components, [distance along the jet / size, FWHM / size, flux]: the core a quarter of the flux, the
+// knots the rest, each 0.75 of the one before and wider, so that the jet's surface brightness fades along the jet from
+// about the core's (an illustration, not a particular quasar)
+const KNOTS = [[0, 0.06, 0.25]].concat([0.15, 0.3, 0.45, 0.6, 0.78, 1].map((d, k) => [d, 0.05 + 0.02 * k, 0.75 * Math.pow(0.75, k) * 0.25 / (1 - Math.pow(0.75, 6))]));
 function skyModel2(model, size, n, pix, A, put, s) {
   const h = n / 2, vals = [];
   let tot = 0;
@@ -347,14 +364,11 @@ function skyModel2(model, size, n, pix, A, put, s) {
   };
   if (model === "crescent") {
     const r0 = size / 2, sg = CRESCENT.blur * size / 2.3548, pa = CRESCENT.pa * DEG;
-    smooth((l, m) => { const r = Math.hypot(l, m), ph = Math.atan2(l, m); return Math.exp(-(r - r0) * (r - r0) / (2 * sg * sg)) * (1 + 2 * CRESCENT.A * Math.cos(ph - pa)); }, r0 + 4 * sg, size / pix < 8 ? 6 : 3);
+    smooth((l, m) => { const r = Math.hypot(l, m), ph = Math.atan2(l, m), z = r * r0 / (sg * sg); return Math.exp(-(r - r0) * (r - r0) / (2 * sg * sg)) * (Ine(0, z) + 2 * CRESCENT.A * Math.cos(ph - pa) * Ine(1, z)); }, r0 + 5 * sg, size / pix < 8 ? 6 : 3);
   } else if (model === "corejet") {
     const pa = JET_PA * DEG, el = Math.sin(pa), em = Math.cos(pa), g = (l, m, l0, m0, fw) => Math.exp(-4 * Math.LN2 * ((l - l0) * (l - l0) + (m - m0) * (m - m0)) / (fw * fw));
-    // [distance along the jet / size, FWHM / size, flux]: the core a quarter of the flux, the knots the rest, each 0.75
-    // of the one before and wider, so that the jet's surface brightness fades along the jet from about the core's (an
-    // illustration, not a particular quasar)
-    const knots = [[0, 0.06, 0.25]].concat([0.15, 0.3, 0.45, 0.6, 0.78, 1].map((d, k) => [d, 0.05 + 0.02 * k, 0.75 * Math.pow(0.75, k) * 0.25 / (1 - Math.pow(0.75, 6))]));
-    smooth((l, m) => knots.reduce((a, [d, fw, f]) => a + f / (fw * fw) * g(l, m, d * size * el, d * size * em, fw * size), 0), 1.1 * size, size / pix < 8 ? 6 : 2);
+    const knots = KNOTS;
+    smooth((l, m) => knots.reduce((a, [d, fw, f]) => a + f / (fw * fw) * g(l, m, d * size * el, d * size * em, fw * size), 0), 1.3 * size, size / pix < 8 ? 6 : 2);
   } else for (const [l, m, f] of pointsList(size)) add(l, m, f);
   if (!(tot > 0)) { put(0, 0, A(0, 0)); return s; }
   for (const [i, j, a, l, m] of vals) put(i, j, a / tot * A(l, m));
@@ -384,10 +398,57 @@ function J1(x) {
   return sg * Math.sqrt(2 / (Math.PI * ax)) * (Math.cos(w) - 3 / (8 * ax) * Math.sin(w));
 }
 const Lam = x => (Math.abs(x) < 1e-8 ? 1 : 2 * J1(x) / x);          // 2 J1(x) / x, 1 at 0
-// the model's visibility (real: every model is symmetric about the center) at (u, v) wavelengths, without the
-// primary beam
+// J0 the same way, J0(x) = (1 / 2 pi) int cos(x sin t) dt
+const J0T = (() => {
+  const M = 96, t = new Float64Array(3001);
+  for (let k = 0; k <= 3000; k++) { const x = k / 100; let a = 0; for (let q = 0; q < M; q++) a += Math.cos(x * Math.sin(2 * Math.PI * q / M)); t[k] = a / M; }
+  return t;
+})();
+function J0(x) {
+  const ax = Math.abs(x);
+  if (ax < 30) { const u = ax * 100, k = Math.floor(u), f = u - k; return J0T[k] + (J0T[Math.min(3000, k + 1)] - J0T[k]) * f; }
+  const w = ax - 0.25 * Math.PI;
+  return Math.sqrt(2 / (Math.PI * ax)) * (Math.cos(w) + 1 / (8 * ax) * Math.sin(w));
+}
+// the scaled modified Bessel functions e^-z I_n(z), n = 0, 1, z >= 0: by the integral (1 / pi) int_0^pi e^(z (cos t -
+// 1)) cos(n t) dt (the trapezoid rule, exact to rounding for a periodic integrand this smooth), tabulated to z = 60
+// when first needed; beyond, the asymptotic series 1 / sqrt(2 pi z) (1 - (4n^2 - 1) / 8z - (4n^2 - 1)(4n^2 - 9) / 2(8z)^2)
+let INE = null;
+function Ine(n, z) {
+  if (z >= 60) { const m = 4 * n * n, y = 8 * z; return (1 - (m - 1) / y + (m - 1) * (m - 9) / (2 * y * y)) / Math.sqrt(2 * Math.PI * z); }
+  if (!INE) {
+    INE = [new Float64Array(12001), new Float64Array(12001)];
+    const M = 400;
+    for (let k = 0; k <= 12000; k++) {
+      const zz = k / 200; let a0 = 0, a1 = 0;
+      for (let q = 0; q <= M; q++) { const t = Math.PI * q / M, e = Math.exp(zz * (Math.cos(t) - 1)) * (q === 0 || q === M ? 0.5 : 1); a0 += e; a1 += e * Math.cos(t); }
+      INE[0][k] = a0 / M; INE[1][k] = a1 / M;
+    }
+  }
+  const u = z * 200, k = Math.floor(u), f = u - k, T = INE[n];
+  return T[k] + (T[Math.min(12000, k + 1)] - T[k]) * f;
+}
+// The visibilities of the crescent, the core-jet and the point sources at (u, v) wavelengths (total flux 1, without
+// the primary beam), as { re, im }: the crescent's in closed form, exp(-2 pi^2 sigma^2 q^2) [J0(2 pi q r0) - 2iA
+// cos(phi_uv - pa) J1(2 pi q r0)]; the core-jet's and the points' as the sums of their components
+function crescentVis(size, u, v) {
+  const r0 = size / 2, sg = CRESCENT.blur * size / 2.3548, q = Math.hypot(u, v), x = 2 * Math.PI * q * r0, t = Math.exp(-2 * Math.PI * Math.PI * sg * sg * q * q);
+  const c = q > 0 ? Math.cos(Math.atan2(u, v) - CRESCENT.pa * DEG) : 0;
+  return { re: t * J0(x), im: -2 * CRESCENT.A * c * t * J1(x) };
+}
+let PCACHE = { size: NaN };
+function compVis(model, size, u, v) {
+  let comps;
+  if (model === "corejet") { const el = Math.sin(JET_PA * DEG), em = Math.cos(JET_PA * DEG); comps = KNOTS.map(([d, fw, f]) => [d * size * el, d * size * em, f, fw * size]); }
+  else { if (PCACHE.size !== size) PCACHE = { size, c: pointsList(size).map(([l, m, f]) => [l, m, f, 0]) }; comps = PCACHE.c; }
+  let re = 0, im = 0, tot = 0;
+  for (const [l, m, f, fw] of comps) { const a = f * (fw ? Math.exp(-Math.PI * Math.PI * fw * fw * (u * u + v * v) / (4 * Math.LN2)) : 1), ph = -2 * Math.PI * (u * l + v * m); re += a * Math.cos(ph); im += a * Math.sin(ph); tot += f; }
+  return { re: re / tot, im: im / tot };
+}
+// the model's visibility at (u, v) wavelengths, without the primary beam: real for the symmetric models; the size
+// |V| for the crescent, the core-jet and the point sources
 function vis(model, size, u, v) {
-  if (model === "crescent" || model === "corejet" || model === "points") return NaN;
+  if (model === "crescent" || model === "corejet" || model === "points") { const V = model === "crescent" ? crescentVis(size, u, v) : compVis(model, size, u, v); return Math.hypot(V.re, V.im); }
   const q = Math.hypot(u, v);
   if (model === "point") return 1;
   if (model === "double") return Math.cos(Math.PI * u * size);
@@ -579,7 +640,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { J0, Ine, crescentVis, compVis, smoothed, KNOTS, azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

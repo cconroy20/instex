@@ -17,8 +17,6 @@ const IMGS = [
 ];
 const SKIES = [["point", "Point"], ["double", "Two points"], ["gaussian", "Gaussian"], ["disc", "Uniform disc"], ["ring", "Ring"], ["crescent", "Crescent (like M87*)"], ["corejet", "Core and jet"], ["points", "Point sources"]].concat(IMGS.map(q => [q.k, q.name]));
 const SIZE_LABEL = { point: "Size", double: "Separation", gaussian: "FWHM", disc: "Diameter", ring: "Diameter", crescent: "Diameter", corejet: "Jet length", points: "Spread", m101: "Width" };
-// the skies with no closed-form visibility: the amplitude panel reads theirs off the transform of the input image
-const NUMERIC = new Set(["crescent", "corejet", "points"]);
 const imgOf = k => IMGS.find(q => q.k === k);
 // the images, read once from their files into a pyramid of brightness arrays; a large image is read through a
 // canvas in strips (a canvas the image's full size would exceed some browsers' limits)
@@ -70,7 +68,7 @@ function defaultsFor(a) {
   const d = a.defaults, c = a.configs.find(q => q.id === d.cfg) || a.configs[0], b = a.bands.find(q => q.k === d.band) || a.bands[0];
   const est = C / (d.nu * 1e9) / c.bmax * RAD;                       // lambda / B_max, arcsec
   return { arr: a.id, cfg: c.id, lay: "built", na: c.ants.length, ext: +c.bmax.toPrecision(2), seed: 1, conc: 1, dec: d.dec, dur: d.dur, el: null, band: b.k, nu: d.nu, bw: d.bw || 0, wt: d.wt || "natural", rob: 0.5,
-    sky: d.sky || "double", size: d.size || niceAng(5 * est), field: d.field || niceAng(25 * est), uvv: "uv", bstr: "lin", off: [], mv: {} };
+    sky: d.sky || "double", size: d.size || niceAng(5 * est), field: d.field || niceAng(25 * est), uvv: "uv", bstr: "lin", dimg: "dirty", off: [], mv: {} };
 }
 let S = ARRS.length ? defaultsFor(ARRS[0]) : {};
 const arrOf = () => arrById(S.arr);
@@ -89,6 +87,9 @@ const pbEW = pb => (typeof pb === "object" ? pb.ew : pb);
 // (24 h at most, near the pole). S.dur 24 = the whole crossing.
 const transitMax = () => Math.min(24, pbEW(pbOf(S.nu)) / (RI.HA_PER_H * Math.max(1e-6, Math.cos(S.dec * DEG))));
 const durNow = () => (arrOf().transit ? Math.min(S.dur, transitMax()) : S.dur);
+// the Array panel's first line for a transit array: the telescope does not track, and the time a source spends in the
+// beam
+const fixedLine = () => { const a = arrOf(); return a.transit ? `${a.fixedWho} do not track: a source is seen only while the sky carries the source through the beam, ${fDur(transitMax())} here. ` : ""; };
 // the log10 (arcsec) ranges of the Size and Field sliders: the arrays' own (the EHT reaches microarcseconds, CHIME
 // degrees)
 const RANGE = { size: [-3, 3.6], field: [-2.5, 4] };
@@ -148,6 +149,7 @@ const bindSeg = (pairs, get, set) => {
 bindSeg([["rwNat", "natural"], ["rwRob", "robust"], ["rwUni", "uniform"]], () => S.wt, v => { S.wt = v; });
 bindSeg([["ruvC", "uv"], ["ruvA", "amp"]], () => S.uvv, v => { S.uvv = v; });
 bindSeg([["rbLin", "lin"], ["rbLog", "log"]], () => S.bstr, v => { S.bstr = v; });
+bindSeg([["rdiD", "dirty"], ["rdiS", "smooth"]], () => S.dimg, v => { S.dimg = v; });
 const csel = $("rCfg"), bsel = $("rBand"), ssel = $("rSky"), lsel = $("rLay");
 const LAYS = [["built", "As built"], ["random", "Random"], ["grid", "Grid"], ["line", "Line, east–west"], ["L", "L"], ["T", "T"], ["Y", "Y"], ["cross", "Cross"], ["ring", "Ring"]];
 for (const [k, t] of LAYS) { const o = document.createElement("option"); o.value = k; o.textContent = t; lsel.appendChild(o); }
@@ -214,6 +216,7 @@ function syncControls() {
   put("rExt", Math.log10(S.ext), fLen(S.ext));
   put("rDec", S.dec, fDeg(S.dec));
   // (a transit array's slider runs to the whole crossing of the beam, which depends on the frequency and declination)
+  $("lrDur").textContent = a.transit ? "Time in the beam" : "Duration";
   { const dIn = $("rDur");
     if (a.transit) { const tm = transitMax(); dIn.max = String(tm); dIn.step = String(tm / 100); }
     else { dIn.max = "24"; dIn.step = "0.1"; }
@@ -243,7 +246,7 @@ function syncControls() {
 // While a slider moves, a coarser image grid keeps the page responsive; the full grid follows when it stops.
 let quickUntil = 0, refineTimer = 0;
 function quick() { quickUntil = performance.now() + 250; clearTimeout(refineTimer); refineTimer = setTimeout(() => H.schedule(), 280); }
-let vcache = { key: null }, tcache = { key: null }, pcache = { key: null }, v0cache = { key: null }, ecache = { key: null };
+let vcache = { key: null }, tcache = { key: null }, pcache = { key: null }, v0cache = { key: null }, ecache = { key: null }, scache = { key: null };
 function compute(fast) {
   const a = arrOf(), ants = antsNow(), lat = a.lat * DEG, dec = S.dec * DEG, elMin = elOf() * DEG, dur = durNow();
   // the band observed, kept within the receiver's band
@@ -364,6 +367,12 @@ function compute(fast) {
   const key = JSON.stringify([S.sky, S.size, n, pix, R.pb, imd ? imd.w : 0]);
   if (vcache.key !== key) vcache = { key, V: RI.pointVis(model, S.size / RAD, n, 1 / (2 * F), R.pb) || RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
   Object.assign(R, { D: RI.dirty(G.g, vcache.V, n), w });
+  // the sky smoothed by the fitted beam (the Smoothed view), kept while the sky, the grid and the beam stay the same
+  if (S.dimg === "smooth" && R.beam && !R.single) {
+    const sk = key + "|" + [R.beam.maj, R.beam.min, R.beam.pa].join(",");
+    if (scache.key !== sk) scache = { key: sk, img: RI.smoothed(vcache.V, R.beam, n, 1 / (2 * F)) };
+    R.smooth = scache.img;
+  }
   return R;
 }
 
@@ -529,7 +538,7 @@ function drawGlobe(g, w, h, R) {
       lines.forEach((t, i) => g.fillText(t, 14, 18 + 15 * i)); }
   }
   document.documentElement.style.setProperty("--capLA", "22px");
-  $("alSub").textContent = (arrOf().configs.length > 1 ? cfgOf().name + ". " : "") + "Drag to turn the globe. Click a station's name to remove or restore the station.";
+  $("alSub").textContent = fixedLine() + (arrOf().configs.length > 1 ? cfgOf().name + ". " : "") + "Drag to turn the globe. Click a station's name to remove or restore the station.";
 }
 function drawArray(R) {
   const cv = $("cvA"), { g, w, h } = fitCanvas(cv);
@@ -578,7 +587,7 @@ function drawArray(R) {
     document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
   const lname = (LAYS.find(q => q[0] === S.lay) || LAYS[0])[1];
   const one = a.unitOne || "antenna";
-  $("alSub").textContent = (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
+  $("alSub").textContent = fixedLine() + (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
 }
 // a single dish, from above: the reflector (gray) and the illuminated aperture (blue), to scale
 function drawDish(g, w, h, a) {
@@ -750,12 +759,21 @@ function drawPanel(R) {
     // amplitude against uv distance: the model's curve (when the model is round) and the samples on it
     const W = ppx, Hh = ppx, oc = document.createElement("canvas"); oc.width = W; oc.height = Hh;
     const og = oc.getContext("2d"), id = og.createImageData(W, Hh), d = id.data;
-    const stride = Math.max(1, Math.floor(Sm.n / 4e5)), isImg = !!imgOf(S.sky) || NUMERIC.has(S.sky), n0 = R.n, du0 = 1 / (2 * R.F);
-    // an image's visibility: the transform of the input image (without the primary beam, as for the closed forms of
-    // the other skies), at the sample's cell
+    // (the point-source sky's visibility is a sum over its 60 sources at each sample: at most 100,000 samples drawn)
+    const stride = Math.max(1, Math.floor(Sm.n / (S.sky === "points" ? 1e5 : 4e5))), isImg = !!imgOf(S.sky), n0 = R.n, du0 = 1 / (2 * R.F);
+    // An image's visibility: the transform of the input image (without the primary beam, as for the closed forms of
+    // the other skies), interpolated between the grid's cells (bilinear in the real and imaginary parts). The other
+    // skies' visibilities are computed at each sample: closed forms, or sums over the model's components.
     if (isImg && v0cache.key !== tcache.key) v0cache = { key: tcache.key, V: RI.visibilities(R.sky, n0) };
     const Vg = isImg ? v0cache.V : null, V0 = isImg ? Vg.re[0] || 1 : 1;
-    const ampAt = (u, v) => { if (!isImg) return Math.abs(RI.vis(S.sky, S.size / RAD, u, v)); const p = Math.round(u / du0), q = Math.round(v / du0); if (Math.abs(p) >= n0 / 2 || Math.abs(q) >= n0 / 2) return NaN; const c = ((q + n0) % n0) * n0 + (p + n0) % n0; return Math.hypot(Vg.re[c], Vg.im[c]) / V0; };
+    const ampAt = (u, v) => {
+      if (!isImg) return Math.abs(RI.vis(S.sky, S.size / RAD, u, v));
+      const x = u / du0, y = v / du0, p = Math.floor(x), q = Math.floor(y), fx = x - p, fy = y - q;
+      if (p <= -n0 / 2 || q <= -n0 / 2 || p + 1 >= n0 / 2 || q + 1 >= n0 / 2) return NaN;
+      const at2 = (a, b) => ((b + n0) % n0) * n0 + (a + n0) % n0, w4 = [[p, q, (1 - fx) * (1 - fy)], [p + 1, q, fx * (1 - fy)], [p, q + 1, (1 - fx) * fy], [p + 1, q + 1, fx * fy]];
+      let re = 0, im = 0; for (const [a, b, wt] of w4) { const c = at2(a, b); re += wt * Vg.re[c]; im += wt * Vg.im[c]; }
+      return Math.hypot(re, im) / V0;
+    };
     for (let k = 0; k < Sm.n; k += stride) {
       const q = Math.hypot(Sm.u[k], Sm.v[k]), A = ampAt(Sm.u[k], Sm.v[k]);
       if (!isFinite(A)) continue;
@@ -765,7 +783,8 @@ function drawPanel(R) {
     }
     og.putImageData(id, 0, 0);
     g.drawImage(oc, x0, y0, ps, ps);
-    if (S.sky !== "double" && !isImg) {
+    // (the model's curve along one cut: for the round skies only)
+    if (["point", "gaussian", "disc", "ring"].includes(S.sky)) {
       g.strokeStyle = "#4f4a44"; g.lineWidth = 1.1; g.beginPath();
       for (let q = 0; q <= 400; q++) { const uq = ext * q / 400, A = Math.abs(RI.vis(S.sky, S.size / RAD, uq, 0)), x = x0 + uq / ext * ps, y = y0 + (1 - A / 1.08) * plotH; q ? g.lineTo(x, y) : g.moveTo(x, y); }
       g.stroke();
@@ -840,17 +859,22 @@ function drawPanel(R) {
   if (R.loading) { g.fillStyle = "rgba(220,214,204,.9)"; g.font = `12.5px ${FONT}`; g.textAlign = "center"; g.fillText("reading the image…", X(0) + side / 2, Y(1) + side / 2); }
   bar(X(0), Y(1), 1 / toPx, a => fAng(a, 2));
   // ---- bottom right: the dirty image, with the fitted beam at its lower left
+  const showS = S.dimg === "smooth" && R.smooth;
   if (none) empty(X(1), Y(1), "no samples");
   else {
-    let mx = 0; for (let k = 0; k < n * n; k++) mx = Math.max(mx, R.D.img[k]);
-    blit(R.D.img, X(1), Y(1), mx > 0 ? 1 / mx : 0);
+    const im = showS ? R.smooth : R.D.img;
+    let mx = 0; for (let k = 0; k < n * n; k++) mx = Math.max(mx, im[k]);
+    blit(im, X(1), Y(1), mx > 0 ? 1 / mx : 0);
     const bm = R.beam;
     if (bm && bm.maj * RAD * toPx >= 3) {
       const ax = bm.maj * RAD * toPx / 2, bx = bm.min * RAD * toPx / 2, cx = X(1) + 10 + Math.max(ax, 6), cy = Y(1) + side - 10 - Math.max(ax, 6);
       if (ax < side / 4) { g.strokeStyle = "rgba(255,250,238,.95)"; g.lineWidth = 1.3; g.beginPath(); g.ellipse(cx, cy, ax, bx, Math.atan2(-Math.cos(bm.pa * DEG), -Math.sin(bm.pa * DEG)), 0, 2 * Math.PI); g.stroke(); }
     }
   }
-  label(X(1), Y(1), R.single ? "Map" : "Dirty image");
+  label(X(1), Y(1), R.single ? "Map" : showS ? "Smoothed sky" : "Dirty image");
+  { const box = $("diBox"), cvr = cv.getBoundingClientRect(), pr = cv.parentElement.getBoundingClientRect();
+    box.hidden = !!R.single;
+    box.style.left = Math.round(cvr.left - pr.left + X(1) + side - box.offsetWidth) + "px"; box.style.top = Math.round(cvr.top - pr.top + Y(1) + side + 4) + "px"; }
   // when the longest baselines fall beyond the image grid (a field many beams wide), the images show the shorter
   // baselines only: say so on the images
   if (!none && R.drop > 0.01) {
@@ -929,7 +953,7 @@ return {
   reset: () => { stopPlay(); S = defaultsFor(arrOf()); alview.fit = true; H.schedule(); },
   hashParts: () => {
     const D = defaultsFor(arrOf()), out = ["r.arr=" + encodeURIComponent(S.arr)];
-    for (const k of ["cfg", "lay", "na", "ext", "seed", "conc", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv", "bstr"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
+    for (const k of ["cfg", "lay", "na", "ext", "seed", "conc", "dec", "dur", "el", "band", "nu", "bw", "wt", "rob", "sky", "size", "field", "uvv", "bstr", "dimg"]) if (S[k] !== D[k] && S[k] !== null) out.push("r." + k + "=" + encodeURIComponent(S[k]));
     // (runs written as ranges: a site of 1,024 feeds switched off is "0-1023")
     if (S.off.length) { const t = []; for (let i = 0; i < S.off.length;) { let j = i; while (j + 1 < S.off.length && S.off[j + 1] === S.off[j] + 1) j++; t.push(j > i ? S.off[i] + "-" + S.off[j] : String(S.off[i])); i = j + 1; } out.push("r.off=" + t.join(".")); }
     const mv = Object.keys(S.mv); if (mv.length) out.push("r.mv=" + mv.map(k => k + ":" + S.mv[k][0] + ":" + S.mv[k][1]).join("_"));
@@ -950,13 +974,14 @@ return {
     if (SKIES.some(q => q[0] === kv["r.sky"])) S.sky = kv["r.sky"];
     if (kv["r.uvv"] === "amp" || kv["r.uvv"] === "uv") S.uvv = kv["r.uvv"];
     if (kv["r.bstr"] === "lin" || kv["r.bstr"] === "log") S.bstr = kv["r.bstr"];
+    if (kv["r.dimg"] === "dirty" || kv["r.dimg"] === "smooth") S.dimg = kv["r.dimg"];
     const N = pads().ants.length;
     if (kv["r.off"]) S.off = [...new Set(kv["r.off"].split(".").flatMap(t => { const [x, y] = t.split("-").map(Number); return y === undefined ? [x] : Number.isInteger(x) && Number.isInteger(y) && y >= x && y - x < N ? Array.from({ length: y - x + 1 }, (_, k) => x + k) : []; }).filter(k => Number.isInteger(k) && k >= 0 && k < N))].sort((x, y) => x - y);
     if (kv["r.mv"]) for (const t of kv["r.mv"].split("_")) { const [k, e, n] = t.split(":").map(Number); if (Number.isInteger(k) && k >= 0 && k < N && isFinite(e) && isFinite(n)) S.mv[k] = [e, n]; }
     alview.fit = true;
   },
   redraw: () => { if (cur) { drawArray(cur); drawPanel(cur); } },
-  test: { state: () => clone(S), result: () => cur && { on: cur.on, staUp: cur.staUp, nSites: cur.nSites, reach: cur.reach, dur: cur.dur, nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel, nus: cur.full && cur.full.nus && [Math.min(...cur.full.nus), Math.max(...cur.full.nus)], K: cur.nbUsed }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play, adding: () => aplay && { ...aplay },
+  test: { state: () => clone(S), result: () => cur && { smooth: !!cur.smooth, on: cur.on, staUp: cur.staUp, nSites: cur.nSites, reach: cur.reach, dur: cur.dur, nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel, nus: cur.full && cur.full.nus && [Math.min(...cur.full.nus), Math.max(...cur.full.nus)], K: cur.nbUsed }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play, adding: () => aplay && { ...aplay },
     antXY: k => { const xy = antScreen(cur.ants)[k], r = $("cvA").getBoundingClientRect(); return [r.left + xy[0], r.top + xy[1]]; },
     // the globe's site labels: name, stations, stations on, and the label's center on the page
     sites: () => { const r = $("cvA").getBoundingClientRect(); return glabels.map(L => ({ name: L.q.name, n: L.q.k.length, on: L.q.on, x: r.left + (L.x0 + L.x1) / 2, y: r.top + (L.y0 + L.y1) / 2 })); },

@@ -161,7 +161,7 @@ const chime = rd("chime.json");
   const j = chime, fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked), cy = j.cylinders;
   out.push({
     id: "chime", name: "CHIME", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
-    unit: "feeds", unitOne: "feed", unitTail: " on " + cy.n + " cylinders", cyl: cy.center_e_m.map(e => [e, 0, cy.width_m, cy.length_m]),
+    fixedWho: "CHIME's cylinders", unit: "feeds", unitOne: "feed", unitTail: " on " + cy.n + " cylinders", cyl: cy.center_e_m.map(e => [e, 0, cy.width_m, cy.length_m]),
     pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
     pbSource: "east-west ≈ " + j.pb_relation.ew_fwhm_deg_x_GHz.toFixed(1) + "° / ν(GHz), from " + j.pb_relation.ew_fwhm_deg_band_edges["0.4"] + "° at 400 MHz and " + j.pb_relation.ew_fwhm_deg_band_edges["0.8"] + "° at 800 MHz; north-south ≈ " + j.pb_relation.ns_fwhm_deg + "° (CHIME/FRB 2018)",
     reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°: the beam reaches " + j.pb_relation.ns_fwhm_deg / 2 + "° from the zenith, half its north-south extent, so CHIME sees three quarters of the sky each day as the Earth turns.",
@@ -185,7 +185,7 @@ const chime = rd("chime.json");
   const sf = j.sensitivity.sefd_per_feed_Jy;
   out.push({
     id: "chimeout", name: "CHIME + outriggers", site: "British Columbia, California, West Virginia", lat: j.site.lat_deg, geo: { lon0: j.site.lon_deg }, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
-    unit: "", unitTail: " (" + O.length + " outriggers)", unitMany: "feeds",
+    fixedWho: "The cylinders", unit: "", unitTail: " (" + O.length + " outriggers)", unitMany: "feeds",
     pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
     pbSource: "CHIME's beam",
     reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°, as for CHIME: the outriggers see the source as the source crosses CHIME's beam.",
@@ -205,7 +205,7 @@ const chime = rd("chime.json");
 {
   const j = rd("chord.json"), C = j.configs;
   out.push({
-    id: "chord", name: "CHORD", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.dish_m, elLimit: 0, transit: true, unitOne: "dish", decRange: j.pointing.dec_range_deg,
+    id: "chord", name: "CHORD", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.dish_m, elLimit: 0, transit: true, fixedWho: "CHORD's dishes", unitOne: "dish", decRange: j.pointing.dec_range_deg,
     pb: { arcminGHz: j.pb_relation.fwhm_deg_x_GHz * 60 },
     pbSource: j.pb_relation.k_lambda_over_D + " λ / D = " + j.pb_relation.fwhm_deg_x_GHz.toFixed(2) + "° / ν(GHz) for the " + j.dish_m + " m dishes (2.4° at 1420 MHz; the CHORD design papers)",
     reachNote: "Declinations " + j.pointing.dec_range_deg.map(d => "+" + d + "°").join(" to ") + ": the dishes are fixed in azimuth on the meridian, and their elevation is reset by hand every few months, so the array surveys one strip of declination at a time as the sky drifts through the beams.",

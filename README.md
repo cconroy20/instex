@@ -435,6 +435,19 @@ site, ranges in the hash's r.off (0-959). Checks: validate_int 105 (the VLBA's c
 the horizon masks, 45 of 49 cells within 0.2 h; the EHT's longest projected spacing on April 11, 8.336 Gλ vs 8.33 in
 the released data; the EHT uniform beam 23.5 × 16.6 µas, PA −1°, vs Paper IV's CLEAN beam 25.4 × 17.4 µas, PA 6°;
 CHIME's transit times vs CHIME/FRB 2018; the outrigger chords; CHORD's grid), uitest 351.
+Follow-ups (his asks, 11-16): for the transit arrays the Duration slider is "Time in the beam", and the Array panel's
+first line says the telescope does not track ("CHIME's cylinders do not track: ... 9 min here"). "Why does the image
+look nothing like the famous M87 image?": the page shows the dirty image (no deconvolution, his standing call), so a
+Dirty | Smoothed switch under the bottom-right square (r.dimg) shows the sky convolved with the fitted beam instead
+(interf.js smoothed: the beam's Gaussian in place of the weights), as published images are shown. The crescent is now
+Paper IV's model exactly, the convolution in closed form with the scaled modified Bessel functions (Ine, tabulated
+from their integrals), and its visibility in closed form (crescentVis: J0, J1 and the Gaussian taper). The amplitude
+panel computes each sample's visibility: closed forms for the crescent, sums of components for the core-jet and the
+point sources (compVis), bilinear interpolation of the grid for M101 (it read the nearest grid cell, 0.64 Gλ wide for
+the EHT's field, so the points came out as dashes); the model's curve only for the round skies. Checks: validate_int
+110 (J0 and the Bessel functions against their series; the crescent's and the core-jet's images against their
+visibility formulas through the FFT, to 1e-3; the crescent's first null at J0's zero; a point smoothed by a beam is the
+beam), uitest 356.
 
 ## Imager mode
 

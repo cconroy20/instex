@@ -1224,6 +1224,8 @@ const rel = (a, b) => Math.abs(a / b - 1);
       const c1 = await ev(`({ r: ${I}.result(), d: document.getElementById("vrDur").textContent, play: document.getElementById("rPlay").textContent, max: +document.getElementById("rDur").max, el: document.getElementById("rElRow").hidden, sub: document.getElementById("alSub").textContent })`);
       check("CHIME: the whole transit through the beam (8.7 min at dec 40°, 600 MHz), Play runs the transit, no elevation slider, feeds in the caption",
         /^all \d+ min$/.test(c1.d) && Math.abs(c1.max * 60 - 1.0 / 0.6 / 15.041 / Math.cos(40 * Math.PI / 180) * 60) < 0.2 && /Transit/.test(c1.play) && c1.el && /feed/.test(c1.sub) && c1.r.n > 0, JSON.stringify({ d: c1.d, max: (c1.max * 60).toFixed(2), play: c1.play }));
+      const lab = await ev(`({ l: document.getElementById("lrDur").textContent, sub: document.getElementById("alSub").textContent })`);
+      check("CHIME: the slider is \"Time in the beam\", and the Array panel says the cylinders do not track, with the time in the beam", lab.l === "Time in the beam" && /^CHIME's cylinders do not track: .* \d+ min here\./.test(lab.sub), JSON.stringify(lab));
       await ev(`${I}.set({ dur: 0 })`);
       check("CHIME: a snapshot when the slider is at 0", (await ev(`document.getElementById("vrDur").textContent`)) === "snapshot");
       await go("#inst=int&r.arr=chimeout");
@@ -1239,6 +1241,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await go("#inst=int&r.arr=chord&r.dec=10");
       const k1 = await ev(`({ r: ${I}.result(), obs: document.getElementById("rObsR").textContent })`);
       check("CHORD at dec +10°: out of reach of the dishes (+20° to +80°), no samples", k1.r.reach === false && !k1.r.n && /Withinreachno/.test(k1.obs.replace(/\s/g, "")), k1.obs);
+      // the Smoothed view of the dirty image, and the amplitudes of the crescent computed at each sample
+      await go("#inst=int&r.arr=eht2017");
+      await click("#rdiS"); await sleep(300);
+      const sm = { r: await ev(`${I}.result()`), h: await hashLike(/r\.dimg=smooth/), vis: await ev(`!document.getElementById("diBox").hidden`) };
+      check("Dirty | Smoothed: Smoothed shows the sky smoothed by the fitted beam, the link says so", sm.r.smooth && /r\.dimg=smooth/.test(sm.h) && sm.vis, JSON.stringify({ smooth: sm.r.smooth, h: sm.h }));
+      await click("#ruvA"); await sleep(300);
+      await click("#rdiD"); await sleep(300);
+      check("Dirty again: the dirty image, and no smoothing computed", !(await ev(`${I}.result().smooth`)));
+      await go("#inst=int&r.arr=arecibo");
+      check("a single dish: no Dirty | Smoothed switch (the map is already the sky smoothed by the beam)", await ev(`document.getElementById("diBox").hidden`));
+      await go("#inst=int&r.arr=vla");
+      const lv = await ev(`({ l: document.getElementById("lrDur").textContent, sub: document.getElementById("alSub").textContent })`);
+      check("a tracking array (the VLA): \"Duration\", and no line about tracking", lv.l === "Duration" && !/track/.test(lv.sub), JSON.stringify(lv));
       await go("#inst=int&r.arr=chord&r.cfg=pathfinder");
       check("CHORD pathfinder: 64 dishes, 2,016 baselines", (await ev(`${I}.result().nb`)) === 2016);
       check("Earth-scale and transit arrays: no page error", errors.length === e0, errors.slice(e0).join(" | "));

@@ -454,6 +454,32 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
   check(`CHORD: the primary beam 1.2 λ / D = ${(a.pb.arcminGHz / 60).toFixed(3)}° / ν(GHz), 2.4° at 1420 MHz (the design paper)`, Math.abs(a.pb.arcminGHz / 60 / 1.42 - 2.42) < 0.02);
 }
 {
+  // the Bessel functions behind the crescent: J0 and the scaled I0, I1 against their power series
+  const J0s = x => { let s = 0, t = 1; for (let k = 0; k < 80; k++) { if (k) t *= -(x * x / 4) / (k * k); s += t; } return s; };
+  const In = (n, z) => { let t = Math.pow(z / 2, n), s = 0; for (let k = 0; k < 400; k++) { if (k) t *= (z * z / 4) / (k * (k + n)); s += t; } return s; };
+  let eJ = 0, eI = 0;
+  for (const x of [0, 0.5, 2.4048, 5, 12, 25]) eJ = Math.max(eJ, Math.abs(RI.J0(x) - J0s(x)));
+  for (const z of [0.3, 2, 10, 40, 59.9, 60, 80, 200]) for (const n of [0, 1]) eI = Math.max(eI, Math.abs(RI.Ine(n, z) / (Math.exp(-z) * In(n, z)) - 1));
+  check("J0 to 1e-5 against its series (0 to 25); e^-z I0(z) and e^-z I1(z) to 1e-6 (relative) against theirs (0.3 to 200)", eJ < 1e-5 && eI < 1e-6, `${eJ.toExponential(1)}, ${eI.toExponential(1)}`);
+  // the crescent's image (the closed-form convolution) and the core-jet's against their visibilities (the closed form,
+  // the sum of the components), through the FFT
+  const n = 512, F = 300e-6 / RAD, pix = 2 * F / n, du = 1 / (2 * F);
+  for (const [model, size] of [["crescent", 44e-6 / RAD], ["corejet", 200e-6 / RAD]]) {
+    const V = RI.visibilities(RI.skyImage(model, size, n, pix, 0), n);
+    let worst = 0;
+    for (let q = -40; q <= 40; q += 2) for (let p = -40; p <= 40; p += 2) { const k = ((q + n) % n) * n + (p + n) % n; worst = Math.max(worst, Math.abs(Math.hypot(V.re[k], V.im[k]) - RI.vis(model, size, p * du, q * du))); }
+    check(`the ${model} sky: the transform of its image matches its visibility formula to 0.002 (out to ${(40 * du / 1e9).toFixed(1)} Gλ)`, worst < 0.002, worst.toExponential(2));
+  }
+  // the crescent's visibility has the ring's first null near J0's first zero, 2.405 / (pi d), across the dipole axis
+  const d = 44e-6 / RAD, u0 = 2.405 / (Math.PI * d), pa = RI.CRESCENT.pa * DEG + Math.PI / 2;
+  let best = Infinity, ub = 0; for (let k = 0; k < 400; k++) { const u = u0 * (0.8 + 0.4 * k / 400), A = RI.vis("crescent", d, u * Math.sin(pa), u * Math.cos(pa)); if (A < best) { best = A; ub = u; } }
+  check(`the crescent (44 µas): the first null across the dipole axis at ${(ub / 1e9).toFixed(2)} Gλ, J0's ${(u0 / 1e9).toFixed(2)} Gλ`, Math.abs(ub / u0 - 1) < 0.01 && best < 1e-3, best.toExponential(1));
+  // the Smoothed view: a point source smoothed by a beam is that beam
+  const beam = { maj: 25e-6 / RAD, min: 15e-6 / RAD, pa: 30 }, img = RI.smoothed(RI.pointVis("point", 0, n, du, 0), beam, n, du), f = RI.fitBeam(img, n, pix);
+  let mx = 0; for (const x of img) mx = Math.max(mx, x);
+  check("the Smoothed view of a point source is the fitted beam: peak 1, 25 × 15 µas at PA 30°", Math.abs(mx - 1) < 1e-6 && rel(f.maj, beam.maj) < 1e-3 && rel(f.min, beam.min) < 1e-3 && Math.abs(f.pa - 30) < 0.1, `${(f.maj * RAD * 1e6).toFixed(3)} × ${(f.min * RAD * 1e6).toFixed(3)} µas, PA ${f.pa.toFixed(2)}°`);
+}
+{
   // a horizon mask: a station sees a source above the limit only where the terrain lies lower
   const s = { lat: 30 * DEG, dlon: 0, elMin: 0, mask: { az: [0, 180 * DEG, 360 * DEG], el: [0, 40 * DEG, 0] } };
   check("a horizon mask: a source due south at 35° elevation hidden behind a 40° ridge, due north at 35° seen", !RI.staSees(s, 0, (30 - 55) * DEG) && RI.staSees(s, 180 * DEG, (180 - 35 - 30 - 90) * DEG) === RI.elevation(180 * DEG, 25 * DEG, 30 * DEG) >= 0);
