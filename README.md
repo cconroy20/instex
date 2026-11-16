@@ -405,6 +405,36 @@ with the page's cell the VLA beams are 0.80-0.86 of the OSS table, approaching 0
 across and 5 s sampling; natural / uniform (1.47) and snapshot / full (1.28) agree with the OSS's ~1.5 and ~1.3. The
 cfg files' shortest baselines are longer than the OSS's Bmin (C: 78 m vs 35.5 m: the OSS puts one north-arm antenna on
 pad N1 in C, which the cfg file does not).
+Earth-scale and transit arrays (his ask, 11-16: "CHIME, CHORD, CHIME+outriggers, and VLBI, and EHT"; his calls: VLBI =
+the VLBA, the EHT = the 2017 array with the M87* crescent, point-source skies for CHIME and CHORD; data/interf/vlba.md,
+eht2017.md, chime.md, chord.md). Five new arrays, all built by make_rpresets.js from the records:
+- VLBA: the ten stations (WGS84, the Status Summary), each with SCHED's horizon mask; NRAO's practical 10° limit; the
+  ten bands (the 3 mm band at the eight stations with the receiver); primary beam 40.3′ / ν(GHz), measured at 1.38 GHz
+  (Middelberg et al. 2013). Default 2 cm, dec +30°, 8 h, the core-and-jet sky.
+- EHT 2017: eight stations from Paper II's X, Y, Z (phased ALMA and SMA as single stations), Paper III's SEFDs
+  (baselines weighted 1 / (SEFD_i SEFD_j)), each station's own elevation limit; the reference meridian (72.2° W) puts
+  the default 6.98 h track on the M87 track of 2017 April 11; uniform weighting by default (natural lets ALMA's
+  baselines dominate: 43 µas). The crescent is Paper IV's test model (ring 44 µas, 1 + 2A cos, A = 0.23, peak at
+  PA 150°, 10 µas blur).
+- CHIME: 960 feeds (the 1,024 of the published rule, less the 64 end feeds masked), four 20 × 100 m cylinders drawn
+  under the feeds; a transit array: the beam 1.0° / ν(GHz) east-west (DERIVED from 2.5° and 1.3° at the band's edges)
+  by 110° north-south; the Duration slider runs to the whole crossing of the beam, θ / (15.04°/h cos δ).
+- CHIME + outriggers: CHIME's 960 feeds and KKO, HCO, GBO, each outrigger phased into one station at its fitted
+  position; SEFD 40,000 Jy per feed and 40,000 / N for an outrigger of N feeds (DERIVED); every baseline to an
+  outrigger kept in the random draw (interf.js baselines, keep); default an FRB snapshot over the whole band.
+- CHORD (under construction): the 512-dish core and the 64-dish pathfinder, read from the layout figure; 1.2 λ / D;
+  reaches declinations +20° to +80° only (dishes set by hand).
+Engine (interf.js): geoXYZ (WGS84 to the equatorial frame of a reference meridian), per-station horizons (staSees:
+elevation, own limit, horizon mask), per-baseline weights carried by the samples (wb), the samples' time offsets (tOff,
+for Play), elliptical primary beams (beamFn), the crescent, core-jet and point-source skies (skyModel2, pointsList).
+The beam fit now climbs only downhill from the peak (lobe(..., down)): the EHT's main lobe joined a +59% sidelobe above
+half power and the fit read 173 µas. Page (intapp.js): the Array panel draws a globe for an Earth-scale array
+(orthographic, Natural Earth 1:110m land in web/land110.js, public domain; drag turns the globe, a click on a site's
+name switches the site's stations), µas in the angle formats, per-array Size and Field ranges, stations up counted by
+site, ranges in the hash's r.off (0-959). Checks: validate_int 105 (the VLBA's chords and NRAO's visibility table from
+the horizon masks, 45 of 49 cells within 0.2 h; the EHT's longest projected spacing on April 11, 8.336 Gλ vs 8.33 in
+the released data; the EHT uniform beam 23.5 × 16.6 µas, PA −1°, vs Paper IV's CLEAN beam 25.4 × 17.4 µas, PA 6°;
+CHIME's transit times vs CHIME/FRB 2018; the outrigger chords; CHORD's grid), uitest 351.
 
 ## Imager mode
 

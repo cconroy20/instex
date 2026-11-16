@@ -177,6 +177,9 @@ footer p{margin:.5em 0;max-width:120ch}
   .presetlab:not(#settingLab){flex:1 1 0;min-width:0;max-width:max-content}
   .presetlab:not(#settingLab) #preset{flex:1 1 auto;width:auto;max-width:205px}
 }
+/* (the Interferometer's note is one short sentence: the note keeps its own width, and the menu takes the room, so that
+   "CHIME + outriggers" shows whole) */
+@media (min-width:861px) and (max-width:1540px){ body.inst-int .presetnote{flex:0 1 auto} }
 @media (max-width:1240px){
   .controls{grid-template-columns:repeat(3,minmax(0,1fr))}
   .controls .c-disp{grid-column:span 2}

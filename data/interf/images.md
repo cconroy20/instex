@@ -33,6 +33,24 @@ gray value is used as the sky's brightness: the picture's own stretch, not a cal
 the full 15852: the page reads the image into memory (four bytes a pixel while reading), which at full resolution is
 about 800 MB, more than a browser reliably gives a page.
 
+## The land outlines of the globe (web/land110.js)
+
+The Array panel draws the Earth-scale arrays (VLBA, EHT, CHIME with its outriggers) on a globe, with the land from
+Natural Earth's 1:110 million land polygons.
+
+| key | document | local file | URL |
+|---|---|---|---|
+| NE110 | Natural Earth, ne_110m_land.geojson (GitHub nvkelso/natural-earth-vector, master). Fetched 2026-11-16 | `rawdata/interf/land/ne_110m_land.geojson` | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson |
+| NEL | Natural Earth, LICENSE.md of the same repository. Fetched 2026-11-16 | `rawdata/interf/land/nev_LICENSE.md` | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/LICENSE.md |
+
+| item | value | source | quote |
+|---|---|---|---|
+| license | public domain | NEL, line 1 | "Everything here is public domain." |
+| use | any manner, including modification | NEL | "You may use the maps in any manner, including modifying the content and design, electronic dissemination, and offset printing." |
+
+**DERIVED**: web/land110.js keeps each polygon ring of the GeoJSON as a flat list of longitude and latitude, rounded
+to 0.1 degree (128 rings, 55 kB). (The Natural Earth web site's terms-of-use page refused the automated fetch.)
+
 ## Also downloaded, not used
 
 THINGS H I maps of M101 (NGC 5457; natural and robust weighting, moment 0) from https://www2.mpia-hd.mpg.de/THINGS/Data.html

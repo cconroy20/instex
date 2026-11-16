@@ -81,6 +81,142 @@ const out = [];
   });
 }
 
+// ---- helpers for the Earth-scale and transit arrays
+const D2R = Math.PI / 180;
+const WGS = { a: 6378137, f: 1 / 298.257223563 };
+WGS.e2 = WGS.f * (2 - WGS.f);
+// WGS84 geodetic (degrees, m) to Earth-centered X, Y, Z (m), and back (iterated)
+function toECEF(lat, lon, h) {
+  const p = lat * D2R, l = lon * D2R, N = WGS.a / Math.sqrt(1 - WGS.e2 * Math.sin(p) ** 2);
+  return [(N + h) * Math.cos(p) * Math.cos(l), (N + h) * Math.cos(p) * Math.sin(l), (N * (1 - WGS.e2) + h) * Math.sin(p)];
+}
+function toGeo(X, Y, Z) {
+  const lon = Math.atan2(Y, X), pr = Math.hypot(X, Y);
+  let lat = Math.atan2(Z, pr * (1 - WGS.e2)), h = 0;
+  for (let k = 0; k < 8; k++) { const N = WGS.a / Math.sqrt(1 - WGS.e2 * Math.sin(lat) ** 2); h = pr / Math.cos(lat) - N; lat = Math.atan2(Z, pr * (1 - WGS.e2 * N / (N + h))); }
+  return [lat / D2R, lon / D2R, h];
+}
+// a point east, north, up (m) of a site (the local tangent frame) to geodetic latitude, longitude, height
+function enuToGeo(site, e, n, u) {
+  const [X0, Y0, Z0] = toECEF(site[0], site[1], site[2]), p = site[0] * D2R, l = site[1] * D2R;
+  const sp = Math.sin(p), cp = Math.cos(p), sl = Math.sin(l), cl = Math.cos(l);
+  return toGeo(X0 - sl * e - sp * cl * n + cp * cl * u, Y0 + cl * e - sp * sl * n + cp * sl * u, Z0 + cp * n + sp * u);
+}
+const r9 = x => Math.round(x * 1e9) / 1e9, r3 = x => Math.round(x * 1e3) / 1e3;
+// the longitude of the stations' mean direction (degrees, to 0.1)
+const meanLon = st => { let x = 0, y = 0; for (const q of st) { x += Math.cos(q[0] * D2R) * Math.cos(q[1] * D2R); y += Math.cos(q[0] * D2R) * Math.sin(q[1] * D2R); } return Math.round(Math.atan2(y, x) / D2R * 10) / 10; };
+const meanLat = st => Math.round(st.reduce((a, q) => a + q[0], 0) / st.length * 10) / 10;
+const fBand = (lo, hi) => (hi < 1 ? Math.round(lo * 1000) + "–" + Math.round(hi * 1000) + " MHz" : lo + "–" + hi + " GHz");
+
+// ---- VLBA (data/interf/vlba.json): the ten stations of the Status Summary (WGS84), each with its horizon mask
+// (SCHED's catalog); NRAO's practical 10-degree limit; the primary beam measured at 1.38 GHz (Middelberg et al. 2013),
+// scaled as 1 / nu
+{
+  const j = rd("vlba.json"), st = j.stations, P = st.map(s => [s.lat_deg, s.lon_deg, s.h_m]);
+  out.push({
+    id: "vlba", name: "VLBA", site: "Hawaii to the Virgin Islands", lat: meanLat(P), geo: { lon0: meanLon(P) }, dish: j.dish_m, elLimit: j.elev_limit_deg, unit: "stations",
+    pb: { arcminGHz: j.pb_relation.fwhm_arcmin_x_GHz },
+    pbSource: "θ ≈ " + j.pb_relation.fwhm_arcmin_x_GHz.toFixed(1) + "′ / ν(GHz): measured at " + j.pb_relation.measured_freq_GHz.toFixed(2) + " GHz (Middelberg et al. 2013) and scaled as 1 / ν",
+    elNote: "NRAO's practical limit, " + j.elev_limit_deg + "° (" + j.elev_recommended_deg + "° recommended; the antennas reach " + j.elev_mech_deg + "°). Each station's horizon mask applies too: the terrain by azimuth, up to " + Math.max(...st.map(s => Math.max(...s.horizon_mask.el_deg))) + "° at St. Croix (SCHED's station catalog).",
+    antNote: "The Very Long Baseline Array: ten " + j.dish_m + " m antennas from Mauna Kea, Hawaii, to St. Croix in the Virgin Islands, operated by NRAO; the positions from the VLBA Observational Status Summary.",
+    bminNote: "Los Alamos and Pie Town, New Mexico, " + j.baselines.shortest_km + " km apart.",
+    bands: j.bands.map(b => ({ k: b.name, name: b.receiver + "  " + fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz, stations: b.stations })),
+    configs: [{ id: "vlba", name: "Ten stations", ants: P, names: st.map(s => s.code), full: st.map(s => s.location), masks: st.map(s => ({ az: s.horizon_mask.az_deg, el: s.horizon_mask.el_deg })), bmax: j.baselines.longest_km * 1000 }],
+    ranges: { size: [-4, 0.5], field: [-3.5, 1] },
+    defaults: { cfg: "vlba", band: "U", nu: 15, dec: 30, dur: 8, sky: "corejet", size: 0.01, field: 0.02 },
+    durNote: "The default 8 h is the time on the source assumed by the Status Summary's sensitivity table; NRAO gives no typical track.",
+  });
+}
+
+// ---- EHT 2017 (data/interf/eht2017.json): the eight stations of Paper II (phased ALMA and SMA as one station each,
+// with the diameter of the same collecting area), the SEFDs of Paper III; the reference meridian chosen so that the
+// default 7 h track centered on its transit is the M87 track of 2017 April 11 (the EHT's data release)
+{
+  // (the positions from Paper II's X, Y, Z, to 0.1 m; the tabulated latitudes and longitudes are rounded to 0.1 arcsec)
+  const j = rd("eht2017.json"), st = j.stations, P = st.map(s => toGeo(s.X_m, s.Y_m, s.Z_m).map((x, i) => (i < 2 ? r9(x) : r3(x))));
+  const tr = j.observing.sr1_tracks["11"].utc_h, tc = (tr[0] + tr[1]) / 2;
+  const gha = ((j.observing.gst0_apr11_deg + j.observing.degpdy * tc / 24 - j.target.ra_deg) % 360 + 540) % 360 - 180;
+  const lon0 = Math.round(-gha * 10) / 10, LBL = { PV: "IRAM 30 m" };
+  out.push({
+    id: "eht2017", name: "EHT 2017", site: "Hawaii, Arizona, Mexico, Chile, Spain, South Pole", lat: 0, geo: { lon0 }, dish: 12, elLimit: 0, unit: "stations",
+    pb: { k: j.pb.apex_k_lambda_over_D },
+    pbSource: j.pb.apex_k_lambda_over_D + " λ / D for APEX's 12 m dish (" + j.pb.apex_fwhm_arcsec + "″ at " + j.pb.apex_freq_GHz + " GHz; EHT 2019 Paper II); the larger dishes' beams are narrower, and none matters at these scales",
+    elNote: "0°: each station's own limit holds, ALMA and APEX 20°, the SMT 25° (the M87 tracks of 2017), JCMT 12° and the SMA 16° (the lowest elevations in the released data), the IRAM 30 m 9° and the LMT 0° (mechanical); none found for the SPT.",
+    antNote: "The Event Horizon Telescope of April 2017 at 1.3 mm: eight stations at six sites. Phased ALMA (37 dishes) and the phased SMA count as single stations; the dish sizes are the 2017 effective diameters, and the baselines are weighted by the stations' SEFDs (EHT 2019 Papers II and III).",
+    bminNote: "JCMT and the SMA, " + Math.round(j.baselines.shortest_m) + " m apart on Maunakea; ALMA and APEX are " + (Math.hypot(st[0].X_m - st[1].X_m, st[0].Y_m - st[1].Y_m, st[0].Z_m - st[1].Z_m) / 1000).toFixed(1) + " km apart: the only short spacings in the array.",
+    durNote: "The default, " + (tr[1] - tr[0]).toFixed(1) + " h centered on the transit at " + Math.abs(lon0) + "° W, is the M87 track of 2017 April 11 (" + tr[0].toFixed(2) + "–" + tr[1].toFixed(2) + " h UTC).",
+    bands: j.bands.map(b => ({ k: b.name, name: b.name + "  " + b.lo_GHz + "–" + b.hi_GHz + " GHz", lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
+    configs: [{ id: "2017", name: "April 2017", ants: P, names: st.map(s => LBL[s.name] || s.name), full: st.map(s => s.full_name + ", " + s.site), dishes: st.map(s => s.dish_eff_m), sefd: st.map(s => s.sefd_jy), elMin: st.map(s => s.el_limit_deg || 0), bmax: j.baselines.all_longest_km * 1000 }],
+    ranges: { size: [-5.5, -2], field: [-5, -1.5] },
+    // (uniform weighting by default, as for the EHT's own CLEAN beam: natural weighting lets ALMA's baselines dominate)
+    defaults: { cfg: "2017", band: "high", wt: "uniform", nu: j.bands[1].center_GHz, bw: j.bands[1].bw_GHz, dec: +j.target.dec_deg.toFixed(2), dur: +(tr[1] - tr[0]).toFixed(2), sky: "crescent", size: j.ring_model.adopted.diameter_uas * 1e-6, field: 1.6e-4 },
+  });
+}
+
+// ---- CHIME (data/interf/chime.json): four 20 x 100 m cylinders, 256 feeds each by the published rule, less the 16
+// end feeds per cylinder masked permanently (960 feeds); a transit array: the beam ~1.0 deg / nu(GHz) east-west
+// (DERIVED from 2.5 and 1.3 deg at the band's edges) by ~110 deg north-south (CHIME/FRB 2018)
+const chime = rd("chime.json");
+{
+  const j = chime, fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked), cy = j.cylinders;
+  out.push({
+    id: "chime", name: "CHIME", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
+    unit: "feeds", unitOne: "feed", unitTail: " on " + cy.n + " cylinders", cyl: cy.center_e_m.map(e => [e, 0, cy.width_m, cy.length_m]),
+    pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
+    pbSource: "east-west ≈ " + j.pb_relation.ew_fwhm_deg_x_GHz.toFixed(1) + "° / ν(GHz), from " + j.pb_relation.ew_fwhm_deg_band_edges["0.4"] + "° at 400 MHz and " + j.pb_relation.ew_fwhm_deg_band_edges["0.8"] + "° at 800 MHz; north-south ≈ " + j.pb_relation.ns_fwhm_deg + "° (CHIME/FRB 2018)",
+    reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°: the beam reaches " + j.pb_relation.ns_fwhm_deg / 2 + "° from the zenith, half its north-south extent, so CHIME sees three quarters of the sky each day as the Earth turns.",
+    antNote: "The Canadian Hydrogen Intensity Mapping Experiment: 1,024 feeds, " + j.feeds.per_cylinder + " on each cylinder's focal line " + j.feeds.spacing_m + " m apart; the 16 at the ends of each cylinder are masked permanently and left out here. The feed positions follow the published rule (no survey of the feeds is public).",
+    durNote: "CHIME/FRB 2018: " + j.drift.transit_min.equator.join(" to ") + " minutes at the equator and " + j.drift.transit_min.dec45.join(" to ") + " at declination 45°, across the band.",
+    bands: j.bands.map(b => ({ k: "chime", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
+    // (to 0.1 mm: millimeters would turn the 0.3048 m spacing into 0.304 or 0.305 m)
+    configs: [{ id: "chime", name: "Four cylinders", ants: fe.map(a => [a.e, a.n, a.u].map(x => Math.round(x * 1e4) / 1e4)), names: fe.map(a => a.name), bmax: j.configs.CHIME.bmax_m }],
+    ranges: { size: [2, 4.6], field: [2.5, 4.8] },
+    defaults: { cfg: "chime", band: "chime", nu: 0.6, dec: 40, dur: 24, sky: "points", size: 5 * 3600, field: 8 * 3600 },
+  });
+}
+
+// ---- CHIME and the CHIME/FRB Outriggers: CHIME's 960 feeds and the three outrigger stations (KKO, HCO, GBO), each
+// outrigger's feeds phased into one station at the station's fitted position (KKO24, VLBI26); the SEFD of a phased
+// station of N feeds taken as one feed's 40,000 Jy / N (DERIVED); the outriggers' beams turned to overlap CHIME's
+{
+  const j = chime, site = [j.site.lat_deg, j.site.lon_deg, j.site.elev_m], fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked);
+  const O = ["KKO", "HCO", "GBO"].map(k => Object.assign({ k }, j.outriggers.stations[k]));
+  const P = fe.map(a => enuToGeo(site, a.e, a.n, a.u)).concat(O.map(o => [o.lat_deg, o.lon_deg, o.h_ellipsoid_m])).map(q => [r9(q[0]), r9(q[1]), r3(q[2])]);
+  const sf = j.sensitivity.sefd_per_feed_Jy;
+  out.push({
+    id: "chimeout", name: "CHIME + outriggers", site: "British Columbia, California, West Virginia", lat: j.site.lat_deg, geo: { lon0: j.site.lon_deg }, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
+    unit: "", unitTail: " (" + O.length + " outriggers)", unitMany: "feeds",
+    pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
+    pbSource: "CHIME's beam",
+    reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°, as for CHIME: the outriggers see the source as the source crosses CHIME's beam.",
+    antNote: "The CHIME/FRB Outriggers localize the bursts CHIME finds: KKO (" + O[0].n_feeds + " feeds, " + O[0].chord_km.toFixed(0) + " km from CHIME), HCO (" + O[1].n_feeds + " feeds, " + O[1].chord_km.toFixed(0) + " km) and GBO (" + O[2].n_feeds + " feeds, " + O[2].chord_km.toLocaleString("en-US", { maximumFractionDigits: 0 }) + " km), each a cylinder whose feeds are phased into one station. The outriggers' cylinders are turned so that their beams overlap CHIME's. Each baseline is weighted by its two SEFDs: one feed's " + sf.toLocaleString("en-US") + " Jy, and a phased outrigger's " + sf.toLocaleString("en-US") + " Jy divided by its feeds.",
+    bminNote: "Two neighboring feeds on one of CHIME's cylinders, " + j.feeds.spacing_m + " m apart.",
+    durNote: "A fast radio burst lasts milliseconds, one snapshot (the default); a steady source can be followed through CHIME's beam.",
+    bands: j.bands.map(b => ({ k: "chime", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
+    configs: [{ id: "out", name: "Four sites", ants: P, names: fe.map(a => a.name).concat(O.map(o => o.k)), groups: fe.map(() => "CHIME").concat(O.map(o => o.k)), sefd: fe.map(() => sf).concat(O.map(o => sf / o.n_feeds)), keep: O.map((_, k) => fe.length + k), bmax: j.configs.CHIME_OUTRIGGERS.bmax_m }],
+    ranges: { size: [-3, 4.6], field: [-3, 4.8] },
+    defaults: { cfg: "out", band: "chime", nu: 0.6, bw: 0.4, dec: 40, dur: 0, sky: "point", size: 0.05, field: 1 },
+  });
+}
+
+// ---- CHORD (data/interf/chord.json): the 512 x 6 m dishes of the core, under construction (read from the layout
+// figure, snapped to the 6.3 x 8.5 m grid), and the 64-dish pathfinder; a transit array, the dishes fixed in azimuth
+// and set by hand to a declination between +20 and +80 degrees; the primary beam 1.2 lambda / D
+{
+  const j = rd("chord.json"), C = j.configs;
+  out.push({
+    id: "chord", name: "CHORD", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.dish_m, elLimit: 0, transit: true, unitOne: "dish", decRange: j.pointing.dec_range_deg,
+    pb: { arcminGHz: j.pb_relation.fwhm_deg_x_GHz * 60 },
+    pbSource: j.pb_relation.k_lambda_over_D + " λ / D = " + j.pb_relation.fwhm_deg_x_GHz.toFixed(2) + "° / ν(GHz) for the " + j.dish_m + " m dishes (2.4° at 1420 MHz; the CHORD design papers)",
+    reachNote: "Declinations " + j.pointing.dec_range_deg.map(d => "+" + d + "°").join(" to ") + ": the dishes are fixed in azimuth on the meridian, and their elevation is reset by hand every few months, so the array surveys one strip of declination at a time as the sky drifts through the beams.",
+    antNote: "The Canadian Hydrogen Observatory and Radio-transient Detector, under construction next to CHIME: 64 dishes installed by April 2026, the full core planned for the end of 2027. The positions are read from the published layout figure (no table is public), on a grid rotated 2° from north; the sense of the rotation is uncertain.",
+    bands: j.bands.map(b => ({ k: "chord", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
+    configs: [["core", "Core"], ["pathfinder", "Pathfinder"]].map(([id, name]) => ({ id, name, ants: C[id].antennas.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: C[id].antennas.map(a => a.name), bmax: C[id].bmax_m })),
+    ranges: { size: [2, 4.8], field: [2.5, 4.9] },
+    defaults: { cfg: "core", band: "chord", nu: 0.9, dec: 40, dur: 24, sky: "points", size: 4 * 3600, field: 6 * 3600 },
+  });
+}
+
 const head = "/* The arrays of the Interferometer mode (window.IX_ARRAYS), built by make_rpresets.js from the sourced records in\n" +
   "   data/interf/*.json (do not edit by hand). Antenna positions: local east, north, up (m) relative to the array's\n" +
   "   reference point; lat: degrees; dish: m; elLimit: degrees; bands: GHz (bw: the largest instantaneous bandwidth). */\n";

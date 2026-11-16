@@ -1,0 +1,2283 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: the 2017 Event Horizon Telescope (EHT) and the M87* ring model",
+  "compiled": "2026-11-16",
+  "companion": "data/interf/eht2017.md (same content as Markdown, with the full quote tables).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/interf/eht2017/ (params{} and ring_model{} hold the full records; stations[] carry their table-row quotes). DERIVED = arithmetic done here (shown). INFERRED = a mapping no source states. NOT FOUND = a gap. FITS READ-OFF = values decoded from the SR1 uvfits binary AN table. Nothing is filled from memory.",
+  "units": "geocentric X, Y, Z in meters; latitude/longitude in degrees (east positive); heights in meters on GRS80; frequencies GHz; angles deg unless stated; ring sizes in microarcseconds (uas); SEFD Jy",
+  "quote_check": "136 quote records (127 distinct quotes) machine-checked against the saved files' extracted text (pdftotext -layout and -raw for the PDFs; the md, txt, csv, dat and JSON files as is; the uvfits header cards as text): all pass; 134 values (P2 Table 2 and P3 Table 2 numbers vs the station fields, the SR1 AN-table XYZ, GSTIA0 and target position decoded from the uvfits, the ehtim rows, P4 Tables 7 and 10, P6 Table 3, and the SR1 track spans recomputed from the csv files) re-parsed from the saved files: all match (2026-11-16).",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), tilde operator and soft hyphens normalized; table-cell separators | dropped; whitespace collapsed; a quote also passes with PDF line-end hyphenation closed up or with all whitespace removed; \" ... \" joins non-adjacent pieces. AAS font glyphs mapped before matching (verified by rendering the pages): U+F0B0 -> degree, U+F0B2 -> double prime, U+00A2 -> prime, U+00B4 -> multiplication sign, U+F0A0 -> space, U+0084 -> \"⩽\" (P4 p. 29), U+F088 -> \"≲\" (P1 p. 8), U+F089 -> \"≳\" (P1 p. 1). Empty AAS table cells (an em dash) extract as \"L\" and are quoted so. The uvfits header cards are checked as text."
+ },
+ "sources": {
+  "P1": {
+   "cite": "Event Horizon Telescope Collaboration 2019a, ApJL, 875, L1, \"First M87 Event Horizon Telescope Results. I. The Shadow of the Supermassive Black Hole\" (arXiv:1906.11238; published version, 17 pp)",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper1_arXiv1906.11238.pdf",
+   "url": "https://arxiv.org/pdf/1906.11238"
+  },
+  "P2": {
+   "cite": "Event Horizon Telescope Collaboration 2019b, ApJL, 875, L2, \"II. Array and Instrumentation\" (arXiv:1906.11239; published version, 28 pp): Table 2 station information (XYZ, latitude, longitude, GRS80 height), Table 3 station sensitivities, Table 4 frequency configurations, Table 5 thermal noise, Figs. 11-12, Appendix",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "url": "https://arxiv.org/pdf/1906.11239"
+  },
+  "P3": {
+   "cite": "Event Horizon Telescope Collaboration 2019c, ApJL, 875, L3, \"III. Data Processing and Calibration\" (arXiv:1906.11240; published version, 32 pp): Sec. 2 observations, Table 2 median station SEFDs, Figs. 1, 2, 12",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper3_arXiv1906.11240.pdf",
+   "url": "https://arxiv.org/pdf/1906.11240"
+  },
+  "P4": {
+   "cite": "Event Horizon Telescope Collaboration 2019d, ApJL, 875, L4, \"IV. Imaging the Central Supermassive Black Hole\" (arXiv:1906.11241; published version, 52 pp): Table 1 resolution, Table 7 ring parameters, Sec. 4.3 compact flux density, Appendix C.1 geometric models (Eq. 49), Table 10 jet model",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper4_arXiv1906.11241.pdf",
+   "url": "https://arxiv.org/pdf/1906.11241"
+  },
+  "P6": {
+   "cite": "Event Horizon Telescope Collaboration 2019f, ApJL, 875, L6, \"VI. The Shadow and Mass of the Central Black Hole\" (arXiv:1906.11243; published version, 44 pp): Sec. 5.1 generalized crescent models, Table 3 best-fit parameters",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper6_arXiv1906.11243.pdf",
+   "url": "https://arxiv.org/pdf/1906.11243"
+  },
+  "SR1": {
+   "cite": "EHT Collaboration, data release 2019-D01-01 \"First M87 EHT Results: Calibrated Data\" (GitHub eventhorizontelescope/2019-D01-01, single commit 27ae76aacb90, 2019-04-10): README, INVENTORY, HOPS network-calibrated Stokes I csv files for M87 (high band, all four days; low band, April 11). Fetched 2026-11-16",
+   "file": "rawdata/interf/eht2017/eht_sr1_2019-D01-01/README.md; rawdata/interf/eht2017/eht_sr1_2019-D01-01/INVENTORY.txt; rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_101_hi_hops_netcal_StokesI.csv; rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_095_hi_hops_netcal_StokesI.csv; rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_096_hi_hops_netcal_StokesI.csv; rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_100_hi_hops_netcal_StokesI.csv; rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_101_lo_hops_netcal_StokesI.csv; rawdata/interf/eht2017/eht_sr1_commits.json",
+   "url": "https://github.com/eventhorizontelescope/2019-D01-01 (raw files from https://raw.githubusercontent.com/eventhorizontelescope/2019-D01-01/master/)"
+  },
+  "SR1U": {
+   "cite": "As SR1, uvfits/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits (April 11, high band): primary header (OBSRA, OBSDEC, DATE-OBS) and the AIPS AN table (STABXYZ per station, GSTIA0, DEGPDY, XYZHAND). Binary; header cards checked as text, AN rows decoded (FITS READ-OFF)",
+   "file": "rawdata/interf/eht2017/eht_sr1_2019-D01-01/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits",
+   "url": "https://raw.githubusercontent.com/eventhorizontelescope/2019-D01-01/master/uvfits/SR1_M87_2017_101_hi_hops_netcal_StokesI.uvfits"
+  },
+  "EHTIM": {
+   "cite": "eht-imaging (ehtim; github achael/eht-imaging), arrays/EHT2017.txt and arrays/EHT2017_m87.txt (station X, Y, Z and SEFDs used for simulations; last commits 2018-08-08 and 2022-05-05, master); commit histories saved alongside. Cross-check only. Fetched 2026-11-16",
+   "file": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt; rawdata/interf/eht2017/ehtim_arrays_EHT2017_m87.txt; rawdata/interf/eht2017/ehtim_commits_EHT2017.json; rawdata/interf/eht2017/ehtim_commits_EHT2017_m87.json",
+   "url": "https://raw.githubusercontent.com/achael/eht-imaging/master/arrays/EHT2017.txt"
+  },
+  "SCHEDS": {
+   "cite": "NRAO SCHED station catalog stations_RDBE.dat (VERSION = \"2018Sep07-20:14:11\"), entries PICOVEL and LMT (slew limits AX2LIM). Copy of rawdata/interf/vlba/sched_stations_RDBE.dat. Fetched 2026-11-16",
+   "file": "rawdata/interf/eht2017/sched_stations_RDBE.dat",
+   "url": "https://www.aoc.nrao.edu/software/sched/catalogs/stations_RDBE.dat"
+  }
+ },
+ "target": {
+  "name": "M87 (M87*)",
+  "ra_deg": 187.7059307575226,
+  "dec_deg": 12.39112323919932,
+  "ra_hms": "12:30:49.4234",
+  "dec_dms": "+12:23:28.044",
+  "src": "SR1U (OBSRA, OBSDEC); P3 Sec. 2"
+ },
+ "campaign": {
+  "window": "2017 April 5-14 (UTC)",
+  "triggered": [
+   "2017-04-05",
+   "2017-04-06",
+   "2017-04-07",
+   "2017-04-10",
+   "2017-04-11"
+  ],
+  "m87_days": [
+   "2017-04-05",
+   "2017-04-06",
+   "2017-04-10",
+   "2017-04-11"
+  ],
+  "m87_target_days": [
+   "2017-04-05",
+   "2017-04-06",
+   "2017-04-11"
+  ],
+  "m87_calibrator_day": "2017-04-10",
+  "src": "P3"
+ },
+ "stations": [
+  {
+   "code": "AA",
+   "name": "ALMA",
+   "full_name": "Atacama Large Millimeter/submillimeter Array (phased)",
+   "site": "Chajnantor, Chile",
+   "X_m": 2225061.3,
+   "Y_m": -5440061.7,
+   "Z_m": -2481681.2,
+   "lat_deg": -23.0291944,
+   "lon_deg": -67.75475,
+   "h_m": 5074.1,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 12.0,
+   "n_dishes_phased": 37,
+   "dish_eff_m": 73,
+   "aperture_eff": 0.68,
+   "tsys_K": 76,
+   "dpfu_K_per_Jy": 1.03,
+   "sefd_jy": 74,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 74,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "ALMA37c 73 0.68 76 74"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "12 (×54 ) and 7 (×12 ) Chile 2225061.3 -5440061.7 -2481681.2 -23°01′45.″1 -67°45′17.″1 5074.1"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "ALMA37c 73 0.68 76 74"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "ALMA37 73c L 76 0.68 1.03d L 74"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": -23.0292052,
+     "lon_deg": -67.7547521,
+     "h_m": 5074.13,
+     "lat_dms": "-23:01:45.14",
+     "lon_dms": "-67:45:17.11"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": -23.0292052,
+     "lon_deg": -67.7547521,
+     "h_m": 5074.126
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     0.22,
+     1.19,
+     -0.03
+    ],
+    "sr1_an_minus_table2_m": 2.156,
+    "ehtim_minus_table2_m": 4.3
+   },
+   "el_limit_deg": 20,
+   "el_limit_kind": "scheduling limit of the 2017 M87 tracks",
+   "el_limit_src": {
+    "src": "P3",
+    "loc": "Sec. 2, paragraph on the M87 tracks",
+    "quote": "In most tracks, VLBI scans on M87 began when it rose at the LMT and ended when it set below 20° elevation at ALMA."
+   },
+   "el_lowest_sr1_m87_deg": {
+    "value": 20.7,
+    "day": 5,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    2225060.8136,
+    -5440059.59994,
+    -2481681.15054
+   ],
+   "ehtim": {
+    "xyz_m": [
+     2225061.164,
+     -5440057.37,
+     -2481681.15
+    ],
+    "sefd_rl_jy": [
+     90.0,
+     90.0
+    ]
+   }
+  },
+  {
+   "code": "AP",
+   "name": "APEX",
+   "full_name": "Atacama Pathfinder Experiment",
+   "site": "Chajnantor, Chile",
+   "X_m": 2225039.5,
+   "Y_m": -5441197.6,
+   "Z_m": -2479303.4,
+   "lat_deg": -23.0057778,
+   "lon_deg": -67.7591389,
+   "h_m": 5104.5,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 12.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 12,
+   "aperture_eff": 0.61,
+   "tsys_K": 118,
+   "dpfu_K_per_Jy": 0.025,
+   "sefd_jy": 4800,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 4700,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "APEX 12 0.61 118 4700 2.4"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "APEX 12 Chile 2225039.5 -5441197.6 -2479303.4 -23°00′20.″8 -67°45′32.″9 5104.5"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "APEX 12 0.61 118 4700 2.4"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "APEX 12 L 118 0.61 0.025 1.020 4800"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": -23.0057793,
+     "lon_deg": -67.75914,
+     "h_m": 5104.45,
+     "lat_dms": "-23:00:20.81",
+     "lon_dms": "-67:45:32.90"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": -23.0057793,
+     "lon_deg": -67.75914,
+     "h_m": 5104.451
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     0.12,
+     0.16,
+     0.05
+    ],
+    "sr1_an_minus_table2_m": 0.058,
+    "ehtim_minus_table2_m": 0.1
+   },
+   "el_limit_deg": 20,
+   "el_limit_kind": "NOT FOUND as a published limit; DERIVED: floor of the lowest M87 elevation among SR1 detections (20.7 deg, April 5)",
+   "el_limit_src": null,
+   "el_lowest_sr1_m87_deg": {
+    "value": 20.7,
+    "day": 5,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    2225039.5297,
+    -5441197.6292,
+    -2479303.3597
+   ],
+   "ehtim": {
+    "xyz_m": [
+     2225039.53,
+     -5441197.63,
+     -2479303.36
+    ],
+    "sefd_rl_jy": [
+     3500.0,
+     3500.0
+    ]
+   }
+  },
+  {
+   "code": "JC",
+   "name": "JCMT",
+   "full_name": "James Clerk Maxwell Telescope",
+   "site": "Maunakea, Hawaii",
+   "X_m": -5464584.7,
+   "Y_m": -2493001.2,
+   "Z_m": 2150654.0,
+   "lat_deg": 19.8228333,
+   "lon_deg": -155.4770278,
+   "h_m": 4120.1,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 15.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 15,
+   "aperture_eff": 0.52,
+   "tsys_K": 345,
+   "dpfu_K_per_Jy": 0.033,
+   "sefd_jy": 10500,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 10500,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "JCMT 15 0.52 345 10,500 3.5"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "JCMT 15 Hawaii, USA -5464584.7 -2493001.2 2150654.0 +19°49′22.″2 -155°28′37.″3 4120.1"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "JCMT 15 0.52 345 10,500 3.5"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "JCMT 15 1.25 345 0.52 0.033a L 10500"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": 19.822838,
+     "lon_deg": -155.4770279,
+     "h_m": 4120.09,
+     "lat_dms": "19:49:22.22",
+     "lon_dms": "-155:28:37.30"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": 19.822838,
+     "lon_deg": -155.4770279,
+     "h_m": 4120.091
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     0.02,
+     -0.52,
+     0.01
+    ],
+    "sr1_an_minus_table2_m": 0.042,
+    "ehtim_minus_table2_m": 0.0
+   },
+   "el_limit_deg": 12,
+   "el_limit_kind": "NOT FOUND as a published limit; DERIVED: floor of the lowest M87 elevation among SR1 detections (12.5 deg, April 11)",
+   "el_limit_src": null,
+   "el_lowest_sr1_m87_deg": {
+    "value": 12.5,
+    "day": 11,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    -5464584.676,
+    -2493001.17,
+    2150653.982
+   ],
+   "ehtim": {
+    "xyz_m": [
+     -5464584.68,
+     -2493001.17,
+     2150653.98
+    ],
+    "sefd_rl_jy": [
+     6000.0,
+     6000.0
+    ]
+   }
+  },
+  {
+   "code": "LM",
+   "name": "LMT",
+   "full_name": "Large Millimeter Telescope Alfonso Serrano",
+   "site": "Sierra Negra, Mexico",
+   "X_m": -768715.6,
+   "Y_m": -5988507.1,
+   "Z_m": 2063354.9,
+   "lat_deg": 18.9857778,
+   "lon_deg": -97.3147778,
+   "h_m": 4593.3,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 50.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 32.5,
+   "aperture_eff": 0.28,
+   "tsys_K": 371,
+   "dpfu_K_per_Jy": 0.083,
+   "sefd_jy": 4500,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 4500,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "LMTd 32.5 0.28 371 4500 2.3"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "LMT 50 Mexico -768715.6 -5988507.1 2063354.9 +18°59′08.″8 -97°18′53.″2 4593.3"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "LMTd 32.5 0.28 371 4500 2.3"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "LMT 32.5 1.0 371 0.28 0.083 L 4500"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": 18.9857744,
+     "lon_deg": -97.3147795,
+     "h_m": 4593.34,
+     "lat_dms": "18:59:08.79",
+     "lon_dms": "-97:18:53.21"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": 18.9857744,
+     "lon_deg": -97.3147795,
+     "h_m": 4593.339
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     0.19,
+     0.37,
+     -0.04
+    ],
+    "sr1_an_minus_table2_m": 0.064,
+    "ehtim_minus_table2_m": 86.3
+   },
+   "el_limit_deg": 0,
+   "el_limit_kind": "mechanical (SCHED AX2LIM)",
+   "el_limit_src": {
+    "src": "SCHEDS",
+    "loc": "STATION=LMT",
+    "quote": "AX1LIM=90,450 AX2LIM=0,90"
+   },
+   "el_lowest_sr1_m87_deg": {
+    "value": 13.3,
+    "day": 5,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    -768715.632,
+    -5988507.072,
+    2063354.852
+   ],
+   "ehtim": {
+    "xyz_m": [
+     -768713.9637,
+     -5988541.7982,
+     2063275.9472
+    ],
+    "sefd_rl_jy": [
+     600.0,
+     600.0
+    ]
+   }
+  },
+  {
+   "code": "PV",
+   "name": "PV",
+   "full_name": "IRAM 30 m telescope, Pico Veleta",
+   "site": "Pico Veleta, Spain",
+   "X_m": 5088967.8,
+   "Y_m": -301681.2,
+   "Z_m": 3825012.2,
+   "lat_deg": 37.0661389,
+   "lon_deg": -3.3926111,
+   "h_m": 2919.5,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 30.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 30,
+   "aperture_eff": 0.47,
+   "tsys_K": 226,
+   "dpfu_K_per_Jy": 0.12,
+   "sefd_jy": 6900,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 1900,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "PV30 m 30 0.47 226 1900 1.5"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "PV30 m 30 Spain 5088967.8 -301681.2 3825012.2 +37°03′58.″1 -3°23′33.″4 2919.5"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "PV30 m 30 0.47 226 1900 1.5"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "PV 30 L 226 0.47 0.12 3.663 6900"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": 37.0661385,
+     "lon_deg": -3.3926043,
+     "h_m": 2919.45,
+     "lat_dms": "37:03:58.10",
+     "lon_dms": "-3:23:33.38"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": 37.0661385,
+     "lon_deg": -3.3926043,
+     "h_m": 2919.451
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     -0.61,
+     0.05,
+     0.05
+    ],
+    "sr1_an_minus_table2_m": 0.057,
+    "ehtim_minus_table2_m": 3.6
+   },
+   "el_limit_deg": 9,
+   "el_limit_kind": "mechanical (SCHED AX2LIM)",
+   "el_limit_src": {
+    "src": "SCHEDS",
+    "loc": "STATION=PICOVEL",
+    "quote": "STATION=PICOVEL STCODE=PV CONTROL=VEX ... MOUNT=ALTAZ AX1RATE=30 AX2RATE=30 AX1LIM=-90,450 AX2LIM=9,89"
+   },
+   "el_lowest_sr1_m87_deg": {
+    "value": 10.5,
+    "day": 6,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    5088967.74544,
+    -301681.18586,
+    3825012.20561
+   ],
+   "ehtim": {
+    "xyz_m": [
+     5088967.9,
+     -301681.6,
+     3825015.8
+    ],
+    "sefd_rl_jy": [
+     1400.0,
+     1400.0
+    ]
+   }
+  },
+  {
+   "code": "SM",
+   "name": "SMA",
+   "full_name": "Submillimeter Array (phased)",
+   "site": "Maunakea, Hawaii",
+   "X_m": -5464555.5,
+   "Y_m": -2492928.0,
+   "Z_m": 2150797.2,
+   "lat_deg": 19.8242222,
+   "lon_deg": -155.4775278,
+   "h_m": 4115.1,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 6.0,
+   "n_dishes_phased": 6,
+   "dish_eff_m": 14.7,
+   "aperture_eff": 0.75,
+   "tsys_K": 285,
+   "dpfu_K_per_Jy": 0.046,
+   "sefd_jy": 6400,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 6200,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SMA6c 14.7 0.75 285 6200 2.7"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "6 (×8) Hawaii, USA -5464555.5 -2492928.0 2150797.2 +19°49′27.″2 -155°28′39.″1 4115.1"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SMA6c 14.7 0.75 285 6200 2.7"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "SMA6 14.7c 1.0 285 0.75 0.046d 1.138e, 1.515e 6400"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": 19.8242285,
+     "lon_deg": -155.4775476,
+     "h_m": 4115.08,
+     "lat_dms": "19:49:27.22",
+     "lon_dms": "-155:28:39.17"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": 19.8242285,
+     "lon_deg": -155.4775476,
+     "h_m": 4115.08
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     2.08,
+     -0.69,
+     0.02
+    ],
+    "sr1_an_minus_table2_m": 0.027,
+    "ehtim_minus_table2_m": 288.8
+   },
+   "el_limit_deg": 16,
+   "el_limit_kind": "NOT FOUND as a published limit; DERIVED: floor of the lowest M87 elevation among SR1 detections (16.3 deg, April 5)",
+   "el_limit_src": null,
+   "el_lowest_sr1_m87_deg": {
+    "value": 16.3,
+    "day": 5,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    -5464555.493,
+    -2492927.989,
+    2150797.176
+   ],
+   "ehtim": {
+    "xyz_m": [
+     -5464523.4,
+     -2493147.08,
+     2150611.75
+    ],
+    "sefd_rl_jy": [
+     4900.0,
+     4900.0
+    ]
+   }
+  },
+  {
+   "code": "AZ",
+   "name": "SMT",
+   "full_name": "Submillimeter Telescope",
+   "site": "Mt. Graham, Arizona",
+   "X_m": -1828796.2,
+   "Y_m": -5054406.8,
+   "Z_m": 3427865.2,
+   "lat_deg": 32.7016111,
+   "lon_deg": -109.89125,
+   "h_m": 3158.7,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 10.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 10,
+   "aperture_eff": 0.6,
+   "tsys_K": 291,
+   "dpfu_K_per_Jy": 0.017,
+   "sefd_jy": 17100,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 17100,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SMT 10 0.60 291 17,100 4.5"
+   },
+   "sees_m87": true,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "SMT 10 Arizona, USA -1828796.2 -5054406.8 3427865.2 +32°42′05.″8 -109°53′28.″5 3158.7"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SMT 10 0.60 291 17,100 4.5"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "SMT 10 L 291 0.60 0.017 L 17100"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": 32.7016112,
+     "lon_deg": -109.8912447,
+     "h_m": 3158.7,
+     "lat_dms": "32:42:05.80",
+     "lon_dms": "-109:53:28.48"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": 32.7016112,
+     "lon_deg": -109.8912447,
+     "h_m": 3158.704
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     -0.5,
+     -0.01,
+     -0.0
+    ],
+    "sr1_an_minus_table2_m": 0.0,
+    "ehtim_minus_table2_m": 0.0
+   },
+   "el_limit_deg": 25,
+   "el_limit_kind": "local horizon toward M87 (Large Binocular Telescope)",
+   "el_limit_src": {
+    "src": "P4",
+    "loc": "footnote 121",
+    "quote": "However, for the SMT, M87 rises behind the Large Binocular Telescope, so the minimum observable elevation is ∼25°."
+   },
+   "el_lowest_sr1_m87_deg": {
+    "value": 24.9,
+    "day": 11,
+    "src": "SR1 (DERIVED)"
+   },
+   "sr1_an_xyz_m": [
+    -1828796.2,
+    -5054406.8,
+    3427865.2
+   ],
+   "ehtim": {
+    "xyz_m": [
+     -1828796.2,
+     -5054406.8,
+     3427865.2
+    ],
+    "sefd_rl_jy": [
+     5000.0,
+     5000.0
+    ]
+   }
+  },
+  {
+   "code": "SPT",
+   "name": "SPT",
+   "full_name": "South Pole Telescope",
+   "site": "South Pole",
+   "X_m": 809.8,
+   "Y_m": -816.9,
+   "Z_m": -6359568.7,
+   "lat_deg": -89.9896944,
+   "lon_deg": -45.2500833,
+   "h_m": 2816.5,
+   "h_datum": "GRS80 ellipsoid",
+   "dish_m": 10.0,
+   "n_dishes_phased": 1,
+   "dish_eff_m": 6,
+   "aperture_eff": 0.6,
+   "tsys_K": 118,
+   "dpfu_K_per_Jy": 0.0061,
+   "sefd_jy": 19300,
+   "sefd_src": "P3",
+   "sefd_alt": {
+    "value": 19300,
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SPTd 6 0.60 118 19,300 4.8"
+   },
+   "sees_m87": false,
+   "table2_row": {
+    "src": "P2",
+    "loc": "Table 2",
+    "quote": "Antarctica 809.8 −816.9 -6359568.7 -89°59′22.″9 -45°15′00.″3 2816.5"
+   },
+   "table3_row": {
+    "src": "P2",
+    "loc": "Table 3",
+    "quote": "SPTd 6 0.60 118 19,300 4.8"
+   },
+   "sefd_row": {
+    "src": "P3",
+    "loc": "Table 2",
+    "quote": "SPT 6b L 118 0.60 0.0061 L 19300"
+   },
+   "derived": {
+    "grs80_from_xyz": {
+     "lat_deg": -89.9897062,
+     "lon_deg": -45.2500753,
+     "h_m": 2816.49,
+     "lat_dms": "-89:59:22.94",
+     "lon_dms": "-45:15:00.27"
+    },
+    "wgs84_from_xyz": {
+     "lat_deg": -89.9897062,
+     "lon_deg": -45.2500753,
+     "h_m": 2816.489
+    },
+    "table_latlon_minus_xyz_enu_m": [
+     -0.0,
+     1.31,
+     0.01
+    ],
+    "ehtim_minus_table2_m": 1151.0
+   },
+   "el_limit_deg": null,
+   "el_limit_kind": "NOT FOUND; M87 never rises at the SPT (DERIVED maximum elevation -12.4 deg); the SPT observed 3C 279 at 5.8 deg elevation (P3 Fig. 8 caption; params.spt)",
+   "el_limit_src": {
+    "src": "P2",
+    "loc": "Table 5 note",
+    "quote": "Entries for the SPT reﬂect the median thermal noise on 3C 279, since the SPT cannot observe M87 due to its geographic location."
+   },
+   "ehtim": {
+    "xyz_m": [
+     0.01,
+     0.01,
+     -6359609.7
+    ],
+    "sefd_rl_jy": [
+     5000.0,
+     5000.0
+    ]
+   }
+  }
+ ],
+ "baselines": {
+  "m87_longest_km": 10907.9,
+  "m87_longest_pair": [
+   "JCMT",
+   "PV"
+  ],
+  "all_longest_km": 11388.8,
+  "all_longest_pair": [
+   "PV",
+   "SPT"
+  ],
+  "shortest_m": 163.5,
+  "shortest_pair": [
+   "JCMT",
+   "SMA"
+  ],
+  "n_pairs": 28,
+  "pairs": [
+   {
+    "pair": [
+     "JCMT",
+     "SMA"
+    ],
+    "km": 0.163
+   },
+   {
+    "pair": [
+     "ALMA",
+     "APEX"
+    ],
+    "km": 2.635
+   },
+   {
+    "pair": [
+     "LMT",
+     "SMT"
+    ],
+    "km": 1964.231
+   },
+   {
+    "pair": [
+     "SMA",
+     "SMT"
+    ],
+    "km": 4627.183
+   },
+   {
+    "pair": [
+     "JCMT",
+     "SMT"
+    ],
+    "km": 4627.205
+   },
+   {
+    "pair": [
+     "APEX",
+     "LMT"
+    ],
+    "km": 5467.894
+   },
+   {
+    "pair": [
+     "ALMA",
+     "LMT"
+    ],
+    "km": 5469.995
+   },
+   {
+    "pair": [
+     "JCMT",
+     "LMT"
+    ],
+    "km": 5854.688
+   },
+   {
+    "pair": [
+     "LMT",
+     "SMA"
+    ],
+    "km": 5854.71
+   },
+   {
+    "pair": [
+     "ALMA",
+     "SPT"
+    ],
+    "km": 7040.646
+   },
+   {
+    "pair": [
+     "APEX",
+     "SPT"
+    ],
+    "km": 7042.826
+   },
+   {
+    "pair": [
+     "APEX",
+     "SMT"
+    ],
+    "km": 7174.805
+   },
+   {
+    "pair": [
+     "ALMA",
+     "SMT"
+    ],
+    "km": 7176.714
+   },
+   {
+    "pair": [
+     "LMT",
+     "PV"
+    ],
+    "km": 8351.999
+   },
+   {
+    "pair": [
+     "PV",
+     "SMT"
+    ],
+    "km": 8402.475
+   },
+   {
+    "pair": [
+     "APEX",
+     "PV"
+    ],
+    "km": 8623.289
+   },
+   {
+    "pair": [
+     "ALMA",
+     "PV"
+    ],
+    "km": 8624.343
+   },
+   {
+    "pair": [
+     "APEX",
+     "JCMT"
+    ],
+    "km": 9447.682
+   },
+   {
+    "pair": [
+     "APEX",
+     "SMA"
+    ],
+    "km": 9447.751
+   },
+   {
+    "pair": [
+     "ALMA",
+     "JCMT"
+    ],
+    "km": 9448.51
+   },
+   {
+    "pair": [
+     "ALMA",
+     "SMA"
+    ],
+    "km": 9448.58
+   },
+   {
+    "pair": [
+     "LMT",
+     "SPT"
+    ],
+    "km": 10362.926
+   },
+   {
+    "pair": [
+     "JCMT",
+     "SPT"
+    ],
+    "km": 10416.593
+   },
+   {
+    "pair": [
+     "SMA",
+     "SPT"
+    ],
+    "km": 10416.677
+   },
+   {
+    "pair": [
+     "PV",
+     "SMA"
+    ],
+    "km": 10907.86
+   },
+   {
+    "pair": [
+     "JCMT",
+     "PV"
+    ],
+    "km": 10907.925
+   },
+   {
+    "pair": [
+     "SMT",
+     "SPT"
+    ],
+    "km": 11166.024
+   },
+   {
+    "pair": [
+     "PV",
+     "SPT"
+    ],
+    "km": 11388.835
+   }
+  ],
+  "src": "P2 Table 2 (DERIVED 3-D chords)"
+ },
+ "bands": [
+  {
+   "name": "low",
+   "lo_GHz": 226.1,
+   "hi_GHz": 228.1,
+   "center_GHz": 227.1,
+   "bw_GHz": 2.0,
+   "src": "P3",
+   "correlator": "Haystack"
+  },
+  {
+   "name": "high",
+   "lo_GHz": 228.1,
+   "hi_GHz": 230.1,
+   "center_GHz": 229.1,
+   "bw_GHz": 2.0,
+   "src": "P3",
+   "correlator": "MPIfR"
+  }
+ ],
+ "bw_note": "Two adjacent 2 GHz bands (P3); edges DERIVED as center +- 1 GHz, together the P2 Table 4 upper sideband 226.1-230.1 GHz. bw_GHz is per band and per polarization (dual circular at all stations except JCMT; ALMA linear, converted).",
+ "pb": {
+  "apex_fwhm_arcsec": 27.1,
+  "apex_freq_GHz": 228.1,
+  "apex_k_lambda_over_D": 1.2,
+  "src": "P2",
+  "note": "only APEX stated; irrelevant for a uas-scale source"
+ },
+ "resolution": {
+  "min_fringe_uas_all": 24.8,
+  "min_fringe_uas_alma": 28.6,
+  "clean_beam_apr11_uas": [
+   25.4,
+   17.4
+  ],
+  "clean_beam_apr11_pa_deg": 6.0,
+  "restoring_beam_uas": 20,
+  "src": "P4 Table 1"
+ },
+ "observing": {
+  "gst0_apr11_deg": 199.402198127279,
+  "degpdy": 360.9856,
+  "src": "SR1U (AN header)",
+  "sr1_tracks": {
+   "5": {
+    "utc_h": [
+     0.768,
+     8.165
+    ],
+    "n_records": 6458,
+    "max_uv_glambda": 8.335,
+    "max_uv_pair": [
+     "JC",
+     "PV"
+    ],
+    "stations": {
+     "ALMA": {
+      "first": 0.7681,
+      "last": 8.1653,
+      "el_first": 29.3,
+      "el_last": 20.7
+     },
+     "APEX": {
+      "first": 0.7681,
+      "last": 8.1653,
+      "el_first": 29.3,
+      "el_last": 20.7
+     },
+     "SMT": {
+      "first": 2.6014,
+      "last": 8.1653,
+      "el_first": 27.6,
+      "el_last": 63.4
+     },
+     "JCMT": {
+      "first": 4.5847,
+      "last": 8.1653,
+      "el_first": 12.7,
+      "el_last": 63.2
+     },
+     "LMT": {
+      "first": 0.7681,
+      "last": 8.1653,
+      "el_first": 13.3,
+      "el_last": 59.2
+     },
+     "PV": {
+      "first": 0.7681,
+      "last": 5.1153,
+      "el_first": 62.3,
+      "el_last": 15.9
+     },
+     "SMA": {
+      "first": 4.8347,
+      "last": 8.1653,
+      "el_first": 16.3,
+      "el_last": 63.2
+     }
+    }
+   },
+   "6": {
+    "utc_h": [
+     0.868,
+     8.032
+    ],
+    "n_records": 9081,
+    "max_uv_glambda": 8.335,
+    "max_uv_pair": [
+     "JC",
+     "PV"
+    ],
+    "stations": {
+     "ALMA": {
+      "first": 0.8681,
+      "last": 8.0319,
+      "el_first": 31.2,
+      "el_last": 21.6
+     },
+     "APEX": {
+      "first": 0.8681,
+      "last": 7.9958,
+      "el_first": 31.2,
+      "el_last": 22.1
+     },
+     "SMT": {
+      "first": 3.6347,
+      "last": 8.0319,
+      "el_first": 41.4,
+      "el_last": 64.0
+     },
+     "JCMT": {
+      "first": 4.5347,
+      "last": 8.0319,
+      "el_first": 13.0,
+      "el_last": 62.2
+     },
+     "LMT": {
+      "first": 0.9097,
+      "last": 8.0319,
+      "el_first": 16.2,
+      "el_last": 60.2
+     },
+     "PV": {
+      "first": 0.8681,
+      "last": 5.4986,
+      "el_first": 61.3,
+      "el_last": 10.5
+     },
+     "SMA": {
+      "first": 4.8681,
+      "last": 8.0319,
+      "el_first": 17.6,
+      "el_last": 62.2
+     }
+    }
+   },
+   "10": {
+    "utc_h": [
+     2.151,
+     6.265
+    ],
+    "n_records": 2610,
+    "max_uv_glambda": 8.316,
+    "max_uv_pair": [
+     "JC",
+     "PV"
+    ],
+    "stations": {
+     "ALMA": {
+      "first": 2.1514,
+      "last": 6.2653,
+      "el_first": 47.1,
+      "el_last": 39.2
+     },
+     "APEX": {
+      "first": 2.1514,
+      "last": 6.2653,
+      "el_first": 47.1,
+      "el_last": 39.2
+     },
+     "SMT": {
+      "first": 2.1514,
+      "last": 6.2653,
+      "el_first": 26.1,
+      "el_last": 69.2
+     },
+     "JCMT": {
+      "first": 4.2681,
+      "last": 6.2653,
+      "el_first": 12.9,
+      "el_last": 41.1
+     },
+     "LMT": {
+      "first": 2.1514,
+      "last": 6.2653,
+      "el_first": 37.6,
+      "el_last": 80.1
+     },
+     "PV": {
+      "first": 2.1514,
+      "last": 4.9653,
+      "el_first": 46.8,
+      "el_last": 13.8
+     },
+     "SMA": {
+      "first": 4.8847,
+      "last": 6.2653,
+      "el_first": 21.6,
+      "el_last": 41.1
+     }
+    }
+   },
+   "11": {
+    "utc_h": [
+     0.535,
+     7.515
+    ],
+    "n_records": 8058,
+    "max_uv_glambda": 8.33,
+    "max_uv_pair": [
+     "JC",
+     "PV"
+    ],
+    "stations": {
+     "ALMA": {
+      "first": 0.5347,
+      "last": 7.5153,
+      "el_first": 31.2,
+      "el_last": 23.9
+     },
+     "APEX": {
+      "first": 0.5347,
+      "last": 7.5153,
+      "el_first": 31.2,
+      "el_last": 24.0
+     },
+     "SMT": {
+      "first": 1.9931,
+      "last": 7.5153,
+      "el_first": 24.9,
+      "el_last": 65.6
+     },
+     "JCMT": {
+      "first": 4.1764,
+      "last": 7.5153,
+      "el_first": 12.5,
+      "el_last": 59.6
+     },
+     "LMT": {
+      "first": 2.4097,
+      "last": 7.5153,
+      "el_first": 42.2,
+      "el_last": 62.8
+     },
+     "PV": {
+      "first": 0.5347,
+      "last": 4.9986,
+      "el_first": 61.3,
+      "el_last": 12.6
+     },
+     "SMA": {
+      "first": 4.7431,
+      "last": 7.5153,
+      "el_first": 20.5,
+      "el_last": 59.6
+     }
+    }
+   }
+  },
+  "sr1_note": "DERIVED from the SR1 high-band csv (HOPS, network-calibrated, 10-s): first and last detection per station (hours UTC on that date) and the M87 elevation there; April 10 holds only the seven calibrator scans.",
+  "m87_windows_apr11": {
+   "ALMA": {
+    "w": {
+     "0": [
+      [
+       -1.96,
+       9.35
+      ]
+     ],
+     "10": [
+      [
+       -1.21,
+       8.6
+      ]
+     ],
+     "20": [
+      [
+       -0.44,
+       7.83
+      ]
+     ]
+    },
+    "max_el": 54.6
+   },
+   "APEX": {
+    "w": {
+     "0": [
+      [
+       -1.96,
+       9.36
+      ]
+     ],
+     "10": [
+      [
+       -1.21,
+       8.6
+      ]
+     ],
+     "20": [
+      [
+       -0.44,
+       7.83
+      ]
+     ]
+    },
+    "max_el": 54.6
+   },
+   "JCMT": {
+    "w": {
+     "0": [
+      [
+       3.27,
+       15.84
+      ]
+     ],
+     "10": [
+      [
+       4.0,
+       15.12
+      ]
+     ],
+     "20": [
+      [
+       4.71,
+       14.41
+      ]
+     ]
+    },
+    "max_el": 82.6
+   },
+   "LMT": {
+    "w": {
+     "0": [
+      [
+       -0.64,
+       11.96
+      ]
+     ],
+     "10": [
+      [
+       0.14,
+       11.25
+      ]
+     ],
+     "20": [
+      [
+       0.85,
+       10.54
+      ]
+     ]
+    },
+    "max_el": 83.4
+   },
+   "PV": {
+    "w": {
+     "0": [
+      [
+       -7.23,
+       6.07
+      ]
+     ],
+     "10": [
+      [
+       -6.38,
+       5.21
+      ]
+     ],
+     "20": [
+      [
+       -5.55,
+       4.38
+      ]
+     ]
+    },
+    "max_el": 65.3
+   },
+   "SMA": {
+    "w": {
+     "0": [
+      [
+       3.27,
+       15.84
+      ]
+     ],
+     "10": [
+      [
+       4.0,
+       15.12
+      ]
+     ],
+     "20": [
+      [
+       4.71,
+       14.41
+      ]
+     ]
+    },
+    "max_el": 82.6
+   },
+   "SMT": {
+    "w": {
+     "0": [
+      [
+       0.01,
+       13.05
+      ],
+      [
+       23.94,
+       24.0
+      ]
+     ],
+     "10": [
+      [
+       0.81,
+       12.24
+      ]
+     ],
+     "20": [
+      [
+       1.61,
+       11.45
+      ]
+     ]
+    },
+    "max_el": 69.7
+   },
+   "SPT": {
+    "w": {
+     "0": [],
+     "10": [],
+     "20": []
+    },
+    "max_el": -12.4
+   }
+  },
+  "windows_note": "DERIVED: hours UTC on 2017 April 11 with M87 above 0, 10 and 20 deg (negative = previous UTC day), P2 positions, SR1 GST.",
+  "uv_check": {
+   "n": 8058,
+   "max_frac": 6.367871802389702e-05,
+   "max_m": 345.8
+  }
+ },
+ "ring_model": {
+  "adopted": {
+   "model": "crescent: thin ring with a dipolar brightness profile, blurred by a 10-uas Gaussian (P4 Appendix C.1, model 2, the synthetic crescent of the imaging tests)",
+   "formula": "I(r, theta) = I0 [1 + 2A cos(theta - eta)] delta(r - r0) / (2 pi r0), then convolved with a circular Gaussian of FWHM 10 uas; theta and eta east of north",
+   "r0_uas": 22.0,
+   "diameter_uas": 44.0,
+   "I0_jy": 0.55,
+   "A": 0.23,
+   "eta_deg": 150.0,
+   "blur_fwhm_uas": 10.0,
+   "peak_to_trough": 2.704,
+   "src": "P4",
+   "loc": "Appendix C.1 item 2, Eq. (49); Sec. 9.2 (eta = 150 deg)",
+   "quote": "A crescent composed of a delta-function ring with radius r0=22 μas and a dipolar angular intensity proﬁle",
+   "quote2": {
+    "src": "P4",
+    "loc": "Appendix C.1 item 2",
+    "quote": "where I0=0.55 Jy, the asymmetry parameter A=0.23 (see Section 9.1), and η is the orientation angle east of north. The crescent is then also convolved with a 10 μas Gaussian."
+   },
+   "quote3": {
+    "src": "P4",
+    "loc": "Sec. 9.2",
+    "quote": "synthetic data from a crescent model with asymmetry parameter A=0.23 oriented at a orientation angle η=150°"
+   },
+   "quote4": {
+    "src": "P4",
+    "loc": "Sec. 9.1",
+    "quote": "The crescent models deﬁned in Section 6.1 have A=0.23, with angular brightness proﬁles"
+   },
+   "quote5": {
+    "src": "P4",
+    "loc": "Sec. 9.2",
+    "quote": "In the simulated crescent, the diameter of the unblurred model is 44 μas"
+   },
+   "quote6": {
+    "src": "P4",
+    "loc": "Appendix C.1, Eq. (49) (Greek letters extract as Latin: q = theta, h = eta, p = pi)",
+    "quote": "I (r , q ) = I0 [1 + 2A cos (q - h )] ... d (r - r0 ) ... 2pr0"
+   },
+   "derived": "flux = integral of I = I0 = 0.55 Jy; brightness peak at theta = eta = 150 deg (southeast); peak/trough along the ring (1 + 2A)/(1 - 2A) = 2.70; A = |<I e^(i theta)>| / <I> = 0.23 by construction (P4 Eq. 22)"
+  },
+  "jet": {
+   "note": "P4 adds 0.6 Jy in a large-scale jet of three elliptical Gaussians to every synthetic model; inter-site baselines resolve it out",
+   "components": [
+    {
+     "flux_jy": 0.3,
+     "fwhm_maj_uas": 1000,
+     "fwhm_min_uas": 600,
+     "pa_deg": 140,
+     "dra_uas": -688.77,
+     "ddec_uas": 80.86
+    },
+    {
+     "flux_jy": 0.2,
+     "fwhm_maj_uas": 400,
+     "fwhm_min_uas": 200,
+     "pa_deg": 93,
+     "dra_uas": -295.44,
+     "ddec_uas": -52.09
+    },
+    {
+     "flux_jy": 0.1,
+     "fwhm_maj_uas": 400,
+     "fwhm_min_uas": 200,
+     "pa_deg": 115,
+     "dra_uas": -215.8,
+     "ddec_uas": 208.4
+    }
+   ],
+   "src": "P4",
+   "loc": "Table 10",
+   "quote": "0.3 1000 600 140 −688.77 80.86 ... 0.2 400 200 93 −295.44 −52.09 ... 0.1 400 200 115 −215.80 208.40",
+   "quote2": {
+    "src": "P4",
+    "loc": "Appendix C.1",
+    "quote": "All of our models have 0.6Jy of ﬂux density in a compact component and 0.6 Jy in an extended jet that is heavily resolved by EHT inter-site baselines."
+   }
+  },
+  "observed": {
+   "diameter_uas": {
+    "value": "42 +- 3",
+    "unit": "uas",
+    "src": "P1",
+    "loc": "Table 1",
+    "quote": "Ring diameter a d 42±3 μas",
+    "alternatives": [
+     {
+      "value": "42 +- 3 uas, circular, central depression 10:1",
+      "src": "P1",
+      "loc": "Abstract",
+      "quote": "We have resolved the central compact radio source as an asymmetric bright emission ring with a diameter of 42±3μas, which is circular and encompasses a central depression in brightness with a ﬂux ratio ≳10:1."
+     },
+     {
+      "value": "crescent diameter 42 +- 3 uas, fractional width < 0.5",
+      "src": "P6",
+      "loc": "Abstract",
+      "quote": "Across all methods, we measure a crescent diameter of 42±3μas and constrain its fractional width to be <0.5."
+     },
+     {
+      "value": "GC model weighted means 43.4 (xs-ringauss), 43.2 uas (xs-ring)",
+      "src": "P6",
+      "loc": "Sec. 5.2",
+      "quote": "The weighted mean xs‐ringauss value of 43.4 μas is in excellent agreement with the corresponding xs‐ring value of 43.2μas"
+     },
+     {
+      "value": "images: RML median 41 +- 2 uas",
+      "src": "P4",
+      "loc": "Sec. 9.3",
+      "quote": "The RML methods recover a median diameter of 41±2μas."
+     }
+    ]
+   },
+   "width_uas": {
+    "value": "< 20",
+    "unit": "uas",
+    "src": "P1",
+    "loc": "Table 1",
+    "quote": "Ring width a <20 m as",
+    "alternatives": [
+     {
+      "value": "<= 20 uas (images; resolution-limited)",
+      "src": "P4",
+      "loc": "Sec. 9.3",
+      "quote": "only ﬁrmly conclude that the ring width is ⩽20 μas"
+     },
+     {
+      "value": "fractional width <~ 0.5",
+      "src": "P6",
+      "loc": "Sec. 5.2",
+      "quote": "with a fractional width of ≲0.5"
+     },
+     {
+      "value": "floor-to-crescent brightness ratio <~ 0.1",
+      "src": "P6",
+      "loc": "Sec. 5.2",
+      "quote": "consistently measure fˆc ≲ 0.1"
+     }
+    ],
+    "note": "\"m as\" is the extraction of \"μas\" in this table."
+   },
+   "contrast": {
+    "value": "> 10:1",
+    "unit": "",
+    "src": "P1",
+    "loc": "Table 1",
+    "quote": "Crescent contrast b >10:1"
+   },
+   "axial_ratio": {
+    "value": "< 4:3",
+    "unit": "",
+    "src": "P1",
+    "loc": "Table 1",
+    "quote": "Axial ratio a <4:3"
+   },
+   "orientation": {
+    "value": "150-200 deg east of north; brighter in the south",
+    "unit": "deg",
+    "src": "P1",
+    "loc": "Table 1",
+    "quote": "Orientation PA 150°–200° east of north",
+    "alternatives": [
+     {
+      "value": "brighter in the south",
+      "src": "P1",
+      "loc": "Sec. 9 (Conclusion)",
+      "quote": "structure of 42±3 μas diameter that is brighter in the south."
+     },
+     {
+      "value": "brightest portion in the southern half; ~150-160 deg on April 5-6 to ~180-200 deg on April 10-11",
+      "src": "P6",
+      "loc": "Sec. 5.2",
+      "quote": "conﬁnes the brightest portion of the crescent to be located in ... the southern half. We see some evidence for a net shift in ... orientation from ∼150°–160° (southeast) on April 5–6 to ∼180°–200° (south/southwest) on April 10–11"
+     },
+     {
+      "value": "position angles east of north; east to the left",
+      "src": "P4",
+      "loc": "Fig. 5 caption",
+      "quote": "Note that east is oriented to the left, and position angles are deﬁned east of north."
+     }
+    ]
+   },
+   "compact_flux_jy": {
+    "value": "0.66 (+0.16 / -0.10)",
+    "unit": "Jy (95% interval)",
+    "src": "P4",
+    "loc": "Sec. 4.3",
+    "quote": "they give ... Fcpct = 0.66- 0.10 Jy . For both these estimates, the central value ... gives the maximum a posteriori estimate and the uncertainties ... give the 95% conﬁdence interval after marginalizing over the source size",
+    "alternatives": [
+     {
+      "value": "repeated in Appendix B.2",
+      "src": "P4",
+      "loc": "Appendix B.2",
+      "quote": "Combining them, we obtain Fcpct,230 = 0.66- 0.10 Jy"
+     },
+     {
+      "value": "EHT-only constraint 0.64 (+0.39 / -0.08) Jy",
+      "src": "P4",
+      "loc": "Sec. 4.3",
+      "quote": "Taken together, the EHT constraints give Fcpct = 0.64- 0.08 Jy"
+     },
+     {
+      "value": "arcsecond-scale core 1.2 Jy",
+      "src": "P4",
+      "loc": "Sec. 4.3",
+      "quote": "the total ﬂux density seen in the core on arcsecond scales, Ftot≈1.2 Jy"
+     },
+     {
+      "value": "GC (xs-ringauss) fits: typical 0.75 Jy, ~50% scatter between days",
+      "src": "P6",
+      "loc": "Sec. 5.2",
+      "quote": "The xs‐ringauss model ﬁts ﬁnd a typical compact ﬂux density value of"
+     },
+     {
+      "value": "fiducial images: 0.5 Jy (DIFMAP, SMILI), 0.6 Jy (eht-imaging)",
+      "src": "P4",
+      "loc": "Sec. 7.1",
+      "quote": "compact ﬂux density of 0.5 Jy for DIFMAP and SMILI, and with 0.6 Jy for eht-imaging"
+     },
+     {
+      "value": "first images assumed 0.4-0.9 Jy",
+      "src": "P4",
+      "loc": "Sec. 10",
+      "quote": "The four teams made different assumptions about the total compact ﬂux density of M87, varying from ∼0.4 to 0.9Jy."
+     },
+     {
+      "value": "synthetic models: 0.6 Jy compact",
+      "src": "P4",
+      "loc": "Appendix C.1",
+      "quote": "All of our models have 0.6Jy of ﬂux density in a compact component"
+     }
+    ],
+    "note": "The upper error +0.16 sits on the line above in the PDF layout (the raw extraction reads \"F 0.66 Jy cpct 0.10 0.16\")."
+   }
+  },
+  "image_ring_fits": {
+   "src": "P4",
+   "loc": "Table 7 (fiducial images; DIFMAP with a 20-uas restoring beam)",
+   "columns": [
+    "d_uas",
+    "w_uas",
+    "eta_deg",
+    "A",
+    "fC"
+   ],
+   "april11": {
+    "DIFMAP": [
+     40.7,
+     29.0,
+     173.3,
+     0.23,
+     0.5
+    ],
+    "eht_imaging": [
+     41.0,
+     15.5,
+     168.0,
+     0.2,
+     0.04
+    ],
+    "SMILI": [
+     42.3,
+     15.6,
+     167.6,
+     0.22,
+     6e-06
+    ]
+   },
+   "quotes": [
+    {
+     "src": "P4",
+     "loc": "Table 7, DIFMAP April 11",
+     "quote": "April 11 40.7±2.6 29.0±3.0 173.3±4.8 0.23±0.04 5×10−1"
+    },
+    {
+     "src": "P4",
+     "loc": "Table 7, eht-imaging April 11",
+     "quote": "April 11 41.0±1.4 15.5±1.8 168.0±6.9 0.20±0.02 4×10−2"
+    },
+    {
+     "src": "P4",
+     "loc": "Table 7, SMILI April 11",
+     "quote": "April 11 42.3±1.6 15.6±2.2 167.6±2.8 0.22±0.03 6×10−6"
+    }
+   ]
+  },
+  "gc_fits": {
+   "src": "P6",
+   "loc": "Table 3, THEMIS xs-ringauss, HI+LO (band-combined) rows; median posterior, lower errors on the row, upper errors on the line above",
+   "columns": [
+    "d_uas",
+    "f_w",
+    "log10_s",
+    "log10_fc",
+    "phi_deg",
+    "CF_jy"
+   ],
+   "rows": {
+    "April 5": [
+     43.3,
+     0.09,
+     -1.62,
+     -1.74,
+     160.7,
+     0.75
+    ],
+    "April 6": [
+     43.7,
+     0.19,
+     -0.88,
+     -2.28,
+     151.8,
+     1.03
+    ],
+    "April 10": [
+     43.9,
+     0.42,
+     -1.16,
+     -1.52,
+     203.1,
+     0.69
+    ],
+    "April 11": [
+     42.4,
+     0.34,
+     -1.35,
+     -1.8,
+     198.1,
+     0.49
+    ]
+   },
+   "quotes": [
+    {
+     "src": "P6",
+     "loc": "Table 3, April 5 HI+LO",
+     "quote": "HI+LO THEMIS xs‐ringauss 43.3-0.23 0.09-0.04 -1.62-0.55 -1.74-0.31 160.7-0.9 0.75±0.15"
+    },
+    {
+     "src": "P6",
+     "loc": "Table 3, April 6 HI+LO",
+     "quote": "HI+LO THEMIS xs‐ringauss 43.7-0.11 0.19-0.02 -0.88-0.07 -2.28-0.61 151.8-1.7 1.03±0.03"
+    },
+    {
+     "src": "P6",
+     "loc": "Table 3, April 10 HI+LO",
+     "quote": "HI+LO THEMIS xs‐ringauss 43.9-0.86 0.42±0.05 -1.16-0.54 -1.52-0.60 203.1-3.4 0.69-0.14"
+    },
+    {
+     "src": "P6",
+     "loc": "Table 3, April 11 HI+LO",
+     "quote": "HI+LO THEMIS xs‐ringauss 42.4-0.33 0.34±0.04 -1.35-0.48 -1.80-0.62 198.1-1.8 0.49±0.03"
+    }
+   ],
+   "construction": [
+    {
+     "src": "P6",
+     "loc": "Sec. 5.1, step 1",
+     "quote": "Starting with a uniform circular disk of emission with radius Rout, we subtract a smaller uniform disk with radius Rin that is offset from the ﬁrst by an amount r0."
+    },
+    {
+     "src": "P6",
+     "loc": "Sec. 5.1, step 2",
+     "quote": "which imposes a linear brightness gradient along the symmetry axis. The brightness reaches a minimum of h1 and a maximum of h2."
+    },
+    {
+     "src": "P6",
+     "loc": "Sec. 5.1, step 6",
+     "quote": "The image is rotated such that the widest section of the crescent is oriented at an angle f in the counterclockwise direction (i.e., east of north)."
+    }
+   ],
+   "note": "GC parameters: d = Rout + Rin (Eq. 20); f_w = fractional width (Eq. 21); s = smoothing FWHM / d; f_c = floor / mean crescent brightness; phi = orientation of the widest (brightest) side, east of north. The xs-ringauss model also carries a fixed Gaussian and 2-3 nuisance Gaussians; the Rin, Rout, r0, h1, h2 values themselves are NOT FOUND in the saved sources (Table 3 lists only the derived quantities)."
+  }
+ },
+ "params": {
+  "campaign": {
+   "value": "2017 April 5-14 window; observations triggered April 5, 6, 7, 10, 11; eight stations at six sites",
+   "unit": "",
+   "src": "P3",
+   "loc": "Sec. 2, first paragraph",
+   "quote": "The EHT 2017 science observing run was scheduled for 5 nights during the 10-night 2017 April 5–14 (UTC) window with eight participating observatories at six distinct geographical locations",
+   "alternatives": [
+    {
+     "value": "nights triggered",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "Observations were triggered on 2017 April 5, 6, 7, 10, and 11."
+    },
+    {
+     "value": "station names and sites",
+     "src": "P3",
+     "loc": "Sec. 2, first paragraph",
+     "quote": "the ALMA and the Atacama Pathfinder Experiment (APEX) in the Atacama Desert in Chile, the Large Millimeter Telescope Alfonso Serrano (LMT) on the Volcán Sierra Negra in Mexico, the South Pole Telescope (SPT) at the geographic south pole, the IRAM 30 m telescope (PV) on Pico Veleta in Spain, the Submillimeter Telescope (SMT) on Mt. Graham in Arizona, and the Submillimeter Array (SMA) and the James Clerk Maxwell Telescope (JCMT) on Maunakea in Hawaiʻi."
+    },
+    {
+     "value": "eight telescopes, ALMA for the first time",
+     "src": "P2",
+     "loc": "Sec. 1.4",
+     "quote": "In 2017 April, the EHT carried out global observations with an array of eight telescopes (see Table 2) that included the Atacama Large Millimeter/submillimeter Array (ALMA) for the first time."
+    }
+   ]
+  },
+  "m87_nights": {
+   "value": "M87 target on April 5, 6, 11; seven calibrator scans on April 10",
+   "unit": "",
+   "src": "P3",
+   "loc": "Sec. 2",
+   "quote": "was observed as a target source on three nights (2017 April 5, 6, and 11). In addition, seven scans on M87 were included as a calibration source (for 3C 279) on 2017 April 10.",
+   "alternatives": [
+    {
+     "value": "scans 3-7 min; tracks from LMT rise to ALMA el 20 deg",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "Each of the four tracks consists of multiple scans lasting between 3 and 7 minutes. In most tracks, VLBI scans on M87 began when it rose at the LMT and ended when it set below 20° elevation at ALMA."
+    },
+    {
+     "value": "scans interleaved with 3C 279",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "Scans on M87 were interleaved with scans on the quasar 3C 279"
+    }
+   ]
+  },
+  "m87_position": {
+   "value": [
+    187.7059307575226,
+    12.39112323919932
+   ],
+   "unit": "deg (RA, Dec; J2000)",
+   "src": "SR1U",
+   "loc": "primary header",
+   "quote": "OBSRA = 187.7059307575226 ... OBSDEC = 12.39112323919932",
+   "derived": "RA 187.7059307575226/15 = 12.5137287 h = 12h30m49.4234s; Dec 12.39112324 deg = +12°23′28.0437″",
+   "alternatives": [
+    {
+     "value": "12h30m49.42s, +12°23′28.04″",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "M87 (αJ2000 = 12h30m49 42, δJ2000 = 12°23′28 04)"
+    },
+    {
+     "value": "M87 at +12 deg declination; SPT baselines only for 3C 279 (-6 deg)",
+     "src": "P3",
+     "loc": "Fig. 1 caption",
+     "quote": "Solid baselines represent mutual visibility on M87 (+12° decl.), while dashed baselines to SPT are also present for 3C 279 (−6° decl.)."
+    }
+   ]
+  },
+  "bands": {
+   "value": "two 2 GHz bands centered at 227.1 (low) and 229.1 GHz (high); 32 Gbps, 2-bit",
+   "unit": "GHz",
+   "src": "P3",
+   "loc": "Sec. 2",
+   "quote": "The 2017 observing run recorded two 2 GHz bands, low and high, centered at sky frequencies of 227.1 and 229.1 GHz, respectively, onto Mark 6 VLBI recorders (Whitney et al. 2013) at an aggregate recording rate of 32 Gbps with 2-bit sampling.",
+   "derived": "low 226.1-228.1 GHz, high 228.1-230.1 GHz (center +- 1 GHz); 32 Gbps = 2 bands x 2 polarizations x 2 GHz x 2 samples/Hz x 2 bits; 4 GHz per polarization, 8 GHz aggregate",
+   "alternatives": [
+    {
+     "value": "USB 226.1-230.1 GHz, LO 221.1 GHz, 32 Gbps, first used 2017",
+     "src": "P2",
+     "loc": "Table 4, column \"230 GHz Band 1SB\"",
+     "quote": "Upper-sideband Sky Freqs. Range(GHz) 226.1–230.1 226.1–230.1 346.6–350.6 ... Local Oscillator(GHz) 221.1 221.1 342.6 ... Recording Rate( Gbps) 32 64 64 ... Year of First Use 2017 2018 >2020"
+    },
+    {
+     "value": "aggregate bandwidth 8 GHz",
+     "src": "P2",
+     "loc": "Sec. 1.4",
+     "quote": "with an aggregate bandwidth of 8 GHz"
+    },
+    {
+     "value": "correlated at Haystack (low) and MPIfR (high)",
+     "src": "P3",
+     "loc": "Sec. 4",
+     "quote": "The Haystack correlator handled the low-frequency band (centered at 227.1 GHz) ... with MPIfR correlating the high band (centered at 229.1 GHz)."
+    },
+    {
+     "value": "SR1 high-band reference frequency 229.0707 GHz",
+     "src": "SR1",
+     "loc": "csv header (April 11, high band)",
+     "quote": "#SRC:M87,DATE(MJD):57854,FREQ:229.0707GHz"
+    },
+    {
+     "value": "JCMT single circular polarization per night",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "The JCMT observed a single circular polarization component per night"
+    }
+   ]
+  },
+  "pb_apex": {
+   "value": 27.1,
+   "unit": "arcsec FWHM at 228.1 GHz (APEX, 12 m)",
+   "src": "P2",
+   "loc": "Appendix A.2 (APEX)",
+   "quote": "The beam FWHM is 27.1arcsec at 228.1GHz.",
+   "derived": "lambda = c / 228.1 GHz = 1.3143 mm; k = theta D / lambda = 27.1/206264.8 x 12 / 0.001314 = 1.200",
+   "note": "The only per-station primary beam stated in the saved sources. ALMA 12 m antennas: 1.13 lambda/D (data/interf/alma.json, ALMA Technical Handbook). The primary beams (arcsec) exceed the M87 source (tens of microarcseconds) by > 1e5, so primary-beam attenuation is irrelevant for the EHT image."
+  },
+  "alma_phased": {
+   "value": "median 37 x 12 m phased; equivalent diameter 73 m (88 m if all antennas phased)",
+   "unit": "",
+   "src": "P2",
+   "loc": "Table 3 note c",
+   "quote": "The median number of phased antennas in 2017 for the SMA was 6 × 6 m antennas and for ALMA was 37 × 12 m antennas. If all ALMA antennas are phased that would be equivalent to a single 88 m antenna.",
+   "derived": "sqrt(37) x 12 m = 72.99 m (Table 3: 73 m); sqrt(6) x 6 m = 14.70 m (Table 3: 14.7 m)",
+   "alternatives": [
+    {
+     "value": "~37 x 12 m: equivalent of a ~70 m dish",
+     "src": "P2",
+     "loc": "Sec. 1.4",
+     "quote": "A purpose-built system electronically combined the collecting area of ∼37×12m diameter ALMA dishes (see Appendix A.1): the equivalent of adding a ∼70m dish to the EHT array."
+    },
+    {
+     "value": "diameter of phased arrays = total collecting area",
+     "src": "P3",
+     "loc": "Table 2 note c",
+     "quote": "The diameter for phased arrays reﬂects the sum total collecting area."
+    },
+    {
+     "value": "SMA six or seven antennas; ALMA usually 37",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "The SMA observed as a phased array of six or seven antennas"
+    },
+    {
+     "value": "ALMA usually 37 dual linear polarization antennas",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "ALMA observed as a phased array of usually 37 dual linear polarization antennas"
+    }
+   ]
+  },
+  "lmt_spt_dish": {
+   "value": "LMT 32.5 m in 2017 (50 m from 2018); SPT 6 m illuminated of 10 m",
+   "unit": "",
+   "src": "P2",
+   "loc": "Table 3 note d",
+   "quote": "The LMT was upgraded from 32.5 m to a full 50 m diameter telescope in early 2018. At SPT the aperture was under-illuminated in 2017 with an effective diameter of 6 m.",
+   "alternatives": [
+    {
+     "value": "SPT 10 m, 6 m illuminated",
+     "src": "P3",
+     "loc": "Table 2 note b",
+     "quote": "SPT has a 10 m dish diameter, with 6 m illuminated by receiver optics in 2017."
+    }
+   ]
+  },
+  "sefd_def": {
+   "value": "SEFD = 2 k T*sys / (eta_A A_geom); median values for the 2017 M87 and Sgr A* observations",
+   "unit": "",
+   "src": "P2",
+   "loc": "Table 3 note a",
+   "quote": "SEFD=2kT * sys /hA Ageom with T * sys the effective system temperature and Ageom the geometric collecting area of the telescope.",
+   "derived": "PV: 6900 Jy / 3.663 = 1884 Jy (P2 Table 3: 1900 Jy), so the P3 value carries the 2017 clock-loss correction; APEX 4800 vs 4700, SMA 6400 vs 6200 (P3 vs P2)",
+   "alternatives": [
+    {
+     "value": "P3 Table 2 title",
+     "src": "P3",
+     "loc": "Table 2 title",
+     "quote": "Median EHT Station Sensitivities on Primary Targets during the 2017 Campaign, Assuming Nominal Pointing and Focus"
+    },
+    {
+     "value": "PV clock instability: ~50% amplitude loss (mitigation factor 3.663 in Table 2)",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "a clock frequency instability at PV resulting in ∼50% amplitude loss to that station"
+    },
+    {
+     "value": "SMA/JCMT shared LO: sideband contamination",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "a common local oscillator (LO) used at SMA and JCMT resulting in opposite sideband contamination"
+    }
+   ]
+  },
+  "frame": {
+   "value": "geocentric XYZ: X to Greenwich, Y to 90 deg east, Z to the North Pole; heights on GRS80",
+   "unit": "",
+   "src": "P2",
+   "loc": "Table 2 note a",
+   "quote": "Geocentric coordinates with X pointing to the Greenwich meridian, Y pointing 90° away in the equatorial plane (eastern longitudes have positive Y), and positive Z pointing in the direction of the North Pole. This is a left-handed coordinate system. Elevations are relative to the GRS80 ellipsoid (Moritz 2000).",
+   "derived": "Converting the Table 2 XYZ to GRS80 geodetic coordinates reproduces the tabulated latitude, longitude and height to <= 2.2 m horizontally and 0.05 m in height at all eight stations (stations[].derived)",
+   "alternatives": [
+    {
+     "value": "ALMA and SMA: phasing centers",
+     "src": "P2",
+     "loc": "Table 2 note b",
+     "quote": "Array coordinates indicate the phasing center used in 2017."
+    },
+    {
+     "value": "SPT: 2017 April position; ice moves ~10 m/yr",
+     "src": "P2",
+     "loc": "Table 2 note c",
+     "quote": "2017 April position: the ice sheet at the South Pole moves at a rate of about 10 m yr−1."
+    },
+    {
+     "value": "SR1 AN table: right-handed XYZ",
+     "src": "SR1U",
+     "loc": "AIPS AN header",
+     "quote": "XYZHAND = 'RIGHT '"
+    }
+   ],
+   "note": "The axes as described (X Greenwich, Y 90 deg east, Z north) form the usual right-handed ECEF frame, the frame the SR1 AN table declares; \"left-handed\" in note a conflicts with the axis description (see conflicts)."
+  },
+  "longest_baseline": {
+   "value": 10907.9,
+   "unit": "km (3-D chord, stations that see M87)",
+   "src": "P2",
+   "loc": "Table 2, JCMT and PV rows",
+   "quote": "JCMT 15 Hawaii, USA -5464584.7 -2493001.2 2150654.0 +19°49′22.″2 -155°28′37.″3 4120.1 ... PV30 m 30 Spain 5088967.8 -301681.2 3825012.2 +37°03′58.″1 -3°23′33.″4 2919.5",
+   "derived": "|X_JCMT - X_PV| = 10907.9 km; all eight stations: PV-SPT 11388.8 km, SMT-SPT 11166.0 km; shortest SMA-JCMT 163.5 m, ALMA-APEX 2.635 km. Fringe spacing lambda/B at 229.1 GHz: JCMT-PV 24.7 uas, PV-SPT 23.7 uas",
+   "alternatives": [
+    {
+     "value": "M87: 25 uas east-west on Hawaii-PV; 3C 279: 24 uas north-south to the SPT",
+     "src": "P3",
+     "loc": "Sec. 7.3",
+     "quote": "For M87, the highest resolution (fringe spacing of 25 μas) is achieved in the east–west direction on baselines joining the Hawaiʻi stations to PV, while for 3C 279 the highest resolution (fringe spacing of 24 μas) is achieved in the north–south direction, on PV and SMT baselines to the SPT."
+    },
+    {
+     "value": "shortest inter-site baseline SMT-LMT, 139-166 uas",
+     "src": "P4",
+     "loc": "Sec. 4.3",
+     "quote": "The shortest inter-site EHT baseline is SMT–LMT, which has a fringe spacing of 139–166 μas for M87."
+    }
+   ]
+  },
+  "resolution": {
+   "value": "minimum fringe spacing 24.8 uas (all baselines), 28.6 uas (ALMA baselines); uniform CLEAN beam April 11 25.4 x 17.4 uas, PA 6.0 deg; restoring beam 20 uas",
+   "unit": "uas",
+   "src": "P4",
+   "loc": "Table 1",
+   "quote": "Minimum Fringe Spacing 1 ∣u∣max (All Baselines) ... April 5–11 24.8 L L ... Minimum Fringe Spacing (ALMA Baselines) ... April 5–11 28.6 L L",
+   "derived": "SR1 max |(u, v)|: April 5 8.335, April 6 8.335, April 10 8.316, April 11 8.330 Glambda (all JCMT-PV), i.e. fringe spacing 24.7-24.8 uas",
+   "alternatives": [
+    {
+     "value": "CLEAN beam (uniform weighting), April 11",
+     "src": "P4",
+     "loc": "Table 1",
+     "quote": "April 11 25.4 17.4 6.0"
+    },
+    {
+     "value": "restoring beam 20 uas",
+     "src": "P4",
+     "loc": "Table 1",
+     "quote": "CLEAN Restoring Beam (Used in this Letter) April 5–11 20 20 L"
+    },
+    {
+     "value": "angular resolution ~20 uas",
+     "src": "P4",
+     "loc": "Sec. 10",
+     "quote": "These observations achieved an angular resolution (synthesized beam size) of ∼20 μas"
+    }
+   ]
+  },
+  "observing_figures": {
+   "value": "published uv-coverage and schedule figures",
+   "unit": "",
+   "src": "P3",
+   "loc": "Fig. 2 caption",
+   "quote": "EHT 2017 observing schedules for M87 and 3C 279 covering the four days of observations. Empty rectangles represent scans that were scheduled, but were not observed successfully due to weather, insufficient sensitivity, or technical issues.",
+   "alternatives": [
+    {
+     "value": "P3 Fig. 12: aggregate (u, v) coverage",
+     "src": "P3",
+     "loc": "Fig. 12 caption",
+     "quote": "Aggregate (u, v) coverage for M87 (top panel) and 3C 279 (bottom panel) for the 2017 April observations, comparable for all three pipelines."
+    },
+    {
+     "value": "P1 Fig. 2: (u, v) coverage for M87*, four days",
+     "src": "P1",
+     "loc": "Fig. 2 caption",
+     "quote": "Top: (u, v) coverage for M87* ... aggregated over all four days of the observations."
+    },
+    {
+     "value": "P4 Fig. 1: aggregate coverage, short and long baselines",
+     "src": "P4",
+     "loc": "Fig. 1 caption",
+     "quote": "Top panels: aggregate baseline coverage for EHT observations of M87, combining observations on all four days."
+    },
+    {
+     "value": "P4 Fig. 1: long baselines 25-170 uas; scans 4-7 min",
+     "src": "P4",
+     "loc": "Fig. 1 caption",
+     "quote": "These long baselines span angular scales from 25 to 170 μas. Each point denotes a single scan, which range in duration from 4 to 7 minutes."
+    },
+    {
+     "value": "P2 Fig. 11: four nights, detections only",
+     "src": "P2",
+     "loc": "Fig. 11 caption",
+     "quote": "Aggregate EHT baseline coverage for M87over four nights of observing with the 2017 array. Only detections are shown."
+    },
+    {
+     "value": "P2 Fig. 12: schedule for April 6",
+     "src": "P2",
+     "loc": "Fig. 12 caption",
+     "quote": "EHT 2017 observing schedule for M87 and 3C 279, covering one day of observations (April 6)."
+    }
+   ]
+  },
+  "sr1_data": {
+   "value": "SR1: M87, both bands, April 5, 6, 10, 11; 10-s averages over all 32 IFs",
+   "unit": "",
+   "src": "SR1",
+   "loc": "README",
+   "quote": "This data set contains M87 data for both low and high bands for all observed days (April 5th, 6th, 10th, 11th, 2017).",
+   "alternatives": [
+    {
+     "value": "10-s, all 32 IFs",
+     "src": "SR1",
+     "loc": "README",
+     "quote": "The data are time averaged to 10 seconds and frequency averaged over all 32 intermediate frequencies (IFs)."
+    },
+    {
+     "value": "csv columns",
+     "src": "SR1",
+     "loc": "csv header",
+     "quote": "#time(UTC),T1,T2,U(lambda),V(lambda),Iamp(Jy),Iphase(d),Isigma(Jy)"
+    },
+    {
+     "value": "station codes: AZ = SMT",
+     "src": "SR1",
+     "loc": "README station code table",
+     "quote": "| AZ | Submillimeter Telescope | Arizona |"
+    }
+   ]
+  },
+  "gst": {
+   "value": 199.402198127279,
+   "unit": "deg (Greenwich sidereal time at 0h UTC, 2017 April 11)",
+   "src": "SR1U",
+   "loc": "AIPS AN header",
+   "quote": "GSTIA0 = 199.402198127279 ... DEGPDY = 360.9856",
+   "derived": "GST(t) = 199.4022 + 360.9856 x t_UTC/24 deg; April 11 track 0.53-7.52 h UTC -> GST 13.830-20.834 h, Greenwich hour angle of M87 (GST - RA) 1.32 to 8.32 h",
+   "alternatives": [
+    {
+     "value": "RDATE 2017-04-11",
+     "src": "SR1U",
+     "loc": "AIPS AN header",
+     "quote": "RDATE = '2017-04-11'"
+    }
+   ]
+  },
+  "ehtim_check": {
+   "value": "ehtim SMA position = the CSO site to 3.1 m",
+   "unit": "m",
+   "src": "EHTIM",
+   "loc": "arrays/EHT2017.txt, SMA row",
+   "quote": "SMA -5464523.400 -2493147.080 2150611.750 4900 4900",
+   "derived": "|X_ehtim,SMA - X_P2,CSO| = 3.12 m; |X_ehtim,SMA - X_P2,SMA| = 288.8 m",
+   "alternatives": [
+    {
+     "value": "P2 Table 2, CSO (formerly participating)",
+     "src": "P2",
+     "loc": "Table 2, CSO row",
+     "quote": "CSO 10 Hawaii, USA -5464520.9 -2493145.6 2150610.6"
+    },
+    {
+     "value": "ehtim SPT at X = Y = 0.01 m",
+     "src": "EHTIM",
+     "loc": "arrays/EHT2017.txt, SPT row",
+     "quote": "SPT 0.01 0.01 -6359609.7 5000 5000"
+    }
+   ]
+  },
+  "spt": {
+   "value": "SPT observes 3C 279 (dec -05°47′21.52″) at a constant elevation of 5.8 deg; M87 never rises",
+   "unit": "",
+   "src": "P3",
+   "loc": "Fig. 8 caption",
+   "quote": "The SPT is observing 3C 279 at an elevation of just 5°. 8, resulting in an uncharacteristically high SEFD due to the large airmass.",
+   "derived": "at the pole the elevation of a source equals minus the source declination: 05°47′21.52″ = 5.79 deg; M87 at +12.39 deg stays 12.4 deg below the horizon (P2 SPT latitude -89.99 deg)",
+   "alternatives": [
+    {
+     "value": "3C 279 position",
+     "src": "P3",
+     "loc": "Sec. 2",
+     "quote": "quasar 3C 279 (αJ2000 = 12h56m11 17, δJ2000 = −05°47′21 52)"
+    },
+    {
+     "value": "SPT cannot observe M87",
+     "src": "P2",
+     "loc": "Table 5 note",
+     "quote": "Entries for the SPT reﬂect the median thermal noise on 3C 279, since the SPT cannot observe M87 due to its geographic location."
+    }
+   ]
+  }
+ },
+ "not_found": [
+  "Published elevation limits for ALMA (hardware), APEX, JCMT and SMA. The adopted values: ALMA 20 deg (the 2017 M87 scheduling limit, P3); SMT 25 deg toward M87 (P4); PV 9 deg and LMT 0 deg (SCHED mechanical); APEX 20, JCMT 12, SMA 16 deg DERIVED as the floor of the lowest M87 elevation among SR1 detections (stations[].el_limit_kind).",
+  "Per-station primary beams except APEX (27.1 arcsec at 228.1 GHz, P2 Appendix A.2); none matters for a source of tens of microarcseconds.",
+  "Per-day station SEFDs in tabular form (P3 Table 2 gives medians; P3 Fig. 8 plots April 11 values).",
+  "The Rin, Rout, r0, h1, h2 and floor parameters of the P6 GC fits (P6 Table 3 gives only d, f_w, s, f_c, phi and CF); the adopted analytic image is the P4 Appendix C.1 crescent.",
+  "An SR1 station code for the SPT (SR1 contains no SPT M87 data); code \"SPT\" used here.",
+  "The EHT proposer pages (eventhorizontelescope.org/for-astronomers) could not be fetched (HTTP 403 to automated requests)."
+ ],
+ "conflicts": [
+  "Frame handedness: P2 Table 2 note a calls the X (Greenwich) / Y (90 deg east) / Z (north) frame \"left-handed\"; those axes form the standard right-handed ECEF frame, and the SR1 AN table declares XYZHAND = 'RIGHT'. The XYZ values convert to the tabulated latitudes, longitudes and GRS80 heights under the right-handed interpretation (to <= 2.2 m), so the word, not the numbers, is in error.",
+  "SEFDs: P3 Table 2 (median 2017 values on M87 and Sgr A*) vs P2 Table 3 (representative): APEX 4800 vs 4700, PV 6900 vs 1900 (P3 includes the 3.663 mitigation factor for the 2017 PV clock loss; 6900/3.663 = 1884), SMA 6400 vs 6200 Jy; the others equal. The ehtim files differ again (EHT2017_m87.txt: ALMA 70, APEX 4900, JCMT 10000, LMT 3600, PV 3600, SMA 5600/6500 R/L, SMT 14400, SPT 16900 Jy; EHT2017.txt: ALMA 90, LMT 600, PV 1400 Jy ...). Adopted: P3 Table 2.",
+  "Positions: the SR1 AN table (as correlated) matches P2 Table 2 to 0.06 m except ALMA (2.16 m; P2 note b: phasing center). The ehtim array files differ from P2 by 0.0-4.3 m at ALMA, APEX, JCMT, PV, SMT, but by 86 m at the LMT, 289 m at the SMA (the ehtim SMA point lies 3.1 m from the P2 position of the CSO, params.ehtim_check) and 1151 m at the SPT (ehtim X = Y = 0.01 m). Adopted: P2 Table 2.",
+  "P2 Table 2 SMA longitude -155°28′39.1″ vs -155°28′39.17″ from the P2 XYZ of the SMA (2.1 m east); the other stations agree to <= 1.3 m (stations[].derived.table_latlon_minus_xyz_enu_m).",
+  "Compact flux: P4 Appendix C.1 gives all synthetic models 0.6 Jy of compact flux, but the crescent of Eq. (49) integrates to I0 = 0.55 Jy (DERIVED). Observed: 0.66 (+0.16/-0.10) Jy (P4, 95%), typical 0.75 Jy from the P6 xs-ringauss fits (0.49-1.03 Jy by day), 0.5 Jy (DIFMAP, SMILI) and 0.6 Jy (eht-imaging) adopted for the fiducial images (P4 Sec. 7.1).",
+  "Ring diameter: 42 +- 3 uas (P1, P6 summary) vs the P6 GC-model weighted means 43.2-43.4 uas, the P4 image medians 40-41 uas, and the 44-uas synthetic crescent; P6 calibrates the geometric diameters with GRMHD models before quoting 42 +- 3.",
+  "Orientation: P1 gives 150-200 deg east of north; the P4 synthetic crescent uses eta = 150 deg; P4 Table 7 (April 11 images) 168-173 deg; P6 Table 3 (April 11 GC fit) 198 deg. P6 reports a shift of 20-50 deg between April 5-6 and 10-11.",
+  "Scan durations: 3-7 min (P2, P3) vs 4-7 min (P4 Fig. 1 caption)."
+ ],
+ "notes": [
+  "Stations: X_m, Y_m, Z_m, lat_deg, lon_deg (east positive) and h_m (GRS80) from P2 Table 2; dish_m = geometric diameter of one dish; dish_eff_m = P3 Table 2 \"Diameter in 2017\" (phased arrays: the diameter of the total collecting area, sqrt(N) x D); sefd_jy = P3 Table 2 median SEFD. GRS80 and WGS84 heights differ by < 1 mm here (stations[].derived).",
+  "uv convention, validated: with L = X(T1) - X(T2) from P2 Table 2, H = GST - RA from the SR1 AN header (GSTIA0, DEGPDY) and the SR1 M87 position, u = (sin H Lx + cos H Ly)/lambda and v = (-sin dec cos H Lx + sin dec sin H Ly + cos dec Lz)/lambda reproduce all 8058 SR1 (u, v) points of April 11 (high band) to 6.4e-05 of |uv| (max 346 m projected; AN-table positions give the same).",
+  "Observing pattern (DERIVED from the SR1 high-band csv files; observing.sr1_tracks): on the M87 target days the detections end when M87 has fallen to 20.7-23.9 deg at ALMA, as P3 states, and begin at the LMT at 13.3-16.2 deg (April 5, 6; the first LMT scans of April 11 were not detected). PV drops out at 10.5-15.9 deg, JCMT joins at 12.5-13.0 deg, SMA at 16.3-21.6 deg, SMT at 24.9-27.6 deg (41.4 deg on April 6). April 11: 0.53-7.52 h UTC, Greenwich hour angle of M87 +1.32 to +8.32 h (params.gst).",
+  "Positions for uv tracks: use X_m, Y_m, Z_m (P2 Table 2, 0.1 m); lat_deg and lon_deg come from the 0.1-arcsec table values (3 m) and serve for elevations.",
+  "Ring model for the page: the P4 Appendix C.1 crescent (r0 = 22 uas, A = 0.23, eta = 150 deg, I0 = 0.55 Jy, 10-uas blur) is the analytic image the EHT Collaboration used to test the imaging pipelines on April 11 coverage; ring_model.gc_fits gives the P6 April 11 fit (d = 42.4 uas, f_w = 0.34, phi = 198.1 deg, CF = 0.49 Jy) for a version matched to that day. P1 gives the headline values (42 +- 3 uas, width < 20 uas, contrast > 10:1, PA 150-200 deg).",
+  "SPT: in the array (P2, P3) but M87 (dec +12.4 deg) never rises there (DERIVED max elevation -12.4 deg); the SPT took part through 3C 279, which stays at 5.8 deg elevation (params.spt)."
+ ]
+}

@@ -1,0 +1,3215 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: Very Long Baseline Array (VLBA)",
+  "compiled": "2026-11-16",
+  "companion": "data/interf/vlba.md (same content as Markdown, with the full quote tables).",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from a document saved unmodified under rawdata/interf/vlba/ (params{} holds the full records; stations[] and bands[] carry their own row quotes). DERIVED = arithmetic done here (shown). INFERRED = a mapping no source states. NOT FOUND = a gap. Nothing is filled from memory.",
+  "units": "geocentric X, Y, Z in meters; latitude/longitude in degrees (east positive); heights in meters (WGS84 ellipsoid, INFERRED); frequencies GHz; angles deg unless stated; SEFD Jy; resolution mas; primary beam arcmin",
+  "quote_check": "144 quote records (135 distinct quotes) machine-checked against the saved files' extracted text (pdftotext -layout and -raw for the PDF; tag-stripped text and entity-decoded source for HTML; the cfg, dat and JSON files as is): all pass; 396 table cells and values (OSSS Table 4.1, OSSB Tables 5.1-5.2, OSSR Tables 8.1-8.2, both OSSD tables, the CFG rows and the SCHEDS horizon masks and AX2LIM) re-parsed from the saved files: all match (2026-11-16).",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), tilde operator and soft hyphens normalized; table-cell separators | dropped; whitespace collapsed; a quote also passes with PDF line-end hyphenation closed up or with all whitespace removed; \" ... \" joins non-adjacent pieces. HTML is checked against tag-stripped text (MathJax source kept, superscripts flattened, e.g. \"10 -4\") and the entity-decoded source; the cfg, dat and JSON files as is."
+ },
+ "sources": {
+  "CFG": {
+   "cite": "CASA data repository casa-data (NRAO open Bitbucket, project CASA), alma/simmos/vlba.cfg, branch master: CASA simulator antenna file for the VLBA (header \"# observatory=VLBA\", \"# coordsys=XYZ\"; columns x y z diam station; 10 rows). Single commit 1b0506edc78 (2017-03-08, \"subversion revision 11005\"; see CASAH). Served as a Git-LFS object whose storage id equals the SHA-256 of the saved file (0972424c...). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/vlba.cfg",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa-data/raw/alma/simmos/vlba.cfg?at=refs%2Fheads%2Fmaster"
+  },
+  "CASAH": {
+   "cite": "Bitbucket REST commit history of alma/simmos/vlba.cfg (casa-data, master): one commit, 1b0506edc78eea6cb086aabbb5636b8db1657fd1, author timestamp 1489013602000 ms = 2017-03-08, message \"subversion revision 11005\" (the file predates the git migration). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/casa-data_commits_vlba.cfg.json",
+   "url": "https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa-data/commits?path=alma/simmos/vlba.cfg&limit=5&until=refs%2Fheads%2Fmaster"
+  },
+  "OSSI": {
+   "cite": "NRAO, VLBA Observational Status Summary 2027A (current OSS), Introduction (ten 25-m antennas, ten observing bands). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_intro.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss"
+  },
+  "OSSS": {
+   "cite": "NRAO, VLBA OSS 2027A, Antenna Sites: Table 4.1 \"Geographic Locations of VLBA Stations\" (WGS84 latitude, west longitude, elevation, code) and Table 4.2 (HSA telescopes). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_sites.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/sites"
+  },
+  "OSSB": {
+   "cite": "NRAO, VLBA OSS 2027A, Frequency Bands & Performance: Table 5.1 \"Receiver Frequency Ranges & Performance\" (as of June 2020: band designations, nominal ranges, typical zenith SEFD, peak gain, baseline and image sensitivity, notes a-l) and Table 5.2 \"Performance Parameters at 86.2 GHz\" (per station, updated Oct 2023). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_bands-perf.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/bands-perf"
+  },
+  "OSSD": {
+   "cite": "NRAO, VLBA OSS 2027A, VLBA Declination Limits (per-station horizon / 10-deg / 20-deg declination limits; hours visible vs number of stations for southern declinations). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_vlba-declination-limits.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/vlba-declination-limits"
+  },
+  "OSSR": {
+   "cite": "NRAO, VLBA OSS 2027A, Angular Resolution & u-v Coverage: theta_HPBW ~ 2063 lambda_cm / B_max,km mas; Table 8.1 \"Maximum VLBI Baseline Lengths in km\"; Table 8.2 theta_HPBW per band. Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_ang-res.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/ang-res"
+  },
+  "OSSSP": {
+   "cite": "NRAO, VLBA OSS 2027A, Station Signal Processing (single page with subsections: Primary Signal Path, RDBE PFB/DDC, recording): 25-m reflector, slew rates, 2-bit sampling, data rates. Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_sig-proc.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/sig-proc"
+  },
+  "OSSC": {
+   "cite": "NRAO, VLBA OSS 2027A, Offered Capabilities during the Next Semester (GO capability table: 4 Gbps, 1024 MHz polarization-summed bandwidth; 2 Gbps limit for the low bands). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_offered-vlba-capabilities-during-the-next-semester.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/offered-vlba-capabilities-during-the-next-semester"
+  },
+  "OSSBS": {
+   "cite": "NRAO, VLBA OSS 2027A, Baseline Sensitivity (Delta S formula; eta_s = 0.8 used in Table 5.1). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_bsln-sens.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/bsln-sens"
+  },
+  "OSSIS": {
+   "cite": "NRAO, VLBA OSS 2027A, Image Sensitivity (Delta I_m formula for a homogeneous array, natural weighting). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_imag-sens.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/imag-sens"
+  },
+  "OSSCOR": {
+   "cite": "NRAO, VLBA OSS 2027A, DiFX Correlator (single page with subsections, including Multiple Phase Centers: VLBI field of view vs the primary beam). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_oss_correlator.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/oss/correlator"
+  },
+  "PROP": {
+   "cite": "NRAO, Guide to Proposing for the VLBA (and HSA/Global VLBI), \"Reference manual: all pages\" (practical elevation limits, data-channel bandwidths). Fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/nrao_vlba_propvlba_referencemanual-all-pages.html",
+   "url": "https://science.nrao.edu/facilities/vlba/docs/manuals/propvlba/referencemanual-all-pages"
+  },
+  "SCHEDS": {
+   "cite": "NRAO SCHED station catalog stations_RDBE.dat (VERSION = \"2018Sep07-20:14:11\"): per-station mount, slew limits AX1LIM/AX2LIM (deg), slew rates, horizon masks HOR_AZ/HOR_EL. Plain text; fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/sched_stations_RDBE.dat",
+   "url": "https://www.aoc.nrao.edu/software/sched/catalogs/stations_RDBE.dat"
+  },
+  "SCHEDL": {
+   "cite": "NRAO SCHED station locations file locations.dat (VERSION = \"2018Sep07-20:14:11\"; VLBA entries from the GSFC VLBI Analysis Center 2016a solution, ITRF2014, epoch 2014 Jan 1 = MJD 56658, with velocities). Plain text; fetched 2026-11-16",
+   "file": "rawdata/interf/vlba/sched_locations.dat",
+   "url": "https://www.aoc.nrao.edu/software/sched/catalogs/locations.dat"
+  },
+  "MID13": {
+   "cite": "Middelberg, E., Deller, A., Norris, R., et al. 2013, A&A, 551, A97 (ADS 2013A&A...551A..97M), \"Mosaiced wide-field VLBI observations of the Lockman Hole/XMM\" (arXiv:1212.4605, accepted manuscript): Sec. 3.4, measured VLBA primary beam at 1.382 GHz (Gaussian FWHM, Airy effective diameter) and Table 3 beam squint",
+   "file": "rawdata/interf/vlba/Middelberg2013_arXiv1212.4605.pdf",
+   "url": "https://arxiv.org/pdf/1212.4605"
+  }
+ },
+ "site": {
+  "name": "VLBA: ten stations on US territory, Mauna Kea (HI) to St. Croix (VI)",
+  "reference": "none (each station has its own geodetic position; no array center)",
+  "src": "OSSI, OSSS"
+ },
+ "dish_m": 25.0,
+ "dish_src": "OSSI (and OSSSP, CFG)",
+ "n_stations": 10,
+ "n_stations_src": "OSSI (and CFG, OSSS)",
+ "elev_limit_deg": 10,
+ "elev_limit_src": "OSSD, PROP (practical limit; 20 deg recommended; mechanical 2.25 deg, SCHEDS)",
+ "elev_mech_deg": 2.25,
+ "elev_recommended_deg": 20,
+ "geometry": {
+  "frame": "geocentric XYZ (CFG; agrees with the GSFC 2016a ITRF2014 solution to <= 5.9 cm)",
+  "ellipsoid": "WGS84 (a = 6378137 m, 1/f = 298.257223563; OSSS)",
+  "geodetic_from_xyz": "DERIVED: iterative geodetic latitude on WGS84; h = p/cos(lat) - N",
+  "uv": "INFERRED (standard): L = X_1 - X_2; H = GMST - RA; u = (sin H Lx + cos H Ly)/lambda; v = (-sin dec cos H Lx + sin dec sin H Ly + cos dec Lz)/lambda",
+  "elevation": "INFERRED (standard): sin(el) = sin(lat) sin(dec) + cos(lat) cos(dec) cos(H + lon_east)"
+ },
+ "stations": [
+  {
+   "code": "SC",
+   "name": "Saint Croix",
+   "location": "Saint Croix, VI",
+   "lat_deg": 17.75657778,
+   "lon_deg": -64.58363056,
+   "h_m": -15,
+   "X_m": 2607848.63826,
+   "Y_m": -5488069.53418,
+   "Z_m": 1932739.72987,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     10,
+     20,
+     25,
+     40,
+     45,
+     50,
+     55,
+     60,
+     65,
+     70,
+     75,
+     80,
+     85,
+     95,
+     100,
+     105,
+     110,
+     115,
+     120,
+     125,
+     130,
+     135,
+     140,
+     145,
+     150,
+     155,
+     160,
+     165,
+     175,
+     180,
+     185,
+     190,
+     200,
+     205,
+     210,
+     215,
+     220,
+     230,
+     235,
+     240,
+     245,
+     250,
+     260,
+     265,
+     270,
+     275,
+     280,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     6,
+     6,
+     8,
+     9,
+     9,
+     8,
+     8,
+     9,
+     10,
+     12,
+     14,
+     16,
+     16,
+     15,
+     13,
+     13,
+     12,
+     11,
+     11,
+     10,
+     9,
+     9,
+     11,
+     13,
+     14,
+     14,
+     15,
+     13,
+     12,
+     10,
+     10,
+     9,
+     8,
+     8,
+     7,
+     7,
+     6,
+     4,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_SC, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -62,
+    "el10": -62,
+    "el20": -52,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "St. Croix (SC) | -62 degrees | -62 degrees ** | -52 degrees"
+   },
+   "has_3mm": false,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Saint Croix, VI | 17:45:23.68 | 64:35:01.07 | -15 | SC"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row SC",
+    "quote": "+2607848.63826 -5488069.53418 1932739.72987 25. SC"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_SC",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=84.5 AX2RATE=28.5",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 84.5,
+    "ax2rate_deg_per_min": 28.5
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=SC-VLBA",
+    "quote": "X= 2607848.6436 Y= -5488069.5353 Z= 1932739.7471",
+    "xyz_m": [
+     2607848.6436,
+     -5488069.5353,
+     1932739.7471
+    ],
+    "vel_quote": "DXDT= 0.00693 DYDT= 0.00935 DZDT= 0.01259 EPOCH=56658",
+    "vel_m_per_yr": [
+     0.00693,
+     0.00935,
+     0.01259
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 17.75658303,
+     "lon_deg": -64.58363139,
+     "h_m": -15.025,
+     "lat_dms": "17:45:23.70",
+     "lon_dms": "-64:35:01.07"
+    },
+    "oss_xyz_m": [
+     2607848.805,
+     -5488069.678,
+     1932739.184
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.09,
+     -0.58,
+     0.02
+    ],
+    "cfg_minus_gsfc_m": 0.018
+   }
+  },
+  {
+   "code": "HN",
+   "name": "Hancock",
+   "location": "Hancock, NH",
+   "lat_deg": 42.93360833,
+   "lon_deg": -71.98658056,
+   "h_m": 296,
+   "X_m": 1446374.86586,
+   "Y_m": -4447939.67658,
+   "Z_m": 4322306.18183,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     30,
+     35,
+     40,
+     45,
+     65,
+     70,
+     80,
+     85,
+     90,
+     95,
+     100,
+     105,
+     110,
+     115,
+     120,
+     125,
+     130,
+     135,
+     140,
+     145,
+     150,
+     155,
+     160,
+     165,
+     170,
+     190,
+     195,
+     200,
+     205,
+     210,
+     220,
+     225,
+     230,
+     235,
+     240,
+     245,
+     250,
+     255,
+     270,
+     275,
+     290,
+     295,
+     315,
+     320,
+     325,
+     330,
+     335,
+     345,
+     350,
+     355,
+     360
+    ],
+    "el_deg": [
+     6,
+     6,
+     6,
+     4,
+     5,
+     4,
+     4,
+     5,
+     5,
+     4,
+     5,
+     4,
+     4,
+     5,
+     3,
+     4,
+     4,
+     5,
+     4,
+     6,
+     5,
+     7,
+     7,
+     5,
+     3,
+     5,
+     4,
+     4,
+     2,
+     5,
+     5,
+     6,
+     6,
+     5,
+     6,
+     4,
+     5,
+     5,
+     4,
+     5,
+     5,
+     4,
+     4,
+     5,
+     5,
+     6,
+     5,
+     5,
+     6,
+     6,
+     5,
+     5,
+     6
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_HN, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -43,
+    "el10": -37,
+    "el20": -27,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Hancock (HN) | -43 degrees | -37 degrees | -27 degrees"
+   },
+   "has_3mm": false,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Hancock, NH | 42:56:00.99 | 71:59:11.69 | 296 | HN"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row HN",
+    "quote": "+1446374.86586 -4447939.67658 4322306.18183 25. HN"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_HN",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=81.3 AX2RATE=26.7",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 81.3,
+    "ax2rate_deg_per_min": 26.7
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=HN-VLBA",
+    "quote": "X= 1446374.8463 Y= -4447939.6877 Z= 4322306.1896",
+    "xyz_m": [
+     1446374.8463,
+     -4447939.6877,
+     4322306.1896
+    ],
+    "vel_quote": "DXDT= -0.01602 DYDT= -0.00165 DZDT= 0.00455 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01602,
+     -0.00165,
+     0.00455
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 42.93361049,
+     "lon_deg": -71.98658265,
+     "h_m": 295.565,
+     "lat_dms": "42:56:01.00",
+     "lon_dms": "-71:59:11.70"
+    },
+    "oss_xyz_m": [
+     1446375.178,
+     -4447940.082,
+     4322306.302
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.17,
+     -0.24,
+     0.43
+    ],
+    "cfg_minus_gsfc_m": 0.024
+   }
+  },
+  {
+   "code": "NL",
+   "name": "North Liberty",
+   "location": "North Liberty, IA",
+   "lat_deg": 41.771425,
+   "lon_deg": -91.57413333,
+   "h_m": 222,
+   "X_m": -130872.49872,
+   "Y_m": -4762317.09239,
+   "Z_m": 4226850.99907,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     75,
+     80,
+     85,
+     100,
+     105,
+     110,
+     115,
+     120,
+     125,
+     130,
+     135,
+     140,
+     145,
+     150,
+     155,
+     160,
+     165,
+     170,
+     190,
+     195,
+     200,
+     220,
+     225,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     2,
+     3,
+     6,
+     6,
+     8,
+     7,
+     7,
+     6,
+     7,
+     7,
+     6,
+     6,
+     7,
+     7,
+     6,
+     5,
+     4,
+     3,
+     3,
+     2,
+     3,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_NL, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -45,
+    "el10": -38,
+    "el20": -28,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "North Liberty (NL) | -45 degrees | -38 degrees | -28 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "North Liberty, IA | 41:46:17.13 | 91:34:26.88 | 222 | NL"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row NL",
+    "quote": "-130872.49872 -4762317.09239 4226850.99907 25. NL"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_NL",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=82.5 AX2RATE=28.7",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 82.5,
+    "ax2rate_deg_per_min": 28.7
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=NL-VLBA",
+    "quote": "X= -130872.5177 Y= -4762317.1001 Z= 4226850.9991",
+    "xyz_m": [
+     -130872.5177,
+     -4762317.1001,
+     4226850.9991
+    ],
+    "vel_quote": "DXDT= -0.01580 DYDT= 0.00140 DZDT= -0.00198 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.0158,
+     0.0014,
+     -0.00198
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 41.7714246,
+     "lon_deg": -91.57414026,
+     "h_m": 222.233,
+     "lat_dms": "41:46:17.13",
+     "lon_dms": "-91:34:26.90"
+    },
+    "oss_xyz_m": [
+     -130871.917,
+     -4762316.905,
+     4226850.876
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.58,
+     0.04,
+     -0.23
+    ],
+    "cfg_minus_gsfc_m": 0.02
+   },
+   "sefd_86GHz_jy": 10000,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 10000,
+    "gain_K_per_Jy": 0.011,
+    "tsys_K": 150,
+    "dS_512_30s_mJy": "103.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "NL | 80 - 96 | 10000 | 0.011 | 150 | 103."
+   }
+  },
+  {
+   "code": "FD",
+   "name": "Fort Davis",
+   "location": "Fort Davis, TX",
+   "lat_deg": 30.63503056,
+   "lon_deg": -103.94481667,
+   "h_m": 1606,
+   "X_m": -1324009.32663,
+   "Y_m": -5332181.95376,
+   "Z_m": 3231962.39174,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     30,
+     35,
+     40,
+     45,
+     50,
+     55,
+     60,
+     65,
+     70,
+     75,
+     80,
+     85,
+     90,
+     95,
+     100,
+     105,
+     110,
+     115,
+     150,
+     155,
+     160,
+     220,
+     225,
+     230,
+     240,
+     245,
+     250,
+     255,
+     260,
+     265,
+     270,
+     275,
+     280,
+     285,
+     290,
+     295,
+     300,
+     305,
+     310,
+     315,
+     325,
+     330,
+     335,
+     340,
+     345,
+     360
+    ],
+    "el_deg": [
+     5,
+     4,
+     5,
+     5,
+     3,
+     3,
+     2,
+     3,
+     2,
+     2,
+     3,
+     4,
+     7,
+     5,
+     4,
+     4,
+     5,
+     6,
+     6,
+     5,
+     4,
+     3,
+     2,
+     2,
+     3,
+     2,
+     2,
+     4,
+     2,
+     2,
+     3,
+     3,
+     4,
+     5,
+     5,
+     4,
+     4,
+     3,
+     3,
+     2,
+     2,
+     3,
+     4,
+     5,
+     4,
+     4,
+     5,
+     6,
+     6,
+     5,
+     5
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_FD, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -57,
+    "el10": -49,
+    "el20": -39,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Fort Davis (FD) | -57 degrees | -49 degrees | -39 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Fort Davis, TX | 30:38:06.11 | 103:56:41.34 | 1606 | FD"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row FD",
+    "quote": "-1324009.32663 -5332181.95376 3231962.39174 25. FD"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_FD",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=84.3 AX2RATE=30.5",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 84.3,
+    "ax2rate_deg_per_min": 30.5
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=FD-VLBA",
+    "quote": "X= -1324009.3429 Y= -5332181.9644 Z= 3231962.3905",
+    "xyz_m": [
+     -1324009.3429,
+     -5332181.9644,
+     3231962.3905
+    ],
+    "vel_quote": "DXDT= -0.01308 DYDT= 0.00039 DZDT= -0.00437 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01308,
+     0.00039,
+     -0.00437
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 30.63502893,
+     "lon_deg": -103.94482255,
+     "h_m": 1606.42,
+     "lat_dms": "30:38:06.10",
+     "lon_dms": "-103:56:41.36"
+    },
+    "oss_xyz_m": [
+     -1324008.67,
+     -5332181.65,
+     3231962.333
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.56,
+     0.18,
+     -0.42
+    ],
+    "cfg_minus_gsfc_m": 0.019
+   },
+   "sefd_86GHz_jy": 4000,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 4000,
+    "gain_K_per_Jy": 0.028,
+    "tsys_K": 115,
+    "dS_512_30s_mJy": "65.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "FD | 80 - 96 | 4000 | 0.028 | 115 | 65."
+   }
+  },
+  {
+   "code": "LA",
+   "name": "Los Alamos",
+   "location": "Los Alamos, NM",
+   "lat_deg": 35.775125,
+   "lon_deg": -106.24559722,
+   "h_m": 1962,
+   "X_m": -1449752.584,
+   "Y_m": -4975298.57508,
+   "Z_m": 3709123.84314,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     75,
+     80,
+     85,
+     130,
+     135,
+     145,
+     150,
+     250,
+     255,
+     300,
+     305,
+     315,
+     320,
+     340,
+     345,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     4,
+     3,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_LA, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -52,
+    "el10": -44,
+    "el20": -34,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Los Alamos (LA) | -52 degrees | -44 degrees | -34 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Los Alamos, NM | 35:46:30.45 | 106:14:44.15 | 1962 | LA"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row LA",
+    "quote": "-1449752.58400 -4975298.57508 3709123.84314 25. LA"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_LA",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=82.0 AX2RATE=29.5",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 82.0,
+    "ax2rate_deg_per_min": 29.5
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=LA-VLBA",
+    "quote": "X= -1449752.6019 Y= -4975298.5851 Z= 3709123.8408",
+    "xyz_m": [
+     -1449752.6019,
+     -4975298.5851,
+     3709123.8408
+    ],
+    "vel_quote": "DXDT= -0.01468 DYDT= 0.00049 DZDT= -0.00458 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01468,
+     0.00049,
+     -0.00458
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 35.77512261,
+     "lon_deg": -106.2455981,
+     "h_m": 1962.431,
+     "lat_dms": "35:46:30.44",
+     "lon_dms": "-106:14:44.15"
+    },
+    "oss_xyz_m": [
+     -1449752.366,
+     -4975298.112,
+     3709123.807
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.08,
+     0.27,
+     -0.43
+    ],
+    "cfg_minus_gsfc_m": 0.021
+   },
+   "sefd_86GHz_jy": 4000,
+   "w_band": {
+    "range_GHz": "80 - 90",
+    "sefd_jy": 4000,
+    "gain_K_per_Jy": 0.03,
+    "tsys_K": 110,
+    "dS_512_30s_mJy": "…",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "LA | 80 - 90 | 4000 | 0.03 | 110 | …"
+   }
+  },
+  {
+   "code": "PT",
+   "name": "Pie Town",
+   "location": "Pie Town, NM",
+   "lat_deg": 34.30100278,
+   "lon_deg": -108.11918333,
+   "h_m": 2365,
+   "X_m": -1640953.93873,
+   "Y_m": -5014816.02309,
+   "Z_m": 3575411.78866,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     60,
+     65,
+     70,
+     75,
+     80,
+     85,
+     165,
+     170,
+     180,
+     185,
+     190,
+     195,
+     200,
+     240,
+     245,
+     250,
+     255,
+     265,
+     270,
+     275,
+     280,
+     285,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     2,
+     3,
+     3,
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     4,
+     3,
+     4,
+     4,
+     3,
+     4,
+     3,
+     3,
+     4,
+     3,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_PT, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -52,
+    "el10": -46,
+    "el20": -36,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Pie Town (PT) | -52 degrees | -46 degrees | -36 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Pie Town, NM | 34:18:03.61 | 108:07:09.06 | 2365 | PT"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row PT",
+    "quote": "-1640953.93873 -5014816.02309 3575411.78866 25. PT"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_PT",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=82.3 AX2RATE=29.3",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 82.3,
+    "ax2rate_deg_per_min": 29.3
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=PIETOWN",
+    "quote": "X= -1640953.9569 Y= -5014816.0557 Z= 3575411.7780",
+    "xyz_m": [
+     -1640953.9569,
+     -5014816.0557,
+     3575411.778
+    ],
+    "vel_quote": "DXDT= -0.01498 DYDT= -0.00121 DZDT= -0.00584 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01498,
+     -0.00121,
+     -0.00584
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 34.30101652,
+     "lon_deg": -108.11919169,
+     "h_m": 2364.683,
+     "lat_dms": "34:18:03.66",
+     "lon_dms": "-108:07:09.09"
+    },
+    "oss_xyz_m": [
+     -1640953.556,
+     -5014817.328,
+     3575410.707
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.77,
+     -1.52,
+     0.32
+    ],
+    "cfg_minus_gsfc_m": 0.039
+   },
+   "sefd_86GHz_jy": 6000,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 6000,
+    "gain_K_per_Jy": 0.02,
+    "tsys_K": 150,
+    "dS_512_30s_mJy": "80.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "PT | 80 - 96 | 6000 | 0.02 | 150 | 80."
+   }
+  },
+  {
+   "code": "KP",
+   "name": "Kitt Peak",
+   "location": "Kitt Peak, AZ",
+   "lat_deg": 31.95630556,
+   "lon_deg": -111.61242222,
+   "h_m": 1902,
+   "X_m": -1995678.84079,
+   "Y_m": -5037317.69586,
+   "Z_m": 3357328.02239,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     45,
+     50,
+     55,
+     60,
+     65,
+     70,
+     75,
+     80,
+     85,
+     90,
+     95,
+     105,
+     110,
+     115,
+     120,
+     150,
+     155,
+     165,
+     170,
+     180,
+     185,
+     215,
+     220,
+     225,
+     230,
+     235,
+     240,
+     255,
+     260,
+     265,
+     270,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     2,
+     5,
+     6,
+     7,
+     7,
+     8,
+     8,
+     9,
+     6,
+     3,
+     2,
+     2,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     4,
+     5,
+     5,
+     4,
+     4,
+     3,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_KP, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -55,
+    "el10": -48,
+    "el20": -38,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Kitt Peak (KP) | -55 degrees | -48 degrees | -38 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Kitt Peak, AZ | 31:57:22.70 | 111:36:44.72 | 1902 | KP"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row KP",
+    "quote": "-1995678.84079 -5037317.69586 3357328.02239 25. KP"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_KP",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=80.8 AX2RATE=29.4",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 80.8,
+    "ax2rate_deg_per_min": 29.4
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=KP-VLBA",
+    "quote": "X= -1995678.8571 Y= -5037317.7049 Z= 3357328.0174",
+    "xyz_m": [
+     -1995678.8571,
+     -5037317.7049,
+     3357328.0174
+    ],
+    "vel_quote": "DXDT= -0.01398 DYDT= 0.00080 DZDT= -0.00612 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01398,
+     0.0008,
+     -0.00612
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 31.95630334,
+     "lon_deg": -111.6124245,
+     "h_m": 1901.991,
+     "lat_dms": "31:57:22.69",
+     "lon_dms": "-111:36:44.73"
+    },
+    "oss_xyz_m": [
+     -1995678.596,
+     -5037317.661,
+     3357328.236
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.22,
+     0.25,
+     0.01
+    ],
+    "cfg_minus_gsfc_m": 0.019
+   },
+   "sefd_86GHz_jy": 4500,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 4500,
+    "gain_K_per_Jy": 0.025,
+    "tsys_K": 110,
+    "dS_512_30s_mJy": "69.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "KP | 80 - 96 | 4500 | 0.025 | 110 | 69."
+   }
+  },
+  {
+   "code": "OV",
+   "name": "Owens Valley",
+   "location": "Owens Valley, CA",
+   "lat_deg": 37.23165278,
+   "lon_deg": -118.27704722,
+   "h_m": 1196,
+   "X_m": -2409150.40224,
+   "Y_m": -4478573.11743,
+   "Z_m": 3838617.33644,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50,
+     60,
+     65,
+     70,
+     75,
+     80,
+     85,
+     90,
+     95,
+     100,
+     105,
+     110,
+     115,
+     120,
+     125,
+     130,
+     145,
+     150,
+     155,
+     175,
+     180,
+     185,
+     190,
+     195,
+     200,
+     205,
+     210,
+     230,
+     235,
+     240,
+     245,
+     250,
+     260,
+     265,
+     270,
+     280,
+     285,
+     290,
+     295,
+     300,
+     305,
+     310,
+     350,
+     355,
+     360
+    ],
+    "el_deg": [
+     3,
+     5,
+     5,
+     7,
+     9,
+     10,
+     12,
+     13,
+     13,
+     14,
+     15,
+     15,
+     13,
+     12,
+     11,
+     10,
+     9,
+     8,
+     7,
+     6,
+     6,
+     5,
+     4,
+     3,
+     3,
+     4,
+     4,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     5,
+     5,
+     6,
+     7,
+     7,
+     6,
+     7,
+     8,
+     9,
+     9,
+     8,
+     7,
+     7,
+     5,
+     4,
+     4,
+     3,
+     3,
+     2,
+     2,
+     3,
+     3
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_OV, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -50,
+    "el10": -43,
+    "el20": -33,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Owens Valley (OV) | -50 degrees | -43 degrees | -33 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Owens Valley, CA | 37:13:53.95 | 118:16:37.37 | 1196 | OV"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row OV",
+    "quote": "-2409150.40224 -4478573.11743 3838617.33644 25. OV"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_OV",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=84.5 AX2RATE=28.7",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 84.5,
+    "ax2rate_deg_per_min": 28.7
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=OV-VLBA",
+    "quote": "X= -2409150.4245 Y= -4478573.1220 Z= 3838617.3355",
+    "xyz_m": [
+     -2409150.4245,
+     -4478573.122,
+     3838617.3355
+    ],
+    "vel_quote": "DXDT= -0.01885 DYDT= 0.00659 DZDT= -0.00318 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01885,
+     0.00659,
+     -0.00318
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 37.23164991,
+     "lon_deg": -118.2770573,
+     "h_m": 1196.313,
+     "lat_dms": "37:13:53.94",
+     "lon_dms": "-118:16:37.41"
+    },
+    "oss_xyz_m": [
+     -2409149.406,
+     -4478573.152,
+     3838617.4
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.89,
+     0.32,
+     -0.31
+    ],
+    "cfg_minus_gsfc_m": 0.023
+   },
+   "sefd_86GHz_jy": 3800,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 3800,
+    "gain_K_per_Jy": 0.04,
+    "tsys_K": 145,
+    "dS_512_30s_mJy": "64",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "OV | 80 - 96 | 3800 | 0.04 | 145 | 64"
+   }
+  },
+  {
+   "code": "BR",
+   "name": "Brewster",
+   "location": "Brewster, WA",
+   "lat_deg": 48.13122778,
+   "lon_deg": -119.68327778,
+   "h_m": 250,
+   "X_m": -2112065.2063,
+   "Y_m": -3705356.50379,
+   "Z_m": 4726813.6733,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     10,
+     15,
+     25,
+     30,
+     40,
+     45,
+     70,
+     75,
+     120,
+     125,
+     130,
+     135,
+     155,
+     160,
+     185,
+     190,
+     195,
+     220,
+     225,
+     235,
+     240,
+     245,
+     250,
+     255,
+     265,
+     270,
+     275,
+     300,
+     305,
+     310,
+     315,
+     330,
+     335,
+     340,
+     345,
+     350,
+     360
+    ],
+    "el_deg": [
+     2,
+     2,
+     3,
+     2,
+     2,
+     3,
+     3,
+     4,
+     4,
+     5,
+     5,
+     4,
+     4,
+     3,
+     3,
+     2,
+     2,
+     3,
+     4,
+     4,
+     3,
+     3,
+     4,
+     4,
+     5,
+     6,
+     6,
+     5,
+     6,
+     6,
+     5,
+     6,
+     5,
+     5,
+     4,
+     4,
+     3,
+     2,
+     2
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_BR, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -39,
+    "el10": -32,
+    "el20": -22,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Brewster (BR) | -39 degrees | -32 degrees | -22 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Brewster, WA | 48:07:52.42 | 119:40:59.80 | 250 | BR"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row BR",
+    "quote": "-2112065.20630 -3705356.50379 4726813.67330 25. BR"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_BR",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=83.6 AX2RATE=29.0",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 83.6,
+    "ax2rate_deg_per_min": 29.0
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=BR-VLBA",
+    "quote": "X= -2112065.2254 Y= -3705356.5154 Z= 4726813.6695",
+    "xyz_m": [
+     -2112065.2254,
+     -3705356.5154,
+     4726813.6695
+    ],
+    "vel_quote": "DXDT= -0.01511 DYDT= 0.00042 DZDT= -0.00702 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01511,
+     0.00042,
+     -0.00702
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 48.1312234,
+     "lon_deg": -119.68328022,
+     "h_m": 250.478,
+     "lat_dms": "48:07:52.40",
+     "lon_dms": "-119:40:59.81"
+    },
+    "oss_xyz_m": [
+     -2112064.711,
+     -3705356.001,
+     4726813.643
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.18,
+     0.49,
+     -0.48
+    ],
+    "cfg_minus_gsfc_m": 0.023
+   },
+   "sefd_86GHz_jy": 5500,
+   "w_band": {
+    "range_GHz": "80 - 90",
+    "sefd_jy": 5500,
+    "gain_K_per_Jy": 0.023,
+    "tsys_K": 120,
+    "dS_512_30s_mJy": "76.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "BR | 80 - 90 | 5500 | 0.023 | 120 | 76."
+   }
+  },
+  {
+   "code": "MK",
+   "name": "Mauna Kea",
+   "location": "Mauna Kea, HI",
+   "lat_deg": 19.80138056,
+   "lon_deg": -155.45550278,
+   "h_m": 3763,
+   "X_m": -5464075.18481,
+   "Y_m": -2495248.10362,
+   "Z_m": 2148297.36237,
+   "dish_m": 25.0,
+   "el_limit_deg": 10,
+   "el_mech_min_deg": 2.25,
+   "el_mech_max_deg": 90.0,
+   "horizon_mask": {
+    "az_deg": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     120,
+     125,
+     130,
+     135,
+     140,
+     145,
+     150,
+     155,
+     160,
+     165,
+     170,
+     175,
+     185,
+     190,
+     195,
+     200,
+     205,
+     210,
+     215,
+     220,
+     255,
+     260,
+     270,
+     275,
+     280,
+     285,
+     290,
+     295,
+     300,
+     305,
+     310,
+     315,
+     320,
+     325,
+     330,
+     335,
+     340,
+     345,
+     350,
+     355,
+     360
+    ],
+    "el_deg": [
+     5,
+     4,
+     3,
+     3,
+     2,
+     2,
+     4,
+     5,
+     5,
+     4,
+     4,
+     6,
+     8,
+     8,
+     11,
+     12,
+     13,
+     13,
+     11,
+     11,
+     9,
+     7,
+     5,
+     3,
+     2,
+     2,
+     3,
+     3,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     12,
+     11,
+     9,
+     10,
+     11,
+     10,
+     12,
+     14,
+     12,
+     9,
+     7,
+     5
+    ],
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_MK, HOR_AZ / HOR_EL"
+   },
+   "decl_limits_deg": {
+    "horizon": -57,
+    "el10": -57,
+    "el20": -50,
+    "src": "OSSD",
+    "loc": "declination-limit table",
+    "quote": "Mauna Kea (MK) | -57 degrees | -57 degrees * | -50 degrees"
+   },
+   "has_3mm": true,
+   "src": {
+    "lat_deg": "OSSS",
+    "lon_deg": "OSSS",
+    "h_m": "OSSS",
+    "XYZ": "CFG",
+    "dish_m": "CFG (and OSSI, OSSSP)",
+    "el_limit_deg": "OSSD, PROP (practical limit)",
+    "el_mech": "SCHEDS (AX2LIM)"
+   },
+   "oss_row": {
+    "src": "OSSS",
+    "loc": "Table 4.1",
+    "quote": "Mauna Kea, HI | 19:48:04.97 | 155:27:19.81 | 3763 | MK"
+   },
+   "cfg_row": {
+    "src": "CFG",
+    "loc": "row MK",
+    "quote": "-5464075.18481 -2495248.10362 2148297.36237 25. MK"
+   },
+   "sched_mount": {
+    "src": "SCHEDS",
+    "loc": "STATION=VLBA_MK",
+    "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=86.8 AX2RATE=28.3",
+    "ax1lim_deg": [
+     -90.0,
+     450.0
+    ],
+    "ax1rate_deg_per_min": 86.8,
+    "ax2rate_deg_per_min": 28.3
+   },
+   "gsfc": {
+    "src": "SCHEDL",
+    "loc": "DBNAME=MK-VLBA",
+    "quote": "X= -5464075.2050 Y= -2495248.0620 Z= 2148297.3989",
+    "xyz_m": [
+     -5464075.205,
+     -2495248.062,
+     2148297.3989
+    ],
+    "vel_quote": "DXDT= -0.01474 DYDT= 0.06263 DZDT= 0.03265 EPOCH=56658",
+    "vel_m_per_yr": [
+     -0.01474,
+     0.06263,
+     0.03265
+    ],
+    "epoch_mjd": 56658
+   },
+   "derived": {
+    "cfg_wgs84": {
+     "lat_deg": 19.80138592,
+     "lon_deg": -155.45551219,
+     "h_m": 3763.017,
+     "lat_dms": "19:48:04.99",
+     "lon_dms": "-155:27:19.84"
+    },
+    "oss_xyz_m": [
+     -5464074.944,
+     -2495249.079,
+     2148296.797
+    ],
+    "oss_minus_cfg_enu_m": [
+     0.99,
+     -0.59,
+     -0.02
+    ],
+    "cfg_minus_gsfc_m": 0.059
+   },
+   "sefd_86GHz_jy": 13000,
+   "w_band": {
+    "range_GHz": "80 - 96",
+    "sefd_jy": 13000,
+    "gain_K_per_Jy": 0.01,
+    "tsys_K": 130,
+    "dS_512_30s_mJy": "117.",
+    "src": "OSSB",
+    "loc": "Table 5.2",
+    "quote": "MK | 80 - 96 | 13000 | 0.01 | 130 | 117."
+   }
+  }
+ ],
+ "baselines": {
+  "longest_km": 8611.585,
+  "longest_pair": [
+   "SC",
+   "MK"
+  ],
+  "shortest_km": 236.64,
+  "shortest_pair": [
+   "LA",
+   "PT"
+  ],
+  "n_pairs": 45,
+  "oss_table_8_1_matches_floor": 45,
+  "cfg_minus_table_km": [
+   0.009,
+   0.991
+  ],
+  "pairs": [
+   {
+    "pair": [
+     "LA",
+     "PT"
+    ],
+    "cfg_km": 236.64,
+    "oss_km": 236
+   },
+   {
+    "pair": [
+     "PT",
+     "KP"
+    ],
+    "cfg_km": 417.009,
+    "oss_km": 417
+   },
+   {
+    "pair": [
+     "FD",
+     "PT"
+    ],
+    "cfg_km": 564.918,
+    "oss_km": 564
+   },
+   {
+    "pair": [
+     "FD",
+     "LA"
+    ],
+    "cfg_km": 608.983,
+    "oss_km": 608
+   },
+   {
+    "pair": [
+     "LA",
+     "KP"
+    ],
+    "cfg_km": 652.413,
+    "oss_km": 652
+   },
+   {
+    "pair": [
+     "FD",
+     "KP"
+    ],
+    "cfg_km": 744.178,
+    "oss_km": 744
+   },
+   {
+    "pair": [
+     "KP",
+     "OV"
+    ],
+    "cfg_km": 845.455,
+    "oss_km": 845
+   },
+   {
+    "pair": [
+     "PT",
+     "OV"
+    ],
+    "cfg_km": 973.118,
+    "oss_km": 973
+   },
+   {
+    "pair": [
+     "LA",
+     "OV"
+    ],
+    "cfg_km": 1088.094,
+    "oss_km": 1088
+   },
+   {
+    "pair": [
+     "OV",
+     "BR"
+    ],
+    "cfg_km": 1214.502,
+    "oss_km": 1214
+   },
+   {
+    "pair": [
+     "NL",
+     "LA"
+    ],
+    "cfg_km": 1432.776,
+    "oss_km": 1432
+   },
+   {
+    "pair": [
+     "FD",
+     "OV"
+    ],
+    "cfg_km": 1508.048,
+    "oss_km": 1508
+   },
+   {
+    "pair": [
+     "HN",
+     "NL"
+    ],
+    "cfg_km": 1611.103,
+    "oss_km": 1611
+   },
+   {
+    "pair": [
+     "NL",
+     "FD"
+    ],
+    "cfg_km": 1654.728,
+    "oss_km": 1654
+   },
+   {
+    "pair": [
+     "NL",
+     "PT"
+    ],
+    "cfg_km": 1663.873,
+    "oss_km": 1663
+   },
+   {
+    "pair": [
+     "LA",
+     "BR"
+    ],
+    "cfg_km": 1757.015,
+    "oss_km": 1757
+   },
+   {
+    "pair": [
+     "PT",
+     "BR"
+    ],
+    "cfg_km": 1806.199,
+    "oss_km": 1806
+   },
+   {
+    "pair": [
+     "KP",
+     "BR"
+    ],
+    "cfg_km": 1913.938,
+    "oss_km": 1913
+   },
+   {
+    "pair": [
+     "NL",
+     "KP"
+    ],
+    "cfg_km": 2075.861,
+    "oss_km": 2075
+   },
+   {
+    "pair": [
+     "NL",
+     "BR"
+    ],
+    "cfg_km": 2300.49,
+    "oss_km": 2300
+   },
+   {
+    "pair": [
+     "NL",
+     "OV"
+    ],
+    "cfg_km": 2328.473,
+    "oss_km": 2328
+   },
+   {
+    "pair": [
+     "FD",
+     "BR"
+    ],
+    "cfg_km": 2345.671,
+    "oss_km": 2345
+   },
+   {
+    "pair": [
+     "SC",
+     "HN"
+    ],
+    "cfg_km": 2853.23,
+    "oss_km": 2853
+   },
+   {
+    "pair": [
+     "HN",
+     "LA"
+    ],
+    "cfg_km": 3006.934,
+    "oss_km": 3006
+   },
+   {
+    "pair": [
+     "HN",
+     "FD"
+    ],
+    "cfg_km": 3105.763,
+    "oss_km": 3105
+   },
+   {
+    "pair": [
+     "HN",
+     "PT"
+    ],
+    "cfg_km": 3226.577,
+    "oss_km": 3226
+   },
+   {
+    "pair": [
+     "HN",
+     "KP"
+    ],
+    "cfg_km": 3623.021,
+    "oss_km": 3623
+   },
+   {
+    "pair": [
+     "SC",
+     "NL"
+    ],
+    "cfg_km": 3645.58,
+    "oss_km": 3645
+   },
+   {
+    "pair": [
+     "HN",
+     "BR"
+    ],
+    "cfg_km": 3657.534,
+    "oss_km": 3657
+   },
+   {
+    "pair": [
+     "HN",
+     "OV"
+    ],
+    "cfg_km": 3885.868,
+    "oss_km": 3885
+   },
+   {
+    "pair": [
+     "OV",
+     "MK"
+    ],
+    "cfg_km": 4015.386,
+    "oss_km": 4015
+   },
+   {
+    "pair": [
+     "SC",
+     "FD"
+    ],
+    "cfg_km": 4143.886,
+    "oss_km": 4143
+   },
+   {
+    "pair": [
+     "BR",
+     "MK"
+    ],
+    "cfg_km": 4398.759,
+    "oss_km": 4398
+   },
+   {
+    "pair": [
+     "SC",
+     "LA"
+    ],
+    "cfg_km": 4458.991,
+    "oss_km": 4458
+   },
+   {
+    "pair": [
+     "KP",
+     "MK"
+    ],
+    "cfg_km": 4466.95,
+    "oss_km": 4466
+   },
+   {
+    "pair": [
+     "SC",
+     "PT"
+    ],
+    "cfg_km": 4579.81,
+    "oss_km": 4579
+   },
+   {
+    "pair": [
+     "PT",
+     "MK"
+    ],
+    "cfg_km": 4795.95,
+    "oss_km": 4795
+   },
+   {
+    "pair": [
+     "SC",
+     "KP"
+    ],
+    "cfg_km": 4839.948,
+    "oss_km": 4839
+   },
+   {
+    "pair": [
+     "LA",
+     "MK"
+    ],
+    "cfg_km": 4970.072,
+    "oss_km": 4970
+   },
+   {
+    "pair": [
+     "FD",
+     "MK"
+    ],
+    "cfg_km": 5134.459,
+    "oss_km": 5134
+   },
+   {
+    "pair": [
+     "SC",
+     "OV"
+    ],
+    "cfg_km": 5460.928,
+    "oss_km": 5460
+   },
+   {
+    "pair": [
+     "SC",
+     "BR"
+    ],
+    "cfg_km": 5767.365,
+    "oss_km": 5767
+   },
+   {
+    "pair": [
+     "NL",
+     "MK"
+    ],
+    "cfg_km": 6156.544,
+    "oss_km": 6156
+   },
+   {
+    "pair": [
+     "HN",
+     "MK"
+    ],
+    "cfg_km": 7502.909,
+    "oss_km": 7502
+   },
+   {
+    "pair": [
+     "SC",
+     "MK"
+    ],
+    "cfg_km": 8611.585,
+    "oss_km": 8611
+   }
+  ],
+  "src": "CFG (DERIVED); OSSR Table 8.1"
+ },
+ "bands": [
+  {
+   "name": "P",
+   "receiver": "90 cm",
+   "lo_GHz": 0.312,
+   "hi_GHz": 0.342,
+   "bw_GHz": 0.03,
+   "sefd_jy": 2742,
+   "sefd_freq_GHz": 0.326,
+   "peak_gain_K_per_Jy": 0.077,
+   "range_src": "OSSB",
+   "range_quote": "90 cm (a) | P | 0.312 - 0.342 | 2742 | 0.326 | 0.077 | 111 | (i) 266",
+   "rate_Mbps": 256,
+   "rate_src": "OSSB",
+   "rate_loc": "Table 5.1 note (i)",
+   "rate_quote": "(i) Data rate 256 Mbps.",
+   "bw_derived": "DERIVED: 256 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.032 GHz per polarization; nominal range 0.030 GHz; bw = min = 0.030 GHz",
+   "alt_rows": []
+  },
+  {
+   "name": "610",
+   "receiver": "50 cm",
+   "lo_GHz": 0.596,
+   "hi_GHz": 0.626,
+   "bw_GHz": 0.004,
+   "sefd_jy": 2744,
+   "sefd_freq_GHz": 0.611,
+   "peak_gain_K_per_Jy": 0.078,
+   "range_src": "OSSB",
+   "range_quote": "50 cm (a,b) | 610 | 0.596 - 0.626 | 2744 | 0.611 | 0.078 | 443 | (j) 753",
+   "rate_Mbps": 32,
+   "rate_src": "OSSB",
+   "rate_loc": "Table 5.1 note (j)",
+   "rate_quote": "(j) Data rate 32 Mbps.",
+   "bw_derived": "DERIVED: 32 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.004 GHz per polarization; nominal range 0.030 GHz; bw = min = 0.004 GHz",
+   "alt_rows": []
+  },
+  {
+   "name": "L",
+   "receiver": "21 cm",
+   "lo_GHz": 1.35,
+   "hi_GHz": 1.75,
+   "bw_GHz": 0.256,
+   "sefd_jy": 289,
+   "sefd_freq_GHz": 1.438,
+   "peak_gain_K_per_Jy": 0.11,
+   "range_src": "OSSB",
+   "range_quote": "21 cm (c) | L | 1.35 - 1.75 | 289 | 1.438 | 0.110 | 2.9 | (k) 10",
+   "rate_Mbps": 2048,
+   "rate_src": "OSSB",
+   "rate_loc": "Table 5.1 note (k)",
+   "rate_quote": "(k) Data rate 2048 Mbps.",
+   "bw_derived": "DERIVED: 2048 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.256 GHz per polarization; nominal range 0.400 GHz; bw = min = 0.256 GHz",
+   "alt_rows": [
+    {
+     "designation": "18 cm (c)",
+     "sefd_jy": 314,
+     "sefd_freq_GHz": 1.658,
+     "src": "OSSB",
+     "loc": "Table 5.1",
+     "quote": "18 cm (c) | L | 1.35 - 1.75 | 314 | 1.658 | 0.112 | 3.2 | (k) 11"
+    }
+   ]
+  },
+  {
+   "name": "S",
+   "receiver": "13 cm",
+   "lo_GHz": 2.2,
+   "hi_GHz": 2.4,
+   "bw_GHz": 0.2,
+   "sefd_jy": 347,
+   "sefd_freq_GHz": 2.269,
+   "peak_gain_K_per_Jy": 0.087,
+   "range_src": "OSSB",
+   "range_quote": "13 cm† | S | 2.2 - 2.4 | 347 | 2.269 | 0.087 | 3.5 | (k) 12",
+   "rate_Mbps": 2048,
+   "rate_src": "OSSB",
+   "rate_loc": "Table 5.1 note (k)",
+   "rate_quote": "(k) Data rate 2048 Mbps.",
+   "bw_derived": "DERIVED: 2048 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.256 GHz per polarization; nominal range 0.200 GHz; bw = min = 0.200 GHz",
+   "alt_rows": [
+    {
+     "designation": "13 cm (d)‡",
+     "sefd_jy": 359,
+     "sefd_freq_GHz": 2.269,
+     "src": "OSSB",
+     "loc": "Table 5.1",
+     "quote": "13 cm (d)‡ | S | 2.2 - 2.4 | 359 | 2.269 | 0.085 | 3.6 | (k) 12"
+    }
+   ]
+  },
+  {
+   "name": "C",
+   "receiver": "6 cm",
+   "lo_GHz": 3.9,
+   "hi_GHz": 7.9,
+   "bw_GHz": 0.512,
+   "sefd_jy": 210,
+   "sefd_freq_GHz": 4.993,
+   "peak_gain_K_per_Jy": 0.119,
+   "range_src": "OSSB",
+   "range_quote": "6 cm (e) | C | 3.9 - 7.9 | 210 | 4.993 | 0.119 | 2.1 | 5",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 4.000 GHz; bw = min = 0.512 GHz",
+   "alt_rows": [
+    {
+     "designation": "7 GHz (e)",
+     "sefd_jy": 278,
+     "sefd_freq_GHz": 6.66,
+     "src": "OSSB",
+     "loc": "Table 5.1",
+     "quote": "7 GHz (e) | C | 3.9 - 7.9 | 278 | 6.660 | 0.103 | 2.8 | 7"
+    }
+   ]
+  },
+  {
+   "name": "X",
+   "receiver": "4 cm",
+   "lo_GHz": 8.0,
+   "hi_GHz": 8.8,
+   "bw_GHz": 0.512,
+   "sefd_jy": 327,
+   "sefd_freq_GHz": 8.419,
+   "peak_gain_K_per_Jy": 0.118,
+   "range_src": "OSSB",
+   "range_quote": "4 cm | X | 8.0 - 8.8 | 327 | 8.419 | 0.118 | 3.3 | 8",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 0.800 GHz; bw = min = 0.512 GHz",
+   "alt_rows": [
+    {
+     "designation": "4 cm (d)",
+     "sefd_jy": 439,
+     "sefd_freq_GHz": 8.419,
+     "src": "OSSB",
+     "loc": "Table 5.1",
+     "quote": "4 cm (d) | X | 8.0 - 8.8 | 439 | 8.419 | 0.105 | 4.4 | 11"
+    }
+   ]
+  },
+  {
+   "name": "U",
+   "receiver": "2 cm",
+   "lo_GHz": 12.0,
+   "hi_GHz": 15.4,
+   "bw_GHz": 0.512,
+   "sefd_jy": 543,
+   "sefd_freq_GHz": 15.363,
+   "peak_gain_K_per_Jy": 0.111,
+   "range_src": "OSSB",
+   "range_quote": "2 cm | U | 12.0 - 15.4 | 543 | 15.363 | 0.111 | 5.5 | 13",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 3.400 GHz; bw = min = 0.512 GHz",
+   "alt_rows": []
+  },
+  {
+   "name": "K",
+   "receiver": "1 cm",
+   "lo_GHz": 21.7,
+   "hi_GHz": 24.1,
+   "bw_GHz": 0.512,
+   "sefd_jy": 640,
+   "sefd_freq_GHz": 22.236,
+   "peak_gain_K_per_Jy": 0.11,
+   "range_src": "OSSB",
+   "range_quote": "1 cm (f) | K | 21.7 - 24.1 | 640 | 22.236 | 0.110 | 6.5 | 16",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 2.400 GHz; bw = min = 0.512 GHz",
+   "alt_rows": [
+    {
+     "designation": "24 GHz (f)",
+     "sefd_jy": 534,
+     "sefd_freq_GHz": 23.801,
+     "src": "OSSB",
+     "loc": "Table 5.1",
+     "quote": "24 GHz (f) | K | 21.7 - 24.1 | 534 | 23.801 | 0.118 | 5.4 | 13"
+    }
+   ]
+  },
+  {
+   "name": "Q",
+   "receiver": "7 mm",
+   "lo_GHz": 41.0,
+   "hi_GHz": 45.0,
+   "bw_GHz": 0.512,
+   "sefd_jy": 1181,
+   "sefd_freq_GHz": 43.124,
+   "peak_gain_K_per_Jy": 0.09,
+   "range_src": "OSSB",
+   "range_quote": "7 mm | Q | 41.0 - 45.0 | 1181 | 43.124 | 0.090 | 12 | 29",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 4.000 GHz; bw = min = 0.512 GHz",
+   "alt_rows": []
+  },
+  {
+   "name": "W",
+   "receiver": "3 mm",
+   "lo_GHz": 80.0,
+   "hi_GHz": 90.0,
+   "bw_GHz": 0.512,
+   "sefd_jy": 6350,
+   "sefd_freq_GHz": 86.2,
+   "peak_gain_K_per_Jy": 0.033,
+   "range_src": "OSSB",
+   "range_quote": "3 mm (g) | W | 80.0 - 90.0 | 6350 | 86.2 | 0.033 | (h) 80 | (l) 265",
+   "rate_Mbps": 4096,
+   "rate_src": "OSSC",
+   "rate_loc": "GO capability table, 4 Gbps row",
+   "rate_quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth",
+   "bw_derived": "DERIVED: 4096 Mbps / (2 bits x 2 samples per Hz x 2 polarizations) = 0.512 GHz per polarization; nominal range 10.000 GHz; bw = min = 0.512 GHz",
+   "alt_rows": [],
+   "stations": [
+    "NL",
+    "FD",
+    "LA",
+    "PT",
+    "KP",
+    "OV",
+    "BR",
+    "MK"
+   ]
+  }
+ ],
+ "bw_note": "bw_GHz = recorded bandwidth per polarization: 4096 Mbps -> 512 MHz for C, X, U, K, Q, W (OSSC: 1024 MHz polarization-summed); the data rates of OSSB Table 5.1 notes (i)-(k) for P (256 Mbps), 610 (32 Mbps), L and S (2048 Mbps), each capped at the nominal range width (DERIVED).",
+ "pb_relation": {
+  "fwhm_arcmin_x_GHz": 40.27,
+  "k_lambda_over_D": 0.9769,
+  "D_m": 25.0,
+  "measured_freq_GHz": 1.38249,
+  "measured_fwhm_arcmin": 29.13,
+  "airy_D_eff_m": 25.47,
+  "airy_fwhm_arcmin_at_meas": 30.12,
+  "airy_fwhm_arcmin_x_GHz": 41.64,
+  "airy_hpbw_coeff": 1.02899,
+  "formula": "theta_PB[arcmin] ~ 40.3 / nu[GHz] (Gaussian fit at 1.38 GHz scaled as 1/nu) = 0.977 lambda/D for D = 25 m",
+  "src": "MID13",
+  "loc": "Sec. 3.4 (Primary beam corrections)",
+  "scaling_note": "INFERRED: the 1/nu scaling to other bands; MID13 measured at 1.382 GHz only"
+ },
+ "resolution_table": {
+  "band_cm": [
+   90,
+   50,
+   21,
+   18,
+   13,
+   6,
+   4,
+   2,
+   1,
+   0.7,
+   0.3
+  ],
+  "theta_mas": [
+   22,
+   12,
+   5.0,
+   4.3,
+   3.2,
+   1.4,
+   0.85,
+   0.47,
+   0.32,
+   0.17,
+   0.12
+  ],
+  "src": "OSSR",
+  "loc": "Table 8.2",
+  "quote": "Observing band [cm]: | 90 | 50 | 21 | 18 | 13 | 6 | 4 | 2 | 1 | 0.7 | 0.3 | \\(\\theta_{\\rm HPBW}\\) [mas]: | 22 | 12 | 5.0 | 4.3 | 3.2 | 1.4 | 0.85 | 0.47 | 0.32 | 0.17 | 0.12",
+  "derived": "2063 x lambda_cm / 8611 at the Table 5.1 SEFD frequencies: 22, 11.8, 4.99, 4.33, 3.17, 1.44, 0.853, 0.468, 0.323, 0.167, 0.117 mas (3 mm with MK-NL 6156 km)"
+ },
+ "declination_visibility": {
+  "src": "OSSD",
+  "loc": "second table",
+  "n_stations": [
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ],
+  "hours": {
+   "-20": [
+    9.8,
+    9.5,
+    9.4,
+    9.2,
+    7.2,
+    5.1,
+    3.9
+   ],
+   "-25": [
+    9.1,
+    8.9,
+    8.8,
+    8.6,
+    6.6,
+    4.5,
+    3.2
+   ],
+   "-30": [
+    8.3,
+    8.2,
+    8.1,
+    7.5,
+    5.6,
+    3.6,
+    2.3
+   ],
+   "-35": [
+    7.4,
+    7.3,
+    6.2,
+    5.8,
+    4.5,
+    2.7,
+    1.1
+   ],
+   "-40": [
+    6.4,
+    6.4,
+    6.2,
+    3.8,
+    3.2,
+    0.4,
+    0.0
+   ],
+   "-45": [
+    5.2,
+    5.0,
+    3.9,
+    2.0,
+    0.4,
+    0.0,
+    0.0
+   ],
+   "-50": [
+    3.4,
+    2.8,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "rows": {
+   "-20": "-20 degrees | 9.8 hours | 9.5 hours | 9.4 hours | 9.2 hours | 7.2 hours | 5.1 hours | 3.9 hours",
+   "-25": "-25 degrees | 9.1 hours | 8.9 hours | 8.8 hours | 8.6 hours | 6.6 hours | 4.5 hours | 3.2 hours",
+   "-30": "-30 degrees | 8.3 hours | 8.2 hours | 8.1 hours | 7.5 hours | 5.6 hours | 3.6 hours | 2.3 hours",
+   "-35": "-35 degrees | 7.4 hours | 7.3 hours | 6.2 hours | 5.8 hours | 4.5 hours | 2.7 hours | 1.1 hours",
+   "-40": "-40 degrees | 6.4 hours | 6.4 hours | 6.2 hours | 3.8 hours | 3.2 hours | 0.4 hours | 0.0 hours",
+   "-45": "-45 degrees | 5.2 hours | 5.0 hours | 3.9 hours | 2.0 hours | 0.4 hours | 0.0 hours | 0.0 hours",
+   "-50": "-50 degrees | 3.4 hours | 2.8 hours | 1.0 hours | 0.0 hours | 0.0 hours | 0.0 hours | 0.0 hours"
+  },
+  "derived_hours": {
+   "-20": [
+    9.9,
+    9.5,
+    9.4,
+    9.2,
+    7.2,
+    5.2,
+    3.9
+   ],
+   "-25": [
+    9.1,
+    8.9,
+    8.7,
+    8.6,
+    6.5,
+    4.6,
+    3.2
+   ],
+   "-30": [
+    8.3,
+    8.2,
+    8.0,
+    7.5,
+    5.6,
+    3.7,
+    2.4
+   ],
+   "-35": [
+    7.4,
+    7.3,
+    7.2,
+    5.9,
+    4.5,
+    2.7,
+    1.1
+   ],
+   "-40": [
+    6.4,
+    6.3,
+    6.2,
+    3.9,
+    3.2,
+    0.4,
+    0.0
+   ],
+   "-45": [
+    5.1,
+    4.8,
+    3.8,
+    1.9,
+    0.4,
+    0.0,
+    0.0
+   ],
+   "-50": [
+    3.2,
+    2.2,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ]
+  }
+ },
+ "common_visibility_derived": {
+  "-20": {
+   "all10_h": 2.7,
+   "ge6_h": 8.0,
+   "ge2_h": 10.6
+  },
+  "0": {
+   "all10_h": 4.5,
+   "ge6_h": 10.2,
+   "ge2_h": 13.3
+  },
+  "20": {
+   "all10_h": 5.4,
+   "ge6_h": 12.1,
+   "ge2_h": 15.8
+  },
+  "40": {
+   "all10_h": 6.3,
+   "ge6_h": 14.3,
+   "ge2_h": 18.2
+  },
+  "60": {
+   "all10_h": 7.6,
+   "ge6_h": 18.9,
+   "ge2_h": 23.9
+  }
+ },
+ "params": {
+  "n_stations": {
+   "value": 10,
+   "unit": "",
+   "src": "OSSI",
+   "loc": "Introduction, second paragraph",
+   "quote": "The VLBA is an array of ten 25-m diameter antennas at stations distributed over United States territory",
+   "alternatives": [
+    {
+     "value": "ten stations in Table 4.1",
+     "src": "OSSS",
+     "loc": "paragraph above Table 4.1",
+     "quote": "Table 4.1 gives the geographic locations of the ten stations comprising the VLBA"
+    }
+   ]
+  },
+  "dish_m": {
+   "value": 25.0,
+   "unit": "m",
+   "src": "OSSI",
+   "loc": "Introduction, second paragraph",
+   "quote": "The VLBA is an array of ten 25-m diameter antennas",
+   "alternatives": [
+    {
+     "value": "25-m main reflector, f/D 0.354, 3.5-m subreflector",
+     "src": "OSSSP",
+     "loc": "Primary Signal Path",
+     "quote": "The main reflector is a 25-m diameter shaped figure of revolution with a focal-length-to-diameter ratio of 0.354"
+    },
+    {
+     "value": 25.0,
+     "src": "CFG",
+     "loc": "column 4 (diam), all ten rows",
+     "quote": "-1640953.93873 -5014816.02309 3575411.78866 25. PT"
+    }
+   ]
+  },
+  "oss_version": {
+   "value": "VLBA Observational Status Summary 2027A",
+   "unit": "",
+   "src": "OSSI",
+   "loc": "Purpose of Document",
+   "quote": "It is intended specifically to accompany the Call for Proposals for observing semester 2027A, with a submission deadline of 2026 July 29"
+  },
+  "position_frame_oss": {
+   "value": "WGS84 geodetic latitude, west longitude, elevation (m); stations ordered east to west",
+   "unit": "",
+   "src": "OSSS",
+   "loc": "Antenna Sites, paragraph above Table 4.1",
+   "quote": "Table 4.1 gives the geographic locations of the ten stations comprising the VLBA, ordered from East through West. All locations are based on the WGS84 ellipsoid used by the GPS system",
+   "note": "OSSS does not say whether \"Elevation [m]\" is above the ellipsoid or above sea level. DERIVED: the WGS84 ellipsoidal heights of the CFG positions equal the OSSS elevations to 0.5 m at all ten stations (St. Croix -15.02 m vs -15 m), so the column is the ellipsoidal height (INFERRED)."
+  },
+  "position_frame_cfg": {
+   "value": "geocentric XYZ (m); no datum, epoch or reference position stated",
+   "unit": "",
+   "src": "CFG",
+   "loc": "header lines 1-2",
+   "quote": "# observatory=VLBA # coordsys=XYZ",
+   "alternatives": [
+    {
+     "value": "single commit 1b0506edc78 (2017-03-08)",
+     "src": "CASAH",
+     "loc": "values[0]",
+     "quote": "\"id\":\"1b0506edc78eea6cb086aabbb5636b8db1657fd1\""
+    }
+   ]
+  },
+  "position_frame_gsfc": {
+   "value": "GSFC 2016a geodetic VLBI solution, ITRF2014, epoch 2014 Jan 1, with velocities",
+   "unit": "",
+   "src": "SCHEDL",
+   "loc": "header comments",
+   "quote": "New version generated at the GSFC VLBI Analysis Center from a 2016a auxiliary ... solution. This solution uses the ITRF2014 terrestrial reference frame for ... initial apriori positions and velocities. The epoch is 2014 Jan. 1."
+  },
+  "el_limit_practical_deg": {
+   "value": 10,
+   "unit": "deg (practical lower limit, most stations)",
+   "src": "OSSD",
+   "loc": "paragraph below the declination table",
+   "quote": "An elevation of 10 degrees is the practical limit for most stations.",
+   "alternatives": [
+    {
+     "value": 10,
+     "src": "PROP",
+     "loc": "Scheduling Considerations (low elevations)",
+     "quote": "An elevation of 10 degrees is the practical limit for most stations."
+    },
+    {
+     "value": "20 deg recommended",
+     "src": "OSSD",
+     "loc": "paragraph below the declination table",
+     "quote": "In general, the NRAO recommends observing sources when they have an elevation above about 20 degrees at a participating station."
+    },
+    {
+     "value": "~20 deg below 1 GHz and above 40 GHz",
+     "src": "PROP",
+     "loc": "Scheduling Considerations",
+     "quote": "If you are observing at very low frequencies (< 1 GHz) or very high frequencies (>40 GHz), the practical elevation limit for each station is closer to about 20 degrees."
+    },
+    {
+     "value": "10 deg hard cutoff in the JIVE planner",
+     "src": "PROP",
+     "loc": "Scheduling Considerations",
+     "quote": "Note that the JIVE planobs tool uses 10 degrees elevation as a hard cutoff for when a source is visible from each station."
+    }
+   ]
+  },
+  "el_mech_deg": {
+   "value": [
+    2.25,
+    90
+   ],
+   "unit": "deg (AX2LIM, all ten stations)",
+   "src": "SCHEDS",
+   "loc": "STATION=VLBA_PT (same AX2LIM for all ten)",
+   "quote": "MOUNT=ALTAZ AX1LIM=-90,450 AX2LIM=2.25,90 AX1RATE=82.3 AX2RATE=29.3",
+   "alternatives": [
+    {
+     "value": "AX2LIM = slew limits of the second axis",
+     "src": "SCHEDS",
+     "loc": "header, parameter list",
+     "quote": "AX2LIM Slew limits for the second axis in the same regions."
+    },
+    {
+     "value": "horizon masks per station (2-16 deg)",
+     "src": "SCHEDS",
+     "loc": "header, parameter list",
+     "quote": "HOR_EL The horizon elevation at the above azimuths."
+    }
+   ],
+   "note": "DERIVED: horizon-mask maxima: SC 16, HN 7, NL 8, FD 7, LA 4, PT 4, KP 9, OV 15, BR 6, MK 14 deg (SC, OV and MK highest)."
+  },
+  "el_mk_sc": {
+   "value": "MK: low-declination sources first appear at el ~12-13 deg; SC: at ~10 deg",
+   "unit": "",
+   "src": "OSSD",
+   "loc": "notes * and ** below the table",
+   "quote": "* At MK, low-declination sources do not get above the horizon until they have an elevation of about 12 or 13 degrees. ** At SC, low-declination sources get above the horizon when they have an elevation of about 10 degrees."
+  },
+  "slew": {
+   "value": "30 deg/min elevation, 90 deg/min azimuth (nominal)",
+   "unit": "",
+   "src": "OSSSP",
+   "loc": "Primary Signal Path",
+   "quote": "30° per minute in elevation and 90° per minute in azimuth",
+   "alternatives": [
+    {
+     "value": "measured rates 26.7-30.5 deg/min el, 80.8-86.8 deg/min az",
+     "src": "SCHEDS",
+     "loc": "VLBA comment block",
+     "quote": "Note that the nominal VLBA rates are AX1RATE=90 AX2RATE=30."
+    }
+   ]
+  },
+  "resolution_relation": {
+   "value": "theta_HPBW ~ 2063 lambda_cm / B_max,km (mas)",
+   "unit": "mas",
+   "src": "OSSR",
+   "loc": "first paragraph",
+   "quote": "\\theta_{\\rm HPBW} \\sim 2063 \\times \\frac{\\lambda^{\\rm cm}}{B^{\\rm km}_{\\rm max}}",
+   "derived": "2063 = (1e-2 / 1e3) rad x 206264806 mas/rad = 2062.6 mas cm^-1 km; e.g. 90 cm / 8611 km -> 21.6 mas (Table 8.2: 22)",
+   "alternatives": [
+    {
+     "value": "long uniform track: minor axis slightly narrower",
+     "src": "OSSR",
+     "loc": "first paragraph",
+     "quote": "A uniformly weighted image made from a long u-v plane track will have a synthesized beam with a slightly narrower minor axis."
+    },
+    {
+     "value": "3 mm: longest baseline MK-NL, ~30% shorter",
+     "src": "OSSR",
+     "loc": "below Table 8.1",
+     "quote": "The longest VLBA baseline at 3 mm is currently that between MK and NL, which is about 30% shorter than the longest baseline at lower frequencies."
+    }
+   ]
+  },
+  "longest_baseline": {
+   "value": 8611.585,
+   "unit": "km (3-D chord)",
+   "src": "CFG",
+   "loc": "SC and MK rows",
+   "quote": "+2607848.63826 -5488069.53418 1932739.72987 25. SC ... -5464075.18481 -2495248.10362 2148297.36237 25. MK",
+   "derived": "|X_SC - X_MK| = 8611.585 km; shortest LA-PT 236.640 km; all 45 chords equal OSSR Table 8.1 truncated to the km (45 of 45; cfg - table = 0.009 to 0.991 km)",
+   "alternatives": [
+    {
+     "value": 8611,
+     "src": "OSSR",
+     "loc": "Table 8.1, row MK",
+     "quote": "MK | 8611 | 7502 | 6156 | 5134 | 4970 | 4795 | 4466 | 4015 | 4398 | ..."
+    }
+   ]
+  },
+  "pb_relation": {
+   "value": 40.27,
+   "unit": "arcmin x GHz (Gaussian FWHM x nu)",
+   "src": "MID13",
+   "loc": "Sec. 3.4 (Primary beam corrections)",
+   "quote": "The best-fitting FWHM of the Gaussian model was found to be 29.13 arcmin, and the best-fitting antenna diameter for the Airy disk model was found to be D = 25.47 m.",
+   "derived": "nu = c / 0.21685 m = 1.3825 GHz; 29.13 arcmin x 1.3825 GHz = 40.27 arcmin GHz; = 0.9769 lambda/D for D = 25 m. Airy with D_eff = 25.47 m: FWHM = 1.02899 lambda/D_eff (numerical root of [2J1(x)/x]^2 = 1/2) = 30.12 arcmin at 1.3825 GHz (41.64 arcmin GHz)",
+   "alternatives": [
+    {
+     "value": "lambda = 0.21685 m (center of the observations)",
+     "src": "MID13",
+     "loc": "Sec. 3.4",
+     "quote": "For the observations presented here the centre observing wavelength was λ = 0.21685 m."
+    },
+    {
+     "value": "measured at 1.382 GHz on 3C 84",
+     "src": "MID13",
+     "loc": "Sec. 3.4",
+     "quote": "around 3C 84 was observed with the VLBA at 1.382 GHz to measure the primary beam response of the antennas"
+    },
+    {
+     "value": "Airy fit in the figure legend: D = 25.48 m, lambda = 0.2168 m",
+     "src": "MID13",
+     "loc": "Fig. 5 legend",
+     "quote": "Bessel function, D=25.48, λ=0.2168 m"
+    },
+    {
+     "value": "beam squint ~5% of FWHM between RCP and LCP",
+     "src": "MID13",
+     "loc": "Sec. 3.4",
+     "quote": "the beam patterns for the two orthogonal polarisations are offset on the sky by approximately 5 % of the primary beam FWHM"
+    },
+    {
+     "value": "VLBI field of view ~1e-4 of the primary-beam area (smearing)",
+     "src": "OSSCOR",
+     "loc": "Multiple Phase Centers",
+     "quote": "The field of view in VLBI observations is very small, around 10 -4 of the primary antenna beam area."
+    }
+   ],
+   "note": "The OSS gives no primary-beam relation (NOT FOUND); MID13 is a refereed measurement at 1.382 GHz only, so the 1/nu scaling to other bands is INFERRED."
+  },
+  "recording": {
+   "value": "4096 Mbps maximum (DDC); 1024 MHz polarization-summed",
+   "unit": "",
+   "src": "OSSC",
+   "loc": "GO capabilities",
+   "quote": "The VLBA will continue recording at a maximum rate of 4096 Mbps (4 Gbps)",
+   "derived": "4096 Mbps / (2 bits x 2 samples per Hz) = 1024 MHz total = 512 MHz per polarization in dual polarization",
+   "alternatives": [
+    {
+     "value": "1024 MHz polarization-summed at 4 Gbps (6 cm-3 mm)",
+     "src": "OSSC",
+     "loc": "GO capability table, 4 Gbps row",
+     "quote": "Available for the 6cm, 4cm, 2cm, 1cm, 7mm, and 3mm receivers ... 1024 MHz polarization-summed bandwidth"
+    },
+    {
+     "value": "low bands limited to 2 Gbps",
+     "src": "OSSC",
+     "loc": "GO capability table, 4 Gbps row",
+     "quote": "bands require recording rates of 2 Gbps or less due to their limited bandwidths"
+    },
+    {
+     "value": "2-bit Nyquist sampling, 4 to 4096 Mbps (DDC)",
+     "src": "OSSSP",
+     "loc": "RDBE: DDC",
+     "quote": "Each channel is requantized at two bits per Nyquist sample and output in a packetized stream, at a total data rate ranging from 4 to 4096 Mbps"
+    },
+    {
+     "value": "8 data channels x 128 MHz at 4096 Mbps",
+     "src": "PROP",
+     "loc": "sensitivity-calculator example",
+     "quote": "Example 1: For a total data rate of 4096 Mbps, there will be either 8 data channels, each with 128 MHz of bandwidth"
+    },
+    {
+     "value": "512 MHz polarization-summed at 2 Gbps",
+     "src": "PROP",
+     "loc": "Correlator setup",
+     "quote": "about 600 phase centers at 2 Gbps (512 MHz polarization-summed bandwidth)"
+    }
+   ]
+  },
+  "sefd_table_def": {
+   "value": "typical zenith SEFD: mean over both polarizations and all ten antennas",
+   "unit": "",
+   "src": "OSSB",
+   "loc": "text below Table 5.1",
+   "quote": "Columns [4] and [6] give typical VLBA system-equivalent-flux-density (SEFD) values at zenith and opacity-corrected peak gains, respectively. These are means over measurements in both polarization at all ten antennas, at the frequencies in column [5].",
+   "alternatives": [
+    {
+     "value": "3 mm: expect ~3x the Table 5.2 SEFD for fixed-date runs",
+     "src": "OSSB",
+     "loc": "below Table 5.2",
+     "quote": "it is prudent to expect the actual SEFD values will be approximately three times higher than the values presented in the Table 5.2"
+    },
+    {
+     "value": "13 cm: ~50% flux uncertainty from RFI compression",
+     "src": "OSSB",
+     "loc": "Special Notes on the 13cm Receiver",
+     "quote": "The resulting uncertainty in flux density at 13cm, even with good calibration, is estimated to be ~50%."
+    },
+    {
+     "value": "nominal ranges; actual ranges broader",
+     "src": "OSSB",
+     "loc": "first paragraph",
+     "quote": "Actual frequency ranges are broader"
+    }
+   ]
+  },
+  "sensitivity_formulas": {
+   "value": "Delta S = SEFD / [eta_s (2 Delta nu tau)^1/2]; Delta I_m = SEFD / [eta_s (N(N-1) Delta nu t_int)^1/2]; eta_s = 0.8",
+   "unit": "",
+   "src": "OSSBS",
+   "loc": "Baseline Sensitivity",
+   "quote": "\\Delta S = {\\rm SEFD} / [\\eta_s \\cdot ( 2 \\cdot \\Delta \\nu \\cdot \\tau_{\\rm ff} ) ^{1/2} ]",
+   "alternatives": [
+    {
+     "value": "eta_s = 0.8 in Table 5.1",
+     "src": "OSSBS",
+     "loc": "Baseline Sensitivity",
+     "quote": "The sensitivity values presented in table 5.1 were calculated using \\(\\eta_s = 0.8\\)"
+    },
+    {
+     "value": "image noise",
+     "src": "OSSIS",
+     "loc": "Image Sensitivity",
+     "quote": "\\Delta I_m = {\\rm SEFD} / [\\eta_s \\cdot ( N \\cdot (N-1) \\cdot \\Delta \\nu \\cdot t_{\\rm int} ) ^{1/2} ]"
+    }
+   ]
+  },
+  "track_length": {
+   "value": "NOT FOUND as a typical value; image sensitivity in Table 5.1 assumes 8 h on source",
+   "unit": "",
+   "src": "OSSB",
+   "loc": "text below Table 5.1",
+   "quote": "The characteristic image sensitivity values tabulated in column [8] are computed assuming, for most cases, the 4-Gbps recording rate for continuum observations and a total on-source integration time of 8 hours.",
+   "derived": "hours per sidereal day with all ten stations above 10 deg (no horizon masks), from the OSSS positions: dec -20: 2.7 h (>=6 stations 8.0 h, >=2 stations 10.6 h); dec +0: 4.5 h (>=6 stations 10.2 h, >=2 stations 13.3 h); dec +20: 5.4 h (>=6 stations 12.1 h, >=2 stations 15.8 h); dec +40: 6.3 h (>=6 stations 14.3 h, >=2 stations 18.2 h); dec +60: 7.6 h (>=6 stations 18.9 h, >=2 stations 23.9 h)",
+   "alternatives": [
+    {
+     "value": "3 mm image sensitivity: 8 stations, 4 h",
+     "src": "OSSB",
+     "loc": "Table 5.1 note (l)",
+     "quote": "(l) 8-station array; 4-hour integration."
+    },
+    {
+     "value": "southern sources: hours visible vs number of stations (table)",
+     "src": "OSSD",
+     "loc": "second table",
+     "quote": "The table below gives the approximate amount of time a source with a given declination will be visible from at least the specified number of stations over a 24-hour period."
+    }
+   ]
+  },
+  "visibility_check": {
+   "value": "OSSD visibility table reproduced: 46 of 49 cells within 0.2 h, max difference 1.0 h",
+   "unit": "h",
+   "src": "OSSD",
+   "loc": "second table, row -20 degrees",
+   "quote": "-20 degrees | 9.8 hours | 9.5 hours | 9.4 hours | 9.2 hours | 7.2 hours | 5.1 hours | 3.9 hours",
+   "derived": "hours per 24 h (sidereal fraction x 24 / 1.0027379) with >= N stations at el >= 3 deg and above the SCHEDS horizon mask, OSSS positions: dec -20: [9.9, 9.5, 9.4, 9.2, 7.2, 5.2, 3.9]; dec -25: [9.1, 8.9, 8.7, 8.6, 6.5, 4.6, 3.2]; dec -30: [8.3, 8.2, 8.0, 7.5, 5.6, 3.7, 2.4]; dec -35: [7.4, 7.3, 7.2, 5.9, 4.5, 2.7, 1.1]; dec -40: [6.4, 6.3, 6.2, 3.9, 3.2, 0.4, 0.0]; dec -45: [5.1, 4.8, 3.8, 1.9, 0.4, 0.0, 0.0]; dec -50: [3.2, 2.2, 0.0, 0.0, 0.0, 0.0, 0.0]. 46 of 49 cells agree within 0.2 h; larger differences: dec -35, >=6 stations: 7.2 vs 6.2 h; dec -50, >=5 stations: 2.2 vs 2.8 h; dec -50, >=6 stations: 0.0 vs 1.0 h.",
+   "alternatives": [
+    {
+     "value": "visibility criterion",
+     "src": "OSSD",
+     "loc": "paragraph above the second table",
+     "quote": "A source is considered \"visible\" from a station when it has an elevation of at least 3 degrees and is above the local horizon."
+    }
+   ]
+  }
+ },
+ "not_found": [
+  "A primary-beam relation in the VLBA OSS or another NRAO document; the adopted relation is the MID13 measurement at 1.382 GHz, scaled as 1/nu (INFERRED).",
+  "A typical VLBA track length; NRAO documents give the 8-h on-source assumption of Table 5.1 (OSSB) and the southern-declination visibility table (OSSD). VLBA sessions are scheduled in GST ranges (PROP), with no standard duration.",
+  "Per-station SEFDs below 3 mm: OSSB Table 5.1 gives means over all ten antennas; per-station values appear only at 86 GHz (Table 5.2).",
+  "Which two stations lack 3 mm receivers, stated in words: OSSI says \"two stations are not equipped at 3 mm\"; OSSB Table 5.2 lists eight (BR, NL, FD, LA, PT, KP, OV, MK), so SC and HN (INFERRED).",
+  "Whether the OSSS \"Elevation [m]\" column is ellipsoidal or above sea level (stated nowhere; INFERRED ellipsoidal from the CFG comparison).",
+  "The datum and epoch of the CASA cfg XYZ (header gives only \"coordsys=XYZ\"); the cfg agrees with the dated GSFC 2016a ITRF2014 positions (SCHEDL) to 1.8-5.9 cm."
+ ],
+ "conflicts": [
+  "Positions: OSSS Table 4.1 (lat/lon to 0.01 arcsec, elevation to 1 m) vs the CFG XYZ converted to WGS84: horizontal offsets 0.2-1.7 m (largest at PT: the OSSS point lies 0.77 m east and 1.52 m south of the CFG point; stations[].derived.oss_minus_cfg_enu_m), heights within 0.5 m. Immaterial for the page (uv tracks change by < 1e-6).",
+  "Baselines: OSSR Table 8.1 equals the CFG 3-D chord lengths truncated (not rounded) to the km for all 45 pairs (CFG - table = 0.009 to 0.991 km); e.g. SC-MK 8611.585 km vs 8611.",
+  "Bandwidth: at S band the 2048 Mbps rate of Table 5.1 note (k) corresponds to 256 MHz per polarization, wider than the 2.2-2.4 GHz nominal range (OSSB: \"Actual frequency ranges are broader\"); bw_GHz takes the nominal range width (0.2 GHz). At P band the 256 Mbps rate gives 32 MHz per polarization vs the 30-MHz nominal range (bw 0.03).",
+  "Primary beam: MID13 gives D = 25.47 m in the text and \"D=25.48\" in the legend of the MID13 primary-beam figure (Fig. 5). The MID13 Gaussian fit (29.13 arcmin at 1.3825 GHz, 40.3 arcmin GHz) and the MID13 Airy fit with D_eff = 25.47 m (30.12 arcmin, 41.6 arcmin GHz) differ by 3.4% in FWHM; MID13 adopted the Airy model for the corrections. The VLA OSS relation for the VLA 25 m antennas, 42/nu arcmin (data/interf/vla.json), is 4% wider than the Gaussian fit."
+ ],
+ "notes": [
+  "Stations: lat_deg, lon_deg (east positive) and h_m from OSSS Table 4.1; X_m, Y_m, Z_m from CFG (geocentric, m). Converting CFG to WGS84 reproduces Table 4.1 to <= 1.7 m horizontally and 0.5 m vertically; CFG agrees with the GSFC 2016a ITRF2014 positions in SCHEDL to <= 5.9 cm (MK). Either set is adequate for uv tracks.",
+  "Earth-rotation synthesis from geocentric positions (standard relations, INFERRED; no source saved): baseline L = X_1 - X_2 in the CFG frame; Greenwich hour angle H = GMST - RA; u = (sin H Lx + cos H Ly)/lambda, v = (-sin dec cos H Lx + sin dec sin H Ly + cos dec Lz)/lambda; local elevation sin(el) = sin(lat) sin(dec) + cos(lat) cos(dec) cos(H + lon). The same relations reproduce the EHT SR1 (u, v) of 2017 April 11 to 6e-5 fractional (data/interf/eht2017.json), which fixes the sign convention.",
+  "Elevation: 10 deg is NRAO's practical limit (OSSD, PROP) and the value the JIVE planner uses as a hard cutoff; NRAO recommends 20 deg, and ~20 deg below 1 GHz or above 40 GHz. Mechanical limit 2.25 deg at all ten stations (SCHEDS AX2LIM); per-station horizon masks (SCHEDS) reach 16 deg at SC (azimuth 125-130 deg), 15 deg at OV and 14 deg at MK.",
+  "The SCHEDS horizon masks and the OSSS positions reproduce the OSSD table of hours visible from >= N stations: 46 of 49 cells within 0.2 h, the rest within 1.0 h (params.visibility_check), a check of positions, masks and the elevation relation together.",
+  "Bands: name = OSSB \"Alternate Band Name\" (P, 610, L, S, C, X, U, K, Q, W); bands with two rows in Table 5.1 (L: 21/18 cm; S: plain/dichroic; C: 6 cm/7 GHz; X: plain/dichroic; K: 1 cm/24 GHz) keep the first row's SEFD and list the other in alt_rows. bw_GHz = per-polarization recorded bandwidth (DERIVED from the data rate) capped at the nominal range width.",
+  "3 mm: eight stations (bands[W].stations); per-station SEFD 3800-13000 Jy at 86 GHz (OSSB Table 5.2), against the Table 5.1 mean 6350 Jy.",
+  "Synthesized beam (OSSR Table 8.2): 22 mas at 90 cm to 0.12 mas at 3 mm; the 2063 lambda_cm / B relation with 8611 km (6156 km at 3 mm) reproduces the table to rounding (resolution_table.derived)."
+ ]
+}

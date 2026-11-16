@@ -22,20 +22,41 @@ function toXYZ(e, n, u, lat) {
   const sl = Math.sin(lat), cl = Math.cos(lat);
   return [-n * sl + u * cl, e, n * cl + u * sl];
 }
+// An Earth-scale array (VLBI): a station's WGS84 geodetic latitude, longitude (radians) and height (m) to the
+// equatorial frame of the array's reference meridian lon0 (X toward that meridian on the equator, Y 90 degrees east of
+// it, Z toward the pole), m; the same frame as toXYZ's for a local array at lon0
+function geoXYZ(lat, lon, h, lon0) {
+  const a = 6378137, f = 1 / 298.257223563, e2 = f * (2 - f), sl = Math.sin(lat), N = a / Math.sqrt(1 - e2 * sl * sl);
+  const X = (N + h) * Math.cos(lat) * Math.cos(lon), Y = (N + h) * Math.cos(lat) * Math.sin(lon), Z = (N * (1 - e2) + h) * sl;
+  const c = Math.cos(lon0), s = Math.sin(lon0);
+  return [X * c + Y * s, -X * s + Y * c, Z];
+}
 // the baselines between the antennas switched on (on !== false): X, Y, Z (m) and the length on the ground (m), as
 // typed arrays. An array with more than maxPairs baselines (10,000 antennas make 50 million) gets a random draw of
 // maxPairs distinct pairs (seeded, so the draw is the same each time); total is the full count.
 function baselines(ants, lat, maxPairs = Infinity, seed = 7) {
   const on = ants.filter(a => a.on !== false), N = on.length, total = N * (N - 1) / 2, sub = total > maxPairs, nb = sub ? maxPairs : total;
   const X = new Float64Array(nb), Y = new Float64Array(nb), Z = new Float64Array(nb), len = new Float64Array(nb);
+  const I = new Int32Array(nb), J = new Int32Array(nb);
   const sl = Math.sin(lat), cl = Math.cos(lat);
+  // (an Earth-scale array's antennas carry xyz, in the equatorial frame already: geoXYZ)
   const put = (k, i, j) => {
+    I[k] = i; J[k] = j;
+    if (on[i].xyz) { const p = on[i].xyz, q = on[j].xyz; X[k] = q[0] - p[0]; Y[k] = q[1] - p[1]; Z[k] = q[2] - p[2]; len[k] = Math.hypot(X[k], Y[k], Z[k]); return; }
     const de = on[j].e - on[i].e, dn = on[j].n - on[i].n, du = (on[j].u || 0) - (on[i].u || 0);
     X[k] = -dn * sl + du * cl; Y[k] = de; Z[k] = dn * cl + du * sl; len[k] = Math.hypot(de, dn, du);
   };
   if (sub) {
     const rnd = rng(seed), seen = new Set();
-    for (let k = 0; k < nb;) {
+    let k = 0;
+    // (every pair with an antenna marked keep comes first: an outrigger's few long baselines, which a random draw
+    // from a million short ones would mostly miss)
+    for (let i = 0; i < N; i++) if (on[i].keep) for (let j = 0; j < N && k < nb; j++) {
+      if (j === i) continue;
+      const a = Math.min(i, j), b = Math.max(i, j), key = a * N + b;
+      if (!seen.has(key)) { seen.add(key); put(k++, a, b); }
+    }
+    while (k < nb) {
       const i = Math.floor(rnd() * N); let j = Math.floor(rnd() * (N - 1)); if (j >= i) j++;
       const a = Math.min(i, j), b = Math.max(i, j), key = a * N + b;
       if (seen.has(key)) continue;
@@ -45,13 +66,13 @@ function baselines(ants, lat, maxPairs = Infinity, seed = 7) {
     let k = 0;
     for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) put(k++, i, j);
   }
-  return { X, Y, Z, len, length: nb, total, sub };
+  return { X, Y, Z, len, I, J, length: nb, total, sub };
 }
 // the shortest and longest baselines on the ground over all pairs (exact, without keeping the pairs)
 function extremes(ants) {
   const on = ants.filter(a => a.on !== false), N = on.length;
   let lo = Infinity, hi = 0;
-  for (let i = 0; i < N; i++) { const a = on[i]; for (let j = i + 1; j < N; j++) { const b = on[j], de = b.e - a.e, dn = b.n - a.n, du = (b.u || 0) - (a.u || 0), d2 = de * de + dn * dn + du * du; if (d2 < lo) lo = d2; if (d2 > hi) hi = d2; } }
+  for (let i = 0; i < N; i++) { const a = on[i]; for (let j = i + 1; j < N; j++) { const b = on[j], de = a.xyz ? b.xyz[0] - a.xyz[0] : b.e - a.e, dn = a.xyz ? b.xyz[1] - a.xyz[1] : b.n - a.n, du = a.xyz ? b.xyz[2] - a.xyz[2] : (b.u || 0) - (a.u || 0), d2 = de * de + dn * dn + du * du; if (d2 < lo) lo = d2; if (d2 > hi) hi = d2; } }
   return N > 1 ? { bmin: Math.sqrt(lo), bmax: Math.sqrt(hi) } : { bmin: 0, bmax: 0 };
 }
 // (u, v) in the baseline's units for hour angle H and declination dec (radians)
@@ -76,6 +97,27 @@ function hoursUp(dur, dec, lat, elMin) {
   return dur * k / Hs.length;
 }
 
+// the source's azimuth (radians, east of north) at hour angle H from latitude lat
+const azimuth = (H, dec, lat) => Math.atan2(-Math.cos(dec) * Math.sin(H), Math.sin(dec) * Math.cos(lat) - Math.cos(dec) * Math.cos(H) * Math.sin(lat));
+// An Earth-scale array: each station sees the source at its own hour angle (the reference meridian's plus the
+// station's longitude east of it, dlon) and latitude, above its own limit and above its horizon mask (the terrain's
+// elevation by azimuth, linear between the points); sta[i] = { lat, dlon, elMin, mask: { az, el } } (radians)
+function staSees(s, H, dec) {
+  const H1 = H + s.dlon, el = elevation(H1, dec, s.lat);
+  if (el < s.elMin) return false;
+  if (!s.mask) return true;
+  const A = s.mask.az, E = s.mask.el, az = (azimuth(H1, dec, s.lat) + 2 * Math.PI) % (2 * Math.PI);
+  let k = 0; while (k < A.length - 2 && A[k + 1] < az) k++;
+  const f = A[k + 1] > A[k] ? Math.max(0, Math.min(1, (az - A[k]) / (A[k + 1] - A[k]))) : 0;
+  return el >= E[k] + (E[k + 1] - E[k]) * f;
+}
+// the hours of the observation with at least one baseline (two stations) up
+function hoursUpSta(dur, dec, sta) {
+  const Hs = dur > 0 ? hourAngles(dur, 1 / 120) : [0];
+  let k = 0;
+  for (const h of Hs) { let n = 0; for (const s of sta) if (staSees(s, h * HA_PER_H, dec)) n++; if (n >= 2) k++; }
+  return dur > 0 ? dur * k / Hs.length : k ? 0 : -1;
+}
 // ------------------------------------------------------------------ the samples
 // o: { ants, lat, dec, elMin (radians), dur (h), nu, bw (Hz), nCh, step (h), budget, hMax (h, or undefined for the
 // whole observation) }. The samples (wavelengths) run over the hour angles above the elevation limit, then the
@@ -88,18 +130,27 @@ function sample(o) {
   let step = o.step || 1 / 60;
   if (o.dur > 0 && o.budget && nb * nCh * (o.dur / step + 1) > o.budget) step = o.dur / Math.max(1, Math.floor(o.budget / Math.max(1, nb * nCh)) - 1);
   const Hs = hourAngles(o.dur, step);
-  const up = Hs.filter(h => (o.hMax === undefined || h <= o.hMax + 1e-9) && elevation(h * HA_PER_H, o.dec, o.lat) >= o.elMin);
-  const m = nb * nCh * up.length, u = new Float32Array(m), v = new Float32Array(m);
+  // (an Earth-scale array, o.sta: a baseline samples only while the source is above both its stations' limits; the
+  // array-wide limit does not apply)
+  const sta = o.sta, upS = sta ? new Uint8Array(sta.length) : null;
+  const up = Hs.filter(h => (o.hMax === undefined || h <= o.hMax + 1e-9) && (sta || elevation(h * HA_PER_H, o.dec, o.lat) >= o.elMin));
+  const cap = nb * nCh * up.length, u = new Float32Array(cap), v = new Float32Array(cap);
+  // (o.wq: each baseline's weight, 1 / (SEFD_i SEFD_j) for stations of different sensitivity, carried by its samples)
+  const wb = o.wq ? new Float32Array(cap) : null, tOff = new Int32Array(up.length + 1);
   const sd = Math.sin(o.dec), cd = Math.cos(o.dec), f = nus.map(nu => nu / C);
-  let k = 0;
+  let k = 0, t = 0;
   for (const h of up) {
     const H = h * HA_PER_H, sh = Math.sin(H), ch = Math.cos(H);
+    if (sta) for (let i = 0; i < sta.length; i++) upS[i] = staSees(sta[i], H, o.dec) ? 1 : 0;
     for (let q = 0; q < nb; q++) {
+      if (sta && !(upS[B.I[q]] && upS[B.J[q]])) continue;
       const u0 = sh * BX[q] + ch * BY[q], v0 = -sd * ch * BX[q] + sd * sh * BY[q] + cd * BZ[q];
-      for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; k++; }
+      for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; if (wb) wb[k] = o.wq[q]; k++; }
     }
+    tOff[++t] = k;
   }
-  return { u, v, n: m, nb, nCh, nus, Hs, up, step, B };
+  // tOff[t]: the samples before the t-th time up (a time-ordered prefix, for the page's Play)
+  return { u: u.subarray(0, k), v: v.subarray(0, k), wb: wb ? wb.subarray(0, k) : null, n: k, nb, nCh, nus, Hs, up, step, B, tOff };
 }
 
 // ------------------------------------------------------------------ a single dish
@@ -135,21 +186,23 @@ function apertureGrid(ap, n, du) {
 // sample's cell, cell wavelengths wide) or Briggs robust R (1 / (1 + W f^2), f^2 = (5 x 10^-R)^2 / (sum W^2 / sum w)).
 function weigh(S, scheme, R, cell) {
   if (S.w0) return Float32Array.from(S.w0);                          // a single dish: the aperture's own weights
-  const w = new Float32Array(S.n).fill(1);
+  // each sample's own weight (S.wb: 1 / (SEFD_i SEFD_j) for stations of unequal sensitivity), 1 otherwise
+  const w0 = S.wb, w = w0 ? Float32Array.from(w0.subarray(0, S.n)) : new Float32Array(S.n).fill(1);
   if (scheme === "natural" || !S.n) return w;
   let M = 0;
   for (let k = 0; k < S.n; k++) M = Math.max(M, Math.abs(S.u[k]), Math.abs(S.v[k]));
   const h = Math.ceil(M / cell) + 1, side = 2 * h + 1, G = new Float32Array(side * side), idx = new Int32Array(S.n);
+  let sw = 0;
   for (let k = 0; k < S.n; k++) {
-    const p = Math.round(S.u[k] / cell), q = Math.round(S.v[k] / cell);
+    const p = Math.round(S.u[k] / cell), q = Math.round(S.v[k] / cell), a = w0 ? w0[k] : 1;
     idx[k] = (q + h) * side + (p + h);
-    G[idx[k]]++; G[(h - q) * side + (h - p)]++;
+    G[idx[k]] += a; G[(h - q) * side + (h - p)] += a; sw += 2 * a;
   }
-  if (scheme === "uniform") { for (let k = 0; k < S.n; k++) w[k] = 1 / G[idx[k]]; return w; }
+  if (scheme === "uniform") { for (let k = 0; k < S.n; k++) w[k] = w[k] / G[idx[k]]; return w; }
   let s2 = 0;
   for (let k = 0; k < G.length; k++) s2 += G[k] * G[k];
-  const f2 = Math.pow(5 * Math.pow(10, -R), 2) / (s2 / (2 * S.n));
-  for (let k = 0; k < S.n; k++) w[k] = 1 / (1 + G[idx[k]] * f2);
+  const f2 = Math.pow(5 * Math.pow(10, -R), 2) / (s2 / sw);
+  for (let k = 0; k < S.n; k++) w[k] = w[k] / (1 + G[idx[k]] * f2);
   return w;
 }
 
@@ -189,7 +242,7 @@ function dirty(W, V, n) {
 // V = A(size / 2) cos(pi u size); A the Gaussian primary beam of FWHM pb (0 for none). Null for the other models.
 function pointVis(model, size, n, du, pb) {
   if (model !== "point" && model !== "double") return null;
-  const A = l => (pb > 0 ? Math.exp(-4 * Math.LN2 * l * l / (pb * pb)) : 1), re = new Float64Array(n * n), im = new Float64Array(n * n);
+  const A0 = beamFn(pb), A = l => A0(l, 0), re = new Float64Array(n * n), im = new Float64Array(n * n);
   for (let q = 0; q < n; q++) for (let p = 0; p < n; p++) {
     const u = (p >= n / 2 ? p - n : p) * du;
     re[q * n + p] = model === "point" ? A(0) : A(size / 2) * Math.cos(Math.PI * u * size);
@@ -203,6 +256,12 @@ function visibilities(s, n) {
   return { re, im };
 }
 
+// The primary beam's power at (l, m) (radians east and north of the pointing): a circular Gaussian of FWHM pb, or
+// pb = { ew, ns }, an elliptical one (a cylinder's beam, narrow east-west and wide north-south); none for 0
+function beamFn(pb) {
+  if (pb && typeof pb === "object") { const a = 4 * Math.LN2 / (pb.ew * pb.ew), b = 4 * Math.LN2 / (pb.ns * pb.ns); return (l, m) => Math.exp(-a * l * l - b * m * m); }
+  return pb > 0 ? (l, m) => Math.exp(-4 * Math.LN2 * (l * l + m * m) / (pb * pb)) : () => 1;
+}
 // ------------------------------------------------------------------ the sky
 // Sky models, all centered on the phase center and of total flux 1: a point; a double (two halves of the flux size
 // apart, east-west); a circular Gaussian of FWHM size; a uniform disc of diameter size; a ring (a thin annulus,
@@ -217,7 +276,8 @@ const RING_IN = 0.9;
 function skyImage(model, size, n, pix, pb, img) {
   const s = new Float64Array(n * n), h = n / 2;
   const put = (i, j, f) => { if (i <= -h || i >= h || j <= -h || j >= h) return; s[((j + n) % n) * n + ((i + n) % n)] += f; };
-  const A = (l, m) => (pb > 0 ? Math.exp(-4 * Math.LN2 * (l * l + m * m) / (pb * pb)) : 1);
+  const A = beamFn(pb);
+  if (model === "crescent" || model === "corejet" || model === "points") return skyModel2(model, size, n, pix, A, put, s);
   if (model === "image") {
     if (!img) return s;
     const ip = size / img.w, hw = img.w * ip / 2, hh = img.h * ip / 2, sc = img.scale || 1;
@@ -261,6 +321,54 @@ function skyImage(model, size, n, pix, pb, img) {
   for (const [i, j, a] of vals) put(i, j, a / tot * A(i * pix, j * pix));
   return s;
 }
+// The models made for the Earth-scale and transit arrays, each of total flux 1 (before the primary beam):
+// - crescent (the EHT's M87*): the EHT Collaboration's synthetic crescent (2019 Paper IV, Appendix C.1): a thin ring
+//   of diameter size with the brightness 1 + 2A cos(phi - pa) around the ring (A = 0.23, brightest at position angle
+//   pa = 150 degrees east of north), blurred by a Gaussian of FWHM 10 uas on the 44 uas ring (CRESCENT.blur x size);
+//   the blur is taken across the ring only;
+// - corejet (a VLBI quasar, illustrative): a compact core (FWHM 0.06 size, a quarter of the flux) and a jet of six
+//   fading Gaussian knots out to size along position angle JET_PA;
+// - points (a transit array's field): POINTS_N point sources, seeded, scattered over a disc of diameter size, with a
+//   power-law spread of flux (N(>S) ~ S^-1.5, the faintest a hundredth of the brightest).
+const CRESCENT = { blur: 10 / 44, A: 0.23, pa: 150 }, JET_PA = 290, POINTS_N = 60;
+function skyModel2(model, size, n, pix, A, put, s) {
+  const h = n / 2, vals = [];
+  let tot = 0;
+  const add = (l, m, f) => { const x = l / pix, y = m / pix, i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j;   // bilinear
+    vals.push([i, j, f * (1 - fx) * (1 - fy), l, m], [i + 1, j, f * fx * (1 - fy), l, m], [i, j + 1, f * (1 - fx) * fy, l, m], [i + 1, j + 1, f * fx * fy, l, m]); tot += f; };
+  // a smooth brightness b(l, m) summed over the pixels within reach K, sub-sampled
+  const smooth = (b, reach, sub) => {
+    const K = Math.min(h - 1, Math.ceil(reach / pix) + 1);
+    for (let j = -K; j <= K; j++) for (let i = -K; i <= K; i++) {
+      let a = 0;
+      for (let q = 0; q < sub; q++) for (let c = 0; c < sub; c++) a += b((i + (c + 0.5) / sub - 0.5) * pix, (j + (q + 0.5) / sub - 0.5) * pix);
+      if (a > 0) { vals.push([i, j, a, i * pix, j * pix]); tot += a; }
+    }
+  };
+  if (model === "crescent") {
+    const r0 = size / 2, sg = CRESCENT.blur * size / 2.3548, pa = CRESCENT.pa * DEG;
+    smooth((l, m) => { const r = Math.hypot(l, m), ph = Math.atan2(l, m); return Math.exp(-(r - r0) * (r - r0) / (2 * sg * sg)) * (1 + 2 * CRESCENT.A * Math.cos(ph - pa)); }, r0 + 4 * sg, size / pix < 8 ? 6 : 3);
+  } else if (model === "corejet") {
+    const pa = JET_PA * DEG, el = Math.sin(pa), em = Math.cos(pa), g = (l, m, l0, m0, fw) => Math.exp(-4 * Math.LN2 * ((l - l0) * (l - l0) + (m - m0) * (m - m0)) / (fw * fw));
+    // [distance along the jet / size, FWHM / size, flux]: the core a quarter of the flux, the knots the rest, each 0.75
+    // of the one before and wider, so that the jet's surface brightness fades along the jet from about the core's (an
+    // illustration, not a particular quasar)
+    const knots = [[0, 0.06, 0.25]].concat([0.15, 0.3, 0.45, 0.6, 0.78, 1].map((d, k) => [d, 0.05 + 0.02 * k, 0.75 * Math.pow(0.75, k) * 0.25 / (1 - Math.pow(0.75, 6))]));
+    smooth((l, m) => knots.reduce((a, [d, fw, f]) => a + f / (fw * fw) * g(l, m, d * size * el, d * size * em, fw * size), 0), 1.1 * size, size / pix < 8 ? 6 : 2);
+  } else for (const [l, m, f] of pointsList(size)) add(l, m, f);
+  if (!(tot > 0)) { put(0, 0, A(0, 0)); return s; }
+  for (const [i, j, a, l, m] of vals) put(i, j, a / tot * A(l, m));
+  return s;
+}
+// the point sources of the points model: [l, m, flux] (radians east and north; the brightest 100, the faintest 1)
+function pointsList(size) {
+  const rnd = rng(29), out = [];
+  for (let k = 0; k < POINTS_N; k++) {
+    const r = size / 2 * Math.sqrt(rnd()), ph = 2 * Math.PI * rnd(), f = Math.min(100, Math.pow(1 - rnd() * 0.99, -1 / 1.5));
+    out.push([r * Math.sin(ph), r * Math.cos(ph), f]);
+  }
+  return out;
+}
 // J1 by its integral over one period, J1(x) = (1 / 2 pi) int cos(t - x sin t) dt, which the trapezoid rule
 // integrates to rounding error for x below about M / 2; tabulated to 30 and interpolated, with the asymptotic form
 // beyond
@@ -279,6 +387,7 @@ const Lam = x => (Math.abs(x) < 1e-8 ? 1 : 2 * J1(x) / x);          // 2 J1(x) /
 // the model's visibility (real: every model is symmetric about the center) at (u, v) wavelengths, without the
 // primary beam
 function vis(model, size, u, v) {
+  if (model === "crescent" || model === "corejet" || model === "points") return NaN;
   const q = Math.hypot(u, v);
   if (model === "point") return 1;
   if (model === "double") return Math.cos(Math.PI * u * size);
@@ -312,8 +421,10 @@ function level(L, size, pix) {
 
 // ------------------------------------------------------------------ the beam's size and sidelobes
 const cen = (k, n) => { const i = k % n, j = Math.floor(k / n); return [i >= n / 2 ? i - n : i, j >= n / 2 ? j - n : j]; };
-// the pixels connected to the center with b above lo (4-neighbors on the wrapped grid); null if they reach the edge
-function lobe(b, n, lo) {
+// the pixels connected to the center with b above lo (4-neighbors on the wrapped grid); null if they reach the edge.
+// With down set, each step goes downhill only (b no higher than the pixel it comes from): the main lobe's own slope,
+// which stops at the saddle between the main lobe and a sidelobe above lo (a sparse array's, the EHT's)
+function lobe(b, n, lo, down) {
   const seen = new Uint8Array(n * n), out = [0], h = n / 2;
   seen[0] = 1;
   for (let q = 0; q < out.length; q++) {
@@ -322,15 +433,16 @@ function lobe(b, n, lo) {
       const a = i + di, c = j + dj;
       if (a <= -h || a >= h - 1 || c <= -h || c >= h - 1) return null;
       const k = ((c + n) % n) * n + ((a + n) % n);
-      if (!seen[k] && b[k] > lo) { seen[k] = 1; out.push(k); }
+      if (!seen[k] && b[k] > lo && (!down || b[k] <= b[out[q]])) { seen[k] = 1; out.push(k); }
     }
   }
   return { list: out, mask: seen };
 }
-// The fitted beam: an elliptical Gaussian through the main lobe's pixels above half the peak, by least squares on
-// ln b = -(a x^2 + 2 c x y + d y^2). FWHMs in radians, the major axis's position angle in degrees east of north.
+// The fitted beam: an elliptical Gaussian through the main lobe's pixels above half the peak (reached downhill from
+// the peak), by least squares on ln b = -(a x^2 + 2 c x y + d y^2). FWHMs in radians, the major axis's position angle
+// in degrees east of north.
 function fitBeam(b, n, pix) {
-  const L = lobe(b, n, 0.5);
+  const L = lobe(b, n, 0.5, true);
   if (!L || L.list.length < 5) return null;
   let s11 = 0, s12 = 0, s13 = 0, s22 = 0, s23 = 0, s33 = 0, t1 = 0, t2 = 0, t3 = 0;
   for (const k of L.list) {
@@ -467,7 +579,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -1195,6 +1195,55 @@ const rel = (a, b) => Math.abs(a / b - 1);
     }
     check("Interferometer: every array and configuration fits at both laptop sizes", over.length === 0, over.join(", "));
     await size(1440, 900);
+    // the Earth-scale arrays: the globe, its sites clickable, the stations' horizons; the transit arrays: the drift
+    // through the beam, the declinations within reach
+    {
+      const e0 = errors.length, rd = id => ev(`[...document.querySelectorAll("#${id} .rd")].map(e => e.textContent).join(" | ")`);
+      const hashLike = async re => { for (let k = 0; k < 30; k++) { const h = await ev(`location.hash`); if (re.test(h)) return h; await sleep(100); } return await ev(`location.hash`); };
+      const clickAt = async (x, y) => { await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: 1 }); await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: 1 }); await sleep(250); };
+      await go("#inst=int&r.arr=eht2017");
+      const e1 = await ev(`({ r: ${I}.result(), s: ${I}.sites(), obs: document.getElementById("rObsR").textContent, img: document.getElementById("rImgR").textContent, el: document.getElementById("vrEl").textContent, lay: document.getElementById("rLayRow").hidden, sub: document.getElementById("alSub").textContent })`);
+      check("EHT 2017: 28 baselines, a site label per station, 7 of 8 stations see M87 (not the SPT), the beam in µas, uniform weighting, the stations' own limits, no layouts",
+        e1.r.nb === 28 && e1.s.length === 8 && e1.r.staUp === 7 && e1.r.nSites === 8 && /µas/.test(e1.img) && (await ev(`${I}.state().wt`)) === "uniform" && /own/.test(e1.el) && e1.lay && /globe/.test(e1.sub), JSON.stringify({ nb: e1.r.nb, sites: e1.s.length, up: e1.r.staUp, el: e1.el }));
+      const alma = e1.s.find(q => q.name === "ALMA");
+      await clickAt(alma.x, alma.y);
+      const e2 = { r: await ev(`${I}.result()`), h: await hashLike(/r\.off=/) };
+      check("EHT 2017: a click on ALMA's name switches ALMA off (21 baselines), and the link says so", e2.r.nb === 21 && /r\.off=0(&|$)/.test(e2.h), JSON.stringify({ nb: e2.r.nb, h: e2.h }));
+      await clickAt(alma.x, alma.y);
+      check("EHT 2017: a second click restores ALMA", (await ev(`${I}.result().nb`)) === 28);
+      const v0 = await ev(`${I}.view()`), bx = await ev(`(() => { const r = document.getElementById("cvA").getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
+      await send("Input.dispatchMouseEvent", { type: "mousePressed", x: bx.x + 60, y: bx.y + 120, button: "left", clickCount: 1 });
+      await send("Input.dispatchMouseEvent", { type: "mouseMoved", x: bx.x + 140, y: bx.y + 150, button: "left", buttons: 1 });
+      await send("Input.dispatchMouseEvent", { type: "mouseReleased", x: bx.x + 140, y: bx.y + 150, button: "left", clickCount: 1 }); await sleep(200);
+      const v1 = await ev(`${I}.view()`);
+      check("the globe turns with a drag (west and north into view), the stations unchanged", v1.lon < v0.lon - 5 && v1.lat > v0.lat && (await ev(`${I}.result().nb`)) === 28, JSON.stringify({ v0, v1 }));
+      await go("#inst=int&r.arr=vlba&r.band=W&r.nu=86");
+      const vb = await ev(`({ r: ${I}.result(), s: ${I}.sites() })`);
+      check("VLBA at 3 mm: the eight stations with the receiver, 28 baselines; St. Croix and Hancock marked", vb.r.on === 8 && vb.r.nb === 28 && vb.s.filter(q => q.on === 0).length === 2, JSON.stringify({ on: vb.r.on, nb: vb.r.nb }));
+      await go("#inst=int&r.arr=chime");
+      const c1 = await ev(`({ r: ${I}.result(), d: document.getElementById("vrDur").textContent, play: document.getElementById("rPlay").textContent, max: +document.getElementById("rDur").max, el: document.getElementById("rElRow").hidden, sub: document.getElementById("alSub").textContent })`);
+      check("CHIME: the whole transit through the beam (8.7 min at dec 40°, 600 MHz), Play runs the transit, no elevation slider, feeds in the caption",
+        /^all \d+ min$/.test(c1.d) && Math.abs(c1.max * 60 - 1.0 / 0.6 / 15.041 / Math.cos(40 * Math.PI / 180) * 60) < 0.2 && /Transit/.test(c1.play) && c1.el && /feed/.test(c1.sub) && c1.r.n > 0, JSON.stringify({ d: c1.d, max: (c1.max * 60).toFixed(2), play: c1.play }));
+      await ev(`${I}.set({ dur: 0 })`);
+      check("CHIME: a snapshot when the slider is at 0", (await ev(`document.getElementById("vrDur").textContent`)) === "snapshot");
+      await go("#inst=int&r.arr=chimeout");
+      const o1 = await ev(`({ r: ${I}.result(), s: ${I}.sites(), obs: document.getElementById("rObsR").textContent })`);
+      check("CHIME + outriggers: four sites (CHIME's 960 feeds and three outriggers), a snapshot of an FRB, all four up, the outrigger baselines kept",
+        o1.s.length === 4 && o1.s.find(q => q.name === "CHIME").n === 960 && o1.r.staUp === 4 && o1.r.nSites === 4 && o1.r.dur === 0 && o1.r.Bmax > 3.3e6, JSON.stringify({ sites: o1.s.map(q => q.name + ":" + q.n), up: o1.r.staUp }));
+      const ch = o1.s.find(q => q.name === "CHIME");
+      await clickAt(ch.x, ch.y);
+      const o2 = { r: await ev(`${I}.result()`), h: await hashLike(/r\.off=/) };
+      check("CHIME + outriggers: a click on CHIME switches all 960 feeds off (3 outrigger baselines left), written as one range in the link", o2.r.nb === 3 && /r\.off=0-959(&|$)/.test(o2.h), JSON.stringify({ nb: o2.r.nb, h: o2.h.slice(0, 120) }));
+      await go(o2.h);
+      check("CHIME + outriggers: the link brings the 960 feeds back switched off", (await ev(`${I}.state().off.length`)) === 960 && (await ev(`${I}.result().nb`)) === 3);
+      await go("#inst=int&r.arr=chord&r.dec=10");
+      const k1 = await ev(`({ r: ${I}.result(), obs: document.getElementById("rObsR").textContent })`);
+      check("CHORD at dec +10°: out of reach of the dishes (+20° to +80°), no samples", k1.r.reach === false && !k1.r.n && /Withinreachno/.test(k1.obs.replace(/\s/g, "")), k1.obs);
+      await go("#inst=int&r.arr=chord&r.cfg=pathfinder");
+      check("CHORD pathfinder: 64 dishes, 2,016 baselines", (await ev(`${I}.result().nb`)) === 2016);
+      check("Earth-scale and transit arrays: no page error", errors.length === e0, errors.slice(e0).join(" | "));
+      await go("#inst=int");
+    }
     await go("#inst=int");
     const tt = await ev(`(() => { const t0 = performance.now(); for (let i = 0; i < 4; i++) ${I}.set({ dec: 40 + i }); return (performance.now() - t0) / 4; })()`);
     check("Interferometer redraw time (VLA C, 8 h)", tt < 400, `${tt.toFixed(0)} ms per frame`);

@@ -36,7 +36,7 @@ const DETS = [
 
 // ------------------------------------------------------------------ formatting
 // an angle given in arcsec, in the unit that suits it
-const fAng = (a, n = 3) => (a >= 3600 * 0.995 ? sig(a / 3600, n) + "°" : a >= 60 * 0.995 ? sig(a / 60, n) + "′" : a >= 0.1 ? sig(a, n) + "″" : sig(a * 1000, n) + " mas");
+const fAng = (a, n = 3) => (a >= 3600 * 0.995 ? sig(a / 3600, n) + "°" : a >= 60 * 0.995 ? sig(a / 60, n) + "′" : a >= 0.1 ? sig(a, n) + "″" : a >= 1e-3 * 0.995 ? sig(a * 1000, n) + " mas" : sig(a * 1e6, n) + " µas");
 const fLen = v => (v >= 1000 ? sig(v / 1000, 3) + " m" : sig(v, 3) + " mm");
 const fArea = deg2 => (deg2 >= 0.1 ? sig(deg2, 3) + " deg²" : deg2 * 3600 >= 0.1 ? sig(deg2 * 3600, 3) + " arcmin²" : sig(deg2 * 3600 * 3600, 3) + " arcsec²");
 const fPix = n => (n >= 1e9 ? sig(n / 1e9, 3) + " billion" : sig(n / 1e6, 3) + " million");
