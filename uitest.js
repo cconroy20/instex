@@ -839,6 +839,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
   {
     const t = await ev(`(() => { const t0 = performance.now(); window.__instex.tel().set({ band: "Ks" }); window.__instex.tel().set({ band: "V" }); return (performance.now() - t0) / 2; })()`);
     check("Telescopes: redraw on a band change", t < 300, `${t.toFixed(0)} ms`);
+  }
+  // the Focus menu's tooltip is the focus's note (the field, and what the drawing shows only schematically)
+  {
+    await go("#inst=tel&t.tel=elt");
+    const a = await ev(`document.getElementById("tFocus").title`);
+    await go("#inst=tel&t.tel=jwst&t.focus=tel");
+    const b = await ev(`document.getElementById("tFocus").title`);
+    await ev(`(s => { s.value = "cass"; s.dispatchEvent(new Event("change", { bubbles: true })); })(document.getElementById("tFocus"))`); await sleep(500);
+    const c = await ev(`document.getElementById("tFocus").title`);
+    check("Telescopes: the Focus menu's tooltip is the focus's note, and follows the focus", /schematic/.test(a) && /schematic/.test(b) && /re-image/.test(c) && b !== c, JSON.stringify([a.slice(0, 40), b.slice(0, 40), c.slice(0, 40)]));
+  }
+  await go("#inst=tel&t.tel=hst&t.focus=cass");
+  {
     const a = await ev(`window.__instex.tel().pupil().area`);
     check("Telescopes: HST's clear area 3.899 m² on the page", Math.abs(a / 3.899 - 1) < 0.002, a.toFixed(4));
     // the seeing-limited image: the slider sets the seeing, and the link keeps it

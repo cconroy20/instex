@@ -68,10 +68,10 @@ window.IX_TELESCOPES = [
     foci: [
       { id: "tel", name: "Telescope focus f/20 (three mirrors)", F: 19.909, plate: 1.5697, design: "korsch", field: 18, refl: 4,
         secondary: "convex hyperboloid, 0.738 m, 7.17 m in front of the primary; then a concave tertiary behind the primary and a flat fine steering mirror",
-        fieldNote: "About 18′ × 9′ (the instruments' fields side by side); the focal surface is curved, about 1.96 m behind the primary's vertex. Drawn as a generic three-mirror (Korsch) layout: the focal length and plate scale are JWST's, the mirrors' places are schematic." },
+        fieldNote: "≈18′ × 9′ (the instruments' fields side by side); the focal surface is curved, ≈1.96 m behind the primary's vertex. Drawn as a generic three-mirror (Korsch) layout: the focal length and plate scale are JWST's, the mirrors' places are schematic." },
       { id: "cass", name: "Cassegrain focus f/9 (intermediate)", F: 9.0, plate: 3.472, design: "cass", back: -0.2114, field: null, refl: 2,
         secondary: "convex hyperboloid, 0.738 m, 7.17 m in front of the primary",
-        fieldNote: "The image the primary and secondary form 1.39 m in front of the primary's vertex, at the entrance of the aft optics; the tertiary and fine steering mirror re-image it at f/20. No instrument sits here." },
+        fieldNote: "The image the primary and secondary form 1.39 m in front of the primary's vertex, at the entrance of the aft optics; the tertiary and the fine steering mirror then re-image the light at f/20. No instrument sits here." },
     ] },
   // DKIST: data/telescopes/dkist.md. An off-axis Gregorian: the primary is a 4 m section of a 12 m parent paraboloid
   // (RoC 16 m, f = 8 m) centered 4 m from the parent's axis; a cooled 4.0 m stop ring sets the pupil, with nothing in
@@ -89,7 +89,7 @@ window.IX_TELESCOPES = [
         fieldNote: "5′ at most; a 2.8′ field stop for the adaptive optics. The focal length is DERIVED (52.24 m) from the published prescription; the published focal ratio is f/13." },
       { id: "prime", name: "Prime focus f/2 (the heat stop)", F: 2, plate: 25.78, design: "prime", field: 5, refl: 1,
         secondary: "none here: the heat stop at prime focus passes the 5′ field", pfuLabel: "heat stop", pfuSub: "passes the central 5′; the rest of the Sun's light is rejected",
-        fieldNote: "The heat stop's 5′ opening (the Sun's image here is about 75 mm across)." },
+        fieldNote: "The heat stop's 5′ opening (the Sun's image here is ≈75 mm across)." },
     ] },
   // VLT: data/telescopes/vlt.md (one Unit Telescope; the four share the design). The stop is the secondary (ESO
   // instrument specification: "The pupil is determined by the secondary mirror"): the entrance pupil is 8.0 m at
@@ -165,7 +165,7 @@ window.IX_TELESCOPES = [
     foci: [
       { id: "pf", name: "Prime focus f/3.65 (Wide Field Corrector)", F: 3.65, plate: 5.651, design: "prime", field: 22, refl: 5,
         corrector: { d: 0.6, label: "Wide Field Corrector", sub: "four mirrors, drawn as one lens" },
-        secondary: "none: the four-mirror Wide Field Corrector rides on the tracker", fieldNote: "22′ (18′ for science). The corrector is drawn as one lens of its power; its place and size are schematic." },
+        secondary: "none: the four-mirror Wide Field Corrector rides on the tracker", fieldNote: "22′ (18′ for science). The corrector is drawn as one lens of the same power; the lens's place and size are schematic." },
     ] },
   // Subaru: data/telescopes/subaru.md (Iye et al. 2004 Table 2: seven focus configurations). Primary 8.3 m (8.2 m
   // effective), f = 15 m. F is the focal length over the pupil of the same configuration: 8.2 m, except at the IR
@@ -187,7 +187,7 @@ window.IX_TELESCOPES = [
       { id: "cass", name: "Cassegrain f/12.2", F: 12.195, plate: 2.063, design: "cass", back: 0.36585, field: 6, refl: 2,
         secondary: "convex, 1.33 m (the optical secondary)", fieldNote: "6′; the focus 3.0 m behind the primary's vertex." },
       { id: "nsopt", name: "Optical Nasmyth f/12.5", F: 12.4634, plate: 2.017, design: "cass", nasmyth: true, side: "up", field: 6, refl: 3,
-        secondary: "the optical secondary (1.33 m); a flat tertiary", fieldNote: "6′ (with the image rotator: 3.5′, f/12.7, 6 reflections). Which platform is drawn on which side is a choice: the sources name them only optical and infrared." },
+        secondary: "the optical secondary (1.33 m); a flat tertiary", fieldNote: "6′ (with the image rotator: 3.5′, f/12.7, 6 reflections). Which platform is drawn on which side is a choice: the sources name the two platforms only optical and infrared." },
       { id: "nsir", name: "Infrared Nasmyth f/13.9", D: 7.95, F: 13.912, plate: 1.865, design: "cass", nasmyth: true, side: "down", eps: 0.298, field: 6, refl: 3, pupil: { D: 7.95 },
         secondary: "the infrared secondary (1.265 m): undersized, it is the stop, so the pupil is 7.95 m; a flat tertiary", fieldNote: "6′ (with the image rotator: 3.5′, f/13.6, 6 reflections). The pupil measured here: 7.92–7.95 m with a 2.37 m obstruction." },
     ] },
@@ -202,7 +202,7 @@ window.IX_TELESCOPES = [
     color: [[4102, 88.54], [4110, 88.01], [4227, 66.75], [4272, 60.92], [4308, 56.17], [4340, 51.34], [4383, 46.64], [4540, 32.56], [4710, 20.10], [4862, 12.60], [5184, 3.54], [5283, 2.05], [5490, 0.24], [5732, 0.00], [5893, 1.07], [6270, 5.38], [6800, 16.35]],
     foci: [
       { id: "focus", name: "Focus f/19 (visual objective)", F: 19.049, plate: 10.67, design: "refr", field: 45, refl: 0,
-        secondary: "none: a doublet objective (4 refracting surfaces)", fieldNote: "The 20 × 25 cm plates covered about 35′ × 45′ (unvignetted field not published). The lens is drawn ideal: the real one brings each color to its own focus (see the Image box)." },
+        secondary: "none: a doublet objective (4 refracting surfaces)", fieldNote: "The 20 × 25 cm plates covered ≈35′ × 45′ (unvignetted field not published). The lens is drawn ideal: the real one brings each color to a different focus (see the Image box)." },
     ] },
   // ELT (ESO's Extremely Large Telescope, under construction): data/telescopes/elt.md. 798 hexagonal segments, 1.45 m
   // across the corners on the mirror, 4 mm gaps: in the pupil a lattice of pitch 1.2274 m (DERIVED from ESO's

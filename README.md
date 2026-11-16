@@ -213,6 +213,9 @@ models; ESO gives no width), so the model's 991 mÂ² sits 1.4% above ESO's 978 mÂ
 (nominalD with nominalDec 2). Drawn as a three-mirror (Korsch) layout: the focal length and plate scale are exact,
 the tertiary (at the primary's vertex in the ELT) and the two fold flats M4 and M5 (drawn as one) are schematic.
 
+The Focus menu's tooltip is the selected focus's note (fieldNote in web/tpresets.js: the field, and what the drawing
+shows only schematically); each option carries its own note too (2026-11-16, his ask).
+
 ## Interferometer mode
 
 The fourth header button (2026-10-20; Charlie: "another mode - radio interferometry? UV planes and all that"; his calls:

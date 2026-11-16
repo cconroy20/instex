@@ -46,10 +46,12 @@ function syncControls() {
   const t = telOf(), f = focusOf();
   if (fsel.dataset.tel !== t.id) {
     fsel.innerHTML = "";
-    for (const q of t.foci) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.name; fsel.appendChild(o); }
+    for (const q of t.foci) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.name; if (q.fieldNote) o.title = q.fieldNote; fsel.appendChild(o); }
     fsel.dataset.tel = t.id;
   }
   fsel.value = f.id; S.focus = f.id;
+  // the focus's note (its field, and what the drawing shows only schematically) as the menu's tooltip; else the row's
+  if (f.fieldNote) fsel.title = f.fieldNote; else fsel.removeAttribute("title");
   bsel.value = S.band;
   seeIn.value = Math.log10(S.see); $("vtSee").textContent = sig(S.see, 2) + "″";
   fieldIn.value = Math.log10(S.field); $("vtField").textContent = fAng(S.field, 2);
