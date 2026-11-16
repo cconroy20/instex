@@ -517,6 +517,23 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await shot("09_about.png");
     await ev(`document.getElementById("about").dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 5, clientY: 5 }))`); await sleep(100);
     check("About the model opens a dialog with the model text; a click outside closes it", abOpen && /aberration-free/.test(abTxt) && !(await ev(`document.getElementById("about").open`)));
+    // References: the selected preset's linked sources, the preset's note and the model's sources, in each mode
+    await go("#preset=mage");
+    await click("#refsBtn");
+    { const r = await ev(`(() => { const d = document.getElementById("refs"), L = [...document.querySelectorAll("#refsList a")], M = [...document.querySelectorAll("#refsModel li")];
+        return { open: d.open, name: document.getElementById("refsName").textContent, n: L.length, href: L.every(a => /^https?:/.test(a.href)), note: document.getElementById("refsNote").textContent.slice(0, 40), model: M.length }; })()`);
+      await shot("09_refs.png");
+      await ev(`document.getElementById("refs").dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: 5, clientY: 5 }))`); await sleep(100);
+      check("References: the preset's linked sources, the note and the model's sources; a click outside closes it", r.open && /MagE/.test(r.name) && r.n >= 1 && r.href && /MagE/.test(r.note) && r.model >= 1 && !(await ev(`document.getElementById("refs").open`)), JSON.stringify(r)); }
+    { const r = await ev(`(() => { const P = [["spec", window.IX_PRESETS], ["img", window.IX_IPRESETS], ["tel", window.IX_TELESCOPES], ["int", window.IX_ARRAYS]], miss = [];
+        for (const [m, ps] of P) for (const p of ps) if (!((window.IX_REFS[m] || {})[p.id] || []).length) miss.push(m + "/" + p.id);
+        return miss; })()`);
+      check("References: each preset of the four modes has a reference", r.length === 0, r.join(", ")); }
+    await go("#inst=tel");
+    await click("#refsBtn");
+    { const r = await ev(`({ name: document.getElementById("refsName").textContent, n: document.querySelectorAll("#refsList li").length, model: document.querySelectorAll("#refsModel li").length })`);
+      await ev(`document.getElementById("refs").close()`);
+      check("References in the Telescopes mode: the telescope's sources and the seeing model's", r.n >= 1 && r.model >= 1, JSON.stringify(r)); }
     check("the two resets are named apart: 'Reset all' and 'Refit'", (await ev(`document.getElementById("reset").textContent`)) === "Reset all" && (await ev(`document.getElementById("lvReset").textContent`)) === "Refit");
     await go("#g.gType=grism");
     { const r = await ev(`(d => [d.bad || null, d.grism && d.grism.lam0])(window.__instex.design())`);
@@ -661,7 +678,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   await size(1440, 900); await go();
   for (const fs of ["", "18px"]) {
     const r = await ev(`(async fs => { document.documentElement.style.fontSize = fs; await new Promise(q => setTimeout(q, 250));
-      const n = document.querySelector(".presetnote"), a = document.getElementById("aboutBtn");
+      const n = document.querySelector(".presetnote"), a = document.getElementById("refsBtn");
       const lh = parseFloat(getComputedStyle(n).lineHeight), out = { lines: Math.round(n.getBoundingClientRect().height / lh), gap: a.getBoundingClientRect().left - n.getBoundingClientRect().right, below: document.querySelector(".bar").classList.contains("note-below") };
       document.documentElement.style.fontSize = ""; return out; })(${JSON.stringify(fs)})`);
     check(`1440x900 header note on one line (root font ${fs || "default"})`, r.lines === 1, JSON.stringify(r));

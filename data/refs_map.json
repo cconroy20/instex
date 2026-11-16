@@ -1,0 +1,1958 @@
+{
+ "_meta": {
+  "compiled": "2026-11-15",
+  "rule": "Each preset lists 1-3 of the sources its numbers came from (instrument or telescope paper first, then the manual or observatory page), and 'model' lists each mode's physics and constants sources; every (file, key) names an entry in the data/ source tables.",
+  "ads": "ads: the ADS bibcode of a paper (resolved 2026-11-15 by first author, year, volume and page, and the title in the source table's citation); make_refs.js links papers to their ADS abstract pages."
+ },
+ "spec": {
+  "lris": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "O95",
+    "text": "Oke et al. 1995, PASP 107, 375",
+    "ads": "1995PASP..107..375O"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "KLD",
+    "text": "Keck Observatory, LRIS dispersive elements page"
+   }
+  ],
+  "hires": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "V94",
+    "text": "Vogt et al. 1994, Proc. SPIE 2198, 362",
+    "ads": "1994SPIE.2198..362V"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "HM94",
+    "text": "Vogt 1994, HIRES User's Manual, UCO/Lick Tech. Rep. 67"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "KHD06",
+    "text": "Keck Observatory, HIRES Instrument and Data Format (2006)"
+   }
+  ],
+  "mikered": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "B03",
+    "text": "Bernstein et al. 2003, Proc. SPIE 4841, 1694",
+    "ads": "2003SPIE.4841.1694B"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "LCOM",
+    "text": "Las Campanas Observatory, MIKE User Manual"
+   }
+  ],
+  "mikeblue": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "B03",
+    "text": "Bernstein et al. 2003, Proc. SPIE 4841, 1694",
+    "ads": "2003SPIE.4841.1694B"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "LCOM",
+    "text": "Las Campanas Observatory, MIKE User Manual"
+   }
+  ],
+  "mage": [
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "M08",
+    "text": "Marshall et al. 2008, Proc. SPIE 7014, 701454",
+    "ads": "2008SPIE.7014E..54M"
+   },
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "LCOMG",
+    "text": "Las Campanas Observatory, MagE User Manual"
+   }
+  ],
+  "fire": [
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "S13",
+    "text": "Simcoe et al. 2013, PASP 125, 270",
+    "ads": "2013PASP..125..270S"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "S10",
+    "text": "Simcoe et al. 2010, Proc. SPIE 7735, 773514",
+    "ads": "2010SPIE.7735E..14S"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "LCOFM",
+    "text": "Las Campanas Observatory, FIRE observing manual"
+   }
+  ],
+  "imacs": [
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "D11",
+    "text": "Dressler et al. 2011, PASP 123, 288",
+    "ads": "2011PASP..123..288D"
+   },
+   {
+    "file": "data/round4/imacs.json",
+    "key": "LCOUM",
+    "text": "Las Campanas Observatory, IMACS User Manual"
+   },
+   {
+    "file": "data/round4/imacs.json",
+    "key": "BD03",
+    "text": "Bigelow & Dressler 2003, Proc. SPIE 4841, 1727",
+    "ads": "2003SPIE.4841.1727B"
+   }
+  ],
+  "llamasb": [
+   {
+    "file": "data/round4/llamas.json",
+    "key": "F20",
+    "text": "Furesz et al. 2020, Proc. SPIE 11447, 114470A",
+    "ads": "2020SPIE11447E..0AF"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "MITSPEC",
+    "text": "MIT Kavli Institute, LLAMAS specifications page"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "ETC",
+    "text": "Simcoe, LLAMAS exposure time calculator (llamas-etc)"
+   }
+  ],
+  "llamasg": [
+   {
+    "file": "data/round4/llamas.json",
+    "key": "F20",
+    "text": "Furesz et al. 2020, Proc. SPIE 11447, 114470A",
+    "ads": "2020SPIE11447E..0AF"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "MITSPEC",
+    "text": "MIT Kavli Institute, LLAMAS specifications page"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "ETC",
+    "text": "Simcoe, LLAMAS exposure time calculator (llamas-etc)"
+   }
+  ],
+  "llamasr": [
+   {
+    "file": "data/round4/llamas.json",
+    "key": "F20",
+    "text": "Furesz et al. 2020, Proc. SPIE 11447, 114470A",
+    "ads": "2020SPIE11447E..0AF"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "MITSPEC",
+    "text": "MIT Kavli Institute, LLAMAS specifications page"
+   },
+   {
+    "file": "data/round4/llamas.json",
+    "key": "ETC",
+    "text": "Simcoe, LLAMAS exposure time calculator (llamas-etc)"
+   }
+  ],
+  "ldss3all": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "LUM",
+    "text": "Las Campanas Observatory, LDSS-3 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "MGO",
+    "text": "Carnegie Observatories, maskgen optical definitions file"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AS94",
+    "text": "Allington-Smith et al. 1994, PASP 106, 983",
+    "ads": "1994PASP..106..983A"
+   }
+  ],
+  "ldss3blue": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "LUM",
+    "text": "Las Campanas Observatory, LDSS-3 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "MGO",
+    "text": "Carnegie Observatories, maskgen optical definitions file"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AS94",
+    "text": "Allington-Smith et al. 1994, PASP 106, 983",
+    "ads": "1994PASP..106..983A"
+   }
+  ],
+  "ldss3red": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "LUM",
+    "text": "Las Campanas Observatory, LDSS-3 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "MGO",
+    "text": "Carnegie Observatories, maskgen optical definitions file"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AS94",
+    "text": "Allington-Smith et al. 1994, PASP 106, 983",
+    "ads": "1994PASP..106..983A"
+   }
+  ],
+  "esi": [
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "S02",
+    "text": "Sheinis et al. 2002, PASP 114, 851",
+    "ads": "2002PASP..114..851S"
+   },
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "UCR96",
+    "text": "UCO/Lick Observatory, ESI design report (1996)"
+   },
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "KESP",
+    "text": "Keck Observatory, ESI general specifications page"
+   }
+  ],
+  "kcwib": [
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "M18",
+    "text": "Morrissey et al. 2018, ApJ 864, 93",
+    "ads": "2018ApJ...864...93M"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "KSPEC",
+    "text": "Keck Observatory, KCWI optical specifications page"
+   }
+  ],
+  "kcrm": [
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "M18",
+    "text": "Morrissey et al. 2018, ApJ 864, 93",
+    "ads": "2018ApJ...864...93M"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "KSPEC",
+    "text": "Keck Observatory, KCWI optical specifications page"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "KDRP",
+    "text": "Keck Observatory, KCWI data reduction pipeline (KCWI_DRP)"
+   }
+  ],
+  "deimos": [
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "KDSPEC",
+    "text": "Keck Observatory, DEIMOS specifications page"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "KDGINFO",
+    "text": "Keck Observatory, DEIMOS grating data (Faber 1995)"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "KTG02",
+    "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   }
+  ],
+  "mosfirey": [
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M12",
+    "text": "McLean et al. 2012, Proc. SPIE 8446, 84460J",
+    "ads": "2012SPIE.8446E..0JM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M10",
+    "text": "McLean et al. 2010, Proc. SPIE 7735, 77351E",
+    "ads": "2010SPIE.7735E..1EM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "KMG",
+    "text": "Keck Observatory, MOSFIRE grating page"
+   }
+  ],
+  "mosfirej": [
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M12",
+    "text": "McLean et al. 2012, Proc. SPIE 8446, 84460J",
+    "ads": "2012SPIE.8446E..0JM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M10",
+    "text": "McLean et al. 2010, Proc. SPIE 7735, 77351E",
+    "ads": "2010SPIE.7735E..1EM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "KMG",
+    "text": "Keck Observatory, MOSFIRE grating page"
+   }
+  ],
+  "mosfireh": [
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M12",
+    "text": "McLean et al. 2012, Proc. SPIE 8446, 84460J",
+    "ads": "2012SPIE.8446E..0JM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M10",
+    "text": "McLean et al. 2010, Proc. SPIE 7735, 77351E",
+    "ads": "2010SPIE.7735E..1EM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "KMG",
+    "text": "Keck Observatory, MOSFIRE grating page"
+   }
+  ],
+  "mosfirek": [
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M12",
+    "text": "McLean et al. 2012, Proc. SPIE 8446, 84460J",
+    "ads": "2012SPIE.8446E..0JM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "M10",
+    "text": "McLean et al. 2010, Proc. SPIE 7735, 77351E",
+    "ads": "2010SPIE.7735E..1EM"
+   },
+   {
+    "file": "data/round4/mosfire.json",
+    "key": "KMG",
+    "text": "Keck Observatory, MOSFIRE grating page"
+   }
+  ],
+  "binospec": [
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "F19",
+    "text": "Fabricant et al. 2019, PASP 131, 075004",
+    "ads": "2019PASP..131g5004F"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "MMTB",
+    "text": "MMT Observatory, Binospec information for users"
+   }
+  ],
+  "hectospec": [
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "F05",
+    "text": "Fabricant et al. 2005, PASP 117, 1411",
+    "ads": "2005PASP..117.1411F"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "HOM07",
+    "text": "SAO/CfA, Hectospec Observers Manual"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "HHM04",
+    "text": "SAO/CfA, Hectospec Hardware Manual"
+   }
+  ],
+  "hectochelle": [
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "S11",
+    "text": "Szentgyorgyi et al. 2011, PASP 123, 1188",
+    "ads": "2011PASP..123.1188S"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "HCOG",
+    "text": "Szentgyorgyi et al. 2023, Hectochelle Observers Guide"
+   }
+  ],
+  "gclef": [
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "GC16D",
+    "text": "Ben-Ami et al. 2016, Proc. SPIE 9908, 9908A0",
+    "ads": "2016SPIE.9908E..A0B"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "GC18D",
+    "text": "Ben-Ami et al. 2018, Proc. SPIE 10702, 107029K",
+    "ads": "2018SPIE10702E..9KB"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "GC18O",
+    "text": "Szentgyorgyi et al. 2018, Proc. SPIE 10702, 107021R",
+    "ads": "2018SPIE10702E..1RS"
+   }
+  ],
+  "fors2300v": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AR92",
+    "text": "Appenzeller & Rupprecht 1992, Messenger 67, 18",
+    "ads": "1992Msngr..67...18A"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FUM117",
+    "text": "ESO, FORS2 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FS95",
+    "text": "Fuertig & Seifert 1995, ASP Conf. Ser. 71, 27",
+    "ads": "1995ASPC...71...27F"
+   }
+  ],
+  "fors2300i": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AR92",
+    "text": "Appenzeller & Rupprecht 1992, Messenger 67, 18",
+    "ads": "1992Msngr..67...18A"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FUM117",
+    "text": "ESO, FORS2 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FS95",
+    "text": "Fuertig & Seifert 1995, ASP Conf. Ser. 71, 27",
+    "ads": "1995ASPC...71...27F"
+   }
+  ],
+  "fors2600b": [
+   {
+    "file": "data/round5/grisms.json",
+    "key": "AR92",
+    "text": "Appenzeller & Rupprecht 1992, Messenger 67, 18",
+    "ads": "1992Msngr..67...18A"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FUM117",
+    "text": "ESO, FORS2 User Manual"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "FS95",
+    "text": "Fuertig & Seifert 1995, ASP Conf. Ser. 71, 27",
+    "ads": "1995ASPC...71...27F"
+   }
+  ],
+  "espressob": [
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EP21",
+    "text": "Pepe et al. 2021, A&A 645, A96",
+    "ads": "2021A&A...645A..96P"
+   },
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EUM",
+    "text": "ESO, ESPRESSO User Manual"
+   },
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EP14",
+    "text": "Pepe et al. 2014, AN 335, 8",
+    "ads": "2014AN....335....8P"
+   }
+  ],
+  "espressor": [
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EP21",
+    "text": "Pepe et al. 2021, A&A 645, A96",
+    "ads": "2021A&A...645A..96P"
+   },
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EUM",
+    "text": "ESO, ESPRESSO User Manual"
+   },
+   {
+    "file": "data/round5/espresso.json",
+    "key": "EP14",
+    "text": "Pepe et al. 2014, AN 335, 8",
+    "ads": "2014AN....335....8P"
+   }
+  ],
+  "muse": [
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "B10",
+    "text": "Bacon et al. 2010, Proc. SPIE 7735",
+    "ads": "2010SPIE.7735E..08B"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "MUM",
+    "text": "ESO, MUSE User Manual"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "MRS16",
+    "text": "Moralejo et al. 2016, arXiv:1607.01269"
+   }
+  ],
+  "uvesb": [
+   {
+    "file": "data/round5/uves.json",
+    "key": "D00",
+    "text": "Dekker et al. 2000, Proc. SPIE 4008, 534",
+    "ads": "2000SPIE.4008..534D"
+   },
+   {
+    "file": "data/round5/uves.json",
+    "key": "UM117",
+    "text": "ESO, UVES User Manual"
+   },
+   {
+    "file": "data/round5/uves.json",
+    "key": "PHYS",
+    "text": "ESO, UVES pipeline physical model (uves_physmod_utils.c)"
+   }
+  ],
+  "uvesr": [
+   {
+    "file": "data/round5/uves.json",
+    "key": "D00",
+    "text": "Dekker et al. 2000, Proc. SPIE 4008, 534",
+    "ads": "2000SPIE.4008..534D"
+   },
+   {
+    "file": "data/round5/uves.json",
+    "key": "UM117",
+    "text": "ESO, UVES User Manual"
+   },
+   {
+    "file": "data/round5/uves.json",
+    "key": "PHYS",
+    "text": "ESO, UVES pipeline physical model (uves_physmod_utils.c)"
+   }
+  ],
+  "xshuvb": [
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "V11",
+    "text": "Vernet et al. 2011, A&A 536, A105",
+    "ads": "2011A&A...536A.105V"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "XUM24",
+    "text": "ESO, X-Shooter User Manual"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "D06",
+    "text": "D'Odorico et al. 2006, Proc. SPIE 6269, 626933",
+    "ads": "2006SPIE.6269E..33D"
+   }
+  ],
+  "xshvis": [
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "V11",
+    "text": "Vernet et al. 2011, A&A 536, A105",
+    "ads": "2011A&A...536A.105V"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "XUM24",
+    "text": "ESO, X-Shooter User Manual"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "D06",
+    "text": "D'Odorico et al. 2006, Proc. SPIE 6269, 626933",
+    "ads": "2006SPIE.6269E..33D"
+   }
+  ],
+  "xshnir": [
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "V11",
+    "text": "Vernet et al. 2011, A&A 536, A105",
+    "ads": "2011A&A...536A.105V"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "XUM24",
+    "text": "ESO, X-Shooter User Manual"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "D06",
+    "text": "D'Odorico et al. 2006, Proc. SPIE 6269, 626933",
+    "ads": "2006SPIE.6269E..33D"
+   }
+  ],
+  "feros": [
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "KP98",
+    "text": "Kaufer & Pasquini 1998, Proc. SPIE 3355, 844",
+    "ads": "1998SPIE.3355..844K"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "FDR",
+    "text": "Kaufer 1997, FEROS Final Design Report (ESO)"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "FUM78",
+    "text": "ESO, FEROS-II User Manual"
+   }
+  ],
+  "harps": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "M03",
+    "text": "Mayor et al. 2003, Messenger 114, 20",
+    "ads": "2003Msngr.114...20M"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "HUM",
+    "text": "ESO, HARPS User Manual"
+   }
+  ],
+  "4mostlb": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L16",
+    "text": "Laurent et al. 2016, Proc. SPIE 9908",
+    "ads": "2016SPIE.9908E..7VL"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L20",
+    "text": "Laurent et al. 2020, Proc. SPIE 11447",
+    "ads": "2020SPIE11447E..87L"
+   }
+  ],
+  "4mostlg": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L16",
+    "text": "Laurent et al. 2016, Proc. SPIE 9908",
+    "ads": "2016SPIE.9908E..7VL"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L20",
+    "text": "Laurent et al. 2020, Proc. SPIE 11447",
+    "ads": "2020SPIE11447E..87L"
+   }
+  ],
+  "4mostlr": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L16",
+    "text": "Laurent et al. 2016, Proc. SPIE 9908",
+    "ads": "2016SPIE.9908E..7VL"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "L20",
+    "text": "Laurent et al. 2020, Proc. SPIE 11447",
+    "ads": "2020SPIE11447E..87L"
+   }
+  ],
+  "4mosthb": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H15",
+    "text": "Hansen et al. 2015, AN 336, 665",
+    "ads": "2015AN....336..665H"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H14",
+    "text": "Haynes et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..6IH"
+   }
+  ],
+  "4mosthg": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H15",
+    "text": "Hansen et al. 2015, AN 336, 665",
+    "ads": "2015AN....336..665H"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H14",
+    "text": "Haynes et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..6IH"
+   }
+  ],
+  "4mosthr": [
+   {
+    "file": "data/round4/4most.json",
+    "key": "DJ19",
+    "text": "de Jong et al. 2019, Messenger 175, 3",
+    "ads": "2019Msngr.175....3D"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H15",
+    "text": "Hansen et al. 2015, AN 336, 665",
+    "ads": "2015AN....336..665H"
+   },
+   {
+    "file": "data/round4/4most.json",
+    "key": "H14",
+    "text": "Haynes et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..6IH"
+   }
+  ],
+  "pfsb": [
+   {
+    "file": "data/round4/pfs.json",
+    "key": "S15",
+    "text": "Sugai et al. 2015, JATIS 1, 035001",
+    "ads": "2015JATIS...1c5001S"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "B14",
+    "text": "Barkhouser et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..5XB"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "SUBP",
+    "text": "Subaru Telescope, PFS basic instrument parameters page"
+   }
+  ],
+  "pfsr": [
+   {
+    "file": "data/round4/pfs.json",
+    "key": "S15",
+    "text": "Sugai et al. 2015, JATIS 1, 035001",
+    "ads": "2015JATIS...1c5001S"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "B14",
+    "text": "Barkhouser et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..5XB"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "SUBP",
+    "text": "Subaru Telescope, PFS basic instrument parameters page"
+   }
+  ],
+  "pfsn": [
+   {
+    "file": "data/round4/pfs.json",
+    "key": "S15",
+    "text": "Sugai et al. 2015, JATIS 1, 035001",
+    "ads": "2015JATIS...1c5001S"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "B14",
+    "text": "Barkhouser et al. 2014, Proc. SPIE 9147",
+    "ads": "2014SPIE.9147E..5XB"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "SUBP",
+    "text": "Subaru Telescope, PFS basic instrument parameters page"
+   }
+  ],
+  "apogee": [
+   {
+    "file": "data/round5/apogee.json",
+    "key": "W19",
+    "text": "Wilson et al. 2019, PASP 131, 055001",
+    "ads": "2019PASP..131e5001W"
+   },
+   {
+    "file": "data/round5/apogee.json",
+    "key": "DR16",
+    "text": "SDSS-IV, DR16 Using APOGEE Spectra page"
+   }
+  ],
+  "desib": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "D22",
+    "text": "DESI Collaboration 2022, AJ 164, 207",
+    "ads": "2022AJ....164..207D"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "FDR",
+    "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   }
+  ],
+  "desir": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "D22",
+    "text": "DESI Collaboration 2022, AJ 164, 207",
+    "ads": "2022AJ....164..207D"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "FDR",
+    "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   }
+  ],
+  "desiz": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "D22",
+    "text": "DESI Collaboration 2022, AJ 164, 207",
+    "ads": "2022AJ....164..207D"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "FDR",
+    "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   }
+  ],
+  "boomboxb": [
+   {
+    "file": "data/presets_research.md",
+    "key": "VT",
+    "text": "Via collaboration, Via technical description, Boombox section (internal)",
+    "url": ""
+   }
+  ],
+  "boomboxr": [
+   {
+    "file": "data/presets_research.md",
+    "key": "VT",
+    "text": "Via collaboration, Via technical description, Boombox section (internal)",
+    "url": ""
+   }
+  ],
+  "via": [
+   {
+    "file": "data/presets_research.md",
+    "key": "VT",
+    "text": "Via collaboration, Viaspec technical description (internal)",
+    "url": ""
+   }
+  ]
+ },
+ "img": {
+  "lsst": [
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "I19",
+    "text": "Ivezic et al. 2019, ApJ 873, 111",
+    "ads": "2019ApJ...873..111I"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "SB09",
+    "text": "LSST Science Collaboration 2009, arXiv:0912.0201"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "RKN",
+    "text": "Rubin Observatory, Key numbers page"
+   }
+  ],
+  "hsc": [
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "A18",
+    "text": "Aihara et al. 2018, PASJ 70, S4",
+    "ads": "2018PASJ...70S...4A"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "SSP",
+    "text": "HSC-SSP (NAOJ), About HSC page"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "SHP",
+    "text": "Subaru Telescope, HSC instrument parameters page"
+   }
+  ],
+  "decam": [
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "F15",
+    "text": "Flaugher et al. 2015, AJ 150, 150",
+    "ads": "2015AJ....150..150F"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "NDH",
+    "text": "NOAO, Data Handbook v2.2 (2015), DECam chapter"
+   },
+   {
+    "file": "data/imaging/widefield.json",
+    "key": "CDC",
+    "text": "NOIRLab, DECam characteristics page"
+   }
+  ],
+  "megacam": [
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "CGI",
+    "text": "CFHT, MegaCam general specifications page"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "CID",
+    "text": "CFHT, MegaPrime instrument description page"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "CTC",
+    "text": "CFHT, MegaCam technical considerations page"
+   }
+  ],
+  "ztf": [
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "D20",
+    "text": "Dekany et al. 2020, PASP 132, 038001",
+    "ads": "2020PASP..132c8001D"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "B19",
+    "text": "Bellm et al. 2019, PASP 131, 018002",
+    "ads": "2019PASP..131a8002B"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "D16",
+    "text": "Dekany et al. 2016, Proc. SPIE 9908, 99085M",
+    "ads": "2016SPIE.9908E..5MD"
+   }
+  ],
+  "small80": [
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "WOGT",
+    "text": "William Optics, Gran Turismo 81 IV product page"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "ZWO",
+    "text": "ZWO, ASI2600MM/MC Pro product page"
+   },
+   {
+    "file": "data/imaging/megacam_ztf_small.json",
+    "key": "WOFG",
+    "text": "William Optics, FLAT GT product page"
+   }
+  ],
+  "acs": [
+   {
+    "file": "data/imaging/hst.json",
+    "key": "ACSIHB",
+    "text": "STScI, ACS Instrument Handbook for Cycle 34 (2025)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "S05",
+    "text": "Sirianni et al. 2005, PASP 117, 1049",
+    "ads": "2005PASP..117.1049S"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "C02",
+    "text": "Clampin et al. 2002, HST Calibration Workshop, p. 3"
+   }
+  ],
+  "uvis": [
+   {
+    "file": "data/imaging/hst.json",
+    "key": "WFC3IHB",
+    "text": "STScI, WFC3 Instrument Handbook for Cycle 34 (2025)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "W3CDR",
+    "text": "WFC3 project (NASA/GSFC), Critical Design Review (2000)"
+   }
+  ],
+  "wfc3ir": [
+   {
+    "file": "data/imaging/hst.json",
+    "key": "WFC3IHB",
+    "text": "STScI, WFC3 Instrument Handbook for Cycle 34 (2025)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "W3CDR",
+    "text": "WFC3 project (NASA/GSFC), Critical Design Review (2000)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "ISR1410",
+    "text": "Biretta 2014, WFC3 ISR 2014-10"
+   }
+  ],
+  "euclid": [
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "EC2",
+    "text": "Cropper et al. 2025, A&A 697, A2",
+    "ads": "2025A&A...697A...2E"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "EC1",
+    "text": "Mellier et al. 2025, A&A 697, A1",
+    "ads": "2025A&A...697A...1E"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "R16",
+    "text": "Racca et al. 2016, Proc. SPIE 9904, 99040O",
+    "ads": "2016SPIE.9904E..0OR"
+   }
+  ],
+  "roman": [
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "P18",
+    "text": "Pasquale et al. 2018, Proc. SPIE 10745, 107450K",
+    "ads": "2018SPIE10745E..0KP"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "S15",
+    "text": "Spergel et al. 2015, arXiv:1503.03757"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "RDD",
+    "text": "STScI RDox, Description of the WFI"
+   }
+  ],
+  "nircamsw": [
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "H05",
+    "text": "Huff 2005, Proc. SPIE 5904, 590404",
+    "ads": "2005SPIE.5904...30H"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "R23",
+    "text": "Rieke et al. 2023, PASP 135, 028001",
+    "ads": "2023PASP..135b8001R"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "JDD",
+    "text": "JDox, NIRCam Detector Overview"
+   }
+  ],
+  "nircamlw": [
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "H05",
+    "text": "Huff 2005, Proc. SPIE 5904, 590404",
+    "ads": "2005SPIE.5904...30H"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "R23",
+    "text": "Rieke et al. 2023, PASP 135, 028001",
+    "ads": "2023PASP..135b8001R"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "JDD",
+    "text": "JDox, NIRCam Detector Overview"
+   }
+  ],
+  "fors2sr": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "AR92",
+    "text": "Appenzeller & Rupprecht 1992, Messenger 67, 18",
+    "ads": "1992Msngr..67...18A"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "FUM117",
+    "text": "ESO, FORS2 User Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "FINST",
+    "text": "ESO, FORS instrument description page"
+   }
+  ],
+  "fors2hr": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "AR92",
+    "text": "Appenzeller & Rupprecht 1992, Messenger 67, 18",
+    "ads": "1992Msngr..67...18A"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "FUM117",
+    "text": "ESO, FORS2 User Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "FINST",
+    "text": "ESO, FORS instrument description page"
+   }
+  ],
+  "imacsf2": [
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "D11",
+    "text": "Dressler et al. 2011, PASP 123, 288",
+    "ads": "2011PASP..123..288D"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "LCOUM",
+    "text": "Las Campanas Observatory, IMACS User Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "BD03",
+    "text": "Bigelow & Dressler 2003, Proc. SPIE 4841, 1727",
+    "ads": "2003SPIE.4841.1727B"
+   }
+  ],
+  "lrisr": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "O95",
+    "text": "Oke et al. 1995, PASP 107, 375",
+    "ads": "1995PASP..107..375O"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KLDET",
+    "text": "Keck Observatory, LRIS detectors page"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KLH",
+    "text": "Keck Observatory, LRIS home page"
+   }
+  ],
+  "mosfirei": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "M12",
+    "text": "McLean et al. 2012, Proc. SPIE 8446, 84460J",
+    "ads": "2012SPIE.8446E..0JM"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "M10",
+    "text": "McLean et al. 2010, Proc. SPIE 7735, 77351E",
+    "ads": "2010SPIE.7735E..1EM"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KMD",
+    "text": "Keck Observatory, MOSFIRE detector page"
+   }
+  ],
+  "omegacam": [
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "K11",
+    "text": "Kuijken 2011, Messenger 146, 8",
+    "ads": "2011Msngr.146....8K"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "MAN",
+    "text": "ESO, OmegaCAM User Manual"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "CS11",
+    "text": "Capaccioli & Schipani 2011, Messenger 146, 2",
+    "ads": "2011Msngr.146....2C"
+   }
+  ],
+  "lbcb": [
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "G08",
+    "text": "Giallongo et al. 2008, A&A 482, 349",
+    "ads": "2008A&A...482..349G"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "R16",
+    "text": "Rothberg et al. 2016, Proc. SPIE 9906, 990622",
+    "ads": "2016SPIE.9906E..22R"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "LFP",
+    "text": "LBTO, LBC focal plane layout page"
+   }
+  ],
+  "lbcr": [
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "G08",
+    "text": "Giallongo et al. 2008, A&A 482, 349",
+    "ads": "2008A&A...482..349G"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "R16",
+    "text": "Rothberg et al. 2016, Proc. SPIE 9906, 990622",
+    "ads": "2016SPIE.9906E..22R"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "LFP",
+    "text": "LBTO, LBC focal plane layout page"
+   }
+  ],
+  "megacamm": [
+   {
+    "file": "data/imaging/magellan.json",
+    "key": "M15",
+    "text": "McLeod et al. 2015, PASP 127, 366",
+    "ads": "2015PASP..127..366M"
+   },
+   {
+    "file": "data/imaging/magellan.json",
+    "key": "MCM",
+    "text": "CfA, Megacam Observers Manual"
+   },
+   {
+    "file": "data/imaging/magellan.json",
+    "key": "LCOMC",
+    "text": "Las Campanas Observatory, MegaCam page"
+   }
+  ],
+  "fourstar": [
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "P13",
+    "text": "Persson et al. 2013, PASP 125, 654",
+    "ads": "2013PASP..125..654P"
+   },
+   {
+    "file": "data/imaging/magellan.json",
+    "key": "FSCDR",
+    "text": "Carnegie Observatories, FourStar Critical Design Review (2006)"
+   },
+   {
+    "file": "data/imaging/magellan.json",
+    "key": "FSMAN",
+    "text": "Carnegie Observatories, FourStar Manual (2014)"
+   }
+  ],
+  "poss1": [
+   {
+    "file": "data/imaging/poss.json",
+    "key": "H52",
+    "text": "Harrington 1952, PASP 64, 275",
+    "ads": "1952PASP...64..275H"
+   },
+   {
+    "file": "data/imaging/poss.json",
+    "key": "A58",
+    "text": "Abell 1958, ApJS 3, 211",
+    "ads": "1958ApJS....3..211A"
+   },
+   {
+    "file": "data/imaging/poss.json",
+    "key": "R91",
+    "text": "Reid et al. 1991, PASP 103, 661",
+    "ads": "1991PASP..103..661R"
+   }
+  ],
+  "poss2": [
+   {
+    "file": "data/imaging/poss.json",
+    "key": "R91",
+    "text": "Reid et al. 1991, PASP 103, 661",
+    "ads": "1991PASP..103..661R"
+   },
+   {
+    "file": "data/imaging/poss.json",
+    "key": "LP93",
+    "text": "Lasker & Postman 1993, ASP Conf. Ser. 43, 131",
+    "ads": "1993ASPC...43..131L"
+   },
+   {
+    "file": "data/imaging/poss.json",
+    "key": "L08",
+    "text": "Lasker et al. 2008, AJ 136, 735",
+    "ads": "2008AJ....136..735L"
+   }
+  ],
+  "twomass": [
+   {
+    "file": "data/imaging/twomass.json",
+    "key": "S06",
+    "text": "Skrutskie et al. 2006, AJ 131, 1163",
+    "ads": "2006AJ....131.1163S"
+   },
+   {
+    "file": "data/imaging/twomass.json",
+    "key": "ES-III.1b",
+    "text": "Cutri et al., 2MASS Explanatory Supplement (camera section)"
+   },
+   {
+    "file": "data/imaging/twomass.json",
+    "key": "M96",
+    "text": "Milligan et al. 1996, Proc. SPIE 2863, 2",
+    "ads": "1996SPIE.2863....2M"
+   }
+  ],
+  "fourshooter": [
+   {
+    "file": "data/imaging/fourshooter.json",
+    "key": "G87OE",
+    "text": "Gunn et al. 1987, Opt. Eng. 26, 779",
+    "ads": "1987OptEn..26..779G"
+   },
+   {
+    "file": "data/imaging/fourshooter.json",
+    "key": "P84",
+    "text": "Porter 1984, IAPPP Comm. 17, 33",
+    "ads": "1984IAPPP..17...33P"
+   },
+   {
+    "file": "data/imaging/fourshooter.json",
+    "key": "S94",
+    "text": "Schneider et al. 1994, AJ 107, 1245",
+    "ads": "1994AJ....107.1245S"
+   }
+  ],
+  "niri6": [
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "H03",
+    "text": "Hodapp et al. 2003, PASP 115, 1388",
+    "ads": "2003PASP..115.1388H"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCAP",
+    "text": "Gemini Observatory, NIRI capability page"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCOMP",
+    "text": "Gemini Observatory, NIRI components page"
+   }
+  ],
+  "niri14": [
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "H03",
+    "text": "Hodapp et al. 2003, PASP 115, 1388",
+    "ads": "2003PASP..115.1388H"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCAP",
+    "text": "Gemini Observatory, NIRI capability page"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCOMP",
+    "text": "Gemini Observatory, NIRI components page"
+   }
+  ],
+  "niri32": [
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "H03",
+    "text": "Hodapp et al. 2003, PASP 115, 1388",
+    "ads": "2003PASP..115.1388H"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCAP",
+    "text": "Gemini Observatory, NIRI capability page"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "GNCOMP",
+    "text": "Gemini Observatory, NIRI components page"
+   }
+  ],
+  "hawki": [
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "C05",
+    "text": "Casali et al. 2005, Messenger 119, 6",
+    "ads": "2005Msngr.119....6C"
+   },
+   {
+    "file": "data/imaging/niri_hawki.json",
+    "key": "HUM",
+    "text": "ESO, HAWK-I User Manual"
+   }
+  ],
+  "tess": [
+   {
+    "file": "data/imaging/tess.json",
+    "key": "R15",
+    "text": "Ricker et al. 2015, JATIS 1, 014003",
+    "ads": "2015JATIS...1a4003R"
+   },
+   {
+    "file": "data/imaging/tess.json",
+    "key": "C15",
+    "text": "Chrisp et al. 2015, Proc. SPIE 9602, 96020C",
+    "ads": "2015SPIE.9602E..0CC"
+   },
+   {
+    "file": "data/imaging/tess.json",
+    "key": "IH",
+    "text": "Vanderspek et al. 2018, TESS Instrument Handbook"
+   }
+  ],
+  "nirc2n": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNG",
+    "text": "Keck Observatory, NIRC2 general specifications page"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNOM",
+    "text": "Keck Observatory, NIRC2 Observer's Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KTG02",
+    "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   }
+  ],
+  "nirc2m": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNG",
+    "text": "Keck Observatory, NIRC2 general specifications page"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNOM",
+    "text": "Keck Observatory, NIRC2 Observer's Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KTG02",
+    "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   }
+  ],
+  "nirc2w": [
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNG",
+    "text": "Keck Observatory, NIRC2 general specifications page"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KNOM",
+    "text": "Keck Observatory, NIRC2 Observer's Manual"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KTG02",
+    "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   }
+  ]
+ },
+ "tel": {
+  "keck": [
+   {
+    "file": "data/telescopes/keck.json",
+    "key": "KOR90",
+    "text": "Nelson et al. 1985, Keck Observatory Report No. 90"
+   },
+   {
+    "file": "data/telescopes/keck.json",
+    "key": "KOTN163",
+    "text": "Nelson 1986, Keck Observatory Technical Note 163 (rev. 1991)"
+   },
+   {
+    "file": "data/telescopes/keck.json",
+    "key": "KTG02",
+    "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   }
+  ],
+  "magellan": [
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "S94",
+    "text": "Shectman 1994, Proc. SPIE 2199, 558",
+    "ads": "1994SPIE.2199..558S"
+   },
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "LCOT",
+    "text": "Las Campanas Observatory, Magellan Telescopes page"
+   },
+   {
+    "file": "data/telescopes/magellan.json",
+    "key": "MXP51",
+    "text": "Males 2017, MagAO-X Preliminary Design, Doc. MagAOX-001"
+   }
+  ],
+  "hst": [
+   {
+    "file": "data/telescopes/hst.json",
+    "key": "OTAHB",
+    "text": "Burrows 1990, HST Optical Telescope Assembly Handbook (STScI)"
+   },
+   {
+    "file": "data/telescopes/hst.json",
+    "key": "L12",
+    "text": "Lallo 2012, Opt. Eng. 51, 011011",
+    "ads": "2012OptEn..51a1011L"
+   },
+   {
+    "file": "data/telescopes/hst.json",
+    "key": "MG5",
+    "text": "NASA/GSFC, HST Servicing Mission 3B Media Reference Guide (2002)"
+   }
+  ],
+  "jwst": [
+   {
+    "file": "data/telescopes/jwst.json",
+    "key": "MC23",
+    "text": "McElwain et al. 2023, PASP 135, 058001",
+    "ads": "2023PASP..135e8001M"
+   },
+   {
+    "file": "data/telescopes/jwst.json",
+    "key": "G06",
+    "text": "Gardner et al. 2006, Space Sci. Rev. 123, 485",
+    "ads": "2006SSRv..123..485G"
+   },
+   {
+    "file": "data/telescopes/jwst.json",
+    "key": "JDT",
+    "text": "STScI JWST User Documentation, JWST Telescope page"
+   }
+  ],
+  "dkist": [
+   {
+    "file": "data/telescopes/dkist.json",
+    "key": "R20",
+    "text": "Rimmele et al. 2020, Sol. Phys. 295, 172",
+    "ads": "2020SoPh..295..172R"
+   },
+   {
+    "file": "data/telescopes/dkist.json",
+    "key": "HS17",
+    "text": "Harrington & Sueoka 2017, JATIS 3, 018002",
+    "ads": "2017JATIS...3a8002H"
+   },
+   {
+    "file": "data/telescopes/dkist.json",
+    "key": "OH16",
+    "text": "Oh et al. 2016, Proc. SPIE 9912, 99120O",
+    "ads": "2016SPIE.9912E..0OO"
+   }
+  ],
+  "vlt": [
+   {
+    "file": "data/telescopes/vlt.json",
+    "key": "WB",
+    "text": "ESO 1998, The VLT White Book"
+   },
+   {
+    "file": "data/telescopes/vlt.json",
+    "key": "SPEC",
+    "text": "ESO, Requirements for VLT UT Instruments (VLT-SPE-ESO-10000-2723)"
+   },
+   {
+    "file": "data/telescopes/vlt.json",
+    "key": "EM1",
+    "text": "ESO, VLT primary mirrors page"
+   }
+  ],
+  "gmt": [
+   {
+    "file": "data/telescopes/gmt.json",
+    "key": "OAD",
+    "text": "GMTO Corporation, GMT Observatory Architecture Document (2021)"
+   },
+   {
+    "file": "data/telescopes/gmt.json",
+    "key": "CODR6",
+    "text": "GMT Consortium 2006, Conceptual Design Report, Ch. 6"
+   },
+   {
+    "file": "data/telescopes/gmt.json",
+    "key": "SB18",
+    "text": "GMTO Corporation 2018, GMT Science Book"
+   }
+  ],
+  "het": [
+   {
+    "file": "data/telescopes/het.json",
+    "key": "H21",
+    "text": "Hill et al. 2021, AJ 162, 298",
+    "ads": "2021AJ....162..298H"
+   },
+   {
+    "file": "data/telescopes/het.json",
+    "key": "MDO",
+    "text": "McDonald Observatory, Hobby-Eberly Telescope page"
+   },
+   {
+    "file": "data/telescopes/het.json",
+    "key": "K21",
+    "text": "Kanodia et al. 2021, ApJ 912, 15",
+    "ads": "2021ApJ...912...15K"
+   }
+  ],
+  "subaru": [
+   {
+    "file": "data/telescopes/subaru.json",
+    "key": "I04",
+    "text": "Iye et al. 2004, PASJ 56, 381",
+    "ads": "2004PASJ...56..381I"
+   },
+   {
+    "file": "data/telescopes/subaru.json",
+    "key": "STP",
+    "text": "Subaru Telescope, physical parameters page"
+   },
+   {
+    "file": "data/telescopes/subaru.json",
+    "key": "K18",
+    "text": "Kühn et al. 2018, PASP 130, 035001",
+    "ads": "2018PASP..130c5001K"
+   }
+  ],
+  "yerkes": [
+   {
+    "file": "data/telescopes/yerkes.json",
+    "key": "H97",
+    "text": "Hale 1897, ApJ 6, 37",
+    "ads": "1897ApJ.....6...37H"
+   },
+   {
+    "file": "data/telescopes/yerkes.json",
+    "key": "FOX",
+    "text": "Fox 1908, ApJ 27, 237",
+    "ads": "1908ApJ....27..237F"
+   },
+   {
+    "file": "data/telescopes/yerkes.json",
+    "key": "B17",
+    "text": "Barnard 1917, AJ 31, 24",
+    "ads": "1917AJ.....31...24B"
+   }
+  ]
+ },
+ "int": {
+  "vla": [
+   {
+    "file": "data/interf/vla.json",
+    "key": "CFGA",
+    "text": "NRAO, CASA antenna-position files (vla.a.cfg to vla.d.cfg)"
+   },
+   {
+    "file": "data/interf/vla.json",
+    "key": "PADS",
+    "text": "NRAO, VLA Green Book, station positions"
+   },
+   {
+    "file": "data/interf/vla.json",
+    "key": "OSSR",
+    "text": "NRAO, VLA Observational Status Summary 2027A"
+   }
+  ],
+  "alma": [
+   {
+    "file": "data/interf/alma.json",
+    "key": "CFGZIP",
+    "text": "ALMA, Cycle 13 configuration files (ALMA Science Portal)"
+   },
+   {
+    "file": "data/interf/alma.json",
+    "key": "TH",
+    "text": "ALMA, Cycle 13 Technical Handbook (2026)"
+   },
+   {
+    "file": "data/interf/alma.json",
+    "key": "PG",
+    "text": "ALMA, Cycle 13 Proposer's Guide (2026)"
+   }
+  ],
+  "dsa2000": [
+   {
+    "file": "data/interf/dsa2000.json",
+    "key": "ETC",
+    "text": "Deep Synoptic Array, DSA Sensitivity Calculator v2.0 (2026)"
+   },
+   {
+    "file": "data/interf/dsa2000.json",
+    "key": "ENU",
+    "text": "DSA Sensitivity Calculator, antenna-position table (antennas_enu.json)"
+   },
+   {
+    "file": "data/interf/dsa2000.json",
+    "key": "OVW",
+    "text": "Deep Synoptic Array, Overview page"
+   }
+  ],
+  "arecibo": [
+   {
+    "file": "data/interf/arecibo.json",
+    "key": "GUIDE",
+    "text": "Salter 2017, An Astronomer's Guide to the Arecibo 305-m Telescope (NAIC)"
+   },
+   {
+    "file": "data/interf/arecibo.json",
+    "key": "EXPP",
+    "text": "NAIC, Expected Gregorian Performance (1992)"
+   },
+   {
+    "file": "data/interf/arecibo.json",
+    "key": "HEILES",
+    "text": "Heiles et al. 2001, arXiv:astro-ph/0107349"
+   }
+  ]
+ },
+ "model": {
+  "spec": [
+   {
+    "file": "data/presets_sources.json",
+    "key": "MAL65",
+    "text": "Malitson 1965, JOSA 55, 1205",
+    "ads": "1965JOSA...55.1205M"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "SCOL",
+    "text": "SCHOTT, Optical Glass Datasheets"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "OH2Y",
+    "text": "OHARA, PBM 2Y data sheet"
+   },
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "OHI",
+    "text": "OHARA GmbH, i-Line glasses catalog (BSL7Y)"
+   },
+   {
+    "file": "data/round5/grisms.json",
+    "key": "OHSL7",
+    "text": "OHARA, S-LAL 7 data sheet"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "LFM08",
+    "text": "Leviton et al., arXiv:0805.0096 (Infrasil 301)"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "LFK05",
+    "text": "Leviton et al. 2005, Proc. SPIE 5904, 59040O",
+    "ads": "2005SPIE.5904..222L"
+   }
+  ],
+  "img": [
+   {
+    "file": "data/imaging/constants.json",
+    "key": "SVO:SDSS.r",
+    "text": "SVO, Filter Profile Service (pivot wavelengths)"
+   },
+   {
+    "file": "data/imaging/constants.json",
+    "key": "BM12",
+    "text": "Bessell & Murphy 2012, PASP 124, 140",
+    "ads": "2012PASP..124..140B"
+   },
+   {
+    "file": "data/imaging/constants.json",
+    "key": "T01",
+    "text": "Trujillo et al. 2001, MNRAS 328, 977",
+    "ads": "2001MNRAS.328..977T"
+   },
+   {
+    "file": "data/imaging/constants.json",
+    "key": "RBH12",
+    "text": "Robertson & Bland-Hawthorn 2012, Proc. SPIE 8446, 844623",
+    "ads": "2012SPIE.8446E..23R"
+   },
+   {
+    "file": "data/imaging/constants.json",
+    "key": "NSSDC",
+    "text": "NASA NSSDCA, Moon Fact Sheet"
+   }
+  ],
+  "tel": [
+   {
+    "file": "data/telescopes/seeing.md",
+    "key": "SR90",
+    "text": "Sarazin & Roddier 1990, A&A 227, 294",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1990A%26A...227..294S",
+    "ads": "1990A&A...227..294S"
+   },
+   {
+    "file": "data/telescopes/seeing.md",
+    "key": "T02",
+    "text": "Tokovinin 2002, PASP 114, 1156",
+    "url": "https://iopscience.iop.org/article/10.1086/342683/pdf",
+    "ads": "2002PASP..114.1156T"
+   },
+   {
+    "file": "data/telescopes/seeing.md",
+    "key": "C85",
+    "text": "Coulman 1985, ARA&A 23, 19",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1985ARA%26A..23...19C",
+    "ads": "1985ARA&A..23...19C"
+   },
+   {
+    "file": "data/telescopes/seeing.md",
+    "key": "M10",
+    "text": "Martinez et al. 2010, Messenger 141, 5",
+    "url": "https://www.eso.org/sci/publications/messenger/archive/no.141-sep10/messenger-no141-5-8.pdf",
+    "ads": "2010Msngr.141....5M"
+   }
+  ],
+  "int": [
+   {
+    "file": "data/interf/formulas.md",
+    "key": "TMS",
+    "text": "Thompson et al. 2017, Interferometry and Synthesis in Radio Astronomy (3rd ed.)",
+    "url": "https://link.springer.com/content/pdf/10.1007/978-3-319-44431-4_4.pdf"
+   },
+   {
+    "file": "data/interf/formulas.md",
+    "key": "BSS99",
+    "text": "Briggs et al. 1999, ASP Conf. Ser. 180, 127",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1999ASPC..180..127B",
+    "ads": "1999ASPC..180..127B"
+   },
+   {
+    "file": "data/interf/formulas.md",
+    "key": "B95",
+    "text": "Briggs 1995, PhD thesis, New Mexico Tech",
+    "url": "https://www.aoc.nrao.edu/dissertations/dbriggs/"
+   },
+   {
+    "file": "data/interf/formulas.md",
+    "key": "CASA",
+    "text": "CASA Team, CASAdocs Synthesis Imaging",
+    "url": "https://casadocs.readthedocs.io/en/stable/notebooks/synthesis_imaging.html"
+   },
+   {
+    "file": "data/interf/formulas.md",
+    "key": "P99",
+    "text": "Pearson 1999, ASP Conf. Ser. 180, 335",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1999ASPC..180..335P",
+    "ads": "1999ASPC..180..335P"
+   },
+   {
+    "file": "data/interf/formulas.md",
+    "key": "IERS",
+    "text": "IERS Earth Orientation Product Centre, Useful constants (Earth rotation rate)",
+    "url": "https://hpiers.obspm.fr/eop-pc/models/constants.html"
+   },
+   {
+    "file": "data/interf/images.md",
+    "key": "EH",
+    "text": "ESA/Hubble, M101 image heic0602a (credit: ESA & NASA)",
+    "url": "https://esahubble.org/images/heic0602a/"
+   }
+  ]
+ }
+}

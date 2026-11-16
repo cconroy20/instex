@@ -14,9 +14,10 @@
   <div class="bar">
     <span class="mark">Instrument Explorer</span>
     <span class="seg" id="instSeg" title="Spectrograph: a slit (or fibers), a collimator, a disperser, and a camera, with the spectra on the detector. Imager: a telescope feeding a detector mosaic, directly or through a reimager, with the image of the sky on the mosaic. Telescopes: the large telescopes themselves, each at its foci, with the pupil and the image of a star. Interferometer: an array of radio antennas, the uv plane that the baselines sample as the Earth turns, and the image that sampling makes."><button id="iSpec" type="button">Spectrograph</button><button id="iImg" type="button">Imager</button><button id="iTelMode" type="button">Telescopes</button><button id="iIntMode" type="button">Interferometer</button></span>
-    <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see the README). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
+    <label class="presetlab" for="preset" title="Real instruments, with their parameters taken from the instrument papers and manuals (see References). Presets are approximate and are meant to reproduce the optical design of each spectrograph (and so the numbers); the drawing's spacings, folds, and angles do not follow the actual optical layout. Moving any control afterwards turns the setting into Custom.">Preset
       <select id="preset"></select></label>
     <span class="presetnote">Presets approximate the instrument's optical characteristics, not the optical layout.</span>
+    <button id="refsBtn" class="ghost" type="button" title="The sources of the selected preset's numbers, and of the model.">References</button>
     <button id="aboutBtn" class="ghost" type="button" title="About the model: how the numbers are computed, and what the model leaves out.">About</button>
     <button id="reset" class="ghost" type="button" title="Back to the defaults for the whole instrument: a 6.5 m f/5 telescope and a 1″ slit (the worked example of the design notes).">Reset all</button>
   </div>
@@ -467,11 +468,22 @@
   <p>This page was written by Claude (Opus 5.5), working in Claude Code with Charlie Conroy.</p>
 </footer>
 
+<dialog id="refs" class="about" aria-labelledby="refsTitle">
+  <div class="abhead"><h2 id="refsTitle">References</h2><button id="refsClose" class="ghost" type="button" aria-label="Close">×</button></div>
+  <h3 id="refsName"></h3>
+  <ul id="refsList" class="reflist"></ul>
+  <p id="refsNote" class="refnote"></p>
+  <h3>The model</h3>
+  <ul id="refsModel" class="reflist"></ul>
+  <p class="refnote only-int">The M101 image (Hubble mosaic heic0602a): European Space Agency &amp; NASA. Acknowledgements: Project Investigators for the original Hubble data: K.D. Kuntz (GSFC), F. Bresolin (University of Hawaii), J. Trauger (JPL), J. Mould (NOAO), and Y.-H. Chu (University of Illinois, Urbana); Image processing: Davide De Martin (ESA/Hubble); CFHT image: Canada-France-Hawaii Telescope/J.-C. Cuillandre/Coelum; NOAO image: George Jacoby, Bruce Bohannan, Mark Hanna/NOAO/AURA/NSF. License: CC BY 4.0.</p>
+  <p class="refnote">The research files in the project's repository (<a href="https://github.com/cconroy20/instex/tree/main/data" target="_blank" rel="noopener">github.com/cconroy20/instex</a>, folder data) give the source of each number, with page references and quotes.</p>
+</dialog>
+
 <dialog id="about" class="about" aria-labelledby="aboutTitle">
   <div class="abhead"><h2 id="aboutTitle">About the model</h2><button id="aboutClose" class="ghost" type="button" aria-label="Close">×</button></div>
   <p class="only-int">Each pair of antennas is a baseline. Seen from the source at hour angle H and declination δ, a baseline samples the sky's visibility at (u, v), the baseline's projection on the plane facing the source, in wavelengths. As the Earth turns, each sample moves along an ellipse, and each sample also gives a mirror point (−u, −v). Samples taken with the source below the elevation limit are dropped. A wide band spreads each sample into a radial streak, one point per frequency, over one contiguous band centered on the frequency and kept within the receiver's band (ALMA's basebands occupy two sidebands, for all bands but Band 1). The sky's spectrum is taken as flat, and the primary beam is the one at the frequency set. The antenna positions are the observatories' configuration files (for ALMA, the 43-antenna sets of the current cycle); the made-up layouts use the array's dishes at the array's site.</p>
   <p class="only-int">A single dish (Arecibo) is a filled aperture: the illuminated part of the reflector, taken as uniformly lit, measures all the spacings within the aperture at once, each weighted by the aperture's autocorrelation, so the beam is the aperture's diffraction pattern and the map is the sky convolved with the beam. A single dish measures the zero spacing too, so structures of any size are recovered. The map has no primary-beam taper (a dish maps the sky by scanning).</p>
-  <p class="only-int">The M101 sky is the Hubble mosaic heic0602a, in gray, resized to 8000 pixels across (0.099″ a pixel) and turned 3.5° to put north up, with the picture's brightness as the sky's. Image: European Space Agency &amp; NASA. Acknowledgements: Project Investigators for the original Hubble data: K.D. Kuntz (GSFC), F. Bresolin (University of Hawaii), J. Trauger (JPL), J. Mould (NOAO), and Y.-H. Chu (University of Illinois, Urbana); Image processing: Davide De Martin (ESA/Hubble); CFHT image: Canada-France-Hawaii Telescope/J.-C. Cuillandre/Coelum; NOAO image: George Jacoby, Bruce Bohannan, Mark Hanna/NOAO/AURA/NSF. License: CC BY 4.0.</p>
+  <p class="only-int">The M101 sky is the Hubble mosaic heic0602a, in gray, resized to 8000 pixels across (0.099″ a pixel) and turned 3.5° to put north up, with the picture's brightness as the sky's. The image credit is under References.</p>
   <p class="only-int">The weighted samples are gridded and Fourier transformed: the weights give the synthesized (dirty) beam, and the weights times the model sky's visibilities give the dirty image, the sky times the primary beam (a Gaussian of the stated half-power width), convolved with the beam. Uniform and robust weighting count the samples in uv cells 1/250 of the longest baseline in wavelengths (wider for sparse samples, so that a track fills the track's cells, and for a random draw of baselines). The beam's size is the FWHM of a Gaussian fitted to the beam's main lobe. The model leaves out noise, calibration, shadowing (one dish blocking another toward a low source), the w term of wide fields, the smearing of a sample over the sample's integration time and channel width, and deconvolution (CLEAN).</p>
   <p class="only-img">The telescope, collimator and camera are ideal thin optics, so each star images to a point at f_eff tan θ from the axis; the numbers come from tracing rays through the optics and are checked against the closed forms (plate scale 206265 / f_eff, pupil position, field angle in the beam) in the validation suite. A star's image is the seeing (a Moffat profile, with the diffraction width added in quadrature) or the Airy pattern of the annular aperture; the band sets only the wavelength of the diffraction width. The field of stars and galaxies is synthetic and illustrative.</p>
   <p class="only-spec">The collimator and camera are ideal (aberration-free), and the dispersers are plane.</p>
@@ -490,6 +502,7 @@
 <script src="telapp.js"></script>
 <script src="interf.js"></script>
 <script src="rpresets.js"></script>
+<script src="refs.js"></script>
 <script src="intapp.js"></script>
 <script src="app.js"></script>
 </body>

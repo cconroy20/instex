@@ -1230,16 +1230,48 @@ const lvSync = bindSeg([["lvAuto", "auto"], ["lvFixed", "fixed"]], () => lview.m
 segs.push(lvSync);
 $("lvOptsBtn").addEventListener("click", () => { const b = $("lvOpts"); b.hidden = !b.hidden; });
 $("lvReset").addEventListener("click", () => { lview.fit = true; if (cur) drawLayout(cur, curP); });
-// About the model: a dialog (the close button, Esc, or a click outside it closes it)
-{
-  const dlg = $("about");
-  $("aboutBtn").addEventListener("click", () => dlg.showModal());
-  $("aboutClose").addEventListener("click", () => dlg.close());
+// About the model and References: dialogs (the close button, Esc, or a click outside the box closes one)
+function bindDialog(id, btn, close, before) {
+  const dlg = $(id);
+  $(btn).addEventListener("click", () => { if (before) before(); dlg.showModal(); });
+  $(close).addEventListener("click", () => dlg.close());
   dlg.addEventListener("click", ev => {                         // a click on the backdrop, outside the box
     const r = dlg.getBoundingClientRect();
     if (ev.target === dlg && (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom)) dlg.close();
   });
 }
+bindDialog("about", "aboutBtn", "aboutClose");
+// References (window.IX_REFS, built by make_refs.js from data/refs_map.json): the selected preset's sources, with
+// the preset's note on where the numbers come from, then the sources of the model in this mode
+const REFS = window.IX_REFS || { model: {} };
+function presetNow() {
+  const list = inst === "img" ? IMG.PRESETS : inst === "tel" ? TEL.PRESETS : inst === "int" ? INT.PRESETS : PRESETS;
+  return list.find(p => p.id === psel.value) || null;
+}
+function refItems(ul, rs) {
+  ul.innerHTML = "";
+  for (const r of rs || []) {
+    const li = document.createElement("li");
+    if (r.u) { const a = document.createElement("a"); a.href = r.u; a.target = "_blank"; a.rel = "noopener"; a.textContent = r.t; li.appendChild(a); }
+    else li.textContent = r.t;
+    ul.appendChild(li);
+  }
+}
+function fillRefs() {
+  const p = presetNow(), rs = p ? (REFS[inst] || {})[p.id] : null;
+  $("refsName").textContent = p ? p.name : "Custom settings";
+  refItems($("refsList"), rs);
+  $("refsList").hidden = !(rs && rs.length);
+  $("refsNote").textContent = p ? (p.note || "") : "No preset is selected.";
+  $("refsNote").hidden = !$("refsNote").textContent;
+  refItems($("refsModel"), REFS.model[inst]);
+}
+bindDialog("refs", "refsBtn", "refsClose", fillRefs);
+// the preset menu's tooltip names the selected preset's sources
+psel.addEventListener("mouseenter", () => {
+  const p = presetNow(), rs = p ? (REFS[inst] || {})[p.id] : null;
+  psel.title = rs && rs.length ? "Sources: " + rs.map(r => r.t).join("; ") : "";
+});
 // the standard expand / collapse glyphs: arrows out to the corners, or in from them
 const ICON_EXPAND = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
 const ICON_COLLAPSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
@@ -1267,7 +1299,7 @@ for (const [id, az, el] of [["v3Top", 0, Math.PI / 2], ["v3Side", 0, 0], ["v3Obl
 for (const [id, m] of [["c3L", "lam"], ["c3S", "slit"]]) $(id).addEventListener("click", () => { c3mode = m; sync3(); if (cur) drawLayout(cur, curP); });
 sync3();
 window.addEventListener("keydown", ev => {
-  if (ev.key !== "Escape" || $("about").open) return;          // an open dialog takes its own Esc
+  if (ev.key !== "Escape" || $("about").open || $("refs").open) return;   // an open dialog takes its own Esc
   if (inst === "img") { IMG.escape(); return; }
   if (lvExpanded) setExpanded(false);                     // expanded: back to the page
   else if (!$("lvOpts").hidden) $("lvOpts").hidden = true;

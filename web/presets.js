@@ -131,7 +131,7 @@ const PRESETS = [
   },
   {
     id: "fire", tel: "Magellan 6.5 m", name: "Magellan / FIRE echellette, 0.6″",
-    note: "Magellan Baade FIRE echellette mode (Simcoe et al. 2013, Table 2 prescription): f/11, off-axis paraboloid collimator 555 mm (beam 50 mm in the papers; 555/11 = 50.45 mm entered so that f_col = 555 mm), camera 176.8 mm, R1 echellette 54.49 /mm (δ = 46°, quasi-Littrow; θ and γ not published: 0 here), cryogenic prisms Infrasil 42.6°, 28.1°, 28.1° and ZnSe 21.81° × 3 (six passes; the explorer puts them all after the echelle and at minimum deviation, while FIRE's are deliberately off it to squeeze the beam, so the cross-dispersion here is 1.4–1.8× too small), H2RG 2048 × 2048 of 18 µm; λc 1.20 µm derived.",
+    note: "Magellan Baade FIRE echellette mode (Simcoe et al. 2013, Table 2 prescription): f/11, off-axis paraboloid collimator 555 mm (beam 50 mm in the papers; 555/11 = 50.45 mm entered so that f_col = 555 mm), camera 176.8 mm, R1 echellette 54.49 /mm (δ = 46°, quasi-Littrow; θ and γ not published: 0 here), cryogenic prisms Infrasil 42.6°, 28.1°, 28.1° and ZnSe 21.81° × 3 (six passes; the explorer puts all six passes after the echelle and at minimum deviation, while FIRE's prisms sit deliberately off minimum deviation to squeeze the beam, so the cross-dispersion here is 1.4–1.8× too small), H2RG 2048 × 2048 of 18 µm; λc 1.20 µm derived.",
     state: { mode: "echelle", D: 6.5, F: 11,
       e: { slitW: 0.6, nObj: 1, col: "mirror", W: 555 / 11, fcam: 176.8, eG: 54.49, eDelta: 46, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "Infrasil-105K", xA: 40, xPasses: 1,
            xPrisms: [{ glass: "Infrasil-105K", A: 42.6 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }],
@@ -188,7 +188,7 @@ const PRESETS = [
   })),
   {
     id: "esi", tel: "Keck 10 m", name: "Keck / ESI echellette, 1″",
-    note: "Keck II ESI echellette mode (Sheinis et al. 2002; 1996 design report; Keck ESI pages): off-axis paraboloid collimator 2286 mm (beam 166.9 mm at f/13.7), 10-element refractive camera 308 mm, 175 /mm echellette with δ = 32.3°, quasi-Littrow (γ is 'a few degrees', not published: 0 here), two 50° OHARA BSL7Y prisms, the first in double pass (three passes at minimum deviation), MIT/LL CCID20 4096 × 2048 of 15 µm; λc = 5250 Å from the design order positions.",
+    note: "Keck II ESI echellette mode (Sheinis et al. 2002; 1996 design report; Keck ESI pages): off-axis paraboloid collimator 2286 mm (beam 166.9 mm at f/13.7), 10-element refractive camera 308 mm, 175 /mm echellette with δ = 32.3°, quasi-Littrow (γ is published only as 'a few degrees': 0 here), two 50° OHARA BSL7Y prisms, the first in double pass (three passes at minimum deviation), MIT/LL CCID20 4096 × 2048 of 15 µm; λc = 5250 Å from the design order positions.",
     state: { mode: "echelle", D: 10.95, F: 13.7,
       e: { slitW: 1, nObj: 1, col: "mirror", W: 2286 / 13.7, fcam: 308, eG: 175, eDelta: 32.3, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10,
            xGlass: "BSL7Y", xA: 50, xPasses: 1, xPrisms: [{ glass: "BSL7Y", A: 50 }, { glass: "BSL7Y", A: 50 }, { glass: "BSL7Y", A: 50 }], lamC: 5250, Nx: 4096, Ny: 2048, pix: 15 } },
@@ -261,7 +261,7 @@ const PRESETS = [
   })),
   {
     id: "binospec", tel: "MMT 6.5 m", name: "MMT / Binospec, 600 l/mm, 1″",
-    note: "MMT Binospec (Fabricant et al. 2019; MMTO grating table): f/5.3 input, refractive collimator 1097 mm (beam 207 mm), refractive camera 404 mm, fixed 45° camera–collimator angle, 600 l/mm plane REFLECTION grating (blaze 16.0°) at 36.1° incidence (λc derived from it), e2v CCD231-84 4096 × 4112 15 µm.",
+    note: "MMT Binospec (Fabricant et al. 2019; MMTO grating table): f/5.3 input, refractive collimator 1097 mm (beam 207 mm), refractive camera 404 mm, fixed 45° camera–collimator angle, 600 l/mm plane REFLECTION grating (blaze 16.0°) at 36.1° incidence (λc derived from the incidence angle), e2v CCD231-84 4096 × 4112 15 µm.",
     state: { mode: "grating", D: 6.5, F: 5.3,
       g: { slitW: 1, nObj: 150, col: "lens", W: 1097 / 5.3, fcam: 404, gType: "refl", G: 600, m: 1, lamB1: 2 * Math.sin(16.0 * Math.PI / 180) / 600 * 1e7,
            lamC: (Math.sin(36.1 * Math.PI / 180) + Math.sin((36.1 - 45) * Math.PI / 180)) / 600 * 1e7, psi: 45, tAlpha: null, Nx: 4096, Ny: 4112, pix: 15 } },
@@ -320,7 +320,7 @@ const PRESETS = [
   // VLT / FORS2: ruled grisms whose entrance faces are tilted 7.5° (data/round5/grisms.md)
   ...[["300V", 300, 21, "FK5HTi", 5849, 1.6549, 440, "4450–8700 Å (GG435)"], ["300I", 300, 26.7, "LF5", 8574, 1.6101, 660, "6000–11000 Å (OG590)"], ["600B", 600, 34, "FK5HTi", 4629, 0.7476, 780, "3300–6210 Å"]].map(([k, G, Ap, gl, lc, disp, Rm, band]) => ({
     id: "fors2" + k.toLowerCase(), tel: "VLT 8.2 m", name: "VLT / FORS2 " + k + ", 1″",
-    note: "VLT FORS2 with GRIS_" + k + " (ESO FORS manual; 1995 FORS grism design; ESO pipeline calibration; VLT-SPE-ESO-10000-2723): Cassegrain entrance pupil 8115 mm (VLT-SPE Table 2: 8115.0 mm at f/13.4106), with F = 13.42 so that the plate scale is the manual's 528 µm/″; refractive collimator 1233 mm (beam 91.9 mm, derived), camera 280 mm, ruled grism " + G + " /mm on a " + (gl === "LF5" ? "LF5" : "FK5") + " prism of " + Ap + "°, its entrance face tilted 7.5° in the dispersion plane (the direction inferred from ESO's numbers: no source states it), MIT mosaic 4096 × 4096 of 15 µm (two chips; the gap is not modeled); 50 slits per MXU mask (survey average).",
+    note: "VLT FORS2 with GRIS_" + k + " (ESO FORS manual; 1995 FORS grism design; ESO pipeline calibration; VLT-SPE-ESO-10000-2723): Cassegrain entrance pupil 8115 mm (VLT-SPE Table 2: 8115.0 mm at f/13.4106), with F = 13.42 so that the plate scale is the manual's 528 µm/″; refractive collimator 1233 mm (beam 91.9 mm, derived), camera 280 mm, ruled grism " + G + " /mm on a " + (gl === "LF5" ? "LF5" : "FK5") + " prism of " + Ap + "°, the prism's entrance face tilted 7.5° in the dispersion plane (the direction inferred from ESO's numbers; no source states the direction), MIT mosaic 4096 × 4096 of 15 µm (two chips; the gap is not modeled); 50 slits per MXU mask (survey average).",
     state: { mode: "grating", D: 8.115, F: 13.28 * 8.2 / 8.115,
       g: { slitW: 1.0, nObj: 50, col: "lens", W: 1233 / (13.28 * 8.2 / 8.115), fcam: 280, gType: "grism", G, m: 1, lamB1: 5000, lamC: lc, psi: 35, tAlpha: null,
            gA: Ap, gGlass: gl, gKind: "ruled", gTilt: 7.5, Nx: 4096, Ny: 4096, pix: 15 } },
@@ -377,7 +377,7 @@ const PRESETS = [
   },
   {
     id: "uvesr", tel: "VLT 8.2 m", name: "VLT / UVES red 580, 1″",
-    note: "VLT UVES red arm, standard 580 nm setting with CD#3 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model): 8.0 m entrance pupil at f/10, collimator mirror 2000 mm, beam 200 mm, R4 echelle 31.6 /mm (δ = 75.04°, θ = 0, γ = 0.8°), cross-disperser 600 /mm at 45.336°, camera 500 mm f/2.5, two 2k × 4k CCDs (4096 × 4096 of 15 µm; the 0.96 mm gap between them, where order 105 falls, is not modeled).",
+    note: "VLT UVES red arm, standard 580 nm setting with CD#3 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model): 8.0 m entrance pupil at f/10, collimator mirror 2000 mm, beam 200 mm, R4 echelle 31.6 /mm (δ = 75.04°, θ = 0, γ = 0.8°), cross-disperser 600 /mm at 45.336°, camera 500 mm f/2.5, two 2k × 4k CCDs (4096 × 4096 of 15 µm; the 0.96 mm gap between the chips, where order 105 falls, is not modeled).",
     state: { mode: "echelle", D: 8.0, F: 10,
       e: { slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 500, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, xd: "grating", xG: 600, xPsi: 45.336,
            xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5800, Nx: 4096, Ny: 4096, pix: 15 } },
@@ -401,7 +401,7 @@ const PRESETS = [
   ].map(([id, arm, D, F, W, [cs, cf], eG, dl, gam, xd, lc, Nx, Ny, pix, slit, R, npx, ps, nOrd, mT, oLo, oHi, xdTxt]) => { const fc = 206264.8 / cs / (D * 1000) * W; return {
     id: "xsh" + id, tel: "VLT 8.2 m", name: `VLT / X-Shooter ${arm}, ${slit.toFixed(1)}″`,
     note: `X-Shooter ${arm} arm (Vernet et al. 2011; ESO user manual): echelle ${eG} /mm at ${dl}°, in-plane offset 0, ${gam}° out of plane; ${xdTxt}; ${W} mm beam; mirror (Maksutov-type) collimator; camera f/${cf} (effective focal length ${fc.toFixed(1)} mm, from the published camera plate scale ${cs}″/mm and the beam on the 8115 mm Cassegrain entrance pupil, VLT-SPE-ESO-10000-2723 Table 2); detector area used ${Nx} × ${Ny} px of ${pix} µm.` +
-      (id === "nir" ? " The NIR slit focal ratio is not published: f/6.5 assumed (it changes only the drawing)." : ` Slit focal ratio f/${F.toFixed(2)} from the published slit plate scale (f_col = ${(F * W).toFixed(0)} mm).`) + " Central wavelength: the blaze of the middle order.",
+      (id === "nir" ? " The NIR slit focal ratio is not published: f/6.5 assumed (the focal ratio changes only the drawing)." : ` Slit focal ratio f/${F.toFixed(2)} from the published slit plate scale (f_col = ${(F * W).toFixed(0)} mm).`) + " Central wavelength: the blaze of the middle order.",
     state: { mode: "echelle", D, F,
       e: Object.assign({ slitW: slit, nObj: 1, col: "mirror", W, fcam: fc, eG, eDelta: dl, gamma: gam, theta: 0, xd: "prism", xG: 300, xPsi: 10, lamC: lc, Nx, Ny, pix }, xd) },
     pub: [

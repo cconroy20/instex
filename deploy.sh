@@ -23,6 +23,8 @@ fi
 node validate.js > /dev/null || { echo "validate.js failed; not deploying (run: node validate.js)"; exit 1; }
 node validate_img.js > /dev/null || { echo "validate_img.js failed; not deploying (run: node validate_img.js)"; exit 1; }
 node validate_int.js > /dev/null || { echo "validate_int.js failed; not deploying (run: node validate_int.js)"; exit 1; }
+# every preset of every mode has a reference, and web/refs.js matches data/refs_map.json
+node make_refs.js --check > /dev/null || { echo "make_refs.js --check failed; not deploying (run: node make_refs.js)"; exit 1; }
 
 # Build on a throwaway branch and push it to gh-pages by refspec; clean up however this exits.
 TMP=$(mktemp -d)
@@ -44,7 +46,7 @@ V=$(git rev-parse --short HEAD)
   # Pages caches index.html and each script independently for ten minutes, so
   # new HTML could run against an old script.  Stamping the commit onto every
   # asset URL makes new HTML always ask for URLs it has never seen.
-  for f in app.js physics.js presets.js imager.js ipresets.js imgapp.js tpresets.js tpupil.js telapp.js interf.js rpresets.js intapp.js; do
+  for f in app.js physics.js presets.js imager.js ipresets.js imgapp.js tpresets.js tpupil.js telapp.js interf.js rpresets.js refs.js intapp.js; do
     sed -i '' -e "s|src=\"$f\"|src=\"$f?v=$V\"|" index.html
     grep -q "$f?v=" index.html || { echo "asset stamping failed for $f"; exit 1; }
   done

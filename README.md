@@ -677,6 +677,19 @@ dispersion to 0.2–0.9%. New glasses: OHARA S-LAL7, SCHOTT LF5 and N-BAK2. (8) 
 closer than their own width (IFU spaxels) are dimmed so the sum keeps one trace's brightness, and traces denser
 than the screen can show are thinned and widened (zooming in restores them).
 
+## References
+
+The References button in the header opens a dialog with the selected preset's main references (one to three,
+linked), the preset's note on where the numbers come from, and the references of the model in the current mode
+(glass indices, band wavelengths, the seeing profile, the Earth's rotation rate, the M101 image credit). The
+references are chosen in `data/refs_map.json`, where each one names a source by file and key in the research
+tables under `data/`; `node make_refs.js` takes the links from those tables and writes `web/refs.js`. The script
+fails if a reference does not resolve, if the short citation's first word or year is missing from the table's
+citation, or if a preset of any mode has no reference, and deploy.sh runs `node make_refs.js --check`, so a new
+preset cannot ship without a reference. Papers link to their ADS abstract pages (the map's `ads` bibcodes, 97 papers,
+resolved by first author, year, volume and page and checked against the title in the source table); other links are
+the documents the research used, with arXiv PDF links turned into arXiv abstract pages. Hovering over the preset menu lists the selected preset's sources.
+
 ## Verification
 
 `node validate.js` (262 checks, all pass; 130 reference lines printed as [INFO]):
@@ -725,7 +738,7 @@ clicks, the 3D coast and snaps); all presets and their collimator types, the one
 `node shot.js "<url#hash>" out.png [w] [h]` screenshots any state.
 
 Dev server: `python3 web/serve.py 8795`. Live at https://cconroy20.github.io/instex/ (repo cconroy20/instex). Deploy:
-`./deploy.sh`, as for lensex; the script publishes web/ as committed at HEAD, only after `node validate.js` passes, and
+`./deploy.sh`, as for lensex; the script publishes web/ as committed at HEAD, only after `node validate.js`, `validate_img.js`, `validate_int.js` and `make_refs.js --check` pass, and
 refuses while web/ has uncommitted or untracked changes.
 
 ## Things worth knowing (found while building this)

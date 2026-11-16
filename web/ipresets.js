@@ -36,7 +36,7 @@ for (let i = 0; i < 14; i++) { LSST_GX.push(i % 3 === 2 ? 1.66 : 1.29); LSST_GY.
 window.IX_IPRESETS = [
   // ---------------------------------------------------------------- ground, direct (data/imaging/widefield.md, megacam_ztf_small.md)
   { id: "lsst", tel: "Rubin 8.4 m", name: "Rubin / LSSTCam",
-    note: "Rubin Observatory (Simonyi Survey Telescope) with LSSTCam: a three-mirror Paul-Baker telescope (the tertiary shares the primary's glass and sends the light back up to the camera in the secondary's shadow) and a three-lens corrector, the filter in the converging beam. 189 science CCDs in 21 rafts of 3 × 3; the e2v format (4096 × 4004) stands for both chip types (ITL 4072 × 4000) and the gaps are the nominal pipeline geometry (within a raft and between rafts). Central obstruction: the primary's inner clear edge (the tertiary shares the glass). The field circle takes in the whole focal plane: the 3.5° field is nominal, and the CCDs alone cover the published 9.6 deg². Sources in data/imaging/widefield.md.",
+    note: "Rubin Observatory (Simonyi Survey Telescope) with LSSTCam: a three-mirror Paul-Baker telescope (the tertiary shares the primary's glass and sends the light back up to the camera in the secondary's shadow) and a three-lens corrector, the filter in the converging beam. 189 science CCDs in 21 rafts of 3 × 3; the e2v format (4096 × 4004) stands for both chip types (ITL 4072 × 4000) and the gaps are the nominal pipeline geometry (within a raft and between rafts). Central obstruction: the primary's inner clear edge (the tertiary shares the glass). The field circle takes in the whole focal plane: the 3.5° field is nominal, and the published 9.6 deg² is the area of the CCDs. Sources in data/imaging/widefield.md.",
     state: { D: 8.36, eps: 0.612, F: 1.233, tel: "pb", F1: 1.19, field: 250, optics: "direct", band: "r", psf: "seeing",
              Nx: 4096, Ny: 4004, pix: 10, rows: [9, 9, 9, 15, 15, 15, 15, 15, 15, 15, 15, 15, 9, 9, 9], gapX: 1.29, gapY: 2.21, gapsX: LSST_GX, gapsY: LSST_GY },
     pub: [
@@ -171,7 +171,7 @@ window.IX_IPRESETS = [
       { what: "field 4.25′", q: "fieldX", value: 4.25, tol: 0.015, src: "FORS2 manual" },
     ] },
   { id: "imacsf2", tel: "Magellan 6.5 m", name: "Magellan / IMACS f/2 imaging",
-    note: "IMACS with the f/2 camera: collimator 1648 mm, beam 150 mm, camera 356 mm; the Mosaic3 camera (2 rows of 4 CCDs) since 2017. A circular field stop of about 30′ (the camera baffles) cuts the mosaic's corners. IMACS sits on the Baade telescope's west Nasmyth platform: an f/11 Gregorian secondary, then a flat tertiary that turns the beam to the side; ε is measured on the twin telescope (Clay). Sources in data/imaging/reimagers.md.",
+    note: "IMACS with the f/2 camera: collimator 1648 mm, beam 150 mm, camera 356 mm; the Mosaic3 camera (2 rows of 4 CCDs) since 2017. A circular field stop of ≈30′ (the camera baffles) cuts the mosaic's corners. IMACS sits on the Baade telescope's west Nasmyth platform: an f/11 Gregorian secondary, then a flat tertiary that turns the beam to the side; ε is measured on the twin telescope (Clay). Sources in data/imaging/reimagers.md.",
     state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, F1: 1.25, field: 30, optics: "reimaged", W: 149.86, Fc: 2.3729, band: "r", psf: "seeing",
              Nx: 2048, Ny: 4096, pix: 15, rows: [4, 4], gapX: 1.37, gapY: 1.08 },
     pub: [
@@ -198,7 +198,7 @@ window.IX_IPRESETS = [
 // ---------------------------------------------------------------- round 2 (2026-10-19, Charlie's picks): data/imaging/{vst_lbc,magellan,niri_hawki,tess}.md
 window.IX_IPRESETS.push(
   { id: "omegacam", tel: "VST 2.6 m", name: "VST / OmegaCAM",
-    note: "The VLT Survey Telescope (a modified Ritchey-Chrétien Cassegrain) with OmegaCAM behind a two-lens corrector: 32 CCDs in four rows of eight; the two wide gaps between rows hold the readout registers, the narrow middle gap separates the two halves. ε is a lower bound (the secondary alone; the baffles are not published). F comes from the published 0.213″/px. Sources in data/imaging/vst_lbc.md.",
+    note: "The VLT Survey Telescope (a modified Ritchey-Chrétien Cassegrain) with OmegaCAM behind a two-lens corrector: 32 CCDs in four rows of eight; the two wide gaps between rows hold the readout registers, the narrow middle gap separates the two halves. ε is a lower bound (set solely by the secondary; the baffles are not published). F comes from the published 0.213″/px. Sources in data/imaging/vst_lbc.md.",
     state: { D: 2.61, eps: 0.36, F: 5.57, tel: "cass", F1: 1.82, field: 88.2, optics: "direct", band: "r", psf: "seeing",
              Nx: 2048, Ny: 4100, pix: 15, rows: [8, 8, 8, 8], gapX: 1.5, gapY: 5.64, gapsY: [5.64, 0.82, 5.64] },
     pub: [
@@ -207,7 +207,7 @@ window.IX_IPRESETS.push(
       { what: "268 Mpix", q: "npix", value: 268697600, tol: 1e-6, src: "32 × 2048 × 4100" },
     ] },
   { id: "lbcb", tel: "LBT 2 × 8.4 m", name: "LBT / LBC-Blue",
-    note: "One of the Large Binocular Camera's two prime-focus imagers (LBC-Blue, on one of the LBT's two 8.4 m mirrors), behind a five-lens corrector: three CCDs in a row and a fourth turned by 90° above them, the optical axis on the middle chip (the mosaic drawn off center). ε is a lower bound (the primary's central hole; the camera's shadow is not published). The corrected field is 110 mm (0.52°) across, and the circle here is set to take in the whole mosaic. Sources in data/imaging/vst_lbc.md.",
+    note: "One of the Large Binocular Camera's two prime-focus imagers (LBC-Blue, on one of the LBT's two 8.4 m mirrors), behind a five-lens corrector: three CCDs in a row and a fourth turned by 90° above the row, the optical axis on the middle chip (the mosaic drawn off center). ε is a lower bound (the primary's central hole; the camera's shadow is not published). The corrected field is 110 mm (0.52°) across, and the circle here is set to take in the whole mosaic. Sources in data/imaging/vst_lbc.md.",
     state: { D: 8.4, eps: 0.106, F: 1.45, tel: "prime", F1: 1.142, field: 40, optics: "direct", band: "g", psf: "seeing",
              Nx: 2048, Ny: 4608, pix: 13.5, rows: [3], gapX: 1.0, gapY: 1.03, shiftY: [-8.539, -8.539, -8.539], extra: [{ x: 0, y: 37.419, rot: true }] },
     pub: [
@@ -224,7 +224,7 @@ window.IX_IPRESETS.push(
       { what: "37.7 Mpix", q: "npix", value: 37748736, tol: 1e-6, src: "4 × 2048 × 4608" },
     ] },
   { id: "megacamm", tel: "Magellan 6.5 m", name: "Magellan / Megacam (Clay)",
-    note: "Megacam at the Clay telescope's f/5 Cassegrain focus (a convex secondary, not the f/11 Gregorian), behind a three-lens corrector and a field flattener that is also the dewar window: 36 CCDs in nine rows of four, long axis along the rows; within each row the gaps run wide, narrow, wide. ε is the secondary alone. F comes from the published plate scale (0.169 mm/″). No longer offered at Las Campanas. Sources in data/imaging/magellan.md.",
+    note: "Megacam at the Clay telescope's f/5 Cassegrain focus (a convex secondary, not the f/11 Gregorian), behind a three-lens corrector and a field flattener that is also the dewar window: 36 CCDs in nine rows of four, long axis along the rows; within each row the gaps run wide, narrow, wide. ε is set solely by the secondary. F comes from the published plate scale (0.169 mm/″). No longer offered at Las Campanas. Sources in data/imaging/magellan.md.",
     state: { D: 6.5, eps: 0.28, F: 5.36, tel: "cass", F1: 1.25, field: 35, optics: "direct", band: "r", psf: "seeing",
              Nx: 4608, Ny: 2048, pix: 13.5, rows: [4, 4, 4, 4, 4, 4, 4, 4, 4], gapX: 1.01, gapY: 1.01, gapsX: [5.24, 1.01, 5.24] },
     pub: [
@@ -244,7 +244,7 @@ window.IX_IPRESETS.push(
 // ---------------------------------------------------------------- previous generation (Charlie's picks, 2026-10-19): data/imaging/{poss,twomass}.md
 window.IX_IPRESETS.push(
   { id: "poss1", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-I plates (red, E)",
-    note: "The first Palomar Observatory Sky Survey (1949-1958): 14-inch glass plates, bent to the Schmidt's curved focal surface, in the 48-inch Schmidt behind its original single-lens corrector (the aperture stop, 49.5 inches). The red plates: 103a-E emulsion behind a red Plexiglas filter (6200-6700 Å), 40-60 minutes, to about 20.0 mag. A plate has no pixels: the emulsion's resolving power (80 lines per mm) is taken as a spread of 12.5 µm (one line pair, derived), and the Digitized Sky Survey (DSS-1) later scanned these plates in 25.3 µm steps (1.7″). The field circle takes in the whole plate (unvignetted to 5.4°; the corners lose 0.1-0.2 mag). The plateholder's obstruction is not published: 0.32 is the plate's own size, a lower bound. Sources in data/imaging/poss.md.",
+    note: "The first Palomar Observatory Sky Survey (1949-1958): 14-inch glass plates, bent to the Schmidt's curved focal surface, in the 48-inch Schmidt behind the original single-lens corrector (the aperture stop, 49.5 inches). The red plates: 103a-E emulsion behind a red Plexiglas filter (6200-6700 Å), 40-60 minutes, to ≈20.0 mag. A plate has no pixels: the emulsion's resolving power (80 lines per mm) is taken as a spread of 12.5 µm (one line pair, derived), and the Digitized Sky Survey (DSS-1) later scanned these plates in 25.3 µm steps (1.7″). The field circle takes in the whole plate (unvignetted to 5.4°; the corners lose 0.1-0.2 mag). The plateholder's obstruction is not published: 0.32 is the plate's own size, a lower bound. Sources in data/imaging/poss.md.",
     state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20,
              det: "plate", plateMM: 355.6, grain: 12.5, scan: 25.2845 },
     pub: [
@@ -253,7 +253,7 @@ window.IX_IPRESETS.push(
       { what: "DSS-1 scan 1.7″/px", q: "pixScale", value: 1.7, info: true, src: "STScI DSS pages (25.2845 µm steps)" },
     ] },
   { id: "poss2", tel: "Palomar 48-inch Schmidt", name: "Palomar 48-inch / POSS-II plates (red, F)",
-    note: "The second Palomar Sky Survey (1985-2002): the same telescope and 14-inch plates, with a new achromatic doublet corrector (images under 0.5″ over 6.5° from 3900 to 9000 Å) and plateholders reground to the focal surface. The red plates: IIIa-F emulsion behind an RG610 filter, 70-90 minutes, to about 20.8 mag. The finer emulsion (250 lines per mm) is taken as a spread of 4 µm (derived); the Digitized Sky Survey (DSS-2) scanned these plates in 15 µm steps (1.0″). The obstruction is a lower bound (the plate's size). Sources in data/imaging/poss.md.",
+    note: "The second Palomar Sky Survey (1985-2002): the same telescope and 14-inch plates, with a new achromatic doublet corrector (images under 0.5″ over 6.5° from 3900 to 9000 Å) and plateholders reground to the focal surface. The red plates: IIIa-F emulsion behind an RG610 filter, 70-90 minutes, to ≈20.8 mag. The finer emulsion (250 lines per mm) is taken as a spread of 4 µm (derived); the Digitized Sky Survey (DSS-2) scanned these plates in 15 µm steps (1.0″). The obstruction is a lower bound (the plate's size). Sources in data/imaging/poss.md.",
     state: { D: 1.2573, eps: 0.32, F: 2.4417, tel: "schmidt", field: 570, optics: "direct", band: "R", psf: "seeing", depth: 20.8,
              det: "plate", plateMM: 355.6, grain: 4, scan: 15 },
     pub: [
@@ -273,7 +273,7 @@ window.IX_IPRESETS.push(
 );
 window.IX_IPRESETS.push(
   { id: "fourshooter", tel: "Palomar 200-inch", name: "Palomar 200-inch / 4-Shooter",
-    note: "The 4-Shooter (1984-1996), an early CCD camera at the Hale telescope's f/16 Cassegrain focus: a flat four-sided pyramid at the focus (the WF/PC splitter design, its facets tilted about 5°) reflects each quadrant of the field back up to its own reimaging camera (a collimator, a 4-inch filter, a small Schmidt camera at f/1.8) and its own 800 × 800 TI CCD; the four quadrants abut on the sky with about 1″ lost along the pyramid's edges. The cameras' focal lengths and pupil are not published: f_col = 1000 mm, W = 62.5 mm and f_cam = 114 mm are the drawing's placeholders, set to give the published f/1.8 and 0.335″/px. ε is the 1961 prime-focus cage (72 inches), which carries the secondary. Sources in data/imaging/fourshooter.md.",
+    note: "The 4-Shooter (1984-1996), an early CCD camera at the Hale telescope's f/16 Cassegrain focus: a flat four-sided pyramid at the focus (the WF/PC splitter design, the facets tilted by ≈5°) reflects each quadrant of the field back up to a separate reimaging camera (a collimator, a 4-inch filter, a small Schmidt camera at f/1.8) with an 800 × 800 TI CCD; the four quadrants abut on the sky with ≈1″ lost along the pyramid's edges. The cameras' focal lengths and pupil are not published: f_col = 1000 mm, W = 62.5 mm and f_cam = 114 mm are the drawing's placeholders, set to give the published f/1.8 and 0.335″/px. ε is the 1961 prime-focus cage (72 inches), which carries the secondary. Sources in data/imaging/fourshooter.md.",
     state: { D: 5.08, eps: 0.36, F: 16, tel: "cass", F1: 3.3, field: 15, optics: "reimaged", split: "pyramid", W: 62.5, Fc: 1.8176, band: "r", psf: "seeing",
              Nx: 800, Ny: 800, pix: 15, rows: [2, 2], gapX: 0.045, gapY: 0.045 },
     pub: [
@@ -303,7 +303,7 @@ window.IX_IPRESETS.push(
       { what: "field 7.5′", q: "fieldX", value: 7.5, tol: 0.015, src: "HAWK-I manual" },
     ] },
   { id: "tess", tel: "TESS 10.5 cm", name: "TESS / one camera",
-    note: "One of TESS's four identical cameras: a seven-element f/1.4 lens (a refractor here) of 105 mm aperture with four CCDs at its focus, the optical axis in the gap between them. The lens's own aberrations set the image (about half a star's light in one pixel), modeled as an optics blur of 24″ FWHM. The field is strongly distorted (a corner pixel covers 21% less sky than a central one), which the model leaves out. Gaps from the in-flight focal-plane geometry. Sources in data/imaging/tess.md.",
+    note: "One of TESS's four identical cameras: a seven-element f/1.4 lens (a refractor here) of 105 mm aperture with four CCDs at the focus, the optical axis in the gap between the chips. The lens's own aberrations set the image (≈50% of a star's light in one pixel), modeled as an optics blur of 24″ FWHM. The field is strongly distorted (a corner pixel covers 21% less sky than a central one), which the model leaves out. Gaps from the in-flight focal-plane geometry. Sources in data/imaging/tess.md.",
     state: { D: 0.105, eps: 0, F: 1.3905, tel: "refr", field: 2110, optics: "direct", band: "I", psf: "optics", blur: 24,
              Nx: 2048, Ny: 2048, pix: 15, rows: [2, 2], gapX: 1.74, gapY: 1.58 },
     pub: [
