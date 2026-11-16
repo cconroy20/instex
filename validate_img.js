@@ -235,6 +235,16 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
       if (t.area.info) console.log(`[INFO] ${t.id}: collecting area ${t.area.value} m²: model ${c.area.toFixed(3)} (${(100 * r).toFixed(2)}%) -- ${t.area.src}`);
       else check(`${t.id}: collecting area ${t.area.value} m²`, Math.abs(r) <= (t.area.tol || 0.005), `model ${c.area.toFixed(4)}, ${(100 * r).toFixed(2)}% -- ${t.area.src}`);
     }
+    // the number of segments: the lattice centers (to ring 20) that fall inside the pupil, vanes and obstruction ignored
+    if (t.segments && t.pupil.kind === "hex") {
+      const p = t.pupil, s = p.flat, c = Math.cos((p.rot || 0) * Math.PI / 180), sn = Math.sin((p.rot || 0) * Math.PI / 180);
+      let n = 0;
+      for (let q = -20; q <= 20; q++) for (let r = -20; r <= 20; r++) {
+        const cx = s * (q + r / 2), cy = s * Math.sqrt(3) / 2 * r;
+        if (TP.inPupil(p, 0, cx * c - cy * sn, cx * sn + cy * c, true)) n++;
+      }
+      check(`${t.id}: ${t.segments} segments`, n === t.segments, `model ${n}`);
+    }
     if (t.segmentsArea) {
       const bare = TP.pupilAndPSF(Object.assign({}, t.pupil, { gap: 0, vanes: [], blocks: [] }), 0), r = bare.area / t.segmentsArea.value - 1;
       check(`${t.id}: the segments alone, ${t.segmentsArea.value} m²`, Math.abs(r) <= t.segmentsArea.tol, `model ${bare.area.toFixed(3)}, ${(100 * r).toFixed(2)}% -- ${t.segmentsArea.src}`);

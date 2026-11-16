@@ -791,6 +791,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   // ------------------------------------------------------------ Telescopes mode (2026-10-19)
   await go();
   await ev(`document.getElementById("iTelMode").click()`); await sleep(700);
+  for (let k = 0; k < 23 && !/inst=tel/.test(await ev("location.hash")); k++) await sleep(100);   // the link is written after the first draw (slower on a loaded machine)
   {
     const st = await ev(`({ cls: document.body.className, tel: getComputedStyle(document.getElementById("telPanels")).display, img: getComputedStyle(document.getElementById("imgPanels")).display, strip: getComputedStyle(document.getElementById("stats")).display, hash: location.hash, menu: document.getElementById("preset").options.length, groups: document.querySelectorAll("#preset optgroup").length, nt: window.IX_TELESCOPES.length, names: [...document.getElementById("preset").options].map(o => o.textContent) })`);
     check("Telescopes switch: its panels shown, the others hidden", /inst-tel/.test(st.cls) && st.tel !== "none" && st.img === "none", st.cls);

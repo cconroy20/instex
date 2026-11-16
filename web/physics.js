@@ -62,7 +62,7 @@ function surface(u, nrm, gvec, mlam, n1, n2, reflect) {
 // micrometers^2.  Sources, with quotes, in data/presets_research.md (glass sections); the documents
 // are in rawdata/presets/glass/ and glass2/.  range: wavelengths the formula is valid for (SCHOTT:
 // the shortest to the longest wavelength each data sheet tabulates an index for (SCHOTT: N-BK7 312.6 nm,
-// N-FK5 and FK5HTi 280.4 nm, N-BAK2 296.7 nm, LF5 334.1 nm, SF6 365.0 nm, all to 2325.4 nm); OHARA PBM 2Y:
+// N-FK5 and FK5HTi 280.4 nm, N-BAK2 296.7 nm, LF5 and F2 334.1 nm, SF6 365.0 nm, all to 2325.4 nm); OHARA PBM 2Y:
 // 326-1129 nm with these constants; OHARA's formula otherwise 365-2325 nm; CHARMS fits and Malitson as fitted.
 // Outside its range a glass has no index (NaN), and rays through it are dropped.
 const GLASS = {
@@ -83,6 +83,8 @@ const GLASS = {
   // SCHOTT LF5 and N-BAK2 (FORS2 grisms 300I and 150I), SCHOTT data sheets
   LF5: { label: "LF5", range: [0.3341, 2.3254], B: [1.28035628, 0.163505973, 0.893930112], C: [0.009298544, 0.0449135769, 110.493685] },
   "N-BAK2": { label: "N-BAK2", range: [0.2967, 2.3254], B: [1.01662154, 0.319903051, 0.937232995], C: [0.005923838, 0.0203828415, 113.118417] },
+  // SCHOTT F2 (the M2FS cross-dispersing prism; no preset uses it), SCHOTT data sheet (Stand 01.02.2014), data/round6/m2fs_ifum.md
+  F2: { label: "F2", range: [0.3341, 2.3254], B: [1.34533359, 0.209073176, 0.937357162], C: [0.00997743871, 0.0470450767, 111.886764] },
   // SCHOTT SF6 datasheet (as of 01-Dec-2023): the X-Shooter VIS prism
   SF6: { label: "SF6", range: [0.365, 2.3254], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
   // NASA CHARMS temperature-dependent Sellmeier fits, evaluated at 105 K (the X-Shooter NIR optics):

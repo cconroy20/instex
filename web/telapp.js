@@ -127,7 +127,8 @@ function renderText(Dz, P, pp, ps) {
   const t = telOf(), f = focusOf(), lam = P.lam;
   const fwhm = pp.fwPix * lam * 1e-6 / (Q * pupilOf().D) * RAD;    // arcsec
   // (no summary strip in this mode, his call: the figures are in the boxes)
-  const nom = t.nominalD ? Math.round(Dz.feff / 1000 / t.nominalD) : 0;
+  // (the focal ratio on the nominal aperture the observatory names its foci by: Keck's f/15 rounded, the ELT's f/17.75 to nominalDec places)
+  const nom = t.nominalD ? (t.nominalDec ? +(Dz.feff / 1000 / t.nominalD).toFixed(t.nominalDec) : Math.round(Dz.feff / 1000 / t.nominalD)) : 0;
   rows($("rTelT"), [
     [t.refractor ? "Objective" : "Primary", t.primarySub ? t.primarySub + ", f " + sig(t.f1, 3) + " m" : t.Dmirror ? "Ø " + sig(t.Dmirror, 3) + " m, f/" + sig(t.f1 / t.Dmirror, 3) + " (the pupil Ø " + (Math.abs(Dof() * 10 - Math.round(Dof() * 10)) < 1e-6 ? Dof().toFixed(1) : String(+Dof().toFixed(3))) + " m)" : "Ø " + sig(Dof(), 3) + " m, f/" + sig(F1of(), 3), t.primaryNote || ""],
     ["Secondary", f.secondary || "–"],

@@ -4,7 +4,8 @@
    in rings around a missing center; less a central obstruction (eps D across), spider vanes ({ ang, w, full, from,
    x0, y0 }: a bar through (x0, y0) when full, else a ray from (x0, y0) outward along ang; (x0, y0) defaults to the
    center) and pads ({ r, ang, d }).  Also the long-exposure image through the atmosphere (seeingPSF).
-   Further pupil options: rot (the hexagon lattice turned, degrees), rings0 (0 keeps the central segment), kind
+   Further pupil options: rot (the hexagon lattice turned, degrees), rings0 (0 keeps the central segment), rcut (m: keep
+   only the segments whose centers lie within rcut of the center, a near-round outline such as the ELT's), kind
    "circles" with segs [{ x, y, d, hole }] (separate round mirrors), stop { x, y, d } (a circular stop off the
    center).  The obstruction (eps D across) and any vanes are centered on the stop when there is one; a vane may end
    at to (m from its start: a short widening of a strut), widen outward (div, degrees per edge) and stop at rmax (m
@@ -36,6 +37,7 @@ function inPupil(pu, eps, x, y, noVanes) {
       const qq = q0 + dq, rr = r0 + dr, ring = Math.max(Math.abs(qq), Math.abs(rr), Math.abs(qq + rr));
       if (ring < (pu.rings0 === undefined ? 1 : pu.rings0) || ring > pu.rings) continue;
       const cx = s * (qq + rr / 2), cy = s * Math.sqrt(3) / 2 * rr, px = x - cx, py = y - cy;
+      if (pu.rcut && Math.hypot(cx, cy) > pu.rcut) continue;          // a round outline: segments centered within rcut (m)
       let ok = true;
       for (const t of [0, 60, 120]) { const c = Math.cos(t * DEG), sn = Math.sin(t * DEG); if (Math.abs(px * c + py * sn) > a) { ok = false; break; } }
       if (ok) hit = true;

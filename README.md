@@ -122,9 +122,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   changes loads as Custom. Everything fits without scrolling at 1440 × 900 and 1280 × 800 (every preset is checked
   at the smaller size): the layout and detector panels take the height the window has left after the header, the
   results strip and the controls (2026-10-18), so they grow wherever the controls are short.
-- **Presets** (header menu, 54, grouped by telescope): Keck/LRIS red, HIRES, ESI, KCWI blue, KCRM red, DEIMOS and
-  MOSFIRE Y/J/H/K; Magellan/MIKE red and blue, MagE, FIRE, IMACS f/4, LLAMAS blue/green/red (gratings fitted) and
-  LDSS-3 VPH-All/Blue/Red; MMT/Binospec, Hectospec and Hectochelle; GMT/G-CLEF red (design); VLT/FORS2 300V, 300I
+- **Presets** (header menu, 62, grouped by telescope): Keck/LRIS red, HIRES, ESI, KCWI blue, KCRM red, DEIMOS,
+  MOSFIRE Y/J/H/K and ZShooter B/G/R/YJ/H/K (design); Magellan/MIKE red and blue, MagE, FIRE, IMACS f/4, LLAMAS
+  blue/green/red (gratings fitted), LDSS-3 VPH-All/Blue/Red, M2FS HiRes (one order at Mg b) and IFUM LSB; MMT/Binospec, Hectospec and Hectochelle; GMT/G-CLEF red (design); VLT/FORS2 300V, 300I
   and 600B, ESPRESSO blue and red, MUSE (effective optics), UVES blue and red, X-Shooter UVB, VIS and NIR; ESO
   3.6 m/HARPS; Subaru/PFS blue, red and NIR; Mayall/DESI B, R and Z; VISTA/4MOST LRS and HRS blue/green/red (HRS
   concept optics); SDSS/APOGEE-N; MPG 2.2 m/FEROS; Via/Boombox blue and red (partly guessed), and Via/Viaspec. Moving any control turns the setting into Custom. Presets are
@@ -203,6 +203,15 @@ length, off-axis apertures, mirror spans, hexagon lattice rotation, round and el
 widening and bounded struts, blocking polygons. The pupil and the images were drawn upside down before (HST's pads);
 +y is now up. The collecting area is geometric; each focus lists its reflections,
 but no reflectivity is applied.
+
+The ELT (ESO; under construction; added 2026-11-16 on his ask, data/telescopes/elt.md): 798 hexagonal segments
+around an empty center (rings 0–4 missing), on a lattice of pitch 1.2274 m scaled to ESO's 39.146 m circumscribed
+diameter, cut to a near-round outline by a new pupil option, rcut (segments whose centers lie within 18.963 m);
+validate_img counts the segments (798; also Keck 36, JWST 18). Six spider arms 0.53 m wide (third-party pupil
+models; ESO gives no width), so the model's 991 m² sits 1.4% above ESO's 978 m² (reference line). One Nasmyth focus
+(platforms A and B are the same): 684.0 m, shown as f/17.5 on the 39.1 m drawn and f/17.75 on ESO's nominal 38.542 m
+(nominalD with nominalDec 2). Drawn as a three-mirror (Korsch) layout: the focal length and plate scale are exact,
+the tertiary (at the primary's vertex in the ELT) and the two fold flats M4 and M5 (drawn as one) are schematic.
 
 ## Interferometer mode
 
@@ -572,6 +581,21 @@ actual optical layout. Mapping choices:
   the symmetric setting at 550 nm, f/1.62 camera (focal length 1.62 × 254 mm, derived), 9k × 9k 10 µm.
   The technical document's "254 mm beam at ±5.7 degrees" is not used (its meaning is not resolved).
   ⚠ These are Via design numbers from an internal document; deploying the page publishes them.
+- **ZShooter** (Keck I, design; data/round6/zshooter.md): six channels at the 0.70″ slit, from the project website
+  and the project's simulator (built from the June 2026 Zemax design; the SPIE 2026 paper was not obtainable). F = 10
+  (1500 mm collimator, 150 mm beam and the 530.6 µm/″ slit scale; the website's f/10.5 is not used). White pupil:
+  the 225 mm cameras sit behind a second, 1250 mm collimator, so the model's camera is the effective 270 mm and each
+  VPH enters as G × 225/270. Rs 17,700 against the median 18,000, 4.48 px against 4.46, orders' spans on the chip
+  within 0.4–2.3% and the closest order spacing within 0.2% of the simulator. Dichroics, detector rotations
+  (5–9.5°) and B's orders below 3200 Å are not modeled.
+- **M2FS and IFUM** (Clay; data/round6/m2fs_ifum.md): pupil-fed fibers, so F = 3.4 (the fiber output and the
+  collimator's ratio) and the core enters as core / (3.4 × 6.5 m): 1.40″ for M2FS's 150 µm, 2.43″ for IFUM LSB's
+  260 µm. One 500 mm lens group is collimator and camera (147 mm beam, 1:1). The echelle's groove density is not
+  published: 51.74 /mm at 66.99° reproduces the measured dispersion and order numbers of the MgWide arc lines in
+  Ji's published reduction pipeline. Single order at Mg b: R 18,080 against ≈18,000, 0.0327 Å/px against
+  0.0325. The order-isolating filters are not modeled, so no multi-order (prism cross-dispersed) preset: with all
+  orders drawn, its fibers would crowd into one order gap. SCHOTT F2, the prism glass, is in the glass menu. IFUM LSB: geometric R 780 against a measured ≈1000
+  (reference only).
 
 Validation against the published numbers (`node validate.js`, block 4). Tolerances were set from each
 source's precision before comparing; a first pass missed ten checks, handled as described below the table.

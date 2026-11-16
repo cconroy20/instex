@@ -916,6 +916,153 @@
     "text": "Via collaboration, Viaspec technical description (internal)",
     "url": ""
    }
+  ],
+  "zshb": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "zshg": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "zshr": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "zshyj": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "zshh": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "zshk": [
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "CRB26",
+    "text": "Bailey et al. 2026, Proc. SPIE 14149",
+    "ads": "2026SPIE14149E..26B"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "ZSPEC",
+    "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
+   },
+   {
+    "file": "data/round6/zshooter.json",
+    "key": "IRDBT",
+    "text": "Caltech Optical Observatories, ZShooter simulator package (ScopeSim)"
+   }
+  ],
+  "m2fsmgb": [
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "M12",
+    "text": "Mateo et al. 2012, Proc. SPIE 8446, 84464Y",
+    "ads": "2012SPIE.8446E..4YM"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "W23",
+    "text": "Walker et al. 2023, ApJS 268, 19",
+    "ads": "2023ApJS..268...19W"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "AJP",
+    "text": "Ji, m2fs_reduction pipeline (GitHub)"
+   }
+  ],
+  "ifumlsb": [
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "C25",
+    "text": "Crosby et al. 2025, MNRAS 536, 2072",
+    "ads": "2025MNRAS.536.2072C"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "M22",
+    "text": "Mateo et al. 2022, Proc. SPIE 12184, 121845P",
+    "ads": "2022SPIE12184E..5PM"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "M12",
+    "text": "Mateo et al. 2012, Proc. SPIE 8446, 84464Y",
+    "ads": "2012SPIE.8446E..4YM"
+   }
   ]
  },
  "img": {
@@ -1736,6 +1883,25 @@
     "text": "Barnard 1917, AJ 31, 24",
     "ads": "1917AJ.....31...24B"
    }
+  ],
+  "elt": [
+   {
+    "file": "data/telescopes/elt.json",
+    "key": "V24",
+    "text": "Vernet et al. 2024, Messenger 192, 6",
+    "ads": "2024Msngr.192....6V"
+   },
+   {
+    "file": "data/telescopes/elt.json",
+    "key": "EMIR",
+    "text": "ESO, ELT mirrors page (optical design summary)"
+   },
+   {
+    "file": "data/telescopes/elt.json",
+    "key": "C12",
+    "text": "Cayrel 2012, Proc. SPIE 8444, 84441X",
+    "ads": "2012SPIE.8444E..1XC"
+   }
   ]
  },
  "int": {
@@ -1846,6 +2012,11 @@
     "key": "LFK05",
     "text": "Leviton et al. 2005, Proc. SPIE 5904, 59040O",
     "ads": "2005SPIE.5904..222L"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "SCH",
+    "text": "SCHOTT, F2 data sheet"
    }
   ],
   "img": [

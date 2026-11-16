@@ -1,0 +1,1623 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- TELESCOPES mode: ESO Extremely Large Telescope (ELT, under construction) -- Nasmyth foci and the entrance pupil",
+  "compiled": "2026-11-15",
+  "companion": "data/telescopes/elt.md (same content as Markdown). Structure follows gmt.json: sources{key: cite, file, url}; elt: title, telescope (machine-readable mirrors, pupil, foci; refs point to sourced params as 'elt.<param>'), explorer_preset (the proposed web/tpresets.js entry), params, not_found, conflicts, notes.",
+  "rule": "Each value carries src (key into sources), loc and a short verbatim quote from a document saved unmodified under rawdata/telescopes/elt/. derived = arithmetic done here (shown). alternatives = other sourced values (conflicts). figure_readoff = a value read off a saved figure or an image of a table (the caption or a nearby text quote is checked). NOT FOUND marks a gap. Nothing is filled from memory.",
+  "quote_normalization": "Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), division slash, tilde operator, approximately-equal sign, middle dot, plus-minus (to +/-), the degree sign and the superscript-zero degree glyph normalized; whitespace collapsed; a quote also passes against the text with PDF line-end hyphenation removed or closed up, or with all whitespace removed; ' ... ' joins non-adjacent pieces.",
+  "texts_checked": "pdftotext -layout and -raw per page and across consecutive page pairs (PDF p. = page index of the saved PDF); HTML as tag-stripped text (tags to a space, tags removed) and raw source (UTF-8); .py and .tbl as is.",
+  "pupil_frame": "ESO M1 frame of the Construction Proposal Fig. 3.66 (meters in the entrance pupil, angles from +X_M1); orientation relative to the elevation axis NOT FOUND",
+  "design_vs_asbuilt": "Current design: ESO ELT web pages (EMIR, EM1, EM23, EM4, EM5, EST, EPFS, EF), Messenger 2018-2024 (C18, C19, V19, V21, V24), P23; ICD ESO-253082 values only through third parties (R18 v3.6, A24, IRDBM/IRDBC issue 4). 2011-2012 design: CP, C12, ESD, ESM, TLR. Pupil models: AnisoCADO, hcipy (third party).",
+  "check_result": "158 quotes checked against the saved files, 0 failures (2026-11-15); FIGURE READ-OFFs (C12 Fig. 1 tables, CP Figs. 3.50 and 3.66, C18 Fig. 3) are not text-checkable: their captions are."
+ },
+ "sources": {
+  "V24": {
+   "cite": "Vernet, E., Cayrel, M., Cirasuolo, M., Tamai, R., Forster, A., Haupt, C., Mueller, M., Pettazzi, L., Pirard, J.-F., Sqalli, O., Tuti, M. & the ELT team 2024, \"ESO's Extremely Large Telescope Optics Update\", The Messenger 192, 6 (DOI 10.18727/0722-6691/5348; PDF created 2024-04-25): the newest ESO overview of M1-M5",
+   "file": "rawdata/telescopes/elt/Vernet2024_Msngr192_6_ELT_Optics_Update.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.192-mar24/messenger-no192-6-9.pdf"
+  },
+  "EF": {
+   "cite": "ESO, ELT web site, \"Facts about the ELT\" (no date on the page; fetched 2026-11-15)",
+   "file": "rawdata/telescopes/elt/elteso_about_facts.html",
+   "url": "https://elt.eso.org/about/facts/"
+  },
+  "EMIR": {
+   "cite": "ESO, ELT web site, \"Mirrors\" overview with the technical summary of the optical design (no date on the page; fetched 2026-11-15). Its numbers (f/17.75, 684022 mm, M4 conjugate 621 m) are the post-2011 design, the same as R18's ICD values",
+   "file": "rawdata/telescopes/elt/elteso_mirror.html",
+   "url": "https://elt.eso.org/mirror/"
+  },
+  "EM1": {
+   "cite": "ESO, ELT web site, \"M1\" page with technical details (fetched 2026-11-15)",
+   "file": "rawdata/telescopes/elt/elteso_mirror_M1.html",
+   "url": "https://elt.eso.org/mirror/M1/"
+  },
+  "EM23": {
+   "cite": "ESO, ELT web site, \"M2M3\" page with the table 'Main characteristics of the M2 and M3 mirrors' (fetched 2026-11-15)",
+   "file": "rawdata/telescopes/elt/elteso_mirror_M2M3.html",
+   "url": "https://elt.eso.org/mirror/M2M3/"
+  },
+  "EM4": {
+   "cite": "ESO, ELT web site, \"M4\" page (fetched 2026-11-15)",
+   "file": "rawdata/telescopes/elt/elteso_mirror_M4.html",
+   "url": "https://elt.eso.org/mirror/M4/"
+  },
+  "EM5": {
+   "cite": "ESO, ELT web site, \"M5\" page (fetched 2026-11-15)",
+   "file": "rawdata/telescopes/elt/elteso_mirror_M5.html",
+   "url": "https://elt.eso.org/mirror/M5/"
+  },
+  "EST": {
+   "cite": "ESO, ELT web site, \"Main Structure\" page (fetched 2026-11-15): spider, central tower, Nasmyth platforms",
+   "file": "rawdata/telescopes/elt/elteso_telescope_structure.html",
+   "url": "https://elt.eso.org/telescope/structure/"
+  },
+  "EPFS": {
+   "cite": "ESO, ELT web site, \"Prefocal Station\" page (fetched 2026-11-15): PFS-A and PFS-B, M6N/M6C, straight-through instrument",
+   "file": "rawdata/telescopes/elt/elteso_telescope_prefocal.html",
+   "url": "https://elt.eso.org/telescope/prefocal/"
+  },
+  "C18": {
+   "cite": "Cirasuolo, M., Tamai, R., Cayrel, M., Koehler, B., Biancat Marchet, F., Gonzalez, J. C., Dimmler, M., Tuti, M. & the ELT Team 2018, \"The Giant Primary Mirror\" (ELT M1 article), The Messenger 171, 20 (Council approval of the full 798-segment M1, Fig. 3 Phase 1 vs full M1)",
+   "file": "rawdata/telescopes/elt/Cirasuolo2018_Msngr171_20_ELT_M1.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.171-mar18/messenger-no171-20-23.pdf"
+  },
+  "C19": {
+   "cite": "Cayrel, M., Cirasuolo, M., Tamai, R., et al. 2019, ELT M2 and M3 article ('ELT -- Where the Secondary Mirror Becomes a Giant'), The Messenger 176, 13",
+   "file": "rawdata/telescopes/elt/Cayrel2019_Msngr176_13_ELT_M2_M3.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.176-jun19/messenger-no176-13-15.pdf"
+  },
+  "V19": {
+   "cite": "Vernet, E., et al. 2019, ELT M4 article, The Messenger 178, 3",
+   "file": "rawdata/telescopes/elt/Vernet2019_Msngr178_3_ELT_M4.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.178-dec19/messenger-no178-3-4.pdf"
+  },
+  "V21": {
+   "cite": "Vernet, E., Cirasuolo, M., Pirard, J.-F., et al. 2021, ELT M5 article, The Messenger 185, 3 (DOI 10.18727/0722-6691/5244)",
+   "file": "rawdata/telescopes/elt/Vernet2021_Msngr185_3_ELT_M5.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.185-dec21/messenger-no185-3-6.pdf"
+  },
+  "P23": {
+   "cite": "Padovani, P. & Cirasuolo, M. 2023, \"The Extremely Large Telescope\", Contemporary Physics (ESO authors), arXiv:2312.04299v1: Sec. 2.2 mirrors",
+   "file": "rawdata/telescopes/elt/Padovani_Cirasuolo2023_ConPhys_ELT_arXiv2312.04299v1.pdf",
+   "url": "https://arxiv.org/pdf/2312.04299v1"
+  },
+  "M158": {
+   "cite": "de Zeeuw, T., Tamai, R. & Liske, J. 2014, \"Constructing the E-ELT\", The Messenger 158, 3 (the two-phase plan: five inner rings of M1 deferred)",
+   "file": "rawdata/telescopes/elt/Messenger158_2014_3-6_Constructing_the_E-ELT.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.158-dec14/messenger-no158-3-6.pdf"
+  },
+  "CP": {
+   "cite": "ESO 2011, \"The E-ELT Construction Proposal\" (ESO book_0046; print PDF dated 16/12/2011): Ch. 1 digest (1.8, 1.10), Ch. 2.2.2, Ch. 3 technical overview (3.3 main structure, 3.4 M1, 3.5 M2, 3.6 M3, 3.7 M4, 3.9 prefocal station). PDF p. = page index of the saved PDF; from Ch. 3 on, the printed page = PDF p. - 1. THE 2011 DESIGN",
+   "file": "rawdata/telescopes/elt/ESO2011_E-ELT_Construction_Proposal_book_0046.pdf",
+   "url": "https://elt.eso.org/public/archives/books/pdf/book_0046.pdf"
+  },
+  "C12": {
+   "cite": "Cayrel, M. 2012, \"E-ELT Optomechanics: Overview\", Proc. SPIE 8444, paper 8444-69 (ESO-hosted copy; PDF created 2012-07-17): Sec. 2 optical design, Fig. 1 (optical prescription and optics dimensions, as images), Secs. 3-8. THE 2011-2012 DESIGN",
+   "file": "rawdata/telescopes/elt/SPIE2012_8444-69_eso_hq.pdf",
+   "url": "https://www.hq.eso.org/sci/libraries/SPIE2012/8444-69.pdf"
+  },
+  "TLR": {
+   "cite": "ESO 2012, \"E-ELT Programme -- Observatory Top Level Requirements\", E-SPE-ESO-100-0260 Issue 2 (2012-04-26; file ESO-193696_2): Sec. 6 telescope requirements #134-#165",
+   "file": "rawdata/telescopes/elt/ESO-193696_2_Observatory_Top_Level_Requirements.pdf",
+   "url": "https://www.eso.org/sci/facilities/eelt/docs/ESO-193696_2_Observatory_Top_Level_Requirements.pdf"
+  },
+  "ESD": {
+   "cite": "ESO science pages, \"E-ELT optical design\" (HTTP Last-Modified 2011-06-16; fetched 2026-11-15). THE 2011 DESIGN",
+   "file": "rawdata/telescopes/elt/esosci_eelt_telescope_design.html",
+   "url": "https://www.eso.org/sci/facilities/eelt/telescope/design/"
+  },
+  "ESM": {
+   "cite": "ESO science pages, \"E-ELT OPTICS\" (M1-M5; HTTP Last-Modified 2011-06-27; fetched 2026-11-15). THE 2011 DESIGN",
+   "file": "rawdata/telescopes/elt/esosci_eelt_telescope_mirrors.html",
+   "url": "https://www.eso.org/sci/facilities/eelt/telescope/mirrors/"
+  },
+  "R18": {
+   "cite": "Rodeghiero, G., Pott, J.-U., Arcidiacono, C., et al. 2018, \"The impact of ELT distortions and instabilities on future astrometric observations\", MNRAS (DOI 10.1093/mnras/sty1426), arXiv:1806.01327v1: Tables 1-2, which state 'Telescope specifications according to ELT ICD [17]' = 'Common ICD between the E-ELT Nasmyth Instruments and the Rest of the E-ELT System, ESO-253082, v3.6, 2017' (the ICD itself is not public). Third-party relay of ESO interface values",
+   "file": "rawdata/telescopes/elt/Rodeghiero2018_MNRAS_ELT_distortions_arXiv1806.01327v1.pdf",
+   "url": "https://arxiv.org/pdf/1806.01327v1"
+  },
+  "A24": {
+   "cite": "Absil, O., Kenworthy, M., Delacroix, C., et al. 2024, \"METIS high-contrast imaging: from final design to manufacturing and testing\", SPIE Astronomical Telescopes + Instrumentation 2024, arXiv:2407.10588v1: Sec. 2 (ELT-M1 pupil dimensions in 'ELT-M1 space'; spider-arm design evolution). Third party (METIS consortium)",
+   "file": "rawdata/telescopes/elt/Absil2024_SPIE_METIS_HCI_arXiv2407.10588v1.pdf",
+   "url": "https://arxiv.org/pdf/2407.10588v1"
+  },
+  "H19": {
+   "cite": "Hippler, S., Feldt, M., Bertram, T., et al. 2019, \"Single conjugate adaptive optics for the ELT instrument METIS\", Experimental Astronomy (DOI 10.1007/s10686-018-9609-y), arXiv:1810.07578v2: Sec. 5.4, Fig. 8. Third party",
+   "file": "rawdata/telescopes/elt/Hippler2019_ExpAstron_METIS_SCAO_arXiv1810.07578v2.pdf",
+   "url": "https://arxiv.org/pdf/1810.07578v2"
+  },
+  "M26": {
+   "cite": "Madhav, K. V., Nayak, A. S., Labadie, L. & Thomson, R. R. 2026, \"Sensing ELT petal modes with a discrete beam combiner: an end-to-end theoretical model\", submitted to MNRAS, arXiv:2609.13575v1: abstract, Sec. 1. Third party",
+   "file": "rawdata/telescopes/elt/Madhav2026_ELT_petal_DBC_arXiv2609.13575v1.pdf",
+   "url": "https://arxiv.org/pdf/2609.13575v1"
+  },
+  "ANI": {
+   "cite": "AnisoCADO (MICADO PSF tool; A* Vienna, after E. Gendron's ELT pupil code), anisocado/pupil_utils.py at GitHub AstarVienna/AnisoCADO commit 40d8638 (2026-11-09): generateCoordSegments, fillSpider, generateEeltPupilMask. Third-party pupil model; cites ESO-193058 'Standard Coordinate System and Basic Conventions' (not public) for the segment order. Read only, never executed",
+   "file": "rawdata/telescopes/elt/anisocado_40d8638_pupil_utils.py",
+   "url": "https://github.com/AstarVienna/AnisoCADO/blob/40d8638a635095b21a715114f0b64d90ab3ca453/anisocado/pupil_utils.py"
+  },
+  "ANIP": {
+   "cite": "AnisoCADO, anisocado/psf_utils.py, same commit 40d8638 (fake_generatePupil: the spider width the PSF tool uses)",
+   "file": "rawdata/telescopes/elt/anisocado_40d8638_psf_utils.py",
+   "url": "https://github.com/AstarVienna/AnisoCADO/blob/40d8638a635095b21a715114f0b64d90ab3ca453/anisocado/psf_utils.py"
+  },
+  "HCI": {
+   "cite": "hcipy (Por et al.), hcipy/aperture/realistic.py, function make_elt_aperture, GitHub ehpor/hcipy commit ee20b03 (2026-08-14); docstring: based on Construction Proposal Fig. 3.66 (the 2011 design). SAME FILE as gmt.json key HCI (byte-identical copy). Read only, never executed",
+   "file": "rawdata/telescopes/elt/hcipy_ee20b03_aperture_realistic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/realistic.py"
+  },
+  "HCIG": {
+   "cite": "hcipy, hcipy/aperture/generic.py (make_regular_polygon_aperture: the hexagon orientation), same commit ee20b03. SAME FILE as gmt.json key HCIG (byte-identical copy)",
+   "file": "rawdata/telescopes/elt/hcipy_ee20b03_aperture_generic.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/aperture/generic.py"
+  },
+  "HCIU": {
+   "cite": "hcipy, hcipy/field/util.py (make_hexagonal_grid: the lattice orientation), same commit ee20b03",
+   "file": "rawdata/telescopes/elt/hcipy_ee20b03_field_util.py",
+   "url": "https://github.com/ehpor/hcipy/blob/ee20b03bf195dbbf5ae0ce91427d237f45680ec5/hcipy/field/util.py"
+  },
+  "IRDBM": {
+   "cite": "ScopeSim instrument reference database (A* Vienna, MICADO consortium), irdb/ELT/LIST_mirrors_ELT.tbl at GitHub AstarVienna/irdb commit 3970cb7 (2026-02-05): mirror outer/inner diameters, header 'source : ESO ELT DRM, ESO-253082_4'. Third-party relay of the ICD (issue 4)",
+   "file": "rawdata/telescopes/elt/irdb_3970cb7_ELT_LIST_mirrors_ELT.tbl",
+   "url": "https://github.com/AstarVienna/irdb/blob/3970cb713641983ddb38e0d236e865aa4d613455/ELT/LIST_mirrors_ELT.tbl"
+  },
+  "IRDBC": {
+   "cite": "ScopeSim IRDB, irdb/ELT/LIST_ELT_combined.tbl, same commit 3970cb7 ('ELT pupil definition for use with combined TER curve', source ESO-253082_4)",
+   "file": "rawdata/telescopes/elt/irdb_3970cb7_ELT_LIST_ELT_combined.tbl",
+   "url": "https://github.com/AstarVienna/irdb/blob/3970cb713641983ddb38e0d236e865aa4d613455/ELT/LIST_ELT_combined.tbl"
+  }
+ },
+ "elt": {
+  "title": "ESO Extremely Large Telescope (under construction): Nasmyth A and B (straight-through), lateral and coude ports, intermediate focus; entrance pupil",
+  "telescope": {
+   "name": "Extremely Large Telescope (ELT; formerly E-ELT)",
+   "site": "Cerro Armazones, Chile, 3046 m (EF)",
+   "status": "under construction; technical first light planned 2029 (EF)",
+   "mount": "alt-azimuth; two Nasmyth platforms (~30 x 15 m) on either side of the tube (EST, EPFS)",
+   "optical_design": "five mirrors: folded three-mirror anastigmat (M1 concave, M2 convex, M3 concave at the M1 vertex) + flat adaptive M4 + flat tip-tilt M5 to either Nasmyth focus",
+   "primary": {
+    "n_segments": 798,
+    "segments_procured": 931,
+    "sectors": "6 x 133",
+    "segment_corner_to_corner_m": 1.45,
+    "segment_gap_m": 0.004,
+    "radius_of_curvature_m": 68.7,
+    "radius_of_curvature_m_ICD_via_R18": 68.685,
+    "conic_ICD_via_R18": -0.996473,
+    "focal_length_m_DERIVED": 34.35,
+    "F_quoted": 0.87,
+    "F_on_38p542_ICD": 0.89,
+    "F_on_39p146_DERIVED": 0.8775,
+    "circumscribed_diameter_m_2011": 39.146,
+    "nominal_pupil_diameter_m_ICD": 38.542,
+    "headline_diameter_m": 39.3,
+    "refs": [
+     "elt.n_segments",
+     "elt.segment_size",
+     "elt.segment_gap",
+     "elt.primary_radius_of_curvature",
+     "elt.primary_focal_ratio",
+     "elt.outer_diameter_circumscribed",
+     "elt.nominal_pupil_diameter"
+    ]
+   },
+   "secondary": {
+    "shape": "convex asphere, conic -2.208857",
+    "mechanical_diameter_m": 4.25,
+    "optical_diameter_m_ICD_via_R18": 4.101,
+    "central_hole_mm": 800,
+    "radius_of_curvature_mm": 8810,
+    "m1_m2_separation_m": 30.829,
+    "refs": [
+     "elt.m2",
+     "elt.m1_m2_separation"
+    ]
+   },
+   "tertiary": {
+    "shape": "concave, conic 0",
+    "mechanical_diameter_m": 4.0,
+    "optical_diameter_m_ICD_via_R18": 3.785,
+    "central_hole_mm": 30,
+    "radius_of_curvature_mm": 21089.53,
+    "height_above_M1_vertex_m_DERIVED": 0.32,
+    "refs": [
+     "elt.m3"
+    ]
+   },
+   "m4": {
+    "shape": "flat, adaptive, six petals, central way-through hole",
+    "diameter_m": 2.4,
+    "tilt_deg": 7.75,
+    "conjugate_altitude_m": 621,
+    "m3_m4_m": 13.2,
+    "height_above_M1_vertex_m_DERIVED": 13.52,
+    "refs": [
+     "elt.m4"
+    ]
+   },
+   "m5": {
+    "shape": "flat elliptical tip-tilt",
+    "size_m": [
+     2.7,
+     2.2
+    ],
+    "tilt_deg_2012": 37.25,
+    "m4_m5_m_ICD_via_R18": 7.328,
+    "height_above_M1_vertex_m_DERIVED": 6.19,
+    "m5_focus_m_ICD_via_R18": 27.2,
+    "refs": [
+     "elt.m5",
+     "elt.focal_surface"
+    ]
+   },
+   "pupil": {
+    "frame": "ESO M1 frame of CP Fig. 3.66: X_M1 to the right, flat-topped segments, lattice rows at 30/90/150 deg, sector 1 centered on +X_M1; orientation on the sky NOT FOUND",
+    "layout": "hexagonal lattice; center + rings 1-4 empty (61 positions); rings 5-15 complete, ring 16: 78 of 96, ring 17: 60 of 102; segment centers within 15.39-15.52 pitches (DERIVED)",
+    "eso_radii_2011_m": {
+     "hole_inscribed": 4.7087,
+     "hole_corner": 5.6039,
+     "outline_inscribed": 18.4525,
+     "outline_circumscribed": 19.5732
+    },
+    "icd_space_m": {
+     "nominal_diameter": 38.542,
+     "inscribed_dodecagon_diagonal": 38.177,
+     "hole_circumscribed_hexagon_diagonal": 11.608
+    },
+    "explorer_lattice_DERIVED": {
+     "pitch_m": 1.2274,
+     "flat_to_flat_m": 1.2234,
+     "gap_m": 0.004,
+     "rot_deg": 30,
+     "rings": 17,
+     "rings0": 5,
+     "center_cut_m": 18.963,
+     "circumscribed_diameter_m": 39.146,
+     "outline_inscribed_diameter_m": 36.85,
+     "hole_across_flats_m": 9.29,
+     "hole_across_corners_m": 11.07
+    },
+    "central_obscuration": "the empty center (no circular obstruction beyond it); explorer eps 0, drawEps 0.283",
+    "spider": {
+     "n_arms": 6,
+     "angles_deg": [
+      30,
+      90,
+      150,
+      210,
+      270,
+      330
+     ],
+     "width_m": 0.53,
+     "width_basis": "AnisoCADO PSF tool (third party); ESO width NOT FOUND",
+     "width_alternatives_m": [
+      0.51,
+      0.5,
+      0.4,
+      0.6
+     ]
+    },
+    "collecting_area_m2": {
+     "eso": 978,
+     "requirement_2012": 980,
+     "explorer_lattice_with_vanes_DERIVED": 991.5,
+     "segments_only_DERIVED": 1034.3
+    },
+    "refs": [
+     "elt.segment_layout",
+     "elt.hole_and_outline",
+     "elt.central_obscuration",
+     "elt.spider",
+     "elt.spider_width",
+     "elt.spider_angles",
+     "elt.collecting_area"
+    ]
+   },
+   "foci": [
+    {
+     "id": "ELT-NA",
+     "name": "Nasmyth A (straight-through, PFS-A)",
+     "status": "planned (under construction)",
+     "focal_length_m": 684.022,
+     "F_quoted": 17.75,
+     "F_basis": "684.022 m / 38.542 m (ICD nominal pupil)",
+     "F_on_39p146_DERIVED": 17.474,
+     "plate_scale_arcsec_per_mm": 0.3016,
+     "plate_scale_mm_per_arcsec_DERIVED": 3.3162,
+     "field_arcmin": 10,
+     "field_mm_DERIVED": 1990,
+     "n_reflections": 5,
+     "mirrors": [
+      "M1",
+      "M2",
+      "M3",
+      "M4 (flat, adaptive)",
+      "M5 (flat, tip-tilt)"
+     ],
+     "location": "on the elevation axis, 27.2 m from M5 (ICD via R18); curved focal surface, radius 9.884 m",
+     "refs": [
+      "elt.final_focal_length",
+      "elt.final_focal_ratio",
+      "elt.plate_scale",
+      "elt.field_of_view",
+      "elt.focal_surface",
+      "elt.nasmyth_platforms"
+     ]
+    },
+    {
+     "id": "ELT-NB",
+     "name": "Nasmyth B (straight-through, PFS-B)",
+     "same_as": "ELT-NA",
+     "location": "the opposite Nasmyth platform"
+    }
+   ],
+   "other_foci": [
+    {
+     "id": "ELT-NLAT",
+     "name": "lateral Nasmyth ports via M6N (6 reflections)",
+     "field_arcmin_2011": 5,
+     "ref": "elt.nasmyth_platforms"
+    },
+    {
+     "id": "ELT-COUDE",
+     "name": "coude laboratory via M6C",
+     "field_requirement": ">= 10 arcsec (TLR #158)",
+     "ref": "elt.nasmyth_platforms"
+    },
+    {
+     "id": "ELT-INT",
+     "name": "intermediate focus after M2 (calibration only)",
+     "F_2012": 4.4,
+     "focal_length_m_2012_DERIVED": 162.85,
+     "ref": "elt.intermediate_focus"
+    }
+   ]
+  },
+  "explorer_preset": {
+   "id": "elt",
+   "group": "ELT 39 m",
+   "name": "ELT 39 m",
+   "D": 39.146,
+   "f1": 34.35,
+   "eps": 0,
+   "drawEps": 0.283,
+   "primaryNote": "798 hexagonal segments, 1.45 m across the corners with 4 mm gaps, in six identical sectors of 133 around an empty center (no segment at the center or in the four rings around the center); radius of curvature 68.7 m (f = 34.35 m, f/0.88 on the 39.15 m pupil). Under construction on Cerro Armazones.",
+   "pupil": {
+    "kind": "hex",
+    "D": 39.146,
+    "flat": 1.2274,
+    "gap": 0.004,
+    "rings": 17,
+    "rings0": 5,
+    "rot": 30,
+    "rcut": 18.963,
+    "vanes": [
+     {
+      "ang": 30,
+      "w": 0.53
+     },
+     {
+      "ang": 90,
+      "w": 0.53
+     },
+     {
+      "ang": 150,
+      "w": 0.53
+     },
+     {
+      "ang": 210,
+      "w": 0.53
+     },
+     {
+      "ang": 270,
+      "w": 0.53
+     },
+     {
+      "ang": 330,
+      "w": 0.53
+     }
+    ]
+   },
+   "pupil_fallback_no_code_change": {
+    "kind": "hex",
+    "D": 39.146,
+    "flat": 1.2274,
+    "gap": 0.004,
+    "rings": 17,
+    "rings0": 5,
+    "rot": 30,
+    "clip": 37.77,
+    "vanes": [
+     {
+      "ang": 30,
+      "w": 0.53
+     },
+     {
+      "ang": 90,
+      "w": 0.53
+     },
+     {
+      "ang": 150,
+      "w": 0.53
+     },
+     {
+      "ang": 210,
+      "w": 0.53
+     },
+     {
+      "ang": 270,
+      "w": 0.53
+     },
+     {
+      "ang": 330,
+      "w": 0.53
+     }
+    ]
+   },
+   "pupilNote": "Seen in the ESO M1 frame (flat-topped segments, X_M1 to the right): six spider arms along the rows of segments, 0.53 m wide (a third-party model; ESO gives no width). The orientation on the sky is not published.",
+   "area": {
+    "value": 978,
+    "info": true,
+    "src": "ESO, Facts about the ELT: 978 m² (the lattice drawn here, with 0.53 m vanes: 991.5 m², DERIVED)"
+   },
+   "segmentsArea": {
+    "value": 1034.3,
+    "tol": 0.003,
+    "src": "the 798 segments of the explorer lattice, DERIVED (data/telescopes/elt.md)"
+   },
+   "foci": [
+    {
+     "id": "nasa",
+     "name": "Nasmyth A f/17.75 (straight-through)",
+     "F": 17.474,
+     "plate": 0.30155,
+     "design": "korsch",
+     "nasmyth": true,
+     "side": "up",
+     "field": 10,
+     "refl": 5,
+     "secondary": "convex, 4.25 m (4.10 m optical; conic -2.21), 30.8 m above the primary; then a concave 4.0 m tertiary at the primary's vertex, the flat adaptive M4 (2.4 m, with a central hole) and the flat tip-tilt M5 (2.7 x 2.2 m)",
+     "where": "Nasmyth platform A, prefocal station PFS-A: the straight-through port (lateral ports via a sixth flat, M6N)",
+     "fieldNote": "10' unvignetted (the hole in M4 sets the limit); the focal surface is curved (radius 9.88 m), 27.2 m from M5 along the elevation axis. ESO's f/17.75 is on the 38.542 m nominal pupil; on the 39.146 m drawn here the same 684.0 m is f/17.47. Drawn as a Korsch-type three-mirror telescope: the focal length and plate scale are the ELT's; the tertiary (really at the primary's vertex) and the single fold flat (really M4 above the primary and M5 in the central tower) are schematic."
+    },
+    {
+     "id": "nasb",
+     "name": "Nasmyth B f/17.75 (straight-through)",
+     "F": 17.474,
+     "plate": 0.30155,
+     "design": "korsch",
+     "nasmyth": true,
+     "side": "down",
+     "field": 10,
+     "refl": 5,
+     "secondary": "convex, 4.25 m (4.10 m optical; conic -2.21), 30.8 m above the primary; then a concave 4.0 m tertiary at the primary's vertex, the flat adaptive M4 (2.4 m, with a central hole) and the flat tip-tilt M5 (2.7 x 2.2 m)",
+     "where": "Nasmyth platform B, prefocal station PFS-B: the straight-through port (lateral ports via M6N; the coude laboratory via M6C)",
+     "fieldNote": "10' unvignetted (the hole in M4 sets the limit); the focal surface is curved (radius 9.88 m), 27.2 m from M5 along the elevation axis. ESO's f/17.75 is on the 38.542 m nominal pupil; on the 39.146 m drawn here the same 684.0 m is f/17.47. Drawn as a Korsch-type three-mirror telescope: the focal length and plate scale are the ELT's; the tertiary (really at the primary's vertex) and the single fold flat (really M4 above the primary and M5 in the central tower) are schematic."
+    },
+    {
+     "id": "int",
+     "name": "Intermediate focus f/4.2 (calibration only; optional)",
+     "F": 4.16,
+     "plate": 1.2666,
+     "design": "cass",
+     "back": -0.345,
+     "field": 1,
+     "refl": 2,
+     "secondary": "convex, 4.25 m (the 2012 prescription: R = 9.313 m)",
+     "where": "13.5 m in front of the primary's vertex, at the hole in M4",
+     "fieldNote": "The image of M1 and M2 before M3, used for calibration sources, not for science (coma-limited, ~1' seeing-limited). 2012 design: f/4.40 on the 37.0 m that paper uses, 162.85 m (DERIVED); the current value is NOT FOUND."
+    }
+   ]
+  },
+  "params": {
+   "status_site": {
+    "value": "under construction on Cerro Armazones, Chile, 3046 m; technical first light planned 2029",
+    "unit": "",
+    "src": "EF",
+    "loc": "facts table",
+    "quote": "Site Cerro Armazones, Atacama Desert, Chile Altitude 3046 m",
+    "alternatives": [
+     {
+      "value": "technical first light 2029",
+      "src": "EF",
+      "loc": "facts table",
+      "quote": "Planned year of technical first light 2029"
+     }
+    ]
+   },
+   "optical_design": {
+    "value": "five mirrors: a folded three-mirror anastigmat (M1 concave, M2 convex, M3 concave) with two flats (M4 adaptive, M5 tip-tilt) folding the beam to either Nasmyth focus along the elevation axis",
+    "unit": "",
+    "src": "EMIR",
+    "loc": "technical summary",
+    "quote": "The optical solution for the ESO ELT is a 39-m aperture folded three-mirror anastigmat (M1, M2, M3). Folding is provided by two flat mirrors (M4, M5) sending the beams to either Nasmyth foci (prefocal stations) along the elevation axis of the telescope.",
+    "alternatives": [
+     {
+      "value": "light path M1 -> M2 (above) -> M3 -> M4 (above M3) -> M5 -> instruments",
+      "src": "EMIR",
+      "loc": "overview",
+      "quote": "The convex M2, the largest secondary mirror ever employed on a telescope, will hang above M1 and will reflect light back down to M3, which in turn will relay it to an adaptive flat mirror (M4) above it."
+     },
+     {
+      "value": "2011: M3 at the vertex of the primary; M2 returns the beam through a hole in M4",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17 (printed 16)",
+      "quote": "The 4.1-metre secondary mirror (M2) is convex and returns the beam, through a hole in the quater- nary mirror (M4), to the 3.7-metre mildly aspheric concave tertiary mirror (M3) located at the vertex of the primary."
+     },
+     {
+      "value": "five reflections to the Nasmyth focus (2011)",
+      "src": "CP",
+      "loc": "Sec. 2.2.2, PDF p. 44 (printed 43)",
+      "quote": "delivers at the ~ f/17 Nasmyth focus, after five reflections"
+     }
+    ]
+   },
+   "design_history": {
+    "value": "2006-2011: Phase B, first for a 42 m design; 2010-2011: the 39 m design adopted as baseline (segment count down by ~20%); 2014: construction approved in two phases with the five inner M1 rings deferred; December 2017: the full 798-segment M1 approved",
+    "unit": "",
+    "src": "CP",
+    "loc": "Sec. 1.8, PDF p. 16",
+    "quote": "A modified design was adopted by the project in 2010 establishing a 39-metre alternate, which has become the baseline design.",
+    "alternatives": [
+     {
+      "value": "42 m starting point (2006)",
+      "src": "CP",
+      "loc": "Ch. 1, PDF p. 13",
+      "quote": "Initially a 42-metre diameter anastigmatic telescope"
+     },
+     {
+      "value": "segments reduced by ~20% from 42 m to 39 m",
+      "src": "CP",
+      "loc": "Sec. 1.8, PDF p. 16",
+      "quote": "The reduction in the total number of segments is of order 20%."
+     },
+     {
+      "value": "Phase B for 42 m, then 39 m, completed 2011",
+      "src": "C12",
+      "loc": "Sec. 1, PDF p. 1",
+      "quote": "The project Phase B, first for a 42-m and later for a 39-m telescope, was completed in 2011."
+     },
+     {
+      "value": "two-phase construction approved December 2014",
+      "src": "M158",
+      "loc": "PDF p. 1",
+      "quote": "At its meeting on 3 and 4 December 2014, the ESO Council gave the green light for the construction of the E-ELT in two phases"
+     },
+     {
+      "value": "full M1 approved December 2017",
+      "src": "C18",
+      "loc": "PDF p. 2",
+      "quote": "at its December 2017 meeting"
+     }
+    ],
+    "note": "The 42 m segment count is NOT FOUND in a saved document."
+   },
+   "n_segments": {
+    "value": 798,
+    "unit": "hexagonal segments on the telescope (six identical sectors of 133); 931 made (a seventh sector for recoating)",
+    "src": "EM1",
+    "loc": "technical details",
+    "quote": "The full M1 has a six-fold symmetry; there are six identical sectors of 133 segments each.",
+    "alternatives": [
+     {
+      "value": "798 on the telescope, 931 in all",
+      "src": "EM1",
+      "loc": "technical details",
+      "quote": "Taking the seven sectors together, the ELT will have a grand total of 931 segments, 798 of which will be on the telescope at any given time."
+     },
+     {
+      "value": "798",
+      "src": "EF",
+      "loc": "facts table",
+      "quote": "Number of main mirror segments 798"
+     },
+     {
+      "value": "798 Segment Assemblies, 931 procured (2024)",
+      "src": "V24",
+      "loc": "PDF p. 1",
+      "quote": "M1 is made of 798 Segment Assemblies"
+     },
+     {
+      "value": "798 (2011 design, same six sectors)",
+      "src": "CP",
+      "loc": "Sec. 3.4.1, PDF p. 96 (printed 95)",
+      "quote": "The segments are grouped in six sectors of 133 segments, thus the primary mirror is made of 798 segments."
+     }
+    ]
+   },
+   "segment_size": {
+    "value": 1.45,
+    "unit": "m, corner to corner (quasi-hexagonal; on the curved mirror)",
+    "src": "C18",
+    "loc": "PDF p. 1",
+    "quote": "each of which is about 1.45 metres in size (corner-to-corner)",
+    "alternatives": [
+     {
+      "value": "1.45 m across, 4 mm gaps",
+      "src": "EM1",
+      "loc": "technical details",
+      "quote": "is composed of hundreds of off-axis aspherical segments, 1.45 metres across. The gap between the segments is 4 mm."
+     },
+     {
+      "value": "~1.45 m corner to corner (2023)",
+      "src": "P23",
+      "loc": "Sec. 2.2.1, PDF p. 4",
+      "quote": "each of which is about 1.45 m in size (corner-to-corner)"
+     },
+     {
+      "value": "1.4 m across",
+      "src": "EMIR",
+      "loc": "M1 summary",
+      "quote": "798 individual hexagonal segments each measuring 1.4 metres across"
+     },
+     {
+      "value": "close to 1.5 m across",
+      "src": "EM1",
+      "loc": "overview",
+      "quote": "measuring close to 1.5 metres across"
+     },
+     {
+      "value": "1.45 m corner to corner, 50 mm thick (2011)",
+      "src": "CP",
+      "loc": "Sec. 3.4.1, PDF p. 96",
+      "quote": "The segments are quasi-hexagonal, about 1.45 metres in size (corner to corner) and 50 mm thick"
+     },
+     {
+      "value": "1.42 m tip to tip (third party)",
+      "src": "H19",
+      "loc": "Sec. 5.4, PDF p. 15",
+      "quote": "each hexagonal shaped segment with a longest diagonal (tip to tip) of 1.42 m and a gap of 4 mm between neighbouring segments."
+     },
+     {
+      "value": "1.2447 m flat to flat (third-party model)",
+      "src": "ANI",
+      "loc": "generateCoordSegments",
+      "quote": "pitch = 1.244683637214 # diametre du cerle INSCRIT"
+     }
+    ],
+    "derived": "DERIVED: 1.45 m corner to corner = 1.45 x sqrt(3)/2 = 1.2557 m flat to flat. The ESO pupil radii (hole_and_outline) fit a regular lattice of pitch 1.2432 m at the inner edge and 1.2274 m at the outer edge in the entrance pupil (the outer segments are foreshortened by the curvature of M1); with a 4 mm gap these are 1.2392 and 1.2234 m flat to flat, 1.431 and 1.413 m corner to corner. Flat to flat (explorer lattice, pupil plane) = 1.2274 - 0.004 = 1.2234 m."
+   },
+   "segment_gap": {
+    "value": 0.004,
+    "unit": "m",
+    "src": "EM1",
+    "loc": "technical details",
+    "quote": "The gap between the segments is 4 mm.",
+    "alternatives": [
+     {
+      "value": "4 mm (2011)",
+      "src": "CP",
+      "loc": "Sec. 3.4.1, PDF p. 96",
+      "quote": "The gap between the segments is 4 mm."
+     },
+     {
+      "value": "0.004 m (hcipy)",
+      "src": "HCI",
+      "loc": "make_elt_aperture",
+      "quote": "segment_gap = 0.004"
+     },
+     {
+      "value": "half-gap 0.02 m in the AnisoCADO PSF tool (a simulation choice)",
+      "src": "ANIP",
+      "loc": "fake_generatePupil",
+      "quote": "dspider = 0.53 gap = 0.02"
+     }
+    ]
+   },
+   "segment_layout": {
+    "value": "a hexagonal lattice with the center position and rings 1-4 empty (61 positions), rings 5-15 complete and rings 16-17 partial: the 798 segments whose centers lie within 15.39-15.52 lattice pitches of the axis; six-fold symmetric, 133 per 60-deg sector",
+    "unit": "",
+    "src": "M158",
+    "loc": "PDF p. 2",
+    "quote": "the maxi- mum number of rings that can be moved to Phase 2 is five, representing 210 M1 segments.",
+    "alternatives": [
+     {
+      "value": "the five inner rings were the deferred Phase 2 items",
+      "src": "C18",
+      "loc": "PDF p. 2",
+      "quote": "notably the five inner rings"
+     },
+     {
+      "value": "Phase 1 without the 5 inner rings = 588 segments",
+      "src": "C18",
+      "loc": "Fig. 3 caption, PDF p. 3",
+      "quote": "without the 5 inner rings, i.e., only 588 mirrors"
+     },
+     {
+      "value": "full M1 halves the linear size of the central hole",
+      "src": "C18",
+      "loc": "PDF p. 3",
+      "quote": "It reduces the linear size of the central hole by nearly a factor of two"
+     },
+     {
+      "value": "third-party model: lattice positions between 4.1 and 15.4 pitches = 798",
+      "src": "ANI",
+      "loc": "generateCoordSegments",
+      "quote": "inner_rad, outer_rad = 4.1, 15.4 # nominal, 798 segments"
+     },
+     {
+      "value": "hcipy (2011 Fig. 3.66): 17 rings, inner hexagon removed, the pointy tops cut",
+      "src": "HCI",
+      "loc": "make_elt_aperture",
+      "quote": "segment_positions = make_hexagonal_grid(segment_size * np.sqrt(3) / 2 + segment_gap, 17, pointy_top=False)"
+     }
+    ],
+    "derived": "DERIVED (pure-Python lattice count, scratch script): six rings of 6k segments with k = 5-9 hold 6 x 35 = 210 segments (the deferred 'five inner rings'), so the full M1 starts at ring 5 and the center plus rings 1-4 (61 positions) stay empty. Keeping the lattice positions with ring >= 5 and center radius < Rc gives exactly 798 for 15.3948 < Rc/p < 15.5242 (AnisoCADO uses 15.4); the same rule with ring >= 10 gives 588 (C18's Phase 1 count). Per ring: rings 5-15 complete (30 ... 90), ring 16: 78 of 96, ring 17: 60 of 102; 133 per 60-deg sector. hcipy's 2011-based model, reproduced in pure Python from the saved source, also gives 798 segments, with center radii 4.359-15.395 pitches: the same set.",
+    "figure_readoff": "FIGURE READ-OFF: C18 Fig. 3 (bottom left, the full M1): a near-circular outline with a jagged edge and a hexagonal central hole; the schematic draws ~1050 cells (counted from the image), so it fixes the shape, not the count."
+   },
+   "hole_and_outline": {
+    "value": "2011-2012 design (ESO): hole inscribed radius 4.7087 m, hole corner radius 5.6039 m, outline inscribed ('filled') radius 18.4525 m, circumscribed radius 19.5732 m",
+    "unit": "m (radii in the entrance pupil)",
+    "src": "C12",
+    "loc": "Fig. 1 (table of optics dimensions), PDF p. 2",
+    "quote": "Figure 1. Optical layout for the Nasmyth configuration of the E-ELT, optical prescription and optics dimensions",
+    "alternatives": [
+     {
+      "value": "filled outer radius 18.5 m, inner 5.5 m; 11.1 m central obstruction (2011)",
+      "src": "ESM",
+      "loc": "M1",
+      "quote": "The filled outer radius of the primary is 18.5 m and the inner 5.5 m."
+     },
+     {
+      "value": "11.1 m central obstruction (2011)",
+      "src": "ESD",
+      "loc": "design text",
+      "quote": "an elliptical f/0.93 segmented mirror of 39-m diameter and a 11.1-m central obstruction."
+     },
+     {
+      "value": "11 m central obstruction (2011)",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "has a diameter of approximately 39 metres and an 11-metre central obstruc- tion."
+     },
+     {
+      "value": "Fig. 3.66 (2011): the four radii",
+      "src": "CP",
+      "loc": "Fig. 3.66 caption, PDF p. 97 (printed 96)",
+      "quote": "Figure 3.66. Primary mirror segmentation pattern."
+     },
+     {
+      "value": "current design, ICD space: largest inscribed dodecagon 38.177 m across its corners; smallest hexagon around the central obscuration 11.608 m across its corners",
+      "src": "A24",
+      "loc": "Sec. 2, PDF p. 4",
+      "quote": "largest inscribed regular dodecagon within the ELT-M1 pupil (38177 mm in diagonal in ELT-M1 space), while the oversizing of the central obscuration is computed relative to the smallest circumscribed hexagon around the ELT-M1 central obscuration (11608 mm in diagonal in ELT-M1 space)."
+     },
+     {
+      "value": "hcipy: inner hexagon 9.4136 m across the flats, outer 39.14634 m",
+      "src": "HCI",
+      "loc": "make_elt_aperture",
+      "quote": "elt_outer_diameter = 39.14634 spider_width = 0.4 segment_size = 1.45 segment_gap = 0.004 inner_diameter = 9.4136 outer_diameter = 39.14634"
+     }
+    ],
+    "derived": "DERIVED (lattice of the segment_layout rule, gap 0): hole inscribed 3.7865 p, hole corner 4.5091 p (ratio 0.8397; ESO 4708.67/5603.91 = 0.8402), outline inscribed 15.0111 p, circumscribed 15.9471 p. Pitch from the ESO radii: 1.24354 / 1.24279 m (hole) and 1.22926 / 1.22738 m (outline). The 1.3% difference is the foreshortening of the outer segments by the curvature of M1 (AnisoCADO models the foreshortening as r -> R atan(r/R) with R = 95.7853 m). Explorer lattice p = 1.22737 m (39.146 m circumscribed): hole 9.29 m across the flats (inscribed), 11.07 m across the corners, smallest circumscribed hexagon 11.455 m (A24: 11.608 m), outline inscribed 36.85 m (A24's dodecagon: 38.177 cos 15 deg = 36.876 m).",
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1, table of optics dimensions (an image; read after flipping): 'M1 Segmented, quasi circular, inner radius 4708.7 mm, outer radius 19573.2 mm'. CP Fig. 3.66 (right panel, one 60-deg sector with dimension lines): R4708.67 and R5603.91 dimension the inner edge of the sector (the hole), R18452.5 and R19573.17 the outer edge; the sector's inner edge is a straight flat facing +X_M1. Left panel: sectors 1-6 counterclockwise from +X_M1 (sector 1 centered on +X_M1, boundaries at +/-30 deg). Right panel at 1200 dpi: flat-topped segments (corners along +/-X_M1, lattice rows at 30, 90, 150 deg), the hole's flat side faces +X_M1."
+   },
+   "outer_diameter_circumscribed": {
+    "value": 39.146,
+    "unit": "m (circle through the outermost segment corners; 2011-2012 design)",
+    "src": "C12",
+    "loc": "Fig. 1 dimensions table (FIGURE READ-OFF), PDF p. 2",
+    "quote": "Figure 1. Optical layout for the Nasmyth configuration of the E-ELT, optical prescription and optics dimensions",
+    "alternatives": [
+     {
+      "value": "39.14634 m (hcipy, from Fig. 3.66)",
+      "src": "HCI",
+      "loc": "make_elt_aperture docstring",
+      "quote": "the diameter of the pupil will be 39.14634 meters."
+     },
+     {
+      "value": "39.3 m headline",
+      "src": "C18",
+      "loc": "PDF p. 1",
+      "quote": "At 39.3 metres in diameter"
+     },
+     {
+      "value": "39.3 m (2024)",
+      "src": "V24",
+      "loc": "PDF p. 1",
+      "quote": "M1, 39.3 metres in diameter"
+     },
+     {
+      "value": "39.3 m (2023)",
+      "src": "P23",
+      "loc": "Sec. 2.2.1, PDF p. 4",
+      "quote": "The primary mirror, M1, at 39.3 m in diameter"
+     },
+     {
+      "value": "39.3 m (2011)",
+      "src": "CP",
+      "loc": "PDF p. 6",
+      "quote": "it is proposed to construct a 39.3-metre segmented optical tele- scope"
+     },
+     {
+      "value": "39 m",
+      "src": "EF",
+      "loc": "facts table",
+      "quote": "Main mirror diameter 39 metres"
+     },
+     {
+      "value": ">= 39 m outer diameter, near-annular (requirement)",
+      "src": "TLR",
+      "loc": "#134, PDF p. 14",
+      "quote": "The telescope shall have a near-annular aperture with an outer diameter of not less than 39 m."
+     }
+    ],
+    "derived": "DERIVED: 2 x 19573.2 mm = 39.146 m (C12 Fig. 1 read-off; CP Fig. 3.66 R19573.17 -> 39.14634 m, hcipy's number). No saved ESO document defines the '39.3 m'; the current circumscribed diameter is NOT FOUND (the M1 radius of curvature changed from 69 to 68.685 m after 2012, which changes the projection slightly)."
+   },
+   "nominal_pupil_diameter": {
+    "value": 38.542,
+    "unit": "m (ELT nominal pupil diameter in the interface control document; the basis of f/17.75 and f/0.89)",
+    "src": "A24",
+    "loc": "Sec. 2, PDF p. 4",
+    "quote": "(38542 mm in ELT-M1 space)",
+    "alternatives": [
+     {
+      "value": "M1 diameter 38542 mm in the ICD-based table",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M1 38542 68685 0.89 -0.996473 M2: 30829"
+     },
+     {
+      "value": "'all-glass' outer diameter 36.9 m, inner 10.95 m (IRDB after ESO-253082 issue 4)",
+      "src": "IRDBM",
+      "loc": "table",
+      "quote": "ELT_M1 36.9 10.95 0. !TEL.temperature reflection TER_ELT_mirror_mgf2agal.dat"
+     },
+     {
+      "value": "'all-glass' source note",
+      "src": "IRDBM",
+      "loc": "header",
+      "quote": "Updated M1 and M4 dimensions according to ESO-253082_4 sect 4.7 \"all-glass\" diameter"
+     },
+     {
+      "value": "combined-surface pupil 36.9 / 10.95 m",
+      "src": "IRDBC",
+      "loc": "table",
+      "quote": "ELT 36.9 10.95 0. !TEL.temperature reflection !TEL.ter_curve.filename"
+     }
+    ],
+    "derived": "DERIVED: 684022 mm / 38542 mm = 17.747 (ESO's f/17.75); 68.685/2 / 38.542 = 0.891 (R18's 0.89). pi/4 (36.9^2 - 10.95^2) = 975.2 m^2, near ESO's 978 m^2."
+   },
+   "diffraction_limit": {
+    "value": "~8 mas in J (1.2 um), ~14 mas in K (2.2 um)",
+    "unit": "",
+    "src": "V24",
+    "loc": "PDF p. 1",
+    "quote": "diffraction limit, which is about 8 milliarcseconds (mas) in the J band (at λ ~ 1.2 μm) and about 14 mas in the K band (at λ ~ 2.2 μm)",
+    "alternatives": [
+     {
+      "value": "same, K at ~2 um (2023)",
+      "src": "P23",
+      "loc": "Sec. 2.2, PDF p. 4",
+      "quote": "diffraction limit, which is ∼ 8 milli-arcseconds (mas) in the J-band (λ ∼ 1.2µm) and ∼ 14 mas in the K-band (λ ∼ 2µm)"
+     }
+    ],
+    "derived": "DERIVED: 1.22 lambda/D with D = 39 m: 7.7 mas at 1.2 um, 14.2 mas at 2.2 um (D = 38.542 m: 7.8, 14.4; D = 39.146 m: 7.7, 14.2). ESO quotes no diameter with the 8 and 14 mas, so the 'official' diameter for diffraction is NOT FOUND as a number; the numbers match 1.22 lambda/D for D ~ 39 m."
+   },
+   "primary_radius_of_curvature": {
+    "value": 68.7,
+    "unit": "m (concave; elliptic, conic -0.996)",
+    "src": "EM1",
+    "loc": "technical details",
+    "quote": "The concave mirror, 39 metres in diameter and with a 68.7 metres radius of curvature",
+    "alternatives": [
+     {
+      "value": "68685 mm, conic -0.996473, F 0.89 on 38.542 m (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M1 38542 68685 0.89 -0.996473 M2: 30829"
+     },
+     {
+      "value": "69 m (2011)",
+      "src": "CP",
+      "loc": "Sec. 3.4.1, PDF p. 96",
+      "quote": "a 39-metre diameter elliptic concave mirror, with a 69-metre radius of curvature."
+     },
+     {
+      "value": "69 m (2012)",
+      "src": "C12",
+      "loc": "Sec. 3.1, PDF p. 2",
+      "quote": "a 39-m diameter elliptic concave mirror, with a 69-m radius of curvature."
+     },
+     {
+      "value": "conic -0.996 (2011)",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "The f/0.88 elliptical primary mirror (M1, conic -0.996)"
+     }
+    ],
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 prescription (2012): M1 radius -69000.000 mm, conic -0.995882."
+   },
+   "primary_focal_length": {
+    "value": 34.35,
+    "unit": "m (R/2, DERIVED)",
+    "src": "EM1",
+    "loc": "technical details",
+    "quote": "with a 68.7 metres radius of curvature",
+    "derived": "DERIVED: 68.7/2 = 34.35 m (ICD via R18: 68.685/2 = 34.3425 m; 2011-2012: 34.5 m)."
+   },
+   "primary_focal_ratio": {
+    "value": 0.87,
+    "unit": "f/# (current, ESO web; diameter basis not stated)",
+    "src": "EMIR",
+    "loc": "technical summary",
+    "quote": "The focal ratio of the primary mirror ( M1 ) is f/0.87.",
+    "alternatives": [
+     {
+      "value": "f/0.89 (ICD via R18, on 38.542 m)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M1 38542 68685 0.89 -0.996473 M2: 30829"
+     },
+     {
+      "value": "f/0.88 (2011)",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "The f/0.88 elliptical primary"
+     },
+     {
+      "value": "f/0.93243 (2012)",
+      "src": "C12",
+      "loc": "Sec. 2, PDF p. 1",
+      "quote": "The primary mirror focal ratio is f/0.93243."
+     },
+     {
+      "value": "f/0.93 (2011 web)",
+      "src": "ESD",
+      "loc": "design text",
+      "quote": "an elliptical f/0.93 segmented mirror of 39-m diameter"
+     }
+    ],
+    "derived": "DERIVED: 34.35/39.3 = 0.874 (ESO's f/0.87 is consistent with the 39.3 m headline); 34.3425/38.542 = 0.891; 34.35/39.146 = 0.8775 (explorer F1). The 2012 f/0.93243 is 34.5/37.0 exactly: C12 quotes the 2012 f-numbers on a 37.0 m diameter (see final_focal_ratio)."
+   },
+   "collecting_area": {
+    "value": 978,
+    "unit": "m^2",
+    "src": "EF",
+    "loc": "facts table",
+    "quote": "Light collecting area 978 square metres",
+    "alternatives": [
+     {
+      "value": ">= 980 m^2 (requirement, 2012)",
+      "src": "TLR",
+      "loc": "#135, PDF p. 14",
+      "quote": "The total collecting area shall not be less than 980 m"
+     },
+     {
+      "value": "~1000 m^2 (2011)",
+      "src": "CP",
+      "loc": "Sec. 2.2.2, PDF p. 44",
+      "quote": "with ~ 1000 m2 photon-collecting area"
+     }
+    ],
+    "derived": "DERIVED (explorer lattice p = 1.22737 m, gap 4 mm): 798 x (sqrt(3)/2) x 1.2234^2 = 1034.31 m^2 of segments; six 0.53 m vanes along 30 + 60k deg remove 42.80 m^2 (sampled), leaving 991.5 m^2 (a 35.53 m circle), 1.4% above ESO's 978. IRDB all-glass annulus 36.9/10.95 m: 975.2 m^2. The ESO definition of the 978 m^2 (gaps, spider, hole) is NOT FOUND."
+   },
+   "central_obscuration": {
+    "value": "the empty center of M1 (no segments at the center and in rings 1-4); the M2 and the central tower lie inside the shadow of the hole",
+    "unit": "",
+    "src": "EST",
+    "loc": "central tower",
+    "quote": "The six beams of the central tower spider are placed in the shadow of the M2 crown spider to avoid obstructing the light’s path.",
+    "alternatives": [
+     {
+      "value": "M3, M4, M5 in the 10 m central tower at the center of M1",
+      "src": "EST",
+      "loc": "altitude structure",
+      "quote": "The other three mirrors are in the 10-metre central tower of the telescope tube, located at the centre of the primary mirror support structure."
+     },
+     {
+      "value": "2011: the central obstruction leaves room for the tower",
+      "src": "CP",
+      "loc": "Sec. 3.3.5, PDF p. 84 (printed 83)",
+      "quote": "The large central obstruction of the optical design also provides ample room for the erection of the cen- tral tower."
+     },
+     {
+      "value": "obscuration ratio ~28.4% (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 1, PDF p. 2",
+      "quote": "Obscuration ratio ∼ 28.4%"
+     },
+     {
+      "value": "a 37 m / 11.1 m circular ring mask considered for METIS (2018)",
+      "src": "H19",
+      "loc": "Sec. 5.4, PDF p. 15",
+      "quote": "This leads to a circular ring mask with an outer diameter of 37 m and an inner diameter of 11.1 m"
+     }
+    ],
+    "derived": "DERIVED: 28.4% = 10.95/38.542 (0.2841); the IRDB inner 10.95 m. Explorer: eps 0 (the missing rings make the hole, JWST precedent) and drawEps = 11.07/39.146 = 0.283 (the hole across the corners) for the drawing's bundles. M2 (4.25 m, mechanical) is smaller than the hole (9.29 m across the flats), so the M2 adds no obstruction beyond the hole."
+   },
+   "spider": {
+    "value": "six beams from the M2 crown to the top ring (the 'spider'); the central-tower spider hides in their shadow",
+    "unit": "",
+    "src": "EST",
+    "loc": "altitude structure",
+    "quote": "The M2 crown that hosts the M2 mirror unit is connected to the top ring by means of six beams, forming the ‘spider’.",
+    "alternatives": [
+     {
+      "value": "2011 drawing: six arms",
+      "src": "CP",
+      "loc": "Fig. 3.50 caption, PDF p. 85 (printed 84)",
+      "quote": "Figure 3.50. The spider and secondary mirror crown."
+     },
+     {
+      "value": "the latest design makes five of the six arms thinner in the METIS Lyot stops",
+      "src": "A24",
+      "loc": "Sec. 2, PDF p. 4",
+      "quote": "five of the six spider arms will be made slightly thinner thanks to the latest evolution in the design of the ELT spider arms."
+     },
+     {
+      "value": "six arms divide the pupil into six petals of near-equal area",
+      "src": "M26",
+      "loc": "Sec. 1, PDF p. 1",
+      "quote": "These six spider arms, each ≈ 0.5 m wide, divide the ELT pupil into six fragments of nearly equal area"
+     }
+    ],
+    "figure_readoff": "FIGURE READ-OFF: CP Fig. 3.50 (2011): a dodecagonal top ring joined to the M2 crown by six straight arms."
+   },
+   "spider_width": {
+    "value": 0.53,
+    "unit": "m (third-party model; no ESO value found)",
+    "src": "ANIP",
+    "loc": "fake_generatePupil (psf_utils.py)",
+    "quote": "dspider = 0.53 gap = 0.02",
+    "alternatives": [
+     {
+      "value": "0.53 and 0.51 m in the AnisoCADO docstring examples",
+      "src": "ANI",
+      "loc": "generateEeltPupilMask docstring",
+      "quote": ">>> dspider = 0.53"
+     },
+     {
+      "value": "~0.5 m",
+      "src": "M26",
+      "loc": "abstract, PDF p. 1",
+      "quote": "the six 0.5-m-wide spider arms fragment into six “petals”"
+     },
+     {
+      "value": "0.4 m (hcipy, 2011-based)",
+      "src": "HCI",
+      "loc": "make_elt_aperture",
+      "quote": "spider_width = 0.4"
+     },
+     {
+      "value": "40 cm in the METIS 2018 pupil figure (60 cm used in simulations)",
+      "src": "H19",
+      "loc": "Fig. 8 caption, PDF p. 15",
+      "quote": "a 39.3 m ELT pupil with segments and overlaid with 40 cm wide spiders of the secondary mirror."
+     }
+    ],
+    "note": "ESO's public documents give the number of arms (six) but no width (NOT FOUND); A24 reports that the latest design makes five arms thinner than the sixth (widths NOT FOUND)."
+   },
+   "spider_angles": {
+    "value": "six arms along the lattice rows of segment centers (the sector boundaries), at 30 + 60k deg in the ESO M1 frame of CP Fig. 3.66 (flat-topped segments, sector 1 centered on +X_M1)",
+    "unit": "",
+    "src": "HCI",
+    "loc": "make_elt_aperture",
+    "quote": "spiders = [make_spider_infinite([0, 0], 60 * i + 30, spider_width) for i in range(6)]",
+    "alternatives": [
+     {
+      "value": "hcipy segment shape: flat-topped hexagons (angle pi/2)",
+      "src": "HCI",
+      "loc": "make_elt_aperture",
+      "quote": "segment_shape = make_hexagonal_aperture(segment_size, angle=np.pi / 2)"
+     },
+     {
+      "value": "hcipy polygon test: flat-side normals at theta = angle + 0, 60, 120 deg",
+      "src": "HCIG",
+      "loc": "make_regular_polygon_aperture",
+      "quote": "thetas = np.arange(int(num_sides / 2), dtype='float') * np.pi / int(num_sides / 2) + angle"
+     },
+     {
+      "value": "hcipy lattice: pointy_top=False swaps x and y",
+      "src": "HCIU",
+      "loc": "make_hexagonal_grid",
+      "quote": "if pointy_top: return CartesianGrid(UnstructuredCoords((x, y), xp=xp), weight) else: return CartesianGrid(UnstructuredCoords((y, x), xp=xp), weight)"
+     },
+     {
+      "value": "AnisoCADO: hexagon corners at 0, 60, ... deg (flat-topped)",
+      "src": "ANI",
+      "loc": "generateCoordSegments",
+      "quote": "th = np.linspace(0, 2 * np.pi, 7)[0:6] hx = np.cos(th) * pitch / V3 hy = np.sin(th) * pitch / V3"
+     },
+     {
+      "value": "AnisoCADO: three full bars, each perpendicular to i x 120 deg - rot",
+      "src": "ANI",
+      "loc": "fillSpider",
+      "quote": "nn = (abs( X * np.cos(i * w - rot) + Y * np.sin(i * w - rot)) < dspider / 2.)"
+     },
+     {
+      "value": "AnisoCADO: three bars (six arms)",
+      "src": "ANI",
+      "loc": "generateEeltPupilMask",
+      "quote": "nspider = 3 # for the day where we have more/less spiders"
+     }
+    ],
+    "derived": "DERIVED from the two codes (read, not run): hcipy's lattice points are x = (-q + r) c/2, y = (q + r) c sqrt(3)/2, swapped by pointy_top=False, so nearest neighbors lie at 30, 90, 150 deg; the hcipy segments (angle pi/2) have flat-side normals at 90, 150, 210 deg (flat-topped, corners at 0, 60 ... deg); the arms at 30 + 60k deg run along the lattice rows. AnisoCADO: corners at 0, 60 ... deg, neighbors at 30, 90, 150 deg; each bar |X cos(phi) + Y sin(phi)| < w/2 with phi = 0, 120, 240 deg lies along phi + 90, i.e. arms at 30 + 60k deg: the same relation. In tpupil.js terms (rot 30 turns the pointy-topped lattice into flat-topped segments with rows at 30 + 60k): vanes at 30, 90, 150, 210, 270, 330 deg.",
+    "note": "No ESO document places the arms relative to the segments (NOT FOUND); both third-party models agree. The orientation of the M1 frame relative to the elevation axis is NOT FOUND."
+   },
+   "m2": {
+    "value": "convex, 4.25 m mechanical (outer), 800 mm central hole, R = 8810 +/- 5 mm (f/1.1), conic -2.208857; 4.101 m optical",
+    "unit": "",
+    "src": "EM23",
+    "loc": "Main characteristics table",
+    "quote": "Mechanical diameter, outer 4250 mm 4000 mm Mechanical diameter, inner 800 mm 30 mm",
+    "alternatives": [
+     {
+      "value": "R and conic",
+      "src": "EM23",
+      "loc": "Main characteristics table",
+      "quote": "R M2 = 8810 ± 5 mm (convex f/1.1)"
+     },
+     {
+      "value": "conic",
+      "src": "EM23",
+      "loc": "Main characteristics table",
+      "quote": "k M2 = -2.208857"
+     },
+     {
+      "value": "4.25 m F/1.1 thin meniscus, 800 mm hole",
+      "src": "C19",
+      "loc": "PDF p. 2",
+      "quote": "The M2 mirror is a convex 4.25-metre F/1.1 thin meniscus, about 100 mm thick, with an 800-mm central hole."
+     },
+     {
+      "value": "4101.065 mm optical, R 8810, conic -2.208857 (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M2* 4101.065 8810 1.07 -2.208857 M3: 30508.855"
+     },
+     {
+      "value": "2011: useful annulus 1091.0-4090.6 mm, R -9313 mm, conic -2.28962",
+      "src": "CP",
+      "loc": "Sec. 3.5.2, PDF p. 126 (printed 125)",
+      "quote": "The useful area of the secondary mirror is annular with the inner diameter at 1091.0 mm and the outer at 4090.6 mm."
+     },
+     {
+      "value": "2011 prescription",
+      "src": "CP",
+      "loc": "Sec. 3.5.1, PDF p. 126",
+      "quote": "The optical design prescribes a radius of curvature at the vertex of -9313 ± 25 mm, a nominal conic con- stant of -2.28962"
+     },
+     {
+      "value": "4.2 m (2011 web)",
+      "src": "ESD",
+      "loc": "design text",
+      "quote": "The 4.2-m secondary mirror (M2) is convex"
+     },
+     {
+      "value": "4.1 m (2011)",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "The 4.1-metre secondary mirror (M2) is convex"
+     }
+    ],
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): M2 radius -9313.000 mm, conic -2.28962, inner radius 545.5 mm, outer radius 2045.3 mm."
+   },
+   "m1_m2_separation": {
+    "value": 30.829,
+    "unit": "m (M1 vertex to M2 vertex; ICD via R18)",
+    "src": "R18",
+    "loc": "Table 2, PDF p. 4",
+    "quote": "M1 38542 68685 0.89 -0.996473 M2: 30829",
+    "derived": "DERIVED: 30.829/34.3425 = 0.898 f1 (the drawing's Korsch puts the secondary at 0.9 f1).",
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): M1 thickness -30830.00 mm ('Axial distance to next surface vertex')."
+   },
+   "m3": {
+    "value": "concave, 4.0 m mechanical, 30 mm central hole, R = 21089.53 +/- 10 mm (f/2.6), conic 0; 3.785 m optical; at the vertex of M1",
+    "unit": "",
+    "src": "EM23",
+    "loc": "Main characteristics table",
+    "quote": "R M3 = 21089.53 ± 10 mm (concave f/2.6)",
+    "alternatives": [
+     {
+      "value": "conic 0",
+      "src": "EM23",
+      "loc": "Main characteristics table",
+      "quote": "k M3 = 0"
+     },
+     {
+      "value": "4.0 m F/2.6 thin meniscus, 30 mm hole",
+      "src": "C19",
+      "loc": "PDF p. 2",
+      "quote": "The M3 mirror is a concave 4.0- metre F/2.6 thin meniscus, about 100 mm thick, with a 30-mm central hole."
+     },
+     {
+      "value": "3784.723 mm optical (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M3* 3784.723 21089.53 2.64 0 M4: 13200"
+     },
+     {
+      "value": "2011: 3.75 m, 80 mm hole",
+      "src": "CP",
+      "loc": "Sec. 3.6.2, PDF p. 136 (printed 135)",
+      "quote": "The tertiary mirror is 3.75-metre across and 100 mm thick with an 80 mm diameter hole in the centre."
+     },
+     {
+      "value": "2011: 3.7 m at the vertex of the primary",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "to the 3.7-metre mildly aspheric concave tertiary mirror (M3) located at the vertex of the primary."
+     },
+     {
+      "value": "2011 web: 3.8 m, hole ~70 mm radius",
+      "src": "ESM",
+      "loc": "M3",
+      "quote": "3.8-m across and about 100-mm thin with an hole of approximately 70-mm radius in the centre."
+     }
+    ],
+    "derived": "DERIVED: M3 vertex 30.829 - 30.508855 = 0.320 m above the M1 vertex (2012: 30.830 - 30.5094 = 0.321 m).",
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): M3 radius -21067.947 mm, conic 0, inner radius 67.3 mm, outer radius 1878.6 mm."
+   },
+   "m4": {
+    "value": "flat adaptive mirror, 2.4 m, six petals of < 2 mm, > 5000 actuators, inclined 7.75 deg, conjugated to 621 m; a central 'way-through' hole limits the field to 10'; a rotating switcher selects the Nasmyth focus",
+    "unit": "",
+    "src": "EM4",
+    "loc": "technical details",
+    "quote": "With a diameter of 2.4 metres, the flat M4 will be the largest adaptive mirror ever built.",
+    "alternatives": [
+     {
+      "value": "switcher selects the Nasmyth focus",
+      "src": "EM4",
+      "loc": "technical details",
+      "quote": "It is further mounted on a rotating mechanism (called a switcher) which is used to select the Nasmyth focus to which the light will be directed."
+     },
+     {
+      "value": "inclination",
+      "src": "EMIR",
+      "loc": "technical summary",
+      "quote": "The M4 mirror is inclined by 7.75°"
+     },
+     {
+      "value": "conjugation",
+      "src": "EMIR",
+      "loc": "technical summary",
+      "quote": "conjugated to 621 m in front of the telescope, from M1"
+     },
+     {
+      "value": "2394.244 mm (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M4 2394.244 Inf - 0 M5: 7327.616"
+     },
+     {
+      "value": "2.4 m (2019)",
+      "src": "V19",
+      "loc": "PDF p. 1",
+      "quote": "With a diameter of 2.4 metres"
+     },
+     {
+      "value": "2.7 m reference body",
+      "src": "V19",
+      "loc": "PDF p. 2",
+      "quote": "The 2.7-metre diameter lightweight"
+     },
+     {
+      "value": "2012: petals ~600-2400 mm",
+      "src": "C12",
+      "loc": "Sec. 6, PDF p. 11",
+      "quote": "petals with an inner diameter of about 600mm and a diameter of about 2400mm at the outer rim"
+     },
+     {
+      "value": "2012: conjugated to 556 m, tilt 7.75",
+      "src": "C12",
+      "loc": "Sec. 2, PDF p. 1",
+      "quote": "(M4, conjugated to 556 m in front of the telescope)"
+     },
+     {
+      "value": "2011 web: 2380 x 2340 mm",
+      "src": "ESM",
+      "loc": "M4",
+      "quote": "The quaternary mirror has an approximate diameter of 2.4-m (2380x2340mm)."
+     },
+     {
+      "value": "M4-M5 separation (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M4 2394.244 Inf - 0 M5: 7327.616"
+     }
+    ],
+    "derived": "DERIVED: M4 13.52 m above the M1 vertex (0.320 + 13.2); the intermediate image of M1+M2 forms 13.47 m above the M1 vertex (paraxial, ICD-based table; 13.51 m for 2012), at the M4 hole.",
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): M4 flat, tilt 7.75 deg ('angle between normal to surface and on-axis ray'), 13200.00 mm from M3, elliptical, inner radius 289.3 x 287.3 mm, outer radius 1190.7 x 1171.1 mm; 10000.00 mm to M5."
+   },
+   "m5": {
+    "value": "flat tip-tilt mirror, elliptical 2.7 x 2.2 m (silicon carbide); folds the beam to the Nasmyth focus along the elevation axis; a switching mechanism selects the platform",
+    "unit": "",
+    "src": "EM5",
+    "loc": "overview",
+    "quote": "M5 will be a flat, elliptical mirror measuring 2.7 by 2.2 metres",
+    "alternatives": [
+     {
+      "value": "folds toward each Nasmyth focus along the elevation axis",
+      "src": "EM5",
+      "loc": "technical details",
+      "quote": "The M5 unit folds the optical beams towards each Nasmyth focus along the telescope elevation axis."
+     },
+     {
+      "value": "2.2 m minor axis, 2.7 m major axis (2021)",
+      "src": "V21",
+      "loc": "PDF p. 1",
+      "quote": "diameter of 2.2 metres on the minor axis and 2.7metres on the major axis"
+     },
+     {
+      "value": "2649.173 mm (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 2, PDF p. 4",
+      "quote": "M5 2649.173 Inf - 0 FP: 27200"
+     },
+     {
+      "value": "2011: 2.6 x 2.1 m, defines the altitude axis",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "defines the altitude axis of the telescope, and steers the beam towards the Nasmyth"
+     }
+    ],
+    "derived": "DERIVED: M5 at 13.52 - 7.328 = 6.19 m above the M1 vertex (2012: 13.52 - 10.0 = 3.52 m). M4 (tilt 7.75 deg) turns the beam by 15.5 deg and M5 (37.25 deg) by 74.5 deg: 90 deg in all, so the beam leaves M5 along the elevation axis.",
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): M5 flat, tilt 37.25 deg, elliptical, inner radius 57.6 x 46.9 mm, outer radius 1308.6 x 1038.9 mm; 29172.38 mm to the image."
+   },
+   "final_focal_length": {
+    "value": 684.022,
+    "unit": "m (Nasmyth)",
+    "src": "EMIR",
+    "loc": "technical summary",
+    "quote": "The Nasmyth focal ratio is rather large (f/17.75, focal length 684022 mm).",
+    "alternatives": [
+     {
+      "value": "684021.6 mm (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 1, PDF p. 2",
+      "quote": "Effective focal length 684021.6 mm"
+     }
+    ],
+    "derived": "DERIVED (paraxial, scratch script): the 2012 prescription (C12 Fig. 1) gives 646.79 m with a back focal distance from M3 of 52.3725 m, matching the prescription's M3-M4-M5-image path 13.2 + 10.0 + 29.17238 = 52.3724 m. The rounded ICD-based table (R18 Table 2) gives 687.3 m, but the table's R2 = 8810 mm is rounded and the focal length moves 2.4 m per mm of R2, so the table cannot test the 684.022 m."
+   },
+   "final_focal_ratio": {
+    "value": 17.75,
+    "unit": "f/# (on the 38.542 m nominal pupil)",
+    "src": "EMIR",
+    "loc": "technical summary",
+    "quote": "(f/17.75, focal length 684022 mm)",
+    "alternatives": [
+     {
+      "value": "17.75 (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 1, PDF p. 2",
+      "quote": "Working F/# 17.75"
+     },
+     {
+      "value": "f/17.48 (2012, on 37.0 m)",
+      "src": "C12",
+      "loc": "Sec. 2, PDF p. 1",
+      "quote": "The Nasmyth focal ratio is rather large (f/17.48)."
+     },
+     {
+      "value": "f/17.48 (2011 web)",
+      "src": "ESD",
+      "loc": "design text",
+      "quote": "The output beam at f/17.48 is very nearly diffraction limited over the entire 10-arcminute field of view."
+     },
+     {
+      "value": "f/17.5 (2011)",
+      "src": "CP",
+      "loc": "Sec. 1.10, PDF p. 17",
+      "quote": "The output beam at f/17.5 is very nearly diffraction-limited over the entire ten-arcminute field of view."
+     },
+     {
+      "value": "F/15-F/18 (requirement)",
+      "src": "TLR",
+      "loc": "#142, PDF p. 14",
+      "quote": "with a fixed focal ratio between F/15 and F/18."
+     }
+    ],
+    "derived": "DERIVED: 684.022/38.542 = 17.747; on the explorer's 39.146 m circumscribed pupil 684.022/39.146 = 17.474. 2012: 646.794 m / 37.0 m = 17.481 = C12's f/17.48 (and 34.5/37.0 = 0.93243, 162.85/37.0 = 4.40 for the intermediate focus): C12's f-numbers are on 37.0 m."
+   },
+   "plate_scale": {
+    "value": 0.3016,
+    "unit": "arcsec/mm (Nasmyth)",
+    "src": "R18",
+    "loc": "Table 1, PDF p. 2",
+    "quote": "Plate scale 0.3016 ”/mm",
+    "alternatives": [
+     {
+      "value": "~3.2 mm/arcsec (2011)",
+      "src": "CP",
+      "loc": "Sec. 2.2.2, PDF p. 45",
+      "quote": "with a plate scale of ~ 3.2 mm arcsecond-1 on the sky."
+     }
+    ],
+    "derived": "DERIVED: 206264.806/684022 = 0.30155 arcsec/mm = 3.3162 mm/arcsec (2012 design: 206264.806/646794 = 0.3189 arcsec/mm, 3.136 mm/arcsec)."
+   },
+   "field_of_view": {
+    "value": 10,
+    "unit": "arcmin (unvignetted diameter at the Nasmyth focus; set by the hole in M4)",
+    "src": "EMIR",
+    "loc": "technical summary",
+    "quote": "The total Nasmyth field of view is 10 arc minutes, limited by the dimensions of the way-through hole in one of the flat folding mirrors ( M4 ).",
+    "alternatives": [
+     {
+      "value": "10 arcmin unvignetted (2024)",
+      "src": "V24",
+      "loc": "PDF p. 1",
+      "quote": "This design provides an unvignetted field of view (FoV) with a diameter of 10 arc- minutes on the sky"
+     },
+     {
+      "value": "10 arcmin",
+      "src": "EF",
+      "loc": "facts table",
+      "quote": "Telescope field of view 10 arcminutes"
+     },
+     {
+      "value": ">= 10 arcmin unvignetted (requirement)",
+      "src": "TLR",
+      "loc": "#157, PDF p. 15",
+      "quote": "The diameter of the unvignetted field-of-view shall not be less than 10 arcmin at the Nasmyth focal"
+     },
+     {
+      "value": "central >= 5 arcmin free of guide probes (requirement)",
+      "src": "TLR",
+      "loc": "#159, PDF p. 15",
+      "quote": "The central FoV with a diameter of at least 5 arcmin at each Nasmyth focal station shall be available for"
+     },
+     {
+      "value": "2011: 10 arcmin with 5 arcmin unvignetted",
+      "src": "CP",
+      "loc": "Sec. 2.2.2, PDF pp. 44-45",
+      "quote": "a 10-arcminute (5-arcminute"
+     },
+     {
+      "value": "FoV 0.0833 deg (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 1, PDF p. 2",
+      "quote": "Field of View 0.08333333◦"
+     }
+    ],
+    "derived": "DERIVED: 10 arcmin at 3.3162 mm/arcsec = 1990 mm across (R18's focal-plane diameter 1987.118 mm)."
+   },
+   "focal_surface": {
+    "value": "curved, radius 9.884 m, center of curvature before the focus; 27.2 m from M5 (back focal distance)",
+    "unit": "",
+    "src": "R18",
+    "loc": "Table 2, PDF p. 4",
+    "quote": "FP 1987.118 -9884.164 - 0 -",
+    "alternatives": [
+     {
+      "value": "ESO web: 'Field curvature is 9 88 m' (the separator glyph is missing in the page source)",
+      "src": "EMIR",
+      "loc": "technical summary",
+      "quote": "Field curvature is 9 88 m and the centre of field curvature is before the focus."
+     },
+     {
+      "value": "back focal distance 27200 mm (ICD via R18)",
+      "src": "R18",
+      "loc": "Table 1, PDF p. 2",
+      "quote": "Back focal distance 27200 mm"
+     },
+     {
+      "value": "2012: field curvature 11.3 m",
+      "src": "C12",
+      "loc": "Sec. 2, PDF p. 1",
+      "quote": "Field curvature is 11.3m."
+     }
+    ],
+    "figure_readoff": "FIGURE READ-OFF: C12 Fig. 1 (2012): image surface radius 11223.000 mm, 29172.38 mm from M5."
+   },
+   "nasmyth_platforms": {
+    "value": "two Nasmyth platforms on either side of the tube (~30 x 15 m each, 27 m above the ground; elevation axis at 33 m), each with a prefocal station (PFS-A, PFS-B); light reaches the straight-through instrument at the platform center, or lateral instruments via a flat M6N, or the coude laboratory via M6C",
+    "unit": "",
+    "src": "EPFS",
+    "loc": "overview",
+    "quote": "the prefocal stations (PFS-A and PFS-B), which stand over 12 metres high and sit on the platforms, called Nasmyth platforms, on either side of the ELT’s giant tube structure.",
+    "alternatives": [
+     {
+      "value": "platform size",
+      "src": "EST",
+      "loc": "azimuth structure",
+      "quote": "the two Nasmyth platforms, each with dimensions of approximately 30 m by 15 m"
+     },
+     {
+      "value": "heights",
+      "src": "EST",
+      "loc": "altitude structure",
+      "quote": "The Nasmyth platforms are located 27 m from the ground and the altitude axis is at a height of 33 m."
+     },
+     {
+      "value": "M6 retracted: the straight-through instrument",
+      "src": "EPFS",
+      "loc": "light distribution",
+      "quote": "These M6 mirrors can also be fully retracted from the telescope’s optical beam so that the instrument at the centre of the Nasmyth platform (the straight-through instrument) receives the telescope’s light."
+     },
+     {
+      "value": "M6 = the sixth mirror",
+      "src": "EPFS",
+      "loc": "light distribution",
+      "quote": "When they are deployed, these mirrors are the sixth mirror (M6) in the telescope’s optical path."
+     },
+     {
+      "value": "M6N size",
+      "src": "EPFS",
+      "loc": "light distribution",
+      "quote": "Its optical surface has dimensions of 1440 mm x 1042 mm"
+     },
+     {
+      "value": "2011: M6N diverts the central 5 arcmin to the two lateral foci",
+      "src": "CP",
+      "loc": "Sec. 3.9.4, PDF p. 157 (printed 156)",
+      "quote": "The vignetting of the beam outside the central five arcminutes that are diverted has to be kept to a mini- mum"
+     },
+     {
+      "value": "2011: platforms on the sides of the azimuth ring",
+      "src": "CP",
+      "loc": "Sec. 3.3.3, PDF p. 82 (printed 81)",
+      "quote": "The two Nasmyth platforms are mounted on the sides of the azimuth ring."
+     }
+    ],
+    "note": "Which platform (A or B) faces which direction is NOT FOUND; the drawing puts A up and B down by choice."
+   },
+   "intermediate_focus": {
+    "value": "f/4.4 after M2 (2012), at the hole in M4; ~1 arcmin seeing-limited, coma-limited; for calibration sources, not science",
+    "unit": "",
+    "src": "C12",
+    "loc": "Sec. 2, PDF p. 1",
+    "quote": "An intermediate f/4.4 focus is also available (after reflection on the secondary mirror).",
+    "alternatives": [
+     {
+      "value": "not for science",
+      "src": "C12",
+      "loc": "Sec. 2, PDF p. 1",
+      "quote": "This focus is not conceived for science"
+     },
+     {
+      "value": "2011: f/4 intermediate focus for calibration sources",
+      "src": "CP",
+      "loc": "Sec. 3.3.5, PDF p. 85 (printed 84)",
+      "quote": "wishing to access the f/4 intermediate focus (e.g., calibration sources for adaptive optics systems,"
+     }
+    ],
+    "derived": "DERIVED (paraxial): M1+M2 focal length 162.85 m (2012; 162.85/37.0 = f/4.40, /39.146 = f/4.160) or 169.69 m (rounded ICD-based table; /39.146 = f/4.335), the image 13.51 m (13.47 m) above the M1 vertex."
+   },
+   "exit_pupil": {
+    "value": "the entrance pupil lies at M1; the exit pupil 1945 mm after M4 (2012)",
+    "unit": "",
+    "src": "C12",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "The entrance pupil is collocated with the primary and the exit pupil is located 1945 mm after the quaternary mirror."
+   }
+  },
+  "not_found": [
+   "The current circumscribed diameter and segment pitch of M1 in the entrance pupil: ESO's public numbers for the segmentation (four radii) are the 2011-2012 ones (CP Fig. 3.66, C12 Fig. 1); the M1 radius of curvature changed since (69 -> 68.685 m), which changes the projection slightly. ESO-253082 (the Nasmyth instrument ICD, which holds the current pupil) is not public.",
+   "The width of the spider arms in any ESO document (the latest design has five arms thinner than the sixth, A24; widths NOT FOUND); the explorer uses AnisoCADO's 0.53 m.",
+   "The angle of the spider arms relative to the segment rows in an ESO document (both third-party models put the arms along the rows), and the orientation of the M1 frame (X_M1) relative to the elevation axis and the Nasmyth platforms.",
+   "An explicit 'official' diameter for diffraction: ESO quotes ~8 mas (J) and ~14 mas (K) without a diameter (consistent with 1.22 lambda/D, D ~ 39 m).",
+   "ESO's definition of the 978 m^2 collecting area (gaps, spider, hole).",
+   "Which Nasmyth platform (A or B) lies on which side (east or west) of the tube.",
+   "Current M2-M3, M3-M4, M4-M5 and M5-focus distances in an ESO document (only the third-party relay R18 of ICD v3.6, whose rounded values do not close paraxially).",
+   "The 42 m design's segment count and dimensions (only 'Initially a 42-metre' and the ~20% reduction).",
+   "The current lateral-port field (M6N): the 2011 design diverted the central 5 arcmin."
+  ],
+  "conflicts": [
+   "Primary diameter: 39.3 m (C18, P23, V24, CP 2011 headline) vs 39 m (EF; TLR >= 39 m) vs 39.146 m circumscribed (CP Fig. 3.66 R19573.17, C12 Fig. 1 19573.2 mm, hcipy 39.14634) vs 38.542 m nominal pupil of the ICD (A24, R18) vs 36.9 m 'all-glass' (IRDB; = 2 x 18.45 m, the filled outer radius) vs 37 m (the basis of C12's 2012 f-numbers, DERIVED) vs 37 m circular mask (H19).",
+   "Segment size: 1.45 m corner to corner (C18, P23, EM1, CP) vs 1.4 m across (EMIR) vs 'close to 1.5 m' (EM1 overview) vs 1.42 m tip to tip (H19) vs 1.2447 m flat to flat = 1.437 m corner to corner (AnisoCADO) vs 1.41-1.43 m corner to corner from ESO's 2011 radii (DERIVED, pupil plane).",
+   "Central obstruction: 11.1 m (ESD 2011, H19 mask) vs 11 m (CP 2011) vs inner radius 5.5 m (ESM 2011) vs 4.7087 / 5.6039 m radii (C12, CP Fig. 3.66) vs 11.608 m smallest circumscribed hexagon (A24) vs 10.95 m and 28.4% (IRDB, R18) vs 9.4136 m across the flats (hcipy).",
+   "Primary focal ratio: f/0.87 (EMIR) vs f/0.89 (R18, on 38.542 m) vs f/0.88 (CP 2011) vs f/0.93 / f/0.93243 (ESD, C12; on 37.0 m).",
+   "Radius of curvature of M1: 68.7 m (EM1) / 68.685 m (R18) vs 69 m (CP 2011, C12 2012).",
+   "Final focal ratio and length: f/17.75, 684.022 m (EMIR, R18) vs f/17.48 (C12, ESD; 646.79 m DERIVED from the 2012 prescription, on 37.0 m) vs f/17.5 (CP) vs ~f/17 (CP Sec. 2.2.2); 743 m (the task's guess) is not supported by any saved source.",
+   "Plate scale: 0.3016 arcsec/mm = 3.316 mm/arcsec (R18; 684.022 m DERIVED) vs ~3.2 mm/arcsec (CP 2011).",
+   "Field: 10 arcmin unvignetted (EMIR, V24, P23, TLR) vs 10 arcmin with 5 arcmin unvignetted (CP 2011 Sec. 2.2.2).",
+   "Field curvature: 9.884 m (R18; EMIR prints '9 88 m') vs 11.3 m (C12 text) vs 11.223 m (C12 Fig. 1 image surface).",
+   "M4 conjugation: 621 m (EMIR) vs 556 m (C12 2012).",
+   "M2 size: 4.25 m mechanical (EM23, C19, P23) vs 4.101 m optical (R18) vs 4.0906 m outer useful (CP 2011) vs 4.2 m (ESD 2011) vs 4.1 m (CP Sec. 1.10) vs '4-m' (C12). M2 hole: 800 mm mechanical (EM23) vs 1091.0 mm useful inner (CP) vs 545.5 mm inner radius (C12 Fig. 1).",
+   "M3 size: 4.0 m mechanical (EM23, C19) vs 3.785 m optical (R18) vs 3.75 m (CP Sec. 3.6.2) vs 3.7 m (CP Sec. 1.10) vs 3.8 m (ESM). M3 hole: 30 mm (EM23) vs 80 mm (CP) vs ~70 mm radius (ESM) vs 67.3 mm inner radius (C12 Fig. 1).",
+   "M4 size: 2.4 m (EM4, V19, P23) vs 2394.244 mm (R18) vs 2380 x 2340 mm (ESM) vs ~2.5 m (CP Sec. 3.7). M5 size: 2.7 x 2.2 m (EM5, V21) vs 2649.173 mm (R18) vs 2.6 x 2.1 m (CP, ESM).",
+   "M4-M5 distance and focus distance: 7.328 m and 27.2 m (R18) vs 10.0 m and 29.172 m (C12 2012).",
+   "Spider width: 0.53 m (AnisoCADO PSF tool) vs 0.51 m (AnisoCADO example) vs ~0.5 m (M26) vs 0.4 m (hcipy; H19 Fig. 8a) vs 0.6 m (H19 simulations).",
+   "Collecting area: 978 m^2 (EF) vs >= 980 m^2 (TLR 2012) vs ~1000 m^2 (CP) vs 975.2 m^2 (IRDB annulus, DERIVED) vs 991.5 m^2 (explorer lattice with 0.53 m vanes, DERIVED) vs 1034.3 m^2 (segments without spider, DERIVED).",
+   "Intermediate focus: f/4.4 (C12) vs f/4 (CP)."
+  ],
+  "notes": [
+   "Pupil frame: the ESO M1 frame of CP Fig. 3.66 (X_M1 to the right, sector 1 centered on +X_M1): flat-topped segments, lattice rows at 30, 90, 150 deg, the hole's flats facing 0, 60 ... deg, the spider arms (third-party models) at 30 + 60k deg. The orientation relative to the sky or the elevation axis is NOT FOUND.",
+   "The entrance pupil lies on M1 (C12), so the Nasmyth foci share one pupil; M2 (4.25 m), the central tower and M4/M5 sit inside the shadow of the 9.3-11.1 m central hole.",
+   "Design generations: 42 m (2006-2010); 39 m baseline (2011 CP, 2012 C12/ESD/ESM: R1 = 69 m, f/17.48 on 37 m, 646.8 m); the current design (EMIR, EM1, EM23, ICD v3.6 via R18: R1 = 68.685 m, R2 = 8810 mm, R3 = 21089.53 mm, f/17.75 on 38.542 m, 684.022 m). The segmentation (798 = 6 x 133, 1.45 m, 4 mm) is the same in all 39 m documents.",
+   "Explorer lattice: a regular hexagonal lattice in the pupil plane cannot match both ESO radii at once (the inner edge needs p = 1.2432 m, the outer p = 1.2274 m); p = 1.2274 m keeps the circumscribed 39.146 m and the outline exact and makes the hole 1.3% small."
+  ]
+ }
+}

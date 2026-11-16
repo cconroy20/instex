@@ -1,0 +1,2571 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 6: Keck I / ZShooter (ZSpec, six channels B, G, R, YJ, H, K; design stage)",
+  "compiled": "2026-11-15",
+  "companion": "data/round6/zshooter.md (same content as Markdown); same JSON structure as data/round4/*.json and data/round5/*.json. zspec_common holds the parameters shared by the six channels and recommended_presets_by_arm (explorer inputs as numbers); each zshooter_<arm> object holds the channel's own parameters and validation targets.",
+  "design_version": "Post-CoDR two-spectrometer, six-channel design: Zemax archive 20260610B_ZS_6CH_Complete_Spectrograph.zar (June 2026) as summarized on the project website (pages last modified 2026-10-16) and in the project's simulator package ZShooter_v2 ('version: pdr0.1', IRDB commit 7cc3e9a, 2026-11-06); SPIE 2026 paper (published 2026-08-21) not obtained.",
+  "rule": "Every value carries src (key into sources), loc, and a short verbatim quote from the saved document. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). effective = a value chosen so that the explorer reproduces the published optics where its one-beam model cannot represent the design (white pupil). alternatives = other sourced values. Every quote was machine-checked against the saved file's extracted text.",
+  "quote_normalization": "Quotes copied from tag-stripped HTML (table cells joined by whitespace; the ' | ' cell separators of the repository Markdown tables are kept in the quotes and ignored by the check), raw repository text (.md, .yaml, .dat, .csv; .dat rows re-spaced with single spaces), decoded JSON (Crossref) and pdftotext layout/raw (O95). The check compares with all whitespace and '|' removed, case-folded, after NFKC and normalization of primes/double primes, curly quotes, dashes (incl. U+2011), minus signs, micro signs and multiplication signs; ' ... ' joins non-adjacent pieces.",
+  "quote_check": "272 quotes (299 pieces) checked, 0 failures (scratch checker, 2026-11-15)"
+ },
+ "sources": {
+  "ZSIDX": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), home page 'ZShooter: Keck I optical-IR spectrograph and imager' ('This site, like ZShooter, is actively evolving')",
+   "file": "rawdata/presets/zshooter/zshooter_index.html",
+   "url": "https://zshooter.astro.caltech.edu/index.html"
+  },
+  "ZSTECH": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Design' page (technical.html): post-CoDR architecture summary",
+   "file": "rawdata/presets/zshooter/zshooter_technical.html",
+   "url": "https://zshooter.astro.caltech.edu/technical.html"
+  },
+  "ZSOD": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Optical Design' page (RNAS interface, ZFront, ZSpec summary table, ZImager summary, open optical interfaces)",
+   "file": "rawdata/presets/zshooter/zshooter_optical_design.html",
+   "url": "https://zshooter.astro.caltech.edu/optical_design.html"
+  },
+  "ZSPEC": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'ZSpec' page (channels and spectral format table, pre-optics, echelles and white-pupil relay, cameras, sampling and resolution table). The page's 'Sources' box names the SPIE 2026 manuscript Sec. 4.1, Table 2 and Fig. 5 for the prescription and the Zemax archives 20260225A_ZS_IR_3CH_Spectrograph.zar and 20260610B_ZS_6CH_Complete_Spectrograph.zar",
+   "file": "rawdata/presets/zshooter/zshooter_zspec_optical.html",
+   "url": "https://zshooter.astro.caltech.edu/zspec_optical.html"
+  },
+  "ZSPERF": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Performance' page (limiting magnitudes, spectral resolution; dark-time run d383ad2-dirty, IRDB d1415c4, ScopeSim 0.11.5a3)",
+   "file": "rawdata/presets/zshooter/zshooter_performance.html",
+   "url": "https://zshooter.astro.caltech.edu/performance.html"
+  },
+  "ZSNB": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), staged HTML render of the simulator notebook zshooter_performance.ipynb (saved outputs; header table: zs-scopesim revision d383ad2-dirty, ScopeSim 0.11.5a3, IRDB revision d1415c4). Used: the 'Trace Geometry And Resolution Scale' tables for the 0.33\" and 0.70\" slits (orders, wave nm, spec FWHM pix, disp nm/pix, R k)",
+   "file": "rawdata/presets/zshooter/zshooter__staged_sim_notebooks_zshooter_performance.html",
+   "url": "https://zshooter.astro.caltech.edu/_staged/sim/notebooks/zshooter_performance.html"
+  },
+  "ZSL1": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'L1 - Science and facility requirements' page",
+   "file": "rawdata/presets/zshooter/zshooter_requirements_l1.html",
+   "url": "https://zshooter.astro.caltech.edu/requirements/l1.html"
+  },
+  "ZSL2": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'L2 - Instrument requirements' page",
+   "file": "rawdata/presets/zshooter/zshooter_requirements_l2.html",
+   "url": "https://zshooter.astro.caltech.edu/requirements/l2.html"
+  },
+  "ZSDET": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Detector Technologies' page (detector baseline table, qCCDs, tapered AR coatings, LmAPDs)",
+   "file": "rawdata/presets/zshooter/zshooter_detector_technologies.html",
+   "url": "https://zshooter.astro.caltech.edu/detector_technologies.html"
+  },
+  "ZSSE": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Seeing Enhancement' page (STRATA adaptive optics; sources dated 27 Aug and 26 Sep 2026)",
+   "file": "rawdata/presets/zshooter/zshooter_seeing_enhancement.html",
+   "url": "https://zshooter.astro.caltech.edu/seeing_enhancement.html"
+  },
+  "ZSPUB": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Publications' page (links to the SPIE 2026 instrument paper 14149-77 and simulator paper 14155-97 program pages; the internal PDR optical-design update and SPIE presentation are SharePoint links)",
+   "file": "rawdata/presets/zshooter/zshooter_presentations_publications.html",
+   "url": "https://zshooter.astro.caltech.edu/presentations_publications.html"
+  },
+  "ZSDOC": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), 'Documents, Repos, & Tools' page (CoDR report and slides, SRD, OCDD, PDR Overleaf: internal links, not fetched)",
+   "file": "rawdata/presets/zshooter/zshooter_documents_tools.html",
+   "url": "https://zshooter.astro.caltech.edu/documents_tools.html"
+  },
+  "ZSFIG": {
+   "cite": "ZShooter project website (Caltech Optical Observatories; Sphinx site, footer '2026, Caltech Optical Observatories (COO)'; HTTP Last-Modified 2026-10-16 on each page; fetched 2026-11-15), figures from the ZSpec and Performance pages saved as PNG: integrated optical layout (SPIE 2026 presentation slide 12; labels: 'Collimator 1 of 2', 'Collimator 2 of 2', 'R2 Echelle Grating (50 gr./mm)', '(24 gr./mm)', 'Mangin Mirror (White Light Slit)', '10\" Long-Slit', '5-Element Camera Lens') and the 0.70\"/0.33\" slit resolving-power echellograms. Figures are read by eye and not quote-checked",
+   "file": "rawdata/presets/zshooter/zshooter__images_integrated-layout.png; rawdata/presets/zshooter/zshooter__images_resolution-070.png; rawdata/presets/zshooter/zshooter__images_resolution-033.png",
+   "url": "https://zshooter.astro.caltech.edu/_images/integrated-layout.png (and resolution-070.png, resolution-033.png)"
+  },
+  "IRDBT": {
+   "cite": "ZShooter ScopeSim instrument package ZShooter_v2, file traces/echelle_trace_parameters.dat (Caltech Optical Observatories fork of the ScopeSim IRDB, branch dev_master at commit 7cc3e9a, 2026-11-06; file header 'date_created : 2025-10-20', status draft; header notes: prescription 20260610B_ZS_6CH_Complete_Spectrograph.zar, echelle/CX rulings and order limits from Zemax surfaces 61/88). Read as text, never executed",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_irdb_7cc3e9a/ZShooter_v2/traces/echelle_trace_parameters.dat",
+   "url": "https://github.com/CaltechOpticalObservatories/irdb/blob/7cc3e9a7ae18868a9d1c36839c2705ad8d85fde1/ZShooter_v2/traces/echelle_trace_parameters.dat"
+  },
+  "IRDB": {
+   "cite": "Same IRDB commit 7cc3e9a (2026-11-06), other ZShooter_v2 files: README.md (detector engineering configurations), version.yaml ('version: pdr0.1'), ZShooter.yaml (pixel and plate scale), ZShooter_SPEC.yaml (slit wheels, dichroic tree), ZShooter_DET.yaml (pixel sizes), slits/slit_0.70_as.dat and slit_0.33_as.dat (slit masks, dated 2026-05-26), optics/LIST_zspec_vis_optics.dat and LIST_zspec_nir_optics.dat (surface lists, modified 2026-05-29), dichroics/dichroic_tree.dat and the five TER_dichroic_*.dat curves (modified 2026-07-27). Read as text",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_irdb_7cc3e9a/ZShooter_v2/ (README.md, version.yaml, ZShooter.yaml, ZShooter_SPEC.yaml, ZShooter_DET.yaml, slits/slit_0.70_as.dat, slits/slit_0.33_as.dat, optics/LIST_zspec_vis_optics.dat, optics/LIST_zspec_nir_optics.dat, dichroics/dichroic_tree.dat, dichroics/TER_dichroic_{bgr-yjhk,b-gr,g-r,yj-hk,h-k}.dat)",
+   "url": "https://github.com/CaltechOpticalObservatories/irdb/tree/7cc3e9a7ae18868a9d1c36839c2705ad8d85fde1/ZShooter_v2"
+  },
+  "ZSRES": {
+   "cite": "zs-scopesim (the ZShooter ScopeSim simulator workspace, GitHub CaltechOpticalObservatories/zs-scopesim, commit d28f077, 2026-11-06), docs/resolution-and-sampling.md, 'ZShooter resolution: slit geometry, illumination and detector sampling' (internal working note; calculations rerun 2026-10-21). British spelling ('micrometre') kept in quotes",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_zs-scopesim_d28f077/docs/resolution-and-sampling.md",
+   "url": "https://github.com/CaltechOpticalObservatories/zs-scopesim/blob/d28f077bfa868e06eb2a29663dd84f4251846006/docs/resolution-and-sampling.md"
+  },
+  "ZSXD": {
+   "cite": "Same zs-scopesim commit d28f077, docs/zshooter-xdisp-geometry.md, 'ZShooter: selected analytical geometry' (Zemax rulings, orders, CX angles and detector rotations read from 20260610B_ZS_6CH_Complete_Spectrograph.zar; merged 2026-10-18)",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_zs-scopesim_d28f077/docs/zshooter-xdisp-geometry.md",
+   "url": "https://github.com/CaltechOpticalObservatories/zs-scopesim/blob/d28f077bfa868e06eb2a29663dd84f4251846006/docs/zshooter-xdisp-geometry.md"
+  },
+  "ZSXDD": {
+   "cite": "Same zs-scopesim commit d28f077, data tables behind ZSXD: validation/zshooter_xdisp/data/zemax_channels.csv (per-channel values extracted from the Zemax archive: orders, echelle and CX rulings, CX tilt, camera tilt and spacing, detector rotation, image aperture, camera reference wavelength, paraxial camera focal length), selected_orders.csv (per-order FSR and full-slit footprint on the detector in the selected analytical geometry), selected_footprints.csv (per-channel summaries)",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_zs-scopesim_d28f077/validation/zshooter_xdisp/data/ (zemax_channels.csv, selected_orders.csv, selected_footprints.csv)",
+   "url": "https://github.com/CaltechOpticalObservatories/zs-scopesim/tree/d28f077bfa868e06eb2a29663dd84f4251846006/validation/zshooter_xdisp/data"
+  },
+  "ZSDRP": {
+   "cite": "ZShooter data reduction pipeline (GitHub CaltechOpticalObservatories/zshooter-drp, commit b1b94a6, 2026-11-06), src/zsdrp/ZSHOOTER/config.yaml: per-order detector wavelength coverage ('physical orders ..., detector coverage in Angstrom') generated from the simulator's trace model. Read as text",
+   "file": "rawdata/presets/zshooter/github_CaltechOpticalObservatories_zshooter-drp_b1b94a6/src/zsdrp/ZSHOOTER/config.yaml",
+   "url": "https://github.com/CaltechOpticalObservatories/zshooter-drp/blob/b1b94a6a1d1e7993361ca054f61fd5ef736d2540/src/zsdrp/ZSHOOTER/config.yaml"
+  },
+  "CRB26": {
+   "cite": "Crossref metadata record (api.crossref.org/works, fetched 2026-11-15) for Bailey, J. I., Fucik, J., Ferrara, J., Sharma, Y., Dekany, R., et al. 2026, 'ZShooter for Keck I: an AO-ready 310-2450 nm echelle spectrograph with a tri-band millisecond imager', Proc. SPIE 14149 (Ground-based and Airborne Instrumentation for Astronomy XI), paper 14149-77, doi:10.1117/12.3105404, published 2026-08-21. METADATA ONLY: the paper itself was not obtained (SPIE Digital Library returned a bot-block page; no arXiv version)",
+   "file": "rawdata/presets/zshooter/crossref_api_works_10.1117_12.3105404_Bailey2026_SPIE14149.json",
+   "url": "https://api.crossref.org/works/10.1117/12.3105404"
+  },
+  "CRS26": {
+   "cite": "Crossref metadata record (fetched 2026-11-15) for Sharma, Y., Gupta, P., Bailey, J. I., et al. 2026, 'ZShooter: ScopeSim and early data reduction prototyping to enhance design', Proc. SPIE 14155 (Software and Cyberinfrastructure for Astronomy IX), paper 14155-97, doi:10.1117/12.3105567, published 2026-08-19. METADATA ONLY (paper not obtained)",
+   "file": "rawdata/presets/zshooter/crossref_api_works_10.1117_12.3105567_Sharma2026_SPIE14155.json",
+   "url": "https://api.crossref.org/works/10.1117/12.3105567"
+  },
+  "O95": {
+   "cite": "Oke, J. B., et al. 1995, PASP 107, 375, 'The Keck Low-Resolution Imaging Spectrometer' (ADS article scan; the OCR text layer renders 'f/' as '//') -- identical copy of round-1 key O95 (rawdata/presets/longslit_lris/), the source of the explorer's Keck D = 10.95 m at f/13.7",
+   "file": "rawdata/presets/zshooter/Oke1995_PASP107_375_LRIS_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1995PASP..107..375O"
+  }
+ },
+ "zspec_common": {
+  "title": "Keck I / ZShooter ZSpec, shared optics (Right Nasmyth feed, f/14.5 -> f/10.5 relay, 10\" slit, asymmetric white-pupil R2 echelle, VPH cross-dispersers, 225 mm cameras; two spectrometers, six channels; design stage)",
+  "recommended_preset": "Six presets, one per channel, at the 0.70\" slit (the slit for which the sources quote the median R = 18,000 and the 4.46-px sampling, and the slit of the L1/L2 natural-seeing requirement). Shared inputs: D = 10.95 m (explorer Keck convention, O95: 150 m / f/13.7), F = 10.0 (DERIVED: f_col / W = 1500/150; equivalently the published 530.6 um/arcsec slit scale on 10.95 m gives f/9.995), nObj = 1, slit 0.70\" x 10\", collimator = mirror (first off-axis parabola, f = 1500 mm, W = 150 mm), camera = 270 mm EFFECTIVE (the published 225 mm f/1.8 camera on the 125 mm white pupil formed by the second, 1250 mm collimator; 225 x 1500/1250 = 270 mm, the 'dispersion_focal_length' of the project's own simulator), R2 echelle delta = 65.6 deg, theta = 0 (not published), gamma = 0.6 deg, eG = 50.15 /mm (VIS) or 24 /mm (NIR); cross-disperser = VPH, first order, entered with the EFFECTIVE line density G x 225/270 so that the 270 mm camera gives the real order spacing (the G-CLEF white-pupil convention); detectors 2048 (dispersion) x 4096 (VIS qCCD) or 2048 x 2048 (NIR LmAPD), 15 um. lamC = blaze of the order the project's simulator places nearest the detector center (DERIVED). Alternative presets: the same six at 0.33\" (median R = 38,000, 2.10 px).",
+  "recommended_presets_by_arm": {
+   "b": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 50.15,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 1666.7,
+    "xG_real_per_mm": 2000,
+    "lamC_A_DERIVED": 3668.5,
+    "Nx": 2048,
+    "Ny": 4096,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37497, Reff 33900, 2.117 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "85-118",
+     "dispersion_nm_per_px_range_ZSNB": "0.0037-0.0056",
+     "slit_image_px_range_0p70_ZSRES": "4.31-4.82",
+     "min_order_sep_px_simulator": "81.5 (orders 117/118)",
+     "max_order_sep_px_simulator": "171.7 (orders 85/86)",
+     "order_99_detector_coverage_A_ZSDRP": "3619.9-3713.1 (93.2 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17677, Reff 17254, npix 4.492, 0.04620 A/px and 3.776 km/s/px at lamC (order 99), 0.1568\"/px, xd Bragg angle 17.80 deg, orders 84-114 on chip (31), 3200-4302 A; on-chip FSR points: Rs 17553-17769, slit image 4.28-4.81 px, 0.00386-0.00565 nm/px; order separation 81.5 px (orders 117/118) to 164.5 px (85/86); order 99 on chip 3618.1-3712.6 A (94.5 A)"
+   },
+   "g": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 50.15,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 916.7,
+    "xG_real_per_mm": 1100,
+    "lamC_A_DERIVED": 5420.7,
+    "Nx": 2048,
+    "Ny": 4096,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37548, Reff 33932, 2.115 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "56-85",
+     "dispersion_nm_per_px_range_ZSNB": "0.0051-0.0088",
+     "slit_image_px_range_0p70_ZSRES": "4.17-4.96",
+     "min_order_sep_px_simulator": "85.7 (orders 84/85)",
+     "max_order_sep_px_simulator": "209.2 (orders 56/57)",
+     "order_67_detector_coverage_A_ZSDRP": "5347.1-5485.7 (138.6 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17701, Reff 17276, npix 4.486, 0.06826 A/px and 3.775 km/s/px at lamC (order 67), 0.1568\"/px, xd Bragg angle 14.39 deg, orders 55-86 on chip (32), 4208-6598 A; on-chip FSR points: Rs 17524-17839, slit image 4.17-4.98 px, 0.00503-0.00880 nm/px; order separation 85.8 px (orders 84/85) to 201.6 px (56/57); order 67 on chip 5346.2-5485.8 A (139.7 A)"
+   },
+   "r": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 50.15,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 520.8,
+    "xG_real_per_mm": 625,
+    "lamC_A_DERIVED": 8254.2,
+    "Nx": 2048,
+    "Ny": 4096,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37577, Reff 33935, 2.113 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "37-56",
+     "dispersion_nm_per_px_range_ZSNB": "0.0074-0.0138",
+     "slit_image_px_range_0p70_ZSRES": "4.02-5.18",
+     "min_order_sep_px_simulator": "112.1 (orders 55/56)",
+     "max_order_sep_px_simulator": "262.0 (orders 37/38)",
+     "order_44_detector_coverage_A_ZSDRP": "8158.5-8366.3 (207.8 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17715, Reff 17286, npix 4.482, 0.10395 A/px and 3.775 km/s/px at lamC (order 44), 0.1568\"/px, xd Bragg angle 12.41 deg, orders 35-60 on chip (26), 6103-10347 A; on-chip FSR points: Rs 17459-17921, slit image 4.02-5.15 px, 0.00738-0.01380 nm/px; order separation 112.3 px (orders 55/56) to 254.5 px (37/38); order 44 on chip 8140.7-8353.4 A (212.7 A)"
+   },
+   "yj": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 24,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 291.7,
+    "xG_real_per_mm": 350,
+    "lamC_A_DERIVED": 11326.9,
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37618, Reff 33939, 2.111 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "57-80",
+     "dispersion_nm_per_px_range_ZSNB": "0.0112-0.0180",
+     "slit_image_px_range_0p70_ZSRES": "4.15-4.91",
+     "min_order_sep_px_simulator": "63.6 (orders 79/80)",
+     "max_order_sep_px_simulator": "120.5 (orders 58/59)",
+     "order_67_detector_coverage_A_ZSDRP": "11173.3-11463.9 (290.7 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17734, Reff 17300, npix 4.477, 0.14265 A/px and 3.776 km/s/px at lamC (order 67), 0.1568\"/px, xd Bragg angle 9.51 deg, orders 57-81 on chip (25), 9388-13234 A; on-chip FSR points: Rs 17571-17876, slit image 4.16-4.93 px, 0.01118-0.01776 nm/px; order separation 63.6 px (orders 79/80) to 119.5 px (58/59); order 67 on chip 11171.2-11463.1 A (291.8 A)"
+   },
+   "h": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 24,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 250,
+    "xG_real_per_mm": 300,
+    "lamC_A_DERIVED": 16497.9,
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37584, Reff 33850, 2.113 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "42-51",
+     "dispersion_nm_per_px_range_ZSNB": "0.0168-0.0257",
+     "slit_image_px_range_0p70_ZSRES": "4.06-5.13",
+     "min_order_sep_px_simulator": "136.2 (orders 50/51)",
+     "max_order_sep_px_simulator": "198.8 (orders 42/43)",
+     "order_46_detector_coverage_A_ZSDRP": "16303.3-16719.5 (416.2 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17718, Reff 17277, npix 4.481, 0.20777 A/px and 3.776 km/s/px at lamC (order 46), 0.1568\"/px, xd Bragg angle 11.90 deg, orders 41-53 on chip (13), 14259-18688 A; on-chip FSR points: Rs 17499-17921, slit image 4.05-5.14 px, 0.01681-0.02516 nm/px; order separation 136.1 px (orders 50/51) to 195.0 px (42/43); order 46 on chip 16271.1-16696.2 A (425.1 A)"
+   },
+   "k": {
+    "D_m": 10.95,
+    "F_DERIVED": 10.0,
+    "slitW_arcsec": 0.7,
+    "slitL_arcsec": 10,
+    "nObj": 1,
+    "col": "mirror",
+    "W_mm": 150,
+    "f_col_mm": 1500,
+    "fcam_mm_EFFECTIVE": 270,
+    "eG_per_mm": 24,
+    "eDelta_deg": 65.6,
+    "gamma_deg": 0.6,
+    "theta_deg_NOT_FOUND": 0,
+    "xd": "vph",
+    "xG_per_mm_EFFECTIVE": 225,
+    "xG_real_per_mm": 270,
+    "lamC_A_DERIVED": 22320.7,
+    "Nx": 2048,
+    "Ny": 2048,
+    "pix_um": 15,
+    "alt_slit_0p33": "slitW_arcsec 0.33: Rs 37546, Reff 33722, 2.115 px",
+    "validate": {
+     "Rs_median_0p70": 18000,
+     "npix_0p70": 4.46,
+     "pixScale_arcsec": 0.157,
+     "Rs_median_0p33": 38000,
+     "npix_0p33": 2.1,
+     "orders": "31-38",
+     "dispersion_nm_per_px_range_ZSNB": "0.0215-0.0345",
+     "slit_image_px_range_0p70_ZSRES": "3.99-5.22",
+     "min_order_sep_px_simulator": "225.5 (orders 37/38)",
+     "max_order_sep_px_simulator": "331.1 (orders 31/32)",
+     "order_34_detector_coverage_A_ZSDRP": "22017.1-22587.9 (570.8 A)"
+    },
+    "explorer_model_DERIVED": "Rs 17700, Reff 17247, npix 4.486, 0.28110 A/px and 3.775 km/s/px at lamC (order 34), 0.1568\"/px, xd Bragg angle 14.54 deg, orders 31-38 on chip (8), 19853-24720 A; on-chip FSR points: Rs 17455-17919, slit image 4.01-5.14 px, 0.02195-0.03433 nm/px; order separation 223.8 px (orders 37/38) to 324.4 px (31/32); order 34 on chip 22013.9-22589.0 A (575.1 A)"
+   }
+  },
+  "params": {
+   "telescope": {
+    "value": "Keck I, Right Nasmyth (RNAS) platform, fed by the deployable tertiary K1DM3; secondary K1 M2 now, the STRATA deformable secondary (K1 DM2) later",
+    "unit": null,
+    "src": "ZSOD",
+    "loc": "Optical Design, intro and 'RNAS interface'",
+    "quote": "ZShooter receives the Keck I beam at the Right Nasmyth (RNAS) platform. ... The deployable tertiary, K1DM3, directs the telescope beam to ZShooter.",
+    "alternatives": [
+     {
+      "value": "always online at Keck I Right Nasmyth",
+      "src": "ZSIDX",
+      "loc": "Design in a nutshell",
+      "quote": "Always-online at Keck I Right Nasmyth for rapid response"
+     },
+     {
+      "value": "fed by K1 M2, eventually K1 DM2",
+      "src": "ZSTECH",
+      "loc": "Optical Design",
+      "quote": "ZShooter’s optics are fed both by K1 M2 and, eventually K1 DM2."
+     },
+     {
+      "value": "STRATA AO via Keck I's adaptive secondary; natural seeing also supported",
+      "src": "ZSSE",
+      "loc": "intro",
+      "quote": "STRATA, the planned adaptive-optics system using Keck I’s adaptive secondary, will concentrate light for ZShooter spectroscopy and imaging. ZShooter will also operate in natural seeing."
+     }
+    ]
+   },
+   "telescope_aperture": {
+    "value": 10.95,
+    "unit": "m (explorer Keck convention)",
+    "src": "O95",
+    "loc": "Sec. 2, p. 376",
+    "quote": "The Cassegrain focal length is 150 m ... the outer perimeter ofthe mirror has a diameter of 11 m which gives a real focal ratio of ... 13.7.",
+    "derived": "DERIVED: 150 m / 13.7 = 10.949 m, the explorer's Keck pupil (web/presets.js header). No ZShooter source gives an aperture; the simulator reports a 'train telescope area' of 76.53 m2 (ZSNB header table), not used.",
+    "note": "O95 text layer renders 'f/' as '//'; the quote omits the glyph."
+   },
+   "telescope_focal_ratio_at_RNAS": {
+    "value": 14.5,
+    "unit": "f/# (as published)",
+    "src": "ZSOD",
+    "loc": "RNAS interface",
+    "quote": "The nominal f/14.5 focus lies 386.5 mm in front of the elevation-bearing journal, whose inner diameter is 1.79 m.",
+    "alternatives": [
+     {
+      "value": "relay input f/14.5",
+      "src": "ZSPEC",
+      "loc": "Pre-optics and slit planes",
+      "quote": "The relay converts the telescope’s f/14.5 beam to f/10.5"
+     }
+    ],
+    "derived": "DERIVED: the published slit scale 530.6 um/arcsec and the 690/500 relay imply a telescope focal length 530.6 x 690/500 = 732.2 um/arcsec = 151.0 m, i.e. f/13.79 on the 10.95 m perimeter and f/14.5 on a 10.42 m pupil. The NIR cold Lyot stop (47.8 mm at the 690 mm doublet, f/14.44) 'masks the primary-mirror perimeter', so f/14.5 is plausibly the ratio of the masked pupil (an inference, not stated). See Conflicts."
+   },
+   "fore_optics": {
+    "value": "ZFront selector (fold with a ~30\" central opening passes the field to the spectrographs); VIS/NIR dichroic 275 mm behind the telescope focus in the diverging beam (reflects VIS, transmits NIR, transition near 950 nm); per arm: 690 mm collimating doublet + 500 mm reimaging doublet (f/14.5 -> f/10.5), counter-rotating Amici-prism ADC, K-mirror field derotator, steering by decentering the final relay doublet (+/-3.2 mm = +/-6\"), slit viewer. NIR: the first doublet's last element is the vacuum window; optics beyond run near 100 K with a rotating cold Lyot stop at the 47.8 mm pupil",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Pre-optics and slit planes",
+    "quote": "A VIS/NIR dichroic sits 275 mm behind the telescope focus in the diverging beam. It reflects VIS and transmits NIR, with a transition near 950 nm. ... Each arm has a 690 mm collimating doublet and a 500 mm reimaging doublet. The relay converts the telescope’s f/14.5 beam to f/10.5 and gives 530.6 µm/arcsec at the slit . ... Each arm has its own counter-rotating Amici-prism ADC and K-mirror field derotator. ... A rotating cold Lyot stop at the 47.8 mm pupil masks the primary-mirror perimeter, central obscuration, and spiders. ... The steering concept decenters the final relay doublet by up to ±3.2 mm for approximately ±6″ of nod/fine-guide motion.",
+    "alternatives": [
+     {
+      "value": "ZFront fold with ~30\" opening",
+      "src": "ZSOD",
+      "loc": "ZFront",
+      "quote": "ZSpec + ZImager: a fold with a central approximately 30″ opening passes the central field to the spectrographs while reflecting the surrounding field to the imager."
+     },
+     {
+      "value": "each spectrometer: own 10\" slit, ADC, K-mirror, slit viewer, steering",
+      "src": "ZSOD",
+      "loc": "ZSpec summary",
+      "quote": "The visible and NIR spectrometers each have an independent 10″ slit, ADC, K-mirror field derotator, slit viewer, and steering mechanism."
+     },
+     {
+      "value": "IRDB VIS pre-optics surface list: fold, first pre-optic, two ADC pairs, three derotator reflections, final pre-optic",
+      "src": "IRDB",
+      "loc": "optics/LIST_zspec_vis_optics.dat",
+      "quote": "VIS_ADC_12 0.09 0.0 0 0 transmission ... VIS_Derotator_Refl_1 0.09 0.0 0 0 reflection"
+     }
+    ],
+    "derived": "DERIVED: relay magnification 500/690 = 0.725; 14.5 x 0.725 = f/10.507."
+   },
+   "focal_ratio_at_slit": {
+    "value": 10.0,
+    "unit": "f/# (explorer F) [DERIVED]",
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay; Pre-optics and slit planes",
+    "quote": "The first parabolic collimator has a 1,500 mm focal length and forms a 150 mm pupil on an R2 echelle. ... gives 530.6 µm/arcsec at the slit",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "f/10.5 (published)",
+      "src": "ZSPEC",
+      "loc": "Pre-optics and slit planes",
+      "quote": "The relay converts the telescope’s f/14.5 beam to f/10.5"
+     },
+     {
+      "value": "entrance_slit_scale 0.5306 mm/arcsec",
+      "src": "IRDBT",
+      "loc": "header units + each channel row (last column)",
+      "quote": "# entrance_slit_scale_unit : mm/arcsec"
+     }
+    ],
+    "derived": "DERIVED: F = f_col / W = 1500/150 = 10.0; from the slit scale, 0.5306 mm/arcsec x 206264.8 = 109,444 mm = f/9.995 on D = 10.95 m. The explorer state F = 10.0 gives 530.9 um/arcsec (S.plate = 1.8837 arcsec/mm), 0.06% above the published scale. f/10.5 would need W = 1500/10.5 = 142.9 mm. See Conflicts."
+   },
+   "slit_plate_scale": {
+    "value": 530.6,
+    "unit": "um/arcsec at the slit (1.8847 arcsec/mm)",
+    "src": "ZSPEC",
+    "loc": "Pre-optics and slit planes",
+    "quote": "gives 530.6 µm/arcsec at the slit . The 10″ slit is 5.3 mm long.",
+    "alternatives": [
+     {
+      "value": "0.5306 mm/arcsec (simulator entrance_slit_scale)",
+      "src": "ZSRES",
+      "loc": "Why anamorphism ...",
+      "quote": "The configured 1500/1250 mm collimators, 225 mm camera and 0.5306 mm/arcsec entrance scale give the reference width"
+     }
+    ],
+    "derived": "DERIVED: 1/0.5306 = 1.8847 arcsec/mm; 10\" x 0.5306 = 5.306 mm (published 5.3 mm)."
+   },
+   "slit_widths": {
+    "value": [
+     0.3,
+     0.33,
+     0.37,
+     0.42,
+     0.5,
+     0.57,
+     0.7,
+     1.25
+    ],
+    "unit": "arcsec (simulator slit wheel, both spectrometers; the final inventory is an open item)",
+    "src": "IRDB",
+    "loc": "ZShooter_SPEC.yaml, slitwheel_selector",
+    "quote": "slit_names: - 1.25 - 0.70 - 0.57 - 0.50 - 0.42 - 0.37 - 0.33 - 0.30",
+    "alternatives": [
+     {
+      "value": "open: paper's 0.30-0.70\" table vs presentation's 0.30-1.30\"; performance cases use 0.70\" and 0.33\"",
+      "src": "ZSPEC",
+      "loc": "Design work to close",
+      "quote": "Slit inventory: reconcile the paper’s 0.30–0.70″ table, its wider prose range, and the presentation’s 0.30–1.30″ range. The current performance cases use 0.70″ and 0.33″."
+     },
+     {
+      "value": "slit inventory unresolved",
+      "src": "ZSOD",
+      "loc": "Optical interfaces to close",
+      "quote": "Requirement/design differences: resolve the slit inventory"
+     }
+    ]
+   },
+   "slit_reference": {
+    "value": 0.7,
+    "unit": "arcsec",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution (table)",
+    "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000",
+    "alternatives": [
+     {
+      "value": 0.33,
+      "src": "ZSPEC",
+      "loc": "same table",
+      "quote": "0.33″ 2.10 pixels 33,200–44,700; median ≈38,000"
+     },
+     {
+      "value": "L2: R >= 18,000 at 0.7\" (natural seeing), R >= 40,000 at 0.3\" (seeing enhanced)",
+      "src": "ZSL2",
+      "loc": "Spectroscopy",
+      "quote": "The resolving-power requirements are a mean R≥18,000 with a 0.7″ slit in median natural seeing and R≥40,000 with a 0.3″ slit under supported seeing enhancement."
+     }
+    ],
+    "note": "Recommended preset slit. The simulator's default slit is also 0.70 (IRDB ZShooter_SPEC.yaml 'vis_curr_slit: 0.70', 'nir_curr_slit: 0.70')."
+   },
+   "slit_length": {
+    "value": 10,
+    "unit": "arcsec",
+    "src": "ZSPEC",
+    "loc": "Pre-optics and slit planes",
+    "quote": "The 10″ slit is 5.3 mm long.",
+    "alternatives": [
+     {
+      "value": 10,
+      "src": "ZSL1",
+      "loc": "Spectroscopy",
+      "quote": "Slit length. ZShooter shall support 10 arcsecond long-slit spectroscopy."
+     },
+     {
+      "value": "simulator mask: x from -5.0 to 5.0 arcsec, y +/-0.35 arcsec",
+      "src": "IRDB",
+      "loc": "slits/slit_0.70_as.dat",
+      "quote": "# description : Slit mask for a 0.70 arcsec slit ... -5.0 -0.35 5.0 -0.35 5.0 0.35 -5.0 0.35"
+     }
+    ]
+   },
+   "n_objects": {
+    "value": 1,
+    "unit": "objects per exposure",
+    "src": "ZSOD",
+    "loc": "Optical Design, intro",
+    "quote": "ZFront feeds two fixed-format slit spectrographs covering 0.31–2.45 µm",
+    "note": "One long slit per spectrometer; no multi-object or IFU mode. The 10\" slit allows nodding (+/-6\" steering)."
+   },
+   "collimator": {
+    "value": "type: mirror (first collimator an off-axis parabola, used in double pass, before and after the echelle; second collimator a mirror); first collimator f = 1500 mm, W = 150 mm on the echelle; return beam through a silica Mangin mirror at the intermediate white-light slit; second collimator f = 1250 mm forms a 125 mm white pupil at the cross-dispersers (asymmetric white pupil)",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay",
+    "quote": "The first parabolic collimator has a 1,500 mm focal length and forms a 150 mm pupil on an R2 echelle. ... The return beam passes through a silica Mangin mirror at the intermediate white-light slit. A second, 1,250 mm collimator forms a 125 mm white pupil , reducing the aperture required by the channel optics.",
+    "alternatives": [
+     {
+      "value": "asymmetric white-pupil echelle",
+      "src": "ZSOD",
+      "loc": "ZSpec summary",
+      "quote": "Each asymmetric white-pupil echelle feeds three cross-dispersers and f/1.8 cameras."
+     },
+     {
+      "value": "collimators are reflections in the simulator surface list (Col1 twice, Col2 once)",
+      "src": "IRDB",
+      "loc": "optics/LIST_zspec_vis_optics.dat",
+      "quote": "VIS_Col1_1 0.09 0.0 0 0 reflection ... VIS_Col1_2 0.09 0.0 0 0 reflection ... VIS_Col2 0.09 0.0 0 0 reflection"
+     },
+     {
+      "value": "1500 and 1250 mm in each channel row",
+      "src": "IRDBT",
+      "loc": "columns collimator1_focal_length, collimator2_focal_length",
+      "quote": "# collimator1_focal_length_unit : mm ... # collimator2_focal_length_unit : mm"
+     }
+    ],
+    "note": "Explorer: col = mirror, W = 150 mm, f_col = F x W = 1500 mm. The second collimator and the 125 mm white pupil are absorbed into the EFFECTIVE camera (camera row)."
+   },
+   "collimated_beam_diameter": {
+    "value": 150,
+    "unit": "mm (on the echelle)",
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay",
+    "quote": "forms a 150 mm pupil on an R2 echelle",
+    "alternatives": [
+     {
+      "value": "125 mm white pupil at the cross-dispersers and cameras",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "A second, 1,250 mm collimator forms a 125 mm white pupil"
+     }
+    ],
+    "derived": "DERIVED: 150 mm = 1500 mm / f/10.0; the full 10.95 m perimeter at the 530.6 um/arcsec scale gives 1500/9.995 = 150.1 mm."
+   },
+   "echelle": {
+    "value": "R2 echelle, blaze 65.6 deg; 50 grooves/mm (VIS; 50.15 /mm in the Zemax archive) and 24 grooves/mm (NIR); direct-ruled; one grating per spectrometer, no mosaics",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay",
+    "quote": "The blaze angle is 65.6°, with 50 grooves/mm in VIS and 24 grooves/mm in NIR.",
+    "alternatives": [
+     {
+      "value": "50.15 /mm (B, G, R) and 24 /mm (YJ, H, K) from the Zemax archive",
+      "src": "ZSXD",
+      "loc": "Inputs actually used (table)",
+      "quote": "B 85-118 50.15 2000 -9.50 -6.00"
+     },
+     {
+      "value": "disp_freq 50.150 (VIS) / 24.000 (NIR); echelle_blaze 65.6",
+      "src": "IRDBT",
+      "loc": "channel rows",
+      "quote": "# prescription : 20260610B_ZS_6CH_Complete_Spectrograph.zar; echelle/CX rulings and order limits from surfaces 61/88."
+     },
+     {
+      "value": "echelle surface tilt 65.6 deg",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv header",
+      "quote": "echelle_grooves_per_mm,echelle_surface_tilt_deg"
+     },
+     {
+      "value": "direct-ruled echelle",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "The selected direct-ruled echelle approach addresses both diffraction efficiency and scattered light between bright sky lines."
+     },
+     {
+      "value": "older simulator ('main'): 50.00 /mm VIS",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "Main differs in three additional entries: its VIS echelle ruling is **50.00/mm**"
+     }
+    ],
+    "derived": "DERIVED: tan 65.6 deg = 2.2045 (an R2.2 blaze; 'R2' as published). m x lambda_blaze = 2 sin(65.6 deg)/G = 36.318 um (50.15 /mm), 36.427 um (50 /mm), 75.890 um (24 /mm), gamma neglected (cos 0.6 deg = 0.99995).",
+    "note": "Explorer: eDelta = 65.6, eG = 50.15 (VIS) or 24 (NIR); the newest source (Zemax archive 20260610B via the simulator) is preferred over the rounded 50 /mm."
+   },
+   "echelle_angles": {
+    "value": "gamma = 0.6 deg (out-of-plane tilt separating the returning beam from the slit); theta (in-plane offset) NOT FOUND, entered as 0",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay",
+    "quote": "A 0.6° out-of-plane tilt separates the returning dispersed beam from the entrance slit.",
+    "note": "Read as gamma = 0.6 deg (grating tilt; the beams then separate by 1.2 deg, 31 mm at 1500 mm, DERIVED). The simulator's analytical echelle uses the 65.6 deg blaze with no in-plane offset (the IRDBT columns carry no theta). In the explorer, gamma = 0.6 deg with the VPH stage widens the slit image by 0.7% at the blaze (4.489 vs 4.459 px for B order 99); gamma = 0 recovers the closed form exactly."
+   },
+   "cross_disperser": {
+    "value": "VPH gratings in first-order transmission, one per channel in the 125 mm white pupil (B 2000, G 1100, R 625, YJ 350, H 300, K 270 /mm); a volume Bragg grating is an option for B; prism-assisted cross dispersion is a study outside the baseline",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay; Channels and spectral format table",
+    "quote": "The cross-dispersers operate in first-order transmission. The working technology is VPH, with a volume Bragg grating option under consideration for B.",
+    "alternatives": [
+     {
+      "value": "prism-assisted cross dispersion and a VIS pupil slicer remain studies",
+      "src": "ZSPEC",
+      "loc": "Design work to close",
+      "quote": "Upgrade trades: retain prism-assisted cross dispersion and a VIS pupil slicer as studies; neither is included in the baseline format or throughput above."
+     }
+    ],
+    "note": "White pupil: the VPH sits in the 125 mm beam imaged by the 225 mm camera. The explorer has one beam (150 mm) and one camera (270 mm EFFECTIVE), so the VPH enters with G x 225/270 (same linear order spacing, the G-CLEF convention), at the explorer's symmetric Bragg setting for lamC. The real CX angles (Zemax tilts 10.9-21.2 deg) are listed per channel."
+   },
+   "camera": {
+    "value": "five-element air-spaced refractive camera, f = 225 mm, f/1.8, one per channel (NIR: CaF2 positive + silica negative elements; VIS: glasses chosen per passband). EXPLORER: fcam = 270 mm EFFECTIVE",
+    "unit": "mm",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution",
+    "quote": "Each camera is a five-element, air-spaced refractive design with 225 mm focal length at f/1.8 . The NIR cameras use CaF₂ positive elements and silica negative elements; the VIS cameras use glasses selected for their individual passbands.",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "effective dispersion focal length 270 mm = 225 x 1500/1250",
+      "src": "ZSRES",
+      "loc": "Why anamorphism does not give the expected 10% variation in geometric R",
+      "quote": "The effective dispersion focal length is \\(225(1500/1250)=270\\) mm"
+     },
+     {
+      "value": "dispersion_focal_length 270 mm, camera focal_length 225 mm (each channel row)",
+      "src": "IRDBT",
+      "loc": "geometry_note",
+      "quote": "dispersion_focal_length=270 mm and fwhm=4.46 pixels record rounded derived nominal values"
+     },
+     {
+      "value": "Zemax paraxial camera focal lengths 222.25-225.70 mm (per channel)",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv, column camera_paraxial_f_mm",
+      "quote": "camera_reference_wave_nm,camera_paraxial_f_mm"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): the 225 mm camera sees the slit through the 1500 mm and 1250 mm collimators, so the slit-to-detector magnification is 225/1250 = 270/1500; an equivalent one-beam spectrograph with f_col = 1500 mm and W = 150 mm needs fcam = 270 mm (f/1.8 on the 150 mm beam, as 225 mm is f/1.8 on 125 mm). The same 270 mm sets the echelle dispersion."
+   },
+   "detector": {
+    "value": "VIS (B, G, R): one 2048 x 4096 qCCD per channel, 15 um (preferred STA5900 with tapered ALD AR coating; fallbacks STA5500 qCCD, then a conventional STA or Teledyne-e2v CCD). NIR (YJ, H, K): one 2048 x 2048 HgCdTe LmAPD per channel, 15 um target (Leonardo; Ike Pono and IBEX candidates; fallback H2RG/H4RG)",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "STA5900 qCCD 2,048x4,096, 15 um",
+      "src": "ZSDET",
+      "loc": "Detector baseline table",
+      "quote": "ZSpec VIS: B, G, R STA5900 qCCD with tapered ALD anti-reflection coating 2,048×4,096; 15 µm STA5500 qCCD, then conventional STA or Teledyne-e2v CCD"
+     },
+     {
+      "value": "Leonardo LmAPD 2,048x2,048, 15 um target",
+      "src": "ZSDET",
+      "loc": "Detector baseline table",
+      "quote": "ZSpec NIR: YJ, H, K Leonardo LmAPD; Ike Pono and IBEX are candidates 2,048×2,048; 15 µm target H2RG/H4RG-family HgCdTe array"
+     },
+     {
+      "value": "simulator baseline: tapered qCCDs + 15 um LmAPDs; alternative: untapered CCDs + 18 um H2RGs",
+      "src": "IRDB",
+      "loc": "README.md",
+      "quote": "The current baseline uses tapered qCCDs in B/G/R and 15 um LmAPDs in YJ/H/K; the current alternative uses untapered CCDs and 18 um H2RGs in YJ/H/K."
+     },
+     {
+      "value": "no detector or grating mosaics",
+      "src": "ZSTECH",
+      "loc": "Design",
+      "quote": "The spectrometers use six single-detector focal planes, with no detector or grating mosaics."
+     }
+    ]
+   },
+   "detector_dispersion_axis": {
+    "value": "the 2048-px axis is the echelle dispersion (x); orders stack along the 4096-px (VIS) or 2048-px (NIR) axis",
+    "unit": null,
+    "src": "IRDBT",
+    "loc": "column header and channel rows (n_disp, n_xdisp, dispdir)",
+    "quote": "n_disp n_xdisp disp_freq xdisp_freq slitlength dispdir",
+    "alternatives": [
+     {
+      "value": "Zemax image aperture 30.72 x 61.44 mm (VIS)",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv",
+      "quote": "image_aperture_x_mm,image_aperture_y_mm"
+     }
+    ],
+    "derived": "DERIVED: IRDBT rows give n_disp 2048, n_xdisp 4096 (VIS) / 2048 (NIR), dispdir x; 30.72/2048 = 61.44/4096 = 0.015 mm. The saved echellograms (ZSFIG) show orders running along the 2048-px x axis. Explorer: Nx = 2048, Ny = 4096 (VIS) or 2048 (NIR)."
+   },
+   "pixel_size": {
+    "value": 15,
+    "unit": "um",
+    "src": "IRDB",
+    "loc": "ZShooter_DET.yaml",
+    "quote": "pixel_size_b: 0.015",
+    "note": "Same 0.015 mm for g, r, yj, h, k in the baseline SPEC package."
+   },
+   "spectrometer_channels": {
+    "value": "VIS: B 310-430, G 430-650, R 650-980 nm; NIR: YJ 960-1340, H 1470-1830, K 1990-2450 nm; gratings, dichroics and cameras fixed during observing",
+    "unit": "nm",
+    "src": "ZSOD",
+    "loc": "ZSpec summary table",
+    "quote": "VIS B 310–430 VIS G 430–650 VIS R 650–980 NIR YJ 960–1,340 NIR H 1,470–1,830 NIR K 1,990–2,450",
+    "alternatives": [
+     {
+      "value": "two spectrometers x three channels, after the CoDR (three spectrometers before)",
+      "src": "ZSTECH",
+      "loc": "Optical Design",
+      "quote": "The current design has been updated incorporating conceptual review feedback, with the main architectural change a move from three to two spectrometers, each split into three science channels."
+     }
+    ]
+   },
+   "internal_dichroics": {
+    "value": "two dichroics near the 125 mm white pupil split each spectrometer into three channels; NIR transitions near 1.4 and 1.9 um; VIS transitions not stated (passband edges 430 and 650 nm)",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay",
+    "quote": "Two dichroics near that pupil divide each spectrometer into three arms. The NIR transitions are near 1.4 and 1.9 µm.",
+    "alternatives": [
+     {
+      "value": "simulator dichroic tree: bgr-yjhk, b-gr, yj-hk, g-r, h-k",
+      "src": "IRDB",
+      "loc": "ZShooter_SPEC.yaml",
+      "quote": "- bgr-yjhk # First dichroic, splits beam into bgr and yjhk"
+     }
+    ],
+    "derived": "DERIVED 50% transmission crossings of the simulator curves (IRDB dichroics/TER_dichroic_*.dat): VIS/NIR 969.6 nm, B/G 430.0 nm, G/R 649.9 nm, YJ/H 1405.1 nm, H/K 1910.7 nm."
+   }
+  },
+  "performance": {
+   "R_070_median": {
+    "value": 18000,
+    "unit": "lambda/dlambda (geometric slit-limited; median over the six channels' formats)",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution (table)",
+    "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000",
+    "alternatives": [
+     {
+      "value": "approximately 18,000 at 0.70\" and 38,000 at 0.33\"",
+      "src": "ZSOD",
+      "loc": "ZSpec summary",
+      "quote": "The current performance model gives median resolving powers of approximately 18,000 with a 0.70″ slit and 38,000 with a 0.33″ slit ."
+     },
+     {
+      "value": "'the approximately 18,000 geometric slit specification'",
+      "src": "ZSRES",
+      "loc": "intro",
+      "quote": "The approximately 18,000 geometric slit specification and a measured point-source FWHM resolving power of 20,000–24,000 describe different widths."
+     },
+     {
+      "value": "L1: mean R >= 18,000 (natural seeing), 40,000 (seeing enhanced)",
+      "src": "ZSL1",
+      "loc": "Spectroscopy",
+      "quote": "Spectral resolution. ZShooter shall deliver a mean resolving power of at least 18,000 under median natural-seeing conditions and 40,000 under supported seeing-enhanced conditions, using a slit matched to the delivered image quality."
+     }
+    ],
+    "derived": "DERIVED (closed form, Littrow): R = 2 tan(65.6 deg) W / (phi D) = 2 x 2.2045 x 150 mm / (0.70\" x 10.95 m) = 17,797. Explorer (F = 10, gamma = 0.6): Rs = 17,677-17,734 at the six lamC (0.7% below the closed form, see echelle_angles). Compare with the explorer's Rs (slit-limited), not Reff."
+   },
+   "R_033_median": {
+    "value": 38000,
+    "unit": "lambda/dlambda (geometric, median)",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution (table)",
+    "quote": "0.33″ 2.10 pixels 33,200–44,700; median ≈38,000",
+    "derived": "DERIVED: 17,797 x 0.70/0.33 = 37,751. Explorer Rs at 0.33\": 37,497-37,618; Reff 33,722-33,939 (2.1-px sampling)."
+   },
+   "sampling_070": {
+    "value": 4.46,
+    "unit": "pixels per 0.70\" slit image (nominal; reference magnification)",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution (table)",
+    "quote": "0.70″ 4.46 pixels",
+    "alternatives": [
+     {
+      "value": "4.457 px",
+      "src": "ZSRES",
+      "loc": "Why anamorphism ...",
+      "quote": "That is the reference magnification for 15 micrometre pixels, not a constant at every wavelength."
+     },
+     {
+      "value": "fwhm 4.46 pixels (each channel row)",
+      "src": "IRDBT",
+      "loc": "geometry_note",
+      "quote": "dispersion_focal_length=270 mm and fwhm=4.46 pixels record rounded derived nominal values"
+     }
+    ],
+    "derived": "DERIVED: 0.70 x 0.5306 mm x 225/1250 / 0.015 mm = 4.457 px. Explorer: 4.459 px closed form with D = 10.95, F = 10, fcam 270; traced 4.477-4.492 px at the six lamC."
+   },
+   "sampling_033": {
+    "value": 2.1,
+    "unit": "pixels per 0.33\" slit image",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution (table)",
+    "quote": "0.33″ 2.10 pixels",
+    "alternatives": [
+     {
+      "value": "narrow slit spans ~2.1 px",
+      "src": "ZSOD",
+      "loc": "ZSpec summary",
+      "quote": "the narrow slit spans about 2.1 pixels."
+     }
+    ],
+    "derived": "DERIVED: 4.457 x 0.33/0.70 = 2.101 px. Explorer 2.111-2.117 px."
+   },
+   "spatial_scale": {
+    "value": 0.157,
+    "unit": "arcsec/pixel along the slit",
+    "src": "ZSPEC",
+    "loc": "Cameras, sampling, and resolution",
+    "quote": "The detector plate scale is approximately 0.157″/pixel.",
+    "alternatives": [
+     {
+      "value": "0.1570545 arcsec/px; 10.4703 arcsec/mm",
+      "src": "IRDB",
+      "loc": "ZShooter.yaml",
+      "quote": "pixel_scale : 0.1570545 #\"/pix using .7\"/4.5 pix"
+     },
+     {
+      "value": "plate_scale 10.4703 arcsec/mm (each channel row)",
+      "src": "IRDBT",
+      "loc": "units header",
+      "quote": "# plate_scale_unit : arcsec/mm"
+     }
+    ],
+    "derived": "DERIVED: 0.015 mm / (0.5306 x 225/1250 mm/arcsec) = 0.15705 arcsec/px. Explorer pixScale 0.1568."
+   },
+   "R_range_070_published": {
+    "value": "15,700-21,100 (0.70\"), 33,200-44,700 (0.33\") across the six formats",
+    "unit": "lambda/dlambda",
+    "src": "ZSPERF",
+    "loc": "Spectral resolution",
+    "quote": "The 0.70″ slit gives R=15,700–21,100 across the six channels; the 0.33″ slit gives R=33,200–44,700. Anamorphic magnification changes resolution along each order.",
+    "note": "These ranges hold the slit image at 4.46 px while the dispersion varies along the order (ZSNB tables: 'spec FWHM pix 4.46'). ZSRES shows that the slit image changes width with the same anamorphic factor, so geometric R varies only ~1/m (1-3%) across an FSR: 'Holding that width at 4.46 pixels while allowing dispersion to vary keeps only one side of the ratio.' Not a validation target for Rs; see Conflicts. Explorer Rs at on-chip FSR points: 17,455-17,921 (0.70\")."
+   },
+   "R_point_source_simulated": {
+    "value": "20,000-24,000 (natural seeing, 0.70\" slit, point source)",
+    "unit": "lambda/FWHM",
+    "src": "ZSRES",
+    "loc": "intro",
+    "quote": "The approximately 18,000 geometric slit specification and a measured point-source FWHM resolving power of 20,000–24,000 describe different widths.",
+    "note": "Simulated line FWHM of a seeing-limited point source that underfills the slit, without the optical LSF ('It does not separately propagate the illuminated spectrograph pupil'); a different quantity from the slit-limited R. Not a target."
+   },
+   "velocity_per_pixel": {
+    "value": 3.78,
+    "unit": "km/s per pixel at the blaze [DERIVED]",
+    "src": "ZSPEC",
+    "loc": "Echelles and white-pupil relay; Cameras",
+    "quote": "The blaze angle is 65.6° ... Each camera is a five-element, air-spaced refractive design with 225 mm focal length at f/1.8",
+    "is_derived": true,
+    "derived": "DERIVED: c x pix / (2 tan delta x f_eff) = 299,792 x 0.015 / (2 x 2.2045 x 270) = 3.78 km/s/px (Littrow, at the blaze; same in all six channels). R x sampling = 17,797 x 4.459 = 79,360 = lambda/(A per px) at the blaze. Explorer kmspx 3.775-3.776."
+   },
+   "seeing_and_ao": {
+    "value": "natural seeing 0.65\" (performance cases); STRATA AO later, ~0.15\" FWHM in R-K before deliberate defocus",
+    "unit": null,
+    "src": "ZSSE",
+    "loc": "Performance overview",
+    "quote": "Approximately 0.15″ FWHM in R–K, before deliberate defocus to match spectrograph sampling",
+    "note": "Context only; the explorer's slit-limited R does not depend on seeing."
+   }
+  },
+  "not_found": [
+   "The SPIE 2026 instrument paper (Bailey et al. 2026, Proc. SPIE 14149, paper 14149-77, doi:10.1117/12.3105404; CRB26) and the simulator paper (Sharma et al. 2026, Proc. SPIE 14155-97; CRS26): the SPIE Digital Library returned a bot-block (Incapsula) page and no arXiv version exists (arXiv API searches for 'ZShooter', 'Z-Shooter' and title words returned 0 entries on 2026-11-15). The website cites the paper's Sec. 4.1, Table 2 and Fig. 5 for the prescription; the numbers here come from the website summary and the project's own simulator files built from the June 2026 Zemax archive.",
+   "The Conceptual Design Report, CoDR slides, SRD, OCDD and the Preliminary Design Report (ZSDOC: Caltech SharePoint and Overleaf links behind a login; not fetched). The Zemax archives 20260225A_ZS_IR_3CH_Spectrograph.zar and 20260610B_ZS_6CH_Complete_Spectrograph.zar are not public; only the simulator's extraction (ZSXDD zemax_channels.csv) is.",
+   "Echelle in-plane angle theta (only the 0.6 deg out-of-plane tilt is stated); entered as theta = 0. Echelle ruled area and blank size.",
+   "VPH design details: Bragg angles at the design wavelength, fringe tilt, layer thickness. Only the Zemax CX tilts (10.9-21.2 deg) and line densities are available; the explorer sets each VPH at the symmetric Bragg angle for lamC.",
+   "Second-collimator geometry (off-axis angle), the Mangin mirror's power and the camera-collimator angle at each cross-disperser; camera lens prescriptions and the VIS camera glasses.",
+   "Dichroic specifications: only 'near 950 nm' (VIS/NIR) and 'near 1.4 and 1.9 um' (NIR) are stated; the VIS internal crossovers are not stated (passband edges 430 and 650 nm; the simulator curves cross 50% at 430.0 and 649.9 nm, DERIVED).",
+   "The final slit inventory (an open item on ZSPEC and ZSOD); the simulator's eight-slit wheel (0.30-1.25\") is an engineering list.",
+   "A measured R (the instrument is not built) and an R from Zemax line-spread functions (ZSRES: the simulator 'does not separately propagate the illuminated spectrograph pupil or convolve a post-slit diffraction/aberration LSF').",
+   "The wavelength at each detector's center (the explorer's lamC): DERIVED here from the simulator's selected detector placement (ZSXDD selected_orders.csv).",
+   "Order separation from Zemax ray traces; only the simulator's analytical geometry gives order positions (ZSXDD).",
+   "A statement of which pupil diameter the published f/14.5 and f/10.5 refer to (see Conflicts)."
+  ],
+  "conflicts": [
+   "Focal ratio at the slit: f/10.5 (ZSPEC, from f/14.5 x 500/690) vs f/10.0 = 1500 mm / 150 mm (collimator and pupil, ZSPEC) and f/9.995 from the published 530.6 um/arcsec on the 10.95 m perimeter (DERIVED). Keck's focal ratio is f/13.7 on the 11 m perimeter (O95), and the 530.6 um/arcsec scale implies f/13.79 at RNAS (DERIVED). f/14.5 fits a 10.42 m pupil, close to the perimeter-masked cold-stop pupil (47.8 mm at 690 mm = f/14.44, DERIVED). Preset uses F = 10.0 (keeps the published slit scale and the 150 mm beam).",
+   "VIS echelle ruling: 50 grooves/mm (ZSPEC text; ZSFIG layout label '50 gr./mm') vs 50.15 /mm (Zemax archive 20260610B via ZSXD, ZSXDD, IRDBT; newest, adopted) vs 50.00 /mm (older simulator 'main', ZSXD). Blaze m x lambda: 36.318 um (50.15) vs 36.427 um (50.00), 0.3%.",
+   "R range across the format: 15,700-21,100 at 0.70\" and 33,200-44,700 at 0.33\" (ZSPEC, ZSPERF; ZSNB per-channel 'R k' columns) hold the slit image at 4.46 px; ZSRES (rerun 2026-10-21) shows the geometric R varies only by ~1/m (1-3%) across an FSR while the slit image ranges 3.99-5.22 px. The explorer agrees with ZSRES (Rs 17,455-17,921; slit image 4.01-5.15 px at on-chip FSR points).",
+   "R definition: geometric slit-limited R ~ 18,000 (0.70\") vs simulated point-source FWHM R 20,000-24,000 in natural seeing (ZSRES); different widths.",
+   "Requirement vs model at the narrow slit: L1/L2 R >= 40,000 with a 0.3\" slit (ZSL1, ZSL2) vs median R ~ 38,000 at the 0.33\" slit in the performance model (ZSPEC). At 0.30\" the closed form gives 41,526 (DERIVED).",
+   "Slit inventory: 'the paper's 0.30-0.70\" table, its wider prose range, and the presentation's 0.30-1.30\" range' (ZSPEC) vs the simulator wheel 0.30-1.25\" (IRDB).",
+   "VIS/NIR dichroic: 'transition near 950 nm' (ZSPEC) vs 969.6 nm at 50% transmission in the simulator curve (DERIVED from IRDB TER_dichroic_bgr-yjhk.dat); the R passband ends at 980 nm and YJ starts at 960 nm (ZSOD, ZSPEC).",
+   "NIR pixel size: 15 um LmAPD target (ZSPEC, ZSDET, IRDB baseline) vs 18 um H2RG alternative (IRDB README); the Zemax NIR image aperture is 36.864 mm = 2048 x 18 um (DERIVED from ZSXDD zemax_channels.csv), while the VIS aperture is 30.72 mm = 2048 x 15 um.",
+   "Camera focal length: 225 mm (ZSPEC; simulator) vs Zemax paraxial focal lengths 224.49 (B), 224.29 (G), 225.70 (R), 225.14 (YJ), 224.65 (H), 222.25 mm (K) (ZSXDD). The preset keeps the nominal 225 mm (270 mm effective).",
+   "Detector rotations and placement: Zemax detector rotations of 5.0-9.5 deg (ZSXD options 1/2, adopted in IRDBT) vs 2-7 deg in the older simulator 'main' (ZSXD); the explorer has no detector rotation."
+  ],
+  "notes": [
+   "Design version: the post-CoDR two-spectrometer, six-channel design (ZSTECH: 'a move from three to two spectrometers') in the June 2026 Zemax archive 20260610B_ZS_6CH_Complete_Spectrograph.zar, as summarized on the project website (last modified 2026-10-16), in the SPIE 2026 paper (published 2026-08-21; not obtained) and in the simulator package ZShooter_v2 'version: pdr0.1' (IRDB commit 7cc3e9a, 2026-11-06). Where sources differ, the Zemax-derived simulator values (newest) are preferred; the website's rounded values are listed as alternatives.",
+   "White pupil (does not fit the explorer directly): slit -> 1500 mm off-axis parabola (150 mm pupil) -> R2 echelle -> back through the same collimator to a Mangin mirror at the intermediate white-light slit -> 1250 mm second collimator (125 mm white pupil) -> two dichroics -> three VPH cross-dispersers -> three 225 mm f/1.8 cameras. The explorer has one collimator, one beam and one camera, so the preset keeps the echelle beam (W = 150 mm, f_col = 1500 mm) and replaces the 225 mm camera by the EFFECTIVE 270 mm (225 x 1500/1250), which reproduces the slit image (4.46 px), the echelle dispersion and the along-slit scale (0.157\"/px). The VPH line density is scaled by 225/270 so that the 270 mm camera gives the real order spacing (the G-CLEF convention, web/presets.js). With these inputs the explorer reproduces the simulator's minimum order separations to within 0.8% and the middle-order detector coverage to 0.4-2.4% (per-arm tables).",
+   "Not modeled by the explorer: the per-arm ADC and K-mirror, the relay (entered through F), the NIR cold stop, the six internal and front dichroics (orders beyond the passbands appear partly on the chip in B, G, R, YJ and H), the detector rotations (5-9.5 deg) and fixed detector offsets, the tapered AR coatings, and the 3200 A atmospheric cutoff in the explorer (B's orders ~114-118, 3050-3200 A, are cut).",
+   "lamC (DERIVED): the blaze wavelength 2 sin(65.6 deg)/(G m) of the order whose full-slit footprint center lies nearest the detector's y center in the simulator's selected geometry (ZSXDD selected_orders.csv): B order 99 (center y = 2002 of 4096), G 67 (2086), R 44 (2128), YJ 67 (1039 of 2048), H 46 (1039), K 34 (1048). The explorer centers the blaze of lamC's order on the chip; the real camera origins sit 0.4-2.9 mm (x) and 3.2-5.4 mm (y) from the detector centers (IRDBT detector_offset_x/y), which the explorer cannot reproduce.",
+   "Explorer runs (web/physics.js design(), not edited): all six presets give a valid design; per-arm results are in each arm's explorer_model_DERIVED entry.",
+   "nObj = 1: one 10\" long slit per spectrometer, nodded by up to +/-6\"."
+  ]
+ },
+ "zshooter_b": {
+  "title": "ZShooter ZSpec B (blue) channel (VIS spectrometer, 310-430 nm, echelle orders 85-118)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 50.15 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 1666.7 /mm [EFFECTIVE: 2000 x 225/270], lamC = 3668.5 A (blaze of order 99) [DERIVED], Nx = 2048 (dispersion), Ny = 4096, pix = 15 um. Explorer: Rs 17677 (Reff 17254), 4.492 px per slit image, 0.1568\"/px, 3.776 km/s/px, orders 84-114 partly on the chip (31), 3200-4302 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 85-118; 0.0037-0.0056 nm/px dispersion range (ZSNB); simulator minimum order separation 81.5 px (orders 117/118); simulator coverage of order 99, 3619.9-3713.1 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "310-430",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "B 310–430 85–118; 34 orders 2,000",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "VIS B 310–430"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "VIS/NIR dichroic reflects VIS; B/GR dichroic reflects B (50% at 430.0 nm in the simulator curve, DERIVED)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits GR (VIS) reflects UB",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "85-118 (34 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "B 310–430 85–118; 34 orders 2,000",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 85-118",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "b,85,118,50.15,65.6,2000.0,21.2,-2.0,-50.0,9.5,30.72,61.44,372.786,224.49331358359626"
+     },
+     {
+      "value": "simulator (current): m0 = 118, n = 34",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "b 0 0 118 34 310 430 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_b 2048 4096 50.150 2000 10 x 21.20 -9.50 -0.679871 -3.156243 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "B 85-118 None 34/34"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(50.15 /mm) = 36.318 um; order 118 at 3077.8 A, order 85 at 4272.8 A."
+   },
+   "echelle_ruling": {
+    "value": 50.15,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "B 85-118 50.15 2000 -9.50 -6.00",
+    "alternatives": [
+     {
+      "value": "50 /mm (VIS) or 24 /mm (NIR), rounded",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 2000 lines/mm; Zemax CX tilt 21.2 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 1666.7 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (17.80 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "B 310–430 85–118; 34 orders 2,000",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 2000.0, cx_coordinate_tilt_x_deg 21.2",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "b,85,118,50.15,65.6,2000.0,21.2,-2.0,-50.0,9.5,30.72,61.44,372.786,224.49331358359626"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "B 16.41 / 27.49 21.20 / 21.20 24.74 / 18.91"
+     },
+     {
+      "value": "xbeta_center 21.20 deg, xdisp_freq 2000",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "b 0 0 118 34 310 430 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_b 2048 4096 50.150 2000 10 x 21.20 -9.50 -0.679871 -3.156243 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 2000 x 225/270 = 1666.7 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (17.80 deg) differs from the Zemax tilt (21.2 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 224.49,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "b,85,118,50.15,65.6,2000.0,21.2,-2.0,-50.0,9.5,30.72,61.44,372.786,224.49331358359626",
+    "note": "Camera reference wavelength 372.786 nm; camera center tilt -2.0 deg; detector coordinate rotation 9.5 deg."
+   },
+   "detector": {
+    "value": "qCCD (STA5900 preferred), 2048 (dispersion, x) x 4096, 15 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp 2048, n_xdisp 4096",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "b 0 0 118 34 310 430 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_b 2048 4096 50.150 2000 10 x 21.20 -9.50 -0.679871 -3.156243 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 30.72 x 61.44 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "b,85,118,50.15,65.6,2000.0,21.2,-2.0,-50.0,9.5,30.72,61.44,372.786,224.49331358359626"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -9.50 deg on the detector; camera origin offset (x, y) = (-0.679871, -3.156243) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "b 0 0 118 34 310 430 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_b 2048 4096 50.150 2000 10 x 21.20 -9.50 -0.679871 -3.156243 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "B 85-118 50.15 2000 -9.50 -6.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 3668.5,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 99 row",
+    "quote": "b,99,365.00194639798497,368.70754991471574,-1.0142337240384116,605.6963976370927,1427.821340576034,1963.6971827781315,2040.8646204539873,True",
+    "is_derived": true,
+    "derived": "DERIVED: order 99's footprint center y = (y_min + y_max)/2 = 2002 px, the order nearest the detector center (2048 px); the order's blaze 2 sin(65.6 deg)/(50.15 x 99) = 3668.5 A (the row's FSR 365.0019-368.7075 nm is centered on 366.85 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 17.0-19.3k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "B 0 34 307-431 0.70\" 4.46 0.0037-0.0056 17.0-19.3",
+    "alternatives": [
+     {
+      "value": "0.33\": 36.3-41.0k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "B 36.3-41.0k 17.1-19.3k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17677 at lamC; 17553-17769 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "4.31-4.82 px (0.70\" full-slit width over the on-chip primary FSRs); .291-.325\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "B 4.31–4.82 .291–.325",
+    "derived": "Explorer (DERIVED): 4.28-4.81 px at on-chip FSR points; 4.492 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0037-0.0056",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "B 0 34 307-431 0.70\" 4.46 0.0037-0.0056 17.0-19.3",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "B 0 34 307-431 0.33\" 2.10 0.0037-0.0056 36.1-40.9"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.00386-0.00565 nm/px at on-chip FSR points (blue end limited by the explorer's 3200 A cutoff); 0.04620 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "34 orders, 307-431 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "B 0 34 307-431 0.70\" 4.46 0.0037-0.0056 17.0-19.3",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 3049.9-4308.5 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, BLUE block",
+      "quote": "# BLUE: physical orders 85--118, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 84-114 partly on chip (31), 3200-4302 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 99: 3619.9-3713.1 A on the detector (93.2 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, BLUE block, order 99 (entry 15)",
+    "quote": "# BLUE: physical orders 85--118, detector coverage in Angstrom. ... [3619.85731, 3713.09064]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 99 on chip 3618.1-3712.6 A (94.5 A), +1.4%."
+   },
+   "order_separation": {
+    "value": "min 81.5 px (orders 117/118), max 171.7 px (orders 85/86)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "b,117,309.0889939266029,311.74211833799,-2.5001523613028747,371.18567432693476,1065.2007044275379,188.84804021754826,281.4913210353584,True ... b,118,306.48074245394605,309.089089198235,-2.5603989071461934,360.3864563138927,1048.4784979309459,107.11406185387386,200.21259404798388,True",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(117) - y_mid(118)) = 81.5 px; abs(y_mid(85) - y_mid(86)) = 171.7 px. Explorer (DERIVED): 81.5 px (orders 117/118) to 164.5 px (85/86)."
+   },
+   "footprint": {
+    "value": "34/34 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "B 85-118 None 34/34",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "b,34,34,360.3864563138927,1836.322813801377,107.11406185387386,4044.072073649404"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found.",
+   "The explorer's 3200 A atmospheric cutoff removes 3050-3200 A of the B format (orders ~114-118; the simulator places order 118 at 3049.9-3125.4 A, ZSDRP); coverage below 3200 A cannot be validated in the explorer."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts."
+  ],
+  "notes": [
+   "B is the only channel where a volume Bragg grating may replace the VPH (ZSPEC).",
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ },
+ "zshooter_g": {
+  "title": "ZShooter ZSpec G (green) channel (VIS spectrometer, 430-650 nm, echelle orders 56-85)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 50.15 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 916.7 /mm [EFFECTIVE: 1100 x 225/270], lamC = 5420.7 A (blaze of order 67) [DERIVED], Nx = 2048 (dispersion), Ny = 4096, pix = 15 um. Explorer: Rs 17701 (Reff 17276), 4.486 px per slit image, 0.1568\"/px, 3.775 km/s/px, orders 55-86 partly on the chip (32), 4208-6598 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 56-85; 0.0051-0.0088 nm/px dispersion range (ZSNB); simulator minimum order separation 85.7 px (orders 84/85); simulator coverage of order 67, 5347.1-5485.7 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "430-650",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "G 430–650 56–85; 30 orders 1,100",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "VIS G 430–650"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "transmitted by the B/GR dichroic (430.0 nm), reflected by the G/R dichroic (649.9 nm; simulator curves, DERIVED)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits R, reflects G",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "56-85 (30 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "G 430–650 56–85; 30 orders 1,100",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 56-85",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "g,56,85,50.15,65.6,1100.0,16.75,-0.75,-50.0,7.0,30.72,61.44,542.9149090909,224.28500110269493"
+     },
+     {
+      "value": "simulator (current): m0 = 85, n = 30",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "g 1 1 85 30 430 650 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_g 2048 4096 50.150 1100 10 x 16.75 -7.00 -0.569446 -4.041061 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "G 56-85 None 30/30"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(50.15 /mm) = 36.318 um; order 85 at 4272.8 A, order 56 at 6485.4 A."
+   },
+   "echelle_ruling": {
+    "value": 50.15,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "G 56-85 50.15 1100 -7.00 -6.00",
+    "alternatives": [
+     {
+      "value": "50 /mm (VIS) or 24 /mm (NIR), rounded",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 1100 lines/mm; Zemax CX tilt 16.75 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 916.7 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (14.39 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "G 430–650 56–85; 30 orders 1,100",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 1100.0, cx_coordinate_tilt_x_deg 16.75",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "g,56,85,50.15,65.6,1100.0,16.75,-0.75,-50.0,7.0,30.72,61.44,542.9149090909,224.28500110269493"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "G 8.68 / 26.56 16.75 / 16.75 16.51 / 18.20"
+     },
+     {
+      "value": "xbeta_center 16.75 deg, xdisp_freq 1100",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "g 1 1 85 30 430 650 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_g 2048 4096 50.150 1100 10 x 16.75 -7.00 -0.569446 -4.041061 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 1100 x 225/270 = 916.7 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (14.39 deg) differs from the Zemax tilt (16.75 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 224.29,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "g,56,85,50.15,65.6,1100.0,16.75,-0.75,-50.0,7.0,30.72,61.44,542.9149090909,224.28500110269493",
+    "note": "Camera reference wavelength 542.9149090909 nm; camera center tilt -0.75 deg; detector coordinate rotation 7.0 deg."
+   },
+   "detector": {
+    "value": "qCCD (STA5900 preferred), 2048 (dispersion, x) x 4096, 15 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp 2048, n_xdisp 4096",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "g 1 1 85 30 430 650 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_g 2048 4096 50.150 1100 10 x 16.75 -7.00 -0.569446 -4.041061 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 30.72 x 61.44 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "g,56,85,50.15,65.6,1100.0,16.75,-0.75,-50.0,7.0,30.72,61.44,542.9149090909,224.28500110269493"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -7.00 deg on the detector; camera origin offset (x, y) = (-0.569446, -4.041061) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "g 1 1 85 30 430 650 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_g 2048 4096 50.150 1100 10 x 16.75 -7.00 -0.569446 -4.041061 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "G 56-85 50.15 1100 -7.00 -6.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 5420.7,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 67 row",
+    "quote": "g,67,538.0236655128832,546.1142469491671,-0.2629170607339351,443.9385154218263,1648.3276850132984,2051.7921099449263,2120.962917875331,True",
+    "is_derived": true,
+    "derived": "DERIVED: order 67's footprint center y = (y_min + y_max)/2 = 2086 px, the order nearest the detector center (2048 px); the order's blaze 2 sin(65.6 deg)/(50.15 x 67) = 5420.7 A (the row's FSR 538.0237-546.1142 nm is centered on 542.07 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 16.5-20.0k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "G 1 30 426-656 0.70\" 4.46 0.0051-0.0088 16.5-20.0",
+    "alternatives": [
+     {
+      "value": "0.33\": 35.0-42.4k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "G 35.0-42.4k 16.5-20.0k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17701 at lamC; 17524-17839 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "4.17-4.96 px (0.70\" full-slit width over the on-chip primary FSRs); .282-.335\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "G 4.17–4.96 .282–.335",
+    "derived": "Explorer (DERIVED): 4.17-4.98 px at on-chip FSR points; 4.486 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0051-0.0088",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "G 1 30 426-656 0.70\" 4.46 0.0051-0.0088 16.5-20.0",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "G 1 30 426-656 0.33\" 2.10 0.0051-0.0088 35.0-42.4"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.00503-0.00880 nm/px at on-chip FSR points; 0.06826 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "30 orders, 426-656 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "G 1 30 426-656 0.70\" 4.46 0.0051-0.0088 16.5-20.0",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 4228.7-6546.3 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, GREEN block",
+      "quote": "# GREEN: physical orders 56--85, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 55-86 partly on chip (32), 4208-6598 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 67: 5347.1-5485.7 A on the detector (138.6 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, GREEN block, order 67 (entry 12)",
+    "quote": "# GREEN: physical orders 56--85, detector coverage in Angstrom. ... [5347.09097, 5485.70379]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 67 on chip 5346.2-5485.8 A (139.7 A), +0.8%."
+   },
+   "order_separation": {
+    "value": "min 85.7 px (orders 84/85), max 209.2 px (orders 56/57)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "g,84,429.7909262520508,434.9381229736322,-1.725740858926137,330.6358842666589,1288.7541374715236,179.62476969332874,271.45565813924213,True ... g,85,424.76448383417977,429.79128245943633,-1.7864239282685417,325.461980094106,1272.232924217293,93.60338065270048,186.0878462717494,True",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(84) - y_mid(85)) = 85.7 px; abs(y_mid(56) - y_mid(57)) = 209.2 px. Explorer (DERIVED): 85.8 px (orders 84/85) to 201.6 px (56/57)."
+   },
+   "footprint": {
+    "value": "30/30 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "G 56-85 None 30/30",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "g,30,30,325.461980094106,2011.4772200934408,93.60338065270048,4029.063421622255"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts."
+  ],
+  "notes": [
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ },
+ "zshooter_r": {
+  "title": "ZShooter ZSpec R (red) channel (VIS spectrometer, 650-980 nm, echelle orders 37-56)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 50.15 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 520.8 /mm [EFFECTIVE: 625 x 225/270], lamC = 8254.2 A (blaze of order 44) [DERIVED], Nx = 2048 (dispersion), Ny = 4096, pix = 15 um. Explorer: Rs 17715 (Reff 17286), 4.482 px per slit image, 0.1568\"/px, 3.775 km/s/px, orders 35-60 partly on the chip (26), 6103-10347 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 37-56; 0.0074-0.0138 nm/px dispersion range (ZSNB); simulator minimum order separation 112.1 px (orders 55/56); simulator coverage of order 44, 8158.5-8366.3 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "650-980",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "R 650–980 37–56; 20 orders 625",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "VIS R 650–980"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "transmitted by the B/GR (430.0 nm) and G/R (649.9 nm) dichroics; red edge set by the VIS/NIR dichroic (969.6 nm at 50% in the simulator curve; 'near 950 nm' on ZSPEC)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits R, reflects G",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "37-56 (20 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "R 650–980 37–56; 20 orders 625",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 37-56",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "r,37,56,50.15,65.6,625.0,-14.1,0.0,50.0,6.0,30.72,61.44,823.2396363636,225.70281638589123"
+     },
+     {
+      "value": "simulator (current): m0 = 56, n = 20",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "r 2 2 56 20 650 980 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_r 2048 4096 50.150 625 10 x 14.10 -6.00 -2.867205 -5.372810 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "R 37-56 150 left 17/20"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(50.15 /mm) = 36.318 um; order 56 at 6485.4 A, order 37 at 9815.8 A."
+   },
+   "echelle_ruling": {
+    "value": 50.15,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "R 37-56 50.15 625 -6.00 -2.00",
+    "alternatives": [
+     {
+      "value": "50 /mm (VIS) or 24 /mm (NIR), rounded",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 625 lines/mm; Zemax CX tilt 14.1 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 520.8 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (12.41 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "R 650–980 37–56; 20 orders 625",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 625.0, cx_coordinate_tilt_x_deg -14.1",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "r,37,56,50.15,65.6,625.0,-14.1,0.0,50.0,6.0,30.72,61.44,823.2396363636,225.70281638589123"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "R -7.58 / 40.33 14.10 / 14.10 1.85 / 28.72"
+     },
+     {
+      "value": "xbeta_center 14.10 deg, xdisp_freq 625",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "r 2 2 56 20 650 980 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_r 2048 4096 50.150 625 10 x 14.10 -6.00 -2.867205 -5.372810 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 625 x 225/270 = 520.8 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (12.41 deg) differs from the Zemax tilt (14.1 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 225.7,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "r,37,56,50.15,65.6,625.0,-14.1,0.0,50.0,6.0,30.72,61.44,823.2396363636,225.70281638589123",
+    "note": "Camera reference wavelength 823.2396363636 nm; camera center tilt 0.0 deg; detector coordinate rotation 6.0 deg."
+   },
+   "detector": {
+    "value": "qCCD (STA5900 preferred), 2048 (dispersion, x) x 4096, 15 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp 2048, n_xdisp 4096",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "r 2 2 56 20 650 980 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_r 2048 4096 50.150 625 10 x 14.10 -6.00 -2.867205 -5.372810 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 30.72 x 61.44 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "r,37,56,50.15,65.6,625.0,-14.1,0.0,50.0,6.0,30.72,61.44,823.2396363636,225.70281638589123"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -6.00 deg on the detector; camera origin offset (x, y) = (-2.867205, -5.372810) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "r 2 2 56 20 650 980 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_r 2048 4096 50.150 625 10 x 14.10 -6.00 -2.867205 -5.372810 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "R 37-56 50.15 625 -6.00 -2.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 8254.2,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 44 row",
+    "quote": "r,44,816.0433744500634,834.8029922535133,-0.2518957165083087,13.82118593439236,1847.0398876920044,2091.5272250423745,2164.642528235384,True",
+    "is_derived": true,
+    "derived": "DERIVED: order 44's footprint center y = (y_min + y_max)/2 = 2128 px, the order nearest the detector center (2048 px); the order's blaze 2 sin(65.6 deg)/(50.15 x 44) = 8254.2 A (the row's FSR 816.0434-834.8030 nm is centered on 825.42 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 15.8-20.7k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "R 2 20 645-994 0.70\" 4.46 0.0074-0.0138 15.8-20.7",
+    "alternatives": [
+     {
+      "value": "0.33\": 33.6-44.4k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "R 33.6-44.4k 15.8-20.9k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17715 at lamC; 17459-17921 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "4.02-5.18 px (0.70\" full-slit width over the on-chip primary FSRs); .270-.348\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "R 4.02–5.18 .270–.348",
+    "derived": "Explorer (DERIVED): 4.02-5.15 px at on-chip FSR points; 4.482 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0074-0.0138",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "R 2 20 645-994 0.70\" 4.46 0.0074-0.0138 15.8-20.7",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "R 2 20 645-994 0.33\" 2.10 0.0074-0.0138 33.5-43.8"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.00738-0.01380 nm/px at on-chip FSR points; 0.10395 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "20 orders, 645-994 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "R 2 20 645-994 0.70\" 4.46 0.0074-0.0138 15.8-20.7",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 6425.9-9931.7 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, RED block",
+      "quote": "# RED: physical orders 37--56, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 35-60 partly on chip (26), 6103-10347 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 44: 8158.5-8366.3 A on the detector (207.8 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, RED block, order 44 (entry 8)",
+    "quote": "# RED: physical orders 37--56, detector coverage in Angstrom. ... [8158.53412, 8366.30337]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 44 on chip 8140.7-8353.4 A (212.7 A), +2.4%."
+   },
+   "order_separation": {
+    "value": "min 112.1 px (orders 55/56), max 262.0 px (orders 37/38)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "r,55,654.3354689843267,666.3416243785344,-1.4703140753409658,15.461656024552212,1476.118212519679,497.44488916766136,598.0887581393467,True ... r,56,642.7561906074831,654.3373832310414,-1.5503679165616522,15.727509294479432,1449.9662304871952,384.7108310500962,486.6726320070927,True",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(55) - y_mid(56)) = 112.1 px; abs(y_mid(37) - y_mid(38)) = 262.0 px. Explorer (DERIVED): 112.3 px (orders 55/56) to 254.5 px (37/38)."
+   },
+   "footprint": {
+    "value": "17/20 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "R 37-56 150 left 17/20",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "r,20,17,13.722233776568146,2210.6264736035464,384.7108310500962,3728.9886939279627"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts.",
+   "Orders 37-39 are partly clipped by the detector: 17 of 20 orders have their full FSR and slit on the chip (ZSXD: 'R retains partially clipped orders 37-39; orders 40-56 fit completely'). The ZSNB coverage 645-994 nm runs past the 980 nm passband edge."
+  ],
+  "notes": [
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ },
+ "zshooter_yj": {
+  "title": "ZShooter ZSpec YJ channel (NIR spectrometer, 960-1340 nm, echelle orders 57-80; 58-80 in the current simulator)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 24 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 291.7 /mm [EFFECTIVE: 350 x 225/270], lamC = 11326.9 A (blaze of order 67) [DERIVED], Nx = 2048 (dispersion), Ny = 2048, pix = 15 um. Explorer: Rs 17734 (Reff 17300), 4.477 px per slit image, 0.1568\"/px, 3.776 km/s/px, orders 57-81 partly on the chip (25), 9388-13234 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 57-80; 0.0112-0.0180 nm/px dispersion range (ZSNB); simulator minimum order separation 63.6 px (orders 79/80); simulator coverage of order 67, 11173.3-11463.9 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "960-1340",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "YJ 960–1,340 57–80; 24 orders 350",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "NIR YJ 960–1,340"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "transmitted by the VIS/NIR dichroic (969.6 nm), reflected by the YJ/HK dichroic (1405.1 nm; simulator curves, DERIVED; 'near 1.4 um' on ZSPEC)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits HK, reflects YJ",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "57-80 (24 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "YJ 960–1,340 57–80; 24 orders 350",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 57-80",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "yj,57,80,24.0,65.6,350.0,10.9,-2.0,-50.0,5.0,36.864,36.864,1156.475454545,225.1373673550854"
+     },
+     {
+      "value": "simulator (current): m0 = 80, n = 23",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "yj 3 3 80 23 960 1340 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_yj 2048 2048 24.000 350 10 x 10.90 -5.00 -0.441923 -3.921145 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "YJ 58-80 50 up 23/23"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(24 /mm) = 75.890 um; order 80 at 9486.3 A, order 57 at 13314.1 A."
+   },
+   "echelle_ruling": {
+    "value": 24,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "YJ 57-80 24 350 -5.00 -4.00",
+    "alternatives": [
+     {
+      "value": "24 /mm",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 350 lines/mm; Zemax CX tilt 10.9 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 291.7 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (9.51 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "YJ 960–1,340 57–80; 24 orders 350",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 350.0, cx_coordinate_tilt_x_deg 10.9",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "yj,57,80,24.0,65.6,350.0,10.9,-2.0,-50.0,5.0,36.864,36.864,1156.475454545,225.1373673550854"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "YJ 10.78 / 12.48 10.90 / 10.90 4.15 / 17.58"
+     },
+     {
+      "value": "xbeta_center 10.90 deg, xdisp_freq 350",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "yj 3 3 80 23 960 1340 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_yj 2048 2048 24.000 350 10 x 10.90 -5.00 -0.441923 -3.921145 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 350 x 225/270 = 291.7 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (9.51 deg) differs from the Zemax tilt (10.9 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 225.14,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "yj,57,80,24.0,65.6,350.0,10.9,-2.0,-50.0,5.0,36.864,36.864,1156.475454545,225.1373673550854",
+    "note": "Camera reference wavelength 1156.475454545 nm; camera center tilt -2.0 deg; detector coordinate rotation 5.0 deg."
+   },
+   "detector": {
+    "value": "LmAPD (Leonardo; 15 um target), 2048 (dispersion, x) x 2048, 15 um; Zemax image aperture 36.864 mm = 2048 x 18 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp 2048, n_xdisp 2048",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "yj 3 3 80 23 960 1340 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_yj 2048 2048 24.000 350 10 x 10.90 -5.00 -0.441923 -3.921145 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 36.864 x 36.864 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "yj,57,80,24.0,65.6,350.0,10.9,-2.0,-50.0,5.0,36.864,36.864,1156.475454545,225.1373673550854"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -5.00 deg on the detector; camera origin offset (x, y) = (-0.441923, -3.921145) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "yj 3 3 80 23 960 1340 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_yj 2048 2048 24.000 350 10 x 10.90 -5.00 -0.441923 -3.921145 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "YJ 57-80 24 350 -5.00 -4.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 11326.9,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 67 row",
+    "quote": "yj,67,1124.245284394629,1141.1512285208642,-0.6326361840036876,442.31549778458145,1639.6321839812003,1000.699835152177,1077.289241999946,True",
+    "is_derived": true,
+    "derived": "DERIVED: order 67's footprint center y = (y_min + y_max)/2 = 1039 px, the order nearest the detector center (1024 px); the order's blaze 2 sin(65.6 deg)/(24 x 67) = 11326.9 A (the row's FSR 1124.2453-1141.1512 nm is centered on 1132.70 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 16.4-19.8k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "YJ 3 24 945-1343 0.70\" 4.46 0.0112-0.0180 16.4-19.8",
+    "alternatives": [
+     {
+      "value": "0.33\": 34.9-42.0k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "YJ 34.9-42.0k 16.4-19.8k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17734 at lamC; 17571-17876 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "4.15-4.91 px (0.70\" full-slit width over the on-chip primary FSRs); .285-.337\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "YJ 4.15–4.91 .285–.337",
+    "derived": "Explorer (DERIVED): 4.16-4.93 px at on-chip FSR points; 4.477 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0112-0.0180",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "YJ 3 24 945-1343 0.70\" 4.46 0.0112-0.0180 16.4-19.8",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "YJ 3 24 945-1343 0.33\" 2.10 0.0112-0.0180 34.8-42.0"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.01118-0.01776 nm/px at on-chip FSR points; 0.14265 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "24 orders, 945-1343 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "YJ 3 24 945-1343 0.70\" 4.46 0.0112-0.0180 16.4-19.8",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 9368.7-13230.7 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, YJ block",
+      "quote": "# YJ: physical orders 58--80, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 57-81 partly on chip (25), 9388-13234 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 67: 11173.3-11463.9 A on the detector (290.7 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, YJ block, order 67 (entry 10)",
+    "quote": "# YJ: physical orders 58--80, detector coverage in Angstrom. ... [11173.28285, 11463.94411]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 67 on chip 11171.2-11463.1 A (291.8 A), +0.4%."
+   },
+   "order_separation": {
+    "value": "min 63.6 px (orders 79/80), max 120.5 px (orders 58/59)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "yj,79,954.5628072167149,966.7228429774373,-1.3258936303156506,447.67787556145356,1461.9856645323382,81.2211441435851,167.9990742031032,True ... yj,80,942.7058223472167,954.5637572195086,-1.3723670839387898,448.09501875265414,1449.6655520391737,17.397217885555847,104.68867542819919,True",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(79) - y_mid(80)) = 63.6 px; abs(y_mid(58) - y_mid(59)) = 120.5 px. Explorer (DERIVED): 63.6 px (orders 79/80) to 119.5 px (58/59)."
+   },
+   "footprint": {
+    "value": "23/23 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "YJ 58-80 50 up 23/23",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "yj,23,23,438.6486224199265,1824.0293205992343,17.397217885555847,2022.3604497925398"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts.",
+   "Orders: 57-80, 24 orders (ZSPEC; Zemax archive in ZSXD; ZSNB with IRDB d1415c4) vs 58-80, 23 orders in the current simulator, which 'Temporarily exclude[s] reddest YJ order 57 (approximately 1320-1343 nm FSR) for detector coverage' (IRDBT). The preset's validation uses 58-80 for the order positions; the explorer places part of order 57 on the chip.",
+   "Cross-disperser: 350 /mm (ZSPEC, Zemax) vs 325 /mm in the older simulator 'main' (ZSXD)."
+  ],
+  "notes": [
+   "NIR optics beyond the entrance doublet run near 100 K; the camera uses CaF2 and silica (ZSPEC).",
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ },
+ "zshooter_h": {
+  "title": "ZShooter ZSpec H channel (NIR spectrometer, 1470-1830 nm, echelle orders 42-51; 41-51 on the website)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 24 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 250.0 /mm [EFFECTIVE: 300 x 225/270], lamC = 16497.9 A (blaze of order 46) [DERIVED], Nx = 2048 (dispersion), Ny = 2048, pix = 15 um. Explorer: Rs 17718 (Reff 17277), 4.481 px per slit image, 0.1568\"/px, 3.776 km/s/px, orders 41-53 partly on the chip (13), 14259-18688 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 42-51; 0.0168-0.0257 nm/px dispersion range (ZSNB); simulator minimum order separation 136.2 px (orders 50/51); simulator coverage of order 46, 16303.3-16719.5 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "1470-1830",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "H 1,470–1,830 41–51; 11 orders 300",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "NIR H 1,470–1,830"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "transmitted by the VIS/NIR (969.6 nm) and YJ/HK (1405.1 nm) dichroics, reflected by the H/K dichroic (1910.7 nm; simulator curves, DERIVED; 'near 1.9 um' on ZSPEC)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits K, reflects H",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "41-51 (11 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "H 1,470–1,830 41–51; 11 orders 300",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 42-51",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "h,42,51,24.0,65.6,300.0,13.7,1.0,-50.0,6.1,36.864,36.864,1641.8539999999998,224.64966191451015"
+     },
+     {
+      "value": "simulator (current): m0 = 51, n = 10",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "h 4 4 51 10 1470 1830 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_h 2048 2048 24.000 300 10 x 13.70 -6.10 -2.474361 -4.610933 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "H 42-51 130 left 10/10"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(24 /mm) = 75.890 um; order 51 at 14880.5 A, order 42 at 18069.1 A."
+   },
+   "echelle_ruling": {
+    "value": 24,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "H 42-51 24 300 -6.10 -3.00",
+    "alternatives": [
+     {
+      "value": "24 /mm",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 300 lines/mm; Zemax CX tilt 13.7 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 250.0 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (11.90 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "H 1,470–1,830 41–51; 11 orders 300",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 300.0, cx_coordinate_tilt_x_deg 13.7",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "h,42,51,24.0,65.6,300.0,13.7,1.0,-50.0,6.1,36.864,36.864,1641.8539999999998,224.64966191451015"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "H -6.49 / 37.55 13.70 / 13.70 2.45 / 26.94"
+     },
+     {
+      "value": "xbeta_center 13.70 deg, xdisp_freq 300",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "h 4 4 51 10 1470 1830 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_h 2048 2048 24.000 300 10 x 13.70 -6.10 -2.474361 -4.610933 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 300 x 225/270 = 250.0 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (11.90 deg) differs from the Zemax tilt (13.7 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 224.65,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "h,42,51,24.0,65.6,300.0,13.7,1.0,-50.0,6.1,36.864,36.864,1641.8539999999998,224.64966191451015",
+    "note": "Camera reference wavelength 1641.8539999999998 nm; camera center tilt 1.0 deg; detector coordinate rotation 6.1 deg."
+   },
+   "detector": {
+    "value": "LmAPD (Leonardo; 15 um target), 2048 (dispersion, x) x 2048, 15 um; Zemax image aperture 36.864 mm = 2048 x 18 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp 2048, n_xdisp 2048",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "h 4 4 51 10 1470 1830 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_h 2048 2048 24.000 300 10 x 13.70 -6.10 -2.474361 -4.610933 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 36.864 x 36.864 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "h,42,51,24.0,65.6,300.0,13.7,1.0,-50.0,6.1,36.864,36.864,1641.8539999999998,224.64966191451015"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -6.10 deg on the detector; camera origin offset (x, y) = (-2.474361, -4.610933) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "h 4 4 51 10 1470 1830 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_h 2048 2048 24.000 300 10 x 13.70 -6.10 -2.474361 -4.610933 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "H 42-51 24 300 -6.10 -3.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 16497.9,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 46 row",
+    "quote": "h,46,1631.8670296840453,1667.7322391276505,-0.6046060115172287,64.72314725080241,1816.6603097548204,998.216451883266,1079.9444682952844,True",
+    "is_derived": true,
+    "derived": "DERIVED: order 46's footprint center y = (y_min + y_max)/2 = 1039 px, the order nearest the detector center (1024 px); the order's blaze 2 sin(65.6 deg)/(24 x 46) = 16497.9 A (the row's FSR 1631.8670-1667.7322 nm is centered on 1649.80 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 16.0-20.6k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "H 4 11 1474-1872 0.70\" 4.46 0.0168-0.0257 16.0-20.6",
+    "alternatives": [
+     {
+      "value": "0.33\": 34.0-43.9k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "H 34.0-43.9k 16.0-20.7k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17718 at lamC; 17499-17921 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "4.06-5.13 px (0.70\" full-slit width over the on-chip primary FSRs); .273-.345\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "H 4.06–5.13 .273–.345",
+    "derived": "Explorer (DERIVED): 4.05-5.14 px at on-chip FSR points; 4.481 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0168-0.0257",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "H 4 11 1474-1872 0.70\" 4.46 0.0168-0.0257 16.0-20.6",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "H 4 11 1474-1872 0.33\" 2.10 0.0168-0.0257 33.8-43.7"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.01681-0.02516 nm/px at on-chip FSR points; 0.20777 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "11 orders, 1474-1872 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "H 4 11 1474-1872 0.70\" 4.46 0.0168-0.0257 16.0-20.6",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 14721.1-18296.3 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, H block",
+      "quote": "# H: physical orders 42--51, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 41-53 partly on chip (13), 14259-18688 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 46: 16303.3-16719.5 A on the detector (416.2 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, H block, order 46 (entry 5)",
+    "quote": "# H: physical orders 42--51, detector coverage in Angstrom. ... [16303.30311, 16719.50222]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 46 on chip 16271.1-16696.2 A (425.1 A), +2.1%."
+   },
+   "order_separation": {
+    "value": "min 136.2 px (orders 50/51), max 198.8 px (orders 42/43)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "h,50,1502.6375070168463,1532.993820289914,-1.0872934693834138,63.904957191779545,1673.0680054680652,384.7274007151931,478.45114966976007,True ... h,51,1473.46580189342,1502.6433425249727,-1.191682361384901,63.833378590887605,1640.9128716128525,247.35610636721424,343.3330710069756,True",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(50) - y_mid(51)) = 136.2 px; abs(y_mid(42) - y_mid(43)) = 198.8 px. Explorer (DERIVED): 136.1 px (orders 50/51) to 195.0 px (42/43)."
+   },
+   "footprint": {
+    "value": "10/10 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "H 42-51 130 left 10/10",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "h,10,10,63.833378590887605,1990.1484862766893,247.35610636721424,1810.207903211486"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts.",
+   "Orders: 41-51, 11 orders (ZSPEC table; ZSNB with IRDB d1415c4; older simulator 'main', ZSXD 'its H orders are **41-51**') vs 42-51, 10 orders (Zemax archive 20260610B per ZSXD; current IRDBT row 'm0 51, n 10'). The newer 42-51 is adopted."
+  ],
+  "notes": [
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ },
+ "zshooter_k": {
+  "title": "ZShooter ZSpec K channel (NIR spectrometer, 1990-2450 nm, echelle orders 31-38)",
+  "recommended_preset": "0.70\" x 10\" slit. D = 10.95 m, F = 10.0, nObj = 1, col = mirror, W = 150 mm (f_col 1500 mm), fcam = 270 mm [EFFECTIVE], echelle eG = 24 /mm, eDelta = 65.6, gamma = 0.6, theta = 0, xd = vph, xG = 225.0 /mm [EFFECTIVE: 270 x 225/270], lamC = 22320.7 A (blaze of order 34) [DERIVED], Nx = 2048 (dispersion), Ny = 2048, pix = 15 um. Explorer: Rs 17700 (Reff 17247), 4.486 px per slit image, 0.1568\"/px, 3.775 km/s/px, orders 31-38 partly on the chip (8), 19853-24720 A. Validate against: R ~ 18,000 (median, Rs) and 4.46 px; 0.157\"/px; orders 31-38; 0.0215-0.0345 nm/px dispersion range (ZSNB); simulator minimum order separation 225.5 px (orders 37/38); simulator coverage of order 34, 22017.1-22587.9 A.",
+  "params": {
+   "shared": {
+    "value": "telescope, fore-optics, slit, collimators, echelle blaze, camera, pixel size: see zspec_common",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "whole page",
+    "quote": "Each uses an asymmetric white-pupil echelle design with three cross-dispersers, cameras, and detectors."
+   },
+   "passband": {
+    "value": "1990-2450",
+    "unit": "nm",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "K 1,990–2,450 31–38; 8 orders 270",
+    "alternatives": [
+     {
+      "value": "same",
+      "src": "ZSOD",
+      "loc": "ZSpec summary table",
+      "quote": "NIR K 1,990–2,450"
+     }
+    ]
+   },
+   "dichroics": {
+    "value": "transmitted by the VIS/NIR, YJ/HK and H/K (1910.7 nm) dichroics; red edge 2450 nm (passband)",
+    "unit": null,
+    "src": "IRDB",
+    "loc": "dichroics/TER_dichroic_*.dat headers",
+    "quote": "# description : Transmits K, reflects H",
+    "derived": "DERIVED 50% crossings from the tabulated simulator curves: VIS/NIR 969.6, B/G 430.0, G/R 649.9, YJ/H 1405.1, H/K 1910.7 nm."
+   },
+   "orders": {
+    "value": "31-38 (8 orders)",
+    "unit": "echelle order",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "K 1,990–2,450 31–38; 8 orders 270",
+    "alternatives": [
+     {
+      "value": "Zemax archive: 31-38",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "k,31,38,24.0,65.6,270.0,-16.8,0.5,50.0,6.5,36.864,36.864,2230.837090909,222.25209037132663"
+     },
+     {
+      "value": "simulator (current): m0 = 38, n = 8",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "k 5 5 38 8 1990 2450 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_k !DET.x_size_k !DET.y_size_k 24.000 270 10 x 16.80 -6.50 -0.621554 -5.307695 1500 1250 0.5306"
+     },
+     {
+      "value": "orders on the detector with full FSR and slit",
+      "src": "ZSXD",
+      "loc": "selected geometry table",
+      "quote": "K 31-38 None 0/8"
+     }
+    ],
+    "derived": "DERIVED: blaze m x lambda = 2 sin(65.6 deg)/(24 /mm) = 75.890 um; order 38 at 19971.1 A, order 31 at 24480.7 A."
+   },
+   "echelle_ruling": {
+    "value": 24,
+    "unit": "grooves/mm",
+    "src": "ZSXD",
+    "loc": "Inputs actually used (Zemax archive 20260610B)",
+    "quote": "K 31-38 24 270 -6.50 -7.00",
+    "alternatives": [
+     {
+      "value": "24 /mm",
+      "src": "ZSPEC",
+      "loc": "Echelles and white-pupil relay",
+      "quote": "with 50 grooves/mm in VIS and 24 grooves/mm in NIR"
+     }
+    ]
+   },
+   "cross_disperser": {
+    "value": "VPH, first order, 270 lines/mm; Zemax CX tilt 16.8 deg (option 2 'explicit Zemax CX angles', adopted); EXPLORER xG = 225.0 /mm [EFFECTIVE], set by the explorer at the symmetric Bragg angle for lamC (14.54 deg)",
+    "unit": "lines/mm; deg",
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format (table)",
+    "quote": "K 1,990–2,450 31–38; 8 orders 270",
+    "effective": true,
+    "alternatives": [
+     {
+      "value": "Zemax: cx_grooves_per_mm 270.0, cx_coordinate_tilt_x_deg -16.8",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "k,31,38,24.0,65.6,270.0,-16.8,0.5,50.0,6.5,36.864,36.864,2230.837090909,222.25209037132663"
+     },
+     {
+      "value": "CX incidence/camera angles by option (1 corrected estimate / 2 explicit Zemax / 3 older main)",
+      "src": "ZSXD",
+      "loc": "CX angle table",
+      "quote": "K 10.93 / 24.25 16.80 / 16.80 17.85 / 17.06"
+     },
+     {
+      "value": "xbeta_center 16.80 deg, xdisp_freq 270",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "k 5 5 38 8 1990 2450 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_k !DET.x_size_k !DET.y_size_k 24.000 270 10 x 16.80 -6.50 -0.621554 -5.307695 1500 1250 0.5306"
+     }
+    ],
+    "derived": "EFFECTIVE (DERIVED): 270 x 225/270 = 225.0 /mm keeps the linear dispersion G f_cam / cos(beta) of the real 225 mm camera when the explorer uses the 270 mm effective camera; the explorer's Bragg angle (14.54 deg) differs from the Zemax tilt (16.8 deg) because the line density is scaled."
+   },
+   "camera_zemax": {
+    "value": 222.25,
+    "unit": "mm (Zemax paraxial focal length; nominal 225 mm, explorer 270 mm EFFECTIVE)",
+    "src": "ZSXDD",
+    "loc": "zemax_channels.csv row",
+    "quote": "k,31,38,24.0,65.6,270.0,-16.8,0.5,50.0,6.5,36.864,36.864,2230.837090909,222.25209037132663",
+    "note": "Camera reference wavelength 2230.837090909 nm; camera center tilt 0.5 deg; detector coordinate rotation 6.5 deg."
+   },
+   "detector": {
+    "value": "LmAPD (Leonardo; 15 um target), 2048 (dispersion, x) x 2048, 15 um; Zemax image aperture 36.864 mm = 2048 x 18 um",
+    "unit": null,
+    "src": "ZSPEC",
+    "loc": "Channels and spectral format",
+    "quote": "Each VIS channel uses a 2,048×4,096 qCCD ; each NIR channel uses a 2,048×2,048 LmAPD . All use 15 µm pixels.",
+    "alternatives": [
+     {
+      "value": "n_disp, n_xdisp taken from the detector package (!DET.x_size_k, !DET.y_size_k)",
+      "src": "IRDBT",
+      "loc": "channel row",
+      "quote": "k 5 5 38 8 1990 2450 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_k !DET.x_size_k !DET.y_size_k 24.000 270 10 x 16.80 -6.50 -0.621554 -5.307695 1500 1250 0.5306"
+     },
+     {
+      "value": "image aperture 36.864 x 36.864 mm",
+      "src": "ZSXDD",
+      "loc": "zemax_channels.csv row",
+      "quote": "k,31,38,24.0,65.6,270.0,-16.8,0.5,50.0,6.5,36.864,36.864,2230.837090909,222.25209037132663"
+     }
+    ]
+   },
+   "detector_rotation_offset": {
+    "value": "echellogram rotated -6.50 deg on the detector; camera origin offset (x, y) = (-0.621554, -5.307695) mm from the detector center (not modeled by the explorer)",
+    "unit": "deg; mm",
+    "src": "IRDBT",
+    "loc": "channel row (detector_angle, detector_offset_x, detector_offset_y)",
+    "quote": "k 5 5 38 8 1990 2450 18000 65.6 225 270 4.46 0.7 10.4703 10 !DET.pixel_size_k !DET.x_size_k !DET.y_size_k 24.000 270 10 x 16.80 -6.50 -0.621554 -5.307695 1500 1250 0.5306",
+    "alternatives": [
+     {
+      "value": "rotation and placement table",
+      "src": "ZSXD",
+      "loc": "Inputs actually used",
+      "quote": "K 31-38 24 270 -6.50 -7.00"
+     }
+    ]
+   },
+   "central_wavelength": {
+    "value": 22320.7,
+    "unit": "A",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv, order 34 row",
+    "quote": "k,34,2199.2571251032973,2264.9065915242913,0.2589113137730485,-81.36038367755464,2306.6873655761065,1008.1390143931585,1087.5776479118736,False",
+    "is_derived": true,
+    "derived": "DERIVED: order 34's footprint center y = (y_min + y_max)/2 = 1048 px, the order nearest the detector center (1024 px); the order's blaze 2 sin(65.6 deg)/(24 x 34) = 22320.7 A (the row's FSR 2199.2571-2264.9066 nm is centered on 2232.08 nm)."
+   }
+  },
+  "performance": {
+   "R_070": {
+    "value": "median ~18,000 (all channels); 15.7-21.1k (channel range, 4.46-px convention)",
+    "unit": "lambda/dlambda",
+    "src": "ZSNB",
+    "loc": "Trace Geometry And Resolution Scale, 0.70\" table",
+    "quote": "K 5 8 1973-2474 0.70\" 4.46 0.0215-0.0345 15.7-21.1",
+    "alternatives": [
+     {
+      "value": "0.33\": 33.2-44.7k",
+      "src": "ZSXD",
+      "loc": "slit-width diagnostics table (0.33\" R, 0.70\" R)",
+      "quote": "K 33.2-44.7k 15.7-21.1k"
+     },
+     {
+      "value": "median ~18,000 at 0.70\"",
+      "src": "ZSPEC",
+      "loc": "Cameras, sampling, and resolution",
+      "quote": "0.70″ 4.46 pixels 15,700–21,100; median ≈18,000"
+     }
+    ],
+    "note": "Score Rs against 18,000. The channel ranges hold the slit image at 4.46 px (see zspec_common Conflicts) and are reference only.",
+    "derived": "Explorer (DERIVED): Rs 17700 at lamC; 17455-17919 at on-chip FSR points."
+   },
+   "slit_image_070": {
+    "value": "3.99-5.22 px (0.70\" full-slit width over the on-chip primary FSRs); .268-.351\" projects to 2 px",
+    "unit": "detector-x pixels; arcsec",
+    "src": "ZSRES",
+    "loc": "SPEC slit-sampling table",
+    "quote": "K 3.99–5.22 .268–.351",
+    "derived": "Explorer (DERIVED): 4.01-5.14 px at on-chip FSR points; 4.486 px at lamC."
+   },
+   "dispersion_range": {
+    "value": "0.0215-0.0345",
+    "unit": "nm per pixel (range over the channel format)",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "K 5 8 1973-2474 0.70\" 4.46 0.0215-0.0345 15.7-21.1",
+    "alternatives": [
+     {
+      "value": "same at 0.33\"",
+      "src": "ZSNB",
+      "loc": "0.33\" table",
+      "quote": "K 5 8 1973-2474 0.33\" 2.10 0.0215-0.0345 33.2-44.7"
+     }
+    ],
+    "derived": "Explorer (DERIVED): 0.02195-0.03433 nm/px at on-chip FSR points; 0.28110 A/px at lamC."
+   },
+   "coverage_simulator": {
+    "value": "8 orders, 1973-2474 nm (ZSNB, IRDB d1415c4)",
+    "unit": "nm",
+    "src": "ZSNB",
+    "loc": "0.70\" table",
+    "quote": "K 5 8 1973-2474 0.70\" 4.46 0.0215-0.0345 15.7-21.1",
+    "alternatives": [
+     {
+      "value": "current simulator full-detector coverage 19730.3-24744.9 A",
+      "src": "ZSDRP",
+      "loc": "wavelength_range, K block",
+      "quote": "# K: physical orders 31--38, detector coverage in Angstrom."
+     }
+    ],
+    "note": "Coverage on the real instrument is set by the dichroics (passband row). Reference only.",
+    "derived": "Explorer (DERIVED): orders 31-38 partly on chip (8), 19853-24720 A (no dichroics modeled)."
+   },
+   "order_coverage_mid": {
+    "value": "order 34: 22017.1-22587.9 A on the detector (570.8 A)",
+    "unit": "A",
+    "src": "ZSDRP",
+    "loc": "wavelength_range, K block, order 34 (entry 4)",
+    "quote": "# K: physical orders 31--38, detector coverage in Angstrom. ... [22017.09389, 22587.91199]",
+    "note": "From the simulator's analytical trace model (Zemax rulings and angles, 270 mm effective camera, 15 um pixels); no Zemax ray trace is involved.",
+    "derived": "Explorer (DERIVED): order 34 on chip 22013.9-22589.0 A (575.1 A), +0.8%."
+   },
+   "order_separation": {
+    "value": "min 225.5 px (orders 37/38), max 331.1 px (orders 31/32)",
+    "unit": "pixels between adjacent order centers (cross-dispersion)",
+    "src": "ZSXDD",
+    "loc": "selected_orders.csv rows",
+    "quote": "k,37,2023.3846502318622,2078.8198461286256,-0.3669072067844918,-81.705936719678,2106.109415616288,246.91939855177816,326.35622454386817,False ... k,38,1970.8479012119724,2023.4038452442915,-0.5416929166457061,-81.52376537029454,2046.9540095838095,19.25575671027616,103.10923686663727,False",
+    "is_derived": true,
+    "note": "Simulator's analytical geometry; spacing of the full-slit footprint centers (y_min + y_max)/2 on the rotated detector. The rotation and the order tilt shift footprint centers that sit at different x, so the widest spacings compare only approximately (explorer 2-4% lower); the narrowest agree to <1%.",
+    "derived": "DERIVED: abs(y_mid(37) - y_mid(38)) = 225.5 px; abs(y_mid(31) - y_mid(32)) = 331.1 px. Explorer (DERIVED): 223.8 px (orders 37/38) to 324.4 px (31/32)."
+   },
+   "footprint": {
+    "value": "0/8 orders on the detector in the selected geometry (full FSR and slit)",
+    "unit": null,
+    "src": "ZSXD",
+    "loc": "selected geometry table",
+    "quote": "K 31-38 None 0/8",
+    "alternatives": [
+     {
+      "value": "channel footprint (orders, complete orders, x and y extent in px)",
+      "src": "ZSXDD",
+      "loc": "selected_footprints.csv row",
+      "quote": "k,8,0,-81.76977355301892,2551.6450054930683,19.25575671027616,2029.2548347939673"
+     }
+    ]
+   }
+  },
+  "not_found": [
+   "Shared gaps: see zspec_common.not_found."
+  ],
+  "conflicts": [
+   "Shared conflicts: see zspec_common.conflicts.",
+   "No K order fits on the chip with the full FSR and slit (ZSXD: 0/8, 'as accepted pending discussion with the optical engineer'); the 2048-px detector is shorter than the K FSR (order 31: 2408.6-2487.6 nm FSR, 2411.2-2474.5 nm on the chip, ZSXDD/ZSDRP). ZSNB coverage 1973-2474 nm vs the 1990-2450 nm passband."
+  ],
+  "notes": [
+   "The order-separation and order-coverage targets come from the project's simulator, which uses the same idealization as the explorer (planar echelle, 270 mm effective camera); agreement checks the explorer's preset against the project's own model, and no Zemax trace is involved."
+  ]
+ }
+}

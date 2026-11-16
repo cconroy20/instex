@@ -234,8 +234,11 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
   const Eok = IX.design(E0), Eov = IX.design(Object.assign({}, E0, { xG: 30, slitW: 3 }));
   check("echelle: orders closer than one trace width are flagged", !Eok.flags.some(f => f.k === "ovl") && Eov.flags.some(f => f.k === "ovl"), `min gap ${Eov.minSep.toFixed(1)} px`);
   // glasses have no index outside their data sheets' range
-  const nan = [["SF6", 0.30], ["LF5", 0.20], ["N-BK7", 0.30], ["PBM2R", 0.30], ["BSL7Y", 1.2]].filter(([g, l]) => !isNaN(IX.nGlass(g, l)));
+  const nan = [["SF6", 0.30], ["LF5", 0.20], ["N-BK7", 0.30], ["PBM2R", 0.30], ["BSL7Y", 1.2], ["F2", 0.33]].filter(([g, l]) => !isNaN(IX.nGlass(g, l)));
   check("glasses: no index outside the tabulated range", nan.length === 0, nan.map(x => x.join(" ")).join(", "));
+  // SCHOTT F2 against the indices its data sheet tabulates (nC, nd, nF, ni, n2325.4)
+  { const tab = [[0.6563, 1.61503], [0.5876, 1.62004], [0.4861, 1.63208], [0.3650, 1.66623], [2.3254, 1.58465]], dev = tab.map(([l, n]) => IX.nGlass("F2", l) - n);
+    check("SCHOTT F2 reproduces its data-sheet indices to 2e-5", dev.every(d => Math.abs(d) < 2e-5), dev.map(d => d.toExponential(1)).join(" ")); }
   // grism: lam0 near a glass's range edge is found; a grism with no in-range solution is rejected, not approximated
   const g0 = Object.assign({}, base, { gType: "grism", fcam: 280, gKind: "ruled", m: 1 });
   const Gedge = IX.design(Object.assign({}, g0, { G: 30, gA: 8, gGlass: "N-BK7" }));

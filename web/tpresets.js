@@ -12,7 +12,7 @@ window.IX_TELESCOPES = [
   // the segment edges, toward the midpoints of the outline's sides (measured on Keck II, used for both). The primary's
   // focal length is 17.5 m (f/1.75 on the nominal 10 m); all focal ratios here are on 10.949 m, so f/15 is f/13.66.
   // nominalD: the 10 m behind the foci's names (KOR90 Sec. 4.1), shown beside the focal ratio in the strip.
-  {"id": "keck", "group": "Keck 10 m", "name": "Keck 10 m", "nominalD": 10, "D": 10.949, "F1": 1.5983, "eps": 0.2375, "pupil": {"kind": "hex", "D": 10.949, "flat": 1.5588, "gap": 0.007, "rings": 3, "vanes": [{"ang": 30, "w": 0.025}, {"ang": 90, "w": 0.025}, {"ang": 150, "w": 0.025}, {"ang": 210, "w": 0.025}, {"ang": 270, "w": 0.025}, {"ang": 330, "w": 0.025}]}, "primaryNote": "36 hexagonal segments (0.9 m sides), 17.5 m focal length (f/1.75 on the nominal 10 m), in three rings around an empty center. Keck I and Keck II are the same design.", "area": {"value": 71.5, "info": true, "src": "derived clear area at f/15 (data/telescopes/keck.md); the 1985 design's 76 m² is the segments alone (checked separately)"}, "segmentsArea": {"value": 76, "tol": 0.005, "src": "Nelson, Mast & Faber 1985"}, "foci": [
+  {"id": "keck", "group": "Keck 10 m", "name": "Keck 10 m", "segments": 36, "nominalD": 10, "D": 10.949, "F1": 1.5983, "eps": 0.2375, "pupil": {"kind": "hex", "D": 10.949, "flat": 1.5588, "gap": 0.007, "rings": 3, "vanes": [{"ang": 30, "w": 0.025}, {"ang": 90, "w": 0.025}, {"ang": 150, "w": 0.025}, {"ang": 210, "w": 0.025}, {"ang": 270, "w": 0.025}, {"ang": 330, "w": 0.025}]}, "primaryNote": "36 hexagonal segments (0.9 m sides), 17.5 m focal length (f/1.75 on the nominal 10 m), in three rings around an empty center. Keck I and Keck II are the same design.", "area": {"value": 71.5, "info": true, "src": "derived clear area at f/15 (data/telescopes/keck.md); the 1985 design's 76 m² is the segments alone (checked separately)"}, "segmentsArea": {"value": 76, "tol": 0.005, "src": "Nelson, Mast & Faber 1985"}, "foci": [
     {"id": "cass", "name": "Cassegrain f/15", "F": 13.6618, "design": "cass", "back": 0.2283, "field": 20, "refl": 2, "secondary": "convex hyperboloid, 1.4 m (the tertiary stowed)", "where": "2.5 m behind the primary's vertex", "plate": 1.379},
     {"id": "nasr", "name": "Right Nasmyth f/15", "F": 13.6618, "design": "cass", "nasmyth": true, "side": "down", "field": 20, "refl": 3, "secondary": "convex hyperboloid, 1.4 m, flat tertiary", "where": "right Nasmyth platform", "plate": 1.379},
     {"id": "nasl", "name": "Left Nasmyth f/15 (AO)", "F": 13.6618, "design": "cass", "nasmyth": true, "side": "up", "field": null, "refl": "3 to the focus, about 10 to the AO output", "secondary": "convex hyperboloid, 1.4 m, flat tertiary", "where": "left Nasmyth platform, into the AO bench (output f/15)", "plate": 1.379},
@@ -58,7 +58,7 @@ window.IX_TELESCOPES = [
   // smaller than their 1.32 m along the curved mirror). The secondary hides in the central hole: no circular
   // obstruction in the pupil (drawEps 0.202 = the hole, 1.335 m, for the drawing's bundles). Struts: +V3 0.119 m with
   // two short bumps (the hinge and dampers), and two at -60 and -120 deg, 0.122 m (STPSF).
-  { id: "jwst", group: "JWST 6.6 m", name: "JWST 6.6 m", D: 6.6, F1: 1.203, eps: 0, drawEps: 0.202, space: true,
+  { id: "jwst", group: "JWST 6.6 m", name: "JWST 6.6 m", D: 6.6, F1: 1.203, eps: 0, drawEps: 0.202, space: true, segments: 18,
     primaryNote: "18 hexagonal beryllium segments, gold-coated, 1.32 m across the flats with 7 mm gaps, in two rings around an empty center (filled by the aft optics); radius of curvature 15.88 m (f = 7.94 m, f/1.20 on the 6.6 m entrance pupil). Six segments fold back on two wings for launch.",
     pupil: { kind: "hex", D: 6.6035, flat: 1.3235, gap: 0.0161, rings: 2, rot: 30,
       vanes: [{ ang: 90, w: 0.11887 }, { ang: -60, w: 0.12243 }, { ang: -120, w: 0.12243 },
@@ -203,5 +203,25 @@ window.IX_TELESCOPES = [
     foci: [
       { id: "focus", name: "Focus f/19 (visual objective)", F: 19.049, plate: 10.67, design: "refr", field: 45, refl: 0,
         secondary: "none: a doublet objective (4 refracting surfaces)", fieldNote: "The 20 × 25 cm plates covered about 35′ × 45′ (unvignetted field not published). The lens is drawn ideal: the real one brings each color to its own focus (see the Image box)." },
+    ] },
+  // ELT (ESO's Extremely Large Telescope, under construction): data/telescopes/elt.md. 798 hexagonal segments, 1.45 m
+  // across the corners on the mirror, 4 mm gaps: in the pupil a lattice of pitch 1.2274 m (DERIVED from ESO's
+  // 19.5732 m circumscribed radius), rings 0-4 empty, and the segments whose centers lie within 18.963 m (rcut, DERIVED:
+  // 798 segments, and 588 without rings 5-9, both ESO counts). The empty center is the obstruction (eps 0; drawEps 0.283,
+  // the hole across the corners, for the drawing). Six spider arms (ESO), 0.53 m wide along the segment rows (third-party
+  // pupil models; ESO gives no width). Nasmyth: 684.022 m, f/17.75 on ESO's nominal 38.542 m pupil (nominalD), f/17.47 on
+  // the 39.146 m drawn; drawn as a three-mirror (Korsch) layout, the mirrors' places schematic.
+  { id: "elt", group: "ELT 39 m", name: "ELT 39 m", D: 39.146, f1: 34.35, eps: 0, drawEps: 0.283, nominalD: 38.542, nominalDec: 2,
+    primaryNote: "798 hexagonal segments, 1.45 m across the corners with 4 mm gaps, in six identical sectors of 133 around an empty center (no segment in the center or the four rings around the center); radius of curvature 68.7 m (f = 34.35 m, f/0.88 on the 39.1 m pupil). Under construction on Cerro Armazones.",
+    pupil: { kind: "hex", D: 39.146, flat: 1.2274, gap: 0.004, rings: 17, rings0: 5, rot: 30, rcut: 18.963,
+      vanes: [30, 90, 150, 210, 270, 330].map(ang => ({ ang, w: 0.53 })) },
+    pupilNote: "Seen in ESO's primary-mirror frame (flat-topped segments): six spider arms along the rows of segments, 0.53 m wide (a third-party model; ESO publishes no width). The pupil's orientation on the sky is not published.",
+    area: { value: 978, info: true, src: "ESO, ELT facts page (the lattice drawn here, with 0.53 m vanes: 991.5 m², DERIVED)" },
+    segments: 798, segmentsArea: { value: 1041.13, tol: 0.002, src: "ESO's 798 segments on the lattice pitch, the gaps closed (data/telescopes/elt.md)" },
+    foci: [
+      { id: "nas", name: "Nasmyth f/17.75", F: 17.474, plate: 0.30155, design: "korsch", nasmyth: true, field: 10, refl: 5,
+        secondary: "convex, 4.25 m, 30.8 m above the primary; then a concave 4.0 m tertiary at the primary's vertex, the flat adaptive M4 (2.4 m) and the flat tip-tilt M5 (2.7 × 2.2 m)",
+        where: "Nasmyth platforms A and B, on either side of the tube (the same focus)",
+        fieldNote: "10′ unvignetted (a hole in M4 sets the limit); the focal surface is curved (radius 9.9 m), 27.2 m from M5 along the elevation axis. Drawn as a three-mirror (Korsch) layout: the focal length and plate scale are the ELT's; the tertiary (really at the primary's vertex) and the one fold flat (really M4 above the primary and M5 in the central tower) are schematic." },
     ] },
 ];

@@ -40,19 +40,20 @@
      (HARPS 1.0", G-CLEF 0.8", Hectospec 1.5", ESPRESSO 1.0" with its equivalent F, FEROS's sliced 1.0", Via
      1.2").  Virtual: core / (F_out x D), with F_out the focal ratio the fiber delivers to (or the collimator
      accepts from) the spectrograph, so that the collimator sees the right slit width and f_col = F x W
-     (Hectochelle f/5.4, DESI f/3.57, APOGEE f/3.85, PFS f/2.8, 4MOST f/3.0, LLAMAS f/4.0, Boombox f/5.3
+     (Hectochelle f/5.4, M2FS and IFUM f/3.4 (pupil-fed fibers: f/3.4 is the fiber output and the collimator's
+     ratio), DESI f/3.57, APOGEE f/3.85, PFS f/2.8, 4MOST f/3.0, LLAMAS f/4.0, Boombox f/5.3
      guessed); this angle differs from the published on-sky size where F_out differs from the feed's ratio.
      traceW (arcsec): the width of a trace ACROSS the dispersion when it differs from the slit width (Via's
      0.7" mask narrows only the dispersion direction; across it each trace is the 1.2" fiber, entered as 1.04").
    - Collimator type (col) changes only the drawing: mirror for LRIS, HIRES, MagE, FIRE, LLAMAS, ESI, KCWI/KCRM,
-     DEIMOS, Hectospec, Hectochelle, G-CLEF, ESPRESSO, UVES, X-Shooter, FEROS, HARPS, 4MOST, PFS, APOGEE, DESI and
-     Via; lens for MIKE (one lens group in double pass as collimator and camera), IMACS, LDSS-3, MOSFIRE,
-     Binospec, FORS2, MUSE and Boombox.  DEIMOS and Binospec gratings are plane REFLECTION gratings.
+     DEIMOS, ZShooter, Hectospec, Hectochelle, G-CLEF, ESPRESSO, UVES, X-Shooter, FEROS, HARPS, 4MOST, PFS, APOGEE,
+     DESI and Via; lens for MIKE and M2FS/IFUM (one lens group in double pass as collimator and camera), IMACS,
+     LDSS-3, MOSFIRE, Binospec, FORS2, MUSE and Boombox.  DEIMOS and Binospec gratings are plane REFLECTION gratings.
    - Number of objects (nObj) counts every spectrum on the detector: single-object slits 1 (HIRES, MIKE, MagE,
-     FIRE, ESI, UVES, X-Shooter); fiber spectrographs all fibers on the slit, science, sky and calibration
-     (HARPS 2, FEROS 2, ESPRESSO 4 = 2 fibers x 2 pupil slices, G-CLEF MR 3, Boombox 36, Hectochelle 240,
+     FIRE, ESI, UVES, X-Shooter, ZShooter); fiber spectrographs all fibers on the slit, science, sky and calibration
+     (HARPS 2, FEROS 2, ESPRESSO 4 = 2 fibers x 2 pupil slices, G-CLEF MR 3, Boombox 36, M2FS 128, Hectochelle 240,
      APOGEE 300, Hectospec 300, LLAMAS 300 per detector, DESI 500, PFS 616, Via 660, 4MOST 824); IFUs the spaxels
-     per detector (KCWI/KCRM 3330, MUSE 3600); slit masks an average per mask from published masks or surveys
+     per detector (IFUM LSB 180, KCWI/KCRM 3330, MUSE 3600); slit masks an average per mask from published masks or surveys
      (LDSS-3 17, MOSFIRE 28, LRIS 30, FORS2 50, IMACS 51, DEIMOS 129) or, where no average was found, a capacity
      (Binospec 150).  The LRIS preset itself uses a long slit; its nObj is the mask average.
    - X-Shooter: collimator and camera focal lengths are not published; the effective ones come from the
@@ -186,6 +187,36 @@ const PRESETS = [
       { what: "band " + band + " Å", q: "span", value: NaN, info: true, src: "LCO grism table (filters and efficiency trim the detector's span)" },
     ],
   })),
+  // Magellan / M2FS and IFUM (data/round6/m2fs_ifum.md).  Pupil-fed fibers: a ball lens behind each aperture images
+  // the primary onto the core at f/3.7, and the fibers deliver f/3.4, the ratio of the spectrograph's 500 mm
+  // collimator on its 147 mm beam; so F = 3.4 and the core enters as core / (3.4 × 6.5 m), the "virtual" convention.
+  // The echelle's groove density is not published: EFFECTIVE 51.74 /mm used at 66.99°, from the measured dispersion
+  // and order numbers of the arc lines in Ji's published reduction pipeline (m2fs_reduction; its MgWide setup).
+  {
+    id: "m2fsmgb", tel: "Magellan 6.5 m", name: "Magellan / M2FS HiRes, Mg b order",
+    note: "Magellan M2FS (Mateo et al. 2012; Walker et al. 2023) in the single-order setup at Mg b that most published M2FS work uses: 128 fibers per spectrograph, each behind a 1.2″ aperture and a ball lens that images the telescope pupil onto the 150 µm core at f/3.7; the fibers deliver f/3.4 to the spectrograph, so the core enters as 0.150 mm / (3.4 × 6.5 m) = 1.40″, and the slit of equal line width as 1.21″ (the 180 µm slit, wider than the core). One lens group serves as collimator and camera (500 mm, f/3.4, 147 mm beam, 1:1). Echelle: R2.6 (69°) in Mateo et al., with no groove density published; entered as 51.74 /mm at 67.0°, the values that reproduce the measured dispersion and order numbers of the arc lines in Ji's published reduction pipeline (m2fs_reduction). Order 69, isolated by a filter (5130–5190 Å used); the 8–10° camera–collimator opening angle is taken to lie across the dispersion (0 here; no source states the plane). e2v CCD 4096 × 4112 of 15 µm. The fibers sit in eight groups of 16 on a 300 µm pitch; the model spreads the 128 evenly.",
+    state: { mode: "grating", D: 6.5, F: 3.4,
+      g: { slitW: S3 * 0.150 / (3.4 * 6500) * 206264.806, nObj: 128, col: "lens", W: 147, fcam: 500, gType: "refl", G: 51.74, m: 69, lamB1: 2 * Math.sin(66.99 * Math.PI / 180) / 51.74 * 1e7, lamC: 5160, psi: 0, tAlpha: null,
+           Nx: 4096, Ny: 4112, pix: 15 } },
+    pub: [
+      { what: "R ≈ 18,000 (single order at Mg b, effective; the 180 µm slit)", q: "R", value: 18000, tol: 0.05, src: "Walker et al. 2015, 2016 (\"effective resolution R ∼ 18000\", 5132–5186 Å); Ji et al. 2023 (180 µm slits, R ∼ 18,000)" },
+      { what: "≈0.065 Å per 2 × 2-binned pixel (0.0325 Å per 15 µm pixel)", q: "dlpix", value: 0.065 / 2, tol: 0.05, src: "Walker et al. 2023. The echelle angle was fitted to the arc lines of a different setup (MgWide, four orders), so this line is a test" },
+      { what: "R ≈ 24,000 in the same setup, slit not stated", q: "R", value: 24000, info: true, src: "Walker et al. 2023; Pace et al. 2023. The model gives 24,600 with the 95 µm slit and 18,100 with the 180 µm slit" },
+      { what: "fibers 300 µm (20 px) apart within a group of 16", q: "gapPx", value: 20, info: true, src: "Mateo et al. 2012. The model spreads the 128 spectra evenly over the chip (32.1 px apart); the measured average over the pseudo-slit is 31.3 px (Ji's reduction, trace centers)" },
+    ],
+  },
+  {
+    id: "ifumlsb", tel: "Magellan 6.5 m", name: "Magellan / IFUM LSB, 600 l/mm",
+    note: "Magellan IFUM (Mateo et al. 2022; Crosby et al. 2025), the integral-field units that feed the M2FS spectrographs, in the configuration of the one refereed IFUM science paper: the LSB unit (360 hexagonal lenslets of 1.9″, a 32.7″ × 31.4″ field), 180 fibers per detector; the lenslets image the telescope pupil onto 260 µm cores, entered as 0.260 mm / (3.4 × 6.5 m) = 2.43″ and the slit of equal line width 2.10″ (the 300 µm slit, wider than the core; the fibers deliver f/3.3, and the spectrograph's f/3.4 is used). M2FS spectrograph: 500 mm lens group as collimator and camera, 147 mm beam, 1:1, the \"blue\" 600 l/mm reflection grating (blaze not published: set at λc), e2v CCD 4096 × 4112 of 15 µm. Central wavelength 5750 Å, the middle of the published 4800–6700 Å.",
+    state: { mode: "grating", D: 6.5, F: 3.4,
+      g: { slitW: S3 * 0.260 / (3.4 * 6500) * 206264.806, nObj: 180, col: "lens", W: 147, fcam: 500, gType: "refl", G: 600, m: 1, lamB1: 5750, lamC: 5750, psi: 0, tAlpha: null,
+           Nx: 4096, Ny: 4112, pix: 15 } },
+    pub: [
+      { what: "coverage 4800–6700 Å", q: "span", value: 1900, info: true, src: "Crosby et al. 2025. The model's chip spans 6% more; the published range is rounded and may exclude the chip's ends" },
+      { what: "R ≈ 1000 with the 300 µm slit", q: "R", value: 1000, info: true, src: "Crosby et al. 2025 (measured). The model gives 780 from the fiber's line width; published values exceed the geometric ones by ×1.3 here and ×1.6 with the 80 µm slit" },
+      { what: "R ≈ 3600 with the 80 µm slit", q: "R", value: 3600, info: true, src: "Crosby et al. 2025 (measured); the geometric value with an 80 µm slit is 2190" },
+    ],
+  },
   {
     id: "esi", tel: "Keck 10 m", name: "Keck / ESI echellette, 1″",
     note: "Keck II ESI echellette mode (Sheinis et al. 2002; 1996 design report; Keck ESI pages): off-axis paraboloid collimator 2286 mm (beam 166.9 mm at f/13.7), 10-element refractive camera 308 mm, 175 /mm echellette with δ = 32.3°, quasi-Littrow (γ is published only as 'a few degrees': 0 here), two 50° OHARA BSL7Y prisms, the first in double pass (three passes at minimum deviation), MIT/LL CCID20 4096 × 2048 of 15 µm; λc = 5250 Å from the design order positions.",
@@ -257,6 +288,36 @@ const PRESETS = [
       ...(b === "K" ? [{ what: "coverage from 19540 Å", q: "lo", value: lo, tol: 0.001, src: "McLean et al. 2012 Table 1" }, { what: "coverage to 23970 Å", q: "hi", value: hi, tol: 0.001, src: "McLean et al. 2012 Table 1" }]
         : [{ what: "coverage " + lo + "–" + hi + " Å" + (b === "H" ? "" : " (set by the order-sorting filter; the detector spans more)"), q: "span", value: hi - lo, info: true, src: "McLean et al. 2012 Table 1" }]),
       { what: "measured R = " + Rm + " (0.7″)", q: "R", value: Rm, info: true, src: "McLean et al. 2012 Sec. 3 (arc lamps). The model's effective R (slit, diffraction and pixel in quadrature) is 6–10% lower, and even the model's slit-limited R is 1–4% below the measurement: the measured lines are narrower than the geometric slit image (2.74–2.88 px on the Keck MOSFIRE grating page)" },
+    ],
+  })),
+  // Keck I / ZShooter, the 2026 design (data/round6/zshooter.md): six channels at the 0.70″ slit.  White pupil: each
+  // 225 mm camera sees the slit through the 1500 mm collimator and a second, 1250 mm collimator, so the model's one
+  // camera is the EFFECTIVE 225 × 1500/1250 = 270 mm, and each VPH enters as G × 225/270 (the G-CLEF convention).
+  // Validation targets from the project's simulator (the June 2026 Zemax design): one order's span on the chip and the
+  // closest pair of orders.
+  ...[
+    // id, channel, passband (nm), echelle /mm, VPH /mm, lamC (A, the blaze of order mC), mC, Ny, orders (lo, hi),
+    // span of order mC on the chip (A), closest order pair (mS, mS + 1) and spacing (px)
+    ["b", "B", "310–430", 50.15, 2000, 3668.5, 99, 4096, 85, 118, 3713.1 - 3619.9, 117, 81.5],
+    ["g", "G", "430–650", 50.15, 1100, 5420.7, 67, 4096, 56, 85, 5485.7 - 5347.1, 84, 85.7],
+    ["r", "R", "650–980", 50.15, 625, 8254.2, 44, 4096, 37, 56, 8366.3 - 8158.5, 55, 112.1],
+    ["yj", "YJ", "960–1340", 24, 350, 11326.9, 67, 2048, 57, 80, 11463.9 - 11173.3, 79, 63.6],
+    ["h", "H", "1470–1830", 24, 300, 16497.9, 46, 2048, 42, 51, 16719.5 - 16303.3, 50, 136.2],
+    ["k", "K", "1990–2450", 24, 270, 22320.7, 34, 2048, 31, 38, 22587.9 - 22017.1, 37, 225.5],
+  ].map(([id, arm, band, eG, xG, lamC, mC, Ny, mLo, mHi, span, mS, sep]) => ({
+    id: "zsh" + id, tel: "Keck 10 m", name: `Keck / ZShooter ${arm}, 0.7″ (design)`,
+    note: `ZShooter ${arm} channel (${band} nm, orders ${mLo}–${mHi}), the design adopted after the 2026 conceptual design review (ZShooter website; the project's simulator, built from the June 2026 Zemax design; Bailey et al. 2026). Keck I right Nasmyth focus, relayed to f/10 (the website quotes f/10.5, but the 1500 mm collimator, the 150 mm beam and the 530.6 µm/″ slit scale all give f/10); 0.70″ × 10″ slit; off-axis paraboloid collimator 1500 mm; R2 echelle ${eG} /mm at 65.6°, tilted 0.6° out of the plane (the in-plane angle is not published: 0 here); VPH cross-disperser ${xG} /mm; a 225 mm f/1.8 camera on the 125 mm white pupil, entered as the effective 270 mm camera with the VPH as ${(xG * 225 / 270).toFixed(1)} /mm; ${Ny === 4096 ? "a 2048 × 4096 qCCD" : "a 2048 × 2048 HgCdTe LmAPD"} of 15 µm, the dispersion along the 2048-px axis. Central wavelength: the blaze of order ${mC}, the order the simulator places nearest the detector's center. Not modeled: the dichroics that bound the passband (partial orders beyond the passband appear on the chip), the detector's rotation (5–9.5°) and offset${arm === "B" ? ", and the orders below the explorer's 3200 Å limit (the design reaches 3050 Å)" : ""}. Not built yet.`,
+    state: { mode: "echelle", D: 10.95, F: 10.0,
+      e: { slitW: 0.70, nObj: 1, col: "mirror", W: 150, fcam: 270, eG, eDelta: 65.6, gamma: 0.6, theta: 0, xd: "vph", xG: xG * 225 / 270, xPsi: 10,
+           xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC, Nx: 2048, Ny, pix: 15 } },
+    pub: [
+      { what: "R ≈ 18,000 at 0.70″ (geometric, the median over the six channels)", q: "Rs", value: 18000, tol: 0.03, src: "ZShooter website, spectrograph design and performance pages. The per-channel ranges quoted there (15,700–21,100) hold the slit image fixed at 4.46 px while the dispersion varies, so the median is the target" },
+      { what: "0.70″ slit image 4.46 px", q: "npix", value: 4.46, tol: 0.015, src: "ZShooter website, spectrograph design page; simulator (225 mm camera on the 1250 mm second collimator)" },
+      { what: "0.157″/px along the slit", q: "pixScale", value: 0.157, tol: 0.01, src: "ZShooter website, spectrograph design page" },
+      { what: `order ${mC} spans ${span.toFixed(1)} Å on the chip`, q: "ordSpan", m: mC, value: span, tol: 0.03, src: "ZShooter data reduction pipeline configuration (the simulator's trace model from the Zemax rulings and angles). The model has no detector rotation or offset, which sets the 3% tolerance" },
+      { what: `orders ${mS} and ${mS + 1} ${sep} px apart, the closest pair`, q: "minSepPx", m1: mS, m2: mS + 1, value: sep, tol: 0.02, src: "ZShooter simulator, selected geometry (centers of the full-slit order footprints)" },
+      { what: "3.78 km/s per pixel at the blaze", q: "kmspx", value: 3.78, info: true, src: "derived from the published blaze, beam and camera (c × pixel / (2 tan δ × 270 mm)); the model's trace repeats the closed form" },
+      { what: `${mHi - mLo + 1} orders, ${mLo}–${mHi}`, q: "nOrders", value: mHi - mLo + 1, info: true, src: "ZShooter website, spectrograph design page. Not a test: the dichroics that bound the passband are not modeled, so the chip also shows partial orders beyond the passband" + (arm === "B" ? ", and the explorer stops at 3200 Å" : "") },
     ],
   })),
   {
