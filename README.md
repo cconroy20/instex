@@ -60,7 +60,16 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   camera, the echelle at the collimated beam length from that lens (MIKE 400 and 600 mm, the cameras' external stop),
   the cross-disperser near the echelle and crossed by both beams, and the returning beam drawn a few degrees off the
   incoming one so that the detector clears the slit (in the instrument the two sit side by side across the orders,
-  out of the page; the caption says so). Labels are placed last
+  out of the page; the caption says so). For a double-pass instrument the view switch offers Spectral | 3D in echelle
+  mode too (key e.view): the 3D view puts x along the lens axis, y along the echelle's dispersion and z across the
+  orders (Top shows the echelle's plane, Side the cross-dispersion plane of Bernstein et al. 2003 Fig. 1); the slit
+  (the image the injection optics form in the focal plane) sits 0.6 L_y + 0.025 f above the axis (31 mm for MIKE red;
+  the paper gives about 30 mm) and the detector as far below; the prisms (one per two of the tracer's passes, apex
+  edges along y, deep enough for both beams: MIKE red's base 248 mm against the paper's "more than 8 inches") stand at
+  minimum deviation for λc, the first as near the lens as it can stand; the echelle stands at the stop distance or,
+  when its near end (W tan δ / 2 toward the light) would meet the prisms, just clear of them. Every order's trace on
+  the detector and the foci of the drawn bundles (three orders, three wavelengths each) come from the tracer; each
+  returning bundle is traced back from its focus through the drawn prisms by Snell's law. Labels are placed last
   (2026-10-18): each candidate position is scored by what is already drawn under the label, read back from the
   canvas (darkness × opacity over 2 × 2 px cells through a summed-area table; pale beam and glass tints count a
   little), by any overlap with a label already placed (heavily), and by its rank in the label's own list; a label

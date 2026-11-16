@@ -301,6 +301,17 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("mirror camera in echelle mode: drawn, no page error", (await ev(`window.__instex.params().cam`)) === "mirror" && pe0 > 0 && (await ev(`document.getElementById("err").textContent`)) === "");
     await click("#kLens"); await click("#mGrat"); await click("#kLens");
   }
+  // ------------------------------------------------------------ double pass (MIKE): Spectral | 3D in echelle mode
+  {
+    await go("#preset=mikered");
+    check("echelle mode, double pass: Spectral and 3D offered, Spatial not", (await vis("#vSpec")) && (await vis("#v3d")) && !(await vis("#vSpat")));
+    await click("#v3d"); await sleep(250);
+    const r = await ev(`(() => ({ v: window.__instex.params().view, txt: document.getElementById("lSub").textContent, err: document.getElementById("err").textContent, snaps: !!document.getElementById("v3Side").offsetParent, color: !!document.getElementById("c3L").offsetParent, h: location.hash }))()`);
+    check("MIKE 3D: drawn with the snaps (no color switch), in the link, no page error", r.v === "3d" && /injection optics/.test(r.txt) && r.snaps && !r.color && /e\.view=3d/.test(r.h) && r.err === "", JSON.stringify(r).slice(0, 160));
+    await go("#preset=hires");
+    check("echelle mode without double pass: no view switch", !(await vis("#v3d")));
+    await go();
+  }
   // ------------------------------------------------------------ grating incidence on the transmission grating
   {
     check("grating incidence shown for the transmission grating, at the symmetric setting", (await vis("#sTA")) && /α = β/.test(await ev(`document.getElementById("rDis").textContent`)));
@@ -642,7 +653,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await ev(`window.__instex.set({ mode: "echelle", D: 8.2, F: 13.6,
       g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", cam: "mirror", colTilt: 4.5, layLen: 700, foldOn: true, foldAng: 120, foldPos: 0.3, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
            W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5 },
-      e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
+      e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, view: "3d", colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
            W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
            xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10 } })`);
     await sleep(300);
