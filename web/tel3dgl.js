@@ -351,10 +351,20 @@ function draw(cv, Dz, P, Gm, pu, V, H, opts) {
     let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
     for (const p of pts) for (let i = 0; i < 3; i++) { lo[i] = Math.min(lo[i], p[i]); hi[i] = Math.max(hi[i], p[i]); }
     const cen = lo.map((v, i) => (v + hi[i]) / 2), size = Math.max(1, ...hi.map((v, i) => v - lo[i]));
-    if (G.root) { G.scene.remove(G.root); disposeTree(G.root); }
-    const built = buildScene(prims, cen);
-    G.root = built.root; G.scene.add(G.root);
-    Object.assign(G, { key, prims, labs, pulses, pts, cen, size, tubes: built.tubes, dots: prims.filter(pr => pr.k === "d") });
+    // (the GPU's scene rebuilt only when the geometry itself differs: a new band or seeing gives a new design object
+    // but the same telescope, and keeps the scene)
+    let sig = prims.length + (hideRays() ? 7919 : 0);   // (the drawn-rays switch changes the scene too)
+    const mix = v => { sig = (Math.imul(sig, 31) + (Math.round(v * 100) | 0)) | 0; };
+    for (const pr of prims) {
+      mix(pr.k.charCodeAt(0)); mix(pr.al || 0); for (const c of pr.rgb || []) mix(c);
+      for (const q of (pr.k === "t" ? pr.st.flat() : pr.p)) { mix(q[0]); mix(q[1]); mix(q[2]); }
+    }
+    if (!G.root || G.sig !== sig) {
+      if (G.root) { G.scene.remove(G.root); disposeTree(G.root); }
+      const built = buildScene(prims, cen);
+      G.root = built.root; G.scene.add(G.root); G.tubes = built.tubes; G.sig = sig;
+    }
+    Object.assign(G, { key, prims, labs, pulses, pts, cen, size, dots: prims.filter(pr => pr.k === "d") });
   }
   const { cen, size, pts } = G;
   // the view: tel3d.js's rotation, scale and offsets

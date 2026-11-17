@@ -928,7 +928,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
   {
     const side = {};
     for (const [tid, a, b] of [["keck", "nasr", "nasl"], ["magellan", "nasw", "nase"]]) {
-      for (const fid of [a, b]) { await nav("#inst=tel&t.tel=" + tid + "&t.focus=" + fid); side[tid + "/" + fid] = await ev(`window.__instex.tel().focusAt()`); }
+      for (const fid of [a, b]) { await nav("#inst=tel&t.tel=" + tid + "&t.focus=" + fid + "&t.view=2d"); side[tid + "/" + fid] = await ev(`window.__instex.tel().focusAt()`); }
       const A = side[tid + "/" + a], B = side[tid + "/" + b];
       check(`Telescopes: ${tid} ${a} and ${b} drawn on opposite sides`, A && B && A.y < 0 && B.y > 0 && Math.abs(A.x - B.x) < 1e-9, JSON.stringify([A, B]));
     }
