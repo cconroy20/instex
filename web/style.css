@@ -269,3 +269,9 @@ body.ilv-expanded #ilvPanel{position:fixed;inset:10px;z-index:50;display:flex;fl
 body.ilv-expanded #ilvPanel canvas{flex:1 1 auto;height:auto;min-height:0}
 @media (max-width:1240px){ .icontrols{grid-template-columns:repeat(3,minmax(0,1fr))} }
 @media (max-width:860px){ .icontrols{grid-template-columns:minmax(0,1fr)} }
+/* the All-arms view (arms.js): the one-arm view's controls stand aside; each arm in the strip is a button */
+body.arms #lvViewSeg, body.arms #lvOptsBtn, body.arms #lvSeg, body.arms #lvReset{display:none !important}
+body.arms .stat.arm{cursor:pointer;border-radius:4px}
+body.arms .stat.arm:hover .k{color:var(--accent)}
+body.arms .stat.arm.on{cursor:default}
+body.arms .stat.arm.on .k{color:var(--accent);font-weight:600}

@@ -186,6 +186,35 @@ pupil) carries every bundle's footprint, so the drawing agrees with the Detector
 unfolded but for the flat. Where the instrument's out-of-plane angle is too small to draw, or not published, the
 caption gives the angle drawn and the instrument's; spacings the sources do not give are schematic.
 
+**All arms** (11-16, his "showing the multi-arm instruments in one shot, as opposed to having mode switches";
+web/arms.js, window.ARMSAPP). For an instrument listed in arms.js GROUPS, the Setting menu ends with "All arms", which
+shows the instrument's arms together with the dichroics that split the light. GROUPS holds each instrument's dichroic
+tree (crossover, transition width, angle of incidence, the arm on each side, and the source) and the place of the split:
+- "collimated" (DESI, Boombox, PFS, 4MOST LRS and HRS, LLAMAS, KCWI): one slit and collimator, with the dichroics in
+  the collimated beam. A mirror collimator returns the beam 36° off the slit's axis, as in the one-arm view.
+- "telescope" (X-Shooter, MIKE, UVES): the dichroics stand in the telescope's converging beam, and each arm has its
+  own slit and collimator; the slits sit at equal paths from the first dichroic. A mirror collimator folds its arm.
+The Optical layout draws the arms to one scale. The angles at the dichroics (180° − 2 AOI) and at the gratings are
+true; a dichroic whose angle is not published (PFS, 4MOST HRS, LLAMAS, KCWI, MIKE, UVES) is drawn at 45°, and the
+caption says so. The sources do not give the direction in which each dichroic and grating turns the light, or the
+distances between the elements. A small search picks these: each combination of the turning senses, then each branch
+length in turn, scored by the depth of the overlaps between parts (convex pieces, separating-axis test, clearance
+0.45 W) and by the size at which the drawing fills the panel. The choice holds while the design stays in the same
+coarse bin, so the drawing does not jump while a slider moves. Beams past a dichroic are tinted by the band they
+carry; labels go where the drawn ink is least, read back from the canvas as in the one-arm view.
+The Detector panel draws the chips to one scale, with each object's spectrum, through the one-arm view's
+pixel-by-pixel renderer (app.js splatTraces and makeTraces, factored out of drawDetector), in the arrangement of rows
+that makes the chips largest. Below the chips a strip shows each arm's coverage with the dichroics' crossovers and
+transition widths. The stats strip gives each arm's range, resolving power and dispersion.
+The controls set one arm at a time, named in the caption and marked in the strip, the layout and the chip. A click on
+another arm (in the strip, the layout or the Detector panel) moves the controls to that arm and keeps the first arm's
+edits. Shared controls set all arms at once: the telescope (D, F) always, and for a split in the collimated beam also
+the slit, the fibers and the collimator (slitW, nObj, W, col, telF, fibAp). The link carries `arms=true` and `arm=`
+(the arm the controls set), with that arm's edits; the other arms return as their presets with the shared controls
+applied. Picking a single arm in the Setting menu returns to the one-arm view. uitest checks each group (the arms
+designed, no overlaps, the labels inside the panel and clear of one another, the one-arm controls hidden), then the
+arm switch, the shared controls and the link.
+
 ## Telescopes mode
 
 The third header button (2026-10-19; Charlie: "start with just three: Keck, Magellan, and HST"). One telescope at one

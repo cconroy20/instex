@@ -15,6 +15,7 @@ window.addEventListener("error", e => {
 const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
+  arms: false,                                                   // every arm of a multi-arm instrument in one view (arms.js)
   g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15,
        filt: null, fgroups: null, telF: null, fibAp: null },
@@ -43,7 +44,10 @@ const M = () => (S.mode === "grating" ? S.g : S.e);
 const PRESETS = window.IX_PRESETS || [];
 let presetId = "custom";
 // the instrument: "spec" (spectrograph, this file) or "img" (imager, imgapp.js)
-let inst = "spec", IMG = null, TEL = null, INT = null;
+let inst = "spec", IMG = null, TEL = null, INT = null, ARMS = null;
+// the All-arms view: the instrument shown and the arm the controls edit (kept while the edits make the state custom)
+let armsInst = null, armsActive = null, armsEdits = {};
+const armsOn = () => !!(S.arms && armsInst && ARMS && ARMS.group(armsInst) && inst === "spec");
 
 const DETS = [
   { name: "2k × 4k, 15 µm", Nx: 4096, Ny: 2048, pix: 15 },
@@ -105,7 +109,7 @@ const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt
 
 function markCustom() {
   presetId = "custom";
-  showPreset("custom");
+  showPreset(armsOn() ? armsActive : "custom");                  // (the All-arms view keeps its instrument's menus)
 }
 for (const [id, key, scope, lg, intg] of SL) {
   $(id).addEventListener("input", () => {
@@ -232,11 +236,22 @@ function showPreset(id) {
   if (ssel.dataset.inst !== instKey(p)) {
     ssel.innerHTML = "";
     for (const q of sibs) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.setting || q.name; ssel.appendChild(o); }
+    // (a multi-arm instrument with its dichroics in arms.js: every arm at once)
+    if (inst === "spec" && ARMS && ARMS.group(p.inst)) { const o = document.createElement("option"); o.value = "__arms"; o.textContent = "All arms"; ssel.appendChild(o); }
     ssel.dataset.inst = instKey(p);
   }
-  ssel.value = id;
+  ssel.value = inst === "spec" && S.arms && ARMS && ARMS.group(p.inst) ? "__arms" : id;
 }
-ssel.addEventListener("change", () => { showPreset(ssel.value); psel.dispatchEvent(new Event("change")); });
+ssel.addEventListener("change", () => {
+  if (ssel.value === "__arms") {
+    // every arm at once: the arm shown now stays the one the controls edit
+    const id = presetId !== "custom" ? presetId : armsActive;
+    const q = PRESETS.find(x => x.id === id);
+    if (q && ARMS && ARMS.group(q.inst)) { S.arms = true; armsInst = q.inst; armsActive = q.id; armsEdits = {}; lview.fit = true; schedule(); }
+    return;
+  }
+  showPreset(ssel.value); psel.dispatchEvent(new Event("change"));
+});
 psel.addEventListener("change", ev => {
   if (window.ANIM) window.ANIM.reset();                          // a new telescope or instrument: the pulses off
   // an instrument picked in the Preset menu starts at its first setting (a change from the Setting menu keeps its choice)
@@ -256,13 +271,13 @@ function applyPreset(p) {
     else st[k] = p.state[k];
   }
   st.g.view = S.g.view; st.e.view = S.e.view;     // the view (Spectral, Spatial, 3D) is the reader's, not the preset's
-  S = st; presetId = p.id; showPreset(p.id); zoom.reset(); lview.fit = true; schedule();
+  S = st; presetId = p.id; armsInst = null; armsActive = null; armsEdits = {}; showPreset(p.id); zoom.reset(); lview.fit = true; schedule();
 }
 $("reset").addEventListener("click", () => {
   if (inst === "img") { IMG.reset(); return; }
   if (inst === "tel") { TEL.reset(); return; }
   if (inst === "int") { INT.reset(); return; }
-  S = clone(DEF); presetId = "custom"; showPreset("custom"); zoom.reset(); lview.fit = true; lview.mode = "auto";
+  S = clone(DEF); presetId = "custom"; armsInst = null; armsActive = null; armsEdits = {}; showPreset("custom"); zoom.reset(); lview.fit = true; lview.mode = "auto";
   stopCoast(); setOrbit(-0.6, 0.5); c3mode = "lam"; sync3(); schedule();
 });
 
@@ -286,6 +301,7 @@ function syncControls() {
     S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : (S.mode === "grating" ? S.g.view === "3d" : S.e.view === "3d") ? "v-3d" : "v-spectral",
     S.mode === "echelle" && S.e.dpass ? "dp" : "",
     lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
+    armsOn() ? "arms" : "",                                      // the All-arms view (arms.js)
     "x-" + S.e.xd,
     "inst-" + inst,
     ...(IMG ? IMG.bodyClasses() : []),
@@ -297,7 +313,7 @@ function syncControls() {
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
   buildPresetMenu();
-  showPreset(inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : inst === "int" ? INT.presetId() : presetId);
+  showPreset(inst === "img" ? IMG.presetId() : inst === "tel" ? TEL.presetId() : inst === "int" ? INT.presetId() : presetId === "custom" && armsOn() ? armsActive : presetId);
 }
 
 function params() {
@@ -312,7 +328,7 @@ function params() {
 }
 
 // ------------------------------------------------------------------ URL hash
-const SHARED = ["mode", "D", "F"];
+const SHARED = ["mode", "D", "F", "arms"];
 let hashTimer = 0, lastHash = null;
 function scheduleHash() { clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 180); }
 function writeHash() {
@@ -327,6 +343,7 @@ function writeHash() {
   for (const k of SHARED) put(k, S[k], DEF[k]);
   for (const sc of ["g", "e"]) for (const k of Object.keys(DEF[sc])) put(sc + "." + k, S[sc][k], DEF[sc][k]);
   if (presetId !== "custom") parts.push("preset=" + presetId);
+  if (armsOn() && armsActive) parts.push("arm=" + armsActive);   // the All-arms view: the arm the controls set
   lastHash = parts.length ? "#" + parts.join("&") : "";
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
@@ -377,12 +394,11 @@ function readHash() {
     // a preset whose instrument was changed afterwards is no longer the preset (drawing options do not count)
     const p = PRESETS.find(q => q.id === kv.preset);
     if (p) {
-      const ref = clone(DEF);
-      for (const k of Object.keys(p.state)) { if (k === "g" || k === "e") Object.assign(ref[k], p.state[k]); else ref[k] = p.state[k]; }
-      const strip = st => JSON.stringify({ ...st, g: Object.fromEntries(Object.entries(st.g).filter(([k]) => !DRAWING_KEYS.has(k))), e: Object.fromEntries(Object.entries(st.e).filter(([k]) => !DRAWING_KEYS.has(k))) });
-      if (strip(ref) !== strip(S)) presetId = "custom";
+      if (!samePreset(S, p)) presetId = "custom";
     }
   }
+  // the All-arms view: the arm the controls set (the other arms come back as their presets)
+  if (S.arms && kv.arm) { const q = PRESETS.find(x => x.id === kv.arm); if (q && ARMS && ARMS.group(q.inst)) { armsInst = q.inst; armsActive = q.id; armsEdits = {}; showPreset(q.id); } }
 }
 
 // ------------------------------------------------------------------ canvases
@@ -532,6 +548,7 @@ let lastD1Auto = null;           // the automatic collimated-beam length, likewi
 // the layout view: mm -> canvas px scale s and the canvas position (ox, oy) of the slit
 const lview = { mode: "auto", s: 0, ox: 0, oy: 0, fit: true };
 function drawLayout(Dz, P) {
+  if (armsOn()) { schedule(); return; }                          // the All-arms view draws this panel (arms.js)
   const { g, w, h } = fitCanvas($("cvL"));
   g.clearRect(0, 0, w, h);
   if (window.ANIM) window.ANIM.set($("cvL"), []);
@@ -2134,7 +2151,7 @@ document.addEventListener("mousedown", ev => {
   let drag = null;
   const toFixed = () => { if (lview.mode !== "fixed") { lview.mode = "fixed"; lvSync(); } };
   cv.addEventListener("wheel", ev => {
-    if (!cur) return;
+    if (!cur || armsOn()) return;                                // (the All-arms view always fits its panel)
     ev.preventDefault();
     toFixed();
     const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top;
@@ -2159,6 +2176,7 @@ document.addEventListener("mousedown", ev => {
     drawLayout(cur, curP); scheduleHash();
   };
   cv.addEventListener("mousedown", ev => {
+    if (armsOn()) return;
     const k = spHit(ev);
     if (k) { ptDrag = k; cv.style.cursor = "ns-resize"; movePoint(ev); return; }
     const is3d = curP && curP.view === "3d";
@@ -2246,7 +2264,8 @@ function lamRGB(lA) {
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
 let placedLabels = [];                                             // the layout's labels as placed (for the tests)
 let spGeo = null, lvExpanded = false;                              // Spatial view, one free point: screen geometry for dragging
-let detGeom = null, traces = [], hover = null, offD = null, detBuf = null;
+let detGeom = null, traces = [], hover = null;
+const detBufs = {};                                             // the detector panel's pixel buffers (splatTraces)
 // exp(-x^2 / 2) tabulated at x = k / EXPN up to 4 (the detector's trace profiles)
 const EXPN = 32, EXPT = Float32Array.from({ length: 4 * EXPN + 1 }, (_, k) => Math.exp(-0.5 * (k / EXPN) * (k / EXPN)));
 
@@ -2271,9 +2290,11 @@ function objectOffsets(Dz, P) {
   for (let k = 0; k < n; k++) zeta.push((k - (n - 1) / 2) * gap / dYdz);
   return { n, zeta, gapPx: gap / Dz.pixmm };
 }
-function buildTraces(Dz, P) {
-  traces = [];
-  if (Dz.bad || !Dz.c) return;
+function buildTraces(Dz, P) { traces = makeTraces(Dz, P); }
+// each object's spectrum in each order, sampled along the order (the detector panels, here and in arms.js)
+function makeTraces(Dz, P) {
+  const traces = [];
+  if (Dz.bad || !Dz.c) return traces;
   const ob = objectOffsets(Dz, P);
   Dz.objects = ob;
   const nOrd = Math.max(1, Dz.orders.length);
@@ -2295,32 +2316,11 @@ function buildTraces(Dz, P) {
       traces.push({ m: o.m, k, pts, o });
     });
   }
+  return traces;
 }
 
-function drawDetector(Dz, P) {
-  const cv = $("cvD");
-  $("dzReset").hidden = !(zoom.z > 1.001);
-  const { g, w, h } = fitCanvas(cv);
-  g.clearRect(0, 0, w, h);
-  detGeom = null;
-  if (!(cv.width > 0 && cv.height > 0)) return;                  // a collapsed panel (mid-resize): nothing to draw into
-  if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad ? "—" : "No light reaches the detector"); return; }
-  const ech = P.mode === "echelle";
-  // margins hold the axes: grating, wavelength below and position along the slit at left; echelle, the order
-  // numbers at left and the blaze wavelength at right
-  const mL = 62, mR = ech ? 70 : 20, mT = ech ? 12 : 10, mB = ech ? 12 : 48;
-  const aw = w - mL - mR, ah = h - mT - mB;
-  const Lx = Dz.Lx, Ly = Dz.Ly;
-  const s0 = Math.min(aw / Lx, ah / Ly), s = s0 * zoom.z;
-  const cxp = mL + aw / 2, cyp = mT + ah / 2;
-  const T = (X, Y) => [cxp + (X - zoom.cx) * s, cyp - (Y - zoom.cy) * s];
-  detGeom = { s, s0, cxp, cyp, mL, mT, aw, ah, Lx, Ly };
-  const c0 = T(-Lx / 2, Ly / 2), c1 = T(Lx / 2, -Ly / 2);
-  g.save();
-  g.beginPath(); g.rect(mL, mT, aw, ah); g.clip();
-  g.fillStyle = "#0b111c"; g.fillRect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]);
-  g.beginPath(); g.rect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]); g.clip();
-  const ppx = s * Dz.pixmm;
+// The traces trs of Dz drawn into the canvas context g within the CSS-px rectangle (rx0, ry0)-(rx1, ry1): T maps
+// detector mm to CSS px, ppx is CSS px per detector px, and buf holds the buffers between calls.
   // The traces are rendered pixel by pixel. Each trace is a Gaussian across the dispersion, FWHM = the slit (or
   // fiber) width imaged along the slit, evaluated at the centers of the screen's device pixels. Strokes drawn
   // thinner than a pixel and blurred afterward alias: traces a few pixels apart beat against the pixel grid into
@@ -2331,6 +2331,8 @@ function drawDetector(Dz, P) {
   // neighbors overlap so that the sum of many, sigma sqrt(2 pi) / spacing times one peak, stays at one trace's
   // brightness. Traces packed closer than a device pixel (an IFU's 3600 spaxels seen whole) are thinned to every
   // kk-th (zooming in brings them all back).
+function splatTraces(g, trs, Dz, P, T, ppx, rx0, ry0, rx1, ry1, buf) {
+  const ech = P.mode === "echelle";
   const dpr = window.devicePixelRatio || 1, ppd = ppx * dpr;          // device px per detector px
   const sgT = (P.traceW > 0 ? P.traceW : P.slitW) / Dz.c.pixScale * ppd / 2.3548;   // the true sigma, device px
   const obj = Dz.objects, every = (obj && obj.every) || 1;
@@ -2355,13 +2357,13 @@ function drawDetector(Dz, P) {
     const sp = p < 4.5 ? 0.45 * p : p < 7 ? 0.45 * p * (7 - p) / 2.5 : 0;
     return Math.max(sgT, sgMin, sp);
   };
-  // the region drawn: the panel's plot area within the chip, in device px
-  const x0d = Math.max(0, Math.floor(Math.max(mL, c0[0]) * dpr)), x1d = Math.min(cv.width, Math.ceil(Math.min(mL + aw, c1[0]) * dpr));
-  const y0d = Math.max(0, Math.floor(Math.max(mT, c0[1]) * dpr)), y1d = Math.min(cv.height, Math.ceil(Math.min(mT + ah, c1[1]) * dpr));
+  // the region drawn, in device px
+  const x0d = Math.max(0, Math.floor(rx0 * dpr)), x1d = Math.min(g.canvas.width, Math.ceil(rx1 * dpr));
+  const y0d = Math.max(0, Math.floor(ry0 * dpr)), y1d = Math.min(g.canvas.height, Math.ceil(ry1 * dpr));
   const RW = x1d - x0d, RH = y1d - y0d;
   if (RW > 0 && RH > 0) {
-    if (!detBuf || detBuf.RW !== RW || detBuf.RH !== RH) detBuf = { RW, RH, acc: new Float32Array(RW * RH * 3), img: new ImageData(RW, RH) };
-    const acc = detBuf.acc; acc.fill(0);
+    if (!buf.det || buf.det.RW !== RW || buf.det.RH !== RH) buf.det = { RW, RH, acc: new Float32Array(RW * RH * 3), img: new ImageData(RW, RH) };
+    const acc = buf.det.acc; acc.fill(0);
     // the segment from point A to point B (device px, colors premultiplied by brightness), splatted column by
     // column (or row by row where steeper than 45 degrees): along a column, a trace of perpendicular sigma sg
     // inclined at slope s is a Gaussian of sigma sg sqrt(1 + s^2) with the same peak
@@ -2385,7 +2387,7 @@ function drawDetector(Dz, P) {
         }
       }
     };
-    for (const tr of traces) {
+    for (const tr of trs) {
       const pts = tr.pts;
       if (pts.length < 2 || (kk > 1 && (tr.k / every) % kk)) continue;
       const p = pitchFor(tr.m) * kk, sg = sigFor(p);
@@ -2400,15 +2402,43 @@ function drawDetector(Dz, P) {
         prev = cur;
       }
     }
-    const px = detBuf.img.data;
+    const px = buf.det.img.data;
     for (let k = 0, q = 0; k < RW * RH; k++, q += 3) { px[4 * k] = acc[q]; px[4 * k + 1] = acc[q + 1]; px[4 * k + 2] = acc[q + 2]; px[4 * k + 3] = 255; }
-    if (!offD) offD = document.createElement("canvas");
-    if (offD.width < RW || offD.height < RH) { offD.width = Math.max(offD.width, RW); offD.height = Math.max(offD.height, RH); }
-    offD.getContext("2d").putImageData(detBuf.img, 0, 0);
+    if (!buf.off) buf.off = document.createElement("canvas");
+    if (buf.off.width < RW || buf.off.height < RH) { buf.off.width = Math.max(buf.off.width, RW); buf.off.height = Math.max(buf.off.height, RH); }
+    buf.off.getContext("2d").putImageData(buf.det.img, 0, 0);
     g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = "lighter";
-    g.drawImage(offD, 0, 0, RW, RH, x0d, y0d, RW, RH);
+    g.drawImage(buf.off, 0, 0, RW, RH, x0d, y0d, RW, RH);
     g.restore();
   }
+}
+
+function drawDetector(Dz, P) {
+  if (armsOn()) return;                                          // the All-arms view draws this panel (arms.js)
+  const cv = $("cvD");
+  $("dzReset").hidden = !(zoom.z > 1.001);
+  const { g, w, h } = fitCanvas(cv);
+  g.clearRect(0, 0, w, h);
+  detGeom = null;
+  if (!(cv.width > 0 && cv.height > 0)) return;                  // a collapsed panel (mid-resize): nothing to draw into
+  if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad ? "—" : "No light reaches the detector"); return; }
+  const ech = P.mode === "echelle";
+  // margins hold the axes: grating, wavelength below and position along the slit at left; echelle, the order
+  // numbers at left and the blaze wavelength at right
+  const mL = 62, mR = ech ? 70 : 20, mT = ech ? 12 : 10, mB = ech ? 12 : 48;
+  const aw = w - mL - mR, ah = h - mT - mB;
+  const Lx = Dz.Lx, Ly = Dz.Ly;
+  const s0 = Math.min(aw / Lx, ah / Ly), s = s0 * zoom.z;
+  const cxp = mL + aw / 2, cyp = mT + ah / 2;
+  const T = (X, Y) => [cxp + (X - zoom.cx) * s, cyp - (Y - zoom.cy) * s];
+  detGeom = { s, s0, cxp, cyp, mL, mT, aw, ah, Lx, Ly };
+  const c0 = T(-Lx / 2, Ly / 2), c1 = T(Lx / 2, -Ly / 2);
+  g.save();
+  g.beginPath(); g.rect(mL, mT, aw, ah); g.clip();
+  g.fillStyle = "#0b111c"; g.fillRect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]);
+  g.beginPath(); g.rect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]); g.clip();
+  const ppx = s * Dz.pixmm;
+  splatTraces(g, traces, Dz, P, T, ppx, Math.max(mL, c0[0]), Math.max(mT, c0[1]), Math.min(mL + aw, c1[0]), Math.min(mT + ah, c1[1]), detBufs);
   // pixel grid when zoomed in far enough (mid-gray: visible on the dark chip and on a bright trace)
   if (ppx >= 6) {
     g.strokeStyle = "rgba(128,128,128,0.45)"; g.lineWidth = 1;
@@ -2596,11 +2626,84 @@ function clampZoom() {
   $("dzReset").addEventListener("click", () => { zoom.reset(); clampZoom(); redrawDetector(); });
 }
 
+// ------------------------------------------------------------------ the All-arms view (arms.js)
+// a preset's full state
+function presetState(p) {
+  const st = clone(DEF);
+  for (const k of Object.keys(p.state)) { if (k === "g" || k === "e") Object.assign(st[k], p.state[k]); else st[k] = p.state[k]; }
+  return st;
+}
+// a state that is a preset's, apart from the drawing options
+function samePreset(st, p) {
+  const strip = x => JSON.stringify({ ...x, arms: false, g: Object.fromEntries(Object.entries(x.g).filter(([k]) => !DRAWING_KEYS.has(k))), e: Object.fromEntries(Object.entries(x.e).filter(([k]) => !DRAWING_KEYS.has(k))) });
+  return strip(presetState(p)) === strip(st);
+}
+// the state an arm is drawn with: its own (edited or preset), with the shared controls from the page
+function armState(id) {
+  const q = PRESETS.find(x => x.id === id);
+  if (!q) return null;
+  const st = armsEdits[id] ? clone(armsEdits[id]) : presetState(q), sh = ARMS.shared(armsInst), sc = st.mode === "echelle" ? "e" : "g", sc0 = S.mode === "echelle" ? "e" : "g";
+  for (const k of sh.top) st[k] = S[k];
+  if (sc === sc0) for (const k of sh.m) st[sc][k] = S[sc0][k];
+  st.g.view = S.g.view; st.e.view = S.e.view; st.arms = true;
+  return st;
+}
+// the controls move to another arm: the page's state is kept as this arm's, and the other arm's comes back
+function armsSwitch(id) {
+  if (!armsOn() || !id || id === armsActive || !armsInst || !ARMS.armIds(armsInst).includes(id)) return;
+  armsEdits[armsActive] = clone(S);
+  const st = armState(id), q = PRESETS.find(x => x.id === id);
+  delete armsEdits[id];
+  S = st; armsActive = id; presetId = samePreset(st, q) ? id : "custom";
+  showPreset(id); zoom.reset(); schedule();
+}
+const armsBufs = {};
+let armsLast = null, armsCapX = 0;
+function renderArms() {
+  const arms = ARMS.armIds(armsInst).map(id => {
+    const q = PRESETS.find(x => x.id === id);
+    if (!q) return null;
+    const st = id === armsActive ? S : armState(id), save = S;
+    S = st; const Pa = params(); S = save;
+    return { id, name: q.setting || q.name, P: Pa, D: id === armsActive ? cur : IX.design(Pa), edited: id === armsActive ? presetId === "custom" : !samePreset(st, q) };
+  }).filter(Boolean);
+  armsLast = arms;
+  if (window.ANIM) window.ANIM.set($("cvL"), []);
+  // the caption first, so that the drawing keeps clear of it (it follows the scale bar, as in the one-arm view)
+  const capEl = $("lSub");
+  capEl.textContent = ARMS.caption(arms, armsInst, armsActive);
+  capEl.hidden = false;
+  if (armsCapX) capEl.style.setProperty("--capL", ($("cvL").offsetLeft + armsCapX) + "px");
+  const info = ARMS.drawLayout($("cvL"), arms, armsInst, armsActive, capEl.offsetHeight);
+  armsCapX = info.capX;
+  ARMS.drawDetectors($("cvD"), arms, armsInst, armsActive, armsBufs);
+  detGeom = null; hover = null;
+  $("dzReset").hidden = true;
+  $("stats").innerHTML = ARMS.stats(arms, armsActive, new Set(arms.filter(a => a.edited).map(a => a.id)));
+  const live = arms.find(a => !a.D.bad && a.D.c);
+  $("dSub").innerHTML = live ? detLegend(live.D, live.P) : "";
+  capEl.style.setProperty("--capL", ($("cvL").offsetLeft + info.capX) + "px");
+  scheduleHash();
+}
+// a click on an arm (in the layout, on a chip, or in the stats strip) gives it the controls
+$("cvL").addEventListener("click", ev => { if (!armsOn()) return; const r = $("cvL").getBoundingClientRect(); armsSwitch(ARMS.hitLayout(ev.clientX - r.left, ev.clientY - r.top)); });
+$("cvD").addEventListener("click", ev => { if (!armsOn()) return; const r = $("cvD").getBoundingClientRect(); armsSwitch(ARMS.hitDetector(ev.clientX - r.left, ev.clientY - r.top)); });
+$("stats").addEventListener("click", ev => { if (!armsOn()) return; const el = ev.target.closest("[data-arm]"); if (el) armsSwitch(el.dataset.arm); });
+for (const [id, hit] of [["cvL", (x, y) => ARMS.hitLayout(x, y)], ["cvD", (x, y) => ARMS.hitDetector(x, y)]]) {
+  $(id).addEventListener("mousemove", ev => {
+    if (!armsOn()) return;
+    const r = $(id).getBoundingClientRect(), a = hit(ev.clientX - r.left, ev.clientY - r.top);
+    $(id).style.cursor = a && a !== armsActive ? "pointer" : "";
+  });
+}
+
 // ------------------------------------------------------------------ main loop
 let cur = null, curP = null, pending = false;
 function schedule() { if (!pending) { pending = true; requestAnimationFrame(render); } }
 function render() {
   pending = false;
+  // (an All-arms link without its arm: the arm of the preset)
+  if (inst === "spec" && S.arms && !armsInst) { const p = PRESETS.find(q => q.id === presetId); if (p && ARMS && ARMS.group(p.inst)) { armsInst = p.inst; armsActive = p.id; } else S.arms = false; }
   syncControls();
   if (inst === "img") { IMG.render(); scheduleHash(); return; }
   if (inst === "tel") { TEL.render(); scheduleHash(); return; }
@@ -2620,6 +2723,10 @@ function render() {
   if (!cur.bad && cur.c) cur.objects = objectOffsets(cur, curP);
   renderText(cur, curP);
   fitPanels();
+  // the All-arms view (arms.js): each arm designed, the arm the controls set from the page's state and the others from
+  // their own earlier edits or their presets, with the controls the arms share (the telescope; for a split in the
+  // collimated beam also the slit, fibers and collimator) taken from the page
+  if (armsOn()) { renderArms(); return; }
   drawLayout(cur, curP);
   if ((M().layLen === null || M().layLen === undefined) && lastD1Auto !== null) {
     if (document.activeElement !== $("sLL")) $("sLL").value = String(Math.log10(Math.max(10, lastD1Auto)));
@@ -2685,10 +2792,14 @@ window.__instex = {
   set: o => { for (const k of Object.keys(o)) { if (k === "g" || k === "e") Object.assign(S[k], o[k]); else S[k] = o[k]; } markCustom(); render(); },
   preset: id => { const p = PRESETS.find(q => q.id === id); if (p) { applyPreset(p); render(); } return !!p; },
   inst: v => { if (v) { inst = v; render(); } return inst; }, img: () => IMG.test, tel: () => TEL.test, int: () => INT.test,
+  arms: () => ({ on: armsOn(), inst: armsInst, active: armsActive, edits: Object.keys(armsEdits), preset: presetId, setting: $("setting").value, settingShown: !$("settingLab").hidden,
+    arms: (armsLast || []).map(a => ({ id: a.id, name: a.name, bad: !!a.D.bad, range: a.D.range, edited: a.edited, D: a.P.D, slitW: a.P.slitW, W: a.P.W })), layout: ARMS && ARMS.test() }),
+  armsSwitch: id => { armsSwitch(id); render(); }, armsGroups: () => (ARMS ? Object.keys(ARMS.GROUPS).map(k => [k, ARMS.armIds(k)]) : []), setting: v => { $("setting").value = v; $("setting").dispatchEvent(new Event("change")); render(); },
   hover: () => hover, zoom: () => ({ z: zoom.z, cx: zoom.cx, cy: zoom.cy }), lview: () => ({ ...lview }), detGeom: () => detGeom && { ...detGeom }, labels: () => placedLabels.map(l => ({ ...l })),
 };
 
 // the imager: its own module, handed the shared helpers
+ARMS = window.ARMSAPP ? window.ARMSAPP({ fitCanvas, lamRGB, rgba, sig, grp, mm, FONT, INK, MUTED, LINE, message, makeTraces, splatTraces }) : null;
 IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
 TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
 INT = window.INTAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);

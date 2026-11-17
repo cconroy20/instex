@@ -480,6 +480,39 @@ const rel = (a, b) => Math.abs(a / b - 1);
       const r3 = await ev(`({ v: window.__instex.state().e.view, shown: getComputedStyle(document.getElementById("lvViewSeg")).display !== "none", sub: document.getElementById("lSub").textContent })`);
       check("echelle 3D (" + pid + "): offered, drawn, captioned", r3.v === "3d" && r3.shown && /drag to orbit/.test(r3.sub) && errors.length === e0, JSON.stringify(r3).slice(0, 200));
     }
+    // the All-arms view (web/arms.js): every multi-arm instrument with its dichroics, offered in the Setting menu; each
+    // arm designed, the layout free of overlaps, every label inside the panel and clear of the others, the one-arm view's
+    // controls hidden, one stats item per arm
+    {
+      await go("#preset=desib");
+      const ids = await ev(`window.__instex.armsGroups()`);
+      for (const [name, arms] of ids) {
+        const e0 = errors.length;
+        await go("#preset=" + arms[0] + "&arms=true&arm=" + arms[0]);
+        const r = await ev(`(() => { const a = window.__instex.arms(); return { on: a.on, setting: a.setting, n: a.arms.length, bad: a.arms.filter(q => q.bad).map(q => q.id), ov: a.layout && a.layout.ov,
+          out: a.layout ? a.layout.labels.filter(l => !l.inside || l.crowd > 0).map(l => l.txt) : ["no layout"], view: getComputedStyle(document.getElementById("lvViewSeg")).display,
+          stats: document.querySelectorAll("#stats .stat.arm").length, cap: document.getElementById("lSub").textContent }; })()`);
+        check("All arms (" + name + "): " + arms.length + " arms designed, no overlaps, labels clear, one-arm controls hidden",
+          r.on && r.setting === "__arms" && r.n === arms.length && !r.bad.length && r.ov < 1e-6 && !r.out.length && r.view === "none" && r.stats === arms.length && /one scale/.test(r.cap) && errors.length === e0, JSON.stringify(r).slice(0, 260));
+      }
+      // the controls move between arms; a shared control (DESI's slit) sets every arm, an arm's own (the grating) only its
+      // own, and both come back after a switch
+      await go("#preset=desir&arms=true&arm=desir");
+      await ev(`window.__instex.set({ g: { slitW: 2, G: 1000 } })`); await sleep(200);
+      await click('#stats .stat.arm[data-arm="desiz"]'); await sleep(200);
+      const s1 = await ev(`(() => { const a = window.__instex.arms(); return { active: a.active, slit: a.arms.map(q => q.slitW), G: window.__instex.state().g.G, setting: a.setting }; })()`);
+      await click('#stats .stat.arm[data-arm="desir"]'); await sleep(200);
+      const s2 = await ev(`({ active: window.__instex.arms().active, G: window.__instex.state().g.G })`);
+      check("All arms: a click in the strip moves the controls; the shared slit sets every arm, the grating stays with its arm", s1.active === "desiz" && s1.slit.every(x => x === 2) && s1.G !== 1000 && s1.setting === "__arms" && s2.active === "desir" && s2.G === 1000, JSON.stringify([s1, s2]));
+      await sleep(300);
+      const hz = await ev(`location.hash`);
+      await go(hz);
+      const s3 = await ev(`(() => { const a = window.__instex.arms(); return { on: a.on, active: a.active, slit: a.arms.map(q => q.slitW), G: window.__instex.state().g.G }; })()`);
+      check("All arms: the link keeps the view, the arm the controls set, and its edits", s3.on && s3.active === "desir" && s3.slit.every(x => x === 2) && s3.G === 1000, hz.slice(0, 120) + " -> " + JSON.stringify(s3));
+      await ev(`window.__instex.setting("desib")`); await sleep(200);
+      const s4 = await ev(`({ on: window.__instex.arms().on, preset: window.__instex.arms().preset, view: getComputedStyle(document.getElementById("lvViewSeg")).display })`);
+      check("All arms: picking one arm in the Setting menu returns to the one-arm view", !s4.on && s4.preset === "desib" && s4.view !== "none", JSON.stringify(s4));
+    }
     // an order-isolating filter and fibers in groups (M2FS): no overlap warning, the filter's band as the range, the
     // traces in eight groups of 16, both in the link and back
     await go("#preset=m2fsmgb");
