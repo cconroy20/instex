@@ -222,7 +222,6 @@ body.inst-spec .only-img, body.inst-img .only-spec, body.inst-tel .only-img, bod
 .tcontrols{grid-template-columns:repeat(2,minmax(0,1fr))}
 body.inst-tel #stats{display:none}                  /* no summary strip in the Telescopes mode: the figures are in the boxes */
 body.inst-int #stats, body.inst-int .pnote{display:none}      /* the Interferometer: no strip, and the note on optical presets does not apply (the pedagogical disclaimer stays) */
-.pedonly{font-style:normal;color:var(--ink)}
 .rcontrols{grid-template-columns:repeat(3,minmax(0,1fr))}
 .rcontrols .rd b{white-space:normal}
 .acap{left:var(--capLA,26px)}
@@ -267,6 +266,10 @@ body.ilv-expanded{overflow:hidden}
 body.ilv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}
 body.ilv-expanded #ilvPanel{position:fixed;inset:10px;z-index:50;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
 body.ilv-expanded #ilvPanel canvas{flex:1 1 auto;height:auto;min-height:0}
+body.tlv-expanded{overflow:hidden}
+body.tlv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}
+body.tlv-expanded #tlPanel{position:fixed;inset:10px;z-index:50;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+body.tlv-expanded #tlPanel canvas{flex:1 1 auto;height:auto;min-height:0}
 @media (max-width:1240px){ .icontrols{grid-template-columns:repeat(3,minmax(0,1fr))} }
 @media (max-width:860px){ .icontrols{grid-template-columns:minmax(0,1fr)} }
 /* the All-arms view (arms.js): the one-arm view's controls stand aside; each arm in the strip is a button */

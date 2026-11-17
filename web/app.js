@@ -306,6 +306,7 @@ function syncControls() {
     "x-" + S.e.xd,
     "inst-" + inst,
     ...(IMG ? IMG.bodyClasses() : []),
+    ...(TEL && TEL.bodyClasses ? TEL.bodyClasses() : []),
   ].join(" ");
   syncInst();
   gsel.value = S.e.xPrisms && S.e.xPrisms.length ? S.e.xPrisms[0].glass : S.e.xGlass;
@@ -2238,6 +2239,7 @@ sync3();
 window.addEventListener("keydown", ev => {
   if (ev.key !== "Escape" || $("about").open || $("refs").open) return;   // an open dialog takes its own Esc
   if (inst === "img") { IMG.escape(); return; }
+  if (inst === "tel") { TEL.escape(); return; }
   if (lvExpanded) setExpanded(false);                     // expanded: back to the page
   else if (!$("lvOpts").hidden) $("lvOpts").hidden = true;
 });
@@ -2901,7 +2903,7 @@ window.__instex = {
 // the imager: its own module, handed the shared helpers
 ARMS = window.ARMSAPP ? window.ARMSAPP({ fitCanvas, lamRGB, rgba, sig, grp, mm, FONT, INK, MUTED, LINE, message, makeTraces, splatTraces }) : null;
 IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
-TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
+TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE }, IMG);
 INT = window.INTAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
 const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips.", tel: "Back to the first telescope at its first focus.", int: "Back to the defaults for this array: its default configuration, band and source." };
 function syncInst() {

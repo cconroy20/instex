@@ -961,10 +961,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
   }
   // the 3D view of the optical layout: the switch, its link, every telescope and focus drawn, the snaps, the time
   {
-    await go("#inst=tel&t.tel=keck");
+    await go("#inst=tel&t.tel=keck&t.view=2d");
     await ev(`document.getElementById("tv3d").click()`); await sleep(500);
     const a = await ev(`({ h: location.hash, box: !document.getElementById("tl3dBox").hidden, v: window.__instex.tel().view3d() })`);
-    check("Telescopes 3D: the switch draws the 3D view, shows the snaps and goes into the link", /t\.view=3d/.test(a.h) && a.box && a.v && a.v.n > 100, JSON.stringify(a).slice(0, 200));
+    check("Telescopes 3D: the switch draws the 3D view (the default: no t.view in the link) and shows the snaps", !/t\.view/.test(a.h) && a.box && a.v && a.v.n > 100, JSON.stringify(a).slice(0, 200));
     const bad = [];
     for (const t of await ev(`window.IX_TELESCOPES.map(t => [t.id, t.foci.map(f => f.id)])`)) for (const f of t[1]) {
       await go(`#inst=tel&t.tel=${t[0]}&t.focus=${f}&t.view=3d`);
@@ -978,8 +978,8 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const ms = await ev(`(() => { const t0 = performance.now(); for (let k = 0; k < 5; k++) document.getElementById("tvObl").click(); return (performance.now() - t0) / 5; })()`);
     check("Telescopes 3D: Top looks straight down; the ELT (798 segments) redraws fast enough to turn", Math.abs(top.el - Math.PI / 2) < 1e-9 && ms < 120, `el ${top.el.toFixed(3)}, ${ms.toFixed(0)} ms per frame`);
     await ev(`document.getElementById("tv2d").click()`); await sleep(300);
-    for (let k = 0; k < 20 && /t\.view/.test(await ev("location.hash")); k++) await sleep(100);   // (the link is written after the redraw)
-    check("Telescopes 3D: back to 2D, the snaps hidden and the link without t.view", (await ev(`document.getElementById("tl3dBox").hidden`)) && !/t\.view/.test(await ev("location.hash")));
+    for (let k = 0; k < 20 && !/t\.view=2d/.test(await ev("location.hash")); k++) await sleep(100);   // (the link is written after the redraw)
+    check("Telescopes 3D: back to 2D, the snaps hidden and t.view=2d in the link", (await ev(`document.getElementById("tl3dBox").hidden`)) && /t\.view=2d/.test(await ev("location.hash")));
   }
   // the 3D view's geometry, audited for every telescope and focus: (1) the rays of one star meet at one point; (2) for
   // the field's center, where the focus is drawn; (3) in the drawing's plane the 3D rays retrace the 2D drawing; (4) the

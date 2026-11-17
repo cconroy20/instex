@@ -16,6 +16,35 @@ const WIDTH = 2.2, PEAK = 0.85;   // the pulse's line width (pixels) and its opa
 // the glow around the pulse (two wide, faint strokes in its color) and the bright core along its front
 const GLOW = [[10, 0.06], [5.5, 0.12]], CORE = 0.9, CORE_FROM = 0.55, CORE_PEAK = 0.85;
 const FRONT = 1.8;       // a wavefront's line width (pixels)
+// a pulse as a little wave (the default; ?pulse=comet in the address for the fading streak): a few cycles of a sine
+// across the ray, at full height over its leading part and fading over the trail behind (u = 0 at the tail, 1 at the
+// head; the opacity follows the height), one on each ray.
+const STYLE = typeof location !== "undefined" && /[?&]pulse=comet/.test(location.search) ? "comet" : "wave";
+const WAVE_LEN = 66, WAVE_PER = 9.5, WAVE_AMP = 3.6, WAVE_LW = 1.6, WAVE_PEAK = 0.95, WAVE_STEP = 1.1;  // pixels
+// (the wave belongs to the drawing: its length is WAVE_FRAC of the longest light path, whatever the zoom, and the
+// spacing and the height scale with it; the pixel sizes above are those of a wave WAVE_LEN pixels long)
+const WAVE_FRAC = 0.06;
+const WAVE_X = 1.6;      // the wave's length, with its trail, in units of that WAVE_LEN-pixel wave
+const WAVE_FADE = 0.84;                             // the share of the wave, from the tail, over which it fades in
+const env = u => (u >= WAVE_FADE ? 1 : (1 - Math.cos(Math.PI * u / WAVE_FADE)) / 2);
+// The wiggle's spacing follows the wavelength: a ray in the drawings' wavelength colors (app.js's ramp, deep indigo
+// for the shortest wavelength on the detector to orange-gold for the longest) gets WAVE_SHORT to WAVE_LONG pixels;
+// white light and the field colors keep WAVE_PER.  And the wave oscillates: its crests run forward through the
+// packet at WAVE_CREST pixels a second, so a crest passes a point WAVE_CREST / spacing times a second (the
+// frequency, higher for shorter waves, as for light).
+const WAVE_SHORT = 7, WAVE_LONG = 12, WAVE_CREST = 18;
+const RAMP = [[38, 5, 145], [117, 1, 168], [182, 48, 139], [227, 104, 95], [252, 166, 54]];
+// a color's place on the ramp (0 to 1), or null for a color off the ramp
+function rampT(c) {
+  let best = 1e9, t = null;
+  for (let k = 0; k + 1 < RAMP.length; k++) {
+    const A = RAMP[k], B = RAMP[k + 1], AB = B.map((v, i) => v - A[i]), AC = c.map((v, i) => v - A[i]);
+    const u = Math.min(1, Math.max(0, AB.reduce((s, v, i) => s + v * AC[i], 0) / AB.reduce((s, v) => s + v * v, 0)));
+    const dd = Math.hypot(...c.map((v, i) => v - (A[i] + u * AB[i])));
+    if (dd < best) { best = dd; t = (k + u) / (RAMP.length - 1); }
+  }
+  return best < 6 ? t : null;
+}
 const views = [];        // one per layout canvas: { cv, ov, rays, smax }
 // on: the pulses shown (playing, or paused with tHeld the moment they stopped at)
 let on = false, paused = false, tHeld = 0, raf = 0, t0 = 0;
@@ -78,7 +107,8 @@ function set(cv, list) {
     }
     const px = lengths(r.p), S = s.map(x => x - s[0] + s0);
     // (k: distance per pixel, so that a pulse keeps its length on the screen)
-    rays.push({ p: r.p, s: S, c: parse(r.c), k: (S[S.length - 1] - S[0]) / (px[px.length - 1] || 1), trail: r.trail !== false, g: r.g });
+    const c = parse(r.c), tl = rampT(c);
+    rays.push({ p: r.p, s: S, c, per: tl === null ? WAVE_PER : WAVE_SHORT + tl * (WAVE_LONG - WAVE_SHORT), k: (S[S.length - 1] - S[0]) / (px[px.length - 1] || 1), trail: r.trail !== false, g: r.g });
   }
   v.rays = rays;
   // (wavefronts: the rays of a group, in order across the pupil, have their pulse heads joined by a line)
@@ -110,6 +140,35 @@ function headAt(r, d) {
   while (i < n - 1 && r.s[i] < d) i++;
   const a = r.s[i - 1], b = r.s[i], u = b > a ? (d - a) / (b - a) : 0, P = r.p[i - 1], Q = r.p[i];
   return { p: [P[0] + u * (Q[0] - P[0]), P[1] + u * (Q[1] - P[1])], i };
+}
+// a wave packet on ray r, its head at distance d: sampled every WAVE_STEP pixels along the ray, each sample moved
+// across the ray (perpendicular to its leg on the screen) by the envelope times the sine; drawn as a glow and then a
+// line, each in a few opacity steps (the consecutive pieces of one step stroked as one path)
+function wavePacket(g, r, d, s0, s1, rgb, t, Ls) {
+  const px = Ls / (r.k || 1), sc = px / (WAVE_LEN * WAVE_X), n = Math.max(8, Math.min(400, Math.round(px / WAVE_STEP))), pts = [];
+  const ph = 2 * Math.PI * WAVE_CREST * t / r.per;   // (the crests' advance through the packet by time t)
+  for (let j = 0; j <= n; j++) {
+    const u = j / n, s = d - (1 - u) * Ls, h = s >= s0 && s <= s1 ? headAt(r, s) : null;
+    if (!h) { pts.push(null); continue; }
+    const P = r.p[h.i - 1], Q = r.p[h.i], dx = Q[0] - P[0], dy = Q[1] - P[1], L = Math.hypot(dx, dy) || 1;
+    const e = env(u), off = WAVE_AMP * sc * e * Math.sin(2 * Math.PI * u * WAVE_LEN * WAVE_X / r.per - ph);
+    pts.push({ x: h.p[0] - dy / L * off, y: h.p[1] + dx / L * off, e });
+  }
+  const LEVELS = 10;
+  for (const [lw, peak] of [[WAVE_LW, WAVE_PEAK]]) {
+    g.lineWidth = lw;
+    for (let lev = 1; lev <= LEVELS; lev++) {
+      let open = false;
+      g.beginPath();
+      for (let j = 0; j < n; j++) {
+        const a = pts[j], b = pts[j + 1];
+        if (!a || !b || Math.round((a.e + b.e) / 2 * LEVELS) !== lev) { open = false; continue; }
+        if (!open) { g.moveTo(a.x, a.y); open = true; }
+        g.lineTo(b.x, b.y);
+      }
+      g.strokeStyle = `rgba(${rgb},${(peak * lev / LEVELS).toFixed(3)})`; g.stroke();
+    }
+  }
 }
 const stroke = (g, pts) => { g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke(); };
 
@@ -149,12 +208,13 @@ function frame(now) {
     }
     for (const r of v.rays) {
       if (!r.trail) continue;
-      const s0 = r.s[0], s1 = r.s[r.s.length - 1], tail = TAIL * r.k, rgb = r.c.map(x => x | 0).join(",");
+      const s0 = r.s[0], s1 = r.s[r.s.length - 1], tail = STYLE === "wave" ? WAVE_FRAC * WAVE_X * v.smax : TAIL * r.k, rgb = r.c.map(x => x | 0).join(",");
       // the pulses launched so far (the k-th at time k GAP), each with its head at distance d
       for (let k = n; k >= 0; k--) {
         const d = (t - k * GAP) * speed;
         if (d - tail > s1) break;
         if (d < s0) continue;
+        if (STYLE === "wave") { wavePacket(g, r, d, s0, s1, rgb, t, tail); continue; }
         const lo = Math.max(s0, d - tail), hi = Math.min(s1, d);
         if (hi <= lo) continue;
         // a line in the ray's color, fading from the head to nothing at the tail, in a soft glow of the same color,

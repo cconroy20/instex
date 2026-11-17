@@ -12,7 +12,7 @@ const TELS = window.IX_TELESCOPES || [];
 const clone = o => JSON.parse(JSON.stringify(o));
 
 // ------------------------------------------------------------------ state
-const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2, track: 0, view: "2d" };
+const DEF = { tel: TELS.length ? TELS[0].id : "", focus: "", band: "V", stretch: "log", see: 0.8, field: 2, track: 0, view: "3d" };
 let S = clone(DEF);
 const telOf = () => TELS.find(t => t.id === S.tel) || TELS[0];
 const focusOf = () => { const t = telOf(); return t.foci.find(f => f.id === S.focus) || t.foci[0]; };
@@ -373,6 +373,8 @@ for (const [id, az, el] of [["tvTop", 0, Math.PI / 2], ["tvSide", 0, 0], ["tvObl
     else { tlview.fit = true; tlview.mode = "auto"; }
     draw();
   });
+  $("tlvExpand").innerHTML = H.ICON_EXPAND;
+  $("tlvExpand").addEventListener("click", () => setExpanded(!tlvExpanded));
   $("tlReset").addEventListener("click", () => { tlview.fit = true; tlview.mode = "auto"; v3.fit = true; v3.mode = "auto"; draw(); });
 }
 
@@ -397,6 +399,16 @@ function mirrorHole() {
 const pupil3 = () => { const t = telOf(), pu = pupilOf(); return t.binocular && pu.kind === "circles" ? Object.assign({}, t.pupil) : pu; };
 // the hole the 3D view cuts (radius, mm): the sourced one, else the largest the foci need
 const hole3 = () => (telOf().hole ? telOf().hole * 500 : mirrorHole());
+// the layout expanded to fill the window (Esc returns), as the Spectrograph's and the Imager's
+let tlvExpanded = false;
+function setExpanded(on) {
+  tlvExpanded = on;
+  document.body.classList.toggle("tlv-expanded", on);
+  $("tlvExpand").innerHTML = on ? H.ICON_COLLAPSE : H.ICON_EXPAND;
+  $("tlvExpand").title = on ? "Return the layout to the page (Esc)." : "Expand the layout to fill the window (Esc returns).";
+  tlview.fit = true; v3.fit = true;
+  requestAnimationFrame(() => draw());
+}
 function draw() {
   if (!cur) return;
   if (is3()) { $("tlSub").hidden = true; last3 = (window.TEL3DGL && window.TEL3DGL.ok() && !/[?&]gl=0/.test(location.search) ? window.TEL3DGL : window.TEL3D).draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0 }); }
@@ -422,6 +434,8 @@ const OLD_IDS = { keck1: "keck", keck2: "keck", baade: "magellan", clay: "magell
 const PRESETS = TELS.map(t => ({ id: t.id, tel: t.group, name: t.name, state: { D: t.Dmirror || t.D } }));   // (menu order: by the mirror)
 return {
   render, PRESETS,
+  bodyClasses: () => (tlvExpanded ? ["tlv-expanded"] : []),
+  escape: () => { if (tlvExpanded) { setExpanded(false); return true; } return false; },
   presetId: () => S.tel,
   applyPreset: p => { S.tel = p.id; S.focus = ""; tlview.fit = true; v3.fit = true; H.schedule(); },
   reset: () => { S = clone(DEF); stopCoast(); setPose(...V3HOME); tlview.fit = true; v3.fit = true; v3.mode = "auto"; H.schedule(); },
