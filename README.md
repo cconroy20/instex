@@ -44,9 +44,10 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   light (As drawn | Flipped: the grating tilted the other way, so it turns the light to the other side; the
   grating and everything after it reflected about the collimated beam's axis), Camera (Lens | Mirror: see below),
   Labels and marks (Show | Hide: the text,
-  the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays). The Viaspec Zemax layout (technical document, bench figure) is fold 113° at 0.78 of a
-  ~2.85 m collimated beam, collimator tilt 0, grating Flipped: the fold and the grating turn the light the same
-  way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
+  the W arrow, the grating normal with α and β, and the scale bar; Hide leaves the optics and the rays). The Viaspec preset carries its Zemax layout (technical document, bench figure): collimator tilt 0
+  (an on-axis Schmidt sphere, the slit standing in the returning beam), fold 113° at 0.78 of a 2.75 m collimated
+  beam (2 f_col; the drawing measures 2.73 m on the slit-to-collimator scale), grating Flipped: the fold and the
+  grating turn the light the same way, sending the camera back alongside the collimated beam. None changes a number. Lens and mirror are the same ideal collimator, so the switch
   changes the drawing only (a real mirror is achromatic, a real lens is not). The Camera option in Mod layout (Lens | Mirror)
   is drawing-only as well and, like the other Mod layout options, keeps a preset's name: Mirror draws a catadioptric camera with an internal focus (HIRES, Hectospec, Hectochelle), a
   weak two-lens corrector where the lens would stand, a spherical mirror 3.3 f_cam beyond the corrector, and the focus
@@ -55,7 +56,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   wavelength's bundle is drawn less the dewar's shadow and returns as a hollow cone, and rays that meet the dewar
   stop there. Spatial and 3D draw the mirror camera as a lens. Presets carry layout values where the sources give
   them (presets.js header: Hectospec and Hectochelle tilt 0 with the grating at the collimator's center of curvature;
-  HIRES tilt 1.75° and a 2.94 m echelle path measured from Vogt et al. Fig. 1; LRIS a 2 m path). Double pass
+  the other on-axis collimators, tilt 0 with the slit in the returning beam, are LLAMAS, APOGEE, PFS, DESI and
+  Viaspec; validate.js (COL_AXIS) requires every mirror-collimator preset to be classified on or off the axis from
+  its sources, since an unset tilt draws the collimator off the axis; HIRES tilt 1.75° and a 2.94 m echelle path measured from Vogt et al. Fig. 1; LRIS a 2 m path). Double pass
   (echelle mode, key e.dpass, set by the MIKE presets; no control yet): one lens is drawn as both collimator and
   camera, the echelle at the collimated beam length from that lens (MIKE 400 and 600 mm, the cameras' external stop),
   the cross-disperser near the echelle and crossed by both beams, and the returning beam drawn a few degrees off the
@@ -205,7 +208,9 @@ web/arms.js, window.ARMSAPP). For an instrument listed in arms.js GROUPS, the Se
 shows the instrument's arms together with the dichroics that split the light. GROUPS holds each instrument's dichroic
 tree (crossover, transition width, angle of incidence, the arm on each side, and the source) and the place of the split:
 - "collimated" (DESI, Boombox, PFS, 4MOST LRS and HRS, LLAMAS, KCWI): one slit and collimator, with the dichroics in
-  the collimated beam. A mirror collimator returns the beam 36° off the slit's axis, as in the one-arm view.
+  the collimated beam. A mirror collimator returns the beam 36° off the slit's axis; an on-axis one (colTilt 0:
+  DESI, PFS, LLAMAS) returns the beam along the axis, past the slit, to the first dichroic (DESI's slit passes
+  through a slot in that dichroic and LLAMAS's dichroic carries the slit plate; drawn past the telescope's cone).
 - "focus" (X-Shooter, MIKE): the dichroics stand in the light spreading from the telescope's focus, drawn at the
   telescope's own focal ratio (GROUPS Ftel: X-Shooter f/13.41, Vernet et al. 2011 Sec. 2.2.7; MIKE f/11, Bernstein et
   al. 2003 Sec. 2.3). X-Shooter's arms each have a relay that images the focus on the arm's own slit; MIKE has one
@@ -596,7 +601,9 @@ not on the page. The band's wavelength enters only the diffraction width.
   corrector, at the mirror's center of curvature, so the mirror is larger than the aperture and the exit
   pupil lies past the focus), refractor. Reimaged: collimator f_col = F W one focal length past the focus, the
   pupil (where the bundles cross) at f_col + f_col²/L past the collimator (L the exit pupil's distance before the
-  focus), the camera f_cam = F_cam W just past the pupil; the effective focal ratio is F_cam. Mosaic: centered
+  focus), the camera f_cam = F_cam W just past the pupil (0.3 W; a preset's camGap, in mm, places the camera where a
+  source puts it: IMACS f/2 305 mm, MEASURED from Bigelow et al. 2003 Fig. 1; drawing only, since an ideal camera
+  focuses each collimated bundle f_cam behind itself wherever it stands); the effective focal ratio is F_cam. Mosaic: centered
   rows (top to bottom) of one chip format, with optional gaps per column and row, a shift per column (Roman's
   arc) and chips placed by hand (HSC's four turned chips). The field circle (a telescope's corrected field or an
   instrument's field stop) cuts the mosaic: the field is the chips inside the circle, its solid angle exact

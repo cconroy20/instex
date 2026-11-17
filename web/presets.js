@@ -57,7 +57,16 @@
    - Layout values (drawing only, from the sources' layouts): Hectospec and Hectochelle are Schmidt-geometry benches,
      an on-axis spherical collimator (tilt 0, the fiber slit inside the returning beam) with the grating at the
      mirror's center of curvature, 2749 mm (hardware manual, as-built Zemax prescription) and 2737 mm (Szentgyorgyi
-     et al. 2011, Table 2) from the collimator; HIRES tilts its spherical collimator by 1.75 deg (Vogt et al. 1994)
+     et al. 2011, Table 2) from the collimator.  ON-AXIS COLLIMATORS ARE SET EXPLICITLY (colTilt 0); left unset, a
+     mirror collimator gets the automatic off-axis tilt, so check the source for every new mirror-collimator preset.
+     On-axis, with the slit in the returning beam: Hectospec, Hectochelle, LLAMAS (pocket guide: "simple on-axis f =
+     200mm sphere"), APOGEE (Wilson et al. 2019: "on-axis uncorrected Schmidt camera for a collimator"), PFS (Vives et
+     al. 2012; Pascal et al. 2014: a Schmidt collimator "at the expense of the central obscuration"), DESI (DESI 2022
+     Sec. 7.1: the light passes "a slot in the NIR dichroic" and is "reflected directly back toward the fiber slit
+     array") and Viaspec (the Zemax layout of the Via technical document; the Via team).  Viaspec's fold mirror
+     (deviation 112.9 deg, at 0.78 of the path) and the 2750 mm collimator-to-grating path are MEASURED from that
+     layout, scaled by the 1375 mm slit-to-collimator distance (the path measures 2730 mm; 2750 = 2 f_col, the
+     Schmidt condition that puts the pupil on the grating).  HIRES tilts its spherical collimator by 1.75 deg (Vogt et al. 1994)
      and the collimator-to-echelle path, 2940 mm, is MEASURED from the side view of Vogt et al. Fig. 1, scaled by
      the 4155 mm slit-to-collimator distance; the LRIS red grating sits near the telescope focal plane (Oke et al.
      1995), so the collimator-to-grating path is set to f_col, 2000 mm.
@@ -614,9 +623,9 @@ const PRESETS = [
   ...[["blue", "b", 711.4, 7.2, 14.2, 4176, 4096, 0.7, 2500, 5000, 3800, 6500], ["red", "r", 556.7, 9.5, 16.5, 4176, 4096, 0.9, 3000, 8000, 6300, 9700],
       ["NIR", "n", 569.5, 14.9, 21.9, 4088, 4088, 0.8, 4500, 11000, 9400, 12600]].map(([arm, k, G, al, be, nx, ny, disp, Rp, lR, l0, l1]) => ({
     id: "pfs" + k, tel: "Subaru 8.2 m", name: "Subaru / PFS " + arm + " arm", inst: "PFS", setting: arm + " arm",
-    note: "Subaru PFS " + arm + " arm (Sugai et al. 2015; Barkhouser et al. 2014 design table; Subaru/IPMU PFS pages): fibers delivering f/2.8; core 129 µm at the spectrograph (cable A; 127 µm at the focal plane, 1.12″ on the sky through the microlens; Sugai et al. 2015 Table 1), entered at f/2.8, 129 µm / (2.8 × 8.2 m) = 1.16″, as the slit of equal line width; 616 spectra per detector (600 science + 16 engineering), Schmidt collimator mirror 693.5 mm (the slit-to-collimator distance; beam 248 mm at f/2.8), VPH " + G + " /mm at α = " + al + "°, β = " + be + "° (design values), camera 300 mm f/1.09, " + nx + " × " + ny + " pixels of 15 µm.",
+    note: "Subaru PFS " + arm + " arm (Sugai et al. 2015; Barkhouser et al. 2014 design table; Subaru/IPMU PFS pages): fibers delivering f/2.8; core 129 µm at the spectrograph (cable A; 127 µm at the focal plane, 1.12″ on the sky through the microlens; Sugai et al. 2015 Table 1), entered at f/2.8, 129 µm / (2.8 × 8.2 m) = 1.16″, as the slit of equal line width; 616 spectra per detector (600 science + 16 engineering), on-axis Schmidt collimator mirror 693.5 mm (the slit-to-collimator distance; beam 248 mm at f/2.8; the slit stands in the returning beam), VPH " + G + " /mm at α = " + al + "°, β = " + be + "° (design values), camera 300 mm f/1.09, " + nx + " × " + ny + " pixels of 15 µm.",
     state: { mode: "grating", D: 8.2, F: 2.8,
-      g: { slitW: S3 * 0.129 / (2.8 * 8200) * 206264.806, nObj: 616, col: "mirror", W: 693.5 / 2.8, fcam: 300, gType: "trans", G, m: 1, lamB1: 5000,
+      g: { slitW: S3 * 0.129 / (2.8 * 8200) * 206264.806, nObj: 616, col: "mirror", colTilt: 0, W: 693.5 / 2.8, fcam: 300, gType: "trans", G, m: 1, lamB1: 5000,
            lamC: (Math.sin(al * Math.PI / 180) + Math.sin(be * Math.PI / 180)) / G * 1e7, psi: 35, tAlpha: al, Nx: nx, Ny: ny, pix: 15 } },
     pub: [
       { what: "~" + disp + " Å/px", q: "dlpix", value: disp, info: true, src: "Subaru/IPMU PFS parameter table (Subaru PFS page: the same); one significant figure, so a reference line" + (k === "n" ? " (the NIR detector map in the pipeline's data is a simulation, so no measured test)" : ": the measured detector map below tests the dispersion") },
@@ -630,7 +639,7 @@ const PRESETS = [
     id: "apogee", tel: "SDSS 2.5 m", name: "SDSS / APOGEE-N",
     note: "APOGEE-N on the Sloan 2.5 m (Wilson et al. 2019, as-built prescription; SDSS DR16 pages): 120 µm fibers, 2.0″ on the sky at the telescope's f/5; the explorer enters the core at the f/3.85 VPH-mask stop, 120 µm / (3.85 × 2.5 m) = 2.57″, as the slit of equal line width, 2.23″; 300 spectra (≈230 science, 35 sky, 35 telluric), on-axis spherical collimator mirror 1053.6 mm (half the cold radius; beam 273.7 mm), VPH 1009.345 /mm at α = 54.061°, camera 356 mm, three H2RG 2048² of 18 µm side by side with 2.9 mm gaps (entered as 6466 px with the gaps as dead pixels; the gaps are not drawn). The detector center λc = 16158 Å is fitted to the published chip edges: the real detectors sit off the camera axis.",
     state: { mode: "grating", D: 2.5, F: 3.85,
-      g: { slitW: S3 * 0.120 / (3.85 * 2500) * 206264.806, nObj: 300, col: "mirror", W: 1053.6 / 3.85, fcam: 356, gType: "trans", G: 1009.345, m: 1, lamB1: 5000, lamC: 16158,
+      g: { slitW: S3 * 0.120 / (3.85 * 2500) * 206264.806, nObj: 300, col: "mirror", colTilt: 0, W: 1053.6 / 3.85, fcam: 356, gType: "trans", G: 1009.345, m: 1, lamB1: 5000, lamC: 16158,
            psi: 35, tAlpha: 54.061, Nx: 6466, Ny: 2048, pix: 18 } },
     pub: [
       { what: "coverage from 15140 Å", q: "lo", value: 15140, info: true, src: "Wilson et al. 2019 Sec. 4 (chip edges). Not a test: λc was fitted to the two outer edges" },
@@ -647,9 +656,9 @@ const PRESETS = [
   ...[["B", 1103.5, 11.48, 212.8, 3600, 5930, 2000, 3000, 4809, 3561, 5996], ["R", 1157.4, 18.73, 213.6, 5660, 7720, 3500, 4500, 6768, 5631, 7823], ["Z", 992.5, 21.19, 214.0, 7470, 9800, 4000, 5500, 8712, 7413, 9907]]
     .map(([arm, G, al, fc, l0, l1, r0, r1, lc, c0, c1]) => ({
       id: "desi" + arm.toLowerCase(), tel: "Mayall 4 m", name: `Mayall / DESI ${arm} arm`, inst: "DESI", setting: `${arm} arm`,
-      note: `DESI ${arm} arm (DESI Collaboration 2022; Final Design Report; Guy et al. 2023): fiber-fed, 107 µm core, 1.585″ on the sky at the field center; the explorer enters the core at the f/3.57 collimator, 107 µm / (3.57 × 3.797 m) = 1.63″, as the slit of equal line width, 1.41″; f/3.57 collimator with a 126 mm pupil, transmission grating ${G} /mm at ${al}° incidence (as built), ${fc} mm f/1.7 camera (the Final Design Report's budgeted value), ${arm === "B" ? "4096 × 4096" : "4114 × 4128 (Guy et al. 2023: rows along the wavelength; the 4128 taken as the rows, INFERRED)"} pixels of 15 µm. Central wavelength ${lc} Å, which places the chip on the range Guy et al. 2023 measure for the ${arm} camera, ${c0}–${c1} Å; the dichroics trim the band to ${l0}–${l1} Å.`,
+      note: `DESI ${arm} arm (DESI Collaboration 2022; Final Design Report; Guy et al. 2023): fiber-fed, 107 µm core, 1.585″ on the sky at the field center; the explorer enters the core at the f/3.57 collimator, 107 µm / (3.57 × 3.797 m) = 1.63″, as the slit of equal line width, 1.41″; on-axis f/3.57 spherical collimator with a 126 mm pupil (the light reaches the mirror through a slot in the first dichroic and returns toward the slit), transmission grating ${G} /mm at ${al}° incidence (as built), ${fc} mm f/1.7 camera (the Final Design Report's budgeted value), ${arm === "B" ? "4096 × 4096" : "4114 × 4128 (Guy et al. 2023: rows along the wavelength; the 4128 taken as the rows, INFERRED)"} pixels of 15 µm. Central wavelength ${lc} Å, which places the chip on the range Guy et al. 2023 measure for the ${arm} camera, ${c0}–${c1} Å; the dichroics trim the band to ${l0}–${l1} Å.`,
       state: { mode: "grating", D: 3.797, F: 3.57,
-        g: { slitW: S3 * 0.107 / (3.57 * 3797) * 206264.806, nObj: 500, col: "mirror", W: 126, fcam: fc, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
+        g: { slitW: S3 * 0.107 / (3.57 * 3797) * 206264.806, nObj: 500, col: "mirror", colTilt: 0, W: 126, fcam: fc, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
              psi: 35, tAlpha: al, Nx: arm === "B" ? 4096 : 4128, Ny: arm === "B" ? 4096 : 4114, pix: 15 } },
       pub: [
         { what: `R ≈ ${r0} at ${l0} Å`, q: "RAt", lam: l0, value: r0, info: true, src: `DESI Collaboration 2022 Sec. 7.2 ("approximately" ${r0}–${r1} for the arm, an approximate range, read here at the band edges). Guy et al. 2023 Fig. 13 measures the PSF's FWHM along the dispersion, 2.8–3.3 px; the model's fiber image is 2–6% wider, so the model's R runs 2–6% below the measured` },
@@ -681,9 +690,9 @@ const PRESETS = [
     // Audited 2026-11-16 (data/audit/): the design of the Viaspec spectral-resolution tech memo (rev 3, 2024) and the
     // Viaspec vital-stats table: collimator 1375 mm, camera EFL 409.881 mm, grating at 33.57° with the camera tilted
     // 33.57° to the grating (camera axis at 5530 Å); the 120 µm slit mask of the Via Science Book (2026).
-    note: "Viaspec (Via technical document; Via Science Book, 2026; Viaspec resolution tech memo, rev. 3): 6.5 m, fibers delivering f/5.3, 660 fibers into the spectrograph (540 positioned, 60 fixed fiducial/sky, 60 carrying argon lamp lines; the Science Book's table gives 600), 200 µm (1.2″) behind the 120 µm slit mask, collimator 1375 mm (f/5.41 on the 254 mm beam; the explorer enters the mask at that ratio, 0.70″), 2000 /mm binary transmission grating tilted 33.57°, with the camera tilted 33.57° to the grating, so the camera axis is at 5530 Å, camera 409.88 mm (f/1.61), 9216 × 9232 CCD290 of 10 µm (entered as 9216 × 9216). The memo's ±5.7° is the field along the slit.",
+    note: "Viaspec (Via technical document; Via Science Book, 2026; Viaspec resolution tech memo, rev. 3): 6.5 m, fibers delivering f/5.3, 660 fibers into the spectrograph (540 positioned, 60 fixed fiducial/sky, 60 carrying argon lamp lines; the Science Book's table gives 600), 200 µm (1.2″) behind the 120 µm slit mask, on-axis Schmidt collimator 1375 mm (f/5.41 on the 254 mm beam; the explorer enters the mask at that ratio, 0.70″) with the slit standing in the returning beam; a plano fold mirror turns the beam 113° toward the grating, which stands at the pupil, 2750 mm (twice the focal length) from the collimator (the fold's angle and position MEASURED from the Zemax layout of the Via technical document); 2000 /mm binary transmission grating tilted 33.57°, with the camera tilted 33.57° to the grating, so the camera axis is at 5530 Å, camera 409.88 mm (f/1.61), 9216 × 9232 CCD290 of 10 µm (entered as 9216 × 9216). The memo's ±5.7° is the field along the slit.",
     state: { mode: "grating", D: 6.5, F: 1375 / 254,
-      g: { slitW: 0.120 / (1375 / 254 * 6500) * 206264.806, traceW: S3 * 0.2 / (1375 / 254 * 6500) * 206264.806, nObj: 660, col: "mirror", W: 254, fcam: 409.881, gType: "trans", G: 2000, m: 1, lamB1: 5500, lamC: 5530, psi: 35, tAlpha: 33.57, Nx: 9216, Ny: 9216, pix: 10 } },
+      g: { slitW: 0.120 / (1375 / 254 * 6500) * 206264.806, traceW: S3 * 0.2 / (1375 / 254 * 6500) * 206264.806, nObj: 660, col: "mirror", colTilt: 0, layLen: 2750, foldOn: true, foldAng: 112.9, foldPos: 0.78, gFlip: true, W: 254, fcam: 409.881, gType: "trans", G: 2000, m: 1, lamB1: 5500, lamC: 5530, psi: 35, tAlpha: 33.57, Nx: 9216, Ny: 9216, pix: 10 } },
     pub: [
       { what: "R ≈ 15,000 (design)", q: "Rs", value: 15000, tol: 0.08, src: "Via technical document; the designer's table gives 15,116 at 0.70″ (the mask image with a Gaussian optical blur, no pixels)" },
       { what: "5.5 km/s per pixel", q: "dlpix", value: 5500 * 5.5 / 299792.458, tol: 0.05, src: "Via technical document" },

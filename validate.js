@@ -339,5 +339,44 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
   }
 }
 
+// ---- Mirror collimators: on the axis or off it.  Left unset, a mirror collimator is drawn with the automatic off-axis
+// tilt; an on-axis collimator (the slit standing in the returning beam) needs colTilt 0, which the All-arms view also
+// reads.  Every preset with a mirror collimator must be classified here from its sources, so that no preset takes the
+// automatic tilt unchecked.  "off*" = inferred from the design type; "unverified" = the sources do not say.
+{
+  const PRESETS = require("./web/presets.js");
+  const COL_AXIS = [
+    [/^(hectospec|hectochelle)$/, "on", "Fabricant et al. 2005 (hardware manual); Szentgyorgyi et al. 2011"],
+    [/^llamas/, "on", "LLAMAS pocket guide 2017 Sec. 3.3: \"simple on-axis f = 200mm sphere\""],
+    [/^apogee$/, "on", "Wilson et al. 2019 Sec. 4: \"an on-axis uncorrected Schmidt camera for a collimator\""],
+    [/^pfs/, "on", "Vives et al. 2012, 2014 Fig. 2; Pascal et al. 2014: Schmidt collimator with the central obscuration"],
+    [/^desi/, "on", "DESI 2022 Sec. 7.1: \"reflected directly back toward the fiber slit array\""],
+    [/^via$/, "on", "Via technical document, Zemax layout (the slit in the returning beam)"],
+    [/^lris$/, "off", "Oke et al. 1995 Sec. 2: off-axis parabola"],
+    [/^hires$/, "off", "Vogt et al. 1994: spherical, tilted 1.75 deg"],
+    [/^mage$/, "off", "Marshall et al. 2008: off-axis paraboloid"],
+    [/^fire$/, "off", "Simcoe et al. 2013 Sec. 3.2.2: off-axis paraboloid"],
+    [/^esi$/, "off", "Sheinis et al. 2002; 1996 design report: used off axis"],
+    [/^deimos$/, "off", "data/layout/deimos.md: the beam arrives 5.1 deg off the axis (tilt -2.8 deg)"],
+    [/^gclef$/, "off", "Ben-Ami et al. 2016 Table 5: off-axis parabola"],
+    [/^espresso/, "off", "Santana Tschudi et al. 2014 Table 1: off-axis parabola"],
+    [/^uves/, "off", "UVES user manual Sec. 2.2.2: off-axis parabolas"],
+    [/^xsh/, "off", "Vernet et al. 2011 Secs. 2.3-2.5: off-axis Maksutov-type collimators"],
+    [/^feros$/, "off", "FEROS Final Design Report Sec. 3.4: off-axis paraboloids"],
+    [/^4most/, "off", "Laurent et al. 2020, 2026 (LRS); Hansen et al. 2015 (HRS concept): off-axis Schmidt collimators"],
+    [/^harps$/, "off*", "ESO HARPS description: parabola in triple pass, a white-pupil layout"],
+    [/^zsh/, "off*", "ZShooter optical-design page: parabolic collimator feeding a white-pupil relay"],
+    [/^(kcwib|kcrm)$/, "unverified", "Morrissey et al. 2018 give a spherical collimator, without its axis"],
+  ];
+  for (const p of PRESETS) for (const k of ["g", "e"]) {
+    const m = p.state && p.state[k];
+    if (!m || m.col !== "mirror") continue;
+    const row = COL_AXIS.find(([re]) => re.test(p.id)), on = m.colTilt === 0;
+    if (!row) { check(`preset ${p.id}: mirror collimator on or off the axis`, false, "not classified: find the collimator's geometry in the sources and add the preset to COL_AXIS (colTilt 0 if on the axis)"); continue; }
+    if (row[1] === "unverified") { console.log(`[INFO] preset ${p.id}: mirror collimator drawn off the axis, UNVERIFIED  --  ${row[2]}`); continue; }
+    check(`preset ${p.id}: mirror collimator ${row[1] === "on" ? "on" : "off"} the axis`, on === (row[1] === "on"), `colTilt ${m.colTilt === undefined ? "auto" : m.colTilt}; ${row[2]}`);
+  }
+}
+
 console.log(`\n${npass} passed, ${nfail} failed`);
 process.exit(nfail ? 1 : 0);

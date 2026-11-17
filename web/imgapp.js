@@ -19,7 +19,7 @@ const bandOf = k => BANDS.find(b => b.k === k) || BANDS[0];
 // the instrument's defaults (imager.js) and the drawing's
 const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false, depth: 25 });
 // drawing-only keys (they keep a preset's name)
-const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "nasSide", "view", "annot", "moon", "stretch", "depth"]);
+const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "nasSide", "view", "annot", "moon", "stretch", "depth", "camGap"]);
 let S = clone(DEF), presetId = "custom";
 const PRESETS = window.IX_IPRESETS || [];
 

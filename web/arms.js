@@ -243,16 +243,21 @@ root.ARMSAPP = function (H) {
       prims.push({ k: "poly", p: telCone, fill: "rgba(214,160,50,0.18)", stroke: "rgba(214,160,50,0.6)" });
       labs.push({ at: v(-Lt, 0), txt: "telescope", sub: "f/" + sig(a0.P.F, 3), pri: 2, dir: v(-1, 0) });
       if (a0.P.col === "mirror") {
-        // a mirror collimator: the light from the slit to the mirror, returned RET off the axis, past the slit
-        const M = v(fC, 0), r0 = rot(v(-1, 0), cfg.ret * RET), nM = nrm(sub(r0, v(1, 0))), tM = perp(nM);
-        const hf = 0.5 * W / Math.cos(RET / 2), hm = 1.12 * hf;
+        // a mirror collimator: the light from the slit to the mirror, returned RET off the axis, past the slit.  An
+        // on-axis mirror (colTilt 0: DESI, PFS, LLAMAS) returns the light along the axis, the slit standing in the
+        // returning beam, and the first dichroic follows the slit (DESI's slit passes through a slot in that dichroic,
+        // LLAMAS's dichroic carries the slit plate; here placed past the telescope's cone, for clarity)
+        const onAx = a0.P.colTilt === 0, tilt = onAx ? 0 : RET;
+        const M = v(fC, 0), r0 = rot(v(-1, 0), onAx ? 0 : cfg.ret * RET), nM = nrm(sub(r0, v(1, 0))), tM = perp(nM);
+        const hf = 0.5 * W / Math.cos(tilt / 2), hm = 1.12 * hf;
         prims.push({ k: "poly", p: [v(0, 0), ad(M, sc(tM, hf)), ad(M, sc(tM, -hf))], fill: WHITE_F, stroke: WHITE_S });
         prims.push({ k: "mirror", c: M, t: tM, n: nM, h: hm });
         labs.push({ at: ad(M, sc(nM, -0.04 * W)), txt: "collimator", sub: "f = " + mm(fC), pri: 2, dir: sc(nM, -1) });
-        body([hull([...telCone, v(0, 0.06 * W), v(0, -0.06 * W)])], ["tel"]);
+        // (on the axis the telescope's cone lies inside the returning beam: the two share the tag n0)
+        body([hull([...telCone, v(0, 0.06 * W), v(0, -0.06 * W)])], onAx ? ["tel", "n0"] : ["tel"]);
         body([hull([v(0.3 * fC, 0.15 * W), v(0.3 * fC, -0.15 * W), ad(M, sc(tM, 0.8 * hf)), ad(M, sc(tM, -0.8 * hf))])], ["tel", "col"]);
         body([hull([ad(M, sc(tM, hm)), ad(M, sc(tM, -hm)), ad(ad(M, sc(tM, hm)), sc(nM, -0.08 * W)), ad(ad(M, sc(tM, -hm)), sc(nM, -0.08 * W))])], ["col"]);
-        const L0 = (1.4 * W + 40) * cfg.L0;
+        const L0 = onAx ? fC + Lt + (0.4 * W + 20) * cfg.L0 : (1.4 * W + 40) * cfg.L0;
         first = ad(M, sc(r0, L0)); dir0 = r0;
         seg(M, first, W, W, null, ["col", "n0"]);
       } else {
@@ -371,7 +376,9 @@ root.ARMSAPP = function (H) {
   function choose(G, arms, aspect) {
     const nd = nodes(G.tree), ids = leaves(G.tree);
     nd.forEach((n, k) => { n._k = k; });
-    const nS = nd.length + ids.length + (G.split === "collimated" ? 1 : 0);
+    // (the side to which a mirror collimator returns the light is one more choice, except on the axis)
+    const a0 = arms.find(a => !a.D.bad && a.D.c), onAx = !!a0 && a0.P.col === "mirror" && a0.P.colTilt === 0;
+    const nS = nd.length + ids.length + (G.split === "collimated" && !onAx ? 1 : 0);
     const make = (bits, L, L0) => ({ ds: nd.map((_, k) => (bits >> k) & 1 ? -1 : 1), af: Object.fromEntries(ids.map((id, i) => [id, (bits >> (nd.length + i)) & 1 ? -1 : 1])), ret: (bits >> (nd.length + ids.length)) & 1 ? -1 : 1, L, L0 });
     const evalC = c => { const r = scoreOf(scene(G, arms, c), aspect); return { c, ov: r.ov, s: r.s }; };
     const cost = (r, sMax) => 8 * r.ov + sMax / r.s;
@@ -399,7 +406,7 @@ root.ARMSAPP = function (H) {
   // the choice is kept while the design stays in the same coarse bin (and the panel keeps its shape)
   const memo = new Map();
   function configFor(G, inst, arms, aspect) {
-    const key = inst + "|" + Math.round(aspect * 3) + "|" + arms.map(a => a.D.bad || !a.D.c ? "x" : [a.id, Math.round(Math.log(a.P.W) * 3), Math.round(Math.log(a.D.fcam) * 3), Math.round(((a.D.alpha || 0) + (a.D.beta || 0) + (a.D.psi || 0)) / (10 * DEG)), a.P.gType, a.P.col].join(",")).join(";");
+    const key = inst + "|" + Math.round(aspect * 3) + "|" + arms.map(a => a.D.bad || !a.D.c ? "x" : [a.id, Math.round(Math.log(a.P.W) * 3), Math.round(Math.log(a.D.fcam) * 3), Math.round(((a.D.alpha || 0) + (a.D.beta || 0) + (a.D.psi || 0)) / (10 * DEG)), a.P.gType, a.P.col + (a.P.colTilt === 0 ? "0" : "")].join(",")).join(";");
     if (!memo.has(key)) { if (memo.size > 60) memo.clear(); memo.set(key, choose(G, arms, aspect)); }
     nodes(G.tree).forEach((n, k) => { n._k = k; });
     return memo.get(key);

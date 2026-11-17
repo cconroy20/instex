@@ -235,3 +235,8 @@ Entrance pupil:
 - Clay instruments 2026: LDSS3 permanent at NASW; NASE rotates MIKE, PFS, M2FS/IFU-M, PISCO, MagAO-X, WINERED and visitors; Megacam (f/5) no longer offered (LCOMI); DM24 counts eight instruments sharing one Nasmyth port and the Cassegrain focus; DM26: the second Nasmyth port is being made flexible.
 - The MagAO ASM (85.1 cm, F/16) replaces the f/11 secondary for AO use; MagAO-X instead uses the static f/11 secondary with its own DMs (C18X).
 
+
+## Revised 2026-11-17 (a colleague's notes on the Telescopes page)
+
+- Folded ports: the preset had drawn them with backN 0.5 D against the Nasmyth stations' 0.8 D. In the model the back focal distance sets the secondary's spacing, so the same f/11 secondary sat at two positions. One secondary and one flat tertiary, turned about the axis, feed all five f/11 stations (FIREM, LCOT), so the folded ports now take the Nasmyth geometry; the focus distances themselves remain unpublished (schematic).
+- f/5 obstruction: 0.277 was the bare 1.8 m mirror, while the f/11 value, 0.29, is the secondary baffle (MXP51, M18, L26, HCI), so the page showed f/11 more obstructed than f/5. Mirror for mirror the f/5 is larger (0.277 vs ~0.20). The f/5 eps is now 0.343, DERIVED so that the drawn pupil (with the f/11 vanes) has the 29 m^2 of M15, the only published figure that includes the f/5 baffles (cylindrical M2 baffle, ringed midbaffle, short M1 baffle; sizes not published). The round 29 m^2 makes 0.343 approximate.
