@@ -562,6 +562,19 @@ SPIE and forecast papers); the page keeps the UTM sense (the text of HIG26 and t
 1.99° west of true north), and the conflict with HIG26's figure stays noted in data/interf/chord.md. The header at
 1100 px: the Interferometer's note keeps its width, so the Preset menu shrank to one letter; fitHeader now moves the
 note under the bar when the note squeezes the menu. validate_int 116.
+The transit arrays' map (11-17; a colleague's point, "the primary beam beats down those aliases", and his call that the
+page be a fair show of CHIME): a transit telescope maps the sky as the sky drifts, each direction from the data taken
+as the direction crosses the meridian, so each map point sees the sky through the synthesized beam times the primary
+beam's east-west power pattern, and the map is the sky convolved with that product. interf.js gridEnv convolves the
+gridded weights along u with the envelope's transform (envKernel: the inverse DFT of the envelope sampled on the image
+grid, exact on the grid), each channel with the channel's own envelope (θ_EW ∝ 1 / ν; at most 16 channel groups). The
+envelope is λ / D (the snapshot's), independent of Time in the beam: following each pixel through the transit with
+beam-power weights widens the envelope (first alias 30% for 9 min, 43% for the whole transit) and gains a
+signal-to-noise the page does not show. North-south the beam stays fixed, so the sky carries the north-south pattern
+(R.skyPB = { ew: Infinity, ns }), and CHORD's north-south aliases keep their full height. Peak sidelobe (whole image
+grid): CHIME +95% -> +19% at 600 MHz, +8% over 400-800 MHz; CHORD +78% at 900 MHz (the north-south alias), +6% over
+its band. The Input image drops the east-west taper and the dashed east-west lines (CHORD: north-south half-power
+lines); the Coverage panel shades each sample's strip along u (the envelope's transform). validate_int 120.
 
 ## Imager mode
 

@@ -277,6 +277,11 @@ function compute(fast) {
   const B = pcache.B, L = B.len, on = nOn;
   const R = { a, ants, lat, nu, bw, lam, L, on, nb: B.total, nbUsed: B.length, sub: B.sub, Bmax: ecache.ex.bmax, Bmin: ecache.ex.bmin, dur };
   R.pb = pbOf(S.nu);
+  // A transit array (CHIME, CHORD) maps the sky as the sky drifts through the beam (RI.gridEnv): the map's beam is the
+  // synthesized beam times the primary beam's east-west envelope, channel by channel, and the sky carries only the
+  // beam's north-south pattern
+  R.drift = !!a.transit && !a.geo && !a.single;
+  R.skyPB = R.drift ? { ew: Infinity, ns: typeof R.pb === "object" ? R.pb.ns : R.pb } : R.pb;
   // the image grid: twice the field across (so that the beam's sidelobes and the sky do not wrap into the field),
   // at about one pixel per screen pixel; and the input image on the grid, drawn whether or not there are samples
   {
@@ -356,8 +361,10 @@ function compute(fast) {
   R.cell = cell;
   w = RI.weigh(Sm, S.wt, S.rob, cell);
   }
-  // the weights on a grid: the samples gridded, or a single dish's aperture put straight onto the cells
-  const gridAt = (nn, du) => (R.single ? RI.apertureGrid(Sm.single, nn, du) : RI.grid(Sm, w, nn, du));
+  // the weights on a grid: the samples gridded (for a transit array, convolved along u with each channel's east-west
+  // envelope), or a single dish's aperture put straight onto the cells
+  const ewOf = nuHz => pbEW(pbOf(nuHz / 1e9));
+  const gridAt = (nn, du) => (R.single ? RI.apertureGrid(Sm.single, nn, du) : R.drift ? RI.gridEnv(Sm, w, nn, du, ewOf) : RI.grid(Sm, w, nn, du));
   // the beam's size and sidelobes, measured on a grid of its own (pixels 1/20 of the shortest fringe), coarser
   // if the main lobe does not fit
   const nm = fast ? 256 : 512;
@@ -366,18 +373,20 @@ function compute(fast) {
     const f = RI.fitBeam(Dm.beam, nm, pixm);
     if (f) { R.beam = f; R.side = RI.sidelobe(Dm.beam, nm, 1.5 * f.maj / pixm); break; }
   }
-  // the dirty image: the weights times the sky's (times the primary beam) visibilities, on the image grid
+  // the dirty image: the weights times the sky's (times the primary beam, or a transit array's north-south pattern)
+  // visibilities, on the image grid
   const { n, pix, F, model, imd } = R.grid;
   const G = gridAt(n, 1 / (2 * F));
   R.drop = R.single ? G.drop : G.drop / Sm.n;
-  const key = JSON.stringify([S.sky, S.size, n, pix, R.pb, imd ? imd.w : 0]);
-  if (vcache.key !== key) vcache = { key, V: RI.pointVis(model, S.size / RAD, n, 1 / (2 * F), R.pb) || RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
+  const key = JSON.stringify([S.sky, S.size, n, pix, R.skyPB, imd ? imd.w : 0]);
+  if (vcache.key !== key) vcache = { key, V: RI.pointVis(model, S.size / RAD, n, 1 / (2 * F), R.skyPB) || RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.skyPB, imd), n) };
   Object.assign(R, { D: RI.dirty(G.g, vcache.V, n), w });
   // A regular grid of dishes (CHORD, flagged aliases; the made-up Grid layout) has grating lobes, copies of the main
   // lobe at λ over the grid's spacings, beyond the ±12.8 λ / B_max of the search above: the peak sidelobe is then also
-  // searched over the whole image grid, the field on either side of the center (audit X, 2026-11-16)
+  // searched over the whole image grid, the field on either side of the center (audit X, 2026-11-16). The same search
+  // for a transit array's map beam, whose envelope reaches beyond the search above.
   R.aliases = !R.single && !!R.beam && ((S.lay === "built" && !!a.aliases) || S.lay === "grid");
-  if (R.aliases) {
+  if (R.aliases || (R.drift && R.beam)) {
     const wide = RI.sidelobe(R.D.beam, n, Math.max(2, 1.5 * R.beam.maj / pix));
     R.sideWide = wide;
     if (Math.abs(wide) > Math.abs(R.side || 0)) R.side = wide;
@@ -431,6 +440,8 @@ function renderText(R) {
   ]);
   const upTxt = R.up < 0 || (R.dur > 0 && R.up === 0) ? "below the limit" : R.dur > 0 ? (R.up >= 1 && R.dur >= 1 ? sig(R.up, 3) : fDur(R.up)) + " of " + fDur(R.dur) : "yes";
   const pbTxt = typeof R.pb === "object" ? fAng2(R.pb.ew * RAD, R.pb.ns * RAD, 2) : fAng(R.pb * RAD, 2);
+  // a transit array's map (RI.gridEnv)
+  const DRIFT_TXT = "The sky drifts through the beam, and the telescope maps the sky direction by direction, each direction from the data taken as the direction crosses the meridian. Each point of the map then sees the sky through the synthesized beam times the beam's east-west power pattern, channel by channel, so the map is the sky convolved with that product, the beam shown. North-south the beam stays fixed, and the page applies the beam's north-south pattern to the sky. Each sample is weighted by the beam's power toward the source as the source drifts across, 1 at transit and 1/2 at the half-power edges.";
   rows($("rObsR"), a.geo ? [
     ["Two stations up", upTxt, "The part of the observation with the source above the limit at two stations or more. A baseline samples only while the source is above the limit at both of its stations, each station at its own hour angle and elevation."],
     ["Stations up", R.sta ? R.staUp + " of " + R.nSites : "–", "The stations that see the source above their limits at some time during the observation (a site with many feeds counts once). A station on the far side of the Earth from the source sees nothing."],
@@ -438,8 +449,8 @@ function renderText(R) {
   ] : a.transit ? [
     ["Within reach", R.reach ? "yes" : "no", a.reachNote || ""],
     ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|. The array is at latitude " + fDeg(a.lat) + "."],
-    ["Primary beam", pbTxt, typeof R.pb === "object" ? `The field of view, east-west × north-south: the half-power widths of one feed's beam on the sky (${a.pbSource}), at the frequency set. The cylinder focuses the light in the east-west direction only, so the beam is a narrow strip along the meridian. The page applies the beam to the sky as the beam stands at the moment of transit, and weights each sample by the beam's power toward the source as the source drifts across, 1 at transit and 1/2 at the half-power edges.`
-      : `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. The dishes do not track, so the page applies the beam to the sky as the beam stands at the moment of transit, and weights each sample by the beam's power toward the source as the source drifts across, 1 at transit and 1/2 at the half-power edges.`],
+    ["Primary beam", pbTxt, typeof R.pb === "object" ? `The field of view, east-west × north-south: the half-power widths of one feed's beam on the sky (${a.pbSource}), at the frequency set. The cylinder focuses the light in the east-west direction only, so the beam is a narrow strip along the meridian. ${DRIFT_TXT}`
+      : `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. The dishes do not track. ${DRIFT_TXT}`],
   ] : [
     ["Above the limit", upTxt, "The part of the observation with the source above the elevation limit. Hour angles with the source below the limit give no samples."],
     ["Shadowed", R.shadow === null || R.shadow === undefined ? "–" : R.shadow > 0 ? (R.shadow < 0.001 ? "< 0.1%" : sig(100 * R.shadow, 2) + "%") + " of samples" : "none", "The samples lost to shadowing. Seen from a low source, one dish can stand in front of another: an antenna is shadowed when another antenna nearer the source stands within a dish diameter of the first one's line of sight. The shadowed antenna's baselines give no samples at that moment, as the observatories flag them. Shadowing affects compact configurations observing low sources."],
@@ -454,8 +465,9 @@ function renderText(R) {
   if (!(R.S && R.S.n)) las = NaN;
   const bm = R.beam;
   rows($("rImgR"), [
-    ["Beam", bm ? fAng2(bm.maj * RAD, bm.min * RAD) + ", PA " + Math.round(bm.pa) + "°" : R.S && R.S.n ? "–" : "no samples", "The synthesized beam, the resolution: the FWHM of an elliptical Gaussian fitted to the synthesized beam's main lobe (major × minor axis), and the position angle of the major axis, east of north."],
-    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within ~10 beams of the center), relative to the peak. Negative sidelobes are the blue rings and troughs." + (R.aliases ? " For a regular grid of dishes the search also covers the whole image grid, the field on either side of the center, so the grating lobes count: copies of the main lobe at λ over the grid's spacings" + (a.aliasNote && S.lay === "built" ? ", " + a.aliasNote : "") + "." : "")],
+    ["Beam", bm ? fAng2(bm.maj * RAD, bm.min * RAD) + ", PA " + Math.round(bm.pa) + "°" : R.S && R.S.n ? "–" : "no samples", "The synthesized beam, the resolution: the FWHM of an elliptical Gaussian fitted to the synthesized beam's main lobe (major × minor axis), and the position angle of the major axis, east of north." + (R.drift ? " For a transit array the beam shown is the map's beam: the synthesized beam times the primary beam's east-west power pattern (see Primary beam)." : "")],
+    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within ~10 beams of the center), relative to the peak. Negative sidelobes are the blue rings and troughs." + (R.drift ? " For a transit array the sidelobes are those of the map's beam, the synthesized beam times the primary beam's east-west power pattern, and the search covers the whole image grid, the field on either side of the center. A regular layout repeats the main lobe at λ over the layout's spacings" + (a.aliasNote && S.lay === "built" ? ", " + a.aliasNote : "") + ". The east-west power pattern subdues the east-west copies, and over a wide band the copies smear radially, since λ over a spacing changes across the band." + (a.cyl ? " The feeds stand 0.3048 m apart along each cylinder, which places the north-south copies below the horizon." : " North-south the dishes stay pointed at one declination, so the north-south copies keep their full height in the map's beam.")
+      : R.aliases ? " For a regular grid of dishes the search also covers the whole image grid, the field on either side of the center, so the grating lobes count: copies of the main lobe at λ over the grid's spacings" + (a.aliasNote && S.lay === "built" ? ", " + a.aliasNote : "") + "." : "")],
     ["Largest scale", isFinite(las) ? "≈ " + fAng(las, 2) : "–", "The largest recoverable scale, approximately the largest structure the array images well (" + lasSrc + "). A smooth source much larger than this scale is resolved out, and the source's flux goes missing."],
   ]);
 }
@@ -766,6 +778,30 @@ function drawPanel(R) {
       const sp = W / (2 * ext) * (Math.max(R.a.single.ew, R.a.single.ns) / R.lam) / 72, rr = Math.max(0, Math.ceil(sp / 2));
       for (let k = 0; k < Sm.n; k++) { const t = Sm.w0[k], c = [0, 1, 2].map(i => Math.round(cM[i] + (cU[i] - cM[i]) * Math.min(1, t))); dot(Sm.u[k], Sm.v[k], c, rr); dot(-Sm.u[k], -Sm.v[k], c, rr); }
     } else {
+      // A transit array's map: each sample stands for a strip of spacings along u, the transform of the east-west
+      // envelope (a Gaussian of rms 1 / (2π σ) wavelengths, σ the envelope's rms width), shaded under the samples (the
+      // shade's peak where the strips overlap). The channels in at most 8 groups, each with the group's own width.
+      if (R.drift) {
+        const nCh = Sm.nCh || 1, G = Math.min(nCh, 8), shd = new Float32Array(W * Hh), occ = new Uint8Array(W * Hh);
+        for (let gi = 0; gi < G; gi++) {
+          const c0 = Math.floor(gi * nCh / G), c1 = Math.floor((gi + 1) * nCh / G);
+          let nuG = 0; for (let c = c0; c < c1; c++) nuG += Sm.nus[c]; nuG /= c1 - c0;
+          const su = Math.sqrt(2 * Math.LN2) / (Math.PI * pbEW(pbOf(nuG / 1e9))) * sx, rr = Math.ceil(2.6 * su);
+          const prof = Float32Array.from({ length: rr + 1 }, (_, d) => Math.exp(-d * d / (2 * su * su))), list = [];
+          occ.fill(0);
+          for (let c = c0; c < c1; c++) for (let k = c; k < Sm.n; k += nCh) for (const s of [1, -1]) {
+            const px = Math.round(W / 2 + s * Sm.u[k] * sx), py = Math.round(Hh / 2 - s * Sm.v[k] * sy);
+            if (px < 0 || py < 0 || px >= W || py >= Hh) continue;
+            const i = py * W + px; if (!occ[i]) { occ[i] = 1; list.push(i); }
+          }
+          for (const i of list) {
+            const x = i % W, row = i - x;
+            for (let dd = -rr; dd <= rr; dd++) { const xx = x + dd; if (xx < 0 || xx >= W) continue; const t = prof[dd < 0 ? -dd : dd]; if (t > shd[row + xx]) shd[row + xx] = t; }
+          }
+        }
+        const cF = [222, 232, 242];
+        for (let i = 0; i < W * Hh; i++) { const t = shd[i]; if (t < 0.03) continue; const k = 4 * i; for (let j = 0; j < 3; j++) d[k + j] = Math.round(255 - (255 - cF[j]) * t); d[k + 3] = 255; }
+      }
       for (let k = 0; k < Sm.n; k += stride) dot(-Sm.u[k], -Sm.v[k], cM, r0);
       for (let k = 0; k < Sm.n; k += stride) dot(Sm.u[k], Sm.v[k], cU, r0);
     }
@@ -857,17 +893,21 @@ function drawPanel(R) {
   {
     let mx = 0; for (let k = 0; k < n * n; k++) mx = Math.max(mx, R.sky[k]);
     // point skies as dots ([l, m (arcsec), radius, brightness]): the points model's sources sized and lit by their
-    // flux times the primary beam
-    const A = RI.beamFn(R.pb);
+    // flux times the primary beam (a transit array's: the north-south pattern)
+    const A = RI.beamFn(R.skyPB);
     const pts = S.sky === "point" ? [[0, 0, 3, 1]] : S.sky === "double" ? [[-S.size / 2, 0, 3, 1], [S.size / 2, 0, 3, 1]]
       : S.sky === "points" ? RI.pointsList(S.size / RAD).map(([l, m, f]) => { const b = f / 100 * A(l, m); return [l * RAD, m * RAD, 1.4 + 2.6 * Math.sqrt(b), Math.min(1, 0.5 + 0.5 * Math.sqrt(b))]; })
       : S.size * toPx < 2.5 ? [[0, 0, 3, 1]] : [];
     if (pts.length) { g.fillStyle = "#000"; g.fillRect(X(0), Y(1), side, side); } else blit(R.sky, X(0), Y(1), mx > 0 ? 1 / mx : 0);
     g.save(); g.beginPath(); g.rect(X(0), Y(1), side, side); g.clip();
     for (const [l, mm, r, b] of pts) { g.fillStyle = `rgba(255,250,238,${b})`; g.beginPath(); g.arc(X(0) + side / 2 - l * toPx, Y(1) + side / 2 - mm * toPx, r, 0, 2 * Math.PI); g.fill(); }
-    // the primary beam's half-power outline (a cylinder's: an ellipse, narrow east-west)
+    // the primary beam's half-power outline (a cylinder's: an ellipse, narrow east-west); for a transit array the
+    // north-south half-power lines alone, where they fall within the field (the sky drifts through the beam east-west)
     const [rx, ry] = typeof R.pb === "object" ? [R.pb.ew * RAD / 2 * toPx, R.pb.ns * RAD / 2 * toPx] : [R.pb * RAD / 2 * toPx, R.pb * RAD / 2 * toPx];
-    if ((typeof R.pb === "object" || R.pb > 0) && rx < side * 0.7) { g.strokeStyle = "rgba(220,214,204,.85)"; g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); g.ellipse(X(0) + side / 2, Y(1) + side / 2, rx, Math.min(ry, 1e5), 0, 0, 2 * Math.PI); g.stroke(); g.setLineDash([]); }
+    g.strokeStyle = "rgba(220,214,204,.85)"; g.setLineDash([5, 4]); g.lineWidth = 1.2;
+    if (R.drift) { if (ry < side / 2) { g.beginPath(); for (const s of [-1, 1]) { g.moveTo(X(0), Y(1) + side / 2 + s * ry); g.lineTo(X(0) + side, Y(1) + side / 2 + s * ry); } g.stroke(); } }
+    else if ((typeof R.pb === "object" || R.pb > 0) && rx < side * 0.7) { g.beginPath(); g.ellipse(X(0) + side / 2, Y(1) + side / 2, rx, Math.min(ry, 1e5), 0, 0, 2 * Math.PI); g.stroke(); }
+    g.setLineDash([]);
     // the compass: north up, east to the left (the sky seen from below)
     g.strokeStyle = "rgba(220,214,204,.9)"; g.fillStyle = "rgba(220,214,204,.9)"; g.lineWidth = 1.2; g.font = `11px ${FONT}`;
     const cx = X(0) + side - 14, cy = Y(1) + 34;

@@ -463,6 +463,28 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
   check(`CHIME + outriggers: four stations, six baselines; from CHIME to KKO, HCO, GBO ${dd.map(q => q[1].toFixed(1)).join(", ")} km, within 0.2 km of the fitted positions' ${dd.map(q => q[2]).join(", ")} km`, P.length === 4 && RI.baselines(P.map(q => ({ xyz: q.xyz })), 0).length === 6 && dd.every(q => Math.abs(q[1] - q[2]) < 0.2));
   const sf = j.sensitivity.sefd_per_feed_Jy, bf = N => sf / Math.sqrt(N * (N - 1)), se = o.configs[0].sefd, want2 = [bf(960), bf(64), bf(128), bf(128)];
   check(`CHIME + outriggers: the stations' SEFDs ${se.map(x => x.toFixed(1)).join(", ")} Jy, one feed's ${sf} Jy / √(N (N − 1)) for 960, 64, 128 and 128 phased feeds (Lazda et al. 2026, the radiometer equation)`, se.length === 4 && se.every((x, k) => Math.abs(x - want2[k]) < 1e-6));
+  {
+    // The map's beam of a transit array (RI.gridEnv): the synthesized beam times each channel's east-west envelope.
+    // A zenith-ish snapshot at dec 40 deg, natural weights, 2 x 10^4 baselines drawn; the image grid 16 deg across.
+    const lat = a.lat * DEG, B = RI.baselines(ants.map(p => Object.assign({ on: true }, p)), lat, 2e4), ew = nu => a.pb.ew.arcminGHz / 60 * DEG / (nu / 1e9);
+    const n = 512, pix = 16 * DEG / n, du = 1 / (n * pix), cut = (b, i) => b[i < 0 ? i + n : i];
+    const S1 = RI.sample({ ants, lat, dec: 40 * DEG, elMin: 0, dur: 0, nu: 0.6e9, bw: 0, B }), w1 = RI.weigh(S1, "natural", 0, 1);
+    const b0 = RI.dirty(RI.grid(S1, w1, n, du).g, null, n).beam, b1 = RI.dirty(RI.gridEnv(S1, w1, n, du, ew).g, null, n).beam;
+    let md = 0;
+    for (let q = -n / 2; q < n / 2; q += 7) for (let p = -n / 2; p < n / 2; p++) { const k = ((q + n) % n) * n + ((p + n) % n), l = p * pix; md = Math.max(md, Math.abs(b0[k] * Math.exp(-4 * Math.LN2 * l * l / (ew(0.6e9) ** 2)) - b1[k])); }
+    check("a transit array's map beam at one frequency: the synthesized beam times the east-west envelope exactly on the grid (CHIME, 600 MHz)", md < 1e-6, md.toExponential(2));
+    // the first east-west alias, at λ / 22 m = 1.30° at 600 MHz: the strongest pixel 1.0°-1.6° east of the center
+    const al = b => { let best = 0, at = 0; for (let p = Math.round(1.0 * DEG / pix); p <= Math.round(1.6 * DEG / pix); p++) if (cut(b, p) > best) { best = cut(b, p); at = p * pix / DEG; } return [at, best]; };
+    // (in the map's beam the sloping envelope pulls the alias's peak a little toward the center)
+    const [x0, h0] = al(b0), [x1, h1] = al(b1), A0 = Math.exp(-4 * Math.LN2 * (x0 * DEG) ** 2 / (ew(0.6e9) ** 2));
+    check(`CHIME at 600 MHz: the first east-west alias at ${x0.toFixed(2)}° (λ / 22 m = 1.30°), +${(100 * h0).toFixed(0)}% in the synthesized beam; +${(100 * h1).toFixed(0)}% at ${x1.toFixed(2)}° in the map's beam, within 15% of the alias times the envelope at 1.30° (${(100 * A0).toFixed(1)}%)`,
+      Math.abs(x0 - 1.30) < 0.05 && h0 > 0.9 && Math.abs(h1 / (h0 * A0) - 1) < 0.15);
+    // across the band, each channel's own envelope and the alias moving with λ: the copies spread out and fade
+    const S2 = RI.sample({ ants, lat, dec: 40 * DEG, elMin: 0, dur: 0, nu: 0.6e9, bw: 0.4e9, nCh: 32, B }), w2 = RI.weigh(S2, "natural", 0, 1);
+    const b2 = RI.dirty(RI.grid(S2, w2, n, du).g, null, n).beam, b3 = RI.dirty(RI.gridEnv(S2, w2, n, du, ew).g, null, n).beam;
+    const far = b => { let best = 0; for (let p = Math.round(0.8 * DEG / pix); p < n / 2; p++) best = Math.max(best, cut(b, p)); return best; };
+    check(`CHIME over 400-800 MHz: the strongest east-west lobe beyond 0.8°, +${(100 * far(b2)).toFixed(0)}% in the synthesized beam and +${(100 * far(b3)).toFixed(0)}% in the map's beam`, far(b2) > 0.3 && far(b3) < 0.12);
+  }
 }
 {
   const a = ARRS.find(q => q.id === "chord"), j = require("./data/interf/chord.json");

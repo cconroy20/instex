@@ -258,6 +258,60 @@ function grid(S, w, n, du) {
   }
   return { g, drop };
 }
+// A transit array's map. The sky drifts through the fixed beam, and the telescope maps the sky direction by
+// direction, each direction from the data taken as the direction crosses the meridian. Each point of the map then
+// sees the sky through the synthesized beam times the primary beam's east-west power pattern (the envelope) centered
+// on that point, so the map is the sky convolved with the product. The envelope subdues the copies of the main lobe
+// that a regular layout makes east-west. North-south the beam stays fixed, and the page applies the beam's north-south
+// pattern to the sky. On the grid the product is the gridded weights convolved along u with the envelope's
+// transform, each channel with the channel's own envelope (the beam narrows as 1 / nu). The channels go in at most
+// NGROUP groups, each gridded and then convolved; within a group the envelope's width varies by a few percent.
+// ew(nu): the envelope's FWHM east-west (radians) at the frequency nu (Hz).
+const NGROUP = 16;
+// the envelope's transform along u (cells 0 to r): the inverse transform of the envelope sampled at the image grid's
+// pixels (1 / (n du) apart, wrapped), so that the transform of the convolved weights is the beam times the envelope
+// exactly on the grid; cut off where the Gaussian's transform has fallen below 1e-7 of the peak
+function envKernel(fwhm, n, du) {
+  const h = n / 2, pix = 1 / (n * du), a = 4 * Math.LN2 / (fwhm * fwhm);
+  const su = 2 * Math.sqrt(2 * Math.LN2) / (2 * Math.PI * fwhm * du), r = Math.min(h - 1, Math.ceil(5.7 * su) + 1);
+  const jm = Math.min(h, Math.ceil(4 * fwhm / pix)), K = new Float64Array(r + 1);
+  for (let p = 0; p <= r; p++) {
+    let s = 0;
+    for (let j = -jm; j < Math.min(jm + 1, h); j++) s += Math.exp(-a * (j * pix) * (j * pix)) * Math.cos(2 * Math.PI * j * p / n);
+    K[p] = s / n;
+  }
+  return K;
+}
+function gridEnv(S, w, n, du, ew) {
+  const h = n / 2, nCh = S.nCh || 1, nus = S.nus, G = Math.min(nCh, NGROUP), out = new Float64Array(n * n), T = new Float64Array(n * n);
+  let drop = 0;
+  for (let gi = 0; gi < G; gi++) {
+    const c0 = Math.floor(gi * nCh / G), c1 = Math.floor((gi + 1) * nCh / G);
+    let nuG = 0;
+    for (let c = c0; c < c1; c++) nuG += nus[c];
+    const K = envKernel(ew(nuG / (c1 - c0)), n, du), r = K.length - 1;
+    // the group's samples and mirror points on the grid, within |p| <= P and |q| <= Q
+    let P = -1, Q = -1;
+    for (let c = c0; c < c1; c++) for (let k = c; k < S.n; k += nCh) {
+      const p = Math.round(S.u[k] / du), q = Math.round(S.v[k] / du);
+      if (p >= h || p <= -h || q >= h || q <= -h) { drop++; continue; }
+      T[((q + n) % n) * n + ((p + n) % n)] += w[k];
+      T[((n - q) % n) * n + ((n - p) % n)] += w[k];
+      P = Math.max(P, Math.abs(p)); Q = Math.max(Q, Math.abs(q));
+    }
+    // convolved along u, and the scratch grid cleared for the next group
+    for (let q = -Q; q <= Q; q++) {
+      const row = ((q + n) % n) * n;
+      for (let p = -P; p <= P; p++) {
+        const k = row + ((p + n) % n), t = T[k];
+        if (!t) continue;
+        T[k] = 0;
+        for (let d = -r; d <= r; d++) out[row + (((p + d) % n) + n) % n] += K[d < 0 ? -d : d] * t;
+      }
+    }
+  }
+  return { g: out, drop };
+}
 // The dirty beam and the dirty image by one complex FFT: the beam is the transform of the gridded weights W, the
 // image the transform of W V (V the sky's visibilities on the grid, { re, im }), both real because W and W V are
 // Hermitian, so W + i W V transforms to beam + i image. The inverse transform comes from the forward one,
@@ -717,7 +771,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { J0, Ine, crescentVis, m87Vis, M87, shadowOf, compVis, smoothed, KNOTS, azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { J0, Ine, crescentVis, m87Vis, M87, shadowOf, compVis, smoothed, KNOTS, azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, gridEnv, envKernel, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);
