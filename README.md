@@ -172,18 +172,32 @@ collimator), read from the research records:
   each cross-disperser surface (physics.js now exposes S.xdStages), the camera and detector axes. The cross-disperser
   stands where the returning beam clears the arriving one (out to 0.9 of the collimated path: HIRES's beams, 10° apart
   in the echelle's plane, clear only near the collimator), and everything stays in front of the collimator.
-- "pp" (MagE, ESI, FIRE): prisms passed on the way to the echelle and back, one drawn prism for each two passes, tall
-  enough for both beams; a camera of its own past the prisms.
+- "pp" (MagE, ESI, FIRE): prisms between the collimator and the echelle, and a separate camera past the prisms. The keys
+  e.xPre (passes before the echelle) and e.xDbl (prisms passed twice) sort the tracer's passes into prisms met only on
+  the way in, prisms passed both ways, and prisms met only on the way back (2026-11-17 audit): MagE's 46° prism twice
+  and its 40° prism once on the way back (Marshall et al. 2008), ESI's first prism twice and its second once on the
+  way back (Sheinis et al. 2002), FIRE's first prism once on the way in, its second and third twice, its fourth once
+  on the way back (Simcoe et al. 2013 Table 2). A prism met only on the way back bends the returning light the way
+  the double-pass ones do, so the returning beam leaves the echelle above the arriving one and the camera stands
+  on that side, at the smallest angle that keeps the prisms and the camera clear of the arriving beam. Each prism is
+  turned from minimum deviation by its pass's dI, as in physics.js (ESI's −4°).
 - "4c" (X-Shooter): the same prisms, then the collimator again forms the cross-dispersed spectrum below the slit; a
-  flat sends it to a camera that re-images it.
+  fold and field mirror (a spherical one in the NIR, Vernet et al. 2011 Sec. 2.5.3) sends the spectrum to a camera,
+  which re-images the spectrum on the detector.
 - "wp" (HARPS, UVES, FEROS, ESPRESSO, G-CLEF, ZShooter): the collimator again forms the spectrum with the orders
-  overlapping, a flat folds it to the transfer collimator (HARPS 1560 mm, its collimator's third pass; UVES 2000;
-  FEROS 1500; ESPRESSO 1500; G-CLEF 1600; ZShooter 1250 mm), which re-forms the pupil, where the cross-disperser
-  stands, then the camera as built (f_cam × f_transfer / f_col: ESPRESSO 400, G-CLEF 450, ZShooter 225 mm).
+  overlapping, a fold sends the light to the transfer collimator, which re-forms the pupil, where the cross-disperser stands,
+  then the camera. The fold (e.fold3d) is a flat in UVES and FEROS, a field mirror (blue) or field lens (red) in
+  ESPRESSO, a Mangin mirror in G-CLEF and ZShooter, and is not described for HARPS. The transfer collimators: UVES 2000
+  mm, FEROS 1500, ESPRESSO 1500, G-CLEF 1600, ZShooter 1250; HARPS uses its own collimator a third time (1560 mm,
+  e.wp3; drawn unfolded, as a mirror of its own). The camera drawn is f_cam × f_transfer / f_col (f_cam is the
+  model's effective camera): HARPS 728, UVES 360 and 500, FEROS 410 mm as built; ESPRESSO 400 (the design value for
+  the blue camera; the red one's is not published), G-CLEF 450 and ZShooter 225 mm (designs). ESPRESSO is drawn with
+  the unsliced equivalent beam (600 mm at the echelle; the pupil slicer makes two 300 × 200 mm beams there), and ESPRESSO's
+  cross-disperser is a VPH grating on a prism (e.xdLabel); e.note3d adds such remarks to the caption.
 In the three folded arrangements each returning bundle is traced back from the tracer's focus through the drawn optics
 (Snell's law in the prisms), and the central ray is aimed so that it reaches the echelle's center; the echelle (the
 pupil) carries every bundle's footprint, so the drawing agrees with the Detector panel. Mirrors are drawn as lenses,
-unfolded but for the flat. Where the instrument's out-of-plane angle is too small to draw, or not published, the
+unfolded but for the fold. Where the instrument's out-of-plane angle is too small to draw, or not published, the
 caption gives the angle drawn and the instrument's; spacings the sources do not give are schematic.
 
 **All arms** (11-16, his "showing the multi-arm instruments in one shot, as opposed to having mode switches";
@@ -192,11 +206,21 @@ shows the instrument's arms together with the dichroics that split the light. GR
 tree (crossover, transition width, angle of incidence, the arm on each side, and the source) and the place of the split:
 - "collimated" (DESI, Boombox, PFS, 4MOST LRS and HRS, LLAMAS, KCWI): one slit and collimator, with the dichroics in
   the collimated beam. A mirror collimator returns the beam 36° off the slit's axis, as in the one-arm view.
-- "telescope" (X-Shooter, MIKE, UVES): the dichroics stand in the telescope's converging beam, and each arm has its
-  own slit and collimator; the slits sit at equal paths from the first dichroic. A mirror collimator folds its arm.
-The Optical layout draws the arms to one scale. The angles at the dichroics (180° − 2 AOI) and at the gratings are
-true; a dichroic whose angle is not published (PFS, 4MOST HRS, LLAMAS, KCWI, MIKE, UVES) is drawn at 45°, and the
-caption says so. The sources do not give the direction in which each dichroic and grating turns the light, or the
+- "focus" (X-Shooter, MIKE): the dichroics stand in the light spreading from the telescope's focus, drawn at the
+  telescope's own focal ratio (GROUPS Ftel: X-Shooter f/13.41, Vernet et al. 2011 Sec. 2.2.7; MIKE f/11, Bernstein et
+  al. 2003 Sec. 2.3). X-Shooter's arms each have a relay that images the focus on the arm's own slit; MIKE has one
+  slit at the focus, ahead of the dichroic (B03 Sec. 2.1, "the first optical element in MIKE beyond the slit"), and
+  each arm's injection optics feed the arm's lens.
+- "preslit" (UVES): the f/15 beam is collimated behind the derotator and the dichroic stands in that beam; a doublet
+  in each arm focuses the light on the arm's slit at f/10 (Dekker et al. 2000 p. 536). The width of this beam is not
+  published (GROUPS Wpre, schematic), and the caption says so.
+A mirror collimator in an arm with its own slit folds the arm. The Optical layout draws the arms to one scale. The
+angles at the dichroics (180° − 2 AOI) and at the gratings are true; a dichroic whose angle is not published (4MOST HRS,
+LLAMAS, KCWI, UVES) is drawn at 45°, and the caption says so. PFS's angles (29° and 38°) are measured from a
+concept-stage figure (Vives et al. 2014 Fig. 2) and Boombox's (22.5°) from the Boombox bench layout; their captions say so.
+The 2026-11-17 audit (data/audit/2026-11-17_D*.md) also set DESI's first crossover to 7595 Å with a 250 Å transition
+(FDR Table 5.3), Boombox's to 5750 Å (SPIE 14149 abstract), MIKE's angle to 30° (B03 Sec. 2.1), and X-Shooter's and
+UVES's transition widths to the ESO manuals' (78, 255 and 350 Å). The sources do not give the direction in which each dichroic and grating turns the light, or the
 distances between the elements. A small search picks these: each combination of the turning senses, then each branch
 length in turn, scored by the depth of the overlaps between parts (convex pieces, separating-axis test, clearance
 0.45 W) and by the size at which the drawing fills the panel. The choice holds while the design stays in the same
@@ -205,11 +229,13 @@ carry; labels go where the drawn ink is least, read back from the canvas as in t
 The Detector panel draws the chips to one scale, with each object's spectrum, through the one-arm view's
 pixel-by-pixel renderer (app.js splatTraces and makeTraces, factored out of drawDetector), in the arrangement of rows
 that makes the chips largest. Below the chips a strip shows each arm's coverage with the dichroics' crossovers and
-transition widths. The stats strip gives each arm's range, resolving power and dispersion.
+transition widths; each bar is dimmed where the dichroics send that light to another arm (X-Shooter's arm ranges are
+the order extents, which run 250–410 Å past the crossovers). The stats strip gives each arm's range, resolving power and dispersion.
 The controls set one arm at a time, named in the caption and marked in the strip, the layout and the chip. A click on
 another arm (in the strip, the layout or the Detector panel) moves the controls to that arm and keeps the first arm's
-edits. Shared controls set all arms at once: the telescope (D, F) always, and for a split in the collimated beam also
-the slit, the fibers and the collimator (slitW, nObj, W, col, telF, fibAp). The link carries `arms=true` and `arm=`
+edits. Shared controls set all arms at once: the telescope (D, F) always, for a split in the collimated beam also the
+slit, the fibers and the collimator (slitW, nObj, W, col, telF, fibAp), and for MIKE the one slit (slitW, nObj); the
+arms after the focus keep their own focal ratios. The link carries `arms=true` and `arm=`
 (the arm the controls set), with that arm's edits; the other arms return as their presets with the shared controls
 applied. Picking a single arm in the Setting menu returns to the one-arm view. uitest checks each group (the arms
 designed, no overlaps, the labels inside the panel and clear of one another, the one-arm controls hidden), then the

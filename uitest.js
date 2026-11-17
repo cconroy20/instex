@@ -512,6 +512,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await ev(`window.__instex.setting("desib")`); await sleep(200);
       const s4 = await ev(`({ on: window.__instex.arms().on, preset: window.__instex.arms().preset, view: getComputedStyle(document.getElementById("lvViewSeg")).display })`);
       check("All arms: picking one arm in the Setting menu returns to the one-arm view", !s4.on && s4.preset === "desib" && s4.view !== "none", JSON.stringify(s4));
+      // MIKE: one slit ahead of the dichroic, so the slit is shared; X-Shooter's arms keep their own slits
+      await go("#preset=mikeblue&arms=true&arm=mikeblue");
+      await ev(`window.__instex.set({ e: { slitW: 0.7 } })`); await sleep(200);
+      const m1 = await ev(`window.__instex.arms().arms.map(q => q.slitW)`);
+      await go("#preset=xshuvb&arms=true&arm=xshuvb");
+      await ev(`window.__instex.set({ e: { slitW: 1.6 } })`); await sleep(200);
+      const x1 = await ev(`window.__instex.arms().arms.map(q => q.slitW)`);
+      check("All arms: MIKE's arms share the one slit; X-Shooter's keep their own", m1.every(v => v === 0.7) && x1[0] === 1.6 && x1.slice(1).every(v => v !== 1.6), JSON.stringify([m1, x1]));
     }
     // an order-isolating filter and fibers in groups (M2FS): no overlap warning, the filter's band as the range, the
     // traces in eight groups of 16, both in the link and back
@@ -709,7 +717,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", cam: "mirror", colTilt: 4.5, layLen: 700, foldOn: true, foldAng: 120, foldPos: 0.3, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
            W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5, filt: [5800, 6200], fgroups: [10, 200, 1500], telF: 15, fibAp: 1.5 },
       e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, view: "3d", colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
-           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, lay3d: "wp", wpT: 1200, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
+           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, lay3d: "wp", wpT: 1200, xPre: 2, xDbl: 1, wp3: true, fold3d: "field mirror", xdLabel: "VPH grating on a prism", note3d: "a note", xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
            xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10, filt: [4000, 9000], fgroups: [12, 180, 900], telF: 8, fibAp: 1 } })`);
     await sleep(300);
     const sBefore = await ev(`window.__instex.state()`), hAll = await ev(`location.hash`);

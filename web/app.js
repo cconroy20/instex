@@ -21,6 +21,7 @@ const DEF = {
        filt: null, fgroups: null, telF: null, fibAp: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
+        xPre: null, xDbl: null, wp3: false, fold3d: "", xdLabel: "", note3d: "",   // the 3D view's prism passes and labels (presets)
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -105,7 +106,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT"]);
+const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
 
 function markCustom() {
   presetId = "custom";
@@ -323,7 +324,8 @@ function params() {
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
-                          xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms });
+                          xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms,
+                          xPre: m.xPre, xDbl: m.xDbl, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d });
   return P;
 }
 
@@ -348,7 +350,7 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA", "wpT"]);
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre"]);
 const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
@@ -1140,53 +1142,90 @@ function drawLayout(Dz, P) {
       const perpTo = (v, e) => n3(a3(v, s3(e, -d3(v, e))));
       const rotY = (v, t) => [v[0] * Math.cos(t) + v[2] * Math.sin(t), v[1], -v[0] * Math.sin(t) + v[2] * Math.cos(t)];
       const WpD = Math.max(W, Dz.Wp || W), gm = Dz.gamma || 0;
-      const fT = kind === "wp" ? (P.wpT > 0 ? P.wpT : fC) : fC, fPh = kind === "wp" ? fK * fT / fC : fK;   // the transfer collimator; the camera as built
+      const fT = kind === "wp" ? (P.wpT > 0 ? P.wpT : fC) : fC, fPh = kind === "wp" ? fK * fT / fC : fK;   // the transfer collimator; the camera itself (f_cam is the model's effective camera)
       // the separation out of the echelle's plane: the slit sS above the axis, the returning focus as far below
       const rA = 0.62 * WpD;                                        // the camera's half aperture ("pp")
       // ("pp": the slit near the axis; the camera stands below the arriving beam, near the prisms)
       const sS = kind === "pp" ? 0.03 * fC : Math.max(gm * fC, 0.06 * fC + (kind === "4c" ? 0.6 * LyD * fC / fK : 0.15 * W));
       let sepDeg = 2 * Math.atan(sS / fC) / IX.DEG;
       const sepTrue = 2 * gm / IX.DEG;
-      // the prisms in front of the echelle ("pp", "4c"): one for each two of the tracer's passes, at minimum deviation
-      // for lamC, bending the beam toward +z (as in the double-pass view)
+      // the prisms ("pp", "4c"), from the tracer's passes in the order the light makes them (P.xPrisms): P.xPre passes
+      // before the echelle, the last P.xDbl of them through prisms passed again on the way back; the first passes then
+      // cross prisms met only on the way in (FIRE's first), the passes past xPre + xDbl prisms met only on the way back
+      // (MagE's 40 deg prism, ESI's second, FIRE's fourth). Without the keys: half the passes, each prism passed twice.
+      // Each prism stands at minimum deviation for lamC, turned by its pass's dI (a larger angle of incidence for
+      // dI > 0, as in physics.js), bending the beam toward +z (as in the double-pass view)
       const train = Array.isArray(P.xPrisms) && P.xPrisms.length ? P.xPrisms : Array(Math.max(1, Math.round(P.xPasses || 1))).fill({ glass: P.xGlass, A: P.xA });
-      const prisms = [];
-      const lensIn = a3(O, [0, 0, sS * dE / fC]), v0 = n3([fC, 0, -sS]);
-      let p = lensIn, u = v0, run = 0;
-      if (kind !== "wp" && P.xd === "prism") for (let k = 0; k < Math.max(1, Math.round(train.length / 2)); k++) {
-        const pr = train[k], A = pr.A * IX.DEG, nC = IX.nGlass(pr.glass, lcE), D = 2 * Math.asin(Math.min(1, nC * Math.sin(A / 2))) - A;
+      const nPass = train.length, nD0 = Math.max(1, Math.round(nPass / 2));
+      const xPre = P.xPre > 0 ? Math.min(nPass, Math.round(P.xPre)) : nD0;
+      const xDbl = P.xDbl === null || P.xDbl === undefined || !(P.xDbl >= 0) ? Math.min(xPre, nD0) : Math.min(xPre, nPass - xPre, Math.round(P.xDbl));
+      const usePr = kind !== "wp" && P.xd === "prism";
+      const inOnly = usePr ? train.slice(0, xPre - xDbl) : [], dblT = usePr ? train.slice(xPre - xDbl, xPre) : [], outOnly = usePr && kind === "pp" ? train.slice(xPre + xDbl) : [];
+      // a prism whose central ray crosses at c going along u: apex ha below the ray, height H, at minimum deviation
+      const rotAx = (v, ax, t) => a3(a3(s3(v, Math.cos(t)), s3(x3(ax, v), Math.sin(t))), s3(ax, d3(ax, v) * (1 - Math.cos(t))));
+      const mkPrism = (c, u, pr, ha, H) => {
+        const A = pr.A * IX.DEG, nC = IX.nGlass(pr.glass, lcE), D = 2 * Math.asin(Math.min(1, nC * Math.sin(A / 2))) - A;
         const bIn = n3(a3(ZA, s3(u, -d3(ZA, u)))), uInt = n3(a3(s3(u, Math.cos(D / 2)), s3(bIn, Math.sin(D / 2))));
         const b = n3(a3(ZA, s3(uInt, -d3(ZA, uInt))));
-        const ha = 1.1 * W, H = 1.9 * W;
-        const nearX = cc => { const T0 = a3(cc, s3(b, -ha)), r = H / Math.cos(A / 2);
-          return Math.min(T0[0], T0[0] + r * (Math.cos(A / 2) * b[0] - Math.sin(A / 2) * uInt[0]), T0[0] + r * (Math.cos(A / 2) * b[0] + Math.sin(A / 2) * uInt[0])); };
-        let L = 0;
-        // (the prisms near the echelle: the first one starts 0.45 of the way out)
-        for (let it = 0; it < 4; it++) { const gap = (k ? p[0] + 0.15 * W : fC + 0.45 * dE) - nearX(a3(p, s3(u, L))); if (gap > 0) L += gap / Math.max(0.2, u[0]); }
-        const c = a3(p, s3(u, L)), T = a3(c, s3(b, -ha));
-        const n1 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, Math.sin(A / 2)))), n2 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, -Math.sin(A / 2))));
+        let T = a3(c, s3(b, -ha)), n1 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, Math.sin(A / 2)))), n2 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, -Math.sin(A / 2))));
         const e1 = n3(a3(s3(b, Math.cos(A / 2)), s3(uInt, -Math.sin(A / 2)))), e2 = n3(a3(s3(b, Math.cos(A / 2)), s3(uInt, Math.sin(A / 2))));
-        prisms.push({ T, n1, n2, glass: pr.glass, A: pr.A, B1: a3(T, s3(e1, H / Math.cos(A / 2))), B2: a3(T, s3(e2, H / Math.cos(A / 2))) });
-        const q1 = hitPl(p, u, T, n1), u1 = refr(u, n1, 1, nC), q2 = hitPl(q1, u1, T, n2), u2 = refr(u1, n2, nC, 1);
-        run += Math.hypot(...a3(q1, s3(p, -1))) + Math.hypot(...a3(q2, s3(q1, -1)));
-        p = q2; u = u2;
-      }
+        let B1 = a3(T, s3(e1, H / Math.cos(A / 2))), B2 = a3(T, s3(e2, H / Math.cos(A / 2)));
+        if (pr.dI) {
+          // turned about the normal of its principal plane, through c, the way that opens the first face's incidence
+          const ax = n3(x3(n1, n2)), ang = i1 => Math.acos(Math.max(-1, Math.min(1, d3(u, i1))));
+          let t = pr.dI * IX.DEG;
+          if ((ang(rotAx(n1, ax, t)) - ang(n1)) * pr.dI < 0) t = -t;
+          const R = q => a3(c, rotAx(a3(q, s3(c, -1)), ax, t));
+          T = R(T); B1 = R(B1); B2 = R(B2); n1 = rotAx(n1, ax, t); n2 = rotAx(n2, ax, t);
+        }
+        return { T, n1, n2, glass: pr.glass, A: pr.A, B1, B2 };
+      };
+      const through = (pr, q, w, lam) => {
+        const n = IX.nGlass(pr.glass, lam), a = hitPl(q, w, pr.T, pr.n1), w1 = refr(w, pr.n1, 1, n);
+        if (!w1) return null;
+        const b = hitPl(a, w1, pr.T, pr.n2), w2 = refr(w1, pr.n2, n, 1);
+        return w2 ? { a, b, u: w2 } : null;
+      };
+      const prisms = [], dblP = [], postRev = [];                    // the arriving light's prisms; the double-pass ones; the returning light's alone
+      const lensIn = a3(O, [0, 0, sS * dE / fC]), v0 = n3([fC, 0, -sS]);
+      let p = lensIn, u = v0, run = 0;
+      // (a prism met only on the way in near the collimator; the double-pass ones from 0.45 of the way to the echelle on,
+      // from 0.7 when prisms met only on the way back follow them: the camera then stays near the pupil)
+      const dblFrom = fC + (outOnly.length ? 0.7 : 0.45) * dE;
+      [...inOnly.map(pr => [pr, 1]), ...dblT.map(pr => [pr, 2])].forEach(([pr, np], k, all) => {
+        const ha = np === 1 ? 0.7 * W : outOnly.length ? 0.7 * W : 1.1 * W, H = np === 1 ? 1.4 * W : outOnly.length ? 2.4 * W : 1.9 * W;
+        const target = k === 0 ? (np === 1 ? fC + 0.1 * dE : dblFrom) : np === 2 && all[k - 1][1] === 1 ? Math.max(p[0] + 0.15 * W, dblFrom) : p[0] + 0.15 * W;
+        let L = 0;
+        for (let it = 0; it < 4; it++) {
+          const q0 = mkPrism(a3(p, s3(u, L)), u, pr, ha, H), gap = target - Math.min(q0.T[0], q0.B1[0], q0.B2[0]);
+          if (gap > 0) L += gap / Math.max(0.2, u[0]);
+        }
+        const q = mkPrism(a3(p, s3(u, L)), u, pr, ha, H), tr = through(q, p, u, lcE);
+        prisms.push(q);
+        if (np === 2) dblP.push(q);
+        if (!tr) return;
+        run += Math.hypot(...a3(tr.a, s3(p, -1))) + Math.hypot(...a3(tr.b, s3(tr.a, -1)));
+        p = tr.b; u = tr.u;
+      });
+      let retPr = dblP;                                              // the returning light's prisms, from the camera's side
       const dl = (P.eDelta || 63) * IX.DEG, prismFar = prisms.length ? Math.max(...prisms.map(q => Math.max(d3(a3(q.T, s3(p, -1)), u), d3(a3(q.B1, s3(p, -1)), u), d3(a3(q.B2, s3(p, -1)), u)))) : 0;
       const E = a3(p, s3(u, Math.max(dE - run, prismFar + 0.5 * W * Math.tan(dl) + 0.12 * W))), vE = u;
-      const fwd = (p0, u0, lam) => {
+      // (a prism with rev was set across the returning light, which enters it through n1: the light toward the echelle
+      // crosses it the other way)
+      const fwd = (p0, u0, lam, list = retPr) => {
         const pts = []; let q = p0, w = u0;
-        for (const pr of prisms) {
-          const n = IX.nGlass(pr.glass, lam);
-          const a = hitPl(q, w, pr.T, pr.n1); w = w && refr(w, pr.n1, 1, n); if (!w) return null;
-          const b = hitPl(a, w, pr.T, pr.n2); w = refr(w, pr.n2, n, 1); if (!w) return null;
+        for (const pr of list) {
+          const n = IX.nGlass(pr.glass, lam), f1 = pr.rev ? s3(pr.n2, -1) : pr.n1, f2 = pr.rev ? s3(pr.n1, -1) : pr.n2;
+          const a = hitPl(q, w, pr.T, f1); w = w && refr(w, f1, 1, n); if (!w) return null;
+          const b = hitPl(a, w, pr.T, f2); w = refr(w, f2, n, 1); if (!w) return null;
           pts.push(a, b); q = b;
         }
         return { pts, u: w, end: q };
       };
-      const back = (p0, u0, lam) => {
+      const back = (p0, u0, lam, list = retPr) => {
         const pts = []; let q = p0, w = u0;
-        for (const pr of prisms.slice().reverse()) {
-          const n = IX.nGlass(pr.glass, lam), m2 = s3(pr.n2, -1), m1 = s3(pr.n1, -1);
+        for (const pr of list.slice().reverse()) {
+          const n = IX.nGlass(pr.glass, lam), m2 = pr.rev ? pr.n1 : s3(pr.n2, -1), m1 = pr.rev ? pr.n2 : s3(pr.n1, -1);
           const a = hitPl(q, w, pr.T, m2); w = refr(w, m2, 1, n); if (!w) return null;
           const b = hitPl(a, w, pr.T, m1); w = refr(w, m1, n, 1); if (!w) return null;
           pts.push(a, b); q = b;
@@ -1199,10 +1238,50 @@ function drawLayout(Dz, P) {
       // too small to draw, the angle that puts the camera clear of the arriving beam 0.6 of the way back to the collimator
       // (nearer for a short camera, whose aperture would otherwise have to grow with the field it sees);
       // both beams cross the prisms, which are tall enough for the two)
-      let Oret = O;
+      let Oret = O, camFixed = null;
       if (kind === "pp") {
-        const Lc = Math.min(0.6 * dE, 3 * W + fK), psi = Math.max(2 * gm, Math.asin(Math.min(0.5, (0.5 * W + rA + 0.12 * W) / Lc)));
+        // (room on the way back for the prisms met only there, behind the double-pass ones)
+        const dblFar = dblP.length ? Math.max(...dblP.flatMap(q => [q.T, q.B1, q.B2].map(z => d3(a3(E, s3(z, -1)), vE)))) : 0;
+        const Lc = Math.max(Math.min(0.6 * dE, 3 * W + fK), outOnly.length ? dblFar + outOnly.length * 1.7 * W + 0.9 * W : 0);
+        const psi = Math.max(2 * gm, Math.asin(Math.min(0.5, (0.5 * W + rA + 0.12 * W) / Lc)));
         Oret = a3(E, [-Lc * Math.cos(psi), 0, -Lc * Math.sin(psi)]);
+        if (outOnly.length) {
+          // With prisms met only on the way back, which bend the returning light further toward +z (as the double-pass
+          // ones do, so that the cross-dispersions add), the returning beam leaves the echelle above the arriving one
+          // and the camera stands above it. The returning central ray is traced from the echelle's center back through
+          // the double-pass prisms, each single-pass prism set across it as it goes; its angle above the arriving beam
+          // is the smallest that puts those prisms and the camera clear of the arriving beam.
+          const zP = n3(a3(ZA, s3(v0, -d3(ZA, v0))));
+          const off = q => d3(a3(q, s3(lensIn, -1)), zP);              // height above the arriving beam's axis
+          const build = t0 => {
+            let q = E, w = rotY(s3(vE, -1), t0);
+            for (const pr of dblP.slice().reverse()) {
+              const n = IX.nGlass(pr.glass, lcE), a = hitPl(q, w, pr.T, s3(pr.n2, -1)), w1 = refr(w, s3(pr.n2, -1), 1, n);
+              if (!w1) return null;
+              const b = hitPl(a, w1, pr.T, s3(pr.n1, -1)), w2 = refr(w1, s3(pr.n1, -1), n, 1);
+              if (!w2) return null;
+              q = b; w = w2;
+            }
+            const placed = [];
+            let low = Infinity;
+            for (let j = 0; j < outOnly.length; j++) {
+              const pr = Object.assign(mkPrism(a3(q, s3(w, (j ? 0.95 : 1.1) * W)), w, outOnly[j], 0.7 * W, 1.4 * W), { rev: true }), t = through(pr, q, w, lcE);
+              if (!t) return null;
+              low = Math.min(low, off(pr.T), off(pr.B1), off(pr.B2));
+              placed.push(pr); q = t.b; w = t.u;
+            }
+            const Oc = a3(q, s3(w, 0.45 * W + 0.2 * rA));
+            low = Math.min(low, off(Oc) - rA);
+            return { q, w, placed, Oc, low };
+          };
+          let r = null;
+          for (let t = Math.max(2 * gm, 3 * IX.DEG); t < 50 * IX.DEG; t += 0.5 * IX.DEG) { const r1 = build(t); if (!r1) continue; r = r1; if (r1.low > 0.62 * W) break; }
+          if (r) {
+            Oret = r.Oc; camFixed = r.w;
+            postRev.push(...r.placed.slice().reverse());
+            retPr = [...postRev, ...dblP];
+          }
+        }
       }
       // the returning light's focus: "pp" -- the camera's focal plane; else the collimator's, below the slit
       const Qc0 = kind === "pp" ? null : [0, 0, -sS];
@@ -1212,15 +1291,18 @@ function drawLayout(Dz, P) {
       const onPlaneE = (q, w) => hitPl(q, w, E, s3(vE, -1));
       let camAx = null, retOff = [0, -sS * dE / fC];
       if (kind === "pp") {
-        let aim = E;
-        for (let it = 0; it < 8; it++) { const d = n3(a3(aim, s3(Oret, -1))), r = fwd(Oret, d, lcE); if (!r) break; const H = onPlaneE(r.end, r.u); aim = a3(aim, s3(a3(H, s3(E, -1)), -1)); }
-        camAx = s3(n3(a3(aim, s3(Oret, -1))), -1);
+        const aimDir = () => {
+          let aim = E;
+          for (let it = 0; it < 8; it++) { const d = n3(a3(aim, s3(Oret, -1))), r = fwd(Oret, d, lcE); if (!r) break; const H = onPlaneE(r.end, r.u); aim = a3(aim, s3(a3(H, s3(E, -1)), -1)); }
+          return n3(a3(aim, s3(Oret, -1)));
+        };
+        camAx = camFixed || s3(aimDir(), -1);
       } else {
         const wC = n3(a3([0, 0, -sS], s3(O, -1)));
         for (let it = 0; it < 8; it++) { const st0 = a3(O, [0, retOff[0], retOff[1]]), r = fwd(st0, s3(wC, -1), lcE); if (!r) break; const H = onPlaneE(r.end, r.u); retOff = [retOff[0] - (H[1] - E[1]), retOff[1] - (H[2] - E[2])]; }
       }
       const retStart = kind === "pp" ? Oret : a3(O, [0, retOff[0], retOff[1]]);
-      if (kind === "pp") sepDeg = Math.acos(Math.max(-1, Math.min(1, d3(s3(v0, -1), camAx)))) / IX.DEG;
+      if (kind === "pp" && !camFixed) sepDeg = Math.acos(Math.max(-1, Math.min(1, d3(s3(v0, -1), camAx)))) / IX.DEG;
       const Dpp = kind === "pp" ? a3(Oret, s3(camAx, fK)) : null;
       const xPP = kind === "pp" ? perpTo(YA, camAx) : null, yPP = kind === "pp" ? n3(x3(camAx, xPP)) : null;
       // the focus of order m at lam: on the detector ("pp"), else in the collimator's focal plane: the cross-dispersed
@@ -1243,6 +1325,7 @@ function drawLayout(Dz, P) {
       const startC = retStart;
       const rc = fwd(startC, s3(wc, -1), lcE);
       const w1c = rc ? s3(rc.u, -1) : s3(vE, -1);
+      if (camFixed) sepDeg = Math.acos(Math.max(-1, Math.min(1, d3(s3(vE, -1), w1c)))) / IX.DEG;
       const mxd = n3(a3(w1c, s3(vE, -1))), Yp = n3(a3(YA, s3(mxd, -d3(YA, mxd))));
       const nE = n3(a3(s3(mxd, Math.cos(dl)), s3(Yp, Math.sin(dl)))), tE = n3(a3(s3(Yp, Math.cos(dl)), s3(mxd, -Math.sin(dl)))), gE = n3(x3(nE, tE));
       const onE = (q, w) => hitPl(q, w, E, nE);
@@ -1273,7 +1356,7 @@ function drawLayout(Dz, P) {
       tube([ringAt([-Lt, 0, sS], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13);
       let rL = 0, rR = 0, rT = 0, rK = 0;
       {
-        const lens = ringAt(lensIn, YA, ZA, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE));
+        const lens = ringAt(lensIn, YA, ZA, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE, prisms));
         if (tr.every(Boolean)) {
           for (let j = 0; j < tr[0].pts.length; j++) st.push(tr.map(t => t.pts[j]));
           st.push(tr.map(t => onE(t.end, t.u)));
@@ -1325,7 +1408,7 @@ function drawLayout(Dz, P) {
       // the optics: the collimator, the prisms, the echelle
       slab(O, XA, Math.max(rL, 0.5 * W) * 1.06, 0.1 * Math.max(rL, 0.5 * W), GLASS3, 0.22, GE3);
       const hy = 0.62 * W + 0.3 * LxD * dE / fK;
-      for (const pr of prisms) {
+      for (const pr of [...prisms, ...postRev]) {
         const at = (q, y) => [q[0], q[1] + y, q[2]];
         for (const y of [hy, -hy]) face([at(pr.T, y), at(pr.B1, y), at(pr.B2, y)], GLASS3, 0.25, GE3);
         for (const [q0, q1] of [[pr.T, pr.B1], [pr.T, pr.B2], [pr.B1, pr.B2]]) face([at(q0, hy), at(q1, hy), at(q1, -hy), at(q0, -hy)], GLASS3, 0.2, GE3);
@@ -1375,23 +1458,29 @@ function drawLayout(Dz, P) {
           plate(Fold(XDc), uX, vX, hX, hX, nX, 0.05 * W * fT / fC, refl ? STEEL_RGB : GLASS3, refl ? 0.6 : 0.3, refl ? STEEL3 : GE3);
           slab(Fold(Cc), aC, Math.max(rK, 0.5 * W * fT / fC) * 1.06, 0.1 * Math.max(rK, 0.5 * W * fT / fC), GLASS3, 0.22, GE3);
           detector(Dc, xD, yD, -1, 1, Fold);
-          const xdName = P.xd === "prism" ? "prism" : P.xd === "grism" ? "grism" : P.xd === "vph" ? "VPH grating" : "grating";
-          labs3.push([Fold(a3(Tl, [0, 0, -Math.max(rT, 0.5 * W * fT / fC) * 1.3])), "transfer collimator", "f = " + mm(fT)],
+          const xdName = P.xdLabel || (P.xd === "prism" ? "prism" : P.xd === "grism" ? "grism" : P.xd === "vph" ? "VPH grating" : "grating");
+          // (HARPS: the light returns to the collimator a third time; drawn unfolded, as a mirror of its own)
+          labs3.push([Fold(a3(Tl, [0, 0, -Math.max(rT, 0.5 * W * fT / fC) * 1.3])), P.wp3 ? "collimator, third pass" : "transfer collimator", "f = " + mm(fT) + (P.wp3 ? ", drawn unfolded" : "")],
             [Fold(a3(XDc, s3(vX, 1.3 * hX))), "cross-disperser", xdName + ", at the white pupil"],
             [Fold(a3(Cc, [0, 0, -Math.max(rK, 0.5 * W * fT / fC) * 1.3])), "camera", "f = " + mm(fPh)],
             [Fold(a3(Dc, s3(yD, 0.8 * LyD))), "detector", mm(LxD)]);
         }
-        labs3.push([[0, 0, -sS - hzS - 0.04 * fC], "spectrum", kind === "wp" ? "orders overlapping" : "cross-dispersed"], [a3(F0, [0, 0, -0.12 * fC]), "flat", ""]);
+        labs3.push([[0, 0, -sS - hzS - 0.04 * fC], "spectrum", kind === "wp" ? "orders overlapping" : "cross-dispersed"], [a3(F0, [0, 0, -0.12 * fC]), P.fold3d || "flat", ""]);
       }
       for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
       prims3.push({ k: "d", p: [S0], col: [96, 90, 84] });
       const pTop = prisms.length ? prisms[prisms.length - 1] : null;
       labs3.push([[-Lt, 0, sS + tHalf * 1.8], "telescope", "f/" + sig(P.F, 3)], [[0, 0, sS + 0.09 * fC], "slit", sig(P.slitW, 3) + "″"],
-        [a3(O, [0, 0, rL * 1.18]), kind === "pp" ? "collimator" : "collimator, passed twice", "f = " + mm(fC)],
+        [a3(O, [0, 0, rL * 1.18]), kind === "pp" ? "collimator" : P.wp3 ? "collimator, passed three times" : "collimator, passed twice", "f = " + mm(fC)],
         [a3(E, s3(gE, 0.75 * W)), "echelle", sig(P.eG, 4) + " /mm"]);
-      if (pTop) labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), prisms.length > 1 ? prisms.length + " prisms, passed twice" : "prism, passed twice", prisms.map(q => q.A + "°").join(" + ")]);
-      const sepTxt = Math.abs(sepDeg - sepTrue) < 0.05 ? "" : "; the beams are drawn " + sepDeg.toFixed(1) + "° apart out of the echelle's plane" + (sepTrue > 0 ? " (" + sepTrue.toFixed(1) + "° in the instrument)" : " (the instrument's angle is not published)");
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; mirrors drawn as lenses" + (kind === "wp" ? " (" + (fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera as built " + mm(fPh)) + ")" : "") + sepTxt + "; spacings not in the sources are schematic.";
+      if (pTop) {
+        const nAll = prisms.length + postRev.length, ones = inOnly.length + outOnly.length;
+        const what = !ones ? (nAll > 1 ? nAll + " prisms, passed twice" : "prism, passed twice") : nAll + " prisms: " + (dblP.length === 1 ? "one" : dblP.length) + " passed twice, " + (ones === 1 ? "one" : ones) + " once";
+        const list = [...inOnly.map(q => q.A + "°"), ...dblT.map(q => q.A + "° ×2"), ...outOnly.map(q => q.A + "°")].join(", ");
+        labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), what, ones ? list : prisms.map(q => q.A + "°").join(" + ")]);
+      }
+      const sepTxt = Math.abs(sepDeg - sepTrue) < 0.05 ? "" : "; the beams are drawn " + sepDeg.toFixed(1) + "° apart out of the echelle's plane" + (sepTrue > 0 ? " (" + sepTrue.toFixed(1) + "° in the instrument)" : " (the instrument's angle is not given in the sources)");
+      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; mirrors drawn as lenses" + (kind === "wp" ? " (" + (P.wp3 ? "the collimator's third pass drawn as a mirror of its own" : fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera " + mm(fPh)) + ")" : "") + sepTxt + (kind === "pp" && P.xPrisms && P.xPrisms.some(q => q.dI) ? "; prisms turned from minimum deviation as in the model" : "") + "; spacings not in the sources are schematic" + (P.note3d ? "; " + P.note3d : "") + ".";
     }
     if (ech) { if (dpass) build3dDoublePass(); else if (["pp", "4c", "wp"].includes(P.lay3d)) build3dFolded(P.lay3d); else build3dEchelle(); }
     else {

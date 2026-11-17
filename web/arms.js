@@ -9,7 +9,9 @@
    GROUPS: the dichroic tree of each instrument, from the research records (data/presets_research.md, data/round4/,
    data/round5/): a node { cut (A), w (transition width, A), aoi (deg), R: branch reflected, T: branch transmitted, src };
    a branch is a preset id (an arm) or another node.  split: "collimated" -- the dichroics stand in the collimated beam
-   after one slit and collimator; "telescope" -- in the telescope's converging beam, each arm with its own slit.
+   after one slit and collimator; "focus" -- in the light spreading from the telescope's focus (Ftel), where MIKE's
+   one slit stands (slit: "shared"), each arm then with its relay (and its own slit, X-Shooter); "preslit" -- in a
+   collimated beam ahead of the slits (UVES: Wpre wide, a doublet focusing each arm on its slit).
 
    The layout is schematic in one respect, stated in its caption: the angles at the dichroics (180 - 2 AOI) and at the
    gratings are true, but which way each element turns the light and the distances between the elements are chosen
@@ -20,47 +22,67 @@
 (function (root) {
 "use strict";
 const GROUPS = {
-  // DESI (D22 Sec. 7.2): the NIR-pass dichroic (>95% R 360-757 nm, >95% T 772-980 nm, mean AOI 25.4 deg) sends the NIR
+  // DESI (D22 Sec. 7.2; FDR Table 5.3): the NIR-pass dichroic (>95% R 360-747 nm, >95% T 772-980 nm in FDR Table 5.3 and
+  // the captions of D22 Figs. 14 and 32, where the text of D22 Sec. 7.2 says 757; mean AOI 25.4 deg) sends the NIR
   // straight on and reflects the rest to the red-pass dichroic (>95% R 360-566 nm, >95% T 593-772 nm, AOI 32.1 deg);
   // crossovers DERIVED as the middle of each specification gap
-  "DESI": { split: "collimated", tree: { cut: 7645, w: 150, aoi: 25.4, src: "D22 Sec. 7.2 (NIR-pass; crossover DERIVED)",
+  "DESI": { split: "collimated", tree: { cut: 7595, w: 250, aoi: 25.4, src: "FDR Table 5.3; D22 Sec. 7.2 (NIR-pass; crossover DERIVED)",
     R: { cut: 5795, w: 270, aoi: 32.1, src: "D22 Sec. 7.2 (red-pass; crossover DERIVED)", R: "desib", T: "desir" }, T: "desiz" } },
-  // Boombox: the bands 3600-5900 and 5700-10100 A (Via Science Book) overlap at 5700-5900 A: one dichroic there (INFERRED;
-  // which side it reflects is not published)
-  "Boombox (partly inferred)": { split: "collimated", tree: { cut: 5800, w: 200, aoi: 45, inferred: true, src: "the bands' overlap (INFERRED)", R: "boomboxb", T: "boomboxr" } },
+  // Boombox: blue channel 3550-5750 A, red 5750-10100 A (SPIE 14149, 2026, abstract); the bench layout (Via design files)
+  // shows the dichroic turning the blue by 135 deg, so an AOI of 22.5 deg (DERIVED from the drawing, +-1 deg), the red
+  // transmitted to a fold mirror; the transition width is not published
+  "Boombox (partly inferred)": { split: "collimated", note: "the dichroic's angle is measured from the bench layout", tree: { cut: 5750, w: 200, aoi: 22.5, src: "SPIE 14149 (2026) abstract; bench layout (AOI DERIVED)", R: "boomboxb", T: "boomboxr" } },
   // PFS (V14 Sec. 3): "the first dichroic reflects the Blue part of the spectrum and the second reflects the Red while the
-  // NIR is transmitted"; splits at the channel edges 640 and 955 nm (SM16), transitions ~20 nm (T16); angles not published
-  "PFS": { split: "collimated", tree: { cut: 6400, w: 200, aoi: 45, noAoi: true, src: "V14; SM16 channel edges", R: "pfsb",
-    T: { cut: 9550, w: 200, aoi: 45, noAoi: true, src: "V14; SM16 channel edges", R: "pfsr", T: "pfsn" } } },
+  // NIR is transmitted"; splits at the channel edges 640 and 955 nm (SM16), transitions ~20 nm (T16); the angles are not
+  // in the text: ~29 and ~38 deg measured from V14 Fig. 2 (a concept-stage drawing; DERIVED, +-3 deg)
+  "PFS": { split: "collimated", note: "PFS's dichroic angles are measured from a concept-stage drawing", tree: { cut: 6400, w: 200, aoi: 29, src: "V14 Sec. 3, Fig. 2 (AOI DERIVED); SM16 channel edges", R: "pfsb",
+    T: { cut: 9550, w: 200, aoi: 38, src: "V14 Sec. 3, Fig. 2 (AOI DERIVED); SM16 channel edges", R: "pfsr", T: "pfsn" } } },
   // 4MOST LRS (L20 Sec. 4.2): the red dichroic 706 nm at 35.35 deg, the blue dichroic 539 nm at 43.58 deg, transitions
-  // 30 nm (measured 524-554 and 691-721 nm, D22); the order of the two is INFERRED
+  // 30 nm (measured 524-554 and 691-721 nm, D22); the blue dichroic transmits only 554-721 nm, so it follows the red one
   "4MOST LRS": { split: "collimated", tree: { cut: 7060, w: 300, aoi: 35.35, src: "L20 Sec. 4.2 (red dichroic)",
     R: { cut: 5390, w: 300, aoi: 43.58, src: "L20 Sec. 4.2 (blue dichroic)", R: "4mostlb", T: "4mostlg" }, T: "4mostlr" } },
   // 4MOST HRS: only the arm bands are published (392.6-435.5, 516-573, 610-679 nm); the splits are INFERRED in the gaps
   "4MOST HRS (effective optics)": { split: "collimated", tree: { cut: 5915, w: 300, aoi: 45, inferred: true, noAoi: true, src: "INFERRED in the band gap",
     R: { cut: 4758, w: 300, aoi: 45, inferred: true, noAoi: true, src: "INFERRED in the band gap", R: "4mosthb", T: "4mosthg" }, T: "4mosthr" } },
-  // LLAMAS (F20): two dichroics at 475 and 690 nm; the first is split in two halves and carries the fiber slit plate;
-  // the order of the reflections is INFERRED
+  // LLAMAS (F20 Secs. 2.4, 3.3): two dichroics at 475 and 690 nm; the 690 nm one is first (split in two halves, it carries
+  // the fiber slit plate), as the throughput lists also show; which side of it reflects is INFERRED
   "LLAMAS (gratings fitted)": { split: "collimated", tree: { cut: 6900, w: 200, aoi: 45, noAoi: true, src: "F20 (690 nm)",
     R: { cut: 4750, w: 200, aoi: 45, noAoi: true, src: "F20 (475 nm)", R: "llamasb", T: "llamasg" }, T: "llamasr" } },
   // KCWI + KCRM (KSPEC; M18 Fig. 2): a 560 nm dichroic takes the place of the blue arm's fold mirror
   "KCWI": { split: "collimated", tree: { cut: 5600, w: 200, aoi: 45, noAoi: true, src: "KSPEC Table 1 (560 nm)", R: "kcwib", T: "kcrm" } },
-  // X-Shooter (V11 Secs. 2.2.5, 3.2): two dichroics at 15 deg in the telescope's beam, crossovers 559.5 and 1024 nm; the
-  // first reflects the UVB, the second the VIS; each arm has its own slit
-  "X-Shooter": { split: "telescope", tree: { cut: 5595, w: 300, aoi: 15, src: "V11 Secs. 2.2.5, 3.2", R: "xshuvb",
-    T: { cut: 10240, w: 400, aoi: 15, src: "V11 Secs. 2.2.5, 3.2", R: "xshvis", T: "xshnir" } } },
-  // MIKE (LCO manual, May 2004): a dichroic of ~495 nm crossover ahead of the two slits (B03: the original 455 nm one
-  // reflected the blue, "80% reflectance by 440nm and 80% transmission by 480nm"); its angle is not published
-  "MIKE": { split: "telescope", tree: { cut: 4950, w: 400, aoi: 45, noAoi: true, src: "LCO manual (May 2004)", R: "mikeblue", T: "mikered" } },
-  // UVES (UM117 Sec. 2.1): the standard DIC1 390+580 setting, dichroic DIC1 at 450 nm ahead of the two slits; its
-  // angle is not published
-  "UVES": { split: "telescope", tree: { cut: 4500, w: 300, aoi: 45, noAoi: true, src: "UVES manual Sec. 2.1 (DIC1)", R: "uvesb", T: "uvesr" } },
+  // X-Shooter (V11 Secs. 2.1, 2.2.5, 3.2): two dichroics at 15 deg after the Cassegrain focus (f/13.41, V11 Sec. 2.2.7),
+  // crossovers 559.5 and 1024 nm; the first reflects the UVB, the second the VIS; each arm's relay (a focal reducer to
+  // f/6.5 in the UVB and VIS) then images the focus on the arm's own slit. Widths: the combined dichroics transmit less
+  // than 80% at 556.0-563.8 and 1009.5-1035 nm (ESO manual Sec. 3)
+  "X-Shooter": { split: "focus", Ftel: 13.41, relay: "relay", note: "each arm's relay images the telescope's focus on the arm's own slit",
+    tree: { cut: 5595, w: 78, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: "xshuvb",
+      T: { cut: 10240, w: 255, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: "xshvis", T: "xshnir" } } },
+  // MIKE (B03 Secs. 2.1, 2.3; LCO manual, May 2004): one slit at the f/11 focus; the dichroic, "the first optical element
+  // beyond the slit", at an incidence of 30 deg, reflects the blue; each arm's injection optics then feed its lens. The
+  // crossover is ~495 nm since 2004 (455 nm before); the width is the original dichroic's "80% reflectance by 440nm and
+  // 80% transmission by 480nm" (the new one's is not published)
+  "MIKE": { split: "focus", slit: "shared", Ftel: 11, relay: "injection optics", shared: { top: ["D"], m: ["slitW", "nObj"] },
+    note: "MIKE's dichroic follows its one slit, and each arm's injection optics feed the arm's lens",
+    tree: { cut: 4950, w: 400, aoi: 30, src: "B03 Sec. 2.1; LCO manual (May 2004)", R: "mikeblue", T: "mikered" } },
+  // UVES (Dk00 p. 536 and Fig. 3; UM117 Secs. 2.2.1, 3.1): the f/15 Nasmyth beam is collimated behind the derotator, and
+  // the dichroic (DIC1 at 450 nm in the standard 390+580 setting) stands in that collimated beam; a doublet in each arm
+  // focuses it on the arm's slit at f/10. The blue is "reflected to the right" (UM Sec. 2.2.1): 45 deg INFERRED. The
+  // transition: 430-465 nm (UM Sec. 3.1). The width of the pre-slit beam is not published (Wpre is schematic)
+  "UVES": { split: "preslit", Ftel: 15, Wpre: 60, relay: "doublet", note: "the width of UVES's pre-slit beam is not published",
+    tree: { cut: 4500, w: 350, aoi: 45, noAoi: true, src: "UM117 Secs. 2.2.1, 3.1 (DIC1)", R: "uvesb", T: "uvesr" } },
 };
 const leaves = n => (typeof n === "string" ? [n] : [...leaves(n.R), ...leaves(n.T)]);
+// the band the dichroics pass to each arm, in A: { id: [lo, hi, half-width of the transition at lo, at hi] }
+const passBands = (n, lo = 0, hi = Infinity, wl = 0, wh = 0, out = {}) => {
+  if (typeof n === "string") { out[n] = [lo, hi, wl, wh]; return out; }
+  passBands(n.R, lo, Math.min(hi, n.cut), wl, n.cut < hi ? n.w / 2 : wh, out);
+  passBands(n.T, Math.max(lo, n.cut), hi, n.cut > lo ? n.w / 2 : wl, wh, out);
+  return out;
+};
 const nodes = n => (typeof n === "string" ? [] : [n, ...nodes(n.R), ...nodes(n.T)]);
 // the controls that one arm's edit sets for every arm: the telescope always; for a split in the collimated beam also
 // the slit, the fibers and the collimator, which the arms share (top-level keys, and keys of the mode's scope)
-const SHARED_COLL = { top: ["D", "F"], m: ["slitW", "nObj", "W", "col", "telF", "fibAp"] }, SHARED_TEL = { top: ["D"], m: [] };
+const SHARED_COLL = { top: ["D", "F"], m: ["slitW", "nObj", "W", "col", "telF", "fibAp"] }, SHARED_SEP = { top: ["D"], m: [] };
 
 root.ARMSAPP = function (H) {
   const { fitCanvas, lamRGB, rgba, sig, grp, mm, FONT, INK, MUTED, message, makeTraces, splatTraces } = H;
@@ -68,7 +90,7 @@ root.ARMSAPP = function (H) {
   const group = inst => GROUPS[inst] || null;
   const armIds = inst => (GROUPS[inst] ? leaves(GROUPS[inst].tree) : []);
   const cuts = inst => (GROUPS[inst] ? nodes(GROUPS[inst].tree) : []);
-  const shared = inst => (GROUPS[inst] && GROUPS[inst].split === "telescope" ? SHARED_TEL : SHARED_COLL);
+  const shared = inst => { const G = GROUPS[inst]; return !G ? SHARED_COLL : G.shared || (G.split === "collimated" ? SHARED_COLL : SHARED_SEP); };
   const v = (x, y) => [x, y], ad = (p, q) => [p[0] + q[0], p[1] + q[1]], sub = (p, q) => [p[0] - q[0], p[1] - q[1]], sc = (p, s) => [p[0] * s, p[1] * s];
   const dot = (p, q) => p[0] * q[0] + p[1] * q[1];
   const rot = (p, t) => [p[0] * Math.cos(t) - p[1] * Math.sin(t), p[0] * Math.sin(t) + p[1] * Math.cos(t)];
@@ -108,7 +130,7 @@ root.ARMSAPP = function (H) {
   // ---- one arm's optics in its own frame: the light arrives along +x at the origin (the disperser, or for an arm with
   // its own slit, the slit); flip mirrors the arm about its axis.  Returns the primitives, the labels, and the convex
   // pieces that the layout keeps apart
-  function unit(a, flip, tele) {
+  function unit(a, flip, tele, inj) {
     const P = a.P, D = a.D, prims = [], labs = [], pieces = [];
     if (D.bad || !D.c) return { prims, labs, pieces: [[v(0, -1), v(1, 0), v(0, 1)]], bad: true };
     const ech = P.mode === "echelle", W = P.W, Wp = Math.max(W, D.Wp || W), fK = D.fcam, tint = bandRGB(D.range[0], D.range[1]);
@@ -119,8 +141,10 @@ root.ARMSAPP = function (H) {
     const chain = [];
     if (tele) {
       const fCa = D.fcol || P.F * W;
-      prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
-      labs.push({ at: v(0, 0), txt: "slit", sub: sig(P.slitW, 2) + "″", pri: 1, dir: v(0, -1), optional: true });
+      if (!inj) {
+        prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
+        labs.push({ at: v(0, 0), txt: "slit", sub: sig(P.slitW, 2) + "″", pri: 1, dir: v(0, -1), optional: true });
+      }
       if (P.col === "mirror") {
         // a mirror collimator folds the beam back RET off the slit's axis, to the disperser beside the arriving cone;
         // the camera then turns away from the cone
@@ -197,7 +221,7 @@ root.ARMSAPP = function (H) {
   // bodies (convex pieces tagged with the nodes they join; bodies that share a node may touch)
   function scene(G, arms, cfg) {
     const byId = Object.fromEntries(arms.map(a => [a.id, a])), a0 = arms.find(a => !a.D.bad && a.D.c) || arms[0];
-    const tele = G.split === "telescope", W = a0.P.W, prims = [], labs = [], bodies = [];
+    const tele = G.split !== "collimated", W = a0.P.W, prims = [], labs = [], bodies = [];
     const body = (pieces, tags) => bodies.push({ pieces: pieces.filter(p => p.length >= 3), tags });
     const band = n => { const ls = leaves(n).map(id => byId[id]).filter(a => a && !a.D.bad && a.D.c); return ls.length ? [Math.min(...ls.map(a => a.D.range[0])), Math.max(...ls.map(a => a.D.range[1]))] : null; };
     const fill = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.1) : WHITE_F), stroke = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.4) : WHITE_S);
@@ -210,8 +234,9 @@ root.ARMSAPP = function (H) {
       const pp = ad(p, sc(sub(q, p), s0)), qq = ad(p, sc(sub(q, p), 1 - s0)), wpp = wp + (wq - wp) * s0, wqq = wp + (wq - wp) * (1 - s0);
       body([hull([ad(pp, sc(n, wpp / 2)), ad(qq, sc(n, wqq / 2)), ad(qq, sc(n, -wqq / 2)), ad(pp, sc(n, -wpp / 2))])], tags);
     };
-    const Ftel = tele ? Math.max(...arms.map(a => a.P.F)) : a0.P.F;
-    let first, dir0, w0 = W, Lf = 0;
+    // (a split after the telescope's focus: the true telescope focal ratio, from GROUPS; the arms' F is their slit's)
+    const Ftel = tele ? G.Ftel : a0.P.F, pre = G.split === "preslit", Wpre = pre ? G.Wpre : 0;
+    let first, dir0, w0 = W;
     if (!tele) {
       const fC = a0.D.fcol || a0.P.F * W, Lt = Math.min(0.32 * fC, 1.6 * W), tHalf = Lt / (2 * a0.P.F);
       const telCone = [v(-Lt, tHalf), v(0, 0), v(-Lt, -tHalf)];
@@ -243,16 +268,33 @@ root.ARMSAPP = function (H) {
       prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
       labs.push({ at: v(0, 0), txt: "slit", sub: sig(a0.P.slitW, 3) + "″", pri: 1, dir: v(0, -1), optional: true });
     } else {
-      // the telescope's beam converging on the arms' slits, which all sit at the same distance Lf from the first dichroic
-      const base = 1.2 * W + 40;
-      const pathMax = (n, d) => (typeof n === "string" ? d : Math.max(pathMax(n.T, typeof n.T === "string" ? d : d + base * cfg.L[n._k * 2]), pathMax(n.R, typeof n.R === "string" ? d : d + base * cfg.L[n._k * 2 + 1])));
-      Lf = pathMax(G.tree, 0) + 1.6 * base * cfg.L0;
-      w0 = Lf / Ftel;
-      const Lt = 0.45 * Lf, d0 = v(-Lt, 0), wt = (Lf + Lt) / Ftel;
-      first = v(0, 0); dir0 = v(1, 0);
-      prims.push({ k: "poly", p: [ad(d0, v(0, wt / 2)), v(0, w0 / 2), v(0, -w0 / 2), ad(d0, v(0, -wt / 2))], fill: "rgba(214,160,50,0.18)", stroke: "rgba(214,160,50,0.6)" });
-      labs.push({ at: d0, txt: "telescope", sub: "f/" + sig(Ftel, 3), pri: 2, dir: v(-1, 0) });
-      body([hull([ad(d0, v(0, wt / 2)), ad(d0, v(0, -wt / 2)), v(-0.5 * W, w0 / 2), v(-0.5 * W, -w0 / 2)])], ["tel", "n0"]);
+      // the telescope's cone to its focus at the origin: there the shared slit (MIKE) or the focal plane ahead of the
+      // arms' own slits; then the light spreads at the telescope's focal ratio, to the dichroics ("focus") or to a
+      // pre-slit collimator whose collimated beam carries the dichroics ("preslit", UVES)
+      const Lt = 1.4 * W, tw = Lt / Ftel, cone = [v(-Lt, tw / 2), v(0, 0), v(-Lt, -tw / 2)];
+      prims.push({ k: "poly", p: cone, fill: "rgba(214,160,50,0.18)", stroke: "rgba(214,160,50,0.6)" });
+      labs.push({ at: v(-Lt, 0), txt: "telescope", sub: "f/" + sig(Ftel, 3), pri: 2, dir: v(-1, 0) });
+      if (G.slit === "shared") {
+        prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
+        labs.push({ at: v(0, 0), txt: "slit", sub: sig(a0.P.slitW, 3) + "″", pri: 2, dir: v(0, -1) });
+      } else {
+        prims.push({ k: "dot", p: v(0, 0) });
+      }
+      body([hull([...cone, v(0.02 * W, 0.04 * W), v(0.02 * W, -0.04 * W)])], ["tel"]);
+      if (pre) {
+        const fp = Wpre * Ftel, Lc = v(fp, 0);
+        prims.push({ k: "poly", p: [v(0, 0), v(fp, Wpre / 2), v(fp, -Wpre / 2)], fill: WHITE_F, stroke: WHITE_S });
+        prims.push({ k: "lens", c: Lc, ax: v(1, 0), h: 0.6 * Wpre });
+        labs.push({ at: ad(Lc, v(0, -0.65 * Wpre)), txt: "collimator", sub: "pre-slit", pri: 2, dir: v(0, -1) });
+        body([hull([v(0.3 * fp, 0.15 * Wpre), v(0.3 * fp, -0.15 * Wpre), v(fp, 0.62 * Wpre), v(fp, -0.62 * Wpre)])], ["tel", "col"]);
+        const L0 = (1.4 * Wpre + 40) * cfg.L0;
+        first = ad(Lc, v(L0, 0)); dir0 = v(1, 0); w0 = Wpre;
+        seg(Lc, first, Wpre, Wpre, null, ["col", "n0"]);
+      } else {
+        const L0 = (0.9 * W + 40) * cfg.L0;
+        first = v(L0, 0); dir0 = v(1, 0); w0 = L0 / Ftel;
+        seg(v(0, 0), first, 0, w0, null, ["tel", "n0"]);
+      }
     }
     // the tree: at each dichroic the reflected light turns by 180 - 2 AOI (to the side cfg.ds picks), the transmitted
     // light runs on
@@ -260,7 +302,20 @@ root.ARMSAPP = function (H) {
       if (typeof node === "string") {
         const a = byId[node];
         if (!a) return;
-        const U = unit(a, cfg.af[node] || 1, tele), th = Math.atan2(d[1], d[0]), T = q => ad(at, rot(q, th));
+        // (after the telescope's focus: the arm's relay at the branch's end; with the arms' own slits it focuses the
+        // light on the slit at the arm's focal ratio, with MIKE's shared slit its injection optics feed the arm)
+        let o = at, extra = null;
+        if (tele && !a.D.bad && a.D.c) {
+          const n = perp(d), hR = 0.62 * wNow + 0.03 * W;
+          prims.push({ k: "lens", c: at, ax: d, h: hR });
+          labs.push({ at: ad(at, sc(n, -hR)), txt: G.relay, sub: "", pri: 1, dir: sc(n, -1), optional: true });
+          if (G.slit !== "shared") {
+            o = ad(at, sc(d, wNow * a.P.F));
+            prims.push({ k: "poly", p: [ad(at, sc(n, wNow / 2)), o, ad(at, sc(n, -wNow / 2))], fill: rgba(bandRGB(a.D.range[0], a.D.range[1]), 0.1), stroke: rgba(bandRGB(a.D.range[0], a.D.range[1]), 0.4) });
+          }
+          extra = hull([ad(at, sc(n, hR)), ad(at, sc(n, -hR)), ad(o, sc(n, 0.05 * W)), ad(o, sc(n, -0.05 * W)), ad(at, sc(d, 0.05 * W))]);
+        }
+        const U = unit(a, cfg.af[node] || 1, tele, G.slit === "shared"), th = Math.atan2(d[1], d[0]), T = q => ad(o, rot(q, th));
         for (const pr of U.prims) {
           const q = Object.assign({}, pr);
           if (pr.p && Array.isArray(pr.p[0])) q.p = pr.p.map(T); else if (pr.p) q.p = T(pr.p);
@@ -271,7 +326,7 @@ root.ARMSAPP = function (H) {
           prims.push(q);
         }
         for (const L of U.labs) labs.push(Object.assign({}, L, { at: T(L.at), dir: rot(L.dir, th) }));
-        body(U.pieces.map(pc => pc.map(T)), [tag]);
+        body([...U.pieces.map(pc => pc.map(T)), ...(extra ? [extra] : [])], [tag]);
         return;
       }
       const k = node._k, sense = cfg.ds[k], aoi = node.aoi * DEG;
@@ -280,16 +335,17 @@ root.ARMSAPP = function (H) {
       prims.push({ k: "dich", p: [ad(at, sc(tPl, half)), ad(at, sc(tPl, -half))] });
       labs.push({ at: ad(at, sc(tPl, half)), txt: "dichroic " + grp(node.cut / 10) + " nm", sub: node.inferred ? "inferred" : "", pri: 4, dir: tPl });
       body([[ad(ad(at, sc(tPl, half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, -thk)), ad(ad(at, sc(tPl, half)), sc(nPl, -thk))]], [tag]);
-      const base = (tele ? 1.2 : 1.35) * W + 40;
+      const spread = tele && !pre;                                 // (the beam widens from the telescope's focus)
+      const base = (tele ? 0.9 : 1.35) * W + 40;
       for (const [br, dd, j] of [[node.T, d, 0], [node.R, rd, 1]]) {
         const leaf = typeof br === "string", ctag = leaf ? "a:" + br : "n" + br._k;
-        const len = tele && leaf ? Math.max(0.6 * base, Lf - path) : base * cfg.L[k * 2 + j];
-        const to = ad(at, sc(dd, len)), wTo = tele ? Math.max(0.02 * W, wNow - len / Ftel) : wNow;
-        seg(at, to, wNow, tele && leaf ? 0 : wTo, band(br), [tag, ctag]);
+        const len = base * cfg.L[k * 2 + j];
+        const to = ad(at, sc(dd, len)), wTo = spread ? (path + len) / Ftel : wNow;
+        seg(at, to, wNow, wTo, band(br), [tag, ctag]);
         walk(br, to, dd, wTo, path + len, ctag);
       }
     };
-    walk(G.tree, first, dir0, w0, 0, "n0");
+    walk(G.tree, first, dir0, w0, tele && !pre ? first[0] : 0, "n0");
     return { prims, labs, bodies, W };
   }
 
@@ -315,7 +371,7 @@ root.ARMSAPP = function (H) {
   function choose(G, arms, aspect) {
     const nd = nodes(G.tree), ids = leaves(G.tree);
     nd.forEach((n, k) => { n._k = k; });
-    const nS = nd.length + ids.length + (G.split === "telescope" ? 0 : 1);
+    const nS = nd.length + ids.length + (G.split === "collimated" ? 1 : 0);
     const make = (bits, L, L0) => ({ ds: nd.map((_, k) => (bits >> k) & 1 ? -1 : 1), af: Object.fromEntries(ids.map((id, i) => [id, (bits >> (nd.length + i)) & 1 ? -1 : 1])), ret: (bits >> (nd.length + ids.length)) & 1 ? -1 : 1, L, L0 });
     const evalC = c => { const r = scoreOf(scene(G, arms, c), aspect); return { c, ov: r.ov, s: r.s }; };
     const cost = (r, sMax) => 8 * r.ov + sMax / r.s;
@@ -369,7 +425,7 @@ root.ARMSAPP = function (H) {
     const ox = mL + ((w - mL - mR) - s * (x1 - x0)) / 2 - s * x0, oy = mT + ((h - mT - mB) - s * (y1 - y0)) / 2 + s * y1;
     const X = p => [ox + s * p[0], oy - s * p[1]];
     g.lineJoin = "round";
-    const order = { poly: 0, slit: 1, lens: 2, mirror: 2, line: 3, dich: 3 };
+    const order = { poly: 0, slit: 1, dot: 1, lens: 2, mirror: 2, line: 3, dich: 3 };
     for (const pr of Sc.prims.slice().sort((p, q) => order[p.k] - order[q.k])) {
       if (pr.k === "poly") {
         g.beginPath(); pr.p.forEach((q, i) => { const c = X(q); i ? g.lineTo(c[0], c[1]) : g.moveTo(c[0], c[1]); }); g.closePath();
@@ -393,6 +449,8 @@ root.ARMSAPP = function (H) {
         g.beginPath(); g.moveTo(a[0], a[1]); g.quadraticCurveTo(m0[0], m0[1], b[0], b[1]);
         g.strokeStyle = "rgba(95,104,114,0.35)"; g.lineWidth = 8; g.lineCap = "butt"; g.stroke();
         g.strokeStyle = STEEL; g.lineWidth = 3; g.stroke();
+      } else if (pr.k === "dot") {
+        const c = X(pr.p); g.beginPath(); g.arc(c[0], c[1], 2.6, 0, 2 * Math.PI); g.fillStyle = "#5a544e"; g.fill();
       } else if (pr.k === "slit") {
         const n = perp(pr.ax), a = X(ad(pr.p, sc(n, pr.h))), b = X(ad(pr.p, sc(n, -pr.h)));
         g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.strokeStyle = "#3b3733"; g.lineWidth = 3; g.lineCap = "butt"; g.stroke();
@@ -409,7 +467,7 @@ root.ARMSAPP = function (H) {
     g.fillText(sbLab, bx + L * s + 8, by);
     const capX = bx + L * s + 8 + g.measureText(sbLab).width + 22;
     placeLabels(g, w, h, Sc.labs.map(Lb => ({ ...Lb, at: X(Lb.at), dir: [Lb.dir[0], -Lb.dir[1]] })), active, capH);
-    return { capX, tele: G.split === "telescope" };
+    return { capX, tele: G.split !== "collimated" };
   }
 
   // the labels, placed where they cover the least ink (read back from the canvas, as the Spectral view does) and
@@ -541,9 +599,15 @@ root.ARMSAPP = function (H) {
     const nameW = Math.max(...ok.map(a => g.measureText(a.name).width));
     const L0 = mL + nameW + 10, L1 = w - mR - 22, y0 = top + chipsH + gapS, rowH = 13;
     const XL = l => L0 + (l - lo) / (hi - lo) * (L1 - L0);
+    // (each bar dimmed where the dichroics send that light to another arm: beyond the crossover and its transition)
+    const pb = GROUPS[inst] ? passBands(GROUPS[inst].tree) : {};
     ok.forEach((a, i) => {
-      const yy = y0 + i * (rowH + 6), r0 = a.D.range[0], r1 = a.D.range[1];
-      for (let k = 0; k < 48; k++) { const l0 = r0 + (r1 - r0) * k / 48, l1 = r0 + (r1 - r0) * (k + 1) / 48; g.fillStyle = rgba(lamRGB((l0 + l1) / 2 * 1e4), 0.9); g.fillRect(XL(l0), yy, XL(l1) - XL(l0) + 0.5, rowH); }
+      const yy = y0 + i * (rowH + 6), r0 = a.D.range[0], r1 = a.D.range[1], b = pb[a.id];
+      for (let k = 0; k < 96; k++) {
+        const l0 = r0 + (r1 - r0) * k / 96, l1 = r0 + (r1 - r0) * (k + 1) / 96, lA = (l0 + l1) / 2 * 1e4;
+        const out = b && (lA < b[0] - b[2] || lA > b[1] + b[3]);
+        g.fillStyle = rgba(lamRGB(lA), out ? 0.22 : 0.9); g.fillRect(XL(l0), yy, XL(l1) - XL(l0) + 0.5, rowH);
+      }
       g.font = a.id === active ? `600 11px ${FONT}` : `11px ${FONT}`; g.fillStyle = a.id === active ? ACCENT : INK; g.textAlign = "right"; g.textBaseline = "middle";
       g.fillText(a.name, L0 - 6, yy + rowH / 2);
     });
@@ -580,7 +644,7 @@ root.ARMSAPP = function (H) {
     const G = GROUPS[inst], act = arms.find(a => a.id === active), nd = cuts(inst);
     const guess = nd.some(n => n.noAoi);
     return "All arms to one scale, with the angles at the dichroics and gratings true" + (guess ? " (45° where a dichroic's angle is not published)" : "") +
-      "; the turning directions and spacings are chosen for clarity. The controls set the " + (act ? act.name.replace(/\s*[,(].*$/, "").replace(/\s+arm$/i, "") + " arm" : "first arm") +
+      "; the turning directions and spacings are chosen for clarity" + (G && G.note ? "; " + G.note : "") + ". The controls set the " + (act ? act.name.replace(/\s*[,(].*$/, "").replace(/\s+arm$/i, "") + " arm" : "first arm") +
       "; a click on another arm moves the controls to that arm.";
   }
   return { group, armIds, cuts, shared, drawLayout, drawDetectors, stats, caption, hitLayout, hitDetector, GROUPS, test: () => last };
