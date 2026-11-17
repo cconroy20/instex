@@ -68,6 +68,10 @@ body.m-ech #vSpat, body.m-ech .only-grat3{display:none}
   background:linear-gradient(90deg,rgb(40,110,220) 0%,rgb(96,166,245) 19.6%,rgb(228,224,214) 41.1%,rgb(246,186,105) 64.3%,rgb(222,128,30) 100%)}
 .val small{font-size:.8em;color:var(--muted)}
 .lvx svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* the light pulses (anim.js): a canvas over the layout drawing, and its play button above the Expand button */
+canvas.pulses{position:absolute;pointer-events:none;z-index:2}
+.lvx.lvp{bottom:46px}
+.lvx.lvp.solo{bottom:12px}
 /* the layout expanded to fill the window */
 body.lv-expanded{overflow:hidden}
 body.lv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}

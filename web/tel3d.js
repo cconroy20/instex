@@ -36,7 +36,7 @@ const edgeOf = rgb => rgba(rgb.map(c => c * 0.5), 0.75);
 const inPoly = (poly, x, y) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i], [xj, yj] = poly[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
 
 function build(Dz, P, G, pu, opts = {}) {
-  const prims = [], labs = [], Dmm = Dz.Dmm;
+  const prims = [], labs = [], pulses = [], Dmm = Dz.Dmm;
   const face = (ps, rgb, al, stroke = null, lw = 1, spec = false) => prims.push({ k: "f", p: ps.map(W), rgb, al, stroke, lw, spec });
   const tube = (stations, rgb, al) => prims.push({ k: "t", st: stations.map(s => s.map(W)), rgb, al });
   const outline = (ps, stroke, lw = 1) => prims.push({ k: "o", p: ps.map(W), stroke, lw });
@@ -205,7 +205,7 @@ function build(Dz, P, G, pu, opts = {}) {
     if (e.k === "pfu") xTop = Math.min(xTop, e.x - 0.06 * Dz.zF);
   }
   xTop -= 0.15 * Dmm;
-  const sheet = (pts, t, rgb, al, rays = true) => {
+  const sheet = (pts, t, rgb, al, rays = true, pulsed = true) => {
     const paths = pts.map(([px, py]) => {
       const q = G.pathOf3(Dz.trace(px, t), Dz.trace(-py, 0), t), A = q[0], B = q[1], u = (xTop - A[0]) / ((B[0] - A[0]) || 1);
       if (u > 0 && u < 1) q[0] = A.map((v, k) => v + u * (B[k] - v));
@@ -219,6 +219,8 @@ function build(Dz, P, G, pu, opts = {}) {
     // the incoming starlight: a few rays, not a sheet (a column of light reads as a tube)
     if (rays) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 8)))
       for (let j = 0; j < s0; j++) prims.push({ k: "l", p: [W(paths[k][j]), W(paths[k][j + 1])], col: rgba(rgb, 0.6), lw: 0.9 });
+    // the light pulses (anim.js): seven rays around the bundle's edge, from the sky to the focus
+    if (pulsed) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 7))) pulses.push({ p: paths[k].map(W), rgb });
   };
   const cx = stop ? stop.x : off, cy = stop ? stop.y : 0, rOut = stop ? stop.r : Dmm / 2, rIn = eps > 0.002 ? eps * (stop ? stop.r : Dmm / 2) : 0;
   // the on-axis star's light as a warm sheet; the top and bottom of the field as their edges only (overlapping
@@ -226,9 +228,11 @@ function build(Dz, P, G, pu, opts = {}) {
   G.ts.forEach((t, f) => {
     if (f !== 1) { sheet(ring(rOut, cx, cy), t, PAL.light[f], 0, false); return; }
     sheet(ring(rOut, cx, cy), t, PAL.light[f], 0.15);
-    if (rIn > 0 && !off) sheet(ring(rIn, cx, cy), t, PAL.light[f], 0.1, false);
+    if (rIn > 0 && !off) sheet(ring(rIn, cx, cy), t, PAL.light[f], 0.1, false, false);
   });
-  return { prims, labs };
+  // (the center of the field last: its pulses on top where the bundles overlap)
+  pulses.sort((a, b) => (a.rgb === PAL.light[1]) - (b.rgb === PAL.light[1]));
+  return { prims, labs, pulses };
 }
 
 // ---- the painter: everything projected and drawn back to front; faces shaded by their angle to a light from the
@@ -237,6 +241,8 @@ function build(Dz, P, G, pu, opts = {}) {
 function draw(cv, Dz, P, G, pu, V, H, opts) {
   const { g, w, h } = H.fitCanvas(cv);
   g.clearRect(0, 0, w, h);
+  const ANIM = typeof window !== "undefined" ? window.ANIM : null;
+  if (ANIM) ANIM.set(cv, []);
   if (!(cv.width > 0 && cv.height > 0)) return;
   if (Dz.bad) { H.message(g, w, h, Dz.bad); return; }
   {
@@ -244,12 +250,13 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
     bg.addColorStop(0, "rgba(232,238,245,0.9)"); bg.addColorStop(1, "rgba(232,238,245,0)");
     g.fillStyle = bg; g.fillRect(0, 0, w, h);
   }
-  let { prims, labs } = build(Dz, P, G, pu, opts);
+  let { prims, labs, pulses } = build(Dz, P, G, pu, opts);
   // a binocular telescope (the LBT): the side drawn twice, its axes opts.twin apart along the pupil's x (the world's x)
   if (opts && opts.twin) {
     const h = opts.twin / 2, sh = (q, d) => [q[0] + d, q[1], q[2]];
     const dup = d => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(st => st.map(q => sh(q, d))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d)) })));
     prims = dup(-h).concat(dup(h));
+    pulses = [-h, h].flatMap(d => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d)), rgb: pl.rgb })));
     labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, h) }));
   }
   const R = rotAzEl(V.az, V.el);
@@ -269,6 +276,9 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
     V.fit = false;
   }
   const S2 = q => [V.ox + V.s * q[0], V.oy - V.s * q[1]];
+  // the light pulses: projected rays, with distances in mm along each ray in the world (so a pulse slows on the
+  // screen where its ray runs toward the viewer)
+  if (ANIM) ANIM.set(cv, pulses.map(pl => ({ p: pl.p.map(q => S2(proj(q))), s: ANIM.lengths(pl.p), c: pl.rgb })));
   const LT = n3([-0.42, 0.55, 0.72]), HV = n3(a3(LT, [0, 0, 1]));
   const light = vs => {
     const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];

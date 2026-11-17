@@ -540,6 +540,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   const cv = $(tg.cv);
   const { g, w, h } = fitCanvas(cv);
   g.clearRect(0, 0, w, h);
+  if (window.ANIM) window.ANIM.set(cv, []);
   if (!(cv.width > 0 && cv.height > 0)) return;
   if (Dz.bad) { message(g, w, h, Dz.bad); return; }
   const { tel, Dmm, eps, sag1, polys, elems, marks } = layoutGeom(Dz, P);
@@ -585,6 +586,13 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     }
   }
   g.restore();
+  // the light pulses (anim.js): three rays across each bundle, its two edges and its middle (the paraxial trace is
+  // linear in the height, so the middle ray lies halfway between the edges), with distances in mm along the ray
+  // (the center of the field last: its pulses on top where the bundles overlap)
+  if (window.ANIM) window.ANIM.set(cv, polys.filter(p => p.f !== 1).concat(polys.filter(p => p.f === 1)).flatMap(p => {
+    const lines = p.a.length === p.b.length ? [0, 0.5, 1].map(u => p.a.map((q, i) => [q[0] + u * (p.b[i][0] - q[0]), q[1] + u * (p.b[i][1] - q[1])])) : [p.a, p.b];
+    return lines.map(ps => ({ p: ps.map(q => T(...q)), s: window.ANIM.lengths(ps), c: FCOL[p.f] }));
+  }));
   // ---- elements
   const annot = P.annot !== false;
   const labels = [], obstacles = [];                              // canvas boxes the labels keep clear of

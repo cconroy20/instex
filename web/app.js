@@ -532,6 +532,7 @@ const lview = { mode: "auto", s: 0, ox: 0, oy: 0, fit: true };
 function drawLayout(Dz, P) {
   const { g, w, h } = fitCanvas($("cvL"));
   g.clearRect(0, 0, w, h);
+  if (window.ANIM) window.ANIM.set($("cvL"), []);
   if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad || "No light reaches the detector"); $("lSub").textContent = ""; $("lSub").hidden = true; return; }
   const ech = P.mode === "echelle", trans = P.gType === "trans" && !ech, grism = P.gType === "grism" && !ech && !!Dz.grism;
   // a: the tilt of the surface where the collimated beam ends and the dispersed beam starts.  A ruled grism is
@@ -721,7 +722,7 @@ function drawLayout(Dz, P) {
   // Each bundle is drawn as a solid: the surface swept by the edge of its circular pupil (a cone from the slit
   // point to the collimator, a tube through the collimated beam, a tube to the camera and a cone to the focus).
   const view3d = P.view === "3d" && (!ech || dpass);
-  const prims3 = [], pts3 = [], labs3 = [];
+  const prims3 = [], pts3 = [], labs3 = [], beams3 = [];      // (beams3: the beams again, for the light pulses)
   let proj3 = null, box3 = null;
   if (view3d) {
     const NEU3 = [104, 98, 92], GLASS3 = [150, 196, 232], STEEL_RGB = [96, 104, 114], STEEL3 = "#33373d", GE3 = "#3f6d96";
@@ -737,7 +738,7 @@ function drawLayout(Dz, P) {
     const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw }); pts3.push(...ps); };
     // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
     // footprint rings are made when it is drawn, since the silhouette depends on the view
-    const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); for (const s of stations) pts3.push(...s); };
+    const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb }); for (const s of stations) pts3.push(...s); };
     // a disc or a lens of thickness th across the axis n, as wedges (for the depth sort) and a rim
     const slab = (c, n, r, th, rgb, al, stroke, map = p => p) => {
       n = n3(n); let u = x3(n, [0, 0, 1]); if (Math.hypot(...u) < 1e-6) u = [1, 0, 0]; u = n3(u); const v = x3(n, u);
@@ -1046,9 +1047,12 @@ function drawLayout(Dz, P) {
   // wavelength (the ramp above), each wavelength's rays meeting at their focus on the detector.  The optics
   // follow the usual drawing conventions: glass shaded and outlined, mirrors hatched on the back.
   const NEU = [104, 98, 92], GLASS_EDGE = "#3f6d96", STEEL = "#33373d";
+  // (the solid colored paths are the rays: kept for the light pulses, anim.js)
+  const pulseRays = [];
   const path = (pts, col, lw = 1, dash) => {
     g.beginPath(); pts.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
     g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]);
+    if (!dash && typeof col === "string") pulseRays.push({ p: pts.map(T), c: col });
   };
   const glassFill = (q0, q1) => {
     const gr = g.createLinearGradient(q0[0], q0[1], q1[0], q1[1]);
@@ -1105,6 +1109,29 @@ function drawLayout(Dz, P) {
     // ---- 3D view: everything projected and drawn back to front; faces shaded by their angle to a light from
     // the upper left, in front
     const S2 = p => { const q = proj3(p); return T([q[0], q[1]]); };
+    // the light pulses (anim.js): four rays around each beam (a ring's quarter points, so a flipped grating still
+    // meets them), with distances in mm along each ray in the world.  The telescope's light starts the count (its
+    // beam starts at x = -Lt); each later beam carries on from the earlier beam whose end lies nearest its start
+    // (the slit, then the grating or the echelle).
+    {
+      const rays3 = [];
+      for (const b of beams3) {
+        const n = Math.max(...b.st.map(s => s.length));
+        for (let k = 0; k < n; k += Math.max(1, Math.round(n / 4))) rays3.push({ w: b.st.map(s => s[s.length === 1 ? 0 : k % s.length]), rgb: b.rgb });
+      }
+      const dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
+      rays3.forEach((r, i) => {
+        r.s = window.ANIM ? window.ANIM.lengths(r.w) : [0];
+        r.s0 = 0;
+        if (r.w[0][0] < -0.5 * Lt) return;
+        let best = Infinity;
+        for (let j = 0; j < i; j++) {
+          const q = rays3[j], dd = dist(r.w[0], q.w[q.w.length - 1]);
+          if (dd < best) { best = dd; r.s0 = q.s0 + q.s[q.s.length - 1]; }
+        }
+      });
+      for (const r of rays3) pulseRays.push({ p: r.w.map(S2), s: r.s, s0: r.s0, c: r.rgb });
+    }
     const LT = [-0.42, 0.55, 0.72], shade = vs => {
       const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];
       const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]], L = Math.hypot(...n) || 1;
@@ -1454,6 +1481,7 @@ function drawLayout(Dz, P) {
   fold = false;
   const capEl = $("lSub");
   capEl.hidden = P.annot === false || !capEl.textContent;
+  if (window.ANIM) window.ANIM.set($("cvL"), pulseRays);
   if (P.annot === false) return;                                 // Labels off (Layout option): optics and rays only
   // the scale bar and the caption sit at the lower left of the panel
   const sbY = h - 12;                                             // the panel's foot, whatever the drawing does
