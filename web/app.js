@@ -19,7 +19,7 @@ const DEF = {
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15,
        filt: null, fgroups: null, telF: null, fibAp: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
-       W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null,
+       W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -101,7 +101,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass"]);
+const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT"]);
 
 function markCustom() {
   presetId = "custom";
@@ -283,7 +283,7 @@ function syncControls() {
     S.g.gType === "trans" ? "g-tr" : S.g.gType === "grism" ? "g-gr" : "g-refl",
     "c-" + M().col,
     M().foldOn ? "fold-on" : "fold-off",
-    S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : (S.mode === "grating" ? S.g.view === "3d" : S.e.dpass && S.e.view === "3d") ? "v-3d" : "v-spectral",
+    S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : (S.mode === "grating" ? S.g.view === "3d" : S.e.view === "3d") ? "v-3d" : "v-spectral",
     S.mode === "echelle" && S.e.dpass ? "dp" : "",
     lvExpanded ? "lv-expanded" : "",                           // kept across re-renders (the class list is rebuilt)
     "x-" + S.e.xd,
@@ -303,7 +303,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
@@ -331,8 +331,8 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA"]);
-const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"],
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA", "wpT"]);
+const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
   const h = location.hash.slice(1);
@@ -724,7 +724,7 @@ function drawLayout(Dz, P) {
   // each ray follows the traced 3-D direction (the tracer's slit coordinate is -z) to its focus on the detector.
   // Each bundle is drawn as a solid: the surface swept by the edge of its circular pupil (a cone from the slit
   // point to the collimator, a tube through the collimated beam, a tube to the camera and a cone to the focus).
-  const view3d = P.view === "3d" && (!ech || dpass);
+  const view3d = P.view === "3d";
   const prims3 = [], pts3 = [], labs3 = [], beams3 = [];      // (beams3: the beams again, for the light pulses)
   let proj3 = null, box3 = null;
   if (view3d) {
@@ -914,7 +914,467 @@ function drawLayout(Dz, P) {
       if (pTop) labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), prisms.length > 1 ? prisms.length + " prisms" : "prism", prisms.map(q => q.A + "°").join(" + ")]);
       $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; the slit (the image the injection optics place in the lens's focal plane) and the detector sit " + sig(sInj, 2) + " mm above and below the lens axis";
     }
-    if (ech) build3dDoublePass();
+    // ---- 3D view of a single-pass echelle (HIRES, X-Shooter, HARPS, UVES ...).  World: the drawing's unfolded frame
+    // (the slit at the origin, the collimated beam along +x, x-y the echelle's dispersion plane, z up), mapped through
+    // the folds as in grating mode.  Every direction after the collimator comes from the tracer, turned by -gamma about
+    // its x axis so the collimated beam runs along +x: the echelle's normal and grooves, each order's direction after
+    // the echelle, each surface of the cross-disperser, the camera's axis and the detector's.  Where each order and
+    // wavelength lands is the tracer's (Dz.pos), so the drawing agrees with the Detector panel.  The distances between
+    // the echelle, the cross-disperser and the camera are schematic (the tracer works with directions only): the
+    // cross-disperser stands where the returning beam has drawn clear of the arriving one, as far as practical, and
+    // the tracer's cross-disperser passes are drawn one after another there, after the echelle, where the tracer
+    // applies them.
+    function build3dEchelle() {
+      const gm = Dz.gamma || 0, cgm = Math.cos(gm), sgm = Math.sin(gm);
+      const T = v => [-v[1] * sgm + v[2] * cgm, v[0], v[1] * cgm + v[2] * sgm];   // tracer -> unfolded world
+      const dirW = u => (u ? n3(T(u)) : null);
+      const f = fcam, LxD = Dz.Lx, LyD = Dz.Ly, lcE = P.lamC / 1e4, ZA = [0, 0, 1];
+      const Mp3 = p => M3(Mpost, p), Lv = v => n3(L3(Mpost, v));
+      const hitPl = (p, u, c, nv) => a3(p, s3(u, d3(a3(c, s3(p, -1)), nv) / d3(u, nv)));
+      const ringAt = (c, a1, a2, r) => RING.map(([py, pz]) => a3(c, a3(s3(a1, py * 2 * r / W), s3(a2, pz * 2 * r / W))));
+      const perpPair = u => { let a1 = x3(u, ZA); if (Math.hypot(...a1) < 1e-6) a1 = [0, 1, 0]; a1 = n3(a1); return [a1, n3(x3(a1, u))]; };
+      const perpTo = (v, e) => n3(a3(v, s3(e, -d3(v, e))));
+      // the echelle: its center at the end of the collimated beam, its normal and grooves from the tracer
+      // (placed first about the origin, then moved out along the collimated beam: far enough that the cross-disperser
+      // and the camera stand in front of the collimator, never behind it)
+      let Ec = [0, 0, 0];
+      const nE = dirW(Dz.nhat), gE = dirW([0, 1, 0]), tE = n3(x3(gE, nE));
+      const mR = Dz.mRef, uBt = Dz.mainOut(Dz.mlamRef / mR, mR), uB = dirW(uBt);
+      // the cross-disperser's surfaces, traced as the tracer traces them (physics.js traceXd), each direction mapped
+      const stg = Dz.xdStages || [];
+      const xdDirs = (u, lam) => {
+        const out = []; let w = u;
+        for (const s of stg) {
+          if (!w) return null;
+          if (s.kind === "grating") w = IX.surface(w, s.nrm, s.g, lam, 1, 1, true);
+          else if (s.kind === "tgrating") w = IX.surface(w, s.nrm, s.g, lam, 1, 1, false);
+          else { const n1 = s.from === 1 ? 1 : IX.nGlass(s.from, lam), n2 = s.to === 1 ? 1 : IX.nGlass(s.to, lam); w = IX.surface(w, s.nrm, s.g || null, s.g ? lam : 0, n1, n2, false); }
+          out.push(w ? dirW(w) : null);
+        }
+        return out.every(Boolean) ? out : null;
+      };
+      // the elements: a wedge (a prism, or a grism's glass with its ruled face) for two faces in turn, else one surface
+      const els = [];
+      for (let i = 0; i < stg.length; i++) {
+        if (stg[i].kind === "face" && i + 1 < stg.length && (stg[i + 1].kind === "face" || stg[i + 1].kind === "gface")) { els.push({ k: "w", i0: i, i1: i + 1, glass: stg[i].to, ruled: stg[i + 1].kind === "gface" }); i++; }
+        else els.push({ k: "s", i0: stg[i].kind === "face" ? i : i, i1: i, refl: stg[i].kind === "grating", s: stg[i] });
+      }
+      const WpD = Math.max(W, Dz.Wp || W), spread = LxD / f;      // the beam across, and an order's angular spread
+      const offAx = q => Math.hypot(q[1], q[2]);                  // from the arriving collimated beam's axis
+      // the central path: lamC on the reference order's blaze direction (the camera axis, as in the tracer)
+      const dC = xdDirs(uBt, lcE) || [];
+      let dX = 0.9 * WpD + 0.3 * W;
+      // (out to 90% of the echelle's distance from the collimator: HIRES's beams, 10° apart in the echelle's plane, clear
+      // each other only near the collimator)
+      for (let k = 0; k < 40 && offAx(a3(Ec, s3(uB, dX))) < 0.5 * W + 0.6 * WpD && dX < Math.max(2.5 * WpD + 0.5 * f, 0.9 * d1); k++) dX *= 1.1;
+      let p = a3(Ec, s3(uB, dX - 0.3 * WpD)), win = uB;
+      const ha = 0.62 * WpD + 0.25 * spread * dX, hy0 = 0.62 * WpD;
+      for (const el of els) {
+        if (el.k === "s") {
+          el.c = p; el.n = n3(T(stg[el.i0].nrm));
+          const gx = stg[el.i0].g ? perpTo(n3(T(stg[el.i0].g)), el.n) : perpPair(el.n)[0];
+          el.ux = gx; el.uy = n3(x3(el.n, gx));
+          el.hx = 0.62 * WpD / Math.max(0.2, Math.abs(d3(win, el.n))); el.hy = hy0 + 0.6 * spread * dX;
+          win = dC[el.i1] || win; p = a3(p, s3(win, 0.95 * WpD));
+        } else {
+          const n1 = n3(T(stg[el.i0].nrm)), n2 = n3(T(stg[el.i1].nrm)), e = n3(x3(n1, n2)), base = perpTo(a3(n1, s3(n2, -1)), e);
+          let w = n3(x3(n1, e)); if (d3(w, base) > 0) w = s3(w, -1);             // within the entrance face, away from the base
+          const q1 = p, T0 = a3(q1, s3(w, ha)), uIn = dC[el.i0] || win, q2 = hitPl(q1, uIn, T0, n2);
+          let w2 = n3(x3(n2, e)); if (d3(w2, base) < 0) w2 = s3(w2, -1);          // within the exit face, toward the base
+          const H = ha + 0.8 * WpD;
+          Object.assign(el, { n1, n2, e, T0, B1: a3(T0, s3(w, -H)), B2: a3(T0, s3(w2, H)), hy: hy0 + 0.6 * spread * dX });
+          win = dC[el.i1] || win; p = a3(q2, s3(win, 0.55 * WpD));
+          dX += 1.2 * WpD;
+        }
+      }
+      const pEnd = p, zcW = dirW(Dz.zc), xcW = dirW(Dz.xc), ycW = dirW(Dz.yc);
+      // the camera: along its axis from the last surface, clear of the arriving beam where practical
+      let dCam = 0.6 * WpD + 0.1 * f;
+      for (let k = 0; k < 30 && offAx(a3(pEnd, s3(zcW, dCam))) < 0.5 * W + 0.7 * WpD && dCam < 3 * WpD + f; k++) dCam *= 1.1;
+      let C3 = a3(pEnd, s3(zcW, dCam)), Dc3 = a3(C3, s3(zcW, f));
+      {
+        let minX = Math.min(C3[0] - 0.6 * WpD, Dc3[0] - 0.6 * Math.max(LxD, LyD));
+        for (const el of els) for (const q of el.k === "s" ? [el.c] : [el.T0, el.B1, el.B2]) minX = Math.min(minX, q[0] - (el.k === "s" ? el.hx : 0));
+        const sh = [Math.max(fcol + d1, fcol + 0.35 * W - minX), 0, 0];
+        Ec = sh; C3 = a3(C3, sh); Dc3 = a3(Dc3, sh);
+        for (const el of els) { if (el.k === "s") el.c = a3(el.c, sh); else { el.T0 = a3(el.T0, sh); el.B1 = a3(el.B1, sh); el.B2 = a3(el.B2, sh); } }
+      }
+      // the light from the telescope to the echelle (white): the cone to the slit, the cone to the collimator, the
+      // collimated beam to the echelle's face
+      const S0 = [0, 0, 0];
+      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13);
+      {
+        const st = [[S0], RING.map(([py, pz]) => { const c = onMirror(py / Math.cos(tau)); return [c[0], c[1], pz]; })];
+        if (foldOn) st.push(RING.map(([py, pz]) => { const q = addv(Cf, sc(tf2, py / Math.sin(phi / 2))); return M3(Mf, [q[0], q[1], pz]); }));
+        st.push(RING.map(([py, pz]) => Mp3(hitPl([fcol, py, pz], [1, 0, 0], Ec, nE))));
+        tube(st, NEU3, 0.07);
+      }
+      // the dispersed light: three orders (the reddest, the middle, the bluest on the chip), three wavelengths in each
+      const ords = Dz.orders || [], pick = ords.length ? [...new Set([ords[ords.length - 1], ords[Math.floor(ords.length / 2)], ords[0]])] : [];
+      const lr = Dz.range || [lcE * 0.9, lcE * 1.1], tOf = l => Math.min(1, Math.max(0, (l - lr[0]) / (lr[1] - lr[0])));
+      const foci = [];
+      let rCam = 0;
+      for (const o of pick) for (const l of [o.lo, Math.min(o.hi, Math.max(o.lo, o.lb)), o.hi]) {
+        const pq = Dz.pos(l, o.m), ut = Dz.mainOut(l, o.m);
+        if (!pq || !ut) continue;
+        const u1 = dirW(ut), dirs = stg.length ? xdDirs(ut, l) : [];
+        if (!dirs) continue;
+        const [a1, a2] = perpPair(u1);
+        let cur = ringAt(Ec, a1, a2, W / 2).map(q => hitPl(q, u1, Ec, nE)), w = u1;
+        const st = [cur];
+        for (const el of els) {
+          if (el.k === "s") { cur = cur.map(q => hitPl(q, w, el.c, el.n)); st.push(cur); w = dirs[el.i1]; }
+          else {
+            const wi = dirs[el.i0];
+            cur = cur.map(q => hitPl(q, w, el.T0, el.n1)); st.push(cur);
+            cur = cur.map(q => hitPl(q, wi, el.T0, el.n2)); st.push(cur);
+            w = dirs[el.i1];
+          }
+        }
+        cur = cur.map(q => hitPl(q, w, C3, zcW)); st.push(cur);
+        for (const q of cur) rCam = Math.max(rCam, Math.hypot(...a3(q, s3(C3, -1))));
+        const Q = a3(Dc3, a3(s3(xcW, pq[0]), s3(ycW, pq[1]))), rgb = rampRGB(tOf(l));
+        st.push([Q]);
+        tube(st.map(r => r.map(Mp3)), rgb, 0.12);
+        foci.push([Mp3(Q), rgb]);
+      }
+      // the optics: the collimator, the echelle, the cross-disperser, the camera
+      const rCol = 1.06 * W / 2;
+      if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, STEEL_RGB, 0.55, STEEL3);
+      else slab([fcol, 0, 0], [1, 0, 0], rCol, 0.12 * rCol, GLASS3, 0.22, GE3);
+      if (foldOn) {
+        const hL = 1.08 * W / 2 / Math.sin(phi / 2), tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
+        const nrm = n3(x3(tf3, ZA)), bk = d3(nrm, M3(Mf, [Cf[0] + nf[0], Cf[1] + nf[1], 0]).map((v, i) => v - c[i])) > 0 ? nrm : s3(nrm, -1);
+        plate(c, tf3, ZA, hL, rCol, s3(bk, -1), 0.04 * W, STEEL_RGB, 0.6, STEEL3);
+      }
+      {
+        const hu = 1.04 * W / (2 * Math.max(0.15, Math.abs(d3([1, 0, 0], nE)))), hv = 1.04 * W / 2;
+        plate(Mp3(Ec), Lv(tE), Lv(gE), hu, hv, Lv(nE), 0.06 * W, STEEL_RGB, 0.6, STEEL3);
+        for (let k = 1; k < 14; k++) { const q = a3(Ec, s3(tE, hu * (2 * k / 14 - 1))); line(Mp3(a3(q, s3(gE, hv))), Mp3(a3(q, s3(gE, -hv))), rgba(rampRGB(k / 14), 0.85), 1); }
+      }
+      let xdTop = null;
+      for (const el of els) {
+        if (el.k === "s") {
+          const glass = !el.refl;
+          plate(Mp3(el.c), Lv(el.ux), Lv(el.uy), el.hx, el.hy, Lv(el.n), 0.06 * WpD, glass ? GLASS3 : STEEL_RGB, glass ? 0.3 : 0.6, glass ? GE3 : STEEL3);
+          for (let k = 1; k < 12; k++) { const q = a3(el.c, s3(el.ux, el.hx * (2 * k / 12 - 1))); line(Mp3(a3(q, s3(el.uy, el.hy))), Mp3(a3(q, s3(el.uy, -el.hy))), rgba([120, 128, 138], 0.7), 0.8); }
+          xdTop = a3(el.c, s3(el.uy, 1.2 * el.hy));
+        } else {
+          const at = (q, y) => Mp3(a3(q, s3(el.e, y)));
+          for (const y of [el.hy, -el.hy]) face([at(el.T0, y), at(el.B1, y), at(el.B2, y)], GLASS3, 0.25, GE3);
+          for (const [q0, q1] of [[el.T0, el.B1], [el.T0, el.B2], [el.B1, el.B2]]) face([at(q0, el.hy), at(q1, el.hy), at(q1, -el.hy), at(q0, -el.hy)], GLASS3, 0.2, GE3);
+          if (el.ruled) for (let k = 1; k < 12; k++) { const q = a3(el.T0, s3(a3(el.B2, s3(el.T0, -1)), k / 12)); line(at(q, el.hy), at(q, -el.hy), rgba([120, 128, 138], 0.7), 0.8); }
+          xdTop = a3(el.T0, s3(el.e, 1.2 * el.hy));
+        }
+      }
+      slab(C3, zcW, Math.max(rCam, 0.5 * WpD) * 1.06, 0.12 * Math.max(rCam, 0.5 * WpD), GLASS3, 0.22, GE3, Mp3);
+      // the detector, with every order's trace on its face, the foci of the drawn bundles, and its two directions
+      {
+        const off = s3(zcW, -0.4);
+        plate(Mp3(Dc3), Lv(xcW), Lv(ycW), LxD / 2, LyD / 2, s3(Lv(zcW), -1), 0.012 * LxD + 0.5, [51, 55, 61], 0.92, STEEL3);
+        for (const o of ords) {
+          let prev = null;
+          for (let k = 0; k <= 24; k++) {
+            const l = o.lo + (o.hi - o.lo) * k / 24, pq = Dz.pos(l, o.m);
+            if (!pq) { prev = null; continue; }
+            const q = Mp3(a3(a3(Dc3, off), a3(s3(xcW, pq[0]), s3(ycW, pq[1]))));
+            if (prev) line(prev, q, rgba(rampRGB(tOf(l)), 1), 1.4);
+            prev = q;
+          }
+        }
+        for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
+        const o = Mp3(a3(Dc3, a3(s3(xcW, -1.12 * LxD / 2), s3(ycW, -1.12 * LyD / 2))));
+        prims3.push({ k: "a", p: [o, a3(o, s3(Lv(xcW), 0.5 * LxD))], txt: "λ" }, { k: "a", p: [o, a3(o, s3(Lv(ycW), 0.5 * LyD))], txt: "orders" });
+        labs3.push([Mp3(a3(Dc3, s3(ycW, 0.75 * LyD + 0.05 * f))), "detector", mm(LxD)]);
+      }
+      prims3.push({ k: "d", p: [S0], col: [96, 90, 84] });
+      const xdName = P.xd === "prism" ? (els.length > 1 ? els.length + " prism passes" : "prism") : P.xd === "grism" ? "grism" : P.xd === "vph" ? "VPH grating" : "grating";
+      labs3.push([[-Lt, 0, tHalf * 1.8], "telescope", "f/" + sig(P.F, 3)], [[0, 0, -0.09 * fcol], "slit", sig(P.slitW, 3) + "″"],
+        [mirror ? [Cm[0], Cm[1], -rCol * 1.18] : [fcol, 0, -rCol * 1.18], "collimator", "f = " + mm(fcol)],
+        [Mp3(a3(Ec, s3(gE, 0.75 * W))), "echelle", sig(P.eG, 4) + " /mm"],
+        [Mp3(a3(C3, s3(ZA, -1.2 * Math.max(rCam, 0.5 * WpD)))), "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(f)]);
+      if (xdTop) labs3.push([Mp3(xdTop), "cross-disperser", xdName]);
+      const passes = els.length > 1 && P.xd === "prism";
+      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; directions from the ray trace" + (gm > 0 ? " (the beams " + (2 * gm / IX.DEG).toFixed(1) + "° apart out of the echelle's plane)" : "") + "; the spacings after the echelle are schematic" + (passes ? ", and the prisms' passes are drawn in turn after the echelle, where the tracer applies them" : "") + ".";
+    }
+    // ---- 3D view of the echelles whose light comes back past the collimator (P.lay3d), in the double-pass view's
+    // frame: x along the collimator's axis (its focal plane at x = 0, the collimator at x = f_col), y along the
+    // echelle's dispersion, z across the orders (up).  The slit sits sS above the axis; the returning light comes back
+    // as far below it.  Three arrangements:
+    //   "pp": prisms passed on the way to the echelle and again on the way back (MagE, ESI, FIRE); the returning light
+    //         goes to a camera of its own beside the collimator;
+    //   "4c": the same prisms, then the collimator again, which forms the cross-dispersed spectrum in its focal plane
+    //         below the slit; a flat sends it to a camera that re-images it onto the detector (X-Shooter's 4C design);
+    //   "wp": a white pupil: the collimator again forms the spectrum (orders overlapping) below the slit, a flat folds
+    //         it to the transfer collimator (f = wpT), which re-forms the pupil, where the cross-disperser stands, in
+    //         front of the camera (HARPS, UVES, FEROS, ESPRESSO, G-CLEF, ZShooter).
+    // Where each order and wavelength lands is the tracer's (Dz.pos): each returning bundle is traced back from its
+    // focus through the drawn optics (Snell's law in the prisms), so the drawing agrees with the Detector panel.  The
+    // mirrors are drawn as lenses, unfolded but for the flat; the spacings the sources do not give are schematic.
+    function build3dFolded(kind) {
+      const fC = fcol, fK = fcam, LxD = Dz.Lx, LyD = Dz.Ly, lcE = P.lamC / 1e4, dE = d1;
+      const XA = [1, 0, 0], YA = [0, 1, 0], ZA = [0, 0, 1], O = [fC, 0, 0];
+      const refr = (u, nv, n1, n2) => { const c = d3(u, nv), r = n1 / n2, k = 1 - r * r * (1 - c * c); return k < 0 ? null : n3(a3(s3(a3(u, s3(nv, -c)), r), s3(nv, Math.sqrt(k)))); };
+      const hitPl = (p, u, c, nv) => a3(p, s3(u, d3(a3(c, s3(p, -1)), nv) / d3(u, nv)));
+      const ringAt = (c, a1, a2, r) => RING.map(([py, pz]) => a3(c, a3(s3(a1, py * 2 * r / W), s3(a2, pz * 2 * r / W))));
+      const perpPair = u => { let a1 = x3(u, ZA); if (Math.hypot(...a1) < 1e-6) a1 = YA; a1 = n3(a1); return [a1, n3(x3(a1, u))]; };
+      const perpTo = (v, e) => n3(a3(v, s3(e, -d3(v, e))));
+      const rotY = (v, t) => [v[0] * Math.cos(t) + v[2] * Math.sin(t), v[1], -v[0] * Math.sin(t) + v[2] * Math.cos(t)];
+      const WpD = Math.max(W, Dz.Wp || W), gm = Dz.gamma || 0;
+      const fT = kind === "wp" ? (P.wpT > 0 ? P.wpT : fC) : fC, fPh = kind === "wp" ? fK * fT / fC : fK;   // the transfer collimator; the camera as built
+      // the separation out of the echelle's plane: the slit sS above the axis, the returning focus as far below
+      const rA = 0.62 * WpD;                                        // the camera's half aperture ("pp")
+      // ("pp": the slit near the axis; the camera stands below the arriving beam, near the prisms)
+      const sS = kind === "pp" ? 0.03 * fC : Math.max(gm * fC, 0.06 * fC + (kind === "4c" ? 0.6 * LyD * fC / fK : 0.15 * W));
+      let sepDeg = 2 * Math.atan(sS / fC) / IX.DEG;
+      const sepTrue = 2 * gm / IX.DEG;
+      // the prisms in front of the echelle ("pp", "4c"): one for each two of the tracer's passes, at minimum deviation
+      // for lamC, bending the beam toward +z (as in the double-pass view)
+      const train = Array.isArray(P.xPrisms) && P.xPrisms.length ? P.xPrisms : Array(Math.max(1, Math.round(P.xPasses || 1))).fill({ glass: P.xGlass, A: P.xA });
+      const prisms = [];
+      const lensIn = a3(O, [0, 0, sS * dE / fC]), v0 = n3([fC, 0, -sS]);
+      let p = lensIn, u = v0, run = 0;
+      if (kind !== "wp" && P.xd === "prism") for (let k = 0; k < Math.max(1, Math.round(train.length / 2)); k++) {
+        const pr = train[k], A = pr.A * IX.DEG, nC = IX.nGlass(pr.glass, lcE), D = 2 * Math.asin(Math.min(1, nC * Math.sin(A / 2))) - A;
+        const bIn = n3(a3(ZA, s3(u, -d3(ZA, u)))), uInt = n3(a3(s3(u, Math.cos(D / 2)), s3(bIn, Math.sin(D / 2))));
+        const b = n3(a3(ZA, s3(uInt, -d3(ZA, uInt))));
+        const ha = 1.1 * W, H = 1.9 * W;
+        const nearX = cc => { const T0 = a3(cc, s3(b, -ha)), r = H / Math.cos(A / 2);
+          return Math.min(T0[0], T0[0] + r * (Math.cos(A / 2) * b[0] - Math.sin(A / 2) * uInt[0]), T0[0] + r * (Math.cos(A / 2) * b[0] + Math.sin(A / 2) * uInt[0])); };
+        let L = 0;
+        // (the prisms near the echelle: the first one starts 0.45 of the way out)
+        for (let it = 0; it < 4; it++) { const gap = (k ? p[0] + 0.15 * W : fC + 0.45 * dE) - nearX(a3(p, s3(u, L))); if (gap > 0) L += gap / Math.max(0.2, u[0]); }
+        const c = a3(p, s3(u, L)), T = a3(c, s3(b, -ha));
+        const n1 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, Math.sin(A / 2)))), n2 = n3(a3(s3(uInt, Math.cos(A / 2)), s3(b, -Math.sin(A / 2))));
+        const e1 = n3(a3(s3(b, Math.cos(A / 2)), s3(uInt, -Math.sin(A / 2)))), e2 = n3(a3(s3(b, Math.cos(A / 2)), s3(uInt, Math.sin(A / 2))));
+        prisms.push({ T, n1, n2, glass: pr.glass, A: pr.A, B1: a3(T, s3(e1, H / Math.cos(A / 2))), B2: a3(T, s3(e2, H / Math.cos(A / 2))) });
+        const q1 = hitPl(p, u, T, n1), u1 = refr(u, n1, 1, nC), q2 = hitPl(q1, u1, T, n2), u2 = refr(u1, n2, nC, 1);
+        run += Math.hypot(...a3(q1, s3(p, -1))) + Math.hypot(...a3(q2, s3(q1, -1)));
+        p = q2; u = u2;
+      }
+      const dl = (P.eDelta || 63) * IX.DEG, prismFar = prisms.length ? Math.max(...prisms.map(q => Math.max(d3(a3(q.T, s3(p, -1)), u), d3(a3(q.B1, s3(p, -1)), u), d3(a3(q.B2, s3(p, -1)), u)))) : 0;
+      const E = a3(p, s3(u, Math.max(dE - run, prismFar + 0.5 * W * Math.tan(dl) + 0.12 * W))), vE = u;
+      const fwd = (p0, u0, lam) => {
+        const pts = []; let q = p0, w = u0;
+        for (const pr of prisms) {
+          const n = IX.nGlass(pr.glass, lam);
+          const a = hitPl(q, w, pr.T, pr.n1); w = w && refr(w, pr.n1, 1, n); if (!w) return null;
+          const b = hitPl(a, w, pr.T, pr.n2); w = refr(w, pr.n2, n, 1); if (!w) return null;
+          pts.push(a, b); q = b;
+        }
+        return { pts, u: w, end: q };
+      };
+      const back = (p0, u0, lam) => {
+        const pts = []; let q = p0, w = u0;
+        for (const pr of prisms.slice().reverse()) {
+          const n = IX.nGlass(pr.glass, lam), m2 = s3(pr.n2, -1), m1 = s3(pr.n1, -1);
+          const a = hitPl(q, w, pr.T, m2); w = refr(w, m2, 1, n); if (!w) return null;
+          const b = hitPl(a, w, pr.T, m1); w = refr(w, m1, n, 1); if (!w) return null;
+          pts.push(a, b); q = b;
+        }
+        return { pts, u: w, end: q };
+      };
+      // where the returning light meets the plane x = f_col: the collimator again ("4c", "wp") or the camera ("pp"),
+      // whose center sits where the central returning ray crosses that plane
+      // ("pp": the returning light leaves the echelle psi below the arriving beam, the instrument's 2 gamma or, where that is
+      // too small to draw, the angle that puts the camera clear of the arriving beam 0.6 of the way back to the collimator
+      // (nearer for a short camera, whose aperture would otherwise have to grow with the field it sees);
+      // both beams cross the prisms, which are tall enough for the two)
+      let Oret = O;
+      if (kind === "pp") {
+        const Lc = Math.min(0.6 * dE, 3 * W + fK), psi = Math.max(2 * gm, Math.asin(Math.min(0.5, (0.5 * W + rA + 0.12 * W) / Lc)));
+        Oret = a3(E, [-Lc * Math.cos(psi), 0, -Lc * Math.sin(psi)]);
+      }
+      // the returning light's focus: "pp" -- the camera's focal plane; else the collimator's, below the slit
+      const Qc0 = kind === "pp" ? null : [0, 0, -sS];
+      // the central returning ray, traced from the camera's center ("pp", over its direction) or from the collimator's
+      // plane ("4c", "wp", over the point it crosses that plane, its direction fixed by the focus) so that it reaches the
+      // echelle's center through the drawn prisms; each bundle's footprint on the echelle (the pupil) is centered there
+      const onPlaneE = (q, w) => hitPl(q, w, E, s3(vE, -1));
+      let camAx = null, retOff = [0, -sS * dE / fC];
+      if (kind === "pp") {
+        let aim = E;
+        for (let it = 0; it < 8; it++) { const d = n3(a3(aim, s3(Oret, -1))), r = fwd(Oret, d, lcE); if (!r) break; const H = onPlaneE(r.end, r.u); aim = a3(aim, s3(a3(H, s3(E, -1)), -1)); }
+        camAx = s3(n3(a3(aim, s3(Oret, -1))), -1);
+      } else {
+        const wC = n3(a3([0, 0, -sS], s3(O, -1)));
+        for (let it = 0; it < 8; it++) { const st0 = a3(O, [0, retOff[0], retOff[1]]), r = fwd(st0, s3(wC, -1), lcE); if (!r) break; const H = onPlaneE(r.end, r.u); retOff = [retOff[0] - (H[1] - E[1]), retOff[1] - (H[2] - E[2])]; }
+      }
+      const retStart = kind === "pp" ? Oret : a3(O, [0, retOff[0], retOff[1]]);
+      if (kind === "pp") sepDeg = Math.acos(Math.max(-1, Math.min(1, d3(s3(v0, -1), camAx)))) / IX.DEG;
+      const Dpp = kind === "pp" ? a3(Oret, s3(camAx, fK)) : null;
+      const xPP = kind === "pp" ? perpTo(YA, camAx) : null, yPP = kind === "pp" ? n3(x3(camAx, xPP)) : null;
+      // the focus of order m at lam: on the detector ("pp"), else in the collimator's focal plane: the cross-dispersed
+      // spectrum scaled by f_col / f_cam ("4c"), or the uncross-dispersed one ("wp": the echelle's angles only)
+      const uBt = Dz.mainOut(Dz.mlamRef / Dz.mRef, Dz.mRef);
+      const focus = (l, m) => {
+        const pq = Dz.pos(l, m);
+        if (!pq) return null;
+        if (kind === "pp") return { F: a3(Dpp, a3(s3(xPP, pq[0]), s3(yPP, pq[1]))), pq };
+        if (kind === "4c") return { F: [0, pq[0] * fC / fK, pq[1] * fC / fK - sS], pq };
+        const ut = Dz.mainOut(l, m);
+        if (!ut || !uBt) return null;
+        // the angles from the blaze direction, along the echelle's dispersion (the tracer's x) and across it (y)
+        const ax = Math.atan2(ut[0], ut[2]) - Math.atan2(uBt[0], uBt[2]), ay = Math.asin(Math.max(-1, Math.min(1, ut[1]))) - Math.asin(Math.max(-1, Math.min(1, uBt[1])));
+        return { F: [0, fC * Math.tan(ax), -sS + fC * Math.tan(ay)], pq };
+      };
+      // the echelle: in Littrow in its own plane; across the orders it returns the central wavelength to the returning
+      // focus's center, so its normal bisects the arriving beam and that returning one
+      const Fc = kind === "pp" ? Dpp : Qc0, wc = n3(a3(Fc, s3(Oret, -1)));
+      const startC = retStart;
+      const rc = fwd(startC, s3(wc, -1), lcE);
+      const w1c = rc ? s3(rc.u, -1) : s3(vE, -1);
+      const mxd = n3(a3(w1c, s3(vE, -1))), Yp = n3(a3(YA, s3(mxd, -d3(YA, mxd))));
+      const nE = n3(a3(s3(mxd, Math.cos(dl)), s3(Yp, Math.sin(dl)))), tE = n3(a3(s3(Yp, Math.cos(dl)), s3(mxd, -Math.sin(dl)))), gE = n3(x3(nE, tE));
+      const onE = (q, w) => hitPl(q, w, E, nE);
+      const lr = Dz.range || [lcE * 0.9, lcE * 1.1], tOf = l => Math.min(1, Math.max(0, (l - lr[0]) / (lr[1] - lr[0])));
+      // the relay ("4c", "wp"): built along the line from the collimator through the spectrum's center, then folded by
+      // a flat just past the spectrum, which sends the light down
+      const I0 = Qc0, dIn = I0 ? n3(a3(I0, s3(O, -1))) : null;
+      const F0 = I0 ? a3(I0, s3(dIn, 0.05 * fC)) : null, aDown = n3([0.25, 0, -1]), nF = I0 ? n3(a3(aDown, s3(dIn, -1))) : null;
+      const Fold = q => (I0 ? a3(q, s3(nF, -2 * d3(a3(q, s3(F0, -1)), nF))) : q);
+      let Tl = null, XDc = null, aCam = null, Cc = null, Dc = null, xD = null, yD = null, Rl = null, relayV = 0;
+      if (kind === "wp") {
+        Tl = a3(I0, s3(dIn, fT)); XDc = a3(Tl, s3(dIn, fT));
+        // the cross-disperser turns the beam by the tracer's central deviation, across the echelle's dispersion
+        const dev = Math.acos(Math.max(-1, Math.min(1, d3(n3(uBt), Dz.zc))));
+        aCam = n3(rotY(dIn, -dev));
+        if (aCam[2] > dIn[2] + 1e-9 && dev < Math.PI / 2) aCam = n3(rotY(dIn, dev));
+        Cc = a3(XDc, s3(aCam, 0.55 * W * fT / fC + 0.15 * fPh)); Dc = a3(Cc, s3(aCam, fPh));
+        xD = perpTo(YA, aCam); yD = n3(x3(aCam, xD));
+      } else if (kind === "4c") {
+        // the camera re-images the spectrum at f_cam / f_col: object distance u, image distance v = u f_cam / f_col
+        const uR = 0.7 * fC; relayV = uR * fK / fC;
+        Rl = a3(I0, s3(dIn, uR)); aCam = dIn; Dc = a3(Rl, s3(dIn, relayV));
+        xD = perpTo(YA, aCam); yD = n3(x3(aCam, xD));
+      }
+      // light arriving: the telescope's cone to the slit, then from the slit through the collimator, the prisms and
+      // onto the echelle
+      const S0 = [0, 0, sS];
+      tube([ringAt([-Lt, 0, sS], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13);
+      let rL = 0, rR = 0, rT = 0, rK = 0;
+      {
+        const lens = ringAt(lensIn, YA, ZA, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE));
+        if (tr.every(Boolean)) {
+          for (let j = 0; j < tr[0].pts.length; j++) st.push(tr.map(t => t.pts[j]));
+          st.push(tr.map(t => onE(t.end, t.u)));
+          tube(st, NEU3, 0.07);
+        }
+        for (const q of lens) rL = Math.max(rL, Math.hypot(q[1], q[2]));
+      }
+      // light returning: three orders (the reddest, the middle, the bluest on the chip), three wavelengths in each
+      const ords = Dz.orders || [], pick = ords.length ? [...new Set([ords[ords.length - 1], ords[Math.floor(ords.length / 2)], ords[0]])] : [];
+      const foci = [];
+      for (const o of pick) for (const l of [o.lo, Math.min(o.hi, Math.max(o.lo, o.lb)), o.hi]) {
+        const fo = focus(l, o.m);
+        if (!fo) continue;
+        const Fp = fo.F, w = n3(a3(Fp, s3(Oret, -1)));
+        const rv = fwd(retStart, s3(w, -1), l);
+        if (!rv) continue;
+        const w1 = s3(rv.u, -1), [a1, a2] = perpPair(w1);
+        const foot = ringAt(E, a1, a2, W / 2).map(q => onE(q, w1));
+        const tr = foot.map(q => back(q, w1, l));
+        if (!tr.every(Boolean)) continue;
+        const st = [foot];
+        for (let j = 0; j < tr[0].pts.length; j++) st.push(tr.map(t => t.pts[j]));
+        const atRet = tr.map(t => hitPl(t.end, t.u, Oret, kind === "pp" ? camAx : XA));
+        for (const q of atRet) { const r = Math.hypot(...a3(q, s3(Oret, -1))); if (kind === "pp") rK = Math.max(rK, r); else rL = Math.max(rL, r); }
+        st.push(atRet, [Fp]);
+        const rgb = rampRGB(tOf(l));
+        tube(st, rgb, 0.12);
+        if (kind === "pp") { foci.push([Fp, rgb]); continue; }
+        // the relay: from the focus in the collimator's focal plane on, folded by the flat
+        const chief = n3(a3(Fp, s3(O, -1)));
+        if (kind === "4c") {
+          const Rc = hitPl(Fp, chief, Rl, dIn), [b1, b2] = perpPair(dIn), ring = ringAt(Rc, b1, b2, 0.5 * W * 0.7);
+          for (const q of ring) rR = Math.max(rR, Math.hypot(...a3(q, s3(Rl, -1))));
+          const Q = a3(Dc, a3(s3(xD, -fo.pq[0]), s3(yD, -fo.pq[1])));
+          tube([[Fp], ring, [Q]].map(r => r.map(Fold)), rgb, 0.12);
+          foci.push([Fold(Q), rgb]);
+        } else {
+          const Ct = hitPl(Fp, chief, Tl, dIn), [b1, b2] = perpPair(dIn), rT0 = 0.5 * W * fT / fC;
+          const ringT = ringAt(Ct, b1, b2, rT0), w2 = n3(a3(Tl, s3(Fp, -1)));
+          for (const q of ringT) rT = Math.max(rT, Math.hypot(...a3(q, s3(Tl, -1))));
+          const atXD = ringT.map(q => hitPl(q, w2, XDc, dIn));
+          const Q = a3(Dc, a3(s3(xD, -fo.pq[0]), s3(yD, fo.pq[1]))), w3 = n3(a3(Q, s3(Cc, -1)));
+          const atCam = atXD.map(q => hitPl(q, w3, Cc, aCam));
+          for (const q of atCam) rK = Math.max(rK, Math.hypot(...a3(q, s3(Cc, -1))));
+          tube([[Fp], ringT, atXD, atCam, [Q]].map(r => r.map(Fold)), rgb, 0.12);
+          foci.push([Fold(Q), rgb]);
+        }
+      }
+      // the optics: the collimator, the prisms, the echelle
+      slab(O, XA, Math.max(rL, 0.5 * W) * 1.06, 0.1 * Math.max(rL, 0.5 * W), GLASS3, 0.22, GE3);
+      const hy = 0.62 * W + 0.3 * LxD * dE / fK;
+      for (const pr of prisms) {
+        const at = (q, y) => [q[0], q[1] + y, q[2]];
+        for (const y of [hy, -hy]) face([at(pr.T, y), at(pr.B1, y), at(pr.B2, y)], GLASS3, 0.25, GE3);
+        for (const [q0, q1] of [[pr.T, pr.B1], [pr.T, pr.B2], [pr.B1, pr.B2]]) face([at(q0, hy), at(q1, hy), at(q1, -hy), at(q0, -hy)], GLASS3, 0.2, GE3);
+      }
+      {
+        const hu = 1.04 * W / (2 * Math.cos(dl)), hv = 1.04 * W / 2;
+        plate(E, tE, gE, hu, hv, nE, 0.06 * W, STEEL_RGB, 0.6, STEEL3);
+        for (let k = 1; k < 14; k++) { const q = a3(E, s3(tE, hu * (2 * k / 14 - 1))); line(a3(q, s3(gE, hv)), a3(q, s3(gE, -hv)), rgba(rampRGB(k / 14), 0.85), 1); }
+      }
+      // the detector (and its traces of every order) on the camera's or the relay's focal plane
+      const detector = (Dctr, ex, ey, sx, sy, map) => {
+        plate(map(Dctr), n3(a3(map(ex), s3(map([0, 0, 0]), -1))), n3(a3(map(ey), s3(map([0, 0, 0]), -1))), LxD / 2, LyD / 2, n3(x3(a3(map(ex), s3(map([0, 0, 0]), -1)), a3(map(ey), s3(map([0, 0, 0]), -1)))), 0.012 * LxD + 0.5, [51, 55, 61], 0.92, STEEL3);
+        for (const o of ords) {
+          let prev = null;
+          for (let k = 0; k <= 24; k++) {
+            const l = o.lo + (o.hi - o.lo) * k / 24, pq = Dz.pos(l, o.m);
+            if (!pq) { prev = null; continue; }
+            const q = map(a3(Dctr, a3(s3(ex, sx * pq[0]), s3(ey, sy * pq[1]))));
+            if (prev) line(prev, q, rgba(rampRGB(tOf(l)), 1), 1.4);
+            prev = q;
+          }
+        }
+      };
+      const id = q => q;
+      if (kind === "pp") {
+        slab(Oret, camAx, Math.max(rK, rA) * 1.06, 0.1 * Math.max(rK, rA), GLASS3, 0.22, GE3);
+        detector(Dpp, xPP, yPP, 1, 1, id);
+        labs3.push([a3(Oret, [0, 0, -Math.max(rK, rA) * 1.2]), "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fK)], [a3(Dpp, s3(yPP, -0.75 * LyD)), "detector", mm(LxD)]);
+      } else {
+        // the spectrum in the collimator's focal plane, the flat, the relay's optics
+        const sp = []; for (const o of ords) for (let k = 0; k <= 12; k++) { const fo = focus(o.lo + (o.hi - o.lo) * k / 12, o.m); if (fo) sp.push(fo.F); }
+        const ys = sp.map(q => q[1]), zs = sp.map(q => q[2]), hyS = Math.max(0.1 * W, ...ys.map(Math.abs)) * 1.15, hzS = Math.max(0.05 * W, ...zs.map(z => Math.abs(z + sS))) * 1.3;
+        line([0, -hyS, -sS], [0, hyS, -sS], rgba([140, 132, 120], 0.8), 1);
+        const tf = n3(x3(nF, YA));
+        plate(F0, YA, tf, hyS * 1.1, hzS * 1.6 + 0.04 * fC, nF, 0.02 * fC, STEEL_RGB, 0.55, STEEL3);
+        if (kind === "4c") {
+          slab(Fold(Rl), n3(a3(Fold(a3(Rl, dIn)), s3(Fold(Rl), -1))), Math.max(rR, 0.3 * W) * 1.06, 0.1 * Math.max(rR, 0.3 * W), GLASS3, 0.22, GE3);
+          detector(Dc, xD, yD, -1, -1, Fold);
+          labs3.push([Fold(a3(Rl, [0, 0, -Math.max(rR, 0.3 * W) * 1.3])), "camera f/" + sig(Dz.Fcam, 3), "re-images the spectrum"], [Fold(a3(Dc, s3(yD, 0.8 * LyD))), "detector", mm(LxD)]);
+        } else {
+          const aT = n3(a3(Fold(a3(Tl, dIn)), s3(Fold(Tl), -1)));
+          slab(Fold(Tl), aT, Math.max(rT, 0.5 * W * fT / fC) * 1.06, 0.1 * Math.max(rT, 0.5 * W * fT / fC), GLASS3, 0.22, GE3);
+          // the cross-disperser at the white pupil, turning the beam from the transfer collimator's axis to the camera's
+          const dI = n3(a3(Fold(a3(XDc, dIn)), s3(Fold(XDc), -1))), aC = n3(a3(Fold(a3(Cc, aCam)), s3(Fold(Cc), -1)));
+          const refl = P.xd === "grating", nX = n3(refl ? a3(aC, s3(dI, -1)) : a3(aC, dI)), uX = perpTo(Fold(a3([0, 0, 0], YA)).map((v, i) => v - Fold([0, 0, 0])[i]), nX), vX = n3(x3(nX, uX));
+          const hX = 0.62 * W * fT / fC + 0.3 * LxD * fT / fK;
+          plate(Fold(XDc), uX, vX, hX, hX, nX, 0.05 * W * fT / fC, refl ? STEEL_RGB : GLASS3, refl ? 0.6 : 0.3, refl ? STEEL3 : GE3);
+          slab(Fold(Cc), aC, Math.max(rK, 0.5 * W * fT / fC) * 1.06, 0.1 * Math.max(rK, 0.5 * W * fT / fC), GLASS3, 0.22, GE3);
+          detector(Dc, xD, yD, -1, 1, Fold);
+          const xdName = P.xd === "prism" ? "prism" : P.xd === "grism" ? "grism" : P.xd === "vph" ? "VPH grating" : "grating";
+          labs3.push([Fold(a3(Tl, [0, 0, -Math.max(rT, 0.5 * W * fT / fC) * 1.3])), "transfer collimator", "f = " + mm(fT)],
+            [Fold(a3(XDc, s3(vX, 1.3 * hX))), "cross-disperser", xdName + ", at the white pupil"],
+            [Fold(a3(Cc, [0, 0, -Math.max(rK, 0.5 * W * fT / fC) * 1.3])), "camera", "f = " + mm(fPh)],
+            [Fold(a3(Dc, s3(yD, 0.8 * LyD))), "detector", mm(LxD)]);
+        }
+        labs3.push([[0, 0, -sS - hzS - 0.04 * fC], "spectrum", kind === "wp" ? "orders overlapping" : "cross-dispersed"], [a3(F0, [0, 0, -0.12 * fC]), "flat", ""]);
+      }
+      for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
+      prims3.push({ k: "d", p: [S0], col: [96, 90, 84] });
+      const pTop = prisms.length ? prisms[prisms.length - 1] : null;
+      labs3.push([[-Lt, 0, sS + tHalf * 1.8], "telescope", "f/" + sig(P.F, 3)], [[0, 0, sS + 0.09 * fC], "slit", sig(P.slitW, 3) + "″"],
+        [a3(O, [0, 0, rL * 1.18]), kind === "pp" ? "collimator" : "collimator, passed twice", "f = " + mm(fC)],
+        [a3(E, s3(gE, 0.75 * W)), "echelle", sig(P.eG, 4) + " /mm"]);
+      if (pTop) labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), prisms.length > 1 ? prisms.length + " prisms, passed twice" : "prism, passed twice", prisms.map(q => q.A + "°").join(" + ")]);
+      const sepTxt = Math.abs(sepDeg - sepTrue) < 0.05 ? "" : "; the beams are drawn " + sepDeg.toFixed(1) + "° apart out of the echelle's plane" + (sepTrue > 0 ? " (" + sepTrue.toFixed(1) + "° in the instrument)" : " (the instrument's angle is not published)");
+      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; mirrors drawn as lenses" + (kind === "wp" ? " (" + (fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera as built " + mm(fPh)) + ")" : "") + sepTxt + "; spacings not in the sources are schematic.";
+    }
+    if (ech) { if (dpass) build3dDoublePass(); else if (["pp", "4c", "wp"].includes(P.lay3d)) build3dFolded(P.lay3d); else build3dEchelle(); }
     else {
     const Ly = Dz.Ly, hMax = 0.5 * Ly * fcol / fcam, lc = Dz.grism ? Dz.grism.lam0 : P.lamC / 1e4;
     const zcW = W3(Dz.zc), xcW = W3(Dz.xc), ycW = W3(Dz.yc);
@@ -1701,7 +2161,7 @@ document.addEventListener("mousedown", ev => {
   cv.addEventListener("mousedown", ev => {
     const k = spHit(ev);
     if (k) { ptDrag = k; cv.style.cursor = "ns-resize"; movePoint(ev); return; }
-    const is3d = curP && curP.view === "3d" && (curP.mode === "grating" || !!curP.dpass);
+    const is3d = curP && curP.view === "3d";
     orbitVel = null; cancelAnimationFrame(orbitRAF);
     drag = { x: ev.clientX, y: ev.clientY, ox: lview.ox, oy: lview.oy, turn: is3d && !ev.shiftKey && ev.button === 0, az0: R3.az, el0: R3.el, lx: ev.clientX, ly: ev.clientY, lt: performance.now(), v: [0, 0] };
     cv.style.cursor = "grabbing";
@@ -1730,7 +2190,7 @@ document.addEventListener("mousedown", ev => {
       // coast: keep the release speed, slowing by 8% a frame
       orbitVel = drag.v.map(x => x * 16);
       const step = () => {
-        if (!orbitVel || !cur || curP.view !== "3d" || curP.mode !== "grating") { stopCoast(); return; }
+        if (!orbitVel || !cur || curP.view !== "3d") { stopCoast(); return; }
         setOrbit(R3.az + orbitVel[0], R3.el + orbitVel[1]);
         orbitVel = orbitVel.map(x => x * 0.92);
         drawLayout(cur, curP);
@@ -1746,13 +2206,13 @@ document.addEventListener("mousedown", ev => {
   cv.addEventListener("touchmove", ev => {
     if (!tch || !cur || ev.touches.length !== 1) return;
     const dx = ev.touches[0].clientX - tch.x;
-    if (curP.view === "3d" && (curP.mode === "grating" || !!curP.dpass)) setOrbit(tch.az0 - dx * 2 * Math.PI / (cv.clientHeight || 400), R3.el);
+    if (curP.view === "3d") setOrbit(tch.az0 - dx * 2 * Math.PI / (cv.clientHeight || 400), R3.el);
     else { toFixed(); lview.ox = tch.ox + dx; }
     drawSoon();
   }, { passive: true });
   cv.addEventListener("touchend", () => { tch = null; });
   cv.addEventListener("dblclick", () => {
-    if (curP && curP.view === "3d" && (curP.mode === "grating" || !!curP.dpass)) { stopCoast(); setOrbit(-0.6, 0.5); }
+    if (curP && curP.view === "3d") { stopCoast(); setOrbit(-0.6, 0.5); }
     lview.fit = true; drawLayout(cur, curP);
   });
 }

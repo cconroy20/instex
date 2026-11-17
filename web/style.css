@@ -56,7 +56,7 @@ main{padding-top:10px;padding-bottom:6px}
 .ptsbox{position:absolute;left:14px;top:46px;z-index:4;display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);background:rgba(255,255,255,.92);padding:2px 4px;border-radius:6px}
 body:not(.v-spatial) .only-spatial{display:none}
 body:not(.v-3d) .only-3d{display:none}
-body.m-ech.dp #lvViewSeg{display:inline-flex}      /* echelle mode: Spectral | 3D for a double-pass instrument */
+body.m-ech #lvViewSeg{display:inline-flex}      /* echelle mode: Spectral | 3D */
 body.m-ech #vSpat, body.m-ech .only-grat3{display:none}
 #tl3dBox[hidden]{display:none}
 .lvx{position:absolute;right:14px;bottom:12px;z-index:4;background:rgba(255,255,255,.92);padding:5px;line-height:0}

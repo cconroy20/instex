@@ -60,8 +60,8 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   camera, the echelle at the collimated beam length from that lens (MIKE 400 and 600 mm, the cameras' external stop),
   the cross-disperser near the echelle and crossed by both beams, and the returning beam drawn a few degrees off the
   incoming one so that the detector clears the slit (in the instrument the two sit side by side across the orders,
-  out of the page; the caption says so). For a double-pass instrument the view switch offers Spectral | 3D in echelle
-  mode too (key e.view): the 3D view puts x along the lens axis, y along the echelle's dispersion and z across the
+  out of the page; the caption says so). Every echelle has a 3D view (11-16, his ask): see "Echelle 3D" below. For a
+  double-pass instrument (key e.view): the 3D view puts x along the lens axis, y along the echelle's dispersion and z across the
   orders (Top shows the echelle's plane, Side the cross-dispersion plane of Bernstein et al. 2003 Fig. 1); the slit
   (the image the injection optics form in the focal plane) sits 0.6 L_y + 0.025 f above the axis (31 mm for MIKE red;
   the paper gives about 30 mm) and the detector as far below; the prisms (one per two of the tracer's passes, apex
@@ -163,6 +163,28 @@ slit height is not important"); the overview strip above the spectrum; then the 
   useful"; grating mode shows the detector again, and spex's `_norm.bin` was removed from web/); the image-slicer slider (2026-10-17). `physics.js` still takes a
 number of slices N, which the validation of the notes' worked example uses. An Imaging mode (the grating
 replaced by a mirror: field of view and pixel scale) is planned; an exposure-time calculator is not in v1.
+
+**Echelle 3D** (11-16, his "what about the 3D view for echelles?"; app.js build3dEchelle and build3dFolded beside the
+double-pass build3dDoublePass). Each echelle preset names its arrangement (key e.lay3d; e.wpT the transfer
+collimator), read from the research records:
+- "single" (HIRES, and any custom echelle): the cross-disperser after the echelle. Every direction comes from the
+  tracer, turned by −γ so the collimated beam runs along x: the echelle's normal and grooves, each order's direction,
+  each cross-disperser surface (physics.js now exposes S.xdStages), the camera and detector axes. The cross-disperser
+  stands where the returning beam clears the arriving one (out to 0.9 of the collimated path: HIRES's beams, 10° apart
+  in the echelle's plane, clear only near the collimator), and everything stays in front of the collimator.
+- "pp" (MagE, ESI, FIRE): prisms passed on the way to the echelle and back, one drawn prism for each two passes, tall
+  enough for both beams; a camera of its own past the prisms.
+- "4c" (X-Shooter): the same prisms, then the collimator again forms the cross-dispersed spectrum below the slit; a
+  flat sends it to a camera that re-images it.
+- "wp" (HARPS, UVES, FEROS, ESPRESSO, G-CLEF, ZShooter): the collimator again forms the spectrum with the orders
+  overlapping, a flat folds it to the transfer collimator (HARPS 1560 mm, its collimator's third pass; UVES 2000;
+  FEROS 1500; ESPRESSO 1500; G-CLEF 1600; ZShooter 1250 mm), which re-forms the pupil, where the cross-disperser
+  stands, then the camera as built (f_cam × f_transfer / f_col: ESPRESSO 400, G-CLEF 450, ZShooter 225 mm).
+In the three folded arrangements each returning bundle is traced back from the tracer's focus through the drawn optics
+(Snell's law in the prisms), and the central ray is aimed so that it reaches the echelle's center; the echelle (the
+pupil) carries every bundle's footprint, so the drawing agrees with the Detector panel. Mirrors are drawn as lenses,
+unfolded but for the flat. Where the instrument's out-of-plane angle is too small to draw, or not published, the
+caption gives the angle drawn and the instrument's; spacings the sources do not give are schematic.
 
 ## Telescopes mode
 

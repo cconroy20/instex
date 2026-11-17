@@ -309,7 +309,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const r = await ev(`(() => ({ v: window.__instex.params().view, txt: document.getElementById("lSub").textContent, err: document.getElementById("err").textContent, snaps: !!document.getElementById("v3Side").offsetParent, color: !!document.getElementById("c3L").offsetParent, h: location.hash }))()`);
     check("MIKE 3D: drawn with the snaps (no color switch), in the link, no page error", r.v === "3d" && /injection optics/.test(r.txt) && r.snaps && !r.color && /e\.view=3d/.test(r.h) && r.err === "", JSON.stringify(r).slice(0, 160));
     await go("#preset=hires");
-    check("echelle mode without double pass: no view switch", !(await vis("#v3d")));
+    check("echelle mode without double pass (HIRES): the 3D switch is offered (every echelle has a 3D view since 11-16)", await vis("#v3d"));
     await go();
   }
   // ------------------------------------------------------------ grating incidence on the transmission grating
@@ -471,6 +471,15 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await go("#preset=hectochelle");
     const sm = await ev(`(e => [+e.max, +e.value])(document.getElementById("sM"))`);
     check("slider ranges widen to a preset's value (Hectochelle order 31)", sm[0] >= 31 && sm[1] === 31, `max ${sm[0]}, value ${sm[1]}`);
+    // the echelle 3D view in each arrangement (single pass, prisms passed twice, the 4C relay, the white pupil): offered,
+    // drawn without errors, and captioned as a 3D view
+    for (const pid of ["hires", "mage", "xshvis", "harps"]) {
+      const e0 = errors.length;
+      await go("#preset=" + pid);
+      await click("#v3d"); await sleep(250);
+      const r3 = await ev(`({ v: window.__instex.state().e.view, shown: getComputedStyle(document.getElementById("lvViewSeg")).display !== "none", sub: document.getElementById("lSub").textContent })`);
+      check("echelle 3D (" + pid + "): offered, drawn, captioned", r3.v === "3d" && r3.shown && /drag to orbit/.test(r3.sub) && errors.length === e0, JSON.stringify(r3).slice(0, 200));
+    }
     // an order-isolating filter and fibers in groups (M2FS): no overlap warning, the filter's band as the range, the
     // traces in eight groups of 16, both in the link and back
     await go("#preset=m2fsmgb");
@@ -667,7 +676,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", cam: "mirror", colTilt: 4.5, layLen: 700, foldOn: true, foldAng: 120, foldPos: 0.3, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
            W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5, filt: [5800, 6200], fgroups: [10, 200, 1500], telF: 15, fibAp: 1.5 },
       e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, view: "3d", colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
-           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
+           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, lay3d: "wp", wpT: 1200, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
            xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10, filt: [4000, 9000], fgroups: [12, 180, 900], telF: 8, fibAp: 1 } })`);
     await sleep(300);
     const sBefore = await ev(`window.__instex.state()`), hAll = await ev(`location.hash`);

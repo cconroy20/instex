@@ -398,6 +398,7 @@ function design(P) {
   const pos = (lam, m, xi = 0, zeta = 0) => proj(dirOut(lam, m, xi, zeta));
   S.pos = pos;
   S.dirOut = dirOut;
+  S.xdStages = xdStages;                           // the cross-disperser's surfaces (directions only), for the 3D view
   S.mainOut = (lam, m) => main(inDir(0, 0), m * lam);   // after the main disperser only
   S.nhat = nhat; S.cAx = cAx;
 
