@@ -746,6 +746,8 @@ function drawLayout(Dz, P) {
   let proj3 = null, box3 = null;
   if (view3d) {
     const NEU3 = [104, 98, 92], GLASS3 = [150, 196, 232], STEEL_RGB = [96, 104, 114], STEEL3 = "#33373d", GE3 = "#3f6d96";
+    // (a mirror's color: steel in the 2D painter, as before; its faces marked polished for the WebGL view)
+    const MIRROR3 = [96, 104, 114];
     const a3 = (p, q) => [p[0] + q[0], p[1] + q[1], p[2] + q[2]], s3 = (p, k) => [p[0] * k, p[1] * k, p[2] * k];
     const d3 = (p, q) => p[0] * q[0] + p[1] * q[1] + p[2] * q[2], n3 = v => s3(v, 1 / (Math.hypot(v[0], v[1], v[2]) || 1));
     const x3 = (p, q) => [p[1] * q[2] - p[2] * q[1], p[2] * q[0] - p[0] * q[2], p[0] * q[1] - p[1] * q[0]];
@@ -755,7 +757,7 @@ function drawLayout(Dz, P) {
     const Mp = p => M3(Mpost, p);
     const NS = 20, RING = Array.from({ length: NS }, (_, k) => [W / 2 * Math.cos(2 * Math.PI * k / NS), W / 2 * Math.sin(2 * Math.PI * k / NS)]);
     const line = (p, q, col, lw) => { prims3.push({ k: "l", p: [p, q], col, lw }); pts3.push(p, q); };
-    const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw }); pts3.push(...ps); };
+    const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw, spec: rgb === MIRROR3 }); pts3.push(...ps); };
     // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
     // footprint rings are made when it is drawn, since the silhouette depends on the view
     const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb }); for (const s of stations) pts3.push(...s); };
@@ -1057,12 +1059,12 @@ function drawLayout(Dz, P) {
       }
       // the optics: the collimator, the echelle, the cross-disperser, the camera
       const rCol = 1.06 * W / 2;
-      if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, STEEL_RGB, 0.55, STEEL3);
+      if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, MIRROR3, 0.55, STEEL3);
       else slab([fcol, 0, 0], [1, 0, 0], rCol, 0.12 * rCol, GLASS3, 0.22, GE3);
       if (foldOn) {
         const hL = 1.08 * W / 2 / Math.sin(phi / 2), tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
         const nrm = n3(x3(tf3, ZA)), bk = d3(nrm, M3(Mf, [Cf[0] + nf[0], Cf[1] + nf[1], 0]).map((v, i) => v - c[i])) > 0 ? nrm : s3(nrm, -1);
-        plate(c, tf3, ZA, hL, rCol, s3(bk, -1), 0.04 * W, STEEL_RGB, 0.6, STEEL3);
+        plate(c, tf3, ZA, hL, rCol, s3(bk, -1), 0.04 * W, MIRROR3, 0.6, STEEL3);
       }
       {
         const hu = 1.04 * W / (2 * Math.max(0.15, Math.abs(d3([1, 0, 0], nE)))), hv = 1.04 * W / 2;
@@ -1358,7 +1360,7 @@ function drawLayout(Dz, P) {
         const ys = sp.map(q => q[1]), zs = sp.map(q => q[2]), hyS = Math.max(0.1 * W, ...ys.map(Math.abs)) * 1.15, hzS = Math.max(0.05 * W, ...zs.map(z => Math.abs(z + sS))) * 1.3;
         line([0, -hyS, -sS], [0, hyS, -sS], rgba([140, 132, 120], 0.8), 1);
         const tf = n3(x3(nF, YA));
-        plate(F0, YA, tf, hyS * 1.1, hzS * 1.6 + 0.04 * fC, nF, 0.02 * fC, STEEL_RGB, 0.55, STEEL3);
+        plate(F0, YA, tf, hyS * 1.1, hzS * 1.6 + 0.04 * fC, nF, 0.02 * fC, MIRROR3, 0.55, STEEL3);
         if (kind === "4c") {
           slab(Fold(Rl), n3(a3(Fold(a3(Rl, dIn)), s3(Fold(Rl), -1))), Math.max(rR, 0.3 * W) * 1.06, 0.1 * Math.max(rR, 0.3 * W), GLASS3, 0.22, GE3);
           detector(Dc, xD, yD, -1, -1, Fold);
@@ -1429,12 +1431,12 @@ function drawLayout(Dz, P) {
     }
     // the optics
     const rCol = 1.06 * (W / 2 + hMax * d1 / fcol);
-    if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, STEEL_RGB, 0.55, STEEL3);
+    if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, MIRROR3, 0.55, STEEL3);
     else slab([fcol, 0, 0], [1, 0, 0], rCol, 0.12 * rCol, GLASS3, 0.22, GE3);
     if (foldOn) {
       const hL = 1.08 * W / 2 / Math.sin(phi / 2), tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
       const nrm = n3(x3(tf3, [0, 0, 1])), back = d3(nrm, M3(Mf, [Cf[0] + nf[0], Cf[1] + nf[1], 0]).map((v, i) => v - c[i])) > 0 ? nrm : s3(nrm, -1);
-      plate(c, tf3, [0, 0, 1], hL, rCol, s3(back, -1), 0.04 * W, STEEL_RGB, 0.6, STEEL3);
+      plate(c, tf3, [0, 0, 1], hL, rCol, s3(back, -1), 0.04 * W, MIRROR3, 0.6, STEEL3);
     }
     {
       const ext = 1.04, zg = ext * W / 2;
@@ -1619,9 +1621,18 @@ function drawLayout(Dz, P) {
       const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]], L = Math.hypot(...n) || 1;
       return 0.62 + 0.5 * Math.abs((n[0] * LT[0] + n[1] * LT[1] + n[2] * LT[2]) / L);
     };
+    // WebGL (tel3dgl.js): the faces, beams, outlines and lines drawn on the GPU under this canvas, with this view's
+    // mapping; the painter below then draws only the focus dots and the axis arrows (and all of it without WebGL)
+    let gl = false;
+    if (window.TEL3DGL && !/[?&]gl=0/.test(location.search)) {
+      let lo = [Infinity, Infinity, Infinity], hi = [-Infinity, -Infinity, -Infinity];
+      for (const p of pts3) for (let i = 0; i < 3; i++) { lo[i] = Math.min(lo[i], p[i]); hi[i] = Math.max(hi[i], p[i]); }
+      gl = window.TEL3DGL.renderScene($("cvL"), [Dz, P, c3mode], () => prims3, { R: R3.m, cen: lo.map((v, i) => (v + hi[i]) / 2), s, ox, oy, w, h });
+    }
     const items = [];
     const put = pr => { const vs = pr.p.map(proj3); items.push({ pr, vs, d: vs.reduce((s, q) => s + q[2], 0) / vs.length }); };
     for (const pr of prims3) {
+      if (gl && pr.k !== "d" && pr.k !== "a") continue;
       if (pr.k !== "t") { put(pr); continue; }
       if (hideRays) continue;
       // a beam: its faces, its silhouette (the lengthwise edges between a face turned toward the viewer and one

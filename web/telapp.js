@@ -399,7 +399,7 @@ const pupil3 = () => { const t = telOf(), pu = pupilOf(); return t.binocular && 
 const hole3 = () => (telOf().hole ? telOf().hole * 500 : mirrorHole());
 function draw() {
   if (!cur) return;
-  if (is3()) { $("tlSub").hidden = true; last3 = window.TEL3D.draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0 }); }
+  if (is3()) { $("tlSub").hidden = true; last3 = (window.TEL3DGL && window.TEL3DGL.ok() && !/[?&]gl=0/.test(location.search) ? window.TEL3DGL : window.TEL3D).draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0 }); }
   else IMG.drawLayoutOn(tlTarget, cur, curP);
 }
 function render() {

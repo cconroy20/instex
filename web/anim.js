@@ -177,7 +177,10 @@ function frame(now) {
       }
     }
   }
-  if (live && !paused) raf = requestAnimationFrame(frame);
+  // no drawing on the page with rays to run along (a new view without them: the All-arms layout, the Interferometer,
+  // a design that fails): the pulses are switched off and cleared, not left holding
+  if (!live) { reset(); return; }
+  if (!paused) raf = requestAnimationFrame(frame);
 }
 function kick() { if (on && !raf) raf = requestAnimationFrame(frame); }
 
