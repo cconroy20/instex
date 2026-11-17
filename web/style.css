@@ -72,6 +72,8 @@ body.m-ech #vSpat, body.m-ech .only-grat3{display:none}
 canvas.pulses{position:absolute;pointer-events:none;z-index:2}
 .lvx.lvp{bottom:46px}
 .lvx.lvp.solo{bottom:12px}
+.lvx.lvr{bottom:80px}
+.lvx.lvr.solo{bottom:46px}
 /* the layout expanded to fill the window */
 body.lv-expanded{overflow:hidden}
 body.lv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}

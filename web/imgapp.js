@@ -105,7 +105,7 @@ const segs = [
   bindSeg([["ilvAuto", "auto"], ["ilvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true),
 ];
 $("imMoon").addEventListener("click", () => { S.moon = !S.moon; H.schedule(); });
-$("iTel").addEventListener("change", () => { S.tel = $("iTel").value; if (S.tel === "refr") S.eps = 0; lview.fit = true; markCustom(); H.schedule(); });
+$("iTel").addEventListener("change", () => { if (window.ANIM) window.ANIM.reset(); S.tel = $("iTel").value; if (S.tel === "refr") S.eps = 0; lview.fit = true; markCustom(); H.schedule(); });
 // bands
 const bsel = $("iBand");
 for (const b of BANDS) {
@@ -571,15 +571,27 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     lview.fit = false;
   }
   const sc = lview.s, ky = tel || !P.stretch || (Dz.reim && Dz.split) ? 1 : lview.k, T = (x, y) => [lview.ox + sc * x, lview.oy - sc * ky * y];
-  // ---- bundles: translucent annular sheets, each field point in its color
+  // ---- bundles: translucent annular sheets, each field point in its color (none when the drawn rays are hidden,
+  // anim.js: the pulses run on their own)
   g.save();
-  for (const p of polys) {
-    const col = FCOL[p.f];
-    for (let i = 0; i + 1 < p.a.length; i++) {
-      const A = T(...p.a[i]), B = T(...p.a[i + 1]), C = T(...p.b[i + 1]), E = T(...p.b[i]);
-      g.beginPath(); g.moveTo(A[0], A[1]); g.lineTo(B[0], B[1]); g.lineTo(C[0], C[1]); g.lineTo(E[0], E[1]); g.closePath();
-      g.fillStyle = rgba(col, tel ? 0.07 : p.f === 1 ? 0.13 : 0.16); g.fill();
+  const shown = window.ANIM && !window.ANIM.rays ? [] : polys, SIMPLE = window.TEL3D ? window.TEL3D.simplePolys : Q => [Q];
+  // the fills: for each field point and each leg of the path (between two optics), the two sides' sheets as one
+  // shape filled once (each piece turned the same way round, a piece twisted by a focus split in two), so no seam
+  // shows where the sides meet on the axis or cross past a focus.  The legs stay apart, so a reflected cone shows
+  // darker over the light arriving.
+  for (const f of [0, 1, 2]) {
+    const ps = shown.filter(p => p.f === f && p.a.length === p.b.length), nLeg = Math.max(0, ...ps.map(p => p.a.length - 1));
+    for (let i = 0; i < nLeg; i++) {
+      g.beginPath();
+      for (const p of ps) if (i + 1 < p.a.length) for (const Q of SIMPLE([T(...p.a[i]), T(...p.a[i + 1]), T(...p.b[i + 1]), T(...p.b[i])])) {
+        Q.forEach((q, j) => (j ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1])));
+        g.closePath();
+      }
+      g.fillStyle = rgba(FCOL[f], tel ? 0.07 : f === 1 ? 0.13 : 0.16); g.fill("nonzero");
     }
+  }
+  for (const p of shown) {
+    const col = FCOL[p.f];
     for (const line of [p.a, p.b]) {
       g.beginPath(); line.forEach((q, i) => { const c = T(...q); i ? g.lineTo(c[0], c[1]) : g.moveTo(c[0], c[1]); });
       g.strokeStyle = rgba(col, 0.75); g.lineWidth = 0.9; g.stroke();
@@ -589,10 +601,44 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   // the light pulses (anim.js): three rays across each bundle, its two edges and its middle (the paraxial trace is
   // linear in the height, so the middle ray lies halfway between the edges), with distances in mm along the ray
   // (the center of the field last: its pulses on top where the bundles overlap)
-  if (window.ANIM) window.ANIM.set(cv, polys.filter(p => p.f !== 1).concat(polys.filter(p => p.f === 1)).flatMap(p => {
-    const lines = p.a.length === p.b.length ? [0, 0.5, 1].map(u => p.a.map((q, i) => [q[0] + u * (p.b[i][0] - q[0]), q[1] + u * (p.b[i][1] - q[1])])) : [p.a, p.b];
-    return lines.map(ps => ({ p: ps.map(q => T(...q)), s: window.ANIM.lengths(ps), c: FCOL[p.f] }));
-  }));
+  // PROTOTYPE (Telescopes view): wavefronts.  Seven rays across each side of each bundle, the heads joined by a
+  // line; each ray's count starts at a flat wavefront square to the incoming light (through the axis where the
+  // light enters, so both sides of a bundle share one wavefront), so an off-axis bundle enters tilted.  The trails
+  // stay on the edges and the middle.
+  const WAVEFRONTS = false;                                       // the prototype, off on the live site for now
+  const fronts = WAVEFRONTS && tg.cv === "cvTL", US = fronts ? [0, 1, 2, 3, 4, 5, 6].map(k => k / 6) : [0, 0.5, 1];
+  if (window.ANIM) {
+    const list = [];
+    polys.filter(p => p.f !== 1).concat(polys.filter(p => p.f === 1)).forEach((p, gi) => {
+      const lines = p.a.length === p.b.length ? US.map(u => p.a.map((q, i) => [q[0] + u * (p.b[i][0] - q[0]), q[1] + u * (p.b[i][1] - q[1])])) : [p.a, p.b];
+      const d0 = lines[0][1].map((v, k) => v - lines[0][0][k]), dl = Math.hypot(...d0), dir = d0.map(v => v / (dl || 1));
+      lines.forEach((ps, j) => {
+        const u = lines.length === US.length ? US[j] : j;
+        const s0 = fronts ? (ps[0][0] - p.a[0][0]) * dir[0] + ps[0][1] * dir[1] : undefined;
+        list.push({ p: ps.map(q => T(...q)), s: window.ANIM.lengths(ps), s0, c: FCOL[p.f], g: fronts ? gi : undefined, trail: !fronts || u === 0 || u === 0.5 || u === 1 });
+      });
+    });
+    // (the counts made positive: the earliest start at zero)
+    if (fronts) { const m = Math.min(...list.map(r => r.s0)); for (const r of list) r.s0 -= m; }
+    // equal arrival: the trace treats the secondary (and the later optics) as thin elements at their vertices, so the
+    // drawn paths miss the length the curved surface adds and differ by a few cm.  Each ray of a field waits at the
+    // secondary (the objective, in a refractor) for the length its path is short of the longest, so the bundle
+    // reaches the focus together, as the light reflected by the real surface does.  The primary needs no wait: its
+    // reflection is drawn on the paraboloid, which makes the paths to its focus equal.
+    if (fronts) {
+      const jw = P.tel === "refr" ? 1 : 2, tot = r => r.s0 + r.s[r.s.length - 1] - r.s[0];
+      for (const f of [0, 1, 2]) {
+        const rs = list.filter((r, i) => FCOL[f] === r.c && r.p.length > jw + 1);
+        const M = Math.max(...rs.map(tot));
+        for (const r of rs) {
+          const dW = M - tot(r);
+          r.p = r.p.slice(0, jw + 1).concat([r.p[jw]], r.p.slice(jw + 1));
+          r.s = r.s.slice(0, jw + 1).concat([r.s[jw] + dW], r.s.slice(jw + 1).map(x => x + dW));
+        }
+      }
+    }
+    window.ANIM.set(cv, list);
+  }
   // ---- elements
   const annot = P.annot !== false;
   const labels = [], obstacles = [];                              // canvas boxes the labels keep clear of

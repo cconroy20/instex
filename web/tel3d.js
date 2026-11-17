@@ -32,6 +32,23 @@ const PAL = {
   light: [[176, 74, 48], [222, 160, 48], [0, 137, 123]],
 };
 const edgeOf = rgb => rgba(rgb.map(c => c * 0.5), 0.75);
+// a quad on the screen as simple polygons, all turned counterclockwise: a quad twisted into a bow-tie (a bundle's
+// face where the light passes through a focus) split at its crossing into two triangles.  Faces filled together in
+// one path then overlap with the same winding, and fill once.
+function simplePolys(Q) {
+  const cross = (p, q, r, s) => {
+    const d = (q[0] - p[0]) * (s[1] - r[1]) - (q[1] - p[1]) * (s[0] - r[0]);
+    if (Math.abs(d) < 1e-12) return null;
+    const t = ((r[0] - p[0]) * (s[1] - r[1]) - (r[1] - p[1]) * (s[0] - r[0])) / d, u = ((r[0] - p[0]) * (q[1] - p[1]) - (r[1] - p[1]) * (q[0] - p[0])) / d;
+    return t > 0 && t < 1 && u > 0 && u < 1 ? [p[0] + t * (q[0] - p[0]), p[1] + t * (q[1] - p[1])] : null;
+  };
+  const [A, B, C, D] = Q, ccw = P => (P.reduce((a, p, i) => { const r = P[(i + 1) % P.length]; return a + p[0] * r[1] - r[0] * p[1]; }, 0) < 0 ? P.slice().reverse() : P);
+  let X = cross(A, B, C, D);
+  if (X) return [ccw([A, X, D]), ccw([X, B, C])];
+  X = cross(B, C, D, A);
+  if (X) return [ccw([A, B, X]), ccw([X, C, D])];
+  return [ccw(Q)];
+}
 // a point in a polygon ([[x, y], ...]), by the crossing count
 const inPoly = (poly, x, y) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i], [xj, yj] = poly[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
 
@@ -73,7 +90,8 @@ function build(Dz, P, G, pu, opts = {}) {
       tiles.forEach((t, i) => tilePoly(t.map(([x, y]) => [x * 1000, y * 1000]), tint(i), lift, hole, fine && t.length > 6));
     } else if (P.tel === "refr") { /* the objective: a lens, below */ } else {
       // (the whole mirror where its size is known: an undersized secondary or a stop uses less of it than the light does)
-      const off = G.off || 0, R = prim.off ? Dmm / 2 : Math.max(prim.hh, P.Dmirror ? P.Dmirror * 500 : 0), r0 = hole, NA = 48, NR = 5;
+      // (fine enough that the reflected sky changes smoothly across the dish)
+      const off = G.off || 0, R = prim.off ? Dmm / 2 : Math.max(prim.hh, P.Dmirror ? P.Dmirror * 500 : 0), r0 = hole, NA = 96, NR = 12;
       for (let i = 0; i < NR; i++) for (let k = 0; k < NA; k++) {
         const ra = r0 + (R - r0) * i / NR, rb = r0 + (R - r0) * (i + 1) / NR, t0 = 2 * Math.PI * k / NA, t1 = 2 * Math.PI * (k + 1) / NA;
         face([[ra, t0], [rb, t0], [rb, t1], [ra, t1]].map(([r, t]) => lift(off + r * Math.cos(t), r * Math.sin(t))), MIR, 0.95, null, 1, true);
@@ -84,6 +102,7 @@ function build(Dz, P, G, pu, opts = {}) {
       for (let k = 0; k < NA; k++) {
         const t0 = 2 * Math.PI * k / NA, t1 = 2 * Math.PI * (k + 1) / NA, A = lift(off + R * Math.cos(t0), R * Math.sin(t0)), B = lift(off + R * Math.cos(t1), R * Math.sin(t1));
         face([A, B, [B[0] + th, B[1], B[2]], [A[0] + th, A[1], A[2]]], MIR.map(c => c * 0.7), 0.95);
+        prims[prims.length - 1].seal = true;                          // (its seams sealed, as the mirror's)
       }
     }
     for (const p of (pu && pu.pads) || []) {
@@ -93,9 +112,10 @@ function build(Dz, P, G, pu, opts = {}) {
     lab(lift((G.off || 0) + (prim.off ? Dmm / 2 : prim.hh), 0), P.tel === "schmidt" ? "mirror" : prim.off ? "primary (off-axis)" : "primary");
   }
   // ---- a disc (a curved one: sag(r) along the axis) at x across the axis, radius r1, hole r0, centered at (y0, 0)
-  const disc = (x, r1, r0, sag, rgb, al, y0 = 0, spec = true, NA = 36) => {
+  const disc = (x, r1, r0, sag, rgb, al, y0 = 0, spec = true, NA = spec ? 72 : 36) => {
     const at = (r, t) => [x + sag(r), y0 + r * Math.cos(t), r * Math.sin(t)];
-    const rs = r0 > 0 ? [r0, (r0 + r1) / 2, r1] : [0, r1 / 2, r1];
+    // (a mirror in six rings, so the reflected sky changes smoothly; glass and baffles in two)
+    const nr = spec ? 6 : 2, rs = Array.from({ length: nr + 1 }, (_, i) => (r0 > 0 ? r0 : 0) + (r1 - (r0 > 0 ? r0 : 0)) * i / nr);
     for (let i = 0; i + 1 < rs.length; i++) for (let k = 0; k < NA; k++) {
       const t0 = 2 * Math.PI * k / NA, t1 = 2 * Math.PI * (k + 1) / NA;
       face([at(rs[i], t0), at(rs[i + 1], t0), at(rs[i + 1], t1), at(rs[i], t1)], rgb, al, null, 1, spec);
@@ -218,7 +238,7 @@ function build(Dz, P, G, pu, opts = {}) {
     tube(st, rgb, al);
     // the incoming starlight: a few rays, not a sheet (a column of light reads as a tube)
     if (rays) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 8)))
-      for (let j = 0; j < s0; j++) prims.push({ k: "l", p: [W(paths[k][j]), W(paths[k][j + 1])], col: rgba(rgb, 0.6), lw: 0.9 });
+      for (let j = 0; j < s0; j++) prims.push({ k: "l", p: [W(paths[k][j]), W(paths[k][j + 1])], col: rgba(rgb, 0.6), lw: 0.9, ray: true });
     // the light pulses (anim.js): seven rays around the bundle's edge, from the sky to the focus
     if (pulsed) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 7))) pulses.push({ p: paths[k].map(W), rgb });
   };
@@ -241,7 +261,7 @@ function build(Dz, P, G, pu, opts = {}) {
 function draw(cv, Dz, P, G, pu, V, H, opts) {
   const { g, w, h } = H.fitCanvas(cv);
   g.clearRect(0, 0, w, h);
-  const ANIM = typeof window !== "undefined" ? window.ANIM : null;
+  const ANIM = typeof window !== "undefined" ? window.ANIM : null, hideRays = !!(ANIM && !ANIM.rays);
   if (ANIM) ANIM.set(cv, []);
   if (!(cv.width > 0 && cv.height > 0)) return;
   if (Dz.bad) { H.message(g, w, h, Dz.bad); return; }
@@ -283,18 +303,34 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
   const light = vs => {
     const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];
     const n = n3([u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]);
-    return { dif: 0.6 + 0.55 * Math.abs(d3(n, LT)), spec: Math.pow(Math.abs(d3(n, HV)), 28) };
+    return { dif: 0.6 + 0.55 * Math.abs(d3(n, LT)), spec: Math.pow(Math.abs(d3(n, HV)), 28), n };
+  };
+  // a polished mirror: the sky it reflects toward the viewer (bright toward the zenith, paler at the horizon, the
+  // ground below in slate), tinted by the coating (silver or gold), with a sharp highlight from the light
+  const SKY = [[-1, [86, 94, 108]], [-0.15, [140, 150, 164]], [0.05, [206, 215, 226]], [1, [248, 250, 253]]];
+  const polished = (rgb, n) => {
+    if (n[2] < 0) n = s3(n, -1);                                      // the face's side toward the viewer
+    const r = [2 * n[2] * n[0], 2 * n[2] * n[1], 2 * n[2] * n[2] - 1];  // the line of sight, reflected
+    const up = R[0][2] * r[0] + R[1][2] * r[1] + R[2][2] * r[2];        // its height above the horizon (world z)
+    let k = 1;
+    while (k < SKY.length - 1 && SKY[k][0] < up) k++;
+    const [u0, c0] = SKY[k - 1], [u1, c1] = SKY[k], f = Math.min(1, Math.max(0, (up - u0) / (u1 - u0)));
+    const mx = Math.max(...rgb), hl = 0.75 * Math.pow(Math.abs(d3(n, HV)), 60);
+    return c0.map((c, i) => { const e = (c + (c1[i] - c) * f) * rgb[i] / mx; return Math.min(255, e * (1 - hl) + 255 * hl); });
   };
   const items = [];
   const put = pr => { const vs = pr.p.map(proj); items.push({ pr, vs, d: vs.reduce((s, q) => s + q[2], 0) / vs.length }); };
   for (const pr of prims) {
+    // (the drawn light hidden, anim.js: the bundles and the starlight's rays left out; the pulses run on their own)
+    if (hideRays && (pr.k === "t" || pr.ray)) continue;
     if (pr.k !== "t") { put(pr); continue; }
     const st = pr.st, Vv = st.map(s => s.map(proj)), dark = pr.rgb.map(x => x * 0.62);
     for (let i = 1; i < st.length; i++) {
       const A = st[i - 1], B = st[i], VA = Vv[i - 1], VB = Vv[i], n = A.length, facing = [];
       for (let k = 0; k < n; k++) {
         const k2 = (k + 1) % n;
-        if (pr.al > 0) put({ k: "f", p: [A[k], A[k2], B[k2], B[k]], rgb: pr.rgb, al: pr.al });
+        // (light has no surface to shade: its faces in one flat color, so no facets show as stripes along the bundle)
+        if (pr.al > 0) put({ k: "f", p: [A[k], A[k2], B[k2], B[k]], rgb: pr.rgb, al: pr.al, flat: true });
         const u = [VB[k2][0] - VA[k][0], VB[k2][1] - VA[k][1]], v = [VB[k][0] - VA[k2][0], VB[k][1] - VA[k2][1]];
         facing.push(u[0] * v[1] - u[1] * v[0] > 0);
       }
@@ -307,10 +343,21 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
     const q = vs.map(S2);
     if (pr.k === "f") {
       const L = light(vs), s = pr.spec ? 0.6 * L.spec : 0;
-      const c = pr.rgb.map(x => Math.min(255, x * L.dif * (1 - s) + 255 * s));
+      const c = pr.flat ? pr.rgb : pr.spec ? polished(pr.rgb, L.n) : pr.rgb.map(x => Math.min(255, x * L.dif * (1 - s) + 255 * s));
       g.beginPath(); q.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath();
       g.fillStyle = rgba(c, pr.al); g.fill();
+      // (a mirror's faces stroked in their own color, which seals the hairline seams between them)
       if (pr.stroke) { g.strokeStyle = pr.stroke; g.lineWidth = pr.lw; g.stroke(); }
+      else if (pr.spec || pr.seal) { g.strokeStyle = rgba(c, pr.al); g.lineWidth = 0.7; g.stroke(); }
+    } else if (pr.k === "u") {
+      // a slice of a bundle: its faces as one path, each turned the same way round so that the faces overlapping on
+      // the screen (front and back) fill once
+      g.beginPath();
+      for (let j = 0; j + 3 < q.length; j += 4) for (const P of simplePolys(q.slice(j, j + 4))) {
+        P.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])));
+        g.closePath();
+      }
+      g.fillStyle = rgba(pr.rgb, pr.al); g.fill("nonzero");
     } else if (pr.k === "o") { g.beginPath(); q.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath(); g.strokeStyle = pr.stroke; g.lineWidth = pr.lw; g.stroke(); }
     else if (pr.k === "l") { g.beginPath(); g.moveTo(q[0][0], q[0][1]); g.lineTo(q[1][0], q[1][1]); g.strokeStyle = pr.col; g.lineWidth = pr.lw; g.stroke(); }
     else if (pr.k === "d") { g.beginPath(); g.arc(q[0][0], q[0][1], 3.6, 0, 2 * Math.PI); g.fillStyle = rgba(pr.col, 1); g.fill(); g.strokeStyle = "#fff"; g.lineWidth = 1.4; g.stroke(); }
@@ -333,7 +380,7 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
   }
   return { cen, n: items.length };
 }
-const API = { draw, build, rotAzEl, PAL };
+const API = { draw, build, rotAzEl, PAL, simplePolys };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 if (typeof window !== "undefined") window.TEL3D = API;
 })();

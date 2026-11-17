@@ -34,6 +34,7 @@ const setOrbit = (az, el) => { R3.az = az; R3.el = Math.max(-Math.PI / 2, Math.m
 let orbitVel = null, orbitRAF = 0, drawRAF = 0;
 function stopCoast() { orbitVel = null; cancelAnimationFrame(orbitRAF); turning3 = false; }
 const drawSoon = () => { if (!drawRAF) drawRAF = requestAnimationFrame(() => { drawRAF = 0; if (cur) drawLayout(cur, curP); }); };
+if (window.ANIM) window.ANIM.onRays(() => schedule());              // the drawn rays shown or hidden (anim.js)
 let turning3 = false;                               // while the 3D view is being turned, the scale holds
 let c3mode = "lam";                                // 3D rays colored by wavelength or by slit position
 const M = () => (S.mode === "grating" ? S.g : S.e);
@@ -237,6 +238,7 @@ function showPreset(id) {
 }
 ssel.addEventListener("change", () => { showPreset(ssel.value); psel.dispatchEvent(new Event("change")); });
 psel.addEventListener("change", ev => {
+  if (window.ANIM) window.ANIM.reset();                          // a new telescope or instrument: the pulses off
   // an instrument picked in the Preset menu starts at its first setting (a change from the Setting menu keeps its choice)
   const o = psel.selectedOptions[0];
   if (ev.isTrusted && o && o.dataset.first) o.value = o.dataset.first;
@@ -533,6 +535,7 @@ function drawLayout(Dz, P) {
   const { g, w, h } = fitCanvas($("cvL"));
   g.clearRect(0, 0, w, h);
   if (window.ANIM) window.ANIM.set($("cvL"), []);
+  const hideRays = !!(window.ANIM && !window.ANIM.rays);             // the drawn rays hidden (anim.js): pulses only
   if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad || "No light reaches the detector"); $("lSub").textContent = ""; $("lSub").hidden = true; return; }
   const ech = P.mode === "echelle", trans = P.gType === "trans" && !ech, grism = P.gType === "grism" && !ech && !!Dz.grism;
   // a: the tilt of the surface where the collimated beam ends and the dispersed beam starts.  A ruled grism is
@@ -1032,6 +1035,7 @@ function drawLayout(Dz, P) {
     if (fill) { g.fillStyle = fill; g.fill(); }
     if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); }
   };
+  const beam = (ps, fill) => { if (!hideRays) poly(ps, fill, null); };   // a beam's faint fill
   const line = (p, q, col, lw = 1, dash) => { const a1 = T(p), b1 = T(q); g.beginPath(); g.moveTo(a1[0], a1[1]); g.lineTo(b1[0], b1[1]); g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]); };
   // labels are collected and placed at the end: each tries its candidate positions in turn and takes
   // the first that does not overlap a label already placed (wavelength labels go first)
@@ -1050,6 +1054,7 @@ function drawLayout(Dz, P) {
   // (the solid colored paths are the rays: kept for the light pulses, anim.js)
   const pulseRays = [];
   const path = (pts, col, lw = 1, dash) => {
+    if (hideRays && !dash && typeof col === "string") { pulseRays.push({ p: pts.map(T), c: col }); return; }
     g.beginPath(); pts.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
     g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]);
     if (!dash && typeof col === "string") pulseRays.push({ p: pts.map(T), c: col });
@@ -1141,6 +1146,7 @@ function drawLayout(Dz, P) {
     const put = pr => { const vs = pr.p.map(proj3); items.push({ pr, vs, d: vs.reduce((s, q) => s + q[2], 0) / vs.length }); };
     for (const pr of prims3) {
       if (pr.k !== "t") { put(pr); continue; }
+      if (hideRays) continue;
       // a beam: its faces, its silhouette (the lengthwise edges between a face turned toward the viewer and one
       // turned away), and a faint ring where it meets each optic
       const st = pr.st, V = st.map(s => s.map(proj3)), dark = pr.rgb.map(x => x * 0.62);
@@ -1150,7 +1156,7 @@ function drawLayout(Dz, P) {
         for (let k = 0; k < n; k++) {
           const k2 = (k + 1) % n, a0 = VA[A.length === 1 ? 0 : k], a1 = VA[A.length === 1 ? 0 : k2], b0 = VB[B.length === 1 ? 0 : k], b1 = VB[B.length === 1 ? 0 : k2];
           const ps = A.length === 1 ? [A[0], B[k], B[k2]] : B.length === 1 ? [A[k], A[k2], B[0]] : [A[k], A[k2], B[k2], B[k]];
-          put({ k: "f", p: ps, rgb: pr.rgb, al: pr.al });
+          put({ k: "f", p: ps, rgb: pr.rgb, al: pr.al, flat: true });   // (light: one flat color, no facets)
           // the face's normal toward the viewer, from its two diagonals (works for triangles and quads)
           const u = A.length === 1 ? [b0[0] - a0[0], b0[1] - a0[1]] : [b1[0] - a0[0], b1[1] - a0[1]], v = A.length === 1 ? [b1[0] - a0[0], b1[1] - a0[1]] : [b0[0] - a1[0], b0[1] - a1[1]];
           facing.push(u[0] * v[1] - u[1] * v[0] > 0);
@@ -1164,7 +1170,7 @@ function drawLayout(Dz, P) {
     for (const { pr, vs } of items) {
       const q = pr.p.map(S2);
       if (pr.k === "f") {
-        const b = shade(vs), c = pr.rgb.map(x => Math.min(255, x * b));
+        const b = pr.flat ? 1 : shade(vs), c = pr.rgb.map(x => Math.min(255, x * b));
         g.beginPath(); q.forEach((p, i) => (i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.closePath();
         g.fillStyle = rgba(c, pr.al); g.fill();
         if (pr.stroke) { g.strokeStyle = pr.stroke; g.lineWidth = pr.lw; g.stroke(); }
@@ -1190,15 +1196,15 @@ function drawLayout(Dz, P) {
     // starlight converging on each point of the slit
     for (const f of fields) {
       const sl = (f.yL - f.h) / fcol;
-      poly([v2(-Lt, f.h - sl * Lt + tHalf), v2(0, f.h), v2(-Lt, f.h - sl * Lt - tHalf)], "rgba(236,186,72,0.13)", null);
+      beam([v2(-Lt, f.h - sl * Lt + tHalf), v2(0, f.h), v2(-Lt, f.h - sl * Lt - tHalf)], "rgba(236,186,72,0.13)");
       path([v2(-Lt, f.h - sl * Lt), v2(0, f.h)], "rgba(168,118,22,0.6)", 0.9);
     }
     { const f = fields[0], q = T(v2(-Lt, f.h - (f.yL - f.h) / fcol * Lt)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
     // the light from each point: a faint band and three rays (the pupil's edges and center) through to the detector
     for (const f of fields) {
       const c = frampRGB(f.t), Y = f.m * fcam, P1 = y => v2(fcol, f.yL + y), P3 = y => v2(xC, y + f.m * d2);
-      poly([v2(0, f.h), P1(W / 2), P1(-W / 2)], rgba(c, 0.05), null);
-      poly([P1(W / 2), P3(W / 2), v2(xD, Y), P3(-W / 2), P1(-W / 2)], rgba(c, 0.05), null);
+      beam([v2(0, f.h), P1(W / 2), P1(-W / 2)], rgba(c, 0.05));
+      beam([P1(W / 2), P3(W / 2), v2(xD, Y), P3(-W / 2), P1(-W / 2)], rgba(c, 0.05));
     }
     for (const f of fields) for (const y of [-W / 2, W / 2, 0]) {
       const Y = f.m * fcam;
@@ -1250,22 +1256,22 @@ function drawLayout(Dz, P) {
     }
   } else {
   // telescope (or fiber) beam converging on the slit: starlight
-  poly([v2(-Lt, tHalf), v2(0, 0), v2(-Lt, -tHalf)], "rgba(236,186,72,0.18)", null);
+  beam([v2(-Lt, tHalf), v2(0, 0), v2(-Lt, -tHalf)], "rgba(236,186,72,0.18)");
   for (const f of [-1, 0, 1]) path([v2(-Lt, f * tHalf), v2(0, 0)], "rgba(168,118,22,0.8)", 1);
   { const q = T(v2(-Lt, 0)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
   // white light: diverging from the slit to the collimator, then parallel to the grating (by way of the fold)
   const onCol = y => onMirror(y / Math.cos(tau));
   const gPt = y => addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a)));   // meets the grating at height y, before Mpost
   const WL = rgba(NEU, 0.62);
-  poly([v2(0, 0), Pp, Pm], rgba(NEU, 0.06), null);
+  beam([v2(0, 0), Pp, Pm], rgba(NEU, 0.06));
   for (const y of YS) path([v2(0, 0), onCol(y)], WL, 0.9);
   if (foldOn) {
     const Qy = y => addv(Cf, sc(tf2, y / Math.sin(phi / 2)));
-    poly([Pp, Mf(Qp), Mf(Qm), Pm], rgba(NEU, 0.07), null);
-    poly([Mf(Qp), Mpost(Ga), Mpost(Gb), Mf(Qm)], rgba(NEU, 0.07), null);
+    beam([Pp, Mf(Qp), Mf(Qm), Pm], rgba(NEU, 0.07));
+    beam([Mf(Qp), Mpost(Ga), Mpost(Gb), Mf(Qm)], rgba(NEU, 0.07));
     for (const y of YS) path([onCol(y), Mf(Qy(y)), Mpost(gPt(y))], WL, 0.9);
   } else {
-    poly([Pp, Mpost(Ga), Mpost(Gb), Pm], rgba(NEU, 0.07), null);
+    beam([Pp, Mpost(Ga), Mpost(Gb), Pm], rgba(NEU, 0.07));
     for (const y of YS) path([onCol(y), Mpost(gPt(y))], WL, 0.9);
   }
   // the beam diameter W, marked across the collimated beam
@@ -1284,8 +1290,7 @@ function drawLayout(Dz, P) {
     };
     for (const r of rays) {
       const c = rampRGB(r.t), Ma = MIR.mhit(Fp, r.b), Mb = MIR.mhit(Fm, r.b), sh = MIR.shadow(r.b);
-      cut([Fp, Ma, Mb, Fm], sh, rgba(c, 0.045));
-      cut([Ma, r.Q, Mb], [sh[2], r.Q, sh[3]], rgba(c, 0.07));
+      if (!hideRays) { cut([Fp, Ma, Mb, Fm], sh, rgba(c, 0.045)); cut([Ma, r.Q, Mb], [sh[2], r.Q, sh[3]], rgba(c, 0.07)); }
     }
     // the rays: on to the mirror and back to the focus, or stopped where they meet the dewar
     const ray = (F0, r, col, lw) => { const B = MIR.block(F0, r.b); path(B ? [F0, B] : [F0, MIR.mhit(F0, r.b), r.Q], col, lw); };
@@ -1294,8 +1299,8 @@ function drawLayout(Dz, P) {
   } else {
     for (const r of rays) {
       const c = rampRGB(r.t), Ea = hit(Fp, r.b), Eb = hit(Fm, r.b);
-      poly([Fp, Ea, Eb, Fm], rgba(c, 0.045), null);
-      poly([Ea, r.Q, Eb], rgba(c, 0.07), null);
+      beam([Fp, Ea, Eb, Fm], rgba(c, 0.045));
+      beam([Ea, r.Q, Eb], rgba(c, 0.07));
     }
     for (const r of rays) for (const y of [-W / 2, W / 2]) { const F0 = gPt0(y); path([F0, hit(F0, r.b), r.Q], rgba(rampRGB(r.t), 0.6), 0.9); }
     for (const r of rays) path([Gc, hit(Gc, r.b), r.Q], rgba(rampRGB(r.t), 0.95), 1.5);
@@ -2237,6 +2242,7 @@ function syncInst() {
 }
 for (const [id, v] of [["iSpec", "spec"], ["iImg", "img"], ["iTelMode", "tel"], ["iIntMode", "int"]]) $(id).addEventListener("click", () => {
   if (inst === v) return;
+  if (window.ANIM) window.ANIM.reset();                          // a new mode: the pulses off
   inst = v; zoom.reset(); lview.fit = true; stopCoast(); schedule();
 });
 readHash();
