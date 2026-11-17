@@ -763,7 +763,7 @@ function drawLayout(Dz, P) {
     const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw, spec: rgb === MIRROR3 }); pts3.push(...ps); };
     // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
     // footprint rings are made when it is drawn, since the silhouette depends on the view
-    const tube = (stations, rgb, al) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb }); for (const s of stations) pts3.push(...s); };
+    const tube = (stations, rgb, al, tel) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb, tel: !!tel }); for (const s of stations) pts3.push(...s); };
     // a disc or a lens of thickness th across the axis n, as wedges (for the depth sort) and a rim
     const slab = (c, n, r, th, rgb, al, stroke, map = p => p) => {
       n = n3(n); let u = x3(n, [0, 0, 1]); if (Math.hypot(...u) < 1e-6) u = [1, 0, 0]; u = n3(u); const v = x3(n, u);
@@ -862,7 +862,7 @@ function drawLayout(Dz, P) {
       const lr = Dz.range || [lcE * 0.9, lcE * 1.1], tOf = l => Math.min(1, Math.max(0, (l - lr[0]) / (lr[1] - lr[0])));
       // light arriving: the telescope's cone to the slit, then from the slit through the lens, the prisms and onto the echelle
       const S0 = [0, 0, sInj];
-      tube([ringAt([-Lt, 0, sInj], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13);
+      tube([ringAt([-Lt, 0, sInj], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13, true);
       let rL = 0;
       {
         const [a1, a2] = [YA, ZA], lens = ringAt(lensIn, a1, a2, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE));
@@ -1024,7 +1024,7 @@ function drawLayout(Dz, P) {
       // the light from the telescope to the echelle (white): the cone to the slit, the cone to the collimator, the
       // collimated beam to the echelle's face
       const S0 = [0, 0, 0];
-      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13);
+      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13, true);
       {
         const st = [[S0], RING.map(([py, pz]) => { const c = onMirror(py / Math.cos(tau)); return [c[0], c[1], pz]; })];
         if (foldOn) st.push(RING.map(([py, pz]) => { const q = addv(Cf, sc(tf2, py / Math.sin(phi / 2))); return M3(Mf, [q[0], q[1], pz]); }));
@@ -1354,7 +1354,7 @@ function drawLayout(Dz, P) {
       // light arriving: the telescope's cone to the slit, then from the slit through the collimator, the prisms and
       // onto the echelle
       const S0 = [0, 0, sS];
-      tube([ringAt([-Lt, 0, sS], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13);
+      tube([ringAt([-Lt, 0, sS], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13, true);
       let rL = 0, rR = 0, rT = 0, rK = 0;
       {
         const lens = ringAt(lensIn, YA, ZA, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE, prisms));
@@ -1498,7 +1498,7 @@ function drawLayout(Dz, P) {
     for (const [z, t] of slits) {
       const yL = z * d1 / fcol, sl = -z / fcol, zAt = (xu, pz) => yL + pz + sl * (xu - fcol);
       const bz = z - (yL - z) / fcol * Lt, S0 = [0, 0, z];
-      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), bz + tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13);
+      tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), bz + tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13, true);
       const rgb = byS ? frampRGB(t) : NEU3, al = byS ? 0.1 : 0.06;
       const st = [[S0], RING.map(([py, pz]) => { const c = onCol3(py); return [c[0], c[1], yL + pz]; })];
       if (foldOn) st.push(RING.map(([py, pz]) => { const q = Qy3(py); return M3(Mf, [q[0], q[1], zAt(q[0], pz)]); }));
@@ -1684,20 +1684,20 @@ function drawLayout(Dz, P) {
     // the upper left, in front
     const S2 = p => { const q = proj3(p); return T([q[0], q[1]]); };
     // the light pulses (anim.js): four rays around each beam (a ring's quarter points, so a flipped grating still
-    // meets them), with distances in mm along each ray in the world.  The telescope's light starts the count (its
-    // beam starts at x = -Lt); each later beam carries on from the earlier beam whose end lies nearest its start
-    // (the slit, then the grating or the echelle).
+    // meets them), with distances in mm along each ray in the world.  The telescope's light (its tubes marked tel)
+    // starts the count; each later beam carries on from the earlier beam whose end lies nearest its start (the slit,
+    // then the grating or the echelle), wherever that lies: a fold can put the grating behind the slit (Viaspec).
     {
       const rays3 = [];
       for (const b of beams3) {
         const n = Math.max(...b.st.map(s => s.length));
-        for (let k = 0; k < n; k += Math.max(1, Math.round(n / 4))) rays3.push({ w: b.st.map(s => s[s.length === 1 ? 0 : k % s.length]), rgb: b.rgb });
+        for (let k = 0; k < n; k += Math.max(1, Math.round(n / 4))) rays3.push({ w: b.st.map(s => s[s.length === 1 ? 0 : k % s.length]), rgb: b.rgb, tel: b.tel });
       }
       const dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
       rays3.forEach((r, i) => {
         r.s = window.ANIM ? window.ANIM.lengths(r.w) : [0];
         r.s0 = 0;
-        if (r.w[0][0] < -0.5 * Lt) return;
+        if (r.tel) return;
         let best = Infinity;
         for (let j = 0; j < i; j++) {
           const q = rays3[j], dd = dist(r.w[0], q.w[q.w.length - 1]);
