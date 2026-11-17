@@ -2,6 +2,14 @@
 
 Compiled 2026-11-16 for the instex INTERFEROMETER mode, in the record format of `data/interf/vla.md` and `data/interf/dsa2000.md`. Every number comes from a document saved unmodified under `rawdata/interf/chord/` (the CHIME position and the outrigger sites under `rawdata/interf/chime/`); each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). **INFERRED** marks a mapping no source states. **NOT FOUND** marks a gap. Downloaded files were read as text only (pdftotext and PyMuPDF for PDFs, including the drawing operators of one vector figure; tag-stripped text for HTML); nothing downloaded was run. Companion machine-readable file: `data/interf/chord.json` (configurations `core`, 512 dishes; `pathfinder`, 64; `full_grid`, 528). Machine check: see the last section.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_X_arrays.md)
+
+- The rotation sense: the page turns the grid 1.99° anticlockwise (the UTM convergence at DRAO); HIG26 Fig. 1 draws the rows turned about 2° clockwise if its x axis increases eastward. No source settles which; the page's note now states the sense drawn.
+- The layout is a schematic (HIG26 calls Fig. 1 "A schematic of the CHORD dish layout"; the markers fall on an exact lattice): idealized design nodes, not surveyed positions. The two 64-dish outrigger stations (SPIE26 Sec. 3, Hat Creek and Green Bank) are left out.
+- The primary beam: only HIG26 states 1.2 λ/d (at 1420 MHz); SPIE26 Table 1's field of view gives 1.26–1.31 λ/D, MF26 Table 1 1.00 λ/D, and SPIE26 Sec. 12.2's measured beams are near the diffraction limit in the E-plane and 1–2.5° wider in the H-plane below 1.1 GHz.
+- Repointing: SPIE26 Sec. 3, "expected to take place on a cadence of a few months or more".
+- The page's Peak sidelobe readout now also searches the whole image grid for CHORD (aliases: true), so the grating lobes at λ / 8.5 m (north-south, foreshortened) and λ / 6.3 m (east-west) count: +78% at the default, was −9%. validate_int now checks the lobes' positions against MF26 Fig. 2 ("about 1.4 degrees" north, "about 1.9 degrees" east at 21 cm): 1.42° and 1.92°.
+
 ## Completeness summary
 
 **Status**: under construction at DRAO. Construction began September 2024; first dish placed 16 January 2025; first fringes (three dishes, Cas A) 29 October 2025; 64 dishes installed by 28 April 2026, pathfinder commissioning in Q2-Q3 2026; full core planned by the end of 2027, commissioning through 2028 (SPIE26, July 2026). PM26 (September 2026) reports the first 64-dish sub-array nearly complete.

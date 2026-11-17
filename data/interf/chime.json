@@ -87,6 +87,11 @@
    "cite": "arXiv API metadata (versions, dates, journal references) for the arXiv papers cited here and in chord.md. Fetched 2026-11-16",
    "file": "rawdata/interf/chime/arxiv_api_metadata_20261116.xml",
    "url": "https://export.arxiv.org/api/query?id_list=..."
+  },
+  "CAT1": {
+   "cite": "CHIME/FRB Collaboration (M. Amiri et al.), \"The First CHIME/FRB Fast Radio Burst Catalog\", ApJS 257, 59 (2021); arXiv:2106.04352v3 (31 Jan 2023): Sec. 2 (the field north of declination −11°, the lower transits north of +70°, the formed beams from θ = −60° to +60°), Sec. 2.2, Fig. 1 caption. Fetched 2026-11-16 (audit X)",
+   "file": "rawdata/interf/chime/arxiv_2106.04352v3.pdf",
+   "url": "https://arxiv.org/pdf/2106.04352v3"
   }
  },
  "site": {
@@ -118,7 +123,7 @@
    "C",
    "D"
   ],
-  "order_src": "INFERRED from HOLO24 Fig. 10",
+  "order_src": "HOLO24 Sec. 5: \"cylinder A being the farthest cylinder from the Galt telescope and cylinder D the closest\" (the Galt telescope 254 m east of CHIME, HOLO24 Sec. 2.2); was INFERRED from HOLO24 Fig. 10 (audit X, 2026-11-16)",
   "width_m": 20,
   "length_m": 100,
   "gap_m": 2,
@@ -193,7 +198,12 @@
   "sky_fraction": 0.75,
   "sky_deg2": 31000,
   "dec_south_limit_deg_derived": -5.7,
-  "dec_note": "DERIVED: zenith angle 55 deg (half of 110 deg) south of the 49.32 deg zenith"
+  "dec_note": "SUPERSEDED (audit X, 2026-11-16): the −5.7° below was DERIVED from FRB18's ∼110° north-south field (zenith angle 55° south of the 49.32° zenith); CAT1 gives −11° (beams formed to 60° from the zenith), now used.",
+  "dec_south_limit_deg": -11,
+  "dec_south_limit_src": "CAT1 Sec. 2: \"The CHIME/FRB detector views the entire sky north of declination −11◦ (a configurable choice, see below) every day as it transits overhead\"; Fig. 1 caption: \"below declination −11◦\" is outside the field. ALT: OVW22 Sec. 3.2.1, holography tracks from −21° to 65° in declination (the cosmology instrument's reach).",
+  "dec_twice_daily_deg": 70,
+  "sky_fraction_north_of_limit": 0.595,
+  "sky_fraction_note": "DERIVED: (1 + sin 11°) / 2 = 0.595 of the sphere north of −11° (24,550 deg²). OVW22's 3/4 (31000 deg²) is the sky visible from the site (north of ≈ −30°), not the sky in CHIME's beam each day."
  },
  "formed_beams": {
   "n": 1024,
@@ -232,7 +242,9 @@
   "sefd_per_feed_Jy": 40000.0,
   "sefd_src": "KKO24 (KKO; 'consistent with ... CHIME')",
   "aeff_per_feed_m2": 7.8,
-  "collecting_area_m2": 8000
+  "collecting_area_m2": 8000,
+  "sefd_phased_rule": "HCO26 Sec. 5.1: \"the radiometer equation which states that SEFDbf = SEFDinp / sqrt(N (N − 1)) where N is the number of inputs used during the beamforming stage\" (the ideal beamformed SEFD).",
+  "sefd_phased_measured": "HCO26 Sec. 5.1: \"a decrease in median SEFD ... from 990 Jy to 530 Jy in the XX polarization and a decrease from 660 Jy to 390 Jy in the YY polarization\"; \"approximately a factor of 2× smaller than those of KKO\"; \"within 5% (10%) of theoretical expectations for the Y (X) polarization based on the radiometer equation\". No GBO value published."
  },
  "outriggers": {
   "stations": {
@@ -345,7 +357,8 @@
    "src": "HCO26, OUT25"
   },
   "role": "triggered VLBI localization of CHIME-detected FRBs (~50 mas); outrigger-outrigger baselines used only for the brightest events (OUT25)",
-  "orientation_note": "Each station's feed line is rotated by EPH's rotation (anticlockwise looking down); the roll (KKO 0.59, GBO -30.1, HCO 1.06 deg) tilts the reflector about the feed line and is left out of the feed positions."
+  "orientation_note": "Each station's feed line is rotated by EPH's rotation (anticlockwise looking down); the roll (KKO 0.59, GBO -30.1, HCO 1.06 deg) tilts the reflector about the feed line and is left out of the feed positions.",
+  "vlbi_station_beams": "VLBI26 Sec. 2.1.1: \"we use multiple phase center beamforming to form individual beams at the CHIME core and each Outrigger station\" (CHIME is phased into one station too)."
  },
  "configs": {
   "CHIME": {

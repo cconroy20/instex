@@ -2,6 +2,11 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/round4/mosfire.md`. Every number comes from a document saved unmodified under `rawdata/imaging/megacam/`, `rawdata/imaging/ztf/` or `rawdata/imaging/small80/`; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked by script against the pdftotext (layout and raw) / HTML text of the saved files, after removing whitespace and table separators and normalising Unicode (NFKC), quotes, dashes, mu and degree glyphs and line-end hyphens; ' ... ' joins non-adjacent pieces. Values marked IMAGE were read from GIF figures and could not be machine-checked. In the arXiv text layers the arcsec double prime appears as '00' ("1.0100" = 1.01", "0.18500" = 0.185"); such quotes are given as the text layer has them. Coordinates: x = E-W (along a row of chips), y = N-S (between rows); rows are listed top (North) to bottom (South).
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I2_part_rest.md)
+
+- MegaCam: a corrector entry (distance schematic, 1.0 m) draws the primary at f/3.77; the 0.185″/px alternative (CID, the headers) and the arbitrary 90′ circle are in the note.
+- ZTF: the note states the gap conflict (on-sky-derived 7.49/10.96 mm vs the camera papers' 5.79/8.47 mm).
+
 ## Summary
 
 - **ZTF (P48 Schmidt):** D = 1.2446 m (stop at the corrector; mirror 1.828 m), eps = 0.473 (area-equivalent of 22.4% incl. spiders; 0.449 without), F = 2.46, f_eff = 3.062 m, unvignetted field ~5.45 deg DERIVED (published: 30% corner vignetting); 16 x e2v CCD231-C6 6144 x 6160 x 15 um, rows [4, 4, 4, 4], gaps x 7.49 mm / y 10.96 mm (DERIVED from on-sky 0.140/0.205 deg; physical 386 x 395 mm mosaic implies 5.79/8.47 mm -- conflict); 4 x 2k x 2k focus/guide CCDs near the corners; 1.01"/px, 7.32 x 7.50 deg = 55.0 deg2, 47.7 deg2 light-sensitive, 605.6 Mpx.

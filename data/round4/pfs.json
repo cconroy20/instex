@@ -91,6 +91,11 @@
    "cite": "Subaru-PFS GitHub, pfs_utils repository, data/fiberids/grandfibermap.txt (one row per slit fibre hole, 2604 rows), commit d5b73d0 (2023-01-26)",
    "file": "rawdata/presets/pfs/github_Subaru-PFS_pfs_utils_grandfibermap_d5b73d0.txt",
    "url": "https://raw.githubusercontent.com/Subaru-PFS/pfs_utils/d5b73d067c68d65c35228cd01594a703f16afccd/data/fiberids/grandfibermap.txt"
+  },
+  "DMAP": {
+   "cite": "Subaru-PFS drp_pfs_data, commit 04512fe: the bootstrap detector maps pfsDetectorMap-081976-b3.fits and pfsDetectorMap-081808-r3.fits (fitted to spectrograph module 3's arcs and flats, calibDate 2022-11-15) and the 2D-simulator maps for b1, r1, n1; the dispersion of the central fiber (hole 315) at rows 200, 2088 and 3975 DERIVED in audit S7. Fetched 2026-11-16",
+   "file": "rawdata/presets/pfs/drp_pfs_data/",
+   "url": "https://github.com/Subaru-PFS/drp_pfs_data/tree/04512fe"
   }
  },
  "pfs": {

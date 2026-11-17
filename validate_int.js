@@ -309,6 +309,21 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
     check("a Y snapshot: the VLA's concentration (1.716) lowers the peak sidelobe below even spacing's", cc < ev, `${(100 * cc).toFixed(0)}% vs ${(100 * ev).toFixed(0)}%`);
   }
   check("VLA: 27 antennas in each of A, B, C, D", a.configs.length === 4 && a.configs.every(c => c.ants.length === 27));
+  {
+    const jv = require("./data/interf/vla.json"), cC = ARRS.find(q => q.id === "vla").configs.find(q => q.id === "C"), exC = RI.extremes(cC.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })));
+    check(`VLA C: an antenna on the central pad N1 (the OSS's note 5; moved from N10, the middle of the north arm, INFERRED), the shortest baseline ${jv.configs.C.with_N1_variant.bmin_m} m`, cC.names.includes("N01") && !cC.names.includes("N10") && Math.abs(exC.bmin - jv.configs.C.with_N1_variant.bmin_m) < 0.01, `${exC.bmin.toFixed(2)} m`);
+    // shadowing against the Guide to Observing with the VLA (OGS): "to guarantee no more than a single shadowed
+    // antenna, restrict the elevations ... to >40° for D-configuration and >25° for C-configuration"
+    const mostShadowed = (cfg, elLo, elHi) => {
+      const c = ARRS.find(q => q.id === "vla").configs.find(q => q.id === cfg), an = c.ants.map(p => ({ e: p[0], n: p[1], u: p[2] }));
+      let mx = 0;
+      for (let dec = -45; dec <= 90; dec += 1.5) { const f = RI.shadowOf(an, a.lat * DEG, dec * DEG, a.dish);
+        for (let h = -12; h < 12; h += 0.025) { const H = h * 15 * DEG, el = RI.elevation(H, dec * DEG, a.lat * DEG) / DEG; if (el < elLo || el >= elHi) continue; let n = 0; for (const x of f(H)) n += x; mx = Math.max(mx, n); } }
+      return mx;
+    };
+    const sD = [mostShadowed("D", 40, 90), mostShadowed("D", 30, 40)], sC = [mostShadowed("C", 25, 90), mostShadowed("C", 8, 25)];
+    check("VLA shadowing (OGS): at most one antenna shadowed above 40° in D and above 25° in C, at any hour angle and declination; more below", sD[0] <= 1 && sC[0] <= 1 && sD[1] > 1 && sC[1] > 1, `D: ${sD[0]} above 40°, ${sD[1]} at 30–40°; C: ${sC[0]} above 25°, ${sC[1]} at 8–25°`);
+  }
   for (const c of a.configs) {
     const L = RI.lengths(c.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), a.lat * DEG), oss = j.configs[c.id].published;
     const Bo = j.params.bmax_km.value[c.id] * 1000;
@@ -361,6 +376,7 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   const nat = snap("natural", 1e5), uniD = snap("uniform", 1e5), uniA = snap("uniform", Infinity);
   check(`DSA-2000: the natural zenith snapshot beam at ${P.beam_freq_GHz} GHz within 3% of the calculator's ${P.beam_natural_arcsec.join(" x ")}″, PA ${P.beam_natural_pa_deg}°`, rel(nat.maj * RAD, P.beam_natural_arcsec[0]) < 0.03 && rel(nat.min * RAD, P.beam_natural_arcsec[1]) < 0.03 && Math.abs(nat.pa - P.beam_natural_pa_deg) < 2, `${(nat.maj * RAD).toFixed(3)} x ${(nat.min * RAD).toFixed(3)}″, PA ${nat.pa.toFixed(1)}°`);
   check("DSA-2000: the uniform beam from a 100,000-pair draw matches all 1,360,425 pairs (1%)", rel(uniD.maj, uniA.maj) < 0.01 && rel(uniD.min, uniA.min) < 0.01, `${(uniD.maj * RAD).toFixed(3)} x ${(uniD.min * RAD).toFixed(3)} vs ${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
+  check(`DSA-2000: tracks end ${j.tracking.max_abs_ha_h} h of hour angle either side of the transit (the calculator), carried to the page`, a.haMax === j.tracking.max_abs_ha_h && a.haMax === 2, a.haMax);
   check(`DSA-2000: the uniform beam within 10% of the project's PSF ${P.beam_uniform_arcsec.join(" x ")}″ (the uv cell is not stated)`, rel(uniA.maj * RAD, P.beam_uniform_arcsec[0]) < 0.1 && rel(uniA.min * RAD, P.beam_uniform_arcsec[1]) < 0.1, `${(uniA.maj * RAD).toFixed(3)} x ${(uniA.min * RAD).toFixed(3)}″`);
 }
 
@@ -400,7 +416,7 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
     const up = H.map(h => Ps.filter(q => RI.staSees(q.sta, h, +d * DEG)).length);
     T.n_stations.forEach((N, i) => { const hrs = up.filter(c => c >= N).length / H.length * 24 / 1.0027379, e = Math.abs(hrs - T.hours[d][i]); n++; if (e <= 0.2) ok++; worst = Math.max(worst, e); });
   }
-  check(`VLBA: the horizon masks reproduce NRAO's hours with at least N stations up (dec −20° to −50°, N = 4 to 10) within 0.2 h in at least 44 of the ${n} cells`, ok >= 44, `${ok} of ${n}, worst ${worst.toFixed(1)} h`);
+  check(`VLBA: the horizon masks reproduce NRAO's hours with at least N stations up (dec −20° to −50°, N = 4 to 10; NRAO's table counts a station up above 3° and its horizon, so the check tests the masks and positions, not the page's 10° limit) within 0.2 h in at least 44 of the ${n} cells (45 at the time of writing)`, ok >= 44, `${ok} of ${n}, worst ${worst.toFixed(1)} h`);
   check("VLBA: the 3 mm band at the eight stations with the receiver (not St. Croix or Hancock)", a.bands.find(b => b.k === "W").stations.length === 8 && !a.bands.find(b => b.k === "W").stations.includes("SC") && !a.bands.find(b => b.k === "W").stations.includes("HN"));
 }
 {
@@ -436,22 +452,48 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
   // the time to drift through the east-west beam, theta / (15.04 deg/h cos dec), against CHIME/FRB 2018's table
   const t = (nuG, dec) => a.pb.ew.arcminGHz / nuG / 60 * DEG / (RI.HA_PER_H * Math.cos(dec * DEG)) * 60, T = j.drift.transit_min;
   const got = [[0.4, 0], [0.8, 0], [0.4, 45], [0.8, 45]].map(([nu, d]) => t(nu, d)), want = [T.equator[0], T.equator[1], T.dec45[0], T.dec45[1]];
-  check(`CHIME: the transit through the beam ${got.map(x => x.toFixed(1)).join(", ")} min (400 and 800 MHz, dec 0° and 45°) within 0.6 min of CHIME/FRB 2018's ${want.join(", ")}`, got.every((x, k) => Math.abs(x - want[k]) < 0.6));
-  const o = ARRS.find(q => q.id === "chimeout"), P = geoStations(o), ix = n => P.findIndex(q => q.name === n), c0 = ix("A008"), St = j.outriggers.stations;
+  check(`CHIME: the transit through the beam ${got.map(x => x.toFixed(1)).join(", ")} min (400 and 800 MHz, dec 0° and 45°) within 0.6 min of CHIME/FRB 2018's ${want.join(", ")} (arithmetic only: the relation comes from the same paper's field of view)`, got.every((x, k) => Math.abs(x - want[k]) < 0.6));
+  // the field: north of -11 deg (the CHIME/FRB catalog, 2021), about 60% of the sphere
+  const fr = (1 - Math.sin(a.decRange[0] * DEG)) / 2;
+  check(`CHIME: the field north of ${String(a.decRange[0]).replace("-", "−")}° (CHIME/FRB 2021: "the entire sky north of declination −11◦"), ${(100 * fr).toFixed(1)}% of the sphere; CHIME + outriggers the same`, a.decRange[0] === -11 && j.drift.dec_south_limit_deg === -11 && Math.abs(fr - 0.595) < 0.001 && ARRS.find(q => q.id === "chimeout").decRange[0] === -11);
+  // CHIME + outriggers (audit X, 2026-11-16): CHIME and each outrigger phased into one station, as the VLBI forms one
+  // beam at the CHIME core and at each outrigger (Andrew et al. 2026); the SEFDs from the radiometer equation
+  const o = ARRS.find(q => q.id === "chimeout"), P = geoStations(o), ix = n => P.findIndex(q => q.name === n), c0 = ix("CHIME"), St = j.outriggers.stations;
   const dd = ["KKO", "HCO", "GBO"].map(k => [k, chord3(P, c0, ix(k)) / 1e3, St[k].chord_km]);
-  check(`CHIME + outriggers: from CHIME's feeds to KKO, HCO, GBO ${dd.map(q => q[1].toFixed(1)).join(", ")} km, within 0.2 km of the fitted positions' ${dd.map(q => q[2]).join(", ")} km`, P.length === 963 && dd.every(q => Math.abs(q[1] - q[2]) < 0.2));
-  const cA = a.configs[0], ia = cA.names.indexOf("A008"), id = cA.names.indexOf("D247"), loc = Math.hypot(cA.ants[ia][0] - cA.ants[id][0], cA.ants[ia][1] - cA.ants[id][1]);
-  check("CHIME + outriggers: CHIME's feeds, carried to latitude and longitude, keep their spacings (A008–D247 to 1 mm)", Math.abs(chord3(P, c0, ix("D247")) - loc) < 1e-3, `${chord3(P, c0, ix("D247")).toFixed(4)} vs ${loc.toFixed(4)} m`);
-  const B = RI.baselines(P.map(q => ({ xyz: q.xyz, keep: o.configs[0].keep.includes(P.indexOf(q)) })), 0, 2e4);
-  let nk = 0; for (let k = 0; k < B.length; k++) if (B.J[k] >= 960) nk++;
-  check("CHIME + outriggers: a draw of 20,000 pairs keeps all 2,883 baselines to the three outriggers", nk === 3 * 960 + 3, nk);
+  check(`CHIME + outriggers: four stations, six baselines; from CHIME to KKO, HCO, GBO ${dd.map(q => q[1].toFixed(1)).join(", ")} km, within 0.2 km of the fitted positions' ${dd.map(q => q[2]).join(", ")} km`, P.length === 4 && RI.baselines(P.map(q => ({ xyz: q.xyz })), 0).length === 6 && dd.every(q => Math.abs(q[1] - q[2]) < 0.2));
+  const sf = j.sensitivity.sefd_per_feed_Jy, bf = N => sf / Math.sqrt(N * (N - 1)), se = o.configs[0].sefd, want2 = [bf(960), bf(64), bf(128), bf(128)];
+  check(`CHIME + outriggers: the stations' SEFDs ${se.map(x => x.toFixed(1)).join(", ")} Jy, one feed's ${sf} Jy / √(N (N − 1)) for 960, 64, 128 and 128 phased feeds (Lazda et al. 2026, the radiometer equation)`, se.length === 4 && se.every((x, k) => Math.abs(x - want2[k]) < 1e-6));
 }
 {
   const a = ARRS.find(q => q.id === "chord"), j = require("./data/interf/chord.json");
   const core = a.configs.find(c => c.id === "core"), pf = a.configs.find(c => c.id === "pathfinder"), ex = RI.extremes(core.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })));
   check(`CHORD: ${core.ants.length} dishes in the core (the 22 × 24 grid less 16), ${pf.ants.length} in the pathfinder; the closest ${ex.bmin.toFixed(2)} m apart (the grid's ${j.grid.de_m} m), the farthest ${ex.bmax.toFixed(1)} m (the record's ${j.configs.core.bmax_m} m)`,
     core.ants.length === 512 && pf.ants.length === 64 && Math.abs(ex.bmin - j.grid.de_m) < 0.02 && Math.abs(ex.bmax - j.configs.core.bmax_m) < 0.05);
-  check(`CHORD: the primary beam 1.2 λ / D = ${(a.pb.arcminGHz / 60).toFixed(3)}° / ν(GHz), 2.4° at 1420 MHz (the design paper)`, Math.abs(a.pb.arcminGHz / 60 / 1.42 - 2.42) < 0.02);
+  {
+    // a transit array's samples carry the beam's power toward the drifting source: 1 at transit, 1/2 at the ends of the
+    // half-power crossing
+    const ants = pf.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), nu = 0.6e9, th = 1.2 * C / nu / ARRS.find(q => q.id === "chord").dish, dec = 40 * DEG, dur = th / (RI.HA_PER_H * Math.cos(dec));
+    const S = RI.sample({ ants, lat: ARRS.find(q => q.id === "chord").lat * DEG, dec, elMin: 0, dur, nu, bw: 0, nCh: 1, step: dur / 40, drift: th });
+    const first = S.wb[0], mid = S.wb[S.tOff[20]], last = S.wb[S.n - 1];
+    check("CHORD pathfinder drifting through the beam (600 MHz, dec 40°): each sample weighted by the beam, 1 at transit, 1/2 at the half-power edges", Math.abs(mid - 1) < 1e-6 && Math.abs(first - 0.5) < 0.005 && Math.abs(last - 0.5) < 0.005, `${first.toFixed(4)}, ${mid.toFixed(4)}, ${last.toFixed(4)}`);
+  }
+  check(`CHORD: the primary beam 1.2 λ / D = ${(a.pb.arcminGHz / 60).toFixed(3)}° / ν(GHz), 2.4° at 1420 MHz (Bij et al. 2026; arithmetic of the relation)`, Math.abs(a.pb.arcminGHz / 60 / 1.42 - 2.42) < 0.02);
+  {
+    // the grid's grating lobes (Hopkins et al. 2026 Fig. 2 caption, at 21 cm: "The north alias is about 1.4 degrees
+    // away, and the east alias is about 1.9 degrees away"): a zenith snapshot of the core at 1.42 GHz, natural weights;
+    // the strongest lobe beyond 0.5° along the north-south and the east-west axes (independent of the digitization's
+    // counts: tests the axes the 6.3 and 8.5 m spacings run along)
+    const ants = core.ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), lat = a.lat * DEG, nu = 1.42e9;
+    const S = RI.sample({ ants, lat, dec: lat, elMin: 0, dur: 0, nu, bw: 0, B: RI.baselines(ants, lat) });
+    const n2 = 1024, pix2 = 6 * DEG / n2, W = RI.weigh(S, "natural", 0, 1), G = RI.grid(S, W, n2, 1 / (n2 * pix2)), bm = RI.dirty(G.g, null, n2).beam;
+    // (the strongest pixel 0.5°-2.8° from the center within 15° of the axis: the grid is turned 2°, so a lobe sits off the
+    // exact axis)
+    const along = ax => { let best = 0, at = 0; for (let q = -n2 / 2 + 1; q < n2 / 2; q++) for (let p = -n2 / 2 + 1; p < n2 / 2; p++) { const r = Math.hypot(p, q) * pix2 / DEG; if (r < 0.5 || r > 2.8) continue; const t = Math.abs(Math.atan2(ax ? q : p, ax ? p : q)) / DEG; if (Math.min(t, 180 - t) > 15) continue; const v = bm[((q + n2) % n2) * n2 + ((p + n2) % n2)]; if (v > best) { best = v; at = r; } } return [at, best]; };
+    const ns = along(0), ew = along(1);
+    check(`CHORD: the grating lobes of a zenith snapshot at 1.42 GHz at ${ns[0].toFixed(2)}° north-south (+${(100 * ns[1]).toFixed(0)}%) and ${ew[0].toFixed(2)}° east-west (+${(100 * ew[1]).toFixed(0)}%), within 0.1° of Hopkins et al. 2026's "about 1.4" and "about 1.9" degrees`, Math.abs(ns[0] - 1.4) < 0.1 && Math.abs(ew[0] - 1.9) < 0.1 && ns[1] > 0.5 && ew[1] > 0.5);
+    const f = RI.fitBeam(bm, n2, pix2);
+    info(`CHORD: the natural zenith beam at 1.42 GHz`, `${(f.maj * RAD / 60).toFixed(2)}′ × ${(f.min * RAD / 60).toFixed(2)}′, PA ${f.pa.toFixed(0)}° (the published 4′ N-S × 6′ E-W of Bij et al. 2026 Table 1 and 3.1′ × 7.0′ of Hopkins et al. 2026 Table 1 disagree with each other, so no threshold)`);
+  }
 }
 {
   // the Bessel functions behind the crescent: J0 and the scaled I0, I1 against their power series
@@ -470,6 +512,22 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
     for (let q = -40; q <= 40; q += 2) for (let p = -40; p <= 40; p += 2) { const k = ((q + n) % n) * n + (p + n) % n; worst = Math.max(worst, Math.abs(Math.hypot(V.re[k], V.im[k]) - RI.vis(model, size, p * du, q * du))); }
     check(`the ${model} sky: the transform of its image matches its visibility formula to 0.002 (out to ${(40 * du / 1e9).toFixed(1)} Gλ)`, worst < 0.002, worst.toExponential(2));
   }
+  // M87* with its jet (Paper IV: the 0.55 Jy crescent and Table 10's 0.6 Jy jet): the transform of the image on a grid
+  // that holds the jet matches m87Vis; the whole flux at the intra-site spacings, and between sites (>= 1.4 Glambda,
+  // LMT-SMT the shortest) only the crescent's share, the jet resolved out; on the page's default grid (320 uas) the
+  // jet beyond the grid is dropped and the crescent keeps its share
+  {
+    const d = 44e-6 / RAD, n2 = 2048, F2 = 3000e-6 / RAD, pix2 = 2 * F2 / n2, du2 = 1 / (2 * F2), sk = RI.skyImage("m87", d, n2, pix2, 0), V = RI.visibilities(sk, n2);
+    let tot = 0; for (const x of sk) tot += x;
+    let worst = 0;
+    for (let q = -60; q <= 60; q += 3) for (let p = -60; p <= 60; p += 3) { const k = ((q + n2) % n2) * n2 + (p + n2) % n2; worst = Math.max(worst, Math.abs(Math.hypot(V.re[k], V.im[k]) - RI.vis("m87", d, p * du2, q * du2))); }
+    check(`M87* with its jet: flux 1 on a 6000 µas grid; the transform of the image matches m87Vis to 0.003 (out to ${(60 * du2 / 1e9).toFixed(1)} Gλ)`, Math.abs(tot - 1) < 1e-5 && worst < 0.003, `flux ${tot.toFixed(6)}, worst ${worst.toExponential(2)}`);
+    const w = RI.M87.ring / RI.M87.total;
+    let jetLong = 0; for (let k = 0; k < 72; k++) { const a = k * 5 * DEG; for (const q of [1.4e9, 3e9, 8e9]) jetLong = Math.max(jetLong, Math.abs(RI.vis("m87", d, q * Math.sin(a), q * Math.cos(a)) - w * RI.vis("crescent", d, q * Math.sin(a), q * Math.cos(a)))); }
+    const intra = Math.min(RI.vis("m87", d, 1.25e5, 0), RI.vis("m87", d, 0, 2.0e6));
+    const sk0 = RI.skyImage("m87", d, 512, 320e-6 / RAD / 512, 0); let t0 = 0; for (const x of sk0) t0 += x;
+    check(`M87* with its jet: ${RI.M87.ring} + ${(RI.M87.total - RI.M87.ring).toFixed(1)} Jy; the intra-site spacings see it all (${intra.toFixed(4)}), between sites the jet adds < 0.001 to the crescent's share ${w.toFixed(3)}; the 320 µas grid holds ${t0.toFixed(3)}`, Math.abs(RI.M87.total - 1.15) < 1e-9 && intra > 0.999 && jetLong < 1e-3 && t0 > w && t0 < 0.6, `jet between sites ${jetLong.toExponential(1)}`);
+  }
   // the crescent's visibility has the ring's first null near J0's first zero, 2.405 / (pi d), across the dipole axis
   const d = 44e-6 / RAD, u0 = 2.405 / (Math.PI * d), pa = RI.CRESCENT.pa * DEG + Math.PI / 2;
   let best = Infinity, ub = 0; for (let k = 0; k < 400; k++) { const u = u0 * (0.8 + 0.4 * k / 400), A = RI.vis("crescent", d, u * Math.sin(pa), u * Math.cos(pa)); if (A < best) { best = A; ub = u; } }
@@ -484,7 +542,7 @@ const chord3 = (P, i, j) => Math.hypot(P[i].xyz[0] - P[j].xyz[0], P[i].xyz[1] - 
   const s = { lat: 30 * DEG, dlon: 0, elMin: 0, mask: { az: [0, 180 * DEG, 360 * DEG], el: [0, 40 * DEG, 0] } };
   check("a horizon mask: a source due south at 35° elevation hidden behind a 40° ridge, due north at 35° seen", !RI.staSees(s, 0, (30 - 55) * DEG) && RI.staSees(s, 180 * DEG, (180 - 35 - 30 - 90) * DEG) === RI.elevation(180 * DEG, 25 * DEG, 30 * DEG) >= 0);
   const pts = RI.pointsList(1e-3); let mx = 0, mn = Infinity; for (const q of pts) { mx = Math.max(mx, q[2]); mn = Math.min(mn, q[2]); }
-  check(`the point-source sky: ${RI.POINTS_N} sources, the brightest at most 100 times the faintest, all within the spread`, pts.length === RI.POINTS_N && mx / mn <= 100 + 1e-9 && pts.every(q => Math.hypot(q[0], q[1]) <= 0.5e-3 + 1e-15));
+  check(`the point-source sky: ${RI.POINTS_N} sources drawn from 1 to 100 (N(>S) ~ S^-1.5), the seeded field's brightest ${(mx / mn).toFixed(1)} times its faintest (beyond the 21.5 the old draw could reach), all within the spread`, pts.length === RI.POINTS_N && mx / mn > 21.5 && mx / mn <= 100 + 1e-9 && pts.every(q => Math.hypot(q[0], q[1]) <= 0.5e-3 + 1e-15));
 }
 
 console.log(`\n${npass} pass, ${nfail} fail`);

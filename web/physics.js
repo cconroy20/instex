@@ -129,9 +129,10 @@ function bisect(f, a, b, fa, fb, tol) {
      grating mode: gType 'refl' | 'trans' | 'grism', G (l/mm), m, gA (deg, grism apex), gGlass, gKind 'ruled' | 'vph', gTilt (deg, ruled: entrance-face tilt), lamB (A, Littrow blaze wavelength in
                    order m), lamC (A), psi (deg, camera-collimator angle; reflection only),
                    tAlpha (deg, optional: fixed incidence on a transmission grating; else symmetric)
-     echelle mode: eG (l/mm), eDelta (deg), gamma (deg), theta (deg, in-plane offset),
+     echelle mode: eG (l/mm), eDelta (deg), gamma (deg), theta (deg, in-plane offset), eTilt (deg, the echelle
+                   turned from the blaze-symmetric setting),
                    xd 'grating' | 'vph' | 'prism' | 'grism', xG (l/mm), xPsi (deg), xGlass, xA (deg),
-                   xPasses, lamC (A)
+                   xPasses, xGrA (an echelle grism's apex, deg; else set by lamC), lamC (A)
      Nx, Ny, pix (um)                      detector, Nx along the dispersion                */
 function design(P) {
   const S = { P, flags: [] };
@@ -173,8 +174,10 @@ function design(P) {
   if (P.mode === "echelle") {
     Gm = P.eG / 1000;
     delta = P.eDelta * DEG;
-    const th = (P.theta || 0) * DEG, gam = (P.gamma || 0) * DEG;
-    alpha = delta + th; betaRef = delta - th;
+    // theta: half the in-plane angle between the beams; eTilt: the echelle turned by that angle from the setting
+    // symmetric about the blaze (M2FS: the beams at 73.2 and 66.6 deg on a 69 deg blaze), the facets keeping delta
+    const th = (P.theta || 0) * DEG, gam = (P.gamma || 0) * DEG, tilt = (P.eTilt || 0) * DEG;
+    alpha = delta + th + tilt; betaRef = delta - th + tilt;
     mlamRef = Math.cos(gam) * (Math.sin(alpha) + Math.sin(betaRef)) / Gm;     // m lambda at the blaze center
     S.gamma = gam;
   } else {
@@ -308,7 +311,9 @@ function design(P) {
         if (!isFinite(nC)) { S.bad = "No refractive index for the glass '" + pr.glass + "'."; return S; }
         const sA = nC * Math.sin(A / 2);
         if (sA >= 1) { S.bad = "The prism apex is too large for this glass (total internal reflection)."; return S; }
-        const i = Math.asin(sA);
+        // (pr.dI, degrees: the prism turned from minimum deviation, a larger angle of incidence for dI > 0; ESI's
+        // prisms sit "near" minimum deviation, which spreads the orders more and varies the anamorphic magnification)
+        const i = Math.asin(sA) + (pr.dI || 0) * DEG;
         const m1 = add(mul(r, Math.cos(i)), mul(b, Math.sin(i)));
         const m2 = add(mul(r, Math.cos(i - A)), mul(b, Math.sin(i - A)));
         xdStages.push({ kind: "face", nrm: m1, from: 1, to: pr.glass });
@@ -327,9 +332,10 @@ function design(P) {
       xdStages.push({ kind: "tgrating", nrm: nx, g: mul(sx, -Gx) });
       S.xdAlpha = ax;
     } else if (P.xd === "grism") {
+      // the apex: given (xGrA, degrees: HARPS's, from its blaze wavelength), or set so that lamC passes undeviated
       const Gx = P.xG / 1000, nC = nGlass(P.xGlass, lamC), sA = Gx * lamC / (nC - 1);
-      if (sA >= 1) { S.bad = "The grism ruling is too fine for this glass at λc."; return S; }
-      const A = Math.asin(sA);
+      if (!(P.xGrA > 0) && sA >= 1) { S.bad = "The grism ruling is too fine for this glass at λc."; return S; }
+      const A = P.xGrA > 0 ? P.xGrA * DEG : Math.asin(sA);
       const m2 = add(mul(r, Math.cos(A)), mul(b, Math.sin(A)));
       const s2 = sub(mul(r, Math.sin(A)), mul(b, Math.cos(A)));
       xdStages.push({ kind: "face", nrm: r, from: 1, to: P.xGlass });
@@ -451,7 +457,12 @@ function design(P) {
     const npix = fw / pix;
     const Rp = npix * Rs;
     const RdN = Math.abs(m) * (Gm * 1000) * S.Lg;                             // m N_grooves (Lg in mm)
-    const Reff = 1 / Math.sqrt(1 / (Rs * Rs) + 1 / (RdN * RdN) + 1 / (Rp * Rp));
+    // The effective R: the slit image and the grating's diffraction limit in quadrature. The pixel does not widen a
+    // measured line (McLean et al. 2012 measure MOSFIRE's lines at the geometric slit width), so no pixel term
+    // (Charlie's call, 2026-11-16, after the preset audit). Rfit: the R a pipeline reports from a Gaussian fitted to
+    // the line, whose FWHM is 0.841 of a top-hat line's width when the line spans 3 px or more (sampled in pixels).
+    const Reff = 1 / Math.sqrt(1 / (Rs * Rs) + 1 / (RdN * RdN));
+    const Rfit = 1 / Math.sqrt((0.841 / Rs) * (0.841 / Rs) + 1 / (RdN * RdN));
     // spatial scale along the slit: mm on the detector per arcsec on the sky
     const mmPerMmSlit = sn / (2 * dz0);
     const mmPerArcsec = mmPerMmSlit * ftel / RAD;
@@ -469,7 +480,7 @@ function design(P) {
     return {
       lam, m, X: p0[0], Y: p0[1], disp, dirl: dl, sdir: s,
       dlpix: pix / Math.abs(dv[0]) * 1e4,          // A per pixel along X
-      w, fw, npix, Rs, Rd: RdN, Rp, Reff,
+      w, fw, npix, Rs, Rd: RdN, Rp, Reff, Rfit,
       dlamRes: lam / Reff * 1e4,                   // A per resolution element (effective)
       dv: 299792.458 / Reff,                       // km/s
       pixScale: pix / mmPerArcsec,                 // arcsec per pixel along the slit
@@ -525,13 +536,17 @@ function design(P) {
   if (!S.c) { S.bad = "The central wavelength does not reach the detector."; return S; }
 
   if (P.mode === "grating") {
-    const r = orderRange(order, lamC);
+    let r = orderRange(order, lamC);
+    // an order-isolating filter (P.filt, [lo, hi] in Å; M2FS, Hectochelle): only the filter's band reaches the
+    // detector, and the neighboring orders are blocked. A band that misses the order is ignored (and the warning returns)
+    const fb = Array.isArray(P.filt) && P.filt.length === 2 ? [P.filt[0] / 1e4, P.filt[1] / 1e4] : null;
+    if (fb && Math.min(r[1], fb[1]) > Math.max(r[0], fb[0])) { r = [Math.max(r[0], fb[0]), Math.min(r[1], fb[1])]; S.filt = fb; }
     S.range = r;
     S.lo = local(r[0], order); S.hi = local(r[1], order);
     S.orders = [{ m: order, lo: r[0], hi: r[1] }];
     // overlap with neighboring orders (order-sorting filter); first order carries no warning (second-order light
     // removed at Charlie's request, 2026-10-17)
-    if (order > 1) flag("ord", "orders " + (order - 1) + " and " + (order + 1) + " overlap: needs a filter");
+    if (order > 1 && !S.filt) flag("ord", fb ? "the filter's band misses this order: orders " + (order - 1) + " and " + (order + 1) + " overlap" : "orders " + (order - 1) + " and " + (order + 1) + " overlap: needs a filter");
   } else {
     // ---- echelle format
     const K = mlamRef;                             // m lambda at the blaze center
@@ -553,6 +568,13 @@ function design(P) {
       orders.push({ m, lb, lo: r[0], hi: r[1], fsrLo: lb * m / (m + 0.5), fsrHi: lb * m / (m - 0.5) });
     }
     orders.sort((a, b) => a.lb - b.lb);
+    // the arm's band (P.filt, [lo, hi] in Å: the dichroics and filters that bound an echelle arm, X-Shooter): orders
+    // outside the band receive no light and are dropped, the rest clipped to the band
+    if (Array.isArray(P.filt) && P.filt.length === 2) {
+      const fb = [P.filt[0] / 1e4, P.filt[1] / 1e4], kept = [];
+      for (const o of orders) if (o.hi > fb[0] && o.lo < fb[1]) kept.push(Object.assign(o, { lo: Math.max(o.lo, fb[0]), hi: Math.min(o.hi, fb[1]) }));
+      if (kept.length) { orders.length = 0; orders.push(...kept); S.filt = fb; }
+    }
     S.orders = orders;
     if (orders.length) {
       S.range = [Math.min(...orders.map(o => o.lo)), Math.max(...orders.map(o => o.hi))];

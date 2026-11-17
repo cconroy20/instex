@@ -92,6 +92,12 @@
     "file": "data/round5/fire_feros.json",
     "key": "LCOFM",
     "text": "Las Campanas Observatory, FIRE observing manual"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "PYPF",
+    "text": "PypeIt (Prochaska et al. 2020), the FIRE spectrograph definition and archived wavelength solution",
+    "ads": "2020JOSS....5.2308P"
    }
   ],
   "imacs": [
@@ -237,6 +243,12 @@
     "file": "data/round4/mage_esi.json",
     "key": "KESP",
     "text": "Keck Observatory, ESI general specifications page"
+   },
+   {
+    "file": "data/round4/mage_esi.json",
+    "key": "PYPE",
+    "text": "PypeIt (Prochaska et al. 2020), the ESI spectrograph definition (as-built order positions)",
+    "ads": "2020JOSS....5.2308P"
    }
   ],
   "kcwib": [
@@ -268,6 +280,12 @@
     "file": "data/round5/muse_kcwi.json",
     "key": "KDRP",
     "text": "Keck Observatory, KCWI data reduction pipeline (KCWI_DRP)"
+   },
+   {
+    "file": "data/round5/muse_kcwi.json",
+    "key": "PYPK",
+    "text": "PypeIt (Prochaska et al. 2020), the KCRM RL wavelength template",
+    "ads": "2020JOSS....5.2308P"
    }
   ],
   "deimos": [
@@ -285,6 +303,12 @@
     "file": "data/presets_sources_2.json",
     "key": "KTG02",
     "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   },
+   {
+    "file": "data/presets_sources_3.json",
+    "key": "N13",
+    "text": "Newman et al. 2013, ApJS 208, 5",
+    "ads": "2013ApJS..208....5N"
    }
   ],
   "mosfirey": [
@@ -374,6 +398,12 @@
     "file": "data/presets_sources_2.json",
     "key": "MMTB",
     "text": "MMT Observatory, Binospec information for users"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "F25",
+    "text": "Fabricant et al. 2025, PASP 137, 015002",
+    "ads": "2025PASP..137a5002F"
    }
   ],
   "hectospec": [
@@ -612,6 +642,11 @@
     "key": "D06",
     "text": "D'Odorico et al. 2006, Proc. SPIE 6269, 626933",
     "ads": "2006SPIE.6269E..33D"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "XSHCAL",
+    "text": "ESO, X-Shooter pipeline calibration package xsh-calib-1.2.0 (spectral-format tables)"
    }
   ],
   "xshnir": [
@@ -631,6 +666,11 @@
     "key": "D06",
     "text": "D'Odorico et al. 2006, Proc. SPIE 6269, 626933",
     "ads": "2006SPIE.6269E..33D"
+   },
+   {
+    "file": "data/presets_sources_2.json",
+    "key": "XSHCAL",
+    "text": "ESO, X-Shooter pipeline calibration package xsh-calib-1.2.0 (spectral-format tables)"
    }
   ],
   "feros": [
@@ -649,6 +689,18 @@
     "file": "data/round5/fire_feros.json",
     "key": "FUM78",
     "text": "ESO, FEROS-II User Manual"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "K99",
+    "text": "Kaufer et al. 1999, The Messenger 95, 8",
+    "ads": "1999Msngr..95....8K"
+   },
+   {
+    "file": "data/round5/fire_feros.json",
+    "key": "CERES",
+    "text": "Brahm, Jordán & Espinoza 2017, PASP 129, 034002 (CERES pipeline; FEROS arc-line lists)",
+    "ads": "2017PASP..129c4002B"
    }
   ],
   "harps": [
@@ -801,6 +853,11 @@
     "file": "data/round4/pfs.json",
     "key": "SUBP",
     "text": "Subaru Telescope, PFS basic instrument parameters page"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "DMAP",
+    "text": "Subaru-PFS drp_pfs_data (detector maps fitted to arcs, 2022)"
    }
   ],
   "pfsr": [
@@ -820,6 +877,11 @@
     "file": "data/round4/pfs.json",
     "key": "SUBP",
     "text": "Subaru Telescope, PFS basic instrument parameters page"
+   },
+   {
+    "file": "data/round4/pfs.json",
+    "key": "DMAP",
+    "text": "Subaru-PFS drp_pfs_data (detector maps fitted to arcs, 2022)"
    }
   ],
   "pfsn": [
@@ -852,6 +914,12 @@
     "file": "data/round5/apogee.json",
     "key": "DR16",
     "text": "SDSS-IV, DR16 Using APOGEE Spectra page"
+   },
+   {
+    "file": "data/round5/apogee.json",
+    "key": "N15",
+    "text": "Nidever et al. 2015, AJ 150, 173",
+    "ads": "2015AJ....150..173N"
    }
   ],
   "desib": [
@@ -865,6 +933,12 @@
     "file": "data/presets_sources.json",
     "key": "FDR",
     "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "G23",
+    "text": "Guy et al. 2023, AJ 165, 144",
+    "ads": "2023AJ....165..144G"
    }
   ],
   "desir": [
@@ -878,6 +952,12 @@
     "file": "data/presets_sources.json",
     "key": "FDR",
     "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "G23",
+    "text": "Guy et al. 2023, AJ 165, 144",
+    "ads": "2023AJ....165..144G"
    }
   ],
   "desiz": [
@@ -891,6 +971,12 @@
     "file": "data/presets_sources.json",
     "key": "FDR",
     "text": "DESI Collaboration 2016, arXiv:1611.00037 (Final Design Report)"
+   },
+   {
+    "file": "data/presets_sources.json",
+    "key": "G23",
+    "text": "Guy et al. 2023, AJ 165, 144",
+    "ads": "2023AJ....165..144G"
    }
   ],
   "boomboxb": [
@@ -898,6 +984,12 @@
     "file": "data/presets_research.md",
     "key": "VT",
     "text": "Via collaboration, Via technical description, Boombox section (internal)",
+    "url": ""
+   },
+   {
+    "file": "data/presets_research.md",
+    "key": "VSB",
+    "text": "Via collaboration, Via Science Book (2026, internal)",
     "url": ""
    }
   ],
@@ -907,6 +999,12 @@
     "key": "VT",
     "text": "Via collaboration, Via technical description, Boombox section (internal)",
     "url": ""
+   },
+   {
+    "file": "data/presets_research.md",
+    "key": "VSB",
+    "text": "Via collaboration, Via Science Book (2026, internal)",
+    "url": ""
    }
   ],
   "via": [
@@ -915,15 +1013,21 @@
     "key": "VT",
     "text": "Via collaboration, Viaspec technical description (internal)",
     "url": ""
+   },
+   {
+    "file": "data/presets_research.md",
+    "key": "VSB",
+    "text": "Via collaboration, Via Science Book (2026, internal)",
+    "url": ""
+   },
+   {
+    "file": "data/presets_research.md",
+    "key": "TMR",
+    "text": "Viaspec spectral-resolution tech memo, rev. 3 (2024, internal)",
+    "url": ""
    }
   ],
   "zshb": [
-   {
-    "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
    {
     "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
@@ -938,12 +1042,6 @@
   "zshg": [
    {
     "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
-   {
-    "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
     "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
    },
@@ -954,12 +1052,6 @@
    }
   ],
   "zshr": [
-   {
-    "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
    {
     "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
@@ -974,12 +1066,6 @@
   "zshyj": [
    {
     "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
-   {
-    "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
     "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
    },
@@ -992,12 +1078,6 @@
   "zshh": [
    {
     "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
-   {
-    "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
     "text": "Caltech Optical Observatories, ZShooter spectrograph design page"
    },
@@ -1008,12 +1088,6 @@
    }
   ],
   "zshk": [
-   {
-    "file": "data/round6/zshooter.json",
-    "key": "CRB26",
-    "text": "Bailey et al. 2026, Proc. SPIE 14149",
-    "ads": "2026SPIE14149E..26B"
-   },
    {
     "file": "data/round6/zshooter.json",
     "key": "ZSPEC",
@@ -1034,6 +1108,11 @@
    },
    {
     "file": "data/round6/m2fs_ifum.json",
+    "key": "RGL14",
+    "text": "Richardson Gratings, grating catalog (2014): echelle 53-*-417E"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
     "key": "W23",
     "text": "Walker et al. 2023, ApJS 268, 19",
     "ads": "2023ApJS..268...19W"
@@ -1042,6 +1121,12 @@
     "file": "data/round6/m2fs_ifum.json",
     "key": "AJP",
     "text": "Ji, m2fs_reduction pipeline (GitHub)"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "R16",
+    "text": "Roederer et al. 2016, MNRAS 455, 2417",
+    "ads": "2016MNRAS.455.2417R"
    }
   ],
   "ifumlsb": [
@@ -1062,6 +1147,11 @@
     "key": "M12",
     "text": "Mateo et al. 2012, Proc. SPIE 8446, 84464Y",
     "ads": "2012SPIE.8446E..4YM"
+   },
+   {
+    "file": "data/round6/m2fs_ifum.json",
+    "key": "SUM22",
+    "text": "IFU-M Capabilities, CfA TAC slides (2022)"
    }
   ]
  },
@@ -1190,6 +1280,16 @@
     "file": "data/imaging/hst.json",
     "key": "C02",
     "text": "Clampin et al. 2002, HST Calibration Workshop, p. 3"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "TT63",
+    "text": "Krist et al., Tiny Tim User's Guide v6.3 (ACS/WFC f/26)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "OTAHB",
+    "text": "Burrows 1990, HST OTA Handbook (the OTA prescription)"
    }
   ],
   "uvis": [
@@ -1202,6 +1302,11 @@
     "file": "data/imaging/hst.json",
     "key": "W3CDR",
     "text": "WFC3 project (NASA/GSFC), Critical Design Review (2000)"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "OTAHB",
+    "text": "Burrows 1990, HST OTA Handbook (the OTA prescription)"
    }
   ],
   "wfc3ir": [
@@ -1219,6 +1324,11 @@
     "file": "data/imaging/hst.json",
     "key": "ISR1410",
     "text": "Biretta 2014, WFC3 ISR 2014-10"
+   },
+   {
+    "file": "data/imaging/hst.json",
+    "key": "ISR0814",
+    "text": "Hook & Stoehr 2008, WFC3 ISR 2008-14 (the cold mask)"
    }
   ],
   "euclid": [
@@ -1276,6 +1386,16 @@
     "file": "data/imaging/space_wide.json",
     "key": "JDD",
     "text": "JDox, NIRCam Detector Overview"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "SIN",
+    "text": "STScI pysiaf, the in-flight NIRCam SIAF"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "JDT",
+    "text": "STScI JDox, JWST Telescope (collecting area)"
    }
   ],
   "nircamlw": [
@@ -1295,6 +1415,16 @@
     "file": "data/imaging/space_wide.json",
     "key": "JDD",
     "text": "JDox, NIRCam Detector Overview"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "SIN",
+    "text": "STScI pysiaf, the in-flight NIRCam SIAF"
+   },
+   {
+    "file": "data/imaging/space_wide.json",
+    "key": "JDT",
+    "text": "STScI JDox, JWST Telescope (collecting area)"
    }
   ],
   "fors2sr": [
@@ -1368,6 +1498,11 @@
     "file": "data/imaging/reimagers.json",
     "key": "KLH",
     "text": "Keck Observatory, LRIS home page"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "KLRU",
+    "text": "W. M. Keck Observatory, LRIS red upgrade pages (the 2009 scale)"
    }
   ],
   "mosfirei": [
@@ -1406,6 +1541,11 @@
     "key": "CS11",
     "text": "Capaccioli & Schipani 2011, Messenger 146, 2",
     "ads": "2011Msngr.146....2C"
+   },
+   {
+    "file": "data/imaging/vst_lbc.json",
+    "key": "P88",
+    "text": "Kuijken, OmegaCAM User Manual, Issue 2.5 (2011)"
    }
   ],
   "lbcb": [
@@ -1520,6 +1660,11 @@
     "key": "L08",
     "text": "Lasker et al. 2008, AJ 136, 735",
     "ads": "2008AJ....136..735L"
+   },
+   {
+    "file": "data/imaging/poss.json",
+    "key": "HF",
+    "text": "STScI DSS-2 scan, FITS header (POSS-II F)"
    }
   ],
   "twomass": [
@@ -1539,6 +1684,16 @@
     "key": "M96",
     "text": "Milligan et al. 1996, Proc. SPIE 2863, 2",
     "ads": "1996SPIE.2863....2M"
+   },
+   {
+    "file": "data/imaging/twomass.json",
+    "key": "ES-III.1a",
+    "text": "2MASS Explanatory Supplement, Sec. III.1a (the telescopes)"
+   },
+   {
+    "file": "data/imaging/twomass.json",
+    "key": "GM20",
+    "text": "Garcia-Mejia et al. 2020 (the 1.3 m telescope's back focus)"
    }
   ],
   "fourshooter": [
@@ -1559,6 +1714,11 @@
     "key": "S94",
     "text": "Schneider et al. 1994, AJ 107, 1245",
     "ads": "1994AJ....107.1245S"
+   },
+   {
+    "file": "data/imaging/fourshooter.json",
+    "key": "P96",
+    "text": "Postman et al. 1996, AJ 111, 615"
    }
   ],
   "niri6": [
@@ -1662,6 +1822,11 @@
     "file": "data/imaging/reimagers.json",
     "key": "KTG02",
     "text": "Keck Observatory, Keck telescope and instrument guide (2002)"
+   },
+   {
+    "file": "data/imaging/reimagers.json",
+    "key": "S16",
+    "text": "Service et al. 2016, PASP 128, 095004"
    }
   ],
   "nirc2m": [
@@ -2123,6 +2288,11 @@
     "file": "data/interf/vla.json",
     "key": "OSSR",
     "text": "NRAO, VLA Observational Status Summary 2027A"
+   },
+   {
+    "file": "data/interf/vla.json",
+    "key": "OGS",
+    "text": "NRAO, Guide to Observing with the VLA: Antenna Shadowing"
    }
   ],
   "alma": [
@@ -2231,6 +2401,17 @@
     "key": "FRB18",
     "text": "CHIME/FRB Collaboration 2018, ApJ 863, 48",
     "ads": "2018ApJ...863...48C"
+   },
+   {
+    "file": "data/interf/chime.json",
+    "key": "CAT1",
+    "text": "CHIME/FRB Collaboration 2021, ApJS 257, 59 (the first CHIME/FRB catalog)",
+    "ads": "2021ApJS..257...59C"
+   },
+   {
+    "file": "data/interf/chime.json",
+    "key": "HOLO24",
+    "text": "CHIME Collaboration 2024, ApJ 976, 163 (holographic beam measurements)"
    }
   ],
   "chimeout": [
@@ -2257,6 +2438,17 @@
     "key": "OVW22",
     "text": "CHIME Collaboration 2022, ApJS 261, 29",
     "ads": "2022ApJS..261...29C"
+   },
+   {
+    "file": "data/interf/chime.json",
+    "key": "CAT1",
+    "text": "CHIME/FRB Collaboration 2021, ApJS 257, 59 (the first CHIME/FRB catalog)",
+    "ads": "2021ApJS..257...59C"
+   },
+   {
+    "file": "data/interf/chime.json",
+    "key": "HCO26",
+    "text": "Lazda et al. 2026, arXiv:2609.10686 (the Hat Creek Outrigger)"
    }
   ],
   "chord": [

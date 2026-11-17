@@ -156,6 +156,16 @@
    "cite": "SCHOTT \"Optical Glass Datasheets\" collection, English (139 pp; LF5 datasheet \"As of 01-Dec-2023\") -- identical copy of round-1 key SCOL (rawdata/presets/glass/)",
    "file": "rawdata/presets/feros/schott_optical_glass_datasheets_EN_media38cbbe87.pdf",
    "url": "https://media.schott.com/api/public/content/38cbbe876d324e03b1881d33f3d26635"
+  },
+  "CERES": {
+   "cite": "Brahm, R., Jordán, A. & Espinoza, N. 2017, PASP 129, 034002, \"CERES: A Set of Automated Routines for Echelle Spectra\"; the code at github.com/rabrahm/ceres, commit 72a95b2: the FEROS ThAr line lists wavcals/order_08–33 (pixel positions of identified arc lines in echelle orders 33–58). Fetched 2026-11-16 (audit S7)",
+   "file": "rawdata/presets/feros/ceres/",
+   "url": "https://github.com/rabrahm/ceres/tree/72a95b2"
+  },
+  "PYPF": {
+   "cite": "PypeIt (Prochaska et al. 2020, JOSS 5, 2308), release branch commit c1798aa (2026-11-08): pypeit/spectrographs/magellan_fire.py (order_spat_pos, the order centers across the chip) and data/arc_lines/reid_arxiv/magellan_fire_echelle.fits (the archived wavelength solution of orders 11–31). Text and data only, never executed. Fetched 2026-11-16 (audit S7)",
+   "file": "rawdata/presets/fire/pypeit/",
+   "url": "https://github.com/pypeit/PypeIt/tree/c1798aa"
   }
  },
  "fire": {

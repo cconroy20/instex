@@ -2,6 +2,12 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/round4/mosfire.md`. Every number comes from a document saved unmodified under `rawdata/imaging/euclid_vis/`, `rawdata/imaging/roman_wfi/` or `rawdata/imaging/jwst_nircam/`; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked against the pdftotext (layout and raw, per page) / tag-stripped HTML / raw YAML and XML text of the saved files, with glyphs normalised (NFKC, dashes, minus signs, curly quotes, primes, tildes); ' ... ' joins non-adjacent pieces; table rows are quoted as cells (HTML cells joined by " | "). PDF page numbers are the page index of the saved PDF. Model: DIRECT = detector at a focus of focal ratio F; REIMAGED = ideal collimator f_col = F_tel x W, pupil W, ideal camera f_cam, effective f/# = f_cam / W.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I1_space.md)
+
+- NIRCam: the collecting area is the published 25.4 m² (JDox), entered as an override; the circular annulus of D = 6.6 m, ε = 0.2 gives 32.8 m² and still sets the image. The JDox pixel scales (0.031, 0.063″/px) date from 2017, before launch; the in-flight SIAF gives 0.03105 and 0.06295″/px (DERIVED, geometric means over the detectors), now scored.
+- Euclid: the 0.466 deg² and 0.775° checks are circular (info); 0.466 is DERIVED (36 × 46.6 arcmin²). A dichroic and a fold mirror sit between the telescope and the focal plane (no powered optics). F1 = 1.626 puts the drawn secondary 1756 mm from the primary (R16). Band i in place of I.
+- Roman: S15's f/7.9 went with a 2.4 m aperture; F = 7.946 gives 0.11″/px on the 2.36 m stop, and the scale and area checks become circular (info).
+
 ## Explorer preset summary
 
 | preset | mode | D (m) | eps | F | f_eff / f_tel (m) | W, f_col, f_cam (mm) | chip (px), pitch | n | rows | gaps | validate: scale, FOV | flags |

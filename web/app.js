@@ -16,10 +16,11 @@ const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
   g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
-       W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15 },
+       W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15,
+       filt: null, fgroups: null, telF: null, fibAp: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
-       W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, xd: "grating", xG: 300, xPsi: 10,
-       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15 },
+       W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null,
+       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
 let S = clone(DEF);
@@ -85,12 +86,12 @@ const SL = [
   ["sFA", "foldAng", "m", false, false, v => v.toFixed(0) + "°"],
   ["sFP", "foldPos", "m", false, false, v => v.toFixed(2)],
   ["sGam", "gamma", "m", false, false, v => v.toFixed(1) + "°"],
-  ["sG", "G", "m", true, false, v => sig(v, 3) + " /mm"],
+  ["sG", "G", "m", true, false, v => grooves(v)],
   ["sM", "m", "m", false, true, v => String(v)],
   ["sLB", "lamB1", "m", true, false, v => (v >= 30000 ? sig(v / 1e4, 3) + " µm" : grp(v) + " Å") + ", 1st order"],
-  ["sEG", "eG", "m", true, false, v => sig(v, 3) + " /mm"],
+  ["sEG", "eG", "m", true, false, v => grooves(v)],
   ["sED", "eDelta", "m", false, false, v => "R" + Math.tan(v * IX.DEG).toFixed(2) + " · " + v.toFixed(1) + "°"],
-  ["sXG", "xG", "m", true, false, v => sig(v, 3) + " /mm"],
+  ["sXG", "xG", "m", true, false, v => grooves(v)],
   ["sXA", "xA", "m", false, false, v => v.toFixed(1) + "°"],
   ["sLC", "lamC", "m", true, false, v => grp(v) + " Å"],
   ["sNx", "Nx", "m", true, true, v => grp(v)],
@@ -300,10 +301,10 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
-  else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, xd: m.xd, xG: m.xG, xPsi: m.xPsi,
+  else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
                           xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms });
   return P;
 }
@@ -328,7 +329,7 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA"]);
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA"]);
 const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
@@ -346,7 +347,13 @@ function readHash() {
     if (typeof d === "boolean") return v === "true" ? true : v === "false" ? false : NUL;
     if (v[0] === "[") {
       // a prism train: each prism a known glass and an apex angle between 0 and 90 deg
-      try { const a = JSON.parse(v); return k === "xPrisms" && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL; } catch (e) { return NUL; }
+      // an order filter's band [lo, hi] (Å); fiber groups [fibers per group, pitch, gap] (µm on the detector)
+      try {
+        const a = JSON.parse(v);
+        if (k === "filt") return Array.isArray(a) && a.length === 2 && a.every(x => isFinite(x) && x > 0) && a[0] < a[1] ? a : NUL;
+        if (k === "fgroups") return Array.isArray(a) && a.length === 3 && Number.isInteger(a[0]) && a[0] >= 1 && a.every(x => isFinite(x) && x > 0) ? a : NUL;
+        return k === "xPrisms" && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL;
+      } catch (e) { return NUL; }
     }
     if (typeof d === "number" || d === null) {
       if (v === "" && d === null) return null;
@@ -377,6 +384,8 @@ function readHash() {
 }
 
 // ------------------------------------------------------------------ canvases
+// a groove density: four significant figures below 1000 /mm (110.5, 52.67), whole numbers above
+const grooves = v => (v >= 1000 ? grp(Math.round(v)) : String(+v.toPrecision(4))) + " /mm";
 function fitCanvas(c) {
   const dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = c.clientHeight;
   if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
@@ -417,8 +426,8 @@ function renderText(Dz, P) {
     // the live strip's six figures; a muted second figure (km/s, orders) follows the first after a space
     const items = [
       ["res", "Resolution", `<span class="pre"><i>R</i> =</span><span class="rv">${fmtR(c.Reff)}</span><small>${sig(c.dlamRes, 3)} Å</small><small>${sig(c.dv, 3)} km/s</small>`, "",
-        `Effective resolving power R at the central wavelength: the slit image, the grating's diffraction limit and one pixel added in quadrature (the slit by itself gives ${fmtR(c.Rs)}). Then the FWHM of a resolution element, in wavelength and in velocity.`],
-      ["", "λ range", cov, "", ech ? "Wavelengths reaching the detector over all orders (slit center); the number of orders is in the Disperser box, and gaps raise a warning." : "Wavelengths reaching the detector (slit center)."],
+        `Effective resolving power R at the central wavelength: λ over the FWHM of the line, the slit image and the grating's diffraction limit added in quadrature (the slit by itself gives ${fmtR(c.Rs)}). Then the FWHM of a resolution element, in wavelength and in velocity. ` + (c.npix >= 3 ? `A pipeline that fits a Gaussian to the line measures a width 0.84 of the slit image's, so reports R ≈ ${fmtR(c.Rfit)}; observatories quote R in either convention.` : `The line spans fewer than 3 pixels, too few for a fitted width to mean much.`)],
+      ["", "λ range", cov, "", ech ? "Wavelengths reaching the detector over all orders (slit center)" + (Dz.filt ? `, within the arm's band, ${fA(Dz.filt[0])}–${fA(Dz.filt[1])} Å, set by the dichroics (orders outside the band receive no light)` : "") + "; the number of orders is in the Disperser box, and gaps raise a warning." : Dz.filt ? `Wavelengths reaching the detector (slit center), within the band of the order-isolating filter, ${fA(Dz.filt[0])}–${fA(Dz.filt[1])} Å, which also blocks the neighboring orders.` : "Wavelengths reaching the detector (slit center)."],
       ["", "Dispersion", sig(c.dlpix, 3) + " Å/px", "", "Wavelength per pixel along the dispersion at the central wavelength."],
       ["", "Spatial scale", sig(c.pixScale, 3) + "″/px", "", "Arcseconds on the sky per pixel along the slit: 206265 p W / (D f_cam); the telescope focal ratio drops out."],
       ["", "Sampling, λ × spatial", sig(c.npix, 3) + " × " + sig(spat, 3) + " px", "",
@@ -437,12 +446,20 @@ function renderText(Dz, P) {
   }
   // readouts
   const ftel = Dz.ftel;
-  rows($("rTel"), [
+  // a fiber-fed preset that gives the telescope's own focus (telF) and the fibers' apertures on the sky (fibAp): the
+  // telescope as it is, and the slider's focal ratio named for what it is, the fibers' output ratio
+  const mm0 = M();
+  $("lsF").textContent = mm0.telF ? "Fiber output, focal ratio" : "Focal ratio";
+  rows($("rTel"), mm0.telF ? [
+    ["Telescope focus", "f/" + sig(mm0.telF, 3) + ", " + mm(mm0.telF * S.D * 1000), `The telescope's own focus, where the fibers' apertures sit (${sig(mm0.fibAp, 3)}″ on the sky). Each fiber delivers f/${sig(S.F, 3)} to the spectrograph, and the slider and the numbers below use that ratio, so that the core enters at its true size: core / (F × D).`],
+    ["At the fiber output", mm(ftel) + ", " + sig(Dz.plate, 3) + "″/mm", "The focal length and plate scale the spectrograph sees: f/" + sig(S.F, 3) + " on the telescope's aperture."],
+  ] : [
     ["Focal length", mm(ftel)],
     ["Plate scale", sig(Dz.plate, 3) + "″/mm"],
   ]);
   const ent = [["At the focus", sig(Dz.slitFocus * 1000, 3) + " µm wide", "Slit width at the telescope focus: φ F_tel D."]];
-  if (Dz.objects && Dz.objects.n > 1) ent.push(["Gap between spectra", sig(Dz.objects.gapPx, 3) + " px", P.mode === "echelle" ? "The spectra of the objects are stacked within the smallest spacing between orders." : "The spectra of the objects spread evenly over the height of the detector."]);
+  if (Dz.objects && Dz.objects.n > 1) { const gr = Dz.objects.groups;
+    ent.push(["Gap between spectra", sig(Dz.objects.gapPx, 3) + " px", gr ? `The fibers sit in ${gr.n} groups of ${gr.per} on the pseudo-slit: ${sig(gr.pitchPx, 3)} px apart within a group, ${sig(gr.gapPx, 3)} px from the last spectrum of one group to the first of the next.` : P.mode === "echelle" ? "The spectra of the objects are stacked within the smallest spacing between orders." : "The spectra of the objects spread evenly over the height of the detector."]); }
   if (Dz.objects && Dz.objects.n > 1 && Dz.c) {
     const fwPx = (P.traceW > 0 ? P.traceW : P.slitW) / Dz.c.pixScale;   // the trace width across the dispersion
     ent.push(["Gap in trace FWHM", sig(Dz.objects.gapPx / fwPx, 3), `The gap between neighboring spectra over the width of one trace across the dispersion: the slit (or the fiber's equivalent) width imaged along the slit, φ / pixel scale = ${sig(fwPx, 3)} px. For a slit the star's seeing sets the real profile; a slit matched to the seeing makes the two similar.`]);
@@ -462,8 +479,8 @@ function renderText(Dz, P) {
   if (P.mode === "grating") {
     if (P.gType === "grism") {
       const gr = Dz.grism;
-      dis.push(["Undeviated λ0", grp(gr.lam0 * 1e4) + " Å", gr.vph ? "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = 2 n sin(A − t), sin t = sin A / n (the outer faces refract the beam to the Bragg angle at the VPH layer and back)." : "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = (n − 1) sin A. A grism has no tilt, so λ0 is fixed by the grism itself."]);
-      dis.push(["Glass index n(λ0)", gr.n0.toFixed(4), gr.vph ? "Of the prisms. The beam meets the VPH layer at " + deg(gr.inner) + " inside the glass." : "Of the prism; the light leaves the ruled hypotenuse at A = " + deg(gr.A) + " from its normal."]);
+      dis.push(["Undeviated λ0", grp(gr.lam0 * 1e4) + " Å", gr.vph ? "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = 2 n sin(A − t), sin t = sin A / n (the outer faces refract the beam to the Bragg angle at the VPH layer and back)." : gr.eps ? "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = n sin(A − ε′) − sin(A − ε), with the prism's entrance face tilted ε = " + deg(gr.eps) + " (sin ε′ = sin ε / n). The grism is not tilted in use, so λ0 is fixed by the grism itself." : "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = (n − 1) sin A. The grism is not tilted in use, so λ0 is fixed by the grism itself."]);
+      dis.push(["Glass index n(λ0)", gr.n0.toFixed(4), gr.vph ? "Of the prisms. The beam meets the VPH layer at " + deg(gr.inner) + " inside the glass." : (gr.eps ? "Of the prism; the light leaves the ruled hypotenuse at A − ε = " + deg(gr.A - gr.eps) + " from its normal." : "Of the prism; the light leaves the ruled hypotenuse at A = " + deg(gr.A) + " from its normal.")]);
       dis.push(["Camera angle", "0° (on axis)", "A grism passes λ0 straight through: the camera sits on the collimator axis."]);
     } else if (P.gType === "trans") {
       if (Math.abs(Dz.alpha - Dz.beta) < 1e-9) dis.push(["Angles α = β", deg(Dz.alpha), "Symmetric (Littrow, or Bragg for a volume-phase grating) setting for the central wavelength."]);
@@ -472,6 +489,8 @@ function renderText(Dz, P) {
     } else {
       dis.push(["Angles α, β", (Dz.alpha / IX.DEG).toFixed(1) + "°, " + (Dz.beta / IX.DEG).toFixed(1) + "°", "Angle of incidence and of diffraction of the central wavelength, from the grating normal."]);
       if (Dz.delta !== null) dis.push(["Blaze angle δ", deg(Dz.delta)]);
+      // (the Blaze slider gives the Littrow value; with the camera at an angle the facets' peak moves bluer)
+      if (Dz.delta !== null && Math.abs(Dz.psi || 0) > 1e-6) dis.push(["Blaze peak at this angle", (v => (v >= 3 ? sig(v, 3) + " µm" : grp(v * 1e4) + " Å"))(2 * Math.sin(Dz.delta) * Math.cos(Dz.psi / 2) / (P.G / 1000)) + ", 1st order", "The facets reflect specularly when α + β = 2δ, so with the camera at ψ from the collimator the blaze peak sits at m λ = 2 sin δ cos(ψ/2) / G. The Blaze slider gives the Littrow value, 2 sin δ / G, at ψ = 0."]);
     }
     dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
     if (Dz.c && Dz.c.eff !== null) dis.push(["Blaze efficiency at λc", pct(Dz.c.eff), "Relative to the blaze peak (scalar sinc² envelope)."]);
@@ -533,10 +552,14 @@ function drawLayout(Dz, P) {
   // that puts the detector clear of the slit, and the echelle at dpD1 from the lens.
   const dpass = ech && !!P.dpass;
   const dpD1Auto = Math.max(1.6 * W, 0.8 * fcol), dpD1 = P.layLen > 0 ? P.layLen : dpD1Auto;
-  const dpPsi = dpass ? Math.atan((0.62 * Dz.Lx + 0.05 * fcam) / (dpD1 + fcam)) : 0;
+  // (with an in-plane angle between the beams, M2FS's 2θ = 6.6°, the returning beam is drawn at its true angle: the
+  // slit's injection optics sit beside the detector in this plane)
+  const dpTrue = dpass && Math.abs(P.theta || 0) > 0;
+  const dpPsi = dpass ? (dpTrue ? 2 * Math.abs(P.theta) * IX.DEG : Math.atan((0.62 * Dz.Lx + 0.05 * fcam) / (dpD1 + fcam))) : 0;
   if (dpass) {
     ac = v2(-Math.cos(dpPsi), -Math.sin(dpPsi));
-    $("lSub").textContent = "Double pass: one lens is both collimator and camera. The beams overlap in this plane; the returning beam is drawn " + (dpPsi / IX.DEG).toFixed(1) + "° off so that the detector clears the slit, which sits beside the detector out of the page.";
+    $("lSub").textContent = dpTrue ? "Double pass: one lens is both collimator and camera. The returning beam leaves 2θ = " + (2 * Math.abs(P.theta)).toFixed(1) + "° from the incoming one in this plane, drawn true, and passes beside the slit's injection optics to the detector."
+      : "Double pass: one lens is both collimator and camera. The beams overlap in this plane; the returning beam is drawn " + (dpPsi / IX.DEG).toFixed(1) + "° off so that the detector clears the slit, which sits beside the detector out of the page.";
   } else if (ech) {
     const psiD = 30 * IX.DEG;                                     // schematic: the real separation is out of the plane
     ac = v2(-Math.cos(psiD), Math.sin(psiD));
@@ -1298,7 +1321,7 @@ function drawLayout(Dz, P) {
       poly([c0, c1, addv(c1, sc(ac, th)), addv(c0, sc(ac, th))], P.xd === "grating" ? STEEL : glassFill(q0, q1), P.xd === "grating" ? null : GLASS_EDGE, 1.2);
       g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = sheen(q0, q1, 0.95); g.lineWidth = 2; g.stroke();
     }
-    req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : sig(P.xG, 3) + " /mm" });
+    req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : grooves(P.xG) });
   }
   if (!MIR) { if (!dpass) lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false); }   // double pass: the collimator lens
   else {
@@ -1378,7 +1401,7 @@ function drawLayout(Dz, P) {
       poly([...ps, addv(A1, back), addv(A0, back)], STEEL, null);
       path(ps, sheen(q0, q1, 0.95), 1.4);
     }
-    const gsub = sig(ech ? P.eG : P.G, 3) + " /mm" + (grism ? ", A = " + (Dz.grism.A / IX.DEG).toFixed(1) + "°" : "");
+    const gsub = grooves(ech ? P.eG : P.G) + (grism ? ", A = " + (Dz.grism.A / IX.DEG).toFixed(1) + "°" : "");
     req(3, ech ? "echelle" : grism ? (Dz.grism.vph ? "VPH grism" : "grism") : trans ? "transmission grating" : "grating", ends(q0, q1), INK, 13, { sub: gsub });
   }
   // the grating normal, and the angles of incidence and diffraction of the central wavelength (grating mode;
@@ -1730,7 +1753,9 @@ function lamRGB(lA) {
 const zoom = { z: 1, cx: 0, cy: 0, reset() { this.z = 1; this.cx = 0; this.cy = 0; } };
 let placedLabels = [];                                             // the layout's labels as placed (for the tests)
 let spGeo = null, lvExpanded = false;                              // Spatial view, one free point: screen geometry for dragging
-let detGeom = null, traces = [], hover = null, offD = null, offB = null;
+let detGeom = null, traces = [], hover = null, offD = null, detBuf = null;
+// exp(-x^2 / 2) tabulated at x = k / EXPN up to 4 (the detector's trace profiles)
+const EXPN = 32, EXPT = Float32Array.from({ length: 4 * EXPN + 1 }, (_, k) => Math.exp(-0.5 * (k / EXPN) * (k / EXPN)));
 
 function objectOffsets(Dz, P) {
   const n = Math.max(1, Math.round(P.nObj || 1));
@@ -1739,6 +1764,15 @@ function objectOffsets(Dz, P) {
   if (!a || !b) return { n: 1, zeta: [0], gapPx: NaN };
   const dYdz = Math.hypot(a[0] - b[0], a[1] - b[1]) / 0.02;        // detector mm per slit mm, along the slit
   const span = P.mode === "echelle" ? (isFinite(Dz.minSep) ? Dz.minSep * Dz.pixmm : Dz.Ly / Math.max(1, Dz.orders.length)) : Dz.Ly;
+  // fibers in groups (P.fgroups = [fibers per group, pitch, gap], µm on the detector, center to center; the gap from
+  // the last fiber of one group to the first of the next): the groups centered on the detector; else spread evenly
+  const fg = Array.isArray(P.fgroups) && P.fgroups.length === 3 ? P.fgroups : null;
+  if (fg && n > 1) {
+    const per = Math.max(1, Math.round(fg[0])), pitch = fg[1] / 1000, gp = fg[2] / 1000, ys = [];
+    for (let k = 0; k < n; k++) { const g = Math.floor(k / per), j = k % per; ys.push(g * ((per - 1) * pitch + gp) + j * pitch); }
+    const mid = (ys[0] + ys[n - 1]) / 2;
+    return { n, zeta: ys.map(y => (y - mid) / dYdz), gapPx: pitch / Dz.pixmm, groups: { per, pitchPx: pitch / Dz.pixmm, gapPx: gp / Dz.pixmm, n: Math.ceil(n / per) } };
+  }
   const gap = span / n;                                             // detector mm between neighboring spectra
   const zeta = [];
   for (let k = 0; k < n; k++) zeta.push((k - (n - 1) / 2) * gap / dYdz);
@@ -1794,80 +1828,92 @@ function drawDetector(Dz, P) {
   g.fillStyle = "#0b111c"; g.fillRect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]);
   g.beginPath(); g.rect(c0[0], c0[1], c1[0] - c0[0], c1[1] - c0[1]); g.clip();
   const ppx = s * Dz.pixmm;
-  // Each trace is a Gaussian across the dispersion with FWHM = the slit (or fiber) width imaged along the
-  // slit, phi / pixel scale.  Drawn as a band one sigma wide into an offscreen layer, blurred by
-  // sigma' = sigma sqrt(11/12) (so the variance is sigma^2 and the shape is within ~1% of a Gaussian, FWHM
-  // included), then added back AMP = 1/erf(1/(2 sqrt 2 sqrt(11/12))) = 2.51 times to restore unit peak.
-  // Overlapping traces add; a band narrower than a pixel keeps its light through antialiasing.  Without
-  // canvas filters, a stack of 12 nested strokes approximates the same profile.
-  const dpr = window.devicePixelRatio || 1;
-  let sgC = Math.max(0.05, (P.traceW > 0 ? P.traceW : P.slitW) / Dz.c.pixScale * ppx / 2.3548);   // canvas px
-  // Traces packed closer than a canvas pixel (an IFU's 3600 spaxels seen whole) alias into moire: draw every kk-th
-  // one, widened to fill the gaps (zooming in brings them all back).  Traces closer than their own width add up:
-  // dim each so that the sum of many, sigma sqrt(2 pi) / pitch times one peak, stays at one trace's brightness.
-  const obj = Dz.objects, pitch0 = obj && isFinite(obj.gapPx) && obj.n > 1 ? obj.gapPx * (obj.every || 1) * ppx : Infinity;
-  const kk = pitch0 < 1.2 ? Math.ceil(1.2 / pitch0) : 1, pitchC = pitch0 * kk;
-  if (kk > 1) sgC = Math.max(sgC, 0.6 * pitchC);
-  // an isolated trace (grating mode, objects far apart) thinner than a screen pixel is drawn at sigma 0.55 px (FWHM
-  // ~1.3 px), so a single star shows on the whole chip; zooming in reaches the true width
-  if (P.mode !== "echelle" && pitch0 > 6) sgC = Math.max(sgC, 0.55);
-  const ovl = isFinite(pitchC) ? Math.min(1, pitchC / (sgC * 2.5066)) : 1;
-  const pathOf = pts => { const pa = new Path2D(); pts.forEach((p, i) => { const q = T(...p.c); i ? pa.lineTo(q[0], q[1]) : pa.moveTo(q[0], q[1]); }); return pa; };
-  const useFilter = "filter" in g;
-  let og = g;
-  if (useFilter) {
-    if (!offD) offD = document.createElement("canvas");
-    if (offD.width !== cv.width || offD.height !== cv.height) { offD.width = cv.width; offD.height = cv.height; }
-    og = offD.getContext("2d");
-    og.setTransform(1, 0, 0, 1, 0, 0); og.clearRect(0, 0, offD.width, offD.height);
-    og.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // The traces are rendered pixel by pixel. Each trace is a Gaussian across the dispersion, FWHM = the slit (or
+  // fiber) width imaged along the slit, evaluated at the centers of the screen's device pixels. Strokes drawn
+  // thinner than a pixel and blurred afterward alias: traces a few pixels apart beat against the pixel grid into
+  // moire, and a blur cannot remove a beat once the strokes are rasterized. So the profile is widened before it
+  // is sampled: at least 0.6 device px (a single trace stays sharp), and to 0.45 of the trace spacing where the
+  // traces are too close to resolve, so that a dense set reads as a smooth band; the widening fades out between
+  // spacings of 4.5 and 7 px, where the traces show singly. Each trace keeps its peak brightness, dimmed where
+  // neighbors overlap so that the sum of many, sigma sqrt(2 pi) / spacing times one peak, stays at one trace's
+  // brightness. Traces packed closer than a device pixel (an IFU's 3600 spaxels seen whole) are thinned to every
+  // kk-th (zooming in brings them all back).
+  const dpr = window.devicePixelRatio || 1, ppd = ppx * dpr;          // device px per detector px
+  const sgT = (P.traceW > 0 ? P.traceW : P.slitW) / Dz.c.pixScale * ppd / 2.3548;   // the true sigma, device px
+  const obj = Dz.objects, every = (obj && obj.every) || 1;
+  // the spacing between neighboring traces (detector px): the objects' within an order, or (one object per order,
+  // echelle) the orders' own, order by order
+  const ordSep = {};
+  if (ech && Dz.orders.length > 1) {
+    const Ys = Dz.orders.map(o => { const q = Dz.pos(o.lb, o.m); return q ? q[1] : NaN; });
+    Dz.orders.forEach((o, k) => {
+      const d = [k > 0 ? Math.abs(Ys[k] - Ys[k - 1]) : Infinity, k + 1 < Ys.length ? Math.abs(Ys[k + 1] - Ys[k]) : Infinity].filter(isFinite);
+      ordSep[o.m] = d.length ? Math.min(...d) / Dz.pixmm : isFinite(Dz.minSep) ? Dz.minSep : Infinity;
+    });
   }
-  og.lineCap = "butt"; og.lineJoin = "round"; og.globalCompositeOperation = "lighter";
-  const KG = 12, widths = [];
-  for (let j = 0; j < KG; j++) widths.push(2 * sgC * Math.sqrt(-2 * Math.log((j + 0.5) / KG)));
-  const strokeG = (path, style) => {
-    og.strokeStyle = style;
-    if (useFilter) { og.globalAlpha = 1; og.lineWidth = sgC; og.stroke(path); return; }
-    og.globalAlpha = 1 / KG; for (const wd of widths) { og.lineWidth = wd; og.stroke(path); } og.globalAlpha = 1;
+  const objPitch = obj && obj.n > 1 && isFinite(obj.gapPx) ? obj.gapPx * every : Infinity;
+  const pitchFor = m => Math.min(objPitch, ech && !(obj && obj.n > 1) ? (ordSep[m] !== undefined ? ordSep[m] : Infinity) : Infinity) * ppd;
+  const pitchAll = Math.min(objPitch, ...Object.values(ordSep).map(v => v * (obj && obj.n > 1 ? Infinity : 1))) * ppd;
+  const kk = pitchAll < 1 ? Math.ceil(1 / pitchAll) : 1;
+  // an isolated trace (grating mode, objects far apart) is drawn at least 0.55 CSS px (FWHM ~1.3 px), so that a
+  // single star shows on the whole chip; zooming in reaches the true width
+  const sgMin = Math.max(0.6, P.mode !== "echelle" && objPitch * ppx > 6 ? 0.55 * dpr : 0);
+  const sigFor = p => {
+    const sp = p < 4.5 ? 0.45 * p : p < 7 ? 0.45 * p * (7 - p) / 2.5 : 0;
+    return Math.max(sgT, sgMin, sp);
   };
-  let grad = null, gradOrder = null;
-  for (const tr of traces) {
-    const pts = tr.pts;
-    if (pts.length < 2 || (kk > 1 && (tr.k / ((obj && obj.every) || 1)) % kk)) continue;
-    if (gradOrder === tr.m && grad) { strokeG(pathOf(pts), grad); continue; }
-    gradOrder = tr.m;
-    const A = T(...pts[0].c), B = T(...pts[pts.length - 1].c);
-    const ux = B[0] - A[0], uy = B[1] - A[1], uu = ux * ux + uy * uy || 1;
-    grad = og.createLinearGradient(A[0], A[1], B[0], B[1]);
-    let lastF = -1, lastIn = null;
-    const stop = (p, f) => {
-      let b = (p.eff === null ? 0.85 : 0.18 + 0.82 * p.eff) * ovl;
-      if (!p.inFsr) b *= 0.42;
-      const col = lamRGB(p.l * 1e4);
-      grad.addColorStop(Math.max(0, Math.min(1, f)), `rgb(${col[0] * b | 0},${col[1] * b | 0},${col[2] * b | 0})`);
+  // the region drawn: the panel's plot area within the chip, in device px
+  const x0d = Math.max(0, Math.floor(Math.max(mL, c0[0]) * dpr)), x1d = Math.min(cv.width, Math.ceil(Math.min(mL + aw, c1[0]) * dpr));
+  const y0d = Math.max(0, Math.floor(Math.max(mT, c0[1]) * dpr)), y1d = Math.min(cv.height, Math.ceil(Math.min(mT + ah, c1[1]) * dpr));
+  const RW = x1d - x0d, RH = y1d - y0d;
+  if (RW > 0 && RH > 0) {
+    if (!detBuf || detBuf.RW !== RW || detBuf.RH !== RH) detBuf = { RW, RH, acc: new Float32Array(RW * RH * 3), img: new ImageData(RW, RH) };
+    const acc = detBuf.acc; acc.fill(0);
+    // the segment from point A to point B (device px, colors premultiplied by brightness), splatted column by
+    // column (or row by row where steeper than 45 degrees): along a column, a trace of perpendicular sigma sg
+    // inclined at slope s is a Gaussian of sigma sg sqrt(1 + s^2) with the same peak
+    const seg = (xa, ya, ca, ia, xb, yb, cb, ib, sg) => {
+      const dx = xb - xa, dy = yb - ya, colw = Math.abs(dx) >= Math.abs(dy);
+      const [u0, u1, v0, du, dv, U, V] = colw ? [xa, xb, ya, dx, dy, RW, RH] : [ya, yb, xa, dy, dx, RH, RW];
+      if (!du) return;
+      const sl = dv / du, sv = sg * Math.sqrt(1 + sl * sl), Rr = 4 * sv, inv = EXPN / sv;
+      const lo = Math.max(0, Math.ceil(Math.min(u0, u1) - 0.5)), hi = Math.min(U - 1, Math.ceil(Math.max(u0, u1) - 0.5) - 1);
+      const step = ia === ib;
+      for (let i = lo; i <= hi; i++) {
+        const t = (i + 0.5 - u0) / du, v = v0 + t * dv;
+        const j0 = Math.max(0, Math.ceil(v - Rr - 0.5)), j1 = Math.min(V - 1, Math.floor(v + Rr - 0.5));
+        if (j0 > j1) continue;
+        const c = step ? null : t < 0.5 ? ca : cb;
+        const r = c ? c[0] : ca[0] + (cb[0] - ca[0]) * t, gg = c ? c[1] : ca[1] + (cb[1] - ca[1]) * t, bb = c ? c[2] : ca[2] + (cb[2] - ca[2]) * t;
+        for (let j = j0; j <= j1; j++) {
+          const e = EXPT[Math.min(EXPT.length - 1, Math.abs((j + 0.5 - v) * inv) | 0)];
+          const q = 3 * (colw ? j * RW + i : i * RW + j);
+          acc[q] += r * e; acc[q + 1] += gg * e; acc[q + 2] += bb * e;
+        }
+      }
     };
-    for (const p of pts) {
-      const q = T(...p.c), f = ((q[0] - A[0]) * ux + (q[1] - A[1]) * uy) / uu;
-      if (lastIn !== null && p.inFsr !== lastIn) stop(p, f);      // a sharp step at the FSR edge
-      if (f > lastF) { stop(p, f); lastF = f; }
-      lastIn = p.inFsr;
+    for (const tr of traces) {
+      const pts = tr.pts;
+      if (pts.length < 2 || (kk > 1 && (tr.k / every) % kk)) continue;
+      const p = pitchFor(tr.m) * kk, sg = sigFor(p);
+      const ovl = isFinite(p) ? Math.min(1, p / (sg * 2.5066)) : 1;
+      let prev = null;
+      for (const pt of pts) {
+        const q = T(...pt.c);
+        let b = (pt.eff === null ? 0.85 : 0.18 + 0.82 * pt.eff) * ovl;
+        if (!pt.inFsr) b *= 0.42;
+        const col = lamRGB(pt.l * 1e4), cur = [q[0] * dpr - x0d, q[1] * dpr - y0d, [col[0] * b, col[1] * b, col[2] * b], pt.inFsr];
+        if (prev) seg(prev[0], prev[1], prev[2], prev[3], cur[0], cur[1], cur[2], cur[3], sg);
+        prev = cur;
+      }
     }
-    strokeG(pathOf(pts), grad);
-  }
-  og.globalCompositeOperation = "source-over";
-  if (useFilter) {
-    // blur once into a second layer, then add it AMP times (so nothing clips before the blur)
-    if (!offB) offB = document.createElement("canvas");
-    if (offB.width !== cv.width || offB.height !== cv.height) { offB.width = cv.width; offB.height = cv.height; }
-    const bg2 = offB.getContext("2d");
-    bg2.setTransform(1, 0, 0, 1, 0, 0); bg2.clearRect(0, 0, offB.width, offB.height);
-    const sb = sgC * Math.sqrt(11 / 12) * dpr;
-    bg2.filter = sb > 0.05 ? `blur(${sb.toFixed(3)}px)` : "none";
-    bg2.drawImage(offD, 0, 0); bg2.filter = "none";
-    const AMP = 2.5088;
+    const px = detBuf.img.data;
+    for (let k = 0, q = 0; k < RW * RH; k++, q += 3) { px[4 * k] = acc[q]; px[4 * k + 1] = acc[q + 1]; px[4 * k + 2] = acc[q + 2]; px[4 * k + 3] = 255; }
+    if (!offD) offD = document.createElement("canvas");
+    if (offD.width < RW || offD.height < RH) { offD.width = Math.max(offD.width, RW); offD.height = Math.max(offD.height, RH); }
+    offD.getContext("2d").putImageData(detBuf.img, 0, 0);
     g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = "lighter";
-    for (let k = 0; k < Math.floor(AMP); k++) g.drawImage(offB, 0, 0);
-    g.globalAlpha = AMP - Math.floor(AMP); g.drawImage(offB, 0, 0);
+    g.drawImage(offD, 0, 0, RW, RH, x0d, y0d, RW, RH);
     g.restore();
   }
   // pixel grid when zoomed in far enough (mid-gray: visible on the dark chip and on a bright trace)
@@ -2105,13 +2151,21 @@ function redrawDetector() { if (cur) drawDetector(cur, curP); }
 // control rows). On a phone, and while the layout is expanded, the stylesheet's height stands.
 // The header note stays on one line: in its place beside the preset menu when it fits there, else on a line of its own
 // under the bar (Charlie's choice once the third mode button left too little room at large default fonts). Measured,
-// so it follows the reader's font size; re-checked whenever the bar changes size.
+// so it follows the reader's font size; re-checked whenever the bar changes size. The Interferometer's note keeps its
+// own width and the menu shrinks instead (style.css), so there the note also goes below when the note squeezes the
+// menu (at 1100 px the menu showed one letter): the menu's width beside the note against its width without the note.
 function fitHeader() {
-  const bar = document.querySelector(".bar"), n = document.querySelector(".presetnote");
+  const bar = document.querySelector(".bar"), n = document.querySelector(".presetnote"), sel = document.getElementById("preset");
   if (!bar || !n) return;
   bar.classList.remove("note-below");
   n.style.whiteSpace = "nowrap"; const need = n.scrollWidth; n.style.whiteSpace = "";
-  bar.classList.toggle("note-below", n.getBoundingClientRect().width < need - 0.5);
+  let squeezed = false;
+  if (document.body.classList.contains("inst-int") && sel && sel.offsetParent !== null) {
+    const w1 = sel.getBoundingClientRect().width;
+    n.style.display = "none"; const w0 = sel.getBoundingClientRect().width; n.style.display = "";
+    squeezed = w1 < w0 - 1;
+  }
+  bar.classList.toggle("note-below", n.getBoundingClientRect().width < need - 0.5 || squeezed);
 }
 // (deferred a frame: changing the header inside the observer's own callback would re-trigger it in the same frame)
 let hdrRAF = 0;

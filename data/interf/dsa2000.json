@@ -119,7 +119,7 @@
   "mount_type_inferred": "alt-az",
   "max_abs_ha_h": 2.0,
   "min_elev_deg": 20.0,
-  "centred_on": "transit",
+  "centered_on": "transit",
   "src": "ETC",
   "loc": "User guide; Methods 4.3",
   "note": "The +-2 h / 20 deg window is the sensitivity-calculator model of targeted tracks (verbatim quote in params.tracking); survey pointings last 21 min. Mechanical slew/elevation limits NOT FOUND.",
@@ -10591,7 +10591,7 @@
    ]
   },
   "tracking": {
-   "value": "tracks; targeted tracks centred on transit, |HA| <= 2 h and elevation >= 20 deg (calculator model)",
+   "value": "tracks; targeted tracks centered on transit, |HA| <= 2 h and elevation >= 20 deg (calculator model)",
    "unit": "",
    "src": "ETC",
    "loc": "User guide, Observation: survey or targeted",

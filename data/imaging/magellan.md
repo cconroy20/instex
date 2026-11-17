@@ -2,6 +2,11 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/imaging/widefield.md`. Every number comes from a document saved unmodified under `rawdata/imaging/megacam_magellan/` or `rawdata/imaging/fourstar/`, or from a file already used by `data/imaging/reimagers.md` (keys LCOT, CS98N9, LCOUM, M18 are reused with the same files). Each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked against the extracted text of the saved files (pdftotext -layout and -raw for PDFs; tag-stripped text and raw source for HTML; raw and decoded text for the ADS JSON record) with glyphs normalised (NFKC, curly quotes, primes, dashes, minus, multiplication sign, degree and micro signs) and whitespace collapsed (a quote also passes with all whitespace removed and/or hyphenated line breaks joined); ' ... ' joins non-adjacent pieces. Result: 143 quotes checked, 0 failures. Note: `rawdata/imaging/megacam/` holds CFHT MegaCam, a different instrument.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I3_reimagers.md)
+
+- FourStar: the filters sit near the focal plane (P13 Sec. 7.1), now drawn there, and the 130 mm pupil is labeled the cold stop; the drawn collimator and camera are ideal equivalents.
+- Megacam (Clay): ε = 0.28 is the secondary mirror only; M15's 29 m² implies 0.355 (the baffle is not published). The 35′ corrected field is the MMT's.
+
 ## Completeness summary
 
 **Megacam (Clay)**: complete except a Clay-specific f/5 obscuration. D = 6.5 m, eps = 0.28 (1.8 m f/5 secondary; M2 baffle size not published; the 29 m^2 throughput area implies 0.355), f/5 nominal = 5.36 from the published plate scale 0.169 mm/arcsec (f_eff = 34,859 mm DERIVED), CASSEGRAIN (convex hyperbolic secondary, focus behind the primary vertex; LCO: 'f/5 CASS focus'), DIRECT imager behind a 4-element fused-silica corrector (no ADC; filters in the converging beam in the topbox), 35' flat field (MMT statement; correctors identical). 36 e2v CCD42-90, 2048 x 4608, 13.5 um, 9 rows of 4 (long axis along the rows), gaps 6" (1.01 mm) except 31" (5.24 mm) between chips 1|2 and 3|4 of every row. Validation: 0.08"/px (0.0799 DERIVED), 25' x 25' (24' x 24' of pixels), 340 Mpix. M15 Table 1 misprints the gaps as 6′/31′ (arcmin).

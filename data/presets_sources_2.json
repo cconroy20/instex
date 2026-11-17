@@ -151,6 +151,11 @@
    "cite": "Malitson, I. H. 1965, J. Opt. Soc. Am. 55, 1205 -- publisher's abstract only -- SAME FILE as round 1 key MAL65",
    "file": "rawdata/presets/glass/optica_Malitson1965_JOSA55_1205_abstract.html",
    "url": "https://opg.optica.org/josa/abstract.cfm?uri=josa-55-10-1205"
+  },
+  "XSHCAL": {
+   "cite": "ESO, X-Shooter pipeline static calibration package xsh-calib-1.2.0: the spectral-format tables SPECTRAL_FORMAT_TAB_{UVB,VIS,NIR}_NEW.fits (column XDISP_CEN, each order's center across the dispersion, px) and the physical-model configuration tables. Fetched 2026-11-16 (audit S3)",
+   "file": "rawdata/presets/xshooter/eso_xsh-calib-1.2.0_fetched2026-11-16.tar.gz",
+   "url": "https://ftp.eso.org/pub/dfs/pipelines/instruments/xshooter/"
   }
  },
  "deimos": {

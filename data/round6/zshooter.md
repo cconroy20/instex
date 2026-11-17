@@ -4,6 +4,22 @@ Same rules as rounds 1-5 (data/presets_research.md): the numbers come from docum
 
 **Design version.** Post-CoDR two-spectrometer, six-channel design: Zemax archive 20260610B_ZS_6CH_Complete_Spectrograph.zar (June 2026) as summarized on the project website (pages last modified 2026-10-16) and in the project's simulator package ZShooter_v2 ('version: pdr0.1', IRDB commit 7cc3e9a, 2026-11-06); SPIE 2026 paper (published 2026-08-21) not obtained.
 
+
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_zshooter.md)
+
+- H orders: the website gives 41–51, 11 orders; 42–51 is the June 2026 Zemax archive via the simulator.
+- The 0.6° out-of-plane angle: the website says only that "A 0.6° out-of-plane tilt separates the returning dispersed
+  beam from the entrance slit"; neither the sign nor whether 0.6° is the grating's tilt or the beams' separation is
+  published. The preset's γ = +0.6° is one choice; the choice moves R by 0.7%.
+- f/10 vs f/10.5: f/10 gives the 530.6 µm/″ slit scale on the explorer's 10.95 m pupil; the website's f/10.5 gives
+  the same scale on a 10.42 m pupil. Not an inconsistency in the website.
+- "Off-axis paraboloid": the website says "parabolic collimator".
+- B: the passband starts at 3100 Å; 3050 Å is the simulator's trace edge on the chip.
+- NIR pixels: 15 µm is the website's target; the Zemax image aperture (36.864 mm) fits 2048 × 18 µm.
+- Validation: the slit image (4.46 px), the pixel scale (0.157″/px) and one order's span are computed from the same
+  inputs that set the effective camera, so they are reference lines; the simulator's detector placements were set by
+  hand. Bailey et al. 2026 was never read (Crossref metadata only) and is no longer cited.
+
 ## Round 6 completeness summary
 
 **ZShooter (design stage; six presets)**: the project website and the project's public simulator repositories give a near-complete first-order prescription for the post-CoDR design built from the June 2026 Zemax archive. Keck I Right Nasmyth; f/14.5 relayed to f/10.5 with 530.6 um/arcsec at the slit; 10" slits (0.30-1.25" in the simulator; final list open); per-arm ADC and K-mirror; a VIS/NIR dichroic near 950 nm. Each spectrometer: 1500 mm off-axis-parabola collimator (150 mm beam), R2 echelle at 65.6 deg (50.15 /mm VIS, 24 /mm NIR; gamma = 0.6 deg), Mangin mirror at the intermediate slit, 1250 mm second collimator (125 mm white pupil), two dichroics, first-order VPH cross-dispersers (B 2000, G 1100, R 625, YJ 350, H 300, K 270 /mm), 225 mm f/1.8 cameras, 2048 x 4096 qCCDs (VIS) or 2048 x 2048 LmAPDs (NIR) of 15 um with the dispersion along the 2048-px axis. Published performance: median R ~ 18,000 at 0.70" (4.46 px) and ~ 38,000 at 0.33" (2.10 px), 0.157"/px, the order range of each channel, per-channel dispersion ranges, and the simulator's order positions and per-order detector coverage. EFFECTIVE values for the white pupil: camera 270 mm (225 x 1500/1250, the simulator's own 'dispersion_focal_length') and VPH line densities x 225/270; lamC DERIVED from the simulator's detector placement. With these, the explorer gives Rs = 17,677-17,734 (-1.5 to -1.8% from 18,000), 4.48-4.49 px, 0.1568"/px, the published dispersion ranges, the simulator's minimum order spacings (<1%) and middle-order coverage (0.4-2.4%). Gaps: the SPIE 2026 paper itself (paywalled, no arXiv), echelle theta, VPH design angles, camera prescriptions, VIS dichroic crossovers, the final slit list, any measured R. Main conflicts: f/10.5 (published) vs f/10.0 (1500 mm / 150 mm and the 530.6 um/arcsec scale) at the slit; 50 vs 50.15 /mm; H orders 41-51 vs 42-51; YJ order 57 dropped in the simulator; the published 15,700-21,100 R range holds the slit image at 4.46 px.

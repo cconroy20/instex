@@ -9,6 +9,11 @@
   "frames": "Rows are listed top to bottom. VST: Table 2 of the OmegaCAM manual (north up, east right at position angle 0). LBC: LBTO focal-plane drawings and Bellini & Bedin 2010 Fig. 1 (chip #4 on top; chips #3, #2, #1 left to right). x = along a row, y = across rows. Gaps are between light-sensitive areas."
  },
  "sources": {
+  "P88": {
+   "cite": "Kuijken, K., \"OmegaCAM User Manual\", ESO Doc. No. VST-MAN-OCM-23100-3110, Issue 2.5, 30.06.2011 (for P88): Sec. 2.1 (\"0.2134 for the two-lens corrector\"), App. B Fig. 25 (the CCD positions)",
+   "file": "rawdata/imaging/vst/ESO_OmegaCAM_UserManual_VST-MAN-OCM-23100-3110_Issue2.5_2011-06-30_forP88.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/paranal/instruments/omegacam/doc/OmegaCAM_manual25_forP88.pdf"
+  },
   "MAN": {
    "cite": "Smoker, J. & OmegaCAM consortium, \"OmegaCAM User Manual\", ESO Doc. No. VST-MAN-OCM-23110-3110 (file name VST-MAN-OCM-23100-3110), Issue 109.1, 17/12/2021 (latest released issue; P109 Phase 2). Sec. 2.1 overview, Figs. 2-3, Sec. 2.2.1 science array and gaps, Table 1 CCD parameters, Table 2 CCD layout, Sec. 2.4 shutter timing, Sec. 2.8 astrometric properties, Sec. 2.9.1 baffles",
    "file": "rawdata/imaging/vst/ESO_OmegaCAM_UserManual_VST-MAN-OCM-23100-3110_P109v1.pdf",

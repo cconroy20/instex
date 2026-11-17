@@ -110,11 +110,14 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   sky offsets of the slit points that land there. Echelle mode has no Spatial view (the cross-disperser bends
   the light in that plane).
 - **Detector** (right panel, both modes): the chip to scale with the spectrum of every object, drawn as
-  the trace of a star on the slit: a Gaussian across the dispersion with FWHM = φ / pixel scale — a band
-  one σ wide drawn into an offscreen layer, blurred by σ√(11/12) with the canvas filter (so the variance is
-  σ² and the profile is Gaussian to ~1%, FWHM included, with smooth tails) and added back 2.51 times to
-  restore unit peak; neighboring traces add where their wings overlap and light is conserved at any zoom
-  (a first version, six nested flat strokes, cut the tails off at 8% of the peak and drew hard-edged tubes), colored by wavelength (blue → pale → amber,
+  the trace of a star on the slit: a Gaussian across the dispersion with FWHM = φ / pixel scale, computed at the
+  centers of the screen's device pixels (app.js drawDetector, since 11-16). The profile is widened before it is
+  sampled: to at least 0.6 device px, and to 0.45 of the trace spacing where the traces are too close to resolve,
+  fading out between spacings of 4.5 and 7 px. The earlier drawing (a band one σ wide, blurred by the canvas filter)
+  aliased: traces 1–4 px apart beat against the pixel grid into rings and stripes when zoomed out (his question,
+  11-16), and a blur after rasterizing cannot remove a beat. Each trace keeps its peak brightness, dimmed where
+  neighbors overlap so that a dense band reads at one trace's brightness; traces closer than a device pixel are
+  thinned to every k-th. Colored by wavelength (blue → pale → amber,
   fixed in absolute wavelength) with brightness following the blaze, dimmed outside each order's free
   spectral range; in grating mode wavelengths along the bottom, in echelle mode order numbers on the left
   and blaze wavelengths on the right. The objects sit at different positions along the slit: in grating
@@ -448,6 +451,40 @@ the EHT's field, so the points came out as dashes); the model's curve only for t
 110 (J0 and the Bessel functions against their series; the crescent's and the core-jet's images against their
 visibility formulas through the FFT, to 1e-3; the crescent's first null at J0's zero; a point smoothed by a beam is the
 beam), uitest 356.
+Interferometer to-do (his "yes", 11-16), first items: the DSA's tracks end ±2 h of hour angle from the transit (the
+Sensitivity Calculator's model; dsa2000.json tracking.max_abs_ha_h, carried as haMax), so Duration stops at 3.99 h
+of time; the uitest case that asked for 8 h now gets 3.99 h and is scored against a new dense-sampling truth (all
+1,360,425 pairs at 30 s steps, streamed: 2.000″ × 1.571″, −15.2%; the same method gives 1.992″ × 1.566″, −15.5%, for
+the old 8 h case, whose truth was 2.01″ × 1.55″, −16%). The tracking arrays' Duration tooltip now carries the array's
+own note (the VLBA's 8 h, the EHT's April 11 track, the DSA's limit). A new sky, "M87* with its jet" (interf.js
+M87, m87Vis), the EHT's default: Paper IV's synthetic M87, the crescent at I0 = 0.55 Jy (Appendix C.1, Eq. 49) and
+the large-scale jet of Table 10, three elliptical Gaussians of 0.3, 0.2 and 0.1 Jy, all scaled with the ring's
+diameter (44 µas). Each part is normalized by its own flux, so the jet beyond the image grid is dropped while the
+crescent keeps its share (0.478). The intra-site baselines (JCMT–SMA, ALMA–APEX) see the whole 1.15 Jy, and every
+baseline between sites sees only the crescent (the jet adds < 0.001). The amplitude panel drew samples within 1% of
+zero spacing on the frame's left edge, where they were hidden; they are now small marks just inside the frame, so the
+panel shows the drop from the total flux to the compact flux, as in the EHT's own amplitude plots. Paper IV's text
+says "0.6 Jy of flux density in a compact component" while Eq. 49 sets I0 = 0.55 Jy; the page follows Eq. 49.
+Shadowing (interf.js shadowOf, sample's o.shadow; the arrays of tracking dishes on one site: the VLA, ALMA, the DSA
+and the made-up layouts): at each time the antennas are projected on the sky (u, v) and toward the source (w), and
+two antennas within a dish diameter in (u, v), found through a hash of cells a dish wide, shadow the one farther from
+the source; the shadowed antenna's baselines give no sample at that time, as the observatories flag them. The
+Observation panel's Shadowed row gives the samples lost, and the About text no longer lists shadowing as left out.
+Checked against the Guide to Observing with the VLA (OGS, now cited): "to guarantee no more than a single shadowed
+antenna, restrict the elevations ... to >40° for D-configuration and >25° for C-configuration"; the model shadows at
+most one antenna above 40° in D (none) and above 25° in C (one), at any hour angle and declination, and up to four in
+D at 30–40°. Examples over 8 h: the VLA D toward −30° loses 33% of the samples, ALMA C-1 toward −70° 45%.
+The VLA C configuration now has an antenna on the central pad N1, as the Status Summary's note 5 states ("an antenna
+from the middle of the north arm is moved to the central pad N1"); CASA's file leaves N1 empty, and the pad vacated
+is not published, so the antenna of N10, the middle of the arm's nine pads, moves (INFERRED). The shortest baseline
+becomes 44.82 m (the Summary: 35.5 m); the beam checks are unchanged (natural / uniform 1.489, snapshot / full 1.269).
+The transit arrays weight each sample by the beam's power toward the drifting source, exp(−4 ln 2 x² / θ_EW²) with
+x = cos δ sin H: 1 at transit and 1/2 at the ends of the half-power crossing (carried in the samples' wb, with the
+outriggers' SEFD weights). CHORD's grid rotation: no other saved source states the orientation (the white paper, the
+SPIE and forecast papers); the page keeps the UTM sense (the text of HIG26 and the zone-11 convergence, grid north
+1.99° west of true north), and the conflict with HIG26's figure stays noted in data/interf/chord.md. The header at
+1100 px: the Interferometer's note keeps its width, so the Preset menu shrank to one letter; fitHeader now moves the
+note under the bar when the note squeezes the menu. validate_int 116.
 
 ## Imager mode
 
@@ -570,10 +607,14 @@ not on the page. The band's wavelength enters only the diffraction width.
   monochromatic slit image is a band along the slit direction ŝ, its width set by the slit edges; the
   resolution element is the wavelength shift that moves the band by its own width, both measured normal
   to ŝ, Δλ = |e ∧ ŝ| / |(dP/dλ) ∧ ŝ| (this handles tilted lines and tilted orders alike).
-  R_slit = λ/Δλ (box FWHM = slit width); R_pix = n_pix R_slit; R_diff = m N_grooves; R_eff =
-  (R_slit⁻² + R_diff⁻² + R_pix⁻²)^(−1/2), Eq. (lsf) of the notes. Three assumptions sit in these numbers: the
-  slit is uniformly lit (a star smaller than the slit gives a narrower line and a higher R); R_diff is the
-  Rayleigh limit; the quadrature sum treats each term as a Gaussian. The results strip gives R at λc; in
+  R_slit = λ/Δλ (box FWHM = slit width); R_diff = m N_grooves; R_eff = (R_slit⁻² + R_diff⁻²)^(−1/2). No pixel
+  term (Charlie's call, 2026-11-16, after the preset audit): the pixel does not widen a measured line (McLean et al.
+  2012 measure MOSFIRE's lines at the geometric slit width), and with the term the headline R sat 4–10% below the
+  published values. Published R values follow two conventions: the line's true FWHM (M2FS, MOSFIRE, 4MOST HRS,
+  ZShooter: the model's R_eff) and a fitted width (X-Shooter, Binospec, DEIMOS, IFUM: a Gaussian fitted to a top-hat
+  line spanning 3 px or more has 0.841 of the line's width, so R_fit = ((0.841/R_slit)² + R_diff⁻²)^(−1/2), ≈ 1.19
+  R_eff; the R tooltip gives both). Two assumptions sit in these numbers: the slit is uniformly lit (a star smaller
+  than the slit gives a narrower line and a higher R); R_diff is the Rayleigh limit. The results strip gives R at λc; in
   echelle mode R varies along an order, and at the blaze center without a cross-disperser R_slit = cos γ · 2 tan δ/θ_g
   (a cross-disperser tilts the orders under lines tilted by γ, which moves R by a few tenths of a percent at γ = 1°,
   ~1.5% more at 6°: item 2 of "Things worth knowing"). Dispersion and sampling are per pixel
@@ -691,14 +732,28 @@ actual optical layout. Mapping choices:
   VPH enters as G × 225/270. Rs 17,700 against the median 18,000, 4.48 px against 4.46, orders' spans on the chip
   within 0.4–2.3% and the closest order spacing within 0.2% of the simulator. Dichroics, detector rotations
   (5–9.5°) and B's orders below 3200 Å are not modeled.
-- **M2FS and IFUM** (Clay; data/round6/m2fs_ifum.md): pupil-fed fibers, so F = 3.4 (the fiber output and the
-  collimator's ratio) and the core enters as core / (3.4 × 6.5 m): 1.40″ for M2FS's 150 µm, 2.43″ for IFUM LSB's
-  260 µm. One 500 mm lens group is collimator and camera (147 mm beam, 1:1). The echelle's groove density is not
-  published: 51.74 /mm at 66.99° reproduces the measured dispersion and order numbers of the MgWide arc lines in
-  Ji's published reduction pipeline. Single order at Mg b: R 18,080 against ≈18,000, 0.0327 Å/px against
-  0.0325. The order-isolating filters are not modeled, so no multi-order (prism cross-dispersed) preset: with all
-  orders drawn, its fibers would crowd into one order gap. SCHOTT F2, the prism glass, is in the glass menu. IFUM LSB: geometric R 780 against a measured ≈1000
-  (reference only).
+- **M2FS and IFUM** (Clay; data/round6/m2fs_ifum.md, audited 2026-11-16 in data/round6/m2fs_ifum_audit.md):
+  pupil-fed fibers, so F = 3.4 (the fiber output and the collimator's ratio) and the core enters as
+  core / (3.4 × 6.5 m), 1.40″ for M2FS's 150 µm and 2.43″ for IFUM LSB's 260 µm. One 500 mm lens group is
+  collimator and camera (147 mm beam, 1:1). The Telescope box gives the f/11 Nasmyth focus and the 1.2″ (M2FS) and
+  1.9″ (IFUM) apertures (telF, fibAp), and the F slider is labeled as the fiber output. M2FS HiRes is an echelle
+  preset: Richardson's R2.6 ruling 53-*-417E, 52.67 /mm, blaze 69° (the only R2.6 of that size in the 2014 catalog;
+  MIKE's blue echelle is the same ruling), crossed by the 23.6° SCHOTT F2 prism in a double pass. Mateo et al. 2012
+  place the 6.6° between the beams in the echelle's dispersion plane: the camera beam passes "just below the
+  injection optics", and the steep incidence vignettes 7% of the light. The layout draws the returning beam at that
+  angle. The angles are set from the arc-line dispersion in Ji's reduction (α 73.2°, β 66.6°, so the echelle sits
+  0.9° off its blaze, eTilt): mλ at the blaze center is 356,004 Å (355,790 measured), 0.0327 Å/px at 5160 Å
+  (0.0329), and orders 69–68, 68–67 and 67–66 lie 28.3, 27.8 and 27.2 px apart (28.0, 27.7 and 27.0 measured; the
+  first is scored). The anamorphic factor 0.73 narrows the fiber's image, so R = 24,960 for any slit of 150 µm or
+  wider (published ≈24,000, scored) and 34,100 with the 95 µm slit (32,000–34,000 measured). The published ≈18,000
+  comes from the multi-order setup and is a reference line. The order filter (filt, 5130–5190 Å) passes order 69
+  and the edges of 68 and 70, and the traces sit in their groups (fgroups: 8 × 16 at 19.3 px, 214 px between
+  groups, measured from Ji's trace centers). IFUM LSB: the same spectrograph in grating mode; 10 mounts of 18 per
+  detector (spacings read from Crosby et al. Fig. 1); R = 785 from the FWHM of the fiber's line vs the published
+  ≈1000, which a Gaussian fit to the line reproduces (FWHM 0.70 of the core vs the true 0.866). The published ≈3600 with the 80 µm slit cannot
+  be reached within 4800–6700 Å and looks nominal; both values are reference lines. The first version of these
+  presets used an EFFECTIVE 51.74 /mm echelle in true Littrow with the opening angle across the dispersion; the
+  audit lists the superseded statements.
 
 Validation against the published numbers (`node validate.js`, block 4). Tolerances were set from each
 source's precision before comparing; a first pass missed ten checks, handled as described below the table.
@@ -828,6 +883,78 @@ resolved by first author, year, volume and page and checked against the title in
 the documents the research used, with arXiv PDF links turned into arXiv abstract pages. Hovering over the preset menu lists the selected preset's sources.
 
 ## Verification
+
+**The preset audit of 2026-11-16** (the reports in data/audit/ and data/round6/m2fs_ifum_audit.md). The builder of
+M2FS and IFUM found their presets wrong; independent auditors then re-checked each preset against the saved sources
+and searched for better ones (catalogs, pipelines' calibration files, design figures). Corrected so far:
+- M2FS: the echelle is Richardson's 52.67 /mm at 69° with the 6.6° opening in the dispersion plane (was a fitted
+  51.74 /mm in true Littrow), now an echelle preset with the F2 prism; R 18,080 became 24,960 (published ≈24,000).
+  IFUM: the same geometry; R explained.
+- 4MOST HRS: the concept camera and gratings contradicted ESO's as-built calibrations (QMOST kit 0.9.6); an effective
+  441 mm camera and gratings fitted to the as-built dispersion now match the as-built coverage to 2 Å and the
+  published R to 0.4–2.1% (R had been 10–18% high).
+- LDSS-3 VPH-Red: 660 /mm (documented), not maskgen's fitted 665. X-Shooter: each arm's band (the dichroics) and the
+  real orders (VIS and NIR recentered). DESI: λc from the measured chip ranges. Via and Boombox: the project's newer
+  design documents (Boombox's 50 mm beam and drawn grating geometry; Viaspec's tech-memo design).
+- Keck: the f/25 focus is 4.54 m in front of the primary (was drawn behind it); the Nasmyth and bent foci use the
+  sourced tertiary height and focus distance. HST: the outer pads had been mirrored.
+- New: order filters and arm bands (filt), fiber groups on the detector (fgroups), and R without the pixel term (see
+  Physics). Many reference lines relabeled (design, calculated, nominal, measured) and circular checks made info.
+- Smaller findings (his "fix all the smaller findings", 11-16): DESI's R and Z detectors are 4114 × 4128 (the 4128
+  along the wavelength, INFERRED), now within 0.3% and 0.0% of Guy et al.'s spans. FEROS: an EFFECTIVE 56° prism
+  centered on 4550 Å gives the 39 orders 25–63 (the design's 55° put parts of orders 22–24 on the chip); the CERES
+  arc lines' dispersions are scored (orders 33 and 49, the model 0.7% and 1.4% finer: the camera's lateral color); the
+  measured R = 48,000 is a reference line (2.2 px per FWHM, so the pixel widens the measured line). FIRE: PypeIt's
+  measured dispersions scored (0.1–0.2%), and the note gives the order-center offsets. PFS: the detector maps'
+  dispersions scored (0.1% and 0.4%). X-Shooter: ESO's spectral-format tables give the order spans, 15% (VIS) and 9%
+  (NIR) less than the model's minimum-deviation prisms (reference lines; cause open). LDSS-3: the R lines compared at
+  the wavelengths the sources quote. MOSFIRE: grooves shown to four figures (110.5 /mm), and a readout gives the blaze
+  peak at the 40° angle (6.35 µm, the sources' figure) beside the slider's Littrow value. Telescopes: Keck's f/40 stop
+  drawn as the serrated outline at 95.4% with a hexagonal hole (63.1 m², was 67.0), Magellan's f/5 focus from the
+  MMT's identical optics, schematic distances disclosed, and notes for the VLT's stowed tertiary, DKIST's field stop,
+  the ELT's thinner spider arms, GMT's and HET's and JWST's area sources. Each research record the audit overturned
+  now opens with a "Superseded by the audit of 2026-11-16" section.
+- Second batch (his "apply them all", 11-16): the reports of S1, S4, S5, S8 (written before the usage limit), and
+  T2, X and the rest of I2 (resumed), all in data/audit/. Spectrographs:
+  - MIKE: the standard settings' orders (37–70, 71–106) on the chips; the blue prisms as Bernstein et al.'s
+    62° equivalent; the design order spans scored (0.2%); 52.67 /mm blue; γ out of plane (INFERRED); the as-built R
+    and scales as reference lines.
+  - HARPS: the grism apex from the 480 nm blaze (14.5°, a new input, xGrA); the UVES 75.04° mosaic turned to 75.3°;
+    the four published order separations within 2%.
+  - HIRES: scored against the measured R 50,000 and the manual's 6360 Å gap.
+  - Hectochelle: camera 618.66 mm (was 642.6), the RV31 band, the H3 arc solutions scored (0.6%).
+  - Hectospec: the delivered grating's 4.1° blaze, the manual's coverage table, the measured arc-line widths.
+  - G-CLEF: format center 7450 Å, 0.812″ fiber, the center-spacing check, the Gaussian-fit R.
+  - ESI: 175.555 /mm and the double-passed prism turned 4° from minimum deviation (INFERRED), which reproduces
+    PypeIt's order positions to 13 px rms; the along-slit scale variation is still not reproduced.
+  - ESPRESSO: the UVES red master's 75.04°, γ 0, the design 800 mm camera (the published pixel sizes now pass
+    unfitted), cross-dispersers refit to the published orders, λc on a blaze; "(partly fitted)" dropped from the
+    name (his request).
+  - UVES, MUSE, KCWI, KCRM, IMACS, LLAMAS, MagE: the reports' corrections (measured R lines, sources, drawings).
+  New engine inputs: xGrA (an echelle grism's apex) and a prism's dI (its rotation from minimum deviation).
+  Telescopes (T2): no number contradicted; Rubin's four bars (not eight vanes), the Blanco Mosaic II focus's reused
+  DECam top end, VISTA's VIRCAM-era baffle at the 4MOST focus, SDSS's undrawn cone (+3.6% in area) and TMT's two-digit
+  area source are now stated.
+  Arrays (X): CHIME's field ends at −11°, the CHIME/FRB catalog's limit (was a derived −5.7°); the sky north of −11°
+  is 60% of the sphere, not three quarters. CHIME + outriggers phases CHIME into one station, as the VLBI forms one beam
+  at the CHIME core and at each outrigger (Andrew et al. 2026): four stations and six baselines, so the random draw of
+  feed pairs no longer sets the beam. The stations' SEFDs follow the radiometer equation of Lazda et al. 2026 (CHIME
+  42 Jy, KKO 630 Jy, HCO and GBO 314 Jy, labeled ideal). CHORD's peak-sidelobe readout searches the whole image grid,
+  so the grating lobes count (+78% at the default, was −9%), and validate_int checks the lobes' positions against
+  Hopkins et al. 2026 (1.42° and 1.92° vs "about 1.4" and "about 1.9"). The EHT's station limits, read from the 2017
+  tracks, are described as such; the VLBA beam, ALMA's +47° rule, Arecibo's taper and CHIME's end feeds have corrected
+  notes; the point-source sky's fluxes span 1 to 100 as stated. validate_int 117.
+  Imagers (I1, I2, I3): the engine gained a published collecting area where the circular annulus misstates a
+  segmented or shadowed pupil (NIRCam 25.4 m² in place of 32.8; the Keck imagers 71.5 m² in place of 88.8; DECam
+  9.31 m²), rectangular field stops (the slit-mask units of FORS2 and LRIS), the filter drawn where each instrument
+  has it (in front of the detector for FourStar, HAWK-I and IMACS; in NIRI's converging beam), and the published scan
+  formats and scanning spot of the sky-survey plates. HSC, DECam, MegaCam and both LBC cameras draw their correctors,
+  so each primary is drawn at its own focal ratio. Measured values replace nominal ones where the sources allow:
+  NIRCam's in-flight scales, ACS's chip-center scale, the LBC builders' center scale, the DSS-2 plate solution, the
+  4-Shooter's 520″ sky field and LCO's 656 arcmin² for IMACS. WFC3/IR and 2MASS take their cold stops as the aperture,
+  and the circular checks became reference lines (validate_img 301). Not applied: LBC-Blue chip 4's 1 mm offset (its
+  direction in the model's frame is not settled) and HSC's obscuration (unpublished; ε = 0 stays flagged).
+
 
 `node validate.js` (262 checks, all pass; 130 reference lines printed as [INFO]):
 

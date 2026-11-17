@@ -2,6 +2,11 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/imaging/megacam_ztf_small.md`. Every number comes from a document saved unmodified under `rawdata/imaging/tess/`; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked by script against the extracted text of the saved files (pdftotext -layout and -raw per page; tag-stripped HTML; the tess-point .py source as text; the FITS headers as 80-character cards), after normalising Unicode (NFKC), quotes, dashes, mu, the multiplication sign, line-end hyphens and the degree glyphs (the ring U+25E6 of the arXiv text layer and the Symbol-font private-use U+F0B0 of the Chrisp et al. text layers); ' ... ' joins non-adjacent pieces. 'PDF p.' is the page index of the saved PDF (slide number for the slide decks). Values marked IMAGE were read from figures and could not be machine-checked. Coordinates: x = along a row of chips (2 per row) = across the 24-deg width of the four-camera strip; y = between the two rows = along the 96-deg strip.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I1_space.md)
+
+- The 24″ blur reproduced ≈50% in one pixel for a Gaussian; the page draws a Moffat, which needs 21″ (DERIVED). In flight the peak pixel holds 0.2–0.4 of a star's light (TESS Instrument Handbook).
+- The model's flat-detector mapping gives 24.4° across and already includes 12% of the 21% corner falloff; the field circle is now C15's 34° diagonal (2040′).
+
 ## Summary
 
 - **TESS camera (refractor, direct):** D = 0.105 m (entrance pupil), eps = 0, F = 1.3905 DERIVED (146 mm / 105 mm; published f/1.4), f = 146.0 mm (in flight 145.95-146.04 mm); seven-element hybrid Petzval with two aspheric surfaces, long-pass coating on lens 2 (600-1000 nm, centred on I_C); 24 x 24 deg unvignetted (34 deg diagonal); 4 x MIT/LL CCID-80, 2048 x 2048 imaging px of 15 um, rows [2, 2] centred, gaps 1.74 mm (116 px, 40.9') within a row and 1.58 mm (106 px, 37.3') between rows (DERIVED from the in-flight CCD positions; published ~1.5 mm / 2 mm / 36'-41'); 21.19"/px on axis (published 21" = 0.35'), 16,777,216 px; PSF 50% EE in 1 px, 90% in 4 x 4 px.

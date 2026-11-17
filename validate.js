@@ -47,8 +47,11 @@ const mk = o => IX.design(Object.assign({}, base, o));
   check("minimum camera ratio n_pix p/(phi D) = f/0.95", Math.abs(Fc - 0.952) < 1e-3, Fc.toFixed(4));
   const Sn = mk({ fcam: Fc * 100 });
   check("with f_cam = F_cam W': n_pix = 2.000 (traced)", Math.abs(Sn.c.npix - 2) < 1e-6, Sn.c.npix.toFixed(6));
-  check("effective R with n_pix = 2 = 11,400", Math.abs(Sn.c.Reff - 11351) < 2 && Math.round(Sn.c.Reff / 100) * 100 === 11400, Sn.c.Reff.toFixed(0));
-  check("Nyquist pixels remove 11 per cent of R", Math.abs(1 - 1 / Math.sqrt(1.25) - 0.106) < 1e-3, (1 - Sn.c.Reff / Sn.c.Rs).toFixed(4));
+  // the effective R: the slit image and the diffraction limit in quadrature, with no pixel term (a measured line is
+  // not widened by the pixel: McLean et al. 2012); the fitted-width R: a Gaussian fitted to a top-hat line spanning
+  // 3 px or more has 0.841 of the line's width
+  check("effective R = slit and diffraction in quadrature, no pixel term (n_pix = 2)", rel(Sn.c.Reff, 1 / Math.sqrt(1 / Sn.c.Rs ** 2 + 1 / Sn.c.Rd ** 2)) < 1e-12, Sn.c.Reff.toFixed(0));
+  check("fitted-width R = (slit / 0.841) and diffraction in quadrature", rel(Sn.c.Rfit, 1 / Math.sqrt((0.841 / Sn.c.Rs) ** 2 + 1 / Sn.c.Rd ** 2)) < 1e-12 && Sn.c.Rfit / Sn.c.Reff > 1.18 && Sn.c.Rfit / Sn.c.Reff < 1.19, (Sn.c.Rfit / Sn.c.Reff).toFixed(4));
   const Sd = mk({ feed: "dl", W: 2 * 0 + 12693.2 * (lam0 / 1e7) / (2 * tanD) });
   check("diffraction-limited input: W = 1.7 mm for the same R", Math.abs(Sd.P.W - 1.744) < 0.01 && rel(Sd.c.Rs, 12693.2) < 1e-4, `W ${Sd.P.W.toFixed(3)} mm, R ${Sd.c.Rs.toFixed(0)}`);
   const S50 = mk({ W: 50000 * (1 / RAD) * 6500 / (2 * tanD) });
@@ -313,7 +316,8 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
         }
         case "alphaDeg": val = S.alpha / DEG; break;
         case "Rdiam": val = S.c.Rs * Math.sqrt(3) / 2; break;      // R from the full fiber-image width (equivalent slit = (sqrt 3/2) d)
-        case "gapPx": val = S.Ly / p.state[p.state.mode === "echelle" ? "e" : "g"].nObj / S.pixmm; break;
+        case "gapPx": { const m = p.state[p.state.mode === "echelle" ? "e" : "g"];   // fibers in groups: the pitch within a group
+          val = Array.isArray(m.fgroups) ? m.fgroups[1] / 1000 / S.pixmm : S.Ly / m.nObj / S.pixmm; break; }
         case "minSepArcsec": {
           if (q.m1) {   // smallest separation of adjacent order centers within the published order range
             let mn = Infinity;

@@ -1558,7 +1558,7 @@
    "fit_max_pad": "E72",
    "n_pads": 72
   },
-  "enu_conversion": "DERIVED: e = -sin(lon0) dX + cos(lon0) dY; n = -sin(lat0) cos(lon0) dX - sin(lat0) sin(lon0) dY + cos(lat0) dZ; u = cos(lat0) cos(lon0) dX + cos(lat0) sin(lon0) dY + sin(lat0) dZ, with (dX, dY, dZ) = XYZ_cfg - C0 and (lat0, lon0) the WGS84 geodetic latitude/longitude of C0 (a = 6378137 m, 1/f = 298.257223563). INFERRED: the cfg XYZ is an Earth-centred Earth-fixed frame compatible with WGS84 (the header states only coordsys=XYZ). Local tangent plane at C0: u includes the Earth-curvature drop of distant pads.",
+  "enu_conversion": "DERIVED: e = -sin(lon0) dX + cos(lon0) dY; n = -sin(lat0) cos(lon0) dX - sin(lat0) sin(lon0) dY + cos(lat0) dZ; u = cos(lat0) cos(lon0) dX + cos(lat0) sin(lon0) dY + sin(lat0) dZ, with (dX, dY, dZ) = XYZ_cfg - C0 and (lat0, lon0) the WGS84 geodetic latitude/longitude of C0 (a = 6378137 m, 1/f = 298.257223563). INFERRED: the cfg XYZ is an Earth-centered Earth-fixed frame compatible with WGS84 (the header states only coordsys=XYZ). Local tangent plane at C0: u includes the Earth-curvature drop of distant pads.",
   "equatorial_from_enu": "For Earth-rotation synthesis the baseline frame of PADS is X_eq = -sin(lat0) n + cos(lat0) u, Y_eq = e, Z_eq = cos(lat0) n + sin(lat0) u (X_eq in the meridian plane toward the equator, Y_eq east, Z_eq toward the north celestial pole). INFERRED frame definition (PADS does not define Lx, Ly, Lz); supported by the fit: the rotation angle about Z equals lon0 to 1e-8 deg and residuals are mm-level."
  },
  "params": {

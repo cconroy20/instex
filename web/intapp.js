@@ -15,8 +15,8 @@ const clone = o => JSON.parse(JSON.stringify(o));
 const IMGS = [
   { k: "m101", name: "M101 (Hubble)", file: "img/m101_hubble.jpg", width: 828.43, what: "M101 in visible light", credit: "Image: European Space Agency & NASA (CC BY 4.0)" },
 ];
-const SKIES = [["point", "Point"], ["double", "Two points"], ["gaussian", "Gaussian"], ["disc", "Uniform disc"], ["ring", "Ring"], ["crescent", "Crescent (like M87*)"], ["corejet", "Core and jet"], ["points", "Point sources"]].concat(IMGS.map(q => [q.k, q.name]));
-const SIZE_LABEL = { point: "Size", double: "Separation", gaussian: "FWHM", disc: "Diameter", ring: "Diameter", crescent: "Diameter", corejet: "Jet length", points: "Spread", m101: "Width" };
+const SKIES = [["point", "Point"], ["double", "Two points"], ["gaussian", "Gaussian"], ["disc", "Uniform disc"], ["ring", "Ring"], ["crescent", "Crescent (like M87*)"], ["m87", "M87* with its jet"], ["corejet", "Core and jet"], ["points", "Point sources"]].concat(IMGS.map(q => [q.k, q.name]));
+const SIZE_LABEL = { point: "Size", double: "Separation", gaussian: "FWHM", disc: "Diameter", ring: "Diameter", crescent: "Diameter", m87: "Ring diameter", corejet: "Jet length", points: "Spread", m101: "Width" };
 const imgOf = k => IMGS.find(q => q.k === k);
 // the images, read once from their files into a pyramid of brightness arrays; a large image is read through a
 // canvas in strips (a canvas the image's full size would exceed some browsers' limits)
@@ -86,7 +86,10 @@ const pbEW = pb => (typeof pb === "object" ? pb.ew : pb);
 // at most the time the source takes to cross the beam's half-power width east-west, theta / (15.04 deg/h cos dec)
 // (24 h at most, near the pole). S.dur 24 = the whole crossing.
 const transitMax = () => Math.min(24, pbEW(pbOf(S.nu)) / (RI.HA_PER_H * Math.max(1e-6, Math.cos(S.dec * DEG))));
-const durNow = () => (arrOf().transit ? Math.min(S.dur, transitMax()) : S.dur);
+// An array whose tracks end haMax hours of hour angle either side of the transit (the DSA) observes at most 2 haMax
+// hours of hour angle, a little less in hours of time.
+const durMax = () => { const a = arrOf(); return a.transit ? transitMax() : a.haMax ? 2 * a.haMax * (Math.PI / 12) / RI.HA_PER_H : 24; };
+const durNow = () => Math.min(S.dur, durMax());
 // the Array panel's first line for a transit array: the telescope does not track, and the time a source spends in the
 // beam
 const fixedLine = () => { const a = arrOf(); return a.transit ? `${a.fixedWho} do not track: a source is seen only while the sky carries the source through the beam, ${fDur(transitMax())} here. ` : ""; };
@@ -219,11 +222,11 @@ function syncControls() {
   $("lrDur").textContent = a.transit ? "Time in the beam" : "Duration";
   { const dIn = $("rDur");
     if (a.transit) { const tm = transitMax(); dIn.max = String(tm); dIn.step = String(tm / 100); }
-    else { dIn.max = "24"; dIn.step = "0.1"; }
+    else { dIn.max = String(durMax()); dIn.step = "0.1"; }
     const dn = durNow();
     put("rDur", dn, !(dn > 0) ? "snapshot" : a.transit && S.dur >= transitMax() * 0.999 ? "all " + fDur(dn) : fDur(dn));
     $("rDurRow").title = a.transit ? "How long the array observes the source as the source drifts through the beam, centered on the transit. The antennas do not track: the source crosses the beam's half-power width east-west in θ / (15.04° per hour × cos δ), " + fDur(transitMax()) + " here, and the slider runs to that. 0 is a snapshot." + (a.durNote ? " " + a.durNote : "")
-      : "How long the array observes, in hours of time, centered on the source's transit (the hour angle runs 15.04° an hour). 0 is a snapshot: one sample per baseline. A longer track fills in the uv plane as the Earth turns (Earth-rotation synthesis)." + (a.geo ? " The transit is the source's transit at longitude " + fLon(a.geo.lon0) + ", near the middle of the array." : ""); }
+      : "How long the array observes, in hours of time, centered on the source's transit (the hour angle runs 15.04° an hour). 0 is a snapshot: one sample per baseline. A longer track fills in the uv plane as the Earth turns (Earth-rotation synthesis)." + (a.geo ? " The transit is the source's transit at longitude " + fLon(a.geo.lon0) + ", near the middle of the array." : "") + (a.durNote ? " " + a.durNote : ""); }
   put("rEl", elOf(), Math.round(elOf() * 10) / 10 + "°" + (a.geo && cfgOf().elMin && elOf() < Math.max(...cfgOf().elMin) ? ", stations' own" : ""));
   put("rNu", S.nu, fNu(S.nu, 3) + " (" + fLam(C / (S.nu * 1e9), 2) + ")");
   put("rBw", S.bw, S.bw > 0 ? fNu(S.bw) : "one frequency");
@@ -330,8 +333,11 @@ function compute(fast) {
     for (let k = 0; k < B.length; k++) wq[k] /= mx;
   }
   R.wq = !!wq;
-  const full = RI.sample({ ants, lat, dec, elMin, dur, nu: nuC, bw, nCh, step, B, sta, wq });
-  R.full = full; R.step = step; R.nCh = nCh;
+  // (shadowing: for the arrays of tracking dishes on one site)
+  const shadow = !sta && !a.transit && !a.cyl ? a.dish : 0;
+  // (a transit array: each sample weighted by the beam's power toward the drifting source)
+  const full = RI.sample({ ants, lat, dec, elMin, dur, nu: nuC, bw, nCh, step, B, sta, wq, shadow, drift: a.transit ? pbEW(R.pb) : 0 });
+  R.full = full; R.step = step; R.nCh = nCh; R.shadow = shadow ? full.shadowed : null;
   // while playing, the samples up to the moment played: a prefix, the samples running in time order
   Sm = full;
   if (play) {
@@ -367,6 +373,15 @@ function compute(fast) {
   const key = JSON.stringify([S.sky, S.size, n, pix, R.pb, imd ? imd.w : 0]);
   if (vcache.key !== key) vcache = { key, V: RI.pointVis(model, S.size / RAD, n, 1 / (2 * F), R.pb) || RI.visibilities(RI.skyImage(model, S.size / RAD, n, pix, R.pb, imd), n) };
   Object.assign(R, { D: RI.dirty(G.g, vcache.V, n), w });
+  // A regular grid of dishes (CHORD, flagged aliases; the made-up Grid layout) has grating lobes, copies of the main
+  // lobe at λ over the grid's spacings, beyond the ±12.8 λ / B_max of the search above: the peak sidelobe is then also
+  // searched over the whole image grid, the field on either side of the center (audit X, 2026-11-16)
+  R.aliases = !R.single && !!R.beam && ((S.lay === "built" && !!a.aliases) || S.lay === "grid");
+  if (R.aliases) {
+    const wide = RI.sidelobe(R.D.beam, n, Math.max(2, 1.5 * R.beam.maj / pix));
+    R.sideWide = wide;
+    if (Math.abs(wide) > Math.abs(R.side || 0)) R.side = wide;
+  }
   // the sky smoothed by the fitted beam (the Smoothed view), kept while the sky, the grid and the beam stay the same
   if (S.dimg === "smooth" && R.beam && !R.single) {
     const sk = key + "|" + [R.beam.maj, R.beam.min, R.beam.pa].join(",");
@@ -406,12 +421,13 @@ function renderText(R) {
   const antTxt = cnt + (a.unitTail !== undefined ? a.unitTail : dl && dl[1] > dl[0] ? ", " + fDish(dl[0]) + "–" + fDish(dl[1]) + " m" : " × " + fDish(a.dish) + " m") + (nmv ? " (" + nmv + " moved)" : "");
   rows($("rArrR"), [
     ["Antennas", antTxt, a.geo ? "The stations of the array, each at its own place on the Earth" + (dl && dl[1] > dl[0] ? ", with dishes of different sizes (a phased array counts as the one dish of the same collecting area)" : "") + ". Click a station's name in the drawing to remove or restore the station, and drag the globe to turn the globe." + (a.antNote ? " " + a.antNote : "")
-      : a.cyl ? "The feeds along the cylinders' focal lines. Each cylinder focuses the light in the east-west direction onto its focal line, where each feed takes in its own short stretch. Click a feed in the drawing to remove or restore the feed, and drag a feed to move the feed." + (a.antNote ? " " + a.antNote : "")
+      : a.cyl ? "The feeds along the cylinders' focal lines. Each cylinder focuses the light in the east-west direction onto its focal line; along the line the reflector is flat, so each feed sees the whole meridian north-south and shares the reflector with its neighbors. Click a feed in the drawing to remove or restore the feed, and drag a feed to move the feed." + (a.antNote ? " " + a.antNote : "")
       : "The antennas in " + (S.lay === "built" ? "this configuration" : "this layout") + ", each a dish of this diameter. Click an antenna in the drawing to remove or restore the antenna, and drag an antenna to move the antenna." + (S.lay === "built" && a.antNote ? " " + a.antNote : "")],
     ["Baselines", R.nb.toLocaleString("en-US"), "Each pair of antennas is a baseline: N antennas make N (N − 1) / 2." + (R.sub ? " Beyond " + MAXPAIRS.toLocaleString("en-US") + ", the page uses a random draw of distinct pairs, " + MINPAIRS.toLocaleString("en-US") + " to " + MAXPAIRS.toLocaleString("en-US") + " (fewer for long tracks and wide bands, which need more samples per baseline; " + R.nbUsed.toLocaleString("en-US") + " here): the uv coverage and the beam come out the same, statistically, as with all the pairs." + (cfgOf().keep ? " The draw keeps every baseline to the outriggers." : "") : "") + (R.wq ? " Each baseline is weighted by the two stations' sensitivities, 1 / (SEFD_i × SEFD_j): a baseline between two large dishes counts for more." : "")],
     ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", a.geo ? "The longest baseline: the straight line between two stations, through the Earth. The longest baseline makes the finest fringes, and so sets the resolution, ≈ λ / B_max. Seen from the source, a baseline looks shorter, and the two stations must both see the source." : "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, ≈ λ / B_max."],
     ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", a.geo ? "The shortest baseline: the two stations closest together. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see." + (a.bminNote ? " " + a.bminNote : "")
-      : "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Dishes stand at least a dish diameter apart, so on the ground no baseline is shorter than a dish. Seen from a low source a baseline can look shorter, but then one dish shades the other (shadowing, which the page omits)." + (S.lay === "built" && cfgOf().note ? " " + cfgOf().note : "")],
+      : a.cyl ? "The shortest baseline: two neighboring feeds on one cylinder's focal line. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see."
+      : "The shortest baseline on the ground. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see. Dishes stand at least a dish diameter apart, so on the ground no baseline is shorter than a dish. Seen from a low source a baseline can look shorter, but then one dish shades the other, and the page drops the shadowed antenna's baselines (the Observation panel's Shadowed row)." + (S.lay === "built" && cfgOf().note ? " " + cfgOf().note : "")],
   ]);
   const upTxt = R.up < 0 || (R.dur > 0 && R.up === 0) ? "below the limit" : R.dur > 0 ? (R.up >= 1 && R.dur >= 1 ? sig(R.up, 3) : fDur(R.up)) + " of " + fDur(R.dur) : "yes";
   const pbTxt = typeof R.pb === "object" ? fAng2(R.pb.ew * RAD, R.pb.ns * RAD, 2) : fAng(R.pb * RAD, 2);
@@ -422,10 +438,11 @@ function renderText(R) {
   ] : a.transit ? [
     ["Within reach", R.reach ? "yes" : "no", a.reachNote || ""],
     ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|. The array is at latitude " + fDeg(a.lat) + "."],
-    ["Primary beam", pbTxt, typeof R.pb === "object" ? `The field of view, east-west × north-south: the half-power widths of one feed's beam on the sky (${a.pbSource}), at the frequency set. The cylinder focuses the light in the east-west direction only, so the beam is a narrow strip along the meridian. The page applies the beam as the beam stands at the moment of transit.`
-      : `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. The dishes do not track, so the page applies the beam as the beam stands at the moment of transit.`],
+    ["Primary beam", pbTxt, typeof R.pb === "object" ? `The field of view, east-west × north-south: the half-power widths of one feed's beam on the sky (${a.pbSource}), at the frequency set. The cylinder focuses the light in the east-west direction only, so the beam is a narrow strip along the meridian. The page applies the beam to the sky as the beam stands at the moment of transit, and weights each sample by the beam's power toward the source as the source drifts across, 1 at transit and 1/2 at the half-power edges.`
+      : `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. The dishes do not track, so the page applies the beam to the sky as the beam stands at the moment of transit, and weights each sample by the beam's power toward the source as the source drifts across, 1 at transit and 1/2 at the half-power edges.`],
   ] : [
     ["Above the limit", upTxt, "The part of the observation with the source above the elevation limit. Hour angles with the source below the limit give no samples."],
+    ["Shadowed", R.shadow === null || R.shadow === undefined ? "–" : R.shadow > 0 ? (R.shadow < 0.001 ? "< 0.1%" : sig(100 * R.shadow, 2) + "%") + " of samples" : "none", "The samples lost to shadowing. Seen from a low source, one dish can stand in front of another: an antenna is shadowed when another antenna nearer the source stands within a dish diameter of the first one's line of sight. The shadowed antenna's baselines give no samples at that moment, as the observatories flag them. Shadowing affects compact configurations observing low sources."],
     ["Elevation at transit", R.transit > 0 ? Math.round(R.transit) + "°" : "never rises", "The source's elevation at the meridian: 90° − |latitude − declination|. The array is at latitude " + fDeg(a.lat) + "."],
     ["Primary beam", pbTxt, `The field of view: the half-power width of one dish's beam on the sky (${a.pbSource}), at the frequency set. Sources far outside the primary beam are not seen.`],
   ]);
@@ -438,7 +455,7 @@ function renderText(R) {
   const bm = R.beam;
   rows($("rImgR"), [
     ["Beam", bm ? fAng2(bm.maj * RAD, bm.min * RAD) + ", PA " + Math.round(bm.pa) + "°" : R.S && R.S.n ? "–" : "no samples", "The synthesized beam, the resolution: the FWHM of an elliptical Gaussian fitted to the synthesized beam's main lobe (major × minor axis), and the position angle of the major axis, east of north."],
-    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within ~10 beams of the center), relative to the peak. Negative sidelobes are the blue rings and troughs."],
+    ["Peak sidelobe", R.side !== undefined && R.side !== null ? (R.side >= 0 ? "+" : "−") + Math.round(Math.abs(R.side) * 100) + "%" : "–", "The largest sidelobe of the synthesized beam beyond the main lobe (within ~10 beams of the center), relative to the peak. Negative sidelobes are the blue rings and troughs." + (R.aliases ? " For a regular grid of dishes the search also covers the whole image grid, the field on either side of the center, so the grating lobes count: copies of the main lobe at λ over the grid's spacings" + (a.aliasNote && S.lay === "built" ? ", " + a.aliasNote : "") + "." : "")],
     ["Largest scale", isFinite(las) ? "≈ " + fAng(las, 2) : "–", "The largest recoverable scale, approximately the largest structure the array images well (" + lasSrc + "). A smooth source much larger than this scale is resolved out, and the source's flux goes missing."],
   ]);
 }
@@ -774,15 +791,21 @@ function drawPanel(R) {
       let re = 0, im = 0; for (const [a, b, wt] of w4) { const c = at2(a, b); re += wt * Vg.re[c]; im += wt * Vg.im[c]; }
       return Math.hypot(re, im) / V0;
     };
+    // (samples within 1% of the plot's width of zero spacing, the EHT's baselines within a site, would sit on the
+    // frame's left edge: drawn as small marks just inside the frame)
+    const zero = new Set();
     for (let k = 0; k < Sm.n; k += stride) {
       const q = Math.hypot(Sm.u[k], Sm.v[k]), A = ampAt(Sm.u[k], Sm.v[k]);
       if (!isFinite(A)) continue;
       const x = Math.round(q / ext * (W - 1)), y = Math.round((1 - A / 1.08) * (Hh - 1));
       if (x < 0 || y < 0 || x >= W || y >= Hh) continue;
+      if (q < 0.01 * ext) { zero.add(y); continue; }
       const kk = 4 * (y * W + x); d[kk] = 47; d[kk + 1] = 106; d[kk + 2] = 158; d[kk + 3] = 255;
     }
     og.putImageData(id, 0, 0);
     g.drawImage(oc, x0, y0, ps, ps);
+    g.fillStyle = "rgb(47,106,158)";
+    for (const y of zero) { g.beginPath(); g.arc(x0 + 4, y0 + y / (Hh - 1) * ps, 2.5, 0, 2 * Math.PI); g.fill(); }
     // (the model's curve along one cut: for the round skies only)
     if (["point", "gaussian", "disc", "ring"].includes(S.sky)) {
       g.strokeStyle = "#4f4a44"; g.lineWidth = 1.1; g.beginPath();
@@ -981,7 +1004,7 @@ return {
     alview.fit = true;
   },
   redraw: () => { if (cur) { drawArray(cur); drawPanel(cur); } },
-  test: { state: () => clone(S), result: () => cur && { smooth: !!cur.smooth, on: cur.on, staUp: cur.staUp, nSites: cur.nSites, reach: cur.reach, dur: cur.dur, nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel, nus: cur.full && cur.full.nus && [Math.min(...cur.full.nus), Math.max(...cur.full.nus)], K: cur.nbUsed }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play, adding: () => aplay && { ...aplay },
+  test: { state: () => clone(S), result: () => cur && { smooth: !!cur.smooth, on: cur.on, staUp: cur.staUp, nSites: cur.nSites, reach: cur.reach, dur: cur.dur, nb: cur.nb, n: cur.S && cur.S.n, beam: cur.beam && { ...cur.beam }, side: cur.side, pb: cur.pb, drop: cur.drop, up: cur.up, ext: cur.ext, Bmax: cur.Bmax, Bmin: cur.Bmin, cell: cur.cell, step: cur.step, nCh: cur.nCh, gridN: cur.n, loading: !!cur.loading, imgLevel: cur.imgLevel, nus: cur.full && cur.full.nus && [Math.min(...cur.full.nus), Math.max(...cur.full.nus)], K: cur.nbUsed, shadow: cur.shadow }, geom: () => geom && { ...geom }, set: o => { stopPlay(); Object.assign(S, o); draw(false); H.scheduleHash(); }, playing: () => !!play, adding: () => aplay && { ...aplay },
     antXY: k => { const xy = antScreen(cur.ants)[k], r = $("cvA").getBoundingClientRect(); return [r.left + xy[0], r.top + xy[1]]; },
     // the globe's site labels: name, stations, stations on, and the label's center on the page
     sites: () => { const r = $("cvA").getBoundingClientRect(); return glabels.map(L => ({ name: L.q.name, n: L.q.k.length, on: L.q.on, x: r.left + (L.x0 + L.x1) / 2, y: r.top + (L.y0 + L.y1) / 2 })); },

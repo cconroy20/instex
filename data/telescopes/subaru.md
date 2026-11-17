@@ -2,6 +2,10 @@
 
 Compiled 2026-10-19 for the instex TELESCOPES mode, in the format of `data/telescopes/keck.md`. Every number comes from a document saved unmodified under `rawdata/telescopes/subaru/`, or from a file already used by `data/imaging/widefield.md` (keys STP, A18, SSP, S15, SPFS, OBSS) or `data/telescopes/magellan.md` (HCI, HCIG), marked SAME FILE in the source table; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown); **INFERRED** a reasoned statement no source makes; FIGURE READ-OFF a value read off a saved figure (its label/caption quote is checked); NOT FOUND a gap. 125 quotes machine-checked against the saved files' extracted text (pdftotext -layout, -raw and default for PDFs; tag-stripped text and raw source for HTML; .py as is): all pass (2026-10-19). 2 figure read-offs (FIGURE READ-OFF) are visual only; their label quotes are among the checked quotes. Normalisation: Unicode NFKC; curly quotes, primes, dashes, minus, multiplication and division signs normalised; whitespace collapsed; a quote also passes with PDF line-end hyphenation removed or closed up, or with all whitespace (and hyphens) removed; ' ... ' joins non-adjacent pieces. I04 (Iye et al. 2004) is the telescope reference; its Table 2 (seven focal configurations) is the backbone of the foci table; the observatory web pages (2026) give current instruments and the nominal F-numbers.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_T1_telescopes.md)
+
+- The optical Nasmyth focus has its own 1.40 m secondary (not the Cassegrain's); the Cassegrain entry names "the optical Cassegrain secondary".
+
 ## Completeness summary
 
 **Primary**: 8.2 m effective (8.3 m physical) thin ULE meniscus, 20 cm thick, 261 actuators; f = 15 m, f/1.83; R = -30000 mm, K = -1.008350515. Complete.

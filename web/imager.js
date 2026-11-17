@@ -14,7 +14,12 @@
    mirror does, unfolded), F1 (primary focal ratio, Cassegrain drawing only), back (Cassegrain focus behind the primary, in
    units of D, drawing only), field (corrected field diameter, arcmin), optics ("direct" | "reimaged"), W (beam
    diameter, mm), Fc (camera focal ratio), lam (um), psf ("seeing" | "diff"), seeing (FWHM, arcsec), Nx, Ny
-   (pixels per chip), pix (um), rows (chips per row, top to bottom, centered) or nCol x nRow, gapX, gapY (mm). */
+   (pixels per chip), pix (um), rows (chips per row, top to bottom, centered) or nCol x nRow, gapX, gapY (mm).
+   Optional: collArea (m^2: the published collecting area, where the circular annulus misstates a segmented or
+   shadowed pupil; D and eps still set the image), stopW x stopH (arcmin: a rectangular field stop centered on the
+   axis, such as a slit-mask unit's), filterAt ("pupil" | "converging" | "detector") and coldStop (drawing only),
+   corrector ({ d, label, sub }: a prime-focus corrector that turns the primary's f/F1 into f/F); a plate's scanPx
+   (the scan's pixels per side) and scanSpot (the scanner's spot, um FWHM on the plate). */
 (function (root) {
 "use strict";
 const RAD = 206264.80624709636, DEG = Math.PI / 180;
@@ -64,7 +69,9 @@ function design(P) {
   const flag = (k, txt) => S.flags.push({ k, txt });
   const Dmm = P.D * 1000, eps = Math.min(0.9, Math.max(0, P.eps || 0));
   S.Dmm = Dmm; S.eps = eps;
-  S.area = Math.PI / 4 * P.D * P.D * (1 - eps * eps);            // collecting area, m^2
+  S.areaCirc = Math.PI / 4 * P.D * P.D * (1 - eps * eps);        // the circular annulus's area, m^2
+  S.areaOver = P.collArea > 0;                                   // a published area in its place
+  S.area = S.areaOver ? P.collArea : S.areaCirc;                 // collecting area, m^2
 
   // ---- telescope, unfolded along z (mm): elements are { z, f, kind }
   const el = [];
@@ -189,7 +196,13 @@ function design(P) {
   if (P.det === "plate") {
     S.isPlate = true;
     S.plateMM = P.plateMM || 355.6; S.scan = P.scan || 25; S.grain = P.grain || 25;
-    P = Object.assign({}, P, { pix: S.scan, Nx: Math.round(S.plateMM * 1000 / S.scan), Ny: Math.round(S.plateMM * 1000 / S.scan), rows: [1], gapsX: null, gapsY: null, shiftY: null, extra: null });
+    // (the field stays the whole plate; the scan's format, when published, gives the pixel count: a scan stops short
+    // of the plate's edges. The scanner's spot, a Gaussian of scanSpot um FWHM, widens the scanned image, not the
+    // plate's)
+    const nPlate = Math.round(S.plateMM * 1000 / S.scan);
+    S.scanPx = P.scanPx > 0 ? Math.round(P.scanPx) : nPlate;
+    S.scanSpot = P.scanSpot > 0 ? P.scanSpot : 0;
+    P = Object.assign({}, P, { pix: S.scan, Nx: nPlate, Ny: nPlate, rows: [1], gapsX: null, gapsY: null, shiftY: null, extra: null });
     S.P = P;
   }
   S.pixmm = P.pix / 1000;
@@ -219,9 +232,20 @@ function design(P) {
   // chip the circle cuts
   S.Rcorr = S.feff * Math.tan(P.field / 60 * DEG / 2);
   const R = S.Rcorr, f = S.feff;
+  // a rectangular field stop (stopW x stopH arcmin, centered on the axis: a slit-mask unit at the telescope focus):
+  // each chip is first cut to the stop's rectangle on the detector, then to the circle
+  const stop = P.stopW > 0 && P.stopH > 0 ? { x: S.feff * Math.tan(P.stopW / 60 * DEG / 2), y: S.feff * Math.tan(P.stopH / 60 * DEG / 2) } : null;
+  S.stop = stop;
   let nAct = 0, om = 0, x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity, rMax = 0, pixIn = 0;
   for (const c of chips) {
-    const a0 = c.x - c.w / 2, a1 = c.x + c.w / 2, b0 = c.y - c.h / 2, b1 = c.y + c.h / 2;
+    let a0 = c.x - c.w / 2, a1 = c.x + c.w / 2, b0 = c.y - c.h / 2, b1 = c.y + c.h / 2;
+    let cut = 1;                                                 // the part of the chip inside the stop
+    if (stop) {
+      const full = (a1 - a0) * (b1 - b0);
+      a0 = Math.max(a0, -stop.x); a1 = Math.min(a1, stop.x); b0 = Math.max(b0, -stop.y); b1 = Math.min(b1, stop.y);
+      if (!(a1 > a0 && b1 > b0)) { c.frac = 0; c.active = false; continue; }
+      cut = (a1 - a0) * (b1 - b0) / full;
+    }
     const near = Math.hypot(Math.max(a0, Math.min(0, a1)), Math.max(b0, Math.min(0, b1)));
     const far = Math.max(...[[a0, b0], [a0, b1], [a1, b0], [a1, b1]].map(([a, b]) => Math.hypot(a, b)));
     c.frac = 0;
@@ -245,6 +269,7 @@ function design(P) {
       x0 = Math.min(x0, Math.max(a0, -hx)); x1 = Math.max(x1, Math.min(a1, hx)); y0 = Math.min(y0, Math.max(b0, -hy)); y1 = Math.max(y1, Math.min(b1, hy));
       c.frac = k / (n * n); rMax = Math.max(rMax, Math.min(R, far));
     }
+    c.frac *= cut;
     pixIn += c.frac;
   }
   S.chips = chips; S.cw = cw; S.ch = ch; S.gapX = gx; S.gapY = gy; S.rows = rows;
@@ -260,7 +285,7 @@ function design(P) {
   const ang = (a, b) => Math.atan(b / S.feff) - Math.atan(a / S.feff);
   S.fieldX = ang(x0, x1) / DEG; S.fieldY = ang(y0, y1) / DEG;    // deg
   S.thetaMax = Math.atan(rMax / S.feff);                         // field radius to the farthest corner (rad)
-  S.npix = Math.round(pixIn * P.Nx * P.Ny);                     // pixels inside the field
+  S.npix = S.isPlate ? S.scanPx * S.scanPx : Math.round(pixIn * P.Nx * P.Ny);   // pixels inside the field (a plate: the scan's)
   S.etendue = S.area * S.areaDeg2;                               // m^2 deg^2
 
   // ---- reimager: field angles in the collimated beam, measured by tracing the chief ray of the corner
@@ -292,7 +317,10 @@ function design(P) {
   const blur = P.psf === "optics" ? (P.blur || 1) : P.seeing;
   S.fwhm = P.psf === "diff" ? S.fwhmDiff : Math.sqrt(blur * blur + S.fwhmDiff * S.fwhmDiff);
   if (S.isPlate) { S.fwhmEmul = S.grain / 1000 * S.plate; S.fwhm = Math.sqrt(S.fwhm * S.fwhm + S.fwhmEmul * S.fwhmEmul); }
-  S.sampling = S.fwhm / S.pixScale;                              // pixels per FWHM
+  // (a scanned plate: the scanner's spot widens the scanned image, which the scan's pixels sample)
+  S.fwhmSpot = S.isPlate ? S.scanSpot / 1000 * S.plate : 0;
+  S.fwhmScan = Math.sqrt(S.fwhm * S.fwhm + S.fwhmSpot * S.fwhmSpot);
+  S.sampling = S.fwhmScan / S.pixScale;                          // pixels per FWHM
   S.nyquistPix = P.lam * 1e-3 / (2 * Dmm) * RAD;                 // the pixel that Nyquist-samples the optics' cutoff, lambda / 2D
 
   // ---- flags
@@ -307,6 +335,7 @@ const DEF = {
   band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,
+  collArea: null, stopW: null, stopH: null, filterAt: "pupil", coldStop: false, scanPx: null, scanSpot: null, corrector: null,
 };
 const API = { RAD, DEG, DEF, J1, airy, airyFWHM, airyTable, moffatAlpha, omegaRect, design };
 if (typeof module !== "undefined" && module.exports) module.exports = API;

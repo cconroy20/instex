@@ -2,6 +2,13 @@
 
 Compiled 2026-10-17 for the instex Spectrograph Explorer, in the format of `data/presets_research.md`. Every number comes from a document saved unmodified under `rawdata/presets/mosfire/` (KTG02: `rawdata/presets/deimos/`); each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked against the pdftotext (layout and raw) / HTML text of the saved files, with glyphs normalised (Symbol-font mu, degree and double-prime glyphs, curly quotes, dashes, minus signs); ' ... ' joins non-adjacent pieces; table rows are quoted as whitespace-separated cells.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_S6_mosfire_4most.md)
+
+- Coverage: each band's filter now limits the preset (filt): Y 9716–11250, J 11530–13520, H 14665–18075, K 19205–24035 Å (the MOSFIRE filter passbands). Without the filter the model shows the full order.
+- The beam: 125 mm is the design value; the camera-collimator angle (40°) lies in the dispersion plane.
+- R: the published values are the true FWHM of a line; the scored lines compare the slit-limited R, plus a 0.48″ line.
+- The Keck MOSFIRE pipeline (MosfireDRP, Wavelength.py) confirms the 250 mm camera and 18 µm pixels.
+
 ## Round 4 completeness summary (MOSFIRE)
 
 **MOSFIRE**: complete for the explorer inputs. Telescope (10.95 m; f/13.66 at the CSU, 0.72516 mm/"), refractive six-element collimator f = 1813.0 mm, 7-element refractive camera f = 250.0 mm (f/0.93 under-filled), fixed 40 deg included (camera-collimator) angle, one 110.5 l/mm gold grating blazed at 21.93 deg used in orders 6/5/4/3 for Y/J/H/K at two fixed stops (42.614 deg H/K, 41.524 deg Y/J; 42.6/41.5 as built), HAWAII-2RG 2048 x 2048 x 18 um, CSU with 46 slits of 7.01" on a 5.8 mm (8") pitch, nominal 0.7" slit, and the as-built per-band table (A/px, lambda_c, coverage at the field centre and at +/-1.5', R for 0.7" and 0.48"). The grating equation with these values reproduces the published A/px to <= 0.04%, the K coverage to 2 A, the 0.7" slit image (2.92/2.87 px) and 0.1798"/px (DERIVED). Gaps: f_col and f_cam are design values (no as-built numbers, but the as-built scale and dispersions confirm them); the beam is stated only as a "stipulated" 125.0 mm at an effective f/14.50 that conflicts with the as-built f/13.66; as-built grating angles only to 0.1 deg. Typical objects per mask come from surveys (MOSDEF 28; KBSS 28-34).

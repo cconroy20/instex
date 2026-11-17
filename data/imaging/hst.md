@@ -2,6 +2,12 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/round4/mosfire.md`. Every number comes from a document saved unmodified under `rawdata/imaging/acs/`, `rawdata/imaging/wfc3/` or `rawdata/imaging/hst/` (shared OTA documents); each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked against the extracted text of the saved files (pdftotext layout and raw, per page; HTML with tags stripped; the Tiny Tim plain-text tables), with glyphs normalised (curly quotes, primes, dashes, minus, x for the multiplication sign, u for micro); ' ... ' joins non-adjacent pieces; table rows are quoted as whitespace-separated cells. Locations give the printed page; [PDF p. N] is the page of the saved PDF (STScI handbooks: printed = PDF - 1). Figure labels with no text layer were checked against tesseract OCR of the 300-dpi page render ("ocr check"); one figure dimension is visual only ("figure check"). Quote checks: 143 against text, 4 against OCR, 1 visual.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I1_space.md)
+
+- All three presets: the telescope is drawn from the OTA prescription (Table 2.1: primary R = 11040 mm, f/2.30; vertex back focus 1500.129 mm, 0.625 D); the defaults drew f/2.0 and 0.2 D.
+- ACS/WFC: F = 26.0 (Tiny Tim's f/26), not 25.78 fitted to the rounded 0.05″/px. The mean chip-center scale, 0.0495″/px (ACS handbook Sec. 10.4.1), is now scored (model 0.04958). That the published f/25 describes the beam at the tilted focal surface is not stated in any source (INFERRED).
+- WFC3/IR: the cold mask is the stop. Hook & Stoehr 2008 give the mask's outer radius as 0.9755 of the OTA pupil radius and the central obscuration as 0.354 (0.370 in Biretta 2014's on-orbit fit), so D = 2.341 m, ε = 0.363, F = 24.60, W = 13.91 mm, F_cam = 12.39 (DERIVED; the collimator and camera focal lengths are unchanged). 7.13 mm is the radius of the OTA pupil's image at the mask, not the mask's. The detector's tilt explains ≈ 6% of the 10% difference between f/11 and the geometric-mean scale.
+
 ## Completeness summary
 
 **Telescope (all channels)**: complete. D = 2.4 m, f/24, f = 57.6 m, 3.58"/mm; linear central obscuration eps = 0.330 (secondary baffle; ISR 2008-14, OTA Handbook, Lallo 2012, Tiny Tim); 4-vane cross spider 25.654 mm wide (OTA Handbook Figure 4.1; Tiny Tim 0.022 of the radius = 26.4 mm). Gap: the vane count is shown only in a figure.

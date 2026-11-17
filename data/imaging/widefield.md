@@ -2,6 +2,12 @@
 
 Compiled 2026-10-19 for the instex IMAGER mode, in the format of `data/round4/mosfire.md`. Every number comes from a document saved unmodified under `rawdata/imaging/<inst>/` (`lsstcam/`, `hsc/`, `decam/`); each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). Quotes were machine-checked against the extracted text of the saved files (pdftotext -layout and raw for PDFs; tag-stripped text and raw source for HTML; .py/.yaml as is), with glyphs normalised (Unicode NFKC, curly quotes, primes, dashes, minus, division slash, tilde and degree-ring glyphs) and whitespace collapsed (a quote also passes with all whitespace removed, which covers PDF line breaks and HTML `<sup>` splits such as "deg 2"); ' ... ' joins non-adjacent pieces. Rows are listed top to bottom in the orientation of the cited layout figure; x = along a row, y = across rows; gaps are between active pixel areas unless stated.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_I2_part_rest.md)
+
+- HSC and DECam: F1 had no effect without a corrector entry; both presets now carry the Telescopes mode's correctors (d = 1.0 m and 1.237 m), so the primaries are drawn at 15 m and 10.656 m.
+- LSST: the published 9.6 deg² is the 3.5° circle's area (the CCDs' is 9.55 deg², DERIVED); the npix value is 3,091,580,928; the 319 m² deg² étendue includes the camera's vignetting.
+- DECam: the collecting area is the Telescopes mode's DECam-era pupil, 9.31 m² (DERIVED), entered as an override; ε = 0.42 (pre-DECam) still sets the image. The 3 deg² is a one-figure value and a reference line.
+
 ## Completeness summary
 
 **LSSTCam**: complete. D = 8.36 m with eps = 0.612 (M1 inner clear edge), f/1.233, f_eff = 10,310 mm (from the pipeline plate scale 20.0059"/mm), 3.5 deg / 9.6 deg^2, 189 science CCDs of two formats (117 e2v 4096 x 4004, 72 ITL 4072 x 4000; 10 um) in 21 rafts on a 127 mm grid, rows 9, 9, 9, 15 x 9, 9, 9, 9 (centred), gaps from the nominal pipeline geometry (1.29-1.78 mm along rows, 2.21-2.50 mm across). Gaps are nominal (as-built layout document LCA-13381 not public). Validation: 0.2"/px, 3.2 Gpix nominal (3.09 Gpix actual formats), etendue 319 m^2 deg^2.

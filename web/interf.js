@@ -134,23 +134,61 @@ function sample(o) {
   // array-wide limit does not apply)
   const sta = o.sta, upS = sta ? new Uint8Array(sta.length) : null;
   const up = Hs.filter(h => (o.hMax === undefined || h <= o.hMax + 1e-9) && (sta || elevation(h * HA_PER_H, o.dec, o.lat) >= o.elMin));
+  // (o.shadow: the dish diameter (m) of an array whose dishes track the source. At each time an antenna is shadowed
+  // when another antenna nearer the source stands within a dish diameter of the first one's line of sight, their
+  // separation projected on the sky; the shadowed antenna's baselines give no sample at that time, as the
+  // observatories flag them)
+  const shadow = o.shadow > 0 && !sta ? shadowOf(o.ants, o.lat, o.dec, o.shadow) : null;
+  let nShadow = 0;
   const cap = nb * nCh * up.length, u = new Float32Array(cap), v = new Float32Array(cap);
-  // (o.wq: each baseline's weight, 1 / (SEFD_i SEFD_j) for stations of different sensitivity, carried by its samples)
-  const wb = o.wq ? new Float32Array(cap) : null, tOff = new Int32Array(up.length + 1);
+  // (o.wq: each baseline's weight, 1 / (SEFD_i SEFD_j) for stations of different sensitivity, carried by its samples;
+  // o.drift: a transit array's half-power beam width east-west (radians): the source drifts across the fixed beam, so
+  // each sample also carries the beam's power toward the source at that moment, exp(-4 ln 2 x^2 / drift^2) with x =
+  // cos(dec) sin(H) the source's offset east-west, 1 at transit and 1/2 at the half-power edges)
+  const wb = o.wq || o.drift > 0 ? new Float32Array(cap) : null, tOff = new Int32Array(up.length + 1);
   const sd = Math.sin(o.dec), cd = Math.cos(o.dec), f = nus.map(nu => nu / C);
   let k = 0, t = 0;
   for (const h of up) {
-    const H = h * HA_PER_H, sh = Math.sin(H), ch = Math.cos(H);
+    const H = h * HA_PER_H, sh = Math.sin(H), ch = Math.cos(H), xd = cd * sh, aD = o.drift > 0 ? Math.exp(-4 * Math.LN2 * xd * xd / (o.drift * o.drift)) : 1;
     if (sta) for (let i = 0; i < sta.length; i++) upS[i] = staSees(sta[i], H, o.dec) ? 1 : 0;
+    const shd = shadow ? shadow(H) : null;
     for (let q = 0; q < nb; q++) {
       if (sta && !(upS[B.I[q]] && upS[B.J[q]])) continue;
+      if (shd && (shd[B.I[q]] || shd[B.J[q]])) { nShadow += nCh; continue; }
       const u0 = sh * BX[q] + ch * BY[q], v0 = -sd * ch * BX[q] + sd * sh * BY[q] + cd * BZ[q];
-      for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; if (wb) wb[k] = o.wq[q]; k++; }
+      for (let c = 0; c < nCh; c++) { u[k] = u0 * f[c]; v[k] = v0 * f[c]; if (wb) wb[k] = (o.wq ? o.wq[q] : 1) * aD; k++; }
     }
     tOff[++t] = k;
   }
   // tOff[t]: the samples before the t-th time up (a time-ordered prefix, for the page's Play)
-  return { u: u.subarray(0, k), v: v.subarray(0, k), wb: wb ? wb.subarray(0, k) : null, n: k, nb, nCh, nus, Hs, up, step, B, tOff };
+  return { u: u.subarray(0, k), v: v.subarray(0, k), wb: wb ? wb.subarray(0, k) : null, n: k, nb, nCh, nus, Hs, up, step, B, tOff, shadowed: nShadow / Math.max(1, nShadow + k) };
+}
+// The shadowing of an array of dishes of diameter D (m) tracking a source at declination dec from latitude lat: a
+// function of the hour angle H (radians) giving, for each antenna switched on (in the order of baselines()), 1 when
+// shadowed. Each antenna's position projected on the sky (u, v) and toward the source (w); antennas within D of each
+// other in (u, v), found through a hash of cells D wide, shadow the one farther from the source.
+function shadowOf(ants, lat, dec, D) {
+  const on = ants.filter(a => a.on !== false), N = on.length, sl = Math.sin(lat), cl = Math.cos(lat);
+  const X = new Float64Array(N), Y = new Float64Array(N), Z = new Float64Array(N);
+  for (let i = 0; i < N; i++) { const a = on[i], u = a.u || 0; X[i] = -a.n * sl + u * cl; Y[i] = a.e; Z[i] = a.n * cl + u * sl; }
+  const pu = new Float64Array(N), pv = new Float64Array(N), pw = new Float64Array(N), out = new Uint8Array(N), sd = Math.sin(dec), cd = Math.cos(dec), D2 = D * D;
+  return H => {
+    const sh = Math.sin(H), ch = Math.cos(H), cells = new Map();
+    out.fill(0);
+    for (let i = 0; i < N; i++) {
+      pu[i] = sh * X[i] + ch * Y[i]; pv[i] = -sd * ch * X[i] + sd * sh * Y[i] + cd * Z[i]; pw[i] = cd * ch * X[i] - cd * sh * Y[i] + sd * Z[i];
+      const key = Math.floor(pu[i] / D) * 1048576 + Math.floor(pv[i] / D), c = cells.get(key);
+      if (c) c.push(i); else cells.set(key, [i]);
+    }
+    for (let i = 0; i < N; i++) {
+      const cx = Math.floor(pu[i] / D), cy = Math.floor(pv[i] / D);
+      for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+        const c = cells.get((cx + dx) * 1048576 + cy + dy);
+        if (c) for (const j of c) { if (j <= i) continue; const du = pu[j] - pu[i], dv = pv[j] - pv[i]; if (du * du + dv * dv < D2) out[pw[j] > pw[i] ? i : j] = 1; }
+      }
+    }
+    return out;
+  };
 }
 
 // ------------------------------------------------------------------ a single dish
@@ -288,7 +326,7 @@ function skyImage(model, size, n, pix, pb, img) {
   const s = new Float64Array(n * n), h = n / 2;
   const put = (i, j, f) => { if (i <= -h || i >= h || j <= -h || j >= h) return; s[((j + n) % n) * n + ((i + n) % n)] += f; };
   const A = beamFn(pb);
-  if (model === "crescent" || model === "corejet" || model === "points") return skyModel2(model, size, n, pix, A, put, s);
+  if (model === "crescent" || model === "m87" || model === "corejet" || model === "points") return skyModel2(model, size, n, pix, A, put, s);
   if (model === "image") {
     if (!img) return s;
     const ip = size / img.w, hw = img.w * ip / 2, hh = img.h * ip / 2, sc = img.scale || 1;
@@ -339,11 +377,21 @@ function skyImage(model, size, n, pix, pb, img) {
 //   (CRESCENT.blur x size). The convolution in closed form: with sigma the Gaussian's width and z = r r0 / sigma^2,
 //   I(r, phi) ~ exp(-(r - r0)^2 / 2 sigma^2) [I0e(z) + 2A cos(phi - pa) I1e(z)] (I0e, I1e the scaled modified Bessel
 //   functions e^-z I_n(z)); its visibility is crescentVis;
+// - m87 (M87* with its jet): the EHT Collaboration's synthetic M87 (2019 Paper IV): the crescent above with
+//   I0 = 0.55 Jy (Appendix C.1) and the large-scale jet, three elliptical Gaussians of 0.6 Jy in all (Table 10:
+//   flux, FWHM major x minor, the major axis's position angle, offset east and north), the whole scaled by size / 44
+//   uas; each part normalized by its own flux, so that the parts of the jet beyond the grid are dropped and the rest
+//   keeps its true share (the jet is resolved out on every baseline between sites; its visibility is m87Vis);
 // - corejet (a VLBI quasar, illustrative): a compact core (FWHM 0.06 size, a quarter of the flux) and a jet of six
 //   fading Gaussian knots out to size along position angle JET_PA;
 // - points (a transit array's field): POINTS_N point sources, seeded, scattered over a disc of diameter size, with a
 //   power-law spread of flux (N(>S) ~ S^-1.5, the faintest a hundredth of the brightest).
 const CRESCENT = { blur: 10 / 44, A: 0.23, pa: 150 }, JET_PA = 290, POINTS_N = 60;
+const M87 = { d: 44, ring: 0.55, jet: [[0.3, 1000, 600, 140, -688.77, 80.86], [0.2, 400, 200, 93, -295.44, -52.09], [0.1, 400, 200, 115, -215.80, 208.40]] };
+M87.total = M87.ring + M87.jet.reduce((a, c) => a + c[0], 0);
+// the jet's components at a crescent of diameter size (radians): [flux fraction, sigma major, sigma minor, sin pa,
+// cos pa, l, m] (radians east and north)
+const m87Jet = size => { const k = size / M87.d; return M87.jet.map(([f, a, b, pa, dl, dm]) => [f / M87.total, a * k / 2.3548, b * k / 2.3548, Math.sin(pa * DEG), Math.cos(pa * DEG), dl * k, dm * k]); };
 // the core-jet's components, [distance along the jet / size, FWHM / size, flux]: the core a quarter of the flux, the
 // knots the rest, each 0.75 of the one before and wider, so that the jet's surface brightness fades along the jet from
 // about the core's (an illustration, not a particular quasar)
@@ -362,9 +410,25 @@ function skyModel2(model, size, n, pix, A, put, s) {
       if (a > 0) { vals.push([i, j, a, i * pix, j * pix]); tot += a; }
     }
   };
-  if (model === "crescent") {
+  if (model === "crescent" || model === "m87") {
     const r0 = size / 2, sg = CRESCENT.blur * size / 2.3548, pa = CRESCENT.pa * DEG;
     smooth((l, m) => { const r = Math.hypot(l, m), ph = Math.atan2(l, m), z = r * r0 / (sg * sg); return Math.exp(-(r - r0) * (r - r0) / (2 * sg * sg)) * (Ine(0, z) + 2 * CRESCENT.A * Math.cos(ph - pa) * Ine(1, z)); }, r0 + 5 * sg, size / pix < 8 ? 6 : 3);
+    if (model === "m87" && tot > 0) {
+      // the crescent at its share of the flux, then the jet's Gaussians from their profiles (flux per pixel), each
+      // over the pixels within 5 sigma of its center that lie on the grid
+      for (const q of vals) q[2] *= M87.ring / M87.total / tot;
+      for (const [f, sa, sb, sp, cp, l0, m0] of m87Jet(size)) {
+        const pk = f * pix * pix / (2 * Math.PI * sa * sb), R = 5 * sa;
+        const i0 = Math.max(1 - h, Math.floor((l0 - R) / pix)), i1 = Math.min(h - 1, Math.ceil((l0 + R) / pix));
+        const j0 = Math.max(1 - h, Math.floor((m0 - R) / pix)), j1 = Math.min(h - 1, Math.ceil((m0 + R) / pix));
+        for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
+          const dl = i * pix - l0, dm = j * pix - m0, x = dl * sp + dm * cp, y = dl * cp - dm * sp;
+          const a = pk * Math.exp(-0.5 * (x * x / (sa * sa) + y * y / (sb * sb)));
+          if (a > 0) vals.push([i, j, a, i * pix, j * pix]);
+        }
+      }
+      tot = 1;
+    }
   } else if (model === "corejet") {
     const pa = JET_PA * DEG, el = Math.sin(pa), em = Math.cos(pa), g = (l, m, l0, m0, fw) => Math.exp(-4 * Math.LN2 * ((l - l0) * (l - l0) + (m - m0) * (m - m0)) / (fw * fw));
     const knots = KNOTS;
@@ -378,7 +442,9 @@ function skyModel2(model, size, n, pix, A, put, s) {
 function pointsList(size) {
   const rnd = rng(29), out = [];
   for (let k = 0; k < POINTS_N; k++) {
-    const r = size / 2 * Math.sqrt(rnd()), ph = 2 * Math.PI * rnd(), f = Math.min(100, Math.pow(1 - rnd() * 0.99, -1 / 1.5));
+    // (fluxes from 1 to 100: u uniform, S = (1 - 0.999 u)^(-1/1.5) spans 1 to 0.001^(-1/1.5) = 100; with 0.99 the draw
+    // stopped at 21.5, audit X, 2026-11-16)
+    const r = size / 2 * Math.sqrt(rnd()), ph = 2 * Math.PI * rnd(), f = Math.min(100, Math.pow(1 - rnd() * 0.999, -1 / 1.5));
     out.push([r * Math.sin(ph), r * Math.cos(ph), f]);
   }
   return out;
@@ -436,6 +502,17 @@ function crescentVis(size, u, v) {
   const c = q > 0 ? Math.cos(Math.atan2(u, v) - CRESCENT.pa * DEG) : 0;
   return { re: t * J0(x), im: -2 * CRESCENT.A * c * t * J1(x) };
 }
+// M87* with its jet: the crescent's share times crescentVis plus the jet's Gaussians, each exp(-2 pi^2 (sigma_maj^2
+// k1^2 + sigma_min^2 k2^2)) at its offset (k1, k2 the spacing along and across the major axis)
+function m87Vis(size, u, v) {
+  const c = crescentVis(size, u, v), w = M87.ring / M87.total;
+  let re = w * c.re, im = w * c.im;
+  for (const [f, sa, sb, sp, cp, l, m] of m87Jet(size)) {
+    const k1 = u * sp + v * cp, k2 = u * cp - v * sp, a = f * Math.exp(-2 * Math.PI * Math.PI * (sa * sa * k1 * k1 + sb * sb * k2 * k2)), ph = -2 * Math.PI * (u * l + v * m);
+    re += a * Math.cos(ph); im += a * Math.sin(ph);
+  }
+  return { re, im };
+}
 let PCACHE = { size: NaN };
 function compVis(model, size, u, v) {
   let comps;
@@ -448,7 +525,7 @@ function compVis(model, size, u, v) {
 // the model's visibility at (u, v) wavelengths, without the primary beam: real for the symmetric models; the size
 // |V| for the crescent, the core-jet and the point sources
 function vis(model, size, u, v) {
-  if (model === "crescent" || model === "corejet" || model === "points") { const V = model === "crescent" ? crescentVis(size, u, v) : compVis(model, size, u, v); return Math.hypot(V.re, V.im); }
+  if (model === "crescent" || model === "m87" || model === "corejet" || model === "points") { const V = model === "crescent" ? crescentVis(size, u, v) : model === "m87" ? m87Vis(size, u, v) : compVis(model, size, u, v); return Math.hypot(V.re, V.im); }
   const q = Math.hypot(u, v);
   if (model === "point") return 1;
   if (model === "double") return Math.cos(Math.PI * u * size);
@@ -640,7 +717,7 @@ function pctile(sorted, p) {
   return sorted[k] + (sorted[Math.min(sorted.length - 1, k + 1)] - sorted[k]) * f;
 }
 
-const API = { J0, Ine, crescentVis, compVis, smoothed, KNOTS, azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
+const API = { J0, Ine, crescentVis, m87Vis, M87, shadowOf, compVis, smoothed, KNOTS, azimuth, staSees, CRESCENT, JET_PA, POINTS_N, pointsList, geoXYZ, hoursUpSta, beamFn, DEG, RAD, C, HA_PER_H, RING_IN, LAYOUTS, DISH_GAP, rng, layout, pyramid, level, aperture, apertureGrid, toXYZ, baselines, extremes, uvAt, elevation, hourAngles, hoursUp, sample, weigh, grid, dirty, visibilities, pointVis, skyImage, J1, Lam, vis, lobe, fitBeam, sidelobe, lengths, pctile };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.RI = API;
 })(typeof window !== "undefined" ? window : globalThis);

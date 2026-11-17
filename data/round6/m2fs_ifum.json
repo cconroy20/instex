@@ -165,6 +165,46 @@
    "cite": "J. I. Bailey III, \"M2FS-Control\" GitHub repository (instrument control software), commit 8d683be1173f (2024-10-01, \"dump of IFUM pololu and shoe tuning settings\"): pololu/IFU Shoe Calibration Notes - Pololu 7.18.24.md (engineering notes on the IFUM fiber shoes). Raw repository file",
    "file": "rawdata/presets/ifum/github_baileyji_M2FS-Control_8d683be_IFU_Shoe_Calibration_Notes_Pololu_7.18.24.md",
    "url": "https://github.com/baileyji/M2FS-Control/blob/8d683be1173f0c47fd25640fc08f92d818481ebd/pololu/IFU%20Shoe%20Calibration%20Notes%20-%20Pololu%207.18.24.md"
+  },
+  "RGL14": {
+   "cite": "Richardson Gratings (Newport), grating catalog (2014), Table T3, PDF p. 19: echelle master 53-*-417E, 52.67 grooves/mm, 69°, 204 x 408 mm (the only R2.6 of that size). Fetched 2026-11-16 from a vendor mirror",
+   "file": "rawdata/presets/m2fs/Richardson_Gratings_catalog_vogel.de_mirror_fetched2026-11-16.pdf",
+   "url": "https://p7f.vogel.de/companies/62/84/6284b2408a15a/0500-richardson-gratings-catalog2-1-.pdf"
+  },
+  "J20": {
+   "cite": "Johnson, C. I., Dupree, A. K., Mateo, M., Bailey, J. I., III, et al. 2020, \"The Most Metal-poor Stars in Omega Centauri\", arXiv:2004.09023 (MgWide, 95 um slits, R ~ 32,000)",
+   "file": "rawdata/presets/m2fs/Johnson2020_omegaCen_M2FS_arXiv2004.09023.pdf",
+   "url": "https://arxiv.org/pdf/2004.09023"
+  },
+  "S19": {
+   "cite": "Song, Y.-Y., Mateo, M., et al. 2019, arXiv:1909.02056 (M2FS single order 5130-5192 A, R ~ 20,000)",
+   "file": "rawdata/presets/m2fs/Song2019_NGC419_NGC1846_M2FS_arXiv1909.02056.pdf",
+   "url": "https://arxiv.org/pdf/1909.02056"
+  },
+  "S21": {
+   "cite": "Song, Y.-Y., Mateo, M., et al. 2021, arXiv:2104.06882 (the same configuration, mean R 18,000)",
+   "file": "rawdata/presets/m2fs/Song2021_MC_clusters_M2FS_arXiv2104.06882.pdf",
+   "url": "https://arxiv.org/pdf/2104.06882"
+  },
+  "CTL": {
+   "cite": "M2FS-Control (GitHub baileyji/M2FS-Control, master as fetched 2026-11-16, resolving to commit bae169e6503c): bin/shoeAgent.py, bin/slitController.py, conf/README, conf/m2fs_galilR.conf (six slits plus a closed position per tetris)",
+   "file": "rawdata/presets/m2fs/github_baileyji_M2FS-Control_bae169e6503c_bin_shoeAgent.py",
+   "url": "https://github.com/baileyji/M2FS-Control/commit/bae169e6503c"
+  },
+  "SUM22": {
+   "cite": "IFU-M Capabilities, CfA TAC slides (February 2022): array sizes, Barlow f/16.5 / 18 / 30, spaxel pitches, field sizes, design slits and expected R (LSB LoRes 1000, 4000)",
+   "file": "rawdata/presets/ifum/cfa_tac_IFUM_Summary_Feb2022.pdf",
+   "url": "https://lweb.cfa.harvard.edu/files/tac/IFUM_Summary_Feb2022.pdf"
+  },
+  "BAB": {
+   "cite": "IFU-M reduction pipeline (GitHub babnigg/IFU-M, commit 3041d62): Gaussian line fits; STD and HR mount structure",
+   "file": "rawdata/presets/ifum/github_babnigg_IFU-M_3041d62_README.md",
+   "url": "https://github.com/babnigg/IFU-M"
+  },
+  "ACAD": {
+   "cite": "ipdps26-ifum-academy (GitHub academy-agents, commit 801e565): STD far-red test data (trace fits, arc widths, wavelength solutions)",
+   "file": "rawdata/presets/ifum/github_academy-agents_ipdps26-ifum-academy_801e565_README.md",
+   "url": "https://github.com/academy-agents/ipdps26-ifum-academy"
   }
  },
  "m2fs": {
@@ -1540,6 +1580,18 @@
    "SCHOTT F2 (SCH): the coefficients reproduce the data-sheet indices nd 1.62004, ne 1.62408, nF 1.63208, nC 1.61503, ng 1.64202, ni 1.66623, nt 1.60279, n(1060) 1.60190, n(632.8) 1.61656 to <= 7e-6; nh (404.7 nm) 1.65064 to -1.5e-5 (DERIVED).",
    "Prism check (DERIVED): a 23.6 deg F2 prism at minimum deviation, two passes, f_cam 500 mm, gives order spacings of 28.4 / 27.8 / 27.3 px for orders 69-68 / 68-67 / 67-66 with the EFFECTIVE echelle (m x lambda = 355,789 A), against 28.0 / 27.7 / 27.0 px measured from the MgWide arc identifications (AJPID).",
    "Check script kept outside the project (scratchpad)."
+  ]
+ },
+ "audit_2026_11_16": {
+  "file": "data/round6/m2fs_ifum_audit.md",
+  "superseded": [
+   "M2FS echelle groove density NOT FOUND / EFFECTIVE 51.74 per mm at 66.99 deg in true Littrow -> 52.67 per mm (RGL14), blaze 69 deg, alpha 73.2, beta 66.6 deg (psi 6.6 deg in the dispersion plane: M12 Figs. 3-4, p. 5)",
+   "the opening angle 'taken to lie across the dispersion' -> in the echelle's dispersion plane (M12)",
+   "scored R ~ 18,000 (180 um) -> info; R ~ 24,000 (W23, P23) scored; 95 um: R16 ~34,000 measured, J20 ~32,000",
+   "M2FS fiber pitch 19.6-20.3 px -> 18.1-20.3 px over tetrises 1-8; gaps 207-227 px (AJPID)",
+   "IFUM R values 'measured' -> method not stated (C25); SUM22 gives 1000 and 4000",
+   "IFUM pseudo-slit ~76% of the detector -> ~97% (C25 Fig. 1); 10 mounts of 18 per detector",
+   "IFUM field sizes 34x35, 22x24, 13x14 arcsec -> SUM22 32.7x31.4, 23.9x21.6, 13.9x14.2"
   ]
  }
 }

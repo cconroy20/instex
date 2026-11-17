@@ -108,7 +108,7 @@
    "url": "https://arxiv.org/pdf/2509.18306"
   },
   "N13": {
-   "cite": "Newman, J. A., et al., \"The DEEP2 Galaxy Redshift Survey: Design, Observations, Data Reduction, and Redshifts\", arXiv:1203.3192v3 (DEIMOS 1200-line survey; 60 pp.)",
+   "cite": "Newman, J. A., et al. 2013, ApJS 208, 5, \"The DEEP2 Galaxy Redshift Survey: Design, Observations, Data Reduction, and Redshifts\", arXiv:1203.3192v3 (DEIMOS 1200-line survey; 60 pp.)",
    "file": "rawdata/presets/multiplex/Newman2013_DEEP2_survey_arXiv1203.3192v3.pdf",
    "url": "https://arxiv.org/pdf/1203.3192"
   },

@@ -100,7 +100,7 @@ function params(f = focusOf()) {
     // mirror's spans across the cross-section (m), a prime-focus corrector that changes the focal length
     offAxis: f.offAxis !== undefined ? f.offAxis : t.offAxis, corrector: f.corrector,
     mirrorSpans: t.tracker ? [[t.tracker.span[0] - trackShift(), t.tracker.span[1] - trackShift()]] : f.mirrorSpans || t.mirrorSpans,
-    pfuLabel: f.pfuLabel, pfuSub: f.pfuSub, a3: f.a3, Dmirror: t.Dmirror, focusLabel: f.focusLabel, primarySub: t.primarySub,
+    pfuLabel: f.pfuLabel, pfuSub: f.pfuSub, a3: f.a3, Dmirror: t.Dmirror, focusLabel: f.focusLabel, focusKind: f.kind ? f.kind.split(" ").map((w, i) => (i === 0 && !/^(Nasmyth|Cassegrain|Gregorian|Coud)/.test(w) ? w.toLowerCase() : w)).join(" ") + " focus" : null, primarySub: t.primarySub,
   });
 }
 

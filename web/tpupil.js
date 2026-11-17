@@ -7,7 +7,9 @@
    Further pupil options: rot (the hexagon lattice turned, degrees), rings0 (0 keeps the central segment), rcut (m: keep
    only the segments whose centers lie within rcut of the center, a near-round outline such as the ELT's), kind
    "circles" with segs [{ x, y, d, hole }] (separate round mirrors), stop { x, y, d } (a circular stop off the
-   center).  The obstruction (eps D across) and any vanes are centered on the stop when there is one; a vane may end
+   center), clip (m: a round stop centered), clipHex (a stop that is the segmented outline shrunk by this factor) and
+   holeHex (m across the corners: a hexagonal central hole in place of the round one).  The obstruction (eps D across)
+   and any vanes are centered on the stop when there is one; a vane may end
    at to (m from its start: a short widening of a strut), widen outward (div, degrees per edge) and stop at rmax (m
    from the center); blocks are polygons in the beam ([[x, y], ...], m); a seg with dr is an ellipse (an off-axis
    mirror seen from the sky). */
@@ -23,27 +25,39 @@ function inPoly(poly, x, y) {
   }
   return c;
 }
+// a point (m, sky frame) on the segments: pointy-topped hexagons on a lattice of the flat-to-flat size, rings 1 ... n
+// around a missing center (rings0 = 0 keeps the center); the lattice turned by rot degrees (30 makes the hexagons
+// flat-topped); gap the width between segments
+function onHex(pu, x, y, gap, rings0) {
+  const s = pu.flat, a = s / 2 - gap / 2;
+  if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c + y * sn; y = -x * sn + y * c; x = xr; }
+  const rf = (2 * y) / (Math.sqrt(3) * s), qf = x / s - rf / 2;        // lattice coordinates of the point
+  const q0 = Math.round(qf), r0 = Math.round(rf);
+  for (let dq = -1; dq <= 1; dq++) for (let dr = -1; dr <= 1; dr++) {
+    const qq = q0 + dq, rr = r0 + dr, ring = Math.max(Math.abs(qq), Math.abs(rr), Math.abs(qq + rr));
+    if (ring < rings0 || ring > pu.rings) continue;
+    const cx = s * (qq + rr / 2), cy = s * Math.sqrt(3) / 2 * rr, px = x - cx, py = y - cy;
+    if (pu.rcut && Math.hypot(cx, cy) > pu.rcut) continue;            // a round outline: segments centered within rcut (m)
+    let ok = true;
+    for (const t of [0, 60, 120]) { const c = Math.cos(t * DEG), sn = Math.sin(t * DEG); if (Math.abs(px * c + py * sn) > a) { ok = false; break; } }
+    if (ok) return true;
+  }
+  return false;
+}
+// a point within a hexagon d across the corners, centered, oriented as the segments (the lattice turned by rot)
+function inHexHole(pu, x, y, d) {
+  if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c + y * sn; y = -x * sn + y * c; x = xr; }
+  const a = d / 2 * Math.cos(30 * DEG);
+  for (const t of [0, 60, 120]) { const c = Math.cos(t * DEG), sn = Math.sin(t * DEG); if (Math.abs(x * c + y * sn) > a) return false; }
+  return true;
+}
 function inPupil(pu, eps, x, y, noVanes) {
   const r = Math.hypot(x, y), R = pu.D / 2;
   if (pu.kind === "hex") {
-    // segments: pointy-topped hexagons on a lattice of the flat-to-flat size, rings 1 ... n around a missing center
-    // (rings0 = 0 keeps the center); the lattice turned by rot degrees (30 makes the hexagons flat-topped)
-    const s = pu.flat, a = s / 2 - (pu.gap || 0) / 2;
-    if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c + y * sn; y = -x * sn + y * c; x = xr; }
-    const rf = (2 * y) / (Math.sqrt(3) * s), qf = x / s - rf / 2;      // lattice coordinates of the point
-    let hit = false;
-    const q0 = Math.round(qf), r0 = Math.round(rf);
-    for (let dq = -1; dq <= 1 && !hit; dq++) for (let dr = -1; dr <= 1 && !hit; dr++) {
-      const qq = q0 + dq, rr = r0 + dr, ring = Math.max(Math.abs(qq), Math.abs(rr), Math.abs(qq + rr));
-      if (ring < (pu.rings0 === undefined ? 1 : pu.rings0) || ring > pu.rings) continue;
-      const cx = s * (qq + rr / 2), cy = s * Math.sqrt(3) / 2 * rr, px = x - cx, py = y - cy;
-      if (pu.rcut && Math.hypot(cx, cy) > pu.rcut) continue;          // a round outline: segments centered within rcut (m)
-      let ok = true;
-      for (const t of [0, 60, 120]) { const c = Math.cos(t * DEG), sn = Math.sin(t * DEG); if (Math.abs(px * c + py * sn) > a) { ok = false; break; } }
-      if (ok) hit = true;
-    }
-    if (!hit) return false;
-    if (pu.rot) { const c = Math.cos(pu.rot * DEG), sn = Math.sin(pu.rot * DEG), xr = x * c - y * sn; y = x * sn + y * c; x = xr; }   // back to the sky frame
+    if (!onHex(pu, x, y, pu.gap || 0, pu.rings0 === undefined ? 1 : pu.rings0)) return false;
+    // a stop that is a shrunken copy of the segmented outline (Keck's undersized f/40 secondary, clipHex = 0.954): the
+    // point, scaled up by 1 / clipHex, falls on the gap-free lattice, the center included
+    if (pu.clipHex && !onHex(pu, x / pu.clipHex, y / pu.clipHex, 0, 0)) return false;
   } else if (pu.kind === "circles") {
     // separate round mirrors ({ x, y, d } in m: GMT's seven), each with its own central hole (hole, m) if any; an
     // off-axis mirror seen from the sky is an ellipse, dr across in the radial direction (from the center) and d along
@@ -57,7 +71,8 @@ function inPupil(pu, eps, x, y, noVanes) {
   if (pu.stop && Math.hypot(x - pu.stop.x, y - pu.stop.y) > pu.stop.d / 2) return false;
   if (pu.clip && r > pu.clip / 2) return false;                      // a circular stop (an undersized secondary)
   const ox = pu.stop ? pu.stop.x : 0, oy = pu.stop ? pu.stop.y : 0, Dob = pu.stop ? pu.stop.d : pu.D;
-  if (Math.hypot(x - ox, y - oy) < eps * Dob / 2) return false;
+  // the central obstruction: round, eps D across, or (holeHex, m across the corners) a hexagon oriented as the segments
+  if (pu.holeHex ? inHexHole(pu, x - ox, y - oy, pu.holeHex) : Math.hypot(x - ox, y - oy) < eps * Dob / 2) return false;
   if (!noVanes) for (const v of pu.vanes || []) {
     const c = Math.cos(v.ang * DEG), sn = Math.sin(v.ang * DEG), X = x - ox - (v.x0 || 0), Y = y - oy - (v.y0 || 0), along = X * c + Y * sn, across = -X * sn + Y * c;
     const hw = v.w / 2 + (v.div ? Math.max(0, along) * Math.tan(v.div * DEG) : 0);

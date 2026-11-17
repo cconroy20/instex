@@ -2,6 +2,10 @@
 
 Compiled 2026-10-20 for the instex INTERFEROMETER mode, in the record format of `data/telescopes/vlt.md`. Every number comes from a document saved unmodified under `rawdata/interf/alma/`; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). **INFERRED** marks a mapping no source states. **BINARY READ-OFF** marks values decoded from the CASA Observatories casacore table (not text). 246 quote records (181 distinct quotes) machine-checked against the saved files' extracted text (pdftotext -layout and -raw for PDFs, split by page; tag-stripped text and raw source for HTML; the cfg, JSON and .py files as is; the casacore table by decoding its ISM index): all pass (2026-10-20). Normalisation: Unicode NFKC; curly quotes, primes, dashes, minus, multiplication sign (to x), tilde operator, division slash, the ring/bullet degree signs and soft hyphens normalised; whitespace collapsed; a quote also passes with PDF line-end hyphenation closed up or with all whitespace removed (table rows); ' ... ' joins non-adjacent pieces on one page. Machine-readable twin: `data/interf/alma.json`.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_X_arrays.md)
+
+- The 20° rule: the Proposer's Guide App. A.8 gives "The adopted upper declination limit for ALMA is +47◦, corresponding to a maximum elevation of 20◦ at the ALMA site" (a declination limit, not a request); the elNote now says so. The 2° hardware limit remains the 2001 Project Book's design value.
+
 ## Completeness summary
 
 **Cycle**: ALMA Cycle 13 runs 1 October 2026 - 30 September 2027 (PG), so it is the current cycle on 2026-10-20; the configuration in use this week is C-3 (SCHED block 4, 2026-10-19 to 10-26). Cycle 13 files are the newest in CASA (commit 2026-02-18; no cycle 14 files), and they are byte-identical to the Cycle 11 and Cycle 12 files and to the Science Portal zip (PG Sec. 1.3: configurations unchanged).

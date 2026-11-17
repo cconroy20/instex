@@ -2,6 +2,11 @@
 
 Same rules as `data/presets_research.md`: every number comes from a document saved unmodified under `rawdata/presets/pfs/`; **DERIVED** marks arithmetic done here. Machine-readable twin: `data/round4/pfs.json`. Every quote below was machine-checked against the saved file's extracted text (whitespace and glyph normalised; ' ... ' joins non-adjacent pieces).
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_S7_pfs_apogee_fire_feros.md)
+
+- The 693.5 mm collimator is confirmed by the measured trace spacing (6.16–6.21 px per 213.93 µm hole: f_cam/f_col = 0.432–0.435), so the R shortfall is not the collimator's; the PFS exposure-time calculator adopts a 47.0 µm fiber image.
+- The detector maps (drp_pfs_data commit 04512fe) give 0.682 Å/px at 5189 Å (b3) and 0.865 Å/px at 8054 Å (r3), now scored; the one-figure table values are reference lines.
+
 ## PFS completeness summary
 
 **PFS**: all four arms. Telescope, fibre and microlens from Sugai+15 (S15) and the Subaru/IPMU parameter tables; spectrograph optics from the 2012-2014 design papers: Schmidt collimator f/2.5 with a 275 mm beam (B14), slit-to-collimator distance 693.5 mm (S15), Mangin-Schmidt cameras f/1.09 with 300 mm focal length (B14), and the VPH design table (B14 Table 1: 711.4 / 556.7 / 569.5 l/mm with incidence and diffraction angles). The medium-resolution grism is 1007 l/mm between two 13 deg S-LAH53 prisms (P14). Detector formats from the PFS datamodel (4176 rows along dispersion x 4096 columns for the CCD pair; 4088 x 4088 for the H4RG); slit layout (651 holes per spectrograph: 597/600 science + 16 engineering) from the pfs_utils fibre map. Validation targets: the Subaru/IPMU table (A/pix, FWHM, R per arm, July 2024 lab values). The grating equation with the B14 angles and f_cam = 300 mm reproduces the published A/pix to within 5% and the arm edges to within 2% (DERIVED). NOT FOUND: as-built (production) grating parameters, the MR grism incidence geometry, and the 2022-2024 SpS papers (Smee+22, Madec+24, Dohlen+24; no open copies).

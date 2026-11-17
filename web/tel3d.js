@@ -155,7 +155,7 @@ function build(Dz, P, G, pu, opts = {}) {
       const u = e.rot ? [1, 0, 0] : [0, 1, 0], v = [0, 0, 1];
       face([[1, 1], [-1, 1], [-1, -1], [1, -1]].map(([i, j]) => a3(c, a3(s3(u, i * hw), s3(v, j * hw)))), PAL.focus, 0.95, edgeOf(PAL.focus), 0.8);
       prims.push({ k: "d", p: [W(c)], col: PAL.light[1] });
-      lab(c, P.focusLabel || (e.korsch ? "focus" : e.rot ? "Nasmyth focus" : "focus"));
+      lab(c, P.focusLabel || (e.korsch ? "focus" : e.rot ? (P.focusKind || "Nasmyth focus") : "focus"));
     }
   }
   // ---- spider vanes and blocks: in a plane just above the secondary (or across the prime-focus unit)

@@ -121,6 +121,11 @@
    "cite": "KCWI_DRP, the official KCWI Python data reduction pipeline (GitHub Keck-DataReductionPipelines/KCWI_DRP at commit 9be28f5, 2026-10-15). Used: kcwidrp/primitives/kcwi_file_primitives.py (rho = grating line density, adjang), kcwidrp/primitives/CalcPrelimDisp.py (grating-equation angle conventions), kcwidrp/configs/kcwi.cfg and instr.cfg (FCAM, PIX, GAMMA, PIXSCALE, SLICESCALE); read as text, never executed",
    "file": "rawdata/presets/kcwi/github_Keck-DataReductionPipelines_KCWI_DRP_9be28f5/ (kcwi_file_primitives.py, CalcPrelimDisp.py, kcwi.cfg, instr.cfg)",
    "url": "https://github.com/Keck-DataReductionPipelines/KCWI_DRP/tree/9be28f5695009b6021788ae3557ca73888624761"
+  },
+  "PYPK": {
+   "cite": "PypeIt (Prochaska et al. 2020, JOSS 5, 2308), release branch commit c1798aa: data/arc_lines/reid_arxiv/keck_kcrm_RL.fits (the RL arc-line wavelength template, 2064 rows binned 2 in the spectral direction, 6345.8–10125.0 Å) and spectrographs/keck_kcwi.py. Data and text only, never executed. Fetched 2026-11-16 (audit S8)",
+   "file": "rawdata/presets/kcwi/PypeIt_release_c1798aa_reid_arxiv_keck_kcrm_RL.fits",
+   "url": "https://github.com/pypeit/PypeIt/tree/c1798aa"
   }
  },
  "muse": {

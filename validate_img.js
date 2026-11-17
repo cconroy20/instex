@@ -253,7 +253,8 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
       const D = f.D || t.D, P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.f1 ? t.f1 / D : t.F1, back: f.back, a3: f.a3, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55, corrector: f.corrector });
       const S = IM.design(P);
       check(`${t.id} ${f.id}: designs without error, one star one point`, !S.bad && S.imageSpread < 1e-9 * S.Dmm);
-      if (f.plate) check(`${t.id} ${f.id}: plate scale ${f.plate}″/mm`, rel(S.plate, f.plate) < 0.003, `model ${S.plate.toFixed(4)}″/mm`);
+      // (a reference line: each focal ratio is derived from the published plate scale, so the two agree by construction)
+      if (f.plate) console.log(`[INFO] ${t.id} ${f.id}: plate scale ${f.plate}″/mm  --  model ${S.plate.toFixed(4)}″/mm (F derived from the plate scale)`);
     }
   }
 }
@@ -266,6 +267,7 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
   const Q = {
     pixScale: S => S.pixScale, fieldX: S => S.fieldX * 60, fieldY: S => S.fieldY * 60, area: S => S.areaDeg2,
     npix: S => S.npix, etendue: S => S.etendue, plateScale: S => S.plate,
+    collArea: S => S.area, secR: S => 2 * Math.abs(S.f2),           // collecting area (m^2); the secondary's radius of curvature (mm)
   };
   const ids = new Set();
   for (const p of window.IX_IPRESETS) {
@@ -282,5 +284,13 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
   }
 }
 
+{
+  // Keck's f/40 stop (the Keck RBC manual, Sec. 2 and Figure 4): the undersized secondary is the primary's serrated
+  // outline shrunk to 95.4%, with a hexagonal hole 3.25 m across the corners; the area falls ~12% below the full pupil
+  // (a round 10.445 m stop gave 67.0 m², 6% too much)
+  const t = window.IX_TELESCOPES.find(q => q.id === "keck"), f = t.foci.find(q => q.id === "f40"), pu = Object.assign({}, t.pupil, f.pupil);
+  const a = TP.pupilAndPSF(pu, f.eps).area, a0 = TP.pupilAndPSF(t.pupil, t.eps).area;
+  check("keck f40: the stop is the serrated outline at 95.4% with a hexagonal hole: 62–64 m², 10–13% below the full pupil", a > 62 && a < 64 && a / a0 > 0.87 && a / a0 < 0.9 && !!f.pupil.clipHex && !f.pupil.clip, `${a.toFixed(2)} m² vs ${a0.toFixed(2)} m²`);
+}
 console.log(`\n${npass} pass, ${nfail} fail`);
 if (nfail) process.exit(1);

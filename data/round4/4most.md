@@ -2,6 +2,11 @@
 
 Compiled 2026-10-17 for the instex Spectrograph Explorer, same rules as `data/presets_research.md`: every number comes from a document saved unmodified under `rawdata/presets/4most/`; the source key, location and a short quote accompany each value; **DERIVED** marks arithmetic done here (shown). Machine-readable twin: `data/round4/4most.json`. Every quote was machine-checked against the saved file's extracted text (whitespace and glyph normalised; ' ... ' joins non-adjacent pieces). For the TOAD FITS tables the quote is the HDU's header card and the numbers were re-read and checked by script; 'READ BY EYE' marks values read off a published figure. HRS optics are concept-stage numbers (see NOT FOUND).
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_S6_mosfire_4most.md)
+
+- HRS camera "375 mm (fitted to the published bands)": not fitted (H14's "~f/1.5" × 250 mm), and the concept camera and gratings contradict ESO's as-built calibrations (QMOST kit 0.9.6). The presets now use an EFFECTIVE 441 mm camera and gratings of 3379 / 2570 / 2160 /mm fitted to the as-built dispersions (0.0720 / 0.0940 / 0.1130 Å/px), with the as-built central wavelengths 4150.05 / 5458.61 / 6459.83 Å; the coverage then matches the as-built edges to 2 Å, and R the published figure (read 20,170 / 19,980 / 20,260 from the saved PNG) to 0.4–2.1%.
+- LRS: the "npix" line is a reference line.
+
 ## 4MOST sources
 
 | key | document | local file | URL |

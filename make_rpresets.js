@@ -18,8 +18,14 @@ const out = [];
     pb: { arcminGHz: j.pb_relation.fwhm_arcmin_x_GHz, band: { P: j.pb_relation.p_band_fwhm_arcmin_x_GHz } },
     pbSource: "θ ≈ " + j.pb_relation.fwhm_arcmin_x_GHz + "′ / ν(GHz), " + j.pb_relation.p_band_fwhm_arcmin_x_GHz + "′ / ν(GHz) at P band: the VLA Observational Status Summary",
     bands: j.bands.filter(b => b.name !== "4").map(b => ({ k: b.name, name: b.name + "  " + b.lo_GHz + "–" + b.hi_GHz + " GHz", lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
-    configs: ["A", "B", "C", "D"].map(c => ({ id: c, name: c, ants: j.configs[c].antennas.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: j.configs[c].antennas.map(a => a.name), bmax: j.configs[c].bmax_m,
-      note: c === "C" ? "CASA's file for C leaves pad N1 empty. In the real C configuration one antenna from the middle of the north arm sits on N1, so the VLA's Observational Status Summary gives a shortest baseline of " + j.params.bmin_km.value.C * 1000 + " m (" + j.configs.C.with_N1_variant.bmin_m + " m with N1 occupied here)." : "" })),
+    // (C: the Status Summary puts "an antenna from the middle of the north arm" on the central pad N1, which CASA's
+    // file leaves empty; the pad vacated is not published, and the middle of the arm's nine pads is N10 (INFERRED))
+    configs: ["A", "B", "C", "D"].map(c => {
+      const A = j.configs[c].antennas.map(a => (c === "C" && a.name === "N10" ? Object.assign({}, j.configs.C.with_N1_variant.N1_enu, { name: "N01" }) : a));
+      if (c === "C" && A.filter(a => a.name === "N01").length !== 1) throw new Error("VLA C: N10 not found for the N1 move");
+      return { id: c, name: c, ants: A.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: A.map(a => a.name), bmax: j.configs[c].bmax_m,
+        note: c === "C" ? "In the C configuration one antenna from the middle of the north arm stands on the central pad N1 (the VLA's Observational Status Summary), which CASA's file leaves empty; here the antenna of N10, the middle of the arm's nine pads (the pad is not published), so the shortest baseline is " + j.configs.C.with_N1_variant.bmin_m + " m (the Summary gives " + j.params.bmin_km.value.C * 1000 + " m)." : "" };
+    }),
     // the largest angular scale, per band and configuration (the OSS's Table 3.1.1: full synthesis; half for a snapshot)
     las: { src: "the VLA's Observational Status Summary", cfgs: j.las_table.configs, bands: Object.fromEntries(j.las_table.bands.map((b, k) => [b, { nu: j.las_table.freq_GHz[k], v: j.las_table.values[b] }])) },
     elNote: "The VLA's hard lower limit, " + j.elev_limit_deg + "° (the Guide to Observing with the VLA).",
@@ -36,7 +42,7 @@ const out = [];
     pb: { k: j.pb_relation.fwhm_coeff },
     pbSource: j.pb_relation.fwhm_coeff + " λ / D: the ALMA Cycle " + j.cycle + " Technical Handbook",
     lasSource: "the ALMA Technical Handbook's 0.983 λ / L5 (Eq. 7.6)",
-    elNote: "The antennas' hardware limit, " + j.elev_limit_deg + "° (the 2001 ALMA Project Book; no current value found). The Proposer's Guide asks only that a source transit above " + j.min_transit_elev_deg + "°.",
+    elNote: "The antennas' hardware limit, " + j.elev_limit_deg + "° (the 2001 ALMA Project Book; no current value found). The Proposer's Guide sets an upper declination limit of +47°, where a source transits " + j.min_transit_elev_deg + "° above the horizon.",
     antNote: "The notional " + j.n_ant_cfg + "-antenna set of each configuration (CASA's files). The real configurations have " + j.n_ant_config + " pads, with at least " + j.n_ant_offered_min + " antennas offered.",
     bands: j.bands.map(b => ({ k: String(b.band), name: b.name + "  " + b.lo_GHz + "–" + b.hi_GHz + " GHz", lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz, rep: b.rep_GHz })),
     configs: Object.keys(j.configs).map(c => ({ id: c, name: c, ants: j.configs[c].antennas.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: j.configs[c].antennas.map(a => a.name), bmax: j.configs[c].lmax_m })),
@@ -57,12 +63,17 @@ const out = [];
     antNote: "The Deep Synoptic Array (DSA, formerly DSA-2000): the " + c.antennas.length + "-dish design of the Final Design Review (2026), from the project's sensitivity calculator.",
     bands: [{ k: "dsa", name: b.lo_GHz.toFixed(1) + "–" + b.hi_GHz.toFixed(1) + " GHz", lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz }],
     configs: [{ id: "FDR", name: "Final design", ants: c.antennas.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: c.antennas.map(a => a.name), bmax: c.bmax_m }],
+    // the calculator's targeted tracks end 2 h of hour angle either side of the transit: the Duration slider stops
+    // at 4 h of hour angle
+    haMax: j.tracking.max_abs_ha_h,
+    durNote: "The DSA Sensitivity Calculator limits a targeted track to ±" + j.tracking.max_abs_ha_h + " h of hour angle around the transit (longer requests are split over several transits), so the slider stops there.",
     defaults: { cfg: "FDR", band: "dsa", nu: 1.35, dec: 40, dur: 0.35 },
   });
 }
 
 // ---- Arecibo (data/interf/arecibo.json): a single dish, the Gregorian feed's illuminated 213 x 237 m of the 305 m
-// reflector (taken as uniformly lit; 213 m north-south on the meridian, INFERRED), within 19.7 deg of the zenith; the
+// reflector (taken as uniformly lit; the 213 m along the uphill-downhill (zenith-angle) direction, EXPP, so north-south
+// on the meridian), within 19.7 deg of the zenith; the
 // Gregorian receivers (the carriage-house line feed, which lit the whole dish, left out)
 {
   const j = rd("arecibo.json"), il = j.illuminated;
@@ -70,7 +81,7 @@ const out = [];
   const lbw = j.beam.find(b => b.receiver === "lbw");
   out.push({
     id: "arecibo", name: "Arecibo 305 m", site: "Puerto Rico", lat: j.site.lat_deg, dish: j.dish_m, elLimit: 0,
-    single: { ew: il.ew_m, ns: il.ns_m, note: "The real illumination tapers to " + il.illumination.edge_taper_db + " dB at the edge, and the platform and the Gregorian dome block part of the aperture." },
+    single: { ew: il.ew_m, ns: il.ns_m, note: "The Gregorian feed was designed to taper the illumination to " + il.illumination.edge_taper_db + " dB at the edge (the 1992 design memo; NAIC's 2004 beam page gives \"a geometric taper of about 9\" dB), and the platform and the Gregorian dome block part of the aperture." },
     zenLimit: j.zenith_limit_deg, decRange: j.dec_range_deg, pb: { k: 1 }, pbSource: "",
     dishNote: "The 305 m telescope stopped observing after an auxiliary cable failed on 10 August 2020; NSF announced the telescope's decommissioning on 19 November 2020, and the instrument platform fell into the dish on 1 December 2020.",
     beamNote: "Measured with the L-wide receiver at " + lbw.freq_GHz + " GHz: " + lbw.fwhm_az_arcmin + "′ × " + lbw.fwhm_za_arcmin + "′ (azimuth × zenith angle). The measured first sidelobe is " + (100 * Math.min(...j.sidelobes.first_peak_frac_heiles2001.map(q => q.frac))).toFixed(1) + "–" + (100 * Math.max(...j.sidelobes.first_peak_frac_heiles2001.map(q => q.frac))).toFixed(1) + "% of the peak (Heiles et al. 2001): the blockage raises the sidelobe above the uniform aperture's 1.75%.",
@@ -116,15 +127,15 @@ const fBand = (lo, hi) => (hi < 1 ? Math.round(lo * 1000) + "–" + Math.round(h
   out.push({
     id: "vlba", name: "VLBA", site: "Hawaii to the Virgin Islands", lat: meanLat(P), geo: { lon0: meanLon(P) }, dish: j.dish_m, elLimit: j.elev_limit_deg, unit: "stations",
     pb: { arcminGHz: j.pb_relation.fwhm_arcmin_x_GHz },
-    pbSource: "θ ≈ " + j.pb_relation.fwhm_arcmin_x_GHz.toFixed(1) + "′ / ν(GHz): measured at " + j.pb_relation.measured_freq_GHz.toFixed(2) + " GHz (Middelberg et al. 2013) and scaled as 1 / ν",
-    elNote: "NRAO's practical limit, " + j.elev_limit_deg + "° (" + j.elev_recommended_deg + "° recommended; the antennas reach " + j.elev_mech_deg + "°). Each station's horizon mask applies too: the terrain by azimuth, up to " + Math.max(...st.map(s => Math.max(...s.horizon_mask.el_deg))) + "° at St. Croix (SCHED's station catalog).",
+    pbSource: "θ ≈ " + j.pb_relation.fwhm_arcmin_x_GHz.toFixed(1) + "′ / ν(GHz): measured at " + j.pb_relation.measured_freq_GHz.toFixed(2) + " GHz (Middelberg et al. 2013) and scaled as 1 / ν (a single measurement; the other receivers' feeds light the dish differently, so their beams may differ)",
+    elNote: "NRAO's practical limit, " + j.elev_limit_deg + "° (" + j.elev_recommended_deg + "° recommended; below 1 GHz and above 40 GHz the practical limit is closer to 20°, the proposing guide; the antennas reach " + j.elev_mech_deg + "°). Each station's horizon mask applies too: the terrain by azimuth, up to " + Math.max(...st.map(s => Math.max(...s.horizon_mask.el_deg))) + "° at St. Croix (SCHED's station catalog).",
     antNote: "The Very Long Baseline Array: ten " + j.dish_m + " m antennas from Mauna Kea, Hawaii, to St. Croix in the Virgin Islands, operated by NRAO; the positions from the VLBA Observational Status Summary.",
     bminNote: "Los Alamos and Pie Town, New Mexico, " + j.baselines.shortest_km + " km apart.",
     bands: j.bands.map(b => ({ k: b.name, name: b.receiver + "  " + fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz, stations: b.stations })),
     configs: [{ id: "vlba", name: "Ten stations", ants: P, names: st.map(s => s.code), full: st.map(s => s.location), masks: st.map(s => ({ az: s.horizon_mask.az_deg, el: s.horizon_mask.el_deg })), bmax: j.baselines.longest_km * 1000 }],
     ranges: { size: [-4, 0.5], field: [-3.5, 1] },
     defaults: { cfg: "vlba", band: "U", nu: 15, dec: 30, dur: 8, sky: "corejet", size: 0.01, field: 0.02 },
-    durNote: "The default 8 h is the time on the source assumed by the Status Summary's sensitivity table; NRAO gives no typical track.",
+    durNote: "The default 8 h is the total on-source integration time the Status Summary's sensitivity table assumes (a real track is longer, with calibrators and slews); NRAO gives no typical track.",
   });
 }
 
@@ -140,8 +151,8 @@ const fBand = (lo, hi) => (hi < 1 ? Math.round(lo * 1000) + "–" + Math.round(h
   out.push({
     id: "eht2017", name: "EHT 2017", site: "Hawaii, Arizona, Mexico, Chile, Spain, South Pole", lat: 0, geo: { lon0 }, dish: 12, elLimit: 0, unit: "stations",
     pb: { k: j.pb.apex_k_lambda_over_D },
-    pbSource: j.pb.apex_k_lambda_over_D + " λ / D for APEX's 12 m dish (" + j.pb.apex_fwhm_arcsec + "″ at " + j.pb.apex_freq_GHz + " GHz; EHT 2019 Paper II); the larger dishes' beams are narrower, and none matters at these scales",
-    elNote: "0°: each station's own limit holds, ALMA and APEX 20°, the SMT 25° (the M87 tracks of 2017), JCMT 12° and the SMA 16° (the lowest elevations in the released data), the IRAM 30 m 9° and the LMT 0° (mechanical); none found for the SPT.",
+    pbSource: j.pb.apex_k_lambda_over_D + " λ / D for APEX's 12 m dish (" + j.pb.apex_fwhm_arcsec + "″ at " + j.pb.apex_freq_GHz + " GHz; EHT 2019 Paper II). The single dishes' beams differ (a phased array's beam is one element's: ALMA's 12 m, the SMA's 6 m, wider than APEX's), and none matters at these scales",
+    elNote: "0°: each station's own limit holds. Only the IRAM 30 m's 9° and the LMT's 0° are mechanical. The others are read from the M87 tracks of 2017: the tracks ended when M87 set below 20° at ALMA (Paper III), which also cut APEX on the same site; M87 rises behind the Large Binocular Telescope as seen from the SMT, so the SMT starts at 25° toward M87 only (Paper IV); JCMT's 12° and the SMA's 16° are the lowest elevations in the released data. The page applies them at every declination and azimuth, so other sources' tracks are cut shorter than the stations require; none found for the SPT.",
     antNote: "The Event Horizon Telescope of April 2017 at 1.3 mm: eight stations at six sites. Phased ALMA (37 dishes) and the phased SMA count as single stations; the dish sizes are the 2017 effective diameters, and the baselines are weighted by the stations' SEFDs (EHT 2019 Papers II and III).",
     bminNote: "JCMT and the SMA, " + Math.round(j.baselines.shortest_m) + " m apart on Maunakea; ALMA and APEX are " + (Math.hypot(st[0].X_m - st[1].X_m, st[0].Y_m - st[1].Y_m, st[0].Z_m - st[1].Z_m) / 1000).toFixed(1) + " km apart: the only short spacings in the array.",
     durNote: "The default, " + (tr[1] - tr[0]).toFixed(1) + " h centered on the transit at " + Math.abs(lon0) + "° W, is the M87 track of 2017 April 11 (" + tr[0].toFixed(2) + "–" + tr[1].toFixed(2) + " h UTC).",
@@ -149,51 +160,59 @@ const fBand = (lo, hi) => (hi < 1 ? Math.round(lo * 1000) + "–" + Math.round(h
     configs: [{ id: "2017", name: "April 2017", ants: P, names: st.map(s => LBL[s.name] || s.name), full: st.map(s => s.full_name + ", " + s.site), dishes: st.map(s => s.dish_eff_m), sefd: st.map(s => s.sefd_jy), elMin: st.map(s => s.el_limit_deg || 0), bmax: j.baselines.all_longest_km * 1000 }],
     ranges: { size: [-5.5, -2], field: [-5, -1.5] },
     // (uniform weighting by default, as for the EHT's own CLEAN beam: natural weighting lets ALMA's baselines dominate)
-    defaults: { cfg: "2017", band: "high", wt: "uniform", nu: j.bands[1].center_GHz, bw: j.bands[1].bw_GHz, dec: +j.target.dec_deg.toFixed(2), dur: +(tr[1] - tr[0]).toFixed(2), sky: "crescent", size: j.ring_model.adopted.diameter_uas * 1e-6, field: 1.6e-4 },
+    defaults: { cfg: "2017", band: "high", wt: "uniform", nu: j.bands[1].center_GHz, bw: j.bands[1].bw_GHz, dec: +j.target.dec_deg.toFixed(2), dur: +(tr[1] - tr[0]).toFixed(2), sky: "m87", size: j.ring_model.adopted.diameter_uas * 1e-6, field: 1.6e-4 },
   });
 }
 
-// ---- CHIME (data/interf/chime.json): four 20 x 100 m cylinders, 256 feeds each by the published rule, less the 16
-// end feeds per cylinder masked permanently (960 feeds); a transit array: the beam ~1.0 deg / nu(GHz) east-west
-// (DERIVED from 2.5 and 1.3 deg at the band's edges) by ~110 deg north-south (CHIME/FRB 2018)
+// ---- CHIME (data/interf/chime.json): four 20 x 100 m cylinders, 256 feeds each by the published rule, less the 8
+// feeds at each end of each cylinder, masked since December 2019 (960 feeds); a transit array: the beam ~1.0 deg /
+// nu(GHz) east-west (DERIVED from 2.5 and 1.3 deg at the band's edges) by ~110 deg north-south (CHIME/FRB 2018); the
+// field north of -11 deg (the CHIME/FRB catalog; audit X, 2026-11-16: was a DERIVED -5.7)
 const chime = rd("chime.json");
 {
   const j = chime, fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked), cy = j.cylinders;
+  // (the longest baseline of the 960 feeds kept; the record's bmax is the 1,024-feed rule's)
+  let bm = 0; for (let i = 0; i < fe.length; i++) for (let k = i + 1; k < fe.length; k++) bm = Math.max(bm, Math.hypot(fe[i].e - fe[k].e, fe[i].n - fe[k].n, fe[i].u - fe[k].u));
   out.push({
-    id: "chime", name: "CHIME", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
+    id: "chime", name: "CHIME", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg, 90],
     fixedWho: "CHIME's cylinders", unit: "feeds", unitOne: "feed", unitTail: " on " + cy.n + " cylinders", cyl: cy.center_e_m.map(e => [e, 0, cy.width_m, cy.length_m]),
     pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
-    pbSource: "east-west ≈ " + j.pb_relation.ew_fwhm_deg_x_GHz.toFixed(1) + "° / ν(GHz), from " + j.pb_relation.ew_fwhm_deg_band_edges["0.4"] + "° at 400 MHz and " + j.pb_relation.ew_fwhm_deg_band_edges["0.8"] + "° at 800 MHz; north-south ≈ " + j.pb_relation.ns_fwhm_deg + "° (CHIME/FRB 2018)",
-    reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°: the beam reaches " + j.pb_relation.ns_fwhm_deg / 2 + "° from the zenith, half its north-south extent, so CHIME sees three quarters of the sky each day as the Earth turns.",
-    antNote: "The Canadian Hydrogen Intensity Mapping Experiment: 1,024 feeds, " + j.feeds.per_cylinder + " on each cylinder's focal line " + j.feeds.spacing_m + " m apart; the 16 at the ends of each cylinder are masked permanently and left out here. The feed positions follow the published rule (no survey of the feeds is public).",
+    pbSource: "east-west ≈ " + j.pb_relation.ew_fwhm_deg_x_GHz.toFixed(1) + "° / ν(GHz), from " + j.pb_relation.ew_fwhm_deg_band_edges["0.4"] + "° at 400 MHz and " + j.pb_relation.ew_fwhm_deg_band_edges["0.8"] + "° at 800 MHz (the field of view of CHIME/FRB 2018); north-south ≈ " + j.pb_relation.ns_fwhm_deg + "°. The measured beams follow the 1 / ν scaling (holography: CHIME 2022 Fig. 17, CHIME 2024), about 20% wider in the X polarization than in Y; the relation matches X",
+    reachNote: "Declinations above " + j.drift.dec_south_limit_deg + "°: the CHIME/FRB search forms its beams to 60° on either side of the zenith along the meridian, so CHIME sees the sky north of " + j.drift.dec_south_limit_deg + "°, ≈ " + Math.round(j.drift.sky_fraction_north_of_limit * 100) + "% of the sphere, each day as the Earth turns (CHIME/FRB 2021); north of +" + j.drift.dec_twice_daily_deg + "° a source also crosses the beam below the pole, which the page does not model. CHIME's holography reaches −21° (CHIME 2022).",
+    antNote: "The Canadian Hydrogen Intensity Mapping Experiment: 1,024 feeds, " + j.feeds.per_cylinder + " on each cylinder's focal line " + j.feeds.spacing_m + " m apart; the 8 at each end of each cylinder, masked since December 2019 because their beams differ from the rest (CHIME 2022), are left out here. The feed positions follow the published rule (no survey of the feeds is public); the cylinders run A to D from west to east (CHIME 2024).",
     durNote: "CHIME/FRB 2018: " + j.drift.transit_min.equator.join(" to ") + " minutes at the equator and " + j.drift.transit_min.dec45.join(" to ") + " at declination 45°, across the band.",
     bands: j.bands.map(b => ({ k: "chime", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
     // (to 0.1 mm: millimeters would turn the 0.3048 m spacing into 0.304 or 0.305 m)
-    configs: [{ id: "chime", name: "Four cylinders", ants: fe.map(a => [a.e, a.n, a.u].map(x => Math.round(x * 1e4) / 1e4)), names: fe.map(a => a.name), bmax: j.configs.CHIME.bmax_m }],
+    configs: [{ id: "chime", name: "Four cylinders", ants: fe.map(a => [a.e, a.n, a.u].map(x => Math.round(x * 1e4) / 1e4)), names: fe.map(a => a.name), bmax: Math.round(bm * 1e4) / 1e4 }],
     ranges: { size: [2, 4.6], field: [2.5, 4.8] },
     defaults: { cfg: "chime", band: "chime", nu: 0.6, dec: 40, dur: 24, sky: "points", size: 5 * 3600, field: 8 * 3600 },
   });
 }
 
-// ---- CHIME and the CHIME/FRB Outriggers: CHIME's 960 feeds and the three outrigger stations (KKO, HCO, GBO), each
-// outrigger's feeds phased into one station at the station's fitted position (KKO24, VLBI26); the SEFD of a phased
-// station of N feeds taken as one feed's 40,000 Jy / N (DERIVED); the outriggers' beams turned to overlap CHIME's
+// ---- CHIME and the CHIME/FRB Outriggers: CHIME and the three outrigger stations (KKO, HCO, GBO), each phased into
+// one station, as the VLBI forms one beam at the CHIME core and at each outrigger (VLBI26; audit X, 2026-11-16: CHIME
+// had been 960 separate feeds, which a random draw of pairs then weighted); the outriggers at their fitted positions
+// (KKO24, VLBI26), CHIME at its own (EPH); the SEFD of a station of N phased feeds the ideal 40,000 Jy / sqrt(N (N - 1))
+// of the radiometer equation (HCO26); the outriggers' beams turned to overlap CHIME's
 {
-  const j = chime, site = [j.site.lat_deg, j.site.lon_deg, j.site.elev_m], fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked);
+  const j = chime, fe = j.configs.CHIME.antennas.filter(a => !a.edge_masked);
   const O = ["KKO", "HCO", "GBO"].map(k => Object.assign({ k }, j.outriggers.stations[k]));
-  const P = fe.map(a => enuToGeo(site, a.e, a.n, a.u)).concat(O.map(o => [o.lat_deg, o.lon_deg, o.h_ellipsoid_m])).map(q => [r9(q[0]), r9(q[1]), r3(q[2])]);
-  const sf = j.sensitivity.sefd_per_feed_Jy;
+  const P = [[j.site.lat_deg, j.site.lon_deg, j.site.elev_m]].concat(O.map(o => [o.lat_deg, o.lon_deg, o.h_ellipsoid_m])).map(q => [r9(q[0]), r9(q[1]), r3(q[2])]);
+  const sf = j.sensitivity.sefd_per_feed_Jy, bf = N => sf / Math.sqrt(N * (N - 1)), N = [fe.length].concat(O.map(o => o.n_feeds));
+  const SE = N.map(bf), fJy = x => Math.round(x).toLocaleString("en-US");
   out.push({
-    id: "chimeout", name: "CHIME + outriggers", site: "British Columbia, California, West Virginia", lat: j.site.lat_deg, geo: { lon0: j.site.lon_deg }, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg_derived, 90],
-    fixedWho: "The cylinders", unit: "", unitTail: " (" + O.length + " outriggers)", unitMany: "feeds",
+    id: "chimeout", name: "CHIME + outriggers", site: "British Columbia, California, West Virginia", lat: j.site.lat_deg, geo: { lon0: j.site.lon_deg }, dish: j.feeds.spacing_m, elLimit: 0, transit: true, decRange: [j.drift.dec_south_limit_deg, 90],
+    fixedWho: "The cylinders", unit: "stations", unitTail: " (CHIME and " + O.length + " outriggers)", unitMany: "stations",
     pb: { ew: { arcminGHz: j.pb_relation.ew_fwhm_deg_x_GHz * 60 }, ns: { deg: j.pb_relation.ns_fwhm_deg } },
     pbSource: "CHIME's beam",
-    reachNote: "Declinations above " + j.drift.dec_south_limit_deg_derived + "°, as for CHIME: the outriggers see the source as the source crosses CHIME's beam.",
-    antNote: "The CHIME/FRB Outriggers localize the bursts CHIME finds: KKO (" + O[0].n_feeds + " feeds, " + O[0].chord_km.toFixed(0) + " km from CHIME), HCO (" + O[1].n_feeds + " feeds, " + O[1].chord_km.toFixed(0) + " km) and GBO (" + O[2].n_feeds + " feeds, " + O[2].chord_km.toLocaleString("en-US", { maximumFractionDigits: 0 }) + " km), each a cylinder whose feeds are phased into one station. The outriggers' cylinders are turned so that their beams overlap CHIME's. Each baseline is weighted by its two SEFDs: one feed's " + sf.toLocaleString("en-US") + " Jy, and a phased outrigger's " + sf.toLocaleString("en-US") + " Jy divided by its feeds.",
-    bminNote: "Two neighboring feeds on one of CHIME's cylinders, " + j.feeds.spacing_m + " m apart.",
+    reachNote: "Declinations above " + j.drift.dec_south_limit_deg + "°, as for CHIME: the outriggers see the source as the source crosses CHIME's beam.",
+    antNote: "The CHIME/FRB Outriggers localize the bursts CHIME finds by VLBI: KKO (" + O[0].n_feeds + " feeds, " + O[0].chord_km.toFixed(0) + " km from CHIME), HCO (" + O[1].n_feeds + " feeds, " + O[1].chord_km.toFixed(0) + " km) and GBO (" + O[2].n_feeds + " feeds, " + O[2].chord_km.toLocaleString("en-US", { maximumFractionDigits: 0 }) + " km), single cylinders turned so that their beams overlap CHIME's. The VLBI phases CHIME's " + fe.length + " feeds and each outrigger's feeds into one station each (Andrew et al. 2026), so the array has six baselines. Each baseline is weighted by its two stations' SEFDs, the ideal values of the radiometer equation, one feed's " + sf.toLocaleString("en-US") + " Jy / √(N (N − 1)) for N phased feeds (Lazda et al. 2026): CHIME " + fJy(SE[0]) + " Jy, KKO " + fJy(SE[1]) + " Jy, HCO and GBO " + fJy(SE[2]) + " Jy. HCO's measured medians are 390 Jy (YY) and 530 Jy (XX), and KKO's about twice HCO's; none is published for GBO. Whether the real VLBI also uses the baselines between outriggers (to 3,506 km, HCO–GBO), which are in practice too faint for most bursts (Andrew et al. 2026), is not published; the page keeps them.",
+    bminNote: "CHIME and KKO, " + O[0].chord_km.toFixed(0) + " km apart.",
     durNote: "A fast radio burst lasts milliseconds, one snapshot (the default); a steady source can be followed through CHIME's beam.",
     bands: j.bands.map(b => ({ k: "chime", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
-    configs: [{ id: "out", name: "Four sites", ants: P, names: fe.map(a => a.name).concat(O.map(o => o.k)), groups: fe.map(() => "CHIME").concat(O.map(o => o.k)), sefd: fe.map(() => sf).concat(O.map(o => sf / o.n_feeds)), keep: O.map((_, k) => fe.length + k), bmax: j.configs.CHIME_OUTRIGGERS.bmax_m }],
+    configs: [{ id: "out", name: "Four stations", ants: P, names: ["CHIME"].concat(O.map(o => o.k)),
+      full: ["four 20 × 100 m cylinders, " + fe.length + " feeds phased", "a 20 × 40 m cylinder, " + O[0].n_feeds + " feeds phased", "a 20 × 80 m cylinder, " + O[1].n_feeds + " feeds phased", "one cylinder, " + O[2].n_feeds + " feeds phased"],
+      dishes: [0, 0, 0, 0], sefd: SE, bmax: j.configs.CHIME_OUTRIGGERS.bmax_m }],
     ranges: { size: [-3, 4.6], field: [-3, 4.8] },
     defaults: { cfg: "out", band: "chime", nu: 0.6, bw: 0.4, dec: 40, dur: 0, sky: "point", size: 0.05, field: 1 },
   });
@@ -206,10 +225,11 @@ const chime = rd("chime.json");
   const j = rd("chord.json"), C = j.configs;
   out.push({
     id: "chord", name: "CHORD", site: "DRAO, British Columbia", lat: j.site.lat_deg, dish: j.dish_m, elLimit: 0, transit: true, fixedWho: "CHORD's dishes", unitOne: "dish", decRange: j.pointing.dec_range_deg,
+    aliases: true, aliasNote: "λ / " + j.grid.dn_m + " m north-south (foreshortened as the dishes tilt from the zenith) and λ / " + j.grid.de_m + " m east-west, nearly as bright as the main lobe in a snapshot at one frequency (at 21 cm \"The north alias is about 1.4 degrees away, and the east alias is about 1.9 degrees away\", Hopkins et al. 2026)",
     pb: { arcminGHz: j.pb_relation.fwhm_deg_x_GHz * 60 },
-    pbSource: j.pb_relation.k_lambda_over_D + " λ / D = " + j.pb_relation.fwhm_deg_x_GHz.toFixed(2) + "° / ν(GHz) for the " + j.dish_m + " m dishes (2.4° at 1420 MHz; the CHORD design papers)",
-    reachNote: "Declinations " + j.pointing.dec_range_deg.map(d => "+" + d + "°").join(" to ") + ": the dishes are fixed in azimuth on the meridian, and their elevation is reset by hand every few months, so the array surveys one strip of declination at a time as the sky drifts through the beams.",
-    antNote: "The Canadian Hydrogen Observatory and Radio-transient Detector, under construction next to CHIME: 64 dishes installed by April 2026, the full core planned for the end of 2027. The positions are read from the published layout figure (no table is public), on a grid rotated 2° from north; the sense of the rotation is uncertain.",
+    pbSource: j.pb_relation.k_lambda_over_D + " λ / D = " + j.pb_relation.fwhm_deg_x_GHz.toFixed(2) + "° / ν(GHz) for the " + j.dish_m + " m dishes (2.4° at 1420 MHz, Bij et al. 2026). The measured beams are near the diffraction limit in one plane and up to 2.5° wider in the other below 1.1 GHz (Bandura et al. 2026), so one circular beam is a middle value",
+    reachNote: "Declinations " + j.pointing.dec_range_deg.map(d => "+" + d + "°").join(" to ") + ": the dishes are fixed in azimuth on the meridian (INFERRED), and their elevation is to be reset by hand every few months or less often, so the array surveys one strip of declination at a time as the sky drifts through the beams.",
+    antNote: "The Canadian Hydrogen Observatory and Radio-transient Detector, under construction next to CHIME: 64 dishes installed by April 2026, the full core planned for the end of 2027. The positions are read from a published schematic (Bij et al. 2026; no table is public), on a grid turned 2° anticlockwise from north, the sense of the UTM grid at DRAO; the schematic draws the rows turned the other way, and no source settles which is right. The two 64-dish outrigger stations, at Hat Creek and Green Bank, are left out.",
     bands: j.bands.map(b => ({ k: "chord", name: fBand(b.lo_GHz, b.hi_GHz), lo: b.lo_GHz, hi: b.hi_GHz, bw: b.bw_GHz })),
     configs: [["core", "Core"], ["pathfinder", "Pathfinder"]].map(([id, name]) => ({ id, name, ants: C[id].antennas.map(a => [mm(a.e), mm(a.n), mm(a.u)]), names: C[id].antennas.map(a => a.name), bmax: C[id].bmax_m })),
     ranges: { size: [2, 4.8], field: [2.5, 4.9] },

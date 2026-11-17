@@ -2,6 +2,23 @@
 
 Compiled 2026-10-16 for the instex Spectrograph Explorer. Every number below comes from a document saved unmodified under `rawdata/presets/<instrument>/`; the source key, location and a short quote accompany each value. **DERIVED** marks arithmetic done here from sourced values (the arithmetic is shown). Quotes come from pdftotext/HTML text with glyphs normalised (degree signs, double primes); for the two ADS scans (Oke et al. 1995; Oke & Gunn 1982) the quotes come from the OCR text layer, with key values checked against the page images.
 
+## Superseded by the audit of 2026-11-16 (DESI: data/audit/2026-11-16_S2_desi_boombox_via.md; DEIMOS, Binospec, X-Shooter: ..._S3_deimos_binospec_xshooter.md)
+
+- DESI: the central wavelengths are now 4809 / 6768 / 8712 Å, which place each chip on the range Guy et al. 2023 Fig. 14 shows (3561–5996, 5631–7823, 7413–9907 Å); the band middles put the chips 44–78 Å too blue. The DERIVED dispersions 0.58 / 0.51 / 0.58 Å/px here are 2–5% off; the measured ranges give 0.594 / 0.535 / 0.609. The R and Z CCDs are 4114 × 4128 (G23 Sec. 2.4), not 4096 × 4096.
+- DEIMOS: the calibrated DEEP2 and PypeIt optical models use a 382.0 mm camera (sysinit.pro, DEIMOSOpticalModel) against the 381.0 mm (15.00 in) here, and 1200.06 /mm; the effect is −0.25% in Å/px. The N13 dispersion (0.33 Å/px) is scored.
+- Binospec: the beam is ≈ 208 mm (Fabricant et al. 2019); the measured R (Fabricant et al. 2025 Sec. 7.2, R = 4200 at 6563 Å from Gauss–Hermite fits) is a fitted width and is now a reference line beside the MMTO table.
+- X-Shooter: each arm's band (the dichroics: 2936–5930, 5253–10489, 9827–24807 Å), the orders the detectors hold (VIS λc 6821 Å, NIR 13763 Å), the NIR slit focal ratio from ESO's physical model (0.52266 mm/″ on the 8115 mm pupil: f/13.285), and the published R as fitted line widths. ESO's spectral-format tables (xsh-calib-1.2.0) put VIS orders 16–30 1564 px apart and NIR orders 11–26 928 px apart; the model's prisms give 15% and 9% more (cause open).
+
+## Superseded by the audit of 2026-11-16, second part (HIRES, MIKE, HARPS, LRIS: data/audit/2026-11-16_S1_hires_mike_harps_lris.md; Hectospec, Hectochelle, G-CLEF: ..._S4_hectospec_hectochelle_gclef.md)
+
+- MIKE: the central wavelengths 6750 / 4100 Å (geometric means of the LCO end wavelengths) put orders 30–66 and 63–103 on the chips; the LCO manual publishes the standard setting's orders (37–70 and 71–106), which λc 6100 / 3900 Å reproduce. The blue cross-disperser is entered as Bernstein et al. 2003's "equivalent of a single 62 deg apex angle prism" in double pass (four minimum-deviation passes of the 38° prisms gave 5% too little); the design order spans of their Fig. 6 (orders 32–68: 29.27 mm; 74–107: 29.21 mm) are scored and match to 0.2%. The blue echelle is 52.67 /mm (Richardson 53-*-417E). The camera offset is out of the dispersion plane (γ ≈ 1.7° / 1.6°, INFERRED). The as-built R (22,000 / 28,000) and scales (7.5 / 8.2 px per arcsecond, Bernstein et al. 2015) are reference lines.
+- HARPS: the grism apex is 14.5° (DERIVED from "blazed at 480nm" with the facet equal to the apex, INFERRED; a new input, xGrA), not set from λc; the echelle is the UVES red mosaic (75.04°) turned to 75.3° at the chip center (the exposure-time calculator's m λ); the chip gap counted in the height. The four tabulated order separations now match to ≤ 2% (were up to 4.7%).
+- HIRES: the scored R is the measured 50,000 (red cross-disperser, ThAr near 5240 Å), not the calculated column; the orders outgrow the mosaic near 6360 Å (the manual's App. E), not "about 6000 Å".
+- LRIS: the grating table's 4.7 Å FWHM is not stated as measured and has no wavelength.
+- Hectospec: the delivered grating is blazed at 4.1° (Richardson test sheet MR192-1-1-1: 5296 Å in Littrow), not 5200 Å; the coverage test is the manual's table (5660 Å over 4608 px), and the arc-line FWHMs (5.8 Å at 4500 Å, 5.0 Å at 7000 Å) are the measured resolution.
+- Hectochelle: the camera is 618.66 mm (the observers guide's App. E Table 5; the published prescription traces to 619–621 mm), not 642.6 mm (25.3 in) nor the 670.6 mm of the 0.49 reduction; the H3 survey's RV31 arc solutions give 0.03507 Å/px at 5229 Å and 5147.7–5307.0 Å, now scored; the RV31 filter (5230 ± 80 Å) bounds the coverage; the "measured" R 38,000 is a geometric argument's result, and the measured line FWHM is 3.4–4.2 px.
+- G-CLEF: the format center is ≈ 7450 Å (INFERRED from Ben-Ami et al. 2016 Fig. 15), the MR fiber 0.812″ (800 µm at f/8), the detector 9232 × 9216 (CCD290-99, INFERRED); the order-spacing check compares center spacings (105 px at orders 112–113); the published R is a Gaussian-fit width.
+
 ## Completeness summary
 
 **HIRES**: the most complete. The 1994 user manual (UCO/Lick TR 67) gives collimator and camera focal lengths, beam, echelle (52.68 gr/mm, 70.5 deg, 2theta = 10 deg in-plane), the red cross-disperser (250 gr/mm, as-made 4.3 deg blaze, 40 deg turn) and per-order dispersion. Keck pages give the 2004 three-chip MIT-LL mosaic and a calculated-plus-measured R table per decker. Missing: the as-built UV cross-disperser and a numeric gamma. **MIKE**: good optics from the 2002 author manuscript of the SPIE paper (500/550 mm double-pass camera-collimators, 150 mm pupil, R2 52.6 gr/mm / R2.6 52.7 gr/mm echelles, PBM2 47 deg and 2 x 38 deg fused-silica prisms). The LCO manual and Bernstein+2015 give the as-used performance and differ from the manuscript on R, f/#, scale and the blue echelle (R2.4 vs R2.6). Quasi-Littrow angles were NOT FOUND. **HARPS**: complete for the echelle, collimator, camera, detector and order format (User Manual 2.4). The grism apex angle and the in-plane angle were NOT FOUND; the four ESO sources disagree on R (115k vs 120k) and on sampling (3.2-4.1 px). **Long slit (chosen: Keck/LRIS red)**: collimator 2000 mm, camera 305 mm f/1.56, beam 141 mm, 44 deg camera-collimator angle, f/15 (f/13.7), and the Keck grating table (A/pix, coverage, FWHM for a 1" slit). Blaze angles come only as blaze wavelengths. **DESI**: all three arms. As-built VPH line densities and incidence angles (2022 overview), FDR camera focal lengths (f/1.7, ~213 mm) and collimator (f/3.57, 126 mm pupil), detectors, fibre and resolution ranges. The native A/pixel is DERIVED. **Glass**: Malitson fused silica (publisher abstract), SCHOTT N-BK7, N-FK5 and FK5HTi (datasheets), OHARA PBM 2Y and PBM 2R (datasheets) plus the OHARA formula definition. Plain "PBM2" and classic "FK5" datasheets were NOT FOUND.
@@ -429,6 +446,26 @@ Sources are the Via project's own documents (not downloaded; on disk): **VT** = 
 | detector | e2v CCD290-99, 9k x 9k, 10 um | | VT, Sec. Viaspec; VR, Summary | VT: "onto an e2v CCD290-99 9K $\times$ 9k CCD"; VR: "a single 9k $\times$ 9k CCD with $10\mu m$ pixels" (9k taken as 9216 px) |
 
 Published performance: R ~ 15,000 (VT: "Viaspec, an $R\approx15,000$ spectrograph that covers the wavelength range $505-595$ nm"); 5.5 km/s per pixel (VT, Wavelength Calibration: "The Viaspec velocity resolution at the detector is $5.5\kms$ pix$^{-1}$"). The requirements document's notional design (R = 20,000, 510-595 nm, 1.15" fibers) predates the technical document and is not used.
+
+### Via and Boombox: the audit of 2026-11-16 (data/audit/2026-11-16_S2_desi_boombox_via.md)
+
+Newer project documents on disk settle values the section above left open or guessed: **VSB** = `~/Documents/__Work/Via/Via_Science_Book.pdf` (Via Science Book, 2026-07-20); **TMR** = `~/Documents/__Work/Via/Viaspec_TechMemo_SpectralResolution_rev3.pdf` (Viaspec spectral-resolution tech memo, rev. 3, 2024-03-21); **VVS** = `~/Documents/__Work/Via/Viaspec_vital_stats.docx`; **VDS** = `~/Documents/__Work/Via/CCDs/Viaspec_Detectors_Specification.pdf` (2024-01); **BBL** = the Boombox Zemax layout in VT and VSB (`~/via/docs/technical/fig/Boombox_bench_layout.pdf`, measured against Zemax's own 200 mm scale bar).
+
+| parameter | value | source | quote or measurement |
+|---|---|---|---|
+| Viaspec collimator | 1375 mm (f/5.41 on 254 mm) | VVS; TMR | VVS: "Collimator focal length 1375 mm"; TMR EFL / magnification 409.881 / 0.29808 = 1375.1 mm (DERIVED) |
+| Viaspec camera | 409.881 mm at 5500 Å | TMR | "The nominal effective focal length (EFL) of the camera is 409.881 mm at 5500 Å" |
+| Viaspec grating setting | grating 33.57°, camera 33.57° to the grating (axis at 5530 Å, DERIVED) | TMR | "The tilt angle of the grating is 33.57°"; "The camera is tilted by 33.570° with respect to the grating" |
+| Viaspec ±5.7° | the field along the slit | TMR | "beams spanning ±5.7° about the y-axis" |
+| Viaspec slit mask | 120 µm (0.70″ at f/5.41) | VSB Sec. 2.3 | "We therefore use a 120 µm slit mask" |
+| Viaspec calibration lamp | argon | VSB | "Argon lamp lines are relayed through 60 fibers" |
+| Viaspec CCD | CCD290-99, 9232 rows × 9216 columns, 10 µm | VDS | "Rows 9232, Columns 9216" |
+| Boombox beam | 50 mm | VSB Sec. 2.1; BBL 49.7 mm | "Boombox, an R ≈ 1000 dual-channel spectrograph covering 360 < λ < 1010 nm with a 50-mm collimated beam" |
+| Boombox red band | 5700–10100 Å | VSB | "a red channel (5700 to 10100 Å)" (VT: 10000 Å) |
+| Boombox fiber cone, collimator | f/5.2, ≈ 260 mm | BBL | marginal-ray slopes ±0.0956 (MEASURED) |
+| Boombox gratings | blue: incidence 19.2°, symmetric at mid-band (1385 /mm at 4750 Å, INFERRED); red: incidence 24.8° | BBL | MEASURED ±0.5°; the red arm as drawn cannot reach 5700–10100 Å with a 70–75 mm camera (open question) |
+| Boombox cameras | f/1.5 (75 mm on 50 mm); ≈ 70–72 mm in BBL | VT, VSB; BBL | "custom f/1.5 refractive cameras" |
+| Boombox R ≈ 1000 | nominal (an input to the Via ETC) | VT, VSB | the team quotes R for an unmasked fiber with the full fiber diameter (VSB Fig. 12, "unmasked (R = 9000)") |
 
 # Round 2 (2026-10-17): Keck II/DEIMOS, MMT/Binospec, VLT/X-Shooter
 

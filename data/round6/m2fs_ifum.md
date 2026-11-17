@@ -2,6 +2,45 @@
 
 Same rules as rounds 1-5 (data/presets_research.md): every number comes from a document saved unmodified under `rawdata/presets/m2fs/` or `rawdata/presets/ifum/`; each value carries the source key, location and a short verbatim quote; **DERIVED** marks arithmetic done here from sourced values (shown); **EFFECTIVE** marks values derived so that the explorer reproduces published performance where the prescription is not published. Quotes were machine-checked (215 quote pieces, 0 failures) against the pdftotext (layout and raw) text of the PDFs, the tag-stripped text of the HTML pages, the string values of the ADS JSON records and the raw text of the repository files, with whitespace, case, primes and quotes, dashes and minus signs, micro signs, ligatures, the tilde operator and hyphenation normalized; " ... " joins non-adjacent pieces; table rows are quoted as whitespace-separated cells; typos in the sources are kept and marked [sic]. Machine-readable twin: `data/round6/m2fs_ifum.json`.
 
+## Superseded by the audit of 2026-11-16 (data/round6/m2fs_ifum_audit.md)
+
+The instruments' builder found the presets wrong; two audits re-checked them. The statements below in this file are
+superseded; the presets in web/presets.js follow the audit.
+
+- M2FS echelle: "groove_density: NOT FOUND" and the EFFECTIVE 51.74 /mm at 66.99° in true Littrow. The R2.6 (69°)
+  grating of M12 is Richardson's master 53-*-417E, 52.67 /mm, 204 x 408 mm (Richardson Gratings catalog 2014, Table
+  T3, PDF p. 19: "53-*-417E 52.67 69° 204 x 408"), the only R2.6 of that size; MIKE's blue echelle is the same ruling
+  (Bernstein et al. 2003, p. 4). Bailey et al. 2016's "R2.0" fails against the order numbers and every published R.
+- M2FS geometry: "the 8-10 deg camera-collimator opening angle is taken to lie across the dispersion ... no source
+  states the plane". M12's side views (Fig. 3, p. 6; Fig. 4 left, p. 7) and text (p. 5: the camera beam passes "just
+  below the injection optics"; "Due to the steep angle of incidence of the beam at this grating, about 7% of the light
+  is vignetted at the top and bottom ends") put the opening in the echelle's dispersion plane, with alpha > beta. With
+  52.67 /mm the arc-line dispersion (AJPID) requires alpha = 73.2 deg, beta = 66.6 deg, an opening of 6.6 deg
+  (DERIVED); the preset uses psi = 6.6 deg. The anamorphic factor cos alpha / cos beta = 0.73 makes R = 24,700 with
+  the 150 um core (published 24,000, W23, P23) and 33,400 with the 95 um slit (R16: ~34,000 measured; J20: ~32,000).
+- M2FS validation: the scored "R ~ 18,000 with the 180 um slit" joined two setups (JI23's multi-order MgWide setup,
+  not stated as measured; the single-order papers do not state the slit). Now an info line; R ~ 24,000 is scored.
+- M2FS pseudo-slit: the measured pitch is 18.1-20.3 px over tetrises 1-8 (19.6-20.3 was tetrises 1-4 only); the gaps
+  between groups 207-227 px; "31.3 px average" was the tetris pitch / 16, the mean interval is 30.0 px (DERIVED, AJPID).
+  The preset draws the groups: 16 per group, 290 um (19.3 px) pitch, 3206 um (214 px) between groups.
+- M2FS preset form (rebuilt later on 2026-11-16): HiRes is now an echelle preset with the F2 prism (23.6 deg, two
+  passes) as cross-disperser, alpha = 73.2 deg and beta = 66.6 deg from theta = 3.3 deg and an echelle tilt of 0.9 deg
+  off the blaze (eTilt). The model gives m x lambda = 356,004 A at the blaze center (AJPID: 355,789), 0.0327 A/px at
+  5160 A (0.0329), order spacings 28.3 / 27.8 / 27.2 px for orders 69-68 / 68-67 / 67-66 (measured 28.0 / 27.7 /
+  27.0; the first is scored), R = 24,960 with the 150 um core and 34,100 with the 95 um slit (DERIVED). The order
+  filter is the echelle preset's filt (5130-5190 A): order 69 and the edges of orders 68 and 70 pass. The Telescope
+  box shows the f/11 Nasmyth focus and the 1.2" apertures (telF, fibAp); IFUM shows f/11 and 1.9".
+- IFUM: the R values of C25 are not stated as measured (the note had "(measured)"); the 2022 team table (SUM22) gives
+  1000 and 4000. The 300 um value is reproduced by a Gaussian fit to the round fiber's line (FWHM 0.70 of the core
+  vs the true FWHM's 0.866); the 80 um value (3600) is not reproducible within 4800-6700 A.
+- IFUM: "the LSB pseudo-slit fills ~76% of the detector height" is wrong (C25 Fig. 1: ~97%); the fibers sit in 10
+  mounts of 18 per detector, one lenslet row per mount, zig-zag (C25 Fig. 1 caption). The pitch is unpublished; the
+  preset uses 21.5 px within a mount and 35 px between mounts, read from C25 Fig. 1 (INFERRED).
+- IFUM: 1.90" is the lenslets' equal-area diameter (C25); the center spacing is 1.82" (DERIVED). The LCO field sizes
+  34 x 35", 22 x 24", 13 x 14" are superseded by SUM22's 32.7 x 31.4", 23.9 x 21.6", 13.9 x 14.2".
+- IFUM coverage: the 6% excess over 4800-6700 A is the line curvature across the pseudo-slit (105-113 A in the IFUM
+  pipeline's STD wavelength solutions), not rounding.
+
 ## Round 6 completeness summary
 
 **M2FS**: the spectrograph prescription is nearly complete from Mateo et al. 2012 (SPIE 8446 preprint; M12): f/11 Nasmyth East of Clay; 150 um pupil-fed fibers (f/3.7 in, f/3.4 out) behind 1.2" apertures; 128 fibers per spectrograph in eight 16-fiber tetrises on a 300 um pitch; six post-fiber slits (180-45 um); a quasi-Littrow lens group used as collimator and camera (500 mm, f/3.4, 147 mm beam, 1:1); HiRes: R2.6 (69 deg) 200 x 420 mm echelle with a 23.6 deg Schott F2 prism in double pass and plane-parallel order-isolating filters; LoRes: swappable plane gratings (600 l/mm in use); two e2v 4096 x 4112 x 15 um CCDs (T17, W23). Gap that matters: the echelle groove density (NOT FOUND). EFFECTIVE G = 51.74 /mm at theta = 66.99 deg comes from the arc-line identifications of a published MgWide setup (Ji pipeline, AJPID: m x lambda = 355,789 A, 156,944 per px); with the sourced F2 prism the same echelle reproduces the measured order spacing to 1.5% (DERIVED). Recommended: (A) HiRes single order 69 at Mg b, 128 fibers per detector, the most published setup (W23, P23, W15, W16); (B) HiRes four-order MgWide (28 fibers, orders 69-66) or the six-order Bulge_GC1 (24 fibers, orders 58-53, J15); (C, optional) LoRes 600 l/mm. Published HiRes R at the 125 and 95 um slits exceeds the geometric values by 19-49% (Conflicts).

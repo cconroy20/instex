@@ -2,6 +2,10 @@
 
 Compiled 2026-10-19 for the instex TELESCOPES mode, in the format of `data/telescopes/hst.md` and `keck.md`. Machine-readable twin: `data/telescopes/jwst.json`. Every number comes from a document saved unmodified under `rawdata/telescopes/jwst/` or, marked SAME FILE, under `rawdata/imaging/jwst_nircam/` (the files behind `data/imaging/space_wide.json`); each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). FIGURE READ-OFF marks a value read off a saved figure. The STPSF pupil tables were parsed as text (never imported or run). Quote check: 102 quoted entries checked against the saved files: 90 matched in the text layer (pdftotext -layout and -raw per page; HTML tag-stripped and raw; .py/.rst raw text), 9 in tesseract OCR of figure renders, 3 FIGURE READ-OFF entries checked visually (labels on a photograph or image without readable text), 0 failing; plus 8 short quotations inside notes checked the same way. Unicode NFKC; curly quotes, primes, en/em dashes, minus, multiplication sign (to x), division slash, tilde operator, soft hyphen and non-breaking/thin spaces normalised; whitespace collapsed; a quote also passes with PDF line-end hyphenation removed or kept as a hyphen, or with all whitespace removed (superscripts such as 'm2'); ' ... ' joins non-adjacent pieces; table rows are quoted as whitespace-separated cells.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_T1_telescopes.md)
+
+- The scored area 25.779 m² is the STPSF geometric clear area, which the drawn gap width was set to match; the measured value is 25.44 m² (McElwain et al. 2023 Sec. 5.4), 1.3% less. The 16 mm drawn gaps are a drawing choice.
+
 Coordinates: V1 = boresight (origin at the primary vertex), +V3 away from the sunshield, +V2 completes a right-handed set. Pupil drawings here use the entrance pupil seen from the sky looking in, x = +V2 (right), y = +V3 (up), as in STPSF and the JDox Figure 1 photograph. [PDF p. N] is the page of the saved PDF.
 
 ## Completeness summary

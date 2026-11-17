@@ -471,6 +471,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await go("#preset=hectochelle");
     const sm = await ev(`(e => [+e.max, +e.value])(document.getElementById("sM"))`);
     check("slider ranges widen to a preset's value (Hectochelle order 31)", sm[0] >= 31 && sm[1] === 31, `max ${sm[0]}, value ${sm[1]}`);
+    // an order-isolating filter and fibers in groups (M2FS): no overlap warning, the filter's band as the range, the
+    // traces in eight groups of 16, both in the link and back
+    await go("#preset=m2fsmgb");
+    {
+      const r = await ev(`(() => { const D = window.__instex.design(); return { range: D.range.map(x => Math.round(x * 1e4)), flags: D.flags.map(f => f.k), cov: document.querySelector("#stats").textContent, gap: [...document.querySelectorAll(".rd")].map(e => e.title).find(t => /groups of 16/.test(t)) || "" }; })()`);
+      check("M2FS: the order filter's band 5130–5190 Å is the range, no overlap warning; the gap readout gives the groups of 16", r.range[0] === 5130 && r.range[1] === 5190 && !r.flags.includes("ord") && /5130–5190/.test(r.cov) && /8 groups of 16/.test(r.gap), JSON.stringify(r).slice(0, 300));
+      await go("#g.G=52.67&g.m=69&g.lamB1=354497&g.lamC=5160&g.psi=6.6&g.gType=refl&g.nObj=128&g.filt=" + encodeURIComponent("[5130,5190]") + "&g.fgroups=" + encodeURIComponent("[16,290,3206]"));
+      const r2 = await ev(`({ f: window.__instex.state().g.filt, g: window.__instex.state().g.fgroups, range: window.__instex.design().range.map(x => Math.round(x * 1e4)) })`);
+      check("the filter and the fiber groups round-trip through the link", JSON.stringify(r2.f) === "[5130,5190]" && JSON.stringify(r2.g) === "[16,290,3206]" && r2.range[0] === 5130, JSON.stringify(r2));
+      await go("#g.filt=" + encodeURIComponent("[5190,5130]") + "&g.fgroups=" + encodeURIComponent("[0,1,2]"));
+      const r3 = await ev(`({ f: window.__instex.state().g.filt, g: window.__instex.state().g.fgroups })`);
+      check("a reversed filter band or an empty group in the link is ignored", r3.f === null && r3.g === null, JSON.stringify(r3));
+    }
     // malformed links leave the defaults alone
     await go("#g.tAlpha=&g.colTilt=abc&g.pix=0&g.gType=foo&g.W=-5&D=xyz");
     const st = await ev(`window.__instex.state()`);
@@ -652,10 +665,10 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await go();
     await ev(`window.__instex.set({ mode: "echelle", D: 8.2, F: 13.6,
       g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", cam: "mirror", colTilt: 4.5, layLen: 700, foldOn: true, foldAng: 120, foldPos: 0.3, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
-           W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5 },
+           W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, Nx: 2048, Ny: 1024, pix: 13.5, filt: [5800, 6200], fgroups: [10, 200, 1500], telF: 15, fibAp: 1.5 },
       e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, view: "3d", colTilt: -3, layLen: 900, foldOn: true, foldAng: 200, foldPos: 0.7, gFlip: true, annot: false,
-           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
-           xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10 } })`);
+           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
+           xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], lamC: 6500, Nx: 6144, Ny: 6160, pix: 10, filt: [4000, 9000], fgroups: [12, 180, 900], telF: 8, fibAp: 1 } })`);
     await sleep(300);
     const sBefore = await ev(`window.__instex.state()`), hAll = await ev(`location.hash`);
     await go(hAll);
@@ -1129,12 +1142,14 @@ const rel = (a, b) => Math.abs(a / b - 1);
       const m2 = await ev(mean), lg = await ev(`({ s: ${I}.state().bstr, h: location.hash })`);
       check("the beam's Log stretch brightens the sidelobes; the link carries it", lg.s === "log" && /r\.bstr=log/.test(lg.h) && m2 > 2 * m1, JSON.stringify({ m1, m2, lg }));
     }
-    // the audit's cases (10-20): DSA-2000 uniform over long tracks against the dense-sampling truth (2.01" x 1.55",
-    // -16%); a band kept within the receiver's; a snapshot with a band within the budget; samples beyond the grid
+    // the audit's cases (10-20): DSA-2000 uniform over a long track against the dense-sampling truth (all 1,360,425
+    // pairs, 30 s steps; 11-16: the track asked for, 8 h, ends at the calculator's +-2 h of hour angle, 3.99 h, where
+    // the truth is 2.000" x 1.571", -15.2%); a band kept within the receiver's; a snapshot with a band within the
+    // budget; samples beyond the grid
     {
       await nav("#inst=int&r.arr=dsa2000&r.dec=40&r.dur=8&r.wt=uniform");
       const d8 = await ev(`${I}.result()`);
-      check("DSA-2000, 8 h, uniform: 2.01″ × 1.55″ and a −16% sidelobe (the dense-sampling truth), within 3%", Math.abs(d8.beam.maj * 206265 / 2.01 - 1) < 0.03 && Math.abs(d8.beam.min * 206265 / 1.55 - 1) < 0.03 && Math.abs(d8.side + 0.16) < 0.03, JSON.stringify({ maj: d8.beam.maj * 206265, min: d8.beam.min * 206265, side: d8.side, K: d8.K }));
+      check("DSA-2000, 8 h asked: the track stops at ±2 h of hour angle (3.99 h); uniform: 2.00″ × 1.57″ and a −15% sidelobe (the dense-sampling truth), within 3%", Math.abs(d8.dur - 3.989) < 0.002 && Math.abs(d8.beam.maj * 206265 / 2.000 - 1) < 0.03 && Math.abs(d8.beam.min * 206265 / 1.571 - 1) < 0.03 && Math.abs(d8.side + 0.152) < 0.03, JSON.stringify({ dur: d8.dur, maj: d8.beam.maj * 206265, min: d8.beam.min * 206265, side: d8.side, K: d8.K }));
       await nav("#inst=int&r.arr=dsa2000&r.nu=0.7&r.bw=1.3&r.dur=0");
       const db = await ev(`${I}.result()`);
       check("a band at the receiver's edge stays within the receiver (0.7-1.35 GHz), and a snapshot with a band keeps within 2 million samples", db.nus[0] >= 0.7e9 && db.nus[1] <= 1.35e9 && db.n <= 2e6, JSON.stringify({ nus: db.nus, n: db.n }));
@@ -1230,19 +1245,29 @@ const rel = (a, b) => Math.abs(a / b - 1);
       check("CHIME: a snapshot when the slider is at 0", (await ev(`document.getElementById("vrDur").textContent`)) === "snapshot");
       await go("#inst=int&r.arr=chimeout");
       const o1 = await ev(`({ r: ${I}.result(), s: ${I}.sites(), obs: document.getElementById("rObsR").textContent })`);
-      check("CHIME + outriggers: four sites (CHIME's 960 feeds and three outriggers), a snapshot of an FRB, all four up, the outrigger baselines kept",
-        o1.s.length === 4 && o1.s.find(q => q.name === "CHIME").n === 960 && o1.r.staUp === 4 && o1.r.nSites === 4 && o1.r.dur === 0 && o1.r.Bmax > 3.3e6, JSON.stringify({ sites: o1.s.map(q => q.name + ":" + q.n), up: o1.r.staUp }));
+      // (audit 11-16: CHIME phased into one station, as the VLBI forms one beam at the CHIME core and at each outrigger)
+      check("CHIME + outriggers: four phased stations (CHIME and three outriggers), six baselines, a snapshot of an FRB, all four up",
+        o1.s.length === 4 && o1.s.find(q => q.name === "CHIME").n === 1 && o1.r.nb === 6 && o1.r.on === 4 && o1.r.Bmin > 6e4 && o1.r.staUp === 4 && o1.r.nSites === 4 && o1.r.dur === 0 && o1.r.Bmax > 3.3e6, JSON.stringify({ sites: o1.s.map(q => q.name + ":" + q.n), nb: o1.r.nb, Bmin: o1.r.Bmin, up: o1.r.staUp }));
       const ch = o1.s.find(q => q.name === "CHIME");
       await clickAt(ch.x, ch.y);
       const o2 = { r: await ev(`${I}.result()`), h: await hashLike(/r\.off=/) };
-      check("CHIME + outriggers: a click on CHIME switches all 960 feeds off (3 outrigger baselines left), written as one range in the link", o2.r.nb === 3 && /r\.off=0-959(&|$)/.test(o2.h), JSON.stringify({ nb: o2.r.nb, h: o2.h.slice(0, 120) }));
+      check("CHIME + outriggers: a click on CHIME switches the CHIME station off (3 outrigger baselines left), and the link says so", o2.r.nb === 3 && /r\.off=0(&|$)/.test(o2.h), JSON.stringify({ nb: o2.r.nb, h: o2.h.slice(0, 120) }));
       await go(o2.h);
-      check("CHIME + outriggers: the link brings the 960 feeds back switched off", (await ev(`${I}.state().off.length`)) === 960 && (await ev(`${I}.result().nb`)) === 3);
+      check("CHIME + outriggers: the link brings the CHIME station back switched off", (await ev(`${I}.state().off.length`)) === 1 && (await ev(`${I}.result().nb`)) === 3);
+      await go("#inst=int&r.arr=chime&r.dec=-9");
+      check("CHIME reaches dec −9° (the CHIME/FRB catalog's limit is −11°)", (await ev(`${I}.result().reach`)) === true);
+      await go("#inst=int&r.arr=chord");
+      const cs = await ev(`${I}.result().side`);
+      check("CHORD: the peak sidelobe counts the grid's grating lobes (above +50%)", cs > 0.5, cs);
       await go("#inst=int&r.arr=chord&r.dec=10");
       const k1 = await ev(`({ r: ${I}.result(), obs: document.getElementById("rObsR").textContent })`);
       check("CHORD at dec +10°: out of reach of the dishes (+20° to +80°), no samples", k1.r.reach === false && !k1.r.n && /Withinreachno/.test(k1.obs.replace(/\s/g, "")), k1.obs);
       // the Smoothed view of the dirty image, and the amplitudes of the crescent computed at each sample
       await go("#inst=int&r.arr=eht2017");
+      {
+        const m = await ev(`({ sky: ${I}.state().sky, opt: [...document.getElementById("rSky").options].map(o => o.textContent), lab: document.getElementById("lrSize").textContent, intra: RI.vis("m87", 44e-6 / 206264.806, 1.25e5, 0), lmt: RI.vis("m87", 44e-6 / 206264.806, 1.5e9, 0) / RI.vis("crescent", 44e-6 / 206264.806, 1.5e9, 0) })`);
+        check("EHT 2017: the default sky is M87* with its jet; the intra-site spacings see the whole 1.15 Jy, a baseline between sites the crescent's 0.55", m.sky === "m87" && m.opt.includes("M87* with its jet") && m.lab === "Ring diameter" && m.intra > 0.999 && Math.abs(m.lmt - 0.55 / 1.15) < 0.002, JSON.stringify(m));
+      }
       await click("#rdiS"); await sleep(300);
       const sm = { r: await ev(`${I}.result()`), h: await hashLike(/r\.dimg=smooth/), vis: await ev(`!document.getElementById("diBox").hidden`) };
       check("Dirty | Smoothed: Smoothed shows the sky smoothed by the fitted beam, the link says so", sm.r.smooth && /r\.dimg=smooth/.test(sm.h) && sm.vis, JSON.stringify({ smooth: sm.r.smooth, h: sm.h }));
@@ -1254,6 +1279,11 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await go("#inst=int&r.arr=vla");
       const lv = await ev(`({ l: document.getElementById("lrDur").textContent, sub: document.getElementById("alSub").textContent })`);
       check("a tracking array (the VLA): \"Duration\", and no line about tracking", lv.l === "Duration" && !/track/.test(lv.sub), JSON.stringify(lv));
+      // shadowing: none for the VLA C toward dec +40 (the default); a third of the samples in D toward dec -30
+      const sh0 = await ev(`({ r: ${I}.result().shadow, t: document.getElementById("rObsR").textContent })`);
+      await go("#inst=int&r.arr=vla&r.cfg=D&r.dec=-30");
+      const sh1 = await ev(`({ r: ${I}.result().shadow, t: document.getElementById("rObsR").textContent })`);
+      check("shadowing: none for the VLA C toward +40°; in D toward −30° about a third of the samples, shown in the Observation panel", sh0.r === 0 && /Shadowednone/.test(sh0.t.replace(/\s/g, "")) && sh1.r > 0.2 && sh1.r < 0.45 && /Shadowed\d+%ofsamples/.test(sh1.t.replace(/\s/g, "")), JSON.stringify({ c: sh0.r, d: sh1.r }));
       await go("#inst=int&r.arr=chord&r.cfg=pathfinder");
       check("CHORD pathfinder: 64 dishes, 2,016 baselines", (await ev(`${I}.result().nb`)) === 2016);
       check("Earth-scale and transit arrays: no page error", errors.length === e0, errors.slice(e0).join(" | "));

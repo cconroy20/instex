@@ -2,6 +2,11 @@
 
 Compiled 2026-10-17 for the instex Spectrograph Explorer, in the format of `data/presets_research.md`. Every number comes from a document saved unmodified under `rawdata/presets/imacs/`; source key, location and a short quote accompany each value, and every quote was machine-checked against the saved file's extracted text (whitespace/glyph-normalised; 117 quotes, 0 failures). **DERIVED** marks arithmetic done here from sourced values.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_S5_imacs_llamas_mage_esi.md)
+
+- The R ≈ 11,000 is a rounded statement with no method (Simon et al. 2017 give the same R for the Hα setup, whose slit-limited R is ≈ 9000); the preset compares it with the slit-limited R and no longer calls it measured.
+- The spectra cross three 92-px chip gaps (3.4% of the coverage), not modeled; the note now says so.
+
 ## Round 4 completeness summary (IMACS)
 
 **IMACS**: complete for the f/4 grating mode. Baade 6.5 m at f/11 (71526.4 mm, 346.77 um/"; 1998 design values), refractive all-spherical collimator 1648.46 mm (1998 design value; no as-built number published, but consistent with the as-built 9.0 px/" scale), 150 mm beam, f/4.3 all-spherical camera 641.8 mm, fixed 45 deg spectrograph angle and the tilt convention (alpha = tilt + 22.5 deg) taken from the JavaScript of LCO's grating-tilt calculator, seven reflection gratings (150-1200 l/mm) with blaze angles, the LCO user-manual tilt/coverage/dispersion table (reproduced by the grating equation to <= 6 A), Mosaic2 8192 x 8192 x 15 um (dispersion across 4 CCDs, 3 gaps of 92 px), and a published validation setup (1200 l/mm, tilt 32.4 deg, 0.7" slit: R ~ 11,000, 0.19 A/px; S17, L18, S20) whose papers also tabulate slits per mask (DERIVED mean 51 over 25 f/4 masks). Weak points: collimator focal length and telescope scale are 1998 design numbers; D11's tilt range (19.5-34.5 deg) does not match the user-manual tilt convention; D11 and the user manual quote FWHM without the anamorphic factor. The f/2 grism mode (355.6 mm camera, five grisms) is documented, not modeled.

@@ -2,6 +2,17 @@
 
 Compiled 2026-11-16 for the instex INTERFEROMETER mode, in the record format of `data/interf/vla.md` and `data/interf/dsa2000.md`. Every number comes from a document saved unmodified under `rawdata/interf/chime/`; each value carries its source key, location and a short verbatim quote. **DERIVED** marks arithmetic done here (shown). **INFERRED** marks a mapping no source states. **NOT FOUND** marks a gap. Downloaded files were read as text only (pdftotext and PyMuPDF for PDFs; tag-stripped text for HTML; YAML, JSON and Python files as data); nothing downloaded was run. Companion machine-readable file: `data/interf/chime.json` (configurations `CHIME`, 1024 feeds, and `CHIME_OUTRIGGERS`, 1344 feeds). Machine check: see the last section.
 
+## Superseded by the audit of 2026-11-16 (data/audit/2026-11-16_X_arrays.md)
+
+- Southern limit: the −5.7° below (DERIVED from FRB18's ∼110° north-south field) is replaced by −11°, the CHIME/FRB field (CAT1, new source: The First CHIME/FRB Fast Radio Burst Catalog, ApJS 257, 59, 2021; arXiv:2106.04352v3, `rawdata/interf/chime/arxiv_2106.04352v3.pdf`; Sec. 2: "The CHIME/FRB detector views the entire sky north of declination −11◦ ... every day"; beams formed from θ = −60° to +60°). OVW22's holography reaches −21°; the page uses the FRB field. North of +70° a source also transits below the pole (not modeled).
+- "Three quarters of the sky": OVW22's 3/4 (31,000 deg²) is the sky visible from the site; the sky north of −11° is 59.5% of the sphere (DERIVED, (1 + sin 11°)/2).
+- CHIME + outriggers: CHIME is now phased into one station, as the VLBI forms one beam at the CHIME core and at each outrigger (VLBI26 Sec. 2.1.1: "we use multiple phase center beamforming to form individual beams at the CHIME core and each Outrigger station"): four stations, six baselines, no random draw. CHIME sits at EPH's position.
+- SEFDs: the ideal radiometer-equation values of HCO26 Sec. 5.1, SEFD_inp / √(N (N − 1)): CHIME 41.7 Jy (N = 960), KKO 629.9 Jy (64), HCO and GBO 313.7 Jy (128), with one feed's 40,000 Jy. Measured: HCO 530 Jy (XX), 390 Jy (YY); KKO about twice HCO; none for GBO. The baselines between outriggers are kept (VLBI26: in practice too faint for most bursts; whether the VLBI uses them is not published).
+- The cylinder order A–D west to east is supported by HOLO24 Sec. 5 ("cylinder A being the farthest cylinder from the Galt telescope and cylinder D the closest", the Galt telescope 254 m east), no longer INFERRED.
+- End feeds: OVW22 Sec. 4.1, "in December 2019 we began applying a static mask that consists of the 8 feeds at the edge of each cylinder" (a static mask in the cosmology pipeline, not "permanent").
+- The east-west beam: FRB18's FoV matches the X polarization of the holographic beams (OVW22 Fig. 17; HOLO24), ≈ 20% wider than Y. The validate_int transit-time check tests the relation's arithmetic only.
+- The point-source sky: the flux draw now spans 1 to 100 as its comments say (it stopped at 21.5).
+
 ## Completeness summary
 
 **Site**: DRAO near Penticton, BC; lat 49.3207092, lon -119.6236774, height 555.372 m (EPH; the KKO24 ITRF centroid gives the same position to 0.1 m, DERIVED; FRB18 Table 1 gives 49 19 14.52 N, 119 37 25.25 W). Height datum uncertain (see conflicts).
