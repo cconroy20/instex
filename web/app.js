@@ -21,7 +21,7 @@ const DEF = {
        filt: null, fgroups: null, telF: null, fibAp: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
-        xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "",   // the 3D view's prism passes and labels (presets)
+        xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "", note2d: "", camEq: "", xdEq: "", feedLabel: "", dichLabel: "", dichBefore: 0, dichTilt: 15,   // the 3D view's prism passes and labels (presets)
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -92,7 +92,7 @@ const SL = [
   ["sCL", "camLen", "m", true, false, v => sig(v, 3) + " mm"],
   ["sFA", "foldAng", "m", false, false, v => v.toFixed(0) + "°"],
   ["sFP", "foldPos", "m", false, false, v => v.toFixed(2)],
-  ["sGam", "gamma", "m", false, false, v => v.toFixed(1) + "°"],
+  ["sGam", "gamma", "m", false, false, v => (Math.abs(v * 10 - Math.round(v * 10)) > 1e-6 ? v.toFixed(2) : v.toFixed(1)) + "°"],
   ["sG", "G", "m", true, false, v => grooves(v)],
   ["sM", "m", "m", false, true, v => String(v)],
   ["sLB", "lamB1", "m", true, false, v => (v >= 30000 ? sig(v / 1e4, 3) + " µm" : grp(v) + " Å") + ", 1st order"],
@@ -107,7 +107,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "camLen", "foldLabel", "filtShow", "xDraw", "preFoldOn", "preFoldAng", "preFoldPos", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
+const DRAWING_KEYS = new Set(["layLen", "camLen", "foldLabel", "filtShow", "xDraw", "note2d", "camEq", "xdEq", "feedLabel", "dichLabel", "dichBefore", "dichTilt", "preFoldOn", "preFoldAng", "preFoldPos", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
 
 function markCustom() {
   presetId = "custom";
@@ -327,7 +327,7 @@ function params() {
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
                           xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms,
-                          xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d });
+                          xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d, note2d: m.note2d, camEq: m.camEq, xdEq: m.xdEq, feedLabel: m.feedLabel, dichLabel: m.dichLabel, dichBefore: m.dichBefore, dichTilt: m.dichTilt });
   return P;
 }
 
@@ -591,7 +591,7 @@ function drawLayout(Dz, P) {
     const th = Math.abs(P.theta || 0);
     // an echelle works near Littrow: drawn true, the camera arm would lie on the collimator beam
     const sep = [th > 0 ? "2θ = " + (2 * th).toFixed(1) + "° apart in the page" : "", P.gamma > 0 ? "2γ = " + (2 * P.gamma).toFixed(1) + "° apart out of the page" : ""].filter(Boolean);
-    $("lSub").textContent = "Camera arm drawn at 30° for clarity: " + (sep.length ? "the beams are " + sep.join(" and ") + "." : "in Littrow the beams overlap.");
+    $("lSub").textContent = "Camera arm drawn at 30° for clarity: " + (sep.length ? "the beams are " + sep.join(" and ") + "." : "in Littrow the beams overlap.") + (P.note2d ? " " + P.note2d : "");
   } else {
     ac = v2(Dz.zc[2], Dz.zc[0]);
     const n = Math.hypot(ac[0], ac[1]); ac = sc(ac, 1 / n);
@@ -1487,6 +1487,15 @@ function drawLayout(Dz, P) {
           slab(Fold(Cc), aC, Math.max(rK, 0.5 * W * fT / fC) * 1.06, 0.1 * Math.max(rK, 0.5 * W * fT / fC), GLASS3, 0.22, GE3);
           detector(Dc, xD, yD, -1, 1, Fold);
           const xdName = P.xdLabel || (P.xd === "prism" ? "prism" : P.xd === "grism" ? "grism" : P.xd === "vph" ? "VPH grating" : "grating");
+          // a dichroic plate (P.dichLabel, drawing only) in the transferred beam, dichBefore mm ahead of the cross-disperser,
+          // tilted dichTilt deg; the drawn arm is the one the dichroic transmits (G-CLEF red: Ben-Ami et al. 2016 Sec. 2.2)
+          if (P.dichLabel) {
+            const Wt = W * fT / fC, Pd = a3(XDc, s3(dIn, -(P.dichBefore > 0 ? P.dichBefore : 0.3 * fT)));
+            const FoldV = (p, v) => n3(a3(Fold(a3(p, v)), s3(Fold(p), -1)));
+            const nW = FoldV(Pd, rotY(dIn, (P.dichTilt || 15) * IX.DEG)), uW = perpTo(FoldV(Pd, YA), nW), vW = n3(x3(nW, uW));
+            plate(Fold(Pd), uW, vW, 0.83 * Wt, 0.64 * Wt, nW, 0.15 * Wt, [222, 190, 120], 0.35, "rgba(150,118,50,0.8)");
+            labs3.push([a3(Fold(Pd), s3(vW, -0.9 * Wt)), "dichroic", P.dichLabel]);
+          }
           // (HARPS: the light returns to the collimator a third time; drawn unfolded, as a mirror of its own)
           labs3.push([Fold(a3(Tl, [0, 0, -Math.max(rT, 0.5 * W * fT / fC) * 1.3])), P.wp3 ? "collimator, third pass" : "transfer collimator", "f = " + mm(fT) + (P.wp3 ? ", drawn unfolded" : "")],
             [Fold(a3(XDc, s3(vX, 1.3 * hX))), "cross-disperser", xdName + ", at the white pupil"],
@@ -1498,7 +1507,7 @@ function drawLayout(Dz, P) {
       for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
       prims3.push({ k: "d", p: [S0], col: [96, 90, 84] });
       const pTop = prisms.length ? prisms[prisms.length - 1] : null;
-      labs3.push([[-Lt, 0, sS + tHalf * 1.8], "telescope", "f/" + sig(P.F, 3)], [[0, 0, sS + 0.09 * fC], "slit", sig(P.slitW, 3) + "″"],
+      labs3.push([[-Lt, 0, sS + tHalf * 1.8], P.feedLabel || "telescope", "f/" + sig(P.F, 3)], [[0, 0, sS + 0.09 * fC], "slit", sig(P.slitW, 3) + "″"],
         [a3(O, [0, 0, rL * 1.18]), kind === "pp" ? "collimator" : P.wp3 ? "collimator, passed three times" : "collimator, passed twice", "f = " + mm(fC)],
         [a3(E, s3(gE, 0.75 * W)), "echelle", sig(P.eG, 4) + " /mm"]);
       if (pTop) {
@@ -1877,7 +1886,7 @@ function drawLayout(Dz, P) {
   // telescope (or fiber) beam converging on the slit: starlight
   beam([v2(-Lt, tHalf), v2(0, 0), v2(-Lt, -tHalf)], "rgba(236,186,72,0.18)");
   for (const f of [-1, 0, 1]) path([v2(-Lt, f * tHalf), v2(0, 0)], "rgba(168,118,22,0.8)", 1);
-  { const q = T(v2(-Lt, 0)); req(5, "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
+  { const q = T(v2(-Lt, 0)); req(5, P.feedLabel || "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
   // white light: diverging from the slit to the collimator, then parallel to the grating (by way of the fold)
   const onCol = y => onMirror(y / Math.cos(tau));
   const gPt = y => addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a)));   // meets the grating at height y, before Mpost
@@ -1991,9 +2000,9 @@ function drawLayout(Dz, P) {
       poly([c0, c1, addv(c1, sc(ac, th)), addv(c0, sc(ac, th))], P.xd === "grating" ? STEEL : glassFill(q0, q1), P.xd === "grating" ? null : GLASS_EDGE, 1.2);
       g.beginPath(); g.moveTo(q0[0], q0[1]); g.lineTo(q1[0], q1[1]); g.strokeStyle = sheen(q0, q1, 0.95); g.lineWidth = 2; g.stroke();
     }
-    req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : grooves(P.xG) });
+    req(4, "cross-disperser", ends(q0, q1), INK, 13, { sub: P.xd === "prism" ? null : grooves(P.xG) + (P.xdEq ? ", " + P.xdEq : "") });
   }
-  if (!MIR) { if (!dpass) lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false); }   // double pass: the collimator lens
+  if (!MIR) { if (!dpass) lens(C, ac, lensHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam) + (P.camEq ? ", " + P.camEq : ""), false); }   // double pass: the collimator lens
   else {
     // a thin element across the axis at c (light arriving along +axis): the front face bulges toward the light by
     // sagA, the back face by sagB away from the light (sagB < 0: toward the light, a meniscus); fractions of the
