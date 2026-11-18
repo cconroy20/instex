@@ -1,0 +1,1085 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 9: CARMENES (id 'carmenes')",
+  "compiled": "2026-11-18",
+  "companion": "data/round9/carmenes.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = chosen to reproduce published performance (none used); INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; NOT FOUND = gap.",
+  "quote_check": {
+   "pieces_checked": 141,
+   "failures": 0
+  },
+  "status": "in regular operation since 2016-01-01 (S16); CAHA page 2026-11-18 lists CARMENES+ and CARMENES Legacy+; no '(design)' tag"
+ },
+ "sources": {
+  "S12": {
+   "cite": "Seifert, W., Xu, W., Sanchez Carrasco, M. A., et al. 2012, Proc. SPIE 8446, \"CARMENES. II: optical and opto-mechanical design\" (ADS 2012SPIE.8446E..33S; author copy hosted by the CARMENES consortium). The design: Table 1 (both channels), Fig. 1 (VIS layout), Sec. 2.1-2.5, Sec. 4 front end, Fig. 9 (NIR bench), Fig. 14 (front end)",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2012_2_Seifert.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2012_2_Seifert.pdf"
+  },
+  "S16": {
+   "cite": "Seifert, W., Xu, W., Stahl, O., et al. 2016, Proc. SPIE 9908, \"CARMENES: the VIS channel spectrograph in operation\" (ADS 2016SPIE.9908E..65S; consortium copy). The VIS channel as built and measured: Table 1, Fig. 1, Sec. 4.2 (resolution), Sec. 4.3 (throughput)",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2016_Seifert.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2016_Seifert.pdf"
+  },
+  "B16": {
+   "cite": "Becerril, S., Cardenas, C., Amado, P., et al. 2016, Proc. SPIE 9910, \"CARMENES-NIR channel spectrograph: how to achieve the full AIV at system level of a cryo-instrument in nine months\" (ADS 2016SPIE.9910E..0QB; consortium copy). The NIR spectrograph: Fig. 2 (optical layout with a 1000 mm scale bar), Table 3 (requirements), Sec. 1-2",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2016_Becerril9910.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2016_Becerril9910.pdf"
+  },
+  "Q16": {
+   "cite": "Quirrenbach, A., Amado, P. J., Caballero, J. A., et al. 2016, Proc. SPIE 9908, \"CARMENES: an overview six months after first light\" (ADS 2016SPIE.9908E..12Q; consortium copy). Sec. 2 sub-systems, measured R (Fig. 1)",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2016_Quirrenbach.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2016_Quirrenbach.pdf"
+  },
+  "Q14": {
+   "cite": "Quirrenbach, A., Amado, P. J., Caballero, J. A., et al. 2014, Proc. SPIE 9147, \"CARMENES instrument overview\" (ADS 2014SPIE.9147E..1FQ; the consortium-hosted copy is the SPIE review proof; no arXiv identifier). Sec. 2.2-2.5: front end, fibers, the two spectrographs",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2014_Quirrenbach.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2014_Quirrenbach.pdf"
+  },
+  "Q18": {
+   "cite": "Quirrenbach, A., Amado, P. J., Ribas, I., et al. 2018, Proc. SPIE 10702, \"CARMENES: high-resolution spectra and precise radial velocities in the red and infrared\" (ADS 2018SPIE10702E..0WQ; CARMENES web copy). Sec. 2: the as-operated instrument, R = 94,600 / 80,400",
+   "file": "rawdata/presets/carmenes/Quirrenbach2018_SPIE10702_0W_CARMENES.pdf",
+   "url": "https://carmenes.caha.es/ext/publications/CARMENES_201807_SPIE_Quirrenbachetal.pdf"
+  },
+  "Q12": {
+   "cite": "Quirrenbach, A., Amado, P. J., Seifert, W., et al. 2012, Proc. SPIE 8446, \"CARMENES. I: instrument and survey overview\" (ADS 2012SPIE.8446E..0RQ; consortium copy). Fibers, image scrambler options",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2012_1_Quirrenbach.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2012_1_Quirrenbach.pdf"
+  },
+  "St14": {
+   "cite": "Sturmer, J., Stahl, O., Schwab, C., et al. 2014, Proc. SPIE 9151, \"CARMENES in SPIE 2014. Building a fibre link for CARMENES\" (ADS 2014SPIE.9151E..52S; consortium copy). Fiber set, f/3.9 feed, f/3.5 output, FRD",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2014_Stuermer.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2014_Stuermer.pdf"
+  },
+  "Am12": {
+   "cite": "Amado, P. J., Lenzen, R., Cardenas, M. C., et al. 2012, Proc. SPIE 8450, \"CARMENES. V: non-cryogenic solutions for YJH-band NIR instruments\" (ADS 2012SPIE.8450E..1UA; consortium copy). The H2RG pixel pitch",
+   "file": "rawdata/presets/carmenes/CARMENES_SPIE2012_5_Amado.pdf",
+   "url": "https://webs.ucm.es/info/carmenes/ext/conferences/CARMENES_SPIE2012_5_Amado.pdf"
+  },
+  "C25": {
+   "cite": "Caballero, J. A. 2025, \"CARMENES as an Instrument for Exoplanet Research\", arXiv:2503.05501 (ADS 2025arXiv250305501C; a handbook chapter). Sec. \"the instrument\" and Table 2 (the as-operated summary), Figs. 3, 5, 7",
+   "file": "rawdata/presets/carmenes/Caballero2025_arXiv2503.05501.pdf",
+   "url": "https://arxiv.org/pdf/2503.05501"
+  },
+  "R18": {
+   "cite": "Reiners, A., Zechmeister, M., Caballero, J. A., et al. 2018, A&A 612, A49, \"The CARMENES search for exoplanets around M dwarfs. High-resolution optical and near-infrared spectroscopy of 324 survey stars\", arXiv:1711.06576 (ADS 2018A&A...612A..49R). Sec. 1-2: R values, the NIR detector gap",
+   "file": "rawdata/presets/carmenes/Reiners2018_AA612_A49_arXiv1711.06576.pdf",
+   "url": "https://arxiv.org/pdf/1711.06576"
+  },
+  "Ri23": {
+   "cite": "Ribas, I., Reiners, A., Zechmeister, M., et al. 2023, A&A 670, A139, \"The CARMENES search for exoplanets around M dwarfs. Guaranteed time observations Data Release 1 (2016-2020)\", arXiv:2302.10528 (ADS 2023A&A...670A.139R). Introduction: R values",
+   "file": "rawdata/presets/carmenes/Ribas2023_AA670_A139_arXiv2302.10528.pdf",
+   "url": "https://arxiv.org/pdf/2302.10528"
+  },
+  "V25": {
+   "cite": "Varas, R., Calvo-Ortega, R., Amado, P. J., et al. 2025, Experimental Astronomy 60, 10, \"Improving radial velocity precision with CARMENES-PLUS: an upgrade of the near-infrared spectrograph cooling system\", arXiv:2509.17966 (ADS 2025ExA....60...10V). The NIR thermal upgrade (not optics)",
+   "file": "rawdata/presets/carmenes/Varas2025_ExA60_10_arXiv2509.17966.pdf",
+   "url": "https://arxiv.org/pdf/2509.17966"
+  },
+  "W1": {
+   "cite": "CARMENES consortium, \"CARMENES: Instrument\" web page (fetched 2026-11-18; table of key parameters)",
+   "file": "rawdata/presets/carmenes/carmenes_caha_instrument.html",
+   "url": "https://carmenes.caha.es/ext/instrument/index.html"
+  },
+  "W2": {
+   "cite": "Calar Alto Observatory (CAHA), \"CARMENES\" instrument page (fetched 2026-11-18; the in-a-nutshell table and the list of instrumental and legacy projects)",
+   "file": "rawdata/presets/carmenes/caha_w3_carmenes_page.html",
+   "url": "https://w3.caha.es/joomlaCMS/telescope-3-5m/carmenes"
+  },
+  "TP18": {
+   "cite": "Tala Pinto, M., Chanumolu, A., Quirrenbach, A., Reffert, S., Zechmeister, M., Bauer, F. 2018, Proc. SPIE 10705, 107051U, \"Physical modeling of echelle spectrographs: the CARMENES case study\" (ADS 2018SPIE10705E..1UT; supplied by the project; 11 pp.). The VIS channel as modeled by RAMSES: Table 1, Sec. 2 (F/N system, slicer, fibers), Sec. 3.3 (modules, glasses), Sec. 4 (fit)",
+   "file": "rawdata/presets/carmenes/talapinto2018_107051U.pdf",
+   "url": "(supplied by the project; SPIE proceedings)"
+  },
+  "Q10": {
+   "cite": "Quirrenbach, A., Amado, P. J., Mandel, H., et al. 2010, ASP Conf. Ser. 430, \"CARMENES: Calar Alto high-Resolution search for M dwarfs with Exo-earths with a Near-infrared Echelle Spectrograph\", arXiv:0912.0561 (ADS 2010ASPC..430..521Q). The 2009 concept (superseded; listed under Conflicts)",
+   "file": "rawdata/presets/carmenes/Quirrenbach2010_arXiv0912.0561.pdf",
+   "url": "https://arxiv.org/pdf/0912.0561"
+  }
+ },
+ "carmenes": {
+  "title": "Calar Alto 3.5 m CARMENES: two fiber-fed white-pupil echelles (VIS and cooled NIR), off-axis three-pass collimator, R4 mosaic, LF5 / Infrasil grisms, dichroic in the front end",
+  "recommended_presets_by_mode": [
+   {
+    "id": "carmenesvis",
+    "tel": "Calar Alto 3.5 m",
+    "inst": "CARMENES",
+    "setting": "VIS",
+    "name": "Calar Alto 3.5 m / CARMENES VIS",
+    "state": {
+     "mode": "echelle",
+     "D": 3.5,
+     "F": 10.274,
+     "telF": 10,
+     "fibAp": 1.5,
+     "e": {
+      "lay3d": "wp",
+      "wpT": 1590.4,
+      "wp3": true,
+      "fold3d": "fold",
+      "slitW": "S3 * 0.100 / (2 * 3.5 * 3500) * 206264.806 (= 0.7291 arcsec)",
+      "nObj": 4,
+      "col": "mirror",
+      "W": 154.8,
+      "fcam": 455,
+      "cam": "lens",
+      "layLen": 1580,
+      "colTilt": 3.8,
+      "eG": 31.6,
+      "eDelta": 75.2,
+      "gamma": 0.6,
+      "theta": 0,
+      "xd": "grism",
+      "xG": 223,
+      "xGrA": 17.8,
+      "xGlass": "LF5",
+      "xPasses": 1,
+      "lamC": 7900,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "gLen": 596
+     }
+    }
+   },
+   {
+    "id": "carmenesnir",
+    "tel": "Calar Alto 3.5 m",
+    "inst": "CARMENES",
+    "setting": "NIR",
+    "name": "Calar Alto 3.5 m / CARMENES NIR",
+    "state": {
+     "mode": "echelle",
+     "D": 3.5,
+     "F": 10.218,
+     "telF": 10,
+     "fibAp": 1.5,
+     "e": {
+      "lay3d": "wp",
+      "wpT": 1566.4,
+      "wp3": true,
+      "fold3d": "fold",
+      "slitW": "S3 * 0.100 / (2 * 3.5 * 3500) * 206264.806 (= 0.7291 arcsec)",
+      "nObj": 4,
+      "col": "mirror",
+      "W": 153.3,
+      "fcam": 548,
+      "cam": "lens",
+      "layLen": 1640,
+      "colTilt": 4.1,
+      "eG": 31.6,
+      "eDelta": 75.2,
+      "gamma": 0.6,
+      "theta": 0,
+      "xd": "grism",
+      "xG": 81,
+      "xGrA": 13.85,
+      "xGlass": "Infrasil-105K",
+      "xPasses": 1,
+      "lamC": 13300,
+      "Nx": 4096,
+      "Ny": 2048,
+      "pix": 18,
+      "gLen": 596
+     }
+    }
+   }
+  ],
+  "all_arms_groups": {
+   "CARMENES": {
+    "split": "focus",
+    "Ftel": 10,
+    "relay": "fiber head (microlens)",
+    "note": "the dichroic stands in the converging f/10 beam ahead of the telescope focus; each fiber head, with its microlens, sits at its own copy of the focus; no relay and no collimated beam",
+    "tree": {
+     "cut": 9600,
+     "w": 300,
+     "aoi": 45,
+     "noAoi": true,
+     "src": "Q16 Sec. 2.1 (0.96 um); width and angle NOT FOUND (300 A and 45 deg INFERRED)",
+     "R": "carmenesvis",
+     "T": {
+      "fold": 45,
+      "rel": 1,
+      "src": "C25 Sec. 'the instrument': 'an additional NIR mirror' (angle INFERRED)",
+      "to": "carmenesnir"
+     }
+    }
+   }
+  },
+  "params": [
+   {
+    "parameter": "Status",
+    "value": "in regular operation since 2016-01-01 (not a design)",
+    "unit": "",
+    "src": "S16",
+    "loc": "Sec. 1, PDF p. 3",
+    "quote": "The instrument has started regular operation at January, 1st, 2016.",
+    "tag": "SOURCED",
+    "alt": "W2 instrument page, project list: \"Instrumental projects CARMENES+ MARCOT Legacy programs CARMENES Legacy+\"",
+    "note": "The CAHA page of 2026-11-18 still lists CARMENES+ (upgrades) and CARMENES Legacy+ (the legacy program); no source states the status on a given 2026 night. No '(design)' tag."
+   },
+   {
+    "parameter": "Telescope, focus",
+    "value": "Calar Alto 3.5 m (Zeiss), Cassegrain focus; the front end replaces the standard Cassegrain adapter ring",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 4 (front end), PDF p. 2",
+    "quote": "The front-end of the instrument will be attached to the Cassegrain focus of the Calar Alto 3.5m telescope",
+    "tag": "SOURCED",
+    "alt": "C25 Sec. 'CARMENES: the instrument': \"CARMENES is installed at the 3.5 m Zeiss Teleskop\"; Q16 Sec. 2.1: \"A pick-up system including all optics is mounted in an adapter replacing the\"",
+    "note": ""
+   },
+   {
+    "parameter": "Focal ratio of the telescope beam",
+    "value": "f/10",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.1, PDF p. 3",
+    "quote": "The f/10 beam coming from the telescope is fed into the fibers with 100 µm diameter",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": "Plate scale at the f/10 focus, DERIVED: 206264.806 / (3500 mm x 10) = 5.893 arcsec/mm (the 3.5 m aperture as the explorer's D)."
+   },
+   {
+    "parameter": "Fiber head: microlens",
+    "value": "converts f/10 to f/3.9 at the fiber input",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.1; Table 1, PDF p. 3",
+    "quote": "via a micro lens at f /3.9",
+    "tag": "SOURCED",
+    "alt": "St14 Sec. 4.2: \"For CARMENES the fibers are fed with f/3.9 at the telescope using a telecentric F/N system.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Fiber core (science and reference), each channel",
+    "value": 100,
+    "unit": "um (octagonal in the last section)",
+    "src": "S12",
+    "loc": "Sec. 1, PDF p. 1",
+    "quote": "Using a 100 µm fiber, the entrance aperture on sky is 1.5 arcsec.",
+    "tag": "SOURCED",
+    "alt": "Q16 Sec. 2.2: \"the circular fibers are linked to ∼ 8 m long fibers with a 100 µm octagonal core by an FC-FC\"; C25 Sec. 'the instrument': \"The first 60-80 m of the channel fibres are circular and with a 100 µm core diametre, but the last 2-3 m after a double ferrule junction (FC/FC) are octagonal\"",
+    "note": "Circular 42 m (VIS) / 50 m (NIR) from the front end to the coude room (Q16 Sec. 2.2: 'with a length of 42 m (VIS) / 50 m (NIR) each'), then an FC-FC junction to an octagonal section of about 8-10 m (Q16; Q18 gives 10 m; C25 gives 2-3 m) inside the tank feed-through."
+   },
+   {
+    "parameter": "On-sky size of the fiber",
+    "value": 1.5,
+    "unit": "arcsec",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Entrance aperture on sky 1.50 arcsec",
+    "tag": "SOURCED",
+    "alt": "C25 Table 2: \"Target fibre field of view 1.5 arcsec\"",
+    "note": "DERIVED check: 100 um / (3.9 x 3500 mm) x 206264.806 = 1.511 arcsec. The acquisition mirror's holes are 1.5 arcsec across and 88 arcsec apart (C25: 'two holes separated by 88 arcsec in the sky', the second for sky when no simultaneous calibration is used)."
+   },
+   {
+    "parameter": "Fibers per channel and their use",
+    "value": "2: A (star) and B (simultaneous calibration, or sky)",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 1, PDF p. 1",
+    "quote": "Two fibers are contained in each fiber head and fed to the spectrographs.",
+    "tag": "SOURCED",
+    "alt": "Q14 Sec. 2.3: \"Each of the two spectrographs is connected to the front end with a science and a reference\"; C25 Sec. 'the instrument': \"Half extended mirror — in front of only the lower calibration fibre beam\"",
+    "note": ""
+   },
+   {
+    "parameter": "Fiber output focal ratio (spectrograph acceptance)",
+    "value": "f/3.5",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1; Sec. 2.1, PDF p. 3",
+    "quote": "Fibre output focal ratio f/3.5",
+    "tag": "SOURCED",
+    "alt": "St14 Sec. 4.2: \"The spectrograph optics accept f/3.5, allowing for FRD.\"; St14 Sec. 4.2: \"for an f/3.5 output beam (and ∼8.5 % for an f/3.9 output beam)\"",
+    "note": "The microlens feeds f/3.9; the spectrograph accepts f/3.5 'to keep the focal ratio degradation in the order of <10%' (S12 Sec. 2.1). Virtual-fiber convention (core / (F_out x D)): 100 um / (3.5 x 3500 mm) = 1.684 arcsec of 'virtual' diameter; the on-sky 1.5 arcsec corresponds to the f/3.9 input."
+   },
+   {
+    "parameter": "Scrambler",
+    "value": "none in the final design; octagonal-fiber link (circular + octagonal, FC-FC) in its place; no double image scrambler",
+    "unit": "",
+    "src": "S16",
+    "loc": "Sec. 1, PDF p. 2",
+    "quote": "Non-circular (octagonal) fibers are used. This results an effective scrambling factor of 2000",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 1 (2012 default): \"the default solution is to use a ... classical double image scrambler. A detailed investigation has been started to replace this by non-circular (octagonal)\"; C25 Sec. 'the instrument': \"the fibre shakers of both channels were turned off after five years of operations\"",
+    "note": "A mechanical fiber shaker agitated the on-sky circular section (Q16, Q14); it was turned off after five years (C25) with no stated change in RV precision (the quote says 'without an impact')."
+   },
+   {
+    "parameter": "Calibration light to the front end",
+    "value": "large-core fibers from the two calibration units: 400 um (Q16, St14); C25 prints both 600 and 400 um",
+    "unit": "um",
+    "src": "Q16",
+    "loc": "Sec. 2.2, PDF p. 3",
+    "quote": "large-core fibers (D = 400 µm) are used to couple the two calibration units to the front end",
+    "tag": "SOURCED",
+    "alt": "St14 Sec. 1: \"large core fibers (D=400 ➭m) are guiding calibration light\"; C25 Sec. 'the instrument': \"The fibres from the calibration units to the front-end are, however, only circular and thicker (600 µm core)\"; C25 Sec. 'the instrument': \"is connected to the front-end with a 400 μm fibre link\"",
+    "note": "Conflict inside C25 (600 vs 400 um); the 2014-2016 design papers say 400 um. The calibration fibers are not in the spectrograph's light path (they feed the front end's reference-fiber mirror), so the explorer does not use them."
+   },
+   {
+    "parameter": "Image slicer",
+    "value": "two-slice (two-beam) Bowen-Walraven-type image slicer at the intermediate focus, one slicer for both fibers: 2 fibers x 2 slices = 4 traces per order",
+    "unit": "",
+    "src": "C25",
+    "loc": "Sec. 'the instrument', PDF p. 9",
+    "quote": "sliced into two beams by a two-slice image slicer of the Bowen-Walraven type ... two pairs of half-moon slices",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 2: \"The image slicer is located at the intermediate focus, acting as the effective input\"; B16 Table 3: \"2 symmetric slices for the object and the calibration fibers. Inter-slice separation: 1 pixel\"; S12 Sec. 2.1: \"The two-beam, two-slice image slicer is based on the design and our experience of the ESO FEROS\"",
+    "note": "Q14 Sec. 2.4 words it as dividing the pupils: 'divides their pupils into two slices'. The geometry of the slicer (a Bowen-Walraven cut of the fiber IMAGE) and the R check below (the slice width, not the full fiber image, reproduces the design R) say image slicing; see Conflicts."
+   },
+   {
+    "parameter": "Traces per order on the detector (nObj)",
+    "value": 4,
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1; Sec. 2.1, PDF p. 3",
+    "quote": "Inter-fibre spacing 7 pixels",
+    "tag": "DERIVED",
+    "alt": "C25 Table 2: \"Mean inter-fibre spacing 7.0 pixels\"",
+    "note": "2 fibers x 2 slices = 4. The two fibers are 7 px apart across the dispersion (design and as operated); the slices of one fiber are 1 px apart (B16 Table 3, NIR requirement)."
+   },
+   {
+    "parameter": "Zeroth-order exposure meter",
+    "value": "echelle zeroth order picked up by an off-axis parabola and sent over a 1000 um fiber to a photon counter (not modeled)",
+    "unit": "",
+    "src": "C25",
+    "loc": "Sec. 'the instrument', PDF p. 9",
+    "quote": "the zeroth-order light from the échelle grating is collected by an off-axis parabolic mirror behind and above the collimator",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 3: \"It picks up the zero order of the échelle grating\"",
+    "note": ""
+   },
+   {
+    "parameter": "FN lens system (fiber output to collimator ratio)",
+    "value": "f/3.5 -> f/10",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "An FN system converts the f/3.5 output from the fiber(s) to f/10 for the spectrographs.",
+    "tag": "SOURCED",
+    "alt": "C25 Sec. 'the instrument': \"converted to the collimator focal ratio with an F/N system\"",
+    "note": ""
+   },
+   {
+    "parameter": "Collimator focal ratio",
+    "value": "VIS f/10.274; NIR f/10.218",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Off-axis collimator f/10.218 f/10.274",
+    "tag": "SOURCED",
+    "alt": "S16 Table 1 (as built): \"Off-axis collimator f/10.274\"",
+    "note": ""
+   },
+   {
+    "parameter": "Beam diameter",
+    "value": "VIS 154.8; NIR 153.3",
+    "unit": "mm",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Spectrograph beam size 153.3 mm 154.8 mm",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 2: \"A first pass of the collimator produces a 154 mm parallel beam.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Collimator focal length",
+    "value": "VIS 1590.4; NIR 1566.4",
+    "unit": "mm",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Spectrograph beam size 153.3 mm 154.8 mm",
+    "tag": "DERIVED",
+    "alt": "",
+    "note": "DERIVED: beam x focal ratio = 154.8 x 10.274 = 1590.4 mm (VIS); 153.3 x 10.218 = 1566.4 mm (NIR). Consistent with the figure measurements below (slicer to collimator 1582 mm VIS, 1555 mm NIR)."
+   },
+   {
+    "parameter": "Collimator type",
+    "value": "ONE off-axis paraboloid, monolithic, cut from a parent of about 850 mm; passed THREE times (collimator, transfer collimator, and the third pass to the camera); VIS substrate fused silica (S12), NIR aluminum 6061-T6; enhanced silver (VIS), protected gold (NIR)",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.2, PDF p. 5",
+    "quote": "monolithic design cut from a large parent paraboloid with ~850 mm in diameter ... For the VIS channel, the collimator substrate is fused silica. For the NIR collimator, aluminun 6061-T6",
+    "tag": "SOURCED",
+    "alt": "C25 Sec. 'the instrument': \"three-pass collimator mirror (made of a single zerodur paraboloid)\"",
+    "note": "C25 says Zerodur; S12 (2012 design) says fused silica (VIS) and aluminum (NIR): see Conflicts. Drawing type: mirror."
+   },
+   {
+    "parameter": "Collimator ON- or OFF-axis (deploy gate)",
+    "value": "OFF-AXIS: the fiber exit unit and slicer stand beside the beam, not in it",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1; Fig. 1; Sec. 2.2, PDF p. 3",
+    "quote": "Off-axis collimator f/10.218 f/10.274",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 2.2: \"monolithic design cut from a large parent paraboloid with ~850 mm in diameter\"; S12 Sec. 2: \"Light from the telescope enters via two fibers (object and calibration/sky) at the position ‘Fiber Exit’.\"",
+    "note": "Fig. 1 (PDF p. 2) shows the fiber exit, the slicer and the fold mirror between the echelle beam and the camera beam, not in either. Verdict: colTilt non-zero (below)."
+   },
+   {
+    "parameter": "Collimator tilt (colTilt)",
+    "value": "3.8 (VIS); 4.1 (NIR)",
+    "unit": "deg",
+    "src": "S12",
+    "loc": "Fig. 1 (VIS); B16 Fig. 2 (NIR), PDF p. 2",
+    "quote": "A first pass of the collimator produces a 154 mm parallel beam.",
+    "tag": "MEASURED",
+    "alt": "B16 Fig. 2: \"COLLIMATOR MIRROR\"",
+    "note": "Method: the angle between the chief ray from the slicer (pass 1), from the echelle return to the fold mirror (pass 2), and from the fold mirror to the third-pass patch (pass 3) and the (horizontal) collimated beam, read from the 300 dpi renderings of the Zemax layouts (scale bars 200 mm = 134 px, S12 Fig. 1; 1000 mm = 732 px, B16 Fig. 2). VIS: 8.3, 5.7, 8.7 deg, mean 7.6; NIR: 10.0, 6.0, 8.5 deg, mean 8.2. colTilt = half the mean (the convention of the DEIMOS preset: half the angle between the incoming chief ray and the returned beam). Uncertainty about +-1 deg."
+   },
+   {
+    "parameter": "Echelle: groove density, type",
+    "value": "31.6 /mm, R4 (tan(theta_B) = 4), RGL-Newport (Richardson) 53B..174E master, mosaic of two gratings per channel",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1; Sec. 2.3, PDF p. 3",
+    "quote": "RGL-Newport 53B..174E mosaic, R4, 75.2 deg, 31.6 grooves/mm, 154 mm x 596 mm",
+    "tag": "SOURCED",
+    "alt": "C25 Table 2: \"2 × Richardson Gratings R4 (31.6 mm-1, 76 deg)\"",
+    "note": ""
+   },
+   {
+    "parameter": "Echelle: angle used (delta)",
+    "value": 75.2,
+    "unit": "deg",
+    "src": "S12",
+    "loc": "Sec. 2.3, PDF p. 5",
+    "quote": "Even though this is nominally an R4, the effective blaze angle is around 75.4 deg. A working angle of 75.2 deg has been used for the optical layout",
+    "tag": "SOURCED",
+    "alt": "S16 Table 1; Sec. 4.2: \"75.x deg, 31.6 grooves/mm, 154 mm\"; S16 Sec. 4.2: \"the Echelle angle being slightly different from the design value in order to optimize the total integrated efficiency\"",
+    "note": "The as-built working angle is '75.x deg' in S16 (the digit is not printed); the design 75.2 deg is used. The R4 label gives 76.0 deg (C25)."
+   },
+   {
+    "parameter": "Echelle: ruled size and mosaic",
+    "value": "154 x 596 (mosaic of two RGL 53B..174E gratings; 596 mm taken along the dispersion)",
+    "unit": "mm",
+    "src": "S12",
+    "loc": "Table 1; Fig. 4, PDF p. 3",
+    "quote": "RGL-Newport 53B..174E mosaic, R4, 75.2 deg, 31.6 grooves/mm, 154 mm x 596 mm",
+    "tag": "SOURCED",
+    "alt": "C25 Table 2: \"Échelle grating mosaic 2 × Richardson Gratings R4\"",
+    "note": "Which side is the length along the dispersion is INFERRED: the beam's footprint, DERIVED 154.8 / cos(75.2 deg) = 606 mm (VIS; 153.3 / cos = 600 mm NIR), matches 596 mm, not 154 mm; the drawn echelle (Fig. 1, edge-on) is 626 mm long including its housing (MEASURED). So the beam overfills the ruled length by 1.7% (VIS) and 0.7% (NIR); gLen 596 caps the diffraction-limited R at 596 mm x 2 sin(75.2 deg) / lambda (about 1.5e6 at 7500 A in the model, far above the slit-limited R)."
+   },
+   {
+    "parameter": "Echelle: out-of-plane tilt gamma",
+    "value": "'slightly tilted perpendicular to the dispersion direction'; value NOT FOUND; 0.6 used",
+    "unit": "deg",
+    "src": "S12",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "The échelle grating is slightly tilted perpendicular to the dispersion direction to separate the incoming and diffracted beam.",
+    "tag": "INFERRED",
+    "alt": "",
+    "note": "Tala Pinto et al. 2018 (TP18), the physical model of the VIS channel, fits the echelle orientation angles but prints none of the fitted values (22 open parameters, no table), so gamma stays INFERRED. 0.6 deg, between the 0.6 deg of the FEROS-type preset (the instrument CARMENES descends from, S12 Sec. 1) and HARPS 0.72 deg; the fold mirror and slicer must clear each other across the dispersion by about 2 gamma f_col = 33 mm (VIS), a plausible fold-mirror size from Fig. 1. It changes the drawing and the order curvature only slightly."
+   },
+   {
+    "parameter": "Cross-disperser, VIS",
+    "value": "grism: LF5 prism substrate, custom RGL-Newport grating 223 /mm blazed at 700 nm, apex 17.8 deg, ONE pass",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.4; Table 1, PDF p. 5",
+    "quote": "The VIS channel uses LF5 as substrate together with a custom-made RGL-Newport grating with 223 lines/mm blazed at 700 nm",
+    "tag": "SOURCED",
+    "alt": "S12 Table 1: \"17.8 deg apex angle\"; S12 Sec. 2: \"The cross-disperser grism is located at the re-imaged (tilted) pupil of the system.\"",
+    "note": "The grism's undeviated wavelength is DERIVED (physics.js GLASS LF5, lambda = d (n-1) sin A): 7842 A (n = 1.5721), the VIS band's middle (design 5500-10500 A)."
+   },
+   {
+    "parameter": "Cross-disperser, NIR",
+    "value": "grism: Infrasil prism substrate, custom grating 81 /mm blazed at 1150 nm, apex 13.85 deg, ONE pass",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.4; Table 1, PDF p. 5",
+    "quote": "In the NIR, the prism substrate is Infrasil with a custom grating with 81 lines/mm blazed at 1150 nm.",
+    "tag": "SOURCED",
+    "alt": "S12 Table 1: \"13.85 deg apex angle\"",
+    "note": "Undeviated wavelength DERIVED with the model's 'Infrasil-105K' glass: 13182 A (n = 1.4460), the NIR band's middle (design 9500-17000 A)."
+   },
+   {
+    "parameter": "Cross-disperser glass at the operating temperature",
+    "value": "NOT FOUND: no paper gives a refractive-index source or says whether cryogenic indices were used",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.4, PDF p. 5",
+    "quote": "In the NIR, the prism substrate is Infrasil",
+    "tag": "NOT FOUND",
+    "alt": "",
+    "note": "The explorer's GLASS has 'Infrasil-105K' (NASA CHARMS, 105 K), the nearest cryogenic entry to the 138-140 K bench. DERIVED test: the same state with room-temperature fused silica (Malitson) changes the orders and the range by under 0.01% (9422 vs 9421.6 A at the blue edge), so the choice does not matter at the model's precision."
+   },
+   {
+    "parameter": "Camera",
+    "value": "dioptric (fully refractive), all lenses air-spaced; VIS: seven lenses in four groups, f = 455 mm, f/2.94; NIR: five lenses in three groups plus the cryostat window, f = 548 mm, f/3.53, one aspheric surface",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 2.5; Table 1, PDF p. 6",
+    "quote": "The VIS camera consists of seven lenses in four groups. ... The NIR camera consists of five lenses in three groups plus a flat detector cryostat window.",
+    "tag": "SOURCED",
+    "alt": "S12 Table 1: \"Focal Length 548 mm 455 mm\"; C25 Sec. 'the instrument': \"a fully dioptric six-lens camera\"; S12 Table 1: \"f/# f/3.53 f/2.94\"",
+    "note": "The VIS camera's last element is a cylindrical field lens that acts as the dewar window (S12 Sec. 2.5); C25's 'six-lens camera' plus that field lens makes seven. Drawing type: lens. Zero-order light is baffled in the camera tube (S12 Sec. 2.4)."
+   },
+   {
+    "parameter": "Detector, VIS",
+    "value": "e2v CCD231-84, 4096 x 4096 (4112 x 4096 with margins), 15 um pixels, back-illuminated deep-depleted, 285 K bench / CCD in a continuous-flow LN2 cryostat",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Detector Hawaii-2RG mosaic (× 2) CCD EEV 231-84 4096 x 2048 pixels 4096 x 4096 pixels 18 µm/pix 15 µm/pix",
+    "tag": "SOURCED",
+    "alt": "Q14 Sec. 2.4: \"The detector is a back-side illuminated 4112 × 4096 pixel CCD\"; C25 Table 2: \"1 × 4k×4k e2v ... CCD231-84\"",
+    "note": ""
+   },
+   {
+    "parameter": "Detector, NIR",
+    "value": "two Teledyne HAWAII-2RG 2048 x 2048 arrays side by side as a 4096 x 2048 mosaic, 18 um pixels, 2.5 um cutoff, about 84 K; a small gap between the arrays",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Detector Hawaii-2RG mosaic (× 2) CCD EEV 231-84 4096 x 2048 pixels 4096 x 4096 pixels 18 µm/pix 15 µm/pix",
+    "tag": "SOURCED",
+    "alt": "Am12 Sec. 3: \"2K×2K array with 18 μm pixel pitch\"; B16 Sec. 1: \"the detector, which works at ~84K\"; R18 Sec. 2: \"The NIR detector is an array of two detectors that are separated by a small gap.\"",
+    "note": "The gap width is NOT FOUND (see below). The orientation (two arrays side by side along the dispersion) is INFERRED: 'Nx x Ny = 4096 x 2048' in the table, 28-29 orders in the 2048 px height, and the model reproduces the reported start of the coverage gaps (11011 A, B16 Table 3: 'No gaps between orders up to 1110 nm') with 4096 px along the dispersion."
+   },
+   {
+    "parameter": "Operating temperature",
+    "value": "VIS about 285 K (12 C); NIR 138-140 K (detector about 84 K)",
+    "unit": "K",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Operating Temperature 140 K 285 K",
+    "tag": "SOURCED",
+    "alt": "S16 Table 1: \"Operating Temperature 285 K\"; B16 Sec. 1: \"The working temperature of the NIR spectrograph is 138K\"; C25 Table 2: \"Working temperature 284 K 138 K\"",
+    "note": "Vacuum 1e-5 mbar (S12 Sec. 1) or lower; each channel in its own tank and climate room. The NIR cooling was upgraded to continuous N2 flow in 2023 (V25; C25: 'Since summer 2023, the N2GPU has a continuous'). The explorer does not model vacuum or thermal control."
+   },
+   {
+    "parameter": "Chip orders (the physical model's Table 1)",
+    "value": "VIS: orders 53 to 116 (printed beside 550-1050 nm)",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Wavelength range 550 - 1050 nm, orders 53 to 116",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": "DERIVED with m = 611,880 A / lambda: order 116 is 527 nm and order 53 is 1155 nm, so 'orders 53 to 116' are the orders on the 4k chip (64 of them, light beyond the 550-1050 nm design band), not the design range (m = 111 to 58). The model's chip at lamC 7900 holds 57-116."
+   },
+   {
+    "parameter": "Fiber pitch on the pseudo-slit",
+    "value": 0.346,
+    "unit": "mm (center to center)",
+    "src": "TP18",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "with a 0.346 mm separation center-to-center",
+    "tag": "SOURCED",
+    "alt": "TP18 Sec. 2: \"results in a minimum separation of 7 pixels between science and calibration pseudo slit\"",
+    "note": "DERIVED check: 0.346 mm x f_cam / f_col = 0.346 x 455 / 1590.4 = 99.0 um = 6.6 px of 15 um (the sourced 7 px, within the anamorphic factor)."
+   },
+   {
+    "parameter": "F/N system and slicer position",
+    "value": "F/N: two spherical lenses; slicer at the F/N focal plane",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Sec. 2; Sec. 3.3.2, PDF p. 2",
+    "quote": "The F/N lens system converts the F/3.5 output beam of the fibers into the F/10.2 focal ratio of the collimator. The image slicer is placed at the focal plane of the F/N system",
+    "tag": "SOURCED",
+    "alt": "TP18 Sec. 3.3.2: \"It is composed of two spherical lenses.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Camera, as modeled (VIS)",
+    "value": "five spherical lenses plus a field flattener (toroidal output surface, the dewar window); glasses S-FPL51, S-FPL53, S-BAM4, S-BSL7, S-LAL10, silica; grism LF5; Table 1: f/2.94, f = 455 mm",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Table 1; Sec. 3.2; Sec. 3.3.9, PDF p. 3",
+    "quote": "Refractive camera f /2.94, focal length = 455 mm",
+    "tag": "SOURCED",
+    "alt": "TP18 Sec. 3.3.7: \"The CARMENES VIS camera consist of five lenses plus a field flattener.\"; TP18 Sec. 3.3.9: \"S-FPL51, S-FPL53, S-BAM4, S-BSL7, S-LAL10 and SILICA for the camera\"",
+    "note": "Design values of the Zemax prescription (Table 1); the fit left the camera-to-field-flattener distance and the flattener-CCD orientation open, not the focal length."
+   },
+   {
+    "parameter": "Index treatment (VIS only)",
+    "value": "catalog indices (+-3e-5) evaluated at the operating wavelength, vacuum, 12 C",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Sec. 3.3.9, PDF p. 6",
+    "quote": "we use those reference values to compute the refractive index for a given wavelength under the operating conditions of the spectrograph",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": "Settles the VIS question (room-temperature catalog indices, which is what the explorer's LF5 is). The NIR channel is not covered: the paper models the VIS channel only."
+   },
+   {
+    "parameter": "Physical-model fit (what was fitted)",
+    "value": "RAMSES: 45 parameters, 22 left open (slit position and orientation, slit-collimator distance, collimator tilts, echelle orientation angles, collimator-transfer mirror distance, transfer-mirror tilts, grism orientation, camera-flattener distance, flattener-CCD and CCD position and orientation); 1154 lines fitted; residuals better than half a pixel; rms 1/1000 px against Zemax",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Sec. 3.4; Sec. 4.1-4.3, PDF p. 8",
+    "quote": "The model parameter space consist of 45 parameters ... From these 45 parameters 22 are left open",
+    "tag": "SOURCED",
+    "alt": "TP18 Sec. 4.3: \"Our model currently fits all the lines with an accuracy better than half a pixel.\"; TP18 Sec. 4.1: \"resulting in a sample of 1,154 spectral lines\"; TP18 Sec. 3.4: \"resulting in a rms of 1/1000 of a pixel\"",
+    "note": "The fitted values (echelle orientation angles, i.e. gamma and theta, the as-built blaze angle) are NOT tabulated in the paper: no number can be taken from it. The grism apex, the groove densities and the focal lengths are design values."
+   },
+   {
+    "parameter": "Mirror material (as built, VIS)",
+    "value": "collimator, echelle and fold mirror are Zerodur",
+    "unit": "",
+    "src": "TP18",
+    "loc": "Sec. 2, PDF p. 2",
+    "quote": "The collimator, echelle grating and folding mirror are made of Zerodur, for low thermal expansion.",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": "Agrees with Caballero 2025 (Zerodur) and contradicts the 2012 design text (fused silica, aluminum); the as-built statement is taken. The paper says both channels differ only in coatings and refractive parts."
+   },
+   {
+    "parameter": "Orders on the detector",
+    "value": "VIS 53 (design 550-1050 nm) or 55 (as operated, 520-960 nm); NIR 29 (design) or 28 (as operated)",
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Wavelength range 950-1700 nm (29 orders) 550-1050 nm (53 orders)",
+    "tag": "SOURCED",
+    "alt": "C25 Table 2: \"Number of orders 55 28\"; S16 Sec. 4.1: \"the actual red wavelength limit is 0.95µm\"",
+    "note": "DERIVED order numbers: m = 2 d sin(delta) / lambda = 611,880 A / lambda: 520-960 nm is orders 118-64 (55 orders); 950-1700 nm is orders 64-36 (29). The model's chip holds orders 59-125 (VIS, 67 orders, the blue ones with no light) and 36-65 (NIR, 30)."
+   },
+   {
+    "parameter": "Order spacing",
+    "value": "7 px minimum clear spacing between orders (design)",
+    "unit": "px",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Inter-order spacing 7 pixels (minimum)",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": "Model: the smallest center-to-center spacing of adjacent orders over the orders 64-118 is 37 px (VIS) and over 36-64 is 40 px (NIR), each trace group being a few pixels thick; not comparable without the trace width."
+   },
+   {
+    "parameter": "Wavelength coverage",
+    "value": "VIS 520-960 nm (design 550-1050); NIR 960-1710 nm (design 950-1700)",
+    "unit": "nm",
+    "src": "Q16",
+    "loc": "Sec. 2.3-2.4, PDF p. 4",
+    "quote": "covers the wavelength range of 0.52 to 0.96 µm",
+    "tag": "SOURCED",
+    "alt": "Q16 Sec. 2.4: \"The NIR spectrograph covers the wavelength range from 0.96 to 1.71 µm\"; S12 Table 1: \"550-1050 nm (53 orders)\"; R18 Sec. 1: \"nearly continuous wavelength coverage from 520 to 1710 nm\"; TP18 Sec. 2: \"the near-infrared channel covers the wavelength range between 0.91 -1.7\"",
+    "note": ""
+   },
+   {
+    "parameter": "Front-end optics, in order",
+    "value": "movable flat 45 deg pick-up mirror -> atmospheric dispersion corrector (two double prisms, OHARA S-BAL12 + SFTM16) -> dichroic -> VIS fiber head (behind a holed mirror seen by the guide camera) / extra fold mirror -> NIR fiber head",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 4; Fig. 14, PDF p. 11",
+    "quote": "After the corrector, the light is splitted by a dichroic mirror into VIS and NIR to feed the corresponding fiber heads",
+    "tag": "SOURCED",
+    "alt": "Q16 Sec. 2.1: \"flat 45◦ pick-up mirror followed by an atmospheric dispersion compensator\"; Q14 Sec. 2.2: \"The double-prism is made of Ohara glasses S-BAL12 and\"; S12 Sec. 4: \"After the dichroic beam splitter, a second mirror is introduced to place the fiber heads for both channels close to each other\"",
+    "note": ""
+   },
+   {
+    "parameter": "Dichroic: which channel reflects",
+    "value": "the dichroic REFLECTS the VIS light and TRANSMITS the NIR light; an extra NIR fold mirror then brings the NIR fiber head next to the VIS one",
+    "unit": "",
+    "src": "C25",
+    "loc": "Sec. 'the instrument', PDF p. 8",
+    "quote": "Since the dichroic reflects the VIS light and transmits the NIR light, there is an additional NIR mirror.",
+    "tag": "SOURCED",
+    "alt": "Q14 Sec. 2.2: \"divided by a dichroic mirror to feed the science fibers for the visible-light and, via an additional fold mirror, the near-IR spectrographs\"",
+    "note": ""
+   },
+   {
+    "parameter": "Dichroic: cut wavelength",
+    "value": 9600,
+    "unit": "A",
+    "src": "Q16",
+    "loc": "Sec. 2.1, PDF p. 3",
+    "quote": "divided by a dichroic mirror at 0.96 µm",
+    "tag": "SOURCED",
+    "alt": "Q18 Sec. 2.1: \"a dichroic beam splitter centered at 0.96 µm\"; C25 Sec. 'the instrument': \"There is a dichroic at 0.96 µm that splits the light into two beams\"; S16 Sec. 4.1: \"Due to the final decision on the dichroic cut on/off wavelength for the NIR channel, the actual red wavelength limit is 0.95µm\"",
+    "note": "The 2012 design range of the VIS channel (to 1050 nm) overlapped the NIR (from 950 nm); the final cut gives the 0.95-0.96 um limits."
+   },
+   {
+    "parameter": "Dichroic: transition width and angle of incidence",
+    "value": "NOT FOUND",
+    "unit": "",
+    "src": "Q18",
+    "loc": "Sec. 2.1, PDF p. 4",
+    "quote": "a dichroic beam splitter centered at 0.96 µm",
+    "tag": "NOT FOUND",
+    "alt": "",
+    "note": "No document gives the transition width, the angle of incidence or the substrate. Fig. 14 of S12 is an unscaled 3D view of the front end (no angles can be read). INFERRED for the All-arms entry: width 300 A (a placeholder; Ri23 Sec. 3 only says the reddest VIS and bluest NIR orders are 'strongly affected by telluric contamination and dichroic cutoff'); angle of incidence 45 deg (noAoi: true), the usual 90 deg fold of a dichroic in a folded front end (INFERRED; no source)."
+   },
+   {
+    "parameter": "Where the split sits",
+    "value": "in the converging f/10 beam AHEAD of the telescope focus (pick-up flat, ADC, then the dichroic); each fiber head, with its microlens, stands at its own copy of the focus; there is no collimated beam and no relay",
+    "unit": "",
+    "src": "S12",
+    "loc": "Sec. 4, PDF p. 11",
+    "quote": "After the corrector, the light is splitted by a dichroic mirror into VIS and NIR to feed the corresponding fiber heads",
+    "tag": "INFERRED",
+    "alt": "Q14 Sec. 2.2: \"An ADC is needed in front of the dichroic plate\"; S12 Sec. 2.1: \"The f/10 beam coming from the telescope is fed into the fibers with 100 µm diameter\"",
+    "note": "INFERRED: the f/10 beam reaches the fibers through the fiber-head microlens (S12 Sec. 2.1) and the dichroic precedes the fiber heads (S12 Sec. 4), so the dichroic acts on the f/10 beam before its focus. web/arms.js 'focus' draws the dichroic in the light spreading from the focus; for a flat dichroic the only difference is that the beam is converging, which the drawing does not need. Use split 'focus' with Ftel 10 and no relay."
+   },
+   {
+    "parameter": "Resolving power, design (both channels)",
+    "value": 82000,
+    "unit": "",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Resolving power λ/∆λ = 82000",
+    "tag": "SOURCED",
+    "alt": "Q14 Sec. 2.4-2.5: \"R = 82,000 and a mean sampling of 2.8 pixels per resolution element\"",
+    "note": "A design target ('requirement R > 82000', S16 Sec. 4.2). DERIVED check: R = 2 tan(delta) f_col / w_slice, with the slice width w = half the fiber image: 100 um x 10.274 / 3.5 / 2 = 146.8 um and tan(75.2 deg) = 3.80, gives 2 x 3.80 x 1590.4 / 0.1468 = 82,300 (VIS); 2 x 3.80 x 1566.4 / 0.1458 = 81,700 (NIR). The unsliced image (293.5 um) would give only 41,000."
+   },
+   {
+    "parameter": "Resolving power, measured, VIS",
+    "value": 94600,
+    "unit": "",
+    "src": "Q18",
+    "loc": "Sec. 2.4, PDF p. 4",
+    "quote": "with a resolving power of R = 94, 600",
+    "tag": "SOURCED",
+    "alt": "Q16 Sec. 2.3: \"measured spectral resolution R = 93, 400\"; S16 Sec. 4.2: \"The mean resolution is 93400, the mean sampling is 2.5pixels\"; TP18 Sec. 2: \"at a measured spectral resolution of R = 93,400\"; R18 Sec. 1: \"resolution of R = 94, 600 covers the range λ = 520–960 nm\"; Ri23 Sec. 1: \"R = 94 600, covers the range λ = 520–960 nm\"; W1 table: \"94,600\"",
+    "note": "MEASURED from hollow-cathode lamp lines (S16: 'using the calibration lamps over the full wavelength range'; Q16 Fig. 1: 'as measured with unresolved lines of a hollow-cathode lamp'); the fitting function is not stated. 93,400 (2016) and 94,600 (2018 on) are two values of the same measurement; see Conflicts."
+   },
+   {
+    "parameter": "Resolving power, measured, NIR",
+    "value": 80400,
+    "unit": "",
+    "src": "Q18",
+    "loc": "Sec. 2.5, PDF p. 4",
+    "quote": "It provides a spectral resolution R = 80, 400",
+    "tag": "SOURCED",
+    "alt": "Q16 Sec. 2.4: \"at a measured resolution R = 81, 800\"; R18 Sec. 1: \"R = 80, 400\"; Ri23 Sec. 1: \"R = 80 400 within a\"; TP18 Sec. 2: \"at a measured spectral resolution of R = 82,000\"",
+    "note": "MEASURED (Q16 Fig. 1, unresolved hollow-cathode lines). The model gives 93,300 with the same slit as the VIS channel (a 16% excess); not explained by any source, not tuned."
+   },
+   {
+    "parameter": "Sampling (pixels per resolution element)",
+    "value": "design 2.8 mean (2.3 minimum); VIS measured 2.5 mean, 2.2 at the blue end of each order",
+    "unit": "px",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Resolution element 2.8 pixels at the center of the detector (>2.3 pixels)",
+    "tag": "SOURCED",
+    "alt": "S16 Sec. 4.2: \"the mean sampling is 2.5pixels with a minimum sampling of 2.2pixels at the blue end of\"; Q14 Sec. 2.4: \"from 2.3 ppre at the blue end to 4.0 ppre at the red end of the free spectral range\"",
+    "note": "Sampling varies strongly along each order because of the R4's anamorphism. The model: 2.88 px at 7500 A (VIS), 2.44 px at 13300 A (NIR)."
+   },
+   {
+    "parameter": "Dispersion",
+    "value": "NOT FOUND as a stated number",
+    "unit": "A/px",
+    "src": "S12",
+    "loc": "Table 1, PDF p. 3",
+    "quote": "Resolution element 2.8 pixels at the center of the detector (>2.3 pixels)",
+    "tag": "NOT FOUND",
+    "alt": "",
+    "note": "DERIVED from sourced R and sampling: lambda / (R x npix) = 7500 / (94,600 x 2.5) = 0.0317 A/px at 7500 A (VIS), with the design 82,000 x 2.8: 0.0327; NIR 13300 / (80,400 x 2.5) = 0.0662 A/px. Model: 0.0273 (VIS, 7500 A) and 0.0579 (NIR, 13300 A)."
+   },
+   {
+    "parameter": "Throughput (telescope to detector)",
+    "value": "design peak 10% (VIS), 13% (NIR); VIS measured 7.2% at 650 nm and 5.1% at 850 nm (specification > 5%)",
+    "unit": "",
+    "src": "S16",
+    "loc": "Table 2, PDF p. 10",
+    "quote": "650 nm 7.9% 7.2% 850 nm 5.7% 5.1%",
+    "tag": "SOURCED",
+    "alt": "S12 Sec. 1: \"The peak efficiencies of the instrument, including atmosphere, telescope and fiber link, will be 10% (VIS) and 13% (NIR).\"",
+    "note": ""
+   },
+   {
+    "parameter": "Thermal stability (not modeled)",
+    "value": "sigma(T) = 4-7 mK over 30 d on the optical bench",
+    "unit": "",
+    "src": "C25",
+    "loc": "Sec. 'the instrument', PDF p. 11",
+    "quote": "σ(T) = 4–7 10-3 K over 30 d",
+    "tag": "SOURCED",
+    "alt": "",
+    "note": ""
+   }
+  ],
+  "layout": [
+   {
+    "item": "Source figures",
+    "tag": "SOURCED",
+    "text": "VIS: S12 Fig. 1 (PDF p. 2), a Zemax 3D layout 'CARMENES VIS SPECTROGRAPH, 30.03.2012' with a 200 mm scale bar; the as-built VIS is the same drawing (S16 Fig. 1). NIR: B16 Fig. 2 (PDF p. 6), the optical layout with a 1000 mm scale bar; S12 Fig. 9 (PDF p. 8) is a 3D CAD view of the NIR bench (SCHEMATIC, no scale); S12 Fig. 14 (PDF p. 12) is a 3D CAD view of the front end (SCHEMATIC, no scale or angles). Both layouts show the dispersion plane with the collimator at the right end of the bench."
+   },
+   {
+    "item": "Order along the beam",
+    "tag": "SOURCED",
+    "text": "fibers (exit unit with pupil stop) -> FN lens system (f/3.5 to f/10) -> image slicer at the intermediate focus -> pass 1 on the off-axis collimator -> echelle (nearly edge-on in the drawing, 75.2 deg, slightly tilted out of the plane) -> pass 2 on the collimator, forming an intermediate (not yet cross-dispersed) spectrum on the flat fold mirror beside the slicer -> pass 3 on the collimator (a lower patch) -> grism at the re-imaged pupil -> dioptric camera -> detector. Text: S12 Sec. 2: 'A first pass of the collimator produces a 154 mm parallel beam. ... A second pass of the collimator produces an intermediate spectrum on the folding mirror. The light passes the collimator a third time.' B16 Sec. 2 gives the same order for the NIR."
+   },
+   {
+    "item": "Sides, as drawn",
+    "tag": "MEASURED",
+    "text": "Collimator at the right end, standing across the bench. Echelle upper left (beam to it nearly parallel to the bench). Fiber exit unit, slicer and fold mirror in the middle at the left, close together. Grism and camera lower left; detector at the far left. All three collimator passes are on the same mirror: passes 1 and 2 on the upper patch (beam centers 157 mm and 157 mm off the parent axis), pass 3 on the lower patch (about 240 mm off the axis on the other side), all within the 850 mm parent."
+   },
+   {
+    "item": "Collimator-to-slicer distance (focal length check)",
+    "tag": "MEASURED",
+    "text": "VIS: slicer 1582 mm from the collimator surface (1060 px x 1.4925 mm/px; 1 px = 200 mm / 134 px at 300 dpi, S12 Fig. 1), against f_col = 1590.4 mm DERIVED (0.5%). NIR: 1555 mm (1138 px x 1.366 mm/px; 1000 mm = 732 px, B16 Fig. 2), against 1566.4 mm (0.7%)."
+   },
+   {
+    "item": "Collimator-to-echelle distance (layLen)",
+    "tag": "MEASURED",
+    "text": "VIS: 1580 mm to the echelle's center (edge-on box centered at x = 546 px, the collimator at x = 1605 px of the 300 dpi crop; near edge 1266 mm, far edge 1893 mm). NIR: 1640 mm (center), near edge 1234 mm. Uncertainty about 2%. In both, the echelle center is about one collimator focal length from the collimator."
+   },
+   {
+    "item": "Fold mirror",
+    "tag": "MEASURED",
+    "text": "A small flat at the intermediate spectrum, in the dispersion plane 75 mm from the slicer (VIS: 50 px x 1.4925; NIR: 55 px x 1.366), 1570 mm from the collimator (VIS) and 1550 mm (NIR). It sends the beam almost back the way it came: the chief rays arriving from pass 2 and leaving for pass 3 open an angle of about 14 deg (VIS: 5.7 + 8.7 deg), so its angle of incidence is about 7 deg (MEASURED, +-2). No text gives it. Explorer: foldOn is not needed; wp3 true draws the third pass."
+   },
+   {
+    "item": "Grism and transfer",
+    "tag": "MEASURED",
+    "text": "The grism stands 1582 mm (VIS) and 1578 mm (NIR) from the collimator, the same distance as the slicer: the third pass re-images the pupil (the echelle, 1580 mm away) onto the grism (S12: 'located at the re-imaged (tilted) pupil'). Grism to detector: 751 mm (VIS), 902 mm (NIR). Camera: first lens about 97 mm (VIS) and 82 mm (NIR) behind the grism; first lens to detector 654 mm (VIS), 820 mm (NIR). Transfer collimator focal length = f_col (the same mirror): wpT = 1590.4 / 1566.4 mm."
+   },
+   {
+    "item": "Collimator on-axis or off-axis",
+    "tag": "SOURCED+MEASURED",
+    "text": "OFF-AXIS. Text: Table 1 'Off-axis collimator f/10.218 / f/10.274' and Sec. 2.2 'monolithic design cut from a large parent paraboloid with ~850 mm in diameter' (S12). Figures: the slicer and fold mirror stand between the echelle beam and the camera beam, and the chief rays make 6-10 deg with the collimated beam; none of them is obscured by the slicer. colTilt 3.8 (VIS) and 4.1 (NIR), half the mean angle."
+   },
+   {
+    "item": "Echelle mosaic",
+    "tag": "SOURCED",
+    "text": "Two RGL 53B..174E gratings per channel (C25 Table 2; S12 Table 1 and Fig. 4), 154 mm x 596 mm in all; the layout and used area are in S12 Fig. 4 (PDF p. 5). The drawn box in the layouts is the mount (626 mm VIS, 813 mm NIR long), not the ruled area."
+   },
+   {
+    "item": "NIR channel",
+    "tag": "SOURCED",
+    "text": "Same optical layout as the VIS channel with different refractive parts: FN system, grism (Infrasil) and camera (S12 Sec. 2 'Both channels vary only slightly in their design by using the same type of échelle grating. The differences are the refractive components'). The bench is cooled to 138-140 K; detector at 84 K."
+   },
+   {
+    "item": "Front-end layout",
+    "tag": "SCHEMATIC",
+    "text": "S12 Fig. 14 and Sec. 4: pick-up mirror (movable, 45 deg flat) and the atmospheric dispersion corrector first, then the dichroic with the VIS fiber head behind a holed acquisition mirror, and the NIR fiber head after a second mirror, both heads close together to limit differential flexure. No angles or distances are published; the All-arms drawing uses a 45 deg dichroic (INFERRED)."
+   }
+  ],
+  "model_outputs": {
+   "slitW": 0.7291043342962384,
+   "vis": {
+    "Reff": 94147.6061721532,
+    "Rs": 94346.63922384649,
+    "Rd": 1450187.2000000002,
+    "npix": 2.0988013803237853,
+    "dlpix": 0.03989599636296458,
+    "lamC": 7900,
+    "range": [
+     5259.464893413961,
+     10724.261620117539
+    ],
+    "nOrders": 60,
+    "mLo": 57,
+    "mHi": 116,
+    "alpha": 75.2,
+    "fcol": 1590.4152,
+    "Lg": 605.9994937904232,
+    "xApex": 17.8,
+    "lam0": 7842.082737205467,
+    "nAtLam0": 1.5720678145867761,
+    "minSepPx": 37.14985937123316,
+    "sepRange": [
+     64,
+     118
+    ],
+    "spanPx": 3320.8267480712816,
+    "flags": [
+     "fill: the beam overfills the grating (606 mm footprint on 596 mm)"
+    ],
+    "gaps": []
+   },
+   "nir": {
+    "Reff": 93345.416212799,
+    "Rs": 93892.01452501038,
+    "Rd": 866345.6000000001,
+    "npix": 2.4448794193423313,
+    "dlpix": 0.05793827208894364,
+    "lamC": 13300,
+    "range": [
+     9421.626098290779,
+     17128.15335761289
+    ],
+    "nOrders": 30,
+    "mLo": 36,
+    "mHi": 65,
+    "alpha": 75.2,
+    "fcol": 1566.4194000000002,
+    "Lg": 600.1274056722989,
+    "xApex": 13.85,
+    "lam0": 13181.514449088847,
+    "nAtLam0": 1.446026785236758,
+    "minSepPx": 40.396006365400474,
+    "sepRange": [
+     36,
+     64
+    ],
+    "spanPx": 1955.1318636530177,
+    "flags": [
+     "fill: the beam overfills the grating (600 mm footprint on 596 mm)",
+     "gap: coverage gaps above 11011 Å"
+    ],
+    "gaps": [
+     [
+      1.1010980005500914,
+      1.1013921987847397
+     ],
+     [
+      1.1211182077186057,
+      1.1217879256713648
+     ],
+     [
+      1.1418798901046547,
+      1.142953329070889
+     ]
+    ]
+   },
+   "nirSilica": {
+    "Reff": 93345.43101435414,
+    "Rs": 93892.0295881094,
+    "Rd": 866345.6000000001,
+    "npix": 2.4448790271104723,
+    "dlpix": 0.05793827208893976,
+    "lamC": 13300,
+    "range": [
+     9422.399574269666,
+     17128.153334898205
+    ],
+    "nOrders": 30,
+    "mLo": 36,
+    "mHi": 65,
+    "alpha": 75.2,
+    "fcol": 1566.4194000000002,
+    "Lg": 600.1274056722989,
+    "xApex": 13.85,
+    "lam0": 13201.10771212086,
+    "nAtLam0": 1.446689768246504,
+    "minSepPx": 40.40447036360343,
+    "sepRange": [
+     36,
+     64
+    ],
+    "spanPx": 1955.4880494865422,
+    "flags": [
+     "fill: the beam overfills the grating (600 mm footprint on 596 mm)",
+     "gap: coverage gaps above 11011 Å"
+    ],
+    "gaps": [
+     [
+      1.1010979996731622,
+      1.101392199809476
+     ],
+     [
+      1.1211182076025705,
+      1.1217879265940311
+     ],
+     [
+      1.1418798893901299,
+      1.1429533298983494
+     ]
+    ]
+   }
+  },
+  "performance_targets": [
+   {
+    "what": "R, VIS, measured (Q18, R18, Ri23, C25)",
+    "q": "R",
+    "value": 94600,
+    "note": "info: a Gaussian fit to a pixel-sampled round-fiber line returns about 0.71-0.77 of the geometric width, which would raise a fitted R by 13-19% over the model's geometry (the fitting function is not stated); model 95,200"
+   },
+   {
+    "what": "R, NIR, measured (Q18, R18, Ri23, C25)",
+    "q": "R",
+    "value": 80400,
+    "note": "info: the model gives 93,300 (16% above); not explained, not tuned"
+   },
+   {
+    "what": "R, design, 82,000 (S12)",
+    "q": "R",
+    "value": 82000,
+    "note": "info: the unsliced geometry; reproduced DERIVED as 2 tan(delta) f_col / w_slice = 82,300 (VIS), 81,700 (NIR)"
+   },
+   {
+    "what": "sampling 2.8 px (design, VIS; S12, Q14, Q18)",
+    "q": "npix",
+    "value": 2.8,
+    "note": "info: model 2.10 at lamC 7900 (the column sits at the blue end of its order, where the published minimum is 2.2 px; 2.88 at lamC 7500)"
+   },
+   {
+    "what": "sampling 2.5 px (NIR; Q14, Q18; VIS measured mean, S16)",
+    "q": "npix",
+    "value": 2.5,
+    "note": "tol 0.06 (NIR); model 2.44 at 13300 A"
+   },
+   {
+    "what": "alpha = 75.2 deg (S12 Sec. 2.3)",
+    "q": "alphaDeg",
+    "value": 75.2,
+    "note": "tol 0.002"
+   },
+   {
+    "what": "NIR: no gaps between orders up to 1110 nm (B16 Table 3)",
+    "q": "gap",
+    "value": 11100,
+    "note": "tol 0.01; model 11011 A"
+   },
+   {
+    "what": "VIS chip orders 53 to 116 (TP18 Table 1)",
+    "q": "mHi",
+    "value": 116,
+    "note": "scored with tol 0; model orders 57-116 (60); the model's red end falls 4 orders short (57 vs 53); mLo 53 is info"
+   },
+   {
+    "what": "NIR orders 36-64 for 960-1710 nm (DERIVED)",
+    "q": "mLo",
+    "value": 36,
+    "note": "info: model 36-65"
+   },
+   {
+    "what": "NIR 29 orders (S12 Table 1)",
+    "q": "nOrders",
+    "value": 29,
+    "note": "info: model 30 on the chip"
+   },
+   {
+    "what": "VIS 55 orders (C25 Table 2); 64 chip orders (TP18)",
+    "q": "nOrders",
+    "value": 55,
+    "note": "info: model 60 on the chip"
+   }
+  ],
+  "not_found": [
+   "Dichroic transition width, angle of incidence, substrate and coating (INFERRED in the All-arms entry: width 300 A, 45 deg).",
+   "Echelle out-of-plane tilt gamma, in-plane offset theta and the digit of the as-built working angle ('75.x deg', S16 Table 1). Tala Pinto et al. 2018 (TP18) was read for them: its RAMSES model leaves the echelle orientation angles open in the fit but prints no fitted value, no table of the 22 open parameters and no echelle angle. gamma 0.6 deg stays INFERRED; the working angle stays the design 75.2 deg.",
+   "NIR channel in the physical model: TP18 models the VIS channel only (it says NIR spectra were tested, but gives no NIR parameters or residuals).",
+   "The gap between the two NIR H2RG arrays (pixels or mm), and the wavelengths that fall in it (R18 says only 'a small gap' and 'gaps ... between zero and 15 nm').",
+   "Refractive-index source or temperature treatment for the LF5 and Infrasil grisms (cryogenic or room-temperature); the prism-substrate glass of the NIR grism at 138 K. The model's room-temperature versus 105 K Infrasil makes no difference at its precision.",
+   "A published dispersion in A/px, order-by-order R, or a measured order spacing; only the mean R, the sampling and the 7 px minimum inter-order spacing are given. The model's A/px (0.0273 VIS at 7500 A, 0.0579 NIR at 13300 A) is a prediction, not a comparison.",
+   "Grism groove-facet angle (blaze 700 / 1150 nm are stated; the apex 17.8 / 13.85 deg are used, with the facet taken equal to the apex, INFERRED as in the HARPS preset).",
+   "Camera lens prescriptions, the slicer's slice width and the slicer geometry beyond 'two-slice, Bowen-Walraven'; the fiber-head microlens focal length.",
+   "Dichroic position relative to the telescope focus as a stated distance; the front end's mirror angles (Fig. 14 is unscaled)."
+  ],
+  "conflicts": [
+   "Resolving power, VIS: 82,000 (design, S12, Q14) vs 93,400 measured (Q16 Sec. 2.3; S16 Sec. 4.2) vs 94,600 (Q18, R18, Ri23, C25, W1, W2). The three are the same quantity at three dates; 94,600 is the value in current use and is the validation target. S16 says the measurement exceeds the 82,000 requirement because 'the Echelle angle [is] slightly different from the design value'; an angle of 76 deg (R4) would raise 2 tan(delta) by only 5.6%, so that does not explain 15%; the model's geometric FWHM of the half-fiber slice gives 94,000-95,000 (VIS) with the design angle, i.e. the same value as measured.",
+   "Resolving power, NIR: 82,000 (design) vs 81,800 (Q16) vs 80,400 (Q18, R18, Ri23, C25, W1, W2). The model gives 93,300 with the same slit as the VIS channel, 16% above the measured value. Nothing in the sources explains why the NIR channel measures near the design while the VIS channel measures 15% above it. Not tuned: the explorer will show an info line.",
+   "Early concept (Q10, 2009): NIR R = 85,000 in 31 orders with an R2.9 echelle and two S-NPH2 prisms at -30 C; VIS R = 60,000 in 42 orders. Superseded by the 2012 final design (R4, grisms, R = 82,000).",
+   "Mean sampling: 2.8 pixels (design, S12, Q14 VIS, Q18 VIS, C25 both channels) vs 2.5 pixels (S16 VIS measured mean, minimum 2.2 at the blue end; Q14 and Q18 give 2.5 for the NIR channel). Model: 2.88 (VIS), 2.44 (NIR).",
+   "Number of orders: VIS 53 (design, 550-1050 nm; S12, S16) vs 55 (C25, as operated); NIR 29 (S12) vs 28 (C25). Order numbers from sourced values: 520-960 nm is orders 118-64 (55 orders); 950-1700 nm is 64-36 (29).",
+   "Collimator substrate: fused silica (VIS) and aluminum 6061-T6 (NIR) in the 2012 design (S12 Sec. 2.2) vs Zerodur for the collimator, echelle and fold mirror (TP18 Sec. 2, as built; C25). RESOLVED as Zerodur; drawing and model are unaffected.",
+   "Resolving power, NIR, a fourth value: TP18 Sec. 2 prints a measured R = 82,000 (and 0.91-1.7 um) for the NIR channel, against 81,800 (Q16) and 80,400 (Q18 on). The paper offers no cause for the model excess of 16% (it models the VIS channel only, and its VIS R is 93,400, the 2016 value).",
+   "VIS orders: TP18 Table 1 prints '550 - 1050 nm, orders 53 to 116'. By m = 611,880 A / lambda those orders span 527-1155 nm, so they are the chip's orders, not the 550-1050 nm design band (m = 111-58); the model's chip at lamC 7900 holds 57-116.",
+   "Image or pupil slicer: C25 and S12 call it an image slicer (Bowen-Walraven, FEROS type); Q14 Sec. 2.4 writes 'divides their pupils into two slices'. Resolved as an image slicer: the slice width reproduces the design R (Table above); a pupil slicer would halve the beam, not the slit.",
+   "Calibration fibers to the front end: 400 um (Q16, St14) vs 600 um (one sentence of C25, which also says 400 um elsewhere). Not used by the explorer.",
+   "Octagonal fiber length: about 8 m (Q16), 10 m (Q18), 2-3 m (C25). Not used.",
+   "CCD size: 4096 x 4096 (S12, S16, C25, Q16) vs 4112 x 4096 (Q14, Q18; the extra columns are margins, INFERRED). The preset uses 4096 x 4096.",
+   "NIR band edges: 950-1700 nm (design, S12) vs 960-1710 nm (Q16, Q18, R18). The model's chip is wider than both; coverage is the orders' business, not a preset entry.",
+   "Echelle angle: 75.2 deg working angle in the 2012 design (S12 Sec. 2.3; 'effective blaze angle around 75.4 deg'), '75.x deg' as built (S16, digit not printed), 76 deg for the R4 label (C25 Table 2). The preset uses 75.2.",
+   "Pick-up mirror: 'flat 90 deg pick-up mirror' (Q14) vs 'flat 45 deg pick-up mirror' (Q16): the same mirror (a 45 deg tilt turns the beam through 90 deg).",
+   "Tank size: 1.4 m x 3.5 m (Q14 Fig. 1), 1.7 m x 2.7 m (S12 Sec. 3), 1.5 m x 3.0 m (C25). Not used."
+  ],
+  "notes": [
+   "Sampling the explorer's slit. The slicer cuts the fiber's IMAGE in two, so the slit the spectrograph sees is half the fiber image: 100 um at f/3.5, re-imaged by the FN system at f/10.274, is 293.5 um across; one slice is 146.8 um. The explorer's fiber convention (the slit of equal line width, (sqrt 3 / 2) x width) gives 127.1 um, i.e. slitW = S3 x 0.100 / (2 x 3.5 x 3500) x 206264.806 = 0.7291 arcsec at D = 3.5 m with F = the collimator's f/10.274 (VIS) or f/10.218 (NIR); the F cancels, so both channels get 0.7291 arcsec. nObj = 4 (2 fibers x 2 slices). On the sky the same slice is (sqrt 3 / 2) x 1.5 / 2 = 0.65 arcsec at the f/3.9 input; the ratio 0.7291 / 0.65 = 1.12 is the f/3.9 to f/3.5 FRD margin. The octagonal cross-section's line profile is approximated by the round-core factor (as for HARPS).",
+   "Self-checks that passed with no tuning: (1) the design R = 2 tan(delta) f_col / w_slice = 82,300 (VIS) and 81,700 (NIR) reproduces the 82,000 requirement; (2) the 2.8 px sampling follows from f_cam / f_col x slice width / pixel (455 / 1590.4 x 146.8 um / 15 um = 2.8 px VIS; 548 / 1566.4 x 145.8 um / 18 um = 2.83 px NIR); (3) the grism undeviated wavelengths come out at the band centers (7842 and 13182 A); (4) the NIR coverage gaps start at 11011 A in the model against 'no gaps between orders up to 1110 nm' (B16 Table 3); (5) the model's VIS R, 94,000-95,000, equals the measured 94,600. The NIR model R, 93,300, does not equal its measured 80,400 (see Conflicts).",
+   "Chip orders: at lamC 7900 the model's VIS chip holds orders 57-116 (60) against TP18's 53 to 116 (64); the design-band orders 64-118 (520-960 nm) span 3320 of 4096 rows. At lamC 7500 it holds 59-125 (67). The NIR chip holds orders 36-65 (30) against 29 published.",
+   "Status. CARMENES has operated since 2016-01-01 (S16); the CAHA page of 2026-11-18 lists CARMENES+ (upgrades: NIR cooling to continuous nitrogen flow in 2023, V25 and C25; new Fabry-Perot etalon April 2024, C25) and CARMENES Legacy+. None of these changes the optics. No '(design)' tag.",
+   "Fiber and vacuum details the explorer does not model: two spectrographs in two vacuum tanks, simultaneous Fabry-Perot calibration in the second fiber, the exposure meter, the fiber shaker (turned off), the cooled NIR bench, the NIR detector gap, octagonal-core scrambling.",
+   "TP18 reading (settled and unsettled): the paper confirms the F/N conversion 'F/3.5 output beam of the fibers into the F/10.2 focal ratio of the collimator', the slicer at the F/N focal plane, f/2.94 and 455 mm for the camera, the Zerodur mirrors, a fiber pitch of 0.346 mm (6.6 px, DERIVED), and catalog room-temperature indices for the VIS glasses. It does not give gamma, theta, the as-built blaze angle, any fitted value, NIR parameters or a cause of the NIR R excess. The fit residuals (better than half a pixel on 1154 lines; 1/1000 px against Zemax) bear on the wavelength solution, not on R.",
+   "lamC for VIS: 7900 puts the chip at orders 57-116 (TP18: 53 to 116, bluest order exact, red end 4 short) but the chip-center column then sits at the blue end of its order (2.10 px, 0.0399 A/px); lamC 7500 gives the mid-order sampling (2.88 px) with orders 59-125. 7900 is recommended for the Detector panel.",
+   "Glass: LF5 is in web/physics.js GLASS. Infrasil: use 'Infrasil-105K' (nearest cryogenic entry); the sources do not state a temperature treatment.",
+   "SPIE's site refuses automated access. All SPIE papers here come from the consortium's own web pages (webs.ucm.es/info/carmenes and carmenes.caha.es), which host author copies: S12, S16, B16, Q16, Q14 (an SPIE review proof), St14, Am12, Q12 and Q18 are those copies; their text is as submitted."
+  ]
+ }
+}

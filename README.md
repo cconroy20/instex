@@ -1000,6 +1000,17 @@ gratings fitted to the design R and dispersion, so its R lines are reference onl
 caps the diffraction limit when the beam overfills it (UHRF, Hamilton, Tull: 408 mm echelles), which brings UHRF to
 R = 920,000 against the measured 940,000.
 
+Round 9 (2026-11-18; records in data/round9/): four extreme-precision radial-velocity spectrographs and Keck's
+near-infrared echelle. KPF on Keck I (green and red arms; each camera and grism entered as the equivalent in the
+primary collimator's 200 mm beam; the arms split after the shared echelle, which the All-arms view does not draw),
+NEID on the WIYN 3.5 m (HR and HE; one parabola in triple pass; the published order spans scored), CARMENES on the
+Calar Alto 3.5 m (VIS and NIR, with an All-arms group for the dichroic ahead of the fibers; the NIR model's R is 16%
+above the measured 80,400, unexplained), HPF on the HET (camera and cross-disperser EFFECTIVE, since the as-built
+prescription is not published; four published order edges scored, a test of the 74.6° as-manufactured blaze), and
+NIRSPEC on Keck II (echelle Y, J, H and K and the low-resolution mode; the three-mirror camera's two focal lengths,
+464.24 and 407.49 mm, so the scale along the slit is 18% small in the echelle mode). validate.js gains ordLo and
+ordHi, an order's blue and red ends on the chip.
+
 ## Preset and Setting menus
 
 An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and a

@@ -21,7 +21,7 @@
        npix       pixels per slit-image FWHM;  diam: the round fiber image's full width in pixels (npix / (sqrt 3 / 2))
        lo, hi, span   coverage edges and width (A);  lam0: a grism's undeviated wavelength (A)
        mLo, mHi, nOrders   reddest and bluest echelle orders on the chip, and their number
-       ordSpan    wavelength range of order m on the chip (A);  ySpan: distance across the dispersion between the
+       ordSpan    wavelength range of order m on the chip (A);  ordLo, ordHi: order m's blue and red ends on the chip (A);  ySpan: distance across the dispersion between the
                   centers of orders m1 and m2 (mm)
        gap        start of the first coverage gap (A);  gapPx: spacing of the nObj spectra across the chip (px)
        minSepPx, minSepArcsec   smallest spacing of adjacent order centers (px; arcsec of slit), within orders m1-m2
@@ -971,6 +971,136 @@ const PRESETS = [
       ...(c.set === "YJ" ? [{ what: "measured R ≈ 4000; images 2.5–2.7 px FWHM", q: "npix", value: 2.6, info: true, src: "Black et al. 2022 (Fig. 11 caption; laboratory tests): the model's geometric fiber image is wider than the measured core of the line" }] : []),
     ],
   })),
+  // Round 9 (data/round9/*.md, 2026-11-18): KPF, NEID, CARMENES, HPF and NIRSPEC.
+  // KPF (data/round9/kpf.md): the 64 um mask the science slices share (INFERRED as their width) enters as a 138 um top-hat
+  // slit at f/8 (no round-core factor); the explorer's one beam is the primary collimator's 200 mm, so each camera enters
+  // as its equivalent in that beam (f_cam x 1600 / 1280, DERIVED) and each grism as 0.8 x its physical line density
+  // (DERIVED; the prism apex is not published).  The arms split after the shared echelle, which the All-arms view does
+  // not draw, so KPF has no All-arms group.
+  ...[
+    { k: "g", set: "green", arm: "green", fcam: 618.75, fc: 495, xG: 648, xGp: 810, xPsi: 3.9, lamC: 5203, mc: 118, lo: 4430, hi: 5990, n: 35 },
+    { k: "r", set: "red", arm: "red", fcam: 615, fc: 492, xG: 360, xGp: 450, xPsi: 4.8, lamC: 7310, mc: 84, lo: 5990, hi: 8710, n: 32 },
+  ].map(c => ({
+    id: "kpf" + c.k, tel: "Keck 10 m", name: "Keck / KPF " + c.arm, inst: "KPF", setting: c.set,
+    note: "The Keck Planet Finder at Keck I (Gibson et al. 2024; Gibson et al. 2018; the Keck KPF pages), the extreme-precision radial-velocity spectrograph, here the " + c.arm + " arm. The science fiber (225 µm octagonal, 1.14″, f/3.7) feeds a reformatter that cuts the fiber's image into three slices at f/8; the slices share a 64 µm mask, INFERRED as the slit width (138 µm at the f/8 slit, entered as a 0.326″ top-hat slit), and the sky and calibration fibers stand on the same slit, so each order holds five traces. An off-axis parabola of 1600 mm (8° off axis, 200 mm beam) sends the light to an R4 echelle mosaic of 31.6 /mm (two sub-gratings on an 840 mm substrate) 1600 mm away; a fold flat at the intermediate focus and a 1280 mm secondary collimator form a white pupil (160 mm beam), ahead of a dichroic at 590 nm that reflects the green arm and passes the red. Each arm has a VPH grism (a fused-silica prism on a VPH grating of " + c.xGp + " /mm), a five-element Petzval camera (" + c.fc + " mm, f/2.8) and a 4080 × 4080 CCD of 15 µm. The explorer's one beam is the primary collimator's 200 mm, so the camera enters as the equivalent focal length in that beam, " + c.fcam + " mm (DERIVED: " + c.fc + " × 1600 / 1280), and the grism as an equivalent " + c.xG + " /mm (0.8 × the physical, DERIVED; the prism apex is not published). The echelle's γ (1.0°) is read by eye from Gibson et al. 2024 Fig. 3; the central wavelength is the blaze of order " + c.mc + ", near the middle of the arm's band (the chip center is not published). The arms share the echelle and split after the echelle, a layout the All-arms view does not draw. Keck's status page (saved 2026-11-18) reports KPF offline since April 2026, after a vacuum-pump failure.",
+    state: { mode: "echelle", D: 10.95, F: 8,
+      e: { lay3d: "wp", wpT: 1280, fold3d: "fold flat", layLen: 1600, colTilt: 4, slitW: 0.326, nObj: 5, col: "mirror", W: 200, fcam: c.fcam, cam: "lens", camEq: "equivalent of " + c.fc + " mm on the 160 mm beam",
+           feedLabel: "reformatter (3 slices, f/8)", xdLabel: "VPH grism", xdEq: "equivalent of " + c.xGp + " /mm on the 160 mm beam",
+           eG: 31.6, eDelta: 75.96, gamma: 1.0, theta: 0, xd: "vph", xG: c.xG, xPsi: c.xPsi, lamC: c.lamC, Nx: 4080, Ny: 4080, pix: 15, gLen: 840 } },
+    pub: [
+      { what: "R = 95,000–97,000 (measured, comb lines)", q: "R", value: 96000, info: true, src: "Gibson et al. 2024 Sec. 6.1 and Fig. 22 (a Gaussian plus top-hat fitted to laser-frequency-comb lines; Rubenzahl et al. 2023: median 98,000). The model's R rests on the 64 µm mask as the slice width (INFERRED): a miss of 4%, not tuned" },
+      { what: "3.4–3.7 px per FWHM", q: "npix", value: 3.55, tol: 0.06, src: "Gibson et al. 2024 Fig. 22 caption (measured)" },
+      { what: "coverage from " + (c.lo / 10) + " nm", q: "lo", value: c.lo, tol: 0.015, src: "Gibson et al. 2024 Table 1 (the Keck pages give 445–600 and 440–590 nm for the green arm)" },
+      { what: "coverage to " + (c.hi / 10) + " nm", q: "hi", value: c.hi, tol: 0.015, src: "Gibson et al. 2024 Table 1 (the Keck pages give 445–600 and 440–590 nm for the green arm)" },
+      { what: c.n + " orders", q: "nOrders", value: c.n, info: true, src: "KPF pipeline L1 format (extracted orders, which need not be every order the chip holds)" },
+    ],
+  })),
+  // NEID (data/round9/neid.md): the fibers enter at core / (3.6 x D), the fiber output ratio of Schwab et al. 2020 (the
+  // virtual convention), with F = 1550 / 195 = 7.95, the ratio the injection optics deliver; one parabola in triple pass
+  // (white pupil, transfer = collimator, as HARPS); the chip center (not published) at the blaze of order 126
+  ...[
+    { k: "hr", set: "HR", core: 0.0641, n: 3, sky: "0.92″", tr: "three traces per order (science, sky and calibration)", pub: [
+      { what: "R ≈ 112,000 (HR)", q: "R", value: 112000, info: true, src: "Kanodia et al. 2023 (the method is not stated; WIYN: above 110,000; Kanodia et al. 2020: 120,000). The model's R is the round core's geometric line, as for HARPS and ESPRESSO, whose fitted R also reads 10–20% higher" },
+      { what: "R = 100,000 (design, geometric)", q: "Rs", value: 100000, tol: 0.05, src: "Schwab et al. 2016 abstract (a round design value)" },
+      { what: "≈5 px per resolution element (design)", q: "npix", value: 5, tol: 0.1, src: "Schwab et al. 2016 Sec. 2.3 (\"one resolution element = 5 pixels\", at the order center)" },
+      { what: "order 170 spans 69.12 Å on the chip", q: "ordSpan", m: 170, value: 69.12, tol: 0.02, src: "NEID pipeline L2 order table (3570.94–3640.06 Å over the 9216 px trace)" },
+      { what: "order 55 spans 212.29 Å on the chip", q: "ordSpan", m: 55, value: 212.29, tol: 0.02, src: "NEID pipeline L2 order table (11038.91–11251.20 Å)" },
+      { what: "orders 170–55 calibrated (173–52 extracted)", q: "nOrders", value: 116, info: true, src: "NEID pipeline order table; the chip center is set here so that these orders fall on the chip: not a test" },
+    ] },
+    { k: "he", set: "HE", core: 0.1012, n: 2, sky: "≈1.5″", tr: "two traces per order (science and sky)", pub: [
+      { what: "R ≈ 72,000 (HE)", q: "R", value: 72000, info: true, src: "Kanodia et al. 2023 (WIYN: ≈60,000; the method is not stated). The model's R is the round core's geometric line, as for HR" },
+    ] },
+  ].map(c => ({
+    id: "neid" + c.k, tel: "WIYN 3.5 m", name: "WIYN / NEID " + c.set, inst: "NEID", setting: c.set,
+    note: "NEID at the WIYN 3.5 m telescope (Schwab et al. 2016, 2020; Kanodia et al. 2020, 2023; the NEID pipeline documentation), here the " + c.set + " mode; the two modes share every optic and differ in the fibers. The port adapter converts the f/6.3 telescope beam to f/4 at the octagonal telescope fibers (" + c.sky + " on the sky); ball-lens double scramblers lead to circular fibers of " + (c.core * 1000).toFixed(1) + " µm that deliver f/3.6 to injection optics (a fused-silica singlet and two cemented doublets) converting the beam to the collimator's f/7.95, so the core enters at core / (3.6 × D), the virtual convention (the on-sky size would make the slit 13% narrow); " + c.tr + ". One 590 mm Zerodur parabola (f = 1550 mm, 5° off axis across the dispersion, drawn in the page) serves in triple pass as collimator and white-pupil transfer, with a 195 mm beam, an R4 echelle of 31.6 /mm (a 1 × 2 mosaic, 200 × 800 mm ruled, which the beam just fills), a flat fold beside the fiber, one 60° PBM2Y prism in single pass, a four-lens refractive camera of ≈600 mm (the design requirement; the as-built focal length is not published) and an e2v CCD290-99 of 9216 × 9232 pixels of 10 µm, in a vacuum chamber held to the milli-kelvin. The chip center is not published: the explorer centers the blaze of order 126 (4873 Å), which places the pipeline's orders 170–55 on the chip. The element spacings are measured from Schwab et al. 2016 Fig. 2 (data/round9/neid.md).",
+    state: { mode: "echelle", D: 3.5, F: 7.95,
+      e: { lay3d: "wp", wpT: 1550, wp3: true, fold3d: "fold", layLen: 1540, colTilt: 2.5, slitW: S3 * c.core / (3.6 * 3500) * 206264.806, nObj: c.n, col: "mirror", W: 195, fcam: 600, cam: "lens",
+           feedLabel: "fibers (f/3.6 to f/7.95)", eG: 31.6, eDelta: 75.96, gamma: 0.5, theta: 0, xd: "prism", xGlass: "PBM2Y", xA: 60, xPasses: 1,
+           lamC: 4872.9, Nx: 9216, Ny: 9232, pix: 10, gLen: 800, telF: 4, fibAp: c.k === "hr" ? 0.92 : 1.5 } },
+    pub: c.pub,
+  })),
+  // CARMENES (data/round9/carmenes.md): the fiber's f/3.5 output re-imaged at the collimator's f/10.3 by the F/N lens
+  // system onto a two-slice image slicer; the slit is one slice, half the core's image, entered at core / (2 x 3.5 x D) with
+  // the round-core factor (the virtual convention).  One collimator in three passes (white pupil, as HARPS); the chip
+  // center (not published) at the blaze of an order near the band's middle
+  ...[
+    { k: "vis", set: "VIS", F: 10.274, W: 154.8, fcam: 455, wpT: 1590.4, layLen: 1580, colTilt: 3.8, xG: 223, xGrA: 17.8, xGlass: "LF5", mc: 82, Nx: 4096, Ny: 4096, pix: 15,
+      det: "an e2v CCD231-84 of 4096 × 4096 pixels of 15 µm", gl: "LF5 with 223 /mm, apex 17.8°", cam: "455 mm, f/2.94", pub: [
+      { what: "R = 94,600 (measured)", q: "R", value: 94600, info: true, src: "Quirrenbach et al. 2018; Reiners et al. 2018 (the fitting function is not stated)" },
+      { what: "R = 82,000 (design)", q: "R", value: 82000, info: true, src: "Seifert et al. 2012: the design's geometric R from the slice's full width, 2 tan δ f_col / w (82,300, DERIVED), where the model takes the line's FWHM, 0.866 of the width" },
+      { what: "2.8 px per resolution element (design)", q: "npix", value: 2.8, info: true, src: "Seifert et al. 2012; Quirrenbach et al. 2014: the slice's full width on the chip (146.8 µm × 455 / 1590 = 42 µm, DERIVED); the model gives the FWHM, 0.866 of the width" },
+      { what: "55 orders in 520–960 nm (orders 64–118)", q: "nOrders", value: 55, info: true, src: "Caballero 2025 Table 2; the chip holds more (Tala Pinto et al. 2018: orders 53–116 on the chip, a range that does not match the paper's 550–1050 nm)" },
+    ] },
+    { k: "nir", set: "NIR", F: 10.218, W: 153.3, fcam: 548, wpT: 1566.4, layLen: 1640, colTilt: 4.1, xG: 81, xGrA: 13.85, xGlass: "Infrasil-105K", mc: 46, Nx: 4096, Ny: 2048, pix: 18,
+      det: "two HAWAII-2RG arrays of 2048 × 2048 pixels of 18 µm side by side (4096 × 2048; the small gap between the arrays is not published and not drawn)", gl: "Infrasil with 81 /mm, apex 13.85°, at the bench's 140 K (the papers give no index source: the explorer's Infrasil at 105 K)", cam: "548 mm, f/3.53", pub: [
+      { what: "R = 80,400 (measured)", q: "R", value: 80400, info: true, src: "Quirrenbach et al. 2018; Reiners et al. 2018; Caballero 2025 gives 82,000. A miss: the model is 16% higher, unexplained by the sources (not tuned)" },
+      { what: "2.5 px per resolution element", q: "npix", value: 2.5, tol: 0.06, src: "Quirrenbach et al. 2014, 2018 (NIR)" },
+      { what: "no gaps between orders up to 1110 nm", q: "gap", value: 11100, tol: 0.01, src: "Becerril et al. 2016 Table 3" },
+      { what: "29 orders (960–1710 nm)", q: "nOrders", value: 29, info: true, src: "Seifert et al. 2012 Table 1 (in the band; the chip holds partial orders beyond)" },
+    ] },
+  ].map(c => ({
+    id: "carmenes" + c.k, tel: "Calar Alto 3.5 m", name: "Calar Alto 3.5 m / CARMENES " + c.set, inst: "CARMENES", setting: c.set,
+    note: "CARMENES at the Calar Alto 3.5 m telescope (Quirrenbach et al. 2014, 2016, 2018; Seifert et al. 2012, 2016; Becerril et al. 2016; Tala Pinto et al. 2018), here the " + c.set + " channel, one of two fiber-fed echelles in vacuum tanks. A dichroic at 960 nm in the converging f/10 beam ahead of the fibers reflects the visible light to the VIS fiber heads and passes the near infrared. Each channel has two fibers (science and Fabry-Pérot calibration; 100 µm octagonal cores, 1.5″ on the sky) that deliver f/3.5 to the F/N lens system, which re-images each core at f/10.3 onto an image slicer that cuts the image in two: the slit is one slice (146.8 µm), entered as the equivalent line width at the collimator's ratio, and the detector holds four traces per order. One off-axis parabolic collimator (" + c.wpT + " mm, " + c.W + " mm beam) serves three passes as collimator and white-pupil transfer, with an echelle of 31.6 /mm worked at 75.2° (a 596 mm mosaic), a grism cross-disperser (" + c.gl + "), a refractive camera (" + c.cam + ") and " + c.det + ". γ (0.6°) is INFERRED (not published); the central wavelength is the blaze of order " + c.mc + " (the chip center is not published). The element spacings are measured from Seifert et al. 2012 Fig. 1 and Becerril et al. 2016 Fig. 2 (data/round9/carmenes.md).",
+    state: { mode: "echelle", D: 3.5, F: c.F,
+      e: { lay3d: "wp", wpT: c.wpT, wp3: true, fold3d: "fold", layLen: c.layLen, colTilt: c.colTilt, slitW: S3 * 0.100 / (2 * 3.5 * 3500) * 206264.806, nObj: 4, col: "mirror", W: c.W, fcam: c.fcam, cam: "lens",
+           feedLabel: "slicer (fibers at f/10.3)", eG: 31.6, eDelta: 75.2, gamma: 0.6, theta: 0, xd: "grism", xG: c.xG, xGrA: c.xGrA, xGlass: c.xGlass, xPasses: 1,
+           lamC: +(2 * Math.sin(75.2 * Math.PI / 180) * Math.cos(0.6 * Math.PI / 180) / 31.6e-3 / c.mc * 1e4).toFixed(1), Nx: c.Nx, Ny: c.Ny, pix: c.pix, gLen: 596, telF: 10, fibAp: 1.5 } },
+    pub: c.pub,
+  })),
+  // HPF (data/round9/hpf.md): the 93 um slit on the fiber puck, re-imaged from f/3.3 to the collimator's f/8 (225 um,
+  // DERIVED), enters as a top-hat slit at F = 8 (the virtual convention); the camera and the VPH are EFFECTIVE (the as-built
+  // prescription is not published); D is the HET's 10 m pupil (the illuminated pupil varies 5.5-8.5 m with the track)
+  {
+    id: "hpf", tel: "HET 10 m", name: "HET / HPF, HR (effective optics)",
+    note: "The Habitable-zone Planet Finder at the Hobby-Eberly Telescope (Mahadevan et al. 2012, 2014; Kanodia et al. 2018; Ninan et al. 2019; Metcalf et al. 2019), a stabilized near-infrared echelle in a vacuum cryostat at 180 K, in the High Resolution mode. Octagonal fibers of 299 µm (1.7″ at the HET's f/3.65) lead through a ball-lens double scrambler to 312 µm circular fibers, with a 93 µm nickel slit on the fiber puck; input optics of CaF₂ and SFTM-16 re-image f/3.3 to the collimator's f/8, so the slit enters as the 225 µm image at f/8 (DERIVED), and the science, sky and calibration fibers make three traces per order. A monolithic off-axis parabolic collimator (1600 mm, DERIVED from the f/8 and the 200 mm beam) in an asymmetric white-pupil layout, an R4 mosaic echelle of 31.6 /mm (200 × 800 mm) blazed at 74.6° as manufactured, a VPH cross-disperser, a fast refractive camera and a 2048 × 2048 HAWAII-2RG of 18 µm with a 1.7 µm cutoff. The camera (362 mm, fitted to the 9.5 px length of the slit image, Ninan et al. 2019) and the cross-disperser (210 /mm, fitted to the 28 orders on the chip) are EFFECTIVE: the as-built optical prescription is not published, and the only layout figure is the 2012 concept drawing, so the drawing is schematic. D is the HET's 10 m pupil; the illuminated pupil varies from 5.5 to 8.5 m with the track, which changes the light collected and not R.",
+    state: { mode: "echelle", D: 10, F: 8,
+      e: { lay3d: "wp", wpT: 1600, layLen: 1600, slitW: 0.093 * 8 / 3.3 / (8 * 10000) * 206264.806, nObj: 3, col: "mirror", W: 200, fcam: 362, cam: "lens", camEq: "effective", xdEq: "effective",
+           feedLabel: "fibers (f/3.3 to f/8)", eG: 31.6, eDelta: 74.6, gamma: 0.5, theta: 0, xd: "vph", xG: 210, xPsi: 10,
+           lamC: 10521, Nx: 2048, Ny: 2048, pix: 18, gLen: 800, telF: 3.65, fibAp: 1.7 } },
+    pub: [
+      { what: "R = 50,000 (design)", q: "R", value: 50000, tol: 0.06, src: "Mahadevan et al. 2014 Sec. 2; Mahadevan et al. 2012" },
+      { what: "R ≈ 55,000 (later papers)", q: "R", value: 55000, info: true, src: "Kanodia et al. 2020 Sec. 2.3; Ninan 2019 (EPRV VI); Metcalf et al. 2019 give 53,000. No source states a measurement" },
+      { what: "slit image 2.5 px wide", q: "npix", value: 2.5, info: true, src: "Ninan et al. 2019 Sec. 2.5 (2.5 × 9.5 px). A miss of 14%: the published image is 9.5 / 2.5 = 3.8 times longer than wide, the 312 µm core and the 93 µm slit 3.35 times, and the camera is fitted to the length" },
+      { what: "order 72 begins at 8411.5 Å", q: "ordLo", m: 72, value: 8411.5, tol: 0.005, src: "Metcalf et al. 2019 Methods (orders 72–69 cover 841.15–889.5 nm); a test of the 74.6° blaze, not fitted" },
+      { what: "order 69 ends at 8895 Å", q: "ordHi", m: 69, value: 8895, tol: 0.005, src: "Metcalf et al. 2019 Methods" },
+      { what: "order 61 begins at 9933 Å", q: "ordLo", m: 61, value: 9933, tol: 0.005, src: "Metcalf et al. 2019 Methods (orders 61–57 cover 993.3–1076.7 nm)" },
+      { what: "order 57 ends at 10767 Å", q: "ordHi", m: 57, value: 10767, tol: 0.005, src: "Metcalf et al. 2019 Methods" },
+      { what: "28 orders, 8080–12780 Å", q: "nOrders", value: 28, info: true, src: "Metcalf et al. 2019; Kanodia et al. 2020 (the cross-disperser is fitted to this count: not a test)" },
+    ],
+  },
+  // NIRSPEC (data/round9/nirspec.md): F = 206265 / (2.06 x 10950) = 9.144 keeps the published 2.06"/mm slit scale on the
+  // 10.95 m pupil, so the beam is 1200 / F = 131 mm (the published beam is 120 mm); the camera is the TMA's sourced focal
+  // length along the dispersion (464.24 mm; 407.49 mm across, for the low-resolution mode); the cross-disperser grating
+  // works in order m (1-4), entered as its first-order equivalent m x 75.75 /mm
+  ...[
+    { k: "k", set: "K, 0.43″", band: "K", m: 2, lamC: 20505, filt: [19070, 25540], fn: "Kband-new (1.907–2.554 µm, preferred since 2022)", ord: "33–41", dl: [20505, 37, 0.2003], dlMiss: true },
+    { k: "y", set: "Y, 0.43″", band: "Y", m: 4, lamC: 10320, filt: [9500, 11200], fn: "Yband-new (0.950–1.120 µm, 2025)", ord: "68–80", dl: [10320, 74, 0.0993] },
+    { k: "j", set: "J, 0.43″", band: "J", m: 3, lamC: 12518, filt: [11400, 13500], fn: "Jband-new (1.140–1.350 µm, 2025)", ord: "55–67", dl: [12518, 61, 0.1225] },
+    { k: "h", set: "H, 0.43″", band: "H", m: 3, lamC: 15912, filt: [14340, 17090], fn: "Hband-new (1.434–1.709 µm, 2025)", ord: "43–53", dl: [15912, 48, 0.15255] },
+  ].map(c => ({
+    id: "nirspec" + c.k, tel: "Keck 10 m", name: "Keck / NIRSPEC echelle " + c.set, inst: "NIRSPEC", setting: c.set,
+    note: "NIRSPEC at the Nasmyth focus of Keck II (McLean et al. 1998; Robichaud et al. 1998; Martin et al. 2018; the Keck NIRSPEC pages), the cryogenic near-infrared echelle, here the " + c.band + " band with the 0.432″ slit, since the 2018 upgrade (a 2048 × 2048 HAWAII-2RG of 18 µm with a 5 µm cutoff; a 1024 × 1024 Aladdin III of 27 µm served from 1999 to 2018). The f/15 beam is re-imaged to f/10 at the slit (2.06″/mm), entered as F = 9.144 so that the published slit scale holds on the 10.95 m pupil; the beam is then 131 mm where the published beam is 120 mm, so the drawing and the diffraction limit are 9% wide. An off-axis paraboloid collimator (1200 mm) returns the beam to the echelle beside the slit wheel: 23.29 /mm at 63.5° (142 × 320 mm), worked 5° out of the plane. The cross-disperser grating (75.75 /mm, blaze ≈10°, 50° between the incident and diffracted beams) works in order " + c.m + ", entered as the first-order equivalent, " + (c.m * 75.75) + " /mm. The camera is an all-reflective three-mirror anastigmat whose focal length is 464.24 mm along the dispersion and 407.49 mm across (Robichaud et al. 1998): the explorer takes the first, so the scale along the slit is 18% small, and draws the camera as a lens. The filter " + c.fn + " bounds the orders; Keck's setting covers orders " + c.ord + ".",
+    state: { mode: "echelle", D: 10.95, F: 206264.806 / (2.06 * 10950),
+      e: { layLen: 1200, colTilt: 3.5, slitW: 0.432, nObj: 1, col: "mirror", W: 1200 * 2.06 * 10950 / 206264.806, fcam: 464.24, cam: "lens", camEq: "a three-mirror anastigmat, drawn as a lens", xdEq: "75.75 /mm in order " + c.m,
+           eG: 23.29, eDelta: 63.5, gamma: 5, theta: 0, xd: "grating", xG: c.m * 75.75, xPsi: 50, lamC: c.lamC, filt: c.filt, Nx: 2048, Ny: 2048, pix: 18, gLen: 320 } },
+    pub: [
+      { what: "R × slit = 9890″ (design, geometric)", q: "Rs", value: 9890 / 0.432, tol: 0.05, src: "Keck NIRSPEC data description Table 2 (23,640 at 0.42″)" },
+      { what: "R = 25,000 at 0.43″", q: "R", value: 25000, info: true, src: "Keck NIRSPEC specifications; UCLA summary 1999 (not stated as measured; 9% above the design's own R × slit)" },
+      c.dlMiss ? { what: c.dl[2] + " Å/px in order " + c.dl[1] + " (measured)", q: "dlpixAt", lam: c.dl[0], m: c.dl[1], value: c.dl[2], info: true, src: "Keck NIRSPEC dispersion table (arc lines, K setting 1). A miss of 7%: the table's value for this order lies below the neighboring orders'; over the table's nine K orders the model is a median 2.2% high" }
+        : { what: c.dl[2] + " Å/px in order " + c.dl[1] + " (measured)", q: "dlpixAt", lam: c.dl[0], m: c.dl[1], value: c.dl[2], tol: 0.06, src: "Keck NIRSPEC dispersion table (arc lines; the camera's as-built focal length lies within 2.6–4.3% of the design, Robichaud et al. 1998)" },
+      { what: "0.129″/px along the slit", q: "pixScale", value: 0.129, info: true, src: "UCLA summary 1999 (0.193″ at 27 µm); Lopez et al. 2020. A miss of 18%: the camera's shorter focal length across the dispersion" },
+    ],
+  })),
+  {
+    id: "nirspeclr", tel: "Keck 10 m", name: "Keck / NIRSPEC low-res K, 0.38″", inst: "NIRSPEC", setting: "low-res K, 0.38″",
+    note: "NIRSPEC's low-resolution mode (Martin et al. 2014; the Keck NIRSPEC pages): the turret replaces the echelle with a flat, and the cross-disperser grating (75.75 /mm, blaze ≈10°, 50° between the incident and diffracted beams; 216 × 200 mm) disperses in the second order through the K filter, with the 0.38″ slit. The camera is the three-mirror anastigmat's focal length across the echelle's dispersion, 407.49 mm (Robichaud et al. 1998), the direction in which this grating disperses. The slit scale, beam and collimator are those of the echelle presets.",
+    state: { mode: "grating", D: 10.95, F: 206264.806 / (2.06 * 10950),
+      g: { layLen: 1200, colTilt: 3.5, slitW: 0.38, nObj: 1, col: "mirror", W: 1200 * 2.06 * 10950 / 206264.806, fcam: 407.49, cam: "lens", gType: "refl", G: 75.75, m: 2, lamB1: 41550, lamC: 22000, psi: 50,
+           filt: [19070, 25540], Nx: 2048, Ny: 2048, pix: 18, gLen: 200 } },
+    pub: [
+      { what: "R ≈ 2000 at 0.38″", q: "R", value: 2000, info: true, src: "Keck NIRSPEC specifications (nominal, a 3-pixel slit; the UCLA summary gives 2500 for a 2-pixel slit). The model's slit image is 2.9 px with the published dispersion (≈2 Å/px at 1 µm for 27 µm pixels); the nominal R implies a line of ≈3.9 px, the slit broadened by the optics and the pixels" },
+    ],
+  },
 ];
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;

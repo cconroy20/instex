@@ -1,0 +1,851 @@
+{
+ "id": "neid",
+ "round": 9,
+ "date": "2026-11-18",
+ "name": "WIYN 3.5 m / NEID",
+ "quote_check": "98 quote pieces, 0 failures",
+ "sources": [
+  {
+   "key": "S16",
+   "document": "Schwab, Rakich, Gong, Mahadevan, Halverson et al. 2016, Proc. SPIE 9908, 99087H, 'Design of NEID, an extreme precision Doppler spectrograph for WIYN' (2016SPIE.9908E..7HS; full 6-page paper, NASA NTRS copy; journal figures are numbered Fig. 1-4 on pp. 2-4 of the PDF)",
+   "file": "rawdata/presets/neid/schwab2016_ntrs.pdf",
+   "url": "https://ntrs.nasa.gov/api/citations/20180004146/downloads/20180004146.pdf"
+  },
+  {
+   "key": "S20",
+   "document": "Schwab, Monson, Kanodia, Lubar, Lin, Nitroy, Halverson et al. 2020, Proc. SPIE 11447, 114474L, 'The NEID spectrometer: fibre injection system design' (2020SPIE11447E..4LS; 12 pp, text layer; supplied by the user)",
+   "file": "rawdata/presets/neid/schwab2020_114474L.pdf",
+   "url": "https://doi.org/10.1117/12.2563248 (SPIE; no open copy fetched)"
+  },
+  {
+   "key": "K20",
+   "document": "Kanodia, Ninan, Monson, Mahadevan et al. 2020, Proc. SPIE 11447, arXiv:2012.00182, 'Ghosts of NEID's Past' (2020SPIE11447E..40K; Fig. 1 is the NEID layout, after Schwab et al. 2016)",
+   "file": "rawdata/presets/neid/kanodia2020_ghosts.pdf",
+   "url": "https://arxiv.org/pdf/2012.00182"
+  },
+  {
+   "key": "K23",
+   "document": "Kanodia, Ninan, Monson, Mahadevan et al. 2023, AJ 166, 105, arXiv:2307.12403, 'Stable Fiber-illumination for Extremely Precise Radial Velocities with NEID' (2023AJ..166..105K; Table 1 fiber dimensions)",
+   "file": "rawdata/presets/neid/kanodia2023_fiber.pdf",
+   "url": "https://arxiv.org/pdf/2307.12403"
+  },
+  {
+   "key": "S18",
+   "document": "Schwab, Liang, Gong, Mahadevan et al. 2018, Proc. SPIE 10702, 1070271, 'The NEID precision radial velocity spectrometer: optical design of the port adapter and ADC' (2018SPIE10702E..71S; Caltech Authors copy)",
+   "file": "rawdata/presets/neid/schwab2018_pa_adc.pdf",
+   "url": "https://authors.library.caltech.edu/records/dzj0h-1sg45/files/1070271.pdf"
+  },
+  {
+   "key": "WIYN",
+   "document": "WIYN Observatory web page 'NEID' (instrument characteristics; saved 2026-11-18; the page text dates from the 2019 proposal era)",
+   "file": "rawdata/presets/neid/wiyn_neid.html",
+   "url": "https://www.wiyn.org/Instruments/wiynneid.html"
+  },
+  {
+   "key": "DRPF",
+   "document": "NEID Data Reduction Pipeline (NEID-DRP 1.5.4) documentation, 'NEID Data Format' (NExScI; saved 2026-11-18)",
+   "file": "rawdata/presets/neid/drp_dataformat.html",
+   "url": "https://neid.ipac.caltech.edu/docs/NEID-DRP/dataformat.html"
+  },
+  {
+   "key": "TUT",
+   "document": "EPRV data standard, 'NEID Data Tutorial' (order table of a NEID L2 file; saved 2026-11-18)",
+   "file": "rawdata/presets/neid/eprv_neid_tutorial.html",
+   "url": "https://eprv-data-standard.readthedocs.io/en/latest/tutorials/NEID_Tutorial.html"
+  },
+  {
+   "key": "DRPA",
+   "document": "NEID-DRP 1.5.4, 'NEID Pipeline Algorithms' (wavelength calibration sources; saved 2026-11-18)",
+   "file": "rawdata/presets/neid/drp_algorithms.html",
+   "url": "https://neid.ipac.caltech.edu/docs/NEID-DRP/algorithms.html"
+  },
+  {
+   "key": "LIN",
+   "document": "Lin, Monson, Mahadevan et al. 2022, AJ 163, 184, arXiv:2112.05711, 'Observing the Sun as a Star: Design and Early Results from the NEID Solar Feed' (2022AJ..163..184L; file lin2022_solar_feed.pdf)",
+   "file": "rawdata/presets/neid/lin2022_solar_feed.pdf",
+   "url": "https://arxiv.org/pdf/2112.05711"
+  },
+  {
+   "key": "ROB",
+   "document": "Robertson, Stefansson, Mahadevan et al. 2019, JATIS 5, 015003, arXiv:1902.07729, 'Ultrastable environment control for the NEID spectrometer: design and performance demonstration' (2019JATIS...5a5003R)",
+   "file": "rawdata/presets/neid/robertson2019_env.pdf",
+   "url": "https://arxiv.org/pdf/1902.07729"
+  },
+  {
+   "key": "(not quoted)",
+   "document": "Saved for context only: McElwain et al. 2020 NTRS copy of the environment-control paper (mcelwain2020_env_ntrs.pdf); Gupta et al. 2022, arXiv:2210.00550, NEID GUI (gupta2022_gui.pdf); NEID-DRP pages drp_overview.html, drp_masterfiles.html, neid_drp_cal.html; NEID archive help neid_help.html",
+   "file": "(several)",
+   "url": "see rawdata/presets/neid/"
+  }
+ ],
+ "rows": [
+  {
+   "parameter": "Telescope aperture D",
+   "value": "3.5",
+   "unit": "m",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "telescope diameter (D) of 3.5 m"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 1",
+     "text": "WIYN 3.5 m telescope"
+    }
+   ],
+   "note": "The explorer uses D = 3.5 m (the WIYN primary is a 3.5 m; no source gives an effective aperture for the Bent Cassegrain beam)."
+  },
+  {
+   "parameter": "Telescope focal ratio at the Bent Cassegrain port",
+   "value": "6.3",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "native f/6.3 focal ratio of the WIYN telescope"
+    },
+    {
+     "src": "S18",
+     "loc": "Sec. 1",
+     "text": "Adapt the native focal ratio of f/6.3 of the telescope to the desired f/4 to feed our fiber"
+    }
+   ],
+   "note": "DERIVED: telescope focal length 3.5 m x 6.3 = 22.05 m; plate scale at the port 206264.8 / 22050 mm = 9.35 arcsec/mm (no source states the port plate scale; this follows from the two sourced numbers)."
+  },
+  {
+   "parameter": "Focal ratio at the fiber (port adapter output)",
+   "value": "4",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "to the f/4 input of the instrument"
+    },
+    {
+     "src": "S18",
+     "loc": "Sec. 1",
+     "text": "Adapt the native focal ratio of f/6.3 of the telescope to the desired f/4 to feed our fiber"
+    }
+   ],
+   "note": "DERIVED plate scale at the telescope fiber: 206264.8 / (4 x 3500 mm) = 14.73 arcsec/mm, so 62.5 um = 0.92 arcsec (S18 Fig. 4 caption agrees, next row)."
+  },
+  {
+   "parameter": "Port adapter",
+   "value": "Fold mirror at the Bent Cassegrain, refractive collimator, two ADC doublet prisms, fast tip-tilt mirror, guide beamsplitter, camera lens onto the fiber head; unvignetted field 1.5 arcmin; throughput > 81 percent",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S18",
+     "loc": "Sec. 2",
+     "text": "The unvignetted field of view of all the optics is 1.5 arcminutes in the focal plane"
+    },
+    {
+     "src": "S18",
+     "loc": "Sec. 2",
+     "text": "The collimator group is followed by a pair of ADC prisms in rotation mounts, a fast tip-tilt mirror, and a beamsplitter for guiding"
+    }
+   ],
+   "note": "Not modeled by the explorer (it starts at the fiber)."
+  },
+  {
+   "parameter": "HR science fiber, telescope side",
+   "value": "Octagonal, core 61.4 / cladding 88.5 / buffer 112",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Table 1",
+     "text": "Telescope HR Octagonal 61.4, 88.5, 112 Port adapter to Ball scrambler"
+    },
+    {
+     "src": "S18",
+     "loc": "Fig. 4 caption",
+     "text": "science fiber for the high-resolution mode, with a diameter of 62.5 micron (0.92 arcseconds)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "HE science fiber, telescope side",
+   "value": "Octagonal, core 101.1 / cladding 141.3 / buffer 166",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Table 1",
+     "text": "Telescope HE Octagonal 101.1, 141.3, 166 Port adapter to Ball scrambler"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "HR instrument fiber (ball scrambler to spectrograph)",
+   "value": "Circular, core 64.1 / cladding 90.2 / buffer 108.4",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Table 1",
+     "text": "Instrument HR Circular 64.1, 90.2, 108.4 Ball scrambler to Instrument"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "HE instrument fiber (ball scrambler to spectrograph)",
+   "value": "Circular, core 101.2 / cladding 141.2 / buffer 168.9",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Table 1",
+     "text": "Instrument HE Circular 101.2, 141.2, 168.9 Ball scrambler to Instrument"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "On-sky fiber size",
+   "value": "HR 0.92; HE about 1.5",
+   "unit": "arcsec",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "The on-sky sizes of these fibers are 0.92 for HR mode and about 1.5 for HE mode"
+    },
+    {
+     "src": "WIYN",
+     "loc": "NEID Characteristics",
+     "text": "Fiber size on sky is 0.9 for HR and 1.5"
+    }
+   ],
+   "note": "DERIVED check at f/4, D = 3.5 m: HR 61.4 um -> 0.905 arcsec; HE 101.1 um -> 1.49 arcsec. S16 Sec. 1 gives 0.92 arcsec for the design (62 um)."
+  },
+  {
+   "parameter": "Fibers per mode and traces on the detector",
+   "value": "HR: Science, Sky, Calibration = 3 traces per order; HE: Science, Sky = 2 traces per order (no simultaneous calibration fiber)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "NEID has three instrument fibers for HR mode: Science, Sky and Calibration"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "The HE mode has a Science and Sky fiber, and does not include a simultaneous Calibration fiber"
+    },
+    {
+     "src": "TUT",
+     "loc": "L2 tutorial",
+     "text": "NEID has 3 traces in High Resolution mode (HR)"
+    },
+    {
+     "src": "S16",
+     "loc": "Fig. 1 caption",
+     "text": "high resolution mode (HR; 62 micron fiber diameter with ~5 pixel sampling"
+    }
+   ],
+   "note": "nObj = 3 (HR) and 2 (HE). The five instrument fibers end in one fused silica puck, so all five are on the optical axis of the same input optics at once; the mode is chosen by the port adapter's fold mirror (K23 Sec. 2: 'The port adapter directs light into either the HR or HE telescope fiberhead'). The HR and HE spectra are therefore different fibers, not different gratings."
+  },
+  {
+   "parameter": "Fiber head at the telescope",
+   "value": "One central octagonal Science fiber, three Sky octagonal fibers 120 deg apart (one used, two spares), three coherent fiber bundles",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 4",
+     "text": "The central octagonal ... fiber is the Science fiber, on which the star is positioned, while the other three are sky fibers, of which one is used and the other two are spares"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "Scramblers, slicers, reformatters",
+   "value": "Ball-lens double scrambler (octagonal fiber in, 2 m octagonal fiber out) plus a modal-noise agitator; NO image slicer, pupil slicer or reformatter",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "octagonal Science and Sky fibers are fed into a v-groove block where they are face-coupled to the ball lens double scrambler"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 1",
+     "text": "to avoid the use of image slicers or reformatters"
+    },
+    {
+     "src": "S16",
+     "loc": "Abstract",
+     "text": "we avoid the use of an image slicer, in favor of a large (195 mm diameter) beam footprint"
+    }
+   ],
+   "note": "The explorer needs no slicer equivalent: the fiber image is the slit. The calibration fiber has a separate mechanical scrambler (K23 Sec. 3.2.3)."
+  },
+  {
+   "parameter": "Fiber output focal ratio (instrument fiber, before the injection optics)",
+   "value": "f/3.6 (S20, design value that allows for some FRD); f/3.65 (K20, K23, 96 percent enclosed)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Sec. 2",
+     "text": "The injection optics need to convert the fiber's output from f/3.6, which takes into account some FRD expected in our fiber link"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 3.2",
+     "text": "Our instrument fibers have a nominal output of f/3.65, which we define such that 96% of the energy is enclosed within a cone corresponding to f/3.65"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 6",
+     "text": "tics tube, which increases the f-ratio from f/3.65 to f/8.1"
+    }
+   ],
+   "note": "The 1.4 percent difference between f/3.6 and f/3.65 changes the HR slit by 0.01 arcsec; the explorer uses f/3.6 (the injection paper's design number). Input f/4, output f/3.6-3.65 (the output is slightly faster than the input)."
+  },
+  {
+   "parameter": "Injection optics (fiber puck to spectrograph intermediate focus)",
+   "value": "Selected design C3: a plano-convex fused silica singlet (5 mm) glued to the fibers (slows the beam to f/5.2 in glass if concentric, slower still as built) plus two cemented doublets (6 mm, 3.4 mm clear aperture); a real focus; pupil between the singlet and the first doublet; exit f/7.95; diffraction-limited over the 0.25 mm field, 380-930 nm; lateral color 4.4 percent (image height and resolution)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Sec. 4.5",
+     "text": "we selected design C3, using a singlet on the fibers followed by two cemented doublets, for the injection system of NEID"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 7",
+     "text": "The optics convert the f/3.6 beam from the multimode fibers to f/7.95, matched to NEID's collimator mirror"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 4.3",
+     "text": "we replaced the triplets with doublets, and inserted a plano-convex singlet lens which is glued onto the fibers"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 4.3",
+     "text": "the pupil now lies between the singlet and the first doublet, and lateral chromatic aberration becomes noticeable"
+    },
+    {
+     "src": "S20",
+     "loc": "Table 1",
+     "text": "Lateral color (image height variation of 0.2mm field point - variation in order spacing) 0% 1.8% 4.4% 6.4%"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 2.2",
+     "text": "convert the f/3.65 fiber output to f/8 using two cemented doublet lenses and a singlet lens"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 6",
+     "text": "tics tube, which increases the f-ratio from f/3.65 to f/8.1"
+    }
+   ],
+   "note": "The magnification is not stated as a number in S20. DERIVED: an imaging relay with a real focus and telecentric input and output changes the f-ratio by its magnification, so m = 7.95 / 3.6 = 2.21 (K23's 8.1 / 3.65 = 2.22 agrees to 0.5 percent): the HR fiber image at the collimator focus is 64.1 um x 2.21 = 141.5 um and HE 101.2 um -> 223.5 um. Cross-check with S16 Sec. 2.3 in the next row. S20 gives the C4 variant a '<3% variation' of the fiber magnification (Fig. 9 caption) but its Table 1 gives C4 6.3-6.4 percent; the chosen C3 is 4.4 percent. The magnification therefore varies by about 4 percent across 380-930 nm (SOURCED, Table 1); the explorer uses the mean."
+  },
+  {
+   "parameter": "Spectrograph input focal ratio (what the collimator accepts)",
+   "value": "7.95 (SOURCED, design requirement; f/8 nominal, f/8.1 as described by K23)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Sec. 2",
+     "text": "f/7.95 exit focal ratio"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 2",
+     "text": "With a given focal length for the collimator mirror of 1550mm, this yields an output f/ratio of f/7.95 of the fiber injection system towards the parabolic mirror"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "focal length of 1550 mm"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.2",
+     "text": "Our design yields a 195 mm diameter beam at the grating"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 3.1",
+     "text": "Expected f/# at intermediate focus is f/8"
+    }
+   ],
+   "note": "DERIVED check: 1550 / 195 = 7.95, as S20 states. K23's f/8.1 (and K20's f/7.9 at the puck lens, f/8 nominal) are looser descriptions of the same design focal ratio; S20 is the design document for the injection optics and gives f/7.95 three times, so f/7.95 is used (RESOLVED, see Conflicts)."
+  },
+  {
+   "parameter": "Slit-image width at the collimator focus (HR), DERIVED",
+   "value": "141.5 (HR), 223.5 (HE)",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "Note that one resolution element in the center of the order corresponds to 50 microns or 5 pixels"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "a focal length of ~600mm"
+    }
+   ],
+   "note": "DERIVED: core x 7.95 / 3.6 = 64.1 x 2.208 = 141.5 um (HE 101.2 x 2.208 = 223.5 um). Cross-check: 141.5 um x (600 / 1550) = 54.8 um on the detector for the full core; the FWHM of a uniform round image is 0.866 of its diameter = 47.4 um, against 'one resolution element ... 50 microns'. The 600 mm camera is a design requirement (INFERRED as as-built)."
+  },
+  {
+   "parameter": "Collimator type and focal length",
+   "value": "One monolithic off-axis-cut parabolic mirror, Zerodur, 590 mm diameter (rectangular cut), focal length 1550 mm (f/2.6), used in triple pass as main collimator, transfer collimator and (third pass) white-pupil relay; unity magnification",
+   "unit": "mm",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "The primary mirror will be manufactured on a single Zerodur substrate with a diameter of 590 mm and a focal length of 1550 mm"
+    },
+    {
+     "src": "S16",
+     "loc": "Abstract",
+     "text": "a single parabolic mirror that is used as the main and transfer collimator"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "The white pupil relay is based on a monolithic parabolic mirror used in triple pass"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "in the classic white pupil design"
+    }
+   ],
+   "note": "f_col = 1550 mm, e.wpT = 1550 mm (the same parabola; unity magnification, S16 Sec. 1: 'sub-apertures of a single monolithic parabolic white pupil mirror that provides unity magnification in the relay')."
+  },
+  {
+   "parameter": "Collimated beam diameter",
+   "value": "195",
+   "unit": "mm",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.2",
+     "text": "Our design yields a 195 mm diameter beam at the grating"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "beam diameter on the echelle (d) of 195 mm"
+    }
+   ],
+   "note": "The collimated beam is the 195 mm footprint; the 590 mm mirror holds three 195 mm sub-apertures (three passes)."
+  },
+  {
+   "parameter": "Collimator on- or off-axis (deploy gate)",
+   "value": "OFF-AXIS (SOURCED): an off-axis portion of the parent parabola is used as an OAP collimator, off-axis angle 5 deg in the cross-dispersion direction; the injection system is rotated as a rigid body to that angle",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Sec. 3",
+     "text": "We use an off-axis portion of this mirror as OAP (off-axis parabola) collimator. The off-axis angle is 5 degrees in cross dispersion direction"
+    },
+    {
+     "src": "S20",
+     "loc": "Fig. 1 caption",
+     "text": "The injection optics are located in the focus of a parabolic mirror with 1550mm focal length, as the primary mirror of NEID. They are tilted by 5 degrees w.r.t the optical axis of the mirror"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "In our design, the fiber input is between the grating and the flat fold mirror"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "The substrate will be cut into a rectangular shape for ease of mounting and to allow for a low optical axis"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 2.2",
+     "text": "imaged on to the fold mirror (M2) by the parabola (M1) after being dispersed by the R4 echelle grating"
+    }
+   ],
+   "note": "SETTLED by S20 (was INFERRED from S16 and the figure). The 5 deg is the OAP off-axis angle, the deflection between the injected chief ray and the collimated beam (the beam leaves parallel to the parent axis). In the explorer's convention a mirror tilted by tau turns the beam by 2 tau (the DEIMOS rule: tilt = half the angle between incoming chief ray and returned beam), so colTilt = 2.5 deg (DERIVED). The direction is the CROSS-dispersion direction, i.e. perpendicular to the plane of S16 Fig. 2 (a plan view in the dispersion plane), which supersedes the earlier in-plane reading of about 4 deg MEASURED from that figure (an in-plane estimate that the text does not support). The echelle's gamma = 0.5 deg is a separate, much smaller tilt. Not a Schmidt collimator: colTilt is not 0."
+  },
+  {
+   "parameter": "Echelle",
+   "value": "R4 (tan delta = 4), 31.6 grooves/mm, blaze angle 76 deg, 1x2 mosaic on one Zerodur substrate, total ruled area 200 x 800 mm, replicated from master MR263 (the ESPRESSO master); enhanced aluminum coating",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "The Echelle grating we will use is a R4 grating with 31.6 lines/mm from Newport/Richardson Grating Labs. It is a 1x2 mosaic with a total ruled area of 200 x 800 mm on a single Zerodur substrate"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "Our grating will be replicated from Master MR263, the same master that is used for the grating of the ESPRESSO spectrograph"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 1",
+     "text": "1x2 mosaic R4 Echelle grating with a blaze angle of 76"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "a standard Zerodur 1x2 mosaic R4 Echelle grating with a ruled area that is 200 mm x 800 mm across"
+    }
+   ],
+   "note": "gLen = 800 mm. DERIVED: 195 mm / cos(75.96 deg) = 804 mm along the grooves, equal to the 800 mm ruled length within 0.5 percent ('fills the projected aperture size of the grating'), so the beam just fills the ruling. delta: use 75.96 deg (tan = 4) or the nominal 76 deg; the explorer's ESPRESSO preset uses 75.04 deg for UVES master MR160 (a different master); no NEID source gives a measured blaze, so 76 deg is the sourced value. The 'master MR263' is as quoted; the explorer's ESPRESSO record names MR160 for ESPRESSO: a source disagreement noted under Conflicts."
+  },
+  {
+   "parameter": "Echelle angles: gamma and theta",
+   "value": "gamma = 0.5 deg (out of plane, 'towards the optical axis of the primary mirror'); theta not published (Littrow assumed, 0)",
+   "unit": "deg",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.1",
+     "text": "The grating is slightly tilted"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 2.2",
+     "text": "R4 echelle grating with a ... angle of 0.5"
+    }
+   ],
+   "note": "The quoted symbol in the sources is the Greek gamma, which pdftotext renders as 'g' or a symbol."
+  },
+  {
+   "parameter": "Echelle order numbers and blaze wavelengths",
+   "value": "Blaze wavelength = 2 d sin(delta) / m = 61.40 um / m: order 161.6 at 380 nm, 66.0 at 930 nm; the pipeline extracts echelle orders 173 down to 52",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "DRPF",
+     "loc": "Level 1 format",
+     "text": "extracts 122 spectral orders, corresponding to echelle orders 173-52"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 3.4",
+     "text": "(120 orders)"
+    }
+   ],
+   "note": "DERIVED: d = 1/31.6 mm = 31.646 um; 2 d sin(75.96 deg) = 61.401 um. The 122 extracted orders extend well beyond 380-930 nm (the order table, below)."
+  },
+  {
+   "parameter": "Cross disperser",
+   "value": "One PBM2Y (Ohara i-line flint) prism, 60 deg apex angle, at minimum deviation, incidence angle 54 deg on the entrance face, clear aperture about 380 (W) x 250 (H) mm, single pass, monolithic; the base face carries black Kapton against ghosts",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.2",
+     "text": "The prism will be made from Ohara Corporation's PBM2Y type glass"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.2",
+     "text": "This is achieved by using a prism with a 60 apex angle in minimum deviation. The incidence angle at the prism entrance face is 54"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.2",
+     "text": "The clear aperture of the prism is roughly 380 (W) x 250 (H) mm"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 3.4",
+     "text": "The NEID cross disperser is an Ohara PBM2Y glass equilateral prism"
+    }
+   ],
+   "note": "pA = 60, pN = 1, gGlass PBM2Y (already in web/physics.js GLASS, valid 326-1129 nm). DERIVED check: minimum deviation needs sin(54 deg) = n sin(30 deg), so n = 1.618, the index of PBM2Y near 600 nm. The white pupil falls on the prism ('forms a white pupil on the incident face of PBM2Y', K20 Sec. 2.2)."
+  },
+  {
+   "parameter": "Camera",
+   "value": "Refractive, four all-spherical lenses (a concentric front triplet L1-L3 and a tilted, decentered fused-silica singlet L4), 250 mm entrance aperture, focal length about 600 mm (design requirement), flat fold mirror between the triplet and the singlet, detector tilted 15.7 deg in the cross-dispersion direction, back focal distance 137 mm, telecentric in dispersion",
+   "unit": "mm",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "we use a refractive camera with a 250 mm entrance aperture"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "The design requirements were a focal length of ~600mm"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "The camera consists of four all-spherical lenses arranged in a front triplet group and a singlet near the detector"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "The detector is mounted at a relatively large tilt angle of 15.7"
+    },
+    {
+     "src": "K20",
+     "loc": "Sec. 3.3",
+     "text": "It has a 250 mm entrance aperture, and a ~ 600 mm focal length"
+    }
+   ],
+   "note": "camera f = 600 mm (the as-built focal length is not published); focal ratio DERIVED 600 / 250 = f/2.4 (the 195 mm beam fills 195/250 of the aperture). DERIVED consistency: Littrow dispersion lambda / (2 tan(delta) f_cam) = 3605 A / (8 x 600 mm) = 0.751 A/mm = 0.0075 A per 10 um pixel, which equals the order-170 span of the order table (next section)."
+  },
+  {
+   "parameter": "Detector",
+   "value": "e2v CCD 290-99, 9216 x 9232 pixels (9216 x 9231 in S16), 10 um pixels, 90 x 90 mm, 16 readout channels; engineering-grade device in early tests; the same device as ESPRESSO",
+   "unit": "um",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "the CCD-290-99 device from e2v with 9216"
+    },
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "10 m pixels, the same detector used for the ESPRESSO spectrograph at the VLT"
+    },
+    {
+     "src": "DRPF",
+     "loc": "Level 0",
+     "text": "NEID uses a e2v CCD 290-99 CCD"
+    },
+    {
+     "src": "DRPF",
+     "loc": "Level 0",
+     "text": "9216x9232 pixel array"
+    },
+    {
+     "src": "WIYN",
+     "loc": "NEID Characteristics",
+     "text": "9K x 9K e2v CCD with 10 micron pixels"
+    }
+   ],
+   "note": "Explorer: 9216 x 9232, 10 um."
+  },
+  {
+   "parameter": "Wavelength coverage",
+   "value": "380-930 nm continuous (design); the order table of the pipeline lists 3570.9-11251.2 A over the extracted orders (orders overlap)",
+   "unit": "nm",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Abstract",
+     "text": "covers a wavelength range of 380 to 930 nm using a single detector"
+    },
+    {
+     "src": "WIYN",
+     "loc": "NEID Characteristics",
+     "text": "Continuous broadband wavelength coverage (380-930 nm)"
+    },
+    {
+     "src": "TUT",
+     "loc": "L2 order table",
+     "text": "Total wavelength coverage: 3570.9 - 11251.2 Angstroms"
+    }
+   ],
+   "note": "Calibrated coverage is narrower: LFC 500-930 nm (420 nm after the 2024 upgrade), etalon ~440-930 nm (DRPA)."
+  },
+  {
+   "parameter": "Orders on the chip and per-order span (pipeline order table)",
+   "value": "122 extracted orders, echelle orders 173-52, of which orders 170-55 have wavelength solutions; order 170: 3570.94-3640.06 A; order 169: 3591.94-3661.51 A; order 56: 10821.2-11045.8 A; order 55: 11038.9-11251.2 A",
+   "unit": "A",
+   "quotes": [
+    {
+     "src": "TUT",
+     "loc": "L2 order table",
+     "text": "173 0 nan nan 172 1 nan nan 171 2 nan nan 170 3 3570.93576756872 3640.056733452913 169 4 3591.935420310261 3661.512783703846"
+    },
+    {
+     "src": "TUT",
+     "loc": "L2 order table",
+     "text": "56 117 10821.217523481686 11045.807518650605 55 118 11038.908724195322 11251.197788845078"
+    },
+    {
+     "src": "TUT",
+     "loc": "L2 order table",
+     "text": "consecutive orders overlap"
+    }
+   ],
+   "note": "mLo/mHi: the explorer should place 55-170 on the chip (order labels of S16 Fig. 1, read from the image because the labels are not in the PDF text layer, run 60 (red edge) to 170 (blue edge), a 380-930 nm format). Per-order span = full 9216-px trace, DERIVED: order 170 span 69.12 A / 9216 px = 0.0075 A/px (0.75 A/mm), center 3605.5 A, R_sample = 3605.5 / 0.0075 / 5 = 96,000 per 5 px (the design 'one resolution element = 5 pixels'). Orders hold up to about 3 free spectral ranges in the blue (FSR = lambda / m = 21 A at order 170), so wavelengths overlap between orders on the chip while the orders stay separated across the dispersion."
+  },
+  {
+   "parameter": "Spectral format sampling",
+   "value": "HR: about 5 pixels per resolution element (50 um at the order center); HE: fiber image binned 2 x 2 on the detector",
+   "unit": "px",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Sec. 2.3",
+     "text": "one resolution element in the center of the order corresponds to 50 microns or 5 pixels"
+    },
+    {
+     "src": "S16",
+     "loc": "Fig. 1 caption",
+     "text": "high efficiency mode (HE; 100 micron fiber diameter, shown binned into 2x2 pixels in the right inset image)"
+    }
+   ],
+   "note": "The HE image is about 1.6 times wider; the binned 2 x 2 read-out is a detector mode, not modeled."
+  },
+  {
+   "parameter": "Design resolving power (GEOMETRIC)",
+   "value": "100,000 (R = 2 d tan(delta) / (phi D), full fiber angle)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "S16",
+     "loc": "Abstract",
+     "text": "with a resolution of 100,000"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "R = 2 d tan() D"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 3.1.1",
+     "text": "a fiber size of 0.92 balances the need for high spectral resolution and good ef-ficiency"
+    }
+   ],
+   "note": "DERIVED: 2 x 195 mm x 4 / (0.92 arcsec x 3500 mm = 15.61 um-equivalent: 0.92 / 206265 x 3.5e6 um) = 99,930. The formula uses the full fiber angle; the explorer's Rs uses the equivalent line width 0.866 x core."
+  },
+  {
+   "parameter": "Measured resolving power",
+   "value": "HR R ~ 112,000; HE R ~ 72,000 (method not stated in the text: INFERRED to be from calibration lines)",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "K23",
+     "loc": "Abstract",
+     "text": "a High Resolution (HR) mode at R 112,000 for maximum RV precision"
+    },
+    {
+     "src": "K23",
+     "loc": "Sec. 2",
+     "text": "and a High Efficiency (HE) mode for fainter objects, with a spectral resolution of R 72,000"
+    },
+    {
+     "src": "WIYN",
+     "loc": "NEID Characteristics",
+     "text": "high resolution (HR) mode (R&gt;110,000)"
+    }
+   ],
+   "note": "See Conflicts: other sources give 120,000 (K20, LIN) and HE 60,000 (WIYN). DERIVED model check: slit-limited Littrow Rs for HR with the virtual 1.05 arcsec is about 101,000 (10 percent below 112,000; the explorer's R is the true line FWHM and a Gaussian-fitted R from lines can read higher, as in the ESPRESSO preset)."
+  },
+  {
+   "parameter": "Throughput",
+   "value": "Spectrograph > 40 percent at 500 nm; mean system throughput 5.6 percent over the full bandpass in HR mode",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "WIYN",
+     "loc": "NEID Characteristics",
+     "text": "Spectrograph throughput is &gt;40% at 500 nm for a mean system throughput of 5.6% over the full bandpass in HR mode"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "Calibration sources",
+   "value": "Laser frequency comb (20 GHz spacing, ~4 resolution elements in HR) , Fabry-Perot etalon (~20 GHz), ThAr/UNe hollow-cathode lamp, LDLS flats; HR calibration fiber is simultaneous",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "DRPA",
+     "loc": "Wavelength Calibration Sources",
+     "text": "The separation between these modes is maintained at a constant 20 GHz, which corresponds to roughly 4 resolution elements in HR mode"
+    }
+   ],
+   "note": "Check: 20 GHz at 550 nm = 0.20 A spacing; R = 112,000 gives 0.049 A per resolution element, 4.1 elements (DERIVED), consistent."
+  },
+  {
+   "parameter": "Environment (not modeled)",
+   "value": "Vacuum chamber below 1e-6 Torr, temperature stable to 0.4 mK RMS over 30 days; echelle grating Zerodur",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "ROB",
+     "loc": "Abstract",
+     "text": "maintaining vacuum pressures below 10"
+    },
+    {
+     "src": "ROB",
+     "loc": "Abstract",
+     "text": "than 0.4 mK over 30 days"
+    }
+   ],
+   "note": "The explorer does not model environment control."
+  },
+  {
+   "parameter": "Grating cross-check from the solar feed paper",
+   "value": "R ~ 120,000, coverage 380-930 nm, fiber-fed by the port adapter",
+   "unit": "-",
+   "quotes": [
+    {
+     "src": "LIN",
+     "loc": "Sec. 1",
+     "text": "ultra-stabilized, high-resolution (R 120,000) fiber-fed"
+    }
+   ],
+   "note": "A nominal figure quoted by the instrument team, not a measurement."
+  },
+  {
+   "parameter": "Fiber positions at the input (puck) and field",
+   "value": "Fiber centers at [0,0] and [0, +-0.17] mm; total field +-0.2 mm high (cross-dispersion), 0.25 mm wide (dispersion); lens-tube clamp has a 4 deg included angle to clock the image orthogonal on the CCD after the grating",
+   "unit": "mm",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Sec. 2",
+     "text": "The total field on the input side is +/- 0.2mm high in cross-dispersion direction (centers of fibers at [0,0] and [0, +/-0.17]mm). The field in dispersion direction is 0.25mm wide"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 6",
+     "text": "The top clamp is machined with an included angle of 4 degrees to clock the rotation of the tube so that the final image is orthogonal on the CCD plane after reflection off the grating"
+    },
+    {
+     "src": "S20",
+     "loc": "Sec. 5.2",
+     "text": "the five fibers (3 HR and 2 HE) in the fiber bundle are potted inside a custom designed fused silica puck"
+    }
+   ],
+   "note": "DERIVED trace spacing on the chip: 0.17 mm x 2.208 (injection magnification) x 600/1550 (camera/collimator) = 0.145 mm = 14.5 px between adjacent fibers' traces across the dispersion (the fiber centers listed are three positions for the 3 HR fibers; the positions of the two HE fibers are not stated: NOT FOUND, the HE fibers are listed only as a +-0.2 mm field). Each HR trace is about 5 px wide, so the three HR traces are separated by about 10 px of gap. S20 Fig. 3's 'box sizes are 3 microns' are plot boxes, not fiber sizes."
+  },
+  {
+   "parameter": "Camera focal length in the injection model",
+   "value": "Not given (S20 uses 'a paraxial camera with the same focal length as the NEID camera')",
+   "unit": "mm",
+   "quotes": [
+    {
+     "src": "S20",
+     "loc": "Fig. 1 caption",
+     "text": "we put a paraxial camera with the same focal length as the NEID camera"
+    }
+   ],
+   "note": "No number in S20: the camera focal length stays at the design requirement 'about 600 mm' (S16, K20)."
+  }
+ ]
+}

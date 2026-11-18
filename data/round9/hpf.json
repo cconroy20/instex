@@ -1,0 +1,1113 @@
+{
+ "id": "hpf",
+ "round": 9,
+ "date": "2026-11-18",
+ "name": "HET 10 m / HPF (Habitable-zone Planet Finder)",
+ "quote_check": "99 quote pieces, 0 failures",
+ "sources": [
+  {
+   "key": "M14",
+   "document": "Mahadevan et al. 2014, Proc. SPIE 9147, 91471G, 'The Habitable-zone Planet Finder: A status update on the development of a stabilized fiber-fed near-infrared spectrograph for the Hobby-Eberly telescope' (2014SPIE.9147E..1GM; supplied by the user; Sec. 3 gives the 74.6 deg echelle, the VPH, the f/3.3 to f/8 input optics, the 8 ft bench; Fig. 1 the spectral format with order numbers)",
+   "file": "rawdata/presets/hpf/mahadevan2014_91471G.pdf",
+   "url": "https://doi.org/10.1117/12.2056417"
+  },
+  {
+   "key": "M12",
+   "document": "Mahadevan et al. 2012, Proc. SPIE 8446, 84461S, 'The habitable-zone planet finder: a stabilized fiber-fed NIR spectrograph for the Hobby-Eberly Telescope' (2012SPIE.8446E..1SM; arXiv:1209.1686; the design-concept paper; Fig. 6 is the optical layout)",
+   "file": "rawdata/presets/hpf/arxiv_1209.1686.pdf",
+   "url": "https://arxiv.org/pdf/1209.1686"
+  },
+  {
+   "key": "M10",
+   "document": "Mahadevan et al. 2010, Proc. SPIE 7735, 'The habitable zone planet finder: a proposed high-resolution NIR spectrograph for the Hobby Eberly Telescope to discover low mass exoplanets around M dwarfs' (2010SPIE.7735E..6XM; arXiv:1007.3235; the earlier design)",
+   "file": "rawdata/presets/hpf/arxiv_1007.3235.pdf",
+   "url": "https://arxiv.org/pdf/1007.3235"
+  },
+  {
+   "key": "K18",
+   "document": "Kanodia et al. 2018, Proc. SPIE 10702, 107026Q, 'Overview of the spectrometer optical fiber feed for the habitable-zone planet finder' (2018SPIE10702E..6QK; arXiv:1808.00557; the built fiber train, slit, puck)",
+   "file": "rawdata/presets/hpf/arxiv_1808.00557.pdf",
+   "url": "https://arxiv.org/pdf/1808.00557"
+  },
+  {
+   "key": "C14",
+   "document": "Halverson et al. 2014, Proc. SPIE 9147, 91477Z, 'The habitable-zone planet finder calibration system' (2014SPIE.9147E..7ZH; arXiv:1408.3632)",
+   "file": "rawdata/presets/hpf/arxiv_1408.3632.pdf",
+   "url": "https://arxiv.org/pdf/1408.3632"
+  },
+  {
+   "key": "S16",
+   "document": "Stefansson et al. 2016, ApJ 833, 175, 'A versatile technique to enable sub-milli-Kelvin instrument stability ... Tests with the habitable-zone planet finder' (2016ApJ...833..175S; arXiv:1610.06216; cryostat and environmental control)",
+   "file": "rawdata/presets/hpf/arxiv_1610.06216.pdf",
+   "url": "https://arxiv.org/pdf/1610.06216"
+  },
+  {
+   "key": "N19",
+   "document": "Ninan et al. 2019, JATIS 5, 041511, 'Impact of crosshatch patterns in H2RGs on high-precision radial velocity measurements' (2019JATIS...5d1511N; arXiv:1903.06614; the H2RG, the slit image of 2.5 x 9.5 px, Fig. 2)",
+   "file": "rawdata/presets/hpf/arxiv_1903.06614.pdf",
+   "url": "https://arxiv.org/pdf/1903.06614"
+  },
+  {
+   "key": "ME19",
+   "document": "Metcalf et al. 2019, Optica 6, 233, 'Stellar spectroscopy in the near-infrared with a laser frequency comb' (2019Optic...6..233M; arXiv:1902.00500; R ~ 53,000, 28 orders, order numbers)",
+   "file": "rawdata/presets/hpf/arxiv_1902.00500.pdf",
+   "url": "https://arxiv.org/pdf/1902.00500"
+  },
+  {
+   "key": "K21",
+   "document": "Kanodia et al. 2021, ApJ 912, 15, 'A harsh test of far-field scrambling with the habitable-zone planet finder and the Hobby-Eberly Telescope' (2021ApJ...912...15K; arXiv:2103.05148; the HET pupil and the fiber train)",
+   "file": "rawdata/presets/hpf/arxiv_2103.05148.pdf",
+   "url": "https://arxiv.org/pdf/2103.05148"
+  },
+  {
+   "key": "KA20",
+   "document": "Kanodia et al. 2020, ApJ 899, 29, 'TOI-1728b: the habitable-zone planet finder confirms a warm super-Neptune ...' (2020ApJ...899...29K; arXiv:2006.14546; R ~ 55,000 and 8080-12780 A as the instrument summary)",
+   "file": "rawdata/presets/hpf/arxiv_2006.14546.pdf",
+   "url": "https://arxiv.org/pdf/2006.14546"
+  },
+  {
+   "key": "S21",
+   "document": "Sneden et al. 2021, AJ 161, 128, 'Chemical compositions of red giant stars from habitable zone planet finder spectroscopy' (2021AJ....161..128S; arXiv:2012.14742; 28 orders, 8170-12780 A)",
+   "file": "rawdata/presets/hpf/arxiv_2012.14742.pdf",
+   "url": "https://arxiv.org/pdf/2012.14742"
+  },
+  {
+   "key": "NS",
+   "document": "Ninan 2019, 'The Habitable Zone Planet Finder', talk at EPRV VI (Switzerland, March 2019; indico.cern.ch contribution 3320643; slides 2 and 4: R = 55,000, 0.8-1.27 um, R4 echelle with a VPH cross-disperser, asymmetric white pupil)",
+   "file": "rawdata/presets/hpf/ninan_eprv6_2019_slides.pdf",
+   "url": "https://indico.cern.ch/event/743355/contributions/3320643/attachments/1831010/2998546/HPF_EPRV_VI_SwitzerlandMarch2019_JPNinan.pdf"
+  },
+  {
+   "key": "BLG",
+   "document": "HPF team blog, 'The Echelle Grating', 2014-03-19 (Penn State; the 125 mm Zerodur block, gold coating)",
+   "file": "rawdata/presets/hpf/hpf_blog_echelle_grating_2014.html",
+   "url": "https://hpf.psu.edu/2014/03/19/the-echelle-grating/"
+  },
+  {
+   "key": "BLD",
+   "document": "HPF team blog, 'The 2 square-inch detector at the heart of HPF', 2015-01-21 (2048 x 2048, 18 um)",
+   "file": "rawdata/presets/hpf/hpf_blog_detector_2015.html",
+   "url": "https://hpf.psu.edu/2015/01/21/the-2-square-inch-detector-at-the-heart-of-hpf/"
+  },
+  {
+   "key": "PSU",
+   "document": "Penn State exoplanet center page 'HPF' (180 K; no specifications) and hpf.psu.edu 'What is HPF?' (hpf_what_is.html); saved, not quoted",
+   "file": "rawdata/presets/hpf/psu_hpf_page.html; hpf_psu_what.html",
+   "url": "https://exoplanets.psu.edu/hpf/ ; https://hpf.psu.edu/what-is-hpf/"
+  },
+  {
+   "key": "(not saved)",
+   "document": "Other papers saved for context, not quoted: Stefansson et al. 2020 (arXiv:1912.00291), 2020 (2007.12766), Maldonado/Mahadevan GJ 1151 (2102.02233), Hearty et al. 2014 Fabry-Perot (1403.6841)",
+   "file": "arxiv_1912.00291.pdf, arxiv_2007.12766.pdf, arxiv_2102.02233.pdf, arxiv_1403.6841.pdf",
+   "url": "https://arxiv.org/pdf/{1912.00291,2007.12766,2102.02233,1403.6841}"
+  }
+ ],
+ "on_off_axis": "OFF-AXIS (SOURCED): 'monolithic off-axis parabolic collimator' and 'the f/8 that the off-axis parabola is expecting' (M14 Sec. 3); tilt not published; colTilt left automatic",
+ "recommended": {
+  "inst": "HET 10 m / HPF",
+  "settings": [
+   {
+    "name": "HR, 93 µm",
+    "note": "the commissioned High Resolution mode: 93 um slit, f/3.3 fiber output re-imaged to the f/8 collimator",
+    "state": {
+     "mode": "echelle",
+     "D": 10,
+     "F": 8,
+     "e": {
+      "lay3d": "wp",
+      "wpT": 1600,
+      "layLen": 1600,
+      "slitW": 0.5813,
+      "nObj": 3,
+      "col": "mirror",
+      "W": 200,
+      "fcam": 362,
+      "cam": "lens",
+      "eG": 31.6,
+      "eDelta": 74.6,
+      "gamma": 0.5,
+      "theta": 0,
+      "xd": "vph",
+      "xG": 210,
+      "xPsi": 10,
+      "lamC": 10500,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "gLen": 800
+     }
+    }
+   }
+  ],
+  "note": "M14 (2014): f/8 off-axis parabola behind input optics that re-image f/3.3 to f/8 (f_col 1600 mm = 8 x 200 mm), echelle 31.6 /mm blazed 74.6 deg as manufactured, VPH cross-disperser (210 /mm EFFECTIVE), camera 362 mm EFFECTIVE (from the 9.5 px slit image), H2RG 18 um. D kept 10 m: the effective pupil varies 5.5-8.5 m with the track (K21); the explorer F = 8 is the virtual convention, the HET is f/3.65."
+ },
+ "rows": [
+  {
+   "id": "tel_pupil",
+   "group": "feed",
+   "parameter": "HET pupil diameter D",
+   "value": "10",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "K21",
+   "loc": "Sec. 2",
+   "quote": "with a pupil diameter of 10 m",
+   "alt": [
+    {
+     "src": "ME19",
+     "loc": "p. 2",
+     "quote": "10 m Hobby-Eberly telescope"
+    }
+   ],
+   "note": "The 11 m hexagonal spherical primary (91 segments of 1 m) is larger than the 10 m circular pupil the tracker can use."
+  },
+  {
+   "id": "tel_obsc",
+   "group": "feed",
+   "parameter": "HET central obscuration",
+   "value": "4.5",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "K21",
+   "loc": "Sec. 2",
+   "quote": "It has a central obscuration 4.5 m in diameter",
+   "alt": [],
+   "note": "Not entered in the explorer."
+  },
+  {
+   "id": "tel_fixed",
+   "group": "feed",
+   "parameter": "HET altitude (fixed) and tracker range",
+   "value": "55 deg; tracker 48-65 deg",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "K21",
+   "loc": "Sec. 2",
+   "quote": "is fixed at an altitude of 55",
+   "alt": [
+    {
+     "src": "K21",
+     "loc": "Sec. 2",
+     "quote": "PFIP can track objects from altitudes ranging from 48"
+    }
+   ],
+   "note": "The telescope tracks by azimuth rotation plus the tracker; a visit (track) lasts about an hour (NS slide 2: 'Typical track length approx 1 hour')."
+  },
+  {
+   "id": "tel_effD",
+   "group": "feed",
+   "parameter": "Effective pupil diameter across a track",
+   "value": "8.5 m down to 5.5 m",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "K21",
+   "loc": "Sec. 2, footnote 5",
+   "quote": "equivalent to a change in the effective pupil diameter from ... 8.5 m to 5.5 m",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 2 (science case)",
+     "quote": "assuming a 7m effective aperture"
+    }
+   ],
+   "note": "HANDLING: the illuminated pupil changes with the track (area, centroid and shape), so the collecting area is not fixed. The preset keeps D = 10 m (the pupil diameter); R does not depend on it (R depends on the 93 um slit, the f/8 collimator and the echelle). D enters only the arcsec bookkeeping and any collecting-area estimate. Because the explorer's F is the collimator's f/8 (virtual convention), its focal length (80 m) is not the HET's 36.5 m: the on-sky plate scale of 5.65 arcsec/mm is in the note, not in the state. A throughput or S/N estimate with D = 10 m overstates the collecting area by (10/7)^2 = 2.0 against the 7 m the design papers assume. The preset note must say this."
+  },
+  {
+   "id": "tel_f",
+   "group": "feed",
+   "parameter": "Focal length at the HPF fiber head (prime focus)",
+   "value": "36500",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 3.1",
+   "quote": "HET has a focal length of about 36500 mm",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 3.1",
+     "quote": "hence a plate scale of about 5.65"
+    }
+   ],
+   "note": "Plate scale 5.65 arcsec/mm."
+  },
+  {
+   "id": "fib_sky",
+   "group": "feed",
+   "parameter": "HPF fiber core on the sky",
+   "value": "300 um = 1.7 arcsec",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 3.1",
+   "quote": "The HPF fibers are of 300 ... on sky",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.1",
+     "quote": "a 300 µm HPF fiber will subtend 1.7 arc seconds"
+    }
+   ],
+   "note": "DERIVED: 0.300 mm x 5.65 arcsec/mm = 1.70 arcsec. The 2012 design also offered a 200 um (1.13 arcsec) fiber; the as-built fibers are 299-312 um."
+  },
+  {
+   "id": "fib_set",
+   "group": "feed",
+   "parameter": "Fiber set into the cryostat",
+   "value": "3 circular fibers: science, sky, calibration",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 2",
+   "quote": "Three circular fibers go in to the instrument through vacuum feedthroughs. These are for the science light, sky light and calibration.",
+   "alt": [
+    {
+     "src": "ME19",
+     "loc": "p. 2",
+     "quote": "The HPF entrance slit is fed by 3 optical fibers that can be simultaneously illuminated with star, sky, and calibration light"
+    }
+   ],
+   "note": "Traces per order on the detector: 3 (N19 Fig. 2: 'showing the HPF science, sky and calibration order traces'). The sky fiber is a second octagonal fiber at the telescope; the calibration fiber comes from the calibration bench (LFC, etalon, U-Ne lamp)."
+  },
+  {
+   "id": "fib_oct",
+   "group": "feed",
+   "parameter": "Telescope-end (prime focus) fiber",
+   "value": "octagonal, core 299 um",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "K21",
+   "loc": "Sec. 3.2",
+   "quote": "octagonal core fiber of core diameter 299",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 2",
+     "quote": "299, 375, 415 (core"
+    }
+   ],
+   "note": "The same octagonal fiber is used for science and sky; the lengths are about 40 m (K18 Sec. 5.1)."
+  },
+  {
+   "id": "fib_circ",
+   "group": "feed",
+   "parameter": "Cryostat-end fiber",
+   "value": "circular, core 312 um (cladding 375, buffer 411)",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 2",
+   "quote": "312, 375, 411 (core, cladding, buffer)",
+   "alt": [
+    {
+     "src": "K21",
+     "loc": "Sec. 3.2",
+     "quote": "circular core fiber of diameter 312"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "scrambler",
+   "group": "feed",
+   "parameter": "Scrambler",
+   "value": "ball-lens double scrambler: octagonal + ball lens + octagonal + circular fiber",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 2.1",
+   "quote": "octagonal + ball lens + octagonal + circular fiber",
+   "alt": [
+    {
+     "src": "K21",
+     "loc": "Sec. 3.2",
+     "quote": "2.0 mm S-LAH79 ball lens"
+    }
+   ],
+   "note": "A 2 m octagonal patch after the ball lens is mechanically agitated against modal noise (K18 Sec. 2.2) and spliced to the circular cryostat fiber. No image slicer or pupil slicer. The explorer does not model the scrambler."
+  },
+  {
+   "id": "modes",
+   "group": "feed",
+   "parameter": "Modes",
+   "value": "HR (commissioned) and HE (no slit; not commissioned in 2018)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Abstract",
+   "quote": "High Resolution (HR- the only mode",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Abstract",
+     "quote": "currently commissioned"
+    }
+   ],
+   "note": "The preset is HR. HE (the same fibers without the slit) is not offered: no spectrograph prescription differs and no later paper gives its performance."
+  },
+  {
+   "id": "nobj",
+   "group": "feed",
+   "parameter": "Spectra on the detector per order",
+   "value": "3",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "N19",
+   "loc": "Sec. 2.5 and Fig. 2",
+   "quote": "showing the HPF science, sky and calibration order traces",
+   "alt": [],
+   "note": "nObj 3."
+  },
+  {
+   "id": "rot",
+   "group": "feed",
+   "parameter": "Slit rotation applied for the out-of-plane angle",
+   "value": "about 4.4 deg",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 6.2",
+   "quote": "this rotation was about 4.4",
+   "alt": [],
+   "note": "The slit image is rotated to be vertical on the detector columns (N19: 'the rectangular slit was rotated and carefully aligned vertically along the pixel columns'). A 4.4 deg rotation for a 0.5 deg gamma is large; INFERRED that the as-built gamma exceeds the 2012 value (see gamma)."
+  },
+  {
+   "id": "ech_g",
+   "group": "spec",
+   "parameter": "Echelle groove density and type",
+   "value": "31.6 /mm, R4, replicated mosaic (Newport Richardson Gratings Lab)",
+   "unit": "/mm",
+   "tag": "SOURCED",
+   "src": "M12",
+   "loc": "Sec. 3.3",
+   "quote": "31.6 g/mm replicated mosaic grating from Newport Richardson Gratings Lab",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 1",
+     "quote": "uses an R4 echelle grating"
+    },
+    {
+     "src": "M12",
+     "loc": "Sec. 3.3",
+     "quote": "has been used in UVES and HARPS"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ech_gamma",
+   "group": "spec",
+   "parameter": "Out-of-plane angle gamma",
+   "value": "0.5",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "M12",
+   "loc": "Sec. 3.1",
+   "quote": "variable slit tilt across an order, but with an out-of-plane",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.1",
+     "quote": "angle of only 0.5 deg"
+    }
+   ],
+   "note": "Design value (2012, 'quasi-Littrow'); the as-built value is NOT FOUND and K18's 4.4 deg slit rotation suggests a larger one. Drawing and R are insensitive to gamma at this size."
+  },
+  {
+   "id": "norders",
+   "group": "spec",
+   "parameter": "Number of echelle orders on the chip",
+   "value": "28",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ME19",
+   "loc": "p. 2",
+   "quote": "The 28 echelle orders cover the wavelength range 810-1280 nm",
+   "alt": [
+    {
+     "src": "S21",
+     "loc": "Sec. 2",
+     "quote": "for all 28 orders"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "orders_pub",
+   "group": "spec",
+   "parameter": "Published order numbers",
+   "value": "orders 72-69 cover 841.15-889.5 nm; 61-57 cover 993.3-1076.7 nm",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ME19",
+   "loc": "Methods (RV extraction)",
+   "quote": "grating orders 72-69 (covering the 841.15-889.5nm region in the z-band)",
+   "alt": [
+    {
+     "src": "ME19",
+     "loc": "Methods (RV extraction)",
+     "quote": "61-57 (covering the 993.3-1076.7nm region in the Y-band)"
+    }
+   ],
+   "note": "m lambda = 61.02 um (DERIVED: 2 x 31.646 um x sin 74.6 deg, the as-manufactured blaze of M14) reproduces them to 0.07%."
+  },
+  {
+   "id": "sampling",
+   "group": "perf",
+   "parameter": "Slit image on the detector",
+   "value": "2.5 x 9.5 px",
+   "unit": "px",
+   "tag": "SOURCED",
+   "src": "N19",
+   "loc": "Sec. 2.5",
+   "quote": "HPF was designed to image the fiber slit across 2.5",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.1",
+     "quote": "3.3 pixel sampling"
+    }
+   ],
+   "note": "The 2012 design asked for 3.3-pixel sampling of a 100-150 um slit."
+  },
+  {
+   "id": "temp",
+   "group": "extra",
+   "parameter": "Spectrograph temperature and vacuum",
+   "value": "180 K bench and optics; detector 120 K; vacuum below 1e-7 Torr; 0.6 mK RMS over 15 days",
+   "unit": "K",
+   "tag": "SOURCED",
+   "src": "S16",
+   "loc": "Abstract",
+   "quote": "0.6 mK RMS stability over 15 days at both",
+   "alt": [
+    {
+     "src": "S16",
+     "loc": "Abstract",
+     "quote": "180 K"
+    }
+   ],
+   "note": "Not modeled."
+  },
+  {
+   "id": "calib",
+   "group": "extra",
+   "parameter": "Calibration sources",
+   "value": "30 GHz electro-optic laser frequency comb (since 2018), fiber Fabry-Perot etalon, U-Ne lamp",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "C14",
+   "loc": "Abstract",
+   "quote": "The primary wavelength calibration source is a laser frequency comb",
+   "alt": [
+    {
+     "src": "NS",
+     "loc": "slide 4",
+     "quote": "30 GHz EO Laser Frequency Comb"
+    }
+   ],
+   "note": "Not modeled."
+  },
+  {
+   "id": "footprint",
+   "group": "extra",
+   "parameter": "Instrument size",
+   "value": "about 1.5 m x 3 m",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "ME19",
+   "loc": "Fig. 1 caption",
+   "quote": "The spectrograph footprint is approximately 1.5 m",
+   "alt": [],
+   "note": ""
+  },
+  {
+   "id": "tel_F",
+   "group": "feed",
+   "parameter": "Focal ratio of the telescope feed at the fibers",
+   "value": "3.65",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M12",
+   "loc": "Sec. 3.1",
+   "quote": "at f/3.65 with the new HET wide field",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 3",
+     "quote": "of f/3.65"
+    }
+   ],
+   "note": "DERIVED: 36500 mm / 10000 mm = 3.65 (K18), the same number, so f/3.65 refers to the 10 m pupil. M14 Sec. 6: 'The HPF fibers are therefore fed at the F-number of the HET itself'."
+  },
+  {
+   "id": "slit",
+   "group": "feed",
+   "parameter": "Entrance slit (HR mode)",
+   "value": "93 um wide (nominal 100 um), nickel, 25 um thick, glued on the fiber puck",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 5.3 and Sec. 6",
+   "quote": "The final slit we installed on HPF HR mode was 93 ... wide",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 6",
+     "quote": "nominal width 100"
+    },
+    {
+     "src": "K18",
+     "loc": "Sec. 6",
+     "quote": "thickness 25"
+    },
+    {
+     "src": "K18",
+     "loc": "Sec. 2",
+     "quote": "the HR mode puck inside the cryostat has a nickel slit glued on to it"
+    }
+   ],
+   "note": "The 93 um sets the width along the dispersion, the 312 um core the extent across it."
+  },
+  {
+   "id": "input_optics",
+   "group": "feed",
+   "parameter": "Input (re-imaging) optics between the fiber puck and the collimator",
+   "value": "CaF2 and SFTM-16 lenses: f/3.3 fiber output re-imaged to f/8; magnification 8 / 3.3 = 2.42",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "Input optics made from CaF2 and SFTM-16 reimage the input fiber feed from f/3.3 (accounting for FRD from the telescope input of f/3.65) to the f/8 that the off-axis parabola is expecting",
+   "alt": [],
+   "note": "DERIVED: 8 / 3.3 = 2.424. The f/3.3 is the fiber's output ratio after focal ratio degradation of the f/3.65 input (a faster beam). WHERE THE SLIT SITS: the nickel slit is glued on the puck that terminates the three fibers (K18 Sec. 2, Fig. 14 caption: 'The fused silica puck is used to terminate the three fibers'), so it stands in the f/3.3 space and the input optics image it, with the fiber faces, onto the collimator's focal plane at f/8 (INFERRED: no source draws the order of puck, slit and input optics, but the slit is on the puck and the puck is the fiber end). In the collimator's focal plane the 93 um slit is 93 x 2.424 = 225.5 um wide and the 312 um core 756.4 um across."
+  },
+  {
+   "id": "Fout",
+   "group": "feed",
+   "parameter": "Collimator input focal ratio F_out (explorer's virtual convention)",
+   "value": "8",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "to the f/8 that the off-axis parabola is expecting",
+   "alt": [],
+   "note": "The explorer is entered with F = 8 and D = 10 m (virtual convention of web/presets.js: slit = slit width in the collimator's focal plane / (F_out x D); fcol = F x W = 1600 mm). The explorer's F is therefore NOT the HET's f/3.65 and its focal length (80 m) is not the HET's 36.5 m. On-sky equivalents (DERIVED): the 93 um slit in the f/3.3 fiber space is 93 / 312 = 0.298 of the 312 um core (1.77 arcsec at 5.65 arcsec/mm), i.e. 0.52 arcsec at the focus with f/3.65 input (0.5256 = 93 um x 5.65 arcsec/mm); the explorer's 0.5813 arcsec is that angle times 3.65 / 3.3 = 1.106, the FRD speed-up of the fiber beam."
+  },
+  {
+   "id": "slit_deg",
+   "group": "feed",
+   "parameter": "Slit width entered in the explorer (virtual arcsec at D = 10 m, F = 8)",
+   "value": "0.5813",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2) and K18 Sec. 6",
+   "quote": "reimage the input fiber feed from f/3.3",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 6",
+     "quote": "had a width of about 93"
+    }
+   ],
+   "note": "DERIVED: (93 um x 8 / 3.3 = 225.45 um at the collimator's focal plane) / (8 x 10 000 mm) x 206 264.8 = 0.5813 arcsec. Equivalent: slit angle at the collimator = 225.45 um / 1600 mm = 1.409e-4 rad. The slit, not the fiber core, sets the line width, so the fiber is entered as a slit (no sqrt3/2 factor)."
+  },
+  {
+   "id": "col_type",
+   "group": "spec",
+   "parameter": "Collimator type",
+   "value": "monolithic off-axis parabolic mirror (Zerodur, gold coated), f/8",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "monolithic off-axis parabolic collimator",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.3",
+     "quote": "monolithic off-axis parabolic collimator"
+    },
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "The grating and all mirror are designed on Zerodur substrates"
+    }
+   ],
+   "note": "Confirmed in 2014. K18 (2018, built) calls it 'collimating parabola'."
+  },
+  {
+   "id": "col_axis",
+   "group": "spec",
+   "parameter": "Collimator on- or off-axis",
+   "value": "OFF-AXIS",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "monolithic off-axis parabolic collimator",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "to the f/8 that the off-axis parabola is expecting"
+    }
+   ],
+   "note": "Deploy gate: OFF-AXIS, stated in M12, M10 and M14. The off-axis distance or tilt is NOT FOUND, so colTilt stays automatic."
+  },
+  {
+   "id": "col_beam",
+   "group": "spec",
+   "parameter": "Beam diameter",
+   "value": "200 (the grating's 200 mm width; not stated as a beam diameter in M14)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "M12",
+   "loc": "Sec. 3.1 and Fig. 6 caption",
+   "quote": "with a 200 mm beam",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "a 200 mm by 800 mm 31.6 g/mm replicated mosaic grating"
+    },
+    {
+     "src": "M12",
+     "loc": "Fig. 6 caption",
+     "quote": "Beam diameter is 150-200 mm"
+    },
+    {
+     "src": "M10",
+     "loc": "Sec. 4",
+     "quote": "beam size of 150mm"
+    }
+   ],
+   "note": "M14 gives no beam diameter. 200 mm is M12's beam. DERIVED check: the grating is 800 mm long and, at the as-manufactured 74.6 deg, a beam of width W has a footprint W / cos(74.6 deg) = 3.77 W; 800 mm holds a beam up to 212 mm, and 200 mm gives 753 mm (94% of the ruled length, no overfill). The 200 mm also equals the grating's 200 mm width."
+  },
+  {
+   "id": "col_f",
+   "group": "spec",
+   "parameter": "Collimator focal length",
+   "value": "1600 (derived)",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "to the f/8 that the off-axis parabola is expecting",
+   "alt": [],
+   "note": "DERIVED: 8 x 200 mm = 1600 mm (f/8 from M14 times the 200 mm beam; the beam diameter is not stated in M14). The f/8 is the collimator's own ratio, so this replaces the earlier INFERRED 730 mm (200 mm x f/3.65), which was wrong by the input optics' 8 / 3.65. The slit-to-collimator distance of the layout equals f_col."
+  },
+  {
+   "id": "ech_g",
+   "group": "spec",
+   "parameter": "Echelle groove density and type",
+   "value": "31.6 /mm replicated mosaic (Newport Richardson Gratings Lab)",
+   "unit": "/mm",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "31.6 g/mm replicated mosaic grating from Newport Richardson Gratings Lab",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Sec. 1",
+     "quote": "uses an R4 echelle grating"
+    },
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "has been used in UVES and HARPS"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "ech_blaze",
+   "group": "spec",
+   "parameter": "Echelle blaze (as manufactured)",
+   "value": "74.6",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "blazed at 74.6 degrees (as manufactured)",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.3",
+     "quote": "blazed at 75 degrees"
+    },
+    {
+     "src": "K18",
+     "loc": "Sec. 1",
+     "quote": "uses an R4 echelle grating"
+    }
+   ],
+   "note": "eDelta = 74.6 deg (tan = 3.62), not the R4 75.96 deg: as manufactured wins. SHOWN to be right by the published order edges (ME19: orders 72-69 span 841.15-889.5 nm, orders 61-57 span 993.3-1076.7 nm): with 74.6 deg the model gives 840.97-889.91 nm and 992.62-1077.27 nm (all four edges within 0.07%); with 75.96 deg they were 0.6-0.7% off. m lambda = 2 d sin(74.6 deg) = 61.02 um (d = 31.646 um). The 2012 '75 degrees' is the rounded design value."
+  },
+  {
+   "id": "ech_size",
+   "group": "spec",
+   "parameter": "Echelle ruled size",
+   "value": "200 x 800 mm mosaic (2 x 200 x 400 mm INFERRED); 125 mm thick Zerodur",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "a 200 mm by 800 mm 31.6 g/mm replicated mosaic",
+   "alt": [
+    {
+     "src": "BLG",
+     "loc": "post of 2014-03-19",
+     "quote": "The 125mm thick grating is made on a single block of Zerodur"
+    }
+   ],
+   "note": "gLen = 800 mm. The two-segment layout is INFERRED from Fig. 6 of M12 (an equal split of the drawn block). DERIVED: the 200 mm beam's footprint at 74.6 deg is 753 mm: no overfill."
+  },
+  {
+   "id": "ech_cool",
+   "group": "spec",
+   "parameter": "Echelle coating and operating temperature",
+   "value": "unprotected gold; bench and optics at 180 K to a few mK",
+   "unit": "K",
+   "tag": "SOURCED",
+   "src": "BLG",
+   "loc": "post of 2014-03-19",
+   "quote": "The top layer of the grating is coated with pure unprotected gold",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "The temperature of the bench and optics is controlled to within a few milli-kelvin of 180K"
+    }
+   ],
+   "note": "Not modeled."
+  },
+  {
+   "id": "xd_type",
+   "group": "spec",
+   "parameter": "Cross-disperser",
+   "value": "VPH grating (groove density and angles not published)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "a VPH cross disperser, and a fast refractive camera made with standard Schott and Ohara glasses",
+   "alt": [
+    {
+     "src": "NS",
+     "loc": "slide 4",
+     "quote": "R4 Echelle Grating for dispersion and VPH for Cross-dispersion"
+    },
+    {
+     "src": "M14",
+     "loc": "Sec. 3 (p. 2)",
+     "quote": "The use of an asymmetric white pupil design enables higher groove density on the VPH and is the design adopted for HPF"
+    }
+   ],
+   "note": "M14 settles the cross-disperser: a VPH (the 2010 and 2012 papers described a 150 l/mm and a 110 g/mm grism). No prism or glass dispersion formula is needed and no cryogenic indices enter: the model's VPH is a transmission grating at its Bragg setting. 'Higher groove density on the VPH' follows from the asymmetric pupil (a smaller beam at the VPH); its value is NOT FOUND."
+  },
+  {
+   "id": "xd_g",
+   "group": "spec",
+   "parameter": "Cross-disperser groove density (explorer value)",
+   "value": "210",
+   "unit": "/mm",
+   "tag": "EFFECTIVE",
+   "src": "M14",
+   "loc": "Fig. 1 (p. 2) and ME19",
+   "quote": "Spectral format and order coverage for HPF. Three fibers are shown, corresponding to sky, science and frequency",
+   "alt": [
+    {
+     "src": "ME19",
+     "loc": "p. 2",
+     "quote": "The 28 echelle orders cover the wavelength range 810-1280 nm"
+    },
+    {
+     "src": "KA20",
+     "loc": "Sec. 2.3",
+     "quote": "(8080 - 12780 Å)"
+    }
+   ],
+   "note": "EFFECTIVE: the VPH groove density is NOT FOUND. Fit with physics.js (scratch scan2.js) for the state of this record (f_col 1600, f_cam 362, 74.6 deg): VPH 210 /mm at lambda_c 10500 A puts 28 orders, m = 75 to 48, on the chip with 8077-12792 A, against the published 8080-12780 A and 28 orders (and Fig. 1 of M14 labels orders 48 to 74 with the next order cut by the chip edge). Neighbors: 200/10500 gives 31 orders (7960-13019 A), 220/10500 gives 27 (8188-12778 A), 210/10400 gives 29 (7979-12786 A). Not independent of the coverage it reproduces."
+  },
+  {
+   "id": "cam",
+   "group": "spec",
+   "parameter": "Camera",
+   "value": "fast refractive, standard Schott and Ohara glasses; effective focal length 362 mm",
+   "unit": "mm",
+   "tag": "EFFECTIVE",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "a fast refractive camera made with standard Schott and Ohara glasses",
+   "alt": [
+    {
+     "src": "M12",
+     "loc": "Sec. 3.3",
+     "quote": "an f/2 refractive camera made with standard Schott and Ohara glasses"
+    },
+    {
+     "src": "N19",
+     "loc": "Sec. 2.5",
+     "quote": "HPF was designed to image the fiber slit across 2.5"
+    }
+   ],
+   "note": "The focal length is NOT FOUND (M14: 'Details of the spectrograph optical design merits its own paper'). EFFECTIVE: fitted to Ninan 2019's 9.5 px slit length: the 312 um core is magnified 8 / 3.3 by the input optics to 756.4 um at the collimator, so 9.5 px x 18 um = 171.0 um needs f_cam / f_col = 171.0 / 756.4 = 0.2261, f_cam = 0.2261 x 1600 = 362 mm. The same ratio makes the 93 um slit 225.45 x 0.2261 = 51.0 um = 2.83 px wide (geometric); the model's FWHM is 2.71 px against N19's 2.5 px (8% high). The 2012 'f/2' would make the camera beam 181 mm (INFERRED, the asymmetric pupil's demagnification 181/200 = 0.905). The 2012 and 2010 values (f/2, f/2.3; 400 mm) are superseded."
+  },
+  {
+   "id": "wp",
+   "group": "spec",
+   "parameter": "White-pupil transfer",
+   "value": "asymmetric white pupil: one large mirror used twice plus a small spectrum mirror (2012 concept drawing); transfer focal length not published",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "The use of an asymmetric white pupil design enables higher groove density on the VPH and is the design adopted for HPF",
+   "alt": [
+    {
+     "src": "NS",
+     "loc": "slide 4",
+     "quote": "Optical Design - Asymmetric white pupil"
+    }
+   ],
+   "note": "wpT is drawing only in the explorer (web/app.js DRAWING_KEYS). Set to 1600 mm (matching the collimator's f) as a default: the true transfer focal length is NOT FOUND, and in an asymmetric design it differs from the collimator's. The explorer's effective f_cam (362 mm) already includes whatever the relay does. Fig. 6 of M12 (a 2012 symmetric concept) is superseded as to the asymmetry."
+  },
+  {
+   "id": "bench",
+   "group": "spec",
+   "parameter": "Bench size (a bound on the layout)",
+   "value": "8 foot long Al 6061-T6 bench (2438 mm)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 3 (p. 2)",
+   "quote": "mounted on an 8 foot long Al-60661-T6 bench",
+   "alt": [],
+   "note": "DERIVED: 8 ft = 2438 mm. The slit-to-collimator distance (1600 mm, f_col) and the collimator-to-echelle distance must fit in it with the camera. layLen = 1600 mm (INFERRED from M12's Fig. 6, where the echelle stands at about the collimator's focal distance) fits; a larger value would need folds. The 8 ft (1.5 m x 3 m footprint, ME19) is the only layout dimension published."
+  },
+  {
+   "id": "det",
+   "group": "spec",
+   "parameter": "Detector",
+   "value": "Teledyne H2RG, 2048 x 2048, 18 um pixels, 1.7 um cut-off, 120 K",
+   "unit": "px, um",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 4 (p. 5)",
+   "quote": "a Hawaii-2RG (H2RG) 1.7µm cutoff HgCdTe device with 2048x2048 pixels",
+   "alt": [
+    {
+     "src": "BLD",
+     "loc": "post of 2015-01-21",
+     "quote": "made up of 2048 x 2048 pixels, each 18 micr"
+    },
+    {
+     "src": "M14",
+     "loc": "Sec. 4",
+     "quote": "We actively maintain the detector temperature at 120 K"
+    }
+   ],
+   "note": "Cut-off 1.7 um: the explorer has no cut-off field."
+  },
+  {
+   "id": "filt",
+   "group": "spec",
+   "parameter": "Order-blocking filter",
+   "value": "an optical filter in the HPF fiber head path blocks visible light; band 810-1280 nm",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "src": "K18",
+   "loc": "Sec. 3.1",
+   "quote": "The HPF bandpass is from 810 ... to block visible light",
+   "alt": [],
+   "note": "Not entered; the explorer chip ends at 1.28 um by the cross-disperser."
+  },
+  {
+   "id": "cover",
+   "group": "spec",
+   "parameter": "Wavelength coverage",
+   "value": "8080-12780 A (810-1280 nm; 8170-12780 A in a red-giant paper)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "KA20",
+   "loc": "Sec. 2.3",
+   "quote": "(8080 − 12780 Å)",
+   "alt": [
+    {
+     "src": "K18",
+     "loc": "Abstract",
+     "quote": "810 - 1280 nm"
+    },
+    {
+     "src": "S21",
+     "loc": "Sec. 3.1",
+     "quote": "8170-12780"
+    }
+   ],
+   "note": "M14 Sec. 2: 'the z,Y and J bands ... on a single Hawaii-2RG NIR array'; 'almost complete order coverage at the blue wavelengths (z), but only partial order coverage at the reddest wavelengths (J)'."
+  },
+  {
+   "id": "fig1",
+   "group": "spec",
+   "parameter": "M14 Fig. 1 order labels",
+   "value": "orders 48 (top, red) to 74 (bottom, blue) labeled; three fibers (sky, science, comb) per order",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Fig. 1 (p. 2)",
+   "quote": "Spectral format and order coverage for HPF. Three fibers are shown, corresponding to sky, science and frequency",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 2",
+     "quote": "Figure 1 shows the spectral format and order numbers of the HPF fibers"
+    }
+   ],
+   "note": "MEASURED from a 110 dpi render of Fig. 1 (the labeled orders run y = 121 to 527 px for orders 48 to 74, 15.6 px per order on average; the image is 434 px wide for the 2048 px chip, 4.72 detector px per image px): order spacing about 109 px at 48-49 and 57 px at 73-74, 74 px average. Model: 111 px (49-48), 48 px (74-73), 71 px (61-60), average 73 px. Order 75 is not labeled (cut by the chip edge): the model's 28th order. No wavelength scale."
+  },
+  {
+   "id": "R_quote",
+   "group": "perf",
+   "parameter": "Resolving power (quoted)",
+   "value": "R ~ 50,000 (design, M14); 55,000 (later papers); 53,000 (Metcalf)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "M14",
+   "loc": "Sec. 2 (p. 2)",
+   "quote": "resolution of R",
+   "alt": [
+    {
+     "src": "M14",
+     "loc": "Sec. 2",
+     "quote": "50,000 on a single Hawaii-2RG NIR array"
+    },
+    {
+     "src": "KA20",
+     "loc": "Sec. 2.3",
+     "quote": "a high-resolution (R "
+    },
+    {
+     "src": "NS",
+     "loc": "slide 2",
+     "quote": "R=55,000"
+    },
+    {
+     "src": "ME19",
+     "loc": "p. 2",
+     "quote": "resolving power of R=λ/Δλ~53,000"
+    }
+   ],
+   "note": "None is a line-width measurement from arc or comb lines (NOT FOUND). The explorer's geometric R at this prescription is 51,300: 2.6% above the 2014 design value, 7% below 55,000, 3% below 53,000."
+  }
+ ],
+ "pub": [
+  {
+   "what": "R = 50,000 (design)",
+   "q": "R",
+   "value": 50000,
+   "tol": 0.06,
+   "src": "M14 Sec. 2; M12; S16. Model 51,293 (geometric): 2.6% high"
+  },
+  {
+   "what": "R = 55,000 (quoted, later papers)",
+   "q": "R",
+   "value": 55000,
+   "info": true,
+   "src": "KA20 Sec. 2.3; NS slide 2. Model 7% low; not a line-width measurement"
+  },
+  {
+   "what": "R = 53,000 (Metcalf et al.)",
+   "q": "R",
+   "value": 53000,
+   "info": true,
+   "src": "ME19 p. 2; method not stated. Model 3% low"
+  },
+  {
+   "what": "slit image 2.5 px (width)",
+   "q": "npix",
+   "value": 2.5,
+   "tol": 0.1,
+   "src": "N19 Sec. 2.5. Model 2.71 px (8% high); the 9.5 px length is the fit input for f_cam (EFFECTIVE)"
+  },
+  {
+   "what": "28 orders",
+   "q": "nOrders",
+   "value": 28,
+   "info": true,
+   "src": "ME19 p. 2; S21; M14 Fig. 1 labels orders 48-74. EFFECTIVE (VPH fitted to give it), not independent"
+  },
+  {
+   "what": "coverage from 8080 A",
+   "q": "lo",
+   "value": 8080,
+   "info": true,
+   "src": "KA20 Sec. 2.3. Model 8077 (EFFECTIVE fit)"
+  },
+  {
+   "what": "coverage to 12780 A",
+   "q": "hi",
+   "value": 12780,
+   "info": true,
+   "src": "KA20 Sec. 2.3; S21. Model 12792 (EFFECTIVE fit)"
+  },
+  {
+   "what": "order 72 starts at 8411.5 A",
+   "q": "info",
+   "value": 8411.5,
+   "tol": 0.005,
+   "src": "ME19 Methods. Model 8409.7 A (-0.02%); NOT fitted: tests eDelta = 74.6 deg (75.96 deg gave +0.7%)"
+  },
+  {
+   "what": "order 69 ends at 8895 A",
+   "q": "info",
+   "value": 8895,
+   "tol": 0.005,
+   "src": "ME19 Methods. Model 8899.1 A (+0.05%)"
+  },
+  {
+   "what": "order 61 starts at 9933 A",
+   "q": "info",
+   "value": 9933,
+   "tol": 0.005,
+   "src": "ME19 Methods. Model 9926.2 A (-0.07%)"
+  },
+  {
+   "what": "order 57 ends at 10767 A",
+   "q": "info",
+   "value": 10767,
+   "tol": 0.005,
+   "src": "ME19 Methods. Model 10772.7 A (+0.05%)"
+  },
+  {
+   "what": "order spacing about 109 px at orders 48-49 and 57 px at 73-74 (read from M14 Fig. 1)",
+   "q": "minSepPx",
+   "value": 109,
+   "info": true,
+   "src": "MEASURED from the figure (+-10%). Model 111 px and 48 px"
+  }
+ ],
+ "not_found": [
+  "The optical-design paper that M14 announces ('Details of the spectrograph optical design merits its own paper, which we intend to publish along with final refractive indices and melt data'): not found in ADS under any title; it would give the camera focal length, the VPH, the transfer optics and a scaled layout.",
+  "Camera focal length (EFFECTIVE 362 mm, fitted to N19's 9.5 px slit length), the beam diameter as such (M14 gives only the 200 mm x 800 mm grating; 200 mm is M12's beam), the off-axis distance or tilt of the collimator, the pupil-transfer focal length of the asymmetric white pupil, and every layout distance except the 8 ft bench (M14 Figs. 2-3 are exterior views of the cryostat and radiation shield with no optics).",
+  "VPH cross-disperser groove density, Bragg angle and the camera-collimator angle (M14 and the 2019 talk say only 'VPH', 'higher groove density'). The explorer value (210 /mm) is EFFECTIVE.",
+  "As-built out-of-plane angle gamma (M12: 0.5 deg design; K18's 4.4 deg slit rotation suggests a larger one).",
+  "Spacing of the science, sky and calibration traces across the dispersion (N19 Fig. 2 and M14 Fig. 1 show them without a scale); the order of puck, slit and input optics along the fiber path is not drawn (the slit is on the puck: K18).",
+  "A measured resolving power from arc, etalon or comb lines (every source quotes R ~ 50,000, 53,000 or 55,000 without a method); measured dispersion in A/px; end-to-end throughput.",
+  "The mosaic layout of the echelle as built (two 200 x 400 mm segments is INFERRED from the 2012 Fig. 6)."
+ ],
+ "conflicts": [
+  "Echelle blaze: 74.6 deg as manufactured (M14) against R4 = 75.96 deg (K18's 'R4 echelle') and '75 degrees' (M10, M12). 74.6 deg adopted: it reproduces the published order edges (ME19) to 0.07%, against 0.6-0.7% for 75.96 deg.",
+  "Collimator and input optics: the 2012 paper's f/3.65 fiber feed and 200 mm beam suggested a 730 mm collimator (the earlier version of this record); M14 says the input optics re-image f/3.3 to f/8, so the collimator is f/8 (1600 mm for 200 mm). 2012: 'a 200 mm beam'; 2010: 150 mm (M10); M12 Fig. 6 caption: 150-200 mm.",
+  "Cross-disperser: 150 l/mm grism (M10, 2010), 110 g/mm grism (M12, 2012), VPH (M14 2014, NS 2019). M14 wins.",
+  "Camera: f/2.3 (M10), f/2 (M12), 'fast' with no number (M14). EFFECTIVE 362 mm adopted (2012's f/2 with a 200 mm beam gave 400 mm; the 9.5 px slit image of N19 with the f/8 collimator needs 362 mm).",
+  "White pupil: symmetric single large mirror in the 2012 Fig. 6; 'asymmetric white pupil ... the design adopted for HPF' (M14, NS).",
+  "Resolving power: 50,000 (design: M14, M12, S16), 55,000 (talk NS, KA20 and most science papers), 53,000 (ME19). The explorer's geometric R (51,300) lies within 7% of all three.",
+  "Coverage: 8080-12780 A (KA20), 8170-12780 A (S21), 810-1280 nm (K18, ME19), 0.8-1.27 um (NS), 0.84-1.3 um (C14, design).",
+  "Operating temperature: 200 K design (M12 Sec. 3.4) against 180 K built (M14, S16, K18)."
+ ]
+}

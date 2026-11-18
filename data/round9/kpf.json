@@ -1,0 +1,1187 @@
+{
+ "id": "kpf",
+ "round": 9,
+ "date": "2026-11-18",
+ "name": "Keck I / Keck Planet Finder (KPF)",
+ "quote_check": "88 quote pieces, 0 failures; 5 scan-transcribed quotes not machine-checked",
+ "sources": [
+  {
+   "key": "G24",
+   "document": "Gibson et al. 2024, 'System design of the Keck Planet Finder', Proc. SPIE 13096, 130960I-like (2024SPIE13096E..09G); accepted-manuscript PDF on NSF PAR (29 pp; pdf page = manuscript page)",
+   "file": "rawdata/presets/kpf/gibson2024_nsfpar.pdf",
+   "url": "https://par.nsf.gov/servlets/purl/10625571"
+  },
+  {
+   "key": "G18",
+   "document": "Gibson et al. 2018, 'Keck Planet Finder: preliminary design', Proc. SPIE 10702, 107025X (2018SPIE10702E..5XG); CaltechAUTHORS copy (SPIE footer; journal page = 107025X-n)",
+   "file": "rawdata/presets/kpf/gibson2018_caltech.pdf",
+   "url": "https://authors.library.caltech.edu/records/c0hv1-hks70/files/107025X.pdf"
+  },
+  {
+   "key": "G20",
+   "document": "Gibson et al. 2020, 'Keck Planet Finder: design updates', Proc. SPIE 11447, 1144742 (2020SPIE11447E..42G); CaltechAUTHORS copy (a poster; saved, not quoted)",
+   "file": "rawdata/presets/kpf/gibson2020_caltech.pdf",
+   "url": "https://authors.library.caltech.edu/records/tcach-13953/files/SPIE-AS20-d3a780ad-9d05-ea11-813b-005056be78dc.pdf"
+  },
+  {
+   "key": "R23",
+   "document": "Rubenzahl et al. 2023, PASP 135, 125002, 'Staring at the Sun with the Keck Planet Finder' (2023PASP..135l5002R; arXiv:2311.05129)",
+   "file": "rawdata/presets/kpf/rubenzahl2023_arxiv2311_05129.pdf",
+   "url": "https://arxiv.org/pdf/2311.05129"
+  },
+  {
+   "key": "KSPEC",
+   "document": "Keck KPF page 'Spectrograph' (saved 2026-11-18)",
+   "file": "rawdata/presets/kpf/keck_kpf_spectrograph.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/spectrograph/"
+  },
+  {
+   "key": "KDET",
+   "document": "Keck KPF page 'Detectors' (saved 2026-11-18)",
+   "file": "rawdata/presets/kpf/keck_kpf_detectors.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/detectors/"
+  },
+  {
+   "key": "KFIU",
+   "document": "Keck KPF page 'FIU' (saved 2026-11-18)",
+   "file": "rawdata/presets/kpf/keck_kpf_fiu.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/fiu/"
+  },
+  {
+   "key": "KMAIN",
+   "document": "Keck KPF home page (saved 2026-11-18)",
+   "file": "rawdata/presets/kpf/keck_kpf_main.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/"
+  },
+  {
+   "key": "KSTAT",
+   "document": "Keck KPF page 'KPF Instrument Status' (saved 2026-11-18; 'Last Updated: 2026-02-01', carries the 2026 April announcement)",
+   "file": "rawdata/presets/kpf/keck_kpf_status.html",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/status/"
+  },
+  {
+   "key": "KDF",
+   "document": "KPF Data Reduction Pipeline documentation, 'KPF Data Format' (stable; Keck Data Reduction Pipelines project; saved 2026-11-18)",
+   "file": "rawdata/presets/kpf/kpf_pipeline_data_format.html",
+   "url": "https://kpf-pipeline.readthedocs.io/en/stable/info/data_format.html"
+  },
+  {
+   "key": "KIMG1",
+   "document": "Keck KPF 'Spectrograph' page figure: parameter summary table (an image; transcribed from the scan)",
+   "file": "rawdata/presets/kpf/KPFParameterSummaryTable.JPG",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/figures/KPFParameterSummaryTable.JPG"
+  },
+  {
+   "key": "KIMG2",
+   "document": "Keck KPF 'Spectrograph' page figure: VPH grating table (an image; transcribed from the scan)",
+   "file": "rawdata/presets/kpf/VPHTable.JPG",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/figures/VPHTable.JPG"
+  },
+  {
+   "key": "KIMG3",
+   "document": "Keck KPF 'Spectrograph' page figure: 3D layout of the spectrograph (an image)",
+   "file": "rawdata/presets/kpf/KPFSpecLayout.JPG",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/figures/KPFSpecLayout.JPG"
+  },
+  {
+   "key": "KIMG4",
+   "document": "Keck KPF FIU page figures (science and calibration modes) and home-page system overview (images; saved, not read for numbers)",
+   "file": "FIU_science.png, FIU_calibration.png, system_overview_diagram.png",
+   "url": "https://www2.keck.hawaii.edu/inst/kpf/figures/"
+  }
+ ],
+ "on_off_axis": {
+  "verdict": "OFF-AXIS",
+  "colTilt": 4.0,
+  "evidence": [
+   "Primary Collimator Off-axis paraboloid (G24 Table 1)",
+   "The off-axis angle of the primary collimator was increased from 7.5 to 8 deg (G18 Sec. 3.6)",
+   "decenter 237 mm (G24 Table 1)"
+  ]
+ },
+ "recommended": {
+  "inst": "KPF",
+  "tel": "Keck 10 m",
+  "D": 10.95,
+  "F": 8,
+  "settings": {
+   "green": {
+    "name": "Keck I / KPF green",
+    "setting": "green",
+    "lamC": 5203,
+    "mc": 118,
+    "fcam": 618.75,
+    "xG": 648,
+    "xGphys": 810,
+    "cam": "495 mm f/2.8",
+    "lo": 4430,
+    "hi": 5990,
+    "nord": 35
+   },
+   "red": {
+    "name": "Keck I / KPF red",
+    "setting": "red",
+    "lamC": 7310,
+    "mc": 84,
+    "fcam": 615.0,
+    "xG": 360,
+    "xGphys": 450,
+    "cam": "492 mm f/2.8",
+    "lo": 5990,
+    "hi": 8710,
+    "nord": 32
+   }
+  },
+  "common": {
+   "slitW": 0.326,
+   "nObj": 5,
+   "col": "mirror",
+   "colTilt": 4,
+   "layLen": 1600,
+   "cam": "lens",
+   "lay3d": "wp",
+   "wpT": 1280,
+   "W": 200,
+   "eG": 31.6,
+   "eDelta": 75.96,
+   "theta": 0,
+   "gamma": 1.0,
+   "gammaFlag": "not published; ~1 deg by eye from Fig. 3",
+   "gLen": 840,
+   "xd": "vph",
+   "xGlass": "silica",
+   "xA": null,
+   "xPsi": [
+    3.9,
+    4.8
+   ],
+   "Nx": 4080,
+   "Ny": 4080,
+   "pix": 15
+  },
+  "all_arms": {
+   "split": "collimated",
+   "cut": 5900,
+   "w": null,
+   "aoi": 31,
+   "aoi_err": 4,
+   "reflected": "green",
+   "transmitted": "red",
+   "src": "G24 Table 1 (590 nm); AOI MEASURED on G24 Fig. 3"
+  }
+ },
+ "rows": [
+  {
+   "key": "tel_focal",
+   "parameter": "Telescope focal ratio at the FIU input",
+   "value": "15",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.1",
+     "quote": "The FIU accepts the f/15 beam from the telescope and converts it to f/3.7",
+     "pdfpage": 11
+    }
+   ],
+   "note": "Keck I Nasmyth focus. The aperture D is not stated in the KPF papers; the project's Keck convention (D = 10.95 m, web/presets.js) is kept and agrees with the fiber numbers below (DERIVED row fiber_angle)."
+  },
+  {
+   "key": "fib_in_fratio",
+   "parameter": "Fiber input focal ratio (FIU output)",
+   "value": "3.7",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.1",
+     "quote": "converts it to f/3.7 to minimize focal ratio degradation effects within the optical fibers",
+     "pdfpage": 11
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "fib_sci",
+   "parameter": "Science fiber core",
+   "value": "225 octagonal; 1.14 arcsec on sky",
+   "unit": "um",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.1",
+     "quote": "a relatively large optical fiber (225 µm diameter = 1.14′′ on sky",
+     "pdfpage": 4
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Science: 225 µm octagonal",
+     "pdfpage": 8
+    },
+    {
+     "src": "G18",
+     "loc": "Sec. 3.1, 'Science Fiber'",
+     "quote": "changed the science fiber size from 250 µm to 225 µm",
+     "pdfpage": 5
+    },
+    {
+     "src": "KIMG1",
+     "loc": "table 'Fiber details' (transcribed from the scan)",
+     "quote": "Science: 250 µm octagonal"
+    }
+   ],
+   "note": "CONFLICT: the Keck web table still lists 250 um (the 2018 value); both SPIE papers and the as-built paper say 225 um. The Keck page text and its table were not updated."
+  },
+  {
+   "key": "fiber_angle",
+   "parameter": "Science fiber on-sky size check",
+   "value": "1.145",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.1",
+     "quote": "225 µm diameter = 1.14′′ on sky",
+     "pdfpage": 4
+    }
+   ],
+   "note": "DERIVED: 225 um / (f/3.7 x 10.95 m) = 5.55e-6 rad = 1.145 arcsec, matching the paper's 1.14 arcsec; the F x D implied by the paper's own numbers is 225 um / 1.14 arcsec = 40.7 m (3.7 x 11.0 m). Plate scale at the fiber: 0.00507 arcsec/um (197 um per arcsec)."
+  },
+  {
+   "key": "fib_sky",
+   "parameter": "Sky fiber",
+   "value": "225 octagonal, masked to 64 wide (one trace per order); the FIU feeds two adjacent sky fibers in the science arm",
+   "unit": "um",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Sky: 225 µm octagonal, masked to 64 µm wide",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.1",
+     "quote": "the primary science fiber and two adjacent sky fibers which monitor contamination",
+     "pdfpage": 11
+    }
+   ],
+   "note": "Only one sky trace per order reaches the detector (see traces). Keck web table: 'Sky 250 um octagonal' (stale, as for the science fiber)."
+  },
+  {
+   "key": "fib_cal",
+   "parameter": "Simultaneous calibration fiber",
+   "value": "120 octagonal, masked to 64 x 64",
+   "unit": "um",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Simultaneous calibration: 120 µm octagonal, masked to 64 µm × 64 µm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G18",
+     "loc": "Table 1",
+     "quote": "Simultaneous calibration: 100 µm octagonal, masked to 64 µm wide",
+     "pdfpage": 9
+    },
+    {
+     "src": "KIMG1",
+     "loc": "table 'Fiber details' (transcribed from the scan)",
+     "quote": "Simultaneous calibration: 50 µm circular"
+    }
+   ],
+   "note": "CONFLICT: 120 um (as-built paper), 100 um (2018), 50 um circular (Keck web table, stale)."
+  },
+  {
+   "key": "traces",
+   "parameter": "Traces (orderlets) per order on the detector",
+   "value": "5 (SCI1, SCI2, SCI3, SKY, CAL)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Fig. 11 caption",
+     "quote": "These five images are the sources for the five orderlets within each echelle order of a KPF spectrum",
+     "pdfpage": 14
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3.2",
+     "quote": "a gap of at least 4 pixels existed between the “orderlets” within each order",
+     "pdfpage": 9
+    }
+   ],
+   "note": "The three science orderlets are slices of the one science fiber; the sky and calibration orderlets are separate fibers."
+  },
+  {
+   "key": "scrambler",
+   "parameter": "Scrambling and agitation",
+   "value": "double scrambler (two dual-path lens scramblers, each swapping near and far field, feeding 5 m of octagonal fiber), octagonal fibers, mechanical agitator on the science, sky and calibration fibers",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.4",
+     "quote": "Each fiber path includes an additional scrambler",
+     "pdfpage": 14
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.4",
+     "quote": "consisting of a pair of doublet lenses",
+     "pdfpage": 14
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.3",
+     "quote": "KPF employs a mechanical “agitator” to impose a periodic perturbation on the three fibers",
+     "pdfpage": 12
+    }
+   ],
+   "note": "The explorer does not model scramblers or the agitator; a note only."
+  },
+  {
+   "key": "fib_len",
+   "parameter": "Science fiber run length",
+   "value": "61",
+   "unit": "m",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.4.2",
+     "quote": "requiring 61 m of fiber",
+     "pdfpage": 12
+    }
+   ],
+   "note": "Matters for the blue throughput, not for the optics."
+  },
+  {
+   "key": "ref_slices",
+   "parameter": "Reformatter: science slices",
+   "value": "3",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "rearranges it into three “slices”, aligned along the spectrometer (virtual) slit",
+     "pdfpage": 14
+    }
+   ],
+   "note": "An image slicer-reformatter (Vives et al. design family), not a pupil slicer. The three slices are stacked along the slit (across the dispersion)."
+  },
+  {
+   "key": "ref_mag",
+   "parameter": "Reformatter: input triplet magnification",
+   "value": "8 (the 2018 design: 10)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "A triplet lens magnifies the fiber outputs by a factor of eight",
+     "pdfpage": 14
+    },
+    {
+     "src": "G18",
+     "loc": "Sec. 3.5",
+     "quote": "A triplet lens magnifies the fiber outputs by a factor of ten",
+     "pdfpage": 7
+    }
+   ],
+   "note": "CONFLICT between design (x10) and as-built (x8); the as-built paper is used."
+  },
+  {
+   "key": "ref_out",
+   "parameter": "Reformatter output focal ratio (spectrograph entrance)",
+   "value": "8",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "to form an f/8 image at the entrance slit position of the spectrometer",
+     "pdfpage": 14
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "ref_width",
+   "parameter": "Slice width in the spectral direction (at the fiber plane)",
+   "value": "64",
+   "unit": "um",
+   "tag": "INFERRED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Sky: 225 µm octagonal, masked to 64 µm wide",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "all of the orderlets feature the same “slit” width in the spectral direction",
+     "pdfpage": 14
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "two additional mirrors collect the light from the otherwise-unused outer edges of the science fiber",
+     "pdfpage": 14
+    }
+   ],
+   "note": "INFERRED: the 64 um mask of the sky and calibration fibers is the width the science slices share ('the same slit width'). Three slices of 64 um use 192 um of the 225 um octagon, and the leftover outer edges go to the exposure meter, as the paper says. The papers do not state the science slice width as a number. At the f/8 slit this is 64 x 8/3.7 = 138 um (DERIVED, assuming the magnification between the fiber and the slit follows the ratio of the focal ratios); on sky, 64 um / (3.7 x 10.95 m) = 0.326 arcsec."
+  },
+  {
+   "key": "slit_equiv",
+   "parameter": "Equivalent slit to enter in the explorer",
+   "value": "slitW 0.326 arcsec (a rectangular top-hat, no sqrt(3)/2 factor), F = 8, D = 10.95 m, nObj 5",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.1",
+     "quote": "Through this combination of slicing and masking, all of the orderlets feature the same “slit” width in the spectral direction",
+     "pdfpage": 14
+    }
+   ],
+   "note": "DERIVED: slit width at the f/8 collimator focus 138 um, so the explorer's slit angle is 138 um / (8 x 10.95 m) = 0.326 arcsec (= 64 um / (3.7 x 10.95 m)). Slit-limited geometric R = 2 tan(theta_B) f_col / w = 2 x 3.9989 x 1600 mm / 0.1384 mm = 92,500 (rectangular top-hat), against the measured 95,000-97,000. The slicing makes the line profile a top-hat convolved with the camera PSF, which the explorer's Rs row will show as a ~5% miss; a miss, not tuned away."
+  },
+  {
+   "key": "col_type",
+   "parameter": "Collimator type",
+   "value": "off-axis paraboloid (mirror), used twice (primary collimator)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "strikes the primary collimator mirror (an off-axis paraboloid)",
+     "pdfpage": 5
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "reflect from the primary collimator a second time",
+     "pdfpage": 6
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "col_f",
+   "parameter": "Primary collimator focal length",
+   "value": "1600",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "1600 mm focal length, f/8 beam",
+     "pdfpage": 8
+    },
+    {
+     "src": "G18",
+     "loc": "Table 1",
+     "quote": "1600 mm focal length, f/8 beam",
+     "pdfpage": 9
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "beam",
+   "parameter": "Collimated beam diameter at the echelle",
+   "value": "200",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "the now collimated 200 mm diameter light beam travels to the echelle grating",
+     "pdfpage": 5
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Collimated beam diameter 200 mm",
+     "pdfpage": 8
+    }
+   ],
+   "note": "Check DERIVED: 1600 mm / 8 = 200 mm."
+  },
+  {
+   "key": "col_axis",
+   "parameter": "Collimator on- or off-axis",
+   "value": "OFF-AXIS (off-axis paraboloid, off-axis angle 8 deg, decenter 237 mm)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Primary Collimator Off-axis paraboloid",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Decenter: 237 mm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G18",
+     "loc": "Sec. 3.6",
+     "quote": "The off-axis angle of the primary collimator was increased from 7.5◦ to 8◦",
+     "pdfpage": 10
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "located one ... primary collimator focal length away from the primary collimator",
+     "pdfpage": 5
+    }
+   ],
+   "note": "Deploy gate: OFF-AXIS. The reformatter output (the 'slit') sits beside the echelle, not in the returning beam: the collimator is an off-axis paraboloid and the dispersed return beam goes to a fold mirror beside the reformatter (Fig. 3). colTilt: DERIVED from the 8 deg off-axis angle (decenter 237 mm gives 2 atan(237/(2 x 1600)) = 8.5 deg, consistent) with the DEIMOS convention of half the angle between the incoming and the returned beam: 4 deg (INFERRED). MEASURED from Fig. 3: the beam from the reformatter to the collimator leaves 6 deg from the collimated axis (scale below)."
+  },
+  {
+   "key": "col_dist",
+   "parameter": "Collimator to echelle distance (layLen)",
+   "value": "1600",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "located one ... primary collimator focal length away from the primary collimator",
+     "pdfpage": 5
+    }
+   ],
+   "note": "Also MEASURED on Fig. 3: collimator center to the seam between the two echelle sub-gratings 806 px at 0.504 px/mm (scale: the 840 mm echelle substrate = 423 px on a 300 dpi render) = 1600 mm."
+  },
+  {
+   "key": "ech_g",
+   "parameter": "Echelle groove density",
+   "value": "31.6",
+   "unit": "grooves/mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "31.6 grooves per mm",
+     "pdfpage": 8
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "ech_blaze",
+   "parameter": "Echelle blaze angle",
+   "value": "75.96 (R4)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "R4 (θB = 75.96◦ ) echelle mosaic",
+     "pdfpage": 8
+    }
+   ],
+   "note": "DERIVED: tan 75.96 deg = 3.9989, so R4. The ESPRESSO and HARPS gratings are replicas of the UVES master (75.04 deg); KPF's master is the Richardson MR263 (G24 Table 1: 'Master: Richardson MR263'). eDelta 75.96."
+  },
+  {
+   "key": "ech_size",
+   "parameter": "Echelle substrate and ruled size",
+   "value": "840 x 214 x 125 mm; a mosaic of two sub-gratings on one monolithic substrate",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Substrate: 840 mm × 214 mm × 125 mm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G18",
+     "loc": "Sec. 3.6",
+     "quote": "a mosaic with two sub-gratings on a monolithic substrate",
+     "pdfpage": 10
+    }
+   ],
+   "note": "NOT FOUND: the ruled area of each sub-grating. INFERRED: each sub-grating ~420 x 214 mm (the seam is at the midpoint of the substrate in Fig. 3). gLen: the beam footprint is 200 mm / cos(75.96 deg) = 824 mm (DERIVED), so the 840 mm substrate just contains it: gLen 840 (an upper bound on the ruled length; no diffraction cap in practice)."
+  },
+  {
+   "key": "ech_gamma",
+   "parameter": "Echelle gamma (out-of-plane angle)",
+   "value": "not published",
+   "unit": "deg",
+   "tag": "NOT FOUND",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "Because the echelle grating is rotated slightly out of plane (the echelle gamma angle)",
+     "pdfpage": 6
+    }
+   ],
+   "note": "The text says the echelle is rotated slightly out of plane but gives no value. A rough figure from Fig. 3 (the reformatter exit and the intermediate-focus fold are about 60 mm apart, 2 gamma f = 60 mm) gives ~1 deg, MEASURED by eye, +-0.5 deg: low confidence; use gamma 1.0 with the flag, theta 0. The dispersion direction is vertical (see Sec. 3.5.2), so gamma lies in the bench plane."
+  },
+  {
+   "key": "sec_col",
+   "parameter": "Secondary collimator (white-pupil transfer, for e.wpT)",
+   "value": "off-axis paraboloid, 1280 mm focal length, f/8 beam; asymmetric ratio 0.8; monochromatic beam diameter 160 mm",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Off-axis paraboloid 1280 mm focal length, f/8 beam",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "The monochromatic beam diameter here is 160 mm, owing to the secondary collimator having a focal length 0.8× that of the primary collimator",
+     "pdfpage": 6
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Asymmetric ratio 0.8",
+     "pdfpage": 8
+    }
+   ],
+   "note": "wpT = 1280. Its decenter is 149 mm (G24 Table 1). Path: the dispersed beam returns to the primary collimator, forms an intermediate focus beside the echelle (a flat folds the beam just before it), the secondary collimator re-collimates it, and the white pupil forms beyond the dichroic."
+  },
+  {
+   "key": "fold_if",
+   "parameter": "Intermediate-focus fold mirror",
+   "value": "a flat just before the intermediate focus (turn ~165 deg, AOI ~7 deg: MEASURED on Fig. 3)",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "Just before the intermediate focus, a flat mirror is employed to fold the beam, to make the spectrometer footprint more compact",
+     "pdfpage": 6
+    }
+   ],
+   "note": "MEASURED on the Fig. 3 render: the beam arrives from the collimator heading 6 deg below the axis and leaves toward the secondary collimator 8 deg below the opposite axis; the angle between the two directions is 166 deg, so AOI = (180 - 166)/2 = 7 deg, +-3 deg. A nearly retro-reflecting fold."
+  },
+  {
+   "key": "dichroic",
+   "parameter": "Dichroic",
+   "value": "transition at 590 nm; reflects the green, transmits the red; 415 x 246 x 35 mm, 0.5 deg wedge",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Transition wavelength: 590 nm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "which reflects the green bandpass and transmits the red",
+     "pdfpage": 6
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Wedge: 0.5◦",
+     "pdfpage": 8
+    },
+    {
+     "src": "KSPEC",
+     "loc": "Sec. 'Spectrometer Optical Design'",
+     "quote": "wavelengths blueward of 593 nm are reflected, and wavelengths redward of 593 nm are transmitted"
+    }
+   ],
+   "note": "CONFLICT: 590 nm (the papers, Table 1) against 593 nm (the Keck page text). The start of the transition region, the 95% throughput point, was set just redward of the Na doublet at 590 nm (G24 Sec. 3.3.2, quote under 'dich_95'). NOT FOUND: the transition width. A dichroic coating deposition error lowered the throughput on the red side of the crossover (G24 Sec. 6.2)."
+  },
+  {
+   "key": "dich_95",
+   "parameter": "Dichroic transition start (95 percent throughput point)",
+   "value": "just redward of the Na doublet, 590 nm",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3.2",
+     "quote": "the start of the dichroic transition region (demarcated by the 95% throughput point) was set just redward of the sodium doublet at 590 nm",
+     "pdfpage": 9
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "dich_aoi",
+   "parameter": "Dichroic angle of incidence",
+   "value": "~31 (MEASURED on Fig. 3; not in the text)",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Fig. 3, p. 7",
+     "quote": "Dichroic",
+     "pdfpage": 6
+    }
+   ],
+   "note": "MEASURED on the 300 dpi render of Fig. 3 (plan view; scale 0.504 px/mm from the 840 mm echelle): the plate lies 57 deg from the incoming beam (AOI 33 deg), and the green beam leaves 120.7 deg from the incoming direction (AOI 29.6 deg); mean 31 deg, +-4 deg. The beam crossing it is the converging 160 mm monochromatic beam after the secondary collimator."
+  },
+  {
+   "key": "red_fold",
+   "parameter": "Red channel fold mirror",
+   "value": "a flat turning the transmitted red beam ~90 deg (AOI ~45 deg) back onto the bench footprint",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "reflected by the red fold mirror (to steer the beam back on to the footprint of the optical bench)",
+     "pdfpage": 6
+    }
+   ],
+   "note": "Turn MEASURED from Fig. 3 (SCHEMATIC accuracy): the red beam, heading left after the dichroic, leaves the fold mirror upward (toward the top of the figure) toward the red grism and camera."
+  },
+  {
+   "key": "xd_g",
+   "parameter": "Cross-dispersers: VPH grisms (fused-silica prism bonded to a VPH grating)",
+   "value": "green 810 lines/mm, red 450 lines/mm",
+   "unit": "lines/mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Green VPH: 810 lines per mm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Red VPH: 450 lines per mm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "This disperser consists of a shallow apex angle fused-silica prism bonded to a volume phase holographic (VPH) grating",
+     "pdfpage": 6
+    },
+    {
+     "src": "KSPEC",
+     "loc": "Sec. 'VPH Grating Overview'",
+     "quote": "the green channel VPH grating was produced with a line density of 800 lines per mm and the red channel VPH with 450 lines per mm"
+    },
+    {
+     "src": "KIMG2",
+     "loc": "Keck VPH table (transcribed from the scan)",
+     "quote": "Fringe Frequency 810 ±2 l/mm 450 ±2 l/mm"
+    }
+   ],
+   "note": "CONFLICT: the Keck page text says 800 l/mm for the green VPH; its own table, the as-built paper and the 2018 paper say 810. The papers' 810 is used. Silica (Malitson) is in the explorer's glass list (Sellmeier, 20 C): the prism glass 'fused silica' is sourced, the apex angle is NOT FOUND ('shallow')."
+  },
+  {
+   "key": "xd_aoi",
+   "parameter": "VPH central incidence (angle of incidence) and grism yaw",
+   "value": "green -30.5 (Keck table) or -29.5 (Keck text); red -24.4 or -25.4; grisms yawed 3.9 (green) and 4.8 (red) to the camera axes",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "KIMG2",
+     "loc": "Keck VPH table (transcribed from the scan)",
+     "quote": "Central Incidence α0 -30.5° -24.4°"
+    },
+    {
+     "src": "KSPEC",
+     "loc": "Sec. 'VPH Grating Overview'",
+     "quote": "For the green grating, we chose an AOI of -29.5 degree"
+    },
+    {
+     "src": "KSPEC",
+     "loc": "Sec. 'VPH Grating Overview'",
+     "quote": "For the red grating, we chose an AOI of -25.4 degree"
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "The grisms are yawed at an angle to the optical axes of the cameras (3.9◦ for the green and 4.8◦ for the red)",
+     "pdfpage": 6
+    }
+   ],
+   "note": "CONFLICT: the table's design central incidence (-30.5, -24.4) differs from the angle chosen after the efficiency measurements (-29.5, -25.4, KSPEC text); the text is the later, operating value. Whether the angle is in air or in the glass is not stated (INFERRED: air, as the VPH's design AOI), so the prism apex that realizes it is NOT FOUND."
+  },
+  {
+   "key": "xd_eff",
+   "parameter": "Cross-disperser entry for the explorer",
+   "value": "xd 'vph', xGlass silica; physical 810 and 450 /mm; start the explorer's effective xG at 648 (green) and 360 (red) and refit to the order counts",
+   "unit": "lines/mm",
+   "tag": "EFFECTIVE",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "The monochromatic beam diameter here is 160 mm",
+     "pdfpage": 6
+    }
+   ],
+   "note": "EFFECTIVE (to be refit by the preset builder): the explorer's camera focal length is the effective one in echelle angle space (618.75 mm, row cam_eff), but the VPH acts on the real 160 mm beam and the real 495 mm camera, so the grating line density seen by the explorer's angles is scaled by 495/618.75 = 0.8: 648 /mm (green), 360 /mm (red). The order spacing check, DERIVED with the physical numbers: order m at 520 nm is 118 (m lambda_B = 2 d sin theta_B = 61.40 um); the free spectral range is 4.4 nm, the angular dispersion of an 810 /mm grating gives 1.766 mm = 118 px between orders on a 495 mm camera, and 35 orders x 118 px = 4120 px, against the 4080 px chip; red (450 /mm, 735 nm, m = 84.5, 492 mm): 125 px x 32 orders = 3990 px. So the physical grating numbers reproduce the published order counts to 1-3 percent."
+  },
+  {
+   "key": "cam_f",
+   "parameter": "Cameras: focal length, focal ratio, type",
+   "value": "green 495 mm, f/2.8; red 492 mm, f/2.8; five-element Petzval (bonded triplet, singlet, field flattener)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Focal Length: 495 mm, f/2.8",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Focal Length: 492 mm, f/2.8",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "Both the green and red cameras are five-element Petzval designs",
+     "pdfpage": 7
+    },
+    {
+     "src": "KIMG1",
+     "loc": "table 'Green Camera', 'Red Camera' (transcribed from the scan)",
+     "quote": "Focal Length: 495 mm, f/2.9"
+    },
+    {
+     "src": "G18",
+     "loc": "Table 1",
+     "quote": "Focal Length: 495 mm, f/2.9",
+     "pdfpage": 9
+    }
+   ],
+   "note": "CONFLICT: f/2.8 (as-built paper) against f/2.9 (the 2018 paper and the Keck table); red 492 mm (as-built) against 495 mm. As-built values are used. Camera drawing type: lens (cam 'lens')."
+  },
+  {
+   "key": "cam_eff",
+   "parameter": "Effective camera focal length in echelle-angle space",
+   "value": "green 618.75; red 615",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3",
+     "quote": "owing to the secondary collimator having a focal length 0.8× that of the primary collimator",
+     "pdfpage": 6
+    }
+   ],
+   "note": "DERIVED: the spot position at the intermediate focus is 1600 mm x (echelle angle); the secondary collimator (1280 mm) turns that into an angle 1.25 times larger, and the camera focuses it: 495 x 1600/1280 = 618.75 mm (green), 492 x 1.25 = 615 mm (red). Check against the measured sampling: delta-beta for R = 97,000 is 2 tan(theta_B)/R = 8.25e-5 rad, so 618.75 x 8.25e-5 = 51 um = 3.4 pixels of 15 um, matching the published 3.4-3.7 pixels (G24 Fig. 22 caption). The same equivalence is used for ESPRESSO (camera x the transfer ratio)."
+  },
+  {
+   "key": "det",
+   "parameter": "Detectors (green and red)",
+   "value": "4080 x 4080, 15 um square pixels (STA4850, 30 um thick)",
+   "unit": "px",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "4080 × 4080 pixels, 15 µm-square pixels",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3.1",
+     "quote": "we chose STA4850 devices from Semiconductor Technology Associates (STA)",
+     "pdfpage": 8
+    },
+    {
+     "src": "KDET",
+     "loc": "'Science Detector Specifications'",
+     "quote": "Format 4080x4080 4080x4080"
+    }
+   ],
+   "note": "Nx = Ny = 4080, pix 15. Read noise ~4.3 e- (red) and ~10 e- (green, since November 2024; KSTAT)."
+  },
+  {
+   "key": "lam_cover",
+   "parameter": "Wavelength coverage per arm",
+   "value": "green 443-599 nm, red 599-871 nm (the abstract and the Keck text: 445-600 and 600-870)",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Green channel: 443 nm to 599 nm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Table 1",
+     "quote": "Red channel: 599 nm to 871 nm",
+     "pdfpage": 8
+    },
+    {
+     "src": "G24",
+     "loc": "Abstract",
+     "quote": "green and red channels (445–600 nm and 600–870 nm)",
+     "pdfpage": 2
+    },
+    {
+     "src": "G18",
+     "loc": "Table 1",
+     "quote": "Green channel: 445 nm to 600 nm",
+     "pdfpage": 2
+    }
+   ],
+   "note": "The nominal bandpass is 445-870 nm."
+  },
+  {
+   "key": "orders",
+   "parameter": "Orders on the detectors",
+   "value": "green 35, red 32 (67 in all)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "KDF",
+     "loc": "Table 'KPF L1 data'",
+     "quote": "GREEN_SCI_FLUX1 image 35 x 4080 1D spectra for 35 GREEN CCD orders of SCI1 orderlet"
+    },
+    {
+     "src": "KDF",
+     "loc": "Table 'KPF L1 data'",
+     "quote": "RED_SCI_FLUX1 image 32 x 4080 1D spectra for 32 RED CCD orders of SCI1 orderlet"
+    }
+   ],
+   "note": "The order counts are the pipeline's L1 array sizes, not an optical-design table. DERIVED order numbers (Littrow, m lambda_B = 2 d sin theta_B = 61.40 um): red m = 71-102 (blaze 865-602 nm), green m = 103-137 (blaze 596-448 nm), each +-1; the reddest order's blaze 865 nm is 5 nm inside the 871 nm edge."
+  },
+  {
+   "key": "clock",
+   "parameter": "CCD and reformatter clocking",
+   "value": "green CCD 2.44 deg, red CCD 1.91 deg, reformatter 2.13 deg",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 3.3.2",
+     "quote": "the green CCD is clocked 2.44◦ , the red CCD is clocked 1.91◦ , and the reformatter is clocked 2.13◦",
+     "pdfpage": 9
+    }
+   ],
+   "note": "Drawing/format detail; the explorer does not model clocking."
+  },
+  {
+   "key": "vac",
+   "parameter": "Vacuum and thermal control (note only)",
+   "value": "Zerodur bench; vacuum chamber 1892 mm x 2045 mm; thermal enclosure planned; offline since April 2026",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Fig. 18 caption",
+     "quote": "The center section of the chamber is 1892 mm in diameter and 2045 mm long",
+     "pdfpage": 19
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.5.2",
+     "quote": "A unique aspect of KPF is the use of a Zerodur optical bench to support the spectrometer",
+     "pdfpage": 15
+    }
+   ],
+   "note": "Not modeled by the explorer."
+  },
+  {
+   "key": "pub_R",
+   "parameter": "Resolving power, measured",
+   "value": "95,000-97,000 (LFC lines; 3.4-3.7 pixels FWHM)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 6.1",
+     "quote": "The as-built resolving power has been measured at R = 95,000 – 97,000",
+     "pdfpage": 23
+    },
+    {
+     "src": "G24",
+     "loc": "Fig. 22 caption",
+     "quote": "as measured using the broadband laser frequency comb (LFC) calibration source",
+     "pdfpage": 24
+    },
+    {
+     "src": "G24",
+     "loc": "Fig. 22 caption",
+     "quote": "with a sampling of 3.4-3.7 pixels (full-width-half-max) in the dispersion direction",
+     "pdfpage": 24
+    },
+    {
+     "src": "R23",
+     "loc": "abstract/Intro",
+     "quote": "median resolving power of 98,000",
+     "pdfpage": 3
+    }
+   ],
+   "note": "MEASURED from LFC lines (gaussian + top-hat fits), central slice SCI2. Nominal Table 1: ~98,000 (G24); the 2018 requirement was > 80,000. The LFC gives no lines blueward of ~480 nm (G24 Fig. 22 caption), so the green arm's blue end has no direct measurement; the red CCD is 'remarkably uniform', the green showed a down-turn at the blue end of each order (G24 Sec. 6.1)."
+  },
+  {
+   "key": "pub_thru",
+   "parameter": "Throughput",
+   "value": "~10 percent peak in median seeing (top of atmosphere to detected photoelectron)",
+   "unit": "%",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 7",
+     "quote": "The instrument has a high measured throughput (∼10% peak in median seeing)",
+     "pdfpage": 25
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "pub_stab",
+   "parameter": "Stability",
+   "value": "calibration drift < ~10 cm/s over two weeks; 3-8 cm/s differential",
+   "unit": "m/s",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "G24",
+     "loc": "Sec. 6.3",
+     "quote": "raw unbinned data showing an internal instrumental drift of less than ∼10 cm s−1 over the course of two weeks",
+     "pdfpage": 25
+    }
+   ],
+   "note": ""
+  },
+  {
+   "key": "status",
+   "parameter": "Operational status",
+   "value": "OFFLINE since April 2026 (vacuum pump failure); Era 4.0 began late October 2025",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "KSTAT",
+     "loc": "top",
+     "quote": "KPF is OFFLINE until further notice due to the vacuum pump failure described in the 2026 April announcement"
+    },
+    {
+     "src": "KSTAT",
+     "loc": "'KPF Era 4.0'",
+     "quote": "KPF Era 4.0 began in late-October 2025 after Servicing Mission 4"
+    }
+   ],
+   "note": "Page saved 2026-11-18; its footer reads 'Last Updated: 2026-02-01' but the April 2026 announcement is listed at the top. The preset describes the instrument as designed and as measured in 2023-2025; it is not a design-stage preset, so no '(design)' mark."
+  },
+  {
+   "key": "exposure_meter",
+   "parameter": "Other subsystems (not in the explorer)",
+   "value": "Ca H&K spectrograph (382-402 nm; R ~ 17,000), exposure meter, SoCal solar feed, LFC and etalon",
+   "unit": "-",
+   "tag": "SOURCED",
+   "sources": [
+    {
+     "src": "KFIU",
+     "loc": "table",
+     "quote": "382-402 nm Ca H&K Spectrograph"
+    },
+    {
+     "src": "G24",
+     "loc": "Sec. 3.7.2",
+     "quote": "at a resolving power of R = 17,000",
+     "pdfpage": 20
+    }
+   ],
+   "note": "Separate fibers and spectrographs; only the main green and red arms are presets."
+  }
+ ],
+ "pub": [
+  {
+   "what": "R measured",
+   "value": "95000-97000",
+   "kind": "MEASURED (LFC lines)",
+   "src": "G24 Sec. 6.1"
+  },
+  {
+   "what": "sampling 3.4-3.7 px FWHM",
+   "src": "G24 Fig. 22 caption"
+  },
+  {
+   "what": "coverage green 4430-5990 A, red 5990-8710 A",
+   "src": "G24 Table 1"
+  },
+  {
+   "what": "orders green 35, red 32",
+   "src": "KDF L1 arrays"
+  },
+  {
+   "what": "R slit-limited geometric",
+   "value": 92500,
+   "kind": "DERIVED"
+  },
+  {
+   "what": "throughput ~10% peak",
+   "src": "G24 Sec. 7"
+  }
+ ],
+ "not_found": [
+  "Echelle gamma (out-of-plane angle) and theta: not published (the text says only 'rotated slightly out of plane'). A rough ~1 deg is read from Fig. 3 (MEASURED by eye, low confidence).",
+  "Dichroic transition width and angle of incidence: not published (the angle is MEASURED on Fig. 3, ~31 deg +-4; the 95% point and the 590 nm transition wavelength are sourced).",
+  "Apex angles of the two grism prisms ('shallow apex angle'), and whether the VPH angle of incidence is in air or in glass: not published.",
+  "Ruled area of each echelle sub-grating (the substrate is 840 x 214 x 125 mm; two sub-gratings on one substrate).",
+  "The science slice width as a number (only the sky and calibration masks, 64 um, and the statement that every orderlet has the same width).",
+  "Dispersion in A/pixel and order separations: no table in the papers (G24 shows echellograms in Fig. 6 only).",
+  "Scale along the slit (the explorer's pixScale): the slicing and masking geometry in the cross-dispersion direction is not tabulated.",
+  "Aperture of Keck I in the KPF papers (the project convention D = 10.95 m is kept).",
+  "Fig. 3 carries no length scale: layout distances beyond the 1600 mm and 1280 mm focal lengths are MEASURED against the 840 mm echelle.",
+  "The 2016 (Gibson et al. 2016, 2016SPIE.9908E..70G), 2022 FIU (Lilley et al. 2022, 2022SPIE12184E..4KL) and double-scrambler (Sirk et al. 2018, 2018SPIE10702E..6FS) SPIE papers: no free copy found; their numbers are not used."
+ ]
+}

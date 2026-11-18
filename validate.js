@@ -308,6 +308,8 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
         case "specScale": val = p.state[p.state.mode === "echelle" ? "e" : "g"].slitW / S.c.npix; break;   // arcsec per pixel along the dispersion
         case "pixScaleAt": { const L = S.local(q.lam / 1e4, q.m); val = L ? L.pixScale : NaN; break; }   // along the slit, at lam in order m
         case "ordSpan": { const o = S.orders.find(q2 => q2.m === q.m); val = o ? (o.hi - o.lo) * 1e4 : NaN; break; }
+        case "ordLo": { const o = S.orders.find(q2 => q2.m === q.m); val = o ? o.lo * 1e4 : NaN; break; }   // order m's blue end on the chip
+        case "ordHi": { const o = S.orders.find(q2 => q2.m === q.m); val = o ? o.hi * 1e4 : NaN; break; }   // and its red end
         case "RAt": { const L = S.local(q.lam / 1e4, ordFor(q.lam)); val = L ? L.Reff : NaN; break; }
         case "dlpix": val = S.c.dlpix; break;
         case "dlpixAt": { const L = S.local(q.lam / 1e4, q.m); val = L ? L.dlpix : NaN; break; }
@@ -369,6 +371,11 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     [/^dbsp[br]$/, "on", "Oke & Gunn 1982 Sec. III.A and Fig. 1; Palomar DBSP overview Sec. 4.b: the light enters \"through holes in the collimator primaries\" (coaxial folded Cassegrain; data/round7/dbsp.md, INFERRED)"],
     [/^(boss|sdss)[br]$/, "on", "Smee et al. 2013: \"The slitplates are in the beam\" (a one-dimensional Schmidt collimator)"],
     [/^fast/, "off", "Fabricant et al. 1998 Sec. 3.4: an off-axis parabolic collimator, 8.5 deg off axis"],
+    [/^kpf[gr]$/, "off", "Gibson et al. 2024 Table 1: \"Primary Collimator Off-axis paraboloid\", decenter 237 mm; Gibson et al. 2018: the off-axis angle increased from 7.5 to 8 deg"],
+    [/^neid/, "off", "Schwab et al. 2020 Sec. 3: \"We use an off-axis portion of this mirror as OAP (off-axis parabola) collimator. The off-axis angle is 5 degrees in cross dispersion direction\""],
+    [/^carmenes/, "off", "Seifert et al. 2012 Table 1: \"Off-axis collimator\", cut from a parent paraboloid of ~850 mm"],
+    [/^hpf$/, "off", "Mahadevan et al. 2014 Sec. 3: \"a monolithic off-axis parabolic collimator\""],
+    [/^nirspec/, "off", "McLean et al. 1998: \"an off-axis paraboloid mirror (called the OAPC) which acts as the collimator\", \"with no central obscurations\""],
     [/^tull/, "on", "Tull et al. 1995: a Cassegrain collimator, the slit in its primary's housing, a central occulting disk the size of its secondary (data/round8/tull.md, INFERRED)"],
     [/^lamost[br]$/, "on", "Cui et al. 2012 Fig. 30(b), to scale: the slit on the axis 800 mm before the concave mirror, the returning beam on the same axis (data/round8/lamost.md, MEASURED)"],
     [/^weave/, "off", "Jin et al. 2024 Sec. 2.3: \"an off-axis catadioptric f/3.1 collimator\""],

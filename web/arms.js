@@ -78,6 +78,13 @@ const GROUPS = {
   "X-Shooter": { split: "focus", Ftel: 13.41, relay: "relay", note: "each arm's relay images the telescope's focus on the arm's own slit",
     tree: { cut: 5595, w: 78, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: { fold: 30, rel: 1, cross: true, src: "V11 Sec. 2.1, Fig. 2", to: "xshuvb" },
       T: { cut: 10240, w: 255, aoi: 15, rel: -1, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: { fold: 30, rel: 1, cross: true, src: "V11 Sec. 2.1, Fig. 2", to: "xshvis" }, T: "xshnir" } } },
+  // CARMENES (data/round9/carmenes.md; Q16 Sec. 2.1; C25): a dichroic at 960 nm in the converging f/10 beam ahead of the
+  // fibers (after the pick-up flat and the dispersion corrector) reflects the VIS to its fiber heads and passes the NIR,
+  // which an "additional NIR mirror" turns to its own; each channel's fibers lead to its own spectrograph. Drawn after the
+  // focus (for a flat dichroic only the beam's convergence differs); the width and both angles INFERRED (45 deg)
+  "CARMENES": { split: "focus", Ftel: 10, relay: "fibers, F/N system", note: "CARMENES's dichroic stands in the converging beam ahead of the fibers; the angles of the dichroic and the fold are inferred",
+    tree: { cut: 9600, w: 300, aoi: 45, noAoi: true, src: "Q16 Sec. 2.1 (960 nm); width and AOI INFERRED", R: "carmenesvis",
+      T: { fold: 45, src: "C25 (the additional NIR mirror); 45 deg INFERRED", to: "carmenesnir" } } },
   // MIKE (B03 Secs. 2.1, 2.3; LCO manual, May 2004): one slit at the f/11 focus; the dichroic, "the first optical element
   // beyond the slit", at an incidence of 30 deg, reflects the blue; each arm's injection optics then feed its lens. The
   // crossover is ~495 nm since 2004 (455 nm before); the width is the original dichroic's "80% reflectance by 440nm and

@@ -1749,6 +1749,233 @@
     "key": "BL22",
     "text": "Black et al. 2022, Proc. SPIE 12184"
    }
+  ],
+  "kpfg": [
+   {
+    "file": "data/round9/kpf.json",
+    "key": "G24",
+    "text": "Gibson et al. 2024, Proc. SPIE 13096, 1309609",
+    "ads": "2024SPIE13096E..09G"
+   },
+   {
+    "file": "data/round9/kpf.json",
+    "key": "G18",
+    "text": "Gibson et al. 2018, Proc. SPIE 10702, 107025X",
+    "ads": "2018SPIE10702E..5XG"
+   },
+   {
+    "file": "data/round9/kpf.json",
+    "key": "KSPEC",
+    "text": "Keck Observatory, KPF Spectrograph page"
+   }
+  ],
+  "kpfr": [
+   {
+    "file": "data/round9/kpf.json",
+    "key": "G24",
+    "text": "Gibson et al. 2024, Proc. SPIE 13096, 1309609",
+    "ads": "2024SPIE13096E..09G"
+   },
+   {
+    "file": "data/round9/kpf.json",
+    "key": "G18",
+    "text": "Gibson et al. 2018, Proc. SPIE 10702, 107025X",
+    "ads": "2018SPIE10702E..5XG"
+   },
+   {
+    "file": "data/round9/kpf.json",
+    "key": "KSPEC",
+    "text": "Keck Observatory, KPF Spectrograph page"
+   }
+  ],
+  "neidhr": [
+   {
+    "file": "data/round9/neid.json",
+    "key": "S16",
+    "text": "Schwab et al. 2016, Proc. SPIE 9908, 99087H",
+    "ads": "2016SPIE.9908E..7HS"
+   },
+   {
+    "file": "data/round9/neid.json",
+    "key": "S20",
+    "text": "Schwab et al. 2020, Proc. SPIE 11447, 114474L",
+    "ads": "2020SPIE11447E..4LS"
+   },
+   {
+    "file": "data/round9/neid.json",
+    "key": "K23",
+    "text": "Kanodia et al. 2023, AJ 166, 105",
+    "ads": "2023AJ....166..105K"
+   }
+  ],
+  "neidhe": [
+   {
+    "file": "data/round9/neid.json",
+    "key": "S16",
+    "text": "Schwab et al. 2016, Proc. SPIE 9908, 99087H",
+    "ads": "2016SPIE.9908E..7HS"
+   },
+   {
+    "file": "data/round9/neid.json",
+    "key": "S20",
+    "text": "Schwab et al. 2020, Proc. SPIE 11447, 114474L",
+    "ads": "2020SPIE11447E..4LS"
+   },
+   {
+    "file": "data/round9/neid.json",
+    "key": "K23",
+    "text": "Kanodia et al. 2023, AJ 166, 105",
+    "ads": "2023AJ....166..105K"
+   }
+  ],
+  "carmenesvis": [
+   {
+    "file": "data/round9/carmenes.json",
+    "key": "S12",
+    "text": "Seifert et al. 2012, Proc. SPIE 8446, 844633",
+    "ads": "2012SPIE.8446E..33S"
+   },
+   {
+    "file": "data/round9/carmenes.json",
+    "key": "Q14",
+    "text": "Quirrenbach et al. 2014, Proc. SPIE 9147, 91471F",
+    "ads": "2014SPIE.9147E..1FQ"
+   }
+  ],
+  "carmenesnir": [
+   {
+    "file": "data/round9/carmenes.json",
+    "key": "B16",
+    "text": "Becerril et al. 2016, Proc. SPIE 9910, 99100Q",
+    "ads": "2016SPIE.9910E..0QB"
+   },
+   {
+    "file": "data/round9/carmenes.json",
+    "key": "S12",
+    "text": "Seifert et al. 2012, Proc. SPIE 8446, 844633",
+    "ads": "2012SPIE.8446E..33S"
+   },
+   {
+    "file": "data/round9/carmenes.json",
+    "key": "Q14",
+    "text": "Quirrenbach et al. 2014, Proc. SPIE 9147, 91471F",
+    "ads": "2014SPIE.9147E..1FQ"
+   }
+  ],
+  "hpf": [
+   {
+    "file": "data/round9/hpf.json",
+    "key": "M14",
+    "text": "Mahadevan et al. 2014, Proc. SPIE 9147, 91471G",
+    "ads": "2014SPIE.9147E..1GM"
+   },
+   {
+    "file": "data/round9/hpf.json",
+    "key": "M12",
+    "text": "Mahadevan et al. 2012, Proc. SPIE 8446, 84461S",
+    "ads": "2012SPIE.8446E..1SM"
+   },
+   {
+    "file": "data/round9/hpf.json",
+    "key": "N19",
+    "text": "Ninan et al. 2019, JATIS 5, 041511",
+    "ads": "2019JATIS...5d1511N"
+   }
+  ],
+  "nirspeck": [
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "M98",
+    "text": "McLean et al. 1998, Proc. SPIE 3354, 566",
+    "ads": "1998SPIE.3354..566M"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "RB98",
+    "text": "Robichaud et al. 1998, Proc. SPIE 3354, 1068",
+    "ads": "1998SPIE.3354.1068R"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "KS",
+    "text": "Keck Observatory, NIRSPEC Specifications page"
+   }
+  ],
+  "nirspecy": [
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "M98",
+    "text": "McLean et al. 1998, Proc. SPIE 3354, 566",
+    "ads": "1998SPIE.3354..566M"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "RB98",
+    "text": "Robichaud et al. 1998, Proc. SPIE 3354, 1068",
+    "ads": "1998SPIE.3354.1068R"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "KS",
+    "text": "Keck Observatory, NIRSPEC Specifications page"
+   }
+  ],
+  "nirspecj": [
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "M98",
+    "text": "McLean et al. 1998, Proc. SPIE 3354, 566",
+    "ads": "1998SPIE.3354..566M"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "RB98",
+    "text": "Robichaud et al. 1998, Proc. SPIE 3354, 1068",
+    "ads": "1998SPIE.3354.1068R"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "KS",
+    "text": "Keck Observatory, NIRSPEC Specifications page"
+   }
+  ],
+  "nirspech": [
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "M98",
+    "text": "McLean et al. 1998, Proc. SPIE 3354, 566",
+    "ads": "1998SPIE.3354..566M"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "RB98",
+    "text": "Robichaud et al. 1998, Proc. SPIE 3354, 1068",
+    "ads": "1998SPIE.3354.1068R"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "KS",
+    "text": "Keck Observatory, NIRSPEC Specifications page"
+   }
+  ],
+  "nirspeclr": [
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "M98",
+    "text": "McLean et al. 1998, Proc. SPIE 3354, 566",
+    "ads": "1998SPIE.3354..566M"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "RB98",
+    "text": "Robichaud et al. 1998, Proc. SPIE 3354, 1068",
+    "ads": "1998SPIE.3354.1068R"
+   },
+   {
+    "file": "data/round9/nirspec.json",
+    "key": "KS",
+    "text": "Keck Observatory, NIRSPEC Specifications page"
+   }
   ]
  },
  "img": {
