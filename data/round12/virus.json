@@ -1,0 +1,835 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 12: HET 10 m / VIRUS (one HETDEX unit spectrograph channel)",
+  "compiled": "2026-11-18",
+  "companion": "data/round12/virus.md",
+  "rule": "Every value carries src (key into sources), loc and a short quote from the saved document. DERIVED = arithmetic done here; MEASURED = measured by the source or read from a figure (method in the note); INFERRED = a reading no source states.",
+  "quote_check": {
+   "pieces_checked": 85,
+   "failures": 0
+  }
+ },
+ "sources": {
+  "H21": {
+   "cite": "Hill et al. 2021, AJ 162, 298, 'The HETDEX Instrumentation: Hobby-Eberly Telescope Wide-field Upgrade and VIRUS' (2021AJ....162..298H; arXiv:2110.03843; Sec. 4.1 and Table 3, Figs. 7-8, 13-15: the production VIRUS)",
+   "file": "rawdata/presets/virus/arxiv_2110.03843_Hill2021.pdf",
+   "url": "https://arxiv.org/pdf/2110.03843"
+  },
+  "G21": {
+   "cite": "Gebhardt et al. 2021, ApJ 923, 217, 'The Hobby-Eberly Telescope Dark Energy Experiment (HETDEX) Survey Design, Reductions, and Detections' (2021ApJ...923..217G; arXiv:2110.04298; Sec. 6.11 instrumental resolution, the fiber FWHM in pixels)",
+   "file": "rawdata/presets/virus/arxiv_2110.04298_Gebhardt2021.pdf",
+   "url": "https://arxiv.org/pdf/2110.04298"
+  },
+  "C14": {
+   "cite": "Chonis et al. 2014, Proc. SPIE 9151, 91511J, 'Mass production of volume phase holographic gratings for the VIRUS spectrograph array' (2014SPIE.9151E..1JC; arXiv:1407.7537; the VPH angles, the fringe tilt, f/3.33 collimator and f/1.25 camera)",
+   "file": "rawdata/presets/virus/arxiv_1407.7537_Chonis2014.pdf",
+   "url": "https://arxiv.org/pdf/1407.7537"
+  },
+  "L14": {
+   "cite": "Chonis et al. 2014, Proc. SPIE 9147, 91470A, 'LRS2: the new facility low resolution integral field spectrograph for the Hobby-Eberly telescope' (2014SPIE.9147E..0AC; arXiv:1407.6016; Sec. 3.1 describes the VIRUS building block; Fig. 1a is the optical layout with the 125 mm beam)",
+   "file": "rawdata/presets/virus/arxiv_1407.6016_LRS2.pdf",
+   "url": "https://arxiv.org/pdf/1407.6016"
+  },
+  "H06": {
+   "cite": "Hill et al. 2006, New Astronomy Reviews 50, 378, 'VIRUS: a hugely replicated integral field spectrograph for HETDEX' (2006NewAR..50..378H; the 2006 design: 145 units, 200 um fibers, f/3.35 collimator; author copy hosted at the USM Munich site)",
+   "file": "rawdata/presets/virus/usm_hill_durham.pdf",
+   "url": "https://www.usm.lmu.de/~fug/publications/hill_durham.pdf"
+  },
+  "H16": {
+   "cite": "Hill et al. 2016, ASP Conf. Ser. 507, 393, 'HETDEX and VIRUS: Panoramic Integral Field Spectroscopy with 35k Fibers' (2016ASPC..507..393H; 156 spectrographs in 78 pairs, 34,944 fibers, R ~ 700)",
+   "file": "rawdata/presets/virus/ads_2016ASPC..507..393H.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/2016ASPC..507..393H/ADS_PDF"
+  }
+ },
+ "parameters": [
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "HET pupil diameter D",
+   "value": "10",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 3.3 (WFC)",
+   "quote": "and a 10 m pupil diameter",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 1",
+     "quote": "Aperture on axis 9.2 m 10.0 m"
+    },
+    {
+     "src": "H21",
+     "loc": "Table 4",
+     "quote": "Pupil diameter 10 m class 9.2 m 10.0 m At center of track"
+    }
+   ],
+   "note": "10 m is the pupil at the center of a track. The pupil sweeps over the 11 m segmented primary during a track and is clipped by the mirror edge (see the next row)."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Varying pupil (handling)",
+   "value": "D = 10 m kept; effective area for HETDEX 50 m2 (8.0 m equivalent diameter)",
+   "unit": "",
+   "tag": "DERIVED",
+   "src": "H21",
+   "loc": "Sec. 5.3 (throughput definition)",
+   "quote": "photons incident on a 50 m2 area, rather than a 10 m",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 1",
+     "quote": "sweeps over the primary mirror as the x-y tracker follows objects"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 3.4, Fig. 6",
+     "quote": "Pupil illumination variations during tracking are illustrated in Figure 6"
+    }
+   ],
+   "note": "HANDLING (as data/round9/hpf.md and data/round8/lamost.md): the preset keeps D = 10 m, the pupil diameter. R does not depend on D (it is set by the fiber core, the collimator and the grating). D enters only the arcsec bookkeeping and any collecting-area estimate. HETDEX itself reduces against 50 m2 of effective collecting area (DERIVED: equivalent diameter sqrt(4 x 50 / pi) = 7.98 m; 50 / 78.5 = 0.64 of the 10 m disk, and H21 gives a mean IFU illumination of 0.94 on top). A throughput or S/N estimate with D = 10 m therefore overstates the collecting area by 78.5 / 50 = 1.57 (HPF: 2.0 against its 7 m design aperture). HPF's footnote range (8.5 m to 5.5 m effective, K21) is not repeated by H21 for VIRUS."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Telescope focal length and focal ratio at the IFU input",
+   "value": "36 500 mm at f/3.65",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 1",
+   "quote": "36,500 mm @ f/3.65",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 3.3",
+     "quote": "feeding optical fibers at f /3.65"
+    },
+    {
+     "src": "H16",
+     "loc": "Sec. 1 (WFC)",
+     "quote": "fixed focal ratio of f/3.65"
+    }
+   ],
+   "note": "DERIVED: 36 500 / 10 000 = 3.65, so f/3.65 refers to the 10 m pupil. The focal surface is a sphere of 984 mm radius centered on the exit pupil, so the chief ray is normal to every fiber."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Plate scale",
+   "value": "5.65",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 1",
+   "quote": "Plate scale (arcsec./mm) 4.83 5.65",
+   "alts": [],
+   "note": "Upgraded HET (the original HET was 4.83)."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Fiber core, cladding and buffer",
+   "value": "266 / 290 / 320",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.2",
+   "quote": "core size 266 µm, cladding 290 µm, and buffer 320 µm",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 3",
+     "quote": "Fiber core diameter 266 µm = 1.5 arcsec"
+    }
+   ],
+   "note": "High-OH silica; round fibers (the IFU input is a micro-drilled block of bare fibers, no lenslets)."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Fiber core on the sky",
+   "value": "1.5",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "266 µm = 1.5 arcsec",
+   "alts": [
+    {
+     "src": "H16",
+     "loc": "Abstract",
+     "quote": "each 1.5 arcsec diameter"
+    }
+   ],
+   "note": "DERIVED: 0.266 mm x 5.65 arcsec/mm = 1.503 arcsec. (The 2006 design had 200 um fibers of 1.0 arcsec on the original HET, H06 Table 1.)"
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Fibers per spectrograph (nObj)",
+   "value": "224",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "Number of fibers / channel 224",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 2",
+     "quote": "Each spectrograph can accommodate 224 fibers"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.2",
+     "quote": "Each IFU contains 448 fibers, divided equally between two slits"
+    }
+   ],
+   "note": "One spectrograph = one channel = one slit = one CCD of the pair's two. 112 fibers per amplifier (G21 Sec. 6.11). The slit has intentional gaps (a 3-fiber central gap and a gap at about 2/3 of the extent, H21 Fig. 13 caption)."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "IFU and array",
+   "value": "448 fibers, 51 x 51 arcsec, 1/3 fill; 78 IFUs, about 35 000 fibers, 156 channels",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 2 (p. 6)",
+   "quote": "each IFU has 448 fibers and covers 51 × 51 arcsec2",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 1",
+     "quote": "VIRUS is composed of a set of 156 integral field spectrographs"
+    },
+    {
+     "src": "H16",
+     "loc": "Abstract",
+     "quote": "fed by 34,944 fibers"
+    }
+   ],
+   "note": "The IFUs sit on a 100 arcsec grid in an 18 arcmin field (fill factor 1/4.5). Each observation is three dithered exposures that fill the IFU (H21 Sec. 4)."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Fiber output geometry",
+   "value": "grooved blocks aim every fiber through the center of curvature of the collimator mirror; cylindrical fused-silica lens at the output",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.2",
+   "quote": "The grooves aim the fibers such that their axes pass through the center of curvature of the spherical collimator mirror and are normal to the surface of the mirror",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 4.2",
+     "quote": "input and output are bonded to a thin lens and a cylindrical lens, respectively"
+    }
+   ],
+   "note": "The slit is therefore a curved surface (radius = the collimator's focal length) on the spherical collimator's focal surface."
+  },
+  {
+   "sec": "Telescope and fiber feed",
+   "name": "Collimator input focal ratio F_out (explorer's virtual convention)",
+   "value": "3.33",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "Collimator focal ratio f/3.33 oversized to allow for FRD",
+   "alts": [
+    {
+     "src": "C14",
+     "loc": "Introduction",
+     "quote": "f /3.33 folded collimator"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "allowing the collimator to accept an f /3.32 beam from the fibers"
+    }
+   ],
+   "note": "The fibers are fed at f/3.65 and the collimator accepts f/3.33 to allow for focal ratio degradation (H21 Sec. 4.1: 'accommodating a small amount of focal ratio degradation'). The explorer is entered in the virtual-fiber convention with F = 3.33 and D = 10 m (as HPF used F = 8 and Hectochelle F = 5.4): the core angle is 266 um / (3.33 x 10 000 mm) = 1.6476 arcsec, and the explorer's fiber-to-slit factor sqrt3/2 gives a slit of 1.4268 arcsec. This differs from the on-sky 1.50 arcsec by the factor 3.65/3.33 = 1.096 (the FRD speed-up of the fiber beam), and the explorer's focal length (33.3 m) is not the HET's 36.5 m."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Beam diameter",
+   "value": "125",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "Beam size 125 mm including the margin for FRD",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "The beam size of each channel is 125 mm"
+    },
+    {
+     "src": "L14",
+     "loc": "Fig. 1 caption",
+     "quote": "the collimated beam size is 125 mm"
+    }
+   ],
+   "note": "Includes the margin for FRD: the f/3.65 input beam alone would fill 3.65/3.33 of the pupil, i.e. 114 mm (DERIVED), unless the collimator is slower than 3.33 (see Conflicts)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Collimator type",
+   "value": "spherical mirror, reverse Schmidt, sharing a corrector plate with the camera; a flat fold mirror in the beam",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "L14",
+   "loc": "Sec. 3.1",
+   "quote": "The optical design (see Fig. 1a) is a double-Schmidt, with the collimator reversed",
+   "alts": [
+    {
+     "src": "L14",
+     "loc": "Sec. 3.1",
+     "quote": "The Schmidt collimator and camera share a corrector plate"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "A single corrector plate suffices for both the Schmidt collimator and camera"
+    },
+    {
+     "src": "H06",
+     "loc": "Table 1",
+     "quote": "Collimator accepts f/3.35, reverse Schmidt reflective design"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "The three mirrors in the system"
+    }
+   ],
+   "note": "Three mirrors: the collimator, the fold and the camera mirror (H21 Fig. 8 labels 'Fold mirror', 'Collimator mirror', 'Camera mirror'). Explorer col = mirror."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Collimator focal length (f_col)",
+   "value": "416",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "src": "H21",
+   "loc": "Table 3 and Sec. 4.1",
+   "quote": "Beam size 125 mm including the margin for FRD",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 3",
+     "quote": "Collimator focal ratio f/3.33 oversized to allow for FRD"
+    }
+   ],
+   "note": "DERIVED: 3.33 x 125 mm = 416.3 mm (3.32 x 125 = 415). NOT stated in any saved source. Cross-checks: (a) the fiber image on the CCD is 266 um x 166/416 = 106 um = 7.07 px, against the measured 7.5 px FWHM across the fibers (G21 Sec. 6.11; 6.5-8.5 px over all IFUs); an f_col of 465 mm (next row) would give 6.3 px; (b) the slit-to-collimator distance in H21 Fig. 8 is 476 px against a collimated-beam 125 mm = scale 0.874 mm/px, i.e. 416 mm by construction (the scale was set that way; the cross-check is that the collimator-fold-grating path then comes out 836 mm = 2 f_col, see the layout section)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Focal reduction collimator to camera (conflict with the above)",
+   "value": "2.8",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "L14",
+   "loc": "Sec. 3.1",
+   "quote": "The focal reduction factor from the collimator to the camera is 2.8×",
+   "alts": [],
+   "note": "DERIVED alternative: 2.8 x 166 mm = 465 mm for f_col (f/3.7 at 125 mm). The f/3.33 and the 2.8 differ by 12 percent; see Conflicts. The recommendation follows the f/3.33 table value (it matches the 7.5 px fiber FWHM better)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Collimator on- or off-axis",
+   "value": "ON-AXIS (the slit sits at the collimator's focal surface in a slot of the fold mirror, in the returning beam; the collimator tilt is 0)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.1, Fig. 8 caption",
+   "quote": "The slits of the IFU assembly protrude into slots in the fold mirrors, to minimize obstruction",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 4.2",
+     "quote": "The grooves aim the fibers such that their axes pass through the center of curvature of the spherical collimator mirror and are normal to the surface of the mirror"
+    },
+    {
+     "src": "H06",
+     "loc": "Sec. 2",
+     "quote": "requires that the fibers each aim normal to the spherical collimator mirror"
+    }
+   ],
+   "note": "Deploy-gate verdict: ON-AXIS in the explorer's sense (colTilt 0, the fibers' head stands in the returning beam, the fold mirror carries slots for the slits). Evidence: the slit slots in the fold mirror (Fig. 8 caption), and a Schmidt collimator whose fibers aim through its own center of curvature. No source gives a collimator tilt."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Disperser",
+   "value": "VPH, transmission, 930 lines/mm, order m = 1",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.1",
+   "quote": "The grating has a fringe frequency of 930 lines mm−1 and operates at order m = 1 in transmission",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Fig. 8 caption",
+     "quote": "The volume phase holographic grating has 930 lines per mm"
+    }
+   ],
+   "note": "gType trans, gKind vph, m 1, G 930."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "VPH angles",
+   "value": "incidence 9 deg, diffraction 15.3 deg at 450 nm (substrate angles; 1 deg fringe tilt)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.1",
+   "quote": "the angle of incidence of ∼9◦ and the angle of diffraction of ∼15.3◦ at 450 nm",
+   "alts": [
+    {
+     "src": "C14",
+     "loc": "Sec. 2",
+     "quote": "we reduce the angle of incidence on the grating substrate to 9"
+    },
+    {
+     "src": "C14",
+     "loc": "Sec. 2",
+     "quote": "(β = 15.3◦ at 450 nm)"
+    }
+   ],
+   "note": "Check: sin 9 deg + sin 15.3 deg = 0.4203 against lambda G = 0.450 um x 0.930 /um = 0.4185 (DERIVED; 0.4%)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Table 3 grating angle",
+   "value": "12.15",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "light incident at 12.15◦ to grating normal",
+   "alts": [],
+   "note": "DERIVED: 9 + 15.3 = 24.3 = 2 x 12.15, so Table 3's 12.15 is half the angle between the incident and diffracted beams: the symmetric (Bragg) setting. Check: 2 sin 12.15 deg = 0.4210 gives lambda = 452.7 nm."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "VPH fringe tilt and size",
+   "value": "fringes tilted 1 deg; 138 mm clear aperture",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "C14",
+   "loc": "Sec. 2; H21 Sec. 4.1",
+   "quote": "the fringes are tilted by φ = −1◦",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "over the 138 mm diameter clear aperture of the gratings"
+    }
+   ],
+   "note": "The tilt moves the Littrow recombination ghost off the CCD. gLen: the 138 mm clear aperture (the 125 mm beam is inside it)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Camera-collimator angle (psi)",
+   "value": "24.3",
+   "unit": "deg",
+   "tag": "DERIVED",
+   "src": "H21",
+   "loc": "Sec. 4.1 and Table 3",
+   "quote": "the angle of incidence of ∼9◦ and the angle of diffraction of ∼15.3◦ at 450 nm",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 3",
+     "quote": "light incident at 12.15◦ to grating normal"
+    }
+   ],
+   "note": "DERIVED: the incident and diffracted beams of a VPH lie on opposite sides of the substrate normal and deviate by alpha + beta = 9 + 15.3 = 24.3 deg, equivalently 2 x 12.15 (Table 3); in the explorer's convention (Littrow = 0) a transmission VPH in the Bragg setting has psi = 2 x grating angle, as in data/round11/rss.md. MEASURED on Fig. 8: the beam leaves the fold at heading -22 deg and enters the camera at 0 deg, 22 deg (+-3 deg) against 24.3."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Camera type",
+   "value": "catadioptric Schmidt: spherical mirror, corrector plate, CCD inside the beam at the internal focus, aspheric field flattener",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.1",
+   "quote": "Each camera is an f /1.25 vacuum Schmidt design with 166 mm focal length",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Fig. 8 caption",
+     "quote": "The f /1.25 Schmidt camera has an internal CCD in the vacuum"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 2",
+     "quote": "a catadioptric Schmidt camera with the charge coupled device (CCD) detector at its focus was adopted"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "acts as the vacuum window of the camera. The field flattener lens in front of the CCD is also an aspheric element"
+    }
+   ],
+   "note": "Explorer cam = mirror (as Hectospec and PFS). The CCD obscures the camera mirror's center (f/1.33 on axis in Table 3: the obscured f/1.25)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Camera focal length and focal ratio",
+   "value": "166 mm; f/1.25 (f/1.33 on axis)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.1 and Table 3",
+   "quote": "f /1.25 vacuum Schmidt design with 166 mm focal length",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 3",
+     "quote": "Schmidt Camera focal ratio f/1.25 f/1.33 on axis"
+    },
+    {
+     "src": "C14",
+     "loc": "Introduction",
+     "quote": "a f /1.25 cryogenic camera"
+    }
+   ],
+   "note": "DERIVED: aperture 166 / 1.25 = 133 mm. The camera mirror's radius would be 2 x 166 = 332 mm (a spherical mirror, 'the optical power is mainly in the two spherical mirrors', L14 Sec. 3.1; INFERRED)."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "CCD",
+   "value": "STA3600, 2064 x 2064, 15 um pixels, thinned backside-illuminated, AR-coated; 2 amplifiers per CCD; binned 2 x 1 (spectral x spatial) in survey readout",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Sec. 4.3 and Table 3",
+   "quote": "an imaging area of 2064 × 2064 pixels was selected",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 3",
+     "quote": "CCD format 2064x2064 with 15 µm pixels"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.3",
+     "quote": "The device is designated STA3600"
+    },
+    {
+     "src": "H21",
+     "loc": "Sec. 4.3",
+     "quote": "binned 2 × 1 at 16 bits digitization"
+    }
+   ],
+   "note": "The explorer's detector: Nx = Ny = 2064, pix 15 (unbinned). Wavelength increases up the CCD (H21 Fig. 13 caption: 'Wavelength increases going up'); the dispersion runs along the CCD columns, the slit along the rows."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Wavelength coverage",
+   "value": "3500 - 5500",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 3",
+   "quote": "Wavelength coverage 3500 - 5500Å",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 4.1",
+     "quote": "with coverage of 3500−5500 Å"
+    }
+   ],
+   "note": "Fixed (no moving parts); the explorer's lamC = 4500 A is the center."
+  },
+  {
+   "sec": "Spectrograph",
+   "name": "Measured coverage (as built)",
+   "value": "mean 2003.3 +- 2.1 A wide; mean minimum wavelength 3492.4 +- 5.9 A",
+   "unit": "A",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Sec. 5.1, Fig. 13",
+   "quote": "a mean coverage of 2003.3 ± 2.1 Å and a mean minimum wavelength of 3492.4 ± 5.9 Å",
+   "alts": [],
+   "note": "Measured on the deployed channels (the lab Hg+Cd lamp frames in Fig. 13; the histograms are over 138 channels). The explorer cuts at the atmosphere's 3200 A: no part of VIRUS's range is below it."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Resolution (FWHM) and R",
+   "value": "5.6 A at 4500 A; R about 800",
+   "unit": "A",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Abstract; Sec. 1; Sec. 4.1",
+   "quote": "(resolving power R ∼ 800 at 4500 Å)",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Sec. 1",
+     "quote": "(at 4500 Å, ∆λ ≃ 5.6 Å)"
+    },
+    {
+     "src": "H21",
+     "loc": "Fig. 13 caption",
+     "quote": "For reference, the spectral resolution is 5.6 Å"
+    }
+   ],
+   "note": "Instrumental, from the calibration-lamp and sky-line frames (the text does not say which lines for the 5.6 A). The explorer's geometric Rs comes out near 780 (DERIVED: image width 0.866 x 266 um x 166/416 = 91.9 um = 6.13 px x 0.94 A/px = 5.8 A; see the model check)."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Resolution, 2021 survey paper",
+   "value": "FWHM about 4.7 A; R from 750 (blue) to 950 (red)",
+   "unit": "",
+   "tag": "MEASURED",
+   "src": "G21",
+   "loc": "Sec. 6.11",
+   "quote": "with a FWHM around 4.7 Å, giving a resolving power that varies from 750 to 950, blue to red",
+   "alts": [],
+   "note": "A different number from H21's 5.6 A (CONFLICT, below). G21 attributes it to Hill et al. 2021 (then 'submitted')."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Resolution, design values",
+   "value": "R about 700 (Chonis 2014; Hill 2016); about 850 (2006 prototype design)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "C14",
+   "loc": "Introduction",
+   "quote": "R = λ/∆λ ≈ 700",
+   "alts": [
+    {
+     "src": "H16",
+     "loc": "Abstract",
+     "quote": "resolving power R ∼ 700"
+    },
+    {
+     "src": "H06",
+     "loc": "Table 1",
+     "quote": "Disperser VPH grating gives 340-570 nm simultaneous coverage at R∼850"
+    }
+   ],
+   "note": "Earlier design statements. The H21 and G21 values supersede them."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Dispersion",
+   "value": "1.99 A per binned (2 x 1) pixel, median; 0.995 A per unbinned pixel",
+   "unit": "A/px",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Fig. 15 caption",
+   "quote": "The median dispersion is 1.99 Å per binned pixel",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Fig. 14 caption",
+     "quote": "binned by a factor of 2 in the spectral dimension"
+    }
+   ],
+   "note": "DERIVED: 1.99 / 2 = 0.995 A per 15 um pixel. Geometry check (DERIVED): dlambda/dx = cos beta / (G m f_cam) = 0.9645 x 10 753 A / 166 mm = 62.5 A/mm = 0.94 A/px at 4500 A, 5 percent below the median because the coverage is spread over a curved, distorted field; the explorer's model dispersion should be compared to 0.995 within a few percent."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Spatial profile (FWHM across the fibers)",
+   "value": "about 7.5 px (6.5 to 8.5 over all IFUs)",
+   "unit": "px",
+   "tag": "MEASURED",
+   "src": "G21",
+   "loc": "Sec. 6.11",
+   "quote": "the spatial FWHM for fibers in IFUslot 046 is about 7.5 pixels",
+   "alts": [
+    {
+     "src": "G21",
+     "loc": "Sec. 6.11",
+     "quote": "the full range of FWHMs for all the IFUs extends from ∼ 6.5 to ∼ 8.5 pixels"
+    }
+   ],
+   "note": "Unbinned pixels across the dispersion. DERIVED: the 1.5 arcsec fiber on the CCD is 106 um = 7.07 px (f_col 416 mm) so the arcsec per pixel across the slit is 1.5 / 7.07 = 0.212 arcsec/px; with the measured 7.5 px, 0.20."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Wavelength-direction line shift and stability",
+   "value": "0.09 px mean spectral shift per 5 C",
+   "unit": "px",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Sec. 5.1",
+   "quote": "0.09 (0.23) pixels in the spectral dimension, for a 5 ◦ C temperature change",
+   "alts": [],
+   "note": "Context only; the explorer does not model stability."
+  },
+  {
+   "sec": "Published performance (validation targets)",
+   "name": "Fiber spectra on the detector",
+   "value": "224 per channel; 112 per amplifier",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "G21",
+   "loc": "Sec. 6.11",
+   "quote": "amplifier’s 112 fiber spectra",
+   "alts": [],
+   "note": "Two amplifiers per CCD, wavelength increases up; fibers in a line along the rows."
+  },
+  {
+   "sec": "Dates",
+   "name": "Service dates",
+   "value": "first 16 units on the telescope May 2016; HETDEX survey from January 2017; all 78 units on sky August 2021",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Table 2",
+   "quote": "VIRUS deployment reaches full 78 units on sky (35k fibers) Aug-2021",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Table 2",
+     "quote": "First 16 VIRUS spectrograph units installed May-2016"
+    },
+    {
+     "src": "H21",
+     "loc": "Table 2",
+     "quote": "HETDEX Survey Starts Jan-2017"
+    }
+   ],
+   "note": "In operation: not marked '(design)'."
+  },
+  {
+   "sec": "Optical layout (H21 Fig. 8, p. 21; L14 Fig. 1a)",
+   "name": "Element order of one channel",
+   "value": "fiber slit (in a slot of the fold mirror) -> spherical collimator mirror -> back to the flat fold mirror -> VPH grating -> corrector plate (camera window) -> spherical camera mirror -> CCD at the internal focus",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Fig. 8 caption and labels",
+   "quote": "The slits of the IFU assembly protrude into slots in the fold mirrors, to minimize obstruction",
+   "alts": [
+    {
+     "src": "H21",
+     "loc": "Fig. 8 caption",
+     "quote": "The distance between the fold and collimator mirrors is maintained with three invar struts for each channel"
+    }
+   ],
+   "note": "Reading of the figure (page 21, right panel), image coordinates read from a 300 dpi render, y up. The pink diverging fan starts at the slit slot at the left (on the fold mirror), crosses to the collimator mirror at the right, returns as a parallel beam to the fold mirror, which turns it down and to the right to the VPH grating at the lower middle; the dispersed beam runs horizontally to the corrector plate and the camera mirror at the right; the CCD with its field flattener sits inside the beam at the camera mirror's focus."
+  },
+  {
+   "sec": "Optical layout (H21 Fig. 8, p. 21; L14 Fig. 1a)",
+   "name": "Slit to collimator, collimator to fold to grating",
+   "value": "slit-collimator 416 mm; collimator-fold 407 mm; fold-grating 429 mm; collimator-grating path 836 mm (2 f_col = 832 mm)",
+   "unit": "mm",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Fig. 8 (p. 21)",
+   "quote": "The slits of the IFU assembly protrude into slots in the fold mirrors, to minimize obstruction",
+   "alts": [],
+   "note": "Method: pixel coordinates read from the 300 dpi render of Fig. 8 (the slit slot at (180, 205), the collimator mirror center at (655, 235), the fold center at (190, 215), the grating center at (645, 400)): slit-collimator 476 px, collimator-fold 466 px, fold-grating 491 px. The figure has no scale bar; the scale was set from the one sourced length that is a focal length, slit-to-collimator = f_col = 416 mm (DERIVED above): 0.874 mm/px. The independent check is the 125 mm beam: the grating's drawn extent, 150 px, is 131 mm (138 mm clear aperture, SOURCED), and the collimator-fold-grating path (957 px = 836 mm) equals 2 f_col = 832 mm, the Schmidt condition for a corrector or stop at the center of curvature (INFERRED reading: no text states it). Uncertainty about 5 percent. layLen 832 recommended."
+  },
+  {
+   "sec": "Optical layout (H21 Fig. 8, p. 21; L14 Fig. 1a)",
+   "name": "Fold mirror",
+   "value": "flat; turns the collimated beam through about 160 deg of direction change (the beam arrives heading 177.5 deg and leaves heading -22 deg in the image frame); sits at 0.49 of the collimator-to-grating path",
+   "unit": "",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Fig. 8 (p. 21)",
+   "quote": "Layout of the production VIRUS spectrograph unit. Each VIRUS unit has two identical spectrograph channels",
+   "alts": [],
+   "note": "Method as above: heading of the collimator-to-fold segment (-465, +20) px and of the fold-to-grating segment (+455, -185) px. The fold's tilt itself reads as incidence about 10 deg (the deviation 160 = 180 - 2 x 10). Fold position fraction 466 / 957 = 0.49 of the collimator-to-grating path. The fold carries the IFU slit slots. Uncertainty +-4 deg on the angles."
+  },
+  {
+   "sec": "Optical layout (H21 Fig. 8, p. 21; L14 Fig. 1a)",
+   "name": "Grating to corrector and to the camera mirror",
+   "value": "grating-corrector about 87 mm (100 px); corrector-camera mirror about 253 mm (290 px); CCD-camera mirror about 157 mm (180 px); grating-camera mirror about 340 mm",
+   "unit": "mm",
+   "tag": "MEASURED",
+   "src": "H21",
+   "loc": "Fig. 8 (p. 21)",
+   "quote": "The f /1.25 Schmidt camera has an internal CCD in the vacuum mounted to the main bulkhead",
+   "alts": [],
+   "note": "Same scale (0.874 mm/px, uncertainty 10 percent). The CCD-to-mirror 157 mm agrees with the 166 mm camera focal length (5 percent); the corrector-to-mirror 253 mm is shorter than 2 f_cam = 332 mm (a Schmidt corrector at the mirror's center of curvature): the picture is a schematic and the corrector's place is not stated in the text, so the camera distances are SCHEMATIC at the 20 percent level. camLen (disperser to corrector) is drawing-only: about 90 mm."
+  },
+  {
+   "sec": "Optical layout (H21 Fig. 8, p. 21; L14 Fig. 1a)",
+   "name": "Unit dimensions",
+   "value": "970 mm long, 740 mm wide, 460 mm deep, 73 kg (the pair, without the IFU)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "H21",
+   "loc": "Fig. 8 caption",
+   "quote": "dimensions 970 mm long, 740 mm wide, and 460 mm deep, and weighs 73 kg",
+   "alts": [],
+   "note": ""
+  }
+ ],
+ "recommended_preset": {
+  "id": "virus",
+  "tel": "HET 10 m",
+  "name": "HET / VIRUS",
+  "inst": null,
+  "state": {
+   "mode": "grating",
+   "D": 10,
+   "F": 3.33,
+   "g": {
+    "slitW": 1.4269,
+    "slitW_note": "0.8660254 x 266 um / (3.33 x 10000 mm) x 206264.806; core angle 1.6476 arcsec",
+    "nObj": 224,
+    "col": "mirror",
+    "colTilt": 0,
+    "layLen": 832,
+    "W": 125,
+    "fcam": 166,
+    "cam": "mirror",
+    "camLen": 90,
+    "gType": "trans",
+    "gKind": "vph",
+    "G": 930,
+    "m": 1,
+    "gTilt": 0,
+    "lamC": 4500,
+    "lamB1": 4500,
+    "psi": 24.3,
+    "tAlpha": null,
+    "gLen": 138,
+    "Nx": 2064,
+    "Ny": 2064,
+    "pix": 15
+   },
+   "fold": {
+    "pos": 0.49,
+    "turn_deg": 160,
+    "note": "MEASURED from H21 Fig. 8"
+   }
+  }
+ },
+ "model_check": {
+  "R": 773,
+  "Rs": 773,
+  "dlpix": 0.95,
+  "npix": 6.12,
+  "range_A": [
+   3514,
+   5467
+  ],
+  "published": {
+   "R": 800,
+   "dlpix": 0.995,
+   "range_A": [
+    3492,
+    5495
+   ]
+  }
+ },
+ "verdicts": {
+  "collimator": "ON-AXIS (sourced)",
+  "camera": "Schmidt, CCD in the beam (sourced); cam = mirror",
+  "fcol_mm": "416 DERIVED (3.33 x 125); conflict: 465 from L14's 2.8x"
+ },
+ "not_found": [
+  "collimator focal length stated in a source",
+  "SPIE VIRUS design papers (bot-blocked / connection refused)",
+  "slit pitch and gap sizes",
+  "named arc lines for R",
+  "scale bar on Fig. 8"
+ ]
+}

@@ -1072,6 +1072,13 @@ the 1979 design of Angel, Hilliard & Weymann reproduces the observatory's table 
 grating with an All-arms group, the D55 dichroic in the diverging beam), and the CfA Z-machine of the CfA Redshift
 Survey (the optics EFFECTIVE, the collimator entered as a lens by his call).
 
+Round 12 (2026-11-18; records in data/round12/): the CfA Digital Speedometer (one echelle order at Mg b, isolated by
+its 45 Å window; the blaze EFFECTIVE, the collimator a lens by his call), Steward Medusa of 1980, the first fiber
+multi-object spectrograph (the camera EFFECTIVE), JWST NIRSpec (the CaF₂ prism, G395M and G140H; a new glass, CaF₂ at
+37 K from Leviton et al. 2008, puts the prism's dispersion within 1.1% of the published table from 0.7 to 5 µm; the
+collimator off the axis and the conical mount entered as psi 0, both his calls), AAOmega (three blue/red pairs with
+All-arms groups; the collimator on the axis, INFERRED, his call), and VIRUS on the HET (one channel; no value fitted).
+
 ## Preset and Setting menus
 
 An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and a

@@ -96,6 +96,12 @@ const GROUPS = {
     note: "MODS's dichroic and fold stand in the diverging beam after the slit, and each channel's collimator takes the light straight from them",
     tree: { cut: 5650, w: 180, aoi: 35, src: "MODS manual Sec. 2.4 (50% at 5650 A); the MODS1 curve (width DERIVED); Code V (35 deg)",
       R: { fold: 38, rel: 1, src: "Code V: the red fold, AOI 38 deg (DERIVED)", to: "modsr" }, T: "modsb" } },
+  // AAOmega (data/round12/aaomega.md; Sharp et al. 2006 Sec. 2.3 and Fig. 1): the x5700 dichroic in the collimated beam,
+  // upstream of each arm's Schmidt corrector, reflects the blue (INFERRED from Sec. 5.8); the width MEASURED from Fig. 1 (15
+  // nm, at normal incidence), the angle NOT FOUND
+  "AAOmega 580V/385R": { split: "collimated", tree: { cut: 5700, w: 150, aoi: 45, noAoi: true, src: "Sharp et al. 2006 (570 nm; width MEASURED; AOI NOT FOUND)", R: "aao580v", T: "aao385r" } },
+  "AAOmega 1500V/1000R": { split: "collimated", tree: { cut: 5700, w: 150, aoi: 45, noAoi: true, src: "Sharp et al. 2006 (570 nm; width MEASURED; AOI NOT FOUND)", R: "aao1500v", T: "aao1000r" } },
+  "AAOmega 2500V/2000R": { split: "collimated", tree: { cut: 5700, w: 150, aoi: 45, noAoi: true, src: "Sharp et al. 2006 (570 nm; width MEASURED; AOI NOT FOUND)", R: "aao2500v", T: "aao2000r" } },
   // Lick Kast (data/round11/kast.md): one slit; the D55 dichroic (5500 A) in the diverging beam reflects the blue and passes
   // the red, each arm with its own off-axis collimator (no relay); the width MEASURED from the manual's curve (10-90%), the
   // angle MEASURED from the report's oblique drawing (+-8 deg)
@@ -193,6 +199,20 @@ root.ARMSAPP = function (H) {
   // ---- one arm's optics in its own frame: the light arrives along +x at the origin (the disperser, or for an arm with
   // its own slit, the slit); flip mirrors the arm about its axis.  Returns the primitives, the labels, and the convex
   // pieces that the layout keeps apart
+  // the disperser's normal (and its outgoing direction e) in an arm's frame, the beam arriving along +x; cs picks the side
+  // the camera turns to (unit() below, and the beams' ends on the gratings)
+  function dispFrame(a, cs, xdOnly) {
+    const P = a.P, D = a.D, ech = P.mode === "echelle", inc = v(1, 0);
+    const xdRefl = xdOnly && P.xd === "grating";
+    let e, nG;
+    if (xdOnly && !xdRefl) { e = inc; nG = inc; }
+    else if (xdRefl) { e = rot(v(-1, 0), -cs * (P.xPsi || 10) * DEG); nG = nrm(sub(e, inc)); }
+    else if (ech) { e = rot(v(-1, 0), -cs * ECH_ANG); nG = nrm(sub(e, inc)); }
+    else if (P.gType === "refl") { e = rot(v(-1, 0), -cs * (D.psi || 0)); nG = nrm(sub(e, inc)); }
+    else if (P.gType === "grism") { e = inc; nG = inc; }
+    else { e = rot(inc, cs * ((D.alpha || 0) + (D.beta || 0))); nG = rot(inc, cs * (D.alpha || 0)); }
+    return { e, nG, xdRefl };
+  }
   function unit(a, flip, tele, inj, pre0 = null, xdOnly = false) {
     const P = a.P, D = a.D, prims = [], labs = [], pieces = [];
     if (D.bad || !D.c) return { prims, labs, pieces: [[v(0, -1), v(1, 0), v(0, 1)]], bad: true };
@@ -239,14 +259,7 @@ root.ARMSAPP = function (H) {
     // grating deviates it forward by alpha + beta, a grism passes it straight
     const th = Math.atan2(dIn[1], dIn[0]), X = q => ad(O, rot(q, th)), XD = q => rot(q, th);
     const inc = v(1, 0);
-    let e, nG;
-    const xdRefl = xdOnly && P.xd === "grating";
-    if (xdOnly && !xdRefl) { e = inc; nG = inc; }
-    else if (xdRefl) { e = rot(v(-1, 0), -cs * (P.xPsi || 10) * DEG); nG = nrm(sub(e, inc)); }
-    else if (ech) { e = rot(v(-1, 0), -cs * ECH_ANG); nG = nrm(sub(e, inc)); }
-    else if (P.gType === "refl") { e = rot(v(-1, 0), -cs * (D.psi || 0)); nG = nrm(sub(e, inc)); }
-    else if (P.gType === "grism") { e = inc; nG = inc; }
-    else { e = rot(inc, cs * ((D.alpha || 0) + (D.beta || 0))); nG = rot(inc, cs * (D.alpha || 0)); }
+    const { e, nG, xdRefl } = dispFrame(a, cs, xdOnly);
     const refl = xdOnly ? xdRefl : ech || P.gType === "refl", tG = perp(nG);
     const gHalf = 0.55 * W / Math.max(0.25, Math.abs(dot(nG, inc)));
     const dC = 0.55 * Wp + 0.12 * fK + (ech ? 0.5 * Wp : 0), C = sc(e, dC), Dc = ad(C, sc(e, fK)), t = perp(e);
@@ -314,13 +327,36 @@ root.ARMSAPP = function (H) {
     const fill = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.1) : WHITE_F), stroke = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.4) : WHITE_S);
     // a beam segment from p to q, wp wide at p and wq at q
     // (crossOK: a beam that the sources draw crossing other beams, which it may; it may not cross an optic)
-    const seg = (p, q, wp, wq, bd, tags, crossOK = false) => {
-      const n = perp(nrm(sub(q, p))), poly = [ad(p, sc(n, wp / 2)), ad(q, sc(n, wq / 2)), ad(q, sc(n, -wq / 2)), ad(p, sc(n, -wp / 2))];
+    // (tp, tq: the tangents of the surfaces at p and q, a dichroic, a fold, a mirror or a grating, along which the beam's
+    // ends are cut; square ends where none is given or where the cut would run past half the segment)
+    const seg = (p, q, wp, wq, bd, tags, crossOK = false, tp = null, tq = null) => {
+      const n = perp(nrm(sub(q, p))), Ls = Math.hypot(...sub(q, p));
+      const edge = s => {
+        const A = ad(p, sc(n, s * wp / 2)), B = ad(q, sc(n, s * wq / 2)), e = sub(B, A);
+        let a2 = A, b2 = B;
+        if (tp) { const h = hitLine(A, e, p, tp); if (Math.hypot(...sub(h, A)) < 0.45 * Ls) a2 = h; }
+        if (tq) { const h = hitLine(A, e, q, tq); if (Math.hypot(...sub(h, B)) < 0.45 * Ls) b2 = h; }
+        return [a2, b2];
+      };
+      const [a1, b1] = edge(1), [a0, b0] = edge(-1), poly = [a1, b1, b0, a0];
       prims.push({ k: "poly", p: poly, fill: fill(bd), stroke: stroke(bd) });
       // shortened at both ends, so that the beam may meet the optics it joins
       const s0 = Math.min(0.45, (0.7 * W) / (Math.hypot(...sub(q, p)) || 1));
       const pp = ad(p, sc(sub(q, p), s0)), qq = ad(p, sc(sub(q, p), 1 - s0)), wpp = wp + (wq - wp) * s0, wqq = wp + (wq - wp) * (1 - s0);
       body([hull([ad(pp, sc(n, wpp / 2)), ad(qq, sc(n, wqq / 2)), ad(qq, sc(n, -wqq / 2)), ad(pp, sc(n, -wpp / 2))])], tags, { beam: true, crossOK });
+    };
+    // the surface a beam arriving along d at point at meets first: a dichroic's or a fold's plane, an arm's grating (an arm
+    // with its own slit or relay starts square)
+    const planeAt = (node, d, psense) => {
+      if (typeof node === "string") {
+        const a = byId[node];
+        if (tele || !a || a.D.bad || !a.D.c) return null;
+        const t = perp(dispFrame(a, 1, echS).nG), f = cfg.af[node] || 1;
+        return rot(f < 0 ? v(t[0], -t[1]) : t, Math.atan2(d[1], d[0]));
+      }
+      const sense = node.fold ? (node.rel || 1) * psense : node.rel ? node.rel * psense : cfg.ds[node._k];
+      const aoi = (node.fold || node.aoi) * DEG, rd = nrm(rot(d, sense * (Math.PI - 2 * aoi)));
+      return perp(nrm(sub(rd, d)));
     };
     // (a split after the telescope's focus: the true telescope focal ratio, from GROUPS; the arms' F is their slit's)
     const Ftel = tele ? G.Ftel : a0.P.F, pre = G.split === "preslit", Wpre = pre ? G.Wpre : 0;
@@ -356,14 +392,14 @@ root.ARMSAPP = function (H) {
           const far = dot(tE, v(-1, 0)) >= 0 ? tE : sc(tE, -1);
           labs.push({ at: ad(E, sc(far, hE)), txt: "echelle", sub: sig(a0.P.eG, 3) + " /mm, shared", pri: 3, dir: far });
           body([hull([ad(E, sc(tE, hE)), ad(E, sc(tE, -hE)), ad(ad(E, sc(tE, hE)), sc(back, 0.1 * W)), ad(ad(E, sc(tE, -hE)), sc(back, 0.1 * W))])], ["ech"]);
-          seg(M, E, W, W, null, ["col", "ech"]);
+          seg(M, E, W, W, null, ["col", "ech"], false, tM, tE);
           first = ad(E, sc(r1, (1.35 * W + 40) * cfg.L0)); dir0 = r1;
-          seg(E, first, W, W, null, ["ech", "n0"]);
+          seg(E, first, W, W, null, ["ech", "n0"], false, tE, planeAt(G.tree, r1, 1));
           R0 = YR.map(u => { const pM = ad(M, sc(tM, 2 * u * hf)); ray([v(0, 0), pM], RAY_W); const H = hitLine(pM, r0, E, tE); ray([pM, H], RAY_W); return { p: H, d: r1 }; });
         } else {
         const L0 = onAx ? fC + Lt + (0.4 * W + 20) * cfg.L0 : (1.4 * W + 40) * cfg.L0;
         first = ad(M, sc(r0, L0)); dir0 = r0;
-        seg(M, first, W, W, null, ["col", "n0"]);
+        seg(M, first, W, W, null, ["col", "n0"], false, tM, planeAt(G.tree, r0, 1));
         R0 = YR.map(u => { const pM = ad(M, sc(tM, 2 * u * hf)); ray([v(0, 0), pM], RAY_W); return { p: pM, d: r0 }; });
         }
       } else {
@@ -374,7 +410,7 @@ root.ARMSAPP = function (H) {
         body([hull([...telCone, v(0, 0.06 * W), v(0, -0.06 * W), v(fC, 0.6 * W), v(fC, -0.6 * W)])], ["tel", "col"]);
         const L0 = (0.9 * W + 40) * cfg.L0;
         first = ad(Lc, v(L0, 0)); dir0 = v(1, 0);
-        seg(Lc, first, W, W, null, ["col", "n0"]);
+        seg(Lc, first, W, W, null, ["col", "n0"], false, null, planeAt(G.tree, v(1, 0), 1));
         R0 = YR.map(u => { const p = v(fC, u * W); ray([v(0, 0), p], RAY_W); return { p, d: v(1, 0) }; });
       }
       prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
@@ -402,12 +438,12 @@ root.ARMSAPP = function (H) {
         body([hull([v(0.3 * fp, 0.15 * Wpre), v(0.3 * fp, -0.15 * Wpre), v(fp, 0.62 * Wpre), v(fp, -0.62 * Wpre)])], ["tel", "col"]);
         const L0 = (1.4 * Wpre + 40) * cfg.L0;
         first = ad(Lc, v(L0, 0)); dir0 = v(1, 0); w0 = Wpre;
-        seg(Lc, first, Wpre, Wpre, null, ["col", "n0"]);
+        seg(Lc, first, Wpre, Wpre, null, ["col", "n0"], false, null, planeAt(G.tree, v(1, 0), 1));
         R0 = YR.map(u => { const p = v(fp, u * Wpre); ray([v(0, 0), p], RAY_W); return { p, d: v(1, 0) }; });
       } else {
         const L0 = (0.9 * W + 40) * cfg.L0;
         first = v(L0, 0); dir0 = v(1, 0); w0 = L0 / Ftel;
-        seg(v(0, 0), first, 0, w0, null, ["tel", "n0"]);
+        seg(v(0, 0), first, 0, w0, null, ["tel", "n0"], false, null, planeAt(G.tree, v(1, 0), 1));
         R0 = YR.map(u => ({ p: v(0, 0), d: nrm(v(L0, u * w0)) }));          // diverging from the telescope's focus
       }
     }
@@ -427,7 +463,7 @@ root.ARMSAPP = function (H) {
         body([[ad(ad(at, sc(tPl, half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, -thk)), ad(ad(at, sc(tPl, half)), sc(nPl, -thk))]], [tag], { nearOK: !!node.cross });
         const br = node.to, leaf = typeof br === "string", ctag = leaf ? "a:" + br : "f:" + leaves(br)[0];
         const len = ((tele ? 0.9 : 1.35) * W + 40) * (cfg.L[node._f] || 1), to = ad(at, sc(rd, len)), wTo = tele && !pre ? (path + len) / Ftel : wNow;
-        seg(at, to, wNow, wTo, band(br), [tag, ctag], !!node.cross);
+        seg(at, to, wNow, wTo, band(br), [tag, ctag], !!node.cross, tPl, planeAt(br, rd, psense));
         walk(br, to, rd, wTo, path + len, ctag, psense, meet(Rs, at, tPl, nPl).map(q => ({ p: q.H, d: q.r })));
         return;
       }
@@ -501,7 +537,7 @@ root.ARMSAPP = function (H) {
         const leaf = typeof br === "string", ctag = leaf ? "a:" + br : br.fold ? "f:" + leaves(br)[0] : "n" + br._k;
         const len = base * cfg.L[k * 2 + j];
         const to = ad(at, sc(dd, len)), wTo = spread ? (path + len) / Ftel : wNow;
-        seg(at, to, wNow, wTo, band(br), [tag, ctag]);
+        seg(at, to, wNow, wTo, band(br), [tag, ctag], false, tPl, planeAt(br, dd, sense));
         walk(br, to, dd, wTo, path + len, ctag, sense, hits.map(q => ({ p: q.H, d: j ? q.r : q.d })));
       }
     };

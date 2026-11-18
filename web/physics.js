@@ -99,6 +99,9 @@ const GLASS = {
   // Table 13; 0.55-5.6 um).  B_i = S_i(105 K), C_i = lambda_i(105 K)^2; n(1 um) = 1.44972 and 2.47697.
   "Infrasil-105K": { label: "Infrasil 301 at 105 K", range: [0.50, 3.6], B: [0.107564209, 0.994487421, 0.885481151], C: [4.23631939e-06, 0.00880726271, 97.1509408] },
   "ZnSe-105K": { label: "ZnSe at 105 K", range: [0.55, 5.6], B: [4.42987482, 0.445970784, 2.55574186], C: [0.0398515278, 0.14716685, 2020.75143] },
+  // CaF2 at 37 K, JWST NIRSpec's prism (Leviton, Frey & Madison 2008, Table 5, the same CHARMS form; 0.40-5.6 um, valid 25-300 K;
+  // the fit reproduces the paper's measured indices to 5.5e-6; data/round12/jwnirspec.md): n(0.6 um) = 1.43579, n(5.3 um) = 1.39730
+  "CaF2-37K": { label: "CaF\u2082 at 37 K", range: [0.40, 5.6], B: [1.0316274142205948, 0.0136399791696703, 4.106142512392021], C: [0.0054248106608752, 0.037740879165790525, 1267.833942847983] },
 };
 // Outside the range over which a formula was fitted (from its source) the index is undefined: rays
 // at those wavelengths do not reach the detector, rather than being traced through an extrapolation.

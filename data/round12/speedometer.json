@@ -1,0 +1,830 @@
+{
+ "id": "speedometer",
+ "title": "CfA Digital Speedometers (Tillinghast 1.5 m)",
+ "date": "2026-11-18",
+ "quote_check": {
+  "pieces": 53,
+  "failures": 0
+ },
+ "sources": {
+  "C74": {
+   "document": "Chaffee, F. H., Jr. 1974, ApJ 189, 427, \"Line spectra in interstellar clouds. I. The Perseus 2 cloud\" (ADS 1974ApJ...189..427C; Sec. II.a and Fig. 1 describe the Mount Hopkins 60-inch Cassegrain echelle spectrograph, the instrument the Reticon speedometer was built on; text layer)",
+   "file": "rawdata/presets/speedometer/1974ApJ...189..427C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1974ApJ...189..427C"
+  },
+  "CL82": {
+   "document": "Chaffee, F. H., Jr. & Latham, D. W. 1982, PASP 94, 386, \"An image stacker for high-resolution spectroscopy on the Multiple Mirror Telescope\" (ADS 1982PASP...94..386C; text layer)",
+   "file": "rawdata/presets/speedometer/1982PASP...94..386C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982PASP...94..386C"
+  },
+  "L92": {
+   "document": "Latham, D. W. 1992, ASP Conf. Ser. 32, 110, \"Surveys of Spectroscopic Binaries at the Center for Astrophysics\" (ADS 1992ASPC...32..110L; the best free description of the speedometers; scan WITHOUT a text layer: OCRed with tesseract, OCR text saved as 1992ASPC...32..110L.ocr.txt; quotes are transcribed from the scan)",
+   "file": "rawdata/presets/speedometer/1992ASPC...32..110L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1992ASPC...32..110L"
+  },
+  "L88F": {
+   "document": "Latham, D. W., Andersen, J., Geary, J. C., Rodrigues, O. & Stefanik, R. P. 1988, ASP Conf. Ser. 3, 269, \"A fiber feed for precise radial velocity work with the CfA echelle spectrographs\" (ADS 1988ASPC....3..269L; the Wyeth 1.5 m speedometer; scan, OCRed, OCR text saved as 1988ASPC....3..269L.ocr.txt)",
+   "file": "rawdata/presets/speedometer/1988ASPC....3..269L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1988ASPC....3..269L"
+  },
+  "LG86": {
+   "document": "Latham, D. W. & Geary, J. C. 1986, IAU Symp. 118, 19, \"Detector developments for small telescopes\" (ADS 1986IAUS..118...19L; scan, OCRed, OCR text saved as 1986IAUS..118...19L.ocr.txt)",
+   "file": "rawdata/presets/speedometer/1986IAUS..118...19L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986IAUS..118...19L"
+  },
+  "L96": {
+   "document": "Latham, D. W. et al. 1996, A&A 314, 864, \"Accurate mass determination for double-lined spectroscopic binaries by digital cross-correlation\" (ADS 1996A&A...314..864L; scan, OCRed, OCR text saved as 1996A&A...314..864L.ocr.txt)",
+   "file": "rawdata/presets/speedometer/1996A&A...314..864L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996A&A...314..864L"
+  },
+  "S99": {
+   "document": "Stefanik, R. P., Latham, D. W. & Torres, G. 1999, ASP Conf. Ser. 185, 354, \"Radial-velocity standard stars\" (ADS 1999ASPC..185..354S; scan, OCRed, OCR text saved as 1999ASPC..185..354S.ocr.txt)",
+   "file": "rawdata/presets/speedometer/1999ASPC..185..354S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1999ASPC..185..354S"
+  },
+  "L98": {
+   "document": "Latham, D. W. 1998, ASP Conf. Ser. 134, 178, \"Low-mass companions found in a large radial-velocity survey\" (ADS 1998ASPC..134..178L; scan, OCRed, OCR text saved as 1998ASPC..134..178L.ocr.txt)",
+   "file": "rawdata/presets/speedometer/1998ASPC..134..178L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1998ASPC..134..178L"
+  },
+  "P84": {
+   "document": "Peterson, R. C. 1984 et al., ApJ 279, 237, \"The blue stragglers of M 67\" (ADS 1984ApJ...279..237P; text layer)",
+   "file": "rawdata/presets/speedometer/1984ApJ...279..237P.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1984ApJ...279..237P"
+  },
+  "P83": {
+   "document": "Peterson, R. C., Willmarth, D. W. & Carney, B. W. 1983, ApJ 265, 972 (ADS 1983ApJ...265..972P; saved for the Z-machine record, rawdata/presets/zmachine/)",
+   "file": "rawdata/presets/speedometer/../zmachine/1983ApJ...265..972P.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1983ApJ...265..972P"
+  },
+  "PL86": {
+   "document": "Peterson, R. C. & Latham, D. W. 1986, ApJ 305, 645, \"Stellar velocity dispersions for four low-concentration globular clusters\" (ADS 1986ApJ...305..645P; text layer)",
+   "file": "rawdata/presets/speedometer/1986ApJ...305..645P.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986ApJ...305..645P"
+  },
+  "C84": {
+   "document": "Carney, B. W. & Latham, D. W. 1984, ApJ 278, 241, \"The Baade-Wesselink method and the distances to RR Lyrae stars. I. The field star VY Serpentis\" (ADS 1984ApJ...278..241C; text layer)",
+   "file": "rawdata/presets/speedometer/1984ApJ...278..241C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1984ApJ...278..241C"
+  },
+  "J87": {
+   "document": "Jones, R. V. et al. 1987, ApJ 312, 254, \"The Baade-Wesselink method and the distances to RR Lyrae stars. II. The field star X Arietis\" (ADS 1987ApJ...312..254J; text layer)",
+   "file": "rawdata/presets/speedometer/1987ApJ...312..254J.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987ApJ...312..254J"
+  },
+  "CL87": {
+   "document": "Carney, B. W. & Latham, D. W. 1987, AJ 93, 116, \"A survey of proper-motion stars. I. UBV photometry and radial velocities\" (ADS 1987AJ.....93..116C; text layer)",
+   "file": "rawdata/presets/speedometer/1987AJ.....93..116C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987AJ.....93..116C"
+  },
+  "C87": {
+   "document": "Carney, B. W., Laird, J. B., Latham, D. W. & Kurucz, R. L. 1987, AJ 94, 1066, \"A survey of proper-motion stars. II. Extracting metallicities from high-resolution, low-S/N spectra\" (ADS 1987AJ.....94.1066C; text layer)",
+   "file": "rawdata/presets/speedometer/1987AJ.....94.1066C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987AJ.....94.1066C"
+  },
+  "C86": {
+   "document": "Carney, B. W. & Latham, D. W. 1986, AJ 92, 60, \"The kinematics of halo red giants\" (ADS 1986AJ.....92...60C; text layer)",
+   "file": "rawdata/presets/speedometer/1986AJ.....92...60C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1986AJ.....92...60C"
+  },
+  "Pr88": {
+   "document": "Pryor, C. P., Latham, D. W. & Hazen, M. L. 1988, AJ 96, 123, \"A search for spectroscopic binaries in the globular cluster M3\" (ADS 1988AJ.....96..123P; text layer)",
+   "file": "rawdata/presets/speedometer/1988AJ.....96..123P.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1988AJ.....96..123P"
+  },
+  "L88": {
+   "document": "Latham, D. W. et al. 1988, AJ 96, 567, \"A survey of proper-motion stars. VI. Orbits for 40 spectroscopic binaries\" (ADS 1988AJ.....96..567L; text layer)",
+   "file": "rawdata/presets/speedometer/1988AJ.....96..567L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1988AJ.....96..567L"
+  },
+  "T97": {
+   "document": "Torres, G. et al. 1997, AJ 114, 2764, \"The absolute dimensions of eclipsing binaries. XXII. The unevolved F-type system HS Hydrae\" (ADS 1997AJ....114.2764T; text layer)",
+   "file": "rawdata/presets/speedometer/1997AJ....114.2764T.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1997AJ....114.2764T"
+  },
+  "M01": {
+   "document": "Mazeh, T. et al. 2001, MNRAS 325, 343, \"Studies of multiple stellar systems - IV. The triple-lined spectroscopic system Gliese 644\" (ADS 2001MNRAS.325..343M; text layer)",
+   "file": "rawdata/presets/speedometer/2001MNRAS.325..343M.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/2001MNRAS.325..343M"
+  },
+  "T93": {
+   "document": "Torres, G. et al. 1993, PASP 105, 360, \"The semi-regular variable FS Comae - evidence for radial oscillations\" (ADS 1993PASP..105..360T; text layer)",
+   "file": "rawdata/presets/speedometer/1993PASP..105..360T.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1993PASP..105..360T"
+  },
+  "S92": {
+   "document": "Storm, J. et al. 1992, PASP 104, 168, \"Radial-velocity curves for RR Lyrae stars in the globular clusters M5 and M92 obtained using synthetic spectra\" (ADS 1992PASP..104..168S; MMT speedometer; text layer)",
+   "file": "rawdata/presets/speedometer/1992PASP..104..168S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1992PASP..104..168S"
+  },
+  "S98": {
+   "document": "Sartoretti, P. et al. 1998 (CfA speedometer observations by Stefanik, Latham and collaborators), A&A 334, 592, \"A search for substellar companions around nine weak-lined T Tauri stars with the Planetary Camera\" (ADS 1998A&A...334..592S; text layer)",
+   "file": "rawdata/presets/speedometer/1998A&A...334..592S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1998A&A...334..592S"
+  },
+  "C94": {
+   "document": "Carney, B. W. et al. 1994, AJ 107, 2240, \"A survey of proper motion stars. XII. An expanded sample\" (ADS 1994AJ....107.2240C; text layer)",
+   "file": "rawdata/presets/speedometer/1994AJ....107.2240C.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1994AJ....107.2240C"
+  },
+  "L82B": {
+   "document": "Latham, D. W. & Stefanik, R. P. 1982, BAAS 14, 612, \"Digital stellar speedometry\" (ADS 1982BAAS...14R.612L; one-page abstract; scan, OCRed)",
+   "file": "rawdata/presets/speedometer/1982BAAS...14R.612L.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982BAAS...14R.612L"
+  }
+ },
+ "parameters": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope",
+   "value": "Tillinghast 1.5 m reflector, Whipple Observatory, Mount Hopkins (also the 60-inch; one of three nearly identical speedometers: Wyeth 1.5 m at Oak Ridge, Tillinghast 1.5 m, MMT)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 111, Sec. 2",
+   "quote": "nearly identical digital speedometers (Latham 1985) on three different telescopes: the 1.5-m Wyeth Reflector in Harvard, Massachusetts; and the 1.5-m Tillinghast Reflector and Multiple Mirror Telescope atop Mt. Hopkins, Arizona"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Aperture",
+   "value": "1.524 (FAST/Z-machine value; no speedometer paper states it)",
+   "unit": "m",
+   "tag": "SOURCED (elsewhere)",
+   "source": "C74",
+   "location": "p. 428",
+   "quote": "At the 60-inch (1.5-m) telescope, the scale at the slit is"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the slit (Cassegrain)",
+   "value": "12.6 arcsec/mm = 79.4 um/arcsec (stated for the echelle spectrograph on this telescope)",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "At the 60-inch (1.5-m) telescope, the scale at the slit is"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope beam at the slit",
+   "value": "f/9.6 (stated for the telescope beam matching the collimator)",
+   "unit": "f/#",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "The f/9.6 telescope ... beam strikes the collimator"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio, arithmetic",
+   "value": "DERIVED: 12.6 arcsec/mm -> 79.4 um/arcsec; F = 79.4e-6 m x 206264.8 / 1.524 m = 10.75; collimator speed 540 mm / 56.2 mm = 9.6. Three values (9.6, 10.75, FAST's 10.42) disagree by up to 12 percent: see Conflicts. The explorer keeps F = 10.42, consistent with the FAST and Z-machine presets.",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit (Wyeth speedometer)",
+   "value": "1 x 6 arcsec ('normal slit', Oak Ridge)",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "L88F",
+   "location": "p. 274, Sec. 4 (transcribed from the scan)",
+   "quote": "compared to the normal slit of 1 x 6 arc-seconds"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit (Tillinghast speedometer)",
+   "value": "width not published; the width was changed to set the resolution (10, 12 and 8 km/s in 1979-80, 1982 and 1983)",
+   "unit": "",
+   "tag": "SOURCED (qualitative)",
+   "source": "P84",
+   "location": "p. 241, Sec. III.a",
+   "quote": "The slit width set the resolution at 10 km s"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length (Tillinghast)",
+   "value": "NOT FOUND",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Fiber feed (Wyeth only, 1988)",
+   "value": "13 m of 100 um Polymicro fiber, f/13 to f/7 by a lens, 1.2 arcsec on the sky, spectrograph moved to a thermal enclosure on the dome floor; a prototype, not the standard speedometer",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L88F",
+   "location": "pp. 270-273 (transcribed from the scan)",
+   "quote": "We have chosen a 13-m length of 100-ym Polymicro fiber ... A lens shortly before the final focus converts the F/13 beam of the telescope to F/7"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Heritage",
+   "value": "the speedometer echelle is the Mount Hopkins Cassegrain echelle (Chaffee 1974) as upgraded by Latham (1978 Reference Manual, private distribution, not obtained)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "CL82",
+   "location": "p. 386, Sec. II",
+   "quote": "Cassegrain echelle spectrograph (Latham 1978), which is an upgraded version of the Mount Hopkins ech-"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Heritage (cont.)",
+   "value": "Mount Hopkins echelle designed by Schroeder, manufactured by Optics for Industry",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428",
+   "quote": "The Mount Hopkins echelle was designed by Schroeder and manufactured by Optics for Industry in Milwaukee"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Collimator focal length",
+   "value": "540 (54 cm), beam 56.2 mm (so f/9.6)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "Fig. 1 (p. 428; label read from the figure image, not in the text layer: \"COLLIMATOR (f = 54 cm, 56.2 mm BEAM)\")",
+   "quote": "the collimated beam then falls on"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Collimator beam diameter",
+   "value": "56.2",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "masked for the 56.2-mm beam required"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Echelle",
+   "value": "31.6 grooves/mm, 4 x 8 inch (102 x 203 mm), Bausch & Lomb; drawing labels it '30 g/mm'",
+   "unit": "g/mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "31.6-groove-per-mm Bausch and Lomb echelle grating"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Echelle ruled length",
+   "value": "203 (8 inch) with the 4-inch width across; the beam masks it to 56.2 mm. gLen in the explorer: 203 mm",
+   "unit": "mm",
+   "tag": "SOURCED (size)",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a (4 x 8 inch read from the text layer, OCR-like garble of the inch marks)",
+   "quote": "31.6-groove-per-mm Bausch and Lomb echelle grating"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Echelle blaze (tan delta)",
+   "value": "NOT FOUND for this grating; EFFECTIVE tan delta = 1.65 (delta = 58.8 deg) fitted to 2.1 A/mm at 5200 A (see Preset values)",
+   "unit": "",
+   "tag": "NOT FOUND / EFFECTIVE",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Camera",
+   "value": "focal length 750 mm (f = 75 cm); the text calls it the 'camera mirror' and 'image forming mirror', so a mirror camera (type beyond that, e.g. Schmidt or not, not stated)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "Fig. 1 (p. 428; label read from the figure image: \"CAMERA (f = 75 cm)\")",
+   "quote": "the cross dispersion grating, camera mirror"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Camera type",
+   "value": "mirror",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "the cross dispersion grating, camera mirror, and focal plane lie in a plane below the paper"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Cross-disperser (1974 configuration)",
+   "value": "first-order gratings 600 l/mm (4000 A blaze), 300 l/mm (5000 A blaze), 300 l/mm (9500 A blaze); in the speedometer one order is recorded: what isolates it is NOT FOUND (a narrow-band filter or a changed cross-disperser setup: INFERRED, not stated)",
+   "unit": "",
+   "tag": "SOURCED (1974)",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "three first-order gratings are currently available : a 600-line, 4000 A blaze; a 300-line, 5000 A blaze; and a 300-line, 9500 A blaze"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Order recorded",
+   "value": "a single echelle order centered near 5187 A (also 5190, 5197 and 5200 in other papers), covering 45 A",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 111, Sec. 2",
+   "quote": "recording digital spectra for a single echelle order centered near 5187 A and covering a wavelength range of 45 A"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Order recorded (alt)",
+   "value": "MMT/1.5 m systems: 'nearly 50 A centered either at 5187 A or at 5197 A'",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "Pr88",
+   "location": "p. 124, Sec. II",
+   "quote": "spectral coverage of nearly 50 A centered either at 5187"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Order recorded (alt 2)",
+   "value": "about 45 A at 2.2 A/mm centered near the Mg b lines at 5190",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "C86",
+   "location": "Sec. 2c",
+   "quote": "The Reticon records one echelle order, covering about 45 A at a dispersion of 2.2 A mm"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Order number",
+   "value": "DERIVED/INFERRED: with the EFFECTIVE delta = 58.8 deg and d = 1/31.6 mm = 31.65 um, m = 2 d sin(delta)/lambda = 2 x 316456 A x 0.855 / 5187 A = 104; free spectral range 5187/104 = 49.9 A. This matches 'nearly 50 A' and is why the window is 45-50 A (INFERRED: the window is the free spectral range, not the detector; the array, 936 x 30 um = 28 mm x 2.07 A/mm = 58 A, is longer than the window)",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Order-isolating filter",
+   "value": "NOT FOUND",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "On-axis or off-axis collimator",
+   "value": "OFF-AXIS in the drawing: the entrance slit sits below the echelle and the cross-disperser/collimator stack, outside the returning collimated beam; the incoming cone from the slit reaches the collimator at a few degrees to the returning beam (MEASURED from Fig. 1, p. 428: the slit-to-collimator ray rises about 65 px in 655 px = 5.7 deg on the 200 dpi scan; no scale, schematic). No text states it. Collimator type (mirror or lens): NOT STATED; the drawing shows a thin tilted plate beside the cross-disperser",
+   "unit": "",
+   "tag": "INFERRED / MEASURED",
+   "source": "C74",
+   "location": "Fig. 1, p. 428",
+   "quote": "if the entrance slit, echelle grating, and collimator are in the plane of the paper"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Demagnification",
+   "value": "'1.0' stated for the 1974 photographic configuration; the drawn collimator and camera (540 and 750 mm) give 0.72 (DERIVED: 540/750). Conflict, see Conflicts",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "The demagnification of the spectrograph is 1.0"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Flexure and temperature",
+   "value": "Cassegrain-mounted spectrograph: large temperature effects and mechanical flexure; sky and standard stars used for the zero point each night",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 112, Sec. 2",
+   "quote": "suffer from large temperature effects and mechanical flexure"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Detector",
+   "value": "photon-counting intensified Reticon (the Z-machine detector, Latham 1982; dual 936-diode array)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "PL86",
+   "location": "p. 645, Sec. II",
+   "quote": "dual photon-counting Reticon array"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Detector (alt)",
+   "value": "dual linear Reticon array of 936 pixels behind a high-gain image intensifier, single echelle order about 60 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "P83",
+   "location": "p. 974, Sec. II",
+   "quote": "a dual linear Reticon array of 936 pixels"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Pixel size on the sky of velocity",
+   "value": "1.8 km/s per pixel (0.0311 A at 5187 A); 3 counts per 1.8 km/s pixel in a 20-minute exposure of V = 15",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 113 and p. 114",
+   "quote": "Despite the low average count level of 3 photons per pixel"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Pixel size (alt)",
+   "value": "10 km/s is about 6 pixels (1.7 km/s); 6.5 pixels at 10 km/s (1.5 km/s); 9 km/s over 6.5 pixels at the MMT",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "C87",
+   "location": "p. 1067, Sec. II",
+   "quote": "generally cAA /A = 10 km s- \\ or about 6 pixels"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Pixels per window",
+   "value": "DERIVED: 45.46 A / 0.0311 A per px = 1462 px; at 15 um per px (half of the 30 um diode, as in the Z-machine) 21.9 mm; 2.07 A/mm",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Detector",
+   "parameter": "Format",
+   "value": "936 x 2 diodes, half-diode photon positions (1872 x 2) by analogy with the Z-machine: INFERRED; the speedometer papers give no format",
+   "unit": "",
+   "tag": "INFERRED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Detector",
+   "parameter": "Spectral window (exact)",
+   "value": "5165.77-5211.23 A (DM Vir)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "L96",
+   "location": "p. 868, Sec. 3.1 (transcribed from the scan)",
+   "quote": "the spectral range 5165.77-5211.23"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Photon counting DQE",
+   "value": "peak detective quantum efficiency about 0.11; poor ultraviolet transmission of the fiber-optic face plate",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "LG86",
+   "location": "p. 26 (transcribed from the scan)",
+   "quote": "The measured peak detective quantum efficiency (DQE) of the photon-counting Reticons is only about 0.11"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Dark rate",
+   "value": "about 5 counts per second per cm^2 of first cathode at -28 C",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "CL82",
+   "location": "p. 388",
+   "quote": "about 5 cts sec"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Reciprocal dispersion",
+   "value": "2.1 A/mm at 5200 A (both spectrographs, Tillinghast and Wyeth)",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "P84",
+   "location": "p. 241, Sec. III.a",
+   "quote": "given the dispersion of 2.1 A mm"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Reciprocal dispersion (alt)",
+   "value": "2.1 A/mm (centered 5200 A, 50 A); 2.2 A/mm (5190 A); 'close to 2 A/mm'; 'approximately 2 A/mm' (45 A window)",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "C84",
+   "location": "Sec. II.a",
+   "quote": "a dispersion of 2.1 A mm"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Reciprocal dispersion (alt 2)",
+   "value": "2.2 A/mm centered at 5190 A, 50 A of spectrum, Wyeth",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "J87",
+   "location": "Sec. II.b",
+   "quote": "at a dispersion of 2.2 A mm"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Reciprocal dispersion (alt 3)",
+   "value": "approximately 2 A/mm, window about 45 A, 5187 A (Tillinghast and Wyeth)",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "T93",
+   "location": "p. 360, Sec. 2.1",
+   "quote": "At a reciprocal dispersion of approximately 2 A mm"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Dispersion (1974 echelle)",
+   "value": "1.2 A/mm at 3300 A to 1.7 A/mm at 4300 A (cross-disperser setting of the photographic setup); scaled to 5200 A: 2.06 A/mm (DERIVED, dispersion proportional to wavelength at fixed angles)",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "C74",
+   "location": "p. 428, Sec. II.a",
+   "quote": "the reciprocal dispersion ranges from 1.2 A mm"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution (typical)",
+   "value": "10 km/s FWHM (R = 30,000), the nominal value for the proper-motion survey",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "C94",
+   "location": "p. 2246, Sec. 2.2",
+   "quote": "instrumental resolution, nominally 10 kms"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution (later)",
+   "value": "8.3 km/s resolution element (R = 36,100); 8.5 km/s in HS Hya",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "M01",
+   "location": "p. 346",
+   "quote": "resolution of 8.3 km"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution (HS Hya)",
+   "value": "8.5 km/s",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "T97",
+   "location": "Sec. 2",
+   "quote": "element of 8.5 km"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution, DM Vir",
+   "value": "8.3 km/s per element, S/N 15-25",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "L96",
+   "location": "p. 868 (transcribed from the scan)",
+   "quote": "corresponding to signal-to-noise ratios of 15 to 25 per resolution"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution (MMT)",
+   "value": "10 km/s, about 6.5 pixels (MMT speedometer)",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "S92",
+   "location": "Sec. 2",
+   "quote": "The resolution of the system corresponds to a FWHM of 10 km"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolution is slit-set",
+   "value": "slit width set the resolution at 10, 12 and 8 km/s (1979-80, 1982, 1983)",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "P84",
+   "location": "p. 241",
+   "quote": "The slit width set the resolution at 10 km s"
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Resolving power",
+   "value": "DERIVED: R = 299792.5 / 8.3 = 36,100 (nominal, later era); 299792.5 / 10 = 30,000 (early). Stated as FWHM in km/s, not marked as measured from arc lines",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Dispersion and resolution",
+   "parameter": "Check of the slit-set resolution",
+   "value": "DERIVED/INFERRED: a 1 arcsec slit (the Wyeth value) is 79 um at the slit, x 540/750 = 57 um at the detector, 3.8 px; combined in quadrature with the 30-40 um detector resolution (T79, Z-machine record): sqrt(57^2 + 35^2) = 67 um = 0.141 A = 8.1 km/s. This reproduces the 8.3 km/s quoted: independent of the fits, but the slit width for the Tillinghast is not published",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Typical precision, single exposure",
+   "value": "about 0.7 km/s; better than 1 km/s",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "L88",
+   "location": "p. 567 abstract / Sec. 2",
+   "quote": "A typical precision for a single velocity is about 0.7 km s"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Precision (survey)",
+   "value": "rms better than 0.5 km/s for late-type stars; may double for very metal-poor stars; worse than 1 km/s for hot rapid rotators",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 113 (transcribed from the scan)",
+   "quote": "we routinely achieve an rms precision of better than 0.5"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Best single exposure",
+   "value": "about 125 m/s estimated error (R = 73) for the dusk-sky template: 'close to the limiting precision' of the standard configuration",
+   "unit": "m/s",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 111",
+   "quote": "This must be close to the limiting precision that can be achieved for a single exposure with the standard configuration"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Zero-point stability",
+   "value": "sky velocities rms 150 to 250 m/s per run; run-to-run shifts a few hundred m/s; minor planets agree with the sky to better than 100 m/s",
+   "unit": "m/s",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "pp. 112-114 (transcribed from the scan)",
+   "quote": "the rms deviation of a single sky velocity from the mean for the run is usually in the range 150 to 250"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Typical counts",
+   "value": "fewer than 20 counted photons per 1.8 km/s pixel for most spectra; 15 photons per pixel for solar-type survey stars",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L92",
+   "location": "p. 114 (transcribed from the scan)",
+   "quote": "Most of our echelle spectra have fewer than 20 counted photons per 1.8"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Limiting magnitude",
+   "value": "V = 13.5 in about 15 minutes for F and later types on the 60-inch; V = 16.0 on the MMT",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L82B",
+   "location": "abstract (transcribed from the scan)",
+   "quote": "we routinely work to V = 13.5 in about 15 minutes"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Fiber-feed precision (Wyeth, 1988)",
+   "value": "about 100 m/s per exposure of several minutes at V = 8 (against about 600 m/s direct at V = 11)",
+   "unit": "m/s",
+   "tag": "SOURCED",
+   "source": "L88F",
+   "location": "p. 274 (transcribed from the scan)",
+   "quote": "approaching a precision of +100 m/s for a single exposure"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Radial velocity window",
+   "value": "a 45 A window holds far fewer lines than the 1500 A of CORAVEL: blending matters in double-lined spectra",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L96",
+   "location": "p. 865 (transcribed from the scan)",
+   "quote": "the 45-A spectral window of the Center for Astrophysics (CfA) Digital Speedometers"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "HD 114762 discovery",
+   "value": "IAU standard star observed with the Wyeth fiber feed on 28 March 1988; residual -390 m/s; 84.2 day period found in 63 prior velocities, semi-amplitude 530 +- 90 m/s",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L88F",
+   "location": "pp. 275-276 (transcribed from the scan)",
+   "quote": "A search for periodicity in our 63 previous velocities produced a single, highly significant period of 84.2 days"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Scale of the survey",
+   "value": "30,750 radial-velocity exposures by 4 June 1997: 14,740 Wyeth, 12,089 Tillinghast, 3,921 MMT",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "L98",
+   "location": "p. 179 (transcribed from the scan)",
+   "quote": "14,740 with the 1.5-m Wyeth Reflector at the Oak Ridge Observatory"
+  },
+  {
+   "section": "Velocity precision and use",
+   "parameter": "Wavelength calibration and zero point",
+   "value": "thorium comparison before and after each exposure; twilight sky each night",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "CL87",
+   "location": "p. 119, Sec. IV",
+   "quote": "A thorium comparison spectrum was taken before and after each stellar exposure"
+  }
+ ],
+ "preset": {
+  "id": "speedometer",
+  "tel": "Tillinghast 1.5 m",
+  "name": "Tillinghast 1.5 m / Digital Speedometer, Mg b order",
+  "inst": "Digital Speedometer",
+  "setting": "Mg b order",
+  "state": {
+   "mode": "echelle",
+   "D": 1.524,
+   "F": 10.42,
+   "e": {
+    "slitW": 1.0,
+    "nObj": 1,
+    "col": "mirror (undetermined)",
+    "cam": "mirror",
+    "colTilt": 5.7,
+    "layLen": 540,
+    "camLen": 750,
+    "W": 56.2,
+    "fcam": 750,
+    "eG": 31.6,
+    "eDelta": 58.8,
+    "gamma": 0,
+    "theta": 0,
+    "xd": null,
+    "filt": [
+     5165.8,
+     5211.2
+    ],
+    "gLen": 203,
+    "Nx": 1872,
+    "Ny": 2,
+    "pix": 15,
+    "lamC": 5187
+   },
+   "tags": {
+    "eDelta": "EFFECTIVE (tan 1.65 fitted to 2.1 A/mm)",
+    "slitW": "INFERRED",
+    "F": "INFERRED (FAST); conflict 9.6/10.75/10.42",
+    "colTilt": "MEASURED from a schematic",
+    "col": "mirror or lens NOT STATED"
+   }
+  },
+  "pub": [
+   {
+    "what": "2.1 A/mm at 5200 A",
+    "q": "dlpix",
+    "value": 0.0315,
+    "info": true,
+    "src": "P84"
+   },
+   {
+    "what": "1.8 km/s per px",
+    "q": "kmspx",
+    "value": 1.8,
+    "tol": 0.05,
+    "src": "L92 (independent of the blaze fit)"
+   },
+   {
+    "what": "R about 36,100 (8.3 km/s)",
+    "q": "R",
+    "value": 36100,
+    "info": true,
+    "src": "M01, L96 (stated, not measured from arc lines)"
+   },
+   {
+    "what": "45 A window",
+    "q": "coverage",
+    "value": 45.46,
+    "info": true,
+    "src": "L96 (circular for filt)"
+   }
+  ]
+ },
+ "not_found": [
+  "Latham 1985",
+  "Latham 1982",
+  "Latham 1978",
+  "Latham et al. 1989 Nature",
+  "order-isolating filter",
+  "echelle blaze and gamma",
+  "speedometer cross-disperser",
+  "speedometer detector format",
+  "Tillinghast slit width and length",
+  "collimator type and axis",
+  "speedometer layout drawing"
+ ],
+ "conflicts": [
+  "F: 9.6 / 10.75 / 10.42",
+  "demagnification 1.0 vs 0.72",
+  "groove density 31.6 (text) vs 30 (drawing)"
+ ]
+}

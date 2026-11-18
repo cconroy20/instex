@@ -1421,6 +1421,126 @@ const PRESETS = [
       { what: "4.8 Å FWHM (R ≈ 1170 at 5600 Å)", q: "R", value: 5600 / 4.8, info: true, src: "Tonry & Davis 1979 p. 1512 (the slit image matches it only through the inferred slit scale: not independent)" },
     ],
   },
+  // Round 12 (data/round12/*.md, 2026-11-18): the CfA Digital Speedometer, Steward Medusa, JWST NIRSpec, AAOmega, VIRUS.
+  // The CfA Digital Speedometer (data/round12/speedometer.md): the echelle in one order (104, Mg b) isolated by the published
+  // 45 A window (as M2FS's Mg b order), on the Tillinghast 1.5 m; the echelle's blaze EFFECTIVE (fitted to 2.1 A/mm), the
+  // slit and the detector INFERRED; the collimator entered as a lens (his call, 2026-11-18: the sources do not say)
+  {
+    id: "speedometer", tel: "Tillinghast 1.5 m", name: "Tillinghast 1.5 m / Digital Speedometer, Mg b order (effective optics)",
+    note: "The CfA Digital Speedometer on the Tillinghast 1.5 m at Mount Hopkins, 1979 to the mid-1990s, the radial-velocity instrument behind the companion of HD 114762 (Latham et al. 1989): an upgraded version of the Mount Hopkins echelle spectrograph (Chaffee 1974; Chaffee & Latham 1982) recording one echelle order, a 45 Å window around the Mg b triplet at 5187 Å (order 104), on a photon-counting Reticon behind an image intensifier. A 540 mm collimator (56 mm beam; entered as a lens: the sources do not say whether it is a mirror), a 31.6 /mm echelle of 4 × 8 inches and a 750 mm mirror camera (Chaffee 1974). The echelle's blaze (tan δ = 1.65) is EFFECTIVE, fitted to the published 2.1 Å/mm; the 1″ slit is the Oak Ridge speedometer's and the detector the Z-machine's dual Reticon (1872 effective pixels of 15 µm; each 375 µm row entered as 25 rows), both INFERRED. The velocities reached 0.5–0.7 km/s by cross-correlation against a line width of ≈8.3 km/s. The image tube's demagnification, the photon counting and the order filter's own bandpass are not represented; the drawing is the 1974 echelle's, schematic.",
+    state: { mode: "grating", D: 1.524, F: 10.42,
+      g: { slitW: 1.0, nObj: 1, col: "lens", layLen: 540, camLen: 750, W: 56.2, fcam: 750, cam: "mirror", gType: "refl", G: 31.6, m: 104, lamB1: 541370, lamC: 5187, psi: 0, tAlpha: null,
+           filt: [5165.8, 5211.2], gLen: 203, Nx: 1872, Ny: 50, pix: 15 } },
+    pub: [
+      { what: "2.1 Å/mm at 5200 Å", q: "dlpix", value: 2.1 * 0.015, info: true, src: "Peterson et al. 1984; Carney & Latham 1984 (the blaze is fitted to it: circular)" },
+      { what: "1.8 km/s per pixel", q: "kmspx", value: 1.8, info: true, src: "Latham 1992 (the same dispersion with the INFERRED 15 µm pixel: not independent)" },
+      { what: "≈8.3 km/s FWHM (R ≈ 36,100)", q: "R", value: 36100, info: true, src: "Latham et al. 1996; Mazeh et al. 2001 (stated, not shown measured). A miss of 32%: the model's 1″ slit image is not demagnified by the image tube, which the explorer does not represent" },
+    ],
+  },
+  // Steward Medusa (data/round12/medusa.md), 1980: fibers from a drilled aperture plate at the Steward 2.3 m's Cassegrain
+  // focus to the Boller & Chivens image-tube spectrograph; the fibers enter at the collimator's f/9 (the virtual
+  // convention); the camera EFFECTIVE (fitted to 250 A/mm), the camera-collimator angle MEASURED from a schematic, the
+  // plate pixel EFFECTIVE
+  {
+    id: "medusa", tel: "Steward 2.3 m", name: "Steward 2.3 m / Medusa (1980, plates)",
+    note: "Medusa on the Steward Observatory 2.3 m, 1980, the first fiber multi-object spectrograph (Hill et al. 1980: 26 cluster-galaxy redshifts in one exposure; Hill 1988): ≈40 fibers of 300 µm (3″ on the sky at 9.8″/mm) plugged into a drilled aperture plate at the Cassegrain focus and lined up as a pseudo-slit at the Boller & Chivens spectrograph \"in its normal configuration\": an off-axis collimator mirror for an f/9 beam (Hubbard et al. 1979; 3-inch beam, 686 mm, DERIVED), a 300 /mm grating blazed at 4000 Å, a solid Schmidt camera feeding a two-stage Carnegie image tube and IIIa-J plates (an intensified CCD from ≈1982). The fibers enter at f/9 (60% of their light stays within f/9, Hill et al. 1980). The camera (128.4 mm) is EFFECTIVE, fitted to the published ≈250 Å/mm; the 40° camera-collimator angle is MEASURED from a schematic of the 1979 fiber test; the plate is entered as 20 µm pixels (EFFECTIVE). The redshifts reached ≈94 km/s. The image tube, the transfer lens and the plates are not represented; the drawing is schematic.",
+    state: { mode: "grating", D: 2.29, F: 9,
+      g: { slitW: 2.6, nObj: 40, col: "mirror", W: 76.2, fcam: 128.4, cam: "mirror", gType: "refl", G: 300, m: 1, lamB1: 4000, lamC: 4700, psi: 40, tAlpha: null,
+           Nx: 400, Ny: 250, pix: 20 } },
+    pub: [
+      { what: "≈250 Å/mm", q: "dlpix", value: 5.0, info: true, src: "Hill et al. 1980 (the camera is fitted to it: circular)" },
+      { what: "15 Å resolution (R ≈ 313 at 4700 Å)", q: "R", value: 4700 / 15, info: true, src: "Hill 1988 Fig. 1 caption (not stated as measured); the model's fiber image alone is narrower, and the tube and plate add width" },
+      { what: "well exposed 3900–5500 Å", q: "span", value: 1600, info: true, src: "Hill et al. 1980 (the plate's response; the chip here is wider)" },
+    ],
+  },
+  // JWST NIRSpec (data/round12/jwnirspec.md): f/12.5 at the slit plane (the MSA, 0.199" shutters; the fixed slit S200A1,
+  // 0.193"), a TMA collimator (700 mm, DERIVED: 12.5 x the 56 mm beam), the dispersers of Jakobsen et al. 2022 Table 3 (the
+  // prism: CaF2 at 37 K, a 16.5 deg wedge in double pass, entered as one 33 deg prism), the TMA camera EFFECTIVE (304.6 mm,
+  // fitted to the 0.105"/px scale); the collimator off the axis (INFERRED from the ray trace: his call, 2026-11-18); the
+  // gratings' conical mount (16.4 deg out of the plane) is not modeled: psi 0 (his call)
+  ...[
+    { k: "prism", set: "PRISM", slit: 0.199, n: 190, g: { gType: "prism", gGlass: "CaF2-37K", pA: 33, pN: 1, lamC: 17800, filt: [6000, 53000] }, disp: "the CaF₂ prism (a 16.5° wedge with a silvered back, in double pass; entered as one 33° prism at the instrument's 37 K)", pub: [
+      ...[[7000, 65.05], [11000, 164.5], [22000, 175.5], [35000, 115.9], [50000, 79.5]].map(([l, v]) => ({ what: v + " Å/px at " + (l / 1e4).toFixed(1) + " µm", q: "dlpixAt", lam: l, m: 1, value: v, tol: 0.03, src: "JWST User Documentation, the prism's dispersion table (the team's instrument model)" })),
+      { what: "slit image ≈2 px", q: "npix", value: 2.0, tol: 0.07, src: "Jakobsen et al. 2022 Sec. 2.5; Ferruit et al. 2022 (\"approximately two pixels\")" },
+      { what: "R ≈ 30 at 1.1 µm", q: "RAt", lam: 11000, value: 30.4, info: true, src: "JWST User Documentation (R for a 2.2 px line; the model's shutter image is 1.90 px)" },
+      { what: "R ≈ 323 at 5.3 µm", q: "RAt", lam: 53000, value: 323.2, info: true, src: "JWST User Documentation; Jakobsen et al. 2022 give ≈330 (the model's line here includes the shutter's diffraction)" },
+      { what: "0.105″/px along the slit", q: "pixScale", value: 0.105, info: true, src: "Jakobsen et al. 2022 Sec. 2.6 (the camera is fitted to it: circular)" },
+    ] },
+    { k: "g395m", set: "G395M", slit: 0.199, n: 55, g: { gType: "refl", G: 33.82, m: 1, lamB1: 37000, lamC: 37000, psi: 0, tAlpha: null, gLen: 70, filt: [28800, 53000] }, disp: "the G395M grating (33.82 /mm, ruled, 70 × 70 mm)", pub: [
+      { what: "17.95 Å/px at 4.0 µm", q: "dlpixAt", lam: 40000, m: 1, value: 17.95, tol: 0.04, src: "JWST User Documentation, G395M dispersion table (the conical mount, not modeled, accounts for a few percent)" },
+      { what: "R ≈ 1013 at 4.0 µm", q: "RAt", lam: 40000, value: 1013, info: true, src: "JWST User Documentation (a 2.2 px line; the model's shutter image is 1.90 px)" },
+    ] },
+    { k: "g140h", set: "G140H", slit: 0.193, n: 1, g: { gType: "refl", G: 252.29, m: 1, lamB1: 13000, lamC: 14250, psi: 0, tAlpha: null, gLen: 70, filt: [9800, 53000] }, disp: "the G140H grating (252.29 /mm, ruled, 70 × 70 mm) with the S200A1 fixed slit", pub: [
+      { what: "2.355 Å/px at 1.4 µm", q: "dlpixAt", lam: 14000, m: 1, value: 2.355, tol: 0.04, src: "JWST User Documentation, G140H dispersion table" },
+      { what: "R ≈ 2702 at 1.4 µm", q: "RAt", lam: 14000, value: 2702, info: true, src: "JWST User Documentation (a 2.2 px line; the model's slit image is 1.84 px)" },
+    ] },
+  ].map(c => ({
+    id: "jwnirspec" + c.k, tel: "JWST 6.5 m", name: "JWST / NIRSpec " + c.set + ", " + (c.k === "g140h" ? "S200A1" : "0.2″"), inst: "NIRSpec", setting: c.set,
+    note: "NIRSpec on the James Webb Space Telescope, since 2022 (Jakobsen et al. 2022; Ferruit et al. 2022; the JWST User Documentation), here " + c.disp + ". The telescope's f/20 focus is re-imaged at f/12.5 onto the slit plane (2.54″/mm): the micro-shutter array (0.199″ shutters, " + (c.k === "g140h" ? "here the 0.193″ fixed slit S200A1" : c.n + " spectra entered, a typical MSA plan") + "); a three-mirror anastigmat collimator (≈56 mm beam; 700 mm DERIVED), the disperser on the grating wheel, a three-mirror anastigmat camera (304.6 mm EFFECTIVE, fitted to the 0.105″/px scale; f/5.67 × 56 mm gives 317.5 mm) and two HAWAII-2RG arrays of 2048 × 2048 pixels of 18 µm with a 2.8 mm gap, entered as one chip of 4236 × 2040 (the gap included, not drawn). The collimator is entered off its axis (INFERRED from the published ray trace). The gratings are lit 16.4° out of the dispersion plane, which the explorer's grating mode does not represent (the camera-collimator angle is entered as 0). The band (filt) is the order-sorting filter's. The shutters are narrower than their own diffraction beyond ≈3.1 µm, which the model includes. A uniformly lit shutter: a point source gives R 1.1–1.35 times higher (measured in flight).",
+    state: { mode: "grating", D: 6.5, F: 12.5,
+      g: Object.assign({ slitW: c.slit, nObj: c.n, col: "mirror", cam: "lens", camEq: "a three-mirror anastigmat, drawn as a lens", W: 56, fcam: 304.6, Nx: 4236, Ny: 2040, pix: 18 }, c.g) },
+    pub: c.pub,
+  })),
+  // AAOmega (data/round12/aaomega.md): the 2dF fibers enter at the Schmidt collimator's f/3.15 (the virtual convention),
+  // one collimator (598.5 mm, DERIVED: 3.15 x the 190 mm beam) on the axis with the fiber slit in the returning beam (INFERRED:
+  // his call, 2026-11-18), the x5700 dichroic, VPH gratings at their Bragg setting (the camera at twice the grating angle,
+  // Saunders 2014 Table 3), f/1.3 Schmidt cameras (247 mm, DERIVED) with the CCDs in the beam; three pairs, each an instrument
+  ...[
+    { k: "580v", pair: "580V/385R", set: "blue 580V", G: 580, lamC: 4799, ga: 8.0, pub: [
+      { what: "fiber image 3.4 px FWHM (3.1–3.6)", q: "npix", value: 3.4, tol: 0.1, src: "Sharp et al. 2006 Secs. 2.3 and 5.10 (not fitted)" },
+      { what: "1.0 Å/px", q: "dlpix", value: 1.0, tol: 0.05, src: "Hopkins et al. 2013 Sec. 2; Sharp et al. 2006 Table 2" },
+      { what: "coverage 2100 Å", q: "span", value: 2100, tol: 0.03, src: "Hopkins et al. 2013 Sec. 2 (GAMA)" },
+      { what: "coverage from ≈3700 Å", q: "lo", value: 3700, tol: 0.03, src: "Hopkins et al. 2013; Childress et al. 2017 (\"continuous ... from ~3700 Å to ~8800 Å\")" },
+      { what: "R = 4800 / 3.5 Å = 1371", q: "R", value: 1371, tol: 0.05, src: "Smith et al. 2007 Sec. 2 (the nominal FWHM)" },
+    ] },
+    { k: "385r", pair: "580V/385R", set: "red 385R", G: 385, lamC: 7230, ga: 8.0, pub: [
+      { what: "1.6 Å/px", q: "dlpix", value: 1.6, tol: 0.05, src: "Hopkins et al. 2013 Sec. 2; Sharp et al. 2006 Table 2" },
+      { what: "coverage 3200 Å", q: "span", value: 3200, tol: 0.03, src: "Hopkins et al. 2013 Sec. 2 (GAMA)" },
+      { what: "coverage to ≈8800 Å", q: "hi", value: 8800, tol: 0.03, src: "Childress et al. 2017 Sec. 2; Yuan et al. 2015" },
+    ] },
+    { k: "1500v", pair: "1500V/1000R", set: "blue 1500V", G: 1500, lamC: 5102, ga: 22.5, pub: [
+      { what: "0.37 Å/px", q: "dlpix", value: 0.37, tol: 0.05, src: "Sharp et al. 2006 Table 2" },
+      { what: "R ≈ 3700", q: "R", value: 3700, info: true, src: "Sharp et al. 2006 Table 2 (nominal; the model's round-fiber geometry runs ≈10% higher)" },
+    ] },
+    { k: "1000r", pair: "1500V/1000R", set: "red 1000R", G: 1000, lamC: 6840, ga: 20.0, pub: [
+      { what: "0.57 Å/px", q: "dlpix", value: 0.57, tol: 0.05, src: "Sharp et al. 2006 Table 2" },
+      { what: "coverage from 6280 Å", q: "lo", value: 6280, tol: 0.02, src: "Ko et al. 2026 Sec. 3 (centered at 6880 Å)" },
+      { what: "coverage to 7450 Å", q: "hi", value: 7450, tol: 0.02, src: "Ko et al. 2026 Sec. 3" },
+      { what: "R = 6880 / 1.9 Å = 3621", q: "R", value: 3621, tol: 0.05, src: "Smith et al. 2007 Sec. 2 (the nominal FWHM; Ko et al. 2026 give 3400)" },
+    ] },
+    { k: "2500v", pair: "2500V/2000R", set: "blue 2500V", G: 2500, lamC: 5142, ga: 40.0, pub: [
+      { what: "0.18 Å/px", q: "dlpix", value: 0.18, tol: 0.05, src: "Sharp et al. 2006 Table 2" },
+      { what: "R ≈ 8000", q: "R", value: 8000, info: true, src: "Sharp et al. 2006 Table 2 (nominal)" },
+    ] },
+    { k: "2000r", pair: "2500V/2000R", set: "red 2000R", G: 2000, lamC: 6428, ga: 40.0, pub: [
+      { what: "0.23 Å/px", q: "dlpix", value: 0.23, tol: 0.05, src: "Sharp et al. 2006 Table 2" },
+      { what: "R ≈ 8000", q: "R", value: 8000, info: true, src: "Sharp et al. 2006 Table 2 (nominal)" },
+    ] },
+  ].map(c => ({
+    id: "aao" + c.k, tel: "AAT 3.9 m", name: "AAT 3.9 m / AAOmega " + c.set, inst: "AAOmega " + c.pair, setting: c.set,
+    note: "AAOmega, the bench-mounted dual-beam spectrograph of the 3.9 m Anglo-Australian Telescope, fed by the 2dF positioner's 392 fibers (Saunders et al. 2004, 2014; Sharp et al. 2006; Lewis et al. 2002), here the " + c.set + " VPH grating of the " + c.pair + " pair at " + c.ga + "° (the camera at " + 2 * c.ga + "°). Fibers of 140 µm (2.1″ at the 2dF corrector's f/3.5) feed an f/3.15 Schmidt collimator (190 mm beam; 598.5 mm DERIVED) with the curved fiber slit in the returning beam (on the axis: INFERRED from the papers' obstruction losses), the x5700 dichroic upstream of each arm's Schmidt corrector, the VPH grating and an articulating f/1.3 Schmidt camera (247 mm, DERIVED) with an E2V CCD of 2048 × 4096 pixels of 15 µm in the beam. The fibers enter at f/3.15, the virtual convention, so the scale along the slit reads 13% coarse. The 580V/385R pair, the GAMA, WiggleZ and OzDES setup, covers 3700–8800 Å continuously; the other pairs leave a gap at the dichroic. No layout figure is published: the drawing is schematic.",
+    state: { mode: "grating", D: 3.893, F: 3.15,
+      g: { slitW: 2.039, nObj: 392, col: "mirror", colTilt: 0, layLen: 1197, W: 190, fcam: 247, cam: "mirror", gType: "trans", G: c.G, m: 1, gKind: "vph", gTilt: 0, lamC: c.lamC, lamB1: c.lamC, psi: 0, tAlpha: null,
+           Nx: 2048, Ny: 4096, pix: 15, telF: 3.5, fibAp: 2.1 } },
+    pub: c.pub,
+  })),
+  // VIRUS (data/round12/virus.md): one channel of a VIRUS unit on the HET; the fibers enter at the collimator's f/3.33 (the
+  // virtual convention), a spherical collimator on the axis with the IFU slit in a slot of the fold mirror (SOURCED), the
+  // 930 /mm VPH grating at 9 deg in and 15.3 deg out, a Schmidt camera with the CCD in the beam; no value fitted
+  {
+    id: "virus", tel: "HET 10 m", name: "HET / VIRUS",
+    note: "VIRUS, the Visible Integral-field Replicable Unit Spectrograph on the 10 m Hobby-Eberly Telescope, since 2016 (Hill et al. 2021; Gebhardt et al. 2021; Chonis et al. 2014), the first large-scale replication of an optical instrument: 156 identical spectrograph channels in 78 units, fed by ≈35,000 fibers in 78 IFUs, for HETDEX; here one channel. 224 fibers of 266 µm (1.5″ on the sky at the HET's f/3.65) enter at the collimator's f/3.33 (the virtual convention); the slit protrudes into a slot in the fold mirror (\"to minimize obstruction\"), so the spherical collimator works on its axis (416 mm, DERIVED: 3.33 × the 125 mm beam), the flat fold turns the beam ≈160°, the 930 /mm VPH grating takes it at 9° and sends it out at 15.3° at 4500 Å, and a Schmidt camera (166 mm, f/1.25; the corrector shared with the collimator and serving as the vacuum window) images onto an STA3600 CCD of 2064 × 2064 pixels of 15 µm inside the beam. D is the HET's 10 m pupil; the illuminated pupil varies with the track (HETDEX reduces against 50 m², an 8 m equivalent), so a light-gathering estimate is ≈1.6 times high. The layout is measured from Hill et al. 2021 Fig. 8, scaled by the collimator's focal length (the camera distances ±20%).",
+    state: { mode: "grating", D: 10, F: 3.33,
+      g: { slitW: S3 * 0.266 / (3.33 * 10000) * 206264.806, nObj: 224, col: "mirror", colTilt: 0, layLen: 832, foldOn: true, foldAng: 160, foldPos: 0.49, camLen: 90, W: 125, fcam: 166, cam: "mirror", gType: "trans", gKind: "vph", G: 930, m: 1, gTilt: 0, lamC: 4500, lamB1: 4500, psi: 24.3, tAlpha: null,
+           gLen: 138, Nx: 2064, Ny: 2064, pix: 15 } },
+    pub: [
+      { what: "R ≈ 800 (5.6 Å at 4500 Å, measured)", q: "R", value: 800, tol: 0.08, src: "Hill et al. 2021 (Gebhardt et al. 2021 give 4.7 Å, R 750–950)" },
+      { what: "0.995 Å/px (1.99 Å per binned pixel, measured)", q: "dlpix", value: 0.995, tol: 0.05, src: "Gebhardt et al. 2021 (the survey's 2 × 1 binning)" },
+      { what: "coverage from 3492 Å", q: "lo", value: 3492, tol: 0.01, src: "Gebhardt et al. 2021 (the as-built mean: 3492.4 + 2003.3 Å)" },
+      { what: "coverage to 5495 Å", q: "hi", value: 5495, tol: 0.01, src: "Gebhardt et al. 2021" },
+      { what: "fiber profile 7.5 px across the dispersion (6.5–8.5)", q: "diam", value: 7.5, info: true, src: "Gebhardt et al. 2021 (an observed profile; the model gives the geometric core's width)" },
+    ],
+  },
 ];
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;

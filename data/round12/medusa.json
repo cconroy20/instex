@@ -1,0 +1,678 @@
+{
+ "id": "medusa",
+ "name": "Steward 2.3 m / Medusa (fiber multi-object spectrograph, 1980 photographic configuration)",
+ "quote_pieces": 55,
+ "quote_failures": 0,
+ "era": "Dec 1979 first multi-object run; 1980 Abell 1904 plate; photographic to about 1981-82; intensified RCA CCD after; MX Spectrometer from 1985",
+ "sources": {
+  "M80": "Hill, J. M., Angel, J. R. P., Scott, J. S., Lindley, D. & Hintzen, P. 1980, ApJ 242, L69, \"Multiple object spectroscopy: the medusa spectrograph\"",
+  "HN82": "Hintzen, P., Hill, J. M., Lindley, D., Scott, J. S. & Angel, J. R. P. 1982, AJ 87, 1656, \"Medusa spectroscopy of A400, A576, A1767, and A2124\"",
+  "HU79": "Hubbard, E. N., Angel, J. R. P. & Gresham, M. S. 1979, ApJ 229, 1074, \"Operation of a long fused silica fiber as a link between telescope and spectrograph\"",
+  "H88": "Hill, J. M. 1988, ASP Conf. Ser. 3, 77, \"The History of Multiobject Fiber Spectroscopy\""
+ },
+ "rows": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope",
+   "value": "Steward Observatory 90 inch (2.29 m) reflector, Kitt Peak, Cassegrain focus",
+   "unit": "m",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Abstract, p. L69",
+   "quote": "of the Steward 90 inch (2.29 m) telescope"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Aperture D",
+   "value": "2.29",
+   "unit": "m",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Abstract, p. L69",
+   "quote": "Steward 90 inch (2.29 m) telescope"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Optical design",
+   "value": "Ritchey-Chretien (wide, well-corrected field)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "p. 80 (transcribed from the scan)",
+   "quote": "the 2.3 m has Ritchey ... optics which provide a wide, well-corrected field-of-view"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the Cassegrain focal plane",
+   "value": "9.8",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L69",
+   "quote": "the plate scale is 9''8 mm-1"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale (alt)",
+   "value": "9.7 (approximate)",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, item 4 of the positioning-error list, p. L72",
+   "quote": "plate scale at the Cassegrain focus is approximately 9''7 mm-1"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio of the telescope",
+   "value": "9.19",
+   "unit": "f/#",
+   "tag": "DERIVED",
+   "source": "M80",
+   "location": "",
+   "quote": "DERIVED: F = 206265 / (9.8 arcsec/mm x 2290 mm) = 9.19 (9.29 at 9.7 arcsec/mm); no source states the Cassegrain focal ratio"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Entrance slit position",
+   "value": "25 cm below the Cassegrain focal plane (spectrograph mounted on a spacer); the fiber plate sits in the focal plane",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L69",
+   "quote": "position of the entrance slit is located 25 cm below the Cassegrain focal plane"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Field",
+   "value": "up to 40 objects anywhere in a 30 arcmin field (later 0.5 deg diameter)",
+   "unit": "arcmin",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. I, p. L69",
+   "quote": "up to 40 objects anywhere in a 30"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Field (alt)",
+   "value": "over 30 galaxies in a patch of sky 0.5 deg in diameter",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. II, p. 1656",
+   "quote": "over 30 galaxies in a patch of sky 0.5 deg in diameter may be observed simulta"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber type and maker",
+   "value": "step-index, plastic-clad fused silica, Galileo Electro-Optic Corporation",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L70",
+   "quote": "step-index type, plastic-clad fused silica manufactured by Galileo Electro-Optic Corporation"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber core",
+   "value": "300",
+   "unit": "um",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L69",
+   "quote": "Single, fused silica fibers 300 um in diameter are located in the holes"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber core (alt)",
+   "value": "300 (20 Galileo PCS fibers in Dec 1979)",
+   "unit": "um",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "p. 79 (transcribed from the scan)",
+   "quote": "an aperture plate with 20 Galileo 300 micron PCS fibers"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Cladding",
+   "value": "about 150 um thick",
+   "unit": "um",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, item 4 of the positioning-error list, p. L72",
+   "quote": "diameter fibers have a coat of cladding approximately 150"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber end on the sky",
+   "value": "3",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. I, p. L69",
+   "quote": "Each single fiber end subtends a circle of 3"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber end on the sky (check)",
+   "value": "2.94",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "source": "M80",
+   "location": "",
+   "quote": "DERIVED: 0.300 mm x 9.8 arcsec/mm = 2.94 arcsec"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber length",
+   "value": "short (no length given; \"Short lengths of fused silica fiber\")",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. I, p. L69",
+   "quote": "Short lengths of fiber are used to bring the light"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Number of fibers (1980 aperture plate)",
+   "value": "32 galaxy holes in the focal plate; slit plate with about 40 holes",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L69",
+   "quote": "at the locations of 32 galaxies"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Slit plate",
+   "value": "about 40 holes in a line 2.5 cm long, perpendicular to the dispersion",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L69",
+   "quote": "in a line 2.5 cm long and perpendicular to the direction"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Number of fibers (named MEDUSA system)",
+   "value": "three interchangeable sets (\"nuclei\") of 37 QSF fibers",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "p. 80 (transcribed from the scan)",
+   "quote": "three sets of 37 QSF"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Slit pitch",
+   "value": "625 um (40 holes in 25 mm)",
+   "unit": "um",
+   "tag": "DERIVED",
+   "source": "M80",
+   "location": "",
+   "quote": "DERIVED: 25 mm / 40 = 0.625 mm"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Comparison lamp",
+   "value": "every eighth fiber routed to a HeAr lamp (later work)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. II, p. 1656",
+   "quote": "Every eighth fiber in the line was routed to the spectrograph HeAr comparison source"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Focal-ratio behavior",
+   "value": "reasonably preserved in a fiber (authors' statement)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. I, p. L69",
+   "quote": "focal ratio is reasonably preserved in propagation down a single fiber"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Matching loss",
+   "value": "the device has significant light losses (not matched to the telescope)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Abstract, p. L69",
+   "quote": "has significant light losses because it is not ideally matched to the telescope"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber input and output focal ratios",
+   "value": "NOT FOUND for Medusa; the 2.3 m f/9.2 beam enters, and the spectrograph collimator is f/9 (HU79). The explorer virtual fiber uses F_out = 9",
+   "unit": "",
+   "tag": "INFERRED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "replacing the normal off-axis collimator mirror for an f/9 beam"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Virtual-fiber angle (explorer convention)",
+   "value": "3.002",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED: phi = 0.300 mm / (F_out 9 x D 2290 mm) x 206265 = 3.002 arcsec; slitW = (sqrt 3 / 2) x phi = 2.600 arcsec"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Guiding and alignment",
+   "value": "two 3 mm coherent image conduits (about 30 arcsec in the focal plane) and two photomultipliers each fed by two fibers on field stars",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. II, p. L70",
+   "quote": "imaging bundles are 3 mm in diameter and subtend approximately"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Telescope beam at the fibers",
+   "value": "f/9 (\"the beam, originally f/9\"): consistent with F = 9.19 (derived above)",
+   "unit": "f/#",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, p. L71",
+   "quote": "the beam, originally f/9, is broadened"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Fiber output vs the spectrograph acceptance",
+   "value": "typically 60 percent of the light leaving a fiber is still within an f/9 beam (what the spectrograph gathers)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, p. L71",
+   "quote": "typically, 60% of the light exiting a given fiber is still within an f/9 beam"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Effective aperture of a fiber",
+   "value": "7 square arcsec (3 arcsec diameter)",
+   "unit": "arcsec^2",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, p. L71",
+   "quote": "The 7 square arc seconds effective aperture provided by the optical fibers"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Field change and exposure cost",
+   "value": "about 40 min to change fields; a multiaperture exposure is effectively a factor of 4 slower than single-aperture",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, p. L71",
+   "quote": "effectively a factor of 4 slower than with the single-aperture sys"
+  },
+  {
+   "section": "Fibers",
+   "parameter": "Positioning",
+   "value": "rms 0.3 arcsec per coordinate in the galaxy positions; drill error under 0.1 arcsec (10 um); up to six guide stars",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. IV, p. L72",
+   "quote": "we guide on as many as six stars simultaneously"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Spectrograph",
+   "value": "the standard Boller & Chivens Cassegrain spectrograph, in its normal configuration, the slit replaced by the fiber plate",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "Cassegrain spectrograph in its normal configuration"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Spectrograph (alt)",
+   "value": "\"Boiler and Chivens Cassegrain spectrograph\" (sic, the text layer misprints Boller)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. I, p. 1656",
+   "quote": "standard Boiler and Chivens Cassegrain spectrograph"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Same spectrograph, described",
+   "value": "the Boller & Chivens Image Tube Spectrograph, normally used at the Cassegrain focus of the Steward 90 inch (the Hubbard et al. 1979 fiber test used it on the 36 inch)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1074",
+   "quote": "Image Tube Spectrograph, normally used at the Cassegrain focus of the Steward 90 inch"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Collimator type and axis",
+   "value": "OFF-AXIS mirror, for an f/9 beam (the normal collimator, replaced in the 1979 test by an on-axis paraboloid)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "replacing the normal off-axis collimator mirror for an f/9 beam"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Collimator focal ratio",
+   "value": "9",
+   "unit": "f/#",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "replacing the normal off-axis collimator mirror for an f/9 beam"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Beam diameter",
+   "value": "3 inch (7.6 cm), the nominal diameter for the spectrograph",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "diameter area on the collimator, the nominal diameter for the spectrograph"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Collimator focal length",
+   "value": "685.8",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "source": "HU79",
+   "location": "",
+   "quote": "DERIVED: f_col = 9 x 76.2 mm = 685.8 mm (INFERRED: the f/9 beam fills the 3 inch nominal diameter; the modified test's 10 inch focus / f/3.3 = 3.03 inch agrees)"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Camera type",
+   "value": "solid Schmidt camera feeding a two-stage RCA image tube",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "imaged onto a two-stage RCA image tube by the solid Schmidt camera"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Camera focal length",
+   "value": "NOT FOUND (fitted below)",
+   "unit": "mm",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Grating",
+   "value": "300 grooves/mm, blazed at 4000 A, first order",
+   "unit": "l/mm",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "A 300 groove per mm grating blazed at 4000 A was used in first order"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Grating (alt)",
+   "value": "300 lines/mm, first order (same spectrograph, 36 inch test)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Sec. II, p. 1075",
+   "quote": "The light from the collimator was reflected by a 300 line mm-1 grating"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Reciprocal dispersion",
+   "value": "about 250 A/mm",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "producing a reciprocal dispersion of approximately 250 A mm-1"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Reciprocal dispersion (alt)",
+   "value": "about 250 A/mm",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. I, p. 1656",
+   "quote": "resulted in a reciprocal dispersion of about 250 A/mm"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Camera-collimator angle",
+   "value": "about 40 deg, read from the schematic (angle between the collimated and the diffracted beams at the grating); SCHEMATIC",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "source": "HU79",
+   "location": "Fig. 3, p. 1076",
+   "quote": "Schematic of spectrograph system modified to accept on f/3.3 beam from fiber"
+  },
+  {
+   "section": "Spectrograph",
+   "parameter": "Filters, dichroics",
+   "value": "none",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Detector",
+   "parameter": "Detector (1980)",
+   "value": "Carnegie image-tube detector, tube-to-plate transfer lens open to f/1.0",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "The Carnegie image-tube detector was operated with the tube-to-plate transfer lens open to f/1.0"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Image tube",
+   "value": "two-stage tube, 33063",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. I, p. 1656",
+   "quote": "33063 image tube camera"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Image tube (alt)",
+   "value": "2 stage RCA image tube, f/1 transfer lens, photographic plate (Fig. 3 labels)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HU79",
+   "location": "Fig. 3, p. 1076",
+   "quote": "imaged onto a two-stage RCA image tube by the solid Schmidt camera"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Plates",
+   "value": "IIIa-J, baked 4 hr in N2 at 65 C, unwidened spectra",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "baked for 4 hr in N2 at 65"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Later detector",
+   "value": "an intensified RCA CCD replaced the plates (1981-82)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Sec. I, p. 1656",
+   "quote": "An intensified RCA CCD is now being used as the detector"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Plate format, tube photocathode size, grain or tube resolution",
+   "value": "NOT FOUND",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Coverage (continua well exposed)",
+   "value": "3900 to 5500",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "continua of most galaxies are well exposed from 3900 to 5500"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Coverage shown (Fig. 1 of H88)",
+   "value": "400 to 560 nm",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "Fig. 1 caption, p. 81 (transcribed from the scan)",
+   "quote": "Wavelengths from 400 to 560 nm are shown"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Resolution",
+   "value": "15 A (image-tube spectra of A754, MEDUSA aperture plate); stated, not marked measured or geometric",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "Fig. 1 caption, p. 81 (transcribed from the scan)",
+   "quote": "These 15 Angstrom resolution spectra were obtained during a two hour exposure"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Velocity precision",
+   "value": "external about 94 km/s (8 galaxies); later about 100 km/s",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L71",
+   "quote": "of about 94 km"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Velocity precision (alt)",
+   "value": "about 100 km/s",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "HN82",
+   "location": "Abstract, p. 1656",
+   "quote": "root-mean-square external errors in these velocities are about 100 km/s"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Spectra from one exposure",
+   "value": "26 galaxies, one 3 hr exposure of Abell 1904",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Sec. III, p. L70",
+   "quote": "single 3 hr exposure of Abell 1904 which has yielded redshifts for 26 galaxies"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Gain over a single-slit spectrograph",
+   "value": "sixfold reduction in the mean telescope time per galaxy",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "M80",
+   "location": "Abstract, p. L69",
+   "quote": "a sixfold reduction in the mean telescope time per galaxy"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Dates",
+   "value": "first multiobject run Dec 1979 (Abell 754); A1904 Mar 1980; MX Spectrometer commissioning began at the 2.3 m in Jan 1985",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "Table 1, p. 79 (transcribed from the scan)",
+   "quote": "MX commissioning begins at Steward 2.3m"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Dates (alt)",
+   "value": "Dec 1979: 20 fibers, 8 galaxies in A754",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "p. 79 (transcribed from the scan)",
+   "quote": "In December 1979, Hill, Angel, Scott, Lindley"
+  },
+  {
+   "section": "Coverage, dispersion, resolution",
+   "parameter": "Medusa name and 30 arcmin field",
+   "value": "later in 1980 the field went to 30 arcmin square and the system was named MEDUSA",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H88",
+   "location": "p. 80 (transcribed from the scan)",
+   "quote": "Later in 1980, the field-of-view was increased to 30 arcminutes square"
+  }
+ ],
+ "effective": {
+  "D": 2.29,
+  "F": 9,
+  "slit": 2.6,
+  "nObj": 40,
+  "G": 300,
+  "m": 1,
+  "lamB1": 4000,
+  "lamC": 4700,
+  "psi": 40,
+  "fcam": 125,
+  "fcol": 685.8,
+  "W": 76.2,
+  "Nx": 400,
+  "Ny": 250,
+  "pix": 20,
+  "col": "mirror",
+  "colTilt": "auto (off-axis)",
+  "cam": "mirror"
+ },
+ "pub": {
+  "dispersion_A_per_mm": 250,
+  "res_A": 15,
+  "coverage": [
+   3900,
+   5500
+  ],
+  "vel_err_kms": [
+   94,
+   100
+  ],
+  "spectra_one_exposure": 26,
+  "fraction_in_f9": 0.6
+ },
+ "not_found": [
+  "camera focal length and type details",
+  "collimator tilt",
+  "grating size",
+  "image tube format and plate size",
+  "layout figure of Medusa itself",
+  "throughput",
+  "Hill et al. 1982 SPIE 331 279 and Hill, Angel & Scott 1983 SPIE 380 354 (paywalled)"
+ ]
+}

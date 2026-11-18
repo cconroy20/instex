@@ -2846,6 +2846,176 @@
     "ads": "1983ApJS...52...89H",
     "url": "https://articles.adsabs.harvard.edu/pdf/1983ApJS...52...89H"
    }
+  ],
+  "speedometer": [
+   {
+    "file": "data/round12/speedometer.json",
+    "key": "C74",
+    "text": "Chaffee 1974, ApJ 189, 427",
+    "ads": "1974ApJ...189..427C"
+   },
+   {
+    "file": "data/round12/speedometer.json",
+    "key": "L92",
+    "text": "Latham 1992, ASP Conf. Ser. 32, 110",
+    "ads": "1992ASPC...32..110L"
+   }
+  ],
+  "medusa": [
+   {
+    "file": "data/round12/medusa.md",
+    "key": "M80",
+    "text": "Hill et al. 1980, ApJ 242, L69",
+    "ads": "1980ApJ...242L..69H",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1980ApJ...242L..69H"
+   },
+   {
+    "file": "data/round12/medusa.md",
+    "key": "HU79",
+    "text": "Hubbard et al. 1979, ApJ 229, 1074",
+    "ads": "1979ApJ...229.1074H",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1979ApJ...229.1074H"
+   }
+  ],
+  "virus": [
+   {
+    "file": "data/round12/virus.json",
+    "key": "H21",
+    "text": "Hill et al. 2021, AJ 162, 298",
+    "ads": "2021AJ....162..298H"
+   },
+   {
+    "file": "data/round12/virus.json",
+    "key": "G21",
+    "text": "Gebhardt et al. 2021, ApJ 923, 217",
+    "ads": "2021ApJ...923..217G"
+   }
+  ],
+  "jwnirspecprism": [
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "J22",
+    "text": "Jakobsen et al. 2022, A&A 661, A80",
+    "ads": "2022A&A...661A..80J"
+   },
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "F22",
+    "text": "Ferruit et al. 2022, A&A 661, A81",
+    "ads": "2022A&A...661A..81F"
+   }
+  ],
+  "jwnirspecg395m": [
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "J22",
+    "text": "Jakobsen et al. 2022, A&A 661, A80",
+    "ads": "2022A&A...661A..80J"
+   },
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "F22",
+    "text": "Ferruit et al. 2022, A&A 661, A81",
+    "ads": "2022A&A...661A..81F"
+   }
+  ],
+  "jwnirspecg140h": [
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "J22",
+    "text": "Jakobsen et al. 2022, A&A 661, A80",
+    "ads": "2022A&A...661A..80J"
+   },
+   {
+    "file": "data/round12/jwnirspec.json",
+    "key": "F22",
+    "text": "Ferruit et al. 2022, A&A 661, A81",
+    "ads": "2022A&A...661A..81F"
+   }
+  ],
+  "aao580v": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
+  ],
+  "aao385r": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
+  ],
+  "aao1500v": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
+  ],
+  "aao1000r": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
+  ],
+  "aao2500v": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
+  ],
+  "aao2000r": [
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "SH06",
+    "text": "Sharp et al. 2006, Proc. SPIE 6269, 0G",
+    "ads": "2006SPIE.6269E..0GS"
+   },
+   {
+    "file": "data/round12/aaomega.json",
+    "key": "L02",
+    "text": "Lewis et al. 2002, MNRAS 333, 279",
+    "ads": "2002MNRAS.333..279L"
+   }
   ]
  },
  "img": {

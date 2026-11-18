@@ -1,0 +1,958 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 12: AAOmega (id 'aaomega')",
+  "compiled": "2026-11-18",
+  "companion": "data/round12/aaomega.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = none used; INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; NOT FOUND = gap.",
+  "quote_check": {
+   "pieces_checked": 72,
+   "failures": 0
+  },
+  "status": "in operation since 2006 (CCDs replaced 2014, same format); no '(design)' tag"
+ },
+ "sources": {
+  "SH06": {
+   "cite": "Sharp, R., et al. 2006, Proc. SPIE 6269, 0G, 'Performance of AAOmega: the AAT multi-purpose fibre-fed spectrograph' (2006SPIE.6269E..0GS; arXiv:astro-ph/0606137): the primary source; Sec. 2.3 design summary, Fig. 1 (dichroic), Table 2 (gratings)",
+   "file": "rawdata/presets/aaomega/arxiv_astroph0606137.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0606137"
+  },
+  "S14": {
+   "cite": "Saunders, W. 2014, Proc. SPIE 9147, 60, 'Efficient and affordable catadioptric spectrograph designs for 4MOST and Hector' (2014SPIE.9147E..60S; arXiv:1407.0052): Table 3 gives the AAOmega grating angles; compares AAOmega's design",
+   "file": "rawdata/presets/aaomega/arxiv_14070052.pdf",
+   "url": "https://arxiv.org/pdf/1407.0052"
+  },
+  "S16": {
+   "cite": "Saunders, W. 2016, Proc. SPIE 9908, 96, 'Very fast transmissive spectrograph designs for highly multiplexed fiber spectroscopy' (2016SPIE.9908E..96S; arXiv:1607.07721): the Hector design contrasted with AAOmega's obstructed collimator and cameras",
+   "file": "rawdata/presets/aaomega/arxiv_160707721.pdf",
+   "url": "https://arxiv.org/pdf/1607.07721"
+  },
+  "S12": {
+   "cite": "Saunders, W. 2012, Proc. SPIE 8446, 54, 'A fast new catadioptric design for fiber-fed spectrographs' (2012SPIE.8446E..54S; arXiv:1207.7009): AAOmega design intent",
+   "file": "rawdata/presets/aaomega/arxiv_12077009.pdf",
+   "url": "https://arxiv.org/pdf/1207.7009"
+  },
+  "L02": {
+   "cite": "Lewis, I. J., et al. 2002, MNRAS 333, 279, 'The Anglo-Australian Observatory 2dF facility' (2002MNRAS.333..279L; arXiv:astro-ph/0202175): the 2dF positioner, corrector, fibers (Table 1); the retired 2dF spectrographs",
+   "file": "rawdata/presets/aaomega/arxiv_astroph_0202175.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0202175"
+  },
+  "S10": {
+   "cite": "Sharp, R. & Birchall, M. N. 2010, PASA 27, 91, 'Optimal Extraction of Fibre Optic Spectroscopy' (2010PASA...27...91S; arXiv:0912.0558): AAOmega MOS mode, fiber pitch, PSF",
+   "file": "rawdata/presets/aaomega/arxiv_09120558.pdf",
+   "url": "https://arxiv.org/pdf/0912.0558"
+  },
+  "H13": {
+   "cite": "Hopkins, A. M., et al. 2013, MNRAS 430, 2047, 'Galaxy And Mass Assembly (GAMA): spectroscopic analysis' (2013MNRAS.430.2047H; arXiv:1301.7127): the 580V/385R, 5700 A dichroic setup, coverage, dispersion, R",
+   "file": "rawdata/presets/aaomega/arxiv_13017127.pdf",
+   "url": "https://arxiv.org/pdf/1301.7127"
+  },
+  "D11": {
+   "cite": "Driver, S. P., et al. 2011, MNRAS 413, 971, 'Galaxy and Mass Assembly (GAMA): survey diagnostics and core data release' (2011MNRAS.413..971D; arXiv:1009.0614): 580V + 385R, 5700 A dichroic, coverage, resolution",
+   "file": "rawdata/presets/aaomega/arxiv_10090614.pdf",
+   "url": "https://arxiv.org/pdf/1009.0614"
+  },
+  "D10": {
+   "cite": "Drinkwater, M. J., et al. 2010, MNRAS 401, 1429, 'The WiggleZ Dark Energy Survey: survey design and first data release' (2010MNRAS.401.1429D; arXiv:0911.4246): the 570 and 670 nm dichroics, 580V + 385R, Table 6",
+   "file": "rawdata/presets/aaomega/arxiv_09114246.pdf",
+   "url": "https://arxiv.org/pdf/0911.4246"
+  },
+  "Y15": {
+   "cite": "Yuan, F., et al. 2015, MNRAS 452, 3047, 'OzDES multifibre spectroscopy for the Dark Energy Survey: first-year operation and results' (2015MNRAS.452.3047Y; arXiv:1504.03039): the 570 nm dichroic, 580V/385R, R ~ 1400, the 2014 CCD replacement",
+   "file": "rawdata/presets/aaomega/arxiv_150403039.pdf",
+   "url": "https://arxiv.org/pdf/1504.03039"
+  },
+  "C17": {
+   "cite": "Childress, M. J., et al. 2017, MNRAS 472, 273, 'OzDES multifibre spectroscopy for the Dark Energy Survey: 3-yr results and first data release' (2017MNRAS.472..273C; arXiv:1708.04526): the x5700 dichroic, 580V at 4800 A, 385R at 7250 A, overlap",
+   "file": "rawdata/presets/aaomega/arxiv_170804526.pdf",
+   "url": "https://arxiv.org/pdf/1708.04526"
+  },
+  "SR07": {
+   "cite": "Smith, R. J., et al. 2007, MNRAS 381, 1035, 'A deep AAOmega survey of low-luminosity galaxies in the Shapley supercluster' (2007MNRAS.381.1035S; arXiv:0707.1695): 580V and 1000R nominal FWHM and sampling",
+   "file": "rawdata/presets/aaomega/arxiv_07071695.pdf",
+   "url": "https://arxiv.org/pdf/0707.1695"
+  },
+  "K26": {
+   "cite": "Ko, K., et al. 2026, MNRAS 552, 1679 (ADS bibcode 2026MNRAS.552g1679K), 'The Delegate Survey: KOALA/AAOmega-IFU spectroscopy of three nearby dwarf galaxies' (arXiv:2609.18319): KOALA feed, dichroic choices, 580V and 1000R settings",
+   "file": "rawdata/presets/aaomega/arxiv_260918319.pdf",
+   "url": "https://arxiv.org/pdf/2609.18319"
+  },
+  "WD85": {
+   "cite": "Walker, D. D. & Diego, F. 1985, MNRAS 217, 355, 'Design philosophy of the forthcoming echelle spectrographs for the AAT and LPO' (1985MNRAS.217..355W): D = 3893 mm for the AAT (copied from rawdata/presets/uhrf/)",
+   "file": "rawdata/presets/aaomega/walker_diego_1985MNRAS.217..355W.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1985MNRAS.217..355W/ADS_PDF"
+  },
+  "(saved, not quoted)": {
+   "cite": "Also saved: Glazebrook et al. 2007, ASPC 379, 72, 'The WiggleZ Project: AAOmega and Dark Energy' (arXiv:astro-ph/0701876); Szekely et al. 2007 (arXiv:0705.3562), AAOmega D1700 globular-cluster velocities",
+   "file": "rawdata/presets/aaomega/arxiv_astroph0701876.pdf; arxiv_07053562.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0701876 ; https://arxiv.org/pdf/0705.3562"
+  }
+ },
+ "aaomega": {
+  "title": "AAT AAOmega: bench-mounted dual-beam fiber spectrograph fed by 2dF (392 fibers, 140 um, f/3.5), f/3.15 Schmidt collimator (190 mm beam), VPH gratings, f/1.3 articulating Schmidt cameras, 2 x 2k x 4k E2V CCDs of 15 um",
+  "aperture_handling": "D = 3.893 m (WD85), f/3.5 at the 2dF corrector; the explorer enters the fibers at the collimator's f/3.15 (virtual convention).",
+  "collimator": "Schmidt (mirror + correctors); ON-AXIS, INFERRED from obstruction-loss statements (no sentence, no figure): colTilt 0 (deploy gate: the user decides)",
+  "parameters": [
+   {
+    "section": "Telescope and feed",
+    "parameter": "Telescope aperture D",
+    "value": "3.893",
+    "unit": "m",
+    "tag": "SOURCED",
+    "src": "WD85; L02",
+    "loc": "p. 358 (UCLES design)",
+    "quote": "D = 3893mm (AAT) | 3.9m AAT f/3.3 Prime focus",
+    "note": "Same D as the explorer's AAT UHRF presets (3.893 m). The AAT's focal ratio at 2dF is the corrector's f/3.5 (next row)."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "2dF corrector focal ratio and image scale",
+    "value": "f/3.5; 67 um per arcsec (14.9 arcsec/mm)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "L02",
+    "loc": "Table 1",
+    "quote": "Corrector focal ratio f/3.5 | Image scale 67µm/arcsec",
+    "note": "DERIVED check: 3.5 x 3893 mm = 13.62 m, 206 265 / 13 625 = 15.14 arcsec/mm = 66.1 um/arcsec (the printed 67 um/arcsec is 1.4% larger). The bare prime focus is f/3.3 (Table 1); the corrector sets 3.5. The input beam of every fiber is therefore f/3.5, which FRD and the corrector's non-telecentricity (up to 4 deg) widen to the f/3.15 the collimator accepts."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "Fibers, 2dF feed",
+    "value": "392 science + 8 guide fibers per slit (400 slots); core 140 um, cladding 168 um, 38 m long",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Secs. 2.1 and 6; L02 Sec. 3.4",
+    "quote": "The Polymicro Broadband fibres∗ have a nominal core diameter of 140um, cladding diameter 168um | 392 science fibre spectra | eight missing spectra where the guide fibres would be",
+    "note": "INFERRED from the pair: the 'eight missing spectra' (Sec. 6) are the eight guide-fiber slots of a 400-slot slit. Fiber run 38 m (SH06 Sec. 2.1: 'replacement of the 8m fibre run with the 38m run'); the 2dF fibers had the same 140 um core (L02 Sec. 3.4: 'core diameter 140 µm'). Each 2dF field plate carries 400 fibers; the slit takes one plate at a time."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "Fiber size on the sky",
+    "value": "2.1 arcsec mean (2.16 at the field center, 2.0 at the edge)",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "L02",
+    "loc": "Sec. 3.4, Table 1",
+    "quote": "corresponding to an average diameter of 2.1 arcsec on the sky | Fibre size on sky (mean) 2.1 arcsec",
+    "note": "ALT D10 Sec. 4.1: 'The angular size of each fibre on the sky is 2 arc seconds'. DERIVED: 140 um / 67 um per arcsec = 2.09 arcsec."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "Fiber input and output focal ratios",
+    "value": "input f/3.5 (corrector); collimator accepts f/3.15",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "L02; SH06",
+    "loc": "L02 Secs. 3.2, 3.5; SH06 Sec. 2.3",
+    "quote": "Corrector focal ratio f/3.5 | f/3.15 Schmidt collimator",
+    "note": "The explorer's virtual convention: F = 3.15 (the collimator's ratio, the beam the fibers must fill), core angle = 140 um / (3.15 x 3893 mm) = 2.355 arcsec, entered as the slit of equal line width sqrt(3)/2 x 2.355 = 2.039 arcsec (DERIVED; as BOSS, DESI, LAMOST). L02 (for the retired 2dF spectrographs, the same f/3.15 collimator speed) states the intent: the collimator 'slightly oversized compared to the prime focus corrector focal ratio of f/3.5, to allow for some focal ratio degradation'. The fiber output ratio itself is NOT FOUND for AAOmega."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "Number of spectra on the detector (nObj)",
+    "value": "392 (400 slots; 8 empty guide slots)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S10",
+    "loc": "SH06 Sec. 6; S10 Sec. 3",
+    "quote": "eight missing spectra where the guide fibres would be | 392 science fibres are deployed on astronomical targets",
+    "note": "nObj = 392 for MOS (SPIRAL: 512 fibers, KOALA: 1000 lenslets, Secs. below; not entered)."
+   },
+   {
+    "section": "Telescope and feed",
+    "parameter": "Fiber pitch on the CCD",
+    "value": "~10 pixels (150 um)",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "S10",
+    "loc": "Sec. 3 (AAOmega MOS)",
+    "quote": "the fibre pitch, of ∼10 pixels",
+    "note": "DERIVED: 392 + 8 = 400 slots x 10 px x 15 um = 60 mm of the 61.4 mm 4096-px spatial axis; the 145 mm slit (SH06) demagnified by f_cam/f_col = 0.4127 is 59.8 mm. Consistent."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Slit length (pseudo-slit)",
+    "value": "145",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Sec. 2.3",
+    "quote": "The design has a 145mm fibre slit",
+    "note": "With a field lens gelled to the slitlets ('telecentric (or more correctly, pupil-centric)'). 90 slitlets make up the full slit (SH06 Sec. 5.4)."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Collimator type",
+    "value": "all-Schmidt: f/3.15 spherical Schmidt collimator, with one corrector plate per arm after the dichroic",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Abstract and Sec. 2.3",
+    "quote": "an f/3.15 Schmidt collimator, incorporating a dichroic beam-splitter | incorporating a dichroic beam-splitter upstream of the corrector (this necessitates two correctors but minimises pupil relief)",
+    "note": "Whether the mirror is the explorer's 'mirror' collimator: a Schmidt collimator is a reflecting (spherical mirror) collimator with a corrector plate; the papers do not say 'mirror' in so many words. INFERRED: col 'mirror' (the one-corrector-per-arm detail is not representable)."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Collimated beam (pupil) diameter",
+    "value": "190",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Abstract",
+    "quote": "Pupil size is 190mm, determined by the competing demands of cost, obstruction losses, and maximum resolution",
+    "note": ""
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Collimator focal length",
+    "value": "598.5",
+    "unit": "mm",
+    "tag": "DERIVED",
+    "src": "SH06",
+    "loc": "Abstract",
+    "quote": "f/3.15 Schmidt collimator | Pupil size is 190mm",
+    "note": "DERIVED: 3.15 x 190 mm = 598.5 mm. Not stated as a length in the sources saved here (the Smith et al. 2004 and Saunders et al. 2004 SPIE papers, behind the SPIE paywall, give the prescription). ALT: the retired 2dF spectrographs used a 150 mm beam at f/3.15 = 472.5 mm (L02 Sec. 3.5), so the focal ratio is a carry-over."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Collimator on- or off-axis (deploy gate)",
+    "value": "ON-AXIS (Schmidt; the slit stands in the returning beam), INFERRED; no sentence states it",
+    "unit": "",
+    "tag": "INFERRED",
+    "src": "SH06; S16; S14",
+    "loc": "SH06 abstract and Sec. 2.3; S16 Secs. 2 and 8; S14 Sec. 1",
+    "quote": "determined by the competing demands of cost, obstruction losses, and maximum resolution | AAOmega [7] suffers from complex and variable diffractive blazes, imperfectly understood but clearly caused by the detector and spider in the beam. Hence a decision was taken to have a collimator with unobstructed pupil. An off-axis Schmidt collimator works fine | Classic Schmidt designs suffer from obstruction losses caused by the detector",
+    "note": "VERDICT: the evidence is indirect, from three papers by the instrument's designer. (1) SH06: the pupil size trades 'obstruction losses' against resolution, so the pupil is obstructed. (2) S16 (Hector, which chose 'a collimator with unobstructed pupil' and an off-axis Schmidt 'by contrast', and says AAOmega's diffractive blazes are caused by 'the detector and spider in the beam'): the 'detector' obstruction is in the cameras; the slit-and-slitlet 'spider' obstruction is the collimator's. (3) The retired 2dF spectrographs had an off-axis Maksutov collimator 'with no central obstruction' (L02 Sec. 3.5), which AAOmega replaced with a Schmidt. A classical Schmidt collimator is on-axis by construction (slit at the focus on the mirror's axis, in front of the mirror). No drawing or sentence confirms the slit in the returning beam; the Smith 2004 and Saunders 2004 SPIE layout figures would. Recommended colTilt 0 (the user decides)."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Dichroic position",
+    "value": "in the collimated beam, upstream of the per-arm correctors",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Sec. 2.3",
+    "quote": "incorporating a dichroic beam-splitter upstream of the corrector (this necessitates two correctors but minimises pupil relief)",
+    "note": "Split type for web/arms.js: 'collimated' (the dichroic stands in the collimated beam after the shared slit and collimator; each arm then has its own corrector, grating, camera and detector)."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Camera type, focal ratio and focal length",
+    "value": "f/1.3 Schmidt (doublet corrector, spherical mirror, S-YGH51 field flattener); 247",
+    "unit": "mm",
+    "tag": "DERIVED",
+    "src": "SH06",
+    "loc": "Abstract; Sec. 2.3",
+    "quote": "articulating red and blue f/1.3 Schmidt cameras | an f/1.3 Schmidt camera with a doublet corrector, spherical mirror, a field-flattening lens of S-YGH51 glass",
+    "note": "DERIVED: f_cam = 1.3 x 190 mm = 247 mm. (A web-search snippet of the AAT grating calculator, not saved, also gave 247 mm; not used as a source.) The detector sits inside the beam (a classical Schmidt camera: 'obstruction losses', S14 Sec. 1); the explorer's catadioptric 'mirror' camera drawing. Camera view: 8 deg off-axis angles; 230 mm aspheric doublet corrector plates (SH06 Sec. 2.3)."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Gratings: type and mounting",
+    "value": "VPH transmission gratings, 20 mm thick, in the 190 mm beam, interchangeable; most with slanted fringes",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Secs. 2.3 and 3.3",
+    "quote": "The VPH gratings were made by Ralcon Development Lab | All gratings are 20mm thick | most of the AAOmega gratings have their internal refractive index fringes slanted",
+    "note": "The slant angles are NOT FOUND, so gTilt = 0. The grating is tilted slightly off Littrow to move the 0th-order ghost off the detector (SH06 Sec. 3.3: 'This ghost can be moved off the detector by tilting the grating')."
+   },
+   {
+    "section": "Spectrograph optics",
+    "parameter": "Camera articulation",
+    "value": "each camera articulates; the camera angle sets the wavelength coverage",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Sec. 3.3",
+    "quote": "The wavelength coverage for a particular grating angle is determined by the camera angle, which must hence be adjustable",
+    "note": "The range of camera angles is NOT FOUND in the saved sources. Camera-collimator angle for the preset: psi = 2 x grating angle (INFERRED: the published central wavelengths equal the Littrow wavelengths 2 sin(alpha) / G to 0.0-0.6% at all five grating angles with a published center, see the settings table). The explorer's transmission 'trans' type at its symmetric Bragg setting needs no psi."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "580V",
+    "value": "580 /mm; blaze 450 nm; useful 370-580 nm; angle 8 deg; 0.1 nm/px; MOS R 1300",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "580V 450 370–580 210 8 0.1 1300 | Grating angle 8° 8° 22.5° 20° 40° 40° 47°",
+    "note": "Line densities are the grating names (the 'V', 'R', 'I', 'B', 'D' suffix gives the blaze color). Littrow wavelength at 8 deg: 2 sin 8 deg / 0.580 = 4799 A (published center 4800: H13 'the 580V, centred at 4800Å')."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "385R",
+    "value": "385 /mm; blaze 700 nm; useful 560-880 nm; angle 8 deg; 0.16 nm/px; MOS R 1300",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "385R 700 560–880 320 8 0.16 1300",
+    "note": "Littrow at 8 deg: 7230 A (published center 7250: H13 'centred at 7250Å')."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "1500V",
+    "value": "1500 /mm; blaze 475 nm; useful 425-600 nm; angle 20-25 deg (22.5 in S14); 0.037 nm/px; MOS R 3700",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "1500V 475 425–600 75 20–25 0.037 3700",
+    "note": "Littrow at 22.5 deg: 5102 A."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "1000R",
+    "value": "1000 /mm; blaze 675 nm; useful 550-800 nm; angle 18-22.5 deg (20 in S14); 0.057 nm/px; MOS R 3400",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "1000R 675 550–800 110 18–22.5 0.057 3400",
+    "note": "Littrow at 20 deg: 6840 A (published center 6880 in K26: 'is centred at 6880 and 9200Å'; 20.1 deg)."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "2500V",
+    "value": "2500 /mm; blaze 500 nm; useful 450-580 nm; angle 37.5-45 deg (40 in S14); 0.018 nm/px; MOS R 8000",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "2500V 500 450–580 35 37.5–45 0.018 8000",
+    "note": "Littrow at 40 deg: 5142 A."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "2000R",
+    "value": "2000 /mm; blaze 650 nm; useful 580-725 nm; angle 37.5-45 deg (40 in S14); 0.023 nm/px; MOS R 8000",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "2000R 650 580–725 45 37.5–45 0.023 8000",
+    "note": "Littrow at 40 deg: 6428 A."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "1700D",
+    "value": "1700 /mm; blaze 860 nm; useful 845-870 nm; angle 47 deg; 0.024 nm/px; MOS R 10000",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; S14",
+    "loc": "SH06 Table 2; S14 Table 3",
+    "quote": "1700D 860 845–870 40 47∗ 0.024 10000 | The 1700D Ca iii grating is a tuned to give maximum performance at 860nm",
+    "note": "Littrow at 47 deg: 8604 A. A Dickson-type thick grating for the Ca triplet; unsuitable at other angles. Not entered as a Setting (no blue partner; the explorer would show 8347-8845 A)."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "Other gratings in Table 2",
+    "value": "1700B (400 nm, 18 deg), 3200B (400 nm, 37.5-45 deg), 1000I (875 nm, 22.5-25 deg), 1700I (860 nm, 37.5-45 deg)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Table 2",
+    "quote": "1700B 400 370–450 65 18 0.033 3500 | 3200B 400 360–450 25 37.5–45 0.014 8000 | 1000I 875 800–950 110 22.5–25 0.057 4400 | 1700I 860 725–900 50 37.5–45 0.028 8000",
+    "note": "Not entered. No published setting with a coverage for any of them in the saved sources."
+   },
+   {
+    "section": "Gratings (Table 2 of SH06; angles from S14 Table 3)",
+    "parameter": "Grating sizes (gLen)",
+    "value": "not published",
+    "unit": "mm",
+    "tag": "NOT FOUND",
+    "src": "SH06",
+    "loc": "",
+    "quote": "All gratings are 20mm thick",
+    "note": "gLen is left unset: the 190 mm beam at 47 deg has a 279 mm footprint (DERIVED, the explorer's Lg for 1700D), and the clear aperture is NOT FOUND."
+   },
+   {
+    "section": "Dichroics (for the All-arms view)",
+    "parameter": "Standard dichroic (x5700): cut and which arm reflects",
+    "value": "cross-over 570 nm; blue (< 570 nm) reflected to the blue arm, red transmitted",
+    "unit": "nm",
+    "tag": "SOURCED",
+    "src": "SH06; C17; H13",
+    "loc": "SH06 Sec. 2.3, Sec. 5.8, Fig. 1; C17 Sec. 2; H13 Sec. 2",
+    "quote": "Only a single beam-splitter, with crossover at 570nm, is currently in use | We used the x5700 dichroic, which splits the arms at 5700 Å | poor dichroic performance on reflection",
+    "note": "INFERRED which arm reflects: SH06 Sec. 5.8 blames, for the blue arm's low sensitivity, 'poor dichroic performance on reflection', so the blue arm is the reflected one; Fig. 1 shows the transmittance curve (about 1% below the edge, 95-98% above), so the red passes. The split sits in the collimated beam."
+   },
+   {
+    "section": "Dichroics (for the All-arms view)",
+    "parameter": "Standard dichroic: transition width",
+    "value": "about 15 nm (10% to 90%), measured at normal incidence",
+    "unit": "nm",
+    "tag": "MEASURED",
+    "src": "SH06",
+    "loc": "Fig. 1 (p. 4)",
+    "quote": "Response of the 570nm dichroic currently available for use with AAOmega. Note the abrupt transition region and generally smooth profile.",
+    "note": "MEASURED from the figure (130 dpi render): 400 nm at pixel x = 399 and 1000 nm at x = 780 give 0.635 px/nm; the transmittance rises from 10% to 90% over about 10 px, 15 nm, centered near 610 nm. The curve is measured at NORMAL incidence ('Measured at Normal Incidence' in the legend), so its 50% point (about 610 nm) is not the working cross-over: the working angle shifts it to 570 nm. The explorer's w = 150 A (INFERRED to carry to the working angle, where the edge also narrows a little)."
+   },
+   {
+    "section": "Dichroics (for the All-arms view)",
+    "parameter": "Dichroic angle of incidence",
+    "value": "not published",
+    "unit": "deg",
+    "tag": "NOT FOUND",
+    "src": "SH06",
+    "loc": "Fig. 1",
+    "quote": "",
+    "note": "A shift from the 610 nm normal-incidence edge to 570 nm corresponds to roughly 35-40 deg for a coating of effective index ~1.8 (INFERRED, order of magnitude only). For arms.js enter noAoi: true (as LLAMAS and 4MOST HRS), with 45 deg only for the drawing."
+   },
+   {
+    "section": "Dichroics (for the All-arms view)",
+    "parameter": "Other dichroics",
+    "value": "670 nm cross-over (WiggleZ, from 2007 August; red 650-950 nm, blue 470-680 nm); selectable 570 or 670 nm (KOALA)",
+    "unit": "nm",
+    "tag": "SOURCED",
+    "src": "D10; K26",
+    "loc": "D10 Sec. 4.1, Table 6; K26 Sec. 3",
+    "quote": "The original AAOmega dichroic beam splitter cuts over at 570 nm while the new dichroic has a cut over at 670 nm | separated into blue and red arms using a dichroic beam splitter, selectable at 570 or 670 nm",
+    "note": "Table 6 of D10: 570 nm (old): blue lambda_c 477, 370-580 nm; red 725, 560-850; 670 nm (new): blue 575, 470-680; red 815, 650-950."
+   },
+   {
+    "section": "Detectors",
+    "parameter": "CCDs",
+    "value": "one 2k x 4k E2V per arm (blue thinned 16 um silicon; red deep-depletion 40 um, low-fringing); long axis spatial; 15 um pixels",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; H13; Y15",
+    "loc": "SH06 Secs. 2.3, 2.3 (charge diffusion); H13 Sec. 2; Y15 Sec. 2",
+    "quote": "a 2K x 4K E2V CCD with the long axis in the spatial direction | The DD silicon thickness is 40µm, vs 16µm for the blue arm CCD | an extra contribution from charge diffusion of order 1 pixel (15µm) | the detectors were two 2k×4k E2V CCDs. These detectors were replaced with new, cosmetically superior and more efficient 2k×4k E2V CCDs during 2014",
+    "note": "Nx = 2048 along the dispersion, Ny = 4096 across, pix = 15 um. The pixel size is read from 'of order 1 pixel (15um)'. The 2014 replacement (both arms) keeps the format. CONFLICT: K26 says 'spectral dispersion occurs along the 4k axis', against SH06 (long axis spatial); the 3920-px fiber stack (10 px pitch x 392) and GAMA's 2100 A at 1 A/px settle it for 2048 along the dispersion."
+   },
+   {
+    "section": "Coverage",
+    "parameter": "Wavelength coverage of the system",
+    "value": "370-950 nm (design); R = 1000-8000 MOS, 1500-10 000 IFU",
+    "unit": "nm",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Abstract",
+    "quote": "Wavelength coverage is 370 to 950nm and spectral resolution 1,000-8,000 in multi-Object mode, or 1,500-10,000 in IFU mode",
+    "note": "Blue limit set by the 38 m fibers' transmission (D10 Sec. 4.1), red limit by the CCD response."
+   },
+   {
+    "section": "Coverage",
+    "parameter": "IFU feeds",
+    "value": "SPIRAL (512 fibers, Cassegrain); KOALA (1000 hexagonal microlenses, 0.7 or 1.25 arcsec sampling)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06; K26",
+    "loc": "SH06 abstract; K26 Sec. 3",
+    "quote": "the 512 fibre SPIRAL integral field unit (IFU) at Cassegrain focus | telecentric double-lenslet array comprising 1000 hexagonal microlenses",
+    "note": "Not entered: the explorer's fiber model has no lenslet IFU feed; SH06 notes the IFU resolution is higher, 'due to the smaller projected fibre diameter'."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "Fiber PSF on the CCD",
+    "value": "FWHM 3.1-3.3 px (blue), 3.3-3.6 px (red); design 3.2 px; typical ~3.4 px",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "SH06; S10",
+    "loc": "SH06 Sec. 2.3, Sec. 5.10; S10 Sec. 3",
+    "quote": "with actual FWHM in the range 3.1-3.3 pixels | giving 3.3-3.6 pixels | The cameras deliver largely Gaussian profiles of FWHM∼3.4 CCD pixels",
+    "note": "DERIVED check (model): 140 um x 247 / 598.5 = 57.8 um = 3.85 px diameter; the explorer's equal-line-width slit is sqrt(3)/2 of it = 3.34 px, inside the published 3.1-3.6 px (not fitted: all inputs are sourced)."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "580V + 385R (GAMA, OzDES, WiggleZ) dispersion, coverage and R",
+    "value": "580V 1.0 A/px, 2100 A, centered 4800; 385R 1.6 A/px, 3200 A, centered 7250; R ~ 1000 (blue end) to 1600 (red end); R ~ 1400 (OzDES); continuous 3700-8800 A",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "H13; C17; Y15",
+    "loc": "H13 Sec. 2; C17 Sec. 2; Y15 Sec. 2",
+    "quote": "dispersion of 1Å/pixel and gives a coverage of 2100Å | a dispersion of 1.6Å/pixel and gives a coverage of 3200Å | from R ≈ 1000 at the blue end up to R ≈ 1600 | This setup provides continuous wavelength coverage from ∼ 3700Å to ∼ 8800Å | with a resolution of R∼1400",
+    "note": "ALT D10 Sec. 4.1: 'both providing a resolution of R ≈ 1300. This gives a dispersion of about 0.11 nm pixel−1 in the blue arm and 0.16 nm pixel−1 in the red arm'. ALT D11: '580V and 385R gratings with central wavelengths of 4800Å and 7250Å'; resolution 'about 3.5Å in the blue channel and about 5.5Å in the red channel'."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "580V and 1000R FWHM (Shapley), 1000R R (KOALA)",
+    "value": "580V 3.5 A FWHM from 3700-5800 A at 1.0 A/px; 1000R 1.9 A FWHM, ~1100 A, 0.6 A/px; 1000R R = 3400, 6280-7450 A at center 6880 A",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SR07; K26",
+    "loc": "SR07 Sec. 2; K26 Sec. 3",
+    "quote": "delivering a nominal resolution of 3.5Å FWHM from 3700–5800 Å, sampled at 1.0Å per pixel | the nominal resolution is 1.9Å | The 1000R grating provides a resolving power of R ≃ 3400 and is centred at 6880 and 9200 Å, yielding spectral coverage over the ranges 6280–7450 Å",
+    "note": "Independent tests of the settings below (the angle comes from S14 Table 3, the centers and coverage from other papers)."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "Throughput",
+    "value": "peak 21% (red) and 16% (blue) at commissioning (75% and 50% of expectation)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Sec. 5.1",
+    "quote": "the red arm is currently performing at 75% of the expected sensitivity (21% peak efficiency)",
+    "note": "A 2006 commissioning value; the blue arm improved later. Not an explorer quantity."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "Table 2 'MOS Resolution' (design values, not arc measurements)",
+    "value": "580V 1300; 385R 1300; 1700B 3500; 1500V 3700; 1000R 3400; 1000I 4400; 3200B/2500V/2000R/1700I 8000; 1700D 10 000",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Table 2",
+    "quote": "580V 450 370–580 210 8 0.1 1300 | 1700D 860 845–870 40 47∗ 0.024 10000",
+    "note": "Which of design, geometric or measured is not stated: treated as GEOMETRIC/nominal."
+   },
+   {
+    "section": "Published performance",
+    "parameter": "Calibration accuracy",
+    "value": "wavelength calibration better than a tenth of a pixel",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SH06",
+    "loc": "Sec. 5.9",
+    "quote": "Results are currently measured to better than a tenth of a pixel",
+    "note": ""
+   }
+  ],
+  "recommended_presets": [
+   {
+    "id": "aao580v",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 580V/385R",
+    "setting": "blue 580V",
+    "name": "AAT 3.9 m / AAOmega blue 580V",
+    "grating_angle_deg": 8.0,
+    "camera_angle_deg": 16.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 580,
+      "lamC": 4799,
+      "lamB1": 4799
+     }
+    },
+    "model": {
+     "lo": 3735,
+     "hi": 5854,
+     "dlpix": 1.037,
+     "R": 1387,
+     "npix": 3.34
+    },
+    "why": "The GAMA, WiggleZ and OzDES blue setup (H13, D11, D10, C17): the most used AAOmega grating (the survey workhorse, about 300 000 GAMA spectra), with R ~ 1300 over 3700-5800 A."
+   },
+   {
+    "id": "aao385r",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 580V/385R",
+    "setting": "red 385R",
+    "name": "AAT 3.9 m / AAOmega red 385R",
+    "grating_angle_deg": 8.0,
+    "camera_angle_deg": 16.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 385,
+      "lamC": 7230,
+      "lamB1": 7230
+     }
+    },
+    "model": {
+     "lo": 5626,
+     "hi": 8819,
+     "dlpix": 1.562,
+     "R": 1387,
+     "npix": 3.34
+    },
+    "why": "The matching red arm (385R, centered 7250 A): the pair gives continuous 3700-8800 A at R ~ 1000-1600 with the x5700 dichroic."
+   },
+   {
+    "id": "aao1500v",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 1500V/1000R",
+    "setting": "blue 1500V",
+    "name": "AAT 3.9 m / AAOmega blue 1500V",
+    "grating_angle_deg": 22.5,
+    "camera_angle_deg": 45.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 1500,
+      "lamC": 5102,
+      "lamB1": 5102
+     }
+    },
+    "model": {
+     "lo": 4715,
+     "hi": 5480,
+     "dlpix": 0.374,
+     "R": 4089,
+     "npix": 3.34
+    },
+    "why": "Medium resolution (R ~ 3700, Table 2); the grating angle 22.5 deg is from S14 Table 3; no published coverage, so only its dispersion is tested."
+   },
+   {
+    "id": "aao1000r",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 1500V/1000R",
+    "setting": "red 1000R",
+    "name": "AAT 3.9 m / AAOmega red 1000R",
+    "grating_angle_deg": 20.0,
+    "camera_angle_deg": 40.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 1000,
+      "lamC": 6840,
+      "lamB1": 6840
+     }
+    },
+    "model": {
+     "lo": 6251,
+     "hi": 7417,
+     "dlpix": 0.571,
+     "R": 3593,
+     "npix": 3.34
+    },
+    "why": "Medium-resolution red (R ~ 3400): coverage 6280-7450 A, 1.9 A FWHM, R 3400 published (K26, SR07), an independent test."
+   },
+   {
+    "id": "aao2500v",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 2500V/2000R",
+    "setting": "blue 2500V",
+    "name": "AAT 3.9 m / AAOmega blue 2500V",
+    "grating_angle_deg": 40.0,
+    "camera_angle_deg": 80.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 2500,
+      "lamC": 5142,
+      "lamB1": 5142
+     }
+    },
+    "model": {
+     "lo": 4947,
+     "hi": 5328,
+     "dlpix": 0.186,
+     "R": 8283,
+     "npix": 3.34
+    },
+    "why": "The high-resolution blue grating (R ~ 8000, 0.018 nm/px)."
+   },
+   {
+    "id": "aao2000r",
+    "tel": "AAT 3.9 m",
+    "inst": "AAOmega 2500V/2000R",
+    "setting": "red 2000R",
+    "name": "AAT 3.9 m / AAOmega red 2000R",
+    "grating_angle_deg": 40.0,
+    "camera_angle_deg": 80.0,
+    "state": {
+     "mode": "grating",
+     "D": 3.893,
+     "F": 3.15,
+     "g": {
+      "slitW": 2.039,
+      "nObj": 392,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1197,
+      "W": 190,
+      "fcam": 247,
+      "cam": "mirror",
+      "gType": "trans",
+      "m": 1,
+      "gKind": "vph",
+      "gTilt": 0,
+      "tAlpha": null,
+      "psi": 0,
+      "Nx": 2048,
+      "Ny": 4096,
+      "pix": 15,
+      "telF": 3.5,
+      "fibAp": 2.1,
+      "G": 2000,
+      "lamC": 6428,
+      "lamB1": 6428
+     }
+    },
+    "model": {
+     "lo": 6184,
+     "hi": 6659,
+     "dlpix": 0.233,
+     "R": 8283,
+     "npix": 3.34
+    },
+    "why": "The high-resolution red grating (R ~ 8000, 0.023 nm/px)."
+   }
+  ],
+  "arms_group": {
+   "split": "collimated",
+   "cut_A": 5700,
+   "w_A": 150,
+   "aoi": "NOT FOUND (noAoi true)",
+   "reflected": "blue (INFERRED)",
+   "groups": {
+    "AAOmega 580V/385R": "{ split: \"collimated\", tree: { cut: 5700, w: 150, aoi: 45, noAoi: true, src: \"SH06 Sec. 2.3, Fig. 1 (570 nm; width MEASURED, 15 nm; AOI NOT FOUND); H13/C17 x5700; blue reflected INFERRED (SH06 Sec. 5.8)\", R: \"aao580v\", T: \"aao385r\" } }",
+    "AAOmega 1500V/1000R": "same tree with R: \"aao1500v\", T: \"aao1000r\" (the arms leave a gap 5480-6251 A at 5700 A)",
+    "AAOmega 2500V/2000R": "same tree with R: \"aao2500v\", T: \"aao2000r\" (gap 5328-6184 A)"
+   }
+  },
+  "validation": [
+   {
+    "what": "fiber image FWHM 3.1-3.6 px (3.4 typical)",
+    "q": "npix",
+    "value": 3.4,
+    "tol": "0.1",
+    "src": "SH06 Sec. 2.3, 5.10; S10: model 3.34 (-1.8%); not fitted (140 um core, f/1.3 / f/3.15)"
+   },
+   {
+    "what": "580V dispersion 1.0 A/px",
+    "q": "dlpix",
+    "value": 1.0,
+    "tol": "0.05",
+    "src": "H13 Sec. 2; SH06 Table 2 (0.1 nm/px): model 1.037 (+3.7%)"
+   },
+   {
+    "what": "385R dispersion 1.6 A/px",
+    "q": "dlpix",
+    "value": 1.6,
+    "tol": "0.05",
+    "src": "H13 Sec. 2; SH06 Table 2 (0.16): model 1.562 (-2.4%)"
+   },
+   {
+    "what": "580V coverage 2100 A",
+    "q": "span",
+    "value": 2100,
+    "tol": "0.03",
+    "src": "H13 Sec. 2: model 2119 (+0.9%)"
+   },
+   {
+    "what": "385R coverage 3200 A",
+    "q": "span",
+    "value": 3200,
+    "tol": "0.03",
+    "src": "H13 Sec. 2: model 3193 (-0.2%)"
+   },
+   {
+    "what": "blue arm coverage starts ~3700 A",
+    "q": "lo",
+    "value": 3700,
+    "tol": "0.03",
+    "src": "H13/C17 'continuous ... from ~3700 A to ~8800 A': model 3735 (+0.9%); 580V at 4799 A"
+   },
+   {
+    "what": "red arm coverage ends ~8800 A",
+    "q": "hi",
+    "value": 8800,
+    "tol": "0.03",
+    "src": "C17 Sec. 2; Y15: model 8819 (+0.2%); 385R at 7230 A"
+   },
+   {
+    "what": "580V R = lambda / 3.5 A = 1371 at 4800 A",
+    "q": "R",
+    "value": 1371,
+    "tol": "0.05",
+    "src": "SR07 Sec. 2 (nominal FWHM): model 1387 (+1.2%)"
+   },
+   {
+    "what": "1000R coverage from 6280 A",
+    "q": "lo",
+    "value": 6280,
+    "tol": "0.02",
+    "src": "K26 Sec. 3 (center 6880 A): model 6251 (-0.5%)"
+   },
+   {
+    "what": "1000R coverage to 7450 A",
+    "q": "hi",
+    "value": 7450,
+    "tol": "0.02",
+    "src": "K26 Sec. 3: model 7417 (-0.4%)"
+   },
+   {
+    "what": "1000R R = 3400",
+    "q": "R",
+    "value": 3400,
+    "tol": "0.08",
+    "src": "K26 Sec. 3; SH06 Table 2: model 3593 (+5.7%)"
+   },
+   {
+    "what": "1000R R = 6880/1.9 A = 3621",
+    "q": "R",
+    "value": 3621,
+    "tol": "0.05",
+    "src": "SR07 Sec. 2: model 3593 (-0.8%)"
+   },
+   {
+    "what": "1500V 0.037 nm/px",
+    "q": "dlpix",
+    "value": 0.37,
+    "tol": "0.05",
+    "src": "SH06 Table 2: model 0.374 (+1.1%)"
+   },
+   {
+    "what": "1000R 0.057 nm/px",
+    "q": "dlpix",
+    "value": 0.57,
+    "tol": "0.05",
+    "src": "SH06 Table 2: model 0.571 (+0.1%)"
+   },
+   {
+    "what": "2500V 0.018 nm/px",
+    "q": "dlpix",
+    "value": 0.18,
+    "tol": "0.05",
+    "src": "SH06 Table 2: model 0.186 (+3.4%)"
+   },
+   {
+    "what": "2000R 0.023 nm/px",
+    "q": "dlpix",
+    "value": 0.23,
+    "tol": "0.05",
+    "src": "SH06 Table 2: model 0.233 (+1.1%)"
+   },
+   {
+    "what": "R 1300 (580V/385R), 3700 (1500V), 8000 (2500V/2000R) MOS 'resolution'",
+    "q": "R",
+    "value": "info",
+    "tol": "info",
+    "src": "SH06 Table 2: model 1387 (+7%), 4089 (+11%), 8283 (+4%): a geometric R from the full-round-fiber width; the table is nominal"
+   },
+   {
+    "what": "1700D R 10 000, 0.024 nm/px (not a Setting)",
+    "q": "info",
+    "value": "info",
+    "tol": "info",
+    "src": "SH06 Table 2: a 1700D run of the same state (47 deg, 8604 A) gives R 10 585 (+5.9%), 0.244 A/px (+1.5%), coverage 8347-8845 A (the table's 'coverage 40 nm' is a usable range)"
+   },
+   {
+    "what": "pixel scale along the slit: 15 um per 36.3 um on the slit = 0.542 arcsec at 67 um/arcsec",
+    "q": "pixScale",
+    "value": "info",
+    "tol": "info",
+    "src": "DERIVED from L02 Table 1; the virtual F = 3.15 gives 0.611 arcsec/px (+13%), because the fibers see f/3.5 on the sky but the explorer enters them at the collimator's f/3.15"
+   }
+  ],
+  "not_found": [
+   "A published optical layout figure of AAOmega: Smith et al. 2004 (SPIE 5492, 410; DOI 10.1117/12.551013; 2004SPIE.5492..410S) and Saunders et al. 2004 (SPIE 5492, 389; DOI 10.1117/12.550871; 2004SPIE.5492..389S) are behind the SPIE paywall and no preprint was found; SH06 has no layout figure.",
+   "The AAT/AAO AAOmega manual and grating calculator (aat.anu.edu.au/files/2dF-AAOmega-obs-manual_4.pdf; aat.anu.edu.au/cgi-bin/aaomega_calc.cgi): the AAT web site served only 'our website is offline awaiting patches for the recent PHP security issues' on 2026-11-18, so no manual was saved (the camera focal length 247 mm, the allowed camera-angle range 0-94.3 / 0-95.3 deg and the grating-angle range 0-49 deg, seen in a search snippet of the calculator, are therefore unverified).",
+   "Collimator focal length and camera focal length as stated lengths (both DERIVED from f-ratio x 190 mm).",
+   "Dichroic angle of incidence and any sentence stating that the collimator is on-axis or that the slit stands in the returning beam.",
+   "Distances: slit to collimator, collimator to grating, grating to camera, camera angle limits; grating clear apertures (gLen); fringe slant angles.",
+   "Fiber output focal ratio (the f/3.15 collimator speed is the design intent, L02 for the retired 2dF spectrographs and SH06).",
+   "Camera angle used for each published setting (psi = 2 x grating angle is INFERRED from the Littrow centers)."
+  ],
+  "conflicts": [
+   "Dispersion axis of the CCDs: SH06 Sec. 2.3 'with the long axis in the spatial direction' (and 392 spectra x 10 px = 3920 px; GAMA 2100 A at 1 A/px) against K26 Sec. 3 'spectral dispersion occurs along the 4𝑘 axis'. Adopted: 2048 px along the dispersion.",
+   "Dichroic cross-over: 570 nm (SH06, D10, Y15, K26) against '5700 A' (H13, D11, C17, 'x5700'): the same dichroic in nm and in A. D10 Table 6 gives its blue range as 370-580 nm, red 560-850 nm (overlap).",
+   "Fiber size on the sky: 2.1 arcsec mean (L02 Table 1; 2.16 at the center, 2.0 at the edge) against 2 arcsec (D10 Sec. 4.1).",
+   "Resolving power of 580V + 385R: 1300 (SH06 Table 2, D10), 1000-1600 across the range (H13), ~1400 (Y15 OzDES), 3.5 A FWHM blue and 5.5 A red (D11: R = 1371 and 1318).",
+   "Grating angle 580V/385R 8 deg (SH06 Table 2 and S14 Table 3) with Littrow centers 4799 and 7230 A against published centers 4800 and 7250 A (0.0% and 0.3%); 1000R 20 deg gives 6840 against 6880 (0.6%).",
+   "Fiber PSF FWHM: 3.2 px design, 3.1-3.3 (blue) and 3.3-3.6 (red) measured, ~3.4 typical (SH06, S10).",
+   "1700D coverage: SH06 Table 2 gives 40 nm; 2048 px x 0.24 A/px = 49 nm (the table lists the usable range)."
+  ]
+ }
+}
