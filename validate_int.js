@@ -364,6 +364,69 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   info("ALMA: the Cycle 13 resolution table describes the 50-antenna configurations", "its beams are 12-24% wider than 0.574 λ / L80 for C-2 to C-10 (the record's Conflicts); the pads here are the 43-antenna sets");
 }
 
+// ---- the SMA (data/interf/sma.json): the configurations and the published baselines, the primary beam, the
+// subcompact's own elevation limit; SMA Memo 131's Table 3 beams (natural weighting, +-6 h, elevation > 20 degrees,
+// shadowed data dropped; 345 GHz) for the 1998 configurations D, C, B, from the same pads (the memo's 1/Tsys^2
+// weights left out); the Observer Center's "characteristic resolutions" of today's configurations (no method
+// stated) as INFO lines
+{
+  const a = ARRS.find(q => q.id === "sma"), j = require("./data/interf/sma.json"), P = j.params, PAD = n => j.pads[String(n)].enu_m;
+  const lens = pads => { const L = []; for (let i = 0; i < pads.length; i++) for (let k = i + 1; k < pads.length; k++) L.push(Math.hypot(...[0, 1, 2].map(x => PAD(pads[i])[x] - PAD(pads[k])[x]))); return L.sort((x, y) => x - y); };
+  const antsLen = c => { const L = []; for (let i = 0; i < c.ants.length; i++) for (let k = i + 1; k < c.ants.length; k++) L.push(Math.hypot(...[0, 1, 2].map(x => c.ants[i][x] - c.ants[k][x]))); return L.sort((x, y) => x - y); };
+  const cf = id => a.configs.find(c => c.id === id);
+  {
+    const pads = id => cf(id).names.map(n => +n.slice(4)).sort((x, y) => x - y).join(",");
+    const ok = { SUB: pads("SUB") === "1,2,3,4,5,6,8,23" && P.oc_sub.quote.includes("pads 1 through 6") && P.oc_sub.quote.includes("typically pads 8 and 23"),
+      COM: P.oc_com.quote.includes("pads " + cf("COM").names.map(n => n.slice(4)).join(",")),
+      EXT: P.oc_ext.quote.includes("pads " + cf("EXT").names.map(n => n.slice(4)).join(",")),
+      VEX: pads("VEX") === "1,12,16,17,18,19,20,21" && P.oc_vex.quote.includes("pads 1,17,18,19,20,21") && P.oc_vex.quote.includes("typically pads 12 and 16") };
+    check("SMA: four configurations (subcompact to very extended) of eight 6 m antennas on the pads of the Observer Center's lists", a.configs.map(c => c.id).join() === "SUB,COM,EXT,VEX" && a.configs.every(c => c.ants.length === j.n_antennas) && a.dish === 6 && Object.values(ok).every(Boolean), Object.keys(ok).filter(k => !ok[k]).join(", "));
+  }
+  {
+    const lam = n => C / (n * 1e9), want = { 230: 55, 240: 51, 345: 36, 400: 31 };
+    const bad = Object.entries(want).filter(([n, w]) => rel(a.pb.k * lam(+n) / a.dish * RAD, w) > 0.03).map(([n]) => n);
+    check("SMA: the primary beam 1.2 λ / D within 3% of the Quick Specs' 55, 51, 36, 31″ (230, 240, 345, 400 GHz)", a.pb.k === 1.2 && bad.length === 0, Object.keys(want).map(n => (a.pb.k * lam(+n) / a.dish * RAD).toFixed(1) + "″").join(", "));
+  }
+  {
+    const Lv = antsLen(cf("VEX")), Le = antsLen(cf("EXT")), Lc = antsLen(cf("COM")), Ls6 = lens([1, 2, 3, 4, 5, 6]), Lc4 = lens([1, 4, 5, 7]), Lall = lens(Object.keys(j.pads).map(Number));
+    check("SMA: the very extended configuration's longest baseline, 508.9 m, within 0.2% of the call's 508 m and the Quick Specs' 509 m", rel(Lv[Lv.length - 1], 508) < 2e-3 && rel(Lv[Lv.length - 1], 509) < 2e-3, Lv[Lv.length - 1].toFixed(2) + " m");
+    check("SMA: the extended configuration's longest baseline within 3% of the call's 220 m", rel(Le[Le.length - 1], 220) < 0.03, Le[Le.length - 1].toFixed(2) + " m");
+    check("SMA: the subcompact's six inner-ring antennas 9.5 to 25 m apart, 15 baselines (the Observer Center), within 1.5%", Ls6.length === 15 && rel(Ls6[0], 9.5) < 0.015 && rel(Ls6[14], 25) < 0.015, Ls6[0].toFixed(2) + "–" + Ls6[14].toFixed(2) + " m");
+    check("SMA: the compact configuration's six inner-ring baselines 16.5 to 32 m (the Observer Center), within 1.5%", Lc4.length === 6 && rel(Lc4[0], 16.5) < 0.015 && rel(Lc4[5], 32) < 0.015, Lc4[0].toFixed(2) + "–" + Lc4[5].toFixed(2) + " m");
+    check("SMA: the 24 pads span 8 to 509 m (the Quick Specs), within 0.5%", rel(Lall[0], 8) < 0.005 && rel(Lall[Lall.length - 1], 509) < 0.005, Lall[0].toFixed(2) + "–" + Lall[Lall.length - 1].toFixed(2) + " m");
+    info("SMA: the compact configuration's longest baseline vs the Observer Center's \"approximately 70 meters\"", Lc[Lc.length - 1].toFixed(1) + " m from the pads (pads 12 and 23)");
+  }
+  check("SMA: the subcompact configuration alone has its own elevation limit, 33° (collisions), over the array's 15°", a.elLimit === 15 && cf("SUB").elLimit === 33 && ["COM", "EXT", "VEX"].every(k => cf(k).elLimit === undefined) && /33 degrees/.test(P.sub_el.quote));
+  {
+    // (natural weighting, 12 h of hour angle, elevation 20 degrees, shadowing by the 6 m dishes)
+    const beam = (pads, dec, elMin, dur = 12) => {
+      const ants = pads.map(n => { const p = PAD(n); return { e: p[0], n: p[1], u: p[2] }; }), nu = 345e9;
+      const S = RI.sample({ ants, lat: a.lat * DEG, dec: dec * DEG, elMin: elMin * DEG, dur, nu, bw: 0, step: 1 / 120, shadow: a.dish });
+      const ext = Math.max(...lens(pads)) * nu / C, w = RI.weigh(S, "natural", 0.5, Math.max(ext / 250, 1.5 * RI.HA_PER_H * S.step * ext));
+      for (let k = 0, pix = 0.05 / ext; k < 3; k++, pix *= 3) {
+        const G = RI.grid(S, w, 512, 1 / (512 * pix)), D = RI.dirty(G.g, null, 512), f = RI.fitBeam(D.beam, 512, pix);
+        if (f) return { maj: f.maj * RAD, geo: Math.sqrt(f.maj * f.min) * RAD };
+      }
+      return { maj: NaN, geo: NaN };
+    };
+    const M = P.m131_cfg_tab.quote, cfgPads = c => M.match(new RegExp("\\b" + c + " ((?:\\d+ ?){8})"))[1].trim().split(" ").map(Number);
+    const badG = [], badM = [], out = [];
+    for (const c of ["D", "C", "B"]) {
+      const q = P["m131_t3_" + c].quote.replace(/^[A-D] array /, "").split(/\s+/).map(Number), pads = cfgPads(c);
+      for (let i = 0; i < q.length; i += 4) {
+        const b = beam(pads, q[i], 20), pg = Math.sqrt(q[i + 1] * q[i + 2]);
+        if (rel(b.geo, pg) > 0.08) badG.push(`${c} ${q[i]}: ${b.geo.toFixed(2)}/${pg.toFixed(2)}`);
+        if (rel(b.maj, q[i + 1]) > 0.05) badM.push(`${c} ${q[i]}: ${b.maj.toFixed(2)}/${q[i + 1]}`);
+        if (q[i] === 20) out.push(`${c} ${b.geo.toFixed(2)}″/${pg.toFixed(2)}″`);
+      }
+    }
+    check("SMA: Memo 131's beams of the 1998 configurations D, C, B at 345 GHz (six declinations): the geometric mean within 8%", badG.length === 0, badG.join(", ") || "dec +20: " + out.join(", "));
+    check("SMA: Memo 131's beams: the major axis within 5%", badM.length === 0, badM.join(", "));
+    const cur = [["inner six (SUB)", [1, 2, 3, 4, 5, 6], 33, "5″"], ["COM", cf("COM").names.map(n => +n.slice(4)), 15, "2.5″"], ["EXT", cf("EXT").names.map(n => +n.slice(4)), 15, "0.7–0.8″"], ["VEX", cf("VEX").names.map(n => +n.slice(4)), 15, "≈ 0.25″"]];
+    info("SMA: today's configurations at 345 GHz (natural, 6 h at dec +20°) vs the Observer Center's characteristic resolutions (method not stated)", cur.map(([n, p, el, w]) => `${n} ${beam(p, 20, el, 6).geo.toFixed(2)}″ vs ${w}`).join(", "));
+  }
+}
+
 {
   const a = ARRS.find(q => q.id === "dsa2000"), j = require("./data/interf/dsa2000.json"), P = j.configs.FDR.published;
   const ants = a.configs[0].ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), ex = RI.extremes(ants);

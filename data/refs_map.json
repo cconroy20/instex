@@ -3287,6 +3287,46 @@
     "text": "Bij et al. 2026, arXiv:2607.24903 (the dish layout)",
     "ads": "2026arXiv260724903B"
    }
+  ],
+  "sma": [
+   {
+    "file": "data/interf/sma.json",
+    "key": "HO04",
+    "text": "Ho, Moran & Lo 2004, ApJL 616, L1",
+    "ads": "2004ApJ...616L...1H"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "KETO",
+    "text": "Keto 1997, ApJ 475, 843 (the Reuleaux triangles)",
+    "ads": "1997ApJ...475..843K"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "CFG",
+    "text": "CASA data repository, SMA simulator antenna files (the pads)"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "M131",
+    "text": "Wilner 1998, SMA Technical Memo 131 (the pads and the beams)"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "OCS",
+    "text": "SMA Observer Center, Array Status and Technical Information (2026)"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "OCSPEC",
+    "text": "SMA Observer Center, Specifications of the SMA (the primary beam)"
+   },
+   {
+    "file": "data/interf/sma.json",
+    "key": "HUN13",
+    "text": "Hunter et al. 2013, JAI 2, 1350002 (the hardstops)",
+    "ads": "2013JAI.....250002H"
+   }
   ]
  },
  "model": {

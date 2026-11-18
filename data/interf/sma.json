@@ -1,0 +1,3274 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: Submillimeter Array (SMA)",
+  "compiled": "2026-11-18",
+  "companion": "data/interf/sma.md",
+  "quote_check": "135 quote records, 0 failures",
+  "rule": "Every value carries src, loc and a short verbatim quote from a document saved unmodified under rawdata/interf/sma/ (or rawdata/interf/eht2017/ for the EHT keys). DERIVED = arithmetic done here; INFERRED = a mapping no source states; NOT FOUND = gap."
+ },
+ "sources": {
+  "CFG": {
+   "cite": "CASA data repository casa-data (NRAO open Bitbucket, project CASA), alma/simmos/sma.{subcompact,compact,compact.n,extended,vextended}.cfg, branch master: CASA simulator antenna files for the SMA (header \"# observatory=SMA\", \"# coordsys=LOC (local tangent plane)\", columns x y z diam pad#; 8 rows each; x east, y north, z up in m, pad 1 at the origin). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/sma.{subcompact,compact,compact.n,extended,vextended}.cfg",
+   "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa-data/raw/alma/simmos/sma.subcompact.cfg?at=refs%2Fheads%2Fmaster (and the same path with sma.compact, sma.compact.n, sma.extended, sma.vextended)"
+  },
+  "CASAH": {
+   "cite": "Bitbucket REST commit history of each of the five SMA cfg files (casa-data, master): one commit each, the same one, 1b0506edc78eea6cb086aabbb5636b8db1657fd1, authorTimestamp 1489013602000 ms = 2017-03-08, message \"subversion revision 11005\" (predates the git migration). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/casa-data_commits_sma.{subcompact,compact,compact.n,extended,vextended}.cfg.json",
+   "url": "https://open-bitbucket.nrao.edu/rest/api/1.0/projects/CASA/repos/casa-data/commits?path=alma/simmos/sma.subcompact.cfg&limit=5&until=refs%2Fheads%2Fmaster (and the other four files)"
+  },
+  "M131": {
+   "cite": "Wilner, D. 1998 January 15, SMA Technical Memo #131 \"SMA Synthesized Beam Characteristics\": Table 1 SMA Antenna Pad Locations (24 pads, ft, north / east / elevation, as-built from the project book), Table 2 pads of the 1998 configurations A-D, Table 3 synthesized beams at 345 GHz, Fig. 1 pad map. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/memo131.pdf",
+   "url": "https://lweb.cfa.harvard.edu/sma/memos/131.pdf"
+  },
+  "KETO": {
+   "cite": "Keto, E. 1997, ApJ 475, 843, \"The Shapes of Cross-Correlation Interferometers\" (publisher PDF via the ADS PUB_PDF gateway, 10 pp). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1997ApJ...475..843K/PUB_PDF"
+  },
+  "HO04": {
+   "cite": "Ho, P. T. P., Moran, J. M., & Lo, K. Y. 2004, ApJ 616, L1, \"The Submillimeter Array\" (arXiv:astro-ph/0406352; Table 1 basic characteristics, Sec. 2.3 configuration of the array, Fig. 3 pad layout). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0406352"
+  },
+  "OCS": {
+   "cite": "SMA Observer Center, \"Array Status and Technical Information\" (2026A call; \"Last updated: 2026-Feb-5\"): receivers (Tables 1A, 1B), correlator (Table 2), array configurations, configuration schedule. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_status.html",
+   "url": "http://sma1.sma.hawaii.edu/status.html"
+  },
+  "OCSPEC": {
+   "cite": "SMA Observer Center, \"Specifications of the SMA\" (Quick Specs): baselines, best resolution, antennas, receivers, primary beam, Tsys, backend. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_specs.html",
+   "url": "http://sma1.sma.hawaii.edu/specs.html"
+  },
+  "OCSCHED": {
+   "cite": "SMA Observer Center, \"Array Configuration Schedule\" (\"Last updated: 2026-Feb-4\"): 2025B and 2026A configuration plan. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_array_config_sched.html",
+   "url": "http://sma1.sma.hawaii.edu/array_config_sched.html"
+  },
+  "OCCALL": {
+   "cite": "SMA Observer Center, \"Call for SAO SMA Science Observing Proposals\" (2026A call, deadline 2026-03-04): configurations and maximum baselines, bandwidth, observing practice. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_call.html",
+   "url": "http://sma1.sma.hawaii.edu/call.html"
+  },
+  "OCBC": {
+   "cite": "SMA Observer Center, \"SMA Multi-config Beam Calculator & Sensitivity Estimator\" (form page): configuration choices, the 24 pads with their antenna numbers, elevation assumptions. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_beamcalc.html",
+   "url": "http://sma1.sma.hawaii.edu/beamcalc.html"
+  },
+  "OCBCN": {
+   "cite": "SMA Observer Center, \"SMA Beam Calculator & Sensitivity Estimator Notes\" (M. Gurwell, updated 05 February 2020): IF range, receiver temperatures, on-source fraction, sideband beams. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "url": "http://sma1.sma.hawaii.edu/beamcalc_notes2020.html"
+  },
+  "HUN13": {
+   "cite": "Hunter, T. R., et al. 2013, J. Astron. Instrum. 2, 1350002, \"The Digital Motion Control System for the Submillimeter Array Antennas\" (arXiv:1303.4397): hardstop range of motion. Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/hunter2013_arXiv1303.4397.pdf",
+   "url": "https://arxiv.org/pdf/1303.4397"
+  },
+  "WSMA": {
+   "cite": "Grimes, P. K., et al. 2024, SPIE 13096, 1309639, \"Upgrading the Submillimeter Array: wSMA and beyond\" (arXiv:2406.17192). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "url": "https://arxiv.org/pdf/2406.17192"
+  },
+  "ESMA": {
+   "cite": "Bottinelli, S., et al. 2008, SPIE 7012, 70120D, \"The eSMA: description and first results\" (arXiv:0808.2554). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "url": "https://arxiv.org/pdf/0808.2554"
+  },
+  "SWARM": {
+   "cite": "Primiani, R. A., et al. 2016, J. Astron. Instrum. 5, 1641006, \"SWARM: A 32 GHz Correlator and VLBI Beamformer for the Submillimeter Array\" (arXiv:1611.02596). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/primiani2016_arXiv1611.02596.pdf",
+   "url": "https://arxiv.org/pdf/1611.02596"
+  },
+  "CSO": {
+   "cite": "Caltech news, \"Caltech's Submillimeter Observatory Has Been Removed from Maunakea\", 2024-07-02 (HTML). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/caltech_cso_removed.html",
+   "url": "https://experts.caltech.edu/news/caltechs-submillimeter-observatory-has-been-removed-from-maunakea"
+  },
+  "P2": {
+   "cite": "EHT Collaboration 2019, ApJL 875, L2, Paper II \"Array and Instrumentation\" (already saved by the eht2017 record; not copied): Table 2 station XYZ (the SMA phasing center), Table 3 note c, Appendix A.9. Cited by its eht2017 key",
+   "local": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "url": "https://arxiv.org/pdf/1906.11239"
+  },
+  "EHTIM": {
+   "cite": "ehtim array file EHT2017.txt (already saved by the eht2017 record; not copied): the SMA row of the older ehtim array table",
+   "local": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt",
+   "url": "(see data/interf/eht2017.md, source ehtim)"
+  },
+  "ADS": {
+   "cite": "NASA ADS API response (one query on seven bibcodes; fields bibcode, title, author, year, pub, volume, page, doi, identifier). Fetched 2026-11-18",
+   "local": "rawdata/interf/sma/ads_bibcodes.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query (q = bibcode:(...))"
+  }
+ },
+ "site": {
+  "name": "Maunakea (Millimeter Valley), Hawaii",
+  "altitude_m": 4080,
+  "altitude_src": "WSMA, HO04",
+  "phasing_center_EHT2017": {
+   "X_m": -5464555.5,
+   "Y_m": -2492928.0,
+   "Z_m": 2150797.2,
+   "lat_deg_DERIVED": 19.824228483365005,
+   "lon_deg_DERIVED": -155.47754760986098,
+   "h_GRS80_m_DERIVED": 4115.080499941483,
+   "src": "P2 Table 2"
+  },
+  "pad_reference": "pad 1 = origin of the CFG local frame; absolute position of pad 1 NOT FOUND"
+ },
+ "dish_m": 6.0,
+ "n_antennas": 8,
+ "n_pads": 24,
+ "pads": {
+  "1": {
+   "enu_m": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "from": "CFG"
+  },
+  "2": {
+   "enu_m": [
+    -7.47,
+    -5.84,
+    -0.01
+   ],
+   "from": "CFG"
+  },
+  "3": {
+   "enu_m": [
+    -23.76,
+    -8.23,
+    -0.06
+   ],
+   "from": "CFG"
+  },
+  "4": {
+   "enu_m": [
+    -25.16,
+    1.37,
+    -0.04
+   ],
+   "from": "CFG"
+  },
+  "5": {
+   "enu_m": [
+    -18.98,
+    16.62,
+    -0.08
+   ],
+   "from": "CFG"
+  },
+  "6": {
+   "enu_m": [
+    -10.11,
+    13.01,
+    -0.01
+   ],
+   "from": "CFG"
+  },
+  "7": {
+   "enu_m": [
+    -20.09,
+    -15.73,
+    -0.1
+   ],
+   "from": "CFG"
+  },
+  "8": {
+   "enu_m": [
+    -63.88,
+    -22.06,
+    -3.21
+   ],
+   "from": "CFG"
+  },
+  "9": {
+   "enu_m": [
+    -68.02,
+    5.59,
+    -4.79
+   ],
+   "from": "CFG"
+  },
+  "10": {
+   "enu_m": [
+    -51.027,
+    44.879,
+    -6.712
+   ],
+   "from": "M131 (DERIVED from ft)"
+  },
+  "11": {
+   "enu_m": [
+    -27.03,
+    34.55,
+    -5.13
+   ],
+   "from": "CFG"
+  },
+  "12": {
+   "enu_m": [
+    -53.67,
+    -42.3,
+    -2.75
+   ],
+   "from": "CFG"
+  },
+  "13": {
+   "enu_m": [
+    -180.984,
+    -58.592,
+    -11.485
+   ],
+   "from": "M131 (DERIVED from ft)"
+  },
+  "14": {
+   "enu_m": [
+    -178.82,
+    3.36,
+    -11.45
+   ],
+   "from": "CFG"
+  },
+  "15": {
+   "enu_m": [
+    -136.76,
+    118.97,
+    -11.77
+   ],
+   "from": "CFG"
+  },
+  "16": {
+   "enu_m": [
+    -71.55,
+    95.53,
+    -10.84
+   ],
+   "from": "CFG"
+  },
+  "17": {
+   "enu_m": [
+    -133.6,
+    -107.01,
+    -10.38
+   ],
+   "from": "CFG"
+  },
+  "18": {
+   "enu_m": [
+    -349.68,
+    42.55,
+    -24.69
+   ],
+   "from": "CFG"
+  },
+  "19": {
+   "enu_m": [
+    -479.03,
+    167.96,
+    -36.17
+   ],
+   "from": "CFG"
+  },
+  "20": {
+   "enu_m": [
+    -251.59,
+    335.61,
+    -18.58
+   ],
+   "from": "CFG"
+  },
+  "21": {
+   "enu_m": [
+    -73.52,
+    321.22,
+    -20.29
+   ],
+   "from": "CFG"
+  },
+  "22": {
+   "enu_m": [
+    -23.732,
+    9.205,
+    -0.027
+   ],
+   "from": "M131 (DERIVED from ft)"
+  },
+  "23": {
+   "enu_m": [
+    -59.57,
+    34.35,
+    -6.64
+   ],
+   "from": "CFG"
+  },
+  "24": {
+   "enu_m": [
+    -169.883,
+    109.691,
+    -11.735
+   ],
+   "from": "M131 (DERIVED from ft)"
+  }
+ },
+ "memo131_ft": {
+  "1": {
+   "north": 27.22,
+   "east": 78.7,
+   "el": 0.78
+  },
+  "2": {
+   "north": 8.07,
+   "east": 54.2,
+   "el": 0.76
+  },
+  "3": {
+   "north": 0.23,
+   "east": 0.75,
+   "el": 0.58
+  },
+  "4": {
+   "north": 31.73,
+   "east": -3.83,
+   "el": 0.66
+  },
+  "5": {
+   "north": 81.74,
+   "east": 16.42,
+   "el": 0.53
+  },
+  "6": {
+   "north": 69.91,
+   "east": 45.53,
+   "el": 0.74
+  },
+  "7": {
+   "north": 884.61,
+   "east": 12.8,
+   "el": 0.45
+  },
+  "8": {
+   "north": -24.39,
+   "east": -130.89,
+   "el": -9.75
+  },
+  "9": {
+   "north": 45.56,
+   "east": -144.46,
+   "el": -14.92
+  },
+  "10": {
+   "north": 174.46,
+   "east": -88.71,
+   "el": -21.24
+  },
+  "11": {
+   "north": 140.57,
+   "east": -9.99,
+   "el": -16.05
+  },
+  "12": {
+   "north": -111.45,
+   "east": -97.37,
+   "el": -8.23
+  },
+  "13": {
+   "north": -165.01,
+   "east": -515.08,
+   "el": -36.9
+  },
+  "14": {
+   "north": 38.23,
+   "east": -507.98,
+   "el": -36.8
+  },
+  "15": {
+   "north": 417.53,
+   "east": -369.99,
+   "el": -37.85
+  },
+  "16": {
+   "north": 340.63,
+   "east": -156.06,
+   "el": -34.78
+  },
+  "17": {
+   "north": -323.85,
+   "east": -359.63,
+   "el": -33.26
+  },
+  "18": {
+   "north": 166.83,
+   "east": -1068.56,
+   "el": -80.21
+  },
+  "19": {
+   "north": 578.27,
+   "east": -1492.93,
+   "el": -117.88
+  },
+  "20": {
+   "north": 1128.31,
+   "east": -746.72,
+   "el": -60.17
+  },
+  "21": {
+   "north": 1081.08,
+   "east": -162.5,
+   "el": -65.8
+  },
+  "22": {
+   "north": 57.42,
+   "east": 0.84,
+   "el": 0.69
+  },
+  "23": {
+   "north": 139.93,
+   "east": -116.74,
+   "el": -21.01
+  },
+  "24": {
+   "north": 387.1,
+   "east": -478.66,
+   "el": -37.72
+  }
+ },
+ "config_baselines_derived": {
+  "subcompact": {
+   "pads": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    23
+   ],
+   "n_bl": 28,
+   "min_m": 9.48190909047329,
+   "max_m": 69.08398511956298
+  },
+  "compact": {
+   "pads": [
+    1,
+    4,
+    5,
+    7,
+    8,
+    9,
+    12,
+    23
+   ],
+   "n_bl": 28,
+   "min_m": 16.454680185284673,
+   "max_m": 76.97509077617252
+  },
+  "extended": {
+   "pads": [
+    1,
+    9,
+    11,
+    12,
+    14,
+    15,
+    16,
+    17
+   ],
+   "n_bl": 28,
+   "min_m": 44.16605370643838,
+   "max_m": 226.00636738817784
+  },
+  "vextended": {
+   "pads": [
+    1,
+    12,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+   ],
+   "n_bl": 28,
+   "min_m": 68.39094530710919,
+   "max_m": 508.909197598157
+  },
+  "compact.n": {
+   "pads": [
+    1,
+    4,
+    5,
+    7,
+    9,
+    12,
+    16,
+    23
+   ],
+   "n_bl": 28,
+   "min_m": 16.454680185284673,
+   "max_m": 139.22015443174885
+  }
+ },
+ "inner_ring": {
+  "sub_six_pads": {
+   "n": 15,
+   "min_m": 9.48190909047329,
+   "max_m": 25.30555867788736
+  },
+  "com_four_pads": {
+   "n": 6,
+   "min_m": 16.454680185284673,
+   "max_m": 32.36904385365746
+  }
+ },
+ "all_pad_baselines": {
+  "min_m": 7.964089217368676,
+  "max_m": 508.909197598157,
+  "min_pair": [
+   4,
+   22
+  ],
+  "max_pair": [
+   1,
+   19
+  ]
+ },
+ "cfg_vs_memo131_enu_m": {
+  "1": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "2": [
+   -0.0023999999999997357,
+   -0.0030799999999997496,
+   -0.0039039999999999943
+  ],
+  "3": [
+   -0.0008400000000001739,
+   -0.0034480000000005617,
+   0.0009600000000000233
+  ],
+  "4": [
+   -0.0048560000000001935,
+   -0.0046480000000004296,
+   -0.0034240000000000034
+  ],
+  "5": [
+   0.0029439999999993915,
+   0.002304000000002304,
+   -0.003799999999999998
+  ],
+  "6": [
+   0.00021600000000177033,
+   -0.001912000000000802,
+   0.0021920000000000116
+  ],
+  "7": [
+   -0.0036799999999956867,
+   -277.062472,
+   0.0005840000000000012
+  ],
+  "8": [
+   0.0030319999999903757,
+   -6.329271999999998,
+   -0.0004559999999997899
+  ],
+  "9": [
+   -0.0008319999999883976,
+   -3.200000000180836e-05,
+   -0.0046400000000001995
+  ],
+  "11": [
+   0.0027119999999989375,
+   0.000920000000000698,
+   -0.0002159999999991058
+  ],
+  "12": [
+   -0.0038640000000000896,
+   -0.033383999999990976,
+   -0.0037519999999999776
+  ],
+  "14": [
+   6.40000000373675e-05,
+   0.004152000000000378,
+   0.0043839999999999435
+  ],
+  "15": [
+   0.0007120000000213622,
+   0.0035120000000148366,
+   0.004424000000001982
+  ],
+  "16": [
+   0.004848000000009733,
+   0.002632000000005519,
+   -0.0013119999999986476
+  ],
+  "17": [
+   0.0029839999999978772,
+   -0.0038639999999787733,
+   -0.004608000000001056
+  ],
+  "18": [
+   0.004847999999981312,
+   -0.0031280000000109,
+   -0.004248000000000474
+  ],
+  "19": [
+   0.0028240000000891996,
+   -3.9999999984274837e-05,
+   -0.0024319999999988795
+  ],
+  "20": [
+   -0.0019839999999646807,
+   -0.00223199999999224,
+   -0.002439999999996445
+  ],
+  "21": [
+   -0.002240000000000464,
+   0.0034720000000447726,
+   0.0035840000000000316
+  ],
+  "23": [
+   0.00011200000000144428,
+   -0.004008000000006007,
+   0.00159200000000137
+  ]
+ },
+ "rigid_fit_18_pads": {
+  "n": 17,
+  "rotation_deg": 8.72731892932175e-05,
+  "rms_m": 0.0038807557394500243,
+  "max_m": 0.006926173563762154
+ },
+ "constant_width_test": {
+  "subcompact": {
+   "min_m": 53.0367752643093,
+   "max_m": 68.76413330343901,
+   "mean_m": 62.10075053837207,
+   "ptp_over_mean": 0.2532555227237032
+  },
+  "compact": {
+   "min_m": 64.03342696837662,
+   "max_m": 76.87484764750586,
+   "mean_m": 69.53857993570676,
+   "ptp_over_mean": 0.18466613340396118
+  },
+  "compact.n": {
+   "min_m": 63.69219936230788,
+   "max_m": 138.98165994080745,
+   "mean_m": 104.30791999672617,
+   "ptp_over_mean": 0.7218000376276568
+  },
+  "extended": {
+   "min_m": 164.54033871975545,
+   "max_m": 226.00073175578314,
+   "mean_m": 191.66002041035577,
+   "ptp_over_mean": 0.3206740399194221
+  },
+  "vextended": {
+   "min_m": 386.67196884471826,
+   "max_m": 507.61419049196473,
+   "mean_m": 447.18026534525563,
+   "ptp_over_mean": 0.27045518557011966
+  },
+  "inner_ring_6": {
+   "min_m": 23.832996522648735,
+   "max_m": 25.305502506574335,
+   "mean_m": 24.877486516820177,
+   "ptp_over_mean": 0.05919030376842971
+  }
+ },
+ "beams_345GHz_simulated": {
+  "subcompact_dec20": {
+   "major": 2.7972202008697056,
+   "minor": 2.398596533905995,
+   "geo": 2.590251470104381,
+   "elmin": 33
+  },
+  "compact_dec20": {
+   "major": 2.0239987174288805,
+   "minor": 2.0239987174288805,
+   "geo": 2.0239987174288805,
+   "elmin": 20
+  },
+  "extended_dec20": {
+   "major": 0.9853223786900422,
+   "minor": 0.6684031631678963,
+   "geo": 0.811537180082675,
+   "elmin": 20
+  },
+  "vextended_dec20": {
+   "major": 0.3539722823928471,
+   "minor": 0.2918930217693342,
+   "geo": 0.321437457571821,
+   "elmin": 20
+  },
+  "inner6_dec20_el20": {
+   "major": 6.912205798439144,
+   "minor": 3.990763878422932,
+   "geo": 5.252140632221921,
+   "elmin": 20
+  },
+  "inner6_dec20_el33": {
+   "major": 5.5870694297921055,
+   "minor": 3.657595510713727,
+   "geo": 4.520535373653602,
+   "elmin": 33
+  }
+ },
+ "memo131_reproduction": {
+  "D": {
+   "sim_major": 5.675832879641976,
+   "sim_minor": 4.589521262613947,
+   "sim_geo": 5.1038569419763515,
+   "pub_major": 6.19,
+   "pub_minor": 4.32,
+   "pub_geo": 5.171150742339659,
+   "ratio": 0.9869866875447416
+  },
+  "C": {
+   "sim_major": 2.104912449709699,
+   "sim_minor": 1.7020480780069847,
+   "sim_geo": 1.8927921675137411,
+   "pub_major": 2.32,
+   "pub_minor": 1.52,
+   "pub_geo": 1.8778711350888804,
+   "ratio": 1.0079457169057313
+  },
+  "B": {
+   "sim_major": 0.863403306574068,
+   "sim_minor": 0.5287243858345648,
+   "sim_geo": 0.6756496007516815,
+   "pub_major": 0.84,
+   "pub_minor": 0.48,
+   "pub_geo": 0.6349803146555018,
+   "ratio": 1.0640481053625168
+  }
+ },
+ "mrs_345_derived": {
+  "subcompact": {
+   "L5_m": 9.221967464227083,
+   "theta_mrs_0.983_arcsec": 19.10544163515344,
+   "lambda_over_Bmin_arcsec": 18.90302731334945,
+   "0.6_lambda_over_Bmin_arcsec": 11.34181638800967
+  },
+  "compact": {
+   "L5_m": 16.38332776302116,
+   "theta_mrs_0.983_arcsec": 10.75421084761258,
+   "lambda_over_Bmin_arcsec": 10.892754189182204,
+   "0.6_lambda_over_Bmin_arcsec": 6.535652513509323
+  },
+  "extended": {
+   "L5_m": 41.908621486904984,
+   "theta_mrs_0.983_arcsec": 4.204141174248067,
+   "lambda_over_Bmin_arcsec": 4.058247714664724,
+   "0.6_lambda_over_Bmin_arcsec": 2.4349486287988342
+  },
+  "vextended": {
+   "L5_m": 87.50748064563733,
+   "theta_mrs_0.983_arcsec": 2.013425136332712,
+   "lambda_over_Bmin_arcsec": 2.6207677889967913,
+   "0.6_lambda_over_Bmin_arcsec": 1.5724606733980746
+  },
+  "inner6": {
+   "L5_m": 8.349865528469731,
+   "theta_mrs_0.983_arcsec": 21.100910014459185,
+   "lambda_over_Bmin_arcsec": 18.90302731334945,
+   "0.6_lambda_over_Bmin_arcsec": 11.34181638800967
+  }
+ },
+ "lambda_over_Bmax_345_arcsec": {
+  "subcompact": 2.594476653448837,
+  "compact": 2.328503736891927,
+  "compact.n": 1.2874341883292615,
+  "extended": 0.7930607822746181,
+  "vextended": 0.35219797041562084
+ },
+ "primary_beam": {
+  "230": {
+   "lambda_over_D_arcsec": 44.80919662997825,
+   "fwhm_arcsec": 55,
+   "k": 1.227426602939895,
+   "fwhm_x_GHz_arcsec": 12650
+  },
+  "240": {
+   "lambda_over_D_arcsec": 42.94214677039584,
+   "fwhm_arcsec": 51,
+   "k": 1.1876443968367045,
+   "fwhm_x_GHz_arcsec": 12240
+  },
+  "345": {
+   "lambda_over_D_arcsec": 29.87279775331884,
+   "fwhm_arcsec": 36,
+   "k": 1.205109755613715,
+   "fwhm_x_GHz_arcsec": 12420
+  },
+  "400": {
+   "lambda_over_D_arcsec": 25.7652880622375,
+   "fwhm_arcsec": 31,
+   "k": 1.203169160194047,
+   "fwhm_x_GHz_arcsec": 12400
+  }
+ },
+ "rf_range_GHz_derived": {
+  "230": [
+   178,
+   254
+  ],
+  "240": [
+   196,
+   281
+  ],
+  "345": [
+   236,
+   368
+  ],
+  "400": [
+   320,
+   424
+  ],
+  "wLB": [
+   194,
+   286
+  ],
+  "wHB": [
+   257,
+   373
+  ]
+ },
+ "dec_range_derived": {
+  "6.7": {
+   "dec_min": -63.47579999999999,
+   "dec_max": 103.1242
+  },
+  "15": {
+   "dec_min": -55.175799999999995,
+   "dec_max": 94.8242
+  },
+  "20": {
+   "dec_min": -50.175799999999995,
+   "dec_max": 89.8242
+  },
+  "33": {
+   "dec_min": -37.175799999999995,
+   "dec_max": 76.8242
+  }
+ },
+ "recommended_page_record": {
+  "id": "sma",
+  "name": "SMA (Submillimeter Array)",
+  "site": "Maunakea, Hawaii (4080 m)",
+  "lat": 19.8242,
+  "dish": 6.0,
+  "elLimit": 15,
+  "elLimit_note": "OC beam calculator default 15 deg (OCBC); SUB/INR 33 deg (OCS); hardstop 6.7 deg (HUN13); Memo 131 simulations 20 deg (M131). INFERRED choice: 15.",
+  "pb": {
+   "k": 1.2,
+   "note": "DERIVED: OCSPEC primary beams 55, 51, 36, 31 arcsec at 230, 240, 345, 400 GHz = 1.19-1.23 lambda/D for D = 6 m"
+  },
+  "bands": [
+   {
+    "k": "230",
+    "name": "230 GHz (230, 240, wSMA Low)",
+    "lo": 180,
+    "hi": 286,
+    "bw": 24,
+    "rep_GHz": 225
+   },
+   {
+    "k": "345",
+    "name": "345 GHz (345, 400, wSMA High)",
+    "lo": 236,
+    "hi": 418,
+    "bw": 24,
+    "rep_GHz": 345
+   }
+  ],
+  "bands_note": "INFERRED: lo/hi = union of RF coverage (LO +/- 16 GHz, OCS) clipped to the quoted 180-418 GHz (WSMA); bw = 12 GHz per sideband x 2 sidebands per receiver (48 GHz with two receivers, OCCALL); the page cannot show the 8 GHz gap between sidebands.",
+  "configs": {
+   "SUB": {
+    "name": "Subcompact",
+    "pads": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     23
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -7.47,
+      -5.84,
+      -0.01
+     ],
+     [
+      -23.76,
+      -8.23,
+      -0.06
+     ],
+     [
+      -25.16,
+      1.37,
+      -0.04
+     ],
+     [
+      -18.98,
+      16.62,
+      -0.08
+     ],
+     [
+      -10.11,
+      13.01,
+      -0.01
+     ],
+     [
+      -63.88,
+      -22.06,
+      -3.21
+     ],
+     [
+      -59.57,
+      34.35,
+      -6.64
+     ]
+    ],
+    "bmax_m": 69.1,
+    "bmin_m": 9.5
+   },
+   "COM": {
+    "name": "Compact",
+    "pads": [
+     1,
+     4,
+     5,
+     7,
+     8,
+     9,
+     12,
+     23
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -25.16,
+      1.37,
+      -0.04
+     ],
+     [
+      -18.98,
+      16.62,
+      -0.08
+     ],
+     [
+      -20.09,
+      -15.73,
+      -0.1
+     ],
+     [
+      -63.88,
+      -22.06,
+      -3.21
+     ],
+     [
+      -68.02,
+      5.59,
+      -4.79
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -59.57,
+      34.35,
+      -6.64
+     ]
+    ],
+    "bmax_m": 77.0,
+    "bmin_m": 16.5
+   },
+   "EXT": {
+    "name": "Extended",
+    "pads": [
+     1,
+     9,
+     11,
+     12,
+     14,
+     15,
+     16,
+     17
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -68.02,
+      5.59,
+      -4.79
+     ],
+     [
+      -27.03,
+      34.55,
+      -5.13
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -178.82,
+      3.36,
+      -11.45
+     ],
+     [
+      -136.76,
+      118.97,
+      -11.77
+     ],
+     [
+      -71.55,
+      95.53,
+      -10.84
+     ],
+     [
+      -133.6,
+      -107.01,
+      -10.38
+     ]
+    ],
+    "bmax_m": 226.0,
+    "bmin_m": 44.2
+   },
+   "VEX": {
+    "name": "Very extended",
+    "pads": [
+     1,
+     12,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -71.55,
+      95.53,
+      -10.84
+     ],
+     [
+      -133.6,
+      -107.01,
+      -10.38
+     ],
+     [
+      -349.68,
+      42.55,
+      -24.69
+     ],
+     [
+      -479.03,
+      167.96,
+      -36.17
+     ],
+     [
+      -251.59,
+      335.61,
+      -18.58
+     ],
+     [
+      -73.52,
+      321.22,
+      -20.29
+     ]
+    ],
+    "bmax_m": 508.9,
+    "bmin_m": 68.4
+   }
+  },
+  "defaults": {
+   "cfg": "COM",
+   "band": "230",
+   "nu": 225,
+   "dec": 20,
+   "dur": 6
+  },
+  "defaults_note": "COM is the only configuration scheduled through September 2026 (OCSCHED); 225 GHz is the middle of the 1.3 mm window; dec 20 transits near the zenith (latitude 19.8 deg); 6 h is the OCSPEC sensitivity convention."
+ },
+ "params": {
+  "n_antennas": {
+   "topic": "array",
+   "label": "Number of antennas",
+   "value": 8,
+   "unit": "",
+   "src": "OCSPEC",
+   "loc": "Antennas table",
+   "quote": "quantity 8",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Array Configurations",
+     "quote": "The full complement of 8 array antennas is potentially available"
+    },
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Interferometer elements 8 6-meter, f/0.4 paraboloids, bent-Nasmyth optics"
+    },
+    {
+     "src": "WSMA",
+     "loc": "Sec. 2",
+     "quote": "The Submillimeter Array (SMA) is an 8-element radio interferometer located atop Maunakea"
+    }
+   ],
+   "note": "Operational maximum; tracks run with 7 (sometimes 6) antennas when maintenance requires (OCS Array Configurations)."
+  },
+  "dish": {
+   "topic": "array",
+   "label": "Antenna diameter",
+   "value": 6.0,
+   "unit": "m",
+   "src": "OCSPEC",
+   "loc": "Antennas table",
+   "quote": "diameter 6m",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Interferometer elements 8 6-meter, f/0.4 paraboloids, bent-Nasmyth optics"
+    }
+   ],
+   "note": ""
+  },
+  "surface_rms": {
+   "topic": "array",
+   "label": "Surface rms",
+   "value": "11-18",
+   "unit": "micron",
+   "src": "OCSPEC",
+   "loc": "Antennas table",
+   "quote": "surface accuracy (rms) 11-18",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Surface accuracy 12 microns rms"
+    }
+   ],
+   "note": ""
+  },
+  "aper_eff": {
+   "topic": "array",
+   "label": "Aperture efficiency (230/240, 345, 400 GHz)",
+   "value": "0.70-0.80, 0.60-0.75, 0.60-0.75",
+   "unit": "",
+   "src": "OCSPEC",
+   "loc": "Antennas table",
+   "quote": "aperture efficiency (230/240 GHz) (345 GHz) (400 GHz) 0.70-0.80 0.60-0.75 0.60-0.75",
+   "alternatives": [],
+   "note": ""
+  },
+  "optics": {
+   "topic": "array",
+   "label": "Optics",
+   "value": "f/0.4 paraboloid, bent-Nasmyth, alt-azimuth mount",
+   "unit": "",
+   "src": "HO04",
+   "loc": "Table 1",
+   "quote": "Telescope mount alt-azimuth",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Secondary reflector machined aluminum, 10Hz chopping"
+    }
+   ],
+   "note": "No central blockage or secondary diameter is published in the sources found (NOT FOUND)."
+  },
+  "site_h": {
+   "topic": "site",
+   "label": "Site altitude",
+   "value": 4080,
+   "unit": "m",
+   "src": "WSMA",
+   "loc": "Sec. 2, first sentence",
+   "quote": "located atop Maunakea in Hawaii at 4080m AMSL",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Sec. 1",
+     "quote": "at an elevation of 4,080 m"
+    }
+   ],
+   "note": "Nominal altitude (above mean sea level, \"AMSL\")."
+  },
+  "phasing_xyz": {
+   "topic": "site",
+   "label": "SMA phasing center, geocentric X, Y, Z (EHT 2017)",
+   "value": "-5464555.5, -2492928.0, 2150797.2",
+   "unit": "m",
+   "src": "P2",
+   "loc": "Table 2, SMA row",
+   "quote": "-5464555.5 -2492928.0 2150797.2",
+   "alternatives": [
+    {
+     "src": "P2",
+     "loc": "Table 2 note b",
+     "quote": "Array coordinates indicate the phasing center used in 2017."
+    }
+   ],
+   "note": "Converted to GRS80 by this record: lat 19.82423 deg, lon -155.47755 deg, h 4115.08 m (DERIVED, Sec. Site); P2 Table 2 lists 4115.1 m GRS80."
+  },
+  "site_h_p2": {
+   "topic": "site",
+   "label": "GRS80 height of the phasing center",
+   "value": 4115.1,
+   "unit": "m",
+   "src": "P2",
+   "loc": "Table 2, SMA row",
+   "quote": "2150797.2 ... 4115.1",
+   "alternatives": [
+    {
+     "src": "P2",
+     "loc": "Table 2 note a",
+     "quote": "Elevations are relative to the GRS80 ellipsoid"
+    }
+   ],
+   "note": "The 35 m difference from 4080 m is the geoid undulation plus the 2017 phasing reference (not a conflict in the pads)."
+  },
+  "pad_origin": {
+   "topic": "pads",
+   "label": "Pad coordinates, frame and origin",
+   "value": "local tangent plane east (x), north (y), up (z) in m; pad 1 at (0, 0, 0)",
+   "unit": "",
+   "src": "CFGSUB",
+   "loc": "file header and first row",
+   "quote": "# observatory=SMA # coordsys=LOC (local tangent plane) # x y z diam pad# 0.00 0.00 0.00 6. 1",
+   "alternatives": [
+    {
+     "src": "CFGEXT",
+     "loc": "file header",
+     "quote": "# observatory=SMA # coordsys=LOC (local tangent plane)"
+    }
+   ],
+   "note": "CASA reads LOC files relative to the Observatories row named SMA; the casa-data Observatories table has no SMA row (checked by a string search of the ALMA record's saved copy), so the absolute origin is not defined by CASA."
+  },
+  "cfg_sub": {
+   "topic": "pads",
+   "label": "Subcompact pads (CFG)",
+   "value": "1, 2, 3, 4, 5, 6, 8, 23",
+   "unit": "",
+   "src": "CFGSUB",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -7.47 -5.84 -0.01 6. 2 -23.76 -8.23 -0.06 6. 3 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -10.11 13.01 -0.01 6. 6 -63.88 -22.06 -3.21 6. 8 -59.57 34.35 -6.64 6. 23",
+   "alternatives": [],
+   "note": ""
+  },
+  "cfg_com": {
+   "topic": "pads",
+   "label": "Compact pads (CFG)",
+   "value": "1, 4, 5, 7, 8, 9, 12, 23",
+   "unit": "",
+   "src": "CFGCOM",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -20.09 -15.73 -0.10 6. 7 -63.88 -22.06 -3.21 6. 8 -68.02 5.59 -4.79 6. 9 -53.67 -42.30 -2.75 6. 12 -59.57 34.35 -6.64 6. 23",
+   "alternatives": [],
+   "note": ""
+  },
+  "cfg_comn": {
+   "topic": "pads",
+   "label": "Compact-north pads (CFG only; no SMA page offers it)",
+   "value": "1, 4, 5, 7, 9, 12, 16, 23",
+   "unit": "",
+   "src": "CFGCOMN",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -20.09 -15.73 -0.10 6. 7 -68.02 5.59 -4.79 6. 9 -53.67 -42.30 -2.75 6. 12 -71.55 95.53 -10.84 6. 16 -59.57 34.35 -6.64 6. 23",
+   "alternatives": [],
+   "note": ""
+  },
+  "cfg_ext": {
+   "topic": "pads",
+   "label": "Extended pads (CFG)",
+   "value": "1, 9, 11, 12, 14, 15, 16, 17",
+   "unit": "",
+   "src": "CFGEXT",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -68.02 5.59 -4.79 6. 9 -27.03 34.55 -5.13 6. 11 -53.67 -42.30 -2.75 6. 12 -178.82 3.36 -11.45 6. 14 -136.76 118.97 -11.77 6. 15 -71.55 95.53 -10.84 6. 16 -133.60 -107.01 -10.38 6. 17",
+   "alternatives": [],
+   "note": ""
+  },
+  "cfg_vex": {
+   "topic": "pads",
+   "label": "Very extended pads (CFG)",
+   "value": "1, 12, 16, 17, 18, 19, 20, 21",
+   "unit": "",
+   "src": "CFGVEX",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -53.67 -42.30 -2.75 6. 12 -71.55 95.53 -10.84 6. 16 -133.60 -107.01 -10.38 6. 17 -349.68 42.55 -24.69 6. 18 -479.03 167.96 -36.17 6. 19 -251.59 335.61 -18.58 6. 20 -73.52 321.22 -20.29 6. 21",
+   "alternatives": [],
+   "note": ""
+  },
+  "casah": {
+   "topic": "pads",
+   "label": "CFG history",
+   "value": "one commit, 2017-03-08, \"subversion revision 11005\"",
+   "unit": "",
+   "src": "CASAH",
+   "loc": "JSON values[0]",
+   "quote": "\"authorTimestamp\":1489013602000,\"committer\"",
+   "alternatives": [
+    {
+     "src": "CASAH",
+     "loc": "JSON values[0]",
+     "quote": "\"message\":\"subversion revision 11005\""
+    }
+   ],
+   "note": "All five files have the same single commit (2017-03-08); casa-data master holds nothing newer for the SMA."
+  },
+  "m131_t1_title": {
+   "topic": "pads",
+   "label": "Memo 131 Table 1: pad locations, units ft",
+   "value": "24 pads: north, east, elevation (ft) about a ground reference",
+   "unit": "ft",
+   "src": "M131",
+   "loc": "Table 1 caption",
+   "quote": "Table 1: SMA Antenna Pad Locations (unit: ft)",
+   "alternatives": [
+    {
+     "src": "M131",
+     "loc": "Sec. 2",
+     "quote": "The project book lists the as-built antenna pad locations in local ground based coordinates measured to the north, to the east, and in elevation."
+    },
+    {
+     "src": "M131",
+     "loc": "Sec. 2",
+     "quote": "Table 1 reproduces these locations after subtracting constant"
+    }
+   ],
+   "note": ""
+  },
+  "m131_pads": {
+   "topic": "pads",
+   "label": "Memo 131 Table 1 rows (pads 1-24), as printed",
+   "value": "see pads table",
+   "unit": "ft",
+   "src": "M131",
+   "loc": "Table 1",
+   "quote": "1 27.22 78.70 0.78 2 8.07 54.20 0.76 3 0.23 0.75 0.58 4 31.73 -3.83 0.66 5 81.74 16.42 0.53 6 69.91 45.53 0.74 7 884.61 12.80 0.45 8 -24.39 -130.89 -9.75 9 45.56 -144.46 -14.92 10 174.46 -88.71 -21.24 11 140.57 -9.99 -16.05 12 -111.45 -97.37 -8.23 13 -165.01 -515.08 -36.90 14 38.23 -507.98 -36.80 15 417.53 -369.99 -37.85 16 340.63 -156.06 -34.78 17 -323.85 -359.63 -33.26 18 166.83 -1068.56 -80.21 19 578.27 -1492.93 -117.88 20 1128.31 -746.72 -60.17 21 1081.08 -162.50 -65.80 22 57.42 0.84 0.69 23 139.93 -116.74 -21.01 24 387.10 -478.66 -37.72",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_cfg_tab": {
+   "topic": "pads",
+   "label": "Memo 131 Table 2: pads of the 1998 configurations",
+   "value": "A 1 17 18 19 20 21 (+two); B 1 12 13 14 15 16 17 24; C 1 7 8 9 10 11 12 23; D 1 2 3 4 5 6 7 22",
+   "unit": "",
+   "src": "M131",
+   "loc": "Table 2",
+   "quote": "A 1 17 18 19 20 21 (+two) B 1 12 13 14 15 16 17 24 C 1 7 8 9 10 11 12 23 D 1 2 3 4 5 6 7 22",
+   "alternatives": [
+    {
+     "src": "M131",
+     "loc": "Sec. 2",
+     "quote": "Each con"
+    }
+   ],
+   "note": "These 1998 configurations A-D are NOT the current SUB/COM/EXT/VEX pad sets (compare OCS)."
+  },
+  "oc_pads_ant": {
+   "topic": "pads",
+   "label": "Pads and the antennas on them (beam calculator list)",
+   "value": "24 pads; antenna numbers: pad 1 ant 8, pad 4 ant 4, pad 5 ant 6, pad 7 ant 1, pad 8 ant 2, pad 9 ant 3, pad 12 ant 7, pad 23 ant 5",
+   "unit": "",
+   "src": "OCBC",
+   "loc": "Pads for custom configuration",
+   "quote": "1 (ant. 8) 2 3 4 (ant. 4) 5 (ant. 6) 6 7 (ant. 1) 8 (ant. 2) 9 (ant. 3) 10 11 12 (ant. 7) 13 14 15 16 17 18 19 20 21 22 23 (ant. 5) 24",
+   "alternatives": [],
+   "note": "The antennas listed sit on the pads of the current configuration (COM); pads 1, 4, 5, 7, 8, 9, 12, 23 = the CFG compact pad set."
+  },
+  "oc_sub": {
+   "topic": "config",
+   "label": "Subcompact (SUB)",
+   "value": "pads 1-6 plus two others, typically 8 and 23; inner ring baselines 9.5-25 m (15 baselines)",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Array Configurations",
+   "quote": "subcompact : This configuration utilizes six pads on the inner ring (pads 1 through 6) plus two others, typically pads 8 and 23.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Array Configurations",
+     "quote": "This array provides 15 baselines on the inner ring ranging from 9.5 to 25 m in length; the characteristic resolution is 5 arcsec at 345 GHz (using just the six inner ring antennas)."
+    }
+   ],
+   "note": ""
+  },
+  "oc_com": {
+   "topic": "config",
+   "label": "Compact (COM)",
+   "value": "pads 1, 4, 5, 7, 8, 9, 12, 23; max baseline ~70 m; characteristic resolution 2.5 arcsec at 345 GHz; inner ring 6 baselines 16.5-32 m",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Array Configurations",
+   "quote": "compact : This configuration uses pads on the inner ring and second ring (pads 1,4,5,7,8,9,12,23) and provides maximum baseline lengths of approximately 70 meters and characteristic resolution of 2.5 arcsec at 345 GHz.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Array Configurations",
+     "quote": "provides only six baselines on the inner ring, ranging in length from 16.5 to 32 m"
+    }
+   ],
+   "note": ""
+  },
+  "oc_ext": {
+   "topic": "config",
+   "label": "Extended (EXT)",
+   "value": "pads 1, 9, 11, 12, 14, 15, 16, 17; max baseline 220 m; 0.7-0.8 arcsec at 345 GHz",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Array Configurations",
+   "quote": "extended : This configuration includes pads on the third ring (pads 1,9,11,12,14,15,16,17) and provides maximum baseline lengths to 220 meters and characteristic resolution of 0.7-0.8 arcsec at 345 GHz.",
+   "alternatives": [],
+   "note": ""
+  },
+  "oc_vex": {
+   "topic": "config",
+   "label": "Very extended (VEX)",
+   "value": "pads 1, 17, 18, 19, 20, 21 plus two others, typically 12 and 16; max baseline just over 500 m; ~0.25 arcsec at 345 GHz",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Array Configurations",
+   "quote": "very extended : This configuration uses pads on the fourth ring (pads 1,17,18,19,20,21 plus two others, typically pads 12 and 16) to reach maximum baselines of just over 500 meters, with a characteristic resolution down to ~0.25 arcsec at 345 GHz.",
+   "alternatives": [],
+   "note": ""
+  },
+  "vex_damage": {
+   "topic": "config",
+   "label": "VEX unavailable (storm damage)",
+   "value": "not currently possible; repair planned not before late FY2026",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Array Configurations; Array Configuration Schedule",
+   "quote": "Due to storm damage to roads and infrastructure to pads 18 and 19, VEX configuration is currently not possible.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Array Configuration Schedule",
+     "quote": "will not commence until late FY2026 at the earliest"
+    }
+   ],
+   "note": ""
+  },
+  "call_maxbl": {
+   "topic": "config",
+   "label": "Maximum baselines named in the call",
+   "value": "30 m (SUB inner ring), 70 m (COM), 220 m (EXT), 508 m (VEX)",
+   "unit": "m",
+   "src": "OCCALL",
+   "loc": "RA Coverage by Semester and UV Plane Considerations",
+   "quote": "The SMA operates in 4 configurations with maximum baselines of 30m (the six antennas on the inner ring of \"subcompact\"), 70m (\"compact\"), 220m (\"extended\"), and 508m (\"very extended\")",
+   "alternatives": [
+    {
+     "src": "WSMA",
+     "loc": "Sec. 2",
+     "quote": "with maximum baselines of 30m for the six antennas on the inner ring"
+    },
+    {
+     "src": "WSMA",
+     "loc": "Sec. 2",
+     "quote": "Very Extended with baselines up to 508m"
+    }
+   ],
+   "note": ""
+  },
+  "specs_bl": {
+   "topic": "config",
+   "label": "Baseline range, whole array",
+   "value": "8 - 509 m",
+   "unit": "m",
+   "src": "OCSPEC",
+   "loc": "Array table",
+   "quote": "baseline length 8 - 509m",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Available baselines 9 - 500 meters"
+    },
+    {
+     "src": "P2",
+     "loc": "App. A.9",
+     "quote": "baselines as long as 509 m"
+    },
+    {
+     "src": "ESMA",
+     "loc": "Sec. 1",
+     "quote": "the longest baseline extends to 782 m, compared to 509 m"
+    }
+   ],
+   "note": ""
+  },
+  "inr_option": {
+   "topic": "config",
+   "label": "Inner ring only (INR) option",
+   "value": "beam calculator offers INR, SUB, COM, EXT, VEX",
+   "unit": "",
+   "src": "OCBC",
+   "loc": "Array Configuration",
+   "quote": "INR (inner ring only) SUB COM EXT VEX",
+   "alternatives": [],
+   "note": ""
+  },
+  "reconfig": {
+   "topic": "config",
+   "label": "Reconfiguration time",
+   "value": "2 to 3 days",
+   "unit": "day",
+   "src": "OCSCHED",
+   "loc": "end of page",
+   "quote": "Reconfiguration of the array typically requires 2 to 3 days, including antenna moves and recalibration.",
+   "alternatives": [],
+   "note": ""
+  },
+  "sched_2026": {
+   "topic": "config",
+   "label": "Configuration schedule, current and next semester",
+   "value": "2026A: compact through September; EXT or SUB considered for the final six weeks; 2026B/2027A schedule NOT FOUND",
+   "unit": "",
+   "src": "OCSCHED",
+   "loc": "2026A paragraph",
+   "quote": "In 2026A, the SMA will be in compact (COM) configuration through September.",
+   "alternatives": [
+    {
+     "src": "OCSCHED",
+     "loc": "2026A paragraph",
+     "quote": "EXT or SUB configurations will be considered for the final six weeks of the semester, depending upon proposal pressure."
+    },
+    {
+     "src": "OCSCHED",
+     "loc": "footer",
+     "quote": "Last updated: 2026-Feb-4"
+    },
+    {
+     "src": "OCS",
+     "loc": "footer",
+     "quote": "Last updated: 2026-Feb-5"
+    }
+   ],
+   "note": "The pages saved 2026-11-18 still carry the 2026A call; no 2026B (from 16 Nov 2026) schedule is posted."
+  },
+  "sched_2025": {
+   "topic": "config",
+   "label": "2025A/2025B schedule (past)",
+   "value": "2025B: Compact, no reconfigurations; 2025A: extended 14 Jun - 8 Jul, compact 10 Jul - 24 Aug, subcompact 26 Aug - 21/28 Oct, compact 23/30 Oct - 15 Nov 2025",
+   "unit": "",
+   "src": "OCSCHED",
+   "loc": "2025B and 2025A table",
+   "quote": "2025B: Compact There will be no reconfigurations during 2025B.",
+   "alternatives": [
+    {
+     "src": "OCSCHED",
+     "loc": "Semester 2025A table",
+     "quote": "extended 14 June 2025 8 July 2025 back to science compact 1 10 July 2025 24 August 2025 subcompact 26 August 2025 21/28 October 2025 compact 2 23/30 October 2025 15 November 2025"
+    }
+   ],
+   "note": ""
+  },
+  "keto_abs": {
+   "topic": "design",
+   "label": "Keto design rule: constant width, Reuleaux triangle",
+   "value": "antennas on a curve of constant width; best = Reuleaux triangle",
+   "unit": "",
+   "src": "KETO",
+   "loc": "Abstract",
+   "quote": "The most uniform sampling within this circular region in Fourier space will be created by the particular symmetric curve of constant width that has the lowest degree of rotational symmetry",
+   "alternatives": [
+    {
+     "src": "KETO",
+     "loc": "Abstract",
+     "quote": "which is the Reuleaux triangle"
+    },
+    {
+     "src": "KETO",
+     "loc": "Abstract",
+     "quote": "will be constructed with a design based on the Reuleaux triangle"
+    },
+    {
+     "src": "KETO",
+     "loc": "Sec. 3 (constant width)",
+     "quote": "Placing the antennas along a curve of constant width ensures that the maximum separation of the antennas, and thus the resolution, will be the same in all directions."
+    }
+   ],
+   "note": ""
+  },
+  "keto_pert": {
+   "topic": "design",
+   "label": "Keto: perturb the antennas off the curve",
+   "value": "small perturbations break symmetries; found numerically (self-organizing neural network)",
+   "unit": "",
+   "src": "KETO",
+   "loc": "Abstract",
+   "quote": "the sampling can be further improved by perturbing the antenna locations slightly",
+   "alternatives": [
+    {
+     "src": "KETO",
+     "loc": "Abstract",
+     "quote": "Self-organizing neural networks which are"
+    }
+   ],
+   "note": ""
+  },
+  "ho_rings": {
+   "topic": "design",
+   "label": "Built layout: four nested rings of 24 pads",
+   "value": "4 nested rings, 24 pads, up to 8 pads per ring; each ring an optimized Reuleaux triangle",
+   "unit": "",
+   "src": "HO04",
+   "loc": "Sec. 2.3; Table 1",
+   "quote": "To provide different angular resolutions the array consists of four nested",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Sec. 2.3",
+     "quote": "is an optimized Reuleaux triangle, accommodating up to eight pads."
+    },
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Array configuration 4 nested rings, 24 pads, up to 8 pads per ring"
+    },
+    {
+     "src": "HO04",
+     "loc": "Sec. 2.3",
+     "quote": "Some compromises were eventually made because of the topography of the site."
+    },
+    {
+     "src": "HO04",
+     "loc": "Sec. 2.3",
+     "quote": "Addition of the two ASIAA telescopes was accommodated within this Reuleaux triangle scheme on an ad hoc basis."
+    }
+   ],
+   "note": ""
+  },
+  "ho_rule": {
+   "topic": "design",
+   "label": "Why a Reuleaux triangle (Ho, Moran & Lo)",
+   "value": "constant maximum separation => circular beam at the zenith; triangle maximizes the angles between baseline vectors",
+   "unit": "",
+   "src": "HO04",
+   "loc": "Sec. 2.3",
+   "quote": "the maximum separation between telescopes is a constant. This ensures that the maximum uv plane spacings lie on a circle",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Sec. 2.3",
+     "quote": "The choice of a triangle, versus a polygon of more sides, ensures that the angles between baseline vectors"
+    }
+   ],
+   "note": ""
+  },
+  "m131_reul": {
+   "topic": "design",
+   "label": "Memo 131: stations in four tangential Reuleaux triangles",
+   "value": "four tangential Reuleaux triangles",
+   "unit": "",
+   "src": "M131",
+   "loc": "Sec. 1",
+   "quote": "The antenna stations for the SMA on Mauna Kea are arranged approximately in four tangential Releaux triangles that provide",
+   "alternatives": [
+    {
+     "src": "M131",
+     "loc": "Fig. 1 caption",
+     "quote": "showing the four tangential Releaux triangles that comprise the A, B, C, and D"
+    }
+   ],
+   "note": ""
+  },
+  "rx_legacy": {
+   "topic": "rx",
+   "label": "Legacy receivers (single polarization, DSB)",
+   "value": "230 (RxA V), 240 (RxB H), 345 (RxA V), 400 (RxB H) GHz",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Receivers",
+   "quote": "Prior to the wSMA upgrade program each cryostat was equipped with four single pol receivers each, named 230GHz(RxA V), 240GHz(RxB H), 345GHz(RxA V), and 400GHz(RxB H).",
+   "alternatives": [
+    {
+     "src": "WSMA",
+     "loc": "Sec. 2",
+     "quote": "All eight antennas are currently equipped with four receivers each, named 230GHz(RxA), 240GHz(RxB), 345GHz(RxA), and 400GHz(RxB)."
+    }
+   ],
+   "note": ""
+  },
+  "rx_lo_legacy": {
+   "topic": "rx",
+   "label": "LO ranges of the legacy receivers (Table 1A)",
+   "value": "230: 194-238; 240: 212-265; 345: 252-352; 400: 336-408",
+   "unit": "GHz",
+   "src": "OCS",
+   "loc": "Table 1A",
+   "quote": "LO Frequency Range 194-238 GHz 1 212-265 GHz 2 252-352 GHz 336-408 GHz 3",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Table 1A note 1",
+     "quote": "In the 230 GHz band, an LO range of 188-244 GHz is available with 7 antennas."
+    }
+   ],
+   "note": ""
+  },
+  "rx_if_rf": {
+   "topic": "rx",
+   "label": "IF range and RF coverage",
+   "value": "IF 4-16 GHz in each sideband; RF = LO +/- (4 to 16)",
+   "unit": "GHz",
+   "src": "OCS",
+   "loc": "Receivers",
+   "quote": "add +/-16 GHz to the LO range to get the full correlator RF range.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Total Bandwidth and Correlator Coverage",
+     "quote": "The correlator processes the IF frequencies from 4 to 16 GHz for each receiver, producing two 12 GHz wide sidebands, separated by an 8 GHz gap, for each receiver."
+    }
+   ],
+   "note": ""
+  },
+  "rx_wsma": {
+   "topic": "rx",
+   "label": "wSMA receivers (dual polarization, DSB), LO ranges (Table 1B)",
+   "value": "Low Band LO 210-270; High Band LO 273-357",
+   "unit": "GHz",
+   "src": "OCS",
+   "loc": "Table 1B",
+   "quote": "LO Frequency Range 210-270 GHz 273-357 GHz",
+   "alternatives": [
+    {
+     "src": "WSMA",
+     "loc": "Sec. 3",
+     "quote": "The two receiver cartridges cover the two main frequency bands requested for observations with the SMA - 194-286 GHz and 264-376 GHz."
+    }
+   ],
+   "note": ""
+  },
+  "wsma_status": {
+   "topic": "rx",
+   "label": "wSMA deployment status (February 2026)",
+   "value": "2 antennas fully upgraded, a third nearing deployment, a fourth in staging; up to 5 by mid-2026",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Receivers, first paragraph",
+   "quote": "As of February 2026, two antennas are fully upgraded with wSMA systems, a third is nearing deployment, and fourth system is delivered and in staging.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Receivers, first paragraph",
+     "quote": "By mid-2026, we expect to have as many as five antennas upgraded to wSMA systems."
+    }
+   ],
+   "note": "No later status posted; 2026-11 status NOT FOUND."
+  },
+  "rx_dual": {
+   "topic": "rx",
+   "label": "Simultaneous dual-receiver operation",
+   "value": "one RxA (V) + one RxB (H): 230/240, 230/400, 345/240, 345/400 (not 230/345, 240/400); wSMA: LB_V/LB_H and HB_V/HB_H pairs, same rules via legacy names",
+   "unit": "",
+   "src": "OCS",
+   "loc": "Receivers",
+   "quote": "With these SMA legacy systems, simultaneous dual frequency operation was possible with any combination of one RxA (V pol) and one RxB (H pol) receiver.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Receivers",
+     "quote": "Proposals for this semester may request dual band observations using any pair of RxA and RxB receivers."
+    },
+    {
+     "src": "OCS",
+     "loc": "Receivers (tuning limits)",
+     "quote": "Split Rx tuning (different LO frequencies) allowed only for 345Rx LO 252 -- 352 GHz AND 240Rx LO 212 -- 265 GHz"
+    }
+   ],
+   "note": ""
+  },
+  "corr_bw": {
+   "topic": "rx",
+   "label": "Correlator bandwidth (SWARM)",
+   "value": "6 x 2 GHz windows per receiver path => 12 GHz per sideband per receiver; 140 kHz resolution",
+   "unit": "GHz",
+   "src": "OCS",
+   "loc": "Total Bandwidth and Correlator Coverage",
+   "quote": "provides six 2-GHz contiguous windows, for each of two single polarization receiver paths, for a total processed bandwidth to 12 GHz per sideband per receiver",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "Table 2",
+     "quote": "12 GHz BW per sideband per receiver"
+    },
+    {
+     "src": "OCSPEC",
+     "loc": "IF/Backend",
+     "quote": "bandwidth, single rx 12 GHz/sideband"
+    }
+   ],
+   "note": ""
+  },
+  "corr_total": {
+   "topic": "rx",
+   "label": "Total processed bandwidth, two receivers",
+   "value": "48 GHz (12 GHz x 2 sidebands x 2 receivers)",
+   "unit": "GHz",
+   "src": "OCCALL",
+   "loc": "Technical Information, Tools, and Resources",
+   "quote": "Our standard spectral coverage capability is a processed bandwidth of 12 GHz per sideband per polarization, equal to 48 GHz of total processed dual reciever bandwidth, all at 140 kHz resolution.",
+   "alternatives": [
+    {
+     "src": "WSMA",
+     "loc": "Sec. 2",
+     "quote": "for a total of 48GHz on-sky instantaneous bandwidth"
+    },
+    {
+     "src": "SWARM",
+     "loc": "Sec. 1",
+     "quote": "Total sky bandwidth 32 GHz 8 GHz per side band per pol"
+    }
+   ],
+   "note": "The 2016 SWARM design was 8 GHz per sideband per polarization (32 GHz total); the 2026 capability is 12 GHz (48 GHz)."
+  },
+  "corr_dual44": {
+   "topic": "rx",
+   "label": "Continuous coverage from offset LOs",
+   "value": "44 GHz continuous coverage (LOs offset by 12 GHz); in 2026A limited to a range near 1.1 mm",
+   "unit": "GHz",
+   "src": "OCS",
+   "loc": "Total Bandwidth and Correlator Coverage",
+   "quote": "A unique capability available is the continuous 44 GHz spectral coverage available in the common frequency ranges of the RxA and RxB receiver pairs by offsetting their LOs by 12 GHz",
+   "alternatives": [],
+   "note": ""
+  },
+  "pb_table": {
+   "topic": "beam",
+   "label": "Primary beam FWHM (nominal receiver frequency)",
+   "value": "55 (230), 51 (240), 36 (345), 31 (400)",
+   "unit": "arcsec",
+   "src": "OCSPEC",
+   "loc": "Receivers table",
+   "quote": "primary beam (\") 55 51 36 31",
+   "alternatives": [
+    {
+     "src": "OCSPEC",
+     "loc": "Receivers table",
+     "quote": "frequency (GHz) wavelength (mm) 230 1.3 240 1.2 345 0.87 400 0.75"
+    },
+    {
+     "src": "HO04",
+     "loc": "Table 1",
+     "quote": "Primary beam field of view 70"
+    }
+   ],
+   "note": "Rounded to the arcsecond. DERIVED k = FWHM/(lambda/D) = 1.19-1.23 (about 1.2 lambda/D; Sec. Beams)."
+  },
+  "pb_sideband": {
+   "topic": "beam",
+   "label": "Beam by sideband",
+   "value": "beam_LSB = beam_LO/(1 - 10/freq_LO); beam_USB = beam_LO/(1 + 10/freq_LO)",
+   "unit": "",
+   "src": "OCBCN",
+   "loc": "last paragraph",
+   "quote": "The beam_LSB FWHM is simply beam_LO FWHM/(1 - 10/freq_LO)",
+   "alternatives": [],
+   "note": ""
+  },
+  "sub_el": {
+   "topic": "beam",
+   "label": "Subcompact elevation restriction",
+   "value": "observations above 33 deg elevation (antenna collision)",
+   "unit": "deg",
+   "src": "OCS",
+   "loc": "Array Configurations, subcompact paragraph",
+   "quote": "To protect antennas from collision, an elevation restriction (limiting observations to above 33 degrees elevation) is in place",
+   "alternatives": [
+    {
+     "src": "OCBC",
+     "loc": "Notes",
+     "quote": "For subcompact and inner ring only configurations, the array elements are physically limited to elevations"
+    },
+    {
+     "src": "OCBCN",
+     "loc": "Multi-config paragraph",
+     "quote": "a 33 degree lower limit is imposed for SUB configuration"
+    }
+   ],
+   "note": ""
+  },
+  "el_assumed": {
+   "topic": "beam",
+   "label": "Calculator default minimum elevation",
+   "value": "15 deg",
+   "unit": "deg",
+   "src": "OCBC",
+   "loc": "Notes",
+   "quote": "Minimum elevation and hour angle limits are optional (elevation limit of 15",
+   "alternatives": [],
+   "note": ""
+  },
+  "el_mech": {
+   "topic": "beam",
+   "label": "Mechanical elevation range (hardstops)",
+   "value": "6.7 to 89 deg elevation; azimuth -178 to +357 deg",
+   "unit": "deg",
+   "src": "HUN13",
+   "loc": "Sec. 2 (mechanical)",
+   "quote": "The total range of motion between the hardstops is -178",
+   "alternatives": [
+    {
+     "src": "HUN13",
+     "loc": "Sec. 2 (mechanical)",
+     "quote": "in azimuth and 6.7"
+    }
+   ],
+   "note": ""
+  },
+  "el_memo131": {
+   "topic": "beam",
+   "label": "Memo 131 simulation limits",
+   "value": "+/-6 h hour angle, elevation > 20 deg, shadowed data omitted",
+   "unit": "",
+   "src": "M131",
+   "loc": "Sec. 3",
+   "quote": "Observing was limited to 6 hours before and after transit and elevations higher than 20 degrees. Shadowed data were omitted.",
+   "alternatives": [],
+   "note": ""
+  },
+  "night": {
+   "topic": "beam",
+   "label": "Time of day",
+   "value": "generally at night; conditions rarely suitable in the afternoon",
+   "unit": "",
+   "src": "OCCALL",
+   "loc": "RA Coverage by Semester",
+   "quote": "SMA observations are generally executed at night when the atmospheric phase noise is low and often continued into the early morning.",
+   "alternatives": [
+    {
+     "src": "OCCALL",
+     "loc": "RA Coverage by Semester",
+     "quote": "Many projects do not need full tracks (a full rise to set observation)"
+    }
+   ],
+   "note": ""
+  },
+  "spec_sens": {
+   "topic": "beam",
+   "label": "Quoted continuum sensitivity",
+   "value": "0.3, 1.0, 1.7 mJy (DSB, 6 hours; 230 GHz 2.0 mm H2O, 345 GHz 1.5 mm, 400 GHz 1.0 mm)",
+   "unit": "mJy",
+   "src": "OCSPEC",
+   "loc": "Array table",
+   "quote": "sensitivity (DSB, 6 hours)",
+   "alternatives": [],
+   "note": ""
+  },
+  "spec_res": {
+   "topic": "beam",
+   "label": "Best resolution quoted",
+   "value": "0.4 (230), 0.3 (345), 0.25 (400) arcsec",
+   "unit": "arcsec",
+   "src": "OCSPEC",
+   "loc": "Array table",
+   "quote": "best resolution (230 GHz) (345 GHz) (400 GHz) 0.4\" 0.3\" 0.25\"",
+   "alternatives": [],
+   "note": ""
+  },
+  "tsys": {
+   "topic": "beam",
+   "label": "System temperature (DSB)",
+   "value": "80-200 (230), 90-220 (240), 150-350 (345), 150-350 (400) K",
+   "unit": "K",
+   "src": "OCSPEC",
+   "loc": "Receivers table",
+   "quote": "T sys (DSB, K) 80-200 90-220 150-350 150-350",
+   "alternatives": [],
+   "note": ""
+  },
+  "trx": {
+   "topic": "beam",
+   "label": "Receiver temperature (DSB)",
+   "value": "6 hf/k (230/240); 9 hf/k at 265-325 GHz and 7 hf/k above 325 GHz (345/400)",
+   "unit": "",
+   "src": "OCBCN",
+   "loc": "Notes, receiver temperatures",
+   "quote": "Double sideband receiver temperatures follow 6 hf/k for the 230/240 GHz receivers.",
+   "alternatives": [
+    {
+     "src": "OCBCN",
+     "loc": "Notes, receiver temperatures",
+     "quote": "recent analysis provides typical performance as 9 hf/k between 265 and 325 GHz, and 7 hf/k above 325 GHz"
+    }
+   ],
+   "note": ""
+  },
+  "onsrc": {
+   "topic": "beam",
+   "label": "On-source fraction assumed by the calculator",
+   "value": "66% of the track; visibilities of 1.5 min scans",
+   "unit": "",
+   "src": "OCBCN",
+   "loc": "Notes",
+   "quote": "on-source' time is estimated to be 66% of the total available time in a track",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_gain": {
+   "topic": "beam",
+   "label": "Gain used in Memo 131",
+   "value": "140 Jy/K (70% aperture efficiency)",
+   "unit": "Jy/K",
+   "src": "M131",
+   "loc": "Sec. 3",
+   "quote": "antenna gains of 140 Jy/K",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_char": {
+   "topic": "beam",
+   "label": "Memo 131 characteristic beams at 345 GHz (1998 configs A, B, C, D)",
+   "value": "0.25, 0.7, 2, 5 arcsec",
+   "unit": "arcsec",
+   "src": "M131",
+   "loc": "Sec. 3",
+   "quote": "The characteristic FWHM beam sizes at 345 GHz are 0.25, 0.7, 2, and 5 arcseconds in the A, B, C, and D",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_weight": {
+   "topic": "beam",
+   "label": "Memo 131 beam weighting",
+   "value": "natural weighting of the visibilities times 1/Tsys^2 weighting",
+   "unit": "",
+   "src": "M131",
+   "loc": "Abstract",
+   "quote": "We use natural weighting of the visibilities",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_t3_D": {
+   "topic": "beam",
+   "label": "Memo 131 Table 3, D array (FWHM major, minor arcsec, PA deg)",
+   "value": "dec -40: 7.96 5.78 -25 ... dec 60: 6.13 5.34 -64",
+   "unit": "arcsec",
+   "src": "M131",
+   "loc": "Table 3",
+   "quote": "D array -40 7.96 5.78 -25 -20 6.00 5.32 -59 -5 6.02 4.67 -87 20 6.19 4.32 -87 40 6.13 4.58 -86 60 6.13 5.34 -64",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_t3_C": {
+   "topic": "beam",
+   "label": "Memo 131 Table 3, C array",
+   "value": "dec 20: 2.32 1.52 -89",
+   "unit": "arcsec",
+   "src": "M131",
+   "loc": "Table 3",
+   "quote": "C array -40 3.06 2.02 -9 -20 2.19 1.96 -78 -5 2.25 1.68 -87 20 2.32 1.52 -89 40 2.35 1.58 -89 60 2.38 1.79 -90",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_t3_B": {
+   "topic": "beam",
+   "label": "Memo 131 Table 3, B array",
+   "value": "dec 20: 0.84 0.48 90",
+   "unit": "arcsec",
+   "src": "M131",
+   "loc": "Table 3",
+   "quote": "B array -40 1.00 0.70 -5 -20 0.77 0.63 -88 -5 0.80 0.53 90 20 0.84 0.48 90 40 0.85 0.50 90 60 0.87 0.59 90",
+   "alternatives": [],
+   "note": ""
+  },
+  "m131_t3_A": {
+   "topic": "beam",
+   "label": "Memo 131 Table 3, A array (six antennas)",
+   "value": "dec 20: 0.29 0.22 79",
+   "unit": "arcsec",
+   "src": "M131",
+   "loc": "Table 3",
+   "quote": "A array -40 0.41 0.24 2 -20 0.29 0.26 28 -5 0.28 0.24 68 20 0.29 0.22 79 40 0.30 0.22 82 60 0.31 0.24 84",
+   "alternatives": [],
+   "note": ""
+  },
+  "operators": {
+   "topic": "context",
+   "label": "Operators",
+   "value": "SAO and ASIAA (Taiwan)",
+   "unit": "",
+   "src": "WSMA",
+   "loc": "Abstract",
+   "quote": "operating at millimeter and submillimeter wavelengths on Maunakea, Hawaii, operated by the Smithsonian Astrophysical Observatory and Academia Sinica Institute of Astronomy and Astrophysics",
+   "alternatives": [
+    {
+     "src": "HO04",
+     "loc": "Sec. 1",
+     "quote": "In 1996, the Academia Sinica Institute of Astronomy and Astrophysics joined the SMA project"
+    }
+   ],
+   "note": ""
+  },
+  "fringes": {
+   "topic": "context",
+   "label": "First fringes on Mauna Kea",
+   "value": "September 1999",
+   "unit": "",
+   "src": "HO04",
+   "loc": "Sec. 2.1",
+   "quote": "obtained first fringes on Mauna Kea in September 1999",
+   "alternatives": [],
+   "note": ""
+  },
+  "dedication": {
+   "topic": "context",
+   "label": "Dedication",
+   "value": "2003 November 22 (all eight elements deployed by end of 2003)",
+   "unit": "",
+   "src": "HO04",
+   "loc": "Sec. 1",
+   "quote": "formally dedicated on November 22, 2003",
+   "alternatives": [],
+   "note": ""
+  },
+  "commissioned": {
+   "topic": "context",
+   "label": "First commissioned",
+   "value": "2003; 20+ years of operation",
+   "unit": "",
+   "src": "WSMA",
+   "loc": "Sec. 1",
+   "quote": "First commissioned in 2003",
+   "alternatives": [],
+   "note": ""
+  },
+  "esma_fringes": {
+   "topic": "context",
+   "label": "eSMA first fringes (SMA + JCMT + CSO), 345 GHz",
+   "value": "2007 August 30; longest baseline 782 m (with CSO) vs 509 m (SMA alone)",
+   "unit": "",
+   "src": "ESMA",
+   "loc": "Abstract; Sec. 1",
+   "quote": "first fringes at 345 GHz were obtained on August 30 2007",
+   "alternatives": [
+    {
+     "src": "ESMA",
+     "loc": "Sec. 1",
+     "quote": "the longest baseline extends to 782 m, compared to 509 m"
+    },
+    {
+     "src": "ESMA",
+     "loc": "Sec. 1",
+     "quote": "The JCMT-SMA Memorandum of Understanding was signed in 2001"
+    }
+   ],
+   "note": ""
+  },
+  "cso": {
+   "topic": "context",
+   "label": "CSO",
+   "value": "operated 1987-2015; physically removed, site restored (2024-07-02 news)",
+   "unit": "",
+   "src": "CSO",
+   "loc": "first paragraphs",
+   "quote": "CSO, which operated from 1987 to 2015",
+   "alternatives": [
+    {
+     "src": "CSO",
+     "loc": "first paragraph",
+     "quote": "and the land at the site has been restored"
+    }
+   ],
+   "note": ""
+  },
+  "ehtphase": {
+   "topic": "context",
+   "label": "SMA in the EHT",
+   "value": "phased array of 6 x 6 m antennas (median, 2017); 14.7 m equivalent",
+   "unit": "",
+   "src": "P2",
+   "loc": "Table 3 note c",
+   "quote": "The median number of phased antennas in 2017 for the SMA was 6",
+   "alternatives": [
+    {
+     "src": "P2",
+     "loc": "App. A.9",
+     "quote": "The SMA is an eight-element radio interferometer located"
+    },
+    {
+     "src": "SWARM",
+     "loc": "Abstract",
+     "quote": "phased array"
+    }
+   ],
+   "note": ""
+  },
+  "ehtim_row": {
+   "topic": "context",
+   "label": "Older ehtim SMA position",
+   "value": "-5464523.400, -2493147.080, 2150611.750",
+   "unit": "m",
+   "src": "EHTIM",
+   "loc": "row SMA",
+   "quote": "SMA -5464523.400 -2493147.080 2150611.750",
+   "alternatives": [],
+   "note": ""
+  },
+  "wsma_range": {
+   "topic": "context",
+   "label": "Frequency coverage today",
+   "value": "180 to 418 GHz (wSMA to extend)",
+   "unit": "GHz",
+   "src": "WSMA",
+   "loc": "Sec. 2",
+   "quote": "Operating at frequencies from 180 GHz to 418 GHz",
+   "alternatives": [],
+   "note": ""
+  },
+  "status_loss": {
+   "topic": "context",
+   "label": "Status 2026A",
+   "value": "compact only through September; observing time may drop by up to 1/3 (wSMA, infrastructure, Large Scale programs)",
+   "unit": "",
+   "src": "OCS",
+   "loc": "New/Highlighted Capabilities",
+   "quote": "Potential decrease in available observing time by up to 1/3.",
+   "alternatives": [
+    {
+     "src": "OCS",
+     "loc": "New/Highlighted Capabilities",
+     "quote": "In 2026A, the SMA will be in compact (COM) configuration through September."
+    }
+   ],
+   "note": ""
+  },
+  "min_ants": {
+   "topic": "context",
+   "label": "Minimum array for a passing track",
+   "value": "7 antennas (full-pol), 14 receivers (dual); 6/5 antennas partially charged",
+   "unit": "",
+   "src": "OCS",
+   "loc": "\"Time Charged\" Allocation Rules",
+   "quote": "Dual-polarization tracks: 14 working receivers (7 tuned to the RxA tuning, 7 tuned to the RxB tuning)",
+   "alternatives": [],
+   "note": ""
+  }
+ },
+ "quote_records": [
+  {
+   "id": "n_antennas",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "quantity 8"
+  },
+  {
+   "id": "n_antennas.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "The full complement of 8 array antennas is potentially available"
+  },
+  {
+   "id": "n_antennas.alt2",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Interferometer elements 8 6-meter, f/0.4 paraboloids, bent-Nasmyth optics"
+  },
+  {
+   "id": "n_antennas.alt3",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "The Submillimeter Array (SMA) is an 8-element radio interferometer located atop Maunakea"
+  },
+  {
+   "id": "dish",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "diameter 6m"
+  },
+  {
+   "id": "dish.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Interferometer elements 8 6-meter, f/0.4 paraboloids, bent-Nasmyth optics"
+  },
+  {
+   "id": "surface_rms",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "surface accuracy (rms) 11-18"
+  },
+  {
+   "id": "surface_rms.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Surface accuracy 12 microns rms"
+  },
+  {
+   "id": "aper_eff",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "aperture efficiency (230/240 GHz) (345 GHz) (400 GHz) 0.70-0.80 0.60-0.75 0.60-0.75"
+  },
+  {
+   "id": "optics",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Telescope mount alt-azimuth"
+  },
+  {
+   "id": "optics.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Secondary reflector machined aluminum, 10Hz chopping"
+  },
+  {
+   "id": "site_h",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2, first sentence",
+   "quote": "located atop Maunakea in Hawaii at 4080m AMSL"
+  },
+  {
+   "id": "site_h.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 1",
+   "quote": "at an elevation of 4,080 m"
+  },
+  {
+   "id": "phasing_xyz",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2, SMA row",
+   "quote": "-5464555.5 -2492928.0 2150797.2"
+  },
+  {
+   "id": "phasing_xyz.alt1",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2 note b",
+   "quote": "Array coordinates indicate the phasing center used in 2017."
+  },
+  {
+   "id": "site_h_p2",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2, SMA row",
+   "quote": "2150797.2 ... 4115.1"
+  },
+  {
+   "id": "site_h_p2.alt1",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2 note a",
+   "quote": "Elevations are relative to the GRS80 ellipsoid"
+  },
+  {
+   "id": "pad_origin",
+   "src": "CFGSUB",
+   "file": "rawdata/interf/sma/sma.subcompact.cfg",
+   "loc": "file header and first row",
+   "quote": "# observatory=SMA # coordsys=LOC (local tangent plane) # x y z diam pad# 0.00 0.00 0.00 6. 1"
+  },
+  {
+   "id": "pad_origin.alt1",
+   "src": "CFGEXT",
+   "file": "rawdata/interf/sma/sma.extended.cfg",
+   "loc": "file header",
+   "quote": "# observatory=SMA # coordsys=LOC (local tangent plane)"
+  },
+  {
+   "id": "cfg_sub",
+   "src": "CFGSUB",
+   "file": "rawdata/interf/sma/sma.subcompact.cfg",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -7.47 -5.84 -0.01 6. 2 -23.76 -8.23 -0.06 6. 3 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -10.11 13.01 -0.01 6. 6 -63.88 -22.06 -3.21 6. 8 -59.57 34.35 -6.64 6. 23"
+  },
+  {
+   "id": "cfg_com",
+   "src": "CFGCOM",
+   "file": "rawdata/interf/sma/sma.compact.cfg",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -20.09 -15.73 -0.10 6. 7 -63.88 -22.06 -3.21 6. 8 -68.02 5.59 -4.79 6. 9 -53.67 -42.30 -2.75 6. 12 -59.57 34.35 -6.64 6. 23"
+  },
+  {
+   "id": "cfg_comn",
+   "src": "CFGCOMN",
+   "file": "rawdata/interf/sma/sma.compact.n.cfg",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -25.16 1.37 -0.04 6. 4 -18.98 16.62 -0.08 6. 5 -20.09 -15.73 -0.10 6. 7 -68.02 5.59 -4.79 6. 9 -53.67 -42.30 -2.75 6. 12 -71.55 95.53 -10.84 6. 16 -59.57 34.35 -6.64 6. 23"
+  },
+  {
+   "id": "cfg_ext",
+   "src": "CFGEXT",
+   "file": "rawdata/interf/sma/sma.extended.cfg",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -68.02 5.59 -4.79 6. 9 -27.03 34.55 -5.13 6. 11 -53.67 -42.30 -2.75 6. 12 -178.82 3.36 -11.45 6. 14 -136.76 118.97 -11.77 6. 15 -71.55 95.53 -10.84 6. 16 -133.60 -107.01 -10.38 6. 17"
+  },
+  {
+   "id": "cfg_vex",
+   "src": "CFGVEX",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "loc": "rows",
+   "quote": "0.00 0.00 0.00 6. 1 -53.67 -42.30 -2.75 6. 12 -71.55 95.53 -10.84 6. 16 -133.60 -107.01 -10.38 6. 17 -349.68 42.55 -24.69 6. 18 -479.03 167.96 -36.17 6. 19 -251.59 335.61 -18.58 6. 20 -73.52 321.22 -20.29 6. 21"
+  },
+  {
+   "id": "casah",
+   "src": "CASAH",
+   "file": "rawdata/interf/sma/casa-data_commits_sma.subcompact.cfg.json",
+   "loc": "JSON values[0]",
+   "quote": "\"authorTimestamp\":1489013602000,\"committer\""
+  },
+  {
+   "id": "casah.alt1",
+   "src": "CASAH",
+   "file": "rawdata/interf/sma/casa-data_commits_sma.subcompact.cfg.json",
+   "loc": "JSON values[0]",
+   "quote": "\"message\":\"subversion revision 11005\""
+  },
+  {
+   "id": "m131_t1_title",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 1 caption",
+   "quote": "Table 1: SMA Antenna Pad Locations (unit: ft)"
+  },
+  {
+   "id": "m131_t1_title.alt1",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 2",
+   "quote": "The project book lists the as-built antenna pad locations in local ground based coordinates measured to the north, to the east, and in elevation."
+  },
+  {
+   "id": "m131_t1_title.alt2",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 2",
+   "quote": "Table 1 reproduces these locations after subtracting constant"
+  },
+  {
+   "id": "m131_pads",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 1",
+   "quote": "1 27.22 78.70 0.78 2 8.07 54.20 0.76 3 0.23 0.75 0.58 4 31.73 -3.83 0.66 5 81.74 16.42 0.53 6 69.91 45.53 0.74 7 884.61 12.80 0.45 8 -24.39 -130.89 -9.75 9 45.56 -144.46 -14.92 10 174.46 -88.71 -21.24 11 140.57 -9.99 -16.05 12 -111.45 -97.37 -8.23 13 -165.01 -515.08 -36.90 14 38.23 -507.98 -36.80 15 417.53 -369.99 -37.85 16 340.63 -156.06 -34.78 17 -323.85 -359.63 -33.26 18 166.83 -1068.56 -80.21 19 578.27 -1492.93 -117.88 20 1128.31 -746.72 -60.17 21 1081.08 -162.50 -65.80 22 57.42 0.84 0.69 23 139.93 -116.74 -21.01 24 387.10 -478.66 -37.72"
+  },
+  {
+   "id": "m131_cfg_tab",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 2",
+   "quote": "A 1 17 18 19 20 21 (+two) B 1 12 13 14 15 16 17 24 C 1 7 8 9 10 11 12 23 D 1 2 3 4 5 6 7 22"
+  },
+  {
+   "id": "m131_cfg_tab.alt1",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 2",
+   "quote": "Each con"
+  },
+  {
+   "id": "oc_pads_ant",
+   "src": "OCBC",
+   "file": "rawdata/interf/sma/oc_beamcalc.html",
+   "loc": "Pads for custom configuration",
+   "quote": "1 (ant. 8) 2 3 4 (ant. 4) 5 (ant. 6) 6 7 (ant. 1) 8 (ant. 2) 9 (ant. 3) 10 11 12 (ant. 7) 13 14 15 16 17 18 19 20 21 22 23 (ant. 5) 24"
+  },
+  {
+   "id": "oc_sub",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "subcompact : This configuration utilizes six pads on the inner ring (pads 1 through 6) plus two others, typically pads 8 and 23."
+  },
+  {
+   "id": "oc_sub.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "This array provides 15 baselines on the inner ring ranging from 9.5 to 25 m in length; the characteristic resolution is 5 arcsec at 345 GHz (using just the six inner ring antennas)."
+  },
+  {
+   "id": "oc_com",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "compact : This configuration uses pads on the inner ring and second ring (pads 1,4,5,7,8,9,12,23) and provides maximum baseline lengths of approximately 70 meters and characteristic resolution of 2.5 arcsec at 345 GHz."
+  },
+  {
+   "id": "oc_com.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "provides only six baselines on the inner ring, ranging in length from 16.5 to 32 m"
+  },
+  {
+   "id": "oc_ext",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "extended : This configuration includes pads on the third ring (pads 1,9,11,12,14,15,16,17) and provides maximum baseline lengths to 220 meters and characteristic resolution of 0.7-0.8 arcsec at 345 GHz."
+  },
+  {
+   "id": "oc_vex",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "very extended : This configuration uses pads on the fourth ring (pads 1,17,18,19,20,21 plus two others, typically pads 12 and 16) to reach maximum baselines of just over 500 meters, with a characteristic resolution down to ~0.25 arcsec at 345 GHz."
+  },
+  {
+   "id": "vex_damage",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations; Array Configuration Schedule",
+   "quote": "Due to storm damage to roads and infrastructure to pads 18 and 19, VEX configuration is currently not possible."
+  },
+  {
+   "id": "vex_damage.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configuration Schedule",
+   "quote": "will not commence until late FY2026 at the earliest"
+  },
+  {
+   "id": "call_maxbl",
+   "src": "OCCALL",
+   "file": "rawdata/interf/sma/oc_call.html",
+   "loc": "RA Coverage by Semester and UV Plane Considerations",
+   "quote": "The SMA operates in 4 configurations with maximum baselines of 30m (the six antennas on the inner ring of \"subcompact\"), 70m (\"compact\"), 220m (\"extended\"), and 508m (\"very extended\")"
+  },
+  {
+   "id": "call_maxbl.alt1",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "with maximum baselines of 30m for the six antennas on the inner ring"
+  },
+  {
+   "id": "call_maxbl.alt2",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "Very Extended with baselines up to 508m"
+  },
+  {
+   "id": "specs_bl",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Array table",
+   "quote": "baseline length 8 - 509m"
+  },
+  {
+   "id": "specs_bl.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Available baselines 9 - 500 meters"
+  },
+  {
+   "id": "specs_bl.alt2",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "App. A.9",
+   "quote": "baselines as long as 509 m"
+  },
+  {
+   "id": "specs_bl.alt3",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 1",
+   "quote": "the longest baseline extends to 782 m, compared to 509 m"
+  },
+  {
+   "id": "inr_option",
+   "src": "OCBC",
+   "file": "rawdata/interf/sma/oc_beamcalc.html",
+   "loc": "Array Configuration",
+   "quote": "INR (inner ring only) SUB COM EXT VEX"
+  },
+  {
+   "id": "reconfig",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "end of page",
+   "quote": "Reconfiguration of the array typically requires 2 to 3 days, including antenna moves and recalibration."
+  },
+  {
+   "id": "sched_2026",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "2026A paragraph",
+   "quote": "In 2026A, the SMA will be in compact (COM) configuration through September."
+  },
+  {
+   "id": "sched_2026.alt1",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "2026A paragraph",
+   "quote": "EXT or SUB configurations will be considered for the final six weeks of the semester, depending upon proposal pressure."
+  },
+  {
+   "id": "sched_2026.alt2",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "footer",
+   "quote": "Last updated: 2026-Feb-4"
+  },
+  {
+   "id": "sched_2026.alt3",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "footer",
+   "quote": "Last updated: 2026-Feb-5"
+  },
+  {
+   "id": "sched_2025",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "2025B and 2025A table",
+   "quote": "2025B: Compact There will be no reconfigurations during 2025B."
+  },
+  {
+   "id": "sched_2025.alt1",
+   "src": "OCSCHED",
+   "file": "rawdata/interf/sma/oc_array_config_sched.html",
+   "loc": "Semester 2025A table",
+   "quote": "extended 14 June 2025 8 July 2025 back to science compact 1 10 July 2025 24 August 2025 subcompact 26 August 2025 21/28 October 2025 compact 2 23/30 October 2025 15 November 2025"
+  },
+  {
+   "id": "keto_abs",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Abstract",
+   "quote": "The most uniform sampling within this circular region in Fourier space will be created by the particular symmetric curve of constant width that has the lowest degree of rotational symmetry"
+  },
+  {
+   "id": "keto_abs.alt1",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Abstract",
+   "quote": "which is the Reuleaux triangle"
+  },
+  {
+   "id": "keto_abs.alt2",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Abstract",
+   "quote": "will be constructed with a design based on the Reuleaux triangle"
+  },
+  {
+   "id": "keto_abs.alt3",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Sec. 3 (constant width)",
+   "quote": "Placing the antennas along a curve of constant width ensures that the maximum separation of the antennas, and thus the resolution, will be the same in all directions."
+  },
+  {
+   "id": "keto_pert",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Abstract",
+   "quote": "the sampling can be further improved by perturbing the antenna locations slightly"
+  },
+  {
+   "id": "keto_pert.alt1",
+   "src": "KETO",
+   "file": "rawdata/interf/sma/keto1997_ApJ475_843.pdf",
+   "loc": "Abstract",
+   "quote": "Self-organizing neural networks which are"
+  },
+  {
+   "id": "ho_rings",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3; Table 1",
+   "quote": "To provide different angular resolutions the array consists of four nested"
+  },
+  {
+   "id": "ho_rings.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "is an optimized Reuleaux triangle, accommodating up to eight pads."
+  },
+  {
+   "id": "ho_rings.alt2",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Array configuration 4 nested rings, 24 pads, up to 8 pads per ring"
+  },
+  {
+   "id": "ho_rings.alt3",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "Some compromises were eventually made because of the topography of the site."
+  },
+  {
+   "id": "ho_rings.alt4",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "Addition of the two ASIAA telescopes was accommodated within this Reuleaux triangle scheme on an ad hoc basis."
+  },
+  {
+   "id": "ho_rule",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "the maximum separation between telescopes is a constant. This ensures that the maximum uv plane spacings lie on a circle"
+  },
+  {
+   "id": "ho_rule.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "The choice of a triangle, versus a polygon of more sides, ensures that the angles between baseline vectors"
+  },
+  {
+   "id": "m131_reul",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 1",
+   "quote": "The antenna stations for the SMA on Mauna Kea are arranged approximately in four tangential Releaux triangles that provide"
+  },
+  {
+   "id": "m131_reul.alt1",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Fig. 1 caption",
+   "quote": "showing the four tangential Releaux triangles that comprise the A, B, C, and D"
+  },
+  {
+   "id": "rx_legacy",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers",
+   "quote": "Prior to the wSMA upgrade program each cryostat was equipped with four single pol receivers each, named 230GHz(RxA V), 240GHz(RxB H), 345GHz(RxA V), and 400GHz(RxB H)."
+  },
+  {
+   "id": "rx_legacy.alt1",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "All eight antennas are currently equipped with four receivers each, named 230GHz(RxA), 240GHz(RxB), 345GHz(RxA), and 400GHz(RxB)."
+  },
+  {
+   "id": "rx_lo_legacy",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Table 1A",
+   "quote": "LO Frequency Range 194-238 GHz 1 212-265 GHz 2 252-352 GHz 336-408 GHz 3"
+  },
+  {
+   "id": "rx_lo_legacy.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Table 1A note 1",
+   "quote": "In the 230 GHz band, an LO range of 188-244 GHz is available with 7 antennas."
+  },
+  {
+   "id": "rx_if_rf",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers",
+   "quote": "add +/-16 GHz to the LO range to get the full correlator RF range."
+  },
+  {
+   "id": "rx_if_rf.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Total Bandwidth and Correlator Coverage",
+   "quote": "The correlator processes the IF frequencies from 4 to 16 GHz for each receiver, producing two 12 GHz wide sidebands, separated by an 8 GHz gap, for each receiver."
+  },
+  {
+   "id": "rx_wsma",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Table 1B",
+   "quote": "LO Frequency Range 210-270 GHz 273-357 GHz"
+  },
+  {
+   "id": "rx_wsma.alt1",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 3",
+   "quote": "The two receiver cartridges cover the two main frequency bands requested for observations with the SMA - 194-286 GHz and 264-376 GHz."
+  },
+  {
+   "id": "wsma_status",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers, first paragraph",
+   "quote": "As of February 2026, two antennas are fully upgraded with wSMA systems, a third is nearing deployment, and fourth system is delivered and in staging."
+  },
+  {
+   "id": "wsma_status.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers, first paragraph",
+   "quote": "By mid-2026, we expect to have as many as five antennas upgraded to wSMA systems."
+  },
+  {
+   "id": "rx_dual",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers",
+   "quote": "With these SMA legacy systems, simultaneous dual frequency operation was possible with any combination of one RxA (V pol) and one RxB (H pol) receiver."
+  },
+  {
+   "id": "rx_dual.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers",
+   "quote": "Proposals for this semester may request dual band observations using any pair of RxA and RxB receivers."
+  },
+  {
+   "id": "rx_dual.alt2",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Receivers (tuning limits)",
+   "quote": "Split Rx tuning (different LO frequencies) allowed only for 345Rx LO 252 -- 352 GHz AND 240Rx LO 212 -- 265 GHz"
+  },
+  {
+   "id": "corr_bw",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Total Bandwidth and Correlator Coverage",
+   "quote": "provides six 2-GHz contiguous windows, for each of two single polarization receiver paths, for a total processed bandwidth to 12 GHz per sideband per receiver"
+  },
+  {
+   "id": "corr_bw.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Table 2",
+   "quote": "12 GHz BW per sideband per receiver"
+  },
+  {
+   "id": "corr_bw.alt2",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "IF/Backend",
+   "quote": "bandwidth, single rx 12 GHz/sideband"
+  },
+  {
+   "id": "corr_total",
+   "src": "OCCALL",
+   "file": "rawdata/interf/sma/oc_call.html",
+   "loc": "Technical Information, Tools, and Resources",
+   "quote": "Our standard spectral coverage capability is a processed bandwidth of 12 GHz per sideband per polarization, equal to 48 GHz of total processed dual reciever bandwidth, all at 140 kHz resolution."
+  },
+  {
+   "id": "corr_total.alt1",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "for a total of 48GHz on-sky instantaneous bandwidth"
+  },
+  {
+   "id": "corr_total.alt2",
+   "src": "SWARM",
+   "file": "rawdata/interf/sma/primiani2016_arXiv1611.02596.pdf",
+   "loc": "Sec. 1",
+   "quote": "Total sky bandwidth 32 GHz 8 GHz per side band per pol"
+  },
+  {
+   "id": "corr_dual44",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Total Bandwidth and Correlator Coverage",
+   "quote": "A unique capability available is the continuous 44 GHz spectral coverage available in the common frequency ranges of the RxA and RxB receiver pairs by offsetting their LOs by 12 GHz"
+  },
+  {
+   "id": "pb_table",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Receivers table",
+   "quote": "primary beam (\") 55 51 36 31"
+  },
+  {
+   "id": "pb_table.alt1",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Receivers table",
+   "quote": "frequency (GHz) wavelength (mm) 230 1.3 240 1.2 345 0.87 400 0.75"
+  },
+  {
+   "id": "pb_table.alt2",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Table 1",
+   "quote": "Primary beam field of view 70"
+  },
+  {
+   "id": "pb_sideband",
+   "src": "OCBCN",
+   "file": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "loc": "last paragraph",
+   "quote": "The beam_LSB FWHM is simply beam_LO FWHM/(1 - 10/freq_LO)"
+  },
+  {
+   "id": "sub_el",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations, subcompact paragraph",
+   "quote": "To protect antennas from collision, an elevation restriction (limiting observations to above 33 degrees elevation) is in place"
+  },
+  {
+   "id": "sub_el.alt1",
+   "src": "OCBC",
+   "file": "rawdata/interf/sma/oc_beamcalc.html",
+   "loc": "Notes",
+   "quote": "For subcompact and inner ring only configurations, the array elements are physically limited to elevations"
+  },
+  {
+   "id": "sub_el.alt2",
+   "src": "OCBCN",
+   "file": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "loc": "Multi-config paragraph",
+   "quote": "a 33 degree lower limit is imposed for SUB configuration"
+  },
+  {
+   "id": "el_assumed",
+   "src": "OCBC",
+   "file": "rawdata/interf/sma/oc_beamcalc.html",
+   "loc": "Notes",
+   "quote": "Minimum elevation and hour angle limits are optional (elevation limit of 15"
+  },
+  {
+   "id": "el_mech",
+   "src": "HUN13",
+   "file": "rawdata/interf/sma/hunter2013_arXiv1303.4397.pdf",
+   "loc": "Sec. 2 (mechanical)",
+   "quote": "The total range of motion between the hardstops is -178"
+  },
+  {
+   "id": "el_mech.alt1",
+   "src": "HUN13",
+   "file": "rawdata/interf/sma/hunter2013_arXiv1303.4397.pdf",
+   "loc": "Sec. 2 (mechanical)",
+   "quote": "in azimuth and 6.7"
+  },
+  {
+   "id": "el_memo131",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 3",
+   "quote": "Observing was limited to 6 hours before and after transit and elevations higher than 20 degrees. Shadowed data were omitted."
+  },
+  {
+   "id": "night",
+   "src": "OCCALL",
+   "file": "rawdata/interf/sma/oc_call.html",
+   "loc": "RA Coverage by Semester",
+   "quote": "SMA observations are generally executed at night when the atmospheric phase noise is low and often continued into the early morning."
+  },
+  {
+   "id": "night.alt1",
+   "src": "OCCALL",
+   "file": "rawdata/interf/sma/oc_call.html",
+   "loc": "RA Coverage by Semester",
+   "quote": "Many projects do not need full tracks (a full rise to set observation)"
+  },
+  {
+   "id": "spec_sens",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Array table",
+   "quote": "sensitivity (DSB, 6 hours)"
+  },
+  {
+   "id": "spec_res",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Array table",
+   "quote": "best resolution (230 GHz) (345 GHz) (400 GHz) 0.4\" 0.3\" 0.25\""
+  },
+  {
+   "id": "tsys",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Receivers table",
+   "quote": "T sys (DSB, K) 80-200 90-220 150-350 150-350"
+  },
+  {
+   "id": "trx",
+   "src": "OCBCN",
+   "file": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "loc": "Notes, receiver temperatures",
+   "quote": "Double sideband receiver temperatures follow 6 hf/k for the 230/240 GHz receivers."
+  },
+  {
+   "id": "trx.alt1",
+   "src": "OCBCN",
+   "file": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "loc": "Notes, receiver temperatures",
+   "quote": "recent analysis provides typical performance as 9 hf/k between 265 and 325 GHz, and 7 hf/k above 325 GHz"
+  },
+  {
+   "id": "onsrc",
+   "src": "OCBCN",
+   "file": "rawdata/interf/sma/oc_beamcalc_notes2020.html",
+   "loc": "Notes",
+   "quote": "on-source' time is estimated to be 66% of the total available time in a track"
+  },
+  {
+   "id": "m131_gain",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 3",
+   "quote": "antenna gains of 140 Jy/K"
+  },
+  {
+   "id": "m131_char",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Sec. 3",
+   "quote": "The characteristic FWHM beam sizes at 345 GHz are 0.25, 0.7, 2, and 5 arcseconds in the A, B, C, and D"
+  },
+  {
+   "id": "m131_weight",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Abstract",
+   "quote": "We use natural weighting of the visibilities"
+  },
+  {
+   "id": "m131_t3_D",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 3",
+   "quote": "D array -40 7.96 5.78 -25 -20 6.00 5.32 -59 -5 6.02 4.67 -87 20 6.19 4.32 -87 40 6.13 4.58 -86 60 6.13 5.34 -64"
+  },
+  {
+   "id": "m131_t3_C",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 3",
+   "quote": "C array -40 3.06 2.02 -9 -20 2.19 1.96 -78 -5 2.25 1.68 -87 20 2.32 1.52 -89 40 2.35 1.58 -89 60 2.38 1.79 -90"
+  },
+  {
+   "id": "m131_t3_B",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 3",
+   "quote": "B array -40 1.00 0.70 -5 -20 0.77 0.63 -88 -5 0.80 0.53 90 20 0.84 0.48 90 40 0.85 0.50 90 60 0.87 0.59 90"
+  },
+  {
+   "id": "m131_t3_A",
+   "src": "M131",
+   "file": "rawdata/interf/sma/memo131.pdf",
+   "loc": "Table 3",
+   "quote": "A array -40 0.41 0.24 2 -20 0.29 0.26 28 -5 0.28 0.24 68 20 0.29 0.22 79 40 0.30 0.22 82 60 0.31 0.24 84"
+  },
+  {
+   "id": "operators",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Abstract",
+   "quote": "operating at millimeter and submillimeter wavelengths on Maunakea, Hawaii, operated by the Smithsonian Astrophysical Observatory and Academia Sinica Institute of Astronomy and Astrophysics"
+  },
+  {
+   "id": "operators.alt1",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 1",
+   "quote": "In 1996, the Academia Sinica Institute of Astronomy and Astrophysics joined the SMA project"
+  },
+  {
+   "id": "fringes",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "obtained first fringes on Mauna Kea in September 1999"
+  },
+  {
+   "id": "dedication",
+   "src": "HO04",
+   "file": "rawdata/interf/sma/ho2004_arXiv_astro-ph_0406352.pdf",
+   "loc": "Sec. 1",
+   "quote": "formally dedicated on November 22, 2003"
+  },
+  {
+   "id": "commissioned",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 1",
+   "quote": "First commissioned in 2003"
+  },
+  {
+   "id": "esma_fringes",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Abstract; Sec. 1",
+   "quote": "first fringes at 345 GHz were obtained on August 30 2007"
+  },
+  {
+   "id": "esma_fringes.alt1",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 1",
+   "quote": "the longest baseline extends to 782 m, compared to 509 m"
+  },
+  {
+   "id": "esma_fringes.alt2",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 1",
+   "quote": "The JCMT-SMA Memorandum of Understanding was signed in 2001"
+  },
+  {
+   "id": "cso",
+   "src": "CSO",
+   "file": "rawdata/interf/sma/caltech_cso_removed.html",
+   "loc": "first paragraphs",
+   "quote": "CSO, which operated from 1987 to 2015"
+  },
+  {
+   "id": "cso.alt1",
+   "src": "CSO",
+   "file": "rawdata/interf/sma/caltech_cso_removed.html",
+   "loc": "first paragraph",
+   "quote": "and the land at the site has been restored"
+  },
+  {
+   "id": "ehtphase",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 3 note c",
+   "quote": "The median number of phased antennas in 2017 for the SMA was 6"
+  },
+  {
+   "id": "ehtphase.alt1",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "App. A.9",
+   "quote": "The SMA is an eight-element radio interferometer located"
+  },
+  {
+   "id": "ehtphase.alt2",
+   "src": "SWARM",
+   "file": "rawdata/interf/sma/primiani2016_arXiv1611.02596.pdf",
+   "loc": "Abstract",
+   "quote": "phased array"
+  },
+  {
+   "id": "ehtim_row",
+   "src": "EHTIM",
+   "file": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt",
+   "loc": "row SMA",
+   "quote": "SMA -5464523.400 -2493147.080 2150611.750"
+  },
+  {
+   "id": "wsma_range",
+   "src": "WSMA",
+   "file": "rawdata/interf/sma/grimes2024_arXiv2406.17192.pdf",
+   "loc": "Sec. 2",
+   "quote": "Operating at frequencies from 180 GHz to 418 GHz"
+  },
+  {
+   "id": "status_loss",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "New/Highlighted Capabilities",
+   "quote": "Potential decrease in available observing time by up to 1/3."
+  },
+  {
+   "id": "status_loss.alt1",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "New/Highlighted Capabilities",
+   "quote": "In 2026A, the SMA will be in compact (COM) configuration through September."
+  },
+  {
+   "id": "min_ants",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "\"Time Charged\" Allocation Rules",
+   "quote": "Dual-polarization tracks: 14 working receivers (7 tuned to the RxA tuning, 7 tuned to the RxB tuning)"
+  }
+ ],
+ "not_found": [
+  "Absolute geodetic position of pad 1 (or of any pad): CASA has no SMA row in its Observatories table; Memo 131 gives a ground reference without absolute coordinates. The only sourced absolute point is the EHT 2017 phasing center (P2 Table 2), whose relation to the pad field is not stated.",
+  "Central blockage or subreflector diameter of the 6 m antennas.",
+  "A published largest angular scale / maximum recoverable scale for the SMA configurations: the values here are DERIVED (0.983 lambda/L5, INFERRED relation from the ALMA record; 0.6 lambda/Bmin as the alternative).",
+  "A published declination range of the SMA (DERIVED from latitude and elevation limits only).",
+  "A typical track length in hours (the OSPEC sensitivity is for 6 hours; Memo 131 simulates +/-6 h; SAO calls speak of rise-to-set tracks).",
+  "Configuration schedule for 2026B/2027A (the OC pages saved 2026-11-18 end at 2026A, last updated 2026-02-04/05).",
+  "Per-configuration synthesized beams and largest scales for the CURRENT configurations in a published table (the OC beam calculator computes them on request; Memo 131 Table 3 is for the 1998 configurations A-D, which use different pads).",
+  "Per-antenna SEFD or a quoted SEFD per receiver (Tsys is given as DSB ranges; the EHT phased SEFD is in the eht2017 record).",
+  "Shadowing guidance for the compact configurations beyond the 33 deg SUB limit.",
+  "The wSMA status after February 2026."
+ ],
+ "conflicts": [
+  "Pad 7 north: Memo 131 Table 1 prints 884.61 ft (an evident typo; 884.61 ft would put pad 7 about 277 m north of the inner ring); CFG gives -15.73 m (= -24.39 ft in the memo frame, the value the memo prints for pad 8).",
+  "Pad 8 north: Memo 131 gives -24.39 ft (N = -15.73 m relative to pad 1); CFG gives -22.06 m, 6.33 m south of the memo value. CFG pad 7 north equals the memo-derived pad 8 north, so one of the two documents probably has a transcription slip between rows 7 and 8; which is right could not be settled from the saved documents. The pad 8 position changes the SUB and COM baselines to pad 8 by up to 6 m.",
+  "COM maximum baseline: OCS \"approximately 70 meters\" and OCCALL 70 m vs 76.98 m (pads 12-23) from CFG.",
+  "EXT maximum baseline: OCS/OCCALL 220 m vs 226.01 m (pads 15-17) from CFG.",
+  "SUB maximum baseline: OCCALL/WSMA 30 m (the six inner-ring antennas only); the full 8-pad subcompact (pads 1-6, 8, 23) reaches 69.08 m.",
+  "Shortest baseline: OCSPEC 8 m agrees with the shortest of all 24 pads, 7.96 m (pads 4-22, DERIVED; pad 22 is in no current configuration); the shortest in the SUB set is 9.48 m (pads 1-2), matching HO04 Table 1 (9 m) and OCS (9.5 m).",
+  "VEX maximum baseline: 508.91 m (CFG, pads 1-19) vs OCCALL 508 m, OCSPEC 509 m, HO04 \"500 m\": agree.",
+  "Resolution: OCS \"characteristic resolution\" 0.25 arcsec for VEX at 345 GHz vs lambda/Bmax = 0.35 arcsec (DERIVED) and a simulated natural-weighted beam of 0.32 arcsec; OCS 2.5 arcsec for COM vs 2.33 (lambda/Bmax) and 2.0 (simulated).",
+  "Subcompact elevation: 33 deg (OCS, OCBC, OCBCN) vs 31.3 deg in the older single-configuration beam calculator (read, not cited; superseded).",
+  "Receiver names do not give the coverage: OCS \"for historical reasons, the receiver names do not correctly reflect the actual coverages\" (the 230 receiver tunes LO 194-238 GHz, the 240 receiver 212-265 GHz).",
+  "wSMA Low Band: OCS Table 1B LO 210-270 GHz +/-16 GHz = RF 194-286 GHz, equal to WSMA cartridge range 194-286 GHz; High Band LO 273-357 GHz gives RF 257-373 GHz vs WSMA cartridge 264-376 GHz (a few GHz at the edges).",
+  "SMA positions in the EHT files: P2 Table 2 phasing center vs the older ehtim EHT2017.txt row differ by 288.8 m (DERIVED); the pad field spans 0.5 km, so neither point can be placed on the pad map."
+ ],
+ "notes": [
+  "Pad coordinates: x east, y north, z up in m relative to pad 1 (CFG). 20 of 24 pads are in CFG; pads 10, 13, 22, 24 (used by no current configuration) come from Memo 131 Table 1 converted from ft (DERIVED, x 0.3048, relative to pad 1).",
+  "CFG equals Memo 131 Table 1 converted to metres and rounded to 0.01 m for 18 pads (maximum difference 0.033 m, pad 12 north); it is therefore not an independent measurement. Pads 7 and 8 differ (Conflicts).",
+  "The beams in beams_345GHz_simulated are this record's own natural-weighted simulation (2 min samples, +/-6 h, elevation >= 20 deg, >= 33 deg for SUB and the inner ring, shadowed baselines (projected separation < 6 m) dropped; central lobe = filled ellipse of the contiguous >= 50% region) and reproduce Memo 131 Table 3 for the 1998 configurations within 1-6% in geometric-mean FWHM.",
+  "Keto design test (DERIVED): the width of the pad set projected on a direction (max minus min) is constant for a curve of constant width. For the built rings the width varies by 18% (COM), 25% (SUB), 27% (VEX) and 32% (EXT) peak to peak relative to the mean; eight points spread evenly on a perfect Reuleaux triangle vary by 10-14%. The built pads follow the Reuleaux plan only loosely (topography, the two ASIAA antennas added ad hoc); the six inner-ring pads vary by 6%."
+ ]
+}

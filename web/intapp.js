@@ -74,7 +74,8 @@ let S = ARRS.length ? defaultsFor(ARRS[0]) : {};
 const arrOf = () => arrById(S.arr);
 const cfgOf = () => { const a = arrOf(); return a.configs.find(c => c.id === S.cfg) || a.configs[0]; };
 const bandOf = () => { const a = arrOf(); return a.bands.find(b => b.k === S.band) || a.bands[0]; };
-const elOf = () => (S.el === null || S.el === undefined ? arrOf().elLimit : S.el);
+// (a configuration may set its own limit, as the SMA's subcompact 33 degrees; made-up layouts keep the array's)
+const elOf = () => (S.el === null || S.el === undefined ? (S.lay === "built" && cfgOf().elLimit !== undefined ? cfgOf().elLimit : arrOf().elLimit) : S.el);
 // the primary beam's FWHM (radians) at nu (GHz): the observatory's relation, in arcmin times GHz (the VLA) or in
 // lambda / D (ALMA)
 // (a cylinder's beam is elliptical, { ew, ns }: narrow east-west across the reflector, wide north-south along the line
@@ -593,6 +594,11 @@ function drawArray(R) {
     g.strokeRect(alview.ox + (ce - cw / 2) * alview.s, alview.oy - (cn + cl / 2) * alview.s, cw * alview.s, cl * alview.s);
   }
   const xy = antScreen(ants), rr = Math.max(ants.length > 2000 ? 1.2 : ants.length > 500 ? 1.8 : 2.6, a.dish / 2 * alview.s);
+  // the array's pads (the SMA's 24), pale under the antennas: the empty pads of the other configurations show
+  if (a.pads && S.lay === "built") {
+    g.fillStyle = "#ece7de"; g.strokeStyle = "#c9bfae"; g.lineWidth = 1;
+    for (const [e, n] of a.pads) { g.beginPath(); g.arc(alview.ox + e * alview.s, alview.oy - n * alview.s, rr, 0, 2 * Math.PI); g.fill(); g.stroke(); }
+  }
   ants.forEach((p, k) => {
     const [x, y] = xy[k];
     g.beginPath(); g.arc(x, y, k === hoverAnt ? rr + 1.5 : rr, 0, 2 * Math.PI);
@@ -616,7 +622,7 @@ function drawArray(R) {
     document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
   const lname = (LAYS.find(q => q[0] === S.lay) || LAYS[0])[1];
   const one = a.unitOne || "antenna";
-  $("alSub").textContent = fixedLine() + (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration. " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
+  $("alSub").textContent = fixedLine() + (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration" + (a.pads ? "; pale disks mark the empty pads (" + a.pads.length + " pads in all)" : "") + ". " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
 }
 // a single dish, from above: the reflector (gray) and the illuminated aperture (blue), to scale
 function drawDish(g, w, h, a) {

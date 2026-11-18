@@ -50,6 +50,38 @@ const out = [];
   });
 }
 
+// ---- SMA (data/interf/sma.json): the four configurations of eight 6 m antennas from CASA's sma.*.cfg (local east,
+// north, up about pad 1: SMA Memo 131's as-built pads in meters); the four receivers at the Observer Center's RF
+// ranges, the LO range +-16 GHz, with 12 GHz in each of the two sidebands (the page sets the 24 GHz side by side,
+// without the 8 GHz gap between the sidebands, as ALMA's 7.5 GHz); the primary beam 1.2 lambda / D (DERIVED from the
+// Quick Specs' 55, 51, 36, 31 arcsec); the beam calculator's 15-degree limit, 33 degrees in the subcompact
+// configuration (collisions); the latitude of the EHT's phasing center (Paper II: pad 1's own position is not
+// published). The default declination +30 keeps the transit below the 89-degree hardstop.
+{
+  const j = rd("sma.json"), cb = j.config_baselines_derived, rf = j.rf_range_GHz_derived, pb = j.primary_beam;
+  const CF = [["SUB", "subcompact", "Subcompact"], ["COM", "compact", "Compact"], ["EXT", "extended", "Extended"], ["VEX", "vextended", "Very extended"]];
+  const ks = Object.values(pb).map(q => q.k);
+  out.push({
+    id: "sma", name: "SMA", site: "Maunakea, Hawaii", lat: Math.round(j.site.phasing_center_EHT2017.lat_deg_DERIVED * 1e4) / 1e4, dish: j.dish_m, elLimit: 15,
+    pb: { k: 1.2 },
+    pbSource: "1.2 λ / D: " + pb["230"].fwhm_arcsec + "″ at 230 GHz and " + pb["345"].fwhm_arcsec + "″ at 345 GHz in the SMA's Quick Specs, " + Math.min(...ks).toFixed(2) + "–" + Math.max(...ks).toFixed(2) + " λ / D across the four receivers",
+    elNote: "15°, the SMA beam calculator's default; the antennas' hardstops are at 6.7° (Hunter et al. 2013). The subcompact configuration has a separate limit, 33°, which the SMA imposes to keep neighboring dishes from colliding.",
+    antNote: "The Submillimeter Array on Maunakea, dedicated in 2003 and operated by the Smithsonian Astrophysical Observatory and the Academia Sinica Institute of Astronomy and Astrophysics, moves eight 6 m antennas among 24 pads. The pads lie on four nested rings, each close to a Reuleaux triangle, a curve of constant width (Keto 1997). The array then has the same width in each direction, so the longest spacings in the uv plane lie on a circle and the beam is round for a source at the zenith (Ho et al. 2004). The inner ring follows the shape closely; the outer rings depart from the shape where the terrain forced compromises. Storm damage in August 2024 to the roads and infrastructure at pads 18 and 19 has stopped the very extended configuration, and in February 2026 the Observer Center reported that the repair would not start before late fiscal year 2026. The positions come from CASA's simulator files, which give the as-built pads of SMA Memo 131 (1998) in meters.",
+    durNote: "The default, 6 h, is the track length that the sensitivities in the SMA's Quick Specs assume; the SMA publishes no typical track length.",
+    bands: ["230", "240", "345", "400"].map(k => ({ k, name: k + "Rx  " + rf[k][0] + "–" + rf[k][1] + " GHz", lo: rf[k][0], hi: rf[k][1], bw: 24, rep: +k })),
+    configs: CF.map(([id, key, name]) => {
+      const P = cb[key].pads, ants = P.map(n => j.pads[String(n)].enu_m);
+      if (P.some(n => !/CFG/.test(j.pads[String(n)].from))) throw new Error("SMA " + id + ": a pad not from CASA's files");
+      return Object.assign({ id, name, ants: ants.map(p => p.map(mm)), names: P.map(n => "pad " + n), bmax: Math.round(cb[key].max_m * 100) / 100 },
+        id === "SUB" ? { elLimit: 33, note: "The subcompact configuration uses pads 1 to 6 of the inner ring, 9.5 to 25 m apart, and pads 8 and 23 (the Observer Center's usual pair). The SMA observes in this configuration only above 33° elevation, to keep neighboring dishes from colliding." } : {});
+    }),
+    // (all 24 pads, drawn pale in the Array panel: 20 from CASA's files, pads 10, 13, 22 and 24 from Memo 131's
+    // table in feet, DERIVED)
+    pads: Object.keys(j.pads).map(n => j.pads[n].enu_m.map(mm)),
+    defaults: { cfg: "COM", band: "230", nu: 230, dec: 30, dur: 6 },
+  });
+}
+
 // ---- DSA-2000 (data/interf/dsa2000.json): the 1650-dish design of the Final Design Review, from the
 // project's sensitivity calculator (antennas_enu.json, about the array's centroid); the calculator's 20-degree
 // elevation limit; the primary beam 3.36 deg / nu(GHz)

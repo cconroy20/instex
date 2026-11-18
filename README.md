@@ -515,6 +515,20 @@ eht2017.md, chime.md, chord.md). Five new arrays, all built by make_rpresets.js 
   outrigger kept in the random draw (interf.js baselines, keep); default an FRB snapshot over the whole band.
 - CHORD (under construction): the 512-dish core and the 64-dish pathfinder, read from the layout figure; 1.2 λ / D;
   reaches declinations +20° to +80° only (dishes set by hand).
+- SMA (11-18, his ask; data/interf/sma.md): eight 6 m antennas in the subcompact, compact, extended and very extended
+  configurations, from CASA's sma.*.cfg (east, north, up about pad 1: SMA Memo 131's as-built pads in meters; pads 7
+  and 8 differ from the memo, whose pad 7 north is a misprint; CASA's pad 8 kept, which puts pads 7 and 8 on their
+  rings' arcs and changes the memo's C beam by 1%); the latitude of the EHT's phasing center (pad 1's own position is
+  not published); 1.2 λ / D (DERIVED from the Quick Specs' 55, 51, 36, 31″); the four legacy receivers at the Observer
+  Center's RF ranges (LO ± 16 GHz), 24 GHz each laid side by side as ALMA's (the real two 12 GHz sidebands have an
+  8 GHz gap; the wSMA receivers, on two antennas in February 2026, are left out); 15° (the beam calculator's default),
+  and 33° in the subcompact configuration (the SMA's limit against collisions): configs may now set their own elLimit
+  (intapp.js elOf, built layouts only). The very extended configuration is kept, though storm damage at pads 18 and 19
+  has stopped it until late FY2026 at the earliest (antNote). Checks (validate_int): the pad lists, the published
+  baselines (VEX 508.9 m vs 508/509, EXT 226 vs 220, the inner six 9.5-25 m), and Memo 131's Table 3 beams of the 1998
+  configurations D, C, B at six declinations (natural, ±6 h, 20°, shadowing): the geometric mean within 2-8% and the
+  major axis within 5%. The Observer Center's characteristic resolutions of today's configurations (no method stated)
+  are INFO lines: inner six 4.7″ vs 5″, COM 1.9″ vs 2.5″, EXT 0.72″ vs 0.7-0.8″, VEX 0.29″ vs ≈ 0.25″ (345 GHz, 6 h).
 Engine (interf.js): geoXYZ (WGS84 to the equatorial frame of a reference meridian), per-station horizons (staSees:
 elevation, own limit, horizon mask), per-baseline weights carried by the samples (wb), the samples' time offsets (tOff,
 for Play), elliptical primary beams (beamFn), the crescent, core-jet and point-source skies (skyModel2, pointsList).
