@@ -1,0 +1,1605 @@
+{
+ "id": "hds",
+ "name": "Subaru / HDS",
+ "date": "2026-11-18",
+ "quote_check": {
+  "pieces": 116,
+  "failures": 0,
+  "scan_pieces_matched_to_ocr": 0,
+  "scan_pieces_transcribed": 0,
+  "figure_readings": 3
+ },
+ "sources": {
+  "M14": {
+   "document": "Aoki, W., Helminiak, K. & Tajitsu, A. 2014, \"Subaru Telescope High Dispersion Spectrograph (HDS) User Manual, Ver. 2.0.0\" (Subaru Telescope/NAOJ, January 2014; 48 pp; the Subaru page names it V2.0.0, Oct. 2014; clean text layer; Figure 1 is the optical layout, Table 1 the system table, Table 6 the standard setups, Sec. 5.1 the order tables, Sec. 5.3 a FITS header and an ASCII order table). Page numbers below are the manual's own.",
+   "file": "ume_v200.pdf",
+   "url": "https://www.naoj.hawaii.edu/Instruments/HDS/ume_v200.pdf (also https://subarutelescope.org/Observing/Instruments/HDS/ume_v200.pdf)"
+  },
+  "T12": {
+   "document": "Tajitsu, A., Aoki, W. & Yamamuro, T. 2012, PASJ 64, 77, \"Image Slicer for the Subaru Telescope High Dispersion Spectrograph\" (ADS 2012PASJ...64...77T; title checked on ADS; arXiv:1203.5568; clean text layer)",
+   "file": "Tajitsu2012_arXiv1203.5568.pdf",
+   "url": "https://arxiv.org/pdf/1203.5568"
+  },
+  "H04": {
+   "document": "Honda, S., Aoki, W., Kajino, T., et al. 2004, ApJS 152, 113, \"Spectroscopic Studies of Extremely Metal-Poor Stars with the Subaru High Dispersion Spectrograph. I. Observational Data\" (ADS 2004ApJS..152..113H; arXiv:astro-ph/0402291; used only for the slit widths and R actually used)",
+   "file": "Honda2004_arXiv-astro-ph0402291.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0402291"
+  },
+  "I04": {
+   "document": "Iye, M., Karoji, H., Ando, H., et al. 2004, PASJ 56, 381, \"Current Performance and On-Going Improvements of the 8.2 m Subaru Telescope\" (arXiv:astro-ph/0405012; Table 2 gives the focal configurations; Sec. 3.3 describes HDS)",
+   "file": "Iye2004_arXiv-astro-ph0405012.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0405012"
+  },
+  "N02": {
+   "document": "Noguchi, K., Aoki, W., Kawanomoto, S., et al. 2002, PASJ 54, 855, \"High Dispersion Spectrograph (HDS) for the Subaru Telescope\" (ADS 2002PASJ...54..855N; title checked on ADS; supplied by the user; 10 pages, journal pp. 855-864; text layer present; Fig. 1 is the dimensioned top and side view of the optical layout, p. 856 (PDF p. 2); Table 1 on p. 857; Secs. 2.1-2.6 pp. 857-860). Page numbers below are journal pages.",
+   "file": "noguchi2002_pasj54_855.pdf",
+   "url": "https://academic.oup.com/pasj/article/54/6/855/1551281"
+  },
+  "N98": {
+   "document": "Noguchi, K., Aoki, W., Kawanomoto, S., et al. 1998, Proc. SPIE 3355, 354, \"High-dispersion spectrograph (HDS) for SUBARU Telescope\" (ADS 1998SPIE.3355..354N; title checked on ADS). Not saved (SPIE refuses automated access); only the ADS abstract (ads_1998SPIE.3355..354N.json) is used. The design-era detector (15 um pixels) differs from the as-built 13.5 um.",
+   "file": "ads_1998SPIE.3355..354N.json (ADS record, abstract only)",
+   "url": "https://doi.org/10.1117/12.316771"
+  },
+  "SE": {
+   "document": "Subaru Telescope, \"HDS (High Dispersion Spectrograph)\", About the Subaru Telescope, English page (Fast Facts)",
+   "file": "subaru_en_hds.html",
+   "url": "https://subarutelescope.org/en/about/instrument/hds/index.html"
+  },
+  "SI": {
+   "document": "Subaru Telescope, \"HDS\" instrument page, For Researchers and Students (observing page; current)",
+   "file": "subaru_HDS_index.html",
+   "url": "https://subarutelescope.org/Instruments/HDS/"
+  }
+ },
+ "parameters": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focus",
+   "value": "optical Nasmyth platform of the Subaru Telescope (permanent installation in a refrigerated container)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 6",
+   "quote": "HDS is located at one of the Nasmyth foci (the so-called Optical Nasmyth) of the Subaru Telescope",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Primary aperture",
+   "value": 8.2,
+   "unit": "m",
+   "source": "I04",
+   "location": "Sec. 2.1, p. 2",
+   "quote": "The Subaru Telescope has an 8.2 m F/1.83 primary",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Optical Nasmyth with image rotator: focal length, pupil, F, plate scale",
+   "value": "104207.0 mm; pupil 8200 mm; F/12.708; 1.979385 arcsec/mm",
+   "unit": "",
+   "source": "I04",
+   "location": "Table 2, p. 3",
+   "quote": "Focal length (mm) 15000 100000 104207.0 102244.5",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Optical Nasmyth, effective F ratio and plate scale (same row set)",
+   "value": "F/12.708; 1.979385 arcsec/mm",
+   "unit": "",
+   "source": "I04",
+   "location": "Table 2, p. 3",
+   "quote": "Effective F ratio 1.83 12.195 12.708 12.469",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the slit",
+   "value": 2.0,
+   "unit": "arcsec/mm",
+   "source": "M14",
+   "location": "Sec. 3.1.3, p. 18",
+   "quote": "The image scale at the Nasmyth focus is 2.0 arcsec/mm, or 0.5 mm to 1 arcsec",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale (HDS FITS sample header, 1999)",
+   "value": "FOC-LEN 104207.0 mm, F-RATIO 12.71 -> 1.979 arcsec/mm (DERIVED: 206265 / 104207 = 1.979)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, p. 44 (sample FITS header)",
+   "quote": "Focal length of the telescope (mm)",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width range",
+   "value": "10-2000 um (0.02-4 arcsec), continuously variable",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7; Sec. 3.1.3, p. 18",
+   "quote": "The slit width can be set between 0.2 and 4 arcsec.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length range",
+   "value": "1000-30000 um (2-60 arcsec); 60 arcsec (30 mm) in single-order long-slit mode",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7; Sec. 3.1.3, p. 19",
+   "quote": "The maximum slit length is 60 arcsec (30 mm).",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "R times slit width (design relation)",
+   "value": "slit width (mm) = 1.8e4 / R, e.g. R = 90,000 at 0.2 mm = 0.4 arcsec",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 3.1.3, p. 18",
+   "quote": "slit width (mm)=1.8 x 104 /resolution (R)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Standard slit",
+   "value": "0.4 arcsec (200 um): R about 90,000",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 9",
+   "quote": "A standard slit width (0.4 arcsec) provides a resolving power of R",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Standard slit R",
+   "value": "90,000 (3.3 km/s)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 9",
+   "quote": "90,000 (3.3 km/s)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slits used in the metal-poor-star survey (commissioning)",
+   "value": "0.4 arcsec (200 um) -> R 90,000; 0.72 arcsec (360 um) -> R 50,000; 0.36 arcsec once",
+   "unit": "",
+   "source": "H04",
+   "location": "Sec. 2.2, p. 5",
+   "quote": "was set to 0.4 arcsec (200 µm) or 0.72 arcsec (360 µm), which corresponds to a spectral resolving power of R ≃ 90,000 or 50,000",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Limiting R (two-pixel sampling)",
+   "value": "about 165,000 (1.8 km/s) with 2 pixel (27 um) sampling",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 9",
+   "quote": "The limiting spectral resolving power, R ~ 165,000 (1.8 km/s), is achieved with two pixel",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Maximum R (Subaru page)",
+   "value": "100,000 typical, maximum 160,000",
+   "unit": "",
+   "source": "SE",
+   "location": "Fast Facts, Specifics",
+   "quote": "Spectral resolution: 100,000 with maximum resolving power of 160,000",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "R with the 0.3 arcsec slit (measured on Th-Ar)",
+   "value": "about 114,000 (115,000 quoted in the introduction)",
+   "unit": "",
+   "source": "T12",
+   "location": "Sec. 3.2, p. 6; Sec. 1, p. 2",
+   "quote": "the resolution is 114,000 when using a 0.3 arcsec slit without the image slicer",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "R with the 0.3 arcsec slit (alt)",
+   "value": "115,000 (150 um)",
+   "unit": "",
+   "source": "T12",
+   "location": "Sec. 1, p. 2",
+   "quote": "When a slit of 0.3 arcsec (150 µm) width is applied, the resolving power is 115,000",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Image slicers (pre-slit, slit set to 4 arcsec when mounted)",
+   "value": "IS#1 0.3\" x 5 slices R = 110,000; IS#2 0.45\" x 3, R = 80,000; IS#3 0.2\" x 3, R = 165,000; all Bowen-Walraven, fused silica",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.4, p. 15; Sec. 3.1.3 Table 3, pp. 19-20",
+   "quote": "The currently available slicers allow for the effective resolving power of 110,000 (IS#1), 80,000 (IS#2) or 165,000 (IS#3).",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Image slicer #1 (paper)",
+   "value": "five slices, each 0.3 arcsec x 1.5 arcsec, R = 110,000, opened to common use August 2011",
+   "unit": "",
+   "source": "T12",
+   "location": "Abstract, p. 1; Sec. 1, p. 2",
+   "quote": "providing five 0.3 arcsec × 1.5 arcsec images",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Image slicer sliced-image size",
+   "value": "0.3 arcsec x 7.8 arcsec per slice set; slicer sits 6.32-8.51 mm ahead of the slit; the collimator is shifted 7.3 mm to refocus",
+   "unit": "",
+   "source": "T12",
+   "location": "Table 1, p. 5; Sec. 3.1, p. 5",
+   "quote": "This results in a shift of the collimator",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Spectra on the detector",
+   "value": 1,
+   "unit": "object",
+   "source": "M14",
+   "location": "Sec. 3.1.3, p. 18 (slit and slicers)",
+   "quote": "The amount of sky observed is determined by the slit length.",
+   "tag": "INFERRED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length without order overlap (red cross-disperser)",
+   "value": "4.8\" at 4000 A, 6.2\" at 4500, 7.6\" at 5000, 14.8\" at 7000, 30.2\" at 10000 A",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 2, p. 19",
+   "quote": "7000Å Red 7.4 14.8",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length without order overlap (blue cross-disperser)",
+   "value": "4.4\" at 3100 A, 5.8\" at 3500, 7.6\" at 4000, 9.8\" at 4500 A",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 2, p. 19",
+   "quote": "4500Å Blue 4.9 9.8",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Filters before the collimator",
+   "value": "two six-position wheels behind the slit (Free, SQ, ND1, OG530, KV408 / SC46, SC42, GG495, KV389, KV370); the collimator is re-focused for filter thickness",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7; Sec. 3.1.4, p. 20",
+   "quote": "The standard position of the collimator is determined for one filter with a thickness",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type (red)",
+   "value": "off-axis parabola",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "collimator red off-axis parabola",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type (blue)",
+   "value": "off-axis parabola (two collimator mirrors, blue and red, user selected)",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7; Sec. 2.2, p. 8",
+   "quote": "blue off-axis parabola",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimated beam diameter",
+   "value": 272,
+   "unit": "mm",
+   "source": "N02",
+   "location": "abstract",
+   "quote": "The collimated beam size is 272mm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimated beam diameter (alt)",
+   "value": 272,
+   "unit": "mm",
+   "source": "SI",
+   "location": "Introduction text",
+   "quote": "collimated into a 272 mm-diameter beam",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focus shift with filters",
+   "value": "the collimator unit slides slightly along the slit axis to refocus for the filter glass",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 8",
+   "quote": "the collimator unit can slightly shift relative to the direction of the slit for focusing",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle groove density",
+   "value": 31.6,
+   "unit": "grooves/mm",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "31.6 grooves/mm, blaze angle 71.25 degrees",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze angle (manual)",
+   "value": 71.25,
+   "unit": "deg",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "blaze angle 71.25 degrees",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze (alt, Subaru page)",
+   "value": 71.3,
+   "unit": "deg",
+   "source": "SI",
+   "location": "Introduction text",
+   "quote": "31.6 lines/mm echelle blazed at 71.3 degrees",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze (alt, the design paper)",
+   "value": "R2.8 (tan theta = 2.8, theta = 70.35 deg, DERIVED: arctan 2.8)",
+   "unit": "",
+   "source": "N02",
+   "location": "abstract",
+   "quote": "R = 2.8",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze (alt, the 1998 design paper)",
+   "value": "R2.8",
+   "unit": "",
+   "source": "N98",
+   "location": "abstract",
+   "quote": "R-2.8",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle angle (default)",
+   "value": "0.25 deg (900 arcsec) default; detector rotation -1 deg",
+   "unit": "deg",
+   "source": "M14",
+   "location": "Sec. 3.3, p. 26",
+   "quote": "Default echelle and detector rotation angles are 0.25 deg (900 asec)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Mount",
+   "value": "quasi-Littrow",
+   "unit": "",
+   "source": "I04",
+   "location": "Sec. 3.3, p. 8",
+   "quote": "The HDS is a Nasmyth echelle spectrograph with a quasi-Littrow configuration",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Blue cross-disperser",
+   "value": "400 grooves/mm, blaze angle 4.76 deg (blazed at 4150 A); reflection grating",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "400 grooves/mm, blaze angle 4.76 degrees",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Red cross-disperser",
+   "value": "250 grooves/mm, blaze angle 5.00 deg (blazed at 7000 A)",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "250 grooves/mm, blaze angle 5.00 degrees",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser blazes (alt)",
+   "value": "blue 400 lines/mm blazed at 4150 A; red 250 lines/mm blazed at 7000 A",
+   "unit": "",
+   "source": "SI",
+   "location": "Introduction text",
+   "quote": "for the blue region (400 lines/mm, blazed at 4150A)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser selection",
+   "value": "one of two gratings (blue, red); a plane mirror replaces them in single-order long-slit mode",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 8",
+   "quote": "Instead of the cross dispersers, a plane mirror can be used",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-scan angles of the standard setups",
+   "value": "see the Settings table (arcsec, deg)",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 6, p. 26",
+   "quote": "StdBc 355-431 445-521 Blue 20020 (5.561) Free,Free",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera type",
+   "value": "catadioptric: three corrector lenses, a spherical primary mirror and a field-flattening lens; focus by moving the detector unit",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 8",
+   "quote": "The camera consists of three corrector lenses, a spherical primary mirror, and a field-",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera focal length",
+   "value": 770,
+   "unit": "mm",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "camera system focal length 770 mm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera image quality (design, 1998)",
+   "value": "10 um images on average in a flat 60 mm focal plane, 0.30-1.1 um without refocusing",
+   "unit": "",
+   "source": "N98",
+   "location": "abstract",
+   "quote": "It delivers 10-micrometer images on average within a flat 60 mm-",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Detector",
+   "value": "two EEV 42-80 CCDs, each 4100 x 2048 pixels, 13.5 um; mosaic 55 x 55 mm effective (4100 x 4096 pixels)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 9",
+   "quote": "A mosaic of two CCDs (EEV 42-80 CCD) is used as the detector.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Pixel size and format",
+   "value": "13.5 um; 4100 x 2048 x 2",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 1, p. 7",
+   "quote": "EEV CCD 4100 pix",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Gap between the two CCDs",
+   "value": 1.1,
+   "unit": "mm",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 9",
+   "quote": "though a 1.1 mm gap between the two CCDs exists",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Effective detector",
+   "value": "55 mm by 55 mm (4100 by 4096 pixels)",
+   "unit": "mm",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 9",
+   "quote": "the effective detector size is 55 mm by 55 mm (4100 by 4096 pixels)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Detector orientation",
+   "value": "dispersion along the 4100-pixel axis; the two CCDs sit side by side across the dispersion (INFERRED from Sec. 5.3: an order runs Y = 4096 -> 1, orders are stacked in X, 0.00166 nm/pixel along Y)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 4.6, p. 35; Sec. 5.3, p. 44",
+   "quote": "by 4100 (dispersion direction) pixels",
+   "tag": "INFERRED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Readout and gain",
+   "value": "read noise 4.4 e-; gain about 1.7 e-/ADU",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 12",
+   "quote": "The readout noise of the CCDs is 4.4",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Throughput and efficiency",
+   "parameter": "Total efficiency (telescope + HDS + detector)",
+   "value": "13 percent at 5000-6000 A; 8 percent at 4000 A",
+   "unit": "",
+   "source": "N02",
+   "location": "abstract",
+   "quote": "is about 13% in 5000-6000Å and about 8% at 4000Å",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Throughput and efficiency",
+   "parameter": "Wavelength range of one exposure",
+   "value": "typically 1700 A (blue) and 2500 A (red)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 9",
+   "quote": "typically 1700 Å and 2500 Å are covered by one exposure for the blue and red setups",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Throughput and efficiency",
+   "parameter": "Format stability",
+   "value": "about 1.4 CCD pixels per degree of Nasmyth enclosure temperature; repeatability within about one pixel",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.3, p. 11",
+   "quote": "about 1.4 CCD pixels per degree",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "StdUa",
+   "value": "CCD1 310-387 nm, CCD2 400-476 nm, Blue cross-disperser and collimator, cross angle 17950 arcsec (4.986 deg), filters Free,Free",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 6, p. 26",
+   "quote": "StdUa 310-387 400-476 Blue 17950 (4.986) Free,Free",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "StdBc",
+   "value": "CCD1 355-431 nm, CCD2 445-521 nm, Blue cross-disperser and collimator, cross angle 20020 arcsec (5.561 deg), filters Free,Free",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 6, p. 26",
+   "quote": "StdBc 355-431 445-521 Blue 20020 (5.561) Free,Free",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "StdYb",
+   "value": "CCD1 414-535 nm, CCD2 559-681 nm, Red cross-disperser and collimator, cross angle 15860 arcsec (4.406 deg), filters Free,KV370",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 6, p. 26",
+   "quote": "StdYb 414-535 559-681 Red 15860 (4.406) Free,KV370",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "StdRa",
+   "value": "CCD1 511-631 nm, CCD2 658-779 nm, Red cross-disperser and collimator, cross angle 18584 arcsec (5.163 deg), filters Free,SC-46",
+   "unit": "",
+   "source": "M14",
+   "location": "Table 6, p. 26",
+   "quote": "StdRa 511-631 658-779 Red 18584 (5.163) Free,SC-46",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "Other standard setups",
+   "value": "StdUb, StdBa, StdYa (blue); StdYc, StdYd, StdRb (red); StdNIRa/b/c; StdI2a, StdI2b (iodine); long-slit StdHe, StdO5, StdO6, StdHa, StdS6 (red CCD only, mirror instead of cross-disperser)",
+   "unit": "",
+   "source": "M14",
+   "location": "Tables 6-7, pp. 26-27",
+   "quote": "StdI2b 355-476 498-618 Red 14170 (3.936) Free,Free",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Standard setups (Table 6)",
+   "parameter": "Wavelength coverage of the instrument",
+   "value": "3000-10000 A (resolving power up to 165,000)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 1, p. 5",
+   "quote": "The maximum resolving power of HDS is 165,000 for the optical wavelength region",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order table columns",
+   "value": "ORDER, WAVEMIN, WAVECEN, WAVEMAX (nm), FSR (nm), LD (nm/mm, the linear dispersion), CDMIN, CDCEN, CDMAX (mm along the cross-dispersion), ORDSEP (mm between adjacent orders); one table for the blue and one for the red cross-disperser; \"An example\"",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, pp. 38-40",
+   "quote": "ORDER WAVEMIN WAVECEN WAVEMAX FSR LD CDMIN CDCEN CDMAX ORDSEP",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 106 (blue table)",
+   "value": "WAVEMIN 559.681, WAVECEN 562.334, WAVEMAX 564.986 nm, FSR 5.305 nm, LD 0.1239 nm/mm, CDCEN 85.403 mm, ORDSEP 1.709 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 38",
+   "quote": "106 559.681 562.334 564.986 5.305 0.1239 84.044 85.403 86.815 1.709",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 106 (red table)",
+   "value": "WAVECEN 562.334 nm, LD 0.1239 nm/mm, CDCEN 53.590 mm, ORDSEP 1.068 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 39",
+   "quote": "106 559.681 562.334 564.986 5.305 0.1239 52.542 53.590 54.672 1.068",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 149 (blue table)",
+   "value": "WAVECEN 400.049 nm, LD 0.0881 nm/mm, ORDSEP 0.865 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 37-38",
+   "quote": "398.707 400.049 401.392 2.685 0.0881 32.189 33.133 34.116 0.865",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 129 (red table)",
+   "value": "WAVECEN 462.073 nm, LD 0.1018 nm/mm, CDCEN 33.402 mm, ORDSEP 0.721 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 39",
+   "quote": "129 460.282 462.073 463.864 3.582 0.1018 32.524 33.402 34.307 0.721",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 89 (red table)",
+   "value": "WAVECEN 669.746 nm, FSR 7.525 nm, LD 0.1475 nm/mm, ORDSEP 1.515 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 40",
+   "quote": "89 665.983 669.746 673.508 7.525 0.1475 73.950 75.218 76.527 1.515",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 144 (red table)",
+   "value": "WAVECEN 413.940 nm, LD 0.0912 nm/mm, CDCEN 23.710 mm, ORDSEP 0.579 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 39",
+   "quote": "144 412.503 413.940 415.377 2.875 0.0912 22.902 23.710 24.542 0.579",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 112 (red table)",
+   "value": "WAVECEN 532.209 nm, LD 0.1172 nm/mm, CDCEN 47.524 mm, ORDSEP 0.957 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 39",
+   "quote": "112 529.833 532.209 534.585 4.752 0.1172 46.531 47.524 48.549 0.957",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Order 107 (red table)",
+   "value": "WAVECEN 557.078 nm, CDCEN 52.532 mm",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.1, p. 39",
+   "quote": "107 554.475 557.078 559.681 5.206 0.1227 51.493 52.532 53.603 1.048",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Linear dispersion on the detector (FITS)",
+   "value": "0.00166 nm/pixel at the center wavelength 562.30 nm (= 0.1230 nm/mm; compare LD 0.1239 nm/mm at 562.334 nm)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, p. 44 (sample header, 2000-08-21)",
+   "quote": "C2ELT2 = 0.00166 / Size projected into a detector pixel Y",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Sample ASCII table: setup of the 2000 sample",
+   "value": "red cross-disperser, centered at 562.30 nm (order 106); CCD 1 only (orders 96-118); WAV-MIN 502.06, WAV-MAX 624.63 nm; Y axis (4096 px) = dispersion, X (2148 px with 2 x 50 overscan columns) = cross-dispersion; the cross-scan angle is not stated",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, pp. 44-48",
+   "quote": "WAV-MIN = 502.06 / Minimum wavelength recorded (nm)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Sample order 96 on CCD1",
+   "value": "X-MIN 70, WL-MIN 617.121 nm (Y = 4096), WL-CEN 620.876 nm (X 176, Y 2048), WL-MAX 624.630 nm (X 281, Y 1)",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, p. 48",
+   "quote": "96 70 4096 617.121 176 2048 620.876 281 1 624.630",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Sample order 106 on CCD1",
+   "value": "WL-MIN 558.902, WL-CEN 562.303, WL-MAX 565.703 nm; X-CEN 1064",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, p. 48",
+   "quote": "106 964 4096 558.902 1064 2048 562.303 1164 1 565.703",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Order tables and dispersion (Sec. 5.1 and 5.3)",
+   "parameter": "Sample order 118 on CCD1",
+   "value": "WL-MIN 502.065, WL-CEN 505.119, WL-MAX 508.174 nm; X-CEN 2031",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 5.3, p. 48",
+   "quote": "118 1937 4096 502.065 2031 2048 505.119 2126 1 508.174",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio into the slit (design paper)",
+   "value": "f/12.5",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2, p. 857",
+   "quote": "light from the telescope (f/12.5) enters from the left",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio quoted by the manual and by Iye et al.",
+   "value": "F/12.6 (manual, Iye text); Iye Table 2 gives F/12.708 for the optical Nasmyth with image rotators",
+   "unit": "",
+   "source": "M14",
+   "location": "Sec. 2.4, p. 15",
+   "quote": "in the F/12.6 focal plane of the telescope",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit position angle and tilt",
+   "value": "the slit is set about 30 deg from the horizontal (to make the slit image horizontal on the focal plane); the slit plane is tilted 15 deg from the telescope focal plane toward the slit viewer",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Sec. 2.1, p. 857",
+   "quote": "The entrance slit is set at about 30",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width and length ranges (paper)",
+   "value": "0.01-2 mm (0.2-4 arcsec; the paper prints 0.2 arcsec as the lower limit) wide, 1-30 mm (2-60 arcsec) long",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.1, p. 857",
+   "quote": "Both the slit width and the slit length can be changed continuously in the ranges between 0.01 and 2mm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Effect of the 30 deg slit inclination on the width",
+   "value": "the effective width of the slit along the echelle dispersion is larger by 1/cos 30 deg = 1.155 than the mechanical width: 0.4 arcsec (mechanical) corresponds to about 3.8 pixels",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "the effective width of the slit along the echelle dispersion direction is larger by",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Measured R (paper)",
+   "value": "R = 100,000 at a 0.35 arcsec slit (the specification), measured on the FWHM of unsaturated Th lines; up to about 160,000 with a narrower slit (Fig. 6 gives R against slit width; the figure has no numbers in the text)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 6.1, p. 862",
+   "quote": "We found that HDS achieves its specification (R = 100000 by",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "R at 0.4 arcsec (paper)",
+   "value": "R = 90,000 for the standard configuration with a 0.4 arcsec slit",
+   "unit": "",
+   "source": "N02",
+   "location": "Abstract, p. 855",
+   "quote": "A standard configuration with a",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type",
+   "value": "two off-axis parabolic mirrors (blue and red, aluminized; one overcoated for each region); user selected",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.2, p. 858",
+   "quote": "The f/12.5 light cone is collimated by either of two off-axis",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type (Table 1)",
+   "value": "off-axis parabola",
+   "unit": "",
+   "source": "N02",
+   "location": "Table 1, p. 857",
+   "quote": "collimator: off-axis parabola",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal length",
+   "value": "about 3400 mm (the manual says \"3.3m away from the slit\"; Fig. 1 side view dimensions the slit-to-collimator distance 3396.51 mm)",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.2, p. 858",
+   "quote": "The collimator focal length is about 3400mm.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Slit-to-collimator distance (Fig. 1 dimension)",
+   "value": 3396.51,
+   "unit": "mm",
+   "source": "N02",
+   "location": "Fig. 1, side view, p. 856",
+   "quote": "",
+   "tag": "FIGURE"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal length (manual)",
+   "value": 3300,
+   "unit": "mm",
+   "source": "M14",
+   "location": "Sec. 2.2, p. 8",
+   "quote": "The f/12 light cone is collimated into a 27cm beam with a collimator mirror mounted 3.3m away from the slit.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal ratio",
+   "value": "f/12.5 = 3400 / 272 (DERIVED; matches the paper's f/12.5 cone); the manual gives f/12 (3300 / 272 = 12.1)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.2, p. 858",
+   "quote": "The f/12.5 light cone is collimated by either of two off-axis",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator tilt (off-axis angle)",
+   "value": "about 5 deg between the slit-collimator axis and the collimated beam running to the echelle: the Fig. 1 side view labels 5 deg at the cross-disperser housing and the line from the collimator to the echelle rises 4.9 deg (MEASURED, 77 px over 900 px at 300 dpi). The explorer's colTilt is half of this: 2.5 deg (INFERRED: the paper does not call this the off-axis angle)",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Fig. 1, side view, p. 856",
+   "quote": "",
+   "tag": "MEASURED"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "On-axis or off-axis (deploy gate)",
+   "value": "OFF-AXIS: \"The beam is collimated by an off-axis parabolic mirror\"; the collimated beam leaves 5 deg from the slit axis (Fig. 1) and the slit does not stand in the returning beam",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2, p. 857",
+   "quote": "The beam is collimated by an off-",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze angle (design paper, Table 1)",
+   "value": 71.5,
+   "unit": "deg",
+   "source": "N02",
+   "location": "Table 1, p. 857; Sec. 2.3, p. 858",
+   "quote": "blaze angle = 71",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle blaze angle (text)",
+   "value": "71.5 deg; \"along with the 12 deg collimator-to-cross disperser angle\" it makes the beam fit a 12 x 16 inch cross-disperser mosaic",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "blaze an-gle, along with the 12",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle ruled area",
+   "value": "a 1 x 2 mosaic of two 12 inch by 16 inch R2.8 gratings (Richardson Grating Lab.): ruled area 12 inch by 32 inch = 304.8 mm by 812.8 mm (DERIVED; the abstract's \"300 mm by 840 mm in total size\" includes the blank)",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "for a ruled area of 12 inch by 32 inch",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle mosaic",
+   "value": "two masters aligned within 0.5 arcsec (3.5 um shift at the focal plane); not phased before the replica was made; replica of two aligned masters",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "We made no attempt to phase two masters before making a replica",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle mosaic purpose",
+   "value": "no vignetting at the ends of the echelle when used at the blaze angle; less than 1 percent vignetting above 71.5 deg",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "there is no vignetting at the ends of the echelle",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle ruled size (abstract)",
+   "value": "300 mm by 840 mm in total size",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Abstract, p. 855",
+   "quote": "the echelle is 300mm by 840mm in total size",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Beam footprint on the echelle",
+   "value": "272 / cos(71.5 deg) = 858 mm and 272 / cos(71.25 deg) = 847 mm exceed the 812.8 mm ruled length by 4-5 percent; at the R2.8 angle, 272 / cos(70.35 deg) = 809 mm fits (DERIVED). The paper claims no vignetting at the blaze angle.",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "there is no vignetting at the ends of the echelle",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Mounting and collimator-to-cross-disperser angle",
+   "value": "quasi-Littrow, with a collimator-to-cross disperser angle of 12 deg",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Sec. 2, p. 857",
+   "quote": "The echelle is used in a quasi-Littrow mounting with a collimator-to-cross disperser angle of 12",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle out-of-plane angle gamma",
+   "value": "6.0 deg (INFERRED = half of the 12 deg angle; Fig. 1 top view draws the 12 deg between the slit-collimator axis and the beam from the echelle to the cross-disperser, in the plane perpendicular to the echelle dispersion, which Fig. 1 side view shows as the plane of the 71 deg incidence). It agrees with the 5.97 deg that the manual's order table requires (m x lambda_center = 59,607 nm = 2 d sin(71.25 deg) cos(gamma)), so the fit is no longer an adjustment.",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Sec. 2, p. 857; Fig. 1 top view, p. 856",
+   "quote": "quasi-Littrow mounting with a collimator-to-cross disperser angle of 12",
+   "tag": "INFERRED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Echelle spectral resolution and ghosts",
+   "value": "the echelle alone gives R above 500,000; ghost intensity below 0.004 percent between orders 95 and 96 at 6328 A (He-Ne laser)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "The spectral resolution of the echelle is higher than R = 500000.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Ghost measurement",
+   "value": "less than 0.004 percent at 6328 A (He-Ne) between the 95th and 96th orders",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "The intensity is less than 0.004%",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Echelle",
+   "parameter": "Groove density choice",
+   "value": "the 31.6 /mm ruling matches the echelle free spectral range to the 55 mm by 55 mm CCD mosaic in the red; the FSR exceeds the detector width above about 7200 A",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.3, p. 858",
+   "quote": "which matches the echelle free spectral range (FSR) to a width of",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser mosaic",
+   "value": "each is a 2 x 1 mosaic of 12 inch by 16 inch gratings, joined along the ruling length: effective ruling length 24 inch (610 mm), ruled width 16 inch (406 mm); first order; efficiency peaks at about 3500 A (blue) and 6000 A (red)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.4, pp. 858-859",
+   "quote": "Each cross-disperser is a 2 by 1 mosaic of 12 inch by 16 inch grat",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser order",
+   "value": "both used in the first order",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.4, p. 858",
+   "quote": "Both are used in the first order.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser Table 1",
+   "value": "250 /mm (red); 400 /mm (blue); plane mirror",
+   "unit": "",
+   "source": "N02",
+   "location": "Table 1, p. 857",
+   "quote": "cross-disperser: 1.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Angle between the beam from the echelle and the beam to the camera at the cross-disperser",
+   "value": "45 deg",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Fig. 1 top view, p. 856 (label \"45\")",
+   "quote": "",
+   "tag": "FIGURE"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Cross-disperser angle (the model's xPsi)",
+   "value": "xPsi = 45 deg; checked: with the grating equation sin(a)+sin(b) = G lambda at 562.334 nm and a - b = 45 deg, the order separation per nm is 0.3196 mm/nm (blue) and 0.2025 mm/nm (red) at f = 770 mm, against 0.3221 and 0.2013 from the manual's order tables (0.8 and 0.6 percent), and the grating tilt from the bisector comes out 5.4 deg (StdBc, 438 nm) and 4.3 deg (StdYb) against the Table 6 cross angles 5.56 and 4.41 deg (DERIVED; computed in this record)",
+   "unit": "deg",
+   "source": "N02",
+   "location": "Fig. 1 top view, p. 856",
+   "quote": "",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera design",
+   "value": "catadioptric: three fused-silica corrector lenses, a spherical primary mirror and a field flattener (HIRES-like with one more corrector); all-spherical; covers a 6.5 deg field; images the whole 0.30-1.1 um range without refocusing; more than 90 percent of the rays within 10 um on a flat focal plane",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "The HDS camera consists of three corrector lenses",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera focal length (paper)",
+   "value": 770,
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "A camera focal length of 770mm images the entrance slit",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera mirror",
+   "value": "f/0.96, about 800 mm aperture; corrector aperture about 610 mm",
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "f/0.96 camera mirror",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Corrector aperture",
+   "value": 610,
+   "unit": "mm",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "must be about 610mm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera spot size",
+   "value": "more than 90 percent of the rays within a 10 um diameter on the flat focal plane",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "more than 90% of the incident rays are focused within a 10",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Camera focal ratio",
+   "value": "770 / 272 = f/2.83 (DERIVED; the dispersed beams are elliptical, the mirror f/0.96 collects the full 610 mm beam envelope)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "A camera focal length of 770mm images the entrance slit",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Pixel scale (paper)",
+   "value": "0.12 arcsec/pixel; 0.138 arcsec/pixel along the slit image (the 30 deg slit inclination); 0.4 arcsec mechanical = 3.8 pixels",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "The pixel scale determined by the telescope focal length and the camera one is",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Pixel scale along the slit image",
+   "value": 0.138,
+   "unit": "arcsec/pixel",
+   "source": "N02",
+   "location": "Sec. 2.5, p. 859",
+   "quote": "the effective pixel scale along the slit image on the detector is",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Pixel scale (Subaru page)",
+   "value": "0.138 arcsec/pixel",
+   "unit": "",
+   "source": "SE",
+   "location": "Fast Facts, Specifics",
+   "quote": "Pixel scale: 0.138\"/pixel",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Pixel scale (check)",
+   "value": "2.0 arcsec/mm x 3400 / 770 x 0.0135 mm = 0.119 arcsec/pixel (DERIVED; with 3300 mm 0.116); 0.12 / cos 30 deg = 0.139",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.2 and 2.5, pp. 858-859",
+   "quote": "The collimator focal length is about 3400mm.",
+   "tag": "DERIVED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Detector (paper)",
+   "value": "mosaic (2 by 1) of EEV CCD42-80, 4100 x 2048 format, 13.5 um pixels, thinned, back illuminated; flat to about 10 um; read noise about 5 ADU, gain about 1.7 e-/ADU",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.6, p. 860",
+   "quote": "a mosaic (2 by 1) of EEV CCD42-80",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "Detector (Table 1)",
+   "value": "4100 x 4096 pixels by 2 CCDs, 13.5 um",
+   "unit": "",
+   "source": "N02",
+   "location": "Table 1, p. 857",
+   "quote": "detector: CCD 13.5",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Cross-dispersers and the camera",
+   "parameter": "CCD dewar",
+   "value": "the dewar and its three spiders stand inside the chromatic beam, so are made small to limit the shadow; the support frame moves along the optical axis (5 um accuracy, focus) and rotates about it (aligns the slit image to the pixel rows)",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 2.7, p. 860",
+   "quote": "the CCD dewar is located in the chromatic light beams from the cross",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Throughput and efficiency",
+   "parameter": "Scattered light",
+   "value": "typically 1 percent of the stellar flux at 4000 A, from reflections at the CCD and the field flattener",
+   "unit": "",
+   "source": "N02",
+   "location": "Sec. 6.3, p. 863",
+   "quote": "The background level is typically 1% of the stellar flux at",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Instrumental profile (Table 3 of the paper, Appendix)",
+   "parameter": "Instrumental profile table",
+   "value": "normalized Th-line profiles in km/s for slits 0.2, 0.4, 0.6, 0.8, 1.0 arcsec; the profiles approach trapezoids for slits above 0.4 arcsec",
+   "unit": "",
+   "source": "N02",
+   "location": "Appendix, Table 3, Fig. 9, p. 864",
+   "quote": "Table 3. Instrumental profiles for given slit widths.",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Instrumental profile (Table 3 of the paper, Appendix)",
+   "parameter": "R from the FWHM of Table 3 (DERIVED)",
+   "value": "FWHM by linear interpolation of the half maximum: 2.329 km/s (0.2 arcsec), 3.614 (0.4), 5.238 (0.6), 6.837 (0.8), 8.502 (1.0) km/s -> R = c / FWHM = 128,700; 82,900; 57,200; 43,850; 35,300",
+   "unit": "",
+   "source": "N02",
+   "location": "Appendix, Table 3, p. 864",
+   "quote": "x slit width",
+   "tag": "DERIVED"
+  }
+ ],
+ "layout": [
+  {
+   "item": "Source figures",
+   "reading": "Noguchi et al. 2002 Fig. 1 (p. 856; PDF p. 2): \"Top and side views of the HDS optical layout\", a dimensioned CAD drawing (millimeters) saved in noguchi2002_pasj54_855.pdf. It supersedes the schematic Fig. 1 of the manual (ume_v200.pdf p. 7), which agrees in element order and in the scale checks of the earlier version of this record (echelle box 845 mm, beam 274 mm).",
+   "tag": "SOURCED"
+  },
+  {
+   "item": "Printed dimensions (top view)",
+   "reading": "collimator to echelle 2329.9 mm (at the echelle end the 12 deg line starts); echelle to cross-disperser 2200 mm; the 45 deg between the beam from the echelle and the beam to the camera at the cross-disperser; 1100 mm from the cross-disperser to the correctors and 1704 mm from there to the camera mirror (both along the camera axis, parallel dimension lines); a 12 deg angle at the echelle between the slit-collimator axis and the beam to the cross-disperser.",
+   "tag": "SOURCED (printed on the figure)"
+  },
+  {
+   "item": "Printed dimensions (side view)",
+   "reading": "slit to collimator 3396.51 mm; collimator axis 1500 mm above the floor; a 5 deg label at the cross-disperser/camera housing.",
+   "tag": "SOURCED (printed on the figure)"
+  },
+  {
+   "item": "Element order",
+   "reading": "slit (30 deg inclined, filters, shutters) -> f/12.5 cone to the off-axis parabolic collimator (3396.51 mm) -> collimated beam returns to the echelle (2329.9 mm; the echelle stands near the slit) -> echelle (1 x 2 mosaic, quasi-Littrow) diffracts the beam 12 deg out of the collimator plane toward the cross-disperser (2200 mm) -> cross-disperser (2 x 1 mosaic) sends the beam 45 deg to the side to the camera -> three corrector lenses (1100 mm from the cross-disperser) -> spherical primary mirror (a further 1704 mm) -> the converging beam returns to the field flattener and CCD, which stand in front of the primary inside the incoming beam. No fold mirrors.",
+   "tag": "SOURCED (labels, text, dimensions)"
+  },
+  {
+   "item": "Planes",
+   "reading": "The echelle disperses in the vertical plane (side view: the 840 mm face is seen edge-on, tilted about 22 deg from the horizontal beam, i.e. incidence about 68-71 deg from the normal); the 12 deg quasi-Littrow offset and the cross-disperser (rotating about a vertical axis in the top view, curved arrow) lie in the horizontal plane. So the 12 deg is the out-of-plane angle of the echelle (2 gamma), and the cross-disperser turns the beam 45 deg in the plane perpendicular to the echelle dispersion.",
+   "tag": "MEASURED (side view slab slope 21.7 deg) / INFERRED"
+  },
+  {
+   "item": "Collimator and slit",
+   "reading": "In the side view the slit-collimator axis is horizontal and the collimated beam returns to the echelle 4.9 deg above it (MEASURED, line from the collimator to the echelle: 77 px rise over 900 px at 300 dpi), matching the printed 5 deg. This is the off-axis geometry: colTilt 2.5 deg (half of 5), INFERRED. In the top view the slit, the echelle and the collimator lie almost on one line; the slit is not in the returning beam (it stands beyond the near end of the echelle).",
+   "tag": "MEASURED / INFERRED"
+  },
+  {
+   "item": "Camera",
+   "reading": "On-axis catadioptric of the Schmidt-type family: corrector triplet 1100 mm from the cross-disperser, spherical mirror about 2804 mm from it (1100 + 1704), the CCD and field flattener about 0.9-1.0 m in front of the mirror inside the beam (MEASURED, 15 percent, from the top-view drawing at 6.95 mm/px). The mirror's own focal length is about 770 mm (f/0.96 at 800 mm aperture), so the detector sits near its focus.",
+   "tag": "SOURCED (1100, 1704) / MEASURED (CCD position)"
+  },
+  {
+   "item": "Drawing types for the explorer",
+   "reading": "col: mirror (off-axis parabola, colTilt 2.5); cam: mirror (catadioptric, corrector triplet + spherical mirror + flattener, internal focus like HIRES); xd: grating; layLen (collimator to echelle) 2330; camLen (cross-disperser to the correctors) 1100; nObj 1.",
+   "tag": "SOURCED / INFERRED"
+  }
+ ],
+ "recommended": {
+  "default": "hds (StdBc, 0.4 arcsec)",
+  "echelle_state": {
+   "mode": "echelle",
+   "D": 8.2,
+   "F": 12.5,
+   "W": "3400 / 12.5 = 272",
+   "slitW": "0.4 / cos 30 deg = 0.462 (effective)",
+   "nObj": 1,
+   "col": "mirror (off-axis parabola)",
+   "cam": "mirror (catadioptric)",
+   "colTilt": "2.5 (INFERRED from the 5 deg label)",
+   "layLen": 2330,
+   "camLen": 1100,
+   "fcam": 770,
+   "eG": 31.6,
+   "eDelta": "71.25 (fits the order table; the paper says 71.5)",
+   "gamma": "6.0 (INFERRED: 12 deg / 2; matches the 5.97 deg fit)",
+   "theta": 0,
+   "xd": "grating",
+   "xPsi": 45,
+   "Nx": 4096,
+   "Ny": 4096,
+   "pix": 13.5,
+   "gLen": 812.8
+  },
+  "settings": [
+   {
+    "id": "hdsbc",
+    "setting": "StdBc, 0.4″",
+    "std": "StdBc",
+    "cd": "blue",
+    "xG": 400,
+    "slitW": 0.462,
+    "lamC": 4380,
+    "note": "blue cross-disperser, collimator and setup StdBc: 355-431 and 445-521 nm; the metal-poor-star setup (H04 covered 3500-5200 A)",
+    "slitMech": 0.4
+   },
+   {
+    "id": "hdsyb",
+    "setting": "StdYb, 0.4″",
+    "std": "StdYb",
+    "cd": "red",
+    "xG": 250,
+    "slitW": 0.462,
+    "lamC": 5475,
+    "note": "red cross-disperser, KV370 in wheel 2: 414-535 and 559-681 nm, the widest single optical exposure",
+    "slitMech": 0.4
+   },
+   {
+    "id": "hdsua",
+    "setting": "StdUa, 0.4″",
+    "std": "StdUa",
+    "cd": "blue",
+    "xG": 400,
+    "slitW": 0.462,
+    "lamC": 3930,
+    "note": "near-UV: 310-387 and 400-476 nm",
+    "slitMech": 0.4
+   },
+   {
+    "id": "hdsra",
+    "setting": "StdRa, 0.4″",
+    "std": "StdRa",
+    "cd": "red",
+    "xG": 250,
+    "slitW": 0.462,
+    "lamC": 6450,
+    "note": "511-631 and 658-779 nm (H-alpha, Li I, Ca II triplet blue end)",
+    "slitMech": 0.4
+   },
+   {
+    "id": "hdsbc72",
+    "setting": "StdBc, 0.72″",
+    "std": "StdBc",
+    "cd": "blue",
+    "xG": 400,
+    "slitW": 0.831,
+    "lamC": 4380,
+    "note": "R about 50,000 (H04)",
+    "slitMech": 0.72
+   },
+   {
+    "id": "hdsbc02",
+    "setting": "StdBc, 0.2″",
+    "std": "StdBc",
+    "cd": "blue",
+    "xG": 400,
+    "slitMech": 0.2,
+    "slitW": 0.231,
+    "lamC": 4380,
+    "note": "narrowest slit with a published profile (N02 Table 3: R = 128,700 derived); R about 160,000 needs a still narrower slit that the paper does not name"
+   }
+  ]
+ },
+ "pub": [
+  {
+   "what": "R 90,000 at 0.4 arcsec mechanical (0.462 arcsec effective), design/specified",
+   "q": "Rs",
+   "value": 90000,
+   "tol": 0.08,
+   "src": "N02 abstract p. 855; M14 Sec. 2.3. The model (tan 71.25 deg, W = 272 mm, effective slit 0.462 arcsec) gives about 87,000 (GEOMETRIC)"
+  },
+  {
+   "what": "R 82,900 at 0.4 arcsec, from the FWHM of the measured Th instrumental profile (Table 3)",
+   "q": "R",
+   "value": 82900,
+   "tol": 0.08,
+   "src": "N02 Table 3, Appendix p. 864 (DERIVED: FWHM 3.614 km/s; the profile wavelength is not stated)"
+  },
+  {
+   "what": "R 128,700 at 0.2 arcsec from Table 3 (FWHM 2.329 km/s)",
+   "q": "R",
+   "slitW": 0.231,
+   "value": 128700,
+   "tol": 0.1,
+   "src": "N02 Table 3 (DERIVED)"
+  },
+  {
+   "what": "R 57,200 at 0.6 arcsec, 43,850 at 0.8, 35,300 at 1.0 (Table 3)",
+   "q": "R",
+   "slitW": 0.693,
+   "value": 57200,
+   "tol": 0.1,
+   "src": "N02 Table 3 (DERIVED); the profiles are trapezoids at these slits"
+  },
+  {
+   "what": "R 100,000 at 0.35 arcsec (specification, measured on Th lines)",
+   "q": "Rs",
+   "slitW": 0.404,
+   "value": 100000,
+   "tol": 0.1,
+   "src": "N02 Sec. 6.1 p. 862"
+  },
+  {
+   "what": "R 114,000 at the 0.3 arcsec slit, MEASURED on weak Th lines near 670 nm",
+   "q": "RAt",
+   "lam": 6700,
+   "slitW": 0.346,
+   "value": 114000,
+   "tol": 0.06,
+   "src": "T12 Sec. 3.2 p. 6"
+  },
+  {
+   "what": "R up to about 160,000 with a narrower slit",
+   "q": "Rs",
+   "value": 160000,
+   "info": true,
+   "src": "N02 abstract; the slit is not given"
+  },
+  {
+   "what": "0.12 arcsec/pixel (pixel scale), 0.138 along the slit image",
+   "q": "pixScale",
+   "value": 0.12,
+   "tol": 0.04,
+   "src": "N02 Sec. 2.5 p. 859 (GEOMETRIC)"
+  },
+  {
+   "what": "dispersion 0.1239 nm/mm = 0.01673 A/pixel in order 106 at 5623.3 A",
+   "q": "dlpixAt",
+   "lam": 5623.34,
+   "m": 106,
+   "value": 0.0167265,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 pp. 38-39 (LD column, design table); FITS C2ELT2 0.00166 nm/pixel"
+  },
+  {
+   "what": "dispersion 0.0881 nm/mm in order 149 at 4000.5 A",
+   "q": "dlpixAt",
+   "lam": 4000.49,
+   "m": 149,
+   "value": 0.0118935,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 p. 38"
+  },
+  {
+   "what": "dispersion 0.1018 nm/mm in order 129 at 4620.7 A",
+   "q": "dlpixAt",
+   "lam": 4620.73,
+   "m": 129,
+   "value": 0.013743,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 p. 39"
+  },
+  {
+   "what": "dispersion 0.1475 nm/mm in order 89 at 6697.5 A",
+   "q": "dlpixAt",
+   "lam": 6697.46,
+   "m": 89,
+   "value": 0.0199125,
+   "tol": 0.04,
+   "src": "M14 Sec. 5.1 p. 40"
+  },
+  {
+   "what": "order center m = 106 at 5623.3 A and m x lambda_center = 59,607 nm for every order (with gamma = 6 deg and the 71.25 deg angle both sourced, the match is an independent test; 71.5 deg would put order 106 at 5631 A)",
+   "q": "lamAtOrder",
+   "m": 106,
+   "value": 5623.34,
+   "tol": 0.002,
+   "src": "M14 Sec. 5.1 WAVECEN column; N02 Sec. 2 (gamma)",
+   "info": true
+  },
+  {
+   "what": "order 96 on CCD1 (red CD, 2000 sample): 6171.21-6246.30 A",
+   "q": "ordLo",
+   "m": 96,
+   "value": 6171.21,
+   "tol": 0.003,
+   "src": "M14 Sec. 5.3 p. 48 (centered at 562.30 nm: that center is the table's own, so the offsets from it are the test)"
+  },
+  {
+   "what": "order 96 on CCD1: red end 6246.30 A",
+   "q": "ordHi",
+   "m": 96,
+   "value": 6246.3,
+   "tol": 0.003,
+   "src": "M14 Sec. 5.3 p. 48"
+  },
+  {
+   "what": "order 118 on CCD1: 5020.65 A (blue end)",
+   "q": "ordLo",
+   "m": 118,
+   "value": 5020.65,
+   "tol": 0.003,
+   "src": "M14 Sec. 5.3 p. 48"
+  },
+  {
+   "what": "order span on the chip, order 96: 75.09 A (wider than the FSR 64.7 A)",
+   "q": "ordSpan",
+   "m": 96,
+   "value": 75.09,
+   "tol": 0.04,
+   "src": "M14 Sec. 5.3 p. 48"
+  },
+  {
+   "what": "orders 96-118 recorded on one CCD (23 orders)",
+   "q": "nOrders",
+   "value": 23,
+   "tol": 0.1,
+   "src": "M14 Sec. 5.3 p. 48 (independent of gamma and the angle)"
+  },
+  {
+   "what": "order centers 96 to 118 span 23.31 mm across the dispersion with the red cross-disperser",
+   "q": "ySpan",
+   "m1": 96,
+   "m2": 118,
+   "value": 23.31,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 p. 39 (CDCEN 65.385 - 42.075); needs xPsi = 45 deg (with 10 deg the model gives 22.29, 4.4 percent small)"
+  },
+  {
+   "what": "order separation, orders 106-107, red cross-disperser: 1.058 mm",
+   "q": "ySpan",
+   "m1": 106,
+   "m2": 107,
+   "value": 1.058,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 p. 39 (CDCEN 53.590 - 52.532)"
+  },
+  {
+   "what": "order separation, orders 106-107, blue cross-disperser: 1.693 mm",
+   "q": "ySpan",
+   "m1": 106,
+   "m2": 107,
+   "value": 1.693,
+   "tol": 0.03,
+   "src": "M14 Sec. 5.1 p. 38 (CDCEN 85.403 - 83.710)"
+  },
+  {
+   "what": "slit length without order overlap, blue CD, 4000 A: 7.6 arcsec (manual), 7.5 arcsec (paper)",
+   "q": "minSepArcsec",
+   "value": 7.6,
+   "tol": 0.15,
+   "src": "M14 Table 2 p. 19; N02 Sec. 3.1 p. 858",
+   "info": true
+  }
+ ],
+ "not_found": [
+  "The collimator off-axis angle as a stated number (the 5 deg between the slit axis and the collimated beam is a figure label; colTilt = 2.5 deg is INFERRED from it), the grating angles and the in-plane angles at the echelle as numbers (only the 12 deg and 45 deg labels), and the camera prescription (corrector radii, glasses, spacings; Fig. 4 is a drawing with no numbers, Fig. 5 spot diagrams only).",
+  "A measured R at the 0.4 arcsec slit as a number in the text: the paper gives R = 90,000 (abstract) and 100,000 at 0.35 arcsec (Sec. 6.1) and plots R against slit width (Fig. 6, no values); the R in this record from Table 3 is DERIVED from the profile FWHM at an unstated wavelength.",
+  "The slit width that gives R = 160,000 (the paper says only \"a narrower slit width\").",
+  "Detector changes after 2014 (the Subaru pages in 2026 still list two EEV CCD42-80); no post-2014 manual was found.",
+  "Usage statistics for the standard setups (no document gives how often each is used).",
+  "The HDS format-simulator source (HDS_SPFv20.f, cited by the manual at optik2.mtk.nao.ac.jp) is a dead link; the order tables of the manual stand in for it."
+ ],
+ "conflicts": [
+  "Echelle blaze: 71.5 deg (Noguchi et al. 2002 Table 1 and Sec. 2.3; Iye et al. 2004) / 71.25 deg (manual Table 1) / 71.3 deg (Subaru page) / R2.8 = tan 70.35 deg (the grating's R number, abstract). The manual's order table (m x lambda_center = 59,607 nm for all 99 orders) equals 2 d sin(theta) cos(6 deg) for theta = 71.25 deg (59,604 nm, order 106 at 5623.0 A against 5623.34 A) but not for 71.5 deg (59,692 nm, order 106 at 5631.3 A, 0.14 percent off, about 8 A). Recommended: eDelta = 71.25 (the value that fits the order table, as before); 71.5 is the paper's design value.",
+  "Echelle ruled length: the abstract says \"300 mm by 840 mm in total size\", Sec. 2.3 says a ruled area of 12 inch by 32 inch = 304.8 x 812.8 mm (a 1 x 2 mosaic of two 12 x 16 inch gratings). Use gLen = 812.8 (ruled). The 272 mm beam at 71.25 deg has an 847 mm footprint, 4 percent longer than the ruled length, although the paper claims no vignetting at the blaze angle; the R2.8 angle (70.35 deg) would give 809 mm.",
+  "Collimator focal length and ratio: 3400 mm, f/12.5 cone, 272 mm beam (paper: 3400 / 272 = 12.5; Fig. 1 dimension 3396.51 mm) vs 3300 mm and f/12 (manual: \"3.3m away from the slit\"). The paper is the design document and its pixel scale 0.12 arcsec/pixel follows from 3400 (0.119; 3300 gives 0.116), so the paper's values are used. Telescope focal ratio: f/12.5 (paper), F/12.6 (manual), F/12.708 (Iye et al. Table 2 and the HDS sample header, with the image rotators; the paper's 12.5 is close to the Table 2 value without a rotator, 12.469).",
+  "Slit width: the 30 deg inclination of the slit widens its image along the dispersion by 1/cos 30 deg = 1.155 (paper Sec. 2.5), so 0.4 arcsec mechanical acts as 0.462 arcsec. With it, the geometric R (tan 71.25 deg, W = 272 mm) is about 87,000, against 90,000 (published) and 82,900 (Table 3 FWHM). Without it the model would give 100,000. The slit is entered as the effective width; the Setting menu names carry the mechanical width.",
+  "Pixel scale: 0.12 arcsec/pixel (paper, along the dispersion-perpendicular direction) and 0.138 along the slit image (0.12 / cos 30 deg); the earlier worry (0.138 vs 0.1157) is resolved by the slit inclination. The Iye et al. \"45 um, or 3 pixels\" for 0.4 arcsec is the nominal 3.3-pixel width.",
+  "Cross-dispersion (resolved): the order separations of the manual's tables are reproduced to 0.8 and 0.6 percent (blue, red) by f = 770 mm with a 45 deg angle between the beams at the cross-disperser (Fig. 1); the model's 4-4.5 percent shortfall comes from xPsi = 10 deg (unpublished at the time), which gives a smaller angular dispersion. Set xPsi = 45.",
+  "Gamma and the dispersion: a 12 deg in-plane angle at the echelle (alpha - beta = 12 deg) would give a linear dispersion of 0.162 nm/mm at order 106, 31 percent above the table (0.1239); the table is reproduced (0.12395 with cos 6 deg: 0.1233, 0.5 percent) by a Littrow incidence of 71.25 deg and an out-of-plane 12 deg total (gamma = 6 deg), which also fits the drawing (the echelle disperses in the vertical plane of the side view).",
+  "Echelle angle default: 0.25 deg (manual Sec. 3.3) vs 0.4 deg nominal (Sec. 3.1.1). Not used in the preset.",
+  "Standard-setup wavelength ranges (Table 6) vs the orders per CCD: StdYb CCD1 414-535 nm is 33 orders (144-112) by the red table, spanning 24 mm of a 27.6 mm CCD, so three more orders would fit on CCD1. Treat the Table 6 ranges as +-3 orders.",
+  "Detector: the 1998 design called for 15 um pixels and 2k x 4k chips (N98); the as-built detector is 13.5 um (N02, M14)."
+ ],
+ "notes": [
+  "RECOMMENDED PRESET: HDS, StdBc and StdYb with the 0.4 arcsec slit as settings of one echelle-mode preset, id hds, named \"Subaru / HDS\". Why: 0.4 arcsec (200 um mechanical, R about 90,000) is the standard slit of both the paper and the manual (not an R = 45,000 or 60,000 slit); the metal-poor star survey that opened the instrument used 0.4 and 0.72 arcsec (H04); 0.72 arcsec gives R about 50,000. StdBc (355-521 nm, blue cross-disperser) covers that survey's 3500-5200 A; StdYb (414-681 nm, red cross-disperser, KV370) is the widest single optical exposure. No usage count was found: this is a judgment. StdUa and StdRa span the near-UV and the Halpha region.",
+  "Settings (at most 16 characters): StdBc, 0.4″ (default) / StdYb, 0.4″ / StdUa, 0.4″ / StdRa, 0.4″ / StdBc, 0.72″ (R about 50,000) / StdBc, 0.2″ (narrowest published profile, R = 128,700 derived from Table 3). The R = 160,000 slit is not published.",
+  "Era: 2014-2026 (first light 2000 July 1, open use 2001 April; image slicers from S11B, S13A, S14A; the original EEV detector). The image slicers are not modeled.",
+  "RECOMMENDED STATE (echelle mode): D = 8.2 m; F = 12.5 (N02: 3400 mm / 272 mm = 12.5, giving W = 272 mm exactly) [alternative F = 12.708, W = 267.5]; slitW = mechanical / cos 30 deg (0.462 for 0.4; 0.831 for 0.72; 0.231 for 0.2); nObj = 1; col mirror (off-axis parabola), colTilt = 2.5 (INFERRED from the 5 deg label and the 4.9 deg drawn line); cam mirror (catadioptric: three correctors, spherical mirror, flattener); layLen = 2330 (printed 2329.9); camLen = 1100 (printed: cross-disperser to the correctors); fcam = 770; eG = 31.6; eDelta = 71.25 (fits the order table; the paper says 71.5); gamma = 6.0 (INFERRED as half of the printed 12 deg; agrees with the 5.97 deg the order table needs); theta = 0; xd grating, xG = 400 (blue) or 250 (red), xPsi = 45 (printed on Fig. 1); Nx = 4096 (dispersion), Ny = 4096 (2 x 2048 across; the 1.1 mm gap is not modeled); pix = 13.5; gLen = 812.8; lamC from the Table 6 midpoints: StdUa 3930, StdBc 4380, StdYb 5475, StdRa 6450 A (INFERRED midpoints).",
+  "CHANGES BY THE PAPER: (1) gamma is no longer a fit: 6.0 deg = 12 deg / 2 reproduces the fitted 5.97 deg, so the order centers (m x lambda_center) and the ordLo/ordHi of the Sec. 5.3 table are independent tests for theta = 71.25 deg and gamma = 6 deg (not for 71.5 deg, which fails by 8 A); the eDelta choice between 71.25 and 71.5 is still made from this table. The 2000 sample's center wavelength (562.30 nm) is its own, so only the offsets from it are tested. (2) xPsi = 45 deg explains the order-separation shortfall. (3) gLen = 812.8 mm (ruled). (4) f_col 3400 mm and F = 12.5 replace 3300 mm and 12.708. (5) The slit enters at 1/cos 30 deg of its mechanical width.",
+  "Independent tests that remain: LD in four orders (depends on theta, gamma, f = 770 only); ORDSEP (xPsi = 45, f = 770, sourced); the order span and 23 orders per CCD; R x slit.",
+  "What the model cannot represent: (1) the two CCDs with a 1.1 mm (about one order) gap across the dispersion; (2) the camera as a real catadioptric system; (3) the 30 deg slit inclination (entered as a wider slit; the pixel scale along the slit image, 0.138, then differs from the model's); (4) the image slicers (IS#1 = 5 x 0.3 arcsec slices is the nearest slit entry); (5) the two collimators; (6) the 1 x 2 echelle mosaic (one length, gLen 812.8, is used; the 0.5 arcsec misalignment of the masters is ignored); (7) the out-of-plane 12 deg geometry if the explorer draws a single plane.",
+  "Documents: Noguchi et al. 2002 (supplied) now holds the layout, the 12 deg and 45 deg angles, the camera description and the mosaic; the 1998 SPIE paper (1998SPIE.3355..354N, https://doi.org/10.1117/12.316771) remains unsaved (paywalled) and would add little."
+ ]
+}

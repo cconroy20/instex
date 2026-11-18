@@ -1976,6 +1976,655 @@
     "key": "KS",
     "text": "Keck Observatory, NIRSPEC Specifications page"
    }
+  ],
+  "criresk2192": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresh1582": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresk2148": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresy1029": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresj1228": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresl3262": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "criresm4266": [
+   {
+    "file": "data/round10/crires.json",
+    "key": "D23",
+    "text": "Dorn et al. 2023, A&A 671, A24",
+    "ads": "2023A&A...671A..24D"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "O14",
+    "text": "Oliva et al. 2014, Proc. SPIE 9147, 91477R",
+    "ads": "2014SPIE.9147E..7RO"
+   },
+   {
+    "file": "data/round10/crires.json",
+    "key": "UM",
+    "text": "ESO, CRIRES User Manual (P116.1, 2025)"
+   }
+  ],
+  "sinfonik100": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "sinfonij100": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "sinfonih100": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "sinfonihk100": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "sinfonik250": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "sinfonik25": [
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E03",
+    "text": "Eisenhauer et al. 2003, Proc. SPIE 4841, 1548",
+    "ads": "2003SPIE.4841.1548E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "E00",
+    "text": "Eisenhauer et al. 2000, Proc. SPIE 4008, 289",
+    "ads": "2000SPIE.4008..289E"
+   },
+   {
+    "file": "data/round10/sinfoni.json",
+    "key": "G17",
+    "text": "George et al. 2017, JATIS 3, 035002",
+    "ads": "2017JATIS...3c5002G"
+   }
+  ],
+  "kmosk": [
+   {
+    "file": "data/round10/kmos.json",
+    "key": "M13",
+    "text": "Sharples et al. 2013, The Messenger 151, 21",
+    "ads": "2013Msngr.151...21S"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "T06",
+    "text": "Tecza et al. 2006, Proc. SPIE 6269, 62694G",
+    "ads": "2006SPIE.6269E..4GT"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "MAN",
+    "text": "ESO, KMOS User Manual (Issue 6.1.1, 2024)"
+   }
+  ],
+  "kmosiz": [
+   {
+    "file": "data/round10/kmos.json",
+    "key": "M13",
+    "text": "Sharples et al. 2013, The Messenger 151, 21",
+    "ads": "2013Msngr.151...21S"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "T06",
+    "text": "Tecza et al. 2006, Proc. SPIE 6269, 62694G",
+    "ads": "2006SPIE.6269E..4GT"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "MAN",
+    "text": "ESO, KMOS User Manual (Issue 6.1.1, 2024)"
+   }
+  ],
+  "kmosyj": [
+   {
+    "file": "data/round10/kmos.json",
+    "key": "M13",
+    "text": "Sharples et al. 2013, The Messenger 151, 21",
+    "ads": "2013Msngr.151...21S"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "T06",
+    "text": "Tecza et al. 2006, Proc. SPIE 6269, 62694G",
+    "ads": "2006SPIE.6269E..4GT"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "MAN",
+    "text": "ESO, KMOS User Manual (Issue 6.1.1, 2024)"
+   }
+  ],
+  "kmosh": [
+   {
+    "file": "data/round10/kmos.json",
+    "key": "M13",
+    "text": "Sharples et al. 2013, The Messenger 151, 21",
+    "ads": "2013Msngr.151...21S"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "T06",
+    "text": "Tecza et al. 2006, Proc. SPIE 6269, 62694G",
+    "ads": "2006SPIE.6269E..4GT"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "MAN",
+    "text": "ESO, KMOS User Manual (Issue 6.1.1, 2024)"
+   }
+  ],
+  "kmoshk": [
+   {
+    "file": "data/round10/kmos.json",
+    "key": "M13",
+    "text": "Sharples et al. 2013, The Messenger 151, 21",
+    "ads": "2013Msngr.151...21S"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "T06",
+    "text": "Tecza et al. 2006, Proc. SPIE 6269, 62694G",
+    "ads": "2006SPIE.6269E..4GT"
+   },
+   {
+    "file": "data/round10/kmos.json",
+    "key": "MAN",
+    "text": "ESO, KMOS User Manual (Issue 6.1.1, 2024)"
+   }
+  ],
+  "hdsbc": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "hdsyb": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "hdsua": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "hdsra": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "hdsbc72": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "modsb": [
+   {
+    "file": "data/round10/mods.json",
+    "key": "P06",
+    "text": "Pogge et al. 2006, Proc. SPIE 6269, 62690I",
+    "ads": "2006SPIE.6269E..0IP"
+   },
+   {
+    "file": "data/round10/mods.json",
+    "key": "BO00",
+    "text": "Byard & O'Brien 2000, Proc. SPIE 4008, 934",
+    "ads": "2000SPIE.4008..934B"
+   },
+   {
+    "file": "data/round10/mods.json",
+    "key": "MAN",
+    "text": "Pogge, MODS Instrument Manual (OSU, 2013)"
+   }
+  ],
+  "modsr": [
+   {
+    "file": "data/round10/mods.json",
+    "key": "P06",
+    "text": "Pogge et al. 2006, Proc. SPIE 6269, 62690I",
+    "ads": "2006SPIE.6269E..0IP"
+   },
+   {
+    "file": "data/round10/mods.json",
+    "key": "BO00",
+    "text": "Byard & O'Brien 2000, Proc. SPIE 4008, 934",
+    "ads": "2000SPIE.4008..934B"
+   },
+   {
+    "file": "data/round10/mods.json",
+    "key": "MAN",
+    "text": "Pogge, MODS Instrument Manual (OSU, 2013)"
+   }
+  ],
+  "hdsbc2": [
+   {
+    "file": "data/round10/hds.json",
+    "key": "N02",
+    "text": "Noguchi et al. 2002, PASJ 54, 855",
+    "ads": "2002PASJ...54..855N"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "M14",
+    "text": "Aoki et al. 2014, Subaru HDS User Manual (Ver. 2.0.0)"
+   },
+   {
+    "file": "data/round10/hds.json",
+    "key": "T12",
+    "text": "Tajitsu et al. 2012, PASJ 64, 77",
+    "ads": "2012PASJ...64...77T"
+   }
+  ],
+  "halecoude144": [
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B52",
+    "text": "Bowen 1952, ApJ 116, 1",
+    "ads": "1952ApJ...116....1B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1952ApJ...116....1B"
+   },
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B57",
+    "text": "Bowen 1957, PASP 69, 377",
+    "ads": "1957PASP...69..377B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1957PASP...69..377B"
+   }
+  ],
+  "halecoude72": [
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B52",
+    "text": "Bowen 1952, ApJ 116, 1",
+    "ads": "1952ApJ...116....1B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1952ApJ...116....1B"
+   },
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B57",
+    "text": "Bowen 1957, PASP 69, 377",
+    "ads": "1957PASP...69..377B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1957PASP...69..377B"
+   }
+  ],
+  "halecoude36": [
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B52",
+    "text": "Bowen 1952, ApJ 116, 1",
+    "ads": "1952ApJ...116....1B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1952ApJ...116....1B"
+   },
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B57",
+    "text": "Bowen 1957, PASP 69, 377",
+    "ads": "1957PASP...69..377B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1957PASP...69..377B"
+   }
+  ],
+  "halecoude18": [
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B52",
+    "text": "Bowen 1952, ApJ 116, 1",
+    "ads": "1952ApJ...116....1B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1952ApJ...116....1B"
+   },
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B57",
+    "text": "Bowen 1957, PASP 69, 377",
+    "ads": "1957PASP...69..377B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1957PASP...69..377B"
+   }
+  ],
+  "halecoude8": [
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B52",
+    "text": "Bowen 1952, ApJ 116, 1",
+    "ads": "1952ApJ...116....1B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1952ApJ...116....1B"
+   },
+   {
+    "file": "data/round10/halecoude.md",
+    "key": "B57",
+    "text": "Bowen 1957, PASP 69, 377",
+    "ads": "1957PASP...69..377B",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1957PASP...69..377B"
+   }
+  ],
+  "mwcoude32": [
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "A41",
+    "text": "Adams 1941, ApJ 93, 11",
+    "ads": "1941ApJ....93...11A",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1941ApJ....93...11A"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D39",
+    "text": "Dunham 1939, PASP 51, 253",
+    "ads": "1939PASP...51..253D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1939PASP...51..253D"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D46",
+    "text": "Dunham 1946, PAAS 10, 49",
+    "ads": "1946PAAS...10...49D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1946PAAS...10...49D"
+   }
+  ],
+  "mwcoude73": [
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "A41",
+    "text": "Adams 1941, ApJ 93, 11",
+    "ads": "1941ApJ....93...11A",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1941ApJ....93...11A"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D39",
+    "text": "Dunham 1939, PASP 51, 253",
+    "ads": "1939PASP...51..253D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1939PASP...51..253D"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D46",
+    "text": "Dunham 1946, PAAS 10, 49",
+    "ads": "1946PAAS...10...49D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1946PAAS...10...49D"
+   }
+  ],
+  "mwcoude114": [
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "A41",
+    "text": "Adams 1941, ApJ 93, 11",
+    "ads": "1941ApJ....93...11A",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1941ApJ....93...11A"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D39",
+    "text": "Dunham 1939, PASP 51, 253",
+    "ads": "1939PASP...51..253D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1939PASP...51..253D"
+   },
+   {
+    "file": "data/round10/mwcoude.md",
+    "key": "D46",
+    "text": "Dunham 1946, PAAS 10, 49",
+    "ads": "1946PAAS...10...49D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1946PAAS...10...49D"
+   }
   ]
  },
  "img": {

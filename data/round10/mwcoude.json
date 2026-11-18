@@ -1,0 +1,461 @@
+{
+ "id": "mwcoude",
+ "name": "Mount Wilson 100-inch / coudé spectrograph (1935-1950s)",
+ "quote_pieces": 38,
+ "quote_failures": 0,
+ "sources": {
+  "A41": "1941ApJ....93...11A",
+  "D46": "1946PAAS...10...49D (scan, OCR)",
+  "D37": "1937PASP...49...26D",
+  "D39": "1939PASP...51..253D",
+  "BA48": "1948ApJ...107...73B",
+  "G64": "1964ApJ...139.1387G",
+  "B57": "1957PASP...69..377B"
+ },
+ "rows": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focus and focal length",
+   "value": "coudé, effective focal length 250 ft (3000 in), i.e. f/30 on the 100-in",
+   "unit": "",
+   "source": "D39",
+   "location": "p. 259",
+   "quote": "where the effective focal length is 250 feet"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal length (alt)",
+   "value": "ALT: 250 ft",
+   "unit": "",
+   "source": "BA48",
+   "location": "p. 73",
+   "quote": "The long equivalent focal length (250 feet) of the coudé optical system"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the coudé focus",
+   "value": "2.7066 arcsec/mm",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED: 206265 / (3000 in x 25.4 mm/in) = 2.7066 arcsec/mm; f/30 = 3000 in / 100 in"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width",
+   "value": "20 um (projected on the plate with the 114-in camera)",
+   "unit": "um",
+   "source": "D46",
+   "location": "p. 49 (transcribed from the scan)",
+   "quote": "clearly separated using a slit 20"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit",
+   "value": "comparison-spectrum and step-slit projector; Bowen image slicer interchangeable by dowel pins",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "a slit equipped with Bowen"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type and axis",
+   "value": "concave collimating mirror corrected to operate off its axis (OFF-AXIS)",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "The light passing through the slit falls upon a concave collimating mirror corrected to operate off its axis"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator return path",
+   "value": "the beam is thrown 'backward and slightly upward in the general direction of the slit' to the grating placed just above the optical axis (the slit is not in the returning beam)",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "This mirror throws the parallel beam of light backward and slightly upward in the general direction of the slit to the plane grating placed just above the optical axis"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal length and beam",
+   "value": "15 ft (180 in = 4572 mm), 6-in (152.4 mm) aperture, in the 1960s; the original 1920s prismatic autocollimator had the same 6 in and 15 ft",
+   "unit": "",
+   "source": "G64",
+   "location": "p. 1387",
+   "quote": "The aperture of the spectrograph collimator is 6 inches"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal length (alt)",
+   "value": "ALT: 15 ft",
+   "unit": "",
+   "source": "G64",
+   "location": "p. 1387",
+   "quote": "its focal length being 15 feet and not 12 feet"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Original design",
+   "value": "autocollimating prismatic spectrograph, 6-in aperture, 15-ft focal length",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 11",
+   "quote": "Originally designed as an autocollimating prismatic spectrograph with an aperture of 6 inches and a focal length of 15 feet"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal ratio",
+   "value": "f/30 (180 in / 6 in), matching the telescope",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED: 180 / 6 = 30. INFERRED that the 1935 off-axis mirror kept the 15 ft and 6 in: A41 does not give them; G64 does (1964)"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Disperser",
+   "value": "Wood aluminum-on-Pyrex plane reflection grating, 14,400 lines/in = 566.9 /mm",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "a Wood aluminium on pyrex-glass grating with a ruled area of"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Groove density",
+   "value": "14,400 lines to the inch",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "14,400 lines to the inch"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Ruled area",
+   "value": "4-3/8 x 5-1/2 in (111 x 140 mm); read from the scan, the text layer garbles the fractions",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13 (fractions read from the scan image)",
+   "quote": "with a ruled area of"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Blaze",
+   "value": "strong concentration in the red-infrared of the first order and the violet-blue of the second order; good definition in first, second and third orders",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "It has excellent concentration of light in the red-infrared of the first order and similar concentration in the violet-blue of the second order."
+  },
+  {
+   "section": "Grating",
+   "parameter": "Orders used",
+   "value": "blue and violet in second order, yellow and red in first",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "nearly all spectrograms in the blue and violet regions have been made in the second order, and those in the red and yellow in the first order"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Other gratings (1950s)",
+   "value": "900 lines/mm blazed third-order blue; 600 lines/mm first-order infrared (1960s); four gratings interchangeable",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 380",
+   "quote": "One of the new gratings is ruled with 900 lines per mm and is blazed in the third order"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Angle of incidence",
+   "value": "about 16 deg (for the 600 lines/mm grating of the 1960s; not given for the 14,400/in grating)",
+   "unit": "",
+   "source": "G64",
+   "location": "p. 1387",
+   "quote": "the angle of incidence upon the grating is about 16"
+  },
+  {
+   "section": "Grating",
+   "parameter": "Scattered light",
+   "value": "below 3300 A a diaphragm covering about half the grating is needed",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "below X 3300 a diaphragm covering about one-half its surface must be used"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "32-in Schmidt",
+   "value": "off-axis Schmidt camera, 32 in; second order 10.4 A/mm (first order about 20 A/mm)",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "32-inch Schmidt, second order"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "32-in dispersion",
+   "value": "1 mm = 10.4 A (second order)",
+   "unit": "A/mm",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "1 mm = 10.4 A"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "32-in first order",
+   "value": "20 A/mm in first order with the 32-in off-axis Schmidt (1937)",
+   "unit": "A/mm",
+   "source": "D37",
+   "location": "p. 26",
+   "quote": "with the 32-inch off-axis Schmidt camera"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "73-in Schmidt dispersion",
+   "value": "4.5 A/mm (second order)",
+   "unit": "A/mm",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "73-inch Schmidt, second order"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "108-in lens camera dispersion",
+   "value": "3.1 A/mm (second order); a lens of 108 in focal length (1935-1940)",
+   "unit": "A/mm",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "108-inch lens, second order"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "114-in camera",
+   "value": "spherical mirror, 36 in diameter, mirror radius 19 ft (center of curvature 4 in to one side of the grating center), f/19; no corrector plate",
+   "unit": "",
+   "source": "D46",
+   "location": "p. 49 (transcribed from the scan)",
+   "quote": "The mirror, which has a diameter of 36 inches and a radius of curvature of 19 feet"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "114-in camera (alt)",
+   "value": "ALT: no correcting plate required; no glass between star and plate",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "the operating ratio of the camera is such that no correcting plate is required"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "114-in focal ratio",
+   "value": "114 in / 6 in = f/19",
+   "unit": "",
+   "source": "G64",
+   "location": "p. 1387",
+   "quote": "This f/19 camera system"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "114-in dispersion",
+   "value": "2.9 A/mm (2.88 A/mm in Dunham's note), second order",
+   "unit": "A/mm",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "114-inch Schmidt, second order"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "114-in dispersion (alt)",
+   "value": "ALT: 2.88 A/mm",
+   "unit": "A/mm",
+   "source": "D46",
+   "location": "p. 49 (transcribed from the scan)",
+   "quote": "14,400 lines per inch is approximately 2.88"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Spectrum length and plate",
+   "value": "16 in of fully illuminated spectrum; plate 2 in wide (20-in spectrograms in the abstract)",
+   "unit": "",
+   "source": "D46",
+   "location": "p. 49 (transcribed from the scan)",
+   "quote": "The length of fully illuminated spectrum is 16 inches"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Later cameras",
+   "value": "8-in and 16-in (quartz) cameras added in the 1950s",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 380",
+   "quote": "Cameras of 8-inch and 16-inch focus, the latter with all quartz optics, are being added"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Layout",
+   "value": "steel frame; slit near the acute vertex of an inverted right triangle; cameras on the horizontal base; the grating rotates to send the spectrum horizontally to the cameras or down along the optical axis",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "The whole structure forms approximately an inverted right triangle with the slit lying near the acute vertex"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera change",
+   "value": "correctors and lens rest on a plate in front of the grating; the 32-in camera moves on rails; change in 2-3 minutes",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 12",
+   "quote": "requires not more than 2 or 3 minutes"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Plate",
+   "value": "Cramer Hi-Speed Special plates in the blue (30-40 min exposures on alpha Boo)",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 14",
+   "quote": "Cramer Hi-Speed Special plates were used for nearly all the spectrograms"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Plate resolution",
+   "value": "lines 30 um apart (0.086 A) clearly separated with a 20 um slit (114-in camera)",
+   "unit": "um",
+   "source": "D46",
+   "location": "p. 49 (transcribed from the scan)",
+   "quote": "Spectral lines 30"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Effective pixel",
+   "value": "20 um (EFFECTIVE: the slit image and the plate's resolution, D46)",
+   "unit": "um",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Resolution of the grating",
+   "value": "Fe lambda 3918 components 0.099 A apart completely resolved on fast plates",
+   "unit": "A",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "complete photographic resolution even on fast plates"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Resolving-power limits (1964, 600 /mm grating, first order, 8500 A)",
+   "value": "about 78,000 from the grating alone (95,000 lines) and 77,000 from the f/19 camera alone (calculated; the saved page ends before Griffin's measured value)",
+   "unit": "",
+   "source": "G64",
+   "location": "p. 1387",
+   "quote": "The resolving power in the first order, even with a vanishingly small width of the entrance slit"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Reflections",
+   "value": "six aluminum reflections including the telescope and spectrograph",
+   "unit": "",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "six including the telescope and spectrograph"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Faintest star",
+   "value": "o Ceti, m(pg) about 6.0, 5.5 h exposure with the 114-in; 32-in: magnitude 7",
+   "unit": "mag",
+   "source": "A41",
+   "location": "p. 13",
+   "quote": "The faintest star so far observed with the highest dispersion"
+  },
+  {
+   "section": "Detector and performance",
+   "parameter": "Interstellar CH and CN",
+   "value": "CH lines in zeta Oph found with the coudé (predicted by McKellar); CH and CN in space 'beyond reasonable doubt'",
+   "unit": "",
+   "source": "A41",
+   "location": "Abstract, p. 11",
+   "quote": "the presence of several lines of CH, predicted by McKellar, has been established"
+  }
+ ],
+ "derived": [
+  {
+   "name": "32-inch",
+   "f": 32,
+   "pub": 10.4,
+   "K": 10.331249999999999,
+   "slit_mm": 0.10893087222588609,
+   "slit_as": 0.2948322987665833,
+   "R": 20673.076923076922
+  },
+  {
+   "name": "73-inch",
+   "f": 73,
+   "pub": 4.5,
+   "K": 4.528767123287671,
+   "slit_mm": 0.04775051933189527,
+   "slit_as": 0.12924155562370773,
+   "R": 47777.77777777778
+  },
+  {
+   "name": "114-inch",
+   "f": 114,
+   "pub": 2.9,
+   "K": 2.8999999999999995,
+   "slit_mm": 0.0305770869405996,
+   "slit_as": 0.08275994351342687,
+   "R": 74137.93103448277
+  }
+ ],
+ "recommended": {
+  "telescope": {
+   "D": 2.54,
+   "F": 30,
+   "plate_arcsec_per_mm": 2.7066
+  },
+  "settings": [
+   {
+    "set": "32-inch",
+    "fcam_mm": 812.8,
+    "K2_pub": 10.4,
+    "slit_arcsec_EFFECTIVE": 0.295
+   },
+   {
+    "set": "73-inch",
+    "fcam_mm": 1854.1999999999998,
+    "K2_pub": 4.5,
+    "slit_arcsec_EFFECTIVE": 0.129
+   },
+   {
+    "set": "114-inch",
+    "fcam_mm": 2895.6,
+    "K2_pub": 2.9,
+    "slit_arcsec_EFFECTIVE": 0.083
+   }
+  ],
+  "grating": {
+   "G": 566.9,
+   "m": 2,
+   "lamC": 4300,
+   "psi_EFFECTIVE": 28.3,
+   "W": 152.4,
+   "fcol_mm": 4572,
+   "collimator": "off-axis mirror"
+  }
+ },
+ "layout_verdict": "OFF-AXIS collimator (Adams 1941 p. 12: 'corrected to operate off its axis')",
+ "not_found": [
+  "measured R",
+  "angle of incidence for 14,400/in grating",
+  "32-in and 73-in plate lengths",
+  "scaled layout"
+ ],
+ "conflicts": [
+  "B57 lists a 72-in camera; A41 gives 73 in"
+ ]
+}

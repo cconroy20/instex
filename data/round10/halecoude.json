@@ -1,0 +1,616 @@
+{
+ "id": "halecoude",
+ "name": "Hale 200-inch / coudé spectrograph (photographic era)",
+ "quote_pieces": 42,
+ "quote_failures": 0,
+ "era": "1950 (installed July 1950) to the 1960s, photographic",
+ "sources": {
+  "B52": "1952ApJ...116....1B",
+  "B57": "1957PASP...69..377B",
+  "B61": "1961tele.book....1B (scan, OCR)",
+  "O52": "1952Obs....72..129B (scan, OCR)"
+ },
+ "rows": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focus and focal ratio",
+   "value": "coudé f/30, effective focal length 6000 in (500 ft)",
+   "unit": "",
+   "source": "O52",
+   "location": "p. 132 (transcribed from the scan)",
+   "quote": "effective focal length of the coudé arrangement is 500 feet corresponding to a focal ratio of 30"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio (alt)",
+   "value": "ALT: f/30",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "Since the coudé optics of the 200-inch telescope operate at"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the coudé focus",
+   "value": "1.3534 arcsec/mm",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED: 206265 / (6000 in x 25.4 mm/in) = 1.3534 arcsec/mm (the explorer's Hale telescope record, data/telescopes/hale.md, gives 1.35344)"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Aperture",
+   "value": "D = 5.08 m (200 in)",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "The explorer's Hale telescope record (data/telescopes/hale.md); the coudé secondaries and flats add obstruction not modeled here."
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Reflections to the slit",
+   "value": "at least 5 aluminum reflections (telescope plus coudé train), 4 glass-air surfaces, 1 diffraction",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 381",
+   "quote": "Before reaching the plate the light undergoes a minimum of five reflections at aluminum surfaces plus one diffraction at the grating and passes a minimum of four glass-air surfaces."
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width actually used",
+   "value": "NOT FOUND",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "Bowen assumes a slit-image width A = 0.02 mm at the plate; no slit width in arcsec or mm is published in the sources saved."
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit-image width at the plate (design)",
+   "value": "A = 0.02 mm",
+   "unit": "mm",
+   "source": "B52",
+   "location": "p. 3",
+   "quote": "If we also assume A = 0.02 mm and r = cos 30"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Meaning of A",
+   "value": "slit image set about equal to the plate's resolution limit",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 1",
+   "quote": "Width of slit image permissible at the plate, usually set about equal to limit of resolution of plate."
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Spectrum width (widening)",
+   "value": "W = 0.1 mm assumed for faint stars",
+   "unit": "mm",
+   "source": "B52",
+   "location": "p. 3",
+   "quote": "it is usually necessary to accept a value of W of 0.1 mm or even less"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Seeing assumed in the speed estimates",
+   "value": "beta = 6e-6 rad (about 1.2 arcsec; the text garbles the exponent in the scan text layer, the arcsec value is DERIVED)",
+   "unit": "rad",
+   "source": "B52",
+   "location": "p. 3",
+   "quote": "good average seeing at these observatories"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator type, focal length, axis",
+   "value": "off-axis mirror, f = 30 ft = 360 in = 9144 mm",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "a focal length of ... 30 feet is required for the off-axis mirror collimator"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Beam diameter",
+   "value": "d = 12 in = 304.8 mm",
+   "unit": "",
+   "source": "B52",
+   "location": "Abstract, p. 1",
+   "quote": "a spectrograph has been constructed having a 12-inch aperture collimator beam"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Beam diameter (alt)",
+   "value": "ALT: 12 in",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 379",
+   "quote": "An aperture of 12 inches was adopted for the collimator beam of the large coudé"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Collimator focal ratio",
+   "value": "f/30 (= 360 in / 12 in), matching the telescope: the slit is filled by the f/30 beam",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED: 360 / 12 = 30"
+  },
+  {
+   "section": "Collimator and beam",
+   "parameter": "Why the beam is 12 in",
+   "value": "gratings of the 100-inch coudé limit the beam to 6 in; the 200-inch needs d proportional to D for speed",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "these gratings limit the maximum beam size to 6 inches"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Disperser",
+   "value": "composite of four matched plane reflection gratings (a mosaic)",
+   "unit": "",
+   "source": "B52",
+   "location": "Abstract, p. 1",
+   "quote": "As dispersing element, a composite of four matched gratings is used"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Groove density",
+   "value": "10,000 lines per inch = 393.7 /mm",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "ruled on the Mount Wilson ruling engine with 10,000 lines per inch"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Blaze",
+   "value": "third-order violet and second-order red (blaze angle not given); 60-70 per cent of the light in the blazed order",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "were blazed in the third-order violet and second-order red, 60-70 per cent of the incident light going into the one blazed order"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Ruled size of each grating",
+   "value": "5.5 x 7 in (139.7 x 177.8 mm)",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4 (5-1/2 read from the scan image)",
+   "quote": "each having a ruled surface of"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Mosaic arrangement",
+   "value": "NOT FOUND (2 x 2 implied); INFERRED: 14 in along the dispersion",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "INFERRED: the beam footprint on the grating is 12/cos 30 = 13.86 in along the dispersion (B52 p. 5 gives 13.8 in); two 7 in gratings side by side cover 14 in. The alternative (2 x 5.5 = 11 in along the dispersion) would cap R below the footprint; the sources do not say."
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Resolving power of the gratings",
+   "value": "far above the plate's",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "The resolving power of each individual grating is therefore considerably greater than that of the photographic plate."
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Phasing",
+   "value": "lines of the four gratings need not be in phase: the spectra only have to coincide within the plate's resolution",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 4",
+   "quote": "it is not necessary to mount the gratings so that the ruled lines of the four gratings are in phase with one another"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Angle of incidence",
+   "value": "alpha = 30 deg; camera axes normal to the grating",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "mounted to have their axes normal to the grating, while the collimator beam has an angle of incidence on the grating of 30"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Anamorphic factor r",
+   "value": "r = cos 30 deg (diffraction near normal)",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 3",
+   "quote": "If we also assume A = 0.02 mm and r = cos 30"
+  },
+  {
+   "section": "Grating mosaic",
+   "parameter": "Gratings of other beams (not used for the coudé)",
+   "value": "3-in prime-focus spectrograph: 7500 and 15,000 lines/in, second-order violet blaze",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 7",
+   "quote": "gratings of 7500 and 15,000 lines per inch with the blaze in the second-order violet are used"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera set",
+   "value": "five cameras, focal lengths 144, 72, 36, 18 and 8.4 in",
+   "unit": "",
+   "source": "B52",
+   "location": "Abstract, p. 1",
+   "quote": "a series of five cameras with focal lengths ranging from 144 to 8.4 inches and yielding dispersions of 2.3 to 40 A/mm"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: focal length (in)",
+   "value": "144 / 72 / 36 / 18 / 8.4",
+   "unit": "in",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "144 72 36 18 8.4"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: focal ratio",
+   "value": "12 / 6 / 3 / 1.5 / 0.7",
+   "unit": "",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "12 6 3 1.5 0.7"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: mirror diameter (in)",
+   "value": "48 / 36 / 30 / 20 / 20",
+   "unit": "in",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "48 36 30 20 20"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: usable plate length (in)",
+   "value": "22 / 16 / 12 / 6 / 0.68",
+   "unit": "in",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "22 16 12 6 0.68"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: dispersion, 3rd order (violet)",
+   "value": "2.3 / 4.6 / 9 / 18 / 39",
+   "unit": "A/mm",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "2.3 4.6 9 18 39"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Table 2: dispersion, 2nd order (red)",
+   "value": "3.4 / 6.8 / 14 / 27 / 59",
+   "unit": "A/mm",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "3.4 6.8 14 27 59"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera type, 144 in",
+   "value": "spherical mirror, center of curvature at the grating; f/12, no corrector",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "This makes use of the Schmidt principle by having a mirror placed with its center of curvature at the grating."
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera type, 72, 36 and 18 in",
+   "value": "Schmidt cameras; corrector plate of slightly less than half strength within a few mm of the grating, light passing it twice",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "a corrector plate of slightly less than half-strength is placed parallel to, and within a very few millimeters of, the grating"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera type, 8.4 in",
+   "value": "the 18-in Schmidt plus an aplanatic fused-quartz sphere (radius 2.5 in) against which the plate sits; focal length 18/n^2",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 6",
+   "quote": "with a sphere of optical quality fused quartz having a radius of 2.5 inches"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Flat field of the 8.4-in camera",
+   "value": "17 mm diameter: 670 A (3rd order blue) or 1000 A (2nd order red) per exposure",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 6",
+   "quote": "a well-corrected flat field 17 mm in diameter was attained, thereby providing a range for one exposure of 670 A in the third-order blue spectrum or 1000 A in the second-order red spectrum"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Plate position and format",
+   "value": "plateholders on the camera axis, between grating and mirror; plates 1 in wide",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "They are therefore designed to take rather narrow plates 1 inch in width."
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Plate position (on axis)",
+   "value": "on axis (an on-axis plateholder obstructs the returning beam)",
+   "unit": "",
+   "source": "B52",
+   "location": "p. 5",
+   "quote": "all plateholders are mounted on axis"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Camera mirror distance from the grating",
+   "value": "2 f = 288 in (7315 mm) for the 144-in camera (the mirror radius R = 2 f; plate at f)",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": "DERIVED from 'center of curvature at the grating' (B52 p. 5) and f = R/2 for a spherical mirror; the sources do not state the distance"
+  },
+  {
+   "section": "Cameras",
+   "parameter": "Total throughput",
+   "value": "less than 20 per cent in the best case; 5 to 10 per cent in practice",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 381",
+   "quote": "the efficiency is less than 20 percent"
+  },
+  {
+   "section": "Detector (photographic plate)",
+   "parameter": "Plate",
+   "value": "photographic plate (emulsion not named in the saved sources), 1 in wide, 22 / 16 / 12 / 6 / 0.68 in usable length",
+   "unit": "",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "22 16 12 6 0.68"
+  },
+  {
+   "section": "Detector (photographic plate)",
+   "parameter": "Effective pixel",
+   "value": "20 um (EFFECTIVE: the plate's resolution limit, A)",
+   "unit": "um",
+   "source": "B52",
+   "location": "p. 1 and p. 3",
+   "quote": "usually set about equal to limit of resolution of plate"
+  },
+  {
+   "section": "Detector (photographic plate)",
+   "parameter": "Era of the preset",
+   "value": "photographic, installed July 1950 (Palomar coudé); image tubes and detectors came later (not sourced)",
+   "unit": "",
+   "source": "O52",
+   "location": "p. 139 (transcribed from the scan)",
+   "quote": "installation of the large coudé spectrograph in July 1950"
+  },
+  {
+   "section": "Detector (photographic plate)",
+   "parameter": "Later gratings",
+   "value": "NOT FOUND in a saved source: Oke 1980, 'New Gratings For the Palomar 5-Meter Hale Telescope Coude Spectrograph' (1980nsf....7724738O): no free scan",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "parameter": "Dispersion range",
+   "value": "2.3-40 A/mm (abstract); 2.3-38 A/mm (B57, B61): Table 2's 39 A/mm is the 8.4-in camera, 3rd order",
+   "unit": "",
+   "source": "B57",
+   "location": "p. 379",
+   "quote": "These yield dispersions of 2.3 to 38 A/mm."
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "parameter": "Dispersion (alt)",
+   "value": "ALT: 2.3-38 A/mm",
+   "unit": "",
+   "source": "B61",
+   "location": "p. 13 (transcribed from the scan)",
+   "quote": "The spectrograph for higher dispersions (2.3-38 A/mm) is located at the coudé focus"
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "parameter": "Limiting photographic magnitude (one night)",
+   "value": "7.5 / 9.8 / 11.9-12.0 / 13.4-14.3 / 15.0-16.6 (widened to 0.1 mm / unwidened)",
+   "unit": "mag",
+   "source": "B52",
+   "location": "Table 2, p. 6",
+   "quote": "Widened to 0.1 mm 7.5 9.8 11.9 13.4 15.0"
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "parameter": "Highest dispersion vs Rowland",
+   "value": "2.3 A/mm is about half Rowland's (solar spectrum)",
+   "unit": "",
+   "source": "O52",
+   "location": "p. 136 (transcribed from the scan)",
+   "quote": "The highest dispersion of 2-3 A per mm is about half that used by Rowland"
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "parameter": "Measured resolving power",
+   "value": "NOT FOUND (Bowen quotes only the plate limit)",
+   "unit": "",
+   "source": "",
+   "location": "",
+   "quote": ""
+  }
+ ],
+ "derived": [
+  {
+   "name": "144-inch",
+   "f": 144,
+   "fmm": 3657.6,
+   "K3": 2.314743054299729,
+   "K2": 3.472222222222222,
+   "pubK3": 2.3,
+   "pubK2": 3.4,
+   "slit_mm": 0.057733237101805855,
+   "slit_as": 0.07813847242306811,
+   "Nx": 27940,
+   "Ny": 1270,
+   "R": 92882.87941965254,
+   "cover3": 1293.4784187426887
+  },
+  {
+   "name": "72-inch",
+   "f": 72,
+   "fmm": 1828.8,
+   "K3": 4.629486108599458,
+   "K2": 6.944444444444444,
+   "pubK3": 4.6,
+   "pubK2": 6.8,
+   "slit_mm": 0.11546647420361171,
+   "slit_as": 0.15627694484613622,
+   "Nx": 20320,
+   "Ny": 1270,
+   "R": 46441.43970982627,
+   "cover3": 1881.42315453482
+  },
+  {
+   "name": "36-inch",
+   "f": 36,
+   "fmm": 914.4,
+   "K3": 9.258972217198917,
+   "K2": 13.888888888888888,
+   "pubK3": 9,
+   "pubK2": 14,
+   "slit_mm": 0.23093294840722342,
+   "slit_as": 0.31255388969227244,
+   "Nx": 15240,
+   "Ny": 1270,
+   "R": 23220.719854913135,
+   "cover3": 2822.13473180223
+  },
+  {
+   "name": "18-inch",
+   "f": 18,
+   "fmm": 457.2,
+   "K3": 18.517944434397833,
+   "K2": 27.777777777777775,
+   "pubK3": 18,
+   "pubK2": 27,
+   "slit_mm": 0.46186589681444684,
+   "slit_as": 0.6251077793845449,
+   "Nx": 7620,
+   "Ny": 1270,
+   "R": 11610.359927456568,
+   "cover3": 2822.13473180223
+  },
+  {
+   "name": "8.4-inch",
+   "f": 8.4,
+   "fmm": 213.35999999999999,
+   "K3": 39.681309502281074,
+   "K2": 59.52380952380952,
+   "pubK3": 39,
+   "pubK2": 59,
+   "slit_mm": 0.9897126360309575,
+   "slit_as": 1.3395166701097392,
+   "Nx": 864,
+   "Ny": 864,
+   "R": 5418.167966146399,
+   "cover3": 685.693028199417
+  }
+ ],
+ "recommended": {
+  "telescope": {
+   "D": 5.08,
+   "F": 30,
+   "plate_arcsec_per_mm": 1.35344
+  },
+  "settings": [
+   {
+    "set": "144-inch",
+    "fcam_mm": 3657.6,
+    "K3_pub": 2.3,
+    "K2_pub": 3.4,
+    "slit_arcsec_EFFECTIVE": 0.078,
+    "Nx": 27940,
+    "Ny": 1270,
+    "pix_um": 20
+   },
+   {
+    "set": "72-inch",
+    "fcam_mm": 1828.8,
+    "K3_pub": 4.6,
+    "K2_pub": 6.8,
+    "slit_arcsec_EFFECTIVE": 0.156,
+    "Nx": 20320,
+    "Ny": 1270,
+    "pix_um": 20
+   },
+   {
+    "set": "36-inch",
+    "fcam_mm": 914.4,
+    "K3_pub": 9,
+    "K2_pub": 14,
+    "slit_arcsec_EFFECTIVE": 0.313,
+    "Nx": 15240,
+    "Ny": 1270,
+    "pix_um": 20
+   },
+   {
+    "set": "18-inch",
+    "fcam_mm": 457.2,
+    "K3_pub": 18,
+    "K2_pub": 27,
+    "slit_arcsec_EFFECTIVE": 0.625,
+    "Nx": 7620,
+    "Ny": 1270,
+    "pix_um": 20
+   },
+   {
+    "set": "8.4-inch",
+    "fcam_mm": 213.35999999999999,
+    "K3_pub": 39,
+    "K2_pub": 59,
+    "slit_arcsec_EFFECTIVE": 1.34,
+    "Nx": 864,
+    "Ny": 864,
+    "pix_um": 20
+   }
+  ],
+  "grating": {
+   "G": 393.7,
+   "m": 3,
+   "lamC": 4300,
+   "psi": 30,
+   "W": 304.8,
+   "fcol_mm": 9144,
+   "lamB1_INFERRED": 13148,
+   "gLen_INFERRED_mm": 355.6,
+   "collimator": "off-axis mirror"
+  }
+ },
+ "layout_verdict": "OFF-AXIS collimator (Bowen 1952 p. 5: 'off-axis mirror collimator')",
+ "not_found": [
+  "slit width used",
+  "blaze angle",
+  "mosaic arrangement",
+  "measured R",
+  "scaled layout",
+  "emulsion",
+  "later gratings (Oke 1980)"
+ ],
+ "conflicts": [
+  "2.3-40 (B52 abstract) vs 2.3-38 A/mm (B57, B61); Table 2 gives 39 for the 8.4-in camera"
+ ]
+}

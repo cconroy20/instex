@@ -1,0 +1,1069 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 10: MODS (id 'mods')",
+  "compiled": "2026-11-18",
+  "companion": "data/round10/mods.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = none used; INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; NOT FOUND = gap.",
+  "quote_check": {
+   "pieces_checked": 133,
+   "failures": 0
+  },
+  "status": "in operation (MODS1 2011, MODS2 2014-2015); no '(design)' tag"
+ },
+ "sources": {
+  "BO00": {
+   "cite": "Byard, P. L. & O'Brien, T. P. 2000, Proc. SPIE 4008, 934, \"MODS: optical design for a multi-object dual spectrograph\" (ADS 2000SPIE.4008..934B; OSU-hosted copy). The optical design: Secs. 4-5 (path, collimators, cameras), Figs. 1-2 (camera, layout with a 500 mm scale bar)",
+   "file": "rawdata/presets/mods/pbspie2000.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Papers/pbspie2000.pdf"
+  },
+  "PDR": {
+   "cite": "MODS Project, \"A Multi-Object Double Spectrograph for the Large Binocular Telescope: Preliminary Design Review\", 2001 June 11, Ohio State University (OSU-hosted PDF, 140 pp.). Sec. 2.3-2.6: the optical design as proposed, Table 2.2 (gratings), Figs. 2.2-2.3",
+   "file": "rawdata/presets/mods/pdr.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/PDR/pdr.pdf"
+  },
+  "MAN": {
+   "cite": "Pogge, R. W., \"MODS Instrument Manual\", OSU-MODS-2011-003, version 1.4.5, 2013 January 20 (OSU-hosted PDF). Sec. 2 (characteristics, Fig. 2 layout), Sec. 2.4 (dichroic), Tables 1, 6, 7, Sec. 5.5.1, Sec. 2.12.4 (ghosts)",
+   "file": "rawdata/presets/mods/MODSManual.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Manuals/MODSManual.pdf"
+  },
+  "P06": {
+   "cite": "Pogge, R. W., Atwood, B., Belville, S. R., et al. 2006, Proc. SPIE 6269, 62690I, \"The multi-object double spectrographs for the Large Binocular Telescope\" (ADS 2006SPIE.6269E..0IP; OSU-hosted copy). Sec. 3: optics, gratings, prisms; Sec. 5: CCDs",
+   "file": "rawdata/presets/mods/MODS_SPIE2006.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Papers/MODS_SPIE2006.pdf"
+  },
+  "WH": {
+   "cite": "OSU, \"MODS - The Multi-Object Double Spectrographs for the Large Binocular Telescope\" project home page (fetched 2026-11-18)",
+   "file": "rawdata/presets/mods/osu_MODS_home.html",
+   "url": "https://cgi.astronomy.osu.edu/MODS/"
+  },
+  "WS": {
+   "cite": "OSU, \"MODS Instrument Characteristics Summary\" web page (fetched 2026-11-18): basic parameters, configurations, slit masks, spectroscopic performance",
+   "file": "rawdata/presets/mods/osu_summary.html.html",
+   "url": "https://cgi.astronomy.osu.edu/MODS/summary.html"
+  },
+  "WO": {
+   "cite": "OSU, \"MODS Optical Specification\" web page (updated 2011 May 3; fetched 2026-11-18): the optical components list",
+   "file": "rawdata/presets/mods/osu_Optics_.html",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Optics/"
+  },
+  "WG": {
+   "cite": "OSU, \"MODS Gratings & Prisms\" web page (updated 2011 May 3; fetched 2026-11-18): disperser table and per-grating details",
+   "file": "rawdata/presets/mods/osu_Gratings_.html",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Gratings/"
+  },
+  "WD": {
+   "cite": "OSU, \"MODS CCD Detectors\" web page (fetched 2026-11-18)",
+   "file": "rawdata/presets/mods/osu_Detectors_.html",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Detectors/"
+  },
+  "LG": {
+   "cite": "LBTO Science Operations, \"MODS: Grating and Prisms\" (current page, fetched 2026-11-18): linear dispersions from the MODS1 Commissioning Report",
+   "file": "rawdata/presets/mods/lbto_grating-and-prisms.html",
+   "url": "https://scienceops.lbto.org/mods/instrument-characteristics/grating-and-prisms/"
+  },
+  "LD": {
+   "cite": "LBTO Science Operations, \"MODS: Dichroic\" (current page, fetched 2026-11-18): cross-over and the measured transmission curves",
+   "file": "rawdata/presets/mods/lbto_dichroic.html",
+   "url": "https://scienceops.lbto.org/mods/instrument-characteristics/dichroic/"
+  },
+  "DC1": {
+   "cite": "LBTO, MODS1 dichroic transmission (blue channel), measured: text file lam (nm), trans (%) (linked from the LBTO dichroic page; also saved: dichroic_mods1r.txt, dichroic_mods2b.txt, dichroic_mods2r.txt)",
+   "file": "rawdata/presets/mods/dichroic_mods1b.txt",
+   "url": "https://scienceops.lbto.org/wp-content/uploads/2022/01/dichroic_mods1b.txt"
+  },
+  "DC1R": {
+   "cite": "LBTO, MODS1 dichroic reflection (red channel, relative to red folding flat #1), measured: text file lam (nm), trans (%)",
+   "file": "rawdata/presets/mods/dichroic_mods1r.txt",
+   "url": "https://scienceops.lbto.org/wp-content/uploads/2022/01/dichroic_mods1r.txt"
+  },
+  "LDET": {
+   "cite": "LBTO Science Operations, \"MODS: Detector\" (current page, fetched 2026-11-18): CCD format, readout",
+   "file": "rawdata/presets/mods/lbto_detector.html",
+   "url": "https://scienceops.lbto.org/mods/instrument-characteristics/detector/"
+  },
+  "LM": {
+   "cite": "LBTO Science Operations, \"MODS: Masks\" (current page, fetched 2026-11-18): facility long-slit masks",
+   "file": "rawdata/presets/mods/lbto_masks.html",
+   "url": "https://scienceops.lbto.org/mods/instrument-characteristics/masks/"
+  },
+  "SQR": {
+   "cite": "OSU MODS project, Code V sequence file mods_red_v7glb.seq (red channel, telescope through camera; \"revised 01/10/01\"; read as text only, never run). Surfaces are listed in order; coordinates are global from the vertex of the telescope focal surface (mm, degrees); quoted below with their comments",
+   "file": "rawdata/presets/mods/mods_red_v7glb.seq",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Optics/mods_red_v7glb.seq"
+  },
+  "SQB": {
+   "cite": "OSU MODS project, Code V sequence file mods_blue_v7glb.seq (blue channel; \"revised 1/31/00\"; read as text only). Same format as the red file",
+   "file": "rawdata/presets/mods/mods_blue_v7glb.seq",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Optics/mods_blue_v7glb.seq"
+  },
+  "OP": {
+   "cite": "OSU MODS project, \"MODS Optical Design Prescription\", 2001 May 13, 6 pp. (OSU \"Optics Prescription\" PDF): the same two .seq files printed; used only to confirm them",
+   "file": "rawdata/presets/mods/optprescrip.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Optics/optprescrip.pdf"
+  },
+  "PF": {
+   "cite": "OSU MODS project, \"MODS Optical Performance Figures\", 2001 June 11, 25 pp.: D80 plots and spot diagrams of the 2001 design (read for resolution and scale statements; none used as a value)",
+   "file": "rawdata/presets/mods/performance.pdf",
+   "url": "https://cgi.astronomy.osu.edu/MODS/Optics/performance.pdf"
+  },
+  "R16": {
+   "cite": "Rothberg, B., Kuhn, O., Edwards, M. L., et al. 2016, Proc. SPIE 9906, \"Current status of the facility instrumentation suite at the Large Binocular Telescope Observatory\", arXiv:1608.00037 (ADS 2016SPIE.9906E..22R). Sec. 3.2 (MODS), Table 1",
+   "file": "rawdata/presets/mods/Rothberg2016_arXiv1608.00037.pdf",
+   "url": "https://arxiv.org/pdf/1608.00037"
+  }
+ },
+ "mods": {
+  "title": "LBT MODS: dichroic-split double spectrograph, off-axis paraboloid collimators (3450 mm, f/15), 400 and 250 /mm gratings, decentered Maksutov-Schmidt f/3 cameras, e2v 3072x8192 CCDs",
+  "recommended_presets": [
+   {
+    "id": "modsb",
+    "tel": "LBT 8.4 m",
+    "inst": "MODS",
+    "setting": "blue, G400L",
+    "name": "LBT / MODS blue, G400L, 0.6″",
+    "state": {
+     "mode": "grating",
+     "D": 8.251,
+     "F": 15,
+     "g": {
+      "slitW": 0.6,
+      "nObj": 24,
+      "col": "mirror",
+      "colTilt": 2.855,
+      "layLen": 3580,
+      "camLen": 720,
+      "W": 230,
+      "fcam": 718.7,
+      "cam": "mirror",
+      "gType": "refl",
+      "G": 400,
+      "m": 1,
+      "lamB1": 4000,
+      "lamC": 4000,
+      "psi": 30,
+      "tAlpha": null,
+      "gLen": 408,
+      "Nx": 8192,
+      "Ny": 3072,
+      "pix": 15
+     }
+    }
+   },
+   {
+    "id": "modsr",
+    "tel": "LBT 8.4 m",
+    "inst": "MODS",
+    "setting": "red, G670L",
+    "name": "LBT / MODS red, G670L, 0.6″",
+    "state": {
+     "mode": "grating",
+     "D": 8.251,
+     "F": 15,
+     "g": {
+      "slitW": 0.6,
+      "nObj": 24,
+      "col": "mirror",
+      "colTilt": 2.855,
+      "layLen": 3600,
+      "camLen": 720,
+      "W": 230,
+      "fcam": 700,
+      "cam": "mirror",
+      "gType": "refl",
+      "G": 250,
+      "m": 1,
+      "lamB1": 6730,
+      "lamC": 7600,
+      "psi": 30,
+      "tAlpha": null,
+      "gLen": 408,
+      "Nx": 8192,
+      "Ny": 3072,
+      "pix": 15
+     }
+    }
+   }
+  ],
+  "all_arms_groups": {
+   "MODS": {
+    "split": "focus",
+    "Ftel": 15,
+    "slit": "shared",
+    "relay": null,
+    "note": "the dichroic stands after the slit mask and field lens, in the diverging f/15 beam, 35 deg; each channel has its own off-axis collimator (no relay)",
+    "tree": {
+     "cut": 5650,
+     "w": 180,
+     "aoi": 35,
+     "src": "MAN Sec. 2.4 (50% at 5650 A); DC1 (width, 10-90%, DERIVED); SQR/SQB (35 deg, z = 275 mm)",
+     "R": {
+      "fold": 38,
+      "rel": 1,
+      "src": "SQR fold mirror (normal tilted 32 deg: AOI 38 deg, DERIVED); Red Fold #2, MAN Fig. 2",
+      "to": "modsr"
+     },
+     "T": "modsb"
+    }
+   }
+  },
+  "params": [
+   {
+    "parameter": "Status",
+    "value": "in operation: MODS1 science since 2011B (September 2011), MODS2 installed 2014A, commissioned 2014B-2015; both used since 2015B; no '(design)' tag",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "R16",
+    "loc": "Sec. 3.2, PDF p. 6",
+    "quote": "MODS- 1 was installed and aligned in 2009 and became available for partner science in semester 2011B. MODS-2 was installed in semester 2014A and commissioned in 2014B-2015. Both MODS have been used for on-sky science since semester 2015B",
+    "alt": "MAN Sec. 2: \"MODS1 is on the LBT and began science operations in September 2011\"",
+    "note": "The grating, red-CCD and dichroic data below are the as-built MODS1 values; MODS2 is a replica (WG: 'The MODS2 gratings and prisms are replicas of these')."
+   },
+   {
+    "parameter": "Telescope",
+    "value": "LBT, twin 8.4 m mirrors, one MODS per mirror; the design uses an 8.251 m aperture (the secondary-limited f/15 beam)",
+    "unit": "m",
+    "tag": "SOURCED",
+    "src": "WH",
+    "loc": "home page, para. 1",
+    "quote": "for the twin 8.4-meter diameter mirror Large Binocular Telescope",
+    "alt": "P06 Abstract: \"Ohio State is building two identical Multi-Object Double Spectrographs (MODS), one for each of the f/15 Gregorian foci of the Large Binocular Telescope (LBT)\"",
+    "note": "See the next rows: the sequence file's secondary is 914.2 mm across at 13,713 mm from the focus, so the f/15 beam fills 8251 mm of the 8408 mm primary ('NB used diameter is less'); the explorer's D = 8.251 m, F = 15 reproduces the sequence file's effective focal length."
+   },
+   {
+    "parameter": "Effective focal length and used aperture",
+    "value": "EFL 123,765 mm; used aperture 8251 mm = EFL / 15",
+    "unit": "mm",
+    "tag": "DERIVED",
+    "src": "SQB",
+    "loc": "telescope surfaces",
+    "quote": "EPD 8408.0 !diameter of primary mirror NB used diameter is less ... S -19200.004 -10663.69 REFL !Telescope Primary ... S 1974.2416 10663.69 REFL !Telescope secondary ... CIR EDG 457.1 !size of secondary for f/15 @ focus ... S -19200.0 3049.33 S 1014.0 0.0 !focal surface",
+    "alt": "SQR S3-S6: \"S -19200.004 -10663.69 REFL !telescope primary ... S 1974.2416 10663.69 REFL !telescope secondary\"",
+    "note": "DERIVED (script in scratchpad/r10/mods/build.py output, from the paraxial two-mirror formulas): primary radius 19200.004 (f1 = 9600.002), secondary radius 1974.2416 (f2 = 987.121), spacing 10663.69, so the primary's focus lies s = 1063.69 mm before the secondary; image distance s' = f2 s / (s - f2) = 13,713.3 mm (= 10663.69 + 3049.33, the sequence's own focal surface); EFL = f1 s'/s = 123,765 mm. The secondary's edge value 457.1 (a radius, 914.2 mm across) over 13,713.0 mm is exactly f/15.000; EFL / 15 = 8251 mm, the aperture the f/15 beam uses. The telescope's own EPD is 8408 mm (f/14.72)."
+   },
+   {
+    "parameter": "Focus and focal ratio",
+    "value": "direct (straight-through) Gregorian focus, f/15",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WH",
+    "loc": "home page, para. 1",
+    "quote": "one for each of the direct f/15 Gregorian foci of the LBT",
+    "alt": "MAN Sec. 2: \"mounted at the direct Gregorian foci of the LBT\"",
+    "note": ""
+   },
+   {
+    "parameter": "Plate scale at the slit",
+    "value": 1.6666,
+    "unit": "arcsec/mm",
+    "tag": "DERIVED",
+    "src": "WS",
+    "loc": "Multi-object slit masks",
+    "quote": "Slit Lengths 3 0.6-arcsec (360um) to 60-arcsec (36mm)",
+    "alt": "WS Multi-object slit masks: \"Slit Widths 3 0.3-arcsec (180um) up to 10-arcsec (6mm)\"",
+    "note": "DERIVED: 206264.806 / 123,765 mm = 1.6666 arcsec/mm; 0.6 arcsec = 360.02 um, the published 360 um exactly (the earlier 8.4 m x f/15 estimate, 1.637 arcsec/mm, was 1.8% off). 8.251 m x 15 = 123.77 m."
+   },
+   {
+    "parameter": "Focal surface",
+    "value": "convex toward the secondary, radius about 1 m; slit masks are spherical shells R = 1040 mm",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "PDR",
+    "loc": "Sec. 2.3.2, PDF p. 20",
+    "quote": "The focal surface of the Gregorian LBT is convex toward the secondary mirror. The radius of curvature of this surface is approximately 1 meter.",
+    "alt": "WS Multi-object slit masks: \"Spherical (R=1040mm)\"",
+    "note": ""
+   },
+   {
+    "parameter": "Field of view",
+    "value": "6 x 6 arcmin (about 2900 x 2900 px); good image quality inside 4 x 4 arcmin",
+    "unit": "arcmin",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Basic Parameters",
+    "quote": "Field of View : 6x6-arcminutes (~3000x3000 pixels)",
+    "alt": "MAN Sec. 2: \"the available field of MODS was increased to a 6×6′ extended field with a penalty of reduced image quality outside the inner 4×4′\"",
+    "note": ""
+   },
+   {
+    "parameter": "Slit widths",
+    "value": "0.3, 0.6, 0.8, 1.0, 1.2 arcsec (segmented long slits); 2.4 arcsec added later; MOS masks 0.3-10 arcsec; design width 0.6 arcsec",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Standard Facility Slit Masks; Multi-object slit masks",
+    "quote": "LS5x60x0.3 0.3-arcsec Segmented long-slit ... LS5x60x1.2 1.2-arcsec Segmented long-slit ... Design Slit Width 0.6-arcsec (projects to ~4 pixels)",
+    "alt": "LM Facility Masks, slot 12: \"LS5x60x2.4 ( Gerber ) 2.4-arcsec segmented long-slit\"; WS Multi-object slit masks: \"Slit Widths 3 0.3-arcsec (180um) up to 10-arcsec (6mm)\"",
+    "note": "Preset slit: 0.6 arcsec, the design and reference width of every published R."
+   },
+   {
+    "parameter": "Slit length",
+    "value": "long slits are five 60 arcsec segments (centers 0, +-63, +-126 arcsec); MOS slitlets 0.6-60 arcsec; maximum 6 arcmin",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Standard Facility Slit Masks, notes; Spectroscopic Performance",
+    "quote": "composed of a line of five (5) 60-arcsec long slits separated by 3-arcsec wide struts ... Maximum Slit Length 6-arcmin",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Number of spectra (nObj)",
+    "value": 24,
+    "unit": "",
+    "tag": "INFERRED",
+    "src": "PDR",
+    "loc": "Sec. 1.4 (MODS General Description), PDF p. 14",
+    "quote": "we could easily accommodate 48 slitlets 5″ long across a 4′ field",
+    "alt": "",
+    "note": "No average or typical number of slitlets per mask was found in any saved document. PDR gives 48 slitlets 5 arcsec long as a capacity example and 10 arcsec-long slits 'for ~24 slitlets' as optimal for the faintest objects (the next sentence); 24 is entered as a typical MOS mask, flagged INFERRED. MODS holds up to 15 user masks (WS)."
+   },
+   {
+    "parameter": "Field lens",
+    "value": "UV-grade fused silica meniscus, 230 x 230 mm, 6 mm center thickness, behind the slit; images the telescope pupil on the grating",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Field Lens",
+    "quote": "Material: UV-grade Fused Silica (Corning) Surface: Spherical Meniscus Size: 230x230mm Thickness: 6mm (center)",
+    "alt": "PDR Sec. 2.3.3: \"This lens, in combination with the collimator mirror, positions the exit pupil of the telescope on the spectrograph grating at a convenient location in the instrument volume.\"",
+    "note": ""
+   },
+   {
+    "parameter": "ADC",
+    "value": "none",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "MAN",
+    "loc": "Sec. 2, PDF p. 9",
+    "quote": "MODS does not have an Atmospheric Dispersion Corrector",
+    "alt": "PDR Sec. 2.3.1: \"Note that the decision to not deploy an ADC with the baseline instrument\"",
+    "note": ""
+   },
+   {
+    "parameter": "Position in the beam",
+    "value": "below the slit mask and field lens, in the diverging f/15 beam, the last element of the common focal-plane optics (a flat in non-collimated light)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "MAN",
+    "loc": "Sec. 2.4, PDF p. 17",
+    "quote": "The MODS dichroic is located below the slit mask and field lens, and is the last element of the common focal-plane optics.",
+    "alt": "PDR Sec. 2.4.2: \"Since the dichroic is a flat in non-collimated light, it introduces astigmatism into the transmitted (blue) beam.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Which channel reflects",
+    "value": "red reflected (to the red fold mirror and red collimator); blue transmitted straight on to the blue collimator",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Basic Parameters",
+    "quote": "Dichroic : Blue-transmit/Red-reflect, 565nm cross-over wavelength",
+    "alt": "PDR Sec. 2.3.4: \"A dichroic beamsplitter reflects red light to the red channel of the spectrograph via an additional fold mirror. Light transmitted through the dichroic illuminates the blue channel.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Cross-over (50%)",
+    "value": 5650,
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "MAN",
+    "loc": "Sec. 2.4, PDF p. 17",
+    "quote": "with the 50% cross-over wavelength at 5650Å",
+    "alt": "LD text: \"the 50% cross-over wavelength at 5650Å\"; LD text: \"which is ~5650 angstroms for MODS1 and ~5630 angstroms for MODS2\"; P06 Sec. 3: \"“notch” wavelength of 550nm (this is the nominal design specification\"",
+    "note": "Design value 5500 A (P06, BO00); as built 5650 A (MODS1), 5630 A (MODS2). Checked on the measured curve: the MODS1 blue transmission passes 50% at 5659 A (DERIVED below)."
+   },
+   {
+    "parameter": "Transition width",
+    "value": 178,
+    "unit": "A (10% to 90%)",
+    "tag": "DERIVED",
+    "src": "DC1",
+    "loc": "rows 556-576 nm",
+    "quote": "558 89.810 ... 574 12.334 ... 576 9.500",
+    "alt": "DC1R rows 558-576 nm: \"558 10.1\"; BO00 Sec. 4.4 (design): \"The dichroic will have a transition from reflecting to transmitting over 50 nm band centered at approximately 550 nm\"",
+    "note": "DERIVED from the measured MODS1 blue-channel curve (percent transmitted, nm): T = 89.81 at 558, 62.75 at 564, 48.19 at 566, 12.33 at 574, 9.50 at 576. Linear interpolation: 90% at 5579 A, 50% at 5659 A, 10% at 5757 A; width 90-10% = 178 A (the red curve, reflected, has the same shape: 10.1% at 558). The design asked for a 500 A band; the as-built edge is 3 times sharper. The arms.js w is entered as 180 A."
+   },
+   {
+    "parameter": "Angle of incidence",
+    "value": 35,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "SQR",
+    "loc": "dichroic surface",
+    "quote": "S 0.0 0.0 REFL !front surface of dichroic GLB G5 XDE 0.0; YDE 0.0; ZDE 275 ADE 0.0; BDE 35.0; CDE 0.0",
+    "alt": "SQB dichroic substrate: \"S 0.0 25.0 SILICA_SPECIAL !dichroic substrate GLB G5 XDE 0.0; YDE 0.0; ZDE 275.0 ADE 0.0; BDE 35.0; CDE 0.0\"; MAN Sec. 2.12.4 (Ghost Images): \"the thickness of the dichroic and the 35° angle of incidence\"",
+    "note": "Tilt 35 deg about the y axis, 275 mm behind the telescope focal surface along the axis (ZDE 275), in both channels; blue substrate 25 mm of fused silica (SILICA_SPECIAL). The ghost discussion in MAN agrees."
+   },
+   {
+    "parameter": "Dichroic position",
+    "value": "275 mm behind the telescope focal surface, on the axis; field lens (6 mm, radii 500 and 521 mm) at 65 mm",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SQR",
+    "loc": "field lens and dichroic",
+    "quote": "S 500.0 6.0 SILICA_SPECIAL !front surface of field lens GLB G5 XDE 0.0; YDE 0.0; ZDE 65 ADE 0.0; BDE 0.0; CDE 0.0 S 521.0 269.0 !rear surface of field lens",
+    "alt": "SQR S4: \"S 1014.0 0.0 !telescope focal surface\"",
+    "note": "The beam diverges f/15 from the focus: at the dichroic (275 mm) the beam is 275/15 = 18 mm across before the field lens's action."
+   },
+   {
+    "parameter": "Red fold mirror (Red Fold #2)",
+    "value": "angle of incidence 38 deg (normal tilted 32 deg), 310 mm from the dichroic; the red beam returns to 6.0 deg off the telescope axis",
+    "unit": "deg",
+    "tag": "DERIVED",
+    "src": "SQR",
+    "loc": "fold mirror",
+    "quote": "S 0.0 -310.0 !dummy surface to realign chief ray ADE 0.0; BDE 35.0; CDE 0.0 S 0.0 0.0 REFL !fold mirror GLB G5 XDE 291.3047; YDE 0.0; ZDE 168.9738 ADE 0.0; BDE 32; CDE 0.0",
+    "alt": "SQR after the fold: \"S 0.0 0.0 !dummy surface to realign chief ray ADE 0.0; BDE -38.0; CDE 0.0\"",
+    "note": "DERIVED (Euler-angle chain in build.py): the dichroic turns the chief ray by 110 deg; a flat whose normal is tilted 32 deg then turns it 142 deg back, an angle of incidence of 38 deg (the file's own 'BDE -38.0' realignment agrees), leaving the beam 6.0 deg from the telescope axis. Position (291.3, 0, 169.0) mm: 310.0 mm from the dichroic's reflection point, toward the telescope. The earlier INFERRED 35 deg is replaced by 38 deg."
+   },
+   {
+    "parameter": "Coating, substrate",
+    "value": "34-layer dielectric on fused silica, coated by CSIRO; a weak cylindrical rear surface (R about 15 m) removes the astigmatism in the blue",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Dichroic",
+    "quote": "Substrate: FuSi Coating Type: 34-layer dielectric Cross-Over: 565nm Coating: CSIRO",
+    "alt": "BO00 Sec. 5.1: \"the rear surface of the substrate is made cylindrical with a radius of ≈ 15 meters\"",
+    "note": ""
+   },
+   {
+    "parameter": "Beam selector",
+    "value": "dual: dichroic; blue-only: nothing in the beam; red-only: a flat mirror in its place (red fold #1)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "R16",
+    "loc": "Sec. 3.2, PDF p. 6",
+    "quote": "The dichroic is replaced with no optic in the beam for blue-only mode and replaced with a flat mirror for red-only mode",
+    "alt": "MAN Sec. 2: \"The beam selector can also direct light into the red or blue channels alone\"",
+    "note": ""
+   },
+   {
+    "parameter": "Type",
+    "value": "reflective: single decentered (off-axis) paraboloid per channel",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "PDR",
+    "loc": "Sec. 2.4.3, PDF p. 22",
+    "quote": "a single reflection off a decentered paraboloidal surface",
+    "alt": "WO Collimators: \"Surface: off-axis paraboloid\"; MAN Sec. 2 Basic Parameters: \"Collimators: 3450mm focal length, off-axis paraboloids. Red: Ag, Blue: Al\"",
+    "note": ""
+   },
+   {
+    "parameter": "Focal length",
+    "value": 3450,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Collimators",
+    "quote": "Focal Length: 3450mm",
+    "alt": "PDR Sec. 2.4.3: \"Both collimators are identical and have focal lengths of 3450 mm.\"; BO00 Sec. 4.5: \"Two decentered paraboloidal mirrors 3.45-m from the f/15 Gregorian focal plane collimate the light from the slits.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Collimator geometry (off-axis distance and tilt)",
+    "value": "paraboloid R = 6900 mm (f = 3450 mm), conic -1; vertex 342.65 mm off the chief ray; parent axis 5.70 deg off the telescope axis",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SQB",
+    "loc": "collimator",
+    "quote": "S -6900.0 0.0 REFL !collimator GLB G5 XDE 0.0; YDE 342.6532; ZDE 3445.77 !Value of zde with dichroic ADE 5.70; BDE 0.0; CDE 0.0 CON K -1.0",
+    "alt": "SQR collimator mirror: \"S -6900.0 0.0 REFL !collimator mirror GLB G5 XDE 589.2235; YDE -342.6532; ZDE 3003.4814 ADE -5.7312; BDE -5.9702; CDE -0.5981 CON K -1.0\"",
+    "note": "DERIVED: off-axis slope at 342.65 mm on R = 6900 is atan(342.65 / 6900) = 2.845 deg, so the mirror normal at the beam is 5.70 - 2.845 = 2.855 deg from the chief ray and the beam turns 5.71 deg: colTilt = 2.855 deg (the earlier 2.85 from half of 5.7 is confirmed). Both channels use the same off-axis distance, 342.65 mm (red sign reversed). The blue vertex is 3445.77 mm from the focal surface along z (the hit point 3437.3 mm: the sag is 8.5 mm); the red path is 275 + 310.0 + 2870.6 = 3455.6 mm to the collimator's vertex plane (dummy surface). The semi-aperture is 206 mm (REX EDG 206.0, red file)."
+   },
+   {
+    "parameter": "Beam diameter",
+    "value": 230,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "BO00",
+    "loc": "Sec. 4.5, PDF p. 2",
+    "quote": "Each mirror produces 230-mm diameter collimated beams that converge to pupil images at the red and blue gratings.",
+    "alt": "PDR Sec. 2.3.5: \"Each mirror produces 230-mm diameter collimated beams\"",
+    "note": "DERIVED check: 3450 / 15 = 230 mm, and the 8251 mm used aperture x 3450 / 123,765 mm = 230.0 mm: W = 230 mm with F = 15 and D = 8.251 reproduces the sourced beam (no fitting)."
+   },
+   {
+    "parameter": "Collimator axis vs telescope axis",
+    "value": 5.7,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "BO00",
+    "loc": "Sec. 5.1, PDF p. 5",
+    "quote": "The angles between the telescope axis and the collimated beam axes (5.7o) were chosen to allow the collimated beam from each collimator to clear the additional fold mirrors of the red channel as well as the field stop.",
+    "alt": "PDR Sec. 2.4.3: \"The angles between the telescope axis and the collimated beam axes (5.7o) were chosen to allow the collimated beam\"",
+    "note": "colTilt = 2.855 deg (see the collimator geometry row, from the sequence file)."
+   },
+   {
+    "parameter": "Size, mass",
+    "value": "490 x 490 mm, 85 mm thick; HEXTEK borofloat honeycomb, figured by SAGEM/REOSC; 4 made (2 per instrument)",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Collimators",
+    "quote": "Size: 490x490mm Thickness: 85mm Surface: off-axis paraboloid Glass: Borofloat (Schott)",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Coating",
+    "value": "blue: aluminum; red: overcoated silver; all on a 3-actuator tip/tilt/focus mount (the IMCS steers it)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "P06",
+    "loc": "Sec. 3.1, PDF p. 3",
+    "quote": "The blue collimators will be coated with aluminum, and the red collimators with overcoated silver",
+    "alt": "P06 Sec. 3.1: \"installed in a 3-actuator tip/tilt/focus mechanism at the tail of the spectrometer\"",
+    "note": ""
+   },
+   {
+    "parameter": "On-axis or off-axis (deploy gate)",
+    "value": "OFF-AXIS: the slit is not in the returning beam",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "PDR",
+    "loc": "Sec. 2.4.3, PDF p. 22",
+    "quote": "The MODS collimators are very simple: a single reflection off a decentered paraboloidal surface.",
+    "alt": "MAN Sec. 2: \"the off-axis paraboloid collimator mirrors\"; PDR Sec. 2.4.3: \"clear the additional fold mirrors of the red channel as well as the field stop\"",
+    "note": "Both text sources say off-axis; the slit mask, field stop and fold mirrors sit beside the returning beam, and Fig. 2 of BO00 and of MAN shows each collimator at the far end with the collimated beam returning past the slit region to the grating."
+   },
+   {
+    "parameter": "Blue grating G400L: grooves",
+    "value": 400,
+    "unit": "grooves/mm",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G400L Grating",
+    "quote": "Lines*: 400 grooves/mm Order: 1st Blaze Angle*: 4.4°",
+    "alt": "LG Reflection Gratings: \"G400L 400 4.4° 1 3200-5800 0.515 Å/pix 5200 1850\"",
+    "note": ""
+   },
+   {
+    "parameter": "Blue grating: blaze",
+    "value": "4.4 deg (blaze wavelength 400 nm by the ID; Richardson 584 ruling)",
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "P06",
+    "loc": "Sec. 3.3, PDF p. 3",
+    "quote": "The blue gratings are 400 grooves/mm blazed at 400nm (Catalog nr. 53999ZD01-584)",
+    "alt": "MAN Table 7 note 1: \"###= blaze wavelength in nm\"",
+    "note": "lamB = 4000 A for the explorer."
+   },
+   {
+    "parameter": "Blue grating: angle of incidence",
+    "value": 19.76,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G400L Grating",
+    "quote": "Angle of incidence: 19.76° Anamorphic Factor: 1.04",
+    "alt": "PDR Sec. 2.6 (blaze-efficiency figure for RGL 73-45-584): \"Angle between collimator and camera axes is 30 degrees Angle of incidence 19.76 degrees\"",
+    "note": "CHECK: with the 30 deg camera-collimator angle, 400 /mm and an incidence of 19.76 deg, sin(19.76) - sin(10.24) = 0.1602 = lambda / 2.5 um at 4003 A: the chip center is 4000 A, the 'Center Lambda' of the table (DERIVED). The sequence file models a different, design grating (next rows)."
+   },
+   {
+    "parameter": "Blue grating: order, ruled area, size",
+    "value": "order 1; ruled 306 x 408 mm (408 along the dispersion); substrate 420 x 320 x 50 mm Zerodur; resin replica",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "General Properties",
+    "quote": "Size: 420x320mm Thickness: 50mm Mass: 12kg Ruled Area: 408x306mm Ruling: Resin Replica Substrate: Zerodur",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Red grating G670L: grooves",
+    "value": 250,
+    "unit": "grooves/mm",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G670L Grating",
+    "quote": "Lines*: 250 grooves/mm Order: 1st Blaze Angle*: 4.3°",
+    "alt": "LG Reflection Gratings: \"G670L 250 4.3° 1 5800-10000 0.845 Å/pix 5700 2300\"",
+    "note": ""
+   },
+   {
+    "parameter": "Red grating: blaze",
+    "value": "4.3 deg (blazed at 673 nm; Richardson 271 ruling)",
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "P06",
+    "loc": "Sec. 3.3, PDF p. 3",
+    "quote": "The red gratings are 250 grooves/mm blazed at 673nm (Catalog nr. 53999ZD01- 271)",
+    "alt": "",
+    "note": "lamB = 6730 A for the explorer."
+   },
+   {
+    "parameter": "Red grating: angle of incidence",
+    "value": 19.5,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G670L Grating",
+    "quote": "Angle of incidence: 19.5° Anamorphic Factor: 1.04",
+    "alt": "PDR Sec. 2.6 (blaze-efficiency figure for RGL 75-45-271): \"Angle between collimator and camera axes is 30 degrees Angle of incidence 20 degrees\"",
+    "note": "CONFLICT (see Conflicts): with 30 deg and 250 /mm an incidence of 19.5 deg centers 6060 A on the camera axis, but the table's center is 8000 A (which needs 20.9 deg) and the red-only range is 5000-10000 A. The explorer's red state uses lamC 7600 A (alpha 20.64 deg), the reference wavelength of the quoted R and of the red Code V file; 8000 A would need 20.9 deg."
+   },
+   {
+    "parameter": "Red grating: order, ruled area",
+    "value": "order 1; ruled 306 x 408 mm; substrate 420 x 320 x 50 mm",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G670L Grating",
+    "quote": "Ruled Area: 306x408mm",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Camera-collimator angle (psi)",
+    "value": 30,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "BO00",
+    "loc": "Sec. 5.1, PDF p. 5",
+    "quote": "The angle between the collimator axis and the camera axis is 30 degrees.",
+    "alt": "PDR Sec. 2.3.5: \"The angle between the collimator axis and the camera axis is 30 degrees.\"; PDR Sec. 2.6: \"MODS uses gratings at an angle of 30° between incident and diffracted beams\"",
+    "note": "Design value, used for both channels; the gratings are tilted for 'the optimal wavelength coverage' (MAN Sec. 2.5.1), no other tilts offered."
+   },
+   {
+    "parameter": "Design gratings in the sequence files (not the as-built)",
+    "value": "blue GRS 0.0018182 (550 /mm), order +1; red GRS 0.0030303 (330 /mm), order -1; geometry alpha / beta / psi = 23.0 / 7.0 / 30.0 deg (blue), 22.5 / 7.5 / 30.0 deg (red)",
+    "unit": "deg",
+    "tag": "DERIVED",
+    "src": "SQB",
+    "loc": "grating surface and camera dummy",
+    "quote": "S 0.0 0.0 REFL !grating GRT K 0.0; IC Yes A 0.0; B 0.0; C 0.0; D 0.0 GRO 1; GRS 0.00181818181818 GRX 0.0; GRY 1.0; GRZ 0.0 GLB G5 XDE 0.0; YDE -357.5510; ZDE -123.3558 ADE -17.3; BDE 0.0; CDE 0.0",
+    "alt": "SQR location of grating: \"GRO -1; GRS 0.0030303030303 GRX 0.0; GRY 1.0; GRZ 0.0 GLB G5 XDE 217.45843; YDE 357.55118; ZDE -533.62667 ADE 16.8872882382; BDE -5.74303787383; CDE 1.74001099192\"; SQB camera dummy: \"S 0.0 0.0 !dummy surface locating camera (S10) GLB G5 XDE 0.0; YDE -653.8413; ZDE 532.8646 !global position w.r.t. slit center ADE -24.299999; BDE 0.0; CDE 0.0\"",
+    "note": "DERIVED: rotating the local axes by the (ADE, BDE, CDE) angles, the angle between the collimator's parent axis and the grating normal is alpha, between the grating normal and the camera axis beta, and between the collimator axis and the camera axis psi: blue 23.000 / 7.000 / 30.000 deg, red 22.500 / 7.500 / 30.000 deg (convention checked on the blue file, where ADE 5.7, -17.3 and -24.3 add as 23.0, 30.0 and 7.0). GRS read as the line spacing in mm: 1/0.0018182 = 550 /mm and 1/0.0030303 = 330 /mm, which reproduce the reference wavelengths: blue sin 23.0 - sin 7.0 = 0.26886 = 488.84 nm x 550 /mm; red sin 22.5 - sin 7.5 = 0.25217 = 764.11 nm x 330 /mm (the files' central wavelengths, REF 3). So the 2000-2001 sequence files model 550 and 330 /mm gratings (centers 4888 and 7641 A) that are neither the as-built 400 and 250 /mm nor the PDR table's gratings; they fix the geometry (psi = 30 deg, positions) but not the as-built grating tilts."
+   },
+   {
+    "parameter": "Pupil position",
+    "value": "the telescope pupil (LBT secondary) is imaged on the grating by the field lens and collimator",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "PDR",
+    "loc": "Sec. 2.4.1, PDF p. 22",
+    "quote": "This lens forms an image of the telescope stop (the LBT secondary mirror) near the blue and red grating surfaces.",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Anamorphic factor",
+    "value": 1.04,
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G670L Grating",
+    "quote": "Anamorphic Factor: 1.04",
+    "alt": "PDR Table 2.2: \"400 4.76 1 401 ... 1.045\"",
+    "note": "DERIVED check: cos(19.76)/cos(10.24) = 0.956, i.e. 1.046 the other way: matches."
+   },
+   {
+    "parameter": "Other dispersers (not modeled)",
+    "value": "double-pass prisms: P450L fused silica + Al (blue), P700L TIH6 + Ag (red), 240 x 220 mm, 30 deg angle (WG; the 2006 paper says 8-degree); imaging flats; a fourth empty turret position",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "General Properties, Prisms",
+    "quote": "Prism Type: Double-Pass with Immersed Reflective Coating Format: Oval Size: 240x220mm Angle: 30°",
+    "alt": "P06 Sec. 3.4: \"MODS will use double-pass 8-degree glass prisms with back reflective coatings\"",
+    "note": "Not entered: a double-pass immersed-reflector prism is not what the explorer's prism mode (minimum deviation, one or more transmitting prisms) draws."
+   },
+   {
+    "parameter": "Camera type",
+    "value": "decentered Maksutov-Schmidt: off-axis aspheric corrector, spherical primary mirror, plano-convex field flattener = dewar window; the beam and the detector are decentered so that nothing obscures the beam",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Red Camera",
+    "quote": "Design: 3-element Decentered Maksutov-Schmidt",
+    "alt": "MAN Sec. 2: \"Decentered fast (f/3) Maksutov-Schmidt cameras with spherical primary mirrors and aspheric corrector lenses are used to reform an image on the CCDs\"; BO00 Sec. 4.8: \"The detectors and field flattening lenses are positioned entirely outside the incoming beams to the camera mirrors.\"",
+    "note": "Explorer: cam 'mirror' (a catadioptric camera with an internal focus: HIRES, Hectospec convention); the detector sits outside the incoming beam, unlike a HIRES-type obscured camera."
+   },
+   {
+    "parameter": "Camera focal length",
+    "value": 700,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Red Camera",
+    "quote": "Focal Length: 700mm Focal Ratio: f/3.0 (imaging), f/2.5 (anamorphic)",
+    "alt": "PDR Sec. 2.4.4: \"A camera focal length of 700 mm was selected to match a slit width of 0.6″ to four 15 µm CCD pixels\"",
+    "note": ""
+   },
+   {
+    "parameter": "Camera geometry (decenter and tilt)",
+    "value": "corrector 220 mm off the camera axis; mirror radius 1525 mm (f = 762.5 mm as a mirror), tilted 8.04 deg (blue) and 8.159 deg (red); corrector rear aspheric",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SQB",
+    "loc": "camera section",
+    "quote": "S 2105.27833 40.0 SILICA_SPECIAL !front of corrector lens GLB G12 XDE 220.0; YDE 0.0; ZDE 0.0 ... S -1525.0 -691.750992 REFL !camera mirror GLB G12 XDE 6.454; YDE 0.0; ZDE 1172.0825 ADE 0.0; BDE 8.04; CDE 0.0",
+    "alt": "SQR camera section: \"S 1235.946 40.0 BK7_SCHOTT !front of corrector lens XDE 220.0; YDE 0.0; ZDE 0.0 ... S -1525.0 -684.969 REFL !camera mirror GLB G16 XDE 3.541; YDE 0.0; ZDE 1057.093 ADE 0.0; BDE 8.159; CDE 0.0\"",
+    "note": "The corrector is a 40 mm plate (blue fused silica, red BK7) at x = 220 mm (the 'decentered' camera; the parent is 840 mm across). Grating to corrector: DERIVED sqrt(296.29^2 + 656.2^2) = 720.0 mm (blue: grating (0, -357.55, -123.36) to camera dummy (0, -653.84, 532.86); red: (217.5, 357.6, -533.6) to (286.1, 653.8, 119.0), also 720 mm), so camLen = 720 mm. The effective focal length is not printed in the files; the printed 700 mm is checked by the pixel scale (see Pixel scale)."
+   },
+   {
+    "parameter": "Camera focal ratio",
+    "value": "f/3.0 across the slit, f/2.5 in the dispersion direction (design anamorphic factor 1.2); the corrector is a sub-aperture of an 840 mm parent, aperture 420 x 300 mm",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "PDR",
+    "loc": "Sec. 2.4.4, PDF p. 23",
+    "quote": "the camera design uses a sub-aperture from an 840 mm diameter parent optic for the corrector plate",
+    "alt": "WO Red Camera: \"Aperture: 420x300mm (disp x slit)\"",
+    "note": "The explorer takes fcam = 700 mm and the beam, so its f-number is derived, not entered."
+   },
+   {
+    "parameter": "Camera glasses",
+    "value": "red: BK7 corrector, NZK7 flattener; blue: UV fused silica corrector and flattener; same focal length; mirrors 620 x 360 mm",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WO",
+    "loc": "Red Camera; Blue Camera",
+    "quote": "Corrector Lens: Size: 440x230mm Material: BK7 (Ohara)",
+    "alt": "",
+    "note": ""
+   },
+   {
+    "parameter": "Detector",
+    "value": "e2v CCD231-68, 3072 x 8192, 15 um pixels (blue: 16 um standard silicon; red: 40 um deep depletion)",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "WD",
+    "loc": "Basic Properties",
+    "quote": "Detector CCD231-68 Format 3072x8192 pixels Pixel Size 15 microns Size 46.08x122.88mm",
+    "alt": "LDET text: \"region is 8192×3072 pixels\"; WS Basic Parameters: \"CCD Detectors : e2v CCD231-68 3072x8192, 15um Pixels\"",
+    "note": "The dispersion runs along the 8192 axis (MAN Sec. 2.12.1: 'dispersion is mapped onto the long (x) axis'). Commissioning CCDs (2011): 4096 x 4096 STA0500A, 15 um (P06 Sec. 5), replaced by the e2v devices (MODS1 later)."
+   },
+   {
+    "parameter": "Pixel scale",
+    "value": "0.120 (blue), 0.123 (red) arcsec/px",
+    "unit": "arcsec/px",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Basic Parameters",
+    "quote": "Pixel Scale : Blue : 0.120 arcsec/pixel Red : 0.123 arcsec/pixel",
+    "alt": "R16 Table 1: \"0.120 (blue) ... 0.123 (red)\"",
+    "note": "DERIVED check: 15 um x (3450 / 700) / 123,765 mm x 206264.8 = 0.12321 arcsec/px with the red camera's 700 mm: the red 0.123 is reproduced. The blue 0.120 needs a focal length of 718.7 mm (15 um x 3450 / (0.120 arcsec x 123,765 mm / 206264.8)): EFFECTIVE blue fcam = 718.7 mm, fitted to the 0.120 arcsec/px; the blue dispersion then comes out 0.513 A/px against the published 0.515 (with 700 mm: 0.527), an independent confirmation. The two WO/PDR statements of 700 mm for both cameras are nominal."
+   },
+   {
+    "parameter": "Wavelength range",
+    "value": "320-1050 nm dual (no coverage about 560-570 nm); blue-only 320-600 nm; red-only 500-1050 nm; nominal 320-1100 nm",
+    "unit": "nm",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Instrument Configurations (grating spectroscopy)",
+    "quote": "Dual B: Clear R: GG495 B: 1850 R: 2300 320-1050 3088x8288 No coverage ~560-570nm in the dichroic cross-over ... Blue Clear 1850 320-600 ... Red GG495 2300 500-1050",
+    "alt": "MAN Table 1: \"Blue Clear 1850 3200-6000\"",
+    "note": ""
+   },
+   {
+    "parameter": "Dispersion, blue grating",
+    "value": 0.515,
+    "unit": "A/px",
+    "tag": "SOURCED",
+    "src": "LG",
+    "loc": "Reflection Gratings",
+    "quote": "G400L 400 4.4° 1 3200-5800 0.515 Å/pix 5200 1850",
+    "alt": "MAN Sec. 5.5.1: \"the linear dispersion terms are 0.5Å/pixel in the blue grating, 0.8Å/pixel in the red grating\"",
+    "note": "Nominal linear dispersion (from the MODS1 Commissioning Report) at the nominal center. Model: 0.513 A/px at 4000 A with the fitted 718.7 mm blue camera (0.3% low); 0.527 with 700 mm."
+   },
+   {
+    "parameter": "Dispersion, red grating",
+    "value": 0.845,
+    "unit": "A/px",
+    "tag": "SOURCED",
+    "src": "LG",
+    "loc": "Reflection Gratings",
+    "quote": "G670L 250 4.3° 1 5800-10000 0.845 Å/pix 5700 2300",
+    "alt": "",
+    "note": "Model: 0.846 A/px at 7600 A (0.1% high; 0.8465 at 8000 A). The red dispersion follows from the geometry (fcam 700, G, psi 30) with no fitting; the blue one uses the fitted camera (see Pixel scale) and is a check on that fit."
+   },
+   {
+    "parameter": "Resolving power, blue (0.6 arcsec)",
+    "value": 1850,
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G400L Grating",
+    "quote": "Resolving Power: 1850 (4pix) at 408nm",
+    "alt": "LG note: \"Grating resolutions quoted are measured at the reference wavelength (4000Å for Blue, 7600Å for Red) in a 0.6″ reference slit\"; WG table: \"0.6\" slit (pixels) ... 4.25\"",
+    "note": "MEASURED at 4000 A per LG ('measured at the reference wavelength'); WG labels the figure 'Resolving Power: 1850 (4pix)', the PDR's 4-pixel form, so whether it is a measured line FWHM or the pixel-count form is not clear. The slit image is 4.25 px wide (WG). Model (geometric, slit + diffraction): R = 1629 at 4000 A, 4.78 px per slit."
+   },
+   {
+    "parameter": "Resolving power, red (0.6 arcsec)",
+    "value": 2300,
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WG",
+    "loc": "MODS1 G670L Grating",
+    "quote": "Resolving Power: 2300 (4pix) at 760nm",
+    "alt": "WG table: \"0.6\" slit (pixels) ... 3.90\"",
+    "note": "MEASURED at 7600 A (LG). Model: R = 1945 at lamC 7600 A (4.62 px per slit; 2051 at lamC 8000 A). 2300 = 7600 A / (4 px x 0.83 A/px)."
+   },
+   {
+    "parameter": "Throughput (instrument + telescope + atmosphere)",
+    "value": "grating, dual (with dichroic): blue 36% at 400 nm, red 38% at 750 nm",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Spectroscopic Performance",
+    "quote": "Throughput w/dichroic Blue Grating: 36% @ 400nm Red Grating: 38% @ 750nm",
+    "alt": "WS same: \"All performance numbers include the LBT primary and secondary mirrors and the atmosphere normalized to 1.2 airmasses.\"",
+    "note": ""
+   },
+   {
+    "parameter": "Image quality (80% EE)",
+    "value": "blue 0.25 arcsec (inner 2 arcmin, best focus), 0.55 arcsec at 6 arcmin; red 0.29 / 0.51",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "WS",
+    "loc": "Imaging Performance",
+    "quote": "Blue Camera (400nm): 0.25-arcsec inner 2-arcmin (best focus)",
+    "alt": "",
+    "note": ""
+   }
+  ],
+  "layout": [
+   {
+    "item": "Source figures and files",
+    "tag": "SOURCED",
+    "text": "The Code V sequence files mods_red_v7glb.seq and mods_blue_v7glb.seq (SQR, SQB; the same text in OP, 'MODS Optical Design Prescription', 2001 May 13) give every surface of the 2000-2001 design in global coordinates (mm and degrees, origin at the vertex of the telescope focal surface, z along the telescope axis toward the collimators). They replace the perspective drawings MAN Fig. 2 (PDF p. 8) and BO00 Fig. 2 (PDF p. 4, 500 mm bar) as the layout source; the drawings agree with them in order and sides. The files are the 2000-2001 design (revised 01/10/01 red, 1/31/00 blue); the delivered instrument differs in the gratings (as-built 400 and 250 /mm vs 550 and 330 /mm modeled) and presumably in minor positions (not published)."
+   },
+   {
+    "item": "Order along the beam",
+    "tag": "SOURCED",
+    "text": "telescope f/15 focal surface (curved slit mask) -> field lens (fused silica meniscus, 6 mm, front at z = 65 mm) -> dichroic (35 deg, z = 275 mm; blue substrate 25 mm fused silica) -> [blue: straight on] [red: reflected 110 deg to the fold mirror, 310 mm away, AOI 38 deg, which returns the beam to 6.0 deg from the telescope axis] -> off-axis paraboloid collimator (R = 6900 mm) -> collimated beam back to the grating -> 30 deg to the camera (40 mm corrector at x = 220 mm off the axis, spherical mirror R = 1525 mm, filter, flattener, CCD)."
+   },
+   {
+    "item": "Collimator on-axis or off-axis",
+    "tag": "SOURCED",
+    "text": "OFF-AXIS, now from the numbers: 'S -6900.0 0.0 REFL !collimator ... YDE 342.6532 ... ADE 5.70 ... K -1.0' (blue): a paraboloid R = 6900 mm (f = 3450 mm) whose vertex is 342.65 mm from the chief ray, parent axis 5.70 deg off the telescope axis. colTilt = 5.70 - atan(342.65/6900) = 2.855 deg (DERIVED). The slit and focal plane are not in the returning beam (the grating stands 357.6 mm off the axis)."
+   },
+   {
+    "item": "Slit-to-collimator distance",
+    "tag": "SOURCED + DERIVED",
+    "text": "Blue: collimator vertex at z = 3445.77 mm ('Value of zde with dichroic'), the hit point 3437.3 mm (sag 8.5 mm). Red: dichroic at z = 275, 310.0 mm to the fold, 2870.64 mm to the collimator's vertex plane: 3455.6 mm. The slit stands at the collimator's focus (3450 mm) to within the dichroic's glass path. The beam fills 230 mm."
+   },
+   {
+    "item": "Collimator-to-grating distance (layLen)",
+    "tag": "SOURCED",
+    "text": "Red: 'S 0.0 -3600.0 !dummy surface to align chief ray' after the collimator: 3600 mm. Blue: DERIVED from the global positions, the hit point (0, 0, 3437.3) to the grating (0, -357.55, -123.36): 3578.5 mm. layLen: 3600 (red), 3580 (blue). The earlier MEASURED value from the perspective drawing, 3.2-3.5 m, is replaced."
+   },
+   {
+    "item": "Grating position and orientation",
+    "tag": "SOURCED",
+    "text": "Blue grating (0, -357.55, -123.36), normal 17.3 deg; red grating (217.46, 357.55, -533.63) with a three-angle tilt. The grating stands 123 mm (blue) and 534 mm (red) on the telescope side of the focal surface and 357.6 mm off the axis, so the collimated beam passes beside the slit and the dichroic. Design incidence angles: 23.0 deg (blue, 550 /mm) and 22.5 deg (red, 330 /mm); see the 'Design gratings' row."
+   },
+   {
+    "item": "Grating-to-camera distance (camLen)",
+    "tag": "DERIVED",
+    "text": "Grating to the camera's front-lens dummy surface: 720.0 mm in both channels (blue (0, -357.55, -123.36) to (0, -653.84, 532.86); red (217.46, 357.55, -533.63) to (286.05, 653.84, 118.99)). camLen = 720 mm replaces the 900 mm SCHEMATIC value. The corrector is at x = 220 mm off the camera axis; the camera mirror's vertex lies 1032.5-1147.1 mm (red, blue) past the corrector's rear surface."
+   },
+   {
+    "item": "Camera-collimator angle",
+    "tag": "DERIVED",
+    "text": "30.000 deg in both channels from the Euler angles (blue 5.70 + 24.30; red 30.0001): confirms BO00 and PDR (30 deg)."
+   },
+   {
+    "item": "Camera drawing",
+    "tag": "SOURCED",
+    "text": "BO00 Fig. 1 / PDR Fig. 2.2 (view in the plane of the slit, 156.25 mm dimension): detector and field flattener outside the incoming beam; corrector, spherical mirror (R = 1525 mm, tilted 8.04 / 8.159 deg), filter, flattener, focal surface along the decentered camera axis."
+   },
+   {
+    "item": "Sides, as drawn",
+    "tag": "SOURCED",
+    "text": "BO00 Fig. 2 and MAN Fig. 2: the red chain on the left and the blue chain on the right of the telescope axis, both collimators at the far end 3.45 m from the focus."
+   },
+   {
+    "item": "Split type for web/arms.js",
+    "tag": "SOURCED",
+    "text": "'focus' with a shared slit: the dichroic (35 deg, z = 275 mm) stands after the slit and field lens in the diverging f/15 beam; each channel has its own off-axis collimator, so no relay is drawn. The red arm carries the fold mirror (AOI 38 deg)."
+   }
+  ],
+  "model_outputs": {
+   "blue": {
+    "Reff": 1628.8689015645268,
+    "Rs": 1629.0950952918529,
+    "npix": 4.782068334977315,
+    "dlpix": 0.5134495497470204,
+    "lam": 4000,
+    "alpha": 19.750798404519948,
+    "beta": -10.24920159548005,
+    "range": [
+     3200,
+     6111.612042200314
+    ],
+    "fcol": 3450,
+    "pixScale": 0.1200024178023128,
+    "flags": []
+   },
+   "blue700": {
+    "Reff": 1628.868901564527,
+    "Rs": 1629.095095291853,
+    "npix": 4.657642736168248,
+    "dlpix": 0.5271659877188337,
+    "lam": 4000,
+    "alpha": 19.750798404519948,
+    "beta": -10.24920159548005,
+    "range": [
+     3200,
+     6168.038192853229
+    ],
+    "fcol": 3450,
+    "pixScale": 0.12320819667788888,
+    "flags": []
+   },
+   "red": {
+    "Reff": 1944.7053950585826,
+    "Rs": 1945.6801080984915,
+    "npix": 4.618540021615119,
+    "dlpix": 0.8457411113632838,
+    "lam": 7600,
+    "alpha": 20.644235277083546,
+    "beta": -9.355764722916453,
+    "range": [
+     4174.014949776031,
+     11075.792101037778
+    ],
+    "fcol": 3450,
+    "pixScale": 0.1232081966778888,
+    "flags": []
+   },
+   "red8000": {
+    "Reff": 2050.995766394209,
+    "Rs": 2052.134779598082,
+    "npix": 4.605538459855807,
+    "dlpix": 0.8464546454124815,
+    "lam": 8000,
+    "alpha": 20.94234296401404,
+    "beta": -9.05765703598596,
+    "range": [
+     4570.31672378779,
+     11477.91675977305
+    ],
+    "fcol": 3450,
+    "pixScale": 0.12320819667788882,
+    "flags": []
+   },
+   "red606": {
+    "Reff": 1539.6327115392758,
+    "Rs": 1540.123390881587,
+    "npix": 4.668751468670789,
+    "dlpix": 0.8427841348563304,
+    "lam": 6060,
+    "alpha": 19.497877810884003,
+    "beta": -10.502122189115996,
+    "range": [
+     3200,
+     9526.745772947092
+    ],
+    "fcol": 3450,
+    "pixScale": 0.12320819667788885,
+    "flags": []
+   }
+  },
+  "performance_targets": [
+   {
+    "what": "dispersion 0.515 A/px (blue grating, 4000 A)",
+    "q": "dlpix",
+    "value": 0.515,
+    "note": "tol 0.02; LG; model 0.513 with the fitted 718.7 mm camera (0.527 with 700 mm): independent of the pixel-scale fit"
+   },
+   {
+    "what": "dispersion 0.845 A/px (red grating, 7600 A)",
+    "q": "dlpix",
+    "value": 0.845,
+    "note": "tol 0.01; LG; model 0.846"
+   },
+   {
+    "what": "pixel scale 0.123 arcsec/px (red)",
+    "q": "pixScale",
+    "value": 0.123,
+    "note": "tol 0.01; WS; model 0.1232 (700 mm camera, EFL 123,765 mm: not fitted)"
+   },
+   {
+    "what": "pixel scale 0.120 arcsec/px (blue)",
+    "q": "pixScale",
+    "value": 0.12,
+    "note": "info: circular: the blue camera focal length 718.7 mm was fitted to it (EFFECTIVE); model 0.1200"
+   },
+   {
+    "what": "R 1850 at 4000 A (blue, 0.6 arcsec, as built)",
+    "q": "R",
+    "value": 1850,
+    "note": "info: model R = 1629 (12% low); the as-built figure is 4.25 px per slit against the model's 4.78 px (geometry); not tuned"
+   },
+   {
+    "what": "R 2300 at 7600 A (red, 0.6 arcsec, as built)",
+    "q": "RAt",
+    "value": 2300,
+    "note": "info: lam 7600; model R(7600) = 1945 at lamC 7600 (15% low)"
+   },
+   {
+    "what": "R 1636 (blue) and 1727 (red) at 0.6 arcsec (2001 design, PDR Table 2.2)",
+    "q": "Rs",
+    "value": 1636,
+    "note": "info: the PDR design for the 400 /mm grating (design blaze 4.76 deg); model Rs = 1629"
+   },
+   {
+    "what": "slit image 4.25 px (blue) and 3.90 px (red) per 0.6 arcsec",
+    "q": "npix",
+    "value": 4.25,
+    "note": "info: model 4.78 and 4.62 px (PDR design 4.58-4.6)"
+   },
+   {
+    "what": "incidence 19.76 deg (blue grating; the anamorphic factor 1.04 follows)",
+    "q": "alphaDeg",
+    "value": 19.76,
+    "note": "scored on the blue state: alpha 19.76 deg (WG) vs model 19.75; tol 0.005; red 19.5 deg not scored (conflict)"
+   },
+   {
+    "what": "coverage blue-only 3200-6000 A",
+    "q": "lo",
+    "value": 3200,
+    "note": "info: model chip range 3200-6112 A (the chip is wider than the quoted useful range)"
+   },
+   {
+    "what": "coverage red-only 5000-10000 A",
+    "q": "lo",
+    "value": 5000,
+    "note": "info: model chip range 4174-11076 A at lamC 7600 A (at lamC 6060 A, the 19.5 deg reading: 3200-9527 A)"
+   }
+  ],
+  "not_found": [
+   "The Pogge et al. 2010 SPIE paper (ADS 2010SPIE.7735E..0AP) and the Pogge et al. 2012 SPIE paper (2012SPIE.8446E..0GP, 'On-sky performance of the Multi-Object Double Spectrograph for the Large Binocular Telescope'): SPIE's site refuses automated access and no author preprint or arXiv copy was found; the OSU Papers page lists only the 2000 and 2006 papers. They would give the as-built R measured from arc lines.",
+   "The MODS1 Commissioning Report (cited by LG for the dispersions; 'currently under pre-release review', OSU Performance page): not posted on the OSU Optics, Performance or Reports pages (the Reports page stops in August 2007).",
+   "The as-built gratings' tilts: the sequence files model 550 and 330 /mm design gratings, not the delivered 400 and 250 /mm; WG's red incidence of 19.5 deg is therefore not testable against them (see Conflicts). The as-built grating-to-camera and grating positions are probably as in the files (a 30 deg angle, 720 mm) but no document states the as-built values.",
+   "The effective focal lengths of the cameras (the sequence files give the surfaces, not an EFL; 700 mm is the printed value), and the dichroic's size.",
+   "A typical number of slitlets per MOS mask (nObj 24 is INFERRED from the PDR's capacity example).",
+   "Measured arc-line FWHM in pixels or A for either grating (the quoted R values do not say how they were obtained).",
+   "No prism or grism disperser is modeled, so no glass formula is needed."
+  ],
+  "conflicts": [
+   "Red grating angle of incidence: 19.5 deg (WG, as built) vs the grating-equation centering. NOT SETTLED by the Code V files: they model a 330 /mm red grating (alpha 22.5 deg, 764 nm) and a 550 /mm blue one, not the delivered 250 and 400 /mm. At the fixed 30 deg camera-collimator angle (BO00, PDR), 250 /mm and 19.5 deg put 6060 A on the camera axis (and the 8192-px chip, 0.845 A/px, would then span 2900-9400 A), but WG's table gives a center of 8000 A (nominal), the reference wavelength is 7600 A, the red-only range is 5000-10000 A (MAN Table 1) and 20 deg was the design angle for the 673 nm blaze (PDR: sin 20 - sin 10 = 0.168 = 673 A/4000 A). The blue grating is self-consistent (19.76 deg centers 4000 A). RESOLVED for the preset by taking lamC = 7600 A (WG's R reference wavelength and the red file's design reference 764.1 nm; 20.64 deg); the listed angle may refer to a different zero. A Code-V sequence file (mods_red_v7glb.seq) would decide it.",
+   "Resolving power of the channels in Rothberg et al. 2016: R16 Table 1 ('2300 (blue)', '1850 (red)') and Sec. 3.2 (garbled by pdftotext; read from the page: 'R ~ 2300, and 1850 ... blue and red, respectively') print 2300 for the BLUE channel and 1850 for the RED; WG, MAN, LG and WS give 1850 blue (400 /mm) and 2300 red (250 /mm). The latter follow the grating dispersions (0.515 and 0.845 A/px: 4000/(4.25 x 0.515) = 1830, 7600/(3.9 x 0.845) = 2306), so R16 is transposed.",
+   "Pixels per 0.6 arcsec slit and design R: the PDR design gave 4.58-4.6 px (R 1636 blue, 1727 red at 0.6 arcsec; 'Resolving power at 4 pixels' 2100, 1990), SPIE 2006 quotes R = 1640 and 1730 (4 pixels), while WG gives 4.25 (blue) and 3.90 (red) px and R = 1850 and 2300 (as built). The model's geometry gives 4.78 px (blue) and 4.62 px (red) per 0.6 arcsec slit, matching the PDR design, not the as-built figures. The as-built R is 12-15% above the geometric value; no document says how the as-built R was measured (arc FWHM or the 4-pixel form).",
+   "Plate scale: RESOLVED by the sequence files: EFL 123,765 mm gives 1.6666 arcsec/mm and 360.02 um for 0.6 arcsec (WS 360 um); 8.4 m x f/15 would give 1.637. The remaining difference is the pixel scale of the blue camera, 0.120 vs the red 0.123 (blue effective camera focal length 718.7 mm, not published; WO and PDR print 700 mm for both).",
+   "Dichroic cross-over: 5500 A (design, P06, BO00), 5650 A (MODS1 as built, MAN, LD, WS 565 nm; R16 565 nm), 5630 A (MODS2, LD), 5700 A (MAN Sec. 2 'dichroic cross-over region (~5700Å)' and 'Basic Parameters: ~5700Å'). The arms.js cut uses 5650 A.",
+   "Dichroic transition: 500 A (design: 'over 50 nm band'), 178 A (10-90%, measured on the MODS1 curve), 'a small (~50 angstrom) region of reduced signal-to-noise' (LD), R16 '~0.005 um centered' (50 A). Different definitions of the notch; the 10-90% width is used.",
+   "Prism apex: 30 deg (WG 'Angle: 30°'), 8 deg (P06 Sec. 3.4 and R16 Sec. 3.2 'double-pass 8 deg glass prism'). Not used (prisms are not modeled).",
+   "Wavelength range upper edge: 1000 nm (design, BO00), 1050 nm (WS, R16, MAN Table 1 for the blue/red-only), 1100 nm (WS 'Nominal Wavelength range', 'Imaging Performance'). Not scored.",
+   "Camera anamorphic factor: 1.2 in the 2000-2001 design papers (BO00 Sec. 4.8, PDR Sec. 2.3.8; used to give f/2.5 in the dispersion direction) vs 1.04-1.045 for the delivered gratings at 30 deg (WG, PDR Table 2.2). The grating geometry gives 1.046; 1.2 is the design allowance, not a grating property.",
+   "Blue detector: 'standard 16 micron' silicon (WD, P06) vs '15-micron thick' (LDET); the 16 um is used (15 um is the pixel pitch, likely a typo in LDET).",
+   "Number of facility masks: 9 fixed slots (WS, MAN) vs 12 (LM, current). Not used.",
+   "Spectral pixels: WG lists 5700 (red) and 5200 (blue) 'Spectral Pixels' for the nominal ranges 5800-10000 and 3200-5800 A: 4200 A / 0.845 = 4970 and 2600 / 0.515 = 5050, not the listed values. Not used."
+  ],
+  "notes": [
+   "Era and status. Both MODS are in operation; the presets represent the as-built MODS1/MODS2 dual-grating mode with the e2v CCD231-68 detectors (MODS1 was commissioned with 4096 x 4096 STA0500A CCDs, P06). The LBTO detector page records a controller upgrade (Archon, September 2025) that changed readout only. The layout numbers (positions, 30 deg, 720 mm, 3600 mm, dichroic 35 deg at 275 mm, fold 38 deg) come from the 2000-2001 Code V files.",
+   "Two physical instruments, same optics: MODS1 (left, SX) and MODS2 (right, DX); the dichroic cross-over differs by 20 A (5650 vs 5630 A, LD). They can run binocularly (WH).",
+   "Aperture. The explorer's D is 8.251 m, not 8.4 m: the sequence files' f/15 beam is limited by a 914.2 mm secondary at 13,713 mm from the focus (EFL 123,765 mm, f/15.000 on 8251 mm), the primary being 8408 mm ('NB used diameter is less'). With D = 8.251 and F = 15 the model's slit is 360.0 um for 0.6 arcsec (published 360 um), its beam is 230 mm (published), and the red pixel scale is 0.1232 arcsec/px (published 0.123). With 8.4 m the beam would be 234 mm and the plate scale 1.637 arcsec/mm. The page's drawn aperture and the pupil-limited R scale with D.",
+   "What the explorer cannot represent: the double-pass prism mode and imaging mode; the tilting grating turret; the active IMCS flexure compensation; the curved slit-mask shell; the dichroic's wiggles and cylindrical rear surface; the decentered camera's astigmatic f/3.0 and f/2.5 (the f-numbers are not printed in the sequence files; WO and PDR give them).",
+   "Beam size and gratings: the 230 mm beam at 19.8 deg incidence has a 245 mm footprint, inside the 408 mm ruled length (gLen 408): no overfill.",
+   "Independent tests that did not use the published R: dispersion 0.5134 (blue, with the fitted 718.7 mm camera) and 0.8457 (red) A/px against 0.515 and 0.845; red pixel scale 0.1232 against 0.123; slit 360.0 um; beam 230.0 mm; all within 0.3%. The blue camera's 718.7 mm is fitted to the pixel scale 0.120 (EFFECTIVE); its agreement with the blue dispersion is the independent check. The model's geometric R (1629 blue, 1945 red at 7600 A) is 12% and 15% below the as-built 1850 and 2300 (see Conflicts); not tuned.",
+   "Circularity: the blue grating's incidence angle (19.76 deg) and the chip center (4000 A) are one fact. The red lamC = 7600 A is the reference wavelength of the as-built R and also the design reference of the red sequence file (764.1 nm, REF 3), but the red incidence at that center (20.64 deg) is not the 19.5 deg of WG.",
+   "Setting names: 'blue, G400L', 'red, G670L' (11 characters).",
+   "SPIE papers: the 2000 (BO00) and 2006 (P06) papers are OSU copies; only the 2010 and 2012 SPIE papers (NOT FOUND) and the Commissioning Report are missing."
+  ]
+ }
+}

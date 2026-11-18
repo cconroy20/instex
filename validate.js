@@ -219,11 +219,22 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
 // ---------------------------------------------------------------- 3c. edge cases found by the 2026-10-17 audit
 {
   const base = { mode: "grating", feed: "slit", slitL: 0, D: 6.5, F: 5, slitW: 1, W: 100, Fc: 1.6, fcam: null, gType: "trans", m: 1, lamB: 5000, lamC: 5500, psi: 35, tAlpha: null, Nx: 4096, Ny: 2048, pix: 15 };
-  // coverage stops at the atmospheric cutoff (3200 A) and at 2.6 um, never at an arbitrary search step
+  // coverage stops at the atmospheric cutoff (3200 A) and at 6 um (the M band's red end), never at an arbitrary search step
   for (const [G, Fc, W] of [[300, 1.6, 100], [30, 0.5, 100], [30, 0.5, 5]]) {
     const S = IX.design(Object.assign({}, base, { G, Fc, W }));
-    const ok = !S.bad && S.range[0] >= 0.32 - 1e-9 && S.range[1] <= 2.6 + 1e-9 && S.range[0] < S.range[1];
-    check(`coverage bounded by 3200 A and 2.6 um (${G}/mm, f/${Fc}, W ${W})`, ok, S.bad || `${(S.range[0] * 1e4).toFixed(0)}-${(S.range[1] * 1e4).toFixed(0)} A`);
+    const ok = !S.bad && S.range[0] >= 0.32 - 1e-9 && S.range[1] <= 6.0 + 1e-9 && S.range[0] < S.range[1];
+    check(`coverage bounded by 3200 A and 6 um (${G}/mm, f/${Fc}, W ${W})`, ok, S.bad || `${(S.range[0] * 1e4).toFixed(0)}-${(S.range[1] * 1e4).toFixed(0)} A`);
+  }
+  // a slit narrower than its own diffraction lights the central lobe of its diffraction pattern, 2 f_col lambda / w
+  // across, which sets the grooves lit (up to the ruled length); a seeing-limited slit keeps the beam
+  {
+    const p0 = Object.assign({}, base, { gType: "refl", G: 600, lamB: 22000, lamC: 22000, psi: 30, D: 8, F: 300, W: 10, fcam: 300, Nx: 4096, Ny: 4096 });
+    const S1 = IX.design(Object.assign({}, p0, { slitW: 0.025 })), S2 = IX.design(Object.assign({}, p0, { slitW: 1 }));
+    const w = 0.025 / RAD * 8000 * 300, lit = 2 * S1.fcol * 2.2e-3 / w;              // mm: the slit at the focus, the lobe on the collimator
+    check("a diffraction-narrow slit lights its diffraction lobe (2 f_col lambda / w), a wide slit the beam", rel(S1.c.LgLit, S1.Lg * lit / 10) < 1e-9 && S2.c.fDif === 1 && rel(S2.c.LgLit, S2.Lg) < 1e-12,
+      `lit ${S1.c.LgLit.toFixed(2)} mm (beam footprint ${S1.Lg.toFixed(2)}), fDif ${S1.c.fDif.toFixed(3)}; wide slit fDif ${S2.c.fDif}`);
+    const S3c = IX.design(Object.assign({}, p0, { slitW: 0.025, gLen: 30 }));
+    check("the lit length stops at the ruled length (gLen)", rel(S3c.c.LgLit, 30) < 1e-12, `${S3c.c.LgLit} mm`);
   }
   // the edge found is where the trace leaves the chip (or a limit), not a step past it
   {
@@ -371,6 +382,13 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     [/^dbsp[br]$/, "on", "Oke & Gunn 1982 Sec. III.A and Fig. 1; Palomar DBSP overview Sec. 4.b: the light enters \"through holes in the collimator primaries\" (coaxial folded Cassegrain; data/round7/dbsp.md, INFERRED)"],
     [/^(boss|sdss)[br]$/, "on", "Smee et al. 2013: \"The slitplates are in the beam\" (a one-dimensional Schmidt collimator)"],
     [/^fast/, "off", "Fabricant et al. 1998 Sec. 3.4: an off-axis parabolic collimator, 8.5 deg off axis"],
+    [/^halecoude/, "off", "Bowen 1952 p. 5: \"a focal length of ... 30 feet is required for the off-axis mirror collimator\""],
+    [/^mwcoude/, "off", "Adams 1941 p. 12: \"a concave collimating mirror corrected to operate off its axis\""],
+    [/^crires/, "off", "Dorn et al. 2023 Fig. 2; Oliva et al. 2014 Fig. 2: the field stop and the 52 x 12 mm Spec-Flat1 stand beside the 200 mm beam of the TMA (data/round10/crires.md, INFERRED: no source says on- or off-axis)"],
+    [/^sinfoni/, "off", "Eisenhauer et al. 2000 Sec. 2.4: \"The optics is operated 11.5\u00b0 off-axis\"; Gr\u00e4ff 2016: \"unobscured\""],
+    [/^kmos/, "off", "ESO KMOS user manual Sec. 2.2.3: \"a single off-axis toroidal mirror\"; Tecza et al. 2006: tilted 4.5 deg to the incoming beam"],
+    [/^hds/, "off", "HDS user manual Table 1: \"collimator red off-axis parabola blue off-axis parabola\""],
+    [/^mods[br]$/, "off", "MODS PDR Sec. 2.4.3: \"a single reflection off a decentered paraboloidal surface\"; the Code V files: 342.65 mm off axis"],
     [/^kpf[gr]$/, "off", "Gibson et al. 2024 Table 1: \"Primary Collimator Off-axis paraboloid\", decenter 237 mm; Gibson et al. 2018: the off-axis angle increased from 7.5 to 8 deg"],
     [/^neid/, "off", "Schwab et al. 2020 Sec. 3: \"We use an off-axis portion of this mirror as OAP (off-axis parabola) collimator. The off-axis angle is 5 degrees in cross dispersion direction\""],
     [/^carmenes/, "off", "Seifert et al. 2012 Table 1: \"Off-axis collimator\", cut from a parent paraboloid of ~850 mm"],

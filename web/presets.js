@@ -193,11 +193,11 @@ const PRESETS = [
   },
   {
     id: "fire", tel: "Magellan 6.5 m", name: "Magellan / FIRE echellette, 0.6″",
-    note: "Magellan Baade FIRE echellette mode (Simcoe et al. 2013, Table 2 prescription): f/11, off-axis paraboloid collimator 555 mm (beam 50 mm in the papers; 555/11 = 50.45 mm entered so that f_col = 555 mm), camera 176.8 mm, R1 echellette 54.49 /mm (δ = 46°, quasi-Littrow; θ and γ not published: 0 here), cryogenic prisms Infrasil 42.6°, 28.1°, 28.1° and ZnSe 21.81° × 3 (six passes; the explorer puts all six passes after the echelle and at minimum deviation, while FIRE's prisms sit deliberately off minimum deviation to squeeze the beam, so the cross-dispersion here is 1.35–1.53× too small, 1.43× over orders 11–31, by PypeIt's measured order positions; the passes before the echelle also shift each order along the dispersion, so the real order centers sit up to 151 px (order 31) and 66 px (order 11) from the model's, INFERRED), H2RG 2048 × 2048 of 18 µm; λc 1.20 µm derived. The echelle stands 627 mm from the collimator (the axial spacings of Simcoe et al. 2013, Table 2); the cold pre-slit optics (two flats and an Offner relay) and an 11.65 mm flat 85 mm past the slit, turned out of the page (Table 2), are not drawn.",
+    note: "Magellan Baade FIRE echellette mode (Simcoe et al. 2013, Table 2 prescription): f/11, off-axis paraboloid collimator 555 mm (beam 50 mm in the papers; 555/11 = 50.45 mm entered so that f_col = 555 mm), camera 176.8 mm, R1 echellette 54.49 /mm (δ = 46°, quasi-Littrow; θ and γ not published: 0 here), cryogenic prisms Infrasil 42.6°, 28.1°, 28.1° and ZnSe 21.81° × 3 (six passes; the explorer puts all six passes after the echelle and at minimum deviation, while FIRE's prisms sit deliberately off minimum deviation to squeeze the beam, so the cross-dispersion here is 1.35–1.53× too small, 1.43× over orders 11–31, by PypeIt's measured order positions; the passes before the echelle also shift each order along the dispersion, so the real order centers sit up to 151 px (order 31) and 66 px (order 11) from the model's, INFERRED), H2RG 2048 × 2048 of 18 µm; λc 1.20 µm derived. The echelle stands 627 mm from the collimator (the axial spacings of Simcoe et al. 2013, Table 2); the cold pre-slit optics (two flats and an Offner relay) and an 11.65 mm flat 85 mm past the slit, turned out of the page (Table 2), are not drawn. The band (filt) is the published coverage, 0.82–2.51 µm (Simcoe et al. 2013 Sec. 3.2.4; the H2RG's cutoff is 2.5 µm), so that the chip shows no orders past the detector's limit.",
     state: { mode: "echelle", D: 6.5, F: 11,
       e: { lay3d: "pp", xPre: 3, xDbl: 2, slitW: 0.6, nObj: 1, col: "mirror", layLen: 627, W: 555 / 11, fcam: 176.8, eG: 54.49, eDelta: 46, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "Infrasil-105K", xA: 40, xPasses: 1,
            xPrisms: [{ glass: "Infrasil-105K", A: 42.6 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "ZnSe-105K", A: 21.81 }, { glass: "Infrasil-105K", A: 28.1 }, { glass: "ZnSe-105K", A: 21.81 }],
-           lamC: 12000, Nx: 2048, Ny: 2048, pix: 18 } },
+           lamC: 12000, filt: [8200, 25100], Nx: 2048, Ny: 2048, pix: 18 } },
     pub: [
       { what: "R = 6000 at 0.6″, the design requirement (slit-limited)", q: "Rs", value: 6000, info: true, src: "Simcoe et al. 2013 Sec. 2 (\"the requirement that a 'typical' slit deliver R = 6000\", a design figure; no measured R found). The model gives 5520 at the order center and 5780 at the red end of an order" },
       { what: "12.5 km/s per pixel", q: "kmspx", value: 12.5, info: true, src: "Sullivan & Simcoe 2012 Sec. 3.4 (also Simcoe et al. 2011: 50 km/s over 4 px). The sampling falls along each order from 16.9 to 12.3 km/s/px (PypeIt's arc solution); 12.5 describes the red end of an order, where the model gives 12.4. At the order centers the arcs give 14.7–15.0 and the model 14.7" },
@@ -975,14 +975,13 @@ const PRESETS = [
   // KPF (data/round9/kpf.md): the 64 um mask the science slices share (INFERRED as their width) enters as a 138 um top-hat
   // slit at f/8 (no round-core factor); the explorer's one beam is the primary collimator's 200 mm, so each camera enters
   // as its equivalent in that beam (f_cam x 1600 / 1280, DERIVED) and each grism as 0.8 x its physical line density
-  // (DERIVED; the prism apex is not published).  The arms split after the shared echelle, which the All-arms view does
-  // not draw, so KPF has no All-arms group.
+  // (DERIVED; the prism apex is not published).  The arms split after the shared echelle (arms.js GROUPS: split "echelle").
   ...[
     { k: "g", set: "green", arm: "green", fcam: 618.75, fc: 495, xG: 648, xGp: 810, xPsi: 3.9, lamC: 5203, mc: 118, lo: 4430, hi: 5990, n: 35 },
     { k: "r", set: "red", arm: "red", fcam: 615, fc: 492, xG: 360, xGp: 450, xPsi: 4.8, lamC: 7310, mc: 84, lo: 5990, hi: 8710, n: 32 },
   ].map(c => ({
     id: "kpf" + c.k, tel: "Keck 10 m", name: "Keck / KPF " + c.arm, inst: "KPF", setting: c.set,
-    note: "The Keck Planet Finder at Keck I (Gibson et al. 2024; Gibson et al. 2018; the Keck KPF pages), the extreme-precision radial-velocity spectrograph, here the " + c.arm + " arm. The science fiber (225 µm octagonal, 1.14″, f/3.7) feeds a reformatter that cuts the fiber's image into three slices at f/8; the slices share a 64 µm mask, INFERRED as the slit width (138 µm at the f/8 slit, entered as a 0.326″ top-hat slit), and the sky and calibration fibers stand on the same slit, so each order holds five traces. An off-axis parabola of 1600 mm (8° off axis, 200 mm beam) sends the light to an R4 echelle mosaic of 31.6 /mm (two sub-gratings on an 840 mm substrate) 1600 mm away; a fold flat at the intermediate focus and a 1280 mm secondary collimator form a white pupil (160 mm beam), ahead of a dichroic at 590 nm that reflects the green arm and passes the red. Each arm has a VPH grism (a fused-silica prism on a VPH grating of " + c.xGp + " /mm), a five-element Petzval camera (" + c.fc + " mm, f/2.8) and a 4080 × 4080 CCD of 15 µm. The explorer's one beam is the primary collimator's 200 mm, so the camera enters as the equivalent focal length in that beam, " + c.fcam + " mm (DERIVED: " + c.fc + " × 1600 / 1280), and the grism as an equivalent " + c.xG + " /mm (0.8 × the physical, DERIVED; the prism apex is not published). The echelle's γ (1.0°) is read by eye from Gibson et al. 2024 Fig. 3; the central wavelength is the blaze of order " + c.mc + ", near the middle of the arm's band (the chip center is not published). The arms share the echelle and split after the echelle, a layout the All-arms view does not draw. Keck's status page (saved 2026-11-18) reports KPF offline since April 2026, after a vacuum-pump failure.",
+    note: "The Keck Planet Finder at Keck I (Gibson et al. 2024; Gibson et al. 2018; the Keck KPF pages), the extreme-precision radial-velocity spectrograph, here the " + c.arm + " arm. The science fiber (225 µm octagonal, 1.14″, f/3.7) feeds a reformatter that cuts the fiber's image into three slices at f/8; the slices share a 64 µm mask, INFERRED as the slit width (138 µm at the f/8 slit, entered as a 0.326″ top-hat slit), and the sky and calibration fibers stand on the same slit, so each order holds five traces. An off-axis parabola of 1600 mm (8° off axis, 200 mm beam) sends the light to an R4 echelle mosaic of 31.6 /mm (two sub-gratings on an 840 mm substrate) 1600 mm away; a fold flat at the intermediate focus and a 1280 mm secondary collimator form a white pupil (160 mm beam), ahead of a dichroic at 590 nm that reflects the green arm and passes the red. Each arm has a VPH grism (a fused-silica prism on a VPH grating of " + c.xGp + " /mm), a five-element Petzval camera (" + c.fc + " mm, f/2.8) and a 4080 × 4080 CCD of 15 µm. The explorer's one beam is the primary collimator's 200 mm, so the camera enters as the equivalent focal length in that beam, " + c.fcam + " mm (DERIVED: " + c.fc + " × 1600 / 1280), and the grism as an equivalent " + c.xG + " /mm (0.8 × the physical, DERIVED; the prism apex is not published). The echelle's γ (1.0°) is read by eye from Gibson et al. 2024 Fig. 3; the central wavelength is the blaze of order " + c.mc + ", near the middle of the arm's band (the chip center is not published). The arms share the slit, the collimator and the echelle, and the All-arms view draws the split after the echelle (the transfer optics not drawn). Keck's status page (saved 2026-11-18) reports KPF offline since April 2026, after a vacuum-pump failure.",
     state: { mode: "echelle", D: 10.95, F: 8,
       e: { lay3d: "wp", wpT: 1280, fold3d: "fold flat", layLen: 1600, colTilt: 4, slitW: 0.326, nObj: 5, col: "mirror", W: 200, fcam: c.fcam, cam: "lens", camEq: "equivalent of " + c.fc + " mm on the 160 mm beam",
            feedLabel: "reformatter (3 slices, f/8)", xdLabel: "VPH grism", xdEq: "equivalent of " + c.xGp + " /mm on the 160 mm beam",
@@ -1101,6 +1100,196 @@ const PRESETS = [
       { what: "R ≈ 2000 at 0.38″", q: "R", value: 2000, info: true, src: "Keck NIRSPEC specifications (nominal, a 3-pixel slit; the UCLA summary gives 2500 for a 2-pixel slit). The model's slit image is 2.9 px with the published dispersion (≈2 Å/px at 1 µm for 27 µm pixels); the nominal R implies a line of ≈3.9 px, the slit broadened by the optics and the pixels" },
     ],
   },
+  // Round 10 (data/round10/*.md, 2026-11-18): CRIRES+, SINFONI, KMOS, HDS and MODS.
+  // CRIRES+ (data/round10/crires.md): the cross-disperser stands ahead of the slit (a pre-slit unit with its own f/8
+  // triplet), so the f/8 field stop is the slit the spectrograph sees: D = 8 m at F = 8; the TMA's focal length and the
+  // beam are EFFECTIVE (fitted to the 0.056"/px scale, the dispersion and the order spacing); the cross-disperser enters as
+  // an equivalent grating after the echelle (its line density x 400 / 1400); each ESO setting's echelle tilt (eTilt) is
+  // fitted to its reference wavelength and order, so the order ends two orders from the reference are the tests
+  ...[
+    { k: "k2192", set: "K2192, 0.2″", band: "K", lamC: 21924.49, mr: 26, eTilt: 0.74, xG: 37.1, filt: [19080, 25270], dl: 0.0657, lo: [28, 20154.29], hi: [24, 23969.77] },
+    { k: "h1582", set: "H1582, 0.2″", band: "H", lamC: 15823.39, mr: 36, eTilt: 0.66, xG: 65.7, filt: [14230, 18540], dl: 0.0476, lo: [38, 14838.92], hi: [34, 16908.55], R: [104800, "H1582: the user manual Sec. 4.6.8, 104,800 ± 2600 (Gaussian fits to lines). A miss of 13%: the camera and the beam are effective values"] },
+    { k: "k2148", set: "K2148, 0.2″", band: "K", lamC: 21476.46, mr: 26, eTilt: -1.58, xG: 37.1, filt: [19080, 25270], dl: 0.071, lo: [28, 19722.56], hi: [24, 23503.27], R: [96500, "K2148: the user manual Sec. 4.6.8, 96,500 ± 3200. A miss of 16%: the camera and the beam are effective values"] },
+    { k: "y1029", set: "Y1029, 0.2″", band: "Y", lamC: 10293.1, mr: 55, eTilt: -0.06, xG: 137.1, filt: [9480, 11200], dl: 0.032, lo: [57, 9828.86], hi: [53, 10783.62] },
+    { k: "j1228", set: "J1228, 0.2″", band: "J", lamC: 12284.88, mr: 46, eTilt: -0.26, xG: 102.9, filt: [11160, 13560], dl: 0.0385, lo: [48, 11649.43], hi: [44, 12966.58] },
+    { k: "l3262", set: "L3262, 0.2″", band: "L", lamC: 32621.4, mr: 17, eTilt: -2.31, xG: 17.1, filt: [28100, 41500], dl: 0.1112, lo: [19, 28856.32], hi: [15, 37359.8] },
+    { k: "m4266", set: "M4266, 0.2″", band: "M", lamC: 42657.06, mr: 13, eTilt: -2.32, xG: 11.4, filt: [33400, 53000], dl: 0.1472, lo: [15, 36551.7], hi: [11, 50946.9] },
+  ].map(c => ({
+    id: "crires" + c.k, tel: "VLT 8.2 m", name: "VLT / CRIRES+ " + c.set, inst: "CRIRES+", setting: c.set,
+    note: "CRIRES+ at the Nasmyth B focus of the VLT's UT3 (Dorn et al. 2023; the ESO user manual; Oliva et al. 2014), the cryogenic cross-dispersed infrared echelle of 2021, here the ESO setting " + c.set.split(",")[0] + " with the 0.2″ × 10″ slit. The f/15 beam passes the adaptive optics to a pre-slit unit (an off-axis parabola of 750 mm, a 50 mm beam, one of six cross-disperser gratings, a lens triplet at f/8) that cross-disperses the light ahead of the slit: the explorer enters the f/8 field stop as the slit (D = 8 m at F = 8) and the cross-disperser as an equivalent grating after the echelle (" + c.xG + " /mm). A three-mirror anastigmat in double pass serves as collimator and camera around an R2 echelle (31.6 /mm, 63.5°, 400 × 200 mm), onto three HAWAII-2RG arrays of 2048 × 2048 pixels of 18 µm, spanned here as one chip of 6349 pixels (the gaps of 105 and 100 pixels included, not drawn). The TMA's focal length and the beam are effective values (175 mm beam, 1448 mm camera), fitted to the published pixel scale, dispersion and order spacing; the echelle tilt of each setting (" + c.eTilt + "°) is fitted to the setting's reference wavelength in order " + c.mr + "; the band (filt) is the " + c.band + " band's point-source coverage. The camera is drawn as a lens; the orders' tilt on the detector is not modeled.",
+    state: { mode: "echelle", D: 8.0, F: 8,
+      e: { slitW: 0.2, nObj: 1, col: "mirror", W: 175, fcam: 1448, cam: "lens", camEq: "the collimator's TMA in its second pass, drawn as a lens", xdEq: "equivalent of the pre-slit grating",
+           eG: 31.6, eDelta: 63.5, eTilt: c.eTilt, gamma: 0, theta: 0, xd: "grating", xG: c.xG, xPsi: 0, lamC: c.lamC, filt: c.filt, Nx: 6349, Ny: 2048, pix: 18, gLen: 400 } },
+    pub: [
+      { what: c.dl + " Å/px in order " + c.mr + " (detector 2)", q: "dlpixAt", lam: c.lamC, m: c.mr, value: c.dl, tol: 0.01, src: "CRIRES+ user manual Table 20 (the setting's reference order)" },
+      { what: "order " + c.lo[0] + " begins at " + c.lo[1] + " Å", q: "ordLo", m: c.lo[0], value: c.lo[1], tol: 0.003, src: "CRIRES+ user manual Table 20 (detector 1 start; data/round10/crires_order_table.tsv)" },
+      { what: "order " + c.hi[0] + " ends at " + c.hi[1] + " Å", q: "ordHi", m: c.hi[0], value: c.hi[1], tol: 0.003, src: "CRIRES+ user manual Table 20 (detector 3 end)" },
+      ...(c.R ? [{ what: "R = " + c.R[0].toLocaleString("en-US") + " (measured)", q: "R", value: c.R[0], info: true, src: c.R[1] }] : []),
+      ...(c.k === "k2192" ? [{ what: "0.056″/px along the slit", q: "pixScale", value: 0.056, info: true, src: "CRIRES+ user manual Sec. 4.6.7 (the beam is fitted to it: circular)" }] : []),
+    ],
+  })),
+  // SINFONI (data/round10/sinfoni.md): the SPIFFI slicer entered as KCWI and MUSE are (the 300 um slice width on the sky
+  // as the slit, 32 slices x 64 spaxels per detector); the pre-optics set the focal ratio into the slicer, F = 17.1 x the
+  // magnification on the 8115 mm Cassegrain pupil, and W = f_col / F; every optical value is sourced
+  ...[
+    { k: "k100", set: "K, 100 mas", band: "K", mas: 100, F: 76.1, W: 37.93, G: 103.263, m: 2, lamC: 22000, lamB1: 47625, filt: [19500, 24500], pub: [
+      { what: "2.5 Å/px", q: "dlpix", value: 2.5, tol: 0.02, src: "ESO SINFONI manual Sec. 2.2; Gräff 2016 Table 4.3" },
+      { what: "coverage from 19,500 Å", q: "lo", value: 19500, tol: 0.015, src: "ESO SINFONI manual Secs. 2.2 and 9.4 (the 1.95–2.45 µm band)" },
+      { what: "coverage to 24,500 Å", q: "hi", value: 24500, tol: 0.015, src: "ESO SINFONI manual Secs. 2.2 and 9.4" },
+      { what: "R = 4670 (measured, 2016)", q: "R", value: 4670, tol: 0.08, src: "George et al. 2016 Table 3 (Gaussian fits to arc lines, ±5%)" },
+      { what: "R = 5090 (measured, commissioning)", q: "R", value: 5090, info: true, src: "ESO SINFONI manual Sec. 13 (the collimator mirrors of 2004–2016)" },
+      { what: "0.05″/px along the slices", q: "pixScale", value: 0.05, tol: 0.03, src: "ESO SINFONI manual Sec. 2.2 (spaxels of 50 × 100 mas)" },
+      { what: "line FWHM ≈1.6 px", q: "npix", value: 1.6, tol: 0.05, src: "George et al. 2016 Table 3 caption" },
+    ] },
+    { k: "j100", set: "J, 100 mas", band: "J", mas: 100, F: 76.1, W: 37.93, G: 173.671, m: 2, lamC: 12500, lamB1: 27060, filt: [11000, 14000], pub: [
+      { what: "1.5 Å/px", q: "dlpix", value: 1.5, tol: 0.02, src: "ESO SINFONI manual Sec. 2.2" },
+      { what: "R = 1880 (measured, 2016)", q: "R", value: 1880, info: true, src: "George et al. 2016 Table 3. A miss: the model is 2.6 times higher; the J grating's line profile is broadened by the grating's deformation at the cryogenic temperature (George et al. 2017), which the explorer does not model" },
+    ] },
+    { k: "h100", set: "H, 100 mas", band: "H", mas: 100, F: 76.1, W: 37.93, G: 129.082, m: 2, lamC: 16500, lamB1: 35719, filt: [14500, 18500], pub: [
+      { what: "2.0 Å/px", q: "dlpix", value: 2.0, tol: 0.02, src: "ESO SINFONI manual Sec. 2.2" },
+      { what: "R = 2570 (measured, 2016)", q: "R", value: 2570, info: true, src: "George et al. 2016 Table 3. A miss: the model is 1.8 times higher, the same cause as in J" },
+    ] },
+    { k: "hk100", set: "H+K, 100 mas", band: "H+K", mas: 100, F: 76.1, W: 37.93, G: 100.392, m: 1, lamC: 19500, lamB1: 21107, filt: [14500, 24500], pub: [
+      { what: "5.0 Å/px", q: "dlpix", value: 5.0, tol: 0.02, src: "ESO SINFONI manual Sec. 2.2" },
+      { what: "R = 1940 (measured, 2016)", q: "R", value: 1940, tol: 0.08, src: "George et al. 2016 Table 3" },
+    ] },
+    { k: "k250", set: "K, 250 mas", band: "K", mas: 250, F: 30.44, W: 94.83, G: 103.263, m: 2, lamC: 22000, lamB1: 47625, filt: [19500, 24500], pub: [
+      { what: "0.125″/px along the slices", q: "pixScale", value: 0.125, tol: 0.03, src: "ESO SINFONI manual Sec. 2.2" },
+      { what: "R = 4070 (measured, 2016)", q: "R", value: 4070, info: true, src: "George et al. 2016 Table 3. A miss: the model is 31% higher; the 250 mas beam fills the collimator and the grating and meets the largest aberrations (George et al. 2016)" },
+    ] },
+    { k: "k25", set: "K, 25 mas", band: "K", mas: 25, F: 304.4, W: 9.48, G: 103.263, m: 2, lamC: 22000, lamB1: 47625, filt: [19500, 24500], pub: [
+      { what: "0.0125″/px along the slices", q: "pixScale", value: 0.0125, tol: 0.03, src: "ESO SINFONI manual Sec. 2.2" },
+      { what: "R = 5330 (measured, 2016)", q: "R", value: 5330, info: true, src: "George et al. 2016 Table 3. The 25 mas slice is narrower than the slit's diffraction: the model lights the diffraction lobe, 42 mm across, and gives 8% less; the slit image by itself gives 5466" },
+    ] },
+  ].map(c => ({
+    id: "sinfoni" + c.k, tel: "VLT 8.2 m", name: "VLT / SINFONI " + c.set, inst: "SINFONI", setting: c.set,
+    note: "SINFONI at the Cassegrain focus of the VLT's UT4, 2005–2019 (Eisenhauer et al. 2000, 2003; George et al. 2016, 2017; the ESO SINFONI manual), the adaptive-optics integral-field spectrograph of the Galactic Center's S-star orbits, here the " + c.band + " grating at the " + c.mas + " mas scale. The MACAO module delivers f/17.1; pre-optics magnify the image 1.78, 4.45 or 17.8 times onto the SPIFFI image slicer, 32 slices of 300 µm (" + c.mas + " mas on the sky, entered as the slit; 64 spaxels each, 2048 per detector), so the beam into the spectrometer is f/" + c.F + " (W = " + c.W + " mm). A three-mirror anastigmat collimator (2886.5 mm, 11.5° off axis), a grating of " + c.G + " /mm (spacing at 80 K) in order " + c.m + ", 45° from the camera, a five-lens camera of 342 mm at f/2.8 and a 2048 × 2048 HAWAII-2RG of 18 µm (from February 2005; the 1k array before). The blaze (lamB1) is INFERRED from the geometry. SPIFFI now serves as SPIFFIER in ERIS. The element spacings are measured from Eisenhauer et al. 2000 Fig. 2 (the 1k camera).",
+    state: { mode: "grating", D: 8.115, F: c.F,
+      g: { slitW: c.mas / 1000, nObj: 2048, col: "mirror", colTilt: 11.5, layLen: 325, camLen: 220, W: c.W, fcam: 342, cam: "lens", gType: "refl", G: c.G, m: c.m, lamB1: c.lamB1, lamC: c.lamC, psi: 45, tAlpha: null,
+           filt: c.filt, Nx: 2048, Ny: 2048, pix: 18 } },
+    pub: c.pub,
+  })),
+  // KMOS (data/round10/kmos.md): the IFU's 0.2" slices as the slit (1568 spaxels per detector: 8 IFUs x 14 x 14); the
+  // anamorphic fore-optics deliver F/16 along the slit and F/44.7 across, and the spectral direction sets R, so F = 44.7 and
+  // W = 1000 / 44.7 (Tecza et al. 2006); the line densities are fitted to the manual's dispersion (not published per band)
+  ...[
+    { k: "k", set: "K", G: 225.5, m: 2, lamC: 21915, filt: [19500, 25000], R: 4227, Rok: true },
+    { k: "iz", set: "IZ", G: 429.0, m: 2, lamC: 9365, filt: [8000, 10800], R: 3406, Rmiss: "A miss of 11%: the manual's IZ dispersion (0.143 nm/px, fitted here) and its IZ coverage (0.154 nm/px over 2048 px) disagree" },
+    { k: "yj", set: "YJ", G: 368.9, m: 2, lamC: 11930, filt: [10200, 13450], R: 3582, Rok: true },
+    { k: "h", set: "H", G: 295.7, m: 2, lamC: 16630, filt: [14500, 18500], R: 4045, Rok: true },
+    { k: "hk", set: "HK", G: 253.8, m: 1, lamC: 19825, filt: [15000, 23800], R: 1985, Rmiss: "A miss of 17%: the as-built first-order HK grating is not published" },
+  ].map(c => ({
+    id: "kmos" + c.k, tel: "VLT 8.2 m", name: "VLT / KMOS " + c.set + " band", inst: "KMOS", setting: c.set,
+    note: "KMOS at a Nasmyth focus of the VLT's UT1, since 2013 (Sharples et al. 2013; Tecza et al. 2006; the ESO KMOS user manual), here the " + c.set + " band: 24 pick-off arms feed image-slicer IFUs of 14 slices of 0.2″ (2.8″ long), and three identical cryogenic spectrographs take 8 IFUs each, 1568 spaxels per detector (the slice width entered as the slit). The fore-optics' 2:1 anamorphic magnification delivers F/16 along the slit and F/44.7 across the slit; the explorer takes the spectral F/44.7, which sets R, so its scale along the slit reads 2.8 times small. A single toroidal collimator (1000 mm, 4.5° tilt, 22.4 mm beam), a reflection grating in order " + c.m + " (" + c.G + " /mm: fitted to the manual's dispersion, since the as-built line densities are not published; Tecza et al. give 200–500 /mm at 30–47°), a six-lens camera of 145 mm (F/4.6 across, F/2.3 along the slit) and a 2048 × 2048 HAWAII-2RG of 18 µm. The band (filt) is the order-sorting filter's; the blaze (lamB1) at the band center is an assumption. The element spacings are measured from Tecza et al. 2006 Fig. 1.",
+    state: { mode: "grating", D: 8.0, F: 44.7,
+      g: { slitW: 0.2, nObj: 1568, col: "mirror", colTilt: 4.5, layLen: 900, camLen: 230, W: 1000 / 44.7, fcam: 145, cam: "lens", gType: "refl", G: c.G, m: c.m, lamB1: c.m * c.lamC, lamC: c.lamC, psi: 32, tAlpha: null,
+           filt: c.filt, Nx: 2048, Ny: 2048, pix: 18 } },
+    pub: [
+      c.Rok ? { what: "R = " + c.R + " at the band center (measured)", q: "R", value: c.R, tol: 0.08, src: "ESO KMOS user manual Table 6 (arc lines)" }
+        : { what: "R = " + c.R + " at the band center (measured)", q: "R", value: c.R, info: true, src: "ESO KMOS user manual Table 6. " + c.Rmiss },
+      { what: "slice image 2.8 px", q: "npix", value: 2.8, info: true, src: "Tecza et al. 2006 (the design's slice image on the detector; the explorer's FWHM includes the grating's anamorphic factor)" },
+    ],
+  })),
+  // HDS (data/round10/hds.md): Noguchi et al. 2002 and the HDS user manual (Aoki et al. 2014).  The slit is inclined 30 deg,
+  // which widens its image along the dispersion by 1 / cos 30: the 0.4" slit enters as 0.462"; gamma is half the paper's
+  // 12 deg between the collimator and the cross-disperser (INFERRED reading; it matches the manual's order table), the
+  // cross-disperser 45 deg from the camera (Noguchi et al. Fig. 1); the two CCDs are one chip (the 1.1 mm gap not drawn)
+  ...[
+    { k: "bc", set: "StdBc, 0.4″", std: "StdBc", cd: "blue", xG: 400, slit: 0.4, lamC: 4380, pub: [
+      { what: "R = 90,000 at 0.4″ (design)", q: "Rs", value: 90000, tol: 0.08, src: "Noguchi et al. 2002 abstract; HDS user manual Sec. 2.3 (GEOMETRIC)" },
+      { what: "R = 82,900 at 0.4″ (measured profile)", q: "R", value: 82900, tol: 0.08, src: "Noguchi et al. 2002 Table 3 (the FWHM of the Th-Ar instrumental profile, 3.614 km/s: DERIVED)" },
+      { what: "R = 100,000 at 0.35″ (measured)", q: "R", value: 100000, info: true, src: "Noguchi et al. 2002 Sec. 6.1 (Th lines, with the 0.35″ slit, not this setting's 0.4″)" },
+      { what: "0.12″/px", q: "pixScale", value: 0.12, info: true, src: "Noguchi et al. 2002 Sec. 2.5 (GEOMETRIC: 206265 × pixel / (f_tel × f_cam / f_col); 0.138″ along the inclined slit's image). The model's 0.108″ includes the cross-disperser's anamorphic factor at 45°, which this plain scale leaves out" },
+      { what: "0.0881 nm/mm in order 149", q: "dlpixAt", lam: 4000.49, m: 149, value: 0.0118935, tol: 0.03, src: "HDS user manual Sec. 5.1 (design order table)" },
+      { what: "0.1018 nm/mm in order 129", q: "dlpixAt", lam: 4620.73, m: 129, value: 0.013743, tol: 0.03, src: "HDS user manual Sec. 5.1" },
+      { what: "orders 106–107 1.693 mm apart (blue cross-disperser)", q: "ySpan", m1: 106, m2: 107, value: 1.693, tol: 0.03, src: "HDS user manual Sec. 5.1 (blue table, CDCEN)" },
+    ] },
+    { k: "yb", set: "StdYb, 0.4″", std: "StdYb", cd: "red", xG: 250, slit: 0.4, lamC: 5475, pub: [
+      { what: "0.1239 nm/mm in order 106", q: "dlpixAt", lam: 5623.34, m: 106, value: 0.0167265, tol: 0.03, src: "HDS user manual Sec. 5.1 (design order table)" },
+      { what: "orders 106–107 1.058 mm apart (red cross-disperser)", q: "ySpan", m1: 106, m2: 107, value: 1.058, tol: 0.03, src: "HDS user manual Sec. 5.1 (red table, CDCEN)" },
+      { what: "orders 96–118 span 23.31 mm across the dispersion", q: "ySpan", m1: 96, m2: 118, value: 23.31, tol: 0.03, src: "HDS user manual Sec. 5.1 (red table; the FITS pixel table gives 23.7 mm)" },
+      { what: "order 96 spans 75.09 Å on the chip", q: "ordSpan", m: 96, value: 75.09, tol: 0.04, src: "HDS user manual Sec. 5.3 (4096 pixels of 0.00166–0.00183 nm)" },
+      { what: "order 96: 6171.21–6246.30 Å on CCD1", q: "ordLo", m: 96, value: 6171.21, info: true, src: "HDS user manual Sec. 5.3 (a sample setup centered at 5623 Å, not StdYb's 5475 Å)" },
+    ] },
+    { k: "ua", set: "StdUa, 0.4″", std: "StdUa", cd: "blue", xG: 400, slit: 0.4, lamC: 3930, pub: [] },
+    { k: "ra", set: "StdRa, 0.4″", std: "StdRa", cd: "red", xG: 250, slit: 0.4, lamC: 6450, pub: [
+      { what: "0.1475 nm/mm in order 89", q: "dlpixAt", lam: 6697.46, m: 89, value: 0.0199125, tol: 0.04, src: "HDS user manual Sec. 5.1" },
+      { what: "R = 114,000 at 0.3″ (measured)", q: "R", value: 114000, info: true, src: "Tajitsu et al. 2012 Sec. 3.2 (Gaussian fits to weak Th lines near 670 nm, with the 0.3″ slit, not this setting's 0.4″)" },
+    ] },
+    { k: "bc72", set: "StdBc, 0.72″", std: "StdBc", cd: "blue", xG: 400, slit: 0.72, lamC: 4380, pub: [
+      { what: "R = 50,000 at 0.72″", q: "Rs", value: 50000, tol: 0.08, src: "Honda et al. 2004 Sec. 2.2 (quoted for the program's setup; the method is not stated)" },
+    ] },
+    { k: "bc2", set: "StdBc, 0.2″", std: "StdBc", cd: "blue", xG: 400, slit: 0.2, lamC: 4380, pub: [
+      { what: "R = 128,700 at 0.2″ (measured profile)", q: "R", value: 128700, info: true, src: "Noguchi et al. 2002 Table 3 (the FWHM of the instrumental profile, 2.329 km/s: DERIVED). A miss of 32%: at 0.2″ the slit image is 1.6 px, and the measured profile includes the pixels and the camera's image (90% of the rays within 10 µm); the model has no pixel term" },
+      { what: "R up to ≈160,000 with a narrower slit", q: "R", value: 160000, info: true, src: "Noguchi et al. 2002 abstract (the slit is not given)" },
+    ] },
+  ].map(c => ({
+    id: "hds" + c.k, tel: "Subaru 8.2 m", name: "Subaru / HDS " + c.set, inst: "HDS", setting: c.set,
+    note: "The High Dispersion Spectrograph at the optical Nasmyth focus of the 8.2 m Subaru Telescope, since 2001 (Noguchi et al. 2002; the HDS user manual, Aoki et al. 2014; Tajitsu et al. 2012), here the standard setup " + c.std + " with the " + c.slit + "″ slit, inclined 30° so that the slit enters as its image's width along the dispersion, " + +(c.slit / Math.cos(Math.PI / 6)).toFixed(3) + "″. The f/12.5 beam (with the image rotator) is collimated by one of two off-axis parabolas (3400 mm, red and blue coatings; 272 mm beam), then an R2.8 echelle of 31.6 /mm (a 1 × 2 mosaic, 12 × 32 inches ruled) worked 6° out of the plane, the " + c.cd + " cross-disperser grating (" + c.xG + " /mm, 45° from the camera), a catadioptric camera of 770 mm (three fused-silica correctors, a spherical mirror and a field flattener, the CCDs inside the beam) and two EEV CCDs of 4100 × 2048 pixels of 13.5 µm side by side across the dispersion, entered as one chip (the 1.1 mm gap, ≈1 order, not drawn). The echelle's angle is the manual's 71.25°, which fits its order table (Noguchi et al. give 71.5°). The element spacings are those printed on Noguchi et al. Fig. 1.",
+    state: { mode: "echelle", D: 8.2, F: 12.5,
+      e: { slitW: +(c.slit / Math.cos(Math.PI / 6)).toFixed(4), nObj: 1, col: "mirror", colTilt: 2.5, layLen: 2330, camLen: 1100, W: 3400 / 12.5, fcam: 770, cam: "mirror", eG: 31.6, eDelta: 71.25, gamma: 6.0, theta: 0, xd: "grating", xG: c.xG, xPsi: 45,
+           lamC: c.lamC, Nx: 4096, Ny: 4096, pix: 13.5, gLen: 812.8 } },
+    pub: c.pub,
+  })),
+  // The Hale 200-inch coude (data/round10/halecoude.md), the photographic era: one off-axis collimator (30 ft, 12-inch
+  // beam) and a mosaic of four 10,000 /in gratings serve five cameras (Bowen 1952 Table 2), each a Setting; the plate as a
+  // detector of 20 um "pixels", Bowen's slit image A = 0.02 mm at the plate's resolution limit (EFFECTIVE), and the slit for
+  // each camera the one whose image is that 0.02 mm (EFFECTIVE: the slits used are not published)
+  ...[
+    { k: "144", set: "144-inch", fcam: 3657.6, slit: 0.078, Nx: 27940, Ny: 1270, K: 2.3, tol: 0.03, cam: "a bare spherical mirror at f/12 (no corrector)", plate: "22 inches" },
+    { k: "72", set: "72-inch", fcam: 1828.8, slit: 0.156, Nx: 20320, Ny: 1270, K: 4.6, tol: 0.03, cam: "a Schmidt camera at f/6", plate: "16 inches" },
+    { k: "36", set: "36-inch", fcam: 914.4, slit: 0.313, Nx: 15240, Ny: 1270, K: 9, tol: 0.06, cam: "a Schmidt camera at f/3", plate: "12 inches" },
+    { k: "18", set: "18-inch", fcam: 457.2, slit: 0.625, Nx: 7620, Ny: 1270, K: 18, tol: 0.03, cam: "a Schmidt camera at f/1.5", plate: "6 inches" },
+    { k: "8", set: "8.4-inch", fcam: 213.36, slit: 1.34, Nx: 864, Ny: 864, K: 39, tol: 0.03, cam: "the 18-inch Schmidt with a quartz aplanatic sphere, f/0.7", plate: "0.68 inch" },
+  ].map(c => ({
+    id: "halecoude" + c.k, tel: "Hale 5.1 m", name: "Hale 5.1 m / coudé, " + c.set + " camera", inst: "Hale coudé", setting: c.set,
+    note: "The coudé spectrograph of the 200-inch Hale Telescope in the photographic era, 1950 to the 1960s (Bowen 1952; Bowen 1957), here the " + c.set + " camera, " + c.cam + ". The f/30 coudé beam (1.353″/mm) reaches the slit; an off-axis mirror collimator of 30 ft (9144 mm) sends a 12-inch beam to a mosaic of four matched gratings of 10,000 lines per inch (5½ × 7 inches each, blazed in the third-order violet and the second-order red) at 30°, and every camera looks back along the grating normal, its corrector within a few mm of the grating and its plateholder in the beam between the grating and the mirror. One collimator and grating serve five cameras, 144 to 8.4 inches (2.3 to 39 Å/mm in the third order). The detector is a photographic plate " + c.plate + " long and 1 inch wide, entered as 20 µm pixels at the plate's resolution limit; the slit (" + c.slit + "″) is the one whose image on the plate is that 0.02 mm (EFFECTIVE: the slits used are not published; a 1″ slit with the 144-inch camera gives R ≈ 7000). The mosaic's arrangement, the blaze and the room's layout are not published (data/round10/halecoude.md).",
+    state: { mode: "grating", D: 5.08, F: 30,
+      g: { slitW: c.slit, nObj: 1, col: "mirror", W: 304.8, fcam: c.fcam, cam: "mirror", gType: "refl", G: 393.7, m: 3, lamB1: 13148, lamC: 4300, psi: 30, tAlpha: null,
+           gLen: 355.6, Nx: c.Nx, Ny: c.Ny, pix: 20 } },
+    pub: [
+      { what: c.K + " Å/mm in the third order", q: "dlpix", value: c.K * 0.02, tol: c.tol, src: "Bowen 1952 Table 2 (" + c.K + " Å/mm × the 20 µm effective pixel)" },
+    ],
+  })),
+  // The Mount Wilson 100-inch coude (data/round10/mwcoude.md), 1935 to the 1950s: one off-axis collimator (15 ft, 6-inch
+  // beam) and a Wood grating of 14,400 /in serve the cameras; the grating in Littrow (INFERRED: the angle of incidence is not
+  // published), which reproduces the three cameras' published dispersions to 1-3%; the plate and the slits as for the Hale coude
+  ...[
+    { k: "32", set: "32-inch", fcam: 812.8, slit: 0.295, Nx: 10160, K: 10.4, fit: false, cam: "an off-axis Schmidt camera" },
+    { k: "73", set: "73-inch", fcam: 1854.2, slit: 0.129, Nx: 10160, K: 4.5, fit: false, cam: "a Schmidt camera" },
+    { k: "114", set: "114-inch", fcam: 2895.6, slit: 0.083, Nx: 20320, K: 2.9, fit: true, cam: "a bare spherical mirror (36 inches, 19 ft radius, f/19)" },
+  ].map(c => ({
+    id: "mwcoude" + c.k, tel: "Mt Wilson 2.5 m", name: "Mt Wilson 2.5 m / coudé, " + c.set + " camera", inst: "Mt Wilson coudé", setting: c.set,
+    note: "The coudé spectrograph of the Mount Wilson 100-inch Hooker telescope, 1935 to the 1950s, where interstellar CH and CN were found (Adams 1941; Dunham 1939, 1946; Babcock 1948), here the " + c.set + " camera, " + c.cam + ". The f/30 coudé beam (2.707″/mm) reaches the slit (a Bowen image slicer was available); a concave collimating mirror \"corrected to operate off its axis\" (15 ft, a 6-inch beam: the original design, INFERRED for 1935) throws the beam back toward the slit to a Wood aluminum-on-Pyrex grating of 14,400 lines per inch (4⅜ × 5½ inches ruled), worked here in the second-order violet. The cameras: a 32-inch off-axis Schmidt, a 73-inch Schmidt, a 108-inch lens and the 114-inch spherical mirror (10.4, 4.5, 3.1 and 2.9 Å/mm in the second order). The grating is drawn in Littrow (INFERRED: the angle of incidence is not published), which reproduces the cameras' published dispersions to 1–3%. The plate enters as 20 µm pixels and the slit as the one whose image is 20 µm (Dunham 1946 used a 20 µm slit image with the 114-inch camera); the 114-inch plate's 16 inches are sourced, the others' lengths not (" + (c.k === "114" ? "" : "8 inches here, SCHEMATIC; ") + "plates 1 inch wide, INFERRED). There is no layout figure: the drawing is schematic.",
+    state: { mode: "grating", D: 2.54, F: 30,
+      g: { slitW: c.slit, nObj: 1, col: "mirror", W: 152.4, fcam: c.fcam, cam: "mirror", gType: "refl", G: 566.9, m: 2, lamB1: 8600, lamC: 4300, psi: 0, tAlpha: null,
+           gLen: 139.7, Nx: c.Nx, Ny: 1270, pix: 20 } },
+    pub: [
+      { what: c.K + " Å/mm in the second order", q: "dlpix", value: c.K * 0.02, tol: 0.03, src: "Adams 1941 (× the 20 µm effective pixel)" + (c.fit ? "; Dunham 1946 gives 2.88" : "") },
+    ],
+  })),
+  // MODS (data/round10/mods.md): D = 8.251 m, the part of the 8.4 m primary the f/15 beam fills (the OSU Code V files: an
+  // effective focal length of 123,765 mm), which keeps the 360 um, 0.6" slit; the collimators, the distances and the angles
+  // from the Code V files; the blue camera's 718.7 mm is EFFECTIVE (fitted to the 0.120"/px scale)
+  ...[
+    { k: "b", set: "blue, G400L", arm: "blue", G: 400, lamB1: 4000, lamC: 4000, layLen: 3580, fcam: 718.7, pub: [
+      { what: "0.515 Å/px", q: "dlpix", value: 0.515, tol: 0.02, src: "LBT MODS grating page (the camera is fitted to the pixel scale, not to this line)" },
+      { what: "0.120″/px", q: "pixScale", value: 0.12, info: true, src: "MODS manual (the blue camera's 718.7 mm is fitted to this scale: circular; the manual and the design print 700 mm)" },
+      { what: "R = 1850 at 4000 Å (0.6″, as built)", q: "R", value: 1850, info: true, src: "LBT MODS grating page. A miss of 12%: the as-built slit image is 4.25 px where the model's is 4.78 px; the method is not stated" },
+    ] },
+    { k: "r", set: "red, G670L", arm: "red", G: 250, lamB1: 6730, lamC: 7600, layLen: 3600, fcam: 700, pub: [
+      { what: "0.845 Å/px", q: "dlpix", value: 0.845, tol: 0.01, src: "LBT MODS grating page" },
+      { what: "0.123″/px", q: "pixScale", value: 0.123, tol: 0.01, src: "LBT MODS pages (the 700 mm camera and the 123,765 mm focal length: not fitted)" },
+      { what: "R = 2300 at 7600 Å (0.6″, as built)", q: "R", value: 2300, info: true, src: "LBT MODS grating page. A miss of 15%: the as-built slit image is 3.90 px where the model's is 4.62 px; the method is not stated" },
+    ] },
+  ].map(c => ({
+    id: "mods" + c.k, tel: "LBT 8.4 m", name: "LBT / MODS " + c.set + ", 0.6″", inst: "MODS", setting: c.set,
+    note: "The Multi-Object Double Spectrographs at the direct Gregorian foci of the Large Binocular Telescope, since 2011 (MODS1) and 2015 (MODS2) (Pogge et al. 2006, 2010; the OSU MODS manual and Code V files), here the " + c.arm + " channel with the " + c.set.split(", ")[1] + " grating and a 0.6″ slit. The f/15 beam (8.251 m of the primary) reaches the slit mask; a field lens and a dichroic at 5650 Å, 35° in the diverging beam, send the red light (reflected, then folded) and the blue light (transmitted) to separate off-axis parabolic collimators (3450 mm, 230 mm beam, the parent axis 5.7° from the telescope's), a grating of " + c.G + " /mm 30° from the camera, a Maksutov–Schmidt camera (f/3 blue, f/2.5 red) and a CCD of 8192 × 3072 pixels of 15 µm. The " + (c.arm === "blue" ? "blue camera's 718.7 mm is EFFECTIVE, fitted to the published pixel scale (the manual gives 700 mm)" : "red grating's angle is not settled: the central wavelength is the R reference, 7600 Å (INFERRED)") + "; the number of slitlets per mask (24) is INFERRED from the design capacity. The distances and angles come from the Code V files. The channels' collimators take the diverging beam straight from the dichroic, as the All-arms view draws the split.",
+    state: { mode: "grating", D: 8.251, F: 15,
+      g: { slitW: 0.6, nObj: 24, col: "mirror", colTilt: 2.855, layLen: c.layLen, camLen: 720, W: 230, fcam: c.fcam, cam: "mirror", gType: "refl", G: c.G, m: 1, lamB1: c.lamB1, lamC: c.lamC, psi: 30, tAlpha: null,
+           gLen: 408, Nx: 8192, Ny: 3072, pix: 15 } },
+    pub: c.pub,
+  })),
 ];
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;

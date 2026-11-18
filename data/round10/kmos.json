@@ -1,0 +1,914 @@
+{
+ "id": "kmos",
+ "name": "VLT UT1 / KMOS",
+ "date": "2026-11-18",
+ "quote_check": {
+  "pieces": 73,
+  "failures": 0,
+  "scans": 0,
+  "figure_readings": 1
+ },
+ "sources": {
+  "MAN": {
+   "document": "ESO, KMOS User Manual, Doc. No. ESO-264148, Issue 6.1.1, 2024-07-04 (J. M. Corral-Santana on behalf of the KMOS IOT; the current ESO Period 115 manual). Page numbers are the manual's own page labels (PDF page = label + 7)",
+   "file": "ESO_KMOS_User_Manual_P115.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/kmos/doc/VLT-MAN-KMO-146603-001_P115.pdf"
+  },
+  "INST": {
+   "document": "ESO KMOS \"Instrument Description\" web page (retrieved 2026-11-18)",
+   "file": "eso_kmos_inst.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/kmos/inst.html"
+  },
+  "OVR": {
+   "document": "ESO KMOS \"Overview\" web page (retrieved 2026-11-18)",
+   "file": "eso_kmos_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/kmos/overview.html"
+  },
+  "DEV": {
+   "document": "ESO \"K-band Multi-Object Spectrograph - KMOS\" development-projects page (the consortium baseline specification; retrieved 2026-11-18)",
+   "file": "eso_develop_kmos.html",
+   "url": "https://www.eso.org/sci/facilities/develop/instruments/kmos.html"
+  },
+  "M10": {
+   "document": "Sharples, R., et al. 2010, The Messenger 139, 24, \"Recent Progress on the KMOS Multi-object Integral Field Spectrometer\" (ADS 2010Msngr.139...24S; title checked on ADS). Open access; 4 pages (journal pp. 24-27). Final-design values; Table 3 gives the filter bandpasses and the design resolution",
+   "file": "Sharples2010_Msngr139_24.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.139-mar10/messenger-no139-24-27.pdf (reached through https://ui.adsabs.harvard.edu/link_gateway/2010Msngr.139...24S/PUB_PDF)"
+  },
+  "M13": {
+   "document": "Sharples, R., et al. 2013, The Messenger 151, 21, \"First Light for the KMOS Multi-Object Integral-Field Spectrometer\" (ADS 2013Msngr.151...21S; title checked on ADS). Open access; 3 pages. Commissioning narrative only: it holds no optical prescription (read in full; it is cited for the first-light date)",
+   "file": "Sharples2013_Msngr151_21.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.151-mar13/messenger-no151-21-23.pdf (through https://ui.adsabs.harvard.edu/link_gateway/2013Msngr.151...21S/PUB_PDF)"
+  },
+  "S07": {
+   "document": "Sharples, R., Ramsay Howat, S., Davies, R. & Lehnert, M. 2008, \"KMOS: Design Overview and Calibration Requirements\", 2007 ESO Instrument Calibration Workshop (ADS 2008eic..work..311S; title checked on ADS). 7 pages, preliminary-design-phase text; holds the only open optical raytrace figure (Fig. 3, PDF p. 6) and the 256 mm slit",
+   "file": "MPE_sharples07.pdf",
+   "url": "https://www.mpe.mpg.de/389546/sharples07_"
+  },
+  "D13": {
+   "document": "Davies, R. I., et al. 2013, A&A 558, A56, \"The Software Package for Astronomical Reductions with KMOS: SPARK\" (ADS 2013A&A...558A..56D; arXiv:1308.6679; title checked on ADS)",
+   "file": "Davies2013_AA558_A56_SPARK_arXiv1308.6679.pdf",
+   "url": "https://arxiv.org/pdf/1308.6679"
+  },
+  "D10": {
+   "document": "Davies, R., et al. 2010, Proc. SPIE 7735, 77356V, \"KMOS data flow: reconstructing data cubes in one step\" (ADS 2010SPIE.7735E..6VD; arXiv:1005.4748; title checked on ADS)",
+   "file": "Davies2010_SPIE7735_KMOS_dataflow_arXiv1005.4748.pdf",
+   "url": "https://arxiv.org/pdf/1005.4748"
+  },
+  "S14": {
+   "document": "Sharples, R. & the KMOS Team 2015, IAU Symposium 309, 11, \"KMOS @ the VLT: Commissioning and Early Science\" (ADS 2015IAUS..309...11S; title checked on ADS; Cambridge open-access PDF, 6 pages, journal pp. 11-16)",
+   "file": "Sharples2014_IAU_KMOS_commissioning.pdf",
+   "url": "https://cambridge.org/core/services/aop-cambridge-core/content/view/D4D15A5BE31E12A728C77BF7C5E8195D/S1743921314009223a.pdf/kmos-the-vlt-commissioning-and-early-science.pdf"
+  },
+  "T06": {
+   "document": "Tecza, M., Lewis, I. J., Lynn, J., Yang, S., Thatte, N. A., Tosh, I. A. J. & Ferlet, M. J. 2006, Proc. SPIE 6269, 62694G, \"Opto-mechanical design of the KMOS spectrograph module\" (ADS 2006SPIE.6269E..4GT; title checked on ADS; supplied by the user; 11 pages, text layer). Preliminary-design (PDR, May 2006) prescription of the spectrograph; the as-built instrument is not re-documented in an open paper (see Conflicts). Page numbers are the paper's own labels 62694G-1 ... 62694G-11 (= PDF pages)",
+   "file": "tecza2006_62694G.pdf",
+   "url": "supplied by the user (SPIE paywall); https://doi.org/10.1117/12.672009"
+  },
+  "VLT": {
+   "document": "ESO, \"Requirements for VLT UT Instruments\", VLT-SPE-ESO-10000-2723, Issue 1 (18.03.2005), Table 3 \"Nasmyth focus optical parameters\" (copy of the file saved for UVES, round 5)",
+   "file": "VLT-SPE-ESO-10000-2723_is1_Requirements_for_VLT_UT_Instruments.pdf",
+   "url": "https://www.hq.eso.org/sci/facilities/develop/documents/VLT-SPE-ESO-10000-2723_is1.pdf"
+  }
+ },
+ "parameters": [
+  {
+   "parameter": "Telescope entrance pupil (Nasmyth)",
+   "value": "8000",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "VLT",
+   "location": "Table 3, p. 10",
+   "quote": "Entrance pupil diameter 8000 mm",
+   "note": "as the MUSE and UVES presets: D = 8.0 m. KMOS is on UT1 (Antu): S14 Sec. 2.1 \"Nasmyth focus of the VLT UT1 telescope\""
+  },
+  {
+   "parameter": "Nasmyth focal ratio / image scale",
+   "value": "f/15; 582 um/arcsec",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "VLT",
+   "location": "Table 3, p. 10",
+   "quote": "Focal ratio 15.000 ... Image scale slightly field dependent 582",
+   "note": "DERIVED: one 0.2 arcsec spaxel is 0.2 x 582 = 116 um in the telescope focal plane; the KMOS pickoffs and IFU fore-optics re-image it (the explorer does not model them)"
+  },
+  {
+   "parameter": "Patrol field",
+   "value": "7.2",
+   "unit": "arcmin diameter",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 1.4, p. 1",
+   "quote": "The patrol field of the pick-offs is 7.2 arcmin in diameter, which is the diameter of the un-vignetted field at the VLT Nasmyth focus",
+   "note": "VLT: unvignetted 7.15 arcmin (VLT Table 3)"
+  },
+  {
+   "parameter": "Pickoff arms",
+   "value": "24 arms, in two layers of 12",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 2.2.1, p. 6",
+   "quote": "The pick-off arms are arranged into two different planes (\"top\" and \"bottom\") of twelve arms each",
+   "note": "each arm: fold mirror at the tip, lens collimating the beam and re-imaging the pupil on a cold stop in the arm, roof mirror (path compensation), fold, K-mirror assembly (MAN Sec. 2.2.2, p. 7)"
+  },
+  {
+   "parameter": "Field corrector",
+   "value": "vacuum-spaced doublet, flat telecentric focal plane",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "S14",
+   "location": "Sec. 2.2, p. 12",
+   "quote": "below a vacuum-spaced doublet corrector which produces a flat telecentric focal plane",
+   "note": ""
+  },
+  {
+   "parameter": "IFU field of view",
+   "value": "2.8 x 2.8",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 1.4, p. 1",
+   "quote": "Each IFU has a square field of view of 2.8 × 2.8 arcsec",
+   "note": ""
+  },
+  {
+   "parameter": "IFU slicing",
+   "value": "14 slices of 0.2 arcsec x 2.8 arcsec, 14 spaxels per slice",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 1.4, p. 1",
+   "quote": "partition each sub-field into 14 identical slices, with 14 spatial pixels along each slice",
+   "note": "D13 Sec. 6: \"the slitlets are 0.2′′ × 2.8′′\" (quote checked in the Notes)"
+  },
+  {
+   "parameter": "Spatial sampling",
+   "value": "0.2 x 0.2",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 1.4, p. 1",
+   "quote": "ensures uniform spatial sampling of 0.2x0.2 arcsec",
+   "note": ""
+  },
+  {
+   "parameter": "Slice width on the sky = the slit (explorer slitW)",
+   "value": "0.2",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "source": "-",
+   "location": "-",
+   "quote": "",
+   "note": "DERIVED: the sampling is 0.2 x 0.2 arcsec and the field is 14 slices x 0.2 arcsec = 2.8 arcsec; the slice width is the dispersion-direction slit width, 0.2 arcsec = 2 detector pixels (see the FWHM line below)"
+  },
+  {
+   "parameter": "IFU anamorphism",
+   "value": "2:1",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "S14",
+   "location": "Sec. 2.3, p. 13",
+   "quote": "reimage it with 2:1 anamorphic magnification onto the image slicers",
+   "note": "Same trap as MUSE: the isotropic explorer reads the along-slit scale at about half the real 0.2 arcsec per spaxel"
+  },
+  {
+   "parameter": "Slicer optics",
+   "value": "3 re-imaging mirrors; slicer mirror array of 14 spherical slices; two pupil mirror arrays of 7 facets; slit mirror array of 14 toroidal facets",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "M10",
+   "location": "p. 26 (Integral field units)",
+   "quote": "one monolithic slicing mirror array containing 14 slices with spherical surfaces in different orientations; two monolithic pupil mirror arrays containing seven facets ... one monolithic slit mirror array containing 14 facets with toroidal surface form",
+   "note": ""
+  },
+  {
+   "parameter": "Pseudo-slit length at the spectrograph entrance",
+   "value": "254",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "M10",
+   "location": "p. 26 (Integral field units)",
+   "quote": "reformatted into a single 254-mm long slit at the entrance to the three spectrometers",
+   "note": "CONFLICT: S07 (2007 design text) gives 256 mm (quote below)"
+  },
+  {
+   "parameter": "Slit length, earlier text",
+   "value": "256 (112 slices from 8 subfields)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "S07",
+   "location": "Sec. 3.2, p. 4",
+   "quote": "Each IFU sub-module produces a 256mm long slit containing 112 separate slices from 8 subfields.",
+   "note": ""
+  },
+  {
+   "parameter": "Spectra (slitlets) per detector",
+   "value": "112 slitlets (8 IFUs x 14 slices); 1568 spaxel spectra",
+   "unit": "-",
+   "tag": "DERIVED",
+   "source": "D13",
+   "location": "Sec. 1, p. 1",
+   "quote": "of 336 dispersed slitlets across the 3 detectors",
+   "note": "DERIVED: 336 / 3 = 112 slitlets per detector; 112 x 14 spaxels = 1568 = 8 x 14 x 14. This is the explorer's nObj (KCWI 3330 and MUSE 3600 count spaxels the same way)"
+  },
+  {
+   "parameter": "Slitlet pitch on the detector",
+   "value": "18",
+   "unit": "px (18 um each)",
+   "tag": "SOURCED",
+   "source": "D13",
+   "location": "Sec. 2, p. 2",
+   "quote": "the mean distance between left or right edges within any IFU is always almost exactly 18 pixels",
+   "note": "DERIVED: 14 slitlets x 18 px = 252 px (4.54 mm) per IFU; 8 IFUs = 2016 px of the 2048"
+  },
+  {
+   "parameter": "Slitlet width on the detector (along the slit)",
+   "value": "13.6",
+   "unit": "px",
+   "tag": "SOURCED",
+   "source": "D13",
+   "location": "Sec. 2, p. 2",
+   "quote": "The mean slitwidth is 13.6 pixels",
+   "note": "DERIVED: 14 spaxels in 13.6 px = 0.97 px per spaxel, so the true scale along the slit is 0.2 / 0.971 = 0.206 arcsec per px. D10 abstract: \"each about 2000 pixels in the spectral direction and 14 pixels wide spatially\""
+  },
+  {
+   "parameter": "Dispersion axis on the chip",
+   "value": "along pixel columns (vertical in the pipeline figures)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "D13",
+   "location": "Sec. 1, p. 1",
+   "quote": "with the spectral axis approximately aligned with pixel columns on the detectors",
+   "note": "the explorer's Nx is the dispersion axis: 2048 either way"
+  },
+  {
+   "parameter": "Slit-to-detector magnification (collimator + camera)",
+   "value": "0.145",
+   "unit": "-",
+   "tag": "DERIVED",
+   "source": "-",
+   "location": "-",
+   "quote": "",
+   "note": "DERIVED: 2048 px x 18 um = 36.864 mm of chip for the 254 mm slit gives 0.1451; per IFU 252 px x 18 um = 4.536 mm over 254 / 8 = 31.75 mm gives 0.1429 (the 256 mm slit gives 0.144 and 0.142). Taken as 0.1451. This is f_cam / f_col of the isotropic spectrograph"
+  },
+  {
+   "parameter": "Slice width on the slit mirror",
+   "value": "0.248",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "source": "-",
+   "location": "-",
+   "quote": "",
+   "note": "DERIVED: 2 px x 18 um = 36 um on the chip / 0.1451 = 0.248 mm; sky scale at the slit 0.2 arcsec / 0.248 mm = 0.806 arcsec per mm (effective focal ratio of the beam into the spectrograph: see EFFECTIVE F below)"
+  },
+  {
+   "parameter": "Spectral line FWHM",
+   "value": "2",
+   "unit": "px",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 2.3.1, p. 10",
+   "quote": "The measured FWHM of the spectral lines is 2 pixels",
+   "note": "S14/OVR: \"Nyquist sampling (~2 pixel) of the spectral resolution element at the detector\""
+  },
+  {
+   "parameter": "Spatial image of a pinhole",
+   "value": "< 1 px (0.2 arcsec) across the slices; about 1.3 px (0.25 arcsec) along the slices",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 2.3.1, p. 10",
+   "quote": "shows a FWHM of < 1 pixel (0.2 arcsec) in the direction across the slices and ≈1.3 pixels (0.25 arcsec) in the spatial direction within the slices",
+   "note": "the manual's own pixel-to-arcsecond ratios are not consistent with 2 px per 0.2 arcsec across the slices (see Conflicts)"
+  },
+  {
+   "parameter": "Spectrograph input beam",
+   "value": "telecentric, F/16 along the slit and F/44.7 in the spectral direction",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2, p. 2",
+   "quote": "The input beam from the IFU is telecentric with an f-ratio of F/16 in the slit direction and F/44.7 in the spectral direction due to the anamorphic magnification of the IFU fore-optics.",
+   "note": "the spectral (dispersion) direction sets R, so the explorer's single F is 44.7"
+  },
+  {
+   "parameter": "Fold mirror",
+   "value": "flat, about 30 x 400 mm, between the slit and the collimator; folds the axis parallel to the Nasmyth flange",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.1, p. 2",
+   "quote": "The fold mirror is a flat optical element of approximately 30mm ... 400mm in size",
+   "note": ""
+  },
+  {
+   "parameter": "Collimator",
+   "value": "single toroidal mirror, about 50 x 330 mm, tilted at 4.5 deg to the incoming beam",
+   "unit": "mm, deg",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.1, p. 2",
+   "quote": "The collimator mirror is a single toroidal optical element of approximately 50mm ... 330mm in size and tilted at 4.5º to the incoming beam.",
+   "note": "tilt convention: see Notes (the explorer's colTilt = 4.5 deg, the mirror's tilt, not the 9 deg deflection); the figure shows the returned beam 8.6 deg off the incoming one (MEASURED, Fig. 1)"
+  },
+  {
+   "parameter": "Collimator focal length",
+   "value": "1000",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.1, p. 2",
+   "quote": "The collimator focal length is 1000mm.",
+   "note": ""
+  },
+  {
+   "parameter": "Beam diameter (spectral direction)",
+   "value": "22.4",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "source": "-",
+   "location": "-",
+   "quote": "",
+   "note": "DERIVED: f_col / F_spectral = 1000 / 44.7 = 22.37 mm at the collimator (along the slit 1000 / 16 = 62.5 mm). The paper gives no beam diameter. The grating's clear aperture, 120 mm along the ruled dimension and 60 mm across (T06 Sec. 2.2), is larger than the beam"
+  },
+  {
+   "parameter": "Disperser",
+   "value": "reflective monolithic ruled (or replicated) grating, operated in order -2, oriented almost normal to the camera",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.2, p. 2",
+   "quote": "The grating is a reflective monolithic ruled (or replicated) type operated in the –2nd order orientated almost normal to the spectrograph camera.",
+   "note": "as built (MAN Sec. 5.1): 2nd order for IZ, YJ, H, K and first order for HK"
+  },
+  {
+   "parameter": "Grating angle and groove density, range",
+   "value": "angle to the incident beam about 30 to 47 deg; groove density about 200 to 500 lines/mm (no per-band table)",
+   "unit": "deg; /mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.2, p. 2",
+   "quote": "The angle with respect to the incident beam varies between approximately 30º and 47º, the groove density varies between approximately 200 and 500 lines/mm.",
+   "note": "the paper has NO per-band table: the per-band densities below are FITTED to the manual's dispersions and are tested against these ranges"
+  },
+  {
+   "parameter": "Grating size and set",
+   "value": "clear aperture about 120 mm along the ruled dimension x 60 mm across; designed for I/z, J, H, K and the combined I/z&J, J&H, H&K bands, six on the wheel",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.2, p. 2",
+   "quote": "The clear aperture of each grating is approximately 120mm along the ruled dimension and 60mm across. The optical design includes gratings for the individual I/z, J, H, and K atmospheric bands, as well as for the three combined bands I/z&J, J&H, and H&K.",
+   "note": "the beam (22 to 33 mm along the dispersion) does not fill the ruled length: gLen is not needed"
+  },
+  {
+   "parameter": "Anamorphic de-magnification at the grating",
+   "value": "the grating angle de-magnifies the slit image in the dispersion direction; with the IFU's 2:1 the total is 2:1 (Nyquist)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.2, p. 2",
+   "quote": "This grating angle leads to an anamorphic de-magnification in the dispersion direction, which together with the anamorphic magnification of the IFU fore-optics results in a total anamorphic magnification in the dispersion direction of 2:1",
+   "note": "the explorer computes this factor itself from the grating geometry"
+  },
+  {
+   "parameter": "Camera",
+   "value": "six spherical lenses of four IR materials: CaF2, E-SF03, CaF2, E-SF03, fused silica, ZnSe",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.3, p. 3",
+   "quote": "The spectrograph camera consists of six lenses made from four different infrared materials",
+   "note": "lens order: \"The first and third lens are made from Calcium Fluoride, the second and fourth from the Hikari glass E-SF03, the fifth lens is made from fused silica, and the last lens from Zinc Selenide.\" (M10: \"six-element transmissive achromatic camera\")"
+  },
+  {
+   "parameter": "Camera focal length and speed",
+   "value": "145 mm; F/4.6 in the spectral direction, F/2.3 in the spatial direction",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.3, p. 3",
+   "quote": "The spectrograph camera focal length is 145mm and has an f-ratio of F/4.6 in the spectral direction and F/2.3 in the spatial direction.",
+   "note": "DERIVED: f_cam / f_col = 145 / 1000 = 0.145, against 36.864 mm of chip / 254 mm of slit = 0.1451 (independent check)"
+  },
+  {
+   "parameter": "Camera-collimator angle",
+   "value": "32",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 2.3, p. 3",
+   "quote": "It is oriented at a fixed angle of 32º to the collimated beam.",
+   "note": "MEASURED from Fig. 1: 33 deg between the incoming collimated beam and the camera axis (grating to the detector focus)"
+  },
+  {
+   "parameter": "Slit image width, before the grating",
+   "value": "2.8",
+   "unit": "px",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 3.2, p. 3",
+   "quote": "we convolved a top-hat input slit corresponding to 2.8 pixels width with the diffraction PSF of the spectrograph in spectral direction",
+   "note": "DERIVED check: slice on the slit 0.2 arcsec x 8000 mm x 44.7 = 0.347 mm; x 0.145 = 50.3 um = 2.79 px of 18 um; the grating's de-magnification (cos alpha / cos beta, 0.68 to 0.86) brings it to about 2 px"
+  },
+  {
+   "parameter": "Slit and spectrum curvature",
+   "value": "slit curvature about 1 mm (60 of 2048 px); spectral distortion 0.09 to 0.25 mm at the slit ends",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Sec. 3.4, p. 5",
+   "quote": "the effect is rather small (60 out of 2048 pixels) and will be included in the wavelength calibration",
+   "note": "Table 1 (K: 1.04-1.07 mm and 0.092 mm; H: 1.06-1.09 mm and 0.104 mm; J: 0.96-1.00 mm and 0.155 mm; I/z: 0.94-0.97 mm and 0.245 mm)"
+  },
+  {
+   "parameter": "Nominal resolving power",
+   "value": "R exceeding 3200 over z, J, H, K (Fig. 3 plots R and the exit-slit width against wavelength; the plot is a figure, not read)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "T06",
+   "location": "Abstract, p. 1",
+   "quote": "Nyquist sampled spectra in the wavelength range covering the atmospheric bands z, J, H, and K with a resolving power exceeding 3200",
+   "note": ""
+  },
+  {
+   "parameter": "Collimator type and geometry",
+   "value": "single off-axis toroidal mirror (reflective)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 2.2.3, p. 7",
+   "quote": "Each spectrograph uses a single off-axis toroidal mirror to collimate the incoming light",
+   "note": "ALT (INST, Spectrographs): \"Each spectrograph uses a single off-axis toroidal mirror to collimate the incoming light, which is then dispersed via a reflection grating and refocused using a 6-element transmitting camera.\" ON-/OFF-AXIS VERDICT: OFF-AXIS (stated in every source). T06 gives the tilt (next rows); do NOT set colTilt 0"
+  },
+  {
+   "parameter": "Disperser",
+   "value": "reflection gratings, one 5-position wheel per spectrograph",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 2.2.3, p. 7",
+   "quote": "The five available gratings (IZ, YJ, H, K, HK) are mounted on a 5-position wheel",
+   "note": "CONFLICT: S14 Sec. 2.4 and T06 Sec. 4.1 say a six-position wheel; MAN and INST say five (the manual adds a blank position for calibrations)"
+  },
+  {
+   "parameter": "Grating orders",
+   "value": "second order for IZ, YJ, H, K; first order for HK",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Sec. 5.1, p. 35",
+   "quote": "By design, KMOS gratings IZ, YJ, H and K work in 2nd order.",
+   "note": "HK: \"... grating works already in first order\" (p. 37, in the list of ghost properties)"
+  },
+  {
+   "parameter": "Detector",
+   "value": "Teledyne substrate-removed HAWAII-2RG HgCdTe, 2048 x 2048, 18 um pixels, one per spectrograph",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "MAN",
+   "location": "Table 2, p. 7",
+   "quote": "Detector type Substrate removed Hawaii 2RG ... Number of pixels 2048 x 2048 ... Pixel size 18",
+   "note": "operating temperature 35 K (MAN Table 2); the optical bench is at 115-120 K (S14 Sec. 2.1; INST)"
+  },
+  {
+   "parameter": "Detector mount",
+   "value": "three-axis translation stage (focus; flexure compensation)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "S07",
+   "location": "Sec. 3.3, p. 5",
+   "quote": "mounted on a three-axis translation stage",
+   "note": ""
+  },
+  {
+   "parameter": "Filters",
+   "value": "order-sorting band-pass filters in the filter wheel ahead of the IFU fore-optics",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "S14",
+   "location": "Sec. 2.3, p. 13",
+   "quote": "Immediately in front of the fore-optics is a filter wheel, which is used for order-sorting with the selected gratings.",
+   "note": "bandpasses in the table below (M10 Table 3)"
+  },
+  {
+   "parameter": "Cryostat",
+   "value": "one cryostat, three identical modules (8 arms + 8 IFUs + 1 spectrograph + 1 detector each)",
+   "unit": "-",
+   "tag": "SOURCED",
+   "source": "S14",
+   "location": "Sec. 2.1, p. 12",
+   "quote": "KMOS was designed to have three identical modules, each of them comprising eight pickoff arm systems, eight d-IFUs, one spectrograph and one near-IR detector.",
+   "note": "the three spectrographs are in a plane perpendicular to the Nasmyth rotation axis (S07 Sec. 3.3)"
+  }
+ ],
+ "further_quotes": [
+  {
+   "item": "HK first order",
+   "source": "MAN",
+   "location": "Sec. 5.1, p. 37",
+   "quote": "grating works already in first order"
+  },
+  {
+   "item": "IZ-K second order (ghost explanation)",
+   "source": "MAN",
+   "location": "Sec. 5.1, p. 37",
+   "quote": "By design, KMOS gratings IZ, YJ, H and K work in 2nd order."
+  },
+  {
+   "item": "HK grating purpose",
+   "source": "M10",
+   "location": "p. 26 (Spectrographs)",
+   "quote": "a single lower resolution grating covering two atmospheric bands (H+K)"
+  },
+  {
+   "item": "Slitlet size on the sky",
+   "source": "D13",
+   "location": "p. 6",
+   "quote": "the slitlets are 0.2′′ × 2.8′′"
+  },
+  {
+   "item": "Wheel positions, later text",
+   "source": "S14",
+   "location": "Sec. 2.4, p. 13",
+   "quote": "mounted on a 6-position wheel"
+  },
+  {
+   "item": "Wheel, ESO web",
+   "source": "INST",
+   "location": "Spectrographs",
+   "quote": "are mounted on a 5-position wheel which allows optimized gratings to be used for the individual bands. A 'blank' position is also available for calibrations."
+  },
+  {
+   "item": "Collimator and camera, baseline spec",
+   "source": "DEV",
+   "location": "Instrument Design",
+   "quote": "use a reflective collimator with a 6-element achromatic camera"
+  },
+  {
+   "item": "Slit mirror toroids",
+   "source": "S07",
+   "location": "Sec. 3.2, p. 4",
+   "quote": "The slit mirrors are toroidal with the same radius of curvature in the spectral direction, but different radii of curvature in the spatial direction."
+  },
+  {
+   "item": "Early grating concept",
+   "source": "S07",
+   "location": "Sec. 3.3, p. 5",
+   "quote": "5-position turret which allows optimized gratings to be used for the individual J,H,K bands together with two lower resolution gratings and the option of a z-band grating"
+  },
+  {
+   "item": "Raytrace figure",
+   "source": "S07",
+   "location": "Fig. 3 caption, p. 6",
+   "quote": "Optical raytrace through four pickoff arms, their associated IFUs and one of the spectrometers."
+  },
+  {
+   "item": "Curved spectra",
+   "source": "MAN",
+   "location": "Sec. 2.3.1, p. 10",
+   "quote": "the spectrum across the array is curved by design"
+  },
+  {
+   "item": "Detector fed by 8 IFUs",
+   "source": "MAN",
+   "location": "Sec. 2.3.1, p. 10",
+   "quote": "Each detector collects the light from 8 IFUs"
+  },
+  {
+   "item": "Optical bench temperature",
+   "source": "INST",
+   "location": "Overview of the instrument",
+   "quote": "operated at a temperature of 120K"
+  },
+  {
+   "item": "Baseline R, consortium",
+   "source": "DEV",
+   "location": "Baseline specification",
+   "quote": "IZ grating R~3200 YJ grating R~3400 H grating R~4000 K grating R~4200 HK grating R~1800"
+  },
+  {
+   "item": "In service since",
+   "source": "S14",
+   "location": "Abstract, p. 11",
+   "quote": "was made available to the user community from Oct 2013"
+  },
+  {
+   "item": "First light",
+   "source": "S14",
+   "location": "Sec. 3.1, p. 14",
+   "quote": "First light with KMOS at the ESO VLT occurred on 21st Nov 2012"
+  },
+  {
+   "item": "Lens order of the camera",
+   "source": "T06",
+   "location": "Sec. 2.3, p. 3",
+   "quote": "The first and third lens are made from Calcium Fluoride, the second and fourth from the Hikari glass E-SF03, the fifth lens is made from fused silica, and the last lens from Zinc Selenide."
+  },
+  {
+   "item": "Six gratings on the wheel",
+   "source": "T06",
+   "location": "Sec. 2.2, p. 2",
+   "quote": "As the grating wheel (see §4.1) can only hold six gratings, only two of the combined band gratings can be implemented in KMOS."
+  },
+  {
+   "item": "Wheel mechanism",
+   "source": "T06",
+   "location": "Sec. 4.1, p. 10",
+   "quote": "allow insertion, or indexing, of any one of 6 gratings into the optical path"
+  },
+  {
+   "item": "Layout figure",
+   "source": "T06",
+   "location": "Fig. 1 and caption, p. 2",
+   "quote": "A single toroidal collimator collimates the light onto the reflection grating, which then disperses the light. The resulting spectra are imaged onto the detector by a six-element camera."
+  },
+  {
+   "item": "Fold and slit position",
+   "source": "T06",
+   "location": "Sec. 2, p. 2",
+   "quote": "The input slit from the IFU is below the flat fold mirror on the XY plane, aligned on the X-axis."
+  },
+  {
+   "item": "Throughput surfaces",
+   "source": "S14",
+   "location": "Sec. 3.3, p. 14",
+   "quote": "18 refractive and 15 reflective surfaces, excluding the grating and telescope mirrors"
+  }
+ ],
+ "band_table": [
+  {
+   "band": "IZ",
+   "filter_nm": [
+    800,
+    1080
+   ],
+   "design_R_M10": 3327,
+   "common_coverage_um": "0.779 - 1.079",
+   "center_B_um": "0.779 - 1.094",
+   "edge_B_um": "0.773 - 1.087",
+   "nm_per_px": 0.143,
+   "R_short_center_long": [
+    2795,
+    3406,
+    3773
+   ],
+   "R_table1": 3400
+  },
+  {
+   "band": "YJ",
+   "filter_nm": [
+    1020,
+    1345
+   ],
+   "design_R_M10": 3387,
+   "common_coverage_um": "1.025 - 1.344",
+   "center_B_um": "1.025 - 1.361",
+   "edge_B_um": "1.016 - 1.353",
+   "nm_per_px": 0.165,
+   "R_short_center_long": [
+    3089,
+    3582,
+    4088
+   ],
+   "R_table1": 3600
+  },
+  {
+   "band": "H",
+   "filter_nm": [
+    1450,
+    1850
+   ],
+   "design_R_M10": 3840,
+   "common_coverage_um": "1.456 - 1.846",
+   "center_B_um": "1.456 - 1.870",
+   "edge_B_um": "1.445 - 1.859",
+   "nm_per_px": 0.203,
+   "R_short_center_long": [
+    3570,
+    4045,
+    4555
+   ],
+   "R_table1": 4000
+  },
+  {
+   "band": "K",
+   "filter_nm": [
+    1950,
+    2500
+   ],
+   "design_R_M10": 3766,
+   "common_coverage_um": "1.934 - 2.460",
+   "center_B_um": "1.922 - 2.461",
+   "edge_B_um": "1.934 - 2.473",
+   "nm_per_px": 0.266,
+   "R_short_center_long": [
+    3809,
+    4227,
+    4883
+   ],
+   "R_table1": 4200
+  },
+  {
+   "band": "HK",
+   "filter_nm": [
+    1500,
+    2380
+   ],
+   "design_R_M10": 2052,
+   "common_coverage_um": "1.484 - 2.442",
+   "center_B_um": "1.484 - 2.481",
+   "edge_B_um": "1.470 - 2.442",
+   "nm_per_px": 0.489,
+   "R_short_center_long": [
+    1514,
+    1985,
+    2538
+   ],
+   "R_table1": 2000
+  }
+ ],
+ "fitted_gratings": {
+  "note": "G fitted to MAN Table 6 A/px with sourced optics (T06); all inside T06's 200-500 /mm and 30-47 deg",
+  "rows": [
+   {
+    "k": "IZ",
+    "G": 429.0,
+    "m": 2,
+    "lamC": 9365,
+    "dl": 1.43,
+    "R": 3035,
+    "npix": 2.14,
+    "lo": 7898,
+    "hi": 10804,
+    "alpha": 40.7,
+    "beta": 8.7,
+    "Fcam": 4.96
+   },
+   {
+    "k": "YJ",
+    "G": 368.9,
+    "m": 2,
+    "lamC": 11930,
+    "dl": 1.65,
+    "R": 3445,
+    "npix": 2.07,
+    "lo": 10233,
+    "hi": 13585,
+    "alpha": 43.3,
+    "beta": 11.3,
+    "Fcam": 4.82
+   },
+   {
+    "k": "H",
+    "G": 295.7,
+    "m": 2,
+    "lamC": 16630,
+    "dl": 2.03,
+    "R": 4048,
+    "npix": 1.98,
+    "lo": 14533,
+    "hi": 18658,
+    "alpha": 46.8,
+    "beta": 14.8,
+    "Fcam": 4.59
+   },
+   {
+    "k": "K",
+    "G": 225.5,
+    "m": 2,
+    "lamC": 21915,
+    "dl": 2.66,
+    "R": 4016,
+    "npix": 1.97,
+    "lo": 19167,
+    "hi": 24571,
+    "alpha": 46.9,
+    "beta": 14.9,
+    "Fcam": 4.57
+   },
+   {
+    "k": "HK",
+    "G": 253.8,
+    "m": 1,
+    "lamC": 19825,
+    "dl": 4.89,
+    "R": 1643,
+    "npix": 2.39,
+    "lo": 14862,
+    "hi": 24797,
+    "alpha": 31.2,
+    "beta": -0.8,
+    "Fcam": 5.5
+   }
+  ]
+ },
+ "layout_measured": {
+  "scale": "100 mm bar = 92 px at 200 dpi; slit rectangle 259 mm vs 254-256 sourced",
+  "collimator_to_grating_mm": 900,
+  "grating_to_first_lens_mm": 230,
+  "grating_to_detector_mm": 555,
+  "deflection_at_collimator_deg": 8.6,
+  "camera_collimator_angle_deg": 33,
+  "slit_to_collimator_in_plane_mm": 730
+ },
+ "verdict_axis": "OFF-AXIS (T06 Sec. 2.1: toroid tilted 4.5 deg to the incoming beam; MAN Sec. 2.2.3: off-axis toroidal mirror); colTilt 4.5 (mirror tilt, half the 9 deg deflection; figure: 8.6 deg)",
+ "recommended": {
+  "preset": "kmosk",
+  "name": "VLT / KMOS K band",
+  "inst": "KMOS",
+  "tel": "VLT 8.2 m",
+  "settings": {
+   "IZ": "kmosiz",
+   "YJ": "kmosyj",
+   "H": "kmosh",
+   "K": "kmosk",
+   "HK": "kmoshk"
+  },
+  "state_common": {
+   "mode": "grating",
+   "D": 8.0,
+   "F": 44.7,
+   "slitW": 0.2,
+   "nObj": 1568,
+   "col": "mirror",
+   "colTilt": 4.5,
+   "layLen": 900,
+   "camLen": 230,
+   "cam": "lens",
+   "gType": "refl",
+   "W": 22.37,
+   "fcam": 145,
+   "psi": 32,
+   "Nx": 2048,
+   "Ny": 2048,
+   "pix": 18
+  },
+  "per_band": {
+   "IZ": {
+    "G": 429.0,
+    "m": 2,
+    "lamB1": 18730,
+    "lamC": 9365,
+    "filt": [
+     8000,
+     10800
+    ]
+   },
+   "YJ": {
+    "G": 368.9,
+    "m": 2,
+    "lamB1": 23860,
+    "lamC": 11930,
+    "filt": [
+     10200,
+     13450
+    ]
+   },
+   "H": {
+    "G": 295.7,
+    "m": 2,
+    "lamB1": 33260,
+    "lamC": 16630,
+    "filt": [
+     14500,
+     18500
+    ]
+   },
+   "K": {
+    "G": 225.5,
+    "m": 2,
+    "lamB1": 43830,
+    "lamC": 21915,
+    "filt": [
+     19500,
+     25000
+    ]
+   },
+   "HK": {
+    "G": 253.8,
+    "m": 1,
+    "lamB1": 19825,
+    "lamC": 19825,
+    "filt": [
+     15000,
+     23800
+    ]
+   }
+  }
+ },
+ "not_found": [
+  "per-band groove densities and blaze (fitted)",
+  "as-built confirmation of the 2006 prescription",
+  "detector tilt",
+  "distances as stated numbers"
+ ],
+ "conflicts": [
+  "slit 254 vs 256 mm",
+  "wheel 5 vs 6 positions",
+  "IZ 0.143 nm/px (Table 6) vs 0.154 from coverage",
+  "2006 design vs as built",
+  "pinhole image pixel/arcsec statements",
+  "R baseline vs as-built"
+ ]
+}

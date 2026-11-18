@@ -1,0 +1,1333 @@
+{
+ "id": "crires",
+ "name": "VLT UT3 / CRIRES+",
+ "date": "2026-11-18",
+ "quote_check": {
+  "pieces": 59,
+  "failures": 0,
+  "order_table_ranges_checked": 591,
+  "order_table_ranges_missing": 0,
+  "figure_readings": 6
+ },
+ "sources": {
+  "D23": {
+   "document": "Dorn, R. J., Bristow, P., Smoker, J. V., et al. 2023, A&A 671, A24, \"CRIRES+ on sky at the ESO Very Large Telescope\" (ADS 2023A&A...671A..24D, title checked on ADS; arXiv:2301.08048v1). Clean text layer; Figs 1-4 and Table 1 on pp. 2-4, Table 2 p. 14",
+   "file": "arXiv_2301.08048.pdf",
+   "url": "https://arxiv.org/pdf/2301.08048"
+  },
+  "O14": {
+   "document": "Oliva, E., Tozzi, A., Ferruzzi, D., et al. 2014, Proc. SPIE 9147, 91477R, \"Concept and optical design of the cross-disperser module for CRIRES+\" (ADS 2014SPIE.9147E..7RO; arXiv:1407.3057v1; 14 pp). The design paper of the cross-dispersion unit: Fig. 2 (layout), Table 1 (design gratings), Tables 3-14 (mirrors, filters, camera)",
+   "file": "arXiv_1407.3057.pdf",
+   "url": "https://arxiv.org/pdf/1407.3057"
+  },
+  "UM": {
+   "document": "ESO, \"CRIRES User Manual\", doc. ESO-254264, version P116.1, published 2025-05-22 (109 pp; the manual of the upgraded instrument). Sec. 2.1, 3.1, 4.6 and Table 20 (the 29 settings with the order table)",
+   "file": "CRIRES_User_Manual_P116.1.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/crires/doc/CRIRES_User_Manual_P116.1.pdf"
+  },
+  "K04": {
+   "document": "Kaeufl, H. U., Ballester, P., Biereichel, P., et al. 2004, Proc. SPIE 5492, 1218, \"CRIRES: A High Resolution Infrared Spectrograph for ESO's VLT\" (ADS 2004SPIE.5492.1218K; ESO copy). The ORIGINAL CRIRES (the TMA and echelle are unchanged): Fig. 2 caption gives the 200 mm TMA beam",
+   "file": "Kaeufl_CRIRES_SPIE_2004.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/crires/doc/Kaeufl_CRIRES_SPIE_2004.pdf"
+  },
+  "UMo": {
+   "document": "ESO, \"CRIRES User Manual\", VLT-MAN-ESO-14500-3486, Period 93 (original CRIRES, 0.086 arcsec pixels, 27 micron Aladdin mosaic); background only",
+   "file": "oCRIRES_User_Manual_P93.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/crires/doc/VLT-MAN-ESO-14500-3486_V93.pdf"
+  },
+  "M114": {
+   "document": "Moorwood, A. 2003, The Messenger 114, 5, \"CRIRES Takes Shape\" (ADS 2003Msngr.114....5M; ADS PUB_PDF link); the echelle scan range",
+   "file": "Messenger114_Moorwood2003_CRIRES_Takes_Shape.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/2003Msngr.114....5M/PUB_PDF"
+  },
+  "H22": {
+   "document": "Holmberg, M. & Madhusudhan, N. 2022, AJ 164, 79, \"A First Look at CRIRES+: Performance Assessment and Exoplanet Spectroscopy\" (ADS 2022AJ....164...79H; arXiv:2206.10621)",
+   "file": "arXiv_2206.10621.pdf",
+   "url": "https://arxiv.org/pdf/2206.10621"
+  },
+  "M156": {
+   "document": "Dorn, R. J., et al. 2014, The Messenger 156, 7, \"CRIRES+: Exploring the Cold Universe at High Spectral Resolution\" (ADS 2014Msngr.156....7D; the whole issue saved, 28 MB). Fig. 3 labels the optical design (\"Three mirror anastigmat collimator/camera\"); no numbers used",
+   "file": "Messenger156_full_issue.pdf",
+   "url": "https://www.eso.org/sci/publications/messenger/archive/no.156-jun14/messenger-no156.pdf"
+  },
+  "ESO": {
+   "document": "ESO CRIRES overview web page (the upgraded CRIRES at UT3); also saved: eso_doc.html, eso_inst.html, eso_tools.html (page indexes, not quoted)",
+   "file": "eso_crires.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/crires.html"
+  }
+ },
+ "parameters": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope and focus",
+   "value": "VLT UT3, Nasmyth B focus, f/15",
+   "unit": "",
+   "source": "ESO",
+   "location": "CRIRES overview page, Summary",
+   "quote": "It is located at the Nasmyth B focus of UT3",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focus (alt)",
+   "value": "Nasmyth focus B of Unit Telescope 3",
+   "unit": "",
+   "source": "D23",
+   "location": "Fig. 1 caption, p. 2",
+   "quote": "installed on Nasmyth focus B of Unit Telescope 3",
+   "tag": "ALT"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Input focal ratio",
+   "value": "f/15",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.2, p. 13",
+   "quote": "the beam from the f/15 focus at the new entrance slit (A) is collimated",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Explorer pupil rule",
+   "value": "D = 8000 mm at f/15 (Nasmyth, as UVES and MUSE)",
+   "unit": "",
+   "source": "project",
+   "location": "web/presets.js header",
+   "quote": "Nasmyth 8000 mm at f/15",
+   "tag": "SOURCED (project rule)"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit widths",
+   "value": "0.2 and 0.4",
+   "unit": "arcsec",
+   "source": "UM",
+   "location": "Sec. 2.1, p. 9",
+   "quote": "Slit width 0.2 and 0.4 arcseconds",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length",
+   "value": "10",
+   "unit": "arcsec",
+   "source": "UM",
+   "location": "Sec. 2.1, p. 9",
+   "quote": "Slit length 10 arcseconds",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length (alt)",
+   "value": "spatial extent reduced from 40 to 10 arcsec",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 3.1, p. 3",
+   "quote": "the spatial extent of the main slit was reduced from 40 to 10 arcseconds",
+   "tag": "ALT"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit mask and place",
+   "value": "movable mask with the 0.2 and 0.4 arcsec slits, at the f/15 focus just before the entrance window (the dichroic)",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 3.2, p. 3",
+   "quote": "A new entrance slit (A) was implemented at a location inside just before the entrance window",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit mask (design paper)",
+   "value": "two interchangeable slits at the f/15 focus, each cut in a mirror that reflects the outer light to the slit viewer",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 2, p. 2",
+   "quote": "Two interchangeable slits (width=0.2” and 0.4”, length=10”) at the F/15 focus",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width at the f/15 focus",
+   "value": "0.116 (0.2 arcsec) and 0.233 (0.4 arcsec)",
+   "unit": "mm",
+   "source": "project",
+   "location": "DERIVED",
+   "quote": "",
+   "tag": "DERIVED: 0.2 arcsec x 8000 mm x 15 / 206265 = 0.1164 mm (f/15 on 8 m = 120 m focal length; 1 arcsec = 0.582 mm)"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit image at the f/8 field stop",
+   "value": "0.062 for the 0.2 arcsec slit",
+   "unit": "mm",
+   "source": "project",
+   "location": "DERIVED",
+   "quote": "",
+   "tag": "DERIVED: 0.1164 mm x 8/15 (f/15 to f/8, sourced below) = 0.0621 mm; O14 Fig. 4 uses 60 micron squares for the 0.2 arcsec slit (quote in Published performance)"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Spectra on the detector",
+   "value": "1 (single object on the slit); spectropolarimetry doubles it (two oppositely polarized spectra)",
+   "unit": "",
+   "source": "D23",
+   "location": "Fig. 24 caption, p. 13",
+   "quote": "resulting in two spectra with opposite polarization being recorded",
+   "tag": "INFERRED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Pre-slit collimator type",
+   "value": "off-axis parabola (gold, cryogenic, 66 mm clear aperture decentered by 91.7 mm)",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 2 bullet list; Table 3, p. 5",
+   "quote": "An off-axis parabolic mirror, which collimates the light passing through the slit",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Pre-slit collimator radius and conic",
+   "value": "R = 1500 mm, conic -1.0 (parabola)",
+   "unit": "",
+   "source": "O14",
+   "location": "Table 3, p. 5",
+   "quote": "Curvature radius 1500 ± 0.5% (goal ± 0.3%) Conic constant -1.0 Parabola",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Pre-slit collimator focal length",
+   "value": "750",
+   "unit": "mm",
+   "source": "O14",
+   "location": "DERIVED from Table 3",
+   "quote": "",
+   "tag": "DERIVED: f = R/2 = 750 mm for a parabola of R = 1500 mm; 50 mm beam x f/15 = 750 mm agrees"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Pre-slit collimated beam",
+   "value": "50",
+   "unit": "mm",
+   "source": "O14",
+   "location": "Sec. 2, p. 2",
+   "quote": "The diameter of the collimated beam is 50mm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Beam (alt)",
+   "value": "collimated beam 50 mm",
+   "unit": "mm",
+   "source": "UM",
+   "location": "Sec. 3.1.2, p. 13",
+   "quote": "which creates a collimated beam with a diameter of 50 mm",
+   "tag": "ALT"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Fold mirrors and filter wheel",
+   "value": "two flat mirrors (Flat1 and Flat2) with the order-sorting long-pass filter wheel between them",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 2, p. 2",
+   "quote": "A flat mirror (Flat1) folding the beam. • Three selectable long-pass filters mounted on a wheel",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser",
+   "value": "six reflection gratings on a cryogenic wheel, one per band Y, J, H, K, L, M; they disperse perpendicular to the echelle",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 3.2, p. 5",
+   "quote": "The cross-disperser wheel contains six reflection gratings, one for each of the bands Y, J, H, K, L and M",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser grooves and blaze (design)",
+   "value": "Y 480 /mm 14.8 deg; J 360 /mm 13.2 deg; H 230 /mm 11.0 deg; K 130 /mm 8.5 deg; L 60 /mm 6.2 deg; M 40 /mm 5.4 deg",
+   "unit": "",
+   "source": "O14",
+   "location": "Table 1, p. 3",
+   "quote": "Y 0.96 − 1.13 50 − 59 1 14.8o 480 ... K 1.93 − 2.54 22 − 29 3 8.5o 130 ... M 3.58 − 5.50 10 − 16 5 5.4o 40",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser order",
+   "value": "first order",
+   "unit": "",
+   "source": "O14",
+   "location": "DERIVED from Table 1",
+   "quote": "",
+   "tag": "DERIVED: 2 sin(blaze) / G is the band center in first order: Y 1.065, J 1.268, H 1.659, K 2.274, L 3.60, M 4.71 micron, each at its band center (the \"Orders\" column of Table 1 is the echelle orders)"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser as built",
+   "value": "the as-built gratings (several off the shelf, others custom) were characterized at PTB; their groove densities are not in any paper reached here",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 3, p. 3",
+   "quote": "Several of the gratings parameters are quite close to those of commercial devices",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Order-sorter filters",
+   "value": "three wheel filters: #1 for Y and J (RG850 glass or coated silica), #2 for H and K, #3 for L and M (CaF2); a fourth position is open",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 3.2, p. 5",
+   "quote": "The order-sorting filter (D) can be se-lectedfromoneofthreefilters(oranopenposition)onawheelto be appropriate to the chosen cross-disperser grating (in pairs YJ, HK, LM)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Filter bands (design transmissions)",
+   "value": "#1 960-1350 nm; #2 1470-1830 and 1950-2500 nm; #3 2900-4200 and 4500-5300 nm",
+   "unit": "",
+   "source": "O14",
+   "location": "Tables 10-13, pp. 6-7",
+   "quote": "T>95% over 1470nm – 1830nm T>95% over 1950nm – 2500nm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser camera type",
+   "value": "lens triplet (BaF2, ZnSe, LiF2), achromatic 0.95-5.4 micron, fixed focus",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 5.3, Table 14, p. 8",
+   "quote": "A lens-triplet camera, achromatic over the full 0.95-5.4 microns range",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Camera speed",
+   "value": "f/8 at the field stop",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 2, p. 2",
+   "quote": "The beam aperture at the focus is F/8",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Camera speed (alt)",
+   "value": "f/8 focus at the field stop",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.2, p. 14",
+   "quote": "brings the collimated beam to an f/8 focus at the field stop",
+   "tag": "ALT"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Cross-disperser camera focal length",
+   "value": "400",
+   "unit": "mm",
+   "source": "O14",
+   "location": "DERIVED",
+   "quote": "",
+   "tag": "DERIVED: 50 mm beam x f/8 = 400 mm (not stated)"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Grating-to-camera and camera-to-spectrograph distances",
+   "value": "grating to lens 1: 330.0 mm; lens 3 to the spectrograph flat (TMA-M0): 387.3 mm; lens spacings 3.3 and 56.6 mm",
+   "unit": "mm",
+   "source": "O14",
+   "location": "Table 14, p. 8",
+   "quote": "Grating – Lens 1 330.0 Lens 3 – Mirror TMA0 387.3",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Pre-optics: collimator, cross-disperser, camera (the \"cross-dispersion unit\", before the echelle)",
+   "parameter": "Spectrograph entrance flat",
+   "value": "flat Spec-Flat1, 52 x 12 mm clear aperture, at the entrance of the TMA spectrometer; the field stop (a slightly oversized slit) sits at the f/8 focus beside it",
+   "unit": "",
+   "source": "O14",
+   "location": "Table 6, p. 5",
+   "quote": "Spec-flat 1 mirror (at the entrance of TMA spectrometer, TMA-M0 in Fig. 6) ... Clear aperture 52 x 12 Rectangular aperture",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Spectrograph optics",
+   "value": "three-mirror anastigmat (TMA1-3) used in double pass, first as collimator and then as camera, with the echelle on a rotating stage; unchanged from the original CRIRES",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 2, p. 2",
+   "quote": "The spectrometer optics, consisting of 3 mirrors (TMA1, TMA2, TMA3) used in double pass and one echelle grating mounted on a rotating stage",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "TMA role (user manual)",
+   "value": "TMA acts first as a collimator and then as a camera to image the spectrum on the three H2RG detectors",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.3, p. 14",
+   "quote": "plus a TMA (three-mirror anastigmatic) which acts first as a collimator and then as a camera",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Collimated beam on the echelle",
+   "value": "200",
+   "unit": "mm",
+   "source": "K04",
+   "location": "Fig. 2 caption, p. 3 (original CRIRES, same TMA)",
+   "quote": "The main collimator, a three-mirror anastigmat, produces a 200mm collimated beam which illuminates a R2 Echelle grating (31.6 gr/mm)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "TMA focal length",
+   "value": "NOT PUBLISHED; see Notes (the dispersion table, the order spacing and the pixel scale all give 1.4 m)",
+   "unit": "",
+   "source": "project",
+   "location": "NOT FOUND",
+   "quote": "",
+   "tag": "EFFECTIVE (Notes)"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle groove density",
+   "value": "31.6",
+   "unit": "/mm",
+   "source": "UM",
+   "location": "Sec. 3.1.3, p. 14",
+   "quote": "It consists of a 40 x 20 cm, 31.6 lines/mm, 63,5deg blaze echelle grating",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle blaze",
+   "value": "63.5 (R2: tan = 2.0)",
+   "unit": "deg",
+   "source": "UM",
+   "location": "Sec. 3.1.3, p. 14",
+   "quote": "31.6 lines/mm, 63,5deg blaze echelle grating",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle size",
+   "value": "400 x 200 (the mm figure is the grating size; the ruled area is not stated)",
+   "unit": "mm",
+   "source": "UM",
+   "location": "Sec. 3.1.3, p. 14",
+   "quote": "40 x 20 cm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle size (alt)",
+   "value": "40 x 20 cm, 31.6 lines/mm, 63.5 deg blaze (original CRIRES)",
+   "unit": "",
+   "source": "UMo",
+   "location": "Overview table, p. xiii",
+   "quote": "Echelle grating 40 × 20cm, 31.6 lines/mm, 63.5o blaze angle",
+   "tag": "ALT"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle type",
+   "value": "R2",
+   "unit": "",
+   "source": "K04",
+   "location": "Fig. 2 caption, p. 3",
+   "quote": "R2 Echelle grating (31.6 gr/mm)",
+   "tag": "ALT"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle tilt range",
+   "value": "12 (the echelle scan range)",
+   "unit": "deg",
+   "source": "M114",
+   "location": "Cryomechanical System, p. 8",
+   "quote": "Cryogenic mechanisms are required for scanning the prism (2 deg.) and echelle grating (12 deg.)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle gamma (off-plane) and theta",
+   "value": "NOT PUBLISHED",
+   "unit": "",
+   "source": "project",
+   "location": "NOT FOUND",
+   "quote": "",
+   "tag": "NOT FOUND"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle angle, two settings",
+   "value": "H1582: 66.3 deg; K2148: 64.0 deg (not the geometric incidence angle; see Notes)",
+   "unit": "deg",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "H1582 wavelength setting: minimum R = 100,000; average R = 104,800 ± 2600 (echelle grating angle 66.3°)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Spectrograph: TMA collimator and camera, echelle",
+   "parameter": "Echelle angle, K2148",
+   "value": "64.0 deg",
+   "unit": "deg",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "K2148 wavelength setting: minimum R = 92,000; average R = 96,500 ± 3200 (echelle grating angle 64.0°)",
+   "tag": "ALT"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Detector mosaic",
+   "value": "three Hawaii 2RG, 2048 x 2048 each, 6144 x 2048 in total, 18 micron pixels (111 x 37 mm), cutoff 5.3 micron",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.4, p. 14",
+   "quote": "span over 6144 x 2048 pixels (111mm x 37mm) at a pixel size of 18μm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Detector (alt)",
+   "value": "three Hawaii 2RG detectors with a 5.3 micron cutoff",
+   "unit": "",
+   "source": "D23",
+   "location": "Abstract, p. 1",
+   "quote": "a new detector focal plane array of three Hawaii 2RG detectors with a 5.3 µm cutoff wavelength",
+   "tag": "ALT"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Gaps between detectors",
+   "value": "1.89 mm (105 px) between 1 and 2; 1.8 mm (100 px) between 2 and 3",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.4, p. 14",
+   "quote": "The gap between detectors 1 and 2 (left and centre) is 1.89 mm, which corresponds to 105 pixels, while the gap between detectors 2 and 3 (centre and right) is 1.8 mm (100 pixels)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Mosaic width including the gaps",
+   "value": "6349 px (114.3 mm)",
+   "unit": "",
+   "source": "UM",
+   "location": "DERIVED",
+   "quote": "",
+   "tag": "DERIVED: 6144 + 105 + 100 = 6349 px; 6349 x 0.018 = 114.3 mm; = 111 + 1.89 + 1.8 mm. The explorer has one chip: use Nx = 6349 (the gaps are then spanned, not removed)"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Detector temperature",
+   "value": "35",
+   "unit": "K",
+   "source": "D23",
+   "location": "Sec. 3.5, p. 6",
+   "quote": "The detectors are operated at 35 Kelvin",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Pixel scale along the slit",
+   "value": "0.056",
+   "unit": "arcsec/px",
+   "source": "UM",
+   "location": "Sec. 4.6.7, p. 48",
+   "quote": "The pixel scale of the science detector is 56 milli-arcsec",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Pixel scale (alt, Holmberg+22)",
+   "value": "0.059 (K band)",
+   "unit": "arcsec/px",
+   "source": "H22",
+   "location": "Sec. 2, p. 4",
+   "quote": "the pixel scale in terms of an-gular size is 0.059”",
+   "tag": "ALT"
+  },
+  {
+   "section": "Detectors",
+   "parameter": "Slit image length on the detector",
+   "value": "179 px for 10 arcsec",
+   "unit": "px",
+   "source": "UM",
+   "location": "DERIVED",
+   "quote": "",
+   "tag": "DERIVED: 10 / 0.056 = 179 px; the 10 arcsec slit is 179 px of the 2048 px height"
+  },
+  {
+   "section": "Wavelength coverage and settings",
+   "parameter": "Total range",
+   "value": "0.95-5.3 micron (Y, J, H, K, L, M)",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 2.1, p. 9",
+   "quote": "Wavelength coverage 0.95 - 5.3 μm (YJHKLM bands)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Wavelength coverage and settings",
+   "parameter": "Number of settings",
+   "value": "29 fixed settings; no free settings",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.1, p. 44",
+   "quote": "A total of 29 different settings is required to cover the full operating range of CRIRES",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Wavelength coverage and settings",
+   "parameter": "Setting names",
+   "value": "the name is the band letter plus the central wavelength in nm of the setting (column 1 of Table 20)",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.1, p. 44",
+   "quote": "The naming convention is given by the central wavelength of the corresponding setting",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Wavelength coverage and settings",
+   "parameter": "Setting gaps",
+   "value": "1356-1423 nm, 1854-1908 nm, 2527-2725 nm are never covered",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.1, p. 44",
+   "quote": "1356- 1423nm, 1854-1908nm, and 2527-2725nm",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Wavelength coverage and settings",
+   "parameter": "Order tables",
+   "value": "197 order rows (setting, order, wavelength range on each of the three detectors) for the 29 settings",
+   "unit": "",
+   "source": "UM",
+   "location": "Table 20, pp. 90-95",
+   "quote": "Table 20: Wavelength coverage of CRIRES settings for the three detectors",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Resolving power, design",
+   "value": "R about 100,000 (0.2 arcsec) and 50,000 (0.4 arcsec)",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 3.2, p. 3",
+   "quote": "0.2” (resolving power ∼100,000) and a 0.4” slit (resolving power ∼50,000)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Minimum R guaranteed",
+   "value": "86,000 (0.2 arcsec) and 43,000 (0.4 arcsec)",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 3.1.1, p. 10",
+   "quote": "0.2” (minimum resolving power 86,000) and a 0.4” slit (minimum resolving power 43,000)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "R measured, H1582",
+   "value": "minimum 100,000; average 104,800 +- 2600 (OH sky lines, 0.2 arcsec, MEASURED)",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "H1582 wavelength setting: minimum R = 100,000; average R = 104,800 ± 2600",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "R measured, K2148",
+   "value": "minimum 92,000; average 96,500 +- 3200 (OH sky lines, 0.2 arcsec, MEASURED)",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "K2148 wavelength setting: minimum R = 92,000; average R = 96,500 ± 3200",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "R at the lowest echelle angles",
+   "value": "as low as 86,000 (L3244, L3262, M4187, M4211, M4266); at least 92,000 in all other settings",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "can exhibit minimum spectral resolving power values as low as R = 86,000 (0.2” slit)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "R with a good AO PSF",
+   "value": "around 110,000",
+   "unit": "",
+   "source": "UM",
+   "location": "Sec. 4.6.8, p. 49",
+   "quote": "Higher resolutions - consistently around 110,000 - have been achieved for good AO corrections",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Dispersion, K band",
+   "value": "about 0.9 km/s per pixel",
+   "unit": "",
+   "source": "H22",
+   "location": "Sec. 2, p. 4",
+   "quote": "The dispersion in the K-band corresponds to around ∼0.9 km s−1 per pixel",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Spot size used for the design",
+   "value": "60 micron squares = the 0.2 arcsec slit (the circles mark the diffraction FWHM)",
+   "unit": "",
+   "source": "O14",
+   "location": "Sec. 4, p. 4",
+   "quote": "The size of the squares is 60 microns. This corresponds to the width of the narrowest slit (0.2”)",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Throughput",
+   "value": "10-15% higher than the original CRIRES (preliminary, AO, 0.4 arcsec)",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 4.8, p. 12",
+   "quote": "the throughput is found to be about 10-15% higher than the original CRIRES instrument",
+   "tag": "SOURCED"
+  },
+  {
+   "section": "Resolving power and other performance",
+   "parameter": "Era",
+   "value": "in operation since 1 October 2021 (installed at UT3 early 2020); the original CRIRES ran 2006-2014 at UT1",
+   "unit": "",
+   "source": "D23",
+   "location": "Sec. 2, p. 3; Sec. 1",
+   "quote": "After commissioning, the CRIRES+ in-strument has been in regular operations since 1 October 2021",
+   "tag": "SOURCED"
+  }
+ ],
+ "layout": {
+  "figures": "O14 Fig. 2, Fig. 3; D23 Figs 2-4; UM Fig. 4, Fig. 36",
+  "scale": "1.17 mm/px at 250 dpi from 330 mm grating-lens1 (SOURCED); echelle reads 405 mm vs 400 mm",
+  "collimator_verdict": "OFF-AXIS (INFERRED): TMA, slit/field stop outside the returning beam; pre-slit parabola decentered 91.7 mm; tilt unpublished (SCHEMATIC)"
+ },
+ "recommended": {
+  "default": "K2192, 0.2\"",
+  "settings": [
+   "K2192, 0.2″",
+   "H1582, 0.2″",
+   "K2148, 0.2″",
+   "Y1029, 0.2″",
+   "J1228, 0.2″",
+   "L3262, 0.2″ (needs LAM_MAX)",
+   "M4266, 0.2″ (needs LAM_MAX)"
+  ],
+  "state": {
+   "mode": "echelle",
+   "D": 8.0,
+   "F": 8,
+   "slitW": 0.2,
+   "slitL": 10,
+   "nObj": 1,
+   "col": "mirror",
+   "W": 175,
+   "fcam": 1448,
+   "cam": "mirror",
+   "eG": 31.6,
+   "eDelta": 63.5,
+   "gamma": 0,
+   "theta": 0,
+   "gLen": 400,
+   "xd": "grating",
+   "Nx": 6349,
+   "Ny": 2048,
+   "pix": 18,
+   "xG_by_band": {
+    "Y": 137.1,
+    "J": 102.9,
+    "H": 65.7,
+    "K": 37.1,
+    "L": 17.1,
+    "M": 11.4
+   },
+   "xPsi": 0,
+   "filt": {
+    "Y": [
+     9480,
+     11200
+    ],
+    "J": [
+     11160,
+     13560
+    ],
+    "H": [
+     14230,
+     18540
+    ],
+    "K": [
+     19080,
+     25270
+    ],
+    "L": [
+     28100,
+     41500
+    ],
+    "M": [
+     33400,
+     53000
+    ]
+   }
+  },
+  "per_setting": {
+   "Y1029": {
+    "lamC_nm": 1029.31,
+    "m_ref": 55,
+    "alpha_deg": 63.44,
+    "eTilt": -0.06,
+    "xG": 137.1,
+    "model": {
+     "R": 89478,
+     "pixScale": 0.0561,
+     "dlpix": 0.032,
+     "nOrders": 10
+    },
+    "table": {
+     "dlpix_A": 0.032,
+     "nOrders": 9
+    },
+    "orders_model_vs_table_nm": [
+     [
+      59,
+      949.7,
+      968.6,
+      949.556,
+      968.753
+     ],
+     [
+      58,
+      966.1,
+      985.3,
+      965.933,
+      985.463
+     ],
+     [
+      57,
+      983,
+      1002.6,
+      982.886,
+      1002.754
+     ],
+     [
+      56,
+      1000.6,
+      1020.5,
+      1000.44,
+      1020.655
+     ],
+     [
+      55,
+      1018.8,
+      1039.1,
+      1018.63,
+      1039.2
+     ],
+     [
+      54,
+      1037.6,
+      1058.3,
+      1037.497,
+      1058.426
+     ],
+     [
+      53,
+      1057.2,
+      1078.3,
+      1057.032,
+      1078.362
+     ],
+     [
+      52,
+      1077.5,
+      1099,
+      1077.359,
+      1099.051
+     ],
+     [
+      51,
+      1098.7,
+      1120.5,
+      1098.447,
+      1120.543
+     ]
+    ]
+   },
+   "J1228": {
+    "lamC_nm": 1228.488,
+    "m_ref": 46,
+    "alpha_deg": 63.24,
+    "eTilt": -0.26,
+    "xG": 102.9,
+    "model": {
+     "R": 88360,
+     "pixScale": 0.0561,
+     "dlpix": 0.0385,
+     "nOrders": 10
+    },
+    "table": {
+     "dlpix_A": 0.0385,
+     "nOrders": 8
+    },
+    "orders_model_vs_table_nm": [
+     [
+      50,
+      1118.5,
+      1141,
+      1118.324,
+      1141.13
+     ],
+     [
+      49,
+      1141.4,
+      1164.3,
+      1141.162,
+      1164.437
+     ],
+     [
+      48,
+      1165.1,
+      1188.5,
+      1164.943,
+      1188.696
+     ],
+     [
+      47,
+      1189.9,
+      1213.8,
+      1189.744,
+      1213.979
+     ],
+     [
+      46,
+      1215.8,
+      1240.2,
+      1215.616,
+      1240.355
+     ],
+     [
+      45,
+      1242.8,
+      1267.8,
+      1242.588,
+      1267.894
+     ],
+     [
+      44,
+      1271.1,
+      1296.6,
+      1270.837,
+      1296.658
+     ],
+     [
+      43,
+      1300.6,
+      1326.8,
+      1300.359,
+      1326.768
+     ]
+    ]
+   },
+   "H1582": {
+    "lamC_nm": 1582.339,
+    "m_ref": 36,
+    "alpha_deg": 64.16,
+    "eTilt": 0.66,
+    "xG": 65.7,
+    "model": {
+     "R": 91286,
+     "pixScale": 0.0561,
+     "dlpix": 0.0476,
+     "nOrders": 10
+    },
+    "table": {
+     "dlpix_A": 0.0476,
+     "nOrders": 8
+    },
+    "orders_model_vs_table_nm": [
+     [
+      39,
+      1446.1,
+      1474,
+      1445.821,
+      1474.154
+     ],
+     [
+      38,
+      1484.2,
+      1512.8,
+      1483.892,
+      1512.957
+     ],
+     [
+      37,
+      1524.3,
+      1553.7,
+      1524.015,
+      1553.844
+     ],
+     [
+      36,
+      1566.6,
+      1596.8,
+      1566.354,
+      1596.996
+     ],
+     [
+      35,
+      1611.4,
+      1642.5,
+      1611.095,
+      1642.589
+     ],
+     [
+      34,
+      1658.8,
+      1690.8,
+      1658.462,
+      1690.855
+     ],
+     [
+      33,
+      1709,
+      1742,
+      1708.669,
+      1741.961
+     ],
+     [
+      32,
+      1762.4,
+      1775.6,
+      1761.982,
+      1796.351
+     ]
+    ]
+   },
+   "K2192": {
+    "lamC_nm": 2192.449,
+    "m_ref": 26,
+    "alpha_deg": 64.24,
+    "eTilt": 0.74,
+    "xG": 37.1,
+    "model": {
+     "R": 89951,
+     "pixScale": 0.0561,
+     "dlpix": 0.0657,
+     "nOrders": 8
+    },
+    "table": {
+     "dlpix_A": 0.0657,
+     "nOrders": 7
+    },
+    "orders_model_vs_table_nm": [
+     [
+      29,
+      1946.2,
+      1983.6,
+      1945.903,
+      1983.862
+     ],
+     [
+      28,
+      2015.7,
+      2054.4,
+      2015.429,
+      2054.735
+     ],
+     [
+      27,
+      2090.3,
+      2130.5,
+      2090.11,
+      2130.829
+     ],
+     [
+      26,
+      2170.7,
+      2212.5,
+      2170.514,
+      2212.757
+     ],
+     [
+      25,
+      2257.6,
+      2300.9,
+      2257.283,
+      2301.199
+     ],
+     [
+      24,
+      2351.6,
+      2396.8,
+      2351.27,
+      2396.977
+     ],
+     [
+      23,
+      2453.9,
+      2501,
+      2453.362,
+      2501.029
+     ]
+    ]
+   },
+   "K2148": {
+    "lamC_nm": 2147.646,
+    "m_ref": 26,
+    "alpha_deg": 61.92,
+    "eTilt": -1.58,
+    "xG": 37.1,
+    "model": {
+     "R": 81492,
+     "pixScale": 0.0561,
+     "dlpix": 0.0712,
+     "nOrders": 9
+    },
+    "table": {
+     "dlpix_A": 0.071,
+     "nOrders": 6
+    },
+    "orders_model_vs_table_nm": [
+     [
+      28,
+      1972.5,
+      2014.4,
+      1972.256,
+      2014.734
+     ],
+     [
+      27,
+      2045.5,
+      2089.1,
+      2045.34,
+      2089.352
+     ],
+     [
+      26,
+      2124.2,
+      2169.4,
+      2124.02,
+      2169.707
+     ],
+     [
+      25,
+      2209.2,
+      2256.2,
+      2208.96,
+      2256.446
+     ],
+     [
+      24,
+      2301.2,
+      2350.2,
+      2300.945,
+      2350.327
+     ],
+     [
+      23,
+      2401.3,
+      2452.4,
+      2400.875,
+      2452.223
+     ]
+    ]
+   },
+   "L3262": {
+    "lamC_nm": 3262.14,
+    "m_ref": 17,
+    "alpha_deg": 61.19,
+    "eTilt": -2.31,
+    "xG": 17.1,
+    "model": {
+     "R": 75620,
+     "pixScale": 0.0561,
+     "dlpix": 0.1115,
+     "nOrders": 9
+    },
+    "table": {
+     "dlpix_A": 0.1112,
+     "nOrders": 6
+    },
+    "orders_model_vs_table_nm": [
+     [
+      19,
+      2886,
+      2949.3,
+      2885.632,
+      2949.685
+     ],
+     [
+      18,
+      3046.3,
+      3113.1,
+      3045.964,
+      3113.551
+     ],
+     [
+      17,
+      3225.5,
+      3296.2,
+      3225.143,
+      3296.657
+     ],
+     [
+      16,
+      3427.1,
+      3502.3,
+      3426.699,
+      3502.63
+     ],
+     [
+      15,
+      3655.6,
+      3735.7,
+      3655.022,
+      3735.98
+     ],
+     [
+      14,
+      3916.7,
+      4001.3,
+      3915.904,
+      4003.132
+     ]
+    ]
+   },
+   "M4266": {
+    "lamC_nm": 4265.706,
+    "m_ref": 13,
+    "alpha_deg": 61.18,
+    "eTilt": -2.32,
+    "xG": 11.4,
+    "model": {
+     "R": 71871,
+     "pixScale": 0.0561,
+     "dlpix": 0.1459,
+     "nOrders": 7
+    },
+    "table": {
+     "dlpix_A": 0.1472,
+     "nOrders": 6
+    },
+    "orders_model_vs_table_nm": [
+     [
+      16,
+      3427,
+      3502.1,
+      3426.62,
+      3502.59
+     ],
+     [
+      15,
+      3655.4,
+      3735.6,
+      3655.17,
+      3736.18
+     ],
+     [
+      14,
+      3916.5,
+      4002.4,
+      3916.35,
+      4003.11
+     ],
+     [
+      13,
+      4217.8,
+      4310.3,
+      4217.68,
+      4311.07
+     ],
+     [
+      12,
+      4569.3,
+      4669.5,
+      4569.18,
+      4670.28
+     ],
+     [
+      11,
+      4984.7,
+      5094,
+      4984.48,
+      5094.69
+     ]
+    ]
+   }
+  }
+ },
+ "pub": [
+  {
+   "what": "pixel scale 0.056 arcsec/px",
+   "q": "pixScale",
+   "value": 0.056,
+   "info": true,
+   "src": "UM Sec. 4.6.7 (circular: W fitted to it)"
+  },
+  {
+   "what": "R 104,800 +- 2600 measured, H1582, 0.2 arcsec",
+   "q": "R",
+   "value": 104800,
+   "info": true,
+   "src": "UM Sec. 4.6.8; model 91,286 (13% low)"
+  },
+  {
+   "what": "R 96,500 +- 3200 measured, K2148",
+   "q": "R",
+   "value": 96500,
+   "info": true,
+   "src": "UM Sec. 4.6.8; model 81,492 (16% low)"
+  },
+  {
+   "what": "A/px at the middle of each order: Table 20 det. 2",
+   "q": "dlpixAt",
+   "tol": 0.01,
+   "src": "UM Table 20 (29 settings; ratio 1.000 +- 0.005)"
+  },
+  {
+   "what": "order ends ordLo/ordHi: Table 20 det. 1 start and det. 3 end",
+   "q": "ordLo/ordHi",
+   "tol": 0.003,
+   "src": "UM Table 20; see data/round10/crires_order_table.tsv; e.g. H1582 order 36: 15663.54-15969.96 A; K2192 order 26: 21705.14-22127.57 A; Y1029 order 55: 10186.3-10392.0 A; J1228 order 46: 12156.16-12403.55 A"
+  }
+ ],
+ "not_found": [
+  "The TMA focal length and the beam diameter of the CRIRES+ spectrograph: only the original CRIRES gives \"200mm\" (K04, for a different pre-slit f-ratio). Fitted values are in Notes (EFFECTIVE).",
+  "The echelle gamma (off-plane) and theta (in-plane half-angle), and the ruled (not blank) size of the echelle.",
+  "The as-built cross-disperser gratings (groove densities, blaze, ruled sizes): Follert et al. 2016, SPIE 9912, 99122B, \"Characterizing the cross dispersion reflection gratings of CRIRES+\" (ADS 2016SPIE.9912E..2BF; DOI 10.1117/12.2232569) is behind SPIE; only the design values (O14 Table 1) are used. The CDU angles per setting (the angle between incident and diffracted beams) are not published.",
+  "The cross-disperser unit design papers behind the SPIE paywall: Follert et al. 2014, SPIE 9147, 914719, \"CRIRES+: a cross-dispersed high-resolution infrared spectrograph for the ESO VLT\" (ADS 2014SPIE.9147E..19F, DOI 10.1117/12.2054197); Lizon et al. 2014, SPIE 9147, 91477S (ADS 2014SPIE.9147E..7SL, DOI 10.1117/12.2054800, opto-mechanical design of the CDU); Dorn et al. 2016, SPIE 9908, 99080I (ADS 2016SPIE.9908E..0ID); Dorn et al. 2022, SPIE 12184, 121841F (ADS 2022SPIE12184E..1FD); Oliva et al. 2012, SPIE 8446, 84462N (ADS 2012SPIE.8446E..2NO). No arXiv versions exist except O14. The user can supply these PDFs.",
+  "The collimator tilt and the fold geometry of the TMA (vertex spacings, off-axis offsets); the echelle-to-TMA distance. Only a perspective figure (O14 Fig. 2) exists.",
+  "The vertical (cross-dispersion) position of each order on the chip as a table; only Figure 36 of UM (H1582) was read.",
+  "Usage statistics of the settings (no source); the recommendation of settings is a judgment from the sources."
+ ],
+ "conflicts": [
+  "Pixel scale along the slit: 0.056 arcsec/px (UM Sec. 4.6.7, current) vs 0.059 (H22, K band, from P109.4 era) vs 0.086 arcsec at 27 micron = 0.0573 at 18 micron for the original CRIRES (UMo). Use 0.056 (current manual, whose change log lists \"Pixel scale of science detectors updated\").",
+  "Minimum R: 80,000 and 40,000 (H22, quoting the P109.4 manual) vs 86,000 and 43,000 (UM P116.1, after the March 2022 focus optimization) vs \"minimum R = 92,000 in most settings\" (UM Sec. 4.6.8, measured). Use the P116.1 values.",
+  "Echelle angle vs the order table: the quoted angles (H1582 66.3 deg, K2148 64.0 deg) do not follow m lambda = 2 d sin(angle) cos(gamma) with one gamma: the setting centers give sin(alpha) cos(gamma) = 0.8999 (H1582, order 36 at 1582.339 nm) and 0.8824 (K2148, order 26 at 2147.646 nm), i.e. 64.2 and 61.9 deg if gamma = 0, 2.1 deg below the quoted angles in both cases (or cos(gamma) = 0.982, gamma = 10.9 deg for both). The quoted angle is an encoder angle or the model includes an unpublished offset; the explorer cannot use it. Fig. 32 of UM (K band, \"echelle angle=65.5\") would match K2217 (65.6 deg at gamma = 0) but the setting is not named.",
+  "Beam on the echelle: 200 mm (K04, original CRIRES, f/7.5 pre-slit) vs about 175 mm from the pixel scale, dispersion and order spacing together (Notes). A 200 mm beam at the 63.5 deg blaze has a 447 mm footprint on a 400 mm grating; the projected size of the grating, 400 cos(63.5 deg) = 179 mm, is close to the fitted beam.",
+  "Instrument name: the manual calls the upgraded instrument \"CRIRES\" and the original \"oCRIRES\"; papers write \"CRIRES+\"."
+ ],
+ "notes": [
+  "See crires.md Notes: L and M need LAM_MAX > 2.6 micron; the XD is before the echelle (equivalent grating); TMA f, beam EFFECTIVE; echelle angle not geometric."
+ ]
+}

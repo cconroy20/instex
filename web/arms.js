@@ -10,8 +10,11 @@
    data/round5/): a node { cut (A), w (transition width, A), aoi (deg), R: branch reflected, T: branch transmitted, src };
    a branch is a preset id (an arm) or another node.  split: "collimated" -- the dichroics stand in the collimated beam
    after one slit and collimator; "focus" -- in the light spreading from the telescope's focus (Ftel), where MIKE's
-   one slit stands (slit: "shared"), each arm then with its relay (and its own slit, X-Shooter); "preslit" -- in a
-   collimated beam ahead of the slits (UVES: Wpre wide, a doublet focusing each arm on its slit).
+   one slit stands (slit: "shared"), each arm then with its relay (and its own slit, X-Shooter), or with none (relay
+   null: MODS, each arm's collimator in the diverging beam at its focal length from the slit); "preslit" -- in a
+   collimated beam ahead of the slits (UVES: Wpre wide, a doublet focusing each arm on its slit); "echelle" -- in the
+   collimated beam after one slit, collimator and echelle that the arms share (KPF), each arm then with its own
+   cross-disperser, camera and detector.
 
    The layout is schematic in one respect, stated in its caption: the angles at the dichroics (180 - 2 AOI) and at the
    gratings are true, but which way each element turns the light and the distances between the elements are chosen
@@ -85,6 +88,21 @@ const GROUPS = {
   "CARMENES": { split: "focus", Ftel: 10, relay: "fibers, F/N system", note: "CARMENES's dichroic stands in the converging beam ahead of the fibers; the angles of the dichroic and the fold are inferred",
     tree: { cut: 9600, w: 300, aoi: 45, noAoi: true, src: "Q16 Sec. 2.1 (960 nm); width and AOI INFERRED", R: "carmenesvis",
       T: { fold: 45, src: "C25 (the additional NIR mirror); 45 deg INFERRED", to: "carmenesnir" } } },
+  // MODS (data/round10/mods.md; the OSU Code V files): one slit mask, a field lens, then a dichroic at 5650 A, 35 deg in
+  // the diverging f/15 beam (z = 275 mm), reflecting the red to a fold (38 deg) and passing the blue; each channel's
+  // off-axis collimator takes the diverging beam straight from the dichroic, with no relay; the width (10-90%) DERIVED
+  // from the measured MODS1 curve
+  "MODS": { split: "focus", slit: "shared", Ftel: 15, relay: null, shared: { top: ["D"], m: ["slitW", "nObj"] },
+    note: "MODS's dichroic and fold stand in the diverging beam after the slit, and each channel's collimator takes the light straight from them",
+    tree: { cut: 5650, w: 180, aoi: 35, src: "MODS manual Sec. 2.4 (50% at 5650 A); the MODS1 curve (width DERIVED); Code V (35 deg)",
+      R: { fold: 38, rel: 1, src: "Code V: the red fold, AOI 38 deg (DERIVED)", to: "modsr" }, T: "modsb" } },
+  // KPF (data/round9/kpf.md; Gibson et al. 2024 Table 1 and Fig. 3): the arms share the slit (the reformatter), the
+  // primary collimator and the echelle; the dichroic (590 nm, the green reflected) stands in the white pupil's beam after
+  // the secondary collimator; its angle MEASURED from Fig. 3 (31 +-4 deg), its width NOT FOUND (200 A INFERRED).  The
+  // intermediate focus and the 1280 mm transfer collimator between the echelle and the dichroic are not drawn
+  "KPF": { split: "echelle", shared: { top: ["D", "F"], m: ["slitW", "nObj", "W", "col", "colTilt", "telF", "fibAp", "eG", "eDelta", "gamma", "theta", "eTilt", "gLen", "wpT"] },
+    note: "KPF's arms share the echelle; the transfer optics between the echelle and the dichroic are not drawn",
+    tree: { cut: 5900, w: 200, aoi: 31, src: "Gibson et al. 2024 Table 1 (590 nm); AOI MEASURED from Fig. 3; width INFERRED", R: "kpfg", T: "kpfr" } },
   // MIKE (B03 Secs. 2.1, 2.3; LCO manual, May 2004): one slit at the f/11 focus; the dichroic, "the first optical element
   // beyond the slit", at an incidence of 30 deg, reflects the blue; each arm's injection optics then feed its lens. The
   // crossover is ~495 nm since 2004 (455 nm before); the width is the original dichroic's "80% reflectance by 440nm and
@@ -169,7 +187,7 @@ root.ARMSAPP = function (H) {
   // ---- one arm's optics in its own frame: the light arrives along +x at the origin (the disperser, or for an arm with
   // its own slit, the slit); flip mirrors the arm about its axis.  Returns the primitives, the labels, and the convex
   // pieces that the layout keeps apart
-  function unit(a, flip, tele, inj) {
+  function unit(a, flip, tele, inj, pre0 = null, xdOnly = false) {
     const P = a.P, D = a.D, prims = [], labs = [], pieces = [];
     if (D.bad || !D.c) return { prims, labs, pieces: [[v(0, -1), v(1, 0), v(0, 1)]], bad: true };
     const ech = P.mode === "echelle", W = P.W, Wp = Math.max(W, D.Wp || W), fK = D.fcam, tint = bandRGB(D.range[0], D.range[1]);
@@ -180,7 +198,9 @@ root.ARMSAPP = function (H) {
     const chain = [];
     let innerAt = null;                           // (the pulses: an arm's own slit to its collimator, for height y)
     if (tele) {
-      const fCa = D.fcol || P.F * W;
+      // (pre0, a split with no relay: the light arrives pre0.w wide, pre0.path from the slit, so the collimator stands
+      // the rest of its focal length on, and the beam widens from pre0.w at the arm's start)
+      const w0 = pre0 ? pre0.w : 0, fCa = Math.max(0.3 * (D.fcol || P.F * W), (D.fcol || P.F * W) - (pre0 ? pre0.path : 0));
       if (!inj) {
         prims.push({ k: "slit", p: v(0, 0), ax: v(1, 0), h: 0.05 * W + 6 });
         labs.push({ at: v(0, 0), txt: "slit", sub: sig(P.slitW, 2) + "″", pri: 1, dir: v(0, -1), optional: true });
@@ -191,20 +211,20 @@ root.ARMSAPP = function (H) {
         const M = v(fCa, 0), r = rot(v(-1, 0), RET), nM = nrm(sub(r, v(1, 0))), tM = perp(nM), hf = 0.5 * W / Math.cos(RET / 2), hm = 1.12 * hf;
         const gapC = Math.max(1.3 * W + 40, 1.7 * W / Math.sin(RET));
         O = ad(M, sc(r, gapC)); dIn = r; cs = -1;
-        innerAt = y => { const pM = ad(M, sc(tM, y / (0.5 * W) * hf)); return { pts: [v(0, 0), pM], p: pM, d: r }; };
-        prims.push({ k: "poly", p: [v(0, 0), ad(M, sc(tM, hf)), ad(M, sc(tM, -hf))], fill: bf, stroke: bs });
+        innerAt = y => { const pM = ad(M, sc(tM, y / (0.5 * W) * hf)); return { pts: [v(0, y * w0 / W), pM], p: pM, d: r }; };
+        prims.push({ k: "poly", p: [v(0, w0 / 2), ad(M, sc(tM, hf)), ad(M, sc(tM, -hf)), v(0, -w0 / 2)], fill: bf, stroke: bs });
         const n = perp(r);
         prims.push({ k: "poly", p: [ad(M, sc(tM, hf)), ad(O, sc(n, -W / 2)), ad(O, sc(n, W / 2)), ad(M, sc(tM, -hf))], fill: bf, stroke: bs });
         prims.push({ k: "mirror", c: M, t: tM, n: nM, h: hm });
-        chain.push(v(0, 0.08 * W), v(0, -0.08 * W), ad(M, sc(tM, hm)), ad(M, sc(tM, -hm)), ad(ad(M, sc(tM, hm)), sc(nM, -0.1 * W)), ad(ad(M, sc(tM, -hm)), sc(nM, -0.1 * W)));
+        chain.push(v(0, Math.max(0.08 * W, w0 / 2)), v(0, -Math.max(0.08 * W, w0 / 2)), ad(M, sc(tM, hm)), ad(M, sc(tM, -hm)), ad(ad(M, sc(tM, hm)), sc(nM, -0.1 * W)), ad(ad(M, sc(tM, -hm)), sc(nM, -0.1 * W)));
       } else {
         const gapC = (ech ? 1.7 : 1.3) * W + 40;
-        prims.push({ k: "poly", p: [v(0, 0), v(fCa, W / 2), v(fCa, -W / 2)], fill: bf, stroke: bs });
+        prims.push({ k: "poly", p: [v(0, w0 / 2), v(fCa, W / 2), v(fCa, -W / 2), v(0, -w0 / 2)], fill: bf, stroke: bs });
         prims.push({ k: "poly", p: [v(fCa, W / 2), v(fCa + gapC, W / 2), v(fCa + gapC, -W / 2), v(fCa, -W / 2)], fill: bf, stroke: bs });
         prims.push({ k: "lens", c: v(fCa, 0), ax: v(1, 0), h: 0.56 * W });
-        chain.push(v(0, 0.08 * W), v(0, -0.08 * W), v(fCa, 0.6 * W), v(fCa, -0.6 * W));
+        chain.push(v(0, Math.max(0.08 * W, w0 / 2)), v(0, -Math.max(0.08 * W, w0 / 2)), v(fCa, 0.6 * W), v(fCa, -0.6 * W));
         O = v(fCa + gapC, 0);
-        innerAt = y => ({ pts: [v(0, 0), v(fCa, y)], p: v(fCa, y), d: v(1, 0) });
+        innerAt = y => ({ pts: [v(0, y * w0 / W), v(fCa, y)], p: v(fCa, y), d: v(1, 0) });
       }
     }
     // the disperser, in a frame where the beam arrives along +x at the origin, then turned and moved to O.  The
@@ -214,11 +234,14 @@ root.ARMSAPP = function (H) {
     const th = Math.atan2(dIn[1], dIn[0]), X = q => ad(O, rot(q, th)), XD = q => rot(q, th);
     const inc = v(1, 0);
     let e, nG;
-    if (ech) { e = rot(v(-1, 0), -cs * ECH_ANG); nG = nrm(sub(e, inc)); }
+    const xdRefl = xdOnly && P.xd === "grating";
+    if (xdOnly && !xdRefl) { e = inc; nG = inc; }
+    else if (xdRefl) { e = rot(v(-1, 0), -cs * (P.xPsi || 10) * DEG); nG = nrm(sub(e, inc)); }
+    else if (ech) { e = rot(v(-1, 0), -cs * ECH_ANG); nG = nrm(sub(e, inc)); }
     else if (P.gType === "refl") { e = rot(v(-1, 0), -cs * (D.psi || 0)); nG = nrm(sub(e, inc)); }
     else if (P.gType === "grism") { e = inc; nG = inc; }
     else { e = rot(inc, cs * ((D.alpha || 0) + (D.beta || 0))); nG = rot(inc, cs * (D.alpha || 0)); }
-    const refl = ech || P.gType === "refl", tG = perp(nG);
+    const refl = xdOnly ? xdRefl : ech || P.gType === "refl", tG = perp(nG);
     const gHalf = 0.55 * W / Math.max(0.25, Math.abs(dot(nG, inc)));
     const dC = 0.55 * Wp + 0.12 * fK + (ech ? 0.5 * Wp : 0), C = sc(e, dC), Dc = ad(C, sc(e, fK)), t = perp(e);
     // the rays: the chip's range in the central order (grating) or the reference order (echelle), and its middle
@@ -241,8 +264,9 @@ root.ARMSAPP = function (H) {
     prims.push({ k: "line", p: [X(sc(tG, gHalf)), X(sc(tG, -gHalf))], col: refl ? STEEL : GLASS_E, lw: refl ? 4 : 3 });
     prims.push({ k: "lens", c: X(C), ax: XD(e), h: ch });
     prims.push({ k: "line", p: [X(ad(Dc, sc(t, D.Lx / 2))), X(ad(Dc, sc(t, -D.Lx / 2)))], col: "#33373d", lw: 5 });
-    const gName = ech ? "echelle" : P.gType === "grism" ? "grism" : P.gType === "refl" ? "grating" : P.gKind === "vph" || /VPH/i.test(a.name) ? "VPH" : "grating";
-    const gSub = ech ? sig(P.eG, 3) + " /mm" : sig(P.G, 4) + " /mm";
+    const gName = xdOnly ? P.xdLabel || (P.xd === "vph" ? "VPH grating" : P.xd === "grism" ? "grism" : P.xd === "prism" ? "prism" : "cross-disperser")
+      : ech ? "echelle" : P.gType === "grism" ? "grism" : P.gType === "refl" ? "grating" : P.gKind === "vph" || /VPH/i.test(a.name) ? "VPH" : "grating";
+    const gSub = xdOnly ? (P.xd === "prism" ? "" : sig(P.xG, 4) + " /mm") : ech ? sig(P.eG, 3) + " /mm" : sig(P.G, 4) + " /mm";
     // the grating's label beyond its end on the side away from the camera, the arm's beyond its detector
     const far = dot(tG, e) <= 0 ? tG : sc(tG, -1);
     labs.push({ at: X(sc(far, gHalf)), txt: gName, sub: gSub, pri: 3, dir: XD(far) });
@@ -271,7 +295,7 @@ root.ARMSAPP = function (H) {
   // bodies (convex pieces tagged with the nodes they join; bodies that share a node may touch)
   function scene(G, arms, cfg, wantRays = false) {
     const byId = Object.fromEntries(arms.map(a => [a.id, a])), a0 = arms.find(a => !a.D.bad && a.D.c) || arms[0];
-    const tele = G.split !== "collimated", W = a0.P.W, prims = [], labs = [], bodies = [];
+    const echS = G.split === "echelle", tele = G.split !== "collimated" && !echS, W = a0.P.W, prims = [], labs = [], bodies = [];
     // the light pulses' rays (anim.js, only for the drawing that is shown): polylines in world mm, traced as light runs,
     // straight through each dichroic and reflected in it and in each fold, to the gratings; t places a colored ray on
     // the wavelength scale of all the arms together (the pulse's wiggle follows it)
@@ -316,10 +340,26 @@ root.ARMSAPP = function (H) {
         body([hull([...telCone, v(0, 0.06 * W), v(0, -0.06 * W)])], onAx ? ["tel", "n0"] : ["tel"]);
         body([hull([v(0.3 * fC, 0.15 * W), v(0.3 * fC, -0.15 * W), ad(M, sc(tM, 0.8 * hf)), ad(M, sc(tM, -0.8 * hf))])], ["tel", "col"]);
         body([hull([ad(M, sc(tM, hm)), ad(M, sc(tM, -hm)), ad(ad(M, sc(tM, hm)), sc(nM, -0.08 * W)), ad(ad(M, sc(tM, -hm)), sc(nM, -0.08 * W))])], ["col"]);
+        if (echS) {
+          // the shared echelle: the collimated beam meets it beside the slit, and the dispersed light leaves ECH_ANG off
+          // the returning beam, away from the axis, to the dichroics (the transfer optics between are not drawn)
+          const Le = Math.max(1.4 * W + 40, 0.6 * fC), E = ad(M, sc(r0, Le));
+          const cand = [ECH_ANG, -ECH_ANG].map(t => rot(sc(r0, -1), t)), r1 = Math.abs(ad(E, cand[0])[1]) >= Math.abs(ad(E, cand[1])[1]) ? cand[0] : cand[1];
+          const nE = nrm(sub(r1, r0)), tE = perp(nE), hE = 0.55 * W / Math.max(0.25, Math.abs(dot(nE, r0))), back = Math.abs(dot(nE, sc(r0, -1)) ) > 0 ? sc(nE, -1) : nE;
+          prims.push({ k: "line", p: [ad(E, sc(tE, hE)), ad(E, sc(tE, -hE))], col: STEEL, lw: 4 });
+          const far = dot(tE, v(-1, 0)) >= 0 ? tE : sc(tE, -1);
+          labs.push({ at: ad(E, sc(far, hE)), txt: "echelle", sub: sig(a0.P.eG, 3) + " /mm, shared", pri: 3, dir: far });
+          body([hull([ad(E, sc(tE, hE)), ad(E, sc(tE, -hE)), ad(ad(E, sc(tE, hE)), sc(back, 0.1 * W)), ad(ad(E, sc(tE, -hE)), sc(back, 0.1 * W))])], ["ech"]);
+          seg(M, E, W, W, null, ["col", "ech"]);
+          first = ad(E, sc(r1, (1.35 * W + 40) * cfg.L0)); dir0 = r1;
+          seg(E, first, W, W, null, ["ech", "n0"]);
+          R0 = YR.map(u => { const pM = ad(M, sc(tM, 2 * u * hf)); ray([v(0, 0), pM], RAY_W); const H = hitLine(pM, r0, E, tE); ray([pM, H], RAY_W); return { p: H, d: r1 }; });
+        } else {
         const L0 = onAx ? fC + Lt + (0.4 * W + 20) * cfg.L0 : (1.4 * W + 40) * cfg.L0;
         first = ad(M, sc(r0, L0)); dir0 = r0;
         seg(M, first, W, W, null, ["col", "n0"]);
         R0 = YR.map(u => { const pM = ad(M, sc(tM, 2 * u * hf)); ray([v(0, 0), pM], RAY_W); return { p: pM, d: r0 }; });
+        }
       } else {
         const Lc = v(fC, 0);
         prims.push({ k: "poly", p: [v(0, 0), v(fC, W / 2), v(fC, -W / 2)], fill: WHITE_F, stroke: WHITE_S });
@@ -391,7 +431,8 @@ root.ARMSAPP = function (H) {
         // (after the telescope's focus: the arm's relay at the branch's end; with the arms' own slits it focuses the
         // light on the slit at the arm's focal ratio, with MIKE's shared slit its injection optics feed the arm)
         let o = at, extra = null;
-        if (tele && !a.D.bad && a.D.c) {
+        const noRelay = tele && !G.relay && G.slit === "shared";
+        if (tele && !a.D.bad && a.D.c && !noRelay) {
           const n = perp(d), hR = 0.62 * wNow + 0.03 * W;
           prims.push({ k: "lens", c: at, ax: d, h: hR });
           labs.push({ at: ad(at, sc(n, -hR)), txt: G.relay, sub: "", pri: 1, dir: sc(n, -1), optional: true });
@@ -401,13 +442,25 @@ root.ARMSAPP = function (H) {
           }
           extra = hull([ad(at, sc(n, hR)), ad(at, sc(n, -hR)), ad(o, sc(n, 0.05 * W)), ad(o, sc(n, -0.05 * W)), ad(at, sc(d, 0.05 * W))]);
         }
-        const U = unit(a, cfg.af[node] || 1, tele, G.slit === "shared"), th = Math.atan2(d[1], d[0]), T = q => ad(o, rot(q, th));
+        const U = unit(a, cfg.af[node] || 1, tele, G.slit === "shared", noRelay ? { path, w: wNow } : null, echS), th = Math.atan2(d[1], d[0]), T = q => ad(o, rot(q, th));
         if (wantRays && !U.bad) {
           if (tele) {
             // to the arm's relay (a lens square to the beam at at), then on to the arm's slit (or, with the shared slit, the
             // injection optics at at); inside the arm, from that slit by way of its collimator to the grating
-            for (const q of meet(Rs, at, perp(d), null)) ray([q.H, o], RAY_W);
-            for (const pl of U.inner) { ray(pl.map(T), RAY_W); for (const c of U.colRays(pl[pl.length - 1])) colRay({ l: c.l, pts: c.pts.map(T) }); }
+            const hs = meet(Rs, at, perp(d), null);
+            if (noRelay) {
+              // (no relay: each ray runs on from where it crosses the arm's start, by the nearest of the arm's own rays)
+              for (const q of hs) {
+                let pl = null, dm = Infinity;
+                for (const p0 of U.inner) { const dd = Math.hypot(...sub(T(p0[0]), q.H)); if (dd < dm) { dm = dd; pl = p0; } }
+                if (!pl) continue;
+                ray([q.H, ...pl.slice(1).map(T)], RAY_W);
+                for (const c of U.colRays(pl[pl.length - 1])) colRay({ l: c.l, pts: c.pts.map(T) });
+              }
+            } else {
+              for (const q of hs) ray([q.H, o], RAY_W);
+              for (const pl of U.inner) { ray(pl.map(T), RAY_W); for (const c of U.colRays(pl[pl.length - 1])) colRay({ l: c.l, pts: c.pts.map(T) }); }
+            }
           } else {
             // the collimated rays to the grating, in the arm's frame
             for (const st of Rs) {
@@ -478,7 +531,7 @@ root.ARMSAPP = function (H) {
     const nd = indexTree(G.tree), ids = leaves(G.tree), nf = folds(G.tree).length;
     // (the side to which a mirror collimator returns the light is one more choice, except on the axis)
     const a0 = arms.find(a => !a.D.bad && a.D.c), onAx = !!a0 && a0.P.col === "mirror" && a0.P.colTilt === 0;
-    const nS = nd.length + ids.length + (G.split === "collimated" && !onAx ? 1 : 0);
+    const nS = nd.length + ids.length + ((G.split === "collimated" || G.split === "echelle") && !onAx ? 1 : 0);
     const make = (bits, L, L0) => ({ ds: nd.map((_, k) => (bits >> k) & 1 ? -1 : 1), af: Object.fromEntries(ids.map((id, i) => [id, (bits >> (nd.length + i)) & 1 ? -1 : 1])), ret: (bits >> (nd.length + ids.length)) & 1 ? -1 : 1, L, L0 });
     const evalC = c => { const r = scoreOf(scene(G, arms, c), aspect); return { c, ov: r.ov, s: r.s }; };
     const L1 = nd.flatMap(() => [1, 1]).concat(Array(nf).fill(1));
@@ -594,7 +647,7 @@ root.ARMSAPP = function (H) {
     g.fillText(sbLab, bx + L * s + 8, by);
     const capX = bx + L * s + 8 + g.measureText(sbLab).width + 22;
     placeLabels(g, w, h, Sc.labs.map(Lb => ({ ...Lb, at: X(Lb.at), dir: [Lb.dir[0], -Lb.dir[1]] })), active, capH);
-    return { capX, tele: G.split !== "collimated" };
+    return { capX, tele: G.split !== "collimated" && G.split !== "echelle" };
   }
 
   // the labels, placed where they cover the least ink (read back from the canvas, as the Spectral view does) and

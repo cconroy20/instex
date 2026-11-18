@@ -527,10 +527,17 @@ function design(P) {
     const Rp = npix * Rs;
     // the diffraction limit: m N for a grating (Lg in mm); for prisms W' dtheta/dlambda, the beam's width times the
     // angular dispersion (= sum b dn/dlambda), from the traced directions
-    let RdN = Math.abs(m) * (Gm * 1000) * S.LgLit;
+    // A slit narrower than its own diffraction lights more of the grating than the geometric beam: the central lobe of
+    // the slit's diffraction pattern, between its first zeros (2 lambda / w across), spans 2 f_col lambda / w on the
+    // collimator.  The grating is lit over the larger of that and the beam W (up to its ruled length, gLen), and those
+    // grooves set the diffraction limit (SINFONI's 25 mas slices: a 9.5 mm beam, 42 mm lit at 2.2 um).  A slit many
+    // times lambda / D wide (every seeing-limited slit) keeps the beam W; the "dl" feed's beam is already the diffracted one
+    const fDif = P.feed === "dl" ? 1 : Math.max(1, 2 * S.fcol * lam * 1e-3 / ws / W);
+    const LgLit = fDif > 1 ? (P.gLen > 0 && !S.prism ? Math.min(S.Lg * fDif, P.gLen) : S.Lg * fDif) : S.LgLit;
+    let RdN = Math.abs(m) * (Gm * 1000) * LgLit;
     if (S.prism) {
       const ui = inDir(0, 0), ua = main(ui, lam + h), ub = main(ui, lam - h);
-      RdN = ua && ub ? S.Wp * 1000 * norm(sub(ua, ub)) / (2 * h) : NaN;
+      RdN = ua && ub ? fDif * S.Wp * 1000 * norm(sub(ua, ub)) / (2 * h) : NaN;
     }
     // The effective R: the slit image and the grating's diffraction limit in quadrature. The pixel does not widen a
     // measured line (McLean et al. 2012 measure MOSFIRE's lines at the geometric slit width), so no pixel term
@@ -555,7 +562,7 @@ function design(P) {
     return {
       lam, m, X: p0[0], Y: p0[1], disp, dirl: dl, sdir: s,
       dlpix: pix / Math.abs(dv[0]) * 1e4,          // A per pixel along X
-      w, fw, npix, Rs, Rd: RdN, Rp, Reff, Rfit,
+      w, fw, npix, Rs, Rd: RdN, Rp, Reff, Rfit, fDif, LgLit,
       dlamRes: lam / Reff * 1e4,                   // A per resolution element (effective)
       dv: 299792.458 / Reff,                       // km/s
       pixScale: pix / mmPerArcsec,                 // arcsec per pixel along the slit
@@ -569,7 +576,7 @@ function design(P) {
   S.onChip = onChip;
 
   // ---- wavelength range on the detector for one order (slit center)
-  const LAM_MIN = 0.30, LAM_MAX = 2.60, ATMO = 0.32;   // um; ATMO: atmospheric cutoff
+  const LAM_MIN = 0.30, LAM_MAX = 6.0, ATMO = 0.32;   // um; ATMO: atmospheric cutoff; LAM_MAX: the M band's red end (CRIRES+, NIRSPEC)
   function orderRange(m, lamGuess) {
     // walk outward from lamGuess (on the chip) in both directions until off the chip, then refine.  Nothing
     // shorter than the atmospheric cutoff (ATMO) arrives, and nothing longer than LAM_MAX is followed: where the

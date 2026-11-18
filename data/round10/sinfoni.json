@@ -1,0 +1,2525 @@
+{
+ "id": "sinfoni",
+ "name": "VLT / SINFONI (SPIFFI + MACAO)",
+ "date": "2026-11-18",
+ "quote_check": {
+  "pieces": 126,
+  "failures": 0,
+  "measured_entries": 8
+ },
+ "era": "2k HAWAII-2RG with the f/2.8 camera, Feb 2005 to 30 June 2019 (first light July 2004 with a 1k detector; moved from UT4 to UT3 in Feb 2019); R after the Jan 2016 upgrade",
+ "on_off_axis": {
+  "verdict": "OFF-AXIS",
+  "colTilt_deg": 11.5,
+  "evidence": "E00 Sec. 2.4: 'The optics is operated 11.5 deg off-axis'; GR Sec. 3.1: 'the system is unobscured in comparison to an on-axis TMA'"
+ },
+ "sources": {
+  "E03": {
+   "document": "Eisenhauer, F., Bonnet, H., Abuter, R., et al. 2003, Proc. SPIE 4841, 1548, \"SINFONI - Integral Field Spectroscopy at 50 milli-arcsecond resolution with the ESO VLT\" (ADS 2003SPIE.4841.1548E; title checked on ADS; arXiv:astro-ph/0306191; author reprint with SPIE permission; 10 pp; the 1k-detector and 1k-camera state of Aug 2002)",
+   "file": "eisenhauer2003.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0306191"
+  },
+  "E00": {
+   "document": "Eisenhauer, F., Tecza, M., Mengel, S., et al. 2000, Proc. SPIE 4008, 289, \"Imaging the Universe in 3D with the VLT: The Next Generation Field Spectrometer SPIFFI\" (ADS 2000SPIE.4008..289E; arXiv:astro-ph/0008296; 9 pp; the optical DESIGN paper: pre-optics, slicer, TMA collimator, 1k camera, Figs 1-5)",
+   "file": "eisenhauer2000.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0008296"
+  },
+  "E02": {
+   "document": "Eisenhauer, F., van der Werf, P., Thatte, N., et al. 2002, \"Scientific Potential of Enhancing the Integral-Field Spectrometer SPIFFI with a Large Detector and High Spectral Resolution\", ESO Workshop 'Scientific Drivers for ESO Future VLT/VLTI Instrumentation' (ADS 2002sdef.conf..149E; arXiv:astro-ph/0109285; the 2k-detector and 2k-camera plan, 8 pp)",
+   "file": "eisenhauer2002.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0109285"
+  },
+  "T00": {
+   "document": "Tecza, M., Thatte, N., Eisenhauer, F., et al. 2000, Proc. SPIE 4008, 1344, \"SPIFFI image slicer: revival of image slicing with plane mirrors\" (ADS 2000SPIE.4008.1344T; arXiv:astro-ph/0008322; 7 pp)",
+   "file": "tecza2000.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0008322"
+  },
+  "M00": {
+   "document": "Mengel, S., Eisenhauer, F., Tecza, M., et al. 2000, Proc. SPIE 4005, 301, \"New era of spectroscopy: SINFONI NIR integral field spectroscopy at the diffraction limit of an 8-m telescope\" (ADS 2000SPIE.4005..301M; arXiv:astro-ph/0008398; saved, one throughput figure cited)",
+   "file": "mengel2000.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0008398"
+  },
+  "E05": {
+   "document": "Eisenhauer, F., Genzel, R., Alexander, T., et al. 2005, ApJ 628, 246, \"SINFONI in the Galactic Center: Young Stars and Infrared Flares in the Central Light-Month\" (ADS 2005ApJ...628..246E; arXiv:astro-ph/0502129; the first S-star observations: 25 mas scale, K and H+K gratings)",
+   "file": "eisenhauer2005.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0502129"
+  },
+  "G16": {
+   "document": "George, E. M., Buron, A., Davies, R., et al. 2016, Proc. SPIE 9908, 99080G, \"Making SPIFFI SPIFFIER: upgrade of the SPIFFI instrument for use in ERIS and performance analysis from the early upgrade\" (ADS 2016SPIE.9908E..0GG; arXiv:1608.02457; layout Fig. 1, resolution Table 3, Jan 2016 upgrade)",
+   "file": "george2016.pdf",
+   "url": "https://arxiv.org/pdf/1608.02457"
+  },
+  "G17": {
+   "document": "George, E. M., Eisenhauer, F., Feuchtgruber, H., et al. 2017, J. Astron. Telesc. Instrum. Syst. 3, 035002, \"Complex spectral line profiles resulting from cryogenic deformation of the SINFONI/SPIFFI diffraction gratings\" (ADS 2017JATIS...3c5002G; arXiv:1707.08923; Table 2 holds the grating spacings, orders and incidence angles of the CODE V model)",
+   "file": "george2017.pdf",
+   "url": "https://arxiv.org/pdf/1707.08923"
+  },
+  "GR": {
+   "document": "Gräff, D. 2016, \"Upgrade and Characterization of the SPIFFI/SINFONI optics\" (ADS 2016arXiv161204680G; arXiv:1612.04680; a Master's thesis, TU Munich/MPE, August 2016, 119 pp; Ch. 1 optical layout, Ch. 3 TMA mirrors, Ch. 4 performance; 41 MB)",
+   "file": "graeff2016.pdf",
+   "url": "https://arxiv.org/pdf/1612.04680"
+  },
+  "EM": {
+   "document": "ESO SINFONI User Manual, VLT-MAN-ESO-14700-3517, Issue 103.1, 2019-03-13 (the last issue, P103; Sec. 2.2 modes, Sec. 8 AO module, Sec. 9 SPIFFI, Sec. 13 measured spectral resolution)",
+   "file": "eso_sinfoni_manual_P103.1.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/sinfoni/doc/VLT-MAN-ESO-14700-3517-P103.1.pdf"
+  },
+  "EM89": {
+   "document": "ESO SINFONI User Manual, VLT-MAN-ESO-14700-3517, Version 89, 2011-08-26 (the commissioning-era measured-resolution table, identical to Issue 103.1)",
+   "file": "eso_sinfoni_manual_v89.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/sinfoni/doc/VLT-MAN-ESO-14700-3517_v89.pdf"
+  },
+  "PU": {
+   "document": "ESO, 'SINFONI post upgrade update v1.0', G. Hau and the SINFONI Instrument Operations Team, 2016-03-14 (the Dec 2015 - Jan 2016 intervention; old and new resolving power per band)",
+   "file": "eso_sinfoni_postupgrade_v1.pdf",
+   "url": "https://www.eso.org/sci/facilities/paranal/instruments/sinfoni/doc/SINFONI_Post_Upgrade_Update_v1.0.pdf"
+  },
+  "EH": {
+   "document": "ESO SINFONI 'History' page (decommissioned-instruments section; last update 03.10.19; saved 2026-11-18)",
+   "file": "eso_sinfoni_history.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/sinfoni/history.html"
+  },
+  "EO": {
+   "document": "ESO SINFONI 'Overview' page (decommissioned-instruments section; saved 2026-11-18)",
+   "file": "eso_sinfoni_overview.html",
+   "url": "https://www.eso.org/sci/facilities/paranal/decommissioned/sinfoni/overview.html"
+  },
+  "VLT": {
+   "document": "ESO, 'Requirements for VLT Unit Telescope Instruments', VLT-SPE-ESO-10000-2723 Issue 1, 2005-03-18 (Table 2: the Cassegrain focus; copy shared with the UVES record)",
+   "file": "VLT-SPE-ESO-10000-2723_is1_Requirements_for_VLT_UT_Instruments.pdf",
+   "url": "https://www.eso.org/sci/facilities/develop/instruments/ (as saved under rawdata/presets/uves/)"
+  }
+ },
+ "parameters": [
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Telescope and focus",
+   "value": "Cassegrain focus of a VLT Unit Telescope; the AO module and the SPIFFI cryostat are hung below the Cassegrain adapter",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 1, pdf p. 2",
+   "quote": "The instrument is mounted at the Cassegrain focus, and thus exposed to varying gravity loads",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "UT of service",
+   "value": "first light on UT4 in July 2004; moved to UT3 in Feb 2019; decommissioned end of June 2019 (last science exposures 25 June 2019)",
+   "unit": "",
+   "source": "EH",
+   "location": "History page",
+   "quote": "July 2004: SINFONI saw first light at UT4. ... After moving to UT3, the system performance is very similar to that at UT4. ... 30 June 2019: SINFONI has been decommissioned at the end of June 2019. The last science observations were taken on June 25.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Cassegrain pupil",
+   "value": 8115.0,
+   "unit": "mm",
+   "source": "VLT",
+   "location": "Table 2, p. 7, pdf p. 13",
+   "quote": "Entrance pupil diameter 8115.0 mm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Cassegrain focal ratio",
+   "value": 13.4106,
+   "unit": "",
+   "source": "VLT",
+   "location": "Table 2, p. 7, pdf p. 13",
+   "quote": "Focal ratio 13.4106",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Cassegrain plate scale",
+   "value": 528,
+   "unit": "um/arcsec",
+   "source": "VLT",
+   "location": "Table 2, p. 7, pdf p. 13",
+   "quote": "Image scale slightly field dependent 528 µm/arcsec",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "AO module beams",
+   "value": "input f/13.4, output f/17.1 (flat M1, off-axis parabola M2, 60-electrode bimorph deformable mirror M3, off-axis parabola M4, flat M5)",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 8.1.2, pdf p. 49",
+   "quote": "The input f/13.4 beam is folded by a first flat mirror (M1) and then collimated by an off-axis parabola (M2), creating an image of the pupil on the Deformable Mirror ... f/17.1 focus is then created by a second off-axis parabola (M4)",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "SPIFFI input focal ratio (ALT)",
+   "value": 17.1,
+   "unit": "",
+   "source": "GR",
+   "location": "Ch. 4, Eq. 4.1, pdf p. 56",
+   "quote": "FSP IF F I /17.1 of the SPIFFI input beam",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "AO module",
+   "value": "clone of the ESO MACAO curvature system, 60 elements; the IR science band is transmitted to SPIFFI and 450-950 nm goes to the wavefront sensor",
+   "unit": "",
+   "source": "E03",
+   "location": "Secs 1-2, pdf p. 3",
+   "quote": "The science beam (1.05 - 2.45 µm) is transmitted to SPIFFI, and the visible light (450 – 950 nm) is reflected towards the wavefront sensor optical path.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Plate scale at the SPIFFI focus",
+   "value": 673.3,
+   "unit": "um/arcsec",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "528 um/arcsec x 17.1 / 13.4106 = 673.3 um/arcsec (the f/13.4106 Cassegrain focus re-imaged at f/17.1 by the AO module; the 8115 mm pupil is kept)."
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics: scales",
+   "value": "three pre-optics objectives of magnification 17.8, 4.45 and 1.78 giving 0.025, 0.1 and 0.25 arcsec per slice",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.2, pdf p. 4",
+   "quote": "provide three different magnifications (17.8 x, 4.45 x, 1.78 x) with equivalent pixel scales of 0.025 arcsec/pixel, 0.1 arcsec/pixel, and 0.25 arcsec/pixel",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics: scales (user manual)",
+   "value": "The choices are 250 mas, 100 mas and 25 mas",
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "The choices are 250 mas, 100 mas and 25 mas",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics: slice width on the sky = slit",
+   "value": "0.25, 0.10 and 0.025 arcsec",
+   "unit": "arcsec",
+   "source": "EM",
+   "location": "Sec. 12 (OB templates), pdf p. 64",
+   "quote": "The “Spaxel size” is the height of one of the 32 image slices on the sky, which can be 0.025, 0.1 or 0.25 arcsecs",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics: slice width in um at the slicer",
+   "value": 300,
+   "unit": "um",
+   "source": "E00",
+   "location": "Sec. 2.3, pdf p. 5",
+   "quote": "The compromise for SPIFFI is a width of 300 µm for the mirrors of the small slicer, thus providing a pseudo long slit of 307.2 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics: slice width in um (ALT)",
+   "value": 300,
+   "unit": "um",
+   "source": "E03",
+   "location": "Sec. 3.4, pdf p. 9",
+   "quote": "small slicer mirrors, which have a width of only 300 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Beam at the slicer, seeing scale",
+   "value": "f/30 for the 0.25 arcsec slice on an 8 m telescope",
+   "unit": "",
+   "source": "T00",
+   "location": "Sec. 3.1 (slicer efficiency), pdf p. 4",
+   "quote": "input beam f-ration of f/30, corresponding to a pixel size of",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Beam at the slicer, all scales (explorer F)",
+   "value": "f/30.44 (250 mas), f/76.1 (100 mas), f/304.4 (25 mas)",
+   "unit": "",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "F_slit = 17.1 x magnification: 17.1 x 1.78 = 30.44; 17.1 x 4.45 = 76.1; 17.1 x 17.8 = 304.4. Check: slice width = phi D F / 206265 with D = 8115 mm: 0.25 arcsec -> 0.2994 mm; 0.1 -> 0.2994 mm; 0.025 -> 0.2994 mm (sourced 0.300 mm; the f/30 of T00 agrees with 30.44)."
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics collimator focal length (2000 design)",
+   "value": 85.5,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.2, pdf p. 4",
+   "quote": "With a focal length of 85.5 mm, the collimator reimages the entrance pupil on a 6.0 mm diameter cold stop.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics collimator focal length (2016 replacement)",
+   "value": 112.7,
+   "unit": "mm",
+   "source": "GR",
+   "location": "Ch. 4, below Eq. 4.1, pdf p. 56",
+   "quote": "fCollimator = 112.7",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Cold (Lyot) stop",
+   "value": "6 mm diameter with a central obscuration the size of the secondary",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.3, pdf p. 7",
+   "quote": "The stop has a diameter of 6 mm, and is equipped with a central obscuration with the equivalent size of the telescope secondary mirror.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Cold stop (measured free diameter)",
+   "value": "free diameter 6.436 mm, obscuration 1.004 mm",
+   "unit": "mm",
+   "source": "GR",
+   "location": "Ch. 4, pdf p. 56",
+   "quote": "the diameter of the free pupil stop of dfree = 6.436 mm and the diameter of the central obscuration dobscured = 1.004 mm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Pre-optics lenses",
+   "value": "spherical lenses of barium fluoride and Schott IRG2; telecentric; two or three lenses per objective",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.2, pdf p. 4",
+   "quote": "The preoptics use only spherical lenses made from barium fluoride and IRG2 from Schott.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Band filters",
+   "value": "J, H, K and H+K filters in a wheel in the collimated beam before the cold stop (order sorting)",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.3, pdf p. 7",
+   "quote": "Just in front of the cold stop is the motorized filter wheel, housing the four band-pass filters, which are required to suppress the unwanted diffraction orders of the gratings.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Field of view per scale",
+   "value": "8 x 8, 3 x 3 and 0.8 x 0.8 arcsec (32 slices)",
+   "unit": "arcsec",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "leading to field of views on the sky of",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Spaxel size on the sky (across x along the slice)",
+   "value": "250 x 125, 100 x 50, 25 x 12.5 mas",
+   "unit": "mas",
+   "source": "EM",
+   "location": "Sec. 2.2 table, pdf p. 16",
+   "quote": "125mas×250mas ... 50mas×100mas ... 12.5mas×25mas",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Spaxel along the slice (ALT)",
+   "value": "each slice is imaged on 64 detector pixels, so the spaxel is 1 slice width in y and 0.5 in x",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 12 (OB templates), pdf p. 64",
+   "quote": "so that the final spatial element measures 1 Spaxel size in y, and 0.5 Spaxel size in x",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Slice length on the sky",
+   "value": "8.0, 3.2 and 0.8 arcsec",
+   "unit": "arcsec",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "Each slice is 64 detector pixels long, i.e. 64 x 0.125 = 8.0 arcsec at 250 mas (EM: 8 x 8 arcsec field), 64 x 0.05 = 3.2 arcsec at 100 mas, 64 x 0.0125 = 0.8 arcsec at 25 mas. The manual rounds the 100 mas field to 3 x 3 arcsec; across the slices it is 32 x 0.1 = 3.2 arcsec."
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Number of slices",
+   "value": 32,
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "The SINFONI field of view on the sky is sliced into 32 slitlets.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Spectra on the detector",
+   "value": "32 x 64 = 2048",
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "Each one of the 32 slitlets is imaged onto 64 pixels of the detector. Thus, one obtains 32 × 64 = 2048 spectra of the imaged region of the sky.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Telescope, feed and pre-optics",
+   "parameter": "Sky spider (not offered in service)",
+   "value": "three pairs of mirrors reflecting a sky field 19, 38, 58 arcsec away onto the slicer field (E03 quotes 15, 30, 45 arcsec)",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 9.6, pdf p. 58",
+   "quote": "The projected distances of the sky-positions from the field centre are 19, 38, and 58 arc-seconds.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Type",
+   "value": "two stacks of 32 plane mirrors (small slicer at the focus, big slicer rearranging the slitlets), all Zerodur, optically contacted, cryogenic",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.4, pdf p. 9",
+   "quote": "The focus of the pre-optics is located at the so-called small slicer. This part of the image slicer consists of a stack of 32 plane mirrors, which slices the image into slitlets, and separates the light from each slitlet in different directions. A second set of 32 mirrors, the so-called big slicer, collects the light and forms the pseudo-slit.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Pseudo-slit length",
+   "value": 307.2,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.3, pdf p. 5",
+   "quote": "a width of 300 µm for the mirrors of the small slicer, thus providing a pseudo long slit of 307.2 mm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Pseudo-slit length (ALT)",
+   "value": "31 cm long pseudo-slit",
+   "unit": "mm",
+   "source": "EM",
+   "location": "Fig. 19 caption, pdf p. 57",
+   "quote": "re-arranges the slitlets into a 31 cm long pseudo-slit",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Slitlet length at the slicer",
+   "value": 9.6,
+   "unit": "mm",
+   "source": "GR",
+   "location": "Sec. 3.3.1, pdf p. 34",
+   "quote": "So the resulting slitlet height is 9.6 mm, corresponding to a resampled pseudo slit of 307.2 mm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Slit pattern",
+   "value": "two-layer brick wall: 'the pseudo long slit will consist of two truncated slits'",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.3, pdf p. 5",
+   "quote": "the mirrors of the large slicer are aligned in a brick wall pattern. There is no crosstalk at the position of the large slicer, but the pseudo long slit will consist of two truncated slits.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Slit width in the spectrograph",
+   "value": 300,
+   "unit": "um",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "The slit width is the small-slicer mirror width, 300 um, the same for all three scales (the pre-optics set only how many arcsec fill it); the slicer works at 1:1, since 32 x 32 x 0.3 mm = 307.2 mm."
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Slit image on the detector",
+   "value": "27 um (J, H, K) and 29 um (H+K), geometric, with the grating's anamorphic factor",
+   "unit": "um",
+   "source": "G17",
+   "location": "Sec. 4.1, pdf p. 8",
+   "quote": "the slit width geometrically imaged onto the detector is 27 µm using the J, H, and K band gratings and 29 µm using the H+K band grating",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Slit image on the detector (ALT)",
+   "value": "1.5 pixels (27 um of 18 um pixels)",
+   "unit": "px",
+   "source": "GR",
+   "location": "Sec. 4.3, pdf p. 72",
+   "quote": "The image of the one slitlet on the detector is 27µm wide due to anamorphic distortion of the grating.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Image slicer",
+   "parameter": "Design FWHM of a line",
+   "value": "about 1.6 detector pixels",
+   "unit": "px",
+   "source": "G16",
+   "location": "Table 3 caption, pdf p. 10",
+   "quote": "The design FWHM of the lines in detector pixels is ∼1.6.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Type",
+   "value": "three-mirror anastigmat: one sphere and two off-axis elliptical mirrors, diamond turned",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "The collimator of the SPIFFI spectrometer is a three mirror anastigmat. It consists of one spherical and two off-axis prolate elliptical mirrors",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Type (ALT)",
+   "value": "M1 concave sphere, M2 convex and M3 concave off-axis ellipses",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 1.2.2, pdf p. 17",
+   "quote": "The TMA consists of one concave spherical mirror (M1), an off-axis oblate elliptical convex mirror (M2) and an off-axis oblate elliptical concave mirror (M3).",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Focal length",
+   "value": 2886.5,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "Its nominal focal length is 2886.5 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Focal length (ALT)",
+   "value": 2886.5,
+   "unit": "mm",
+   "source": "GR",
+   "location": "Sec. 1.2.2, pdf p. 17",
+   "quote": "The focal length of the collimator is 2886.5 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Focal length (CODE V model of G17)",
+   "value": 2873,
+   "unit": "mm",
+   "source": "G17",
+   "location": "Sec. 4.1, pdf p. 8",
+   "quote": "The light is collimated by a CODE V lens module with a focal length of 2873 mm (identical to the instrument collimator focal length",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "ON- or OFF-AXIS",
+   "value": "OFF-AXIS: used off-axis in aperture and field, unobscured; no element stands in the returning beam",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "The optics is operated 11.5° off-axis.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "ON- or OFF-AXIS (ALT)",
+   "value": "the TMA is used off-axis in aperture and field and is unobscured",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 3.1, pdf p. 30",
+   "quote": "The TMA in SPIFFI is used off-axis both in aperture and field. The advantages of a TMA used off-axis are twofold: the system is unobscured in comparison to an on-axis TMA",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Field along the slit",
+   "value": "6.092 deg for a 307.2 mm slit",
+   "unit": "deg",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "large one-dimensional field of 6.092° (slit length: 307.2 mm)",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "M1 prescription",
+   "value": "concave sphere, R = 2599.58 mm; 54 mm wide x 344 mm high",
+   "unit": "mm",
+   "source": "GR",
+   "location": "Sec. 3.3.1, pdf p. 34",
+   "quote": "The radius of the mirror is R = 2599.58 mm. The reflective surface is 54 mm wide and 344 mm high.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "M2 prescription",
+   "value": "convex off-axis ellipse, vertex R = 1368.89 mm, conic k = 2.82; 62 mm x 148 mm",
+   "unit": "mm",
+   "source": "GR",
+   "location": "Sec. 3.3.2, pdf p. 36",
+   "quote": "a central radius of R = 1368.89 mm and a conic constant of k = 2.82",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "M3 prescription",
+   "value": "concave off-axis ellipse, vertex R = 2648.10 mm, conic k = 6.237; stands close to the pupil",
+   "unit": "mm",
+   "source": "GR",
+   "location": "Sec. 3.3.3, pdf p. 41",
+   "quote": "radius at the vertex is R = 2648.10 mm and the conic constant is 6.237",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Mirror spacing",
+   "value": "M1-M2 distance equals M2-M3 distance",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 3.1, pdf p. 30",
+   "quote": "The distance between M1 and M2 is identical to the distance between M2 and M3.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Mirror material and history",
+   "value": "Al blanks, gold coated; first set 2001-2003, second set 2004-2016, new set Jan 2016",
+   "unit": "",
+   "source": "G16",
+   "location": "Sec. 3.3, pdf p. 5",
+   "quote": "The original mirrors in SPIFFI were manufactured in the years 2001-2003.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Beam diameter at the grating, 250 mas scale",
+   "value": "about 125 mm leaving the grating (1k-camera design)",
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "the beam size at the exit of the grating is ≈ 125 mm at the 0.25 arcsec/pixel scale",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Collimator (three-mirror anastigmat)",
+   "parameter": "Beam diameter on the collimator and the grating (explorer W)",
+   "value": "94.8 mm (250 mas), 37.9 mm (100 mas), 9.5 mm (25 mas)",
+   "unit": "mm",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "W = f_col / F_slit = 2886.5 / 30.44 = 94.8 mm; 2886.5 / 76.1 = 37.9 mm; 2886.5 / 304.4 = 9.48 mm. Geometric beam at the grating (before the anamorphic change). At 250 mas this gives 117 mm leaving the grating in K (E00: about 125 mm for the 1k camera)."
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Gratings",
+   "value": "four plane reflection gratings (J, H, K, H+K), 160 x 140 mm, directly ruled in gold on lightweighted aluminum blanks",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 6",
+   "quote": "SPIFFI will have four plane gratings, covering the atmospheric J, H, K, and H & K bands. ... The size of all gratings is 160 mm x 140 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Blank",
+   "value": "6061 aluminum, 160 x 140 x 20 mm, electroless NiP layer, 2-3 um gold, ruled in the gold",
+   "unit": "",
+   "source": "G17",
+   "location": "Sec. 3.1, pdf p. 4",
+   "quote": "The dimensions of the grating blanks are 160 x 140 x 20 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Ruled directly, blazed to the band center",
+   "value": "'blazed to the center of its pass-band'",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.6, pdf p. 10",
+   "quote": "every grating is blazed to the center of its pass- band",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Blaze angle / blaze wavelength",
+   "value": "NOT PUBLISHED (see INFERRED facet angle below)",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.6, pdf p. 10",
+   "quote": "every grating is blazed to the center of its pass- band",
+   "tag": "INFERRED",
+   "note": "No groove-density, blaze-angle or manufacturer table found; the facet angle follows from the sourced geometry: t = (alpha - beta)/2 with alpha = 36.09, 35.83, 36.73, 28.58 deg and alpha + beta' = 45 deg: t = 13.59, 13.33, 14.24, 6.08 deg (J, H, K, H+K)."
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating spacing J (80 K)",
+   "value": 5.758,
+   "unit": "um",
+   "source": "G17",
+   "location": "Table 2, pdf p. 9",
+   "quote": "J 5.758 (1.10, 1.25, 1.40) -2 -36.0908",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating spacing H (80 K)",
+   "value": 7.747,
+   "unit": "um",
+   "source": "G17",
+   "location": "Table 2, pdf p. 9",
+   "quote": "H 7.747 (1.45, 1.65, 1.85) -2 -35.8277",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating spacing K (80 K)",
+   "value": 9.684,
+   "unit": "um",
+   "source": "G17",
+   "location": "Table 2, pdf p. 9",
+   "quote": "K 9.684 (1.95, 2.20, 2.45) -2 -36.7344",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating spacing H+K (80 K)",
+   "value": 9.961,
+   "unit": "um",
+   "source": "G17",
+   "location": "Table 2, pdf p. 9",
+   "quote": "H+K 9.961 (1.45, 1.95, 2.45) -1 -28.5817",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Operating temperature of the parameters",
+   "value": "80 K",
+   "unit": "K",
+   "source": "G17",
+   "location": "Table 2 caption, pdf p. 9",
+   "quote": "All parameters in the simulation are for the 80K operating temperature.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Groove density",
+   "value": "173.67, 129.08, 103.26, 100.39 lines/mm (J, H, K, H+K)",
+   "unit": "lines/mm",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "G = 1000 / spacing(um): 1000/5.758 = 173.67; 1000/7.747 = 129.08; 1000/9.684 = 103.26; 1000/9.961 = 100.39."
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Orders",
+   "value": "2nd order for J, H, K; 1st order for H+K",
+   "unit": "",
+   "source": "G17",
+   "location": "Sec. 3.1, pdf p. 4",
+   "quote": "The gratings for J-, H-, and K-band are operated in 2nd order and the grating for the combined H+K-band in 1st order.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Orders (ALT)",
+   "value": "second order J, H, K; first order H+K",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 1.2.2, pdf p. 17",
+   "quote": "The J-, H-, and K-band gratings are operated in second order and the H+K-band grating in first order.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Camera-collimator angle",
+   "value": 45,
+   "unit": "deg",
+   "source": "G17",
+   "location": "Table 2 caption, pdf p. 9",
+   "quote": "For the gratings, (Reflection Angle - Incidence Angle) = 45 Degrees.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Angle of incidence",
+   "value": "36.09, 35.83, 36.73, 28.58 deg (J, H, K, H+K)",
+   "unit": "deg",
+   "source": "G17",
+   "location": "Table 2, pdf p. 9",
+   "quote": "J 5.758 (1.10, 1.25, 1.40) -2 -36.0908",
+   "tag": "ALT",
+   "note": "The explorer's reflection-grating equation with psi = 45 deg, the spacing, the order and lambda_c of the EM table gives alpha = 36.090, 35.829, 36.735, 28.582 deg, i.e. G17's four values to 0.001 deg. This confirms the pairing of spacing, order and lambda_c; it is a consistency check, not an independent test."
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating at the pupil",
+   "value": "gratings sit at the intermediate pupil",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.1, pdf p. 4",
+   "quote": "The gratings are located at the intermediate pupil position.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating drive",
+   "value": "wheel driven through a 1:647 gear with an inductive encoder, to 1/5 of a pixel",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.6, pdf p. 10",
+   "quote": "the grating wheel is driven with a 1:647 gear, and controlled via an inductive encoder directly attached to the grating wheel",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Design R",
+   "value": "4500 (J, H, K) and 2200 (H+K) in the 2k design; about 4000 and 2000 in the 2000 design",
+   "unit": "",
+   "source": "G16",
+   "location": "Sec. 2.1, pdf p. 3",
+   "quote": "with a design resolution of 4500 for the single bands and 2200 for the H+K band grating",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Gratings",
+   "parameter": "Grating efficiency",
+   "value": "average 60-80 percent (design)",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 6",
+   "quote": "The average efficiency of all gratings will be around 60 % to 80 %.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "2k camera (Feb 2005 on)",
+   "value": "five lenses and a folding mirror, f/2.8, lens diameters up to 170 mm",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 9.5, pdf p. 57",
+   "quote": "The camera is a five-lens + 1 folding mirror f/D∼1/2.8 design.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "2k camera (ALT)",
+   "value": "built by ASTRON/NOVA, installed in 2005, 5 lenses and a folding mirror, f/2.8",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 1.2.2, pdf p. 17",
+   "quote": "The new camera, developed by ASTRON/NOVA [Kroes et al., 2008], has been installed in 2005 and consists of 5 lenses and a folding mirror. With its f/2.8 optics",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "2k camera focal length",
+   "value": 342,
+   "unit": "mm",
+   "source": "G17",
+   "location": "Sec. 4.1, pdf p. 8",
+   "quote": "imaged onto the focal plane by a CODE V lens module with a focal length of 342 mm, identical to the instrument camera",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "2k camera focal length (plan, ALT)",
+   "value": "about 350 mm (increased from about 180 mm for the 1k camera), needs a fold mirror",
+   "unit": "mm",
+   "source": "E02",
+   "location": "Secs 4-5, pdf p. 7",
+   "quote": "the focal length of the camera must be increased from approximately 180 mm to 350 mm. This simplifies the lens optics, but requires a fold mirror",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "2k camera beam at the grating exit",
+   "value": 122,
+   "unit": "mm",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "342 mm / 2.8 = 122 mm (compare E00's 'about 125 mm' for the 250 mas scale)."
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "1k camera (2004 to early 2005)",
+   "value": "six lenses of BaF2 and IRG2, f/1.45, three large lenses of 160 mm",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.7, pdf p. 10",
+   "quote": "The 1k-camera (Figure 7) is a six-lens system made from Barium Fluoride and Schott IRG2 glass. The diameter of the three big lenses is 160 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "1k camera focal length and pupil",
+   "value": "178 mm, entrance pupil 220 mm in front of the first lens surface",
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "The nominal focal length of the camera (figure 5) is 178 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "1k camera pupil distance",
+   "value": 220,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "the entrance pupil of the camera was chosen to be 220 mm in front of the first lens surface",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Camera anamorphic correction",
+   "value": "-0.2652 percent of anamorphic distortion",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 2.4, pdf p. 5",
+   "quote": "The camera was optimized to correct for -0.2652 % of anamorphic distortion from the gratings",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Detector (2k era)",
+   "value": "Rockwell HAWAII-2RG, 2048 x 2048",
+   "unit": "px",
+   "source": "EM",
+   "location": "Sec. 9.5, pdf p. 57",
+   "quote": "SPIFFI is equipped with a Rockwell 2k×2k pixel Hawaii 2RG array",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Detector (2k era; ESO table says 2RD)",
+   "value": "Rockwell Hawaii 2RD (sic), upgraded Feb 2005, operated at -189 C",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 9.7, pdf p. 58",
+   "quote": "The instrument has been upgraded since February 2005 with a science grade Rockwell Hawaii 2RD detector (2kx2k).",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Detector (1k era)",
+   "value": "Rockwell HAWAII-1 (1024 x 1024) until the 2k detector arrived",
+   "unit": "",
+   "source": "E03",
+   "location": "Sec. 3.7, pdf p. 10",
+   "quote": "Until the delivery of this detector, SPIFFI will be operated as a VLT guest instrument with a 1k x 1k pixel Hawaii1 detector",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Pixel size, 2k",
+   "value": 18,
+   "unit": "um",
+   "source": "GR",
+   "location": "Ch. 2, pdf p. 28",
+   "quote": "The size of a detector pixel is 18 µm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Pixel size, 2k (ALT)",
+   "value": 18,
+   "unit": "um",
+   "source": "G17",
+   "location": "Sec. 4, pdf p. 12",
+   "quote": "The detector pixel pitch is 18 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Pixel size, 1k",
+   "value": 18.5,
+   "unit": "um",
+   "source": "E02",
+   "location": "Secs 4-5, pdf p. 7",
+   "quote": "(18 µm vs 18.5 µm in the HAWAII",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Dispersion direction",
+   "value": "the band spans the 2048 pixels along the dispersion; 32 slitlets of 64 pixels across",
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "each wavelength band fitting fully on the 2048 pixels of the Hawaii 2RG (2k×2k) detector in the dispersion direction",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Detector temperature",
+   "value": -189,
+   "unit": "C",
+   "source": "EM",
+   "location": "Sec. 9.7, pdf p. 58",
+   "quote": "Operating Temperature -189 degrees Celsius",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Cryostat",
+   "value": "all optics and detector at 77 K in a liquid-nitrogen bath cryostat; cold volume about 1100 x 950 x 450 mm",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 3.1, pdf p. 7",
+   "quote": "All optics and the detector of SPIFFI will be operated at 77 K in a liquid nitrogen bath cryostat. The cold volume is approximately 1100 mm x 950 mm x 450 mm.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Camera and detector",
+   "parameter": "Spectral dither",
+   "value": "spectra can be offset by half a pixel for Nyquist sampling (the 1k design); the 2k detector samples in one exposure",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 4.2, pdf p. 8",
+   "quote": "The operator can offset the spectra on the detector by 1/2 pixel, for proper Nyquist sampling of the spectra.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "J",
+   "value": "lambda_c 1.25 um; 1.10-1.40 um; 0.15 nm/pix; FWHM ~4 pix; R ~2000",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 2.2 table, pdf p. 16",
+   "quote": "J 0.15nm/pix ∼4pix ∼2000 1.10 – 1.40 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "H",
+   "value": "lambda_c 1.65 um; 1.45-1.85 um; 0.20 nm/pix; FWHM ~3 pix; R ~3000",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 2.2 table, pdf p. 16",
+   "quote": "H 0.20nm/pix ∼3pix ∼3000 1.45 – 1.85 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "K",
+   "value": "lambda_c 2.20 um; 1.95-2.45 um; 0.25 nm/pix; FWHM ~2 pix; R ~4000",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 2.2 table, pdf p. 16",
+   "quote": "K 0.25nm/pix ∼2pix ∼4000 1.95 – 2.45 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "H+K",
+   "value": "lambda_c 1.95 um; 1.45-2.45 um; 0.50 nm/pix; FWHM ~2 pix; R ~1500",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 2.2 table, pdf p. 16",
+   "quote": "H+K 0.50nm/pix ∼2pix ∼1500 1.45 – 2.45 µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "Band centers",
+   "value": "J 1.25, H 1.65, K 2.20, H+K 1.95 um",
+   "unit": "um",
+   "source": "EM",
+   "location": "Sec. 9.4 table, pdf p. 57",
+   "quote": "J 1.25µm 1.10 - 1.40µm ... K 2.20µm 1.95 - 2.45µm ... H+K 1.95µm 1.45 - 2.45µm",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "Dispersion (ALT)",
+   "value": "0.15, 0.2, 0.25, 0.5 nm/px",
+   "unit": "nm/px",
+   "source": "GR",
+   "location": "Table 4.3, pdf p. 71",
+   "quote": "J 0.15 H 0.2 K 0.25 H+K 0.5",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "Dispersion from the sourced optics",
+   "value": "J 1.497, H 2.013, K 2.522, H+K 5.029 A/px",
+   "unit": "A/px",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "dlambda/dx = d cos(beta) pix / (m f_cam) with d = 5.758, 7.747, 9.684, 9.961 um, beta = 8.91, 9.17, 8.27, 16.42 deg, m = 2, 2, 2, 1, f_cam = 342 mm, pix = 18 um: 1.497, 2.013, 2.522, 5.029 A/px against 1.5, 2.0, 2.5, 5.0 (EM). This confirms f_cam = 342 mm (an f_cam of 346 mm would raise K to 2.55 A/px)."
+  },
+  {
+   "section": "Coverage and dispersion per grating",
+   "parameter": "Coverage on the 2048 px",
+   "value": "detector coverage J 3066, H 4122, K 5165, H+K 10300 A",
+   "unit": "",
+   "source": "derived",
+   "location": "",
+   "quote": "",
+   "tag": "DERIVED",
+   "note": "The band fits within the detector: J 3066, H 4122, K 5165, H+K 10300 A of detector coverage in the model against filter bands of 3000, 4000, 5000 and 10000 A."
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R per band and scale, commissioning era (EM Sec. 13)",
+   "value": "250 mas / 100 mas / 25 mas: J 1870/1800/2360; H 2920/2730/5500; K 4490/5090/5950; H+K 1640/2050/2710",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13 table, pdf p. 80",
+   "quote": "K 4490 5090 5950",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R per band and scale, commissioning era, J row",
+   "value": "J 1870 1800 2360",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13 table, pdf p. 80",
+   "quote": "J 1870 1800 2360",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R per band and scale, commissioning era, H row",
+   "value": "H 2920 2730 5500",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13 table, pdf p. 80",
+   "quote": "H 2920 2730 5500",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R per band and scale, commissioning era, H+K row",
+   "value": "H+K 1640 2050 2710",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13 table, pdf p. 80",
+   "quote": "H+K 1640 2050 2710",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R, commissioning era (ALT, v89)",
+   "value": "same table in the 2011 manual",
+   "unit": "",
+   "source": "EM89",
+   "location": "Sec. 13 table, pdf p. 77",
+   "quote": "K 4490 5090 5950",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "How these were measured",
+   "value": "FWHM of super-sampled arc lines from the commissioning (courtesy A. Gilbert, MPE), 'simply computed from the FWHM of the arc lines'",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13, pdf p. 80",
+   "quote": "The spectral resolutions per band and plate-scale, when simply computed from the FWHM of the arc lines are:",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Line FWHM in pixels, commissioning era",
+   "value": "250/100/25 mas: J 4.47/4.64/3.53; H 2.83/3.02/1.50; K 1.96/1.73/1.48; H+K 2.37/1.90/1.44",
+   "unit": "px",
+   "source": "EM",
+   "location": "Sec. 13 table, pdf p. 80",
+   "quote": "K 1.96 1.73 1.48",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Sampling remark",
+   "value": "when the FWHM is below 2 px the R should be computed from a 2 px resolution element",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 13, pdf p. 80",
+   "quote": "Thus, for the cases in which the FWHM is less than 2 pixels, the spectral resolution is probably to be computed from a resolution of 2 pixels",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R after the Jan 2016 upgrade, K row",
+   "value": "K: 25 mas FWHM 1.6 px R 5330; 100 mas 1.9 px R 4670; 250 mas 2.2 px R 4070",
+   "unit": "",
+   "source": "G16",
+   "location": "Table 3, pdf p. 10",
+   "quote": "K 25 1.6 5330 8 100 1.9 4670 34 250 2.2 4070 17",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R after the upgrade, J rows",
+   "value": "J: 25 mas 2270; 100 mas 1880; 250 mas 1960",
+   "unit": "",
+   "source": "G16",
+   "location": "Table 3, pdf p. 10",
+   "quote": "J 25 3.7 2270 -6 100 4.4 1880 7 250 4.3 1960 5",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R after the upgrade, H rows",
+   "value": "H: 25 mas 3090; 100 mas 2570; 250 mas 2710",
+   "unit": "",
+   "source": "G16",
+   "location": "Table 3, pdf p. 10",
+   "quote": "H 25 2.7 3090 -10 100 3.2 2570 11 250 3.0 2710 11",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R after the upgrade, H+K rows",
+   "value": "H+K: 25 mas 2120; 100 mas 1940; 250 mas 1730",
+   "unit": "",
+   "source": "G16",
+   "location": "Table 3, pdf p. 10",
+   "quote": "H+K 25 1.9 2120 -6 100 2.0 1940 33 250 2.3 1730 22",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "How Table 3 was measured",
+   "value": "R = lambda_c / dlambda, dlambda the FWHM of Gaussian fits to arc-lamp lines at standard detector sampling, averaged over the band; error about 5 percent",
+   "unit": "",
+   "source": "G16",
+   "location": "Sec. 4.2.1, pdf p. 9",
+   "quote": "was calculated as λc /dλ, where λc is the center wavelength of the band and dλ is the FWHM of the Gaussian fit to the arc-lamp spectral lines using the standard detector sampling",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "R before and after the upgrade (ESO)",
+   "value": "old/new: J 1940/2020, H 2320/2570, K 4110/4700, H+K 1450/1790 (the scale is not stated)",
+   "unit": "",
+   "source": "PU",
+   "location": "Sec. 3.2 table, pdf p. 2",
+   "quote": "K 4110 4700 2.3 2.0",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Upgrade dates",
+   "value": "28 Dec 2015 - 30 Jan 2016: new pre-optics collimator, new J, H, K filters, new M1-M3 collimator mirrors, new grating drive",
+   "unit": "",
+   "source": "PU",
+   "location": "Sec. 2, pdf p. 1",
+   "quote": "SINFONI was successfully upgraded and commissioned during 28 Dec 2015",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Nominal R in the manual summary",
+   "value": "around 2000, 3000, 4000 in J, H, K and 1500 in H+K",
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "a spectral resolution around 2000, 3000, 4000 in J, H, K, respectively, and 1500 in H+K",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Galactic Center mode",
+   "value": "K grating, 0.0125 x 0.025 arcsec pixels (the 25 mas scale), R about 4400 (FWHM 5e-4 um)",
+   "unit": "",
+   "source": "E05",
+   "location": "Sec. 2 (observations), pdf p. 5",
+   "quote": "band grating delivering a FWHM resolution of 5x10-4 µm (resolving power 4400)",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Galactic Center mode: scale",
+   "value": "the highest-resolution mode, 25 mas slices covering 0.8 x 0.8 arcsec",
+   "unit": "",
+   "source": "E05",
+   "location": "Sec. 2 (observations), pdf p. 5",
+   "quote": "We employed the highest resolution mode with 0.0125”x 0.025” (EW x NS) pixels fully covering a contiguous field of view",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "AO resolution at 2.2 um",
+   "value": "56 mas at 2.2 um in the 25 mas scale",
+   "unit": "mas",
+   "source": "E03",
+   "location": "Sec. 3, pdf p. 7",
+   "quote": "the angular resolution at a wavelength of 2.2 µm is 56 mas",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Design throughput of SPIFFI",
+   "value": "about 32 percent, 1.1-2.45 um (design)",
+   "unit": "",
+   "source": "E00",
+   "location": "Sec. 5, pdf p. 8",
+   "quote": "The SPIFFI instrument is designed to maintain a very high optical throughput (≈ 32 %)",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Measured and published performance",
+   "parameter": "Detector read noise and dark",
+   "value": "RON 16 e- for short DIT, 7 e- at DIT ~100 s; dark 0.15 e-/s",
+   "unit": "",
+   "source": "EM",
+   "location": "Sec. 9.7, pdf p. 58",
+   "quote": "Dark current (at -189 deg C) 0.15 e−/s",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Layout figure 1",
+   "value": "E00 Fig. 2: schematic top view of the cold bench (arXiv p. 3); Fig. 1: perspective drawing (p. 2); E03 Fig. 4: photograph-style inside view",
+   "unit": "",
+   "source": "E00",
+   "location": "Fig. 2 caption, pdf p. 3",
+   "quote": "Schematic drawing of SPIFFI (top view): The drawing shows the main components of SPIFFI. The light enters the instrument from the top.",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Layout figure 2",
+   "value": "GR Fig. 3.1 (thesis p. 23): scheme of the TMA with M1, M2, M3, the field plane and the pupil",
+   "unit": "",
+   "source": "GR",
+   "location": "Fig. 3.1, pdf p. 31",
+   "quote": "Scheme of the SPIFFI TMA",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Element order",
+   "value": "dichroic window, sky spider, 45 deg fold, pre-optics collimator, filter wheel, cold stop, optics wheel, image slicer, TMA (M1, M2, M3), grating wheel, camera, detector",
+   "unit": "",
+   "source": "G16",
+   "location": "Sec. 2.1, pdf p. 2",
+   "quote": "The light then enters the pre-optics collimator, here after a 45o",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Collimator-to-grating in the figure (grating at the pupil)",
+   "value": "M3 is close to the pupil, the grating just after it",
+   "unit": "",
+   "source": "GR",
+   "location": "Sec. 4.3, pdf p. 69",
+   "quote": "M3 which is close to the pupil position of the spectrometer",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Scale bar and bench size",
+   "value": "10 cm bar = 100 px at 200 dpi; cold plate 1098 x 950 mm",
+   "unit": "mm",
+   "source": "E00",
+   "location": "Sec. 3.1 and Fig. 2, pdf p. 7",
+   "quote": "The cold volume is approximately 1100 mm x 950 mm x 450 mm.",
+   "tag": "MEASURED",
+   "note": "The plate outline spans 1098 x 950 px in the 200 dpi render of Fig. 2, which equals the sourced cold volume 1100 x 950 mm at 1.00 px/mm, and the drawn 10 cm scale bar spans 100 px: two independent checks on the scale (1 px = 1 mm)."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Slit to M1",
+   "value": 147,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "Slicer exit at (765, 195) px to the M1 face at (912, 198) px; scale 1 px = 1 mm; about +-15 mm."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "M1 to M2",
+   "value": 872,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "(912, 198) to (125, 575) px; about +-20 mm. Fold at M1 (deviation) 155 deg."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "M2 to M3",
+   "value": 866,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "(125, 575) to (980, 710) px; about +-20 mm; equal to M1-M2 within 1 percent, as GR states. Fold at M2 146 deg, at M3 159 deg."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "M3 to grating center",
+   "value": 325,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "(980, 710) to the center of the active grating face (661, 771) px; the face spans 150 mm (sourced 160 mm)."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Slit to grating, unfolded",
+   "value": 2210,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "147 + 872 + 866 + 325 = 2210 mm (the TMA is shorter than its 2886.5 mm focal length)."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Camera-collimator angle in the figure",
+   "value": "42 deg, +-4 (sourced 45 deg)",
+   "unit": "deg",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "Incoming direction at the grating (toward M3) at +10.8 deg, diffracted axis (toward the camera's first lens) at +52.5 deg."
+  },
+  {
+   "section": "Layout (Fig. 2 of E00; Fig. 3.1 of GR; Fig. 1 of G16)",
+   "parameter": "Grating to the camera's first lens",
+   "value": 216,
+   "unit": "mm",
+   "source": "E00",
+   "location": "Fig. 2",
+   "quote": "",
+   "tag": "MEASURED",
+   "note": "(661, 771) to (800, 590) px; agrees with the sourced 220 mm entrance-pupil distance of the 1k camera. The figure shows the 1k camera, not the 2k camera."
+  },
+  {
+   "section": "History and replacement",
+   "parameter": "Replacement",
+   "value": "SPIFFI is rebuilt as SPIFFIER inside ERIS on UT4 (the AO module and the dichroic entrance window change)",
+   "unit": "",
+   "source": "G16",
+   "location": "Secs 5-6, pdf p. 14",
+   "quote": "ERIS is the next-generation AO near-IR imager and spectrograph for the Cassegrain focus of the VLT UT4",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "History and replacement",
+   "parameter": "LGS mode ended",
+   "value": "no laser mode from Period 103",
+   "unit": "",
+   "source": "EM",
+   "location": "Nutshell, p. v, pdf p. 5",
+   "quote": "Since Period 103, SINFONI no longer offers the mode with the Laser Guide Star (LGS).",
+   "tag": "SOURCED",
+   "note": ""
+  },
+  {
+   "section": "History and replacement",
+   "parameter": "Archive",
+   "value": "data public in the ESO archive from April 2005",
+   "unit": "",
+   "source": "EH",
+   "location": "History page",
+   "quote": "April 2005: The data taken with SINFONI are now visible from the ESO Archive.",
+   "tag": "SOURCED",
+   "note": ""
+  }
+ ],
+ "explorer_entry": {
+  "note": "Image slicer entered as KCWI and MUSE: slit = slice width on the sky, nObj = spectra per detector, slit length along the slices in the note. Beam into the slicer F = 17.1 x pre-optics magnification on the 8115 mm Cassegrain pupil; W = f_col / F.",
+  "slice_width_um": 300,
+  "slices": 32,
+  "spaxels_per_slice": 64,
+  "nObj": 2048,
+  "pseudo_slit_mm": 307.2,
+  "slice_length_arcsec": {
+   "250 mas": 8.0,
+   "100 mas": 3.2,
+   "25 mas": 0.8
+  },
+  "spaxel_mas": {
+   "250 mas": "250 x 125",
+   "100 mas": "100 x 50",
+   "25 mas": "25 x 12.5"
+  },
+  "default": "K, 100 mas",
+  "recommended_settings": [
+   "J, 100 mas",
+   "H, 100 mas",
+   "K, 100 mas",
+   "H+K, 100 mas",
+   "K, 250 mas",
+   "K, 25 mas"
+  ],
+  "layout": {
+   "colTilt": 11.5,
+   "layLen": 325,
+   "camLen": 220,
+   "col": "mirror",
+   "cam": "lens",
+   "tags": {
+    "colTilt": "SOURCED",
+    "layLen": "MEASURED",
+    "camLen": "SOURCED (1k camera)"
+   }
+  },
+  "settings": [
+   {
+    "band": "J",
+    "scale_mas": 250,
+    "setting": "J, 250 mas",
+    "F": 30.44,
+    "slitW": 0.25,
+    "W": 94.83,
+    "G": 173.671,
+    "m": 2,
+    "lamC": 12500,
+    "lamB1": 27060,
+    "filt": [
+     11000,
+     14000
+    ],
+    "model": {
+     "Reff": 5139,
+     "Rs": 5180,
+     "dlpix": 1.497,
+     "npix": 1.612,
+     "pixScale": 0.1269,
+     "lo": 10976,
+     "hi": 14037,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 1960,
+    "R_measured_commissioning": 1870,
+    "pixel_along_slice_arcsec": 0.125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 30.44,
+     "g": {
+      "slitW": 0.25,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 94.83,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 173.671,
+      "m": 2,
+      "lamB1": 27060,
+      "lamC": 12500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       11000,
+       14000
+      ]
+     }
+    }
+   },
+   {
+    "band": "J",
+    "scale_mas": 100,
+    "setting": "J, 100 mas",
+    "F": 76.1,
+    "slitW": 0.1,
+    "W": 37.93,
+    "G": 173.671,
+    "m": 2,
+    "lamC": 12500,
+    "lamB1": 27060,
+    "filt": [
+     11000,
+     14000
+    ],
+    "model": {
+     "Reff": 4937,
+     "Rs": 5180,
+     "dlpix": 1.497,
+     "npix": 1.612,
+     "pixScale": 0.0507,
+     "lo": 10976,
+     "hi": 14037,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 1880,
+    "R_measured_commissioning": 1800,
+    "pixel_along_slice_arcsec": 0.05,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 76.1,
+     "g": {
+      "slitW": 0.1,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 37.93,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 173.671,
+      "m": 2,
+      "lamB1": 27060,
+      "lamC": 12500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       11000,
+       14000
+      ]
+     }
+    }
+   },
+   {
+    "band": "J",
+    "scale_mas": 25,
+    "setting": "J, 25 mas",
+    "F": 304.4,
+    "slitW": 0.025,
+    "W": 9.48,
+    "G": 173.671,
+    "m": 2,
+    "lamC": 12500,
+    "lamB1": 27060,
+    "filt": [
+     11000,
+     14000
+    ],
+    "model": {
+     "Reff": 3203,
+     "Rs": 5180,
+     "dlpix": 1.497,
+     "npix": 1.612,
+     "pixScale": 0.0127,
+     "lo": 10976,
+     "hi": 14037,
+     "flags": [
+      "ord",
+      "samp",
+      "diff"
+     ]
+    },
+    "R_measured_2016": 2270,
+    "R_measured_commissioning": 2360,
+    "pixel_along_slice_arcsec": 0.0125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 304.4,
+     "g": {
+      "slitW": 0.025,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 9.48,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 173.671,
+      "m": 2,
+      "lamB1": 27060,
+      "lamC": 12500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       11000,
+       14000
+      ]
+     }
+    }
+   },
+   {
+    "band": "H",
+    "scale_mas": 250,
+    "setting": "H, 250 mas",
+    "F": 30.44,
+    "slitW": 0.25,
+    "W": 94.83,
+    "G": 129.082,
+    "m": 2,
+    "lamC": 16500,
+    "lamB1": 35719,
+    "filt": [
+     14500,
+     18500
+    ],
+    "model": {
+     "Reff": 4995,
+     "Rs": 5065,
+     "dlpix": 2.0126,
+     "npix": 1.619,
+     "pixScale": 0.1269,
+     "lo": 14451,
+     "hi": 18567,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 2710,
+    "R_measured_commissioning": 2920,
+    "pixel_along_slice_arcsec": 0.125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 30.44,
+     "g": {
+      "slitW": 0.25,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 94.83,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 129.082,
+      "m": 2,
+      "lamB1": 35719,
+      "lamC": 16500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       18500
+      ]
+     }
+    }
+   },
+   {
+    "band": "H",
+    "scale_mas": 100,
+    "setting": "H, 100 mas",
+    "F": 76.1,
+    "slitW": 0.1,
+    "W": 37.93,
+    "G": 129.082,
+    "m": 2,
+    "lamC": 16500,
+    "lamB1": 35719,
+    "filt": [
+     14500,
+     18500
+    ],
+    "model": {
+     "Reff": 4671,
+     "Rs": 5065,
+     "dlpix": 2.0126,
+     "npix": 1.619,
+     "pixScale": 0.0507,
+     "lo": 14451,
+     "hi": 18567,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 2570,
+    "R_measured_commissioning": 2730,
+    "pixel_along_slice_arcsec": 0.05,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 76.1,
+     "g": {
+      "slitW": 0.1,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 37.93,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 129.082,
+      "m": 2,
+      "lamB1": 35719,
+      "lamC": 16500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       18500
+      ]
+     }
+    }
+   },
+   {
+    "band": "H",
+    "scale_mas": 25,
+    "setting": "H, 25 mas",
+    "F": 304.4,
+    "slitW": 0.025,
+    "W": 9.48,
+    "G": 129.082,
+    "m": 2,
+    "lamC": 16500,
+    "lamB1": 35719,
+    "filt": [
+     14500,
+     18500
+    ],
+    "model": {
+     "Reff": 2594,
+     "Rs": 5065,
+     "dlpix": 2.0126,
+     "npix": 1.619,
+     "pixScale": 0.0127,
+     "lo": 14451,
+     "hi": 18567,
+     "flags": [
+      "ord",
+      "samp",
+      "diff"
+     ]
+    },
+    "R_measured_2016": 3090,
+    "R_measured_commissioning": 5500,
+    "pixel_along_slice_arcsec": 0.0125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 304.4,
+     "g": {
+      "slitW": 0.025,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 9.48,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 129.082,
+      "m": 2,
+      "lamB1": 35719,
+      "lamC": 16500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       18500
+      ]
+     }
+    }
+   },
+   {
+    "band": "K",
+    "scale_mas": 250,
+    "setting": "K, 250 mas",
+    "F": 30.44,
+    "slitW": 0.25,
+    "W": 94.83,
+    "G": 103.263,
+    "m": 2,
+    "lamC": 22000,
+    "lamB1": 47625,
+    "filt": [
+     19500,
+     24500
+    ],
+    "model": {
+     "Reff": 5334,
+     "Rs": 5466,
+     "dlpix": 2.522,
+     "npix": 1.596,
+     "pixScale": 0.1269,
+     "lo": 19431,
+     "hi": 24589,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 4070,
+    "R_measured_commissioning": 4490,
+    "pixel_along_slice_arcsec": 0.125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 30.44,
+     "g": {
+      "slitW": 0.25,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 94.83,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 103.263,
+      "m": 2,
+      "lamB1": 47625,
+      "lamC": 22000,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       19500,
+       24500
+      ]
+     }
+    }
+   },
+   {
+    "band": "K",
+    "scale_mas": 100,
+    "setting": "K, 100 mas",
+    "F": 76.1,
+    "slitW": 0.1,
+    "W": 37.93,
+    "G": 103.263,
+    "m": 2,
+    "lamC": 22000,
+    "lamB1": 47625,
+    "filt": [
+     19500,
+     24500
+    ],
+    "model": {
+     "Reff": 4771,
+     "Rs": 5466,
+     "dlpix": 2.522,
+     "npix": 1.596,
+     "pixScale": 0.0507,
+     "lo": 19431,
+     "hi": 24589,
+     "flags": [
+      "ord",
+      "samp"
+     ]
+    },
+    "R_measured_2016": 4670,
+    "R_measured_commissioning": 5090,
+    "pixel_along_slice_arcsec": 0.05,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 76.1,
+     "g": {
+      "slitW": 0.1,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 37.93,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 103.263,
+      "m": 2,
+      "lamB1": 47625,
+      "lamC": 22000,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       19500,
+       24500
+      ]
+     }
+    }
+   },
+   {
+    "band": "K",
+    "scale_mas": 25,
+    "setting": "K, 25 mas",
+    "F": 304.4,
+    "slitW": 0.025,
+    "W": 9.48,
+    "G": 103.263,
+    "m": 2,
+    "lamC": 22000,
+    "lamB1": 47625,
+    "filt": [
+     19500,
+     24500
+    ],
+    "model": {
+     "Reff": 2231,
+     "Rs": 5466,
+     "dlpix": 2.522,
+     "npix": 1.596,
+     "pixScale": 0.0127,
+     "lo": 19431,
+     "hi": 24589,
+     "flags": [
+      "ord",
+      "samp",
+      "diff"
+     ]
+    },
+    "R_measured_2016": 5330,
+    "R_measured_commissioning": 5950,
+    "pixel_along_slice_arcsec": 0.0125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 304.4,
+     "g": {
+      "slitW": 0.025,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 9.48,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 103.263,
+      "m": 2,
+      "lamB1": 47625,
+      "lamC": 22000,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       19500,
+       24500
+      ]
+     }
+    }
+   },
+   {
+    "band": "H+K",
+    "scale_mas": 250,
+    "setting": "H+K, 250 mas",
+    "F": 30.44,
+    "slitW": 0.25,
+    "W": 94.83,
+    "G": 100.392,
+    "m": 1,
+    "lamC": 19500,
+    "lamB1": 21107,
+    "filt": [
+     14500,
+     24500
+    ],
+    "model": {
+     "Reff": 2108,
+     "Rs": 2149,
+     "dlpix": 5.0289,
+     "npix": 1.804,
+     "pixScale": 0.1269,
+     "lo": 14399,
+     "hi": 24683,
+     "flags": [
+      "samp"
+     ]
+    },
+    "R_measured_2016": 1730,
+    "R_measured_commissioning": 1640,
+    "pixel_along_slice_arcsec": 0.125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 30.44,
+     "g": {
+      "slitW": 0.25,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 94.83,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 100.392,
+      "m": 1,
+      "lamB1": 21107,
+      "lamC": 19500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       24500
+      ]
+     }
+    }
+   },
+   {
+    "band": "H+K",
+    "scale_mas": 100,
+    "setting": "H+K, 100 mas",
+    "F": 76.1,
+    "slitW": 0.1,
+    "W": 37.93,
+    "G": 100.392,
+    "m": 1,
+    "lamC": 19500,
+    "lamB1": 21107,
+    "filt": [
+     14500,
+     24500
+    ],
+    "model": {
+     "Reff": 1926,
+     "Rs": 2149,
+     "dlpix": 5.0289,
+     "npix": 1.804,
+     "pixScale": 0.0507,
+     "lo": 14399,
+     "hi": 24683,
+     "flags": [
+      "samp"
+     ]
+    },
+    "R_measured_2016": 1940,
+    "R_measured_commissioning": 2050,
+    "pixel_along_slice_arcsec": 0.05,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 76.1,
+     "g": {
+      "slitW": 0.1,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 37.93,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 100.392,
+      "m": 1,
+      "lamB1": 21107,
+      "lamC": 19500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       24500
+      ]
+     }
+    }
+   },
+   {
+    "band": "H+K",
+    "scale_mas": 25,
+    "setting": "H+K, 25 mas",
+    "F": 304.4,
+    "slitW": 0.025,
+    "W": 9.48,
+    "G": 100.392,
+    "m": 1,
+    "lamC": 19500,
+    "lamB1": 21107,
+    "filt": [
+     14500,
+     24500
+    ],
+    "model": {
+     "Reff": 968,
+     "Rs": 2149,
+     "dlpix": 5.0289,
+     "npix": 1.804,
+     "pixScale": 0.0127,
+     "lo": 14399,
+     "hi": 24683,
+     "flags": [
+      "samp",
+      "diff"
+     ]
+    },
+    "R_measured_2016": 2120,
+    "R_measured_commissioning": 2710,
+    "pixel_along_slice_arcsec": 0.0125,
+    "state": {
+     "mode": "grating",
+     "D": 8.115,
+     "F": 304.4,
+     "g": {
+      "slitW": 0.025,
+      "nObj": 2048,
+      "col": "mirror",
+      "cam": "lens",
+      "colTilt": 11.5,
+      "layLen": 325,
+      "camLen": 220,
+      "W": 9.48,
+      "fcam": 342.0,
+      "gType": "refl",
+      "G": 100.392,
+      "m": 1,
+      "lamB1": 21107,
+      "lamC": 19500,
+      "psi": 45,
+      "tAlpha": null,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 18,
+      "filt": [
+       14500,
+       24500
+      ]
+     }
+    }
+   }
+  ],
+  "pub_default": [
+   {
+    "what": "0.25 nm/px (2.5 A/px) dispersion in K",
+    "q": "dlpix",
+    "value": 2.5,
+    "tol": 0.02,
+    "src": "ESO SINFONI manual Sec. 2.2 table; Graeff 2016 Table 4.3 (two significant figures). Independent: the spacing and f_cam are from George et al. 2017, the dispersion from the manual. Model 2.522."
+   },
+   {
+    "what": "K coverage from 19500 A",
+    "q": "lo",
+    "value": 19500,
+    "tol": 0.015,
+    "src": "ESO SINFONI manual Sec. 2.2 / 9.4 (the 1.95-2.45 um band; the model's range is the 2048 px). Model 19431."
+   },
+   {
+    "what": "K coverage to 24500 A",
+    "q": "hi",
+    "value": 24500,
+    "tol": 0.015,
+    "src": "ESO SINFONI manual Sec. 2.2 / 9.4. Model 24589."
+   },
+   {
+    "what": "R = 4670 in K at 100 mas (measured, Jan 2016 and later)",
+    "q": "R",
+    "value": 4670,
+    "tol": 0.08,
+    "src": "George et al. 2016 Table 3 (lambda_c / FWHM of Gaussian fits to arc lines, error about 5 percent). Independent of the preset's inputs. Model 4771 (+2.2 percent)."
+   },
+   {
+    "what": "R = 5090 in K at 100 mas (measured at commissioning)",
+    "q": "R",
+    "value": 5090,
+    "info": true,
+    "src": "ESO SINFONI manual Sec. 13 (before the 2016 upgrade; the collimator mirrors then were the 2004-2016 set). Model 6 percent lower."
+   },
+   {
+    "what": "0.05 arcsec along the slice at 100 mas",
+    "q": "pixScale",
+    "value": 0.05,
+    "tol": 0.03,
+    "src": "ESO SINFONI manual Sec. 2.2 table (spaxel 50 mas x 100 mas). Model 0.0507; f_cam = 346 mm would give exactly 0.05."
+   },
+   {
+    "what": "design line FWHM about 1.6 px",
+    "q": "npix",
+    "value": 1.6,
+    "tol": 0.05,
+    "src": "George et al. 2016 Table 3 caption. Model 1.596."
+   },
+   {
+    "what": "angle of incidence 36.73 deg at 2.2 um",
+    "q": "alphaDeg",
+    "value": 36.7344,
+    "info": true,
+    "src": "George et al. 2017 Table 2; a consistency check (same equation, psi = 45 deg), not a test"
+   }
+  ],
+  "pub_other": {
+   "J, 100 mas": [
+    {
+     "what": "0.15 nm/px",
+     "q": "dlpix",
+     "value": 1.5,
+     "tol": 0.02
+    },
+    {
+     "what": "R = 1880 (measured, 2016)",
+     "q": "R",
+     "value": 1880,
+     "info": true,
+     "src": "model 4937, 2.6 times higher: the J grating's line profile is broadened (George et al. 2017); the explorer has only the geometric slit image"
+    }
+   ],
+   "H, 100 mas": [
+    {
+     "what": "0.20 nm/px",
+     "q": "dlpix",
+     "value": 2.0,
+     "tol": 0.02
+    },
+    {
+     "what": "R = 2570 (measured, 2016)",
+     "q": "R",
+     "value": 2570,
+     "info": true,
+     "src": "model 4671, 1.8 times higher: same cause"
+    }
+   ],
+   "H+K, 100 mas": [
+    {
+     "what": "0.50 nm/px",
+     "q": "dlpix",
+     "value": 5.0,
+     "tol": 0.02
+    },
+    {
+     "what": "R = 1940 (measured, 2016)",
+     "q": "R",
+     "value": 1940,
+     "tol": 0.08,
+     "src": "George et al. 2016 Table 3. Model 1926 (-0.7 percent)"
+    }
+   ],
+   "K, 250 mas": [
+    {
+     "what": "0.125 arcsec along the slice",
+     "q": "pixScale",
+     "value": 0.125,
+     "tol": 0.03
+    },
+    {
+     "what": "R = 4070 (measured, 2016)",
+     "q": "R",
+     "value": 4070,
+     "info": true,
+     "src": "model 5334, +31 percent: the 250 mas beam fills the collimator and the grating and meets the largest aberrations of the TMA and the grating's cryogenic deformation (George et al. 2016 attribute the 10-30 percent gains of the 2016 mirrors to the large scales)"
+    }
+   ],
+   "K, 25 mas": [
+    {
+     "what": "0.0125 arcsec along the slice",
+     "q": "pixScale",
+     "value": 0.0125,
+     "tol": 0.03
+    },
+    {
+     "what": "R = 5330 (measured, 2016)",
+     "q": "R",
+     "value": 5330,
+     "info": true,
+     "src": "model 2231, 2.4 times LOWER: the model's 9.5 mm geometric beam on the grating caps R at the diffraction limit, but the 300 um slit's own diffraction (lambda f_col / w = 21 mm at 2.2 um) fills a far larger part of the grating; the explorer cannot represent this"
+    }
+   ]
+  }
+ },
+ "not_found": [
+  "blaze angle / wavelength and manufacturer of the gratings",
+  "2k camera prescription and layout (Kroes et al. 2008)",
+  "pre-optics lens prescriptions",
+  "measured throughput per band",
+  "usage statistics by pixel scale",
+  "TMA mirror spacings and tilts as numbers"
+ ],
+ "not_obtained": [
+  {
+   "title": "Opto-mechanical design for transmission optics in cryogenic IR instrumentation (Kroes et al.)",
+   "bibcode": "2008SPIE.7018E..2DK"
+  },
+  {
+   "title": "First light of SINFONI at the VLT (Bonnet et al., The Messenger 117, 17)",
+   "bibcode": "2004Msngr.117...17B"
+  },
+  {
+   "title": "On-sky performance of SPIFFI: the integral field spectrometer for SINFONI at the VLT (Iserlohe et al.)",
+   "bibcode": "2004SPIE.5492.1123I"
+  },
+  {
+   "title": "SPIFFI Image Slicer: High-Precision Optics at Cryogenic Temperatures (Tecza et al.)",
+   "bibcode": "2003SPIE.4842..375T"
+  }
+ ],
+ "model_cannot_represent": [
+  "25 mas R (slit diffraction fills the grating; the explorer caps R at the geometric beam)",
+  "cryogenic grating deformation that broadens J and H lines",
+  "rectangular 2:1 spaxels",
+  "brick-wall double pseudo-slit",
+  "TMA drawn as one mirror; three folds",
+  "2k camera fold mirror and five lenses (drawn as a thin lens)",
+  "half-pixel spectral dither"
+ ]
+}

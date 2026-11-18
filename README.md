@@ -742,7 +742,11 @@ not on the page. The band's wavelength enters only the diffraction width.
   monochromatic slit image is a band along the slit direction ŝ, its width set by the slit edges; the
   resolution element is the wavelength shift that moves the band by its own width, both measured normal
   to ŝ, Δλ = |e ∧ ŝ| / |(dP/dλ) ∧ ŝ| (this handles tilted lines and tilted orders alike).
-  R_slit = λ/Δλ (box FWHM = slit width); R_diff = m N_grooves; R_eff = (R_slit⁻² + R_diff⁻²)^(−1/2). No pixel
+  R_slit = λ/Δλ (box FWHM = slit width); R_diff = m N_grooves; R_eff = (R_slit⁻² + R_diff⁻²)^(−1/2). The grooves
+  counted are those lit: the beam's footprint, or, for a slit narrower than its own diffraction (2 λ/D wide or less,
+  as at SINFONI's 25 mas scale), the central lobe of the slit's diffraction pattern, 2 f_col λ/w across on the
+  collimator, whichever is larger, and never more than the ruled length gLen (2026-11-18, his call: SINFONI's 25 mas
+  R had come out at 2,231 against the measured 5,330, now 4,889). No pixel
   term (Charlie's call, 2026-11-16, after the preset audit): the pixel does not widen a measured line (McLean et al.
   2012 measure MOSFIRE's lines at the geometric slit width), and with the term the headline R sat 4–10% below the
   published values. Published R values follow two conventions: the line's true FWHM (M2FS, MOSFIRE, 4MOST HRS,
@@ -756,7 +760,8 @@ not on the page. The band's wavelength enters only the diffraction width.
   along X. Pixel scale along the slit from dP/dζ (analytically 206265 p W/(D f_cam), with the
   cross-disperser's anamorphism when there is one). Coverage: where the slit-center trace crosses the
   detector edges (bisection), over every order that touches the chip, bounded by the atmospheric cutoff
-  (3200 Å) and by 2.6 µm (an edge still on the chip there is the limit); gaps from the union. An echelle order
+  (3200 Å) and by 6 µm, the M band's red end (an edge still on the chip there is the limit; 2.6 µm until 2026-11-18,
+  raised for CRIRES+ and NIRSPEC's L and M bands, which bounded FIRE by its published 0.82–2.51 µm); gaps from the union. An echelle order
   is kept if any part lands on the chip, even when the order's blaze lies outside the prism glass's valid range.
 - **Blaze efficiency** (reflection gratings, echelles): scalar theory, facets fully lit,
   sinc²[π σ cos γ cos δ (sin(α − δ) + sin(β − δ))/λ], relative to the peak.
@@ -1016,7 +1021,7 @@ R = 920,000 against the measured 940,000.
 
 Round 9 (2026-11-18; records in data/round9/): four extreme-precision radial-velocity spectrographs and Keck's
 near-infrared echelle. KPF on Keck I (green and red arms; each camera and grism entered as the equivalent in the
-primary collimator's 200 mm beam; the arms split after the shared echelle, which the All-arms view does not draw),
+primary collimator's 200 mm beam; an All-arms group that splits after the shared echelle),
 NEID on the WIYN 3.5 m (HR and HE; one parabola in triple pass; the published order spans scored), CARMENES on the
 Calar Alto 3.5 m (VIS and NIR, with an All-arms group for the dichroic ahead of the fibers; the NIR model's R is 16%
 above the measured 80,400, unexplained), HPF on the HET (camera and cross-disperser EFFECTIVE, since the as-built
@@ -1024,6 +1029,22 @@ prescription is not published; four published order edges scored, a test of the 
 NIRSPEC on Keck II (echelle Y, J, H and K and the low-resolution mode; the three-mirror camera's two focal lengths,
 464.24 and 407.49 mm, so the scale along the slit is 18% small in the echelle mode). validate.js gains ordLo and
 ordHi, an order's blue and red ends on the chip.
+
+Round 10 (2026-11-18; records in data/round10/): CRIRES+ on the VLT (seven ESO settings from Y to M with the 0.2″
+slit; the pre-slit cross-disperser entered as an equivalent grating after the echelle, the TMA's focal length and the
+beam EFFECTIVE, each setting's echelle tilt fitted to its reference order; the order ends two orders away scored
+against the manual's Table 20 to 0.3%), SINFONI (2005-2019; J, H, K and H+K gratings at the 25, 100 and 250 mas
+scales, every optical value sourced; the J and H gratings' cryogenic line broadening is not modeled), KMOS (IZ to HK;
+the 1000 mm collimator and 145 mm camera of Tecza et al. 2006, the line densities fitted to the manual's dispersion),
+Subaru HDS (four standard setups and three slits; the echelle's gamma EFFECTIVE, the dispersions and order
+separations scored), and LBT MODS (blue and red channels, from the OSU Code V files; an All-arms group in which the
+channels' collimators take the diverging beam straight from the dichroic, with no relay), and two photographic-era
+coudé spectrographs: the Hale 200-inch (Bowen 1952; one collimator and grating mosaic, five cameras from 144 to 8.4 inches
+as Settings, the plates entered as 20 µm pixels, each slit the one whose image is 0.02 mm; Bowen's Table 2 dispersions
+scored) and the Mount Wilson 100-inch (Adams 1941; three cameras, the grating in Littrow, INFERRED). The physics gains two rules: a slit
+narrower than its own diffraction lights the central lobe of its diffraction pattern on the grating (SINFONI's 25 mas
+scale), and coverage runs to 6 µm (CRIRES+'s L and M settings). arms.js gains two splits: after a shared slit,
+collimator and echelle (split "echelle", KPF), and in the diverging beam with no relay (relay null, MODS).
 
 ## Preset and Setting menus
 
@@ -1180,7 +1201,7 @@ as the Telescopes mode does.
   straight-through axial ray, the ruled grism's dispersion (m G − sin A dn/dλ)/cos A, the tilted-entrance form
   with the lit length and beam width.
 - **Edge cases from the 2026-10-17 audit** (ten of these checks fail on the engine from before the fixes): coverage bounded
-  at 3200 Å and 2.6 µm with edges where the trace crosses the chip; the order-overlap warning; glass indices
+  at 3200 Å and 6 µm with edges where the trace crosses the chip; the order-overlap warning; glass indices
   undefined outside their tabulated ranges; a grism root at the edge of the glass's range, and one with
   no root rejected; tilted prisms in PBM 2R, PBM 2Y and FK5HTi; MIKE's order 30, whose blaze lies outside
   the prism glass's range, kept.
