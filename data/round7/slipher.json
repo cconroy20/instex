@@ -1,0 +1,797 @@
+{
+ "_meta": {
+  "project": "instex round 7: Slipher nebular prism spectrograph on the Lowell 24-inch refractor (id slipher)",
+  "compiled": "2026-11-17",
+  "quote_check": "89 quote pieces; 3 verified by eye against the scan image; 0 failures in text-layer sources; 0 OCR mismatches in scans",
+  "companion": "data/round7/slipher.md"
+ },
+ "sources": {
+  "S04": {
+   "cite": "Slipher, V. M. 1904, ApJ 20, 1, \"The Lowell Spectrograph\" (ADS scan, text layer present but OCR-garbled in tables) -- the instrument as delivered by Brashear (three-prism train, two cameras, single prisms, grating); stellar and planetary era",
+   "file": "rawdata/presets/slipher/1904ApJ....20....1S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1904ApJ....20....1S",
+   "kind": "text",
+   "bibcode": "1904ApJ....20....1S"
+  },
+  "S05": {
+   "cite": "Slipher, V. M. 1905, ApJ 22, 318, \"Observations of standard velocity stars with the Lowell spectrograph (1905)\" (ADS scan with text layer)",
+   "file": "rawdata/presets/slipher/1905ApJ....22..318S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1905ApJ....22..318S",
+   "kind": "text",
+   "bibcode": "1905ApJ....22..318S"
+  },
+  "S12": {
+   "cite": "Slipher, V. M. 1912, Lowell Obs. Bull. 2 (No. 45), 26, \"On the spectrum of the nebula in the Pleiades\" (ADS scan, no text layer; transcribed from the scan)",
+   "file": "rawdata/presets/slipher/1912LowOB...2...26S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1912LowOB...2...26S",
+   "kind": "scan",
+   "bibcode": "1912LowOB...2...26S"
+  },
+  "S13": {
+   "cite": "Slipher, V. M. 1913, Lowell Obs. Bull. 2 (No. 58), 56, \"The radial velocity of the Andromeda Nebula\" (ADS scan, no text layer; transcribed from the scan)",
+   "file": "rawdata/presets/slipher/1913LowOB...2...56S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1913LowOB...2...56S",
+   "kind": "scan",
+   "bibcode": "1913LowOB...2...56S"
+  },
+  "S14": {
+   "cite": "Slipher, V. M. 1914, Lowell Obs. Bull. 2 (No. 62), 66, \"The detection of nebular rotation\" (ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1914LowOB...2...66S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1914LowOB...2...66S",
+   "kind": "scan",
+   "bibcode": "1914LowOB...2...66S"
+  },
+  "S14PA": {
+   "cite": "Slipher, V. M. 1914, Popular Astronomy 22, 19, \"The radial velocity of the Andromeda Nebula\" (reprint of S13; ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1914PA.....22...19S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1914PA.....22...19S",
+   "kind": "scan",
+   "bibcode": "1914PA.....22...19S"
+  },
+  "S15": {
+   "cite": "Slipher, V. M. 1915, Popular Astronomy 23, 21, \"Spectrographic observations of nebulae\" (ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1915PA.....23...21S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1915PA.....23...21S",
+   "kind": "scan",
+   "bibcode": "1915PA.....23...21S"
+  },
+  "S16": {
+   "cite": "Slipher, V. M. 1916, Lowell Obs. Bull. 2 (No. 75), 155, \"On the spectrum of the nebula about rho Ophiuchi\" (ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1916LowOB...2..155S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1916LowOB...2..155S",
+   "kind": "scan",
+   "bibcode": "1916LowOB...2..155S"
+  },
+  "S17": {
+   "cite": "Slipher, V. M. 1917, Proc. Am. Phil. Soc. 56, 403, \"Nebulae\" (ADS scan, 7 pp., no text layer; transcribed from the scan)",
+   "file": "rawdata/presets/slipher/1917PAPhS..56..403S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1917PAPhS..56..403S",
+   "kind": "scan",
+   "bibcode": "1917PAPhS..56..403S"
+  },
+  "S17B": {
+   "cite": "Slipher, V. M. 1917, Lowell Obs. Bull. 3 (No. 80), 59, \"The spectrum and velocity of the nebula N.G.C. 1068 (M 77)\" (ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1917LowOB...3...59S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1917LowOB...3...59S",
+   "kind": "scan",
+   "bibcode": "1917LowOB...3...59S"
+  },
+  "S17O": {
+   "cite": "Slipher, V. M. 1917, The Observatory 40, 304, letter \"Radial velocity observations of spiral nebulae\" (ADS scan, no text layer)",
+   "file": "rawdata/presets/slipher/1917Obs....40..304S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1917Obs....40..304S",
+   "kind": "scan",
+   "bibcode": "1917Obs....40..304S"
+  },
+  "T13": {
+   "cite": "Thompson, L. A. 2013, ASP Conf. Ser. 471, 135, \"V. M. Slipher and the Development of the Nebular Spectrograph\", arXiv:1301.7331 (secondary; uses Lowell Observatory archive correspondence and photograph of the camera)",
+   "file": "rawdata/presets/slipher/Thompson2013_ASPC471_135_arXiv1301.7331.pdf",
+   "url": "https://arxiv.org/pdf/1301.7331",
+   "kind": "text",
+   "bibcode": "2013ASPC..471..135T"
+  },
+  "T11": {
+   "cite": "Thompson, L. A. 2011, arXiv:1108.4864, \"Vesto Slipher and the First Galaxy Redshifts\" (secondary)",
+   "file": "rawdata/presets/slipher/Thompson2011_arXiv1108.4864.pdf",
+   "url": "https://arxiv.org/pdf/1108.4864",
+   "kind": "text",
+   "bibcode": "2011arXiv1108.4864T"
+  },
+  "SM13": {
+   "cite": "Smith, R. W. 2013, ASP Conf. Ser. 471, 143, \"The Road to Radial Velocities: V. M. Slipher and Mastery of the Spectrograph\" (secondary; ADS scan, 21 pp.)",
+   "file": "rawdata/presets/slipher/Smith2013_ASPC471_143_ads.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/2013ASPC..471..143S",
+   "kind": "text",
+   "bibcode": "2013ASPC..471..143S"
+  },
+  "SCH": {
+   "cite": "SCHOTT, \"Optical Glass Data Sheets\" (English, 139 pp.), data sheets for N-SF15 (PDF p. 107), N-SF8 (p. 103) and SF2 (p. 116) -- identical copy of rawdata/presets/glass/schott_optical_glass_datasheets_EN_media38cbbe87.pdf",
+   "file": "rawdata/presets/slipher/schott_optical_glass_datasheets_EN_media38cbbe87.pdf",
+   "url": "https://media.schott.com/api/public/content/38cbbe87",
+   "kind": "text",
+   "bibcode": ""
+  }
+ },
+ "parameters": [
+  {
+   "parameter": "telescope",
+   "value": "Lowell Observatory 24-inch Clark refractor (Flagstaff, 2210 m)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 2; p. 16",
+   "quotes": [
+    "The large refractor for which the spectrograph was designed and with which it is used has an objective, by Clarks"
+   ],
+   "note": "Slipher 1917 (S17, p. 404): \"The spectrograph was attached to the 24-inch refractor.\""
+  },
+  {
+   "parameter": "objective_clear_aperture",
+   "value": 61,
+   "unit": "cm",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 2",
+   "quotes": [
+    "clear aper- ture of 61 cm and a focal length of 983 cm for the photographic rays"
+   ],
+   "note": "Visual-rays focal length not stated. A color-curve of the objective is in Fig. 1 of S04 (not digitized)."
+  },
+  {
+   "parameter": "objective_focal_length",
+   "value": 983,
+   "unit": "cm (photographic rays)",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 2",
+   "quotes": [
+    "focal length of 983 cm for the photographic rays",
+    "This ratio of aperture to focus-1 to 16"
+   ],
+   "note": "DERIVED: 983/61 = f/16.1; plate scale 9830 mm / 206264.8 = 47.66 um per arcsec = 20.98 arcsec per mm at the slit."
+  },
+  {
+   "parameter": "correcting_lens",
+   "value": "95 mm doublet (light flint + light crown, cemented) 1.422 m inside the 4400 A focus, unites the photographic rays near 4400 A on the slit plate; used for stellar and planetary work. Use for the nebular plates NOT STATED (not used for the Pleiades plate of 1912)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 10",
+   "quotes": [
+    "It has an aperture of 95 mm and is placed 1.422 m inside the focus of X 4400",
+    "The lens is a doublet made of a double convex lens of a special light flint from Mantois"
+   ],
+   "note": "S12 (p. 26): \"(No cor- recting lens was used.)\" for the 1912 Pleiades-nebula plate. For an extended source the slit illumination does not depend on the focus (S13, p. 56: \"The collimator must of course fit the telescope\"), so the preset omits it."
+  },
+  {
+   "parameter": "collimator_focal_length",
+   "value": 489.1,
+   "unit": "mm (photographic lens; visual lens 491.3 mm)",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 11",
+   "quotes": [
+    "gave the collimator a focal length 1.2683 times that of the camera, or 489.1 mm",
+    "the focal length of the visual lens was 491.3 mm"
+   ],
+   "note": "Measured in the laboratory by Slipher (Schuster method + iron negative); \"about 490 mm\" on p. 2 and in S05 p. 318."
+  },
+  {
+   "parameter": "collimator_aperture",
+   "value": 30.5,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 2; p. 10-11",
+   "quotes": [
+    "This gave the lens an aperture of 30.5 mm",
+    "There are two collimation lenses, each having an aperture of"
+   ],
+   "note": "DERIVED: 489.1/30.5 = f/16.04, matching the objective (f/16.1). Collimator type: lens (cemented doublet, Mantois crown and flint, Hastings design: S04 p. 10, \"a doublet lately designed by Dr. Hastings\")."
+  },
+  {
+   "parameter": "collimator_on_axis",
+   "value": "Transmissive lens collimator behind the slit; slit and refractor beam are on axis; no obscuration, no fold",
+   "unit": "",
+   "tag": "SOURCED + INFERRED (no obscuration)",
+   "src": "S04",
+   "loc": "p. 2-3",
+   "quotes": [
+    "The collimator and slit-plate may be moved as a whole in this sleeve through 70 mm by a rack and pinion",
+    "The jaws are of speculum metal and are highly polished"
+   ],
+   "note": "On-axis/off-axis gate: NOT APPLICABLE (a lens collimator in line with the refractor tube, the slit at the objective focus; nothing stands in a returning beam). The speculum jaws reflect the slit-stopped light sideways into a guiding tube (S04 p. 6), outside the cone."
+  },
+  {
+   "parameter": "slit_mechanism",
+   "value": "Symmetric jaws opened by a wedge and screw of 0.25 mm pitch, head in ten parts: 0.025 mm per division; separate jaws below the slit set the spectrum width",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 4-5",
+   "quotes": [
+    "The screw has a pitch of 0.25 mm and a milled head divided into ten equal parts",
+    "one division, corresponds to a slit-width of 0.025 mni",
+    "Just beneath the slit is a pair of jaws for controlling the width of the spectra"
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "slit_width_stellar",
+   "value": 0.02,
+   "unit": "mm (at the slit)",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 17",
+   "quotes": [
+    "With a slit- width of 0.02 mm, which is the width generally used"
+   ],
+   "note": "Stellar and planetary work with the three-prism train. DERIVED: 0.02 mm = 0.42 arcsec on the sky."
+  },
+  {
+   "parameter": "slit_width_nebulae_equivalent",
+   "value": 0.06,
+   "unit": "mm (\"equivalent slit-width\"; read as the slit image on the plate)",
+   "tag": "SOURCED (reading INFERRED)",
+   "src": "S17",
+   "loc": "p. 405",
+   "quotes": [
+    "The equivalent slit-width is usually about .06 mm"
+   ],
+   "note": "Transcribed from the scan (p. 405). Slipher gave no other slit width for the nebulae (S13 says only \"a wider slit\"). Thompson (T13, p. 4) reads it as the projected width on the plate. DERIVED on that reading: slit = 0.06 mm x (489.1/82.55) = 0.355 mm = 7.46 arcsec on the sky (T13 quotes 8.25 arcsec, factor unstated; see Conflicts). 0.06 mm x 140 A/mm = 8.4 A."
+  },
+  {
+   "parameter": "slit_length",
+   "value": "about 4 arcmin (Pleiades-nebula plates, 1912); 11.4 mm at the slit (DERIVED)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S12",
+   "loc": "p. 26",
+   "quotes": [
+    "The slit having a length of about four minutes of arc was oriented east and west"
+   ],
+   "note": "Transcribed from the scan. DERIVED: 240 arcsec x 47.66 um/arcsec = 11.4 mm; projected 11.4 x 82.55/489.1 = 1.93 mm: the spectrum width on the plate (INFERRED; the nebular-plate width is not stated)."
+  },
+  {
+   "parameter": "prism_nebular_apex",
+   "value": 64,
+   "unit": "deg (nominal)",
+   "tag": "SOURCED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "using a very dense 64-degree prism"
+   ],
+   "note": "Transcribed from the scan. S17 (p. 404): \"The dispersion piece of the spectrograph has generally been a 64 degrees prism of dense glass\". S17B (p. 60): \"two 64 deg.5 prisms\" for NGC 1068. These are NOT the 60 deg single prisms of S04 (59 deg 59' 50\" flint, 59 deg 59' 30\" crown); they were added after 1904."
+  },
+  {
+   "parameter": "prism_nebular_number",
+   "value": "1 prism for most nebulae; 2 prisms for two nebulae of the 1917 list and for the 1917 NGC 1068 plate",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 404",
+   "quotes": [
+    "The dispersion piece of the spectrograph has generally been a 64° prism of dense glass, but for two of the nebulæ a dispersion of two 64° prisms was used"
+   ],
+   "note": "Transcribed from the scan. S17B (p. 60): \"under the higher dispersion of two 64 deg.5 prisms ... An exposure was made from November 12 to 16, 1917, with a duration of thirty-five hours.\" Which two nebulae in the list: NOT FOUND."
+  },
+  {
+   "parameter": "prism_nebular_glass",
+   "value": "NOT FOUND. \"very dense\"/\"dense glass\" only. See the glass section: INFERRED dense flint like the 1904 single flint prism (n(Hgamma) = 1.7310); proposed Schott N-SF15",
+   "unit": "",
+   "tag": "NOT FOUND (INFERRED substitute)",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "using a very dense 64-degree prism"
+   ],
+   "note": "No maker, melt, index or Abbe number is published for the 64 deg prism(s). The 1904 single \"very dense flint\" prism has measured indices (S04 p. 15 Table IV)."
+  },
+  {
+   "parameter": "prism_nebular_size_and_setting",
+   "value": "NOT FOUND (size, orientation, minimum-deviation setting for the nebulae)",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "src": "S05",
+   "loc": "p. 319",
+   "quotes": [
+    "the prisms have been used set at minimum deviation for wave-length 4415"
+   ],
+   "note": "That line is the stellar three-prism setting of 1905. The nebular setting is not stated; the 140 A/mm \"in the violet\" is reproduced by a dense flint at minimum deviation near 4400 A (DERIVED below)."
+  },
+  {
+   "parameter": "prism_train_stellar",
+   "value": "3 prisms, Schott O 102 dense silicate flint, apex 62 deg 52' 56\", 62 deg 52' 12\", 62 deg 52' 31\"; bases 67 mm; path in glass a little over 100 mm; automatic minimum-deviation device; semicircular prism box 13 in diameter",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 12; p. 2; p. 5",
+   "quotes": [
+    "The glass is a dense silicate flint, the same brand, O 102",
+    "The bases are each 67 mm, and the average length of the path of the fight through the glass is slightly more than 100 mm",
+    "a prism-train equipped with a mini- mum deviation device"
+   ],
+   "note": "Stellar/planetary configuration (era 1902-1910); total deviation at Hgamma 176 deg 29' (Table I). S05 (p. 318): \"a train of three 63o dense flint prisms\"."
+  },
+  {
+   "parameter": "prism_train_indices_O102",
+   "value": "Hα 1.64344; D2 1.64893; Hβ 1.66268; λ4529 1.66963; Hγ 1.67448; Hδ 1.68191; H 1.68680; K 1.68826 (average of three prisms)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 12 (Table I)",
+   "quotes": [
+    "The average index for H<y is 1.67448, and the total deviation is"
+   ],
+   "note": "Table values transcribed from the scan image (p. 12); the OCR text layer garbles the table. Total deviations 165 deg 22' (Hα), 167 18 (D2), 172 11 (Hβ), 174 41 (4529), 176 29 (Hγ), 179 14 (Hδ), 181 5 (H), 181 38 (K)."
+  },
+  {
+   "parameter": "single_prism_flint_1904",
+   "value": "apex 59 deg 59' 50\"; n: Hα 1.6905, D2 1.6954, Hβ 1.7131, Hγ 1.7310 (top row printed as Hδ 1.7360 is out of line; see Conflicts)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 15 (Table IV)",
+   "quotes": [
+    "There are two single prisms, one a very dense flint"
+   ],
+   "note": "Table transcribed from the scan image (p. 15). Dispersion at Hγ: long camera 32 A/mm, short camera 39 A/mm (p. 16: \"Long camera, 32 tenth-meters per mm\"). Crown prism 59 deg 59' 30\": n Hγ 1.6038; 62 A/mm long camera."
+  },
+  {
+   "parameter": "camera_nebular_lens",
+   "value": "Voigtlander commercial photographic lens, focal ratio about 1:2.5, focal length \"3 1/4-inch\"",
+   "unit": "",
+   "tag": "SOURCED (focal length reading INFERRED)",
+   "src": "S15",
+   "loc": "p. 22",
+   "quotes": [
+    "a 3¼-inch Voigtlander camera it is an efficient instrument for nebular work"
+   ],
+   "note": "Transcribed from the scan image (p. 22: \"3¼-inch\"). S17 (p. 404): \"The camera of the Lowell spectrograph has a lens working at a speed ratio of about 1:2.5.\" T13 (p. 3): \"Slipher purchased an f /2.5 commercial camera lens from Voigtlander\". DERIVED: 3.25 in = 82.55 mm focal length (reading the inch figure as focal length, INFERRED; consistent with S16: collimator \"six times\" the camera focal length, 489.1/82.55 = 5.92, and with the \"30-fold\" speed gain, (471.4/82.55)^2 = 32.6); aperture 82.55/2.5 = 33.0 mm. The lens model (Heliar, Dynar, Collinear, ...) is NOT FOUND."
+  },
+  {
+   "parameter": "camera_speed_gain",
+   "value": "Replacing the 18.5-inch camera by the 3 1/4-inch Voigtlander increases the speed \"fully 30-fold\"",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S15",
+   "loc": "p. 22",
+   "quotes": [
+    "This change of cameras increases the speed of the instrument fully 30-fold"
+   ],
+   "note": "Transcribed from the scan. Slipher to Lowell (SM13, p. 156): about 200 times faster than the three-prism instrument."
+  },
+  {
+   "parameter": "collimator_to_camera_ratio",
+   "value": "\"the collimator focus six times that of the camera\" (spectrograph with the fast camera, 1916)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S16",
+   "loc": "p. 155",
+   "quotes": [
+    "the collimator focus six times that of the camera"
+   ],
+   "note": "DERIVED: 489.1/6 = 81.5 mm, consistent with 3.25 in = 82.55 mm (ratio 5.92). The 1916 plate is a single-prism plate of the same instrument (\"single-prism spectrograph of high light- power\")."
+  },
+  {
+   "parameter": "beam_in_camera",
+   "value": "collimated beam 30.5 mm into a 33 mm lens: effective focal ratio f/2.7 (DERIVED)",
+   "unit": "",
+   "tag": "DERIVED",
+   "src": "S04",
+   "loc": "p. 2; S15 p. 22",
+   "quotes": [
+    "This gave the lens an aperture of 30.5 mm"
+   ],
+   "note": "DERIVED: 82.55/30.5 = f/2.71. The spectrograph speed for extended sources is set by this beam, not by the lens aperture, unless the prism at minimum deviation widens it (it does not)."
+  },
+  {
+   "parameter": "camera_stellar_long",
+   "value": 471.4,
+   "unit": "mm focal length; aperture 36 mm (S04) or 35 mm (S05); 1:13",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 11",
+   "quotes": [
+    "Mean /=471.4 mm",
+    "This makes the angular aperture of the lens 1:13",
+    "There are two camera lenses, each of 36 mm aperture"
+   ],
+   "note": "Brass tube 19 inches long, plate tipped to bring the violet end nearer the lens (p. 11-12). S05 (p. 318): \"a camera of 35 mm aperture and 471 mm focus\". S15 (p. 22) calls it the \"18.5-inch camera\" (= 470 mm)."
+  },
+  {
+   "parameter": "camera_stellar_short",
+   "value": 385.7,
+   "unit": "mm focal length; 1:11",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 11",
+   "quotes": [
+    "385.7 mm for the focal length of the short camera",
+    "Its angular aperture is 1 : 11"
+   ],
+   "note": "Brass tube 15 inches long. The 1904 paper says the short camera was used for the stellar plates (exposure times \"are for the short camera\", p. 17)."
+  },
+  {
+   "parameter": "plate_holders_stellar",
+   "value": "brass holders for plates 2 x 3 inches (four holders); an eyepiece substitutes for the holder",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 5",
+   "quotes": [
+    "hold plates of size 2 by 3 inches"
+   ],
+   "note": "Plate size for the Voigtlander nebular camera: NOT FOUND (T13 Fig. 1: holder \"held under two mounting screws\")."
+  },
+  {
+   "parameter": "linear_dispersion_nebular",
+   "value": 140,
+   "unit": "A per mm (\"in the violet of the spectrum\")",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 405",
+   "quotes": [
+    "The linear dispersion of the spectra is about 140 tenth-meters per millimeter in the violet of the spectrum"
+   ],
+   "note": "Transcribed from the scan (p. 405). Slipher gives no wavelength; the violet is the F-H region he measured (S13: \"from F to H\"). T13 (p. 4): \"his prism worked at 140 A mm-1\". Plate scale of the whole camera: 1/(140 A/mm). DERIVED angular dispersion: 206265/(82.55 x 140) = 17.8 arcsec per A."
+  },
+  {
+   "parameter": "linear_dispersion_stellar_3prism",
+   "value": "Hγ: 14.4 (short camera 386 mm), 11.4 (long camera 471 mm) A/mm; Hδ 9.6/7.6; 4200 11.4/9.1; 4300 13.5/10.4; 4400 15.7/12.4; 4500 17.8/14.3",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 14 (Tables II and III)",
+   "quotes": [
+    "The linear dispersion for the two cameras at different points"
+   ],
+   "note": "Table values transcribed from the scan image. S05 (p. 319), min deviation 4415, long camera: 4250 9.9; 4300 10.6; 4350 11.4; 4400 12.3; 4450 13.2; 4500 14.1; 4550 15.0 A/mm."
+  },
+  {
+   "parameter": "spectrum_length_and_range",
+   "value": "F to H (about 4861 to 3968 A) measured; length about 6.7 mm on the plate (INFERRED)",
+   "unit": "",
+   "tag": "INFERRED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "The measures extended over the region of spectrum from F to H"
+   ],
+   "note": "INFERRED length: S16 says the spectrum length is \"forty times the equivalent slit-width\" (a single-prism plate with the 6:1 ratio); a 1 mm slit images to 1/5.92 = 0.169 mm; 40 x 0.169 = 6.75 mm; x 140 A/mm = 945 A, matching F-H (893 A). The range actually exposed (S/N falls to the red and violet end) is NOT stated."
+  },
+  {
+   "parameter": "resolution_limit_stellar_plates",
+   "value": "sharpest solar negatives (three-prism train): 0.11 A at Hδ, 0.16 A at 4300, 0.22 A at 4500; lines separated no closer than 0.25 A at Hγ on most rapid plates in the brightest stars",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 14-15",
+   "quotes": [
+    "the solar spectrum is about 0.11 tenth-meters at Hh",
+    "lines are not separated at Ht which",
+    "differ in wave-length by much less than 0.25 tenth-meters"
+   ],
+   "note": "Stellar-era limit (slit 0.02 mm, 11 A/mm). DERIVED plate limit: 0.25 A / 11.4 A/mm = 0.022 mm. For the nebular plates the 0.06 mm slit image is about three times larger; no nebular line width or resolving limit is published (NOT FOUND)."
+  },
+  {
+   "parameter": "plate_emulsion",
+   "value": "Seed \"30\" plates (nebular work, 1915); Seed 23 and Seed 27 (stellar, 1905); sensitizing dyes and baths experimented with",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S15",
+   "loc": "p. 22",
+   "quotes": [
+    "Seed 30 plates were"
+   ],
+   "note": "Transcribed from the scan. S05 (p. 319): \"no better on Seed 23 plates than it should be on the coarser 27 emulsion\". SM13 (p. 155-156 text): Slipher tried \"different kinds of photographic plates and even dyes\". Grain size and speed: NOT FOUND."
+  },
+  {
+   "parameter": "comparison_source",
+   "value": "iron-vanadium spark (nebular work); iron spark (stellar); spark exposed several times during the long nebular exposure",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 405",
+   "quotes": [
+    "The iron-vanadium spark comparison spectrum is exposed a"
+   ],
+   "note": "Transcribed from the scan. S15 (p. 22): \"The comparison spectrum was iron and vanadium.\""
+  },
+  {
+   "parameter": "temperature_control",
+   "value": "constant-temperature case, electrically heated; prism-box temperature held to 0.1-0.2 C per night",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 8",
+   "quotes": [
+    "the temperature does not change more than"
+   ],
+   "note": "S17: \"The spectrograph is electrically maintained at a constant temperature\"."
+  },
+  {
+   "parameter": "measuring_method",
+   "value": "Hartmann spectrocomparator, 15 diameters, a similar plate of Saturn (G-type) as velocity standard; later nebular spectra superposed on a standard dark-line spectrum",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "These spectrograms were measured with the Hartmann spectrocomparator"
+   ],
+   "note": "Transcribed from the scan."
+  },
+  {
+   "parameter": "layout_stellar",
+   "value": "refractor focus -> slit plate -> collimator (489 mm) -> three prisms in minimum deviation (total deviation ~176 deg, camera nearly beside the collimator) -> camera lens near the third prism -> plate; camera above or below the collimator (spectrograph rotates about the optical axis)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S04",
+   "loc": "p. 3-5; Plate II",
+   "quotes": [
+    "It permits the spectroscope to be turned so that",
+    "the camera is either above or below the collimator",
+    "The camera tube screws into the prism-box mechanism, with the lens near the third prism"
+   ],
+   "note": "MEASURED/SOURCED: deviations of Table I. Guiding: a Huggins device (light stopped by the speculum jaws) and a Vogel device (light reflected from the first prism face)."
+  },
+  {
+   "parameter": "layout_nebular",
+   "value": "collimated beam leaves the collimator upward/downward through the prism (on a plate with a triangular cover); the Voigtlander lens in a large brass cylinder stands at an angle to the collimator axis; the plate holder sits at the lens focus",
+   "unit": "",
+   "tag": "SCHEMATIC (+ DERIVED deviation)",
+   "src": "T13",
+   "loc": "p. 4 (Fig. 1)",
+   "quotes": [
+    "The collimated beam from the Brashear spectrograph enters from below"
+   ],
+   "note": "Fig. 1 of T13 is a photograph without a scale or dimensions. The beam deviation is DERIVED: a 64 deg prism of nHgamma 1.73 at minimum deviation turns the beam by 68.9 deg (the camera axis is therefore 68.9 deg from the collimator axis, not ~176 deg as in the three-prism train). Collimator-to-prism and prism-to-camera distances: NOT FOUND (SCHEMATIC)."
+  },
+  {
+   "parameter": "exposure_M31",
+   "value": "Sep 17 1912: 6 h 50 min (single 64 deg prism); Nov 15-16: two nights; Dec 3-4: two nights; Dec 29-30-31: three nights; total about four plates",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "was exposed for 6 hours and 50 minutes, on September",
+    "November 15-16"
+   ],
+   "note": "Transcribed from the scan. T13 (p. 4): the first M31 plate was \"one full night\"."
+  },
+  {
+   "parameter": "exposure_others",
+   "value": "1917 list: \"generally from twenty to forty hours\", sometimes weeks; NGC 1068: 6.5 h (1913), about 13 h (1913), 35 h with two 64.5 deg prisms (Nov 12-16 1917); Pleiades nebula 5.25 h and 21 h (1912); rho Oph nebula 20 h (1916, single prism)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 404",
+   "quotes": [
+    "The exposures are long-gen- erally from twenty to forty hours"
+   ],
+   "note": "Transcribed from the scan. S17B (p. 59): \"with an exposure of six and one-half hours\"; (p. 60) \"thirty-five hours\". Comparison: the Mount Wilson plate of NGC 4594 \"was exposed eighty hours\" (S17, p. 404). Stellar plates with the three-prism train: 15-45 min for second-magnitude stars (S04, p. 17)."
+  },
+  {
+   "parameter": "number_of_plates",
+   "value": "\"between forty and fifty spectrograms of 25 spiral nebulae\" (1917 paper); \"about thirty\" nebulae observed (letter, 1917)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 404",
+   "quotes": [
+    "With this equipment I have secured between forty and fifty"
+   ],
+   "note": "Transcribed from the scan. S17O (p. 305): \"I have observed about thirty of these nebulew\"."
+  },
+  {
+   "parameter": "velocity_M31",
+   "value": "-284, -296, -308, -301 km/s (four plates); mean -300 km/s",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "1912, September 17, Velocity, 284 km.",
+    "Mean velocity, 300 km."
+   ],
+   "note": "Transcribed from the scan (image checked: \"-284 km.\", \"296\", \"308\", \"-301\"). DERIVED: arithmetic mean of the four = -297.3 km/s; scatter about 10 km/s. At 4340 A a velocity of 300 km/s is 4.34 A = 0.031 mm on the plate = 0.52 of the 0.06 mm slit image; 100 km/s is 1.45 A = 10 um."
+  },
+  {
+   "parameter": "velocity_uncertainty_1913",
+   "value": "\"Tests for determining the degree of accuracy of such observations have not been completed\"; rounding to 300 km/s \"well within the accuracy of the observations\"",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S13",
+   "loc": "p. 56",
+   "quotes": [
+    "Tests for determining the degree of accuracy of such",
+    "one is doubtless well within the accuracy of the observations"
+   ],
+   "note": "No numerical uncertainty is given in 1913."
+  },
+  {
+   "parameter": "velocity_uncertainty_1917",
+   "value": "individual values \"may be in error by as much as 100 kilometers\" (single, often underexposed plates)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 406",
+   "quotes": [
+    "for these reasons may be in error by as much as 100 kilometers"
+   ],
+   "note": "Transcribed from the scan. Slipher compares: \"100 km. is hence scarcely 20 per cent. of the quantity observed\". Agreement with others for M31: -300 (Slipher), -304 (Wright, Lick), -329 (Pease, Mt. Wilson), -300 to -400 (Wolf) (S17, p. 406, Table II)."
+  },
+  {
+   "parameter": "velocities_1917_table",
+   "value": "25 spirals (km/s): NGC 221 -300; 224 -300; 598 -260; 1023 +300; 1068 +1100; 2683 +400; 3031 -30; 3115 +600; 3379 +780; 3521 +730; 3623 +800; 3627 +650; 4258 +500; 4526 +580; 4565 +1100; 4594 +1100; 4649 +1090; 4736 +290; 4826 +150; 5005 +900; 5055 +450; 5194 +270; 5236 +500; 5866 +650; 7331 +500",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 405 (Table I; named p. 406)",
+   "quotes": [
+    "In Table I. are given the velocities for the twenty-five spiral"
+   ],
+   "note": "Table transcribed from the scan image. DERIVED: arithmetic mean of absolute values 573 km/s (Slipher: \"570 km.\"); signed mean +502 km/s (\"nearly 500 km.\"). Count check: 25 entries."
+  },
+  {
+   "parameter": "velocity_NGC1068",
+   "value": "-1060, -1150, -1080, 1130, 1145, 1135 (two-prism plate measured three ways) -> mean 1120 km/s (sign as printed: receding, +1100 in S17)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17B",
+   "loc": "p. 60",
+   "quotes": [
+    "Mean Velocity"
+   ],
+   "note": "OCR/scan transcription of the sign column is unreliable (the Bulletin prints a minus sign; the 1917 paper lists +1100 and says \"receding\"); treat |v| = 1120 km/s only. Mount Wilson 765, Lick 910 km/s from emission lines (S17B p. 61)."
+  },
+  {
+   "parameter": "spectrograph_scale_vs_stellar",
+   "value": "\"the linear scale of the Lowell nebular spectrograph is only one-fifteenth the scale of a powerful 3- or 4-prism star-spectrograph\"",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17O",
+   "loc": "p. 305",
+   "quotes": [
+    "linear scale of the",
+    "one-fifteenth the scale of a"
+   ],
+   "note": "Transcribed from the scan. S15 (p. 22): linear scale \"still one-third that of some instruments now employed elsewhere\". DERIVED check: 140 A/mm vs the 11.4 A/mm of the Lowell three-prism train with the long camera = 12x."
+  },
+  {
+   "parameter": "speed_principle",
+   "value": "\"no choice of telescope either of aperture or focal-length will increase the brightness of the nebular surface ... the camera alone practically determines the efficiency\"",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "S17",
+   "loc": "p. 404",
+   "quotes": [
+    "no choice of telescope either of aperture or focal-length will increase the brightness of the nebular surface",
+    "whose camera alone practically"
+   ],
+   "note": "Transcribed from the scan. Also S13: \"While the speed of the camera is all-important in recording the spectrum, the detail in the spectrum depends upon the dispersion\". Modern statement (T13 eq. 1): speed = (surface brightness) w' P / F^2."
+  },
+  {
+   "parameter": "Fath_comparison",
+   "value": "Fath (Lick Crossley) f/3.04 camera, f/3 mirror, 0.15 mm slit = 5.8 arcsec; Slipher f/2.5 and 8.25 arcsec (T13)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T13",
+   "loc": "p. 2-5",
+   "quotes": [
+    "Slipher employed an f /2.5 commercial camera lens"
+   ],
+   "note": "Secondary context only."
+  },
+  {
+   "parameter": "camera_f14p2_statement",
+   "value": "secondary sources give the stock long camera as f/14.2 (SM13, T11) or f/14 (T13); Slipher gives 1:13 (471.4 mm / 36 mm)",
+   "unit": "",
+   "tag": "SECONDARY",
+   "src": "T11",
+   "loc": "p. 2",
+   "quotes": [
+    "working at f/14.2"
+   ],
+   "note": "See Conflicts."
+  }
+ ],
+ "glass": [
+  {
+   "parameter": "N-SF15 Sellmeier (proposed 64 deg prism glass, INFERRED)",
+   "value": "nd 1.69892, vd 30.20; B1 1.570556340, B2 0.218987094, B3 1.508240170; C1 0.011650701, C2 0.0597856897, C3 132.709339 (um^2)",
+   "unit": "",
+   "tag": "SOURCED (catalog)",
+   "src": "SCH",
+   "loc": "PDF p. 107",
+   "quotes": [
+    "N-SF15 nd = 1.69892 nd = 30.20",
+    "B1 1.570556340",
+    "B2 0.218987094",
+    "B3 1.508240170",
+    "C1 0.011650701",
+    "C2 0.0597856897",
+    "C3 132.70933900"
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "SF2 Sellmeier (proposed substitute for Schott O 102, INFERRED)",
+   "value": "nd 1.64769, vd 33.85; B1 1.403018210, B2 0.231767504, B3 0.939056586; C1 0.010579547, C2 0.0493226978, C3 112.405955 (um^2)",
+   "unit": "",
+   "tag": "SOURCED (catalog)",
+   "src": "SCH",
+   "loc": "PDF p. 116",
+   "quotes": [
+    "SF2 nd = 1.64769 nd = 33.85",
+    "B1 1.403018210",
+    "B2 0.231767504",
+    "B3 0.939056586",
+    "C1 0.010579547",
+    "C2 0.0493226978",
+    "C3 112.40595500"
+   ],
+   "note": ""
+  },
+  {
+   "parameter": "N-SF8 Sellmeier (alternative that reproduces 140 A/mm at 4340 A)",
+   "value": "nd 1.68894, vd 31.31; B1 1.550758120, B2 0.209816918, B3 1.462054910; C1 0.011433834, C2 0.0582725652, C3 133.24165 (um^2)",
+   "unit": "",
+   "tag": "SOURCED (catalog)",
+   "src": "SCH",
+   "loc": "PDF p. 103",
+   "quotes": [
+    "N-SF8 nd = 1.68894 nd = 31.31",
+    "B1 1.550758120",
+    "B2 0.209816918",
+    "B3 1.462054910",
+    "C1 0.011433834",
+    "C2 0.0582725652",
+    "C3 133.24165000"
+   ],
+   "note": ""
+  }
+ ],
+ "recommended_preset": {
+  "id": "slipher",
+  "mode": "prism (main disperser)",
+  "D_m": 0.61,
+  "refractor_F": 16.1,
+  "slit_arcsec": 7.46,
+  "slit_mm_plate": 0.06,
+  "col": {
+   "type": "lens",
+   "f_mm": 489.1,
+   "beam_mm": 30.5
+  },
+  "cam": {
+   "type": "lens",
+   "f_mm": 82.55,
+   "F": 2.5
+  },
+  "prism": {
+   "apex_deg": 64.0,
+   "glass": "N-SF15 (INFERRED)",
+   "n": 1,
+   "alt_glass": "N-SF8",
+   "min_deviation_deg": 68.9
+  },
+  "dispersion_A_per_mm": 140,
+  "detector": "photographic plate (Seed 30), no pixels; effective sampling 0.02 mm EFFECTIVE",
+  "settings": [
+   "A one 64 deg prism (default)",
+   "B two 64.5 deg prisms (NGC 1068, 1917; ~70 A/mm DERIVED)",
+   "C stellar three-prism train O 102 = SF2, 62.88 deg, camera 471.4 mm, slit 0.02 mm, 11.4 A/mm at Hgamma"
+  ]
+ },
+ "validation": {
+  "dispersion_A_per_mm": 140,
+  "equiv_slit_mm": 0.06,
+  "M31_velocity_kms": -300,
+  "velocity_error_kms_max": 100,
+  "exposure_M31": "6h50m, 2 nights, 2 nights, 3 nights"
+ }
+}

@@ -1153,6 +1153,270 @@
     "key": "SUM22",
     "text": "IFU-M Capabilities, CfA TAC slides (2022)"
    }
+  ],
+  "slipher1": [
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S13",
+    "text": "Slipher 1913, Lowell Obs. Bull. 2, 56",
+    "ads": "1913LowOB...2...56S"
+   },
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S17",
+    "text": "Slipher 1917, Proc. Am. Phil. Soc. 56, 403",
+    "ads": "1917PAPhS..56..403S"
+   },
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S04",
+    "text": "Slipher 1904, ApJ 20, 1",
+    "ads": "1904ApJ....20....1S"
+   }
+  ],
+  "slipher2": [
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S17B",
+    "text": "Slipher 1917, Lowell Obs. Bull. 3, 59",
+    "ads": "1917LowOB...3...59S"
+   },
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S17",
+    "text": "Slipher 1917, Proc. Am. Phil. Soc. 56, 403",
+    "ads": "1917PAPhS..56..403S"
+   },
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S04",
+    "text": "Slipher 1904, ApJ 20, 1",
+    "ads": "1904ApJ....20....1S"
+   }
+  ],
+  "slipher3": [
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S04",
+    "text": "Slipher 1904, ApJ 20, 1",
+    "ads": "1904ApJ....20....1S"
+   },
+   {
+    "file": "data/round7/slipher.json",
+    "key": "S05",
+    "text": "Slipher 1905, ApJ 22, 318",
+    "ads": "1905ApJ....22..318S"
+   }
+  ],
+  "fast300": [
+   {
+    "file": "data/round7/fast.json",
+    "key": "F98",
+    "text": "Fabricant et al. 1998, PASP 110, 79",
+    "ads": "1998PASP..110...79F"
+   },
+   {
+    "file": "data/round7/fast.json",
+    "key": "M20",
+    "text": "Mink et al. 2020, CfA Optical Infrared Science Archive I (FAST)"
+   }
+  ],
+  "fast600b": [
+   {
+    "file": "data/round7/fast.json",
+    "key": "F98",
+    "text": "Fabricant et al. 1998, PASP 110, 79",
+    "ads": "1998PASP..110...79F"
+   },
+   {
+    "file": "data/round7/fast.json",
+    "key": "M20",
+    "text": "Mink et al. 2020, CfA Optical Infrared Science Archive I (FAST)"
+   }
+  ],
+  "fast600r": [
+   {
+    "file": "data/round7/fast.json",
+    "key": "F98",
+    "text": "Fabricant et al. 1998, PASP 110, 79",
+    "ads": "1998PASP..110...79F"
+   },
+   {
+    "file": "data/round7/fast.json",
+    "key": "M20",
+    "text": "Mink et al. 2020, CfA Optical Infrared Science Archive I (FAST)"
+   }
+  ],
+  "fast1200": [
+   {
+    "file": "data/round7/fast.json",
+    "key": "F98",
+    "text": "Fabricant et al. 1998, PASP 110, 79",
+    "ads": "1998PASP..110...79F"
+   },
+   {
+    "file": "data/round7/fast.json",
+    "key": "M20",
+    "text": "Mink et al. 2020, CfA Optical Infrared Science Archive I (FAST)"
+   }
+  ],
+  "hamilton": [
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "V87",
+    "text": "Vogt 1987, PASP 99, 1214",
+    "ads": "1987PASP...99.1214V"
+   },
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "B96",
+    "text": "Butler et al. 1996, PASP 108, 500",
+    "ads": "1996PASP..108..500B"
+   },
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "F14",
+    "text": "Fischer et al. 2014, ApJS 210, 5",
+    "ads": "2014ApJS..210....5F"
+   }
+  ],
+  "hamilton4k": [
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "V87",
+    "text": "Vogt 1987, PASP 99, 1214",
+    "ads": "1987PASP...99.1214V"
+   },
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "F14",
+    "text": "Fischer et al. 2014, ApJS 210, 5",
+    "ads": "2014ApJS..210....5F"
+   },
+   {
+    "file": "data/round7/hamilton.json",
+    "key": "HOR",
+    "text": "Lick Observatory, Hamilton User's Guide, Table of Orders"
+   }
+  ],
+  "dbspb": [
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "OG82",
+    "text": "Oke & Gunn 1982, PASP 94, 586",
+    "ads": "1982PASP...94..586O"
+   },
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "PDS",
+    "text": "Palomar Observatory, DBSP Technical Specifications"
+   },
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "POV",
+    "text": "Palomar Observatory, DBSP Overview"
+   }
+  ],
+  "dbspr": [
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "OG82",
+    "text": "Oke & Gunn 1982, PASP 94, 586",
+    "ads": "1982PASP...94..586O"
+   },
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "PDS",
+    "text": "Palomar Observatory, DBSP Technical Specifications"
+   },
+   {
+    "file": "data/round7/dbsp.json",
+    "key": "POV",
+    "text": "Palomar Observatory, DBSP Overview"
+   }
+  ],
+  "bossb": [
+   {
+    "file": "data/round7/boss.json",
+    "key": "SM13",
+    "text": "Smee et al. 2013, AJ 146, 32",
+    "ads": "2013AJ....146...32S"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "D13",
+    "text": "Dawson et al. 2013, AJ 145, 10",
+    "ads": "2013AJ....145...10D"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "S4B",
+    "text": "SDSS-IV, BOSS Spectrograph page"
+   }
+  ],
+  "bossr": [
+   {
+    "file": "data/round7/boss.json",
+    "key": "SM13",
+    "text": "Smee et al. 2013, AJ 146, 32",
+    "ads": "2013AJ....146...32S"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "D13",
+    "text": "Dawson et al. 2013, AJ 145, 10",
+    "ads": "2013AJ....145...10D"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "S4B",
+    "text": "SDSS-IV, BOSS Spectrograph page"
+   }
+  ],
+  "sdssb": [
+   {
+    "file": "data/round7/boss.json",
+    "key": "SM13",
+    "text": "Smee et al. 2013, AJ 146, 32",
+    "ads": "2013AJ....146...32S"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "Y00",
+    "text": "York et al. 2000, AJ 120, 1579"
+   }
+  ],
+  "sdssr": [
+   {
+    "file": "data/round7/boss.json",
+    "key": "SM13",
+    "text": "Smee et al. 2013, AJ 146, 32",
+    "ads": "2013AJ....146...32S"
+   },
+   {
+    "file": "data/round7/boss.json",
+    "key": "Y00",
+    "text": "York et al. 2000, AJ 120, 1579"
+   }
+  ],
+  "elodie": [
+   {
+    "file": "data/round7/elodie.json",
+    "key": "B96",
+    "text": "Baranne et al. 1996, A&AS 119, 373",
+    "ads": "1996A&AS..119..373B"
+   },
+   {
+    "file": "data/round7/elodie.json",
+    "key": "M04",
+    "text": "Moultaka et al. 2004, PASP 116, 693",
+    "ads": "2004PASP..116..693M"
+   },
+   {
+    "file": "data/round7/elodie.json",
+    "key": "OHPG",
+    "text": "Observatoire de Haute-Provence, ELODIE user's guide"
+   }
   ]
  },
  "img": {

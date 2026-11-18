@@ -1,0 +1,1698 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 7: Lick Observatory Shane 3-m / Hamilton Echelle Spectrometer (coude focus; iodine-cell planet search); new glass SCHOTT UBK7 (secondary source)",
+  "compiled": "2026-11-17",
+  "companion": "data/round7/hamilton.md (same content as Markdown)",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from the saved document. DERIVED = arithmetic done here from sourced values; INFERRED = a reading the source does not state; MEASURED = read from a figure with a known scale (method stated); SCHEMATIC = no scale. alternatives = other sourced values (conflicts). Quotes whose first word is FIG: are figure readings, not text quotes; scan=True marks quotes whose digits were transcribed from the page image.",
+  "quote_check": {
+   "pieces_checked": 181,
+   "failures": 0,
+   "figure_readings_not_checked": 5,
+   "scan_transcriptions": 2
+  },
+  "normalization": "whitespace, case, hyphens and hyphenation, quotes, dashes and minus signs, micro and mu signs, degree signs and the OCR '?' for a degree-decimal glyph, ligatures and the tilde operator are normalized; ' ... ' joins non-adjacent pieces; PDFs are compared with pdftotext -layout and -raw text, HTML with tag-stripped text."
+ },
+ "sources": {
+  "V87": {
+   "cite": "Vogt, S. S. 1987, PASP 99, 1214, \"The Lick Observatory Hamilton Echelle Spectrometer\" (Lick Observatory Bulletin No. 1085; ADS scan 1987PASP...99.1214V, 15 pp.). The ADS scan carries an OCR text layer with glyph errors (degree-decimal glyphs print as '?', f/36 as '//36'); quotes are checked against it, and values read from the page image are marked 'transcribed from the scan'. Journal pages 1214-1228",
+   "file": "rawdata/presets/hamilton/Vogt1987_PASP99_1214_Hamilton.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1987PASP...99.1214V"
+  },
+  "MB92": {
+   "cite": "Marcy, G. W. & Butler, R. P. 1992, PASP 104, 270, \"Precision Radial Velocities with an Iodine Absorption Cell\" (ADS 1992PASP..104..270M; OCR text layer, 8 pp.)",
+   "file": "rawdata/presets/hamilton/MarcyButler1992_PASP104_270_iodine.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1992PASP..104..270M"
+  },
+  "B96": {
+   "cite": "Butler, R. P., Marcy, G. W., Williams, E., McCarthy, C., Dosanjh, P. & Vogt, S. S. 1996, PASP 108, 500, \"Attaining Doppler Precision of 3 m s-1\" (ADS 1996PASP..108..500B; OCR text layer, 10 pp.)",
+   "file": "rawdata/presets/hamilton/Butler1996_PASP108_500_3ms.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996PASP..108..500B"
+  },
+  "F14": {
+   "cite": "Fischer, D. A., Marcy, G. W. & Spronck, J. F. P. 2014, ApJS 210, 5, \"The Twenty-five Year Lick Planet Search\", arXiv:1310.7315 (32 pp.; the text layer prints the arcsecond mark of '1.''2' as '1.00 2')",
+   "file": "rawdata/presets/hamilton/Fischer2014_ApJS210_5_Lick25yr_arXiv1310.7315.pdf",
+   "url": "https://arxiv.org/pdf/1310.7315"
+  },
+  "W16": {
+   "cite": "Wright, J. T. 2016, \"Twenty Years of Precise Radial Velocities at Keck and Lick Observatories\", arXiv:1603.08384 (10 pp.; the PDF file was first saved under a wrong author name and renamed)",
+   "file": "rawdata/presets/hamilton/Wright2016_arXiv1603.08384_TwentyYears_KeckLick.pdf",
+   "url": "https://arxiv.org/pdf/1603.08384"
+  },
+  "GV88": {
+   "cite": "Goodrich, R. W. & Veilleux, S. 1988, PASP 100, 1572, \"Reduction of Hamilton Echelle Data at Lick Observatory\" (Lick Observatory Bulletin No. 1116; ADS 1988PASP..100.1572G; OCR text layer, 8 pp.)",
+   "file": "rawdata/presets/hamilton/1988PASP..100.1572G_GoodrichVeilleux_Hamilton_reduction.pdf",
+   "url": "https://adsabs.harvard.edu/pdf/1988PASP..100.1572G"
+  },
+  "FT94": {
+   "cite": "Fan, X.-M. & Tytler, D. 1994, ApJS 94, 17, \"Lick Optical Spectra of Quasar HS 1946+7658 at 10 Kilometers per Second Resolution\", arXiv:astro-ph/9402067 (arXiv HTML rendering; Sec. 2.2 describes the Hamilton)",
+   "file": "rawdata/presets/hamilton/FanTytler1994_ApJS94_17_HS1946_arXivastro-ph9402067.html",
+   "url": "https://arxiv.org/html/astro-ph/9402067"
+  },
+  "HIN": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Introduction (Last modified 22 Feb 2012; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_intro.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/intro/"
+  },
+  "HQR": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Quick Reference (Last modified 25 Feb 2011; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_quick.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/quick/"
+  },
+  "HHW": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Hardware Overview (Last modified 15 Feb 2011; fetched 2026-11-17); its Figure 1 is the schematic light path (key HFIG)",
+   "file": "rawdata/presets/hamilton/hamspec_hw_overview.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/hw_overview/"
+  },
+  "HSL": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Entrance Apertures (Last modified 13 Feb 2011; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_slits.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/slits/"
+  },
+  "HCC": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, CCD Characteristics (Last modified 28 Nov 2012; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_CCDs.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/CCDs/"
+  },
+  "HOR": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Table of Orders (107 orders, m = 163 to 57; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_orders.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/orders/"
+  },
+  "HFM": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Spectral Format (fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_format.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/format/"
+  },
+  "HNV": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Navigating the Spectrum (fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_nav.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/nav/"
+  },
+  "HTP": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Throughput (fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_thruput.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/thruput/"
+  },
+  "HI2": {
+   "cite": "Lick Observatory, Hamilton Spectrograph User's Guide, Iodine Cell and Slit Room Controller (Last modified 4 Mar 2010; fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/hamspec_I2cell.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/I2cell/"
+  },
+  "HSY": {
+   "cite": "Lick Observatory (UC Observatories), \"Spectrograph Synopses\" page of the Mount Hamilton facility instruments (fetched 2026-11-17)",
+   "file": "rawdata/presets/hamilton/synopsis_spects.html",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/synopsis_spects.html"
+  },
+  "HFIG": {
+   "cite": "Hamilton User's Guide, Hardware Overview Figure 1, 'The Hamilton Spectrograph Optical Path' schematic (JPEG, 577 x 612 px) and its popup page; the schematic has no scale (SCHEMATIC)",
+   "file": "rawdata/presets/hamilton/hamspec_img_hampath.jpg",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/images/hampath.jpg"
+  },
+  "HOPT": {
+   "cite": "Hamilton User's Guide, Hardware Overview, 'optics.gif' (313 x 232 px): element order from the echelle to the detector; no scale (SCHEMATIC)",
+   "file": "rawdata/presets/hamilton/hamspec_img_optics.gif",
+   "url": "http://mthamilton.ucolick.org/techdocs/instruments/hamspec/images/optics.gif"
+  },
+  "ABT": {
+   "cite": "AbbeTrex glass database, 'Schott UBK7' page (obsolete Schott glass; Sellmeier coefficients and nd, Vd; fetched 2026-11-17). A SECONDARY compilation: Schott's current optical-glass data sheets do not list UBK7 and no Schott document for it was found",
+   "file": "rawdata/presets/hamilton/abbetrex_schott_ubk7.html",
+   "url": "https://abbetrex.com/glass/schott/schott-ubk7/"
+  },
+  "SBK": {
+   "cite": "SCHOTT N-BK7 data sheet (as of 01-Dec-2023); identical copy of the round-1 file under rawdata/presets/glass/",
+   "file": "rawdata/presets/hamilton/schott_datasheet_N-BK7_media41e799d0.pdf",
+   "url": "https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5"
+  }
+ },
+ "hamilton": {
+  "title": "Lick Observatory Shane 3-m coude focus / Hamilton Echelle Spectrometer (R-2 echelle 31.5 /mm, two UBK7 prisms, folded Schmidt f/1.67; iodine-cell planet search)",
+  "recommended_preset": "A. Planet-search setup, Dewar 13 (1994 Nov - 1998 Feb), 1.2 arcsec slit (RECOMMENDED)",
+  "recommended_presets": [
+   {
+    "preset": "A. Planet-search setup, Dewar 13 (1994 Nov - 1998 Feb), 1.2 arcsec slit (RECOMMENDED)",
+    "state": {
+     "mode": "echelle",
+     "D": 3.05,
+     "F": 35.87,
+     "e": {
+      "slitW": 1.2,
+      "nObj": 1,
+      "col": "mirror",
+      "cam": "mirror",
+      "colTilt": 5.5,
+      "layLen": 5400,
+      "camLen": 2500,
+      "W": 208.4,
+      "fcam": 508.3,
+      "eG": 31.5,
+      "eDelta": 64.7,
+      "gamma": 0,
+      "theta": 5.5,
+      "xd": "prism",
+      "xG": 300,
+      "xPsi": 10,
+      "xGlass": "UBK7",
+      "xA": 43.4,
+      "xPasses": 2,
+      "lamC": 5500,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 15
+     }
+    },
+    "why": "R = 62,000 (B96) and 64,000 measured (F14) belong to this era and chip; the narrowest profile of the program. UBK7 is a new glass entry (Sellmeier below)."
+   },
+   {
+    "preset": "B. Dewar 4 (2012 -), 4096 x 4096, 12 um, 1.2 arcsec slit",
+    "state": {
+     "mode": "echelle",
+     "D": 3.05,
+     "F": 35.87,
+     "e": {
+      "slitW": 1.2,
+      "nObj": 1,
+      "col": "mirror",
+      "cam": "mirror",
+      "colTilt": 5.5,
+      "layLen": 5400,
+      "camLen": 2500,
+      "W": 208.4,
+      "fcam": 508.3,
+      "eG": 31.5,
+      "eDelta": 64.7,
+      "gamma": 0,
+      "theta": 5.5,
+      "xd": "prism",
+      "xG": 300,
+      "xPsi": 10,
+      "xGlass": "UBK7",
+      "xA": 43.4,
+      "xPasses": 2,
+      "lamC": 5500,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 12
+     }
+    },
+    "why": "The only detector from 1 Feb 2012 (HCC); holds all 107 orders (m = 57-163). Same optics; with 12 um pixels the 1.2 arcsec slit image is 2.4 px wide (DERIVED: 28.6 / 12) and a pixel is 0.334 arcsec along the slit."
+   },
+   {
+    "preset": "C. (optional) TI 800 x 800, 15 um, 2.25 arcsec slit, original 1987 camera",
+    "state": {
+     "mode": "echelle",
+     "D": 3.05,
+     "F": 35.87,
+     "e": {
+      "slitW": 2.25,
+      "nObj": 1,
+      "col": "mirror",
+      "cam": "mirror",
+      "colTilt": 5.5,
+      "layLen": 5400,
+      "camLen": 2500,
+      "W": 208.4,
+      "fcam": 508.3,
+      "eG": 31.5,
+      "eDelta": 64.7,
+      "gamma": 0,
+      "theta": 5.5,
+      "xd": "prism",
+      "xG": 300,
+      "xPsi": 10,
+      "xGlass": "UBK7",
+      "xA": 43.4,
+      "xPasses": 2,
+      "lamC": 5500,
+      "Nx": 800,
+      "Ny": 800,
+      "pix": 15
+     }
+    },
+    "why": "V87's performance examples (R = 24,000 at 2.25 arcsec): the pre-1994 camera's asymmetric profile is not modeled, so only the geometry is checked."
+   }
+  ],
+  "params": {
+   "telescope_aperture": {
+    "group": "Telescope and feed",
+    "value": 3.05,
+    "unit": "m",
+    "src": "V87",
+    "loc": "Table I (p. 1222)",
+    "quote": "Telescope = 3.05 M",
+    "alternatives": [
+     {
+      "value": "3-m Shane",
+      "src": "V87",
+      "loc": "Abstract (p. 1214)",
+      "quote": "installed at the coudé focus of the Shane 3-m telescope"
+     }
+    ],
+    "scan": false
+   },
+   "telescope_focus": {
+    "group": "Telescope and feed",
+    "value": "coudé focus of the Shane 3-m (three-mirror coudé path; a five-mirror path for declinations above the three-mirror limit); a second feed from the 0.6-m Coudé Auxiliary Telescope (CAT)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217)",
+    "quote": "Our 3-mirror coudé path involves one extra reflection, with its attendant loss",
+    "alternatives": [
+     {
+      "value": "CAT feed: same f/36 beam, 9.45 arcsec/mm",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "the light enters the slit room through a portal in the ceiling"
+     },
+     {
+      "value": "five-mirror path: f/38, 60% of the three-mirror throughput",
+      "src": "HTP",
+      "loc": "last paragraph",
+      "quote": "The throughput with the 5 mirror configuration is about 60% of the throughput of the 3 mirror configuration"
+     },
+     {
+      "value": "five-mirror coudé",
+      "src": "FT94",
+      "loc": "Sec. 2.2",
+      "quote": "The five mirror Coudé system was used because the quasar is above the 52 degree declination limit of the three-mirror train"
+     }
+    ],
+    "note": "The preset uses the three-mirror 3-m feed (f/36).",
+    "scan": false
+   },
+   "telescope_focal_ratio": {
+    "group": "Telescope and feed",
+    "value": 36,
+    "unit": "f/#",
+    "src": "HHW",
+    "loc": "Hardware Overview",
+    "quote": "the light enters the slit room in an f/36 beam (f/38 in the 5-mirror configuration)",
+    "alternatives": [
+     {
+      "value": "36",
+      "src": "F14",
+      "loc": "Sec. 3.2",
+      "quote": "The Shane telescope and the CAT both have f/36 focal ratios"
+     }
+    ],
+    "derived": "DERIVED: the collimator accepts f_col / B = 7475.4 / 208.4 = 35.87 (below), i.e. the beam fills the collimator at f/35.9; 206265 / (35.87 x 3050 mm) = 1.885 arcsec/mm, which matches the published 1.89 arcsec/mm (the explorer's F is set to f_col / W = 35.87).",
+    "scan": false
+   },
+   "plate_scale_3m": {
+    "group": "Telescope and feed",
+    "value": 1.89,
+    "unit": "arcsec/mm (3-m); 530 um per arcsec",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics: Plate Scale; Slit Projection",
+    "quote": "3-m 1.89 arcsec/mm ... Slit on Sky, 3-m 530 μm/arcsec",
+    "alternatives": [
+     {
+      "value": "1.89 arcsec/mm Shane, 9.45 arcsec/mm CAT",
+      "src": "F14",
+      "loc": "Sec. 3.2",
+      "quote": "the plate scale is 1.89 arcseconds per millimeter for the Shane and 9.45 arcseconds per millimeter for the CAT"
+     }
+    ],
+    "derived": "DERIVED: 1 / 1.89 = 0.529 mm per arcsec (manual 530 um/arcsec). With D = 3.05 m and f/36 the focal length is 109.8 m and the scale 206265 / (36 x 3050) = 1.879 arcsec/mm (0.6% below 1.89).",
+    "scan": false
+   },
+   "aperture_plate_widths": {
+    "group": "Slits",
+    "value": "320, 400, 640, 800, 960 um = ~0.6, ~0.8, ~1.2, ~1.5, ~1.8 arcsec (3-m scale); ~3.0-9.0 arcsec on the CAT",
+    "unit": "um (arcsec)",
+    "src": "HSL",
+    "loc": "Entrance Apertures, Aperture Widths table",
+    "quote": "arcsecs, 3-m scale ~ 0.6 ~ 0.8 ~ 1.2 ~ 1.5 ~ 1.8 ... microns 320 400 640 800 960",
+    "alternatives": [
+     {
+      "value": "slit jaws for long-slit work: set in microns (aperture plate removed)",
+      "src": "HSL",
+      "loc": "text",
+      "quote": "the aperture plate is removed and the old slit jaws are used in a techinique called longslit observation"
+     },
+     {
+      "value": "planet-search slit 600 um",
+      "src": "B96",
+      "loc": "Sec. 4",
+      "quote": "using a 600μ slit and normal focus"
+     },
+     {
+      "value": "planet-search slit 1.2 arcsec (Dewar 13 R measurement)",
+      "src": "F14",
+      "loc": "Sec. 3.2",
+      "quote": "The median resolution measured from thorium argon observations with the"
+     },
+     {
+      "value": "1987 QSO observation: 2.25 arcsec slit",
+      "src": "V87",
+      "loc": "Sec. IV (p. 1223)",
+      "quote": "The 2.25-arc-second entrance slit projected to 1.8 binned pixels"
+     }
+    ],
+    "derived": "DERIVED: 640 um x 1.89 arcsec/mm = 1.21 arcsec; 600 um = 1.13 arcsec. The aperture plate replaced the original blade slit in 1998 (F14, Sec. 3).",
+    "scan": false
+   },
+   "slit_heights": {
+    "group": "Slits",
+    "value": "2.0, 2.5, 3.0, 5.0, 6.0 arcsec (3-m scale) at each width; aperture A (100 um x 2.5 arcsec) is for focusing only",
+    "unit": "arcsec",
+    "src": "HSL",
+    "loc": "Entrance Apertures",
+    "quote": "Each of the five widths is available in five heights: 2.0, 2.5, 3.0, 5.0, and 6.0-arcseconds at the 3-m plate scale",
+    "derived": "DERIVED: the adjacent orders are 6.0-11.5 arcsec apart (Table of Orders, d (asec) column), so the 5-6 arcsec deckers fill the space between orders and the 2-3 arcsec deckers leave gaps.",
+    "scan": false
+   },
+   "number_of_objects": {
+    "group": "Slits",
+    "value": 1,
+    "unit": "spectra on the detector",
+    "src": "V87",
+    "loc": "Sec. II (p. 1215)",
+    "quote": "photon-noise-limited optical spectroscopy of single point-source-like objects",
+    "note": "Single slit; nObj = 1.",
+    "scan": false
+   },
+   "collimator_type": {
+    "group": "Collimator",
+    "value": "off-axis parabolic mirror, a 12-inch (30-cm) diameter piece hand-figured in the Lick Optical Shops",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217)",
+    "quote": "The collimatoris an off-axis parabolicmirror. On-axis or tilted spherical collimators could not maintain sufficient image qualityoverthe echelleformat.",
+    "alternatives": [
+     {
+      "value": "12-inch off-axis parabola",
+      "src": "HQR",
+      "loc": "Optics, Collimator",
+      "quote": "12-inch off-axis parabola, fl=7.4754 m, beam at collimator=0.2084 m"
+     },
+     {
+      "value": "an off-axis portion of a larger parabolic mirror",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "an off-axis parabolic mirror (i.e., the mirror is made from an off-axis portion of a larger parabolic mirror)"
+     },
+     {
+      "value": "hand-figured on a 30-cm piece",
+      "src": "V87",
+      "loc": "Sec. III (p. 1217)",
+      "quote": "the collimator was hand-figured in the Lick Optical Shops on a 12-inch (30-cm) diameter piece"
+     }
+    ],
+    "tag": "SOURCED",
+    "scan": false
+   },
+   "collimator_focal_length": {
+    "group": "Collimator",
+    "value": 7475.4,
+    "unit": "mm",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics, Collimator",
+    "quote": "12-inch off-axis parabola, fl=7.4754 m",
+    "derived": "DERIVED check: f_col / f_cam = 7475.4 / 508.3 = 14.71 is the spatial (along-slit) demagnification; with the echelle's anamorphic factor it gives the published -22 in the dispersion direction (below).",
+    "scan": false
+   },
+   "collimator_beam_diameter": {
+    "group": "Collimator",
+    "value": 208.4,
+    "unit": "mm",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics, Collimator",
+    "quote": "beam at collimator=0.2084 m",
+    "alternatives": [
+     {
+      "value": "207.0",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "DIAMETERS: Collimator = 207.0 mm"
+     },
+     {
+      "value": "204 (8 inch)",
+      "src": "V87",
+      "loc": "Sec. III (p. 1218)",
+      "quote": "which then dictated the 8-inch (204-mm) collimated beam size"
+     },
+     {
+      "value": "8.15 inch = 207",
+      "src": "FT94",
+      "loc": "Sec. 2.2",
+      "quote": "An off-axis mirror produces an 8.15-inch collimated beam which is dispersed by an 8"
+     }
+    ],
+    "note": "Four values within 2.1% (204 / 207.0 / 207 / 208.4); the explorer's W is 208.4 so that W x 36 = f_col within 0.4%.",
+    "scan": false
+   },
+   "collimator_deviation": {
+    "group": "Collimator",
+    "value": 11.0,
+    "unit": "deg (between the slit's chief ray and the collimated beam)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217)",
+    "quote": "The beam is collimated at (2) and deviated eastward by 11",
+    "alternatives": [
+     {
+      "value": "11 deg",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "turning it 11-degrees off its original optical axis, directing it to the echelle grating"
+     },
+     {
+      "value": "11 deg (the '11' arc labels at the collimator and at the echelle in Fig. 1)",
+      "src": "V87",
+      "loc": "Fig. 1 (p. 1218)",
+      "quote": "FIG: 11° label"
+     }
+    ],
+    "derived": "INFERRED: the collimator's mirror tilt is half the deviation, 5.5 deg (the DEIMOS rule in presets.js: tilt = half the angle between the incoming chief ray and the returned beam). The slit stands OFF the collimator's axis: the off-axis parabola's parent focus is the slit and the collimated beam leaves 11 deg from the incoming ray.",
+    "tag": "SOURCED (11 deg); INFERRED (5.5 deg tilt)",
+    "scan": false
+   },
+   "collimator_on_off_axis": {
+    "group": "Collimator",
+    "value": "OFF-AXIS (deploy gate: colTilt = 5.5, not 0)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217) and Fig. 1 (p. 1218)",
+    "quote": "The collimatoris an off-axis parabolicmirror. On-axis or tilted spherical collimators could not maintain sufficient image qualityoverthe echelleformat.",
+    "alternatives": [
+     {
+      "value": "slit and collimated beam 11 deg apart",
+      "src": "V87",
+      "loc": "Sec. III (p. 1217)",
+      "quote": "The beam is collimated at (2) and deviated eastward by 11"
+     }
+    ],
+    "note": "Evidence: Fig. 1 top view shows the slit (1), the collimator (2) and the echelle (3) as a long, thin triangle with the 11 deg angle marked at the collimator; the slit is not in the returned beam (the beam from the collimator passes alongside the I-beam on its way to the echelle). No central obstruction by the slit (the 3-m's own central shadow is masked, B96 Sec. 2.1).",
+    "scan": false
+   },
+   "pupil_mask": {
+    "group": "Collimator",
+    "value": "planet program: a permanent circular mask with a central obstruction over the collimator, matching the shadow of the 3-m secondary; the outer 2.5 cm of the 20-cm pupil is also blocked",
+    "src": "B96",
+    "loc": "Sec. 2.1",
+    "quote": "A permanent circular mask with a central obstruction is placed over the spectrograph collimating mirror",
+    "alternatives": [
+     {
+      "value": "outer 2.5 cm of the 20-cm pupil blocked; ~30% light loss",
+      "src": "MB92",
+      "loc": "Sec. 3",
+      "quote": "Directly over the collimator mirror is placed a black mask that blocks the outer 2.5 cm of the 20-cm telescope pupil."
+     }
+    ],
+    "note": "Not modeled by the explorer (it draws the full beam).",
+    "scan": false
+   },
+   "echelle_groove_density": {
+    "group": "Echelle",
+    "value": 31.5,
+    "unit": "grooves/mm (modeled); actual 31.6",
+    "src": "V87",
+    "loc": "Sec. III (p. 1220) and Table I (p. 1222)",
+    "quote": "The actual echelle ruling density is known to be 31.6 gr ... values of 31.5",
+    "alternatives": [
+     {
+      "value": "31.5",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "ECHELLE: grooves/mm = 31.50"
+     },
+     {
+      "value": "31.5",
+      "src": "HQR",
+      "loc": "Optics, Grating",
+      "quote": "echelle, 31.5 lines/mm, blaze angle=64.7 degrees, theta=5.5"
+     },
+     {
+      "value": "31.6",
+      "src": "V87",
+      "loc": "Sec. III (p. 1218)",
+      "quote": "I thus chose the coarsest available ruling, the 31.6 gr"
+     },
+     {
+      "value": "31.6",
+      "src": "FT94",
+      "loc": "Sec. 2.2",
+      "quote": "inch 31.6 g/mm echelle which has a blaze angle of 64"
+     }
+    ],
+    "note": "Vogt: 'to accurately model the observed spectral format of the Hamilton, values of 31.5 gr mm-1 and 43.4 had to be used'; the actual 31.6 and prism 44.8 deg do not reproduce the format (probably a residual alignment error, he says). The tables and the manual use 31.5; so does the preset.",
+    "scan": false
+   },
+   "echelle_blaze_angle": {
+    "group": "Echelle",
+    "value": 64.7,
+    "unit": "deg (R-2.1; nominal R-2 is 63.43)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1220)",
+    "quote": "The actual blaze angle of our echelle is 64",
+    "alternatives": [
+     {
+      "value": "64.7",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "Blaze Angle = 64.7 Theta = 5.5"
+     },
+     {
+      "value": "64.7",
+      "src": "HQR",
+      "loc": "Optics, Grating",
+      "quote": "echelle, 31.5 lines/mm, blaze angle=64.7 degrees, theta=5.5"
+     },
+     {
+      "value": "nominal R-2 = 63.43 (tan = 2)",
+      "src": "V87",
+      "loc": "Sec. III (p. 1220)",
+      "quote": "a bit higher than the nominal"
+     }
+    ],
+    "note": "The text layer prints '64?7' for 64.7 deg and '63?43' for 63.43 deg; the digits are transcribed from the scan (p. 1220).",
+    "scan": true
+   },
+   "echelle_size": {
+    "group": "Echelle",
+    "value": "204 x 408 mm (8 x 16 inch) R-2 echelle",
+    "unit": "mm",
+    "src": "V87",
+    "loc": "Sec. III (p. 1218)",
+    "quote": "chose the 8-inch (204-mm) by 16-inch (408-mm) echelle",
+    "alternatives": [
+     {
+      "value": "8 x 12 inch (as printed)",
+      "src": "FT94",
+      "loc": "Sec. 2.2",
+      "quote": "which is dispersed by an 8"
+     }
+    ],
+    "note": "Conflict: Fan & Tytler 1994 print 8 x 12 inch. See the footprint conflict in Conflicts.",
+    "scan": false
+   },
+   "echelle_inplane_theta": {
+    "group": "Echelle",
+    "value": "gamma = 0 (in plane), theta = 5.5 deg (2 theta = 11 deg between collimator and camera)",
+    "unit": "deg",
+    "src": "V87",
+    "loc": "Sec. II (p. 1216)",
+    "quote": "The Hamilton echelle is used ... and with a fairly large camera-to-collimator angle",
+    "alternatives": [
+     {
+      "value": "theta = 5.5",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "Blaze Angle = 64.7 Theta = 5.5"
+     },
+     {
+      "value": "theta = 5.5",
+      "src": "HQR",
+      "loc": "Optics, Grating",
+      "quote": "echelle, 31.5 lines/mm, blaze angle=64.7 degrees, theta=5.5"
+     },
+     {
+      "value": "blaze wavelengths leave the echelle 11 deg from the incoming ray",
+      "src": "V87",
+      "loc": "Sec. III (p. 1217)",
+      "quote": "The blaze wavelengths from the echelle come off at 11"
+     }
+    ],
+    "note": "In plane (gamma = 0) so that the lines have no tilt (V87, p. 1216).",
+    "scan": false
+   },
+   "echelle_geometry_alpha_beta": {
+    "group": "Echelle",
+    "value": "alpha = 70.2 deg on the collimator side, beta = 59.2 deg toward the camera (alpha = blaze + theta)",
+    "unit": "deg",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics, Magnification",
+    "quote": "Magnification -22 (slit to detector, dispersion direction)",
+    "alternatives": [
+     {
+      "value": "plate factor at blaze center: P = lambda cos(beta) / (2 F sin(theta_b) cos(theta))",
+      "src": "V87",
+      "loc": "Sec. III (p. 1216)",
+      "quote": "The plate factor at blaze center"
+     }
+    ],
+    "derived": "INFERRED: the sources do not say which side is the larger angle. The published magnification -22 requires (f_col/f_cam) / [cos(alpha)/cos(beta)] = 14.71 / [cos(alpha)/cos(beta)] = 22, i.e. cos(alpha)/cos(beta) = 0.669 (alpha = 70.2, beta = 59.2: 0.6615, M = 22.23); the opposite assignment gives M = 9.7. The table's dispersions (3.20 A/mm at order 100, 1.96 at order 163, 5.61 at order 57) also need cos(beta) = 0.512 (beta = 59.2): a cos(beta) / (m f_cam) = 31746 nm x 0.512 / (100 x 508.3 mm) = 3.198 A/mm (table: 3.20). The explorer's convention is the same (alpha = blaze + theta, M2FS and MIKE records).",
+    "scan": false
+   },
+   "grating_equation_check": {
+    "group": "Echelle",
+    "value": 57138,
+    "unit": "nm (m x lambda at blaze center)",
+    "src": "V87",
+    "loc": "Table I (p. 1222)",
+    "quote": "ECHELLE: grooves/mm = 31.50",
+    "derived": "DERIVED: m lambda = a (sin alpha + sin beta) = (10^6 / 31.5 nm) x (sin 70.2 + sin 59.2) = 31746 x (0.94066 + 0.85897) = 57,138 nm; order 100 blazes at 571.38 nm, the table's 5713.8 A (HOR) and Vogt's 5714 A (Table I).",
+    "scan": false
+   },
+   "xd_type": {
+    "group": "Cross-disperser",
+    "value": "two prisms, after the echelle (post-dispersion), light passes each once",
+    "src": "V87",
+    "loc": "Sec. II (p. 1216) and Sec. III (p. 1219)",
+    "quote": "I also chose to postdisperse or crossdisperse after the echelle",
+    "alternatives": [
+     {
+      "value": "two prisms",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "Cross Disperser : two large prisms (UBK glass) which separate the overlapping spectral orders coming from the echelle"
+     },
+     {
+      "value": "two UBK7 prisms",
+      "src": "FT94",
+      "loc": "Sec. 2.2",
+      "quote": "The light is cross-dispersed by two UBK7 glass (UV absorbing) prisms"
+     }
+    ],
+    "derived": "DERIVED mapping: xPasses = 2 (two identical prisms in series, one pass each, add as two passes through one prism in the explorer's XD model; checked against the order separations below).",
+    "scan": false
+   },
+   "xd_glass": {
+    "group": "Cross-disperser",
+    "value": "Schott UBK7 (NH/1A grade or better)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1219)",
+    "quote": "So I decided to use UBK-7 glass (NH/1A grade or better) from Schott",
+    "alternatives": [
+     {
+      "value": "UBK prisms",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "Cross Disperser : two large prisms (UBK glass)"
+     },
+     {
+      "value": "UBK7",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "UBK7 glass 2 prisms at 43.40 degrees"
+     }
+    ],
+    "note": "Dispersion formula: see the glass section (SECONDARY source for UBK7).",
+    "scan": false
+   },
+   "xd_apex_effective": {
+    "group": "Cross-disperser",
+    "value": 43.4,
+    "unit": "deg (the value that reproduces the observed format)",
+    "src": "V87",
+    "loc": "Fig. 2 caption (p. 1221)",
+    "quote": "2 UBK-7 Prisms with 43.4° apex angles",
+    "alternatives": [
+     {
+      "value": "43.40",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "UBK7 glass 2 prisms at 43.40 degrees"
+     },
+     {
+      "value": "values of 31.5 gr mm-1 and 43.4 had to be used",
+      "src": "V87",
+      "loc": "Sec. III (p. 1220)",
+      "quote": "to accurately model the observed spectral format of the Hamilton, values of 31.5"
+     },
+     {
+      "value": "43.9",
+      "src": "HQR",
+      "loc": "Optics, Cross Disperser",
+      "quote": "two UBK prisms at 43.9 degrees"
+     },
+     {
+      "value": "45 deg design",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "two prisms were required with 45"
+     }
+    ],
+    "note": "The design apex was 45 deg; Vogt gives the actual prism angles as 44.8 deg and models the format with 43.4 deg (the text layer prints '44?80' and '43?4': 44.8 and 43.4 read from the scan, p. 1220). The manual quotes 43.9 deg.",
+    "scan": false
+   },
+   "xd_apex_actual": {
+    "group": "Cross-disperser",
+    "value": 44.8,
+    "unit": "deg",
+    "src": "V87",
+    "loc": "Sec. III (p. 1220)",
+    "quote": "the actual prism angles are 44",
+    "note": "Digit transcribed from the scan (p. 1220): '44.8 deg'.",
+    "scan": true
+   },
+   "xd_check_order_separation": {
+    "group": "Cross-disperser",
+    "value": "43.4 deg UBK7 x 2 prisms at minimum deviation reproduces the tabulated order separations to 0.4-1.7%",
+    "src": "HOR",
+    "loc": "Table of Orders, d (mm) column",
+    "quote": "100 5713.8 57.1 0.231 6.898 17.87 3.20",
+    "alternatives": [
+     {
+      "value": "order 60",
+      "src": "HOR",
+      "loc": "Table of Orders",
+      "quote": "60 9523.0 158.7 0.208 6.346 29.78 5.33"
+     },
+     {
+      "value": "order 150",
+      "src": "HOR",
+      "loc": "Table of Orders",
+      "quote": "150 3809.2 25.4 0.361 10.393 11.91 2.13"
+     }
+    ],
+    "derived": "DERIVED (script in scratchpad): d = f_cam x [dev(lambda_m) - dev(lambda_m+1)], dev = 2 x [2 asin(n sin(A/2)) - A], n = UBK7 Sellmeier, lambda_m = 57,138 nm / m, f_cam = 508.3 mm. A = 43.4 deg: 0.2349 / 0.2110 / 0.3625 mm at orders 100 / 60 / 150 (table 0.231 / 0.208 / 0.361: +1.7%, +1.4%, +0.4%); A = 43.9 deg: +3.3%, +3.0%, +2.0%; A = 44.8 deg: +6.4%, +6.0%, +5.0%. N-BK7 in place of UBK7 changes d by +0.2%, +0.6%, +0.3%.",
+    "scan": false
+   },
+   "camera_type": {
+    "group": "Camera",
+    "value": "folded Schmidt: aspheric meniscus corrector (FK5) facing the prisms, a flat fold mirror (deviation 40 deg) with a hole, a spherical primary, and a plano-convex FK5 field flattener in the hole; flat external focal plane",
+    "src": "V87",
+    "loc": "Sec. III (p. 1219)",
+    "quote": "For the camera I decided to use the standard folded Schmidt configuration.",
+    "alternatives": [
+     {
+      "value": "four-element camera",
+      "src": "HHW",
+      "loc": "text",
+      "quote": "a four-element camera, consisting of an aspheric corrector, folding flat mirror, spherical mirror, and field flattener"
+     },
+     {
+      "value": "fold deviates 40 deg",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "A folding flat (7) then deviates the light by 40"
+     },
+     {
+      "value": "FK-5 corrector and flattener",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "Both the field flattener and corrector were made of FK-5 glass."
+     },
+     {
+      "value": "meniscus corrector",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "The corrector (6) is a meniscus with a concave spherical first surface facing the prisms."
+     },
+     {
+      "value": "detector in the fold's hole",
+      "src": "V87",
+      "loc": "Sec. III (p. 1217)",
+      "quote": "through a field flattener (9) located in the hole in the folding flat"
+     },
+     {
+      "value": "flat external focal plane",
+      "src": "V87",
+      "loc": "Abstract (p. 1214)",
+      "quote": "a fast (f /1.67) folded Schmidt camera with a flat external focal plane"
+     }
+    ],
+    "tag": "SOURCED",
+    "note": "The explorer's cam = 'mirror' (catadioptric camera with the detector behind a fold) is the right drawing type.",
+    "scan": false
+   },
+   "camera_focal_length": {
+    "group": "Camera",
+    "value": 508.3,
+    "unit": "mm",
+    "src": "V87",
+    "loc": "Table I (p. 1222)",
+    "quote": "CAMERA FOCAL LENGTH = 508.3 mm",
+    "alternatives": [
+     {
+      "value": "508.3",
+      "src": "HQR",
+      "loc": "Optics, Camera",
+      "quote": "508.3-mm f.l., f1.7, folded Schmidt camera and field flattener"
+     },
+     {
+      "value": "508",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "The camera focal length of 508"
+     },
+     {
+      "value": "508.3 mm f.l. (Fig. 2)",
+      "src": "V87",
+      "loc": "Fig. 2 (p. 1221)",
+      "quote": "Camera: 508.3mm f.l."
+     }
+    ],
+    "scan": false
+   },
+   "camera_focal_ratio": {
+    "group": "Camera",
+    "value": 1.67,
+    "unit": "f/#",
+    "src": "V87",
+    "loc": "Abstract (p. 1214)",
+    "quote": "a fast (f /1.67) folded Schmidt camera",
+    "alternatives": [
+     {
+      "value": "about f/1.7 (polychromatic: effective focal length / clear aperture of the corrector)",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "the effective focal length divided by the clear aperture of the corrector"
+     },
+     {
+      "value": "f1.7",
+      "src": "HQR",
+      "loc": "Optics, Camera",
+      "quote": "508.3-mm f.l., f1.7, folded Schmidt camera and field flattener"
+     }
+    ],
+    "derived": "DERIVED: corrector clear aperture 508.3 / 1.67 = 304 mm (or 299 mm at f/1.7). The anamorphically expanded beam is B cos(beta)/cos(alpha) = 208.4 x 1.512 = 315 mm (alpha = 70.2, beta = 59.2), a little more than the aperture (INFERRED: 'some vignetting at the ends of the free spectral range', V87 p. 1217).",
+    "scan": false
+   },
+   "camera_unvignetted_field": {
+    "group": "Camera",
+    "value": "orders 59-156 (3600-9600 A) over the whole free spectral range; field a bit larger than 4 deg",
+    "src": "V87",
+    "loc": "Sec. III (p. 1219)",
+    "quote": "fully covers the entire FSR of echelle orders 59 to 156",
+    "note": "Pre-1994 camera. The 1994 November corrector and field flattener replaced the optics (see Detector era).",
+    "scan": false
+   },
+   "camera_back_focus": {
+    "group": "Camera",
+    "value": 20,
+    "unit": "mm (minimum clearance, last surface to focal plane; at least 0.8 inch)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1219)",
+    "quote": "of at least 0.8-inch (20 mm)",
+    "scan": false
+   },
+   "camera_magnification": {
+    "group": "Camera",
+    "value": -22,
+    "unit": "(slit to detector, dispersion direction)",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics, Magnification",
+    "quote": "Magnification -22 (slit to detector, dispersion direction)",
+    "derived": "DERIVED: (f_col / f_cam) / [cos(alpha)/cos(beta)] = 14.71 / (0.3387/0.5120) = 22.23. A 15 um pixel is then 15 x 22.23 = 333 um of slit (manual: 330 um per pixel, 'Slit on Detector 330 μm/pixel (for 15 μm pixels)'; HQR). Vogt's 2.25 arcsec slit = 1.19 mm projects to 53.6 um = 1.79 binned (30 um) pixels (V87: 1.8).",
+    "scan": false
+   },
+   "detector_recommended": {
+    "group": "Detector",
+    "value": "Dewar 13: Lick3 2048 x 2048, 15 um pixels, unthinned (QE ~23% in the iodine region), Mar 1994 - Feb 1998; the planet search's narrowest-profile detector",
+    "unit": "px, um",
+    "src": "F14",
+    "loc": "Sec. 3.2",
+    "quote": "The CCD in Dewar 13 was a 2048 × 2048 “Lick3” device with 15-micron pixels and a quantum efficiency (QE) of about 23% over the iodine region.",
+    "alternatives": [
+     {
+      "value": "2048 x 2048 unthinned, 15-u pixels",
+      "src": "HSY",
+      "loc": "HAMILTON ECHELLE SPECTROGRAPH row",
+      "quote": "dewar #13 , 2048 x 2048 unthinned CCD, 15-u pixels"
+     }
+    ],
+    "tag": "SOURCED",
+    "scan": false
+   },
+   "detector_wavelength_format": {
+    "group": "Detector",
+    "value": "full format 4850-9362 A (Dewar 13); the iodine region 5090-5787 A (704 chunks of 40 pixels)",
+    "unit": "A",
+    "src": "F14",
+    "loc": "Sec. 3.2",
+    "quote": "The full spectral format spanned from 4850 - 9362 Å and there were 704 chunks in the iodine region",
+    "alternatives": [
+     {
+      "value": "2048 x 2048 chips capture virtually the entire useful spectrum",
+      "src": "HNV",
+      "loc": "text",
+      "quote": "The 2048x2048 CCD's in use with the Hamilton capture virtually the entire useful spectrum produced by the instrument in a single exposure"
+     },
+     {
+      "value": "3800-9500 A in ~100 orders (Ford Aerospace chip, 1992)",
+      "src": "MB92",
+      "loc": "Sec. 3",
+      "quote": "This spectrometer (Vogt 1987) gathers spectrum from 3800 to 9500 A, parcelled over 100 spectral orders on a 2048x2048 Ford Aerospace CCD detector"
+     }
+    ],
+    "note": "The format is a setting (grating tilt and dewar height position it, HQR/HNV); the Dewar 13 value is the planet-search's. See Conflicts.",
+    "scan": false
+   },
+   "detector_history": {
+    "group": "Detector",
+    "value": "TI 800 x 800 (1986/87; 12 mm square, 15 um) -> Ford Aerospace 2048 x 2048 (1990) -> Dewar 13 Lick3 2048 x 2048 (1994 Mar) -> Dewar 6 thinned Loral 2048 x 2048 (1998 Feb) -> Dewar 8 LBNL deep-depletion 2048 x 2048 (2001) -> Dewar 4 Fairchild 4096 x 4096, 12 um (the only detector from 2012 Feb)",
+    "src": "F14",
+    "loc": "Sec. 3.1-3.4",
+    "quote": "This detector was upgraded in 1990 to a 2048×2048 Ford Aerospace CCD detector",
+    "alternatives": [
+     {
+      "value": "TI 800 x 800 in 1987",
+      "src": "F14",
+      "loc": "Sec. 3.1",
+      "quote": "The initial commissioning of the Lick planet search in 1987 used a TI 800 × 800 pixel CCD."
+     },
+     {
+      "value": "TI 12 mm square 800 x 800",
+      "src": "V87",
+      "loc": "Sec. I (p. 1215)",
+      "quote": "The largest at present are the 12 mm square 800 X 800 CCDs from Texas Instruments"
+     },
+     {
+      "value": "Dewar 6 thinned, Feb 1998",
+      "src": "F14",
+      "loc": "Sec. 3.3",
+      "quote": "In February 1998, we upgraded to a “Lick-3” 2048×2048 CCD that had been thinned by Michael Lesser to yield a QE of about 88% in the iodine region."
+     },
+     {
+      "value": "Dewar 8 LBNL deep depletion, 2001",
+      "src": "F14",
+      "loc": "Sec. 3.4",
+      "quote": "in 2001, we were given the opportunity to try (without cost) a deep depletion device manufactured by LBNL"
+     },
+     {
+      "value": "Dewar 4: 4096 x 4096, 12 um",
+      "src": "HCC",
+      "loc": "text",
+      "quote": "The dewar 4 CCD is a 4096 x 4096, 12-micron pixel device."
+     },
+     {
+      "value": "only detector from 1 Feb 2012",
+      "src": "HCC",
+      "loc": "text",
+      "quote": "As of the first quarter 2012 (beginning 1 February 2012) the dewar 4 CCD is the only detector available"
+     },
+     {
+      "value": "Dewar 4 = Fairchild; Dewar 6 = Loral; Dewar 8 = LBNL",
+      "src": "HCC",
+      "loc": "Retired Detector CCD Characteristics",
+      "quote": "Dewar 4 is Fairchild Dewar#4"
+     },
+     {
+      "value": "Dewars 6 and 8: 2048 x 2048, 15 um",
+      "src": "HCC",
+      "loc": "Retired Detector CCD Characteristics",
+      "quote": "Dewars 6 and 8 are 2048 x 2048, 15-micron pixel devices."
+     },
+     {
+      "value": "800 x 800 first, later 2048 x 2048",
+      "src": "W16",
+      "loc": "p. 1 (Introduction)",
+      "quote": "originally used an 800x800 CCD (later upgraded to 2048x2048)"
+     }
+    ],
+    "scan": false
+   },
+   "detector_ford_pixel": {
+    "group": "Detector",
+    "value": 15,
+    "unit": "um (Ford Aerospace chip, DERIVED)",
+    "src": "MB92",
+    "loc": "Sec. 4",
+    "quote": "CCD, which has pixels of size 2.5 km s-1",
+    "derived": "DERIVED: 2.5 km/s per pixel at 5494 A (order 104) is 0.0458 A; the manual's dispersion there is 3.07 A/mm (HOR), so the pixel is 0.0458 / 3.07 = 14.9 um. Dewar 13 (15 um, F14) and the TI chip (12 mm / 800 = 15 um, V87) agree.",
+    "scan": false
+   },
+   "detector_dewar13_resolution": {
+    "group": "Detector",
+    "value": 64000,
+    "unit": "R (median, measured from Th-Ar, 1.2 arcsec slit)",
+    "src": "F14",
+    "loc": "Sec. 3.2",
+    "quote": "The median resolution measured from thorium argon observations with the ... slit was R = 64,000",
+    "alternatives": [
+     {
+      "value": "Dewar 6: R = 47,000 (1.2 arcsec slit)",
+      "src": "F14",
+      "loc": "Sec. 3.3",
+      "quote": "The broader SLSF resulted in a drop in resolution to R=47,000 when observing with the"
+     },
+     {
+      "value": "Dewar 8: R = 56,000",
+      "src": "F14",
+      "loc": "Sec. 3.4",
+      "quote": "yielding a resolution of 56,000 while providing a QE of 75% in the iodine region"
+     }
+    ],
+    "note": "The quote's slit width is a glyph the text layer garbles ('1.00 2'); it is 1.''2 on the page image (F14 p. 9, read from the scan). Quote piece: '... slit was R = 64,000'.",
+    "scan": false
+   },
+   "wavelength_coverage": {
+    "group": "Spectral coverage",
+    "value": "practical range 3400-9000 A in one exposure; 3500-10,000 A in 107 orders (m = 57 to 163)",
+    "unit": "A",
+    "src": "HIN",
+    "loc": "Introduction",
+    "quote": "covers a practical wavelength range from about 3400A-9000A in a single observation",
+    "alternatives": [
+     {
+      "value": "~3500 to ~10000 A in 107 orders (m = 57 to 163)",
+      "src": "HQR",
+      "loc": "Quick Reference, Wavelength Range",
+      "quote": "~ 3500 to ~ 10000 Angstroms in 107 orders (m=57 to 163)"
+     },
+     {
+      "value": "0.34-1.1 um design",
+      "src": "V87",
+      "loc": "Sec. I (p. 1215)",
+      "quote": "It was specifically optimized to provide both high-resolution (up to R = 60,000) and wide-wavelength coverage (> 3000 A) in a single observation"
+     },
+     {
+      "value": "3400-9000 A free spectral range",
+      "src": "F14",
+      "loc": "Sec. 2",
+      "quote": "The free spectral range can include 3400 Å to 9000 Å in a single observation."
+     }
+    ],
+    "scan": false
+   },
+   "dispersion_published": {
+    "group": "Dispersion",
+    "value": "1.96 A/mm at 3500 A, 3.64 A/mm at 6500 A, 5.61 A/mm at 10,000 A",
+    "unit": "A/mm",
+    "src": "HQR",
+    "loc": "Quick Reference, Dispersion",
+    "quote": "5.61 Angstroms/mm @ 10000 Angstroms 3.64 Angstroms/mm @ 6500 Angstroms 1.96 Angstroms/mm @ 3500 Angstroms",
+    "alternatives": [
+     {
+      "value": "0.029 A/pix at 3500 A, 0.083 A/pix at 9840 A (15 um pixels)",
+      "src": "HSY",
+      "loc": "HAMILTON ECHELLE SPECTROGRAPH row",
+      "quote": "echelle 0.029 A/pix @ 3500 A 0.083 A/pix @ 9840 A"
+     },
+     {
+      "value": "order 57: FSR 176 A at 5.61 A/mm; order 163: 21.5 A at 1.96 A/mm",
+      "src": "HFM",
+      "loc": "Spectral Format",
+      "quote": "order 57 has a FSR of about 176 Angstroms at a dispersion of 5.61 A/mm"
+     },
+     {
+      "value": "plate factor ~2.8 A/mm at 5000 A (design)",
+      "src": "V87",
+      "loc": "Sec. III (p. 1216)",
+      "quote": "linear reciprocal dispersion (plate factor) of about 2.8 A mm"
+     }
+    ],
+    "derived": "DERIVED: x 15 um = 0.0294 A/px at 3500 A and 0.0842 A/px at 10,000 A (HSY: 0.029 and 0.083). At order 100 (5713.8 A): a cos(beta)/(m f_cam) = 3.198 A/mm (HOR 3.20); 3.20 A/mm x 15 um = 0.0480 A/px.",
+    "scan": false
+   },
+   "resolution_published": {
+    "group": "Resolution",
+    "value": "1.2 arcsec slit ~60,000 at 6000 A, ~2.0 px FWHM (0.10 A); 0.2 arcsec ~100,000, ~1.2 px (0.06 A)",
+    "unit": "lambda/FWHM",
+    "src": "HQR",
+    "loc": "Quick Reference, Resolution and Instrumental Profile",
+    "quote": "1.2 arcsecss (3-m scale) ~ 60,000 @ 6000 Angstroms ~ 2.0 pixels (0.10 Angstroms)",
+    "alternatives": [
+     {
+      "value": "0.2 arcsec: ~100,000 at 6000 A, ~1.2 px",
+      "src": "HQR",
+      "loc": "Quick Reference",
+      "quote": "0.2 arcsecs (3-m scale) ~ 100,000 @ 6000 Angstroms ~ 1.2 pixels (0.06 Angstroms)"
+     },
+     {
+      "value": "R ~ 95,000 at 6500 A",
+      "src": "HSY",
+      "loc": "HAMILTON ECHELLE SPECTROGRAPH row",
+      "quote": "resolution ~ 95000 @ 6500 A"
+     },
+     {
+      "value": "R = 50,000-115,000 depending on the decker",
+      "src": "F14",
+      "loc": "Sec. 2",
+      "quote": "The instrument resolution varies from 50,000 to 115,000 depending primarily on the choice of decker"
+     },
+     {
+      "value": "planet search: R = 62,000 with the 600 um slit",
+      "src": "B96",
+      "loc": "Abstract",
+      "quote": "spectrograph at resolution of R=62,000"
+     }
+    ],
+    "note": "Whether the manual's 60,000 is measured or geometric is not stated ([sic] 'arcsecss'). Pre-1994 camera: R ~ 40,000 (F14, Sec. 3).",
+    "scan": false
+   },
+   "resolution_pre1994": {
+    "group": "Resolution",
+    "value": 40000,
+    "unit": "R (before the 1994 November camera upgrade)",
+    "src": "F14",
+    "loc": "Sec. 3",
+    "quote": "the instrument resolution was R ... 40,000 until the optics of the Schmidt camera of the spectrometer were upgraded by installing a new corrector plate and field flattener in 1994 November",
+    "alternatives": [
+     {
+      "value": "40,000 to 120,000 (intrinsic) after the upgrade",
+      "src": "B96",
+      "loc": "Sec. 2.1",
+      "quote": "spectrograph was improved from 40,000 to 120,000"
+     },
+     {
+      "value": "camera upgrade 1994 November",
+      "src": "B96",
+      "loc": "Sec. 2.1",
+      "quote": "In 1994 November the Schmidt camera optics of the Hamilton"
+     },
+     {
+      "value": "R = 30,000 (0.22 A) in 1987",
+      "src": "V87",
+      "loc": "Sec. IV (p. 1220)",
+      "quote": "This 30-minute exposure yielded a resolution of R = 30,000 (0.22 A) and a S/N of 150 per resolution element at Ha."
+     }
+    ],
+    "note": "Quote piece: '... 40,000 until the optics of the Schmidt camera ... were upgraded by installing a new corrector plate and field flattener in 1994 November'.",
+    "scan": false
+   },
+   "order_separation": {
+    "group": "Orders",
+    "value": "0.197-0.406 mm between adjacent orders (minimum 0.197 mm = 5.98 arcsec at orders 74-72; 0.406 mm = 11.5 arcsec at order 163); 6-11 arcsec",
+    "unit": "mm; arcsec",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "72 7935.8 110.2 0.197 5.979 24.82 4.44",
+    "alternatives": [
+     {
+      "value": "order 163",
+      "src": "HOR",
+      "loc": "Table of Orders",
+      "quote": "163 3505.4 21.5 0.406 11.526 10.96 1.96"
+     },
+     {
+      "value": "6-11 arcsec fairly uniform",
+      "src": "GV88",
+      "loc": "Sec. I (p. 1572)",
+      "quote": "separation (6-11 arc seconds) between orders from the near-ultraviolet to the near-infrared"
+     },
+     {
+      "value": "order 100 in the 1987 Table I: 0.23 mm, 6.47 arcsec",
+      "src": "V87",
+      "loc": "Table I (p. 1222)",
+      "quote": "100 5714. 57. 0.23 6.47 4.865 17.87"
+     },
+     {
+      "value": "prism cross-disperser gives approximately constant separation",
+      "src": "V87",
+      "loc": "Sec. III (p. 1219)",
+      "quote": "thus yielding approximately constant order separation across much of the visible spectrum"
+     }
+    ],
+    "derived": "DERIVED: the sum of the table's d over orders 163-58 is 28.51 mm; so all 107 orders (57-163) span ~28.5-28.9 mm across the dispersion (Vogt's relative locations: (26.980 - 12.354) + 0.277 + 13.953 = 28.86 mm), less than a 2048-pixel chip (30.72 mm); the Dewar 4 chip (49.2 mm) holds them all.",
+    "scan": false
+   },
+   "free_spectral_range_length": {
+    "group": "Orders",
+    "value": "orders 163-59 are 10.96-30.28 mm long (free spectral range), shorter than the 30.72 mm Dewar 13 chip; orders 58 and 57 (30.80, 31.35 mm) overflow it",
+    "unit": "mm",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "59 9684.4 164.1 0.210 6.424 30.28 5.42",
+    "alternatives": [
+     {
+      "value": "order 58",
+      "src": "HOR",
+      "loc": "Table of Orders",
+      "quote": "58 9851.3 169.9 0.213 6.512 30.80 5.51"
+     }
+    ],
+    "derived": "DERIVED: the first overflow lies between orders 59 and 58 (blaze 9684 and 9851 A): lambda ~ 9,800 A for a 2048 x 15 um chip.",
+    "scan": false
+   },
+   "scale_along_slit": {
+    "group": "Scale",
+    "value": 0.417,
+    "unit": "arcsec per 15 um pixel along the slit (DERIVED)",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics",
+    "quote": "3-m 1.89 arcsec/mm ... 12-inch off-axis parabola, fl=7.4754 m, beam at collimator=0.2084 m ... 508.3-mm f.l., f1.7, folded Schmidt camera and field flattener",
+    "derived": "DERIVED: along the slit the magnification is f_cam / f_col = 1/14.71, so a 15 um pixel is 0.2206 mm of slit = 0.417 arcsec; 1987 Table I's order separation (0.23 mm = 6.47 arcsec at order 100) gives 28.1 arcsec/mm at the detector = 0.422 arcsec/px (1.2% apart). The manual's table gives 6.898 arcsec for the same 0.231 mm: 29.9 arcsec/mm, 0.448 arcsec/px (7% larger; unexplained, see Conflicts).",
+    "scan": false
+   },
+   "scale_along_dispersion": {
+    "group": "Scale",
+    "value": 0.623,
+    "unit": "arcsec per 15 um pixel along the dispersion (DERIVED)",
+    "src": "HQR",
+    "loc": "Quick Reference, Slit Projection",
+    "quote": "Slit on Detector 330 μm/pixel (for 15 μm pixels)",
+    "derived": "DERIVED: 330 um of slit per pixel / 530 um per arcsec = 0.623 arcsec per pixel (V87: 2.25 arcsec = 1.8 binned = 3.6 px: 0.625).",
+    "scan": false
+   },
+   "iodine_cell": {
+    "group": "Planet-search setup",
+    "value": "iodine cell 10 cm long, 5 cm diameter, 50 +/- 0.1 C, in the converging f/36 beam directly in front of the slit; iodine lines 5000-6200 A",
+    "src": "B96",
+    "loc": "Sec. 2.1",
+    "quote": "The cell is 10 cm in length and 5 cm in diameter",
+    "alternatives": [
+     {
+      "value": "cell in the converging beam in front of the slit",
+      "src": "B96",
+      "loc": "Sec. 2.1",
+      "quote": "The cell is mounted directly in front of the spectrograph slit in the converging"
+     },
+     {
+      "value": "iodine region 5010-6200 A",
+      "src": "F14",
+      "loc": "Sec. 2.1",
+      "quote": "imprinting thousands of narrow iodine absorption lines on the stellar spectrum in the wavelength region from 5010 to 6200 Å"
+     },
+     {
+      "value": "cell moved into the light path with the slitroom controller",
+      "src": "HI2",
+      "loc": "text",
+      "quote": "The iodine cell is moved into the light path using the Slitroom Controller"
+     }
+    ],
+    "note": "The cell is not drawn by the explorer; the 'planet search' note records it.",
+    "scan": false
+   },
+   "planet_search_format": {
+    "group": "Planet-search setup",
+    "value": "600 um slit (B96); ~16 echelle orders carry the iodine information; 40-pixel (2 A) chunks",
+    "src": "B96",
+    "loc": "Sec. 2.1",
+    "quote": "cover the full range of the 16 echelle orders that contain significant iodine information",
+    "alternatives": [
+     {
+      "value": "2 A (40-pixel) chunks 5010-5800 A",
+      "src": "F14",
+      "loc": "Sec. 2.1",
+      "quote": "the spectrum is broken into 2 Å (40-pixel) chunks from 5010 to 5800 Å"
+     }
+    ],
+    "scan": false
+   }
+  },
+  "layout": [
+   {
+    "element": "slit (1)",
+    "tag": "SOURCED",
+    "value": "at the coude focus; f/36 beam from the polar axle, focus on the aperture plate; the aperture plate's polished face is tilted to reflect the rest of the light to the guide TV",
+    "src": "HHW",
+    "loc": "Hardware Overview",
+    "quote": "The beam crosses the slit room and comes to a focus at the aperture plate"
+   },
+   {
+    "element": "slit to collimator",
+    "tag": "SOURCED",
+    "value": "7475.4 mm (the collimator's focal length; the slit sits at the parent paraboloid's focus)",
+    "src": "HQR",
+    "loc": "Quick Reference, Optics, Collimator",
+    "quote": "12-inch off-axis parabola, fl=7.4754 m"
+   },
+   {
+    "element": "collimator (2)",
+    "tag": "SOURCED",
+    "value": "off-axis parabola, 12 inch (30 cm), beam 208.4 mm; turns the beam 11 deg toward the echelle (the slit lies OFF the collimator's axis)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217), Fig. 1 (p. 1218)",
+    "quote": "The beam is collimated at (2) and deviated eastward by 11"
+   },
+   {
+    "element": "collimator to echelle",
+    "tag": "MEASURED",
+    "value": "5.4 m (+/- 15%)",
+    "src": "V87",
+    "loc": "Fig. 1, top view (p. 1218)",
+    "quote": "FIG: slit (1), collimator (2), echelle (3), top view",
+    "method": "Page image at 110 dpi; slit mark (712,138), collimator center (183,540), echelle center (608,321) px: slit-to-collimator 664 px = 7475.4 mm (SOURCED f_col) gives 11.25 mm/px; collimator-to-echelle 478 px = 5379 mm. The angle at the collimator between the slit and the echelle directions measures 10.0 deg (printed: 11). Scale check: the echelle rectangle is ~35 px = 394 mm long (SOURCED 408 mm: -3%)."
+   },
+   {
+    "element": "echelle (3)",
+    "tag": "SOURCED",
+    "value": "204 x 408 mm, in plane, 2 theta = 11 deg between the beams; stands beside the main I-beam; remote tilt motor",
+    "src": "V87",
+    "loc": "Sec. III (p. 1218)",
+    "quote": "This particular choice of θ also allowed the dispersed beam from the echelle to be brought parallel alongside a main structural I-beam"
+   },
+   {
+    "element": "echelle to prisms",
+    "tag": "MEASURED",
+    "value": "1.9 m to prism (4) (+/- 15%); the two prisms 0.3-0.4 m apart (SCHEMATIC)",
+    "src": "V87",
+    "loc": "Fig. 1, top and side views (p. 1218)",
+    "quote": "FIG: prisms (4) and (5)",
+    "method": "Same scale; echelle center to prism (4): 163 px (top view) and 172 px (side view) = 1834 and 1935 mm."
+   },
+   {
+    "element": "cross-dispersing prisms (4), (5)",
+    "tag": "SOURCED",
+    "value": "two UBK7 prisms, apex 43.4 deg (effective), each crossed once (the cross-dispersion is perpendicular to the echelle dispersion)",
+    "src": "V87",
+    "loc": "Fig. 2 caption (p. 1221)",
+    "quote": "2 UBK-7 Prisms with 43.4° apex angles"
+   },
+   {
+    "element": "Schmidt corrector (6)",
+    "tag": "MEASURED",
+    "value": "2.5 m from the echelle (+/- 15%; side view)",
+    "src": "V87",
+    "loc": "Fig. 1, side view (p. 1218)",
+    "quote": "FIG: Schmidt corrector (6)",
+    "method": "Same scale; echelle center to corrector: 222 px = 2498 mm."
+   },
+   {
+    "element": "fold flat (7)",
+    "tag": "SOURCED",
+    "value": "flat with a central hole, deviates the beam by 40 deg to the camera mirror",
+    "src": "V87",
+    "loc": "Sec. III (p. 1219)",
+    "quote": "A folding flat (7) then deviates the light by 40"
+   },
+   {
+    "element": "camera mirror (8)",
+    "tag": "INFERRED",
+    "value": "spherical, radius ~ 2 x 508.3 = 1017 mm (a Schmidt's focal length is R/2); corrector-to-mirror path ~1.4 m read roughly from the side view (+/- 30%), not 1.02 m: the camera's corrector is not at the mirror's center of curvature (not stated)",
+    "src": "V87",
+    "loc": "Fig. 1 (p. 1218)",
+    "quote": "FIG: camera mirror (8)"
+   },
+   {
+    "element": "field flattener (9) and CCD dewar (10)",
+    "tag": "SOURCED",
+    "value": "flattener in the hole of the fold flat; the focus is outside the beam, behind the fold, on a CCD in an LN2 dewar on a precision stage (vertical translation)",
+    "src": "V87",
+    "loc": "Sec. III (p. 1217, 1220)",
+    "quote": "through a field flattener (9) located in the hole in the folding flat"
+   },
+   {
+    "element": "shutter, filter wheel",
+    "tag": "SOURCED",
+    "value": "shutter and filter wheel after the slit, before the camera room",
+    "src": "HHW",
+    "loc": "Figure 1 (schematic) and text",
+    "quote": "The focused light passes through the aperture plate to the filter wheel and shutter to enter the camera room."
+   }
+  ],
+  "layout_summary": "Element order (V87 Fig. 1, HFIG, HOPT): slit (aperture plate) -> shutter and filter wheel -> off-axis parabolic collimator (turns 11 deg; slit off axis) -> echelle (in plane, 2 theta = 11 deg, so the dispersed beam returns past the collimator beam alongside the main I-beam) -> two UBK7 prisms -> Schmidt corrector -> 40 deg fold flat (with hole) -> spherical camera mirror -> back through the hole's field flattener -> CCD dewar. Both the echelle and the camera fold lie in the same horizontal plane in the top view, the cross-dispersion is vertical. Explorer layout inputs: layLen (collimator to echelle) 5400 mm MEASURED, camLen (echelle to the corrector) 2500 mm MEASURED, colTilt 5.5 deg (INFERRED from the 11 deg deviation; OFF-AXIS), cam 'mirror' (catadioptric).",
+  "performance": [
+   {
+    "what": "R = 64,000 (Dewar 13, 1.2 arcsec slit, median of Th-Ar lines)",
+    "q": "R",
+    "value": 64000,
+    "tol": 0.1,
+    "kind": "MEASURED",
+    "src": "F14",
+    "loc": "Sec. 3.2",
+    "quote": "The median resolution measured from thorium argon observations with the ... slit was R = 64,000",
+    "note": "No wavelength is given (a median over the format); the model's Rs for 1.2 arcsec is 62,560 at 6015 A and 5494 A (DERIVED below); R at 1.2 arcsec for Dewar 6 was 47,000 and Dewar 8 56,000 (charge diffusion, not modeled)."
+   },
+   {
+    "what": "R ~ 60,000 at 6000 A for the 1.2 arcsec slit, ~2.0 px FWHM",
+    "q": "RAt",
+    "lam": 6000,
+    "value": 60000,
+    "tol": 0.08,
+    "kind": "NOT STATED (measured or geometric)",
+    "src": "HQR",
+    "loc": "Quick Reference",
+    "quote": "1.2 arcsecss (3-m scale) ~ 60,000 @ 6000 Angstroms ~ 2.0 pixels (0.10 Angstroms)"
+   },
+   {
+    "what": "~2.0 px per FWHM at 1.2 arcsec (15 um)",
+    "q": "npix",
+    "value": 2.0,
+    "tol": 0.1,
+    "kind": "NOT STATED",
+    "src": "HQR",
+    "loc": "Quick Reference",
+    "quote": "1.2 arcsecss (3-m scale) ~ 60,000 @ 6000 Angstroms ~ 2.0 pixels (0.10 Angstroms)",
+    "note": "DERIVED: 1.2 arcsec = 0.635 mm / 22.23 = 28.6 um = 1.90 px."
+   },
+   {
+    "what": "R = 62,000 with the 600 um (1.13 arcsec) slit",
+    "q": "R",
+    "value": 62000,
+    "tol": 0.1,
+    "kind": "NOMINAL (the planet-search setup)",
+    "src": "B96",
+    "loc": "Abstract and Sec. 4",
+    "quote": "spectrograph at resolution of R=62,000",
+    "info": true,
+    "note": "At 1.13 arcsec the model's Rs is ~66,000; B96 states R as the technique's resolution, not as a measurement."
+   },
+   {
+    "what": "1.96 A/mm in order 163 (blaze 3505.4 A)",
+    "q": "dlpixAt",
+    "lam": 3505.4,
+    "m": 163,
+    "value": 0.0294,
+    "tol": 0.03,
+    "kind": "published table",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "163 3505.4 21.5 0.406 11.526 10.96 1.96"
+   },
+   {
+    "what": "3.20 A/mm in order 100 (blaze 5713.8 A)",
+    "q": "dlpixAt",
+    "lam": 5713.8,
+    "m": 100,
+    "value": 0.048,
+    "tol": 0.03,
+    "kind": "published table",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "100 5713.8 57.1 0.231 6.898 17.87 3.20"
+   },
+   {
+    "what": "5.61 A/mm in order 57 (blaze 10,024 A)",
+    "q": "dlpixAt",
+    "lam": 10024.1,
+    "m": 57,
+    "value": 0.08415,
+    "tol": 0.03,
+    "kind": "published table",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "57 10024.1 175.9 0.216 6.607 31.35 5.61"
+   },
+   {
+    "what": "3.64 A/mm at 6500 A (order 88, blaze 6492.9 A)",
+    "q": "dlpixAt",
+    "lam": 6492.9,
+    "m": 88,
+    "value": 0.05445,
+    "tol": 0.03,
+    "kind": "published table (HQR: 3.64)",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "88 6492.9 73.8 0.210 6.340 20.30 3.63"
+   },
+   {
+    "what": "orders 163-57 span 28.5 mm across the dispersion",
+    "q": "ySpan",
+    "m1": 57,
+    "m2": 163,
+    "value": 28.51,
+    "tol": 0.03,
+    "kind": "DERIVED from the table (sum of d, orders 163-58)",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "163 3505.4 21.5 0.406 11.526 10.96 1.96",
+    "note": "Vogt's Table I relative locations give 28.86 mm (DERIVED; 1.2% apart)."
+   },
+   {
+    "what": "adjacent orders 0.231 mm apart at order 100",
+    "q": "ySpan",
+    "m1": 100,
+    "m2": 101,
+    "value": 0.231,
+    "tol": 0.05,
+    "kind": "published table",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "100 5713.8 57.1 0.231 6.898 17.87 3.20",
+    "info": true,
+    "note": "Which neighbor the table's d refers to is not stated; the explorer's value is the separation of orders 100 and 101 centers; info line."
+   },
+   {
+    "what": "minimum order separation 6 arcsec",
+    "q": "minSepArcsec",
+    "m1": 57,
+    "m2": 163,
+    "value": 6.0,
+    "tol": 0.12,
+    "kind": "published (range 6-11 arcsec)",
+    "src": "GV88",
+    "loc": "Sec. I",
+    "quote": "separation (6-11 arc seconds) between orders from the near-ultraviolet to the near-infrared",
+    "note": "The manual's table gives 5.98 arcsec at orders 72-74 (0.197 mm) but its arcsec column is 7% above Vogt's 1987 Table I at the same mm (6.898 vs 6.47 at order 100); see Conflicts."
+   },
+   {
+    "what": "slit-width scale along the dispersion 0.623 arcsec/px",
+    "q": "specScale",
+    "value": 0.623,
+    "tol": 0.05,
+    "kind": "DERIVED from the manual (330 um per px, 530 um per arcsec)",
+    "src": "HQR",
+    "loc": "Quick Reference",
+    "quote": "Slit on Detector 330 μm/pixel (for 15 μm pixels)"
+   },
+   {
+    "what": "scale along the slit 0.417 arcsec/px",
+    "q": "pixScale",
+    "value": 0.417,
+    "tol": 0.05,
+    "kind": "DERIVED (f_cam / f_col, 1.89 arcsec/mm)",
+    "src": "HQR",
+    "loc": "Quick Reference",
+    "quote": "3-m 1.89 arcsec/mm ... 12-inch off-axis parabola, fl=7.4754 m, beam at collimator=0.2084 m"
+   },
+   {
+    "what": "orders m = 57-163 (107 orders) on the 4096 x 4096, 12 um Dewar 4 chip",
+    "q": "nOrders",
+    "value": 107,
+    "tol": 0.0,
+    "kind": "published",
+    "src": "HQR",
+    "loc": "Quick Reference, Wavelength Range",
+    "quote": "~ 3500 to ~ 10000 Angstroms in 107 orders (m=57 to 163)",
+    "info": true,
+    "note": "Only the Dewar 4 chip (4096 x 4096, 12 um = 49.2 mm) holds all of them (HNV: the 4096 x 4096 chip 'does capture the entire useful spectrum'); for the Dewar 13 setting the number depends on the dewar height; info."
+   },
+   {
+    "what": "orders outgrow the 2048 x 15 um chip above ~9,800 A",
+    "q": "gap",
+    "value": 9800,
+    "tol": 0.02,
+    "kind": "DERIVED from the table (l = 30.28 mm at order 59, 30.80 mm at 58 vs 30.72 mm)",
+    "src": "HOR",
+    "loc": "Table of Orders",
+    "quote": "58 9851.3 169.9 0.213 6.512 30.80 5.51",
+    "info": true
+   },
+   {
+    "what": "R = 24,000 for the 1987 2.25 arcsec slit (TI 800 x 800, original camera)",
+    "q": "R",
+    "value": 24000,
+    "tol": 0.1,
+    "kind": "MEASURED line width (pre-1994 camera)",
+    "src": "V87",
+    "loc": "Sec. IV (p. 1223)",
+    "quote": "The 2.25-arc-second entrance slit projected to 1.8 binned pixels yielding an effective resolution of about 2.5 binned pixels (0.2 A) or resolving power of 24,000.",
+    "info": true,
+    "note": "Before the 1994 camera upgrade (R~40,000 with an asymmetric profile): an info line for the TI 800 x 800 setting only; the model gives ~33,000 at 4500 A."
+   }
+  ],
+  "not_found": [
+   "Collimator off-axis distance in mm (only the 11 deg deviation is published); the parent paraboloid's focal length (7.4754 m is the working focal length).",
+   "Optical distances collimator-echelle, echelle-prisms, echelle-corrector: no text or table; read from Vogt's Fig. 1 (MEASURED +/- 15%).",
+   "Prism sizes, spacing, orientation and angle of incidence (minimum deviation is ASSUMED, and it reproduces the table's order separations to 1.7%).",
+   "Camera mirror radius and aperture, the corrector's clear aperture and spacing (f/1.67 gives ~304 mm, INFERRED); the post-1994 corrector prescription ('More specific details about the optical design are available on request', V87).",
+   "A Schott (or other manufacturer) data sheet for UBK7: the current Schott catalog does not list it; the Sellmeier coefficients come from the AbbeTrex compilation (SECONDARY).",
+   "Which of alpha and beta lies on the collimator side (INFERRED from the -22 magnification and the dispersions).",
+   "Measured resolving power at other slit widths for Dewar 13; whether the manual's 60,000 at 1.2 arcsec is measured or geometric.",
+   "Throughput as a table (only plots in the manual; the five-mirror path loses 40%).",
+   "The collimator mask's diameters in the planet-search setup (only the 2.5 cm outer ring and the central shadow +1 cm of MB92).",
+   "Slit lengths used in the planet-search program (the 5-6 arcsec deckers are the manual's options; B96 does not give the decker)."
+  ],
+  "conflicts": [
+   {
+    "topic": "Groove density",
+    "text": "31.6 /mm actual (V87 p. 1220, p. 1218; FT94) vs 31.5 /mm modeled (V87 Fig. 2, Table I; HQR). The preset uses 31.5 because Vogt says only 31.5 with 43.4 deg reproduces the format."
+   },
+   {
+    "topic": "Prism apex",
+    "text": "45 deg design (V87 p. 1219) vs 44.8 deg actual (V87 p. 1220) vs 43.4 deg effective (V87 Fig. 2, Table I) vs 43.9 deg (HQR). 43.4 reproduces the tabulated order separations to 0.4-1.7%; 43.9 to 2-3%; 44.8 to 5-6% (DERIVED)."
+   },
+   {
+    "topic": "Collimated beam",
+    "text": "204 mm (V87 text, 8 inch) vs 207.0 mm (V87 Table I) vs 8.15 inch = 207 mm (FT94) vs 208.4 mm (HQR). Spread 2%; the preset uses 208.4 (f_col / W = 35.87 equals the f/36 feed)."
+   },
+   {
+    "topic": "Echelle size and footprint",
+    "text": "V87: 204 x 408 mm (8 x 16 inch); FT94: 8 x 12 inch. UNRESOLVED footprint problem: with alpha = 70.2 deg on the collimator side (needed for the published -22 and the dispersions) a 208.4 mm beam covers 208.4 / cos(70.2) = 615 mm of the echelle, more than 408 mm; the other assignment (alpha = 59.2: 407 mm) fits the 408 mm length exactly but gives magnification -9.7 and 2.1 A/mm at order 100. The sources do not discuss it; the preset follows the dispersion and magnification evidence."
+   },
+   {
+    "topic": "Order separation in arcsec",
+    "text": "V87 Table I, order 100: 0.23 mm = 6.47 arcsec (28.1 arcsec/mm at the detector; geometry gives 27.8) vs HOR, same order: 0.231 mm = 6.898 arcsec (29.9 arcsec/mm, +7%). The arcsec column of the manual is not consistent with its own f_col, f_cam and 1.89 arcsec/mm; the scored value uses the geometry."
+   },
+   {
+    "topic": "Resolving power",
+    "text": "R = 30,000 (V87, 1987, TI chip) / 40,000 (F14, MB92, before 1994) / 62,000 (B96, after the 1994 camera upgrade; 'intrinsic' 120,000) / 64,000 (F14, Dewar 13, 1.2 arcsec, measured) / 47,000 (Dewar 6) / 56,000 (Dewar 8) / 'about 60,000-100,000 depending on the detector' (HIN) / 50,000-115,000 (F14, by decker). The slit-limited model for 1.2 arcsec is 62,560 (DERIVED)."
+   },
+   {
+    "topic": "Wavelength format of the 2048 chips",
+    "text": "MB92: 3800-9500 A in ~100 orders on the Ford chip; F14: the Ford format spanned 4850-6700 A, Dewar 13's 4850-9362 A; HNV: the 2048 chips capture 'virtually the entire useful spectrum'. The format is a setting (dewar height and grating tilt); the sum of the order separations (28.5 mm) fits a 30.72 mm chip."
+   },
+   {
+    "topic": "Dewar 6 profile",
+    "text": "HCC: narrow-slit FWHM ~2.2 px (Dewar 6) vs ~1.45 px (Dewar 8); F14: R = 47,000 (Dewar 6), 56,000 (Dewar 8), 64,000 (Dewar 13) with the 1.2 arcsec slit."
+   }
+  ],
+  "notes": [
+   "THE RECOMMENDED SETTING is the planet-search configuration with the Dewar 13 CCD (1994 Nov camera upgrade to Feb 1998): it is the era whose resolution was published as R = 62,000 (B96) and measured as 64,000 (F14), and the narrowest line profile of the program (Dewar 6 and Dewar 8 broaden it by charge diffusion, which the explorer does not model). The geometry is the same for every detector era; only the pixel format changes.",
+   "The Hamilton's central wavelength in the iodine region is chosen (5500 A) rather than sourced: the format is a setting. The iodine cell, the collimator mask and the 600 um (1.13 arcsec) slit are not drawn.",
+   "The 11 deg turn at the collimator and the 11 deg between the collimator and camera beams at the echelle are the same angle by design (V87: the dispersed beam runs alongside the main I-beam).",
+   "The explorer's model cannot represent: the pre-1994 asymmetric profile; charge diffusion of the thinned and deep-depletion chips; the echelle footprint (a beam wider than the ruled length); the order curvature the manual mentions; the collimator mask; a catadioptric camera's central obstruction (the Schmidt's fold flat with its hole).",
+   "The Hamilton is also fed by the 0.6-m CAT with the same f/36 beam but 9.45 arcsec/mm (HQR); a CAT preset is the same optics with D = 0.6 m (not recommended).",
+   "The manual's 'Slit on Detector 330 um/pixel' is a magnification statement (22:1 in the dispersion direction), not a slit length."
+  ],
+  "derived_checks": {
+   "K": 57137.79891698063,
+   "M": 22.23088891375026,
+   "disp100": 3.197979351467678,
+   "disp163": 1.9619505223728082,
+   "disp57": 5.610490090294171,
+   "sep": {
+    "(100, 43.4)": 0.23492191354816602,
+    "(100, 43.9)": 0.2387069879266707,
+    "(100, 44.8)": 0.24565247006989963,
+    "(60, 43.4)": 0.2109619447598425,
+    "(60, 43.9)": 0.21434154399937042,
+    "(60, 44.8)": 0.22054057369536215,
+    "(150, 43.4)": 0.36247874866043067,
+    "(150, 43.9)": 0.3683783847867962,
+    "(150, 44.8)": 0.3792115311459779
+   },
+   "sepNB": {
+    "(100, 43.4)": 0.23535751854210804,
+    "(60, 43.4)": 0.21228898677413263,
+    "(150, 43.4)": 0.363562593871752
+   },
+   "foot70": 615.2248908214667,
+   "foot59": 406.99717601313915,
+   "camBeam": 315.0215156359084,
+   "dn_min": -6.331809391868504e-05,
+   "dn_max": 3.4016358096300436e-05,
+   "n588_U": 1.5167982250172225,
+   "n588_N": 1.516798438244237,
+   "Rs_12_95": 62558.28955264108,
+   "Rs_12_104": 62558.125322452936,
+   "Rs_113_95": 66311.78692579953
+  }
+ },
+ "glass": {
+  "UBK7": {
+   "formula": "Sellmeier_SCHOTT: n^2 - 1 = sum B_i lambda^2/(lambda^2 - C_i), lambda in um",
+   "coefficients": {
+    "B1": 1.01237,
+    "B2": 0.258985,
+    "B3": 1.00022,
+    "C1": 0.00588329,
+    "C2": 0.019024,
+    "C3": 104.08
+   },
+   "catalog": {
+    "nd": 1.516801,
+    "vd": 64.289727,
+    "range_um": [
+     0.3,
+     2.325
+    ]
+   },
+   "src": "ABT",
+   "loc": "Optical Properties, Dispersion Formula",
+   "quote": "Sellmeier ... 1.01237 ... 0.00588329 ... 0.258985 ... 0.019024 ... 1.00022 ... 104.08",
+   "quote_nd": "nd of 1.516801 and a V d of 64.289727",
+   "status": "SECONDARY: compiled by a glass-database site; no Schott document for UBK7 was found. Compare N-BK7 (SBK data sheet).",
+   "comparison": {
+    "nBK7": {
+     "B": [
+      1.03961212,
+      0.231792344,
+      1.01046945
+     ],
+     "C": [
+      0.006000699,
+      0.0200179144,
+      103.560653
+     ]
+    },
+    "n588_UBK7": 1.5167982250172225,
+    "n588_NBK7": 1.516798438244237,
+    "dn_range_0p34_to_1p0_um": [
+     -6.331809391868504e-05,
+     3.4016358096300436e-05
+    ]
+   }
+  }
+ }
+}

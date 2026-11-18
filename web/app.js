@@ -17,12 +17,12 @@ const DEF = {
   D: 6.5, F: 5,
   arms: false,                                                   // every arm of a multi-arm instrument in one view (arms.js)
   g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
-       W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15,
+       W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, pA: 60, pN: 1, pPrisms: null, Nx: 4096, Ny: 2048, pix: 15,
        filt: null, fgroups: null, telF: null, fibAp: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
         xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "", note2d: "", camEq: "", xdEq: "", feedLabel: "", dichLabel: "", dichBefore: 0, dichTilt: 15,   // the 3D view's prism passes and labels (presets)
-       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
+       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, xGrism: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
 let S = clone(DEF);
@@ -87,6 +87,7 @@ const SL = [
   ["sPsi", "psi", "m", false, false, v => v.toFixed(1) + "°"],
   ["sTA", "tAlpha", "m", false, false, v => v.toFixed(1) + "°"],
   ["sGA", "gA", "m", false, false, v => v.toFixed(1) + "°"],
+  ["sPA", "pA", "m", false, false, v => v.toFixed(1) + "°"],
   ["sCT", "colTilt", "m", false, false, v => v.toFixed(1) + "°"],
   ["sLL", "layLen", "m", true, false, v => sig(v, 3) + " mm"],
   ["sCL", "camLen", "m", true, false, v => sig(v, 3) + " mm"],
@@ -121,7 +122,8 @@ for (const [id, key, scope, lg, intg] of SL) {
     obj(scope)[key] = v;
     if (id === "sFc") M().fcam = null;
     if (id === "sSW") M().traceW = null;
-    if (id === "sXA") S.e.xPrisms = null;
+    if (id === "sXA") { S.e.xPrisms = null; S.e.xGrism = null; }
+    if (id === "sPA") S.g.pPrisms = null;
     if (id === "sNx" || id === "sNy" || id === "sPix") { $("detSel").value = "custom"; zoom.reset(); }
     if (!DRAWING_KEYS.has(key)) markCustom();
     schedule();
@@ -149,7 +151,7 @@ function aimGrism(lc) {
 }
 const segs = [
   bindSeg([["mGrat", "grating"], ["mEch", "echelle"]], () => S.mode, v => { S.mode = v; zoom.reset(); lview.fit = true; stopCoast(); }),
-  bindSeg([["gRefl", "refl"], ["gTr", "trans"], ["gGm", "grism"]], () => S.g.gType, v => {
+  bindSeg([["gRefl", "refl"], ["gTr", "trans"], ["gGm", "grism"], ["gPr", "prism"]], () => S.g.gType, v => {
     if (v === "grism" && S.g.gType !== "grism") { preGrismG = S.g.G; aimGrism(S.g.lamC / 1e4); }
     else if (v !== "grism" && S.g.gType === "grism" && preGrismG !== null) { S.g.G = preGrismG; preGrismG = null; }
     S.g.gType = v;
@@ -166,7 +168,8 @@ const segs = [
   bindSeg([["vSpec", "spectral"], ["vSpat", "spatial"], ["v3d", "3d"]], () => M().view || "spectral", v => { M().view = v; lview.fit = true; stopCoast(); }, true),
   bindSeg([["sp3", 3], ["sp1", 1]], () => (S.g.spPts === 1 ? 1 : 3), v => { S.g.spPts = v; }, true),
   bindSeg([["xGr", "grating"], ["xVp", "vph"], ["xPr", "prism"], ["xGm", "grism"]], () => S.e.xd, v => { S.e.xd = v; }),
-  bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; }),
+  bindSeg([["p1", 1], ["p2", 2]], () => (S.e.xPrisms ? 0 : S.e.xPasses), v => { S.e.xPasses = v; S.e.xPrisms = null; S.e.xGrism = null; }),
+  bindSeg([["pn1", 1], ["pn2", 2], ["pn3", 3]], () => (S.g.pPrisms ? 0 : S.g.pN), v => { S.g.pN = v; S.g.pPrisms = null; }),
 ];
 // glass list
 const gsel = $("xGlass");
@@ -174,14 +177,14 @@ for (const k of Object.keys(IX.GLASS)) {
   if (k.startsWith("__")) continue;
   const o = document.createElement("option"); o.value = k; o.textContent = IX.GLASS[k].label || k; gsel.appendChild(o);
 }
-gsel.addEventListener("change", () => { S.e.xGlass = gsel.value; S.e.xPrisms = null; markCustom(); schedule(); });
+gsel.addEventListener("change", () => { S.e.xGlass = gsel.value; S.e.xPrisms = null; S.e.xGrism = null; markCustom(); schedule(); });
 // the grism's glass (grating mode)
 const ggsel = $("gGlass");
 for (const k of Object.keys(IX.GLASS)) {
   if (k.startsWith("__")) continue;
   const o = document.createElement("option"); o.value = k; o.textContent = IX.GLASS[k].label || k; ggsel.appendChild(o);
 }
-ggsel.addEventListener("change", () => { S.g.gGlass = ggsel.value; markCustom(); schedule(); });
+ggsel.addEventListener("change", () => { S.g.gGlass = ggsel.value; S.g.pPrisms = null; markCustom(); schedule(); });
 // detector formats
 const dsel = $("detSel");
 DETS.forEach((d, i) => { const o = document.createElement("option"); o.value = String(i); o.textContent = d.name; dsel.appendChild(o); });
@@ -297,7 +300,7 @@ function syncControls() {
   const b = document.body;
   b.className = [
     S.mode === "grating" ? "m-grat" : "m-ech",
-    S.g.gType === "trans" ? "g-tr" : S.g.gType === "grism" ? "g-gr" : "g-refl",
+    S.g.gType === "trans" ? "g-tr" : S.g.gType === "grism" ? "g-gr" : S.g.gType === "prism" ? "g-pr" : "g-refl",
     "c-" + M().col,
     M().foldOn ? "fold-on" : "fold-off",
     S.mode === "grating" && S.g.view === "spatial" ? "v-spatial" : (S.mode === "grating" ? S.g.view === "3d" : S.e.view === "3d") ? "v-3d" : "v-spectral",
@@ -312,7 +315,8 @@ function syncControls() {
   syncInst();
   gsel.value = S.e.xPrisms && S.e.xPrisms.length ? S.e.xPrisms[0].glass : S.e.xGlass;
   if (S.e.xPrisms && S.e.xPrisms.length) { $("vXA").textContent = "train"; $("vXA").title = "The preset's prism train (listed below); moving the slider replaces it with one prism."; } else $("vXA").title = "";
-  ggsel.value = S.g.gGlass || "N-BK7";
+  ggsel.value = S.g.gType === "prism" && S.g.pPrisms && S.g.pPrisms.length ? S.g.pPrisms[0].glass : S.g.gGlass || "N-BK7";
+  if (S.g.pPrisms && S.g.pPrisms.length) { $("vPA").textContent = "train"; $("vPA").title = "The preset's prism train (in the Disperser readout); moving the slider replaces it with identical prisms."; } else $("vPA").title = "";
   const m = M(), di = DETS.findIndex(d => d.Nx === m.Nx && d.Ny === m.Ny && d.pix === m.pix);
   dsel.value = di >= 0 ? String(di) : "custom";
   buildPresetMenu();
@@ -324,9 +328,9 @@ function params() {
   const P = {
     mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
   };
-  if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
+  if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0, pA: m.pA, pN: m.pN, pPrisms: m.pPrisms });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
-                          xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms,
+                          xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms, xGrism: m.xGrism,
                           xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d, note2d: m.note2d, camEq: m.camEq, xdEq: m.xdEq, feedLabel: m.feedLabel, dichLabel: m.dichLabel, dichBefore: m.dichBefore, dichTilt: m.dichTilt });
   return P;
 }
@@ -352,8 +356,8 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre"]);
-const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre", "pA", "pN"]);
+const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism", "prism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
   const h = location.hash.slice(1);
@@ -368,14 +372,18 @@ function readHash() {
   const NUL = Symbol("skip");
   const conv = (k, d, v) => {
     if (typeof d === "boolean") return v === "true" ? true : v === "false" ? false : NUL;
+    if (v[0] === "{" && k === "xGrism") {
+      // the grism after a prism train (ELODIE): a known glass, a positive groove density, an apex between 0 and 90 deg
+      try { const o = JSON.parse(v); return o && IX.GLASS[o.glass] && o.G > 0 && o.A > 0 && o.A < 90 ? o : NUL; } catch (e) { return NUL; }
+    }
     if (v[0] === "[") {
-      // a prism train (xPrisms; xDraw, the prisms drawn): each prism a known glass and an apex angle between 0 and 90 deg
+      // a prism train (xPrisms; xDraw, the prisms drawn; pPrisms, a prism spectrograph's): each prism a known glass and an apex angle between 0 and 90 deg
       // an order filter's band [lo, hi] (Å); fiber groups [fibers per group, pitch, gap] (µm on the detector)
       try {
         const a = JSON.parse(v);
         if (k === "filt") return Array.isArray(a) && a.length === 2 && a.every(x => isFinite(x) && x > 0) && a[0] < a[1] ? a : NUL;
         if (k === "fgroups") return Array.isArray(a) && a.length === 3 && Number.isInteger(a[0]) && a[0] >= 1 && a.every(x => isFinite(x) && x > 0) ? a : NUL;
-        return (k === "xPrisms" || k === "xDraw") && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL;
+        return (k === "xPrisms" || k === "xDraw" || k === "pPrisms") && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL;
       } catch (e) { return NUL; }
     }
     if (typeof d === "number" || d === null) {
@@ -499,7 +507,19 @@ function renderText(Dz, P) {
   ]);
   const dis = [];
   if (P.mode === "grating") {
-    if (P.gType === "grism") {
+    if (P.gType === "prism" && Dz.prism) {
+      const pr = Dz.prism, tr = pr.train, lc = P.lamC / 1e4, nm = q => (IX.GLASS[q.glass] || {}).label || q.glass, fa = v => +Number(v).toFixed(2) + "°";
+      const same = tr.every(q => q.glass === tr[0].glass && q.A === tr[0].A && !q.dI);
+      const txt = same ? (tr.length > 1 ? tr.length + " × " : "") + fa(tr[0].A) + " " + nm(tr[0]) : tr.map(q => fa(q.A) + " " + nm(q)).join(" + ");
+      dis.push(["Prisms", txt, same ? "Each prism stands at minimum deviation for the central wavelength." : "The preset's train: " + tr.map(q => fa(q.A) + " " + nm(q) + (q.dI ? ", turned " + q.dI + "° from minimum deviation" : "")).join("; ") + ". The others stand at minimum deviation for the central wavelength.", true]);
+      const hh = 1e-4, n0 = IX.nGlass(tr[0].glass, lc), dn = (IX.nGlass(tr[0].glass, lc + hh) - IX.nGlass(tr[0].glass, lc - hh)) / (2 * hh);
+      if (isFinite(n0) && isFinite(dn)) {
+        dis.push(["Glass index at λc", n0.toFixed(4), "The refractive index of " + nm(tr[0]) + " at the central wavelength, from the manufacturer's dispersion formula."]);
+        dis.push(["dn/dλ at λc", (dn < 0 ? "−" : "") + sig(Math.abs(dn), 3) + " µm⁻¹", "The slope of the glass's index. At minimum deviation each prism disperses by dθ/dλ = 2 sin(A/2) / cos i × |dn/dλ|, with sin i = n sin(A/2): glass disperses most strongly in the blue."]);
+      }
+      dis.push(["Camera angle", deg(pr.dev), "The deviation of the central wavelength, 2i − A for each prism: the camera's angle to the collimator axis."]);
+      dis.push(["Glass base", sig(Dz.Lg, 3) + " mm", "The difference in glass path between the two edges of the beam, summed over the prisms: the base b of a prism the beam just fills, 2 W sin(A/2) / cos i at minimum deviation. With the glass's dispersion, b sets the diffraction limit R = b |dn/dλ|."]);
+    } else if (P.gType === "grism") {
       const gr = Dz.grism;
       dis.push(["Undeviated λ0", grp(gr.lam0 * 1e4) + " Å", gr.vph ? "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = 2 n sin(A − t), sin t = sin A / n (the outer faces refract the beam to the Bragg angle at the VPH layer and back)." : gr.eps ? "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = n sin(A − ε′) − sin(A − ε), with the prism's entrance face tilted ε = " + deg(gr.eps) + " (sin ε′ = sin ε / n). The grism is not tilted in use, so λ0 is fixed by the grism itself." : "The wavelength that leaves along the collimator axis, at the detector center: m G λ0 = (n − 1) sin A. The grism is not tilted in use, so λ0 is fixed by the grism itself."]);
       dis.push(["Glass index n(λ0)", gr.n0.toFixed(4), gr.vph ? "Of the prisms. The beam meets the VPH layer at " + deg(gr.inner) + " inside the glass." : (gr.eps ? "Of the prism; the light leaves the ruled hypotenuse at A − ε = " + deg(gr.A - gr.eps) + " from its normal." : "Of the prism; the light leaves the ruled hypotenuse at A = " + deg(gr.A) + " from its normal.")]);
@@ -514,7 +534,7 @@ function renderText(Dz, P) {
       // (the Blaze slider gives the Littrow value; with the camera at an angle the facets' peak moves bluer)
       if (Dz.delta !== null && Math.abs(Dz.psi || 0) > 1e-6) dis.push(["Blaze peak at this angle", (v => (v >= 3 ? sig(v, 3) + " µm" : grp(v * 1e4) + " Å"))(2 * Math.sin(Dz.delta) * Math.cos(Dz.psi / 2) / (P.G / 1000)) + ", 1st order", "The facets reflect specularly when α + β = 2δ, so with the camera at ψ from the collimator the blaze peak sits at m λ = 2 sin δ cos(ψ/2) / G. The Blaze slider gives the Littrow value, 2 sin δ / G, at ψ = 0."]);
     }
-    dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
+    if (P.gType !== "prism") dis.push(["Beam footprint", sig(Dz.Lg, 3) + " × " + sig(P.W, 3) + " mm", "The area the collimated beam covers on the grating: W / cos α along the dispersion (the beam stretched by the grating tilt) by W along the grooves. The footprint is the minimum ruled area the grating needs (the physical grating is larger) and sets the diffraction limit m N.", true]);
     if (Dz.c && Dz.c.eff !== null) dis.push(["Blaze efficiency at λc", pct(Dz.c.eff), "Relative to the blaze peak (scalar sinc² envelope)."]);
   } else {
     const os = Dz.orders || [];
@@ -537,6 +557,7 @@ function renderText(Dz, P) {
       dis.push(["Prisms", shown, "The cross-dispersing prisms, each at minimum deviation for the central wavelength: " + full + ".", true]);
     }
     if (Dz.xdDev && !(P.xPrisms && P.xPrisms.length)) dis.push(["Prism deviation", deg(Dz.xdDev)]);
+    if (Dz.xdGrism) dis.push(["Grism after the prisms", grooves(Dz.xdGrism.G) + ", " + (+(Dz.xdGrism.A / IX.DEG).toFixed(2)) + "°", "A grism of " + ((IX.GLASS[Dz.xdGrism.glass] || {}).label || Dz.xdGrism.glass) + " behind the prisms, entered square to the beam, its first order dispersing the same way: the grism spreads the red orders, which the prism crowds, so the two together space the orders more evenly than either alone.", true]);
     if (Dz.xdApex) dis.push(["Grism apex", deg(Dz.xdApex)]);
   }
   rows($("rDis"), dis);
@@ -559,6 +580,7 @@ function drawLayout(Dz, P) {
   const hideRays = !!(window.ANIM && !window.ANIM.rays);             // the drawn rays hidden (anim.js): pulses only
   if (Dz.bad || !Dz.c) { message(g, w, h, Dz.bad || "No light reaches the detector"); $("lSub").textContent = ""; $("lSub").hidden = true; return; }
   const ech = P.mode === "echelle", trans = P.gType === "trans" && !ech, grism = P.gType === "grism" && !ech && !!Dz.grism;
+  const prism = P.gType === "prism" && !ech && !!Dz.prism;
   // a: the tilt of the surface where the collimated beam ends and the dispersed beam starts.  A ruled grism is
   // entered square to the beam, so the rays run straight to its hypotenuse, tilted the other way by the apex A;
   // a VPH grism's layer is square to the beam.
@@ -629,7 +651,7 @@ function drawLayout(Dz, P) {
   // the incoming beam (when the camera-collimator angle allows) and the camera clears the collimator
   const tf = Math.tan(Math.max(...beams.map(bm => Math.abs(Math.atan(bm.X / fcam)))));
   const sinPsi = Math.abs(ac[1]), cosPsi = -ac[0];
-  let d2 = 0.6 * Wp + 0.1 * fcam + (ech ? 1.2 * Wp : 0) + (trans || grism ? 0.8 * Wp + 0.1 * fcam : 0);
+  let d2 = 0.6 * Wp + 0.1 * fcam + (ech ? 1.2 * Wp : 0) + (trans || grism || prism ? 0.8 * Wp + 0.1 * fcam : 0);
   if (sinPsi > 0.2 && cosPsi > 0) for (let it = 0; it < 3; it++) d2 = Math.max(d2, (0.55 * W + 0.55 * Wp + d2 * tf + 0.25 * W) / sinPsi);
   lastD2Auto = dpass ? null : d2;
   if (P.camLen > 0 && !dpass) d2 = P.camLen;                    // the Layout option: disperser to the camera (a lens camera's
@@ -642,6 +664,52 @@ function drawLayout(Dz, P) {
   Gc[0] = fcol + d1;
   const Fp2 = addv(Gc, sc(tg, W / (2 * Math.cos(a)))), Fm2 = addv(Gc, sc(tg, -W / (2 * Math.cos(a))));
   Fp[0] = Fp2[0]; Fp[1] = Fp2[1]; Fm[0] = Fm2[0]; Fm[1] = Fm2[1];
+  // A prism spectrograph: the prisms drawn in turn along the central wavelength's path, each with the beam's
+  // footprint at the middle of both faces and the apex on the inner side of the bend, the first entrance face where
+  // the collimated beam ends (the pupil), each later prism the smallest clear gap past the one before.  The dispersed
+  // beams leave the last exit face, so Gc, Fp and Fm move there.  chain(y): where the ray at height y in the
+  // collimated beam meets the faces in turn (the central wavelength's directions).  Drawing only: the spacing is schematic.
+  let PR = null;
+  if (prism) {
+    const D2 = u => v2(u[2], u[0]);                                // tracer (x, z) -> drawing (along the beam, up)
+    const dirs = Dz.prism.dirs.map(D2), nrms = Dz.prism.stages.map(st => D2(st.nrm));
+    const prp = v => v2(-v[1], v[0]), un = v => sc(v, 1 / Math.hypot(v[0], v[1]));
+    const meet = (p, d, q, t) => addv(p, sc(d, ((q[0] - p[0]) * t[1] - (q[1] - p[1]) * t[0]) / (d[0] * t[1] - d[1] * t[0])));
+    const build = (k, E, wk) => {
+      const dPrev = dirs[2 * k], dIn = dirs[2 * k + 1], dOut = dirs[2 * k + 2], n1 = nrms[2 * k], n2 = nrms[2 * k + 1];
+      let tA = prp(n1);
+      if (dt(tA, addv(dOut, sc(dPrev, -1))) > 0) tA = sc(tA, -1);   // along the entrance face toward the apex
+      const hf = 0.6 * wk / Math.abs(dt(dPrev, n1)), Ap = addv(E, sc(tA, hf)), X = meet(E, dIn, Ap, prp(n2));
+      const L = 2 * Math.max(hf, Math.hypot(X[0] - Ap[0], X[1] - Ap[1]));
+      const wIn = wk * Math.abs(dt(dIn, n1)) / Math.abs(dt(dPrev, n1));
+      return { tri: [Ap, addv(Ap, sc(tA, -L)), addv(Ap, sc(un(addv(X, sc(Ap, -1))), L))], E, X, t1: prp(n1), t2: prp(n2),
+        wOut: wIn * Math.abs(dt(dOut, n2)) / Math.abs(dt(dIn, n2)) };
+    };
+    // convex polygons overlap (separating axes), with a clearance of 3% of the beam
+    const overlap = (A, B) => {
+      for (const Q of [A, B]) for (let i = 0; i < Q.length; i++) {
+        const e = addv(Q[(i + 1) % Q.length], sc(Q[i], -1)), nn = un(v2(-e[1], e[0]));
+        const pa = A.map(p => dt(p, nn)), pb = B.map(p => dt(p, nn));
+        if (Math.max(...pa) + 0.03 * W < Math.min(...pb) || Math.max(...pb) + 0.03 * W < Math.min(...pa)) return false;
+      }
+      return true;
+    };
+    const parts = [];
+    let wk = W;
+    for (let k = 0; k < Dz.prism.train.length; k++) {
+      let gap = 0.1 * W, pr = build(k, k ? addv(parts[k - 1].X, sc(dirs[2 * k], gap)) : v2(fcol + d1, 0), wk);
+      while (k && parts.some(q => overlap(q.tri, pr.tri)) && gap < 30 * W) { gap *= 1.2; pr = build(k, addv(parts[k - 1].X, sc(dirs[2 * k], gap)), wk); }
+      parts.push(pr); wk = pr.wOut;
+    }
+    const faces = parts.flatMap(q => [[q.E, q.t1], [q.X, q.t2]]);
+    const chain = y => { let p = v2(fcol, y); return faces.map(([q, t], j) => (p = meet(p, dirs[j], q, t))); };
+    const Sj = [0];                                                // path length along the central ray from the pupil
+    for (let j = 1; j < faces.length; j++) Sj.push(Sj[j - 1] + Math.hypot(faces[j][0][0] - faces[j - 1][0][0], faces[j][0][1] - faces[j - 1][0][1]));
+    const last = c => c[c.length - 1], cp = chain(W / 2), cm = chain(-W / 2), c0 = last(chain(0));
+    Gc[0] = c0[0]; Gc[1] = c0[1];
+    Fp[0] = last(cp)[0]; Fp[1] = last(cp)[1]; Fm[0] = last(cm)[0]; Fm[1] = last(cm)[1];
+    PR = { tris: parts.map(q => q.tri), chain, last, Ep: cp[0], Em: cm[0], S: Sj };
+  }
   const C = addv(Gc, sc(ac, d2));
   // (double pass: the prism just past the lens group, 0.7 of the way from the echelle: MIKE red ≈100 mm past the last
   // lens on a ≈350 mm path, Bernstein et al. 2003 Fig. 1; M2FS 122 mm on 394 mm, Mateo et al. 2012 Fig. 4)
@@ -735,7 +803,7 @@ function drawLayout(Dz, P) {
   // beam itself is symmetric about.  A mirror image, so no number changes.
   const Mg = p => (P.gFlip ? v2(p[0], -p[1]) : p);
   const Mpost = p => Mf(Mfold(Mg(p)));
-  const [Ga, Gb] = P.gFlip ? [Fm, Fp] : [Fp, Fm];               // where the beam's +W/2 and -W/2 edges meet the grating
+  const [Ga, Gb] = PR ? (P.gFlip ? [PR.Em, PR.Ep] : [PR.Ep, PR.Em]) : P.gFlip ? [Fm, Fp] : [Fp, Fm];   // where the beam's +W/2 and -W/2 edges meet the grating (a prism's first face)
   const Qp = addv(Cf, sc(tf2, W / (2 * Math.sin(phi / 2)))), Qm = addv(Cf, sc(tf2, -W / (2 * Math.sin(phi / 2))));
   // Spatial view (grating mode): the plane that holds the slit length, unfolded onto one axis at the central
   // wavelength.  A point h along the slit leaves the collimator as a parallel bundle at slope -h / f_col whose
@@ -1539,6 +1607,8 @@ function drawLayout(Dz, P) {
       const st = [[S0], RING.map(([py, pz]) => { const c = onCol3(py); return [c[0], c[1], yL + pz]; })];
       if (foldOn) st.push(RING.map(([py, pz]) => { const q = Qy3(py); return M3(Mf, [q[0], q[1], zAt(q[0], pz)]); }));
       st.push(RING.map(([py, pz]) => { const gp = gPt3(py); return Mp([gp[0], gp[1], zAt(gp[0], pz)]); }));
+      // through the prisms: a station at each face, the bundle's slope along the slit kept over the path from the pupil
+      if (PR) for (let j = 1; j < PR.S.length; j++) st.push(RING.map(([py, pz]) => { const c = PR.chain(P.gFlip ? -py : py)[j]; return Mp([c[0], c[1], pz + sl * PR.S[j]]); }));
       tube(st, rgb, al);
     }
     // dispersed light: three wavelengths from each of the three slit points, to their foci on the detector
@@ -1549,7 +1619,8 @@ function drawLayout(Dz, P) {
       if (!p) continue;
       const b3 = n3(a3(zcW, a3(s3(xcW, p[0] / fcam), s3(ycW, p[1] / fcam)))), Q = a3(Dc3, a3(s3(xcW, p[0]), s3(ycW, p[1])));
       const rgb = byS ? frampRGB(tz) : rampRGB(tl);
-      const Gs = RING.map(([py, pz]) => { const g0 = gPt03(py); return [g0[0], g0[1], pz]; });
+      const zEx = PR ? -z / fcol * PR.S[PR.S.length - 1] : 0;      // (prisms: the slit point's offset at the last face)
+      const Gs = RING.map(([py, pz]) => { const g0 = PR ? PR.last(PR.chain(py)) : gPt03(py); return [g0[0], g0[1], pz + zEx]; });
       const Es = Gs.map(G => a3(G, s3(b3, d3(a3(C3, s3(G, -1)), zcW) / d3(b3, zcW))));
       for (const E of Es) rCam = Math.max(rCam, Math.hypot(E[0] - C3[0], E[1] - C3[1], E[2] - C3[2]));
       tube([Gs.map(Mp), Es.map(Mp), [Mp(Q)]], rgb, 0.12);
@@ -1560,11 +1631,24 @@ function drawLayout(Dz, P) {
     if (mirror) slab([Cm[0], Cm[1], 0], [nm[0], nm[1], 0], rCol, 0.05 * rCol, MIRROR3, 0.55, STEEL3);
     else slab([fcol, 0, 0], [1, 0, 0], rCol, 0.12 * rCol, GLASS3, 0.22, GE3);
     if (foldOn) {
-      const hL = 1.08 * W / 2 / Math.sin(phi / 2), tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
+      // the fold covers the marginal rays where it stands: in the page the collimated beam's footprint, W / cos(AOI); along
+      // the slit the beam's radius plus the slit ends' bundles, which cross the axis at the grating (the pupil), so they
+      // stand off by hMax x (the fold's distance from the grating) / f_col, less than at the collimator
+      const hL = 1.08 * W / 2 / Math.sin(phi / 2), hZ = 1.06 * (W / 2 + hMax * (1 - fPos) * d1 / fcol);
+      const tf3 = n3(L3(Mf, [tf2[0], tf2[1], 0])), c = M3(Mf, [Cf[0], Cf[1], 0]);
       const nrm = n3(x3(tf3, [0, 0, 1])), back = d3(nrm, M3(Mf, [Cf[0] + nf[0], Cf[1] + nf[1], 0]).map((v, i) => v - c[i])) > 0 ? nrm : s3(nrm, -1);
-      plate(c, tf3, [0, 0, 1], hL, rCol, s3(back, -1), 0.04 * W, MIRROR3, 0.6, STEEL3);
+      plate(c, tf3, [0, 0, 1], hL, hZ, s3(back, -1), 0.04 * W, MIRROR3, 0.6, STEEL3);
     }
-    {
+    if (PR) {
+      // the prisms: glass triangles extruded along the slit
+      const zg = 1.04 * W / 2, tr = Dz.prism.train, same = tr.every(q => q.glass === tr[0].glass && q.A === tr[0].A), fa = v => +Number(v).toFixed(2) + "°";
+      for (const T3 of PR.tris) {
+        for (const z of [zg, -zg]) face(T3.map(q => Mp([q[0], q[1], z])), GLASS3, 0.25, GE3);
+        for (let k = 0; k < 3; k++) { const p0 = T3[k], p1 = T3[(k + 1) % 3]; face([[p0, zg], [p1, zg], [p1, -zg], [p0, -zg]].map(([q, z]) => Mp([q[0], q[1], z])), GLASS3, 0.25, GE3); }
+      }
+      const ap = PR.tris[Math.floor(PR.tris.length / 2)][0];
+      labs3.push([Mp([ap[0], ap[1], zg * 1.15]), tr.length > 1 ? tr.length + " prisms" : "prism", same ? fa(tr[0].A) + ", " + ((IX.GLASS[tr[0].glass] || {}).label || tr[0].glass) : tr.map(q => fa(q.A)).join(" + ")]);
+    } else {
       const ext = 1.04, zg = ext * W / 2;
       const A0 = addv(Gc, sc(tg, -ext * W / (2 * Math.cos(a)))), A1 = addv(Gc, sc(tg, ext * W / (2 * Math.cos(a))));
       const glass = trans || grism, G3c = Mp([Gc[0], Gc[1], 0]), u3 = n3(a3(Mp([A1[0], A1[1], 0]), s3(G3c, -1)));
@@ -1620,7 +1704,7 @@ function drawLayout(Dz, P) {
   }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
-  const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q),
+  const post = [Fp, Fm, det0, det1, addv(C, sc(xd, lensHalf)), addv(C, sc(xd, -lensHalf)), ...beams.map(bm => bm.Q), ...(PR ? PR.tris.flat() : []),
     ...(MIR ? [MIR.arc[0], MIR.arc[MIR.arc.length - 1], addv(MIR.Mc, sc(ac, 0.04 * MIR.half)), ...MIR.dewar, addv(MIR.C2, sc(xd, MIR.half2)), addv(MIR.C2, sc(xd, -MIR.half2))] : [])].map(Mpost);
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
@@ -1850,15 +1934,17 @@ function drawLayout(Dz, P) {
     lens(v2(fcol, 0), v2(1, 0), SP.colHalf, "collimator", "f = " + mm(fcol), true);
     // the grating from the side: the ruled face foreshortened to W tan α along the axis, the grooves running along the slit
     {
-      const hw = Math.max(W * Math.abs(Math.tan(grism ? Dz.grism.A : a)) / 2, 3 / s), hh = 0.53 * W;
+      // (prisms: a glass block as long as the central ray's path through the glass, half the glass base at minimum
+      // deviation, unfolded onto the axis)
+      const hw = PR ? Math.max(Math.min(Dz.Lg / 4, 0.3 * (SP.xC - xG)), 3 / s) : Math.max(W * Math.abs(Math.tan(grism ? Dz.grism.A : a)) / 2, 3 / s), hh = 0.53 * W;
       const G0 = v2(xG - hw, hh), G1 = v2(xG + hw, hh), G2 = v2(xG + hw, -hh), G3 = v2(xG - hw, -hh);
-      const glassy = trans || grism;
+      const glassy = trans || grism || !!PR;
       poly([G0, G1, G2, G3], glassy ? glassFill(T(G0), T(G1)) : "rgba(51,55,61,0.32)", glassy ? GLASS_EDGE : STEEL, 1.2);
       g.beginPath();
-      for (let k = 1; k < 12; k++) { const x = xG - hw + 2 * hw * k / 12, r0 = T(v2(x, hh)), r1 = T(v2(x, -hh)); g.moveTo(r0[0], r0[1]); g.lineTo(r1[0], r1[1]); }
+      if (!PR) for (let k = 1; k < 12; k++) { const x = xG - hw + 2 * hw * k / 12, r0 = T(v2(x, hh)), r1 = T(v2(x, -hh)); g.moveTo(r0[0], r0[1]); g.lineTo(r1[0], r1[1]); }
       g.strokeStyle = glassy ? "rgba(63,109,150,0.5)" : "rgba(51,55,61,0.55)"; g.lineWidth = 0.8; g.stroke();
       const tq = T(v2(xG, hh)), bq = T(v2(xG, -hh));
-      req(3, grism ? (Dz.grism.vph ? "VPH grism" : "grism") : trans ? "transmission grating" : "grating", [[tq[0], tq[1] - 12, "center"], [bq[0], bq[1] + 14, "center"], [tq[0], tq[1] - 28, "center"], [bq[0], bq[1] + 30, "center"]], INK, 13, { sub: "at the pupil" });
+      req(3, PR ? (Dz.prism.train.length > 1 ? Dz.prism.train.length + " prisms" : "prism") : grism ? (Dz.grism.vph ? "VPH grism" : "grism") : trans ? "transmission grating" : "grating", [[tq[0], tq[1] - 12, "center"], [bq[0], bq[1] + 14, "center"], [tq[0], tq[1] - 28, "center"], [bq[0], bq[1] + 30, "center"]], INK, 13, { sub: "at the pupil" });
     }
     wMark(T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), -W / 2)), T(v2(xG - Math.max(0.2 * d1, 1.5 * W * Math.abs(Math.tan(a))), W / 2)));
     lens(v2(xC, 0), v2(1, 0), SP.camHalf, "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), false);
@@ -1889,7 +1975,7 @@ function drawLayout(Dz, P) {
   { const q = T(v2(-Lt, 0)); req(5, P.feedLabel || "telescope", [[q[0] + 2, q[1] - tHalf * s - 12, "left"], [q[0] + 2, q[1] + tHalf * s + 12, "left"]], INK, 13, { sub: "f/" + sig(P.F, 3) }); }
   // white light: diverging from the slit to the collimator, then parallel to the grating (by way of the fold)
   const onCol = y => onMirror(y / Math.cos(tau));
-  const gPt = y => addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a)));   // meets the grating at height y, before Mpost
+  const gPt = y => (PR ? PR.chain(P.gFlip ? -y : y)[0] : addv(Gc, sc(tg, (P.gFlip ? -y : y) / Math.cos(a))));   // meets the grating (a prism's first face) at height y, before Mpost
   const WL = rgba(NEU, 0.62);
   beam([v2(0, 0), Pp, Pm], rgba(NEU, 0.06));
   for (const y of YS) path([v2(0, 0), onCol(y)], WL, 0.9);
@@ -1907,7 +1993,13 @@ function drawLayout(Dz, P) {
   fold = true;
   // dispersed light: per wavelength a faint band and three rays (the beam's two edges and its center) from the
   // grating through the camera to their common focus on the detector
-  const gPt0 = y => addv(Gc, sc(tg, y / Math.cos(a)));
+  const gPt0 = y => (PR ? PR.last(PR.chain(y)) : addv(Gc, sc(tg, y / Math.cos(a))));
+  if (PR) {
+    // white light through the prisms, along the central wavelength's path, between the faces in turn
+    const cp = PR.chain(W / 2), cm = PR.chain(-W / 2);
+    for (let j = 0; j + 1 < cp.length; j++) beam([cp[j], cp[j + 1], cm[j + 1], cm[j]], rgba(NEU, 0.08));
+    for (const y of YS) path(PR.chain(P.gFlip ? -y : y), rgba(NEU, 0.62), 0.9);
+  }
   if (MIR) {
     // a mirror camera: each wavelength's bundle runs through the corrector to the mirror, less the dewar's shadow,
     // and comes back as a hollow cone to its focus on the detector (canvas clip + even-odd fill cut the shadow out)
@@ -2038,7 +2130,14 @@ function drawLayout(Dz, P) {
   // grating: true length and angle; a reflection grating's facets drawn schematically (12 teeth), a
   // transmission grating as a plate with its rulings running through it
   const n2 = v2(-Math.cos(a), Math.sin(a));
-  {
+  if (PR) {
+    // the prisms: glass triangles, named by number, apex and glass
+    for (const tri of PR.tris) poly(tri, glassFill(T(tri[1]), T(tri[2])), GLASS_EDGE, 1.2);
+    const tr = Dz.prism.train, same = tr.every(q => q.glass === tr[0].glass && q.A === tr[0].A);
+    const nm = q => (IX.GLASS[q.glass] || {}).label || q.glass, qs = PR.tris.flat().map(T), fa = v => +Number(v).toFixed(2) + "°";
+    const top = qs.reduce((u, q) => (q[1] < u[1] ? q : u)), bot = qs.reduce((u, q) => (q[1] > u[1] ? q : u));
+    req(3, tr.length > 1 ? tr.length + " prisms" : "prism", ends(top, bot), INK, 13, { sub: same ? fa(tr[0].A) + ", " + nm(tr[0]) : tr.map(q => fa(q.A)).join(" + ") });
+  } else {
     const ext = 1.04;
     const A0 = addv(Gc, sc(tg, -ext * W / (2 * Math.cos(a)))), A1 = addv(Gc, sc(tg, ext * W / (2 * Math.cos(a))));
     const q0 = T(A0), q1 = T(A1);
@@ -2085,7 +2184,7 @@ function drawLayout(Dz, P) {
   }
   // the grating normal, and the angles of incidence and diffraction of the central wavelength (grating mode;
   // the echelle drawing is schematic; a grism passes λ0 straight through)
-  if (!ech && !grism) {
+  if (!ech && !grism && !PR) {
     const Ln = Math.max(0.6 * W, 52 / s);
     if (P.annot !== false) path([addv(Gc, sc(n2, Ln)), addv(Gc, sc(n2, -Ln))], "rgba(51,55,61,0.6)", 1, [5, 4]);
     const arc = (u0, u1, rpx, txt) => {

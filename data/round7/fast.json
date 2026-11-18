@@ -1,0 +1,957 @@
+{
+ "_meta": {
+  "project": "instex round 7: FLWO 1.5 m Tillinghast / FAST (id fast)",
+  "compiled": "2026-11-17",
+  "rule": "Every value carries source key, location and a verbatim quote from a saved document; DERIVED, EFFECTIVE, INFERRED, SCHEMATIC as defined in data/presets_research.md; quote check counts in quote_check."
+ },
+ "sources": {
+  "F98": {
+   "cite": "Fabricant, D., Cheimets, P., Caldwell, N. & Geary, J. 1998, PASP 110, 79, \"The FAST Spectrograph for the Tillinghast Telescope\" (bibcode 1998PASP..110...79F; 7 pp., IOP publisher PDF obtained through the ADS link gateway). The PDF text layer renders the degree sign as the digit 7, the minus sign as 2, the prime as 9, the double prime as 0, the micro sign as m and the exponent -1 as 21 (e.g. \"mm21\", \"357\" = 35 deg, \"39\" = 3 arcmin, \"10 .5\" = 1.5 arcsec); quotes below are given as extracted and each such case is read in the Notes.",
+   "file": "rawdata/presets/fast/Fabricant1998_PASP110_79_FAST.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1998PASP..110...79F/PUB_PDF"
+  },
+  "M20": {
+   "cite": "Mink, J., Brown, W. R., Chilingarian, I. V., Fabricant, D., Kurtz, M. J., Moran, S., Rhee, J., Tokarz, S. & Wyatt, W. F. 2020, arXiv:2012.03470v1 (7 Dec 2020), \"Center for Astrophysics Optical Infrared Science Archive I. FAST Spectrograph\". Preprint as saved (journal reference not checked).",
+   "file": "rawdata/presets/fast/Mink2020_CAOISA_I_FAST_arXiv2012.03470.pdf",
+   "url": "https://arxiv.org/pdf/2012.03470"
+  }
+ },
+ "parameters": [
+  {
+   "parameter": "telescope_aperture",
+   "value": "1524",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Table 2 (telescope prescription), primary mirror diameter",
+     "Mirror 1524"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "abstract",
+     "1.5-m Tillinghast reflector"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "telescope_plate_scale",
+   "value": "77",
+   "unit": "um/arcsec",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.1",
+     "telescope scale of ∼77 mm arcsec21"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Approximate (\"~77\"); \"mm\" is the extraction of micrometers. The spherical primary has R = 27625.33 mm (Table 2, sign lost), i.e. f/9.06; the Cassegrain system is slower."
+  },
+  {
+   "parameter": "telescope_focal_ratio",
+   "value": "10.42 (effective Cassegrain focus)",
+   "unit": "f/#",
+   "tag": "DERIVED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.1",
+     "telescope scale of ∼77 mm arcsec21"
+    ]
+   ],
+   "alt": [],
+   "derived": "F = 77e-6 m x 206264.8 / 1.524 m = 15.88 m / 1.524 m = 10.42. Cross-check: collimator focal length / beam = 963 / 93 = 10.35 (0.6% lower), consistent with the telescope pupil filling the collimated beam. The focal ratio itself is not stated in either source (NOT FOUND as a number).",
+   "note": null
+  },
+  {
+   "parameter": "corrected_field",
+   "value": "3 arcmin diameter (coma corrector)",
+   "unit": "arcmin",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.3 and Table 3",
+     "well corrected field about"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Extraction reads \"39 in diameter\" = 3 arcmin; Table 3 polychromatic rms image diameters 0.65\"-1.25\" for field angles 1.0-2.0 arcmin (field radius 1.5 arcmin is 0.81\")."
+  },
+  {
+   "parameter": "coma_corrector",
+   "value": "two fused-silica elements (4 glass-air surfaces), 966.579 mm before the focus",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.3, Table 2",
+     "two-element fused silica corrector design"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 4",
+     "four in the coma corrector"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "slit_length",
+   "value": "3",
+   "unit": "arcmin",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1, list of slits",
+     "All slits are 3 arcmin long in the spatial direction"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "abstract",
+     "FAST has a 39-long slit"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "slit_widths",
+   "value": "1.1, 1.5, 2.0, 3.0, 5.0 (M20); 1.0, 1.5, 2.0, 3.0, 5.0 (F98)",
+   "unit": "arcsec",
+   "tag": "CONFLICT",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "FAST has five slits with widths of 1.1, 1.5, 2.0"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 7",
+     "fixed slits with widths of 10, 10 .5, 20, 30, and 50 are available"
+    ]
+   ],
+   "derived": null,
+   "note": "F98 extraction: \"10\" = 1.0\", \"10 .5\" = 1.5\", \"20\" = 2.0\", \"30\" = 3.0\", \"50\" = 5.0\" (double prime rendered as 0). The 1.0\" vs 1.1\" disagreement is listed under Conflicts. Slit changes are manual."
+  },
+  {
+   "parameter": "slit_default",
+   "value": "3.0",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "Galaxy and supernova spectra are normally obtained with the 3.0 arcsec slit"
+    ],
+    [
+     "M20",
+     "Table 1, top row (81% of spectra, 2006-2019)",
+     "300 590 3.0 3475—7415 7.2 81%"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "collimator_type",
+   "value": "off-axis parabolic mirror (parent focal length 963 mm)",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.4",
+     "an off-axis parabolic collimator appeared to be an attractive choice"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "Fig. 1 caption",
+     "reflects off of the collimator mirror at the bottom"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "collimator_focal_length",
+   "value": "963",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.4",
+     "The focal length of the parent parabola of the FAST colli- mator is 963 mm"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "The off-axis segment: the slit sits at the focus of the parent, 963 mm from the segment (INFERRED from \"parent parabola\"; the slit-collimator distance itself is not stated)."
+  },
+  {
+   "parameter": "beam_diameter",
+   "value": "93 (design target ~100)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.4",
+     "producing a collimated beam diameter of 93 mm"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 3.1",
+     "we adopted a collimated beam diameter of ∼100"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "collimator_off_axis_angle",
+   "value": "8.5 (off-axis angle gamma of the parent parabola)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.4",
+     "A collimator off-axis angle of 87 .5 allows sufficient clearance between the slit assembly and the grating"
+    ]
+   ],
+   "alt": [],
+   "derived": "Extraction \"87 .5\" = 8.5 deg (7 = degree sign). Check with the quoted Schroeder blur b = 0.05 g v, v = half slit length = 1.5 arcmin (\"19 .5\" = 1.5 arcmin): b = 0.05 x 8.5 x 1.5 = 0.64\", quoted 0.6\". The 8.5 deg is the angle between the parent axis and the ray to the segment center; the chief ray is deviated by that angle, so the mirror normal is tilted by half of it (4.25 deg) from the incoming chief ray (INFERRED, same convention as the DEIMOS preset). Whether F98 means the deviation or the mirror tilt is not stated.",
+   "note": null
+  },
+  {
+   "parameter": "collimator_on_off_axis",
+   "value": "OFF-AXIS (slit is NOT in the returning beam)",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.4",
+     "allows sufficient clearance between the slit assembly and the grating"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Verdict for the colTilt gate: off-axis; the beam leaves the collimator 8.5 deg from the incoming ray and the slit assembly clears the grating. Fig. 1 of F98 shows the slit plate at the top and the collimator mirror at the bottom with the grating beside the slit plate."
+  },
+  {
+   "parameter": "grating_groove_densities",
+   "value": "300, 600, 1200",
+   "unit": "grooves/mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "FAST has three reflection gratings: a 300 line"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 7",
+     "rently have 300 and 600 lines mm21"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "grating_blaze",
+   "value": "300 and 600 l/mm: 4750; 1200 l/mm: 5700",
+   "unit": "A (blaze wavelength)",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "blazed at 4750 Å, plus a 1200 line mm−1 grating blazed at 5700 Å"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 7",
+     "gratings blazed at ∼4800"
+    ]
+   ],
+   "derived": "Blaze angle (not published), first order, psi = 35 deg: sin(theta_B) = G lambda_B / (2 cos 17.5 deg): 300 l/mm 4.28 deg, 600 l/mm 8.59 deg, 1200 l/mm (5700 A) 21.0 deg. DERIVED.",
+   "note": null
+  },
+  {
+   "parameter": "grating_size",
+   "value": "128 x 154 (oversized)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 7",
+     "128 # 154"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "camera_collimator_angle",
+   "value": "35 (design value used for Table 1)",
+   "unit": "deg",
+   "tag": "INFERRED",
+   "quotes": [
+    [
+     "F98",
+     "Table 1 footnote a",
+     "357 camera-collimator angle"
+    ]
+   ],
+   "alt": [],
+   "derived": "Extraction \"357\" = 35 deg. It is the design assumption of the Table 1 comparison, not stated as the as-built value; it is confirmed by three published numbers. With psi = 35 deg and f_cam = 331 mm: 300 l/mm centered 5500 A gives alpha = 22.5, beta = 12.5 deg, dispersion 1.475 A/px (Table 7: 1.47), anamorphic cos(alpha)/cos(beta) = 0.947, pupil anamorphism 1.056 (F98 Sec. 3.5.1: 1.06); 1200 l/mm at 6563 A (Table 5B center): pupil anamorphism 1.334 (published 1.33). 600 l/mm at 5500 A: 0.749 A/px (0.75); 1200 l/mm at 5500 A: 0.377 A/px (0.38). All DERIVED here.",
+   "note": null
+  },
+  {
+   "parameter": "grating_angles_300",
+   "value": "alpha 22.5, beta 12.5 (diffraction), tilt 5.0 deg from the bisector, at 5500 A",
+   "unit": "deg",
+   "tag": "DERIVED",
+   "quotes": [
+    [
+     "F98",
+     "Table 1 footnote a",
+     "357 camera-collimator angle"
+    ]
+   ],
+   "alt": [],
+   "derived": "sin(alpha)+sin(beta) = G lambda = 0.3/um x 0.55 um = 0.165; alpha = 17.5 + 4.96, beta = 17.5 - 4.96 deg (alpha > beta; the grating is tilted off the bisector by 4.96 deg). Grating tilt for other centers: M20 Appendix A.",
+   "note": null
+  },
+  {
+   "parameter": "camera_type",
+   "value": "folded Schmidt: UBK-7 aspheric corrector plate, spherical primary mirror, flat fold mirror with a central hole for the CCD; the detector sits beside the fold mirror (no internal-focus obstruction by the dewar)",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.5.1",
+     "so we adopted a folded geometry"
+    ],
+    [
+     "F98",
+     "Sec. 3.5.1",
+     "we adopted a Schmidt camera"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "Fig. 1 caption",
+     "imaged by a folded Schmidt camera onto a CCD detector"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "camera_focal_length",
+   "value": "331 (effective); 350 (spherical mirror, R = 700 mm)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.5.1",
+     "The effective focal length of the camera is 331 mm, giving a demagnification of 2.91"
+    ],
+    [
+     "F98",
+     "Table 4",
+     "5 ............ 700.00 333.93 Mirror 0"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "camera_aperture_focal_ratio",
+   "value": "aperture 133 mm; f/2.6 (design with 350 mm focal length, 100 mm beam)",
+   "unit": "mm; f/#",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Table 1",
+     "Camera F.L./aperture ................. 2.6 1.6"
+    ],
+    [
+     "F98",
+     "Table 1",
+     "(mm) .............. 133 108"
+    ]
+   ],
+   "alt": [],
+   "derived": "f/2.6 = 350/133; with the effective 331 mm the as-built ratio is 331/133 = 2.5 (DERIVED).",
+   "note": null
+  },
+  {
+   "parameter": "camera_prescription",
+   "value": "pupil (grating) to corrector 225.00; corrector UBK-7 8.00 thick; corrector to fold flat 283.96; fold to sphere 309.86 (sign reversed by the reflection); sphere to image 333.93; field flattener/dewar window silica R 108.28, 8.00 thick, 8.00 to image; \"34 deg fold\"",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Table 4",
+     "Stop ........ Flat 225.00"
+    ],
+    [
+     "F98",
+     "Table 4",
+     "3 ............ 234578.22 283.96"
+    ],
+    [
+     "F98",
+     "Table 4",
+     "Flat 2309.86 Mirror 347 fold"
+    ],
+    [
+     "F98",
+     "Table 4",
+     "6 ............ 108.28 8.00 Silica 0"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Table 4 extraction: \"2309.86\" = -309.86; \"347 fold\" = \"34 deg fold\" (the fold flat turns the beam by 34 deg is the natural reading; INFERRED, not stated). The \"Stop\" is the grating (camera pupil), 225 mm from the corrector plate (\"camera-pupil distance of 225 mm\", Table 1 footnote)."
+  },
+  {
+   "parameter": "camera_demagnification",
+   "value": "2.91",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.5.1",
+     "giving a demagnification of 2.91"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "detector_current",
+   "value": "2688 x 512, 15 um pixels (FAST3: backside-illuminated UA STA520A, since 2006 June)",
+   "unit": "px; um",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "2688x512 UA STA520A"
+    ],
+    [
+     "M20",
+     "Sec. 2.1",
+     "15 µm pixels"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "Table 2",
+     "FAST3 2006-06-20 2019-12-22 2688x512"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "detector_1998",
+   "value": "512 x 2688 pixels, 15 um (Loral, 40 mm long); FAST1/FAST2 thinned 2720 x 512",
+   "unit": "px; um",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 3.1",
+     "pixel CCD with 15 mm pixels"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "Table 2",
+     "FAST1 1994-09-03 1998-04-18 2720x512"
+    ],
+    [
+     "M20",
+     "Sec. 2.1",
+     "all have had 15µm square"
+    ]
+   ],
+   "derived": null,
+   "note": "F98 extraction splits \"512 x 2688\"; the 40 mm length = 2688 x 15 um (\"The 40 mm length of this CCD\"). Pixel size unchanged in all detectors."
+  },
+  {
+   "parameter": "detector_binning",
+   "value": "2x binning along the slit (spatial) is the normal setting",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "binning in the spatial direction"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "pixel_scale_along_slit",
+   "value": "0.57",
+   "unit": "arcsec/px (unbinned)",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "The spatial scale is always 0.57 arcsec"
+    ]
+   ],
+   "alt": [
+    [
+     "F98",
+     "Sec. 3.1",
+     "sample the sky at about 00 .6"
+    ]
+   ],
+   "derived": "15 um x 2.91 / 77 um/arcsec = 0.567 arcsec (DERIVED); 2x binned 1.13 arcsec/px.",
+   "note": null
+  },
+  {
+   "parameter": "dispersion_and_coverage",
+   "value": "300 l/mm: 1.47 A/px, 3940 A; 600: 0.75, 2000; 1200: 0.38, 1000 (centered 5500 A)",
+   "unit": "A/px; A",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Table 7",
+     "300 ......... 3940 1.47 1.64"
+    ],
+    [
+     "F98",
+     "Table 7",
+     "600 ......... 2000 0.75 1.55"
+    ],
+    [
+     "F98",
+     "Table 7",
+     "1200 ........ 1000 0.38 1.37"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "FITS header example, CD1_1",
+     "CD1 1 1.47133255004883 Wavelength per pixel"
+    ]
+   ],
+   "derived": "Last column of Table 7 = pixels per arcsec along the dispersion (header \"Pixels Arcsec-1\"): 1.64, 1.55, 1.37 px/arcsec. Model from the sourced pieces (f_cam 331, f_col 963, 77 um/arcsec, 15 um, psi 35 deg, centered 5500 A): 1.67, 1.58, 1.40 px/arcsec. Coverage check: 2688 px x 1.47 = 3951 A vs 3940 (M20: 3475-7415 = 3940).",
+   "note": null
+  },
+  {
+   "parameter": "wavelength_coverage_300",
+   "value": "3475-7415 (3940 A), second order overlaps above ~6500 A",
+   "unit": "A",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Table 1",
+     "300 590 3.0 3475—7415 7.2 81%"
+    ],
+    [
+     "M20",
+     "Sec. 2.1",
+     "Second-order light is thus present above"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "grating_tilt_equations",
+   "value": "300: CW = 13.2 TILTPOS - 2400; 600: CW = 6.61 TILTPOS + 1600; 1200: CW = 3.29 TILTPOS + 5200 (TILTPOS in mils)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Appendix A",
+     "CW = 13.2"
+    ],
+    [
+     "M20",
+     "Appendix A",
+     "CW = 6.61"
+    ],
+    [
+     "M20",
+     "Appendix A",
+     "CW = 3.29"
+    ]
+   ],
+   "alt": [],
+   "derived": "Table 1 tilts: 300 l/mm 590 mil gives 5388 A (coverage center 5445); 600 l/mm 445 mil gives 4541 A (center 4535); 600 l/mm 752 mil gives 6571 A (center 6570); 1200 l/mm 850 mil (spacer, A4: 3.51 x 850 + 3850) gives 6834 A (center 6700).",
+   "note": null
+  },
+  {
+   "parameter": "grating_to_corrector_distance",
+   "value": "225",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Table 4",
+     "Stop ........ Flat 225.00"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Camera-pupil (grating) to corrector plate; this is camLen for the preset."
+  },
+  {
+   "parameter": "collimator_to_grating_distance",
+   "value": "NOT PUBLISHED (about 963 mm INFERRED from Fig. 1)",
+   "unit": "mm",
+   "tag": "INFERRED",
+   "quotes": [
+    [
+     "F98",
+     "Fig. 1 caption",
+     "The Schmidt corrector plate is hidden behind the spherical camera mirror"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "Fig. 1 (p. 80) is an unscaled isometric cutaway. The slit plate (top), the grating (top, beside the slit plate) and the collimator mirror (bottom, on the focus stage) show the slit-collimator and collimator-grating paths of about equal length, so collimator-grating ~ slit-collimator ~ 963 mm (INFERRED, SCHEMATIC; no dimension in the figure)."
+  },
+  {
+   "parameter": "throughput",
+   "value": "26% peak (1996, after 2 years; telescope+spectrograph+CCD); ~35% typical peak after re-aluminization (2014)",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "abstract",
+     "system peak efficiency of 26%"
+    ]
+   ],
+   "alt": [
+    [
+     "M20",
+     "Sec. 2.2",
+     "typically peaks around 35%"
+    ]
+   ],
+   "derived": null,
+   "note": null
+  },
+  {
+   "parameter": "slit_viewing",
+   "value": "slit jaws inclined 20 deg to the input beam; guide field about 2 x 3 arcmin",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "F98",
+     "Sec. 6",
+     "jaws are inclined at 207 with respect to the input beam"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": "\"207\" = 20 deg; the field \"2 0 # 3 0\" = 2 arcmin x 3 arcmin."
+  },
+  {
+   "parameter": "object_count",
+   "value": "1 (long slit)",
+   "unit": "",
+   "tag": "SOURCED",
+   "quotes": [
+    [
+     "M20",
+     "Sec. 2.1",
+     "All slits are 3 arcmin long in the spatial direction"
+    ]
+   ],
+   "alt": [],
+   "derived": null,
+   "note": null
+  }
+ ],
+ "published_performance": [
+  {
+   "what": "dispersion (300 l/mm, centered 5500 A)",
+   "value": "1.47 A/px",
+   "kind": "dlpix",
+   "src": "F98",
+   "loc": "Table 7",
+   "quote": "300 ......... 3940 1.47 1.64",
+   "alt": "M20 CD1_1 = 1.4713 A/px (header example)"
+  },
+  {
+   "what": "dispersion (600 l/mm)",
+   "value": "0.75 A/px",
+   "kind": "dlpix",
+   "src": "F98",
+   "loc": "Table 7",
+   "quote": "600 ......... 2000 0.75 1.55"
+  },
+  {
+   "what": "dispersion (1200 l/mm)",
+   "value": "0.38 A/px",
+   "kind": "dlpix",
+   "src": "F98",
+   "loc": "Table 7",
+   "quote": "1200 ........ 1000 0.38 1.37"
+  },
+  {
+   "what": "coverage (300 l/mm)",
+   "value": "3940 A (3475-7415)",
+   "kind": "span",
+   "src": "F98",
+   "loc": "Table 7; M20 Table 1",
+   "quote": "300 ......... 3940 1.47 1.64"
+  },
+  {
+   "what": "resolution FWHM, 300 l/mm, 3.0\" slit",
+   "value": "7.2 A (method not stated)",
+   "kind": "FWHM",
+   "src": "M20",
+   "loc": "Table 1",
+   "quote": "300 590 3.0 3475—7415 7.2 81%",
+   "derived": "R = 5445/7.2 = 756 (DERIVED, at the coverage center; 5500/7.2 = 764). Geometric check: 3.0\" x 1.64 px/arcsec x 1.47 A/px = 7.2 A, so the published resolution equals the slit-image width in Table 7 units (GEOMETRIC, not an arc-line FWHM)."
+  },
+  {
+   "what": "resolution FWHM, 600 l/mm, 1.5\" slit (blue)",
+   "value": "1.8 A",
+   "kind": "FWHM",
+   "src": "M20",
+   "loc": "Table 1",
+   "quote": "600 445 1.5 3540—5530 1.8 13%",
+   "derived": "1.5 x 1.55 x 0.75 = 1.74 A (matches 1.8)."
+  },
+  {
+   "what": "resolution FWHM, 600 l/mm, 2.0\" slit (red)",
+   "value": "2.3 A",
+   "kind": "FWHM",
+   "src": "M20",
+   "loc": "Table 1",
+   "quote": "600 752 2.0 5570—7570 2.3 2%",
+   "derived": "2.0 x 1.55 x 0.75 = 2.3 A."
+  },
+  {
+   "what": "resolution FWHM, 1200 l/mm, 2.0\" slit",
+   "value": "1.1 A",
+   "kind": "FWHM",
+   "src": "M20",
+   "loc": "Table 1",
+   "quote": "1200 850 2.0 6200—7200 1.1 1%",
+   "derived": "2.0 x 1.37 x 0.38 = 1.04 A."
+  },
+  {
+   "what": "abstract claim: 300 l/mm and 1.5\" slit give 4000 A at 3 A",
+   "value": "3 A",
+   "kind": "FWHM",
+   "src": "F98",
+   "loc": "abstract",
+   "quote": "offers 4000 Å of spectral coverage at 3 Å resolution",
+   "derived": "1.5 x 1.64 x 1.47 = 3.6 A (the abstract is rounded; see Conflicts)."
+  },
+  {
+   "what": "scale along the slit",
+   "value": "0.57 arcsec/px (unbinned)",
+   "kind": "pixScale",
+   "src": "M20",
+   "loc": "Sec. 2.1",
+   "quote": "The spatial scale is always 0.57 arcsec"
+  },
+  {
+   "what": "pupil anamorphism (300; 1200 l/mm)",
+   "value": "1.06; 1.33",
+   "kind": "anamorph",
+   "src": "F98",
+   "loc": "Sec. 3.5.1",
+   "quote": "The pupil anamorphism is 1.06 and 1.33 with the 300"
+  },
+  {
+   "what": "throughput peak",
+   "value": "26% (1996); ~35% (2014)",
+   "kind": "throughput",
+   "src": "F98",
+   "loc": "abstract",
+   "quote": "system peak efficiency of 26%"
+  }
+ ],
+ "not_found": [
+  "Cassegrain focal ratio of the 1.5 m as a stated number (derived 10.42 from the 77 um/arcsec plate scale; the CfA/FLWO web pages for the telescope and FAST could not be reached from this machine: connection refused/timeouts on pweb.gws.cfa.harvard.edu and tdc-www.harvard.edu)",
+  "Collimator-to-grating distance and any scaled layout dimension (no dimensioned layout figure; Fig. 1 of F98 and Fig. 1 of M20 are unscaled schematics)",
+  "Grating blaze angles and as-built camera-collimator angle (derived: 35 deg design value from F98 Table 1 footnote, confirmed by the published dispersions and anamorphism)",
+  "Measured arc-line resolving power (M20 Table 1 gives \"Res.\" in A without a method; consistent with the geometric slit width)",
+  "Order-sorting filter details (M20: \"Blocking filters are available but in practice never used\")",
+  "Collimator off-axis geometry in the plane of the dispersion: F98 does not say whether the 8.5 deg off-axis lies in or across the dispersion plane (Fig. 1 suggests the slit-collimator axis and the collimated beam both lie in the box plane; INFERRED)"
+ ],
+ "conflicts": [
+  "Slit widths: F98 Sec. 7 gives 1.0 arcsec (extracted \"10\") for the narrowest slit, M20 gives 1.1 arcsec. M20 is the later document; the web pages could not be checked.",
+  "Resolution with the 1.5\" slit and 300 l/mm: F98 abstract says 3 A at \"4000 A\" coverage; Table 7 numbers give 3.6 A and 3940 A coverage.",
+  "Blaze of the 300 and 600 l/mm gratings: F98 \"~4800 A\", M20 4750 A.",
+  "Peak throughput: 26% (F98, 1996, telescope optics dirty) vs ~35% (M20, after primary re-aluminization).",
+  "Collimated beam: F98 abstract and Sec. 3.1 \"~100 mm\" vs Sec. 3.4 93 mm (the 93 mm is the as-designed value from the 963 mm parent and is used).",
+  "CCD format: 2688 x 512 (F98, FAST3) vs 2720 x 512 (FAST1, FAST2 per M20 Table 2).",
+  "Camera focal length: 350 mm (spherical mirror, Table 1/Table 4 R = 700 mm) vs effective 331 mm (Sec. 3.5.1); the effective value matches the demagnification 2.91 and the dispersions."
+ ],
+ "layout": [
+  {
+   "element": "slit plate (fixed slits 1.1-5 arcsec wide, 3 arcmin long; polished jaws inclined 20 deg to the beam feed the guide camera)",
+   "tag": "SOURCED",
+   "src": "F98 Sec. 6, 7; Fig. 1 (p. 80)"
+  },
+  {
+   "element": "coma corrector (two fused-silica elements, 966.579 mm before the telescope focus) precedes the slit",
+   "tag": "SOURCED",
+   "src": "F98 Table 2"
+  },
+  {
+   "element": "slit to collimator: 963 mm (slit at the focus of the parent parabola)",
+   "tag": "INFERRED",
+   "src": "F98 Sec. 3.4"
+  },
+  {
+   "element": "collimator: off-axis paraboloid 8.5 deg off-axis, 93 mm beam; mounted on the focus stage at the bottom of the box (Fig. 1 of F98 and Fig. 1 of M20: light enters from the top, reflects off the collimator at the bottom)",
+   "tag": "SOURCED",
+   "src": "F98 Sec. 3.4, Fig. 1; M20 Fig. 1"
+  },
+  {
+   "element": "collimator to grating: ~963 mm, grating at the top beside the slit plate, reflection grating, camera-collimator angle 35 deg",
+   "tag": "SCHEMATIC (distance); angle INFERRED from Table 1 footnote",
+   "src": "F98 Fig. 1, Table 1"
+  },
+  {
+   "element": "grating to Schmidt corrector plate (UBK-7 aspheric, at the camera pupil): 225 mm",
+   "tag": "SOURCED",
+   "src": "F98 Table 4"
+  },
+  {
+   "element": "corrector to flat fold mirror 283.96 mm; fold to spherical mirror (R = 700 mm) 309.86 mm; mirror back to the focus 333.93 mm, the focus lying just beyond the fold flat, whose center is bored out to pass the light to the CCD; \"34 deg fold\"; dewar extends to the lower right (M20 Fig. 1)",
+   "tag": "SOURCED (distances) / MEASURED not possible (no scale)",
+   "src": "F98 Table 4, Fig. 2; M20 Fig. 1 caption"
+  },
+  {
+   "element": "field flattener / dewar window (silica, R 108.28 mm, 8 mm thick) 8 mm before the CCD",
+   "tag": "SOURCED",
+   "src": "F98 Table 4"
+  }
+ ],
+ "recommended": {
+  "preset": "Tillinghast 1.5 m (FLWO) / FAST, 300 l/mm grating (blaze 4750 A), 3.0\" slit, FAST3 CCD (2688 x 512, 15 um), first order centered at 5500 A (3475-7415 A): 81% of all spectra 2006-2019 (M20 Table 1).",
+  "explorer_inputs": {
+   "D_m": 1.524,
+   "F": "10.42 (DERIVED from 77 um/arcsec; or set F so that the plate scale is 77 um/arcsec)",
+   "slit_arcsec": 3.0,
+   "slit_length_arcmin": 3,
+   "col": "mirror (off-axis parabola)",
+   "colTilt": "4.25 deg (INFERRED: half of the 8.5 deg off-axis angle); NOT on-axis",
+   "fcol_mm": 963,
+   "beam_mm": 93,
+   "fcam_mm": 331,
+   "cam": "mirror (folded Schmidt: drawing as the catadioptric type)",
+   "groove_per_mm": 300,
+   "blaze_A": 4750,
+   "psi_deg": 35,
+   "alpha_deg": 22.46,
+   "beta_deg": 12.54,
+   "layLen_mm": "963 (INFERRED, SCHEMATIC)",
+   "camLen_mm": 225,
+   "pixel_um": 15,
+   "npix": "2688 x 512",
+   "nObj": 1,
+   "pixScale_arcsec_per_px": 0.57,
+   "centralWavelength_A": 5500
+  },
+  "settings": [
+   {
+    "name": "300 l/mm, 3.0\" slit (default)",
+    "tilt_mil": 590,
+    "coverage": "3475-7415 A",
+    "res": "7.2 A",
+    "source": "M20 Table 1"
+   },
+   {
+    "name": "600 l/mm, 1.5\" slit, blue",
+    "tilt_mil": 445,
+    "coverage": "3540-5530 A",
+    "res": "1.8 A",
+    "source": "M20 Table 1"
+   },
+   {
+    "name": "600 l/mm, 2.0\" slit, red",
+    "tilt_mil": 752,
+    "coverage": "5570-7570 A",
+    "res": "2.3 A",
+    "source": "M20 Table 1"
+   },
+   {
+    "name": "1200 l/mm, 2.0\" slit, Halpha region",
+    "tilt_mil": 850,
+    "coverage": "6200-7200 A",
+    "res": "1.1 A",
+    "source": "M20 Table 1"
+   }
+  ],
+  "era": "Current (FAST3, since 2006 June). Optics and pixel size unchanged since 1994; earlier CCDs 2688 or 2720 x 512, 15 um."
+ },
+ "quote_check": "75 quote pieces, 0 failures (pdftotext layout and raw, normalized)"
+}

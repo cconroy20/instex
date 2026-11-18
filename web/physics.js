@@ -87,6 +87,13 @@ const GLASS = {
   F2: { label: "F2", range: [0.3341, 2.3254], B: [1.34533359, 0.209073176, 0.937357162], C: [0.00997743871, 0.0470450767, 111.886764] },
   // SCHOTT SF6 datasheet (as of 01-Dec-2023): the X-Shooter VIS prism
   SF6: { label: "SF6", range: [0.365, 2.3254], B: [1.72448482, 0.390104889, 1.04572858], C: [0.013487195, 0.0569318095, 118.557185] },
+  // SCHOTT Optical Glass Data Sheets (English collection; N-SF15 PDF p. 107, SF2 p. 116), data/round7/slipher.md: modern
+  // stand-ins for Slipher's prisms, whose glasses have no dispersion formula (INFERRED there): SF2 for the Jena O 102 of
+  // the three-prism train (the 1904 measured indices less a constant 0.0015, rms 7e-5), N-SF15 for the unnamed "very
+  // dense" 64 deg prism of the nebular work.  Ranges: the sheets' tabulated indices, SF2 to n_i (365.0 nm), N-SF15 to
+  // n_h (404.7 nm; no n_i given)
+  SF2: { label: "SF2", range: [0.365, 2.3254], B: [1.40301821, 0.231767504, 0.939056586], C: [0.010579547, 0.0493226978, 112.405955] },
+  "N-SF15": { label: "N-SF15", range: [0.4047, 2.3254], B: [1.57055634, 0.218987094, 1.50824017], C: [0.011650701, 0.0597856897, 132.709339] },
   // NASA CHARMS temperature-dependent Sellmeier fits, evaluated at 105 K (the X-Shooter NIR optics):
   // Infrasil 301 (Leviton, Frey & Madison 2008, Table 10; 0.5-3.6 um), ZnSe (Leviton, Frey & Kvamme 2005,
   // Table 13; 0.55-5.6 um).  B_i = S_i(105 K), C_i = lambda_i(105 K)^2; n(1 um) = 1.44972 and 2.47697.
@@ -126,13 +133,15 @@ function bisect(f, a, b, fa, fb, tol) {
      D (m), F
      feed   'slit' | 'fiber' | 'dl'      slitW, slitL (arcsec); core (um), eta, nFib; slices N
      W (mm), Fc (camera focal ratio on the diffracted beam) or fcam (mm, takes precedence)
-     grating mode: gType 'refl' | 'trans' | 'grism', G (l/mm), m, gA (deg, grism apex), gGlass, gKind 'ruled' | 'vph', gTilt (deg, ruled: entrance-face tilt), lamB (A, Littrow blaze wavelength in
+     grating mode: gType 'refl' | 'trans' | 'grism' | 'prism', G (l/mm), m, gA (deg, grism apex), gGlass, gKind 'ruled' | 'vph', gTilt (deg, ruled: entrance-face tilt), lamB (A, Littrow blaze wavelength in
                    order m), lamC (A), psi (deg, camera-collimator angle; reflection only),
                    tAlpha (deg, optional: fixed incidence on a transmission grating; else symmetric)
+                   prism: pA (deg, apex), pN (number of identical prisms of glass gGlass), or pPrisms [{ glass, A, dI }]
      echelle mode: eG (l/mm), eDelta (deg), gamma (deg), theta (deg, in-plane offset), eTilt (deg, the echelle
                    turned from the blaze-symmetric setting),
                    xd 'grating' | 'vph' | 'prism' | 'grism', xG (l/mm), xPsi (deg), xGlass, xA (deg),
-                   xPasses, xGrA (an echelle grism's apex, deg; else set by lamC), lamC (A)
+                   xPasses, xPrisms [{ glass, A, dI }], xGrism { G, A, glass } (a grism after the prisms),
+                   xGrA (an echelle grism's apex, deg; else set by lamC), lamC (A)
      Nx, Ny, pix (um)                      detector, Nx along the dispersion                */
 function design(P) {
   const S = { P, flags: [] };
@@ -183,7 +192,17 @@ function design(P) {
   } else {
     Gm = P.G / 1000; order = Math.max(1, Math.round(P.m || 1));
     const x = order * Gm * lamC;
-    if (P.gType === "grism") {
+    if (P.gType === "prism") {
+      // A prism spectrograph (Slipher's on the Lowell 24-inch refractor; the NIRSpec prism): no grooves and no orders.
+      // The prisms (pPrisms, or pN copies of one prism of glass gGlass and apex pA) stand at minimum deviation for
+      // lamC, each bending the beam the same way; the camera follows the deviated beam, so lamC lands at the detector
+      // center.  The surfaces are set up below, once the beam's frame is known.
+      reflect = false; order = 1; Gm = 0;
+      const train = Array.isArray(P.pPrisms) && P.pPrisms.length ? P.pPrisms
+        : Array(Math.max(1, Math.round(P.pN || 1))).fill({ glass: P.gGlass, A: P.pA });
+      S.prism = { train };
+      alpha = 0; betaRef = 0;
+    } else if (P.gType === "grism") {
       // A grism: the camera sits on the collimator axis, so the wavelength at the detector center is the
       // undeviated one, fixed by the grism.  Ruled: a prism of apex A entered square to the beam, the grating on
       // the hypotenuse, m G lam0 = (n - 1) sin A.  VPH: the grating layer square to the beam between two prisms
@@ -278,6 +297,36 @@ function design(P) {
       };
     }
   }
+  if (S.prism) {
+    // the prisms in turn, bending in the dispersion plane (x-z), each at minimum deviation for lamC (dI, degrees: a
+    // prism turned from it, a larger angle of incidence for dI > 0).  The beam's width changes at each face by
+    // cos(refracted) / cos(incident), which cancels through a prism at minimum deviation.  base: the difference in
+    // glass path between the beam's two edges, summed over the prisms (the base of a prism the beam just fills),
+    // which with dn/dlambda sets the diffraction limit, R = sum b dn/dlambda (Rayleigh).
+    const st = [], dirs = [cAx];
+    let r = cAx, b = ex, wc = W, base = 0;
+    for (const pr of S.prism.train) {
+      const A = pr.A * DEG, nC = nGlass(pr.glass, lamC);
+      if (!isFinite(nC)) { S.bad = "No refractive index for the glass '" + pr.glass + "' at the central wavelength."; return S; }
+      const sA = nC * Math.sin(A / 2);
+      if (sA >= 1) { S.bad = "The prism apex is too large for this glass (total internal reflection)."; return S; }
+      const i = Math.asin(sA) + (pr.dI || 0) * DEG;
+      const m1 = add(mul(r, Math.cos(i)), mul(b, Math.sin(i)));
+      const m2 = add(mul(r, Math.cos(i - A)), mul(b, Math.sin(i - A)));
+      const f1 = { kind: "face", nrm: m1, from: 1, to: pr.glass }, f2 = { kind: "face", nrm: m2, from: pr.glass, to: 1 };
+      const rin = traceXd(r, lamC, [f1]), rout = rin && traceXd(rin, lamC, [f2]);
+      if (!rout) { S.bad = "The beam cannot leave the prism (total internal reflection at the exit face)."; return S; }
+      const c1 = Math.abs(dot(rin, m1)), c2 = Math.abs(dot(rin, m2));
+      const wIn = wc * c1 / Math.abs(dot(r, m1));
+      base += wIn * (Math.sqrt(1 - c1 * c1) / c1 + Math.sqrt(1 - c2 * c2) / c2);
+      wc = wIn * Math.abs(dot(rout, m2)) / c2;
+      st.push(f1, f2); dirs.push(rin, rout);
+      b = unit(perp(b, rout)); r = rout;
+    }
+    main = (u, mlam) => traceXd(u, mlam, st);       // order 1: m lambda is the wavelength
+    Object.assign(S.prism, { stages: st, dirs, Wout: wc, base, dev: Math.acos(Math.min(1, dot(r, cAx))) });
+    S.psi = S.prism.dev;
+  }
   const inDir = (xi, zeta) => unit(add(cAx, add(mul(ex, xi / S.fcol), mul(ey, zeta / S.fcol))));
 
   // ---- cross-disperser (echelle mode): its dispersion plane holds the reference ray and the
@@ -322,6 +371,18 @@ function design(P) {
         b = unit(perp(b, rr)); r = rr;
       }
       S.xdDev = Math.acos(Math.min(1, dot(r, u1ref)));
+      // a grism after the prisms (P.xGrism { G, A, glass }: ELODIE's crown grism behind its F2 prism, Baranne et al.
+      // 1996), entered square to the beam with its ruled face at the apex A; its first order disperses the same way as
+      // the prisms (red toward the side the prisms bend least), so the two dispersions add
+      if (P.xGrism && P.xGrism.G > 0 && P.xGrism.A > 0) {
+        const g = P.xGrism, Gx = g.G / 1000, A = g.A * DEG;
+        if (!isFinite(nGlass(g.glass, lamC))) { S.bad = "No refractive index for the grism's glass '" + g.glass + "' at the central wavelength."; return S; }
+        const m2 = add(mul(r, Math.cos(A)), mul(b, -Math.sin(A)));
+        const s2 = sub(mul(r, Math.sin(A)), mul(b, -Math.cos(A)));
+        xdStages.push({ kind: "face", nrm: r, from: 1, to: g.glass });
+        xdStages.push({ kind: "gface", nrm: m2, g: mul(s2, -Gx), from: g.glass, to: 1 });
+        S.xdGrism = { G: g.G, A, glass: g.glass };
+      }
     } else if (P.xd === "vph") {
       // a transmission (VPH) grating in first order, at the symmetric (Bragg) setting for lamC
       const Gx = P.xG / 1000, q = Gx * lamC / 2;
@@ -425,6 +486,7 @@ function design(P) {
       S.Wp = S.Lg * Math.cos(A - e);
     }
   }
+  if (S.prism) { S.Lg = S.prism.base; S.Wp = S.prism.Wout; }
   if (!(fcam > 0)) fcam = P.Fc * S.Wp;
   S.fcam = fcam;
   S.Fcam = fcam / S.Wp;
@@ -457,7 +519,13 @@ function design(P) {
     const fw = lsfFac * w;
     const npix = fw / pix;
     const Rp = npix * Rs;
-    const RdN = Math.abs(m) * (Gm * 1000) * S.Lg;                             // m N_grooves (Lg in mm)
+    // the diffraction limit: m N for a grating (Lg in mm); for prisms W' dtheta/dlambda, the beam's width times the
+    // angular dispersion (= sum b dn/dlambda), from the traced directions
+    let RdN = Math.abs(m) * (Gm * 1000) * S.Lg;
+    if (S.prism) {
+      const ui = inDir(0, 0), ua = main(ui, lam + h), ub = main(ui, lam - h);
+      RdN = ua && ub ? S.Wp * 1000 * norm(sub(ua, ub)) / (2 * h) : NaN;
+    }
     // The effective R: the slit image and the grating's diffraction limit in quadrature. The pixel does not widen a
     // measured line (McLean et al. 2012 measure MOSFIRE's lines at the geometric slit width), so no pixel term
     // (Charlie's call, 2026-11-16, after the preset audit). Rfit: the R a pipeline reports from a Gaussian fitted to
@@ -614,7 +682,7 @@ function design(P) {
 
   // ---- general flags
   if (S.c.npix < 2) flag("samp", "undersampled");
-  if (S.c.Rd < S.c.Rs) flag("diff", "grating diffraction-limited");
+  if (S.c.Rd < S.c.Rs) flag("diff", (S.prism ? "prism" : "grating") + " diffraction-limited");
   return S;
 }
 

@@ -1,0 +1,1107 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 7: OHP 1.93 m / ELODIE (fiber-fed white-pupil echelle, prism + grism cross-disperser)",
+  "compiled": "2026-11-17",
+  "companion": "data/round7/elodie.md (same content as Markdown); structure as data/round6/m2fs_ifum.json",
+  "rule": "Every value carries src (key into sources), loc, and a short quote. tag: SOURCED / DERIVED / MEASURED / INFERRED / EFFECTIVE / SCHEMATIC / NOT FOUND. derived = arithmetic done here from sourced values (is_derived = the value itself is derived). alternatives = other sourced values (conflicts). The primary paper (B96) is a scan without a text layer: its quotes are transcribed from the scan and checked against a Tesseract OCR; page numbers are journal pages.",
+  "quote_normalization": "NFKC; case-folded; whitespace collapsed (and again with whitespace and hyphens removed); curly quotes, primes, dashes, minus, micro, multiplication, degree and plus-minus signs normalized; ' ... ' joins non-adjacent pieces.",
+  "quote_check": {
+   "pieces_checked": 133,
+   "failures": 0
+  },
+  "on_off_axis_verdict": "OFF-AXIS (Czerny-Turner mirrors M1/M2 separate; fiber head not in the returning beam); colTilt must not be 0"
+ },
+ "sources": {
+  "B96": {
+   "cite": "Baranne, A., Queloz, D., Mayor, M., Adrianzyk, G., Knispel, G., Kohler, D., Lacroix, D., Meunier, J.-P., Rimbaud, G. & Vin, A. 1996, A&AS 119, 373, \"ELODIE: A spectrograph for accurate radial velocity measurements\" (ADS scan, 18 pp. = journal pp. 373-390; PDF page n = journal page 372 + n). The PDF is a scan WITHOUT a text layer: every quote from it is transcribed from the scan and was machine-checked against a Tesseract 5 OCR of the 300 dpi page images (rawdata/presets/elodie/Baranne1996_tesseract_OCR_derived.txt, a derived file); the figures were read by eye from the same images. OCR noise is kept in quotes where the check needs it (e.g. 'ym' for the micro sign, 'zm', '8°63' printed for 8.63 deg).",
+   "file": "rawdata/presets/elodie/Baranne1996_AAS119_373_ELODIE.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1996A&AS..119..373B"
+  },
+  "M04": {
+   "cite": "Moultaka, J., Ilovaisky, S. A., Prugniel, P. & Soubiran, C. 2004, PASP 116, 693, \"The ELODIE archive\" (arXiv:astro-ph/0405025 e-print, 8 pp.; fetched through the ADS link gateway EPRINT_PDF)",
+   "file": "rawdata/presets/elodie/Moultaka2004_PASP116_693_eprint.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/2004PASP..116..693M/EPRINT_PDF"
+  },
+  "P04": {
+   "cite": "Prugniel, Ph. & Soubiran, C. 2004, \"New release of the ELODIE library\" (arXiv:astro-ph/0409214v2, 3 pp.)",
+   "file": "rawdata/presets/elodie/Prugniel2004_arXiv_astro-ph_0409214.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0409214"
+  },
+  "OHPG": {
+   "cite": "Observatoire de Haute-Provence, \"OHP 1m93 ELODIE Spectrograph\" user's-guide page (Internet Archive copy of 2013-02-12; the live page now returns 404; the page states ELODIE \"was decommissioned in mid-August 2006\"). Latin-1 text.",
+   "file": "rawdata/presets/elodie/wayback2013_obs-hp_guide_elodie-eng.html",
+   "url": "https://web.archive.org/web/20130212074622/http://www.obs-hp.fr/guide/elodie/elodie-eng.html"
+  },
+  "OHPD": {
+   "cite": "Observatoire de Haute-Provence, \"Elodie for dummies\" (A user's guide to ELODIE archive data products; Internet Archive copy of 2013-01-02; the live page is gone). Latin-1 text.",
+   "file": "rawdata/presets/elodie/wayback2013_obs-hp_elodie-for-dummies.html",
+   "url": "https://web.archive.org/web/20130102155948/http://www.obs-hp.fr/archive/elodie-for-dummies.shtml"
+  },
+  "OHPS": {
+   "cite": "OHP, \"ELODIE : mode fibres brouillées\" (D. Kohler, 13 May 1997; French; Internet Archive copy of 2013-02-12). Latin-1 text.",
+   "file": "rawdata/presets/elodie/wayback2013_obs-hp_scrambler.html",
+   "url": "https://web.archive.org/web/20130212074622/http://www.obs-hp.fr/www/guide/elodie/scrambler.html"
+  },
+  "OHPL": {
+   "cite": "OHP, \"Liste des 67 ordres d'Elodie\" (intervals per order; Internet Archive copy of 2013-02-12)",
+   "file": "rawdata/presets/elodie/wayback2013_obs-hp_liste-ordres.html",
+   "url": "https://web.archive.org/web/20130212074622/http://www.obs-hp.fr/www/guide/elodie/liste-ordres.html"
+  },
+  "OHPF": {
+   "cite": "OHP ELODIE layout drawing layout.gif (496 x 245), the perspective drawing perspective.gif and the photograph of the mirror plate miroirs.jpeg, linked from OHPG (Internet Archive copies of 2013-02-12; images, no text; layout.gif is the same drawing as Fig. 1 of B96)",
+   "file": "rawdata/presets/elodie/wayback2013_obs-hp_layout.gif (and _perspective.gif, _miroirs.jpeg)",
+   "url": "https://web.archive.org/web/20130212074622/http://www.obs-hp.fr/www/guide/elodie/layout.gif"
+  },
+  "ARCH": {
+   "cite": "The ELODIE archive, Introduction page (atlas.obs-hp.fr/elodie/intro.html; fetched 2026-11-17)",
+   "file": "rawdata/presets/elodie/atlas_obs-hp_elodie_intro.html",
+   "url": "http://atlas.obs-hp.fr/elodie/intro.html"
+  },
+  "ADS": {
+   "cite": "Raw ADS API JSON records (fetched 2026-11-17) of 1996A&AS..119..373B, 1995Natur.378..355M and 2004PASP..116..693M, used to title-check the bibcodes",
+   "file": "rawdata/presets/elodie/ads_*.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query"
+  }
+ },
+ "elodie": {
+  "title": "OHP 1.93 m / ELODIE (white-pupil Czerny-Turner R4 echelle, 40 deg F2 prism + 8.63 deg crown 150 /mm grism, f/3 lens camera, Tk1024 24 um CCD; fiber-fed)",
+  "recommended_preset": {
+   "id": "elodie",
+   "tel": "OHP 1.93 m",
+   "name": "OHP 1.93 m / ELODIE",
+   "state": {
+    "mode": "echelle",
+    "D": 1.93,
+    "F": 15,
+    "e": {
+     "slitW": "S3 x 0.300 mm / (15 x 1930 mm) x 206264.8 = 1.851 arcsec (round 300 um aperture at the f/15 collimator entrance as the slit of equal line width; the on-sky alternative S3 x 2.0 = 1.732 arcsec)",
+     "nObj": 2,
+     "col": "mirror",
+     "W": 102,
+     "fcam": 300,
+     "cam": "lens (drawing)",
+     "eG": 31.78,
+     "eDelta": 75.964,
+     "gamma": "0 (not published)",
+     "theta": 0,
+     "eTilt": 0,
+     "xd": "needs a new prism-then-grism option (see Mapping): F2 40 deg prism (xPrisms [{glass F2, A 40}]) then a crown grism (apex 8.63 deg, 150 /mm)",
+     "lamC": 4964,
+     "Nx": 1024,
+     "Ny": 1024,
+     "pix": 24,
+     "layLen": 1530,
+     "colTilt": "automatic off-axis (do not set 0)"
+    }
+   },
+   "settings": "one preset; the direct and scrambled fiber pairs have the same optics (a note), and 'star fibre only' differs only in nObj (1 instead of 2)"
+  },
+  "parameters": {
+   "telescope_aperture": {
+    "value": 1.93,
+    "unit": "m",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Abstract, p. 373",
+    "quote": "has been in operation since the end of 1993 on the 1.93 m telescope",
+    "quote_pieces": [
+     "has been in operation since the end of 1993 on the 1.93 m telescope"
+    ],
+    "alternatives": [
+     {
+      "value": "1.93 m (OHP 1.93-m)",
+      "src": "OHPD",
+      "loc": "'About Elodie'",
+      "quote": "saw first light at the OHP 1.93-m"
+     }
+    ],
+    "name": "Telescope aperture",
+    "note": "Observatoire de Haute-Provence 1.93 m telescope. Clear aperture and central obscuration are NOT FOUND (the explorer uses D = 1.93 m)."
+   },
+   "telescope_focus": {
+    "value": "Cassegrain f/15 (front-end adaptor 'bonnette' with two focal-plane apertures; fibers carry the light to a spectrograph in an isolated, temperature-controlled room)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.3, p. 378",
+    "quote": "An adaptor, located at the f/15 Cassegrain focus, and two optical fibres provide the optical link between the telescope and the spectrograph, which is kept in an isolated room",
+    "quote_pieces": [
+     "An adaptor, located at the f/15 Cassegrain focus, and two optical fibres provide the optical link between the telescope and the spectrograph, which is kept in an isolated room"
+    ],
+    "alternatives": [
+     {
+      "value": "Cassegrain focus; temperature-controlled room",
+      "src": "OHPG",
+      "loc": "Summary",
+      "quote": "Light from the Cassegrain focus is fed into the spectrograph through a pair of optical fibers"
+     }
+    ],
+    "name": "Focus"
+   },
+   "telescope_focal_ratio": {
+    "value": 15,
+    "unit": "f/#",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.3, p. 378",
+    "quote": "located at the f/15 Cassegrain focus",
+    "quote_pieces": [
+     "located at the f/15 Cassegrain focus"
+    ],
+    "name": "Telescope focal ratio at the focus",
+    "note": "The explorer's F is the spectrograph's own f/15 as well (collimator accepts f/15)."
+   },
+   "plate_scale": {
+    "value": 7.125,
+    "unit": "arcsec/mm",
+    "tag": "DERIVED",
+    "src": "B96",
+    "loc": "Sec. 2.3 + abstract",
+    "quote": "located at the f/15 Cassegrain focus ... on the 1.93 m telescope",
+    "quote_pieces": [
+     "located at the f/15 Cassegrain focus",
+     "on the 1.93 m telescope"
+    ],
+    "derived": "206264.8\" / (15 x 1930 mm) = 7.125 arcsec/mm; a 300 um hole = 2.137 arcsec (stated: 2 arcsec, see aperture_onsky).",
+    "is_derived": true,
+    "name": "Plate scale at the Cassegrain focus",
+    "note": "No document states the focal length or plate scale. The 7% difference between 2.137 arcsec and the stated 2 arcsec means either an effective focal length of 31.0 m (f/16.1) or rounding of '2 arcsec'."
+   },
+   "aperture_onsky": {
+    "value": "300 um = 2 arcsec (each of two holes, circular)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.3.1, p. 378",
+    "quote": "A tilted steel concave mirror pierced with two holes of ... diameter (2 arcsec on the sky)",
+    "quote_pieces": [
+     "A tilted steel concave mirror pierced with two holes of",
+     "diameter (2 arcsec on the sky)"
+    ],
+    "alternatives": [
+     {
+      "value": "2 arc-sec wide, two apertures 1.8 arc-min apart",
+      "src": "OHPG",
+      "loc": "'Entrance aperture'",
+      "quote": "The two circular entrance apertures (2 arc-sec wide) are separated by 1.8 arc-min in the focal plane"
+     },
+     {
+      "value": "2 arcsec",
+      "src": "M04",
+      "loc": "Sec. 3, p. 2",
+      "quote": "Two entrance apertures (each 2 arcsec wide)"
+     }
+    ],
+    "name": "Entrance aperture (star-hole and sky-hole): diameter in the focal plane and on the sky",
+    "note": "The 300 um holes sit in a tilted concave mirror that also reflects the field to the guide camera. Field of view of the adaptor 4.6 arcmin (OHPG)."
+   },
+   "fiber_core": {
+    "value": 100,
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.4, p. 378",
+    "quote": "We use POLYMICRO fibres FHP, 20 meters long, with a diameter of 100",
+    "quote_pieces": [
+     "We use POLYMICRO fibres FHP, 20 meters long, with a diameter of 100"
+    ],
+    "alternatives": [
+     {
+      "value": "long fibers 25 m (+ 2 m scrambler fiber)",
+      "src": "OHPS",
+      "loc": "La voie brouillée",
+      "quote": "longueur : 25m"
+     }
+    ],
+    "name": "Fiber core diameter (Polymicro FHP, star and sky/ThAr fibers)",
+    "note": "CONFLICT on fiber length: 20 m (B96, 1996) vs 25 m for the long fibers of the later (1997) scrambled pair (OHPS). Length is not an explorer input."
+   },
+   "fiber_focal_ratios": {
+    "value": "in f/5; out f/15 (transfer optic magnifies the fiber face 3x onto a 300 um image at the f/15 collimator entrance)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.4, p. 378",
+    "quote": "The beam apertures are converted to f/5 with a ... transfer optic to feed the fibres and then brought back to ... f /15 at the spectrograph entrance",
+    "quote_pieces": [
+     "The beam apertures are converted to f/5 with a",
+     "transfer optic to feed the fibres and then brought back to",
+     "f /15 at the spectrograph entrance"
+    ],
+    "derived": "The fiber face (100 um) at f/5 relayed to f/15 is magnified 15/5 = 3: 300 um, the same as the 2 arcsec hole at f/15 (a 1:1 image of the hole; 'we form the star image and not the pupil on the fibre entrance'). Camera f/3 over collimator f/15 demagnifies by 5: 60 um = the stated geometric spot.",
+    "is_derived": false,
+    "name": "Fiber input and output focal ratios",
+    "note": "Pupil-fed vs image-fed: B96 forms the STAR IMAGE on the fiber face."
+   },
+   "image_not_pupil": {
+    "value": "the star image (not the pupil)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.4, p. 378",
+    "quote": "Our choice is to form the star image and not the pupil on the fibre entrance",
+    "quote_pieces": [
+     "Our choice is to form the star image and not the pupil on the fibre entrance"
+    ],
+    "name": "What is imaged on the fiber"
+   },
+   "fibers_nobj": {
+    "value": 2,
+    "unit": "spectra",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 1, p. 374 and Fig. 6, p. 381",
+    "quote": "ELODIE has two fibres (one for the star, the other for the sky) ... the thorium-argon lamp during the stellar exposure",
+    "quote_pieces": [
+     "ELODIE has two fibres (one for the star, the other for the sky)",
+     "the thorium-argon lamp during the stellar exposure"
+    ],
+    "alternatives": [
+     {
+      "value": "two fiber pairs since March 1997: direct and scrambled; one pair is used at a time; each pair = object fiber + (sky | Thorium | blocked)",
+      "src": "OHPD",
+      "loc": "'Image Types'",
+      "quote": "For each set, one fiber is reserved for the object spectrum and the other for either the sky spectrum or the Thorium spectrum, but it can be also be blocked"
+     }
+    ],
+    "name": "Spectra on the detector (nObj)",
+    "note": "nObj = 2 (star + sky or ThAr). The two spectra are interleaved on the chip: the sky/ThAr orders lie between the stellar orders ('as the orders are too close, no background subtraction is possible', B96 Sec. 3.1 p. 381). In 'star fibre only' mode the sky hole is masked and nObj = 1."
+   },
+   "scrambler": {
+    "value": "long fiber (25 m) + short fiber (2 m) joined by a symmetric relay; used by the Geneva group with simultaneous thorium",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "OHPS",
+    "loc": "La voie brouillée",
+    "quote": "La technique du \"brouilleur\" consiste à ajouter à chacune des fibres longues (longueur : 25m) une fibre courte de même type (longueur : 2m)",
+    "quote_pieces": [
+     "La technique du \"brouilleur\" consiste à ajouter à chacune des fibres longues (longueur : 25m) une fibre courte de même type (longueur : 2m)"
+    ],
+    "alternatives": [
+     {
+      "value": "scrambled pair: higher-accuracy RV (+-6 m/s with simultaneous Thorium); direct pair has higher throughput",
+      "src": "OHPG",
+      "loc": "'Entrance aperture'",
+      "quote": "Other observers are recommended to use the other fiber pair"
+     }
+    ],
+    "name": "Scrambled fiber pair (since March 1997)",
+    "note": "Explorer: a drawing note only. The scrambled pair enters 'in the axis of the collimator' in place of the old fibers; the direct pair uses an auxiliary entrance below the spectrograph, a unit-magnification telecentric relay and a retractable total-reflection prism toward the collimator (OHPS)."
+   },
+   "collimator_focal_ratio": {
+    "value": 15,
+    "unit": "f/#",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375",
+    "quote": "We chose f /15 in order to prevent off-axis effects",
+    "quote_pieces": [
+     "We chose f /15 in order to prevent off-axis effects"
+    ],
+    "name": "Collimator focal ratio (M1, M2)"
+   },
+   "collimator_type": {
+    "value": "mirror (M1, concave, with a toroidal deformation that corrects the astigmatism); M2 refocuses; Czerny-Turner mounting around the echelle",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2 and 2.2.1, pp. 375-376; Fig. 1",
+    "quote": "It forms the pupil of this Czerny-Turner mounting which constitutes the first level of the spectrograph ... this astigmatism is corrected by an appropriate toroidal deformation on the optical surface very close to the pupil ... easy to make this deformation on the first mirror M1",
+    "quote_pieces": [
+     "It forms the pupil of this Czerny-Turner mounting which constitutes the first level of the spectrograph",
+     "this astigmatism is corrected by an appropriate toroidal deformation on the optical surface very close to the pupil",
+     "easy to make this deformation on the first mirror M1"
+    ],
+    "name": "Collimator type",
+    "note": "The photograph miroirs.jpeg (OHPF) shows M1 (round, bottom), M2 and M3 (rectangular, stacked above) on one plate."
+   },
+   "collimator_focal_length": {
+    "value": 1530,
+    "unit": "mm",
+    "tag": "INFERRED",
+    "src": "B96",
+    "loc": "Sec. 2.2, pp. 375",
+    "quote": "We chose f /15 in order to prevent off-axis effects ... grating (diameter 102mm) but reduced to a diameter of",
+    "quote_pieces": [
+     "We chose f /15 in order to prevent off-axis effects",
+     "grating (diameter 102mm) but reduced to a diameter of"
+    ],
+    "derived": "f_col = 15 x 102 mm = 1530 mm (f/15 times the 102 mm beam that fills the echelle's short dimension). NOT STATED in any document found.",
+    "is_derived": false,
+    "name": "Collimator focal length",
+    "note": "The 102 mm pupil is stated as the 'white image of the echelle-grating (diameter 102mm)'; the grating is 408 x 102 mm, so the beam may be smaller than 102 mm in one direction. Cross-checks that support 1530 mm: (i) the white-pupil transfer mirror M3 must be f = 15 x 75 = 1125 mm to give the stated 75 mm pupil at f/15 (ratio 75/102 = 0.735 = f_M3 / f_M1); (ii) the unit-magnification image 300 um at f/15 -> 60 um at f/3 (the camera, f/3, has 75 mm aperture)."
+   },
+   "beam_diameter": {
+    "value": "102 mm at the echelle; 75 mm white pupil",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375",
+    "quote": "This pupil is the white image of the echelle ... grating (diameter 102mm) but reduced to a diameter of ... 75mm",
+    "quote_pieces": [
+     "This pupil is the white image of the echelle",
+     "grating (diameter 102mm) but reduced to a diameter of",
+     "75mm"
+    ],
+    "derived": "pupil magnification 75/102 = 0.735 (or 102/75 = 1.36)",
+    "is_derived": false,
+    "name": "Beam diameter at the echelle (first pupil) and at the cross-disperser/camera (white pupil)"
+   },
+   "collimator_axis": {
+    "value": "OFF-AXIS: the fiber head is not in the returning beam. M1 (collimator) and M2 (second Czerny-Turner mirror) are two separate mirrors; the first, dispersed beam returns to an intermediate spectrum 'symmetrical to the source with respect to the grating', where a small mirror sends it to M3",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375; Fig. 1, p. 376",
+    "quote": "An intermediate spectrum is ob ... served in a position symmetrical to the source with respect to the grating ... the only aberration we observe is the same astigmatism for all wavelengths coming from the off-axis illumination of M1 and M2 ... A small mirror near the intermediate spectrum sends back the monochromatic beams towards a third concave mirror M3 adjacent to the Czerny-Turner mirrors",
+    "quote_pieces": [
+     "An intermediate spectrum is ob",
+     "served in a position symmetrical to the source with respect to the grating",
+     "the only aberration we observe is the same astigmatism for all wavelengths coming from the off-axis illumination of M1 and M2",
+     "A small mirror near the intermediate spectrum sends back the monochromatic beams towards a third concave mirror M3 adjacent to the Czerny-Turner mirrors"
+    ],
+    "alternatives": [
+     {
+      "value": "scrambled pair enters 'in the axis of the collimator' (1997)",
+      "src": "OHPS",
+      "loc": "La voie brouillée",
+      "quote": "Elle entre dans le spectromètre à la place de l'ancien jeu de fibres, dans l'axe du collimateur"
+     }
+    ],
+    "name": "Collimator on-axis or off-axis (deploy gate)",
+    "note": "VERDICT: do NOT set colTilt 0 (no central obscuration, no slit-in-beam); the automatic off-axis tilt is the right family, but the tilt is not published. The 1997 French remark 'dans l'axe du collimateur' says the scrambled head sits on the collimator axis in the sense of the entrance direction; it does not make the collimator an on-axis Schmidt-type system (Fig. 1 shows three separate mirrors, M1 at the bottom, M2, M3 above). Tilt/offset angle between fiber head and M1 axis: NOT FOUND."
+   },
+   "echelle_grooves": {
+    "value": 31,
+    "unit": "grooves/mm",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375",
+    "quote": "(408x ... 102 mm with 31 ... produced by Milton Roy",
+    "quote_pieces": [
+     "(408x",
+     "102 mm with 31",
+     "produced by Milton Roy"
+    ],
+    "name": "Echelle groove density",
+    "note": "Printed '31 g mm^-1' (checked on the scan; OCR 'gmm'). Rounded: see mlambda and the G_eff derivation. HARPS and UVES use a 31.6 /mm R4 echelle; no ELODIE document says 31.6."
+   },
+   "echelle_size": {
+    "value": "408 x 102 mm (ruled by Milton Roy)",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375",
+    "quote": "(408x ... 102 mm with 31",
+    "quote_pieces": [
+     "(408x",
+     "102 mm with 31"
+    ],
+    "alternatives": [
+     {
+      "value": "40.8 x 10.2 cm, fixed configuration",
+      "src": "OHPG",
+      "loc": "'Grating'",
+      "quote": "The Milton-Roy échelle grating blazed at 76° has dimensions of 40.8x10.2 cm and is mounted in a fixed configuration"
+     }
+    ],
+    "name": "Echelle size"
+   },
+   "echelle_blaze": {
+    "value": "tan theta = 4 (theta = 76 deg; 75.96 deg exactly)",
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375 (text) vs Fig. 1, p. 376",
+    "quote": "The echelle-grating used has a tan ... = 4 ( ... = 76 ... ) blaze",
+    "quote_pieces": [
+     "The echelle-grating used has a tan",
+     "= 4 (",
+     "= 76",
+     ") blaze"
+    ],
+    "alternatives": [
+     {
+      "value": "76 deg",
+      "src": "OHPG",
+      "loc": "'Grating'",
+      "quote": "blazed at 76"
+     },
+     {
+      "value": "theta = 75 deg (Fig. 1 label)",
+      "src": "B96",
+      "loc": "Fig. 1, p. 376 (read from the scan)",
+      "quote": "Grating(theta=75 deg)"
+     }
+    ],
+    "name": "Echelle blaze angle (delta)",
+    "note": "CONFLICT: text and OHP page 76 deg (tan = 4 -> 75.96 deg) vs the label 'Grating(theta=75 deg)' in Fig. 1 (also in OHPF layout.gif). tan 75 deg = 3.73 (R3.7), tan 76 deg = 4.01 (R4)."
+   },
+   "echelle_mount": {
+    "value": "Littrow, conic (out-of-plane) dispersion; out-of-plane angle gamma NOT FOUND",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375",
+    "quote": "Used in the Littrow condition but in conic dispersion the echelle grat",
+    "quote_pieces": [
+     "Used in the Littrow condition but in conic dispersion the echelle grat"
+    ],
+    "name": "Echelle mounting",
+    "note": "gamma is not stated. The fibers sit below the grating axis and M1/M2 are stacked vertically (Fig. 1), so gamma is a small angle of order (M1-M2 center separation / 2) / f_col, roughly 2-3 deg for ~100 mm mirror pitch (INFERRED from the drawing's geometry, not measured). See echelle_G_eff for what the order numbers require."
+   },
+   "mlambda": {
+    "value": 610580,
+    "unit": "Angstrom",
+    "tag": "DERIVED",
+    "src": "B96",
+    "loc": "Fig. 3, p. 377",
+    "quote": "ELODIE FOCAL PLANE ... Order number ... SPOT-DIAGRAM ON CCD",
+    "quote_pieces": [
+     "ELODIE FOCAL PLANE",
+     "Order number",
+     "SPOT-DIAGRAM ON CCD"
+    ],
+    "derived": "Order-center wavelengths (x ~ 0) read from Fig. 3 (spot-diagram boxes at the middle column): order 123: 4964 A -> 610,572; 124: 4924 -> 610,576; 88: 6939 -> 610,632; 89: 6861 -> 610,629; 156: 3915 -> 610,740; 157: 3890 -> 610,730. Mean of the first four 610,602; all six 610,647 (spread 0.03%).",
+    "is_derived": true,
+    "name": "m x lambda at the CCD center (order center)",
+    "note": "Order number labels of Fig. 3 are 88, 89, 123, 124, 156, 157; the usable orders are 90-156 (Fig. 2 caption). The order numbering of Fig. 3 is not the 'internal numbering' mentioned for Fig. 9 (Sec. 3.2). The box printed for order 124's fourth point ('4937, x = -12.111, y = -0.518') repeats order 123's first box: a misprint [sic], not used."
+   },
+   "echelle_G_eff": {
+    "value": "31.78 (delta = 75.96 deg) or 31.64 (delta = 75 deg)",
+    "unit": "grooves/mm",
+    "tag": "EFFECTIVE",
+    "src": "B96",
+    "loc": "Fig. 3 + Sec. 2.2",
+    "quote": "The echelle-grating used has a tan ... 102 mm with 31",
+    "quote_pieces": [
+     "The echelle-grating used has a tan",
+     "102 mm with 31"
+    ],
+    "derived": "G = 2 sin(delta) / (m lambda) with m lambda = 61.0572 um: delta = 75.964 deg -> d = 61.0572/(2 x 0.97014) = 31.468 um -> 31.78 /mm; delta = 75 deg -> 31.64 /mm (the standard R4 ruling is 31.6 /mm; not sourced for ELODIE). With the printed G = 31 /mm and delta = 75.96 deg, 2 d sin(delta) = 62.59 um, 2.5% ABOVE the m lambda of Fig. 3, which needs cos(gamma) = 0.9755, gamma = 12.7 deg: far too large for the layout.",
+    "is_derived": false,
+    "is_effective": true,
+    "name": "Echelle groove density needed to reproduce Fig. 3's order numbers (gamma = 0)",
+    "note": "CONFLICT (printed 31 /mm vs Fig. 3's order numbers). Most likely '31' is a truncation of 31.6 (INFERRED; the Fig. 1 label theta = 75 deg and 31.64 /mm then agree with the order numbers at gamma = 0 to 0.1%). Predicted linear dispersion at 4964 A with f = 300 mm: lambda/(2 f tan delta) = 2.217 A/mm (delta = 75 deg) or 2.068 A/mm (75.96 deg); Fig. 3 gives 2.133 A/mm, between the two. Recommendation: G = 31.78 /mm at delta = 75.96 deg (EFFECTIVE; keeps tan theta = 4) or 31.64 at 75; both keep m lambda; flag as EFFECTIVE in the preset."
+   },
+   "xd_prism": {
+    "value": "Schott-type F2 flint prism (label 'Prism F2'), apex 40 deg, at minimum deviation, single pass, in the 75 mm white-pupil beam",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375; Fig. 1, p. 376",
+    "quote": "All beams cross first a 40 ... flint prism ... Both dispersers work at minimum deviation",
+    "quote_pieces": [
+     "All beams cross first a 40",
+     "flint prism",
+     "Both dispersers work at minimum deviation"
+    ],
+    "name": "Cross-disperser, element 1: prism",
+    "note": "'F2' is the label in Fig. 1 (read from the scan; OHPF layout.gif). 'F2' is a glass name; the manufacturer (Schott) is not stated, but the explorer's F2 entry is the SCHOTT datasheet (round 6) and it is the only F2 on its list. Prism beam orientation (base up or down) and its size are NOT FOUND (drawn base-down in Fig. 1)."
+   },
+   "xd_grism": {
+    "value": "crown grism, apex 8.63 deg, 150 grooves/mm, first order, at minimum deviation; blaze maximum efficiency at 5500 A",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375; Sec. 2.2.2, p. 377; Sec. 4, p. 387",
+    "quote": "then an 8 ... crown grism with 150 ... The first order of the grism is used ... the blaze response of the grism, which has its maximum efficiency at 5500",
+    "quote_pieces": [
+     "then an 8",
+     "crown grism with 150",
+     "The first order of the grism is used",
+     "the blaze response of the grism, which has its maximum efficiency at 5500"
+    ],
+    "name": "Cross-disperser, element 2: grism",
+    "note": "The apex is printed '8°63' (= 8.63 deg, OCR keeps it as '8°63'; the same typography as '4°63' for degrees and hundredths in French). The crown glass is NOT FOUND (BK7-type crown assumed in the check below). The grism's blaze angle is not stated separately (a 5500 A blaze with 150 /mm in a crown of n ~ 1.52: facet = apex INFERRED)."
+   },
+   "xd_how": {
+    "value": "beam from M3 passes the prism first, then the grism, then the camera; the two dispersions ADD; prism alone gives more blue spacing, grism more red spacing; together nearly constant order spacing",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375; Sec. 2.2.2, p. 377",
+    "quote": "Note that, if the separation of the orders were ... Combining these two ... effects, we obtain a constant inter ... order spacing over the whole wavelength range ... the prism and the grism, whose effects are added",
+    "quote_pieces": [
+     "Note that, if the separation of the orders were",
+     "Combining these two",
+     "effects, we obtain a constant inter",
+     "order spacing over the whole wavelength range",
+     "the prism and the grism, whose effects are added"
+    ],
+    "name": "Order of the cross-disperser elements and the sense",
+    "note": "The model's xd options 'prism' (a TRAIN of prisms, xPrisms) and 'grism' (one flat face + one grooved face; xGlass, xG, xGrA) cannot be combined: xd takes one value. See 'Mapping to the explorer'."
+   },
+   "camera": {
+    "value": "refractive (a lens camera, 'Camera F3', f/3, 75 mm aperture, real focal length 225 mm; includes a removable rocking plate UBK7 20 mm)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2.1, p. 376 (+ footnote 1) and Fig. 1",
+    "quote": "Its aperture is f/3 with a diameter of 75mm ... The camera's real focal length of 225 mm has to be taken into account in calculating the cross-dispersion ... at the focus of the f/3 camera lens ... removable rocking parallel plate",
+    "quote_pieces": [
+     "Its aperture is f/3 with a diameter of 75mm",
+     "The camera's real focal length of 225 mm has to be taken into account in calculating the cross-dispersion",
+     "at the focus of the f/3 camera lens",
+     "removable rocking parallel plate"
+    ],
+    "name": "Camera",
+    "note": "Lens type, number of elements and glasses NOT FOUND (Fig. 1 draws several lens elements). Camera aberrations: the off-axis astigmatism is corrected on M1 and the camera is computed 'for an aberration-free field at infinity'. Potential resolution about 100,000 (spot diagrams, Fig. 3)."
+   },
+   "camera_focal_equivalent": {
+    "value": "300 mm (equivalent, main dispersion); 225 mm (real, cross dispersion)",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2 p. 374-375 and footnote 1 p. 376",
+    "quote": "This leads to a focal length of 300mm, an aperture ratio ... reciprocal linear dispersion of 2 ... mm in the middle of the range (4800 ... but the pupil magnification affects the calculation of the main dispersion since ... the equivalent focal length is 300 mm",
+    "quote_pieces": [
+     "This leads to a focal length of 300mm, an aperture ratio",
+     "reciprocal linear dispersion of 2",
+     "mm in the middle of the range (4800",
+     "but the pupil magnification affects the calculation of the main dispersion since",
+     "the equivalent focal length is 300 mm"
+    ],
+    "derived": "225 mm x (102/75) = 306 mm (stated 300 mm). With the model's single fcam, use 300 mm; the Fig. 3 spot positions then need a cross-disperser of the strength shown in the 'Cross-dispersion check' (it matches at f = 294 mm, not 225 mm).",
+    "is_derived": false,
+    "name": "Camera focal length for the MAIN dispersion (equivalent) and for the CROSS dispersion",
+    "note": "UNRESOLVED CONFLICT: the footnote says cross-dispersion uses f = 225 mm, but Fig. 3's y positions require ~294 mm for F2 40 deg + a BK7-type crown 8.63 deg/150 per mm grism (rms 0.37 mm of 24.9 mm). With f = 225 mm the span of orders 88 to 157 would be 18.9 mm, not 24.9 mm. A grism more dispersive than assumed would also fix it; the grism glass is not stated."
+   },
+   "detector": {
+    "value": "Tk1024 (Tektronix, later labeled SITe) back-illuminated CCD, 1024 x 1024, 24 um pixels (24.58 mm square), cooled to 183 K",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.6, p. 379; Sec. 2.2, p. 375",
+    "quote": "A back-side illuminated Tk1024 with 24 ... pixels is used ... It is cooled to 183 K",
+    "quote_pieces": [
+     "A back-side illuminated Tk1024 with 24",
+     "pixels is used",
+     "It is cooled to 183 K"
+    ],
+    "alternatives": [
+     {
+      "value": "thinned back-illuminated AR-coated Tektronix (now SITe) 1024x1024, 24 um pixels",
+      "src": "OHPG",
+      "loc": "'Detector'",
+      "quote": "The CCD is a thinned, back-illuminated, anti-reflection coated Tektronix (now SITe) 1024x1024 with 24 microns square pixels"
+     }
+    ],
+    "name": "Detector",
+    "note": "Pixel scale 24 um confirmed in Fig. 3 ('Pixel size 24 microns'). Printed 'CCD size 25.25 mm2' is not the 24.58 mm square [sic]. Gain 4, 2, 0.8, 0.4 e-/ADU and read noise 8.5 e- (B96); OHPG: gain normally 2.65 e-/ADU and read noise below 7 e-. Single detector era: no CCD change found."
+   },
+   "coverage": {
+    "value": "3906-6811 A on the chip, 67 orders (156th to 90th)",
+    "unit": "Angstrom",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Fig. 2 caption, p. 377",
+    "quote": "67 orders are usable, starting with the 156th or ... der and ending with the 90th (ranging from 3906 ... to 6811",
+    "quote_pieces": [
+     "67 orders are usable, starting with the 156th or",
+     "der and ending with the 90th (ranging from 3906",
+     "to 6811"
+    ],
+    "alternatives": [
+     {
+      "value": "3895-6815 A, 67 orders",
+      "src": "OHPG",
+      "loc": "'Grating'",
+      "quote": "yields 67 spectral orders between 3895 and 6815"
+     },
+     {
+      "value": "3895-6815 A (archive characteristics)",
+      "src": "M04",
+      "loc": "Table 1, p. 8",
+      "quote": "Spectral range 3895"
+     },
+     {
+      "value": "3850-6800 A (summary)",
+      "src": "OHPG",
+      "loc": "Summary",
+      "quote": "(3850-6800"
+     }
+    ],
+    "name": "Wavelength coverage and number of orders",
+    "note": "The 3906-6811 limits are from B96; OHP gives 3895-6815 (order intervals of OHPL: first interval 3895-3930, last 6745-6815). Order 156 = interval 1 (3895-3930); order 90 = interval 67 (6745-6815) (DERIVED: 157 - n)."
+   },
+   "perf_R": {
+    "value": 42000,
+    "unit": "lambda/Dlambda",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Sec. 4, p. 386",
+    "quote": "After wavelength ... calibration, the width of the lines (FWHM) is 7.4 kms ... in the blue and 7.0 km ... in the red corresponding to ... an average resolution power of 42000",
+    "quote_pieces": [
+     "After wavelength",
+     "calibration, the width of the lines (FWHM) is 7.4 kms",
+     "in the blue and 7.0 km",
+     "in the red corresponding to",
+     "an average resolution power of 42000"
+    ],
+    "derived": "7.4 km/s -> 40,500 (blue); 7.0 km/s -> 42,800 (red); mean 41,700. Geometric: 60 um x 2.133 A/mm = 0.128 A at 4964 A -> R = 38,800 ('about 40000', B96).",
+    "is_derived": false,
+    "alternatives": [
+     {
+      "value": "42000 (nominal)",
+      "src": "ARCH",
+      "loc": "Introduction",
+      "quote": "The spectra have a nominal resolution of R=42000"
+     },
+     {
+      "value": "45000 measured",
+      "src": "OHPG",
+      "loc": "'Grating'",
+      "quote": "The measured resolution is 45000"
+     },
+     {
+      "value": "~40000 effective (geometric spot 60 um)",
+      "src": "B96",
+      "loc": "Sec. 2.4, p. 378",
+      "quote": "the geometrical spot diameter is"
+     },
+     {
+      "value": "R = 42000, 2.1 +- 0.2 px per resolution element",
+      "src": "OHPD",
+      "loc": "'Raw data'",
+      "quote": "With an average sampling per resolution element of 2.1"
+     }
+    ],
+    "name": "Resolving power",
+    "note": "MEASURED from thorium lines after wavelength calibration (includes the pixel). The explorer's R is geometric (no pixel term), so the comparable target is the 40,000 'effective resolution' of Sec. 2.4 (GEOMETRIC) and the sampling below; 42000 is info."
+   },
+   "perf_sampling": {
+    "value": "2.25 +- 0.2 px (blue); 2.1 +- 0.2 px (red)",
+    "unit": "px",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Sec. 4, p. 386",
+    "quote": "a sampling ... per resolution element (FWHM) of 2.25 ... in the blue and 2.1 ... in the red",
+    "quote_pieces": [
+     "a sampling",
+     "per resolution element (FWHM) of 2.25",
+     "in the blue and 2.1",
+     "in the red"
+    ],
+    "name": "Sampling per resolution element (FWHM of Th lines)"
+   },
+   "perf_dispersion": {
+    "value": "2 A/mm at 4800 A (stated); Fig. 3: 2.133 A/mm at 4964 A (order 123), 2.980 at 6939 A (order 88), 1.672 at 3915 A (order 156)",
+    "unit": "Angstrom/mm",
+    "tag": "DERIVED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 374-375; Fig. 3, p. 377",
+    "quote": "reciprocal linear dispersion of 2 ... mm in the middle of the range (4800",
+    "quote_pieces": [
+     "reciprocal linear dispersion of 2",
+     "mm in the middle of the range (4800"
+    ],
+    "derived": "Fig. 3 left/right-edge boxes: order 123 (4937 at x = -12.111, 4989 at +12.263): 52 A / 24.374 mm = 2.133 A/mm = 0.0512 A/px; order 88 (6899 at -12.403, 6973 at +12.428): 74 / 24.831 = 2.980 A/mm = 0.0715 A/px; order 156 (3893 at -12.170, 3934 at +12.347): 41 / 24.517 = 1.672 A/mm = 0.0401 A/px (24 um/px).",
+    "is_derived": true,
+    "alternatives": [
+     {
+      "value": "0.04 A/px blue end, 0.07 A/px red end",
+      "src": "OHPD",
+      "loc": "'Raw data'",
+      "quote": "One CCD pixel spans 0.04"
+     }
+    ],
+    "name": "Linear dispersion",
+    "note": "Dispersion scales as lambda^2 / (m lambda) at fixed camera and G; the three Fig. 3 values follow that to 1%."
+   },
+   "perf_orders": {
+    "value": "center 0.341 mm (14.2 px, orders 123-124 at 4964/4924 A); red 0.407 mm (17.0 px, orders 88-89 at 6939/6861 A); blue 0.404 mm (16.8 px, orders 156-157 at 3915/3890 A); left/right edges of orders 123-124: 0.350 and 0.349 mm",
+    "unit": "mm",
+    "tag": "DERIVED",
+    "src": "B96",
+    "loc": "Fig. 3, p. 377 (y coordinates of the middle-column boxes)",
+    "quote": "ELODIE FOCAL PLANE ... Order number",
+    "quote_pieces": [
+     "ELODIE FOCAL PLANE",
+     "Order number"
+    ],
+    "derived": "y(123) = -0.058, y(124) = -0.399 -> 0.341 mm = 14.2 px; y(88) = +12.549, y(89) = +12.142 -> 0.407 mm = 17.0 px; y(156) = -11.999, y(157) = -12.403 -> 0.404 mm = 16.8 px; orders 90-156 occupy y = +11.7 to -12.0 mm (the printed y of order 88 is already off the 24.58 mm chip).",
+    "is_derived": true,
+    "name": "Order spacing across the dispersion",
+    "note": "Fig. 2 caption: 'the inter-order spacing is remarkably constant over the whole wavelength range'; the Fig. 3 numbers show a U shape (0.34-0.41 mm: 20% variation). 67 orders over 24.58 mm = 0.367 mm mean = 15.3 px."
+   },
+   "perf_orders_width": {
+    "value": "90% of the energy within 3 pixels",
+    "unit": "px",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Sec. 3.2, p. 382",
+    "quote": "the ELODIE orders are particularly narrow, 90% of the energy being spread ... over 3 pixels",
+    "quote_pieces": [
+     "the ELODIE orders are particularly narrow, 90% of the energy being spread",
+     "over 3 pixels"
+    ],
+    "name": "Order width perpendicular to the dispersion"
+   },
+   "perf_throughput": {
+    "value": "global transmission 1.3% (spectrograph + telescope + atmosphere + CCD + seeing); 4.2% for ELODIE alone",
+    "unit": "",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Sec. 4, p. 386",
+    "quote": "a S/N of 100 per pixel at ... This corresponds to a global trans ... mission of 1.3% ... this corresponds to 4.2% efficiency for ... ELODIE alone",
+    "quote_pieces": [
+     "a S/N of 100 per pixel at",
+     "This corresponds to a global trans",
+     "mission of 1.3%",
+     "this corresponds to 4.2% efficiency for",
+     "ELODIE alone"
+    ],
+    "name": "Throughput",
+    "note": "mV = 9.75, one hour, 5600 A, good nights; assumes 60% atmosphere + telescope, 65% CCD, 1.5 arcsec seeing. The efficiency drops steeply in the blue (grism blaze 5500 A, Fig. 17)."
+   },
+   "perf_rv": {
+    "value": "better than 15 m/s (stars up to 9th mag, < 30 min); later +-6 m/s with scrambled fibers + simultaneous Th",
+    "unit": "m/s",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Abstract, p. 373",
+    "quote": "with an accuracy better than 15ms",
+    "quote_pieces": [
+     "with an accuracy better than 15ms"
+    ],
+    "alternatives": [
+     {
+      "value": "+-6 m/s with simultaneous Thorium and scrambled fibers",
+      "src": "OHPG",
+      "loc": "'Cross-correlation analysis'",
+      "quote": "to ± 6 m/s in the case of simultaneous Thorium calibration and use of the scrambled fibers"
+     }
+    ],
+    "name": "Radial-velocity accuracy"
+   },
+   "fig16_order": {
+    "value": "'centre of the 117th order' at 5390-5410 A (inconsistent with Fig. 3: m lambda = 610,600 puts order 113 at 5400 A)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Fig. 16, p. 387",
+    "quote": "(centre of the 117th order)",
+    "quote_pieces": [
+     "(centre of the 117th order)"
+    ],
+    "name": "Order labeled in Fig. 16",
+    "note": "Probably a different (internal) numbering or a misprint [sic]; not used."
+   },
+   "filters": {
+    "value": "short-wavelength-pass filter at the spectrograph entrance; two coated filters in front of the CCD (short-pass on the blue side, long-pass on the red side, not adjacent) reject the unwanted grism orders 0 and 2",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2.2, p. 377",
+    "quote": "The first filter, a short ... wavelength pass filter, is located on the blue side of the echelle spectrum ... the second, a long ... wavelength pass filter, is located on ... the red side ... a short ... wavelength pass filter is also added at the entrance of the ... spectrograph",
+    "quote_pieces": [
+     "The first filter, a short",
+     "wavelength pass filter, is located on the blue side of the echelle spectrum",
+     "the second, a long",
+     "wavelength pass filter, is located on",
+     "the red side",
+     "a short",
+     "wavelength pass filter is also added at the entrance of the",
+     "spectrograph"
+    ],
+    "name": "Filters and order-sorting",
+    "note": "Drawing only. Not a single-order filter (no filt for the explorer): the full 67 orders reach the chip."
+   },
+   "layout_levels": {
+    "value": "two levels (Fig. 1). LEVEL 1 (Czerny-Turner, in the horizontal plane of the bench): fibers -> M1 (toroidal, f/15, at the far end of the bench, bottom of the mirror plate) -> echelle (Littrow, conic: slightly out of plane) -> M2 (middle of the plate) -> intermediate spectrum (telecentric, in a plane 'symmetrical to the source with respect to the grating', i.e. beside the echelle) -> small flat mirror next to the echelle -> M3 (top of the plate, concave, 'a new collimator') -> white pupil of 75 mm. LEVEL 2: M3 beam -> prism F2 -> grism -> camera F3 (lens, f/3), pointing up from the plane of level 1 (the camera is drawn above and beyond the echelle)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.2, p. 375; Fig. 1, p. 376",
+    "quote": "the echelle grat ... ing is put at the common focus of both adjacent mirrors ... M1 and M2 ... A small mirror near the intermediate spectrum sends back the monochromatic beams towards a third concave mirror M3 ... This third mirror is a new collimator for all these beams which",
+    "quote_pieces": [
+     "the echelle grat",
+     "ing is put at the common focus of both adjacent mirrors",
+     "M1 and M2",
+     "A small mirror near the intermediate spectrum sends back the monochromatic beams towards a third concave mirror M3",
+     "This third mirror is a new collimator for all these beams which"
+    ],
+    "name": "Optical layout: element order",
+    "note": "'common focus of both adjacent mirrors' is the text's description of the echelle's place; with the stated f/15 collimator and a collimated beam between M1 and the echelle, the echelle stands about one collimator focal length from the mirrors (see layout_distance); the wording is ambiguous and is not used for a number. Folds: the small flat near the echelle (angle NOT FOUND, SCHEMATIC) and the 'removal mirror and beam splitting' of the accelerometry experiment in the front end (irrelevant to the spectrograph)."
+   },
+   "layout_sides": {
+    "value": "Viewed from the fiber side: the fibers and the echelle are at the near end; the mirror plate (M1 bottom round, M2 middle, M3 top, both rectangular) stands at the far end of the bench; the small flat (a thin rectangular plate) is fixed on top of the echelle's right end; the prism F2 + grism + camera are above and to the left of the echelle, looking back toward the plate; the camera axis points up-left",
+    "unit": "",
+    "tag": "SCHEMATIC",
+    "src": "B96",
+    "loc": "Fig. 1, p. 376 (and miroirs.jpeg, OHPF)",
+    "quote": "",
+    "name": "Which side each element sits (Fig. 1 / OHPF layout.gif, perspective, read from the figure)",
+    "note": "Read by eye from a perspective drawing. Left/right of the drawing is not a physical left/right."
+   },
+   "layout_distance": {
+    "value": "NOT PUBLISHED. MEASURED lower bound from Fig. 1: the 408 mm echelle spans 204 px of the 1400-px-wide render of the figure (2.0 mm/px); the echelle center to the center of M2 is 628 px, so >= 1256 mm along the (foreshortened) bench axis; consistent with f_col = 1530 mm",
+    "unit": "mm",
+    "tag": "MEASURED",
+    "src": "B96",
+    "loc": "Fig. 1, p. 376",
+    "quote": "",
+    "derived": "408 mm / 204 px = 2.0 mm/px along the echelle's long edge; 628 px x 2.0 mm/px = 1256 mm (a perspective view at an oblique angle: the true distance is longer). Method: pixel counts on the 300 dpi scan scaled to 1400 px width.",
+    "is_derived": false,
+    "name": "Collimator-to-echelle and echelle-to-camera distances",
+    "note": "NOT FOUND in text. The explorer's layLen (collimator-to-disperser) would be f_col = 1530 mm (INFERRED); camLen NOT FOUND."
+   },
+   "layout_fold_direct": {
+    "value": "auxiliary entrance below the spectrograph: unit-magnification telecentric optics then a retractable total-reflection prism sending the light to the collimator",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "OHPS",
+    "loc": "La voie \"directe\"",
+    "quote": "un prisme à réflexion totale, escamotable, de renvoi sur le collimateur",
+    "quote_pieces": [
+     "un prisme à réflexion totale, escamotable, de renvoi sur le collimateur"
+    ],
+    "name": "Direct-fiber entrance (since 1997)",
+    "note": "Drawing note only."
+   },
+   "calibration": {
+    "value": "tungsten (flat), thorium-argon, optional Fabry-Perot; simultaneous thorium on the sky fiber",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B96",
+    "loc": "Sec. 2.3.2 and Table 1, p. 378",
+    "quote": "Illumination of the sky ... hole by the thorium ... argon lamp during a stellar exposure",
+    "quote_pieces": [
+     "Illumination of the sky",
+     "hole by the thorium",
+     "argon lamp during a stellar exposure"
+    ],
+    "name": "Calibration"
+   },
+   "history": {
+    "value": "first light 1 June 1993; open to visiting observers 1 August 1994; decommissioned mid-August 2006 and replaced by SOPHIE (context only)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "OHPD",
+    "loc": "'About Elodie and the archive'",
+    "quote": "saw first light at the OHP 1.93-m on 1 June 1993 ... The instrument was open to visiting observers on 1 August 1994",
+    "quote_pieces": [
+     "saw first light at the OHP 1.93-m on 1 June 1993",
+     "The instrument was open to visiting observers on 1 August 1994"
+    ],
+    "alternatives": [
+     {
+      "value": "in operation between late 1993 and mid 2006; replaced August 2006 by SOPHIE",
+      "src": "ARCH",
+      "loc": "Introduction",
+      "quote": "between late 1993 and mid 2006"
+     }
+    ],
+    "name": "Era and replacement",
+    "note": "One optical configuration over the whole era; the fiber front end gained a scrambled pair in March 1997 (OHPS). The 'Tk1024' CCD labels stay 'Tektronix (now SITe)' (OHPG). No grating or CCD change found."
+   },
+   "mayor_queloz": {
+    "value": "NOT OBTAINED (paywalled; no arXiv version); the 51 Peg b discovery used ELODIE spectra (OHP page and archive page state it)",
+    "unit": "",
+    "tag": "NOT FOUND",
+    "src": "ARCH",
+    "loc": "Introduction",
+    "quote": "the discovery of the first extra-solar planet, 51 Peg B, by Mayor and Queloz in 1995 was made using Elodie spectra",
+    "quote_pieces": [
+     "the discovery of the first extra-solar planet, 51 Peg B, by Mayor and Queloz in 1995 was made using Elodie spectra"
+    ],
+    "name": "Mayor & Queloz 1995 (Nature 378, 355)",
+    "note": "ADS record saved (rawdata/presets/elodie/ads_1995Natur.378..355M.json; no abstract in the record). The paper would not change any optical number: the instrument is described in B96."
+   }
+  },
+  "published_performance": [
+   {
+    "what": "R ~ 42000 (average of Th-lamp FWHM 7.4 and 7.0 km/s; includes the pixel)",
+    "q": "R",
+    "value": 42000,
+    "info": true,
+    "src": "B96 Sec. 4 p. 386 (MEASURED; the model's R has no pixel term: reference line)"
+   },
+   {
+    "what": "geometric R about 40000 (60 um spot)",
+    "q": "RAt",
+    "lam": 4964,
+    "value": 38800,
+    "tol": 0.08,
+    "src": "B96 Sec. 2.4 p. 378 ('effective resolution about 40000'; DERIVED 38,800 at 4964 A from 60 um x 2.133 A/mm); GEOMETRIC; the model's full width of a round fiber is the 60 um"
+   },
+   {
+    "what": "2.25 px (blue) and 2.1 px (red) per FWHM",
+    "q": "npix",
+    "value": 2.2,
+    "tol": 0.1,
+    "src": "B96 Sec. 4 p. 386 (MEASURED, +-0.2)"
+   },
+   {
+    "what": "0.0512 A/px at 4964 A (order 123)",
+    "q": "dlpixAt",
+    "lam": 4964,
+    "m": 123,
+    "value": 0.0512,
+    "tol": 0.03,
+    "src": "B96 Fig. 3 (DERIVED: 52 A over 24.374 mm x 0.024 mm/px)"
+   },
+   {
+    "what": "0.0715 A/px at 6939 A (order 88)",
+    "q": "dlpixAt",
+    "lam": 6939,
+    "m": 88,
+    "value": 0.0715,
+    "tol": 0.03,
+    "src": "B96 Fig. 3 (DERIVED)"
+   },
+   {
+    "what": "0.0401 A/px at 3915 A (order 156)",
+    "q": "dlpixAt",
+    "lam": 3915,
+    "m": 156,
+    "value": 0.0401,
+    "tol": 0.03,
+    "src": "B96 Fig. 3 (DERIVED; OHP: 0.04 at the blue end)"
+   },
+   {
+    "what": "coverage from 3906 A",
+    "q": "lo",
+    "value": 3906,
+    "tol": 0.01,
+    "src": "B96 Fig. 2 caption (OHP 3895)"
+   },
+   {
+    "what": "coverage to 6811 A",
+    "q": "hi",
+    "value": 6811,
+    "tol": 0.01,
+    "src": "B96 Fig. 2 caption (OHP 6815)"
+   },
+   {
+    "what": "reddest order 90",
+    "q": "mLo",
+    "value": 90,
+    "tol": 0,
+    "src": "B96 Fig. 2 caption (an order number: exact)"
+   },
+   {
+    "what": "bluest order 156",
+    "q": "mHi",
+    "value": 156,
+    "tol": 0,
+    "src": "B96 Fig. 2 caption (exact)"
+   },
+   {
+    "what": "67 orders",
+    "q": "nOrders",
+    "value": 67,
+    "tol": 0,
+    "src": "B96 Fig. 2 caption"
+   },
+   {
+    "what": "orders 123-124 separation 14.2 px",
+    "q": "minSepPx",
+    "m1": 123,
+    "m2": 124,
+    "value": 14.2,
+    "tol": 0.05,
+    "src": "B96 Fig. 3 (DERIVED: 0.341 mm / 0.024); tests the prism + grism, which the current model cannot express"
+   },
+   {
+    "what": "orders 88-89 separation 17.0 px",
+    "q": "minSepPx",
+    "m1": 88,
+    "m2": 89,
+    "value": 17.0,
+    "tol": 0.05,
+    "src": "B96 Fig. 3 (DERIVED: 0.407 mm)"
+   },
+   {
+    "what": "orders 156-157 separation 16.8 px",
+    "q": "minSepPx",
+    "m1": 156,
+    "m2": 157,
+    "value": 16.8,
+    "tol": 0.05,
+    "src": "B96 Fig. 3 (DERIVED: 0.404 mm)"
+   },
+   {
+    "what": "y(88) - y(157) = 24.95 mm",
+    "q": "ySpan",
+    "m1": 88,
+    "m2": 157,
+    "value": 24.95,
+    "tol": 0.03,
+    "src": "B96 Fig. 3 (DERIVED: 12.549 + 12.403 mm)"
+   },
+   {
+    "what": "spectra on the detector",
+    "q": "nObj",
+    "value": 2,
+    "info": true,
+    "src": "B96 Sec. 1; an input, not a model output"
+   },
+   {
+    "what": "4.2% efficiency of ELODIE alone (1.3% global)",
+    "q": "throughput",
+    "value": 0.042,
+    "info": true,
+    "src": "B96 Sec. 4 p. 386 (not a model output)"
+   }
+  ],
+  "not_found": [
+   "Collimator focal length and the beam diameter stated as such (1530 mm and 102 mm are INFERRED from f/15 and the 102 mm white image of the echelle).",
+   "Echelle out-of-plane angle gamma; the angle between the incoming and outgoing beams at the echelle, and the tilt or offset of M1/M2 from the fiber axis.",
+   "Collimator-to-echelle and echelle-to-camera distances (the figures are perspective drawings without a scale; only a lower bound measured).",
+   "Grism glass ('crown'), grism blaze angle separately from the apex, prism and grism clear apertures, prism orientation.",
+   "Camera lens prescription (number of elements, glasses), camera distortion; the real focal length (225 mm) vs the effective one for the cross-dispersion implied by Fig. 3.",
+   "Prism glass manufacturer ('F2' only as a label in Fig. 1) and the prism's temperature.",
+   "The groove density to better than the printed '31 g/mm' (see echelle_G_eff).",
+   "The Mayor & Queloz 1995 paper (not obtained).",
+   "Throughput curve data (Fig. 17 relative efficiency only as a figure)."
+  ],
+  "conflicts": [
+   "Echelle blaze: tan theta = 4 (theta = 76 deg) in the text and OHP page vs 'Grating(theta=75 deg)' in Fig. 1 of the same paper.",
+   "Echelle grooves: printed 31 /mm vs the order numbers of Fig. 3, which need 31.64 /mm (delta = 75 deg) or 31.78 /mm (delta = 75.96 deg) at gamma = 0; with 31 /mm gamma would have to be 12.7 deg.",
+   "Camera focal length for the cross dispersion: footnote 225 mm vs Fig. 3 (y positions) which need ~294 mm for F2 40 deg + a BK7-type 8.63 deg / 150 /mm grism.",
+   "Entrance aperture: '300 um (2 arcsec on the sky)' vs 300 um / (15 x 1930 mm) = 2.137 arcsec.",
+   "Coverage edges: 3906-6811 A (B96) vs 3895-6815 A (OHP, M04) vs 3850-6800 A (OHP summary).",
+   "Resolving power: 42000 (B96 average, nominal elsewhere) vs 45000 'measured' (OHP guide) vs 40000 'effective' geometric (B96 Sec. 2.4).",
+   "Fiber length: 20 m (B96) vs 25 m (OHP, 1997 scrambled pair).",
+   "Fig. 2 caption 'inter-order spacing is remarkably constant' vs the Fig. 3 coordinates (0.34 mm at center, 0.41 mm at both ends).",
+   "Fig. 3: CCD 'size 25.25 mm2' vs 24.58 mm (1024 x 24 um); box '4937 x = -12.111 y = -0.518' printed twice (orders 123 and 124).",
+   "Fig. 16 caption/axes 'centre of the 117th order' at 5390-5410 A vs order numbers of Fig. 3 (m lambda = 610,600 puts order 113 at 5400 A; 117 sits at 5219 A)."
+  ],
+  "cross_dispersion_check": {
+   "method": "2-D trace: explorer SCHOTT F2 Sellmeier, 40 deg prism at minimum deviation at 5200 A, then grism (flat first face normal to the beam, apex 8.63 deg, 150 /mm, N-BK7 stand-in for 'crown'), dispersions adding; f fitted to the six center-column y values of Fig. 3",
+   "f_fitted_mm": 294,
+   "rms_mm": 0.37,
+   "separations_mm": {
+    "fig3": [
+     0.341,
+     0.407,
+     0.404
+    ],
+    "model_f294": [
+     0.339,
+     0.455,
+     0.353
+    ],
+    "model_f225": [
+     0.26,
+     0.349,
+     0.271
+    ],
+    "model_f300": [
+     0.347,
+     0.465,
+     0.361
+    ],
+    "order": "123-124 center, 88-89 red, 156-157 blue"
+   },
+   "span_6939_to_3915_mm": {
+    "fig3": 24.55,
+    "f225": 18.8,
+    "f300": 25.07
+   },
+   "prism_only_best_rms_mm": 0.76
+  }
+ }
+}

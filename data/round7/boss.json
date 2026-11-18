@@ -1,0 +1,2013 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 7: SDSS 2.5 m (Apache Point) / SDSS and BOSS multi-object fiber spectrographs (id 'boss')",
+  "compiled": "2026-11-17",
+  "companion": "data/round7/boss.md",
+  "rule": "Every value carries src (key into sources), loc, and a short quote from the saved document; DERIVED = arithmetic done here; INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; SCHEMATIC = no source. Quotes machine-checked against pdftotext (layout, raw, flow) per page and tag-stripped HTML.",
+  "quote_check": {
+   "pieces_checked": 121,
+   "failures": 0
+  }
+ },
+ "sources": {
+  "SM13": {
+   "cite": "Smee, S. A., Gunn, J. E., Uomoto, A., et al. 2013, AJ 146, 32, \"The Multi-object, Fiber-fed Spectrographs for the Sloan Digital Sky Survey and the Baryon Oscillation Spectroscopic Survey\", arXiv:1208.2233v2 (ADS 2013AJ....146...32S; the arXiv e-print is a 43-page preprint typeset like the journal, \"Draft version October 15, 2018\"; PDF p. = printed page up to the references). Primary design paper for both eras: Sec. 2 the SDSS spectrographs (Table 1, Figs. 7, 8, 14), Sec. 3 the BOSS upgrade (Table 2, Figs. 22, 29), Sec. 4 measured performance (Figs. 35, 36, 38; Table 4)",
+   "file": "rawdata/presets/boss/Smee2013_AJ146_32_arXiv1208.2233.pdf",
+   "url": "https://arxiv.org/pdf/1208.2233"
+  },
+  "SM13F7": {
+   "cite": "The JPEG embedded on PDF p. 9 of SM13 (Fig. 7, 1741 x 781 px at 288 ppi), extracted with `pdfimages -j` (bytes unmodified). The image is stored vertically flipped (its text reads upside down); the printed page shows it the right way up (blue camera at the top). The layout measurements of this record are made on this image",
+   "file": "rawdata/presets/boss/Smee2013_Fig7_embedded_JPEG_extracted_with_pdfimages.jpg",
+   "url": "(derived from SM13 p. 9)"
+  },
+  "S4B": {
+   "cite": "SDSS-IV web site, \"BOSS Spectrograph\" instrument page (fetched 2026-11-17)",
+   "file": "rawdata/presets/boss/sdss4_BOSS_spectrograph_page.html",
+   "url": "https://www.sdss4.org/instruments/boss_spectrograph/"
+  },
+  "S4D": {
+   "cite": "SDSS-IV DR17 web site, \"Getting Started with the Optical Data\" (spectro_basics; table of important information about spectra measured with the SDSS and BOSS spectrographs; fetched 2026-11-17)",
+   "file": "rawdata/presets/boss/sdss4_DR17_getting_started_optical_spectro_basics_page.html",
+   "url": "https://www.sdss4.org/dr17/spectro/spectro_basics/"
+  },
+  "D13": {
+   "cite": "Dawson, K. S., Schlegel, D. J., Ahn, C. P., et al. 2013, AJ 145, 10, \"The Baryon Oscillation Spectroscopic Survey of SDSS-III\", arXiv:1208.0022 (Sec. 1: the spectrographs in brief)",
+   "file": "rawdata/presets/boss/Dawson2013_AJ145_10_BOSS_overview_arXiv1208.0022.pdf",
+   "url": "https://arxiv.org/pdf/1208.0022"
+  },
+  "Y00": {
+   "cite": "York, D. G., Adelman, J., Anderson, J. E., et al. 2000, AJ 120, 1579, \"The Sloan Digital Sky Survey: Technical Summary\", arXiv:astro-ph/0006396 (survey overview: the spectrographs and the fibers)",
+   "file": "rawdata/presets/boss/York2000_AJ120_1579_SDSS_technical_summary_arXiv-astro-ph0006396.pdf",
+   "url": "https://arxiv.org/pdf/astro-ph/0006396"
+  },
+  "B12": {
+   "cite": "Bolton, A. S., Schlegel, D. J., Aubourg, E., et al. 2012, AJ 144, 144, \"Spectral Classification and Redshift Measurement for the SDSS-III Baryon Oscillation Spectroscopic Survey\", arXiv:1207.7326 (the common pixel grid of the data products)",
+   "file": "rawdata/presets/boss/Bolton2012_AJ144_144_spectro1d_arXiv1207.7326.pdf",
+   "url": "https://arxiv.org/pdf/1207.7326"
+  }
+ },
+ "boss": {
+  "title": "SDSS 2.5 m (Apache Point) / SDSS-I/II (1999-2008) and BOSS (2009-) twin fiber spectrographs: spherical on-axis collimator, 45 deg dichroic, grism per channel, f/1.5 camera",
+  "recommended_presets_by_mode": [
+   {
+    "id": "bossb",
+    "tel": "SDSS 2.5 m",
+    "inst": "BOSS",
+    "setting": "Blue channel",
+    "name": "SDSS 2.5 m / BOSS blue channel",
+    "state": {
+     "mode": "grating",
+     "D": 2.5,
+     "F": 3.95,
+     "telF": 5,
+     "fibAp": 2.0,
+     "g": {
+      "slitW_formula": "S3 * 0.120 / (3.95 * 2500) * 206264.806 (= 2.171 arcsec)",
+      "nObj": 500,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1263.9,
+      "W": 160,
+      "cam": "lens",
+      "camLen": 180,
+      "fcam": 240,
+      "gType": "grism",
+      "G": 520,
+      "m": 1,
+      "lamB1": 5000,
+      "lamC": 4947,
+      "psi": 35,
+      "tAlpha": null,
+      "gA": 14.0,
+      "gGlass": "BSL7Y",
+      "gKind": "vph",
+      "gTilt": 0,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       20,
+       98.75,
+       237.0
+      ],
+      "foldOn": true,
+      "foldAng": 90,
+      "foldPos": 0.86,
+      "foldLabel": "dichroic"
+     }
+    },
+    "era": "BOSS 2009-",
+    "lam0_model": 4946.722927045225
+   },
+   {
+    "id": "bossr",
+    "tel": "SDSS 2.5 m",
+    "inst": "BOSS",
+    "setting": "Red channel",
+    "name": "SDSS 2.5 m / BOSS red channel",
+    "state": {
+     "mode": "grating",
+     "D": 2.5,
+     "F": 3.95,
+     "telF": 5,
+     "fibAp": 2.0,
+     "g": {
+      "slitW_formula": "S3 * 0.120 / (3.95 * 2500) * 206264.806 (= 2.171 arcsec)",
+      "nObj": 500,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1263.9,
+      "W": 160,
+      "cam": "lens",
+      "camLen": 190,
+      "fcam": 240,
+      "gType": "grism",
+      "G": 400,
+      "m": 1,
+      "lamB1": 5000,
+      "lamC": 8059,
+      "psi": 35,
+      "tAlpha": null,
+      "gA": 17.8,
+      "gGlass": "N-BK7",
+      "gKind": "vph",
+      "gTilt": 0,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       20,
+       98.75,
+       237.0
+      ],
+      "foldOn": false,
+      "foldAng": null,
+      "foldPos": null,
+      "foldLabel": ""
+     }
+    },
+    "era": "BOSS 2009-",
+    "lam0_model": 8059.300032940382
+   },
+   {
+    "id": "sdssb",
+    "tel": "SDSS 2.5 m",
+    "inst": "SDSS-I/II",
+    "setting": "Blue channel",
+    "name": "SDSS 2.5 m / SDSS-I/II blue channel",
+    "state": {
+     "mode": "grating",
+     "D": 2.5,
+     "F": 3.95,
+     "telF": 5,
+     "fibAp": 3.0,
+     "g": {
+      "slitW_formula": "S3 * 0.180 / (3.95 * 2500) * 206264.806 (= 3.256 arcsec)",
+      "nObj": 320,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1263.9,
+      "W": 160,
+      "cam": "lens",
+      "camLen": 177,
+      "fcam": 240,
+      "gType": "grism",
+      "G": 640,
+      "m": 1,
+      "lamB1": 5000,
+      "lamC": 4960,
+      "psi": 35,
+      "tAlpha": null,
+      "gA": 37.0,
+      "gGlass": "N-BK7",
+      "gKind": "ruled",
+      "gTilt": 0,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 24,
+      "fgroups": [
+       20,
+       148.1,
+       198.6
+      ],
+      "foldOn": true,
+      "foldAng": 90,
+      "foldPos": 0.86,
+      "foldLabel": "dichroic"
+     }
+    },
+    "era": "SDSS-I/II 2000-2008",
+    "lam0_model": 4908.902653094567
+   },
+   {
+    "id": "sdssr",
+    "tel": "SDSS 2.5 m",
+    "inst": "SDSS-I/II",
+    "setting": "Red channel",
+    "name": "SDSS 2.5 m / SDSS-I/II red channel",
+    "state": {
+     "mode": "grating",
+     "D": 2.5,
+     "F": 3.95,
+     "telF": 5,
+     "fibAp": 3.0,
+     "g": {
+      "slitW_formula": "S3 * 0.180 / (3.95 * 2500) * 206264.806 (= 3.256 arcsec)",
+      "nObj": 320,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1263.9,
+      "W": 160,
+      "cam": "lens",
+      "camLen": 184,
+      "fcam": 240,
+      "gType": "grism",
+      "G": 440,
+      "m": 1,
+      "lamB1": 5000,
+      "lamC": 7400,
+      "psi": 35,
+      "tAlpha": null,
+      "gA": 39.5,
+      "gGlass": "N-BK7",
+      "gKind": "ruled",
+      "gTilt": 0,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 24,
+      "fgroups": [
+       20,
+       148.1,
+       198.6
+      ],
+      "foldOn": false,
+      "foldAng": null,
+      "foldPos": null,
+      "foldLabel": ""
+     }
+    },
+    "era": "SDSS-I/II 2000-2008",
+    "lam0_model": 7402.519363920501
+   }
+  ],
+  "all_arms_groups": {
+   "BOSS": {
+    "split": "collimated",
+    "tree": {
+     "cut": 6050,
+     "w": 500,
+     "aoi": 45,
+     "src": "SM13 Fig. 22 caption (6050 A; Sec. 3.3.3 says 605 nm; Sec. 3.3.1 says 640 nm); w is the SDSS dichroic's 10%/90% zone (SM13 Sec. 2.3.4), the BOSS dichroic's width NOT FOUND",
+     "R": "bossb",
+     "T": "bossr"
+    },
+    "note": "blue = reflected, turned 90 deg clockwise as drawn in Fig. 22; red straight on"
+   },
+   "SDSS-I/II": {
+    "split": "collimated",
+    "tree": {
+     "cut": 6000,
+     "w": 500,
+     "aoi": 45,
+     "src": "SM13 Sec. 2.3.4 and Fig. 7 caption (6000 A; 10%/90% zone about 50 nm)",
+     "R": "sdssb",
+     "T": "sdssr"
+    },
+    "note": "blue = reflected, turned 90 deg clockwise as drawn in Fig. 7; red straight on"
+   }
+  },
+  "params": {
+   "telescope_aperture": {
+    "value": "2.5 (nominal, as the APOGEE preset; the as-built stop is 2.517 m, data/telescopes/sdss.md)",
+    "unit": "m",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.1.1 (PDF p. 2)",
+    "quote": "The 2.5-m SDSS telescope is a modified distortion-free",
+    "alternatives": [
+     {
+      "value": "2.5 m aperture",
+      "src": "SM13",
+      "loc": "abstract (PDF p. 1)",
+      "quote": "the 2.5-m aperture Sloan Telescope at Apache Point Observatory"
+     }
+    ],
+    "derived": null,
+    "note": "Cross-reference, not a new source: data/telescopes/sdss.md gives the as-built stop 2.517 m and the f/5 Cassegrain focus; the existing APOGEE preset uses D = 2.5 m. This record stays with 2.5 m.",
+    "name": "telescope aperture (explorer D)"
+   },
+   "telescope_focal_ratio": {
+    "value": "5",
+    "unit": "f/",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.1.1 (PDF p. 2)",
+    "quote": "with a 3° diameter field of view, and f/5 final focal ratio, which provides a good match to fibers for spectroscopy",
+    "alternatives": [
+     {
+      "value": "f/5 beam into the fibers (NA 0.1)",
+      "src": "SM13",
+      "loc": "Sec. 2.2.1 (PDF p. 4)",
+      "quote": "Light enters the fibers at the telescope focal plane in a cone of numerical aperture 0.1 (f/5 beam)"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "telescope focal ratio at the fiber plug plates"
+   },
+   "plate_scale": {
+    "value": "3.627 mm/arcmin = 60.45 um/arcsec = 16.543 arcsec/mm",
+    "unit": "mm/arcmin",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.1.1 (PDF p. 3)",
+    "quote": "The plate scale for spectroscopy is 3.627 mm/arcminute.",
+    "alternatives": [],
+    "derived": "DERIVED: 3.627 mm / 60 = 0.06045 mm/arcsec = 60.45 um/arcsec; 1/0.06045 = 16.543 arcsec/mm (data/telescopes/sdss.md: 16.542 arcsec/mm for the plug-plate focus, so the two agree)",
+    "note": null,
+    "name": "plate scale of the spectroscopic focal surface"
+   },
+   "fiber_core_sdss": {
+    "value": "180 um core; 3 arcsec on the sky",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.2.3 (PDF p. 6)",
+    "quote": "The selected optical fiber material is a silica UVenhanced step-index fiber with a core diameter of 180 µm",
+    "alternatives": [
+     {
+      "value": "3 arcsec (180 um)",
+      "src": "S4D",
+      "loc": "table of important information",
+      "quote": "Fiber diameter 3 arcsec (180 μm) 2 arcsec (120 μm)"
+     },
+     {
+      "value": "0.2 mm (3 arcsec on the sky), the outer size of the 180-198-218 fiber",
+      "src": "Y00",
+      "loc": "survey overview (PDF p. 10)",
+      "quote": "The fiber diameter is 0.2 mm (3′′ on the sky)"
+     }
+    ],
+    "derived": "DERIVED: 180 um / 60.45 um/arcsec = 2.98 arcsec on the sky at the telescope's f/5",
+    "note": "The product number FHP 180-198-218 gives core, core plus cladding and polyimide outer diameters; Y00's 0.2 mm is the rounded outer diameter.",
+    "name": "fiber core, SDSS-I/II (2000-2008)"
+   },
+   "fiber_core_boss": {
+    "value": "120 um core; 2 arcsec on the sky",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 3.2.1 (PDF p. 22)",
+    "quote": "except that it has a smaller core diameter of 120 µm",
+    "alternatives": [
+     {
+      "value": "2 arcsec diameters, 1,000 fibers",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "1,000 optical fibers with 2 arcsec diameters"
+     },
+     {
+      "value": "cladding",
+      "src": "SM13",
+      "loc": "Sec. 3.2.1 (PDF p. 22)",
+      "quote": "The core is surrounded by 25 µm of a lower-index cladding"
+     },
+     {
+      "value": "outer diameter",
+      "src": "SM13",
+      "loc": "Sec. 3.2.1 (PDF p. 22)",
+      "quote": "bringing the outer diameter to 190 µm"
+     },
+     {
+      "value": "each subtending 2 arcsec on the sky",
+      "src": "D13",
+      "loc": "Sec. 1 (PDF p. 4)",
+      "quote": "The instrument is fed by 1000 optical fibers (500 per spectrograph), each subtending 2′′ on the sky."
+     }
+    ],
+    "derived": "DERIVED: 120 um / 60.45 um/arcsec = 1.985 arcsec on the sky. The cladding is 25 um thick, outer diameter 190 um (SM13 Sec. 3.2.1: \"The core is surrounded by 25 µm of a lower-index cladding\"; \"bringing the outer diameter to 190 µm\")",
+    "note": null,
+    "name": "fiber core, BOSS (2009-)"
+   },
+   "fiber_input_focal_ratio": {
+    "value": "f/5 (NA 0.1)",
+    "unit": "f/",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.2.1 (PDF p. 4)",
+    "quote": "Light enters the fibers at the telescope focal plane in a cone of numerical aperture 0.1 (f/5 beam)",
+    "alternatives": [],
+    "derived": null,
+    "note": null,
+    "name": "fiber input focal ratio (telescope side)"
+   },
+   "fiber_output_focal_ratio": {
+    "value": "f/4 (NA 0.125) after focal ratio degradation; the collimator is designed for f/4",
+    "unit": "f/",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.2.1 (PDF p. 4)",
+    "quote": "the spectrograph collects light emitted from the other end of the fibers in a slightly larger cone with numerical aperture 0.125 (f/4), due to focal ratio degradation (FRD)",
+    "alternatives": [
+     {
+      "value": "BOSS fibers tested: an f/4 collimator captures essentially all the flux",
+      "src": "SM13",
+      "loc": "Sec. 3.2.2 (PDF p. 22)",
+      "quote": "We confirm that with an f /4 spectrograph collimator, essentially all of the emergent flux is captured by the optical system."
+     },
+     {
+      "value": "the collimator operates at f/4 and produces a 160 mm beam",
+      "src": "SM13",
+      "loc": "Sec. 2.3.1 (PDF p. 8, 9, 24)",
+      "quote": "which operates at f/4 and produces a 160 mm diameter beam"
+     }
+    ],
+    "derived": "DERIVED (explorer convention, \"virtual\" core angle = core / (F_out x D), as APOGEE): with F = 3.950 (below): SDSS 180 um / (3.950 x 2500 mm) = 1.823e-5 rad = 3.76 arcsec, equivalent slit 0.866 x 3.76 = 3.256 arcsec; BOSS 120 um gives 2.51 arcsec, equivalent slit 2.171 arcsec. With the nominal f/4: 3.72 / 2.48 arcsec (equivalent 3.215 / 2.144). On-sky: 2.98 / 1.99 arcsec.",
+    "note": "Why the virtual angle exceeds the on-sky size (3.76 vs 2.98 arcsec): the fibers feed an f/4 collimator (FRD turns f/5 into f/4) while the telescope focus is f/5; core/(F_out x D) is the angle the collimator 'sees'. The Telescope box can show telF = 5 and fibAp = 3.0 (SDSS) or 2.0 (BOSS) arcsec, as the M2FS and IFUM presets do.",
+    "name": "fiber output focal ratio at the slithead (the collimator's acceptance; the explorer's F_out)"
+   },
+   "n_fibers": {
+    "value": "SDSS: 320 (640 per plate); BOSS: 500 (1000 per plate)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.1.2; Sec. 3.1.1 (PDF p. 3)",
+    "quote": "The final choice of 640 fibers per plate, or 320 per spectrograph",
+    "alternatives": [
+     {
+      "value": "BOSS 1000 per plate, 500 per spectrograph",
+      "src": "SM13",
+      "loc": "Sec. 3.1.1 (PDF p. 21)",
+      "quote": "The total number of fibers for BOSS was increased to 1000 per plate, or 500 per spectrograph."
+     },
+     {
+      "value": "320 fibers into each spectrograph",
+      "src": "SM13",
+      "loc": "Sec. 2.3.1 (PDF p. 8)",
+      "quote": "Light enters each spectrograph through 320 fibers, which terminate at a curved slithead."
+     }
+    ],
+    "derived": null,
+    "note": "nObj for the explorer: 320 and 500 (every spectrum on one detector).",
+    "name": "fibers per spectrograph (all on the slit: science, sky, standards); two spectrographs"
+   },
+   "slit_geometry_sdss": {
+    "value": "320 fibers = 16 v-groove blocks of 20; 390 um pitch within a block, 523 um between adjacent blocks; plate radius 640 mm",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.2.5 (PDF p. 7)",
+    "quote": "terminated in 16 v-groove blocks that are glued to a thin, rigid aluminum slitplate with a 640 mm radius of curvature",
+    "alternatives": [
+     {
+      "value": "pitches",
+      "src": "SM13",
+      "loc": "Sec. 2.2.5 (PDF p. 7)",
+      "quote": "v-groove blocks is 523 microns, compared to 390 microns between fibers within a v-groove block."
+     },
+     {
+      "value": "the grooves fan out so each fiber is normal to a circle of radius 640 mm",
+      "src": "SM13",
+      "loc": "Sec. 2.2.4 (PDF p. 7)",
+      "quote": "The grooves are not parallel, but fan out slightly so they are normal to the tangent of a circle with radius 640 mm."
+     }
+    ],
+    "derived": "DERIVED slit length (centers): 16 x 19 x 0.390 mm + 15 x 0.523 mm = 118.56 + 7.85 = 126.4 mm; plus one fiber, 126.6 mm outside to outside. On the detector (x 0.375, the paper's f/1.5 over f/4): 16 x 19 x 146.3 + 15 x 196.1 um = 47.4 mm = 1976 px of 2048 (24 um).",
+    "note": null,
+    "name": "SDSS slitplate: fiber pitch, blocks, radius"
+   },
+   "slit_geometry_boss": {
+    "value": "500 fibers = 25 v-groove blocks of 20; 260 um pitch within a block, 624 um between adjacent blocks; arc radius 640 mm, 138.6 mm long",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 3.2.3 (PDF p. 22)",
+    "quote": "The center-to-center spacing between fibers on adjacent v-groove blocks is 624 µm, compared to 260 µm between fibers within a v-groove block. The total length of the arc is 138.6 mm from outside edge to outside edge of the first and last fibers",
+    "alternatives": [
+     {
+      "value": "25 blocks per slithead, 500 fibers",
+      "src": "SM13",
+      "loc": "Sec. 3.2.3 (PDF p. 22)",
+      "quote": "There are two slitheads per cartridge, each having 500 fibers. The 120 µm diameter fibers are mounted in groups of twenty in v-groove blocks, with 25 v-groove blocks being glued to each slithead."
+     },
+     {
+      "value": "radius",
+      "src": "SM13",
+      "loc": "Sec. 3.2.3 (PDF p. 22)",
+      "quote": "They consist of a thin, stiff aluminum slitplate with a curved edge of radius 640 mm."
+     }
+    ],
+    "derived": "DERIVED: 25 x 19 x 0.260 + 24 x 0.624 = 123.5 + 14.98 = 138.5 mm (centers) + 0.120 mm = 138.6 mm, which reproduces the published arc length. On the detector (x 0.375): 25 x 19 x 97.5 + 24 x 234 um = 51.9 mm = 3460 px of 4096 (15 um). Explorer fgroups (um on the detector, pitch and group-to-group spacing): [20, 97.5, 234] for BOSS, [20, 146.3, 196.1] for SDSS.",
+    "note": null,
+    "name": "BOSS slitplate: fiber pitch, blocks, arc length"
+   },
+   "slitplate_in_beam": {
+    "value": "plate and v-groove blocks together < 3.2 mm thick",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.2.5 (PDF p. 7)",
+    "quote": "The slitplates are in the beam and therefore must be as thin as possible; the total thickness of the plate and v-groove blocks is specified to be less than 3.2 mm.",
+    "alternatives": [],
+    "derived": null,
+    "note": null,
+    "name": "slitplate thickness (it stands in the returning collimated beam)"
+   },
+   "collimator_type": {
+    "value": "spherical mirror, radius 1263.904 mm (concave), Hextek borosilicate blank 175 mm wide x 419 mm tall x 73 mm thick, enhanced silver; no corrector plate",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.3; Tables 1-2 (PDF p. 9)",
+    "quote": "the final collimator design is a single mirror with a spherical figure ... ground and polished to the final radius of 1264 mm",
+    "alternatives": [
+     {
+      "value": "Table 1 and Table 2 prescription (radius, mm)",
+      "src": "SM13",
+      "loc": "Table 1, p. 11 (PDF p. 11, 26)",
+      "quote": "collimator mirror -1263.904 -1263.904"
+     },
+     {
+      "value": "blank size",
+      "src": "SM13",
+      "loc": "Sec. 2.3.3 (PDF p. 9)",
+      "quote": "175 mm wide, 419 mm tall, and 73 mm thick"
+     },
+     {
+      "value": "no corrector plate",
+      "src": "SM13",
+      "loc": "Sec. 2.3.3 (PDF p. 8)",
+      "quote": "the spherical collimator mirror forms a corrector-less Schmidt collimator"
+     },
+     {
+      "value": "BOSS: unchanged (recoated in 2012)",
+      "src": "SM13",
+      "loc": "Sec. 3.3.1 (PDF p. 23)",
+      "quote": "The collimator, unchanged from the original design, collimates the f/4 beam producing a 160 mm diameter beam"
+     }
+    ],
+    "derived": "DERIVED: f_col = R/2 = 1263.904/2 = 631.952 mm.",
+    "note": null,
+    "name": "collimator type and prescription"
+   },
+   "collimator_beam": {
+    "value": "160 mm",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.1; Figs. 7 and 22 captions (PDF p. 8)",
+    "quote": "a collimated beam diameter of 160 mm would be ideal",
+    "alternatives": [
+     {
+      "value": "caption of Fig. 7",
+      "src": "SM13",
+      "loc": "Fig. 7 caption (PDF p. 8, 9, 24)",
+      "quote": "which operates at f/4 and produces a 160 mm diameter beam"
+     }
+    ],
+    "derived": "DERIVED: collimator focal ratio = 631.952 / 160 = 3.950. The paper's nominal f/4 corresponds to 640 mm; the radius of Tables 1-2 gives 631.95 mm (1.3% shorter). The explorer preset uses W = 160 mm and F = 3.950 (f_col = 631.95 mm, the prescription); with F = 4.0 R changes by +1.3% and nothing else.",
+    "note": null,
+    "name": "collimated beam diameter"
+   },
+   "slit_to_collimator": {
+    "value": "630.123 mm (the slit plate's fiber ends); slit radius of curvature 640.080 mm",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Table 1, Table 2 (p. 11, p. 26), row slithead (PDF p. 11, 26)",
+    "quote": "slithead -640.080 -640.080 630.123 630.123 air",
+    "alternatives": [
+     {
+      "value": "Sec. 2.3.2: arc center of curvature",
+      "src": "SM13",
+      "loc": "Sec. 2.3.2 (PDF p. 8)",
+      "quote": "a radius whose center of curvature coincides with that of the collimator"
+     }
+    ],
+    "derived": "DERIVED: 630.123 mm is within 0.3% of f_col = 631.952 mm: the fiber ends sit at the collimator's focus. The mirror's center of curvature lies 1263.904 - 630.123 = 633.781 mm beyond the slit; the slit radius, 640.080 mm, is 6.3 mm (1%) longer, so the arc is concentric with the mirror's center of curvature to 1%, as the paper says.",
+    "note": null,
+    "name": "slit-to-collimator distance (the slit sits at the collimator's focus)"
+   },
+   "collimator_on_axis": {
+    "value": "ON-AXIS: the slit plate stands in the middle of the returning collimated beam, edge-on to the dispersion plane; the beam returns toward the slit and is not tilted away from it (no off-axis angle published or drawn)",
+    "unit": "",
+    "tag": "SOURCED + MEASURED (the drawing)",
+    "src": "SM13",
+    "loc": "Secs. 2.2.5, 2.3.2, 2.3.3, 3.4.2; Figs. 7, 22 (PDF p. 7)",
+    "quote": "The slitplates are in the beam and therefore must be as thin as possible",
+    "alternatives": [
+     {
+      "value": "Schmidt geometry",
+      "src": "SM13",
+      "loc": "Sec. 2.3.2 (PDF p. 8)",
+      "quote": "Thus, the slit plate is at the focus of a one-dimensional Schmidt collimator."
+     },
+     {
+      "value": "Schmidt geometry, no corrector",
+      "src": "SM13",
+      "loc": "Sec. 2.3.3 (PDF p. 8)",
+      "quote": "In combination with the curved slithead, the spherical collimator mirror forms a corrector-less Schmidt collimator."
+     },
+     {
+      "value": "BOSS mask, 'down the middle of the collimator'",
+      "src": "SM13",
+      "loc": "Sec. 3.4.2 (PDF p. 27)",
+      "quote": "A 3/16 inch wide vertical strip was placed down the middle of the collimator, aligned parallel to the slithead, to prevent reflections off the tips of the fibers and back into the optical system."
+     },
+     {
+      "value": "the collimator sends the beam back toward the dichroic",
+      "src": "SM13",
+      "loc": "Sec. 3.3.1 (PDF p. 23)",
+      "quote": "reflecting it back toward the dichroic beamsplitter"
+     },
+     {
+      "value": "Fig. 7 caption",
+      "src": "SM13",
+      "loc": "Fig. 7 caption (PDF p. 9)",
+      "quote": "The slit plate positions the fiber ends on a radius concentric with the spherical collimating mirror"
+     }
+    ],
+    "derived": "DERIVED obstruction: the plate is a vertical strip (parallel to the slit) in the middle of the 160 mm beam: < 3.2 mm thick = < 2.0% of the beam width; BOSS adds the 3/16 inch (4.76 mm) mask on the mirror itself, 3.0% (the shadow of the plate and the mask coincide, so the loss is ~3%). There is no central circular obscuration. The plate's depth along the axis, 233 mm, is MEASURED (Fig. 7: 215 px at 1.0845 mm/px).",
+    "note": "Verdict for the deploy gate: colTilt 0 (on-axis), like Hectospec, Hectochelle, APOGEE and DESI. The slit stands in the beam along the optical axis; the beam from the mirror is not offset from the axis and nothing in SM13 gives an off-axis angle. Drawn in Fig. 7 (p. 9): the slithead 'A' lies on the axis between the collimator 'B' and the dichroic 'C'.",
+    "name": "collimator on- or off-axis (is the slit in the returning beam?)"
+   },
+   "pupil_at_center_of_curvature": {
+    "value": "the gratings stand at the collimator's center of curvature, 1263.9 mm from the mirror",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.3 (PDF p. 9)",
+    "quote": "The collimator forms a pupil at the center of curvature of the mirror, and this is where the gratings are located in each channel in order to minimize their required size.",
+    "alternatives": [],
+    "derived": "DERIVED: center of curvature = R = 1263.904 mm (2 f_col, the Schmidt condition). MEASURED from the Fig. 7 drawing (see Layout): blue 1257 mm, red 1302 mm (collimator to the grating's hypotenuse center, +-5%); the red grism sits farther because its prism is thicker. CONFLICT with Table 1's sums (1152 and 1158 mm), see Conflicts.",
+    "note": null,
+    "name": "grating (pupil) position along the beam"
+   },
+   "dichroic_sdss": {
+    "value": "reflects blue (lambda < 6000 A), transmits red; 45 deg; BK7 271 x 229 x 38 mm, coating on the incident surface; R > 98% blue, T > 94% red; 10%/90% zone about 50 nm wide",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.4; Fig. 7 caption (PDF p. 8, 9)",
+    "quote": "The 45 degree dichroic beamsplitter reflects the blue portion of the bandpass (λ < 6000 Å) and transmits the red wavelengths (λ > 6000 Å).",
+    "alternatives": [
+     {
+      "value": "size and substrate",
+      "src": "SM13",
+      "loc": "Sec. 2.3.4 (PDF p. 9)",
+      "quote": "It is fabricated from BK7, is 271 mm wide, 229 mm tall, and 38 mm thick, with the dichroic coating applied to the incident surface."
+     },
+     {
+      "value": "transition width",
+      "src": "SM13",
+      "loc": "Sec. 2.3.4 (PDF p. 9)",
+      "quote": "The 10%/90% zone at the crossover wavelength is approximately 50 nm wide."
+     }
+    ],
+    "derived": null,
+    "note": "Position: in the collimated beam, immediately after the collimator-to-grating path begins (center of the dichroic MEASURED 1083 mm from the collimator, Fig. 7), so the two channels share one slit and one collimator: the All-arms tree is split \"collimated\".",
+    "name": "dichroic, SDSS-I/II: cut, angle, size"
+   },
+   "dichroic_boss": {
+    "value": "reflects blue (lambda < 6050 A, Fig. 22 caption; 605 nm in Sec. 3.3.3), transmits red; 45 deg; replaced in 2011-2012 by a new ion-assisted coating; width not published",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 3.3.3; Fig. 22 caption (PDF p. 24)",
+    "quote": "The 45 degree dichroic beamsplitter reflects the blue portion of the bandpass (λ < 6050 Å) and transmits the red wavelengths (λ > 6050 Å).",
+    "alternatives": [
+     {
+      "value": "text of Sec. 3.3.3",
+      "src": "SM13",
+      "loc": "Sec. 3.3.3 (PDF p. 23)",
+      "quote": "For BOSS, wavelengths shorter than 605 nm are reflected by the new coating, a 15 nm shift toward the red as compared to SDSS."
+     },
+     {
+      "value": "CONFLICT: Sec. 3.3.1 says 640 nm",
+      "src": "SM13",
+      "loc": "Sec. 3.3.1 (PDF p. 23)",
+      "quote": "Light blueward of 640 nm is reflected into the blue channel, with the remaining light being transmitted into the red channel."
+     },
+     {
+      "value": "the SDSS-IV page",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "with a dichroic splitting the light at roughly 6000 Angstroms"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "dichroic, BOSS: cut, angle"
+   },
+   "grism_sdss": {
+    "value": "transmission grisms: a surface-relief grating replicated on the hypotenuse of a right-angle BK7 prism; blue 640 /mm, red 440 /mm; zero deviation at 4960 A (blue) and 7400 A (red); the grating faces are tilted 37 deg (blue) and 39.5 deg (red) to the entrance face; first order",
+    "unit": "/mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.5; Table 1 (PDF p. 9)",
+    "quote": "The dispersing elements are grisms with zero angular deviation at 4960 Å for the blue and 7400 Å for the red. These are right angle BK7 prisms with a transmission grating replicated on the hypotenuse.",
+    "alternatives": [
+     {
+      "value": "groove densities",
+      "src": "SM13",
+      "loc": "Sec. 2.3.5 (PDF p. 10)",
+      "quote": "The ruling densities are 640 and 440 lines/mm for the blue and red grisms, respectively."
+     },
+     {
+      "value": "masters ruled",
+      "src": "SM13",
+      "loc": "Sec. 2.3.5 (PDF p. 10)",
+      "quote": "new masters were ruled by Hyperfine, Inc."
+     },
+     {
+      "value": "grating face angles",
+      "src": "SM13",
+      "loc": "Table 1, p. 11 (PDF p. 11)",
+      "quote": "grating plano(37° ) plano(39.5° ) 52.578 58.420 air"
+     },
+     {
+      "value": "'ruled gratings' replaced by VPH",
+      "src": "SM13",
+      "loc": "Sec. 1 (PDF p. 2)",
+      "quote": "The ruled gratings have been replaced by volume-phase holographic (VPH) grisms"
+     },
+     {
+      "value": "prism glass thickness on axis",
+      "src": "SM13",
+      "loc": "Table 1, p. 11 (PDF p. 11)",
+      "quote": "prism plano plano 64.592 70.663 BK7"
+     },
+     {
+      "value": "why a grism",
+      "src": "SM13",
+      "loc": "Sec. 2.3.5 (PDF p. 9)",
+      "quote": "the grism permits mounting the cameras close to the system pupil"
+     },
+     {
+      "value": "plane transmission grating rejected",
+      "src": "SM13",
+      "loc": "Sec. 2.3.5 (PDF p. 9)",
+      "quote": "making geometric losses high"
+     }
+    ],
+    "derived": "DERIVED with the explorer's ruled-grism relation m G lam0 = (n - 1) sin A (N-BK7): lam0 = 4909 A for 640 /mm and A = 37 deg (the paper: 4960 A, -1.0%) and 7403 A for 440 /mm and A = 39.5 deg (7400 A, +0.04%). The original SDSS grisms were therefore RULED-master (replicated surface-relief) grisms, not VPH. Explorer inputs: gType grism, gKind ruled, gA 37 / 39.5, gGlass N-BK7, gTilt 0.",
+    "note": "'Why a grism': SM13 Sec. 2.3.5 says it lets the camera stand close to the system pupil and avoids the interference of a reflection grating with the incoming beam; a plane transmission grating would have too large a diffraction angle (\"making geometric losses high\").",
+    "name": "disperser, SDSS-I/II: type, groove density, geometry"
+   },
+   "grism_boss": {
+    "value": "VPH grisms (a VPH grating between two BK7-equivalent prisms): blue 520 /mm, red 400 /mm; prism apex angles (total of the pair) 28 deg (blue) and 35.6 deg (red), i.e. 14.0 and 17.8 deg each; the grating is tilted 3.5 deg to steer the Littrow ghost off the detector; the straight-through beam is kept",
+    "unit": "/mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 3.3.4; Table 2; Fig. 22 caption (PDF p. 23)",
+    "quote": "The BOSS design utilizes a ruling density of 400 l/mm in the red channel and 520 l/mm in the blue channel.",
+    "alternatives": [
+     {
+      "value": "apex angles",
+      "src": "SM13",
+      "loc": "Sec. 3.3.4 (PDF p. 23)",
+      "quote": "The prism apex angles (total for the twoprism assembly) are 28◦ and 35.6◦ for the blue and red grisms, respectively."
+     },
+     {
+      "value": "tilt",
+      "src": "SM13",
+      "loc": "Fig. 22 caption (PDF p. 24)",
+      "quote": "the grating is tilted 3.5° to steer the Littrow ghost off the detector"
+     },
+     {
+      "value": "tilt, how built",
+      "src": "SM13",
+      "loc": "Sec. 3.3.4 (PDF p. 24)",
+      "quote": "with one prism having an apex angle that is 3.5 degrees larger and the other 3.5 degrees smaller than the right angle design of an untilted grating"
+     },
+     {
+      "value": "glass",
+      "src": "SM13",
+      "loc": "Sec. 3.3.4 (PDF p. 23)",
+      "quote": "The blue channel components were made from Ohara Corporation’s BSL7Y glass, a BK7 equivalent with enhanced UV transmission."
+     },
+     {
+      "value": "straight-through",
+      "src": "SM13",
+      "loc": "Sec. 3.3.4 (PDF p. 23)",
+      "quote": "the use of prisms is necessary to preserve the straight-through beam layout of the SDSS design"
+     },
+     {
+      "value": "Table 2 rows (surface angles)",
+      "src": "SM13",
+      "loc": "Table 2, p. 26 (PDF p. 26)",
+      "quote": "prism plano(−14.0° ) plano(−17.8° ) -33.604 -37.414 BSL7Y BK7"
+     },
+     {
+      "value": "peak efficiencies",
+      "src": "SM13",
+      "loc": "Sec. 3.3.4 (PDF p. 24)",
+      "quote": "For BOSS, the VPH red grating peak efficiency is 82% as compared to 64% for SDSS, and the blue grating peak efficiency is 80% as compared to 50% for SDSS."
+     }
+    ],
+    "derived": "DERIVED with the explorer's VPH-grism relation m G lam0 = 2 n sin(A - asin(sin A / n)), identical prisms of apex A (the untilted design: the explorer cannot tilt a VPH layer): lam0 = 4947 A (520 /mm, A = 14.0 deg, BSL7Y) and 8059 A (400 /mm, A = 17.8 deg, N-BK7). No published undeviated or Bragg wavelength to compare. Explorer inputs: gType grism, gKind vph, gA 14.0 / 17.8, gGlass BSL7Y / N-BK7, gTilt 0.",
+    "note": "Table 2's glass/air column cannot be decoded unambiguously from the text layer (four consecutive BSL7Y or BK7 rows for prism, cover plate, grating and prism, no air gap before the singlet); the 3.5 deg tilt is not modeled.",
+    "name": "disperser, BOSS: type, groove density, geometry"
+   },
+   "camera": {
+    "value": "all-refractive f/1.5, focal length 240 mm, 16.5 deg field; eight elements in five groups (singlet, contact triplet, contact doublet, two field flatteners); designed by H. Epps from the LRIS camera; one aspheric surface; BOSS re-optimized with the same first six elements",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.6; Sec. 3.3.5 (PDF p. 10)",
+    "quote": "The spectrograph cameras are f/1.5 with a 240 mm focal length and 16.5 deg field of view",
+    "alternatives": [
+     {
+      "value": "elements",
+      "src": "SM13",
+      "loc": "Sec. 2.3.6 (PDF p. 10)",
+      "quote": "The camera employs eight lens elements arranged in five groups, including a contact triplet, a contact doublet, and three singlets."
+     },
+     {
+      "value": "BOSS",
+      "src": "SM13",
+      "loc": "Sec. 3.3.5 (PDF p. 24)",
+      "quote": "The revised designs use the original SDSS prescriptions for the first six elements with the same multiplet configuration: a singlet, followed by a contact triplet, and then a contact doublet."
+     },
+     {
+      "value": "designer and LRIS heritage",
+      "src": "SM13",
+      "loc": "Sec. 2.3.6 (PDF p. 10)",
+      "quote": "Harland Epps (University of California, Santa Cruz) was contracted to design the cameras, using the Low Resolution Imaging Spectrometer (LRIS) spectrograph camera design (Epps 1990) as a starting point"
+     }
+    ],
+    "derived": "DERIVED camera beam: 240 mm / 1.5 = 160 mm (equals the collimated beam). Demagnification: 1.5 / 4 = 0.375 (paper) or 240 / 631.95 = 0.380 (prescription). Table 1 (SDSS blue) distances: singlet front to CCD, summed over the rows = 364.54 mm (red 365.38, BOSS blue 369.82, BOSS red 372.29); grating to singlet front 52.578 mm (blue) and 58.420 mm (red), SDSS (Table 1). DERIVED camLen for the drawing (grating to the camera's rear principal plane, taking EFL 240 mm to the CCD): SDSS blue 52.58 + 364.54 - 240 = 177 mm, SDSS red 58.42 + 365.38 - 240 = 184 mm; BOSS INFERRED the same, 180 and 190 mm (the BOSS grating-to-singlet air gap is NOT FOUND).",
+    "note": null,
+    "name": "camera type, focal length, focal ratio, field"
+   },
+   "detector_sdss": {
+    "value": "Tektronix/SITe SI424A, thinned, 2048 x 2048, 24 um square pixels; two amplifiers; one per camera (red and blue)",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.6.1 (PDF p. 18)",
+    "quote": "The CCD detectors are thinned Tektronix/SITe SI424A 2048 × 2048 devices with square 24 µm pixels.",
+    "alternatives": [
+     {
+      "value": "sampling",
+      "src": "SM13",
+      "loc": "Sec. 2.1.2 (PDF p. 3)",
+      "quote": "Thus, each spectrum used six detector columns, and the 2048 × 2048 pixel detector could accommodate a maximum of 341 spectra."
+     }
+    ],
+    "derived": "Spectra run along the columns; the dispersion is along the rows/the parallel clocking (SM13 Sec. 4.1: 'a spectral dispersion of roughly one pixel RMS in the direction of the parallel clocking'). Explorer: Nx = 2048 (dispersion), Ny = 2048, pix 24.",
+    "note": null,
+    "name": "detector, SDSS-I/II"
+   },
+   "detector_boss": {
+    "value": "blue: e2v CCD231-84, 4k x 4k, 15 um pixels; red: Lawrence Berkeley National Laboratory fully depleted CCD, 4k x 4k, 15 um (thick, p-channel); four amplifiers each",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 3.6.1; D13 Sec. 1; S4B (PDF p. 30)",
+    "quote": "On the blue side of the spectrograph, e2v ... CCDs were installed for improved quantum efficiency in the far blue while fully depleted devices from Lawrence Berkeley National Laboratory (LBNL) were installed for improved quantum efficiency near 10,000 Å",
+    "alternatives": [
+     {
+      "value": "4k x 4k, 15 um",
+      "src": "D13",
+      "loc": "Sec. 1 (PDF p. 4)",
+      "quote": "Both spectrographs have a red channel with a 4k × 4k, 15 µm pixel CCD"
+     },
+     {
+      "value": "blue CCD model",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "The blue side has blue-sensitive e2v CCDs (CCD231-84)."
+     },
+     {
+      "value": "blue CCD format",
+      "src": "S4B",
+      "loc": "Main Parameter Summary",
+      "quote": "blue-sensitive 4Kx4K e2V CCDs with 15 micron pixels for the blue side"
+     },
+     {
+      "value": "columns/rows",
+      "src": "SM13",
+      "loc": "Sec. 4.1 (PDF p. 34)",
+      "quote": "a spectral dispersion of roughly one pixel RMS in the direction of the parallel clocking"
+     },
+     {
+      "value": "format in Fig. 22 caption",
+      "src": "SM13",
+      "loc": "Fig. 22 caption (PDF p. 24)",
+      "quote": "Each camera contains a 4k × 4k CCD with 15 µm pixels."
+     }
+    ],
+    "derived": null,
+    "note": "The exact active format (the numbers of rows and columns beyond '4k x 4k') is NOT FOUND in these sources; the preset uses 4096 x 4096.",
+    "name": "detector, BOSS"
+   },
+   "sampling": {
+    "value": "SDSS: fiber image 67.5 um (just under 3 px of 24 um), spectra 6 px apart; BOSS: 45 um (3 px of 15 um), 6 px apart",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Secs. 2.3.1, 2.3.8, 3.3.1, 3.3.7 (PDF p. 8)",
+    "quote": "The camera demagnification from f/4 to f/1.5 produces fiber images that are just under 3 pixels in diameter. A fibercenter separation of 390 µm at the slithead produces six pixel center-to-center spectra spacing at the detector",
+    "alternatives": [
+     {
+      "value": "SDSS spot diagrams drawn in 67.5 um",
+      "src": "SM13",
+      "loc": "Sec. 2.3.8 (PDF p. 10)",
+      "quote": "The spots are shown within a 67.5 µm diameter circle, representing the diameter of the imaged fiber on the detector."
+     },
+     {
+      "value": "BOSS: 45 um",
+      "src": "SM13",
+      "loc": "Sec. 3.3.7 (PDF p. 25)",
+      "quote": "The spots are shown within a 45 µm diameter circle, representing the diameter ... of the imaged BOSS fiber on the detector."
+     },
+     {
+      "value": "BOSS: 3 px profiles, 6 px apart",
+      "src": "SM13",
+      "loc": "Sec. 3.3.1 (PDF p. 23)",
+      "quote": "thus yielding 3 pixel wide spectral profiles separated by 6 pixels center-to-center; identical to the SDSS configuration"
+     }
+    ],
+    "derived": "DERIVED: SDSS 0.375 x 180 um = 67.5 um (2.8 px), 0.375 x 390 um = 146 um = 6.1 px. BOSS 0.375 x 120 um = 45 um = 3.0 px, 0.375 x 260 um = 97.5 um = 6.5 px within a block (the paper says 6 px; CONFLICT, small).",
+    "note": null,
+    "name": "fiber image on the detector and spectrum spacing"
+   },
+   "coverage_sdss": {
+    "value": "design 3900-9100 A; data reduced over 3800-9220 A; channel split at 6000 A (the explorer's chips cover 3797-6169 A blue and 5767-9215 A red from the model below)",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.1; Sec. 4.2.1 (PDF p. 8)",
+    "quote": "Clearly, the full 3900-9100 Å bandpass will not fit within a single detector at the required resolving power",
+    "alternatives": [
+     {
+      "value": "range used in data reductions",
+      "src": "SM13",
+      "loc": "Sec. 4.2.1 (PDF p. 35)",
+      "quote": "the wavelength range included in data reductions for the SDSS spectrographs is 3800–9220 Å. This is slightly broader than the design wavelength range of 3900–9100 Å."
+     },
+     {
+      "value": "York et al. 2000",
+      "src": "Y00",
+      "loc": "survey overview (PDF p. 9)",
+      "quote": "The wavelength coverage of the spectrographs is continuous from about 3800 Å to 9200 Å"
+     },
+     {
+      "value": "DR17 table",
+      "src": "S4D",
+      "loc": "table of important information",
+      "quote": "Wavelength coverage 3800-9200 Å 3650-10,400 Å"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "wavelength coverage, SDSS-I/II"
+   },
+   "coverage_boss": {
+    "value": "3560-10400 A in the data releases; blue cameras at least 3600-6350 A, red cameras at least 5650-10000 A",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 4.2.1; S4B (PDF p. 35)",
+    "quote": "The BOSS spectrographs have useful data in the 3560 to 10,400",
+    "alternatives": [
+     {
+      "value": "S4B blue",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "The blue cameras cover at least 3600-6350 Angstroms."
+     },
+     {
+      "value": "S4B red",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "The red cameras cover at least 5650-10000 Angstroms."
+     },
+     {
+      "value": "D13",
+      "src": "D13",
+      "loc": "Sec. 1 (PDF p. 4)",
+      "quote": "each covering the wavelength range 361 nm – 1014 nm"
+     },
+     {
+      "value": "beyond the range the detectors still see light",
+      "src": "SM13",
+      "loc": "Sec. 4.2.1 (PDF p. 35)",
+      "quote": "Although the detectors see light beyond this wavelength range, it is discarded in the reductions since the throughput is very low and the longer wavelengths suffer from second-order light."
+     }
+    ],
+    "derived": null,
+    "note": "The CCDs record more than the quoted range. 'Useful data' ranges are cut by throughput and the dichroic.",
+    "name": "wavelength coverage, BOSS"
+   },
+   "resolution_sdss": {
+    "value": "R ~ 1500 at 3800 A to ~ 2500 at 9000 A (the DR17 table's merged cell; whether design or measured is not said); ~ 1800 (York 2000); ~ 2000 (Smee 2013 abstract)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "S4D",
+    "loc": "table of important information",
+    "quote": "Resolution 1500 at 3800 Å, 2500 at 9000 Å",
+    "alternatives": [
+     {
+      "value": "abstract of SM13",
+      "src": "SM13",
+      "loc": "abstract (PDF p. 1)",
+      "quote": "with a resolving power R = λ/FWHM ∼ 2000"
+     },
+     {
+      "value": "York et al. 2000",
+      "src": "Y00",
+      "loc": "survey overview (PDF p. 9)",
+      "quote": "the wavelength resolution, λ/δλ, is 1800"
+     },
+     {
+      "value": "requirement",
+      "src": "SM13",
+      "loc": "Sec. 2.1.5 (PDF p. 3)",
+      "quote": "This corresponds to a resolving power of 1500-3000."
+     }
+    ],
+    "derived": null,
+    "note": "The DR17 table prints one 'Resolution' entry spanning both the SDSS and the BOSS columns. The SDSS curve measured from 100 plates is Fig. 35 (red curve) of SM13; its values are not tabulated (FIGURE READ-OFF not done).",
+    "name": "resolving power, SDSS-I/II"
+   },
+   "resolution_boss": {
+    "value": "blue channel R = 1560 at 3700 A to 2270 at 6000 A; red channel R = 1850 at 6000 A to 2650 at 9000 A; whole instrument 1300 (blue end) to 2600 (red end)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "S4B",
+    "loc": "page text",
+    "quote": "The adopted design has a resolution running from R = 1560 at 3700 Angstroms to R = 2270 at 6000 Angstroms (blue channel), and from R = 1850 at 6000 Angstroms to R = 2650 at 9000 Angstroms (reds channel).",
+    "alternatives": [
+     {
+      "value": "Dawson et al. 2013",
+      "src": "D13",
+      "loc": "Sec. 1 (PDF p. 4)",
+      "quote": "with resolving power λ/∆λ ranging from 1300 at the blue end to 2600 at the red end"
+     },
+     {
+      "value": "requirement (blue)",
+      "src": "SM13",
+      "loc": "Sec. 3.1.5 (PDF p. 21)",
+      "quote": "Experience with SDSS indicates that a resolving power greater than R = 1400 in this wavelength range is adequate for precise and reliable stellar classification."
+     },
+     {
+      "value": "the Zemax prediction is low",
+      "src": "SM13",
+      "loc": "Sec. 2.3.8 (PDF p. 11, 12, 26)",
+      "quote": "so the prediction here is on the low side"
+     },
+     {
+      "value": "measured: degraded near the edges",
+      "src": "SM13",
+      "loc": "Sec. 4.2.2 (PDF p. 35)",
+      "quote": "However, the fibers near the edge of the first spectrograph have a resolving power that is degraded by up to 20–25% relative to the central fibers."
+     }
+    ],
+    "derived": null,
+    "note": "Whether these numbers are measured is not stated ('the adopted design'). SM13 Sec. 4.2.2 measures R(lambda) from 100 plates (Figs. 35, 36), not tabulated.",
+    "name": "resolving power, BOSS (adopted design)"
+   },
+   "r_definition": {
+    "value": "Gaussian fit to arc lines, sigma_lambda; R = lambda / (2.35 sigma_lambda); sigma is about 1 pixel",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 4.1; Sec. 4.2.2 (PDF p. 34)",
+    "quote": "Each fiber projects a spectrum onto the CCD with an RMS in the spatial direction of roughly one pixel and a spectral dispersion of roughly one pixel RMS in the direction of the parallel clocking.",
+    "alternatives": [
+     {
+      "value": "fit",
+      "src": "SM13",
+      "loc": "Sec. 4.2.2 (PDF p. 35)",
+      "quote": "A Gaussian of width σλ is fit to each spectral profile using the 25 unmasked pixels."
+     }
+    ],
+    "derived": "DERIVED (the native dispersion is NOT FOUND, so it is estimated from R and sigma = 1 px, FWHM = 2.35 px): dlpix = lambda / (2.355 R). BOSS blue 3700 A: 3700/(2.355 x 1560) = 1.007 A/px; blue 6000 A: 6000/(2.355 x 2270) = 1.122; red 6000 A: 6000/(2.355 x 1850) = 1.377; red 9000 A: 9000/(2.355 x 2650) = 1.442. SDSS: 3800/(2.355 x 1500) = 1.076; 9000/(2.355 x 2500) = 1.529.",
+    "note": null,
+    "name": "how SM13 measures R"
+   },
+   "pixel_grid": {
+    "value": "log10(lambda) spacing 1e-4 dex (69 km/s per pixel) in the coadded data products",
+    "unit": "dex",
+    "tag": "SOURCED",
+    "src": "S4D",
+    "loc": "table; Sec. 'About the Spectra'",
+    "quote": "The logarithmic wavelength grid spacing is the same for all plates (log 10 λ i+1 - log 10 λ i = 0.0001)",
+    "alternatives": [
+     {
+      "value": "69 km/s",
+      "src": "B12",
+      "loc": "Sec. 2 (PDF p. 4)",
+      "quote": "onto a uniform baseline of ∆ log10 λ = 10−4 (about 69 km s−1 ) per pixel."
+     }
+    ],
+    "derived": null,
+    "note": "This is the resampled pipeline grid (1.15 A at 5000 A, 2.07 A at 9000 A), not the detector's pixel dispersion.",
+    "name": "pipeline spectra pixel grid (not the native dispersion)"
+   },
+   "throughput": {
+    "value": "SDSS predicted peak 17% (blue), 22% (red); measured 8-9% at 4000 A; BOSS predicted peak ~31%; measured peak 21% (SDSS) to 29% (BOSS); instrument-only peak 45% (SDSS) to 70% (BOSS)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.3.8; Sec. 3.3.7; Sec. 4.2.3; Sec. 3.3.1 (PDF p. 12)",
+    "quote": "Peak efficiencies in the blue and red channels are 17% and 22%, respectively.",
+    "alternatives": [
+     {
+      "value": "BOSS prediction",
+      "src": "SM13",
+      "loc": "Sec. 3.3.7 (PDF p. 27)",
+      "quote": "Peak efficiencies in the blue and red channels are similar at about 31%."
+     },
+     {
+      "value": "measured",
+      "src": "SM13",
+      "loc": "Sec. 4.2.3 (PDF p. 38)",
+      "quote": "While the actual peak throughput was increased by only about 40%, from 21% to 29%"
+     },
+     {
+      "value": "SDSS blue edge",
+      "src": "SM13",
+      "loc": "Sec. 4.2.3 (PDF p. 38)",
+      "quote": "the 8% and 9% delivered throughputs at 4000 Å, for Spectrographs 1 and 2"
+     },
+     {
+      "value": "instrument efficiency",
+      "src": "SM13",
+      "loc": "Sec. 3.3.1 (PDF p. 23)",
+      "quote": "the combined effect being an impressive 70% peak instrumental efficiency, a significant improvement over the 45% peak of the SDSS design"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "throughput"
+   },
+   "spectrograph_count_size": {
+    "value": "2 identical spectrographs; bench 2210 x 1000 x 570 mm; mounted on the Cassegrain rotator on either side of the focal plane",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.4.1; Fig. 3 (PDF p. 12)",
+    "quote": "The overall length, width, and height are 2210 mm × 1000 mm × 570 mm, respectively.",
+    "alternatives": [
+     {
+      "value": "the two spectrographs",
+      "src": "SM13",
+      "loc": "Fig. 3 caption (PDF p. 5)",
+      "quote": "The twin spectrographs are the green instruments on either side of the focal plane."
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "number of spectrographs, bench size"
+   },
+   "dates": {
+    "value": "SDSS spectrographs commissioned in Fall 1999 (surveys 2000-2008); upgraded for BOSS in 2009; still the optical spectrograph of SDSS-IV and SDSS-V",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "abstract; S4B (PDF p. 1)",
+    "quote": "Originally commissioned in Fall 1999 on the 2.5-m aperture Sloan Telescope at Apache Point Observatory",
+    "alternatives": [
+     {
+      "value": "2009",
+      "src": "SM13",
+      "loc": "abstract (PDF p. 1)",
+      "quote": "The spectrographs were upgraded in 2009 and are currently in use for BOSS"
+     },
+     {
+      "value": "SDSS-V",
+      "src": "S4B",
+      "loc": "page text",
+      "quote": "BOSS remains the active optical spectrograph in SDSS and it was used to collect all MaNGA and eBOSS data released during the ongoing SDSS-IV, and will continue to be used in SDSS-V"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "eras"
+   },
+   "layout_bench": {
+    "value": "T-shaped enclosed aluminum bench: collimator at the end of the long leg, red camera in line with the collimator axis (straight through the dichroic), blue camera at the end of the cross leg (dichroic reflection); slithead and central optics (dichroic and grisms) enter through access ports",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "SM13",
+    "loc": "Sec. 2.4.2; Fig. 14 (PDF p. 12)",
+    "quote": "The dual-channel optical layout naturally leads to the T-shaped configuration depicted in the figure.",
+    "alternatives": [
+     {
+      "value": "Fig. 14 caption",
+      "src": "SM13",
+      "loc": "Fig. 14 caption (PDF p. 12, 14)",
+      "quote": "The T-shaped optical bench is an enclosed aluminum (6061-T6) weldment with precision-machined interfaces to locate all five opto-mechanical ... the fiber slithead, the collimator, the central optics, and the red and blue channel cameras."
+     },
+     {
+      "value": "Fig. 29 caption",
+      "src": "SM13",
+      "loc": "Fig. 29 caption (PDF p. 29)",
+      "quote": "The layout is identical to the SDSS design, however a revised central optics assembly to accommodate the VPH grisms is implemented here."
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "name": "bench layout"
+   }
+  },
+  "layout": {
+   "elements": [
+    {
+     "tag": "SOURCED",
+     "element": "orientation of the printed figures",
+     "description": "Fig. 7 (p. 9, SDSS) and Fig. 22 (p. 24, BOSS): the collimator B at the right, the beam running left; the dichroic C at 45 deg; the red grism D and camera F straight on to the left; the blue grism E and camera G up (page top). The embedded JPEG of Fig. 7 is stored flipped vertically; all statements here are for the printed orientation.",
+     "value": "-",
+     "basis": "figures"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "slit A to collimator B",
+     "description": "the slithead's fiber ends 630.123 mm from the mirror; the slit plate stands edge-on, in the middle of the returning beam, parallel to the slit (vertical in the bench)",
+     "value": "630.123 mm",
+     "basis": "Tables 1-2, row slithead; Sec. 2.2.5 (plate < 3.2 mm thick, 'in the beam')"
+    },
+    {
+     "tag": "MEASURED",
+     "element": "depth of the slithead body along the axis",
+     "description": "the plate drawn as a line from the slit tip back toward the dichroic: 215 px; at 1.0845 mm/px about 233 mm. The line is the plate seen edge-on; its length is the plate's width (the fibers lie along its curved edge)",
+     "value": "233 mm",
+     "basis": "Fig. 7 embedded image, x = 854 to 1068 px; scale below"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "collimator B",
+     "description": "spherical mirror, R 1263.904 mm, 175 wide x 419 tall; the tall direction runs along the slit; at the far (right) end of the long leg of the T",
+     "value": "R 1263.904 mm",
+     "basis": "Sec. 2.3.3; Fig. 14"
+    },
+    {
+     "tag": "MEASURED",
+     "element": "dichroic C center from the collimator",
+     "description": "the center ray (row 183 of the image) meets the plate at x = 647 px; the mirror vertex is at x = 1646 px: 999 px = 1083 mm at 1.0845 mm/px (1126 mm at the beam-derived 1.127 mm/px)",
+     "value": "1083 mm (+-5%)",
+     "basis": "Fig. 7 image; scale: slit tip (x = 1065 px, from two ray-convergence readings, 1060 and 1070) to mirror vertex = 581 px = 630.123 mm (Table 1) = 1.0845 mm/px; checks: beam 142 px = 154 mm (stated 160, -4%), mirror height 157 px = 170 mm (stated 175, -3%)"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "dichroic C",
+     "description": "plane BK7 plate 271 x 229 x 38 mm at 45 deg to the beam, the coating on the incident face; reflects blue, transmits red",
+     "value": "45 deg",
+     "basis": "Sec. 2.3.4; Fig. 7 caption"
+    },
+    {
+     "tag": "DERIVED",
+     "element": "red beam offset behind the dichroic",
+     "description": "the red chief ray leaves 10 px (11 mm) off the collimator axis in the drawing (red center line at y = 173 px, blue/collimator axis at y = 183 px); a 38 mm plate tilted 45 deg displaces the transmitted ray by t sin(45 - 28.2 deg)/cos(28.2 deg) = 12.4 mm (n = 1.52): the drawing is consistent with a refracted ray through the plate",
+     "value": "11 mm vs 12.4 mm",
+     "basis": "Fig. 7 image; Sec. 2.3.4"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "grating (pupil) distance from the collimator",
+     "description": "the gratings stand at the mirror's center of curvature, 1263.9 mm along the (folded) path",
+     "value": "1263.9 mm",
+     "basis": "Sec. 2.3.3"
+    },
+    {
+     "tag": "MEASURED",
+     "element": "blue grating: blue path from the dichroic",
+     "description": "the blue chief ray runs 160 px = 173 mm from the dichroic center to the center of the blue grism's hypotenuse (E box x 566-722, y 287-400 px; hypotenuse center y = 343 px): total 1083 + 173 = 1257 mm from the collimator",
+     "value": "1257 mm (+-5%)",
+     "basis": "Fig. 7 image, scale as above"
+    },
+    {
+     "tag": "MEASURED",
+     "element": "red grating",
+     "description": "the red chief ray runs 202 px = 219 mm from the dichroic center to the center of the red grism's hypotenuse (D box x 380-510, y 97-248 px; hypotenuse center x = 445 px): total 1302 mm from the collimator (the red prism is thicker: 70.7 mm on axis against 64.6 mm)",
+     "value": "1302 mm (+-5%)",
+     "basis": "Fig. 7 image, scale as above"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "grism orientation",
+     "description": "a right-angle prism (SDSS: 37 / 39.5 deg hypotenuse) with the grating on the hypotenuse, entered square to the beam, the beam leaving the grism undeviated at lambda_0; BOSS: a VPH layer between two prisms of apex 14.0 / 17.8 deg, the 'straight-through beam layout' kept",
+     "value": "straight through",
+     "basis": "Secs. 2.3.5, 3.3.4; Table 1-2"
+    },
+    {
+     "tag": "DERIVED",
+     "element": "dichroic position along the collimator-to-grating path (explorer foldPos), blue arm",
+     "description": "999 px / (999 + 160 px) = 0.86 within the figure itself (independent of the scale); 1083 / 1264 = 0.86",
+     "value": "0.86",
+     "basis": "Fig. 7 image"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "turning of the blue arm",
+     "description": "90 deg reflection at 45 deg incidence; as printed the beam runs left (west) from the collimator and the blue goes up (north): a clockwise (right-hand) turn of the beam direction. Red: no turn. For the All-arms view: one dichroic, blue = reflected (R), red = transmitted (T), split in the collimated beam",
+     "value": "+90 deg clockwise (as drawn)",
+     "basis": "Figs. 7, 22, 14a"
+    },
+    {
+     "tag": "SOURCED",
+     "element": "cameras",
+     "description": "red camera F on the collimator axis (to the left), blue camera G on the cross leg (up); all-refractive, f/1.5, 240 mm; the CCD at the end of each; length from the grating to the CCD: 52.6 + 364.5 = 417 mm (SDSS blue), 58.4 + 365.4 = 424 mm (SDSS red); BOSS 3.8-7 mm longer in the camera itself",
+     "value": "see camera row",
+     "basis": "Fig. 7; Table 1; Table 2"
+    },
+    {
+     "tag": "SCHEMATIC",
+     "element": "BOSS grism and camera spacing",
+     "description": "the grating-to-singlet air gap of BOSS is not decodable from Table 2; Fig. 22 shows the same arrangement as Fig. 7 with the trapezoid VPH grism assemblies",
+     "value": "-",
+     "basis": "Fig. 22"
+    }
+   ],
+   "measurement": {
+    "mirror_vertex_x": 1646,
+    "slit_tip_x": 1065,
+    "slit_plate_x": [
+     854,
+     1068
+    ],
+    "dichroic_center_x": 647,
+    "center_ray_y": 183,
+    "red_center_ray_y": 173,
+    "blue_grism_box": [
+     566,
+     287,
+     722,
+     400
+    ],
+    "red_grism_box": [
+     380,
+     97,
+     510,
+     248
+    ],
+    "beam_edge_rows": [
+     112,
+     254
+    ],
+    "mirror_rows": [
+     105,
+     262
+    ],
+    "image": "Smee2013_Fig7_embedded_JPEG_extracted_with_pdfimages.jpg (1741 x 781 px)",
+    "scale_mm_per_px": 1.0845
+   }
+  },
+  "performance_targets": [
+   {
+    "preset": "sdssb",
+    "what": "grism undeviated wavelength 4960 A",
+    "q": "lam0",
+    "lam": null,
+    "published": 4960,
+    "model": 4908.902653094567,
+    "err": -0.010301884456740629,
+    "tol": 0.015,
+    "info": false,
+    "src": "SM13 Sec. 2.3.5 (zero angular deviation at 4960 A); grism 640 /mm, apex 37 deg, N-BK7 (the index of the replica resin is not known, which may account for the 1%)"
+   },
+   {
+    "preset": "sdssr",
+    "what": "grism undeviated wavelength 7400 A",
+    "q": "lam0",
+    "lam": null,
+    "published": 7400,
+    "model": 7402.519363920501,
+    "err": 0.0003404545838514572,
+    "tol": 0.005,
+    "info": false,
+    "src": "SM13 Sec. 2.3.5; 440 /mm, apex 39.5 deg, N-BK7"
+   },
+   {
+    "preset": "sdssb",
+    "what": "fiber image 67.5 um = 2.81 px of 24 um (round image, full width)",
+    "q": "diam",
+    "lam": null,
+    "published": 2.8125,
+    "model": 2.848101279075405,
+    "err": 0.012658232560143867,
+    "tol": 0.03,
+    "info": false,
+    "src": "SM13 Sec. 2.3.8 (spot diagrams in a 67.5 um circle); 0.375 x 180 um"
+   },
+   {
+    "preset": "sdssr",
+    "what": "fiber image 67.5 um = 2.81 px of 24 um",
+    "q": "diam",
+    "lam": null,
+    "published": 2.8125,
+    "model": 2.8481012798401015,
+    "err": 0.012658232832036154,
+    "tol": 0.03,
+    "info": false,
+    "src": "SM13 Sec. 2.3.8"
+   },
+   {
+    "preset": "bossb",
+    "what": "fiber image 45 um = 3.0 px of 15 um (round image, full width)",
+    "q": "diam",
+    "lam": null,
+    "published": 3.0,
+    "model": 3.0379746933502867,
+    "err": 0.01265823111676223,
+    "tol": 0.03,
+    "info": false,
+    "src": "SM13 Sec. 3.3.7 (45 um circle) and Sec. 3.3.1 ('3 pixel')"
+   },
+   {
+    "preset": "bossr",
+    "what": "fiber image 45 um = 3.0 px of 15 um",
+    "q": "diam",
+    "lam": null,
+    "published": 3.0,
+    "model": 3.0379746934702805,
+    "err": 0.012658231156760236,
+    "tol": 0.03,
+    "info": false,
+    "src": "SM13 Sec. 3.3.7"
+   },
+   {
+    "preset": "bossb",
+    "what": "1.007 A/px at 3700 A (DERIVED from R = 1560 and sigma = 1 px)",
+    "q": "dlpixAt",
+    "lam": 3700,
+    "published": 1.007,
+    "model": 0.9972260095318085,
+    "err": -0.009706048131272516,
+    "tol": 0.08,
+    "info": false,
+    "src": "S4B R = 1560 at 3700 A; SM13 Sec. 4.1 'roughly one pixel RMS' (the 'roughly' sets the tolerance)"
+   },
+   {
+    "preset": "bossb",
+    "what": "1.122 A/px at 6000 A (DERIVED from R = 2270)",
+    "q": "dlpixAt",
+    "lam": 6000,
+    "published": 1.122,
+    "model": 1.1351394441848677,
+    "err": 0.011710734567618175,
+    "tol": 0.08,
+    "info": false,
+    "src": "S4B R = 2270 at 6000 A (blue channel)"
+   },
+   {
+    "preset": "bossr",
+    "what": "1.377 A/px at 6000 A (DERIVED from R = 1850)",
+    "q": "dlpixAt",
+    "lam": 6000,
+    "published": 1.377,
+    "model": 1.389106603316541,
+    "err": 0.008792014027989126,
+    "tol": 0.08,
+    "info": false,
+    "src": "S4B R = 1850 at 6000 A (red channel)"
+   },
+   {
+    "preset": "bossr",
+    "what": "1.442 A/px at 9000 A (DERIVED from R = 2650)",
+    "q": "dlpixAt",
+    "lam": 9000,
+    "published": 1.442,
+    "model": 1.4769505167170123,
+    "err": 0.024237528929967,
+    "tol": 0.08,
+    "info": false,
+    "src": "S4B R = 2650 at 9000 A"
+   },
+   {
+    "preset": "bossb",
+    "what": "R = 1560 at 3700 A (adopted design)",
+    "q": "RAt",
+    "lam": 3700,
+    "published": 1560,
+    "model": 1388.9784248743676,
+    "err": -0.10962921482412336,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4B. The model is 11% low: its R is the geometric line width of the round fiber image (FWHM 2.6 px), while SM13 measures sigma ~ 1 px (FWHM 2.35 px) by a Gaussian fit to collapsed arc lines; SM13 itself says the Zemax prediction 'is on the low side'"
+   },
+   {
+    "preset": "bossb",
+    "what": "R = 2270 at 6000 A (adopted design)",
+    "q": "RAt",
+    "lam": 6000,
+    "published": 2270,
+    "model": 2008.47492705521,
+    "err": -0.11520928323559032,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4B (same reason)"
+   },
+   {
+    "preset": "bossr",
+    "what": "R = 1850 at 6000 A (adopted design)",
+    "q": "RAt",
+    "lam": 6000,
+    "published": 1850,
+    "model": 1603.3702387535416,
+    "err": -0.13331338445754515,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4B"
+   },
+   {
+    "preset": "bossr",
+    "what": "R = 2650 at 9000 A (adopted design)",
+    "q": "RAt",
+    "lam": 9000,
+    "published": 2650,
+    "model": 2319.928266918758,
+    "err": -0.12455537097405367,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4B"
+   },
+   {
+    "preset": "sdssb",
+    "what": "R = 1500 at 3800 A",
+    "q": "RAt",
+    "lam": 3800,
+    "published": 1500,
+    "model": 1417.2824307632445,
+    "err": -0.055145046157837,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4D (a merged cell, 'Resolution 1500 at 3800 A, 2500 at 9000 A', not split by instrument)"
+   },
+   {
+    "preset": "sdssr",
+    "what": "R = 2500 at 9000 A",
+    "q": "RAt",
+    "lam": 9000,
+    "published": 2500,
+    "model": 2128.522608763144,
+    "err": -0.1485909564947424,
+    "tol": 0.1,
+    "info": true,
+    "src": "S4D; the model is 15% low. The derived dispersion (1.53 A/px from R and sigma = 1 px) is 16% finer than the model's 1.82 A/px, so the SDSS red R of S4D is likely a design curve (SM13 Fig. 11 plots a predicted R(lambda); its values were not read off)"
+   },
+   {
+    "preset": "bossb",
+    "what": "spectrum spacing within a v-groove block, 6 px (published) against 260 um x (240/631.95)/15 um = 6.58 px",
+    "q": "gapPx",
+    "lam": null,
+    "published": 6.0,
+    "model": 6.583333333333333,
+    "err": 0.0972222222222221,
+    "tol": 0.1,
+    "info": true,
+    "src": "SM13 Sec. 3.3.1; 6.5 px follows from the 260 um pitch (the paper's own 0.375 gives 6.50)"
+   },
+   {
+    "preset": "sdssb",
+    "what": "spectrum spacing within a block, 6 px",
+    "q": "gapPx",
+    "lam": null,
+    "published": 6.0,
+    "model": 6.170833333333333,
+    "err": 0.028472222222222232,
+    "tol": 0.05,
+    "info": false,
+    "src": "SM13 Sec. 2.3.1 (390 um gives 'six pixel center-to-center')"
+   }
+  ],
+  "model_run": {
+   "sdssB_F3.95": {
+    "slitW": 3.25605074860561,
+    "lam0": 4908.902653094567,
+    "lo": 3797.162300280199,
+    "hi": 6168.951539090526,
+    "dlpix": 1.1705373831252357,
+    "R": 1700.101664922712,
+    "Rs": 1700.251133283658,
+    "npix": 2.4665280494517887,
+    "pixScale": 1.3200947599814163,
+    "fcol": 632,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9649155231636468,
+      "R": 1396.3969285171668
+     },
+     "3800": {
+      "dlpix": 0.9878332547426207,
+      "R": 1417.2824307632445
+     },
+     "4000": {
+      "dlpix": 1.0297521775083753,
+      "R": 1462.2233659719852
+     },
+     "5000": {
+      "dlpix": 1.1811893311157373,
+      "R": 1725.893308918348
+     },
+     "6000": {
+      "dlpix": 1.2688776758983742,
+      "R": 2021.4822506992405
+     },
+     "7000": {
+      "dlpix": 1.315073015604552,
+      "R": 2330.769328893017
+     },
+     "8000": {
+      "dlpix": 1.3298950311725521,
+      "R": 2647.1044855451014
+     },
+     "9000": {
+      "dlpix": 1.3190589587263915,
+      "R": 2967.5491927317175
+     },
+     "10000": {
+      "dlpix": 1.2864978329049512,
+      "R": 3290.6319328105214
+     }
+    }
+   },
+   "sdssR_F3.95": {
+    "slitW": 3.25605074860561,
+    "lam0": 7402.519363920501,
+    "lo": 5766.554479909653,
+    "hi": 9214.94959338835,
+    "dlpix": 1.6963694804895586,
+    "R": 1768.8516303011345,
+    "Rs": 1769.1841623198331,
+    "npix": 2.466528050114036,
+    "pixScale": 1.3200947599814163,
+    "fcol": 632,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9871742916776752,
+      "R": 1067.931739845205
+     },
+     "3800": {
+      "dlpix": 1.022084772734914,
+      "R": 1078.3580903523425
+     },
+     "4000": {
+      "dlpix": 1.087372617286818,
+      "R": 1102.6786380104968
+     },
+     "5000": {
+      "dlpix": 1.3438292391676356,
+      "R": 1266.911681396138
+     },
+     "6000": {
+      "dlpix": 1.522925363169766,
+      "R": 1466.0731608908245
+     },
+     "7000": {
+      "dlpix": 1.6538864737735839,
+      "R": 1680.2335899765214
+     },
+     "8000": {
+      "dlpix": 1.750339703858778,
+      "R": 1902.1207782878053
+     },
+     "9000": {
+      "dlpix": 1.819369092342332,
+      "R": 2128.522608763144
+     },
+     "10000": {
+      "dlpix": 1.865164455109769,
+      "R": 2357.831742780373
+     }
+    }
+   },
+   "bossB_F3.95": {
+    "slitW": 2.170700499070407,
+    "lam0": 4946.722927045225,
+    "lo": 3259.9999991078253,
+    "hi": 7263.3056223667745,
+    "dlpix": 1.1056948417125352,
+    "R": 1700.1238106845758,
+    "Rs": 1700.4643069629867,
+    "npix": 2.630963248998559,
+    "pixScale": 0.8250592249883856,
+    "fcol": 632,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9972260095318085,
+      "R": 1388.9784248743676
+     },
+     "3800": {
+      "dlpix": 1.0111841589436015,
+      "R": 1409.5391819264812
+     },
+     "4000": {
+      "dlpix": 1.0354751268170717,
+      "R": 1453.8905715230535
+     },
+     "5000": {
+      "dlpix": 1.1081154049989093,
+      "R": 1715.1171767385647
+     },
+     "6000": {
+      "dlpix": 1.1351394441848677,
+      "R": 2008.47492705521
+     },
+     "7000": {
+      "dlpix": 1.1377830813679013,
+      "R": 2315.5326092147725
+     },
+     "8000": {
+      "dlpix": 1.123989688689608,
+      "R": 2629.5961828319846
+     },
+     "9000": {
+      "dlpix": 1.0973064795633924,
+      "R": 2947.714184580755
+     },
+     "10000": {
+      "dlpix": 1.0596426729283157,
+      "R": 3268.412070088361
+     }
+    }
+   },
+   "bossR_F3.95": {
+    "slitW": 2.170700499070407,
+    "lam0": 8059.300032940382,
+    "lo": 5168.010960124121,
+    "hi": 11078.905818277592,
+    "dlpix": 1.465724158311199,
+    "R": 2088.882523609091,
+    "Rs": 2089.923052467952,
+    "npix": 2.630963249102477,
+    "pixScale": 0.8250592249883856,
+    "fcol": 632,
+    "loc": {
+     "3700": {
+      "dlpix": 1.084697494355523,
+      "R": 1186.02669110412
+     },
+     "3800": {
+      "dlpix": 1.1095523078702494,
+      "R": 1195.8456643037302
+     },
+     "4000": {
+      "dlpix": 1.1542254436614097,
+      "R": 1219.6845593316004
+     },
+     "5000": {
+      "dlpix": 1.3060230550479874,
+      "R": 1390.452114035905
+     },
+     "6000": {
+      "dlpix": 1.389106603316541,
+      "R": 1603.3702387535416
+     },
+     "7000": {
+      "dlpix": 1.4373822202002868,
+      "R": 1834.3015271131171
+     },
+     "8000": {
+      "dlpix": 1.4646169142942427,
+      "R": 2074.448941970317
+     },
+     "9000": {
+      "dlpix": 1.4769505167170123,
+      "R": 2319.928266918758
+     },
+     "10000": {
+      "dlpix": 1.477416514488065,
+      "R": 2568.794955835929
+     }
+    }
+   },
+   "sdssB_F4": {
+    "slitW": 3.2153501142480403,
+    "lam0": 4908.902653094567,
+    "lo": 3797.162300280199,
+    "hi": 6168.951539090526,
+    "dlpix": 1.1705373831252357,
+    "R": 1721.6180835871603,
+    "Rs": 1721.7732995918348,
+    "npix": 2.4356964487429913,
+    "pixScale": 1.3200947599814168,
+    "fcol": 640,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9649155231636468,
+      "R": 1414.0707027778333
+     },
+     "3800": {
+      "dlpix": 0.9878332547426207,
+      "R": 1435.2204811437095
+     },
+     "4000": {
+      "dlpix": 1.0297521775083753,
+      "R": 1480.7300696046766
+     },
+     "5000": {
+      "dlpix": 1.1811893311157373,
+      "R": 1747.7360259262093
+     },
+     "6000": {
+      "dlpix": 1.2688776758983742,
+      "R": 2047.0641520160677
+     },
+     "7000": {
+      "dlpix": 1.315073015604552,
+      "R": 2360.262803041561
+     },
+     "8000": {
+      "dlpix": 1.3298950311725521,
+      "R": 2680.5975831702044
+     },
+     "9000": {
+      "dlpix": 1.3190589587263915,
+      "R": 3005.0926013866047
+     },
+     "10000": {
+      "dlpix": 1.2864978329049512,
+      "R": 3332.2575436186157
+     }
+    }
+   },
+   "sdssR_F4": {
+    "slitW": 3.2153501142480403,
+    "lam0": 7402.519363920501,
+    "lo": 5766.554479909653,
+    "hi": 9214.94959338835,
+    "dlpix": 1.6963694804895586,
+    "R": 1791.2335807715178,
+    "Rs": 1791.5788986282428,
+    "npix": 2.4356964493835895,
+    "pixScale": 1.3200947599814161,
+    "fcol": 640,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9871742916776752,
+      "R": 1081.4479766013255
+     },
+     "3800": {
+      "dlpix": 1.022084772734914,
+      "R": 1092.0062503427712
+     },
+     "4000": {
+      "dlpix": 1.087372617286818,
+      "R": 1116.6345184637014
+     },
+     "5000": {
+      "dlpix": 1.3438292391676356,
+      "R": 1282.9453873033742
+     },
+     "6000": {
+      "dlpix": 1.522925363169766,
+      "R": 1484.626166003727
+     },
+     "7000": {
+      "dlpix": 1.6538864737735839,
+      "R": 1701.4950186687224
+     },
+     "8000": {
+      "dlpix": 1.750339703858778,
+      "R": 1926.1875917110442
+     },
+     "9000": {
+      "dlpix": 1.819369092342332,
+      "R": 2155.4509886821584
+     },
+     "10000": {
+      "dlpix": 1.865164455109769,
+      "R": 2387.65740107144
+     }
+    }
+   },
+   "bossB_F4": {
+    "slitW": 2.143566742832027,
+    "lam0": 4946.722927045225,
+    "lo": 3259.9999991078253,
+    "hi": 7263.3056223667745,
+    "dlpix": 1.1056948417125352,
+    "R": 1721.6355834339195,
+    "Rs": 1721.9891716097643,
+    "npix": 2.598076208383548,
+    "pixScale": 0.8250592249883854,
+    "fcol": 640,
+    "loc": {
+     "3700": {
+      "dlpix": 0.9972260095318085,
+      "R": 1406.5556414271232
+     },
+     "3800": {
+      "dlpix": 1.0111841589436015,
+      "R": 1427.3764453989706
+     },
+     "4000": {
+      "dlpix": 1.0354751268170717,
+      "R": 1472.2887575492261
+     },
+     "5000": {
+      "dlpix": 1.1081154049989093,
+      "R": 1736.8185045378686
+     },
+     "6000": {
+      "dlpix": 1.1351394441848677,
+      "R": 2033.8841812351102
+     },
+     "7000": {
+      "dlpix": 1.1377830813679013,
+      "R": 2344.8209618728947
+     },
+     "8000": {
+      "dlpix": 1.123989688689608,
+      "R": 2662.8497163086518
+     },
+     "9000": {
+      "dlpix": 1.0973064795633924,
+      "R": 2984.981251199118
+     },
+     "10000": {
+      "dlpix": 1.0596426729283157,
+      "R": 3309.72198064457
+     }
+    }
+   },
+   "bossR_F4": {
+    "slitW": 2.143566742832027,
+    "lam0": 8059.300032940382,
+    "lo": 5168.010960124121,
+    "hi": 11078.905818277592,
+    "dlpix": 1.465724158311199,
+    "R": 2115.297250312543,
+    "Rs": 2116.3777746549863,
+    "npix": 2.598076208483913,
+    "pixScale": 0.8250592249883854,
+    "fcol": 640,
+    "loc": {
+     "3700": {
+      "dlpix": 1.084697494355523,
+      "R": 1201.034777338829
+     },
+     "3800": {
+      "dlpix": 1.1095523078702494,
+      "R": 1210.9779183793603
+     },
+     "4000": {
+      "dlpix": 1.1542254436614097,
+      "R": 1235.118264540444
+     },
+     "5000": {
+      "dlpix": 1.3060230550479874,
+      "R": 1408.0448622646163
+     },
+     "6000": {
+      "dlpix": 1.389106603316541,
+      "R": 1623.6539337691195
+     },
+     "7000": {
+      "dlpix": 1.4373822202002868,
+      "R": 1857.502370309027
+     },
+     "8000": {
+      "dlpix": 1.4646169142942427,
+      "R": 2100.681517316471
+     },
+     "9000": {
+      "dlpix": 1.4769505167170123,
+      "R": 2349.2577017699523
+     },
+     "10000": {
+      "dlpix": 1.477416514488065,
+      "R": 2601.2614627459993
+     }
+    }
+   }
+  },
+  "not_found": [
+   "Native dispersion (A per pixel) of each channel, SDSS and BOSS: neither SM13 nor the SDSS pages give it (the 1e-4 dex grid is the pipeline's resampling). Estimated from R and sigma ~ 1 px (DERIVED in r_definition) and computed by the explorer from the prescription (the two agree to 1-2.4% for BOSS).",
+   "Tables of the measured R(lambda) (SM13 Figs. 35 and 36 show 68% bands without numbers); no FIGURE READ-OFF was made.",
+   "Undeviated or Bragg wavelength of the BOSS grisms (blue 520 /mm, red 400 /mm); the explorer's lam0 = 4947 A and 8059 A are DERIVED for untilted, identical prisms.",
+   "Transition width of the BOSS dichroic (SDSS: about 50 nm for a 10%/90% zone).",
+   "Exact active format of the BOSS CCDs (rows x columns beyond '4k x 4k'; e2v CCD231-84 and LBNL), and the SDSS channel ranges individually (SM13 gives the combined 3800-9220 A and a 6000 A split).",
+   "BOSS air gap from the grism to the first camera element (Table 2's glass/air column does not decode unambiguously) and the camera's principal-plane position; camLen is DERIVED/INFERRED.",
+   "Any off-axis angle of the collimator: none is published or drawn (the geometry is on-axis, see collimator_on_axis).",
+   "A web corroboration for the original SDSS-I/II spectrograph: the SDSS-IV site links to classic.sdss.org's DR7 spectrograph page, which now redirects to a dead page, so SM13 (with Y00 and S4D) is the only source for the 640/440 l/mm grisms.",
+   "SDSS-V: no spectrograph change is documented here; the 500 robotic positioners with 2 arcsec fibers are in data/telescopes/sdss.md (the BOSS bench itself is the BOSS configuration)."
+  ],
+  "conflicts": [
+   "BOSS dichroic cut: 6050 A (SM13 Fig. 22 caption), 605 nm (Sec. 3.3.3), 640 nm (Sec. 3.3.1: \"Light blueward of 640 nm is reflected into the blue channel\"), 'roughly 6000 A' (S4B). Sec. 3.3.3 also calls 605 nm 'a 15 nm shift toward the red' from the SDSS cut, but the SDSS cut is 6000 A (Sec. 2.3.4, Fig. 7), a 5 nm shift. The record uses 6050 A (the caption and Sec. 3.3.3 agree) and treats 640 nm as a slip.",
+   "Collimator-to-grating distance: the text puts the gratings at the mirror's center of curvature, 1263.9 mm (Sec. 2.3.3), the Fig. 7 drawing MEASURES 1257 mm (blue) and 1302 mm (red) with the scale fixed by the slit-to-mirror distance; Table 1's rows sum to 1087.831 + 64.592 = 1152.4 mm (blue) and 1087.831 + 70.663 = 1158.5 mm (red) to the grating plane (the prism row's thickness is the glass on axis; the Zemax model omits the dichroic, which the real beam crosses or reflects from before the grism). The explorer uses 1263.9 mm (text, supported by the figure); the 105-112 mm gap to Table 1 is unexplained.",
+   "Collimator focal ratio: 'f/4' and a 160 mm beam (Sec. 2.3.1) = 640 mm, against R/2 = 631.95 mm (Tables 1-2) = f/3.95. The paper's demagnification 1.5/4 = 0.375 gives 67.5 um for the 180 um fiber; 240/631.95 gives 68.4 um (+1.3%). The preset takes the prescription (3.950).",
+   "BOSS spectrum spacing: 'separated by 6 pixels center-to-center' (Sec. 3.3.1) against 260 um x 0.375 / 15 um = 6.5 px within a v-groove block (the 6 px follows for SDSS: 390 x 0.375/24 = 6.1).",
+   "SDSS resolving power: ~2000 (SM13 abstract), 1800 (Y00), 1500 at 3800 to 2500 at 9000 A (S4D, one merged cell for both instruments); BOSS: 1560 at 3700 to 2650 at 9000 A (S4B, by channel) against 1300 at the blue end to 2600 at the red end (D13); all are rounded, and only SM13 Figs. 35-36 are the measurements.",
+   "BOSS coverage: 3560-10400 A (SM13 Sec. 4.2.1), 3650-10,400 A (S4D table), 361-1014 nm (D13), blue cameras 'at least 3600-6350 A' and red 'at least 5650-10000 A' (S4B), 3600-10400 A for the pipeline's mask (B12).",
+   "Peak efficiencies: predicted 17% and 22% (SDSS), 31% (BOSS) on sky (Secs. 2.3.8, 3.3.7); measured peak 21% (SDSS) and 29% (BOSS) (Sec. 4.2.3); '70% peak instrumental efficiency' against '45%' (Sec. 3.3.1). The last pair is the instrument alone (grating, camera, CCD, collimator, dichroic), the first two include telescope, fibers and seeing losses.",
+   "Fiber size: the SDSS fiber is described as 180 um / 3 arcsec (SM13, S4D); the plate scale makes it 2.98 arcsec. Y00 gives 0.2 mm, the outer size of the 180-198-218 fiber.",
+   "Telescope central obscuration: the BOSS fiber test used 'the 27% areal obscuration' (SM13 Sec. 3.2.2); data/telescopes/sdss.md has 26.0% (secondary baffle) or 28.6% (with the conical baffle) on axis. A telescope matter, not changed here."
+  ],
+  "notes": [
+   "ERAS AND SETTINGS. Two Preset-menu lines, each with two Settings: 'BOSS' (Blue channel, Red channel; 2009 onward, still in use in SDSS-IV and SDSS-V) and 'SDSS-I/II' (Blue channel, Red channel; 1999-2008). Each line can have an All-arms view with its own dichroic tree: BOSS cut 6050 A, SDSS 6000 A, both 45 deg in the collimated beam, one shared slit, collimator and fiber head. Recommend BOSS as the default entry, listed first.",
+   "WHY THE SDSS BLUE/RED GRISMS ARE 'ruled': the original gratings were replicas of ruled masters (new masters from Hyperfine), cemented on the hypotenuse of right-angle prisms; the explorer's ruled-grism relation m G lam0 = (n-1) sin A returns 4909 and 7403 A against the published 4960 and 7400 A zero-deviation wavelengths. BOSS's VPH grisms use the explorer's VPH model; the 3.5 deg layer tilt (a ghost fix) and the unequal apex angles it needs (14 +- 3.5 deg) are not modeled.",
+   "FIBER ENTRY. Use the explorer's 'virtual' convention as for APOGEE: F = 3.950 (the collimator's ratio, W = 160 mm, f_col = 631.95 mm), slit = 0.866 x core / (F x D): 3.256 arcsec (SDSS, 180 um) and 2.171 arcsec (BOSS, 120 um); on the sky the fibers subtend 2.98 and 1.99 arcsec. telF = 5, fibAp = 3.0 and 2.0 give the Telescope box the f/5 focus and the on-sky sizes.",
+   "ON-AXIS COLLIMATOR (deploy gate). The slit plate (< 3.2 mm thick, 233 mm deep along the axis) stands edge-on in the middle of the returning beam; SM13 calls the arrangement a 'one-dimensional Schmidt collimator' without corrector, and BOSS added a 3/16 inch vertical strip down the middle of the mirror to stop reflections from the fiber tips. The obstruction is a thin vertical strip (2-3% of the beam width), not a central circle: set colTilt 0, and the explorer's returning-beam drawing applies. Hectospec is the nearest existing analogue (Schmidt-type, fiber head in the returning beam).",
+   "SHARED PROPERTIES OF THE FOUR SETTINGS: collimator 631.95 mm, beam 160 mm, camera 240 mm f/1.5, dichroic 45 deg, layLen 1263.9 mm (center of curvature). Per arm: the red arm needs no fold (the camera sits on the collimator axis, offset 11 mm by the refracting dichroic plate in the drawing), the blue arm gets the dichroic as a 90 deg fold at foldPos 0.86 (turn clockwise as printed).",
+   "MODEL COMPARISON (explorer physics, F = 3.950, run on 2026-11-17 in a scratch script, nothing in web/ changed). The fiber image and the spectrum pitch reproduce SM13 (diam 1-1.4%, SDSS pitch 2.8%), the zero-deviation wavelengths agree to 1.0% and 0.04%, and the dispersion agrees with the one derived from R and sigma = 1 px to 0.9-2.4% for BOSS. The explorer's R is 11-13% below the adopted BOSS design (geometric FWHM 2.6 px against a measured Gaussian fit near 2.35 px, and SM13 says its own prediction 'is on the low side'); the SDSS red R at 9000 A is 15% below (and the derived dispersion differs by 16%, so the S4D value is probably a design curve).",
+   "WHAT THE EXPLORER CANNOT REPRESENT: the tilted VPH layer and unequal prisms of BOSS; the curved slit and fan of fibers (the one-dimensional Schmidt geometry that keeps the fiber images round over the 126-139 mm slit); the detector curvature (field flatteners, 'saddle-shaped focal plane'); the spatial variation of R across the CCD (20-25% worse at the slit ends); chip ranges cut by the dichroic and throughput (the model draws the whole chip: BOSS blue 3260-7263 A, red 5168-11079 A, SDSS blue 3797-6169 A, red 5767-9215 A, against the data ranges 3560-10400 A and 3800-9220 A); second-order light in the red; two independent spectrographs (one is drawn).",
+   "LAYOUT SOURCE QUALITY. The only published layout is SM13 Fig. 7 (SDSS) and Fig. 22 (BOSS), Zemax-style line drawings with no scale bar; the numbers MEASURED here take the scale from the slit-to-mirror distance in Table 1 (630.123 mm), which two other dimensions of the drawing (beam, mirror height) confirm to 3-4%. Fig. 14 and Fig. 29 are mechanical sections of the same T-shaped bench.",
+   "SOURCES. SM13 is the arXiv preprint v2 (21 May 2013), 'Draft version October 15, 2018' in its header: the printed AJ text may differ in detail."
+  ]
+ }
+}

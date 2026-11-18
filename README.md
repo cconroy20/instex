@@ -145,8 +145,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   width; the Disperser box is wider): Telescope (D, F) | Entrance (slit width, number of objects; readouts: width at the focus and
   the angle θ′ = θ_g cos α/cos β the slit subtends in the beam arriving at the detector, θ_g = φD/W) |
   Spectrograph (collimator Lens | Mirror; W, camera focal ratio, camera–collimator angle (reflection) or γ
-  (echelle)) | Disperser (Grating | Echelle in the box header; the grating kind, Reflection | Transmission | Grism,
-  with the grating incidence for a transmission grating and the apex, glass and Ruled | VPH for a grism) | Detector. Grating
+  (echelle)) | Disperser (Grating | Echelle in the box header; the grating kind, Reflection | Transmission | Grism | Prism,
+  with the grating incidence for a transmission grating, the apex, glass and Ruled | VPH for a grism, and the apex, glass
+  and 1 | 2 | 3 prisms for a prism spectrograph) | Detector. Grating
   and Echelle each remember their own entrance, optics and detector; the telescope is shared. The state
   is kept in the URL hash, written a moment after the last change; a link edited by hand is followed, and a value
   of the wrong kind in the link (a negative size, an unknown glass) is ignored. A preset whose instrument the link
@@ -696,13 +697,30 @@ not on the page. The band's wavelength enters only the diffraction width.
     λ0 is found by scanning the glass's valid range for the fixed point and bisecting (the root nearest λc when
     there are several); a grism with none in range is reported, not drawn. Choosing Grism sets A so that λ0 starts
     at the current λc (and leaving Grism restores the grating's grooves); switching Ruled | VPH keeps λ0.
+  - Grating mode, prism (2026-11-17): a prism spectrograph, the main disperser one or more prisms (g.pA, g.pN of the
+    glass g.gGlass, or a preset's train g.pPrisms [{ glass, A, dI }]), each at minimum deviation for λc and bending the
+    same way; no grooves and no orders. The camera follows the deviated beam, so λc lands at the detector center and
+    sets the prisms. Each prism turns λc by 2i − A, sin i = n sin(A/2), and keeps the beam's width; the faces are traced
+    by Snell's law with the glass index following the wavelength, so the dispersion falls steeply toward the red. The
+    diffraction limit is W′ dθ/dλ from the traced directions, equal to b |dn/dλ| with b the glass base (the difference
+    in glass path across the beam). validate.js checks the deviation, the width, the base, R and the dispersion against
+    these formulas for one and three prisms. Drawing: the prisms in turn along λc's path, each with the beam's footprint
+    at the middle of its faces and the apex inside the bend, each later prism the smallest clear gap past the one before
+    (schematic); 3D: the prisms extruded along the slit. Presets: Slipher's spectrograph on the Lowell 24-inch refractor
+    (round 7, data/round7/slipher.md): one 64° prism for the nebulae of 1912–1917, two 64.5° prisms (NGC 1068, 1917) and
+    the stellar three-prism train of 1904, whose 62°52′ prisms turn the beam 176° back beside the collimator, as Slipher
+    describes. The glasses are modern stand-ins (Schott N-SF15 and SF2, INFERRED); N-SF15's data sheet tabulates indices
+    only to 4047 Å, so the nebular spectra stop there, short of Slipher's H (3968 Å). The photographic plate enters as
+    the measured part of the plate with 20 µm "pixels" near the plates' resolving limit.
   - Echelle mode: α = δ + θ, β = δ − θ at the blaze center (θ in-plane, presets only; HIRES θ = 5°), the
     beam out of the dispersion plane by γ; m λ_blaze = cos γ (sin α + sin β)/G. Cross-disperser: a
     first-order reflection grating (camera–collimator angle 10° unless a preset says otherwise), a VPH grating
     in first order at the Bragg setting for λc, a prism
     (N passes, each at minimum deviation for λc), or a grism whose exit face carries the grating, apex set
     so that λc passes undeviated: sin A = G λc/(n − 1). The cross-disperser's dispersion plane holds the
-    reference ray and the normal to the echelle dispersion.
+    reference ray and the normal to the echelle dispersion. A preset may follow its prisms with a grism
+    (e.xGrism { G, A, glass }, 2026-11-17: ELODIE's F2 prism and crown grism), entered square to the beam with its
+    first order dispersing the same way, so the two dispersions add (validate.js: ELODIE's order spacings).
 - **Camera**: set by its focal ratio on the diffracted beam, f_cam = F_cam W' (W' = W cos β/cos α); presets
   keep their sourced focal lengths and the slider shows the ratio they imply. An ideal f tan θ lens about the axis of the reference ray (λc at the slit center; in echelle
   mode the echelle blaze direction, cross-dispersed as λc): (X, Y) = f_cam (u·x̂, u·ŷ)/(u·ẑ).
@@ -961,6 +979,16 @@ within 27 Å, dispersion within 0.5% of the measured arcs); FORS2's ruled grisms
 dispersion to 0.2–0.9%. New glasses: OHARA S-LAL7, SCHOTT LF5 and N-BAK2. (8) Detector rendering: traces packed
 closer than their own width (IFU spaxels) are dimmed so the sum keeps one trace's brightness, and traces denser
 than the screen can show are thinned and widened (zooming in restores them).
+
+Round 7 (2026-11-17; records in data/round7/, sources in rawdata/presets/<id>/): FAST on the Tillinghast 1.5 m (four
+grating setups, Mink et al. Table 1; dispersions and pixel scale scored), the Hamilton echelle on the Shane 3 m (two
+CCD eras; the user's guide's order table scored, R = 64,000 measured; the band bounded to the table's orders 163 to
+57), the Palomar Double Spectrograph (blue 600/4000 and red 316/7500 behind the D55; pixel scales and dispersions
+scored; the collimator drawn as one mirror on the axis, its Cassegrain secondary not drawn), the SDSS-I/II and BOSS
+spectrographs (four arms, All-arms groups with their dichroics; one scored zero-deviation wavelength, the R lines
+reference only: the published R comes from Gaussian fits), ELODIE (prism + grism cross-disperser; the order spacing at
+the format's ends and the coverage are reported as misses), and Slipher's prism spectrograph (see Physics,
+prism). The on/off-axis verdicts of the mirror collimators are in validate.js COL_AXIS.
 
 ## Preset and Setting menus
 

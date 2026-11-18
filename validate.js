@@ -260,6 +260,19 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     const Lg = 92.8 * Math.cos(ep) / (Math.cos(e) * Math.cos(A - ep)), Wp = Lg * Math.cos(A - e);
     check("tilted grism: lit length W cos e'/(cos e cos(A - e')) and beam W' = Lg cos(A - e)", rel(Gt.Lg, Lg) < 1e-9 && rel(Gt.Wp, Wp) < 1e-9, `${Gt.Lg.toFixed(2)} / ${Gt.Wp.toFixed(2)} mm`);
   }
+  // a prism spectrograph (gType "prism"): N identical prisms at minimum deviation for lambda_c turn the beam by
+  // N (2i - A), sin i = n sin(A/2), keep its width, and give dtheta/dlambda = N 2 sin(A/2) / cos i |dn/dlambda| and the
+  // diffraction limit R = b |dn/dlambda|, b = N 2 W sin(A/2) / cos i (the glass base); lambda_c lands at the center
+  for (const [N, A, gl] of [[1, 60, "F2"], [3, 60, "F2"], [1, 45, "N-BK7"]]) {
+    const Pp = { mode: "grating", D: 0.61, F: 16, feed: "slit", slitL: 0, slitW: 2, W: 50, Fc: 2.5, gType: "prism", gGlass: gl, pA: A, pN: N,
+      G: 600, m: 1, lamB: 5000, psi: 30, lamC: 4500, Nx: 2000, Ny: 500, pix: 20 };
+    const Sp = IX.design(Pp), l = 0.45, n = IX.nGlass(gl, l), dn = (IX.nGlass(gl, l + 1e-5) - IX.nGlass(gl, l - 1e-5)) / 2e-5;
+    const a = A * DEG, i = Math.asin(n * Math.sin(a / 2)), b = N * 2 * 50 * Math.sin(a / 2) / Math.cos(i);
+    const ok = !Sp.bad && rel(Sp.prism.dev, N * (2 * i - a)) < 1e-9 && rel(Sp.Wp, 50) < 1e-9 && rel(Sp.Lg, b) < 1e-9 && rel(Sp.c.Rd, b * 1000 * Math.abs(dn)) < 1e-4
+      && rel(Sp.c.disp, Sp.fcam * N * 2 * Math.sin(a / 2) / Math.cos(i) * Math.abs(dn)) < 1e-4 && Math.abs(Sp.c.X) < 1e-9;
+    check(`prism: ${N} x ${A} deg ${gl} at minimum deviation (deviation, width, base, R = b dn/dlambda, dispersion, lambda_c centered)`, ok,
+      Sp.bad || `dev ${(Sp.prism.dev / DEG).toFixed(3)} deg, Rd ${Sp.c.Rd.toFixed(0)}`);
+  }
   // an echelle order whose blaze center lies outside the prism glass's range is kept if part of it is on the chip
   {
     const Mk = IX.design({ mode: "echelle", feed: "slit", slitL: 0, D: 6.5, F: 500 / 150, slitW: 1, W: 150, fcam: 500, eG: 52.6, eDelta: 63.5, gamma: 0, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "PBM2Y", xA: 47, xPasses: 2, lamC: 10500, Nx: 4096, Ny: 2048, pix: 15 });
@@ -315,6 +328,7 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
           break;
         }
         case "alphaDeg": val = S.alpha / DEG; break;
+        case "devDeg": val = S.prism ? S.prism.dev / DEG : NaN; break;      // a prism train's deviation of the central wavelength
         case "Rdiam": val = S.c.Rs * Math.sqrt(3) / 2; break;      // R from the full fiber-image width (equivalent slit = (sqrt 3/2) d)
         case "gapPx": { const m = p.state[p.state.mode === "echelle" ? "e" : "g"];   // fibers in groups: the pitch within a group
           val = Array.isArray(m.fgroups) ? m.fgroups[1] / 1000 / S.pixmm : S.Ly / m.nObj / S.pixmm; break; }
@@ -352,6 +366,11 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     [/^pfs/, "on", "Vives et al. 2012, 2014 Fig. 2; Pascal et al. 2014: Schmidt collimator with the central obscuration"],
     [/^desi/, "on", "DESI 2022 Sec. 7.1: \"reflected directly back toward the fiber slit array\""],
     [/^via$/, "on", "Via technical document, Zemax layout (the slit in the returning beam)"],
+    [/^dbsp[br]$/, "on", "Oke & Gunn 1982 Sec. III.A and Fig. 1; Palomar DBSP overview Sec. 4.b: the light enters \"through holes in the collimator primaries\" (coaxial folded Cassegrain; data/round7/dbsp.md, INFERRED)"],
+    [/^(boss|sdss)[br]$/, "on", "Smee et al. 2013: \"The slitplates are in the beam\" (a one-dimensional Schmidt collimator)"],
+    [/^fast/, "off", "Fabricant et al. 1998 Sec. 3.4: an off-axis parabolic collimator, 8.5 deg off axis"],
+    [/^elodie$/, "off", "Baranne et al. 1996: \"the off-axis illumination of M1 and M2\" (separate collimator mirrors, Fig. 1)"],
+    [/^hamilton/, "off", "Vogt 1987: \"The collimator is an off-axis parabolic mirror\"; the beam turned 11 deg"],
     [/^lris$/, "off", "Oke et al. 1995 Sec. 2: off-axis parabola"],
     [/^hires$/, "off", "Vogt et al. 1994: spherical, tilted 1.75 deg"],
     [/^mage$/, "off", "Marshall et al. 2008: off-axis paraboloid"],

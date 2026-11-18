@@ -107,7 +107,8 @@ function set(cv, list) {
     }
     const px = lengths(r.p), S = s.map(x => x - s[0] + s0);
     // (k: distance per pixel, so that a pulse keeps its length on the screen)
-    const c = parse(r.c), tl = rampT(c);
+    // (t: the ray's place on the wavelength scale, where a drawing in other colors gives it: the All-arms view)
+    const c = parse(r.c), tl = r.t != null ? Math.min(1, Math.max(0, r.t)) : rampT(c);
     rays.push({ p: r.p, s: S, c, per: tl === null ? WAVE_PER : WAVE_SHORT + tl * (WAVE_LONG - WAVE_SHORT), k: (S[S.length - 1] - S[0]) / (px[px.length - 1] || 1), trail: r.trail !== false, g: r.g });
   }
   v.rays = rays;

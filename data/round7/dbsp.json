@@ -1,0 +1,1738 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 7: Palomar Hale 5.08 m / DBSP (Double Spectrograph), blue and red arms",
+  "compiled": "2026-11-17",
+  "companion": "data/round7/dbsp.md (same content as Markdown)",
+  "quote_check": "158 quote pieces, 0 failures",
+  "telescope": "data/telescopes/hale.md",
+  "note": "Extra keys: layout (figure-derived element list with SOURCED/MEASURED tags), recommended_presets (explorer inputs), arms (GROUPS draft)"
+ },
+ "sources": {
+  "OG82": {
+   "cite": "Oke, J. B. & Gunn, J. E. 1982, PASP 94, 586, \"An Efficient Low Resolution and Moderate Resolution Spectrograph for the Hale Telescope\" (ADS title; the scan header reads \"An efficient low- and moderate-resolution spectrograph for the Hale telescope\"), bibcode 1982PASP...94..586O. ADS scan with an OCR text layer (reads the multiplication sign as chi, f/15.7 as \"//15.7\", the angstrom as A-circumflex); quotes are checked against that text layer. PDF p. = printed page - 585 (PDF p. 1 = p. 586). Byte-identical copy of key OG82 in data/telescopes/hale.md and of the long-slit round",
+   "file": "rawdata/presets/dbsp/OkeGunn1982_PASP94_586_DBSP_ADSscan.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1982PASP...94..586O"
+  },
+  "OGADS": {
+   "cite": "ADS record (raw API JSON, fetched 2026-11-17) for OG82: title, abstract, DOI 10.1086/131027 (title check of the bibcode)",
+   "file": "rawdata/presets/dbsp/ads_1982PASP...94..586O_OkeGunn.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/1982PASP...94..586O/abstract"
+  },
+  "PDS": {
+   "cite": "Palomar Observatory (Caltech), \"Double Spectrograph (DBSP) Technical Specifications\", v 2.1, last updated 09 Feb 2018 (page text; fetched 2026-10-16). Byte-identical copy of key PDS in data/telescopes/hale.md and data/imaging/fourshooter.md. The page text is the current configuration (red camera 12 in, new LBNL CCD)",
+   "file": "rawdata/presets/dbsp/palomar_dbspspecs.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspspecs.html"
+  },
+  "POV": {
+   "cite": "Palomar Observatory (Caltech), \"Double Spectrograph (DBSP) Overview\", v 2.2.5, last updated 18 September 2020 (page text; fetched 2026-11-17): optics, grating-angle geometry, slit choices, dichroics, grating table; the news item \"Red Upgrade 2011 December 18 (E. Kirby)\". Tag-stripped HTML; the page also embeds the figures PGD, RTF, OKF1, D52, D55",
+   "file": "rawdata/presets/dbsp/palomar_dbspoverview.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspoverview.html"
+  },
+  "PCB": {
+   "cite": "Palomar Observatory (Caltech), \"Double Spectrograph (DBSP) Cookbook\" (page text; fetched 2026-11-17): hardware setup, filters, focus section with measured arc-line widths",
+   "file": "rawdata/presets/dbsp/palomar_dbspcookbook.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspcookbook.html"
+  },
+  "PTH": {
+   "cite": "Palomar Observatory (Caltech), \"DBSP Throughput\" page (estimates from 2010 standard-star data, before the red CCD upgrade; fetched 2026-11-17)",
+   "file": "rawdata/presets/dbsp/palomar_dbspthroughput.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspthroughput.html"
+  },
+  "PRD": {
+   "cite": "Palomar Observatory (Caltech), \"DBSP Red Upgrade\" page (a wrapper that embeds the paper K11; fetched 2026-11-17); the paper itself is key K11",
+   "file": "rawdata/presets/dbsp/palomar_dbspred.html",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbspred.html"
+  },
+  "K11": {
+   "cite": "Kirby, E. N. & Rahmer, G. 2011, \"An Upgraded Red Channel for the Palomar Double Spectrograph\" (10 pp.; author preprint on the Palomar site, the paper embedded in the \"DBSP Red Upgrade\" page; no journal reference printed on it; the authors give Caltech affiliations). Text-layer PDF",
+   "file": "rawdata/presets/dbsp/Kirby2011_DBSP_red_upgrade_palomar.pdf",
+   "url": "https://sites.astro.caltech.edu/research/coo/info/dbspUpgrade2011.pdf"
+  },
+  "RA12": {
+   "cite": "Rahmer, G., Smith, R. M., Bui, K., Kirby, E., Dekany, R., Croner, E. & Milburn, J. 2012, Proc. SPIE 8446, 2Z, \"A new deep-depletion CCD for the red channel of the Palomar Double Spectrograph\" (bibcode 2012SPIE.8446E..2ZR; ADS record, abstract only; the full paper was not found free). Raw ADS API JSON, fetched 2026-11-17",
+   "file": "rawdata/presets/dbsp/ads_2012SPIE.8446E..2ZR_Rahmer.json",
+   "url": "https://ui.adsabs.harvard.edu/abs/2012SPIE.8446E..2ZR/abstract"
+  },
+  "C22": {
+   "cite": "Chen, G., Wang, H., van Boekel, R. & Palle, E. 2022, \"Detection of Na and K in the atmosphere of the hot Jupiter HAT-P-1b with P200/DBSP\", arXiv:2207.12563v2 (draft of 2022 August 31): Sec. 2 gives the D52 + 600/4000 blue + 316/7500 red setup with its dispersions, a seeing-limited use of the long slit, and the two CCD plate scales",
+   "file": "rawdata/presets/dbsp/Chen2022_HAT-P-1b_DBSP_arXiv2207.12563.pdf",
+   "url": "https://arxiv.org/pdf/2207.12563"
+  },
+  "PYP": {
+   "cite": "PypeIt (Prochaska et al.) pypeit/spectrographs/p200_dbsp.py, GitHub pypeit/PypeIt commit db2e3ea (2025-11-18, the last commit to this file on the release branch): the DBSP blue and red detector definitions, the camera-collimator angles 38.5 and 35.0 deg and the camera focal lengths 9 and 12 in used to predict the dispersion, and the list of grating/dichroic combinations with arc templates. Read only, never executed",
+   "file": "rawdata/presets/dbsp/pypeit_db2e3ea_p200_dbsp.py",
+   "url": "https://github.com/pypeit/PypeIt/blob/db2e3ea64e21e14880baf906b40c56f97f64796b/pypeit/spectrographs/p200_dbsp.py"
+  },
+  "RTF": {
+   "cite": "Palomar Observatory, \"Raytrace of DBSP Red\" (figure dbspraytrace.gif, 834 x 525 px, embedded in POV Sec. 3). Figure only: values read from it are FIGURE READ-OFF",
+   "file": "rawdata/presets/dbsp/palomar_dbspraytrace.gif",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbl_spec/dbspraytrace.gif"
+  },
+  "OKF1": {
+   "cite": "Palomar Observatory, \"Fig. 1 from Oke and Gunn\" (figure okefig1.jpeg, 434 x 642 px, embedded in POV Sec. 4.b): the web copy of the OG82 Fig. 1 layout. The measurements below are made on the OG82 scan itself (PDF p. 4, 200 dpi)",
+   "file": "rawdata/presets/dbsp/palomar_okefig1.jpeg",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbl_spec/okefig1.jpeg"
+  },
+  "PGD": {
+   "cite": "Palomar Observatory, \"Diagram of one side, collimator and grating\" (figure gratingdiag.jpg, 385 x 543 px, embedded in POV Sec. 4.b): the grating geometry with theta_i = \"grating angle\" and the grating equation",
+   "file": "rawdata/presets/dbsp/palomar_gratingdiag.jpg",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbl_spec/gratingdiag.jpg"
+  },
+  "D52": {
+   "cite": "Palomar Observatory, \"Dichroic D52\" transmittance curve (figure d52.gif, 1026 x 707 px, embedded in POV Sec. 4.e; the legend reads \"FILTER: FILTER5\"). Figure only: crossover wavelengths are FIGURE READ-OFF",
+   "file": "rawdata/presets/dbsp/palomar_d52.gif",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbl_spec/d52.gif"
+  },
+  "D55": {
+   "cite": "Palomar Observatory, \"Dichroic D55\" transmittance curve (figure d55.gif, 1026 x 707 px, embedded in POV Sec. 4.e; legend \"FILTER: FILTER5\"). Figure only",
+   "file": "rawdata/presets/dbsp/palomar_d55.gif",
+   "url": "https://sites.astro.caltech.edu/palomar/observer/200inchResources/dbl_spec/d55.gif"
+  },
+  "HALE": {
+   "cite": "data/telescopes/hale.md and hale.json (the explorer's Hale 200-inch record, 2026-11-16): Cassegrain f/16, 81.28 m, 2.5377 arcsec/mm, D = 5.08 m; read for consistency, not re-sourced here",
+   "file": null,
+   "url": "(project file)"
+  }
+ },
+ "dbsp": {
+  "title": "Palomar Hale 5.08 m / DBSP (Double Spectrograph at the Cassegrain focus: a dichroic behind the slit splits the light into two separate spectrographs, blue and red, each with a Cassegrain collimator, a reflection grating, a camera and a CCD)",
+  "recommended_preset": "Two entries of the instrument DBSP: blue 600/4000 and red 316/7500, both behind the D55 dichroic; see recommended_presets.",
+  "recommended_presets": [
+   {
+    "id": "dbspb",
+    "name": "Palomar / DBSP blue, 600/4000, D55, 1″",
+    "inst": "DBSP",
+    "setting": "blue, 600/4000",
+    "state": {
+     "mode": "grating",
+     "D": 5.08,
+     "F": 15.83,
+     "g": {
+      "slitW": 1,
+      "nObj": 1,
+      "col": "mirror",
+      "colTilt": 0,
+      "cam": "mirror",
+      "layLen": 880,
+      "camLen": null,
+      "W": 146,
+      "fcam": 228.6,
+      "gType": "refl",
+      "G": 600,
+      "m": 1,
+      "lamB1": 4000,
+      "lamC": 4400,
+      "psi": 38.5,
+      "tAlpha": null,
+      "Nx": 4096,
+      "Ny": 2048,
+      "pix": 15
+     }
+    },
+    "basis": "G = 600 l/mm blazed 4000 A and the blue camera 9 in = 228.6 mm, psi = 38.5 deg (POV, PYP; OG82: 38.333 deg); the dichroic D55; lamC = 4400 A is CHOSEN (the middle of the D55 blue band 3200-5500 A), not sourced; CCD 23 with 4096 along the dispersion (PDS)."
+   },
+   {
+    "id": "dbspr",
+    "name": "Palomar / DBSP red, 316/7500, D55, 1″",
+    "inst": "DBSP",
+    "setting": "red, 316/7500",
+    "state": {
+     "mode": "grating",
+     "D": 5.08,
+     "F": 15.83,
+     "g": {
+      "slitW": 1,
+      "nObj": 1,
+      "col": "mirror",
+      "colTilt": 0,
+      "cam": "lens",
+      "layLen": 880,
+      "camLen": 340,
+      "W": 146,
+      "fcam": 304.8,
+      "gType": "refl",
+      "G": 316,
+      "m": 1,
+      "lamB1": 7500,
+      "lamC": 7500,
+      "psi": 35.0,
+      "tAlpha": null,
+      "Nx": 4096,
+      "Ny": 2048,
+      "pix": 15
+     }
+    },
+    "basis": "G = 316 l/mm blazed 7500 A, red camera 12 in = 304.8 mm (lens), psi = 35.0 deg, LBNL 4096 x 2048 x 15 um; lamC = 7500 A is the blaze, CHOSEN (the D55 red band is 5500-11000 A)."
+   }
+  ],
+  "params": {
+   "telescope_aperture": {
+    "name": "Telescope aperture (the Hale mirror)",
+    "value": 5.08,
+    "unit": "m",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Abstract, PDF p. 1",
+    "quote": "designed and built for the Cassegrain focus of the Hale 5.08- meter telescope",
+    "alternatives": [
+     {
+      "value": "5.08 (Palomar: 200-inch, 5.1 m)",
+      "src": "HALE",
+      "loc": "Pupil table, D_m",
+      "quote": null,
+      "note": "see data/telescopes/hale.md: the mirror is the stop, no undersized pupil"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "telescope_focus": {
+    "name": "Telescope focus",
+    "value": "Cassegrain f/16 focus of the Hale telescope (two reflections), instrument mounted in the Cassegrain cage",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II, PDF p. 1",
+    "quote": "It was anticipated that the Spectrograph would be sufficiently large that it would have to be a Cassegrain instrument",
+    "alternatives": [
+     {
+      "value": "Cassegrain focus",
+      "src": "POV",
+      "loc": "Introduction",
+      "quote": "for the Palomar 200-inch telescope Cassegrain focus"
+     },
+     {
+      "value": "grating angle dials reached up a ladder 'from the Cass cage'",
+      "src": "POV",
+      "loc": "Sec. 5.a",
+      "quote": "carry it down the ladder from the Cass cage"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "cass_focal_ratio_OG82": {
+    "name": "Cassegrain focal ratio and scale as stated by the designers",
+    "value": "f/15.7 and 2.5 arcsec/mm",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II, PDF p. 1",
+    "quote": "The focal ratio of the Cassegrain of the Hale telescope is ... 15.7 and the scale is 2.5 arc sec mm-1",
+    "alternatives": [
+     {
+      "value": "f/15.7 (the slit lies in the Cassegrain focal plane)",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "The slit lies in the f/15.7 Cassegrain focal plane of the Palomar 200-inch telescope"
+     }
+    ],
+    "derived": "f/15.7 on D = 5080 mm is 79.76 m and 2.586 arcsec/mm; 2.5 arcsec/mm is f/16.24 (206264.8 / (2.5 x 5080)). The two OG82 numbers are mutually inconsistent (rounding of the scale); see Conflicts.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "slit_scale": {
+    "name": "Plate scale at the slit",
+    "value": 2.57,
+    "unit": "arcsec/mm",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 3 Scale",
+    "quote": "2.57″/mm at the slit",
+    "alternatives": [],
+    "derived": "DERIVED: F_eff = 206264.8 / (2.57 x 5080 mm) = 15.80 (the f/ratio that the slit scale implies); the collimator gives F = f_col / W = 2311.4 / 146 = 15.83 (1.4 mm of 2311 mm); the Hale record's f/16 is 2.538 arcsec/mm. See Conflicts and the recommended state.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "slit_length": {
+    "name": "Slit length (current)",
+    "value": 128,
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 6 Single Slit",
+    "quote": "Length: 128″",
+    "alternatives": [
+     {
+      "value": "128",
+      "src": "POV",
+      "loc": "Sec. 4.d",
+      "quote": "The DBSP may be operated with a single long slit of length 128″"
+     },
+     {
+      "value": "125 arcsec (1982 design: 50 mm unvignetted)",
+      "src": "OG82",
+      "loc": "Sec. II.C, PDF p. 1",
+      "quote": "unvignetted slit length of 50 mm (125 arc sec) should be available"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "slit_widths": {
+    "name": "Slit widths (current, one slit wheel)",
+    "value": "0.5, 1, 1.5, 2, 4, 6, 8, 10",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 6 Single Slit",
+    "quote": "Width: ½″, 1″, 1.5″, 2″, 4″, 6″, 8″, 10″",
+    "alternatives": [
+     {
+      "value": "1/2, 1, 1.5, 2, 4, 6, 8 and 10",
+      "src": "POV",
+      "loc": "Sec. 4.d",
+      "quote": "available slit widths are 1/2, 1, 1.5, 2, 4, 6, 8 and 10″"
+     },
+     {
+      "value": "0.5, 1.0, 2.0 by 125 arcsec (1982: three slits plus seven apertures on an eight-position wheel)",
+      "src": "OG82",
+      "loc": "Sec. III.D, PDF p. 5",
+      "quote": "Three slits are provided with breadths of 0.5, 1.0, and 2.0 arc sec by 125 arc sec long"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "unvignetted_field": {
+    "name": "Unvignetted field (both cameras, current)",
+    "value": "about 120 x 70",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.c (note on the centerfield camera)",
+    "quote": "The unvignetted field of view for all cameras is about 120″ × 70″",
+    "alternatives": [
+     {
+      "value": "1982 design: 25 x 50 mm in the slit plane = 62 x 125 arcsec",
+      "src": "OG82",
+      "loc": "Sec. II.C-D and III.A, PDF pp. 1-3",
+      "quote": "there is no vignetting for any image within an area of 25 χ 50 mm in the plane of the slit"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "n_spectra": {
+    "name": "Number of spectra on the detector",
+    "value": 1,
+    "unit": null,
+    "tag": "INFERRED",
+    "src": "POV",
+    "loc": "Sec. 4.d",
+    "quote": "The DBSP may be operated with a single long slit",
+    "alternatives": [],
+    "derived": null,
+    "note": "One long slit: one spectrum (the extended source or a star plus sky along the 128 arcsec slit) per arm; multislit and the 1982 seven-aperture set are not in the current page (the multislit text is commented out in the page source 'AFB 28 March 2016').",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "collimator_type": {
+    "name": "Collimator type",
+    "value": "Cassegrain mirror collimator, one per arm (a large annular concave primary with a central hole and a small secondary cemented to a fused-quartz plate); both collimators in the beam behind the dichroic",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.A, PDF p. 2",
+    "quote": "it was decided to use Cassegrain collimators",
+    "alternatives": [
+     {
+      "value": "Cassegrain collimators (Fig. 1 caption)",
+      "src": "OG82",
+      "loc": "Fig. 1, PDF p. 4",
+      "quote": "Cassegrain col- limators. The gratings are directly below the collimators."
+     },
+     {
+      "value": "the light enters through holes in the primaries; secondaries on fused-quartz plates",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "before entering collimators through holes in the collimator primaries"
+     },
+     {
+      "value": "secondaries on transparent plates",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "The collimator secondaries are attached to (transparent) fused quartz plates that are optically flat"
+     },
+     {
+      "value": "secondaries cemented to quartz plates, invar-rod spacing",
+      "src": "OG82",
+      "loc": "Sec. III.A, PDF p. 2",
+      "quote": "the secondaries are ce- mented to fused quartz optically flat plates"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "collimator_focal_length": {
+    "name": "Collimator effective focal length (both arms)",
+    "value": 2311,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.A, PDF p. 2",
+    "quote": "The effective focal length of the collimator is 2311 mm",
+    "alternatives": [
+     {
+      "value": "91 inches (red and blue)",
+      "src": "PDS",
+      "loc": "items 1 Collimators",
+      "quote": "Red focal length: 91 inches ... Blue focal length: 91 inches"
+     }
+    ],
+    "derived": "DERIVED: 91 in x 25.4 = 2311.4 mm (agrees with OG82's 2311 mm).",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "beam_diameter": {
+    "name": "Collimated beam diameter",
+    "value": 146,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2",
+    "quote": "a large-diam- eter collimated beam was necessary. This was chosen to be 146 mm",
+    "alternatives": [
+     {
+      "value": "beam at the gratings slightly less than the 152 mm grating breadth",
+      "src": "OG82",
+      "loc": "Sec. III.A, PDF p. 3",
+      "quote": "the beam size at the gratings is slightly less than the grating breadth of 152 mm"
+     }
+    ],
+    "derived": "DERIVED: f_col / D_beam = 2311.4 / 146 = f/15.83 (the slit-side focal ratio the collimator accepts).",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "collimator_onaxis": {
+    "name": "Collimator on- or off-axis",
+    "value": "ON-AXIS (Cassegrain: the arriving beam passes through a hole in the primary and the secondary stands in the middle of the collimated beam; no tilt)",
+    "unit": null,
+    "tag": "INFERRED",
+    "src": "OG82",
+    "loc": "Sec. III.A, PDF p. 2; Fig. 1, PDF p. 4",
+    "quote": "This allows the secondaries to be no larger than the shadow of the prime-focus cage in the collimated beam, thus eliminating any vignetting",
+    "alternatives": [
+     {
+      "value": "the light enters 'through holes in the collimator primaries'",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "before entering collimators through holes in the collimator primaries"
+     },
+     {
+      "value": "two parallel spectrographs; the primaries produce second pupils between grating and camera",
+      "src": "OG82",
+      "loc": "Sec. III.A, PDF p. 3",
+      "quote": "The primaries of the Cas- segrain collimators produce second pupils between the gratings and the camera corrector plates"
+     }
+    ],
+    "derived": null,
+    "note": "DEPLOY GATE (evidence): INFERRED from the text plus the layout figures. A Cassegrain collimator is coaxial by construction: the secondary (hole in the primary 54 mm = the cage's shadow) sits on the axis of the collimated beam, so the beam returns along the incoming axis (colTilt 0). Fig. 1 (OG82, PDF p. 4) and the 'Raytrace of DBSP Red' (RTF) both draw the ring-shaped primary with the arriving beam in its hole and the secondary on its axis; nothing is tilted. The slit does NOT stand in the returning beam (the dichroic and the prism blocks fold the beam to the collimator's hole), which is the other on-axis geometry in the explorer (Hectospec, DESI). The 'field points +/-1 arcmin' in RTF are off-axis field points, not an off-axis collimator.",
+    "pdf_pages": [
+     2
+    ]
+   },
+   "collimator_field_lenses": {
+    "name": "Field lenses and prism blocks ahead of each collimator",
+    "value": "a field lens cemented to a fused-quartz block that splits the light for each collimator; the red block is a displacing (rhomboid) prism, the blue block a 90-degree turning prism; filters F follow, then the collimator",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.A, PDF p. 2; Fig. 1 caption, PDF p. 4",
+    "quote": "Field len- ses, cemented to the fused quartz blocks which separate the light into the two spectrograph collimators, serve to produce a pupil close to the secondaries of the collima- tors",
+    "alternatives": [
+     {
+      "value": "Fig. 1 caption",
+      "src": "OG82",
+      "loc": "Fig. 1, PDF p. 4",
+      "quote": "The upper part of the spectrograph showing the slit, dichroic mirror, field lenses, separating prisms, filters (F), and Cassegrain col- limators."
+     },
+     {
+      "value": "the light passes 'through field lenses, into prisms, and through filters'",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "The light then passes through field lenses, into prisms, and through filters before entering collimators"
+     }
+    ],
+    "derived": null,
+    "note": "The shapes (blue: 45-degree face turning the beam down; red: parallelogram shifting the beam sideways) are read from OG82 Fig. 1; the text calls them 'separating prisms' and 'quartz blocks'.",
+    "pdf_pages": [
+     2
+    ]
+   },
+   "collimator_grating_distance": {
+    "name": "Secondary-to-grating distance",
+    "value": 490,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.A, PDF p. 3",
+    "quote": "The gratings are mounted approximately 49 cm below the Cassegrain collimator secondaries",
+    "alternatives": [],
+    "derived": null,
+    "note": "'approximately'. The RTF raytrace, scaled by the 146 mm beam, shows 600 mm (FIGURE READ-OFF, 24 percent longer; that figure is the later red-side drawing). The recommended layLen uses the SOURCED 490 mm.",
+    "pdf_pages": [
+     3
+    ]
+   },
+   "collimator_primary_secondary": {
+    "name": "Collimator primary-to-secondary spacing",
+    "value": 390,
+    "unit": "mm",
+    "tag": "MEASURED",
+    "src": "OG82",
+    "loc": "Fig. 1, PDF p. 4 (200 dpi)",
+    "quote": null,
+    "alternatives": [],
+    "derived": "MEASURED: in Fig. 1 the primary's face is at y = 392 px and the secondary's quartz plate at y = 793 px (130 dpi page raster), 401 px; the scale is the 146 mm collimated beam (rims x = 148 and 300 px, 152 px; 0.96 mm/px): 401 x 0.96 = 385 mm. The RTF raytrace, scaled the same way (beam 67.5 px, primary x = 255, secondary plate x = 441.5, 186 px at 2.16 mm/px), gives 402 mm. Adopted 390 mm, +/- 15 mm.",
+    "note": null,
+    "pdf_pages": null
+   },
+   "collimator_hole_size": {
+    "name": "Hole in the primary / secondary size (the cage shadow)",
+    "value": 54,
+    "unit": "mm",
+    "tag": "MEASURED",
+    "src": "OG82",
+    "loc": "Fig. 1, PDF p. 4 (200 dpi)",
+    "quote": null,
+    "alternatives": [],
+    "derived": "MEASURED: the gap between the two halves of the blue primary is 86 px at 200 dpi (x = 207 to 293 px) and the beam rims are 233 px apart (x = 130 and 363): 146 mm x 86 / 233 = 54 mm; the central obstruction in the collimated beam is therefore 0.37 of the beam, the 0.36 of the 72-inch prime-focus cage on a 5080 mm aperture (hale.md; text: 'no larger than the shadow of the prime-focus cage'). Primary outside diameter 275 px = 172 mm.",
+    "note": null,
+    "pdf_pages": null
+   },
+   "collimator_two_arms": {
+    "name": "Layout of the two arms",
+    "value": "two parallel, completely separate spectrographs: the collimated beams run side by side, 199 mm apart (blue axis left, red axis right in Fig. 1)",
+    "unit": null,
+    "tag": "MEASURED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2; Fig. 1, PDF p. 4",
+    "quote": "the spectrograph should consist of two parallel spectrographs",
+    "alternatives": [],
+    "derived": "MEASURED (axis separation): blue hole center x = 250 px, red hole center x = 568 px (200 dpi crop), 318 px x (146/233) = 199 mm.",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dichroic_position": {
+    "name": "Dichroic position",
+    "value": "immediately behind the entrance slit, in the diverging f/15.8 beam, ahead of the field lenses, prism blocks and collimators (one dichroic for both arms)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2",
+    "quote": "using a dichroic filter located immediately behind the en- trance aperture or slit",
+    "alternatives": [
+     {
+      "value": "one dichroic per run, chosen in advance",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "the observer chooses (once for each run) one of four dichroics"
+     }
+    ],
+    "derived": "MEASURED (Fig. 1, 200 dpi crop; scale 0.627 mm/px from the 146 mm beam): slit to dichroic center 115 px = 72 mm; the dichroic is 148 px = 93 mm long in the figure's plane. These lengths are read from a schematic drawing; +/- 20 percent.",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dichroic_aoi": {
+    "name": "Dichroic angle of incidence",
+    "value": 45,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2",
+    "quote": "The dichroic, mounted at 45°, re- flects blue and violet light and transmits red and near-infrared light",
+    "alternatives": [],
+    "derived": "Fig. 1 draws it at 46 deg (MEASURED, slope of the dichroic: 107 px / 103 px), consistent with 45.",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dichroic_sense": {
+    "name": "Which arm each side of the dichroic feeds",
+    "value": "BLUE is reflected (turned 90 deg to the side), RED is transmitted (continues straight)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2",
+    "quote": "re- flects blue and violet light and transmits red and near-infrared light",
+    "alternatives": [],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dichroic_cut_design": {
+    "name": "Dichroic cut wavelength (1982 as built)",
+    "value": 5200,
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. II.E, PDF p. 2",
+    "quote": "The final switchover wavelength was lowered to 5200",
+    "alternatives": [
+     {
+      "value": "originally planned near 5500 A",
+      "src": "OG82",
+      "loc": "Sec. II.E, PDF p. 2",
+      "quote": "The dividing wavelength was selected to be near 5500"
+     }
+    ],
+    "derived": null,
+    "note": "The scan's OCR renders the angstrom sign as a circumflexed A, so the quote ends at the number.",
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dichroic_set": {
+    "name": "Dichroics now available (red/blue transition, A)",
+    "value": "D48 4800, D52 5200, D55 5500, D68 6800",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 8 Dichroic Filters",
+    "quote": "48 4800 Å ... 52 5200 Å ... 55 5500 Å ... 68 6800 Å",
+    "alternatives": [
+     {
+      "value": "about 4800, 5200, 5500, 6800",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "one of four dichroics, with dividing wavelengths of about 4800, 5200, 5500, or 6800"
+     },
+     {
+      "value": "no curves for D48 and D68",
+      "src": "POV",
+      "loc": "Sec. 4.e Dichroic Curves",
+      "quote": "We have no curves for D48 or D68, but their quality is presumably comparable"
+     }
+    ],
+    "derived": null,
+    "note": "Changing the dichroic takes the instrument off the telescope and is done in the daytime (PCB Sec. 1: 'changes require taking instrument off telescope, and are done only in the daytime').",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "dichroic_D55_curve": {
+    "name": "D55 transmission curve (figure): 50 percent point and width",
+    "value": "50 percent at 5490 A; transmission 20 percent at 5320 A and 80 percent at 5640 A (width 80 percent reflection to 80 percent transmission: 320 A; 10 to 80 percent: 5165 to 5637 A); plateau ~ 85-92 percent",
+    "unit": "A",
+    "tag": "FIGURE READ-OFF",
+    "src": "D55",
+    "loc": "figure, axes 3000-11000 A and 0-100 percent",
+    "quote": null,
+    "alternatives": [],
+    "derived": "FIGURE READ-OFF: traced the curve of d55.gif (1026 x 707 px) by pixel, calibrating the axes with the printed ticks (3 at x = 170 px, 11 at x = 1015 px; 100 percent at y = 104 px, 0 percent at y = 617 px): T = 10 / 20 / 50 / 70 / 80 percent at 5165 / 5319 / 5490 / 5567 / 5637 A. Accuracy of the read-off about +/- 20 A.",
+    "note": null,
+    "pdf_pages": null
+   },
+   "dichroic_D52_curve": {
+    "name": "D52 transmission curve (figure): 50 percent point and width",
+    "value": "50 percent at 5320 A (nominal 5200); 20 percent at 5117 A and 80 percent at 5570 A (width 453 A; 10 percent at 5020 A); plateau 80 to 93 percent with a dip near 6300 A",
+    "unit": "A",
+    "tag": "FIGURE READ-OFF",
+    "src": "D52",
+    "loc": "figure, axes 3000-11000 A and 0-100 percent",
+    "quote": null,
+    "alternatives": [],
+    "derived": "FIGURE READ-OFF, same method as D55: T = 10 / 20 / 50 / 70 / 80 percent at 5020 / 5117 / 5322 / 5497 / 5570 A. The curve is the 'efficiency as measured by OCLI' era dichroic; note the 50 percent point (5320 A) lies 120 A redward of the designation.",
+    "note": null,
+    "pdf_pages": null
+   },
+   "dichroic_second_order": {
+    "name": "Dichroic leak (current)",
+    "value": "second-order light leaks longward of 9100 A (order-blocking filter RG610 recommended)",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 3 news, Red Upgrade 2011 December 18",
+    "quote": "The dichroic filters have second-order light leaks which affect wavelengths longward of 9100",
+    "alternatives": [
+     {
+      "value": "RG610 is filter R3 in the red filter wheel",
+      "src": "PCB",
+      "loc": "Sec. 1 Hardware Setup, filter table",
+      "quote": "RG610 [b]"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blue_camera_type_1982": {
+    "name": "Blue camera type (1982)",
+    "value": "folded Schmidt camera with a field-flattening lens at the detector; f/1.5 for a monochromatic collimated beam; corrector plate 175 x 216 mm",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.B, PDF p. 3; Fig. 2, PDF p. 4",
+    "quote": "The blue camera is a conventional folded Schmidt design shown in Figure 2",
+    "alternatives": [
+     {
+      "value": "Fig. 2 caption",
+      "src": "OG82",
+      "loc": "Fig. 2, PDF p. 4",
+      "quote": "The blue ... 1.5 folded Schmidt camera including the field-flat- tening lens at the detector."
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     3
+    ]
+   },
+   "blue_camera_f_1982": {
+    "name": "Blue camera focal length and reduction (1982)",
+    "value": 229,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.B, PDF p. 3",
+    "quote": "the focal length is 229 mm which gives a reduction factor between the entrance slit plane and the camera focal plane of 10.1",
+    "alternatives": [],
+    "derived": "DERIVED: 2311 / 229 = 10.09. f/ratio 229 / 152 = 1.51 (the text's f/1.5 for the 152 mm grating breadth).",
+    "note": null,
+    "pdf_pages": [
+     3
+    ]
+   },
+   "blue_camera_now": {
+    "name": "Blue camera (current)",
+    "value": "reflecting f/1.5 Schmidt camera with a field-flattening lens immediately in front of the detector; focal length 9 inches (228.6 mm)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.b Optics; Sec. 4.c",
+    "quote": "the blue side has a reflecting f/1.5 Schmidt camera with a field-flattening lens immediately in front of the detector",
+    "alternatives": [
+     {
+      "value": "Blue focal length: 9 inches",
+      "src": "PDS",
+      "loc": "item 2 Cameras",
+      "quote": "Blue focal length: 9 inches"
+     },
+     {
+      "value": "the focal length of the blue camera is 9 inches (page text '9inches' [sic])",
+      "src": "POV",
+      "loc": "Sec. 4.c",
+      "quote": "the focal length of the blue camera is 9inches"
+     },
+     {
+      "value": "PypeIt: 9 inch in the dispersion prediction",
+      "src": "PYP",
+      "loc": "BlueSpectrograph.config_specific_par",
+      "quote": "disp = np.cos(theta_m)/(lines_mm * 9 * u.imperial.inch)"
+     }
+    ],
+    "derived": "DERIVED: 9 in = 228.6 mm; OG82's 229 mm. f/ratio 228.6/146 = 1.57 for the 146 mm beam (1.50 for 152 mm).",
+    "note": "POV notes that 'the blue side camera has changed' since the old grating curves (Sec. 3, item 4) and that 'both cameras have been replaced' (Sec. 3, item 1): what changed in the blue camera is NOT FOUND; the focal length and the Schmidt type are unchanged in PDS and POV.",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blue_psi_1982": {
+    "name": "Blue camera-collimator angle (1982)",
+    "value": 38.333,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.B, PDF p. 3",
+    "quote": "The angle between the blue collimator and the axis of the blue camera as seen from the grating is 38° 20'",
+    "alternatives": [],
+    "derived": "38 deg 20 arcmin = 38.333 deg.",
+    "note": null,
+    "pdf_pages": [
+     3
+    ]
+   },
+   "blue_psi_now": {
+    "name": "Blue camera-collimator angle (current docs)",
+    "value": 38.5,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.c Grating Angle",
+    "quote": "For the red side, this sum is 35.00°; for the blue side, it is 38.50°",
+    "alternatives": [
+     {
+      "value": "38.5 deg in the prediction",
+      "src": "PYP",
+      "loc": "BlueSpectrograph.config_specific_par",
+      "quote": "theta_m = 38.5 * 2*np.pi / 360. - angle"
+     }
+    ],
+    "derived": "Conflict with 38.333 deg (OG82): see Conflicts. POV defines the sum as the grating angle plus the diffracted-beam angle (POV Sec. 4.c: 'the sum of the grating angle and the angle made by the outgoing diffracted beam is fixed by the geometry of the instrument'), i.e. the camera-collimator angle of the explorer's psi.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_camera_type_1982": {
+    "name": "Red camera type (1982)",
+    "value": "Schmidt camera, f/1.0 for a monochromatic collimated beam, 152 mm focal length, 178 mm corrector aperture (25 mm thick: the corrector is the dewar window), CCD at the prime focus behind a spherical field flattener",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.C, PDF p. 4",
+    "quote": "The focal ratio for a collimated monochromatic beam is ... 1.0 with the camera focal length being 152 mm",
+    "alternatives": [
+     {
+      "value": "angle 35 deg 00 arcmin; corrector 178 mm; reduction 15.2",
+      "src": "OG82",
+      "loc": "Sec. III.C, PDF p. 4",
+      "quote": "as seen from the grating is 35° 00'"
+     },
+     {
+      "value": "corrector aperture and reduction factor",
+      "src": "OG82",
+      "loc": "Sec. III.C, PDF p. 4",
+      "quote": "The clear aperture of the Schmidt corrector is 178 mm. The scale reduction from the entrance slit to the focal plane is 15.2"
+     }
+    ],
+    "derived": "DERIVED: 2311 / 152 = 15.2; f/ratio 152 / 146 = 1.04.",
+    "note": null,
+    "pdf_pages": [
+     4
+    ]
+   },
+   "red_camera_replaced": {
+    "name": "Red camera, replaced in 1995",
+    "value": "the Schmidt camera was replaced by a seven-element lens camera designed by H. Epps (Lick), together with a new CCD (1995)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "K11",
+    "loc": "Sec. 1 Introduction, p. 1",
+    "quote": "The origi- nal camera between the collimator and the detector was replaced with a seven-element design by Harland Epps of the University of California/Lick Observatories",
+    "alternatives": [
+     {
+      "value": "the red camera is now transmissive (lenses)",
+      "src": "POV",
+      "loc": "Sec. 4.b Optics",
+      "quote": "The red camera currently consists of transmissive optics (lenses)"
+     },
+     {
+      "value": "a lensed system with wavelength-dependent focus",
+      "src": "PCB",
+      "loc": "Sec. 5 Setup Tasks",
+      "quote": "Also it is important to note that the red camera is a lensed system"
+     },
+     {
+      "value": "the 2011 upgrade changed only the dewar and CCD, no optics except the dewar window",
+      "src": "K11",
+      "loc": "Sec. 4, p. 4",
+      "quote": "We did not modify any part of the spectrograph’s optics except for the de- war window"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_camera_f_now": {
+    "name": "Red camera focal length (current)",
+    "value": 304.8,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 2 Cameras",
+    "quote": "Red focal length: 12 inches",
+    "alternatives": [
+     {
+      "value": "the focal length of the red camera is 12 inches",
+      "src": "POV",
+      "loc": "Sec. 4.c",
+      "quote": "The focal length of the red camera is 12 inches"
+     },
+     {
+      "value": "PypeIt: 12 inch",
+      "src": "PYP",
+      "loc": "RedSpectrograph.config_specific_par",
+      "quote": "disp = np.cos(theta_m)/(lines_mm * 12 * u.imperial.inch)"
+     }
+    ],
+    "derived": "DERIVED: 12 in = 304.8 mm. Check from the plate scale (PDS 0.293 arcsec per 15 um pixel = 19.53 arcsec/mm; slit 2.57 arcsec/mm): reduction 7.60, f_cam = 2311.4 / 7.60 = 304.1 mm (0.2 percent from 304.8). The earlier 24 um CCD (0.468 arcsec/pixel = 19.50 arcsec/mm, K11 Table 1) gives 304.6 mm: the lens camera did not change in 2011.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_camera_fratio": {
+    "name": "Red camera focal ratio",
+    "value": "f/2.09 for the 146 mm beam",
+    "unit": null,
+    "tag": "DERIVED",
+    "src": "PDS",
+    "loc": "item 2 Cameras (with OG82 beam)",
+    "quote": "Red focal length: 12 inches",
+    "alternatives": [],
+    "derived": "DERIVED: 304.8 mm / 146 mm = 2.09. The Epps design's own f/ratio and element prescription are NOT FOUND; only the focal length is published. (OG82's original red Schmidt was f/1.0.)",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_psi": {
+    "name": "Red camera-collimator angle",
+    "value": 35.0,
+    "unit": "deg",
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.c Grating Angle",
+    "quote": "For the red side, this sum is 35.00°",
+    "alternatives": [
+     {
+      "value": "35 deg 00 arcmin (1982)",
+      "src": "OG82",
+      "loc": "Sec. III.C, PDF p. 4",
+      "quote": "as seen from the grating is 35° 00'"
+     },
+     {
+      "value": "35.0 deg in the prediction",
+      "src": "PYP",
+      "loc": "RedSpectrograph.config_specific_par",
+      "quote": "theta_m = 35.0 * 2*np.pi / 360. - angle"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "grating_angle_definition": {
+    "name": "Definition of the grating angle",
+    "value": "the angle between the incident beam (from the collimator) and the grating normal, theta_i; the camera sits at theta_m = psi - theta_i on the other side; a (sin theta_m - sin theta_i) = m lambda in the page's sign convention (the explorer's alpha = t + psi/2 incident, beta = t - psi/2, same physics)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.b, 4.c; figure PGD",
+    "quote": "is called the grating angle, and is the angle between the incident optical beam (from the collimator) and the normal to the grating",
+    "alternatives": [
+     {
+      "value": "grating angle 0 = grating perpendicular to the incident beam; positive turns the face toward the camera",
+      "src": "POV",
+      "loc": "Sec. 4.f / 5.b",
+      "quote": "Grating angle = 0 puts the grating perpendicular to the incident beam from the collimator"
+     },
+     {
+      "value": "a grating angle of 29.5 deg appears in the red-channel throughput example",
+      "src": "PTH",
+      "loc": "red-channel throughput figure caption",
+      "quote": "at a grating angle of 29.5°"
+     }
+    ],
+    "derived": "DERIVED check of the sign: red 600 l/mm, psi = 35 deg, grating angle 29.5 deg: |sin(35 - 29.5) - sin 29.5| / 600 per mm = 6620 A, inside the D55 red band, so the incidence angle is the LARGER of the two angles, as in the explorer's alpha = t + psi/2 (alpha > |beta|).",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blue_detector_now": {
+    "name": "Blue detector (current)",
+    "value": "e2v CCD 23: 2048 x 4096 (4096 along the dispersion), 15 um pixels, 0.389 arcsec/pixel; rows 575-3410 unvignetted; read noise 2.5 e-",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "items 3-4 Scale, Detectors",
+    "quote": "Blue: CCD 23; 2048 × 4096 (in the 4096 dispersion axis; rows 575 thru 3410 are un-vignetted); 15µm pixels",
+    "alternatives": [
+     {
+      "value": "E2V 4096 x 2048, 15 um, in service 2005, read noise 2.5 e-, 0.389 arcsec/pixel",
+      "src": "K11",
+      "loc": "Table 1, p. 5",
+      "quote": "Dimensions (pixels) 4096 × 2048 1024 × 1024 4096 × 2048"
+     },
+     {
+      "value": "scale 0.389 arcsec per pixel for the blue camera",
+      "src": "PDS",
+      "loc": "item 3 Scale",
+      "quote": "0.389″/pixel for the blue camera"
+     },
+     {
+      "value": "blue plate scale 0.389",
+      "src": "C22",
+      "loc": "Sec. 2",
+      "quote": "The blue and red CCDs have a pixel scale of"
+     }
+    ],
+    "derived": "DERIVED: the unvignetted length 3410 - 575 + 1 = 2836 px x 15 um = 42.5 mm. Scale check: slit 2.57 arcsec/mm x 10.09 reduction x 0.015 mm = 0.389 arcsec/px.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_detector_now": {
+    "name": "Red detector (current)",
+    "value": "LBNL deep-depletion CCD, 4096 x 2048 (4096 along the dispersion), 15 um pixels, 0.293 arcsec/pixel; the slit fills 440 of the 2048 rows; read noise 8 e-",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "items 3-4",
+    "quote": "Red: New LBNL CCD; 4096 × 2048; 15µm pixels",
+    "alternatives": [
+     {
+      "value": "0.293 arcsec per pixel (new LBNL CCD)",
+      "src": "PDS",
+      "loc": "item 3 Scale",
+      "quote": "0.293″/pixel for the red camera (new LBNL CCD)"
+     },
+     {
+      "value": "in service 2011 October 27; 250 um thick; 4096 x 2048, 15 um; read noise 8 e-",
+      "src": "K11",
+      "loc": "Sec. 4-5 and Table 1",
+      "quote": "The silicon is 250 µm thick and fully de- pleted"
+     },
+     {
+      "value": "the spectrum covers 4096 pixels along the dispersion and 440 of 2048 spatially",
+      "src": "K11",
+      "loc": "Sec. 4, p. 5",
+      "quote": "The spectrum covers the entire length of the CCD (4096 pixels) but only 440 of the 2048 pixels in the spatial axis"
+     },
+     {
+      "value": "0.293 for the red CCD",
+      "src": "C22",
+      "loc": "Sec. 2",
+      "quote": "respectively. A summary of the two"
+     }
+    ],
+    "derived": "DERIVED: 128 arcsec / 0.293 = 437 px (K11: 440). Slit-plane scale check: 2.57 x 7.58 x 0.015 = 0.292 arcsec/px.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_detector_1982": {
+    "name": "Red detector (1982)",
+    "value": "3-phase thinned TI 800 x 800 CCD, 15 um pixels (256 pixels used across), read noise 7 e-, 167 K",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.G, PDF pp. 5-6",
+    "quote": "a 3-phase 800 χ 800 thinned TI CCD",
+    "alternatives": [
+     {
+      "value": "15-micron pixels",
+      "src": "OG82",
+      "loc": "Sec. III.D-E, PDF p. 5",
+      "quote": "15-micron pixels"
+     },
+     {
+      "value": "1995-2011: Tektronix 1024 x 1024, 24 um pixels, 0.468 arcsec/pixel",
+      "src": "K11",
+      "loc": "Table 1, p. 5",
+      "quote": "Plate scale (arcsec pixel−1 ) 0.389 0.468 0.293"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     5
+    ]
+   },
+   "blue_detector_1982": {
+    "name": "Blue detector (1982)",
+    "value": "thinned RCA CCD, 320 x 512, 30 um pixels (15 mm long), read noise ~40 e-, 140 K; or a Shectman pulse-counting Reticon or a Boksenberg IPCS",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.G, PDF p. 6",
+    "quote": "One of the blue detectors is a buried-channel thinned RCA CCD with 320 X 512 pixels",
+    "alternatives": [
+     {
+      "value": "30-micron pixels (the 0.5 arcsec slit is 20 um on the detector, ~one pixel)",
+      "src": "OG82",
+      "loc": "Sec. IV, PDF p. 6",
+      "quote": "nearly all of the light in a comparison line should fall into one or two of the 30-micron CCD pixels"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     6
+    ]
+   },
+   "detector_history": {
+    "name": "Detector history of the two channels",
+    "value": "blue: RCA 320 x 512 replaced four times (TI 800 x 800 1987, Tektronix 1024 x 1024 1994, Loral 2688 x 512 2002, e2v 4096 x 2048 2005); red: TI 800 x 800, Tektronix 1024 x 1024 (1995), LBNL 4096 x 2048 (2011)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "K11",
+    "loc": "Sec. 1 Introduction, p. 1",
+    "quote": "The original RCA 320 × 512 CCD on the blue channel was replaced four times",
+    "alternatives": [
+     {
+      "value": "red detector replaced 27 October 2011 (old 1024 x 1024, 24 um, to LBNL 4096 x 2048, 15 um)",
+      "src": "POV",
+      "loc": "Sec. 3 news, Red Upgrade",
+      "quote": "the old red detector (1024 × 1024, 24 µm pixels) was replaced with an LBNL deep-depletion CCD (4096 × 2048, 15 µm pixels)"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "grating_size": {
+    "name": "Grating ruled area",
+    "value": "154 x 206 mm (breadth 152 mm usable for the beam)",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.E, PDF p. 5",
+    "quote": "These all have 154 χ 206 mm ruled areas",
+    "alternatives": [],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     5
+    ]
+   },
+   "grating_complement": {
+    "name": "Grating complement and rules",
+    "value": "8 gratings, each usable in either arm (one copy of each); the 158 l/mm is silver-coated; gratings are changed by the day crew (about 10 min per side)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.f note",
+    "quote": "Any of the complement of 8 gratings may be put into either RED or BLUE sides",
+    "alternatives": [
+     {
+      "value": "grating changes take roughly 10 minutes per side",
+      "src": "POV",
+      "loc": "Sec. 5.a",
+      "quote": "Actual changes take roughly 10 minutes per side"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "grating_table_PDS": {
+    "name": "Grating table (PDS, nominal blaze; first-order dispersion in A/mm, red camera | blue camera)",
+    "value": "158/7500: 202 I | 134 II; 300/3990: - | 140 I; 316/7500: 102 I | -; 600/4000: - | 72 I; 600/10000: 54 I | -; 1200/5000: 26 I | 36 I; 1200/7100: 26 I | 36 I; 1200/9400: 26 I | 36 I",
+    "unit": "l/mm / A / (A/mm)",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 9 Gratings",
+    "quote": "158 7500 202 I 134 II ... 300 3990 – 140 I ... 316 7500 102 I – ... 600 4000 – 72 I ... 600 10000 54 I – ... 1200 5000 26 I 36 I ... 1200 7100 26 I 36 I ... 1200 9400 26 I 36 I",
+    "alternatives": [],
+    "derived": null,
+    "note": "'Roman numeral refers to the order' (PDS note a). The rows are quoted as whitespace-separated cells with the dashes written as en dashes in the page.",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "grating_table_POV": {
+    "name": "Grating table (POV: blaze, useful range, dispersion A/mm)",
+    "value": "158/7560: 5000-11300, 201 I red | 135 II blue; 300/3990: 2700-6000, 140 I blue; 316/7150: 4800-10700, 102 I red; 600/3780: 2500-5700, 71 I blue; 600/9500: 6300-14300, 54 I red; 1200/4700: 3100-7100, 36 I blue; 1200/7100: 4700-10700, 27 I red | 36 I blue; 1200/9400: 6300-14100, 26 I red | 35 I blue",
+    "unit": "l/mm / A / A / (A/mm)",
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Sec. 4.f Grating Specs",
+    "quote": "158 [a] 7560 5000 – 11300 201 1st [c] 135 2nd [d] ... 300 [b] 3990 2700-6000 – 140 1st ... 316 [a] 7150 4800 – 10700 102 1st ... 600 [b] 3780 2500 – 5700 – 71 1st ... 600 [a] 9500 6300 – 14300 54 1st ... 1200 [b] 4700 3100 – 7100 – 36 1st ... 1200 7100 4700 – 10700 27 1st 36 1st ... 1200 9400 6300 – 14100 26 1st 35 1st",
+    "alternatives": [],
+    "derived": null,
+    "note": "Notes: [a] silver coating, can be used only longward of 3500 A; [b] can be used only in the blue spectrograph; 'Useful Range gives the wavelength limits at which diffracted intensity drops to 1/2 of its peak value (2/3 and 3/2 of the blaze wavelength)'. The 'Blaze' column of POV differs from PDS for five gratings (Conflicts); INFERRED reconciliation below.",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blaze_reconciliation": {
+    "name": "Why POV's blazes differ from PDS's for four gratings",
+    "value": "POV lists the blaze peak at the instrument's camera-collimator angle: lambda_peak = lambda_blaze x cos(psi/2)",
+    "unit": null,
+    "tag": "INFERRED",
+    "src": "POV",
+    "loc": "Sec. 4.f vs PDS item 9",
+    "quote": "Useful Range gives the wavelength limits at which diffracted intensity drops to 1/2 of its peak value",
+    "alternatives": [],
+    "derived": "INFERRED, with DERIVED arithmetic: 600/4000 blue x cos(19.25 deg) = 3776 (POV 3780); 316/7500 red x cos(17.5 deg) = 7153 (POV 7150); 600/10000 red = 9537 (POV 9500); 1200/5000 blue = 4720 (POV 4700). All four POV values are the PDS nominal (Littrow) blaze shifted by cos(psi/2), exactly the explorer's blaze-peak rule (web/app.js: m lambda = 2 sin(delta) cos(psi/2) / G). It does NOT hold for 300/3990 (POV 3990; the rule gives 3767), 1200/7100, 1200/9400 or 158 (POV 7560 vs 7500; the rule gives 7153), so the reconciliation is partial; for those the two pages simply disagree or round.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blue_gratings_1982": {
+    "name": "Gratings in 1982 (blue)",
+    "value": "300, 600 and 1200 l/mm blazed first-order blue/violet, plus a 1200 l/mm blazed in second-order blue; at 30 um pixels 4.2, 2.1, 1.1 and 0.54 (0.8 in the alternate configuration) A per pixel",
+    "unit": "A/pixel",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.E, PDF p. 5",
+    "quote": "For a pixel size of 30 microns, the above four gratings give resolutions of 4.2, 2.1, 1.1, and 0.54 (or 0.8 in the alternate configuration)",
+    "alternatives": [],
+    "derived": "DERIVED check: the four blue values at 30 um are 140, 70, 37 and 18 A/mm; the model (psi 38.33 deg, f = 229 mm) gives 140.4 A/mm for 300/3990 (4.2 A/px), 71.4 for 600/4000 (2.1 A/px) and 36 for 1200 (1.1 A/px). The second-order 1200 l/mm gives 0.54 A/px (18 A/mm).",
+    "note": null,
+    "pdf_pages": [
+     5
+    ]
+   },
+   "red_gratings_1982": {
+    "name": "Gratings in 1982 (red)",
+    "value": "158, 300, 600 and 1200 l/mm blazed first-order near-infrared; with the 152 mm camera and 15 um pixels 6.0, 3.0, 1.5 and 0.80 A per pixel",
+    "unit": "A/pixel",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. III.E, PDF p. 5",
+    "quote": "158, 300, 600, and 1200 groove mm-1 grat- ings will be provided, all blazed in the first order near in- frared",
+    "alternatives": [
+     {
+      "value": "6.0, 3.0, 1.5, 0.80 A per pixel",
+      "src": "OG82",
+      "loc": "Sec. III.E, PDF p. 5",
+      "quote": "vide resolutions of 6.0, 3.0, 1.5, and 0.80 Å per pixel"
+     }
+    ],
+    "derived": "DERIVED check: 158 l/mm with f = 152 mm gives 1/(158 x 152 mm) = 416 A/mm = 6.2 A/px at 15 um (OG82 6.0); with today's 304.8 mm camera 207 A/mm = 3.1 A/px (the PDS table: 202).",
+    "note": null,
+    "pdf_pages": [
+     5
+    ]
+   },
+   "dispersion_blue_commonly_used": {
+    "name": "Dispersion, blue 600/4000 (D52 + 316/7500 red setup)",
+    "value": 1.1,
+    "unit": "A/pixel (average)",
+    "tag": "SOURCED",
+    "src": "C22",
+    "loc": "Sec. 2, p. 2",
+    "quote": "the 600/4000 (i.e., 600 lines mm−1 blazed at 4000 Å) grating for the blue channel and the 316/7500 grating for the red channel, resulting in an average dispersion of 1.1 Å (blue) and 1.5 Å (red) per pixel",
+    "alternatives": [
+     {
+      "value": "table: 71 A/mm x 15 um = 1.07 A/px; 72 A/mm = 1.08",
+      "src": "PDS",
+      "loc": "item 9 Gratings",
+      "quote": "600 4000 – 72 I"
+     }
+    ],
+    "derived": "DERIVED (explorer geometry; psi = 38.5 deg, f = 228.6 mm, 600 l/mm): lambda = 4000 A: grating angle (incidence) 26.55 deg, camera angle -11.95 deg, 71.3 A/mm = 1.070 A/px; lambda = 4400 A: 71.5 A/mm = 1.073 A/px. Agrees with C22 (1.1) and the PDS/POV tables.",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dispersion_red_commonly_used": {
+    "name": "Dispersion, red 316/7500",
+    "value": 1.5,
+    "unit": "A/pixel (average)",
+    "tag": "SOURCED",
+    "src": "C22",
+    "loc": "Sec. 2, p. 2",
+    "quote": "the 316/7500 grating for the red channel, resulting in an average dispersion of 1.1 Å (blue) and 1.5 Å (red) per pixel",
+    "alternatives": [
+     {
+      "value": "102 A/mm x 15 um = 1.53 A/px",
+      "src": "PDS",
+      "loc": "item 9 Gratings",
+      "quote": "316 7500 102 I –"
+     }
+    ],
+    "derived": "DERIVED (psi = 35 deg, f = 304.8 mm, 316 l/mm): lambda = 7500 A: incidence 24.64 deg, camera -10.36 deg, 102.1 A/mm = 1.532 A/px; 6600 A: 101.8 A/mm.",
+    "note": null,
+    "pdf_pages": [
+     2
+    ]
+   },
+   "dispersion_formula": {
+    "name": "Dispersion formula used by the Palomar tools",
+    "value": "D = cos(theta_m) / (G f_cam), theta_m = psi - grating angle (textbook D = m / (a cos theta_m); the page's own derivation of it is commented out in the page source)",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "PYP",
+    "loc": "BlueSpectrograph / RedSpectrograph.config_specific_par",
+    "quote": "disp = np.cos(theta_m)/(lines_mm * 12 * u.imperial.inch) * 1e7 * u.AA / u.mm",
+    "alternatives": [
+     {
+      "value": "blue: 9 inch",
+      "src": "PYP",
+      "loc": "BlueSpectrograph.config_specific_par",
+      "quote": "disp = np.cos(theta_m)/(lines_mm * 9 * u.imperial.inch) * 1e7 * u.AA / u.mm"
+     },
+     {
+      "value": "the 'values there are representative, evaluated at the blaze wavelength'",
+      "src": "POV",
+      "loc": "Sec. 4.c",
+      "quote": "The dispersion is also presented in tabular form, go to section Grating Specs"
+     }
+    ],
+    "derived": "Used here with the explorer's geometry; see the dispersions above.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "measured_arc_fwhm": {
+    "name": "Measured arc-line widths for a 0.5 arcsec slit (focus test)",
+    "value": "~3.0 px FWHM blue; <~2.7 px red",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "PCB",
+    "loc": "Sec. 5 Setup Tasks, item on collimator focus",
+    "quote": "arc-lamp images with a 0.5″ slit should give ~ 3.0 pixel FWHM on the blue side, and ~< 2.7 pixel FWHM on the red",
+    "alternatives": [],
+    "derived": "DERIVED for comparison: a geometric 0.5 arcsec slit is 0.5 / 0.389 = 1.29 px (blue) and 0.5 / 0.293 = 1.71 px (red); the measured widths are 2.3 and 1.6 times larger (aberrations, focus, pixel and diffusion terms). So the slit-limited R of the explorer is optimistic for narrow slits: R is MEASURED here only as an arc FWHM in pixels, not as lambda / dlambda.",
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "measured_focus_variation": {
+    "name": "Red focus variation with wavelength (low-dispersion gratings)",
+    "value": "focus FWHM ~1.5 px at the chip center but 4-5 px at the extreme red and blue ends (158 l/mm)",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "PCB",
+    "loc": "Sec. 5 Setup Tasks",
+    "quote": "if you focus in the center of the 158 ln/mm grating, you can expect a focus FWHM in the center of the chip ~1.5 pixels but see 4 or 5 pixels at the extreme red and blue end of the CCD",
+    "alternatives": [],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "slit_image_1982": {
+    "name": "Slit image size at the detector (1982)",
+    "value": "0.5 arcsec = 20 um (blue), 13 um (red)",
+    "unit": "um",
+    "tag": "SOURCED",
+    "src": "OG82",
+    "loc": "Sec. IV, PDF pp. 6-7",
+    "quote": "Since the 0.5 arc sec slit projects to 20 microns ... Since a 0.5 arc sec slit projects to 13 microns on the detector",
+    "alternatives": [],
+    "derived": "DERIVED check: 0.5 / 2.5 arcsec per mm = 0.2 mm; / 10.1 = 19.8 um; / 15.2 = 13.2 um.",
+    "note": null,
+    "pdf_pages": [
+     6
+    ]
+   },
+   "resolution_range": {
+    "name": "Advertised resolving power",
+    "value": "R ~ 1,000 to 10,000",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "POV",
+    "loc": "Introduction",
+    "quote": "low-to-medium resolution (R ~ 1,000 to 10,000) grating instrument",
+    "alternatives": [],
+    "derived": null,
+    "note": "Not measured; a range for the instrument as a whole.",
+    "pdf_pages": [
+     1
+    ]
+   },
+   "blue_coverage": {
+    "name": "Wavelength coverage",
+    "value": "blue < 3000-7000 A, red 4700-11000 A for the instrument (all gratings); 1982 design: blue 3200-5200 A, red 5200-10,000 A, usable 3200-10,400 A",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 5 Wavelength Range",
+    "quote": "Red: 4700 Å – 11000 Å ... Blue: < 3000 Å – 7000 Å",
+    "alternatives": [
+     {
+      "value": "1982 design",
+      "src": "OG82",
+      "loc": "Abstract, PDF p. 1",
+      "quote": "The blue spectrograph operates from 3200 Â to 5200 A while the red one goes from 5200 Â to 10,000 Á"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "red_range_per_exposure": {
+    "name": "Red spectral range per exposure",
+    "value": "increased by a factor 2.5 by the 2011 CCD; the old 25 mm CCD gave 1340 A with a 600 l/mm grating; the reddest 1000 pixels may be of poor optical quality",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "K11",
+    "loc": "Sec. 3, p. 3; POV Sec. 3 news",
+    "quote": "The previous de- tector was 25 mm long, corresponding to 1340 Å of spectral coverage with a 600 line mm−1 grating",
+    "alternatives": [
+     {
+      "value": "poor image quality in the reddest 1000 pixels",
+      "src": "POV",
+      "loc": "Sec. 3 news, Red Upgrade",
+      "quote": "the reddest 1000 pixels may have unacceptable optical quality"
+     }
+    ],
+    "derived": "DERIVED: 25 mm x 54 A/mm (600/10000 red, PDS) = 1350 A (K11: 1340). New chip: 4096 x 0.015 mm = 61.4 mm: 61.4 x 102 A/mm = 6270 A for the 316 grating (blue: 61.4 x 71.5 = 4390 A on the full chip, 2836 unvignetted rows = 3040 A).",
+    "note": null,
+    "pdf_pages": [
+     3
+    ]
+   },
+   "throughput": {
+    "name": "Throughput",
+    "value": "~12 percent sky-to-detector, regardless of dichroic and grating (PDS rule of thumb); red channel peaks at 37 percent (spectrograph + detector, mirrors removed) after the 2011 CCD; 1982: 5-13 percent for telescope + spectrograph + CCD between 3600 and 8200 A",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "PDS",
+    "loc": "item 7 Sensitivity",
+    "quote": "A rough rule of thumb is that the sky-to-detector throughput is 12%, regardless of the choice of dichroic filter and grating",
+    "alternatives": [
+     {
+      "value": "peak 37 percent",
+      "src": "K11",
+      "loc": "Abstract",
+      "quote": "The throughput peaks at 37%"
+     },
+     {
+      "value": "1982 overall efficiency",
+      "src": "OGADS",
+      "loc": "abstract",
+      "quote": "ranges from 5% to 13% between 3600 Å and 8200 Å"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   },
+   "shutters_filters": {
+    "name": "Filters and shutters",
+    "value": "two filter wheels (one per arm, 8 positions each: blue GG495, red GG455 and RG610 among them); each spectrograph has its own shutter located near the quartz blocks",
+    "unit": null,
+    "tag": "SOURCED",
+    "src": "PCB",
+    "loc": "Sec. 1 Hardware Setup, filter table",
+    "quote": "Blue filters ... Red filters",
+    "alternatives": [
+     {
+      "value": "each arm has its own shutter",
+      "src": "OG82",
+      "loc": "Sec. III.A, PDF p. 3",
+      "quote": "each spectrograph has its own electrically operated shutter located near the quartz blocks"
+     }
+    ],
+    "derived": null,
+    "note": null,
+    "pdf_pages": [
+     1
+    ]
+   }
+  },
+  "performance": {
+   "pixel_scale_blue": {
+    "name": "Blue pixel scale",
+    "value": 0.389,
+    "unit": "arcsec/pixel",
+    "model_quantity": "pixScale",
+    "src": "PDS",
+    "loc": "item 3 Scale",
+    "quote": "0.389″/pixel for the blue camera",
+    "alternatives": [
+     {
+      "value": "0.389",
+      "src": "K11",
+      "loc": "Table 1",
+      "quote": "Plate scale (arcsec pixel−1 ) 0.389 0.468 0.293"
+     },
+     {
+      "value": "0.389",
+      "src": "PYP",
+      "loc": "BlueSpectrograph detector",
+      "quote": "platescale      = 0.389"
+     }
+    ],
+    "model_result": "0.3890 (blue preset, explorer physics.js, read only)"
+   },
+   "pixel_scale_red": {
+    "name": "Red pixel scale",
+    "value": 0.293,
+    "unit": "arcsec/pixel",
+    "model_quantity": "pixScale",
+    "src": "PDS",
+    "loc": "item 3 Scale",
+    "quote": "0.293″/pixel for the red camera (new LBNL CCD)",
+    "alternatives": [
+     {
+      "value": "0.293",
+      "src": "PYP",
+      "loc": "RedSpectrograph detector",
+      "quote": "platescale      = 0.293"
+     }
+    ],
+    "model_result": "0.2917 (0.5 percent low: slit scale 2.565 versus 2.57 arcsec/mm and f_cam = 12 in)"
+   },
+   "dispersion_blue": {
+    "name": "Blue 600/4000 dispersion (table, at the blaze)",
+    "value": "72 A/mm = 1.08 A/px (POV: 71 = 1.07)",
+    "unit": "A/px",
+    "model_quantity": "dlpix",
+    "src": "PDS",
+    "loc": "item 9 Gratings",
+    "quote": "600 4000 – 72 I",
+    "alternatives": [
+     {
+      "value": "71 A/mm",
+      "src": "POV",
+      "loc": "Sec. 4.f",
+      "quote": "600 [b] 3780 2500 – 5700 – 71 1st"
+     },
+     {
+      "value": "1.1 A/px average with the 316/7500 red",
+      "src": "C22",
+      "loc": "Sec. 2",
+      "quote": "resulting in an average dispersion of 1.1 Å (blue) and 1.5 Å (red) per pixel"
+     }
+    ],
+    "model_result": "1.070 A/px at 4000 A, 1.073 at 4400 A (A/mm 71.3-71.5); scored at 1.07 +/- 3 percent (table) and info at 1.1 (C22, two figures)"
+   },
+   "dispersion_red": {
+    "name": "Red 316/7500 dispersion (table, at the blaze)",
+    "value": "102 A/mm = 1.53 A/px",
+    "unit": "A/px",
+    "model_quantity": "dlpix",
+    "src": "PDS",
+    "loc": "item 9 Gratings",
+    "quote": "316 7500 102 I –",
+    "alternatives": [
+     {
+      "value": "102 A/mm",
+      "src": "POV",
+      "loc": "Sec. 4.f",
+      "quote": "316 [a] 7150 4800 – 10700 102 1st"
+     }
+    ],
+    "model_result": "1.532 A/px at 7500 A (102.1 A/mm)"
+   },
+   "dispersion_red_158": {
+    "name": "Red 158/7500 dispersion (table)",
+    "value": "202 A/mm = 3.03 A/px (POV: 201)",
+    "unit": "A/px",
+    "model_quantity": "dlpix",
+    "src": "PDS",
+    "loc": "item 9 Gratings",
+    "quote": "158 7500 202 I 134 II",
+    "alternatives": [
+     {
+      "value": "201 A/mm",
+      "src": "POV",
+      "loc": "Sec. 4.f",
+      "quote": "158 [a] 7560 5000 – 11300 201 1st"
+     }
+    ],
+    "model_result": "3.023 A/px (201.5 A/mm) at 7500 A with f = 304.8 mm, psi 35 deg: it confirms the 12-inch camera and the 35 deg angle"
+   },
+   "arc_fwhm": {
+    "name": "Arc-line FWHM for a 0.5 arcsec slit (focus test, MEASURED)",
+    "value": "~3.0 px blue, <~2.7 px red",
+    "unit": "px",
+    "model_quantity": "npix",
+    "src": "PCB",
+    "loc": "Sec. 5 Setup Tasks",
+    "quote": "arc-lamp images with a 0.5″ slit should give ~ 3.0 pixel FWHM on the blue side, and ~< 2.7 pixel FWHM on the red",
+    "alternatives": [],
+    "model_result": "geometric 1.17 px (blue; 0.5 arcsec, anamorphic factor 1.10) and 1.71 px (red): the model's slit-limited R (Rs 1761 blue at 4400 A, 1546 red at 7500 A for 1 arcsec) is optimistic for narrow slits; info only"
+   },
+   "coverage_unvignetted_blue": {
+    "name": "Unvignetted blue length",
+    "value": 2836,
+    "unit": "px",
+    "model_quantity": "span",
+    "src": "PDS",
+    "loc": "item 4 Detectors",
+    "quote": "rows 575 thru 3410 are un-vignetted",
+    "alternatives": [],
+    "model_result": "3410 - 575 + 1 rows x 1.073 A/px = 3043 A (DERIVED); the full 4096 px span 4394 A: the model's range for the blue preset is 3200-6606 A (it does not know about the vignetting)"
+   },
+   "slit_image_1982": {
+    "name": "1982 slit image (0.5 arcsec) on the detector",
+    "value": "20 um blue (10.1x), 13 um red (15.2x)",
+    "unit": "um",
+    "model_quantity": "(derived check)",
+    "src": "OG82",
+    "loc": "Sec. IV, PDF pp. 6-7",
+    "quote": "Since the 0.5 arc sec slit projects to 20 microns ... Since a 0.5 arc sec slit projects to 13 microns on the detector",
+    "alternatives": [],
+    "model_result": "0.5 arcsec on 2.565 arcsec/mm = 195 um at the slit: /10.09 = 19.3 um, /15.2 = 12.8 um (information only; a 1982 red variant is not a preset)"
+   },
+   "range_current": {
+    "name": "Current wavelength range, blue and red",
+    "value": "blue < 3000-7000 A, red 4700-11000 A (all gratings)",
+    "unit": "A",
+    "model_quantity": "lo/hi",
+    "src": "PDS",
+    "loc": "item 5",
+    "quote": "Red: 4700 Å – 11000 Å ... Blue: < 3000 Å – 7000 Å",
+    "alternatives": [],
+    "model_result": "info (range over all gratings and angles)"
+   }
+  },
+  "layout": [
+   {
+    "el": "Slit",
+    "pos": "top of OG82 Fig. 1; the entrance aperture in the Cassegrain focal plane; slit wheel (8 positions)",
+    "tag": "SOURCED (OG82 Sec. III.D, POV Sec. 4.b; figure)",
+    "note": "Slit plane faces down: the beam travels down the page."
+   },
+   {
+    "el": "Dichroic",
+    "pos": "72 mm below the slit along the beam; 45 deg to the beam (reflection turns the beam by 90 deg); 93 mm long in the figure",
+    "tag": "SOURCED (45 deg, immediately behind the slit); MEASURED (72 mm, 93 mm; scale 0.627 mm/px from the 146 mm beam in the 200-dpi raster of OG82 PDF p. 4)",
+    "note": "Reflects blue to the LEFT of Fig. 1 (blue side left), transmits red straight down."
+   },
+   {
+    "el": "Blue branch",
+    "pos": "beam turns 90 deg clockwise at the dichroic (down -> left), runs 100 mm left to a 45-degree face on a glass block carrying a field lens (the fold turns it 90 deg counterclockwise, left -> down), then 144 mm down to the plane of the blue collimator primary",
+    "tag": "MEASURED (distances read from Fig. 1, +/- 20 percent; 100 mm: 160 px, 144 mm: 230 px at 0.627 mm/px)",
+    "note": "Total slit-to-primary path about 316 mm of mixed air and glass (not the optical path)."
+   },
+   {
+    "el": "Red branch",
+    "pos": "red passes the dichroic straight down 85 mm to the 45-degree face of a parallelogram (rhomboid) block, which shifts the beam 97 mm to the RIGHT (down -> right -> down), then 72 mm down to the plane of the red collimator primary",
+    "tag": "MEASURED (135 px = 85 mm; 155 px = 97 mm; 115 px = 72 mm)",
+    "note": "The red primary plane is ~16 mm lower than the blue one (y = 425 vs 398 px)."
+   },
+   {
+    "el": "Filters F",
+    "pos": "one filter wheel in each arm just ahead of the primary's hole (Fig. 1 marks F)",
+    "tag": "SOURCED (Fig. 1 caption: 'filters (F)')",
+    "note": ""
+   },
+   {
+    "el": "Collimator primaries",
+    "pos": "annular concave mirrors, outer diameter ~172 mm (275 px x 0.627), central hole ~54 mm; the beam arrives through the hole",
+    "tag": "MEASURED (Fig. 1)",
+    "note": "Hole size = cage shadow (0.37 of the 146 mm beam)."
+   },
+   {
+    "el": "Collimator secondaries",
+    "pos": "small convex mirrors on the axis, cemented to a fused-quartz flat that is transparent to the collimated beam, 390 mm beyond the primary (the beam travels primary -> secondary plate -> grating)",
+    "tag": "MEASURED 390 mm (Fig. 1 and RTF agree within 3 percent); SOURCED (secondaries on quartz plates, text)",
+    "note": "The collimated beam leaves the primary toward the secondary and passes through the plate."
+   },
+   {
+    "el": "Gratings",
+    "pos": "about 490 mm beyond the secondary plate, directly below the collimators in the figure; rotate about axes IN the plane of Fig. 1, so the dispersion plane is PERPENDICULAR to the page; 'light goes into the page for one camera and out of it for the other'",
+    "tag": "SOURCED (490 mm approximately; the plane of rotation)",
+    "note": "RTF (red-side raytrace) shows 600 mm by its scale (FIGURE READ-OFF); adopted 490 mm."
+   },
+   {
+    "el": "Cameras",
+    "pos": "swing OUT of the plane of Fig. 1 in opposite senses (blue one way, red the other); angle to the collimator axis 38.5 deg (blue) and 35.0 deg (red); blue: folded Schmidt (primary behind, corrector toward the grating, detector at the prime focus via a fold flat with a hole); red: seven-element lens camera since 1995",
+    "tag": "SOURCED (angles, types); the into/out-of-page assignment is NOT FOUND",
+    "note": "The Palomar handling-cart photo (POV) puts the red camera and dewar on the left and the blue partly visible on the right; OG82 Fig. 6 caption puts the red camera on the right and the blue on the left: opposite views of the same instrument, so the two cameras are on opposite sides."
+   },
+   {
+    "el": "Red camera geometry (RTF)",
+    "pos": "grating center to the camera's first lens ~340 mm; to the detector ~735 mm; the axis from the grating to the detector is 36 deg from the collimated beam (35.0 stated)",
+    "tag": "FIGURE READ-OFF (RTF, scale 2.16 mm/px from the 67.5 px, 146 mm beam; +/- 20 percent)",
+    "note": "Used only for camLen; the scale check: 100 px grating length = 206 mm x cos(alpha) gives 2.06 mm/px (5 percent from 2.16)."
+   }
+  ],
+  "arms_draft": {
+   "split": "focus",
+   "slit": "shared",
+   "Ftel": 15.83,
+   "relay": "field lens + prism block",
+   "tree": {
+    "cut": 5500,
+    "w": 320,
+    "aoi": 45,
+    "R": {
+     "fold": 45,
+     "rel": -1,
+     "to": "dbspb"
+    },
+    "T": {
+     "fold": 45,
+     "rel": -1,
+     "to": {
+      "fold": 45,
+      "rel": 1,
+      "to": "dbspr"
+     }
+    }
+   },
+   "measured": {
+    "slit_to_dichroic_mm": 72,
+    "dichroic_length_mm": 93,
+    "blue_dichroic_to_fold_mm": 100,
+    "blue_fold_to_primary_mm": 144,
+    "red_dichroic_to_fold_mm": 85,
+    "red_shift_mm": 97,
+    "red_fold_to_primary_mm": 72,
+    "axis_separation_mm": 199
+   }
+  },
+  "not_found": [
+   "The red lens camera's prescription: only the focal length (12 in, PDS, POV) and 'a seven-element design by Harland Epps' (K11); no f/ratio, element count by type, aperture or distance from the grating. The explorer needs the camera to accept the diffracted beam: the model asks f/1.93 for the 316/7500 at 7500 A (a 158 mm beam after the grating's anamorphic factor 1.08); the derived f/2.09 for a 146 mm beam is below that (INFERRED mismatch: the real aperture is unpublished).",
+   "The blue camera's present state: POV says the blue-side camera 'has changed' (Sec. 3) and that 'both cameras have been replaced' (Sec. 3, item 1) but also still describes a reflecting f/1.5 Schmidt with a field flattener (Sec. 4.b); the CCD changes are in K11. What was replaced in the blue camera is not stated.",
+   "Distances from the grating to the camera corrector (blue) and to the first lens (red), and the camera apertures (OG82 gives the 1982 corrector sizes: blue 175 x 216 mm, red 178 mm). The 340 mm red value is a FIGURE READ-OFF.",
+   "Measured resolving power (lambda / FWHM of arc lines) for any grating: PCB gives only the FWHM in pixels for a 0.5 arcsec slit (3.0 blue, <~2.7 red); the Overview calculator's R (resolution per slit width, corrected 2011) is not archived (the CGI returns 404).",
+   "Which camera swings into the page and which out of it in Fig. 1: OG82 says 'light goes into the page for one camera and out of it for the other'.",
+   "The D48 and D68 dichroic transmission curves (POV: 'We have no curves for D48 or D68'); the width of the D55 and D52 transitions in tabular form (read off the GIF figures here); the dichroic's reflectance (only transmittance is plotted).",
+   "The 2011 red detector and dewar papers' full text (RA12 is an abstract only; the Kirby and Rahmer paper K11 covers the optics-relevant parts).",
+   "A census of which grating pairs are used most (nothing published). The recommended pair is INFERRED from the PypeIt arc templates (600/4000 and 300/3990 blue with D55 and D68; 316/7500 and 600/10000 red with D55; 1200s) and the Chen et al. HAT-P-1b observations (D52 and D68 with 600/4000 + 316/7500).",
+   "Blue-side field vignetting and the field curvature of the camera (OG82 gives vignetting of 11 to 18 percent for the blue Schmidt and about 10 to 11 percent in the red, 1982; the current lenses' vignetting is not published)."
+  ],
+  "conflicts": [
+   "**Cassegrain focal ratio and scale**: f/15.7 and 2.5 arcsec/mm (OG82, mutually inconsistent: f/15.7 on 5080 mm is 2.586 arcsec/mm; 2.5 is f/16.24) vs 2.57 arcsec/mm at the slit (PDS, f/15.80) vs f/16 and 2.538 arcsec/mm (hale.md from the 3200-inch focal length) vs the collimator's 2311.4 / 146 = f/15.83 (2.565 arcsec/mm). The recommended entry takes F = 15.83 so that the collimator and both pixel scales are right (0.3890 and 0.2917 arcsec/px against 0.389 and 0.293).",
+   "**Blue camera-collimator angle**: 38 deg 20 arcmin = 38.333 deg (OG82 Sec. III.B) vs 38.50 deg (POV Sec. 4.c; PypeIt). The recommended entry uses 38.5 (current docs); the dispersion changes by 0.15 percent.",
+   "**Blaze wavelengths**: PDS (7500, 3990, 7500, 4000, 10000, 5000, 7100, 9400 for 158, 300, 316, 600b, 600r, 1200b, 1200, 1200) vs POV (7560, 3990, 7150, 3780, 9500, 4700, 7100, 9400). Four of the differences are the cos(psi/2) shift of the blaze peak (INFERRED, above); 158 (7500 vs 7560; K11 also 7560) is not. The explorer takes the Littrow blaze from PDS (7500 for the 158).",
+   "**Dispersions that differ by one unit**: 158/7500 red 202 (PDS) vs 201 (POV); 158 second order blue 134 vs 135; 1200 blue 36 vs 36 and 35 (9400); 600 blue 72 vs 71. The model gives 201.5, 71.3 and 35-36 (DERIVED).",
+   "**Slit**: 125 arcsec long, 0.5/1.0/2.0 wide plus seven apertures (OG82, 1982) vs 128 arcsec, eight widths 0.5-10 (PDS, POV). The preset uses the current slit.",
+   "**Red camera**: Schmidt f/1.0, 152 mm, scale reduction 15.2, 35 deg 00 arcmin, 178 mm corrector (OG82) vs a 12 in seven-element lens camera (since 1995; PDS, POV, K11). Reduction now 7.6. The 1982 instrument is recorded alongside; the preset uses the current camera.",
+   "**Wavelength ranges**: 1982 design: blue 3200-5200 A, red 5200-10,000 A, usable to 10,400 A (OG82) vs now blue < 3000-7000 A and red 4700-11000 A for the instrument (PDS); per exposure the chip and dichroic set the range (a D55 pair covers ~3200-5500 A blue and 5500-11,000 A red).",
+   "**Dichroic nominal vs measured**: D52 nominal 5200 (PDS) but 50 percent transmission at 5320 A (FIGURE READ-OFF); D55 5500 vs 5490. For the arms view the preset uses the D55 nominal 5500 A.",
+   "**Detector orientation**: PDS 'CCD 23: 2048 x 4096 (in the 4096 dispersion axis)' vs K11 Table 1 'E2V 4096 x 2048' for the same device (2005): the same chip described along its long or short axis. The explorer entry is Nx (dispersion) 4096, Ny 2048.",
+   "**Slit-to-grating drawing distance**: 490 mm (OG82 text, 'approximately') vs ~600 mm (RTF scaled by the 146 mm beam; FIGURE READ-OFF, the later red-side drawing).",
+   "**Unvignetted field**: 128 arcsec slit length (PDS) vs 'about 120 x 70 arcsec' unvignetted field for all cameras (POV Sec. 4.c) vs 125 x 62 arcsec (OG82 design). The numbers do not agree; the 120 arcsec is the current guider-field number."
+  ],
+  "notes": [
+   "**Setting menu**: two arms of one instrument, in the existing convention (a Preset line `DBSP`, Setting entries `blue, 600/4000` and `red, 316/7500`), each with the D55 dichroic. Optional further Settings (all DERIVED from the grating tables and the same optics, not separately sourced): blue 300/3990, blue 1200/5000, red 158/7500, red 600/10000, red 1200/7100. Note that the explorer's 'All arms' view takes one preset per arm, so the extra gratings would be alternate arms of the same dichroic tree, as MIKE's 'red' and 'blue' are single entries.",
+   "**Why D55 and 600/4000 + 316/7500**: D55 is the dividing wavelength the designers planned (OG82 Sec. II.E); PypeIt has arc templates for the pairs 600/4000 (blue; D55, D68) with 316/7500 (red; D55) and 600/10000 (red; D55), and the one setup described in detail in the literature that was found (C22, HAT-P-1b, 2012) uses D52 with 600/4000 and 316/7500. This is an INFERRED popularity, not a census. For the 1982 as-built values: dichroic 5200 A (OCLI cold mirror), blue camera 38.333 deg, red camera a 152 mm Schmidt at 35 deg; in 1982 the red scale reduction was 15.2, so a 0.5 arcsec slit was 13 um on the detector.",
+   "**Explorer check (DERIVED; web/physics.js required read-only from a scratchpad script; no project file changed)**: blue (D = 5.08 m, F = 15.83, W = 146 mm, G = 600, blaze 4000 A, psi = 38.5 deg, f_cam = 228.6 mm, 15 um pixels, lamC 4400 A): fcol 2311.2 mm, plate 2.565 arcsec/mm, pixel scale 0.3890 arcsec, dispersion 1.0727 A/px (71.5 A/mm), incidence 27.29 deg, diffraction -11.21 deg, Rs 1761 for a 1 arcsec slit (slit image 2.33 px: the anamorphic factor 1.10 narrows it), range 3200-6606 A. Red (G = 316, blaze 7500 A, psi 35 deg, f_cam 304.8 mm, lamC 7500): 0.2917 arcsec/px, 1.532 A/px (102.1 A/mm), 24.64 / -10.36 deg, Rs 1546, range 4407-10,650 A. Cross-checks: red 158/7500 gives 201.5 A/mm (table 202/201); red 600/10000 at 8500 A gives 0.820 A/px (54.6 A/mm; table 54).",
+   "**Grating geometry (important for the model)**: the explorer's alpha = t + psi/2 (incidence larger than the camera-side angle) matches DBSP: the Palomar 'grating angle' is the incidence angle and the sign check on the 29.5-degree red example gives a wavelength of 6620 A. At 4400 A the blue grating angle is 27.3 deg. The grating is read by dial 'to about 1 arc min' (OG82).",
+   "**Beam size in the model**: the preset W = 146 mm is the collimated beam; the grating's anamorphic factor makes the diffracted beam 158-161 mm wide (blue 4400 A: 161 mm, F_cam needed 1.42; red 7500 A: 158 mm, F_cam needed 1.93). The OG82 blue corrector (175 x 216 mm) was made larger 'to allow for the spectrograph dispersion'; the red Epps lens aperture is NOT FOUND.",
+   "**On the 'Cassegrain collimator' drawing**: the explorer draws a mirror collimator that folds the beam back past the slit (or, with colTilt 0, on the axis with the slit in the returning beam). DBSP's collimator is neither: the arriving beam passes through a hole in the primary, strikes the small secondary on the quartz plate, returns to the primary and leaves as a 146 mm beam with a 54 mm central obstruction, travelling the same direction as the arriving light (a folded, on-axis, two-mirror collimator, primary and secondary 390 mm apart). The state's colTilt = 0 and layLen are the closest representation; the drawing's one mirror cannot show the second mirror, the hole, or the quartz plate.",
+   "**Throughput caveat**: PDS's 12 percent is 'sky-to-detector' (telescope and atmosphere-free spectrograph and detector as measured on the sky), K11's 37 percent peak is spectrograph + detector with the telescope mirrors and atmosphere removed. They are different quantities and are not compared with the model.",
+   "**The dispersion tables are at the blaze wavelength**: POV Sec. 4.c says 'the values there are representative, evaluated at the blaze wavelength, but dispersion is a very slow function of wavelength.' The model reproduces them at lamC = blaze for the arms that blaze within the band.",
+   "**Privacy**: all web fetches used a generic User-Agent; the ADS key was used only in the Authorization header; no personal data was sent."
+  ]
+ }
+}

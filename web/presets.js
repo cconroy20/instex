@@ -25,7 +25,7 @@
                   centers of orders m1 and m2 (mm)
        gap        start of the first coverage gap (A);  gapPx: spacing of the nObj spectra across the chip (px)
        minSepPx, minSepArcsec   smallest spacing of adjacent order centers (px; arcsec of slit), within orders m1-m2
-                  when given;  alphaDeg: grating incidence angle (deg)
+                  when given;  alphaDeg: grating incidence angle (deg);  devDeg: a prism train's deviation of λc (deg)
      tol: relative tolerance, set from the precision of the source before the comparison was run.  A miss is
      reported as an info line with its explanation, never tuned away.  info: true marks a reference line that
      is printed but not scored: circular (the state was derived from the same number), a duplicate of a scored
@@ -719,6 +719,144 @@ const PRESETS = [
       { what: "coverage to 5950 Å", q: "hi", value: 5950, tol: 0.02, src: "Via technical document" },
     ],
   },
+  // Round 7 (data/round7/*.md, 2026-11-17): FAST, the Hamilton echelle, the Palomar Double Spectrograph, the SDSS and
+  // BOSS spectrographs, ELODIE and Slipher's spectrograph.
+  // FAST (data/round7/fast.md): the beam is entered as 963 / 10.42 = 92.4 mm, which keeps the collimator and the plate
+  // scale; lambda_c is the middle of each setup's published coverage (Mink et al. Table 1).
+  ...[
+    { k: "300", G: 300, lamB1: 4750, slit: 3.0, lamC: 5445, set: "300 l/mm, 3.0″", disp: 1.47, cov: [3475, 7415], res: 7.2 },
+    { k: "600b", G: 600, lamB1: 4750, slit: 1.5, lamC: 4535, set: "600 l/mm blue, 1.5″", disp: 0.75, cov: [3540, 5530], res: 1.8 },
+    { k: "600r", G: 600, lamB1: 4750, slit: 2.0, lamC: 6570, set: "600 l/mm red, 2.0″", disp: 0.75, cov: [5570, 7570], res: 2.3 },
+    { k: "1200", G: 1200, lamB1: 5700, slit: 2.0, lamC: 6700, set: "1200 l/mm, 2.0″", disp: 0.38, cov: [6200, 7200], res: 1.1 },
+  ].map(c => ({
+    id: "fast" + c.k, tel: "Tillinghast 1.5 m", name: "Tillinghast 1.5 m / FAST, " + c.set, inst: "FAST", setting: c.set,
+    note: "FAST on the 1.5 m Tillinghast reflector, the CfA spectrograph for redshift surveys and supernova spectra since 1994 (Fabricant et al. 1998; Mink et al. 2020, whose Table 1 gives the four standard setups): an off-axis parabolic collimator (963 mm, 8.5° off axis), a 93 mm beam, gratings of 300, 600 and 1200 /mm, a folded Schmidt camera (331 mm effective) and a 2688 × 512 CCD of 15 µm pixels (since 2006). The telescope's f/10.42 is derived from the 77 µm per arcsec plate scale. The 35° camera–collimator angle is the design value of Fabricant et al. Table 1; with that angle the model reproduces the published dispersions and the pupil anamorphism (1.06 and 1.33). The collimator's tilt (4.25°, half the off-axis angle) and its distance from the grating are inferred (data/round7/fast.md); the camera's corrector stands 225 mm past the grating.",
+    state: { mode: "grating", D: 1.524, F: 10.42,
+      g: { slitW: c.slit, nObj: 1, col: "mirror", colTilt: 4.25, layLen: 963, camLen: 225, cam: "mirror", W: 963 / 10.42, fcam: 331, gType: "refl", G: c.G, m: 1, lamB1: c.lamB1, lamC: c.lamC, psi: 35, tAlpha: null, Nx: 2688, Ny: 512, pix: 15 } },
+    pub: [
+      { what: c.disp + " Å/px", q: "dlpix", value: c.disp, tol: 0.03, src: "Fabricant et al. 1998 Table 7 (15 µm pixels; two decimals)" },
+      { what: "0.57″/px along the slit", q: "pixScale", value: 0.57, tol: 0.02, src: "Mink et al. 2020 Sec. 2.1 (\"always 0.57 arcsec\")" },
+      { what: `coverage ${c.cov[0]}–${c.cov[1]} Å`, q: "span", value: c.cov[1] - c.cov[0], info: true, src: "Mink et al. 2020 Table 1 (the dispersion × 2688 px: repeats the dispersion line)" },
+      { what: `resolution ${c.res} Å`, q: "Rs", value: c.lamC / c.res, info: true, src: "Mink et al. 2020 Table 1: the slit width × 1.64 px per arcsec × the dispersion, a geometric width that repeats those lines" },
+    ],
+  })),
+  // The Hamilton echelle (data/round7/hamilton.md): F = f_col / W = 7475.4 / 208.4; the echelle (31.5 /mm, delta 64.7,
+  // theta 5.5) and the prism apex (43.4 deg, two prisms) are the values that reproduce the user's guide's table of orders; the band
+  // (filt) is that table's, orders 163 to 57 (their free spectral ranges, DERIVED), since the CCD would otherwise show
+  // orders past silicon's limit
+  ...[
+    { k: "", set: "2k CCD (1994–98)", Nx: 2048, Ny: 2048, pix: 15, era: "the CCD of 1994–1998, 2048 × 2048 pixels of 15 µm, on which the planet search measured R = 64,000" },
+    { k: "4k", set: "4k CCD (2012–)", Nx: 4096, Ny: 4096, pix: 12, era: "the CCD in use from 2012, 4096 × 4096 pixels of 12 µm, which holds all 107 orders" },
+  ].map(c => ({
+    id: "hamilton" + c.k, tel: "Shane 3 m", name: "Shane 3 m / Hamilton, " + c.set, inst: "Hamilton", setting: c.set,
+    note: "The Hamilton echelle at the coudé focus of the Lick Shane 3 m (Vogt 1987; Lick user's guide), the spectrograph of the Lick iodine-cell planet search (Marcy & Butler 1992; Butler et al. 1996), here with " + c.era + ". An off-axis parabolic collimator (7475.4 mm) turns the beam 11°; a 208.4 mm beam, an R2 echelle (204 × 408 mm), two UBK7 prisms in series and a folded Schmidt camera (508.3 mm, f/1.67). The model uses 31.5 /mm and a 43.4° prism apex, which reproduce the user's guide's table of orders (the echelle is listed at 31.6 /mm and the prisms at 44.8°); Schott N-BK7 stands in for the discontinued UBK7 (indices within 6e-5). The collimator-to-echelle (5.4 m) and echelle-to-camera (2.5 m) distances are measured from Vogt's Fig. 1. The published dispersion needs the beam to meet the echelle at 70°, where a 208 mm beam would overfill the 408 mm echelle; the sources do not resolve this (data/round7/hamilton.md).",
+    state: { mode: "echelle", D: 3.05, F: 7475.4 / 208.4,
+      e: { slitW: 1.2, nObj: 1, col: "mirror", cam: "mirror", colTilt: 5.5, layLen: 5400, camLen: 2500, W: 208.4, fcam: 508.3, eG: 31.5, eDelta: 64.7, gamma: 0, theta: 5.5, xd: "prism", xGlass: "N-BK7", xA: 43.4, xPasses: 2, lamC: 5500, Nx: c.Nx, Ny: c.Ny, pix: c.pix,
+           filt: [3495, 10113] } },
+    pub: [
+      ...(c.k === "" ? [{ what: "R = 64,000 (median of Th-Ar lines, 1.2″)", q: "R", value: 64000, tol: 0.1, src: "Fischer et al. 2014 Sec. 3.2 (measured; no wavelength given)" },
+        { what: "≈2.0 px per FWHM at 1.2″", q: "npix", value: 2.0, info: true, src: "Lick user's guide, Quick Reference (\"~ 2.0 pixels\"; not stated as measured)" }] : []),
+      { what: "R ≈ 60,000 at 6000 Å (1.2″)", q: "RAt", lam: 6000, value: 60000, info: true, src: "Lick user's guide, Quick Reference (not stated as measured)" },
+      ...[[163, 3505.4, 1.96], [100, 5713.8, 3.20], [88, 6492.9, 3.63], [57, 10024.1, 5.61]].map(([m, l, d]) => ({ what: `${d} Å/mm in order ${m} (blaze ${l.toLocaleString("en-US")} Å)`, q: "dlpixAt", lam: l, m, value: d * c.pix / 1000, tol: 0.03, src: "Lick user's guide, Table of Orders" })),
+      { what: "orders 163 to 57 span 28.5 mm across the dispersion", q: "ySpan", m1: 57, m2: 163, value: 28.51, tol: 0.03, src: "Lick user's guide, Table of Orders (the sum of the order separations; Vogt 1987 Table I gives 28.86 mm)" },
+      { what: "smallest order separation ≈6″", q: "minSepArcsec", m1: 57, m2: 163, value: 6.0, tol: 0.12, src: "Goodrich & Veilleux 1988 Sec. I (\"6-11 arc seconds\" between orders)" },
+    ],
+  })),
+  // The Palomar Double Spectrograph (data/round7/dbsp.md): F = 15.83 keeps the 91-inch collimator with the 146 mm beam
+  // and both published pixel scales
+  ...[
+    { k: "b", set: "blue, 600/4000", G: 600, lamB1: 4000, lamC: 4400, psi: 38.5, fcam: 228.6, cam: "mirror", camLen: null, ps: 0.389, dl: [4000, 72, "72 Å/mm (Palomar specifications; the overview gives 71)"] },
+    { k: "r", set: "red, 316/7500", G: 316, lamB1: 7500, lamC: 7500, psi: 35.0, fcam: 304.8, cam: "lens", camLen: 340, ps: 0.293, dl: [7500, 102, "102 Å/mm (Palomar specifications and overview)"] },
+  ].map(c => ({
+    id: "dbsp" + c.k, tel: "Hale 5.1 m", name: "Hale 5.1 m / Double Spectrograph " + c.set + ", D55, 1″", inst: "Double Spectrograph", setting: c.set,
+    note: "The Double Spectrograph at the Cassegrain focus of the Hale 5 m (Oke & Gunn 1982; Palomar DBSP pages): a dichroic behind the slit, here the D55, divides the light between two separate spectrographs, each with a coaxial folded-Cassegrain collimator (2311 mm, 146 mm beam) that the light enters through a hole in its primary. Blue: the 600/4000 grating and the folded Schmidt camera (9 inches, f/1.5). Red: the 316/7500 grating and a lens camera (12 inches, since 1995). The telescope's f/15.83 keeps the collimator and both published pixel scales; the grating pair and the D55 are a common published choice (data/round7/dbsp.md), and λc 4400 Å in the blue is a choice. The collimator is drawn as one mirror on the axis; its secondary and the hole in the primary are not drawn.",
+    state: { mode: "grating", D: 5.08, F: 15.83,
+      g: { slitW: 1, nObj: 1, col: "mirror", colTilt: 0, cam: c.cam, layLen: 880, camLen: c.camLen, W: 146, fcam: c.fcam, gType: "refl", G: c.G, m: 1, lamB1: c.lamB1, lamC: c.lamC, psi: c.psi, tAlpha: null, Nx: 4096, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: c.ps + "″/px along the slit", q: "pixScale", value: c.ps, tol: 0.01, src: "Palomar DBSP technical specifications (Kirby & Rahmer 2011 Table 1: the same)" },
+      { what: c.dl[1] + " Å/mm at the blaze", q: "dlpixAt", lam: c.dl[0], m: 1, value: c.dl[1] * 0.015, tol: 0.03, src: c.dl[2] },
+    ],
+  })),
+  // The SDSS and BOSS spectrographs (data/round7/boss.md): the fibers enter at the collimator's f/3.95 (631.95 mm over
+  // the 160 mm beam), the explorer's virtual convention (as APOGEE); the grisms as single prisms (BOSS's 3.5 deg VPH
+  // tilt and unequal prisms are not modeled); the dichroic belongs to the All-arms view (arms.js)
+  ...[
+    { k: "bossb", inst: "BOSS", arm: "blue", core: 0.120, ap: 2.0, n: 500, G: 520, gA: 14.0, glass: "BSL7Y", kind: "vph", camLen: 180, Nx: 4096, pix: 15, fg: [20, 98.75, 237.0] },
+    { k: "bossr", inst: "BOSS", arm: "red", core: 0.120, ap: 2.0, n: 500, G: 400, gA: 17.8, glass: "N-BK7", kind: "vph", camLen: 190, Nx: 4096, pix: 15, fg: [20, 98.75, 237.0] },
+    { k: "sdssb", inst: "SDSS-I/II", arm: "blue", core: 0.180, ap: 3.0, n: 320, G: 640, gA: 37.0, glass: "N-BK7", kind: "ruled", camLen: 177, Nx: 2048, pix: 24, fg: [20, 148.1, 198.6], lam0: 4960 },
+    { k: "sdssr", inst: "SDSS-I/II", arm: "red", core: 0.180, ap: 3.0, n: 320, G: 440, gA: 39.5, glass: "N-BK7", kind: "ruled", camLen: 184, Nx: 2048, pix: 24, fg: [20, 148.1, 198.6], lam0: 7400 },
+  ].map(c => ({
+    id: c.k, tel: "SDSS 2.5 m", name: "SDSS / " + c.inst + " " + c.arm + " arm", inst: c.inst, setting: c.arm + " arm",
+    note: (c.inst === "BOSS" ? "The BOSS spectrographs on the Sloan 2.5 m, since 2009 (Smee et al. 2013): two identical spectrographs of 500 fibers each, 120 µm cores (2″ on the sky at f/5), VPH grisms (blue 520 /mm, red 400 /mm) and 4k × 4k CCDs of 15 µm pixels."
+      : "The original SDSS spectrographs, 1999–2008 (Smee et al. 2013): two spectrographs of 320 fibers each, 180 µm cores (3″ on the sky at f/5), replicas of ruled gratings on right-angle BK7 prisms (blue 640 /mm, red 440 /mm) and 2048 × 2048 CCDs of 24 µm pixels.")
+      + " A one-dimensional Schmidt collimator (631.95 mm, 160 mm beam) stands on the axis, the slit plate in the returning beam; a dichroic at " + (c.inst === "BOSS" ? "6050" : "6000") + " Å sends the blue light to one camera and the red to the other; the cameras are 240 mm f/1.5 lenses. The fiber enters at the collimator's f/3.95 as the slit of equal line width. The grating to camera distance is derived from the camera prescription (data/round7/boss.md).",
+    state: { mode: "grating", D: 2.5, F: 3.95,
+      g: { slitW: S3 * c.core / (3.95 * 2500) * 206264.806, nObj: c.n, col: "mirror", colTilt: 0, layLen: 1263.9, cam: "lens", camLen: c.camLen, W: 160, fcam: 240, gType: "grism", G: c.G, m: 1, lamB1: 5000, lamC: c.lam0 || (c.arm === "blue" ? 4947 : 8059), psi: 35, tAlpha: null,
+           gA: c.gA, gGlass: c.glass, gKind: c.kind, gTilt: 0, Nx: c.Nx, Ny: c.Nx, pix: c.pix, fgroups: c.fg, telF: 5, fibAp: c.ap } },
+    pub: [
+      ...(c.k === "sdssr" ? [{ what: "zero deviation at 7400 Å", q: "lam0", value: 7400, tol: 0.005, src: "Smee et al. 2013 Sec. 2.3.5" }] : []),
+      ...(c.k === "sdssb" ? [{ what: "zero deviation at 4960 Å", q: "lam0", value: 4960, info: true, src: "Smee et al. 2013 Sec. 2.3.5. The model's N-BK7 grism gives 4909 Å (1% short); the index of the replica's resin layer is not published" }] : []),
+      { what: "fiber image " + (c.inst === "BOSS" ? "45 µm = 3.0 px" : "67.5 µm = 2.8 px"), q: "diam", value: c.inst === "BOSS" ? 3.0 : 67.5 / 24, info: true, src: "Smee et al. 2013 (the design's spot-diagram circle, not a measured image)" },
+      ...(c.k === "bossb" ? [[3700, 1560], [6000, 2270]] : c.k === "bossr" ? [[6000, 1850], [9000, 2650]] : []).map(([l, r]) => ({ what: `R = ${r.toLocaleString("en-US")} at ${l.toLocaleString("en-US")} Å`, q: "RAt", lam: l, value: r, info: true, src: "SDSS-IV BOSS spectrograph page. The model is 11–13% lower: its R uses the geometric width of the round fiber image, where the published values come from Gaussian fits to arc lines (Smee et al. 2013 Sec. 4.1)" })),
+    ],
+  })),
+  // ELODIE (data/round7/elodie.md): the 300 um entrance image at the f/15 collimator entered as the slit of equal line
+  // width (the virtual convention); the echelle's 31.78 /mm at gamma 0 is EFFECTIVE (the paper prints "31"); the
+  // camera's 300 mm is the equivalent focal length for the main dispersion; the white pupil (75 mm from 102 mm, so a
+  // transfer collimator of 1530 x 75 / 102 = 1125 mm, DERIVED) only in the 3D drawing; the grism's "crown" as N-BK7
+  {
+    id: "elodie", tel: "OHP 1.93 m", name: "OHP 1.93 m / ELODIE",
+    note: "ELODIE on the 1.93 m telescope of the Observatoire de Haute-Provence, 1993–2006, the spectrograph of the discovery of 51 Peg b (Baranne et al. 1996; Mayor & Queloz 1995): two fibers (star and sky or thorium) behind 2″ holes at the f/15 Cassegrain focus, an R4 echelle (408 × 102 mm) in a 102 mm beam from an off-axis collimator, a white pupil of 75 mm, a cross-disperser made of an F2 prism (40°) and a crown grism (150 /mm, 8.63°), and a 1024 × 1024 CCD of 24 µm pixels; R = 42,000 over 3906–6811 Å in 67 orders. The echelle's groove density, 31.78 /mm, is fitted to the order numbers of Baranne et al. Fig. 3 (the paper prints \"31\"); the grism's crown glass is modeled by N-BK7; the camera's 300 mm is the equivalent focal length the paper gives for the main dispersion (the cross-dispersion has 225 mm in a footnote, which does not reproduce Fig. 3). With these the model spaces the orders 14% wider than Fig. 3 at the red end and 11% narrower at the blue end (data/round7/elodie.md).",
+    state: { mode: "echelle", D: 1.93, F: 15,
+      e: { lay3d: "wp", wpT: 1530 * 75 / 102, xdLabel: "prism + grism", slitW: S3 * 0.300 / (15 * 1930) * 206264.806, nObj: 2, col: "mirror", layLen: 1530, W: 102, fcam: 300, cam: "lens",
+           eG: 31.78, eDelta: 75.964, gamma: 0, theta: 0, eTilt: 0, xd: "prism", xGlass: "F2", xA: 40, xPasses: 1, xPrisms: [{ glass: "F2", A: 40 }],
+           xGrism: { G: 150, A: 8.63, glass: "N-BK7" }, lamC: 4964, Nx: 1024, Ny: 1024, pix: 24 } },
+    pub: [
+      { what: "R ≈ 42,000 (thorium lines, 7.0–7.4 km/s FWHM)", q: "R", value: 42000, info: true, src: "Baranne et al. 1996 Sec. 4 (measured, pixel included; the model's R has no pixel term)" },
+      { what: "geometric R ≈ 38,800 at 4964 Å (the 60 µm image's full width)", q: "Rdiam", value: 38800, tol: 0.08, src: "Baranne et al. 1996 Sec. 2.4 (\"about 40000\" from the 60 µm image of the hole; 38,800 from 60 µm × 2.133 Å/mm, DERIVED)" },
+      { what: "2.1–2.25 px per FWHM", q: "npix", value: 2.2, tol: 0.1, src: "Baranne et al. 1996 Sec. 4 (measured)" },
+      ...[[4964, 123, 0.0512], [6939, 88, 0.0715], [3915, 156, 0.0401]].map(([l, m, v]) => ({ what: `${v} Å/px at ${l} Å (order ${m})`, q: "dlpixAt", lam: l, m, value: v, info: true, src: "Baranne et al. 1996 Fig. 3 (DERIVED from the printed positions). A miss: the model is 3.2–3.6% low at all three. The paper gives the blaze both as tan θ = 4 (76.0°, used here) and as 75° (Fig. 1), which give 3.4% low and 3.7% high; an equivalent camera of 290 mm instead of 300 would also match" })),
+      { what: "orders 123–124 14.2 px apart", q: "minSepPx", m1: 123, m2: 124, value: 14.2, tol: 0.05, src: "Baranne et al. 1996 Fig. 3 (0.341 mm, DERIVED)" },
+      { what: "orders 88 to 157 span 24.95 mm", q: "ySpan", m1: 88, m2: 157, value: 24.95, tol: 0.03, src: "Baranne et al. 1996 Fig. 3 (DERIVED)" },
+      { what: "orders 88–89 17.0 px apart", q: "minSepPx", m1: 88, m2: 89, value: 17.0, info: true, src: "Baranne et al. 1996 Fig. 3 (0.407 mm, DERIVED). A miss, 14% wide: with N-BK7 for the unnamed crown, the model spaces the red orders wider and the blue orders closer than Fig. 3" },
+      { what: "orders 156–157 16.8 px apart", q: "minSepPx", m1: 156, m2: 157, value: 16.8, info: true, src: "Baranne et al. 1996 Fig. 3 (0.404 mm, DERIVED). A miss, 10% close (see the line above)" },
+      { what: "coverage from 3906 Å", q: "lo", value: 3906, info: true, src: "Baranne et al. 1996 Fig. 2 caption (OHP: 3895 Å). A miss of 1.2%, from the order spacing: the format sits about one order bluer on the chip" },
+      { what: "coverage to 6811 Å", q: "hi", value: 6811, info: true, src: "Baranne et al. 1996 Fig. 2 caption (OHP: 6815 Å). A miss of 1.5% (see the line above)" },
+      { what: "orders 156 to 90 (67)", q: "nOrders", value: 67, info: true, src: "Baranne et al. 1996 Fig. 2 caption. The model holds 68 orders, 158 to 91 (see the coverage lines)" },
+    ],
+  },
+  // V. M. Slipher's spectrograph on the Lowell 24-inch Clark refractor (round 7, data/round7/slipher.md): a prism
+  // spectrograph (gType "prism").  The objective: 61 cm, 983 cm focal length (Slipher 1904, p. 2), F = 983 / 61; the
+  // Brashear collimator lens 489.1 mm (1904, p. 2), entered as the beam 489.1 / F = 30.35 mm (the lens's aperture is
+  // 30.5 mm).  The detector is a photographic plate, entered with 20 µm "pixels" near the plates' resolving limit
+  // (EFFECTIVE; the stellar plates resolve 0.25 Å at 11.4 Å/mm, 0.022 mm).  The nebular plates are the part Slipher
+  // measured, F to H (6.7 x 1.9 mm, INFERRED in the record), the red edge set at F; the two-prism plate is longer by the
+  // ratio of the model's dispersions at 4415 Å (2.09, DERIVED).  The prism glasses are modern stand-ins (INFERRED).
+  ...[
+    { k: "1", setting: "1 prism, nebulae", A: 64, n: 1, glass: "N-SF15", lamC: 4303.2, Nx: 335, Ny: 95, fcam: 82.55, slit: 0.06 * 489.1 / 82.55,
+      note: "Slipher's spectrograph on the Lowell 24-inch refractor, as used for the first velocities of spiral nebulae (Slipher 1913, 1915, 1917; the instrument: Slipher 1904). Sourced: the 61 cm f/16.1 objective, the Brashear collimator lens (489.1 mm), one 64° prism of \"very dense\" glass, a Voigtländer camera lens of about f/2.5, and about 140 Å/mm in the violet with an equivalent slit width of 0.06 mm. Inferred (data/round7/slipher.md): the camera focal length, 82.55 mm, read from \"3¼-inch\"; the slit, 7.46″, from the 0.06 mm slit image; and the glass, modeled by Schott N-SF15, whose data sheet tabulates indices only to 4047 Å, so the spectrum stops there although Slipher measured to H (3968 Å). The detector is the measured part of the plate, F to H; the 20 µm pixels stand for the plate's grain. M31's four plates gave −300 km/s, a shift of 0.031 mm on the plate at Hγ, after exposures of 6 h 50 min to three nights.",
+      pub: [
+        { what: "≈140 Å/mm in the violet (2.8 Å per 20 µm)", q: "dlpixAt", lam: 4415, m: 1, value: 2.8, info: true, src: "Slipher 1917 (Proc. Am. Phil. Soc. 56), p. 405: \"about 140 A per mm\" in the violet; no wavelength given, and the dispersion runs from 97 Å/mm at 4102 Å to 218 Å/mm at F in the model. A reference line at 4415 Å, the middle of F to H" },
+        { what: "R ≈ 520 at Hγ (0.06 mm × 140 Å/mm = 8.4 Å)", q: "RAt", lam: 4340, value: 517, info: true, src: "data/round7/slipher.md (DERIVED from the equivalent slit width and the dispersion, the numbers that set the slit: circular)" },
+      ] },
+    { k: "2", setting: "2 prisms, nebulae", A: 64.5, n: 2, glass: "N-SF15", lamC: 4262.6, Nx: 700, Ny: 95, fcam: 82.55, slit: 0.06 * 489.1 / 82.55,
+      note: "Slipher's nebular spectrograph with two 64.5° prisms, as on the 35-hour plate of NGC 1068 in November 1917 (Slipher 1917, Lowell Obs. Bull. 3, 59); two prisms served for two of the 25 nebulae of the 1917 list. The rest as the one-prism setting: the camera focal length, the slit and the glass (Schott N-SF15) are inferred (data/round7/slipher.md). The plate is drawn F to H, longer than the one-prism plate by the ratio of the dispersions.",
+      pub: [
+        { what: "≈70 Å/mm (half the one-prism dispersion)", q: "dlpixAt", lam: 4415, m: 1, value: 1.4, info: true, src: "data/round7/slipher.md (DERIVED, rough: 140 Å/mm halved for two prisms; no published value)" },
+      ] },
+    { k: "3", setting: "3 prisms, stars", A: 62 + 52 / 60, n: 3, glass: "SF2", lamC: 4340, Nx: 3810, Ny: 2540, fcam: 471.4, slit: 0.02,
+      note: "The Lowell spectrograph as Brashear delivered it for stellar velocities (Slipher 1904, 1905): three prisms of Jena O 102 dense silicate flint, 62°52′, at minimum deviation, the 489.1 mm collimator lens, the long camera (471.4 mm) and a 0.02 mm slit (0.42″). The glass is modeled by Schott SF2, which matches Slipher's measured indices of the three prisms after a constant offset (data/round7/slipher.md, INFERRED). The plate is the 2 × 3-inch holder's; the 20 µm pixels stand for the plate's resolving limit, 0.25 Å at Hγ on the most rapid plates.",
+      pub: [
+        { what: "11.4 Å/mm at Hγ (long camera)", q: "dlpixAt", lam: 4340, m: 1, value: 11.4 * 0.02, tol: 0.05, src: "Slipher 1904 (ApJ 20, 1), p. 15, measured on the plates" },
+        { what: "total deviation ≈176°", q: "devDeg", value: 176, tol: 0.02, src: "Slipher 1904 (ApJ 20, 1): the three prisms turn the beam back beside the collimator (data/round7/slipher.md)" },
+      ] },
+  ].map(c => ({
+    id: "slipher" + c.k, tel: "Lowell 0.61 m", name: "Lowell 24-inch / Slipher's spectrograph, " + c.setting, inst: "Slipher's spectrograph", setting: c.setting,
+    note: c.note,
+    state: { mode: "grating", D: 0.61, F: 983 / 61,
+      g: { slitW: c.slit / 9830 * 206264.806, nObj: 1, col: "lens", cam: "lens", W: 489.1 / (983 / 61), fcam: c.fcam, gType: "prism", gGlass: c.glass, pA: c.A, pN: c.n, lamC: c.lamC, Nx: c.Nx, Ny: c.Ny, pix: 20 } },
+    pub: c.pub,
+  })),
 ];
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;
