@@ -16,12 +16,12 @@ const DEF = {
   mode: "grating",
   D: 6.5, F: 5,
   arms: false,                                                   // every arm of a multi-arm instrument in one view (arms.js)
-  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
+  g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, Nx: 4096, Ny: 2048, pix: 15,
        filt: null, fgroups: null, telF: null, fibAp: null },
-  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, gFlip: false, annot: true,
+  e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
-        xPre: null, xDbl: null, wp3: false, fold3d: "", xdLabel: "", note3d: "",   // the 3D view's prism passes and labels (presets)
+        xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "",   // the 3D view's prism passes and labels (presets)
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -89,6 +89,7 @@ const SL = [
   ["sGA", "gA", "m", false, false, v => v.toFixed(1) + "°"],
   ["sCT", "colTilt", "m", false, false, v => v.toFixed(1) + "°"],
   ["sLL", "layLen", "m", true, false, v => sig(v, 3) + " mm"],
+  ["sCL", "camLen", "m", true, false, v => sig(v, 3) + " mm"],
   ["sFA", "foldAng", "m", false, false, v => v.toFixed(0) + "°"],
   ["sFP", "foldPos", "m", false, false, v => v.toFixed(2)],
   ["sGam", "gamma", "m", false, false, v => v.toFixed(1) + "°"],
@@ -106,7 +107,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
+const DRAWING_KEYS = new Set(["layLen", "camLen", "foldLabel", "filtShow", "xDraw", "preFoldOn", "preFoldAng", "preFoldPos", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
 
 function markCustom() {
   presetId = "custom";
@@ -321,12 +322,12 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0 });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
                           xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms,
-                          xPre: m.xPre, xDbl: m.xDbl, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d });
+                          xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d });
   return P;
 }
 
@@ -351,7 +352,7 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre"]);
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre"]);
 const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
@@ -368,13 +369,13 @@ function readHash() {
   const conv = (k, d, v) => {
     if (typeof d === "boolean") return v === "true" ? true : v === "false" ? false : NUL;
     if (v[0] === "[") {
-      // a prism train: each prism a known glass and an apex angle between 0 and 90 deg
+      // a prism train (xPrisms; xDraw, the prisms drawn): each prism a known glass and an apex angle between 0 and 90 deg
       // an order filter's band [lo, hi] (Å); fiber groups [fibers per group, pitch, gap] (µm on the detector)
       try {
         const a = JSON.parse(v);
         if (k === "filt") return Array.isArray(a) && a.length === 2 && a.every(x => isFinite(x) && x > 0) && a[0] < a[1] ? a : NUL;
         if (k === "fgroups") return Array.isArray(a) && a.length === 3 && Number.isInteger(a[0]) && a[0] >= 1 && a.every(x => isFinite(x) && x > 0) ? a : NUL;
-        return k === "xPrisms" && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL;
+        return (k === "xPrisms" || k === "xDraw") && Array.isArray(a) && a.length && a.every(q => q && IX.GLASS[q.glass] && q.A > 0 && q.A < 90) ? a : NUL;
       } catch (e) { return NUL; }
     }
     if (typeof d === "number" || d === null) {
@@ -547,7 +548,7 @@ function renderText(Dz, P) {
 
 // ------------------------------------------------------------------ optical layout
 let lastTauAuto = null;          // the automatic collimator tilt of the last drawing, shown on the slider
-let lastD1Auto = null;           // the automatic collimated-beam length, likewise
+let lastD1Auto = null, lastD2Auto = null;   // the automatic collimated-beam length and camera distance, likewise
 // the layout view: mm -> canvas px scale s and the canvas position (ox, oy) of the slit
 const lview = { mode: "auto", s: 0, ox: 0, oy: 0, fit: true };
 function drawLayout(Dz, P) {
@@ -630,6 +631,9 @@ function drawLayout(Dz, P) {
   const sinPsi = Math.abs(ac[1]), cosPsi = -ac[0];
   let d2 = 0.6 * Wp + 0.1 * fcam + (ech ? 1.2 * Wp : 0) + (trans || grism ? 0.8 * Wp + 0.1 * fcam : 0);
   if (sinPsi > 0.2 && cosPsi > 0) for (let it = 0; it < 3; it++) d2 = Math.max(d2, (0.55 * W + 0.55 * Wp + d2 * tf + 0.25 * W) / sinPsi);
+  lastD2Auto = dpass ? null : d2;
+  if (P.camLen > 0 && !dpass) d2 = P.camLen;                    // the Layout option: disperser to the camera (a lens camera's
+                                                                 // thin lens; a mirror camera's corrector), as sourced
   if (cosPsi > 0) d1 = Math.max(d1, (d2 + (camMir ? LmC : 0)) * cosPsi + 0.25 * W + 0.06 * fcol);
   if (P.foldOn) d1 = Math.max(d1, 2.2 * W);                    // room for a fold mirror along the way
   lastD1Auto = dpass ? dpD1Auto : d1;
@@ -639,7 +643,9 @@ function drawLayout(Dz, P) {
   const Fp2 = addv(Gc, sc(tg, W / (2 * Math.cos(a)))), Fm2 = addv(Gc, sc(tg, -W / (2 * Math.cos(a))));
   Fp[0] = Fp2[0]; Fp[1] = Fp2[1]; Fm[0] = Fm2[0]; Fm[1] = Fm2[1];
   const C = addv(Gc, sc(ac, d2));
-  const XDc = ech ? addv(Gc, sc(ac, d2 * (dpass ? 0.3 : 0.5))) : null;      // double pass: the prism near the echelle (Bernstein et al. 2003)
+  // (double pass: the prism just past the lens group, 0.7 of the way from the echelle: MIKE red ≈100 mm past the last
+  // lens on a ≈350 mm path, Bernstein et al. 2003 Fig. 1; M2FS 122 mm on 394 mm, Mateo et al. 2012 Fig. 4)
+  const XDc = ech ? addv(Gc, sc(ac, d2 * (dpass ? 0.7 : 0.5))) : null;
   // beam edges where they meet the camera plane
   const hit = (p, b) => { const t = dt(addv(C, sc(p, -1)), ac) / dt(b, ac); return addv(p, sc(b, t)); };
   for (const bm of beams) { bm.Ep = hit(Fp, bm.b); bm.Em = hit(Fm, bm.b); bm.Q = addv(addv(C, sc(ac, dDet)), sc(xd, bm.X)); }
@@ -714,6 +720,16 @@ function drawLayout(Dz, P) {
   const fPos = Math.min(0.98, Math.max(0.02, P.foldPos ?? 0.5));
   const Cf = v2(fcol + fPos * d1, 0), nf = v2(Math.sin(phi / 2), -Math.cos(phi / 2)), tf2 = v2(Math.cos(phi / 2), Math.sin(phi / 2));
   const Mfold = p => (foldOn ? addv(p, sc(nf, -2 * dt(addv(p, sc(Cf, -1)), nf))) : p);
+  // a flat fold between the slit and the collimator (P.preFoldOn, drawing only; APOGEE's Fold Mirror 1, which the light
+  // meets on the way to the on-axis collimator and again on the way back: Wilson et al. 2019): the drawing is made
+  // unfolded, then whatever lies beyond the mirror's line, on the collimator's side, is reflected in it (in the Spectral
+  // view).  preFoldAng: the turn (deg, counterclockwise on the page); preFoldPos: the mirror's distance from the
+  // collimator as a fraction of f_col
+  const preOn = !!P.preFoldOn && P.view !== "spatial" && P.view !== "3d";
+  const phi1 = (P.preFoldAng ?? 90) * IX.DEG / 2, C1 = v2(fcol * (1 - Math.min(0.95, Math.max(0.05, P.preFoldPos ?? 0.33))), 0);
+  const t1 = v2(Math.cos(phi1), Math.sin(phi1)), n1 = v2(Math.sin(phi1), -Math.cos(phi1));
+  const side1 = p => dt(addv(p, sc(C1, -1)), n1);
+  const R1 = p => (preOn && side1(p) > 0 ? addv(p, sc(n1, -2 * side1(p))) : p);
   // Flip grating (Layout option): the grating tilted the other way, so it turns the light to the other side;
   // the grating and everything after it are reflected about the collimated beam's axis (y = 0), which the
   // beam itself is symmetric about.  A mirror image, so no number changes.
@@ -794,15 +810,21 @@ function drawLayout(Dz, P) {
     // deviation for the central wavelength).
     function build3dDoublePass() {
       const f = fcam, Lx = Dz.Lx, Ly = Dz.Ly, dE = d1, sInj = 0.6 * Ly + 0.025 * f;
+      // where the slit and the detector sit in the lens's focal plane: across the orders (z), sInj above and below the
+      // axis (MIKE: the injection optics, Bernstein et al. 2003 Sec. 2.3); or, for an echelle used off Littrow by theta,
+      // in the echelle's own plane (y), f tan(theta) either side, the returning beam 2 theta from the arriving one (M2FS:
+      // Mateo et al. 2012 Figs. 3-4, the fiber ends beside the CCD in the echelle's plane)
+      const dpY = Math.abs(P.theta || 0) > 0, sOff = dpY ? f * Math.tan(Math.abs(P.theta) * IX.DEG) : sInj, OFF = dpY ? [0, sOff, 0] : [0, 0, sInj], mOFF = s3(OFF, -1);
       const O = [f, 0, 0], XA = [1, 0, 0], YA = [0, 1, 0], ZA = [0, 0, 1], lcE = P.lamC / 1e4;
       const refr = (u, nv, n1, n2) => { const c = d3(u, nv), r = n1 / n2, k = 1 - r * r * (1 - c * c); return k < 0 ? null : n3(a3(s3(a3(u, s3(nv, -c)), r), s3(nv, Math.sqrt(k)))); };
       const hitPl = (p, u, c, nv) => a3(p, s3(u, d3(a3(c, s3(p, -1)), nv) / d3(u, nv)));
       const ringAt = (c, a1, a2, r) => RING.map(([py, pz]) => a3(c, a3(s3(a1, py * 2 * r / W), s3(a2, pz * 2 * r / W))));
       const perpPair = u => { const a1 = n3(x3(u, ZA)), a2 = n3(x3(a1, u)); return [a1, a2]; };
-      // one physical prism for each two of the tracer's passes
-      const train = Array.isArray(P.xPrisms) && P.xPrisms.length ? P.xPrisms : Array(Math.max(1, Math.round(P.xPasses || 1))).fill({ glass: P.xGlass, A: P.xA });
+      // one physical prism for each two of the tracer's passes, or the prisms the instrument has where the model uses an
+      // equivalent one (P.xDraw, drawing only: MIKE blue's two 38 deg prisms for the 62 deg prism Bernstein et al. state)
+      const train = Array.isArray(P.xDraw) && P.xDraw.length ? P.xDraw.flatMap(q => [q, q]) : Array.isArray(P.xPrisms) && P.xPrisms.length ? P.xPrisms : Array(Math.max(1, Math.round(P.xPasses || 1))).fill({ glass: P.xGlass, A: P.xA });
       const prisms = [];
-      const lensIn = a3(O, [0, 0, sInj * dE / f]), v0 = n3([f, 0, -sInj]);
+      const lensIn = a3(O, s3(OFF, dE / f)), v0 = n3(a3(O, mOFF));
       let p = lensIn, u = v0, run = 0;
       for (let k = 0; k < Math.max(1, Math.round(train.length / 2)); k++) {
         const pr = train[k], A = pr.A * IX.DEG, nC = IX.nGlass(pr.glass, lcE), D = 2 * Math.asin(Math.min(1, nC * Math.sin(A / 2))) - A;
@@ -852,8 +874,8 @@ function drawLayout(Dz, P) {
       const lensHit = (q, w) => hitPl(q, w, O, XA);
       // the echelle: in Littrow in the x-y plane; across the orders it returns the central wavelength to the
       // detector's center, so its normal bisects the arriving beam and that returning one
-      const Qc = [0, 0, -sInj], wc = n3(a3(Qc, s3(O, -1)));
-      const rc = fwd(a3(O, [0, 0, -sInj * dE / f]), s3(wc, -1), lcE);
+      const Qc = mOFF, wc = n3(a3(Qc, s3(O, -1)));
+      const rc = fwd(a3(O, s3(OFF, -dE / f)), s3(wc, -1), lcE);
       const w1c = rc ? s3(rc.u, -1) : s3(vE, -1);
       const mxd = n3(a3(w1c, s3(vE, -1))), Yp = n3(a3(YA, s3(mxd, -d3(YA, mxd))));
       const nE = n3(a3(s3(mxd, Math.cos(dl)), s3(Yp, Math.sin(dl)))), tE = n3(a3(s3(Yp, Math.cos(dl)), s3(mxd, -Math.sin(dl)))), gE = n3(x3(nE, tE));
@@ -861,8 +883,8 @@ function drawLayout(Dz, P) {
       // the wavelength scale for the colors: the chip's whole range
       const lr = Dz.range || [lcE * 0.9, lcE * 1.1], tOf = l => Math.min(1, Math.max(0, (l - lr[0]) / (lr[1] - lr[0])));
       // light arriving: the telescope's cone to the slit, then from the slit through the lens, the prisms and onto the echelle
-      const S0 = [0, 0, sInj];
-      tube([ringAt([-Lt, 0, sInj], YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13, true);
+      const S0 = OFF.slice();
+      tube([ringAt(a3([-Lt, 0, 0], OFF), YA, ZA, tHalf), [S0]], [214, 160, 50], 0.13, true);
       let rL = 0;
       {
         const [a1, a2] = [YA, ZA], lens = ringAt(lensIn, a1, a2, W / 2), st = [[S0], lens], tr = lens.map(q => fwd(q, v0, lcE));
@@ -879,7 +901,7 @@ function drawLayout(Dz, P) {
       for (const o of pick) for (const l of [o.lo, Math.min(o.hi, Math.max(o.lo, o.lb)), o.hi]) {
         const pq = Dz.pos(l, o.m);
         if (!pq) continue;
-        const Q = [0, pq[0], pq[1] - sInj], w = n3(a3(Q, s3(O, -1)));
+        const Q = a3([0, pq[0], pq[1]], mOFF), w = n3(a3(Q, s3(O, -1)));
         const rv = fwd(lensIn, s3(w, -1), l);
         if (!rv) continue;
         const w1 = s3(rv.u, -1), [a1, a2] = perpPair(w1);
@@ -910,31 +932,36 @@ function drawLayout(Dz, P) {
       }
       // the detector, with every order's trace on its face, the foci of the drawn bundles, and its two directions
       {
-        const Dc = [0, 0, -sInj];
+        const Dc = mOFF;
         plate(Dc, YA, ZA, Lx / 2, Ly / 2, XA, 0.012 * Lx + 0.5, [51, 55, 61], 0.92, STEEL3);
         for (const o of ords) {
           let prev = null;
           for (let k = 0; k <= 24; k++) {
             const l = o.lo + (o.hi - o.lo) * k / 24, pq = Dz.pos(l, o.m);
             if (!pq) { prev = null; continue; }
-            const q = [0.4, pq[0], pq[1] - sInj];
+            const q = a3([0.4, pq[0], pq[1]], mOFF);
             if (prev) line(prev, q, rgba(rampRGB(tOf(l)), 1), 1.4);
             prev = q;
           }
         }
         for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
-        const o = [0, -1.12 * Lx / 2, -sInj - 1.12 * Ly / 2];
+        const o = a3([0, -1.12 * Lx / 2, -1.12 * Ly / 2], mOFF);
         prims3.push({ k: "a", p: [o, a3(o, s3(YA, 0.5 * Lx))], txt: "λ" }, { k: "a", p: [o, a3(o, s3(ZA, 0.5 * Ly))], txt: "orders" });
       }
-      // the slit
+      // the slit, and the order-sorting filter just past it (P.filtShow)
       prims3.push({ k: "d", p: [S0], col: [96, 90, 84] });
+      if (P.filtShow && Array.isArray(P.filt)) {
+        const cF = a3(S0, s3(v0, 0.06 * f)), hF = 0.06 * f / (2 * P.F) * 1.8 + 0.03 * W, [fa, fb] = perpPair(v0);
+        plate(cF, fa, fb, hF, hF, v0, 2, [170, 206, 236], 0.6, "rgba(60,96,128,0.8)");
+        labs3.push([a3(cF, s3(fb, 1.6 * hF)), "order filter", grp(P.filt[0]) + "–" + grp(P.filt[1]) + " Å"]);
+      }
       const pTop = prisms.length ? prisms[prisms.length - 1] : null;
-      labs3.push([[-Lt, 0, sInj + tHalf * 1.8], "telescope", "f/" + sig(P.F, 3)], [[0, 0, sInj + 0.09 * f], "slit", sig(P.slitW, 3) + "″"],
+      labs3.push([a3([-Lt, 0, tHalf * 1.8], OFF), "telescope", "f/" + sig(P.F, 3)], [a3([0, 0, 0.09 * f], OFF), "slit", sig(P.slitW, 3) + "″"],
         [a3(O, [0, 0, -rL * 1.18]), "collimator and camera f/" + sig(Dz.Fcam, 3), "f = " + mm(f)],
-        [[0, 0, -sInj - 0.75 * Ly - 0.05 * f], "detector", mm(Lx)],
+        [a3([0, 0, -0.75 * Ly - 0.05 * f], mOFF), "detector", mm(Lx)],
         [a3(E, s3(gE, 0.75 * W)), "echelle", sig(P.eG, 3) + " /mm"]);
       if (pTop) labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), prisms.length > 1 ? prisms.length + " prisms" : "prism", prisms.map(q => q.A + "°").join(" + ")]);
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; the slit (the image the injection optics place in the lens's focal plane) and the detector sit " + sig(sInj, 2) + " mm above and below the lens axis";
+      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; the slit (the image the injection optics place in the lens's focal plane) and the detector sit " + sig(sOff, 2) + (dpY ? " mm either side of the lens axis in the echelle's plane, so the returning beam leaves 2θ = " + sig(2 * Math.abs(P.theta), 2) + "° from the arriving one" : " mm above and below the lens axis");
     }
     // ---- 3D view of a single-pass echelle (HIRES, X-Shooter, HARPS, UVES ...).  World: the drawing's unfolded frame
     // (the slit at the origin, the collimated beam along +x, x-y the echelle's dispersion plane, z up), mapped through
@@ -1580,7 +1607,7 @@ function drawLayout(Dz, P) {
     const cen = s3(a3(lo, hi), 0.5), R = R3.m;
     proj3 = p => { const d = [p[0] - cen[0], p[1] - cen[1], p[2] - cen[2]]; return [d3(R[0], d), d3(R[1], d), d3(R[2], d)]; };
     box3 = pts3.map(p => proj3(p).slice(0, 2));
-    if (!ech) $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset";
+    if (!ech) $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset" + (P.preFoldOn ? "; the fold mirror before the collimator is drawn only in the Spectral view" : "");
   }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
@@ -1588,9 +1615,9 @@ function drawLayout(Dz, P) {
     ...(MIR ? [MIR.arc[0], MIR.arc[MIR.arc.length - 1], addv(MIR.Mc, sc(ac, 0.04 * MIR.half)), ...MIR.dewar, addv(MIR.C2, sc(xd, MIR.half2)), addv(MIR.C2, sc(xd, -MIR.half2))] : [])].map(Mpost);
   if (foldOn) post.push(Mf(Qp), Mf(Qm));
   let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  for (const p of view3d ? box3 : spatial ? SP.box : [...pre, ...post]) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+  for (const p of view3d ? box3 : spatial ? SP.box : [...pre, ...post].map(R1)) { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
   // room for the labels at the sides, and below for the scale bar and caption at the panel's foot
-  const mL = 54, mR = 60, mT = spatial || view3d ? 48 : 26, mB = 40;
+  const mL = 64, mR = 100, mT = spatial || view3d ? 48 : 26, mB = 40;
   // the view: fitted to the panel (Auto scale, and whenever a fit is asked for), else held (Fixed scale)
   const sFit = Math.min((w - mL - mR) / (x1 - x0), (h - mT - mB) / (y1 - y0));
   const oxFit = mL + ((w - mL - mR) - sFit * (x1 - x0)) / 2 - sFit * x0, oyFit = mT + ((h - mT - mB) - sFit * (y1 - y0)) / 2 + sFit * y1;
@@ -1598,11 +1625,24 @@ function drawLayout(Dz, P) {
   const s = lview.s, ox = lview.ox, oy = lview.oy;
   spGeo = spatial && SP.free ? { hMax: SP.hMax, mag: SP.mag, Ly: SP.Ly, xD: SP.xD, s, ox, oy } : null;
   let fold = false;                                  // true while drawing what comes after the grating's fold(s)
-  const T = p => { const q = fold ? Mpost(p) : p; return [ox + s * q[0], oy - s * q[1]]; };
-  const poly = (ps, fill, stroke, lw = 1) => {
-    g.beginPath(); ps.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); }); g.closePath();
-    if (fill) { g.fillStyle = fill; g.fill(); }
-    if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); }
+  let noR1 = false;                                  // (true while drawing the pre-collimator fold itself)
+  const T = p => { const q0 = fold ? Mpost(p) : p, q = noR1 ? q0 : R1(q0); return [ox + s * q[0], oy - s * q[1]]; };
+  // (with a fold before the collimator: a polygon or path that crosses the mirror's line is cut there, so each part
+  // is reflected or not as a whole; the cut points lie on the line, where the reflection leaves each point in place)
+  const sideT = p => side1(fold ? Mpost(p) : p);
+  const cutAt1 = (p, q) => { const a = sideT(p), b = sideT(q); return a * b < 0 ? addv(p, sc(addv(q, sc(p, -1)), a / (a - b))) : null; };
+  const splitPoly = ps => {
+    if (!preOn) return [ps];
+    const A = [], B = [];
+    ps.forEach((p, i) => { const q = ps[(i + 1) % ps.length], m = cutAt1(p, q); (sideT(p) <= 0 ? A : B).push(p); if (m) { A.push(m); B.push(m); } });
+    return [A, B].filter(x => x.length > 2);
+  };
+  const poly = (ps0, fill, stroke, lw = 1) => {
+    for (const ps of splitPoly(ps0)) {
+      g.beginPath(); ps.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); }); g.closePath();
+      if (fill) { g.fillStyle = fill; g.fill(); }
+      if (stroke) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); }
+    }
   };
   const beam = (ps, fill) => { if (!hideRays) poly(ps, fill, null); };   // a beam's faint fill
   const line = (p, q, col, lw = 1, dash) => { const a1 = T(p), b1 = T(q); g.beginPath(); g.moveTo(a1[0], a1[1]); g.lineTo(b1[0], b1[1]); g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]); };
@@ -1622,7 +1662,8 @@ function drawLayout(Dz, P) {
   const NEU = [104, 98, 92], GLASS_EDGE = "#3f6d96", STEEL = "#33373d";
   // (the solid colored paths are the rays: kept for the light pulses, anim.js)
   const pulseRays = [];
-  const path = (pts, col, lw = 1, dash) => {
+  const path = (pts0, col, lw = 1, dash) => {
+    const pts = !preOn ? pts0 : pts0.flatMap((p, i) => { const m = i ? cutAt1(pts0[i - 1], p) : null; return m ? [m, p] : [p]; });
     if (hideRays && !dash && typeof col === "string") { pulseRays.push({ p: pts.map(T), c: col }); return; }
     g.beginPath(); pts.forEach((p, i) => { const q = T(p); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); });
     g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []); g.stroke(); g.setLineDash([]);
@@ -1889,6 +1930,14 @@ function drawLayout(Dz, P) {
     const q = T(v2(0, 0)); g.fillStyle = STEEL; g.fillRect(q[0] - 2, q[1] - 10, 4, 7.5); g.fillRect(q[0] - 2, q[1] + 2.5, 4, 7.5);
     req(5, "slit", [[q[0], q[1] + 21, "center"], [q[0], q[1] - 21, "center"]], INK, 13, { sub: sig(P.slitW, 3) + "″" });
   }
+  // an order-sorting filter just past the slit (P.filtShow, drawing only: M2FS's in front of the fiber ends, Mateo et al.
+  // 2012 Sec. 2.2; Hectochelle's at the fiber slit, Szentgyorgyi et al. 2011 Fig. 2)
+  if (P.filtShow && Array.isArray(P.filt)) {
+    const xf = 0.06 * fcol, hf = xf / (2 * P.F) * 1.8 + 0.03 * W, a = T(v2(xf, hf)), b = T(v2(xf, -hf));
+    g.save(); g.lineCap = "butt"; g.strokeStyle = "rgba(60,96,128,0.85)"; g.lineWidth = 5; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+    g.strokeStyle = "rgba(170,206,236,0.95)"; g.lineWidth = 3; g.stroke(); g.restore();
+    req(6, "order filter", ends(a, b), INK, 12, { sub: grp(P.filt[0]) + "–" + grp(P.filt[1]) + " Å" });
+  }
   if (mirror) {
     // a concave mirror facing the slit, hatched on the back
     const e0 = T(onMirror(halfM)), e1 = T(onMirror(-halfM)), cc = T(addv(Cm, sc(nm, -sagM)));   // quadratic Bezier = the parabola
@@ -1902,6 +1951,17 @@ function drawLayout(Dz, P) {
     for (const bm of beams) for (const E of [bm.Ep, bm.Em]) { const y = Mpost(E)[1]; lo = Math.min(lo, y); hi = Math.max(hi, y); }
     lens(v2(fcol, (lo + hi) / 2), v2(1, 0), (hi - lo) / 2 * 1.06, "collimator and camera f/" + sig(Dz.Fcam, 3), "f = " + mm(fcam), true);
   } else lens(v2(fcol, 0), v2(1, 0), W / 2 * 1.06, "collimator", "f = " + mm(fcol), true);
+  if (preOn) {
+    // the fold before the collimator: a flat on its line, hatched on the back (the collimator's side before the fold)
+    noR1 = true;
+    const u1 = 1.08 * Math.max(W / 2, (C1[0] / (2 * P.F))) / Math.max(0.2, Math.sin(phi1));
+    const f0 = T(addv(C1, sc(t1, u1))), f1 = T(addv(C1, sc(t1, -u1)));
+    const nH = Math.max(6, Math.round(Math.hypot(f1[0] - f0[0], f1[1] - f0[1]) / 7));
+    hatch(Array.from({ length: nH + 1 }, (_, k) => addv(C1, sc(t1, u1 * (1 - 2 * k / nH)))), [n1, t1]);
+    steel(() => { g.beginPath(); g.moveTo(f0[0], f0[1]); g.lineTo(f1[0], f1[1]); }, f0, f1);
+    req(4, "fold mirror", ends(f0, f1));
+    noR1 = false;
+  }
   if (foldOn) {
     // the flat fold mirror, hatched on the back (the side away from the arriving beam)
     const ext = 1.08 / Math.sin(phi / 2), u0 = W / 2 * ext;
@@ -1910,7 +1970,7 @@ function drawLayout(Dz, P) {
     const Mlin = p => addv(Mf(p), sc(Mf(v2(0, 0)), -1));          // Mf acting on a direction
     hatch(Array.from({ length: nH + 1 }, (_, k) => Mf(addv(Cf, sc(tf2, u0 * (1 - 2 * k / nH))))), [Mlin(nf), Mlin(tf2)]);
     steel(() => { g.beginPath(); g.moveTo(f0[0], f0[1]); g.lineTo(f1[0], f1[1]); }, f0, f1);
-    req(4, "fold mirror", ends(f0, f1));
+    req(4, P.foldLabel || "fold mirror", ends(f0, f1));
   }
   fold = true;
   if (ech && XDc) {
@@ -2833,6 +2893,10 @@ function render() {
   if ((M().layLen === null || M().layLen === undefined) && lastD1Auto !== null) {
     if (document.activeElement !== $("sLL")) $("sLL").value = String(Math.log10(Math.max(10, lastD1Auto)));
     $("vLL").textContent = sig(lastD1Auto, 3) + " mm (auto)";
+  }
+  if ((M().camLen === null || M().camLen === undefined) && lastD2Auto !== null) {
+    if (document.activeElement !== $("sCL")) $("sCL").value = String(Math.log10(Math.max(10, lastD2Auto)));
+    $("vCL").textContent = sig(lastD2Auto, 3) + " mm (auto)";
   }
   if (M().col === "mirror" && (M().colTilt === null || M().colTilt === undefined) && lastTauAuto !== null) {
     if (document.activeElement !== $("sCT")) $("sCT").value = String(lastTauAuto / IX.DEG);

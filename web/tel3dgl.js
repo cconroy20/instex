@@ -340,11 +340,12 @@ function draw(cv, Dz, P, Gm, pu, V, H, opts) {
   if (!G.key || G.key[0] !== key[0] || G.key[1] !== key[1] || G.key[2] !== key[2]) {
     let { prims, labs, pulses } = T3D.build(Dz, P, Gm, pu, opts);
     if (opts && opts.twin) {
-      const hh = opts.twin / 2, sh = (q, d) => [q[0] + d, q[1], q[2]];
-      const dup = d => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(s => s.map(q => sh(q, d))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d)) })));
-      prims = dup(-hh).concat(dup(hh));
-      pulses = [-hh, hh].flatMap(d => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d)), rgb: pl.rgb })));
-      labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, hh) }));
+      // (the two sides mirror each other across the mount's center, as in tel3d.js)
+      const hh = opts.twin / 2, sh = (q, d, m) => [(m ? -q[0] : q[0]) + d, q[1], q[2]], mL = !!opts.twinDX, mR = !opts.twinDX;
+      const dup = (d, m) => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(s => s.map(q => sh(q, d, m))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d, m)) })));
+      prims = dup(-hh, mL).concat(dup(hh, mR));
+      pulses = [[-hh, mL], [hh, mR]].flatMap(([d, m]) => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d, m)), rgb: pl.rgb })));
+      labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, hh, mR) }));
     }
     const pts = [];
     for (const pr of prims) { if (pr.k === "t") for (const s of pr.st) pts.push(...s); else pts.push(...pr.p); }

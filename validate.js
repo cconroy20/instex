@@ -364,9 +364,9 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     [/^xsh/, "off", "Vernet et al. 2011 Secs. 2.3-2.5: off-axis Maksutov-type collimators"],
     [/^feros$/, "off", "FEROS Final Design Report Sec. 3.4: off-axis paraboloids"],
     [/^4most/, "off", "Laurent et al. 2020, 2026 (LRS); Hansen et al. 2015 (HRS concept): off-axis Schmidt collimators"],
-    [/^harps$/, "off*", "ESO HARPS description: parabola in triple pass, a white-pupil layout"],
+    [/^harps$/, "off", "Pepe et al. 2002: f/2.1 parabola in triple pass; HARPS User Manual 2.4 Fig. 2.1 draws the tilted mirror (a triple pass cannot be on the axis)"],
     [/^zsh/, "off*", "ZShooter optical-design page: parabolic collimator feeding a white-pupil relay"],
-    [/^(kcwib|kcrm)$/, "unverified", "Morrissey et al. 2018 give a spherical collimator, without its axis"],
+    [/^(kcwib|kcrm)$/, "off", "Morrissey et al. 2018 Sec. 2 and Fig. 8: the sphere used at a working angle that the cylindrical fold FM1 corrects; the 9.4 deg tilt MEASURED from Fig. 8"],
   ];
   for (const p of PRESETS) for (const k of ["g", "e"]) {
     const m = p.state && p.state[k];

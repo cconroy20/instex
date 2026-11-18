@@ -93,9 +93,9 @@ window.IX_IPRESETS = [
       { what: "26.1 Mpix", q: "npix", value: 26091648, tol: 1e-6, src: "IMX571 format" },
     ] },
   // ---------------------------------------------------------------- space (data/imaging/hst.md, space_wide.md)
-  { id: "acs", tel: "Hubble 2.4 m", name: "HST / ACS/WFC",
+  { id: "acs", telRef: "hst/cass", tel: "Hubble 2.4 m", name: "HST / ACS/WFC",
     note: "Hubble's Advanced Camera for Surveys, Wide Field Channel, modeled as direct: the channel's corrector mirrors image the pupil onto a mirror (no published pupil size), and the filters sit in the converging beam. F = 26 is Tiny Tim's f/26 (Clampin 2002 and Sirianni et al. 2005 give f/25), which reproduces the handbook's chip-center scales. The Telescope panel's focal ratio, focal length and plate scale therefore include the channel's optics: Hubble alone is f/24 with 3.58″/mm. Two 4096 × 2048 CCDs, " + "the telescope drawn from the OTA prescription (primary f/2.30, focus 1.50 m behind the vertex)" + ". Sources in data/imaging/hst.md.",
-    state: { D: 2.4, eps: 0.33, F: 26.0, tel: "cass", F1: 2.30, back: 0.625, field: 10, optics: "direct", band: "I", psf: "diff",
+    state: { D: 2.4, eps: 0.33, F: 26.0, tel: "cass", hole: 0.6, F1: 2.30, back: 0.625, field: 10, optics: "direct", band: "I", psf: "diff",
              Nx: 4096, Ny: 2048, pix: 15, rows: [1, 1], gapX: 0.75, gapY: 0.75 },
     pub: [
       { what: "pixel scale 0.0495″/px (the four chip-center values)", q: "pixScale", value: 0.0495, tol: 0.01, src: "ACS handbook Sec. 10.4.1 (0.0493 and 0.0486 at WFC1's center, 0.0498 and 0.0503 at WFC2's, in x and y; the mean); F from Tiny Tim's f/26" },
@@ -103,17 +103,17 @@ window.IX_IPRESETS = [
       { what: "field 202″", q: "fieldX", value: 202 / 60, info: true, src: "ACS handbook (the pixels are rhombic; the model's are square)" },
       { what: "16.8 Mpix", q: "npix", value: 16777216, tol: 1e-6, src: "2 × 4096 × 2048" },
     ] },
-  { id: "uvis", tel: "Hubble 2.4 m", name: "HST / WFC3/UVIS", inst: "WFC3", setting: "UVIS",
+  { id: "uvis", telRef: "hst/cass", tel: "Hubble 2.4 m", name: "HST / WFC3/UVIS", inst: "WFC3", setting: "UVIS",
     note: "Wide Field Camera 3, UVIS channel, modeled as direct. F = 32.5 is the design focal length (78.0 m) over D; the design review also gives f/31 without reconciling the two (that f/31 describes the beam at the tilted, 21° focal surface is INFERRED). The Telescope panel's focal ratio, focal length and plate scale include the channel's optics: Hubble alone is f/24 with 3.58″/mm. Two 4096 × 2051 CCDs, " + "the telescope drawn from the OTA prescription (primary f/2.30, focus 1.50 m behind the vertex)" + ". Sources in data/imaging/hst.md.",
-    state: { D: 2.4, eps: 0.33, F: 32.5, tel: "cass", F1: 2.30, back: 0.625, field: 10, optics: "direct", band: "V", psf: "diff",
+    state: { D: 2.4, eps: 0.33, F: 32.5, tel: "cass", hole: 0.6, F1: 2.30, back: 0.625, field: 10, optics: "direct", band: "V", psf: "diff",
              Nx: 4096, Ny: 2051, pix: 15, rows: [1, 1], gapX: 0.465, gapY: 0.465 },
     pub: [
       { what: "pixel scale 0.0395″/px", q: "pixScale", value: 0.0395, tol: 0.01, src: "WFC3 handbook; F from the design review's 78,000 mm" },
       { what: "16.8 Mpix", q: "npix", value: 16801792, tol: 1e-6, src: "2 × 4096 × 2051" },
     ] },
-  { id: "wfc3ir", tel: "Hubble 2.4 m", name: "HST / WFC3/IR", inst: "WFC3", setting: "IR",
-    note: "Wide Field Camera 3, IR channel, the one Hubble channel with a published pupil: the OTA's pupil is reimaged at 7.13 mm radius onto a cold mask, which is the stop. The mask passes 0.9755 of that radius and blocks 0.354 of it at the center (Hook & Stoehr 2008; an on-orbit fit gives 0.370, Biretta 2014), so D = 2.341 m and ε = 0.363 (DERIVED); F = 24.60 and W = 13.91 mm keep Hubble's f/24 beam and the 342 mm collimator. F_cam = 12.39 gives the design focal length (29.0 m). The published f/11 gives 0.141″/px: the detector's 24° tilt about one axis explains ≈ 6% of the 10% between that scale and the geometric-mean scale, and the rest is unexplained. The relay (two mirrors and a corrector plate) is drawn as an ideal collimator and camera; no source places the filter at the pupil. The active 1014 × 1014 pixels of a 1024 × 1024 array. Sources in data/imaging/hst.md.",
-    state: { D: 2.341, eps: 0.363, F: 24.60, tel: "cass", F1: 2.358, back: 0.6408, field: 10, optics: "reimaged", W: 13.91, Fc: 12.39, band: "H", psf: "diff",
+  { id: "wfc3ir", telRef: "hst/cass", tel: "Hubble 2.4 m", name: "HST / WFC3/IR", inst: "WFC3", setting: "IR",
+    note: "Wide Field Camera 3, IR channel, the one Hubble channel with a published pupil: the OTA's pupil is reimaged at 7.13 mm radius onto a cold mask, which is the stop. The mask passes 0.9755 of that radius and blocks 0.354 of it at the center (Hook & Stoehr 2008; an on-orbit fit gives 0.370, Biretta 2014), so D = 2.341 m and ε = 0.363 (DERIVED); F = 24.60 and W = 13.91 mm keep Hubble's f/24 beam and the 342 mm collimator. F_cam = 12.39 gives the design focal length (29.0 m). The published f/11 gives 0.141″/px: the detector's 24° tilt about one axis explains ≈ 6% of the 10% between that scale and the geometric-mean scale, and the rest is unexplained. The relay (two mirrors and a corrector plate) is drawn as an ideal collimator and camera; the cold pupil mask is the stop, with the filter wheel just past the mask (WFC3 Instrument Handbook, Fig. 2.1). The active 1014 × 1014 pixels of a 1024 × 1024 array. Sources in data/imaging/hst.md.",
+    state: { D: 2.341, eps: 0.363, F: 24.60, tel: "cass", hole: 0.6, F1: 2.358, back: 0.6408, field: 10, optics: "reimaged", coldStop: true, W: 13.91, Fc: 12.39, band: "H", psf: "diff",
              Nx: 1014, Ny: 1014, pix: 18, rows: [1] },
     pub: [
       { what: "pixel scale 0.128″/px (geometric mean of 0.135 × 0.121)", q: "pixScale", value: 0.1278, tol: 0.01, src: "WFC3 handbook; F_cam from the design review's 29,000 mm" },
@@ -140,7 +140,7 @@ window.IX_IPRESETS = [
     ] },
   { id: "nircamsw", tel: "JWST 6.6 m", name: "JWST / NIRCam short wavelength", inst: "NIRCam", setting: "short wavelength",
     note: "JWST is a three-mirror anastigmat (drawn as a Korsch, the tertiary and the fine-steering mirror placed schematically); NIRCam reimages the telescope focus: a collimator, a dichroic that splits the two channels, a 31 mm pupil where each channel has separate pupil and filter wheels, and a camera (here the short-wavelength channel, f/18). Two modules of 2 × 2 detectors side by side, on a field off the telescope's axis (drawn on the axis). D is the entrance pupil (the primary is 18 hexagonal segments; the model's pupil is a circular annulus, so the diffraction pattern is approximate) and ε is an estimate from the empty central segment. The annulus's area (32.8 m²) overstates the published collecting area, 25.4 m², which the page uses. Sources in data/imaging/space_wide.md.",
-    state: { D: 6.6, eps: 0.2, collArea: 25.4, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 18.0, band: "Ks", psf: "diff",
+    state: { D: 6.6, eps: 0.2, collArea: 25.4, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", coldStop: true, W: 31.14, Fc: 18.0, band: "Ks", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [4, 4], gapX: 2.59, gapY: 2.59, gapsX: [2.59, 24.77, 2.59] },
     pub: [
       { what: "pixel scale 0.03105″/px in flight", q: "pixScale", value: 0.03105, tol: 0.012, src: "the in-flight SIAF (pysiaf PRDOPSSOC-075): the geometric mean of XSciScale and YSciScale, averaged over the eight detectors (DERIVED); W and f/18 from Huff 2005" },
@@ -151,7 +151,7 @@ window.IX_IPRESETS = [
     ] },
   { id: "nircamlw", tel: "JWST 6.6 m", name: "JWST / NIRCam long wavelength", inst: "NIRCam", setting: "long wavelength",
     note: "NIRCam's long-wavelength channel shares the collimator with the short-wavelength channel; a dichroic splits the beam before the pupil, and this channel has separate pupil and filter wheels and a camera at f/9: one detector per module. The pupil is drawn as a circular annulus (the real one is hexagonal); the collecting area is the published 25.4 m². Sources in data/imaging/space_wide.md.",
-    state: { D: 6.6, eps: 0.2, collArea: 25.4, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", W: 31.14, Fc: 9.0, band: "M′", psf: "diff",
+    state: { D: 6.6, eps: 0.2, collArea: 25.4, F: 19.91, tel: "korsch", F1: 1.2, field: 10, optics: "reimaged", coldStop: true, W: 31.14, Fc: 9.0, band: "M′", psf: "diff",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2], gapX: 13.39 },
     pub: [
       { what: "pixel scale 0.06295″/px in flight", q: "pixScale", value: 0.06295, tol: 0.012, src: "the in-flight SIAF (pysiaf PRDOPSSOC-075): NRCA5 and NRCB5, the geometric mean of XSciScale and YSciScale (DERIVED)" },
@@ -159,17 +159,17 @@ window.IX_IPRESETS = [
       { what: "8.3 Mpix", q: "npix", value: 8323200, tol: 1e-6, src: "2 × 2040 × 2040" },
     ] },
   // ---------------------------------------------------------------- ground, reimaged (data/imaging/reimagers.md)
-  { id: "fors2sr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, standard resolution", inst: "FORS2 imaging", setting: "SR collimator",
-    note: "FORS2 is a focal reducer: collimator 1233 mm (standard resolution), camera 280 mm, broadband filters in the collimated beam. Two 4096 × 2048 CCDs covering 8.6′; the field (6.8′ square) is set by the multi-object slit unit at the telescope focus, drawn as a square stop on the axis (the mosaic really sits 33″ off the axis). The ideal optics give a 91.9 mm pupil and f/3.05, where ESO quotes 90 mm and f/3.13. Sources in data/imaging/reimagers.md.",
-    state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", F1: 1.8, field: 15, stopW: 6.8, stopH: 6.8, optics: "reimaged", W: 91.94, Fc: 3.0454, band: "R", psf: "seeing",
+  { id: "fors2sr", telRef: "vlt/cass", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, standard resolution", inst: "FORS2 imaging", setting: "SR collimator",
+    note: "FORS2 is a focal reducer: collimator 1233 mm (standard resolution), camera 280 mm, broadband filters in the collimated beam. Two 4096 × 2048 CCDs covering 8.6′; the field (6.8′ square) is set by the multi-object slit unit at the telescope focus, drawn as a square stop on the axis (the mosaic really sits 33″ off the axis). The ideal optics give a 91.9 mm pupil and f/3.05, where ESO quotes 90 mm and f/3.13. The camera is drawn 286 mm past the pupil, which puts the detector where the FORS2 User Manual's Fig. 2.2 draws it (MEASURED against the figure's 250 mm bar). Sources in data/imaging/reimagers.md.",
+    state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", hole: 1.0, back: 0.30807, F1: 1.8, field: 15, stopW: 6.8, stopH: 6.8, optics: "reimaged", camGap: 286, W: 91.94, Fc: 3.0454, band: "R", psf: "seeing",
              Nx: 4096, Ny: 2048, pix: 15, rows: [1, 1], gapX: 0.48, gapY: 0.48 },
     pub: [
       { what: "pixel scale 0.1259″/px (measured)", q: "pixScale", value: 0.12591, tol: 0.01, src: "FORS2 manual" },
       { what: "field 6.8′ (square stop)", q: "fieldX", value: 6.8, info: true, src: "FORS2 manual; circular: the stop is entered as 6.8′ square" },
     ] },
-  { id: "fors2hr", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, high resolution", inst: "FORS2 imaging", setting: "HR collimator",
-    note: "FORS2 with the high-resolution collimator (616 mm): twice the image scale of the standard collimator with the same camera. The 4.25′ field is set by the CCDs, by a field-stop mask that the slit arms form (size not published) and by the camera lenses, which vignette the corners. Sources in data/imaging/reimagers.md.",
-    state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", F1: 1.8, field: 15, optics: "reimaged", W: 45.93, Fc: 6.0958, band: "R", psf: "seeing",
+  { id: "fors2hr", telRef: "vlt/cass", tel: "VLT 8.2 m", name: "VLT / FORS2 imaging, high resolution", inst: "FORS2 imaging", setting: "HR collimator",
+    note: "FORS2 with the high-resolution collimator (616 mm): twice the image scale of the standard collimator with the same camera. The 4.25′ field is set by the CCDs, by a field-stop mask that the slit arms form (size not published) and by the camera lenses, which vignette the corners. The camera is drawn 431 mm past the pupil, which puts the detector where the FORS2 User Manual's Fig. 2.2 draws it (MEASURED against the figure's 250 mm bar). Sources in data/imaging/reimagers.md.",
+    state: { D: 8.115, eps: 0.1375, F: 13.4106, tel: "cass", hole: 1.0, back: 0.30807, F1: 1.8, field: 15, optics: "reimaged", camGap: 431, W: 45.93, Fc: 6.0958, band: "R", psf: "seeing",
              Nx: 4096, Ny: 2048, pix: 15, rows: [1, 1], gapX: 0.48, gapY: 0.48 },
     pub: [
       { what: "pixel scale 0.0632″/px (measured on UT4, before 2004)", q: "pixScale", value: 0.06323, tol: 0.015, src: "FORS2 manual Table 4.2 (FORS2 on Yepun, HR, Pal 3; FORS2 has been on Antu, UT1, since 2004, where the SR scale is 0.1% smaller and no HR value is given)" },
@@ -177,23 +177,23 @@ window.IX_IPRESETS = [
     ] },
   { id: "imacsf2", tel: "Magellan 6.5 m", name: "Magellan / IMACS f/2 imaging",
     note: "IMACS with the f/2 camera: collimator 1648 mm, beam 150 mm, camera 356 mm; the Mosaic3 camera (2 rows of 4 CCDs) since 2017. A circular field stop of ≈30′ (the camera baffles) cuts the mosaic's corners. The broadband filters sit just in front of the CCDs (only narrow-band filters at the pupil). The disperser wheel holds the gratings, the grisms and the f/4 imaging mirror at the pupil, where the f/4 camera's axis crosses the collimator's; the f/2 camera stands beyond the pupil, with its first lens ≈ 140 mm and the CCDs ≈ 660 mm away, so the ideal 356 mm camera is drawn 305 mm past the pupil (MEASURED from Bigelow et al. 2003, Fig. 1, scaled by the lens diameters). The bundles from the edge of the field spread away from the axis before they reach the camera, whose elements are up to 312 mm across for the 150 mm beam. IMACS sits on the Baade telescope's west Nasmyth platform: an f/11 Gregorian secondary, then a flat tertiary that turns the beam to the side, and IMACS's own ADC corrector (not drawn; the 71.5 m focal length is the 1998 design without the corrector); ε is the twin telescope's (Clay) at f/11, set by the secondary's baffle. Sources in data/imaging/reimagers.md.",
-    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, F1: 1.25, field: 30, optics: "reimaged", W: 149.86, Fc: 2.3729, camGap: 305, filterAt: "detector", band: "r", psf: "seeing",
+    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", hole: 1.3, nasmyth: true, F1: 1.25, field: 30, optics: "reimaged", W: 149.86, Fc: 2.3729, camGap: 305, filterAt: "detector", band: "r", psf: "seeing",
              Nx: 2048, Ny: 4096, pix: 15, rows: [4, 4], gapX: 1.37, gapY: 1.08 },
     pub: [
       { what: "pixel scale 0.200″/px", q: "pixScale", value: 0.2, tol: 0.01, src: "LCO IMACS pages" },
       { what: "field 656 arcmin² on the CCD pixels", q: "area", value: 656 / 3600, tol: 0.02, src: "LCO IMACS pages (\"670 sq arcmin, 656 of which are covered by CCD pixels\"): the pixels inside the 30′ circle, the model's quantity" },
     ] },
-  { id: "lrisr", tel: "Keck 10 m", name: "Keck / LRIS red imaging",
-    note: "LRIS images with a flat mirror in place of the grating: collimator 2000 mm, red camera 305 mm, the filters in the collimated beam. One 4k × 4k CCD since 2021, covering 9.2′; the field (6′ × 7.8′) is set by the slit-mask area at the telescope focus, drawn as a rectangular stop on the axis (the real field lies 4–10′ off the telescope's axis in the 6′ direction). Since 2007 the light also passes Keck I's Cassegrain ADC (prisms without power). D (10.95 m, the hexagonal primary's corners) sets the diffraction pattern; the collecting area is Keck's clear area at f/15, 71.5 m², from the hexagonal pupil the Telescopes mode draws (the circle would give 88.8 m²). Sources in data/imaging/reimagers.md.",
-    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", F1: 1.6, field: 15, stopW: 6, stopH: 7.8, optics: "reimaged", W: 146.41, Fc: 2.0832, band: "R", psf: "seeing",
+  { id: "lrisr", telRef: "keck/cass", tel: "Keck 10 m", name: "Keck / LRIS red imaging",
+    note: "LRIS images with a flat mirror in place of the grating: collimator 2000 mm, red camera 305 mm, the filters in the collimated beam. One 4k × 4k CCD since 2021, covering 9.2′; the field (6′ × 7.8′) is set by the slit-mask area at the telescope focus, drawn as a rectangular stop on the axis (the real field lies 4–10′ off the telescope's axis in the 6′ direction). Since 2007 the light also passes Keck I's Cassegrain ADC (prisms without power). D (10.95 m, the hexagonal primary's corners) sets the diffraction pattern; the collecting area is Keck's clear area at f/15, 71.5 m², from the hexagonal pupil the Telescopes mode draws (the circle would give 88.8 m²). The camera's first surface is drawn 269 mm past the pupil at the grating position (Oke et al. 1995, Sec. 3), and the red filters sit just in front of the camera. Sources in data/imaging/reimagers.md.",
+    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", back: 0.22831, F1: 1.6, field: 15, stopW: 6, stopH: 7.8, optics: "reimaged", camGap: 269, filterAt: "camera", W: 146.41, Fc: 2.0832, band: "R", psf: "seeing",
              Nx: 4096, Ny: 4096, pix: 15, rows: [1] },
     pub: [
       { what: "pixel scale 0.135″/px", q: "pixScale", value: 0.135, tol: 0.01, src: "Keck LRIS detector table (Mark IV); measured for the 2009 red mosaic (Keck LRIS upgrade pages), not remeasured for the Mark IV in the saved sources" },
       { what: "field 6′ × 7.8′ (slit-mask area)", q: "fieldX", value: 6, info: true, src: "Keck LRIS pages; circular: the stop is entered as 6′ × 7.8′" },
     ] },
-  { id: "mosfirei", tel: "Keck 10 m", name: "Keck / MOSFIRE imaging",
-    note: "MOSFIRE images with a flat mirror on the grating turret: collimator 1813 mm, camera 250 mm, the filters in the collimated beam just before the pupil (Lyot) stop. One HAWAII-2RG (2040 × 2040 pixels used, 17.984 µm at 77 K). A circular baffle (6.9′) in front of the field lens cuts the corners of the square field. The collecting area is Keck's clear area at f/15, 71.5 m², from the hexagonal pupil (the circle of D = 10.95 m would give 88.8 m²). Sources in data/imaging/reimagers.md and data/round4/mosfire.md.",
-    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", F1: 1.6, field: 6.9, optics: "reimaged", W: 132.72, Fc: 1.8836, coldStop: true, band: "Ks", psf: "seeing",
+  { id: "mosfirei", telRef: "keck/cass", tel: "Keck 10 m", name: "Keck / MOSFIRE imaging",
+    note: "MOSFIRE images with a flat mirror on the grating turret: collimator 1813 mm, camera 250 mm, the filters in the collimated beam just before the pupil (Lyot) stop. One HAWAII-2RG (2040 × 2040 pixels used, 17.984 µm at 77 K). A circular baffle (6.9′) in front of the field lens cuts the corners of the square field. The collecting area is Keck's clear area at f/15, 71.5 m², from the hexagonal pupil (the circle of D = 10.95 m would give 88.8 m²). The camera stands 627.5 mm past the Lyot stop: 327.5 mm to the grating turret and 300 mm on to the camera (McLean et al. 2010, Sec. 3.1); the turret's 40° turn and the fold flat inside the collimator are not drawn. Sources in data/imaging/reimagers.md and data/round4/mosfire.md.",
+    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", back: 0.22831, F1: 1.6, field: 6.9, optics: "reimaged", camGap: 628, W: 132.72, Fc: 1.8836, coldStop: true, band: "Ks", psf: "seeing",
              Nx: 2040, Ny: 2040, pix: 17.984, rows: [1] },
     pub: [
       { what: "pixel scale 0.1798″/px", q: "pixScale", value: 0.1798, tol: 0.005, src: "McLean+12" },
@@ -230,9 +230,9 @@ window.IX_IPRESETS.push(
       { what: "pixel scale 0.2255″/px (field average)", q: "pixScale", value: 0.2255, info: true, src: "LBTO; an average over the distorted field; F was derived from the same page's 16.9″/mm" },
       { what: "37.7 Mpix", q: "npix", value: 37748736, tol: 1e-6, src: "4 × 2048 × 4608" },
     ] },
-  { id: "megacamm", tel: "Magellan 6.5 m", name: "Magellan / Megacam (Clay)",
-    note: "Megacam at the Clay telescope's f/5 Cassegrain focus (a convex secondary, not the f/11 Gregorian), behind a three-lens corrector and a field flattener that is also the dewar window: 36 CCDs in nine rows of four, long axis along the rows; within each row the gaps run wide, narrow, wide. ε is the secondary mirror's diameter (1.8 m); the secondary's baffle (size not published) and the spiders are not included, and the 29 m² McLeod et al. 2015 use for the throughput implies ε = 0.355. F comes from the published plate scale (0.169 mm/″). The 35′ corrected field is the MMT's, whose corrector is identical. No longer offered at Las Campanas. Sources in data/imaging/magellan.md.",
-    state: { D: 6.5, eps: 0.28, F: 5.36, tel: "cass", F1: 1.25, field: 35, optics: "direct", band: "r", psf: "seeing",
+  { id: "megacamm", telRef: "magellan/cass5", tel: "Magellan 6.5 m", name: "Magellan / Megacam (Clay)",
+    note: "Megacam at the Clay telescope's f/5 Cassegrain focus (a convex secondary, not the f/11 Gregorian), behind a three-lens corrector and a field flattener that is also the dewar window: 36 CCDs in nine rows of four, long axis along the rows; within each row the gaps run wide, narrow, wide. ε = 0.355 gives the 29 m² McLeod et al. 2015 use for the throughput (DERIVED, as an annulus without the spiders; the Telescopes mode reaches 29 m² with 0.343 and the vanes): the f/5 secondary's baffles shade more than the 1.8 m mirror's 0.28. F comes from the published plate scale (0.169 mm/″). The 35′ corrected field is the MMT's, whose corrector is identical. No longer offered at Las Campanas. Sources in data/imaging/magellan.md.",
+    state: { D: 6.5, eps: 0.355, F: 5.36, tel: "cass", hole: 1.3, back: 0.27877, F1: 1.25, field: 35, optics: "direct", band: "r", psf: "seeing",
              Nx: 4608, Ny: 2048, pix: 13.5, rows: [4, 4, 4, 4, 4, 4, 4, 4, 4], gapX: 1.01, gapY: 1.01, gapsX: [5.24, 1.01, 5.24] },
     pub: [
       { what: "pixel scale 0.08″/px", q: "pixScale", value: 0.08, info: true, src: "McLeod+15; circular: F was derived from the plate scale" },
@@ -241,7 +241,7 @@ window.IX_IPRESETS.push(
     ] },
   { id: "fourstar", tel: "Magellan 6.5 m", name: "Magellan / FourStar (Baade)",
     note: "FourStar on the Baade telescope's east Nasmyth platform: the f/11 Gregorian focus, turned to the side by a flat tertiary. A field-lens doublet images the primary onto a cold stop (the 130 mm pupil), and the camera works at f/3.6; the filters sit near the focal plane, just ahead of the last lens. The drawn collimator and camera are the ideal pair with the same pupil and magnification (FourStar has no collimated beam). Four HAWAII-2RG detectors (2040 × 2040 active) in a 2 × 2 grid; the published gaps range from 18″ to 24″ (2.0 mm used). Sources in data/imaging/magellan.md.",
-    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", nasmyth: true, nasSide: "up", F1: 1.25, field: 20, optics: "reimaged", W: 130, Fc: 3.6, filterAt: "detector", coldStop: true, band: "Ks", psf: "seeing",
+    state: { D: 6.5, eps: 0.29, F: 11, tel: "greg", hole: 1.3, nasmyth: true, nasSide: "up", F1: 1.25, field: 20, optics: "reimaged", W: 130, Fc: 3.6, filterAt: "detector", coldStop: true, band: "Ks", psf: "seeing",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2, 2], gapX: 2.0, gapY: 2.0 },
     pub: [
       { what: "pixel scale 0.159″/px", q: "pixScale", value: 0.159, tol: 0.01, src: "Persson+13; f/3.6 published" },
@@ -281,9 +281,9 @@ window.IX_IPRESETS.push(
     ] },
 );
 window.IX_IPRESETS.push(
-  { id: "fourshooter", tel: "Palomar 200-inch", name: "Palomar 200-inch / 4-Shooter",
+  { id: "fourshooter", telRef: "hale/cass", tel: "Palomar 200-inch", name: "Palomar 200-inch / 4-Shooter",
     note: "The 4-Shooter (installed 1983–84; the latest data in the saved sources date from 1985–89), an early CCD camera at the Hale telescope's f/16 Cassegrain focus: a four-sided pyramid at the focus (the WF/PC splitter design, the facets tilted by ≈5°; the pyramid also flattens the field, so the facets are probably powered, drawn flat) reflects each quadrant of the field back up to a separate reimaging camera (a collimator, a 4-inch filter, a small Schmidt camera at f/1.8) with an 800 × 800 TI CCD. Each CCD sees the pyramid's apex, so 20 pixels along two of the CCD's edges see no sky: the model draws the 780 × 780 pixels that do, the four quadrants abutting with ≈1″ lost along the pyramid's edges. The cameras' focal lengths and pupil are not published: f_col = 1000 mm, W = 62.5 mm and f_cam = 114 mm are the drawing's placeholders, set to give the published f/1.8 and 0.335″/px. ε is the 1961 prime-focus cage (72 inches), which carries the secondary. Sources in data/imaging/fourshooter.md.",
-    state: { D: 5.08, eps: 0.36, F: 16, tel: "cass", F1: 3.3, field: 15, optics: "reimaged", split: "pyramid", W: 62.5, Fc: 1.8176, band: "r", psf: "seeing",
+    state: { D: 5.08, eps: 0.36, F: 16, tel: "cass", hole: 1.016, back: 0.3, F1: 3.3, field: 15, optics: "reimaged", split: "pyramid", W: 62.5, Fc: 1.8176, band: "r", psf: "seeing",
              Nx: 780, Ny: 780, pix: 15, rows: [2, 2], gapX: 0.045, gapY: 0.045 },
     pub: [
       { what: "pixel scale 0.335″/px", q: "pixScale", value: 0.335, info: true, src: "Porter 1984 Table I; Schneider+94; circular: F_cam was derived from it" },
@@ -297,9 +297,9 @@ window.IX_IPRESETS.push(
 // physical collimator (616.3 mm) and camera are kept, and the lens is entered as a faster beam on a smaller pupil,
 // F = 16.60 and W = 37.13 mm, DERIVED from 0.0219 -> 0.0214″/px)
 for (const [cam, fc, ps, fov, psf, F, W, ao] of [["f/6", 228.8, 0.1171, 119.9, "seeing", 16.22, 38, false], ["f/14", 536.8, 0.0499, 51.1, "seeing", 16.22, 38, false], ["f/32", 1223.2, 0.0214, 21.9, "diff", 16.60, 37.13, true]]) {
-  window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (ao ? " (Altair AO, field lens)" : ""), inst: "NIRI", setting: cam + (ao ? " (Altair AO)" : ""),
+  window.IX_IPRESETS.push({ id: "niri" + cam.slice(2), telRef: "gemini/up", tel: "Gemini North 8.1 m", name: "Gemini North / NIRI " + cam + " camera" + (ao ? " (Altair AO, field lens)" : ""), inst: "NIRI", setting: cam + (ao ? " (Altair AO)" : ""),
     note: "NIRI at the Gemini North Cassegrain focus: the broadband filters in the converging f/16 beam before the collimator, a 38 mm cold pupil (the Lyot stop) and three cameras (f/6, f/14, f/32), one 1024 × 1024 InSb array of 27 µm. D is the 7.9 m entrance pupil set by Gemini's deliberately undersized secondary (the primary is 8.1 m); ε from the secondary's central hole. The camera focal lengths are not published as such: they follow from the pupil and the published pixel scales. The f/6 camera was designed for wide fields, the f/14 camera for imaging in the L and M bands (Altair optional, to 2.5 µm), and the f/32 camera for the Altair adaptive optics, which reproduce the f/16 beam and pupil; " + (ao ? "this preset includes Altair's field lens, which gives 0.0214″/px (0.0219″/px without the lens). The image drawn is the diffraction limit, which Altair does not reach: Gemini's K′ Strehl ratios run 0.035–0.53. " : "the f/32 preset includes Altair. ") + "NIRI is not currently offered. Sources in data/imaging/niri_hawki.md.",
-    state: { D: 7.9, eps: 0.164, F, tel: "cass", F1: 1.8, field: 7, optics: "reimaged", W, Fc: fc / W, filterAt: "converging", coldStop: true, band: "Ks", psf,
+    state: { D: 7.9, eps: 0.164, F, tel: "cass", hole: 1.2, back: 0.50633, F1: 1.8, field: 7, optics: "reimaged", W, Fc: fc / W, filterAt: "converging", coldStop: true, band: "Ks", psf,
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
     pub: [
       { what: "pixel scale " + ps + "″/px", q: "pixScale", value: ps, info: true, src: "Gemini NIRI pages" + (ao ? " (f/32 + Altair field lens)" : "") + "; circular: f_cam was derived from it" },
@@ -307,9 +307,9 @@ for (const [cam, fc, ps, fov, psf, F, W, ao] of [["f/6", 228.8, 0.1171, 119.9, "
     ] });
 }
 window.IX_IPRESETS.push(
-  { id: "hawki", tel: "VLT 8.2 m", name: "VLT / HAWK-I",
+  { id: "hawki", telRef: "vlt/nasa", tel: "VLT 8.2 m", name: "VLT / HAWK-I",
     note: "HAWK-I on UT4's Nasmyth A platform (a flat tertiary turns the f/15 beam to the side): an all-reflective reimager whose powered entrance window images the pupil onto a camera mirror that is the cold stop, working at f/4.36; the filters sit just in front of the detectors. The pupil's size is not published (only the reduction, 4.36/15), so the beam W = 100 mm is the drawing's assumption and the field angle in the beam is illustrative; the drawn collimator and camera are the ideal pair with the same pupil and magnification (HAWK-I's optics are mirrors with no collimated beam). Four HAWAII-2RG detectors (2040 × 2040 active) in a 2 × 2 grid; the gaps between the light-sensitive areas (17.1″ and 16.0″) are DERIVED from the manual's offset table, where the manual quotes ≈15″. The ground-layer adaptive optics (GRAAL) adds no optics to this path. Sources in data/imaging/niri_hawki.md.",
-    state: { D: 8.0, eps: 0.1395, F: 15, tel: "cass", nasmyth: true, F1: 1.8, field: 15, optics: "reimaged", W: 100, Fc: 4.36, filterAt: "detector", coldStop: true, band: "Ks", psf: "seeing",
+    state: { D: 8.0, eps: 0.1395, F: 15, tel: "cass", hole: 1.0, a3: 2.5, backN: 0.85, nasSide: "up", nasmyth: true, F1: 1.8, field: 15, optics: "reimaged", W: 100, Fc: 4.36, filterAt: "detector", coldStop: true, band: "Ks", psf: "seeing",
              Nx: 2040, Ny: 2040, pix: 18, rows: [2, 2], gapX: 2.9, gapY: 2.7 },
     pub: [
       { what: "pixel scale 0.1064″/px", q: "pixScale", value: 0.1064, tol: 0.01, src: "ESO HAWK-I pages (the FITS headers carry 0.10643); f/4.36 published" },
@@ -329,9 +329,9 @@ window.IX_IPRESETS.push(
 // Keck II / NIRC2 behind adaptive optics: three cameras on one collimator
 // (narrow: Service et al. 2016's 9.971 mas/px since the 2015 realignment; the Keck page's 0.009942 predates it)
 for (const [cam, fc, ps, fov] of [["narrow", 1286.2, 0.009971, 10], ["medium", 647, 0.019829, 20], ["wide", 323, 0.039686, 40]]) {
-  window.IX_IPRESETS.push({ id: "nirc2" + cam[0], tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)", inst: "NIRC2 (adaptive optics)", setting: cam + " camera",
+  window.IX_IPRESETS.push({ id: "nirc2" + cam[0], telRef: "keck/nasl", tel: "Keck 10 m", name: "Keck / NIRC2 " + cam + " camera (adaptive optics)", inst: "NIRC2 (adaptive optics)", setting: cam + " camera",
     note: "NIRC2 sits on the Keck II left Nasmyth platform (a flat tertiary turns the beam to the side), behind the adaptive-optics bench, which delivers the telescope's f/15 focal length and pupil position (the AO relay is not drawn); a collimator, a pupil-mask wheel and filter wheels in the collimated beam, and three cameras (narrow, medium, wide). One 1024 × 1024 Aladdin-3 detector of 27 µm. The internal focal lengths and the pupil size are not published: W, f_col and f_cam are estimates from the aperture masks' geometry (they leave the pixel scale and field unchanged). The Keck pupil is hexagonal; the model's is a circular annulus for the image, and the collecting area is Keck's clear area at f/15, 71.5 m² (the circle would give 88.8 m²). The image drawn is the diffraction limit, which the adaptive optics approach only partly (no Keck Strehl ratio is in the saved sources). Sources in data/imaging/reimagers.md.",
-    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", nasmyth: true, nasSide: "up", F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
+    state: { D: 10.95, eps: 0.24, collArea: 71.5, F: 13.66, tel: "cass", a3: 4.0, backN: 0.5937, nasmyth: true, nasSide: "up", F1: 1.6, field: 1, optics: "reimaged", W: 25.2, Fc: fc / 25.2, band: "Ks", psf: "diff",
              Nx: 1024, Ny: 1024, pix: 27, rows: [1] },
     pub: [
       { what: "pixel scale " + ps + "″/px", q: "pixScale", value: ps, info: true, src: (cam === "narrow" ? "Service et al. 2016 (since the 2015 realignment; the Keck page's 0.009942 is earlier)" : "Keck NIRC2 pages") + "; circular: f_cam was derived from it" },

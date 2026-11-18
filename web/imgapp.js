@@ -19,7 +19,11 @@ const bandOf = k => BANDS.find(b => b.k === k) || BANDS[0];
 // the instrument's defaults (imager.js) and the drawing's
 const DEF = Object.assign(clone(IM.DEF), { view: "tel", annot: true, moon: false, stretch: false, depth: 25 });
 // drawing-only keys (they keep a preset's name)
-const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "nasSide", "view", "annot", "moon", "stretch", "depth", "camGap"]);
+const DRAWING = new Set(["F1", "back", "backN", "nasmyth", "nasSide", "view", "annot", "moon", "stretch", "depth", "camGap", "epsKind", "hole"]);
+// what the obstruction epsilon measures (P.epsKind, drawing only): the caption names it, and only a baffle or a cage
+// is drawn as a bar wider than the secondary (a hole or a stop is not an object at the secondary)
+const EPS_TXT = { baffle: " (the baffle)", mirror: " (the mirror)", cage: " (the cage)", stop: " (the stop)" };
+const epsTxt = (P, eps) => P.epsKind === "hole" ? "ε " + eps.toFixed(2) + ": the primary's central hole" : "obstruction ε " + eps.toFixed(2) + (EPS_TXT[P.epsKind] || "");
 let S = clone(DEF), presetId = "custom";
 const PRESETS = window.IX_IPRESETS || [];
 
@@ -157,7 +161,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { nasSide: ["down", "up"], split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k), filterAt: ["pupil", "converging", "detector"] };
+const CHOICES = { nasSide: ["down", "up"], split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k), filterAt: ["pupil", "converging", "camera", "detector"] };
 // (numbers that default to none: a published collecting area, a rectangular stop, a plate scan's format and spot)
 const NUMNULL = new Set(["collArea", "stopW", "stopH", "scanPx", "scanSpot"]);
 function hashParts() {
@@ -402,7 +406,8 @@ function layoutGeom(Dz, P) {
         polys.push({ f, a: pathOf(inner), b: pathOf(outer) });
       }
     }
-    // primary: its curve, with the Cassegrain hole sized to pass the returning beam
+    // primary: its curve, with the Cassegrain hole sized to pass the returning beam, or the real hole where the preset
+    // gives one (P.hole, m: the mirror's, drawn at every focus; never smaller than the beam needs)
     let hole = 0;
     if ((two && (!nas || a3 < 0)) || tma === "korsch") for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) hole = Math.max(hole, Math.abs(hAt(pts, 2 * s)));
     // the mirror as large as the bundles it catches (a Schmidt's mirror is larger than its stop)
@@ -413,13 +418,13 @@ function layoutGeom(Dz, P) {
     // where the mirror is, across the drawing's cross-section (heights, mm): the off-axis section; or as given
     // (mirrorSpans, m: a segmented primary cut through its center, or a mirror array wider than the pupil)
     const spans = off ? [[off - Dmm / 2, off + Dmm / 2]] : P.mirrorSpans ? P.mirrorSpans.map(q => [q[0] * 1000, q[1] * 1000]) : null;
-    elems.push({ k: refr ? "objective" : "primary", hole: two || tma === "korsch" ? hole * 1.08 : hole, Dlab: P.Dmirror ? P.Dmirror * 1000 : null, hh: spans ? Math.max(...spans.map(q => Math.max(Math.abs(q[0]), Math.abs(q[1])))) : mir, spans, off });
+    elems.push({ k: refr ? "objective" : "primary", hole: Math.max(P.hole > 0 ? P.hole * 500 : 0, two || tma === "korsch" ? hole * 1.08 : hole), Dlab: P.Dmirror ? P.Dmirror * 1000 : null, hh: spans ? Math.max(...spans.map(q => Math.max(Math.abs(q[0]), Math.abs(q[1])))) : mir, spans, off });
     if (schm) elems.push({ k: "corrector", x: Dz.zStop, hh: Dmm / 2 });
     if (refr) { /* nothing in the beam */ } else if (two || tma) {
       let sec = 0, sLo = Infinity, sHi = -Infinity;
       for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) { sec = Math.max(sec, Math.abs(pts[1].h)); sLo = Math.min(sLo, pts[1].h); sHi = Math.max(sHi, pts[1].h); }
       const pad = 0.04 * (sHi - sLo);
-      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: off ? 0 : Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg, span: off ? [sLo - pad, sHi + pad] : null });
+      elems.push({ k: "secondary", x: -s, hh: sec * 1.04, baffle: off ? 0 : P.epsKind === "hole" || P.epsKind === "stop" || P.epsKind === "mirror" ? sec * 1.04 : Math.max(sec * 1.04, eps * Dmm / 2), greg: !!Dz.greg, span: off ? [sLo - pad, sHi + pad] : null });
       if (nas) {
         let t3 = 0;
         for (const r of rays) for (const sd of SIDES) for (const pts of r[sd]) t3 = Math.max(t3, Math.abs(hAt(pts, Dz.zM3)));
@@ -515,10 +520,11 @@ function layoutGeom(Dz, P) {
       elems.push({ k: "focus", x: 0, hh: aper(Dz.zF) * 1.15 });
       elems.push({ k: "lens", x: X(Dz.zC), hh: aper(Dz.zC) * 1.06, lab: "collimator", sub: "f " + fLen(Dz.fcol) });
       // (the filter at the pupil, or where the instrument has it: in the telescope's converging beam before the
-      // collimator, or just in front of the detector; a cold stop at the pupil of an infrared camera)
+      // collimator, just in front of the camera, or just in front of the detector; a cold stop at the pupil of an infrared camera)
       const fAt = P.filterAt || "pupil", stopName = P.coldStop ? "cold stop" : "pupil";
       elems.push({ k: "filter", x: X(Dz.zP), hh: P.W / 2 * 1.08, lab: fAt === "pupil" ? (P.coldStop ? "pupil, cold stop and filter" : "pupil and filter") : stopName, sub: "Ø " + fLen(P.W) });
       if (fAt === "converging") { const zf = Dz.zF + 0.25 * (Dz.zC - Dz.zF); elems.push({ k: "filter", x: X(zf), hh: aper(zf) * 1.1, lab: "filter" }); }
+      if (fAt === "camera") { const zf = Dz.zCam - Math.max(0.08 * P.W, 0.2 * (Dz.zCam - Dz.zP)); elems.push({ k: "filter", x: X(zf), hh: aper(zf) * 1.1, lab: "filter" }); }
       if (fAt === "detector") { const zf = Dz.zDet - 0.12 * Dz.fcam; elems.push({ k: "filter", x: X(zf), hh: aper(zf) * 1.1, lab: "filter" }); }
       elems.push({ k: "lens", x: X(Dz.zCam), hh: aper(Dz.zCam) * 1.06, lab: "camera", sub: "f/" + sig(P.Fc, 3) + ", f " + fLen(Dz.fcam) });
       marks.push({ k: "phi", x: X(Dz.zP) });
@@ -671,7 +677,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       // convex (Cassegrain: the edges curl away from the primary) or concave (Gregorian: toward it)
       for (let i = -20; i <= 20; i++) { const hh = e.span ? e.span[0] + (e.span[1] - e.span[0]) * (i + 20) / 40 : e.hh * i / 20, sg = hh * hh / (4 * Math.abs(Dz.f2)); pts.push(T(e.x + (e.greg ? sg : -sg), hh)); }
       mirror(g, pts, -1);
-      labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: e.span ? "off-axis: nothing in the beam" : "obstruction ε " + eps.toFixed(2), at: T(e.x, e.span ? e.span[1] : e.baffle), dx: 0, dy: -18, al: "center" });
+      labels.push({ t: e.greg ? "secondary (concave, Gregorian)" : "secondary", s: e.span ? "off-axis: nothing in the beam" : epsTxt(P, eps), at: T(e.x, e.span ? e.span[1] : e.baffle), dx: 0, dy: -18, al: "center" });
     } else if (e.k === "pyramid") {
       const l1 = [Math.sin(e.tau) * e.hh, Math.cos(e.tau) * e.hh];
       mirror(g, [T(0, 0), T(l1[0], l1[1])], 1); mirror(g, [T(0, 0), T(l1[0], -l1[1])], 1);
@@ -714,7 +720,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       const a = T(e.x - 0.06 * Dz.zF, e.hh), b = T(e.corr !== null && e.corr !== undefined ? e.corr + 0.01 * Dz.zF : e.x, -e.hh);
       g.fillStyle = "rgba(120,114,106,0.28)"; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
       g.strokeStyle = "rgba(90,84,78,0.7)"; g.lineWidth = 1; g.strokeRect(a[0], a[1], b[0] - a[0], b[1] - a[1]);
-      labels.push({ t: P.pfuLabel || "prime-focus unit and detector", s: P.pfuSub || "obstruction ε " + eps.toFixed(2), at: T(e.x - 0.03 * Dz.zF, e.hh) });
+      labels.push({ t: P.pfuLabel || "prime-focus unit and detector", s: P.pfuSub || epsTxt(P, eps), at: T(e.x - 0.03 * Dz.zF, e.hh) });
     } else if (e.k === "lens") {
       const c = T(e.x, 0); lens(g, c[0], c[1], e.hh * sc * ky);
       { const hw = 0.11 * 2 * e.hh * sc * ky + 3; obstacles.push([c[0] - hw, c[1] - e.hh * sc * ky, c[0] + hw, c[1] + e.hh * sc * ky]); }
@@ -746,7 +752,8 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
         const dy = e.up ? -wpx : 0;
         for (const b of bands) { const a = T(e.x + e.sgn * b.y1, e.y), c2 = T(e.x + e.sgn * b.y0, e.y); g.fillStyle = "#151a24"; g.fillRect(Math.min(a[0], c2[0]), a[1] + dy, Math.abs(c2[0] - a[0]), wpx); }
         const tip = T(e.x, e.y);
-        const sub = P.telMode ? "" : Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", lh = sub ? 31 : 16;
+        // (an imager that reimages the focus: the telescope view stops at the telescope's focus)
+        const sub = P.telMode ? "" : tel && Dz.reim && !e.korsch ? "reimager not drawn" : Dz.nChips > 1 ? "detector, " + Dz.nChips + " chips" : "detector", lh = sub ? 31 : 16;
         // beside the focus first, clear of the converging beam
         let half = 0;
         for (const b of bands) half = Math.max(half, Math.abs(T(e.x + e.sgn * b.y1, e.y)[0] - tip[0]), Math.abs(T(e.x + e.sgn * b.y0, e.y)[0] - tip[0]));
@@ -755,7 +762,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       } else
       for (const b of bands) { const a = T(e.x, b.y1), c2 = T(e.x, b.y0); g.fillStyle = "#151a24"; g.fillRect(a[0] - (tel && P.tel === "prime" ? 0 : wpx), a[1], wpx, c2[1] - a[1]); }
       const top = T(e.x, Dz.mosaic.y1);
-      if (!(tel && P.tel === "prime") && !e.rot && !e.pb) labels.push({ t: P.telMode ? "focus" : "detector", s: Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
+      if (!(tel && P.tel === "prime") && !e.rot && !e.pb) labels.push({ t: P.telMode || (tel && Dz.reim) ? "focus" : "detector", s: !P.telMode && tel && Dz.reim ? "reimager not drawn" : Dz.nChips > 1 ? Dz.nChips + " chips" : "", at: [top[0], top[1]] });
     }
   }
   // the field angle in the beam, at the pupil
@@ -804,7 +811,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."
       : Dz.reim && Dz.split ? "A pyramid at the focus (drawn with flat facets) reflects each quadrant back, 10° off the axis, to a separate camera (two of four drawn; the 3D view runs the arms along the field's diagonals, a choice of the drawing). The field's center falls on the apex."
-      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; the filter sits in the converging beam.");
+      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", camera: ", the filter sits just in front of the camera,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; the filter sits in the converging beam.");
   } else $(tg.cap).hidden = true;
 }
 

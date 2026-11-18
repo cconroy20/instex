@@ -17,7 +17,7 @@
    (pixels per chip), pix (um), rows (chips per row, top to bottom, centered) or nCol x nRow, gapX, gapY (mm).
    Optional: collArea (m^2: the published collecting area, where the circular annulus misstates a segmented or
    shadowed pupil; D and eps still set the image), stopW x stopH (arcmin: a rectangular field stop centered on the
-   axis, such as a slit-mask unit's), filterAt ("pupil" | "converging" | "detector") and coldStop (drawing only),
+   axis, such as a slit-mask unit's), filterAt ("pupil" | "converging" | "camera" | "detector") and coldStop (drawing only),
    corrector ({ d, label, sub }: a prime-focus corrector that turns the primary's f/F1 into f/F); camGap (mm, drawing
    only: the reimager's camera this far past the pupil image, where a source places the camera; else 0.3 W); a plate's scanPx
    (the scan's pixels per side) and scanSpot (the scanner's spot, um FWHM on the plate). */
@@ -339,7 +339,7 @@ const DEF = {
   band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,
-  collArea: null, stopW: null, stopH: null, filterAt: "pupil", coldStop: false, scanPx: null, scanSpot: null, corrector: null, camGap: null,
+  collArea: null, stopW: null, stopH: null, filterAt: "pupil", coldStop: false, scanPx: null, scanSpot: null, corrector: null, camGap: null, epsKind: null, hole: null,
 };
 const API = { RAD, DEG, DEF, J1, airy, airyFWHM, airyTable, moffatAlpha, omegaRect, design };
 if (typeof module !== "undefined" && module.exports) module.exports = API;

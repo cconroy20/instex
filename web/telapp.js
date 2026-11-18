@@ -100,7 +100,7 @@ function params(f = focusOf()) {
     // mirror's spans across the cross-section (m), a prime-focus corrector that changes the focal length
     offAxis: f.offAxis !== undefined ? f.offAxis : t.offAxis, corrector: f.corrector,
     mirrorSpans: t.tracker ? [[t.tracker.span[0] - trackShift(), t.tracker.span[1] - trackShift()]] : f.mirrorSpans || t.mirrorSpans,
-    pfuLabel: f.pfuLabel, pfuSub: f.pfuSub, a3: f.a3, Dmirror: t.Dmirror, focusLabel: f.focusLabel, focusKind: f.kind ? f.kind.split(" ").map((w, i) => (i === 0 && !/^(Nasmyth|Cassegrain|Gregorian|Coud)/.test(w) ? w.toLowerCase() : w)).join(" ") + " focus" : null, primarySub: t.primarySub,
+    pfuLabel: f.pfuLabel, pfuSub: f.pfuSub, a3: f.a3, epsKind: f.epsKind || t.epsKind || null, hole: t.hole || null, Dmirror: t.Dmirror, focusLabel: f.focusLabel, focusKind: f.kind ? f.kind.split(" ").map((w, i) => (i === 0 && !/^(Nasmyth|Cassegrain|Gregorian|Coud)/.test(w) ? w.toLowerCase() : w)).join(" ") + " focus" : null, primarySub: t.primarySub,
   });
 }
 
@@ -411,7 +411,7 @@ function setExpanded(on) {
 }
 function draw() {
   if (!cur) return;
-  if (is3()) { $("tlSub").hidden = true; last3 = (window.TEL3DGL && window.TEL3DGL.ok() && !/[?&]gl=0/.test(location.search) ? window.TEL3DGL : window.TEL3D).draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0 }); }
+  if (is3()) { $("tlSub").hidden = true; last3 = (window.TEL3DGL && window.TEL3DGL.ok() && !/[?&]gl=0/.test(location.search) ? window.TEL3DGL : window.TEL3D).draw($("cvTL"), cur, curP, IMG.layoutGeom(cur, curP), pupil3(), v3, { fitCanvas, message, FONT, halo: IMG.halo }, { hole: hole3(), coating: telOf().coating, twin: telOf().binocular ? telOf().binocular * 1000 : 0, twinDX: !!focusOf().dx }); }
   else IMG.drawLayoutOn(tlTarget, cur, curP);
 }
 function render() {

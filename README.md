@@ -58,16 +58,18 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   them (presets.js header: Hectospec and Hectochelle tilt 0 with the grating at the collimator's center of curvature;
   the other on-axis collimators, tilt 0 with the slit in the returning beam, are LLAMAS, APOGEE, PFS, DESI and
   Viaspec; validate.js (COL_AXIS) requires every mirror-collimator preset to be classified on or off the axis from
-  its sources, since an unset tilt draws the collimator off the axis; HIRES tilt 1.75° and a 2.94 m echelle path measured from Vogt et al. Fig. 1; LRIS a 2 m path). Double pass
+  its sources, since an unset tilt draws the collimator off the axis; HIRES tilt 1.75° and a 2.94 m echelle path measured from Vogt et al. Fig. 1; LRIS a 2 m path; the layout audit of 2026-11-17 added more, listed under Verification). The drawing-only keys: layLen (collimator to disperser), camLen (disperser to camera), colTilt, foldOn, foldAng, foldPos and foldLabel (a fold after the collimator), preFoldOn, preFoldAng and preFoldPos (a fold between the slit and the collimator, Spectral view only), gFlip, filtShow (an order filter beside the slit) and xDraw (the prisms drawn where the model uses an equivalent one). Double pass
   (echelle mode, key e.dpass, set by the MIKE presets; no control yet): one lens is drawn as both collimator and
   camera, the echelle at the collimated beam length from that lens (MIKE 400 and 600 mm, the cameras' external stop),
-  the cross-disperser near the echelle and crossed by both beams, and the returning beam drawn a few degrees off the
+  the cross-disperser just past the lens (0.7 of the way from the echelle: Bernstein et al. 2003 Fig. 1; Mateo et al.
+  2012 Fig. 4) and crossed by both beams, and the returning beam drawn a few degrees off the
   incoming one so that the detector clears the slit (in the instrument the two sit side by side across the orders,
   out of the page; the caption says so). Every echelle has a 3D view (11-16, his ask): see "Echelle 3D" below. For a
   double-pass instrument (key e.view): the 3D view puts x along the lens axis, y along the echelle's dispersion and z across the
   orders (Top shows the echelle's plane, Side the cross-dispersion plane of Bernstein et al. 2003 Fig. 1); the slit
   (the image the injection optics form in the focal plane) sits 0.6 L_y + 0.025 f above the axis (31 mm for MIKE red;
-  the paper gives about 30 mm) and the detector as far below; the prisms (one per two of the tracer's passes, apex
+  the paper gives about 30 mm) and the detector as far below, or, for an echelle used off Littrow (M2FS, θ = 3.3°),
+  f tan θ either side of the axis in the echelle's plane (Mateo et al. 2012 Figs. 3–4); the prisms (one per two of the tracer's passes, apex
   edges along y, deep enough for both beams: MIKE red's base 248 mm against the paper's "more than 8 inches") stand at
   minimum deviation for λc, the first as near the lens as it can stand; the echelle stands at the stop distance or,
   when its near end (W tan δ / 2 toward the light) would meet the prisms, just clear of them. Every order's trace on
@@ -189,8 +191,8 @@ collimator), read from the research records:
   which re-images the spectrum on the detector.
 - "wp" (HARPS, UVES, FEROS, ESPRESSO, G-CLEF, ZShooter): the collimator again forms the spectrum with the orders
   overlapping, a fold sends the light to the transfer collimator, which re-forms the pupil, where the cross-disperser stands,
-  then the camera. The fold (e.fold3d) is a flat in UVES and FEROS, a field mirror (blue) or field lens (red) in
-  ESPRESSO, a Mangin mirror in G-CLEF and ZShooter, and is not described for HARPS. The transfer collimators: UVES 2000
+  then the camera. The fold (e.fold3d) is a flat in UVES and FEROS, a field mirror (red) or field lens (blue) in
+  ESPRESSO (as in the layout figures; one sentence of Pepe et al. 2021 swaps the two arms), a Mangin mirror in G-CLEF and ZShooter, and is not described for HARPS. The transfer collimators: UVES 2000
   mm, FEROS 1500, ESPRESSO 1500, G-CLEF 1600, ZShooter 1250; HARPS uses its own collimator a third time (1560 mm,
   e.wp3; drawn unfolded, as a mirror of its own). The camera drawn is f_cam × f_transfer / f_col (f_cam is the
   model's effective camera): HARPS 728, UVES 360 and 500, FEROS 410 mm as built; ESPRESSO 400 (the design value for
@@ -206,7 +208,10 @@ caption gives the angle drawn and the instrument's; spacings the sources do not 
 **All arms** (11-16, his "showing the multi-arm instruments in one shot, as opposed to having mode switches";
 web/arms.js, window.ARMSAPP). For an instrument listed in arms.js GROUPS, the Setting menu ends with "All arms", which
 shows the instrument's arms together with the dichroics that split the light. GROUPS holds each instrument's dichroic
-tree (crossover, transition width, angle of incidence, the arm on each side, and the source) and the place of the split:
+tree (crossover, transition width, angle of incidence, the arm on each side, and the source), any fold mirror on a
+branch ({ fold: AOI, rel, to }: Boombox's red fold, X-Shooter's UVB and VIS folds), a turning sense fixed relative to
+the previous dichroic's where the sources show one (rel: PFS's red arm turns opposite the blue), and the place of the
+split:
 - "collimated" (DESI, Boombox, PFS, 4MOST LRS and HRS, LLAMAS, KCWI): one slit and collimator, with the dichroics in
   the collimated beam. A mirror collimator returns the beam 36° off the slit's axis; an on-axis one (colTilt 0:
   DESI, PFS, LLAMAS) returns the beam along the axis, past the slit, to the first dichroic (DESI's slit passes
@@ -330,8 +335,8 @@ own 6.37 m pupil), Blanco (prime focus DECam | Mosaic II; Cassegrain f/8 and the
 filter-changer housing in the pupil), SDSS 2.5 m (one f/5 Cassegrain in three eras), Mayall (prime focus DESI | Mosaic;
 the retired Cassegrain foci; 8.658 m² reproduced exactly), Rubin (the Paul-Baker drawing; M1 a ring around M3 in one
 glass, so no baffle), Gemini (North and South as one; Cassegrain up-looking and side ports), Hale (prime focus three
-ways, Cassegrain f/16, coudé f/30 drawn unfolded), Oschin 48-inch Schmidt (ZTF | POSS-II | POSS-I; the camera in the
-beam), TMT (492 hexagons, validated), LBT (binocular: the layout draws one side, the 3D view both; prime focus uses the
+ways, Cassegrain f/16, coudé f/30 drawn folded, the flat's height schematic), Oschin 48-inch Schmidt (ZTF | POSS-II | POSS-I; the camera in the
+beam), TMT (492 hexagons, validated), LBT (binocular: the layout draws one side, the 3D view both, as mirror images; prime focus uses the
 8.4 m mirror, LBTI both, whose pupil gives a fringed image). Each new telescope's research file lists its gaps; the
 inferences that reach the page are said in the notes (VISTA's and the Oschin's vane angles from photographs and
 diffraction spikes, MMIRS on the bare f/5, Blanco's fin widths from the DES PSF code). 22 telescopes in all.
@@ -602,7 +607,8 @@ not on the page. The band's wavelength enters only the diffraction width.
   pupil lies past the focus), refractor. Reimaged: collimator f_col = F W one focal length past the focus, the
   pupil (where the bundles cross) at f_col + f_col²/L past the collimator (L the exit pupil's distance before the
   focus), the camera f_cam = F_cam W just past the pupil (0.3 W; a preset's camGap, in mm, places the camera where a
-  source puts it: IMACS f/2 305 mm, MEASURED from Bigelow et al. 2003 Fig. 1; drawing only, since an ideal camera
+  source puts it: IMACS f/2 305 mm, MEASURED from Bigelow et al. 2003 Fig. 1; FORS2 286 and 431 mm, MEASURED from the
+  User Manual's Fig. 2.2; MOSFIRE 627.5 mm; LRIS 269 mm; drawing only, since an ideal camera
   focuses each collimated bundle f_cam behind itself wherever it stands); the effective focal ratio is F_cam. Mosaic: centered
   rows (top to bottom) of one chip format, with optional gaps per column and row, a shift per column (Roman's
   arc) and chips placed by hand (HSC's four turned chips). The field circle (a telescope's corrected field or an
@@ -1051,6 +1057,40 @@ and searched for better ones (catalogs, pipelines' calibration files, design fig
   4-Shooter's 520″ sky field and LCO's 656 arcmin² for IMACS. WFC3/IR and 2MASS take their cold stops as the aperture,
   and the circular checks became reference lines (validate_img 301). Not applied: LBC-Blue chip 4's 1 mm offset (its
   direction in the model's frame is not settled) and HSC's obscuration (unpublished; ε = 0 stays flagged).
+
+**The layout audit of 2026-11-17** (data/audit/2026-11-17_layout_*.md, with the brief). After instrument builders
+found three drawing errors in one day (Viaspec's collimator axis, the Magellan folded ports' focus and obstruction,
+the IMACS f/2 camera's place), nine auditors compared each preset's drawing with the instrument's published layout
+figure and classed each drawn element as sourced, measured, schematic or wrong. Applied:
+- Grating distances: the automatic collimated-beam length drew Schmidt-type benches 5–15 times too short. The presets
+  now carry the sourced or measured distance: DESI 900 mm, PFS 1550 mm and LLAMAS 400 mm (each grating at the
+  collimator's center of curvature), KCWI and KCRM 4345 mm by way of the fold FM1, APOGEE 2104 mm by way of both fold
+  mirrors, ESI 2930 mm, FIRE 627 mm, and G-CLEF 2650 mm and ZShooter 1500 mm.
+- Collimator tilts measured from the design figures (LRIS 4.65°, KCWI 9.4°, ESI 4.4°, 4MOST HRS 7.7°); KCWI and KCRM
+  settled off the axis, and the HARPS manual's figure supports its off-axis class.
+- Camera distances (camLen) for Viaspec, Binospec, Boombox and HIRES; Boombox's dichroic and red fold in the
+  single-arm views; 4MOST HRS's dichroic fold, whose absence had put the camera across the slit's beam.
+- PFS's cameras drawn as Mangin-Schmidts; ESPRESSO's field mirror (red arm) and field lens (blue arm) placed as in
+  the layout figures; the 2D prism of MIKE and M2FS moved next to the lens; M2FS's slit and detector side by
+  side in the echelle's plane in 3D; the order filters of M2FS and Hectochelle drawn; MIKE blue's two 38° prisms
+  drawn in 3D while the model keeps the 62° equivalent.
+- APOGEE's Fold Mirror 1, which the light meets on both passes (preFoldOn). MOSFIRE's and FIRE's folds before the
+  collimator and UVES's 45° slit fold are named in the notes and not drawn: MOSFIRE's angle is not published, and
+  FIRE's fold turns the light out of the page.
+- All arms: fold mirrors in the dichroic trees (Boombox's red fold; X-Shooter's two folds, which send the UVB and VIS
+  arms across the axis to opposite sides) and fixed turning senses (PFS's red arm on the side opposite the blue).
+- Telescopes: Subaru's Nasmyth back focus from Iye et al. 2004 Table 2; the Hale coudé drawn folded; the LBT's two
+  sides as mirror images in 3D; each obstruction captioned with what ε measures (epsKind: baffle, mirror, cage, stop,
+  or the primary's central hole), with no baffle bar for a hole or a stop; the primary's real hole drawn in 2D at
+  each focus.
+- Imagers: the telescope focus placed where the Telescopes mode places it (NIRI, FORS2, the 4-Shooter, NIRC2, HAWK-I,
+  LRIS, MOSFIRE, Megacam, the HST instruments); Megacam's ε = 0.355 from the 29 m² throughput area; camera distances
+  for FORS2, MOSFIRE and LRIS; LRIS's filter just in front of the camera (filterAt "camera"); the cold stops of
+  WFC3/IR and NIRCam; "reimager not drawn" at a reimaging imager's telescope focus.
+New checks: validate.js COL_AXIS classifies each mirror collimator on or off the axis; validate_img.js requires each
+drawn obstruction to name its kind, foci of one telescope with one focal ratio to share the back focal distance and
+the tertiary's height, and each imager at a Telescopes-mode focus (telRef) to draw that focus and the primary's hole
+as the Telescopes mode does.
 
 
 `node validate.js` (262 checks, all pass; 130 reference lines printed as [INFO]):

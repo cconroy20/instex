@@ -273,11 +273,13 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
   let { prims, labs, pulses } = build(Dz, P, G, pu, opts);
   // a binocular telescope (the LBT): the side drawn twice, its axes opts.twin apart along the pupil's x (the world's x)
   if (opts && opts.twin) {
-    const h = opts.twin / 2, sh = (q, d) => [q[0] + d, q[1], q[2]];
-    const dup = d => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(st => st.map(q => sh(q, d))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d)) })));
-    prims = dup(-h).concat(dup(h));
-    pulses = [-h, h].flatMap(d => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d)), rgb: pl.rgb })));
-    labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, h) }));
+    // (the two sides are mirror images of each other across the mount's center: the built side is the left one (SX),
+    // or the right one (DX) for a focus that belongs to it (opts.twinDX); the other side is its reflection in x)
+    const h = opts.twin / 2, sh = (q, d, m) => [(m ? -q[0] : q[0]) + d, q[1], q[2]], mL = !!opts.twinDX, mR = !opts.twinDX;
+    const dup = (d, m) => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(st => st.map(q => sh(q, d, m))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d, m)) })));
+    prims = dup(-h, mL).concat(dup(h, mR));
+    pulses = [[-h, mL], [h, mR]].flatMap(([d, m]) => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d, m)), rgb: pl.rgb })));
+    labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, h, mR) }));
   }
   const R = rotAzEl(V.az, V.el);
   // the scene's center: the middle of its bounding box, so a turn leaves the telescope in place

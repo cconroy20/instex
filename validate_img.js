@@ -218,6 +218,12 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
 }
 
 // ---------------------------------------------------------------- 6c. the Telescopes mode's telescopes (web/tpresets.js)
+// (a focus as the imager's engine sees it; also used by section 7 to check the imager presets that sit at a focus)
+function telFocusP(t, f) {
+  const D = f.D || t.D;
+  return Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.f1 ? t.f1 / D : t.F1, back: f.back, a3: f.a3, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55, corrector: f.corrector });
+}
+const EPS_KINDS = ["baffle", "mirror", "cage", "stop", "hole"];
 {
   global.window = global;
   require("./web/tpresets.js");
@@ -250,11 +256,26 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
       check(`${t.id}: the segments alone, ${t.segmentsArea.value} m²`, Math.abs(r) <= t.segmentsArea.tol, `model ${bare.area.toFixed(3)}, ${(100 * r).toFixed(2)}% -- ${t.segmentsArea.src}`);
     }
     for (const f of t.foci) {
-      const D = f.D || t.D, P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), { D, eps: f.eps !== undefined ? f.eps : t.eps, F: f.F, tel: f.design, F1: t.f1 ? t.f1 / D : t.F1, back: f.back, a3: f.a3, nasmyth: !!f.nasmyth, backN: f.backN, field: f.field || 10, Nx: 1000, Ny: 1000, pix: 100, rows: [1], lam: 0.55, corrector: f.corrector });
-      const S = IM.design(P);
+      const S = IM.design(telFocusP(t, f));
       check(`${t.id} ${f.id}: designs without error, one star one point`, !S.bad && S.imageSpread < 1e-9 * S.Dmm);
       // (a reference line: each focal ratio is derived from the published plate scale, so the two agree by construction)
       if (f.plate) console.log(`[INFO] ${t.id} ${f.id}: plate scale ${f.plate}″/mm  --  model ${S.plate.toFixed(4)}″/mm (F derived from the plate scale)`);
+      // the drawn obstruction says what it measures (2026-11-17 layout audit: a baffle value had been compared with a
+      // bare mirror's): baffle, mirror, cage, stop or the primary's central hole
+      const dEps = f.drawEps !== undefined ? f.drawEps : t.drawEps !== undefined ? t.drawEps : f.eps !== undefined ? f.eps : t.eps, kind = f.epsKind || t.epsKind;
+      if (dEps > 0) check(`${t.id} ${f.id}: the obstruction ε ${dEps} names its kind`, EPS_KINDS.includes(kind), kind || "no epsKind");
+    }
+    // shared optics (2026-11-17, after the Magellan folded ports had moved the f/11 secondary): foci of one telescope with
+    // the same focal ratio, design and aperture use one secondary at one place, so they share the back focal distance
+    // along the unfolded axis, and Nasmyth foci among those share the tertiary's height
+    const twoMirror = t.foci.filter(f => f.design === "cass" || f.design === "greg");
+    for (let i = 0; i < twoMirror.length; i++) for (let j = i + 1; j < twoMirror.length; j++) {
+      const f = twoMirror[i], g = twoMirror[j];
+      if (Math.abs(f.F / g.F - 1) > 1e-6 || f.design !== g.design || (f.D || t.D) !== (g.D || t.D)) continue;
+      const Sf = IM.design(telFocusP(t, f)), Sg = IM.design(telFocusP(t, g));
+      const okB = Math.abs(Sf.back - Sg.back) < 1, okA = !(f.nasmyth && g.nasmyth) || Math.abs(Sf.a3 - Sg.a3) < 1;
+      check(`${t.id} ${f.id} and ${g.id}: one secondary, one back focal distance${f.nasmyth && g.nasmyth ? " and tertiary" : ""}`, okB && okA,
+        `b ${(Sf.back / 1000).toFixed(3)} vs ${(Sg.back / 1000).toFixed(3)} m` + (f.nasmyth && g.nasmyth ? `; a3 ${(Sf.a3 / 1000).toFixed(3)} vs ${(Sg.a3 / 1000).toFixed(3)} m` : ""));
     }
   }
 }
@@ -276,6 +297,19 @@ for (const o of [{ optics: "reimaged" }, { optics: "reimaged", tel: "cass", F: 1
     P.lam = band(P.band);
     const S = IM.design(P);
     check(`${p.id}: designs without error, every chip in the field circle at least in part`, !S.bad && S.nActive === S.nChips, S.bad || `${S.nWhole}/${S.nChips} whole`);
+    // an imager at a Telescopes-mode focus (p.telRef "telescope/focus") draws that focus where the Telescopes mode does
+    // (2026-11-17 layout audit: NIRI, FORS2, NIRC2, HAWK-I and others had kept the default focus positions)
+    if (p.telRef) {
+      const [tid, fid] = p.telRef.split("/"), t = window.IX_TELESCOPES.find(q => q.id === tid), f = t && t.foci.find(q => q.id === fid);
+      if (!f) check(`${p.id}: telRef ${p.telRef} exists`, false);
+      else {
+        const St = IM.design(telFocusP(t, f)), nas = !!f.nasmyth === !!P.nasmyth, side = !f.nasmyth || (f.side || "down") === (P.nasSide || "down");
+        const okB = Math.abs(S.back - St.back) <= Math.max(20, 0.01 * St.back), okA = !f.nasmyth || Math.abs(S.a3 - St.a3) <= 20;
+        if (t.hole) check(`${p.id}: the primary's hole as the Telescopes mode's (${t.hole} m)`, P.hole === t.hole, `hole ${P.hole}`);
+        check(`${p.id}: the focus drawn as the Telescopes mode's ${p.telRef}`, nas && side && okB && okA,
+          `b ${(S.back / 1000).toFixed(3)} vs ${(St.back / 1000).toFixed(3)} m` + (f.nasmyth ? `; a3 ${(S.a3 / 1000).toFixed(3)} vs ${(St.a3 / 1000).toFixed(3)} m; side ${P.nasSide || "down"} vs ${f.side || "down"}` : "") + (nas ? "" : "; Nasmyth differs"));
+      }
+    }
     for (const e of p.pub || []) {
       const v = Q[e.q](S), r = v / e.value - 1, fmt = x => (Math.abs(x) >= 1e5 ? x.toExponential(4) : +x.toPrecision(5));
       if (e.info) console.log(`[INFO] ${p.id}: ${e.what}: model ${fmt(v)} (${(100 * r).toFixed(2)}%) -- ${e.src}`);

@@ -30,13 +30,13 @@ const GROUPS = {
     R: { cut: 5795, w: 270, aoi: 32.1, src: "D22 Sec. 7.2 (red-pass; crossover DERIVED)", R: "desib", T: "desir" }, T: "desiz" } },
   // Boombox: blue channel 3550-5750 A, red 5750-10100 A (SPIE 14149, 2026, abstract); the bench layout (Via design files)
   // shows the dichroic turning the blue by 135 deg, so an AOI of 22.5 deg (DERIVED from the drawing, +-1 deg), the red
-  // transmitted to a fold mirror; the transition width is not published
-  "Boombox (partly inferred)": { split: "collimated", note: "the dichroic's angle is measured from the bench layout", tree: { cut: 5750, w: 200, aoi: 22.5, src: "SPIE 14149 (2026) abstract; bench layout (AOI DERIVED)", R: "boomboxb", T: "boomboxr" } },
+  // transmitted to a 90 deg fold mirror that turns it the same way; the transition width is not published
+  "Boombox (partly inferred)": { split: "collimated", note: "the dichroic's angle is measured from the bench layout", tree: { cut: 5750, w: 200, aoi: 22.5, src: "SPIE 14149 (2026) abstract; bench layout (AOI DERIVED)", R: "boomboxb", T: { fold: 45, rel: 1, src: "bench layout", to: "boomboxr" } } },
   // PFS (V14 Sec. 3): "the first dichroic reflects the Blue part of the spectrum and the second reflects the Red while the
   // NIR is transmitted"; splits at the channel edges 640 and 955 nm (SM16), transitions ~20 nm (T16); the angles are not
   // in the text: ~29 and ~38 deg measured from V14 Fig. 2 (a concept-stage drawing; DERIVED, +-3 deg)
   "PFS": { split: "collimated", note: "PFS's dichroic angles are measured from a concept-stage drawing", tree: { cut: 6400, w: 200, aoi: 29, src: "V14 Sec. 3, Fig. 2 (AOI DERIVED); SM16 channel edges", R: "pfsb",
-    T: { cut: 9550, w: 200, aoi: 38, src: "V14 Sec. 3, Fig. 2 (AOI DERIVED); SM16 channel edges", R: "pfsr", T: "pfsn" } } },
+    T: { cut: 9550, w: 200, aoi: 38, rel: -1, src: "V14 Sec. 3, Fig. 2 (AOI DERIVED; the red reflected to the side opposite the blue); SM16 channel edges", R: "pfsr", T: "pfsn" } } },
   // 4MOST LRS (L20 Sec. 4.2): the red dichroic 706 nm at 35.35 deg, the blue dichroic 539 nm at 43.58 deg, transitions
   // 30 nm (measured 524-554 and 691-721 nm, D22); the blue dichroic transmits only 554-721 nm, so it follows the red one
   "4MOST LRS": { split: "collimated", tree: { cut: 7060, w: 300, aoi: 35.35, src: "L20 Sec. 4.2 (red dichroic)",
@@ -51,12 +51,15 @@ const GROUPS = {
   // KCWI + KCRM (KSPEC; M18 Fig. 2): a 560 nm dichroic takes the place of the blue arm's fold mirror
   "KCWI": { split: "collimated", tree: { cut: 5600, w: 200, aoi: 45, noAoi: true, src: "KSPEC Table 1 (560 nm)", R: "kcwib", T: "kcrm" } },
   // X-Shooter (V11 Secs. 2.1, 2.2.5, 3.2): two dichroics at 15 deg after the Cassegrain focus (f/13.41, V11 Sec. 2.2.7),
+  // each reflecting back 150 deg, the second to the other side; the UVB and VIS beams "are then deviated to 90 deg with
+  // folding mirrors" (V11 Sec. 2.1, Fig. 2): each fold turns the beam a further 120 deg the same way, so the two arms run
+  // across the axis to opposite sides, crossing the arriving beam as Fig. 2 draws them (cross), and the NIR goes straight on;
   // crossovers 559.5 and 1024 nm; the first reflects the UVB, the second the VIS; each arm's relay (a focal reducer to
   // f/6.5 in the UVB and VIS) then images the focus on the arm's own slit. Widths: the combined dichroics transmit less
   // than 80% at 556.0-563.8 and 1009.5-1035 nm (ESO manual Sec. 3)
   "X-Shooter": { split: "focus", Ftel: 13.41, relay: "relay", note: "each arm's relay images the telescope's focus on the arm's own slit",
-    tree: { cut: 5595, w: 78, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: "xshuvb",
-      T: { cut: 10240, w: 255, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: "xshvis", T: "xshnir" } } },
+    tree: { cut: 5595, w: 78, aoi: 15, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: { fold: 30, rel: 1, cross: true, src: "V11 Sec. 2.1, Fig. 2", to: "xshuvb" },
+      T: { cut: 10240, w: 255, aoi: 15, rel: -1, src: "V11 Secs. 2.2.5, 3.2; ESO manual Sec. 3", R: { fold: 30, rel: 1, cross: true, src: "V11 Sec. 2.1, Fig. 2", to: "xshvis" }, T: "xshnir" } } },
   // MIKE (B03 Secs. 2.1, 2.3; LCO manual, May 2004): one slit at the f/11 focus; the dichroic, "the first optical element
   // beyond the slit", at an incidence of 30 deg, reflects the blue; each arm's injection optics then feed its lens. The
   // crossover is ~495 nm since 2004 (455 nm before); the width is the original dichroic's "80% reflectance by 440nm and
@@ -71,15 +74,21 @@ const GROUPS = {
   "UVES": { split: "preslit", Ftel: 15, Wpre: 60, relay: "doublet", note: "the width of UVES's pre-slit beam is not published",
     tree: { cut: 4500, w: 350, aoi: 45, noAoi: true, src: "UM117 Secs. 2.2.1, 3.1 (DIC1)", R: "uvesb", T: "uvesr" } },
 };
-const leaves = n => (typeof n === "string" ? [n] : [...leaves(n.R), ...leaves(n.T)]);
+// (a tree node is a dichroic { cut, w, aoi, R, T, rel? } or a fold mirror { fold (AOI, deg), rel, to }; rel fixes a turn's
+// sense relative to the last dichroic's on the path, where the layout search would otherwise choose it)
+const leaves = n => (typeof n === "string" ? [n] : n.fold ? leaves(n.to) : [...leaves(n.R), ...leaves(n.T)]);
 // the band the dichroics pass to each arm, in A: { id: [lo, hi, half-width of the transition at lo, at hi] }
 const passBands = (n, lo = 0, hi = Infinity, wl = 0, wh = 0, out = {}) => {
   if (typeof n === "string") { out[n] = [lo, hi, wl, wh]; return out; }
+  if (n.fold) return passBands(n.to, lo, hi, wl, wh, out);
   passBands(n.R, lo, Math.min(hi, n.cut), wl, n.cut < hi ? n.w / 2 : wh, out);
   passBands(n.T, Math.max(lo, n.cut), hi, n.cut > lo ? n.w / 2 : wl, wh, out);
   return out;
 };
-const nodes = n => (typeof n === "string" ? [] : [n, ...nodes(n.R), ...nodes(n.T)]);
+const nodes = n => (typeof n === "string" ? [] : n.fold ? nodes(n.to) : [n, ...nodes(n.R), ...nodes(n.T)]);
+const folds = n => (typeof n === "string" ? [] : n.fold ? [n, ...folds(n.to)] : [...folds(n.R), ...folds(n.T)]);
+// (each dichroic's two branch lengths, then each fold's, index the layout's length multipliers cfg.L)
+const indexTree = t => { const nd = nodes(t); nd.forEach((n, k) => { n._k = k; }); folds(t).forEach((n, i) => { n._f = 2 * nd.length + i; }); return nd; };
 // the controls that one arm's edit sets for every arm: the telescope always; for a split in the collimated beam also
 // the slit, the fibers and the collimator, which the arms share (top-level keys, and keys of the mode's scope)
 const SHARED_COLL = { top: ["D", "F"], m: ["slitW", "nObj", "W", "col", "telF", "fibAp"] }, SHARED_SEP = { top: ["D"], m: [] };
@@ -222,17 +231,18 @@ root.ARMSAPP = function (H) {
   function scene(G, arms, cfg) {
     const byId = Object.fromEntries(arms.map(a => [a.id, a])), a0 = arms.find(a => !a.D.bad && a.D.c) || arms[0];
     const tele = G.split !== "collimated", W = a0.P.W, prims = [], labs = [], bodies = [];
-    const body = (pieces, tags) => bodies.push({ pieces: pieces.filter(p => p.length >= 3), tags });
+    const body = (pieces, tags, opt = {}) => bodies.push({ pieces: pieces.filter(p => p.length >= 3), tags, ...opt });
     const band = n => { const ls = leaves(n).map(id => byId[id]).filter(a => a && !a.D.bad && a.D.c); return ls.length ? [Math.min(...ls.map(a => a.D.range[0])), Math.max(...ls.map(a => a.D.range[1]))] : null; };
     const fill = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.1) : WHITE_F), stroke = bd => (bd ? rgba(bandRGB(bd[0], bd[1]), 0.4) : WHITE_S);
     // a beam segment from p to q, wp wide at p and wq at q
-    const seg = (p, q, wp, wq, bd, tags) => {
+    // (crossOK: a beam that the sources draw crossing other beams, which it may; it may not cross an optic)
+    const seg = (p, q, wp, wq, bd, tags, crossOK = false) => {
       const n = perp(nrm(sub(q, p))), poly = [ad(p, sc(n, wp / 2)), ad(q, sc(n, wq / 2)), ad(q, sc(n, -wq / 2)), ad(p, sc(n, -wp / 2))];
       prims.push({ k: "poly", p: poly, fill: fill(bd), stroke: stroke(bd) });
       // shortened at both ends, so that the beam may meet the optics it joins
       const s0 = Math.min(0.45, (0.7 * W) / (Math.hypot(...sub(q, p)) || 1));
       const pp = ad(p, sc(sub(q, p), s0)), qq = ad(p, sc(sub(q, p), 1 - s0)), wpp = wp + (wq - wp) * s0, wqq = wp + (wq - wp) * (1 - s0);
-      body([hull([ad(pp, sc(n, wpp / 2)), ad(qq, sc(n, wqq / 2)), ad(qq, sc(n, -wqq / 2)), ad(pp, sc(n, -wpp / 2))])], tags);
+      body([hull([ad(pp, sc(n, wpp / 2)), ad(qq, sc(n, wqq / 2)), ad(qq, sc(n, -wqq / 2)), ad(pp, sc(n, -wpp / 2))])], tags, { beam: true, crossOK });
     };
     // (a split after the telescope's focus: the true telescope focal ratio, from GROUPS; the arms' F is their slit's)
     const Ftel = tele ? G.Ftel : a0.P.F, pre = G.split === "preslit", Wpre = pre ? G.Wpre : 0;
@@ -303,7 +313,22 @@ root.ARMSAPP = function (H) {
     }
     // the tree: at each dichroic the reflected light turns by 180 - 2 AOI (to the side cfg.ds picks), the transmitted
     // light runs on
-    const walk = (node, at, d, wNow, path, tag) => {
+    const walk = (node, at, d, wNow, path, tag, psense = 1) => {
+      if (node && node.fold) {
+        // a fold mirror: the light turns by 180 - 2 AOI, the sense fixed relative to the last dichroic's turn
+        const sense = (node.rel || 1) * psense, aoi = node.fold * DEG;
+        const rd = nrm(rot(d, sense * (Math.PI - 2 * aoi))), nPl = nrm(sub(rd, d)), tPl = perp(nPl);
+        const half = 0.56 * Math.max(wNow, 0.12 * W) / Math.max(0.2, Math.cos(aoi)), thk = 0.035 * W + 2;
+        prims.push({ k: "fmir", p: [ad(at, sc(tPl, half)), ad(at, sc(tPl, -half))], back: sc(nPl, -1) });
+        labs.push({ at: ad(at, sc(tPl, half)), txt: "fold mirror", sub: "", pri: 3, dir: tPl, optional: true });
+        // (a fold the sources draw beside crossing beams: only a real intersection with a beam counts, not the clearance)
+        body([[ad(ad(at, sc(tPl, half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, thk)), ad(ad(at, sc(tPl, -half)), sc(nPl, -thk)), ad(ad(at, sc(tPl, half)), sc(nPl, -thk))]], [tag], { nearOK: !!node.cross });
+        const br = node.to, leaf = typeof br === "string", ctag = leaf ? "a:" + br : "f:" + leaves(br)[0];
+        const len = ((tele ? 0.9 : 1.35) * W + 40) * (cfg.L[node._f] || 1), to = ad(at, sc(rd, len)), wTo = tele && !pre ? (path + len) / Ftel : wNow;
+        seg(at, to, wNow, wTo, band(br), [tag, ctag], !!node.cross);
+        walk(br, to, rd, wTo, path + len, ctag, psense);
+        return;
+      }
       if (typeof node === "string") {
         const a = byId[node];
         if (!a) return;
@@ -334,7 +359,7 @@ root.ARMSAPP = function (H) {
         body([...U.pieces.map(pc => pc.map(T)), ...(extra ? [extra] : [])], [tag]);
         return;
       }
-      const k = node._k, sense = cfg.ds[k], aoi = node.aoi * DEG;
+      const k = node._k, sense = node.rel ? node.rel * psense : cfg.ds[k], aoi = node.aoi * DEG;
       const rd = nrm(rot(d, sense * (Math.PI - 2 * aoi))), nPl = nrm(sub(rd, d)), tPl = perp(nPl);
       const half = 0.56 * Math.max(wNow, 0.12 * W) / Math.max(0.2, Math.cos(aoi)), thk = 0.035 * W + 2;
       prims.push({ k: "dich", p: [ad(at, sc(tPl, half)), ad(at, sc(tPl, -half))] });
@@ -343,11 +368,11 @@ root.ARMSAPP = function (H) {
       const spread = tele && !pre;                                 // (the beam widens from the telescope's focus)
       const base = (tele ? 0.9 : 1.35) * W + 40;
       for (const [br, dd, j] of [[node.T, d, 0], [node.R, rd, 1]]) {
-        const leaf = typeof br === "string", ctag = leaf ? "a:" + br : "n" + br._k;
+        const leaf = typeof br === "string", ctag = leaf ? "a:" + br : br.fold ? "f:" + leaves(br)[0] : "n" + br._k;
         const len = base * cfg.L[k * 2 + j];
         const to = ad(at, sc(dd, len)), wTo = spread ? (path + len) / Ftel : wNow;
         seg(at, to, wNow, wTo, band(br), [tag, ctag]);
-        walk(br, to, dd, wTo, path + len, ctag);
+        walk(br, to, dd, wTo, path + len, ctag, sense);
       }
     };
     walk(G.tree, first, dir0, w0, tele && !pre ? first[0] : 0, "n0");
@@ -358,31 +383,35 @@ root.ARMSAPP = function (H) {
   // scale at which the drawing fills the panel
   function scoreOf(S, aspect) {
     let ov = 0;
+    const pairs = [];                                                // (for the tests: which bodies overlap)
     const bb = S.bodies.map(b => { let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const pc of b.pieces) for (const q of pc) { x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[0]); y0 = Math.min(y0, q[1]); y1 = Math.max(y1, q[1]); } return [x0, x1, y0, y1]; });
     const gap = 0.45 * S.W;
     for (let i = 0; i < S.bodies.length; i++) for (let j = i + 1; j < S.bodies.length; j++) {
       const A = S.bodies[i], B = S.bodies[j];
       if (A.tags.some(t => B.tags.includes(t))) continue;
+      if ((A.crossOK && B.beam) || (B.crossOK && A.beam)) continue;
       const a = bb[i], b = bb[j];
       if (a[1] + gap < b[0] || b[1] + gap < a[0] || a[3] + gap < b[2] || b[3] + gap < a[2]) continue;
-      for (const pa of A.pieces) for (const pb of B.pieces) ov += depth(pa, pb, gap);
+      let o = 0;
+      const gp = (A.nearOK && B.beam) || (B.nearOK && A.beam) ? 0 : gap;
+      for (const pa of A.pieces) for (const pb of B.pieces) o += depth(pa, pb, gp);
+      if (o > 0) { ov += o; pairs.push(A.tags.join(",") + (A.beam ? "(beam)" : "") + " x " + B.tags.join(",") + (B.beam ? "(beam)" : "")); }
     }
     const all = bb.reduce((r, b) => [Math.min(r[0], b[0]), Math.max(r[1], b[1]), Math.min(r[2], b[2]), Math.max(r[3], b[3])], [Infinity, -Infinity, Infinity, -Infinity]);
     const sx = aspect / (all[1] - all[0]), sy = 1 / (all[3] - all[2]);
-    return { ov: ov / S.W, s: Math.min(sx, sy) };
+    return { ov: ov / S.W, s: Math.min(sx, sy), pairs };
   }
   // the search: every combination of the turning senses at the base lengths; then, for the best few, the lengths
   // one branch at a time
   function choose(G, arms, aspect) {
-    const nd = nodes(G.tree), ids = leaves(G.tree);
-    nd.forEach((n, k) => { n._k = k; });
+    const nd = indexTree(G.tree), ids = leaves(G.tree), nf = folds(G.tree).length;
     // (the side to which a mirror collimator returns the light is one more choice, except on the axis)
     const a0 = arms.find(a => !a.D.bad && a.D.c), onAx = !!a0 && a0.P.col === "mirror" && a0.P.colTilt === 0;
     const nS = nd.length + ids.length + (G.split === "collimated" && !onAx ? 1 : 0);
     const make = (bits, L, L0) => ({ ds: nd.map((_, k) => (bits >> k) & 1 ? -1 : 1), af: Object.fromEntries(ids.map((id, i) => [id, (bits >> (nd.length + i)) & 1 ? -1 : 1])), ret: (bits >> (nd.length + ids.length)) & 1 ? -1 : 1, L, L0 });
     const evalC = c => { const r = scoreOf(scene(G, arms, c), aspect); return { c, ov: r.ov, s: r.s }; };
     const cost = (r, sMax) => 8 * r.ov + sMax / r.s;
-    const L1 = nd.flatMap(() => [1, 1]);
+    const L1 = nd.flatMap(() => [1, 1]).concat(Array(nf).fill(1));
     let res = [];
     // (the first arm's sense is fixed: a mirror image of the whole drawing is no different)
     for (let bits = 0; bits < (1 << nS); bits++) { if (nS > 0 && (bits & 1)) continue; res.push(evalC(make(bits, L1.slice(), 1))); }
@@ -408,7 +437,7 @@ root.ARMSAPP = function (H) {
   function configFor(G, inst, arms, aspect) {
     const key = inst + "|" + Math.round(aspect * 3) + "|" + arms.map(a => a.D.bad || !a.D.c ? "x" : [a.id, Math.round(Math.log(a.P.W) * 3), Math.round(Math.log(a.D.fcam) * 3), Math.round(((a.D.alpha || 0) + (a.D.beta || 0) + (a.D.psi || 0)) / (10 * DEG)), a.P.gType, a.P.col + (a.P.colTilt === 0 ? "0" : "")].join(",")).join(";");
     if (!memo.has(key)) { if (memo.size > 60) memo.clear(); memo.set(key, choose(G, arms, aspect)); }
-    nodes(G.tree).forEach((n, k) => { n._k = k; });
+    indexTree(G.tree);
     return memo.get(key);
   }
 
@@ -423,7 +452,8 @@ root.ARMSAPP = function (H) {
     const mL = 30, mR = 56, mT = 26, mB = Math.max(58, capH + 26);
     const aspect = (w - mL - mR) / Math.max(60, h - mT - mB), cfg = configFor(G, inst, arms, aspect);
     const Sc = scene(G, arms, cfg);
-    last = { ov: scoreOf(Sc, aspect).ov, labels: [], cfg: JSON.parse(JSON.stringify(cfg)) };
+    const sc0 = scoreOf(Sc, aspect);
+    last = { ov: sc0.ov, pairs: sc0.pairs, labels: [], cfg: JSON.parse(JSON.stringify(cfg)), probe: patch => scoreOf(scene(G, arms, Object.assign({}, cfg, patch)), aspect) };
     // fit: the bodies' extent, with room for the labels
     let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
     for (const b of Sc.bodies) for (const pc of b.pieces) for (const q of pc) { x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[0]); y0 = Math.min(y0, q[1]); y1 = Math.max(y1, q[1]); }
@@ -432,12 +462,19 @@ root.ARMSAPP = function (H) {
     const ox = mL + ((w - mL - mR) - s * (x1 - x0)) / 2 - s * x0, oy = mT + ((h - mT - mB) - s * (y1 - y0)) / 2 + s * y1;
     const X = p => [ox + s * p[0], oy - s * p[1]];
     g.lineJoin = "round";
-    const order = { poly: 0, slit: 1, dot: 1, lens: 2, mirror: 2, line: 3, dich: 3 };
+    const order = { poly: 0, slit: 1, dot: 1, lens: 2, mirror: 2, line: 3, dich: 3, fmir: 3 };
     for (const pr of Sc.prims.slice().sort((p, q) => order[p.k] - order[q.k])) {
       if (pr.k === "poly") {
         g.beginPath(); pr.p.forEach((q, i) => { const c = X(q); i ? g.lineTo(c[0], c[1]) : g.moveTo(c[0], c[1]); }); g.closePath();
         if (pr.fill) { g.fillStyle = pr.fill; g.fill(); }
         if (pr.stroke) { g.strokeStyle = pr.stroke; g.lineWidth = 0.8; g.stroke(); }
+      } else if (pr.k === "fmir") {
+        const a = X(pr.p[0]), b = X(pr.p[1]), bk = X(ad(pr.p[0], pr.back)), o0 = X(pr.p[0]), ux = (bk[0] - o0[0]), uy = (bk[1] - o0[1]), ul = Math.hypot(ux, uy) || 1;
+        const hx = 6 * ux / ul, hy = 6 * uy / ul, nH = Math.max(5, Math.round(Math.hypot(b[0] - a[0], b[1] - a[1]) / 7));
+        g.lineCap = "butt"; g.strokeStyle = "rgba(90,96,108,0.8)"; g.lineWidth = 0.8; g.beginPath();
+        for (let i = 0; i <= nH; i++) { const x = a[0] + (b[0] - a[0]) * i / nH, y = a[1] + (b[1] - a[1]) * i / nH; g.moveTo(x, y); g.lineTo(x + hx + 0.4 * (b[0] - a[0]) / nH, y + hy + 0.4 * (b[1] - a[1]) / nH); }
+        g.stroke();
+        g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.strokeStyle = "#5a606c"; g.lineWidth = 3.2; g.stroke();
       } else if (pr.k === "line" || pr.k === "dich") {
         const a = X(pr.p[0]), b = X(pr.p[1]);
         g.lineCap = "butt";
