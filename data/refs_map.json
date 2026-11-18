@@ -4197,6 +4197,49 @@
     "text": "Hunter et al. 2013, JAI 2, 1350002 (the hardstops)",
     "ads": "2013JAI.....250002H"
    }
+  ],
+  "esma": [
+   {
+    "file": "data/interf/esma.json",
+    "key": "ESMA",
+    "text": "Bottinelli et al. 2008, Proc. SPIE 7012, 70120D (the eSMA)",
+    "ads": "2008SPIE.7012E..0DB"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "P2",
+    "text": "EHT Collaboration 2019, ApJL 875, L2 (the JCMT's and the CSO's positions)",
+    "ads": "2019ApJ...875L...2E"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "WIE99",
+    "text": "Wiedner 1999, SMA Technical Memo 136 (the JCMT–CSO baseline)"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "BOT09",
+    "text": "Bottinelli et al. 2009, ApJL 690, L130 (the PKS 1830−211 beam)",
+    "ads": "2009ApJ...690L.130B"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "SHI09",
+    "text": "Shinnaga et al. 2009, ApJ 698, 1924 (the IRC+10216 beam)",
+    "ads": "2009ApJ...698.1924S"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "FAV14",
+    "text": "Favre et al. 2014, ApJ 790, 55 (the JCMT's and the CSO's beams)",
+    "ads": "2014ApJ...790...55F"
+   },
+   {
+    "file": "data/interf/esma.json",
+    "key": "LIG24",
+    "text": "Light et al. 2024, PSJ 5, 98 (the 625 m baseline of 2010)",
+    "ads": "2024PSJ.....5...98L"
+   }
   ]
  },
  "model": {

@@ -391,7 +391,10 @@ to 0.1% over pads 2-72 (fitted to data/interf/vla.json; pad 1 and the N arm sit 
 at the C size has a 41% peak sidelobe at p = 1 and 28% at p = 1.716 (the real C configuration: 27%). A regular grid's baselines are few and repeated (36 antennas: 630
 baselines, 60 different), so its snapshot beam has grating lobes near the peak (88%); an even Y's snapshot sidelobe is
 41% against the real VLA's 27%. No strip,
-and the header note on optical presets is hidden in this mode.
+and the header note on optical presets is hidden in this mode. The Configuration and Band menus are at least as wide
+as the array's longest label (intapp.js fitMenu: the widest option + 36 px). Where the box is too narrow for the menu
+beside the row's name, the row wraps and the menu takes a separate line (11-18, his ask: at 1280 px the menus clipped
+most arrays' labels). The page height does not change, and uitest checks each array at both laptop sizes.
 
 Engine (web/interf.js, window.RI): ground baselines (east, north, up) turned to the equatorial X, Y, Z at the site's
 latitude, (u, v) = the baseline's projection toward the source at hour angle H in wavelengths, samples dropped while the
@@ -529,6 +532,21 @@ eht2017.md, chime.md, chord.md). Five new arrays, all built by make_rpresets.js 
   configurations D, C, B at six declinations (natural, ±6 h, 20°, shadowing): the geometric mean within 2-8% and the
   major axis within 5%. The Observer Center's characteristic resolutions of today's configurations (no method stated)
   are INFO lines: inner six 4.7″ vs 5″, COM 1.9″ vs 2.5″, EXT 0.72″ vs 0.7-0.8″, VEX 0.29″ vs ≈ 0.25″ (345 GHz, 6 h).
+  The 24 pads are drawn pale under the antennas (a.pads; built layouts only).
+- SMA + JCMT + CSO, the eSMA (11-18, his ask; data/interf/esma.md), 2007-2010: the very extended pads with the JCMT
+  (15 m) and the CSO (10.4 m). No source ties the pad frame to the Earth: pad 1 is placed at the SMA's position in EHT
+  Paper II (INFERRED), which gives the published 782 m (CSO to pad 19), 625 m (JCMT to pad 19, the 2010 array) and
+  164 m (JCMT to CSO) within 0.4 m; the two long baselines allow pad 1 to sit ≈ ±8 m east and −13 to +15 m north of
+  that point, and centroid placements fail by 30 m or more. SEFDs from the design aperture efficiencies (0.67, 0.55,
+  0.60) with one system temperature (so the weights are products of effective areas); uniform weighting by default
+  (the published beams; natural lets the JCMT's baselines dominate, 0.42″ × 0.21″ vs 0.33″ × 0.18″); the bands of
+  the eSMA paper's Table 1 with 2 GHz per sideband side by side. Page: local arrays may now carry per-antenna dishes
+  and SEFDs (configs dishes/sefd, built layouts only: drawn to scale and named, picked by own radius, weighted
+  1 / (SEFD_i SEFD_j) as the geo arrays), and shadowOf takes per-antenna diameters (overlap within the mean of the
+  two). Checks: the pads, the three baselines, Table 1's 488 m², Table 1's uniform beams (345 GHz, +25°, ±5 h) for
+  the eSMA and the SMA alone within 5% (0.328″ × 0.183″ and 0.324″ × 0.249″ vs 0.32 × 0.18 and 0.32 × 0.24), the
+  PKS 1830−211 and IRC+10216 beams (major within 5%, minor 12%, PA 6°), and mixed-dish shadowing. The CSO was
+  removed by 2024, so the array is historical (antNote).
 Engine (interf.js): geoXYZ (WGS84 to the equatorial frame of a reference meridian), per-station horizons (staSees:
 elevation, own limit, horizon mask), per-baseline weights carried by the samples (wb), the samples' time offsets (tOff,
 for Play), elliptical primary beams (beamFn), the crescent, core-jet and point-source skies (skyModel2, pointsList).

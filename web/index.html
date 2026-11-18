@@ -174,7 +174,7 @@
         <section>
           <h2 title="The array: the antennas and where the antennas stand.">Array</h2>
           <div class="caserow" id="rLayRow" title="As built: the array's own pads, in one of the array's configurations. Or a made-up layout of any number of the array's antennas (same dishes, same site): random over a disc, a square grid, an east-west line, the shapes L, T, Y and a cross (antennas spaced evenly along the arms), or a ring."><span>Layout</span><select id="rLay"></select><button id="rRedraw" class="ghost" type="button" hidden title="Draw a new random layout." aria-label="Draw a new random layout">↻</button></div>
-          <div class="caserow" id="rCfgRow" title="The array's configuration: the pads on which the antennas stand. The antennas are moved between configurations, compact to extended, over the observatory's cycle."><span>Configuration</span><select id="rCfg"></select></div>
+          <div class="caserow wraprow" id="rCfgRow" title="The array's configuration: the pads on which the antennas stand. The antennas are moved between configurations, compact to extended, over the observatory's cycle."><span>Configuration</span><select id="rCfg"></select></div>
           <div class="ctl" id="rNaRow" hidden title="The number of antennas in the made-up layout, 2 to 10,000. N antennas make N (N − 1) / 2 baselines.">
             <label for="rNa"><span>Antennas</span><span class="val" id="vrNa"></span></label>
             <input type="range" id="rNa" min="0.301" max="4" step="0.001">
@@ -203,7 +203,7 @@
             <label for="rDur"><span id="lrDur">Duration</span><span class="val" id="vrDur"></span></label>
             <input type="range" id="rDur" min="0" max="24" step="0.1">
           </div>
-          <div class="caserow" title="The receiver band."><span>Band</span><select id="rBand"></select></div>
+          <div class="caserow wraprow" title="The receiver band."><span>Band</span><select id="rBand"></select></div>
           <div class="ctl" title="The observing frequency. A baseline samples the uv plane at the baseline's length in wavelengths, so a higher frequency spreads the whole uv plane out (finer resolution) and shrinks the primary beam.">
             <label for="rNu"><span>Frequency</span><span class="val" id="vrNu"></span></label>
             <input type="range" id="rNu" min="1" max="2" step="0.001">

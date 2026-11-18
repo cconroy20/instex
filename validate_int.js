@@ -427,6 +427,55 @@ function beamOf(a, cfg, nuG, wt, dec, dur, rob = 0.5) {
   }
 }
 
+// ---- the eSMA (data/interf/esma.json): the SMA's very extended pads with the JCMT and the CSO; the published
+// baselines (the tie of the pad frame to EHT Paper II's SMA position is INFERRED, and these baselines test it), the
+// collecting area of the eSMA paper's Table 1, and the published beams under uniform weighting with the SEFD weights:
+// Table 1's estimate (345 GHz, dec +25, H.A. +-5 h; eSMA and the SMA alone), and the PKS 1830-211 and IRC+10216
+// tracks (durations published, tracks taken as centered on the transit)
+{
+  const a = ARRS.find(q => q.id === "esma"), c = a.configs[0], j = require("./data/interf/esma.json"), bl = j.baselines_published_m;
+  const ix = n => c.names.indexOf(n), dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
+  const sma = ARRS.find(q => q.id === "sma").configs.find(q => q.id === "VEX");
+  {
+    // (shadowing between dishes of different sizes: at the zenith, two dishes overlap within the mean diameter; a
+    // 6 m and a 15 m dish 9 m apart overlap, two 6 m dishes do not)
+    const two = d2 => RI.shadowOf([{ e: 0, n: 0, u: 0, dish: 6 }, { e: 9, n: 0, u: 0.5, dish: d2 }], 0, 0, 6)(0);
+    check("shadowing with dishes of different sizes: a 6 m and a 15 m dish 9 m apart overlap at the zenith, two 6 m dishes do not", two(15).some(Boolean) && !two(6).some(Boolean));
+  }
+  check("eSMA: ten elements, the SMA's very extended pads with the JCMT (15 m) and the CSO (10.4 m)", c.ants.length === 10 && sma.names.every((n, k) => n === c.names[k] && sma.ants[k].every((x, i) => x === c.ants[k][i])) && c.dishes.join() === "6,6,6,6,6,6,6,6,15,10.4");
+  const L = { cso19: dist(c.ants[ix("CSO")], c.ants[ix("pad 19")]), jcmt19: dist(c.ants[ix("JCMT")], c.ants[ix("pad 19")]), jc: dist(c.ants[ix("JCMT")], c.ants[ix("CSO")]) };
+  check(`eSMA: the longest baseline, CSO to pad 19, within 0.2% of the published ${bl.eSMA_VEX_2008[1]} m`, rel(L.cso19, bl.eSMA_VEX_2008[1]) < 2e-3, L.cso19.toFixed(1) + " m");
+  check(`eSMA: JCMT to pad 19 within 0.2% of the ${bl.Titan_2010_max} m of the 2010 array (Light et al. 2024), JCMT to CSO within 0.5% of ${bl.JCMT_CSO_WIE99} m (SMA Memo 136)`, rel(L.jcmt19, bl.Titan_2010_max) < 2e-3 && rel(L.jc, bl.JCMT_CSO_WIE99) < 5e-3, L.jcmt19.toFixed(1) + " m, " + L.jc.toFixed(1) + " m");
+  {
+    let mx = 0; for (let i = 0; i < 10; i++) for (let k = i + 1; k < 10; k++) mx = Math.max(mx, dist(c.ants[i], c.ants[k]));
+    const area = c.dishes.reduce((s, d) => s + Math.PI * d * d / 4, 0);
+    check("eSMA: 45 baselines, the longest CSO to pad 19, and 488 m² of collecting area (Table 1), within 0.5%", Math.abs(mx - L.cso19) < 1e-9 && rel(area, 488) < 5e-3, area.toFixed(1) + " m²");
+  }
+  {
+    const beam = (idx, nuG, dec, dur) => {
+      const ants = idx.map(k => ({ e: c.ants[k][0], n: c.ants[k][1], u: c.ants[k][2], dish: c.dishes[k] })), nu = nuG * 1e9, B = RI.baselines(ants, a.lat * DEG);
+      const wq = new Float32Array(B.length); let m = 0;
+      for (let k = 0; k < B.length; k++) { wq[k] = 1 / (c.sefd[idx[B.I[k]]] * c.sefd[idx[B.J[k]]]); m = Math.max(m, wq[k]); }
+      for (let k = 0; k < B.length; k++) wq[k] /= m;
+      const S = RI.sample({ ants, lat: a.lat * DEG, dec: dec * DEG, elMin: a.elLimit * DEG, dur, nu, bw: 0, step: 1 / 120, B, wq, shadow: a.dish });
+      let bm = 0; for (const p of ants) for (const q of ants) bm = Math.max(bm, Math.hypot(p.e - q.e, p.n - q.n, p.u - q.u));
+      const ext = bm * nu / C, w = RI.weigh(S, "uniform", 0.5, Math.max(ext / 250, 1.5 * RI.HA_PER_H * S.step * ext));
+      for (let k = 0, pix = 0.05 / ext; k < 3; k++, pix *= 3) {
+        const G = RI.grid(S, w, 512, 1 / (512 * pix)), D = RI.dirty(G.g, null, 512), f = RI.fitBeam(D.beam, 512, pix);
+        if (f) return { maj: f.maj * RAD, min: f.min * RAD, pa: f.pa };
+      }
+      return { maj: NaN, min: NaN, pa: NaN };
+    };
+    const all = [...Array(10).keys()], e = beam(all, 345, 25, 10), s = beam(all.slice(0, 8), 345, 25, 10);
+    check("eSMA: Table 1's uniform beams (345 GHz, dec +25°, ±5 h) within 5%: eSMA 0.32″ × 0.18″, the SMA alone 0.32″ × 0.24″", rel(e.maj, 0.32) < 0.05 && rel(e.min, 0.18) < 0.05 && rel(s.maj, 0.32) < 0.05 && rel(s.min, 0.24) < 0.05,
+      `${e.maj.toFixed(3)}″ × ${e.min.toFixed(3)}″, ${s.maj.toFixed(3)}″ × ${s.min.toFixed(3)}″`);
+    const T = j.validation_targets.published, pk = T[0], ir = T[1], bp = beam(all, 267, pk.dec, 7), bi = beam(all, 270, ir.dec, 5.5);
+    const ok = (b, p) => rel(b.maj, p[0]) < 0.05 && rel(b.min, p[1]) < 0.12 && Math.abs(b.pa - p[2]) < 6;
+    check("eSMA: the PKS 1830−211 (267 GHz, 7 h) and IRC+10216 (270 GHz, 5.5 h) beams: the major axis within 5%, the minor within 12%, the position angle within 6°", ok(bp, pk.beam) && ok(bi, ir.beam),
+      `${bp.maj.toFixed(2)}″ × ${bp.min.toFixed(2)}″ PA ${bp.pa.toFixed(0)}° vs ${pk.beam.join(" ")}; ${bi.maj.toFixed(2)}″ × ${bi.min.toFixed(2)}″ PA ${bi.pa.toFixed(0)}° vs ${ir.beam.join(" ")}`);
+  }
+}
+
 {
   const a = ARRS.find(q => q.id === "dsa2000"), j = require("./data/interf/dsa2000.json"), P = j.configs.FDR.published;
   const ants = a.configs[0].ants.map(p => ({ e: p[0], n: p[1], u: p[2] })), ex = RI.extremes(ants);

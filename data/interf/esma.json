@@ -1,0 +1,1906 @@
+{
+ "_meta": {
+  "project": "instex Instrument Explorer -- INTERFEROMETER mode: extended Submillimeter Array (eSMA)",
+  "compiled": "2026-11-18",
+  "companion": "data/interf/esma.md",
+  "quote_check": "123 quote records, 0 failures",
+  "rule": "Every value carries src, loc and a short verbatim quote from a document saved unmodified under rawdata/interf/esma/ (or rawdata/interf/sma/, rawdata/interf/eht2017/ for the keys of those records). DERIVED = arithmetic done here; INFERRED = a mapping no source states; NOT FOUND = gap.",
+  "distinct_quotes": 123
+ },
+ "sources": {
+  "ESMA": {
+   "cite": "Bottinelli, S., et al. 2008, SPIE 7012, 70120D, \"The eSMA: description and first results\" (arXiv:0808.2554). Already saved by the SMA record; cited by its key there, not copied",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "url": "https://arxiv.org/pdf/0808.2554"
+  },
+  "BOT09": {
+   "cite": "Bottinelli, S., et al. 2009, ApJ 690, L130, \"Detection of C I in Absorption toward PKS 1830-211 with the eSMA\" (arXiv:0811.3944). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "url": "https://arxiv.org/pdf/0811.3944"
+  },
+  "SHI09": {
+   "cite": "Shinnaga, H., et al. 2009, ApJ 698, 1924, \"IRC+10216's Innermost Envelope -- The eSMA's View\" (arXiv:0904.0280). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "url": "https://arxiv.org/pdf/0904.0280"
+  },
+  "VK12": {
+   "cite": "van Kempen, T. A., et al. 2012, ApJ 751, 137, \"The Small-scale Physical Structure and Fragmentation Difference of Two Embedded Intermediate-mass Protostars in Orion\" (arXiv:1203.3718; NGC 2071 eSMA track 2010 Feb 11). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "url": "https://arxiv.org/pdf/1203.3718"
+  },
+  "FAV14": {
+   "cite": "Favre, C., et al. 2014, ApJ 790, 55, \"Dynamical Structure of the Inner 100 AU of the Deeply Embedded Protostar IRAS 16293-2422\" (arXiv:1406.0709; eSMA track 2009 March 22). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "url": "https://arxiv.org/pdf/1406.0709"
+  },
+  "LIG24": {
+   "cite": "Light, S., et al. 2024, PSJ 5, 98, \"Measurements of Titan's Stratospheric Winds during the 2009 Equinox with the eSMA\" (arXiv:2404.08832; Table 1 beams and maximum baselines). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "url": "https://arxiv.org/pdf/2404.08832"
+  },
+  "WIE99": {
+   "cite": "Wiedner, M. C. 1999 March, SMA Technical Memo 136, \"Connecting the CSO and JCMT to the SMA\" (pre-construction plan; baselines 164 m and ~770 m). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "url": "https://lweb.cfa.harvard.edu/sma/memos/136.pdf"
+  },
+  "NEWS25": {
+   "cite": "SMA Newsletter No. 40, July 2025 (JCMT and phased SMA as a paired antenna, 2024 January). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/sma_newsletter40_2025-07.pdf",
+   "url": "https://lweb.cfa.harvard.edu/sma/Newsletters/pdfFiles/SMA_NewsJuly2025.pdf"
+  },
+  "MIRQA": {
+   "cite": "SMA MIRIAD support thread, J.-H. Zhao to C. Cyganowski, 2012-07-26 (antenna positions relative to a reference antenna). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/miriad_QandA_Cyganowski26Jul2012.html",
+   "url": "https://lweb.cfa.harvard.edu/sma/miriad/download/QandA/2012/Cyganowski26Jul2012.html"
+  },
+  "ASTRO": {
+   "cite": "astropy-data, coordinates/sites.json (entries `sma`, `jcmt`). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "url": "https://raw.githubusercontent.com/astropy/astropy-data/gh-pages/coordinates/sites.json"
+  },
+  "EAOI": {
+   "cite": "East Asian Observatory, JCMT Instrumentation page (\"Last update: July 23rd 2026\"). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "url": "https://www.eaobservatory.org/jcmt/instrumentation/"
+  },
+  "EAOA": {
+   "cite": "East Asian Observatory, About the JCMT. Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/eao_jcmt_about.html",
+   "url": "https://www.eaobservatory.org/jcmt/about/"
+  },
+  "EAOM": {
+   "cite": "East Asian Observatory, JCMT home page and news list (the 2019 SMA fringe test item). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/eao_jcmt_main.html",
+   "url": "https://www.eaobservatory.org/jcmt/"
+  },
+  "ADSE": {
+   "cite": "NASA ADS API response (one query on eight bibcodes). Fetched 2026-11-18",
+   "file": "rawdata/interf/esma/ads_bibcodes.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query (q = bibcode:(...))"
+  },
+  "P2": {
+   "cite": "EHT Collaboration 2019, ApJL 875, L2, Paper II (already saved by the eht2017 record): Table 2 station XYZ (SMA phasing center, JCMT, CSO), Table 3 JCMT and SMA6 sensitivities. Not copied",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "url": "https://arxiv.org/pdf/1906.11239"
+  },
+  "EHTIM": {
+   "cite": "ehtim array file EHT2017.txt (already saved by the eht2017 record): its SMA row coincides with the CSO. Not copied",
+   "file": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt",
+   "url": "(see data/interf/eht2017.md)"
+  },
+  "CFG": {
+   "cite": "CASA simulator antenna file sma.vextended.cfg (already saved by the SMA record; pad rows 1, 12, 19). Not copied",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "url": "see data/interf/sma.md, source CFG"
+  },
+  "OCSPEC": {
+   "cite": "SMA Observer Center, Specifications of the SMA (already saved). Not copied",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "url": "http://sma1.sma.hawaii.edu/specs.html"
+  },
+  "OCS": {
+   "cite": "SMA Observer Center, Array Status and Technical Information (already saved). Not copied",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "url": "http://sma1.sma.hawaii.edu/status.html"
+  },
+  "CSO": {
+   "cite": "Caltech news, \"Caltech's Submillimeter Observatory Has Been Removed from Maunakea\", 2024-07-02 (already saved by the SMA record under key CSO). Not copied",
+   "file": "rawdata/interf/sma/caltech_cso_removed.html",
+   "url": "https://experts.caltech.edu/news/caltechs-submillimeter-observatory-has-been-removed-from-maunakea"
+  }
+ },
+ "sources_files": {
+  "ESMA": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+  "BOT09": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+  "SHI09": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+  "VK12": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+  "FAV14": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+  "LIG24": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+  "WIE99": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+  "NEWS25": "rawdata/interf/esma/sma_newsletter40_2025-07.pdf",
+  "EAOI": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+  "EAOM": "rawdata/interf/esma/eao_jcmt_main.html",
+  "EAOA": "rawdata/interf/esma/eao_jcmt_about.html",
+  "CSO": "rawdata/interf/sma/caltech_cso_removed.html",
+  "MIRQA": "rawdata/interf/esma/miriad_QandA_Cyganowski26Jul2012.html",
+  "ASTRO": "rawdata/interf/esma/astropy_data_sites.json",
+  "P2": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+  "EHTIM": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt",
+  "CFGVEX": "rawdata/interf/sma/sma.vextended.cfg",
+  "OCSPEC": "rawdata/interf/sma/oc_specs.html",
+  "OCS": "rawdata/interf/sma/oc_status.html"
+ },
+ "positions": {
+  "P2_SMA_xyz_m": [
+   -5464555.5,
+   -2492928.0,
+   2150797.2
+  ],
+  "P2_JCMT_xyz_m": [
+   -5464584.7,
+   -2493001.2,
+   2150654.0
+  ],
+  "P2_CSO_xyz_m": [
+   -5464520.9,
+   -2493145.6,
+   2150610.6
+  ],
+  "P2_SMA_geodetic_deg_m_DERIVED": [
+   19.824228483365005,
+   -155.47754760986098,
+   4115.080499941483
+  ],
+  "JCMT_geodetic_DERIVED": [
+   19.822838024360323,
+   -155.47702793868575,
+   4120.091257615946
+  ],
+  "CSO_geodetic_DERIVED": [
+   19.822463659479062,
+   -155.47552213817113,
+   4107.153349880129
+  ],
+  "JCMT_enu_about_P2_SMA_point_m_DERIVED": [
+   54.48,
+   -154.03,
+   5.01
+  ],
+  "CSO_enu_about_P2_SMA_point_m_DERIVED": [
+   212.33,
+   -195.49,
+   -7.93
+  ],
+  "JCMT_CSO_3d_m_DERIVED": 163.7234253243599,
+  "tie": "INFERRED pad 1 = P2 SMA point",
+  "tie_tests": {
+   "CSO_pad19_m": 781.5877825609616,
+   "published_longest_m": 782,
+   "JCMT_pad19_m": 624.5011232561798,
+   "published_2010_max_m": 625
+  },
+  "allowed_pad1_offset_family": {
+   "n": 275,
+   "E": [
+    -7.5,
+    8.0
+   ],
+   "N": [
+    -12.75,
+    14.75
+   ]
+  },
+  "alternative_placements_DERIVED": {
+   "COM": {
+    "p_E_N": [
+     38.67125,
+     2.7699999999999987
+    ],
+    "pad19_CSO": 748.9488661225166,
+    "pad19_JCMT": 593.3175958106395,
+    "shift_m": 38.77032984851303
+   },
+   "SUB": {
+    "p_E_N": [
+     26.11625,
+     -3.6525000000000003
+    ],
+    "pad19_CSO": 756.8409404715494,
+    "pad19_JCMT": 600.3986119262161,
+    "shift_m": 26.37042415875217
+   },
+   "EXT": {
+    "p_E_N": [
+     83.68124999999999,
+     -13.586249999999998
+    ],
+    "pad19_CSO": 701.7708984935523,
+    "pad19_JCMT": 546.9464399798119,
+    "shift_m": 84.77698856780063
+   },
+   "VEX": {
+    "p_E_N": [
+     176.57999999999998,
+     -101.69500000000001
+    ],
+    "pad19_CSO": 578.2015257341503,
+    "pad19_JCMT": 421.4517103373358,
+    "shift_m": 203.7703840723671
+   },
+   "all24": {
+    "p_E_N": [
+     103.24649999999998,
+     -45.61262500000001
+    ],
+    "pad19_CSO": 669.1053302544962,
+    "pad19_JCMT": 513.0332011657556,
+    "shift_m": 112.87316475425247
+   }
+  },
+  "astropy_sma_site": {
+   "lat": 19.82422,
+   "lon": -155.47755,
+   "h_m": 4125.1,
+   "source": "SMA internal GPS (October 2024)"
+  },
+  "absolute_pad1": "NOT FOUND"
+ },
+ "baselines_derived_3d_m": {
+  "SUB": {
+   "n_bl_esma": 45,
+   "sma_sma": [
+    9.48190909047329,
+    69.08398511956298
+   ],
+   "sma_jcmt": [
+    160.69223462973414,
+    220.51836093111112
+   ],
+   "sma_cso": [
+    288.73254059778145,
+    356.03590171866006
+   ],
+   "jcmt_cso": 163.7234253243599,
+   "esma_min": 9.48190909047329,
+   "esma_max": 356.03590171866006,
+   "max_pair": "CSO-pad 23",
+   "jcmt_max_pad": 23,
+   "cso_max_pad": 23,
+   "jcmt_min_pad": 2,
+   "cso_min_pad": 1
+  },
+  "COM": {
+   "n_bl_esma": 45,
+   "sma_sma": [
+    16.454680185284673,
+    76.97509077617252
+   ],
+   "sma_jcmt": [
+    155.68874277983335,
+    220.51836093111112
+   ],
+   "sma_cso": [
+    288.73254059778145,
+    356.03590171866006
+   ],
+   "jcmt_cso": 163.7234253243599,
+   "esma_min": 16.454680185284673,
+   "esma_max": 356.03590171866006,
+   "max_pair": "CSO-pad 23",
+   "jcmt_max_pad": 23,
+   "cso_max_pad": 23,
+   "jcmt_min_pad": 12,
+   "cso_min_pad": 1
+  },
+  "EXT": {
+   "n_bl_esma": 45,
+   "sma_sma": [
+    44.16605370643838,
+    226.00636738817784
+   ],
+   "sma_jcmt": [
+    155.68874277983335,
+    333.7372938348314
+   ],
+   "sma_cso": [
+    288.73254059778145,
+    469.86037946370067
+   ],
+   "jcmt_cso": 163.7234253243599,
+   "esma_min": 44.16605370643838,
+   "esma_max": 469.86037946370067,
+   "max_pair": "CSO-pad 15",
+   "jcmt_max_pad": 15,
+   "cso_max_pad": 15,
+   "jcmt_min_pad": 12,
+   "cso_min_pad": 1
+  },
+  "VEX": {
+   "n_bl_esma": 45,
+   "sma_sma": [
+    68.39094530710919,
+    508.909197598157
+   ],
+   "sma_jcmt": [
+    155.68874277983335,
+    624.5011232561798
+   ],
+   "sma_cso": [
+    288.73254059778145,
+    781.5877825609616
+   ],
+   "jcmt_cso": 163.7234253243599,
+   "esma_min": 68.39094530710919,
+   "esma_max": 781.5877825609616,
+   "max_pair": "CSO-pad 19",
+   "jcmt_max_pad": 19,
+   "cso_max_pad": 19,
+   "jcmt_min_pad": 12,
+   "cso_min_pad": 1
+  }
+ },
+ "baselines_published_m": {
+  "eSMA_VEX_2008": [
+   25,
+   782
+  ],
+  "SMA_VEX_2008": [
+   68,
+   509
+  ],
+  "Titan_2009_max": 780,
+  "Titan_2010_max": 625,
+  "JCMT_CSO_WIE99": 164,
+  "ESMA_fig1_labels": {
+   "SMA_longest": 509,
+   "to_CSO_from_pad_group": 273,
+   "JCMT_CSO": 160
+  },
+  "shortest_25m_is_projected": "INFERRED (3-D shortest 68.4 m)"
+ },
+ "collecting_area_m2_DERIVED": {
+  "SMA6": 28.274333882308138,
+  "JCMT": 176.71458676442586,
+  "CSO": 84.94866535306801,
+  "eSMA8": 487.85792317595894,
+  "7SMA+JCMT": 374.63492394058284,
+  "6SMA+J+C": 431.3092554113427,
+  "SMA8": 226.1946710584651,
+  "Ae_SMA_0.67": 18.943803701146454,
+  "Ae_JCMT_0.55": 97.19302272043423,
+  "Ae_CSO_0.60": 50.9691992118408
+ },
+ "dishes": {
+  "SMA": {
+   "D_m": 6.0,
+   "eta_design": 0.67,
+   "eta_2008": 0.75
+  },
+  "JCMT": {
+   "D_m": 15.0,
+   "eta_design": 0.55,
+   "eta_2008_BOT09": 0.7,
+   "eta_2008_SHI09": 0.4
+  },
+  "CSO": {
+   "D_m": 10.4,
+   "eta_design": 0.6,
+   "eta_2008": 0.3,
+   "eta_typical_single_dish": ">= 0.60"
+  }
+ },
+ "sefd_Jy_DERIVED": {
+  "A_design_Tsys300": {
+   "SMA": 43737.56071805702,
+   "JCMT": 8523.401584525158,
+   "CSO": 16252.489699823427
+  },
+  "B1_SHI09": {
+   "SMA": 45575.104923679275,
+   "JCMT": 17578.96904199058,
+   "CSO": 37923.071774511234
+  },
+  "per_K_per_m2": 2761.2980000000002,
+  "OCSPEC_single_SMA_230_range": [
+   9766.093912216988,
+   27903.12546347711
+  ],
+  "OCSPEC_single_SMA_345_range": [
+   19532.187824433975,
+   56968.881154599105
+  ],
+  "EHT2017_JCMT_230": 10500,
+  "EHT2017_SMA_phased6": 6200
+ },
+ "primary_beam_DERIVED": {
+  "JCMT": {
+   "lambda_over_D_arcsec": 12.2327777150089,
+   "fwhm": 15.0,
+   "k": 1.2262137308026027,
+   "nu": 337.0
+  },
+  "CSO": {
+   "lambda_over_D_arcsec": 17.643429396647456,
+   "fwhm": 20.0,
+   "k": 1.1335664711419613,
+   "nu": 337.0
+  },
+  "JCMT_SHI": {
+   "lambda_over_D_arcsec": 15.497917631421053,
+   "fwhm": 19.0,
+   "k": 1.2259711563751439,
+   "nu": 266.0
+  },
+  "SMA": {
+   "lambda_over_D_arcsec": 29.872797753318842,
+   "fwhm": 36.0,
+   "k": 1.205109755613715,
+   "nu": 345.0
+  }
+ },
+ "esma_table1": {
+  "columns": [
+   "eSMAsp 230",
+   "eSMAsp 345",
+   "eSMAdp 345",
+   "SMAsp 230",
+   "SMAdp 345"
+  ],
+  "frequency_range_GHz": [
+   "210-280",
+   "315-380",
+   "320-355",
+   "272-349",
+   "320-355"
+  ],
+  "n_baselines": [
+   45,
+   45,
+   28,
+   28,
+   28
+  ],
+  "area_m2": [
+   488,
+   488,
+   431,
+   226,
+   226
+  ],
+  "longest_baseline_m": [
+   782,
+   509
+  ],
+  "resolution_arcsec": [
+   "0.22x0.55",
+   "0.18x0.32",
+   "0.24x0.32"
+  ],
+  "continuum_mJy_beam": [
+   2.1,
+   1.1,
+   0.9,
+   2.3,
+   1.6
+  ],
+  "line_K_per_kms": [
+   12.4,
+   5.6,
+   4.6,
+   10.7,
+   7.6
+  ],
+  "weighting": "resolution uniform, sensitivity natural; 345 GHz, 6.7 h on source (H.A. +-5), dec +25, pwv 1.5 mm",
+  "quote_ids": [
+   "esma_t1_freq",
+   "esma_t1_nb",
+   "esma_t1_area",
+   "esma_t1_bl",
+   "esma_t1_res"
+  ]
+ },
+ "validation_targets": {
+  "published": [
+   {
+    "case": "PKS 1830-211 267 GHz VEX+J+C 2008-04-14 7 h",
+    "dec": -21.0611,
+    "beam": [
+     0.55,
+     0.22,
+     32
+    ],
+    "src": "BOT09 Table 1"
+   },
+   {
+    "case": "IRC+10216 270 GHz 2008-04-14 5.5 h",
+    "dec": 13.2789,
+    "beam": [
+     0.46,
+     0.22,
+     39.9
+    ],
+    "src": "SHI09 Sec. 2"
+   },
+   {
+    "case": "SPIE estimate 345 GHz dec +25 H.A. +-5 uniform",
+    "dec": 25,
+    "beam_eSMA": [
+     0.32,
+     0.18
+    ],
+    "beam_SMA": [
+     0.32,
+     0.24
+    ],
+    "src": "ESMA Table 1"
+   },
+   {
+    "case": "NGC 2071 349.4 GHz 2010-02-11 1.5 h natural",
+    "dec": 0.3622,
+    "beam": [
+     0.37,
+     0.19
+    ],
+    "src": "VK12 Table 2"
+   },
+   {
+    "case": "IRAS 16293 337.7 GHz 2009-03-22 3.4 h",
+    "dec": -24.476,
+    "beam": [
+     0.46,
+     0.29,
+     52
+    ],
+    "src": "FAV14 Table 1"
+   },
+   {
+    "case": "Titan 349.4 GHz 2009-03-23 natural, 780 m",
+    "dec": "NOT FOUND",
+    "beam": [
+     0.384,
+     0.196,
+     48.8
+    ],
+    "src": "LIG24 Table 1"
+   }
+  ],
+  "simulated_uniform": {
+   "PKS1830": [
+    0.54,
+    0.24,
+    34
+   ],
+   "IRC10216": [
+    0.44,
+    0.2,
+    45
+   ],
+   "SPIE_eSMA": [
+    0.32,
+    0.19,
+    57
+   ],
+   "SPIE_SMA": [
+    0.32,
+    0.27,
+    63
+   ],
+   "NGC2071": [
+    0.35,
+    0.18,
+    45
+   ],
+   "IRAS16293": [
+    0.46,
+    0.19,
+    27
+   ]
+  },
+  "simulated_natural": {
+   "PKS1830": [
+    0.67,
+    0.28,
+    36
+   ],
+   "IRC10216": [
+    0.59,
+    0.24,
+    45
+   ],
+   "SPIE_eSMA": [
+    0.44,
+    0.2,
+    48
+   ],
+   "SPIE_SMA": [
+    0.35,
+    0.29,
+    45
+   ],
+   "NGC2071": [
+    0.48,
+    0.18,
+    38
+   ],
+   "IRAS16293": [
+    0.58,
+    0.21,
+    30
+   ]
+  },
+  "method": "esma_sim.py: VEX pads + JCMT + CSO, tie as above, symmetric H.A., el >= 15, 2 min, weights 1/(SEFD_i SEFD_j) set A, central lobe = filled ellipse of >= 50% region"
+ },
+ "recommended_page_record": {
+  "id": "esma",
+  "name": "eSMA (SMA + JCMT + CSO)",
+  "site": "Maunakea, Hawaii (4080 m)",
+  "lat": 19.8242,
+  "era": "2007-2010 (first 345 GHz fringes 2007-08-30; last data set found 2010-02; CSO closed 2015, removed 2024)",
+  "historical": true,
+  "dish": {
+   "SMA": 6.0,
+   "JCMT": 15.0,
+   "CSO": 10.4
+  },
+  "sefd_Jy": {
+   "SMA": 43738,
+   "JCMT": 8523,
+   "CSO": 16252
+  },
+  "sefd_Jy_note": "DERIVED set A: 2761.3 x 300 K / Ae, Ae 18.94, 97.19, 50.97 m2 (ESMA App. B); Tsys 300 K equal for all stations (INFERRED). Set B1 (SHI09 April 2008, eta 0.75/0.40/0.30, Tsys 350/450/350 K): {'SMA': 45575, 'JCMT': 17579, 'CSO': 37923}",
+  "elLimit": 15,
+  "elLimit_note": "INFERRED: JCMT and CSO limits NOT FOUND; JCMT detected to 12.5 deg in EHT 2017 (eht2017.md); SMA calculator default 15 deg",
+  "pb": {
+   "k": {
+    "SMA": 1.2,
+    "JCMT": 1.226,
+    "CSO": 1.134
+   },
+   "note": "DERIVED: SMA 36 arcsec at 345 GHz (OCSPEC); JCMT 15 arcsec and CSO 20 arcsec at 337 GHz (FAV14); the page cannot weight by station-dependent primary beams"
+  },
+  "bands": [
+   {
+    "k": "230",
+    "name": "230 GHz band (tests 230-270 GHz)",
+    "lo": 210,
+    "hi": 280,
+    "bw": 4,
+    "rep_GHz": 266,
+    "src": "ESMA Table 1 (frequency range); bw: 2 GHz per sideband, DSB (VK12, SHI09)"
+   },
+   {
+    "k": "345",
+    "name": "345 GHz band (designed 320-355 GHz)",
+    "lo": 315,
+    "hi": 380,
+    "bw": 4,
+    "rep_GHz": 345,
+    "src": "ESMA Table 1; bw: 2 GHz per sideband (VK12)"
+   }
+  ],
+  "configs": {
+   "VEX": {
+    "name": "Very extended + JCMT + CSO",
+    "pads": [
+     1,
+     12,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21
+    ],
+    "stations": [
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "JCMT",
+     "CSO"
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -71.55,
+      95.53,
+      -10.84
+     ],
+     [
+      -133.6,
+      -107.01,
+      -10.38
+     ],
+     [
+      -349.68,
+      42.55,
+      -24.69
+     ],
+     [
+      -479.03,
+      167.96,
+      -36.17
+     ],
+     [
+      -251.59,
+      335.61,
+      -18.58
+     ],
+     [
+      -73.52,
+      321.22,
+      -20.29
+     ],
+     [
+      54.48,
+      -154.03,
+      5.01
+     ],
+     [
+      212.33,
+      -195.49,
+      -7.93
+     ]
+    ],
+    "bmax_m": 781.6,
+    "bmin_m": 68.4,
+    "observed_as_esma": true
+   },
+   "EXT": {
+    "name": "Extended + JCMT + CSO (not observed as eSMA)",
+    "pads": [
+     1,
+     9,
+     11,
+     12,
+     14,
+     15,
+     16,
+     17
+    ],
+    "stations": [
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "JCMT",
+     "CSO"
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -68.02,
+      5.59,
+      -4.79
+     ],
+     [
+      -27.03,
+      34.55,
+      -5.13
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -178.82,
+      3.36,
+      -11.45
+     ],
+     [
+      -136.76,
+      118.97,
+      -11.77
+     ],
+     [
+      -71.55,
+      95.53,
+      -10.84
+     ],
+     [
+      -133.6,
+      -107.01,
+      -10.38
+     ],
+     [
+      54.48,
+      -154.03,
+      5.01
+     ],
+     [
+      212.33,
+      -195.49,
+      -7.93
+     ]
+    ],
+    "bmax_m": 469.9,
+    "bmin_m": 44.2,
+    "observed_as_esma": false
+   },
+   "COM": {
+    "name": "Compact + JCMT + CSO (not observed as eSMA)",
+    "pads": [
+     1,
+     4,
+     5,
+     7,
+     8,
+     9,
+     12,
+     23
+    ],
+    "stations": [
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "JCMT",
+     "CSO"
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -25.16,
+      1.37,
+      -0.04
+     ],
+     [
+      -18.98,
+      16.62,
+      -0.08
+     ],
+     [
+      -20.09,
+      -15.73,
+      -0.1
+     ],
+     [
+      -63.88,
+      -22.06,
+      -3.21
+     ],
+     [
+      -68.02,
+      5.59,
+      -4.79
+     ],
+     [
+      -53.67,
+      -42.3,
+      -2.75
+     ],
+     [
+      -59.57,
+      34.35,
+      -6.64
+     ],
+     [
+      54.48,
+      -154.03,
+      5.01
+     ],
+     [
+      212.33,
+      -195.49,
+      -7.93
+     ]
+    ],
+    "bmax_m": 356.0,
+    "bmin_m": 16.5,
+    "observed_as_esma": false
+   },
+   "SUB": {
+    "name": "Subcompact + JCMT + CSO (not observed as eSMA)",
+    "pads": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     23
+    ],
+    "stations": [
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "SMA",
+     "JCMT",
+     "CSO"
+    ],
+    "ants_enu_m": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      -7.47,
+      -5.84,
+      -0.01
+     ],
+     [
+      -23.76,
+      -8.23,
+      -0.06
+     ],
+     [
+      -25.16,
+      1.37,
+      -0.04
+     ],
+     [
+      -18.98,
+      16.62,
+      -0.08
+     ],
+     [
+      -10.11,
+      13.01,
+      -0.01
+     ],
+     [
+      -63.88,
+      -22.06,
+      -3.21
+     ],
+     [
+      -59.57,
+      34.35,
+      -6.64
+     ],
+     [
+      54.48,
+      -154.03,
+      5.01
+     ],
+     [
+      212.33,
+      -195.49,
+      -7.93
+     ]
+    ],
+    "bmax_m": 356.0,
+    "bmin_m": 9.5,
+    "observed_as_esma": false
+   }
+  },
+  "defaults": {
+   "cfg": "VEX",
+   "band": "345",
+   "nu": 345,
+   "dec": 25,
+   "dur": 10
+  },
+  "defaults_note": "INFERRED: VEX is the only configuration with the 782 m baseline; 345 GHz and dec +25, H.A. +-5 are the conditions of the ESMA Table 1 performance estimate; dur = track length (+-5 h).",
+  "tie": "INFERRED: pad 1 placed at the EHT 2017 SMA phasing center (P2 Table 2); JCMT and CSO from P2 XYZ; uncertainty about +-8 m E, -13 to +15 m N relative to the pads (782 m and 625 m baseline tests)",
+  "cannot_represent": [
+   "three different primary beams (SMA 36, JCMT ~15, CSO ~20 arcsec at 337-345 GHz)",
+   "single polarization with half-wave plates and the 2008 CSO efficiency loss (0.30)",
+   "elevation-dependent phase terms; 0.1 mm baseline calibration",
+   "JCMT RxA3 1.5 GHz bandwidth vs 2 GHz",
+   "2010 array of 7 SMA + JCMT (375 m2, 625 m)",
+   "dual-polarization eSMA (6 SMA + JCMT + CSO, 28 baselines)",
+   "the CSO no longer exists",
+   "JCMT/CSO position uncertainty in the pad frame"
+  ]
+ },
+ "quote_records": [
+  {
+   "id": "esma_def",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Abstract",
+   "quote": "The eSMA (“extended SMA”) combines the SMA, JCMT and CSO into a single facility"
+  },
+  {
+   "id": "esma_def.a1",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Abstract",
+   "quote": "Until ALMA early science observing (2011), the eSMA will be the facility capable of the highest angular resolution observations at 345 GHz."
+  },
+  {
+   "id": "esma_def.a2",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "The eSMA consists of the SMA9 array of eight 6-m antennas augmented by the nearby single dishes of the JCMT10 (15 m) and the CSO (10.4 m)."
+  },
+  {
+   "id": "esma_mou",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 1",
+   "quote": "The JCMT-SMA Memorandum of Understanding was signed in 2001; the CSO later agreed to join the project."
+  },
+  {
+   "id": "esma_pre",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 1",
+   "quote": "the 10.4-m CSO and 15-m JCMT as a two-antenna interferometer (1992-1995"
+  },
+  {
+   "id": "esma_fringe",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Abstract",
+   "quote": "first fringes at 345 GHz were obtained on August 30 2007, and the array has entered the science-verification stage"
+  },
+  {
+   "id": "esma_freq",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2",
+   "quote": "Note that although the eSMA is designed to operate in the 320-355 GHz window, the testing to date has been done at lower frequencies (230-270 GHz)."
+  },
+  {
+   "id": "esma_45",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.1.1",
+   "quote": "there is enough hardware for running the eSMA 10-antenna single-frequency configuration (45 baselines). Since August 2007, the eSMA has been observing successfully with all 45 baselines."
+  },
+  {
+   "id": "esma_sp",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.4",
+   "quote": "Note that the eSMA currently operates in single polarization mode."
+  },
+  {
+   "id": "esma_dp",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.4",
+   "quote": "In the event of dual-polarization observations with the eSMA, two SMA antennas will have to be dropped from the array due to correlator capacities."
+  },
+  {
+   "id": "esma_t1_freq",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1",
+   "quote": "Frequency range (GHz) 210–280 315–380 320–355 272–349 320–355"
+  },
+  {
+   "id": "esma_t1_nb",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1",
+   "quote": "Number of baselines 45 45 28 28 28"
+  },
+  {
+   "id": "esma_t1_area",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1",
+   "quote": "Total collecting area (m2 ) 488 488 431 226 226"
+  },
+  {
+   "id": "esma_t1_bl",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1",
+   "quote": "Longest baseline (m) 782 509"
+  },
+  {
+   "id": "esma_t1_res",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1",
+   "quote": "Resolution (arcsec) 0.22×0.55 0.18×0.32 0.24×0.32"
+  },
+  {
+   "id": "esma_t1_wt",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1, note (ii)",
+   "quote": "Resolutions are given for uniform weighting and sensitivities for natural weighting."
+  },
+  {
+   "id": "esma_t1_assume",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.4",
+   "quote": "assuming a frequency of 345 GHz, 6.7 hr of on-source integration time (H.A.=±5), a source declination of 25"
+  },
+  {
+   "id": "esma_t1_bold",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 1, note (iii)",
+   "quote": "Bold characters denote values measured for the 7-hr track on PKS 1830−211"
+  },
+  {
+   "id": "esma_t3",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 3",
+   "quote": "eSMAsp 8×7/2 = 28 8 8 1 45"
+  },
+  {
+   "id": "esma_t3b",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 3",
+   "quote": "eSMAdp 6×5/2 = 15 6 6 1 28"
+  },
+  {
+   "id": "esma_posunc",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.1.2",
+   "quote": "Presently the eSMA is converging towards the required maximum residual baseline uncertainty of ∼0.1 mm."
+  },
+  {
+   "id": "esma_dxyz",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "(∆X, ∆Y , ∆Z) = 10.25, −8.53, 14.11 mm and −8.82, 3.14, −22.96 mm for the JCMT and CSO, respectively"
+  },
+  {
+   "id": "esma_fig1",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2, first paragraph",
+   "quote": "the right panel shows the locations of the JCMT and CSO and the pad-positions for the SMA antennas"
+  },
+  {
+   "id": "esma_fig1a",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Fig. 1 caption",
+   "quote": "Also labeled are a few key distances."
+  },
+  {
+   "id": "esma_fig1_509",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Fig. 1 labels",
+   "quote": "509 m"
+  },
+  {
+   "id": "esma_fig1_273",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Fig. 1 labels",
+   "quote": "273 m"
+  },
+  {
+   "id": "esma_fig1_160",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Fig. 1 labels",
+   "quote": "160 m"
+  },
+  {
+   "id": "esma_app_D",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Appendix B",
+   "quote": "except for their diameter (8, 15 and 10.4 m respectively)"
+  },
+  {
+   "id": "esma_app_eta",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Appendix B",
+   "quote": "(0.67, 0.55 and 0.60 respectively)"
+  },
+  {
+   "id": "esma_app_Ae",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Appendix B",
+   "quote": "effective apertures of the SMA, JCMT and CSO antennas and are 18.94, 97.19 and 50.97 m2 respectively"
+  },
+  {
+   "id": "esma_app_T",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Appendix B",
+   "quote": "Assuming identical Tsys for all antennas as a 0th order approximation"
+  },
+  {
+   "id": "esma_dual_cso",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Sec. 2.4",
+   "quote": "Within one or two years the CSO may also have that capability."
+  },
+  {
+   "id": "b09_bl",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "The 45 eSMA baselines and the 28 SMA baselines had lengths ... 25-782 m (22-678 kλ) and 68-509 m (56-419 kλ)"
+  },
+  {
+   "id": "b09_obs",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "for seven hours on 2008 April 14 (with eight SMA antennas in the very-extended configuration, or “vex”)"
+  },
+  {
+   "id": "b09_res",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "resulting in a best resolution at 1.1 mm of 0.′′ 55×0.′′ 22"
+  },
+  {
+   "id": "b09_beam",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Table 1",
+   "quote": "Beam FWHM 0.′′ 55 × 0.′′ 22 0.′′ 62 × 0.′′ 30 0.′′ 57 × 0.′′ 40"
+  },
+  {
+   "id": "b09_pa",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Table 1",
+   "quote": "Beam P.A. 32◦ 38◦ 15◦"
+  },
+  {
+   "id": "b09_pos",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "δJ2000 = −21◦ 03′ 39.′′ 77"
+  },
+  {
+   "id": "b09_pol",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "Observations were carried out in single polarization mode with half-wave plates in the beam of the CSO and JCMT"
+  },
+  {
+   "id": "b09_eff",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.2",
+   "quote": "imply average efficiencies of about 0.75 for the SMA antennas, 0.70 for the JCMT, and 0.30 for the CSO"
+  },
+  {
+   "id": "b09_trx",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.2",
+   "quote": "The SMA receiver temperatures ranged from ∼45 to 70 K on both nights, with the CSO comparable to the high end of this range, and the JCMT a factor of 2.5 times higher."
+  },
+  {
+   "id": "b09_bw",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "the JCMT used receiver A3 which, due to a different intermediate frequency, provided a usable bandwidth of about 1.5 GHz, slightly less than the 2 GHz covered by the SMA and CSO"
+  },
+  {
+   "id": "b09_50",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "the longest baseline of the eSMA is increased by 50% compared to the SMA alone"
+  },
+  {
+   "id": "b09_tau",
+   "src": "BOT09",
+   "file": "rawdata/interf/esma/bottinelli2009_arXiv0811.3944.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "atmospheric opacity at 225 GHz ranging from 0.15 to 0.25"
+  },
+  {
+   "id": "b09_smabeam",
+   "src": "ESMA",
+   "file": "rawdata/interf/sma/bottinelli2008_arXiv0808.2554.pdf",
+   "loc": "Table 2 (continuum, SMA)",
+   "quote": "0.′′ 50 × 0.′′ 33, 25◦"
+  },
+  {
+   "id": "s09_bl",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "the eSMA then covered baselines ranging from 25 to 782 m (∼ 20 to 692 kλ or ∼ 0.′′ 2 to 10′′ )"
+  },
+  {
+   "id": "s09_vex",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The SMA was configured in its very extended array (maximum baselines to 508 m)"
+  },
+  {
+   "id": "s09_track",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The track lasted 5.5 hours, and about 4 hours of on-source data were acquired."
+  },
+  {
+   "id": "s09_beam",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The synthesized beam size was 0.′′ 46 × 0.′′ 22 with a position angle of 39.9◦"
+  },
+  {
+   "id": "s09_dec",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "Decl. = 13◦ 16′ 43.′′ 898 (J2000)"
+  },
+  {
+   "id": "s09_bw",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The total bandwidth of ∼ 4 GHz (2 GHz from each sideband"
+  },
+  {
+   "id": "s09_eff",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "the estimated aperture efficiencies of the JCMT and the CSO telescopes were found to be 40% and 30%"
+  },
+  {
+   "id": "s09_eff0",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "Based on an aperture efficiency of 75% of the SMA antennas"
+  },
+  {
+   "id": "s09_cso60",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The CSO’s aperture efficiency is typically & 60% when the telescope is used as a single-dish telescope."
+  },
+  {
+   "id": "s09_trx",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The receiver temperatures of the SMA antennas and the CSO antenna ranged from ∼ 85 to 140 K, while the JCMT antenna’s receiver temperature was ∼ 290 K."
+  },
+  {
+   "id": "s09_tsys",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "The double sideband system temperature of the SMA antennas and the CSO telescope were ranging between ∼ 200 – 500 K, while the double sideband system temperature of the JCMT telescope was ranging between ∼ 300 – 600 K."
+  },
+  {
+   "id": "s09_jbw",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2, footnote 1",
+   "quote": "JCMT’s receiver had a more limited frequency coverage from 264.770 to 266.338 GHz and from 274.357 to 275.927 GHz"
+  },
+  {
+   "id": "s09_sn",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "improved the signal-to-noise ratio on the longest baselines by 40% compared to that of the SMA alone"
+  },
+  {
+   "id": "vk_def",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "In the eSMA configuration2 the very extended configuration of the SMA is combined with the James Clerk Maxwell Telescope (JCMT)3 and the Caltech Submillimeter Observatory (CSO)."
+  },
+  {
+   "id": "vk_t2",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Table 2",
+   "quote": "Feb 11 2010 eSMA NGC 2071 0.37”x0.19” 2 GHz 349.415 USB s17 128"
+  },
+  {
+   "id": "vk_nat",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "a natural weighting was applied to obtain the best images"
+  },
+  {
+   "id": "vk_time",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "The limited observing time of 1.5 hours"
+  },
+  {
+   "id": "vk_bw",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "the correlator setup was limited to the 2 GHz bandwidth mode due to the increased number of antennas"
+  },
+  {
+   "id": "vk_pb",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Sec. 3.1.2",
+   "quote": "in fact outside the primary beam of the JCMT and CSO"
+  },
+  {
+   "id": "vk_pos",
+   "src": "VK12",
+   "file": "rawdata/interf/esma/vankempen2012_arXiv1203.3718.pdf",
+   "loc": "Table 1",
+   "quote": "NGC 2071 05 47 04.7 +00 21 44"
+  },
+  {
+   "id": "f14_obs",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "Observations of IRAS 16293-2422 were carried out with the eSMA on 2009 March 22 for 3.4 hours on source in single linear polarization mode."
+  },
+  {
+   "id": "f14_t1",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Table 1",
+   "quote": "1 eSMA 2009 March 22 337.671 0.72 0.46 × 0.29 52 80"
+  },
+  {
+   "id": "f14_dec",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "δJ2000 = -24◦ 28′ 35.′′ 50"
+  },
+  {
+   "id": "f14_jb",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 4.1",
+   "quote": "to mimic the JCMT beam at 337 GHz (15′′ )"
+  },
+  {
+   "id": "f14_cb",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 4.1",
+   "quote": "similar to the CSO beam at 337 GHz (20′′ )"
+  },
+  {
+   "id": "f14_min",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 2.1",
+   "quote": "minimum baseline length of 32kλ"
+  },
+  {
+   "id": "f14_wt",
+   "src": "FAV14",
+   "file": "rawdata/interf/esma/favre2014_arXiv1406.0709.pdf",
+   "loc": "Sec. 2.3",
+   "quote": "The uniform weighted synthesized beam was 0.58′′ × 0.38′′"
+  },
+  {
+   "id": "s09_jb",
+   "src": "SHI09",
+   "file": "rawdata/interf/esma/shinnaga2009_arXiv0904.0280.pdf",
+   "loc": "Sec. 2",
+   "quote": "beam efficiency was measured to be 65% with a beam size of ∼ 19′′ at 266 GHz"
+  },
+  {
+   "id": "l24_2009",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Sec. 2",
+   "quote": "During the 2009 observations, the eSMA was composed of all eight SMA antennas, the JCMT and the CSO."
+  },
+  {
+   "id": "l24_2010",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Sec. 2",
+   "quote": "in 2010, only 7 SMA antennas were available, along with the JCMT, providing less overall collecting area and a shorter maximum baseline"
+  },
+  {
+   "id": "l24_t1a",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Table 1",
+   "quote": "2009-03-23 06:40-14:25 8.4314 -2.9822 0.8 182.2 0.8422 0.384 × 0.196 48.8 780 488"
+  },
+  {
+   "id": "l24_t1b",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Table 1",
+   "quote": "2010-02-12 09:06-18:30 8.7061 4.5841 1.0 120.8 0.8156 0.382 × 0.228 53.8 625 375"
+  },
+  {
+   "id": "l24_t1n",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Table 1 notes",
+   "quote": "g Natural beam shape"
+  },
+  {
+   "id": "l24_freq",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Sec. 2",
+   "quote": "near 349.4 GHz"
+  },
+  {
+   "id": "l24_map",
+   "src": "LIG24",
+   "file": "rawdata/interf/esma/light2024_arXiv2404.08832.pdf",
+   "loc": "Fig. 1 caption",
+   "quote": "small green circles indicate the location of SMA antennas, yellow triangle represents JCMT location, and the pink diamond represents CSO location"
+  },
+  {
+   "id": "w99_164",
+   "src": "WIE99",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "loc": "Sec. 1",
+   "quote": "a single baseline of 164 m"
+  },
+  {
+   "id": "w99_770",
+   "src": "WIE99",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "loc": "Sec. 1",
+   "quote": "the longest baseline will nearly reach 770 m"
+  },
+  {
+   "id": "w99_488",
+   "src": "WIE99",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "loc": "Sec. 1",
+   "quote": "collecting area to 488 m2 , increase the number of baselines to 45"
+  },
+  {
+   "id": "w99_jfreq",
+   "src": "WIE99",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "loc": "Sec. 2.2.2",
+   "quote": "the JCMT can currently only observe between 211 and 710 GHz"
+  },
+  {
+   "id": "w99_cso",
+   "src": "WIE99",
+   "file": "rawdata/interf/esma/sma_memo136_wiedner1999.pdf",
+   "loc": "Sec. 2.1.3",
+   "quote": "The CSO allows use of the telescope without anybody in the building."
+  },
+  {
+   "id": "n25_pair",
+   "src": "NEWS25",
+   "file": "rawdata/interf/esma/sma_newsletter40_2025-07.pdf",
+   "loc": "p. 8 (FPT article)",
+   "quote": "JCMT and phased-SMA acted as a paired antenna"
+  },
+  {
+   "id": "n25_date",
+   "src": "NEWS25",
+   "file": "rawdata/interf/esma/sma_newsletter40_2025-07.pdf",
+   "loc": "p. 8 (FPT article)",
+   "quote": "on 2024 January 24"
+  },
+  {
+   "id": "eaoi_upd",
+   "src": "EAOI",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "loc": "Instrumentation page, Current Status",
+   "quote": "Last update: July 23rd 2026."
+  },
+  {
+   "id": "eaoi_het",
+   "src": "EAOI",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "loc": "Heterodyne Instrumentation",
+   "quote": "The JCMT currently has five heterodyne spectral instruments"
+  },
+  {
+   "id": "eaoi_230",
+   "src": "EAOI",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "loc": "Heterodyne Instrumentation",
+   "quote": "a single-pixel insert on Nāmakanui working at 230 GHz"
+  },
+  {
+   "id": "eaoi_345",
+   "src": "EAOI",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "loc": "Heterodyne Instrumentation",
+   "quote": "a single-pixel insert on Nāmakanui working at 345 GHz"
+  },
+  {
+   "id": "eaoi_pause",
+   "src": "EAOI",
+   "file": "rawdata/interf/esma/eao_jcmt_instrumentation.html",
+   "loc": "Current Status",
+   "quote": "Operations with HARP are also currently paused."
+  },
+  {
+   "id": "eaom_fringe",
+   "src": "EAOM",
+   "file": "rawdata/interf/esma/eao_jcmt_main.html",
+   "loc": "News list (2019-12-14 item)",
+   "quote": "The JCMT had a successful fringe test yesterday with the SMA using the new instrument Nāmakanui"
+  },
+  {
+   "id": "eaoa_surf",
+   "src": "EAOA",
+   "file": "rawdata/interf/esma/eao_jcmt_about.html",
+   "loc": "About the JCMT",
+   "quote": "The surface accuracy is routinely measured and has a typical value of 24 micron."
+  },
+  {
+   "id": "eaoa_pt",
+   "src": "EAOA",
+   "file": "rawdata/interf/esma/eao_jcmt_about.html",
+   "loc": "About the JCMT",
+   "quote": "The rms pointing accuracy of the JCMT is about 2 arcsec in Azimuth and Elevation."
+  },
+  {
+   "id": "eaoa_panel",
+   "src": "EAOA",
+   "file": "rawdata/interf/esma/eao_jcmt_about.html",
+   "loc": "About the JCMT",
+   "quote": "The 15-metre diameter primary reflector of the JCMT is made up of 276 individual lightweight panels."
+  },
+  {
+   "id": "cso_gone",
+   "src": "CSO",
+   "file": "rawdata/interf/sma/caltech_cso_removed.html",
+   "loc": "first paragraphs",
+   "quote": "CSO, which operated from 1987 to 2015"
+  },
+  {
+   "id": "cso_gone.a1",
+   "src": "CSO",
+   "file": "rawdata/interf/sma/caltech_cso_removed.html",
+   "loc": "first paragraph",
+   "quote": "and the land at the site has been restored"
+  },
+  {
+   "id": "mir_db",
+   "src": "MIRQA",
+   "file": "rawdata/interf/esma/miriad_QandA_Cyganowski26Jul2012.html",
+   "loc": "mirhelp text quoted in C. Cyganowski message",
+   "quote": "The geocentrical ... coordinates for the antennas can be retrieved from SMA sybase."
+  },
+  {
+   "id": "mir_ref",
+   "src": "MIRQA",
+   "file": "rawdata/interf/esma/miriad_QandA_Cyganowski26Jul2012.html",
+   "loc": "J.-H. Zhao reply",
+   "quote": "The reference antenna position should be zero."
+  },
+  {
+   "id": "ast_sma",
+   "src": "ASTRO",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "loc": "entry \"sma\"",
+   "quote": "SMA internal GPS (October 2024)"
+  },
+  {
+   "id": "ast_sma_lat",
+   "src": "ASTRO",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "loc": "entry \"sma\"",
+   "quote": "\"latitude\": 19.82422"
+  },
+  {
+   "id": "ast_sma_lon",
+   "src": "ASTRO",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "loc": "entry \"sma\"",
+   "quote": "\"longitude\": -155.47755"
+  },
+  {
+   "id": "ast_sma_el",
+   "src": "ASTRO",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "loc": "entry \"sma\"",
+   "quote": "\"elevation\": 4125.1"
+  },
+  {
+   "id": "ast_jcmt",
+   "src": "ASTRO",
+   "file": "rawdata/interf/esma/astropy_data_sites.json",
+   "loc": "entry \"jcmt\"",
+   "quote": "2007-04-11 GPS measurements by R. Tilanus (via Starlink/PAL)"
+  },
+  {
+   "id": "p2_sma",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2, SMA row",
+   "quote": "-5464555.5 -2492928.0 2150797.2"
+  },
+  {
+   "id": "p2_sma_b",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2 note b",
+   "quote": "Array coordinates indicate the phasing center used in 2017."
+  },
+  {
+   "id": "p2_jcmt",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2, JCMT row",
+   "quote": "JCMT 15 Hawaii, USA -5464584.7 -2493001.2 2150654.0"
+  },
+  {
+   "id": "p2_cso",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 2, CSO row",
+   "quote": "CSO 10 Hawaii, USA -5464520.9 -2493145.6 2150610.6"
+  },
+  {
+   "id": "p2_t3_jcmt",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 3, JCMT row",
+   "quote": "JCMT 15 0.52 345 10,500 3.5"
+  },
+  {
+   "id": "p2_t3_sma",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 3, SMA6 row",
+   "quote": "SMA6c 14.7 0.75 285 6200 2.7"
+  },
+  {
+   "id": "p2_t3_a",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 3 note a",
+   "quote": "SEFD=2kT * sys /hA Ageom"
+  },
+  {
+   "id": "p2_t3_c",
+   "src": "P2",
+   "file": "rawdata/interf/eht2017/EHT2019_Paper2_arXiv1906.11239.pdf",
+   "loc": "Table 3 note c",
+   "quote": "The median number of phased antennas in 2017 for the SMA was 6 × 6 m antennas"
+  },
+  {
+   "id": "ehtim_row",
+   "src": "EHTIM",
+   "file": "rawdata/interf/eht2017/ehtim_arrays_EHT2017.txt",
+   "loc": "row SMA",
+   "quote": "SMA -5464523.400 -2493147.080 2150611.750"
+  },
+  {
+   "id": "cfg19",
+   "src": "CFGVEX",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "loc": "pad 19 row",
+   "quote": "-479.03 167.96 -36.17 6. 19"
+  },
+  {
+   "id": "cfg1",
+   "src": "CFGVEX",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "loc": "pad 1 row",
+   "quote": "0.00 0.00 0.00 6. 1"
+  },
+  {
+   "id": "cfg12",
+   "src": "CFGVEX",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "loc": "pad 12 row",
+   "quote": "-53.67 -42.30 -2.75 6. 12"
+  },
+  {
+   "id": "cfg_hdr",
+   "src": "CFGVEX",
+   "file": "rawdata/interf/sma/sma.vextended.cfg",
+   "loc": "header",
+   "quote": "# observatory=SMA # coordsys=LOC (local tangent plane)"
+  },
+  {
+   "id": "sma_dish",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "diameter 6m"
+  },
+  {
+   "id": "sma_eff",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Antennas table",
+   "quote": "aperture efficiency (230/240 GHz) (345 GHz) (400 GHz) 0.70-0.80 0.60-0.75 0.60-0.75"
+  },
+  {
+   "id": "sma_tsys",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Receivers table",
+   "quote": "T sys (DSB, K) 80-200 90-220 150-350 150-350"
+  },
+  {
+   "id": "sma_pb",
+   "src": "OCSPEC",
+   "file": "rawdata/interf/sma/oc_specs.html",
+   "loc": "Receivers table",
+   "quote": "primary beam (\") 55 51 36 31"
+  },
+  {
+   "id": "sma_vex",
+   "src": "OCS",
+   "file": "rawdata/interf/sma/oc_status.html",
+   "loc": "Array Configurations",
+   "quote": "Due to storm damage to roads and infrastructure to pads 18 and 19, VEX configuration is currently not possible."
+  }
+ ],
+ "not_found": [
+  "Absolute position of pad 1 / any JCMT or CSO position in the pad frame (tie INFERRED)",
+  "JCMT and CSO elevation limits",
+  "JCMT and CSO SEFD or Tsys at 345 GHz in eSMA mode; eSMA-era SEFDs of any station",
+  "Pad set of the SMA during each eSMA track",
+  "How often the eSMA was scheduled; date of last observation; statement of end of the facility",
+  "Whether SMA + JCMT joint imaging is offered in 2026",
+  "Titan declination and hour-angle ranges of the published tracks",
+  "Weighting and hour-angle range of the published beams (except SPIE Table 1 uniform, VK12 natural, FAV14 combined uniform)"
+ ],
+ "conflicts": [
+  "JCMT eta 2008-04-14: BOT09 0.70 vs SHI09 0.40",
+  "SMA receiver temperature BOT09 45-70 K vs SHI09 85-140 K",
+  "Longest baseline 782 (ESMA/BOT09/SHI09) vs 780 (LIG24) vs ~770 (WIE99) vs 781.6 derived",
+  "ESMA Fig. 1 273 m vs 288.7 m derived; 160 m vs 163.7 derived vs 164 (WIE99)",
+  "ESMA App. B prints SMA diameter \"8\" m (typo; 6 m)",
+  "Shortest baseline 25 m published vs 68.4 m 3-D derived (projected length)",
+  "2010-02-11 NGC 2071 eSMA with CSO (VK12) vs 2010-02-12 7 SMA + JCMT only (LIG24)",
+  "ehtim SMA row is the CSO position (3.1 m)"
+ ]
+}

@@ -167,11 +167,14 @@ function sample(o) {
 // function of the hour angle H (radians) giving, for each antenna switched on (in the order of baselines()), 1 when
 // shadowed. Each antenna's position projected on the sky (u, v) and toward the source (w); antennas within D of each
 // other in (u, v), found through a hash of cells D wide, shadow the one farther from the source.
-function shadowOf(ants, lat, dec, D) {
+// (dishes of different sizes, an antenna's own `dish`: a pair overlaps within the mean of the two diameters, and the
+// search cells are the largest dish wide)
+function shadowOf(ants, lat, dec, D0) {
   const on = ants.filter(a => a.on !== false), N = on.length, sl = Math.sin(lat), cl = Math.cos(lat);
-  const X = new Float64Array(N), Y = new Float64Array(N), Z = new Float64Array(N);
-  for (let i = 0; i < N; i++) { const a = on[i], u = a.u || 0; X[i] = -a.n * sl + u * cl; Y[i] = a.e; Z[i] = a.n * cl + u * sl; }
-  const pu = new Float64Array(N), pv = new Float64Array(N), pw = new Float64Array(N), out = new Uint8Array(N), sd = Math.sin(dec), cd = Math.cos(dec), D2 = D * D;
+  const X = new Float64Array(N), Y = new Float64Array(N), Z = new Float64Array(N), Dk = new Float64Array(N);
+  for (let i = 0; i < N; i++) { const a = on[i], u = a.u || 0; X[i] = -a.n * sl + u * cl; Y[i] = a.e; Z[i] = a.n * cl + u * sl; Dk[i] = a.dish > 0 ? a.dish : D0; }
+  let D = D0; for (let i = 0; i < N; i++) D = Math.max(D, Dk[i]);
+  const pu = new Float64Array(N), pv = new Float64Array(N), pw = new Float64Array(N), out = new Uint8Array(N), sd = Math.sin(dec), cd = Math.cos(dec);
   return H => {
     const sh = Math.sin(H), ch = Math.cos(H), cells = new Map();
     out.fill(0);
@@ -184,7 +187,7 @@ function shadowOf(ants, lat, dec, D) {
       const cx = Math.floor(pu[i] / D), cy = Math.floor(pv[i] / D);
       for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
         const c = cells.get((cx + dx) * 1048576 + cy + dy);
-        if (c) for (const j of c) { if (j <= i) continue; const du = pu[j] - pu[i], dv = pv[j] - pv[i]; if (du * du + dv * dv < D2) out[pw[j] > pw[i] ? i : j] = 1; }
+        if (c) for (const j of c) { if (j <= i) continue; const du = pu[j] - pu[i], dv = pv[j] - pv[i], dm = (Dk[i] + Dk[j]) / 2; if (du * du + dv * dv < dm * dm) out[pw[j] > pw[i] ? i : j] = 1; }
       }
     }
     return out;

@@ -1250,15 +1250,19 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await go("#inst=int");
     }
     // the arrays and configurations fit at both laptop sizes
-    const arrs = await ev(`window.IX_ARRAYS.map(a => [a.id, a.configs.map(c => c.id)])`), over = [];
+    const arrs = await ev(`window.IX_ARRAYS.map(a => [a.id, a.configs.map(c => c.id)])`), over = [], cut = [];
+    // (a menu narrower than the array's longest label, plus 30 px for the padding, border and arrow, clips the label)
+    const menuCut = `["rCfg", "rBand"].filter(id => { const s = document.getElementById(id); if (!s.offsetParent) return false; const cs = getComputedStyle(s), g = document.createElement("canvas").getContext("2d"); g.font = cs.fontSize + " " + cs.fontFamily; let w = 0; for (const o of s.options) w = Math.max(w, g.measureText(o.text).width); return s.getBoundingClientRect().width + 0.5 < w + 30; }).join("+")`;
     for (const [w, hh] of [[1440, 900], [1280, 800]]) {
       await size(w, hh);
       for (const [aid, cids] of arrs) for (const cid of cids) {
         await nav("#inst=int&r.arr=" + aid + "&r.cfg=" + encodeURIComponent(cid));
         const fz = await fit(); if (!(fz.bottom <= fz.vh + 0.5 && fz.sw <= fz.cw)) over.push(`${aid}/${cid}@${w} ${fz.bottom.toFixed(0)}`);
+        if (cid === cids[0]) { const mc = await ev(menuCut); if (mc) cut.push(`${aid}@${w} ${mc}`); }
       }
     }
     check("Interferometer: every array and configuration fits at both laptop sizes", over.length === 0, over.join(", "));
+    check("Interferometer: the Configuration and Band menus show the arrays' labels whole at both laptop sizes", cut.length === 0, cut.join(", "));
     await size(1440, 900);
     // the Earth-scale arrays: the globe, its sites clickable, the stations' horizons; the transit arrays: the drift
     // through the beam, the declinations within reach

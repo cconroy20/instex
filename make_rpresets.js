@@ -82,6 +82,33 @@ const out = [];
   });
 }
 
+// ---- eSMA (data/interf/esma.json): the SMA's eight antennas on the very extended pads with the JCMT (15 m) and the
+// CSO (10.4 m), 2007-2010; the two telescopes placed in the pad frame with pad 1 at the SMA's position in EHT Paper II
+// (INFERRED: no source ties the pad frame to the Earth; the published 782, 625 and 164 m baselines come out within
+// 0.4 m); baselines weighted 1 / (SEFD_i SEFD_j) from the design aperture efficiencies with one system temperature
+// (DERIVED, so the weights are the products of the effective areas); the bands of the eSMA paper's Table 1, 2 GHz in
+// each sideband laid side by side; uniform weighting by default, as for the published eSMA beams
+{
+  const j = rd("esma.json"), r = j.recommended_page_record, c = r.configs.VEX, sma = rd("sma.json");
+  const st = c.stations, D = r.dish, SE = r.sefd_Jy, P = j.positions;
+  if (c.pads.some((n, k) => c.ants_enu_m[k].some((x, i) => Math.abs(x - sma.pads[String(n)].enu_m[i]) > 1e-6))) throw new Error("eSMA: the pads differ from the SMA record's");
+  if ([P.JCMT_enu_about_P2_SMA_point_m_DERIVED, P.CSO_enu_about_P2_SMA_point_m_DERIVED].some((q, k) => q.some((x, i) => x !== c.ants_enu_m[8 + k][i]))) throw new Error("eSMA: the JCMT or CSO position differs from the tie");
+  const pb = r.pb.k, bl = j.baselines_published_m;
+  out.push({
+    id: "esma", name: "SMA + JCMT + CSO", site: "Maunakea, Hawaii", lat: r.lat, dish: D.SMA, elLimit: r.elLimit,
+    pb: { k: pb.SMA },
+    pbSource: "the SMA's 6 m dishes, 1.2 λ / D; the JCMT's and the CSO's beams are narrower, 15″ and 20″ at 337 GHz (Favre et al. 2014), so the baselines to the two large dishes see a smaller field",
+    elNote: "15°, as for the SMA; no limit is published for the JCMT or the CSO.",
+    antNote: "The extended SMA (the eSMA) joined the SMA's eight antennas, on the pads of the very extended configuration, with the James Clerk Maxwell Telescope (15 m) and the Caltech Submillimeter Observatory (10.4 m), to make ten elements with 45 baselines out to " + bl.eSMA_VEX_2008[1] + " m (Bottinelli et al. 2008). The published eSMA data run from August 2007 to February 2010. The CSO closed in 2015 and was removed from Maunakea by 2024, so this array can no longer observe. No source gives the two telescopes' positions in the SMA's pad frame. The page places pad 1 at the SMA's position in EHT 2019 Paper II, which reproduces the published " + bl.eSMA_VEX_2008[1] + " m (CSO to pad 19), " + bl.Titan_2010_max + " m (JCMT to pad 19) and " + bl.JCMT_CSO_WIE99 + " m (JCMT to CSO) baselines to within 0.4 m. The SEFDs come from the design aperture efficiencies (0.67, 0.55 and 0.60) with one system temperature for the three telescopes, so a baseline's weight is the product of the two dishes' effective areas. Under natural weighting the baselines to the JCMT dominate; the page uses uniform weighting by default, as the published eSMA beams do.",
+    durNote: "The default, 10 h (hour angles ±5 h), is the track of the eSMA's published performance estimate at 345 GHz and declination +25° (Bottinelli et al. 2008).",
+    bands: r.bands.map(b => ({ k: b.k, name: (b.k === "230" ? "1.3 mm" : "0.87 mm") + "  " + b.lo + "–" + b.hi + " GHz", lo: b.lo, hi: b.hi, bw: b.bw, rep: b.rep_GHz })),
+    configs: [{ id: "VEX", name: "Very extended", ants: c.ants_enu_m.map(p => p.map(mm)), names: c.pads.map(n => "pad " + n).concat(["JCMT", "CSO"]),
+      dishes: st.map(s => D[s]), sefd: st.map(s => SE[s]), bmax: c.bmax_m }],
+    pads: Object.keys(sma.pads).map(n => sma.pads[n].enu_m.map(mm)),
+    defaults: { cfg: "VEX", band: "345", nu: 345, dec: 25, dur: 10, wt: "uniform" },
+  });
+}
+
 // ---- DSA-2000 (data/interf/dsa2000.json): the 1650-dish design of the Final Design Review, from the
 // project's sensitivity calculator (antennas_enu.json, about the array's centroid); the calculator's 20-degree
 // elevation limit; the primary beam 3.36 deg / nu(GHz)

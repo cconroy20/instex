@@ -129,7 +129,9 @@ function antsNow() {
     if (aplay) { const live = addOrder(A.length).filter(k => A[k].on); live.slice(aplay.k).forEach(k => { A[k].on = false; A[k].pending = true; }); }
     return A;
   }
-  const A = P.ants.map((p, k) => { const m = S.mv[k]; return { e: m ? m[0] : p[0], n: m ? m[1] : p[1], u: m ? 0 : p[2] || 0, on: !off.has(k), name: P.names[k] || "" }; });
+  // (a configuration of mixed dishes, as the eSMA's: each antenna's dish and SEFD, on the built pads only)
+  const mix = S.lay === "built" && c.dishes;
+  const A = P.ants.map((p, k) => { const m = S.mv[k]; return Object.assign({ e: m ? m[0] : p[0], n: m ? m[1] : p[1], u: m ? 0 : p[2] || 0, on: !off.has(k), name: P.names[k] || "" }, mix ? { dish: c.dishes[k], sefd: c.sefd ? c.sefd[k] : 0 } : {}); });
   if (aplay) { const live = addOrder(A.length).filter(k => A[k].on); live.slice(aplay.k).forEach(k => { A[k].on = false; A[k].pending = true; }); }
   return A;
 }
@@ -189,6 +191,15 @@ for (const [id, key, lg] of SL) $(id).addEventListener("input", () => {
   quick();
   H.schedule();
 });
+// A menu is at least as wide as the array's longest label (plus 36 px for the padding, border and arrow), so the menu
+// never clips a label. Where the box is too narrow for the menu beside the row's name, the row wraps and the menu
+// takes a separate line.
+const fitCtx = document.createElement("canvas").getContext("2d");
+function fitMenu(sel) {
+  const cs = getComputedStyle(sel); fitCtx.font = cs.fontSize + " " + cs.fontFamily;
+  let w = 0; for (const o of sel.options) w = Math.max(w, fitCtx.measureText(o.text).width);
+  sel.style.minWidth = "min(" + Math.ceil(w + 36) + "px, 100%)";
+}
 function syncControls() {
   const a = arrOf(), c = cfgOf(), b = bandOf();
   if (csel.dataset.arr !== a.id) {
@@ -196,6 +207,7 @@ function syncControls() {
     for (const q of a.configs) { const o = document.createElement("option"); o.value = q.id; o.textContent = q.name; o.title = "Longest baseline " + fLen(q.bmax); csel.appendChild(o); }
     for (const q of a.bands) { const o = document.createElement("option"); o.value = q.k; o.textContent = q.name; bsel.appendChild(o); }
     csel.dataset.arr = a.id;
+    fitMenu(csel); fitMenu(bsel);
   }
   csel.value = c.id; S.cfg = c.id; bsel.value = b.k; S.band = b.k; ssel.value = S.sky;
   const nuIn = $("rNu"), bwIn = $("rBw");
@@ -332,7 +344,7 @@ function compute(fast) {
   // the extent of the uv plane: the longest baseline at the band's highest frequency
   R.ext = R.Bmax * (nuC + bw / 2) / C;
   let wq = null;
-  if (sta && onA.some(p => p.sefd > 0)) {
+  if (onA.some(p => p.sefd > 0)) {
     wq = new Float32Array(B.length);
     let mx = 0;
     for (let k = 0; k < B.length; k++) { wq[k] = 1 / (onA[B.I[k]].sefd * onA[B.J[k]].sefd); mx = Math.max(mx, wq[k]); }
@@ -427,12 +439,12 @@ function renderText(R) {
   // the antennas: a count of the unit the array is built of (antennas, stations, feeds) and the dish, or the dishes'
   // range when they differ
   const cnt = (R.on < tot ? R.on.toLocaleString("en-US") + " of " + tot.toLocaleString("en-US") : tot.toLocaleString("en-US")) + (a.unit ? " " + a.unit : "");
-  const dl = a.geo && cfgOf().dishes ? [Math.min(...cfgOf().dishes), Math.max(...cfgOf().dishes)] : null;
+  const dl = (a.geo || S.lay === "built") && cfgOf().dishes ? [Math.min(...cfgOf().dishes), Math.max(...cfgOf().dishes)] : null;
   const antTxt = cnt + (a.unitTail !== undefined ? a.unitTail : dl && dl[1] > dl[0] ? ", " + fDish(dl[0]) + "–" + fDish(dl[1]) + " m" : " × " + fDish(a.dish) + " m") + (nmv ? " (" + nmv + " moved)" : "");
   rows($("rArrR"), [
     ["Antennas", antTxt, a.geo ? "The stations of the array, each at its own place on the Earth" + (dl && dl[1] > dl[0] ? ", with dishes of different sizes (a phased array counts as the one dish of the same collecting area)" : "") + ". Click a station's name in the drawing to remove or restore the station, and drag the globe to turn the globe." + (a.antNote ? " " + a.antNote : "")
       : a.cyl ? "The feeds along the cylinders' focal lines. Each cylinder focuses the light in the east-west direction onto its focal line; along the line the reflector is flat, so each feed sees the whole meridian north-south and shares the reflector with its neighbors. Click a feed in the drawing to remove or restore the feed, and drag a feed to move the feed." + (a.antNote ? " " + a.antNote : "")
-      : "The antennas in " + (S.lay === "built" ? "this configuration" : "this layout") + ", each a dish of this diameter. Click an antenna in the drawing to remove or restore the antenna, and drag an antenna to move the antenna." + (S.lay === "built" && a.antNote ? " " + a.antNote : "")],
+      : "The antennas in " + (S.lay === "built" ? "this configuration" : "this layout") + (dl && dl[1] > dl[0] ? ", with dishes of different sizes, each drawn to scale" : ", each a dish of this diameter") + ". Click an antenna in the drawing to remove or restore the antenna, and drag an antenna to move the antenna." + (S.lay === "built" && a.antNote ? " " + a.antNote : "")],
     ["Baselines", R.nb.toLocaleString("en-US"), "Each pair of antennas is a baseline: N antennas make N (N − 1) / 2." + (R.sub ? " Beyond " + MAXPAIRS.toLocaleString("en-US") + ", the page uses a random draw of distinct pairs, " + MINPAIRS.toLocaleString("en-US") + " to " + MAXPAIRS.toLocaleString("en-US") + " (fewer for long tracks and wide bands, which need more samples per baseline; " + R.nbUsed.toLocaleString("en-US") + " here): the uv coverage and the beam come out the same, statistically, as with all the pairs." + (cfgOf().keep ? " The draw keeps every baseline to the outriggers." : "") : "") + (R.wq ? " Each baseline is weighted by the two stations' sensitivities, 1 / (SEFD_i × SEFD_j): a baseline between two large dishes counts for more." : "")],
     ["Longest baseline", R.nb ? fLen(R.Bmax) : "–", a.geo ? "The longest baseline: the straight line between two stations, through the Earth. The longest baseline makes the finest fringes, and so sets the resolution, ≈ λ / B_max. Seen from the source, a baseline looks shorter, and the two stations must both see the source." : "The longest baseline on the ground. The longest baseline makes the finest fringes, and so sets the resolution, ≈ λ / B_max."],
     ["Shortest baseline", R.nb ? fLen(R.Bmin) : "–", a.geo ? "The shortest baseline: the two stations closest together. The shortest baseline makes the widest fringes, and so sets the largest structure the array can see." + (a.bminNote ? " " + a.bminNote : "")
@@ -600,10 +612,13 @@ function drawArray(R) {
     for (const [e, n] of a.pads) { g.beginPath(); g.arc(alview.ox + e * alview.s, alview.oy - n * alview.s, rr, 0, 2 * Math.PI); g.fill(); g.stroke(); }
   }
   ants.forEach((p, k) => {
-    const [x, y] = xy[k];
-    g.beginPath(); g.arc(x, y, k === hoverAnt ? rr + 1.5 : rr, 0, 2 * Math.PI);
+    const [x, y] = xy[k], rk = p.dish > 0 ? Math.max(rr, p.dish / 2 * alview.s) : rr;
+    g.beginPath(); g.arc(x, y, k === hoverAnt ? rk + 1.5 : rk, 0, 2 * Math.PI);
     if (p.on) { g.fillStyle = C_UV; g.fill(); } else if (p.pending) { g.fillStyle = "#fff"; g.fill(); g.strokeStyle = C_MIR; g.lineWidth = 1.2; g.stroke(); } else { g.fillStyle = "#fff"; g.fill(); g.strokeStyle = "#a9a39a"; g.lineWidth = 1.2; g.stroke(); }
   });
+  // (a mixed array's odd dishes, the eSMA's JCMT and CSO, carry their names)
+  g.font = `12.5px ${FONT}`; g.fillStyle = "#4f4a44"; g.textAlign = "left";
+  ants.forEach((p, k) => { if (p.dish > 0 && p.dish !== a.dish && k !== hoverAnt) { const [x, y] = xy[k]; g.fillText(p.name, x + Math.max(rr, p.dish / 2 * alview.s) + 5, y + 4); } });
   if (hoverAnt >= 0 && hoverAnt < ants.length) {
     const p = ants[hoverAnt], [x, y] = xy[hoverAnt];
     g.font = `12.5px ${FONT}`; g.textAlign = x > w - 160 ? "right" : "left"; g.fillStyle = "#4f4a44";
@@ -622,7 +637,8 @@ function drawArray(R) {
     document.documentElement.style.setProperty("--capLA", Math.round(x0 + px + 22) + "px"); }
   const lname = (LAYS.find(q => q[0] === S.lay) || LAYS[0])[1];
   const one = a.unitOne || "antenna";
-  $("alSub").textContent = fixedLine() + (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration" + (a.pads ? "; pale disks mark the empty pads (" + a.pads.length + " pads in all)" : "") + ". " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
+  const padTxt = a.pads ? "pale disks mark the empty pads (" + a.pads.length + " pads in all)" : "";
+  $("alSub").textContent = fixedLine() + (S.lay !== "built" ? lname + " layout. " : a.configs.length > 1 ? cfgOf().name + " configuration" + (padTxt ? "; " + padTxt : "") + ". " : padTxt ? padTxt[0].toUpperCase() + padTxt.slice(1) + ". " : "") + `Click ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to remove or restore the ${one}, and drag ${/^[aeiou]/.test(one) ? "an" : "a"} ${one} to move the ${one}.`;
 }
 // a single dish, from above: the reflector (gray) and the illuminated aperture (blue), to scale
 function drawDish(g, w, h, a) {
@@ -659,9 +675,10 @@ function drawDish(g, w, h, a) {
   const pick = ev => {
     if (!cur || cur.single) return -1;
     if (cur.a.geo) { const q = pickSite(ev); return q ? q.k[0] : -1; }
-    const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, xy = antScreen(cur.ants), rr = Math.max(7, cur.a.dish / 2 * alview.s + 3);
-    let best = -1, bd = rr;
-    xy.forEach(([x, y], k) => { const d = Math.hypot(x - mx, y - my); if (d < bd) { bd = d; best = k; } });
+    const r = cv.getBoundingClientRect(), mx = ev.clientX - r.left, my = ev.clientY - r.top, xy = antScreen(cur.ants);
+    // (the nearest antenna within the antenna's drawn radius, a mixed array's large dishes included)
+    let best = -1, bd = Infinity;
+    xy.forEach(([x, y], k) => { const d = Math.hypot(x - mx, y - my), rk = Math.max(7, (cur.ants[k].dish || cur.a.dish) / 2 * alview.s + 3); if (d < rk && d < bd) { bd = d; best = k; } });
     return best;
   };
   cv.addEventListener("wheel", ev => {
