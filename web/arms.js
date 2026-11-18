@@ -31,10 +31,10 @@ const GROUPS = {
   // crossovers DERIVED as the middle of each specification gap
   "DESI": { split: "collimated", tree: { cut: 7595, w: 250, aoi: 25.4, src: "FDR Table 5.3; D22 Sec. 7.2 (NIR-pass; crossover DERIVED)",
     R: { cut: 5795, w: 270, aoi: 32.1, src: "D22 Sec. 7.2 (red-pass; crossover DERIVED)", R: "desib", T: "desir" }, T: "desiz" } },
-  // Boombox: blue channel 3550-5750 A, red 5750-10100 A (SPIE 14149, 2026, abstract); the bench layout (Via design files)
-  // shows the dichroic turning the blue by 135 deg, so an AOI of 22.5 deg (DERIVED from the drawing, +-1 deg), the red
-  // transmitted to a 90 deg fold mirror that turns it the same way; the transition width is not published
-  "Boombox (partly inferred)": { split: "collimated", note: "the dichroic's angle is measured from the bench layout", tree: { cut: 5750, w: 200, aoi: 22.5, src: "SPIE 14149 (2026) abstract; bench layout (AOI DERIVED)", R: "boomboxb", T: { fold: 45, rel: 1, src: "bench layout", to: "boomboxr" } } },
+  // Boombox (data/round11/boombox.md; Piotrowski et al. 2026, submitted, Sec. 2.2 and Fig. 1): a fused-silica dichroic at
+  // 22 deg in the collimated beam, 5750 A with a 95 A transition (90% R to 90% T), reflects the blue; the red passes to a
+  // 45 deg fold mirror that turns it the same way
+  "Boombox": { split: "collimated", tree: { cut: 5750, w: 95, aoi: 22, src: "Piotrowski et al. 2026 (submitted) Sec. 2.2", R: "boomboxb", T: { fold: 45, rel: 1, src: "Piotrowski et al. 2026 Fig. 1", to: "boomboxr" } } },
   // PFS (V14 Sec. 3): "the first dichroic reflects the Blue part of the spectrum and the second reflects the Red while the
   // NIR is transmitted"; splits at the channel edges 640 and 955 nm (SM16), transitions ~20 nm (T16); the angles are not
   // in the text: ~29 and ~38 deg measured from V14 Fig. 2 (a concept-stage drawing; DERIVED, +-3 deg)
@@ -96,6 +96,12 @@ const GROUPS = {
     note: "MODS's dichroic and fold stand in the diverging beam after the slit, and each channel's collimator takes the light straight from them",
     tree: { cut: 5650, w: 180, aoi: 35, src: "MODS manual Sec. 2.4 (50% at 5650 A); the MODS1 curve (width DERIVED); Code V (35 deg)",
       R: { fold: 38, rel: 1, src: "Code V: the red fold, AOI 38 deg (DERIVED)", to: "modsr" }, T: "modsb" } },
+  // Lick Kast (data/round11/kast.md): one slit; the D55 dichroic (5500 A) in the diverging beam reflects the blue and passes
+  // the red, each arm with its own off-axis collimator (no relay); the width MEASURED from the manual's curve (10-90%), the
+  // angle MEASURED from the report's oblique drawing (+-8 deg)
+  "Kast": { split: "focus", slit: "shared", Ftel: 17.53, relay: null, shared: { top: ["D"], m: ["slitW", "nObj"] },
+    note: "Kast's dichroic stands in the diverging beam after the slit; its angle is measured from an oblique drawing",
+    tree: { cut: 5500, w: 380, aoi: 32.5, src: "Lick manual (D55, 5500 A); width and AOI MEASURED", R: "kastb", T: "kastr" } },
   // KPF (data/round9/kpf.md; Gibson et al. 2024 Table 1 and Fig. 3): the arms share the slit (the reformatter), the
   // primary collimator and the echelle; the dichroic (590 nm, the green reflected) stands in the white pupil's beam after
   // the secondary collimator; its angle MEASURED from Fig. 3 (31 +-4 deg), its width NOT FOUND (200 A INFERRED).  The

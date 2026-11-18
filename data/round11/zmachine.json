@@ -1,0 +1,581 @@
+{
+ "id": "zmachine",
+ "name": "Tillinghast 1.5 m / Z-machine (photon-counting Reticon spectrograph, CfA Redshift Survey)",
+ "quote_pieces": 46,
+ "quote_failures": 0,
+ "era": "spring 1978 to the early 1990s (replaced by FAST in 1994)",
+ "sources": {
+  "T79": "Tonry, J. & Davis, M. 1979, AJ 84, 1511, \"A survey of galaxy redshifts. I. Data reduction techniques\"",
+  "D82": "Davis, M., Huchra, J., Latham, D. W. & Tonry, J. 1982, ApJ 253, 423, \"A survey of galaxy redshifts. II. The large scale space distribution\"",
+  "H83": "Huchra, J., Davis, M., Latham, D. & Tonry, J. 1983, ApJS 52, 89, \"A survey of galaxy redshifts. IV - The data\"",
+  "D84": "da Costa, L. N. et al. 1984, AJ 89, 1310, \"Redshifts for 228 southern galaxies\"",
+  "P83": "Peterson, R. C., Willmarth, D. W. & Carney, B. W. 1983, ApJ 265, 972, \"The rotation of horizontal-branch stars. I. Members of the field\"",
+  "B85": "Blair, W. P. & Kirshner, R. P. 1985, ApJ 289, 582, \"Improved optical spectrophotometry of supernova remnants in M33\"",
+  "W94": "Wells, L. A. et al. 1994, AJ 108, 2233, \"The Type IA Supernova 1989B in NGC 3627",
+  "H95": "Huchra, J. P., Geller, M. J. & Corwin, H. G. 1995, ApJS 99, 391, \"The CfA Redshift Survey: Data for the NGP +36 Zone\"",
+  "C81": "Carney, B. W. & Peterson, R. C. 1981, ApJ 251, 190, \"Field population II blue stragglers\"",
+  "F98": "Fabricant, D., Cheimets, P., Caldwell, N. & Geary, J. 1998, PASP 110, 79, \"The FAST Spectrograph for the Tillinghast Telescope\""
+ },
+ "rows": [
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope aperture",
+   "value": "1.524",
+   "unit": "m",
+   "tag": "SOURCED",
+   "source": "F98",
+   "location": "Table 2, primary mirror",
+   "quote": "Mirror 1524"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope aperture (alt)",
+   "value": "1.5 m",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "D82",
+   "location": "p. 423, Introduction",
+   "quote": "on the Mount Hopkins 1.5 m telescope"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Telescope",
+   "value": "Tillinghast 1.5 m reflector, Mount Hopkins (Whipple Observatory); also called the 60-inch",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "p. 91, Sec. III",
+   "quote": "a moderate dispersion spectrograph on the Tillinghast 1.5 m reflector on Mount Hopkins"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Plate scale at the Cassegrain focus",
+   "value": "77 (FAST's value; the Z-machine's own is not published)",
+   "unit": "um/arcsec",
+   "tag": "INFERRED",
+   "source": "F98",
+   "location": "Sec. 3.1",
+   "quote": "telescope scale of"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio at the focus",
+   "value": "10.42",
+   "unit": "f/#",
+   "tag": "INFERRED",
+   "source": "F98",
+   "location": "Sec. 3.1",
+   "quote": "telescope scale of"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Focal ratio (arithmetic)",
+   "value": "DERIVED: F = 77e-6 m x 206264.8 / 1.524 m = 15.88 m / 1.524 m = 10.42. Inferred because both instruments hang at the Cassegrain focus of the same telescope; no Z-machine paper states the focal ratio or the scale (NOT FOUND). A conventional f/13.5 would give 100 um/arcsec: it is NOT sourced here and the two disagree by 30 percent.",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Entrance apertures (slits)",
+   "value": "a pair of slits 12.5 arcsec by 3.2 arcsec, separated by 30 arcsec on the sky (one object, one sky)",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "We have been using a pair of slits 12.5 by 3.2 for most of our observations"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit width",
+   "value": "3.2",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "With this slit width, the resulting spectral resolution is only slightly degraded from the detector resolution."
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length",
+   "value": "12.5",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "slits 12.5 by 3.2"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Slit length (alt)",
+   "value": "ALT: 12.6 arcsec long apertures (6 x 12.6 and 3.1 x 12.6 arcsec) in the Z-machine rows of Blair's tables",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "B85",
+   "location": "p. 583, Table 1",
+   "quote": "FLWO 1.5 m 6 x 12.6 9000 4500-7000 7"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Two-aperture sky subtraction",
+   "value": "two channels, object on one and sky on the other, then swapped by moving the telescope",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "an exposure of the object on one side and sky on the other side"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Separation of the two spectra on the sky",
+   "value": "30",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "the projected separation between the two spectra is 30 on the sky"
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Detector scale in the focal plane",
+   "value": "DERIVED: the two spectra are the two 375 um rows of the dual array (no dead space), so 30 arcsec = 375 um, i.e. 12.5 um/arcsec at the Reticon (INFERRED: that the 30 arcsec equals one row height)",
+   "unit": "um/arcsec",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Telescope and feed",
+   "parameter": "Spectrograph demagnification",
+   "value": "DERIVED/INFERRED: 77 / 12.5 = 6.2 (needs the inferred 77 um/arcsec); the paper says only 'the demagnification of the spectrograph'",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "with the demagnification of the spectrograph"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Array",
+   "value": "dual linear photodiode array, 936 diodes by 2 (Reticon)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "The detector is a 936 by 2 diode Reticon"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Array (alt)",
+   "value": "ALT: dual 936 linear Reticon array behind a high-gain image intensifier system",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "P83",
+   "location": "p. 974, Sec. II",
+   "quote": "the Z-machine, a dual linear Reticon array of 936 pixels"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Diode size",
+   "value": "375 x 30 um, no dead space",
+   "unit": "um",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan; read on the page image)",
+   "quote": "The diodes of the Reticon are 375 by 30 ... with no dead space"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Pixels per spectrum",
+   "value": "1872 (photon events located to 1/2 diode)",
+   "unit": "px",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "diode (one pixel) and so we obtain simultaneously two 1872 pixel spectra"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Effective pixel size",
+   "value": "15 um (half a diode); format 1872 x 2 effective pixels",
+   "unit": "um",
+   "tag": "DERIVED",
+   "source": "T79",
+   "location": "p. 1512",
+   "quote": "DERIVED: 30 um / 2 = 15 um. Cross-check: 120 A/mm x 0.015 mm = 1.8 A, the pixel the paper quotes (see Dispersion)"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Intensifier",
+   "value": "fiber-optically coupled to a high-gain image-tube package (electrostatic tubes; fiber-optic input window on the first photocathode)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "fiber optically coupled to a high-gain image-tube package"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Intensifier maker",
+   "value": "Varo image intensifiers packaged at SAO; electronics copied from Shectman's design",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "p. 91, Sec. III",
+   "quote": "and Varo image intensifiers packaged at SAO"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Intensifier evolution",
+   "value": "the system, including the intensifiers, evolved considerably after the first version (Latham 1982, not obtained)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "p. 91, Sec. III",
+   "quote": "has evolved considerably since then"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Blue limit of the response",
+   "value": "poor response blueward of 4000 A (fiber-optic window)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "The detector has poor response to the blue of 4000"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Detector resolution",
+   "value": "30-40 um FWHM",
+   "unit": "um",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "Our typical resolution is 30-40"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Photon counting",
+   "value": "events are located in position to half a diode; spectra accumulate in a minicomputer in real time; fixed-pattern noise is removed with incandescent-lamp exposures",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "The photon counting nature of the detector enables us to examine the spectrum in real time"
+  },
+  {
+   "section": "Detector",
+   "parameter": "Detector in other mode",
+   "value": "the same detector also served behind the 1.5 m echelle (one order, about 60 A, at a time)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "P83",
+   "location": "p. 974, Sec. II",
+   "quote": "Spectral coverage is limited to a single echelle order"
+  },
+  {
+   "section": "Disperser and spectrograph",
+   "parameter": "Grating",
+   "value": "600 lines/mm, first order (reflection assumed: INFERRED, not stated)",
+   "unit": "l/mm",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "we generally use a 600 line/mm grating in first order"
+  },
+  {
+   "section": "Disperser and spectrograph",
+   "parameter": "Spectrograph type",
+   "value": "an 'intermediate-dispersion' spectrograph at the Cassegrain focus (type of collimator and camera NOT FOUND)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "D82",
+   "location": "p. 423, Introduction",
+   "quote": "photon-counting Reticon detector and intermediate-dispersion spectrograph (the Z-machine)"
+  },
+  {
+   "section": "Disperser and spectrograph",
+   "parameter": "Spectrograph flexure",
+   "value": "slewing the telescope 20 deg can shift the spectrum by up to 100 km/s: the reason for comparison lamps before and after each exposure",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1520 (transcribed from the scan)",
+   "quote": "slewing the telescope 20 can shift the spectrum by as much as 100 km/sec"
+  },
+  {
+   "section": "Disperser and spectrograph",
+   "parameter": "Collimator, beam, camera, blaze, camera-collimator angle",
+   "value": "NOT FOUND (see NOT FOUND)",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Coverage (usual tilt)",
+   "value": "4300-6900 (span 2600)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "so our usual grating tilt covers a span of 2600 A, from 4300 to 6900 A"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Coverage (alt, later)",
+   "value": "ALT: 4400-7200 'adopted at Mount Hopkins' (stated by a collaborator's paper on the sister system)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "D84",
+   "location": "p. 1311, Sec. II",
+   "quote": "in contrast to the range 4400-7200 A adopted at Mount Hopkins"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Dispersion",
+   "value": "120",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "giving a dispersion of 120 A/mm, or a resolution of 4.8 A"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Pixel",
+   "value": "about 1.8",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1516 (transcribed from the scan)",
+   "quote": "Our pixels are about 1.8 A in size"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Dispersion fitted to the arc and sky lines",
+   "value": "23 lines between pixel 249 (4471 A) and pixel 1661 (6752 A), seventh-order polynomial, rms 0.24 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1517 (transcribed from the scan)",
+   "quote": "fitting a seventh-order polynomial to 23 lines between pixel 249, wavelength 4471 A, and pixel 1661, wavelength 6752 A"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Mean dispersion from that fit",
+   "value": "DERIVED: (6752 - 4471) A / (1661 - 249) px = 1.615 A/px (= 107.7 A/mm at 15 um); see Conflicts",
+   "unit": "A/px",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Resolution (FWHM)",
+   "value": "4.8 A at 120 A/mm; the slit image is about equal to the detector resolution",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "or a resolution of 4.8"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Resolution (rms)",
+   "value": "about 2 A rms (120 km/s at 5000 A); DERIVED FWHM = 2.355 x 2 = 4.7 A, consistent with 4.8 A",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1516 (transcribed from the scan)",
+   "quote": "our rms resolution is about 2 A (120 km/sec at 5000 A)"
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Resolving power",
+   "value": "DERIVED: R = 5600 / 4.8 = 1170 at the middle of the coverage (GEOMETRIC/nominal: the paper does not say the 4.8 A was measured from arc lines)",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Slit image at the detector",
+   "value": "DERIVED: 3.2 arcsec x 12.5 um/arcsec = 40 um (2.7 px), x 120 A/mm = 4.8 A: the slit image equals the quoted resolution (a consistency check on the inferred scale, not independent of the 12.5 um/arcsec)",
+   "unit": "",
+   "tag": "DERIVED",
+   "source": "",
+   "location": "",
+   "quote": ""
+  },
+  {
+   "section": "Coverage, dispersion and resolution",
+   "parameter": "Later setting, same detector, other resolution",
+   "value": "Z-machine spectra of M33 remnants at 7 A resolution through 6 x 12.6 arcsec apertures, 4500-7000 A",
+   "unit": "A",
+   "tag": "SOURCED",
+   "source": "B85",
+   "location": "p. 583, Table 1",
+   "quote": "FLWO 1.5 m 6 x 12.6 9000 4500-7000 7"
+  },
+  {
+   "section": "Velocity precision",
+   "parameter": "Redshift precision (design paper)",
+   "value": "errors often to 20 km/s; rms usually below 40 km/s",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1516 (transcribed from the scan)",
+   "quote": "we can often determine redshifts to 20 km/sec and the rms of our error is usually less than 40 km/sec"
+  },
+  {
+   "section": "Velocity precision",
+   "parameter": "External error vs 21 cm (Rood)",
+   "value": "+-37",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "D82",
+   "location": "pp. 423-424, Sec. I",
+   "quote": "our typical external redshift error is +-37 km s"
+  },
+  {
+   "section": "Velocity precision",
+   "parameter": "Typical CfA absolute error",
+   "value": "+-38 (Rood 1982, with an internal-error correction of 10-20 percent)",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "p. 91, Sec. III",
+   "quote": "typical CfA absolute error is + 38 km s"
+  },
+  {
+   "section": "Velocity precision",
+   "parameter": "Accuracy of the survey velocities",
+   "value": "typically 35 km/s (the CfA part of the catalog)",
+   "unit": "km/s",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "abstract",
+   "quote": "accurate to typically 35 km s"
+  },
+  {
+   "section": "Survey and history",
+   "parameter": "Volume of data",
+   "value": "about 3000 galaxy spectra by 1983",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H83",
+   "location": "p. 91, Sec. III",
+   "quote": "date - 3000 galaxy spectra using a photon-counting"
+  },
+  {
+   "section": "Survey and history",
+   "parameter": "Start of the survey observing",
+   "value": "Spring 1978: roughly 350 galaxies observed",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "In the Spring of 1978, we observed roughly 350 galaxies in this sample"
+  },
+  {
+   "section": "Survey and history",
+   "parameter": "Throughput of the survey",
+   "value": "about 20 galaxies per clear night",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "T79",
+   "location": "p. 1512 (transcribed from the scan)",
+   "quote": "We can observe roughly 20 galaxies per clear night"
+  },
+  {
+   "section": "Survey and history",
+   "parameter": "Still in use",
+   "value": "1989: Z-machine spectra of SN 1989B; 1995: the survey's NGP +36 zone cites the photon-counting Reticon systems (Latham 1982)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "W94",
+   "location": "p. 2238, Sec. 2",
+   "quote": "(the so-called Z-Machine)"
+  },
+  {
+   "section": "Survey and history",
+   "parameter": "Latham 1982 as the instrument reference",
+   "value": "the CfA Reticon systems are described in Latham 1982 (not obtained)",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "H95",
+   "location": "p. 391, Sec. 2",
+   "quote": "photon-counting Reticon systems (Latham 1982) on the Tillinghast Reflector (1.5 m)"
+  },
+  {
+   "section": "Sister system (context only)",
+   "parameter": "ON 60-inch Reticon",
+   "value": "a Cassegrain spectrograph plus an identical CfA photon-counting dual-936 Reticon: 900 l/mm, ~100 A/mm, 6 A FWHM, 3 x 12 arcsec apertures 30 arcsec apart; 1200 l/mm ~60 A/mm in a few early cases",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "D84",
+   "location": "p. 1311, Sec. II",
+   "quote": "Most observations were made using a 900-line/mm grating, giving a dispersion of 100 A/mm with a typical resolution of 6 A (FWHM)"
+  },
+  {
+   "section": "Sister system (context only)",
+   "parameter": "ON 60-inch detector",
+   "value": "dual 936 Reticon coupled to a high-gain image tube, identical to the latest CfA version",
+   "unit": "",
+   "tag": "SOURCED",
+   "source": "D84",
+   "location": "p. 1310, Sec. II",
+   "quote": "dual 936 Reticon system coupled to a high-gain image tube package"
+  }
+ ],
+ "effective": {
+  "D": 1.524,
+  "F": 10.42,
+  "slit": 3.2,
+  "nObj": 2,
+  "G": 600,
+  "m": 1,
+  "lamC": 5600,
+  "psi": 20.0,
+  "fcam": 138.9,
+  "fcol": 855.6,
+  "W": 82.1,
+  "Nx": 1872,
+  "Ny": 2,
+  "pix": 15,
+  "filt": [
+   4300,
+   6900
+  ]
+ },
+ "pub": {
+  "dlpix": 1.8,
+  "dlpix_fit": 1.615,
+  "span": 2600,
+  "res_A": 4.8,
+  "vel_err_kms": [
+   35,
+   37,
+   38
+  ]
+ },
+ "not_found": [
+  "collimator type/focal length/beam/on-off-axis",
+  "camera type and focal length",
+  "blaze, camera-collimator angle",
+  "Cassegrain focal ratio",
+  "layout figure",
+  "image-tube demagnification",
+  "Latham 1982 and Davis & Latham 1979 not obtained"
+ ]
+}

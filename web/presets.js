@@ -689,20 +689,23 @@ const PRESETS = [
         { what: `design band ${l0}–${l1} Å (the dichroics)`, q: "span", value: l1 - l0, info: true, src: "DESI Final Design Report Sec. 5.1" },
       ],
     })),
-  // Boombox: audited 2026-11-16 (data/audit/). The Via Science Book (2026) gives the 50 mm beam; the Zemax layout in the
-  // Via technical document (with its own 200 mm scale bar) gives the blue arm's geometry, incidence 19.2° and symmetric
-  // at mid-band, so 1385 /mm (INFERRED); the drawing's red arm (incidence 24.8°) cannot reach the documented 5700–10100 Å
-  // with a 70–75 mm camera, so the red grating (857 /mm) is solved to span that band (an open question for the designers).
-  ...[["blue", 1384.7, 4750, 3600, 5900, 19.2], ["red", 857.0, 7981, 5700, 10100, null]].map(([arm, G, lc, l0, l1, al]) => ({
-    id: "boombox" + arm[0], tel: "Via (MMT and Magellan 6.5 m)", name: `Via / Boombox ${arm} (partly inferred)`, inst: "Boombox (partly inferred)", setting: arm,
-    note: `Boombox ${arm} channel (Via technical document; Via Science Book, 2026): 6.5 m, 200 µm (1.2″) unmasked fibers, refractive-triplet collimator, a 50 mm collimated beam, binary transmission grating, f/1.5 camera (75 mm on the 50 mm beam, DERIVED; ≈ 70–72 mm in the Zemax layout), 2048 × 256 CCD with 15 µm pixels, band ${l0}–${l1} Å. The fiber cone in the Zemax layout is f/5.2 (collimator ≈ 260 mm); the core enters at f/5.2, 200 µm / (5.2 × 6.5 m) = 1.22″, as the slit of equal line width, 1.06″. ` + (arm === "blue" ? `The grating is not documented: the layout shows the beam meeting the grating at 19.2° (MEASURED), taken as symmetric at mid-band (INFERRED), which gives ${G.toFixed(0)} /mm at 4750 Å; the chip then reaches past both ends of the band, as drawn.` : `The grating is not documented, and the layout's red arm (incidence 24.8°) cannot reach the documented band with a 70–75 mm camera; the grating here (${G.toFixed(0)} /mm, symmetric) is solved so that the chip spans 5700–10100 Å.`) + ` R ≈ 1000 is the team's nominal figure (an input to the Via exposure-time calculator); the documents do not say how this R is defined; if, as for Viaspec's unmasked R = 9000, the full fiber diameter sets the width (INFERRED), the figure is 15% below the explorer's line FWHM. The drawn layout follows the Boombox Zemax layout of the Via technical document: the dichroic${arm === "blue" ? " reflects the blue light by 135°" : " passes the red light to a 90° fold mirror"}, the grating stands 343 mm from the collimator and the detector ${arm === "blue" ? 342 : 304} mm past the grating.`,
-    state: { mode: "grating", D: 6.5, F: 5.2,
-      g: { slitW: S3 * 0.2 / (5.2 * 6500) * 206264.806, nObj: 36, col: "lens", layLen: 343, camLen: arm === "blue" ? 267 : 229, foldOn: true, foldAng: arm === "blue" ? 225 : 270, foldPos: arm === "blue" ? 0.42 : 0.64, foldLabel: arm === "blue" ? "dichroic" : "", gFlip: true, W: 50, fcam: 75, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
-           psi: 35, tAlpha: al, Nx: 2048, Ny: 256, pix: 15 } },
+  // Boombox (data/round11/boombox.md): the optical design of Piotrowski et al. 2026 (submitted; the Via team's manuscript):
+  // the collimator (264 mm), the 50 mm beam, the gratings (1516 and 836 /mm, ion-etched binary transmission), the 75 mm
+  // cameras, the dichroic and the CCD sourced; the gratings' angles of incidence and diffraction from the Boombox design
+  // team (2026-11-18: blue 18 deg in, 24.48 deg out; red 16.5 in, 22.976 out), which set lamC = (sin a + sin b) / G in the
+  // first order (INFERRED); the paper's bands (Table 2) include the dichroic's overlap, so the chip edges are compared as
+  // references
+  // (no "(design)" in the name, though Boombox is under construction: his call, 2026-11-18)
+  ...[["blue", 1516, 3550, 5850, 18, 24.48, 287, 224, 0.45, "dichroic", 1004], ["red", 836, 5650, 10100, 16.5, 22.976, 257, 270, 0.65, "", 928]].map(([arm, G, l0, l1, al, be, cl, fa, fp, fl, rFull]) => ({ lc: (Math.sin(al * Math.PI / 180) + Math.sin(be * Math.PI / 180)) / (G * 1e-3) * 1e4, arm, G, l0, l1, al, be, cl, fa, fp, fl, rFull })).map(({ lc, arm, G, l0, l1, al, be, cl, fa, fp, fl, rFull }) => ({
+    id: "boombox" + arm[0], tel: "Via (MMT and Magellan 6.5 m)", name: `Via / Boombox ${arm}`, inst: "Boombox", setting: arm,
+    note: `Boombox ${arm} channel, under construction for Via on the 6.5 m MMT and Magellan telescopes (commissioning in 2027), from its optical design (Piotrowski et al. 2026, submitted). 36 fibers of 200 µm (1.2″) deliver f/5.3 to a refractive split triplet (CaF₂, BSM51Y and S-FPL55; 264 mm, a 50 mm beam, the pupil 300 mm on), so the core enters at the collimator's f/5.28 as the slit of equal line width, 1.04″. A fused-silica dichroic at 22° (5750 Å, a 95 Å transition) ${arm === "blue" ? "reflects the blue light" : "passes the red light to a 45° fold mirror"}; the ion-etched binary transmission grating (${G} /mm, Plymouth Grating Laboratory) stands at the pupil, the light meeting it at ${al}° and leaving at ${be}° (the design team's values; first order, INFERRED), so the camera's axis is at ${Math.round(lc)} Å, then a refractive camera of 75 mm at f/1.5 (${arm === "blue" ? "six" : "five"} elements) and an e2v CCD261-04 of 2048 × 263 pixels of 15 µm, the 36 spectra on 3.95 mm. ` + (arm === "blue" ? `The chip spans 3512–5921 Å, past both ends of the paper's 3550–5850 Å band, which the dichroic and the coatings bound.` : `The chip spans 5762–10181 Å: it starts 112 Å above the paper's 5650 Å, the band edge that includes the dichroic's overlap.`) + ` R ≈ 1000 is the design target; taking the full 200 µm core as the line's width, as the Via team does, the model gives ${rFull}, and the explorer's line FWHM 10–11% more. Throughput without the telescope: ${arm === "blue" ? 42 : 45}% (the paper). The layout follows the paper's Fig. 1 (MEASURED against its 200 mm scale bar).`,
+    state: { mode: "grating", D: 6.5, F: 264 / 50,
+      g: { slitW: S3 * 0.2 / (264 / 50 * 6500) * 206264.806, nObj: 36, col: "lens", layLen: 340, camLen: cl, foldOn: true, foldAng: fa, foldPos: fp, foldLabel: fl, gFlip: true, W: 50, fcam: 75, gType: "trans", G, m: 1, lamB1: 5000, lamC: lc,
+           psi: 35, tAlpha: al, Nx: 2048, Ny: 263, pix: 15 } },
     pub: [
-      { what: "R ≈ 1000 (nominal)", q: "R", value: 1000, info: true, src: "Via technical document; Via Science Book. If the full fiber diameter sets the width, as for Viaspec's unmasked R = 9000 (INFERRED), 15% less than the explorer's" },
-      { what: `band from ${l0} Å`, q: "lo", value: l0, info: true, src: "Via technical document; Via Science Book" + (arm === "red" ? " (the red grating is solved to this band)" : "") },
-      { what: `band to ${l1} Å`, q: "hi", value: l1, info: true, src: (arm === "red" ? "Via Science Book (10100 Å; the technical document gives 10000 Å); the red grating is solved to this band" : "Via technical document; Via Science Book") },
+      { what: "R ≈ 1000 (design)", q: "R", value: 1000, info: true, src: `Piotrowski et al. 2026 (a design target; the definition is not stated). With the full 200 µm core as the width the model gives ${rFull}` },
+      { what: `band from ${l0} Å`, q: "lo", value: l0, info: true, src: "Piotrowski et al. 2026 Table 2 (the design band, which includes the dichroic's overlap: compared with the chip's edge as a reference; the grating angles are the design team's, not fitted)" },
+      { what: `band to ${l1} Å`, q: "hi", value: l1, info: true, src: "Piotrowski et al. 2026 Table 2 (as above)" },
     ],
   })),
   {
@@ -1290,6 +1293,134 @@ const PRESETS = [
            gLen: 408, Nx: 8192, Ny: 3072, pix: 15 } },
     pub: c.pub,
   })),
+  // Round 11 (data/round11/*.md, 2026-11-18): SALT RSS, HST STIS, the MMT Blue Channel, Lick Kast and the CfA Z-machine.
+  // SALT RSS (data/round11/rss.md): every value sourced from the Wisconsin design documents and the SALT call; the VPH
+  // gratings at their Bragg setting, the camera articulated to twice the grating angle; D is SALT's 11 m design pupil,
+  // which defines F/4.2 and the 150 mm beam (the illuminated pupil varies with the track, as the HET's)
+  ...[
+    { k: "0916", set: "PG0900 15.9°", G: 900, lamC: 6079, gLen: 180, ga: 15.875, pub: [
+      { what: "coverage from 4486 Å", q: "lo", value: 4486, tol: 0.02, src: "the MALS survey's PG0900 setup at 15.875° (not fitted: the chip from the CCD spacing)" },
+      { what: "coverage to 7533 Å", q: "hi", value: 7533, tol: 0.02, src: "the MALS survey's PG0900 setup" },
+      { what: "0.1267″/px", q: "pixScale", value: 0.1267, tol: 0.03, src: "SALT call for proposals Sec. 7.3 (the sourced 330 mm camera, not fitted)" },
+    ] },
+    { k: "0921", set: "PG0900 21.1°", G: 900, lamC: 8009, gLen: 180, ga: 21.125, pub: [
+      { what: "coverage from 6445 Å", q: "lo", value: 6445, tol: 0.02, src: "a published PG0900 setup at 21.125° (data/round11/rss.md, PGQ)" },
+      { what: "coverage to 9400 Å", q: "hi", value: 9400, tol: 0.02, src: "PGQ" },
+      { what: "0.485 Å/px", q: "dlpix", value: 0.485, tol: 0.05, src: "PGQ (0.97 Å/px, 2 × 2 binned: the binning INFERRED)" },
+      { what: "4.8 Å FWHM at 1.5″", q: "R", value: 8009 / 4.8 * 1.5 / 1.2, info: true, src: "PGQ (arc lines with a 1.5″ slit, scaled here to the 1.2″ slit). The model's line is 15% wider: the measured arcs are narrower than the geometric slit image" },
+    ] },
+    { k: "2340", set: "PG2300 40.6°", G: 2300, lamC: 5659, gLen: 237, ga: 40.6, pub: [] },
+    { k: "3050", set: "PG3000 50°", G: 3000, lamC: 5107, gLen: 237, ga: 50, pub: [
+      { what: "R = 5300 at 1.25″ (maximum tilt)", q: "Rs", value: 5300 * 1.25 / 1.2, tol: 0.03, src: "the RSS functional requirements, Sec. 2.2.2 (GEOMETRIC; scaled from 1.25″ to the 1.2″ slit)" },
+      { what: "R ≈ 5000 at 1″ (\"up to\")", q: "R", value: 5000, info: true, src: "SALT call for proposals (includes the real image quality, which the geometric model does not)" },
+    ] },
+  ].map(c => ({
+    id: "rss" + c.k, tel: "SALT 11 m", name: "SALT / RSS " + c.set + ", 1.2″", inst: "RSS", setting: c.set,
+    note: "The Robert Stobie Spectrograph at the prime focus of the 11 m Southern African Large Telescope (Nordsieck 2003 design documents; the SALT call for proposals), here the " + c.G + " /mm VPH grating at " + c.ga + "° with the camera articulated to " + (2 * c.ga).toFixed(2).replace(/\.?0+$/, "") + "° and a 1.2″ slit. The F/4.2 prime-focus beam (4.5″/mm) reaches the slit, then a nine-lens refractive collimator with a 90° fold (630 mm, DERIVED: 4.2 × the 150 mm beam), the VPH grating at the pupil, a nine-element camera of 330 mm at F/2.2 and three E2V CCDs of 2048 × 4102 pixels of 15 µm (2011 to 2026; the gaps of ≈100 pixels included, not drawn). A single 6k × 6k CCD replaced the three in 2026. D is SALT's 11 m design pupil, which sets the F/4.2 beam; the illuminated pupil varies with the track (an effective area of 7 to 9 m), so a light-gathering estimate from this preset is ≈2.1 times high, while R does not depend on D. No scaled layout is published: the drawing is schematic.",
+    state: { mode: "grating", D: 11, F: 4.2,
+      g: { slitW: 1.2, nObj: 1, col: "lens", colTilt: 0, layLen: 360, W: 150, fcam: 330, cam: "lens", gType: "trans", G: c.G, m: 1, gKind: "vph", gTilt: 0, lamC: c.lamC, lamB1: c.lamC, psi: 0, tAlpha: null,
+           gLen: c.gLen, Nx: 6344, Ny: 4096, pix: 15 } },
+    pub: c.pub,
+  })),
+  // HST STIS (data/round11/stis.md): the CCD first-order modes; the collimator and camera focal lengths are not published,
+  // so the camera (624.8 mm) is EFFECTIVE, fitted to G430L's dispersion, and the beam (17.58 mm) to the CCD's plate scale;
+  // the camera-collimator angle (21 deg) is INFERRED from the M modes' anamorphic plate scales (Woodgate et al. 1998 Table 5)
+  ...[
+    { k: "g430l", set: "G430L", G: 121.6, lamB1: 3817, lamC: 4300, pub: [
+      { what: "2.73 Å/px", q: "dlpix", value: 2.73, info: true, src: "STIS Instrument Handbook Table 4.1 (the camera is fitted to it: circular)" },
+      { what: "0.05078″/px along the slit", q: "pixScale", value: 0.05078, info: true, src: "STIS Instrument Handbook (the beam is fitted to it: circular)" },
+      { what: "coverage to 5700 Å", q: "hi", value: 5700, tol: 0.01, src: "STIS Instrument Handbook Table 4.1 (from 2900 Å: the explorer cuts the range at the atmosphere's 3200 Å, 11% of the mode)" },
+      { what: "R ≈ 500 at 5500 Å (extended source, 52X0.2)", q: "RAt", lam: 5500, value: 504, tol: 0.1, src: "STIS Instrument Handbook: the line spread function through 52X0.2, ≈4 px FWHM for an extended source, at 2.73 Å/px (DERIVED)" },
+      { what: "R ≈ 1340 at 5500 Å (point source)", q: "RAt", lam: 5500, value: 1343, info: true, src: "STIS Instrument Handbook (1.5 px FWHM for a star: the image is narrower than the slit, which the model, a uniformly lit slit, does not represent)" },
+    ] },
+    { k: "g750l", set: "G750L", G: 67.56, lamB1: 7386, lamC: 7751, pub: [
+      { what: "4.92 Å/px", q: "dlpix", value: 4.92, tol: 0.02, src: "STIS Instrument Handbook Table 4.1" },
+      { what: "coverage from 5240 Å", q: "lo", value: 5240, tol: 0.01, src: "STIS Instrument Handbook Table 4.1" },
+      { what: "coverage to 10,270 Å", q: "hi", value: 10270, tol: 0.01, src: "STIS Instrument Handbook Table 4.1" },
+    ] },
+    { k: "g430m", set: "G430M", G: 1200, lamB1: 3783, lamC: 4961, pub: [
+      { what: "0.28 Å/px", q: "dlpix", value: 0.28, tol: 0.03, src: "STIS Instrument Handbook (Woodgate et al. 1998 Table 5: 0.277)" },
+    ] },
+    { k: "g750m", set: "G750M", G: 600, lamB1: 7287, lamC: 6768, pub: [
+      { what: "0.56 Å/px", q: "dlpix", value: 0.56, tol: 0.02, src: "STIS Instrument Handbook (Woodgate et al. 1998 Table 5: 0.555)" },
+    ] },
+  ].map(c => ({
+    id: "stis" + c.k, tel: "HST 2.4 m", name: "HST / STIS " + c.set + ", 0.2″", inst: "STIS", setting: c.set,
+    note: "The Space Telescope Imaging Spectrograph on the Hubble Space Telescope, since 1997 (Woodgate et al. 1998; the STIS Instrument Handbook), here the CCD mode " + c.set + " (" + c.G + " /mm, first order) with the 52″ × 0.2″ slit. HST's f/24 beam passes a two-mirror corrector for the primary's spherical aberration (a sphere that images the pupil, then an anamorphic asphere) onto the slit wheel; an off-axis elliptical collimator, the mode-select wheel near a pupil image (21 optical elements) and, for the CCD modes, a Czerny–Turner chain: the plane grating, a fold and the camera mirror onto a 1024 × 1024 CCD of 21 µm (0.0508″/px). The collimator and camera focal lengths are not published: the camera (624.8 mm) is fitted to G430L's dispersion and the beam (17.6 mm; the pupil is 19 mm) to the plate scale, and the 21° camera-collimator angle is INFERRED from the anamorphic plate scales. The explorer cuts coverage at the atmosphere's 3200 Å, which a space telescope does not have: the ultraviolet modes and echelles (115–310 nm) are documented in data/round11/stis.md but not offered. The explorer's R is a uniformly lit slit's; a star is narrower than the 0.2″ slit and gives R ≈ 2.7 times higher. The layout is the handbook's unscaled sketch: the drawing is schematic.",
+    state: { mode: "grating", D: 2.4, F: 24,
+      g: { slitW: 0.2, nObj: 1, col: "mirror", cam: "mirror", W: 17.58, fcam: 624.8, gType: "refl", G: c.G, m: 1, lamB1: c.lamB1, lamC: c.lamC, psi: 21, tAlpha: null,
+           Nx: 1024, Ny: 1024, pix: 21 } },
+    pub: c.pub,
+  })),
+  // The MMT Blue Channel (data/round11/bluechannel.md): the 1979 design (Angel, Hilliard & Weymann 1979: a 6-inch off-axis
+  // parabolic collimator, the beam returned to a three-grating turret, a 9.86-inch folded Schmidt camera, the gratings 30 deg
+  // from the camera), on the 6.5 m MMT at f/9; the MMTO grating table reproduced by the grating equation to 1%
+  ...[
+    { k: "500", set: "500", G: 500, m: 1, lamB1: 5601.5, lamC: 5410, dl: 1.19, np: 3.18, Rs: 1430 },
+    { k: "300", set: "300", G: 300, m: 1, lamB1: 4998.6, lamC: 4800, dl: 1.96, np: 3.3, Rs: 740 },
+    { k: "800", set: "800", G: 800, m: 1, lamB1: 4199.3, lamC: 4050, dl: 0.75, np: 3.12, Rs: 1730 },
+    { k: "832b", set: "832 2nd", G: 832, m: 2, lamB1: 8103.3, lamC: 3900, dl: 0.36, np: 2.83, Rs: 3830 },
+    { k: "832r", set: "832 1st", G: 832, m: 1, lamB1: 8103.3, lamC: 7790, dl: 0.72, np: 2.83, Rs: 3830 },
+    { k: "1200", set: "1200", G: 1200, m: 1, lamB1: 5011.8, lamC: 4830, dl: 0.5, np: 2.9, Rs: 3340 },
+  ].map(c => ({
+    id: "bc" + c.k, tel: "MMT 6.5 m", name: "MMT / Blue Channel, " + c.set + (c.m === 2 || c.set.includes("1st") ? "" : " l/mm") + ", 1″", inst: "Blue Channel", setting: c.set,
+    note: "The Blue Channel of the MMT Spectrograph (Angel, Hilliard & Weymann 1979; the MMT Observatory's Blue Channel pages), the long-slit spectrograph of the original Multiple Mirror Telescope, in use on the converted 6.5 m MMT at f/9 (3.53″/mm), here the " + c.G + " /mm grating in order " + c.m + " with a 1″ slit. A total-internal-reflection prism folds the beam 70° to a 6-inch off-axis parabolic collimator (1350 mm, DERIVED: f/9 × the 150 mm beam; no source states it), which returns the beam to a turret of three gratings 30° from a folded Schmidt camera of 250.4 mm (9.86 inches) and an STA0520A CCD of 2688 × 512 pixels of 15 µm. The 1979 camera and angle reproduce the observatory's grating table to 1% in dispersion and coverage. The central wavelength is the grating's blaze, as in the table; the gratings' ruled sizes are not published. The layout and the fold are measured from the 1979 figure (±2°).",
+    state: { mode: "grating", D: 6.5, F: 9,
+      g: { slitW: 1, nObj: 1, col: "mirror", colTilt: 3.5, layLen: 1085, camLen: 300, preFoldOn: true, preFoldAng: 70, preFoldPos: 0.57, W: 150, fcam: 250.4, cam: "mirror", gType: "refl", G: c.G, m: c.m, lamB1: c.lamB1, lamC: c.lamC, psi: 30, tAlpha: null,
+           Nx: 2688, Ny: 512, pix: 15 } },
+    pub: [
+      { what: c.dl + " Å/px", q: "dlpix", value: c.dl, tol: 0.02, src: "MMTO Blue Channel grating table" },
+      { what: "1″ slit = " + c.np + " px", q: "npix", value: c.np, tol: 0.04, src: "MMTO Blue Channel grating table (resolution over dispersion)" },
+      { what: "R = " + c.Rs.toLocaleString("en-US") + " at 1″", q: "Rs", value: c.Rs, info: true, src: "MMTO Blue Channel grating table (GEOMETRIC: λ_B over the slit image; repeats the lines above)" },
+      { what: "0.3″/px", q: "pixScale", value: 0.3, tol: 0.06, src: "MMTO aperture page (rounded)" },
+    ],
+  })),
+  // Lick Kast (data/round11/kast.md): Miller & Stone, Lick Technical Report 66; the arms share the slit, and the D55 dichroic
+  // stands in the diverging beam ahead of each arm's own off-axis collimator (no relay: the All-arms group); the blue
+  // grism's apex is EFFECTIVE (fitted to its straight-through 4340 A) and its glass fused silica (EFFECTIVE: the one that
+  // best reproduces the three published grism dispersions); the red grating's angle EFFECTIVE (45 deg; a weak dependence)
+  {
+    id: "kastb", tel: "Shane 3 m", name: "Shane 3 m / Kast blue, 600/4310, 2″", inst: "Kast", setting: "blue, 600/4310",
+    note: "The Kast Double Spectrograph at the Cassegrain focus of the Lick 3 m Shane telescope (Miller & Stone, Lick Technical Report 66; the Lick user's guide), the supernova workhorse of the Berkeley group, here the blue arm with the 600/4310 grism and a 2″ slit. The f/17.5 beam (3.86″/mm) reaches the slit, then the D55 dichroic (5500 Å) in the diverging beam reflects the blue to an aluminized off-axis paraboloid (1416 mm, 80.8 mm beam), the grism (600 /mm; apex 33.9° and fused silica EFFECTIVE), a camera of 188.7 mm and a Fairchild CCD of 2048 × 2048 pixels of 15 µm (since 2008). The layout is measured from the report's one oblique drawing (the blue arm's distances SCHEMATIC).",
+    state: { mode: "grating", D: 3.048, F: 17.532,
+      g: { slitW: 2.0, nObj: 1, col: "mirror", colTilt: 5.0, layLen: 1070, W: 80.77, fcam: 188.7, cam: "lens", gType: "grism", G: 600, m: 1, lamB1: 4340, lamC: 4340, psi: 35, tAlpha: null, gA: 33.9, gGlass: "silica", gKind: "ruled", gTilt: 0,
+           Nx: 2048, Ny: 2048, pix: 15 } },
+    pub: [
+      { what: "1.02 Å/px", q: "dlpix", value: 1.02, info: true, src: "Lick Kast grism table (the glass is chosen from the three grisms' dispersions: circular)" },
+      { what: "coverage 2090 Å", q: "span", value: 2090, tol: 0.03, src: "Lick Kast grism table" },
+      { what: "0.43″/px", q: "pixScale", value: 0.43, tol: 0.02, src: "Lick Kast CCD pages (not fitted)" },
+      { what: "≈6 Å FWHM at 2″ (R ≈ 723)", q: "RAt", lam: 4340, value: 723, info: true, src: "Silverman et al. 2012 Sec. 2.1.2. A miss of 28%: the published line is wider than the 2″ slit's image; the model has no focus or seeing term" },
+    ],
+  },
+  {
+    id: "kastr", tel: "Shane 3 m", name: "Shane 3 m / Kast red, 300/7500, 2″", inst: "Kast", setting: "red, 300/7500",
+    note: "The Kast Double Spectrograph at the Cassegrain focus of the Lick 3 m Shane telescope (Miller & Stone, Lick Technical Report 66; the Lick user's guide), here the red arm with the 300/7500 grating and a 2″ slit: the D55 dichroic (5500 Å) passes the red to a silvered off-axis paraboloid (1416 mm, 80.8 mm beam), the grating (300 /mm, blazed at 7500 Å; the camera-collimator angle 45°, EFFECTIVE), a camera of 188.7 mm and a Hamamatsu CCD of 15 µm pixels (since 2016), of which rows 760–3310 are lit (2551 entered). The collimator stands 1070 mm from the grating and the collimator tilt is 5° (MEASURED from the report's oblique drawing).",
+    state: { mode: "grating", D: 3.048, F: 17.532,
+      g: { slitW: 2.0, nObj: 1, col: "mirror", colTilt: 5.0, layLen: 1070, W: 80.77, fcam: 188.7, cam: "lens", gType: "refl", G: 300, m: 1, lamB1: 7500, lamC: 7800, psi: 45, tAlpha: null,
+           Nx: 2551, Ny: 1024, pix: 15 } },
+    pub: [
+      { what: "2.55 Å/px", q: "dlpix", value: 2.55, tol: 0.03, src: "Lick Kast grating table (the 45° angle moves it by only 2% over 10–50°)" },
+      { what: "coverage 6785 Å", q: "span", value: 6785, info: true, src: "Lick Kast grating table. A conflict: 6785 Å at 2.55 Å/px needs 2661 rows, 4% more than the lit rows 760–3310 the manual gives" },
+      { what: "0.43″/px", q: "pixScale", value: 0.43, tol: 0.02, src: "Lick Kast CCD pages (not fitted)" },
+      { what: "≈11 Å FWHM at 2″ (R ≈ 709)", q: "RAt", lam: 7800, value: 709, tol: 0.08, src: "Silverman et al. 2012 Sec. 2.1.2 (the arm's center assumed)" },
+    ],
+  },
+  // The CfA Z-machine (data/round11/zmachine.md): the redshift-survey spectrograph and photon-counting Reticon on the
+  // Tillinghast 1.5 m, 1978 to the early 1990s; the slit, grating, dispersion, coverage and detector sourced, the optics
+  // EFFECTIVE (the camera fitted to the 120 A/mm, the collimator to the slit scale); the collimator entered as a lens (his
+  // call, 2026-11-18: the sources do not say whether it is a mirror)
+  {
+    id: "zmachine", tel: "Tillinghast 1.5 m", name: "Tillinghast 1.5 m / Z-machine, 600 l/mm, 3.2″ (effective optics)",
+    note: "The \"Z-machine\", the spectrograph and photon-counting Reticon on the Tillinghast 1.5 m at Mount Hopkins that measured the redshifts of the CfA Redshift Survey, 1978 to the early 1990s (Tonry & Davis 1979; Latham 1982; Davis et al. 1982; Huchra et al. 1983), here the survey's setup: two apertures of 12.5″ × 3.2″, 30″ apart (object and sky, swapped by moving the telescope), a 600 /mm grating in first order at 120 Å/mm, and a dual Reticon of 936 diodes of 375 × 30 µm behind a fiber-coupled image-tube intensifier, photon events located to half a diode (two spectra of 1872 pixels of 15 µm; each 375 µm row entered as 25 rows of 15 µm). The coverage is the published 4300–6900 Å (the band, filt). The optics are not published: the camera (139 mm) is fitted to the 120 Å/mm, the collimator (856 mm, 82 mm beam) to the slit scale, the focal ratio (f/10.4) is borrowed from FAST's plate scale at the same focus, and the collimator is entered as a lens (not known). The redshifts reached ≈37 km/s (Davis et al. 1982). The explorer cannot represent the photon counting, the intensifier's 30–40 µm resolution or the flexure (up to 100 km/s); the drawing is schematic. FAST replaced the Z-machine in 1994.",
+    state: { mode: "grating", D: 1.524, F: 10.42,
+      g: { slitW: 3.2, nObj: 2, col: "lens", W: 82.1, fcam: 138.9, cam: "lens", gType: "refl", G: 600, m: 1, lamB1: 5600, lamC: 5600, psi: 20, tAlpha: null,
+           filt: [4300, 6900], Nx: 1872, Ny: 50, pix: 15 } },
+    pub: [
+      { what: "1.8 Å/px (120 Å/mm)", q: "dlpix", value: 1.8, info: true, src: "Tonry & Davis 1979 p. 1512 (the camera is fitted to it: circular)" },
+      { what: "1.615 Å/px over the chip (the arc fit)", q: "dlpix", value: 1.615, info: true, src: "Tonry & Davis 1979 p. 1512 (23 lines between pixels 249 and 1661, a 7th-order fit: DERIVED mean). A conflict of 10% with the quoted 1.8 Å/px, unexplained by the sources" },
+      { what: "4.8 Å FWHM (R ≈ 1170 at 5600 Å)", q: "R", value: 5600 / 4.8, info: true, src: "Tonry & Davis 1979 p. 1512 (the slit image matches it only through the inferred slit scale: not independent)" },
+    ],
+  },
 ];
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;

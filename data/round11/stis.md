@@ -1,0 +1,277 @@
+# Round 11 (2026-11-18): STIS, the Space Telescope Imaging Spectrograph on the Hubble Space Telescope (id `stis`)
+
+Same rules as rounds 1-10 (data/presets_research.md): every number comes from a document saved unmodified under `rawdata/presets/stis/`; each value carries the source key, location and a short verbatim quote; **DERIVED** marks arithmetic done here from sourced values (shown); **EFFECTIVE** marks a value fitted so that the explorer reproduces published performance where the prescription is unpublished (the camera focal length and the beam width, with the fit shown in the Notes); **INFERRED** marks a reading that is not stated (the camera-collimator angle psi, f/24 at the slit wheel); **MEASURED** is read from a measurement; **SCHEMATIC** is a layout element with no source dimensions. Quotes were machine-checked against `pdftotext -layout` and `-raw` text of the saved PDF and the tag-stripped text of the saved handbook pages (whitespace, case, quotes, dashes, hyphenation, dot leaders and the PDF's lost glyphs normalized): **94 quote pieces, 0 failures**. The PDF has a text layer. Fig. 2 and handbook Fig. 3.1 were read as images.
+
+## Completeness summary
+
+**Complete from open sources:** the telescope and feed (2.4 m, f/24 beam, the 52 arcsec long slits and their widths), the corrector and the spectrograph configuration (collimator off-axis ellipse, MSM near a pupil, Czerny-Turner), the four CCD gratings (ruling, blaze, central wavelengths, tilts), the CCD (1024 x 1024, 21 um, 0.05078 arcsec/px), the published dispersion, coverage, plate scale and line spread function for each mode, and the UV echelle parameters (E140M, E230M).
+
+**Gaps that matter:** (1) no dimensioned layout, collimator or camera focal lengths, collimator tilt, fold angle or optical distances exist in the sources found (perspective drawing only: layLen, camLen and colTilt are left to the explorer's defaults); (2) the camera focal length (624.8 mm) and beam width (17.58 mm) are EFFECTIVE, fitted to two published outputs, and psi = 21 deg is INFERRED from the published anamorphic plate scales; (3) Kimble et al. 1998 (on-orbit performance) is behind a bot check and the SPIE design papers are paywalled; (4) the explorer models the slit-filling case: a point source's in-flight R is about 2.7 times higher; (5) the UV echelle modes lie below the 3200 A cut.
+
+**Status:** in operation (since 1997; CCD modes with post-SM4 handbook values). No '(design)' tag.
+
+## Sources
+
+| key | document | local file | URL |
+|---|---|---|---|
+| W98 | Woodgate, B. E., Kimble, R. A., Bowers, C. W., et al. 1998, PASP 110, 1183, "The Space Telescope Imaging Spectrograph Design" (ADS 1998PASP..110.1183W; title checked on ADS 2026-11-18; publisher PDF via the ADS link gateway). Secs. 3.1-3.4 (optics, gratings, slits), Tables 1, 4, 5, 7, 10, Fig. 2 (optical layout, p. 1190), Sec. 4.2 (CCD), Sec. 5 (f/24), Sec. 6.1 (MSM) | `rawdata/presets/stis/woodgate1998.pdf` | https://ui.adsabs.harvard.edu/link_gateway/1998PASP..110.1183W/PUB_PDF |
+| HB31 | STScI, STIS Instrument Handbook (Cycle 34 web edition), Sec. 3.1 Instrument Capabilities (fetched 2026-11-18) | `rawdata/presets/stis/hb_3-1-instrument-capabilities.html` | https://hst-docs.stsci.edu/stisihb/chapter-3-stis-capabilities-design-operations-and-observations/3-1-instrument-capabilities |
+| HB32 | STScI, STIS Instrument Handbook, Sec. 3.2 Instrument Design: detectors, physical configuration, Fig. 3.1 (fetched 2026-11-18) | `rawdata/presets/stis/hb_3-2-instrument-design.html` | https://hst-docs.stsci.edu/stisihb/chapter-3-stis-capabilities-design-operations-and-observations/3-2-instrument-design |
+| FIG31 | STScI, STIS Instrument Handbook Fig. 3.1 "Simplified STIS Optical Design" (JPEG embedded in HB32; same perspective drawing as W98 Fig. 2); read as an image, no text layer | `rawdata/presets/stis/hb_fig3-1.jpg` | https://hst-docs.stsci.edu/stisihb/files/148317021/148317022/1/1734029213109/c03_instr3.1.jpg |
+| HB33 | STScI, STIS Instrument Handbook, Sec. 3.3 Basic Instrument Operations (fetched 2026-11-18) | `rawdata/presets/stis/hb_3-3-basic-instrument-operations.html` | https://hst-docs.stsci.edu/stisihb/chapter-3-stis-capabilities-design-operations-and-observations/3-3-basic-instrument-operations |
+| HB41 | STScI, STIS Instrument Handbook, Sec. 4.1 Overview: Table 4.1 (modes, ranges, dispersions, R), Sec. 4.1.1 throughput definition, Sec. 4.1.5 scanned gratings (fetched 2026-11-18) | `rawdata/presets/stis/hb_4-1-overview.html` | https://hst-docs.stsci.edu/stisihb/chapter-4-spectroscopy/4-1-overview |
+| HB42 | STScI, STIS Instrument Handbook, Sec. 4.2 First-Order Long-Slit Spectroscopy: gratings, slits (fetched 2026-11-18) | `rawdata/presets/stis/hb_4-2-first-order-long-slit-spectroscopy.html` | https://hst-docs.stsci.edu/stisihb/chapter-4-spectroscopy/4-2-first-order-long-slit-spectroscopy |
+| HB43 | STScI, STIS Instrument Handbook, Sec. 4.3 Echelle Spectroscopy in the Ultraviolet (fetched 2026-11-18) | `rawdata/presets/stis/hb_4-3-echelle-spectroscopy-in-the-ultraviolet.html` | https://hst-docs.stsci.edu/stisihb/chapter-4-spectroscopy/4-3-echelle-spectroscopy-in-the-ultraviolet |
+| HB72 | STScI, STIS Instrument Handbook, Sec. 7.2 The CCD: characteristics table, format (fetched 2026-11-18) | `rawdata/presets/stis/hb_7-2-the-ccd.html` | https://hst-docs.stsci.edu/stisihb/chapter-7-feasibility-and-detector-performance/7-2-the-ccd |
+| HB74 | STScI, STIS Instrument Handbook, Sec. 7.4 The MAMA Detectors: characteristics table (fetched 2026-11-18) | `rawdata/presets/stis/hb_7-4-the-mama-detectors.html` | https://hst-docs.stsci.edu/stisihb/chapter-7-feasibility-and-detector-performance/7-4-the-mama-detectors |
+| G430L | STScI, STIS Instrument Handbook, Sec. 13.3 First-Order Grating G430L (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-grating-g430l.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/first-order-grating-g430l |
+| G750L | STScI, STIS Instrument Handbook, Sec. 13.3 First-Order Grating G750L (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-grating-g750l.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/first-order-grating-g750l |
+| G430M | STScI, STIS Instrument Handbook, Sec. 13.3 First-Order Grating G430M (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-grating-g430m.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/first-order-grating-g430m |
+| G750M | STScI, STIS Instrument Handbook, Sec. 13.3 First-Order Grating G750M (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-grating-g750m.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/first-order-grating-g750m |
+| E140M | STScI, STIS Instrument Handbook, Sec. 13.3 Echelle Grating E140M (fetched 2026-11-18) | `rawdata/presets/stis/hb_echelle-grating-e140m.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/echelle-grating-e140m |
+| E230M | STScI, STIS Instrument Handbook, Sec. 13.3 Echelle Grating E230M (fetched 2026-11-18) | `rawdata/presets/stis/hb_echelle-grating-e230m.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-3-gratings/echelle-grating-e230m |
+| A02 | STScI, STIS Instrument Handbook, Sec. 13.4 52X0.2 Aperture (fetched 2026-11-18) | `rawdata/presets/stis/hb_52x0-2-aperture.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-4-apertures/52x0-2-aperture |
+| A01 | STScI, STIS Instrument Handbook, Sec. 13.4 52X0.1 Aperture (fetched 2026-11-18) | `rawdata/presets/stis/hb_52x0-1-aperture.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-4-apertures/52x0-1-aperture |
+| A005 | STScI, STIS Instrument Handbook, Sec. 13.4 52X0.05 Aperture (fetched 2026-11-18) | `rawdata/presets/stis/hb_52x0-05-aperture.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-4-apertures/52x0-05-aperture |
+| A22 | STScI, STIS Instrument Handbook, Sec. 13.4 0.2X0.2 Aperture (fetched 2026-11-18) | `rawdata/presets/stis/hb_0-2x0-2-aperture.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-4-apertures/0-2x0-2-aperture |
+| A206 | STScI, STIS Instrument Handbook, Sec. 13.4 0.2X0.06 Aperture (fetched 2026-11-18) | `rawdata/presets/stis/hb_0-2x0-06-aperture.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-4-apertures/0-2x0-06-aperture |
+| LS1 | STScI, STIS Instrument Handbook, Sec. 13.6 First-Order Line Spread Functions: Tables 13.41-13.42 (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-line-spread-functions.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-6-line-spread-functions/first-order-line-spread-functions |
+| LSE | STScI, STIS Instrument Handbook, Sec. 13.6 Echelle Line Spread Functions: Tables 13.43-13.44 (fetched 2026-11-18) | `rawdata/presets/stis/hb_echelle-line-spread-functions.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-6-line-spread-functions/echelle-line-spread-functions |
+| SP1 | STScI, STIS Instrument Handbook, Sec. 13.5 First-Order Spatial Profiles: Table 13.38 (fetched 2026-11-18) | `rawdata/presets/stis/hb_first-order-spatial-profiles.html` | https://hst-docs.stsci.edu/stisihb/chapter-13-spectroscopic-reference-material/13-5-spatial-profiles/first-order-spatial-profiles |
+
+Also saved, not cited: `hb_index.html` (handbook home page), `hb_7-1-stis-detectors.html`, `hb_13-1-introduction.html`. Not obtained: Kimble et al. 1998 (bot check), Bowers et al. 1998 and Content et al. 1996 (SPIE); see NOT FOUND.
+
+## Recommended presets
+
+One Preset-menu line, telescope group 'HST 2.4 m' (new: D 2.4 m, telF 24), four Settings with short names (at most 16 characters), no All-arms group, no '(design)'. The slit is 52X0.2 (the handbook's utility slit) for all four.
+
+| id | Preset line / Setting | band (A) | lamC (A) | model R, A/px, npix at lamC | model range (A) |
+|---|---|---|---|---|---|
+| stisg430l | STIS / G430L | 2900-5700 (explorer 3200-5700) | 4300 | 397, 2.730, 3.90 | 3200-5700 |
+| stisg750l | STIS / G750L | 5240-10,270 | 7751 | 384, 4.914, 3.90 | 5239-10270 |
+| stisg430m | STIS / G430M | 3020-5610 in 10 tilts; 4819-5103 at 4961 | 4961 | 4987, 0.278, 3.50 | 4819-5103 |
+| stisg750m | STIS / G750M | 5450-10,140 in 9 tilts; 6481-7055 at 6768 | 6768 | 3186, 0.560, 3.64 | 6481-7055 |
+
+Shared state: mode grating, D 2.4, F 24, slitW 0.2 arcsec, nObj 1, col mirror (OFF-AXIS: colTilt left unset so the explorer's automatic off-axis tilt applies), cam mirror, gType refl, m 1, psi 21 (INFERRED), tAlpha null, W 17.58 mm (EFFECTIVE), fcam 624.8 mm (EFFECTIVE), Nx 1024, Ny 1024, pix 21. layLen, camLen and gLen are not set (NOT FOUND).
+
+| field | G430L | G750L | G430M | G750M |
+|---|---|---|---|---|
+| G | 121.6 | 67.56 | 1200 | 600 |
+| lamB1 | 3817 | 7386 | 3783 | 7287 |
+| lamC | 4300 | 7751 | 4961 | 6768 |
+
+lamB1 is DERIVED from Table 4 (Littrow blaze 2 sin(delta)/G): 3817, 7386, 3783, 7287 A. Menu names: "HST / STIS G430L, 0.2″" etc.; the Setting entries are 'G430L', 'G750L', 'G430M', 'G750M'.
+
+## STIS parameters
+
+| parameter | value | unit | tag | source and location | verbatim quote |
+|---|---|---|---|---|---|
+| Status and era | in operation since 1997 February (installed on the second servicing mission); the explorer preset represents the post-SM4 (2009) instrument documented in the Cycle 34 handbook, CCD modes |  | SOURCED | W98, Abstract | "The Space Telescope Imaging Spectrograph (STIS) instrument was installed on the Hubble Space Telescope (HST) during the second servicing mission, in 1997 February." |
+|  | ALT: HB32 Sec. 3.2.2: "The STIS optical design includes corrective optics to compensate for HST's spherical aberration" | | | | |
+|  | NOTE: STIS was down from 2004 to 2009 and repaired on SM4 (HB Sec. 2.2 is not saved); the grating, slit and CCD values below do not depend on that. No '(design)' tag. | | | | |
+| Telescope aperture D | 2.4 | m | SOURCED | HB41, Sec. 4.1.1 | "geometric area of a filled, unobstructed, 2.4 meter aperture" |
+|  | NOTE: The unobstructed 2.4 m is the throughput normalization; HST's central obstruction is not modeled by the explorer. | | | | |
+| HST beam at the STIS entrance | 24 | focal ratio | SOURCED | W98, Sec. 5 (calibration system), p. 1197 | "This beam slightly overfills the f/24 cone from the telescope." |
+|  | NOTE: The calibration beam is built to mimic the telescope's cone at the slit wheel; the handbook states no focal ratio. That the slit wheel itself sees f/24 (the corrector re-images the HST focus 1:1) is INFERRED: W98 says the IM lamp optics deliver 'approximately the correct cone angle', and the spherical corrector mirror images the pupil, the anamorphic mirror 're-images the corrected HST image onto the spectrometer slit wheel'. The explorer's plate scale does not depend on F (see the DERIVED rows). | | | | |
+| Plate scale at the slit wheel | 3.581 arcsec/mm (INFERRED, f/24 on 2.4 m) | arcsec/mm | DERIVED | W98, Sec. 5 | "f/24 cone from the telescope" |
+|  | NOTE: 206265 / (2400 mm x 24) = 3.581 arcsec/mm, i.e. 1 CCD pixel (0.05078 arcsec) = 14.18 um at the slit. Used only to give the camera/collimator magnification below; not a published number. | | | | |
+| Slit used for the Settings: 52X0.2 | 0.2 | arcsec (width, dispersion direction) | SOURCED | A02, Sec. 13.4, 52X0.2 table | "52X0.2 52.0 28.0 25.0 0.2" |
+|  | ALT: W98 Table 7: "0.2 52X0.2 G)L, G)M" | | | | |
+|  | NOTE: 'This "utility" slit is supported for all first-order gratings ... It provides a good compromise between spectral resolution and photometric throughput.' (A02). HB42 Sec. 4.2.2: 'The 0.2 arcsecond-wide slit is the general utility slit used most often'. | | | | |
+| Slit length on the CCD | 52 | arcsec | SOURCED | A02, Sec. 13.4, 52X0.2 table (projected length, CCD column) | "52X0.2 52.0 28.0 25.0 0.2" |
+|  | ALT: HB42 Sec. 4.2.2: "lengths of 52 arcseconds (as projected on the CCD detector)" | | | | |
+|  | NOTE: The long slits are 52 arcsec; they project onto the full 1024 rows (52.0 arcsec / 0.05078 = 1024 pixels). W98 Table 7 gives 52. | | | | |
+| Other long slits (CCD) | 52X0.05 (actual width 0.034), 52X0.1, 52X0.2, 52X0.5, 52X2 | arcsec | SOURCED | A005, Sec. 13.4, 52X0.05 page | "The actual width of this aperture is 34 milliarcsec instead of 50 milliarcsec" |
+|  | ALT: W98 Table 7: 0.049, 0.1, 0.2, 0.5, 2 arcsec (52X0.05 listed at 0.049 there) | | | | |
+|  | NOTE: Conflict: W98 Table 7 gives 0.049 arcsec for 52X0.05, the handbook gives 0.034 (see Conflicts). 52X0.1 (HB42: 'the 0.1 arcsecond width matches the 2 pixel resolution of the CCD') is the narrowest slit that needs the explorer's slit-diffraction rule; 52X0.1 and 52X0.05 need a PEAKUP (A01, A005). | | | | |
+| Slit throughput, 52X0.2 | 86.0 % at 4200 A, 86.7 % at 4800, 87.0 % at 5400, 82.9 % at 3000 A | % | SOURCED | A02, Table 13.20 | "4200 86.0 4800 86.7 5400 87.0" |
+|  | NOTE: Slit-loss factor for a point source (energy passing the slit); the explorer does not model throughput. | | | | |
+| Number of spectra on the detector | 1 |  | SOURCED | HB42, Sec. 4.2 (first-order long-slit) | "long slits of widths 0.05, 0.1, 0.2, 0.5 and 2.0 arcseconds" |
+|  | NOTE: nObj = 1: one long slit, one spectrum with 1024 spatial rows (explorer convention for single-object slits). Slitless mode (R ~ 10-500 in the UV) and the 0.2X0.2 aperture are not entered. | | | | |
+| Corrector (two mirrors) | a sphere (1st mirror, focusable over 55 mm, tilt for pupil centering) imaging the HST pupil onto an anamorphic, slightly toroidal asphere (2nd mirror) that corrects spherical aberration and astigmatism and re-images the HST focus onto the slit wheel |  | SOURCED | W98, Sec. 3.1, p. 1189 | "The first mirror is a sphere that images the HST pupil onto the second corrector mirror, which is an anamorphic asphere that is slightly toroidal in shape." |
+|  | ALT: W98 Sec. 3: "The first is a two-element reflecting corrector, which eliminates the spherical aberration created by the primary mirror manufacturing error"; Sec. 6.3: "the first corrector mirror is independently focusable over a 55" | | | | |
+|  | NOTE: Drawing note only (the explorer has no corrector); the HST pupil is imaged onto CM2, which also has a hole behind the telescope-secondary shadow for the HITM lamps. | | | | |
+| Slit wheel | 65 apertures on four segments, at the corrected HST focal plane |  | SOURCED | W98, Sec. 6.2, p. 1199 | "which provides 65 apertures or slits, for limiting the field" |
+|  | ALT: HB32: "a telescope focal plane slit-wheel assembly" | | | | |
+| Collimator type and axis | single off-axis ELLIPTICAL mirror; OFF-AXIS (the slit is not in the returning beam) |  | SOURCED | W98, Sec. 3.2, p. 1189 | "the light is collimated by an off-axis elliptical mirror" |
+|  | ALT: Fig. 2 label "Collimation Mirror" standing to the side of the slit wheel, beam path slit wheel -> mirror -> grating wheel (MSM), read from the drawing (FIG31) | | | | |
+|  | NOTE: Deploy gate: off-axis, so the explorer's automatic colTilt applies (do NOT set colTilt 0). The tilt angle is NOT FOUND in the open literature (the drawing has no scale). | | | | |
+| Collimated beam diameter (pupil) | 19 | mm | SOURCED | W98, Sec. 3.3, p. 1189 | "to cover the 19 mm pupil diameter" |
+|  | NOTE: The MSM optics are 25 mm in diameter 'to cover the 19 mm pupil diameter'. The collimator's focal length is NOT FOUND. DERIVED (INFERRED f/24 at the slit): f_col = 24 x 19 = 456 mm; see the effective values below, which differ. | | | | |
+| Mode select mechanism (MSM) | nutating grating wheel with 21 optical elements (first-order gratings, cross-dispersers, prism, mirrors); selects the element and tilts it (scan for the M modes); sits 'near an image of the system pupil' |  | SOURCED | W98, Sec. 3.2 and Sec. 6.1, pp. 1189, 1199 | "is near an image of the system pupil" |
+|  | ALT: HB32 Sec. 3.2.2: "It permits the selection of one of its 21 optical elements as well as adjustment of the tip and tilt angles of the selected grating or mirror." | | | | |
+|  | NOTE: The G430M and G750M gratings are scanned by tilting the MSM (W98 Sec. 6.1: 'all four medium-resolution long-slit modes (G140M, G230M, G430M, and G750M)'). The explorer's lamC follows the tilt at a fixed psi. | | | | |
+| Spectrograph configuration of the CCD modes | Czerny-Turner: collimator -> plane grating on the MSM -> fold mirror -> camera mirror -> detector (six reflective surfaces counting the two correctors); the UV G140L and G230L are Wadsworth (parabolic gratings), not CCD modes |  | SOURCED | W98, Sec. 3.2, p. 1189 | "Czerny-Turner spectrometers (six reflective surfaces including the corrector)" |
+|  | ALT: W98 Sec. 3.2: "In the Czerny-Turner configuration, light from the collimation mirror is intercepted by either a plane grating or a prism on the grating wheel." and "The fold mirror/echelle grating directs the light toward the respective camera mirror, which focuses the dispersed energy onto the appropriate detector" | | | | |
+|  | NOTE: CCD first-order modes: INFERRED to use the fold-mirror branch (W98 describes the fold mirror / echelle branch as one sentence and Fig. 2 draws 'Flat Mirrors (3)' near the MAMAs; the CCD mode path to the CCD camera mirror is not drawn). The camera is a single mirror (cam 'mirror' in the explorer; 'camera mirrors' labeled K1-K3 in Fig. 2). | | | | |
+| Disperser (CCD first order) | reflection, ruled, plane gratings in first order; 25 mm diameter |  | SOURCED | W98, Sec. 3.3, p. 1189 | "The other 10 first-order gratings are replicated on plane grating blanks." |
+|  | ALT: W98 Sec. 3.3: "12 of which are used in first order and four of which are echelle gratings"; "grating constants ranging from 67 to 3600 grooves" | | | | |
+|  | NOTE: Order m = 1 for all four CCD modes (also stated in HB41 Table 4.1 'First-Order Spectroscopy'). | | | | |
+| G430L: ruling and blaze | 121.60 /mm, 1.33 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "G430L 121.60 1.33 HF" |
+|  | NOTE: Manufacturer Hyperfine. DERIVED Littrow blaze wavelength lamB1 = 2 sin(1.33 deg) / 121.60 mm^-1 = 2 x 0.023210 / 121.60 = 3817 A (assumes the blaze angle is the facet angle and the Littrow condition; the explorer's lamB1). | | | | |
+| G750L: ruling and blaze | 67.56 /mm, 1.43 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "G750L 67.56 1.43 MR" |
+|  | NOTE: Manufacturer Milton-Roy. DERIVED lamB1 = 2 sin(1.43 deg) / 67.56 = 2 x 0.024951 / 67.56 = 7386 A. | | | | |
+| G430M: ruling and blaze | 1200.00 /mm, 13.12 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "G430M 1200.00 13.12 HF" |
+|  | NOTE: DERIVED lamB1 = 2 sin(13.12 deg) / 1200 = 2 x 0.22695 / 1200 = 3783 A. | | | | |
+| G750M: ruling and blaze | 600.00 /mm, 12.63 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "G750M 600.00 12.63 HF" |
+|  | NOTE: DERIVED lamB1 = 2 sin(12.63 deg) / 600 = 2 x 0.21861 / 600 = 7287 A. | | | | |
+| Detector (CCD) | SITe CCD, 1024 x 1024 pixels, 21 um pixels, 0.05078 arcsec/pixel, 52 x 52 arcsec field, thinned backside-illuminated, 1640-10,300 A |  | SOURCED | HB72, Sec. 7.2 characteristics table | "Pixel size 21 × 21 micrometers2 Pixel plate scale 0.05078 arcseconds" |
+|  | ALT: W98 abstract: "a single CCD with a format of 1024 # 1024 pixels"; HB72: "Pixel format 1024 × 1024 illuminated pixels" | | | | |
+|  | NOTE: Dispersion along the CCD rows (AXIS1), slit along the columns (HB72: 'the dispersion axis runs along AXIS1 ... the spatial axis of the slits runs along AXIS2'). Nx = Ny = 1024, pix = 21 um. Full readout is 1062 x 1044 with overscan (HB72). | | | | |
+| Detectors (UV MAMAs) | FUV-MAMA (CsI, 1150-1700 A) and NUV-MAMA (Cs2Te, 1600-3100 A), 1024 x 1024 native pixels of 25 um (2048 x 2048 high-res) |  | SOURCED | HB74, Sec. 7.4 characteristics table | "Pixel format 1024 × 1024 1024 × 1024 Pixel size 25 × 25 μm 25 × 25 μm" |
+|  | ALT: W98 abstract: "each with a format of 2048 # 2048 pixels" | | | | |
+|  | NOTE: Needed only for the UV echelle record below. | | | | |
+| G430L coverage and dispersion | 2900-5700 A in one setting; 2.73 A/pixel; central wavelength 4300 A (single setting) | A; A/px | SOURCED | HB41, Table 4.1 | "G430L 2900–5700 2800 2.73 530–1040 1 CCD" |
+|  | ALT: G430L page: "G430L 2900–5700 2800 2.73 0.05078 Prime 4300"; W98 Table 5: "G430L 2.75 2809 0.0512 0.0507" | | | | |
+|  | NOTE: Table 4.1's resolving-power column (lambda/2 Delta lambda) of 530-1040 is a two-pixel GEOMETRIC value (2 x 2.73 A over the band). W98 Table 5 (pre-launch) differs by 0.7 %. | | | | |
+| G750L coverage and dispersion | 5240-10,270 A in one setting; 4.92 A/pixel; central wavelength 7751 A | A; A/px | SOURCED | G750L, Sec. 13.3 grating table | "G750L 5240–10270 ... 5030 4.92 0.05078 Prime 7751" |
+|  | ALT: HB41 Table 4.1 G750L row (5240–10,270, 5030, 4.92, 530–1040); W98 Table 5: "G750L 4.88 4993 0.0512 0.0507" | | | | |
+|  | NOTE: The handbook's grating-page cell prints '5240-10270' with a footnote mark (the 8975 available-but-unsupported setting covers 6460-10,331 A). | | | | |
+| G430M coverage and dispersion | 3020-5610 A over 10 prime tilts; 286 A per tilt; 0.28 A/pixel; prime central wavelengths 3165, 3423, 3680, 3936, 4194, 4451, 4706, 4961, 5216, 5471 A; secondary 3305, 3843, 4781, 5093 | A; A/px | SOURCED | G430M, Sec. 13.3 grating table | "G430M 3020–5610 286 0.28 0.05078 Prime 3165, 3423, 3680, 3936, 4194, 4451, 4706, 4961, 5216, 5471" |
+|  | ALT: W98 Table 5: "G430M 0.277 283 0.0543–0.0578 0.0507" | | | | |
+|  | NOTE: Adjacent prime tilts overlap by 10 % (HB41 Sec. 4.1.5). | | | | |
+| G750M coverage and dispersion | 5450-10,140 A over 9 prime tilts; 572 A per tilt; 0.56 A/pixel; prime central wavelengths 5734, 6252, 6768, 7283, 7795, 8311, 8825, 9336, 9851 A; secondary 6094, 6581, 8561, 9286, 9806 (10363 available-but-unsupported) | A; A/px | SOURCED | G750M, Sec. 13.3 grating table | "G750M 5450–10140 572 0.56 0.05078 Prime 5734, 6252, 6768, 7283, 7795, 8311, 8825, 9336, 9851" |
+|  | ALT: W98 Table 5: "G750M 0.555 567 0.0540–0.0570 0.0507" | | | | |
+| Plate scale across the dispersion (CCD, all first-order) | 0.05078 (handbook); 0.0507 (W98) | arcsec/px | SOURCED | G430L, Sec. 13.3 grating table | "G430L 2900–5700 2800 2.73 0.05078 Prime 4300" |
+|  | ALT: W98 Table 5 cross-dispersion column: "G430L 2.75 2809 0.0512 0.0507" | | | | |
+|  | NOTE: Not changed by the grating: it sets the camera/collimator magnification (see below). | | | | |
+| Plate scale along the dispersion (W98) | G430L, G750L 0.0512; G430M 0.0543-0.0578; G750M 0.0540-0.0570 | arcsec/px | SOURCED | W98, Table 5, p. 1192 | "G430M 0.277 283 0.0543–0.0578 0.0507" |
+|  | ALT: W98 Table 5: "G750M 0.555 567 0.0540–0.0570 0.0507" | | | | |
+|  | NOTE: The grating's anamorphic factor cos(beta)/cos(alpha) widens the pixel along the dispersion by 0.0512/0.0507 = 1.0099 (L modes) and 1.071-1.140 (G430M): this is an independent measure of the camera-collimator angle (INFERRED psi below). | | | | |
+| Ground-test resolving power, first-order CCD modes | G430L 445-770; G750L 425-680; G430M 4340-7730; G750M 3760-6220 | lambda/FWHM | SOURCED | W98, Table 1, p. 1185 | "445–770 425–680" |
+|  | ALT: W98 Table 1 (M modes): "4340–7730 3760–6220"; text: "with the resolving powers achieved in ground testing" | | | | |
+|  | NOTE: MEASURED in ground testing, over each band; the slit width is not given (NOT FOUND). The quantity is lambda/Delta lambda (FWHM) per Table 1's header; the printed '=' glyphs are lost in the text layer. | | | | |
+| Handbook geometric resolving power (2-pixel) | G430L 530-1040; G750L 530-1040; G430M 5390-10,020; G750M 4870-9050 | lambda/(2 Delta lambda) | SOURCED | HB41, Table 4.1 | "G430M 3020–5610 286 0.28 5390–10,020 10 CCD" |
+|  | ALT: Table 4.1: "G750M 5450–10,140 572 0.56 4870–9050 9 CCD" | | | | |
+|  | NOTE: GEOMETRIC: two pixels (HB41 Table 4.1 column headed lambda/2 Delta lambda), not measured. | | | | |
+| Line spread function FWHM, 52X0.2, point source | 1.3 px at 3200 A, 1.5 at 5500, 1.6 at 7000, 2.0 at 10,000 | pixels (FWHM) | SOURCED | LS1, Table 13.41 | "52X0.2 1.3 1.5 1.6 2.0 ~4" |
+|  | ALT: Table 13.41, header: "Spectral Resolution (FWHM in pixels)"; rows 52X0.05 and 52X0.1: "52X0.1 1.3 1.4 1.5 1.7 ~2–3" | | | | |
+|  | NOTE: MEASURED (in-flight LSF). A point source is narrower than the slit (W98 Sec. 1, transcribed from p. 1183, where the text layer prints the arcsecond sign as '00 .': the imaging modes reach 0.06 arcsec FWHM in the ultraviolet and 0.12 arcsec in the visible, PSF- and pixel-limited), so the line is set by the PSF, not the slit: DERIVED R(52X0.2, point source) = lambda / (FWHM_px x dispersion): G430L 5500 / (1.5 x 2.73) = 1343; G750L 7000 / (1.6 x 4.92) = 889; G430M 5500 / (1.5 x 0.28) = 13,100; G750M 7000 / (1.6 x 0.56) = 7810. | | | | |
+| Line spread function FWHM, 52X0.2, extended source | ~4 pixels (all wavelengths) | pixels (FWHM) | SOURCED | LS1, Table 13.41 | "52X0.2 1.3 1.5 1.6 2.0 ~4" |
+|  | NOTE: The slit-filling case, the one the explorer models (a uniform slit): 0.2 arcsec / 0.0508 = 3.94 px. DERIVED R(52X0.2, extended) = lambda / (4 x dispersion): G430L at 5500 A 504; G750L at 7000 A 356; G430M at 5500 A 4910; G750M at 7000 A 3125. | | | | |
+| Throughput (point source, with the 52X0.2-independent definition) | G430L 9.9 % at 4500 A; G750L 8.0 % at 6500 A (7.9 at 7000); G430M 11.3 % at 5050-5150 A; G750M 13.4 % at 6500 A | % | SOURCED | G430L, Table 13.5 | "4500 2.7E15 9.9" |
+|  | ALT: G750L Table 13.3: "6500 5.8E15 8.0 7000 6.1E15 7.9"; G430M Table 13.6: "5050 3.6E14 11.3 5150 3.7E14 11.3"; G750M Table 13.4: "6500 1.1E15 13.4 7000 1.2E15 13.3" | | | | |
+|  | NOTE: Definition (HB41 Sec. 4.1.1): the end-to-end effective area divided by the geometric area of a filled, unobstructed, 2.4 meter aperture, 'at the time that STIS was initially calibrated (approximately 1997.7)'. Includes the CCD but excludes the slit loss ('Point source sensitivity assumes full transmission'). | | | | |
+| Encircled energy, 7-pixel extraction, G430L/G430M with 52X0.2 | 0.935 in a 7-pixel extraction (3000, 4000, 5000 A); center pixel 0.43, 0.36, 0.39 | fraction | SOURCED | SP1, Table 13.38 | "G430L &G430M 300040005000 52X0.2 7 0.42990.35510.3879 0.93480.93460.9346" |
+|  | NOTE: Spatial profile: the cross-dispersion PSF is sampled at 0.0508 arcsec/px, about 1 pixel FWHM. | | | | |
+| Fringing | CCD fringing compromises S/N beyond 7500 A without contemporaneous fringe flats (G750L and G750M) |  | SOURCED | G750L, Sec. 13.3 G750L page, Special Considerations | "Fringing in the CCD compromises the realizable signal-to-noise longward of 7500" |
+|  | NOTE: Not modeled by the explorer. | | | | |
+| E230M: echelle and cross-disperser | echelle 52.13 /mm, blaze 32.4 deg, central order 86; cross-disperser X230L 246.16 /mm, blaze 1.41 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "E230M 246.16 1.41 HF 52.13 32.4 86 MR" |
+|  | ALT: W98 Sec. 3.3: "The echelles range in grating constant from 26 to 99 grooves"; two of the four echelles are 56 x 30 mm, two are 56 x 76 mm (not tied to a mode) | | | | |
+|  | NOTE: The row's first-order columns are the cross-disperser (X230L, same ruling as row X230L). Echelle gamma, ruled length and the cross-disperser's psi are NOT FOUND. E230M uses the NUV-MAMA. | | | | |
+| E140M: echelle and cross-disperser | echelle 94.76 /mm, blaze 44.7 deg, central order 104; cross-disperser X140L 320.60 /mm, blaze 1.31 deg | /mm; deg | SOURCED | W98, Table 4, p. 1191 | "E140M 320.60 1.31 PE 94.76 44.7 104 MR" |
+|  | NOTE: E140M uses the FUV-MAMA. | | | | |
+| E230M coverage, resolution, dispersion | 1607-3129 A, two prime settings 1978 and 2707 A (secondary 2124, 2269, 2415, 2561), R = 30,000 (60,000 in the 2-pixel Table 4.1 convention lambda/60,000 per pixel) | A; lambda/Delta lambda | SOURCED | E230M, Sec. 13.3 E230M page | "E230M 1607–3129 ∼800 λ/60,000 0.035,0.029 Prime 1978, 2707" |
+|  | ALT: W98 Table 5: "E230M l/60000 808 0.0335 0.0294 0.46–1.72"; HB41 Table 4.1: "E230M 1605–3110 800 λ/60,000 30,000 2 NUV-MAMA" | | | | |
+|  | NOTE: R = 30,000 is GEOMETRIC (two pixels of lambda/60,000). Conflict on the along-dispersion plate scale: 0.035 (HB) vs 0.0335 arcsec/px (W98). The whole mode lies below 3200 A in part: see the atmospheric cut. | | | | |
+| E230M order spacing | ~18 pixels (0.52 arcsec) at 1650 A and 62.5 pixels (~1.8 arcsec) at 3100 A; 20-40 orders per exposure, 800 A per exposure | pixels | SOURCED | E230M, Sec. 13.3 E230M page, Special Considerations | "The interorder separation is ~18 pixels (0.52 arcseconds) at 1650 Å and 62.5 pixels (~1.8 arcseconds) at 3100 Å." |
+|  | ALT: W98 Table 5 order separation column: 0.46-1.72 arcsec | | | | |
+|  | NOTE: The cross-dispersion scale 0.029 arcsec/px sets the order spacing; short slits (0.2 arcsec long) keep the orders from overlapping (HB43 Sec. 4.3.2). | | | | |
+| E140M coverage and resolution | 1144-1729 A in a single setting (prime 1425 A), R = 45,800 (lambda/91,700 per pixel), ~600 A per echellogram, order spacing ~15 pixels (0.44 arcsec) at 1150 A and ~33 (0.96 arcsec) at 1700 A | A | SOURCED | E140M, Sec. 13.3 E140M page | "E140M 1144–1729 567 λ/91,700 0.036,0.029 Prime 1425" |
+|  | ALT: HB41 Table 4.1: "E140M 1144–1710 567 λ/91,700 45,800 1 FUV-MAMA 0.2X0.2, 0.2X0.06"; W98 Table 5: "E140M l/91700 587 0.0363 0.0294 0.42–0.96" | | | | |
+|  | NOTE: The whole E140M range is below 3200 A. | | | | |
+| Echelle slits | general utility 0.2X0.2; two-pixel 0.2X0.06 (E140M, E230M); 0.1X0.03 for the highest R | arcsec | SOURCED | HB43, Sec. 4.3.2 | "The 0.2X0.2 aperture is the general utility slit for use with all echelle modes." |
+|  | ALT: A206: "It is two pixels wide in the dispersion direction for the MAMA echelle gratings"; A206 table width 0.063 arcsec | | | | |
+|  | NOTE: The actual 0.2X0.06 width is 0.063 arcsec (A206 table). | | | | |
+| Echelle LSF FWHM, 0.2X0.2 (E140M / E230M) | 1.4 px at 1200 A, 1.3 at 1500, 1.1 at 1700 (FUV), 2.0 at 1700 (NUV), 1.9 at 2400; extended source ~6 px | pixels | SOURCED | LSE, Table 13.43 | "0.2X0.2 1.4 1.3 1.1 2.0 1.9 ~6" |
+|  | ALT: 0.2X0.06 row: "0.2X0.06 1.3 1.2 1.1 1.8 1.7 ~2" | | | | |
+|  | NOTE: MEASURED. | | | | |
+| HST has no simultaneous arms | only one of the three detectors operates at a time, so STIS is not an 'All arms' group |  | SOURCED | HB33, Sec. 3.3, Parallel Operations | "only one detector can be used at any one time" |
+|  | NOTE: No dichroic tree for web/arms.js. | | | | |
+
+## Optical layout (from the published figures)
+
+- **Source figures** (SOURCED): W98 Fig. 2 "Optical layout of STIS" (p. 1190, PDF p. 8; a perspective sketch with the lamp, mode select mechanism, slit wheel, correction mirrors, collimation mirror, camera mirrors, the four echelles, flat mirrors and the three detectors labeled; no scale bar and no dimensions) and the STIS Instrument Handbook Fig. 3.1 "Simplified STIS Optical Design" (the same drawing; saved as FIG31). Both were read as images: this record has no published dimensioned layout, no Code V file and no optical prescription. Kimble et al. 1998 (ApJ 492, L83) and the SPIE papers (Bowers et al. 1998, 3356, 401; Content et al. 1996, 2807, 267) are behind publisher bot checks or paywalls and were not obtained (NOT FOUND).
+- **Element order (CCD first-order modes)** (SOURCED): Telescope focus -> (calibration insertion mechanism, external shutter) -> first corrector mirror (sphere, W98 Sec. 3.1) -> second corrector mirror (anamorphic asphere, hole for the HITM lamps) -> slit wheel at the corrected focus -> collimation mirror (off-axis ellipse) -> mode select mechanism (MSM) with the plane grating, near a pupil image -> fold mirror -> camera mirror -> CCD (W98 Secs. 3.1-3.3 and 5-6; the Czerny-Turner branch is described in one sentence, W98 Sec. 3.2).
+- **Collimator on or off axis** (SOURCED): OFF-AXIS: "the light is collimated by an off-axis elliptical mirror" (W98 Sec. 3.2). The slit wheel is not in the returning beam (the corrected focus sits at the entrance; the collimated beam goes to the MSM). Verdict: off-axis, so the explorer's default (automatic) colTilt applies; do not enter colTilt 0. The tilt angle is NOT FOUND.
+- **Sides, folds and positions** (SCHEMATIC): In Fig. 2 and Fig. 3.1 the slit wheel and the MSM stand side by side on the telescope end; the collimation mirror stands to the right of (beyond) the slit wheel; the camera mirrors (K1-K3, labeled) stand above the slit wheel; the CCD sits at the top of the drawing, the MAMAs and echelles at the far right on the detector bulkhead. The perspective drawing carries no scale, so no fold angle, no collimator-to-grating distance and no grating-to-camera distance can be read: layLen and camLen are NOT FOUND and the explorer's defaults draw the CCD modes schematically. The drawing is mode-independent up to the MSM ('The beam path is common up to the mode select mechanism', W98 Fig. 2 caption).
+- **Pupil and beam** (SOURCED): The grating wheel stands near a pupil image; the optics on it are about 25 mm across 'to cover the 19 mm pupil diameter' (W98 Sec. 3.3). The first corrector mirror images the HST pupil onto the second corrector mirror (W98 Sec. 3.1).
+- **Grating geometry** (INFERRED): The camera-collimator angle psi = alpha - beta is not published. INFERRED psi = 21 deg from the anamorphic factor: W98 Table 5 gives the along-dispersion pixel 0.0512 vs 0.0507 arcsec across for G430L/G750L (factor 1.0099, which fixes psi at 21 +/- 3 deg with the model's grating equation) and then predicts, independently, the M modes' ranges: the model at psi = 21 gives 0.0545-0.0578 for G430M tilts 3165-5471 (W98 0.0543-0.0578) and 0.0542-0.0570 for G750M tilts 5734-9851 (W98 0.0540-0.0570). psi = 10 and 30 deg give 0.0525-0.0539 and 0.0565-0.0616: excluded.
+
+## Atmospheric cut at 3200 A (the explorer)
+
+| mode | complete range (A) | removed below 3200 A | share removed |
+|---|---|---|---|
+| G430L | 2900-5700 | 300 A | 300 / 2800 = 10.7 % |
+| G750L | 5240-10,270 | 0 A | 0 % |
+| G430M | 3020-5610 (10 tilts) | 180 A | 180 / 2590 = 6.9 % of the complete range; the 3165 tilt (nominal 3022-3308) shows 3200-3308, losing 178 / 286 = 62 %; the 3305 secondary loses ~38 A (13 %); 3423 and redder tilts lose none |
+| G750M | 5450-10,140 (9 tilts) | 0 A | 0 % |
+| G230LB / G230MB (CCD) | 1680-3060 / 1640-3190 |  | 100 %: entirely below 3200 A (not entered) |
+| E230M (NUV-MAMA) | 1607-3129 |  | 100 %: the whole mode lies below 3200 A |
+| E140M (FUV-MAMA) | 1144-1729 |  | 100 % |
+
+DERIVED from the handbook ranges (HB41 Table 4.1; G430M page tilts). Of the four Settings only G430L loses range (300 A of 2800, 10.7 %); G430M at 4961 and G750M at 6768 sit wholly above 3200 A. The UV echelles cannot be shown: E230M's 1607-3129 A and E140M's 1144-1729 A are entirely cut, so the documentation record has no explorer state.
+
+## Slit diffraction at 2.4 m (the explorer's slit rule)
+
+| lambda (A) | lambda/D (arcsec) | 2 lambda/D (arcsec) | 0.2" slit in lambda/D | 0.1" | 0.034" (52X0.05) |
+|---|---|---|---|---|---|
+| 3200 | 0.0275 | 0.0550 | 7.3 | 3.6 | 1.2 |
+| 5500 | 0.0473 | 0.0945 | 4.2 | 2.1 | 0.7 |
+| 7000 | 0.0602 | 0.1203 | 3.3 | 1.7 | 0.6 |
+| 10000 | 0.0859 | 0.1719 | 2.3 | 1.2 | 0.4 |
+| 10300 | 0.0885 | 0.1770 | 2.3 | 1.1 | 0.4 |
+
+DERIVED: lambda/D = lambda / 2.4 m x 206265. The rule (2 f_col lambda / w, applied when w < 2 lambda / D) is inactive at 0.2 arcsec below 11,600 A (the slit is 2.3 lambda/D at 10,300 A). For 0.1 arcsec it starts above 5818 A (= 0.1/206265 x 2.4 m / 2); for 52X0.05 (34 mas) above 1980 A. The 52X0.1 and 52X0.05 slits are not entered as Settings: their in-flight R is PSF-limited for a point source, which the model cannot represent; the slit-width control can still reproduce them as extended-source cases.
+
+## Published performance (validation targets)
+
+| what | quantity | value | tol | source | note |
+|---|---|---|---|---|---|
+| dispersion 2.73 A/px (G430L) | dlpix | 2.73 | 0.01 (info) | G430L; HB41 Table 4.1 | info: circular, the camera focal length 624.8 mm was fitted to it (EFFECTIVE); model 2.730 |
+| dispersion 4.92 A/px (G750L, 7751 A) | dlpix | 4.92 | 0.02 | G750L; HB41 Table 4.1 | independent of the G430L fit (different ruling and blaze): model 4.914 |
+| dispersion 0.28 A/px (G430M, 4961 A) | dlpix | 0.28 | 0.03 | G430M; HB41 | independent: model 0.278 (W98 Table 5: 0.277) |
+| dispersion 0.56 A/px (G750M, 6768 A) | dlpix | 0.56 | 0.02 | G750M; HB41 | independent: model 0.560 (W98: 0.555) |
+| spatial scale 0.05078 arcsec/px (CCD) | pixScale | 0.05078 | 0.005 (info) | HB72; G430L | info: circular, W = 17.58 mm was fitted to it (EFFECTIVE); model 0.0508 |
+| G750L coverage 5240-10,270 A (lo and hi) | lo,hi | [5240, 10270] | 0.01 | G750L; HB41 | model 5239-10,270; partly circular (center from the sourced 7751 A tilt, scale fitted) |
+| G430L upper edge 5700 A (lower edge 2900 A is cut at 3200) | hi | 5700 | 0.01 | G430L; HB41 | model 3200-5700; the lower edge is the explorer's atmospheric cut |
+| per-tilt coverage 286 A (G430M) and 572 A (G750M) | span | [286, 572] | 0.02 | G430M; G750M | model 4819-5103 (284 A) and 6481-7055 (574 A); equals 1024 px x dispersion (partly circular) |
+| extended-source LSF ~4 px through 52X0.2 (0.2 arcsec = 3.94 px) | npix | 4.0 | 0.15 | LS1 Table 13.41 | model 3.90 (L modes), 3.50 (G430M) and 3.64 (G750M: wider pixels along the dispersion, 0.057 and 0.055 arcsec); the handbook's ~4 is rounded |
+| along-dispersion pixel, G430M tilts 3165-5471: 0.0543-0.0578 arcsec | specScale | [0.0543, 0.0578] | 0.01 | W98 Table 5 | model at psi = 21 deg: 0.0545-0.0578 (the independent test of psi); G750M 0.0542-0.0570 vs W98 0.0540-0.0570 |
+| R(52X0.2, extended source) ~ 500 at 5500 A (G430L) | Rs | 504 | 0.1 | LS1 + G430L (DERIVED 5500/(4 x 2.73)) | model Rs 517 at 5500 A (R 503 with diffraction) |
+| R(52X0.2, point source) ~ 1340 at 5500 A (G430L) | R | 1343 |  (info) | LS1 + G430L (DERIVED 5500/(1.5 x 2.73)) | info: a point source narrower than the slit; the model has no PSF-limited case |
+| ground-test R 445-770 (G430L), 425-680 (G750L), 4340-7730 (G430M), 3760-6220 (G750M) | R |  |  (info) | W98 Table 1 | info: measured in ground testing across each band; slit unknown |
+| two-pixel geometric R 530-1040 (G430L), 530-1040 (G750L), 5390-10,020 (G430M), 4870-9050 (G750M) | Rnpix |  |  (info) | HB41 Table 4.1 | info: lambda / (2 x dispersion) |
+| throughput 9.9 % (G430L 4500 A), 8.0 % (G750L 6500), 11.3 % (G430M 5100), 13.4 % (G750M 6500) | info |  |  (info) | G430L, G750L, G430M, G750M tables | the explorer does not model throughput |
+
+MODEL OUTPUTS (web/physics.js, read-only run from the scratch directory; slit 0.2 arcsec):
+
+| Setting | lamC | A/px | arcsec/px | Rs | Rd | R | npix | range (A) | alpha / beta (deg) | flags |
+|---|---|---|---|---|---|---|---|---|---|---|
+| G430L | 4300 | 2.730 | 0.0508 | 404 | 2186 | 397 | 3.90 | 3200-5700 | 12.02 / -8.98 | none |
+| G750L | 7751 | 4.914 | 0.0508 | 404 | 1214 | 384 | 3.90 | 5239-10270 | 12.03 / -8.97 | none |
+| G430M | 4961 | 0.278 | 0.0508 | 5099 | 23920 | 4987 | 3.50 | 4819-5103 | 28.12 / 7.12 | none |
+| G750M | 6768 | 0.560 | 0.0508 | 3318 | 11410 | 3186 | 3.64 | 6481-7055 | 22.42 / 1.42 | none |
+
+Rs at other wavelengths (slit 0.2 arcsec): G430L 376 (4000 A), 517 (5500 A); G750L 365 (7000 A), 470 (9000 A). With slit 0.1 arcsec: G430L 751 / 1033; G750L 731 / 939 (R 653 / 840 with the diffraction lobe, fDif 1.20 / 1.55).
+
+## NOT FOUND
+
+- Kimble, R. A., Woodgate, B. E., Bowers, C. W., et al. 1998, ApJ 492, L83, "The On-Orbit Performance of the Space Telescope Imaging Spectrograph" (ADS 1998ApJ...492L..83K; https://iopscience.iop.org/article/10.1086/311102/pdf): the publisher link returns a Radware bot-check page, not the PDF; not downloaded. Please supply the PDF if wanted (on-orbit R, plate scales, throughputs).
+- Bowers, C. W., et al. 1998, SPIE 3356, 401, "On-orbit optical performance of the Space Telescope Imaging Spectrograph" (1998SPIE.3356..401B) and Content, R., et al. 1996, SPIE 2807, 267, "Development and testing of diffraction gratings for the Space Telescope Imaging Spectrograph" (1996SPIE.2807..267C): SPIE refuses automated access; no free copy found. They would give measured gratings, efficiencies and perhaps the camera geometry.
+- A dimensioned optical layout, the collimator's and the cameras' focal lengths, the collimator tilt, the fold-mirror angle and the collimator-grating-camera distances: not in W98, the handbook, or any free source found (STIS is a Ball Aerospace/GSFC build; the design reports are not public). The explorer's collimator focal length is therefore set from the published pupil and plate scale, EFFECTIVE (below).
+- The camera-collimator angle psi (INFERRED from the anamorphic plate scales instead); the CCD first-order gratings' ruled areas (gLen); the camera mirrors' focal lengths and the CCD camera's focal ratio.
+- The slit width used in the ground-test resolving powers of W98 Table 1 (445-770 for G430L, etc.).
+- The handbook's own statement of the f/ratio at the slit wheel (the handbook gives none; W98 Sec. 5 gives f/24 only for the calibration beam).
+- Echelle gamma (out-of-plane angle), the cross-disperser's psi and the echelle ruled lengths per mode (W98 Sec. 3.3 gives only two echelle sizes, 56 x 30 mm and 56 x 76 mm, not tied to modes): the UV echelle modes are a documentation record, not a state.
+
+## Conflicts between sources
+
+- 52X0.05 width: W98 Table 7 prints 0.049 arcsec; the handbook says "The actual width of this aperture is 34 milliarcsec instead of 50 milliarcsec" (the as-built slit measured on orbit). Preset uses 0.2 arcsec, unaffected.
+- Dispersions: handbook G430L 2.73, G750L 4.92, G430M 0.28, G750M 0.56 A/px vs W98 Table 5 2.75, 4.88, 0.277, 0.555 (pre-launch design). The explorer fits the handbook (current) values; differences are <= 1 %.
+- Along-dispersion plate scale of E230M: handbook 0.035 vs W98 0.0335 arcsec/px; E140M 0.036 vs 0.0363. Not used by a state.
+- Collimated beam vs plate scale: W98's 19 mm pupil with f/24 at the slit and the published 0.05078 arcsec/px would require a camera of 675 mm, but the published dispersion (2.73 A/px at 121.6 /mm) requires about 625 mm. Both cannot hold with W = 19 mm; the explorer keeps both published outputs by treating W (17.58 mm) as EFFECTIVE (see Notes). With the sourced 19 mm the model's plate scale is 0.0549 arcsec/px (8 % high) and R at 0.2 arcsec 8 % high.
+- The handbook's R for the first-order modes (Table 4.1) is a two-pixel geometric lambda/2 Delta lambda (530-1040 for G430L); the in-flight FWHM through 52X0.2 for a point source is 1.3-2.0 px (R ~ 1340 for G430L at 5500 A) and for an extended source ~4 px (R ~ 500). W98's ground-test R (445-770 for G430L) lies between the two in kind (measured, slit unknown). Which of these the explorer should be compared to depends on the source: it models the slit-filling (extended-source) case.
+
+## Notes
+
+- Era and status. STIS has operated on HST since 1997 February, with a gap 2004-2009 before the 2009 servicing mission; the CCD modes and the 21 um, 1024 x 1024 SITe CCD are unchanged in design. The CCD has since lost charge-transfer efficiency and gained hot pixels (handbook Secs. 7.2-7.3): not modeled. The preset represents the Cycle 34 handbook (current) instrument. No '(design)' tag. (The 2004-2009 outage is from general knowledge of the mission, not from a saved source; it does not enter any value.)
+- Telescope group. New group 'HST 2.4 m' (D = 2.4 m, telF 24): F = 24 is the focal ratio of the beam entering STIS (W98 Sec. 5); the model's plate scale and slit-limited R depend only on W / fcam and D (derived below), not on F. D = 2.4 m is the full aperture; the central obstruction of the HST secondary is not modeled (the handbook's throughputs use the unobstructed 2.4 m).
+- EFFECTIVE values. The collimator's and the camera's focal lengths are NOT FOUND. The explorer needs the beam width W (= f_col / F) and the camera focal length fcam. With f/24 on the slit and the sourced 19 mm pupil, the collimator would be 456 mm and the published CCD plate scale 0.05078 arcsec/px (21 um pixels) would need fcam = 0.021 x 19 x (206265/2400) / 0.05078 = 675 mm, whereas the published G430L dispersion (2.73 A/px at 121.6 /mm and psi = 21 deg, cos(beta) = 0.988) needs fcam ~ 625 mm. The model's pixel scale is pix x W x RAD / (D x fcam) (independent of F), so two published numbers (plate scale, dispersion) fix two unknowns: EFFECTIVE fcam = 624.8 mm (fitted to 2.73 A/px at 4300 A, G430L) and EFFECTIVE W = 17.58 mm (fitted to 0.05078 arcsec/px), i.e. f_col = 24 x 17.58 = 421.9 mm and a camera focal ratio of 35.2. Both published targets are then circular (listed as info); the G750L, G430M and G750M dispersions, the G750L coverage and the M-mode anamorphic plate scales are independent tests (all within 1.5 %). Cost: the grating beam is 18-20 mm instead of the quoted 19 mm pupil. With W = 19 mm and fcam = 624.8 the plate scale would be 0.0549 and the slit-limited R 8 % high.
+- psi = 21 deg is INFERRED (see the layout section); the model's alpha/beta are then 12.0/-9.0 (L modes), 28.1/7.1 (G430M 4961 A) and 22.4/1.4 (G750M 6768 A); the incidence angle of the M modes moves with the tilt.
+- What the explorer cannot represent. (1) A point source: the HST PSF (FWHM 1.3-2.0 px, 0.07-0.10 arcsec) is narrower than the 0.2 arcsec slit, so the in-flight lines are 1.3-2.0 px wide and R for a star is about 2.7 times the model's slit-limited value (G430L at 5500 A: 1343 vs 504); the explorer models the slit-filling case. (2) UV modes below 3200 A (E140M, E230M, G230LB/MB, all MAMA modes). (3) The MSM's nutation: the grating tilt is entered as lamC only. (4) CTE loss, fringing in the CCD beyond 7500 A, the slit's occulting bars and the pseudo-aperture positions. (5) Different cameras for the CCD and MAMA modes: with f/24 at the slit (INFERRED) one arcsec is 0.2793 mm, so the slit-plane pixel is 0.05078 x 0.2793 = 14.18 um for the CCD (camera/collimator magnification 21/14.18 = 1.48), 0.0245 x 0.2793 = 6.84 um for the G140L MAMA pixel (25/6.84 = 3.65) and 0.0294 x 0.2793 = 8.21 um across the echelle dispersion (25/8.21 = 3.05) (plate scales from W98 Table 5 and HB74); a Setting with a MAMA detector would need its own fcam.
+- Slit-diffraction rule. HST's 2.4 m aperture makes the 0.1 and 0.034 arcsec slits only 2 and 0.7 lambda/D wide at 5500 A (the table below). The explorer's rule (the grating lit over the slit's own diffraction lobe, 2 f_col lambda / w) starts when the slit is narrower than 2 lambda/D. The 0.2 arcsec slit is wider than 2 lambda/D at every wavelength the CCD covers (2 lambda/D = 0.172 arcsec at 10,000 A), so the rule is inactive for the recommended Settings (model fDif = 1.00 at 0.2 arcsec; for G750L at 0.1 arcsec 1.20 at 7000 A and 1.55 at 9000 A). The grating's diffraction limit (Rd 1200-24,000) is above the slit limit in every Setting.
+- Resolving-power conventions. HB41's R is lambda/(2 x pixel dispersion), geometric. The slit-limited model R at 0.2 arcsec is 400-520 (L), 5100 (G430M), 3300 (G750M); the handbook's two-pixel geometric R is 530-1040 (L): the difference is the slit's 3.9-pixel width versus the handbook's 2 pixels. Use the slit-filling comparison (extended source ~4 px) for validation.
+- Settings. Four Settings with the 52X0.2 long slit (the handbook's general utility slit): G430L (single tilt, 4300 A), G750L (7751 A), G430M at the 4961 prime tilt (H-beta and [O III], above the cut) and G750M at the 6768 prime tilt (H-alpha, [N II], [S II]). Other M tilts change only lamC (the prime lists above). The 3165 A G430M tilt loses 62 % of its range to the cut. The UV echelles (E140M, E230M) are recorded for documentation: both ranges lie below the explorer's 3200 A cut, so no state is given.
+- All-arms group. None: only one detector operates at a time (HB33).
+- Pixel plate scales vary between modes (CCD along-dispersion 0.0512-0.0578 arcsec because of the grating's anamorphic factor; MAMA 0.0245-0.0474): the explorer's pixScale is the across-dispersion (along-slit) value, 0.0508 for the CCD modes; specScale is the along-dispersion value.

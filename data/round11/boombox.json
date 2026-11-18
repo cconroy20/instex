@@ -1,0 +1,981 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 11: Boombox (id 'boombox')",
+  "compiled": "2026-11-18",
+  "companion": "data/round11/boombox.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = fitted (red lambda_c only); INFERRED = a reading not stated; MEASURED = read from Fig. 1 with its 200 mm scale bar.",
+  "quote_check": {
+   "pieces_checked": 69,
+   "failures": 0
+  },
+  "status": "under construction; commissioning 2027: tag (design)"
+ },
+ "sources": {
+  "P26": {
+   "cite": "Piotrowski, J. J., Frostig, D., Mueller, M., et al. 2026, \"Optical design of Boombox: a high-throughput optical spectrograph on dual-hemisphere 6.5-meter telescopes\", SUBMITTED SPIE paper (Ground-based and Airborne Instrumentation for Astronomy XI), manuscript dated 2026-07-19, 9 pp. NOT YET PUBLISHED: quotes are kept short",
+   "file": "boombox/Boombox_Design_ATI_2026_20260719_submitted.pdf",
+   "url": "(none: manuscript supplied by the Via team; Figs. 1-2 and 4 are raster images, so figure labels are not machine-checkable)"
+  },
+  "VO": {
+   "cite": "The Via Collaboration 2026, \"The Via Project: Overview of the Science, Instrument, and Survey\", arXiv:2606.18332 (the earlier source for the 36 fibers, bands 3600-5900 / 5700-10100 and the 2048 x 256 CCD). Sec. 2.4, Figs. 13, 15, 16",
+   "file": "via/via_project_overview_arXiv2606.18332.pdf",
+   "url": "https://arxiv.org/abs/2606.18332"
+  }
+ },
+ "parameters": [
+  {
+   "parameter": "Telescopes",
+   "value": "6.5 m MMT and Magellan Clay (one Boombox on each)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1",
+   "page": 2,
+   "quote": "6.5-m MMT & Magellan Clay",
+   "alt": [],
+   "note": "\"Two Boombox spectrographs, one for each telescope\" (Sec. 3.3, p. 9) [checked below]. Boombox drives the pointing 10% of the 500-night survey."
+  },
+  {
+   "parameter": "Fibers per spectrograph",
+   "value": 36,
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Sec. 1",
+   "page": 1,
+   "quote": "36 dedicated optical fibers",
+   "alt": [
+    {
+     "src": "VO",
+     "loc": "Sec. 2.4",
+     "quote": "accepting 36 fibers from the focal plane"
+    }
+   ],
+   "note": "of the 636 the Via fiber positioning system routes; no sky or calibration fibers are counted in the paper's 36 (nObj 36 stays)."
+  },
+  {
+   "parameter": "Fiber core",
+   "value": 200,
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1",
+   "page": 2,
+   "quote": "Fiber core diameter 200 µm (1.2′′ on-sky)",
+   "alt": [],
+   "note": "unmasked (no slit mask) in the older sources."
+  },
+  {
+   "parameter": "Fiber on-sky size",
+   "value": 1.2,
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1",
+   "page": 2,
+   "quote": "1.2′′ on-sky",
+   "alt": [],
+   "note": ""
+  },
+  {
+   "parameter": "Fiber output (collimator input) focal ratio",
+   "value": 5.3,
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.1; Fig. 2 caption",
+   "page": 3,
+   "quote": "collimating the f/5.3 output of the fibers into a 50 mm diameter beam",
+   "alt": [],
+   "note": "the old preset used f/5.2 (measured from a Zemax drawing)."
+  },
+  {
+   "parameter": "Telescope focal ratio into the fibers (explorer F)",
+   "value": 5.28,
+   "unit": "",
+   "tag": "DERIVED",
+   "src": "P26",
+   "loc": "Table 1; Sec. 2.1",
+   "page": 2,
+   "quote": "Fiber core diameter 200 µm",
+   "alt": [],
+   "note": "NOT stated. 200 um = 1.2 arcsec on 6.5 m gives F = 0.2 mm / (1.2/206265 x 6500 mm) = 5.29, equal to the f/5.3 fiber output (no focal-ratio degradation claimed). The preset uses F = f_col/W = 264/50 = 5.28, which keeps the collimator at exactly 264 mm and the slit at 1.202 arcsec (full core). Plate scale 200 um / 1.2 arcsec = 167 um/arcsec (DERIVED)."
+  },
+  {
+   "parameter": "Slit length (fiber slit)",
+   "value": 13.6,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4",
+   "page": 5,
+   "quote": "The fiber slit length is 13.6 mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.1",
+     "quote": "the 13.6 mm slit length"
+    }
+   ],
+   "note": "36 fibers; pitch (13.6 - 0.2)/35 = 0.383 mm if 13.6 mm is the outer extent (DERIVED, INFERRED reading), a gap of 0.18 mm, matching the quoted 'about 200 um'."
+  },
+  {
+   "parameter": "Gap between fibers on the slit",
+   "value": 0.2,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4",
+   "page": 5,
+   "quote": "A non-illuminated gap is left between each fiber of about 200 µm",
+   "alt": [],
+   "note": "on the chip: fiber image 200 x 0.284 = 56.8 um = 3.8 px; pitch 0.383 x 0.284 = 109 um = 7.3 px (DERIVED); the as-built EE95 limit 24.6 um is 'half the gap between spectra' (Sec. 3), so the gap is 49.2 um (consistent with 109 - 56.8 = 52 um)."
+  },
+  {
+   "parameter": "System (collimator x camera) magnification",
+   "value": 0.28,
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4",
+   "page": 5,
+   "quote": "the system magnification (collimator and camera) is 0.28×",
+   "alt": [],
+   "note": "75/264 = 0.284 (DERIVED check)."
+  },
+  {
+   "parameter": "Spectra on the detector, chip height",
+   "value": "36 spectra on 3.95 mm",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 1",
+   "page": 2,
+   "quote": "squeezes 36 spectra onto a compact detector (3.95 mm tall)",
+   "alt": [],
+   "note": "263 rows x 15 um = 3.945 mm."
+  },
+  {
+   "parameter": "Collimator type",
+   "value": "refractive split triplet, spherical surfaces (CL1 CaF2, CL2 BSM51Y, CL3 S-FPL55)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.1; Fig. 2 and caption",
+   "page": 3,
+   "quote": "The collimator is a refractive design",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.1, p. 4",
+     "quote": "when coupled with CaF2 and BSM51Y elements"
+    },
+    {
+     "src": "P26",
+     "loc": "Sec. 2",
+     "quote": "No aspheric surfaces are used in the spectrograph design"
+    }
+   ],
+   "note": "Fig. 2 labels CL1 CaF2, CL2 BSM51Y, CL3 S-FPL55 (figure text, not machine-checkable). col = \"lens\". ON-AXIS in the lens sense: the fiber slit sits on the triplet's axis in Fig. 2 (a refractive collimator has no obscuration and no tilt); no colTilt applies."
+  },
+  {
+   "parameter": "Collimator focal length",
+   "value": 264,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.1; Table 2",
+   "page": 3,
+   "quote": "The effective focal length of the split triplet collimator is 264 mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Table 2",
+     "quote": "Collimator focal length = 264 mm"
+    },
+    {
+     "src": "P26",
+     "loc": "Abstract",
+     "quote": "triplet collimator with a 264 mm focal length"
+    }
+   ],
+   "note": "the old preset had ~260 mm (f/5.2 on 50 mm)."
+  },
+  {
+   "parameter": "Collimated beam diameter",
+   "value": 50,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1; Table 2",
+   "page": 2,
+   "quote": "Collimated beam diameter 50 mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Table 2",
+     "quote": "Entrance pupil diameter = 50 mm"
+    }
+   ],
+   "note": "264/50 = f/5.28."
+  },
+  {
+   "parameter": "Collimator field along the slit",
+   "value": "+-1.5",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.1",
+   "page": 3,
+   "quote": "creating collimated beams spanning ±1.5 degrees",
+   "alt": [],
+   "note": "13.6 mm / 264 mm = 2.95 deg total (DERIVED check)."
+  },
+  {
+   "parameter": "Collimator pupil relief (collimator to grating/pupil)",
+   "value": 300,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.1; Table 2; Fig. 2 caption",
+   "page": 3,
+   "quote": "The collimator is a refractive design with 300 mm of pupil relief",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Fig. 2 caption",
+     "quote": "forms a pupil image 300 mm to the right of the lens assembly"
+    }
+   ],
+   "note": "'>= 300 mm' in Table 2. The pupil falls on the etched face of each grating (Sec. 2.1, p. 4)."
+  },
+  {
+   "parameter": "Dichroic crossover",
+   "value": 5750,
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2",
+   "page": 2,
+   "quote": "divided in wavelength at 5750 Å into blue and red arms using a dichroic beamsplitter",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.2",
+     "quote": "The crossover wavelength for the spectrograph is 5750 Å"
+    }
+   ],
+   "note": "Asahi Spectral; 'lying blue of the Na I D doublet'."
+  },
+  {
+   "parameter": "Dichroic angle of incidence",
+   "value": 22,
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.2",
+   "page": 4,
+   "quote": "is designed to work at a tilt angle of 22",
+   "alt": [],
+   "note": "the older arms.js entry (22.5 deg, MEASURED from the bench layout) is confirmed. Measured from Fig. 1 here: the plate stands 21.5 deg from the beam normal and the blue beam is turned 137.3 deg (180 - 2 x 21.4)."
+  },
+  {
+   "parameter": "Dichroic transition width (90% R to 90% T)",
+   "value": 95,
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.2",
+   "page": 4,
+   "quote": "The transition region from 90% reflection to 90% transmission is approximately 95 Å",
+   "alt": [],
+   "note": "the old arms.js entry used 200 A (unpublished then)."
+  },
+  {
+   "parameter": "Dichroic substrate",
+   "value": "fused silica, 10 mm thick",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.2",
+   "page": 4,
+   "quote": "is made of fused silica, and is 10 mm thick",
+   "alt": [],
+   "note": ""
+  },
+  {
+   "parameter": "Dichroic performance",
+   "value": "R 99.4% (3550-5650 A), T 99.2% (5850-10100 A)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.2",
+   "page": 4,
+   "quote": "achieving an average reflectivity of 99.4% from 3550 Å to 5650 Å and an average transmission of 99.2% from 5850 Å to 10100 Å",
+   "alt": [],
+   "note": "THE BLUE CHANNEL IS REFLECTED, the red transmitted (reflection quoted over the blue range, transmission over the red). Fig. 1: the red light continues straight to a fold mirror."
+  },
+  {
+   "parameter": "Channel overlap at the dichroic",
+   "value": "blue 3550-5850, red 5650-10100",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2; Table 2",
+   "page": 2,
+   "quote": "The blue channel covers 3550 Å to 5850 Å and the red channel covers 5650 Å to 10100 Å",
+   "alt": [],
+   "note": "'with spectral overlap accounting for the crossover region of the dichroic' (the nominal bands are 3550-5750 and 5750-10100)."
+  },
+  {
+   "parameter": "Dichroic position",
+   "value": "in the collimated beam, after the collimator, ahead of both gratings",
+   "unit": "",
+   "tag": "MEASURED",
+   "src": "P26",
+   "loc": "Fig. 1 (p. 3)",
+   "page": 3,
+   "quote": "split in wavelength at the dichroic beamsplitter",
+   "alt": [],
+   "note": "dichroic center 113 mm past the triplet's last vertex along the beam (scale bar, Fig. 1)."
+  },
+  {
+   "parameter": "Grating type",
+   "value": "ion-etched binary transmission (master), Plymouth Grating Laboratory; not VPH",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Sec. 2.3",
+   "page": 1,
+   "quote": "ion-etched binary transmission gratings from Plymouth Grating Laboratory",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.3, p. 4",
+     "quote": "We chose binary gratings for Boombox"
+    }
+   ],
+   "note": "gType \"trans\"; gKind not vph."
+  },
+  {
+   "parameter": "Blue grating line density",
+   "value": 1516,
+   "unit": "/mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1; Sec. 2.3",
+   "page": 2,
+   "quote": "1 516 ln/mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.3, p. 4",
+     "quote": "The blue channel uses a 1 516 line/mm grating"
+    }
+   ],
+   "note": "the old preset's 1385 /mm was INFERRED from a measured 19.2 deg incidence and is 9% low."
+  },
+  {
+   "parameter": "Red grating line density",
+   "value": 836,
+   "unit": "/mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1; Sec. 2.3",
+   "page": 2,
+   "quote": "836 ln/mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.3, p. 4",
+     "quote": "the red channel uses an 836 line/mm grating"
+    }
+   ],
+   "note": "the old preset's 857 /mm was solved to span 5700-10100 A and is 2.5% high."
+  },
+  {
+   "parameter": "Grating position",
+   "value": "at the aperture stop = the collimator's pupil, etched face",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.3; Sec. 2.1",
+   "page": 4,
+   "quote": "The diffraction grating is placed at the aperture stop",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.1, p. 4",
+     "quote": "produces a sharp, achromatic pupil on the etched face of each transmission grating"
+    }
+   ],
+   "note": "so layLen = collimator to grating = the pupil distance."
+  },
+  {
+   "parameter": "Diffraction order",
+   "value": 1,
+   "unit": "",
+   "tag": "INFERRED",
+   "src": "P26",
+   "loc": "Sec. 2.3 (not stated)",
+   "page": 4,
+   "quote": "Boombox uses moderate dispersion gratings to achieve R ≈ 1 000 in both wavelength channels",
+   "alt": [],
+   "note": "the paper never names the order; first order is the only one that fits the geometry (Gm lambda = 0.73 and 0.63 at the drawn angles)."
+  },
+  {
+   "parameter": "Grating angles (alpha incidence / beta diffraction)",
+   "value": "NOT in the text",
+   "unit": "",
+   "tag": "NOT FOUND",
+   "src": "P26",
+   "loc": "-",
+   "page": null,
+   "quote": "",
+   "alt": [],
+   "note": "see the MEASURED values from Fig. 1 under Layout."
+  },
+  {
+   "parameter": "Camera type",
+   "value": "refractive, spherical surfaces; blue 6 elements, red 5 elements",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Sec. 2.4; Fig. 4",
+   "page": 1,
+   "quote": "a set of 75 mm focal length cameras that are six and five elements in the blue and red channels",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.4, p. 5",
+     "quote": "one (red channel) or two (blue channel) aplanatic-type meniscus lenses"
+    }
+   ],
+   "note": "cam = \"lens\". A color-correcting split doublet, positive elements, and one (red) or two (blue) menisci; both are made of 5 unique lenses (BL3 and BL4 identical); CaF2, fused silica and i-line glasses in the blue."
+  },
+  {
+   "parameter": "Camera focal length",
+   "value": 75,
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4; Table 2",
+   "page": 5,
+   "quote": "This sets the effective focal lengths of the cameras to 75 mm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Table 2",
+     "quote": "Camera focal length = 75 mm"
+    }
+   ],
+   "note": "the old preset's 75 mm was DERIVED from f/1.5 x 50 mm; it is now sourced (the 70-72 mm of the Zemax drawing was a measurement error)."
+  },
+  {
+   "parameter": "Camera focal ratio",
+   "value": 1.5,
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4",
+   "page": 5,
+   "quote": "corresponding to a focal ratio of f/1.5",
+   "alt": [],
+   "note": "75/50 = 1.50."
+  },
+  {
+   "parameter": "Camera pupil relief",
+   "value": ">= 40",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.3; Table 2",
+   "page": 4,
+   "quote": "modest pupil relief from the camera (> 40 mm)",
+   "alt": [],
+   "note": "the grating and its mount sit at the camera's entrance pupil."
+  },
+  {
+   "parameter": "Detector tilt (focus vs wavelength)",
+   "value": "blue 1.61, red 1.57",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.4",
+   "page": 6,
+   "quote": "The blue channel detector is nominally tilted",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.4",
+     "quote": "the red channel detector is tilted by 1.57"
+    }
+   ],
+   "note": "tilt about the spatial axis; the model does not draw it."
+  },
+  {
+   "parameter": "Detector",
+   "value": "e2v CCD261-04 in a Teledyne LANSIS 261 camera, both channels",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.5",
+   "page": 6,
+   "quote": "an e2v CCD261-04 detector",
+   "alt": [],
+   "note": "deep-depleted, 'high broadband quantum efficiency and wide aspect ratio'."
+  },
+  {
+   "parameter": "Format",
+   "value": "2048 x 263",
+   "unit": "px",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 2.5",
+   "page": 6,
+   "quote": "The CCD array is 2048 × 263 pixels with a 15 µm pixel pitch",
+   "alt": [
+    {
+     "src": "VO",
+     "loc": "Sec. 2.4, p. 22",
+     "quote": "2048 × 256 pixels with 15 µm pitch for an active area of 30.72 × 3.96 mm"
+    }
+   ],
+   "note": "CONFLICT: 263 rows (the paper; 3.945 mm = the paper's 3.95 mm) versus 256 (Via overview; its 3.96 mm = 264 rows). The explorer's old Ny 256 follows the overview; the paper is newer and matches its own 3.95 mm."
+  },
+  {
+   "parameter": "Pixel pitch",
+   "value": 15,
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 2; Sec. 2.5",
+   "page": 3,
+   "quote": "Pixel pitch = 15.0 µm",
+   "alt": [],
+   "note": ""
+  },
+  {
+   "parameter": "Wavelength range, blue",
+   "value": "3550-5750 (nominal) / 3550-5850 (design with overlap)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Table 1; Table 2",
+   "page": 2,
+   "quote": "3550 Å – 5750 Å",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Table 2",
+     "quote": "Wavelength range (blue) 3550 Å – 5850 Å"
+    },
+    {
+     "src": "VO",
+     "loc": "Sec. 2.4",
+     "quote": "a blue channel (3600 to 5900 Å)"
+    }
+   ],
+   "note": "CONFLICT with the older preset (3600-5900, from the Via overview)."
+  },
+  {
+   "parameter": "Wavelength range, red",
+   "value": "5750-10100 (nominal) / 5650-10100 (design with overlap)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Table 1; Table 2",
+   "page": 2,
+   "quote": "5750 Å – 10100 Å",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Table 2",
+     "quote": "Wavelength range (red) 5650 Å – 10100 Å"
+    },
+    {
+     "src": "VO",
+     "loc": "Sec. 2.4",
+     "quote": "a red channel (5700 to 10100 Å)"
+    }
+   ],
+   "note": "the older preset's 5700 lower edge and 10100 upper edge: the upper edge is confirmed."
+  },
+  {
+   "parameter": "Resolving power",
+   "value": "R ~ 1000, both channels",
+   "unit": "",
+   "tag": "SOURCED (a design target)",
+   "src": "P26",
+   "loc": "Abstract; Table 1; Sec. 2.3",
+   "page": 1,
+   "quote": "at a resolving power of R ≈ 1 000",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 2.3, p. 4",
+     "quote": "to achieve R ≈ 1 000 in both wavelength channels"
+    }
+   ],
+   "note": "no definition, no wavelength, no per-channel measurement (the instrument is not built). See the model check for what the geometry gives."
+  },
+  {
+   "parameter": "Average throughput, without the telescope",
+   "value": "blue 42%, red 45%",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Table 1; Sec. 3.2",
+   "page": 8,
+   "quote": "the Boombox blue channel has an average throughput of 42% and the red channel has an average throughput of 45%",
+   "alt": [
+    {
+     "src": "VO",
+     "loc": "Sec. 2.4",
+     "quote": "peaks around 40% in the blue channel and 43% in the red channel"
+    }
+   ],
+   "note": "includes fibers, collimator, dichroic, grating, camera and CCD QE (Fig. 6)."
+  },
+  {
+   "parameter": "Image quality (geometric, nominal design)",
+   "value": "blue RMS radius 4.6 um, EE95 8.8 um (max 12.6); red 3.8 um, 8.8 um (max 13.8)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Sec. 3.1; Fig. 5",
+   "page": 6,
+   "quote": "The blue channel has an average RMS spot radius of 4.6 µm and an average EE95% radius of 8.8 µm",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 3.1",
+     "quote": "The PSF is dominated by aberrations, but well-matched to the pixel sampling at the detector"
+    }
+   ],
+   "note": "requirement EE95 <= 15 um (1 px) design, 24.6 um as built (Table 2)."
+  },
+  {
+   "parameter": "Status",
+   "value": "being built; commissioning in 2027",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "P26",
+   "loc": "Abstract; Sec. 4",
+   "page": 1,
+   "quote": "an expected commissioning date in 2027",
+   "alt": [
+    {
+     "src": "P26",
+     "loc": "Sec. 4",
+     "quote": "currently in the detailed design phase"
+    }
+   ],
+   "note": "so the preset is marked (design) (as G-CLEF and ZShooter)."
+  }
+ ],
+ "layout": [
+  {
+   "item": "Scale",
+   "tag": "SOURCED/MEASURED",
+   "measurement": "Fig. 1 (left, p. 3) carries a 200 mm scale bar: 431.7 px between the end-cap centers of the embedded 3807 x 1735 px image = 2.158 px/mm. Checks: the drawn slit tick is 28 px = 13.0 mm (text: 13.6 mm); the five collimated rays span 111 px = 51 mm (text: 50 mm). Scale uncertainty about 3%, positions about +-3 mm.",
+   "evidence": "Figure 1: scale bar '200 mm'"
+  },
+  {
+   "item": "Order of elements (Fig. 1, top view, one on-axis field point)",
+   "tag": "SOURCED (caption) + MEASURED",
+   "measurement": "fiber slit -> collimator triplet (CL1 CaF2, CL2 BSM51Y, CL3 S-FPL55) -> dichroic -> [blue: reflected down-left to the blue grating -> blue camera (axis horizontal, detector at the far left)] / [red: transmitted straight to a 45 deg fold mirror that turns it down -> red grating -> red camera (axis down-left, detector at the bottom)].",
+   "evidence": "Fig. 1 caption: Light is injected into the instrument at the fiber slit, split in wavelength at the dichroic beamsplitter, dispersed by the transmission grating, and imaged by each camera lens"
+  },
+  {
+   "item": "Fiber slit to collimator",
+   "tag": "MEASURED",
+   "measurement": "slit to the first lens (CL1 front vertex) 252 mm; the triplet is 81 mm long (CL1 front to CL3 back); slit to the last vertex 333 mm. Fig. 2 (p. 4, own 100 mm scale bar) shows the f/5.3 cone and the 300 mm pupil relief.",
+   "evidence": "Fig. 1, Fig. 2"
+  },
+  {
+   "item": "Fiber slit orientation",
+   "tag": "SOURCED",
+   "measurement": "the slit is perpendicular to the page in Fig. 1 (Via overview Fig. 15 caption: 'The fiber slit is defined perpendicular to the page'); spectra run along the dispersion in the page plane.",
+   "evidence": "VO Fig. 15"
+  },
+  {
+   "item": "Collimator to dichroic to grating",
+   "tag": "MEASURED + SOURCED",
+   "measurement": "CL3 last vertex to the dichroic center 113 mm; dichroic to the BLUE grating center 214 mm (path 328 mm from the vertex); dichroic to the fold mirror 66 mm and fold to the RED grating 129 mm (path 309 mm). The text's 300 mm pupil relief is measured from the lens assembly: the drawn paths run 3-9% longer (scale uncertainty and the Fig. 1 prescription predates the glass substitution). Preset: layLen = 300 + 40 (half the triplet) = 340 mm (DERIVED), both arms.",
+   "evidence": "Fig. 1; Fig. 2 caption (300 mm)"
+  },
+  {
+   "item": "Dichroic fold",
+   "tag": "SOURCED (22 deg) + MEASURED",
+   "measurement": "plate line at 68.6 deg to the beam axis (AOI 21.4 deg); blue beam leaves at 137.25 deg to the incoming beam (Hough fit of 4 rays), the red continues straight. Preset blue foldAng = 360 - (180 - 2 x 22) = 224 deg (the old one was 225), foldPos 0.45 = (40 + 113)/340 (DERIVED).",
+   "evidence": "Sec. 2.2; Fig. 1"
+  },
+  {
+   "item": "Red fold mirror",
+   "tag": "MEASURED",
+   "measurement": "flat at 45 deg turning the red beam 90 deg to the SAME side as the blue (both turn clockwise on the page), 66 mm past the dichroic; foldAng 270, foldPos 0.65 = (40 + 113 + 66)/340 (the old 0.64).",
+   "evidence": "Fig. 1"
+  },
+  {
+   "item": "Blue grating",
+   "tag": "MEASURED",
+   "measurement": "substrate faces 65.1 deg to the page's horizontal; beam incidence alpha = 17.9 deg (beam at 42.75 deg below horizontal, normal at 24.9 deg); camera axis horizontal, so diffraction beta = 24.9 deg on the other side of the normal; camera-collimator angle (alpha + beta, the explorer's psi) = 42.8 deg. First order: lambda at the camera axis = (sin 17.9 + sin 24.9)/1.516 = 4800 A (INFERRED). +-0.5 deg.",
+   "evidence": "Fig. 1"
+  },
+  {
+   "item": "Red grating",
+   "tag": "MEASURED",
+   "measurement": "substrate faces 16.5 deg to the page's horizontal; the beam arrives vertically, so alpha = 16.5 deg; the detector center lies 332 mm along a line 37 deg from the incoming beam (the detector plane is perpendicular to it within 0.6 deg), so beta = 20.5 deg and psi = 37.1 deg (+-1 deg); lambda at the camera axis = (sin 16.5 + sin 20.5)/0.836 = 7600 A (INFERRED). THIS DOES NOT REACH THE BAND (see the model check).",
+   "evidence": "Fig. 1"
+  },
+  {
+   "item": "Grating to detector",
+   "tag": "MEASURED",
+   "measurement": "blue: grating center to the detector surface 362 mm, so camLen (the explorer's disperser-to-camera drawing distance = detector distance - f_cam) = 362 - 75 = 287 mm; red: 332 mm, camLen 257 mm. The old values were 267 and 229 (342 and 304 mm to the detector).",
+   "evidence": "Fig. 1"
+  },
+  {
+   "item": "Camera drawings",
+   "tag": "SOURCED",
+   "measurement": "Fig. 4 (p. 6) shows the 6-element blue camera and the 5-element red camera, after the glass substitution; the camera lengths scale with the 75 mm focal length.",
+   "evidence": "Fig. 4 caption"
+  },
+  {
+   "item": "Mechanical (not modeled)",
+   "tag": "SOURCED",
+   "measurement": "Fig. 1 (right): the opto-mechanical rendering shows the fiber input and back-illumination system on the top, the LANSIS 261 cameras on focus stages, in a pentagonal enclosure scaled to the Zemax layout.",
+   "evidence": "Fig. 1 caption"
+  }
+ ],
+ "model_check": {
+  "blue_geom": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 4800,
+   "alpha": 17.85,
+   "beta": 24.91,
+   "psi": 42.76,
+   "Reff": 1165,
+   "Rs": 1165,
+   "npix": 3.44,
+   "dlpix": 1.197,
+   "dlmm": 79.8,
+   "pixScale": 0.3173,
+   "range": [
+    3543,
+    5944
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "blue_geom_lo": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 4700,
+   "alpha": 17.85,
+   "beta": 23.95,
+   "psi": 41.8,
+   "Reff": 1141,
+   "Rs": 1141,
+   "npix": 3.42,
+   "dlpix": 1.206,
+   "dlmm": 80.4,
+   "pixScale": 0.3173,
+   "range": [
+    3436,
+    5855
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "red_geom": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 7600,
+   "alpha": 16.5,
+   "beta": 20.57,
+   "psi": 37.07,
+   "Reff": 1010,
+   "Rs": 1010,
+   "npix": 3.36,
+   "dlpix": 2.24,
+   "dlmm": 149.3,
+   "pixScale": 0.3173,
+   "range": [
+    5268,
+    9761
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "red_fit": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 7970,
+   "alpha": 16.5,
+   "beta": 22.47,
+   "psi": 38.97,
+   "Reff": 1059,
+   "Rs": 1059,
+   "npix": 3.4,
+   "dlpix": 2.211,
+   "dlmm": 147.4,
+   "pixScale": 0.3173,
+   "range": [
+    5659,
+    10095
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "red_fit_sym": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 7940,
+   "alpha": 19.38,
+   "beta": 19.38,
+   "psi": 38.77,
+   "Reff": 1072,
+   "Rs": 1073,
+   "npix": 3.28,
+   "dlpix": 2.257,
+   "dlmm": 150.4,
+   "pixScale": 0.3173,
+   "range": [
+    5595,
+    10123
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "old_blue": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 4750,
+   "alpha": 19.2,
+   "beta": 19.2,
+   "psi": 38.4,
+   "Reff": 1061,
+   "Rs": 1062,
+   "npix": 3.28,
+   "dlpix": 1.364,
+   "dlmm": 90.9,
+   "pixScale": 0.3173,
+   "range": [
+    3333,
+    6070
+   ],
+   "fcol": 264,
+   "flags": []
+  },
+  "old_red": {
+   "slit": 1.041,
+   "F": 5.28,
+   "lamC": 7981,
+   "alpha": 20,
+   "beta": 20,
+   "psi": 40,
+   "Reff": 1109,
+   "Rs": 1109,
+   "npix": 3.28,
+   "dlpix": 2.193,
+   "dlmm": 146.2,
+   "pixScale": 0.3173,
+   "range": [
+    5700,
+    10100
+   ],
+   "fcol": 264,
+   "flags": []
+  }
+ },
+ "presets": {
+  "boomboxb": {
+   "id": "boomboxb",
+   "name": "Via / Boombox blue (design)",
+   "inst": "Boombox (design)",
+   "setting": "blue",
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 5.28,
+    "g": {
+     "slitW": "S3*0.2/(5.28*6500)*206264.806 = 1.041",
+     "nObj": 36,
+     "col": "lens",
+     "layLen": 340,
+     "camLen": 287,
+     "foldOn": true,
+     "foldAng": 224,
+     "foldPos": 0.45,
+     "foldLabel": "dichroic",
+     "gFlip": true,
+     "W": 50,
+     "fcam": 75,
+     "gType": "trans",
+     "G": 1516,
+     "m": 1,
+     "lamB1": 5000,
+     "lamC": 4800,
+     "psi": 35,
+     "tAlpha": 17.85,
+     "Nx": 2048,
+     "Ny": 263,
+     "pix": 15
+    }
+   }
+  },
+  "boomboxr": {
+   "id": "boomboxr",
+   "name": "Via / Boombox red (design)",
+   "inst": "Boombox (design)",
+   "setting": "red",
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 5.28,
+    "g": {
+     "slitW": "S3*0.2/(5.28*6500)*206264.806 = 1.041",
+     "nObj": 36,
+     "col": "lens",
+     "layLen": 340,
+     "camLen": 257,
+     "foldOn": true,
+     "foldAng": 270,
+     "foldPos": 0.65,
+     "foldLabel": "",
+     "gFlip": true,
+     "W": 50,
+     "fcam": 75,
+     "gType": "trans",
+     "G": 836,
+     "m": 1,
+     "lamB1": 5000,
+     "lamC": 7970,
+     "psi": 35,
+     "tAlpha": 16.5,
+     "Nx": 2048,
+     "Ny": 263,
+     "pix": 15
+    }
+   }
+  }
+ },
+ "arms_group": {
+  "Boombox (design)": {
+   "split": "collimated",
+   "tree": {
+    "cut": 5750,
+    "w": 95,
+    "aoi": 22,
+    "R": "boomboxb",
+    "T": {
+     "fold": 45,
+     "rel": 1,
+     "to": "boomboxr"
+    }
+   }
+  }
+ }
+}

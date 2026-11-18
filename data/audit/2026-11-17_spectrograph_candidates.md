@@ -72,7 +72,8 @@ Other facility gaps
   1998PASP..110.1183W).
 
 Historical workhorses with a thin optical record
-- MMT Blue Channel (Schmidt et al. 1989, 1989PASP..101..713S); Lick Kast (a Lick technical report, not in ADS); the
+- MMT Blue Channel (Angel, Hilliard & Weymann 1979, 1979SAOSR.385...87A; corrected 2026-11-18: Schmidt et al. 1989,
+  1989PASP..101..713S, describes the CCD channel that became the Red Channel); Lick Kast (a Lick technical report, not in ADS); the
   CfA Z-machine of the CfA Redshift Survey (Latham 1982, 1982ASSL...92..259L) and the CfA Digital Speedometers behind
   HD 114762 b (Latham et al. 1989, 1989Natur.339...38L); Steward Medusa, commonly cited as the first fiber multi-object
   spectrograph, with 26 cluster redshifts from one exposure (Hill et al. 1980, 1980ApJ...242L..69H).

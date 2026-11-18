@@ -1,0 +1,1217 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 11: Kast (id 'kast')",
+  "compiled": "2026-11-18",
+  "companion": "data/round11/kast.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = fitted (blue grism apex and glass, red psi); INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; NOT FOUND = gap.",
+  "quote_check": {
+   "pieces_checked": 91,
+   "failures": 0,
+   "scanned_report_pieces": 13
+  },
+  "status": "in operation since 1992; no '(design)' tag"
+ },
+ "sources": {
+  "TR66": {
+   "cite": "Miller, J. S. & Stone, R. P. S., \"The Kast Double Spectrograph\", Lick Observatory Technical Report No. 66, Santa Cruz, September 1994 (89-page scan, no text layer; the Lick-posted copy; BSNIP I and III cite it as Miller & Stone 1993). Quotes are transcribed from the scan (OCR text checked, then read against the page images). Fig. on report p. 7 (PDF p. 13) is the 3-D layout; Sec. I (PDF pp. 11-12), Sec. III (PDF pp. 23-38)",
+   "file": "rawdata/presets/kast/Kast_TechReport66.pdf",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/Tech%20Report%2066%20KAST%20Miller%20Stone.pdf"
+  },
+  "UMI": {
+   "cite": "Lick Observatory / UCO, \"User's Guide to the Kast Double Spectrograph\": Introduction (fetched 2026-11-18; news items to Oct 2016)",
+   "file": "rawdata/presets/kast/kast_index.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/"
+  },
+  "UMQ": {
+   "cite": "Lick User's Guide, \"Quick Reference\" (page last modified 2025 July 17; fetched 2026-11-18): general parameters, grisms, gratings, windows",
+   "file": "rawdata/presets/kast/kast_quickReference.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/kast_quickReference.html"
+  },
+  "UMO": {
+   "cite": "Lick User's Guide, \"Hardware Overview\" (last modified 2016 Sept 18; fetched 2026-11-18); its figure is saved as kastpath.gif",
+   "file": "rawdata/presets/kast/hw_overview.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/hw_overview.html"
+  },
+  "UMC": {
+   "cite": "Lick User's Guide, \"Common Path\" (last modified 2021 Mar 6; fetched 2026-11-18): decker, slit, filters, dichroics and mirror",
+   "file": "rawdata/presets/kast/hw_commonPath.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/hw_commonPath.html"
+  },
+  "UMB": {
+   "cite": "Lick User's Guide, \"Blue Side\" (last modified 2025 July 17; fetched 2026-11-18): collimator, grisms",
+   "file": "rawdata/presets/kast/hw_blue.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/hw_blue.html"
+  },
+  "UMR": {
+   "cite": "Lick User's Guide, \"Red Side\" (last modified 2021 Mar 6; fetched 2026-11-18): collimator, gratings, detector mask. The page keeps the retired 27 um Reticon table inside an HTML comment (also in the saved text); only the current Hamamatsu table is quoted",
+   "file": "rawdata/presets/kast/hw_red.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/hw_red.html"
+  },
+  "UMD": {
+   "cite": "Lick User's Guide, \"Detector Characteristics\" (fetched 2026-11-18): CCDs, camera lenses, flexure",
+   "file": "rawdata/presets/kast/hw_detectors.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/hw_detectors.html"
+  },
+  "UMS": {
+   "cite": "Lick User's Guide, \"Setup Procedures\" (fetched 2026-11-18)",
+   "file": "rawdata/presets/kast/kast_setup.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/kast_setup.html"
+  },
+  "UMH": {
+   "cite": "Lick User's Guide, \"Observing Hints\" (fetched 2026-11-18): worked examples of the blue grism and red grating setup",
+   "file": "rawdata/presets/kast/kast_obsHints.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/kast_obsHints.html"
+  },
+  "SYN": {
+   "cite": "UCO / Lick, \"Synopsis of Lick spectrographs\" (fetched 2026-11-18): Kast block",
+   "file": "rawdata/presets/kast/lick_synopsis_spects.html",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/synopsis_spects.html"
+  },
+  "SH": {
+   "cite": "UCO, \"Shane 120-inch Reflector\" public page (fetched 2026-11-18)",
+   "file": "rawdata/presets/kast/ucolick_shane_public.html",
+   "url": "https://www.ucolick.org/public/telescopes/shane.html"
+  },
+  "B12": {
+   "cite": "Silverman, J. M., Foley, R. J., Filippenko, A. V., et al. 2012, MNRAS 425, 1789, \"Berkeley Supernova Ia Program - I\" (ADS 2012MNRAS.425.1789S; arXiv:1202.2128). Sec. 2.1.2 (Kast setup and resolution)",
+   "file": "rawdata/presets/kast/Silverman2012_BSNIPI_arXiv1202.2128.pdf",
+   "url": "https://arxiv.org/pdf/1202.2128"
+  },
+  "B12c": {
+   "cite": "Silverman, J. M., Ganeshalingam, M., Li, W., Filippenko, A. V. 2012, MNRAS 425, 1889, \"Berkeley Supernova Ia Program - III\" (ADS 2012MNRAS.425.1889S; arXiv:1202.2130). Sec. 2 (the same Kast setup)",
+   "file": "rawdata/presets/kast/Silverman2012_BSNIPIII_arXiv1202.2130.pdf",
+   "url": "https://arxiv.org/pdf/1202.2130"
+  },
+  "S20": {
+   "cite": "Stahl, B. E., Zheng, W., de Jaeger, T., et al. 2020, MNRAS 492, 4325, \"Berkeley supernova Ia program: data release of 637 spectra from 247 Type Ia supernovae\" (ADS 2020MNRAS.492.4325S; arXiv:2001.03235). Sec. 2.2 (the 2016 red CCD)",
+   "file": "rawdata/presets/kast/Stahl2020_BSNIPDR_arXiv2001.03235.pdf",
+   "url": "https://arxiv.org/pdf/2001.03235"
+  },
+  "FIG": {
+   "cite": "Lick User's Guide, Hardware Overview figure \"Kast Double Spectrograph\" (720 x 576 gif): the same 3-D layout as TR66 p. 7, with letter labels; no text layer (image)",
+   "file": "rawdata/presets/kast/kastpath.gif",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/images/kastpath.gif"
+  },
+  "D55": {
+   "cite": "Lick User's Guide, Common Path, Figure 3: measured reflectance (blue channel) and transmittance (red channel) of the D55 dichroic, 3400-7000 A (637 x 510 gif; image)",
+   "file": "rawdata/presets/kast/d55all.gif",
+   "url": "https://mthamilton.ucolick.org/techdocs/instruments/kast/images/d55all.gif"
+  },
+  "T94": {
+   "cite": "Tran, H. D. 1994, PASP 106, 105, dissertation summary (ADS 1994PASP..106..105T): Kast with the CCD polarimeter, 3200-7400 A (context only; saved, no value taken)",
+   "file": "rawdata/presets/kast/Tran1994_PASP106_105.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1994PASP..106..105T"
+  }
+ },
+ "kast": {
+  "title": "Lick Shane 3 m Kast double spectrograph: D55 dichroic split after a common slit, off-axis paraboloid collimators (1416 mm), 600/4310 grism (blue) and 300/7500 grating (red), 188.7 mm lens cameras, Fairchild 2048x2048 and Hamamatsu 1024x4096 15 um CCDs",
+  "recommended_presets": [
+   {
+    "id": "kastb",
+    "tel": "Shane 3 m",
+    "inst": "Kast",
+    "setting": "blue, 600/4310",
+    "name": "Shane 3 m / Kast blue, 600/4310, 2″",
+    "state": {
+     "mode": "grating",
+     "D": 3.048,
+     "F": 17.532,
+     "g": {
+      "slitW": 2.0,
+      "nObj": 1,
+      "col": "mirror",
+      "colTilt": 5.0,
+      "layLen": 1070,
+      "W": 80.77,
+      "fcam": 188.7,
+      "cam": "lens",
+      "m": 1,
+      "tAlpha": null,
+      "pix": 15,
+      "gType": "grism",
+      "G": 600,
+      "lamB1": 4340,
+      "lamC": 4340,
+      "psi": 35,
+      "gA": 33.9,
+      "gGlass": "silica",
+      "gKind": "ruled",
+      "gTilt": 0,
+      "Nx": 2048,
+      "Ny": 2048
+     }
+    }
+   },
+   {
+    "id": "kastr",
+    "tel": "Shane 3 m",
+    "inst": "Kast",
+    "setting": "red, 300/7500",
+    "name": "Shane 3 m / Kast red, 300/7500, 2″",
+    "state": {
+     "mode": "grating",
+     "D": 3.048,
+     "F": 17.532,
+     "g": {
+      "slitW": 2.0,
+      "nObj": 1,
+      "col": "mirror",
+      "colTilt": 5.0,
+      "layLen": 1070,
+      "W": 80.77,
+      "fcam": 188.7,
+      "cam": "lens",
+      "m": 1,
+      "tAlpha": null,
+      "pix": 15,
+      "gType": "refl",
+      "G": 300,
+      "lamB1": 7500,
+      "lamC": 7800,
+      "psi": 45,
+      "Nx": 2551,
+      "Ny": 1024
+     }
+    }
+   }
+  ],
+  "all_arms_groups": {
+   "Kast": {
+    "split": "focus",
+    "Ftel": 17.53,
+    "slit": "shared",
+    "relay": null,
+    "note": "the D55 dichroic stands after the common slit and filter wheels, in the diverging beam; each arm has its own off-axis collimator (1416 mm, no relay)",
+    "tree": {
+     "cut": 5500,
+     "w": 380,
+     "aoi": 32.5,
+     "src": "UMC (crossover about 5500 A); D55 Fig. 3 (width MEASURED, 10-90% of the plateau); FIG (angle of incidence MEASURED from the oblique 3-D drawing, +-8 deg; not published)",
+     "R": "kastb",
+     "T": "kastr"
+    }
+   }
+  },
+  "params": [
+   {
+    "section": "Status, telescope and feed"
+   },
+   {
+    "parameter": "Status",
+    "value": "in operation since early 1992; the preset represents the current detectors (blue Fairchild 2048 x 2048 since September 2008, red Hamamatsu 1024 x 4096 since 18 September 2016); no '(design)' tag",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMI",
+    "loc": "Introduction",
+    "quote": "The Kast has been in operation since early 1992. It was designed by Dr. Joseph Miller (UCSC) and built in the Lick Observatory shops.",
+    "alt": [
+     [
+      "TR66",
+      "p. 5 (PDF p. 11)",
+      "It went into operation in early 1992."
+     ],
+     [
+      "S20",
+      "Sec. 2.2",
+      "On 18 September 2016, the Kast red-side CCD was re"
+     ],
+     [
+      "B12",
+      "Sec. 2.1.2",
+      "Until September 2008, the Kast double spectrograph used two Reticon 1200"
+     ]
+    ],
+    "note": "Retired detectors: two Reticon 1200 x 400 CCDs of 27 um pixels (0.78 arcsec/px) until September 2008 (blue) and September 2016 (red; the red side was the Reticon until the Hamamatsu replaced it, UMI news). The 1994 report (TR66) describes the Reticon era."
+   },
+   {
+    "parameter": "Telescope",
+    "value": "Shane 120-inch (3 m) reflector, Lick Observatory; D = 3.048 m (120 in x 0.0254)",
+    "unit": "m",
+    "tag": "DERIVED",
+    "src": "SH",
+    "loc": "Shane Telescope Overview",
+    "quote": "UCO astronomers often refer to this telescope as the 120-inch or the 3-meter, based upon the diameter of its primary mirror.",
+    "alt": [
+     [
+      "UMI",
+      "Introduction",
+      "The Kast Double Spectrograph is used at the cassegrain focus of the Shane 3-m Telescope."
+     ]
+    ],
+    "note": "DERIVED: 120 in x 0.0254 m/in = 3.048 m. The illuminated aperture at the Cassegrain focus (secondary obstruction, baffles) is NOT FOUND; the explorer's D is the primary's 3.048 m."
+   },
+   {
+    "parameter": "Focus",
+    "value": "Cassegrain focus, straight through to the slit (no focal reducer or relay)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMI",
+    "loc": "Introduction",
+    "quote": "The Kast Double Spectrograph is used at the cassegrain focus of the Shane 3-m Telescope.",
+    "alt": [
+     [
+      "UMO",
+      "Hardware Overview",
+      "The converging light from the telescope is focused at the slit of the slit-decker assembly"
+     ]
+    ],
+    "note": ""
+   },
+   {
+    "parameter": "Plate scale at the slit",
+    "value": 3.86,
+    "unit": "arcsec/mm",
+    "tag": "SOURCED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Scale at Cassegrain focus 3.86 arcsec/mm",
+    "alt": [
+     [
+      "UMC",
+      "Slit, Scales and Conversions",
+      "scale at slit = 3.86 arcsec/mm"
+     ],
+     [
+      "TR66",
+      "p. 17 (PDF p. 23)",
+      "Scale at Cassegrain focus 3.86 arcsec/mm"
+     ]
+    ],
+    "note": "DERIVED: effective focal length 206264.806 / 3.86 = 53,437 mm."
+   },
+   {
+    "parameter": "Focal ratio and used aperture",
+    "value": "F = 17.53 (EFL 53,437 mm / D 3048 mm)",
+    "unit": "",
+    "tag": "DERIVED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Scale at Cassegrain focus 3.86 arcsec/mm",
+    "alt": [
+     [
+      "UMQ",
+      "General Parameters",
+      "Monochromatic beam size (both sides) 82.6 mm"
+     ],
+     [
+      "UMQ",
+      "General Parameters",
+      "Collimator focal length (both sides) 1416 mm"
+     ]
+    ],
+    "note": "DERIVED: F = 53,437 / 3048 = 17.53. No document states the Cassegrain focal ratio. The sourced beam of 82.6 mm on the 1416 mm collimator would give F = 1416 / 82.6 = 17.14 (and EFL / F = 3117 mm, larger than the primary): Conflicts item 1. The explorer keeps the sourced plate scale and collimator length, so it takes F = 17.53 and W = 1416 / 17.53 = 80.77 mm."
+   },
+   {
+    "parameter": "Slit widths",
+    "value": "0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 9.0 arcsec predefined; any width 0.4-145 arcsec; the standard supernova slit is 2 arcsec, arcs use 0.5 arcsec",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Slit",
+    "quote": "Minimum slit size is set to 0.4 arcsec.",
+    "alt": [
+     [
+      "UMQ",
+      "Slit",
+      "Maximum slit opening = 145 arcsec"
+     ],
+     [
+      "B12",
+      "Sec. 2.1.2",
+      "With our typical slit of"
+     ],
+     [
+      "UMS",
+      "Wavelength Calibration Spectra",
+      "the 0.5\" width slit is recommended"
+     ]
+    ],
+    "note": "Preset slit: 2.0 arcsec, the typical slit of the Berkeley supernova program (B12: 'With our typical slit of 2.0'', we achieve a resolution of ~11 A and ~6 A on the red and blue sides'; the pdf's prime mark is a separate glyph, so the quote is cut before it). The Lick manual's own default is 0.5 arcsec for arc lamps only."
+   },
+   {
+    "parameter": "Slit length",
+    "value": "full slit and decker 145 arcsec (333 pixels); decker settings 1, 2, 15, 30, 60 arcsec long",
+    "unit": "arcsec",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Decker",
+    "quote": "A full-length decker is 145 arcseconds, which is 333 pixels on either the red or blue side detector (both have 15 micron pixels).",
+    "alt": [
+     [
+      "TR66",
+      "p. 17 (PDF p. 23)",
+      "Maximum slit opening 145 arcsec"
+     ]
+    ],
+    "note": ""
+   },
+   {
+    "parameter": "Number of spectra (nObj)",
+    "value": 1,
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Decker",
+    "quote": "The decker is a long reflective plate which overlies the slit.",
+    "alt": [
+     [
+      "UMQ",
+      "Decker",
+      "Maximum decker opening = 145 arcsec"
+     ]
+    ],
+    "note": "A long slit; one object per exposure (the 'asymmetric slots' put a few apertures on one slit, not modeled). A polarimeter mode splits each spectrum into two beams (UMH); not entered."
+   },
+   {
+    "section": "Dichroic (the split)"
+   },
+   {
+    "parameter": "Position in the beam",
+    "value": "after the slit and the filter wheels, in the converging then diverging f/17.5 beam ahead of both collimators; one slit shared by both arms",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMO",
+    "loc": "Hardware Overview",
+    "quote": "The converging light from the telescope is focused at the slit of the slit-decker assembly, and then passes through either the user filter module",
+    "alt": [
+     [
+      "UMO",
+      "Hardware Overview",
+      "These components are in common for both sides of the spectrograph."
+     ],
+     [
+      "TR66",
+      "p. 6 (PDF p. 12)",
+      "These components are in common for both sides of the spectrograph."
+     ]
+    ],
+    "note": "The dichroic is in the diverging beam between the filter wheels and the collimators (no relay optics): the 'focus' split of web/arms.js, as MODS (slit 'shared', relay null)."
+   },
+   {
+    "parameter": "Which arm reflects",
+    "value": "blue reflected (to the blue collimator), red transmitted (to the red collimator)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMO",
+    "loc": "Hardware Overview",
+    "quote": "strike a dichroic beamsplitter which passes the long wavelength light (the \"red side\") and reflects the shorter wavelengths (the \"blue side\")",
+    "alt": [
+     [
+      "TR66",
+      "p. 6 (PDF p. 12)",
+      "strike a dichroic mirror which passes the long wavelength light"
+     ],
+     [
+      "UMC",
+      "Dichroics and Mirror",
+      "mirror Mirror blue"
+     ]
+    ],
+    "note": ""
+   },
+   {
+    "parameter": "Cross-over wavelength (D55, the supernova choice)",
+    "value": 5500,
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Dichroics and Mirror",
+    "quote": "Crossover for the blue dichroic (D46) is about 4650 A, and for the red dichroic (D55) it is about 5500 A.",
+    "alt": [
+     [
+      "UMC",
+      "Dichroics and Mirror",
+      "The crossover for the new D46 is about 4600 A and for the D57 at 5700 A."
+     ],
+     [
+      "UMQ",
+      "Grisms",
+      "3300-5520 (matches D55)"
+     ]
+    ],
+    "note": "The D55 curve of Common Path Fig. 3 (D55) crosses between reflectance and transmittance at 5450 A (0.47), reflectance 50% at 5410 A, transmittance 50% at 5474 A (MEASURED below). The D55 is the original dichroic; the 2016 dichroics (new D46, D57) are sharper but not entered."
+   },
+   {
+    "parameter": "Transition width",
+    "value": 380,
+    "unit": "A (10% to 90% of the plateau)",
+    "tag": "MEASURED",
+    "src": "D55",
+    "loc": "Fig. 3, reflectance (blue channel) curve",
+    "quote": null,
+    "alt": [
+     [
+      "UMC",
+      "Dichroics and Mirror",
+      "About 200 angstroms of the spectrum are affected by the crossover of the dichroic."
+     ],
+     [
+      "UMC",
+      "Dichroics and Mirror",
+      "The new dichroics have superior transmittance/reflectance and more distinct crossovers than the original D46 and D55."
+     ]
+    ],
+    "note": "MEASURED from d55all.gif (637 x 510 px; axes calibrated on the tick marks: 1000 A = 156.7 px, 0 at row 471 and 1.0 at row 61 = 410 px; the purple reflectance trace sampled column by column): reflectance 0.90 at 5225 A, 0.50 at 5410 A, 0.10 at 5608 A, so the 10-90% width is 383 A (+-30 A from tracing); transmittance 0.10 at 5213 A, 0.50 at 5474 A, 0.80 at 5583 A, plateau 0.88-0.94. The text's 200 A is the manual's rough statement (Conflicts item 4). Entered 380 A."
+   },
+   {
+    "parameter": "Angle of incidence",
+    "value": 32.5,
+    "unit": "deg",
+    "tag": "MEASURED",
+    "src": "FIG",
+    "loc": "Hardware Overview figure (TR66 p. 7)",
+    "quote": null,
+    "alt": [],
+    "note": "NOT PUBLISHED in any saved document. MEASURED, loosely, from the oblique 3-D drawing: the chief ray from the slit runs down the vertical axis and the blue beam leaves the dichroic toward the blue collimator up and to the left, turned by about 115 deg from the incoming direction (the line from (735, 615) to (395, 455) px in the 150 dpi render of TR66 p. 7 rotated upright, against the vertical axis), so the angle of incidence is (180 - 115) / 2 = 32.5 deg. An oblique projection of a 3-D layout: +-8 deg. Drawing only (the explorer uses it for the All-arms turn)."
+   },
+   {
+    "parameter": "Effect of the dichroic on the red spectrum",
+    "value": "D55 shifts the red spectrum by about 10 pixels; D46 by less than a pixel",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Dichroics and Mirror",
+    "quote": "D55 dichroic shifts the spectrum by about 10 pixels, compared to when no dichroic is in place.",
+    "alt": [
+     [
+      "TR66",
+      "p. 23 (PDF p. 29)",
+      "the D55 dichroic shifts the spectrum vertically"
+     ]
+    ],
+    "note": "The beam passes through the plate on its way to the red collimator, so the plate's thickness shifts the red image (a tilted plate in a converging beam). Not modeled."
+   },
+   {
+    "parameter": "Other beam selectors",
+    "value": "aluminized flat mirror (all light to the blue side); nothing in the beam (all light to the red side); two carriers, either may hold a dichroic or the mirror",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMC",
+    "loc": "Dichroics and Mirror",
+    "quote": "There are two separate carriers, either one of which (or neither, but not both) may be in the beam.",
+    "alt": [
+     [
+      "UMO",
+      "Hardware Overview",
+      "(2) the light may strike an aluminized mirror which reflects all the light to the blue side"
+     ]
+    ],
+    "note": ""
+   },
+   {
+    "section": "Collimators (one per arm)"
+   },
+   {
+    "parameter": "Type",
+    "value": "reflective off-axis paraboloid, one per arm: blue aluminized and overcoated, red silvered and overcoated; the two are identical",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMB",
+    "loc": "Collimator",
+    "quote": "The off-axis paraboloid is aluminized and overcoated.",
+    "alt": [
+     [
+      "UMR",
+      "Collimator",
+      "The off-axis paraboloid is silvered and overcoated."
+     ],
+     [
+      "TR66",
+      "p. 6 (PDF p. 12)",
+      "The blue-side light path consists of an identical but aluminized rather than silvered collimator"
+     ]
+    ],
+    "note": ""
+   },
+   {
+    "parameter": "Focal length",
+    "value": 1416,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Collimator focal length (both sides) 1416 mm",
+    "alt": [
+     [
+      "TR66",
+      "p. 17 (PDF p. 23)",
+      "Collimator focal length (both sides) 1416 mm"
+     ]
+    ],
+    "note": "The slit stands at each paraboloid's focus (the beam is collimated), so the slit-to-collimator distance along the axis is f_col = 1416 mm (INFERRED from that; it sets the scale of the layout figure below)."
+   },
+   {
+    "parameter": "Beam diameter",
+    "value": "82.6 (sourced); the explorer enters 80.77 = 1416 / 17.53",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Monochromatic beam size (both sides) 82.6 mm",
+    "alt": [
+     [
+      "TR66",
+      "p. 17 (PDF p. 23)",
+      "Monochromatic beam size (both sides) 82.6 mm"
+     ]
+    ],
+    "note": "Conflicts item 1: 1416 / 82.6 = f/17.14; the plate scale of 3.86 arcsec/mm and D = 3.048 m give f/17.53, hence 80.77 mm. The sourced beam is 2.2% larger than the explorer's, which does not change the dispersion or the pixel scale."
+   },
+   {
+    "parameter": "Collimator focus range",
+    "value": "blue typical 15 mm (range -28 to +42 mm), red typical 2 mm (range -24 to +23 mm)",
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "UMB",
+    "loc": "Collimator",
+    "quote": "A typical focus value is presently about 15 mm",
+    "alt": [
+     [
+      "UMR",
+      "Collimator",
+      "A typical focus value is presently about 2 mm."
+     ]
+    ],
+    "note": "Collimator focus travel; drawing only (not modeled)."
+   },
+   {
+    "parameter": "On-axis or off-axis (deploy gate)",
+    "value": "OFF-AXIS: the slit is not in the returning beam",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMB",
+    "loc": "Collimator",
+    "quote": "The off-axis paraboloid is aluminized and overcoated.",
+    "alt": [
+     [
+      "UMR",
+      "Collimator",
+      "The off-axis paraboloid is silvered and overcoated."
+     ],
+     [
+      "TR66",
+      "p. 27 (PDF p. 33)",
+      "The off-axis paraboloid is silvered and overcoated."
+     ]
+    ],
+    "note": "Both text sources say off-axis. The 3-D drawing shows the red collimator at the bottom of the incoming axis and the returning beam leaving it up and to the right of the incoming beam, past the dichroic plates (MEASURED, Layout). colTilt = 5.0 deg is half of the 10.1 deg between the incoming and returning chief rays read from the figure."
+   },
+   {
+    "section": "Dispersers"
+   },
+   {
+    "parameter": "Blue grism 600/4310: grooves and blaze",
+    "value": "600 grooves/mm, blaze 4310 A; straight-through wavelength 4340 A",
+    "unit": "grooves/mm",
+    "tag": "SOURCED",
+    "src": "UMB",
+    "loc": "Grisms",
+    "quote": "2 600/4310 4340 1.02 2090 3300-5520 (match D55)",
+    "alt": [
+     [
+      "UMQ",
+      "Grisms",
+      "2 600/4310 4340 1.02 2090 3300-5520 (matches D55)"
+     ],
+     [
+      "SYN",
+      "Kast block",
+      "600 / 4310 A 1.02 A/pix 3100-5520 A"
+     ]
+    ],
+    "note": "Column order: grism number, grooves/blaze, straight through (A), A/pix, range (A), nominal coverage (A). The three blue grisms are 452/3306, 600/4310 and 830/3460 (UMB). Blaze wavelength 4310 A (the explorer's lamB1 = 4340 for a grism, whose center is the straight-through wavelength)."
+   },
+   {
+    "parameter": "Blue grism: order, type",
+    "value": "first order, transmission grism (a grating on a prism), used straight through",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMD",
+    "loc": "System Response and Throughput",
+    "quote": "The blue side operates in first order",
+    "alt": [
+     [
+      "UMO",
+      "Hardware Overview",
+      "The light then passes through one of three remotely selectable grisms"
+     ]
+    ],
+    "note": "Entered as a ruled grism (gType grism, gKind ruled, order 1, gTilt 0)."
+   },
+   {
+    "parameter": "Blue grism: prism apex and glass",
+    "value": "33.90 deg in fused silica (EFFECTIVE; the true values are not published)",
+    "unit": "deg",
+    "tag": "EFFECTIVE",
+    "src": "UMB",
+    "loc": "Grisms",
+    "quote": "2 600/4310 4340 1.02 2090 3300-5520 (match D55)",
+    "alt": [],
+    "note": "NOT FOUND: no document gives the grism's prism angle, glass, or blaze angle. EFFECTIVE (script model scripts in scratchpad/r11/kast/m3.js, web/physics.js read-only): the explorer's grism has its center fixed at the straight-through wavelength, lambda0 = (n - 1) sin A / G (order 1). With the glass assumed, the apex A is solved so that lambda0 equals the published 4340 A. The glass is then chosen from the published DISPERSIONS of the three blue grisms (lambda0 4780 / 4340 / 3880 A, 1.41 / 1.02 / 0.63 A/px, grooves 452 / 600 / 830): fused silica gives A = 27.78 / 33.90 / 43.08 deg and model dispersions 1.461 / 1.019 / 0.637 A/px (+3.6% / -0.1% / +1.0%); N-BK7 gives A = 24.40 / 29.62 / 37.21 deg and 1.497 / 1.062 / 0.689 (+6.2% / +4.1% / +9.4%); N-FK5, LF5, F2 and N-BAK2 fall between (+2% to +11%). Silica is the best of the six, so it is entered; INFERRED that the real glass is of low index, with an apex near 34 deg. The blue dispersion test below is therefore NOT independent (the glass was picked from it); the 452 and 830 grisms are the independent check, but are not presets."
+   },
+   {
+    "parameter": "Red grating 300/7500: grooves, blaze, order",
+    "value": "300 grooves/mm, blaze 7500 A, first order, reflection",
+    "unit": "grooves/mm",
+    "tag": "SOURCED",
+    "src": "UMR",
+    "loc": "Gratings",
+    "quote": "300/7500 2.55 6785 1.09(c)-4388 3800-11000",
+    "alt": [
+     [
+      "UMQ",
+      "Gratings",
+      "300/7500 2.55 6785 1.09(c)-4388"
+     ],
+     [
+      "B12",
+      "Sec. 2.1.2",
+      "we would observe with a 300/7500 grating for"
+     ]
+    ],
+    "note": "Column order: grooves/blaze, A/pix, range (A), tilt formula (c = central wavelength in A), useful range (A). The page notes that '300/7500 is more efficient than the 300/4230 for all lambda greater than ~5400 A' and that the 300/7500 in second order 'should not be used'. Other red gratings: 600/5000, 600/7500, 830/8460, 1200/5000, 300/4230, 600/3000."
+   },
+   {
+    "parameter": "Red grating: tilt and range of central wavelength",
+    "value": "tilt (motor steps) = 1.09 c - 4388; the total range of grating tilt is -3400 to +24900 steps",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMR",
+    "loc": "Gratings",
+    "quote": "The total range for the tilt is -3400 to +24900.",
+    "alt": [
+     [
+      "UMQ",
+      "Gratings",
+      "5*** 300/4230 2.53 6760 1.09(c)-4413"
+     ]
+    ],
+    "note": "The tilt is in motor steps; no document gives steps per degree, so the grating angles cannot be computed from it."
+   },
+   {
+    "parameter": "Camera-collimator angle (psi) and grating incidence",
+    "value": "psi = 45 deg (EFFECTIVE, weakly constrained); incidence at 7800 A: 29.8 deg (model)",
+    "unit": "deg",
+    "tag": "EFFECTIVE",
+    "src": "UMR",
+    "loc": "Gratings",
+    "quote": "300/7500 2.55 6785 1.09(c)-4388 3800-11000",
+    "alt": [],
+    "note": "NOT FOUND: no document gives the camera-collimator angle, the grating's angle of incidence or the grating's size. EFFECTIVE: the red dispersion depends only weakly on psi (model, 300 /mm at 7800 A: 2.648 / 2.646 / 2.624 / 2.583 / 2.526 A/px for psi = 10 / 20 / 30 / 40 / 50 deg); psi = 45 deg reproduces the published 2.55 A/px (model 2.557). Independent check at that psi: the 600 /mm grating at 7000 A gives 1.307 A/px against the published 1.30 (+0.6%). The tilt slopes (1.09, 2.23, 3.15, 4.70 steps/A for 300, 600, 830, 1200 /mm, UMQ) increase faster with groove density than the groove density itself, which needs cos(theta) falling with the dispersive power and points to psi of 45 deg or more; the 3-D drawing's projected turn at the gratings (about 100 deg) is not a usable measurement of psi in an oblique view. Drawing and angle of incidence only."
+   },
+   {
+    "parameter": "Anamorphic factor",
+    "value": "not found (the manuals neglect it in the pixel scale)",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Arcsecs/pixel (neglecting anamorphic mag) Red Side: 0.43 Blue Side: 0.43",
+    "alt": [],
+    "note": ""
+   },
+   {
+    "parameter": "Filters in the beams",
+    "value": "red: four round filters up to 5.5 in (GG455, GG495, OG550, Spinrad NS) in the collimated beam; blue: three 4.5 in filters (U liquid CuSO4 + UG2, wide G) ",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMR",
+    "loc": "Filter Wheel",
+    "quote": "There is provision for four round filters up to 5.5 inches in diameter, plus an open position.",
+    "alt": [
+     [
+      "UMB",
+      "Filter Tray",
+      "There is provision for three square filters up to 4.5\" in size, plus an open poisiton."
+     ]
+    ],
+    "note": "Not entered (the preset has no filter)."
+   },
+   {
+    "section": "Cameras and detectors"
+   },
+   {
+    "parameter": "Camera focal length",
+    "value": 188.7,
+    "unit": "mm",
+    "tag": "SOURCED",
+    "src": "UMQ",
+    "loc": "General Parameters",
+    "quote": "Camera focal length (both sides) 188.7 mm",
+    "alt": [
+     [
+      "TR66",
+      "p. 17 (PDF p. 23)",
+      "Camera focal length (both sides) 188.7 mm"
+     ]
+    ],
+    "note": "DERIVED: camera speed f/2.28 on the 82.6 mm beam (188.7 / 82.6; f/2.34 on 80.77 mm). Pixel scale check: 0.015 mm x 3.86 arcsec/mm x 1416 / 188.7 = 0.434 arcsec/px against the published 0.43."
+   },
+   {
+    "parameter": "Camera type",
+    "value": "all-refractive lens camera on each side, lens temperature controlled (blue design range 3000-7000 A, red 4000-11000 A); number of elements not published",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "UMD",
+    "loc": "System Response and Throughput",
+    "quote": "The cameras on both sides are all-refractive. The camera lenses are temperature controlled; focus is a function of lens temperature.",
+    "alt": [
+     [
+      "TR66",
+      "p. 8 (PDF p. 14)",
+      "The cameras on both sides are all-refractive."
+     ],
+     [
+      "UMD",
+      "System Response and Throughput",
+      "Blue: The design range of the camera is 3000-7000 A."
+     ],
+     [
+      "UMD",
+      "System Response and Throughput",
+      "Red: The design range of the camera is 4000-11000 A."
+     ]
+    ],
+    "note": "cam lens (drawing)."
+   },
+   {
+    "parameter": "Blue detector",
+    "value": "Fairchild 2048 x 2048, 15 um pixels (installed September 2008), dispersion along rows; read out 2110 x 2048 with overscan",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "UMD",
+    "loc": "CCDs",
+    "quote": "The blue side uses a Fairchild 2k x 2k device with 15 micron pixels, which corresponds to 0.43 arcsec per pixel.",
+    "alt": [
+     [
+      "B12",
+      "Sec. 2.1.2",
+      "Currently, the blue arm of Kast uses a Fairchild 2048"
+     ],
+     [
+      "UMD",
+      "CCDs",
+      "The dispersion direction is along rows on the blue side."
+     ],
+     [
+      "UMD",
+      "CCDs",
+      "Blue (2110x2048) 43 sec"
+     ]
+    ],
+    "note": "Nx = 2048 along the dispersion, Ny = 2048 along the slit. The grism table's 2090 A range / 1.02 A/px = 2049 px: the whole chip is used."
+   },
+   {
+    "parameter": "Red detector",
+    "value": "Hamamatsu 1024 x 4096, 15 um pixels (installed 18 September 2016), dispersion along the 4096-pixel columns; illuminated rows 760-3310",
+    "unit": "px",
+    "tag": "SOURCED",
+    "src": "UMD",
+    "loc": "CCDs",
+    "quote": "The red side uses a Hamamatsu 1024x4096 device with 15 micron pixels, which corresponds to 0.43 arcsec per pixel.",
+    "alt": [
+     [
+      "UMD",
+      "CCDs",
+      "The spectrum covers rows 760 to 3310 on the detector"
+     ],
+     [
+      "S20",
+      "Sec. 2.2",
+      "the Kast red-side CCD was re"
+     ],
+     [
+      "UMD",
+      "CCDs",
+      "The dispersion direction is along columns"
+     ]
+    ],
+    "note": "DERIVED: Nx = 3310 - 760 + 1 = 2551 rows illuminated and unvignetted (a mask covers the rest); the explorer's Nx is 2551 (Ny 1024). The table's range 6785 A / 2.55 A/px = 2661 px (Conflicts item 3). The Hamamatsu replaced the Reticon, whose 1200 x 400 chip with 27 um pixels gave 5520 A at 4.60 A/px (the retired table in UMR's HTML comment)."
+   },
+   {
+    "parameter": "Pixel scale",
+    "value": 0.43,
+    "unit": "arcsec/px",
+    "tag": "SOURCED",
+    "src": "UMD",
+    "loc": "CCDs",
+    "quote": "The blue side uses a Fairchild 2k x 2k device with 15 micron pixels, which corresponds to 0.43 arcsec per pixel.",
+    "alt": [
+     [
+      "UMC",
+      "Slit",
+      "1 pixel = 0.43 arcsec = 0.1126 mm (for 15 micron pixel size)"
+     ]
+    ],
+    "note": "Both arms. The model's 0.4345 comes from 3.86 arcsec/mm, 1416 mm and 188.7 mm: independent of the fits."
+   },
+   {
+    "section": "Coverage and typical setup"
+   },
+   {
+    "parameter": "Typical supernova setup",
+    "value": "300/7500 red grating, 600/4310 blue grism, D55 dichroic, 2 arcsec slit; coverage 3300-10,400 A with the arms overlapping 5200-5500 A",
+    "unit": "",
+    "tag": "SOURCED",
+    "src": "B12",
+    "loc": "Sec. 2.1.2",
+    "quote": "we would observe with a 300/7500 grating for the red side, a 600/4310 grism for the blue side, and a D55 dichroic. This results in a wavelength range of 3300",
+    "alt": [
+     [
+      "B12c",
+      "Sec. 1",
+      "the typical wavelength coverage is 3300"
+     ],
+     [
+      "B12",
+      "Sec. 2.1.2",
+      "with overlap between the two arms of 5200"
+     ]
+    ],
+    "note": "Red center lambda_c = 7800 A, INFERRED: the midpoint of the red arm's 5200-10,400 A (7800 = (5200 + 10,400) / 2), since no document gives a standard central wavelength (the tilt formula gives the setting for any c). Blue center: the grism's straight-through 4340 A; the manual gives the center at the nominal blue x-stage position as 4300 A."
+   },
+   {
+    "parameter": "Blue center at the nominal stage position",
+    "value": 4300,
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "UMB",
+    "loc": "X-Y Stage",
+    "quote": "600/4310 4300",
+    "alt": [
+     [
+      "UMH",
+      "Setting the Detector Position",
+      "600/4310 grism, which has a dispersion of 1.02 A/pix"
+     ]
+    ],
+    "note": "Approximate central wavelength at X-stage = 10.0; the straight-through wavelength is 4340 A (a 40 A difference)."
+   },
+   {
+    "parameter": "Red grating coverage on the chip",
+    "value": "6785 A in the table; illuminated rows give 2551 px x 2.55 = 6505 A",
+    "unit": "A",
+    "tag": "SOURCED",
+    "src": "UMR",
+    "loc": "Gratings",
+    "quote": "300/7500 2.55 6785 1.09(c)-4388 3800-11000",
+    "alt": [
+     [
+      "UMI",
+      "News (2016)",
+      "The new detector is larger, so the wavelength coverage in a single image is"
+     ]
+    ],
+    "note": "Useful range 3800-11,000 A. The 2016 news says the coverage rose by about 20%: 6785 / 5520 = +23% from the retired table."
+   }
+  ],
+  "layout": [
+   {
+    "item": "Source figure",
+    "tag": "SOURCED",
+    "text": "TR66 p. 7 (PDF p. 13), the 3-D drawing of the optical layout by Tony Misch, labeled 'Kast Double Spectrograph' (an oblique perspective with no scale bar); the Lick User's Guide redraws the same view (FIG, letter labels a-r). No plan view, ray trace or dimensioned drawing is published in any saved document. Everything below is read from this one figure, rotated upright, at 150 dpi (1650 x 1275 px; coordinates are (x, y) in that render, y down).",
+    "quote": "We sincerely thank Tony Misch for his superb 3-D drawing of the optical layout of the Kast spectrograph.",
+    "src": "TR66",
+    "loc": "p. i (PDF p. 5)"
+   },
+   {
+    "item": "Element order",
+    "tag": "SOURCED",
+    "text": "The telescope beam comes down a vertical line at x = 752: decker and slit (y = 290-322), the three filter wheels (y = 330-390), the two dichroic/mirror plates #2 and #1 (y = 600-640), then the red collimator at the foot of the line (752, 925). The dichroic transmits the red straight on to the red collimator; the red collimator returns the beam up and to the right to the three gratings (y = 430-490, beside the filter wheels), and the beam goes on to the red filter turret, red camera, shutter and dewar at the right. The blue light is reflected by the dichroic up and to the left to the blue collimator at (395, 455); its returning beam runs down and to the right, past the dichroic plates, to the blue filter tray, the three grisms, the blue camera, shutter and dewar at the lower right (grisms at (1040, 790)).",
+    "quote": "On the red side, after striking a silvered collimator, the beam proceeds to a reflectance grating and then passes through a filter wheel",
+    "src": "UMO",
+    "loc": "Hardware Overview"
+   },
+   {
+    "item": "Scale of the figure",
+    "tag": "MEASURED",
+    "text": "Known dimension: the slit stands at each collimator's focus, so the slit-to-red-collimator distance is f_col = 1416 mm (SOURCED, INFERRED that the slit is at the focus). In the figure that distance runs from the slit (752, 322) to the collimator (752, 925): 603 px, so 2.35 mm/px along the vertical (the telescope axis, which an oblique projection draws near true length). Used for lengths along that axis only; horizontal and diagonal distances are foreshortened by an unknown factor.",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Slit to dichroic",
+    "tag": "MEASURED",
+    "text": "The plates stand at y about 610: 288 px = 680 mm from the slit (48% of the way to the red collimator), then 315 px = 740 mm to the red collimator. The blue collimator is the same 1416 mm from the slit by the dichroic's reflection, so it stands 1416 - 680 = 736 mm from the dichroic (the figure draws 376 px, 880 mm, but that line is diagonal and foreshortened by an unknown amount).",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Dichroic angle",
+    "tag": "MEASURED",
+    "text": "The reflected blue beam leaves the plates at (735, 615) toward the blue collimator at (395, 455): a turn of about 115 deg from the downward chief ray, an angle of incidence of 32.5 deg (+-8 deg, an oblique view). No document states it. The two plates (#1 and #2) are drawn as parallel flats facing the same way.",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Red collimator to grating (layLen, red)",
+    "tag": "MEASURED",
+    "text": "The red collimator (752, 925) to the grating carrier (825, 478): 454 px, 1070 mm at the scale above (the beam is nearly vertical, so little foreshortening). The grating stands near the level of the filter wheels, as in LRIS, not at the pupil image of the secondary. Entered layLen = 1070 mm.",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Collimator tilt (colTilt)",
+    "tag": "MEASURED",
+    "text": "The returning red beam leaves the collimator at 10.1 deg to the incoming chief ray (lateral 80 px in 447 px of vertical travel): an off-axis paraboloid whose parent axis is tilted 5.0 deg from the incoming ray. Entered colTilt = 5.0 for both arms (the blue collimator is 'identical', TR66 p. 6; its two beam lines at the blue collimator are drawn 1.5 deg apart in the projection, too unreliable to use, so the blue value is SCHEMATIC).",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Gratings to camera, camera-collimator angle",
+    "tag": "SCHEMATIC",
+    "text": "The gratings (three in a tray, one used at a time, tilted by remote control) turn the beam to the camera at the right; the projected turn is about 100 deg, which is a projection artifact. The explorer's psi = 45 deg is EFFECTIVE (Parameters). The disperser-to-camera distance (camLen) is NOT drawn to scale and is left at the explorer's default.",
+    "quote": null,
+    "src": "FIG",
+    "loc": "TR66 p. 7"
+   },
+   {
+    "item": "Blue arm",
+    "tag": "SCHEMATIC",
+    "text": "Blue collimator, filter tray, one of three grisms (all always in place) and the camera stand in a straight line (the grism passes the straight-through wavelength undeviated): the blue camera axis lies on the collimator axis. layLen for the blue arm is entered as 1070 mm like the red (SCHEMATIC: the blue line is diagonal and the figure has no scale along it).",
+    "quote": "We have three grisms and they are all always in place",
+    "src": "UMB",
+    "loc": "Grisms"
+   },
+   {
+    "item": "Verdict: collimator on- or off-axis",
+    "tag": "SOURCED",
+    "text": "OFF-AXIS (SOURCED text 'off-axis paraboloid' for both arms; the figure shows the returning beam beside, not along, the incoming one, with the slit and filter wheels outside the returning beam).",
+    "quote": "The off-axis paraboloid is silvered and overcoated.",
+    "src": "UMR",
+    "loc": "Collimator"
+   }
+  ],
+  "model_outputs": {
+   "F": 17.531652965335294,
+   "W": 80.76819697491194,
+   "red": {
+    "Reff": 736.5062221668876,
+    "Rs": 736.7626826032077,
+    "npix": 4.14080431674871,
+    "dlpix": 2.5567147372214403,
+    "lam": 7800,
+    "alpha": 29.775467083320464,
+    "beta": -15.224532916679536,
+    "range": [
+     4600.193722098121,
+     11089.10478875214
+    ],
+    "fcol": 1416,
+    "pixScale": 0.4344801277064981,
+    "flags": []
+   },
+   "red_1arcsec": {
+    "Reff": 1471.4768845466165,
+    "Rs": 1473.525360194747,
+    "npix": 2.0704021654160862,
+    "dlpix": 2.5567147372214403,
+    "lam": 7800,
+    "alpha": 29.775467083320464,
+    "beta": -15.224532916679536,
+    "range": [
+     4600.193722098121,
+     11089.10478875214
+    ],
+    "fcol": 1416,
+    "pixScale": 0.4344801277064981,
+    "flags": []
+   },
+   "red_600_7000": {
+    "Reff": 1411.925251832358,
+    "Rs": 1412.321235477715,
+    "npix": 3.7915747470292227,
+    "dlpix": 1.307208697514249,
+    "lam": 7000,
+    "alpha": 35.63830236882631,
+    "beta": -9.361697631173687,
+    "range": [
+     5354.988837728773,
+     8672.668698281514
+    ],
+    "fcol": 1416,
+    "pixScale": 0.434480127706498,
+    "flags": []
+   },
+   "blue": {
+    "Reff": 924.6817360382425,
+    "Rs": 924.7977243736444,
+    "npix": 4.603202487922481,
+    "dlpix": 1.0194232901150442,
+    "lam": 4339.716737409708,
+    "alpha": 33.9,
+    "beta": 33.9,
+    "range": [
+     3364.026508063636,
+     5430.941614533426
+    ],
+    "fcol": 1416,
+    "pixScale": 0.434480127706498,
+    "flags": []
+   },
+   "blue_1arcsec": {
+    "Reff": 1848.668068747608,
+    "Rs": 1849.5954520837226,
+    "npix": 2.301601239809446,
+    "dlpix": 1.0194232901150442,
+    "lam": 4339.716737409708,
+    "alpha": 33.9,
+    "beta": 33.9,
+    "range": [
+     3364.026508063636,
+     5430.941614533426
+    ],
+    "fcol": 1416,
+    "pixScale": 0.434480127706498,
+    "flags": []
+   },
+   "blue_452": {
+    "Reff": 710.8380360315605,
+    "Rs": 710.943536888883,
+    "npix": 4.603202483620766,
+    "dlpix": 1.4607992010844113,
+    "lam": 4780.636378991711,
+    "alpha": 27.78,
+    "beta": 27.78,
+    "range": [
+     3384.505930924541,
+     6334.372592399449
+    ],
+    "fcol": 1416,
+    "pixScale": 0.434480127706498,
+    "flags": []
+   },
+   "blue_830": {
+    "Reff": 1323.9864940401687,
+    "Rs": 1324.1242701451474,
+    "npix": 4.603202498434448,
+    "dlpix": 0.6365597322856722,
+    "lam": 3879.96661351799,
+    "alpha": 43.08,
+    "beta": 43.08,
+    "range": [
+     3272.682820040362,
+     4568.132276555391
+    ],
+    "fcol": 1416,
+    "pixScale": 0.4344801277064981,
+    "flags": []
+   }
+  },
+  "performance_targets": [
+   {
+    "what": "dispersion 2.55 A/px (red 300/7500)",
+    "q": "dlpix",
+    "value": 2.55,
+    "tol": 0.03,
+    "src": "UMR Gratings (300/7500, 15 um pixels)",
+    "note": "model 2.557; psi is EFFECTIVE (fitted to this number, but the dependence is weak: 2.53-2.65 over psi = 10-50 deg), so it is partly circular; independent check: 600/5000 at psi 45 gives 1.307 against 1.30"
+   },
+   {
+    "what": "dispersion 1.02 A/px (blue 600/4310)",
+    "q": "dlpix",
+    "value": 1.02,
+    "tol": 0.03,
+    "src": "UMB Grisms",
+    "note": "model 1.019; circular in the glass choice (silica chosen from the three published dispersions), independent of the apex (fitted to lambda0)"
+   },
+   {
+    "what": "pixel scale 0.43 arcsec/px",
+    "q": "pixScale",
+    "value": 0.43,
+    "tol": 0.02,
+    "src": "UMD CCDs; UMQ",
+    "note": "model 0.4345 (both arms): not fitted"
+   },
+   {
+    "what": "straight-through 4340 A (blue)",
+    "q": "lam0",
+    "value": 4340,
+    "tol": 0.005,
+    "src": "UMB Grisms",
+    "note": "circular: the apex was fitted to it (EFFECTIVE)",
+    "info": true
+   },
+   {
+    "what": "coverage 2090 A (blue)",
+    "q": "span",
+    "value": 2090,
+    "tol": 0.03,
+    "src": "UMB Grisms (2090 A) and UMQ",
+    "note": "model 2067 A (3364-5431): 1.1% short"
+   },
+   {
+    "what": "coverage 6785 A (red 300/7500)",
+    "q": "span",
+    "value": 6785,
+    "tol": 0.05,
+    "src": "UMR Gratings",
+    "note": "model 6489 A (4600-11089) from the 2551 illuminated rows: 4.4% short (6785 / 2.55 = 2661 px, 4% more than the rows 760-3310; Conflicts item 3)"
+   },
+   {
+    "what": "R = 4340/6 = 723 (blue, 2 arcsec)",
+    "q": "RAt",
+    "lam": 4340,
+    "value": 723,
+    "info": true,
+    "src": "B12 Sec. 2.1.2: 'resolution of ~11 A and ~6 A on the red and blue sides'; the paper does not say whether the FWHM is measured from arcs or which wavelength",
+    "note": "model 925 (slit-limited 2 arcsec = 4.60 px x 1.02 A = 4.7 A): the published 6 A is 28% wider than the slit alone; a focus or seeing term is not modeled"
+   },
+   {
+    "what": "R = 7800/11 = 709 (red, 2 arcsec)",
+    "q": "RAt",
+    "lam": 7800,
+    "value": 709,
+    "tol": 0.08,
+    "src": "B12 Sec. 2.1.2 (as above; wavelength assumed 7800 A, the arm's center)",
+    "note": "model 737 (10.6 A: 4.14 px x 2.557 A/px, slit-limited): 4% above the published"
+   },
+   {
+    "what": "R 700-1700 (blue) and 500-3000 (red), all setups",
+    "q": "R",
+    "info": true,
+    "value": null,
+    "src": "UMQ General Parameters: 'Approximate Range of Resolution'",
+    "note": "range over all gratings, grisms and slits; the 2 arcsec presets sit at the low end (blue 925, red 737)"
+   },
+   {
+    "what": "crossover 5500 A (D55)",
+    "q": "dichroic",
+    "value": 5500,
+    "info": true,
+    "src": "UMC Dichroics and Mirror",
+    "note": "entered in the All-arms group; curve measured 5410-5474 A"
+   }
+  ],
+  "not_found": [
+   "The grisms' prism apex angles, glass and blaze angles; the red gratings' blaze angles, sizes and ruled lengths (gLen): none appears in the Lick manuals, TR66, the Berkeley papers or the synopsis page. The blue apex is EFFECTIVE (fused silica, 33.90 deg).",
+   "The camera-collimator angle (psi), the gratings' angle of incidence and the grating tilt in degrees (the tilt is in motor steps with no steps-per-degree): psi = 45 deg is EFFECTIVE.",
+   "The camera lens prescriptions (elements, glass, f-ratio): only the focal length 188.7 mm, the design wavelength ranges and 'all-refractive' are published. The camera speed is DERIVED (f/2.3).",
+   "The dichroics' angle of incidence, thickness and substrate (32.5 deg is MEASURED from an oblique drawing, +-8 deg); the measured D55 curve is only an image (no data file).",
+   "The Cassegrain focal ratio and the illuminated aperture of the 3.048 m primary (secondary and baffle obstruction): F = 17.53 is DERIVED from the plate scale and the 120-inch diameter.",
+   "A measured resolving power from arc lines: only the Berkeley papers' round figures (about 6 A blue and 11 A red FWHM at 2 arcsec) and the manual's ranges (blue 700-1700, red 500-3000). The 2016 Hamamatsu upgrade has no instrument paper (only the Lick page and the BSNIP data-release notes).",
+   "A dimensioned layout, ray trace or Zemax/Code V prescription: the instrument was designed by J. S. Miller and built in the Lick shops, and the only layout published is the 3-D perspective drawing.",
+   "The system throughput as a table: the manual refers to a throughput page by J. X. Prochaska (http://www.ucolick.org/~xavier/KAST_THRU/), which is a link to a personal site that no longer serves the data; the manual's own range is 'Peak system efficiency ... between 5 and 20%' (blue, TR66 p. 8) and 'in the vicinity of 30-40%' (red, with the old detector)."
+  ],
+  "conflicts": [
+   "Beam size and focal ratio: UMQ and TR66 give a 82.6 mm beam on the 1416 mm collimator (F = 17.14), but the 3.86 arcsec/mm plate scale on the 3.048 m primary gives F = 17.53 and an 80.77 mm beam (and f/17.14 would need a 3.117 m pupil). The record keeps the sourced plate scale and focal length (so the pixel scale and dispersions come out as published) and takes the explorer's beam from F = 17.53. A larger secondary obstruction does not resolve it (that makes the pupil smaller, not larger). Possibly 82.6 mm is the design beam with margin.",
+   "Citation year: the Lick-posted report is dated September 1994; BSNIP I, III and the data-release paper cite 'Miller & Stone 1993'; the User's Guide is not dated. The record cites the report as posted (TR66, 1994).",
+   "Red coverage: the grating table gives 6785 A for the 300/7500 (2661 px at 2.55 A/px) but the detector page says the spectrum covers rows 760 to 3310 (2551 px, 6505 A). The record uses 2551 rows, so the model's 6489 A is 4.4% below the table. The 2016 news says the single-image coverage grew 'by about 20%' (6785 / 5520 = +23%).",
+   "D55 transition width: the manual says 'About 200 angstroms of the spectrum are affected'; the measured D55 curve (Fig. 3) has a 10-90% width of 380 A (reflectance 0.90 at 5225 A, 0.10 at 5608 A). Entered 380 A (MEASURED). The same page says the crossover is 'about 5500 A'; the curve crosses at 5450 A.",
+   "Lick's synopsis page gives the blue grism ranges as 3100-5520 A (600/4310) and 3100-6200 A (452/3306); the Quick Reference and Blue Side pages give 3300-5520 and 3150-6200 A. The record uses the User's Guide values.",
+   "Standard slit: the Lick manual's one stated default is 0.5 arcsec (arc lamps); the Berkeley supernova program's typical slit is 2 arcsec. The preset uses 2 arcsec, which also makes the published 6 A and 11 A resolutions the targets."
+  ],
+  "notes": [
+   "Era and status. Kast has run since early 1992 and is in operation (the Lick pages were updated July 2025). The preset represents the current configuration: the blue Fairchild 2048 x 2048 CCD (since September 2008) and the red Hamamatsu 1024 x 4096 CCD (since 18 September 2016), both 15 um pixels. The 1994 report describes the Reticon era: two 1200 x 400 CCDs of 27 um pixels (0.78 arcsec/px, 2.35 A/px for the 600/mm gratings); its tables and tilt formulas are for that era and are not used.",
+   "Two physical spectrographs in one housing. Each arm has its own off-axis paraboloid collimator (1416 mm), its own camera (188.7 mm lens) and CCD; the dichroic sits in the diverging beam after the common slit (All-arms group 'Kast', split 'focus', slit shared, relay none). The polarimeter module (waveplate plus calcite) can replace the user filter wheels; it is not modeled.",
+   "Explorer representation. mode grating; D 3.048 m; F 17.53 (DERIVED); W 80.77 mm; fcol 1416 mm; fcam 188.7 mm; slit 2.0 arcsec; nObj 1; colTilt 5.0 deg (MEASURED from the figure; the blue value SCHEMATIC); layLen 1070 mm (red MEASURED, blue SCHEMATIC); cam lens; Nx x Ny 2048 x 2048 (blue) and 2551 x 1024 (red), pix 15 um. Blue: gType grism, G 600, gKind ruled, gGlass silica, gA 33.90 deg (EFFECTIVE), lamC 4340 A (the straight-through wavelength, fixed by the grism). Red: gType refl, G 300, lamB 7500 A, lamC 7800 A (INFERRED), psi 45 deg (EFFECTIVE).",
+   "What the explorer cannot represent: the grism's blaze (a grism of a given apex only fixes the straight-through wavelength), the moveable detector stage (blue x-stage shifts the coverage by 100-200 A), the camera's measured aberrations and flexure (up to 9 px), the dichroic's ghosts and the 10 px shift of the red spectrum, the polarimeter, and the red camera's loss of focus off the 4000-11000 A design range.",
+   "The 2016 dichroics: a new D46 (4600 A) and a D57 (5700 A) with sharper transitions and brighter ghosts are available; only the D55 (the supernova standard) is entered."
+  ]
+ }
+}

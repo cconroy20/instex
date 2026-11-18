@@ -1,0 +1,1196 @@
+{
+ "id": "bluechannel",
+ "instrument": "MMT Spectrograph, Blue Channel (long slit, ITL/STA 2688 x 512 CCD)",
+ "era": "converted 6.5 m MMT (2000 on), f/9; optics of the 1979 design (f_cam and psi reproduce today's table)",
+ "quote_check": "46 quote pieces, 0 failures",
+ "sources": [
+  {
+   "key": "S89",
+   "document": "Schmidt, G. D., Weymann, R. J. & Foltz, C. B. 1989, PASP 101, 713, \"A Moderate-Resolution, High-Throughput CCD Channel for the MMT Spectrograph\" (ADS 1989PASP..101..713S; title checked on ADS; text layer). NOTE: this paper describes the CCD channel, which became the RED Channel; it describes the Blue Channel only in passing.",
+   "file": "1989PASP..101..713S.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1989PASP..101..713S"
+  },
+  {
+   "key": "A79",
+   "document": "Angel, J. R. P., Hilliard, R. L. & Weymann, R. J. 1979, SAO Special Report 385, p. 87, \"An Optical Spectrograph for the MMT\" (ADS 1979SAOSR.385...87A; title checked on ADS; the original design of the Blue Channel; scan WITHOUT a text layer, OCRed with tesseract, quotes marked \"transcribed from the scan\"; Table 2 is a rotated page, OCRed after rotation)",
+   "file": "1979SAOSR.385...87A.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1979SAOSR.385...87A"
+  },
+  {
+   "key": "MD",
+   "document": "MMT Observatory, Blue Channel Details page (grating table, optical layout figure, echellette text), retrieved 2026-11-18",
+   "file": "bc_details.html",
+   "url": "https://www.mmto.org/instrument-suite/blue-red-channel-spectrographs/blue-channel-details/"
+  },
+  {
+   "key": "MO",
+   "document": "MMT Observatory, Blue & Red Channel Spectrographs overview page, retrieved 2026-11-18",
+   "file": "bc_overview.html",
+   "url": "https://www.mmto.org/instrument-suite/blue-red-channel-spectrographs/"
+  },
+  {
+   "key": "MA",
+   "document": "MMT Observatory, Aperture Plates and Filters page, retrieved 2026-11-18",
+   "file": "bc_apertures.html",
+   "url": "https://www.mmto.org/instrument-suite/blue-red-channel-spectrographs/aperture-plates-and-filters/"
+  },
+  {
+   "key": "MC",
+   "document": "MMT Observatory, Blue and Red Channel detector information (ITL data), retrieved 2026-11-18",
+   "file": "bc_detector.html",
+   "url": "https://www.mmto.org/instrument-suite/blue-red-channel-spectrographs/blue-and-red-channel-detector-information/"
+  },
+  {
+   "key": "PY",
+   "document": "PypeIt documentation, MMT Blue Channel (templates for 300, 500, 800, 832 1st and 2nd order, 1200 gpm; used only as evidence of which gratings are in use)",
+   "file": "pypeit_mmt_bluechannel.rst.txt",
+   "url": "https://pypeit.readthedocs.io/en/state/_sources/spectrographs/mmt_bluechannel.rst.txt"
+  },
+  {
+   "key": "LAY",
+   "document": "MMTO optical layout figure of the Blue Channel (GIF, 549 x 345 px, no scale bar)",
+   "file": "bclayout.gif",
+   "url": "http://www.mmto.org/wp-content/uploads/2020/03/bclayout.gif"
+  },
+  {
+   "key": "BLZ",
+   "document": "MMTO theoretical blaze functions (PDF; saved, not used)",
+   "file": "bcblaze.pdf",
+   "url": "http://www.mmto.org/wp-content/uploads/2020/03/bcblaze.pdf"
+  }
+ ],
+ "parameters": [
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Aperture (6.5 m era)",
+   "value": "6.5",
+   "unit": "m",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 713, Abstract and p. 721 (Future Plans)",
+   "quote": "single-mirror telescope of ~ 6.5-m aperture"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Focal ratio at the instrument",
+   "value": "f/9",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 721 (Future Plans)",
+   "quote": "upgrade envision an //9 Cassegrain focus"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "ALT: focal ratio (observatory page, current)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "MO",
+   "loc": "Overview page",
+   "quote": "mounts to the standard MMT f/9 top box"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "ALT: focal ratio (the 1989 six-mirror telescope)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "combined beam requires a monochromatic camera focal"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "ALT: f/9 in the 1979 design",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "A79",
+   "loc": "p. 89 (Sec. 2), transcribed from the scan",
+   "quote": "a single image from a point source is produced which is contained"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Plate scale at the slit",
+   "value": "3.526",
+   "unit": "arcsec/mm",
+   "tag": "DERIVED",
+   "key": null,
+   "loc": "",
+   "quote": "206265 / (6.5 m x 9 x 1000 mm/m) = 3.526 arcsec/mm. The six-mirror telescope's f/9 plate scale was 3.6 arcsec/mm (S89 p. 714: \"Cassegrain image scale of 3.6 arc sec mm-1\"; A79 Table 2: slit \"2.0 x 3.6 (.558 x 1.000 mm)\" gives 3.58)."
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Sky scale on the detector, unbinned",
+   "value": "0.3",
+   "unit": "arcsec/px",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Slit Length paragraph",
+   "quote": "nominal unbinned scale of 0.3″/pixel"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Slit widths",
+   "value": "0.75, 1.00, 1.25, 1.50, 2.00, 3.50, 3.75 (20-in. long only), 5.00",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Standard Slits table",
+   "quote": "Slit Width (arcsec) 180″ Length 20″ Length 9″ Length"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Slit length (long slits) and unvignetted length",
+   "value": "180 (plate); about 150 unvignetted",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Slit Length paragraph",
+   "quote": "The unvignetted slit is about 150 arcsec long"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Aperture plates tilted to the axis",
+   "value": "12.5",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Aperture Plates paragraph",
+   "quote": "The aperture plates are tilted 12.5° with respect to the optical axis"
+  },
+  {
+   "sec": "Telescope and feed",
+   "parameter": "Slit plates and filters are shared with the Red Channel",
+   "value": "yes",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "first line",
+   "quote": "used for both Blue and Red Channel"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Collimated beam diameter",
+   "value": "150",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "provides a 150-mm diameter collimated beam and 40-mm focal-plane format"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "ALT: beam diameter (1979 design)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "A79",
+   "loc": "p. 104, Sec. 3.5, transcribed from the scan",
+   "quote": "we are led to choose a beam diameter of 150 mm"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Collimator type",
+   "value": "off-axis parabolic mirror (6-inch beam)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "A79",
+   "loc": "Fig. 1 label and caption, p. 90, transcribed from the scan",
+   "quote": "off axis parabolic collimator"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "ALT: collimator, caption of Fig. 1",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "A79",
+   "loc": "p. 90, transcribed from the scan",
+   "quote": "off-axis 6-inch collimator"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "ALT: the collimator in the current layout drawing is a single mirror (figure label read by eye, not machine-checked)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": null,
+   "loc": "bclayout.gif, label 'Collimator'",
+   "quote": ""
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Fold ahead of the collimator (the slit beam turns to the collimator)",
+   "value": "about 70 deg, by the total-internal-reflection prism (TIRP) when the Blue Channel is used alone",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "key": "A79",
+   "loc": "p. 110, Sec. 4.2, transcribed from the scan",
+   "quote": "the beam from the slit is deflected some 70° by the dichroic mirror or internally reflecting prism"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "ALT: the TIRP replaced the dichroic in the built instrument",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "total internal reflection prism (TIRP; see Fig. 1) to feed the blue colli-"
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Collimator focal length",
+   "value": "1350",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "key": null,
+   "loc": "",
+   "quote": "f = (f/9) x 150 mm = 1350 mm. NOT FOUND as a stated value: the beam fills the f/9 cone of the telescope, so the collimator is f/9. Cross-check: the observatory table's 1 arcsec slit is 3.43 pixels wide before the anamorphic factor (6.47 A / 1.96 A/px / 0.96 = 3.44; the same 3.43 for the other gratings), which gives 0.2915 arcsec/px and f_col = 1380 mm, 2% longer; the table's 0.3 arcsec/px is rounded."
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Collimator on- or off-axis",
+   "value": "OFF-AXIS (tilt about 3.5 deg, MEASURED, +-2 deg)",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "key": null,
+   "loc": "",
+   "quote": "Quoted: \"off axis parabolic collimator\" (A79 Fig. 1) and \"off-axis 6-inch collimator\" (caption). MEASURED from the observatory layout drawing (bclayout.gif, 549 x 345 px, no scale; read at 3x): the ray from the TIRP to the collimator makes 21 deg with the horizontal, the beam from the collimator to the grating 29 deg, so the two differ by 7.6 deg; the mirror tilt is half of that, 3.8 deg (rounded to 3.5 for the stated reading error). The slit does NOT stand in the returning beam: the TIRP is off to the side of the collimated beam in the drawing."
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Collimator-to-grating distance (layLen)",
+   "value": "1085 (range 975 to 1365)",
+   "unit": "mm",
+   "tag": "MEASURED",
+   "key": null,
+   "loc": "",
+   "quote": "MEASURED from bclayout.gif: 821 px from the collimator center to the grating center, scaled so that the slit-to-collimator path (TIRP leg 552 px + slit leg 470 px = 1022 px) equals f_col = 1350 mm (1.32 mm/px). Scaling by the 150 mm beam (123 px across the collimator) gives 975 mm. The 1979 side view (A79 Fig. 1, scale in feet, 132 px/ft) gives 591 px = 1365 mm, and scaled by f_col as above 1245 mm. The drawings are schematic; the spread is the uncertainty."
+  },
+  {
+   "sec": "Collimator and beam",
+   "parameter": "Fold position",
+   "value": "0.57 of the slit-to-collimator path measured from the collimator (TIRP about 0.43 from the slit)",
+   "unit": "",
+   "tag": "MEASURED",
+   "key": null,
+   "loc": "",
+   "quote": "MEASURED from bclayout.gif: collimator leg 552 px, slit leg 470 px, fraction 552/1022 = 0.54; A79 Fig. 1: 890 mm of 1480 = 0.60. Mean 0.57."
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "Gratings in service",
+   "value": "300, 500, 800, 600, 832, 1200 /mm, plus the 240 /mm echellette",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "Grating (lines/mm) Blaze (order/λ Å) Blaze Angle(°) Anamorphic Mag R (@ Blaze, 1″ slit) Resolution (Å) Dispersion (Å/pix) Coverage"
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "Gratings resident at one time",
+   "value": "3",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MO",
+   "loc": "Blue Channel paragraph",
+   "quote": "Three gratings can be resident in the spectrograph at any one time"
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "Grating type",
+   "value": "plane ruled reflection gratings, used in first or second order",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blaze column (order/blaze wavelength)",
+   "quote": "832 2nd/3900 19.7 0.83 3830 1.02 0.36 968"
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "Camera-collimator angle psi (alpha - beta)",
+   "value": "30",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "key": "A79",
+   "loc": "p. 104, Sec. 3.5, transcribed from the scan",
+   "quote": "We have therefore selected a camera-collimator angle of 30°"
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "ALT: angle (Table 2)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "A79",
+   "loc": "p. 109, Table 2, transcribed from the scan",
+   "quote": "Camera-Collimator included angle: 30°"
+  },
+  {
+   "sec": "Gratings and geometry",
+   "parameter": "psi confirmed from the as-built table",
+   "value": "30",
+   "unit": "deg",
+   "tag": "DERIVED",
+   "key": null,
+   "loc": "",
+   "quote": "DERIVED: with the blaze wavelength of the table taken as the grating's center wavelength at psi = 30 deg, (alpha+beta)/2 = asin(m G lam_B / (2 cos 15 deg)) equals the table's blaze angle for every grating (300: 4.27 vs 4.30; 500: 8.05 vs 8.05; 800: 9.65 vs 9.67; 600: 17.35 vs 17.4; 832: 19.63 vs 19.7; 1200: 17.46 vs 17.5 deg), and cos(alpha)/cos(beta) equals the table's anamorphic factor (0.961 vs 0.96, 0.927 vs 0.93, 0.913 vs 0.91, 0.846 vs 0.85, 0.826 vs 0.83, 0.845 vs 0.84). So the table's blaze wavelengths are the center wavelengths in a 30 deg geometry, and the 1979 angle holds today."
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Camera type",
+   "value": "folded Schmidt (corrector, spherical mirror, folding flat with a hole, CCD at the flat)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "practical for a folded Schmidt design"
+  },
+  {
+   "sec": "Camera",
+   "parameter": "ALT: camera layout in the current drawing (figure label read by eye, not machine-checked)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": null,
+   "loc": "bclayout.gif, label 'CCD Dewar and Folded Schmidt Camera'",
+   "quote": ""
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Camera effective focal length",
+   "value": "250.4 (9.86 in.)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "key": "A79",
+   "loc": "p. 109, Table 2, transcribed from the scan (design value)",
+   "quote": "Camera effective focal length: 9.86 inches"
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Camera focal length confirmed by the as-built dispersions",
+   "value": "250",
+   "unit": "mm",
+   "tag": "DERIVED",
+   "key": null,
+   "loc": "",
+   "quote": "DERIVED: dispersion = 15 um x cos(beta) / (m G f_cam). With f_cam = 250.4 mm, psi = 30 deg and the table's blaze wavelengths, the formula gives 1.962, 1.189, 0.745, 0.499, 0.997, 0.359, 0.718 and 0.499 A/px for the 300, 500, 800, 600 (2nd, 1st), 832 (2nd, 1st) and 1200; the table gives 1.96, 1.19, 0.75, 0.50, 1.00, 0.36, 0.72, 0.50 (all within 1%)."
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Camera focal ratio",
+   "value": "about f/1.5 (monochromatic), F = 1.67 for the 150 mm beam",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "ratio (-//1.5) which was practical for a folded Schmidt"
+  },
+  {
+   "sec": "Camera",
+   "parameter": "ALT: the camera needs to be fast (1979 design)",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "A79",
+   "loc": "p. 104, Sec. 3.5, transcribed from the scan",
+   "quote": "there is a broad maximum in the required focal ratio of about"
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Camera field of view",
+   "value": "+-4.5 deg (40 mm format)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "key": "A79",
+   "loc": "p. 109, Table 2, transcribed from the scan",
+   "quote": "Field of view: + 4.5° (40 mm photocathode)"
+  },
+  {
+   "sec": "Camera",
+   "parameter": "Grating-to-camera distance (camLen), drawing only",
+   "value": "300",
+   "unit": "mm",
+   "tag": "MEASURED",
+   "key": null,
+   "loc": "",
+   "quote": "MEASURED from bclayout.gif: grating center to the camera corrector, about 225 px x 1.32 mm/px (scale as above). Schematic: the camera is drawn in plan beside the collimated beam."
+  },
+  {
+   "sec": "Detector",
+   "parameter": "CCD",
+   "value": "ITL/STA STA0520A, 2688 x 512 pixels, 15 x 15 um (SN 3735)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MC",
+   "loc": "Blue Channel detector block",
+   "quote": "Pixels: 2688×512 15×15 microns"
+  },
+  {
+   "sec": "Detector",
+   "parameter": "ALT: CCD in the overview",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "MO",
+   "loc": "Blue Channel paragraph",
+   "quote": "The current detector is a highly-optimized ITL/STA 2688×512 CCD"
+  },
+  {
+   "sec": "Detector",
+   "parameter": "Dispersion direction",
+   "value": "along the 2688 columns (coverage 'for the full 2688 columns'); 512 rows along the slit (512 x 0.3 = 154 arcsec)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "footnote a of the gratings table",
+   "quote": "Coverage is for the full 2688 columns"
+  },
+  {
+   "sec": "Detector",
+   "parameter": "Read noise, gain",
+   "value": "2.45 e-; 2.20 e-/DN (gain 1) and 1.12 (gain 2)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MC",
+   "loc": "Blue Channel detector block",
+   "quote": "Noise ≈ 2.45 e-"
+  },
+  {
+   "sec": "Detector",
+   "parameter": "Earlier Blue Channel detector (1989)",
+   "value": "dual 1024-element Reticon photon-counting array, 40 mm format",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "dual 1024 element Reticon array operating in a centroiding"
+  },
+  {
+   "sec": "Wavelength coverage",
+   "parameter": "Instrument range",
+   "value": "3200-8000",
+   "unit": "A",
+   "tag": "SOURCED",
+   "key": "MO",
+   "loc": "Blue Channel paragraph",
+   "quote": "optimized for spectroscopy in the range from 3200-8000 Å"
+  },
+  {
+   "sec": "Wavelength coverage",
+   "parameter": "Coverage per setting",
+   "value": "see the grating table (968 to 5268 A on 2688 columns)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "Coverage is for the full 2688 columns."
+  },
+  {
+   "sec": "Wavelength coverage",
+   "parameter": "Resolution quoted",
+   "value": "as high as 30 km/s",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MO",
+   "loc": "Blue Channel paragraph",
+   "quote": "A number of gratings are available giving resolution as high as 30 km/sec"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "Slit-limited R, 1 arcsec slit, best grating (1989)",
+   "value": "8000 (0.5 A)",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "S89",
+   "loc": "p. 714, Sec. 2.1",
+   "quote": "producing slit-limited resolutions as high as 8000 (0.5 A for a 1 arc sec wide slit)"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "Table value R at blaze, 300 /mm, 1st/4800",
+   "value": "740; resolution 6.47 A; 1.96 A/px",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "300 1st/4800 4.30 0.96 740 6.47 1.96 5268"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "500 /mm, 1st/5410",
+   "value": "1430; 3.79 A; 1.19 A/px; 3198 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "500 1st/5410 8.05 0.93 1430 3.79 1.19 3198"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "800 /mm, 1st/4050",
+   "value": "1730; 2.34 A; 0.75 A/px; 2016 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "800 1st/4050 9.67 0.91 1730 2.34 0.75 2016"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "600 /mm, 2nd/4800 and 1st/9630",
+   "value": "3310 (3330); 1.45 (2.90) A; 0.50 (1.00) A/px",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "600 2nd/4800 17.4 0.85 3310 1.45 0.50 1344 1st/9630 17.4 0.85 3330 2.90 1.00 2688"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "832 /mm, 2nd/3900 and 1st/7790",
+   "value": "3830; 1.02 (2.04) A; 0.36 (0.72) A/px; 968 (1935) A",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "832 2nd/3900 19.7 0.83 3830 1.02 0.36 968 1st/7790 19.7 0.83 3830 2.04 0.72 1935"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "1200 /mm, 1st/4830",
+   "value": "3340; 1.45 A; 0.50 A/px; 1344 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Blue Channel Gratings table",
+   "quote": "1200 1st/4830 17.5 0.84 3340 1.45 0.50 1344"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "How the table's R is made (GEOMETRIC, not measured)",
+   "value": "R = blaze wavelength / resolution; resolution = (1 arcsec slit in px) x A/px",
+   "unit": "",
+   "tag": "DERIVED",
+   "key": null,
+   "loc": "",
+   "quote": "The R column is lam_B / Resolution (300: 4800/6.47 = 742; 1200: 4830/1.45 = 3331); the resolution is 3.43 px x anamorphic factor x A/px (300: 3.43 x 0.96 x 1.96 = 6.45). It is a slit-limited number, an ideal image, not a measurement."
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "Measured line width, 1 arcsec slit, low-resolution grating",
+   "value": "2.8 px (Gaussian FWHM of a comparison line); 3.2 px for the Red Channel",
+   "unit": "px",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Standard Slits table, 'Blue FWHM (pixels)' column",
+   "quote": "1.00 √ √ √ 2.8 3.2"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "What the measured widths used",
+   "value": "a low-resolution grating, anamorphic factor near 1, no binning",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "text above the slit table",
+   "quote": "In both cases a low-resolution grating was used, so the anamorphic factor is near unity"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "Slit width series (FWHM, px)",
+   "value": "0.75: 2.6; 1.00: 2.8; 1.25: 3.1; 1.5: 3.6; 2.0: 4.5; 3.5: 7.9; 5.0: 11.5",
+   "unit": "px",
+   "tag": "SOURCED",
+   "key": "MA",
+   "loc": "Standard Slits table",
+   "quote": "3.50 √ √ √ 7.9 10.0"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "Echellette (the 240 /mm 6 x 10 in. grating)",
+   "value": "orders 8-17, 3100-7000 A, 10 arcsec slit; R about 10,000 for a 1 arcsec slit in a perfect instrument; measured 30 to 60 km/s",
+   "unit": "",
+   "tag": "SOURCED",
+   "key": "MD",
+   "loc": "Cross Dispersed Echellette Mode",
+   "quote": "a 6″ x 10″, custom-ruled, 240 g/mm grating which can be used in orders 8-17 simultaneously"
+  },
+  {
+   "sec": "Published performance",
+   "parameter": "ALT: echellette measured",
+   "value": "",
+   "unit": "",
+   "tag": "ALT",
+   "key": "MD",
+   "loc": "Cross Dispersed Echellette Mode",
+   "quote": "The resulting resolution varied from about 30 to 60 km/sec"
+  }
+ ],
+ "presets": [
+  {
+   "setting": "300",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 300,
+    "m": 1,
+    "blazeDeg": 4.3,
+    "lamB1": 4998.6,
+    "lamC": 4800,
+    "psi": 30,
+    "alphaDeg": 19.27,
+    "betaDeg": -10.73,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "1.96 A/px",
+     "q": "dlpix",
+     "value": 1.96,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 5268 A on the full 2688 columns",
+     "q": "span",
+     "value": 5268,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 3.3 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 3.3,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 740 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 740,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "500",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 500,
+    "m": 1,
+    "blazeDeg": 8.05,
+    "lamB1": 5601.5,
+    "lamC": 5410,
+    "psi": 30,
+    "alphaDeg": 23.05,
+    "betaDeg": -6.95,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "1.19 A/px",
+     "q": "dlpix",
+     "value": 1.19,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 3198 A on the full 2688 columns",
+     "q": "span",
+     "value": 3198,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 3.18 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 3.18,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 1430 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 1430,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "800",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 800,
+    "m": 1,
+    "blazeDeg": 9.67,
+    "lamB1": 4199.3,
+    "lamC": 4050,
+    "psi": 30,
+    "alphaDeg": 24.65,
+    "betaDeg": -5.35,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "0.75 A/px",
+     "q": "dlpix",
+     "value": 0.75,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 2016 A on the full 2688 columns",
+     "q": "span",
+     "value": 2016,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 3.12 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 3.12,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 1730 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 1730,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "600 2nd",
+   "recommended": false,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 600,
+    "m": 2,
+    "blazeDeg": 17.4,
+    "lamB1": 9968.0,
+    "lamC": 4800,
+    "psi": 30,
+    "alphaDeg": 32.35,
+    "betaDeg": 2.35,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "0.5 A/px",
+     "q": "dlpix",
+     "value": 0.5,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 1344 A on the full 2688 columns",
+     "q": "span",
+     "value": 1344,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 2.9 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 2.9,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 3310 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 3310,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "600 1st",
+   "recommended": false,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 600,
+    "m": 1,
+    "blazeDeg": 17.4,
+    "lamB1": 9968.0,
+    "lamC": 9630,
+    "psi": 30,
+    "alphaDeg": 32.4,
+    "betaDeg": 2.4,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "1.0 A/px",
+     "q": "dlpix",
+     "value": 1.0,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 2688 A on the full 2688 columns",
+     "q": "span",
+     "value": 2688,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 2.9 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 2.9,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 3330 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 3330,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "832 2nd",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 832,
+    "m": 2,
+    "blazeDeg": 19.7,
+    "lamB1": 8103.3,
+    "lamC": 3900,
+    "psi": 30,
+    "alphaDeg": 34.63,
+    "betaDeg": 4.63,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "0.36 A/px",
+     "q": "dlpix",
+     "value": 0.36,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 968 A on the full 2688 columns",
+     "q": "span",
+     "value": 968,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 2.83 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 2.83,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 3830 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 3830,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "832 1st",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 832,
+    "m": 1,
+    "blazeDeg": 19.7,
+    "lamB1": 8103.3,
+    "lamC": 7790,
+    "psi": 30,
+    "alphaDeg": 34.6,
+    "betaDeg": 4.6,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "0.72 A/px",
+     "q": "dlpix",
+     "value": 0.72,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 1935 A on the full 2688 columns",
+     "q": "span",
+     "value": 1935,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 2.83 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 2.83,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 3830 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 3830,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  },
+  {
+   "setting": "1200",
+   "recommended": true,
+   "state": {
+    "mode": "grating",
+    "D": 6.5,
+    "F": 9,
+    "slitW": 1,
+    "nObj": 1,
+    "col": "mirror",
+    "colTilt": 3.5,
+    "cam": "mirror",
+    "W": 150,
+    "fcam": 250.4,
+    "camLen": 300,
+    "layLen": 1085,
+    "gType": "refl",
+    "G": 1200,
+    "m": 1,
+    "blazeDeg": 17.5,
+    "lamB1": 5011.8,
+    "lamC": 4830,
+    "psi": 30,
+    "alphaDeg": 32.46,
+    "betaDeg": 2.46,
+    "Nx": 2688,
+    "Ny": 512,
+    "pix": 15,
+    "preFoldDeg": 70,
+    "preFoldPos": 0.57
+   },
+   "pub": [
+    {
+     "what": "0.5 A/px",
+     "q": "dlpix",
+     "value": 0.5,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "coverage 1344 A on the full 2688 columns",
+     "q": "span",
+     "value": 1344,
+     "tol": 0.02,
+     "src": "MMTO grating table"
+    },
+    {
+     "what": "1 arcsec slit = 2.9 px (resolution / dispersion)",
+     "q": "npix",
+     "value": 2.9,
+     "tol": 0.04,
+     "src": "MMTO grating table (the model's slit image is 3.51 px x anamorphic factor at f_col = 1350 mm; the table implies 3.43)"
+    },
+    {
+     "what": "R 3340 (1 arcsec, at blaze)",
+     "q": "Rs",
+     "value": 3340,
+     "info": true,
+     "src": "MMTO grating table (a GEOMETRIC number: lambda_B over the slit image in A; repeats the lines above)"
+    },
+    {
+     "what": "0.3 arcsec/px (rounded)",
+     "q": "pixScale",
+     "value": 0.3,
+     "tol": 0.06,
+     "src": "MMTO aperture page; the model gives 0.286"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "collimator focal length (derived 1350 mm)",
+  "grating ruled size and cell of the six Blue gratings (a 150 mm beam at alpha = 32 to 35 deg is about 180 mm long on the grating; whether the ruled length is exceeded is unknown)",
+  "camera clear aperture and the as-built Schmidt prescription",
+  "a measured R from arc lines for the gratings (only the slit-series widths for one low-resolution grating)",
+  "a scaled layout drawing",
+  "when the Blue Channel gratings were replaced after 1979 and the date the 6.5 m telescope first fed it"
+ ]
+}

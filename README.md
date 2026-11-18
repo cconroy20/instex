@@ -1046,6 +1046,14 @@ narrower than its own diffraction lights the central lobe of its diffraction pat
 scale), and coverage runs to 6 µm (CRIRES+'s L and M settings). arms.js gains two splits: after a shared slit,
 collimator and echelle (split "echelle", KPF), and in the diverging beam with no relay (relay null, MODS).
 
+Round 11 (2026-11-18; records in data/round11/): SALT RSS (four VPH settings at the 1.2″ slit, every value from the
+Wisconsin design documents; the published coverages scored to 2%), HST STIS (the CCD modes G430L, G750L, G430M and
+G750M with the 52X0.2 slit; the camera and beam EFFECTIVE, the camera-collimator angle INFERRED; the explorer's 3200 Å
+cut removes 11% of G430L, and the ultraviolet modes are documented but not offered), the MMT Blue Channel (six gratings;
+the 1979 design of Angel, Hilliard & Weymann reproduces the observatory's table to 1%), Lick Kast (blue grism and red
+grating with an All-arms group, the D55 dichroic in the diverging beam), and the CfA Z-machine of the CfA Redshift
+Survey (the optics EFFECTIVE, the collimator entered as a lens by his call).
+
 ## Preset and Setting menus
 
 An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and a

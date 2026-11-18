@@ -981,30 +981,26 @@
   ],
   "boomboxb": [
    {
-    "file": "data/presets_research.md",
-    "key": "VT",
-    "text": "Via collaboration, Via technical description, Boombox section (internal)",
-    "url": ""
+    "file": "data/round11/boombox.md",
+    "key": "P26",
+    "text": "Piotrowski et al. 2026, Optical design of Boombox (submitted; internal)"
    },
    {
-    "file": "data/presets_research.md",
-    "key": "VSB",
-    "text": "Via collaboration, Via Science Book (2026, internal)",
-    "url": ""
+    "file": "data/round11/boombox.json",
+    "key": "VO",
+    "text": "Via Collaboration 2026, arXiv:2606.18332"
    }
   ],
   "boomboxr": [
    {
-    "file": "data/presets_research.md",
-    "key": "VT",
-    "text": "Via collaboration, Via technical description, Boombox section (internal)",
-    "url": ""
+    "file": "data/round11/boombox.md",
+    "key": "P26",
+    "text": "Piotrowski et al. 2026, Optical design of Boombox (submitted; internal)"
    },
    {
-    "file": "data/presets_research.md",
-    "key": "VSB",
-    "text": "Via collaboration, Via Science Book (2026, internal)",
-    "url": ""
+    "file": "data/round11/boombox.json",
+    "key": "VO",
+    "text": "Via Collaboration 2026, arXiv:2606.18332"
    }
   ],
   "via": [
@@ -2624,6 +2620,231 @@
     "text": "Dunham 1946, PAAS 10, 49",
     "ads": "1946PAAS...10...49D",
     "url": "https://articles.adsabs.harvard.edu/pdf/1946PAAS...10...49D"
+   }
+  ],
+  "rss0916": [
+   {
+    "file": "data/round11/rss.json",
+    "key": "OD",
+    "text": "Nordsieck, PFIS Optics Design (SALT-3120AE0001)"
+   },
+   {
+    "file": "data/round11/rss.json",
+    "key": "CALL",
+    "text": "SALT Call for Proposals, 2026 Semester 2"
+   }
+  ],
+  "rss0921": [
+   {
+    "file": "data/round11/rss.json",
+    "key": "OD",
+    "text": "Nordsieck, PFIS Optics Design (SALT-3120AE0001)"
+   },
+   {
+    "file": "data/round11/rss.json",
+    "key": "CALL",
+    "text": "SALT Call for Proposals, 2026 Semester 2"
+   }
+  ],
+  "rss2340": [
+   {
+    "file": "data/round11/rss.json",
+    "key": "OD",
+    "text": "Nordsieck, PFIS Optics Design (SALT-3120AE0001)"
+   },
+   {
+    "file": "data/round11/rss.json",
+    "key": "CALL",
+    "text": "SALT Call for Proposals, 2026 Semester 2"
+   }
+  ],
+  "rss3050": [
+   {
+    "file": "data/round11/rss.json",
+    "key": "OD",
+    "text": "Nordsieck, PFIS Optics Design (SALT-3120AE0001)"
+   },
+   {
+    "file": "data/round11/rss.json",
+    "key": "CALL",
+    "text": "SALT Call for Proposals, 2026 Semester 2"
+   }
+  ],
+  "stisg430l": [
+   {
+    "file": "data/round11/stis.json",
+    "key": "W98",
+    "text": "Woodgate et al. 1998, PASP 110, 1183",
+    "ads": "1998PASP..110.1183W"
+   },
+   {
+    "file": "data/round11/stis.json",
+    "key": "HB41",
+    "text": "STScI, STIS Instrument Handbook (Cycle 34)"
+   }
+  ],
+  "stisg750l": [
+   {
+    "file": "data/round11/stis.json",
+    "key": "W98",
+    "text": "Woodgate et al. 1998, PASP 110, 1183",
+    "ads": "1998PASP..110.1183W"
+   },
+   {
+    "file": "data/round11/stis.json",
+    "key": "HB41",
+    "text": "STScI, STIS Instrument Handbook (Cycle 34)"
+   }
+  ],
+  "stisg430m": [
+   {
+    "file": "data/round11/stis.json",
+    "key": "W98",
+    "text": "Woodgate et al. 1998, PASP 110, 1183",
+    "ads": "1998PASP..110.1183W"
+   },
+   {
+    "file": "data/round11/stis.json",
+    "key": "HB41",
+    "text": "STScI, STIS Instrument Handbook (Cycle 34)"
+   }
+  ],
+  "stisg750m": [
+   {
+    "file": "data/round11/stis.json",
+    "key": "W98",
+    "text": "Woodgate et al. 1998, PASP 110, 1183",
+    "ads": "1998PASP..110.1183W"
+   },
+   {
+    "file": "data/round11/stis.json",
+    "key": "HB41",
+    "text": "STScI, STIS Instrument Handbook (Cycle 34)"
+   }
+  ],
+  "bc500": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "bc300": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "bc800": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "bc832b": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "bc832r": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "bc1200": [
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "A79",
+    "text": "Angel et al. 1979, SAO Special Report 385, 87",
+    "ads": "1979SAOSR.385...87A"
+   },
+   {
+    "file": "data/round11/bluechannel.json",
+    "key": "MD",
+    "text": "MMT Observatory, Blue Channel Details page"
+   }
+  ],
+  "kastb": [
+   {
+    "file": "data/round11/kast.json",
+    "key": "TR66",
+    "text": "Miller & Stone, Lick Observatory Technical Report 66"
+   },
+   {
+    "file": "data/round11/kast.json",
+    "key": "UMI",
+    "text": "Lick Observatory, Kast User's Guide"
+   }
+  ],
+  "kastr": [
+   {
+    "file": "data/round11/kast.json",
+    "key": "TR66",
+    "text": "Miller & Stone, Lick Observatory Technical Report 66"
+   },
+   {
+    "file": "data/round11/kast.json",
+    "key": "UMI",
+    "text": "Lick Observatory, Kast User's Guide"
+   }
+  ],
+  "zmachine": [
+   {
+    "file": "data/round11/zmachine.md",
+    "key": "T79",
+    "text": "Tonry & Davis 1979, AJ 84, 1511",
+    "ads": "1979AJ.....84.1511T",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1979AJ.....84.1511T"
+   },
+   {
+    "file": "data/round11/zmachine.md",
+    "key": "D82",
+    "text": "Davis et al. 1982, ApJ 253, 423",
+    "ads": "1982ApJ...253..423D",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1982ApJ...253..423D"
+   },
+   {
+    "file": "data/round11/zmachine.md",
+    "key": "H83",
+    "text": "Huchra et al. 1983, ApJS 52, 89",
+    "ads": "1983ApJS...52...89H",
+    "url": "https://articles.adsabs.harvard.edu/pdf/1983ApJS...52...89H"
    }
   ]
  },
