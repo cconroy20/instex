@@ -53,6 +53,19 @@ const GROUPS = {
   // published for the SDSS dichroic and carried over to BOSS (INFERRED)
   "BOSS": { split: "collimated", tree: { cut: 6050, w: 500, aoi: 45, src: "Smee et al. 2013 (6050 A; width INFERRED from SDSS)", R: "bossb", T: "bossr" } },
   "SDSS-I/II": { split: "collimated", tree: { cut: 6000, w: 500, aoi: 45, src: "Smee et al. 2013 (6000 A, 50 nm)", R: "sdssb", T: "sdssr" } },
+  // LAMOST LRS (Cui et al. 2012 Fig. 30(b); Huang et al. 2020): one dichroic in the collimated beam, the blue reflected; the
+  // cut INFERRED in the gap between the arms' bands, the angle MEASURED from the figure, the width NOT FOUND
+  "LAMOST LRS": { split: "collimated", tree: { cut: 5800, w: 500, aoi: 23, inferred: true, src: "Cui et al. 2012 Fig. 30(b) (AOI MEASURED); cut INFERRED", R: "lamostb", T: "lamostr" } },
+  // WEAVE (ING; Dalton et al. 2014): one dichroic at 5900 A in the collimated beam, the blue reflected; 45 deg INFERRED from
+  // the 90 deg turn in the layout; the width NOT FOUND; LR and HR cannot be mixed between the arms
+  "WEAVE (LR)": { split: "collimated", tree: { cut: 5900, w: 500, aoi: 45, src: "ING (5900 A); AOI INFERRED from the layout", R: "weavelrb", T: "weavelrr" } },
+  "WEAVE (HR)": { split: "collimated", tree: { cut: 5900, w: 500, aoi: 45, src: "ING (5900 A); AOI INFERRED from the layout", R: "weavehrg", T: "weavehrr" } },
+  // MOONS (Oliva et al. 2014, 2016): dichroic I (0.95 um) reflects RI, dichroic H (1.40 um) reflects YJ and passes H; the
+  // angles MEASURED from Oliva et al. 2016 Fig. 1 (+-4 deg), the widths NOT FOUND
+  "MOONS LR (design)": { split: "collimated", tree: { cut: 9500, w: 300, aoi: 28, src: "Oliva et al. 2014 (0.95 um); AOI MEASURED", R: "moonsri",
+    T: { cut: 14000, w: 300, aoi: 37, rel: 1, src: "Oliva et al. 2014 (1.40 um); AOI MEASURED", R: "moonsyj", T: "moonsh" } } },
+  "MOONS HR (design)": { split: "collimated", tree: { cut: 9500, w: 300, aoi: 28, src: "Oliva et al. 2014 (0.95 um); AOI MEASURED", R: "moonshri",
+    T: { cut: 14000, w: 300, aoi: 37, rel: 1, src: "Oliva et al. 2014 (1.40 um); AOI MEASURED", R: "moonshyj", T: "moonshh" } } },
   // KCWI + KCRM (KSPEC; M18 Fig. 2): a 560 nm dichroic takes the place of the blue arm's fold mirror
   "KCWI": { split: "collimated", tree: { cut: 5600, w: 200, aoi: 45, noAoi: true, src: "KSPEC Table 1 (560 nm)", R: "kcwib", T: "kcrm" } },
   // X-Shooter (V11 Secs. 2.1, 2.2.5, 3.2): two dichroics at 15 deg after the Cassegrain focus (f/13.41, V11 Sec. 2.2.7),
@@ -461,8 +474,12 @@ root.ARMSAPP = function (H) {
     const nS = nd.length + ids.length + (G.split === "collimated" && !onAx ? 1 : 0);
     const make = (bits, L, L0) => ({ ds: nd.map((_, k) => (bits >> k) & 1 ? -1 : 1), af: Object.fromEntries(ids.map((id, i) => [id, (bits >> (nd.length + i)) & 1 ? -1 : 1])), ret: (bits >> (nd.length + ids.length)) & 1 ? -1 : 1, L, L0 });
     const evalC = c => { const r = scoreOf(scene(G, arms, c), aspect); return { c, ov: r.ov, s: r.s }; };
-    const cost = (r, sMax) => 8 * r.ov + sMax / r.s;
     const L1 = nd.flatMap(() => [1, 1]).concat(Array(nf).fill(1));
+    // the search, with a cost that weighs overlap against scale; if its best still overlaps (a fast collimator's wide cone,
+    // WEAVE's f/3.1, traded a sliver of overlap for a more compact drawing), it runs again with any overlap at all costing
+    // more than a modest loss of scale.  The second pass runs only then, so the layouts without overlap stay as they were
+    const search = strict => {
+    const cost = (r, sMax) => 8 * r.ov + (strict && r.ov > 1e-6 ? 2 : 0) + sMax / r.s;
     let res = [];
     // (the first arm's sense is fixed: a mirror image of the whole drawing is no different)
     for (let bits = 0; bits < (1 << nS); bits++) { if (nS > 0 && (bits & 1)) continue; res.push(evalC(make(bits, L1.slice(), 1))); }
@@ -481,7 +498,10 @@ root.ARMSAPP = function (H) {
       }
       if (cost(cur, sMax) < cost(best, sMax)) best = cur;
     }
-    return best.c;
+    return best;
+    };
+    const b0 = search(false);
+    return (b0.ov > 1e-6 ? search(true) : b0).c;
   }
   // the choice is kept while the design stays in the same coarse bin (and the panel keeps its shape)
   const memo = new Map();

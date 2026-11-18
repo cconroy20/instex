@@ -753,7 +753,7 @@ const PRESETS = [
     note: "The Hamilton echelle at the coudé focus of the Lick Shane 3 m (Vogt 1987; Lick user's guide), the spectrograph of the Lick iodine-cell planet search (Marcy & Butler 1992; Butler et al. 1996), here with " + c.era + ". An off-axis parabolic collimator (7475.4 mm) turns the beam 11°; a 208.4 mm beam, an R2 echelle (204 × 408 mm), two UBK7 prisms in series and a folded Schmidt camera (508.3 mm, f/1.67). The model uses 31.5 /mm and a 43.4° prism apex, which reproduce the user's guide's table of orders (the echelle is listed at 31.6 /mm and the prisms at 44.8°); Schott N-BK7 stands in for the discontinued UBK7 (indices within 6e-5). The collimator-to-echelle (5.4 m) and echelle-to-camera (2.5 m) distances are measured from Vogt's Fig. 1. The published dispersion needs the beam to meet the echelle at 70°, where a 208 mm beam would overfill the 408 mm echelle; the sources do not resolve this (data/round7/hamilton.md).",
     state: { mode: "echelle", D: 3.05, F: 7475.4 / 208.4,
       e: { slitW: 1.2, nObj: 1, col: "mirror", cam: "mirror", colTilt: 5.5, layLen: 5400, camLen: 2500, W: 208.4, fcam: 508.3, eG: 31.5, eDelta: 64.7, gamma: 0, theta: 5.5, xd: "prism", xGlass: "N-BK7", xA: 43.4, xPasses: 2, lamC: 5500, Nx: c.Nx, Ny: c.Ny, pix: c.pix,
-           filt: [3495, 10113] } },
+           filt: [3495, 10113], gLen: 408 } },
     pub: [
       ...(c.k === "" ? [{ what: "R = 64,000 (median of Th-Ar lines, 1.2″)", q: "R", value: 64000, tol: 0.1, src: "Fischer et al. 2014 Sec. 3.2 (measured; no wavelength given)" },
         { what: "≈2.0 px per FWHM at 1.2″", q: "npix", value: 2.0, info: true, src: "Lick user's guide, Quick Reference (\"~ 2.0 pixels\"; not stated as measured)" }] : []),
@@ -857,6 +857,119 @@ const PRESETS = [
     state: { mode: "grating", D: 0.61, F: 983 / 61,
       g: { slitW: c.slit / 9830 * 206264.806, nObj: 1, col: "lens", cam: "lens", W: 489.1 / (983 / 61), fcam: c.fcam, gType: "prism", gGlass: c.glass, pA: c.A, pN: c.n, lamC: c.lamC, Nx: c.Nx, Ny: c.Ny, pix: 20 } },
     pub: c.pub,
+  })),
+  // Round 8 (data/round8/*.md, 2026-11-17): the Tull coude, UHRF, LAMOST, WEAVE and MOONS.
+  // The Tull coude (data/round8/tull.md): F = f_col / W = 6140 / 190; the white pupil (the pupil mirror's f = 3316 mm)
+  // only in the 3D drawing; the 3D view's collimator is one mirror (the Cassegrain's secondary is not drawn)
+  ...[
+    { k: "23e2", set: "TS23 E2, 1.2″", slit: 1.2, fcam: 775, eG: 52.6759, eD: 65.293, lamC: 4718.6, pub: [
+      { what: "R = 60,000 (slit #4, the design's 2 pixels)", q: "R", value: 60000, tol: 0.06, src: "MacQueen 2025 orientation, Sec. 1.10 (geometric, not measured)" },
+      { what: "R × slit = 70,734″ (58,945 at 1.20″)", q: "Rs", value: 70734 / 1.2, tol: 0.03, src: "Tull's grating tables (1995), header \"R.phi = 70734 arcsec\"" },
+      ...[[4718.62, 73, 0.03744], [5938.95, 58, 0.04713], [8611.48, 40, 0.06834]].map(([l, m, v]) => ({ what: `${v} Å/px in order ${m}`, q: "dlpixAt", lam: l, m, value: v, tol: 0.02, src: "MacQueen 2025 orientation, p. 9 dispersion table (Å/mm × 0.024 mm)" })),
+      { what: "66 orders, 98 to 33", q: "nOrders", value: 66, tol: 0.05, src: "MacQueen 2025 orientation, Sec. 1.6" },
+      { what: "0.56″/px along the dispersion", q: "specScale", value: 0.56, tol: 0.03, src: "TS2 user manual, p. 1 (23.388″/mm × 0.024 mm, Tull's tables)" },
+      { what: "0.4465″/px along the slit", q: "pixScale", value: 0.4465, tol: 0.03, src: "Tull's grating tables: 18.605″/mm vertical × 0.024 mm (DERIVED)" },
+      { what: "smallest order separation 23.1 px (orders 45–46)", q: "minSepPx", m1: 33, m2: 98, value: 23.1, tol: 0.06, src: "MacQueen 2025 orientation, p. 9 (10.32″ step, DERIVED in px)" },
+      { what: "echelle incidence 68.29°", q: "alphaDeg", value: 68.29, tol: 0.01, src: "MacQueen 2025 orientation, p. 9 (\"aE 68.29 deg computed\")" },
+      { what: "prism train deviation 58.188°", q: "devDeg", value: 58.188, tol: 0.01, src: "Tull's grating tables, header \"TOTAL DEVIATION = 58.188 Degrees\"" },
+    ] },
+    { k: "21e2", set: "TS21 E2, 0.6″", slit: 0.59, fcam: 3316, eG: 52.6759, eD: 65.293, lamC: 4718.6, pub: [
+      { what: "R = 120,000 from a laser line, 1.57 px FWHM", q: "R", value: 120000, info: true, src: "Tull et al. 1995 Sec. 5.1 (measured with the TI CCD of 15.24 µm pixels and a narrow slit: another detector and slit, so not scored)" },
+    ] },
+    { k: "21e1", set: "TS21 E1, 0.3″", slit: 0.34, fcam: 3316, eG: 79.0139, eD: 63.9, lamC: 4718.6, pub: [
+      { what: "R = 175,000 (Th-Ar, 145 µm slit)", q: "R", value: 175000, info: true, src: "Rb in the ISM (arXiv:0910.2288) Sec. 2: measured; the geometric value is 194,000" },
+    ] },
+  ].map(c => ({
+    id: "tull" + c.k, tel: "McDonald 2.7 m", name: "McDonald 2.7 m / Tull coudé, " + c.set, inst: "Tull coudé", setting: c.set,
+    note: "The Tull cross-dispersed echelle at the coudé focus of the McDonald 2.7 m Harlan J. Smith telescope (Tull et al. 1995; the McDonald TS2 manual and Tull's grating tables), here " + c.set + ". A Cassegrain collimator (6140 mm, 190 mm beam) with the slit in its primary's housing, an echelle (E2: 52.68 /mm, 65.3°; E1: 79.01 /mm, 63.9°) worked 3° from Littrow in the page, two 30° fused-silica prisms passed twice, a white pupil (pupil mirror 3316 mm), and the folded Schmidt camera of 775 mm at the F3 focus (TS23) or the 3316 mm F1 focus (TS21); the TK3 CCD, 2048 × 2048 pixels of 24 µm. The element spacings are measured from the paper's unscaled sketch (data/round8/tull.md); the 190 mm beam overfills the 408 mm echelle, which vignettes 7%.",
+    state: { mode: "echelle", D: 2.718, F: 6140 / 190,
+      e: { lay3d: "wp", wpT: 3316, layLen: 10700, colTilt: 0, slitW: c.slit, nObj: 1, col: "mirror", W: 190, fcam: c.fcam, cam: "mirror", eG: c.eG, eDelta: c.eD, gamma: 0, theta: 3.0,
+           xd: "prism", xGlass: "silica", xA: 30, xPasses: 4, lamC: c.lamC, Nx: 2048, Ny: 2048, pix: 24, gLen: 408 } },
+    pub: c.pub,
+  })),
+  // UHRF (data/round8/uhrf.md): one lens in double pass is collimator and first camera element; the collimator (9212 mm),
+  // the beam (245.6 mm) and the camera are EFFECTIVE, from the published slit projection and dispersion; the cross-
+  // disperser is entered as an EFFECTIVE 471 /mm (the 1200 /mm grating in a beam compressed 0.39x); the band (filt) is
+  // order 97's free spectral range, the single order the chip records
+  ...[
+    { k: "1m", set: "R 940k", fcam: 10339, pub: [
+      { what: "R = 940,000 (1.0M, measured)", q: "R", value: 940000, tol: 0.1, src: "UCL coudé echelle manual (Stathakis et al. 2000), Sec. 1.1; laser tests gave 990,000 (Diego et al. 1995) and the E2V 845,000 (2006)" },
+      { what: "0.030″/px along the slit", q: "pixScale", value: 0.030, tol: 0.05, src: "UCL coudé echelle manual, Sec. 1.4 (Tek, unbinned)" },
+      { what: "0.13858 Å/mm in order 97", q: "dlpixAt", lam: 5909.27, m: 97, value: 0.13858 * 0.024, info: true, src: "UCL coudé echelle manual, Appendix A3 (Diego's theoretical format; the camera is fitted to this line: circular)" },
+      { what: "orders 97–98 29.65 mm apart", q: "ySpan", m1: 97, m2: 98, value: 29.65, info: true, src: "UCL coudé echelle manual, Appendix A3 (the cross-disperser is fitted to this line: circular)" },
+    ] },
+    { k: "06", set: "R 600k", fcam: 6203, pub: [
+      { what: "R ≈ 750,000 (0.6M, preliminary laser test)", q: "R", value: 750000, info: true, src: "Diego et al. 1995 / UCL manual: nominal 6 × 10⁵, measured 7.5 × 10⁵ in a preliminary test. The focal reducer shrinks the slit image and the dispersion alike, so the model's R (no pixel term) does not change; the measured R falls as the image approaches the pixel" },
+    ] },
+    { k: "03", set: "R 300k", fcam: 3102, pub: [
+      { what: "R ≈ 319,000 (0.3M with the slicer)", q: "R", value: 319286, info: true, src: "AAO UHRF cookbook, instrumental tests of 1998 (MITLL2 CCD, another detector). Pixel-limited: the slit image is under a pixel, which the model's R (no pixel term) does not include" },
+    ] },
+  ].map(c => ({
+    id: "uhrf" + c.k, tel: "AAT 3.9 m", name: "AAT 3.9 m / UHRF, " + c.set, inst: "UHRF", setting: c.set,
+    note: "The Ultra-High-Resolution Facility at the coudé focus of the 3.9 m Anglo-Australian Telescope, 1992–2010s, the highest resolving power of any optical astronomical spectrograph, built for cool interstellar clouds (Diego et al. 1995; the UCL coudé echelle manual): a confocal image slicer of 35 slices of 30 µm (entered as the 0.042″ slit), an R2 echelle of 31.6 /mm worked 1° from Littrow, a single fused-silica lens in double pass as collimator and first camera element, a cross-disperser grating after the echelle, and the Tektronix CCD of 1024 × 1024 pixels of 24 µm (1994–2000). The modes 1.0M, 0.6M and 0.3M differ by focal reducers before the detector. The collimator, the beam and the camera are effective values fitted to the published slit projection and dispersion; the cross-disperser is an effective 471 /mm (data/round8/uhrf.md). The chip records 2–15 Å of a 60 Å order: the band is set to order 97 at Na D.",
+    state: { mode: "echelle", D: 3.893, F: 37.5,
+      e: { slitW: 0.0424, nObj: 1, col: "lens", dpass: true, cam: "lens", layLen: 250, W: 245.6, fcam: c.fcam, eG: 31.6, eDelta: 64.95, gamma: 0, theta: 1.0, eTilt: 0,
+           xd: "grating", xG: 471, xPsi: 13, lamC: 5890, filt: [5878.8, 5939.7], Nx: 1024, Ny: 1024, pix: 24, gLen: 408 } },
+    pub: c.pub,
+  })),
+  // LAMOST (data/round8/lamost.md): the fibers enter at the f/4 collimator (the virtual convention), the 2/3 slit mask as
+  // the slit of equal line width; D = 4 m nominal (the effective aperture runs 3.6-4.9 m with pointing)
+  ...[
+    { k: "b", set: "blue", G: 813, tA: 8.17, lamC: 4804, layLen: 1780, disp: 0.57, rl: 4750 },
+    { k: "r", set: "red", G: 548, tA: 8.63, lamC: 7405, layLen: 1750, disp: 0.84, rl: 7350 },
+  ].map(c => ({
+    id: "lamost" + c.k, tel: "LAMOST 4 m", name: "LAMOST / LRS " + c.set + " arm", inst: "LAMOST LRS", setting: c.set,
+    note: "The LAMOST low-resolution spectrographs (Cui et al. 2012; Huang et al. 2020; Xiong et al. 2011), 16 of them behind the 4 m reflecting Schmidt telescope (f/5), with 250 fibers of 320 µm (3.3″) each and the largest stellar survey by number of spectra (12.6 million low-resolution spectra in DR12): an on-axis Schmidt collimator (800 mm, 200 mm beam; the slit on the axis in Cui et al. Fig. 30(b)), a dichroic, VPH gratings (blue 813 /mm, red 548 /mm, as measured), f/1.3 Schmidt cameras and 4136 × 4096 CCDs of 12 µm. The camera's 250 mm is derived from the published dispersions; the element spacings are measured from Cui et al. Fig. 30(b). The survey's 2/3 slit mask is entered as the slit (R ≈ 1800 in the data headers; Cui et al. give 1500).",
+    state: { mode: "grating", D: 4.0, F: 4.0,
+      g: { slitW: S3 * (2 / 3) * 0.320 / (4 * 4000) * 206264.806, nObj: 250, col: "mirror", colTilt: 0, layLen: c.layLen, W: 200, cam: "mirror", camLen: 185, fcam: 250, gType: "trans", G: c.G, m: 1, lamB1: c.lamC, lamC: c.lamC,
+           psi: 35, tAlpha: c.tA, Nx: 4136, Ny: 4096, pix: 12, telF: 5, fibAp: 3.3 } },
+    pub: [
+      { what: c.disp + " Å/px", q: "dlpix", value: c.disp, tol: 0.03, src: "LAMOST CCD camera page; Huang et al. 2020 Sec. 3" },
+      { what: "R ≈ 1800 at " + c.rl + " Å (2/3 slit)", q: "RAt", lam: c.rl, value: 1800, tol: 0.08, src: "LAMOST DR12 low-resolution data description (SLIT_MOD)" },
+      { what: "R = 1500 (2/3 slit)", q: "RAt", lam: c.rl, value: 1500, info: true, src: "Cui et al. 2012 Table 4: a conflict with the data headers' 1800" },
+    ],
+  })),
+  // WEAVE (data/round8/weave.md): the fibers enter at the f/3.1 collimator (the virtual convention); the VPH angles from
+  // Bianco et al. 2018 Table 1 (the camera at alpha + beta); the camera's 342 mm is its f/1.8 on the 190 mm beam
+  ...[
+    { k: "lrb", mode: "LR", set: "blue", G: 1385.2, a: 22.72, lamC: 4900, disp: 0.30, r: 5000 },
+    { k: "lrr", mode: "LR", set: "red", G: 875.9, a: 19.82, lamC: 7750, disp: 0.48, r: 5000 },
+    { k: "hrg", mode: "HR", set: "green", G: 3056.9, a: 54.46, lamC: 5130, disp: 0.09, r: 20000, miss: 0.047 },
+    { k: "hrr", mode: "HR", set: "red", G: 2430.7, a: 51.59, lamC: 6450, disp: 0.11, r: 20000 },
+    { k: "hrb", mode: "HR", set: "blue", G: 3579.6, a: 54.43, lamC: 4380, disp: 0.076, r: 20000, miss: 0.058 },
+  ].map(c => ({
+    id: "weave" + c.k, tel: "WHT 4.2 m", name: "WHT / WEAVE " + c.mode + " " + c.set, inst: "WEAVE (" + c.mode + ")", setting: c.set,
+    note: "WEAVE at the prime focus of the 4.2 m William Herschel Telescope (Jin et al. 2024; ING instrument pages; Bianco et al. 2018 for the gratings): about 960 fibers of 85 µm (1.3″) at the f/2.8 corrected focus, delivering f/3.1 to an off-axis catadioptric collimator (190 mm beam), a dichroic at 5900 Å, VPH gratings in each arm (LR: R ≈ 5000; HR: R ≈ 20,000, the camera swung to the larger angle), f/1.8 lens cameras and 6k × 6k CCD mosaics (8192 × 6144 pixels of 15 µm used). The large IFU has taken science data since 2023; the multi-object mode was in science verification in 2026. The camera's 342 mm is its f/1.8 on the beam; the element spacings are measured from the ING layout (data/round8/weave.md).",
+    state: { mode: "grating", D: 4.2, F: 3.1,
+      g: { slitW: S3 * 0.085 / (3.1 * 4200) * 206264.806, nObj: 960, col: "mirror", colTilt: 6.9, layLen: 1350, W: 190, cam: "lens", fcam: 342, gType: "trans", G: c.G, m: 1, lamB1: c.lamC, lamC: c.lamC,
+           psi: 35, tAlpha: c.a, Nx: 8192, Ny: 6144, pix: 15, telF: 2.8, fibAp: 1.3 } },
+    pub: [
+      c.miss ? { what: c.disp + " Å/px", q: "dlpix", value: c.disp, info: true, src: "ING WEAVE instrumental overview. A miss: the model is " + Math.round(c.miss * 100) + "% high with Bianco et al.'s angles; ING calls the gratings Littrow, which would match: the sources conflict (data/round8/weave.md)" }
+        : { what: c.disp + " Å/px", q: "dlpix", value: c.disp, tol: 0.03, src: "ING WEAVE instrumental overview" },
+      { what: "R ≈ " + c.r.toLocaleString("en-US") + " (nominal)", q: "Rdiam", value: c.r, info: true, src: "Jin et al. 2024; ING (nominal, not measured; the model's R here from the full width of the round fiber image)" },
+    ],
+  })),
+  // MOONS (data/round8/moons.md), not yet in science operation (first light 2026; commissioning): design values. The
+  // fibers (158 um, f/3.5 out) enter at the collimator (the virtual convention); the gratings are EFFECTIVE equivalent VPH
+  // gratings fitted to the design R and dispersion (the line densities and prisms are not published), except HR H
+  // (1056 /mm at 53 deg, a secondary source); the trace groups' gap is INFERRED
+  ...[
+    { k: "ri", mode: "LR", set: "RI", G: 768, a: 22.0, lamC: 8010, camLen: 370, r: 4500 },
+    { k: "yj", mode: "LR", set: "YJ", G: 540, a: 13.2, lamC: 11420, camLen: 340, r: 4300 },
+    { k: "h", mode: "LR", set: "H", G: 576, a: 21.4, lamC: 16260, camLen: 420, r: 6800 },
+    { k: "hri", mode: "HR", set: "RI", G: 1396, a: 30.3, lamC: 8310, camLen: 370, r: 9100 },
+    { k: "hyj", mode: "HR", set: "YJ", G: 540, a: 13.2, lamC: 11420, camLen: 340, r: 4300 },
+    { k: "hh", mode: "HR", set: "H", G: 1056, a: 53.0, lamC: 15815, camLen: 420, r: 18800 },
+  ].map(c => ({
+    id: "moons" + c.k, tel: "VLT 8.2 m", name: "VLT / MOONS " + c.mode + " " + c.set + " (design)", inst: "MOONS " + c.mode + " (design)", setting: c.set,
+    note: "MOONS for a VLT Nasmyth focus (Cirasuolo et al. 2020; Oliva et al. 2014, 2016; Black et al. 2022; Guinouard et al. 2020): about 1000 fibers of 158 µm (1.2″) feeding two cryogenic spectrographs of 512 fibers each, an on-axis spherical collimator (265 mm beam), two dichroics splitting RI, YJ and H, catadioptric f/0.95 cameras and 4k × 4k detectors (a CCD in RI, H4RG-15 arrays in YJ and H). First light came in 2026; the instrument is in commissioning, so these are design values. " + (c.k === "hh" ? "The H grating, 1056 /mm at 53°, comes from a secondary source; " : "The grating is an effective equivalent VPH grating, fitted to the design R and dispersion (the line densities, angles and prisms are not published); ") + "the trace groups' gap is inferred (data/round8/moons.md).",
+    state: { mode: "grating", D: 8.0, F: 3.5,
+      g: { slitW: S3 * 0.158 / (3.5 * 8000) * 206264.806, nObj: 512, col: "mirror", colTilt: 0, layLen: 1930, W: 265, cam: "mirror", camLen: c.camLen, fcam: 251.75, gType: "trans", G: c.G, m: 1, lamB1: c.lamC, lamC: c.lamC,
+           psi: 35, tAlpha: c.a, Nx: 4096, Ny: 4096, pix: 15, fgroups: [16, 108, 108], telF: 15, fibAp: 1.2 } },
+    pub: [
+      { what: "R = " + c.r.toLocaleString("en-US") + " (design)", q: "R", value: c.r, info: true, src: "Oliva et al. 2016 Table 1 (design; the grating was fitted to it: circular)" },
+      ...(c.set === "YJ" ? [{ what: "measured R ≈ 4000; images 2.5–2.7 px FWHM", q: "npix", value: 2.6, info: true, src: "Black et al. 2022 (Fig. 11 caption; laboratory tests): the model's geometric fiber image is wider than the measured core of the line" }] : []),
+    ],
   })),
 ];
 root.IX_PRESETS = PRESETS;

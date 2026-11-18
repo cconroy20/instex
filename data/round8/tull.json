@@ -1,0 +1,1240 @@
+{
+ "id": "tull",
+ "round": 8,
+ "date": "2026-11-17",
+ "name": "McDonald 2.7 m / Tull coude spectrograph (TS2, 2dcoude)",
+ "quote_check": "115 quote pieces, 0 failures",
+ "sources": [
+  {
+   "key": "T95",
+   "document": "Tull, MacQueen, Sneden & Lambert 1995, PASP 107, 251 (1995PASP..107..251T; ADS scan with OCR text layer; journal page = pdf page + 250)",
+   "file": "rawdata/presets/tull/tull1995.pdf",
+   "url": "https://articles.adsabs.harvard.edu/pdf/1995PASP..107..251T"
+  },
+  {
+   "key": "ORI",
+   "document": "MacQueen 2025-01-29, 'An Orientation to working with TS23-E2 and its images' (McDonald Observatory; its p. 9 is the dispersion table, file 2dcoude configurations2.xlsx)",
+   "file": "rawdata/presets/tull/ts23_orientation_2025.pdf",
+   "url": "https://mcdonald.utexas.edu/media/91/download?inline="
+  },
+  {
+   "key": "TAB",
+   "document": "Tull's EPRISM grating tables, 8 June 1995 (McDonald Observatory 'Bob Tull's tables for grating coverage'; F1 and F3, E1 and E2)",
+   "file": "rawdata/presets/tull/tull_grating_tables.pdf",
+   "url": "https://mcdonald.utexas.edu/media/87/download?inline"
+  },
+  {
+   "key": "MAN",
+   "document": "TS2 User Manual, 'The Cross-Dispersed Echelle Spectrograph', February 2025 (McDonald Observatory)",
+   "file": "rawdata/presets/tull/ts2_user_manual.pdf",
+   "url": "https://mcdonald.utexas.edu/media/217/download?inline"
+  },
+  {
+   "key": "SLIT",
+   "document": "'Choosing a Setup for TS23' (McDonald Observatory; the slit table is an image without a text layer: transcribed from the scan, p. 1)",
+   "file": "rawdata/presets/tull/choosing_slit_ts23.pdf",
+   "url": "https://mcdonald.utexas.edu/media/86/download?inline"
+  },
+  {
+   "key": "T21",
+   "document": "MacQueen 2025-02-13, 'Finding TS21-E1 disperser configurations' (McDonald Observatory)",
+   "file": "rawdata/presets/tull/ts21_disperser.pdf",
+   "url": "https://mcdonald.utexas.edu/media/182/download?inline"
+  },
+  {
+   "key": "WEB",
+   "document": "McDonald Observatory instrument page 'Cross-Dispersed Echelle Spectrograph, Tull Spectrograph 2 (TS2)' (saved 2026-11-17)",
+   "file": "rawdata/presets/tull/mcdonald_cdes_page.html",
+   "url": "https://mcdonald.utexas.edu/research-facilities/HJST/cross-dispersed-echelle-spectrograph"
+  },
+  {
+   "key": "ADC",
+   "document": "Divakar, Pinckney, Strubhar & MacQueen 2026, arXiv:2609.16416, 'Optomechanical design of an ADC and image rotator for the HJST Coude Spectrograph' (Tables 1-2)",
+   "file": "rawdata/presets/tull/adc_coude_arxiv2609_16416.pdf",
+   "url": "https://arxiv.org/pdf/2609.16416"
+  },
+  {
+   "key": "RB",
+   "document": "Rb in the ISM, arXiv:0910.2288 (TS21, E1, 145 um slit)",
+   "file": "rawdata/presets/tull/rb_ism_arxiv0910_2288.pdf",
+   "url": "https://arxiv.org/pdf/0910.2288"
+  },
+  {
+   "key": "TAU",
+   "document": "Taurus diffuse-to-molecular transition, arXiv:2106.12748 (TS21, E1, slit 3)",
+   "file": "rawdata/presets/tull/taurus_arxiv2106_12748.pdf",
+   "url": "https://arxiv.org/pdf/2106.12748"
+  }
+ ],
+ "on_off_axis": "ON-AXIS (INFERRED): Dall-Kirkham Cassegrain collimator, slit in the primary's housing on the axis; colTilt 0",
+ "recommended": {
+  "inst": "McDonald 2.7 m / Tull coude",
+  "settings": [
+   {
+    "name": "TS23 E2, 1.2″",
+    "note": "default, R~60,000",
+    "state": {
+     "mode": "echelle",
+     "D": 2.718,
+     "F": 32.315,
+     "e": {
+      "lay3d": "wp",
+      "wpT": 3316,
+      "layLen": 10700,
+      "colTilt": 0,
+      "slitW": 1.2,
+      "nObj": 1,
+      "col": "mirror",
+      "W": 190,
+      "fcam": 775,
+      "cam": "mirror",
+      "eG": 52.6759,
+      "eDelta": 65.293,
+      "gamma": 0,
+      "theta": 3.0,
+      "xd": "prism",
+      "xGlass": "silica",
+      "xA": 30,
+      "xPasses": 4,
+      "lamC": 4718.6,
+      "Nx": 2048,
+      "Ny": 2048,
+      "pix": 24
+     }
+    }
+   },
+   {
+    "name": "TS21 E2, 0.6″",
+    "note": "F1 focus, slit 3 (251 um), R~120,000, 1/18 coverage",
+    "state_delta": {
+     "e": {
+      "fcam": 3316,
+      "slitW": 0.59
+     }
+    }
+   },
+   {
+    "name": "TS23 E1, 1.2″",
+    "optional": true,
+    "state_delta": {
+     "e": {
+      "eG": 79.0139,
+      "eDelta": 63.9
+     }
+    }
+   },
+   {
+    "name": "TS21 E1, 0.3″",
+    "optional": true,
+    "state_delta": {
+     "e": {
+      "fcam": 3316,
+      "slitW": 0.34,
+      "eG": 79.0139,
+      "eDelta": 63.9
+     }
+    }
+   }
+  ]
+ },
+ "rows": [
+  {
+   "id": "tel_D",
+   "group": "feed",
+   "parameter": "Telescope aperture D",
+   "value": "2.718",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table, Telescope: Aperture",
+   "quote": "Aperture 2.718 m",
+   "alt": [
+    {
+     "src": "ADC",
+     "loc": "Table 1",
+     "quote": "Primary mirror diameter 2.718 m"
+    }
+   ],
+   "note": "The 1995 EPRISM tables use 2.72 m with f/32.36 (TAB p. 2)."
+  },
+  {
+   "id": "tel_F",
+   "group": "feed",
+   "parameter": "Coude focal ratio F",
+   "value": "32.315 (f/32.32 quoted; 32.36 in the 1995 tables for 2.72 m)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table, Telescope: Focal ratio",
+   "quote": "Focal ratio 32.315",
+   "alt": [
+    {
+     "src": "ADC",
+     "loc": "Sec. 1",
+     "quote": "maintaining a fixed f/32.32 beam at the spectrograph entrance"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 2, header",
+     "quote": "TELESCOPE = 2.72 m f/32.36"
+    }
+   ],
+   "note": "The coude path is a five-mirror train (M1 to M5) from the f/8.8 Ritchie-Chretien (ADC Table 1)."
+  },
+  {
+   "id": "tel_efl",
+   "group": "feed",
+   "parameter": "Coude effective focal length",
+   "value": "87.83",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table, Telescope: EFL",
+   "quote": "EFL 87.83 m",
+   "alt": [],
+   "note": "DERIVED check: 2.718 x 32.315 = 87.83 m."
+  },
+  {
+   "id": "plate",
+   "group": "feed",
+   "parameter": "Plate scale at the slit",
+   "value": "2.348 arcsec/mm (426 um per arcsec)",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "src": "ADC",
+   "loc": "Table 2, Image scale at the coude focus",
+   "quote": "Image scale at the coude focus 2.348 arcsec mm",
+   "alt": [],
+   "note": "DERIVED check: 206264.8 / 87830 mm = 2.3485 arcsec/mm. The 1995 paper's slit list gives 83 um to 1 mm as 0.20 to 2.40 arcsec (2.29 to 2.41 arcsec/mm from the four end values, as the printed arcsec are rounded; see Conflicts)."
+  },
+  {
+   "id": "slit_n",
+   "group": "feed",
+   "parameter": "Number of slit plugs",
+   "value": "18",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.7, p. 260",
+   "quote": "There are 18 such slits",
+   "alt": [],
+   "note": "The plug is a 25.4 mm diameter stainless cylinder with the slit cut by electric discharge machining (Sec. 4.7)."
+  },
+  {
+   "id": "slit4",
+   "group": "feed",
+   "parameter": "Standard slit (plug 4), width",
+   "value": "1.20 (511 um at the center); 1.18 is the 2-pixel width",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "MAN",
+   "loc": "Sec. 1.0",
+   "quote": "slit plug 4 (1.2 arcsec wide by 8.2 arcsec tall slit)",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "Sec. 1.9, p. 5",
+     "quote": "Slit #4 dimensions are Slit width x Slit height = 1.18 x 8.0 arcseconds"
+    },
+    {
+     "src": "SLIT",
+     "loc": "p. 1, slit table (transcribed from the scan)",
+     "quote": "[scan] slit 4: length 3.478 mm; width 511 (center), 513, 507 um; 1.20 arcsec"
+    }
+   ],
+   "note": "DERIVED: 511 um x 2.348 arcsec/mm = 1.200 arcsec; 1.18 arcsec / 2.348 = 502 um, the width that is 2 pixels at F3."
+  },
+  {
+   "id": "slit_list",
+   "group": "feed",
+   "parameter": "Slit widths available (um, center; arcsec)",
+   "value": "Plug 1: 86 / 0.20; 2: 145 / 0.34; 3: 251 / 0.59; 4: 511 / 1.20; 5: 765 / 1.79; 6: 1010 / 2.37; 7-11 (5.6 mm long): 134 to 1023 / 0.31 to 2.40; 20-22 (6.5 mm): 324 / 0.76, 515 / 1.21, 907 / 2.13; 14-17 (12.9 mm): 83 / 0.20 to 1020 / 2.39; 13: 300 um round (0.70 arcsec)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "SLIT",
+   "loc": "p. 1, slit table (transcribed from the scan)",
+   "quote": "Choosing a Setup for TS23",
+   "alt": [],
+   "note": "Table transcribed from the scan; slit lengths 3.5 mm (8.2 arcsec), 5.6 (13.0), 6.5 (15.2), 12.9 (30)."
+  },
+  {
+   "id": "slit_len4",
+   "group": "feed",
+   "parameter": "Slit length used with plug 4",
+   "value": "8.2 (3.478 mm)",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "MAN",
+   "loc": "Sec. 1.0",
+   "quote": "1.2 arcsec wide by 8.2 arcsec tall slit",
+   "alt": [
+    {
+     "src": "SLIT",
+     "loc": "p. 1, text",
+     "quote": "it also is the proper height to separate the orders so you do not need a filter"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "pixscale",
+   "group": "feed",
+   "parameter": "Pixel scale at the detector (TK3, 24 um)",
+   "value": "TS23: 0.56 across the dispersion; TS21: 0.13",
+   "unit": "arcsec/px",
+   "tag": "SOURCED",
+   "src": "MAN",
+   "loc": "p. 1",
+   "quote": "0.56 arcsec/pixel for TS23 and 0.13 arcsec/pixel for TS21",
+   "alt": [
+    {
+     "src": "TAB",
+     "loc": "p. 10 (F3, E2) and p. 4 (F1, E2), IMAGE SCALE",
+     "quote": "IMAGE SCALE: Hor: 23.388''/mm, Vert: 18.605''/mm"
+    }
+   ],
+   "note": "DERIVED: F3 E2 horizontal 23.388 arcsec/mm x 0.024 mm = 0.561 arcsec/px (along the dispersion); vertical (along the slit) 18.605 x 0.024 = 0.4465 arcsec/px; F1: 5.466 x 0.024 = 0.131 arcsec/px. The anamorphic echelle makes the two directions differ."
+  },
+  {
+   "id": "col_type",
+   "group": "col",
+   "parameter": "Collimator type",
+   "value": "Dall-Kirkham Cassegrain, single pass (primary C1 in the slit housing; secondary C2 on a separate pedestal)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, p. 254",
+   "quote": "is the Dall-Kirkham Cassegrain collimator primary mirror",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "Cl is mounted in the slit housing"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "The secondary mirror C2 is mounted on a separate pedestal"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "we use a single-pass collimator"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "col_f",
+   "group": "col",
+   "parameter": "Collimator focal length",
+   "value": "6140",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table, Collimator: Focal length (computed)",
+   "quote": "Focal length 6140 mm computed",
+   "alt": [],
+   "note": "DERIVED check: 190.0 mm x 32.315 = 6140 mm (the slit sits at the Cassegrain focus of f/32.3: the beam diameter 190 mm sets f = F x W)."
+  },
+  {
+   "id": "col_W",
+   "group": "col",
+   "parameter": "Collimated beam diameter",
+   "value": "190",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 252",
+   "quote": "illuminated by a 190-mm diameter beam",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table, Collimator: Pupil diameter",
+     "quote": "Pupil diameter 190.0 mm"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "col_axis",
+   "group": "col",
+   "parameter": "Collimator on- or off-axis (deploy gate)",
+   "value": "ON-AXIS: the slit stands on the axis of the Cassegrain collimator, in its central obstruction (INFERRED from the text and Fig. 1)",
+   "unit": "",
+   "tag": "INFERRED",
+   "src": "T95",
+   "loc": "Sec. 4.6.4, p. 258; Sec. 4.2, p. 253; Fig. 1 (p. 253)",
+   "quote": "Incident rays transmitted by the entrance slit inside the shadow of the telescope secondary can be multiply reflected between primary and secondary",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.6.3, p. 257",
+     "quote": "a central occulting disk of diameter equal to that of the collimator secondary mirror at the focus of the collimator primary"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 253",
+     "quote": "The secondary shadow of the telescope is imaged on or near the central obstruction of the camera"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.1, p. 253",
+     "quote": "a design totally free of obscuration losses"
+    }
+   ],
+   "note": "Fig. 1 draws S (field mirror and slit) on the optical axis just ahead of C1; the beam runs S, C2, back to C1, then straight down the axis to CP1. A Cassegrain collimator's output beam has the secondary's central obstruction, which the paper matches to the telescope secondary's shadow. The 1995 text never uses the words 'on-axis'; the reading rests on the Cassegrain form (Sec. 4.2) and the drawing. Set colTilt 0."
+  },
+  {
+   "id": "col_len",
+   "group": "col",
+   "parameter": "C1 to C2 (the Cassegrain collimator's length)",
+   "value": "2.13",
+   "unit": "m",
+   "tag": "MEASURED",
+   "src": "T95",
+   "loc": "Fig. 1, p. 253",
+   "quote": "Cl and C2: collimator primary and secondary mirrors",
+   "alt": [],
+   "note": "MEASURED on a 300 dpi render of Fig. 1: C1 at crop column 263 and C2 at 505, scaled by 113.4 px/m (below). Schematic-grade: the figure is a one-line sketch."
+  },
+  {
+   "id": "lay_scale",
+   "group": "layout",
+   "parameter": "Scale of Fig. 1 used for every MEASURED distance",
+   "value": "113.4 px/m",
+   "unit": "",
+   "tag": "DERIVED",
+   "src": "T95",
+   "loc": "Fig. 1 (p. 253) with Sec. 4.2 (p. 254) and the F1 table header (TAB p. 2)",
+   "quote": "The radius of curvature of the pupil mirror (6.632 m)",
+   "alt": [
+    {
+     "src": "TAB",
+     "loc": "p. 4, header",
+     "quote": "CAMERA FOCAL LENGTH = 3316.0 mm"
+    }
+   ],
+   "note": "The pupil mirror PM and the focus F1 are 376 px apart on the 300 dpi render (PM at column 782, F1 at 1158); F1 is the focus of a collimated beam, f = R/2 = 3.316 m, so 376 px = 3316 mm. Cross-checks: the white-pupil mirror-to-flat distance from the mirror equation (below) and the C1-to-echelle distance from the text agree to 1.4 percent."
+  },
+  {
+   "id": "lay_col_ech",
+   "group": "layout",
+   "parameter": "Collimator primary C1 to the echelle",
+   "value": "10.7 (text: slit image 'very close to the echelle'); 10.5 MEASURED from Fig. 1",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.6.4, p. 258",
+   "quote": "Light due to two such reflections from each mirror converges to form an image of the slit 10.7 m from the collimator primary, very close to the echelle",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.6.3, p. 257",
+     "quote": "two occulting disks mounted in the collimated beam 4.0 and 4.5 m from the primary"
+    }
+   ],
+   "note": "MEASURED: C1 at column 263, echelle at 1450 (of the 300 dpi crop): 1187 px / 113.4 = 10.47 m. The prisms stand 0.43 m closer to C1 than the echelle (column 1402 against 1450). The text's 10.7 m is the slit image, not stated as the echelle's position, so layLen = 10700 is a SOURCED-by-implication value."
+  },
+  {
+   "id": "lay_cp1",
+   "group": "layout",
+   "parameter": "Corrector CP1 (off-centered asphere for the pupil mirror)",
+   "value": "5.1 m from C1; tilted",
+   "unit": "m",
+   "tag": "MEASURED",
+   "src": "T95",
+   "loc": "Fig. 1 (p. 253); Sec. 4.2 (p. 254)",
+   "quote": "an off-centered asphere in the collimated beam to correct the spherical aberration of the tilted pupil mirror",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.6.1, p. 257",
+     "quote": "This plate is tilted to compensate for anamorphic effects"
+    }
+   ],
+   "note": "MEASURED: CP1 at column 840: (840 - 263) / 113.4 = 5.09 m from C1 (it stands in the collimated beam on the returning path of the pupil mirror)."
+  },
+  {
+   "id": "ech_G",
+   "group": "ech",
+   "parameter": "Echelle E2 groove density",
+   "value": "52.67 (52.6759 in the 1995 tables; 52.6746 in the 2025 table)",
+   "unit": "gr/mm",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 252",
+   "quote": "Grating E2, a 52.67 gr mm",
+   "alt": [
+    {
+     "src": "TAB",
+     "loc": "p. 4 and p. 10, header",
+     "quote": "GROOVES/MM = 52.6759"
+    },
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table",
+     "quote": "52.6746 gr/mm input"
+    }
+   ],
+   "note": "E2 is used more than 96 percent of the time (ORI Sec. 1.5)."
+  },
+  {
+   "id": "ech_blaze",
+   "group": "ech",
+   "parameter": "Echelle E2 effective blaze angle",
+   "value": "65.293 (tan = 2.17; nominal R2 = 63.43)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 253",
+   "quote": "the effective blaze angle of El is 63",
+   "alt": [
+    {
+     "src": "TAB",
+     "loc": "p. 4 and p. 10, header",
+     "quote": "BLAZE ANGLE = 65.293"
+    },
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table",
+     "quote": "tan(qB) 2.17"
+    }
+   ],
+   "note": "The paper: 'the effective blaze angle of E1 is 63.900 and that of E2 is 65.293, both significantly greater than the nominal arctan 2'."
+  },
+  {
+   "id": "ech_size",
+   "group": "ech",
+   "parameter": "Echelle ruled area (R2 echelles, Milton Roy)",
+   "value": "204 x 408",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 252",
+   "quote": "an R2 echelle with a 204",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 3, p. 252",
+     "quote": "ruled area up to 204"
+    }
+   ],
+   "note": "The text gives the size for 'an R2 echelle ... available from the Milton Roy Co'; a per-grating size for E1 is not stated (NOT FOUND). DERIVED: the 190 mm beam strikes the echelle at alpha = 68.29 deg, a footprint 190 / cos 68.29 = 514 mm along the ruling against 408 mm of grating: the echelle is overfilled by 26 percent, the 'vignetting loss ... (7%)' the paper accepts (Sec. 4.3)."
+  },
+  {
+   "id": "ech_geom",
+   "group": "ech",
+   "parameter": "Echelle geometry: theta (incident ray to groove-face normal) and gamma",
+   "value": "theta = 3.0, gamma = 0 (Case A, near-Littrow, in plane)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.3, p. 255",
+   "quote": "The design of our spectrometer is Case A with",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table",
+     "quote": "q 3.00 deg input"
+    },
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table",
+     "quote": "g 0.00 deg input"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "This design permits using the echelle very close to the true Littrow condition"
+    }
+   ],
+   "note": "DERIVED (ORI table): alpha = 68.29 deg = 65.293 + 3.0, beta = 62.29 deg = 65.293 - 3.0."
+  },
+  {
+   "id": "ech_E1",
+   "group": "ech",
+   "parameter": "Echelle E1",
+   "value": "79 gr/mm (79.0139 in the 1995 tables), effective blaze 63.900 deg (ADC Table 2 prints 63.43 deg, the nominal arctan 2)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "TAB",
+   "loc": "p. 8, F3 + E1 header",
+   "quote": "GROOVES/MM = 79.0139",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 1, p. 251",
+     "quote": "The 2.7-m spectrograph has been in use with a 79 grmm"
+    },
+    {
+     "src": "ADC",
+     "loc": "Table 2",
+     "quote": "E1 (79.01 lines mm"
+    }
+   ],
+   "note": "E1 is the original coude echelle, 'already in use at the 2.7-m coude'; Sec. 4.4: it 'produces orders of width greater than the CCD for all orders to the red of 3900'."
+  },
+  {
+   "id": "xd_prisms",
+   "group": "xd",
+   "parameter": "Cross disperser: two 30 deg fused-silica prisms, double pass (4 prism passes)",
+   "value": "SiO2, apex 30 deg, 4 passes, incidence 22.267 deg at lambda 4718.6 A, total deviation 58.188 deg",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, p. 254",
+   "quote": "the two 30",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "The prisms are in double-pass"
+    },
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table, Prism parameters",
+     "quote": "Glass type SiO2 ... Apex Angle 30.00 deg"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 10, header",
+     "quote": "NUMBER OF PRISMS = 4 APEX ANGLE = 30 Degrees"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 10, header",
+     "quote": "TOTAL DEVIATION = 58.188 Degrees"
+    }
+   ],
+   "note": "Each 30 deg prism is two optically contacted 15 deg wedges (T95 Sec. 4.2; Corning 1A fused silica). DERIVED: minimum deviation of one 30 deg pass at n = 1.4640: 2 asin(1.4640 sin 15) - 30 = 14.54 deg; x 4 = 58.2 deg, as tabulated. The model entry is four identical 30 deg silica prisms (xPrisms) at minimum deviation."
+  },
+  {
+   "id": "xd_tilt",
+   "group": "xd",
+   "parameter": "Prism fine tilts",
+   "value": "the apices are tilted 3 deg toward each other; the assembly stays at minimum deviation",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.6.2, p. 258",
+   "quote": "the apices of the prism pairs being tilted 3",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.5, p. 257",
+     "quote": "at its normal tilt the prisms are at minimum deviation to minimize aberrations"
+    }
+   ],
+   "note": "Drawing detail only."
+  },
+  {
+   "id": "xd_mount",
+   "group": "xd",
+   "parameter": "Echelle and prisms share one cradle at a system pupil",
+   "value": "prisms and echelle on one cradle; prisms stand in the collimated beam ahead of the echelle (Fig. 6)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.5, p. 256; Fig. 6 (p. 256)",
+   "quote": "The echelle and prisms are mounted in close proximity to minimize required dimensions for the prisms",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "The echelle is located at a pupil of the system"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.3, p. 255",
+     "quote": "the first pass through the prisms"
+    }
+   ],
+   "note": "Fig. 6 (schematic, no scale): two prisms side by side on the optic axis, the echelle to their right; light crosses the prisms, strikes the echelle, and returns through the prisms (the second pass)."
+  },
+  {
+   "id": "pm_R",
+   "group": "wp",
+   "parameter": "Pupil mirror PM radius of curvature",
+   "value": "6.632",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, p. 254",
+   "quote": "The radius of curvature of the pupil mirror (6.632 m)",
+   "alt": [],
+   "note": "DERIVED: f = R / 2 = 3316 mm, equal to the 'camera focal length' the 1995 tables list for the F1 focus (3316.0 mm): PM is the camera of the F1 focus. wpT (the transfer collimator) = 3316 mm."
+  },
+  {
+   "id": "pm_role",
+   "group": "wp",
+   "parameter": "Pupil mirror receives dispersed collimated light, forms F1, then re-images the grating on the folding flat",
+   "value": "spherical pupil mirror, single pass; PM center of curvature near the echelle (point CC)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, pp. 254-255",
+   "quote": "the spherical pupil mirror receives dispersed, collimated light rather than a focussed spectrum",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 255",
+     "quote": "PM is the pupil mirror, with its center of curvature near the echelle at point CC"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 254",
+     "quote": "re-images the grating onto the entrance pupil"
+    }
+   ],
+   "note": "Differs from Baranne's original (collimator lens in double pass, spectrum focused on a 'miroir collectrice')."
+  },
+  {
+   "id": "wp_mag",
+   "group": "wp",
+   "parameter": "White-pupil magnification and where the pupil lands",
+   "value": "x 1.27, on the folding flat FF (not on the corrector plate)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, p. 254",
+   "quote": "the white pupil was magnified",
+   "alt": [],
+   "note": "DERIVED check with the mirror equation using the MEASURED echelle-to-PM distance 5.89 m (columns 1450 and 782 at 113.4 px/m) and f = 3.316 m: image distance 1/(1/3.316 - 1/5.89) = 7.59 m, magnification 7.59 / 5.89 = 1.29 (text 1.27); the flat FF stands 7.50 m from PM on Fig. 1 (column 1632), against 7.59 m. The check ties the scale to the optics."
+  },
+  {
+   "id": "pm_F1",
+   "group": "wp",
+   "parameter": "Focus F1 (the R ~ 200,000 focus) and its camera",
+   "value": "F1: 3316 mm focal length, no field flattener; the CCD can be mounted here",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.2, p. 255",
+   "quote": "or at the very-high-resolution focus",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Fig. 1 caption, p. 253",
+     "quote": "R=250,000 focus ... R=60,000 focus"
+    },
+    {
+     "src": "T21",
+     "loc": "Sec. 1.3.1",
+     "quote": "the camera focal length of TS21 is 3316 mm"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "cam_type",
+   "group": "cam",
+   "parameter": "Camera: folded Schmidt, f/4.1, white pupil on a folding flat with a central hole",
+   "value": "corrector CP2 (axisymmetric asphere), folding flat FF with a square central hole, spherical camera mirror CAM, field-flattening lens at F3",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 253; Sec. 4.2, p. 255; Fig. 1 caption",
+   "quote": "folded Schmidt camera",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 253",
+     "quote": "an axisymmetric asphere to correct spherical aberration of the camera mirror"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.2, p. 255",
+     "quote": "F3 is flattened by a lens in front of the dewar window"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.1, p. 253",
+     "quote": "4.1 folded Schmidt camera"
+    }
+   ],
+   "note": "The detector sits at F3 behind the fold flat's hole (Fig. 8)."
+  },
+  {
+   "id": "cam_f",
+   "group": "cam",
+   "parameter": "Camera effective focal length (F3, TS23)",
+   "value": "775.0 (f/4.079 on the 190 mm beam)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 4.1, p. 253",
+   "quote": "established an effective camera focal length of 775",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table, Camera: Focal length 775.0, Focal ratio 4.079",
+     "quote": "Focal length 775.0 mm input"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 10, header",
+     "quote": "CAMERA FOCAL LENGTH = 775.0 mm"
+    }
+   ],
+   "note": "DERIVED: 775.0 / 190.0 = f/4.079 (the paper rounds to f/4.1). The camera FOV is 3.63 deg square (ORI, 'Cam FoV 3.63x3.63') or '3.7 square' (T95 Sec. 4.1)."
+  },
+  {
+   "id": "cam_ratio",
+   "group": "cam",
+   "parameter": "TS21 to TS23 magnification",
+   "value": "4.279 (3316 / 775)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T21",
+   "loc": "Sec. 1.3.1",
+   "quote": "the magnification ratio of TS21-to-TS23 is 3316/775 = 4.279",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "Sec. 1.7, p. 5",
+     "quote": "Relative to TS23, configuration TS21 offers 4.28x higher resolving power"
+    }
+   ],
+   "note": "TS21 covers 1/18.3 of the TS23 area."
+  },
+  {
+   "id": "anamorph",
+   "group": "ech",
+   "parameter": "Slit demagnification (TS23, E2)",
+   "value": "horizontal 9.959 x, vertical 7.922 x",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table, Spectrometer",
+   "quote": "H. slit demag. 9.959",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "p. 9",
+     "quote": "V. slit demag. 7.922"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 10, header",
+     "quote": "SLIT PROJECTION FACTOR S/DX X L/W = 9.973 X 7.933"
+    }
+   ],
+   "note": "DERIVED: V demag = f_col / f_cam = 6140 / 775 = 7.923; the horizontal factor is larger by cos(beta)/cos(alpha) = cos 62.29 / cos 68.29 = 0.4639 / 0.3698 = 1.2545: 7.923 x 1.2545 = 9.94 (table 9.959; the 0.2 percent is the rounding of the angles)."
+  },
+  {
+   "id": "det",
+   "group": "det",
+   "parameter": "Detector (current)",
+   "value": "TK3: Tektronix 2048 x 2048, 24 um pixels (thin, grade 1)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "Sec. 1.8, p. 5",
+   "quote": "TK3 is a 2048 x 2048 CCD with 24",
+   "alt": [
+    {
+     "src": "WEB",
+     "loc": "Instrument Characteristics",
+     "quote": "TK3, a thin, grade 1, Tektronix 2048 x 2048 CCD"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 4.1, p. 252",
+     "quote": "we selected the Tektronix 2048"
+    }
+   ],
+   "note": "The 1995 paper's first results used a TI 800 x 800 CCD (15.24 um pixels) and a Tektronix 512 x 512 (27 um)."
+  },
+  {
+   "id": "det_new",
+   "group": "det",
+   "parameter": "Detector replacement under construction",
+   "value": "EV2: 4096 x 4096, 15 um pixels (ORI); 'E2V 4096 x 4112, 15 um pixels, post 2026' (ADC)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "Sec. 1.8, p. 5",
+   "quote": "A CCD system called EV2 is being built to replace TK3",
+   "alt": [
+    {
+     "src": "ADC",
+     "loc": "Table 2",
+     "quote": "Detector (post 2026)"
+    }
+   ],
+   "note": "Not installed in the sources' dates; the preset uses TK3."
+  },
+  {
+   "id": "perf_R",
+   "group": "perf",
+   "parameter": "Resolving power, TS23 with E2 and slit 4 (2-pixel)",
+   "value": "60,000 (Nyquist, 2.1 px per resolution element)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "Sec. 1.10, p. 6",
+   "quote": "Slit #4 with echelle E2 yields R = 60,000",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table, Spectrometer",
+     "quote": "2-pix R 63,008"
+    },
+    {
+     "src": "WEB",
+     "loc": "Instrument Characteristics",
+     "quote": "TS23 has a resolving power of R~60,000"
+    }
+   ],
+   "note": "GEOMETRIC/design figure (2 pixels at the 24 um pixel), not a line-width measurement. DERIVED: R x slit width = 70,734 arcsec (ORI and TAB 'R.phi = 70734 arcsec'); at 1.20 arcsec R(slit) = 58,945, at 1.18 arcsec 59,945."
+  },
+  {
+   "id": "perf_Rphi",
+   "group": "perf",
+   "parameter": "Slit-limited product R x slit width (E2; E1)",
+   "value": "70,734 (E2); 65,917 (E1)",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "TAB",
+   "loc": "p. 10 (E2) and p. 8 (E1), header",
+   "quote": "R.phi = 70734 arcsec",
+   "alt": [
+    {
+     "src": "TAB",
+     "loc": "p. 8, header",
+     "quote": "R.phi = 65917 arcsec"
+    }
+   ],
+   "note": "Same values at F1 and F3 (R depends on the beam, not on the camera)."
+  },
+  {
+   "id": "perf_laser",
+   "group": "perf",
+   "parameter": "Measured instrumental profile, F3, E2, narrow slit, TI 15.24 um CCD, He-Ne 632.8 nm",
+   "value": "FWHM 1.57 +/- 0.05 px, R = 120,000; shift-and-add FWHM 0.057 A (1.70 px)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 5.1, pp. 260-261; Fig. 10",
+   "quote": "the FWHM in the individual strips was 1.57",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 5.1, p. 261",
+     "quote": "yielding a resolution"
+    },
+    {
+     "src": "T95",
+     "loc": "Sec. 5.1, p. 261",
+     "quote": "the full width at 1/10 peak is 0.118"
+    }
+   ],
+   "note": "MEASURED on the laser line with an 83 um slit (12.856 x 0.083 mm) projected to 8.3 um by 1.621 mm. The line is undersampled, so the true R is higher than 120,000."
+  },
+  {
+   "id": "perf_lowres",
+   "group": "perf",
+   "parameter": "Measured R with a 1.2 arcsec slit (limiting-magnitude test)",
+   "value": "pixel-limited R = 56,000 (Tektronix 512 x 512, 27 um pixels, thinned)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 5.4, p. 262",
+   "quote": "The resolution limited by the pixel width",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 5.4, p. 262",
+     "quote": "The slit width was 1.20 arcsec"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "perf_disp",
+   "group": "perf",
+   "parameter": "Dispersion at the blaze, F3 E2",
+   "value": "order 73 (4718.62 A): 0.03744 A/px (1.560 A/mm); order 58 (5938.95 A): 0.04713 A/px; order 40 (8611.48 A): 0.06834 A/px",
+   "unit": "A/px",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "p. 9, dispersion table (rows 73, 58, 40)",
+   "quote": "58 5887.75 5938.95 5990.15 0.05003 0.04713 0.04398",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "Sec. 2.5, p. 8",
+     "quote": "Na (D2) 5889.9 58 ( 34, 712) 0.04713"
+    },
+    {
+     "src": "TAB",
+     "loc": "p. 10, F3 E2, order 73",
+     "quote": "73 4718.50 1.464023 1.560"
+    }
+   ],
+   "note": "DERIVED: 1.560 A/mm x 0.024 mm = 0.03744 A/px, matching the ORI table."
+  },
+  {
+   "id": "perf_orders",
+   "group": "perf",
+   "parameter": "Orders on the chip (E2, TS23)",
+   "value": "66 orders, m = 98 at 3500 A to m = 33 at 10400 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ORI",
+   "loc": "Sec. 1.6, p. 4",
+   "quote": "TS2-E2 uses 66 diffraction orders from m=98 at 3500",
+   "alt": [
+    {
+     "src": "ORI",
+     "loc": "Sec. 1.6, p. 4",
+     "quote": "for orders redder than about 5800"
+    }
+   ],
+   "note": "The full free spectral range fits the chip only shortward of about 5800 A (ORI) or 5600 A (T95 Sec. 4.4)."
+  },
+  {
+   "id": "perf_sep",
+   "group": "perf",
+   "parameter": "Inter-order separation (E2)",
+   "value": "minimum 10.3 arcsec (order 45, 7654 A); 10.5 arcsec in the web page; 10 arcsec in the IR rising to 20 arcsec in the UV",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "src": "WEB",
+   "loc": "Instrument Characteristics",
+   "quote": "Two echelle gratings offer minimum inter-order separations of 10.5 and 15.5 arcsec",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 4.4, p. 256",
+     "quote": "separates orders 10 arcsec at minimum"
+    },
+    {
+     "src": "ORI",
+     "loc": "p. 9, dispersion table, interorder",
+     "quote": "interorder ... 10.324"
+    }
+   ],
+   "note": "DERIVED: 10.32 arcsec / 0.4465 arcsec/px = 23.1 px (the ORI table's order 46 to 45 step is 23 px)."
+  },
+  {
+   "id": "perf_cover",
+   "group": "perf",
+   "parameter": "Wavelength coverage, TS23",
+   "value": "3400-10900 A, in as few as two exposures (throughput falls rapidly below 3600 A)",
+   "unit": "A",
+   "tag": "SOURCED",
+   "src": "WEB",
+   "loc": "Instrument Characteristics",
+   "quote": "In TS23 mode: 3,400*-10,900",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Abstract",
+     "quote": "two exposures are all that are needed to cover the full range"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "perf_TS21",
+   "group": "perf",
+   "parameter": "TS21 (F1) resolving power",
+   "value": "up to 240,000 (web); 'R ~ 200,000' (manual); 'R~120,000' with slit 3; measured 175,000 (E1, 145 um slit, ThAr), 125,000 and 110,000 (E1, slit 3)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "WEB",
+   "loc": "Instrument Characteristics",
+   "quote": "TS21 has a resolving power of up to R~240,000",
+   "alt": [
+    {
+     "src": "MAN",
+     "loc": "p. 1",
+     "quote": "TS21 indicates the higher resolving power F1 focus, with"
+    },
+    {
+     "src": "RB",
+     "loc": "Sec. 2",
+     "quote": "A 145"
+    },
+    {
+     "src": "TAU",
+     "loc": "Sec. 2.1",
+     "quote": "a resolving power of R"
+    },
+    {
+     "src": "MAN",
+     "loc": "Sec. 5.2 end",
+     "quote": "For TS21 and slit 3 (R~120,000)"
+    }
+   ],
+   "note": "RB: 'A 145 um slit gave a resolving power of 175,000 (2.9 pixels per resolution element), as determined from the width of lines in the Th-Ar comparison spectra' (MEASURED, 172,000 to 184,000 night to night). DERIVED geometric R for E1: 65,917 / 0.34 arcsec (145 um x 2.348) = 194,000; measured/geometric = 0.90."
+  },
+  {
+   "id": "perf_thru",
+   "group": "perf",
+   "parameter": "Throughput",
+   "value": "total 4.9 percent measured with a 1.2 arcsec slit in 2-2.5 arcsec seeing; 12-16 percent with no slit; about 15 percent slitless in V; limit V = 11.2 for S/N 100 at R = 60,000 in 1 hr",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "T95",
+   "loc": "Sec. 5.4, p. 263",
+   "quote": "the total throughput efficiency was",
+   "alt": [
+    {
+     "src": "T95",
+     "loc": "Sec. 5.4, p. 263",
+     "quote": "we can accept a figure of approximately 15% in the V band"
+    }
+   ],
+   "note": "MEASURED 1993 with the 512 x 512 thinned CCD."
+  },
+  {
+   "id": "perf_snr",
+   "group": "perf",
+   "parameter": "Measured S/N, TS23 (per pixel)",
+   "value": "V = 6.03 K7V, 575 s: 470 at 7480 A, 220 at 4800 A",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "WEB",
+   "loc": "Instrument Characteristics",
+   "quote": "V=6.03 K7V star with 575 sec exposure yields S/N = 470",
+   "alt": [
+    {
+     "src": "MAN",
+     "loc": "Sec. 3.2",
+     "quote": "61 Cyg B"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "pub": [
+  {
+   "what": "R = 60,000 (2-pixel, design; GEOMETRIC)",
+   "q": "R",
+   "value": 60000,
+   "tol": 0.06,
+   "src": "ORI Sec. 1.10, p. 6 ('Slit #4 with echelle E2 yields R = 60,000'); R x slit = 70,734 arcsec gives 58,945 at 1.20 arcsec",
+   "info": false
+  },
+  {
+   "what": "R x slit (E2) = 70,734 arcsec",
+   "q": "Rs",
+   "value": 58945.0,
+   "tol": 0.03,
+   "src": "TAB p. 10 header 'R.phi = 70734 arcsec' and ORI p. 9; 70,734 / 1.20 arcsec = 58,945",
+   "info": false
+  },
+  {
+   "what": "0.03744 A/px in order 73 at 4718.62 A",
+   "q": "dlpixAt",
+   "lam": 4718.62,
+   "m": 73,
+   "value": 0.03744,
+   "tol": 0.02,
+   "src": "ORI p. 9 dispersion table (1.560 A/mm x 0.024 mm)",
+   "info": false
+  },
+  {
+   "what": "0.04713 A/px in order 58 at 5938.95 A",
+   "q": "dlpixAt",
+   "lam": 5938.95,
+   "m": 58,
+   "value": 0.04713,
+   "tol": 0.02,
+   "src": "ORI p. 9 dispersion table",
+   "info": false
+  },
+  {
+   "what": "0.06834 A/px in order 40 at 8611.48 A",
+   "q": "dlpixAt",
+   "lam": 8611.48,
+   "m": 40,
+   "value": 0.06834,
+   "tol": 0.02,
+   "src": "ORI p. 9 dispersion table",
+   "info": false
+  },
+  {
+   "what": "orders 33 to 98 on the chip (66 orders)",
+   "q": "nOrders",
+   "value": 66,
+   "tol": 0.05,
+   "src": "ORI Sec. 1.6, p. 4 ('TS2-E2 uses 66 diffraction orders from m=98 at 3500 A, to m=33 at 10400 A')",
+   "info": false
+  },
+  {
+   "what": "pixel scale along the dispersion 0.56 arcsec/px",
+   "q": "specScale",
+   "value": 0.56,
+   "tol": 0.03,
+   "src": "MAN p. 1; TAB 23.388 arcsec/mm x 0.024 mm = 0.561",
+   "info": false
+  },
+  {
+   "what": "pixel scale along the slit 0.4465 arcsec/px (DERIVED)",
+   "q": "pixScale",
+   "value": 0.4465,
+   "tol": 0.03,
+   "src": "TAB p. 10 'Vert: 18.605 arcsec/mm' x 0.024 mm (DERIVED)",
+   "info": false
+  },
+  {
+   "what": "minimum order separation 23.1 px (10.32 arcsec) in orders 45-46",
+   "q": "minSepPx",
+   "m1": 33,
+   "m2": 98,
+   "value": 23.1,
+   "tol": 0.06,
+   "src": "ORI p. 9 table: order 46 to 45 step 23 px, dY 10.32 arcsec (DERIVED 10.32 / 0.4465)",
+   "info": false
+  },
+  {
+   "what": "grating incidence 68.29 deg",
+   "q": "alphaDeg",
+   "value": 68.29,
+   "tol": 0.01,
+   "src": "ORI p. 9 ('aE 68.29 deg computed')",
+   "info": false
+  },
+  {
+   "what": "prism train total deviation 58.188 deg",
+   "q": "devDeg",
+   "value": 58.188,
+   "tol": 0.01,
+   "src": "TAB p. 10 header 'TOTAL DEVIATION = 58.188 Degrees' (at its centered wavelength 4718.6 A)",
+   "info": false
+  },
+  {
+   "what": "coverage 3400 to 10900 A (as few as two exposures)",
+   "q": "span",
+   "value": 7500,
+   "info": true,
+   "src": "WEB Instrument Characteristics: a range of the whole spectrum across the chip positions, not one setting"
+  },
+  {
+   "what": "R = 120,000 from a laser line, 1.57 px FWHM (TI CCD 15.24 um, narrow slit; MEASURED)",
+   "q": "R",
+   "value": 120000,
+   "info": true,
+   "src": "T95 Sec. 5.1, p. 261; other CCD and slit, so not scored"
+  },
+  {
+   "what": "TS21 R = 175,000 (E1, 145 um slit, MEASURED from ThAr)",
+   "q": "R",
+   "value": 175000,
+   "info": true,
+   "src": "RB Sec. 2; E1 at F1 with slit 2 (0.34 arcsec); geometric 194,000"
+  }
+ ],
+ "not_found": [
+  "Per-grating ruled size and the groove length of E1 (the paper gives 204 x 408 mm for 'an R2 echelle' from Milton Roy; ORI's table prints 'grv length = 173.3 mm' without saying what it is).",
+  "Distances between the prisms, the echelle, the pupil mirror and the corrector plates beyond Fig. 1 (an unscaled one-line sketch; the C1-to-echelle value is the text's 10.7 m, and the other spacings are MEASURED against the F1 focus).",
+  "Focal lengths of C1 and C2 separately (only the effective 6140 mm is published) and the collimator's central hole or obstruction diameter (the secondary's shadow is not given in mm).",
+  "A published TS23 line-width measurement at 1.2 arcsec with the current TK3 CCD (the paper's R = 56,000 and 120,000 tests used other CCDs; the manual's R = 60,000 is the 2-pixel design value).",
+  "Echelle blaze efficiency curves in numbers beyond the 67 percent at order 63 of the Milton Roy certificate (T95 Sec. 5.4).",
+  "Whether the EV2 4096 x 4096 CCD has replaced TK3 (the sources call it 'being built' in January 2025 and 'post 2026' in September 2026)."
+ ]
+}

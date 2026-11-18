@@ -328,7 +328,7 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
           break;
         }
         case "alphaDeg": val = S.alpha / DEG; break;
-        case "devDeg": val = S.prism ? S.prism.dev / DEG : NaN; break;      // a prism train's deviation of the central wavelength
+        case "devDeg": val = S.prism ? S.prism.dev / DEG : S.xdDev ? S.xdDev / DEG : NaN; break;   // a prism train's deviation of the central wavelength (main or cross-disperser)
         case "Rdiam": val = S.c.Rs * Math.sqrt(3) / 2; break;      // R from the full fiber-image width (equivalent slit = (sqrt 3/2) d)
         case "gapPx": { const m = p.state[p.state.mode === "echelle" ? "e" : "g"];   // fibers in groups: the pitch within a group
           val = Array.isArray(m.fgroups) ? m.fgroups[1] / 1000 / S.pixmm : S.Ly / m.nObj / S.pixmm; break; }
@@ -369,6 +369,10 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
     [/^dbsp[br]$/, "on", "Oke & Gunn 1982 Sec. III.A and Fig. 1; Palomar DBSP overview Sec. 4.b: the light enters \"through holes in the collimator primaries\" (coaxial folded Cassegrain; data/round7/dbsp.md, INFERRED)"],
     [/^(boss|sdss)[br]$/, "on", "Smee et al. 2013: \"The slitplates are in the beam\" (a one-dimensional Schmidt collimator)"],
     [/^fast/, "off", "Fabricant et al. 1998 Sec. 3.4: an off-axis parabolic collimator, 8.5 deg off axis"],
+    [/^tull/, "on", "Tull et al. 1995: a Cassegrain collimator, the slit in its primary's housing, a central occulting disk the size of its secondary (data/round8/tull.md, INFERRED)"],
+    [/^lamost[br]$/, "on", "Cui et al. 2012 Fig. 30(b), to scale: the slit on the axis 800 mm before the concave mirror, the returning beam on the same axis (data/round8/lamost.md, MEASURED)"],
+    [/^weave/, "off", "Jin et al. 2024 Sec. 2.3: \"an off-axis catadioptric f/3.1 collimator\""],
+    [/^moons/, "on", "Oliva et al. 2014 Sec. 3: \"The collimator consists of a single spherical mirror working on-axis\""],
     [/^elodie$/, "off", "Baranne et al. 1996: \"the off-axis illumination of M1 and M2\" (separate collimator mirrors, Fig. 1)"],
     [/^hamilton/, "off", "Vogt 1987: \"The collimator is an off-axis parabolic mirror\"; the beam turned 11 deg"],
     [/^lris$/, "off", "Oke et al. 1995 Sec. 2: off-axis parabola"],

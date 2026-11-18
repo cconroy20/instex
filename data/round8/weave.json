@@ -1,0 +1,1620 @@
+{
+ "id": "weave",
+ "date": "2026-11-17",
+ "quote_check": {
+  "pieces": 118,
+  "failures": 0
+ },
+ "sources": [
+  {
+   "key": "JIN",
+   "doc": "Jin, S., Trager, S. C., Dalton, G. B., et al. 2024, MNRAS 530, 2688, \"The wide-field, multiplexed, spectroscopic facility WEAVE: Survey design, overview, and simulated implementation\" (ADS 2024MNRAS.530.2688J; title checked on ADS 2026-11-17; the arXiv e-print is arXiv:2212.03981v2, 43 pp, \"MNRAS 000, 1-43 (2022)\"; PDF p. = e-print page; Sec. 2.2-2.3 and Tables 2-3 describe the focal plane and the spectrograph)",
+   "file": "rawdata/presets/weave/Jin2024_MNRAS530_2688_WEAVE_arXiv2212.03981.pdf",
+   "url": "https://arxiv.org/pdf/2212.03981",
+   "cite": "Jin, S., Trager, S. C., Dalton, G. B., et al. 2024, MNRAS 530, 2688, \"The wide-field, multiplexed, spectroscopic facility WEAVE: Survey design, overview, and simulated implementation\" (ADS 2024MNRAS.530.2688J; title checked on ADS 2026-11-17; the arXiv e-print is arXiv:2212.03981v2, 43 pp, \"MNRAS 000, 1-43 (2022)\"; PDF p. = e-print page; Sec. 2.2-2.3 and Tables 2-3 describe the focal plane and the spectrograph)"
+  },
+  {
+   "key": "ING",
+   "doc": "Isaac Newton Group, \"WEAVE - Instrumental Overview\" (observatory instrument page; last modified 13 March 2026; fetched 2026-11-17). Current modes, scales, resolutions, coverage, status. HTML saved unmodified",
+   "file": "rawdata/presets/weave/ING_WEAVE_instrument_page.html",
+   "url": "https://www.ing.iac.es/astronomy/instruments/weave/",
+   "cite": "Isaac Newton Group, \"WEAVE - Instrumental Overview\" (observatory instrument page; last modified 13 March 2026; fetched 2026-11-17). Current modes, scales, resolutions, coverage, status. HTML saved unmodified"
+  },
+  {
+   "key": "INGLP",
+   "doc": "Isaac Newton Group, \"Light path through WEAVE/LIFU\" (observatory page; last modified 07 September 2024; fetched 2026-11-17). Component list with sizes, VPH line densities, Littrow statement, layout figures from WEAVE-SYS-007 and R. Stuik (NOVA). HTML saved unmodified",
+   "file": "rawdata/presets/weave/ING_WEAVE_lifu_lpath.html",
+   "url": "https://www.ing.iac.es/Astronomy/instruments/weave/lifu_lpath.html",
+   "cite": "Isaac Newton Group, \"Light path through WEAVE/LIFU\" (observatory page; last modified 07 September 2024; fetched 2026-11-17). Component list with sizes, VPH line densities, Littrow statement, layout figures from WEAVE-SYS-007 and R. Stuik (NOVA). HTML saved unmodified"
+  },
+  {
+   "key": "INGF",
+   "doc": "The layout figures of the INGLP page, saved unmodified: ING_vSPE_layout.png (1846 x 1246 px CAD plan, high-resolution mode, labels: Slit Exchange Unit, Collimator Mirror, Slit, Dichroic, Blue/Red Corrector, Shutter, VPHG, Camera, Cryostat); ING_vlores.gif (608 x 516 px Zemax-type layout of low-resolution mode, dimension lines 2088 mm x 1870 mm); ING_vhires.gif (590 x 525 px, high-resolution mode, 1680 mm x 1672 mm); ING_vSPE_layoutz2.png (923 x 623 px copy of the plan); ING_vpriopt2.jpg (the prime-focus corrector, not used)",
+   "file": "rawdata/presets/weave/ING_vSPE_layout.png, ING_vSPE_layoutz2.png, ING_vlores.gif, ING_vhires.gif, ING_vpriopt2.jpg",
+   "url": "https://www.ing.iac.es/Astronomy/instruments/weave/ (vSPE_layout.png, vlores.gif, vhires.gif, vpriopt2.jpg)",
+   "cite": "The layout figures of the INGLP page, saved unmodified: ING_vSPE_layout.png (1846 x 1246 px CAD plan, high-resolution mode, labels: Slit Exchange Unit, Collimator Mirror, Slit, Dichroic, Blue/Red Corrector, Shutter, VPHG, Camera, Cryostat); ING_vlores.gif (608 x 516 px Zemax-type layout of low-resolution mode, dimension lines 2088 mm x 1870 mm); ING_vhires.gif (590 x 525 px, high-resolution mode, 1680 mm x 1672 mm); ING_vSPE_layoutz2.png (923 x 623 px copy of the plan); ING_vpriopt2.jpg (the prime-focus corrector, not used)"
+  },
+  {
+   "key": "DAL",
+   "doc": "Dalton, G., Trager, S., Abrams, D. C., et al. 2014, Proc. SPIE 9147, \"Project overview and update on WEAVE: the next generation wide-field spectroscopy facility for the William Herschel Telescope\" (ADS 2014SPIE.9147E..0LD; arXiv:1412.0843). Sec. 6 describes the spectrograph design after its January 2014 FDR; Fig. 5 is the optical layout in both modes",
+   "file": "rawdata/presets/weave/Dalton2014_WEAVE_project_update_arXiv1412.0843.pdf",
+   "url": "https://arxiv.org/pdf/1412.0843",
+   "cite": "Dalton, G., Trager, S., Abrams, D. C., et al. 2014, Proc. SPIE 9147, \"Project overview and update on WEAVE: the next generation wide-field spectroscopy facility for the William Herschel Telescope\" (ADS 2014SPIE.9147E..0LD; arXiv:1412.0843). Sec. 6 describes the spectrograph design after its January 2014 FDR; Fig. 5 is the optical layout in both modes"
+  },
+  {
+   "key": "BIA",
+   "doc": "Bianco, A., Pariani, G., Aliverti, M., et al. 2018, Proc. SPIE 10706, 107064X, \"VPHGs for WEAVE: design, manufacturing and characterization\" (ADS 2018SPIE10706E..4XB; Oxford ORA accepted manuscript). Table 1 gives line densities and in-air angles; Fig. 2 the layout",
+   "file": "rawdata/presets/weave/Bianco2018_SPIE10706_4X_VPHGs_for_WEAVE_ORA.pdf",
+   "url": "https://ora.ox.ac.uk/objects/uuid:fbd3513c-cc1a-4a80-8140-c835a2bd4ac0/files/ma3c597e01f2eb7ad682f36fe9219c7a6",
+   "cite": "Bianco, A., Pariani, G., Aliverti, M., et al. 2018, Proc. SPIE 10706, 107064X, \"VPHGs for WEAVE: design, manufacturing and characterization\" (ADS 2018SPIE10706E..4XB; Oxford ORA accepted manuscript). Table 1 gives line densities and in-air angles; Fig. 2 the layout"
+  },
+  {
+   "key": "IZA",
+   "doc": "Izazaga, R., Carrasco, E., Hidalgo, A., et al. 2018, Proc. SPIE 10706, 107060J, \"The polishing of WEAVE spectrograph collimator mirror\" (ADS 2018SPIE10706E..0JI; Oxford ORA copy). Mirror radius, size, material; Fig. 1 layout",
+   "file": "rawdata/presets/weave/Izazaga2018_SPIE10706_0J_WEAVE_collimator_polishing_ORA.pdf",
+   "url": "https://ora.ox.ac.uk/objects/uuid:8da261c5-c331-4c9a-9c3c-c034d478ce09/files/me6be6509fc7788110dd734652740a241",
+   "cite": "Izazaga, R., Carrasco, E., Hidalgo, A., et al. 2018, Proc. SPIE 10706, 107060J, \"The polishing of WEAVE spectrograph collimator mirror\" (ADS 2018SPIE10706E..0JI; Oxford ORA copy). Mirror radius, size, material; Fig. 1 layout"
+  },
+  {
+   "key": "SAY",
+   "doc": "Sayede, F., Younes, Y., Fasola, G., et al. 2016, Proc. SPIE 9912, \"First results of tests on the WEAVE fibres\" (ADS 2016SPIE.9912E..20S; Oxford ORA copy). Fiber input/output apertures, core, FRD",
+   "file": "rawdata/presets/weave/Sayede2016_SPIE9912_20_WEAVE_fibre_tests_ORA.pdf",
+   "url": "https://ora.ox.ac.uk/objects/uuid:1a4cb5ed-1ba7-4a80-9219-3f6243b008c3/files/mb357092c3b9bb4f8718a8c568fc330fe",
+   "cite": "Sayede, F., Younes, Y., Fasola, G., et al. 2016, Proc. SPIE 9912, \"First results of tests on the WEAVE fibres\" (ADS 2016SPIE.9912E..20S; Oxford ORA copy). Fiber input/output apertures, core, FRD"
+  },
+  {
+   "key": "MIG",
+   "doc": "Mignot, S. B., Bonifacio, P., Fasola, G., et al. 2020, Proc. SPIE 11450, 114502F, \"Fiber links for the WEAVE instrument: the making of\" (ADS 2020SPIE11450E..2FM; Oxford ORA copy). f/2.75 beam, f/3.2 at the fiber, slit design",
+   "file": "rawdata/presets/weave/Mignot2020_SPIE11450_2F_Fiber_links_for_WEAVE_ORA.pdf",
+   "url": "https://ora.ox.ac.uk/objects/uuid:46147fb6-f7c3-43e5-8e6b-d043b3477a1a/files/sp8418n91r",
+   "cite": "Mignot, S. B., Bonifacio, P., Fasola, G., et al. 2020, Proc. SPIE 11450, 114502F, \"Fiber links for the WEAVE instrument: the making of\" (ADS 2020SPIE11450E..2FM; Oxford ORA copy). f/2.75 beam, f/3.2 at the fiber, slit design"
+  },
+  {
+   "key": "ADS",
+   "doc": "ADS records (JSON) of 2026SPIE14149E..1BD (Dalton et al. 2026, SPIE, \"WEAVE at the William Herschel Telescope: realising the on-sky performance of a 1000-fibre pick-and-place positioning system\"; the abstract gives the 2026 status) and of 2024MNRAS.530.2688J. The SPIE 2026 full text was not found",
+   "file": "rawdata/presets/weave/ADS_records_2026SPIE14149E_1BD_and_2024MNRAS530_2688J.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query (bibcode query)",
+   "cite": "ADS records (JSON) of 2026SPIE14149E..1BD (Dalton et al. 2026, SPIE, \"WEAVE at the William Herschel Telescope: realising the on-sky performance of a 1000-fibre pick-and-place positioning system\"; the abstract gives the 2026 status) and of 2024MNRAS.530.2688J. The SPIE 2026 full text was not found"
+  }
+ ],
+ "recommended": {
+  "inst": "WEAVE",
+  "telescope_group": "WHT 4.2 m",
+  "name_suffix": "(design) per round-8 rule (installed; commissioning / science verification)",
+  "shared": {
+   "D": 4.2,
+   "F": 3.1,
+   "telF_input": 3.2,
+   "core_um": 85,
+   "core_angle_virtual_arcsec": 1.3466,
+   "core_angle_onsky_arcsec": 1.3045,
+   "slitW_equiv_arcsec": 1.1662,
+   "nObj": 960,
+   "col": "mirror",
+   "colTilt": 6.9,
+   "colTilt_tag": "MEASURED, off-axis",
+   "layLen": 1350,
+   "W": 190,
+   "fcam": 342,
+   "cam": "lens",
+   "gType": "trans",
+   "m": 1,
+   "Nx": 8192,
+   "Ny": 6144,
+   "pix": 15
+  },
+  "settings": [
+   {
+    "setting": "LR blue",
+    "id": "weave_lrb",
+    "G": 1385.2,
+    "alpha": 22.72,
+    "beta": 17.01,
+    "psi": 39.73,
+    "lamC": 4900,
+    "model_dispersion": 0.3028,
+    "published_dispersion": 0.3,
+    "arm": "blue",
+    "fold": "dichroic 90 deg clockwise, foldPos 0.53"
+   },
+   {
+    "setting": "LR red",
+    "id": "weave_lrr",
+    "G": 875.9,
+    "alpha": 19.82,
+    "beta": 19.86,
+    "psi": 39.68,
+    "lamC": 7750,
+    "model_dispersion": 0.471,
+    "published_dispersion": 0.48,
+    "arm": "red",
+    "fold": "none"
+   },
+   {
+    "setting": "HR green",
+    "id": "weave_hrg",
+    "G": 3056.9,
+    "alpha": 54.46,
+    "beta": 48.98,
+    "psi": 103.44,
+    "lamC": 5130,
+    "model_dispersion": 0.0942,
+    "published_dispersion": 0.09,
+    "arm": "blue",
+    "fold": "dichroic 90 deg clockwise, foldPos 0.53"
+   },
+   {
+    "setting": "HR red",
+    "id": "weave_hrr",
+    "G": 2430.7,
+    "alpha": 51.59,
+    "beta": 51.65,
+    "psi": 103.24,
+    "lamC": 6450,
+    "model_dispersion": 0.112,
+    "published_dispersion": 0.11,
+    "arm": "red",
+    "fold": "none"
+   },
+   {
+    "setting": "HR blue",
+    "id": "weave_hrb",
+    "G": 3579.6,
+    "alpha": 54.43,
+    "beta": 48.98,
+    "psi": 103.41,
+    "lamC": 4380,
+    "model_dispersion": 0.0804,
+    "published_dispersion": 0.076,
+    "arm": "blue",
+    "fold": "dichroic 90 deg clockwise, foldPos 0.53"
+   }
+  ],
+  "default_setting": "LR blue",
+  "hr_blue_choice": "HR green (HR2, 3056.9 /mm)",
+  "arms_groups": {
+   "WEAVE LR": {
+    "cut": 5900,
+    "width": "NOT FOUND (500 placeholder)",
+    "aoi": 45,
+    "aoi_tag": "INFERRED",
+    "R": "weave_lrb",
+    "T": "weave_lrr",
+    "split": "collimated"
+   },
+   "WEAVE HR": {
+    "cut": 5900,
+    "width": "NOT FOUND (500 placeholder)",
+    "aoi": 45,
+    "R": "weave_hrg",
+    "T": "weave_hrr",
+    "split": "collimated"
+   }
+  }
+ },
+ "layout": {
+  "verdict": "OFF-AXIS",
+  "quote": "design with an off-axis catadioptric f/3.1 collimator, which delivers a 190 mm collimated beam (JIN Sec. 2.3)",
+  "colTilt_deg": 6.9,
+  "slit_to_vertex_mm": 694,
+  "vertex_to_dichroic_mm": 721,
+  "dichroic_to_vph_mm": [
+   643,
+   623
+  ],
+  "vph_to_detector_mm": [
+   735,
+   747
+  ],
+  "scale_mm_per_px": 4.15,
+  "figure": "ING_vlores.gif"
+ },
+ "model_checks": {
+  "lrb": {
+   "G": 1385.2,
+   "alpha": 22.72,
+   "beta": 17.01,
+   "psi": 39.73,
+   "lamC": 4900,
+   "disp": 0.3028,
+   "pub": 0.3,
+   "dpct": 0.9,
+   "span": 2480,
+   "pubspan": 2400,
+   "R": 4919,
+   "fpx": 3.29,
+   "cen": 4860
+  },
+  "hrb": {
+   "G": 3579.6,
+   "alpha": 54.43,
+   "beta": 48.98,
+   "psi": 103.41,
+   "lamC": 4380,
+   "disp": 0.0804,
+   "pub": 0.076,
+   "dpct": 5.8,
+   "span": 659,
+   "pubspan": 610,
+   "R": 16554,
+   "fpx": 3.29,
+   "cen": 4345
+  },
+  "hrg": {
+   "G": 3056.9,
+   "alpha": 54.46,
+   "beta": 48.98,
+   "psi": 103.44,
+   "lamC": 5130,
+   "disp": 0.0942,
+   "pub": 0.09,
+   "dpct": 4.6,
+   "span": 771,
+   "pubspan": 720,
+   "R": 16557,
+   "fpx": 3.29,
+   "cen": 5090
+  },
+  "lrr": {
+   "G": 875.9,
+   "alpha": 19.82,
+   "beta": 19.86,
+   "psi": 39.68,
+   "lamC": 7750,
+   "disp": 0.471,
+   "pub": 0.48,
+   "dpct": -1.9,
+   "span": 3858,
+   "pubspan": 3800,
+   "R": 5001,
+   "fpx": 3.29,
+   "cen": 7690
+  },
+  "hrr": {
+   "G": 2430.7,
+   "alpha": 51.59,
+   "beta": 51.65,
+   "psi": 103.24,
+   "lamC": 6450,
+   "disp": 0.112,
+   "pub": 0.11,
+   "dpct": 1.8,
+   "span": 917,
+   "pubspan": 900,
+   "R": 17510,
+   "fpx": 3.29,
+   "cen": 6400
+  }
+ },
+ "parameters": [
+  {
+   "id": "telescope_aperture",
+   "name": "Telescope aperture D",
+   "value": "4.2",
+   "unit": "m",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Introduction",
+     "quote": "survey facility for the 4.2 m William Her",
+     "label": "primary",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 1",
+     "quote": "prime focus of the 4.2-m William Herschel Telescope (WHT)",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    }
+   ],
+   "note": "The explorer's pupil: D = 4.2 m (nominal; no source gives an effective illuminated aperture)."
+  },
+  {
+   "id": "focus_focal_ratio",
+   "name": "Focal ratio of the WHT prime focus behind the corrector (the f-ratio at the field)",
+   "value": "2.75 (design); 2.8 on-axis, 2.9 at 1 deg radius (as built)",
+   "unit": "f/",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "non-telecentric (0-4° over the field of view) f/2.75 beam",
+     "label": "primary (field-corrector design)",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "Sec. 2",
+     "quote": "As the aperture of the telescope is F/2.75",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1 (corrector)",
+     "quote": "Delivered f-ratio is 2.8 on-axis, 2.9 at edge of field of view (radius 1 deg).",
+     "label": "ALT (as-built drawing WEAVE-PRI-014.7)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Conflict listed: 2.75 (design papers) vs 2.8 / 2.9 (ING, as-built)."
+  },
+  {
+   "id": "plate_scale",
+   "name": "Focal-plane scale",
+   "value": "17.8 (MOS and mIFU, at the telescope focal plane); 15.4 (at the LIFU fiber array, after the pre-LIFU doublet)",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Focal-plane modes section",
+     "quote": "The scale in the WEAVE focal plane is 17.8 arcsec mm ... for MOS/mIFU modes and 15.4 arcsec mm",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Focal-plane scale 17.8 arcsec mm",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Pre-LIFU air-spaced doublet (2 BK7 lenses), delivering f/3.2.",
+     "label": "ALT (the LIFU is fed at f/3.2)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "DERIVED: 206265 / 17.8 = 11588 mm focal length; 11588 / 4200 = f/2.759, consistent with f/2.75.  DERIVED: the MOS fibers see f/3.2 (concave prism lens), so the scale at the fiber is 206265 / (3.2 x 4200 mm) = 15.35 arcsec/mm, equal to the LIFU's 15.4: 85 um x 15.35 = 1.305 arcsec and 170 um x 15.35 = 2.61 arcsec reproduce the published 1.3 and 2.6.  (The 17.8 arcsec/mm applies to the focal plane before the button optics; the fibers' on-sky sizes use the f/3.2 scale.)"
+  },
+  {
+   "id": "fiber_core_mos",
+   "name": "MOS and mIFU fiber core and on-sky diameter",
+   "value": "85 um core; 1.3 arcsec",
+   "unit": "um",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.2",
+     "quote": "Each multi-object spectrograph (MOS) science fibre carries ... a 85 µm core fibre that subtends 1.3 arcsec on the sky",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 2",
+     "quote": "Diameter of individual fibres 1.3 arcsec (85 µm) 1.3 arcsec (85 µm) 1.3 arcsec (85 µm) 2.6 arcsec (170 µm)",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "Sec. 2, fiber specification table",
+     "quote": "Core diameter 85µm +/- 3µm",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "(85 µm) were determined to optimize angular resolution",
+     "label": "ALT",
+     "pages": [
+      3
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "fiber_core_lifu",
+   "name": "LIFU fiber core and on-sky diameter",
+   "value": "170 um core; 2.6 arcsec; 547 science fibers in a hexagonal array",
+   "unit": "um",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.2",
+     "quote": "hexagonal array of 547 fibres with 170 µm ... cores 2.6 arcsec",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Focal-plane modes section",
+     "quote": "diameter D = 2.6 arcsec on the sky",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "The LIFU halves R relative to MOS (below).  Not the recommended preset."
+  },
+  {
+   "id": "fiber_input_focal_ratio",
+   "name": "Input focal ratio at the fiber",
+   "value": "f/3.2 (the MOS button's concave prism surface slows the f/2.75 telescope beam)",
+   "unit": "f/",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.2",
+     "quote": "prism with a concave upper surface to expand the telescope beam to ... /3.2",
+     "label": "primary",
+     "pages": [
+      1,
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "Sec. 2",
+     "quote": "a diverging lens slows down the beam into F/3.2 equivalent in air",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "slow the beam down to f/3.2, a value minimizing intrinsic FRD in the fibers and delivering f/3.1 beams",
+     "label": "ALT",
+     "pages": [
+      3
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "fiber_output_focal_ratio",
+   "name": "Output focal ratio the fibers deliver to the spectrograph",
+   "value": "f/3.1 (the collimator's acceptance; the f/3.2 input degrades to f/3.1)",
+   "unit": "f/",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "slow the beam down to f/3.2, a value minimizing intrinsic FRD in the fibers and delivering f/3.1 beams",
+     "label": "primary",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "Sec. 2",
+     "quote": "The aperture of the spectrograph is F/3.1.",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "FRD measurement, prototype MOS fiber",
+     "quote": "losses by FRD for this MOS fibre of the prototype bundle for a F/3.1 spectrograph: about ... 11%±1.5%",
+     "label": "ALT: 11 +/- 1.5 percent of the light lies outside f/3.1 (prototype bundle)",
+     "pages": [
+      13
+     ],
+     "ok": true
+    },
+    {
+     "key": "SAY",
+     "loc": "Table of test requirements",
+     "quote": "RTS 01 Output aperture F/2.7 ±0.2",
+     "label": "CONFLICT: a test-bench requirement of f/2.7 +/- 0.2 for the output aperture",
+     "pages": [
+      5
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Virtual convention for the explorer (README mapping rule): core angle = 85 um / (3.1 x 4.2 m) = 1.3466 arcsec, so that the collimator sees the true 85 um (DERIVED: 85e-6 / (3.1 x 4.2) x 206265 = 1.3466).  The published on-sky size, 1.3 arcsec, is 85 um / (3.2 x 4.2 m) = 1.3045 arcsec (DERIVED)."
+  },
+  {
+   "id": "n_spectra",
+   "name": "Fibers on the MOS slit (spectra per exposure)",
+   "value": "960 (plate A); 940 (plate B); also 20 mIFUs x 37 fibers (plate B) or 547 LIFU fibers + 56 sky fibers",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.2",
+     "quote": "leaving 960 science fibres available",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.2",
+     "quote": "to leave 940 science fibres available",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Focal-plane modes section",
+     "quote": "plates A (960 fibres) and B (940 fibres)",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "plus 56 sky fibres",
+     "label": "ALT (LIFU)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "nObj = 960 (plate A MOS, the usual setting; the guide-bundle buttons replace 6 science fibers each)."
+  },
+  {
+   "id": "slit_geometry",
+   "name": "MOS pseudo-slit: 40 slitlets of 24 fibers, 150 um pitch, 3D-curved",
+   "value": "960 fibers, about 149 mm long",
+   "unit": "mm",
+   "tag": "SOURCED + DERIVED",
+   "srcs": [
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "slit split into 40×2, 20 and 27 “slitlets” featuring 24, 37 and 21",
+     "label": "primary (40x2: the two MOS slits; 24 fibers per slitlet)",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "inter-fiber spacing was set to 150 µm for MOS and mIFU and ... 240 µm for LIFU",
+     "label": "ALT",
+     "pages": [
+      4
+     ],
+     "ok": true
+    },
+    {
+     "key": "MIG",
+     "loc": "Sec. 1",
+     "quote": "four exchangeable slits corresponding to the two MOS, the mIFU and the LIFU fibers form 3D-curved structures",
+     "label": "ALT",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "DAL",
+     "loc": "Sec. 5",
+     "quote": "The subslit blocks are angled to approximate a curve in two dimensions to form the input slit of the spectrograph",
+     "label": "ALT",
+     "pages": [
+      6
+     ],
+     "ok": true
+    }
+   ],
+   "note": "DERIVED: 960 x 0.150 mm + 39 inter-slitlet gaps x about one fiber (0.120 mm outer buffer diameter, Jin et al. 2024 Sec. 2.2) = 144.0 + 4.7 = 148.7 mm.  Cross-check: the 6144-px (92.2 mm) spatial axis divided by the spectrograph magnification 0.581 (below) = 158.7 mm, so the slit fills the detector with about 6 percent margin.  Slit pitch on the detector: 150 um x 0.581 = 87 um = 5.8 px; fibers' 85 um x 0.581 = 49 um = 3.3 px (ING: spectra FWHM ~ 3 px).  The gap between slitlets 'about one fiber' is a published statement; the exact value is NOT FOUND."
+  },
+  {
+   "id": "collimator_type",
+   "name": "Collimator type",
+   "value": "off-axis catadioptric: a spherical mirror (R 1224.65 mm) with two sets of spherical corrector lenses, one in each arm, after the dichroic",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "design with an off-axis catadioptric ... /3.1 collimator, which ... delivers a 190 mm collimated beam",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "DAL",
+     "loc": "Sec. 6",
+     "quote": "The spectrograph consists of a reflective f/3.1 collimator with two sets of field corrector lenses (spherical surfaces) behind the 600nm dichroic, with an 8-lens transmissive camera in each arm",
+     "label": "ALT",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 1",
+     "quote": "The beam from the fibers illuminates a spherical collimator mirror that produces a 190 mm diameter beam.",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 2 / abstract",
+     "quote": "a radius of curvature of 1224.65 mm +/- 0.15",
+     "label": "ALT: mirror radius",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 2",
+     "quote": "The Radius of Curvature (RoC) is 1224.65 +/-0.15 mm CC sphere and a 624 ... mm diameter clear aperture.",
+     "label": "ALT",
+     "pages": [
+      3
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 1",
+     "quote": "passes through a set of collimator corrector lenses and is dispersed by a volume phase holographic (VPH) grating",
+     "label": "ALT",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "The dichroic is located before ... the collimator correcting lenses so that these can be optimized for",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Drawing type for the explorer: col = 'mirror' (the mirror does the collimating; the corrector lenses are drawn nowhere or as part of the beam)."
+  },
+  {
+   "id": "collimator_onaxis",
+   "name": "On-axis or off-axis collimator (deploy gate)",
+   "value": "OFF-AXIS: the slit sits beside the returning beam, not in it; tilt about 7 deg (MEASURED, rough)",
+   "unit": "",
+   "tag": "SOURCED (word) + MEASURED (tilt)",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "design with an off-axis catadioptric ... /3.1 collimator, which",
+     "label": "primary (the word 'off-axis')",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 2 (Zemax layout, Fig. vlores.gif)",
+     "quote": "The light path is shown from injection at the pseudo-slit (upper centre), via the dichroic (transmitting red, reflecting blue) to the blue camera (left) and the red camera (right).",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "MEASURED on ING_vlores.gif (Zemax layout, scale bar 2088 mm over the 502 px of the top dimension line = 4.16 mm/px; checked on the 1870 mm vertical dimension, 452 px = 4.14 mm/px): the slit (pseudo-slit, lower end of the returning beam, just below the dichroic's lower end) lies about 12 px = 50 mm outside the lower edge of the 190 mm returning beam, and the line slit to mirror vertex makes 13.8 deg with the returned axis; the mirror tilt is half of this, 6.9 deg (+/- 1.5 deg, pixel scale; the DEIMOS convention in presets.js).  In the CAD plan (ING_vSPE_layout.png) the pseudo-slit, in the Slit Exchange Unit, lies beside the dichroic's upper end and outside the beams.  Verdict: OFF-AXIS, no obscuration of the beam by the slit; colTilt about 6.9 deg, positive/negative sign not determined here (the slit lies below the beam in the plan as drawn)."
+  },
+  {
+   "id": "collimator_focal_length",
+   "name": "Collimator focal length and beam",
+   "value": "f/3.1 on a 190 mm beam: f_col = 589 mm (the system with its correctors); the mirror alone R/2 = 612.3 mm",
+   "unit": "mm",
+   "tag": "SOURCED + DERIVED",
+   "srcs": [
+    {
+     "key": "DAL",
+     "loc": "Sec. 6",
+     "quote": "The beam diameter is 190mm and the camera focal ratio is f/1.8.",
+     "label": "primary (190 mm)",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Spectrograph collimator: f/3.1, delivered beam diameter 190 mm. Size 645 mm x 260 mm, material Zerodur.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "delivers a 190 mm collimated beam",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    }
+   ],
+   "note": "DERIVED: f_col = 3.1 x 190 = 589.0 mm.  DERIVED: mirror alone R/2 = 1224.65 / 2 = 612.3 mm (f/3.22 on 190 mm); the system value is shorter because the corrector lenses add power.  Use W = 190 mm, F = 3.1 (the explorer: f_col = F x W = 589 mm)."
+  },
+  {
+   "id": "collimator_mirror_size",
+   "name": "Collimator mirror size and material",
+   "value": "660 mm diameter, 624 mm clear aperture, OHARA CLEARCERAM-Z HS (INAOE); ING lists 645 x 260 mm Zerodur",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "IZA",
+     "loc": "Abstract",
+     "quote": "The collimator has a diameter of 660 mm, a central thickness of 44.7 mm",
+     "label": "primary",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Size 645 mm x 260 mm, material Zerodur.",
+     "label": "CONFLICT with IZA (see Conflicts)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "dichroic",
+   "name": "Dichroic cut, size and position",
+   "value": "cut 5900 A (ING; 600 nm in Dalton 2014): blue reflected, red transmitted; 390 x 308 x 25 mm; AOI 45 deg (INFERRED); width NOT FOUND",
+   "unit": "A",
+   "tag": "SOURCED + INFERRED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "A 5900-A dichroic splits the light between the blue and red arms.",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "light blueward of 5900 Å is reflected to the blue arm, redder light is transmitted to the red arm). Size = 390 mm x 308 mm x 25 mm thick.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "DAL",
+     "loc": "Sec. 6",
+     "quote": "behind the 600nm dichroic",
+     "label": "ALT (600 nm)",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "IZA",
+     "loc": "Sec. 1",
+     "quote": "A dichroic beam splitter, located after the collimator mirror, divides the beam into a blue arm and red arm.",
+     "label": "ALT (position)",
+     "pages": [
+      2
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 2",
+     "quote": "via the dichroic (transmitting red, reflecting blue)",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "LR Blue 5 000 3660 6060 5491–5539 ... LR Red 5 000 5790 9590 7590–7669",
+     "label": "ALT: the two LR bands overlap 5790-6060 A, centered 5925 A",
+     "pages": [
+      6
+     ],
+     "ok": true
+    }
+   ],
+   "note": "All-arms tree (split in the collimated beam, before the corrector lenses): cut 5900 A, AOI 45 deg (INFERRED: the Zemax layout shows the blue beam turned through 90 deg, vertical against the horizontal red beam, which requires a 45 deg mirror), reflected arm = blue, turned 90 deg CLOCKWISE as drawn in ING_vlores.gif (the beam travels west and turns north).  Width: NOT FOUND (use 500 A as for SDSS/BOSS only if the explorer needs a number; flag it).  The dichroic center stands about 721 mm from the collimator vertex (MEASURED, ING_vlores.gif, 4.15 mm/px, +/- 4 percent)."
+  },
+  {
+   "id": "grating_type",
+   "name": "Dispersers: five VPH gratings in transmission, slanted fringes (all LR and HR)",
+   "value": "2 LR (one per arm) + 3 HR (blue HR1, blue HR2 'green', red HR)",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "BIA",
+     "loc": "Sec. 3",
+     "quote": "There will be a total of five VPHGs installed in WEAVE, two at low resolution (LR, one blue and one red) and three at high resolution (HR, one red and two blues).",
+     "label": "primary",
+     "pages": [
+      4
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Sec. 3",
+     "quote": "Regarding the working angle, we notice that the Bragg condition is not matched; this is due to the fact that the grating fringes are slanted",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "VPH gratings with slightly slanted fringes",
+     "label": "ALT",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "VPH grating: LR (1385 lines/mm), HR1 (blue) (3580 lines/mm) or HR2 (green) (3056 lines/mm).",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "VPH grating: LR (876 lines/mm) or HR (2431 lines/mm).",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "vph_line_density",
+   "name": "VPH line densities (design values; measured values at INAF/KOSI in Tables 2 and 3 of the same paper)",
+   "value": "Blue LR 1385.2; Blue HR1 3579.6; Blue HR2 3056.9; Red LR 875.9; Red HR 2430.7",
+   "unit": "lines/mm",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "Blue VPH ruling density 1385.2 lines / mm 3579.6 lines / mm 3056.9 lines / mm",
+     "label": "primary (blue)",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "Red VPH ruling density 875.9 lines / mm 2430.7 lines / mm",
+     "label": "primary (red)",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 2",
+     "quote": "LR BLUE 1385.2 / 1385.3",
+     "label": "measured (KOSI / INAF)",
+     "pages": [
+      7
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 2",
+     "quote": "LR RED 875.9 / 875.5",
+     "label": "measured",
+     "pages": [
+      7
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 3",
+     "quote": "HR BLUE1 3579.6/3578.9",
+     "label": "measured",
+     "pages": [
+      12
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 3",
+     "quote": "HR BLUE2 3056.9/3047.7",
+     "label": "measured (INAF differs by 0.3 percent)",
+     "pages": [
+      12
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 3",
+     "quote": "HR RED 2430.7/2430.5",
+     "label": "measured",
+     "pages": [
+      12
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "vph_angles",
+   "name": "VPH angles in air: incidence alpha and output beta (the Bragg condition is NOT met: slanted fringes)",
+   "value": "Blue LR 22.72 / 17.01; Blue HR1 54.43 / 48.98; Blue HR2 54.46 / 48.98; Red LR 19.82 / 19.86; Red HR 51.59 / 51.65",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "VPH incidence angle (in air) blue 22.72° 54.43° 54.46°",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "VPH output angle (in air) blue 17.01° 48.98° 48.98°",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "VPH incidence angle (in air) red 19.82° 51.59°",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "VPH output angle (in air) red 19.86° 51.65°",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "BIA",
+     "loc": "Table 1",
+     "quote": "Centre (Littrow) wavelengths 490 nm (blue) 438 nm (blue) 513 nm (blue)",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 2",
+     "quote": "the spectrograph operates in Littrow mode, i.e. the angles of incidence and dffraction at the grating are equal: 20 deg in low-res mode, and 51.6 deg in high-res mode.",
+     "label": "CONFLICT (coarse: equal angles; BIA's blue gratings are asymmetric)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "DERIVED: camera-to-collimator angle psi = alpha + beta: Blue LR 39.73; Blue HR1 103.41; Blue HR2 103.44; Red LR 39.68; Red HR 103.24 deg.  DERIVED central wavelength from the grating equation, lamC = (sin alpha + sin beta) / G: Blue LR 4900 A; Blue HR1 4380 A; Blue HR2 5130 A; Red LR 7750 A; Red HR 6450 A (BIA's 'centre (Littrow) wavelengths' 490, 438, 513, 775, 645 nm agree: they are this equation).  The published coverage centers are 4860, 4348 (HR1), 5090 (HR2), 7690, 6400 A (JIN Table 3), 0.4-1.2 percent bluer."
+  },
+  {
+   "id": "camera",
+   "name": "Camera: type, focal ratio, focal length",
+   "value": "transmissive, 8 lenses (one aspheric), f/1.8; f_cam = 342 mm",
+   "unit": "mm",
+   "tag": "SOURCED + DERIVED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "Each arm feeds an ... /1.8 transmissive ... camera consisting of 8 lenses (one asphere on the first lens)",
+     "label": "primary",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "DAL",
+     "loc": "Sec. 6",
+     "quote": "The beam diameter is 190mm and the camera focal ratio is f/1.8.",
+     "label": "ALT",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Camera optics: 8 lenses (one is aspheric), 235 - 320 mm in diameter,",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Delivered f-ratio = 1.8.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "accommodated by articulation of the two cameras",
+     "label": "ALT: the cameras swing (LR to HR) by rotating in the horizontal plane",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 2",
+     "quote": "involves rotating the camera arms in the horizontal plane",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "DERIVED: f_cam = 1.8 x 190 mm = 342 mm (focal length NOT published; f/1.8 is relative to the 190 mm beam).  VALIDATED against the published dispersions (ING scale, A/px) in the Published performance table: the model cos beta / (G f_cam) x 15 um reproduces them to 0.9 percent (blue LR), 1.9 (red LR), 1.8 (red HR), but 4.6-5.8 percent high for the two blue HR gratings.  Spectrograph magnification f_cam/f_col = 0.581.  The camera lenses are 235-320 mm in diameter; both cameras use identical lens prescriptions (JIN: 'the lens prescriptions are common to both cameras, and only the coatings and lens spacings differ between the two')."
+  },
+  {
+   "id": "detector",
+   "name": "Detector per arm",
+   "value": "mosaic of two e2V CCD231-C6, 6k x 6k, 15 um pixels; useful focal plane 8192 (spectral) x 6144 (spatial) px",
+   "unit": "px",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "The useful focal plane of each camera is 8192 (spectral) × 6144 (spatial) ... pixels, populated by a pair of e2V CCD 231-C6 CCDs, with the ... physical size of the pixels being 15 µm.",
+     "label": "primary",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "INGLP",
+     "loc": "Sec. 1",
+     "quote": "Detector: 2 x 6k x 6k moasic of EEV CCD231-C6 deep-depletion CCDs.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "The inter-CCD gap in the wavelength coverage (tabulated above)",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "The detector readout noise is expected to be about 3 electrons rms per 15-micron pixel.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "DAL",
+     "loc": "Sec. 6",
+     "quote": "the design has now evolved to accommodate a pair of CCD231-C6 6kx6k detectors in each camera.",
+     "label": "ALT",
+     "pages": [
+      6
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Raw frames are 2 x (12k x 6k) per exposure (ING).  The explorer's Nx x Ny: 8192 x 6144 (spectral x spatial) with the mid-chip gap NOT modeled.  Which physical chip axis is the dispersion: spectral = 8192 as stated."
+  },
+  {
+   "id": "coverage",
+   "name": "Wavelength coverage and inter-CCD gaps by mode",
+   "value": "LR blue 3660-6060; LR red 5790-9590; HR blue-1 4040-4650; HR green 4730-5450; HR red 5950-6850",
+   "unit": "A",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "LR Blue 5 000 3660 6060 5491–5539",
+     "label": "LR blue",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "LR Red 5 000 5790 9590 7590–7669",
+     "label": "LR red",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "HR Blue-1b 20 000 4040 4650 4525–4536",
+     "label": "HR blue-1",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "HR Blue-2c 20 000 4730 5450 5302–5315",
+     "label": "HR green",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Table 3",
+     "quote": "HR Red 20 000 5950 6850 6412–6431",
+     "label": "HR red",
+     "pages": [
+      6
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Wavelength range (A) 3660-6060 5790-9590 4040-4650 4730-5450 5950-6850",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Inter-CCD gap (A) 5491-5539 7590-7669 4525-4536 5302-5315 6412-6431",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "resolution",
+   "name": "Nominal resolving power and the 2025 as-built caveat",
+   "value": "MOS/mIFU: R = 5000 (LR), 20000 (HR); LIFU: half; 2025: red arm meets nominal R, blue arm falls short by up to several tens of percent (HR worst)",
+   "unit": "",
+   "tag": "SOURCED (nominal, not measured numbers)",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Spec. resolution for MOS, mIFUs 5000 5000 20000 20000 20000",
+     "label": "MOS/mIFU",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Spec. resolution for LIFU 2500 2500 10000 10000 10000",
+     "label": "LIFU",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "suggest that the nominal R are achieved on the red arm, but there's a significant shortfall (up to several 10s %) on the blue arm, particularly for the two high-resolution modes",
+     "label": "as-built caveat",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Sec. 2.3",
+     "quote": "note that these resolving powers are halved when using the LIFU",
+     "label": "ALT",
+     "pages": [
+      5
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Each MOS/mIFU spectrum on the CCD has FWHM ~ 3 pixels (6 for LIFU spectra)",
+     "label": "spatial FWHM",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "The resolving powers are NOMINAL (design/ETC), not measured arc-line values; no measured R(lambda) was found (the 2025 shortfall is stated without numbers).  GEOMETRIC check (DERIVED below): the 85 um fiber imaged at 0.581 is 49.4 um = 3.29 px, so R_fiber = lambda / (dispersion x 3.29 px) = 4919 (blue LR), 5001 (red LR), 16,550 (blue HR1 and HR2) and 17,510 (red HR).  The LR nominal 5000 equals the full width of the fiber image; the HR nominal 20,000 is 14-21 percent above that, so HR 'R=20000' is not the full fiber-image width."
+  },
+  {
+   "id": "dispersion",
+   "name": "Dispersion (scale)",
+   "value": "LR blue 0.30; LR red 0.48; HR blue-1 0.076; HR green 0.090; HR red 0.11",
+   "unit": "A/pixel",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "Scale (A pixel -1 ) 0.30 0.48 0.076 0.090 0.11",
+     "label": "primary (wavelength not stated; the table is 'expected' values)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Compare the model: DERIVED in the table below (f_cam = 342, the Table 1 angles, 15 um pixels)."
+  },
+  {
+   "id": "throughput",
+   "name": "Expected throughput",
+   "value": "~0.25 (blue); ~0.15-0.20 (red)",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "WHT/WEAVE throughput (expected) ~ 0.25 ~ 0.15 to 0.20",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": ""
+  },
+  {
+   "id": "hr_blue_choice",
+   "name": "The two HR blue gratings",
+   "value": "blue-1 4040-4650 A or 'green' 4730-5450 A; only one can be installed at a time",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "in high-resolution mode, observers have a choice of two possible VPH gratings, for wavelength range 4040 - 4650 A ('blue') or 4730 - 5450 A ('green'); they can't be deployed simultaneously.",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Galactic Archaeology HR survey text",
+     "quote": "nitrogen (and carbon in the green+red HR mode)",
+     "label": "ALT: the Galactic-archaeology HR survey is described for the green+red mode",
+     "pages": [
+      12
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Operational rehearsal OpR3a text",
+     "quote": "the red+green or red+blue grating combination",
+     "label": "ALT: surveys may choose either",
+     "pages": [
+      31
+     ],
+     "ok": true
+    },
+    {
+     "key": "JIN",
+     "loc": "Fig. 25 caption",
+     "quote": "high-resolution green+red GA-HR data",
+     "label": "ALT",
+     "pages": [
+      32
+     ],
+     "ok": true
+    }
+   ],
+   "note": "RECOMMENDATION: HR green (HR2, 3057 /mm, 4730-5450 A) as the HR blue-arm setting.  Why: it holds the Mg b triplet and Fe lines of the Galactic archaeology HR survey (the largest HR program), Jin et al. 2024 describe GA-HR in the 'green+red HR mode' and run the simulated data in 'green+red'.  The 'blue' grating (HR1, 4040-4650 A) is offered as an optional fifth Setting.  The published wording lists red+green first and red+blue second ('the red+green or red+blue grating combination'); no source gives usage counts, so 'most used' is an INFERENCE from the surveys' science."
+  },
+  {
+   "id": "modes_not_mixed",
+   "name": "LR and HR cannot be mixed between arms",
+   "value": "one resolution mode per observation (both arms LR or both HR)",
+   "unit": "",
+   "tag": "SOURCED",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Spectrograph modes section",
+     "quote": "low- and high-resolution modes can't be mixed",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "All-arms groups therefore pair LR blue + LR red, and HR green + HR red."
+  },
+  {
+   "id": "status",
+   "name": "Operational status",
+   "value": "Installed on the WHT since mid-2022; LIFU commissioned early 2023 (science from Oct 2023); MOS science verification in progress (Mar 2026); mIFU still commissioning (shared risk); surveys expected mid-2026 (ING) or full science operations early 2027 (SPIE 2026 abstract)",
+   "unit": "",
+   "tag": "SOURCED (dated)",
+   "srcs": [
+    {
+     "key": "ING",
+     "loc": "Top of page",
+     "quote": "was commissioned in early 2023, and LIFU science observations began in October 2023",
+     "label": "primary",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Top of page",
+     "quote": "MOS-mode science verification is currently in progress, and the science surveys are expected to begin ~ mid 2026.",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Top of page",
+     "quote": "the mIFU mode is still being commissioned, so is offered on a shared-risk basis",
+     "label": "ALT",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ING",
+     "loc": "Foot of page",
+     "quote": "Last modified: 13 March 2026",
+     "label": "page date",
+     "pages": [
+      1
+     ],
+     "ok": true
+    },
+    {
+     "key": "ADS",
+     "loc": "Abstract of 2026SPIE14149E..1BD (SPIE Aug 2026)",
+     "quote": "deployed on the William Herschel Telescope in mid-2022 and is expected to be in full science operations in early 2027",
+     "label": "ALT (most recent)",
+     "pages": [
+      1
+     ],
+     "ok": true
+    }
+   ],
+   "note": "Date of record: 2026-11-17.  Under the round-8 rule (commissioning = '(design)') the preset name should carry '(design)'; the hardware is installed and taking LIFU open-time data, so this is the caller's call."
+  }
+ ],
+ "not_found": [
+  "The Rogers et al. 2014 spectrograph design paper (SPIE 9147, \"The design of the WEAVE spectrograph\", ADS 2014SPIE.9147E..6HR): no open copy was reachable (SPIE refuses automated access; no arXiv version). Its role is covered by Dalton et al. 2014 Sec. 6, the INAF/NOVA papers and the ING pages.",
+  "The collimator-correction lens prescriptions, the camera lens prescriptions and the camera focal length in mm (f/1.8 on 190 mm gives 342 mm, DERIVED; the dispersions confirm it to 1-2 percent for three of five gratings).",
+  "The dichroic transition width and its measured transmission curve.",
+  "A measured R(lambda) from arc lines: the resolving powers published are nominal, and the 2025 as-built shortfall of the blue arm is stated without numbers (ING).",
+  "Collimator-to-dichroic, dichroic-to-VPH, VPH-to-camera distances as numbers in a text or table: all are MEASURED from the Zemax-type layout (INGF), +/- 4-6 percent.",
+  "The gap in the MOS slit between slitlets in microns (published as 'about one fiber').",
+  "The optical-bench lens spacings in HR mode (the figure ING_vhires.gif shows the camera swung to the HR position).",
+  "The VPH fringe slant angle and film thickness in numbers (BIA: fringes 'slanted'; substrate thickness 38 and 50 mm only; efficiency curves are plots)."
+ ],
+ "conflicts": [
+  {
+   "topic": "Focal ratio at the prime focus",
+   "text": "f/2.75 (MIG, SAY: design), 2.8 on axis and 2.9 at 1 deg radius (INGLP, as built). The explorer needs only the f/3.1-3.2 fiber-side values."
+  },
+  {
+   "topic": "Collimator described as 'reflective' (DAL 2014) and 'off-axis catadioptric' (JIN 2024) and 'a spherical collimator mirror' (IZA 2018)",
+   "text": "These are consistent: a spherical mirror plus corrector lenses (spherical surfaces) placed after the dichroic in each arm. The explorer draws a mirror collimator."
+  },
+  {
+   "topic": "Collimator mirror size and material",
+   "text": "IZA (INAOE, the polisher): 660 mm diameter, 624 mm clear aperture, OHARA CLEARCERAM-Z HS, radius 1224.65 mm.  INGLP: 'Size 645 mm x 260 mm, material Zerodur'. Possibly a later cut-down of the blank (not stated); the 660 mm round blank with a 624 mm clear aperture is the polisher's own statement."
+  },
+  {
+   "topic": "VPH angles",
+   "text": "INGLP: 'Littrow mode ... equal: 20 deg in low-res mode, and 51.6 deg in high-res mode'.  BIA Table 1: blue LR 22.72 / 17.01 deg, blue HR1 54.43 / 48.98, blue HR2 54.46 / 48.98, red LR 19.82 / 19.86, red HR 51.59 / 51.65 deg (the Bragg condition is not matched: slanted fringes).  The red gratings agree with ING (51.6); the blue ones do not.  The preset follows BIA (the grating design document); psi = alpha + beta."
+  },
+  {
+   "topic": "Blue HR dispersion",
+   "text": "ING scale 0.076 (HR1) and 0.090 (HR2) A/px; the BIA angles with f_cam = 342 mm give 0.0804 and 0.0942 (5.8 and 4.6 percent higher).  Using beta = 51.6 deg (the INGLP 'equal angles') instead would give 0.0761 and 0.0891, matching ING.  The 2025 realignment (ING page) and the 'expected' values may explain it; unresolved."
+  },
+  {
+   "topic": "Dichroic cut",
+   "text": "5900 A (ING, INGLP) vs 600 nm (DAL 2014); the LR bands overlap 5790-6060 A (JIN Table 3), centered 5925 A. The preset uses 5900 A."
+  },
+  {
+   "topic": "Fiber output aperture",
+   "text": "MIG: fibers deliver f/3.1; SAY: spectrograph f/3.1 and FRD loss 11 percent outside f/3.1 (prototype); but SAY's test-bench requirement RTS 01 reads 'Output aperture F/2.7 +/- 0.2'. Read here as a test requirement for the output cone, not the spectrograph acceptance; INFERRED."
+  },
+  {
+   "topic": "HR resolving power",
+   "text": "Nominal 20,000 (ING, JIN) vs the geometric full width of the fiber image: 16,550 (blue HR) and 17,510 (red HR), DERIVED.  The LR values agree (4919 and 5001 against 5000)."
+  },
+  {
+   "topic": "Status wording",
+   "text": "ING (13 Mar 2026): surveys expected to begin about mid-2026; SPIE 2026 abstract (Aug 2026): 'expected to be in full science operations in early 2027'."
+  }
+ ]
+}

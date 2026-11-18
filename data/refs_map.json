@@ -1417,6 +1417,338 @@
     "key": "OHPG",
     "text": "Observatoire de Haute-Provence, ELODIE user's guide"
    }
+  ],
+  "tull23e2": [
+   {
+    "file": "data/round8/tull.json",
+    "key": "T95",
+    "text": "Tull et al. 1995, PASP 107, 251",
+    "ads": "1995PASP..107..251T"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "ORI",
+    "text": "MacQueen 2025, An Orientation to TS23-E2"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "MAN",
+    "text": "TS2 User Manual (McDonald Observatory), 2025"
+   }
+  ],
+  "tull21e2": [
+   {
+    "file": "data/round8/tull.json",
+    "key": "T95",
+    "text": "Tull et al. 1995, PASP 107, 251",
+    "ads": "1995PASP..107..251T"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "ORI",
+    "text": "MacQueen 2025, An Orientation to TS23-E2"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "MAN",
+    "text": "TS2 User Manual (McDonald Observatory), 2025"
+   }
+  ],
+  "tull21e1": [
+   {
+    "file": "data/round8/tull.json",
+    "key": "T95",
+    "text": "Tull et al. 1995, PASP 107, 251",
+    "ads": "1995PASP..107..251T"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "ORI",
+    "text": "MacQueen 2025, An Orientation to TS23-E2"
+   },
+   {
+    "file": "data/round8/tull.json",
+    "key": "MAN",
+    "text": "TS2 User Manual (McDonald Observatory), 2025"
+   }
+  ],
+  "uhrf1m": [
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "D95",
+    "text": "Diego et al. 1995, MNRAS 272, 323",
+    "ads": "1995MNRAS.272..323D"
+   },
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "UM11",
+    "text": "UCL Coude Echelle Spectrographs manual (Stathakis et al. 2000)"
+   }
+  ],
+  "uhrf06": [
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "D95",
+    "text": "Diego et al. 1995, MNRAS 272, 323",
+    "ads": "1995MNRAS.272..323D"
+   },
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "UM11",
+    "text": "UCL Coude Echelle Spectrographs manual (Stathakis et al. 2000)"
+   }
+  ],
+  "uhrf03": [
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "D95",
+    "text": "Diego et al. 1995, MNRAS 272, 323",
+    "ads": "1995MNRAS.272..323D"
+   },
+   {
+    "file": "data/round8/uhrf.json",
+    "key": "UM11",
+    "text": "UCL Coude Echelle Spectrographs manual (Stathakis et al. 2000)"
+   }
+  ],
+  "lamostb": [
+   {
+    "file": "data/round8/lamost.json",
+    "key": "CU12",
+    "text": "Cui et al. 2012, RAA 12, 1197",
+    "ads": "2012RAA....12.1197C"
+   },
+   {
+    "file": "data/round8/lamost.json",
+    "key": "HU20",
+    "text": "Huang et al. 2020, RAA 20, 29"
+   },
+   {
+    "file": "data/round8/lamost.json",
+    "key": "D12L",
+    "text": "LAMOST DR12 v1.0 documentation"
+   }
+  ],
+  "lamostr": [
+   {
+    "file": "data/round8/lamost.json",
+    "key": "CU12",
+    "text": "Cui et al. 2012, RAA 12, 1197",
+    "ads": "2012RAA....12.1197C"
+   },
+   {
+    "file": "data/round8/lamost.json",
+    "key": "HU20",
+    "text": "Huang et al. 2020, RAA 20, 29"
+   },
+   {
+    "file": "data/round8/lamost.json",
+    "key": "D12L",
+    "text": "LAMOST DR12 v1.0 documentation"
+   }
+  ],
+  "weavelrb": [
+   {
+    "file": "data/round8/weave.json",
+    "key": "JIN",
+    "text": "Jin et al. 2024, MNRAS 530, 2688",
+    "ads": "2024MNRAS.530.2688J"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "BIA",
+    "text": "Bianco et al. 2018, Proc. SPIE 10706",
+    "ads": "2018SPIE10706E..4XB"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "ING",
+    "text": "Isaac Newton Group, WEAVE instrumental overview"
+   }
+  ],
+  "weavelrr": [
+   {
+    "file": "data/round8/weave.json",
+    "key": "JIN",
+    "text": "Jin et al. 2024, MNRAS 530, 2688",
+    "ads": "2024MNRAS.530.2688J"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "BIA",
+    "text": "Bianco et al. 2018, Proc. SPIE 10706",
+    "ads": "2018SPIE10706E..4XB"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "ING",
+    "text": "Isaac Newton Group, WEAVE instrumental overview"
+   }
+  ],
+  "weavehrg": [
+   {
+    "file": "data/round8/weave.json",
+    "key": "JIN",
+    "text": "Jin et al. 2024, MNRAS 530, 2688",
+    "ads": "2024MNRAS.530.2688J"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "BIA",
+    "text": "Bianco et al. 2018, Proc. SPIE 10706",
+    "ads": "2018SPIE10706E..4XB"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "ING",
+    "text": "Isaac Newton Group, WEAVE instrumental overview"
+   }
+  ],
+  "weavehrr": [
+   {
+    "file": "data/round8/weave.json",
+    "key": "JIN",
+    "text": "Jin et al. 2024, MNRAS 530, 2688",
+    "ads": "2024MNRAS.530.2688J"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "BIA",
+    "text": "Bianco et al. 2018, Proc. SPIE 10706",
+    "ads": "2018SPIE10706E..4XB"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "ING",
+    "text": "Isaac Newton Group, WEAVE instrumental overview"
+   }
+  ],
+  "weavehrb": [
+   {
+    "file": "data/round8/weave.json",
+    "key": "JIN",
+    "text": "Jin et al. 2024, MNRAS 530, 2688",
+    "ads": "2024MNRAS.530.2688J"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "BIA",
+    "text": "Bianco et al. 2018, Proc. SPIE 10706",
+    "ads": "2018SPIE10706E..4XB"
+   },
+   {
+    "file": "data/round8/weave.json",
+    "key": "ING",
+    "text": "Isaac Newton Group, WEAVE instrumental overview"
+   }
+  ],
+  "moonsri": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
+  ],
+  "moonsyj": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
+  ],
+  "moonsh": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
+  ],
+  "moonshri": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
+  ],
+  "moonshyj": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
+  ],
+  "moonshh": [
+   {
+    "file": "data/round8/moons.json",
+    "key": "C20",
+    "text": "Cirasuolo et al. 2020, The Messenger 180, 10",
+    "ads": "2020Msngr.180...10C"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "O16",
+    "text": "Oliva et al. 2016, Proc. SPIE 9908"
+   },
+   {
+    "file": "data/round8/moons.json",
+    "key": "BL22",
+    "text": "Black et al. 2022, Proc. SPIE 12184"
+   }
   ]
  },
  "img": {

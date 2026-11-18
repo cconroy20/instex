@@ -990,6 +990,16 @@ reference only: the published R comes from Gaussian fits), ELODIE (prism + grism
 the format's ends and the coverage are reported as misses), and Slipher's prism spectrograph (see Physics,
 prism). The on/off-axis verdicts of the mirror collimators are in validate.js COL_AXIS.
 
+Round 8 (2026-11-17; records in data/round8/): the Tull coudé on the McDonald 2.7 m (TS23 and TS21 settings; the
+observatory's dispersion table, R × slit and the prism deviation scored), the AAT UHRF (R ≈ 10⁶; collimator, beam,
+camera and cross-disperser EFFECTIVE, fitted to the published projection and format; the band set to one order),
+LAMOST's low-resolution spectrographs (blue and red; the collimator on the axis as Cui et al. 2012 Fig. 30(b) draws it),
+WEAVE on the WHT (LR and HR, each with its All-arms group; the blue HR dispersions miss by 5–6% where the sources
+disagree on the grating angles), and MOONS for the VLT (LR and HR, design values; the gratings are equivalent VPH
+gratings fitted to the design R and dispersion, so its R lines are reference only). A grating's ruled length (gLen)
+caps the diffraction limit when the beam overfills it (UHRF, Hamilton, Tull: 408 mm echelles), which brings UHRF to
+R = 920,000 against the measured 940,000.
+
 ## Preset and Setting menus
 
 An instrument with several settings (arms, channels, gratings, bands, cameras) is one line in the Preset menu, and a

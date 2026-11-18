@@ -142,6 +142,8 @@ function bisect(f, a, b, fa, fb, tol) {
                    xd 'grating' | 'vph' | 'prism' | 'grism', xG (l/mm), xPsi (deg), xGlass, xA (deg),
                    xPasses, xPrisms [{ glass, A, dI }], xGrism { G, A, glass } (a grism after the prisms),
                    xGrA (an echelle grism's apex, deg; else set by lamC), lamC (A)
+     gLen (mm, optional)                   the grating's ruled length along the dispersion: a beam whose footprint
+                                           is longer overfills it, and the ruled length sets the diffraction limit
      Nx, Ny, pix (um)                      detector, Nx along the dispersion                */
 function design(P) {
   const S = { P, flags: [] };
@@ -487,6 +489,10 @@ function design(P) {
     }
   }
   if (S.prism) { S.Lg = S.prism.base; S.Wp = S.prism.Wout; }
+  // a beam that overfills the grating (gLen: the ruled length; UHRF, Hamilton and the Tull coude overfill their 408 mm
+  // echelles): the light beyond the ruling is lost, and the grooves actually lit set the diffraction limit
+  S.LgLit = P.gLen > 0 && !S.prism ? Math.min(S.Lg, P.gLen) : S.Lg;
+  if (S.LgLit < S.Lg) flag("fill", "the beam overfills the grating (" + Math.round(S.Lg) + " mm footprint on " + Math.round(P.gLen) + " mm)");
   if (!(fcam > 0)) fcam = P.Fc * S.Wp;
   S.fcam = fcam;
   S.Fcam = fcam / S.Wp;
@@ -521,7 +527,7 @@ function design(P) {
     const Rp = npix * Rs;
     // the diffraction limit: m N for a grating (Lg in mm); for prisms W' dtheta/dlambda, the beam's width times the
     // angular dispersion (= sum b dn/dlambda), from the traced directions
-    let RdN = Math.abs(m) * (Gm * 1000) * S.Lg;
+    let RdN = Math.abs(m) * (Gm * 1000) * S.LgLit;
     if (S.prism) {
       const ui = inDir(0, 0), ua = main(ui, lam + h), ub = main(ui, lam - h);
       RdN = ua && ub ? S.Wp * 1000 * norm(sub(ua, ub)) / (2 * h) : NaN;

@@ -18,11 +18,11 @@ const DEF = {
   arms: false,                                                   // every arm of a multi-arm instrument in one view (arms.js)
   g: { slitW: 1, traceW: null, nObj: 1, col: "lens", cam: "lens", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true, view: "spectral", spPts: 3, spPos: 0.5,
        W: 100, Fc: 1.6, fcam: null, gType: "trans", G: 1200, m: 1, lamB1: 5000, lamC: 5500, psi: 35, tAlpha: null, gA: 25, gGlass: "N-BK7", gKind: "ruled", gTilt: 0, pA: 60, pN: 1, pPrisms: null, Nx: 4096, Ny: 2048, pix: 15,
-       filt: null, fgroups: null, telF: null, fibAp: null },
+       filt: null, fgroups: null, telF: null, fibAp: null, gLen: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
         xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "", note2d: "", camEq: "", xdEq: "", feedLabel: "", dichLabel: "", dichBefore: 0, dichTilt: 15,   // the 3D view's prism passes and labels (presets)
-       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, xGrism: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null },
+       xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, xGrism: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null, gLen: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
 let S = clone(DEF);
@@ -326,7 +326,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups, gLen: m.gLen,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0, pA: m.pA, pN: m.pN, pPrisms: m.pPrisms });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
@@ -356,7 +356,7 @@ function writeHash() {
   try { history.replaceState(null, "", parts.length ? "#" + parts.join("&") : location.pathname + location.search); } catch (e) { /* file:// */ }
 }
 // keys that must be positive, and the allowed values of the string-valued keys
-const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre", "pA", "pN"]);
+const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre", "pA", "pN", "gLen"]);
 const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism", "prism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
   gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {

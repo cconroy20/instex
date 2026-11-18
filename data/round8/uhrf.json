@@ -1,0 +1,1617 @@
+{
+ "id": "uhrf",
+ "name": "AAT 3.9 m / UHRF",
+ "date": "2026-11-17",
+ "quote_check": {
+  "pieces": 120,
+  "failures": 0,
+  "scan_transcriptions": 1,
+  "figure_readings": 7
+ },
+ "sources": {
+  "D95": {
+   "document": "Diego, F., Fish, A. C., Barlow, M. J., Crawford, I. A., Spyromilio, J., Dryburgh, M., Brooks, D., Howarth, I. D. & Walker, D. D. 1995, MNRAS 272, 323, \"The Ultra-High-Resolution Facility at the Anglo-Australian Telescope\" (ADS 1995MNRAS.272..323D; 14 pp.; OCR text layer with glyph errors: the degree-decimal glyph prints as \"?\", the micro sign as \"p\", \"x\" for the multiplication sign). Journal pages 323-332; PDF page = journal page - 321. Figs 1 (p. 325) and 9 (p. 328) are the layouts; Fig. 9 carries a 1 m scale bar.",
+   "file": "rawdata/presets/uhrf/1995MNRAS.272..323D_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1995MNRAS.272..323D/ADS_PDF"
+  },
+  "B95": {
+   "document": "Barlow, M. J., Crawford, I. A., Diego, F., Dryburgh, M., Fish, A. C., Howarth, I. D., Spyromilio, J. & Walker, D. D. 1995, MNRAS 272, 333, \"First results from the UHRF: ultra-high-resolution observations of atomic interstellar lines towards zeta Ophiuchi\" (ADS 1995MNRAS.272..333B; OCR text layer; Table 1 on p. 335)",
+   "file": "rawdata/presets/uhrf/1995MNRAS.272..333B_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1995MNRAS.272..333B/ADS_PDF"
+  },
+  "C94a": {
+   "document": "Crawford, I. A., Barlow, M. J., Diego, F. & Spyromilio, J. 1994, MNRAS 266, 903, \"First results from the UHRF: ultra-high-resolution observations of interstellar CH, CH+, CN towards zeta Ophiuchi\" (ADS 1994MNRAS.266..903C; OCR text layer)",
+   "file": "rawdata/presets/uhrf/1994MNRAS.266..903C_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1994MNRAS.266..903C/ADS_PDF"
+  },
+  "C94b": {
+   "document": "Crawford, I. A., Spyromilio, J., Barlow, M. J., Diego, F. & Lagrange, A. M. 1994, MNRAS 266, L65, \"Ultra-high-resolution observations of Ca K line variations in the beta Pictoris disc\" (ADS 1994MNRAS.266L..65C; OCR text layer)",
+   "file": "rawdata/presets/uhrf/1994MNRAS.266L..65C_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1994MNRAS.266L..65C/ADS_PDF"
+  },
+  "C97": {
+   "document": "Crawford, I. A., Barlow, M. J. & Diego, F. 1997, MNRAS 290, 41, \"Ultra-high-resolution observations of interstellar C2, CH and CN towards zeta Ophiuchi and HD 169454\" (ADS 1997MNRAS.290...41C; OCR text layer)",
+   "file": "rawdata/presets/uhrf/1997MNRAS.290...41C_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1997MNRAS.290...41C/ADS_PDF"
+  },
+  "D92": {
+   "document": "Diego, F., Crawford, I., Barlow, M., Fish, A. & Dryburgh, M. 1992, ESO Conf. Proc. 40, 267, \"Ultra-High Resolution Facility for the UCL Echelle Spectrograph\" (ADS 1992ESOC...40..267D; 4 pp.). SCANNED PAGES WITHOUT A TEXT LAYER: its quotes are transcribed from the scan (pp. 268-269) and cannot be machine-checked",
+   "file": "rawdata/presets/uhrf/1992ESOC...40..267D_ADS_PDF.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1992ESOC...40..267D/ADS_PDF"
+  },
+  "WD85": {
+   "document": "Walker, D. D. & Diego, F. 1985, MNRAS 217, 355, \"Design philosophy of the forthcoming echelle spectrographs for the AAT and LPO\" (ADS 1985MNRAS.217..355W; OCR text layer; the UCLES design paper, gives the AAT aperture)",
+   "file": "rawdata/presets/uhrf/1985MNRAS.217..355W.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1985MNRAS.217..355W/ADS_PDF"
+  },
+  "DW85": {
+   "document": "Diego, F. & Walker, D. D. 1985, MNRAS 217, 347, \"On the possibility of increasing the throughput of astronomical spectrographs by overfilling the dispersing element\" (ADS 1985MNRAS.217..347D; OCR text layer; the overfilling rule that D95 applies to UHRF)",
+   "file": "rawdata/presets/uhrf/1985MNRAS.217..347D.pdf",
+   "url": "https://ui.adsabs.harvard.edu/link_gateway/1985MNRAS.217..347D/ADS_PDF"
+  },
+  "S13": {
+   "document": "Smith, K. T., Fossey, S. J., Cordiner, M. A. et al. 2013, MNRAS 429, 939, \"Small-scale structure in the interstellar medium: time-varying interstellar absorption towards kappa Velorum\", arXiv:1210.8136 (17 pp.; UHRF observations of 2006 March with two CCDs)",
+   "file": "rawdata/presets/uhrf/Smith2013_MNRAS429_939_kVel_arXiv1210.8136.pdf",
+   "url": "https://arxiv.org/pdf/1210.8136"
+  },
+  "L11": {
+   "document": "AAO Observer, February 2011 edition (AAO Newsletter p. 14, \"Laser frequency comb meets UHRF\"; ADS 2011arXiv1102.4390B), arXiv:1102.4390 (the April 2010 laser-frequency-comb test on UHRF)",
+   "file": "rawdata/presets/uhrf/AAOObserver_arXiv1102.4390.pdf",
+   "url": "https://arxiv.org/pdf/1102.4390"
+  },
+  "L12": {
+   "document": "AAO Observer Number 121 (February 2012), arXiv:1204.2874 (staff note: the support astronomer for CYCLOPS, UCLES and the UHRF)",
+   "file": "rawdata/presets/uhrf/AAOObserver_arXiv1204.2874.pdf",
+   "url": "https://arxiv.org/pdf/1204.2874"
+  },
+  "UM11": {
+   "document": "The UCL Coude Echelle Spectrographs user manual (Stathakis et al. 2000; the AAT web manual, the current version at the time of the capture), Sec. 1.1 \"Introduction\" (Wayback capture 2001-04-24)",
+   "file": "rawdata/presets/uhrf/aao_manual/ch1_1.html",
+   "url": "https://web.archive.org/web/20010424152759id_/http://www.aao.gov.au:80/local/www/UHRF/manual/ch1_1.html"
+  },
+  "UM13": {
+   "document": "The same manual, Sec. 1.3 \"UCLES & UHRF hardware: slit/image slicer, collimators, gratings, camera\" (Wayback 2001-04-24)",
+   "file": "rawdata/presets/uhrf/aao_manual/ch1_3.html",
+   "url": "https://web.archive.org/web/20010424153224id_/http://www.aao.gov.au:80/local/www/UHRF/manual/ch1_3.html"
+  },
+  "UM14": {
+   "document": "The same manual, Sec. 1.4 \"Detector Options\" (Wayback 2001-04-24)",
+   "file": "rawdata/presets/uhrf/aao_manual/ch1_4.html",
+   "url": "https://web.archive.org/web/20010424152952id_/http://www.aao.gov.au:80/local/www/UHRF/manual/ch1_4.html"
+  },
+  "UMA3": {
+   "document": "The same manual, Appendix A3 \"Data for UHRF\" (theoretical spectral format of Diego, 2 June 1993, with the measured dispersion at 6328 A; Wayback 2001-04-24)",
+   "file": "rawdata/presets/uhrf/aao_manual/app_a3.html",
+   "url": "https://web.archive.org/web/20010424154250id_/http://www.aao.gov.au:80/local/www/UHRF/manual/app_a3.html"
+  },
+  "UMC1": {
+   "document": "The same manual, Appendix C1 \"General setup\" (telescope optics for UCLES/UHRF; Wayback 2001-11-26)",
+   "file": "rawdata/presets/uhrf/aao_manual/app_c1.html",
+   "url": "https://web.archive.org/web/20011126173049id_/http://www.aao.gov.au:80/local/www/UHRF/manual/app_c1.html"
+  },
+  "UMC12": {
+   "document": "The same manual, Appendix C12 \"Finding a new UHRF wavelength\" (expert information; Wayback 2001-04-24)",
+   "file": "rawdata/presets/uhrf/aao_manual/app_c12.html",
+   "url": "https://web.archive.org/web/20010424153333id_/http://www.aao.gov.au:80/local/www/UHRF/manual/app_c12.html"
+  },
+  "CBH": {
+   "document": "AAO UHRF cookbook, \"UHRF Hardware Notes\" (J. Chapman, 7 Dec 1998, updated 18 Jan 1999; Wayback 2006-08-21)",
+   "file": "rawdata/presets/uhrf/aao_cookbook/cookbook_uhrf_hardware.html",
+   "url": "https://web.archive.org/web/20060821112515id_/http://www.aao.gov.au/local/www/UHRF/cookbook/cookbook_uhrf_hardware.html"
+  },
+  "CBT": {
+   "document": "AAO UHRF cookbook, \"UHRF Instrumental Tests\" (MITLL2 tests of 1998; Wayback 2006-08-21)",
+   "file": "rawdata/presets/uhrf/aao_cookbook/cookbook_uhrf_tests.html",
+   "url": "https://web.archive.org/web/20060821112612id_/http://www.aao.gov.au/local/www/UHRF/cookbook/cookbook_uhrf_tests.html"
+  },
+  "AATP": {
+   "document": "AAT web site, \"UHRF Proposals\" under Science > Previous instruments (decommissioned/uhrf/proposals; Wayback capture 2019-03-13; the live site was offline on 2026-11-17)",
+   "file": "rawdata/presets/uhrf/aat_pages/uhrf_proposals.html",
+   "url": "https://web.archive.org/web/20190313113153id_/https://aat.anu.edu.au/science/instruments/decommissioned/uhrf/proposals"
+  },
+  "AATO": {
+   "document": "AAT web site, \"UHRF Observing\" (decommissioned/uhrf/observing; Wayback capture 2019-03-13)",
+   "file": "rawdata/presets/uhrf/aat_pages/uhrf_observing.html",
+   "url": "https://web.archive.org/web/20190313113225id_/https://aat.anu.edu.au/science/instruments/decommissioned/uhrf/observing"
+  }
+ },
+ "entries": [
+  {
+   "section": "Telescope and feed",
+   "id": "tel_D",
+   "parameter": "Telescope aperture D",
+   "value": "3.893",
+   "unit": "m",
+   "tag": "SOURCED",
+   "how": "Walker & Diego give D = 3893 mm for the AAT (the UCLES design); the UHRF papers say \"3.9 m\".",
+   "quotes": [
+    {
+     "key": "WD85",
+     "loc": "p. 358, Sec. 2.1",
+     "text": "D = 3893mm (AAT)",
+     "file": "1985MNRAS.217..355W.pdf",
+     "checked": true
+    },
+    {
+     "key": "S13",
+     "loc": "p. 3, Sec. 3",
+     "text": "3.9 m Anglo-Australian Telescope",
+     "file": "Smith2013_MNRAS429_939_kVel_arXiv1210.8136.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "tel_F",
+   "parameter": "Focal ratio at the slicer / slit (coude focus)",
+   "value": "37.5",
+   "unit": "(f/#)",
+   "tag": "SOURCED",
+   "how": "D95 gives the coude beam as f/37.5. Barlow et al. print \"f/31.5\" in the same sentence as a 710 um/arcsec plate scale; 3.893 m x 31.5 = 122.6 m would give 0.594 mm/arcsec, whereas f/37.5 gives 0.708 mm/arcsec, so f/31.5 is a misprint (CONFLICT, see below). The AAT coude top end is nominally f/36 (UMC1); 1.40 arcsec/mm gives f/37.7. Recommended F = 37.5.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "expand the f/37.5 coudé beam to overfill the echelle grating by 25 per cent",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335, Sec. 2",
+     "text": "at the f/31.5 coudé focus of the AAT the plate scale is 710 ... per arcsec",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMC1",
+     "loc": "App. C1, step 1",
+     "text": "Install coudé f/36 top end mirror",
+     "file": "aao_manual/app_c1.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "tel_scale",
+   "parameter": "Plate scale at the coude focus",
+   "value": "1.40 (712 um per arcsec)",
+   "unit": "arcsec/mm",
+   "tag": "SOURCED",
+   "how": "DERIVED check: 37.5 x 3893 mm = 145.99 m, 206265/145990 = 1.413 arcsec/mm = 0.7078 mm/arcsec (0.9% from the manual).",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Slit / Image Slicer",
+     "text": "The image scale at the coudé focus is 1.40\" arcsec mm -1 , or 712 um to 1 arcsec",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 1",
+     "text": "The image scale at the coude focus is 1.4 arcsec/mm.",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335",
+     "text": "plate scale is 710",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slicer_type",
+   "parameter": "Image slicer",
+   "value": "confocal image slicer CIS-35 (35 slices); 17-slice prototype CIS-17 in 1992 July",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "The CIS-35 was installed permanently after the 1993 January run. Spectra of 1993 May on use the CIS-35.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "This version (designated CIS-17) slices 17 times an area of 1 arcsec2 at the core of the seeing disc",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "This is the CIS-35, which slices 35 times an area of 1.0 x 1.5 arcsec",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "left permanently instahed on UHRF after the second commissioning run in 1993 January",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slicer_out",
+   "parameter": "Slicer output slit (CIS-35): width x length",
+   "value": "30 um x 20 mm",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "The explorer needs only the width (the slit); the 20 mm length matches the minimum order separation of the cross-dispersers (15.6 mm in the UV, so the UV slit overlaps orders unless masked).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "producing a slit 20 mm long and 30 ... wide",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "The slicer cuts the image into 35 slices extending over 20 mm, matching the minimum order separation",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slit_W",
+   "parameter": "Slice width, entered as the slit",
+   "value": "0.0424",
+   "unit": "arcsec",
+   "tag": "DERIVED",
+   "how": "30 um / 0.7078 mm per arcsec = 0.0424 arcsec (with the manual's 712 um per arcsec: 0.0421). Cross-check: the 1.5 arcsec side of the entrance aperture cut into 35 slices is 1.5/35 = 0.0429 arcsec = 30.3 um. The manual's \"40 um = 0.0588 arcsec\" slit is a different relation (0.68 mm/arcsec) and refers to the slit mode, not the slicer. The slicer's 35 slices are one object; the explorer's single 0.0424 arcsec slit represents them.",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "a width of 40 um = 0.0588 arcsec is required to give a resolution of 1e6",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335, Sec. 2",
+     "text": "second, used from 1993 May onwards, had 35 slices, each of width 30",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slicer_ap",
+   "parameter": "Slicer entrance aperture",
+   "value": "1.5 x 1.5 (manual); 1.0 x 1.5 (D95)",
+   "unit": "arcsec",
+   "tag": "SOURCED",
+   "how": "CONFLICT (see below). The 1.5/35 = 0.0429 arcsec slice width favors 1.5 arcsec on the sliced side. Barlow et al. give each slice a length of 1 mm = 1.4 arcsec, so 1.5 x 1.5 is the better reading.",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "The entrance aperture is a square hole 1.5\" on each side",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "AATP",
+     "loc": "Proposals page",
+     "text": "UHRF uses an image slicer of 1.5×1.5 arcsec entrance, but not fully transmitted",
+     "file": "aat_pages/uhrf_proposals.html",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335",
+     "text": "and length 1 mm",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slicer_mask",
+   "parameter": "Slices used (the output masked to leave interorder light)",
+   "value": "about 26 (manual); about 24 (cookbook); 18 (1994 Jan, Barlow); 14 (Fig. 3 of D95)",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "CONFLICT: the mask changed over time (Diego's Fig. 3 masked to 14 slices and a cylindrical lens collapsed the slit until 1994 January; later masks keep 24-27 slices).",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "the output from the slicer has been masked down to about 26 slices",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 3, Slit Assembly/Slicer",
+     "text": "masked down to around 24 slices",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "masked down to 14 slices",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "slicer_eff",
+   "parameter": "Slicer transmission",
+   "value": "at most 15",
+   "unit": "%",
+   "tag": "SOURCED",
+   "how": "Depends on seeing and pointing within the 1.5 arcsec hole. A narrow slit of 40 um would pass less than 3% of a 1.5 arcsec FWHM seeing disc (D95).",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "a maximum efficiency of 15% for the slicer unit",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "rejection of more than 97 per cent of the energy contained in a typical seeing",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "nobj",
+   "parameter": "Number of spectra on the detector (nObj)",
+   "value": "1",
+   "unit": "",
+   "tag": "INFERRED",
+   "how": "One star through the slicer; the 35 slices form one broad spectrum, binned by 4 or 8 across the dispersion.",
+   "quotes": [
+    {
+     "key": "UM11",
+     "loc": "Sec. 1.1, UHRF",
+     "text": "Usually only a single order of spectrum is observed, widened in the spatial direction due to the necessity of using an image slicer",
+     "file": "aao_manual/ch1_1.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Telescope and feed",
+   "id": "prefocal",
+   "parameter": "Post-slicer lenses (field lens and beam expander)",
+   "value": "a converging field lens in the slicer housing, a diverging beam-expanding lens in the UCLES focal-modifier wheel; the pair overfills the echelle by 25%",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Together they superimpose all the slices on the echelle and, with the double-pass lens, set the effective collimator focal length (see Collimator).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "The sheer system also includes a converging field lens and a diverging beam-expanding lens",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "The set of lenses has also been calculated to ... all the slices on the",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Collimator",
+   "id": "col_type",
+   "parameter": "Collimator type",
+   "value": "lens: one 300 mm fused-silica singlet, aspheric, in double pass just in front of the echelle (the same lens is the first element of the camera)",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Littrow-lens design after Gillingham's 1987 temporary spectrograph. The lens slides with the echelle on rails (450 mm travel) to refocus from 3000 to 11000 A (a singlet: chromatic).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "A large (300-mm diameter) fused-silica single lens is used as",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "collimator just in front of a 204 x 408 mm2 echelle grating",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 324, Sec. 4",
+     "text": "aspheric collimating lens (G) mounted in double pass just in front of the echelle grating (H)",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "the displacement needs to be as long as 450 mm",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Collimator",
+   "id": "col_axis",
+   "parameter": "Collimator on-axis or off-axis (deploy gate)",
+   "value": "lens used in double pass at near-Littrow, in-plane beam separation 2 deg; the slicer is NOT in the returning beam (a secondary diverging lens intercepts the return). Verdict: not an on-axis mirror; the explorer should draw a lens (col lens, dpass) with no colTilt issue",
+   "unit": "",
+   "tag": "SOURCED+INFERRED",
+   "how": "The returning beam \"converges as it returns towards the slicer\" but is picked off by the secondary collimator 2.13 m from the slit (MEASURED), the slicer aperture sits about 60 mm off the optical axis, and the TV guider picks up the reflection from the dekker plate beside it. A lens has no central obscuration, so the Schmidt-type gate (slit in the returning beam) does not apply. INFERRED because no document states \"off-axis\" in those words.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "The beam separation at the echelle grating is only 2",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "the diffracted beam is made convergent by passing again through the lens",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Cross Dispersing Gratings",
+     "text": "light in UHRF passes back through the collimator again and converges as it returns towards the slicer, with a beam separation of 2 o . A secondary collimator recollimates the beam",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6.3",
+     "text": "The aperture of the CIS-35 is located at about 60 mm from the optical axis",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Collimator",
+   "id": "col_f",
+   "parameter": "Collimator focal length (explorer EFFECTIVE value, f_col = F x W)",
+   "value": "9212",
+   "unit": "mm",
+   "tag": "EFFECTIVE",
+   "how": "The lens's own focal length is not published. MEASURED from Fig. 9 the slicer-to-lens distance is 4.94 m (the lens is a telephoto-like partner of the diverging beam expander, so this is not f_col). The effective value follows from F = 37.5 and the beam W = 245.6 mm below: f_col = 37.5 x 245.6 = 9211 mm.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "slicer (CIS) to the collimator lens bar 4.94 m on the 1 m bar",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    }
+   ]
+  },
+  {
+   "section": "Collimator",
+   "id": "col_W",
+   "parameter": "Collimated beam diameter W (explorer EFFECTIVE)",
+   "value": "245.6",
+   "unit": "mm",
+   "tag": "EFFECTIVE",
+   "how": "Not published. Three pieces bracket it: a beam that just fills the 408 mm echelle is 408 x cos(64.95+1.0 deg) = 166 mm; \"overfill ... by 25 per cent\" of the 204 mm width gives 255 mm (INFERRED reading; the paper does not say 25% of what); the lens is 300 mm across. W is fixed by two sourced numbers: the slit-to-detector projection factor 0.891 (spectral, 1.0M, manual Table 1.3.1; image 1.1223 x the slit) and the camera focal length 10 339 mm (below): W = f_cam / (F x 1.1223) = 10339 / (37.5 x 1.1223) = 245.6 mm. It lies 4% under the 255 mm reading and 48% over a just-filled echelle (the footprint 245.6/cos(65.95 deg) = 604 mm exceeds the 408 mm echelle: the beam overfills it, as the paper says).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4.1",
+     "text": "overfill the echelle grating by 25 per cent",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Table 1.3.1",
+     "text": "UHRF 1.0M 0.030\"/pixel 0.019\"/pixel 0.903 0.891",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "DW85",
+     "loc": "p. 351, Sec. 3",
+     "text": "The échelle will be a Bausch and Lomb 204 x408 mm2 ruling",
+     "file": "1985MNRAS.217..347D.pdf",
+     "checked": true
+    },
+    {
+     "key": "DW85",
+     "loc": "p. 351, Sec. 3",
+     "text": "measured blaze angle of 64.6",
+     "file": "1985MNRAS.217..347D.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_G",
+   "parameter": "Echelle groove density",
+   "value": "31.6",
+   "unit": "grooves/mm",
+   "tag": "SOURCED",
+   "how": "Milton Roy ruling, R2 type.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "ruled at 31.6 g mm-1",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Echelle Gratings",
+     "text": "The resolving element in UHRF is a 31.6 lines/mm R2 204 x 408 mm echelle grating, blazed at 64.95 degrees (measured)",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_size",
+   "parameter": "Echelle size",
+   "value": "204 x 408",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "how": "The same ruled area as UCLES's 31.6 g/mm echelle and Hamilton's.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "collimator just in front of a 204 x 408 mm2 echelle grating",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_blaze",
+   "parameter": "Echelle blaze angle (eDelta)",
+   "value": "64.95 (measured; tan = 2.14)",
+   "unit": "deg",
+   "tag": "SOURCED",
+   "how": "DERIVED check from the A3 table: lambda_c x m = 573 199 A in orders 191, 97 and 52, i.e. 2 d sin(delta) cos(theta) with d = 316 456 A and theta = 1 deg gives delta = 64.93 deg, 0.02 deg from the measured blaze. (D95 prints the blaze as \"64?95\", a garbled glyph; the manual prints it plainly.)",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3",
+     "text": "blazed at 64.95 degrees (measured)",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "Table 1 (UV) order 191 / V-orders order 97 / order 52 rows",
+     "text": "191 2993.187 3001.043 3008.899 15.712 213.9 0.07347 15.64",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_theta",
+   "parameter": "In-plane half-angle theta",
+   "value": "1.0",
+   "unit": "deg",
+   "tag": "DERIVED",
+   "how": "D95: beam separation at the echelle 2 deg = the in-plane angle 2 theta between incident and diffracted beams, so theta = 1 deg. Check: 2 sin(64.95) cos(1) = 1.8116 against m lambda / d = 1.8113 for order 97 at 5909.27 A: the table is a Littrow-like geometry with 2 theta = 2 deg.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "The beam separation at the echelle grating is only 2",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_gamma",
+   "parameter": "Out-of-plane angle gamma",
+   "value": "0 (not published)",
+   "unit": "deg",
+   "tag": "INFERRED",
+   "how": "No document gives gamma. The control parameters UT and UG are the echelle tilt along the orders (theta) and the cross-disperser turret angle across them; \"the blaze peak ... occurs at UT 33000\" in every order, so the echelle stays at fixed theta and gamma is not an observer variable. Gamma = 0 is the explorer default.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 326, Sec. 4.2",
+     "text": "the echelle grating pivots on knife-edges to allow scanning along the echelle orders",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMC12",
+     "loc": "App. C12, intro",
+     "text": "the blaze peak in that order, which occurs at UT 33000",
+     "file": "aao_manual/app_c12.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Echelle",
+   "id": "ech_pass",
+   "parameter": "Single or double pass",
+   "value": "one pass on the echelle (the collimator lens is passed twice); echelle used in plane, near Littrow",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Ruled area N = 31.6 x 408 = 12 893 grooves; the theoretical resolving power limit R = N m = 1.25e6 at order 97 (D95 gives R = n x m ~ 1.25e6).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 323, Sec. 1",
+     "text": "R = nx m (where n is the total number of grooves in the grating and m is the order of interference), or R ~ 1.25 x 106",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Order selection and cross-disperser",
+   "id": "orders",
+   "parameter": "Orders over the instrument",
+   "value": "about 140 orders, 191 (3000 A) to 52 (11 000 A); orders 200-800 mm long",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Table A3: order 191 at 3001 A, order 52 at 11023 A (140 orders).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6.1",
+     "text": "Since there are about 140 echelle orders with lengths ranging",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "Table 1 and last row",
+     "text": "52 10917.071 11023.062 11129.052 211.982 832.8 0.25454 150.92",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Order selection and cross-disperser",
+   "id": "xd",
+   "parameter": "Cross-dispersers (after the echelle)",
+   "value": "four 110 mm square gratings in a rotating turret: U 2400, B 1800, V 1200, R 1200 grooves/mm, plus two flat mirrors (MB, MR) for narrow-band-filtered orders; V grating for Na D",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Blaze angles of the cross-dispersers are not published (NOT FOUND). The turret sits after a diverging \"secondary collimator\" lens that recollimates the beam at smaller diameter (grating beam about 96 mm, INFERRED below).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 327, Sec. 4.3",
+     "text": "The echelle orders are spread-out by a choice of four 110 mm square cross-disperser gratings",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 327, Sec. 4.3",
+     "text": "2400, 1800, 1200 and 1200 g mm-1, respectively",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 327, Sec. 4.3",
+     "text": "also includes two flat mirrors coated for blue and red wavelengths",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMC12",
+     "loc": "App. C12 intro and cookbook list",
+     "text": "U Grating Order UG",
+     "file": "aao_manual/app_c12.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Order selection and cross-disperser",
+   "id": "xd_psi",
+   "parameter": "Cross-disperser turn (xPsi: angle between incident and diffracted beam)",
+   "value": "13 (+/- 1.5)",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "how": "Read from Fig. 9 (p. 328): the return beam arrives along the main axis at the turret (3.50 m from the lens), and the camera axis leaves toward the lower right: from the turret (1030, 1265 px) to the detector window (2650, 1645 px) on the 300 dpi render, atan(380/1620) = 13.2 deg. Scale: the 1 m bar spans 1924-2320 px = 396 px/m (tick centers).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "turret center to detector window, 13.2 deg from the main axis",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    }
+   ]
+  },
+  {
+   "section": "Order selection and cross-disperser",
+   "id": "xd_eff",
+   "parameter": "Cross-disperser effective groove density (explorer fit)",
+   "value": "471 (V, 5909 A); ratio to the real 1200: 0.39",
+   "unit": "grooves/mm",
+   "tag": "EFFECTIVE",
+   "how": "The tabulated order separation ORSEP / (f_cam x FSR) gives the cross-dispersion angular dispersion the explorer must reproduce: for the V grating at order 97, 29.65 mm / (10339 mm x 60.92 A) = 4.71e-5 rad/A. A 1200 /mm grating at psi = 13 deg gives 1.24e-4 rad/A, 2.6 times too much for a camera of f_cam: the secondary collimator compresses the beam (grating beam about 0.39 x 245.6 = 96 mm, which fits a 110 mm grating). Fit: G_eff = 470.6 /mm (first order, psi = 13 deg). The same ratio q = G_eff/G comes out for the other three gratings (UV 0.401, B 0.393, V 0.392, R 0.385-0.400), which is the evidence for the compression. Re-fit if the explorer's cross-disperser formula differs.",
+   "quotes": [
+    {
+     "key": "UMA3",
+     "loc": "Table 1 (UV) order 191",
+     "text": "191 2993.187 3001.043 3008.899 15.712 213.9 0.07347 15.64",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "V-orders table, order 97",
+     "text": "97 5878.810 5909.270 5939.730 60.920 439.6 0.13858 29.65",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Order selection and cross-disperser",
+   "id": "order_sel",
+   "parameter": "How one order is isolated",
+   "value": "no order-sorting filter is needed: the cross-disperser spaces adjacent orders by 15.6 mm (3000 A) to 151 mm (11 000 A) and 29.65 mm at Na D, while the usable detector frame is 24.6 mm (Tek) and the spectrum covers only 2-15 A of a 60 A order, so one order falls on the chip; blocking filters (UG11 or BG12 in the blue, RG630 or OG530 in the red) only cut scattered light and second-order light",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "For the explorer: set filt = [5878.8, 5939.7] (the free spectral range of order 97, from the A3 table, DERIVED), centered on Na D (lamC = 5890). The shortest UV spacing (15.6 mm, order 191) is smaller than the Tek frame, so at 3000 A the chip also catches the neighboring order. The single-order mode is stated in D95; a pair of flat mirrors plus narrow-band filters was the alternative way to isolate orders.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 331, Sec. 8",
+     "text": "As UHRF works in single echelle order mode, data extraction is quite straightforward",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 327, Sec. 4.3",
+     "text": "intended for use in combination with narrow-band filters to isolate echelle orders",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 3, Filters",
+     "text": "For blue wavelengths it is advisable to use a bandpass filter to cut out scattered red light. Examples are UG11 centred at 3300 and BG12 centred at 4000",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 3, Filters",
+     "text": "cut-on' filter such as RG630 to cut out scattered blue light and to avoid order overlap",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    },
+    {
+     "key": "C97",
+     "loc": "p. 42, Sec. 2",
+     "text": "A post-sficer OG530 filter was used to eliminate second-order blue fight from the cross-disperser",
+     "file": "1997MNRAS.290...41C_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM11",
+     "loc": "Sec. 1.1, UHRF",
+     "text": "Usually only a single order of spectrum is observed",
+     "file": "aao_manual/ch1_1.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Camera",
+   "id": "cam_type",
+   "parameter": "Camera type",
+   "value": "lens: a fixed aspheric fused-silica imaging lens near the cross-dispersers, plus a cylindrical lens (removed 1994 January) and two focal reducers on a rotating table",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "All transmitting optics are fused-silica singlets that need refocusing with wavelength. Camera lens K sits 0.65 m past the turret (MEASURED) and 3.55 m from the detector.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 327, Sec. 4.3",
+     "text": "After the carousel, a fixed aspheric lens projects the spectrum on the detector",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Camera",
+     "text": "UHRF has a fixed camera lens located close to its cross-dispersing gratings, which focuses the spectrum about 4 m away for a resolving power of 1,000,000",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "D92",
+     "loc": "p. 268, Sec. 3",
+     "text": "All the transmission optics are made of fused-silica and the lenses are singlets, needing refocusing as a function of wavelength",
+     "file": "1992ESOC...40..267D_ADS_PDF.pdf",
+     "scan": true,
+     "checked": "scan"
+    }
+   ]
+  },
+  {
+   "section": "Camera",
+   "id": "cam_f",
+   "parameter": "Camera focal length (explorer EFFECTIVE, the whole train behind the echelle)",
+   "value": "10339",
+   "unit": "mm",
+   "tag": "EFFECTIVE",
+   "how": "Fitted to the published linear dispersion: LD = 1 / (f_cam x m / (d cos beta)) with the table's order 97 at 5909.27 A, ECH-LD = 0.13858 A/mm, d = 316 456 A, beta = 64.95 - 1.0 = 63.95 deg: f_cam = 10 339 mm. The same fit across the table varies from 9 903 mm (3001 A) to 10 546 mm (7961 A): the singlet train is not a constant-focal-length system (spread -4% / +2%). D95 calls the camera \"about 10 m long\". If the measured dispersion (0.1342 A/mm at 6328 A, 10% below the theory at that wavelength) is used instead, f_cam is 11 400 mm.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 324, Sec. 3",
+     "text": "a camera about 10 m long",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "Intro and V-orders table",
+     "text": "Note that the measured dispersion at the 6328.160 A laser wavelength is 0.1342 A/mm, 10% lower than the theoretical value of 0.1480 A/mm",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "V-orders table, order 97",
+     "text": "97 5878.810 5909.270 5939.730 60.920 439.6 0.13858 29.65",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Camera",
+   "id": "cam_fr",
+   "parameter": "Camera focal ratio",
+   "value": "not published; the diffracted beam is 245.6 mm wide, so the explorer's f_cam / W = 42",
+   "unit": "(f/#)",
+   "tag": "DERIVED",
+   "how": "10339 / 245.6 = 42.1, the same as the f/37.5 x 1.12 slit magnification. Not a sourced value.",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Table 1.3.1",
+     "text": "UHRF 1.0M 0.030\"/pixel 0.019\"/pixel 0.903 0.891",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Camera",
+   "id": "modes",
+   "parameter": "Resolution modes: focal reducers and detector positions",
+   "value": "three: 1.0M (no reducer), 0.6M and 0.3M (reducer lenses; detector moved to a second or third mounting point)",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Projection factors (slit to detector: spectral 0.891, 1.485, 2.970) scale as 1 : 1.667 : 3.333, so f_cam = 10339, 6203 and 3102 mm (x 1, 0.6, 0.3; DERIVED; the manual says the linear dispersion and order separation scale by 0.6 and 0.3). The collimator and slit are unchanged. Changing mode takes the afternoon staff; one mode per night.",
+   "quotes": [
+    {
+     "key": "UM11",
+     "loc": "Sec. 1.1, UHRF",
+     "text": "UHRF has three resolving powers of nominally 300000 (0.3M), 600000 (0.6M), and 1000000 (1.0M - actually 940000)",
+     "file": "aao_manual/ch1_1.html",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 1 table",
+     "text": "UHRF@3E5 3.010 2.970 UHRF@6E5 1.505 1.485 UHRF@1E6 0.903 0.891",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "Intro",
+     "text": "For R=0.6M and R=0.3M the linear dispersion and order separation must be scaled by factors of 0.6 or 0.3 respectively",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "CBH",
+     "loc": "Sec. 4, Instrumental Resolution",
+     "text": "To change the detector position, remove the black baffles",
+     "file": "aao_cookbook/cookbook_uhrf_hardware.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Detector",
+   "id": "det_tek",
+   "parameter": "Detector recommended (the Tektronix CCD of 1994-2000)",
+   "value": "1024 x 1024 pixels of 24 um (24.58 mm unvignetted)",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "The manual lists the Tek, MITLL2A and MITLL3 in 2000 (the Thomson \"rarely used\"); the Tek replaced the Thomson for the 1994 runs (Barlow's Na UV spectrum of 1994 April) and is the CCD of the manual's tables. Binned x4 or x8 across the dispersion in normal use. (The 3.9 e per binned pixel read noise in D95 is for the Thomson with x8 binning.)",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6.4",
+     "text": "During the commissioning phases it was found more convenient to use the A AO's Thomson CCD, which has 1024x 1024 pixels of 19 pm each",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM14",
+     "loc": "Sec. 1.4, Tektronix",
+     "text": "The Tek is a 1024 square thinned CCD with 24 um square pixels",
+     "file": "aao_manual/ch1_4.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "Intro",
+     "text": "The unvignetted size of the available detectors are: Tek - 24.58 mm and MITLL2 - 49.50 mm",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "UM14",
+     "loc": "Sec. 1.4",
+     "text": "On-chip binning is frequently used for UCLES observations (x2), and always for UHRF observations (x4 or x8)",
+     "file": "aao_manual/ch1_4.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Detector",
+   "id": "det_other",
+   "parameter": "Detectors of other eras",
+   "value": "Thomson 1024 x 1024 x 19 um (1992-94 commissioning); MITLL2A 2048 x 4096 x 15 um (from 1998); MITLL3 2048 x 4096 x 15 um (no binning); EEV2/E2V 2048 x 4096 x 13.5 um (2000s); the IPCS with 10 um pixels was the original plan",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "A Setting with a different chip changes only Nx, Ny and pix. The slit spectrum fills about two thirds of the Thomson frame after the cylindrical lens was removed.",
+   "quotes": [
+    {
+     "key": "B95",
+     "loc": "p. 335, Sec. 2",
+     "text": "blue-coated Thomson CCD, 1024 x 1024 19-pm pixels",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM14",
+     "loc": "Sec. 1.4, MITLL2A",
+     "text": "The MITLL2A CCD is a 2K x 4K edge buttable device, with 15 um pixels",
+     "file": "aao_manual/ch1_4.html",
+     "checked": true
+    },
+    {
+     "key": "S13",
+     "loc": "p. 3, Sec. 3",
+     "text": "blue-optimised EEV2 CCD (2048 × 4096 13.5-µm pixels)",
+     "file": "Smith2013_MNRAS429_939_kVel_arXiv1210.8136.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6.4",
+     "text": "The UHRF was originally conceived to work with an IPCS",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "R_meas",
+   "parameter": "Resolving power, MEASURED from a stabilized He-Ne line (1.0M)",
+   "value": "993 000 (10 um slit, 6328 A, July 1992, Thomson); 990 000 (CIS-35, Aug 1993, FWHM 0.303 +/- 0.007 km/s); same FWHM 0.303 km/s at 5433.6 A",
+   "unit": "",
+   "tag": "SOURCED (MEASURED)",
+   "how": "Unresolved laser lines (the Th-Ar lines are resolved). Later values: 940 000 (\"actually 940000\", the manual and Barlow's Table 1: 9.4e5 for the CIS-35, 9.9e5 for the 10 um slit); 910 000 (C97, Tek, 0.33 km/s); 904 000-990 000 (C94b); 845 000 (EEV2) and 940 000 (MITLL3) in 2006 (S13). The spread is the CCD sampling (about 2.3 pixels per FWHM).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 7.1",
+     "text": "indicates a resolving power of 993 000 (2.40 pixel",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 329-330, Sec. 7.1",
+     "text": "instrumental FWHM as low as 0.303 ±0.007 km s_1 (/? = 990 000",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 330, Sec. 7.1",
+     "text": "This also yielded an instrumental FWHM of 0.303 ( ± 0.005) km s 1 (2.28 pixel)",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335, Table 1",
+     "text": "Na I D2 10-5-93 35-shcer 9.4 0.13 2.6",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "C97",
+     "loc": "p. 42, Sec. 2",
+     "text": "corresponding to a resolving power of R = 910000",
+     "file": "1997MNRAS.290...41C_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "S13",
+     "loc": "p. 3, Sec. 3",
+     "text": "R ≃ 845, 000 for the EEV2 and R ≃ 940, 000 for the MITLL3",
+     "file": "Smith2013_MNRAS429_939_kVel_arXiv1210.8136.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "R_modes",
+   "parameter": "Resolving power of the lower modes",
+   "value": "450 000 (nominal 3e5) and 750 000 (nominal 6e5), preliminary laser tests of 1994; 319 286 at 0.3M with the slicer and MITLL2 (1998)",
+   "unit": "",
+   "tag": "SOURCED (MEASURED)",
+   "how": "The 0.6M mode is the documented R ~ 6e5 Setting (nominal 6e5, measured 7.5e5 preliminary). With a slit instead of the slicer the 0.3M mode gives R = 105 000 at a 0.62 arcsec slit.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 330, Sec. 7.1",
+     "text": "indicate that the resolving powers are 450 000 and 750 000, respectively",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "CBT",
+     "loc": "Sec. 1, Resolution test on laser line",
+     "text": "FWHM = 3.10 bins gives R = 319,286",
+     "file": "aao_cookbook/cookbook_uhrf_tests.html",
+     "checked": true
+    },
+    {
+     "key": "CBT",
+     "loc": "Sec. 1, slit tests",
+     "text": "SW = 0.620 arcsec gives R = 104,732",
+     "file": "aao_cookbook/cookbook_uhrf_tests.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "disp_pub",
+   "parameter": "Linear dispersion at the detector (1.0M)",
+   "value": "0.13 A/mm at Na D (0.00312 A per 24 um pixel); 0.072 A/mm at 3302 A; 0.086 at 3934 A; 0.089 at 3719 A; theory 0.13858 A/mm in order 97; measured 0.1342 A/mm at 6328 A (theory there 0.1480)",
+   "unit": "A/mm",
+   "tag": "SOURCED",
+   "how": "Targets: dlpixAt at 5909.27 A order 97 = 0.13858 x 0.024 = 0.003326 A per Tek pixel (theory); Barlow's Table 1 values are the measured dispersion of the runs.",
+   "quotes": [
+    {
+     "key": "B95",
+     "loc": "p. 335, Table 1",
+     "text": "Na I D2 10-5-93 35-shcer 9.4 0.13 2.6",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335, Table 1",
+     "text": "Na I A3302 28-4-94 35-shcer* 9.4 0.072 1.8",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "B95",
+     "loc": "p. 335, Table 1",
+     "text": "Ca II K 24-1-94 35-shcer* 9.4 0.086 1.7",
+     "file": "1995MNRAS.272..333B_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "V-orders table, order 97",
+     "text": "97 5878.810 5909.270 5939.730 60.920 439.6 0.13858 29.65",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "cover",
+   "parameter": "Wavelength coverage per setting (a single order, a few A)",
+   "value": "2.6 A at 5890 A on the 19.5 mm Thomson; 1.7-1.8 A at 3300-3700 A; \"1-3 A\"; manual: typically 2-15 A; AAT page: 4 A (3000 A) to 13 A (11 000 A) at 1.0M on the E2V",
+   "unit": "A",
+   "tag": "SOURCED",
+   "how": "DERIVED for the Tek: 24.58 mm x 0.13858 A/mm = 3.4 A at 5909 A (theory), 3.0 A with the measured dispersion. 0.6M: 6 A to 22 A; 0.3M: 13 A to 45 A (AAT page, E2V).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 331, Sec. 8",
+     "text": "Owing to the small wavelength coverage of the detec- tor (1-3",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "UM11",
+     "loc": "Sec. 1.1, UHRF",
+     "text": "The very small wavelength coverage of the detector (typically 2 - 15 Å) dictates most setup parameters",
+     "file": "aao_manual/ch1_1.html",
+     "checked": true
+    },
+    {
+     "key": "AATP",
+     "loc": "Proposals, Gratings and Resolution modes",
+     "text": "1.0M: 4Å (@3000Å) - 13Å (@11000Å)",
+     "file": "aat_pages/uhrf_proposals.html",
+     "checked": true
+    },
+    {
+     "key": "AATP",
+     "loc": "Proposals, Gratings and Resolution modes",
+     "text": "0.6M: 6Å (@3000Å) - 22Å (@11000Å) 0.3M: 13Å (@3000Å) - 45Å (@11000Å)",
+     "file": "aat_pages/uhrf_proposals.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "ordsep",
+   "parameter": "Order separation across the dispersion (1.0M; scale x0.6 and x0.3)",
+   "value": "15.64 mm at 3001 A (order 191); 29.65 mm at 5909 A (order 97); 34.35 mm at 6299 A (V grating); 150.92 mm at 11 023 A (order 52)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "how": "Targets for minSepArcsec and ySpan. Theoretical values of F. Diego (2 June 1993) for the V grating; the R grating gives 33.07 mm at 6299 A.",
+   "quotes": [
+    {
+     "key": "UMA3",
+     "loc": "UV table, order 191",
+     "text": "191 2993.187 3001.043 3008.899 15.712 213.9 0.07347 15.64",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "V-orders table, order 97",
+     "text": "97 5878.810 5909.270 5939.730 60.920 439.6 0.13858 29.65",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    },
+    {
+     "key": "UMA3",
+     "loc": "last row of the table",
+     "text": "52 10917.071 11023.062 11129.052 211.982 832.8 0.25454 150.92",
+     "file": "aao_manual/app_a3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "pixscale",
+   "parameter": "Scale along the slit (spatial scale)",
+   "value": "0.030 arcsec/pixel (Tek, unbinned) at 1.0M; 0.019 (MITLL); 0.051 and 0.032 at 0.6M",
+   "unit": "arcsec/px",
+   "tag": "SOURCED",
+   "how": "DERIVED check: 24 um / (slit magnification 1.1223) / 0.7078 mm per arcsec = 0.0302 arcsec/px (matches the manual to 1%).",
+   "quotes": [
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Table 1.3.1",
+     "text": "UHRF 1.0M 0.030\"/pixel 0.019\"/pixel 0.903 0.891",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Table 1.3.1",
+     "text": "UHRF 0.6M 0.051\"/pixel 0.032\"/pixel 1.505 1.485",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "thru",
+   "parameter": "Throughput and sensitivity",
+   "value": "50 000 e per 19 um bin above background in 600 s on kappa Vel (V = 2.50), CIS-35, photometric; S/N 30 in 2.5 h at V = 9.0 (Thomson, x8 binning); 100 e/s per 0.01 A at B = 3.0 (4232 A), V = 3.3 (5890 A) in 1.8 arcsec seeing (E2V)",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "No end-to-end efficiency in percent is published (NOT FOUND); the slicer alone passes at most 15%.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 330, Sec. 7.2",
+     "text": "achieved 50 000 counts (e_) per bin above background",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 330, Sec. 7.2",
+     "text": "a S/N ratio of 30 could be attained in 2.5 h on a V= 9.0 star",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "AATP",
+     "loc": "Proposals, Signal to Noise Estimates",
+     "text": "V=3.3 at 5890Å and I=2.4 at 7700Å give 100 electrons/sec per 0.01Å in 1.8\" seeing",
+     "file": "aat_pages/uhrf_proposals.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Published performance (validation targets)",
+   "id": "status",
+   "parameter": "Instrument status",
+   "value": "commissioned in 1992 July at the AAT coude focus; common-user from 1993-94; supported by the AAO until at least February 2012; listed under previous (decommissioned) instruments on the AAT web site (capture of 2019-03-13); no decommissioning date found",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Last documented use: the laser-frequency-comb test of April 2010 (L11) and the 2006 March kappa Vel run (S13). The AAT page states \"UHRF used a 31.6 lines/mm echelle\" in the past tense.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 323, Abstract",
+     "text": "has been commissioned at the coudé focus of the Anglo-Australian Telescope",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 331, Sec. 9",
+     "text": "The instrument has achieved its common-user status and is available to the community",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "L11",
+     "loc": "p. 14",
+     "text": "In April 2010 we tested a LFC on the Ultra-High Resolution Facility",
+     "file": "AAOObserver_arXiv1102.4390.pdf",
+     "checked": true
+    },
+    {
+     "key": "L12",
+     "loc": "staff note",
+     "text": "she will be supporting CYCLOPS, UCLES, and the UHRF",
+     "file": "AAOObserver_arXiv1204.2874.pdf",
+     "checked": true
+    },
+    {
+     "key": "AATP",
+     "loc": "Proposals, Gratings and Resolution modes",
+     "text": "UHRF used a 31.6 lines/mm echelle grating plus a range of cross-dispersing gratings to achieve high resolution",
+     "file": "aat_pages/uhrf_proposals.html",
+     "checked": true
+    },
+    {
+     "key": "AATO",
+     "loc": "Observing page",
+     "text": "UHRF is an echelle spectrograph located in the east coude room of the AAT and has been in use since 1990",
+     "file": "aat_pages/uhrf_observing.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_figs",
+   "parameter": "Published layout figures",
+   "value": "Fig. 1 (p. 325): simplified layout, lettered A-Q, SCHEMATIC (not to scale). Fig. 9 (p. 328): plan of the AAT east coude room, UCLES and UHRF, with a 1 m scale bar, used for MEASURED readings. ESO 1992 Fig. (p. 269): the same plan at the design stage with a 1 m bar (scan; the elements agree). Fig. 4/5/6/8 photographs of the echelle-collimator and cross-disperser units (no scale).",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "Fig. 1 element order along the beam (p. 324-325, Sec. 4): A 5th coude mirror -> B CIS aperture (with the TV and calibration beside it) -> C field lens -> D beam-expanding lens -> E two filter wheels -> F shutter -> G aspheric collimating lens in double pass in front of the echelle H -> (return, 2 deg off) I diverging secondary collimator -> J cross-disperser turret -> K aspheric imaging lens -> L focal-reducer turret -> M cylindrical lens -> N detector.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 324, Sec. 4",
+     "text": "Fig. 1 is a simplified layout of UHRF: light coming from the 5 th coudé mirror of the A AT (A) is directed to the aperture (B) of the Confocal Image Sheer",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325 (Fig. 1 caption)",
+     "text": "The UHRF optical layout (not to scale)",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 328 (Fig. 9 caption)",
+     "text": "The optical layout of the A AT east coudé room, showing the locations of the optical components of both UCLES and UHRF",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_col",
+   "parameter": "Slicer (slit) to collimator lens distance",
+   "value": "4.94 (+/- 0.15)",
+   "unit": "m",
+   "tag": "MEASURED",
+   "how": "Fig. 9 on the 300 dpi render rotated upright: scale bar ticks at x = 1924 and 2320 px = 396 px/m; slicer CIS x = 463 px, collimator lens bar x = 2418 px, (2418-463)/396 = 4.94 m. Reading error about 10 px = 0.03 m; the +/- 0.15 m allows for the figure's drafting.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "CIS x = 463 px, collimator lens bar x = 2418 px on a 396 px/m scale",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_ech",
+   "parameter": "Collimator lens to echelle distance (layLen, drawing)",
+   "value": "0.25 (+/- 0.10)",
+   "unit": "m",
+   "tag": "MEASURED",
+   "how": "Fig. 9: the echelle stands inside the main collimator box just behind the lens bar, about 100 px (0.25 m) past it (x = 2518 px). The side view (upper panel of Fig. 9) shows the echelle turned about 25 deg from the lens plane (blaze 64.95 deg).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "echelle center about 100 px past the lens bar at 396 px/m",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_other",
+   "parameter": "Other element distances along the slicer-to-lens axis",
+   "value": "beam expander 0.30 m; turret center 1.43 m; secondary collimator 2.13 m from the slicer (lens-to-turret 3.50 m; lens-to-secondary 2.81 m)",
+   "unit": "m",
+   "tag": "MEASURED",
+   "how": "Positions on the same render: beam-expander lens x = 583 px, turret center 1030 px, secondary collimator 1305 px.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "beam expander x = 583, turret x = 1030, secondary collimator x = 1305 px on 396 px/m",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_cam",
+   "parameter": "Echelle to camera-lens distance (camLen) and camera path",
+   "value": "echelle to imaging lens 4.4 (+/- 0.2) m = 0.25 (echelle to lens) + 3.50 (lens to turret) + 0.65 (turret to imaging lens); imaging lens to detector 3.55 m; turret to detector 4.1 m",
+   "unit": "m",
+   "tag": "MEASURED",
+   "how": "The camera axis leaves the turret 13 deg from the main axis. The focal-reducer wheel stands 2.25 m past the imaging lens (1.3 m from the detector). The manual: the camera lens \"focuses the spectrum about 4 m away\" (consistent with 3.55-4.1 m).",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328",
+     "text": "imaging lens (1285, 1310 px), detector window (2650, 1645 px), focal reducers (2150, 1525 px)",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    },
+    {
+     "key": "UM13",
+     "loc": "Sec. 1.3, Camera",
+     "text": "which focuses the spectrum about 4 m away",
+     "file": "aao_manual/ch1_3.html",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_fold",
+   "parameter": "Folds",
+   "value": "one: the cross-disperser turret turns the beam 13 deg toward the lower side of Fig. 9; no flat folds are drawn; the echelle returns the beam 2 deg off the incoming one",
+   "unit": "deg",
+   "tag": "MEASURED",
+   "how": "Fig. 1 (schematic) draws the same: the camera leg leaves the turret J toward the lower right. The detector sits on the opposite side of the main axis from the UCLES collimator and cameras. The two flat mirrors (MB, MR) in the turret fold the beam by the same angle when used in place of gratings.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "Fig. 9, p. 328 and Fig. 1, p. 325",
+     "text": "camera leg 13.2 deg from the main axis, toward the bottom of the figure",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "figure": true,
+     "checked": "figure"
+    },
+    {
+     "key": "D95",
+     "loc": "p. 325, Sec. 4",
+     "text": "The diffracted beam is directed to the cross-disperser unit",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  },
+  {
+   "section": "Layout (figures)",
+   "id": "lay_ucles",
+   "parameter": "Shared room: what is not UHRF",
+   "value": "UCLES slit, focal-modifier wheel, prisms, 700 mm camera, collimator mirror and echelle: UHRF slides its echelle-collimator unit \"on axis\" in front of the UCLES collimator, replaces the UCLES slit by the slicer, and moves the UCLES prisms out of the way",
+   "unit": "",
+   "tag": "SOURCED",
+   "how": "The photograph Fig. 4 shows the echelle-collimator unit \"out of the optical axis\" on rails until it is shifted on axis.",
+   "quotes": [
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6",
+     "text": "( 1 ) replace UCLES slit by UHRF Confocal Image Sheer",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    },
+    {
+     "key": "D95",
+     "loc": "p. 329, Sec. 6",
+     "text": "place the collimator-echelle unit on axis",
+     "file": "1995MNRAS.272..323D_ADS_PDF.pdf",
+     "checked": true
+    }
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "Coude focal ratio",
+   "detail": "D95 says f/37.5; Barlow et al. (B95, p. 335) say f/31.5 with a 710 um/arcsec scale; WD85 and the manual call the coude beam f/36. Adopted f/37.5 (1.41 arcsec/mm, 0.708 mm/arcsec; the f/31.5 reading would give 0.594 mm/arcsec, not 710 um). 1.40 arcsec/mm in the manual and cookbook corresponds to f/37.7."
+  },
+  {
+   "topic": "Slicer entrance aperture",
+   "detail": "D95: the CIS-35 slices an area of 1.0 x 1.5 arcsec2; the manual and the AAT page: 1.5 x 1.5 arcsec. Adopted 1.5 x 1.5 (1.5/35 = 0.0429 arcsec = the 30 um slice)."
+  },
+  {
+   "topic": "Slices used",
+   "detail": "About 26 (manual, 2000), about 24 (cookbook, 1999), 18 (B95, 1994 masked), 14 (D95 Fig. 3), 27 in the 1998 MITLL2 test (CBT). The mask was changed over the years; not a model parameter."
+  },
+  {
+   "topic": "Slicer entrance size in the cookbook",
+   "detail": "The cookbook says the entrance is \"a pin-hole of size 20 mm (about 1.5 arcsec)\"; 20 mm is the output slit length, 1.5 arcsec = 1.07 mm. Treated as a misprint."
+  },
+  {
+   "topic": "Resolving power of the 1.0M mode",
+   "detail": "993 000 and 990 000 (D95, laser, Thomson), 940 000 (manual, B95 Table 1, S13 MITLL3), 910 000 (C97, Tek), 845 000 (S13, EEV2), 700 000 (CN) and 800 000 (CH, CH+) from indirect Th-Ar widths (C94a, which says \"for reasons still being investigated\" this indirect value is lower). The instrument's published nominal is 1e6; recommended target 9.4e5 (the manual's \"actually 940000\")."
+  },
+  {
+   "topic": "Theoretical versus measured dispersion",
+   "detail": "Table A3 (theory): 0.1480 A/mm at 6328 A; measured 0.1342 A/mm (10% lower). The camera focal length that fits the theory is 10.34 m, the measured 11.4 m. Recommended: the theory (the manual's tables and the projection factors come from the same ray trace)."
+  },
+  {
+   "topic": "Collimated beam diameter",
+   "detail": "255 mm (25% over the 204 mm width, INFERRED), 245.6 mm (from the slit magnification and the camera fit, DERIVED), 166 mm (just filling the echelle). Recommended 245.6 mm."
+  },
+  {
+   "topic": "Slit-mode width for R = 1e6",
+   "detail": "The manual says a 40 um slit = 0.0588 arcsec gives 1e6 (0.68 mm/arcsec); the plate scale of 0.7078-0.712 mm/arcsec gives 0.0562-0.0565 arcsec. Slit mode only."
+  }
+ ],
+ "not_found": [
+  "The collimator lens's own focal length and its glass surfaces (a 300 mm fused-silica aspheric singlet; no radii or focal length in D95, the manual or the cookbook). The explorer value is EFFECTIVE.",
+  "The collimated beam diameter (the UCLES-style \"overfill by 25%\" is the only statement).",
+  "The echelle out-of-plane angle gamma, and any echelle tilt other than the in-plane 2 deg.",
+  "Blaze angles and sizes of the four cross-dispersers (the U, B, V, R gratings are given only by groove density and 110 mm size), and the secondary collimator's focal length and the compressed beam diameter (96 mm is an INFERRED figure from the order separations).",
+  "The imaging lens and focal-reducer focal lengths (the camera enters only as the effective f_cam), and an f-ratio of the camera.",
+  "A decommissioning date or reason (the AAT page lists UHRF under previous instruments; the last documented use is April 2010, and the AAO newsletter of February 2012 still lists UHRF support).",
+  "Diego (1993), Applied Optics 32, 6284, \"Confocal image slicer\" (no free copy), Diego 1994 SPIE 2198, 274 and 525 (UHRF and the confocal slicer), Gillingham (1988) and Spyromilio's 1994 UHRF operating manual (the UCL eprint server refused automated access; the AAO manual that replaces Spyromilio is quoted instead).",
+  "End-to-end system efficiency in percent."
+ ],
+ "notes": [
+  "RECOMMENDED PRESET: \"AAT 3.9 m / UHRF\" (inst UHRF), telescope AAT 3.893 m at f/37.5. Settings: \"R 940k, Tek\" (1.0M: f_cam 10339 mm), \"R 600k, Tek\" (0.6M: f_cam 6203 mm; the nearest documented mode to R ~ 5e5), \"R 300k, Tek\" (0.3M: f_cam 3102 mm). All three: slit 0.0424 arcsec (the 30 um slice), D = 3.893 m, F = 37.5, W = 245.6 mm, f_col = 9212 mm, col \"lens\" with dpass true, cam \"lens\", layLen 250, camLen 4400, echelle 31.6 /mm, eDelta 64.95, gamma 0, theta 1.0, nObj 1, xd \"grating\" with xG 471 (EFFECTIVE; the real V grating is 1200 /mm), xPsi 13, lamC 5890 (Na D2, order 97), filt [5878.8, 5939.7], Nx 1024, Ny 1024, pix 24. Era: the Tektronix CCD of 1994-2000 (first used in 1994 April, still listed in 2000); an E2V or MITLL3 Setting (2048 x 4096, 13.5 or 15 um) would change only the chip.",
+  "PREDICTED CHECKS (not run here; the explorer must confirm): slit image 30 x 1.1223 = 33.7 um; slit-limited R = lambda / (33.7e-3 mm x 0.13858 A/mm) = 1.27e6 at 5909 A; the grating-limit R = N m = 1.25e6 (D95); in quadrature about 8.9e5, 5% below the measured 9.4e5 and 10% below the 9.9e5 of 1992-93. Pixel scale 0.0302 arcsec/px (published 0.030); dispersion 0.00333 A/px (published theory 0.13858 A/mm x 0.024 mm); order separation 29.65 mm (V grating; EFFECTIVE xG fits it).",
+  "The explorer's echelle model cannot represent: the 35-slice slicer (one slit stands for it) and its 20 mm slit length; a single lens used in double pass as collimator and first camera element, with a diverging beam expander and secondary collimator in a telephoto arrangement (the 4.94 m slit-to-lens distance versus the 9.2 m EFFECTIVE f_col; the 245.6 mm beam over-fills the 408 mm echelle: the footprint is 604 mm); the beam compression between the echelle and the cross-disperser (hence xG = 471 instead of 1200); the singlet optics' chromatic refocus (f_cam 9.9 m at 3000 A, 10.5 m at 8000 A); the cylindrical lens removed in 1994; the focal reducers and the detector carriage; one order only on a chip smaller than an order (the model draws all orders unless filt is set; filt = order 97's free spectral range).",
+  "The slit-mode alternative (0.3M with a 0.62 arcsec slit, R = 105 000, 4-5 times the slicer's throughput) is documented (UM13, CBT) but is not recommended as a preset: the slicer is the defining feature.",
+  "The Fig. 9 measurements use one 300 dpi render of the ADS scan (the rotated figure; pixel positions read to about 10 px = 0.03 m); the ADS scan prints Fig. 9 clearly but the pages are photocopies.",
+  "Sources saved but not quoted: the other 27 pages of the AAO manual (aao_manual), the cookbook setup, data, observers and ccds pages (aao_cookbook), and the AAT expert and manual pages (aat_pages).",
+  "The AAT UHRF pages (aat.anu.edu.au) were offline on 2026-11-17 (\"awaiting patches for the recent PHP security issues\"); the AAO manual and cookbook copies are Internet Archive captures of aao.gov.au pages."
+ ],
+ "recommended": {
+  "preset": "AAT 3.9 m / UHRF",
+  "inst": "UHRF",
+  "settings": [
+   "R 940k, Tek",
+   "R 600k, Tek",
+   "R 300k, Tek"
+  ],
+  "state_common": {
+   "mode": "echelle",
+   "D": 3.893,
+   "F": 37.5,
+   "e": {
+    "slitW": 0.0424,
+    "nObj": 1,
+    "col": "lens",
+    "dpass": true,
+    "cam": "lens",
+    "layLen": 250,
+    "camLen": 4400,
+    "W": 245.6,
+    "eG": 31.6,
+    "eDelta": 64.95,
+    "gamma": 0,
+    "theta": 1.0,
+    "xd": "grating",
+    "xG": 471,
+    "xPsi": 13,
+    "lamC": 5890,
+    "filt": [
+     5878.8,
+     5939.7
+    ],
+    "Nx": 1024,
+    "Ny": 1024,
+    "pix": 24
+   }
+  },
+  "fcam_by_setting": {
+   "R 940k, Tek": 10339,
+   "R 600k, Tek": 6203,
+   "R 300k, Tek": 3102
+  }
+ }
+}

@@ -1,0 +1,1428 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 8: VLT MOONS (id 'moons')",
+  "compiled": "2026-11-17",
+  "companion": "data/round8/moons.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote; DERIVED = arithmetic done here; EFFECTIVE = chosen to reproduce published performance; INFERRED = a reading not stated; MEASURED = read from a figure with a stated scale; NOT FOUND = gap.",
+  "quote_check": {
+   "pieces_checked": 89,
+   "failures": 0
+  },
+  "status": "commissioning; first observations summer 2026 (P26); ESO page 'AIV -> Commissioning' (E26): mark presets '(design)'"
+ },
+ "sources": {
+  "C20": {
+   "cite": "Cirasuolo, M., Fairley, A., Rees, P., et al. 2020, The Messenger 180, 10, \"MOONS: The New Multi-Object Spectrograph for the VLT\", arXiv:2009.00628 (ADS 2020Msngr.180...10C; open access). Overview: Table 1 key parameters, Fig. 2 hardware, Fig. 3 R(lambda)",
+   "file": "rawdata/presets/moons/Cirasuolo2020_Msngr180_10_MOONS_arXiv2009.00628.pdf",
+   "url": "https://arxiv.org/pdf/2009.00628"
+  },
+  "O16": {
+   "cite": "Oliva, E., Delabre, B., Tozzi, A., et al. 2016, Proc. SPIE 9908, 99087R, \"Toward the final optical design of MOONS, the Multi-Object Optical and Near-Infrared spectrograph for the VLT\" (ADS 2016SPIE.9908E..7RO; author copy from the Cambridge repository; the PDF is the SPIE-formatted text). The final-design spectrograph: Table 1, Fig. 1 (layout, LR and HR), Table 2, Fig. 2, 3",
+   "file": "rawdata/presets/moons/Oliva2016_SPIE9908_7R_Toward_final_optical_design_MOONS_Cambridge_repository.pdf",
+   "url": "https://www.repository.cam.ac.uk/bitstreams/48e0c43f-d607-426c-8de3-d60dc8f768bd/download"
+  },
+  "O14": {
+   "cite": "Oliva, E., Todd, S., Cirasuolo, M., et al. 2014, Proc. SPIE 9147, 91472C, \"Updated optical design and trade-off study for MOONS, the Multi-Object Optical and Near Infrared spectrometer for the VLT\", arXiv:1407.3054 (ADS 2014SPIE.9147E..2CO). Pre-PDR trade-off: on-axis collimator, dichroic cuts, VPH-plus-prism dispersers, Table 1, 2, Fig. 1, 2, 7",
+   "file": "rawdata/presets/moons/Oliva2014_SPIE9147_2CO_MOONS_optical_design_arXiv1407.3054.pdf",
+   "url": "https://arxiv.org/pdf/1407.3054"
+  },
+  "F22": {
+   "cite": "Fisher, M., Black, M., King, D., et al. 2022, Proc. SPIE 12184, 121846W, \"Optical performance and results from the alignment and testing of the cameras for the MOONS spectrograph\" (ADS 2022SPIE12184E..6WF; STFC repository copy STFC-APV-2023-018). As-built cameras: Table 1, Figs. 1-3, Sec. 2-3, 6",
+   "file": "rawdata/presets/moons/Fisher2022_SPIE12184_6W_MOONS_cameras_alignment_STFC-APV-2023-018.pdf",
+   "url": "https://epubs.stfc.ac.uk/manifestation/53811642/STFC-APV-2023-018.pdf"
+  },
+  "G22": {
+   "cite": "Gonzalez, O., Cirasuolo, M., Taylor, W., et al. 2022, Proc. SPIE 12184, 1218412, \"MOONS - Multi Object spectroscopy for the VLT: overview and instrument integration update\" (ADS 2022SPIE12184E..12G; STFC repository copy STFC-APV-2023-029). Sec. 2.1 overview, Fig. 1 (hardware), Fig. 3 (layout)",
+   "file": "rawdata/presets/moons/Gonzalez2022_SPIE12184_12_MOONS_overview_integration_STFC-APV-2023-029.pdf",
+   "url": "https://epubs.stfc.ac.uk/manifestation/53813650/STFC-APV-2023-029.pdf"
+  },
+  "C12": {
+   "cite": "Cirasuolo, M., Afonso, J., Bender, R., et al. 2012, Proc. SPIE 8446, 84460S, \"MOONS: a Multi-Object Optical and Near-infrared Spectrograph for the VLT\", arXiv:1208.5780 (ADS 2012SPIE.8446E..0SC). Phase-A concept: the fiber sub-system (Sec. 4.3)",
+   "file": "rawdata/presets/moons/Cirasuolo2012_SPIE8446_MOONS_arXiv1208.5780.pdf",
+   "url": "https://arxiv.org/pdf/1208.5780"
+  },
+  "GU22": {
+   "cite": "Guinouard, I., Laporte, P., Amans, J.-P., et al. 2022, Proc. SPIE 12188, 121885S, \"MOONS - Multi Object Spectroscopy for the VLT: Final performances and integration of the fibres\" (ADS 2022SPIE12188E..5SG; 12 pp.; the fiber link: Sec. 2 performances, Sec. 3.2 slit alignment, Figs. 1, 2, 5)",
+   "file": "rawdata/presets/moons/Guinouard2022_SPIE12188_MOONS_fibres.pdf",
+   "url": "(supplied by the project; SPIE proceedings, not openly hosted)"
+  },
+  "BL22": {
+   "cite": "Black, M., Artan, R., Breen, C., et al. 2022, Proc. SPIE 12184, 121847A, \"MOONS - multi-object spectroscopy for the VLT: Spectrograph Performance\" (ADS 2022SPIE12184E..7AB; 13 pp.; supplied by the project). Integration of the RI and YJ arms of the first spectrograph; measured image quality",
+   "file": "rawdata/presets/moons/Black2022_SPIE12184_MOONS_spectrograph_performance.pdf",
+   "url": "(supplied by the project; SPIE proceedings)"
+  },
+  "GU20": {
+   "cite": "Guinouard, I., Amans, J.-P., Horville, D., et al. 2020, Proc. SPIE 11451, 114516J, \"Final characteristics and performances of the fibres of MOONS\" (12 pp.; supplied by the project). Fiber core, microlens, FRD, slitlets",
+   "file": "rawdata/presets/moons/Guinouard2020_SPIE11451_MOONS_fibres_final.pdf",
+   "url": "(supplied by the project; SPIE proceedings)"
+  },
+  "FJ25": {
+   "cite": "Farret Jentink, C., Pepe, F., Lovis, C., et al. 2025, A&A (manuscript, June 12, 2025), \"High-resolution, high-efficiency narrowband spectroscopy with an s-p-phased holographic grating in double pass\", arXiv:2505.11147, Table 1 (a secondary source: the MOONS row is attributed to E. Oliva, co-PI)",
+   "file": "rawdata/presets/moons/FarretJentink2025_AA_VPH_double_pass_Table1_arXiv2505.11147.pdf",
+   "url": "https://arxiv.org/pdf/2505.11147"
+  },
+  "E26": {
+   "cite": "ESO, \"MOONS - Multi Object Optical and Near-infrared Spectrograph for the VLT\", Instrumentation Development project page (fetched 2026-11-17; page header date 18 Nov 2026): project status, baseline specification table",
+   "file": "rawdata/presets/moons/eso_MOONS_develop_page.html",
+   "url": "https://eso.org/sci/facilities/develop/instruments/MOONS.html"
+  },
+  "P26": {
+   "cite": "Observatoire de Paris - PSL / CNRS press release, Paris, 3 September 2026 (in French), \"Premiere lumiere pour le spectrographe MOONS du VLT au Chili\" (reports ESO's announcement of 3 September 2026): first observations at the VLT",
+   "file": "rawdata/presets/moons/PSL_MOONS_first_light_press.pdf",
+   "url": "https://observatoiredeparis.psl.eu/IMG/pdf/cp_op-psl_premiere_lumiere_moons_vdef.pdf"
+  }
+ },
+ "moons": {
+  "title": "VLT MOONS: two cryogenic triple-arm fiber spectrographs, on-axis spherical collimator, two dichroics, VPH dispersers, f/0.95 Wonder-Camera",
+  "recommended_presets_by_mode": [
+   {
+    "id": "moonsri",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (LR)",
+    "setting": "RI",
+    "name": "VLT / MOONS LR RI (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 370,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 768,
+      "m": 1,
+      "lamC": 8010,
+      "psi": 35,
+      "tAlpha": 22.0,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": true,
+      "foldAng": 120,
+      "foldPos": 0.64,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     647,
+     955
+    ],
+    "R_design": 4500,
+    "grating_status": "EFFECTIVE (fitted with web/physics.js: R and dispersion; line density and angle not published)"
+   },
+   {
+    "id": "moonsyj",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (LR)",
+    "setting": "YJ",
+    "name": "VLT / MOONS LR YJ (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 340,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 540,
+      "m": 1,
+      "lamC": 11420,
+      "psi": 35,
+      "tAlpha": 13.2,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": true,
+      "foldAng": 107,
+      "foldPos": 0.82,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     934,
+     1350
+    ],
+    "R_design": 4300,
+    "grating_status": "EFFECTIVE (fitted with web/physics.js: R and dispersion; line density and angle not published)"
+   },
+   {
+    "id": "moonsh",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (LR)",
+    "setting": "H",
+    "name": "VLT / MOONS LR H (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 420,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 576,
+      "m": 1,
+      "lamC": 16260,
+      "psi": 35,
+      "tAlpha": 21.4,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": false,
+      "foldAng": 0,
+      "foldPos": 0,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     1452,
+     1800
+    ],
+    "R_design": 6800,
+    "grating_status": "EFFECTIVE (fitted with web/physics.js: R and dispersion; line density and angle not published)"
+   },
+   {
+    "id": "moonshri",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (HR)",
+    "setting": "RI",
+    "name": "VLT / MOONS HR RI (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 370,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 1396,
+      "m": 1,
+      "lamC": 8310,
+      "psi": 35,
+      "tAlpha": 30.3,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": true,
+      "foldAng": 120,
+      "foldPos": 0.64,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     765,
+     897
+    ],
+    "R_design": 9100,
+    "grating_status": "EFFECTIVE (fitted with web/physics.js: R and dispersion; line density and angle not published)"
+   },
+   {
+    "id": "moonshyj",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (HR)",
+    "setting": "YJ",
+    "name": "VLT / MOONS HR YJ (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 340,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 540,
+      "m": 1,
+      "lamC": 11420,
+      "psi": 35,
+      "tAlpha": 13.2,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": true,
+      "foldAng": 107,
+      "foldPos": 0.82,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     934,
+     1350
+    ],
+    "R_design": 4300,
+    "grating_status": "EFFECTIVE (fitted with web/physics.js: R and dispersion; line density and angle not published)"
+   },
+   {
+    "id": "moonshh",
+    "tel": "VLT 8.2 m",
+    "inst": "MOONS (HR)",
+    "setting": "H",
+    "name": "VLT / MOONS HR H (design)",
+    "state": {
+     "mode": "grating",
+     "D": 8.0,
+     "F": 3.5,
+     "telF": 15,
+     "fibAp": 1.2,
+     "g": {
+      "slitW_formula": "S3 * 0.158 / (3.5 * 8000) * 206264.806 (= 1.008 arcsec)",
+      "nObj": 512,
+      "col": "mirror",
+      "colTilt": 0,
+      "layLen": 1930,
+      "W": 265,
+      "cam": "mirror",
+      "camLen": 420,
+      "fcam": 251.75,
+      "gType": "trans",
+      "G": 1056,
+      "m": 1,
+      "lamC": 15815.0,
+      "psi": 35,
+      "tAlpha": 53.0,
+      "Nx": 4096,
+      "Ny": 4096,
+      "pix": 15,
+      "fgroups": [
+       16,
+       108,
+       108
+      ],
+      "foldOn": false,
+      "foldAng": 0,
+      "foldPos": 0,
+      "foldLabel": "dichroic"
+     }
+    },
+    "coverage_nm": [
+     1523,
+     1640
+    ],
+    "R_design": 18800,
+    "grating_status": "SOURCED (secondary FJ25: 1056 /mm at AOI 53 deg); model R 18795, 0.277 A/px"
+   }
+  ],
+  "all_arms_groups": {
+   "MOONS LR": {
+    "split": "collimated",
+    "tree": {
+     "cut": 9500,
+     "w": 300,
+     "aoi": 28,
+     "src": "O14 Sec. 2 (0.95 um); AOI MEASURED from O16 Fig. 1 (+-4 deg); width NOT FOUND (300 A INFERRED)",
+     "R": "moonsri",
+     "T": {
+      "cut": 14000,
+      "w": 300,
+      "aoi": 37,
+      "rel": 1,
+      "src": "O14 Sec. 2 (1.40 um); AOI MEASURED from O16 Fig. 1 (+-4 deg); the YJ beam is reflected, the H beam transmitted straight on",
+      "R": "moonsyj",
+      "T": "moonsh"
+     }
+    }
+   },
+   "MOONS HR": {
+    "split": "collimated",
+    "tree": {
+     "cut": 9500,
+     "w": 300,
+     "aoi": 28,
+     "src": "same dichroics as the LR mode",
+     "R": "moonshri",
+     "T": {
+      "cut": 14000,
+      "w": 300,
+      "aoi": 37,
+      "rel": 1,
+      "src": "same dichroics as the LR mode",
+      "R": "moonshyj",
+      "T": "moonshh"
+     }
+    }
+   }
+  },
+  "params": [
+   {
+    "parameter": "Telescope, mounting",
+    "value": "VLT UT1, Nasmyth A",
+    "unit": "",
+    "src": "G22",
+    "loc": "Sec. 2.1",
+    "quote": "The instrument will be installed at the Nasmyth A of UT1 of the VLT.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Telescope diameter used by the design",
+    "value": "8 (design scaling 8.8 with FRD allowance)",
+    "unit": "m",
+    "src": "O16",
+    "loc": "Sec. 2",
+    "quote": "Telescope diameter, fixed to 8m (VLT)",
+    "tag": "SOURCED",
+    "alt": "O16 Sec. 2: \"the spectrometer is over-sized as if it had to be coupled to a telescope with diameter of 8.8 meters\" (eta_FRD = 0.90)"
+   },
+   {
+    "parameter": "Telescope beam into the fiber microlens",
+    "value": "f/15 to f/3.65",
+    "unit": "",
+    "src": "C12",
+    "loc": "Sec. 4.3",
+    "quote": "optical aperture conversion from F/15 beam of the telescope to F/3.65 is realized by the coupling with a microlens",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Fiber output / collimator focal ratio",
+    "value": "3.5",
+    "unit": "",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Focal ratio collimator FCOLL = 3.50",
+    "tag": "SOURCED",
+    "alt": "F22 Table 1: \"Collimator focal ratio Fcoll = 3.5\"; C12 Sec. 4.3: \"an input of F/3.65 with an output of F/3.5\""
+   },
+   {
+    "parameter": "Fiber core (physical)",
+    "value": "0.15 (design)",
+    "unit": "mm",
+    "src": "O14",
+    "loc": "Table 1",
+    "quote": "Fiber diameter 0.15 mm Physical size",
+    "tag": "SOURCED",
+    "alt": "F22 Sec. 6: \"The input fibres are 150 microns diameter\" (test fibers of the camera bench). C12 Sec. 4.3 (phase A): 1-1.2 arcsec = core of 140-170 um. The as-built core is NOT FOUND"
+   },
+   {
+    "parameter": "Fiber on-sky diameter, design",
+    "value": "1.0",
+    "unit": "arcsec",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Sky projected diameter of a fibre θFIB = 1.0”",
+    "tag": "SOURCED",
+    "alt": "O14 Table 1 had 1.05 arcsec"
+   },
+   {
+    "parameter": "Fiber on-sky diameter, built instrument",
+    "value": "1.2",
+    "unit": "arcsec",
+    "src": "C20",
+    "loc": "Table 1",
+    "quote": "On-sky aperture of each fibre 1.2 arcseconds",
+    "tag": "SOURCED",
+    "alt": "G22 Sec. 2.1: \"Each 1.2” aperture fibre is positioned using independently controlled\"; E26 baseline table: \"Sky projectsd diameter of each fiber 1.0 arcsec\" (older value)"
+   },
+   {
+    "parameter": "Virtual-convention fiber angle (explorer entry)",
+    "value": "1.105 (full width) ; slit of equal line width 0.957",
+    "unit": "arcsec",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Focal ratio collimator FCOLL = 3.50",
+    "tag": "DERIVED",
+    "alt": "DERIVED: 0.150 mm / (3.5 x 8000 mm) = 5.357e-6 rad = 1.105 arcsec; x sqrt(3)/2 = 0.957 arcsec. Sky-equivalent 1.0 arcsec only for D = 8.8 m (O16 eta_FRD = 0.90)"
+   },
+   {
+    "parameter": "Fibers per spectrograph",
+    "value": "512 (about 500 science+sky+calibration; 32 slitlets of 16)",
+    "unit": "",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Number of fibres per spectrometer NFIBRES = 512",
+    "tag": "SOURCED",
+    "alt": "G22 Sec. 2.1: \"each handling 512 fibres. In each spectrograph the fibres are arranged in a curved entrance slit arrangement of 32 slitlets (16 fibres each)\""
+   },
+   {
+    "parameter": "Number of spectrographs",
+    "value": "2 identical, in one cryostat",
+    "unit": "",
+    "src": "G22",
+    "loc": "Sec. 2.1",
+    "quote": "The fibres then feed the light into the cryostat which houses two identical spectrographs, each handling 512 fibres.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slit length",
+    "value": "200",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Length of input slit LSLIT = 200 mm",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Fiber pitch on the slit",
+    "value": "0.40 mm (5 px; 5/3 of the fiber image gives 4.5 dark px in the later design)",
+    "unit": "",
+    "src": "O14",
+    "loc": "Table 1",
+    "quote": "Distance between fibers 0.40 mm Physical size",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Dark pixels between adjacent spectra",
+    "value": "4.5",
+    "unit": "px",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Number of dark pixels between adjacent fibers NDARK = 4.5 pixels",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slit shape",
+    "value": "curved: R = 940 mm cylinder (fiber axes perpendicular to it) plus curvature in XY to straighten the image",
+    "unit": "",
+    "src": "O14",
+    "loc": "Fig. 2 caption; Sec. 2",
+    "quote": "The fibers-axis are perpendicular to the cylindrical surface with R=940mm",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slit curvature in the dispersion plane",
+    "value": "chosen for a straight image at the center of the H spectrum (medium resolution)",
+    "unit": "",
+    "src": "O14",
+    "loc": "Sec. 2",
+    "quote": "The curvature radius in XY is chosen to obtain a straight slit image at the center of the H spectrum at medium resolution.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Collimator type",
+    "value": "spherical mirror",
+    "unit": "",
+    "src": "F22",
+    "loc": "Sec. 2.1",
+    "quote": "collimated using a spherical mirror and fed via two dichroics to three dispersing elements and three cameras",
+    "tag": "SOURCED",
+    "alt": "O16 Sec. 2: \"The light from the fibers is collimated by a spherical mirror.\""
+   },
+   {
+    "parameter": "Collimator ON-AXIS (explorer gate)",
+    "value": "ON-AXIS: the slit stands in the collimated beam (trade-off baseline); colTilt 0",
+    "unit": "",
+    "src": "O14",
+    "loc": "Sec. 3 (ON-AXIS)",
+    "quote": "The collimator consists of a single spherical mirror working on-axis. The input slit is positioned at the focus of the mirror.",
+    "tag": "SOURCED",
+    "alt": "O14 Sec. 3: \"The main drawback is the obscuration the collimated beam by the input slit. However, with a careful mechanical design, the fraction of vignetted beam can be limited to ~1.9%.\" Table 3: \"Input slits obscures ~1.9% of the collimated beam\". Final design (O16 Fig. 1, F22) keeps the spherical collimator; O16 Fig. 1 draws the slit mark inside the returning beam (MEASURED, see Layout)"
+   },
+   {
+    "parameter": "Collimator focal length",
+    "value": "927.5",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Focal ratio collimator FCOLL = 3.50 ... Diameter of collimated beam DCOLL = 265 mm",
+    "tag": "DERIVED",
+    "alt": "DERIVED: 3.50 x 265 mm = 927.5 mm. MEASURED slit-to-mirror distance in O16 Fig. 1 = 0.99 m (457 px of 460 px per m), +-7%"
+   },
+   {
+    "parameter": "Collimated beam diameter",
+    "value": "265",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Diameter of collimated beam DCOLL = 265 mm",
+    "tag": "SOURCED",
+    "alt": "O14 Table 1: \"Diameter of collimated beam 265 mm\""
+   },
+   {
+    "parameter": "Dichroic split of the beam",
+    "value": "two dichroics in the collimated beam: three arms RI, YJ, H",
+    "unit": "",
+    "src": "O16",
+    "loc": "Sec. 2",
+    "quote": "The collimated beam is split into the three arms by two dichroic beam-splitters.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Dichroic cuts (pre-PDR design)",
+    "value": "0.95 um (RI | YJ); 1.40 um (YJ | H)",
+    "unit": "um",
+    "src": "O14",
+    "loc": "Sec. 2",
+    "quote": "The longest wavelengths (λ>1.4 µm) are reflected by the first dichroic toward the H arm. The shortest wavelengths ((λ<0.95 µm) are reflected by the second dichroic toward the RI arm. The remaining light (0.95 µm <λ<1.40 µm) passes through the second dichroic and feeds the YJ arm.",
+    "tag": "SOURCED",
+    "alt": "Cuts chosen in regions of bad telluric transmission (O14 Sec. 6). The final design reverses the order (see Layout); the 2016 and later papers give only the arm bands, so the cuts are carried over (INFERRED) and agree with the bands 934-955 nm overlap and the 1350-1452 nm gap"
+   },
+   {
+    "parameter": "Dichroic order in the final design",
+    "value": "first Dichroic I (reflects RI), then Dichroic H (reflects YJ, transmits H): INFERRED from ray colors in O16 Fig. 1",
+    "unit": "",
+    "src": "O16",
+    "loc": "Fig. 1 (labels Dichroic I, Dichroic H)",
+    "quote": "",
+    "tag": "INFERRED",
+    "alt": "O14 Sec. 6 had H reflected first and said the layout was not ideal for the coatings: \"it transmits short and reflects longer wavelengths\". O16 Fig. 1 shows the RI beam leaving at the first plate and the red passing the second plate straight to GRT-H"
+   },
+   {
+    "parameter": "Dichroic transition width",
+    "value": "not published",
+    "unit": "",
+    "src": "",
+    "loc": "NOT FOUND",
+    "quote": "",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Angle of incidence, Dichroic I",
+    "value": "about 28 +-4 (turn 120 deg measured; plate tilt gives 25)",
+    "unit": "deg",
+    "src": "O16",
+    "loc": "Fig. 1, top panel",
+    "quote": "",
+    "tag": "MEASURED",
+    "alt": "MEASURED on the 300 dpi crop of Fig. 1 (scale bar 460 px = 1 m): incoming beam 167 deg, reflected RI beam 47 deg, turn 120 deg, AOI = (180 - 120)/2 = 30; the plate's drawn tilt (12 deg from vertical) gives 25. Mean 28"
+   },
+   {
+    "parameter": "Angle of incidence, Dichroic H",
+    "value": "about 37 +-4 (turn 107 deg measured; plate tilt gives 39)",
+    "unit": "deg",
+    "src": "O16",
+    "loc": "Fig. 1, top panel",
+    "quote": "",
+    "tag": "MEASURED",
+    "alt": "MEASURED, same method: incoming 167 deg, reflected YJ beam about 60 deg, turn 107 deg, AOI = 36; plate tilt (26 deg from vertical) gives 39"
+   },
+   {
+    "parameter": "Dispersers",
+    "value": "VPH transmission gratings; YJ one fixed grating; RI and H each interchange a low- and a high-resolution disperser (VPH plus prisms)",
+    "unit": "",
+    "src": "G22",
+    "loc": "Sec. 2.1",
+    "quote": "The YJ arm is equipped with a fixed transmission grating that disperses the light. The RI and H arms include interchangeable dispersive systems made by a combination of transmission gratings and prisms.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Number of VPH dispersers",
+    "value": "5 per spectrograph (3 low-resolution, 2 high-resolution)",
+    "unit": "",
+    "src": "C20",
+    "loc": "Sec. The MOONS instrument",
+    "quote": "Each of the two MOONS spectrographs has five highly efficient volume phase holographic (VPH) dispersers, three for the low-resolution mode and two for the high-resolution mode.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Mode switch",
+    "value": "one linear mechanism through the bench swaps the RI (and the H) disperser between modes",
+    "unit": "",
+    "src": "C20",
+    "loc": "Sec. The MOONS instrument",
+    "quote": "using a single common linear mechanism that passes straight through the optical bench",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Grating offset from Littrow",
+    "value": "4 deg (against ghosts)",
+    "unit": "deg",
+    "src": "O14",
+    "loc": "Sec. 5",
+    "quote": "the gratings work with an off-axis angle of 4 degrees, relative to the Littrow configuration",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Prism-grating types considered",
+    "value": "i-VPH (prisms glued to the grating) for RI; p-VPH or i/p-VPH with mono-crystalline silicon prisms for YJ and H high-dispersion",
+    "unit": "",
+    "src": "O14",
+    "loc": "Sec. 5",
+    "quote": "Such dynamic ranges can only be achieved using p-VPHs with prisms of mono-crystalline Silicon",
+    "tag": "SOURCED",
+    "alt": "O14 Sec. 5: \"In the RI arm, the change of resolving between MR and HR configurations is a factor of two (see Table 2). This can be achieved using two i-VPH’s with opposite angles directions\". The final design (O16 Fig. 1) draws P-HR-I, P-HR-H prisms beside GRT-HR-I and GRT-HR-H; prism glass and apex angles NOT FOUND"
+   },
+   {
+    "parameter": "Silicon at cryogenic temperature",
+    "value": "transparency of Si prisms at short wavelengths depends on temperature",
+    "unit": "",
+    "src": "O14",
+    "loc": "Sec. 5",
+    "quote": "The internal transmission of Silicon at these short wavelengths depends strongly on the temperature.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Resolving-power law (Littrow angle)",
+    "value": "R = 13700 tan(alpha_G) (D_coll/265 mm)(1.0 arcsec/theta)(eta_FRD/0.90)",
+    "unit": "",
+    "src": "O16",
+    "loc": "Sec. 2 scaling laws",
+    "quote": "13700 tan(αG) (DCOLL/265 mm)",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "HR-H VPH line density and incidence (secondary)",
+    "value": "1056 /mm at AOI 53 deg, max R 18,300",
+    "unit": "/mm; deg",
+    "src": "FJ25",
+    "loc": "Table 1",
+    "quote": "MOONS 18,300 1056 53 2 (mosaic) × 280 × 290 Ernesto Oliva (co-PI MOONS)",
+    "tag": "SOURCED",
+    "alt": "Cross-check: tan(alpha) = 18800/13700 -> alpha = 53.9 deg (DERIVED), G = 2 sin(alpha)/1.5815 um = 1022 /mm, 3% below 1056. A secondary source (a comparison table); no primary MOONS grating table is publicly available. NOT FOUND for the other four dispersers"
+   },
+   {
+    "parameter": "Camera type",
+    "value": "catadioptric 'Wonder-Camera': two fused-silica lenses (L1 meniscus with a central hole holding L2 and the detector) and one aspheric Clearceram-Z mirror",
+    "unit": "",
+    "src": "F22",
+    "loc": "Sec. 2.2",
+    "quote": "two fused silica lenses and a Clearceram-Z mirror",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Camera focal ratio",
+    "value": "0.95",
+    "unit": "",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "Focal ratio of the camera FCAM = 0.95",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Camera focal length",
+    "value": "251.75",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Focal ratio of the camera FCAM = 0.95",
+    "tag": "DERIVED",
+    "alt": "DERIVED: 0.95 x 265 mm = 251.75 mm (effective: the beam fills the f/0.95 aperture)"
+   },
+   {
+    "parameter": "Camera length (mirror and lenses)",
+    "value": "430",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 2",
+    "quote": "Wonder-Camera 0.95 430 400 440 40 19 Detector is inside first lens",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Central obscuration of the camera",
+    "value": "19",
+    "unit": "%",
+    "src": "O16",
+    "loc": "Table 2",
+    "quote": "Wonder-Camera 0.95 430 400 440 40 19 Detector is inside first lens",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Order-sorting filter",
+    "value": "RG glass (RI, YJ), silicon (H), in front of the detector",
+    "unit": "",
+    "src": "F22",
+    "loc": "Sec. 2.1",
+    "quote": "RG glasses for the RI and YJ cameras and Silicon for the H cameras",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Cameras' axes to gravity (as built)",
+    "value": "RI 98, YJ 76.4, H 52",
+    "unit": "deg",
+    "src": "F22",
+    "loc": "Sec. 3",
+    "quote": "orientations of the optical axis at 98°, 76.4° and 52° respectively to the gravity vector",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Detectors",
+    "value": "RI: fully depleted LBNL CCD; YJ and H: Teledyne H4RG-15",
+    "unit": "",
+    "src": "G22",
+    "loc": "Sec. 2.1",
+    "quote": "The two infra-red channels (YJ and H) will exploit the new Hawaii 4RGs 15 μm-pixel detectors and the visible channel (RI) will use fully depleted Lawrence Berkeley National Laboratory (LBNL) red-sensitive CCDs.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Detector format and pixel",
+    "value": "4096 x 4096, 15 um (61.44 mm square)",
+    "unit": "",
+    "src": "F22",
+    "loc": "Table 1",
+    "quote": "Detector and pixel size NXpix = 4096, NYpix = 4096, 15 µm pixels",
+    "tag": "SOURCED",
+    "alt": "F22 Sec. 6: \"final focal plane (61.5 mm x 61.5 mm)\""
+   },
+   {
+    "parameter": "Sampling",
+    "value": "2.7 px (40.5 um) fiber image",
+    "unit": "",
+    "src": "F22",
+    "loc": "Table 1",
+    "quote": "Sampling Nres = 2.7 pix (40.5 µm)",
+    "tag": "SOURCED",
+    "alt": "DERIVED: 0.150 x 0.95/3.5 = 40.7 um = 2.71 px, matching the sourced figure"
+   },
+   {
+    "parameter": "Operating temperature",
+    "value": "about 128 K",
+    "unit": "K",
+    "src": "F22",
+    "loc": "Sec. 2.1",
+    "quote": "running at approximately 128 K",
+    "tag": "SOURCED",
+    "alt": "C20 (Sec. The MOONS instrument): \"at a temperature of –130 degrees C\"; the press release P26 gives -143 to -233 C for the cooled parts"
+   },
+   {
+    "parameter": "LR coverage and R, RI",
+    "value": "647-955 nm, R = 4500",
+    "unit": "nm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "RI arm: 647 – 955 nm R=4500",
+    "tag": "SOURCED",
+    "alt": "C20 Table 1: R_RI = 4100; E26: MR-RI 0.647 - 0.955 4,100"
+   },
+   {
+    "parameter": "LR coverage and R, YJ",
+    "value": "934-1350 nm, R = 4300",
+    "unit": "nm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "YJ arm: 934 – 1350 nm R=4300",
+    "tag": "SOURCED",
+    "alt": "C20 Table 1 and E26: R_YJ = 4300"
+   },
+   {
+    "parameter": "LR coverage and R, H",
+    "value": "1452-1800 nm, R = 6800",
+    "unit": "nm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "H arm: 1452 – 1800 nm R=6800",
+    "tag": "SOURCED",
+    "alt": "C20 Table 1 and E26: R_H = 6600"
+   },
+   {
+    "parameter": "HR coverage and R, RI",
+    "value": "765-897 nm, R = 9100",
+    "unit": "nm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "RI arm: 765 – 897 nm R=9100",
+    "tag": "SOURCED",
+    "alt": "C20 Table 1: R_RI = 9200; E26: HR-I 0.765 - 0.898 9,200"
+   },
+   {
+    "parameter": "HR coverage and R, H",
+    "value": "1523-1640 nm, R = 18800",
+    "unit": "nm",
+    "src": "O16",
+    "loc": "Table 1",
+    "quote": "H arm: 1523 – 1640 nm R=18800",
+    "tag": "SOURCED",
+    "alt": "C20 Table 1: R_H = 19700 (1.52-1.64 um); E26: HR-H 1.521 - 1.641 18,300 (older table value)"
+   },
+   {
+    "parameter": "Resolution and coverage of the built instrument",
+    "value": "LR 0.64-1.8 um; HR: R_RI 9200, R_YJ 4300, R_H 19700",
+    "unit": "",
+    "src": "C20",
+    "loc": "Table 1",
+    "quote": "RRI = 9200, RYJ = 4300, RH = 19700",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "R is geometric or measured?",
+    "value": "design (GEOMETRIC); the integration papers (G22) quote only 'R~4000-7500' and 'R~9000, R~4000, R~19700'",
+    "unit": "",
+    "src": "G22",
+    "loc": "Sec. 2.1",
+    "quote": "three windows ... observed simultaneously at R~9000 in RI, R~4000 in YJ, and R~19700 in H",
+    "tag": "SOURCED",
+    "alt": "Measured R of the integrated RI and YJ arms is in the SPIE 12184 paper by Black et al. (not accessible to this record)"
+   },
+   {
+    "parameter": "Image quality of the cameras (measured)",
+    "value": "fiber image 2.5-2.7 px FWHM across the detector after transport and cold test",
+    "unit": "px",
+    "src": "F22",
+    "loc": "Summary (Sec. 8, last paragraph)",
+    "quote": "Two of the cameras, the RI and YJ, have been integrated into one of the spectrographs in the instrument cryostat and have produced better than required image quality ... the PSFs are good across the whole detector array - at 2.5 to 2.7 pixels FWHM",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Status: first light",
+    "value": "first observations at the VLT in summer 2026, announced by ESO 3 September 2026",
+    "unit": "",
+    "src": "P26",
+    "loc": "p. 1",
+    "quote": "ses premières observations, réalisées cet été au Very Large Telescope (VLT) de l’ESO au Chili",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Status: ESO project page",
+    "value": "AIV -> Commissioning (page fetched 2026-11-17)",
+    "unit": "",
+    "src": "E26",
+    "loc": "Project Status",
+    "quote": "Project Status AIV -> Commissioning",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Fiber microlens input focal ratio (as built)",
+    "value": "f/3.65",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Abstract",
+    "quote": "Each fibre has a microlens to focus the beam into the fibre at a relatively fast focal ratio of F/3.65 to reduce the Focal Ratio Degradation (FRD).",
+    "tag": "SOURCED",
+    "alt": "Introduction: \"focus the beam into the fibre at a relative fast focal ratio of F/3.65\"; C12 Sec. 4.3 (phase A) also f/3.65. The microlens adapts the telescope F-number to the spectrograph's (Sec. 2.1)"
+   },
+   {
+    "parameter": "Fiber output focal ratio to the collimator (as tested)",
+    "value": "f/3.5 (transmission measured at F/3.5 output with an F/3.65 input)",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Sec. 2.2",
+    "quote": "measures the absolute transmission at F/3.5 (output, including the FRD) at 660nm with an aperture of the input beam at F/3.65 (injection of the microlens)",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Measured FRD",
+    "value": "no FRD value published; only the transmission that includes it: bundle mean 75.3 +-1.2 % at 660 nm, F/3.65 in and F/3.5 out",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Sec. 2.2",
+    "quote": "The mean value of the transmission of all the bundles is 75,3%, accuracy of the measurement is ±1,2%.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Front-end fiber transmission",
+    "value": "94.1 % mean (95 % most common)",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Sec. 2.1",
+    "quote": "The average front-end fibre transmission is 94.1%.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Fiber link throughput, focal plate to slit",
+    "value": "about 69 %",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Sec. 2.2",
+    "quote": "The total throughput of the fibre link from the focal plate to the slit of the spectrograph is estimated at 69%.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Pseudo-slit",
+    "value": "two slits of 32 slitlets x 16 fibers (512 per spectrograph; 64 bundles in all)",
+    "unit": "",
+    "src": "GU22",
+    "loc": "Sec. 3.2",
+    "quote": "The MOONS slit is composed of 32 slitlets each of them gathering 16 individual fibres",
+    "tag": "SOURCED",
+    "alt": "Transmission histogram of the 64 spectrograph fibre bundles (Fig. 7 caption): 2 slits x 32 slitlets"
+   },
+   {
+    "parameter": "Slit curvature (as built)",
+    "value": "two perpendicular circle arcs, radii 1110 mm and 900 mm",
+    "unit": "mm",
+    "src": "GU22",
+    "loc": "Sec. 3.2",
+    "quote": "which is a combination of two perpendicular portion of circle having a radius of 1110 mm and 900 mm",
+    "tag": "SOURCED",
+    "alt": "O14 Fig. 2 (2014 design): R = 940 mm cylinder. The paper does not say which radius is in the spatial plane"
+   },
+   {
+    "parameter": "Fiber position along a slitlet",
+    "value": "within a few tens of microns (does not matter for feeding)",
+    "unit": "um",
+    "src": "GU22",
+    "loc": "Sec. 3.2",
+    "quote": "The relative position of the fibres along the slitlet, which remains within a few tens of microns, does not impact the feeding of the spectrograph.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slitlet orientation after alignment",
+    "value": "all slitlets within +-5 mrad (fiber output beams ranged -35 to +35 mrad before)",
+    "unit": "mrad",
+    "src": "GU22",
+    "loc": "Sec. 3.2",
+    "quote": "All the slitlets are oriented within +/- 5 mrad.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slit-to-detector magnification",
+    "value": "0.2714 (camera 251.75 mm / collimator 927.5 mm)",
+    "unit": "",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Focal ratio collimator FCOLL = 3.50 ... Focal ratio of the camera FCAM = 0.95",
+    "tag": "DERIVED",
+    "alt": "DERIVED: 0.95/3.5 = 0.2714; fiber image 0.150 mm x 0.2714 = 40.7 um = 2.71 px (sourced 2.7 px)"
+   },
+   {
+    "parameter": "Mean fiber pitch on the slit",
+    "value": "0.391",
+    "unit": "mm",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Length of input slit LSLIT = 200 mm ... Number of fibres per spectrometer NFIBRES = 512",
+    "tag": "DERIVED",
+    "alt": "DERIVED: 200 mm / 512 = 0.391 mm (O14 Table 1 quotes 0.40 mm; 511 x 0.40 = 204 mm). Slitlet pitch and the gap between slitlets: NOT FOUND"
+   },
+   {
+    "parameter": "Fiber pitch on the detector",
+    "value": "7.2 px = 108 um (2.7 px fiber image + 4.5 dark px)",
+    "unit": "",
+    "src": "O16",
+    "loc": "Table 1; DERIVED",
+    "quote": "Sampling NRES = 2.7 pixels ... Number of dark pixels between adjacent fibers NDARK = 4.5 pixels",
+    "tag": "DERIVED",
+    "alt": "DERIVED: (2.7 + 4.5) px x 15 um = 108 um; on the slit 108 / 0.2714 = 398 um, matching O14 Table 1's 0.40 mm. 512 x 7.2 px = 3686 px of the 4096 along the slit"
+   },
+   {
+    "parameter": "Fiber core, as built",
+    "value": "158",
+    "unit": "um",
+    "src": "GU20",
+    "loc": "Sec. 2.2",
+    "quote": "The aperture is adapted by a single microlens glued onto a fibre with a core diameter of 158 µm.",
+    "tag": "SOURCED",
+    "alt": "Sec. 2.1: \"the ratio between the core and the cladding is 1.2\" (cladding about 190 um, DERIVED 158 x 1.2). Replaces the design 150 um (O14, O16, F22 test fibers)"
+   },
+   {
+    "parameter": "Fiber on-sky aperture, requirement / sub field",
+    "value": "at least 1 arcsec; sub field of 1 arcsec",
+    "unit": "arcsec",
+    "src": "GU20",
+    "loc": "Sec. 2.2; Abstract",
+    "quote": "each fibre shall have an on-sky aperture ≥ 1 arcsec",
+    "tag": "SOURCED",
+    "alt": "Abstract: \"The fibres are used to pick off each sub field of 1” and are used to transport the light\". The 1.2 arcsec of C20 Table 1 and G22 is the later (built) statement; GU20 does not state 1.2"
+   },
+   {
+    "parameter": "Microlens",
+    "value": "Infrasil 302 (nd 1.458464), R = 0.975 mm, thickness 3.08 mm, diameter 0.9 mm, AR coated on the spherical face, 0.6-1.8 um",
+    "unit": "",
+    "src": "GU20",
+    "loc": "Fig. 5 (Microlens design)",
+    "quote": "Glass = Infrasil 302 (nd = 1.458464)",
+    "tag": "SOURCED",
+    "alt": "Sec. 2.2: \"The diameter of the size of the pupil is 142µm.\" (the telescope pupil image on the 158 um core). The microlens projects the image of the primary mirror onto the core (field stop in its object focal plane)"
+   },
+   {
+    "parameter": "Fiber output focal ratio (as built)",
+    "value": "F/3.5 (slightly degraded from the F/3.65 input)",
+    "unit": "",
+    "src": "GU20",
+    "loc": "Sec. 2.2",
+    "quote": "At the output, the F ratio is slightly degraded and is at F/3.5.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "FRD throughput, warm",
+    "value": "89.7 % (F/3.65 in, F/3.5 out), 16 fibers",
+    "unit": "",
+    "src": "GU20",
+    "loc": "Sec. 3.1",
+    "quote": "The warm baseline FRD throughput value, from F/3.65 input to F/3.5 output, was measured to be 89.7% averaged over all 16 fibres.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "FRD throughput, cold",
+    "value": "90.1 % at 140 K (87.6 % in vacuum); no degradation within +-2 %",
+    "unit": "",
+    "src": "GU20",
+    "loc": "Sec. 3.1",
+    "quote": "On cooling to 140K the FRD value achieved is 90.1%.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Slitlet ghost roof",
+    "value": "10 deg roof piece reflects the first detector reflection out of the collimator",
+    "unit": "deg",
+    "src": "GU20",
+    "loc": "Sec. 2.3",
+    "quote": "the piece with 10° roof will reflect out collimator the first reflected light form detector",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Collimator and slit geometry (as built)",
+    "value": "collimator mirror below the slit, beam returned up over the slit to the fixed optics (two dichroics and the YJ disperser)",
+    "unit": "",
+    "src": "BL22",
+    "loc": "Sec. 2",
+    "quote": "The collimator mirror is mounted below the slit and reflects the collimated beam back up over the slit",
+    "tag": "SOURCED",
+    "alt": "Not a statement of obscuration: 'over the slit' fits both an on-axis collimator with the slit inside the returning beam (O14 Sec. 3, O16 Fig. 1) and a slightly tilted one. Keep colTilt 0 (verdict ON-AXIS unchanged), flagged"
+   },
+   {
+    "parameter": "Fixed optics and exchange systems",
+    "value": "two dichroics plus the YJ disperser form one fixed module; the H and RI grating exchange systems hold the high- and low-resolution optics",
+    "unit": "",
+    "src": "BL22",
+    "loc": "Sec. 2",
+    "quote": "Above and below this module are mounted two “grating exchange systems” that contain both high- and low- resolution dispersing optics for the H and RI wavelength channels respectively.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Detectors, as installed",
+    "value": "RI: LBNL 4096 x 4096 CCD; YJ and H: Teledyne H4RG (MerCadTel) 4096 x 4096",
+    "unit": "",
+    "src": "BL22",
+    "loc": "Sec. 1",
+    "quote": "The RI-band cameras are fitted with 4096 by 4096 pixel CCDs from LBNL",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Operating temperatures",
+    "value": "bench 130 K (set 134 K), H4RG detectors 40 K",
+    "unit": "K",
+    "src": "BL22",
+    "loc": "Sec. 1; Sec. 3",
+    "quote": "operational temperature of 130 K and the H4RG detectors to 40 K",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Component masses",
+    "value": "collimator 138 kg, camera 120 kg each, fixed optics 121 kg, slit 70 kg",
+    "unit": "kg",
+    "src": "BL22",
+    "loc": "Sec. 4",
+    "quote": "The collimator mass is 138 kg, each camera has a mass of 120 kg, the fixed optics are 121 kg, and the slit assembly 70 kg",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Image quality, YJ (measured, cold, Ar lamp)",
+    "value": "2.5 px FWHM at the center, 2.7 px at the corners",
+    "unit": "px",
+    "src": "BL22",
+    "loc": "Sec. 5",
+    "quote": "The resultant images vary between 2.5 pixels FWHM in the centre and 2.7 pixels FWHM at the corners of the detector.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Image quality, RI (measured)",
+    "value": "2.5 px FWHM at the center, 3 px at the corners",
+    "unit": "px",
+    "src": "BL22",
+    "loc": "Sec. 5",
+    "quote": "In the RI channel the images are 2.5 pixels FWHM in the centre, reaching 3 pixels FWHM in the corners.",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "Resolving power, measured (LR RI and YJ)",
+    "value": "requirement met, 'R~4000'; no table of values; Fig. 11 plots R(lambda) for YJ with the expected center value 4000",
+    "unit": "",
+    "src": "BL22",
+    "loc": "Sec. 5; Fig. 11 caption",
+    "quote": "both the wavelength coverage and spectral resolving power requirements (the latter being R~4000) have been met",
+    "tag": "SOURCED",
+    "alt": "Fig. 11 caption: \"The expected value at the centre of the range is 4000.\" (design table values are 4300 for YJ). Numbers read from the plot are not in the text"
+   },
+   {
+    "parameter": "High-resolution dispersers (status)",
+    "value": "not yet measured at the time of Black 2022; to be assessed with a ThAr lamp",
+    "unit": "",
+    "src": "BL22",
+    "loc": "Sec. 6",
+    "quote": "Additional testing on the mechanisms is planned, as well as an assessment of the higher resolution dispersing elements",
+    "tag": "SOURCED",
+    "alt": ""
+   },
+   {
+    "parameter": "EFFECTIVE transmission grating, RI LR",
+    "value": "G = 768 /mm at incidence 22.0 deg",
+    "unit": "/mm; deg",
+    "src": "O16",
+    "loc": "Table 1 band and R; model fit",
+    "quote": "RI arm: 647 – 955 nm R=4500",
+    "tag": "EFFECTIVE",
+    "alt": "FITTED with web/physics.js (read-only; gType trans, tAlpha = incidence, core 158 um, F 3.5, D 8.0, W 265, fcam 251.75, 4096 x 15 um, lamC = band midpoint 801.0 nm) so that R = 4500 (design table) and the dispersion = band width / 4096 px (DERIVED target) both hold; two parameters, two targets, so this is a fit not a test. No VPH line density, angle or prism is published in Black 2022 or the other accessible papers."
+   },
+   {
+    "parameter": "EFFECTIVE transmission grating, YJ",
+    "value": "G = 540 /mm at incidence 13.2 deg",
+    "unit": "/mm; deg",
+    "src": "O16",
+    "loc": "Table 1 band and R; model fit",
+    "quote": "YJ arm: 934 – 1350 nm R=4300",
+    "tag": "EFFECTIVE",
+    "alt": "FITTED with web/physics.js (read-only; gType trans, tAlpha = incidence, core 158 um, F 3.5, D 8.0, W 265, fcam 251.75, 4096 x 15 um, lamC = band midpoint 1142.0 nm) so that R = 4300 (design table) and the dispersion = band width / 4096 px (DERIVED target) both hold; two parameters, two targets, so this is a fit not a test. No VPH line density, angle or prism is published in Black 2022 or the other accessible papers."
+   },
+   {
+    "parameter": "EFFECTIVE transmission grating, H LR",
+    "value": "G = 576 /mm at incidence 21.4 deg",
+    "unit": "/mm; deg",
+    "src": "O16",
+    "loc": "Table 1 band and R; model fit",
+    "quote": "H arm: 1452 – 1800 nm R=6800",
+    "tag": "EFFECTIVE",
+    "alt": "FITTED with web/physics.js (read-only; gType trans, tAlpha = incidence, core 158 um, F 3.5, D 8.0, W 265, fcam 251.75, 4096 x 15 um, lamC = band midpoint 1626.0 nm) so that R = 6800 (design table) and the dispersion = band width / 4096 px (DERIVED target) both hold; two parameters, two targets, so this is a fit not a test. No VPH line density, angle or prism is published in Black 2022 or the other accessible papers."
+   },
+   {
+    "parameter": "EFFECTIVE transmission grating, RI HR",
+    "value": "G = 1396 /mm at incidence 30.3 deg",
+    "unit": "/mm; deg",
+    "src": "O16",
+    "loc": "Table 1 band and R; model fit",
+    "quote": "RI arm: 765 –897 nm R=9100",
+    "tag": "EFFECTIVE",
+    "alt": "FITTED with web/physics.js (read-only; gType trans, tAlpha = incidence, core 158 um, F 3.5, D 8.0, W 265, fcam 251.75, 4096 x 15 um, lamC = band midpoint 831.0 nm) so that R = 9100 (design table) and the dispersion = band width / 4096 px (DERIVED target) both hold; two parameters, two targets, so this is a fit not a test. No VPH line density, angle or prism is published in Black 2022 or the other accessible papers."
+   },
+   {
+    "parameter": "EFFECTIVE transmission grating, H HR",
+    "value": "G = 1052 /mm at incidence 53.2 deg",
+    "unit": "/mm; deg",
+    "src": "O16",
+    "loc": "Table 1 band and R; model fit",
+    "quote": "H arm: 1523 – 1640 nm R=18800",
+    "tag": "EFFECTIVE",
+    "alt": "FITTED with web/physics.js (read-only; gType trans, tAlpha = incidence, core 158 um, F 3.5, D 8.0, W 265, fcam 251.75, 4096 x 15 um, lamC = band midpoint 1581.5 nm) so that R = 18800 (design table) and the dispersion = band width / 4096 px (DERIVED target) both hold; two parameters, two targets, so this is a fit not a test. No VPH line density, angle or prism is published in Black 2022 or the other accessible papers. Published 1056 /mm at AOI 53 deg (FJ25): with 1056 at 53.0 the model gives R 18795 and 0.277 A/px."
+   }
+  ],
+  "layout": [
+   {
+    "item": "Source figure",
+    "tag": "SOURCED",
+    "text": "O16 Fig. 1 (PDF p. 3), top panel: LR configuration; bottom panel: HR configuration; plan view with a 1 m scale bar. Also G22 Fig. 3 (p. 4, same drawing, not measured), F22 Figs. 1-2 (p. 2-3), O14 Fig. 1 (p. 3)."
+   },
+   {
+    "item": "Order along the beam",
+    "tag": "MEASURED",
+    "text": "Fiber slit (a small mark inside the beam) -> spherical collimator at the far (right) end -> beam returns past the slit mark -> Dichroic I -> Dichroic H -> arms. Collimator vertex to slit mark 457 px = 0.99 m (460 px = 1 m) -> f_col about 0.93 m (927.5 mm sourced by DERIVED)."
+   },
+   {
+    "item": "Collimator on-axis",
+    "tag": "SOURCED+MEASURED",
+    "text": "O14 Sec. 3 ON-AXIS trade-off baseline (quote above); the slit mark lies in the collimated beam in O16 Fig. 1 (both panels), between the mirror and Dichroic I. VERDICT: ON-AXIS, colTilt 0, the slit obscures about 1.9% of the beam (O14 Table 3). Caution: O14 compared three collimators; O16, F22 and G22 say only 'spherical mirror' and keep the same figure geometry. F22 Sec. 6 notes a test bench with 'the second of the two MOONS collimator mirrors' (one mirror per spectrograph, two in all)."
+   },
+   {
+    "item": "Dichroic I (first)",
+    "tag": "MEASURED/INFERRED",
+    "text": "Plate at about 0.64 of the collimator-to-grating path (570 of 893 px); reflects the RI beam by 120 deg (AOI about 28 deg), transmits the rest. Ray colors: blue leaves here."
+   },
+   {
+    "item": "Dichroic H (second)",
+    "tag": "MEASURED/INFERRED",
+    "text": "Plate at about 0.82 of the path (720 of 881 px); reflects the YJ beam by about 107 deg (AOI about 37 deg), transmits the red (H) beam straight on. The figure labels are 'Dichroic I' and 'Dichroic H'; which beam each plate reflects is INFERRED from the ray colors (the 2014 design had H reflected first: O14 Sec. 6)."
+   },
+   {
+    "item": "Grating positions",
+    "tag": "MEASURED",
+    "text": "Collimator to GRT-RI about 893 px = 1.94 m, to GRT-YJ 881 px = 1.92 m, to GRT-H 890 px = 1.93 m (path through the dichroic centers). 2 f_col = 1.855 m (the pupil at the center of curvature, as for an on-axis spherical collimator); the figure's 1.93 m is 4% longer. Preset layLen 1930 (MEASURED) with 1855 as the alternative."
+   },
+   {
+    "item": "Gratings and prisms",
+    "tag": "MEASURED",
+    "text": "Each grating is a plate in the collimated beam just after its dichroic. LR: GRT-RI, GRT-YJ, GRT-H alone. HR: the RI beam crosses P-HR-I, GRT-HR-I, P-HR-I (two prisms flanking the grating; the figure labels two P-HR-I plates and GRT-HR-I), the H beam crosses P-HR-H, GRT-HR-H, P-HR-H; YJ unchanged (GRT-YJ). In the model each is an equivalent single transmission grating."
+   },
+   {
+    "item": "Cameras",
+    "tag": "MEASURED",
+    "text": "Each camera stands about 0.34-0.42 m beyond its grating (grating to the first lens L1: RI 169 px = 0.37 m, YJ 155 px = 0.34 m, H 195 px = 0.42 m). Camera axes in the 2016 drawing: RI 10 deg to the right of YJ, H 22 deg to the left of YJ (the grating plates are placed about +-8 deg off those axes). As built (F22 Sec. 3): optical axes at 98, 76.4 and 52 deg to gravity (RI, YJ, H): 21.6 deg and 24.4 deg apart, the RI-YJ separation larger than the 2016 drawing. All three cameras identical in form (mirror and corrector lens pair, detector inside L1), mirror at the far end, detector at the back focus near the grating side."
+   },
+   {
+    "item": "Camera layout, drawing hint",
+    "tag": "SOURCED",
+    "text": "O16 Table 2: length 430 mm, largest lens 400 mm, mirror 440 mm, central obscuration 19%; F22 Sec. 2.2: L1 is a meniscus with a central rectangular aperture holding L2 and the detector package. Explorer cam 'mirror' (catadioptric, internal focus)."
+   }
+  ],
+  "performance_targets": [
+   {
+    "what": "R_RI LR (design)",
+    "value": 4500,
+    "src": "O16 Table 1"
+   },
+   {
+    "what": "R_YJ",
+    "value": 4300,
+    "src": "O16 Table 1"
+   },
+   {
+    "what": "R_H LR (design)",
+    "value": 6800,
+    "src": "O16 Table 1"
+   },
+   {
+    "what": "R_RI HR (design)",
+    "value": 9100,
+    "src": "O16 Table 1"
+   },
+   {
+    "what": "R_H HR (design)",
+    "value": 18800,
+    "src": "O16 Table 1"
+   },
+   {
+    "what": "R_RI LR (C20)",
+    "value": 4100,
+    "src": "C20 Table 1"
+   },
+   {
+    "what": "R_H LR (C20)",
+    "value": 6600,
+    "src": "C20 Table 1"
+   },
+   {
+    "what": "R_RI HR (C20)",
+    "value": 9200,
+    "src": "C20 Table 1"
+   },
+   {
+    "what": "R_H HR (C20)",
+    "value": 19700,
+    "src": "C20 Table 1"
+   },
+   {
+    "what": "fiber image 2.7 px (40.5 um)",
+    "value": 2.7,
+    "src": "F22 Table 1; measured 2.5-2.7 px FWHM in RI and YJ (F22 summary)"
+   },
+   {
+    "what": "pixel scale 0.36 arcsec at f/0.95 (D 8.8 m)",
+    "value": 0.36,
+    "src": "O16 Sec. 2 scaling law (theta_PIX = 0.36 arcsec)"
+   },
+   {
+    "what": "slit length 200 mm",
+    "value": 200,
+    "src": "O16 Table 1"
+   }
+  ],
+  "not_found": [
+   "Line density, incidence and diffraction angles, substrate, prism glass and apex angles and the cryogenic index source for the five VPH dispersers: not in Black 2022 or Guinouard 2020 (only HR-H 1056 /mm at AOI 53 deg, secondary FJ25). The explorer gratings are EFFECTIVE, fitted to R and dispersion.",
+   "Dichroic transition widths, final cut wavelengths and angles of incidence (Black 2022 has no layout figure with dimensions; Fig. 4 shows the fixed-optics assembly photo/CAD only); dichroic substrate and thickness.",
+   "As-built fiber core diameter (Guinouard 2022, the fiber-link paper, gives no core diameter or on-sky size; it confirms the f/3.65 microlens input and an f/3.5 output test). Measured FRD value: only the transmission including FRD is given (75.3%). Fiber pitch within a slitlet, slitlet pitch and the gaps between slitlets: not published (only the 200 mm length and 512 fibers).",
+   "Measured R(lambda) as numbers and dispersion in A/px: BL22 gives only Fig. 11 (YJ R(lambda) plot, expected center 4000) and the statement that R~4000 is met; HR measurements were pending.",
+   "Throughput numbers by arm: C20 Table 1 quotes only '> 30% in low resolution, > 25% in high resolution' (total instrument), Fig. 3 plots.",
+   "Source: the SPIE papers by Black et al. 2022 (spectrograph performance), Guinouard et al. 2022 (fibers), Taylor et al. 2018 are not openly available (SPIE paywall; the INAF and HAL copies sit behind bot checks and were not fetched).",
+   "Which of the two slit radii (1110 mm, 900 mm) is the spatial curvature.",
+   "Collimator mirror radius (center of curvature) and the off-axis offset of the slit: not given."
+  ],
+  "conflicts": [
+   "Fiber on-sky size, RESOLVED as far as the documents allow (INFERRED): 1.0 arcsec (O16 design; GU20 abstract 'sub field of 1 arcsec'; GU20 requirement '>= 1 arcsec') versus 1.2 arcsec (C20 Table 1, G22 Sec. 2.1, the built instrument). Core: 158 um as built (GU20) against 150 um in the design. The built core is 5% larger than the design and 1.2/1.0 = 20% larger on the sky only if the field stop was enlarged too, so the later 1.2 arcsec is taken as the built aperture; the fiber core in the explorer now follows GU20. Older text: Fiber on-sky size: 1.0 arcsec (O16 Table 1, E26 baseline table; design) vs 1.2 arcsec (C20 Table 1; G22 Sec. 2.1; built). The core is 150 um in the design (O14, O16, F22 test fibers) and 140-170 um for 1-1.2 arcsec in phase A (C12); the as-built core is NOT FOUND. Recommended: enter 150 um at f/3.5 (virtual, 1.105 arcsec) and note both.",
+   "Resolving powers: O16/F22 Table 1: LR RI 4500, YJ 4300, H 6800; HR RI 9100, H 18800. C20 Table 1: LR RI 4100, YJ 4300, H 6600; HR RI 9200, H 19700. E26: LR RI 4100, H 6600; HR-I 9200, HR-H 18300. G22: 'R~4000-7500' LR, 'R~9000, 4000, 19700' HR. The later (built) numbers are lower in RI-LR and H-LR and higher in HR-H. Recommended validation targets: the C20 values, as the most recent public table.",
+   "HR-H band: O16 1523-1640 nm; C20 1.52-1.64 um; E26 1.521-1.641 um (same band within 1 nm).",
+   "Dichroic order and sense: O14 (2014): first dichroic reflects H (>1.4 um), second reflects RI (<0.95 um), YJ transmitted. O16 Fig. 1 (2016): Dichroic I first (RI reflected), Dichroic H second (YJ reflected, H transmitted) INFERRED from ray colors. O14 itself says the 2014 order was not ideal for the coatings.",
+   "Collimator geometry: BL22 Sec. 2 says the collimator is below the slit and returns the beam 'back up over the slit'. It does not contradict the on-axis reading but does not confirm the 1.9% obscuration either; the verdict stays ON-AXIS (colTilt 0) with this flag.",
+   "Slit curvature: O14 Fig. 2 (2014 design) R = 940 mm cylinder with a second curvature in the other plane; GU22 Sec. 3.2 (as built) two perpendicular arcs of 1110 mm and 900 mm. 940 mm lies between the two; the later pair is adopted for drawing, pending which plane each is in.",
+   "Camera angles: the 2016 drawing has the RI camera 10 deg from YJ; F22 (as built) 21.6 deg from YJ.",
+   "Temperature: C20 -130 C; F22 'approximately 128 K' (= -145 C); P26 -143 to -233 C. Different elements.",
+   "Collimator type: O14 Sec. 3 (trade-off) names on-axis, RFL-Schmidt and Maksutov options; only O14 states 'on-axis'. The later papers say 'a spherical mirror' (F22, O16, G22) and G22's text says 'collimator sits at the base of the optical bench'. An older phase-A summary says on-axis parabola (not saved)."
+  ],
+  "notes": [
+   "Status: MOONS had its first light on the VLT in summer 2026 (ESO announcement 3 September 2026, P26); the ESO project page of 2026-11-17 still reads 'AIV -> Commissioning' (E26). It is not yet in science operation, so the preset name carries '(design)'. Recommended text: 'design values from the 2016-2022 papers; first light 3 Sep 2026, commissioning'.",
+   "Telescope pupil: the explorer's VLT convention is Nasmyth 8000 mm at f/15 (UVES, MUSE; VLT-SPE-ESO-10000-2723). MOONS is on UT1 Nasmyth A (G22); its microlens converts f/15 to f/3.65 (C12). The telescope enters only through D = 8.0 m and the virtual F = 3.5 (core / (F x D)).",
+   "Fibers (priority 1, Guinouard 2022): f/3.65 microlens input and f/3.5 output are confirmed, so the virtual F = 3.5 stands. (Superseded by GU20: core 158 um.) Earlier: 150 um / (3.5 x 8000 mm) x 206264.806 = 1.105 arcsec; x sqrt(3)/2 = 0.957. If the built fibers were 1.2 arcsec with f/3.65 at f/15 on the 8.0 m pupil, the core would be 1.2 arcsec x 0.5818 mm/arcsec / (15/3.65) = 0.170 mm (DERIVED from the phase-A 140-170 um range of C12); then the virtual angle = 0.170/(3.5 x 8000) = 1.252 arcsec and the slit 1.084 arcsec. No document settles it, so the 150 um design value is kept and the alternative is recorded.",
+   "Pseudo-slit fgroups (priority 2): [16, 108, 108] um on the detector (INFERRED: 16 fibers per slitlet at the sourced 7.2 px pitch, no gap because the slitlet gap is NOT FOUND); on the slit the same group is [16, 398, 398] um (108 / 0.2714). Slit length 200 mm / 512 = 0.391 mm mean pitch, so the gaps are at most a fraction of a pitch.",
+   "Virtual convention with the AS-BUILT core (GU20 158 um): 158 um / (3.5 x 8000 mm) x 206264.806 = 1.164 arcsec full width; x sqrt(3)/2 = 1.008 arcsec equal-line-width slit (was 0.957 with 150 um). The sky-equivalent 1.2 arcsec needs D = 0.158/(3.5 x 1.2 x 4.848e-6) = 7.76 m, 3% under 8.0 m (the f/3.65 vs f/3.5 conversion is 4%). Slit image 0.158 x 0.2714 = 42.9 um = 2.86 px at the center against the measured 2.5-2.7 px FWHM (Black 2022) and the 2.7 px design. Older note: core 150 um / (3.5 x 8000 mm) = 1.105 arcsec (the on-sky design size is 1.0 arcsec for an effective 8.8 m aperture with eta_FRD = 0.90, O16); the equal-line-width slit is 0.957 arcsec. Slit image 0.150 x 0.95/3.5 = 40.7 um = 2.71 px (sourced Nres 2.7).",
+   "Measured performance (BL22): YJ image 2.5 px FWHM at the center to 2.7 at the corners; RI 2.5 to 3 px; resolving power requirement met (R~4000 in YJ; no numbers in the text; Fig. 11 plot not digitized); all 512 spectra seen, dark gaps between spectra. HR dispersers and the H arm were not yet tested. Throughput: fiber link 69.3% (GU20) / about 69% (GU22); front-end fibers 93.6% / 94.1%; slit-end bundles 76.7% (first slit) / 75.3% (all 64); FRD throughput F/3.65 -> F/3.5: 89.7% warm, 90.1% at 140 K (GU20).",
+   "Dispersion (DERIVED from the band edges, 4096 px): RI LR 0.752, YJ 1.016, H LR 0.850, RI HR 0.322, H HR 0.286 A/px. These ignore chip-edge losses; they are not published values.",
+   "The explorer cannot represent: the five exchangeable VPH-plus-prism dispersers as such (each is an equivalent single transmission grating), the curved slit with its second curvature, the camera's 19% central obscuration, and cryogenic silicon prisms. The HR RI and H dispersers differ in R and band only through G and tAlpha here.",
+   "Two Preset-menu lines recommended: 'MOONS (LR)' with settings RI / YJ / H and 'MOONS (HR)' with settings RI / YJ / H (YJ is identical in both modes), so that the All-arms view for each mode has its own tree (keys 'MOONS LR' and 'MOONS HR').",
+   "Layout measurements were made on a 300 dpi render of O16 Fig. 1 page 3 (crop x 500, y 750, 1900 x 1250 px); the scale bar spans 78 to 538 px (460 px = 1 m). Angles are +-4 deg; distances +-5%."
+  ]
+ }
+}

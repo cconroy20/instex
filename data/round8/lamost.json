@@ -1,0 +1,1367 @@
+{
+ "_meta": {
+  "project": "instex Spectrograph Explorer presets -- round 8: LAMOST low-resolution spectrographs (Xinglong; id 'lamost')",
+  "compiled": "2026-11-17",
+  "companion": "data/round8/lamost.md",
+  "rule": "Every value carries src (key into sources), loc and a short verbatim quote from the saved document; DERIVED = arithmetic done here; INFERRED = a reading not stated; EFFECTIVE = fitted to published performance; MEASURED / SCHEMATIC for layout elements. Quotes machine-checked against pdftotext (layout, raw, flow) and tag-stripped HTML / ADS JSON.",
+  "quote_check": {
+   "pieces_checked": 138,
+   "failures": 0
+  },
+  "revision": "v2 same day: Cui et al. 2012 added"
+ },
+ "sources": {
+  "HU20": {
+   "cite": "Huang, S., Zou, H., Liu, T.-J., Zhao, S.-Y., Zhang, H. 2020, RAA 20, 29 (8 pp), \"An Active Flexure Compensation Method for LAMOST spectrograph based on BP-Neural Network\" (doi:10.1088/1674-4527/20/3/29). Sec. 1 and Sec. 3 describe the spectrograph (collimator f = 800 mm f/4, Schmidt, 250 fibers, dichroic, 4k x 4k 12 um CCDs, dispersions, slit arc); Fig. 4 is the LRS + MRS optical layout (a 3D ray rendering, no scale). A secondary source: it cites Cui et al. 2012 for the dispersions",
+   "file": "rawdata/presets/lamost/RAA2020_flexure_P020220324619594203192.pdf",
+   "url": "https://www.raa-journal.org/issues/all/2020/v20n3/202203/P020220324619594203192.pdf"
+  },
+  "XI11": {
+   "cite": "Xiong, F., Tang, Z., Wang, L., Wang, J., Hu, Z. 2011, Acta Astronomica Sinica 52, 516 (ADS 2011AcASn..52..516X), \"The Measurement of VPHGs' Parameters for Low-resolution Spectrographs of LAMOST\" (in Chinese; Table 1 and figure captions are bilingual). Text layer is garbled for the Chinese; the Latin text, numbers and tables are extractable. PDF p. 1 = journal p. 516",
+   "file": "rawdata/presets/lamost/PMO_AcASn2011_52_06_P020111109691444023971.pdf",
+   "url": "https://pmo.cas.cn/xscbw/twxb/xbll/2003_2018/2011_52/2011_52_06/201111/P020111109691444023971.pdf"
+  },
+  "ADS": {
+   "cite": "ADS abstract records (API response, fetched 2026-11-17) for Zhu et al. 2000 (2000SPIE.4008..141Z, \"Low-resolution spectrograph for LAMOST\"), Zhu et al. 2006 (2006SPIE.6269E..0MZ, \"A multipurpose fiber-fed VPHG spectrograph for LAMOST\"), Hou et al. 2010 (2010SPIE.7735E..0CH, \"Performance and sensitivity of low-resolution spectrographs for LAMOST\"), Hou et al. 2018 (2018SPIE10702E..1IH, \"The LAMOST middle resolution spectrograph\"), Hou et al. 2012 (2012SPIE.8446E..60H) and Cui et al. 2012 (2012RAA....12.1197C). The SPIE papers' full texts could not be downloaded (SPIE refuses automated access), so only their abstracts are used; the full text of Cui et al. 2012 is source CU12",
+   "file": "rawdata/presets/lamost/ADS_abstract_records_LAMOST_spectrograph_papers.json",
+   "url": "https://api.adsabs.harvard.edu/v1/search/query (bibcodes above)"
+  },
+  "LCCD": {
+   "cite": "LAMOST web site, \"CCD Camera\" page (English; page dated 2012-08-14; fetched 2026-11-17)",
+   "file": "rawdata/presets/lamost/lamost_org_instrument_ccd.html",
+   "url": "https://www.lamost.org/public/instrument/ccd?locale=en"
+  },
+  "LSPEC": {
+   "cite": "LAMOST web site, \"Spectrograph\" page (English; page dated 2012-08-14; fetched 2026-11-17)",
+   "file": "rawdata/presets/lamost/lamost_org_instrument_spectragraph.html",
+   "url": "https://www.lamost.org/public/instrument/spectragraph?locale=en"
+  },
+  "LTEL": {
+   "cite": "LAMOST web site, \"Telescope\" page (English; page dated 2012-08-14; fetched 2026-11-17): the table 'Main characteristics of LAMOST'",
+   "file": "rawdata/presets/lamost/lamost_org_instrument_telescope.html",
+   "url": "https://www.lamost.org/public/instrument/telescope?locale=en"
+  },
+  "ZH12": {
+   "cite": "Zhao, G., Zhao, Y.-H., Chu, Y.-Q., Jing, Y.-P., Deng, L.-C. 2012, RAA 12, 723, \"LAMOST spectral survey - An overview\", arXiv:1206.3569 (Sec. 2, 'The LAMOST project technical description'; ADS 2012RAA....12..723Z)",
+   "file": "rawdata/presets/lamost/Zhao2012_RAA12_723_overview_arXiv1206.3569.pdf",
+   "url": "https://arxiv.org/pdf/1206.3569"
+  },
+  "DE12": {
+   "cite": "Deng, L.-C., Newberg, H. J., Liu, C., et al. 2012, RAA 12, 735, \"LAMOST Experiment for Galactic Understanding and Exploration (LEGUE) - The survey's science plan\", arXiv:1206.3578 (the spectrograph modes, Sec. 3)",
+   "file": "rawdata/presets/lamost/Deng2012_RAA12_735_LEGUE_arXiv1206.3578.pdf",
+   "url": "https://arxiv.org/pdf/1206.3578"
+  },
+  "LU15": {
+   "cite": "Luo, A.-L., Zhao, Y.-H., Zhao, G., et al. 2015, RAA 15, 1095, \"The first data release (DR1) of the LAMOST regular survey\", arXiv:1505.01570 (Sec. 4.1.1 on the resolution and the 2/3 slit)",
+   "file": "rawdata/presets/lamost/Luo2015_DR1_arXiv1505.01570.pdf",
+   "url": "https://arxiv.org/pdf/1505.01570"
+  },
+  "LI20": {
+   "cite": "Liu, C., Fu, J., Shi, J., et al. 2020, \"LAMOST Medium-Resolution Spectroscopic Survey (LAMOST-MRS): Scientific goals and survey plan\", arXiv:2005.07210 (Introduction: the 2017 upgrade and the R ~ 7500 mode)",
+   "file": "rawdata/presets/lamost/Liu2020_MRS_arXiv2005.07210.pdf",
+   "url": "https://arxiv.org/pdf/2005.07210"
+  },
+  "D12L": {
+   "cite": "LAMOST DR12 v1.0 documentation, \"Low Resolution Data Description\" (HTML; fetched 2026-11-17)",
+   "file": "rawdata/presets/lamost/lamost_DR12v1_lr_data_production_description.html",
+   "url": "https://www.lamost.org/dr12/v1.0/doc/lr-data-production-description"
+  },
+  "D12M": {
+   "cite": "LAMOST DR12 v1.0 documentation, \"Medium Resolution Data Description\" (HTML; fetched 2026-11-17)",
+   "file": "rawdata/presets/lamost/lamost_DR12v1_mr_data_production_description.html",
+   "url": "https://www.lamost.org/dr12/v1.0/doc/mr-data-production-description"
+  },
+  "SO17": {
+   "cite": "Song, Y.-H., Luo, A.-L., Comte, G., et al. 2017, \"Cosmic Ray Removal in Fiber Spectroscopic Image\", arXiv:1705.02084 (Sec. 2: the image format)",
+   "file": "rawdata/presets/lamost/Song2017_cosmicray_arXiv1705.02084.pdf",
+   "url": "https://arxiv.org/pdf/1705.02084"
+  },
+  "DU17": {
+   "cite": "Du, B., Luo, A.-L., Zhang, J.-N., et al. 2017, \"Sky Subtraction for LAMOST\", arXiv:1705.02079 (Sec. 2.1: the instrument and the blue and red arm resolution)",
+   "file": "rawdata/presets/lamost/Du2017_skysub_arXiv1705.02079.pdf",
+   "url": "https://arxiv.org/pdf/1705.02079"
+  },
+  "PMC": {
+   "cite": "Overview of the LAMOST survey in the first decade, The Innovation 3, 100224 (2022), PMC8942838 (HTML; effective aperture 3.6-4.9 m; spectrum count; the R ~ 7500 mode)",
+   "file": "rawdata/presets/lamost/PMC8942838.html",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8942838/"
+  },
+  "CU12": {
+   "cite": "Cui, X.-Q., Zhao, Y.-H., Chu, Y.-Q., et al. 2012, RAA 12, 1197, \"The Large Sky Area Multi-Object Fiber Spectroscopic Telescope (LAMOST)\" (ADS 2012RAA....12.1197C; doi:10.1088/1674-4527/12/9/003), the IOP download (47 pages with a cover page: PDF p. = journal p. - 1195). Primary instrument paper: Sec. 2 (telescope; Tables 1-2), Sec. 3.2 (spectrographs: Fig. 30 layout, Tables 4-6, CCDs). Added after the first version of this record",
+   "file": "rawdata/presets/lamost/Cui2012_RAA12_1197_LAMOST.pdf",
+   "url": "https://iopscience.iop.org/article/10.1088/1674-4527/12/9/003/pdf"
+  },
+  "ZHU06": {
+   "cite": "Zhu, Y., Hu, Z., et al. 2006, Proc. SPIE 6269, 62690M, \"A multipurpose fiber-fed VPHG spectrograph for LAMOST\" (ADS 2006SPIE.6269E..0MZ). NOT OBTAINED (SPIE refuses automated access; no preprint found). Abstract only (key ADS)",
+   "file": "(none)",
+   "url": "https://doi.org/10.1117/12.671124",
+   "obtained": false
+  },
+  "HOU10": {
+   "cite": "Hou, Y., Zhu, Y., et al. 2010, Proc. SPIE 7735 (ADS 2010SPIE.7735E..0CH); Hou et al. 2018, SPIE 10702 (ADS 2018SPIE10702E..1IH, the middle-resolution spectrograph); Zhu 2011, Sci Sin Phys Mech Astron 41, 1337 (ADS 2011SSPMA..41.1337Z, Chinese; no abstract). NOT OBTAINED; abstracts only (key ADS)",
+   "file": "(none)",
+   "url": "",
+   "obtained": false
+  }
+ },
+ "_quotes": {
+  "telescope_aperture": [
+   [
+    "LTEL",
+    "Telescope page, main characteristics",
+    "Clear aperture 4m"
+   ],
+   [
+    "ADS",
+    "Cui et al. 2012, abstract",
+    "effective aperture of 3.6 m-4.9 m"
+   ],
+   [
+    "PMC",
+    "Overview, Sec. 'Telescope'",
+    "LAMOST has a variable effective aperture from 3.6 to 4.9 m and a FOV of 5"
+   ],
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "with a clear aperture of about 4-meter"
+   ],
+   [
+    "CU12",
+    "Sec. 1 (p. 1197)",
+    "special reflecting Schmidt telescope with an effective aperture of 3.6"
+   ],
+   [
+    "CU12",
+    "Sec. 2.6 (p. 1205)",
+    "the area of the entrance pupil or clear aperture of LAMOST is not fixed and the f-ratio is also not fixed"
+   ],
+   [
+    "CU12",
+    "Table 2 (p. 1205), phi_0 for dec -10 to 90 deg, mm",
+    "4881 4844 4788 4714 4620 4506 4371 4215 4036 3832 3602"
+   ]
+  ],
+  "telescope_focal_length": [
+   [
+    "LTEL",
+    "Telescope page, main characteristics",
+    "Focal length 20m"
+   ],
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "a focal length of 20"
+   ],
+   [
+    "CU12",
+    "Sec. 2.2 (p. 1202)",
+    "The focal length of the telescope is about 20 m with an f-ratio of 5"
+   ]
+  ],
+  "telescope_focal_ratio": [
+   [
+    "CU12",
+    "Sec. 1 (p. 1197)",
+    "Its focal ratio is 5"
+   ],
+   [
+    "CU12",
+    "Sec. 2.2 (p. 1202)",
+    "The focal length of the telescope is about 20 m with an f-ratio of 5, which is the best f-ratio for this design of optical fiber spectroscopy"
+   ],
+   [
+    "CU12",
+    "Sec. 2.6 (p. 1205)",
+    "the f-ratio is also not fixed"
+   ]
+  ],
+  "plate_scale": [
+   [
+    "LTEL",
+    "Telescope page",
+    "Focal length 20m"
+   ],
+   [
+    "ZH12",
+    "Sec. 2.4 (p. 4)",
+    "The fibers used by LAMOST have a scale of 3.3 arcseconds on the focal surface"
+   ]
+  ],
+  "focal_surface": [
+   [
+    "ZH12",
+    "Sec. 2.1 (p. 3)",
+    "The focal surface is circular with a diameter of 1.75 meters"
+   ],
+   [
+    "LTEL",
+    "Telescope page",
+    "Field of view 5"
+   ]
+  ],
+  "fiber_core": [
+   [
+    "ADS",
+    "Zhu et al. 2006, abstract",
+    "Each spectrograph will be accommodating 250 fibers of 320 microns diameter (corresponding 3.3 arcsecs)"
+   ],
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "each spectrograph is fed by 250 fibers with 320 micron in diameter (corresponding 3.3 arcsec)"
+   ],
+   [
+    "ZH12",
+    "Sec. 2.4 (p. 4)",
+    "The fibers used by LAMOST have a scale of 3.3 arcseconds on the focal surface"
+   ]
+  ],
+  "n_fibers": [
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "A total of 16 spectrographs are fed to the LAMOST, and each spectrograph is fed by 250 fibers"
+   ],
+   [
+    "ZH12",
+    "Sec. 2.5 (p. 4)",
+    "Sixteen spectrographs are used in the system, each fed with the dispersed light from 250 fibers"
+   ],
+   [
+    "D12L",
+    "Sec. 2.1 (file name)",
+    "the fiber identity number which is in the range of 1 to 250"
+   ]
+  ],
+  "slit_geometry": [
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "arranged along a 144 mm height slit from each spectrograph"
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The center distance between two adjacent optical fibers is 0.578 mm in the slit height direction. The slit is an arc with a bending radius of 691"
+   ],
+   [
+    "LCCD",
+    "CCD page",
+    "(arranged along a 144 mm height slit from each spectrograph)"
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2000, abstract (the early design)",
+    "The slit with 130mm length picks up 250 fibers"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.4 (p. 1228)",
+    "(arranged along a slit with height of 144 mm in front of each spectrograph)"
+   ]
+  ],
+  "fiber_spacing_check": [
+   [
+    "SO17",
+    "Sec. 2 (p. 3)",
+    "the typical distance between two adjacent fibers is 15"
+   ],
+   [
+    "SO17",
+    "Sec. 2 (p. 3)",
+    "(FWHM) of the profile is about 7"
+   ],
+   [
+    "LCCD",
+    "CCD page",
+    "The full width half maximum (FWHM) of monochromatic images is about 7-9 pixels"
+   ]
+  ],
+  "slit_mask": [
+   [
+    "ZH12",
+    "Sec. 2.5 (p. 4)",
+    "The resolution can be increased by placing a slit of fixed width in front of the fiber heads"
+   ],
+   [
+    "LU15",
+    "Sec. 4.1.1",
+    "the resolution reaches R>1500 by narrowing the slit at the output end of the fibers to 2/3 the fiber width"
+   ],
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "The resolution of spectrograph is 1800 (with 2.2"
+   ],
+   [
+    "D12L",
+    "Sec. 2.3.1.5, SLIT_MOD",
+    "gives the slit mode and responds spectra resolution of 1800 respectively at 4750"
+   ]
+  ],
+  "fiber_output_focal_ratio": [
+   [
+    "ADS",
+    "Zhu et al. 2000, abstract",
+    "The output bema with f-ratio of 4 from fiber are collimated by a spherical mirror"
+   ],
+   [
+    "ADS",
+    "Hou et al. 2010, abstract",
+    "composed of one F/4 Schmidt collimator"
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The focal ratio of collimator is 4, and the focal length is 800 mm."
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "Beams that enter the spectrograph are of f/4 due to fiber degradation"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "one f/4 Schmidt collimator"
+   ]
+  ],
+  "collimator_type": [
+   [
+    "ADS",
+    "Hou et al. 2010, abstract",
+    "composed of one F/4 Schmidt collimator, a dichroic beam-splitter, four VPH gratings, articulating Schmidt cameras"
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2000, abstract (early design)",
+    "collimated by a spherical mirror and then are split to red and blue band by a dichroic filter"
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The collimator employs Schmidt system and its spherical aberration and out-of-axis aberration are corrected by two Schmidt correcting mirrors."
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The LAMOST spectrographs are of double-beam full Schmidt design by using VPH gratings."
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The LAMOST low resolution spectrographs have a double-beam full Schmidt design that uses volume phase holographic (VPH) gratings"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "It consists of one f/4 Schmidt collimator, a diachronic beam-splitter, four VPH gratings, two articulating red and blue f/1.3 Schmidt cameras"
+   ]
+  ],
+  "collimator_focal_length_beam": [
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The focal ratio of collimator is 4, and the focal length is 800 mm."
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2006, abstract",
+    "The 200 mm diameter collimated beam is split into two separate channels."
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2000, abstract",
+    "The beam size is 200mm resulting resolution 1000 with 3.3 arcsecond fiber slit."
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The 200 mm diameter collimated beam is split into two separate channels"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The scheduled collimating beam size is 200 mm"
+   ]
+  ],
+  "collimator_on_axis": [
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The LAMOST low resolution spectrographs have a double-beam full Schmidt design that uses volume phase holographic (VPH) gratings"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "It consists of one f/4 Schmidt collimator, a diachronic beam-splitter, four VPH gratings"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "(arranged along a slit with height of 144 mm in front of each spectrograph)"
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "The collimator employs Schmidt system and its spherical aberration and out-of-axis aberration are corrected by two Schmidt correcting mirrors."
+   ]
+  ],
+  "dichroic": [
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "the blue-red split is done with a dichroic coating on a beam splitter, the blue side reflected and the red side transmitted"
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2006, abstract",
+    "The blue channel is optimized for 370nm-590nm, and the red channel for 570nm-900nm."
+   ],
+   [
+    "ADS",
+    "Hou et al. 2010, abstract",
+    "a dichroic beam-splitter, four VPH gratings, articulating Schmidt cameras that are optimized at blue band (370-590 nm) and red band (570-900 nm)"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "a diachronic beam-splitter"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The 200 mm diameter collimated beam is split into two separate channels"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The blue channel is optimized for 370"
+   ]
+  ],
+  "vph_red": [
+   [
+    "XI11",
+    "Table 1",
+    "Spatial frequency(line/mm) 540 800 1680 2750"
+   ],
+   [
+    "XI11",
+    "Table 1",
+    "Wavelength range(nm) 570 ~ 900 370 ~ 590 830 ~ 890 510 ~ 540"
+   ],
+   [
+    "XI11",
+    "Table 1",
+    "External AOI ... 8.63 8.17 43.9 43.9"
+   ],
+   [
+    "XI11",
+    "Table 1",
+    "External AOD ... 14.46 14 49.1 49.1"
+   ],
+   [
+    "XI11",
+    "Table 1",
+    "Physical dimensions(mm) 220 x 220 x 20 220 x 220 x 20 310 x 220 x 22 310 x 220 x 22"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.1 (the measurements, bilingual numbers)",
+    "547 line/mm"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.1",
+    "548 line/mm"
+   ],
+   [
+    "CU12",
+    "Table 6 (p. 1227), Grating 1",
+    "16 540 570 - 900 740.46 8.63 14.46 220 x 220 x 20 1000 - 2000"
+   ]
+  ],
+  "vph_blue": [
+   [
+    "XI11",
+    "Table 1",
+    "Number of units 16 16 1 1"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.1",
+    "811 line/mm"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.1",
+    "813 line/mm"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.3 (Fig. 5 caption, bilingual)",
+    "740 nm"
+   ],
+   [
+    "XI11",
+    "Sec. 4.1.3",
+    "480 nm"
+   ],
+   [
+    "CU12",
+    "Table 6 (p. 1227), Grating 2",
+    "16 800 365 - 590 480.38 8.17 14 220 x 220 x 20 1000 - 2000"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1227)",
+    "The efficiency of the blue channel gratings is around 80%"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1227)",
+    "The efficiency of the red channel gratings is around 90%"
+   ]
+  ],
+  "vph_r5000": [
+   [
+    "XI11",
+    "Table 1",
+    "Resolution 1000 ~ 2000 1000 ~ 2000 5000 ~ 10000 5000 ~ 10000"
+   ],
+   [
+    "XI11",
+    "Sec. 4.2.1",
+    "1 703 line/mm"
+   ],
+   [
+    "XI11",
+    "Sec. 4.2.1",
+    "2 777 line/mm"
+   ],
+   [
+    "CU12",
+    "Table 6 (p. 1227), notes",
+    "Only one set of medium resolution gratings is installed at the current stage"
+   ],
+   [
+    "CU12",
+    "Table 5 (p. 1227)",
+    "Table 5 Resolution of Medium Resolution Mode"
+   ]
+  ],
+  "camera": [
+   [
+    "ADS",
+    "Hou et al. 2010, abstract",
+    "with large-beamed, fast Schmidt cameras and Volume Phase Holographic (VPH) transmission gratings"
+   ],
+   [
+    "ADS",
+    "Hou et al. 2010, abstract",
+    "field lens near the focal plane service as the vacuum window of CCD detector cryogenic head"
+   ],
+   [
+    "HU20",
+    "Sec. 2 (p. 29-2)",
+    "Schmidt optical design is adopted by camera system, and CCD and its refrigeration system are mounted on the focal plane of the camera."
+   ],
+   [
+    "ADS",
+    "Zhu et al. 2000, abstract (early design)",
+    "fast Schmidt camera with f-ratio of 1"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "two articulating red and blue f/1.3 Schmidt cameras, and a field lens near the focal plane at the vacuum window of the CCD detector"
+   ]
+  ],
+  "detector": [
+   [
+    "LCCD",
+    "CCD page",
+    "CCD chip is scientific CCD sensor with 4096"
+   ],
+   [
+    "LCCD",
+    "CCD page",
+    "The 32 CCDs for low resolution spectrographs are EEV CCD203-82 scientific CCD sensors with different coating."
+   ],
+   [
+    "LCCD",
+    "CCD page",
+    "The 49.2mm x 49.2mm image area of a chip"
+   ],
+   [
+    "LCCD",
+    "CCD page",
+    "imaged onto 32 pieces of 4096"
+   ],
+   [
+    "HU20",
+    "Sec. 1 (p. 29-1)",
+    "Each spectrograph has two detectors of 4096 by 4136 pixels"
+   ],
+   [
+    "SO17",
+    "Sec. 2",
+    "is 4096"
+   ],
+   [
+    "ADS",
+    "Cui et al. 2012, abstract",
+    "LAMOST has 16 spectrographs with 32 CCD cameras"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.4 (p. 1228)",
+    "imaged onto 32 cameras each with a 4096"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.4 (p. 1229)",
+    "There are extra rows of pixels such that the total number is actually 4096 horizontal by 2"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.4 (p. 1228)",
+    "are EEV CCD203-82 scientific CCD sensors with different coatings"
+   ]
+  ],
+  "dispersion": [
+   [
+    "LCCD",
+    "CCD page",
+    "Dispersion of the red band is about 0.084nm/pixel, and the dispersion of the blue band is 0.057 nm/pixel."
+   ],
+   [
+    "HU20",
+    "Sec. 3 (p. 29-3)",
+    "Dispersion of the red band is about 0.084 nm/pixel, and the dispersion of the blue band is 0.057 nm/pixel (Cui"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.4 (p. 1228)",
+    "Dispersion of the red band is about 0.084 nm pixel"
+   ]
+  ],
+  "wavelength_coverage": [
+   [
+    "ADS",
+    "Zhu et al. 2006, abstract",
+    "The blue channel is optimized for 370nm-590nm, and the red channel for 570nm-900nm."
+   ],
+   [
+    "D12L",
+    "Sec. 1",
+    "they cover the wavelength range of 3700"
+   ],
+   [
+    "ZH12",
+    "Sec. 2.5 (p. 4)",
+    "which yields spectral wavelength coverage of 3700"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The actual wavelength coverage is 365"
+   ],
+   [
+    "CU12",
+    "Table 4 (p. 1226)",
+    "Table 4 Resolution of Low Resolution Mode"
+   ]
+  ],
+  "resolving_power": [
+   [
+    "ZH12",
+    "Sec. 2.5 (p. 4)",
+    "resolution of the default LAMOST grating setup is R"
+   ],
+   [
+    "LU15",
+    "Sec. 4.1.1",
+    "The theoretical resolution of the 16 LAMOST spectrographs is R = 1000 (as determined by the gratings)"
+   ],
+   [
+    "D12L",
+    "Sec. 2.3.1.5, SLIT_MOD",
+    "gives the slit mode and responds spectra resolution of 1800 respectively at 4750"
+   ],
+   [
+    "D12L",
+    "Sec. 1",
+    "with a resolution of 1800"
+   ],
+   [
+    "DU17",
+    "Sec. 2.1",
+    "The spectral resolution is about 2.5"
+   ],
+   [
+    "LSPEC",
+    "Spectrograph page",
+    "The 16 spectrographs used in LAMOST are low-resolution mode with 2/3 slits. The spectral resolution is R=1500."
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.3 (p. 1227)",
+    "The 16 spectrographs used in LAMOST are in low-resolution mode with 2/3 slits. The spectral resolution power is R = 1500"
+   ],
+   [
+    "CU12",
+    "Table 4 (p. 1226), blue and red arm, full / 1/2 / 2/3 / 1/4 slit: 1000 / 2000 / 1500 / 4000",
+    "Full slit 1/2 slit 2/3 slit 1/4 slit"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.1 (p. 1226)",
+    "spectral resolution is 1000 or 5000, depending on when different gratings and camera positions are used"
+   ]
+  ],
+  "throughput": [
+   [
+    "LSPEC",
+    "Spectrograph page",
+    "The throughput of the spectrographs is better than 30%."
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.1 (p. 1226)",
+    "The throughput of the spectrographs is better than 30%"
+   ]
+  ],
+  "mrs_mode": [
+   [
+    "ADS",
+    "Hou et al. 2018, abstract",
+    "The spectrographs have been upgraded in 2017, and the resolution can reach up to 7500(with 2/3 slit)."
+   ],
+   [
+    "ADS",
+    "Hou et al. 2018, abstract",
+    "the wavelength can cover 495nm-535nm(blue band) and 630nm-680nm(red band)"
+   ],
+   [
+    "D12M",
+    "Sec. 1",
+    "with their wavelength ranges [4950"
+   ],
+   [
+    "D12M",
+    "Sec. 2.3.5, SLIT_MOD",
+    "responds spectra resolution of 7500 respectively at 5163"
+   ],
+   [
+    "LI20",
+    "Introduction",
+    "currently support not only spectral resolutions of R"
+   ],
+   [
+    "PMC",
+    "Overview",
+    "a new survey mode with a resolution power of R"
+   ],
+   [
+    "HU20",
+    "Fig. 4 caption (PDF p. 3)",
+    "the green area represents the MRS blue channel and the yellow area represents the MRS red channel"
+   ],
+   [
+    "CU12",
+    "Sec. 3.2.2 (p. 1226)",
+    "The spectrographs are designed for spectral resolution power 1000 (4000) and 5000 (20 000)"
+   ]
+  ],
+  "survey_counts": [
+   [
+    "D12L",
+    "Sec. 1",
+    "there are totally 12,602,390 low resolution spectra published"
+   ],
+   [
+    "D12M",
+    "Sec. 1",
+    "there are totally 3,365,641 coadded spectra published"
+   ],
+   [
+    "D12M",
+    "Sec. 1",
+    "12,110,344 single exposure spectra were released"
+   ],
+   [
+    "PMC",
+    "Overview",
+    "has released ~17 million spectra to the public before the end of 2021"
+   ]
+  ],
+  "cui2012_telescope_abstract": [
+   [
+    "LTEL",
+    "Telescope page",
+    "Ma 5.72m"
+   ],
+   [
+    "LTEL",
+    "Telescope page",
+    "Mb 6.67m"
+   ],
+   [
+    "ADS",
+    "Cui et al. 2012, abstract",
+    "Its primary mirror (6.67 m"
+   ],
+   [
+    "ZH12",
+    "Sec. 2.1 (p. 3)",
+    "The Schmidt plate ("
+   ],
+   [
+    "CU12",
+    "Sec. 2.2 (p. 1202)",
+    "The dimension of the segmented primary mirror Mb is 6.67 m"
+   ],
+   [
+    "CU12",
+    "Sec. 2.2 (p. 1202)",
+    "The radius of curvature of Mb is 40 m"
+   ]
+  ],
+  "image_shift": [
+   [
+    "CU12",
+    "Sec. 3.2.3 (p. 1228)",
+    "specification of image movement of the spectrograph being less than 0.6"
+   ]
+  ],
+  "layout_distances": [
+   [
+    "CU12",
+    "Fig. 30(b) caption",
+    "Layout of the low resolution spectrograph optical system."
+   ]
+  ]
+ },
+ "parameters": [
+  {
+   "id": "telescope_aperture",
+   "name": "telescope aperture D (nominal; the effective aperture varies with pointing)",
+   "value": "4.0 (nominal, the clear aperture that matches f/5 at 20 m); the effective aperture is 3.6-4.9 m: Table 2 of Cui et al. 2012 gives the equal-area diameter phi_0 of 4.881 m at dec -10 deg, 4.844 (0), 4.788 (10), 4.714 (20), 4.620 (30), 4.506 (40), 4.371 (50), 4.215 (60), 4.036 (70), 3.832 (80), 3.602 m (90 deg)",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "LTEL",
+   "loc": "table 'Main characteristics of LAMOST'; ADS abstract of Cui et al. 2012; PMC p. 1",
+   "derived": null,
+   "note": "HOW THE VARYING APERTURE IS HANDLED (updated): Cui et al. 2012 Sec. 2.6 says the entrance pupil is the projection of Ma, which changes with the pointing, 'the f-ratio is also not fixed'; Table 2 lists the equal-area diameter phi for each declination (the survey footprint, dec < 60 deg, spans phi = 4.2-4.9 m). The explorer needs one D: the preset keeps D = 4.0 m, the clear aperture (lamost.org) at which the stated focal ratio 5 holds for the 20 m focal length (Cui et al.: 'Its focal ratio is 5'). D enters only the virtual fiber angle core / (F_out D) and the Telescope box; the spectrograph does not change. Virtual core angle at phi = 4.88 m: 3.38 arcsec; at 4.0 m: 4.125; at 3.6 m: 4.58 (DERIVED, F_out = 4). A survey-weighted D (about 4.5 m at dec 40 deg) would change only the slit angle (3.67 arcsec); the 4.0 m choice keeps F = 4 and telF = 5 consistent."
+  },
+  {
+   "id": "telescope_focal_length",
+   "name": "telescope focal length (focal surface)",
+   "value": "20",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "LTEL",
+   "loc": "table 'Main characteristics of LAMOST'",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "telescope_focal_ratio",
+   "name": "telescope focal ratio at the focal surface",
+   "value": "5 (nominal; varies with the effective aperture, 20 m / phi = f/4.1 at phi 4.88 m to f/5.6 at 3.6 m)",
+   "unit": "f/",
+   "tag": "SOURCED (nominal) + DERIVED (range)",
+   "src": "CU12",
+   "loc": "",
+   "derived": "20 / 4.881 = 4.10; 20 / 3.602 = 5.55. (First version: f/5 was DERIVED; now SOURCED.)",
+   "note": null
+  },
+  {
+   "id": "plate_scale",
+   "name": "plate scale at the focal surface",
+   "value": "96.96 um/arcsec = 10.31 arcsec/mm",
+   "unit": "",
+   "tag": "DERIVED",
+   "src": "LTEL",
+   "loc": "",
+   "derived": "20 000 mm x (pi / 648 000) = 0.096963 mm/arcsec; 320 um / 96.963 um/arcsec = 3.300 arcsec (matches the published 3.3 arcsec exactly).",
+   "note": null
+  },
+  {
+   "id": "focal_surface",
+   "name": "focal surface diameter and field",
+   "value": "1.75 m diameter, 5 deg field, 4000 fibers",
+   "unit": "m",
+   "tag": "SOURCED",
+   "src": "ZH12",
+   "loc": "Sec. 2.1 (p. 3)",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "fiber_core",
+   "name": "fiber core diameter and on-sky size",
+   "value": "320 um core = 3.3 arcsec on the sky",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "ADS",
+   "loc": "Zhu et al. 2006 abstract",
+   "derived": "DERIVED check: 320 um / 96.963 um/arcsec = 3.300 arcsec.",
+   "note": null
+  },
+  {
+   "id": "n_fibers",
+   "name": "fibers per spectrograph; spectrographs",
+   "value": "250 per spectrograph; 16 spectrographs; 4000 fibers",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "HU20",
+   "loc": "Sec. 1 (p. 29-1)",
+   "derived": null,
+   "note": "nObj for the explorer: 250 (every spectrum on one detector pair; science, sky and calibration fibers together, 'NSKIES' sky fibers per spectrograph in the headers)."
+  },
+  {
+   "id": "slit_geometry",
+   "name": "fiber slit (pseudo-slit): height, fiber pitch, curvature",
+   "value": "144 mm tall arc; 0.578 mm center-to-center; arc radius 691 +- 1 mm",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "HU20",
+   "loc": "Sec. 3 (p. 29-3)",
+   "derived": "250 x 0.578 = 144.5 mm (agrees with 144 mm). On the detector (x 250/800 = 0.3125): pitch 180.6 um = 15.05 px of 12 um (Song et al. 2017 measure 15-16 px: quote in 'fiber_spacing_check'); slit 45.0 mm = 3750 px of the 4096-px spatial axis. fgroups: the 250 fibers sit at a uniform pitch with no block gaps published (NOT FOUND whether v-groove blocks have gaps).",
+   "note": null
+  },
+  {
+   "id": "fiber_spacing_check",
+   "name": "measured fiber spacing and profile width on the CCD",
+   "value": "15-16 pixels between adjacent fibers; profile FWHM about 7-8 pixels (cross-dispersion); monochromatic images 7-9 pixels FWHM",
+   "unit": "px",
+   "tag": "SOURCED",
+   "src": "SO17",
+   "loc": "Sec. 2 (p. 3)",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "slit_mask",
+   "name": "slit mask at the fiber output (survey mode)",
+   "value": "2/3 of the fiber width (2.2 arcsec of the 3.3 arcsec fiber) since 2011; the unmasked fiber gives the 'native' R ~ 1000",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ZH12",
+   "loc": "Sec. 2.5 (p. 4) and Sec. 3",
+   "derived": null,
+   "note": "The mask narrows the slit across the dispersion; the fiber's spatial extent is unchanged. The explorer cannot give a different width across and along the dispersion except through traceW (as Via's 0.7 arcsec mask). The preset enters the masked slit as S3 x (2/3) of the virtual core angle (EFFECTIVE; see the fit below)."
+  },
+  {
+   "id": "fiber_output_focal_ratio",
+   "name": "fiber output focal ratio (collimator input)",
+   "value": "f/4",
+   "unit": "f/",
+   "tag": "SOURCED",
+   "src": "ADS",
+   "loc": "Zhu et al. 2000 abstract; Hou et al. 2010 abstract",
+   "derived": null,
+   "note": "('bema' is the abstract's own typo.) The fiber input ratio is the telescope's (20 m / D_eff = f/4.1-f/5.6); the f/4 collimator is the explorer's F. Explorer convention (virtual, as APOGEE, BOSS, DESI): slit angle = core / (F_out D) = 0.320 mm / (4 x 4000 mm) = 4.125 arcsec, equal-line-width slit S3 x 4.125 = 3.57 arcsec; telescope box telF = 5, fibAp = 3.3 arcsec (on-sky)."
+  },
+  {
+   "id": "collimator_type",
+   "name": "collimator type",
+   "value": "Schmidt collimator: spherical mirror with a Schmidt correction, f/4",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "ADS, HU20",
+   "loc": "",
+   "derived": null,
+   "note": "Explorer: col 'mirror'. Fig. 30(b) draws the collimator as one concave mirror; no Schmidt corrector is drawn in front of it, and Cui et al. do not describe one. Huang et al. 2020's 'two Schmidt correcting mirrors' is not supported by Cui et al. (see Conflicts)."
+  },
+  {
+   "id": "collimator_focal_length_beam",
+   "name": "collimator focal length and beam diameter",
+   "value": "f_col = 800 mm; beam 200 mm (f/4)",
+   "unit": "mm",
+   "tag": "SOURCED",
+   "src": "HU20",
+   "loc": "Sec. 3 (p. 29-3)",
+   "derived": "800 / 200 = 4.0, f/4. MEASURED check on Fig. 30(b) (img 1654 x 909 px, see Layout): slit-to-collimator 515 px, returning beam 130 px wide: 515 / 130 = 3.96, so the drawing is to scale with f = 800 mm, 1.553 mm/px.",
+   "note": null
+  },
+  {
+   "id": "collimator_on_axis",
+   "name": "collimator on-axis or off-axis (DEPLOY GATE)",
+   "value": "ON-AXIS: the fiber slit stands in the middle of the returning collimated beam, on the collimator's axis (MEASURED from Cui et al. 2012 Fig. 30(b), a to-scale layout); no tilt or off-axis distance is published or drawn; no sentence states it",
+   "unit": "",
+   "tag": "MEASURED (figure) + SOURCED (Schmidt collimator)",
+   "src": "CU12",
+   "loc": "Fig. 30(b) (p. 1226, PDF p. 31); Sec. 3.2.2",
+   "derived": null,
+   "note": "UPGRADED from INFERRED. The paper contains no sentence about the slit standing in the returning beam or about a central obscuration (searched: 'obscur', 'slit', 'Schmidt'). Fig. 30(b), however, draws it: the SLIT is a thin vertical bar on the horizontal axis 515 px (= 800 mm = f_col, MEASURED) in front of the collimator mirror; the rays leave it toward the mirror as an f/4 cone, and the collimated beam (130 px = 200 mm) returns leftward along the same axis, straddling the bar, with arrows in both directions on one axis. The slit bar (94 px = 146 mm tall, agreeing with the sourced 144 mm) is seen edge-on, so it cuts a thin strip out of the beam; its width (the obscuration) is NOT FOUND. A Schmidt collimator is a spherical mirror with the focal surface on its axis, so this is the on-axis geometry. The remaining uncertainty is that the verdict still comes from a drawing, not a sentence."
+  },
+  {
+   "id": "dichroic",
+   "name": "dichroic beam splitter (split in the collimated beam)",
+   "value": "blue reflected, red transmitted; angle of incidence about 23 deg (MEASURED from Fig. 30(b), +-4 deg); the dichroic stands in the 200 mm collimated beam about 1230 mm from the collimator; cut ~5800 A (INFERRED) and width NOT FOUND",
+   "unit": "",
+   "tag": "SOURCED + MEASURED + INFERRED",
+   "src": "HU20, CU12",
+   "loc": "HU20 Sec. 1; CU12 Fig. 30(b), Sec. 3.2.2",
+   "derived": "Cui et al. do not give the cut wavelength, the transition width or the angle ('diachronic' is their spelling). INFERRED cut = 5800 A (middle of the stated 570-590 nm overlap). Fig. 30(b) MEASURED (to scale, 1.553 mm/px): the dichroic is a tilted slab centered 792 px = 1230 mm from the collimator (275 px = 427 mm past the slit); the slab's long axis stands 26 deg from the perpendicular to the beam (AOI 26 deg); the reflected blue rays leave 41 deg above the rightward horizontal, a turn of 139 deg, i.e. AOI 20.5 deg. The two readings disagree by 5 deg; adopted AOI = 23 +- 4 deg. The blue beam is turned clockwise (as drawn) by 139 deg back toward the collimator side and travels 355 px = 551 mm to the blue grating. Width: NOT FOUND (placeholder 500 A, not a LAMOST number).",
+   "note": null
+  },
+  {
+   "id": "vph_red",
+   "name": "red-channel VPH grating (low-resolution mode), transmission",
+   "value": "design 540 /mm; measured 548 /mm (units 2-16; unit 1: 547); AOI 8.63 deg, AOD 14.46 deg external; center wavelength 740 nm; first order; 220 x 220 x 20 mm",
+   "unit": "/mm",
+   "tag": "SOURCED (table) + measured",
+   "src": "XI11",
+   "loc": "Table 1 (p. 520, PDF p. 5); Sec. 4.1.1-4.1.2",
+   "derived": "DERIVED check of Table 1 with the grating equation sin(AOI) + sin(AOD) = G lambda: red 540 /mm, 740.46 nm: sin 8.63 + sin 14.46 = 0.1500 + 0.2497 = 0.3998 = 540 x 740.46e-6 = 0.3998 (exact). Camera-collimator angle AOI + AOD = 23.09 deg (red) and 22.17 deg (blue). In the explorer: gType 'trans', tAlpha = 8.63 (external AOI, as DESI), lamC = 7404.6 A (design center, as DESI uses the grating-equation center).",
+   "note": "The measured densities (548 red, 813 blue) are 1.5% above the design; the dispersion fits better with them (camera 252 vs 256 mm below). The preset uses the measured values. Table 1's red-grating blaze/Bragg numbers conflict with the text (see Conflicts)."
+  },
+  {
+   "id": "vph_blue",
+   "name": "blue-channel VPH grating (low-resolution mode), transmission",
+   "value": "design 800 /mm; measured 813 /mm (units 2-16; unit 1: 811); AOI 8.17 deg, AOD 14 deg external; center wavelength 480.38 nm (Cui Table 6; Xiong's '2.033' is a misprint); range 365-590 nm; first order; 220 x 220 x 20 mm; efficiency about 80%",
+   "unit": "/mm",
+   "tag": "SOURCED (table) + measured",
+   "src": "XI11",
+   "loc": "Table 1 (p. 520); Sec. 4.1.1-4.1.3",
+   "derived": "DERIVED check: sin 8.17 + sin 14.0 = 0.3840 = 800 x 480.0e-6 (480.38 nm in Cui Table 6: 0.3843, 0.1% apart). Xiong's Table 1 misprint '2.033' is resolved by Cui et al. Table 6 (480.38). With the measured 813 /mm and the same angles the grating-equation center would be 472 nm (red: 548 /mm gives 729 nm); the preset keeps the design centers (lamC 4804 and 7405 A) so that the chip covers the design bands.",
+   "note": null
+  },
+  {
+   "id": "vph_r5000",
+   "name": "R = 5000 gratings (one unit each, 2011 test set)",
+   "value": "1680 /mm (830-890 nm, AOI 43.9, AOD 49.1) and 2750 /mm (510-540 nm); measured 1703 and 2777 /mm",
+   "unit": "/mm",
+   "tag": "SOURCED",
+   "src": "XI11",
+   "loc": "Table 1 (p. 520); Sec. 4.2.1",
+   "derived": null,
+   "note": "Cui Table 5: medium-resolution mode, blue 510-540 nm and red 830-890 nm, R = 5000 (full slit), 7500 (2/3), 10 000 (1/2), 20 000 (1/4). These are the 2011 gratings (Table 6: 1680 and 2750 /mm, AOI 43.9, AOD 49.1, one set installed). The 2017 MRS gratings (coverage 4950-5350 and 6300-6800 A, DR12) are a different set; their line densities and angles are NOT FOUND."
+  },
+  {
+   "id": "camera",
+   "name": "camera type, focal length, focal ratio",
+   "value": "two articulating Schmidt cameras, f/1.3 (SOURCED, Cui et al. 2012): f_cam = 1.3 x 200 mm = 260 mm (DERIVED, 255-265 mm for f/1.25-1.35 rounding); adopted 250 mm (EFFECTIVE, from the published dispersions; within the f/1.3 rounding); a field lens at the dewar window",
+   "unit": "mm",
+   "tag": "SOURCED (type, f/1.3) + DERIVED + EFFECTIVE",
+   "src": "CU12",
+   "loc": "Sec. 3.2.2 (p. 1226)",
+   "derived": "UPGRADED: the camera ratio is now SOURCED (f/1.3). f_cam = 1.3 x 200 = 260 mm (the paper rounds to 2 figures: 250 mm gives f/1.25, which rounds to 1.3). The dispersions give f_cam = cos(beta) / (G x dlam/dx): red cos 14.46 / (548 /mm x 7.0e-6) = 252.4 mm (540 /mm: 256.2); blue cos 14.0 / (813 x 4.75e-6) = 251.3 mm (800: 255.3); the fiber pitch (15-16 px) gives 250-266 mm; the 7-9 px image width is consistent with 250 mm. The explorer with 260 mm would give dispersion 0.814 and 0.550 A/px (-3.1% and -3.5% against 0.84 and 0.57); with 250 mm +0.8% and +0.3%. Adopted 250 mm (EFFECTIVE, inside the published f/1.3 rounding); 260 mm is the nominal alternative.",
+   "note": "Explorer: cam 'mirror' (a catadioptric camera with an internal focus: the Schmidt corrector, a spherical mirror and the detector with its dewar inside the beam, as Hectospec)."
+  },
+  {
+   "id": "detector",
+   "name": "detector format and pixel",
+   "value": "4096 x 4136 active pixels (4096 along the slit, 2 x 2068 = 4136 along the dispersion), 12 um square, e2v (EEV) CCD203-82, 49.2 mm x 49.2 mm image area; two per spectrograph (blue and red), 32 in all; read through two outputs",
+   "unit": "um",
+   "tag": "SOURCED",
+   "src": "LCCD",
+   "loc": "CCD page",
+   "derived": "Orientation: SO17 says the dispersion runs along the vertical direction of the 4096 x 4136 image, so the explorer's Nx (dispersion) = 4136 and Ny = 4096. 4136 x 12 um = 49.6 mm. The early design (Zhu et al. 2000) had 2048 x 2048 pixels; the CCD page notes the chip 'may be operated efficiently as a 2048 x 2068 24 um-pixel imager' with 2 x 2 binning.",
+   "note": null
+  },
+  {
+   "id": "dispersion",
+   "name": "dispersion",
+   "value": "red 0.084 nm/px (0.84 A/px = 70 A/mm); blue 0.057 nm/px (0.57 A/px = 47.5 A/mm)",
+   "unit": "A/px",
+   "tag": "SOURCED",
+   "src": "LCCD",
+   "loc": "CCD page; HU20 Sec. 3",
+   "derived": "Model check (explorer physics.js, D 4.0, F 4, W 200, fcam 250, 548 /mm, AOI 8.63 deg, lamC 7404.6 A): 0.847 A/px (+0.8%); blue 813 /mm, AOI 8.17, lamC 4800 A: 0.572 A/px (+0.3%).",
+   "note": null
+  },
+  {
+   "id": "wavelength_coverage",
+   "name": "wavelength coverage",
+   "value": "blue channel 370-590 nm, red channel 570-900 nm; full 3700-9000 A in the data",
+   "unit": "nm",
+   "tag": "SOURCED",
+   "src": "ADS",
+   "loc": "Zhu et al. 2006 abstract",
+   "derived": "Model check: the chip edges from the preset state are 3608-5962 A (blue) and 5639-9124 A (red), against 3700-5900 and 5700-9000 as designed (the chips are slightly longer than the design bands) and Zhao et al.'s 3700-9100 A.",
+   "note": null
+  },
+  {
+   "id": "resolving_power",
+   "name": "resolving power (low-resolution survey mode)",
+   "value": "Cui et al. Table 4 (the designers' values): full slit 1000, 1/2 slit 2000, 2/3 slit 1500, 1/4 slit 4000, for both arms; the survey runs the 2/3 slit: R = 1500 (Cui et al. 2012) versus R = 1800 quoted by the data-release headers, Huang et al. and Zhao et al.",
+   "unit": "",
+   "tag": "SOURCED (nominal; not stated whether arc-line measured)",
+   "src": "ZH12",
+   "loc": "Sec. 2.5, Sec. 3 (p. 4-5)",
+   "derived": "Geometric check, no mask: slit image 320 um x 250/800 = 100 um; at 70 A/mm (red) 7.0 A = R 1058 at 7405 A; blue 100 um x 47.5 A/mm = 4.75 A = R 1010 at 4800 A (both ~1000). Explorer model, masked slit EFFECTIVE (S3 x 2/3 x 4.125 arcsec = 2.38 arcsec): R_eff = 1777 (red, 7405 A) and 1707 (blue, 4800 A), against 1800: -1.3% and -5.2%. Unmasked (S3 x 4.125 arcsec = 3.57 arcsec): 1185 and 1138.",
+   "note": null
+  },
+  {
+   "id": "throughput",
+   "name": "spectrograph throughput",
+   "value": "better than 30%",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "LSPEC",
+   "loc": "Spectrograph page",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "mrs_mode",
+   "name": "medium-resolution survey mode (MRS)",
+   "value": "R ~ 7500 (2/3 slit), since the 2017 upgrade; blue 4950-5350 A (R 7500 at 5163 A), red 6300-6800 A (R 7500 at 6593 A); survey began September 2018",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "D12M",
+   "loc": "Sec. 1; Hou et al. 2018 abstract",
+   "derived": null,
+   "note": "MRS is NOT well documented for the explorer: the grating line densities, angles, camera angles and focal lengths of the 2017 mode are NOT FOUND (Hou et al. 2018 is SPIE, not retrievable). Fig. 4 shows the MRS channels as the same collimator and dichroic with the cameras moved to other positions ('changing cameras to different positions', LSPEC). A preset would need those numbers; not recommended yet."
+  },
+  {
+   "id": "survey_counts",
+   "name": "survey spectrum counts",
+   "value": "LRS: 12,602,390 spectra in DR12 v1.0 (12,231,890 stellar, 281,059 galaxy, 89,441 quasar); MRS: 3,365,641 coadded and 12,110,344 single-exposure spectra; about 17 million spectra released by the end of 2021",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "D12L",
+   "loc": "DR12 v1.0 Sec. 1",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "cui2012_telescope_abstract",
+   "name": "(telescope context)",
+   "value": "Schmidt-corrector telescope: Mb 6.67 m x 6.05 m (37 segments), Ma 5.72 m x 4.40 m (24 segments)",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "LTEL",
+   "loc": "Telescope page",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "image_shift",
+   "name": "stability requirement",
+   "value": "image movement < 0.6 um/h (0.05 pixel/h); radial velocity 4 km/s over the 5 deg FOV in 2 h",
+   "unit": "",
+   "tag": "SOURCED",
+   "src": "CU12",
+   "loc": "Sec. 3.2.3 (p. 1228)",
+   "derived": null,
+   "note": null
+  },
+  {
+   "id": "layout_distances",
+   "name": "layout distances (Fig. 30(b)) and element order",
+   "value": "collimator -> slit 800 mm (on-axis, MEASURED = f_col); collimator -> dichroic 1230 mm; dichroic -> red grating 520 mm (red path from the collimator 1750 mm); dichroic -> blue grating 551 mm (blue path 1781 mm); grating -> Schmidt corrector 185 mm (both arms); camera axis bends 22-23 deg after the grating",
+   "unit": "mm",
+   "tag": "MEASURED",
+   "src": "CU12",
+   "loc": "Fig. 30(b) (p. 1226, PDF p. 31)",
+   "derived": "Method: the embedded image (1654 x 909 px) was extracted with pdfimages and read on a pixel grid. Scale from f = 800 mm (SOURCED) = slit-to-collimator 515 px, i.e. 1.553 mm/px; check: the returning beam is 130 px = 202 mm (SOURCED 200 mm) and the slit bar 94 px = 146 mm (SOURCED 144 mm), so the figure is to scale. Positions in px (x along the beam axis, mirror vertex at x = 1612): slit 1095, dichroic center 820, red VPHG ~485, a thin plate at x = 585 between the dichroic and the red grating (purpose NOT FOUND), red Schmidt corrector slab ~(370, 695), red camera mirror at the left edge. Distances: 1612-1095 = 517 px = 803 mm; 1612-820 = 792 px = 1230 mm; 820-485 = 335 px = 520 mm; total 1127 px = 1750 mm; blue: (820,724) to the blue VPHG (1100,505) = 355 px = 551 mm, total 1781 mm; grating to corrector 119 px = 185 mm. Uncertainty +-5% on the beam-axis distances (edge reading of the drawn slabs), +-15% on the camera distances. Camera axis bend: red 22 deg (grating to mirror center, 385 px by 155 px), blue 21 deg, against 23.09 and 22.17 deg from Cui Table 6 (AOI + AOD, DERIVED).",
+   "note": null
+  }
+ ],
+ "recommended_presets": [
+  {
+   "id": "lamostb",
+   "tel": "LAMOST",
+   "inst": "LAMOST LRS",
+   "setting": "blue, LR",
+   "name": "LAMOST / LRS blue channel, low resolution",
+   "state": {
+    "mode": "grating",
+    "D": 4.0,
+    "F": 4.0,
+    "telF": 5,
+    "fibAp": 3.3,
+    "g": {
+     "slitW_formula": "S3 * (2/3) * 0.320 / (4 * 4000) * 206264.806",
+     "slitW_arcsec": 2.38,
+     "nObj": 250,
+     "col": "mirror",
+     "colTilt": 0,
+     "colTilt_tag": "MEASURED (CU12 Fig. 30(b))",
+     "layLen": 1780,
+     "layLen_tag": "MEASURED (CU12 Fig. 30(b))",
+     "W": 200,
+     "cam": "mirror",
+     "camLen": 185,
+     "camLen_tag": "MEASURED (CU12 Fig. 30(b), +-15%)",
+     "fcam": 250,
+     "fcam_tag": "DERIVED",
+     "gType": "trans",
+     "G": 813,
+     "G_design": 800,
+     "m": 1,
+     "lamB1": 4804,
+     "lamC": 4804,
+     "tAlpha": 8.17,
+     "AOD_ext": 14.0,
+     "Nx": 4136,
+     "Ny": 4096,
+     "pix": 12,
+     "foldOn": true,
+     "foldLabel": "dichroic (reflected arm)",
+     "foldTurn_deg": 139,
+     "foldTurn_tag": "MEASURED, clockwise as drawn",
+     "foldPos": 0.69,
+     "AOI_dichroic_deg": 23
+    }
+   },
+   "pub": [
+    {
+     "what": "0.57 A/px (0.057 nm/px)",
+     "q": "dlpix",
+     "value": 0.57,
+     "tol": 0.03,
+     "src": "LCCD; HU20 Sec. 3"
+    },
+    {
+     "what": "R = 1800 at 4750 A (2/3 slit)",
+     "q": "RAt",
+     "lam": 4750,
+     "value": 1800,
+     "tol": 0.08,
+     "src": "D12L SLIT_MOD (EFFECTIVE slit; model 1707)"
+    },
+    {
+     "what": "design band 3700-5900 A",
+     "q": "span",
+     "value": 2200,
+     "info": true,
+     "src": "ADS Zhu 2006"
+    }
+   ]
+  },
+  {
+   "id": "lamostr",
+   "tel": "LAMOST",
+   "inst": "LAMOST LRS",
+   "setting": "red, LR",
+   "name": "LAMOST / LRS red channel, low resolution",
+   "state": {
+    "mode": "grating",
+    "D": 4.0,
+    "F": 4.0,
+    "telF": 5,
+    "fibAp": 3.3,
+    "g": {
+     "slitW_formula": "S3 * (2/3) * 0.320 / (4 * 4000) * 206264.806",
+     "slitW_arcsec": 2.38,
+     "nObj": 250,
+     "col": "mirror",
+     "colTilt": 0,
+     "colTilt_tag": "MEASURED (CU12 Fig. 30(b))",
+     "layLen": 1750,
+     "layLen_tag": "MEASURED (CU12 Fig. 30(b))",
+     "W": 200,
+     "cam": "mirror",
+     "camLen": 185,
+     "camLen_tag": "MEASURED (CU12 Fig. 30(b), +-15%)",
+     "fcam": 250,
+     "fcam_tag": "DERIVED",
+     "gType": "trans",
+     "G": 548,
+     "G_design": 540,
+     "m": 1,
+     "lamB1": 7405,
+     "lamC": 7405,
+     "tAlpha": 8.63,
+     "AOD_ext": 14.46,
+     "Nx": 4136,
+     "Ny": 4096,
+     "pix": 12,
+     "foldOn": false
+    }
+   },
+   "pub": [
+    {
+     "what": "0.84 A/px (0.084 nm/px)",
+     "q": "dlpix",
+     "value": 0.84,
+     "tol": 0.03,
+     "src": "LCCD; HU20 Sec. 3"
+    },
+    {
+     "what": "R = 1800 at 7350 A (2/3 slit)",
+     "q": "RAt",
+     "lam": 7350,
+     "value": 1800,
+     "tol": 0.08,
+     "src": "D12L SLIT_MOD (EFFECTIVE slit; model 1777)"
+    },
+    {
+     "what": "design band 5700-9000 A",
+     "q": "span",
+     "value": 3300,
+     "info": true,
+     "src": "ADS Zhu 2006"
+    }
+   ]
+  }
+ ],
+ "all_arms_tree": {
+  "group": "LAMOST LRS",
+  "split": "collimated",
+  "cut_A": 5800,
+  "cut_tag": "INFERRED (mid-overlap of 570-590 nm; no document gives it)",
+  "width_A": 500,
+  "width_tag": "placeholder, NOT FOUND",
+  "aoi_deg": 23,
+  "aoi_tag": "MEASURED (CU12 Fig. 30(b), +-4 deg)",
+  "R": "lamostb",
+  "T": "lamostr",
+  "src": "HU20 Sec. 1: the blue side reflected and the red side transmitted; CU12 Fig. 30(b)"
+ },
+ "collimator_verdict": {
+  "on_axis": true,
+  "tag": "MEASURED (CU12 Fig. 30(b), to scale) + SOURCED Schmidt collimator",
+  "evidence": "slit bar on the axis 800 mm in front of the mirror, returning 200 mm beam on the same axis; no sentence states it; obscuration width NOT FOUND"
+ },
+ "layout_scale": {
+  "image": "CU12 Fig. 30(b), 1654 x 909 px extracted with pdfimages",
+  "mm_per_px": 1.553,
+  "calibration": "slit-to-collimator 515 px = f_col 800 mm; checks: beam 130 px = 202 mm (200), slit bar 94 px = 146 mm (144)",
+  "distances_mm": {
+   "collimator_to_slit": 803,
+   "collimator_to_dichroic": 1230,
+   "dichroic_to_red_grating": 520,
+   "collimator_to_red_grating": 1750,
+   "dichroic_to_blue_grating": 551,
+   "collimator_to_blue_grating": 1781,
+   "grating_to_corrector": 185
+  },
+  "dichroic_AOI_deg": 23,
+  "dichroic_AOI_range": [
+   19,
+   27
+  ],
+  "blue_turn_deg": 139,
+  "camera_axis_bend_deg": {
+   "red": 22,
+   "blue": 21
+  }
+ },
+ "changes_vs_first_version": [
+  "collimator on-axis: INFERRED -> MEASURED (Fig. 30(b))",
+  "camera ratio: DERIVED 250 mm f/1.25 -> SOURCED f/1.3 (260 mm nominal), 250 mm kept EFFECTIVE",
+  "layout distances: NOT FOUND/SCHEMATIC -> MEASURED",
+  "dichroic AOI: placeholder 25 -> MEASURED 23 +-4; cut INFERRED and width NOT FOUND unchanged",
+  "telescope focal ratio: DERIVED -> SOURCED f/5; Table 2 apertures added",
+  "blue center 480.38 nm (Table 6); R 1500 (Table 4) added as conflict with 1800"
+ ],
+ "not_found": [
+  "dichroic cut and transition width",
+  "slit obscuration width; any sentence about the slit in the beam",
+  "purpose of the thin plates between dichroic and gratings",
+  "camera focal length as a number (260 nominal, 250 adopted)",
+  "691 mm slit radius not in CU12",
+  "MRS 2017 gratings (line density, angles)",
+  "measured R(lambda)",
+  "SPIE papers' full text (Zhu 2006, Hou 2010, 2018)"
+ ]
+}
