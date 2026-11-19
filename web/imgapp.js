@@ -604,46 +604,27 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     }
   }
   g.restore();
-  // the light pulses (anim.js): three rays across each bundle, its two edges and its middle (the paraxial trace is
-  // linear in the height, so the middle ray lies halfway between the edges), with distances in mm along the ray
-  // (the center of the field last: its pulses on top where the bundles overlap)
-  // PROTOTYPE (Telescopes view): wavefronts.  Seven rays across each side of each bundle, the heads joined by a
-  // line; each ray's count starts at a flat wavefront square to the incoming light (through the axis where the
-  // light enters, so both sides of a bundle share one wavefront), so an off-axis bundle enters tilted.  The trails
-  // stay on the edges and the middle.
-  const WAVEFRONTS = false;                                       // the prototype, off on the live site for now
-  const fronts = WAVEFRONTS && tg.cv === "cvTL", US = fronts ? [0, 1, 2, 3, 4, 5, 6].map(k => k / 6) : [0, 0.5, 1];
-  if (window.ANIM) {
-    const list = [];
+  // the wavefronts (anim.js), in the Telescopes view and in the Imager's layout (its Telescope and Instrument views):
+  // seven rays across each side of each bundle (the paraxial trace is linear in the height, so rays between the
+  // edges are rays too), the heads joined by a line, with no pulses along the rays.  The fronts are set square to
+  // the rays leg by leg (anim.js's malus), in mm before the drawing's stretch, the two sides of a bundle as one
+  // bundle: the starlight enters as a flat front through the axis where the light enters (an off-axis star's front
+  // enters tilted), the Instrument view's light as a front closing on the telescope's focus; each ray waits at the
+  // thin elements (the secondary, the lenses) as long as the next leg's front needs.  (The center of the field last:
+  // its fronts on top where the bundles overlap.)
+  if (window.ANIM && window.ANIM.malus) {
+    const US = [0, 1, 2, 3, 4, 5, 6].map(k => k / 6), list = [], byF = new Map();
     polys.filter(p => p.f !== 1).concat(polys.filter(p => p.f === 1)).forEach((p, gi) => {
       const lines = p.a.length === p.b.length ? US.map(u => p.a.map((q, i) => [q[0] + u * (p.b[i][0] - q[0]), q[1] + u * (p.b[i][1] - q[1])])) : [p.a, p.b];
-      const d0 = lines[0][1].map((v, k) => v - lines[0][0][k]), dl = Math.hypot(...d0), dir = d0.map(v => v / (dl || 1));
-      lines.forEach((ps, j) => {
-        const u = lines.length === US.length ? US[j] : j;
-        const s0 = fronts ? (ps[0][0] - p.a[0][0]) * dir[0] + ps[0][1] * dir[1] : undefined;
-        list.push({ p: ps.map(q => T(...q)), s: window.ANIM.lengths(ps), s0, c: FCOL[p.f], g: fronts ? gi : undefined, trail: !fronts || u === 0 || u === 0.5 || u === 1 });
-      });
+      if (!byF.has(p.f)) byF.set(p.f, []);
+      for (const ps of lines) byF.get(p.f).push({ ps, gi });
     });
-    // (the counts made positive: the earliest start at zero)
-    if (fronts) { const m = Math.min(...list.map(r => r.s0)); for (const r of list) r.s0 -= m; }
-    // equal arrival: the trace treats the secondary (and the later optics) as thin elements at their vertices, so the
-    // drawn paths miss the length the curved surface adds and differ by a few cm.  Each ray of a field waits at the
-    // secondary (the objective, in a refractor) for the length its path is short of the longest, so the bundle
-    // reaches the focus together, as the light reflected by the real surface does.  The primary needs no wait: its
-    // reflection is drawn on the paraboloid, which makes the paths to its focus equal.
-    if (fronts) {
-      const jw = P.tel === "refr" ? 1 : 2, tot = r => r.s0 + r.s[r.s.length - 1] - r.s[0];
-      for (const f of [0, 1, 2]) {
-        const rs = list.filter((r, i) => FCOL[f] === r.c && r.p.length > jw + 1);
-        const M = Math.max(...rs.map(tot));
-        for (const r of rs) {
-          const dW = M - tot(r);
-          r.p = r.p.slice(0, jw + 1).concat([r.p[jw]], r.p.slice(jw + 1));
-          r.s = r.s.slice(0, jw + 1).concat([r.s[jw] + dW], r.s.slice(jw + 1).map(x => x + dW));
-        }
-      }
+    for (const [f, rs] of byF) {
+      const { out } = window.ANIM.malus(rs.map(r => r.ps), null, [rs[0].ps[0][0], 0]);
+      out.forEach((o, k) => list.push({ p: o.p.map(q => T(...q)), s: o.s, s0: o.s[0], c: FCOL[f], g: rs[k].gi, b: "f" + f, trail: false }));
     }
-    window.ANIM.set(cv, list);
+    // (the Telescopes view: single fronts, not a train)
+    window.ANIM.set(cv, window.ANIM.fromZero(list), { single: tg.cv === "cvTL" });
   }
   // ---- elements
   const annot = P.annot !== false;

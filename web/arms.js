@@ -163,7 +163,7 @@ root.ARMSAPP = function (H) {
   // (the light pulses: where the line p + s d meets the line through a along t; d reflected in a plane of normal n)
   const hitLine = (p, d, a, t) => { const c = d[0] * t[1] - d[1] * t[0], q = sub(a, p); return Math.abs(c) < 1e-12 ? p : ad(p, sc(d, (q[0] * t[1] - q[1] * t[0]) / c)); };
   const refl = (d, n) => sub(d, sc(n, 2 * dot(d, n)));
-  const YR = [-0.35, 0, 0.35];                    // the pulses' rays across the beam, in beam widths
+  const YR = [-0.45, -0.3, -0.15, 0, 0.15, 0.3, 0.45];   // the wavefronts' rays across the beam, in beam widths
   const RAY_W = "rgba(104,98,92,0.62)", RAY_T = "rgba(168,118,22,0.8)";   // white light; the telescope's light
   const GLASS = "rgba(150,196,232,0.35)", GLASS_E = "#3f6d96", STEEL = "#5f6872", DICH = "rgba(230,190,90,0.55)", DICH_E = "#9a7a2c";
   const WHITE_F = "rgba(104,98,92,0.07)", WHITE_S = "rgba(104,98,92,0.32)";
@@ -673,10 +673,41 @@ root.ARMSAPP = function (H) {
         g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.strokeStyle = "#3b3733"; g.lineWidth = 3; g.lineCap = "butt"; g.stroke();
       }
     }
-    // the light pulses (anim.js): the rays in canvas pixels, each vertex with its distance along the ray in mm
-    if (window.ANIM) {
-      const len = pts => pts.reduce((s, q, i) => (i ? [...s, s[i - 1] + Math.hypot(q[0] - pts[i - 1][0], q[1] - pts[i - 1][1])] : [0]), []);
-      window.ANIM.set(cv, Sc.rays.map(r => ({ p: r.pts.map(X), s: len(r.pts), c: r.c, t: r.t })));
+    // the wavefronts (anim.js): the traced pieces joined end to end into whole rays (a piece carries on from the
+    // latest earlier piece that ends where it starts: through each dichroic, both ways, and from the grating, each
+    // wavelength), then set square to the rays leg by leg (anim.js's malus, in world mm): for each arm the white light
+    // from the telescope (or the collimated beam's start) to its grating as one bundle, and from the grating each
+    // wavelength as a bundle of its own, carrying on from the white light where it meets the grating
+    if (window.ANIM && window.ANIM.malus) {
+      // (where several pieces end at one point, a focus such as an arm's own slit, each piece leaving it takes the one
+      // carried on least so far, so the bundle keeps its rays; at a dichroic both beams carry on from the one piece)
+      const R = Sc.rays, prev = R.map(() => -1), used = R.map(() => 0), near = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 1e-3;
+      R.forEach((r, i) => {
+        let best = -1;
+        for (let j = i - 1; j >= 0; j--) if (near(R[j].pts[R[j].pts.length - 1], r.pts[0]) && (best < 0 || used[j] < used[best])) best = j;
+        if (best >= 0) { prev[i] = best; used[best]++; }
+      });
+      const whole = i => { const out = []; for (let j = i; j >= 0; j = prev[j]) out.unshift(...(out.length ? R[j].pts.slice(0, -1) : R[j].pts)); return out; };
+      // each wavelength's pieces (its t) and the white pieces they start from; an arm: the white pieces that end on its grating
+      const byL = new Map();
+      R.forEach((r, i) => { if (r.t != null && prev[i] >= 0) { if (!byL.has(r.t)) byL.set(r.t, []); byL.get(r.t).push(i); } });
+      const armOf = new Map(), arms = [], list = [];
+      for (const idx of byL.values()) {
+        const key = idx.map(i => prev[i]).sort((a, b) => a - b).join(",");
+        if (!armOf.has(key)) { armOf.set(key, arms.length); arms.push(idx.map(i => prev[i])); }
+      }
+      const arr = new Map();
+      arms.forEach((ends, ai) => {
+        const M = window.ANIM.malus(ends.map(whole), null, [0, 0]);
+        M.out.forEach((o, k) => { arr.set(ends[k], M.arr[k]); list.push({ p: o.p.map(X), s: o.s, s0: o.s[0], c: RAY_W, g: "w" + ai, trail: false }); });
+      });
+      let li = 0;
+      for (const [t, idx] of byL) {
+        const M = window.ANIM.malus(idx.map(i => R[i].pts), idx.map(i => arr.get(prev[i]) || 0));
+        M.out.forEach((o, k) => list.push({ p: o.p.map(X), s: o.s, s0: o.s[0], c: R[idx[k]].c, t, g: "l" + li, trail: false }));
+        li++;
+      }
+      window.ANIM.set(cv, window.ANIM.fromZero(list));
     }
     // each arm's pieces on the canvas, for a click
     for (const b of Sc.bodies) if (b.tags.length === 1 && b.tags[0].startsWith("a:")) hitArms.push({ id: b.tags[0].slice(2), polys: b.pieces.map(pc => pc.map(X)) });

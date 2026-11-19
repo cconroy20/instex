@@ -1755,6 +1755,7 @@ function drawLayout(Dz, P) {
   const NEU = [104, 98, 92], GLASS_EDGE = "#3f6d96", STEEL = "#33373d";
   // (the solid colored paths are the rays: kept for the light pulses, anim.js)
   const pulseRays = [];
+  let frontRays = null, animOpts = null;                           // (the wavefronts, in the pulses' place; a GPU to draw them)
   const path = (pts0, col, lw = 1, dash) => {
     const pts = !preOn ? pts0 : pts0.flatMap((p, i) => { const m = i ? cutAt1(pts0[i - 1], p) : null; return m ? [m, p] : [p]; });
     if (hideRays && !dash && typeof col === "string") { pulseRays.push({ p: pts.map(T), c: col }); return; }
@@ -1817,28 +1818,38 @@ function drawLayout(Dz, P) {
     // ---- 3D view: everything projected and drawn back to front; faces shaded by their angle to a light from
     // the upper left, in front
     const S2 = p => { const q = proj3(p); return T([q[0], q[1]]); };
-    // the light pulses (anim.js): four rays around each beam (a ring's quarter points, so a flipped grating still
-    // meets them), with distances in mm along each ray in the world.  The telescope's light (its tubes marked tel)
-    // starts the count; each later beam carries on from the earlier beam whose end lies nearest its start (the slit,
-    // then the grating or the echelle), wherever that lies: a fold can put the grating behind the slit (Viaspec).
-    {
-      const rays3 = [];
-      for (const b of beams3) {
-        const n = Math.max(...b.st.map(s => s.length));
-        for (let k = 0; k < n; k += Math.max(1, Math.round(n / 4))) rays3.push({ w: b.st.map(s => s[s.length === 1 ? 0 : k % s.length]), rgb: b.rgb, tel: b.tel });
-      }
-      const dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
-      rays3.forEach((r, i) => {
-        r.s = window.ANIM ? window.ANIM.lengths(r.w) : [0];
-        r.s0 = 0;
-        if (r.tel) return;
-        let best = Infinity;
-        for (let j = 0; j < i; j++) {
-          const q = rays3[j], dd = dist(r.w[0], q.w[q.w.length - 1]);
-          if (dd < best) { best = dd; r.s0 = q.s0 + q.s[q.s.length - 1]; }
+    const frontRays3 = [];
+    // the wavefronts (anim.js), in place of the pulses: each beam a grid of rays across it, on NRW rings from its
+    // middle (the centers of its stations) to its rim (the beam's own ring of points, every few), with distances in
+    // mm in the world, set square to the rays leg by leg (anim.js's malus).  The telescope's light (its tubes marked
+    // tel) starts the count, its front meeting at the slit; each later beam carries on from the earlier beam whose
+    // end lies nearest its start (the slit, then the grating or the echelle), wherever that lies: a fold can put the
+    // grating behind the slit (Viaspec).  Each ray takes the distance of the earlier beam's ray that ends nearest it.
+    if (window.ANIM && window.ANIM.malus) {
+      const NRW = 5, MAXC = 24, dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]);
+      const mean = S => [0, 1, 2].map(j => S.reduce((a, p) => a + p[j], 0) / S.length);
+      const done = [];
+      beams3.forEach((b, bi) => {
+        const n = Math.max(...b.st.map(S => S.length)), step = Math.max(1, Math.ceil(n / MAXC)), cen = b.st.map(mean), cols = [];
+        for (let k = 0; k < n; k += step) cols.push(k);
+        const grid = [];
+        for (let a = 0; a < NRW; a++) cols.forEach((k, ci) => {
+          const rho = a / (NRW - 1);
+          grid.push({ row: a, col: ci, w: b.st.map((S, i) => { const P = S[S.length === 1 ? 0 : k % S.length], c = cen[i]; return c.map((v, j) => v + rho * (P[j] - v)); }) });
+        });
+        let a0 = null;
+        if (!b.tel && done.length) {
+          const st0 = cen[0];
+          let prev = done[0], best = Infinity;
+          for (const q of done) { const dd = dist(st0, q.end); if (dd < best) { best = dd; prev = q; } }
+          a0 = grid.map(r => { let m = Infinity, v = 0; prev.out.forEach((o, k) => { const dd = dist(r.w[0], prev.grid[k].w[prev.grid[k].w.length - 1]); if (dd < m) { m = dd; v = prev.arr[k]; } }); return v; });
         }
+        const M = window.ANIM.malus(grid.map(r => r.w), a0);
+        done.push({ grid, out: M.out, arr: M.arr, end: cen[cen.length - 1] });
+        M.out.forEach((o, k) => frontRays3.push({ p: o.p.map(S2), w: o.p, s: o.s, s0: o.s[0], c: b.rgb, g: "b" + bi, row: grid[k].row, col: grid[k].col, wrap: true, trail: false }));
       });
-      for (const r of rays3) pulseRays.push({ p: r.w.map(S2), s: r.s, s0: r.s0, c: r.rgb });
+      window.ANIM.fromZero(frontRays3);
+      frontRays = frontRays3;
     }
     const LT = [-0.42, 0.55, 0.72], shade = vs => {
       const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];
@@ -1853,6 +1864,8 @@ function drawLayout(Dz, P) {
       for (const p of pts3) for (let i = 0; i < 3; i++) { lo[i] = Math.min(lo[i], p[i]); hi[i] = Math.max(hi[i], p[i]); }
       gl = window.TEL3DGL.renderScene($("cvL"), [Dz, P, c3mode], () => prims3, { R: R3.m, cen: lo.map((v, i) => (v + hi[i]) / 2), s, ox, oy, w, h });
     }
+    // (with WebGL the fronts are drawn on the GPU, hidden behind the solid parts: tel3dgl.js)
+    if (gl && window.TEL3DGL.frontsHook) animOpts = { gl: window.TEL3DGL.frontsHook($("cvL")) };
     const items = [];
     const put = pr => { const vs = pr.p.map(proj3); items.push({ pr, vs, d: vs.reduce((s, q) => s + q[2], 0) / vs.length }); };
     for (const pr of prims3) {
@@ -1921,6 +1934,22 @@ function drawLayout(Dz, P) {
     for (const f of fields) for (const y of [-W / 2, W / 2, 0]) {
       const Y = f.m * fcam;
       path([v2(0, f.h), v2(fcol, f.yL + y), v2(xG, y), v2(xC, y + f.m * d2), v2(xD, Y)], rgba(frampRGB(f.t), y ? 0.6 : 0.95), y ? 0.9 : 1.5);
+    }
+    // the wavefronts (anim.js), in place of the pulses: for each point of the slit, nine rays across the pupil from the
+    // telescope (the line from the collimator through the point, carried back to the telescope's end of the drawing)
+    // to the detector, set square to the rays leg by leg (anim.js's malus, in mm), one front per point
+    if (window.ANIM && window.ANIM.malus) {
+      frontRays = [];
+      const NFR = 9;
+      fields.forEach((f, fi) => {
+        const S0 = v2(0, f.h), Y = f.m * fcam, rs = [];
+        for (let k = 0; k < NFR; k++) {
+          const y = (k / (NFR - 1) - 0.5) * W, P1 = v2(fcol, f.yL + y), start = addv(S0, sc(addv(S0, sc(P1, -1)), Lt / fcol));
+          rs.push([start, S0, P1, v2(xG, y), v2(xC, y + f.m * d2), v2(xD, Y)]);
+        }
+        for (const o of window.ANIM.malus(rs, null).out) frontRays.push({ p: o.p.map(T), s: o.s, s0: o.s[0], c: frampRGB(f.t), g: "f" + fi, trail: false });
+      });
+      window.ANIM.fromZero(frontRays);
     }
     // the slit seen along its length, each point marked
     {
@@ -2024,6 +2053,51 @@ function drawLayout(Dz, P) {
     }
     for (const r of rays) for (const y of [-W / 2, W / 2]) { const F0 = gPt0(y); path([F0, hit(F0, r.b), r.Q], rgba(rampRGB(r.t), 0.6), 0.9); }
     for (const r of rays) path([Gc, hit(Gc, r.b), r.Q], rgba(rampRGB(r.t), 0.95), 1.5);
+  }
+  // ---- the wavefronts (anim.js), in place of the pulses: NFR rays across the beam, from the telescope through the
+  // slit and the collimator to the grating (one front of white light), then one front per wavelength from the
+  // grating through the camera to its focus.  The drawing treats the lenses and the grating as thin, so the drawn
+  // paths are not equal in optical length; instead, in each leg of a bundle the front is set square to the rays
+  // (Malus): a line where they run parallel, a circle about the point where they meet (or spread from) otherwise.
+  // Each ray waits at the element that starts the leg for as long as that takes, so the glass delays the middle of
+  // a converging bundle and the grating delays one side of the beam more than the other (its m wavelengths per
+  // groove), which tilts each wavelength's front by its own angle.
+  if (window.ANIM && window.ANIM.malus) {
+    const NFR = 9, ys = Array.from({ length: NFR }, (_, k) => (k / (NFR - 1) - 0.5) * W), yg = y => (P.gFlip ? -y : y);
+    // points in the drawing -> the screen, with the folds that apply (f: past the grating) and the pre-collimator
+    // fold's crossing point added, as path() draws them
+    const Ts = (pts, f) => {
+      const o = fold; fold = f;
+      const q = (!preOn ? pts : pts.flatMap((p, i) => { const m = i ? cutAt1(pts[i - 1], p) : null; return m ? [m, p] : [p]; })).map(T);
+      fold = o;
+      return q;
+    };
+    // (the fronts set square to the rays leg by leg, anim.js's malus; on the screen, which keeps the drawing's
+    // angles: one scale, turns and mirror images)
+    const fronts = (rs, a0) => window.ANIM.malus(rs, a0);
+    // the white light: from the telescope (the line from the collimator through the slit, carried back to the
+    // telescope's end of the drawing) to the grating, or through the prisms to the last face
+    const white = ys.map(y => {
+      const c = onCol(y), start = sc(c, -Lt / c[0]);
+      const pre = [start, v2(0, 0), c].concat(foldOn ? [Mf(addv(Cf, sc(tf2, y / Math.sin(phi / 2))))] : [], [Mpost(gPt(y))]);
+      const q = Ts(pre, false);
+      return PR ? q.concat(Ts(PR.chain(yg(y)), true).slice(1)) : q;
+    });
+    const W0 = fronts(white, null);
+    frontRays = W0.out.map(o => ({ p: o.p, s: o.s, s0: o.s[0], c: NEU, g: "white", trail: false }));
+    // each wavelength from the grating (or the last face of the prisms) to its focus, or to the dewar that blocks it
+    // (three of the drawn wavelengths, the ends and the middle: the trains of all seven cross-hatch the beam between
+    // the grating and the camera, where the wavelengths still overlap)
+    rays.forEach((r, i) => {
+      if (rays.length > 3 && i !== 0 && i !== rays.length - 1 && i !== Math.floor((rays.length - 1) / 2)) return;
+      const rs = ys.map(y => {
+        const F0 = gPt0(yg(y));
+        if (MIR) { const B = MIR.block(F0, r.b); return Ts(B ? [F0, B] : [F0, MIR.mhit(F0, r.b), r.Q], true); }
+        return Ts([F0, hit(F0, r.b), r.Q], true);
+      });
+      for (const o of fronts(rs, W0.arr).out) frontRays.push({ p: o.p, s: o.s, s0: o.s[0], c: rampRGB(r.t), g: "l" + i, trail: false });
+    });
+    window.ANIM.fromZero(frontRays);
   }
   fold = false;
   // slit: two jaws
@@ -2232,7 +2306,7 @@ function drawLayout(Dz, P) {
   fold = false;
   const capEl = $("lSub");
   capEl.hidden = P.annot === false || !capEl.textContent;
-  if (window.ANIM) window.ANIM.set($("cvL"), pulseRays);
+  if (window.ANIM) window.ANIM.set($("cvL"), frontRays || pulseRays, animOpts);   // (the Spectral and 3D views: wavefronts)
   if (P.annot === false) return;                                 // Labels off (Layout option): optics and rays only
   // the scale bar and the caption sit at the lower left of the panel
   const sbY = h - 12;                                             // the panel's foot, whatever the drawing does

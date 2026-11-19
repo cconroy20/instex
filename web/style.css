@@ -74,6 +74,14 @@ canvas.pulses{position:absolute;pointer-events:none;z-index:2}
 .lvx.lvp.solo{bottom:12px}
 .lvx.lvr{bottom:80px}
 .lvx.lvr.solo{bottom:46px}
+/* the time slider (anim.js), in the bottom row of the panel's buttons while the light is shown (clear of the labels
+   of a focus low in the drawing) */
+.lvx.lvt{bottom:12px;right:52px;height:29px;box-sizing:border-box;padding:0 9px;display:flex;align-items:center;
+  border:1px solid var(--line);border-radius:5px}
+.lvx.lvt[hidden]{display:none}
+/* (beside the play button instead where a caption runs along the bottom of the drawing: the Imager) */
+.lcap:not([hidden]):not(:empty) ~ .lvx.lvt{bottom:46px}
+.lvt input[type=range]{width:130px}
 /* the layout expanded to fill the window */
 body.lv-expanded{overflow:hidden}
 body.lv-expanded::before{content:"";position:fixed;inset:0;background:rgba(40,36,30,.5);z-index:49}

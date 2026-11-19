@@ -8,7 +8,9 @@
      a fixed width in pixels, and rings of rays and round edges are drawn as smooth curves.
    Each frame is drawn off the page and copied onto the layout's own 2D canvas, with the view's rotation, scale and
    offsets, so the labels placed there afterward (keeping clear of the optics) and the light pulses (anim.js's
-   overlay) land where the GPU draws.
+   overlay) land where the GPU draws.  The Telescopes view's wavefronts are drawn on the GPU too, each moment's
+   fronts hidden where a mirror or another solid part stands in front of them (frontsFrame), and laid on anim.js's
+   overlay.
    The default where WebGL is available; the 2D painters otherwise (or with ?gl=0 in the address). */
 (function () {
 "use strict";
@@ -112,12 +114,12 @@ function buildScene(prims, cen) {
     // the reflecting face polished; the back (the glass and its cell, seen from behind) matte slate
     const mat = new THREE.MeshStandardMaterial({ vertexColors: true, metalness: 1, roughness: 0.14, envMap: G.env, envMapIntensity: 1.05, side: THREE.FrontSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
     const back = new THREE.MeshLambertMaterial({ color: new THREE.Color(0.42, 0.45, 0.5), side: THREE.BackSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
-    root.add(new THREE.Mesh(geo, mat), new THREE.Mesh(geo, back));
+    root.add(solid(new THREE.Mesh(geo, mat)), solid(new THREE.Mesh(geo, back)));
   }
-  if (tri.rim) root.add(new THREE.Mesh(triGeometry(tri.rim, true), new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 })));
+  if (tri.rim) root.add(solid(new THREE.Mesh(triGeometry(tri.rim, true), new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 }))));
   for (const [a, ts] of Object.entries(tri.matte)) {
     const mat = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, flatShading: true, transparent: +a < 0.999, opacity: +a, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
-    root.add(new THREE.Mesh(triGeometry(ts, false), mat));
+    root.add(solid(new THREE.Mesh(triGeometry(ts, false), mat)));
   }
   for (const [a, ts] of Object.entries(tri.glass)) {
     const mat = new THREE.MeshLambertMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, opacity: +a, depthWrite: false });
@@ -149,6 +151,48 @@ function buildScene(prims, cen) {
   return { root, tubes };
 }
 const hideRays = () => !!(window.ANIM && !window.ANIM.rays);
+// the solid parts (mirrors, their backs and rims, vanes, baffles, units) also on layer 1: the parts that hide the
+// wavefronts behind them (the glass and the light are see-through and do not)
+const SOLID = 1;
+const solid = m => { m.layers.enable(SOLID); return m; };
+
+// ---- the wavefronts (anim.js), on the GPU: each moment's fronts as surfaces, given as cells (four corners each, in
+// the world, mm) in the colors of their stars, the center of the field last.  First the solid parts write their depth
+// only; then the fronts are drawn at opacity alpha where nothing solid stands in front of them, without hiding one
+// another (a train's fronts build up where they overlap).  Returns the GPU's canvas, the fronts alone on a clear
+// background, for anim.js to lay over the drawing (in the camera of the view drawn last).
+function frontsFrame(S, fronts, alpha = 1) {
+  G = S;
+  const THREE = G.THREE, r = G.renderer, cam = G.camera;
+  if (!G.fscene) {
+    G.fscene = new THREE.Scene();
+    G.fgeo = new THREE.BufferGeometry();
+    G.fmat = new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, depthWrite: false, transparent: true, opacity: 1 });
+    const m = new THREE.Mesh(G.fgeo, G.fmat);
+    m.frustumCulled = false; G.fscene.add(m);
+    G.depthMat = new THREE.MeshBasicMaterial({ colorWrite: false, side: THREE.DoubleSide });
+    G.fcap = 0;
+  }
+  let n = 0;
+  for (const f of fronts) n += f.quads.length / 4 * 6;
+  if (n > G.fcap) {
+    G.fcap = Math.max(n, 2 * G.fcap, 4096); G.fpos = new Float32Array(3 * G.fcap); G.fcol = new Float32Array(3 * G.fcap);
+    G.fgeo.setAttribute("position", new THREE.BufferAttribute(G.fpos, 3).setUsage(THREE.DynamicDrawUsage));
+    G.fgeo.setAttribute("color", new THREE.BufferAttribute(G.fcol, 3).setUsage(THREE.DynamicDrawUsage));
+  }
+  let j = 0;
+  for (const f of fronts) {
+    const c = [f.c[0] / 255, f.c[1] / 255, f.c[2] / 255];
+    for (let m = 0; m < f.quads.length; m += 4) for (const k of [0, 1, 2, 0, 2, 3]) { G.fpos.set(TW(f.quads[m + k]), 3 * j); G.fcol.set(c, 3 * j); j++; }
+  }
+  G.fgeo.attributes.position.needsUpdate = true; G.fgeo.attributes.color.needsUpdate = true; G.fgeo.setDrawRange(0, j);
+  G.fmat.opacity = alpha;
+  cam.layers.set(SOLID); G.scene.overrideMaterial = G.depthMat;
+  r.render(G.scene, cam);
+  G.scene.overrideMaterial = null; cam.layers.set(0);
+  r.autoClear = false; r.render(G.fscene, cam); r.autoClear = true;
+  return G.glcv;
+}
 
 // a closed ring of points (a bundle's 28 rays around, a mirror's edge) resampled as a smooth curve through them
 // (uniform Catmull-Rom, m points per span), so outer edges read as curves and not as polygons; rings of a few
@@ -344,7 +388,7 @@ function draw(cv, Dz, P, Gm, pu, V, H, opts) {
       const hh = opts.twin / 2, sh = (q, d, m) => [(m ? -q[0] : q[0]) + d, q[1], q[2]], mL = !!opts.twinDX, mR = !opts.twinDX;
       const dup = (d, m) => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(s => s.map(q => sh(q, d, m))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d, m)) })));
       prims = dup(-hh, mL).concat(dup(hh, mR));
-      pulses = [[-hh, mL], [hh, mR]].flatMap(([d, m]) => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d, m)), rgb: pl.rgb })));
+      pulses = [[-hh, mL], [hh, mR]].flatMap(([d, m]) => pulses.map(pl => Object.assign({}, pl, { p: pl.p.map(q => sh(q, d, m)), g: d + ":" + pl.g })));
       labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, hh, mR) }));
     }
     const pts = [];
@@ -382,8 +426,10 @@ function draw(cv, Dz, P, Gm, pu, V, H, opts) {
   const S2 = q => [V.ox + V.s * q[0], V.oy - V.s * q[1]];
   renderFrame(R, cen, size, V.s, V.ox, V.oy, w, h);
   g.drawImage(G.glcv, 0, 0, w, h);
-  // the pulses (anim.js) and, on the 2D canvas, the focus dots and the labels
-  if (ANIM) ANIM.set(cv, G.pulses.map(pl => ({ p: pl.p.map(q => S2(proj(q))), s: ANIM.lengths(pl.p), c: pl.rgb })));
+  // the wavefronts (anim.js: the rays on the screen and in the world, the fronts drawn here on the GPU) and, on the
+  // 2D canvas, the focus dots and the labels
+  const St = G;
+  if (ANIM) ANIM.set(cv, G.pulses.map(pl => ({ p: pl.p.map(q => S2(proj(q))), w: pl.p, s: pl.s || ANIM.lengths(pl.p), s0: pl.s0, c: pl.rgb, g: pl.g, row: pl.row, col: pl.col, wrap: pl.wrap, trail: pl.trail })), { single: true, gl: (fr, alpha) => frontsFrame(St, fr, alpha) });
   for (const pr of G.dots) {
     const q = S2(proj(pr.p[0]));
     g.beginPath(); g.arc(q[0], q[1], 3.6, 0, 2 * Math.PI); g.fillStyle = `rgb(${pr.col.map(v => v | 0).join(",")})`; g.fill();
@@ -416,6 +462,8 @@ function stats(cv) {
   return out;
 }
 
-const API = { draw, renderScene, hide, ok, stats };
+// the wavefronts of the scene under cv drawn on its GPU (for anim.js; the Spectrograph's 3D view)
+function frontsHook(cv) { return (fr, alpha) => { const S = STATES.get(cv); return S ? frontsFrame(S, fr, alpha) : null; }; }
+const API = { draw, renderScene, hide, ok, stats, frontsHook };
 if (typeof window !== "undefined") window.TEL3DGL = API;
 })();

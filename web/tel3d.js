@@ -225,12 +225,15 @@ function build(Dz, P, G, pu, opts = {}) {
     if (e.k === "pfu") xTop = Math.min(xTop, e.x - 0.06 * Dz.zF);
   }
   xTop -= 0.15 * Dmm;
-  const sheet = (pts, t, rgb, al, rays = true, pulsed = true) => {
-    const paths = pts.map(([px, py]) => {
-      const q = G.pathOf3(Dz.trace(px, t), Dz.trace(-py, 0), t), A = q[0], B = q[1], u = (xTop - A[0]) / ((B[0] - A[0]) || 1);
-      if (u > 0 && u < 1) q[0] = A.map((v, k) => v + u * (B[k] - v));
-      return q;
-    });
+  // a ray from the pupil point (px in the page's plane, py out of it, mm) of the star at slope t, from the top of the
+  // drawing to the focus
+  const path3 = (px, py, t) => {
+    const q = G.pathOf3(Dz.trace(px, t), Dz.trace(-py, 0), t), A = q[0], B = q[1], u = (xTop - A[0]) / ((B[0] - A[0]) || 1);
+    if (u > 0 && u < 1) q[0] = A.map((v, k) => v + u * (B[k] - v));
+    return q;
+  };
+  const sheet = (pts, t, rgb, al, rays = true) => {
+    const paths = pts.map(([px, py]) => path3(px, py, t));
     // (a Schmidt's light runs from the corrector to the mirror as a long column, drawn as rays too)
     const n = Math.min(...paths.map(q => q.length)), s0 = P.tel === "schmidt" ? 2 : 1;
     const st = [];
@@ -239,8 +242,6 @@ function build(Dz, P, G, pu, opts = {}) {
     // the incoming starlight: a few rays, not a sheet (a column of light reads as a tube)
     if (rays) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 8)))
       for (let j = 0; j < s0; j++) prims.push({ k: "l", p: [W(paths[k][j]), W(paths[k][j + 1])], col: rgba(rgb, 0.6), lw: 0.9, ray: true });
-    // the light pulses (anim.js): seven rays around the bundle's edge, from the sky to the focus
-    if (pulsed) for (let k = 0; k < paths.length; k += Math.max(1, Math.round(paths.length / 7))) pulses.push({ p: paths[k].map(W), rgb });
   };
   const cx = stop ? stop.x : off, cy = stop ? stop.y : 0, rOut = stop ? stop.r : Dmm / 2, rIn = eps > 0.002 ? eps * (stop ? stop.r : Dmm / 2) : 0;
   // the on-axis star's light as a warm sheet; the top and bottom of the field as their edges only (overlapping
@@ -248,9 +249,33 @@ function build(Dz, P, G, pu, opts = {}) {
   G.ts.forEach((t, f) => {
     if (f !== 1) { sheet(ring(rOut, cx, cy), t, PAL.light[f], 0, false); return; }
     sheet(ring(rOut, cx, cy), t, PAL.light[f], 0.15);
-    if (rIn > 0 && !off) sheet(ring(rIn, cx, cy), t, PAL.light[f], 0.1, false, false);
+    if (rIn > 0 && !off) sheet(ring(rIn, cx, cy), t, PAL.light[f], 0.1, false);
   });
-  // (the center of the field last: its pulses on top where the bundles overlap)
+  // ---- the wavefronts (anim.js), one at a time, a faint surface across the bundle: a grid of rays on NRING rings from
+  // the central obstruction (or the axis) to the pupil's edge, NS rays around each, their heads the corners of the
+  // surface's cells.  The rays carry no pulses of their own.
+  const fronts = [], NRING = 5, r0 = rIn > 0 && !off ? rIn : 0;   // (q: each ray's path in the drawing's frame)
+  // (the on-axis star's light only, as the beams are drawn: the fronts of the three stars, translucent, would overlap
+  // and mix their colors)
+  G.ts.forEach((t, f) => {
+    if (f !== 1) return;
+    for (let a = 0; a < NRING; a++)
+      ring(r0 + (rOut - r0) * a / (NRING - 1), cx, cy).forEach(([px, py], b) => fronts.push({ q: path3(px, py, t), f, row: a, col: b }));
+  });
+  // the fronts set square to the rays leg by leg (anim.js's malus), each star's grid as one bundle: the starlight
+  // enters as a flat front through the axis at the top of the drawing (an off-axis star's front enters tilted), and
+  // each ray waits at the elements the trace treats as thin (the secondary and the later mirrors, a refractor's
+  // objective) as long as the next leg's front needs; the counts made positive, the earliest start at zero
+  const AN = typeof window !== "undefined" && window.ANIM && window.ANIM.malus ? window.ANIM : null;
+  if (AN) {
+    const outF = [];
+    for (const f of [...new Set(fronts.map(r => r.f))]) {
+      const rs = fronts.filter(r => r.f === f), { out } = AN.malus(rs.map(r => r.q), null, [xTop, 0, 0]);
+      out.forEach((o, k) => outF.push({ p: o.p.map(W), s: o.s, s0: o.s[0], rgb: PAL.light[f], g: f, row: rs[k].row, col: rs[k].col, wrap: true, trail: false }));
+    }
+    pulses.push(...AN.fromZero(outF));
+  }
+  // (the center of the field last: its fronts on top where the bundles overlap)
   pulses.sort((a, b) => (a.rgb === PAL.light[1]) - (b.rgb === PAL.light[1]));
   return { prims, labs, pulses };
 }
@@ -278,7 +303,7 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
     const h = opts.twin / 2, sh = (q, d, m) => [(m ? -q[0] : q[0]) + d, q[1], q[2]], mL = !!opts.twinDX, mR = !opts.twinDX;
     const dup = (d, m) => prims.map(pr => (pr.k === "t" ? Object.assign({}, pr, { st: pr.st.map(st => st.map(q => sh(q, d, m))) }) : Object.assign({}, pr, { p: pr.p.map(q => sh(q, d, m)) })));
     prims = dup(-h, mL).concat(dup(h, mR));
-    pulses = [[-h, mL], [h, mR]].flatMap(([d, m]) => pulses.map(pl => ({ p: pl.p.map(q => sh(q, d, m)), rgb: pl.rgb })));
+    pulses = [[-h, mL], [h, mR]].flatMap(([d, m]) => pulses.map(pl => Object.assign({}, pl, { p: pl.p.map(q => sh(q, d, m)), g: d + ":" + pl.g })));
     labs = labs.map(L => Object.assign({}, L, { p: sh(L.p, h, mR) }));
   }
   const R = rotAzEl(V.az, V.el);
@@ -298,9 +323,9 @@ function draw(cv, Dz, P, G, pu, V, H, opts) {
     V.fit = false;
   }
   const S2 = q => [V.ox + V.s * q[0], V.oy - V.s * q[1]];
-  // the light pulses: projected rays, with distances in mm along each ray in the world (so a pulse slows on the
-  // screen where its ray runs toward the viewer)
-  if (ANIM) ANIM.set(cv, pulses.map(pl => ({ p: pl.p.map(q => S2(proj(q))), s: ANIM.lengths(pl.p), c: pl.rgb })));
+  // the wavefronts: projected rays, with distances in mm along each ray in the world (so a front slows on the
+  // screen where its rays run toward the viewer)
+  if (ANIM) ANIM.set(cv, pulses.map(pl => ({ p: pl.p.map(q => S2(proj(q))), s: pl.s || ANIM.lengths(pl.p), s0: pl.s0, c: pl.rgb, g: pl.g, row: pl.row, col: pl.col, wrap: pl.wrap, trail: pl.trail })), { single: true });
   const LT = n3([-0.42, 0.55, 0.72]), HV = n3(a3(LT, [0, 0, 1]));
   const light = vs => {
     const u = [vs[1][0] - vs[0][0], vs[1][1] - vs[0][1], vs[1][2] - vs[0][2]], v = [vs[2][0] - vs[0][0], vs[2][1] - vs[0][1], vs[2][2] - vs[0][2]];
