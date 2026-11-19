@@ -211,7 +211,7 @@ window.IX_TELESCOPES = [
   // 8 3/8 in). B17's tape agrees: crown surface to the middle of the air space 18966 - 18793 = 173 mm = 63.5 + 218 / 2.
   // The curvatures are not published: each lens's sag is split equally between its two faces.
   { id: "yerkes", group: "Yerkes 1.0 m", name: "Yerkes 40-inch", D: 1.016, F1: 19.049, eps: 0, refractor: true,
-    objective: { front: 0.388, lenses: [{ name: "crown", tc: 0.0635, te: 0.01905 }, { name: "flint", gap: 0.218, tc: 0.0381, te: 0.0508 }],
+    objective: { label: "objective (doublet)", sub: "crown and flint", front: 0.388, lenses: [{ name: "crown", tc: 0.0635, te: 0.01905 }, { name: "flint", gap: 0.218, tc: 0.0381, te: 0.0508 }],
       tape: { gapMid: 18.793, src: "Barnard 1917, p. 24: \"The distance from the center of the space between the two lenses ... to the focal plane was 739.9 inches (18793 mm.)\"" } },
     primaryNote: "A two-element objective by Alvan Clark (crown in front, the glass discs by Mantois), 40 inches (1.016 m) clear; focal length 19.354 m at 50 °F (f/19.05), shorter by 17.5 mm for 45 °C of cooling. First used 21 May 1897; the largest refractor of its time.",
     pupil: { kind: "circle", D: 1.016 },

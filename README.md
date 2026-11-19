@@ -659,6 +659,15 @@ not on the page. The band's wavelength enters only the diffraction width.
   gray, teal) each send an annular bundle (the central obstruction's shadow inside). Heights: To scale |
   Stretched (Instrument view only; heights × the largest of 1, 1.5, 2, 3, 4, 5, 6, 8, 10 … that fits the panel,
   stated in the caption; the field-angle arc drawn at the angle on the page and labeled with the true angle).
+  A refractor preset may draw the objective lens by lens (2026-11-19; IM.objLayout in web/imager.js, the layouts in
+  window.IX_LENSES in web/ipresets.js, named by the state's objective key): TESS's seven elements MEASURED from Chrisp
+  et al. 2015 Fig. 2, read as a side view (each face's vertex and rim, each element's diameter; the long-pass filter
+  drawn as the coating on lens 2), and the 80 mm refractor's triplet and two-element flattener SCHEMATIC (the
+  flattener's rear 55 mm before the focus, as published, and drawn without power). The rays stay those of the ideal
+  lens: straight to where they meet the first face, straight through the glass, and out along the ideal lens's line
+  from the last face. The Instrument view draws the elements that lie inside the view. validate_img.js checks the
+  elements' order and spacing, the drawn rays inside each rim, TESS's published 21.1 cm length and the flattener's
+  55 mm back focus. A new telescope type drops the preset's lenses.
 - **Detector plane** (the right panel; "Sky" until Charlie's rename, 2026-10-19): a synthetic, seeded field of
   stars and galaxies, the same at every scale: one-magnitude slices on their own grids of tiles (about twelve
   objects a tile), plus one fixed 20 mag target star near the center (1.7″, 1.1″) so that small

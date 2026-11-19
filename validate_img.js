@@ -333,5 +333,55 @@ const EPS_KINDS = ["baffle", "mirror", "cage", "stop", "hole"];
   const a = TP.pupilAndPSF(pu, f.eps).area, a0 = TP.pupilAndPSF(t.pupil, t.eps).area;
   check("keck f40: the stop is the serrated outline at 95.4% with a hexagonal hole: 62–64 m², 10–13% below the full pupil", a > 62 && a < 64 && a / a0 > 0.87 && a / a0 < 0.9 && !!f.pupil.clipHex && !f.pupil.clip, `${a.toFixed(2)} m² vs ${a0.toFixed(2)} m²`);
 }
+// ---------------------------------------------------------------- 7b. refractor objectives drawn as their lenses (IM.objLayout)
+{
+  // each lens layout a preset names (2026-11-19): the elements in order and apart (each back face before the next front
+  // face, at heights up to the smaller rim), edges thicker than zero, the glass ending before the focus, and the drawn
+  // rays inside each element (the edge rays of the field's top, center and bottom bundles, straight through the glass
+  // from where they enter to where they leave, as imgapp.js draws them); then the published dimensions each layout
+  // is tied to
+  global.window = global;
+  require("./web/ipresets.js");
+  const band = k => window.IX_BANDS.find(b => b.k === k).lam;
+  for (const p of window.IX_IPRESETS.filter(q => q.state.objective)) {
+    const O = window.IX_LENSES[p.state.objective];
+    if (!O) { check(`${p.id}: lens layout ${p.state.objective} exists`, false); continue; }
+    const P = Object.assign(JSON.parse(JSON.stringify(IM.DEF)), p.state); P.lam = band(P.band);
+    const S = IM.design(P), o = IM.objLayout(O, S.zF, S.Dmm), all = o.L.concat(o.A), bad = [];
+    const rear = L => L.z0 + L.tc + Math.max(0, -L.sb);
+    for (const L of all) if (L.tc - L.sf - L.sb <= 0) bad.push(`lens ${L.name}: edge ${(L.tc - L.sf - L.sb).toFixed(2)} mm`);
+    for (let i = 0; i + 1 < all.length; i++) {
+      const a = all[i], b = all[i + 1], rr = Math.min(a.r, b.r);
+      for (let k = 0; k <= 40; k++) { const h = rr * k / 40; if (o.back(a, h) > o.front(b, h) + 1e-9) { bad.push(`${a.name}/${b.name} overlap at h ${h.toFixed(1)} mm`); break; } }
+    }
+    const zEnd = Math.max(...all.map(rear));
+    if (zEnd >= S.zF) bad.push(`glass ends ${(zEnd - S.zF).toFixed(1)} mm past the focus`);
+    check(`${p.id}: the drawn lenses in order and apart, edges thicker than zero, the glass ending before the focus`, bad.length === 0,
+      bad.join("; ") || `${all.length} elements, the glass from ${(S.zF - o.za).toFixed(1)} to ${(S.zF - zEnd).toFixed(1)} mm before the focus`);
+    const ta = S.ext.y1 / S.feffSigned, tb = S.ext.y0 / S.feffSigned, miss = [];
+    let worst = 0;
+    for (const t of [Math.max(ta, tb), 0, Math.min(ta, tb)]) for (const h0 of [S.Dmm / 2, -S.Dmm / 2]) {
+      const pts = S.trace(h0, t), u = (pts[1].h - pts[0].h) / (pts[1].z - pts[0].z);
+      const hin = z => pts[0].h + t * z, hout = z => pts[0].h + u * z, za = o.enter(hin), zb = o.leave(hout);
+      const hAt = z => (z <= za ? hin(z) : z >= zb ? hout(z) : hin(za) + (z - za) * (hout(zb) - hin(za)) / (zb - za));
+      const cross = (f, z) => { for (let i = 0; i < 8; i++) z = f(hAt(z)); return z; };      // where the ray meets a face
+      for (const L of all) for (const z of [cross(h => o.front(L, h), L.z0), cross(h => o.back(L, h), L.z0 + L.tc)]) {
+        const q = Math.abs(hAt(z)) / L.r; worst = Math.max(worst, q);
+        if (q > 1) miss.push(`lens ${L.name} at ${(S.zF - z).toFixed(1)} mm: ray ${Math.abs(hAt(z)).toFixed(1)} vs rim ${L.r.toFixed(1)} mm`);
+      }
+    }
+    check(`${p.id}: the drawn rays pass inside every drawn element`, miss.length === 0, miss.slice(0, 4).join("; ") || `closest ${(100 * worst).toFixed(0)}% of a rim`);
+    if (p.id === "tess") {
+      // C15S slide 2: "17.0 cm diameter 21.1 cm long"; lens 1 is held by the rim, the convex vertex ahead of the barrel (INFERRED)
+      const L1 = o.L[0], dRim = S.zF - (L1.z0 + L1.sf), dVtx = S.zF - L1.z0;
+      check("tess: the published 21.1 cm length lies between lens 1's rim and vertex distances to the focus", dRim <= 211 && 211 <= dVtx, `rim ${dRim.toFixed(1)} mm, vertex ${dVtx.toFixed(1)} mm -- C15S slide 2 (scale from P16's 44.88 mm corner)`);
+      check("tess: lens 1 narrower than the 17.0 cm assembly", 2 * L1.r < 170, `${(2 * L1.r).toFixed(1)} mm -- C15S slide 2`);
+    }
+    if (p.id === "small80") {
+      const zA = Math.max(...o.A.map(rear));
+      check("small80: the flattener's rear 55 mm before the focus", Math.abs(S.zF - zA - 55) < 0.5, `${(S.zF - zA).toFixed(1)} mm -- WOFG Compatibility tab: "Gran Turismo 81 IV Back Focus 55mm"`);
+    }
+  }
+}
 console.log(`\n${npass} pass, ${nfail} fail`);
 if (nfail) process.exit(1);

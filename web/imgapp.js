@@ -109,7 +109,7 @@ const segs = [
   bindSeg([["ilvAuto", "auto"], ["ilvFixed", "fixed"]], () => lview.mode, v => { lview.mode = v; if (v === "auto") lview.fit = true; }, true),
 ];
 $("imMoon").addEventListener("click", () => { S.moon = !S.moon; H.schedule(); });
-$("iTel").addEventListener("change", () => { if (window.ANIM) window.ANIM.reset(); S.tel = $("iTel").value; if (S.tel === "refr") S.eps = 0; lview.fit = true; markCustom(); H.schedule(); });
+$("iTel").addEventListener("change", () => { if (window.ANIM) window.ANIM.reset(); S.tel = $("iTel").value; S.objective = null; if (S.tel === "refr") S.eps = 0; lview.fit = true; markCustom(); H.schedule(); });
 // bands
 const bsel = $("iBand");
 for (const b of BANDS) {
@@ -150,7 +150,7 @@ function syncControls() {
 }
 const bodyClasses = () => [S.split === "pyramid" && S.optics === "reimaged" ? "isplit" : "", "idet-" + (S.det || "ccd"), "it-" + S.tel, S.nasmyth ? "in-nas" : "in-ax", "io-" + (S.optics === "reimaged" ? "re" : "dir"), "ip-" + S.psf, "iv-" + S.view, ilvExpanded ? "ilv-expanded" : ""];
 
-function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S.band).lam : 0.6 }); }
+function params() { return Object.assign({}, S, { lam: bandOf(S.band) ? bandOf(S.band).lam : 0.6, objective: S.objective && window.IX_LENSES ? window.IX_LENSES[S.objective] || null : null }); }
 
 // ------------------------------------------------------------------ presets and the link
 function applyPreset(p) {
@@ -161,7 +161,7 @@ function applyPreset(p) {
   S = st; presetId = p.id; zoom.reset(); lview.fit = true; H.schedule();
 }
 function reset() { S = clone(DEF); presetId = "custom"; zoom.reset(); lview.fit = true; lview.mode = "auto"; H.schedule(); }
-const CHOICES = { nasSide: ["down", "up"], split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k), filterAt: ["pupil", "converging", "camera", "detector"] };
+const CHOICES = { nasSide: ["down", "up"], split: ["none", "pyramid"], det: ["ccd", "plate"], tel: ["prime", "cass", "greg", "korsch", "pb", "schmidt", "refr"], psf: ["seeing", "diff", "optics"], optics: ["direct", "reimaged"], view: ["tel", "inst"], band: BANDS.map(b => b.k), filterAt: ["pupil", "converging", "camera", "detector"], objective: Object.keys(window.IX_LENSES || {}) };
 // (numbers that default to none: a published collecting area, a rectangular stop, a plate scan's format and spot)
 const NUMNULL = new Set(["collArea", "stopW", "stopH", "scanPx", "scanSpot"]);
 function hashParts() {
@@ -290,6 +290,25 @@ function lens(g, x, y, hh) {
   g.fillStyle = "rgba(196,222,238,0.55)"; g.fill();
   g.strokeStyle = "#4b6b82"; g.lineWidth = 1.3; g.stroke();
 }
+// a lens to scale (imager.js objLayout, mm; T maps to the canvas): each face a parabola from the vertex to the rim
+function glassLens(g, T, L) {
+  const N = 24, pts = [];
+  for (let i = 0; i <= N; i++) { const h = L.r * (2 * i / N - 1); pts.push(T(L.z0 + L.sf * (h / L.r) ** 2, h)); }
+  for (let i = N; i >= 0; i--) { const h = L.r * (2 * i / N - 1); pts.push(T(L.z0 + L.tc - L.sb * (h / L.r) ** 2, h)); }
+  g.beginPath(); pts.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]))); g.closePath();
+  g.fillStyle = "rgba(196,222,238,0.55)"; g.fill(); g.strokeStyle = "#4b6b82"; g.lineWidth = 1.3; g.stroke();
+}
+// the canvas box a drawn lens covers (for the labels to keep clear of)
+function glassBox(T, L) {
+  const a = T(L.z0 + Math.min(0, L.sf), L.r), b = T(L.z0 + L.tc + Math.max(0, -L.sb), -L.r);
+  return [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1])];
+}
+// a filter coating along a lens's back face, in the filter's color
+function coatFace(g, T, L) {
+  g.beginPath();
+  for (let i = 0; i <= 24; i++) { const h = L.r * (i / 12 - 1), q = T(L.z0 + L.tc - L.sb * (h / L.r) ** 2, h); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); }
+  g.strokeStyle = "rgba(110,86,140,0.9)"; g.lineWidth = 2.6; g.stroke();
+}
 // a mirror along a polyline of canvas points, with a hatched back on the side of `back` (+1/-1 in x)
 function mirror(g, pts, back) {
   g.save();
@@ -345,24 +364,18 @@ function layoutGeom(Dz, P) {
   // ---- world geometry (mm) for the chosen view: a list of polylines per bundle, and the elements
   const sag1 = hh => hh * hh / (4 * Dz.f1);
   let X, z0, polys = [], elems = [], marks = [], pathOf3 = null;
+  // (a refractor's objective drawn lens by lens, P.objective (imager.js objLayout), in mm from the ideal lens at
+  // z = 0: a ray runs straight to the point where the ray meets the first surface and leaves the last surface on the ideal lens's
+  // outgoing line, so outside the glass the drawing is the ideal trace)
+  const OBJ = P.tel === "refr" && P.objective ? IM.objLayout(P.objective, Dz.zF, Dmm) : null;
   if (tel) {
     // the telescope folded on the page: light arrives from the left, the primary at x = 0
     const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt", nas = !!Dz.nasmyth, a3 = Dz.a3 || 0;
     const tma = Dz.tma, z3 = Dz.z3, x3 = Dz.x3;
-    // (a refractor's objective drawn as its lenses, P.objective { front, lenses: [{ name, tc, te, gap }] } in m: the
-    // first surface `front` behind the rear principal point (z = 0, where the ideal lens acts), each lens tc thick at the
-    // center and te at the edge, `gap` behind the lens before.  A ray runs straight to the first surface and leaves the
-    // last on the ideal lens's outgoing line, so outside the glass the drawing is the ideal trace.)
-    let OBJ = null;
-    if (refr && P.objective && P.objective.lenses && P.objective.lenses.length) {
-      let z = P.objective.front * 1000;
-      const L = P.objective.lenses.map(q => { z += (q.gap || 0) * 1000; const o = { z0: z, tc: q.tc * 1000, te: q.te * 1000, name: q.name }; z += o.tc; return o; });
-      OBJ = { za: L[0].z0, zb: z, L };
-    }
     // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded (a
     // three-mirror telescope's tertiary sends the light back to the left)
     X = z => (z < 0 ? z : refr ? z : tma ? (z <= s ? -z : z <= z3 ? z - 2 * s : x3 - (z - z3)) : two ? (z <= s ? -z : z - 2 * s) : -z);
-    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(Dz.corr ? [X(Dz.corr.z)] : []).concat(nas || tma === "korsch" ? [] : [X(Dz.zDet)]).concat(two || tma ? [-s] : []).concat(tma ? [x3] : []).concat(schm ? [Dz.zStop] : []);
+    const xs = [0, nas ? -a3 : X(Dz.zF)].concat(Dz.corr ? [X(Dz.corr.z)] : []).concat(nas || tma === "korsch" ? [] : [X(Dz.zDet)]).concat(two || tma ? [-s] : []).concat(tma ? [x3] : []).concat(schm ? [Dz.zStop] : []).concat(OBJ ? [OBJ.za] : []);
     const xIn = Math.min(...xs) - 0.12 * Math.max(Dmm, Math.max(...xs) - Math.min(...xs));
     z0 = xIn;
     // a Nasmyth tertiary: the flat on the line (x + a3) + y = 0 (45 degrees, through the axis a3 in front of the
@@ -395,7 +408,11 @@ function layoutGeom(Dz, P) {
       for (let i = 0; i < pts.length; i++) {
         const p = pts[i];
         if (Dz.split && p.z > Dz.zF + 1e-9) { out.push([X(Dz.zF), hAt(pts, Dz.zF)]); break; }   // the pyramid instrument: drawn as a box at the focus
-        if (OBJ && p.z === 0 && pts[i + 1]) { const u = (pts[i + 1].h - p.h) / (pts[i + 1].z - p.z); out.push([OBJ.za, p.h + pts.tVal * OBJ.za], [OBJ.zb, p.h + u * OBJ.zb]); continue; }
+        if (OBJ && p.z === 0 && pts[i + 1]) {
+          const u = (pts[i + 1].h - p.h) / (pts[i + 1].z - p.z), za = OBJ.enter(z => p.h + pts.tVal * z), zb = OBJ.leave(z => p.h + u * z);
+          out.push([za, p.h + pts.tVal * za], [zb, p.h + u * zb]);
+          continue;
+        }
         out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]);
       }
       return two || tma ? foldN(out) : out;
@@ -408,7 +425,8 @@ function layoutGeom(Dz, P) {
         const p = py[i], q = pz[i], rho = Math.hypot(p.h, q.h);
         if (OBJ && p.z === 0 && py[i + 1]) {
           const uy = (py[i + 1].h - p.h) / (py[i + 1].z - p.z), uz = (pz[i + 1].h - q.h) / (pz[i + 1].z - q.z);
-          out.push([OBJ.za, p.h + t * OBJ.za, q.h], [OBJ.zb, p.h + uy * OBJ.zb, q.h + uz * OBJ.zb]);
+          const za = OBJ.enter(z => Math.hypot(p.h + t * z, q.h)), zb = OBJ.leave(z => Math.hypot(p.h + uy * z, q.h + uz * z));
+          out.push([za, p.h + t * za, q.h], [zb, p.h + uy * zb, q.h + uz * zb]);
           continue;
         }
         out.push([p.z === 0 && !refr ? -sag1(rho) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(rho) : X(p.z), p.h, q.h]);
@@ -546,7 +564,20 @@ function layoutGeom(Dz, P) {
       elems.push({ k: "lens", x: X(Dz.zCam), hh: aper(Dz.zCam) * 1.06, lab: "camera", sub: "f/" + sig(P.Fc, 3) + ", f " + fLen(Dz.fcam) });
       marks.push({ k: "phi", x: X(Dz.zP) });
     } else {
-      elems.push({ k: "filter", x: X(Dz.zF - 0.35 * lin), hh: Math.abs(hAt(rays[0].up[1], Dz.zF - 0.35 * lin)) * 1.1, lab: "filter" });
+      // (a refractor drawn lens by lens: the elements that lie inside the view; the filter just past the last
+      // element, or none where the lens carries the filter as a coating)
+      let zf = Dz.zF - 0.35 * lin;
+      if (OBJ) {
+        const inV = grp => grp.filter(L => L.z0 + Math.min(0, L.sf) >= z0 && L.z0 + L.tc + Math.max(0, -L.sb) <= Dz.zF);
+        const nm = Ls => (Ls.length === 1 ? "lens " : "lenses ") + Ls.map(L => L.name).join(", ").replace(/, ([^,]*)$/, " and $1");
+        const sh = Ls => Ls.map(L => Object.assign({}, L, { z0: X(L.z0) }));
+        const a = inV(OBJ.L), b = inV(OBJ.A);
+        if (a.length) elems.push({ k: "glass", L: sh(a), lab: a.length === OBJ.L.length ? OBJ.label : nm(a), sub: a.length === OBJ.L.length ? OBJ.sub : "of the " + OBJ.L.length + "-element lens" });
+        if (b.length && OBJ.after) elems.push({ k: "glass", L: sh(b), lab: OBJ.after.label, sub: OBJ.after.sub });
+        const zLast = Math.max(-Infinity, ...a.concat(b).map(L => L.z0 + L.tc + Math.max(0, -L.sb)));
+        if (zLast > zf - 0.05 * lin) zf = (zLast + Dz.zF) / 2;
+      }
+      if (!(OBJ && OBJ.filter)) elems.push({ k: "filter", x: X(zf), hh: Math.abs(hAt(rays[0].up[1], zf)) * 1.1, lab: "filter" });
     }
   }
   // the detector: across the beam, or along the page past a Nasmyth fold (the beam then travels downward)
@@ -578,9 +609,12 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   else if (detE.rot) { grow(detE.x - detH / 2, detE.y); grow(detE.x + detH / 2, detE.y); }
   else { grow(detE.x, detH / 2); grow(detE.x, -detH / 2); }
   for (const e of elems) if (e.k === "tertiary3" || e.k === "flat") { grow(e.x, e.hh); grow(e.x, -e.hh); }
+  for (const e of elems) for (const L of e.obj ? e.obj.L.concat(e.obj.A) : e.k === "glass" ? e.L : []) { grow(L.z0 + Math.min(0, L.sf), L.r); grow(L.z0 + L.tc + Math.max(0, -L.sb), -L.r); }
   for (const e of elems) if (e.k === "lensA" || e.k === "plateA" || e.k === "detA") { grow(e.p[0], e.p[1] + e.hh); grow(e.p[0], e.p[1] - e.hh); }
   for (const e of elems) if (e.k === "pyramid") { grow(Math.sin(e.tau) * e.hh, Math.cos(e.tau) * e.hh); grow(Math.sin(e.tau) * e.hh, -Math.cos(e.tau) * e.hh); }
-  const mL = 30, mR = tel ? 120 : 30, mT = 34, mB = 54;
+  // (room above a refractor's drawn lenses for the lens label, and below the lenses for the filter's and the flattener's)
+  const objE = tel ? elems.find(e => e.obj) : null, mBL = 54;
+  const mL = 30, mR = tel ? 120 : 30, mT = 34 + (objE ? 30 : 0), mB = mBL + (objE && (objE.obj.filter || objE.obj.A.length) ? 40 : 0);
   const sxFit = (w - mL - mR) / Math.max(1e-9, bx1 - bx0), syFit = (h - mT - mB) / Math.max(1e-9, by1 - by0);
   // stretched (Instrument view): heights scaled by the largest step of 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 15, 20 ... that
   // still fits the panel
@@ -649,17 +683,21 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   if (!tel) obstacles.push([0, 0, 240, 40]);                       // the floating Heights control
   for (const e of elems) {
     if (e.k === "objective" && e.obj) {
-      // the lenses to scale: each face a parabola from the vertex to the rim (convex where the lens is thicker at the
-      // center, concave where thinner), the sag split equally between the two faces
-      const R = Dmm / 2;
-      for (const L of e.obj.L) {
-        const s = (L.tc - L.te) / 2, pts = [];
-        for (let i = 0; i <= 24; i++) { const hh = -R + 2 * R * i / 24; pts.push(T(L.z0 + s * (hh / R) ** 2, hh)); }
-        for (let i = 24; i >= 0; i--) { const hh = -R + 2 * R * i / 24; pts.push(T(L.z0 + L.tc - s * (hh / R) ** 2, hh)); }
-        g.beginPath(); pts.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]))); g.closePath();
-        g.fillStyle = "rgba(196,222,238,0.55)"; g.fill(); g.strokeStyle = "#4b6b82"; g.lineWidth = 1.3; g.stroke();
+      // the lenses to scale (imager.js objLayout), the elements without power behind the lens (a field flattener), and a
+      // filter coating along the face that carries the coating
+      const O = e.obj, rMax = Math.max(...O.L.map(L => L.r));
+      for (const L of O.L.concat(O.A)) { glassLens(g, T, L); obstacles.push(glassBox(T, L)); }
+      labels.push({ t: O.label, s: (O.sub ? O.sub + ", " : "") + "Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: T((O.za + O.zb) / 2, rMax) });
+      if (O.A.length && O.after) {
+        const a = O.A[0], b = O.A[O.A.length - 1];
+        labels.push({ t: O.after.label, s: O.after.sub, at: T((a.z0 + b.z0 + b.tc) / 2, -Math.max(...O.A.map(L => L.r))) });
       }
-      { const a = T((e.obj.za + e.obj.zb) / 2, R); labels.push({ t: "objective (doublet)", s: e.obj.L.map(L => L.name).join(" and ") + ", Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: a }); }
+      const C = O.filter && O.L[O.filter.i];
+      if (C) { coatFace(g, T, C); labels.push({ t: O.filter.label, s: O.filter.sub, at: T(C.z0 + C.tc, -rMax) }); }
+    } else if (e.k === "glass") {
+      for (const L of e.L) { glassLens(g, T, L); obstacles.push(glassBox(T, L)); }
+      const a = e.L[0], b = e.L[e.L.length - 1];
+      labels.push({ t: e.lab, s: e.sub, at: T((a.z0 + b.z0 + b.tc) / 2, Math.max(...e.L.map(L => L.r))), dx: 0, dy: -18, al: "center" });
     } else if (e.k === "objective") {
       const c = T(0, 0); lens(g, c[0], c[1], Dmm / 2 * sc);
       { const a = T(0, Dmm / 2); labels.push({ t: "objective", s: "Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: a }); }
@@ -795,7 +833,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
       for (const d of [44, 76, 110]) cands.push([ax - wd / 2, ay - d - ht], [ax - wd / 2, ay + d], [ax + d * 0.6, ay - d - ht], [ax + d * 0.6, ay + d], [ax - d * 0.6 - wd, ay - d - ht], [ax - d * 0.6 - wd, ay + d]);
       for (const [x0, y0] of cands) {
         const box = [x0 - 3, y0, x0 + wd + 3, y0 + ht];
-        if (box[0] < 4 || box[2] > w - 4 || box[1] < 4 || box[3] > h - mB + 8) continue;
+        if (box[0] < 4 || box[2] > w - 4 || box[1] < 4 || box[3] > h - mBL + 8) continue;
         if (placed.some(b => !(box[2] < b[0] || box[0] > b[2] || box[3] < b[1] || box[1] > b[3]))) continue;
         placed.push(box);
         // a leader line from a label set away from its anchor
@@ -821,7 +859,7 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."
       : Dz.reim && Dz.split ? "A pyramid at the focus (drawn with flat facets) reflects each quadrant back, 10° off the axis, to a separate camera (two of four drawn; the 3D view runs the arms along the field's diagonals, a choice of the drawing). The field's center falls on the apex."
-      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", camera: ", the filter sits just in front of the camera,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; the filter sits in the converging beam.");
+      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", camera: ", the filter sits just in front of the camera,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; " + (P.tel === "refr" && P.objective && P.objective.filter ? "the filter is " + P.objective.filter.sub + ", before the part of the lens drawn here." : "the filter sits in the converging beam."));
   } else $(tg.cap).hidden = true;
 }
 

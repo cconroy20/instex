@@ -20,7 +20,8 @@
    axis, such as a slit-mask unit's), filterAt ("pupil" | "converging" | "camera" | "detector") and coldStop (drawing only),
    corrector ({ d, label, sub }: a prime-focus corrector that turns the primary's f/F1 into f/F); camGap (mm, drawing
    only: the reimager's camera this far past the pupil image, where a source places the camera; else 0.3 W); a plate's scanPx
-   (the scan's pixels per side) and scanSpot (the scanner's spot, um FWHM on the plate). */
+   (the scan's pixels per side) and scanSpot (the scanner's spot, um FWHM on the plate); objective (drawing only: a
+   refractor's lenses, as objLayout below takes them; the Imager's state holds a key into window.IX_LENSES). */
 (function (root) {
 "use strict";
 const RAD = 206264.80624709636, DEG = Math.PI / 180;
@@ -332,6 +333,43 @@ function design(P) {
   return S;
 }
 
+// ---- a refractor's objective drawn lens by lens (drawing only; the rays stay those of the ideal lens).  O, in m:
+// D and f, the design's aperture and focal length (the drawing scales with the model's: along the axis by the focal
+// length, across the axis by the aperture); front, the first lens's front vertex this far behind the ideal lens (else
+// placed by toFocus); lenses [{ name, tc (thickness on the axis), the faces' sags at the rim, sf and sb (+ where the
+// face bulges outward, - where the face is hollow; or te, the edge thickness, the sag then split equally between the
+// faces), d (diameter; else D), toFocus (the front vertex this far before the focus) or gap (behind the lens
+// before) }]; after { lenses, label, sub } (elements drawn in the beam but given no power, a field flattener);
+// filter { lens, label, sub } (a coating on that lens's back face).  fmm, Dmm: the model's focal length and aperture
+// in mm.  Each face is drawn as a parabola from the vertex to the rim; the lenses come back in mm along the axis
+// from the ideal lens (z = 0), with enter(rho) and leave(rho): where a ray first meets the glass and where the ray
+// last leaves the glass (rho(z): the ray's distance from the axis at z).
+function objLayout(O, fmm, Dmm) {
+  if (!O || !O.lenses || !O.lenses.length) return null;
+  const ka = O.f ? fmm / (O.f * 1000) : 1, kr = O.D ? Dmm / (O.D * 1000) : 1;
+  const place = (list, z) => list.map(q => {
+    z = q.toFocus !== undefined ? fmm - q.toFocus * 1000 * ka : z + (q.gap || 0) * 1000 * ka;
+    const half = q.te !== undefined ? (q.tc - q.te) / 2 : 0;
+    const o = { name: q.name, z0: z, tc: q.tc * 1000 * ka, sf: (q.sf !== undefined ? q.sf : half) * 1000 * ka,
+                sb: (q.sb !== undefined ? q.sb : half) * 1000 * ka, r: q.d ? q.d * 500 * kr : Dmm / 2 };
+    z += o.tc;
+    return o;
+  });
+  const L = place(O.lenses, (O.front || 0) * 1000 * ka), A = O.after ? place(O.after.lenses, 0) : [];
+  const u = (q, h) => Math.min(1, (h / q.r) ** 2);
+  const front = (q, h) => q.z0 + q.sf * u(q, h), back = (q, h) => q.z0 + q.tc - q.sb * u(q, h);
+  const a = L[0], b = L[L.length - 1];
+  const solve = (f, z, rho) => { for (let i = 0; i < 6; i++) z = f(rho(z)); return z; };
+  return {
+    L, A, front, back,
+    za: a.z0 + Math.min(0, a.sf), zb: b.z0 + b.tc + Math.max(0, -b.sb),
+    enter: rho => solve(h => front(a, h), a.z0, rho), leave: rho => solve(h => back(b, h), b.z0 + b.tc, rho),
+    label: O.label || "objective", sub: O.sub || null,
+    after: O.after ? { label: O.after.label || "", sub: O.after.sub || null } : null,
+    filter: O.filter ? { i: O.filter.lens, label: O.filter.label || "filter", sub: O.filter.sub || null } : null,
+  };
+}
+
 // the default imager (the page's Reset all): a 4 m f/3 prime-focus telescope with a 3 x 3 mosaic of 4k x 4k chips
 const DEF = {
   D: 4, F: 3, eps: 0.3, field: 120, tel: "prime", F1: 2, back: 0.2,
@@ -339,9 +377,9 @@ const DEF = {
   band: "r", psf: "seeing", seeing: 0.8, blur: 1,
   optics: "direct", W: 100, Fc: 2,
   Nx: 4096, Ny: 4096, pix: 15, rows: null, nCol: 3, nRow: 3, gapX: 1, gapY: 1, gapsX: null, gapsY: null, shiftY: null, extra: null,
-  collArea: null, stopW: null, stopH: null, filterAt: "pupil", coldStop: false, scanPx: null, scanSpot: null, corrector: null, camGap: null, epsKind: null, hole: null,
+  collArea: null, stopW: null, stopH: null, filterAt: "pupil", coldStop: false, scanPx: null, scanSpot: null, corrector: null, camGap: null, epsKind: null, hole: null, objective: null,
 };
-const API = { RAD, DEG, DEF, J1, airy, airyFWHM, airyTable, moffatAlpha, omegaRect, design };
+const API = { RAD, DEG, DEF, J1, airy, airyFWHM, airyTable, moffatAlpha, omegaRect, design, objLayout };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.IM = API;
 })(typeof window !== "undefined" ? window : globalThis);

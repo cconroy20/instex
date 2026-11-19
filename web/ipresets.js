@@ -23,6 +23,35 @@ window.IX_BANDS = [
 ];
 window.IX_MOON_DIAM_ARCMIN = 1896 / 60;
 window.IX_MOFFAT_BETA = 4.765;
+/* Refractor objectives drawn as their lenses (the Telescope view; IM.objLayout gives the format, in m; a preset's
+   state names one by the key).  Neither prescription is published, and the rays stay those of the ideal lens.
+   TESS: MEASURED from the flight design's ray trace, Chrisp et al. 2015 Fig. 2, read as a side view (data/imaging/
+   tess.md, "Lens layout for the drawing"): each element's front vertex before the focus, center thickness, the sags
+   of the two faces at the rim and the diameter; the long-pass filter is a coating on lens 2's second face (C15 Sec. 5).
+   80 mm refractor: SCHEMATIC (data/imaging/megacam_ztf_small.md): the makers publish a triplet objective and a
+   flattener of one group of two elements, 55 mm before the sensor; the thicknesses, curvatures and spacings are
+   placeholders, and the flattener is drawn without power. */
+window.IX_LENSES = {
+  tess: { D: 0.105, f: 0.146, label: "lens (7 elements)",
+    lenses: [
+      { name: "1", toFocus: 0.2256, tc: 0.0189, sf: 0.0212, sb: -0.0098, d: 0.1436 },
+      { name: "2", toFocus: 0.1844, tc: 0.0200, sf: 0.0136, sb: -0.0011, d: 0.1062 },
+      { name: "3", toFocus: 0.1593, tc: 0.0043, sf: 0.0028, sb: -0.0121, d: 0.0983 },
+      { name: "4", toFocus: 0.1306, tc: 0.0043, sf: -0.0100, sb: 0.0064, d: 0.0979 },
+      { name: "5", toFocus: 0.1232, tc: 0.0283, sf: 0.0136, sb: 0.0068, d: 0.1179 },
+      { name: "6", toFocus: 0.0448, tc: 0.0130, sf: 0.0119, sb: -0.0059, d: 0.1028 },
+      { name: "7", toFocus: 0.0087, tc: 0.0045, sf: -0.0151, sb: 0.0000, d: 0.1028 },
+    ],
+    filter: { lens: 1, label: "long-pass filter", sub: "a coating on lens 2" } },
+  small80: { D: 0.081, f: 0.4779, label: "objective (triplet, schematic)",
+    lenses: [
+      { name: "1", toFocus: 0.4885, tc: 0.008, sf: 0.003, sb: 0.001, d: 0.085 },
+      { name: "2", gap: 0.0012, tc: 0.004, sf: -0.0015, sb: -0.0005, d: 0.085 },
+      { name: "3", gap: 0.001, tc: 0.007, sf: 0.0015, sb: 0.0025, d: 0.085 },
+    ],
+    after: { label: "field flattener (schematic)", sub: "2 elements, 1.0×",
+      lenses: [{ name: "1", toFocus: 0.064, tc: 0.006, sf: 0.001, sb: 0.0015, d: 0.05 }, { name: "2", gap: 0, tc: 0.003, sf: -0.0015, sb: 0, d: 0.05 }] } },
+};
 /* Each preset: id, tel (the menu group: telescope and aperture), name ("Telescope / Instrument"; the menu drops the
    part before the slash), note (where the numbers come from, and what the model leaves out), state (the explorer's
    inputs; the seeing and the drawing options stay the reader's), and pub: the published values validate_img.js checks,
@@ -85,8 +114,8 @@ window.IX_IPRESETS = [
       { what: "605.6 Mpix", q: "npix", value: 605552640, tol: 0.001, src: "16 × 6144 × 6160" },
     ] },
   { id: "small80", tel: "80 mm refractor", name: "80 mm refractor / CMOS camera",
-    note: "A typical amateur setup: an 81 mm f/5.9 apochromatic triplet with a 1.0× field flattener, and a cooled astronomy camera on the Sony IMX571 sensor (6248 × 4176 pixels of 3.76 µm). Field circle: the flattened image circle (44 mm). The makers publish no pixel scale or field; the checks are arithmetic. Sources in data/imaging/megacam_ztf_small.md.",
-    state: { D: 0.081, eps: 0, F: 5.9, tel: "refr", field: 316, optics: "direct", band: "r", psf: "seeing",
+    note: "A typical amateur setup: an 81 mm f/5.9 apochromatic triplet with a 1.0× field flattener, and a cooled astronomy camera on the Sony IMX571 sensor (6248 × 4176 pixels of 3.76 µm). Field circle: the flattened image circle (44 mm). The makers publish no pixel scale or field; the checks are arithmetic. For the optics they give the element counts (a triplet objective and a flattener of two elements in one group) and the flattener's 55 mm back focus, but no radii, thicknesses or spacings, so the lenses are drawn SCHEMATICALLY and the flattener without power. Sources in data/imaging/megacam_ztf_small.md.",
+    state: { D: 0.081, eps: 0, F: 5.9, tel: "refr", objective: "small80", field: 316, optics: "direct", band: "r", psf: "seeing",
              Nx: 6248, Ny: 4176, pix: 3.76, rows: [1] },
     pub: [
       { what: "1.62″/px (206265 p / f)", q: "pixScale", value: 1.6225, info: true, src: "arithmetic from the makers' numbers" },
@@ -316,8 +345,8 @@ window.IX_IPRESETS.push(
       { what: "field 7.5′", q: "fieldX", value: 7.5, tol: 0.015, src: "HAWK-I manual" },
     ] },
   { id: "tess", tel: "TESS 10.5 cm", name: "TESS / one camera",
-    note: "One of TESS's four identical cameras: a seven-element f/1.4 lens (a refractor here) of 105 mm aperture with four CCDs at the focus, the optical axis in the gap between the chips. The lens's own aberrations set the image: the design puts ≈50% of a star's light in one pixel, averaged over the field, which the drawn profile (a Moffat) reaches with a 21″ FWHM; in flight the brightest pixel holds 20–40% of a star's light (a FWHM of ≈26–35″). The field is strongly distorted: a corner pixel covers 21% less sky than a central one (DERIVED from the tesspoint coefficients), and the model's flat detector behind an ideal lens gives 12% of that, leaving out the lens's own distortion. Gaps from the in-flight focal-plane geometry; the field circle is the published 34° diagonal. Sources in data/imaging/tess.md.",
-    state: { D: 0.105, eps: 0, F: 1.3905, tel: "refr", field: 2040, optics: "direct", band: "I", psf: "optics", blur: 21,
+    note: "One of TESS's four identical cameras: a seven-element f/1.4 lens (a refractor here) of 105 mm aperture with four CCDs at the focus, the optical axis in the gap between the chips. The lens's own aberrations set the image: the design puts ≈50% of a star's light in one pixel, averaged over the field, which the drawn profile (a Moffat) reaches with a 21″ FWHM; in flight the brightest pixel holds 20–40% of a star's light (a FWHM of ≈26–35″). The field is strongly distorted: a corner pixel covers 21% less sky than a central one (DERIVED from the tesspoint coefficients), and the model's flat detector behind an ideal lens gives 12% of that, leaving out the lens's own distortion. Gaps from the in-flight focal-plane geometry; the field circle is the published 34° diagonal. The lens is drawn from the published ray trace (Chrisp et al. 2015, Fig. 2): the place, thickness and diameter of each element, MEASURED from the figure, with each face drawn as a parabola through the measured vertex and rim. The long-pass filter is a coating on the second face of lens 2. Sources in data/imaging/tess.md.",
+    state: { D: 0.105, eps: 0, F: 1.3905, tel: "refr", objective: "tess", field: 2040, optics: "direct", band: "I", psf: "optics", blur: 21,
              Nx: 2048, Ny: 2048, pix: 15, rows: [2, 2], gapX: 1.74, gapY: 1.58 },
     pub: [
       { what: "pixel scale 21″/px", q: "pixScale", value: 21, tol: 0.015, src: "Ricker+15 (0.35′); HEASARC (\"21 arcseconds\"); f = 146 mm from the TESS Instrument Handbook and Chrisp+15's slides" },
