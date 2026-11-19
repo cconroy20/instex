@@ -241,6 +241,13 @@ const EPS_KINDS = ["baffle", "mirror", "cage", "stop", "hole"];
       if (t.area.info) console.log(`[INFO] ${t.id}: collecting area ${t.area.value} m²: model ${c.area.toFixed(3)} (${(100 * r).toFixed(2)}%) -- ${t.area.src}`);
       else check(`${t.id}: collecting area ${t.area.value} m²`, Math.abs(r) <= (t.area.tol || 0.005), `model ${c.area.toFixed(4)}, ${(100 * r).toFixed(2)}% -- ${t.area.src}`);
     }
+    // a refractor's objective drawn as its lenses (the Yerkes doublet, 2026-11-19): the drawn middle of the air space
+    // between the first two lenses against the distance measured to the focus (the crown's place is set from the tape
+    // to its outer surface, so this tests the crown's published thickness and the spacing together)
+    if (t.objective && t.objective.tape && t.objective.lenses.length > 1) {
+      const o = t.objective, f = t.F1 * t.D, L0 = o.lenses[0], mid = o.front + L0.tc + o.lenses[1].gap / 2, v = f - mid, r = v / o.tape.gapMid - 1;
+      check(`${t.id}: the drawn doublet's air space centered ${o.tape.gapMid} m before the focus`, Math.abs(v - o.tape.gapMid) < 0.002, `model ${v.toFixed(4)} m, ${(1000 * (v - o.tape.gapMid)).toFixed(1)} mm -- ${o.tape.src}`);
+    }
     // the number of segments: the lattice centers (to ring 20) that fall inside the pupil, vanes and obstruction ignored
     if (t.segments && t.pupil.kind === "hex") {
       const p = t.pupil, s = p.flat, c = Math.cos((p.rot || 0) * Math.PI / 180), sn = Math.sin((p.rot || 0) * Math.PI / 180);

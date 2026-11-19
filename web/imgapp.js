@@ -349,6 +349,16 @@ function layoutGeom(Dz, P) {
     // the telescope folded on the page: light arrives from the left, the primary at x = 0
     const s = Dz.s || 0, refr = P.tel === "refr", schm = P.tel === "schmidt", nas = !!Dz.nasmyth, a3 = Dz.a3 || 0;
     const tma = Dz.tma, z3 = Dz.z3, x3 = Dz.x3;
+    // (a refractor's objective drawn as its lenses, P.objective { front, lenses: [{ name, tc, te, gap }] } in m: the
+    // first surface `front` behind the rear principal point (z = 0, where the ideal lens acts), each lens tc thick at the
+    // center and te at the edge, `gap` behind the lens before.  A ray runs straight to the first surface and leaves the
+    // last on the ideal lens's outgoing line, so outside the glass the drawing is the ideal trace.)
+    let OBJ = null;
+    if (refr && P.objective && P.objective.lenses && P.objective.lenses.length) {
+      let z = P.objective.front * 1000;
+      const L = P.objective.lenses.map(q => { z += (q.gap || 0) * 1000; const o = { z0: z, tc: q.tc * 1000, te: q.te * 1000, name: q.name }; z += o.tc; return o; });
+      OBJ = { za: L[0].z0, zb: z, L };
+    }
     // light ahead of the primary (a Schmidt's corrector) travels to the right; after the mirror(s), as folded (a
     // three-mirror telescope's tertiary sends the light back to the left)
     X = z => (z < 0 ? z : refr ? z : tma ? (z <= s ? -z : z <= z3 ? z - 2 * s : x3 - (z - z3)) : two ? (z <= s ? -z : z - 2 * s) : -z);
@@ -382,8 +392,10 @@ function layoutGeom(Dz, P) {
     const pathOf = pts => {
       // incoming from xIn, then the folded segments; the primary point moved onto its curved surface
       const out = [[xIn, pts[0].h + pts.tVal * (xIn - X(pts[0].z))]];
-      for (const p of pts) {
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
         if (Dz.split && p.z > Dz.zF + 1e-9) { out.push([X(Dz.zF), hAt(pts, Dz.zF)]); break; }   // the pyramid instrument: drawn as a box at the focus
+        if (OBJ && p.z === 0 && pts[i + 1]) { const u = (pts[i + 1].h - p.h) / (pts[i + 1].z - p.z); out.push([OBJ.za, p.h + pts.tVal * OBJ.za], [OBJ.zb, p.h + u * OBJ.zb]); continue; }
         out.push([p.z === 0 && !refr ? -sag1(p.h) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(p.h) : X(p.z), p.h]);
       }
       return two || tma ? foldN(out) : out;
@@ -394,6 +406,11 @@ function layoutGeom(Dz, P) {
       const out = [[xIn, py[0].h + t * (xIn - X(py[0].z)), pz[0].h]];
       for (let i = 0; i < py.length; i++) {
         const p = py[i], q = pz[i], rho = Math.hypot(p.h, q.h);
+        if (OBJ && p.z === 0 && py[i + 1]) {
+          const uy = (py[i + 1].h - p.h) / (py[i + 1].z - p.z), uz = (pz[i + 1].h - q.h) / (pz[i + 1].z - q.z);
+          out.push([OBJ.za, p.h + t * OBJ.za, q.h], [OBJ.zb, p.h + uy * OBJ.zb, q.h + uz * OBJ.zb]);
+          continue;
+        }
         out.push([p.z === 0 && !refr ? -sag1(rho) : tma && Math.abs(p.z - z3) < 1e-6 ? x3 - sag3(rho) : X(p.z), p.h, q.h]);
       }
       return two || tma ? foldN(out) : out;
@@ -418,7 +435,7 @@ function layoutGeom(Dz, P) {
     // where the mirror is, across the drawing's cross-section (heights, mm): the off-axis section; or as given
     // (mirrorSpans, m: a segmented primary cut through its center, or a mirror array wider than the pupil)
     const spans = off ? [[off - Dmm / 2, off + Dmm / 2]] : P.mirrorSpans ? P.mirrorSpans.map(q => [q[0] * 1000, q[1] * 1000]) : null;
-    elems.push({ k: refr ? "objective" : "primary", hole: Math.max(P.hole > 0 ? P.hole * 500 : 0, two || tma === "korsch" ? hole * 1.08 : hole), Dlab: P.Dmirror ? P.Dmirror * 1000 : null, hh: spans ? Math.max(...spans.map(q => Math.max(Math.abs(q[0]), Math.abs(q[1])))) : mir, spans, off });
+    elems.push({ k: refr ? "objective" : "primary", obj: OBJ, hole: Math.max(P.hole > 0 ? P.hole * 500 : 0, two || tma === "korsch" ? hole * 1.08 : hole), Dlab: P.Dmirror ? P.Dmirror * 1000 : null, hh: spans ? Math.max(...spans.map(q => Math.max(Math.abs(q[0]), Math.abs(q[1])))) : mir, spans, off });
     if (schm) elems.push({ k: "corrector", x: Dz.zStop, hh: Dmm / 2 });
     if (refr) { /* nothing in the beam */ } else if (two || tma) {
       let sec = 0, sLo = Infinity, sHi = -Infinity;
@@ -631,7 +648,19 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
   const labels = [], obstacles = [];                              // canvas boxes the labels keep clear of
   if (!tel) obstacles.push([0, 0, 240, 40]);                       // the floating Heights control
   for (const e of elems) {
-    if (e.k === "objective") {
+    if (e.k === "objective" && e.obj) {
+      // the lenses to scale: each face a parabola from the vertex to the rim (convex where the lens is thicker at the
+      // center, concave where thinner), the sag split equally between the two faces
+      const R = Dmm / 2;
+      for (const L of e.obj.L) {
+        const s = (L.tc - L.te) / 2, pts = [];
+        for (let i = 0; i <= 24; i++) { const hh = -R + 2 * R * i / 24; pts.push(T(L.z0 + s * (hh / R) ** 2, hh)); }
+        for (let i = 24; i >= 0; i--) { const hh = -R + 2 * R * i / 24; pts.push(T(L.z0 + L.tc - s * (hh / R) ** 2, hh)); }
+        g.beginPath(); pts.forEach((q, i) => (i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]))); g.closePath();
+        g.fillStyle = "rgba(196,222,238,0.55)"; g.fill(); g.strokeStyle = "#4b6b82"; g.lineWidth = 1.3; g.stroke();
+      }
+      { const a = T((e.obj.za + e.obj.zb) / 2, R); labels.push({ t: "objective (doublet)", s: e.obj.L.map(L => L.name).join(" and ") + ", Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: a }); }
+    } else if (e.k === "objective") {
       const c = T(0, 0); lens(g, c[0], c[1], Dmm / 2 * sc);
       { const a = T(0, Dmm / 2); labels.push({ t: "objective", s: "Ø " + fLen(Dmm) + ", f/" + sig(P.F, 3), at: a }); }
     } else if (e.k === "primary") {

@@ -312,7 +312,11 @@ hexagons and the struts after STScI's STPSF model; the f/20 path drawn as a gene
 Cassegrain image), DKIST (off-axis: the light on one side, nothing in the beam; Gregorian f/13 and the prime focus's
 heat stop), HET (a Tracker slider moves the 10 m pupil across the fixed 91-segment array: 55.9 m² centered, 32.8 m²
 at 6°, as the pyHETobs geometry gives; the four-mirror corrector drawn as one lens), Yerkes 40-inch (a refractor;
-its color error from Fox 1908 Table IV as a readout: 27″ of blur in B). New engine and drawing options: per-focus
+its color error from Fox 1908 Table IV as a readout: 27″ of blur in B; since 2026-11-19 the objective is drawn as its
+doublet, to scale in 2D and 3D: the crown 63.5 mm thick at the center and 19 mm at the edge, the flint 38 and 51 mm,
+218 mm apart, the crown's outer surface 388 mm behind the rear principal point (Hale 1897, Barnard 1917; the
+curvatures are not published, so each lens's sag is split equally between the two faces); a ray runs straight to the
+crown and leaves the flint on the ideal lens's line, so outside the glass the drawing is the ideal trace). New engine and drawing options: per-focus
 pupil D, the tertiary's place a3 (negative: behind the primary), prime-focus correctors that change the focal
 length, off-axis apertures, mirror spans, hexagon lattice rotation, round and elliptical segments, offset stops,
 widening and bounded struts, blocking polygons. The pupil and the images were drawn upside down before (HST's pads);

@@ -140,7 +140,17 @@ function build(Dz, P, G, pu, opts = {}) {
   };
   // ---- the other elements
   for (const e of G.elems) {
-    if (e.k === "objective") { disc(0, Dmm / 2, 0, r => 0.04 * Dmm * (1 - (2 * r / Dmm) ** 2), PAL.glass, 0.35, 0, false); lab([0, Dmm / 2, 0], "objective"); }
+    if (e.k === "objective" && e.obj) {
+      // the lenses to scale (imgapp.js layoutGeom: P.objective): each lens's two faces and the band of its rim
+      const R = Dmm / 2, NA = 36;
+      for (const L of e.obj.L) {
+        const s = (L.tc - L.te) / 2, xF = L.z0 + s, xB = L.z0 + L.tc - s;
+        disc(L.z0, R, 0, r => s * (r / R) ** 2, PAL.glass, 0.35, 0, false);
+        disc(L.z0 + L.tc, R, 0, r => -s * (r / R) ** 2, PAL.glass, 0.35, 0, false);
+        for (let k = 0; k < NA; k++) { const t0 = 2 * Math.PI * k / NA, t1 = 2 * Math.PI * (k + 1) / NA; face([[xF, R * Math.cos(t0), R * Math.sin(t0)], [xB, R * Math.cos(t0), R * Math.sin(t0)], [xB, R * Math.cos(t1), R * Math.sin(t1)], [xF, R * Math.cos(t1), R * Math.sin(t1)]], PAL.glass, 0.35); }
+      }
+      lab([e.obj.za, R, 0], "objective (doublet)");
+    } else if (e.k === "objective") { disc(0, Dmm / 2, 0, r => 0.04 * Dmm * (1 - (2 * r / Dmm) ** 2), PAL.glass, 0.35, 0, false); lab([0, Dmm / 2, 0], "objective"); }
     else if (e.k === "secondary") {
       const sg = r => (e.greg ? 1 : -1) * r * r / (4 * Math.abs(Dz.f2));
       if (e.span) disc(e.x, (e.span[1] - e.span[0]) / 2, 0, sg, MIR, 0.95, (e.span[0] + e.span[1]) / 2);

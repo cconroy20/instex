@@ -205,14 +205,21 @@ window.IX_TELESCOPES = [
   // f = 19.354 m at 50 F (Barnard 1917); unobstructed (a refractor: INFERRED, no source describes an obstruction).
   // color: Fox 1908 Table IV (the objective alone, plate 1): [wavelength A, distance from the best focus mm]; the blur
   // at the best focus (5732 A) is that distance times D / f (DERIVED).
+  // objective: the doublet as drawn (added 2026-11-19 after a colleague saw a singlet): the crown's outer surface 388 mm
+  // behind the rear principal point (B17 p. 24: 19354 - 18966 mm); the crown 2 1/2 in thick at the center and 3/4 in at
+  // the edge, the flint 1 1/2 in and 2 in (H97 p. 43, page image), 8.6 in = 218 mm behind the crown (B17; H97 gives
+  // 8 3/8 in). B17's tape agrees: crown surface to the middle of the air space 18966 - 18793 = 173 mm = 63.5 + 218 / 2.
+  // The curvatures are not published: each lens's sag is split equally between its two faces.
   { id: "yerkes", group: "Yerkes 1.0 m", name: "Yerkes 40-inch", D: 1.016, F1: 19.049, eps: 0, refractor: true,
+    objective: { front: 0.388, lenses: [{ name: "crown", tc: 0.0635, te: 0.01905 }, { name: "flint", gap: 0.218, tc: 0.0381, te: 0.0508 }],
+      tape: { gapMid: 18.793, src: "Barnard 1917, p. 24: \"The distance from the center of the space between the two lenses ... to the focal plane was 739.9 inches (18793 mm.)\"" } },
     primaryNote: "A two-element objective by Alvan Clark (crown in front, the glass discs by Mantois), 40 inches (1.016 m) clear; focal length 19.354 m at 50 °F (f/19.05), shorter by 17.5 mm for 45 °C of cooling. First used 21 May 1897; the largest refractor of its time.",
     pupil: { kind: "circle", D: 1.016 },
     pupilNote: "A lens: nothing in the beam (no source describes an obstruction).",
     color: [[4102, 88.54], [4110, 88.01], [4227, 66.75], [4272, 60.92], [4308, 56.17], [4340, 51.34], [4383, 46.64], [4540, 32.56], [4710, 20.10], [4862, 12.60], [5184, 3.54], [5283, 2.05], [5490, 0.24], [5732, 0.00], [5893, 1.07], [6270, 5.38], [6800, 16.35]],
     foci: [
       { id: "focus", name: "Focus f/19 (visual objective)", kind: "Focus", F: 19.049, plate: 10.67, design: "refr", field: 45, refl: 0,
-        secondary: "none: a doublet objective (4 refracting surfaces)", fieldNote: "The 20 × 25 cm plates covered ≈35′ × 45′ (unvignetted field not published). The lens is drawn ideal: the real one brings each color to a different focus (see the Image box)." },
+        secondary: "none: a doublet objective (4 refracting surfaces)", fieldNote: "The 20 × 25 cm plates covered ≈35′ × 45′ (unvignetted field not published). The doublet is drawn with the published thicknesses and spacing of the crown and flint lenses (Hale 1897; Barnard 1917); the curvatures of the four surfaces are not published, so each lens's curvature is split equally between the lens's two faces. The rays are those of an ideal lens: the real one brings each color to a different focus (see the Image box)." },
     ] },
   // ELT (ESO's Extremely Large Telescope, under construction): data/telescopes/elt.md. 798 hexagonal segments, 1.45 m
   // across the corners on the mirror, 4 mm gaps: in the pupil a lattice of pitch 1.2274 m (DERIVED from ESO's
