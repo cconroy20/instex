@@ -66,6 +66,29 @@ function surface(u, nrm, gvec, mlam, n1, n2, reflect) {
 // 326-1129 nm with these constants; OHARA's formula otherwise 365-2325 nm; CHARMS fits and Malitson as fitted.
 // Outside its range a glass has no index (NaN), and rays through it are dropped.
 const GLASS = {
+
+  // SAMOS PDR prism materials.
+  // RefractiveIndex.INFO / OHARA and Connolly et al.
+  "S-BSL7": {
+    label: "S-BSL7 (OHARA)",
+    range: [0.365, 2.325],
+    B: [1.1515019, 0.118583612, 1.26301359],
+    C: [0.010598413, -0.011822519, 129.617662]
+  },
+  "S-NPH2": {
+    label: "S-NPH2 (OHARA)",
+    range: [0.40, 2.325],
+    B: [2.0386951, 0.437269641, 2.96711461],
+    C: [0.0170796224, 0.0749254813, 174.155354]
+  },
+  "ZnSe-23C": {
+    label: "ZnSe at 23 C",
+    range: [0.54, 2.6],
+    B: [4.45813734, 0.467216334, 2.89566290],
+    C: [0.200859853**2, 0.391371166**2,
+        47.1362108**2]
+  },
+
   // Malitson 1965, JOSA 55, 1205 (publisher's abstract): fused silica, 20 C, 0.21-3.71 um
   silica: { label: "fused silica", range: [0.21, 3.71], B: [0.6961663, 0.4079426, 0.8974794], C: [0.0684043 ** 2, 0.1162414 ** 2, 9.896161 ** 2] },
   // SCHOTT datasheets (N-BK7 as of 01-Dec-2023; N-FK5 and FK5HTi from the optical glass collection)

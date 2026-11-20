@@ -326,7 +326,7 @@ function syncControls() {
 function params() {
   const m = M();
   const P = {
-    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups, gLen: m.gLen,
+    mode: S.mode, D: S.D, F: S.F, feed: "slit", slitW: m.slitW, N: 1, slitL: 0, nObj: m.nObj, traceW: m.traceW, fieldArcsec: m.fieldArcsec, fieldArcsec: m.fieldArcsec, col: m.col, cam: m.cam, dpass: m.dpass, lay3d: m.lay3d, wpT: m.wpT, colTilt: m.colTilt, layLen: m.layLen, camLen: m.camLen, foldOn: m.foldOn, foldAng: m.foldAng, foldPos: m.foldPos, foldLabel: m.foldLabel, filtShow: m.filtShow, preFoldOn: m.preFoldOn, preFoldAng: m.preFoldAng, preFoldPos: m.preFoldPos, gFlip: m.gFlip, annot: m.annot, view: m.view, spPts: m.spPts, spPos: m.spPos, W: m.W, Fc: m.Fc, fcam: m.fcam, Nx: m.Nx, Ny: m.Ny, pix: m.pix, lamC: m.lamC, filt: m.filt, fgroups: m.fgroups, gLen: m.gLen,
   };
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0, pA: m.pA, pN: m.pN, pPrisms: m.pPrisms });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
@@ -2619,7 +2619,20 @@ function objectOffsets(Dz, P) {
   const a = Dz.pos(lr, mr, 0, 0.01), b = Dz.pos(lr, mr, 0, -0.01);
   if (!a || !b) return { n: 1, zeta: [0], gapPx: NaN };
   const dYdz = Math.hypot(a[0] - b[0], a[1] - b[1]) / 0.02;        // detector mm per slit mm, along the slit
-  const span = P.mode === "echelle" ? (isFinite(Dz.minSep) ? Dz.minSep * Dz.pixmm : Dz.Ly / Math.max(1, Dz.orders.length)) : Dz.Ly;
+  // Optional restriction to an astronomical spatial field.
+  // The physical detector remains unchanged.
+  const nativeSpan = P.mode === "echelle"
+    ? (isFinite(Dz.minSep)
+       ? Dz.minSep * Dz.pixmm
+       : Dz.Ly / Math.max(1, Dz.orders.length))
+    : Dz.Ly;
+
+  const fieldSpan = (P.fieldArcsec > 0 &&
+                     Dz.c && Dz.c.pixScale > 0)
+    ? P.fieldArcsec / Dz.c.pixScale * Dz.pixmm
+    : nativeSpan;
+
+  const span = Math.min(nativeSpan, fieldSpan);
   // fibers in groups (P.fgroups = [fibers per group, pitch, gap], µm on the detector, center to center; the gap from
   // the last fiber of one group to the first of the next): the groups centered on the detector; else spread evenly
   const fg = Array.isArray(P.fgroups) && P.fgroups.length === 3 ? P.fgroups : null;
