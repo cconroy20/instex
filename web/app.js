@@ -21,7 +21,7 @@ const DEF = {
        filt: null, fgroups: null, telF: null, fibAp: null, gLen: null },
   e: { slitW: 0.5, traceW: null, nObj: 1, col: "lens", cam: "lens", dpass: false, view: "spectral", colTilt: null, layLen: null, camLen: null, foldOn: false, foldAng: 90, foldPos: 0.5, foldLabel: "", filtShow: false, preFoldOn: false, preFoldAng: 90, preFoldPos: 0.33, gFlip: false, annot: true,
        W: 150, Fc: 3.0, fcam: null, eG: 31.6, eDelta: 63.435, gamma: 1, theta: 0, eTilt: 0, xd: "grating", xG: 300, xPsi: 10, xGrA: null, lay3d: "single", wpT: null,
-        xPre: null, xDbl: null, xDraw: null, wp3: false, fold3d: "", xdLabel: "", note3d: "", note2d: "", camEq: "", xdEq: "", feedLabel: "", dichLabel: "", dichBefore: 0, dichTilt: 15,   // the 3D view's prism passes and labels (presets)
+        xPre: null, xDbl: null, xDraw: null, wp3: false, plan: "", fold3d: "", xdLabel: "", note3d: "", note2d: "", camEq: "", xdEq: "", feedLabel: "", dichLabel: "", dichBefore: 0, dichTilt: 15,   // the 3D view's prism passes and labels (presets)
        xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, xGrism: null, lamC: 5500, Nx: 4096, Ny: 4096, pix: 15, filt: null, fgroups: null, telF: null, fibAp: null, gLen: null },
 };
 const clone = o => JSON.parse(JSON.stringify(o));
@@ -30,6 +30,7 @@ let S = clone(DEF);
 // (az about the slit axis, then el) only sets the snaps, the mouse turns it freely
 const rotAzEl = (az, el) => { const ca = Math.cos(az), sa = Math.sin(az), ce = Math.cos(el), se = Math.sin(el); return [[ca, sa, 0], [-se * sa, se * ca, ce], [ce * sa, -ce * ca, se]]; };
 const R3 = { m: rotAzEl(-0.6, 0.5), az: -0.6, el: 0.5 };
+const PLAN_EL = -0.3;                                // the 3D view's tilt for a bench as designed (P.plan): the layout figure's view, from a little in front
 // orbit controls (as in CAD viewers and three.js's OrbitControls): spin about the slit axis without limit, tilt from
 // straight over to straight under, no roll; a release keeps turning and slows to a stop
 const setOrbit = (az, el) => { R3.az = az; R3.el = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, el)); R3.m = rotAzEl(R3.az, R3.el); };
@@ -108,7 +109,7 @@ const SL = [
 ];
 const obj = scope => (scope === "s" ? S : M());
 // layout options that change only the drawing (they keep a preset's name)
-const DRAWING_KEYS = new Set(["layLen", "camLen", "foldLabel", "filtShow", "xDraw", "note2d", "camEq", "xdEq", "feedLabel", "dichLabel", "dichBefore", "dichTilt", "preFoldOn", "preFoldAng", "preFoldPos", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
+const DRAWING_KEYS = new Set(["plan", "layLen", "camLen", "foldLabel", "filtShow", "xDraw", "note2d", "camEq", "xdEq", "feedLabel", "dichLabel", "dichBefore", "dichTilt", "preFoldOn", "preFoldAng", "preFoldPos", "foldOn", "foldAng", "foldPos", "colTilt", "gFlip", "annot", "view", "spPts", "spPos", "cam", "dpass", "lay3d", "wpT", "xPre", "xDbl", "wp3", "fold3d", "xdLabel", "note3d"]);
 
 function markCustom() {
   presetId = "custom";
@@ -276,6 +277,7 @@ function applyPreset(p) {
     else st[k] = p.state[k];
   }
   st.g.view = S.g.view; st.e.view = S.e.view;     // the view (Spectral, Spatial, 3D) is the reader's, not the preset's
+  if (st.e.plan) { stopCoast(); setOrbit(0, PLAN_EL); }      // a bench as designed opens on the layout figure's view, from a little in front
   S = st; presetId = p.id; armsInst = null; armsActive = null; armsEdits = {}; showPreset(p.id); zoom.reset(); lview.fit = true; schedule();
 }
 $("reset").addEventListener("click", () => {
@@ -331,7 +333,7 @@ function params() {
   if (S.mode === "grating") Object.assign(P, { gType: m.gType, G: m.G, m: m.m, lamB: m.lamB1 / m.m, psi: m.psi, tAlpha: m.tAlpha, gA: m.gA, gGlass: m.gGlass, gKind: m.gKind, gTilt: m.gTilt || 0, pA: m.pA, pN: m.pN, pPrisms: m.pPrisms });
   else Object.assign(P, { eG: m.eG, eDelta: m.eDelta, gamma: m.gamma, theta: m.theta, eTilt: m.eTilt, xd: m.xd, xG: m.xG, xPsi: m.xPsi, xGrA: m.xGrA,
                           xGlass: m.xGlass, xA: m.xA, xPasses: m.xPasses, xPrisms: m.xPrisms, xGrism: m.xGrism,
-                          xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d, note2d: m.note2d, camEq: m.camEq, xdEq: m.xdEq, feedLabel: m.feedLabel, dichLabel: m.dichLabel, dichBefore: m.dichBefore, dichTilt: m.dichTilt });
+                          xPre: m.xPre, xDbl: m.xDbl, xDraw: m.xDraw, wp3: m.wp3, plan: m.plan && window.IX_PLANS ? window.IX_PLANS[m.plan] || null : null, fold3d: m.fold3d, xdLabel: m.xdLabel, note3d: m.note3d, note2d: m.note2d, camEq: m.camEq, xdEq: m.xdEq, feedLabel: m.feedLabel, dichLabel: m.dichLabel, dichBefore: m.dichBefore, dichTilt: m.dichTilt });
   return P;
 }
 
@@ -358,7 +360,7 @@ function writeHash() {
 // keys that must be positive, and the allowed values of the string-valued keys
 const POSITIVE = new Set(["D", "F", "slitW", "nObj", "W", "Fc", "fcam", "G", "m", "lamB1", "lamC", "eG", "xG", "xA", "Nx", "Ny", "pix", "traceW", "layLen", "camLen", "gA", "telF", "fibAp", "xGrA", "wpT", "xPre", "pA", "pN", "gLen"]);
 const CHOICES = { mode: ["grating", "echelle"], gType: ["refl", "trans", "grism", "prism"], col: ["lens", "mirror"], cam: ["lens", "mirror"], view: ["spectral", "spatial", "3d"], lay3d: ["single", "pp", "4c", "wp"],
-  gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
+  gKind: ["ruled", "vph"], xd: ["grating", "vph", "prism", "grism"], plan: ["", ...Object.keys(window.IX_PLANS || {})], gGlass: Object.keys(IX.GLASS), xGlass: Object.keys(IX.GLASS) };
 function readHash() {
   const h = location.hash.slice(1);
   if (!h) return;
@@ -1587,7 +1589,203 @@ function drawLayout(Dz, P) {
       const sepTxt = Math.abs(sepDeg - sepTrue) < 0.05 ? "" : "; the beams are drawn " + sepDeg.toFixed(1) + "° apart out of the echelle's plane" + (sepTrue > 0 ? " (" + sepTrue.toFixed(1) + "° in the instrument)" : " (the instrument's angle is not given in the sources)");
       $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; mirrors drawn as lenses" + (kind === "wp" ? " (" + (P.wp3 ? "the collimator's third pass drawn as a mirror of its own" : fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera " + mm(fPh)) + ")" : "") + sepTxt + (kind === "pp" && P.xPrisms && P.xPrisms.some(q => q.dI) ? "; prisms turned from minimum deviation as in the model" : "") + "; spacings not in the sources are schematic" + (P.note3d ? "; " + P.note3d : "") + ".";
     }
-    if (ech) { if (dpass) build3dDoublePass(); else if (["pp", "4c", "wp"].includes(P.lay3d)) build3dFolded(P.lay3d); else build3dEchelle(); }
+    // ---- 3D view of a bench as designed or built (P.plan, laid out and traced by IX.planLayout in physics.js): the
+    // mirrors drawn as mirrors, each camera lens from its prescription where one is published, every arm.  World:
+    // planLayout's bench frame (x along M1's axis, y across the bench, the echelle's dispersion; z in the bench plane),
+    // whose Side view is the paper's layout figure.  The modeled arm's foci are the tracer's (Dz.pos), so the drawing
+    // agrees with the Detector panel; the other arms, which the model does not compute, are planLayout's own trace.
+    function build3dPlan(L) {
+      const PL = P.plan, YA = [0, 1, 0], band = PL.band, tOfP = l => (l - band[0]) / (band[1] - band[0]);
+      const rotP = (v, t) => [v[0] * Math.cos(t) - v[2] * Math.sin(t), v[1], v[0] * Math.sin(t) + v[2] * Math.cos(t)];
+      const inPlane = n => n3(x3(YA, n));                           // the in-plane direction across a surface of normal n
+      const at2 = (c, lab, dflt) => a3(c, lab ? [lab[0], 0, lab[1]] : dflt);
+      const foci = [], cams = Object.values(L.cams), ords = Dz.orders || [];
+      // the modeled arm's detector: the tracer's (X, Y) mapped onto the plate, X along the echelle's dispersion (y), Y
+      // across; the signs from planLayout's own trace of one point off both axes
+      // (the tracer's origin in echelle mode is the echelle's blaze direction in the reference order: where planLayout puts
+      // that ray)
+      const camM = cams.find(c => c.model) || cams[0], acrOf = c => rotP(c.axis, Math.PI / 2), acrM = acrOf(camM);
+      const refQ = L.chief(camM.m, L.mlamB / camM.m, camM.id, camM.lam) || camM.det;
+      let sX = 1, sY = 1;
+      if (ords.length) {
+        const o = ords[0], pq = Dz.pos(o.lo, o.m), q = L.chief(o.m, o.lo, camM.id);
+        if (pq && q) { const d = a3(q, s3(refQ, -1)); sX = Math.sign(d3(d, YA) * pq[0]) || 1; sY = Math.sign(d3(d, acrM) * pq[1]) || 1; }
+      }
+      const onM = pq => a3(refQ, a3(s3(YA, sX * pq[0]), s3(acrM, sY * pq[1])));
+      // the light arriving: the feed's cone into the slit (through the feed fold, where there is one), then to M1 and
+      // the echelle
+      const S = L.feed.S, ff = L.feed.fold;
+      tube([L.cone.map(d => a3(S, s3(ff ? IX.surface(d, ff.n, null, 0, 1, 1, true) : d, -0.05 * L.f))), [S]], [214, 160, 50], 0.13, true);
+      tube(ff ? [[S], L.feed.ring, L.atM1in, L.foot] : [[S], L.atM1in, L.foot], NEU3, 0.07);
+      // the light returning: three orders on each detector (the reddest, the middle, the bluest), three wavelengths in each:
+      // the ends of the order's free spectral range (within the chip and the arm's band; the optics are sized for that
+      // range, and the chip's edges lie beyond it) and its blaze; the modeled arm's bundles end at the tracer's foci.
+      // Each bundle in two pieces: the path all the bundles share, faint, and the arm from its cross-disperser (or the
+      // dichroic before it) on
+      const two = (tr, rgb, al) => { const k = tr.fade || tr.st.length - 2; tube(tr.st.slice(0, k), rgb, 0.025); tube(tr.st.slice(k - 1), rgb, al); };
+      const fsr = (lb, m, lo, hi) => [Math.max(lo, lb * (1 - 0.5 / m)), Math.min(hi, Math.max(lo, lb)), Math.min(hi, lb * (1 + 0.5 / m))];
+      const misfit = [];
+      const pickM = ords.length ? [...new Set([ords[ords.length - 1], ords[Math.floor(ords.length / 2)], ords[0]])] : [];
+      for (const o of pickM) for (const l of fsr(o.lb, o.m, o.lo, o.hi)) {
+        const tr = L.trace(o.m, l, camM.id), pq = Dz.pos(l, o.m);
+        if (!tr || !pq) continue;
+        const Q = onM(pq);
+        misfit.push(Math.hypot(...a3(tr.Q, s3(Q, -1))));
+        tr.st[tr.st.length - 1] = [Q];
+        const rgb = rampRGB(tOfP(l));
+        two(tr, rgb, 0.12); foci.push([Q, rgb]);
+      }
+      const mRange = c => [Math.ceil(L.mlamB / c.range[1]), Math.floor(L.mlamB / c.range[0])];
+      for (const c of cams) {
+        if (c === camM || !c.range) continue;
+        const [m0, m1] = mRange(c);
+        for (const m of [m0, Math.round(L.mlamB / c.lam), m1]) { const lb = L.mlamB / m; for (const l of fsr(lb, m, c.range[0], c.range[1])) {
+          const tr = L.trace(m, l, c.id);
+          if (!tr) continue;
+          const rgb = rampRGB(tOfP(l));
+          two(tr, rgb, 0.1); foci.push([tr.Q, rgb]);
+        } }
+      }
+      const gp = L.parts.find(q => q.k === "grism2");
+      window.__plan = { misfitMax: misfit.length ? Math.max(...misfit) : null, nRed: misfit.length, signs: [sX, sY], grismDeg: gp ? gp.pv / IX.DEG : null };
+      // ---- the optics
+      // a lens from its prescription: front vertex V on the axis ax, radii R1 and R2 (> 0 convex as seen from outside the
+      // lens), center thickness t, semi-diameter r; each face a spherical cap
+      const sag = (R, h) => { const a = Math.abs(R); return !isFinite(a) ? 0 : h >= a ? a : a - Math.sqrt(a * a - h * h); };
+      const lens = (V, ax, R1, R2, t, r) => {
+        const u = inPlane(ax), K = 3, J = 24;
+        const pt = (z, h, j) => a3(a3(V, s3(ax, z)), a3(s3(u, h * Math.cos(2 * Math.PI * j / J)), s3(YA, h * Math.sin(2 * Math.PI * j / J))));
+        const zF = h => (R1 > 0 ? 1 : -1) * sag(R1, h), zB = h => t - (R2 > 0 ? 1 : -1) * sag(R2, h);
+        for (const zf of [zF, zB]) for (let k = 0; k < K; k++) for (let j = 0; j < J; j++) {
+          const h0 = r * k / K, h1 = r * (k + 1) / K, j2 = (j + 1) % J;
+          face(k === 0 ? [pt(zf(0), 0, 0), pt(zf(h1), h1, j), pt(zf(h1), h1, j2)] : [pt(zf(h0), h0, j), pt(zf(h1), h1, j), pt(zf(h1), h1, j2), pt(zf(h0), h0, j2)], GLASS3, 0.2);
+        }
+        const rimF = Array.from({ length: J }, (_, j) => pt(zF(r), r, j)), rimB = Array.from({ length: J }, (_, j) => pt(zB(r), r, j));
+        for (let j = 0; j < J; j++) face([rimF[j], rimF[(j + 1) % J], rimB[(j + 1) % J], rimB[j]], GLASS3, 0.32);
+        prims3.push({ k: "o", p: rimF, stroke: GE3, lw: 0.9 }, { k: "o", p: rimB, stroke: GE3, lw: 0.9 });
+      };
+      // M1 (a block behind its face, oriented as the paraboloid's normal at the middle of the zones the light uses)
+      const m1n = s3(L.M1.n, -1);
+      if (PL.m1.round) slab(a3(L.M1.at, s3(m1n, -PL.m1.t / 2)), m1n, PL.m1.w / 2, PL.m1.t, MIRROR3, 0.55, STEEL3);   // a round mirror (HARPS)
+      else plate(L.M1.at, inPlane(m1n), YA, PL.m1.w / 2, PL.m1.h / 2, m1n, PL.m1.t, MIRROR3, 0.55, STEEL3);
+      // the echelle mosaic: its facets side by side along the dispersion, the grooves drawn on each
+      {
+        const tE = n3(L.gE), gv = n3(x3(L.nE, tE)), nF = PL.echelle.facets, seg = PL.echelle.len / nF, gap = 6;
+        for (let k = 0; k < nF; k++) {
+          const c = a3(L.E, s3(tE, (k - (nF - 1) / 2) * seg));
+          plate(c, tE, gv, seg / 2 - gap / 2, PL.echelle.w / 2, L.nE, PL.echelle.t, STEEL_RGB, 0.6, STEEL3);
+          for (let j = 1; j < 6; j++) { const q = a3(c, s3(tE, (seg - gap) * (j / 6 - 0.5))); line(a3(q, s3(gv, PL.echelle.w / 2)), a3(q, s3(gv, -PL.echelle.w / 2)), rgba(rampRGB((k * 5 + j) / (5 * nF + 1)), 0.85), 1); }
+        }
+      }
+      // the elements after the echelle, each with its label
+      const labs = [], lab = (c, q, dz, title, sub) => labs.push([at2(c, q.lab, [0, 0, dz]), title, sub || ""]);
+      for (const q of [...(ff ? [ff] : []), ...L.parts]) {
+        if (q.k === "flat" || q.k === "mangin" || q.k === "field") {
+          plate(q.c, inPlane(q.n), YA, q.w / 2, q.h / 2, q.n, q.t, MIRROR3, 0.55, STEEL3);
+          lab(q.c, q, -(q.w / 2 + 0.03 * L.f), q.label || (q.k === "flat" ? "flat" : q.k === "field" ? "field mirror" : "Mangin mirror"), q.sub);
+        } else if (q.k === "parab") {
+          const n = s3(q.n, -1);
+          plate(q.c, inPlane(n), YA, q.w / 2, q.h / 2, n, q.t, MIRROR3, 0.55, STEEL3);
+          lab(q.c, q, q.w / 2 + 0.05 * L.f, q.label || "transfer collimator", q.sub || "f = " + mm(q.M.f));
+        } else if (q.k === "dichroic") {
+          plate(q.c, inPlane(q.n), YA, q.w / 2, q.h / 2, q.n, q.t, [222, 190, 120], 0.35, "rgba(150,118,50,0.8)");
+          lab(q.c, q, 0.75 * q.w, q.label || "dichroic", q.sub);
+        } else if (q.k === "vph") {
+          plate(a3(q.c, s3(q.n, q.t / 2)), inPlane(q.n), YA, q.w / 2, q.h / 2, q.n, q.t, GLASS3, 0.3, GE3);
+          lab(q.c, q, -0.75 * q.w, q.label || "VPH grating", q.sub || q.G + " /mm");
+        } else if (q.k === "grating") {
+          plate(q.c, inPlane(q.n), YA, q.w / 2, q.h / 2, q.n, q.t, STEEL_RGB, 0.6, STEEL3);
+          const tg = inPlane(q.n);
+          for (let j = 1; j < 8; j++) { const p0 = a3(q.c, s3(tg, q.w * (j / 8 - 0.5))); line(a3(p0, s3(YA, q.h / 2)), a3(p0, s3(YA, -q.h / 2)), rgba(rampRGB(j / 8), 0.85), 1); }
+          lab(q.c, q, -(q.w / 2 + 0.03 * L.f), q.label || "cross-disperser", q.sub || q.G + " /mm");
+        } else if (q.k === "lens") {
+          // (a rectangular field lens, w x h, is drawn as a plate)
+          if (q.h) plate(q.c, inPlane(q.n), YA, q.w / 2, q.h / 2, q.n, q.t || 20, GLASS3, 0.3, GE3);
+          else lens(a3(q.c, s3(q.n, -(q.t || 20) / 2)), q.n, q.R1 || 1e9, q.R2 || 1e9, q.t || 20, q.w / 2);
+          lab(q.c, q, -(q.w / 2 + 0.03 * L.f), q.label || "field lens", q.sub);
+        } else if (q.k === "grism2" || q.k === "prism" || q.k === "grism") {
+          // the prisms: each bounded by its two faces and by two planes along the beam, hw either side of the axis
+          const b = q.k === "grism2" ? q.b : q.uIn, sx = inPlane(b), o = q.k === "grism2" ? q.G1 : q.c;   // (grism2 and grism)
+          const atF = (c, n, s) => { const p0 = a3(o, s3(sx, s)); return a3(p0, s3(b, d3(a3(c, s3(p0, -1)), n) / d3(b, n))); };
+          const prism = (cA, nA, cB, nB, rgb, al, st) => {
+            const sec = [atF(cA, nA, q.hw), atF(cB, nB, q.hw), atF(cB, nB, -q.hw), atF(cA, nA, -q.hw)];
+            const up = sec.map(p0 => a3(p0, s3(YA, q.hy))), dn = sec.map(p0 => a3(p0, s3(YA, -q.hy)));
+            face(up, rgb, al, st); face(dn, rgb, al, st);
+            for (let k = 0; k < 4; k++) face([up[k], up[(k + 1) % 4], dn[(k + 1) % 4], dn[k]], rgb, Math.min(1, al * 1.4), st, 0.6);
+          };
+          if (q.k === "grism") {
+            // a ruled grism: one prism, the grating on its exit face
+            prism(q.c, q.n1, q.c2, q.n2, GLASS3, 0.22, GE3);
+            const v = [atF(q.c2, q.n2, q.hw), atF(q.c2, q.n2, -q.hw)];
+            face([a3(v[0], s3(YA, q.hy)), a3(v[1], s3(YA, q.hy)), a3(v[1], s3(YA, -q.hy)), a3(v[0], s3(YA, -q.hy))], [110, 86, 140], 0.5, "rgba(110,86,140,0.9)", 1.6);
+            labs.push([at2(q.c, q.lab, s3(inPlane(q.uIn), -1.6 * q.hw)), q.label || "grism", q.sub || q.G + " /mm"]);
+          } else if (q.k === "grism2") {
+            prism(q.G1, q.n1, q.GV, q.nV, GLASS3, 0.22, GE3);
+            prism(q.GV, q.nV, q.G2, q.n2, GLASS3, 0.22, GE3);
+            const v = [atF(q.GV, q.nV, q.hw), atF(q.GV, q.nV, -q.hw)];
+            face([a3(v[0], s3(YA, q.hy)), a3(v[1], s3(YA, q.hy)), a3(v[1], s3(YA, -q.hy)), a3(v[0], s3(YA, -q.hy))], [110, 86, 140], 0.5, "rgba(110,86,140,0.9)", 1.6);
+            labs.push([at2(q.GV, q.lab, s3(rotP(q.b, Math.PI / 2), 1.5 * q.hw)), q.label || "VPH grism", q.sub || q.G + " /mm"]);
+          } else {
+            // a prism from its faces: the apex where the face planes meet in the bench plane, each face faceLen long
+            const a1 = q.n1[0], b1 = q.n1[2], a2 = q.n2[0], b2 = q.n2[2], e1 = a1 * q.c[0] + b1 * q.c[2], e2 = a2 * q.c2[0] + b2 * q.c2[2], dt = a1 * b2 - a2 * b1;
+            const apex = [(e1 * b2 - e2 * b1) / dt, 0, (a1 * e2 - a2 * e1) / dt];
+            const along = (n, c) => { let t = [-n[2], 0, n[0]]; if (d3(a3(c, s3(apex, -1)), t) < 0) t = s3(t, -1); return t; };
+            const tri = [apex, a3(apex, s3(along(q.n1, q.c), q.faceLen)), a3(apex, s3(along(q.n2, q.c2), q.faceLen))];
+            const up = tri.map(p0 => a3(p0, s3(YA, q.hy))), dn = tri.map(p0 => a3(p0, s3(YA, -q.hy)));
+            face(up, GLASS3, 0.22, GE3); face(dn, GLASS3, 0.22, GE3);
+            for (let k = 0; k < 3; k++) face([up[k], up[(k + 1) % 3], dn[(k + 1) % 3], dn[k]], GLASS3, 0.3, GE3, 0.6);
+            lab(q.c, q, -0.6 * q.faceLen, q.label || "prism", q.sub || q.A + "° " + q.glass);
+          }
+        }
+      }
+      // the cameras and detectors, with the orders' traces: the tracer's in the modeled arm, planLayout's elsewhere
+      const camMid = (c, k) => a3(a3(c.L1, s3(c.axis, 0.45 * Math.hypot(...a3(c.det, s3(c.L1, -1))))), s3(rotP(c.axis, Math.PI / 2), k));
+      for (const c of cams) {
+        for (const q of c.lenses) lens(a3(c.L1, s3(c.axis, q.z0)), c.axis, q.R1, q.R2, q.t, q.r);
+        const acr = acrOf(c), dX = c === camM || !c.det2 ? Dz.Lx : c.det2[0], dY = c === camM || !c.det2 ? Dz.Ly : c.det2[1];
+        // (the modeled arm's chip centered where the reference ray lands, as the tracer centers its format there)
+        const dc = c === camM ? refQ : c.det;
+        plate(dc, acr, YA, dY / 2, dX / 2, s3(c.axis, -1), 6, [51, 55, 61], 0.92, STEEL3);
+        if (c === camM) {
+          for (const o of ords) {
+            let prev = null;
+            for (let k = 0; k <= 24; k++) {
+              const l = o.lo + (o.hi - o.lo) * k / 24, pq = Dz.pos(l, o.m);
+              if (!pq) { prev = null; continue; }
+              const q = a3(onM(pq), s3(c.axis, -0.5));
+              if (prev) line(prev, q, rgba(rampRGB(tOfP(l)), 1), 1.4);
+              prev = q;
+            }
+          }
+        } else if (c.range) {
+          const [m0, m1] = mRange(c);
+          for (let m = m0; m <= m1; m++) {
+            const lb = L.mlamB / m;
+            let prev = null;
+            for (let k = 0; k <= 12; k++) {
+              const l = lb * (1 + 0.55 * (2 * k / 12 - 1) / m), q0 = L.chief(m, l, c.id), d = q0 && a3(q0, s3(c.det, -1));
+              if (!d || Math.abs(d3(d, YA)) > dX / 2 || Math.abs(d3(d, acr)) > dY / 2) { prev = null; continue; }
+              const q = a3(q0, s3(c.axis, -0.5));
+              if (prev) line(prev, q, rgba(rampRGB(tOfP(l)), 1), 1.2);
+              prev = q;
+            }
+          }
+        }
+        const r3 = c.lenses.length ? c.lenses[Math.min(2, c.lenses.length - 1)].r : 0.1 * c.f;
+        labs.push([c.lab ? at2(c.L1, c.lab) : camMid(c, -1.5 * r3), c.label || "camera", (c.lenses.length ? c.lenses.length + " lenses, " : "") + "f = " + mm(c.f)],
+          [a3(dc, s3(acr, (c.detSide || 1) * 1.4 * dY / 2)), "detector", c === camM ? mm(Dz.Lx) : c.detSub || c.id + " arm"]);
+      }
+      for (const [q, col] of foci) prims3.push({ k: "d", p: [q], col });
+      prims3.push({ k: "d", p: [S], col: [96, 90, 84] });
+      const R = Math.round(Math.tan(P.eDelta * IX.DEG)), nF = PL.echelle.facets, words = ["one", "two", "three", "four"];
+      labs3.push([at2(S, PL.feed && PL.feed.lab, [-0.03 * L.f, 0, 0.035 * L.f]), (PL.feed && PL.feed.label) || P.feedLabel || "slit", (PL.feed && PL.feed.sub) || "f/" + sig(P.F, 3)],
+        [at2(L.M1.at, PL.m1.lab, [0, 0, -0.62 * PL.m1.w]), PL.m1.label || "collimator", "f = " + mm(L.f) + (PL.m1.sub ? ", " + PL.m1.sub : "")],
+        [at2(L.E, PL.echelle.lab, [0, 0, -0.75 * PL.echelle.w]), "echelle", sig(P.eG, 4) + " /mm, R" + R + (nF > 1 ? ", " + (words[nF - 1] || nF) + " facets" : "")],
+        ...labs);
+      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; " + (PL.side || "Side shows the bench from above.") + " " + (PL.caption || "");
+    }
+    const PLAN = ech && P.view === "3d" && P.plan && P.lay3d === "wp" ? IX.planLayout(P.plan, P) : null;
+    if (ech) { if (PLAN) build3dPlan(PLAN); else if (dpass) build3dDoublePass(); else if (["pp", "4c", "wp"].includes(P.lay3d)) build3dFolded(P.lay3d); else build3dEchelle(); }
     else {
     const Ly = Dz.Ly, hMax = 0.5 * Ly * fcol / fcam, lc = Dz.grism ? Dz.grism.lam0 : P.lamC / 1e4;
     const zcW = W3(Dz.zc), xcW = W3(Dz.xc), ycW = W3(Dz.yc);

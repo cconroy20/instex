@@ -433,5 +433,257 @@ IX.GLASS.__test = { B: [1.0, 0.2], C: [0.012, 100] };   // a made-up glass for t
   }
 }
 
+// ---------------------------------------------------------------- 5. a bench as designed (IX.planLayout; the 3D drawing)
+// G-CLEF's bench (data/layout/gclef.md): the folded layout from the published numbers and the anchors measured from
+// Ben-Ami et al. 2016 Fig. 1, traced through real mirrors.  The checks compare the layout with what the paper states
+// or draws, the red arm's foci with the model's, and the drawn bundles with each element's clear aperture.
+{
+  const PRESETS = require("./web/presets.js");
+  const p = PRESETS.find(q => q.id === "gclef"), PL = PRESETS.plans[p.state.e.plan];
+  const P = Object.assign({ mode: "echelle", D: p.state.D, F: p.state.F, feed: "slit", slitL: 0 }, p.state.e);
+  const L = IX.planLayout(PL, P), D = IX.design(P), DEGR = Math.PI / 180;
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dist = (a, b) => Math.hypot(...sub(a, b));
+  const dotp = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const rot90 = v => [-v[2], v[1], v[0]];                  // a quarter turn in the bench plane
+  check("plan gclef: laid out for the preset's state", !!L, L ? `reference order ${L.mR}, ${L.parts.length} elements, ${Object.keys(L.cams).length} cameras` : "planLayout returned null");
+  check("plan gclef: no bench for another state (W = 250 mm)", IX.planLayout(PL, Object.assign({}, P, { W: 250 })) === null, "the schematic drawing takes over");
+  if (L) {
+    const part = k => L.parts.find(q => q.k === k), Mg = part("mangin"), M2 = part("parab"), Dc = part("dichroic"), gr = part("grism2"), red = L.cams.red, blue = L.cams.blue;
+    const fz = L.f * Math.tan(2 * P.gamma * DEGR);
+    check("plan gclef: the returning focus 2 gamma f from the fiber, toward the grating", Math.abs(L.Q0[2] + fz) < 1, `z = ${L.Q0[2].toFixed(2)} mm, 2 gamma f = ${fz.toFixed(2)} (Ben-Ami et al. 2016 Sec. 2.2: "the refocused beam clears the slit converging to a point in-between the fiber input and the grating")`);
+    const dM2 = dist(M2.c, [PL.path[1].at[0], 0, PL.path[1].at[1]]);
+    check("plan gclef: M2's face, 1600 mm from the folded focus, at the place Fig. 1 draws", dM2 < 25, `${dM2.toFixed(0)} mm from the measured face center`);
+    check("plan gclef: the Mangin mirror at the place Fig. 1 draws", dist(Mg.c, [49.9, 0, -71.7]) < 25, `${dist(Mg.c, [49.9, 0, -71.7]).toFixed(0)} mm from the drawn box's center (40 mm before the focus, Sec. 2.2)`);
+    const dR = dist(red.det, [-625, 0, 499]), dB = dist(blue.det, [1676, 0, 836]);
+    check("plan gclef: the detectors at the places Fig. 1 draws", dR < 50 && dB < 50, `red ${dR.toFixed(0)} mm, blue ${dB.toFixed(0)} mm from the drawn positions, over a 3.5 m bench`);
+    // the red arm's foci against the tracer's (the drawing maps the tracer's (X, Y) onto the plate, signs fitted)
+    const ords = D.orders, acr = rot90(red.axis), refQ = L.chief(red.m, L.mlamB / red.m, "red", red.lam), o0 = ords[0], pq0 = D.pos(o0.lo, o0.m), q0 = sub(L.chief(o0.m, o0.lo, "red"), refQ);
+    const sX = Math.sign(q0[1] * pq0[0]) || 1, sY = Math.sign(dotp(q0, acr) * pq0[1]) || 1;
+    let mis = 0, nmis = 0;
+    for (const o of ords) for (const l of [o.lo, Math.min(o.hi, Math.max(o.lo, o.lb)), o.hi]) {
+      const pq = D.pos(l, o.m), q = L.chief(o.m, l, "red");
+      if (!pq || !q) continue;
+      const d = sub(q, refQ); mis = Math.max(mis, Math.hypot(d[1] - sX * pq[0], dotp(d, acr) - sY * pq[1])); nmis++;
+    }
+    check("plan gclef: the red arm's foci agree with the model's", nmis > 0 && mis < 2, `largest difference ${mis.toFixed(2)} mm over ${nmis} points on the ${(D.Lx).toFixed(1)} mm detector (the VPH's 3.25 deg fringe tilt, which the model leaves out)`);
+    // the blue grism and format
+    const bl = blue.range, mlo = Math.ceil(L.mlamB / bl[1]), mhi = Math.floor(L.mlamB / bl[0]);
+    let across = [Infinity, -Infinity], off = 0;
+    const acrB = rot90(blue.axis);
+    const fsr = (lb, m, lo, hi) => [Math.max(lo, lb * (1 - 0.5 / m)), Math.min(hi, Math.max(lo, lb)), Math.min(hi, lb * (1 + 0.5 / m))];
+    for (let m = mlo; m <= mhi; m++) { const lb = L.mlamB / m; for (const l of fsr(lb, m, bl[0], bl[1])) {
+      const q = L.chief(m, l, "blue"); if (!q) { off++; continue; }
+      const d = sub(q, blue.det), a = dotp(d, acrB); across = [Math.min(across[0], a), Math.max(across[1], a)];
+      if (Math.abs(a) > 1.02 * D.Ly / 2 || Math.abs(d[1]) > 1.02 * D.Lx / 2) off++;
+    } }
+    // (within 2% of the chip's half-width: the grism's orientation is inferred, and the reddest order's 5400 A end lies at
+    // the dichroic's 540 nm transition; the paper gives the format on a 95.04 mm STA chip as well as the 92.4 mm e2v one)
+    check("plan gclef: the blue grism's orders fill the detector (its prisms set to pass 4386 A undeviated)", off === 0 && across[1] - across[0] > 0.85 * D.Ly, `orders ${mlo}-${mhi} span ${across[0].toFixed(1)} to ${across[1].toFixed(1)} mm across a ${D.Ly.toFixed(1)} mm chip (95.04 mm on the STA chip), ${off} points more than 2% past its edge; VPH plane ${(gr.pv / DEGR).toFixed(2)} deg from square to the beam`);
+    // the camera prescriptions: each lens has a positive edge and clears the next at the rim (R > 0 convex as seen from outside)
+    const sagR = (R, h) => Math.abs(R) - Math.sqrt(R * R - h * h);
+    let worstEdge = Infinity, worstGap = Infinity;
+    for (const c of [PL.path[2].transmit[1], PL.path[2].reflect[1]]) c.lenses.forEach(([R1, R2, t, air, ca1, ca2], i) => {
+      const r = Math.max(ca1, ca2) / 2, zF = (R1 > 0 ? 1 : -1) * sagR(R1, r), zB = t - (R2 > 0 ? 1 : -1) * sagR(R2, r);
+      worstEdge = Math.min(worstEdge, zB - zF);
+      const nx = c.lenses[i + 1];
+      if (nx) { const rr = Math.min(r, Math.max(nx[4], nx[5]) / 2); worstGap = Math.min(worstGap, air - (R2 > 0 ? -1 : 1) * sagR(R2, rr) + (nx[0] > 0 ? 1 : -1) * sagR(nx[0], rr)); }
+    });
+    check("plan gclef: the camera lenses (Tables 7-8) have positive edges and clear one another", worstEdge > 0 && worstGap > 0, `thinnest edge ${worstEdge.toFixed(1)} mm, smallest gap at a rim ${worstGap.toFixed(1)} mm`);
+    // the drawn bundles (each order's free spectral range, within the chip and the arm's band) inside the clear apertures
+    // of M1, the Mangin mirror, M2, the dichroic and each camera's first lens
+    const inCA = (pts, c, n, w, h) => { const u = [-n[2], 0, n[0]], uu = Math.hypot(...u); return Math.max(...pts.map(q => Math.max(Math.abs(dotp(sub(q, c), u)) / uu / (w / 2), Math.abs(q[1] - c[1]) / (h / 2)))); };
+    let worst = { M1: 0, Mangin: 0, M2: 0, dichroic: 0, "red camera": 0, "blue camera": 0 };
+    const bundles = [...ords.flatMap(o => fsr(o.lb, o.m, o.lo, o.hi).map(l => [o.m, l, "red"])), ...Array.from({ length: mhi - mlo + 1 }, (_, k) => mlo + k).flatMap(m => fsr(L.mlamB / m, m, bl[0], bl[1]).map(l => [m, l, "blue"]))];
+    for (const [m, l, arm] of bundles) {
+      const t = L.trace(m, l, arm); if (!t) continue;
+      const st = t.st, cam = L.cams[arm], c0 = arm === "red" ? PL.path[2].transmit[1] : PL.path[2].reflect[1], ca = Math.max(c0.lenses[0][4], c0.lenses[0][5]);
+      worst.M1 = Math.max(worst.M1, inCA(st[1], L.M1.at, L.M1.n, PL.m1.w, PL.m1.h));
+      worst.Mangin = Math.max(worst.Mangin, inCA(st[2], Mg.c, Mg.n, Mg.w, Mg.h));
+      worst.M2 = Math.max(worst.M2, inCA(st[4], M2.c, M2.n, M2.w, M2.h));
+      worst.dichroic = Math.max(worst.dichroic, inCA(st[5], Dc.c, Dc.n, Dc.w, Dc.h));
+      const rl = Math.max(...st[st.length - 2].map(q => Math.hypot(...sub(sub(q, cam.L1), [0, 0, 0].map((_, i) => cam.axis[i] * dotp(sub(q, cam.L1), cam.axis))))));
+      worst[arm + " camera"] = Math.max(worst[arm + " camera"], rl / (ca / 2));
+    }
+    // (a 5% margin: the anchors measured from Fig. 1 to +-25 mm move a footprint by up to 5% of M2's half-aperture)
+    const wmax = Math.max(...Object.values(worst));
+    check("plan gclef: each order's free spectral range inside the clear apertures", wmax <= 1.05, Object.entries(worst).map(([k, v]) => `${k} ${(100 * v).toFixed(0)}%`).join(", ") + " of the half-aperture at the widest");
+  }
+}
+
+// FEROS's bench (data/layout/feros.md): the poses DERIVED from the Zemax prescription of the Final Design Report (App. A),
+// so the checks compare the traced layout with that prescription, the model's foci, the camera's prescription and the
+// clear apertures (as above for G-CLEF)
+{
+  const PRESETS = require("./web/presets.js");
+  const p = PRESETS.find(q => q.id === "feros"), PL = PRESETS.plans[p.state.e.plan];
+  const P = Object.assign({ mode: "echelle", D: p.state.D, F: p.state.F, feed: "slit", slitL: 0 }, p.state.e);
+  const L = IX.planLayout(PL, P), D = IX.design(P), DEGR = Math.PI / 180;
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dotp = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const d2 = (a, b) => Math.hypot(a[0] - b[0], a[2] - b[2]);       // in the bench plane
+  check("plan feros: laid out for the preset's state", !!L, L ? `reference order ${L.mR}, ${L.parts.length} elements` : "planLayout returned null");
+  if (L) {
+    const cam = L.cams.main, TC = L.parts.find(q => q.k === "parab"), fl = L.parts.find(q => q.k === "flat");
+    // the second pass on M1: the echelle's gamma sends the returning light 2 gamma farther from the axis (Zemax surface 16: 205.9 mm)
+    const r2 = L.trace(L.mR, L.mlamB / L.mR, "main").st[1], z2 = r2.reduce((s, q) => s + q[2], 0) / r2.length;
+    check("plan feros: M1's second zone where the prescription puts it", Math.abs(z2 - 205.9) < 3, `${z2.toFixed(1)} mm from the axis (surface 16's aperture: 205.9 mm; the first pass 170.3 mm)`);
+    check("plan feros: the transfer collimator's zone where the prescription puts it", d2(TC.c, [1700, 0, -142.5]) < 6, `${d2(TC.c, [1700, 0, -142.5]).toFixed(1)} mm from surface 18's aperture center (vertex 200 mm behind M1's, zone 142.5 mm on the other side)`);
+    const ang = Math.atan2(cam.axis[2], cam.axis[0]) / DEGR + 360;
+    check("plan feros: the camera where the prescription puts it", d2(cam.L1, [158.3, 0, -307.4]) < 3 && Math.abs(ang - 221.1) < 0.3 && d2(cam.det, [-297.8, 0, -705.3]) < 3,
+      `first vertex ${d2(cam.L1, [158.3, 0, -307.4]).toFixed(1)} mm, axis ${(ang - 221.1).toFixed(2)} deg, CCD ${d2(cam.det, [-297.8, 0, -705.3]).toFixed(1)} mm from surfaces 24 and IMA`);
+    // the model's foci: the model enters the prism as an effective 56 deg, the drawing traces the design's 55 deg
+    const acr = [-cam.axis[2], 0, cam.axis[0]], refQ = L.chief(cam.m, L.mlamB / cam.m, "main", cam.lam), o0 = D.orders[0], pq0 = D.pos(o0.lo, o0.m), q0 = sub(L.chief(o0.m, o0.lo, "main"), refQ);
+    const sX = Math.sign(q0[1] * pq0[0]) || 1, sY = Math.sign(dotp(q0, acr) * pq0[1]) || 1;
+    let mis = 0, nmis = 0, rel = 0;
+    for (const o of D.orders) for (const l of [o.lo, o.lb, o.hi]) {
+      const pq = D.pos(l, o.m), q = L.chief(o.m, l, "main"); if (!pq || !q) continue;
+      const d = sub(q, refQ), ex = d[1] - sX * pq[0], ey = dotp(d, acr) - sY * pq[1];
+      mis = Math.max(mis, Math.hypot(ex, ey)); if (Math.abs(pq[1]) > 10) rel = Math.max(rel, Math.abs(dotp(d, acr) / (sY * pq[1]) - 1)); nmis++;
+    }
+    check("plan feros: the traced foci agree with the model's", nmis > 0 && mis < 1.5, `largest difference ${mis.toFixed(2)} mm over ${nmis} points; the cross-dispersion ${(100 * rel).toFixed(1)}% smaller, the design's 55 deg prism against the model's effective 56 deg (the as-built format)`);
+    // the camera prescription (App. A): positive edges, and gaps at the rims (the cemented pairs at zero)
+    const sagR = (R, h) => Math.abs(R) > 1e8 ? 0 : Math.abs(R) - Math.sqrt(R * R - h * h);
+    const cl = PL.path[3].lenses;
+    let worstEdge = Infinity, worstGap = Infinity;
+    cl.forEach(([R1, R2, t, air, ca1, ca2], i) => {
+      const r = Math.max(ca1, ca2) / 2, zF = (R1 > 0 ? 1 : -1) * sagR(R1, r), zB = t - (R2 > 0 ? 1 : -1) * sagR(R2, r);
+      worstEdge = Math.min(worstEdge, zB - zF);
+      const nx = cl[i + 1];
+      if (nx) { const rr = Math.min(r, Math.max(nx[4], nx[5]) / 2); worstGap = Math.min(worstGap, air - (R2 > 0 ? -1 : 1) * sagR(R2, rr) + (nx[0] > 0 ? 1 : -1) * sagR(nx[0], rr)); }
+    });
+    check("plan feros: the camera lenses (App. A) have positive edges and clear one another", worstEdge > 0 && worstGap > -0.01, `thinnest edge ${worstEdge.toFixed(1)} mm, smallest gap at a rim ${worstGap.toFixed(2)} mm (the cemented pairs PSK3/FK54 and LAK16A/silica at zero)`);
+    // the drawn bundles over each order's free spectral range inside the clear apertures
+    const inCA = (pts, c, n, w, h) => { const u = [-n[2], 0, n[0]], uu = Math.hypot(...u); return Math.max(...pts.map(q => Math.max(Math.abs(dotp(sub(q, c), u)) / uu / (w / 2), Math.abs(q[1] - c[1]) / (h / 2)))); };
+    const fsr = (lb, m, lo, hi) => [Math.max(lo, lb * (1 - 0.5 / m)), Math.min(hi, Math.max(lo, lb)), Math.min(hi, lb * (1 + 0.5 / m))];
+    const worst = { "main collimator": 0, flat: 0, "transfer collimator": 0, camera: 0 };
+    for (const o of D.orders) for (const l of fsr(o.lb, o.m, o.lo, o.hi)) {
+      const t = L.trace(o.m, l, "main"); if (!t) continue;
+      const st = t.st;
+      worst["main collimator"] = Math.max(worst["main collimator"], inCA(st[1], L.M1.at, L.M1.n, PL.m1.w, PL.m1.h));
+      worst.flat = Math.max(worst.flat, inCA(st[2], fl.c, fl.n, fl.w, fl.h));
+      worst["transfer collimator"] = Math.max(worst["transfer collimator"], inCA(st[4], TC.c, TC.n, TC.w, TC.h));
+      const rl = Math.max(...st[st.length - 2].map(q => { const v = sub(q, cam.L1), a = dotp(v, cam.axis); return Math.hypot(v[0] - a * cam.axis[0], v[1] - a * cam.axis[1], v[2] - a * cam.axis[2]); }));
+      worst.camera = Math.max(worst.camera, rl / (cl[0][4] / 2));
+    }
+    // (the camera reported, not scored: at the chip's long edges the R2 echelle widens the returning beam by cos(beta)/cos(alpha)
+    // ~ 1.14, and 250 mm past the white pupil at the prism's entrance the bundle overfills the first lens's 77.5 mm Zemax radius;
+    // the report gives a 155 mm entrance aperture, Kaufer & Pasquini 1998 a 178 mm clear aperture)
+    const wcam = worst.camera; delete worst.camera;
+    const wmax = Math.max(...Object.values(worst));
+    check("plan feros: each order's free spectral range inside the mirrors' clear apertures", wmax <= 1.05, Object.entries(worst).map(([k, v]) => `${k} ${(100 * v).toFixed(0)}%`).join(", ") + " of the half-aperture at the widest");
+    console.log(`[INFO] plan feros: the camera's first lens  --  the chip's long edges at ${(100 * wcam).toFixed(0)}% of the 77.5 mm Zemax radius (${(100 * wcam * 77.5 / 89).toFixed(0)}% of the 178 mm clear aperture of Kaufer & Pasquini 1998): the ideal trace vignettes there`);
+  }
+}
+
+// The benches MEASURED from published figures (data/layout/*.md): the same checks for each.  pos: [name, the layout's point,
+// the figure's [x, z] (mm, the bench frame), tolerance]; angle: the camera's axis in the figure (deg from M1's axis,
+// reported); misfit: the largest difference allowed between the traced foci and the model's.
+// (xdScale: the bench's cross-disperser is the published one and the model's an equivalent, and the bench's transfer
+// magnifies the angles at the cross-disperser; the traced foci are compared after fitting the model's spread across the
+// orders with a scale and an order curvature, which are reported)
+// (caInfo: mirrors whose fill is reported, not scored, with the reason)
+function benchChecks(id, { pos = [], angle = null, misfit = 1, note = "", xdScale = false, caInfo = null }) {
+  const PRESETS = require("./web/presets.js");
+  const p = PRESETS.find(q => q.id === id), PL = PRESETS.plans[p.state.e.plan];
+  const P = Object.assign({ mode: "echelle", D: p.state.D, F: p.state.F, feed: "slit", slitL: 0 }, p.state.e);
+  const L = IX.planLayout(PL, P), D = IX.design(P), DEGR = Math.PI / 180;
+  const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dotp = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  const d2 = (a, b) => Math.hypot(a[0] - b[0], a[2] - b[2]);
+  check(`plan ${id}: laid out for the preset's state`, !!L, L ? `reference order ${L.mR}, ${L.parts.length} elements` : "planLayout returned null");
+  if (!L) return;
+  const cam = Object.values(L.cams).find(c => c.model), camSpec = (function find(list) { for (const e of list) { if (e.k === "camera" && e.model) return e; for (const b of ["transmit", "reflect"]) if (e[b]) { const r = find(e[b]); if (r) return r; } } return null; })(PL.path);
+  for (const [name, get, xz, tol] of pos) {
+    const q = get(L), d = d2(q, [xz[0], 0, xz[1]]);
+    check(`plan ${id}: ${name} where the figure draws it`, d < tol, `${d.toFixed(0)} mm from the figure's position (tolerance ${tol} mm, the measurement's)`);
+  }
+  if (angle !== null) {
+    const a = Math.atan2(cam.axis[2], cam.axis[0]) / DEGR;
+    console.log(`[INFO] plan ${id}: the camera's axis  --  ${a.toFixed(1)} deg from M1's axis; the figure shows ${angle} deg${note ? " (" + note + ")" : ""}`);
+  }
+  // the model's foci, from the tracer's origin (the echelle's blaze direction in the reference order, cross-dispersed as the central wavelength)
+  const acr = [-cam.axis[2], 0, cam.axis[0]], refQ = L.chief(cam.m, L.mlamB / cam.m, cam.id, cam.lam), o0 = D.orders[0], pq0 = D.pos(o0.lo, o0.m), q0 = sub(L.chief(o0.m, o0.lo, cam.id), refQ);
+  const sX = Math.sign(q0[1] * pq0[0]) || 1, sY = Math.sign(dotp(q0, acr) * pq0[1]) || 1;
+  const pts = [];
+  for (const o of D.orders) for (const l of [o.lo, o.lb, o.hi]) {
+    const pq = D.pos(l, o.m), q = L.chief(o.m, l, cam.id); if (!pq || !q) continue;
+    const d = sub(q, refQ); pts.push([d[1] - sX * pq[0], dotp(d, acr), sY * pq[1], pq[0]]);
+  }
+  // (the across-order offset fitted as (k - 1) Y + c X^2, X along the orders and Y across; least squares, 2 x 2)
+  let kx = 1, cx = 0;
+  if (xdScale) {
+    const a11 = pts.reduce((s, p) => s + p[2] * p[2], 0), a12 = pts.reduce((s, p) => s + p[2] * p[3] * p[3], 0), a22 = pts.reduce((s, p) => s + p[3] ** 4, 0);
+    const b1 = pts.reduce((s, p) => s + p[2] * p[1], 0), b2 = pts.reduce((s, p) => s + p[3] * p[3] * (p[1] - p[2]), 0), b1r = b1 - a11, det = a11 * a22 - a12 * a12;
+    const km1 = (b1r * a22 - b2 * a12) / det; cx = (a11 * b2 - a12 * b1r) / det; kx = 1 + km1;
+  }
+  const mis = Math.max(...pts.map(p => Math.hypot(p[0], p[1] - kx * p[2] - cx * p[3] * p[3]))), nmis = pts.length;
+  if (xdScale) console.log(`[INFO] plan ${id}: the published cross-disperser  --  spreads the orders ${kx.toFixed(4)} times as far as the model's equivalent one, and the bench curves each order ${(cx * D.Lx * D.Lx / 4).toFixed(1)} mm more at the chip's ends (the transfer doubles the angles at the cross-disperser); unfitted, the foci differ by up to ${Math.max(...pts.map(p => Math.hypot(p[0], p[1] - p[2]))).toFixed(2)} mm`);
+  check(`plan ${id}: the traced foci agree with the model's${xdScale ? " (the spread and curvature across the orders fitted)" : ""}`, nmis > 0 && mis < misfit, `largest difference ${mis.toFixed(2)} mm over ${nmis} points`);
+  // the camera prescription: positive edges, and gaps at the rims (a cemented pair at zero)
+  const sagR = (R, h) => Math.abs(R) > 1e8 ? 0 : Math.abs(R) - Math.sqrt(R * R - h * h), cl = camSpec.lenses;
+  let worstEdge = Infinity, worstGap = Infinity;
+  cl.forEach(([R1, R2, t, air, ca1, ca2], i) => {
+    const r = Math.max(ca1, ca2) / 2, zF = (R1 > 0 ? 1 : -1) * sagR(R1, r), zB = t - (R2 > 0 ? 1 : -1) * sagR(R2, r);
+    worstEdge = Math.min(worstEdge, zB - zF);
+    const nx = cl[i + 1];
+    if (nx) { const rr = Math.min(r, Math.max(nx[4], nx[5]) / 2); worstGap = Math.min(worstGap, air - (R2 > 0 ? -1 : 1) * sagR(R2, rr) + (nx[0] > 0 ? 1 : -1) * sagR(nx[0], rr)); }
+  });
+  check(`plan ${id}: the camera lenses have positive edges and clear one another`, worstEdge > 0 && worstGap > -0.01, `thinnest edge ${worstEdge.toFixed(1)} mm, smallest gap at a rim ${worstGap.toFixed(2)} mm`);
+  // each order's free spectral range inside the mirrors' clear apertures (the camera's first lens reported)
+  const inCA = (pts, c, n, w, h) => { const u = [-n[2], 0, n[0]], uu = Math.hypot(...u); return Math.max(...pts.map(q => Math.max(Math.abs(dotp(sub(q, c), u)) / uu / (w / 2), Math.abs(q[1] - c[1]) / (h / 2)))); };
+  const fsr = (lb, m, lo, hi) => [Math.max(lo, lb * (1 - 0.5 / m)), Math.min(hi, Math.max(lo, lb)), Math.min(hi, lb * (1 + 0.5 / m))];
+  const worst = {}; let wcam = 0;
+  for (const o of D.orders) for (const l of fsr(o.lb, o.m, o.lo, o.hi)) {
+    const t = L.trace(o.m, l, cam.id); if (!t) continue;
+    for (const h of t.hits) {
+      if (!h.part) { worst.M1 = Math.max(worst.M1 || 0, inCA(h.ring, L.M1.at, L.M1.n, PL.m1.w, PL.m1.h)); continue; }
+      if (h.part === cam) { const r = Math.max(...h.ring.map(q => { const v = sub(q, cam.L1), a = dotp(v, cam.axis); return Math.hypot(v[0] - a * cam.axis[0], v[1] - a * cam.axis[1], v[2] - a * cam.axis[2]); })); wcam = Math.max(wcam, r / (Math.max(cl[0][4], cl[0][5]) / 2)); continue; }
+      if (!h.part.w || !h.part.h || !["flat", "mangin", "field", "parab", "dichroic", "grating"].includes(h.part.k)) continue;
+      const nm = h.part.label || h.part.k; worst[nm] = Math.max(worst[nm] || 0, inCA(h.ring, h.part.c, h.part.n, h.part.w, h.part.h));
+    }
+  }
+  const info = caInfo ? Object.entries(worst).filter(([k]) => caInfo.names.includes(k)) : [];
+  for (const [k] of info) delete worst[k];
+  const wmax = Math.max(...Object.values(worst));
+  check(`plan ${id}: each order's free spectral range inside the mirrors' clear apertures`, wmax <= 1.05, Object.entries(worst).map(([k, v]) => `${k} ${(100 * v).toFixed(0)}%`).join(", ") + " of the half-aperture at the widest");
+  if (info.length) console.log(`[INFO] plan ${id}: ${info.map(([k, v]) => `the ${k} filled to ${(100 * v).toFixed(0)}%`).join(", ")} of the half-aperture  --  ${caInfo.why}`);
+  console.log(`[INFO] plan ${id}: the camera's first lens  --  the bundles reach ${(100 * wcam).toFixed(0)}% of its clear radius`);
+}
+// UVES (data/layout/uves.md): blue from the ESO ray trace (2.94 mm per pixel), red from Dekker et al. Fig. 4 (1.953 mm per pixel)
+benchChecks("uvesb", { pos: [["the transfer collimator's footprint", L => L.parts.find(q => q.k === "parab").c, [1796, 259], 35],
+                             ["the cross-disperser", L => L.parts.find(q => q.k === "grating").c, [-306, 197], 35]],
+                       angle: 45.3, note: "the pipeline's cdbeam, 46.0 deg from the arriving beam, is drawn" });
+benchChecks("uvesr", { pos: [["the transfer collimator's footprint", L => L.parts.find(q => q.k === "parab").c, [1803, -227], 60],
+                             ["the cross-disperser", L => L.parts.find(q => q.k === "grating").c, [-369, -215], 60]],
+                       angle: -40.8, note: "the pipeline's cdbeam, 45.336 deg from the arriving beam, is drawn" });
+// HARPS (data/layout/harps.md): the HARPS3 ray trace of the HARPS-N copy, 3.48 mm per pixel (turned 180 deg); the camera schematic
+// (the figure is an oblique render, so the detector, 930 mm along the camera, is reported, not scored)
+benchChecks("harps", { pos: [["the flat fold", L => L.parts.find(q => q.k === "flat").c, [0, 70], 45],
+                             ["the grism", L => L.parts.find(q => q.k === "grism").c, [0, -191], 45]], angle: -180 });
+{
+  const PRESETS = require("./web/presets.js"), p = PRESETS.find(q => q.id === "harps");
+  const L = IX.planLayout(PRESETS.plans.harps, Object.assign({ mode: "echelle", D: p.state.D, F: p.state.F, feed: "slit", slitL: 0 }, p.state.e));
+  const d = L && L.cams.main.det;
+  if (d) console.log(`[INFO] plan harps: the detector  --  at (${d[0].toFixed(0)}, ${d[2].toFixed(0)}) mm; the figure shows it near (-929, -157), ${Math.hypot(d[0] + 929, d[2] + 157).toFixed(0)} mm away: the third pass leaves the collimator 1.4 deg off its axis, the flat lying 2 gamma f from its focus`);
+}
+// ESPRESSO (data/layout/espresso.md): Spano et al. 2012 Fig. 2 at 2.176 mm per pixel; the cross-dispersers the published gratings on the
+// as-built prisms, at the Bragg angle
+for (const [id, ang] of [["espressob", 131.6], ["espressor", 139.5]])
+  benchChecks(id, { pos: [["the red transfer mirror", L => L.parts.find(q => q.label === "red transfer mirror").c, [1593, 185], 30],
+                          ["the blue transfer mirror", L => L.parts.find(q => q.label === "blue transfer mirror").c, [2894, 159], 30]],
+                    angle: ang, note: "the published gratings on the as-built prisms at the Bragg angle turn the beam 56 deg (blue) and 48 deg (red); the 2012 figure, drawn with FK5 prisms, shows 47 and 41 deg", xdScale: true,
+                    // (the order curvature grows with the wavelength, which one curvature term does not follow: 1.4 mm at the chip's corner, in order 162)
+                    misfit: 1.5,
+                    caInfo: { names: ["blue transfer mirror", "red transfer mirror"], why: "along the dispersion, at the reddest order; the field lens's and field mirror's power, which turns the chief rays toward the white pupil, is not traced" } });
+{
+  const PRESETS = require("./web/presets.js"), p = PRESETS.find(q => q.id === "espressob");
+  const L = IX.planLayout(PRESETS.plans.espressob, Object.assign({ mode: "echelle", D: p.state.D, F: p.state.F, feed: "slit", slitL: 0 }, p.state.e));
+  if (L) {
+    const fig = { blue: [[2091, 269], [1625, 790]], red: [[762, 261], [252, 696]] }, dd = (a, b) => Math.hypot(a[0] - b[0], a[2] - b[1]).toFixed(0);
+    check("plan espressob: the intermediate focus 2 gamma f beside the slit, as the figure draws it", Math.abs(Math.hypot(L.Q0[0], L.Q0[2]) - 120) < 10, `${Math.hypot(L.Q0[0], L.Q0[2]).toFixed(0)} mm (the figure: 120 mm)`);
+    for (const k of ["blue", "red"]) { const c = L.cams[k]; console.log(`[INFO] plan espressob: the ${k} camera  --  the first lens ${dd(c.L1, fig[k][0])} mm and the detector ${dd(c.det, fig[k][1])} mm from the figure's (the camera's axis turned as above)`); }
+    const g = L.parts.filter(q => q.k === "grism2").map(q => `${q.label.split(" ")[0]} ${(Math.acos(Math.abs(IX.dot(q.b, q.n1))) / DEG).toFixed(1)} deg`);
+    console.log(`[INFO] plan espressob: the grisms' entrance faces  --  met at ${g.join(", ")} (the prisms widen the beam 1.5 times, Spano et al. Table 1)`);
+  }
+}
+
 console.log(`\n${npass} passed, ${nfail} failed`);
 process.exit(nfail ? 1 : 0);

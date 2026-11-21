@@ -702,7 +702,319 @@ function design(P) {
   return S;
 }
 
-const API = { RAD, DEG, GLASS, nGlass, surface, design, dot, unit, cross, norm };
+// ------------------------------------------------------------------ an as-built bench (drawing only)
+/* planLayout(PL, P): the bench of a folded white-pupil echelle as designed or built (PL is the preset's bench, IX_PLANS in
+   presets.js), for the 3D view.  Each ray is traced through real mirrors with surface(), as in the model.  Frame: x along
+   the main collimator M1's axis (its focus, where the slit or fiber images sit, at the origin; its vertex at x = f_col),
+   y across the bench (the echelle's dispersion), z in the bench plane, positive on the side of the transferred beam: the
+   plane of the paper's layout figure, seen from -y with x to the right and z up.  Angles in the bench plane (rotP) are
+   counterclockwise as the figure is seen (x toward z).
+   The bench: the slit at M1's focus (PL.feedFold: through a flat d mm along the chief ray, the slit at the flat's mirror
+   image of the focus), the chief rays PL.chief degrees from M1's axis; M1 a paraboloid; the echelle PL.echDist from M1's
+   vertex, in Littrow in its own plane (x-y) and turned by gamma in the bench plane; then PL.path, the elements met after
+   M1's second pass, in order:
+     fold      a plane mirror (type "flat", "mangin" or "field"), "before" mm ahead of the focus or at a measured point,
+               turned to send the light to the next element's measured point (or "to")
+     parab     a collimator: a paraboloid of focal length f (or "wpT") whose focus is the folded focus, its face at a
+               measured point, its axis toward the next element's point (or "to")
+     m1pass    M1 again (a third pass, HARPS)
+     dichroic  a plate at a measured point, tilted "tilt" degrees to the beam toward "reflectTo"; the path splits into
+               "transmit" and "reflect"
+     lens      a field lens at the focus (drawn; the chief ray passes undeviated)
+     vph       a transmission grating "dist" mm on, set symmetric at lamD and turned by its fringe tilt toward "turn"
+     grism2    a VPH between two prisms (apexes A1, A2), set so that lam0 passes undeviated
+     grating   a reflection grating "dist" mm on, set so that lamD leaves toward "camTo"
+     prism     a prism "dist" mm on, at minimum deviation for lamD, turning toward "turn"
+     camera    an ideal lens of focal length f, its axis the arm's reference ray leaving the cross-disperser, its first
+               vertex "l1" mm on (from the cross-disperser, or from the split with l1Ref "split"), the detector behind
+               the lenses (a prescription [R1, R2, t, air, ca1, ca2], R > 0 convex as seen from outside the lens)
+   Positions follow the main reference ray (the central wavelength in the order whose blaze is nearest); each camera's
+   axis follows its arm's reference ray (lamRef, else the central wavelength).  The collimators are paraboloids (a
+   conic near -1 is drawn as the paraboloid of its focal length); folds are plane (a Mangin mirror's or field mirror's
+   power is left out); each camera is an ideal lens.  Returns null unless the model's state is the one the bench is drawn
+   for (PL.fits). */
+function planLayout(PL, P, NS) {
+  if (!PL || !P || P.mode !== "echelle") return null;
+  for (const [k, v] of Object.entries(PL.fits || {})) {
+    const p = P[k];
+    if (typeof v === "number" ? !(Math.abs(p - v) <= 1e-6 * Math.max(1, Math.abs(v))) : p !== v) return null;
+  }
+  NS = NS || 20;
+  // (the echelle in Littrow at delta + eTilt, as the model sets it: the facets keep delta, the reference ray returns on itself;
+  // PL.gamma, where given, is the bench's own off-plane angle, measured from its layout, where the model's differs)
+  const f = P.W * P.F, dl = (P.eDelta + (P.eTilt || 0)) * DEG, gm = (PL.gamma !== undefined ? PL.gamma : P.gamma) * DEG, Ge = P.eG * 1e-3;
+  const X = [1, 0, 0], Y = [0, 1, 0];
+  const rotP = (v, t) => [v[0] * Math.cos(t) - v[2] * Math.sin(t), v[1], v[0] * Math.sin(t) + v[2] * Math.cos(t)];
+  const ang = v => Math.atan2(v[2], v[0]);
+  const turnOf = (u, w) => Math.sign(-cross(u, w)[1]);            // +1 counterclockwise in the bench plane
+  const refl = (u, n) => surface(u, n, null, 0, 1, 1, true);
+  const hitPl = (p, u, c, n) => { const den = dot(u, n); return Math.abs(den) < 1e-12 ? null : add(p, mul(u, dot(sub(c, p), n) / den)); };
+  const mirrorPt = (q, c, n) => sub(q, mul(n, 2 * dot(sub(q, c), n)));
+  const pt = a => [a[0], 0, a[1]];
+  // a paraboloid: focus Fp, unit axis a (vertex toward focus), focal length fl
+  const parab = (Fp, a, fl) => ({ F: Fp, a, f: fl, V: add(Fp, mul(a, -fl)) });
+  const pNormal = (M, q) => { const e = sub(q, M.V), ep = perp(e, M.a); return unit(sub(mul(ep, 1 / (2 * M.f)), M.a)); };
+  const hitPar = (M, p, u) => {
+    const d = sub(p, M.V), dw = dot(d, M.a), uw = dot(u, M.a), dp = perp(d, M.a), up = perp(u, M.a);
+    const A = dot(up, up), B = 2 * dot(dp, up) - 4 * M.f * uw, C = dot(dp, dp) - 4 * M.f * dw;
+    let t;
+    if (Math.abs(A) < 1e-14) t = -C / B;
+    else { const ds = B * B - 4 * A * C; if (ds < 0) return null; const s = Math.sqrt(ds); t = [(-B - s) / (2 * A), (-B + s) / (2 * A)].filter(x => x > 1e-6).sort((a, b) => a - b)[0]; }
+    if (!(t > 1e-6)) return null;
+    const q = add(p, mul(u, t));
+    return { q, u: refl(u, pNormal(M, q)) };
+  };
+  // the point nearest a bundle of rays (least squares): where the bundle focuses
+  const focusOf = rays => {
+    const A = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], b = [0, 0, 0];
+    for (const { q, u } of rays) for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { const m = (i === j ? 1 : 0) - u[i] * u[j]; A[i][j] += m; b[i] += m * q[j]; }
+    const det = M => M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1]) - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0]) + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]);
+    const D0 = det(A);
+    return [0, 1, 2].map(k => det(A.map((r, i) => r.map((v, j) => (j === k ? b[i] : v)))) / D0);
+  };
+  // (a cone of half-angle ta in the bench plane and tb across it, along the echelle's dispersion)
+  const ringDirs = (c, ta, tb = ta) => { const p1 = unit(cross(c, Y)), p2 = cross(p1, c); return Array.from({ length: NS }, (_, k) => unit(add(c, add(mul(p1, ta * Math.cos(2 * Math.PI * k / NS)), mul(p2, tb * Math.sin(2 * Math.PI * k / NS)))))); };
+  // ---- the arriving light: from the slit image at M1's focus, the chief rays tilted PL.chief from M1's axis; the beam
+  // round (W) or, with PL.beam [along the dispersion, in the bench plane], rectangular, drawn as the ellipse inside it
+  const M1 = parab([0, 0, 0], [-1, 0, 0], f);
+  const c0 = rotP(X, -PL.chief * DEG), cone = PL.beam ? ringDirs(c0, PL.beam[1] / (2 * f), PL.beam[0] / (2 * f)) : ringDirs(c0, 1 / (2 * P.F));
+  const h0 = hitPar(M1, [0, 0, 0], c0), uIn = h0.u;
+  const E = add(h0.q, mul(uIn, (h0.q[0] - (f - PL.echDist)) / -uIn[0]));
+  // a flat between the slit and M1 (UVES): the slit at its mirror image of the focus
+  let feed = { S: [0, 0, 0], fold: null, ring: null };
+  if (PL.feedFold) {
+    const FFc = mul(c0, PL.feedFold.d), vin = mul(rotP(X, PL.feedFold.from * DEG), -1), nF = unit(sub(c0, vin));
+    feed = { S: sub(FFc, mul(vin, PL.feedFold.d)), fold: { k: "flat", c: FFc, n: nF, w: PL.feedFold.w, h: PL.feedFold.h, t: PL.feedFold.t || 20, label: PL.feedFold.label, sub: PL.feedFold.sub, lab: PL.feedFold.lab },
+             ring: cone.map(c => hitPl([0, 0, 0], c, FFc, nF)), vin };
+  }
+  // ---- the echelle: in Littrow in its own plane (x-y) at the blaze angle, its ruled face toward -y (the side the figure
+  // is seen from), turned by gamma in the bench plane, the way that sends the returning light 2 gamma farther from M1's
+  // axis (PL.gammaSide -1: nearer)
+  const ech = s => ({ n: rotP([Math.cos(dl), -Math.sin(dl), 0], s * gm), g: rotP([Math.sin(dl), Math.cos(dl), 0], s * gm) });
+  const mlamB = 2 * Math.sin(dl) * Math.cos(gm) / Ge;
+  let EC = ech(1);
+  { const u = surface(uIn, EC.n, mul(EC.g, Ge), mlamB, 1, 1, true); if (u && Math.sign(u[2]) !== (PL.gammaSide || 1) * Math.sign(E[2])) EC = ech(-1); }
+  const nE = EC.n, gE = EC.g, eOut = (m, lam) => surface(uIn, nE, mul(gE, Ge), m * lam, 1, 1, true);
+  const foot = cone.map(c => { const h = hitPar(M1, [0, 0, 0], c); return h && hitPl(h.q, h.u, E, nE); });
+  const atM1in = cone.map(c => { const h = hitPar(M1, [0, 0, 0], c); return h && h.q; });
+  // ---- the returning light of the main reference ray (the central wavelength, in the order whose blaze is nearest)
+  const lamC = P.lamC / 1e4, mR = Math.max(1, Math.round(mlamB / lamC));
+  const back1 = (m, lam, pts) => { const u = eOut(m, lam); if (!u) return null; return pts.map(q => hitPar(M1, q, u)); };
+  // (placed along the blaze ray of the reference order, which returns in the bench plane; the central wavelength off the
+  // blaze leaves the plane by the echelle's dispersion)
+  const lamB = mlamB / mR, rR = back1(mR, lamB, foot), chR = back1(mR, lamB, [E])[0];
+  const Q0 = focusOf(rR);
+  // ---- place the elements along the main reference ray; each camera is set up once its arm's route is known
+  const parts = [], camQ = [], m1zones = [h0.q, chR.q];
+  const lensSum = L => L.reduce((s, q) => s + q[2] + q[3], 0);
+  const place = (list, st, route, split) => {
+    for (let i = 0; i < list.length; i++) {
+      const e = list[i], nx = list[i + 1], aim = e.to ? pt(e.to) : nx && nx.at ? pt(nx.at) : null;
+      const proj = q => add(st.p, mul(st.u, dot(sub(q, st.p), st.u)));
+      const base = { label: e.label, sub: e.sub, lab: e.lab, w: e.w, h: e.h, t: e.t };
+      if (e.k === "fold" && e.normal) {
+        // a pose from a prescription: the plane through "at" with the given normal
+        const n = unit(pt(e.normal)), c = hitPl(st.p, st.u, pt(e.at), n);
+        const part = { ...base, k: e.type || "flat", c: pt(e.at), n };
+        parts.push(part); route = [...route, { part, act: "reflect" }];
+        st = { p: c, u: refl(st.u, n), F: st.F ? mirrorPt(st.F, c, n) : null };
+      } else if (e.k === "fold") {
+        const uin = st.F ? unit(sub(st.F, st.p)) : st.u;
+        const c = e.before !== undefined ? sub(st.F, mul(uin, e.before)) : proj(pt(e.at));
+        let dOut = unit(sub(aim, c)), F2 = null;
+        if (st.F) { const dF = norm(sub(st.F, c)); F2 = c; for (let k = 0; k < 6; k++) { F2 = add(c, mul(dOut, dF)); dOut = unit(sub(aim, F2)); } }
+        const part = { ...base, k: e.type || "flat", c, n: unit(sub(dOut, uin)) };
+        parts.push(part); route = [...route, { part, act: "reflect" }]; st = { p: c, u: dOut, F: F2 };
+      } else if (e.k === "parab" || e.k === "m1pass") {
+        const fl = e.f === "wpT" ? P.wpT : e.f;
+        const M = e.k === "m1pass" ? M1 : e.focusAt ? parab(pt(e.focusAt), unit(pt(e.axis)), fl) : parab(st.F, unit(sub(aim, pt(e.at))), fl);
+        const h = hitPar(M, st.F || st.p, st.u);
+        if (!h) return false;
+        const part = { ...base, k: e.k, c: h.q, n: pNormal(M, h.q), M };
+        if (e.k === "m1pass") m1zones.push(h.q); else parts.push(part);
+        route = [...route, { part, act: "parab" }]; st = { p: h.q, u: h.u, F: null };
+      } else if (e.k === "dichroic") {
+        const c = e.at ? proj(pt(e.at)) : add(st.p, mul(st.u, e.dist));
+        const tgt = unit(sub(pt(e.reflectTo), c)), cand = [1, -1].map(s => rotP(mul(st.u, -1), s * e.tilt * DEG));
+        const n = dot(refl(st.u, cand[0]), tgt) >= dot(refl(st.u, cand[1]), tgt) ? cand[0] : cand[1];
+        const part = { ...base, k: "dichroic", c, n };
+        parts.push(part);
+        if (place(e.transmit, { p: c, u: st.u, F: st.F }, [...route, { part, act: "transmit" }], c) === false) return false;
+        return place(e.reflect, { p: c, u: refl(st.u, n), F: st.F ? mirrorPt(st.F, c, n) : null }, [...route, { part, act: "reflect" }], c);
+      } else if (e.k === "lens") {
+        const c = st.F && e.atFocus !== false ? st.F : proj(pt(e.at)), n = st.u;
+        const part = { ...base, k: "lens", c, n };
+        parts.push(part); route = [...route, { part, act: "pass" }]; st = { p: c, u: st.u, F: st.F };
+      } else if (e.k === "vph") {
+        const c = e.at ? proj(pt(e.at)) : add(st.p, mul(st.u, e.dist));
+        const th = Math.asin(e.lamD * e.G * 1e-3 * (e.m || 1) / 2) + (e.fringe || 0) * DEG, n = rotP(st.u, e.turn * th);
+        let g = unit(cross(Y, n));
+        { const o = surface(st.u, n, mul(g, e.G * 1e-3), (e.m || 1) * e.lamD, 1, 1, false); if (!o || turnOf(st.u, o) !== e.turn) g = mul(g, -1); }
+        const part = { ...base, k: "vph", c, n, g, G: e.G, m: e.m || 1 };
+        parts.push(part); route = [...route, { part, act: "vph" }];
+        st = { p: c, u: surface(st.u, n, mul(g, e.G * 1e-3), (e.m || 1) * e.lamD, 1, 1, false), F: null };
+      } else if (e.k === "grism2") {
+        const b = st.u, gB = e.G * 1e-3;
+        const at = pv => ({ n1: rotP(b, (e.sense || 1) * (pv + e.A1 * DEG)), nV: rotP(b, (e.sense || 1) * pv), n2: rotP(b, (e.sense || 1) * (pv - e.A2 * DEG)), gV: rotP(b, (e.sense || 1) * (pv + Math.PI / 2)) });
+        const thru = (g, u, lam) => {
+          const n = nGlass(e.glass, lam);
+          let w = surface(u, g.n1, null, 0, 1, n, false); if (!w) return null;
+          w = surface(w, g.nV, mul(g.gV, gB), e.m * lam, n, n, false); if (!w) return null;
+          return surface(w, g.n2, null, 0, n, 1, false);
+        };
+        // the condition that sets the prisms' turn pv: lam0 undeviated (the default); "dev" degrees of deviation toward
+        // "turn"; or "bragg", the VPH symmetric inside the glass for lam0 (the rays leave the fringes at the angle they
+        // meet them).  Of several settings, the first in the scan, or with "expand" the one that widens the beam most at
+        // the entrance face (the largest angle of incidence there)
+        const dev = pv => { const w = thru(at(pv), b, e.lam0); if (!w) return NaN; const d = ang(w) - ang(b) - (e.dev ? (e.turn || 1) * e.dev * DEG : 0); return Math.atan2(Math.sin(d), Math.cos(d)); };
+        const bragg = pv => {
+          const g = at(pv), n = nGlass(e.glass, e.lam0), w1 = surface(b, g.n1, null, 0, 1, n, false); if (!w1) return NaN;
+          const w2 = surface(w1, g.nV, mul(g.gV, gB), e.m * e.lam0, n, n, false); return w2 ? dot(w1, g.gV) + dot(w2, g.gV) : NaN;
+        };
+        const cond = e.bragg ? bragg : dev, [s0, s1] = e.scan ? e.scan.map(v => v * DEG) : [-10 * DEG, 30 * DEG], roots = [];
+        for (let a = s0; a < s1 && !(roots.length && !e.expand); a += 0.25 * DEG) { const fa = cond(a), fb = cond(a + 0.25 * DEG); if (isFinite(fa) && isFinite(fb) && (fa < 0) !== (fb < 0)) roots.push(bisect(cond, a, a + 0.25 * DEG, fa, fb, 1e-10)); }
+        const inc = pv => Math.abs(dot(b, at(pv).n1));
+        const pv = !roots.length ? null : e.expand ? roots.reduce((p, q) => (inc(q) < inc(p) ? q : p)) : roots[0];
+        const G1 = e.at ? proj(pt(e.at)) : add(st.p, mul(b, e.dist));
+        const GR = at(pv === null ? 0 : pv), GV = add(G1, mul(b, e.t1)), G2 = add(GV, mul(b, e.t2));
+        const part = { ...base, k: "grism2", ...GR, G1, GV, G2, pv, b, hw: e.hw, hy: e.hy, glass: e.glass, G: e.G, m: e.m };
+        parts.push(part); route = [...route, { part, act: "grism2" }];
+        st = { p: G2, u: thru(GR, b, e.lam0) || b, F: null };
+      } else if (e.k === "grating") {
+        // (the camera "dev" degrees from the arriving beam, turned toward "turn", or toward the point camTo)
+        const c = e.at ? proj(pt(e.at)) : add(st.p, mul(st.u, e.dist)), out = e.dev ? rotP(mul(st.u, -1), e.turn * e.dev * DEG) : unit(sub(pt(e.camTo), c));
+        // the normal: the bisector of the arriving and leaving beams, turned by tau, sin(tau) = m lam G / (2 cos K)
+        const K = Math.acos(Math.max(-1, Math.min(1, dot(mul(st.u, -1), out)))) / 2, bis = unit(sub(out, st.u));
+        const lamD = e.lamD || lamC, tau = Math.asin((e.m || 1) * lamD * e.G * 1e-3 / (2 * Math.cos(K)));
+        // (of the two settings that send lamD toward the camera, the model's: the larger angle of incidence, alpha = t + psi/2)
+        let best = null;
+        for (const s of [1, -1]) {
+          const n = rotP(bis, s * tau);
+          for (const gs of [1, -1]) {
+            const g = mul(unit(cross(Y, n)), gs), o = surface(st.u, n, mul(g, e.G * 1e-3), (e.m || 1) * lamD, 1, 1, true);
+            if (!o || dot(o, out) < 1 - 1e-6) continue;
+            const inc = Math.abs(dot(mul(st.u, -1), n));                 // cos(alpha): the smaller, the larger the incidence
+            if (!best || inc < best.inc) best = { n, g, o, inc };
+          }
+        }
+        const part = { ...base, k: "grating", c, n: best.n, g: best.g, G: e.G, m: e.m || 1 };
+        parts.push(part); route = [...route, { part, act: "grating" }]; st = { p: c, u: best.o, F: null };
+      } else if (e.k === "prism") {
+        // two faces from a prescription (a point and a normal each); the apex where the face planes meet in the bench plane
+        const c = pt(e.face1.at), n1 = unit(pt(e.face1.normal)), c2 = pt(e.face2.at), n2 = unit(pt(e.face2.normal));
+        const part = { ...base, k: "prism", c, c2, n1, n2, glass: e.glass, A: e.A, faceLen: e.faceLen, hy: e.hy, uIn: st.u };
+        parts.push(part); route = [...route, { part, act: "prism" }];
+        const n0 = nGlass(e.glass, e.lamD || lamC), q1 = hitPl(st.p, st.u, c, n1), w1 = surface(st.u, n1, null, 0, 1, n0, false);
+        const q2 = w1 && hitPl(q1, w1, c2, n2), w2 = q2 && surface(w1, n2, null, 0, n0, 1, false);
+        st = { p: q2 || c2, u: w2 || st.u, F: null };
+      } else if (e.k === "grism") {
+        // a ruled grism as the model sets one: the entrance face square to the beam, the exit face tilted A toward b (in
+        // the bench plane, on the side "sense"), carrying the grating in first order; t mm thick on the beam's axis
+        const c = e.at ? proj(pt(e.at)) : add(st.p, mul(st.u, e.dist)), A = e.A * DEG, r = st.u, b = rotP(r, (e.sense || 1) * Math.PI / 2);
+        const n1 = r, n2 = add(mul(r, Math.cos(A)), mul(b, Math.sin(A))), g = mul(sub(mul(r, Math.sin(A)), mul(b, Math.cos(A))), -1), c2 = add(c, mul(r, e.t));
+        const part = { ...base, k: "grism", c, c2, n1, n2, g, G: e.G, glass: e.glass, A: e.A, hw: e.hw, hy: e.hy, uIn: r, b, G1: c, GV: c2, nV: n2 };
+        parts.push(part); route = [...route, { part, act: "grism" }];
+        const n0 = nGlass(e.glass, lamC), w1 = surface(r, n1, null, 0, 1, n0, false), w2 = w1 && surface(w1, n2, mul(g, e.G * 1e-3), lamC, n0, 1, false);
+        st = { p: c2, u: w2 || r, F: null };
+      } else if (e.k === "camera") {
+        camQ.push({ e, route, split });
+      }
+    }
+    return true;
+  };
+  const st0 = { p: chR.q, u: chR.u, F: Q0 };
+  if (place(PL.path, st0, [], null) === false) return null;
+  // ---- one bundle through a route: rays [{q, u}] -> station rings; an apex wherever the bundle focuses between surfaces
+  const actOn = (step, rays, lam0, lamX) => {
+    const P0 = step.part, out = [], lam = lamX && (P0.k === "vph" || P0.k === "grism2" || P0.k === "grating" || P0.k === "prism" || P0.k === "grism") ? lamX : lam0;
+    if (step.act === "parab") { const h = rays.map(r => hitPar(P0.M, r.q, r.u)); if (h.some(x => !x)) return null; return { rays: h, st: [h.map(x => x.q)] }; }
+    if (P0.k === "grism2") {
+      const n = nGlass(P0.glass, lam), gB = P0.G * 1e-3;
+      const s1 = rays.map(r => hitPl(r.q, r.u, P0.G1, P0.n1)), w1 = rays.map(r => surface(r.u, P0.n1, null, 0, 1, n, false)); if (w1.some(x => !x)) return null;
+      const sV = s1.map((q, i) => hitPl(q, w1[i], P0.GV, P0.nV)), w2 = w1.map(u => surface(u, P0.nV, mul(P0.gV, gB), P0.m * lam, n, n, false)); if (w2.some(x => !x)) return null;
+      const s2 = sV.map((q, i) => hitPl(q, w2[i], P0.G2, P0.n2)), w3 = w2.map(u => surface(u, P0.n2, null, 0, n, 1, false)); if (w3.some(x => !x)) return null;
+      return { rays: s2.map((q, i) => ({ q, u: w3[i] })), st: [s1, sV, s2] };
+    }
+    if (P0.k === "grism") {
+      const n = nGlass(P0.glass, lam); if (!isFinite(n)) return null;
+      const s1 = rays.map(r => hitPl(r.q, r.u, P0.c, P0.n1)), w1 = rays.map(r => surface(r.u, P0.n1, null, 0, 1, n, false)); if (w1.some(x => !x)) return null;
+      const s2 = s1.map((q, i) => hitPl(q, w1[i], P0.c2, P0.n2)), w2 = w1.map(u => surface(u, P0.n2, mul(P0.g, P0.G * 1e-3), lam, n, 1, false)); if (w2.some(x => !x)) return null;
+      return { rays: s2.map((q, i) => ({ q, u: w2[i] })), st: [s1, s2] };
+    }
+    if (P0.k === "prism") {
+      const n = nGlass(P0.glass, lam); if (!isFinite(n)) return null;
+      const s1 = rays.map(r => hitPl(r.q, r.u, P0.c, P0.n1)), w1 = rays.map(r => surface(r.u, P0.n1, null, 0, 1, n, false)); if (w1.some(x => !x)) return null;
+      const s2 = s1.map((q, i) => hitPl(q, w1[i], P0.c2, P0.n2)), w2 = w1.map(u => surface(u, P0.n2, null, 0, n, 1, false)); if (w2.some(x => !x)) return null;
+      return { rays: s2.map((q, i) => ({ q, u: w2[i] })), st: [s1, s2] };
+    }
+    for (const r of rays) {
+      const q = hitPl(r.q, r.u, P0.c, P0.n); if (!q) return null;
+      let u = r.u;
+      if (step.act === "reflect") u = refl(r.u, P0.n);
+      else if (step.act === "vph") u = surface(r.u, P0.n, mul(P0.g, P0.G * 1e-3), P0.m * lam, 1, 1, false);
+      else if (step.act === "grating") u = surface(r.u, P0.n, mul(P0.g, P0.G * 1e-3), P0.m * lam, 1, 1, true);
+      if (!u) return null;
+      out.push({ q, u });
+    }
+    return { rays: out, st: [out.map(r => r.q)] };
+  };
+  // (lamX: the wavelength the cross-disperser sees, where it differs: the tracer's origin is the blaze direction of the
+  // reference order cross-dispersed as the central wavelength)
+  const runRoute = (m, lam, pts, route, lamX) => {
+    const u = eOut(m, lam); if (!u) return null;
+    let rays = pts.map(q => hitPar(M1, q, u)); if (rays.some(r => !r)) return null;
+    const st = [pts, rays.map(r => r.q)], hits = [{ part: null, ring: rays.map(r => r.q) }];   // (hits: each surface's footprint, M1 first)
+    let fade = null;
+    for (let k = 0; k < route.length; k++) {
+      const a = actOn(route[k], rays, lam, lamX); if (!a) return null;
+      // the focus between the previous surface and this one, if the bundle passes one
+      if (rays.length > 2) {
+        const F = focusOf(rays), c0 = rays.reduce((s, r) => add(s, mul(r.q, 1 / rays.length)), [0, 0, 0]), u0 = unit(rays.reduce((s, r) => add(s, r.u), [0, 0, 0]));
+        const c1 = a.st[0].reduce((s, q) => add(s, mul(q, 1 / rays.length)), [0, 0, 0]), sF = dot(sub(F, c0), u0), sN = dot(sub(c1, c0), u0);
+        if (F.every(isFinite) && sF > 0 && sF < sN) st.push([F]);
+      }
+      if (fade === null && (["vph", "grism2", "grating", "prism", "grism"].includes(route[k].part.k) || (k > 0 && route[k - 1].part.k === "dichroic"))) fade = st.length;
+      st.push(...a.st); rays = a.rays; hits.push({ part: route[k].part, ring: a.st[0] });
+    }
+    return { st, rays, fade, hits };
+  };
+  // ---- the cameras: each arm's reference ray leaving the cross-disperser sets the axis
+  const cams = {};
+  for (const { e, route, split } of camQ) {
+    const lamR = e.lamRef || lamC, mA = Math.max(1, Math.round(mlamB / lamR));
+    const r = runRoute(mA, mlamB / mA, [E], route, lamR); if (!r) return null;
+    // (the axis in the bench plane, as the cameras are mounted, unless the spec says otherwise; a reference wavelength off
+    // the blaze of its order leaves the plane by the echelle's dispersion)
+    const last = r.rays[0].q, u0 = r.rays[0].u, ax = e.inPlane === false ? u0 : unit([u0[0], 0, u0[2]]);
+    const L1 = e.l1Ref === "split" && split ? add(last, mul(ax, e.l1 - dot(sub(last, split), ax))) : add(last, mul(ax, e.l1));
+    const det = add(L1, mul(ax, e.lenses ? lensSum(e.lenses) : e.back));
+    let z0 = 0;
+    const lenses = (e.lenses || []).map(([R1, R2, t, air, ca1, ca2]) => { const o = { z0, R1, R2, t, r: Math.max(ca1, ca2) / 2 * 1.03 }; z0 += t + air; return o; });
+    cams[e.arm] = { id: e.arm, axis: ax, L1, det, f: e.f, lenses, m: mA, lam: lamR, route, model: !!e.model, range: e.range || null, label: e.label, sub: e.sub, lab: e.lab, detLab: e.detLab, det2: e.det || null };
+  }
+  // the focus on the detector of a beam leaving the cross-disperser along w: an ideal camera of focal length f
+  const onDet = (c, w) => { const k = dot(w, c.axis); return k > 0 ? add(c.det, mul(perp(w, c.axis), c.f / k)) : null; };
+  const trace = (m, lam, arm) => {
+    const cam = cams[arm]; if (!cam) return null;
+    const r = runRoute(m, lam, foot, cam.route); if (!r) return null;
+    const atL = r.rays.map(x => hitPl(x.q, x.u, cam.L1, cam.axis)), Q = onDet(cam, r.rays[0].u);
+    if (!Q || atL.some(q => !q)) return null;
+    return { st: [...r.st, atL, [Q]], Q, fade: r.fade, hits: [...r.hits, { part: cam, ring: atL }] };
+  };
+  const chief = (m, lam, arm, lamX) => {
+    const cam = cams[arm]; if (!cam) return null;
+    const r = runRoute(m, lam, [E], cam.route, lamX); return r ? onDet(cam, r.rays[0].u) : null;
+  };
+  const m1c0 = m1zones.reduce((s, q) => add(s, mul(q, 1 / m1zones.length)), [0, 0, 0]), m1c = [m1c0[0], 0, m1c0[2]];   // (centered on the bench's mid-plane)
+  return {
+    // (mlamB as the model has it, so that a bench drawn with its own gamma is referred to the model's blaze wavelengths)
+    f, mlamB: PL.gamma !== undefined ? 2 * Math.sin(dl) * Math.cos(P.gamma * DEG) / Ge : mlamB, mR, lamC, uIn, E, nE, gE, foot, atM1in, cone, Q0, feed, parts, cams,
+    M1: { ...M1, at: m1c, n: pNormal(M1, m1c) },
+    trace, chief,
+  };
+}
+
+const API = { RAD, DEG, GLASS, nGlass, surface, design, dot, unit, cross, norm, planLayout };
 if (typeof module !== "undefined" && module.exports) module.exports = API;
 root.IX = API;
 })(typeof window !== "undefined" ? window : globalThis);

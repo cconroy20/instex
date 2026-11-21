@@ -206,6 +206,67 @@ pupil) carries every bundle's footprint, so the drawing agrees with the Detector
 unfolded but for the fold. Where the instrument's out-of-plane angle is too small to draw, or not published, the
 caption gives the angle drawn and the instrument's; spacings the sources do not give are schematic.
 
+**A bench as designed** (2026-11-21, after the G-CLEF PI judged the drawing against the published layout; his "G-CLEF
+first, and draw the blue arm too"). A preset may name a bench in IX_PLANS (presets.js; e.plan, a drawing key).
+IX.planLayout (physics.js) lays out the instrument as in the paper's layout figure and traces each bundle through real
+mirrors with surface(), and app.js build3dPlan draws the result in place of the schematic "wp" view. The frame is the
+figure's: x along M1's axis from its focus (where the fiber images sit), z in the bench plane toward the transferred
+beam, y across the bench (the echelle's dispersion), so the 3D Side snap shows the published plan. The preset opens on
+that view, tilted 17° (PLAN_EL). G-CLEF (data/layout/gclef.md) follows Ben-Ami et al. 2016, Secs. 2.2–2.3, Fig. 1 and
+Tables 5–8. The fiber sits at M1's focus with the chief rays 7.5° off the axis; M1 is a paraboloid (f = 2400 mm) used
+twice; the echelle (306 × 1258 mm, three facets) stands 2600 mm from M1's vertex, turned by γ in the bench plane, so the
+returning light focuses 2γ f = 63 mm from the fiber, toward the grating. The Mangin mirror, 40 mm before that focus,
+folds the light by 166° to M2 (f = 1600 mm) beside M1. The dichroic stands at 15° to the transferred beam, with the red
+VPH (480 /mm, fringes tilted 3.25°) and the 7-lens red camera behind the dichroic, and the blue VPH grism (950 /mm between prisms
+of 32.42° and 15.87°) and the 8-lens blue camera on the reflected side. Each lens is drawn from the camera's prescription (radii,
+thicknesses, air spaces, clear apertures). The text gives no place for M2's face, the dichroic, the red VPH or the two
+detectors, so these are MEASURED from the figure at 1.28 mm per pixel of a 400 dpi render. The model does not compute
+the blue arm; planLayout traces the blue light through the grism with the prisms set to pass 4386 Å undeviated, as the
+figure's blue camera continues the reflected beam (INFERRED). The VPH then meets the light within 0.5° of the Bragg
+angle, and orders 114–175 fill the chip. The drawn bundles run from the echelle to each detector at the ends of an
+order's free spectral range and at the order's blaze, within the chip and the arm's band (350–540 or 540–950 nm). The optics
+are sized for that range; at the chip's edges the echelle's beam-width factor cos β / cos α would overfill M2 by 13%.
+The common path is drawn faint and the arms, from the dichroic on, at full strength; both arms share one color ramp
+over 350–950 nm. The red foci are the tracer's (Dz.pos), and planLayout's own trace lands within 1.5 mm of the tracer's foci. Two
+effects are not traced: the Mangin mirror's cylindrical power (the field flattening) and the refraction inside the
+cameras (each bundle runs straight from the first lens to the focus). A state off the bench's values (PL.fits: W, F,
+the echelle, γ, the transfer collimator, the cross-disperser) gets the schematic drawing. validate.js section 5 checks
+the layout against the paper (the returning focus, and the places of M2, the Mangin mirror and the detectors in
+Fig. 1), the red foci against the model's, the blue format, the lens prescriptions (a positive edge and a positive gap at
+each rim, which confirms the reading of Cx/Cc as seen from outside the lens), and the clear apertures over each order's
+free spectral range.
+
+**More benches** (2026-11-21, his "do the same approach with the other instruments. be very careful to compare to
+published drawings, figures etc"). IX.planLayout takes the elements after the echelle as a chain (PL.path): folds (flat,
+Mangin or field mirror, aimed at the next element or given a normal), collimators (a paraboloid whose focus is the folded
+focus, or with its focus and axis given; m1pass for M1's third pass), dichroics that split the chain, field lenses, VPH
+gratings, VPH grisms, ruled grisms, reflection gratings (in the model's setting, the larger angle of incidence), prisms
+given by their two faces, and the cameras. A spec may add a fold between the slit and M1 (feedFold). The elements are
+placed along the blaze ray of the reference order, which returns in the bench plane. Each camera's axis follows the
+blaze ray of its arm's reference order cross-dispersed as the arm's central wavelength (the tracer's origin), kept in the
+bench plane, and the modeled arm's chip is centered where that ray lands. The model's eTilt is applied. New benches:
+FEROS (data/layout/feros.md), from the Zemax prescription in the Final Design Report, with every pose within 4 mm of the
+prescription's; UVES blue and red (data/layout/uves.md), from the ESO ray trace of the table and Dekker et al. 2000
+Fig. 4, with the cameras of Dekker et al.'s Table 6 and the collimators and angles of Ballester & Rosa 1997; HARPS
+(data/layout/harps.md), from the HARPS3 ray trace of the HARPS-N copy, with a schematic camera, its optical plane
+vertical with the echelle above (Pepe et al. 2000; PL.side words the Side view so). The traced foci agree with the model's within 0.8 mm (G-CLEF: 1.5 mm, from
+the red VPH's fringe tilt, which the model leaves out). validate.js
+section 5 checks FEROS against the prescription, and the measured benches (benchChecks) against their figures, the model,
+the camera prescriptions and the mirrors' clear apertures; the cameras' first lenses are reported. ZShooter keeps the
+schematic drawing (his call). ESPRESSO (data/layout/espresso.md) is drawn from the plan of the 2012 design (Spanò et al.
+2012, Fig. 2), scaled by the main collimator's 3000 mm focal length, with the as-built sizes and prisms of Santana Tschudi
+et al. 2014; one bench serves both presets. For ESPRESSO the solver gained an off-plane angle of the bench's own
+(PL.gamma, 1.15° measured from the figure, while the model keeps 0 because the instrument turns the slit to cancel the
+line tilt), a rectangular beam (PL.beam, one 300 × 200 mm slice), and grisms set at the Bragg angle (grism2 "bragg",
+with "expand" choosing the setting that widens the beam). The drawn grisms reproduce Arns's (2016) dispersions once his
+decimal slip is corrected, turn the beam 9° (blue) and 7° (red) more than the 2012 figure shows, and spread the orders
+1.9% (blue) and 0.4% (red) farther than the model's equivalent gratings. Those gratings (his call, 11-21) carry half
+Arns's angular dispersions, 757 and 407 /mm, since the real grisms sit in the beam halved by the 2:1 transfer; the audit
+had fitted 789 and 432 /mm to the manual's order ranges, which the dichroic and the band set (the chip holds one more
+order at each edge). The bench also curves each order ≈3 mm more than the model at
+the chip's ends, because the 2:1 transfer doubles the angles at the cross-disperser; benchChecks fits that spread and
+curvature (xdScale) and reports both.
+
 **All arms** (11-16, his "showing the multi-arm instruments in one shot, as opposed to having mode switches";
 web/arms.js, window.ARMSAPP). For an instrument listed in arms.js GROUPS, the Setting menu ends with "All arms", which
 shows the instrument's arms together with the dichroics that split the light. GROUPS holds each instrument's dichroic
@@ -876,6 +937,7 @@ actual optical layout. Mapping choices:
   cross-disperser works in the 200 mm transferred beam and is imaged by the true 450 mm camera, while the
   echelle direction sees the effective 675 mm; the model has one camera (675 mm), so the VPH is entered as
   480 × 450/675 = 320 /mm, which gives the same order spacing (with 480 /mm only orders down to 71 fit, not 65).
+  The 3D view draws the bench as designed, with both arms (see "A bench as designed" under Echelle 3D).
 - **X-Shooter** (Vernet et al. 2011; ESO manual 2024): echelles 180 / 99.4 / 55 /mm at 41.77 / 54.0 / 46.07°,
   in-plane offset 0, γ = 2.2 / 2.0 / 1.8°; prisms 60° silica, 49° SF6, 35° Infrasil + 2 × 22° ZnSe (105 K), all
   double pass; beams 100 / 100 / 85 mm; collimator and camera focal lengths are not published — effective

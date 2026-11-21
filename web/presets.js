@@ -452,12 +452,12 @@ const PRESETS = [
   },
   {
     id: "gclef", tel: "GMT 25.4 m", name: "GMT / G-CLEF red, MR mode (design)",
-    note: "G-CLEF, the 2016 design (Ben-Ami et al. 2016; Szentgyorgyi et al. 2016; the 2018 papers print a 75.6° echelle and an STA detector), red arm, MR mode: one 300 µm science fiber (with 2 sky/calibration fibers), 800 µm at the f/8 slit after the 8/3 relay (0.812″, DERIVED; \"0.8″\" in the papers), entered as the slit of equal line width (0.70″); off-axis-parabola collimator 2400 mm, 300 mm beam, R4 echelle 31.6 /mm (75.96°) in Littrow, 0.75° out of plane, red VPH cross-disperser 480 /mm (first order, optimized at 7300 Å), effective camera 675 mm (450 mm on the 200 mm transferred beam, derived). White pupil: the cross-disperser sits in the 200 mm beam and is imaged by the 450 mm camera, which the model (one 675 mm camera) reproduces by entering the VPH as 480 × 450/675 = 320 /mm, the same order spacing. e2v detector 92.4 × 92.2 mm of 10 µm (the CCD290-99, 9232 × 9216, INFERRED; which axis carries the dispersion is not published). The format is centered on the blaze of order 82, 7487 Å (INFERRED: the red echellogram of Ben-Ami et al. 2016 Fig. 15 holds orders 65 to ≈ 112 within the detector; no source gives the center). This is the GMT design's MR mode; on the Magellan Clay telescope (G@M, where commissioning was planned for 2027 as of 2024, before the GMT in the 2030s; Hartmann et al. 2024) the same spectrograph offers MR at 1.12″ (R 100,000) and HR at 0.8″ (R 140,000) with other fibers (the 2023 G@M poster, Table 1). The as-built red cross-disperser is a VPH grism, whose prescription is not published. The echelle's midplane stands 2600 mm from the collimator's vertex and the fiber images on the collimator's axis at its focus, with the chief rays tilted 7.5° to that axis (Furesz et al. 2014, Sec. 2.1; Ben-Ami et al. 2016, Sec. 2.2).",
+    note: "G-CLEF, the 2016 design (Ben-Ami et al. 2016; Szentgyorgyi et al. 2016; the 2018 papers print a 75.6° echelle and an STA detector), red arm, MR mode: one 300 µm science fiber (with 2 sky/calibration fibers), 800 µm at the f/8 slit after the 8/3 relay (0.812″, DERIVED; \"0.8″\" in the papers), entered as the slit of equal line width (0.70″); off-axis-parabola collimator 2400 mm, 300 mm beam, R4 echelle 31.6 /mm (75.96°) in Littrow, 0.75° out of plane, red VPH cross-disperser 480 /mm (first order, optimized at 7300 Å), effective camera 675 mm (450 mm on the 200 mm transferred beam, derived). White pupil: the cross-disperser sits in the 200 mm beam and is imaged by the 450 mm camera, which the model (one 675 mm camera) reproduces by entering the VPH as 480 × 450/675 = 320 /mm, the same order spacing. e2v detector 92.4 × 92.2 mm of 10 µm (the CCD290-99, 9232 × 9216, INFERRED; which axis carries the dispersion is not published). The format is centered on the blaze of order 82, 7487 Å (INFERRED: the red echellogram of Ben-Ami et al. 2016 Fig. 15 holds orders 65 to ≈ 112 within the detector; no source gives the center). This is the GMT design's MR mode; on the Magellan Clay telescope (G@M, where commissioning was planned for 2027 as of 2024, before the GMT in the 2030s; Hartmann et al. 2024) the same spectrograph offers MR at 1.12″ (R 100,000) and HR at 0.8″ (R 140,000) with other fibers (the 2023 G@M poster, Table 1). The as-built red cross-disperser is a VPH grism, whose prescription is not published. The echelle's midplane stands 2600 mm from the collimator's vertex and the fiber images on the collimator's axis at its focus, with the chief rays tilted 7.5° to that axis (Furesz et al. 2014, Sec. 2.1; Ben-Ami et al. 2016, Sec. 2.2). The 3D view draws the bench as designed (Ben-Ami et al. 2016, Fig. 1): the mirrors as mirrors, the Mangin fold, both arms behind the dichroic, and the 7 red and 8 blue camera lenses from the published prescriptions (data/layout/gclef.md).",
     state: { mode: "echelle", D: 25.4, F: 8,
-      e: { lay3d: "wp", wpT: 1600, fold3d: "Mangin mirror", layLen: 2600, colTilt: 3.75, xdLabel: "VPH grating (as built: a VPH grism)",
+      e: { lay3d: "wp", plan: "gclef", wpT: 1600, fold3d: "Mangin mirror", layLen: 2600, colTilt: 3.75, xdLabel: "VPH grating (as built: a VPH grism)",
            camEq: "equivalent of 450 mm on a 200 mm beam", xdEq: "equivalent of 480 /mm", feedLabel: "fibers (f/3 to f/8 converter)",
            dichLabel: "540 nm, the red transmitted", dichBefore: 390, dichTilt: 15,
-           note2d: "This view is the white-pupil design's single-pass equivalent, with the 0.81″ fiber image entered as a 0.70″ slit of equal line width; the 3D view draws the Mangin fold, transfer mirror and dichroic.",
+           note2d: "This view is the white-pupil design's single-pass equivalent, with the 0.81″ fiber image entered as a 0.70″ slit of equal line width; the 3D view draws the bench as designed (Ben-Ami et al. 2016, Fig. 1), with both arms.",
            note3d: "the Mangin fold is drawn at ≈104° for clarity (≈166° in the instrument, whose relay runs back beside the main beam: Furesz et al. 2014, Fig. 1); the 7-lens camera is drawn as one lens", slitW: S3 * 0.800 / (8 * 25400) * 206264.806, nObj: 3, col: "mirror", W: 300, fcam: 675, eG: 31.6, eDelta: 75.96, gamma: 0.75, theta: 0, xd: "vph", xG: 480 * 450 / 675, xPsi: 10,
            xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 7487, Nx: 9232, Ny: 9216, pix: 10 } },
     pub: [
@@ -486,12 +486,14 @@ const PRESETS = [
   // equivalent round beam of 2 x 300 = 600 mm.  The cross-dispersers (a fused-silica prism plus a VPH grating) are not
   // published: an equivalent first-order VPH is estimated here.
   // Audited 2026-11-16 (data/audit/): the echelle is the UVES red master MR160 (75.04°), γ 0 (not published; the measured line
-  // tilt, the design 800 mm camera; the equivalent cross-dispersers refit to the published order ranges.
-  ...[["blue", "b", 789, 4529, [[3800.4, 161, 0.0063], [5229.7, 117, 0.0086]], 117, 161, 135], ["red", "r", 432, 6575, [[5229.7, 117, 0.0086], [7844.5, 78, 0.0129]], 78, 117, 93]].map(([arm, k, xG, lc, dl, m1, m2, mc]) => ({
+  // tilt, the design 800 mm camera.  The equivalent cross-dispersers (2026-11-21) carry half the published grisms' angular
+  // dispersion (Arns 2016, read as 0.088 and 0.047 deg/nm; data/round5/espresso.md), which the bench as built reproduces
+  // (data/layout/espresso.md); they replace the 789 and 432 /mm fitted to the manual's order ranges in the audit.
+  ...[["blue", "b", 757, 4529, [[3800.4, 161, 0.0063], [5229.7, 117, 0.0086]], 117, 161, 135], ["red", "r", 407, 6575, [[5229.7, 117, 0.0086], [7844.5, 78, 0.0129]], 78, 117, 93]].map(([arm, k, xG, lc, dl, m1, m2, mc]) => ({
     id: "espresso" + k, tel: "VLT 8.2 m", name: "VLT / ESPRESSO " + arm + ", singleHR", inst: "ESPRESSO", setting: arm + ", singleHR",
-    note: "VLT ESPRESSO " + arm + " arm, singleHR 1-UT mode (Pepe et al. 2021; ESO ESPRESSO manual; design papers): 140 µm octagonal fiber (1.0″) entered as the slit of equal line width, 4 spectra (object and sky/reference fibers, each cut in two by the pupil slicer), collimator mirror 3000 mm (off-axis parabola, double pass) with an equivalent 600 mm beam (two 300 mm slices), 31.6 /mm R4 echelle replicated from the UVES red master MR160 (Mégevand et al. 2014), so δ = 75.04° (the UVES manual; the ESPRESSO papers' 76° is the nominal R4 label), θ = 0, γ = 0 (not published), camera 800 mm (the blue camera's 400 mm, Pepe et al. 2014 Sec. 3.5, × the 2:1 transfer, DERIVED from the mirror radii; the red camera's focal length is not published and is taken equal), cross-disperser an equivalent " + xG + " /mm VPH (EFFECTIVE: the real prism + VPH is not published; fitted so the chip holds the manual's orders " + m1 + "–" + m2 + "), 9232 × 9216 of 10 µm. Central wavelength: the blaze of order " + mc + ", nearest the chip center. D = 8.2 m, the primary: no source gives the effective aperture of the coudé feed (140 µm = 1.0″ at F/3.5 implies 8.25 m). At the intermediate focus the red arm has a field mirror and the blue arm a field lens, as in the layout figures (Pepe et al. 2021, Fig. 3; the User Manual, Fig. 5; Mégevand et al. 2014, Fig. 14); the text of Pepe et al. 2021, Sec. 3.1.5, names them the other way round.",
+    note: "VLT ESPRESSO " + arm + " arm, singleHR 1-UT mode (Pepe et al. 2021; ESO ESPRESSO manual; design papers): 140 µm octagonal fiber (1.0″) entered as the slit of equal line width, 4 spectra (object and sky/reference fibers, each cut in two by the pupil slicer), collimator mirror 3000 mm (off-axis parabola, double pass) with an equivalent 600 mm beam (two 300 mm slices), 31.6 /mm R4 echelle replicated from the UVES red master MR160 (Mégevand et al. 2014), so δ = 75.04° (the UVES manual; the ESPRESSO papers' 76° is the nominal R4 label), θ = 0, γ = 0 (not published), camera 800 mm (the blue camera's 400 mm, Pepe et al. 2014 Sec. 3.5, × the 2:1 transfer, DERIVED from the mirror radii; the red camera's focal length is not published and is taken equal), cross-disperser an equivalent " + xG + " /mm VPH (EFFECTIVE: half the angular dispersion of the published grism, " + (k === "b" ? "0.088°/nm at 438 nm" : "0.047°/nm at 654.8 nm") + " (Arns 2016, whose abstract prints the values ten times larger), because the real grism sits in the beam halved by the 2:1 transfer; the 3D view traces the real " + (k === "b" ? "1500" : "800") + " /mm grating on its fused-silica prism), 9232 × 9216 of 10 µm. Central wavelength: the blaze of order " + mc + ", nearest the chip center. D = 8.2 m, the primary: no source gives the effective aperture of the coudé feed (140 µm = 1.0″ at F/3.5 implies 8.25 m). At the intermediate focus the red arm has a field mirror and the blue arm a field lens, as in the layout figures (Pepe et al. 2021, Fig. 3; the User Manual, Fig. 5; Mégevand et al. 2014, Fig. 14); the text of Pepe et al. 2021, Sec. 3.1.5, names them the other way round.",
     state: { mode: "echelle", D: 8.2, F: 5.0,
-      e: { lay3d: "wp", wpT: 1500, fold3d: k === "r" ? "field mirror" : "field lens, drawn as a fold", xdLabel: "VPH grating on a prism",
+      e: { lay3d: "wp", plan: "espresso" + k, wpT: 1500, fold3d: k === "r" ? "field mirror" : "field lens, drawn as a fold", xdLabel: "VPH grating on a prism",
            note3d: "the beam is drawn as the unsliced equivalent (600 mm at the echelle); the pupil slicer makes two 300 × 200 mm beams there, and the camera's " + (k === "b" ? "400 mm is the design value (Pepe et al. 2014)" : "focal length is not published"),
            slitW: S3 * 1.0, nObj: 4, col: "mirror", W: 600, fcam: 800, eG: 31.6, eDelta: 75.04, gamma: 0, theta: 0, xd: "vph", xG, xPsi: 10,
            xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: lc, Nx: 9232, Ny: 9216, pix: 10 } },
@@ -499,7 +501,7 @@ const PRESETS = [
       { what: "R = 140,000 (singleHR, measured)", q: "R", value: 140000, info: true, src: "ESO ESPRESSO manual Table 1; Pepe et al. 2021 Sec. 4.1.2: 138,000 median, from the FWHM of ThAr lines, which are partly resolved, so \"(safe) lower limits\". The model's R is the line's true FWHM; a Gaussian fitted to a round core's line gives 0.70 of the core against the true 0.866 (DERIVED), so a fitted R can sit up to 24% above the model's (the fitting function is not stated; INFERRED). The same grating family in HARPS shows the same gap" },
       { what: "4.5 px per resolution element (expected, design)", q: "npix", value: 4.5, tol: 0.08, src: "ESO ESPRESSO manual Table 1; Pepe et al. 2021 Sec. 3.2.2: \"the value expected at the center of an extracted echelle order\"" },
       ...dl.map(([l, m, v]) => ({ what: (v / 10).toFixed(5) + " nm/px at " + (l / 10).toFixed(2) + " nm (order " + m + ")", q: "dlpixAt", lam: l, m, value: v, tol: 0.02, src: "Pepe et al. 2021 Table 2 (the design camera, not fitted)" })),
-      { what: "orders " + m1 + "–" + m2, q: "nOrders", value: m2 - m1 + 1, info: true, src: "ESO ESPRESSO manual Tables 7–8. Not a test: the equivalent cross-disperser was fitted to this range" },
+      { what: "orders " + m1 + "–" + m2, q: "nOrders", value: m2 - m1 + 1, info: true, src: "ESO ESPRESSO manual Tables 7–8. The model's chip also holds " + (k === "b" ? "orders 116 and 162, at its edges: 116 lies past the dichroic's 525 nm transition and 162 below the 380 nm limit of the band" : "orders 77 and 118, at its edges: 118 lies short of the dichroic's 525 nm transition and 77 past the 788.7 nm limit of the coverage") + "; the model does not apply the dichroic or the band" },
     ],
   })),
   {
@@ -517,7 +519,7 @@ const PRESETS = [
     id: "uvesb", tel: "VLT 8.2 m", name: "VLT / UVES blue 390, 1″", inst: "UVES", setting: "blue 390, 1″",
     note: "VLT UVES blue arm, standard 390 nm setting with CD#2 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model for the cross-disperser angle): 8.0 m entrance pupil at f/10 (the value that reproduces the published scales), white-pupil collimator mirror 2000 mm, beam 200 mm, R4 echelle 41.59 /mm (δ = 76.0°, θ = 0, γ = 0.8°), cross-disperser 660 /mm at a 46.0° camera–collimator angle, camera 360 mm f/1.8, EEV 2048 × 3000 of 15 µm (a 2048 × 4096 CCD read out windowed: the UVES manual Table 2.3). The off-plane angle tilts the lines by 8°; UVES rotates its slit by 7° to cancel the tilt (Dekker et al. 2000), which the page does not, so the drawn lines are tilted. The 45° flat between the slit and the collimator (Dekker et al. 2000) is not drawn.",
     state: { mode: "echelle", D: 8.0, F: 10,
-      e: { lay3d: "wp", wpT: 2000, slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 360, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, xd: "grating", xG: 660, xPsi: 46.0,
+      e: { lay3d: "wp", plan: "uvesb", wpT: 2000, slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 360, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, xd: "grating", xG: 660, xPsi: 46.0,
            xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 3900, Nx: 3000, Ny: 2048, pix: 15 } },
     pub: [
       { what: "R = 41,400 at 1″ (R × slit, slit-limited)", q: "Rs", value: 41400, tol: 0.06, src: "ESO UVES manual (R × slit = 41,400; the geometric 2 tan δ W / D reproduces it to 0.1%)" },
@@ -533,7 +535,7 @@ const PRESETS = [
     id: "uvesr", tel: "VLT 8.2 m", name: "VLT / UVES red 580, 1″", inst: "UVES", setting: "red 580, 1″",
     note: "VLT UVES red arm, standard 580 nm setting with CD#3 (Dekker et al. 2000; ESO UVES manual; ESO pipeline physical model): 8.0 m entrance pupil at f/10, collimator mirror 2000 mm, beam 200 mm, R4 echelle 31.6 /mm (δ = 75.04°, θ = 0, γ = 0.8°), cross-disperser 600 /mm at 45.336°, camera 500 mm f/2.5, two 2k × 4k CCDs (4096 × 4096 of 15 µm; the 0.96 mm gap between the chips, where order 105 falls, is not modeled). The model's orders 106–128 span 1.3% more than the exposure-time calculator's, so order 128 (from 4727 Å in the calculator) falls just off the chip and the coverage starts at 4806 Å. The lines are drawn tilted by the off-plane angle (6°); UVES rotates its slit to cancel the tilt. The 45° flat between the slit and the collimator (Dekker et al. 2000) is not drawn.",
     state: { mode: "echelle", D: 8.0, F: 10,
-      e: { lay3d: "wp", wpT: 2000, slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 500, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, xd: "grating", xG: 600, xPsi: 45.336,
+      e: { lay3d: "wp", plan: "uvesr", wpT: 2000, slitW: 1, nObj: 1, col: "mirror", W: 200, fcam: 500, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, xd: "grating", xG: 600, xPsi: 45.336,
            xGlass: "silica", xA: 40, xPasses: 1, xPrisms: null, lamC: 5800, Nx: 4096, Ny: 4096, pix: 15 } },
     pub: [
       { what: "R = 38,700 at 1″ (R × slit, slit-limited)", q: "Rs", value: 38700, tol: 0.06, src: "ESO UVES manual (R × slit = 38,700; the geometric 2 tan δ W / D reproduces it to 0.3%)" },
@@ -579,7 +581,7 @@ const PRESETS = [
     id: "feros", tel: "MPG/ESO 2.2 m", name: "MPG 2.2 m / FEROS",
     note: "FEROS (1997 Final Design Report; Kaufer & Pasquini 1998; ESO user manual): 2.0″ fibers whose image a two-slice image slicer cuts into 1.0″-wide slits at f/11 (120 µm, 2.2 px on the detector), object and sky/calibration fibers (2 spectra), white-pupil collimator mirrors 1500 mm (beam 136 mm), R2 echelle 79 /mm (δ = 63.4°, θ = 0, γ = 0.6°), one LF5 prism of 55° in single pass at minimum deviation for 4623 Å (entered as an EFFECTIVE 56°, centered on 4550 Å, so that the chip holds the 39 orders 25–63 FEROS records; the design's 55° put parts of orders 22–24 on the chip too), camera 410 mm, EEV 4096 × 2048 of 15 µm (dispersion along the long side). The camera is not corrected for lateral color (Kaufer & Pasquini 1998 Sec. 2.3; Final Design Report Sec. 3.8.2), so its focal length runs from ≈ 407 mm in the red to ≈ 403 mm in the blue (DERIVED from the CERES arc lines; the design table gives 410 mm); with one focal length the model's dispersion is 0.7–1.8% too fine (the CERES pipeline's arc lines).",
     state: { mode: "echelle", D: 2.2, F: 1500 / 136,
-      e: { lay3d: "wp", wpT: 1500, slitW: 1.0, nObj: 2, col: "mirror", W: 136, fcam: 410, eG: 79, eDelta: 63.4, gamma: 0.6, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "LF5", xA: 56, xPasses: 1, xPrisms: null,
+      e: { lay3d: "wp", plan: "feros", wpT: 1500, slitW: 1.0, nObj: 2, col: "mirror", W: 136, fcam: 410, eG: 79, eDelta: 63.4, gamma: 0.6, theta: 0, xd: "prism", xG: 300, xPsi: 10, xGlass: "LF5", xA: 56, xPasses: 1, xPrisms: null,
            lamC: 4550, Nx: 4096, Ny: 2048, pix: 15 } },
     pub: [
       { what: "R = 48,000 (measured)", q: "R", value: 48000, info: true, src: "Kaufer et al. 1999 (\"The measured spectral resolving power of FEROS is R = 48,000 corresponding to 2.2 pixels of 15 µm\"); ESO FEROS manual. A line only 2.2 px wide is widened by the pixels when measured; the page's R leaves the pixel out (51,100, +6%), and the pixel in quadrature would give ≈ 46,600 (−3%), so the measurement sits between the two. The model's dispersion is also 0.7–1.8% too fine (the camera's lateral color), which raises its R by as much. The geometry is scored by the measured dispersions below" },
@@ -593,7 +595,7 @@ const PRESETS = [
     id: "harps", tel: "ESO 3.6 m", name: "ESO 3.6 m / HARPS",
     note: "HARPS (User Manual 2.4; ESO HARPS pages): fiber-fed, 1″ (70 µm) fibers entered as the slit of equal line width, 0.87″, at the spectrograph's own f/7.5 (the on-sky convention: the 1″ angle with the internal beam's focal ratio; octagonal fibers since June 2015, User Manual Sec. 4.7, whose line profile the round-core factor approximates); R4 echelle 31.6 /mm, \"a copy of the UVES mosaic\" (ESO), so the facets at UVES's 75.04° and the grating turned 0.26° to Littrow at 75.3° at the chip center (the exposure-time calculator's central-column m λ, 61.215 µm; DERIVED), 0.721° out of plane, f_col 1560 mm (208 mm beam, f/7.5), FK5 grism 257.17 /mm \"blazed at 480nm\", so an apex of 14.5° (DERIVED, with the groove facet equal to the apex, INFERRED), camera 728 mm, two 2k × 4k CCDs of 15 µm with the 1215 µm gap between them counted in the height (4177 px; the gap itself is not drawn). Central wavelength: order 115 (5323 Å at the central column), which the manual places in the gap at the center of the mosaic. The model's R is the geometric FWHM of the line. This is the 2003–2026 detector: in May–June 2026 ESO replaced the two-CCD mosaic with a monolithic detector of the same pixel count and size, with new electronics, a Stirling cooler and a new pipeline (ESO, HARPS Upgrade 2026, updated October 2026).",
     state: { mode: "echelle", D: 3.566, F: 7.5,
-      e: { lay3d: "wp", wpT: 1560, wp3: true, fold3d: "fold", note3d: "the fold between the second and third passes appears in the HARPS User Manual's Fig. 2.1 but is not described in the text", slitW: S3 * 1.0, nObj: 2, col: "mirror", W: 208, fcam: 728, eG: 31.6, eDelta: 75.04, eTilt: 0.26, gamma: 0.721, theta: 0, xd: "grism", xG: 257.17, xGrA: 14.5, xPsi: 10,
+      e: { lay3d: "wp", plan: "harps", wpT: 1560, wp3: true, fold3d: "fold", note3d: "the fold between the second and third passes appears in the HARPS User Manual's Fig. 2.1 but is not described in the text", slitW: S3 * 1.0, nObj: 2, col: "mirror", W: 208, fcam: 728, eG: 31.6, eDelta: 75.04, eTilt: 0.26, gamma: 0.721, theta: 0, xd: "grism", xG: 257.17, xGrA: 14.5, xPsi: 10,
            xGlass: "FK5HTi", xA: 40, xPasses: 1, lamC: 5323, Nx: 4096, Ny: 4177, pix: 15 } },
     pub: [
       { what: "R = 536.97 nm / (3.4 px x 0.0015 nm) = 105,000", q: "RAt", lam: 5369.7, value: 5369.7 / (3.4 * 0.015), info: true, src: "HARPS manual: the manual's sampling × dispersion, both scored below, so this line repeats them" },
@@ -1542,6 +1544,229 @@ const PRESETS = [
     ],
   },
 ];
+// As-built benches for the 3D view (IX.planLayout in physics.js; drawing only): a preset names one with e.plan.  Lengths
+// in mm, angles in degrees; "at" is [x, z] in the bench frame of planLayout (M1's focus at the origin, x along M1's
+// axis, z toward the transferred beam), MEASURED from the paper's layout figure at 1.28 mm per pixel of a 400 dpi
+// render (the echelle's 306 mm width as the scale; with that scale the echelle's center lies 2605 mm from M1, against
+// the published 2600).  fits: the model's values the bench is drawn for; any other state gets the schematic drawing.
+const PLANS = {
+  // G-CLEF, the 2016 design: Ben-Ami et al. 2016 (SPIE 9908, 9908A0) Secs. 2.2-2.3, Fig. 1 and Tables 5-8 (data/round3 G-CLEF
+  // records; rawdata/presets/gclef/gclef_cfa_2016SPIE.9908A0.pdf).  The later layouts (Ben-Ami et al. 2018 Fig. 9; Leung
+  // et al. 2024 Fig. 2) keep this arrangement.
+  gclef: {
+    fits: { W: 300, F: 8, eG: 31.6, eDelta: 75.96, gamma: 0.75, theta: 0, wpT: 1600, xd: "vph" },
+    band: [0.35, 0.95],            // both arms (Table 1): the drawing's colors run over this band
+    caption: "The bench as designed (Ben-Ami et al. 2016, Fig. 1 and Tables 5–8): the mirrors as mirrors, each camera lens from the published prescription; M2, the dichroic, the red VPH and the cameras' distances measured from that figure. The blue arm, which the model does not compute, is traced through the published grism, its prisms set to pass 4386 Å undeviated (inferred). Not traced: the Mangin mirror's cylindrical power and the refraction inside the cameras.",
+    chief: 7.5,                    // the chief rays' tilt from M1's axis (Sec. 2.2)
+    echDist: 2600,                 // the echelle's midplane from M1's vertex (Sec. 2.2)
+    feed: { lab: [-72, 84] },
+    echelle: { len: 1258, w: 306, facets: 3, t: 90, lab: [0, -230] },   // three facets (Szentgyorgyi et al. 2016 Fig. 11); 306 x 1258 mm (Ben-Ami et al. 2018 Fig. 9; the 2016 text's 1200 mm is shorter than the 1237 mm footprint)
+    m1: { w: 500, h: 760, t: 140, label: "collimator M1", sub: "passed twice", lab: [0, -310] },   // clear aperture 500 x 760 (Table 5); thickness MEASURED
+    path: [
+      // 40 mm ahead of the intermediate focus; 50 x 380, 25 thick (Sec. 2.2, Table 6)
+      { k: "fold", type: "mangin", before: 40, w: 50, h: 380, t: 25, label: "Mangin mirror", sub: "fold and field flattener", lab: [-120, -24] },
+      // M2: face center MEASURED; 250 x 500 (Table 5)
+      { k: "parab", f: "wpT", at: [1655, 133], w: 250, h: 500, t: 83, label: "pupil-transfer mirror M2", lab: [0, 175] },
+      // where the transferred beam crosses the dichroic MEASURED; 15 deg, 255 x 330, 30 thick (Sec. 2.2); the blue reflected toward the blue camera (MEASURED detector)
+      { k: "dichroic", at: [553, 173], tilt: 15, reflectTo: [1676, 836], w: 255, h: 330, t: 30, label: "dichroic", sub: "540 nm, the red transmitted", lab: [0, 191],
+        transmit: [
+          // 480 /mm at 7300 A, fringes tilted 3.25 deg, between two 20 mm plates (Sec. 2.2); its center MEASURED 365 mm past the dichroic's ("375 mm after the dichroic back surface")
+          { k: "vph", G: 480, lamD: 0.73, fringe: 3.25, turn: -1, dist: 365, w: 280, h: 330, t: 42, label: "red VPH grating", sub: "480 /mm", lab: [70, 264] },
+          // the camera's first vertex 85 mm past the VPH (DERIVED: the detector MEASURED 873 mm from the VPH, less the prescription's 788 mm).
+          // Table 7: [R front, R back, center thickness, air space after, clear apertures]; R > 0 convex as seen from outside the lens
+          { k: "camera", arm: "red", model: true, l1: 85, f: 450, label: "red camera", detSide: 1,
+            lenses: [[-384.035, -1398.150, 12, 3, 253, 265], [525.411, 552.469, 65, 31.153, 282, 285], [1018.034, 474.054, 70, 67.452, 305, 305],
+                     [-402.072, -271.515, 27, 77.655, 295, 286], [284.456, 458.137, 85, 7, 294, 288], [-390.778, 540.366, 15, 305.542, 285, 285],
+                     [-209.892, 3809.379, 12, 9.958, 126, 126]] },
+        ],
+        reflect: [
+          // VPH 950 /mm, m = -1 at 4386 A, between fused-silica prisms of 32.42 and 15.87 deg, 350 mm from the dichroic (Sec. 2.2); the prisms'
+          // thicknesses and extent, and their orientation (set to pass 4386 A undeviated), INFERRED
+          { k: "grism2", G: 950, m: -1, lam0: 0.4386, A1: 32.42, A2: 15.87, glass: "silica", sense: 1, dist: 350, t1: 115, t2: 57, hw: 150, hy: 190, label: "blue VPH grism", sub: "950 /mm, on two prisms" },
+          // the camera's first vertex 573 mm from the dichroic (DERIVED: the detector MEASURED 1304 mm from it, less the prescription's 731 mm); Table 8
+          { k: "camera", arm: "blue", lamRef: 0.4386, range: [0.35, 0.54], l1: 573, l1Ref: "split", f: 450, label: "blue camera", detSub: "blue arm", detSide: -1,
+            lenses: [[-334.625, -1076.159, 12, 6, 264, 277], [856.795, 425.428, 49, 3, 284, 289], [478.163, 449.796, 71, 9, 315, 315],
+                     [-856.806, 613.209, 27, 18, 311, 311], [577.663, 454.92, 62, 7, 295, 290], [-398.297, -295.078, 9, 26.3, 284, 272],
+                     [331.723, 354.031, 78, 332.322, 280, 280], [-224.438, -2836.237, 12, 9.38, 108, 108]] },
+        ] },
+    ],
+  },
+  // FEROS, as designed: the Final Design Report (Kaufer et al. 1997; rawdata/presets/feros/ESO_FEROS_FinalDesignReport_Kaufer1997_fdr.ps.gz),
+  // App. A (the Zemax prescription Sys09.zmx, 5 May 1997), Secs. 3.4-3.8, Figs. 3.7 and 4.1; poses DERIVED by chaining the
+  // prescription's coordinate breaks (data/layout/feros.md).  The spectrograph's axis lies in the table plane, the echelle
+  // disperses perpendicular to the table, and the main and transfer collimators are segments of one f = 1500 mm parent.
+  feros: {
+    fits: { W: 136, F: 1500 / 136, eG: 79, eDelta: 63.4, gamma: 0.6, theta: 0, wpT: 1500, xd: "prism" },
+    band: [0.35, 0.95],
+    caption: "The bench as designed (FEROS Final Design Report, 1997: the Zemax prescription of App. A and Fig. 4.1): the collimators as mirrors, the transfer collimator 200 mm behind the main one on the other side of its axis, the flat 100 mm before the intermediate focus, the LF5 prism and each camera lens from the prescription. The model enters the prism as an effective 56° (the as-built format); the drawing traces the design's 55°. Not traced: the refraction inside the camera.",
+    chief: -6.466,                 // the slit optics tilted 6.466 deg (surfaces 1 and 8), aiming the chief rays at M1's zone 170.3 mm off its axis (surface 10)
+    echDist: 1700,                 // surface 10 to the echelle
+    feed: { label: "fiber exit and image slicer", lab: [-120, -60] },
+    echelle: { len: 320, w: 165, facets: 1, t: 60, lab: [0, 190] },   // one grating, useful area 154 x 306 mm (Sec. 3.6)
+    m1: { w: 260, h: 400, t: 75, label: "main collimator", sub: "passed twice", lab: [0, 260] },   // Fig. 3.7: the upper segment, 400 mm across the dispersion
+    path: [
+      // the flat 1400 mm from M1's vertex (100 mm before the intermediate focus, Sec. 3.5), square to the axis (no coordinate break), 240 x 15 mm (Fig. 3.8)
+      { k: "fold", type: "flat", at: [100, 43.8], normal: [1, 0], w: 15, h: 240, t: 35, label: "flat mirror", lab: [-230, 60] },
+      // the transfer collimator 1600 mm past the flat: the same f = 1500 mm paraboloid on M1's axis, its vertex 200 mm behind M1's, its zone 142.5 mm on the other side (surface 18)
+      { k: "parab", f: 1500, focusAt: [200, 0], axis: [-1, 0], w: 140, h: 400, t: 70, label: "transfer collimator", lab: [0, -200] },
+      // the prism faces: surfaces 19-22 (1325 mm past the transfer collimator; tilts -48.6 and +55 deg); 55 deg LF5 at minimum deviation for 4623 A (Sec. 3.7), faces 255 x 175 mm
+      { k: "prism", glass: "LF5", A: 55, lamD: 0.4623, face1: { at: [375.0, -169.6], normal: [0.66131, 0.75011] }, face2: { at: [269.9, -210.2], normal: [0.99377, -0.11147] },
+        faceLen: 255, hy: 87.5, label: "cross-disperser prism", sub: "55° LF5", lab: [130, -60] },
+      // the camera's first vertex 148 mm past the prism (surfaces 22-24); Sec. 3.8 and App. A: 7 lenses in 5 groups (CaF2; PSK3 + FK54; BK7; FK5;
+      // LAK16A + silica field lens, the dewar window, its toroidal back drawn flat), the CCD 4.5 mm behind; R > 0 convex as seen from outside the lens
+      { k: "camera", arm: "main", model: true, l1: 148, f: 410, label: "camera", detSide: 1,
+        lenses: [[240.7799, 622.6922, 25, 1, 155, 155], [4761.222, -139.2893, 8, 0, 155, 150], [139.2893, 1003.717, 30, 10, 150, 150],
+                 [-313.5372, 711.9877, 15, 340.4111, 150, 150], [195.9967, 1020.826, 25, 134.3496, 138, 138], [-135.6392, 1e9, 2, 0, 71, 71], [1e9, 1e9, 10, 4.5, 71, 71]] },
+    ],
+  },
+  // UVES blue arm, as built: the ESO ray trace of the UVES table (Kosmalski 2020, "UVES optical design", the UVES 20th-anniversary
+  // talk, slide 17; rawdata/presets/uves/new_E3/Kosmalski2020_UVES20_OpticalTalk.pdf, embedded image 2), MEASURED at 2.94 mm per pixel
+  // (the echelle blank's 214 mm width and its 840 mm length seen at the 14 deg grazing angle), with the numbers of Dekker et al. 2000
+  // (SPIE 4008, 534) and the UVES manual (data/layout/uves.md).  Positions in mm from M1's focus (the virtual slit behind the 45 deg fold).
+  uvesb: {
+    fits: { W: 200, F: 10, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, wpT: 2000, xd: "grating", xG: 660, xPsi: 46.0 },
+    band: [0.30, 1.10],
+    caption: "The blue arm as built: the ESO ray trace of the UVES table (Kosmalski 2020) scaled by the echelle's 214 × 840 mm blank, with the 2000 mm collimators and the cross-disperser–camera angle of the UVES model (Ballester & Rosa 1997; the pipeline's 46.0°), the face-down echelle of Dekker et al. (2000), and the camera of Dekker et al.'s Table 6. The slit's light passes under the echelle to a 45° fold; the flat past the intermediate focus doubles as the interorder baffle. Not traced: the refraction inside the camera and the field flattener's cylindrical surface.",
+    chief: 5.9,                    // M1's first zone 206 mm off its axis (MEASURED), 2 atan(206 / 4000)
+    echDist: 1982,                 // the echelle's center 18 mm on the collimator's side of the focal plane (MEASURED)
+    gammaSide: -1,                 // the returning light nearer M1's axis: the intermediate focus 56 mm (2 gamma f) beside the virtual slit, toward the transfer collimator (MEASURED side)
+    feedFold: { d: 370, from: -90, w: 70, h: 70, t: 20, label: "45° fold", lab: [150, -160] },   // Dekker et al. Sec. 2: "passes in front of the face-down echelle before hitting a 45 degree folding mirror"; the fold MEASURED 370 mm from the virtual slit, the slit 370 mm beyond it
+    feed: { label: "slit", lab: [-80, -110] },
+    echelle: { len: 840, w: 214, facets: 2, t: 125, lab: [0, -330] },   // 214 x 840 x 125 mm, two 408 mm rulings (Dekker et al.; UVES manual Sec. 2.1)
+    m1: { w: 300, h: 400, t: 80, label: "main collimator", sub: "passed twice", lab: [0, -300] },   // housings "about 50 cm high" (Dekker et al. Fig. 1); width MEASURED
+    path: [
+      // the flat square to the axis, 85 mm past the intermediate focus (MEASURED); "a flat folding mirror, which also acts as interorder stray light baffle"
+      { k: "fold", type: "flat", at: [-85, -6], normal: [1, 0], w: 260, h: 200, t: 20, label: "flat", sub: "the interorder baffle", lab: [-300, 100] },
+      // the transfer collimator: f = 2000 mm ("two collimators of focal length F1 = F2 = 2.0 meters", Ballester & Rosa 1997 Sec. 3.2), its face MEASURED,
+      // its axis along the beam to the cross-disperser
+      { k: "parab", f: "wpT", at: [1796, 259], w: 300, h: 400, t: 80, label: "transfer collimator", lab: [0, 330] },
+      // CD#2, 660 /mm, at the second pupil (MEASURED place); the camera 46.0 deg from the arriving beam (the UVES pipeline's cdbeam; Ballester & Rosa
+      // 1997 Sec. 3.2 give beta_CD - alpha_CD = 45 deg, the incidence the larger; the ray trace shows 43.6 deg, MEASURED); the grating's size INFERRED
+      { k: "grating", G: 660, at: [-306, 197], dev: 46.0, turn: 1, w: 290, h: 250, t: 40, label: "cross-disperser", sub: "CD#2, 660 /mm", lab: [-120, -40] },
+      // the camera's first vertex 231 mm past the cross-disperser (DERIVED: the CCD MEASURED 886 mm from it, less Table 6's 655 mm);
+      // Table 6, R > 0 convex as seen from outside the lens; apertures from a paraxial trace of the prescription (marginal + chief at the field corner)
+      { k: "camera", arm: "blue", model: true, l1: 231, f: 360, label: "camera", detSide: 1,
+        lenses: [[300.07, 300.07, 53, 8.794, 218, 212], [-278.27, -187.55, 18, 10.001, 208, 206], [229.23, 562.80, 50, 14.001, 208, 208],
+                 [-265.01, -562.80, 16, 1.003, 204, 206], [300.07, 300.07, 53, 286.954, 206, 206], [109.65, -201.77, 90.482, 37.265, 124, 74],
+                 [-130.99, 1e9, 12, 4.1, 50, 48]] },
+    ],
+  },
+  // UVES red arm, as built: the table layout of Dekker et al. 2000 (SPIE 4008, 534) Fig. 4, MEASURED at 1.953 mm per pixel of a
+  // 400 dpi render of its 500 mm bar (at which the echelle's housing is 840 mm long), with the numbers of Dekker et al. and the
+  // UVES manual (data/layout/uves.md); the scan is coarse, so positions hold to +-25 mm.
+  uvesr: {
+    fits: { W: 200, F: 10, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, wpT: 2000, xd: "grating", xG: 600, xPsi: 45.336 },
+    band: [0.30, 1.10],
+    caption: "The red arm as built: the table layout of Dekker et al. (2000, Fig. 4) at its 500 mm scale bar, with the 2000 mm collimators and the cross-disperser–camera angle of the UVES model (Ballester & Rosa 1997; the pipeline's 45.3°), the face-down echelle of Dekker et al., and the camera of Dekker et al.'s Table 6. The slit's light passes under the echelle to a 45° fold; the flat past the intermediate focus doubles as the interorder baffle. Not traced: the refraction inside the camera and the field flattener's cylindrical surface.",
+    chief: -5.64,                  // M1's first zone 197 mm off its axis (MEASURED); the bench oriented as Fig. 4 (the echelle's beam above the axis)
+    echDist: 2041,                 // the echelle's center 41 mm past the focal plane (MEASURED)
+    gammaSide: -1,                 // the returning light nearer M1's axis, as in the blue arm
+    feedFold: { d: 350, from: 90, w: 70, h: 70, t: 20, label: "45° fold", lab: [120, 150] },   // the slit MEASURED 385 mm off M1's axis behind the fold
+    feed: { label: "slit", lab: [-90, 110] },
+    echelle: { len: 840, w: 214, facets: 2, t: 125, lab: [0, 330] },
+    m1: { w: 300, h: 400, t: 80, label: "main collimator", sub: "passed twice", lab: [0, 300] },
+    path: [
+      { k: "fold", type: "flat", at: [-74, -57], normal: [1, 0], w: 110, h: 200, t: 20, label: "flat", sub: "the interorder baffle", lab: [-280, -120] },
+      { k: "parab", f: "wpT", at: [1803, -227], w: 300, h: 400, t: 80, label: "transfer collimator", lab: [0, -330] },
+      // CD#3, 600 /mm (MEASURED place in the turret); the camera 45.336 deg from the arriving beam (the UVES pipeline's cdbeam; Ballester & Rosa 1997
+      // Sec. 3.2: 45.0 and 45.3 deg in the red arm; Fig. 4 shows ~41 deg); the grating's size INFERRED
+      { k: "grating", G: 600, at: [-369, -215], dev: 45.336, turn: -1, w: 300, h: 260, t: 40, label: "cross-disperser", sub: "CD#3, 600 /mm", lab: [-130, 40] },
+      // the camera's first vertex 300 mm past the cross-disperser (MEASURED: the front of the camera's barrel); Table 6, R > 0 convex as seen from outside
+      // the lens; apertures from a paraxial trace of the prescription (marginal + chief at the field corner)
+      { k: "camera", arm: "red", model: true, l1: 300, f: 500, label: "camera", detSide: -1,
+        lenses: [[338.65, 1383.25, 35, 1.006, 234, 230], [338.67, 744.54, 37, 2.0, 230, 216], [-744.43, -169.89, 14, 0, 214, 210],
+                 [169.89, -18275.0, 41.001, 10, 210, 198], [-744.50, -370.15, 12, 323.3, 194, 192], [281.82, 1e9, 23, 165.013, 184, 178],
+                 [-226.46, 1e9, 4, 0, 92, 92], [1e9, 1e9, 17, 4.1, 92, 88]] },
+    ],
+  },
+  // HARPS: no plan of HARPS itself is published; the layout follows the ray trace of HARPS3 (Thompson et al. 2016, SPIE 9908, arXiv:1608.04611,
+  // Fig. 2; rawdata/presets/harps/new_E3/), "a design copy of HARPS-N", which copies HARPS, turned 180 deg and MEASURED at 3.48 mm per pixel
+  // (the collimator's 1560 mm focal length from its face to the injection point; HARPS-N's 770 mm collimator then measures 765 mm), with
+  // HARPS's numbers from the user manual (data/layout/harps.md).
+  harps: {
+    fits: { W: 208, F: 7.5, eG: 31.6, eDelta: 75.04, eTilt: 0.26, gamma: 0.721, theta: 0, wpT: 1560, xd: "grism", xG: 257.17, xGrA: 14.5 },
+    band: [0.38, 0.69],
+    caption: "The bench as the HARPS3 ray trace draws the HARPS-N copy of HARPS (Thompson et al. 2016, Fig. 2), scaled by HARPS's 1560 mm collimator, with HARPS's numbers (user manual 2.4): the collimator used three times, the flat fold at the intermediate spectrum, the FK5 grism at the white pupil. The camera (6 lenses in 3 groups, f = 728 mm; no prescription published) is drawn schematically at the figure's lens positions. Not traced: the refraction inside the camera.",
+    side: "Side shows the optical plane, which stands vertical in HARPS: the echelle above, the grism and camera below (Pepe et al. 2000).",
+    chief: -8.9,                   // the first zone 244 mm off the collimator's axis (MEASURED), above it: "the echelle grating being mounted on the top side" (Pepe et al. 2000 Sec. 4.1)
+    echDist: 1539,                 // the echelle's center 21 mm on the collimator's side of the focal plane (MEASURED)
+    feed: { label: "fibers A and B", lab: [-200, -50] },
+    echelle: { len: 840, w: 214, facets: 2, t: 125, lab: [0, 330] },   // "mosaic 2x1 on Zerodur monolith 840 x 214 x 125 mm" (user manual Table 2.2)
+    m1: { w: 730, h: 730, t: 120, round: true, label: "collimator", sub: "used three times", lab: [0, 460] },   // "f=1560mm, used diameter 730mm, triple pass"
+    path: [
+      // the flat fold at the intermediate spectrum ("an intermediate spectrum is focused at the flat-folding mirror", HARPS3 Sec. 2.1.2), sending the light
+      // to the collimator's third zone, 191 mm on the other side of its axis (MEASURED); the fold's size INFERRED
+      { k: "fold", type: "flat", before: 0, to: [1554, -191], w: 40, h: 150, t: 20, label: "flat fold", lab: [-260, 90] },
+      { k: "m1pass" },
+      // the grism at the white pupil (MEASURED place): FK5, 257.17 /mm blazed at 480 nm, 240 x 230 x 50 mm (Table 2.2), apex 14.5 deg (INFERRED from the blaze);
+      // the apex's side INFERRED (the camera nearer the figure's line)
+      { k: "grism", G: 257.17, A: 14.5, glass: "FK5HTi", at: [0, -191], t: 40, hw: 120, hy: 115, sense: -1, label: "grism", sub: "257 /mm, FK5", lab: [0, -220] },
+      // the camera: f = 728 mm, "6 elements in 3 groups" (Table 2.2); no prescription published, so the lenses are SCHEMATIC, their places and sizes
+      // MEASURED from the figure (the first group 94 mm past the grism's entrance, the detector 929 mm); the last is the dewar window, "also the field lens"
+      { k: "camera", arm: "main", model: true, l1: 54, f: 728, label: "camera (schematic)", detSide: -1,
+        lenses: [[500, 500, 40, 25, 250, 250], [500, -800, 35, 300, 250, 250], [400, 400, 40, 10, 230, 230], [-600, 600, 25, 245, 230, 230],
+                 [300, 300, 30, 70, 150, 150], [-300, 1e9, 15, 5, 90, 90]] },
+    ],
+  },
+};
+// ESPRESSO, the 2012 design: the layout of Spano et al. 2012 (SPIE 8446, 84467V; rawdata/presets/espresso/new_E4/), Fig. 2,
+// MEASURED at 2.176 mm per pixel of a 300 dpi render (the main collimator's 3000 mm focal length between the slit and the
+// collimator's face), seen from the side opposite the figure's, with the element sizes of Santana Tschudi et al. 2014
+// (SPIE 9151, 915153) Table 1 (data/layout/espresso.md).  One bench for both presets: each draws its own arm as the
+// modeled one and traces the other through its own cross-disperser.
+const espressoPlan = arm => {
+  const blue = arm === "blue";
+  // Spano et al. Fig. 5 (the cameras' lens shapes, MEASURED: center thicknesses, air spaces, diameters, and the radii from
+  // the sags; no prescription is published), scaled by Fig. 2's distance from the first lens to the detector;
+  // [R1, R2, t, air after, ca1, ca2], R > 0 convex as seen from outside the lens
+  const camB = [[555, 692, 48.9, 106.4, 251, 251], [-469, -421, 31.6, 80.5, 231, 231], [806, 302, 65.0, 77.6, 271, 271],
+                [354.5, 1e9, 43.1, 211.0, 271, 271], [-434, -541, 24.2, 8.0, 141, 141]];
+  const camR = [[400.7, 423, 54.0, 15.8, 249, 249], [-342.6, -324.7, 31.9, 84.5, 249, 249], [646, 278, 66.5, 92.2, 279, 279],
+                [400, 1e9, 39.3, 261.5, 258, 258], [-787, -927, 16.6, 8.9, 144, 144]];
+  const cam = (k, lenses, l1, extra) => ({ k: "camera", arm: k, model: arm === k, l1, f: 400, lenses,
+    label: k + " camera", ...(arm === k ? {} : { lamRef: k === "blue" ? 0.4529 : 0.6575, range: k === "blue" ? [0.38, 0.525] : [0.525, 0.78], det: [92.32, 92.16], detSub: k + " arm" }), ...extra });
+  return {
+    fits: { W: 600, F: 5.0, eG: 31.6, eDelta: 75.04, gamma: 0, theta: 0, wpT: 1500, xd: "vph", xG: blue ? 757 : 407 },
+    band: [0.38, 0.78],
+    caption: "The bench as drawn by Spanò et al. (2012, Fig. 2), scaled by the main collimator's 3000 mm focal length, with the sizes of Santana Tschudi et al. (2014, Table 1): one off-axis parabola passed twice; the dichroic in the converging beam before the intermediate focus; a field lens (blue) and a field mirror (red) near the two foci; the 1500 mm transfer mirrors; VPH gratings of 1500 and 800 /mm on the as-built fused-silica prisms, at the Bragg angle. The bench has the figure's off-plane angle, 1.15° (the intermediate focus 120 mm beside the slit); the model has none. The beam is one of the pupil slicer's two 300 × 200 mm slices, and the cameras' lenses are measured from Spanò et al.'s Fig. 5. The as-built prisms turn the beam 9° (blue) and 7° (red) more than the 2012 figure shows. Not traced: the power of the field optics and the dichroic, and the refraction inside the cameras.",
+    side: "Side shows the optical plane, which stands nearly vertical in ESPRESSO with the cameras on top (Santana Tschudi et al. 2014, Fig. 2), seen from the side opposite Spanò et al.'s Fig. 2.",
+    gamma: 1.15,                   // the bench's off-plane angle: the red intermediate focus 120 mm (2 gamma f) beside the slit (MEASURED); the model keeps 0
+    beam: [300, 200],              // one slice: "Main collimator will create a 300x200 mm beam onto the echelle" (Spano et al. Sec. 2), F/10 x F/15
+    chief: 6.39,                   // the first zone 335 mm below M1's axis (MEASURED): 2 atan(335 / 6000)
+    echDist: 3025,                 // the echelle's center 25 mm beyond the focal plane (MEASURED)
+    feed: { label: "slit", sub: "the pupil slicer's image plane", lab: [-160, 120] },
+    echelle: { len: 1250, w: 204, facets: 3, t: 150, lab: [0, -260] },   // "R4, 31.6 l/mm, 204x1250 mm2, 1x3 mosaic" (Spano et al. Table 1); the thickness INFERRED
+    m1: { w: 380, h: 700, t: 70, label: "main collimator", sub: "passed twice", lab: [0, -330] },   // "Parabola R:6000; Off Axis:420 mm", 700 x 380 x 70 (Santana Tschudi et al. Table 1)
+    path: [
+      // the dichroic where the returning chief ray crosses the plate (MEASURED), at 7.8 deg of incidence in the figure's plane (MEASURED; "operation at 8.5 deg AOI", Spano et al. Sec. 2.4), the blue
+      // reflected toward the field lens; 460 x 90 x 27 (Santana Tschudi et al.; flat in Spano et al.)
+      { k: "dichroic", at: [692, -194], tilt: 7.8, reflectTo: [1458, -72], w: 90, h: 460, t: 27, label: "dichroic", sub: "525 nm, the red transmitted", lab: [60, -150],
+        transmit: [
+          // the field mirror at the red focus (MEASURED), turned to the red transfer mirror; R = 12,580 mm, drawn flat; 380 x 60 x 50
+          { k: "fold", type: "field", at: [48, -120], w: 60, h: 380, t: 50, label: "field mirror", sub: "red arm", lab: [-300, 20] },
+          // the red transfer mirror: a sphere of R = 3000 mm (f = 1500 mm, the model's wpT), drawn as the paraboloid of the mirror's focal length; face MEASURED; 430 x 170 x 50
+          { k: "parab", f: "wpT", at: [1593, 185], w: 170, h: 430, t: 50, label: "red transfer mirror", lab: [0, 170] },
+          // the red VPH grism: 800 /mm (Spano et al. Sec. 2.6) on a fused-silica prism of 25.25 deg (Santana Tschudi et al.), set at the Bragg angle for 6575 A
+          // with the prism widening the beam (the 1.5x anamorphism, Spano et al. Table 1; INFERRED); the entrance MEASURED; the thicknesses INFERRED
+          { k: "grism2", G: 800, m: 1, lam0: 0.6575, A1: 25.25, A2: 0, glass: "silica", sense: -1, bragg: true, expand: true, scan: [-80, 80], at: [920, 185], t1: 110, t2: 30, hw: 110, hy: 133,
+            label: "red cross-disperser", sub: "VPH 800 /mm on a prism", lab: [-250, -35] },
+          cam("red", camR, 57, { lab: [120, 120] }),
+        ],
+        reflect: [
+          // the field lens (MEASURED place; R1 -1176, R2 -689 mm, drawn as a plate; 290 x 55 x 33)
+          { k: "lens", atFocus: false, at: [1458, -72], w: 55, h: 290, t: 33, label: "field lens", sub: "blue arm", lab: [0, -110] },
+          { k: "parab", f: "wpT", at: [2894, 159], w: 165, h: 320, t: 50, label: "blue transfer mirror", lab: [0, 170] },
+          { k: "grism2", G: 1500, m: 1, lam0: 0.4529, A1: 22.20, A2: 0, glass: "silica", sense: -1, bragg: true, expand: true, scan: [-80, 80], at: [2226, 178], t1: 90, t2: 30, hw: 90, hy: 135,
+            label: "blue cross-disperser", sub: "VPH 1500 /mm on a prism", lab: [-256, -38] },
+          cam("blue", camB, 67, { lab: [-120, 120] }),
+        ] },
+    ],
+  };
+};
+PLANS.espressob = espressoPlan("blue");
+PLANS.espressor = espressoPlan("red");
+root.IX_PLANS = PLANS;
+PRESETS.plans = PLANS;
 root.IX_PRESETS = PRESETS;
 if (typeof module !== "undefined" && module.exports) module.exports = PRESETS;
 })(typeof window !== "undefined" ? window : globalThis);

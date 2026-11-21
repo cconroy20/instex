@@ -310,6 +310,13 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("MIKE 3D: drawn with the snaps (no color switch), in the link, no page error", r.v === "3d" && /injection optics/.test(r.txt) && r.snaps && !r.color && /e\.view=3d/.test(r.h) && r.err === "", JSON.stringify(r).slice(0, 160));
     await go("#preset=hires");
     check("echelle mode without double pass (HIRES): the 3D switch is offered (every echelle has a 3D view since 11-16)", await vis("#v3d"));
+    // G-CLEF: the bench as designed (IX.planLayout), opening on the layout figure's view; the schematic drawing once the
+    // state leaves the design's values
+    await go("#preset=gclef&e.view=3d"); await sleep(250);
+    const g = await ev(`(() => ({ txt: document.getElementById("lSub").textContent, err: document.getElementById("err").textContent, plan: window.__plan, h: location.hash }))()`);
+    check("G-CLEF 3D: the bench as designed, both arms, red foci on the model's (< 2 mm), no page error", /bench as designed/.test(g.txt) && g.plan && g.plan.nRed === 9 && g.plan.misfitMax < 2 && /e\.plan=gclef/.test(g.h) && g.err === "", JSON.stringify(g).slice(0, 200));
+    await ev(`window.__instex.set({ e: { W: 250 } })`); await sleep(250);
+    check("G-CLEF 3D with another beam: the schematic drawing", /mirrors drawn as lenses/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
     await go();
   }
   // ------------------------------------------------------------ grating incidence on the transmission grating
@@ -717,7 +724,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       g: { slitW: 1.3, traceW: 2.1, nObj: 3, col: "mirror", cam: "mirror", colTilt: 4.5, layLen: 700, camLen: 400, foldOn: true, foldAng: 120, foldPos: 0.3, foldLabel: "dichroic", filtShow: true, preFoldOn: true, preFoldAng: 80, preFoldPos: 0.4, gFlip: true, annot: false, view: "spatial", spPts: 1, spPos: 0.25,
            W: 120, Fc: 2.2, fcam: 260, gType: "refl", G: 600, m: 2, lamB1: 7000, lamC: 6000, psi: 30, tAlpha: 20, gA: 30, gGlass: "SF6", gKind: "vph", gTilt: 3, pA: 45, pN: 2, pPrisms: [{ glass: "F2", A: 50 }], gLen: 300, Nx: 2048, Ny: 1024, pix: 13.5, filt: [5800, 6200], fgroups: [10, 200, 1500], telF: 15, fibAp: 1.5 },
       e: { slitW: 0.7, traceW: 0.9, nObj: 2, col: "mirror", cam: "mirror", dpass: true, view: "3d", colTilt: -3, layLen: 900, camLen: 600, foldOn: true, foldAng: 200, foldPos: 0.7, foldLabel: "fold", filtShow: true, preFoldOn: true, preFoldAng: 100, preFoldPos: 0.5, xDraw: [{ glass: "silica", A: 38 }], note2d: "a 2D note", camEq: "c eq", xdEq: "x eq", feedLabel: "fibers", dichLabel: "a dichroic", dichBefore: 300, dichTilt: 20, gFlip: true, annot: false,
-           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, lay3d: "wp", wpT: 1200, xPre: 2, xDbl: 1, wp3: true, fold3d: "field mirror", xdLabel: "VPH grating on a prism", note3d: "a note", xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
+           W: 200, Fc: 2.5, fcam: 500, eG: 41.6, eDelta: 70, gamma: 2, theta: 1.5, eTilt: 0.4, xGrA: 12, lay3d: "wp", plan: "gclef", wpT: 1200, xPre: 2, xDbl: 1, wp3: true, fold3d: "field mirror", xdLabel: "VPH grating on a prism", note3d: "a note", xd: "prism", xG: 250, xPsi: 12, xGlass: "LF5", xA: 35, xPasses: 2,
            xPrisms: [{ glass: "silica", A: 46 }, { glass: "N-BK7", A: 30 }], xGrism: { G: 120, A: 9, glass: "N-BK7" }, gLen: 400, lamC: 6500, Nx: 6144, Ny: 6160, pix: 10, filt: [4000, 9000], fgroups: [12, 180, 900], telF: 8, fibAp: 1 } })`);
     await sleep(300);
     const sBefore = await ev(`window.__instex.state()`), hAll = await ev(`location.hash`);
