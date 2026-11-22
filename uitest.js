@@ -208,7 +208,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     await click("#vSpat"); await sleep(200);
     const p10 = await ev(`document.querySelector("#cvL").toDataURL().length`), d10 = await D();
     check("Spatial view: drawing changes, numbers do not, subtitle says so, no page error", p10 !== p9 && JSON.stringify(d10) === JSON.stringify(d9)
-      && /along the slit/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "" && /g\.view=spatial/.test(await ev(`location.hash`)));
+      && /along the slit/i.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "" && /g\.view=spatial/.test(await ev(`location.hash`)));
     check("Spatial view: three fixed slit points by default, the points control shown", (await vis("#sp3")) && (await ev(`window.__instex.params().spPts`)) === 3 && (await ev(`window.__instex.spGeo()`)) === null);
     await click("#sp1"); await sleep(200);
     const dragTo = await ev(`(() => { const cv = document.getElementById("cvL"), r = cv.getBoundingClientRect(), G = window.__instex.spGeo();
@@ -216,7 +216,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       window.dispatchEvent(new MouseEvent("mousemove", { clientX: r.left + G.ox, clientY: r.top + G.oy + G.s * G.hMax * 0.6, bubbles: true }));
       window.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
       return window.__instex.state().g.spPos; })()`);
-    check("1 free: dragging along the slit moves the point (to -0.6 of the half-slit, within a pixel)", Math.abs(dragTo + 0.6) < 0.05 && /drag the point/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
+    check("1 free: dragging along the slit moves the point (to -0.6 of the half-slit, within a pixel)", Math.abs(dragTo + 0.6) < 0.05 && /drag the point/i.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
     // the click lands on a whole pixel (synthetic events round clientY), so the expected position uses that pixel
     const dragDet = await ev(`(() => { const cv = document.getElementById("cvL"), r = cv.getBoundingClientRect(), G = window.__instex.spGeo(), xd = r.left + G.ox + G.s * G.xD;
       const cy = Math.round(r.top + G.oy - G.s * G.Ly / 4);
@@ -265,7 +265,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     check("3D orbit: tilts all the way to straight over (no further, no roll), spins without limit", Math.abs(orb[1] - Math.PI / 2) < 1e-9 && Math.abs(orb[3] - orb[2]) > 2 * Math.PI && orb[4] === "", `tilt ${orb[0].toFixed(2)} -> ${orb[1].toFixed(2)} rad; spin ${(orb[3] - orb[2]).toFixed(1)} rad`);
     await click("#vSpec"); await sleep(150);
     await click("#mEch"); await sleep(200);
-    check("Spatial view switch hidden in echelle mode, echelle drawn in the dispersion plane", !(await vis("#vSpat")) && !/along the slit/.test(await ev(`document.getElementById("lSub").textContent`)));
+    check("Spatial view switch hidden in echelle mode, echelle drawn in the dispersion plane", !(await vis("#vSpat")) && !/along the slit/i.test(await ev(`document.getElementById("lSub").textContent`)));
     await click("#mGrat"); await sleep(150);
     await click("#vSpec"); await sleep(150);
     await click("#lvOptsBtn");
@@ -316,7 +316,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
     const g = await ev(`(() => ({ txt: document.getElementById("lSub").textContent, err: document.getElementById("err").textContent, plan: window.__plan, h: location.hash }))()`);
     check("G-CLEF 3D: the bench as designed, both arms, red foci on the model's (< 2 mm), no page error", /bench as designed/.test(g.txt) && g.plan && g.plan.nRed === 9 && g.plan.misfitMax < 2 && /e\.plan=gclef/.test(g.h) && g.err === "", JSON.stringify(g).slice(0, 200));
     await ev(`window.__instex.set({ e: { W: 250 } })`); await sleep(250);
-    check("G-CLEF 3D with another beam: the schematic drawing", /mirrors drawn as lenses/.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
+    check("G-CLEF 3D with another beam: the schematic drawing", /mirrors drawn as lenses/i.test(await ev(`document.getElementById("lSub").textContent`)) && (await ev(`document.getElementById("err").textContent`)) === "");
     await go();
   }
   // ------------------------------------------------------------ grating incidence on the transmission grating
@@ -485,7 +485,7 @@ const rel = (a, b) => Math.abs(a / b - 1);
       await go("#preset=" + pid);
       await click("#v3d"); await sleep(250);
       const r3 = await ev(`({ v: window.__instex.state().e.view, shown: getComputedStyle(document.getElementById("lvViewSeg")).display !== "none", sub: document.getElementById("lSub").textContent })`);
-      check("echelle 3D (" + pid + "): offered, drawn, captioned", r3.v === "3d" && r3.shown && /drag to orbit/.test(r3.sub) && errors.length === e0, JSON.stringify(r3).slice(0, 200));
+      check("echelle 3D (" + pid + "): offered, drawn, captioned", r3.v === "3d" && r3.shown && /drag to orbit/i.test(r3.sub) && errors.length === e0, JSON.stringify(r3).slice(0, 200));
     }
     // the All-arms view (web/arms.js): every multi-arm instrument with its dichroics, offered in the Setting menu; each
     // arm designed, the layout free of overlaps, every label inside the panel and clear of the others, the one-arm view's

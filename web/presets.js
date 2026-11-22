@@ -1556,6 +1556,7 @@ const PLANS = {
   gclef: {
     fits: { W: 300, F: 8, eG: 31.6, eDelta: 75.96, gamma: 0.75, theta: 0, wpT: 1600, xd: "vph" },
     band: [0.35, 0.95],            // both arms (Table 1): the drawing's colors run over this band
+    lead: "The bench as designed (Ben-Ami et al. 2016).",
     caption: "The bench as designed (Ben-Ami et al. 2016, Fig. 1 and Tables 5–8): the mirrors as mirrors, each camera lens from the published prescription; M2, the dichroic, the red VPH and the cameras' distances measured from that figure. The blue arm, which the model does not compute, is traced through the published grism, its prisms set to pass 4386 Å undeviated (inferred). Not traced: the Mangin mirror's cylindrical power and the refraction inside the cameras.",
     chief: 7.5,                    // the chief rays' tilt from M1's axis (Sec. 2.2)
     echDist: 2600,                 // the echelle's midplane from M1's vertex (Sec. 2.2)
@@ -1598,6 +1599,7 @@ const PLANS = {
   feros: {
     fits: { W: 136, F: 1500 / 136, eG: 79, eDelta: 63.4, gamma: 0.6, theta: 0, wpT: 1500, xd: "prism" },
     band: [0.35, 0.95],
+    lead: "The bench as designed (FEROS Final Design Report, 1997).",
     caption: "The bench as designed (FEROS Final Design Report, 1997: the Zemax prescription of App. A and Fig. 4.1): the collimators as mirrors, the transfer collimator 200 mm behind the main one on the other side of its axis, the flat 100 mm before the intermediate focus, the LF5 prism and each camera lens from the prescription. The model enters the prism as an effective 56° (the as-built format); the drawing traces the design's 55°. Not traced: the refraction inside the camera.",
     chief: -6.466,                 // the slit optics tilted 6.466 deg (surfaces 1 and 8), aiming the chief rays at M1's zone 170.3 mm off its axis (surface 10)
     echDist: 1700,                 // surface 10 to the echelle
@@ -1626,6 +1628,7 @@ const PLANS = {
   uvesb: {
     fits: { W: 200, F: 10, eG: 41.59, eDelta: 76.0, gamma: 0.8, theta: 0, wpT: 2000, xd: "grating", xG: 660, xPsi: 46.0 },
     band: [0.30, 1.10],
+    lead: "The blue arm as built, from the ESO ray trace (Kosmalski 2020).",
     caption: "The blue arm as built: the ESO ray trace of the UVES table (Kosmalski 2020) scaled by the echelle's 214 × 840 mm blank, with the 2000 mm collimators and the cross-disperser–camera angle of the UVES model (Ballester & Rosa 1997; the pipeline's 46.0°), the face-down echelle of Dekker et al. (2000), and the camera of Dekker et al.'s Table 6. The slit's light passes under the echelle to a 45° fold; the flat past the intermediate focus doubles as the interorder baffle. Not traced: the refraction inside the camera and the field flattener's cylindrical surface.",
     chief: 5.9,                    // M1's first zone 206 mm off its axis (MEASURED), 2 atan(206 / 4000)
     echDist: 1982,                 // the echelle's center 18 mm on the collimator's side of the focal plane (MEASURED)
@@ -1657,6 +1660,7 @@ const PLANS = {
   uvesr: {
     fits: { W: 200, F: 10, eG: 31.6, eDelta: 75.04, gamma: 0.8, theta: 0, wpT: 2000, xd: "grating", xG: 600, xPsi: 45.336 },
     band: [0.30, 1.10],
+    lead: "The red arm as built (Dekker et al. 2000, Fig. 4).",
     caption: "The red arm as built: the table layout of Dekker et al. (2000, Fig. 4) at its 500 mm scale bar, with the 2000 mm collimators and the cross-disperser–camera angle of the UVES model (Ballester & Rosa 1997; the pipeline's 45.3°), the face-down echelle of Dekker et al., and the camera of Dekker et al.'s Table 6. The slit's light passes under the echelle to a 45° fold; the flat past the intermediate focus doubles as the interorder baffle. Not traced: the refraction inside the camera and the field flattener's cylindrical surface.",
     chief: -5.64,                  // M1's first zone 197 mm off its axis (MEASURED); the bench oriented as Fig. 4 (the echelle's beam above the axis)
     echDist: 2041,                 // the echelle's center 41 mm past the focal plane (MEASURED)
@@ -1686,6 +1690,7 @@ const PLANS = {
   harps: {
     fits: { W: 208, F: 7.5, eG: 31.6, eDelta: 75.04, eTilt: 0.26, gamma: 0.721, theta: 0, wpT: 1560, xd: "grism", xG: 257.17, xGrA: 14.5 },
     band: [0.38, 0.69],
+    lead: "The bench as drawn by Thompson et al. (2016, Fig. 2).",
     caption: "The bench as the HARPS3 ray trace draws the HARPS-N copy of HARPS (Thompson et al. 2016, Fig. 2), scaled by HARPS's 1560 mm collimator, with HARPS's numbers (user manual 2.4): the collimator used three times, the flat fold at the intermediate spectrum, the FK5 grism at the white pupil. The camera (6 lenses in 3 groups, f = 728 mm; no prescription published) is drawn schematically at the figure's lens positions. Not traced: the refraction inside the camera.",
     side: "Side shows the optical plane, which stands vertical in HARPS: the echelle above, the grism and camera below (Pepe et al. 2000).",
     chief: -8.9,                   // the first zone 244 mm off the collimator's axis (MEASURED), above it: "the echelle grating being mounted on the top side" (Pepe et al. 2000 Sec. 4.1)
@@ -1728,6 +1733,7 @@ const espressoPlan = arm => {
   return {
     fits: { W: 600, F: 5.0, eG: 31.6, eDelta: 75.04, gamma: 0, theta: 0, wpT: 1500, xd: "vph", xG: blue ? 757 : 407 },
     band: [0.38, 0.78],
+    lead: "The bench as drawn by Spanò et al. (2012, Fig. 2).",
     caption: "The bench as drawn by Spanò et al. (2012, Fig. 2), scaled by the main collimator's 3000 mm focal length, with the sizes of Santana Tschudi et al. (2014, Table 1): one off-axis parabola passed twice; the dichroic in the converging beam before the intermediate focus; a field lens (blue) and a field mirror (red) near the two foci; the 1500 mm transfer mirrors; VPH gratings of 1500 and 800 /mm on the as-built fused-silica prisms, at the Bragg angle. The bench has the figure's off-plane angle, 1.15° (the intermediate focus 120 mm beside the slit); the model has none. The beam is one of the pupil slicer's two 300 × 200 mm slices, and the cameras' lenses are measured from Spanò et al.'s Fig. 5. The as-built prisms turn the beam 9° (blue) and 7° (red) more than the 2012 figure shows. Not traced: the power of the field optics and the dichroic, and the refraction inside the cameras.",
     side: "Side shows the optical plane, which stands nearly vertical in ESPRESSO with the cameras on top (Santana Tschudi et al. 2014, Fig. 2), seen from the side opposite Spanò et al.'s Fig. 2.",
     gamma: 1.15,                   // the bench's off-plane angle: the red intermediate focus 120 mm (2 gamma f) beside the slit (MEASURED); the model keeps 0

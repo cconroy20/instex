@@ -24,7 +24,9 @@ Spectrograph Design" (`~/via/docs/spectro_design/spectro_design.tex`), whose wor
   shrinks; scroll zooms about the pointer and drag pans (either switches to Fixed); Refit (or double-click)
   refits. A new preset, mode or Reset all (header: the whole instrument back to the defaults) refits too. A
   caption beside the scale bar says what the view simplifies (echelle: the camera arm drawn at 30°) or how to
-  steer it (3D, Spatial with one free point); Labels Hide hides the caption too. Sizes are to scale
+  steer it (3D, Spatial with one free point); Labels Hide hides the caption too. The caption is one short line
+  ending in "More", and the whole text opens in a box over the drawing on hover or a click (app.js setCap, shared
+  with the Imager's layout; a bench plan's `lead` sets the bench's line). Sizes are to scale
   (collimator F_tel·W, beam W, illuminated grating length, camera focal length, detector); the
   spacing between the elements is not part of the design and is drawn short, but keeps the camera arm
   clear of the incoming beam when the camera–collimator angle allows. Blue, gray and amber beams carry

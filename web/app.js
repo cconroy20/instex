@@ -9,6 +9,27 @@ window.addEventListener("error", e => {
   if (/ResizeObserver loop/.test(e.message || "")) return;           // a harmless browser notice, not a page error
   errBox.hidden = false; errBox.textContent += (e.message || String(e)) + "\n";
 });
+// The layout's caption: one short line (lead) at the panel's foot, and the whole caption (full) in a box over the
+// drawing while the pointer rests on that line or its "More" (a click or a tap keeps the box open; the keyboard
+// opens the box from "More").  Without a full text, or with full equal to lead, the line is all there is.
+function setCap(el, lead, full) {
+  const l = document.createElement("span"); l.className = "cl"; l.textContent = lead;
+  el.replaceChildren(l);
+  const more = !!full && full !== lead;
+  el.classList.toggle("more", more);
+  if (!more) return;
+  const m = document.createElement("span"); m.className = "cm"; m.tabIndex = 0; m.textContent = "More";
+  const f = document.createElement("div"); f.className = "cf"; f.textContent = full;
+  el.append(" ", m, f);
+}
+document.addEventListener("click", e => {
+  const hit = e.target.closest && e.target.closest(".lcap.more");
+  for (const c of document.querySelectorAll(".lcap.open")) if (c !== hit) c.classList.remove("open");
+  if (hit && !e.target.closest(".cf")) hit.classList.toggle("open");
+});
+// the 3D views' controls: in full in the box, short on the line
+const CTRL3 = "Drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset.";
+const CTRL3S = "Drag to orbit, scroll to zoom.";
 
 // ------------------------------------------------------------------ state
 // The telescope is shared; each mode keeps its own entrance, spectrograph, disperser and detector.
@@ -607,15 +628,15 @@ function drawLayout(Dz, P) {
   const dpPsi = dpass ? (dpTrue ? 2 * Math.abs(P.theta) * IX.DEG : Math.atan((0.62 * Dz.Lx + 0.05 * fcam) / (dpD1 + fcam))) : 0;
   if (dpass) {
     ac = v2(-Math.cos(dpPsi), -Math.sin(dpPsi));
-    $("lSub").textContent = dpTrue ? "Double pass: one lens is both collimator and camera. The returning beam leaves 2θ = " + (2 * Math.abs(P.theta)).toFixed(1) + "° from the incoming one in this plane, drawn true, and passes beside the slit's injection optics to the detector."
-      : "Double pass: one lens is both collimator and camera. The beams overlap in this plane; the returning beam is drawn " + (dpPsi / IX.DEG).toFixed(1) + "° off so that the detector clears the slit, which sits beside the detector out of the page.";
+    setCap($("lSub"), "Double pass: one lens is both collimator and camera.", dpTrue ? "Double pass: one lens is both collimator and camera. The returning beam leaves 2θ = " + (2 * Math.abs(P.theta)).toFixed(1) + "° from the incoming one in this plane, drawn true, and passes beside the slit's injection optics to the detector."
+      : "Double pass: one lens is both collimator and camera. The beams overlap in this plane; the returning beam is drawn " + (dpPsi / IX.DEG).toFixed(1) + "° off so that the detector clears the slit, which sits beside the detector out of the page.");
   } else if (ech) {
     const psiD = 30 * IX.DEG;                                     // schematic: the real separation is out of the plane
     ac = v2(-Math.cos(psiD), Math.sin(psiD));
     const th = Math.abs(P.theta || 0);
     // an echelle works near Littrow: drawn true, the camera arm would lie on the collimator beam
     const sep = [th > 0 ? "2θ = " + (2 * th).toFixed(1) + "° apart in the page" : "", P.gamma > 0 ? "2γ = " + (2 * P.gamma).toFixed(1) + "° apart out of the page" : ""].filter(Boolean);
-    $("lSub").textContent = "Camera arm drawn at 30° for clarity: " + (sep.length ? "the beams are " + sep.join(" and ") + "." : "in Littrow the beams overlap.") + (P.note2d ? " " + P.note2d : "");
+    setCap($("lSub"), "Camera arm drawn at 30° for clarity.", "Camera arm drawn at 30° for clarity: " + (sep.length ? "the beams are " + sep.join(" and ") + "." : "in Littrow the beams overlap.") + (P.note2d ? " " + P.note2d : ""));
   } else {
     ac = v2(Dz.zc[2], Dz.zc[0]);
     const n = Math.hypot(ac[0], ac[1]); ac = sc(ac, 1 / n);
@@ -821,7 +842,8 @@ function drawLayout(Dz, P) {
     SP = { mag, Ly, hMax, xG, xC, xD, fields, free, colHalf, camHalf,
       box: [v2(-Lt, hMax + tilt * Lt + tHalf), v2(-Lt, -hMax - tilt * Lt - tHalf), v2(fcol, colHalf), v2(fcol, -colHalf),
             v2(xC, camHalf), v2(xC, -camHalf), v2(xD + 0.04 * fcam, Ly / 2), v2(xD + 0.04 * fcam, -Ly / 2)] };
-    $("lSub").textContent = (free ? "drag the point along the slit; " : "") + "along the slit, unfolded (mirrors drawn as lenses), at λc; slit image scale f_cam / f_col = " + sig(mag, 2);
+    setCap($("lSub"), (free ? "Drag the point along the slit. " : "") + "Along the slit, unfolded, at λc.",
+      (free ? "Drag the point along the slit. " : "") + "Along the slit, unfolded (mirrors drawn as lenses), at λc; slit image scale f_cam / f_col = " + sig(mag, 2) + ".");
   }
   // ---- 3D view (grating mode): the dispersion-plane drawing above, with the slit direction as a third axis.
   // World coordinates: x, y the drawing's (after the folds, which are reflections in the dispersion plane and
@@ -1031,7 +1053,7 @@ function drawLayout(Dz, P) {
         [a3([0, 0, -0.75 * Ly - 0.05 * f], mOFF), "detector", mm(Lx)],
         [a3(E, s3(gE, 0.75 * W)), "echelle", sig(P.eG, 3) + " /mm"]);
       if (pTop) labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), prisms.length > 1 ? prisms.length + " prisms" : "prism", prisms.map(q => q.A + "°").join(" + ")]);
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; the slit (the image the injection optics place in the lens's focal plane) and the detector sit " + sig(sOff, 2) + (dpY ? " mm either side of the lens axis in the echelle's plane, so the returning beam leaves 2θ = " + sig(2 * Math.abs(P.theta), 2) + "° from the arriving one" : " mm above and below the lens axis");
+      setCap($("lSub"), CTRL3S, "The slit (the image the injection optics place in the lens's focal plane) and the detector sit " + sig(sOff, 2) + (dpY ? " mm either side of the lens axis in the echelle's plane, so the returning beam leaves 2θ = " + sig(2 * Math.abs(P.theta), 2) + "° from the arriving one" : " mm above and below the lens axis") + ". " + CTRL3);
     }
     // ---- 3D view of a single-pass echelle (HIRES, X-Shooter, HARPS, UVES ...).  World: the drawing's unfolded frame
     // (the slit at the origin, the collimated beam along +x, x-y the echelle's dispersion plane, z up), mapped through
@@ -1214,7 +1236,7 @@ function drawLayout(Dz, P) {
         [Mp3(a3(C3, s3(ZA, -1.2 * Math.max(rCam, 0.5 * WpD)))), "camera f/" + sig(Dz.Fcam, 3), "f = " + mm(f)]);
       if (xdTop) labs3.push([Mp3(xdTop), "cross-disperser", xdName]);
       const passes = els.length > 1 && P.xd === "prism";
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; directions from the ray trace" + (gm > 0 ? " (the beams " + (2 * gm / IX.DEG).toFixed(1) + "° apart out of the echelle's plane)" : "") + "; the spacings after the echelle are schematic" + (passes ? ", and the prisms' passes are drawn in turn after the echelle, where the tracer applies them" : "") + ".";
+      setCap($("lSub"), CTRL3S, "Directions from the ray trace" + (gm > 0 ? " (the beams " + (2 * gm / IX.DEG).toFixed(1) + "° apart out of the echelle's plane)" : "") + "; the spacings after the echelle are schematic" + (passes ? ", and the prisms' passes are drawn in turn after the echelle, where the tracer applies them" : "") + ". " + CTRL3);
     }
     // ---- 3D view of the echelles whose light comes back past the collimator (P.lay3d), in the double-pass view's
     // frame: x along the collimator's axis (its focal plane at x = 0, the collimator at x = f_col), y along the
@@ -1587,7 +1609,7 @@ function drawLayout(Dz, P) {
         labs3.push([a3(pTop.B2, [0, 0, 0.12 * W]), what, ones ? list : prisms.map(q => q.A + "°").join(" + ")]);
       }
       const sepTxt = Math.abs(sepDeg - sepTrue) < 0.05 ? "" : "; the beams are drawn " + sepDeg.toFixed(1) + "° apart out of the echelle's plane" + (sepTrue > 0 ? " (" + sepTrue.toFixed(1) + "° in the instrument)" : " (the instrument's angle is not given in the sources)");
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; mirrors drawn as lenses" + (kind === "wp" ? " (" + (P.wp3 ? "the collimator's third pass drawn as a mirror of its own" : fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera " + mm(fPh)) + ")" : "") + sepTxt + (kind === "pp" && P.xPrisms && P.xPrisms.some(q => q.dI) ? "; prisms turned from minimum deviation as in the model" : "") + "; spacings not in the sources are schematic" + (P.note3d ? "; " + P.note3d : "") + ".";
+      setCap($("lSub"), CTRL3S, "Mirrors drawn as lenses" + (kind === "wp" ? " (" + (P.wp3 ? "the collimator's third pass drawn as a mirror of its own" : fT === fC && P.wpT > 0 ? "the transfer collimator matches the main one" : "the transfer collimator " + mm(fT) + ", the camera " + mm(fPh)) + ")" : "") + sepTxt + (kind === "pp" && P.xPrisms && P.xPrisms.some(q => q.dI) ? "; prisms turned from minimum deviation as in the model" : "") + "; spacings not in the sources are schematic" + (P.note3d ? "; " + P.note3d : "") + ". " + CTRL3);
     }
     // ---- 3D view of a bench as designed or built (P.plan, laid out and traced by IX.planLayout in physics.js): the
     // mirrors drawn as mirrors, each camera lens from its prescription where one is published, every arm.  World:
@@ -1782,7 +1804,7 @@ function drawLayout(Dz, P) {
         [at2(L.M1.at, PL.m1.lab, [0, 0, -0.62 * PL.m1.w]), PL.m1.label || "collimator", "f = " + mm(L.f) + (PL.m1.sub ? ", " + PL.m1.sub : "")],
         [at2(L.E, PL.echelle.lab, [0, 0, -0.75 * PL.echelle.w]), "echelle", sig(P.eG, 4) + " /mm, R" + R + (nF > 1 ? ", " + (words[nF - 1] || nF) + " facets" : "")],
         ...labs);
-      $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset; " + (PL.side || "Side shows the bench from above.") + " " + (PL.caption || "");
+      setCap($("lSub"), (PL.lead ? PL.lead + " " : "") + CTRL3S, (PL.caption ? PL.caption + " " : "") + (PL.side || "Side shows the bench from above.") + " " + CTRL3);
     }
     const PLAN = ech && P.view === "3d" && P.plan && P.lay3d === "wp" ? IX.planLayout(P.plan, P) : null;
     if (ech) { if (PLAN) build3dPlan(PLAN); else if (dpass) build3dDoublePass(); else if (["pp", "4c", "wp"].includes(P.lay3d)) build3dFolded(P.lay3d); else build3dEchelle(); }
@@ -1898,7 +1920,7 @@ function drawLayout(Dz, P) {
     const cen = s3(a3(lo, hi), 0.5), R = R3.m;
     proj3 = p => { const d = [p[0] - cen[0], p[1] - cen[1], p[2] - cen[2]]; return [d3(R[0], d), d3(R[1], d), d3(R[2], d)]; };
     box3 = pts3.map(p => proj3(p).slice(0, 2));
-    if (!ech) $("lSub").textContent = "drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset" + (P.preFoldOn ? "; the fold mirror before the collimator is drawn only in the Spectral view" : "");
+    if (!ech) setCap($("lSub"), CTRL3S, (P.preFoldOn ? "The fold mirror before the collimator is drawn only in the Spectral view. " : "") + CTRL3);
   }
   // bounding box (post-collimator points through the fold)
   const pre = [v2(-Lt, tHalf), v2(-Lt, -tHalf), addv(Cm, sc(tm, 0.6 * W)), addv(Cm, sc(tm, -0.6 * W))];
@@ -3213,7 +3235,7 @@ function renderArms() {
   if (window.ANIM) window.ANIM.set($("cvL"), []);
   // the caption first, so that the drawing keeps clear of it (it follows the scale bar, as in the one-arm view)
   const capEl = $("lSub");
-  capEl.textContent = ARMS.caption(arms, armsInst, armsActive);
+  setCap(capEl, "All arms to one scale. A click on an arm moves the controls to that arm.", ARMS.caption(arms, armsInst, armsActive));
   capEl.hidden = false;
   if (armsCapX) capEl.style.setProperty("--capL", ($("cvL").offsetLeft + armsCapX) + "px");
   const info = ARMS.drawLayout($("cvL"), arms, armsInst, armsActive, capEl.offsetHeight);
@@ -3346,7 +3368,7 @@ window.__instex = {
 
 // the imager: its own module, handed the shared helpers
 ARMS = window.ARMSAPP ? window.ARMSAPP({ fitCanvas, lamRGB, rgba, sig, grp, mm, FONT, INK, MUTED, LINE, message, makeTraces, splatTraces }) : null;
-IMG = window.IMGAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
+IMG = window.IMGAPP({ $, setCap, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, frampRGB, rampRGB, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE });
 TEL = window.TELAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels, ICON_EXPAND, ICON_COLLAPSE }, IMG);
 INT = window.INTAPP({ $, sig, grp, fitCanvas, rows, INK, MUTED, LINE, FONT, rgba, message, schedule, scheduleHash, fitPanels }, IMG);
 const RESET_TITLE = { spec: $("reset").title, img: "Back to the defaults for the whole imager: a 4 m f/3 prime-focus telescope with a 3 × 3 mosaic of 4k × 4k chips.", tel: "Back to the first telescope at its first focus.", int: "Back to the defaults for this array: its default configuration, band and source." };

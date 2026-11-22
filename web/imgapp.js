@@ -6,7 +6,7 @@
 "use strict";
 window.IMGAPP = function (H) {
 const IM = window.IM, $ = H.$;
-const { sig, grp, fitCanvas, rows, MUTED, FONT, frampRGB, rgba, message } = H;
+const { sig, grp, fitCanvas, rows, MUTED, FONT, frampRGB, rgba, message, setCap } = H;
 const RAD = IM.RAD, DEG = IM.DEG;
 const clone = o => JSON.parse(JSON.stringify(o));
 
@@ -856,10 +856,14 @@ function drawLayout(Dz, P, tg = { cv: "cvIL", cap: "ilSub", lv: lview }) {
     const cap = $(tg.cap);
     cap.hidden = !!P.telMode;                                         // the Telescopes mode draws no caption (Charlie, 10-19)
     cap.style.setProperty("--capL", Math.round(x0 + len * sc + 18) + "px");
-    cap.textContent = (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
+    // the line: the stretch, when there is one, else the drawing's first point; the box: the whole caption
+    const lead = ky > 1 ? "Heights stretched × " + ky + " (lengths to scale)." : tel ? "Field angles to scale."
+      : Dz.reim && Dz.split ? "A pyramid at the focus sends each quadrant of the field to a separate camera."
+      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle." : "Each star's cone of light converges onto the detector.";
+    setCap(cap, lead, (ky > 1 ? "Heights stretched × " + ky + " (lengths to scale). " : "") + (tel
       ? "Field angles to scale: the bundles from the top, center and bottom of the field overlap until they near the focus."
       : Dz.reim && Dz.split ? "A pyramid at the focus (drawn with flat facets) reflects each quadrant back, 10° off the axis, to a separate camera (two of four drawn; the 3D view runs the arms along the field's diagonals, a choice of the drawing). The field's center falls on the apex."
-      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", camera: ", the filter sits just in front of the camera,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; " + (P.tel === "refr" && P.objective && P.objective.filter ? "the filter is " + P.objective.filter.sub + ", before the part of the lens drawn here." : "the filter sits in the converging beam."));
+      : Dz.reim ? "Each star's light leaves the collimator as a parallel bundle; the bundles cross at the " + (P.coldStop ? "pupil (the cold stop)" : "pupil") + ({ converging: ", the filter sits in the converging beam before the collimator,", camera: ", the filter sits just in front of the camera,", detector: ", the filter sits just in front of the detector," }[P.filterAt] || ", where the filter sits,") + " and the camera focuses each bundle onto the detector." : "Each star's cone of light converges onto the detector; " + (P.tel === "refr" && P.objective && P.objective.filter ? "the filter is " + P.objective.filter.sub + ", before the part of the lens drawn here." : "the filter sits in the converging beam.")));
   } else $(tg.cap).hidden = true;
 }
 
