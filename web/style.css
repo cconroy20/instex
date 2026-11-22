@@ -102,14 +102,14 @@ canvas{display:block;width:100%;height:var(--ph);touch-action:pan-y}
 /* the layout's caption (what the drawing simplifies, or how to steer it), beside the scale bar */
 .lcap{position:absolute;left:var(--capL,26px);right:58px;bottom:13px;z-index:3;pointer-events:none;
   font-size:.82rem;line-height:1.25;color:var(--muted)}
-/* (one short line; the whole caption opens in a box over the drawing while the pointer rests on the line, after a
-   click or a tap, or from the keyboard on "More") */
-.lcap .cl,.lcap .cm{pointer-events:auto;cursor:default}
-.lcap .cm{color:var(--accent);white-space:nowrap}
+/* (one short line; the whole caption opens in a box over the drawing only on a click on "More", and "Less" closes
+   the box) */
+.lcap .cm,.lcap .cx{pointer-events:auto;cursor:pointer;color:var(--accent);white-space:nowrap}
+.lcap .cm:hover,.lcap .cx:hover{text-decoration:underline}
 .lcap .cf{display:none;position:absolute;left:-9px;right:-9px;bottom:-6px;max-height:340px;overflow:auto;
   padding:5px 9px 6px;pointer-events:auto;color:#4f4a44;background:var(--panel);
   border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 14px rgba(40,36,30,.16)}
-.lcap.more:hover .cf,.lcap.more.open .cf,.lcap .cm:focus-visible ~ .cf{display:block}
+.lcap.more.open .cf{display:block}
 
 #cvD.zoomed{cursor:grab}
 

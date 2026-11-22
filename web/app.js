@@ -9,23 +9,27 @@ window.addEventListener("error", e => {
   if (/ResizeObserver loop/.test(e.message || "")) return;           // a harmless browser notice, not a page error
   errBox.hidden = false; errBox.textContent += (e.message || String(e)) + "\n";
 });
-// The layout's caption: one short line (lead) at the panel's foot, and the whole caption (full) in a box over the
-// drawing while the pointer rests on that line or its "More" (a click or a tap keeps the box open; the keyboard
-// opens the box from "More").  Without a full text, or with full equal to lead, the line is all there is.
+// The layout's caption: one short line (lead) at the panel's foot, ending in "More" when there is a whole caption
+// (full).  A click on "More" (or Enter on "More") opens the whole caption in a box over the drawing; "Less", Esc or a
+// click outside the box closes the box.  Without a full text, or with full equal to lead, the line is all there is.
 function setCap(el, lead, full) {
   const l = document.createElement("span"); l.className = "cl"; l.textContent = lead;
   el.replaceChildren(l);
   const more = !!full && full !== lead;
   el.classList.toggle("more", more);
-  if (!more) return;
-  const m = document.createElement("span"); m.className = "cm"; m.tabIndex = 0; m.textContent = "More";
-  const f = document.createElement("div"); f.className = "cf"; f.textContent = full;
-  el.append(" ", m, f);
+  if (!more) { el.classList.remove("open"); return; }
+  const btn = (k, t) => { const b = document.createElement("span"); b.className = k; b.tabIndex = 0; b.setAttribute("role", "button"); b.textContent = t; return b; };
+  const f = document.createElement("div"); f.className = "cf"; f.append(full, " ", btn("cx", "Less"));
+  el.append(" ", btn("cm", "More"), f);
 }
 document.addEventListener("click", e => {
-  const hit = e.target.closest && e.target.closest(".lcap.more");
-  for (const c of document.querySelectorAll(".lcap.open")) if (c !== hit) c.classList.remove("open");
-  if (hit && !e.target.closest(".cf")) hit.classList.toggle("open");
+  const t = e.target, on = k => t.closest && t.closest(".lcap " + k);
+  for (const c of document.querySelectorAll(".lcap.open")) if (!c.contains(t) || on(".cx")) c.classList.remove("open");
+  if (on(".cm")) on(".cm").closest(".lcap").classList.add("open");
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") for (const c of document.querySelectorAll(".lcap.open")) c.classList.remove("open");
+  else if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".lcap .cm, .lcap .cx")) { e.preventDefault(); e.target.click(); }
 });
 // the 3D views' controls: in full in the box, short on the line
 const CTRL3 = "Drag to orbit, right- or shift-drag to pan, scroll to zoom, double-click to reset.";
@@ -871,7 +875,10 @@ function drawLayout(Dz, P) {
     const face = (ps, rgb, al, stroke = null, lw = 1) => { prims3.push({ k: "f", p: ps, rgb, al, stroke, lw, spec: rgb === MIRROR3 }); pts3.push(...ps); };
     // a swept surface between stations (each a ring of NS points, or one apex point); faces, silhouettes and the
     // footprint rings are made when it is drawn, since the silhouette depends on the view
-    const tube = (stations, rgb, al, tel) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb, tel: !!tel }); for (const s of stations) pts3.push(...s); };
+    // the colored light's tubes (each wavelength, or each slit point's light): see-through, so that the bundles that
+  // overlap in the camera stay light (both walls of a tube are drawn, so the color laid down is twice this)
+  const COL3 = 0.06;
+  const tube = (stations, rgb, al, tel) => { prims3.push({ k: "t", st: stations, rgb, al }); beams3.push({ st: stations, rgb, tel: !!tel }); for (const s of stations) pts3.push(...s); };
     // a disc or a lens of thickness th across the axis n, as wedges (for the depth sort) and a rim
     const slab = (c, n, r, th, rgb, al, stroke, map = p => p) => {
       n = n3(n); let u = x3(n, [0, 0, 1]); if (Math.hypot(...u) < 1e-6) u = [1, 0, 0]; u = n3(u); const v = x3(n, u);
@@ -1006,7 +1013,7 @@ function drawLayout(Dz, P) {
         for (const q of lens) rL = Math.max(rL, Math.hypot(q[1], q[2]));
         st.push(lens, [Q]);
         const rgb = rampRGB(tOf(l));
-        tube(st, rgb, 0.12);
+        tube(st, rgb, COL3);
         foci.push([Q, rgb]);
       }
       // the optics: the lens (collimator and camera), the prisms, the echelle
@@ -1176,7 +1183,7 @@ function drawLayout(Dz, P) {
         for (const q of cur) rCam = Math.max(rCam, Math.hypot(...a3(q, s3(C3, -1))));
         const Q = a3(Dc3, a3(s3(xcW, pq[0]), s3(ycW, pq[1]))), rgb = rampRGB(tOf(l));
         st.push([Q]);
-        tube(st.map(r => r.map(Mp3)), rgb, 0.12);
+        tube(st.map(r => r.map(Mp3)), rgb, COL3);
         foci.push([Mp3(Q), rgb]);
       }
       // the optics: the collimator, the echelle, the cross-disperser, the camera
@@ -1503,7 +1510,7 @@ function drawLayout(Dz, P) {
         for (const q of atRet) { const r = Math.hypot(...a3(q, s3(Oret, -1))); if (kind === "pp") rK = Math.max(rK, r); else rL = Math.max(rL, r); }
         st.push(atRet, [Fp]);
         const rgb = rampRGB(tOf(l));
-        tube(st, rgb, 0.12);
+        tube(st, rgb, COL3);
         if (kind === "pp") { foci.push([Fp, rgb]); continue; }
         // the relay: from the focus in the collimator's focal plane on, folded by the flat
         const chief = n3(a3(Fp, s3(O, -1)));
@@ -1511,7 +1518,7 @@ function drawLayout(Dz, P) {
           const Rc = hitPl(Fp, chief, Rl, dIn), [b1, b2] = perpPair(dIn), ring = ringAt(Rc, b1, b2, 0.5 * W * 0.7);
           for (const q of ring) rR = Math.max(rR, Math.hypot(...a3(q, s3(Rl, -1))));
           const Q = a3(Dc, a3(s3(xD, -fo.pq[0]), s3(yD, -fo.pq[1])));
-          tube([[Fp], ring, [Q]].map(r => r.map(Fold)), rgb, 0.12);
+          tube([[Fp], ring, [Q]].map(r => r.map(Fold)), rgb, COL3);
           foci.push([Fold(Q), rgb]);
         } else {
           const Ct = hitPl(Fp, chief, Tl, dIn), [b1, b2] = perpPair(dIn), rT0 = 0.5 * W * fT / fC;
@@ -1521,7 +1528,7 @@ function drawLayout(Dz, P) {
           const Q = a3(Dc, a3(s3(xD, -fo.pq[0]), s3(yD, fo.pq[1]))), w3 = n3(a3(Q, s3(Cc, -1)));
           const atCam = atXD.map(q => hitPl(q, w3, Cc, aCam));
           for (const q of atCam) rK = Math.max(rK, Math.hypot(...a3(q, s3(Cc, -1))));
-          tube([[Fp], ringT, atXD, atCam, [Q]].map(r => r.map(Fold)), rgb, 0.12);
+          tube([[Fp], ringT, atXD, atCam, [Q]].map(r => r.map(Fold)), rgb, COL3);
           foci.push([Fold(Q), rgb]);
         }
       }
@@ -1655,7 +1662,7 @@ function drawLayout(Dz, P) {
         misfit.push(Math.hypot(...a3(tr.Q, s3(Q, -1))));
         tr.st[tr.st.length - 1] = [Q];
         const rgb = rampRGB(tOfP(l));
-        two(tr, rgb, 0.12); foci.push([Q, rgb]);
+        two(tr, rgb, COL3); foci.push([Q, rgb]);
       }
       const mRange = c => [Math.ceil(L.mlamB / c.range[1]), Math.floor(L.mlamB / c.range[0])];
       for (const c of cams) {
@@ -1665,7 +1672,7 @@ function drawLayout(Dz, P) {
           const tr = L.trace(m, l, c.id);
           if (!tr) continue;
           const rgb = rampRGB(tOfP(l));
-          two(tr, rgb, 0.1); foci.push([tr.Q, rgb]);
+          two(tr, rgb, COL3 * 0.83); foci.push([tr.Q, rgb]);
         } }
       }
       const gp = L.parts.find(q => q.k === "grism2");
@@ -1823,7 +1830,7 @@ function drawLayout(Dz, P) {
       const yL = z * d1 / fcol, sl = -z / fcol, zAt = (xu, pz) => yL + pz + sl * (xu - fcol);
       const bz = z - (yL - z) / fcol * Lt, S0 = [0, 0, z];
       tube([Array.from({ length: NS }, (_, k) => [-Lt, tHalf * Math.cos(2 * Math.PI * k / NS), bz + tHalf * Math.sin(2 * Math.PI * k / NS)]), [S0]], [214, 160, 50], 0.13, true);
-      const rgb = byS ? frampRGB(t) : NEU3, al = byS ? 0.1 : 0.06;
+      const rgb = byS ? frampRGB(t) : NEU3, al = byS ? COL3 * 0.83 : 0.06;
       const st = [[S0], RING.map(([py, pz]) => { const c = onCol3(py); return [c[0], c[1], yL + pz]; })];
       if (foldOn) st.push(RING.map(([py, pz]) => { const q = Qy3(py); return M3(Mf, [q[0], q[1], zAt(q[0], pz)]); }));
       st.push(RING.map(([py, pz]) => { const gp = gPt3(py); return Mp([gp[0], gp[1], zAt(gp[0], pz)]); }));
@@ -1843,7 +1850,7 @@ function drawLayout(Dz, P) {
       const Gs = RING.map(([py, pz]) => { const g0 = PR ? PR.last(PR.chain(py)) : gPt03(py); return [g0[0], g0[1], pz + zEx]; });
       const Es = Gs.map(G => a3(G, s3(b3, d3(a3(C3, s3(G, -1)), zcW) / d3(b3, zcW))));
       for (const E of Es) rCam = Math.max(rCam, Math.hypot(E[0] - C3[0], E[1] - C3[1], E[2] - C3[2]));
-      tube([Gs.map(Mp), Es.map(Mp), [Mp(Q)]], rgb, 0.12);
+      tube([Gs.map(Mp), Es.map(Mp), [Mp(Q)]], rgb, COL3);
       foci.push([Mp(Q), rgb]);
     }
     // the optics
